@@ -449,6 +449,7 @@ PodLifecycleSleepAction=true|false (BETA - default=true)<br/>
 PodLifecycleSleepActionAllowZero=true|false (ALPHA - default=false)<br/>
 PodLogsQuerySplitStreams=true|false (ALPHA - default=false)<br/>
 PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
+PodObservedGenerationTracking=true|false (ALPHA - default=false)<br/>
 PortForwardWebsockets=true|false (BETA - default=true)<br/>
 ProcMountType=true|false (BETA - default=true)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>

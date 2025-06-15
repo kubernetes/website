@@ -544,6 +544,37 @@ status:
     supplementalGroupsPolicy: true
 ```
 
+{{<note>}}
+<!--
+At this alpha release(from v1.31 to v1.32), when a pod with `SupplementalGroupsPolicy=Strict` are scheduled to a node that does NOT support this feature(i.e. `.status.features.supplementalGroupsPolicy=false`), the pod's supplemental groups policy falls back to the `Merge` policy _silently_.
+-->
+在这个 Alpha 版本（从 v1.31 到 v1.32）中，当一个带有
+`SupplementalGroupsPolicy=Strict` 的 Pod
+被调度到不支持此功能的节点上（即 `.status.features.supplementalGroupsPolicy=false`），
+Pod 的补充组策略会**静默地**回退到 `Merge` 策略。
+
+<!--
+However, since the beta release (v1.33), to enforce the policy more strictly, __such pod creation will be rejected by kubelet because the node cannot ensure the specified policy__. When your pod is rejected, you will see warning events with `reason=SupplementalGroupsPolicyNotSupported` like below:
+-->
+然而，自从 Beta 版本（v1.33）以来，为了更严格地实施该策略，**此类
+Pod 创建将被 kubelet 拒绝，因为节点无法确保指定的策略**。
+当你的 Pod 被拒绝时，你将会看到带有 `reason=SupplementalGroupsPolicyNotSupported`
+的警告事件，如下所示：
+
+```yaml
+apiVersion: v1
+kind: Event
+...
+type: Warning
+reason: SupplementalGroupsPolicyNotSupported
+message: "SupplementalGroupsPolicy=Strict is not supported in this node"
+involvedObject:
+  apiVersion: v1
+  kind: Pod
+  ...
+```
+{{</note>}}
+
 <!--
 ## Configure volume permission and ownership change policy for Pods
 -->
@@ -1069,8 +1100,12 @@ securityContext:
 {{< note >}}
 <!--
 To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
+On Windows and Linux worker nodes without SELinux support, this field and any SELinux feature gates described
+below have no effect.
 -->
 要指定 SELinux，需要在宿主操作系统中装载 SELinux 安全性模块。
+在不支持 SELinux 的 Windows 和 Linux 工作节点上，此字段和下面描述的任何
+SELinux 特性开关均不起作用。
 {{< /note >}}
 
 <!--
@@ -1089,24 +1124,29 @@ Kubernetes v1.27 引入了此行为的早期受限形式，仅适用于使用 `R
 访问模式的卷（和 PersistentVolumeClaim）。
 
 <!--
-As an alpha feature, you can enable the `SELinuxMount` and `SELinuxChangePolicy`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
-performance improvement to other kinds of PersistentVolumeClaims, as explained in detail
-below.
+Kubernetes v1.33 promotes `SELinuxChangePolicy` and `SELinuxMount`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+as beta to widen that performance improvement to other kinds of PersistentVolumeClaims,
+as explained in detail below. While in beta, `SELinuxMount` is still disabled by default.
 -->
-作为一项 Alpha 特性，你可以启用 `SELinuxMount` 和 `SELinuxChangePolicy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-将性能改进扩展到其他类型的 PersistentVolumeClaim，如下文详细解释。
+Kubernetes v1.33 将 `SELinuxChangePolicy` 和 `SELinuxMount`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)提升
+Beta 级别，以将该性能改进扩展到其他类型的 PersistentVolumeClaims，
+如下文详细解释。在 Beta 阶段，`SELinuxMount` 仍然是默认禁用的。
 {{< /note >}}
 
 <!--
-By default, the container runtime recursively assigns SELinux label to all
-files on all Pod volumes. To speed up this process, Kubernetes can change the
+With `SELinuxMount` feature gate disabled (the default in Kubernetes 1.33 and any previous release),
+the container runtime recursively assigns SELinux label to all
+files on all Pod volumes by default. To speed up this process, Kubernetes can change the
 SELinux label of a volume instantly by using a mount option
 `-o context=<label>`.
 -->
-默认情况下，容器运行时递归地将 SELinux 标签赋予所有 Pod 卷上的所有文件。
-为了加快该过程，Kubernetes 使用挂载可选项 `-o context=<label>` 可以立即改变卷的 SELinux 标签。
+在禁用 `SELinuxMount` 特性开关时（默认在
+Kubernetes 1.33 及之前的所有版本中），容器运行时会默认递归地为
+Pod 卷上的所有文件分配 SELinux 标签。
+为了加快此过程，Kubernetes 使用挂载可选项 `-o context=<label>`
+可以立即改变卷的 SELinux 标签。
 
 <!--
 To benefit from this speedup, all these conditions must be met:
@@ -1114,16 +1154,16 @@ To benefit from this speedup, all these conditions must be met:
 要使用这项加速功能，必须满足下列条件：
 
 <!--
-* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
-  and `SELinuxMountReadWriteOncePod` must be enabled.
+* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+  `SELinuxMountReadWriteOncePod` must be enabled.
 -->
-* 必须启用 `ReadWriteOncePod` 和 `SELinuxMountReadWriteOncePod`
+* 必须启用 `SELinuxMountReadWriteOncePod`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 * Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
   * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
-  * Or the volume can use any other access modes and both feature gates
+  * Or the volume can use any other access modes and all feature gates
     `SELinuxMountReadWriteOncePod`, `SELinuxChangePolicy` and `SELinuxMount` must be enabled
     and the Pod has `spec.securityContext.seLinuxChangePolicy` either nil (default) or `MountOption`. 
 -->
@@ -1161,12 +1201,27 @@ To benefit from this speedup, all these conditions must be met:
     以支持 `-o context` 挂载。
 
 <!--
-For any other volume types, SELinux relabelling happens another way: the container
+When any of these conditions is not met, SELinux relabelling happens another way: the container
 runtime  recursively changes the SELinux label for all inodes (files and directories)
-in the volume.
+in the volume. Calling out explicitly, this applies to Kubernetes ephemeral volumes like
+`secret`, `configMap` and `projected`, and all volumes whose CSIDriver instance does not
+explicitly announce mounting with `-o context`.
 -->
-对于所有其他卷类型，重打 SELinux 标签的方式有所不同：
+对于这些所有卷类型，重打 SELinux 标签的方式有所不同：
 容器运行时为卷中的所有节点（文件和目录）递归地修改 SELinux 标签。
+明确地说，这适用于 Kubernetes 临时卷，如 `secret`、`configMap`
+和 `projected`，以及所有 CSIDriver 实例未明确宣布使用
+`-o context` 选项进行挂载的卷。
+
+<!--
+When this speedup is used, all Pods that use the same applicable volume concurrently on the same node
+**must have the same SELinux label**. A Pod with a different SELinux label will fail to start and will be
+`ContainerCreating` until all Pods with other SELinux labels that use the volume are deleted.
+-->
+当使用这种加速时，所有在同一个节点上同时使用相同适用卷的 Pod
+**必须具有相同的 SELinux 标签**。具有不同 SELinux 标签的 Pod 将无法启动，
+并且会处于 `ContainerCreating` 状态，直到使用该卷的所有其他
+SELinux 标签的 Pod 被删除。
 
 {{< feature-state feature_gate_name="SELinuxChangePolicy" >}}
 
@@ -1236,6 +1291,19 @@ proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.s
 集群管理员可以使用此信息识别受规划变更所影响的 Pod，并主动筛选出不需优化的 Pod
 （即设置 `spec.securityContext.seLinuxChangePolicy: Recursive`）。
 
+{{< warning >}}
+<!--
+We strongly recommend clusters that use SELinux to enable this controller and make sure that
+`selinux_warning_controller_selinux_volume_conflict` metric does not report any conflicts before enabling `SELinuxMount`
+feature gate or upgrading to a version where `SELinuxMount` is enabled by default.
+-->
+我们强烈建议使用 SELinux 的集群启用此控制器，并确保在启用
+`SELinuxMount` 特性门控或升级到默认启用 `SELinuxMount`
+的版本之前，`selinux_warning_controller_selinux_volume_conflict`
+指标没有报告任何冲突。
+{{< /warning >}}
+
+
 <!--
 #### Feature gates
 
@@ -1257,23 +1325,23 @@ The following feature gates control the behavior of SELinux volume relabeling:
 * `SELinuxChangePolicy`: enables `spec.securityContext.seLinuxChangePolicy` field in Pod and related SELinuxWarningController
   in kube-controller-manager. This feature can be used before enabling `SELinuxMount` to check Pods running on a cluster,
   and to pro-actively opt-out Pods from the optimization.
-  This feature gate requires `SELinuxMountReadWriteOncePod` enabled. It is alpha and disabled by default in 1.32.
+  This feature gate requires `SELinuxMountReadWriteOncePod` enabled. It is beta and enabled by default in 1.33.
 -->
 * `SELinuxChangePolicy`：在 Pod 中启用 `spec.securityContext.seLinuxChangePolicy` 字段，
   并在 kube-controller-manager 中启用相关的 SELinuxWarningController。
   你可以在启用 `SELinuxMount` 之前使用此特性来检查集群中正在运行的 Pod，并主动筛选出不需优化的 Pod。
-  此特性门控需要启用 `SELinuxMountReadWriteOncePod`。它在 1.32 中是 Alpha 阶段，并默认被禁用。
+  此特性门控需要启用 `SELinuxMountReadWriteOncePod`。它在 1.33 中是 Beta 阶段，并默认被启用。
 
 <!--
 * `SELinuxMount` enables the optimization for all eligible volumes. Since it can break existing workloads, we recommend
   enabling `SELinuxChangePolicy` feature gate + SELinuxWarningController first to check the impact of the change.
-  This feature gate requires `SELinuxMountReadWriteOncePod` and `SELinuxChangePolicy` enabled. It is alpha and disabled
-  by default in 1.32.
+  This feature gate requires `SELinuxMountReadWriteOncePod` and `SELinuxChangePolicy` enabled. It is beta, but disabled
+  by default in 1.33.
 -->
 * `SELinuxMount`：为所有符合条件的卷启用优化。由于可能会破坏现有的工作负载，所以我们建议先启用
   `SELinuxChangePolicy` 特性门控和 SELinuxWarningController，以检查这种更改的影响。
   此特性门控要求启用 `SELinuxMountReadWriteOncePod` 和 `SELinuxChangePolicy`。
-  它在 1.32 中是 Alpha 阶段，并默认被禁用。
+  它在 1.33 中是 Beta 阶段，但是默认被禁用。
 
 <!--
 ## Managing access to the `/proc` filesystem {#proc-access}

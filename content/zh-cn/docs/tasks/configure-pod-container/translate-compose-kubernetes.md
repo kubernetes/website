@@ -20,9 +20,9 @@ Kompose 是什么？它是一个转换工具，可将 Compose
 （即 Docker Compose）所组装的所有内容转换成容器编排器（Kubernetes 或 OpenShift）可识别的形式。
 
 <!--
-More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
+More information can be found on the Kompose website at [https://kompose.io/](https://kompose.io/).
 -->
-更多信息请参考 Kompose 官网 [http://kompose.io](http://kompose.io)。
+更多信息请参考 Kompose 官网 [https://kompose.io/](https://kompose.io/)。
 
 ## {{% heading "prerequisites" %}}
 

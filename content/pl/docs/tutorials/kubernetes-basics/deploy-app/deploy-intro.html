@@ -1,42 +1,49 @@
 ---
 title: Jak użyć kubectl do tworzenia Deploymentu
 weight: 10
+description: |-
+  Poznaj sposób wdrażania aplikacji.
+  Wdróż swoją pierwszą aplikację na Kubernetesie za pomocą narzędzia kubectl.
 ---
 
 <!DOCTYPE html>
-
 <html lang="pl">
 
 <body>
-
-    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
     <main class="content">
 
         <div class="row">
-
          <div class="col-md-8">
           <h3>Cele</h3>
-                <ul>
-                    <li>Nauczyć się jak działa Deployment dla aplikacji.</li>
-                    <li>Zainstalować pierwszą aplikację używając kubectl.</li>
-                </ul>
-            </div>
+          <ul>
+             <li>Nauczyć się jak działa Deployment dla aplikacji.</li>
+             <li>Zainstalować pierwszą aplikację używając kubectl.</li>
+          </ul>
+         </div>
 
             <div class="col-md-8">
                 <h3>Instalacje w Kubernetes</h3>
+
+                {{< note >}}
+                <p>Ten samouczek wykorzystuje kontener wymagający architektury AMD64. Jeśli używasz
+                minikube na komputerze z inną architekturą CPU, możesz spróbować użyć minikube z
+                sterownikiem, który potrafi emulować AMD64. Na przykład potrafi to zrobić sterownik Docker Desktop.</p>
+                {{< /note >}}
+
                 <p>
-                Mając działający klaster Kubernetes, można na nim zacząć instalować aplikacje.
-                W tym celu należy skonfigurować <b>Deployment</b>. Deployment informuje Kubernetesa,
-                jak tworzyć i aktualizować instancje Twojej aplikacji. Po stworzeniu Deploymentu, węzeł <em>master</em> Kubernetesa
-                zleca uruchomienie tej aplikacji na indywidualnych węzłach klastra.
+                Mając <a href="/pl/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">działający klaster Kubernetesa</a>, można na nim zacząć instalować aplikacje.
+                W tym celu należy utworzyć <b>Deployment</b>. Deployment informuje Kubernetesa,
+                jak tworzyć i aktualizować instancje Twojej aplikacji. Po stworzeniu Deploymentu, warstwa sterowania Kubernetesa
+                zleca uruchomienie tej aplikacji na indywidualnych węzłach
+                klastra.
                 </p>
 
-                <p>Po utworzeniu instancji aplikacji, Kubernetes Deployment Controller na bieżąco monitoruje te instancje. Jeśli węzeł, na którym działała jedna z instancji ulegnie awarii lub zostanie usunięty,  Deployment Controller zamieni tę instancję z instancją na innym węźle klastra. <b>W ten sposób działa samo naprawiający się mechanizm, który reaguje na awarie lub wyłączenia maszyn w klastrze.</b></p>
+                <p>Po utworzeniu instancji aplikacji, kontroler Deploymentu Kubernetesa na bieżąco monitoruje te instancje. Jeśli węzeł, na którym działała jedna z instancji ulegnie awarii lub zostanie usunięty, kontroler Deploymentu zamieni tę instancję z instancją na innym węźle klastra. <b>W ten sposób działa samo naprawiający się mechanizm, który reaguje na awarie lub wyłączenia maszyn w klastrze.</b></p>
 
-                <p>W czasach przed wprowadzeniem takiej automatyzacji, skrypty instalacyjne używane były zazwyczaj do uruchomienia aplikacji, ale nie radziły sobie z awariami maszyn. Poprzez połączenie procesu instalacji i kontroli nad działaniem aplikacji na węzłach, Deployment Kubernetes oferuje fundamentalnie różne podejście do zarządzania aplikacjami.</p>
+                <p>W czasach przed wprowadzeniem takiej automatyzacji, skrypty instalacyjne używane były zazwyczaj do uruchomienia aplikacji, ale nie radziły sobie z awariami maszyn. Poprzez połączenie procesu instalacji i kontroli nad działaniem aplikacji na węzłach, Deployment Kubernetesa oferuje fundamentalnie różne podejście do zarządzania aplikacjami.</p>
 
             </div>
 
@@ -44,7 +51,7 @@ weight: 10
                 <div class="content__box content__box_lined">
                     <h3>Podsumowanie:</h3>
                     <ul>
-                        <li>Deployments</li>
+                        <li>Deploymenty</li>
                         <li>Kubectl</li>
                     </ul>
                 </div>
@@ -73,7 +80,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>Do tworzenia i zarządzaniem Deploymentem służy polecenie linii komend, <b>Kubectl</b>. Kubectl używa Kubernetes API do komunikacji z klasterem. W tym module nauczysz się najczęściej używanych poleceń Kubectl niezbędnych do stworzenia Deploymentu, który uruchomi Twoje aplikacje na klastrze Kubernetes.</p>
+                <p>Do tworzenia i zarządzaniem Deploymentem służy polecenie linii komend, <b>kubectl</b>. Kubectl używa Kubernetes API do komunikacji z klasterem. W tym module nauczysz się najczęściej używanych poleceń kubectl niezbędnych do stworzenia Deploymentu, który uruchomi Twoje aplikacje na klastrze Kubernetes.</p>
 
                 <p>Tworząc Deployment musisz określić obraz kontenera oraz liczbę replik, które mają być uruchomione. Te ustawienia możesz zmieniać później, aktualizując Deployment. Moduły <a href="/pl/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a> oraz <a href="/pl/docs/tutorials/kubernetes-basics/update/update-intro/">6</a> omawiają skalowanie i aktualizowanie Deploymentów.</p>
 
@@ -92,9 +99,71 @@ weight: 10
             <div class="col-md-8">
               <p>
                 Na potrzeby pierwszej instalacji użyjesz aplikacji hello-node zapakowaną w kontener Docker-a, która korzysta z NGINXa i powtarza wszystkie wysłane do niej zapytania. (Jeśli jeszcze nie próbowałeś stworzyć aplikacji hello-node i uruchomić za pomocą kontenerów, możesz spróbować teraz, kierując się instrukcjami samouczka <a href="/pl/docs/tutorials/hello-minikube/">Hello Minikube</a>).
-              <p>
+              <p>Musisz mieć zainstalowane narzędzie kubectl. Jeśli potrzebujesz go zainstalować, odwiedź <a href="/docs/tasks/tools/#kubectl">install tools</a>.</p>
+              <p>Skoro wiesz już, czym są Deploymenty, przeprowadźmy wdrożenie pierwszej aplikacji!</p>
             </div>
         </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Podstawy kubectl</h3>
+                <p>Typowy format polecenia kubectl to: <code>kubectl <i>akcja zasób</i></code></p>
+                <p>Wykonuje określoną <em>akcję</em> (jak <tt>create</tt>, <tt>describe</tt> lub <tt>delete</tt>) na określonym <em>zasobie</em> (jak <tt>node</tt> lub <tt>deployment</tt>). Możesz użyć <code>-<span />-help</code> po poleceniu, aby uzyskać dodatkowe informacje o możliwych parametrach (na przykład: <code>kubectl get nodes --help</code>).</p>
+                <p>Sprawdź, czy kubectl jest skonfigurowany do komunikacji z twoim klastrem, uruchamiając polecenie <b><code>kubectl version</code></b>.</p>
+                <p>Sprawdź, czy kubectl jest zainstalowane oraz czy możesz zobaczyć zarówno wersję klienta, jak i serwera.</p>
+                <p>Aby wyświetlić węzły w klastrze, uruchom polecenie <b><code>kubectl get nodes</code></b>.</p>
+                <p>Zobaczysz dostępne węzły. Kubernetes wybierze, gdzie wdrożyć naszą aplikację, w oparciu o dostępne zasoby węzła.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a id="deploy-an-app"></a>
+                <h3>Wdrażanie aplikacji</h3>
+                <p>Uruchommy naszą pierwszą aplikację na Kubernetesie, używając polecenia <code>kubectl create deployment</code>. Musimy podać nazwę wdrożenia oraz lokalizację obrazu aplikacji (w tym pełny adres URL repozytorium dla obrazów hostowanych poza Docker Hub).</p>
+                <p><b><code>kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1</code></b></p>
+                <p>Świetnie! Właśnie wdrożyłeś swoją pierwszą aplikację, tworząc wdrożenie. Kubernetes wykonał dla Ciebie kilka rzeczy:</p>
+                <ul>
+                <li>wyszukał odpowiedni węzeł, na którym można uruchomić instancję aplikacji (mamy dostępny tylko 1 węzeł)</li>
+                <li>zaplanował uruchomienie aplikacji na tym węźle</li>
+                <li>skonfigurował klaster tak, aby w razie potrzeby ponownie uruchomić instancję na nowym węźle.</li>
+                </ul>
+                <p>Aby wyświetlić listę swoich wdrożeń, użyj polecenia <code>kubectl get deployments</code>:</p>
+                <p><b><code>kubectl get deployments</code></b></p>
+                <p>Widzimy, że jest jeden Deployment uruchamiający pojedynczą instancję Twojej aplikacji. Instancja działa wewnątrz kontenera na Twoim węźle.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Zobacz aplikację</h3>
+                <p><a href="/docs/concepts/workloads/pods/">Pody</a> działające wewnątrz Kubernetesa działają na prywatnej, izolowanej sieci.
+                Domyślnie są one widoczne z innych podów i usług w ramach tego samego klastra Kubernetesa, ale nie poza tą siecią.
+                Kiedy używamy <code>kubectl</code>, komunikujemy się z aplikacją za pośrednictwem API.</p>
+                <p>Później, w <a href="/pl/docs/tutorials/kubernetes-basics/expose/">Module 4</a>, omówimy inne opcje dotyczące sposobów udostępniania Twojej aplikacji poza klastrem Kubernetesa.
+                Ponieważ jest to tylko podstawowy samouczek, to nie wyjaśniamy tutaj szczegółowo, czym są <code>Pody</code>, bo będzie to omówione w późniejszych tematach.</p>
+                <p>Polecenie <code>kubectl proxy</code> może utworzyć proxy, które przekaże komunikację do ogólnoklastrowej, prywatnej sieci. Proxy można zakończyć poprzez naciśnięcie control-C - podczas działania nie wyświetla ono żadnych komunikatów.</p>
+                <p><strong>Musisz otworzyć drugie okno terminala, aby uruchomić proxy.</strong></p>
+                <p><b><code>kubectl proxy</b></code>
+                <p>Mamy teraz połączenie pomiędzy naszym hostem (terminalem) a klastrem Kubernetes. Proxy umożliwia bezpośredni dostęp do API z tych terminali.</p>
+                <p>Możesz zobaczyć wszystkie te interfejsy API hostowane przez punkt końcowy serwera proxy. Na przykład możemy bezpośrednio zapytać o wersję za pomocą polecenia <code>curl</code>:</p>
+                <p><b><code>curl http://localhost:8001/version</code></b></p>
+                <div class="alert alert-info note callout" role="alert"><strong>Uwaga:</strong> Jeśli port 8001 jest niedostępny, upewnij się, że <code>kubectl proxy</code>, który uruchomiłeś wyżej, działa w drugim terminalu.</div>
+                <p>Serwer API automatycznie utworzy punkt końcowy dla każdego poda, bazując na nazwie poda, który jest również dostępny przez serwer proxy.</p>
+                <p>Najpierw musimy uzyskać nazwę Poda i zapisać ją w zmiennej środowiskowej <tt>POD_NAME</tt>:</p>
+                <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />
+                   <b><code>echo Nazwa Pod: $POD_NAME</code></b></p>
+                <p>Możesz uzyskać dostęp do Poda za pośrednictwem API z proxy, uruchamiając:</p>
+                <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME:8080/proxy/</code></b></p>
+                <p>Aby nowy Deployment był dostępny bez użycia proxy, wymagane jest utworzenie obiektu usługi (ang. Service), co zostanie wyjaśnione w <a href="/pl/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.</p>
+            </div>
+
+      </div>
+      <div class="row">
+          <p>
+            Gdy będziesz gotowy, przejdź do <a href="/pl/docs/tutorials/kubernetes-basics/explore/explore-intro/" title="Podgląd Podów i Węzłów">Podgląd Podów i Węzłów</a>.
+          </p>
+      </div>
+
 
     </main>
 
