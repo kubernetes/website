@@ -1,9 +1,4 @@
 ---
-reviewers:
-- davidopp
-- mml
-- foxish
-- kow3ns
 title: ノードを安全にドレインする
 content_type: task
 weight: 310
