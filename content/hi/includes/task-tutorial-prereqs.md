@@ -4,5 +4,6 @@
 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)
 की मदद से वह बना सकते है या आप नीचे दिए हुए इन दो कुबरनेट्स प्लेग्राउंड का इस्तेमाल कर सकते हैं:
 
-* [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
+* [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [प्ले विथ कुबेरनेट्स](https://labs.play-with-k8s.com/)
