@@ -160,6 +160,14 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 
 This works for Catalina as well as Mojave macOS.
 
+### Unable to find image 'gcr.io/k8s-staging-sig-docs/k8s-website-hugo:VERSION' locally
+
+If you run `make container-serve` and see this error, it might be due to the local changes made to specific files [defined](https://github.com/kubernetes/website/blob/main/Makefile#L10) in the `$IMAGE_VERSION` of `Makefile`.
+
+The website image versioning includes a hash, which is generated based on the content of the listed files. E.g., if `1b9242684415` is the hash for these files, the website image will be called `k8s-website-hugo:v0.133.0-1b9242684415`. Executing `make container-serve` will try to pull such an image from the Kubernetes website’s GCR. If it’s not a current version, you’ll see an error saying this image is absent.
+
+If you need to make changes in these files and preview the website, you’ll have to build your local image instead of pulling a pre-built one. To do so, proceed with running `make container-image`.
+
 ## Get involved with SIG Docs
 
 Learn more about SIG Docs Kubernetes community and meetings on the [community page](https://github.com/kubernetes/community/tree/master/sig-docs#meetings).
