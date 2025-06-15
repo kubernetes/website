@@ -83,10 +83,10 @@ min-kubernetes-server-version: v1.10
    service/mongo created
    ```
 
-   Serviceのステータスを表示します:
+   Serviceが作成されたことを確認します:
 
    ```shell
-   kubectl get service
+   kubectl get service mongo
    ```
 
    出力には、Serviceが作成されたことが表示されます:
