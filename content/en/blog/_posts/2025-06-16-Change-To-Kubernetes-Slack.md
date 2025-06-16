@@ -2,8 +2,8 @@
 layout: blog
 title: "Changes to Kubernetes Slack"
 date: 2025-06-16
-draft: false
-slug: placeholder0625
+canonicalUrl: https://www.kubernetes.dev/blog/2025/06/16/changes-to-kubernetes-slack-2025/
+slug: changes-to-kubernetes-slack
 Author: >
   [Josh Berkus](https://github.com/jberkus)
 ---
@@ -12,7 +12,7 @@ Kubernetes Slack will lose its special status and will be changing into a standa
 
 For the last decade, Slack has supported our project with a free customized enterprise account. They have let us know that they can no longer do so, particularly since our Slack is one of the largest and more active ones on the platform. As such, they will be downgrading it to a standard free Slack while we decide on, and implement, other options.
 
-On Friday, June 20, we will be subject to the [feature limitations of free Slack] <https://slack.com/help/articles/27204752526611-Feature-limitations-on-the-free-version-of-Slack>. The primary ones which will affect us will be only retaining 90 days of history, and having to disable several apps and workflows which we are currently using. The Slack Admin team will do their best to manage these limitations.
+On Friday, June 20, we will be subject to the [feature limitations of free Slack](https://slack.com/help/articles/27204752526611-Feature-limitations-on-the-free-version-of-Slack). The primary ones which will affect us will be only retaining 90 days of history, and having to disable several apps and workflows which we are currently using. The Slack Admin team will do their best to manage these limitations.
 
 Responsible channel owners, members of private channels, and members of User Groups should [take some actions](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon) to prepare for the upgrade and preserve information as soon as possible.
 
