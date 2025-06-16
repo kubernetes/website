@@ -14,7 +14,7 @@ For the last decade, Slack has supported our project with a free customized ente
 
 On Friday, June 20, we will be subject to the [feature limitations of free Slack] <https://slack.com/help/articles/27204752526611-Feature-limitations-on-the-free-version-of-Slack>. The primary ones which will affect us will be only retaining 90 days of history, and having to disable several apps and workflows which we are currently using. The Slack Admin team will do their best to manage these limitations.
 
-Responsible channel owners, members of private channels, and members of User Groups should [take some actions](link) to prepare for the upgrade and preserve information as soon as possible.
+Responsible channel owners, members of private channels, and members of User Groups should [take some actions](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon) to prepare for the upgrade and preserve information as soon as possible.
 
 The CNCF Projects Staff have proposed that our community look at migrating to Discord. Because of existing issues where we have been pushing the limits of Slack, they have already explored what a Kubernetes Discord would look like. Discord would allow us to implement new tools and integrations which would help the community, such as GitHub group membership synchronization. The Steering Committee will discuss and decide on our future platform.
 
