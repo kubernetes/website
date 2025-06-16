@@ -82,6 +82,9 @@ installation instructions. The list does not try to be exhaustive.
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
   networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
   and public cloud environments.
+* [Terway](https://github.com/AliyunContainerService/terway/) is a suite of CNI plugins
+  based on AlibabaCloud's VPC and ECS network products. It provides native VPC networking
+  and network policies in AlibabaCloud environments.
 * [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
