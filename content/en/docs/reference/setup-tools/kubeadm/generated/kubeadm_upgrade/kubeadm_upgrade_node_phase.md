@@ -10,10 +10,7 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Use this command to invoke single phase of the "node" workflow
-
 ### Synopsis
-
 
 Use this command to invoke single phase of the "node" workflow
 
