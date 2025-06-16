@@ -213,9 +213,11 @@ aliases:
     - mfilocha
     - nvtkaszpir
   sig-docs-uk-owners: # Admins for Ukrainian content
+    - Andygol
     - Arhell
     - MaxymVlasov
   sig-docs-uk-reviews: # PR reviews for Ukrainian content
+    - Andygol
     - Arhell
     - idvoretskyi
     - MaxymVlasov
