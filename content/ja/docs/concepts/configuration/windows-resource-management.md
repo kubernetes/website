@@ -14,13 +14,13 @@ Linuxノードでは、{{< glossary_tooltip text="cgroups" term_id="cgroup" >}} 
 コンテナはネットワーク、プロセス、ファイルシステムが分離された境界内に作成されます。
 Linux cgroup APIsを利用して、CPU, IO、メモリの統計情報を収集することが出来ます。
 
-対照的に、Windows は、システム名前空間フィルターを使用してコンテナーごとに[_job object_](https://learn.microsoft.com/ja-jp/windows/win32/procthread/job-objects)を利用し、すべてのプロセスをコンテナー内に含めて、ホストからの論理的な分離を実現しています。
+対照的に、Windows は、システム名前空間フィルターを使用してコンテナごとに[_job object_](https://learn.microsoft.com/ja-jp/windows/win32/procthread/job-objects)を利用し、すべてのプロセスをコンテナ内に含めて、ホストからの論理的な分離を実現しています。
 (JobオブジェクトはWindowsのプロセス分離のための機構であり、Kubernetesの{{< glossary_tooltip term_id="job" text="Job" >}}とは異なります。)
 
 Windowsコンテナではネームスペースフィルタリングを行わずに実行する方法はありません。
 つまり、システム権限はホストのコンテキストでは宣言することが出来ません。
 そのため、Windows上で特権コンテナは利用出来ません。
-Security Account Manager(SAM)が分離されているため、コンテナーはホストからの認証情報を受け取ることはできません。
+Security Account Manager(SAM)が分離されているため、コンテナはホストからの認証情報を受け取ることはできません。
 
 ## メモリ管理 {#resource-management-memory}
 
@@ -35,7 +35,7 @@ Windowsノードではプロセスのメモリオーバコミットを行いま�
 
 Windowsは様々なプロセスに割り当てるCPU時間を制限することは出来ますが、最小限のCPU時間を保証することは出来ません。
 
-Windowsでは、 kubeletプロセスの `--windows-priorityclass` コマンドラインフラグによる[scheduling priority](https://learn.microsoft.com/ja-jp/windows/win32/procthread/scheduling-priorities)の設定をサポートしています。
+Windowsでは、 kubeletプロセスの `--windows-priorityclass` コマンドラインフラグによる [scheduling priority](https://learn.microsoft.com/ja-jp/windows/win32/procthread/scheduling-priorities) の設定をサポートしています。
 このフラグによりkubeletプロセスは同じWindowsホスト上で動作している他のプロセスと比べて多くのCPU時間のスライスを得ることが出来ます。
 許容される値とその意味に関する詳細は [Windows Priority Classes](https://docs.microsoft.com/ja-jp/windows/win32/procthread/scheduling-priorities#priority-class) を参照して下さい。
 実行中のPodによりkubeletのCPUサイクルが不足しないためには、このフラグを `ABOVE_NORMAL_PRIORITY_CLASS` 以上に設定して下さい。
@@ -44,8 +44,7 @@ Windowsでは、 kubeletプロセスの `--windows-priorityclass` コマンド�
 ## リソースの予約 {#resource-reservation}
 
 オペレーティングシステムやコンテナランタイム、kubeletのようなKubernetesのホストプロセスによって利用されるCPUやメモリを考慮するために、kubeletの  `--kube-reserved` や `--system-reserved` フラグを利用して、リソースを予約することが出来ます（また、予約する必要もあります）。
-Windowsではこれらの値はノードの 
-[allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) リソースの計算のみに利用されます。
+Windowsではこれらの値はノードの [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) リソースの計算のみに利用されます。
 
 {{< caution >}}
 ワークロードをデプロイする時に、コンテナにメモリとCPUの制限を設定して下さい。
