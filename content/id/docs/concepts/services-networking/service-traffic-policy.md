@@ -2,6 +2,11 @@
 title: Kebijakan Lalu Lintas Internal (Service Internal Traffic Policy)
 content_type: concept
 weight: 120
+description: >-
+  Jika dua Pod dalam klaster kamu ingin berkomunikasi, dan kedua Pod tersebut sebenarnya berjalan pada
+  Node yang sama, gunakan _Kebijakan Lalu Lintas Internal_ untuk menjaga lalu lintas jaringan tetap dalam Node tersebut.
+  Menghindari perjalanan bolak-balik melalui jaringan klaster dapat membantu dengan keandalan, performa
+  (latensi jaringan dan throughput), atau biaya.
 ---
 
 
