@@ -237,15 +237,15 @@ DeploymentStatus 是最近观测到的 Deployment 状态。
 <!--
 - **replicas** (int32)
 
-  Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+  Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 
 - **availableReplicas** (int32)
 
-  Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+  Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 
 - **readyReplicas** (int32)
 
-  readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+  Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 -->
 - **replicas** (int32)
   
@@ -253,11 +253,11 @@ DeploymentStatus 是最近观测到的 Deployment 状态。
 
 - **availableReplicas** (int32)
   
-  此 Deployment 针对的可用（至少 minReadySeconds 才能就绪）的 Pod 总数。
+  此 Deployment 针对的可用（至少 minReadySeconds 才能就绪）非终止的 Pod 总数。
 
 - **readyReplicas** (int32)
-  
-  readyReplicas 是此 Deployment 在就绪状况下处理的目标 Pod 数量。
+
+  该 Deployment 所管理的、具有 Ready 状况的非终止 Pod 的总数。
 
 <!--
 - **unavailableReplicas** (int32)
@@ -272,7 +272,13 @@ DeploymentStatus 是最近观测到的 Deployment 状态。
 <!--
 - **updatedReplicas** (int32)
 
-  Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+  Total number of non-terminating pods targeted by this deployment that have the desired template spec.
+
+- **terminatingReplicas** (int32)
+
+  Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+  
+  This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
 
 - **collisionCount** (int32)
 
@@ -281,6 +287,14 @@ DeploymentStatus 是最近观测到的 Deployment 状态。
 - **updatedReplicas** (int32)
   
   此 Deployment 所针对的未终止 Pod 的总数，这些 Pod 采用了预期的模板规约。
+
+- **terminatingReplicas** (int32)
+
+  此 Deployment 所管理的处于终止状态的 Pod 总数。
+  终止中的 Pod 指的是其 .metadata.deletionTimestamp 不为空，
+  且其 .status.phase 尚未变为 Failed 或 Succeeded 的 Pod。
+
+  这是一个 Alpha 字段。要使用该字段，需要启用 DeploymentReplicaSetTerminatingReplicas 特性门控。
 
 - **collisionCount** (int32)
   

@@ -42,6 +42,10 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
      },
   ]
 
+Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+
+Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
+
 <hr>
 
 - **apiVersion**: v1
@@ -71,7 +75,9 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
   The resulting set of endpoints can be viewed as:
   
   	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-  	b: [ 10.10.1.1:309, 10.10.2.2:309 ]*
+  	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+  
+  Deprecated: This API is deprecated in v1.33+.*
 
   - **subsets.addresses** ([]EndpointAddress)
 
@@ -80,7 +86,7 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
     IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 
     <a name="EndpointAddress"></a>
-    *EndpointAddress is a tuple that describes single IP address.*
+    *EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.*
 
     - **subsets.addresses.ip** (string), required
 
@@ -105,7 +111,7 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
     IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
 
     <a name="EndpointAddress"></a>
-    *EndpointAddress is a tuple that describes single IP address.*
+    *EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.*
 
     - **subsets.notReadyAddresses.ip** (string), required
 
@@ -130,7 +136,7 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
     Port numbers available on the related IP addresses.
 
     <a name="EndpointPort"></a>
-    *EndpointPort is a tuple that describes a single port.*
+    *EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.*
 
     - **subsets.ports.port** (int32), required
 
@@ -163,7 +169,7 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 
 ## EndpointsList {#EndpointsList}
 
-EndpointsList is a list of endpoints.
+EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 
 <hr>
 

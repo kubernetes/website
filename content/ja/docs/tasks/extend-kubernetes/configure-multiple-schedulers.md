@@ -54,13 +54,13 @@ gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0 # used in here
 ## スケジューラー用のKubernetes Deploymentを定義する
 
 スケジューラーをコンテナイメージとして用意できたら、それ用のPodの設定を作成してクラスター上で動かします。
-この例では、直接Podをクラスターに作成する代わりに、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)を使用します。
-[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)は[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)を管理し、そのReplicaSetがPodを管理することで、スケジューラーを障害に対して堅牢にします。
+この例では、直接Podをクラスターに作成する代わりに、[Deployment](/docs/concepts/workloads/controllers/deployment/)を使用します。
+[Deployment](/docs/concepts/workloads/controllers/deployment/)は[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)を管理し、そのReplicaSetがPodを管理することで、スケジューラーを障害に対して堅牢にします。
 `my-scheduler.yaml`として保存するDeploymentの設定を示します:
 
 {{% code_sample file="admin/sched/my-scheduler.yaml" %}}
 
-上に示したマニフェストでは、[KubeSchedulerConfiguration](/ja/docs/reference/scheduling/config/)を使用してあなたのスケジューラー実装の振る舞いを変更できます。
+上に示したマニフェストでは、[KubeSchedulerConfiguration](/docs/reference/scheduling/config/)を使用してあなたのスケジューラー実装の振る舞いを変更できます。
 この設定ファイルは`kube-scheduler`の初期化時に`--config`オプションから渡されます。
 この設定ファイルは`my-scheduler-config` ConfigMapに格納されており、`my-scheduler` DeploymentのPodは`my-scheduler-config` ConfigMapをボリュームとしてマウントします。
 
@@ -186,4 +186,4 @@ kubectl edit clusterrole system:kube-scheduler
 kubectl get events
 ```
 
-クラスターのメインのスケジューラーについては、[独自のスケジューラー設定](/ja/docs/reference/scheduling/config/#multiple-profiles)を適用することや、関連するコントロールプレーンノードにある静的Podのマニフェストを変更し独自のコンテナイメージを使うことができます。
+クラスターのメインのスケジューラーについては、[独自のスケジューラー設定](/docs/reference/scheduling/config/#multiple-profiles)を適用することや、関連するコントロールプレーンノードにある静的Podのマニフェストを変更し独自のコンテナイメージを使うことができます。
