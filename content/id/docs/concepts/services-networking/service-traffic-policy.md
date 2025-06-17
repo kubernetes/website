@@ -10,8 +10,8 @@ weight: 120
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 _Kebijakan Lalu Lintas Internal Service_ memungkinkan pembatasan lalu lintas internal untuk hanya 
-merutekan lalu lintas tersebut ke endpoint pada Node asal lalu lintas tersebut. "Lalu Lintas Internal" 
-dalam konteks ini merujuk pada lalu lintas yang berasal dari Pod dalam kluster saat ini. Fitur ini dapat 
+merutekan lalu lintas tersebut ke Endpoint pada Node asal lalu lintas tersebut. "Lalu Lintas Internal" 
+dalam konteks ini merujuk pada lalu lintas yang berasal dari Pod dalam klaster saat ini. Fitur ini dapat 
 membantu mengurangi biaya dan meningkatkan performa.
 
 <!-- body -->
@@ -21,12 +21,12 @@ membantu mengurangi biaya dan meningkatkan performa.
 Kamu dapat mengaktifkan kebijakan lalu lintas internal (_internal-only_) untuk sebuah 
 {{< glossary_tooltip text="Service" term_id="service" >}}, dengan mengonfigurasi 
 `.spec.internalTrafficPolicy` menjadi `Local`. Konfigurasi ini akan mengarahkan kube-proxy 
-untuk hanya merutekan lalu lintas internal ke endpoint yang berada pada node asal lalu lintas kluster.
+untuk hanya merutekan lalu lintas internal ke Endpoint yang berada pada Node asal lalu lintas klaster.
 
 {{< note >}}
-Untuk Pod pada node yang tidak memiliki endpoint untuk Service tertentu, Service 
-akan berperilaku sebagaimana tidak ada endpoint (Untuk pod pada node tersebut), Meskipun 
-Service memiliki endpoint pada node lain.
+Untuk Pod pada Node yang tidak memiliki Endpoint untuk Service tertentu, Service 
+akan berperilaku sebagaimana tidak ada Endpoint (Untuk pod pada Node tersebut), Meskipun 
+Service memiliki Endpoint pada Node lain.
 {{< /note >}}
 
 
@@ -49,9 +49,9 @@ spec:
 
 ## Cara Kerja
 
-Kube-proxy memfilter endpoint yang dirutekan berdasarkan konfigurasi `spec.internalTrafficPolicy`. 
-Ketika diatur ke `Local`, hanya endpoint lokal pada node yang dipertimbangkan. Ketika diatur ke 
-`Cluster` (nilai _default_) atau tidak diatur, Kubernetes akan mempertimbangkan semua endpoint.
+Kube-proxy memfilter Endpoint yang dirutekan berdasarkan konfigurasi `spec.internalTrafficPolicy`. 
+Ketika diatur ke `Local`, hanya Endpoint lokal pada Node yang dipertimbangkan. Ketika diatur ke 
+`Cluster` (nilai _default_) atau tidak diatur, Kubernetes akan mempertimbangkan semua Endpoint.
 
 ## {{% heading "whatsnext" %}}
 
