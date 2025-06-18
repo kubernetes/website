@@ -2,7 +2,7 @@
 title: Kubelet
 id: kubelet
 date: 2018-04-12
-full_link: /docs/reference/generated/kubelet
+full_link: /docs/reference/command-line-tools-reference/kubelet
 short_description: >
   An agent that runs on each node in the cluster. It makes sure that containers are running in a pod.
 
