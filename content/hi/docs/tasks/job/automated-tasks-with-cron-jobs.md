@@ -9,7 +9,7 @@ weight: 10
 
 <!-- overview -->
 
-यह पेज दिखाता है कि कैसे Kubernetes {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} ऑब्जेक्ट का उपयोग करके स्वचालित कार्य चलाए जाते हैं।
+यह पेज दिखाता है कि कैसे कुबेरनेट्स {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} ऑब्जेक्ट का उपयोग करके स्वचालित कार्य शेड्यूल किए जाते हैं।
 
 ## {{% heading "prerequisites" %}}
 
@@ -48,7 +48,7 @@ NAME    SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE   AGE
 hello   */1 * * * *   False     0        <none>          10s
 ```
 
-जैसा कि आप कमांड के परिणामों से देख सकते हैं, क्रॉन जॉब ने अभी तक कोई जॉब शेड्यूल या चलाया नहीं है।
+जैसा कि आप कमांड के परिणामों से देख सकते हैं, क्रॉन जॉब ने अभी तक कोई जॉब शेड्यूल नहीं किया है और न ही कोई जॉब चलाया है।
 लगभग एक मिनट में जॉब के बनने के लिए {{< glossary_tooltip text="देखें" term_id="watch" >}}:
 
 ```shell
@@ -98,7 +98,7 @@ kubectl logs $pods
 
 ```
 Fri Feb 22 11:02:09 UTC 2019
-Hello from the Kubernetes cluster
+Hello from the कुबेरनेट्स cluster
 ```
 
 ## क्रॉनजॉब हटाना {#deleting-a-cron-job}
