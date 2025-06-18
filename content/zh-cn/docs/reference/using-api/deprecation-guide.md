@@ -36,19 +36,19 @@ deprecated API versions to newer and more stable API versions.
 ### v1.32
 
 <!--
-The **v1.32** release will stop serving the following deprecated API versions:
+The **v1.32** release will stopped the following deprecated API versions:
 -->
-**v1.32** 发行版本将停止提供以下已弃用的 API 版本：
+**v1.32** 发行版本已停止提供以下已弃用的 API 版本：
 
 <!--
 #### Flow control resources {#flowcontrol-resources-v132}
 
-The **flowcontrol.apiserver.k8s.io/v1beta3** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.32.
+The **flowcontrol.apiserver.k8s.io/v1beta3** API version of FlowSchema and PriorityLevelConfiguration is longer be served in v1.32.
 -->
 #### 流控制资源   {#flowcontrol-resources-v132}
 
 FlowSchema 和 PriorityLevelConfiguration 的
-**flowcontrol.apiserver.k8s.io/v1beta3** API 版本将不再在 v1.32 中提供。
+**flowcontrol.apiserver.k8s.io/v1beta3** API 版本在 v1.32 中不再提供。
 
 <!--
 * Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29.

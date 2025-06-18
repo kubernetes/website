@@ -326,7 +326,7 @@ defining them has the `applyset.kubernetes.io/is-parent-type` label.
 用于：作为 ApplySet 父对象使用的对象。
 
 此注解处于 Alpha 阶段。
-对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
+对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，
 那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
@@ -418,7 +418,7 @@ defining them has the `applyset.kubernetes.io/is-parent-type` label.
 用于：作为 ApplySet 父对象使用的对象。
 
 此注解处于 Alpha 阶段。
-对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
+对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
@@ -462,7 +462,7 @@ not being a valid parent for ApplySets, omit this label.
 
 示例：`applyset.kubernetes.io/is-parent-type: "true"`
 
-用于：自定义资源 （CRD）
+用于：自定义资源（CRD）
 
 此注解处于 Alpha 阶段。
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
@@ -497,7 +497,7 @@ label on the parent object.
 此注解处于 Alpha 阶段。
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此标签使对象成为 ApplySet 的成员。
-标签的值 **必须** 与父对象上的 `applyset.kubernetes.io/id` 标签的值相匹配。
+标签的值**必须**与父对象上的 `applyset.kubernetes.io/id` 标签的值相匹配。
 
 <!--
 ### applyset.kubernetes.io/tooling (alpha) {#applyset-kubernetes-io-tooling}
@@ -522,7 +522,7 @@ ConfigMaps, or custom resources if the CustomResourceDefinitiondefining them has
 用于：作为 ApplySet 父对象使用的对象。
 
 此注解处于 Alpha 阶段。
-对于 Kubernetes {{< skew currentVersion >}} 版本， 如果定义它们的
+对于 Kubernetes {{< skew currentVersion >}} 版本，如果定义它们的
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 打了 `applyset.kubernetes.io/is-parent-type` 标签，那么你可以在 Secret、ConfigMap 或自定义资源上使用此注解。
 
@@ -535,7 +535,7 @@ The value must be in the format `<toolname>/<semver>`.
 -->
 规范的部分功能用来实现[在 kubectl 中基于 ApplySet 的删除](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune)。
 此注解应用于父对象，这些父对象用于跟踪 ApplySet 以指示哪个工具管理 ApplySet。
-工具应该拒绝改变属于其他工具 ApplySets。
+工具应该拒绝改变属于其他工具的 ApplySet。
 该值必须采用 `<toolname>/<semver>` 格式。
 
 ### apps.kubernetes.io/pod-index (beta) {#apps-kubernetes.io-pod-index}
@@ -783,7 +783,8 @@ This annotation records the result of bind scheduler plugins, used by https://si
 
 用于：Pod
 
-此注解记录了 bind 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 bind 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/filter-result
@@ -810,7 +811,8 @@ This annotation records the result of filter scheduler plugins, used by https://
 -->
 用于：Pod
 
-此注解记录了 filter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 filter 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/finalscore-result
@@ -838,7 +840,8 @@ used by https://sigs.k8s.io/kube-scheduler-simulator.
 -->
 用于：Pod
 
-此注解记录了调度器从 score 调度插件计算出的最终分数，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了调度器从 score 调度插件计算出的最终分数，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 ```yaml
 kube-scheduler-simulator.sigs.k8s.io/finalscore-result: >-
@@ -864,7 +867,8 @@ This annotation records the result of permit scheduler plugins, used by https://
 
 用于：Pod
 
-此注解记录了 permit 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 permit 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/permit-result-timeout
@@ -885,7 +889,8 @@ This annotation records the timeouts returned from permit scheduler plugins, use
 
 用于：Pod
 
-此注解记录了 permit 调度插件返回的超时时间，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 permit 调度插件返回的超时时间，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/postfilter-result
@@ -906,7 +911,8 @@ This annotation records the result of postfilter scheduler plugins, used by http
 
 用于：Pod
 
-此注解记录了 postfilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 postfilter 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/prebind-result
@@ -927,7 +933,8 @@ This annotation records the result of prebind scheduler plugins, used by https:/
 
 用于：Pod
 
-此注解记录了 prebind 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 prebind 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/prefilter-result
@@ -948,7 +955,8 @@ This annotation records the PreFilter result of prefilter scheduler plugins, use
 
 用于：Pod
 
-此注解记录了 prefilter 调度插件的预过滤结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 prefilter 调度插件的预过滤结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/prefilter-result-status
@@ -975,7 +983,8 @@ This annotation records the result of prefilter scheduler plugins, used by https
 -->
 用于：Pod
 
-此注解记录了 prefilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 prefilter 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/prescore-result
@@ -1002,7 +1011,8 @@ This annotation records the result of prefilter scheduler plugins, used by https
 -->
 用于：Pod
 
-此注解记录了 prefilter 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator
+此注解记录了 prefilter 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/reserve-result
@@ -1023,7 +1033,8 @@ This annotation records the result of reserve scheduler plugins, used by https:/
 
 用于：Pod
 
-此注解记录了 reserve 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 reserve 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/result-history
@@ -1044,7 +1055,8 @@ This annotation records all the past scheduling results from scheduler plugins, 
 
 用于：Pod
 
-此注解记录了所有过去的调度插件的调度结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了所有过去的调度插件的调度结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/score-result
@@ -1069,7 +1081,8 @@ This annotation records the result of score scheduler plugins, used by https://s
 -->
 用于：Pod
 
-此注解记录了 score 调度插件的结果，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了 score 调度插件的结果，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### kube-scheduler-simulator.sigs.k8s.io/selected-node
@@ -1090,7 +1103,8 @@ This annotation records the node that is selected by the scheduling cycle, used 
 
 用于：Pod
 
-此注解记录了调度周期选择的节点，用于 https://sigs.k8s.io/kube-scheduler-simulator。
+此注解记录了调度周期选择的节点，用于
+[kube-scheduler-simulator](https://sigs.k8s.io/kube-scheduler-simulator)。
 
 <!--
 ### internal.config.kubernetes.io/index
@@ -1115,7 +1129,7 @@ value of 0 is implied.
 用于：所有对象
 
 该注解记录了包含对象的 YAML 文档在加载对象的清单文件中的零索引位置。
-请注意，YAML 文档由三个破折号（---）分隔，每个文档可以包含一个对象。
+请注意，YAML 文档由三个破折号（`---`）分隔，每个文档可以包含一个对象。
 如果未指定此注解，则该值为 0。
 
 <!--
