@@ -8,7 +8,9 @@ Author: >
   [Josh Berkus](https://github.com/jberkus)
 ---
 
-Kubernetes Slack will lose its special status and will be changing into a standard free Slack on June 20. Sometime later this year, our community will likely move to a new platform. If you are responsible for a channel or private channel, or a member of a User Group, you will need to take some actions as soon as you can.
+**UPDATE**: Our complimentary Pro account with Slack has been extended, possibly indefinitely. Thank you to our friends at Salesforce.
+
+~~Kubernetes Slack will lose its special status and will be changing into a standard free Slack on June 20, 2025~~. Sometime later this year, our community will likely move to a new platform. If you are responsible for a channel or private channel, or a member of a User Group, you will need to take some actions as soon as you can.
 
 For the last decade, Slack has supported our project with a free customized enterprise account. They have let us know that they can no longer do so, particularly since our Slack is one of the largest and more active ones on the platform. As such, they will be downgrading it to a standard free Slack while we decide on, and implement, other options.
 
