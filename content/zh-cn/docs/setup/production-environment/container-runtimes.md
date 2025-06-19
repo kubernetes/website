@@ -565,7 +565,7 @@ For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 <!-- 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR) is a commercially
 available container runtime that was formerly known as Docker Enterprise Edition.
 
 You can use Mirantis Container Runtime with Kubernetes using the open source
@@ -573,17 +573,17 @@ You can use Mirantis Container Runtime with Kubernetes using the open source
 -->
 ### Mirantis 容器运行时 {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR)
 是一种商用容器运行时，以前称为 Docker 企业版。
 你可以使用 MCR 中包含的开源 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/)
 组件将 Mirantis Container Runtime 与 Kubernetes 一起使用。
 
 <!--
 To learn more about how to install Mirantis Container Runtime,
-visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html). 
+visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/25.0/install.html). 
 -->
 要了解有关如何安装 Mirantis Container Runtime 的更多信息，
-请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/20.10/install.html)。
+请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/25.0/install.html)。
 
 <!-- 
 Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
