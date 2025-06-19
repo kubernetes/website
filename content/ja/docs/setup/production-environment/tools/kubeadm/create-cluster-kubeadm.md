@@ -69,7 +69,7 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 #### ネットワークの設定
 
 kubeadmは他のKubernetesコンポーネントと同様に、ホスト上のデフォルトゲートウェイとなっているネットワークインターフェースと関連づけられた利用可能なIPアドレスを探索します。
-このIPアドレスは、コンポーネントによる広告や受信に使用されます。
+このIPアドレスは、コンポーネントによるアドバタイズや受信に使用されます。
 
 Linuxのホスト上でこのIPを確認するには次のようにします:
 
@@ -88,7 +88,7 @@ Kubernetesコンポーネントはカスタムネットワークインターフ�
 ホストにデフォルトゲートウェイが存在せず、カスタムIPがKubernetesコンポーネントに渡されない場合、コンポーネントはエラーで終了する可能性があります。
 {{< /note >}}
 
-`init`もしくは`join`で作成されたコントロールプレーンに対してAPIサーバーの広告アドレスを設定するには、`--apiserver-advertise-address`フラグを使用します。
+`init`および`join`で作成されたコントロールプレーンに対してAPIサーバーのアドバタイズアドレスを設定するには、`--apiserver-advertise-address`フラグを使用します。
 このオプションは、可能であれば[kubeadm API](/docs/reference/config-api/kubeadm-config.v1beta4)において`InitConfiguration.localAPIEndpoint`および`JoinConfiguration.controlPlane.localAPIEndpoint`として設定するのが望ましいです。
 
 全てのノード上のkubeletに対して、`--node-ip`オプションはkubeadmの設定ファイル(`InitConfiguration`または`JoinConfiguration`)の`.nodeRegistration.kubeletExtraArgs`にて指定することができます。
@@ -141,7 +141,8 @@ kubeadm init <args>
 
 ### apiserver-advertise-addressとControlPlaneEndpointに関する検討
 
-`--apiserver-advertise-address`は、この特定のコントロールプレーンノードのAPIサーバーへのadvertise addressを設定するために使えますが`--control-plane-endpoint`は、すべてのコントロールプレーンノード共有のエンドポイントを設定するために使えます。
+`--apiserver-advertise-address`は、特定のコントロールプレーンノードのAPIサーバーがアドバタイズするアドレスを設定するために使用できます。
+一方`--control-plane-endpoint`は、すべてのコントロールプレーンノード共有のエンドポイントを設定するために使用できます。
 
 `--control-plane-endpoint`はIPアドレスと、IPアドレスへマッピングできるDNS名を使用できます。利用可能なソリューションをそうしたマッピングの観点から評価するには、ネットワーク管理者に相談してください。
 
