@@ -1000,9 +1000,10 @@ following field value is supported:
 
 {{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
 
-Two additional values are available when the `PreferSameTrafficDistribution`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled:
+In Kubernetes {{< skew currentVersion >}}, two additional values are
+available (unless the `PreferSameTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+disabled):
 
 `PreferSameZone`
 : This is an alias for `PreferClose` that is clearer about the intended semantics.
