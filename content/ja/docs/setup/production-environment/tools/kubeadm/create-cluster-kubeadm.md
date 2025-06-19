@@ -252,7 +252,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 {{< note >}}
 kubeadmはCNIに依存すべきではないため、CNIプロバイダーの検証は現在e2eテストの範囲外です。
-CNIプラグインに関する問題を見つけた場合、kubeadmやkubernetesではなく、そのCNIプラグインの課題管理システムへ問題を報告してください。
+CNIプラグインに関する問題を見つけた場合、kubeadmやKubernetesではなく、そのCNIプラグインの課題管理システムへ問題を報告してください。
 {{< /note >}}
 
 CNIを使用するKubernetes Podネットワークを提供する外部のプロジェクトがいくつかあります。一部のプロジェクトでは、[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)もサポートしています。
