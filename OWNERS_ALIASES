@@ -60,7 +60,6 @@ aliases:
     - lmktfy
     - natalisucks
     - nate-double-u
-    - rayandas # RT 1.33 Docs Lead
     - reylejano
     - salaxander
     - tengqm
@@ -213,9 +212,11 @@ aliases:
     - mfilocha
     - nvtkaszpir
   sig-docs-uk-owners: # Admins for Ukrainian content
+    - Andygol
     - Arhell
     - MaxymVlasov
   sig-docs-uk-reviews: # PR reviews for Ukrainian content
+    - Andygol
     - Arhell
     - idvoretskyi
     - MaxymVlasov

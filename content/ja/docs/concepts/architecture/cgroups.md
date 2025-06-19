@@ -49,7 +49,7 @@ cgroup v2を使うには以下のような必要要件があります。
 * コンテナランタイムがcgroup v2をサポートしていること。例えば、
   * [containerd](https://containerd.io/) v1.4以降
   * [cri-o](https://cri-o.io/) v1.20以降
-* kubeletとコンテナランタイムが[systemd cgroupドライバー](/ja/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)を使うように設定されていること
+* kubeletとコンテナランタイムが[systemd cgroupドライバー](/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)を使うように設定されていること
 
 ### Linuxディストリビューションのcgroup v2サポート
 
@@ -106,5 +106,5 @@ cgroup v1では、`tmpfs`と出力されます。
 ## {{% heading "whatsnext" %}}
 
 - [cgroups](https://man7.org/linux/man-pages/man7/cgroups.7.html)についてもっと学習しましょう。
-- [コンテナランタイム](/ja/docs/concepts/architecture/cri)についてもっと学習しましょう。
-- [cgroupドライバー](/ja/docs/setup/production-environment/container-runtimes#cgroup-drivers)についてもっと学習しましょう。
+- [コンテナランタイム](/docs/concepts/architecture/cri)についてもっと学習しましょう。
+- [cgroupドライバー](/docs/setup/production-environment/container-runtimes#cgroup-drivers)についてもっと学習しましょう。
