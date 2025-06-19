@@ -20,7 +20,7 @@ y la configuración declarativa. Tiene un ecosistema grande y en rápido crecimi
 El soporte, las herramientas y los servicios para Kubernetes están ampliamente disponibles.
 
 Google liberó el proyecto Kubernetes en el año 2014. Kubernetes se basa en [la experiencia de
-Google corriendo aplicaciones en producción a gran escala por década y media](https://research.google.com/pubs/pub43438.html), junto a las mejores ideas y prácticas de la comunidad.
+Google corriendo aplicaciones en producción a gran escala por década y media](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/), junto a las mejores ideas y prácticas de la comunidad.
 
 ## ¿Por qué necesito Kubernetes y qué puede hacer por mi?
 

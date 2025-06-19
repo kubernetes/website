@@ -63,7 +63,7 @@ Kubernetesは、すべてのクラスターに必要とは限らないアクセ�
 冗長なエントリや特権昇格の可能性がないか、定期的にKubernetes RBAC設定を確認することが不可欠です。
 攻撃者が削除されたユーザーと同じ名前のユーザーアカウントを作成できる場合、特にそのユーザーに割り当てられた権限を自動的に継承できます。
 
-## Kubernetes RBAC - 特権昇格リスク　{#privilege-escalation-risks}
+## Kubernetes RBAC - 特権昇格リスク {#privilege-escalation-risks}
 
 Kubernetes RBAC内には、ユーザーやサービスアカウントがクラスター内で特権昇格したり、クラスター外のシステムに影響を与えたりすることができる権限がいくつかあります。
 
