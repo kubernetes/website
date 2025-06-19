@@ -27,7 +27,7 @@ weight: 10
 
 <!-- steps -->
 
-## प्रमाणीकरण प्रवाह
+## प्रमाणीकरण प्रवाह {#authentication-flow}
 
 कस्टम रिसोर्स डेफिनिशन (CRDs) के विपरीत, एग्रीगेशन API में मानक कुबेरनेट्स apiserver के अतिरिक्त एक अन्य सर्वर - आपका एक्सटेंशन apiserver - शामिल है।
 कुबेरनेट्स apiserver को आपके एक्सटेंशन apiserver के साथ संवाद करने की आवश्यकता होगी,
@@ -52,9 +52,9 @@ weight: 10
 
 ![एग्रीगेशन ऑथ फ्लो](/images/docs/aggregation-api-auth-flow.png)
 
-### कुबेरनेट्स Apiserver प्रमाणीकरण और प्राधिकरण
+### कुबेरनेट्स Apiserver प्रमाणीकरण और प्राधिकरण {#kubernetes-apiserver-authentication-and-authorization}
 
-एक्सटेंशन apiserver द्वारा सेवित API पथ के लिए एक अनुरोध सभी API अनुरोधों की तरह ही शुरू होता है: कुबेरनेट्स apiserver के साथ संचार।
+एक्सटेंशन apiserver द्वारा सेवित API पथ के लिए एक अनुरोध सभी API अनुरोधों की तरह शुरू होता है: कुबेरनेट्स apiserver के साथ संचार।
 यह पथ पहले से ही एक्सटेंशन apiserver द्वारा कुबेरनेट्स apiserver के साथ पंजीकृत किया गया है।
 
 उपयोगकर्ता कुबेरनेट्स apiserver के साथ संवाद करता है, पथ तक पहुंच का अनुरोध करता है।
@@ -70,7 +70,7 @@ weight: 10
 
 अब कुबेरनेट्स apiserver एक्सटेंशन apiserver को अनुरोध भेजने के लिए तैयार है।
 
-### कुबेरनेट्स Apiserver अनुरोध को प्रॉक्सी करता है
+### कुबेरनेट्स Apiserver अनुरोध को प्रॉक्सी करता है {#kubernetes-apiserver-proxies-the-request}
 
 अब कुबेरनेट्स apiserver अनुरोध को एक्सटेंशन apiserver पर भेजेगा, या प्रॉक्सी करेगा, जो अनुरोध को हैंडल करने के लिए पंजीकृत है।
 ऐसा करने के लिए, इसे कई चीजें जानने की आवश्यकता है:
@@ -83,7 +83,7 @@ weight: 10
 
 इन दोनों के लिए प्रावधान करने के लिए, आपको कई फ्लैग का उपयोग करके कुबेरनेट्स apiserver को कॉन्फ़िगर करना होगा।
 
-#### कुबेरनेट्स Apiserver क्लाइंट प्रमाणीकरण
+#### कुबेरनेट्स Apiserver क्लाइंट प्रमाणीकरण {#kubernetes-apiserver-client-authentication}
 
 कुबेरनेट्स apiserver TLS के माध्यम से एक्सटेंशन apiserver से कनेक्ट होता है,
 एक क्लाइंट सर्टिफिकेट का उपयोग करके स्वयं को प्रमाणित करता है। आपको स्टार्टअप पर
@@ -120,7 +120,7 @@ weight: 10
 बल्कि कुबेरनेट्स apiserver के रूप में प्रमाणित होने के लिए एक ही सर्टिफिकेट का उपयोग करता है।
 यही एक सभी एक्सटेंशन apiserver अनुरोधों के लिए पुन: उपयोग किया जाता है।
 
-#### मूल अनुरोध उपयोगकर्ता नाम और समूह
+#### मूल अनुरोध उपयोगकर्ता नाम और समूह {#original-request-username-and-group}
 
 जब कुबेरनेट्स apiserver अनुरोध को एक्सटेंशन apiserver पर प्रॉक्सी करता है,
 यह एक्सटेंशन apiserver को उस उपयोगकर्ता नाम और समूह के बारे में सूचित करता है जिसके साथ मूल अनुरोध
@@ -134,21 +134,7 @@ weight: 10
 ये हेडर नाम भी `extension-apiserver-authentication` कॉन्फ़िगमैप में रखे जाते हैं,
 ताकि एक्सटेंशन apiserver द्वारा उन्हें पुनर्प्राप्त और उपयोग किया जा सके।
 
-## कुबेरनेट्स Apiserver फ्लैग सक्षम करें
-
-एग्रीगेशन लेयर को निम्नलिखित `kube-apiserver` फ्लैग के माध्यम से सक्षम करें। हो सकता है कि आपके प्रोवाइडर ने पहले ही इनका ध्यान रख लिया हो।
-
-```
---requestheader-client-ca-file=<path to aggregator CA cert>
---requestheader-allowed-names=front-proxy-client
---requestheader-extra-headers-prefix=X-Remote-Extra-
---requestheader-group-headers=X-Remote-Group
---requestheader-username-headers=X-Remote-User
---proxy-client-cert-file=<path to aggregator proxy cert>
---proxy-client-key-file=<path to aggregator proxy key>
-```
-
-### CA पुनर्प्रयोग और विरोध
+### CA पुनर्प्रयोग और विरोध {#ca-reusage-and-conflicts}
 
 कुबेरनेट्स apiserver के दो क्लाइंट CA विकल्प हैं:
 
