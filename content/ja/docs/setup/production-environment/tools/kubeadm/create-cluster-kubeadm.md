@@ -322,7 +322,7 @@ kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancer
 
 ### (オプション)コントロールプレーンノード以外のマシンからのクラスター操作
 
-他のコンピューター(例: ラップトップ)上のkubectlがクラスターと通信できるようにするためには、次のようにしてadministratorのkubeconfigファイルをコントロールプレーンノードからそのコンピューター上にコピーする必要があります。
+他のコンピューター(例: ラップトップ)上のkubectlがクラスターと通信できるようにするためには、次のようにして特権のkubeconfigファイルをコントロールプレーンノードから対象のコンピューター上にコピーする必要があります。
 
 ```bash
 scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
