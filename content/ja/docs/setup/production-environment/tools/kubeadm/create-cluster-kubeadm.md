@@ -61,8 +61,8 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 {{< note >}}
 すでにkubeadmがインストール済みである場合は、kubeadmのアップグレード手順については[Linuxノードのアップグレード](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes)の最初の2ステップを確認してください。
 
-アップグレード中、kubeletはcrashloopに陥り、kubeadmの指示を待つため、数秒ごとに再起動します。
-このcrashloopは想定内の正常な動作です。
+アップグレード中、kubeletはクラッシュループに陥り、kubeadmの指示を待つため、数秒ごとに再起動します。
+このクラッシュループは想定内の正常な動作です。
 コントロールプレーンの初期化が完了すれば、kubeletは正常に動作します。
 {{< /note >}}
 
