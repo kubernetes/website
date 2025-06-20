@@ -126,8 +126,10 @@ The previous compatibility specification example in this article exemplified thi
 
 2. **Attach the artifact to the image**  
 The image compatibility specification is stored as an OCI artifact.
-Using the [oras](https://oras.land/) tool, you can attach this metadata to your container image.
-This can be done with the following command:
+You can attach this metadata to your container image using the [oras](https://oras.land/) tool.
+The registry only needs to support OCI artifacts, support for arbitrary types is not required.
+Keep in mind that the container image and the artifact must be stored in the same registry.
+Use the following command to attach the artifact to the image:
 
 ```bash
 oras attach \ 
