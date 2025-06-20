@@ -23,8 +23,7 @@ in the document [Creating a cluster with kubeadm](/docs/setup/production-environ
 
 To add new Linux worker nodes to your cluster do the following for each machine:
 
-1. Connect to the machine by using SSH or another method.
-1. Run the command that was output by `kubeadm init` or create a new join command using `kubeadm token create`:
+1. Either use the join command that was output by `kubeadm init` or create a new join command using `kubeadm token create`:
 
   {{< tabs name="kubeadm_join_command" >}}
   {{% tab name="kubeadm init" %}}
@@ -47,6 +46,7 @@ To add new Linux worker nodes to your cluster do the following for each machine:
   kubeadm join 172.30.1.2:6443 --token mp0y8w.2xymsdfeu0d16ge --discovery-token-ca-cert-hash sha256:0aa971e33a03d70c69cb0cefe3de...
   {{% /tab %}}
   {{< /tabs >}}
+1. Connect to the worker node by using SSH or another method and run the respective `kubeadm join` command
 
 ### Additional information for kubeadm join
 
