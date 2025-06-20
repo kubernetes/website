@@ -54,10 +54,10 @@ Deploymentによって作成されたReplicaSetを管理しないでください
     `matchLabels`と`matchExpressions`の両方が設定された場合、条件に一致するには両方とも満たす必要があります。
     {{< /note >}}
 
-* `template`フィールドは、以下のサブフィールドを持ちます。:
+* `.spec.template`フィールドは、以下のサブフィールドを持ちます。:
   * Podは`.metadata.labels`フィールドによって指定された`app: nginx`というラベルがつけられます。
-  * PodTemplate、または`.template.spec`フィールドは、Podが`nginx`という名前で[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2が動くコンテナを1つ動かすことを示します。
-  * 1つのコンテナを作成し、`.spec.template.spec.containers[0].name`フィールドを使って`nginx`という名前をつけます。
+  * PodTemplate、または`.spec`フィールドは、Podが`nginx`という名前で[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2が動くコンテナを1つ動かすことを示します。
+  * 1つのコンテナを作成し、`.spec.containers[0].name`フィールドを使って`nginx`という名前をつけます。
 
 作成を始める前に、Kubernetesクラスターが稼働していることを確認してください。
 上記のDeploymentを作成するためには以下のステップにしたがってください:

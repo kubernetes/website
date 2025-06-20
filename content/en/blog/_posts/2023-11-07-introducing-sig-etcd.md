@@ -16,7 +16,7 @@ Special Interest Groups (SIGs) are a fundamental part of the Kubernetes project,
 
 ## The critical role of etcd
 
-If we look inside the control plane of a Kubernetes cluster, we will find [etcd](https://kubernetes.io/docs/concepts/overview/components/#etcd), a consistent and highly-available key value store used as Kubernetes' backing store for all cluster data -- this description alone highlights the critical role that etcd plays, and the importance of it within the Kubernetes ecosystem.
+If we look inside the control plane of a Kubernetes cluster, we will find [etcd](https://kubernetes.io/docs/concepts/architecture/#etcd), a consistent and highly-available key value store used as Kubernetes' backing store for all cluster data -- this description alone highlights the critical role that etcd plays, and the importance of it within the Kubernetes ecosystem.
 
 This critical role makes the health of the etcd project and community an important consideration, and [concerns about the state of the project](https://groups.google.com/a/kubernetes.io/g/steering/c/e-O-tVSCJOk/m/N9IkiWLEAgAJ) in early 2022 did not go unnoticed. The changes in the maintainer team, amongst other factors, contributed to a situation that needed to be addressed.
 

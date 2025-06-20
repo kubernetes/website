@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可在不更改对象的情况下接受或拒绝对象请求"
 title: "ValidatingWebhookConfiguration"
-weight: 3
+weight: 4
 ---
 
 <!-- 
@@ -17,7 +17,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it."
 title: "ValidatingWebhookConfiguration"
-weight: 3
+weight: 4
 -->
 
 `apiVersion: admissionregistration.k8s.io/v1`
@@ -29,7 +29,8 @@ weight: 3
 <!-- 
 ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
 -->
-ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可在不更改对象的情况下接受或拒绝对象请求。
+ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
+可在不更改对象的情况下接受或拒绝对象请求。
 
 <hr>
 
@@ -51,6 +52,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 - **webhooks** ([]ValidatingWebhook)
 
   *Patch strategy: merge on key `name`*
+
+  *Map: unique values on key name will be kept during a merge*
   
   Webhooks is a list of webhooks and the affected resources and operations.
 
@@ -61,6 +64,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 - **webhooks** ([]ValidatingWebhook)
 
   **补丁策略：根据 `name` 键执行合并操作**
+
+  **Map：name 键的唯一值将在合并期间保留**
   
   webhooks 是 Webhook 以及受影响的资源和操作的列表。
 
@@ -69,11 +74,15 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 
   <!-- 
   - **webhooks.admissionReviewVersions** ([]string), required
+  
+    *Atomic: will be replaced during a merge*
 
     AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy. 
   -->
 
-  - **webhooks.admissionReviewVersions** ([]string), 必需
+  - **webhooks.admissionReviewVersions** ([]string)，必需
+
+    **Atomic：将在合并期间被替换**
 
     admissionReviewVersions 是 Webhook 期望的首选 `AdmissionReview` 版本的有序列表。 
     API 服务器将尝试使用它支持的列表中的第一个版本。如果 API 服务器不支持此列表中指定的版本，则此对象将验证失败。 
@@ -88,7 +97,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
     *WebhookClientConfig contains the information to make a TLS connection with the webhook* 
   -->
 
-  - **webhooks.clientConfig** (WebhookClientConfig), 必需
+  - **webhooks.clientConfig** (WebhookClientConfig)，必需
 
     clientConfig 定义了如何与 Webhook 通信。必需。
 
@@ -131,7 +140,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
         `name` is the name of the service. Required 
       -->
 
-      - **webhooks.clientConfig.service.name** (string), 必需
+      - **webhooks.clientConfig.service.name** (string)，必需
 
         `name` 是服务的名称。必需。
 
@@ -141,7 +150,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
         `namespace` is the namespace of the service. Required 
       -->
 
-      - **webhooks.clientConfig.service.namespace** (string), 必需
+      - **webhooks.clientConfig.service.namespace** (string)，必需
 
         `namespace` 是服务的命名空间。必需。
 
@@ -204,7 +213,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
     The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required. 
   -->
 
-  - **webhooks.name** (string), 必需
+  - **webhooks.name** (string)，必需
 
     准入 Webhook 的名称。应该是完全限定的名称，例如 imagepolicy.kubernetes.io，其中 “imagepolicy” 是 Webhook 的名称，
     kubernetes.io 是组织的名称。必需。
@@ -215,7 +224,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
     SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. 
   -->
 
-  - **webhooks.sideEffects** (string), 必需
+  - **webhooks.sideEffects** (string)，必需
 
    sideEffects 说明此 Webhook 是否有副作用。可接受的值为：None、NoneOnDryRun（通过 v1beta1 创建的 Webhook 也可以指定 Some 或 Unknown）。
    具有副作用的 Webhook 必须实现协调系统，因为请求可能会被准入链中的未来步骤拒绝，因此需要能够撤消副作用。 
@@ -266,13 +275,9 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
      - 如果 failurePolicy=Ignore，忽略错误并跳过该 webhook。
 
   <!--
-  This is an beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
-  
   <a name="MatchCondition"></a>
   *MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.*
   -->
-  这是一个 Beta 功能特性，由 AdmissionWebhookMatchConditions 特性门控管理。
-
   <a name="MatchCondition"></a>
   **MatchCondition 表示将请求发送到 Webhook 之前必须满足的条件。**
 
@@ -281,7 +286,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 
     Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
   -->
-  - **webhooks.matchConditions.expression** (string), 必需
+  - **webhooks.matchConditions.expression** (string)，必需
 
     expression 表示将由 CEL 求值的表达式。求值结果必须是 bool 值。CEL 表达式可以访问
     以 CEL 变量的形式给出的 AdmissionRequest 和 Authorizer 的内容：
@@ -320,7 +325,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 
     Required.
   -->
-  - **webhooks.matchConditions.name** (string), 必需
+  - **webhooks.matchConditions.name** (string)，必需
 
     name 是此匹配条件的标识符，用于 MatchConditions 的策略性合并，
     以及提供用于日志目的的标识符。一个好的 name 应该是对相关表达式的描述。
@@ -432,6 +437,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
 
   <!-- 
   - **webhooks.rules** ([]RuleWithOperations)
+  
+    *Atomic: will be replaced during a merge*
 
     Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects. 
 
@@ -440,6 +447,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可�
   -->
 
   - **webhooks.rules** ([]RuleWithOperations)
+
+    **Atomic：将在合并期间被替换**
 
     rules 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何**rules。
     但是，为了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 将集群置于只能完全禁用插件才能恢复的状态，
@@ -559,29 +568,46 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
 
 <hr>
 
-- **apiVersion**: admissionregistration.k8s.io/v1
-
-- **kind**: ValidatingWebhookConfigurationList
-
-<!-- 
-- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-
-  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
--->
-
-- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
-
-  标准的对象元数据，更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds。
-
-<!-- 
+<!--
 - **items** ([]<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>), required
-
-  List of ValidatingWebhookConfiguration. 
+ 
+  List of ValidatingWebhookConfiguration.
 -->
 
-- **items** ([]<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>), 必需
-
+- **items** ([]<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>)，必需
+ 
   ValidatingWebhookConfiguration 列表。
+  
+<!--
+- **apiVersion** (string)
+
+  APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+-->
+
+  apiVersion 定义对象表示的版本化模式。服务器应将已识别的模式转换为最新的内部值，并可能拒绝未识别的值。
+  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+
+<!--
+- **kind** (string)
+
+  Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+-->
+- **kind**（string）
+
+  kind 是一个字符串值，表示此对象表示的 REST 资源。服务器可以从客户端提交请求的端点推断出资源类别。
+  无法更新。采用驼峰式命名。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+
+
+<!--
+- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+-->
+- **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
+
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 <!-- 
 ## Operations {#Operations}  
@@ -610,7 +636,7 @@ GET /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   ValidatingWebhookConfiguration 的名称。
 
@@ -785,7 +811,7 @@ POST /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>, 必需
+- **body**: <a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>，必需
 
 <!-- 
 - **dryRun** (*in query*): string
@@ -860,7 +886,7 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{name}
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   ValidatingWebhookConfiguration 的名称。
 
@@ -868,7 +894,7 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{name}
 - **body**: <a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>, required 
 -->
 
-- **body**: <a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>, 必需
+- **body**: <a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>，必需
 
 <!-- 
 - **dryRun** (*in query*): string
@@ -941,7 +967,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{nam
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   ValidatingWebhookConfiguration 的名称。
 
@@ -949,7 +975,7 @@ PATCH /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{nam
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required 
 -->
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, 必需
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
 <!-- 
 - **dryRun** (*in query*): string
@@ -1032,7 +1058,7 @@ DELETE /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{na
 -->
 #### 参数
 
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   ValidatingWebhookConfiguration 的名称。
 
@@ -1057,6 +1083,15 @@ DELETE /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{na
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!-- 
 - **pretty** (*in query*): string
@@ -1146,6 +1181,15 @@ DELETE /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!-- 
 - **labelSelector** (*in query*): string

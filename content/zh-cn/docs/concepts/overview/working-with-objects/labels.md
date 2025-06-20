@@ -327,13 +327,18 @@ For example: `partition in (customerA, customerB),environment!=qa`.
 <!--
 ### LIST and WATCH filtering
 
-LIST and WATCH operations may specify label selectors to filter the sets of objects
-returned using a query parameter. Both requirements are permitted
+For **list** and **watch** operations, you can specify label selectors to filter the sets of objects
+returned; you specify the filter using a query parameter.
+(To learn in detail about watches in Kubernetes, read
+[efficient detection of changes](/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)).
+Both requirements are permitted
 (presented here as they would appear in a URL query string):
 -->
 ### LIST 和 WATCH 过滤
 
-LIST 和 WATCH 操作可以使用查询参数指定标签选择算符过滤一组对象。
+对于 **list** 和 **watch** 操作，你可以指定标签选择算符过滤返回的对象集；你可以使用查询参数来指定过滤条件。
+（了解 Kubernetes 中的 watch 操作细节，请参阅
+[高效检测变更](/zh-cn/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)）。
 两种需求都是允许的。（这里显示的是它们出现在 URL 查询字符串中）
 
 <!--

@@ -34,12 +34,11 @@ content_type: concept
 
 ## Обнаружение служб
 
-* [CoreDNS](https://coredns.io) - это гибкий, расширяемый DNS-сервер, который может быть [установлен](https://github.com/coredns/deployment/tree/master/kubernetes) в качестве внутрикластерного DNS для подов.
+* [CoreDNS](https://coredns.io) - это гибкий, расширяемый DNS-сервер, который может быть [установлен](https://github.com/coredns/helm) в качестве внутрикластерного DNS для подов.
 
 ## Визуализация и контроль
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) - это веб-интерфейс панели инструментов для Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) - это инструмент для графической визуализации ваших контейнеров, подов, сервисов и т.д. Используйте его вместе с [учетной записью Weave Cloud](https://cloud.weave.works/) или разместите пользовательский интерфейс самостоятельно.
 
 ## Инфраструктура
 

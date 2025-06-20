@@ -3,12 +3,14 @@ title: 文档样式指南
 linktitle: 样式指南
 content_type: concept
 weight: 40
+math: true
 ---
 <!--
 title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
 weight: 40
+math: true
 -->
 
 <!-- overview -->
@@ -658,6 +660,34 @@ apiVersion: v1 # 早期版本使用...
 kind: Pod
 ...
 ```
+
+<!--
+## Formulae and equations
+
+You can use the Docsy support for [diagrams and formulae](https://www.docsy.dev/docs/adding-content/diagrams-and-formulae/#latex-support-with-katex).
+
+For example: `\\(\frac{7}{9} \sqrt{K^8 s}\\)`, which renders as \\(\frac{7}{9} \sqrt{K^8 s}\\).
+-->
+## 公式与方程
+
+你可以使用 Docsy
+对[图表和公式](https://www.docsy.dev/docs/adding-content/diagrams-and-formulae/#latex-support-with-katex)的支持。
+
+例如：`\$\frac{7}{9} \sqrt{K^8 s}\$`，渲染结果为 \\(\frac{7}{9} \sqrt{K^8 s}\\)。
+
+<!--
+Prefer inline formulae where reasonable, but you can use a `math` block if that's likely to help readers.
+
+Read the Docsy guide to find out what you need to change in your page to activate support;
+if you have problems, add `math: true` to the page [front matter](https://gohugo.io/content-management/front-matter/)
+(you can do this even if you think the automatic activation should be enough).
+-->
+尽可能使用行内公式，但在有助于读者理解的情况下，也可以使用 `math` 块。
+
+请阅读 Docsy 指南，了解需要在页面中进行哪些更改以激活支持；如果遇到问题，
+请在页面的[前置元数据](https://gohugo.io/content-management/front-matter/)中添加
+`math: true`（即使你认为自动激活已足够，也可以这样做）。
+
 <!--
 ## Kubernetes.io word list
 
@@ -1040,6 +1070,8 @@ Use ordered headings to provide a meaningful high-level outline of your content.
 Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
 Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
 Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
+Place relevant links in the body copy. | Include hyperlinks (`<a href=""></a>`) in headings.
+Use pound or hash signs (`#`) to indicate headings. | Use **bold** text or other indicators to split paragraphs.
 {{< /table >}}
 -->
 {{< table caption = "标题约定" >}}
@@ -1050,6 +1082,8 @@ Use title case for the page title in the front matter. For example, `title: Kube
 在非博客内容页面中使用井号（`#`）| 使用下划线 `---` 或 `===` 来标记一级标题。
 页面正文中的小标题采用正常语句的大小写。例如：**Extend kubectl with plugins** | 页面正文中的小标题采用首字母大写的大标题式样。例如：**Extend Kubectl With Plugins**
 头部的页面标题采用大标题的式样。例如：`title: Kubernetes API Server Bypass Risks` | 头部的页面标题采用正常语句的大小写。例如不要使用 `title: Kubernetes API server bypass risks`
+将相关链接放在正文中。| 在标题中包含超链接（`<a href=""></a>`）。
+使用井号或哈希符号（`#`）表示标题。| 使用**粗体**文本或其他指示符来拆分段落。
 {{< /table >}}
 
 <!--

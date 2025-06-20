@@ -14,6 +14,7 @@ weight: 20
 -->
 
 <!-- overview -->
+
 <!--
 The Kubernetes API is a resource-based (RESTful) programmatic interface
 provided via HTTP. It supports retrieving, creating, updating, and deleting
@@ -21,7 +22,7 @@ primary resources via the standard HTTP verbs (POST, PUT, PATCH, DELETE,
 GET).
 
 For some resources, the API includes additional subresources that allow
-fine grained authorization (such as separate views for Pod details and
+fine-grained authorization (such as separate views for Pod details and
 log retrievals), and can accept and serve those resources in different
 representations for convenience or efficiency.
 -->
@@ -32,15 +33,18 @@ Kubernetes API 是通过 HTTP 提供的基于资源 (RESTful) 的编程接口。
 为了方便或者提高效率，可以以不同的表示形式接受和服务这些资源。
 
 <!--
-Kubernetes supports efficient change notifications on resources via *watches*.
+Kubernetes supports efficient change notifications on resources via
+_watches_:
+{{< glossary_definition prepend="in the Kubernetes API, watch is" term_id="watch" length="short" >}}
 Kubernetes also provides consistent list operations so that API clients can
 effectively cache, track, and synchronize the state of resources.
 
 You can view the [API reference](/docs/reference/kubernetes-api/) online,
 or read on to learn about the API in general.
 -->
-Kubernetes 支持通过 **watch** 实现高效的资源变更通知。
-Kubernetes 还提供了一致的列表操作，以便 API 客户端可以有效地缓存、跟踪和同步资源的状态。
+Kubernetes 支持通过 **watch** 实现高效的资源变更通知：
+{{< glossary_definition prepend="在 Kubernetes API 中，watch 的是" term_id="watch" length="short" >}}
+Kubernetes 还提供一致的列表操作，以便 API 客户端可以有效地缓存、跟踪和同步资源的状态。
 
 你可以在线查看 [API 参考](/zh-cn/docs/reference/kubernetes-api/)，
 或继续阅读以了解 API 的一般信息。
@@ -83,9 +87,9 @@ as a permission check
 大多数 Kubernetes API
 资源类型都是[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
 它们代表集群上某个概念的具体实例，例如 Pod 或名字空间。
-少数 API 资源类型是 “虚拟的”，它们通常代表的是操作而非对象本身，
+少数 API 资源类型是“虚拟的”，它们通常代表的是操作而非对象本身，
 例如权限检查（使用带有 JSON 编码的 `SubjectAccessReview` 主体的 POST 到 `subjectaccessreviews` 资源），
-或 Pod 的子资源 `eviction`（用于触发 [API-发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)）。
+或 Pod 的子资源 `eviction`（用于触发 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)）。
 
 <!--
 ### Object names
@@ -114,26 +118,27 @@ example: Nodes), and so their names must be unique across the whole cluster.
 ### API verbs
 
 Almost all object resource types support the standard HTTP verbs - GET, POST, PUT, PATCH,
-and DELETE. Kubernetes also uses its own verbs, which are often written lowercase to distinguish
+and DELETE. Kubernetes also uses its own verbs, which are often written in lowercase to distinguish
 them from HTTP verbs.
-
-Kubernetes uses the term **list** to describe returning a [collection](#collections) of
-resources to distinguish from retrieving a single resource which is usually called
-a **get**. If you sent an HTTP GET request with the `?watch` query parameter,
-Kubernetes calls this a **watch** and not a **get** (see
-[Efficient detection of changes](#efficient-detection-of-changes) for more details).
-
-For PUT requests, Kubernetes internally classifies these as either **create** or **update**
-based on the state of the existing object. An **update** is different from a **patch**; the
-HTTP verb for a **patch** is PATCH.
 -->
 ### API 动词 {#api-verbs}
 
 几乎所有对象资源类型都支持标准 HTTP 动词 - GET、POST、PUT、PATCH 和 DELETE。
 Kubernetes 也使用自己的动词，这些动词通常写成小写，以区别于 HTTP 动词。
 
-Kubernetes 使用术语 **list** 来描述返回资源[集合](#collections)，
-以区别于通常称为 **get** 的单个资源检索。
+<!--
+Kubernetes uses the term **list** to describe the action of returning a [collection](#collections) of
+resources, to distinguish it from retrieving a single resource which is usually called
+a **get**. If you sent an HTTP GET request with the `?watch` query parameter,
+Kubernetes calls this a **watch** and not a **get**
+(see [Efficient detection of changes](#efficient-detection-of-changes) for more details).
+
+For PUT requests, Kubernetes internally classifies these as either **create** or **update**
+based on the state of the existing object. An **update** is different from a **patch**; the
+HTTP verb for a **patch** is PATCH.
+-->
+Kubernetes 使用术语 **list** 来描述返回资源[集合](#collections)的操作，
+以区别于检索单个资源、通常名为 **get** 的操作。
 如果你发送带有 `?watch` 查询参数的 HTTP GET 请求，
 Kubernetes 将其称为 **watch** 而不是 **get**（有关详细信息，请参阅[快速检测更改](#efficient-detection-of-changes)）。
 
@@ -161,7 +166,8 @@ Examples:
 
 注意： 核心资源使用 `/api` 而不是 `/apis`，并且不包含 GROUP 路径段。
 
-例如:
+例如：
+
 * `/api/v1/namespaces`
 * `/api/v1/pods`
 * `/api/v1/namespaces/my-namespace/pods`
@@ -177,22 +183,31 @@ The following paths are used to retrieve collections and resources:
 
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
   * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
-
-* Namespace-scoped resources:
-
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all instances of the resource type across all namespaces
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
 -->
 你还可以访问资源集合（例如：列出所有 Node）。以下路径用于检索集合和资源：
 
 * 集群作用域的资源：
+
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回指定资源类型的资源的集合
   * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - 返回指定资源类型下名称为 NAME 的资源
+
+<!--
+* Namespace-scoped resources:
+
+  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all
+    instances of the resource type across all namespaces
+  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return
+    collection of all instances of the resource type in NAMESPACE
+  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` -
+    return the instance of the resource type with NAME in NAMESPACE
+-->
 * 名字空间作用域的资源：
+
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回所有名字空间中指定资源类型的全部实例的集合
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - 返回名字空间 NAMESPACE 内给定资源类型的全部实例的集合
-  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - 返回名字空间 NAMESPACE 中给定资源类型的名称为 NAME 的实例
+  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` -
+    返回名字空间 NAMESPACE 内给定资源类型的全部实例的集合
+  * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` -
+    返回名字空间 NAMESPACE 中给定资源类型的名称为 NAME 的实例
 
 <!--
 Since a namespace is a cluster-scoped resource type, you can retrieve the list
@@ -216,6 +231,432 @@ virtual resource type would be used if that becomes necessary.
 
 取决于对象是什么，每个子资源所支持的动词有所不同 - 参见 [API 文档](/zh-cn/docs/reference/kubernetes-api/)以了解更多信息。
 跨多个资源来访问其子资源是不可能的 - 如果需要这一能力，则通常意味着需要一种新的虚拟资源类型了。
+
+<!--
+## HTTP media types {#alternate-representations-of-resources}
+
+Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
+-->
+## HTTP 媒体类型   {#alternate-representations-of-resources}
+
+通过 HTTP，Kubernetes 支持 JSON 和 Protobuf 网络编码格式。
+
+<!--
+By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
+`application/json` media type. Although JSON is the default, clients may request a response in
+YAML, or use the more efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
+
+The Kubernetes API implements standard HTTP content type negotiation: passing an
+`Accept` header with a `GET` call will request that the server tries to return
+a response in your preferred media type. If you want to send an object in Protobuf to
+the server for a `PUT` or `POST` request, you must set the `Content-Type` request header
+appropriately.
+-->
+默认情况下，Kubernetes 使用 `application/json` 媒体类型以 [JSON 序列化](#json-encoding)返回对象。
+虽然 JSON 是默认类型，但客户端可以用 YAML 请求响应，或使用更高效的二进制
+[Protobuf 表示](#protobuf-encoding)，以便在大规模环境中获得更好的性能。
+
+Kubernetes API 实现了标准的 HTTP 内容类型协商：
+使用 `GET` 调用传递 `Accept` 头时将请求服务器尝试以你首选的媒体类型返回响应。
+如果你想通过 `PUT` 或 `POST` 请求将对象以 Protobuf 发送到服务器，则必须相应地设置 `Content-Type` 请求头。
+
+<!--
+If you request an available media type, the API server returns a response with a suitable
+`Content-Type`; if none of the media types you request are supported, the API server returns
+a `406 Not acceptable` error message.
+All built-in resource types support the `application/json` media type.
+-->
+如果你请求了可用的媒体类型，API 服务器会以合适的 `Content-Type` 返回响应；
+如果你请求的媒体类型都不被支持，API 服务器会返回 `406 Not acceptable` 错误消息。
+所有内置资源类型都支持 `application/json` 媒体类型。
+
+<!--
+### JSON resource encoding {#json-encoding}
+
+The Kubernetes API defaults to using [JSON](https://www.json.org/json-en.html) for encoding
+HTTP message bodies.
+
+For example:
+-->
+### JSON 资源编码   {#json-encoding}
+
+Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 HTTP 消息体。
+
+例如：
+
+<!--
+1. List all of the pods on a cluster, without specifying a preferred format
+-->
+1. 在不指定首选格式的情况下，列举集群中的所有 Pod：
+
+   ```http
+   GET /api/v1/pods
+   ```
+
+   <!--
+   ```
+   200 OK
+   Content-Type: application/json
+
+   … JSON encoded collection of Pods (PodList object)
+   ```
+   -->
+   ```
+   200 OK
+   Content-Type: application/json
+
+   … JSON 编码的 Pod 集合（PodList 对象）
+   ```
+
+<!--
+1. Create a pod by sending JSON to the server, requesting a JSON response.
+-->
+2. 通过向服务器发送 JSON 并请求 JSON 响应来创建 Pod。
+
+   <!--
+   ```http
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/json
+   Accept: application/json
+   … JSON encoded Pod object
+   ```
+   -->
+   ```http
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/json
+   Accept: application/json
+   … JSON 编码的 Pod 对象
+   ```
+
+   ```
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "Pod",
+     "apiVersion": "v1",
+     …
+   }
+   ```
+
+<!--
+### YAML resource encoding {#yaml-encoding}
+
+Kubernetes also supports the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html)
+media type for both requests and responses. [`YAML`](https://yaml.org/)
+can be used for defining Kubernetes manifests and API interactions.
+
+For example:
+-->
+### YAML 资源编码   {#yaml-encoding}
+
+Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html)
+媒体类型用于请求和响应。[`YAML`](https://yaml.org/) 可用于定义 Kubernetes 清单和 API 交互。
+
+例如：
+
+<!--
+1. List all of the pods on a cluster in YAML format
+-->
+1. 以 YAML 格式列举集群上的所有 Pod：
+
+   ```http
+   GET /api/v1/pods
+   Accept: application/yaml
+   ```
+   
+   <!--
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   … YAML encoded collection of Pods (PodList object)
+   ```
+   -->
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   … YAML 编码的 Pod 集合（PodList 对象）
+   ```
+
+<!--
+1. Create a pod by sending YAML-encoded data to the server, requesting a YAML response:
+-->
+2. 通过向服务器发送 YAML 编码的数据并请求 YAML 响应来创建 Pod：
+
+   <!--
+   ```http
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/yaml
+   Accept: application/yaml
+   … YAML encoded Pod object
+   ```
+   -->
+   ```http
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/yaml
+   Accept: application/yaml
+   … YAML 编码的 Pod 对象
+   ```
+   
+   ```
+   200 OK
+   Content-Type: application/yaml
+
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: my-pod
+     …
+   ```
+
+<!--
+### Kubernetes Protobuf encoding {#protobuf-encoding}
+
+Kubernetes uses an envelope wrapper to encode [Protobuf](https://protobuf.dev/) responses.
+That wrapper starts with a 4 byte magic number to help identify content in disk or in etcd as Protobuf
+(as opposed to JSON). The 4 byte magic number data is followed by a Protobuf encoded wrapper message, which
+describes the encoding and type of the underlying object. Within the Protobuf wrapper message,
+the inner object data is recorded using the `raw` field of Unknown (see the [IDL](#protobuf-encoding-idl)
+for more detail).
+-->
+### Kubernetes Protobuf 编码   {#protobuf-encoding}
+
+Kubernetes 使用封套形式来对 [Protobuf](https://protobuf.dev/) 响应进行编码。
+封套外层由 4 个字节的特殊数字开头，便于从磁盘文件或 etcd 中辩识 Protobuf
+格式的（而不是 JSON）数据。这个 4 字节的特殊数字后跟一个 Protobuf 编码的封套消息，
+此消息描述了下层对象的编码和类型。在 Protobuf 封套消息中，内部对象数据使用 Unknown 的
+`raw` 字段进行记录（有关细节参见 [IDL](#protobuf-encoding-idl)）。
+
+<!--
+For example:
+-->
+例如：
+
+<!--
+1. List all of the pods on a cluster in Protobuf format.
+-->
+1. 以 Protobuf 格式列举集群中的所有 Pod。
+
+   ```http
+   GET /api/v1/pods
+   Accept: application/vnd.kubernetes.protobuf
+   ```
+
+   <!--
+   ```
+   200 OK
+   Content-Type: application/vnd.kubernetes.protobuf
+
+   … JSON encoded collection of Pods (PodList object)
+   ```
+   -->
+   ```
+   200 OK
+   Content-Type: application/vnd.kubernetes.protobuf
+
+   … JSON 编码的 Pod 集合（PodList 对象）
+   ```
+
+<!--
+1. Create a pod by sending Protobuf encoded data to the server, but request a response
+   in JSON.
+-->
+2. 通过向服务器发送 Protobuf 编码的数据创建 Pod，但请求以 JSON 形式接收响应：
+
+   <!--
+   ```http
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/vnd.kubernetes.protobuf
+   Accept: application/json
+   … binary encoded Pod object
+   ```
+   -->
+   ```http
+   POST /api/v1/namespaces/test/pods
+   Content-Type: application/vnd.kubernetes.protobuf
+   Accept: application/json
+   … 二进制编码的 Pod 对象
+   ```
+
+   ```
+   200 OK
+   Content-Type: application/json
+
+   {
+     "kind": "Pod",
+     "apiVersion": "v1",
+     ...
+   }
+   ```
+
+<!--
+You can use both techniques together and use Kubernetes' Protobuf encoding to interact with any API that
+supports it, for both reads and writes. Only some API resource types are [compatible](#protobuf-encoding-compatibility)
+with Protobuf.
+-->
+你可以将这两种技术结合使用，利用 Kubernetes 的 Protobuf 编码与所有支持的 API 进行读写交互。
+只有某些 API 资源类型与 Protobuf [兼容](#protobuf-encoding-compatibility)。
+
+<a id="protobuf-encoding-idl" />
+
+<!--
+The wrapper format is:
+-->
+封套格式如下：
+
+<!--
+```
+A four byte magic number prefix:
+  Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
+
+An encoded Protobuf message with the following IDL:
+  message Unknown {
+    // typeMeta should have the string values for "kind" and "apiVersion" as set on the JSON object
+    optional TypeMeta typeMeta = 1;
+
+    // raw will hold the complete serialized object in protobuf. See the protobuf definitions in the client libraries for a given kind.
+    optional bytes raw = 2;
+
+    // contentEncoding is encoding used for the raw data. Unspecified means no encoding.
+    optional string contentEncoding = 3;
+
+    // contentType is the serialization method used to serialize 'raw'. Unspecified means application/vnd.kubernetes.protobuf and is usually
+    // omitted.
+    optional string contentType = 4;
+  }
+
+  message TypeMeta {
+    // apiVersion is the group/version for this type
+    optional string apiVersion = 1;
+    // kind is the name of the object schema. A protobuf definition should exist for this object.
+    optional string kind = 2;
+  }
+```
+-->
+```
+四个字节的特殊数字前缀：
+  字节 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
+
+使用下面 IDL 来编码的 Protobuf 消息：
+  message Unknown {
+    // typeMeta 应该包含 "kind" 和 "apiVersion" 的字符串值，就像
+    // 对应的 JSON 对象中所设置的那样
+    optional TypeMeta typeMeta = 1;
+
+    // raw 中将保存用 protobuf 序列化的完整对象。
+    // 参阅客户端库中为指定 kind 所作的 protobuf 定义
+    optional bytes raw = 2;
+
+    // contentEncoding 用于 raw 数据的编码格式。未设置此值意味着没有特殊编码。
+    optional string contentEncoding = 3;
+
+    // contentType 包含 raw 数据所采用的序列化方法。
+    // 未设置此值意味着 application/vnd.kubernetes.protobuf，且通常被忽略
+    optional string contentType = 4;
+  }
+
+  message TypeMeta {
+    // apiVersion 是 type 对应的组名/版本
+    optional string apiVersion = 1;
+    // kind 是对象模式定义的名称。此对象应该存在一个 protobuf 定义。
+    optional string kind = 2;
+  }
+```
+
+{{< note >}}
+<!--
+Clients that receive a response in `application/vnd.kubernetes.protobuf` that does
+not match the expected prefix should reject the response, as future versions may need
+to alter the serialization format in an incompatible way and will do so by changing
+the prefix.
+-->
+收到 `application/vnd.kubernetes.protobuf` 格式响应的客户端在响应与预期的前缀不匹配时应该拒绝响应，
+因为将来的版本可能需要以某种不兼容的方式更改序列化格式，并且这种更改是通过变更前缀完成的。
+{{< /note >}}
+
+<!--
+#### Compatibility with Kubernetes Protobuf {#protobuf-encoding-compatibility}
+
+Not all API resource types support Kubernetes' Protobuf encoding; specifically, Protobuf isn't
+available for resources that are defined as
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
+or are served via the
+{{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}}.
+
+As a client, if you might need to work with extension types you should specify multiple
+content types in the request `Accept` header to support fallback to JSON.
+For example:
+-->
+#### 与 Kubernetes Protobuf 的兼容性   {#protobuf-encoding-compatibility}
+
+并非所有 API 资源类型都支持 Protobuf；具体来说，Protobuf
+不适用于定义为 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
+或通过{{< glossary_tooltip text="聚合层" term_id="aggregation-layer" >}}提供服务的资源。
+
+作为客户端，如果你可能需要使用扩展类型，则应在请求 `Accept` 请求头中指定多种内容类型以支持回退到 JSON。例如：
+
+```
+Accept: application/vnd.kubernetes.protobuf, application/json
+```
+
+<!--
+### CBOR resource encoding {#cbor-encoding}
+-->
+### CBOR 资源编码   {#cbor-encoding}
+
+{{< feature-state feature_gate_name="CBORServingAndStorage" >}}
+
+<!--
+With the `CBORServingAndStorage` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled, request and response bodies for all built-in resource types and all resources defined by a
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be encoded to the
+[CBOR](https://www.rfc-editor.org/rfc/rfc8949) binary data format. CBOR is also supported at the
+{{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}} if it is enabled in
+individual aggregated API servers.
+-->
+启用 `CBORServingAndStorage` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后，
+所有内置资源类型及所有由 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+所定义的资源的请求体和响应体都可以被编码为 [CBOR](https://www.rfc-editor.org/rfc/rfc8949) 二进制数据格式。
+如果在各个聚合 API 服务器中启用了 CBOR，
+则在{{< glossary_tooltip text="聚合层" term_id="aggregation-layer" >}}中也支持 CBOR。
+
+<!--
+Clients should indicate the IANA media type `application/cbor` in the `Content-Type` HTTP request
+header when the request body contains a single CBOR
+[encoded data item](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2), and in the `Accept` HTTP request
+header when prepared to accept a CBOR encoded data item in the response. API servers will use
+`application/cbor` in the `Content-Type` HTTP response header when the response body contains a
+CBOR-encoded object.
+-->
+当请求体包含单个 CBOR [编码数据项](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2)时，
+客户端应在 `Content-Type` HTTP 请求头中指明 IANA 媒体类型 `application/cbor`，
+当准备接受响应中以 CBOR 编码的数据项时，客户端应在 `Accept` HTTP 请求头中指明 IANA 媒体类型 `application/cbor`。
+API 服务器将在响应体包含以 CBOR 编码的对象时在 `Content-Type` HTTP 响应头中使用 `application/cbor`。
+
+<!--
+If an API server encodes its response to a [watch request](#efficient-detection-of-changes) using
+CBOR, the response body will be a [CBOR Sequence](https://www.rfc-editor.org/rfc/rfc8742) and the
+`Content-Type` HTTP response header will use the IANA media type `application/cbor-seq`. Each entry
+of the sequence (if any) is a single CBOR-encoded watch event.
+-->
+如果 API 服务器使用 CBOR 对 [watch 请求](#efficient-detection-of-changes)的响应进行编码，
+则响应体将是一个 [CBOR 序列](https://www.rfc-editor.org/rfc/rfc8742)，
+而 `Content-Type` HTTP 响应头将使用 IANA 媒体类型 `application/cbor-seq`。
+此序列的每个条目（如果有的话）是一个以 CBOR 编码的 watch 事件。
+
+<!--
+In addition to the existing `application/apply-patch+yaml` media type for YAML-encoded
+[server-side apply configurations](#patch-and-apply), API servers that enable CBOR will accept the
+`application/apply-patch+cbor` media type for CBOR-encoded server-side apply configurations. There
+is no supported CBOR equivalent for `application/json-patch+json` or `application/merge-patch+json`,
+or `application/strategic-merge-patch+json`.
+-->
+除了以 YAML 编码的[服务器端应用配置](#patch-and-apply)所用的现有 `application/apply-patch+yaml` 媒体类型之外，
+启用 CBOR 的 API 服务器将接受 `application/apply-patch+cbor` 媒体类型用于以 CBOR 编码的服务器端应用配置。
+对于 `application/json-patch+json`、`application/merge-patch+json` 或
+`application/strategic-merge-patch+json`，没有支持的 CBOR 等效类型。
 
 <!--
 ## Efficient detection of changes
@@ -269,7 +710,7 @@ For example:
 -->
 1. 列举给定名字空间中的所有 Pod：
 
-   ```
+   ```http
    GET /api/v1/namespaces/test/pods
    ---
    200 OK
@@ -294,7 +735,7 @@ For example:
    每个更改通知都是一个 JSON 文档。
    HTTP 响应正文（用作 `application/json`）由一系列 JSON 文档组成。
 
-   ```
+   ```http
    GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245
    ---
    200 OK
@@ -331,11 +772,11 @@ this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache
 重新执行 **get** 或者 **list** 操作，
 并基于新返回的 `resourceVersion` 来开始新的 **watch** 操作。
 
-对于订阅集合，Kubernetes 客户端库通常会为 **list** -然后- **watch** 的逻辑提供某种形式的标准工具。
+对于订阅集合，Kubernetes 客户端库通常会为 **list** - 然后 - **watch** 的逻辑提供某种形式的标准工具。
 （在 Go 客户端库中，这称为 `反射器（Reflector）`，位于 `k8s.io/client-go/tools/cache` 包中。）
 
 <!--
-### Watch bookmarks
+### Watch bookmarks {#watch-bookmarks}
 
 To mitigate the impact of short history window, the Kubernetes API provides a watch
 event named `BOOKMARK`. It is a special kind of event to mark that all changes up
@@ -349,7 +790,7 @@ but only includes a `.metadata.resourceVersion` field. For example:
 这是一种特殊的事件，用于标记客户端请求的给定 `resourceVersion` 的所有更改都已发送。
 代表 `BOOKMARK` 事件的文档属于请求所请求的类型，但仅包含一个 `.metadata.resourceVersion` 字段。例如：
 
-```
+```http
 GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
 ---
 200 OK
@@ -386,19 +827,16 @@ the API server will send any `BOOKMARK` event even when requested.
 <!--
 On large clusters, retrieving the collection of some resource types may result in
 a significant increase of resource usage (primarily RAM) on the control plane.
-In order to alleviate its impact and simplify the user experience of the **list** + **watch**
-pattern, Kubernetes v1.27 introduces as an alpha feature the support
-for requesting the initial state (previously requested via the **list** request) as part of
-the **watch** request.
+To alleviate the impact and simplify the user experience of the **list** + **watch**
+pattern, Kubernetes v1.32 promotes to beta the feature that allows requesting the initial state
+(previously requested via the **list** request) as part of the **watch** request.
 -->
 在大型集群检索某些资源类型的集合可能会导致控制平面的资源使用量（主要是 RAM）显著增加。
 为了减轻其影响并简化 **list** + **watch** 模式的用户体验，
-Kubernetes 1.27 版本引入了一个 alpha 功能，支持在 **watch** 请求中请求初始状态
-（之前在 **list** 请求中请求）。
+Kubernetes v1.32 将在 **watch** 请求中请求初始状态（之前在 **list** 请求中请求）的特性进阶至 Beta。
 
 <!--
-Provided that the `WatchList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled, this can be achieved by specifying `sendInitialEvents=true` as query string parameter
+On the client-side the initial state can be requested by specifying `sendInitialEvents=true` as query string parameter
 in a **watch** request. If set, the API server starts the watch stream with synthetic init
 events (of type `ADDED`) to build the whole state of all existing objects followed by a
 [`BOOKMARK` event](/docs/reference/using-api/api-concepts/#watch-bookmarks)
@@ -406,8 +844,7 @@ events (of type `ADDED`) to build the whole state of all existing objects follow
 to which is synced. After sending the bookmark event, the API server continues as for any other **watch**
 request.
 -->
-如果启用了 `WatchList` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-可以通过在 **watch** 请求中指定 `sendInitialEvents=true` 作为查询字符串参数来实现这一功能。
+在客户端，可以通过在 **watch** 请求中指定 `sendInitialEvents=true` 作为查询字符串参数来请求初始状态。
 如果指定了这个参数，API 服务器将使用合成的初始事件（类型为 `ADDED`）来启动监视流，
 以构建所有现有对象的完整状态；如果请求还带有 `allowWatchBookmarks=true` 选项，
 则继续发送 [`BOOKMARK` 事件](/zh-cn/docs/reference/using-api/api-concepts/#watch-bookmarks)。
@@ -446,7 +883,7 @@ in the following sequence of events:
 接下来你发送了以下请求（通过使用 `resourceVersion=` 设置空的资源版本来明确请求**一致性读**），
 这样做的结果是可能收到如下事件序列：
 
-```
+```http
 GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
 ---
 200 OK
@@ -504,7 +941,7 @@ API server with an `Accept-Encoding` header, and check the response size and hea
 要验证 `APIResponseCompression` 是否正常工作，你可以使用一个 `Accept-Encoding`
 头向 API 服务器发送一个 **get** 或 **list** 请求，并检查响应大小和头信息。例如：
 
-```
+```http
 GET /api/v1/pods
 Accept-Encoding: gzip
 ---
@@ -535,7 +972,7 @@ response (10-20MB) and consume a large amount of server resources.
 -->
 在较大规模集群中，检索某些资源类型的集合可能会导致非常大的响应，从而影响服务器和客户端。
 例如，一个集群可能有数万个 Pod，每个 Pod 大约相当于 2 KiB 的编码 JSON。
-跨所有名字空间检索所有 Pod 可能会导致非常大的响应 (10-20MB) 并消耗大量服务器资源。
+跨所有名字空间检索所有 Pod 可能会导致非常大的响应（10-20MB）并消耗大量服务器资源。
 
 <!--
 The Kubernetes API server supports the ability to break a single large collection request
@@ -595,7 +1032,7 @@ of 500 pods at a time, request those chunks as follows:
 -->
 1. 列举集群中所有 Pod，每次接收至多 500 个 Pod：
 
-   ```
+   ```http
    GET /api/v1/pods?limit=500
    ---
    200 OK
@@ -615,11 +1052,11 @@ of 500 pods at a time, request those chunks as follows:
    ```
 
 <!--
-2. Continue the previous call, retrieving the next set of 500 pods.
+1. Continue the previous call, retrieving the next set of 500 pods.
 -->
 2. 继续前面的调用，返回下一组 500 个 Pod：
 
-   ```
+   ```http
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN
    ---
    200 OK
@@ -639,11 +1076,11 @@ of 500 pods at a time, request those chunks as follows:
    ```
 
 <!--
-3. Continue the previous call, retrieving the last 253 pods.
+1. Continue the previous call, retrieving the last 253 pods.
 -->
 3. 继续前面的调用，返回最后 253 个 Pod：
 
-   ```
+   ```http
    GET /api/v1/pods?limit=500&continue=ENCODED_CONTINUE_TOKEN_2
    ---
    200 OK
@@ -665,7 +1102,7 @@ of 500 pods at a time, request those chunks as follows:
 Notice that the `resourceVersion` of the collection remains constant across each request,
 indicating the server is showing you a consistent snapshot of the pods. Pods that
 are created, updated, or deleted after version `10245` would not be shown unless
-you make a separate **list** request without the `continue` token.  This allows you
+you make a separate **list** request without the `continue` token. This allows you
 to break large requests into smaller chunks and then perform a **watch** operation
 on the full set without missing any updates.
 -->
@@ -702,10 +1139,10 @@ collections of different types of resource. Collections have a kind
 named for the resource kind, with `List` appended.
 
 When you query the API for a particular type, all items returned by that query are
-of that type.
-For example, when you **list** Services, the collection response
+of that type. For example, when you **list** Services, the collection response
 has `kind` set to
-[`ServiceList`](/docs/reference/kubernetes-api/service-resources/service-v1/#ServiceList); each item in that collection represents a single Service. For example:
+[`ServiceList`](/docs/reference/kubernetes-api/service-resources/service-v1/#ServiceList);
+each item in that collection represents a single Service. For example:
 -->
 ## 集合 {#collections}
 
@@ -718,9 +1155,10 @@ has `kind` set to
 [`ServiceList`](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/#ServiceList)；
 该集合中的每个项目都代表一个 Service。例如：
 
-```
+```http
 GET /api/v1/services
 ```
+
 ```yaml
 {
   "kind": "ServiceList",
@@ -794,6 +1232,7 @@ items:
     namespace: kube-system
 ```
 
+{{< note >}}
 <!--
 Keep in mind that the Kubernetes API does not have a `kind` named `List`.
 
@@ -801,7 +1240,6 @@ Keep in mind that the Kubernetes API does not have a `kind` named `List`.
 collections that might be of different kinds of object. Avoid depending on
 `kind: List` in automation or other code.
 -->
-{{< note >}}
 请记住，Kubernetes API 没有名为 `List` 的 `kind`。
 
 `kind: List` 是一个客户端内部实现细节，用于处理可能属于不同类别的对象的集合。
@@ -846,7 +1284,7 @@ Kubernetes API 实现标准的 HTTP 内容类型（Content Type）协商：为 `
 
 例如，以 Table 格式列举集群中所有 Pod：
 
-```
+```http
 GET /api/v1/pods
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1
 ---
@@ -871,7 +1309,7 @@ plane, the API server returns a default Table response that consists of the reso
 对于在控制平面上不存在定制的 Table 定义的 API 资源类型而言，服务器会返回一个默认的
 Table 响应，其中包含资源的 `name` 和 `creationTimestamp` 字段。
 
-```
+```http
 GET /apis/crd.example.com/v1alpha1/namespaces/default/resources
 ---
 200 OK
@@ -919,201 +1357,12 @@ Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
 ```
 
 <!--
-## Alternate representations of resources
-
-By default, Kubernetes returns objects serialized to JSON with content type
-`application/json`. This is the default serialization format for the API. However,
-clients may request the more efficient
-[Protobuf representation](#protobuf-encoding) of these objects for better performance at scale.
-The Kubernetes API implements standard HTTP content type negotiation: passing an
-`Accept` header with a `GET` call will request that the server tries to return
-a response in your preferred media type, while sending an object in Protobuf to
-the server for a `PUT` or `POST` call means that you must set the `Content-Type`
-header appropriately.
--->
-## 资源的其他表示形式  {#alternate-representations-of-resources}
-
-默认情况下，Kubernetes 返回序列化为 JSON 的对象，内容类型为 `application/json`。
-这是 API 的默认序列化格式。
-但是，客户端可能会使用更有效的 [Protobuf 表示](#protobuf-encoding) 请求这些对象，
-以获得更好的大规模性能。Kubernetes API 实现标准的 HTTP 内容类型协商：
-带有 `Accept` 请求头部的 `GET` 调用会请求服务器尝试以你的首选媒体类型返回响应，
-而将 Protobuf 中的对象发送到服务器以进行 `PUT` 或 `POST` 调用意味着你必须适当地设置
-`Content-Type` 请求头。
-
-<!--
-The server will return a response with a `Content-Type` header if the requested
-format is supported, or the `406 Not acceptable` error if none of the media types you
-requested are supported. All built-in resource types support the `application/json`
-media type.
-
-See the Kubernetes [API reference](/docs/reference/kubernetes-api/) for a list of
-supported content types for each API.
-
-For example:
--->
-如果支持请求的格式，服务器将返回带有 `Content-Type` 标头的响应，
-如果不支持你请求的媒体类型，则返回 `406 Not Acceptable` 错误。
-所有内置资源类型都支持 `application/json` 媒体类型。
-
-有关每个 API 支持的内容类型列表，请参阅 Kubernetes [API 参考](/zh-cn/docs/reference/kubernetes-api/)。
-
-例如：
-
-<!--
-1. List all of the pods on a cluster in Protobuf format.
--->
-1. 以 Protobuf 格式列举集群上的所有 Pod：
-
-   ```
-   GET /api/v1/pods
-   Accept: application/vnd.kubernetes.protobuf
-   ---
-   200 OK
-   Content-Type: application/vnd.kubernetes.protobuf
-
-   ... binary encoded PodList object
-   ```
-
-<!--
-2. Create a pod by sending Protobuf encoded data to the server, but request a response in JSON.
--->
-2. 通过向服务器发送 Protobuf 编码的数据创建 Pod，但请求以 JSON 形式接收响应：
-
-   ```
-   POST /api/v1/namespaces/test/pods
-   Content-Type: application/vnd.kubernetes.protobuf
-   Accept: application/json
-   ... binary encoded Pod object
-   ---
-   200 OK
-   Content-Type: application/json
-
-   {
-     "kind": "Pod",
-     "apiVersion": "v1",
-     ...
-   }
-   ```
-
-<!--
-Not all API resource types support Protobuf; specifically, Protobuf isn't available for
-resources that are defined as
-{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
-or are served via the
-{{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}}.
-As a client, if you might need to work with extension types you should specify multiple
-content types in the request `Accept` header to support fallback to JSON.
-For example:
--->
-并非所有 API 资源类型都支持 Protobuf；具体来说，
-Protobuf 不适用于定义为 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
-或通过{{< glossary_tooltip text="聚合层" term_id="aggregation-layer" >}}提供服务的资源。
-作为客户端，如果你可能需要使用扩展类型，则应在请求 `Accept` 请求头中指定多种内容类型以支持回退到 JSON。
-例如：
-
-```
-Accept: application/vnd.kubernetes.protobuf, application/json
-```
-
-<!--
-### Kubernetes Protobuf encoding {#protobuf-encoding}
-
-Kubernetes uses an envelope wrapper to encode Protobuf responses. That wrapper starts
-with a 4 byte magic number to help identify content in disk or in etcd as Protobuf
-(as opposed to JSON), and then is followed by a Protobuf encoded wrapper message, which
-describes the encoding and type of the underlying object and then contains the object.
-
-The wrapper format is:
--->
-### Kubernetes Protobuf 编码 {#protobuf-encoding}
-
-Kubernetes 使用封套形式来对 Protobuf 响应进行编码。
-封套外层由 4 个字节的特殊数字开头，便于从磁盘文件或 etcd 中辩识 Protobuf
-格式的（而不是 JSON）数据。
-接下来存放的是 Protobuf 编码的封套消息，其中描述下层对象的编码和类型，最后
-才是对象本身。
-
-封套格式如下：
-
-<!--
-```
-A four byte magic number prefix:
-  Bytes 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
-
-An encoded Protobuf message with the following IDL:
-  message Unknown {
-    // typeMeta should have the string values for "kind" and "apiVersion" as set on the JSON object
-    optional TypeMeta typeMeta = 1;
-
-    // raw will hold the complete serialized object in protobuf. See the protobuf definitions in the client libraries for a given kind.
-    optional bytes raw = 2;
-
-    // contentEncoding is encoding used for the raw data. Unspecified means no encoding.
-    optional string contentEncoding = 3;
-
-    // contentType is the serialization method used to serialize 'raw'. Unspecified means application/vnd.kubernetes.protobuf and is usually
-    // omitted.
-    optional string contentType = 4;
-  }
-
-  message TypeMeta {
-    // apiVersion is the group/version for this type
-    optional string apiVersion = 1;
-    // kind is the name of the object schema. A protobuf definition should exist for this object.
-    optional string kind = 2;
-  }
-```
--->
-```
-四个字节的特殊数字前缀：
-  字节 0-3: "k8s\x00" [0x6b, 0x38, 0x73, 0x00]
-
-使用下面 IDL 来编码的 Protobuf 消息：
-  message Unknown {
-    // typeMeta 应该包含 "kind" 和 "apiVersion" 的字符串值，就像
-    // 对应的 JSON 对象中所设置的那样
-    optional TypeMeta typeMeta = 1;
-
-    // raw 中将保存用 protobuf 序列化的完整对象。
-    // 参阅客户端库中为指定 kind 所作的 protobuf 定义
-    optional bytes raw = 2;
-
-    // contentEncoding 用于 raw 数据的编码格式。未设置此值意味着没有特殊编码。
-    optional string contentEncoding = 3;
-
-    // contentType 包含 raw 数据所采用的序列化方法。
-    // 未设置此值意味着 application/vnd.kubernetes.protobuf，且通常被忽略
-    optional string contentType = 4;
-  }
-
-  message TypeMeta {
-    // apiVersion 是 type 对应的组名/版本
-    optional string apiVersion = 1;
-    // kind 是对象模式定义的名称。此对象应该存在一个 protobuf 定义。
-    optional string kind = 2;
-  }
-```
-
-{{< note >}}
-<!--
-Clients that receive a response in `application/vnd.kubernetes.protobuf` that does
-not match the expected prefix should reject the response, as future versions may need
-to alter the serialization format in an incompatible way and will do so by changing
-the prefix.
--->
-收到 `application/vnd.kubernetes.protobuf` 格式响应的客户端在响应与预期的前缀不匹配时应该拒绝响应，
-因为将来的版本可能需要以某种不兼容的方式更改序列化格式，
-并且这种更改是通过变更前缀完成的。
-{{< /note >}}
-
-<!--
 ## Resource deletion
 
 When you **delete** a resource this takes place in two phases.
 
 1. _finalization_
-2. removal
+1. removal
 -->
 ## 资源删除  {#resource-deletion}
 
@@ -1134,7 +1383,8 @@ When you **delete** a resource this takes place in two phases.
 ```
 
 <!--
-When a client first sends a **delete** to request the removal of a resource, the `.metadata.deletionTimestamp` is set to the current time.
+When a client first sends a **delete** to request the removal of a resource,
+the `.metadata.deletionTimestamp` is set to the current time.
 Once the `.metadata.deletionTimestamp` is set, external controllers that act on finalizers
 may start performing their cleanup work at any time, in any order.
 
@@ -1166,6 +1416,82 @@ Once the last finalizer is removed, the resource is actually removed from etcd.
 如果没有强制排序，终结者可以在它们之间自由排序，并且不易受到列表中排序变化的影响。
 
 当最后一个终结器也被移除时，资源才真正从 etcd 中移除。
+
+<!--
+### Force deletion
+-->
+### 强制删除    {#force-deletion}
+
+{{< feature-state feature_gate_name="AllowUnsafeMalformedObjectDeletion" >}}
+
+{{< caution >}}
+<!--
+This may break the workload associated with the resource being force deleted, if it
+relies on the normal deletion flow, so cluster breaking consequences may apply.
+-->
+如果强制删除依赖于正常的删除流程，这可能会破坏与正强制删除的资源关联的工作负载，因此可能会导致集群出现严重后果。
+{{< /caution >}}
+
+<!--
+By enabling the delete option `ignoreStoreReadErrorWithClusterBreakingPotential`, the
+user can perform an unsafe force **delete** operation of an undecryptable/corrupt
+resource. This option is behind an ALPHA feature gate, and it is disabled by
+default. In order to use this option, the cluster operator must enable the feature by
+setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDeletion=true`.
+-->
+通过启用删除选项 `ignoreStoreReadErrorWithClusterBreakingPotential`，
+用户可以对无法解密或损坏的资源执行不安全的强制**删除**操作。
+使用此选项需要先启用一个 Alpha 特性门控，默认是禁用的。
+要使用此选项，集群操作员必须通过设置命令行选项
+`--feature-gates=AllowUnsafeMalformedObjectDeletion=true` 来启用此特性。
+
+{{< note >}}
+<!--
+The user performing the force **delete** operation must have the privileges to do both
+the **delete** and **unsafe-delete-ignore-read-errors** verbs on the given resource.
+-->
+执行强制**删除**操作的用户必须拥有对给定资源执行 **delete** 和
+**unsafe-delete-ignore-read-errors** 动作的权限。
+{{< /note >}}
+
+<!--
+A resource is considered corrupt if it can not be successfully retrieved from the
+storage due to:
+
+- transformation error (for example: decryption failure), or
+- the object failed to decode.
+
+The API server first attempts a normal deletion, and if it fails with
+a _corrupt resource_ error then it triggers the force delete. A force **delete** operation
+is unsafe because it ignores finalizer constraints, and skips precondition checks.
+-->
+如果某资源由于
+
+1. 转换错误（例如解密失败）或
+1. 对象解码失败
+
+导致无法从存储中成功检索，则该资源被视为已损坏。
+API 服务器会先尝试正常删除，如果由于**资源损坏**的错误而删除失败，则触发强制删除。
+强制 **delete** 操作是不安全的，因为它会忽略终结器（Finalizer）约束，并跳过前置条件检查。
+
+<!--
+The default value for this option is `false`, this maintains backward compatibility.
+For a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
+set to `true`, the fields `dryRun`, `gracePeriodSeconds`, `orphanDependents`,
+`preconditions`, and `propagationPolicy` must be left unset.
+-->
+此选项的默认值为 `false`，这是为了保持向后兼容性。对于将
+`ignoreStoreReadErrorWithClusterBreakingPotential` 设置为 `true` 的 **delete** 请求，
+`dryRun`、`gracePeriodSeconds`、`orphanDependents`、`preconditions` 和 `propagationPolicy` 字段必须保持不设置。
+
+{{< note >}}
+<!--
+If the user issues a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
+set to `true` on an otherwise readable resource, the API server aborts the request with an error.
+-->
+如果用户对一个可以以其他方式读取的资源发出将 `ignoreStoreReadErrorWithClusterBreakingPotential`
+设置为 `true` 的 **delete** 请求，API 服务器将中止此请求并报错。
+{{< /note >}}
 
 <!--
 ## Single resource API
@@ -1234,9 +1560,8 @@ These situations are:
 
 <!--
 1. The field is unrecognized because it is not in the resource's OpenAPI schema. (One
-   exception to this is for {{< glossary_tooltip
-   term_id="CustomResourceDefinition" text="CRDs" >}} that explicitly choose not to prune unknown
-   fields via `x-kubernetes-preserve-unknown-fields`).
+   exception to this is for {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRDs" >}}
+   that explicitly choose not to prune unknown fields via `x-kubernetes-preserve-unknown-fields`).
 -->
 1. 相关资源的 OpenAPI 模式定义中没有该字段，因此无法识别该字段（有种例外情形是，
    {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}
@@ -1256,41 +1581,45 @@ These situations are:
 
 <!--
 From 1.25 onward, unrecognized or duplicate fields in an object are detected via
-validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
-validation are `Ignore`, `Warn` (default), and `Strict`.
+validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`).
+Possible levels of validation are `Ignore`, `Warn` (default), and `Strict`.
 -->
 从 1.25 开始，当使用可以提交数据的 HTTP 动词（`POST`、`PUT` 和 `PATCH`）时，
 将通过服务器上的校验检测到对象中无法识别或重复的字段。
 校验的级别可以是 `Ignore`、`Warn`（默认值） 和 `Strict` 之一。
+
 <!--
+`Ignore`
 : The API server succeeds in handling the request as it would without the erroneous fields
-being set, dropping all unknown and duplicate fields and giving no indication it
-has done so.
+  being set, dropping all unknown and duplicate fields and giving no indication it
+  has done so.
 -->
 `Ignore`
 : 使 API 服务器像没有遇到错误字段一样成功处理请求，丢弃所有的未知字段和重复字段，并且不发送丢弃字段的通知。
 
 <!--
+`Warn`
 : (Default) The API server succeeds in handling the request, and reports a
-warning to the client. The warning is sent using the `Warning:` response header,
-adding one warning item for each unknown or duplicate field. For more
-information about warnings and the Kubernetes API, see the blog article
-[Warning: Helpful Warnings Ahead](/blog/2020/09/03/warnings/).
+  warning to the client. The warning is sent using the `Warning:` response header,
+  adding one warning item for each unknown or duplicate field. For more
+  information about warnings and the Kubernetes API, see the blog article
+  [Warning: Helpful Warnings Ahead](/blog/2020/09/03/warnings/).
 -->
 `Warn`
 :（默认值）使 API 服务器成功处理请求，并向客户端发送告警信息。告警信息通过 `Warning:` 响应头发送，
-并为每个未知字段或重复字段添加一条告警信息。有关告警和相关的 Kubernetes API 的信息，
-可参阅博文[告警：增加实用告警功能](/blog/2020/09/03/warnings/)。
+  并为每个未知字段或重复字段添加一条告警信息。有关告警和相关的 Kubernetes API 的信息，
+  可参阅博文[告警：增加实用告警功能](/zh-cn/blog/2020/09/03/warnings/)。
 
 <!--
+`Strict`
 : The API server rejects the request with a 400 Bad Request error when it
-detects any unknown or duplicate fields. The response message from the API
-server specifies all the unknown or duplicate fields that the API server has
-detected.
+  detects any unknown or duplicate fields. The response message from the API
+  server specifies all the unknown or duplicate fields that the API server has
+  detected.
 -->
 `Strict`
 : API 服务器检测到任何未知字段或重复字段时，拒绝处理请求并返回 400 Bad Request 错误。
-来自 API 服务器的响应消息列出了 API 检测到的所有未知字段或重复字段。
+  来自 API 服务器的响应消息列出了 API 检测到的所有未知字段或重复字段。
 
 <!--
 The field validation level is set by the `fieldValidation` query parameter.
@@ -1342,9 +1671,10 @@ kubectl 默认的校验设置是 `--validate=true` ，这意味着执行严格�
 当 kubectl 无法连接到启用字段校验的 API 服务器（Kubernetes 1.27 之前的 API 服务器）时，
 将回退到使用客户端的字段校验。
 客户端校验将在 kubectl 未来版本中被完全删除。
+
 {{< note >}}
 <!--
-Prior to Kubernetes 1.25  `kubectl --validate` was used to toggle client-side validation on or off as
+Prior to Kubernetes 1.25, `kubectl --validate` was used to toggle client-side validation on or off as
 a boolean flag.
 -->
 在 Kubernetes 1.25 之前，`kubectl --validate` 是用来开启或关闭客户端校验的布尔标志的命令。
@@ -1418,18 +1748,18 @@ that they do not have side effects, by setting their `sideEffects` field to `Non
 -->
 如果请求的非试运行版本会触发具有副作用的准入控制器，则该请求将失败，而不是冒不希望的副作用的风险。
 所有内置准入控制插件都支持试运行。
-此外，准入 Webhook 还可以设置[配置对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
+此外，准入 Webhook 还可以设置[配置对象](/zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 的 `sideEffects` 字段为 `None`，借此声明它们没有副作用。
 
+{{< note >}}
 <!--
 If a webhook actually does have side effects, then the `sideEffects` field should be
 set to "NoneOnDryRun". That change is appropriate provided that the webhook is also
 be modified to understand the `DryRun` field in AdmissionReview, and to prevent side
 effects on any request marked as dry runs.
 -->
-{{< note >}}
-如果 webhook 确实有副作用，则应该将 `sideEffects` 字段设置为 “NoneOnDryRun”。
-如果还修改了 webhook 以理解 AdmissionReview 中的 DryRun 字段，
+如果 Webhook 确实有副作用，则应该将 `sideEffects` 字段设置为 “NoneOnDryRun”。
+如果还修改了 Webhook 以理解 AdmissionReview 中的 DryRun 字段，
 并防止对标记为试运行的任何请求产生副作用，则该更改是适当的。
 {{< /note >}}
 
@@ -1438,7 +1768,7 @@ Here is an example dry-run request that uses `?dryRun=All`:
 -->
 这是一个使用 `?dryRun=All` 的试运行请求的示例：
 
-```
+```http
 POST /api/v1/namespaces/test/pods?dryRun=All
 Content-Type: application/json
 Accept: application/json
@@ -1460,7 +1790,8 @@ request is made. Some of these fields are:
 
 * `name`: if `generateName` is set, `name` will have a unique random name
 * `creationTimestamp` / `deletionTimestamp`: records the time of creation/deletion
-* `UID`: [uniquely identifies](/docs/concepts/overview/working-with-objects/names/#uids) the object and is randomly generated (non-deterministic)
+* `UID`: [uniquely identifies](/docs/concepts/overview/working-with-objects/names/#uids)
+  the object and is randomly generated (non-deterministic)
 * `resourceVersion`: tracks the persisted version of the object
 * Any field set by a mutating admission controller
 * For the `Service` resource: Ports or IP addresses that the kube-apiserver assigns to Service objects
@@ -1538,7 +1869,8 @@ Kubernetes 使用该 `resourceVersion` 信息，这样 API 服务器可以检测
 <!--
 Instead of sending a PUT request, the client can send an instruction to the API
 server to **patch** an existing resource. A **patch** is typically appropriate
-if the change that the client wants to make isn't conditional on the existing data. Clients that need effective detection of lost updates should consider
+if the change that the client wants to make isn't conditional on the existing data.
+Clients that need effective detection of lost updates should consider
 making their request conditional on the existing `resourceVersion` (either HTTP PUT or HTTP PATCH),
 and then handle any retries that are needed in case there is a conflict.
 
@@ -1557,10 +1889,10 @@ Kubernetes API 支持四种不同的 PATCH 操作，具体取决于它们所对�
 : Server Side Apply YAML (a Kubernetes-specific extension, based on YAML).
   All JSON documents are valid YAML, so you can also submit JSON using this
   media type. See [Server Side Apply serialization](/docs/reference/using-api/server-side-apply/#serialization)
-  for more details.  
+  for more details.
   To Kubernetes, this is a **create** operation if the object does not exist,
   or a **patch** operation if the object already exists.
-  -->
+-->
 `application/apply-patch+yaml`
 : Server Side Apply YAML（基于 YAML 的 Kubernetes 扩展）。
   所有 JSON 文档都是有效的 YAML，因此你也可以使用此媒体类型提交 JSON。
@@ -1571,7 +1903,7 @@ Kubernetes API 支持四种不同的 PATCH 操作，具体取决于它们所对�
 `application/json-patch+json`
 : JSON Patch, as defined in [RFC6902](https://tools.ietf.org/html/rfc6902).
   A JSON patch is a sequence of operations that are executed on the resource;
-  for example `{"op": "add", "path": "/a/b/c", "value": [ "foo", "bar" ]}`.  
+  for example `{"op": "add", "path": "/a/b/c", "value": [ "foo", "bar" ]}`.
   To Kubernetes, this is a **patch** operation.
   
   A **patch** using `application/json-patch+json` can include conditions to
@@ -1591,7 +1923,7 @@ Kubernetes API 支持四种不同的 PATCH 操作，具体取决于它们所对�
 : JSON Merge Patch, as defined in [RFC7386](https://tools.ietf.org/html/rfc7386).
   A JSON Merge Patch is essentially a partial representation of the resource.
   The submitted JSON is combined with the current resource to create a new one,
-  then the new one is saved.  
+  then the new one is saved.
   To Kubernetes, this is a **patch** operation.
 -->
 `application/merge-patch+json`
@@ -1722,10 +2054,10 @@ A **patch** update is helpful, because:
 <!--
 However:
 
-* you need more local (client) logic to build the patch; it helps a lot if you have
-  a library implementation of JSON Patch, or even for making a JSON Patch specifically against Kubernetes
-* as the author of client software, you need to be careful when building the patch
-  (the HTTP request body) not to drop fields (the order of operations matters)
+* You need more local (client) logic to build the patch; it helps a lot if you have
+  a library implementation of JSON Patch, or even for making a JSON Patch specifically against Kubernetes.
+* As the author of client software, you need to be careful when building the patch
+  (the HTTP request body) not to drop fields (the order of operations matters).
 -->
 然而：
 
@@ -1746,28 +2078,28 @@ Server-Side Apply has some clear benefits:
 * A single round trip: it rarely requires making a `GET` request first.
   * and you can still detect conflicts for unexpected changes
   * you have the option to force override a conflict, if appropriate
-* Client implementations are easy to make
+* Client implementations are easy to make.
 * You get an atomic create-or-update operation without extra effort
-  (similar to `UPSERT` in some SQL dialects)
+  (similar to `UPSERT` in some SQL dialects).
 -->
 * 仅需一次轮询：通常无需先执行 `GET` 请求。
   * 并且你仍然可以检测到意外更改造成的冲突
   * 合适的时候，你可以选择强制覆盖冲突
-* 客户端实现简单
+* 客户端实现简单。
 * 你可以轻松获得原子级别的 create 或 update 操作，无需额外工作
-  （类似于某些 SQL 语句中的 `UPSERT`）
+  （类似于某些 SQL 语句中的 `UPSERT`）。
 
 <!--
 However:
 
-* Server-Side Apply does not work at all for field changes that depend on a current value of the object
+* Server-Side Apply does not work at all for field changes that depend on a current value of the object.
 * You can only apply updates to objects. Some resources in the Kubernetes HTTP API are
   not objects (they do not have a `.metadata` field), and Server-Side Apply
   is only relevant for Kubernetes objects.
 -->
 然而：
 
-* 服务器端应用不适合依赖对象当前值的字段更改
+* 服务器端应用不适合依赖对象当前值的字段更改。
 * 你只能更新对象。Kubernetes HTTP API 中的某些资源不是对象（它们没有 `.metadata` 字段），
   并且服务器端应用只能用于 Kubernetes 对象。
 
@@ -1800,9 +2132,12 @@ API 客户端只能比较两个资源版本的相等性（这意味着你不能�
 Clients find resource versions in resources, including the resources from the response
 stream for a **watch**, or when using **list** to enumerate resources.
 
-[v1.meta/ObjectMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) - The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
+[v1.meta/ObjectMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) -
+The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
 
-[v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (the response to a **list**) identifies the resource version at which the collection was constructed.
+[v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) -
+The `metadata.resourceVersion` of a resource collection (the response to a **list**) identifies the
+resource version at which the collection was constructed.
 -->
 ### metadata 中的 `resourceVersion`  {#resourceVersion-in-metadata}
 
@@ -1833,18 +2168,16 @@ on the operation you request, and on the value of `resourceVersion`. If you set
 API 服务器根据你请求的操作和 `resourceVersion` 的值对 `resourceVersion` 参数进行不同的解释。
 如果你设置 `resourceVersionMatch` 那么这也会影响匹配发生的方式。
 
-
 <!--
 ### Semantics for **get** and **list**
 
 For **get** and **list**, the semantics of `resourceVersion` are:
-
 -->
 ### **get** 和 **list** 语义   {#semantics-for-get-and-list}
 
 对于 **get** 和 **list** 而言，`resourceVersion` 的语义为：
 
-**get:**
+**get：**
 
 <!--
 | resourceVersion unset | resourceVersion="0" | resourceVersion="{value other than 0}" |
@@ -1855,7 +2188,7 @@ For **get** and **list**, the semantics of `resourceVersion` are:
 |-----------------------|---------------------|----------------------------------------|
 | 最新版本               | 任何版本            | 不老于给定版本                         |
 
-**list:**
+**list：**
 
 <!--
 From version v1.19, Kubernetes API servers support the `resourceVersionMatch` parameter
@@ -1894,39 +2227,39 @@ This table explains the behavior of **list** requests with various combinations 
 设置 `resourceVersionMatch` 参数而不设置 `resourceVersion` 参数是不合法的。
 
 下表解释了具有各种 `resourceVersion` 和 `resourceVersionMatch` 组合的 **list** 请求的行为：
+
 <!--
-| resourceVersionMatch param            | paging params                 | resourceVersion not set | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
-|---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
-| _unset_            | _limit unset_                   | Most Recent           | Any                                       | Not older than                         |
-| _unset_            | limit=\<n\>, _continue unset_     | Most Recent           | Any                                       | Exact                                  |
-| _unset_            | limit=\<n\>, continue=\<token\> | Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
-| `resourceVersionMatch=Exact`        | _limit unset_                 | Invalid               | Invalid                                   | Exact                                  |
-| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_ | Invalid               | Invalid                                   | Exact                                  |
-| `resourceVersionMatch=NotOlderThan` | _limit unset_                 | Invalid               | Any                                       | Not older than                         |
-| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid               | Any                                       | Not older than                         |
+| resourceVersionMatch param          | paging params                  | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
+|-------------------------------------|--------------------------------|-------------------------|---------------------|----------------------------------------|
+| _unset_                             | _limit unset_                  | Most Recent             | Any                 | Not older than                         |
+| _unset_                             | limit=\<n\>, _continue unset_  | Most Recent             | Any                 | Exact                                  |
+| _unset_                             | limit=\<n\>, continue=\<token\>| Continuation            | Continuation        | Invalid, HTTP `400 Bad Request`        |
+| `resourceVersionMatch=Exact`        | _limit unset_                  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=NotOlderThan` | _limit unset_                  | Invalid                 | Any                 | Not older than                         |
+| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_  | Invalid                 | Any                 | Not older than                         |
 
 {{</* /table */>}}
 -->
-
 {{< table caption="list 操作的 resourceVersionMatch 与分页参数" >}}
 
-| resourceVersionMatch 参数               | 分页参数                        | resourceVersion 未设置  | resourceVersion="0"                     | resourceVersion="\<非零值\>"     |
-|-----------------------------------------|---------------------------------|-------------------------|-----------------------------------------|----------------------------------|
-| **未设置**            | **limit 未设置**                      | 最新版本                | 任意版本                                | 不老于指定版本                   |
-| **未设置**            | limit=\<n\>, **continue 未设置**        | 最新版本                | 任意版本                                | 精确匹配                         |
-| **未设置**           | limit=\<n\>, continue=\<token\>     | 从 token 开始、精确匹配 | 非法请求，视为从 token 开始、精确匹配  | 非法请求，返回 HTTP `400 Bad Request` |
-| `resourceVersionMatch=Exact` [1]         | **limit 未设置**                      | 非法请求                | 非法请求                                | 精确匹配                         |
-| `resourceVersionMatch=Exact` [1]         | limit=\<n\>, **continue 未设置**        | 非法请求                | 非法请求                                | 精确匹配                         |
-| `resourceVersionMatch=NotOlderThan` [1]  | **limit 未设置**             | 非法请求                | 任意版本                                | 不老于指定版本                   |
-| `resourceVersionMatch=NotOlderThan` [1]  | limit=\<n\>, **continue 未设置** | 非法请求                | 任意版本                                | 不老于指定版本                   |
+| resourceVersionMatch 参数                    | 分页参数                         | resourceVersion 未设置             | resourceVersion="0"                | resourceVersion="\<非零值\>" |
+|---------------------------------------------|---------------------------------|-----------------------------------|------------------------------------|-----------------------------|
+| **未设置**                                   | **limit 未设置**                 | 最新版本                           | 任意版本                             | 不老于指定版本                |
+| **未设置** | limit=\<n\>, **continue 未设置** | 最新版本                         | 任意版本                           | 精确匹配                             |                             ｜
+| **未设置** | limit=\<n\>, continue=\<token\> | 从 token 开始、精确匹配            | 非法请求，视为从 token 开始、精确匹配 | 非法请求，返回 HTTP `400 Bad Request` |                             ｜
+| `resourceVersionMatch=Exact` [1]            | **limit 未设置**                 | 非法请求                           | 非法请求                            | 精确匹配                       |
+| `resourceVersionMatch=Exact` [1]            | limit=\<n\>, **continue 未设置** | 非法请求                           | 非法请求                            | 精确匹配                       |
+| `resourceVersionMatch=NotOlderThan` [1]     | **limit 未设置**                 | 非法请求                           | 任意版本                            | 不老于指定版本                  |
+| `resourceVersionMatch=NotOlderThan` [1]     | limit=\<n\>, **continue 未设置** | 非法请求                           | 任意版本                            | 不老于指定版本                  |
 
 {{< /table >}}
 
+{{< note >}}
 <!--
 If your cluster's API server does not honor the `resourceVersionMatch` parameter,
 the behavior is the same as if you did not set it.
 -->
-{{< note >}}
 如果你的集群的 API 服务器不支持 `resourceVersionMatch` 参数，
 则行为与你未设置它时相同。
 {{< /note >}}
@@ -1943,69 +2276,102 @@ Any
   for the request to return data at a much older resource version that the client has previously
   observed, particularly in high availability configurations, due to partitions or stale
   caches. Clients that cannot tolerate this should not use this semantic.
-
-Most recent
-: Return data at the most recent resource version. The returned data must be
-  consistent (in detail: served from etcd via a quorum read).
+  Always served from _watch cache_, improving performance and reducing etcd load.
 -->
 任意版本
 : 返回任何资源版本的数据。最新可用资源版本优先，但不需要强一致性；
   可以提供任何资源版本的数据。由于分区或过时的缓存，
   请求可能返回客户端先前观察到的更旧资源版本的数据，特别是在高可用性配置中。
   不能容忍这种情况的客户不应该使用这种语义。
+  始终通过**监视缓存**提供服务，提高性能并减少 etcd 负载。
 
+<!--
+Most recent
+: Return data at the most recent resource version. The returned data must be
+  consistent (in detail: served from etcd via a quorum read).
+  For etcd v3.4.31+ and v3.5.13+, Kubernetes {{< skew currentVersion >}} serves “most recent” reads from the _watch cache_:
+  an internal, in-memory store within the API server that caches and mirrors the state of data
+  persisted into etcd. Kubernetes requests progress notification to maintain cache consistency against
+  the etcd persistence layer. Kubernetes v1.28 through to v1.30 also supported this
+  feature, although as Alpha it was not recommended for production nor enabled by default until the v1.31 release.
+-->
 最新版本
 : 返回最新资源版本的数据。
   返回的数据必须一致（详细说明：通过仲裁读取从 etcd 提供）。
-
+  对于 etcd v3.4.31+ 和 v3.5.13+ Kubernetes {{< skew currentVersion >}} 使用**监视缓存**来为“最新”读取提供服务：
+  监视缓存是 API 服务器内部的基于内存的存储，用于缓存和镜像持久化到 etcd 中的数据状态。
+  Kubernetes 请求进度通知以维护与 etcd 持久层的缓存一致性。Kubernetes
+  版本 v1.28 至 v1.30 也支持此特性，尽管当时其处于 Alpha 状态，不推荐用于生产，
+  也不默认启用，直到 v1.31 版本才启用。
 
 <!--
 Not older than
 : Return data at least as new as the provided `resourceVersion`. The newest
   available data is preferred, but any data not older than the provided `resourceVersion` may be
-  served.  For **list** requests to servers that honor the `resourceVersionMatch` parameter, this
+  served. For **list** requests to servers that honor the `resourceVersionMatch` parameter, this
   guarantees that the collection's `.metadata.resourceVersion` is not older than the requested
   `resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
   of the items in that collection.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 -->
-
 不老于指定版本
 : 返回数据至少与提供的 `resourceVersion` 一样新。
   最新的可用数据是首选，但可以提供不早于提供的 `resourceVersion` 的任何数据。
   对于对遵守 `resourceVersionMatch` 参数的服务器的 **list** 请求，
   这保证了集合的 `.metadata.resourceVersion` 不早于请求的 `resourceVersion`，
   但不保证该集合中任何项目的 `.metadata.resourceVersion`。
+  始终通过**监视缓存**提供服务，提高性能并减少 etcd 负载。
 
 <!--
 Exact
 : Return data at the exact resource version provided. If the provided `resourceVersion` is
-  unavailable, the server responds with HTTP 410 "Gone".  For **list** requests to servers that honor the
+  unavailable, the server responds with HTTP `410 Gone`. For **list** requests to servers that honor the
   `resourceVersionMatch` parameter, this guarantees that the collection's `.metadata.resourceVersion`
   is the same as the `resourceVersion` you requested in the query string. That guarantee does
   not apply to the `.metadata.resourceVersion` of any items within that collection.
 
-Continue Token, Exact
-: Return data at the resource version of the initial paginated **list** call. The returned _continue
-  tokens_ are responsible for keeping track of the initially provided resource version for all paginated
-  **list** calls after the initial paginated **list**.
+  By default served from _etcd_, but with the `ListFromCacheSnapshot` feature gate enabled,
+  API server will attempt to serve the response from snapshot if available.
+  This improves performance and reduces etcd load. Cache snapshots are kept by default for 75 seconds,
+  so if the provided `resourceVersion` is unavailable, the server will fallback to etcd.
 -->
-
 精确匹配
 : 以提供的确切资源版本返回数据。如果提供的 `resourceVersion` 不可用，
-  则服务器以 HTTP 410 “Gone”响应。对于对支持 `resourceVersionMatch` 参数的服务器的 **list** 请求，
+  则服务器以 HTTP `410 Gone` 响应。对于对支持 `resourceVersionMatch` 参数的服务器的 **list** 请求，
   这可以保证集合的 `.metadata.resourceVersion` 与你在查询字符串中请求的 `resourceVersion` 相同。
   该保证不适用于该集合中任何项目的 `.metadata.resourceVersion`。
 
-从 token 开始、精确匹配
-: 返回初始分页 **list** 调用的资源版本的数据。
-  返回的 **Continue 令牌**负责跟踪最初提供的资源版本，最初提供的资源版本用于在初始分页 **list** 之后的所有分页 **list** 中。
+  默认情况下，由 **etcd** 提供服务，但是当启用了 `ListFromCacheSnapshot` 特性门控时，
+  如果可用，API 服务器将尝试从快照提供响应。
+  这提升了性能并减少了 etcd 的负载。缓存快照默认保留 75 秒，
+  因此如果提供的 `resourceVersion` 不可用，服务器将回退到 etcd。
 
+<!--
+Continuation
+: Return the next page of data for a paginated list request, ensuring consistency with the exact `resourceVersion` established by the initial request in the sequence.
+  Response to **list** requests with limit include _continue token_, that encodes the  `resourceVersion` and last observed position from which to resume the list.
+  If the `resourceVersion` in the provided _continue token_ is unavailable, the server responds with HTTP `410 Gone`.
+  By default served from _etcd_, but with the `ListFromCacheSnapshot` feature gate enabled,
+  API server will attempt to serve the response from snapshot if available.
+  This improves performance and reduces etcd load. Cache snapshots are kept by default for 75 seconds,
+  so if the `resourceVersion` in provided _continue token_ is unavailable, the server will fallback to etcd.
+-->
+续页
+: 为分页列表请求返回下一页数据，确保与序列中初始请求建立的确切 `resourceVersion` 保持一致。
+  对带有限制的 **list** 请求的响应包括 **continue 令牌**，它编码了 `resourceVersion`
+  和最后观察到的位置，给出继续列表的起点。
+  如果提供的 **continue 令牌**中的 `resourceVersion` 不可用，服务器将返回 HTTP `410 Gone`。
+  默认情况下，由 **etcd** 提供服务，但是当启用了 `ListFromCacheSnapshot` 特性门控时，
+  API 服务器将尝试从快照提供响应（如果缓存快可用）。
+  这提升了性能并减少了 etcd 的负载。缓存快照默认保留 75 秒，
+  因此如果提供的 **continue 令牌**中的 `resourceVersion` 不可用，服务器将回退到 etcd。
 
 {{< note >}}
 <!--
 When you **list** resources and receive a collection response, the response includes the
-[list metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta) of the collection as
-well as [object metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)
+[list metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)
+of the collection as well as
+[object metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)
 for each item in that collection. For individual objects found within a collection response,
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.
@@ -2019,7 +2385,7 @@ the object is when served.
 
 <!--
 When using `resourceVersionMatch=NotOlderThan` and limit is set, clients must
-handle HTTP 410 "Gone" responses. For example, the client might retry with a
+handle HTTP `410 Gone` responses. For example, the client might retry with a
 newer `resourceVersion` or fall back to `resourceVersion=""`.
 
 When using `resourceVersionMatch=Exact` and `limit` is unset, clients must
@@ -2027,9 +2393,8 @@ verify that the collection's `.metadata.resourceVersion` matches
 the requested `resourceVersion`, and handle the case where it does not. For
 example, the client might fall back to a request with `limit` set.
 -->
-
 当使用 `resourceVersionMatch=NotOlderThan` 并设置了限制时，
-客户端必须处理 HTTP 410 “Gone” 响应。
+客户端必须处理 HTTP `410 Gone` 响应。
 例如，客户端可能会使用更新的 `resourceVersion` 重试或回退到 `resourceVersion=""`。
 
 当使用 `resourceVersionMatch=Exact` 并且未设置限制时，
@@ -2056,7 +2421,6 @@ For watch, the semantics of resource version are:
 
 {{< /table >}}
 -->
-
 {{< table caption="watch 操作的 resourceVersion 设置" >}}
 
 | resourceVersion 未设置    | resourceVersion="0"      | resourceVersion="\<非零值\>" |
@@ -2069,11 +2433,7 @@ For watch, the semantics of resource version are:
 The meaning of those **watch** semantics are:
 
 Get State and Start at Any
-: {{< caution >}} Watches initialized this way may return arbitrarily stale
-  data. Please review this semantic before using it, and favor the other semantics
-  where possible.
-  {{< /caution >}}
-  Start a **watch** at any resource version; the most recent resource version
+: Start a **watch** at any resource version; the most recent resource version
   available is preferred, but not required. Any starting resource version is
   allowed. It is possible for the **watch** to start at a much older resource
   version that the client has previously observed, particularly in high availability
@@ -2087,15 +2447,21 @@ Get State and Start at Any
 **watch** 操作语义的含义如下：
 
 读取状态并从任意版本开始
-: {{< caution >}}
-  以这种方式初始化的监视可能会返回任意陈旧的数据。
-  请在使用之前查看此语义，并尽可能支持其他语义。
-  {{< /caution >}}
-  在任何资源版本开始 **watch**；首选可用的最新资源版本，但不是必需的。允许任何起始资源版本。
+: 在任何资源版本开始 **watch**；首选可用的最新资源版本，但不是必需的。允许任何起始资源版本。
   由于分区或过时的缓存，**watch** 可能从客户端之前观察到的更旧的资源版本开始，
   特别是在高可用性配置中。不能容忍这种明显倒带的客户不应该用这种语义启动 **watch**。
   为了建立初始状态，**watch** 从起始资源版本中存在的所有资源实例的合成 “添加” 事件开始。
   以下所有监视事件都针对在 **watch** 开始的资源版本之后发生的所有更改。
+
+  {{< caution >}}
+  <!--
+  **watches** initialized this way may return arbitrarily stale
+  data. Please review this semantic before using it, and favor the other semantics
+  where possible.
+  -->
+  以这种方式初始化的 **watch** 可能会返回任意陈旧的数据。
+  请在使用之前查看此语义，并尽可能支持其他语义。
+  {{< /caution >}}
 
 <!--
 Get State and Start at Most Recent
@@ -2156,6 +2522,7 @@ on whether a request is served from cache or not, the API server may reply with 
 Servers are not required to serve unrecognized resource versions. If you request
 **list** or **get** for a resource version that the API server does not recognize,
 then the API server may either:
+
 * wait briefly for the resource version to become available, then timeout with a
   `504 (Gateway Timeout)` if the provided resource versions does not become available
   in a reasonable amount of time;
@@ -2173,15 +2540,15 @@ then the API server may either:
 
 <!--
 If you request a resource version that an API server does not recognize, the
-kube-apiserver additionally identifies its error responses with a "Too large resource
-version" message.
+kube-apiserver additionally identifies its error responses with a message
+`Too large resource version`.
 
 If you make a **watch** request for an unrecognized resource version, the API server
 may wait indefinitely (until the request timeout) for the resource version to become
 available.
 -->
 如果你请求 API 服务器无法识别的资源版本，
-kube-apiserver 还会使用 “Too large resource version” 消息额外标识其错误响应。
+kube-apiserver 还会使用 `Too large resource version` 消息额外标识其错误响应。
 
 如果你对无法识别的资源版本发出 **watch** 请求，
 API 服务器可能会无限期地等待（直到请求超时）资源版本变为可用。

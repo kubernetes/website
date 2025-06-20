@@ -109,14 +109,14 @@ authorizers:
       connectionInfo:
         # Controls how the webhook should communicate with the server.
         # Valid values:
-        # - KubeConfig: use the file specified in kubeConfigFile to locate the
+        # - KubeConfigFile: use the file specified in kubeConfigFile to locate the
         #   server.
         # - InClusterConfig: use the in-cluster configuration to call the
         #   SubjectAccessReview API hosted by kube-apiserver. This mode is not
         #   allowed for kube-apiserver.
-        type: KubeConfig
+        type: KubeConfigFile
         # Path to KubeConfigFile for connection info
-        # Required, if connectionInfo.Type is KubeConfig
+        # Required, if connectionInfo.Type is KubeConfigFile
         kubeConfigFile: /kube-system-authz-webhook.yaml
         # matchConditions is a list of conditions that must be met for a request to be sent to this
         # webhook. An empty list of matchConditions matches all requests.
@@ -141,7 +141,7 @@ authorizers:
       # only intercept requests to kube-system
       - expression: request.resourceAttributes.namespace == 'kube-system'
       # don't intercept requests from kube-system service accounts
-      - expression: !('system:serviceaccounts:kube-system' in request.user.groups)
+      - expression: "!('system:serviceaccounts:kube-system' in request.groups)"
   - type: Node
     name: node
   - type: RBAC
@@ -190,7 +190,7 @@ authorizers:
       matchConditionSubjectAccessReviewVersion: v1
       failurePolicy: Deny
       connectionInfo:
-        type: KubeConfig
+        type: KubeConfigFile
         kubeConfigFile: /files/kube-system-authz-webhook.yaml
       matchConditions:
       # only send resource requests to the webhook
@@ -227,7 +227,7 @@ authorizers:
       matchConditionSubjectAccessReviewVersion: v1
       failurePolicy: Deny
       connectionInfo:
-        type: KubeConfig
+        type: KubeConfigFile
         kubeConfigFile: /files/kube-system-authz-webhook.yaml
       matchConditions:
       # only send resource requests to the webhook
@@ -248,7 +248,7 @@ authorizers:
       matchConditionSubjectAccessReviewVersion: v1
       failurePolicy: Deny
       connectionInfo:
-        type: KubeConfig
+        type: KubeConfigFile
         kubeConfigFile: /files/opa-default-authz-webhook.yaml
       matchConditions:
       # only send resource requests to the webhook
@@ -256,7 +256,7 @@ authorizers:
       # only intercept requests to default namespace
       - expression: request.resourceAttributes.namespace == 'default'
       # don't intercept requests from default service accounts
-      - expression: !('system:serviceaccounts:default' in request.user.groups)
+      - expression: "!('system:serviceaccounts:default' in request.groups)"
 ```
 
 ## What's next?

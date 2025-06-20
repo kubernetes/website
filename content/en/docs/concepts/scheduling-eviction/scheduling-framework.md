@@ -74,7 +74,7 @@ Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should i
 
 ### QueueingHint
 
-{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+{{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue.
 It's executed every time a certain kind of event or change happens in the cluster.
@@ -84,11 +84,8 @@ so that the scheduler will retry the scheduling of the Pod.
 
 {{< note >}}
 QueueingHint evaluation during scheduling is a beta-level feature.
-The v1.28 release series initially enabled the associated feature gate; however, after the
-discovery of an excessive memory footprint, the Kubernetes project set that feature gate
-to be disabled by default. In Kubernetes {{< skew currentVersion >}}, this feature gate is
-disabled and you need to enable it manually.
-You can enable it via the
+In Kubernetes {{< skew currentVersion >}}, this feature gate is enabled by default,
+and you can disable it via the
 `SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 {{< /note >}}
 
@@ -132,6 +129,18 @@ scheduler will call each scoring plugin for each node. There will be a well
 defined range of integers representing the minimum and maximum scores. After the
 [NormalizeScore](#normalize-scoring) phase, the scheduler will combine node
 scores from all plugins according to the configured plugin weights.
+
+#### Capacity scoring {#scoring-capacity}
+
+{{< feature-state feature_gate_name="StorageCapacityScoring" >}}
+
+The feature gate `VolumeCapacityPriority` was used in v1.32 to support storage that are
+statically provisioned. Starting from v1.33, the new feature gate `StorageCapacityScoring`
+replaces the old `VolumeCapacityPriority` gate with added support to dynamically provisioned storage.
+When `StorageCapacityScoring` is enabled, the VolumeBinding plugin in the kube-scheduler is extended
+to score Nodes based on the storage capacity on each of them.
+This feature is applicable to CSI volumes that supported [Storage Capacity](/docs/concepts/storage/storage-capacity/),
+including local storage backed by a CSI driver.
 
 ### NormalizeScore {#normalize-scoring}
 

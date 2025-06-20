@@ -352,7 +352,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `APIListChunking`: APIクライアントがAPIサーバーからチャンク単位で（`LIST`や`GET`の）リソースを取得できるようにします。
 `APIPriorityAndFairness`: 各サーバーで優先順位付けと公平性を備えた要求の並行性を管理できるようにします(`RequestManagement`から名前が変更されました)。
 - `APIResponseCompression`:`LIST`や`GET`リクエストのAPIレスポンスを圧縮します。
-- `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/ja/docs/tutorials/clusters/apparmor/)で確認できます。
+- `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/ja/docs/tutorials/security/apparmor/)で確認できます。
 - `ContainerCheckpoint`: kubeletチェックポイントAPIを有効にします。詳細は[KubeletチェックポイントAPI](/ja/docs/reference/node/kubelet-checkpoint-api/)で確認できます。
 - `AttachVolumeLimit`: ボリュームプラグインを有効にすることでノードにアタッチできるボリューム数の制限を設定できます。
 - `BalanceAttachedNodeVolumes`: スケジューリング中にバランスのとれたリソース割り当てを考慮するノードのボリュームカウントを含めます。判断を行う際に、CPU、メモリー使用率、およびボリュームカウントが近いノードがスケジューラーによって優先されます。

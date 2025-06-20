@@ -70,5 +70,5 @@ Ambos os órgãos tentam resolver as ocorrências sem punições, mas podem reti
 
 ## Agradecimentos
 
-Este Código de Conduta é adaptado do [Contributor Covenant](http://contributor-covenant.org),
+Este Código de Conduta é adaptado do [Contributor Covenant](https://contributor-covenant.org),
 versão 2.0, disponível em [https://www.contributor-covenant.org/pt-br/version/2/0/code_of_conduct/](https://www.contributor-covenant.org/pt-br/version/2/0/code_of_conduct/)

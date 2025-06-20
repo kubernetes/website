@@ -10,7 +10,6 @@ weight: 8
 auto_generated: false
 ---
 <!--
----
 api_metadata:
   apiVersion: "rbac.authorization.k8s.io/v1"
   import: "k8s.io/api/rbac/v1"
@@ -20,13 +19,14 @@ description: "RoleBinding references a role, but does not contain it."
 title: "RoleBinding"
 weight: 8
 auto_generated: true
----
 -->
+
 `apiVersion: rbac.authorization.k8s.io/v1`
 
 `import "k8s.io/api/rbac/v1"`
 
 ## RoleBinding {#RoleBinding}
+
 <!--
 RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace.
 -->
@@ -82,15 +82,20 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
   - **roleRef.name** (string)，必需
     
     name 是被引用的资源的名称
-<!--
+
+- **subjects** ([]Subject)
+  <!--
+  *Atomic: will be replaced during a merge*
+
   Subjects holds references to the objects the role applies to.
   <a name="Subject"></a>
   *Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.*
 
   - **subjects.kind** (string), required
     Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
--->
-- **subjects** ([]Subject)
+  -->
+
+  **原子性：合并期间将被替换**
   
   subjects 包含角色所适用的对象的引用。
   
@@ -129,6 +134,7 @@ RoleBinding 通过 Subjects 和所在的命名空间信息添加主体信息。
     则 Authorizer 应报告一个错误。
 
 ## RoleBindingList {#RoleBindingList}
+
 <!--
 RoleBindingList is a collection of RoleBindings
 -->
@@ -153,6 +159,7 @@ RoleBindingList 是 RoleBinding 的集合。
 - **items** ([]<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBinding" >}}">RoleBinding</a>)，必需
   
   items 是 RoleBinding 的列表。
+
 <!--
 ## Operations {#Operations}
 <hr>
@@ -168,6 +175,7 @@ RoleBindingList 是 RoleBinding 的集合。
 #### HTTP 请求
 
 GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name}
+
 <!--
 #### Parameters
 - **name** (*in path*): string, required
@@ -201,6 +209,7 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name
 200 (<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBinding" >}}">RoleBinding</a>): OK
 
 401: Unauthorized
+
 <!--
 ### `list` list or watch objects of kind RoleBinding
 #### HTTP Request
@@ -210,6 +219,7 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name
 #### HTTP 请求
 
 GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
+
 <!--
 #### Parameters
 - **namespace** (*in path*): string, required
@@ -295,6 +305,7 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 200 (<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBindingList" >}}">RoleBindingList</a>): OK
 
 401: Unauthorized
+
 <!--
 ### `list` list or watch objects of kind RoleBinding
 #### HTTP Request
@@ -304,6 +315,7 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 #### HTTP 请求
 
 GET /apis/rbac.authorization.k8s.io/v1/rolebindings
+
 <!--
 #### Parameters
 - **allowWatchBookmarks** (*in query*): boolean
@@ -374,6 +386,7 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
 - **watch** (**查询参数**): boolean
   
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+
 <!--
 #### Response
 -->
@@ -382,6 +395,7 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
 200 (<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBindingList" >}}">RoleBindingList</a>): OK
 
 401: Unauthorized
+
 <!--
 ### `create` create a RoleBinding
 #### HTTP Request
@@ -428,6 +442,7 @@ POST /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 - **pretty** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
 -->
@@ -440,6 +455,7 @@ POST /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 202 (<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBinding" >}}">RoleBinding</a>): Accepted
 
 401: Unauthorized
+
 <!--
 ### `update` replace the specified RoleBinding
 #### HTTP Request
@@ -449,6 +465,7 @@ POST /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 #### HTTP 请求
 
 PUT /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name}
+
 <!--
 #### Parameters
 - **name** (*in path*): string, required
@@ -492,6 +509,7 @@ PUT /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name
 - **pretty** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
 -->
@@ -502,6 +520,7 @@ PUT /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name
 201 (<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBinding" >}}">RoleBinding</a>): Created
 
 401: Unauthorized
+
 <!--
 ### `patch` partially update the specified RoleBinding
 #### HTTP Request
@@ -511,6 +530,7 @@ PUT /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name
 #### HTTP 请求
 
 PATCH /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{name}
+
 <!--
 #### Parameters
 - **name** (*in path*): string, required
@@ -560,6 +580,7 @@ PATCH /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{na
 - **pretty** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
 -->
@@ -570,6 +591,7 @@ PATCH /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{na
 201 (<a href="{{< ref "../authorization-resources/role-binding-v1#RoleBinding" >}}">RoleBinding</a>): Created
 
 401: Unauthorized
+
 <!--
 ### `delete` delete a RoleBinding
 #### HTTP Request
@@ -590,11 +612,14 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{n
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 - **gracePeriodSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 - **pretty** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 - **propagationPolicy** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
+
 #### 参数
 
 - **name** (**路径参数**): string，必需
@@ -615,6 +640,10 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{n
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -622,6 +651,7 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings/{n
 - **propagationPolicy** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
 <!--
 #### Response
 -->
@@ -654,6 +684,8 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 - **gracePeriodSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 - **labelSelector** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 - **limit** (*in query*): integer
@@ -695,6 +727,10 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -726,6 +762,7 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 - **timeoutSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
 <!--
 #### Response
 -->

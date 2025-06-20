@@ -36,7 +36,6 @@ Before walking through each tutorial, you may want to bookmark the
 -->
 ## Конфігурація
 
-* [Приклад: Конфігурування Java мікросервісу](/docs/tutorials/configuration/configure-java-microservice/)
 * [Конфігурування Redis використовуючи ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Застосунки без стану (Stateless Applications) {#застосунки-без-стану}
