@@ -1,9 +1,8 @@
 ---
-reviewers:
-- raelga
+linktitle: Documentação do Kubernetes
 title: Documentação
-weight: 10
-content_type: concept
+sitemap:
+  priority: 1.0
 ---
 
 <!-- overview -->
@@ -16,8 +15,8 @@ Como você pode ver, a maior parte da documentação ainda está disponível ape
 
 <!-- body -->
 
-Se você quiser participar, você pode entrar no canal Slack [#kubernetes-docs-pt](http://slack.kubernetes.io/) e fazer parte da equipe por trás da tradução.
+Se você quiser participar, você pode entrar no canal do Slack [#kubernetes-docs-pt](http://slack.kubernetes.io/) e fazer parte da equipe por trás da tradução.
 
 Você também pode acessar o canal para solicitar a tradução de uma página específica ou relatar qualquer erro que possa ter sido encontrado. Qualquer contribuição será bem recebida!
 
-Para mais informações sobre como contribuir, dê uma olhada [github.com/kubernetes/website](https://github.com/kubernetes/website/).
+Para mais informações sobre como contribuir, consulte [github.com/kubernetes/website](https://github.com/kubernetes/website/).

@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 对象
 content_type: concept
-weight: 10
+weight: 30
 description: >
   Kubernetes 对象是 Kubernetes 系统中的持久性实体。
   Kubernetes 使用这些实体表示你的集群状态。
@@ -14,7 +14,7 @@ card:
 <!--
 title: Objects In Kubernetes
 content_type: concept
-weight: 10
+weight: 30
 description: >
   Kubernetes objects are persistent entities in the Kubernetes system.
   Kubernetes uses these entities to represent the state of your cluster.

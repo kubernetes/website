@@ -229,7 +229,7 @@ Address 1: 10.244.2.8
 
 Podの順序インデックス、ホスト名、SRVレコード、そしてAレコード名は変化していませんが、Podに紐付けられたIPアドレスは変化する可能性があります。このチュートリアルで使用しているクラスターでは、IPアドレスは変わりました。このようなことがあるため、他のアプリケーションがStatefulSet内のPodに接続するときには、IPアドレスで指定しないことが重要です。
 
-StatefulSetの有効なメンバーを探して接続する必要がある場合は、headless ServiceのCNAME(`nginx.default.svc.cluster.local`)をクエリしなければなりません。CNAMEに紐付けられたSRVレコードには、StatefulSet内のRunnningかつReadyなPodだけが含まれます。
+StatefulSetの有効なメンバーを探して接続する必要がある場合は、headless ServiceのCNAME(`nginx.default.svc.cluster.local`)をクエリしなければなりません。CNAMEに紐付けられたSRVレコードには、StatefulSet内のRunningかつReadyなPodだけが含まれます。
 
 アプリケーションがlivenessとreadinessをテストするコネクションのロジックをすでに実装している場合、PodのSRVレコード(`web-0.nginx.default.svc.cluster.local`、`web-1.nginx.default.svc.cluster.local`)をPodが安定しているものとして使用できます。PodがRunning and Readyな状態に移行すれば、アプリケーションはPodのアドレスを発見できるようになります。
 

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ComponentStatus（和 ComponentStatusList）保存集群检验信息。"
 title: "ComponentStatus"
-weight: 10
+weight: 2
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ComponentStatus (and ComponentStatusList) holds the cluster validation info."
 title: "ComponentStatus"
-weight: 10
+weight: 2
 auto_generated: true
 -->
 
@@ -49,15 +49,21 @@ ComponentStatus（和 ComponentStatusList）保存集群检验信息。
 
   <!--
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
+  
   List of component conditions observed
 
   <a name="ComponentCondition"></a>
   *Information about the condition of a component.*
 
   - **conditions.status** (string), required
+
     Status of the condition for a component. Valid values for "Healthy": "True", "False", or "Unknown".
   -->
   **补丁策略：基于键 `type` 合并**
+
+  **Map：合并期间根据键 type 保留其唯一值**
   
   观测到的组件状况的列表。
 
@@ -91,11 +97,13 @@ ComponentStatus（和 ComponentStatusList）保存集群检验信息。
     组件状况相关消息。例如，有关健康检查的信息。
 
 ## ComponentStatusList {#ComponentStatusList}
+
 <!--
 Status of all the conditions for the component as a list of ComponentStatus objects. Deprecated: This API is deprecated in v1.19+
 -->
 作为 ComponentStatus 对象列表，所有组件状况的状态。
 已废弃：该 API 在 v1.19 及更高版本中废弃。
+
 <hr>
 
 - **apiVersion**: v1
@@ -125,24 +133,33 @@ Status of all the conditions for the component as a list of ComponentStatus obje
 #### HTTP Request
 -->
 ## 操作 {#Operations}
+
 <hr>
 
 ### `get` 读取指定的 ComponentStatus
+
 #### HTTP 请求
+
 GET /api/v1/componentstatuses/{name}
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
+
   name of the ComponentStatus
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
-- **name** (**路径参数**): string，必需
 
-  ComponentStatus 的名称
+- **name**（**路径参数**）：string，必需
 
-- **pretty** (**查询参数**): string
+  ComponentStatus 的名称。
+
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
@@ -150,6 +167,7 @@ GET /api/v1/componentstatuses/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../cluster-resources/component-status-v1#ComponentStatus" >}}">ComponentStatus</a>): OK
 
 401: Unauthorized
@@ -159,7 +177,9 @@ GET /api/v1/componentstatuses/{name}
 #### HTTP Request
 -->
 ### `list` 列出 ComponentStatus 类别的对象
+
 #### HTTP 请求
+
 GET /api/v1/componentstatuses
 
 <!--
@@ -177,47 +197,48 @@ GET /api/v1/componentstatuses
 - **watch** (*in query*): boolean
 -->
 #### 参数
-- **allowWatchBookmarks** (**查询参数**): boolean
+
+- **allowWatchBookmarks**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-- **continue** (**查询参数**): string
+- **continue**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-- **labelSelector** (**查询参数**): string
+- **labelSelector**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-- **limit** (**查询参数**): integer
+- **limit**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-- **pretty** (**查询参数**): string
+- **pretty**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch**（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
-- **sendInitialEvents** (**查询参数**): boolean
+- **sendInitialEvents**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds**（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-- **watch** (**查询参数**): boolean
+- **watch**（**查询参数**）：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
@@ -225,6 +246,7 @@ GET /api/v1/componentstatuses
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../cluster-resources/component-status-v1#ComponentStatusList" >}}">ComponentStatusList</a>): OK
 
 401: Unauthorized

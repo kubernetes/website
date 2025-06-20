@@ -37,12 +37,11 @@ Laman ini akan menjabarkan beberapa *add-ons* yang tersedia serta tautan instruk
 
 ## _Service Discovery_
 
-* [CoreDNS](https://coredns.io) merupakan server DNS yang fleksibel, mudah diperluas yang dapat [diinstal](https://github.com/coredns/deployment/tree/master/kubernetes) sebagai *in-cluster* DNS untuk pod.
+* [CoreDNS](https://coredns.io) merupakan server DNS yang fleksibel, mudah diperluas yang dapat [diinstal](https://github.com/coredns/helm) sebagai *in-cluster* DNS untuk pod.
 
 ## Visualisasi &amp; Kontrol
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) merupakan antarmuka web dasbor untuk Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) merupakan perangkat untuk visualisasi grafis dari kontainer, pod, *service* dll milikmu. Gunakan bersama dengan [akun Weave Cloud](https://cloud.weave.works/) atau *host* UI-mu sendiri.
 
 ## *Add-ons* Terdeprekasi
 

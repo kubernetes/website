@@ -66,11 +66,11 @@ compared against the list of rules in order. The first matching rule sets the
 _audit level_ of the event. The defined audit levels are:
 
 - `None` - don't log events that match this rule.
-- `Metadata` - log request metadata (requesting user, timestamp, resource,
+- `Metadata` - log events with metadata (requesting user, timestamp, resource,
   verb, etc.) but not request or response body.
-- `Request` - log event metadata and request body but not response body.
+- `Request` - log events with request metadata and body but not response body.
   This does not apply for non-resource requests.
-- `RequestResponse` - log event metadata, request and response bodies.
+- `RequestResponse` - log events with request metadata, request body and response body.
   This does not apply for non-resource requests.
 
 You can pass a file with the policy to `kube-apiserver`
@@ -195,28 +195,52 @@ the service and credentials used to connect to it.
 
 ## Event batching {#batching}
 
-Both log and webhook backends support batching. Using webhook as an example, here's the list of
-available flags. To get the same flag for log backend, replace `webhook` with `log` in the flag
-name. By default, batching is enabled in `webhook` and disabled in `log`. Similarly, by default
-throttling is enabled in `webhook` and disabled in `log`.
+Both `log` and `webhook` backends support batching. Below is a list of
+available flags specific to each backend. 
+By default, batching and throttling are **enabled** for the `webhook` backend and **disabled** for the `log` backend.
 
+{{< tabs name="tab_with_md" >}}
+{{% tab name="webhook" %}}
 - `--audit-webhook-mode` defines the buffering strategy. One of the following:
-  - `batch` - buffer events and asynchronously process them in batches. This is the default.
+  - `batch` - buffer events and asynchronously process them in batches. This is the default mode for the `webhook` backend.
   - `blocking` - block API server responses on processing each individual event.
   - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at the
-     RequestReceived stage, the whole request to the kube-apiserver fails.
+    RequestReceived stage, the whole request to the kube-apiserver fails.
 
 The following flags are used only in the `batch` mode:
 
 - `--audit-webhook-batch-buffer-size` defines the number of events to buffer before batching.
-  If the rate of incoming events overflows the buffer, events are dropped.
-- `--audit-webhook-batch-max-size` defines the maximum number of events in one batch.
+  If the rate of incoming events overflows the buffer, events are dropped. The default value is 10000.
+- `--audit-webhook-batch-max-size` defines the maximum number of events in one batch. The default value is 400.
 - `--audit-webhook-batch-max-wait` defines the maximum amount of time to wait before unconditionally
-  batching events in the queue.
+  batching events in the queue. The default value is 30 seconds.
+- `--audit-webhook-batch-throttle-enable` defines whether batching throttling is enabled. Throttling is enabled by default.
 - `--audit-webhook-batch-throttle-qps` defines the maximum average number of batches generated
-  per second.
+  per second. The default value is 10.
 - `--audit-webhook-batch-throttle-burst` defines the maximum number of batches generated at the same
+  moment if the allowed QPS was underutilized previously. The default value is 15.
+{{% /tab %}}
+{{% tab name="log" %}}
+- `--audit-log-mode` defines the buffering strategy. One of the following:
+  - `batch` - buffer events and asynchronously process them in batches. Batching is not recommended for the `log` backend.
+  - `blocking` - block API server responses on processing each individual event. This is the default mode for the `log` backend.
+  - `blocking-strict` - Same as blocking, but when there is a failure during audit logging at the
+    RequestReceived stage, the whole request to the kube-apiserver fails.
+
+The following flags are used only in the `batch` mode (batching is **disabled** by default for the `log` backend, and when batching is disabled, all batching-related flags are ignored):
+
+- `--audit-log-batch-buffer-size` defines the number of events to buffer before batching.
+  If the rate of incoming events overflows the buffer, events are dropped.
+- `--audit-log-batch-max-size` defines the maximum number of events in one batch.
+- `--audit-log-batch-max-wait` defines the maximum amount of time to wait before unconditionally
+  batching events in the queue.
+- `--audit-log-batch-throttle-enable` defines whether batching throttling is enabled.
+- `--audit-log-batch-throttle-qps` defines the maximum average number of batches generated
+  per second.
+- `--audit-log-batch-throttle-burst` defines the maximum number of batches generated at the same
   moment if the allowed QPS was underutilized previously.
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Parameter tuning
 

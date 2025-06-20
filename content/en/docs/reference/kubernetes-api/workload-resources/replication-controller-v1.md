@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ReplicationController represents the configuration of a replication controller."
 title: "ReplicationController"
-weight: 3
+weight: 4
 auto_generated: true
 ---
 
@@ -105,6 +105,8 @@ ReplicationControllerStatus represents the current status of a replication contr
 - **conditions** ([]ReplicationControllerCondition)
 
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   
   Represents the latest available observations of a replication controller's current state.
 
@@ -710,6 +712,11 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -768,6 +775,11 @@ DELETE /api/v1/namespaces/{namespace}/replicationcontrollers
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

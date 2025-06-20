@@ -24,8 +24,6 @@ content_type: concept
 
 ## 設定
 
-* [例: Javaのマイクロサービスの設定](/docs/tutorials/configuration/configure-java-microservice/)
-
 * [ConfigMapを用いたRedisの設定](/ja/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## ステートレスアプリケーション

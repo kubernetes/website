@@ -20,4 +20,4 @@ chmurowej od tych, które dotyczą wyłącznie samego klastra.
 
 Dzięki rozdzieleniu logiki zarządzającej pomiędzy klaster Kubernetesa i leżącą poniżej infrastrukturę chmurową,
 cloud-controller-manager umożliwia operatorom usług chmurowych na dostarczanie nowych funkcjonalności
-niezależnie od cyklu wydawniczego głównego projektu Kubernetes.
+niezależnie od cyklu wydawniczego głównego projektu Kubernetesa.

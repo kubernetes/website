@@ -2,12 +2,6 @@
 title: हेलो मिनीक्यूब
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "शुरू करते हैं"
-    weight: 10
-    post: >
-      <p>तो क्या आप तैयार हैं? एक सामान्य ऐप चलाने के लिए के लिए एक साधारण कुबेरनेट्स क्लस्टर बनाएं।</p>
 card:
   name: tutorials
   weight: 10

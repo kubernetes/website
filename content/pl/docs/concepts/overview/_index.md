@@ -1,5 +1,5 @@
 ---
-weight: 20
+title: "Przegląd"
 description: >
  Kubernetes to przenośna, rozszerzalna platforma oprogramowania *open-source* służąca do zarządzania zadaniami i serwisami uruchamianymi w kontenerach. Umożliwia ich deklaratywną konfigurację i automatyzację. Kubernetes posiada duży i dynamicznie rozwijający się ekosystem. Szeroko dostępne są usługi, wsparcie i dodatkowe narzędzia.
 content_type: concept

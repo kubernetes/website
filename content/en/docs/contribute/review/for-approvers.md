@@ -197,7 +197,12 @@ other dead link issues `/priority important-longterm`, as they must be manually 
 We expect [Kubernetes Blog](/blog/) entries to become
 outdated over time. Therefore, we only maintain blog entries less than a year old.
 If an issue is related to a blog entry that is more than one year old,
-close the issue without fixing.
+you should typically close the issue without fixing.
+
+You can send a link to [article updates and maintenance](/docs/contribute/blog/#maintenance)
+as part of the message you send when you close the PR.
+
+It is OK to make an exception where a relevant justification applies.
 
 ### Support requests or code bug reports
 

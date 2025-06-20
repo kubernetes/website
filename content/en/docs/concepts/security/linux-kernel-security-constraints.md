@@ -90,7 +90,8 @@ profile to a more permissive profile.
 {{</note>}}
 
 To learn how to implement seccomp in Kubernetes, refer to
-[Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/).
+[Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/)
+or the [Seccomp node reference](/docs/reference/node/seccomp/)
 
 To learn more about seccomp, see
 [Seccomp BPF](https://www.kernel.org/doc/html/latest/userspace-api/seccomp_filter.html)
@@ -288,3 +289,4 @@ of support that you need. For instructions, refer to
 * [Learn how to use AppArmor](/docs/tutorials/security/apparmor/)
 * [Learn how to use seccomp](/docs/tutorials/security/seccomp/)
 * [Learn how to use SELinux](/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container)
+* [Seccomp Node Reference](/docs/reference/node/seccomp/)

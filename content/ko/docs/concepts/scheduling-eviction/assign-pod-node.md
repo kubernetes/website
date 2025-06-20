@@ -193,7 +193,7 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 [`NodeAffinity` 플러그인](/ko/docs/reference/scheduling/config/#스케줄링-플러그인-1)의 `args` 필드에 `addedAffinity`를 추가한다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:

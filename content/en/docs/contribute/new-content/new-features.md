@@ -11,7 +11,9 @@ card:
 ---
 <!-- overview -->
 
-Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
+Each major Kubernetes release introduces new features that require documentation.
+New releases also bring updates to existing features and documentation
+(such as upgrading a feature from alpha to beta).
 
 Generally, the SIG responsible for a feature submits draft documentation of the
 feature as a pull request to the appropriate development branch of the
@@ -19,14 +21,16 @@ feature as a pull request to the appropriate development branch of the
 editorial feedback or edits the draft directly. This section covers the branching
 conventions and process used during a release by both groups.
 
-
+To learn about announcing features on the blog, read
+[post-release communications](/docs/contribute/blog/release-comms/).
 
 <!-- body -->
 
 ## For documentation contributors
 
 In general, documentation contributors don't write content from scratch for a release.
-Instead, they work with the SIG creating a new feature to refine the draft documentation and make it release ready.
+Instead, they work with the SIG creating a new feature to refine the draft documentation
+and make it release ready.
 
 After you've chosen a feature to document or assist, ask about it in the `#sig-docs`
 Slack channel, in a weekly SIG Docs meeting, or directly on the PR filed by the
@@ -40,7 +44,8 @@ To find out about upcoming features, attend the weekly SIG Release meeting (see
 the [community](/community/) page for upcoming meetings)
 and monitor the release-specific documentation
 in the [kubernetes/sig-release](https://github.com/kubernetes/sig-release/)
-repository. Each release has a sub-directory in the [/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
+repository. Each release has a sub-directory in the
+[/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
 directory. The sub-directory contains a release schedule, a draft of the release
 notes, and a document listing each person on the release team.
 
@@ -95,21 +100,19 @@ deadlines.
 ### Open a placeholder PR
 
 1. Open a **draft** pull request against the
-`dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
-commit that you will amend later. To create a draft pull request, use the
-Create Pull Request drop-down and select **Create Draft Pull Request**,
-then click **Draft Pull Request**.
-2. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
-PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
-3. Leave a comment on the related [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
-issue with a link to the PR to notify the docs person managing this release that
-the feature docs are coming and should be tracked for the release.
+   `dev-{{< skew nextMinorVersion >}}` branch in the `kubernetes/website` repository, with a small
+   commit that you will amend later. To create a draft pull request, use the
+   **Create Pull Request** drop-down and select **Create Draft Pull Request**,
+   then click **Draft Pull Request**.
+1. Edit the pull request description to include links to [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
+   PR(s) and [kubernetes/enhancements](https://github.com/kubernetes/enhancements) issue(s).
+1. Leave a comment on the related [kubernetes/enhancements](https://github.com/kubernetes/enhancements)
+   issue with a link to the PR to notify the docs person managing this release that
+   the feature docs are coming and should be tracked for the release.
 
-If your feature does not need
-any documentation changes, make sure the sig-release team knows this, by
-mentioning it in the `#sig-release` Slack channel. If the feature does need
-documentation but the PR is not created, the feature may be removed from the
-milestone.
+If your feature does not need any documentation changes, make sure the sig-release team knows this,
+by mentioning it in the `#sig-release` Slack channel. If the feature does need
+documentation but the PR is not created, the feature may be removed from the milestone.
 
 ### PR ready for review
 
@@ -117,7 +120,8 @@ When ready, populate your placeholder PR with feature documentation and change
 the state of the PR from draft to **ready for review**. To mark a pull request
 as ready for review, navigate to the merge box and click **Ready for review**.
 
-Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` Slack channel.
+Do your best to describe your feature and how to use it. If you need help
+structuring your documentation, ask in the `#sig-docs` Slack channel.
 
 When you complete your content, the documentation person assigned to your feature reviews it.
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
@@ -131,16 +135,16 @@ content is not received, the feature may be removed from the milestone.
 If your feature is an Alpha or Beta feature and is behind a feature gate,
 you need a feature gate file for it inside
 `content/en/docs/reference/command-line-tools-reference/feature-gates/`.
-The name of the file should be the feature gate, converted from `UpperCamelCase`
-to `kebab-case`, with `.md` as the suffix.
+The name of the file should be the name of the feature gate with `.md` as the suffix.
 You can look at other files already in the same directory for a hint about what yours
 should look like. Usually a single paragraph is enough; for longer explanations,
 add documentation elsewhere and link to that.
 
-Also,
-to ensure your feature gate appears in the [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table, include the following details 
-in the [front matter](https://gohugo.io/content-management/front-matter/) of your Markdown
-description file:
+Also, to ensure your feature gate appears in the
+[Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+table, include the following details in the
+[front matter](https://gohugo.io/content-management/front-matter/)
+of your Markdown description file:
 
 ```yaml
 stages:
@@ -150,25 +154,25 @@ stages:
     toVersion: <Version>              # (Optional) The version until which the feature gate is available
 ```
 
-With net new feature gates, a separate
-description of the feature gate is also required; create a new Markdown file
-inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
+With net new feature gates, a separate description of the feature gate is also required;
+create a new Markdown file inside `content/en/docs/reference/command-line-tools-reference/feature-gates/`
 (use other files as a template).
 
-When you change a feature gate to disabled-by-default to enabled-by-default,
+When you change a feature gate from disabled-by-default to enabled-by-default,
 you may also need to change other documentation (not just the list of
 feature gates). Watch out for language such as ”The `exampleSetting` field
 is a beta field and disabled by default. You can enable it by enabling the
 `ProcessExampleThings` feature gate.”
 
-If your feature is GA'ed or deprecated, 
-include an additional `stage` entry within the `stages` block in the description file. 
-Ensure that the Alpha and Beta stages remain intact. 
-This step transitions the feature gate from the 
-[Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
-to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features) table. For example:
+If your feature is GA'ed or deprecated, include an additional `stage` entry within
+the `stages` block in the description file.
+Ensure that the Alpha and Beta stages remain intact. This step transitions the
+feature gate from the
+[Feature gates for Alpha/Beta](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
+to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+table. For example:
 
-{{< highlight yaml "linenos=false,hl_lines=10-15" >}}
+{{< highlight yaml "linenos=false,hl_lines=10-17" >}}
 stages:
   - stage: alpha 
     defaultValue: false
@@ -177,23 +181,27 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.13"
-    toVersion: "1.18"    
-  # Added 'stable' stage block to existing stages.  
-  - stage: stable     
+  # Added a `toVersion` to the previous stage.
+    toVersion: "1.18"
+  # Added 'stable' stage block to existing stages.
+  - stage: stable
     defaultValue: true
     fromVersion: "1.19"
-    toVersion: "1.27"   
+    toVersion: "1.27"
 {{< / highlight >}}
 
-Eventually, Kubernetes will stop including the feature gate at all. To signify the removal of a feature gate, 
-include `removed: true` in the front matter of the respective description file.
-This action triggers the transition of the feature gate 
-from [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed) section to a dedicated page titled 
-[Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/), including its description.
+Eventually, Kubernetes will stop including the feature gate at all.
+To signify the removal of a feature gate, include `removed: true` in
+the front matter of the respective description file.
+Making that change means that the feature gate information moves from the
+[Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
+section to a dedicated page titled
+[Feature Gates (removed)](/docs/reference/command-line-tools-reference/feature-gates-removed/),
+including its description.
 
 ### All PRs reviewed and ready to merge
 
-If your PR has not yet been merged into the `dev-{{< skew nextMinorVersion >}}` branch by the release deadline, work with the
-docs person managing the release to get it in by the deadline. If your feature needs
-documentation and the docs are not ready, the feature may be removed from the
-milestone.
+If your PR has not yet been merged into the `dev-{{< skew nextMinorVersion >}}`
+branch by the release deadline, work with the docs person managing the release
+to get it in by the deadline. If your feature needs documentation and the docs
+are not ready, the feature may be removed from the milestone.

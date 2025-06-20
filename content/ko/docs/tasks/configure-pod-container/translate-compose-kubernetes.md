@@ -10,7 +10,7 @@ weight: 200
 
 Kompose는 무엇일까? Kompose는 컴포즈(즉, Docker Compose)를 컨테이너 오케스트레이션(쿠버네티스나 오픈시프트)으로 변환하는 도구이다.
 
-더 자세한 내용은 Kompose 웹사이트 [http://kompose.io](http://kompose.io)에서 찾아볼 수 있다. 
+더 자세한 내용은 Kompose 웹사이트 [https://kompose.io/](https://kompose.io/)에서 찾아볼 수 있다. 
 
 ## {{% heading "prerequisites" %}}
 

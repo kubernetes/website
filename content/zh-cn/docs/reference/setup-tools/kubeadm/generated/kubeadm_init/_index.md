@@ -18,6 +18,7 @@ The "init" command executes the following phases:
 -->
 "init" 命令执行以下阶段：
 
+<!--
 ```
 preflight                    Run pre-flight checks
 certs                        Certificate generation
@@ -52,14 +53,53 @@ upload-certs                 Upload certificates to kubeadm-certs
 mark-control-plane           Mark a node as a control-plane
 bootstrap-token              Generates bootstrap tokens used to join a node to a cluster
 kubelet-finalize             Updates settings relevant to the kubelet after TLS bootstrap
-  /experimental-cert-rotation  Enable kubelet client certificate rotation
 addon                        Install required addons for passing conformance tests
   /coredns                     Install the CoreDNS addon to a Kubernetes cluster
   /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
 show-join-command            Show the join command for control-plane and worker node
 ```
-
+-->
+```shell
+preflight                    预检
+certs                        生成证书
+  /ca                          生成自签名根 CA 用于配置其他 kubernetes 组件
+  /apiserver                   生成 apiserver 的证书
+  /apiserver-kubelet-client    生成 apiserver 连接到 kubelet 的证书
+  /front-proxy-ca              生成前端代理自签名CA(扩展apiserver)
+  /front-proxy-client          生成前端代理客户端的证书（扩展 apiserver）
+  /etcd-ca                     生成 etcd 自签名 CA
+  /etcd-server                 生成 etcd 服务器证书
+  /etcd-peer                   生成 etcd 节点相互通信的证书
+  /etcd-healthcheck-client     生成 etcd 健康检查的证书
+  /apiserver-etcd-client       生成 apiserver 访问 etcd 的证书
+  /sa                          生成用于签署服务帐户令牌的私钥和公钥
+kubeconfig                   生成建立控制平面和管理所需的所有 kubeconfig 文件
+  /admin                       生成一个 kubeconfig 文件供管理员使用以及供 kubeadm 本身使用
+  /super-admin                 为超级管理员生成 kubeconfig 文件
+  /kubelet                     为 kubelet 生成一个 kubeconfig 文件，*仅*用于集群引导
+  /controller-manager          生成 kubeconfig 文件供控制器管理器使用
+  /scheduler                   生成 kubeconfig 文件供调度程序使用
+etcd                         为本地 etcd 生成静态 Pod 清单文件
+  /local                       为本地单节点本地 etcd 实例生成静态 Pod 清单文件
+control-plane                生成建立控制平面所需的所有静态 Pod 清单文件
+  /apiserver                   生成 kube-apiserver 静态 Pod 清单
+  /controller-manager          生成 kube-controller-manager 静态 Pod 清单
+  /scheduler                   生成 kube-scheduler 静态 Pod 清单
+kubelet-start                写入 kubelet 设置并启动（或重启） kubelet
+upload-config                将 kubeadm 和 kubelet 配置上传到 ConfigMap
+  /kubeadm                     将 kubeadm 集群配置上传到 ConfigMap
+  /kubelet                     将 kubelet 组件配置上传到 ConfigMap
+upload-certs                 将证书上传到 kubeadm-certs
+mark-control-plane           将节点标记为控制面
+bootstrap-token              生成用于将节点加入集群的引导令牌
+kubelet-finalize             在 TLS 引导后更新与 kubelet 相关的设置
+addon                        安装用于通过一致性测试所需的插件
+  /coredns                     将 CoreDNS 插件安装到 Kubernetes 集群
+  /kube-proxy                  将 kube-proxy 插件安装到 Kubernetes 集群
+show-join-command            显示控制平面和工作节点的加入命令
 ```
+
+```shell
 kubeadm init [flags]
 ```
 
@@ -220,18 +260,18 @@ Don't apply any changes; just output what would be done.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-EtcdLearnerMode=true|false (BETA - default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
+WaitForAllControlPlaneComponents=true|false (BETA - default=true)
 -->
 一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>
-EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
+WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
 </td>
 </tr>
 
@@ -325,12 +365,12 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 -->
 <p>
 它包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
-例如，&quot;kube-apiserver0+merge.yaml&quot;或仅仅是 &quot;etcd.json&quot;。
+例如，&quot;kube-apiserver0+merge.yaml&quot; 或仅仅是 &quot;etcd.json&quot;。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
 并且它们与 kubectl 支持的补丁格式相同。
 默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
-&quot;extension&quot; 必须是&quot;json&quot; 或&quot;yaml&quot;。
+&quot;extension&quot; 必须是 &quot;json&quot; 或 &quot;yaml&quot;。
 &quot;suffix&quot; 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </p>
 </td>
@@ -484,7 +524,7 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -500,7 +540,7 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 <p>
-[实验] 到 '真实' 主机根文件系统的路径。
+[实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>
 </tr>

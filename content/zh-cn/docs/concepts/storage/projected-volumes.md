@@ -139,15 +139,15 @@ volume mount will not receive updates for those volume sources.
 -->
 ## clusterTrustBundle 投射卷    {#clustertrustbundle}
 
-{{<feature-state for_k8s_version="v1.29" state="alpha" >}}
+{{< feature-state feature_gate_name="ClusterTrustBundleProjection" >}}
 
 {{< note >}}
 <!--
-To use this feature in Kubernetes {{< skew currentVersion >}}, you must enable support for ClusterTrustBundle objects with the `ClusterTrustBundle` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and `--runtime-config=certificates.k8s.io/v1alpha1/clustertrustbundles=true` kube-apiserver flag, then enable the `ClusterTrustBundleProjection` feature gate.
+To use this feature in Kubernetes {{< skew currentVersion >}}, you must enable support for ClusterTrustBundle objects with the `ClusterTrustBundle` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and `--runtime-config=certificates.k8s.io/v1beta1/clustertrustbundles=true` kube-apiserver flag, then enable the `ClusterTrustBundleProjection` feature gate.
 -->
 要在 Kubernetes {{< skew currentVersion >}} 中使用此特性，你必须通过 `ClusterTrustBundle`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)和
-`--runtime-config=certificates.k8s.io/v1alpha1/clustertrustbundles=true` kube-apiserver
+`--runtime-config=certificates.k8s.io/v1beta1/clustertrustbundles=true` kube-apiserver
 标志启用对 ClusterTrustBundle 对象的支持，然后才能启用 `ClusterTrustBundleProjection` 特性门控。
 {{< /note >}}
 

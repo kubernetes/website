@@ -54,29 +54,29 @@ kubectl cp <file-spec-src> <file-spec-dest>
 ```
 -->
 ```shell
-  # !!!重要提示!!!
-  # 要求你的容器镜像中存在 'tar' 可执行文件
-  # 如果 'tar' 不存在，'kubectl cp' 将会失败
-  #
-  # 对于符号链接、通配符扩展或文件模式保留等高级用例，考虑使用 'kubectl exec'
-  
-  # 将本地文件 /tmp/foo 复制到远程命名空间 <some-namespace> 中 Pod 中的 /tmp/bar
-  tar cf - /tmp/foo | kubectl exec -i -n <some-namespace> <some-pod> -- tar xf - -C /tmp/bar
-  
-  # 将 /tmp/foo 从远程 Pod 复制到本地的 /tmp/bar
-  kubectl exec -n <some-namespace> <some-pod> -- tar cf - /tmp/foo | tar xf - -C /tmp/bar
-  
-  # 将本地目录 /tmp/foo_dir 复制到远程默认命名空间中 Pod 中的 /tmp/bar_dir
-  kubectl cp /tmp/foo_dir <some-pod>:/tmp/bar_dir
-  
-  # 将本地文件 /tmp/foo 复制到远程 Pod 中特定容器内的 /tmp/bar
-  kubectl cp /tmp/foo <some-pod>:/tmp/bar -c <specific-container>
-  
-  # 将本地文件 /tmp/foo 复制到远程命名空间 <some-namespace> 内 Pod 中的 /tmp/bar
-  kubectl cp /tmp/foo <some-namespace>/<some-pod>:/tmp/bar
-  
-  # 将 /tmp/foo 从远程 Pod 复制到本地的 /tmp/bar
-  kubectl cp <some-namespace>/<some-pod>:/tmp/foo /tmp/bar
+# !!!重要提示!!!
+# 要求你的容器镜像中存在 'tar' 可执行文件
+# 如果 'tar' 不存在，'kubectl cp' 将会失败
+#
+# 对于符号链接、通配符扩展或文件模式保留等高级用例，考虑使用 'kubectl exec'
+
+# 将本地文件 /tmp/foo 复制到远程命名空间 <some-namespace> 中 Pod 中的 /tmp/bar
+tar cf - /tmp/foo | kubectl exec -i -n <some-namespace> <some-pod> -- tar xf - -C /tmp/bar
+
+# 将 /tmp/foo 从远程 Pod 复制到本地的 /tmp/bar
+kubectl exec -n <some-namespace> <some-pod> -- tar cf - /tmp/foo | tar xf - -C /tmp/bar
+
+# 将本地目录 /tmp/foo_dir 复制到远程默认命名空间中 Pod 中的 /tmp/bar_dir
+kubectl cp /tmp/foo_dir <some-pod>:/tmp/bar_dir
+
+# 将本地文件 /tmp/foo 复制到远程 Pod 中特定容器内的 /tmp/bar
+kubectl cp /tmp/foo <some-pod>:/tmp/bar -c <specific-container>
+
+# 将本地文件 /tmp/foo 复制到远程命名空间 <some-namespace> 内 Pod 中的 /tmp/bar
+kubectl cp /tmp/foo <some-namespace>/<some-pod>:/tmp/bar
+
+# 将 /tmp/foo 从远程 Pod 复制到本地的 /tmp/bar
+kubectl cp <some-namespace>/<some-pod>:/tmp/foo /tmp/bar
 ```
 
 ## {{% heading "options" %}}
@@ -231,30 +231,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-在 GCE 防火墙中打开 CIDR，以进行第 7 层负载均衡流量代理和健康状况检查。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-在 GCE 防火墙中打开 CIDR，以进行第 4 层负载均衡流量代理和健康状况检查。
 </p></td>
 </tr>
 

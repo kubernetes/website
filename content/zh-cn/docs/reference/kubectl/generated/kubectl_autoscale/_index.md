@@ -15,11 +15,12 @@ no_list: true
 ## {{% heading "synopsis" %}}
 
 <!--
-Creates an autoscaler that automatically chooses and sets the number of pods that run in a Kubernetes cluster.
+Creates an autoscaler that automatically chooses and sets the number of pods that run in a Kubernetes cluster. The command will attempt to use the autoscaling/v2 API first, in case of an error, it will fall back to autoscaling/v1 API.
 
  Looks up a deployment, replica set, stateful set, or replication controller by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.
 -->
 创建一个自动扩缩器，自动选择并设置在 Kubernetes 集群中运行的 Pod 数量。
+此命令将先尝试使用 `autoscaling/v2` API，如果发生错误，它将回退到 `autoscaling/v1` API。
 
 - 按名称查找 Deployment、ReplicaSet、StatefulSet 或 ReplicationController，并创建使用给定资源作为参照指标的自动扩缩器。
   自动扩缩器可以根据需要自动增加或减少系统内部署的 Pod 数量。
@@ -342,30 +343,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,35.191.0.0/16"-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 

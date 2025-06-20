@@ -41,7 +41,7 @@ spec:
 
 If the `service.kubernetes.io/service-proxy-name` label is defined the
 `kube-proxy` will ignore the service. A custom controller can watch
-services with the label set to it's own name, "kpng-example" in
+services with the label set to its own name, "kpng-example" in
 this example, and setup specialized load-balancing.
 
 The `service.kubernetes.io/service-proxy-name` label is [not

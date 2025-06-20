@@ -18,11 +18,10 @@ You can set up an HA cluster:
 You should carefully consider the advantages and disadvantages of each topology before setting up an HA cluster.
 
 {{< note >}}
-kubeadm bootstraps the etcd cluster statically. Read the etcd [Clustering Guide](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
+kubeadm bootstraps the etcd cluster statically. Read the etcd
+[Clustering Guide](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
 for more details.
 {{< /note >}}
-
-
 
 <!-- body -->
 
@@ -54,24 +53,26 @@ on control plane nodes when using `kubeadm init` and `kubeadm join --control-pla
 
 ## External etcd topology
 
-An HA cluster with external etcd is a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed data storage cluster provided by etcd is external to the cluster formed by the nodes that run control plane components.
+An HA cluster with external etcd is a [topology](https://en.wikipedia.org/wiki/Network_topology)
+where the distributed data storage cluster provided by etcd is external to the cluster formed by
+the nodes that run control plane components.
 
-Like the stacked etcd topology, each control plane node in an external etcd topology runs an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`. And the `kube-apiserver` is exposed to worker nodes using a load balancer. However, etcd members run on separate hosts, and each etcd host communicates with the `kube-apiserver` of each control plane node.
+Like the stacked etcd topology, each control plane node in an external etcd topology runs
+an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`.
+And the `kube-apiserver` is exposed to worker nodes using a load balancer. However,
+etcd members run on separate hosts, and each etcd host communicates with the
+`kube-apiserver` of each control plane node.
 
 This topology decouples the control plane and etcd member. It therefore provides an HA setup where
 losing a control plane instance or an etcd member has less impact and does not affect
 the cluster redundancy as much as the stacked HA topology.
 
 However, this topology requires twice the number of hosts as the stacked HA topology.
-A minimum of three hosts for control plane nodes and three hosts for etcd nodes are required for an HA cluster with this topology.
+A minimum of three hosts for control plane nodes and three hosts for etcd nodes are
+required for an HA cluster with this topology.
 
 ![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
-
-

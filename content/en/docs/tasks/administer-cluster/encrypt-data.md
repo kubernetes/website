@@ -1,7 +1,7 @@
 ---
 title: Encrypting Confidential Data at Rest
 reviewers:
-- smarterclayton
+- aramase
 - enj
 content_type: task
 weight: 210
@@ -189,7 +189,7 @@ Ensure that the exemption is listed _before_ the wildcard '`*.*`' item in the re
 to give it precedence.
 
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
-[encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
+[encryption configuration API](/docs/reference/config-api/apiserver-config.v1/).
 
 {{< caution >}}
 If any resource is not readable via the encryption configuration (because keys were changed),
@@ -241,7 +241,7 @@ The following table describes each available provider.
   <td>AES-CBC with <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> padding</td>
   <td>Weak</td>
   <td>Fast</td>
-  <td>32-byte</td>
+  <td>16, 24, or 32-byte</td>
   </tr>
   <tr>
   <td colspan="4">Not recommended due to CBC's vulnerability to padding oracle attacks. Key material accessible from control plane host.</td>

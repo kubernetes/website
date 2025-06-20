@@ -59,7 +59,7 @@ precisam estar abertas para que os componentes do Kubernetes se comuniquem entre
 Você pode usar ferramentas como [netcat](https://netcat.sourceforge.net) para verificar se uma porta está aberta. Por exemplo:
 
 ```shell
-nc 127.0.0.1 6443 -v
+nc 127.0.0.1 6443 -zv -w 2
 ```
 
 O plugin de rede de Pods que você usa também pode exigir que certas portas estejam

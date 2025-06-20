@@ -25,7 +25,7 @@ spec:
         app: mysql
     spec:
       containers:
-      - image: mysql:5.6
+      - image: mysql:9
         name: mysql
         env:
           # 在实际中使用 secret

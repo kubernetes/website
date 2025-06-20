@@ -8,7 +8,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - storage
 ---
 <!--
@@ -21,7 +20,6 @@ short_description: >
 
 aka: 
 tags:
-- core-object
 - storage
 -->
 

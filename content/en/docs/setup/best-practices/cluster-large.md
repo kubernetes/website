@@ -121,7 +121,7 @@ Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autosca
 and how you can use it to scale cluster
 components, including cluster-critical addons.
 
-* Read about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+* Read about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 
 * The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
 helps you in resizing the addons automatically as your cluster's scale changes.

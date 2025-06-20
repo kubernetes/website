@@ -1,7 +1,7 @@
 <!-- 
-Use this command to invoke single phase of the init workflow
+Use this command to invoke single phase of the "init" workflow
 -->
-使用此命令可以调用 init 工作流程的单个阶段。
+使用此命令可以调用 "init" 工作流程的单个阶段。
 
 <!--
 ### Synopsis
@@ -9,9 +9,13 @@ Use this command to invoke single phase of the init workflow
 ### 概要
 
 <!--
-Use this command to invoke single phase of the init workflow
+Use this command to invoke single phase of the "init" workflow
 -->
-使用此命令可以调用 init 工作流程的单个阶段。
+使用此命令可以调用 "init" 工作流程的单个阶段：
+
+```shell
+kubeadm init phase [flags]
+```
 
 <!--
 ### Options

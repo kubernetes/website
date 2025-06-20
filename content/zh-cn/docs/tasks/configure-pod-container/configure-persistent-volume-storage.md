@@ -328,7 +328,7 @@ kubectl apply -f https://k8s.io/examples/pods/storage/pv-pod.yaml
 ```
 
 <!--
-Verify that the container in the Pod is running;
+Verify that the container in the Pod is running:
 -->
 检查 Pod 中的容器是否运行正常：
 
@@ -382,14 +382,273 @@ use storage from a PersistentVolumeClaim.
 <!--
 ## Clean up
 
-Delete the Pod, the PersistentVolumeClaim and the PersistentVolume:
+Delete the Pod:
 -->
 ## 清理    {#clean-up}
 
-删除 Pod、PersistentVolumeClaim 和 PersistentVolume 对象：
+删除 Pod：
 
 ```shell
 kubectl delete pod task-pv-pod
+```
+
+<!--
+## Mounting the same PersistentVolume in two places
+
+You have understood how to create a PersistentVolume & PersistentVolumeClaim, and how to mount
+the volume to a single location in a container. Let's explore how you can mount the same PersistentVolume
+at two different locations in a container. Below is an example:
+-->
+## 在两个位置挂载同一个 PersistentVolume   {#mounting-the-same-persistentvolume-in-two-places}
+
+你已经了解了如何创建 PersistentVolume 和 PersistentVolumeClaim，也了解了如何将卷挂载到容器中的单个位置。  
+接下来我们探索如何在容器中的两个不同位置挂载同一个 PersistentVolume。以下是一个示例：
+
+{{% code_sample file="pods/storage/pv-duplicate.yaml" %}}
+
+<!--
+Here:
+
+- `subPath`: This field allows specific files or directories from the mounted PersistentVolume to be exposed at
+  different locations within the container.  In this example:
+  - `subPath: html` mounts the html directory.
+  - `subPath: nginx.conf` mounts a specific file, nginx.conf.
+-->
+其中：
+
+- `subPath`：此字段允许将挂载的 PersistentVolume 中的特定文件或目录暴露到容器内的不同位置。在本例中：
+  - `subPath: html` 挂载 `html` 目录。
+  - `subPath: nginx.conf` 挂载一个特定文件 `nginx.conf`。
+
+<!--
+Since the first subPath is `html`, an `html` directory has to be created within `/mnt/data/`
+on the node.
+
+The second subPath `nginx.conf` means that a file within the `/mnt/data/` directory will be used. No other directory
+needs to be created.
+-->
+由于第一个 subPath 是 `html`，所以你需要在节点上的 `/mnt/data/` 下创建一个 `html` 目录。
+
+第二个 subPath 是 `nginx.conf`，意味着会使用 `/mnt/data/` 目录下的一个文件。无需创建额外的目录。
+
+<!--
+Two volume mounts will be made on your nginx container:
+
+- `/usr/share/nginx/html` for the static website
+- `/etc/nginx/nginx.conf` for the default config
+-->
+你的 nginx 容器中会挂载两个路径：
+
+- `/usr/share/nginx/html`：用于静态网站
+- `/etc/nginx/nginx.conf`：用于默认配置
+
+<!--
+### Move the index.html file on your Node to a new folder
+
+The `index.html` file mentioned here refers to the one created in the "[Create an index.html file on your Node](#create-an-index-html-file-on-your-node)" section.
+
+Open a shell to the single Node in your cluster. How you open a shell depends on how you set up your cluster.
+For example, if you are using Minikube, you can open a shell to your Node by entering `minikube ssh`.
+-->
+### 将节点上的 index.html 文件移动到新的文件夹
+
+这里提到的 `index.html` 文件指的是
+“[在你的节点上创建 index.html 文件](#create-an-index-html-file-on-your-node)”一节中所创建的文件。
+
+打开一个 Shell 连接到集群中的节点。如何打开 Shell 取决于你是如何搭建集群的。  
+例如，如果你使用的是 Minikube，可以通过执行 `minikube ssh` 打开节点的 Shell。
+
+<!--
+Create a `/mnt/data/html` directory:
+
+```shell
+# This assumes that your Node uses "sudo" to run commands
+# as the superuser
+sudo mkdir /mnt/data/html
+```
+-->
+创建 `/mnt/data/html` 目录：
+
+```shell
+# 此命令假设你的节点使用 "sudo" 执行超级用户命令
+sudo mkdir /mnt/data/html
+```
+
+<!--
+Move index.html into the directory:
+
+```shell
+# Move index.html from its current location to the html sub-directory
+sudo mv /mnt/data/index.html html
+```
+
+### Create a new nginx.conf file
+-->
+将 index.html 移动到此目录下：
+
+```shell
+# 将 index.html 从当前目录移动到 html 子目录
+sudo mv /mnt/data/index.html /mnt/data/html
+```
+
+### 新建 nginx.conf 文件   {#create-a-new-nginx-conf-file}
+
+{{% code_sample file="pods/storage/nginx.conf" %}}
+
+<!--
+This is a modified version of the default `nginx.conf` file. Here, the default `keepalive_timeout` has been
+modified to `60`
+
+Create the nginx.conf file:
+-->
+这是对默认 `nginx.conf` 文件经过修改的版本。这里将默认的 `keepalive_timeout` 设置为 `60`。
+
+创建 `nginx.conf` 文件：
+
+```shell
+cat <<EOF > /mnt/data/nginx.conf
+user  nginx;
+worker_processes  auto;
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '\$remote_addr - \$remote_user [\$time_local] "\$request" '
+                      '\$status \$body_bytes_sent "\$http_referer" '
+                      '"\$http_user_agent" "\$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  60;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+EOF
+```
+
+<!--
+### Create a Pod
+
+Here we will create a pod that uses the existing persistentVolume and persistentVolumeClaim.
+However, the pod mounts only a specific file, `nginx.conf`, and directory, `html`, to the container.
+
+Create the Pod:
+-->
+### 创建 Pod   {#create-a-pod}
+
+现在我们创建一个 Pod，使用已有的 PersistentVolume 和 PersistentVolumeClaim。  
+不过，这个 Pod 只将特定的文件 `nginx.conf` 和目录 `html` 挂载到容器中。
+
+创建 Pod：
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/storage/pv-duplicate.yaml
+```
+
+<!--
+Verify that the container in the Pod is running:
+-->
+验证 Pod 中的容器是否正在运行：
+
+```shell
+kubectl get pod test
+```
+
+<!--
+Get a shell to the container running in your Pod:
+-->
+进入 Pod 中运行的容器的 Shell：
+
+```shell
+kubectl exec -it test -- /bin/bash
+```
+
+<!--
+In your shell, verify that nginx is serving the `index.html` file from the
+hostPath volume:
+
+```shell
+# Be sure to run these 3 commands inside the root shell that comes from
+# running "kubectl exec" in the previous step
+apt update
+apt install curl
+curl http://localhost/
+```
+-->
+在 Shell 中，验证 nginx 是否从 hostPath 卷中提供 `index.html`：
+
+```shell
+# 确保以下三条命令在上一步通过运行 "kubectl exec" 进入的 root shell 中运行
+apt update
+apt install curl
+curl http://localhost/
+```
+
+<!--
+The output shows the text that you wrote to the `index.html` file on the
+hostPath volume:
+-->
+输出显示了你在 hostPath 卷上写入 `index.html` 文件中的文本：
+
+```
+Hello from Kubernetes storage
+```
+
+<!--
+In your shell, also verify that nginx is serving the `nginx.conf` file from the
+hostPath volume:
+
+```shell
+# Be sure to run these commands inside the root shell that comes from
+# running "kubectl exec" in the previous step
+cat /etc/nginx/nginx.conf | grep keepalive_timeout
+```
+-->
+在 Shell 中，还可以验证 nginx 是否从 hostPath 卷中加载了 `nginx.conf` 文件：
+
+```shell
+# 确保以下命令在上一步通过运行 "kubectl exec" 所进入的 root shell 中运行
+cat /etc/nginx/nginx.conf | grep keepalive_timeout
+```
+
+<!--
+The output shows the modified text that you wrote to the `nginx.conf` file on the
+hostPath volume:
+-->
+输出显示你在 hostPath 卷上写入 `nginx.conf` 文件中经修改的文本：
+
+```
+keepalive_timeout  60;
+```
+
+<!--
+If you see these messages, you have successfully configured a Pod to
+use a specific file and directory in a storage from a PersistentVolumeClaim.
+
+## Clean up
+
+Delete the Pod:
+-->
+如果你看到了这些消息，说明你已经成功将 Pod 配置为使用 PersistentVolumeClaim 存储中的特定文件和目录。
+
+## 清理
+
+删除 Pod：
+
+```shell
+kubectl delete pod test
 kubectl delete pvc task-pv-claim
 kubectl delete pv task-pv-volume
 ```
@@ -418,24 +677,6 @@ sudo rmdir /mnt/data
 You can now close the shell to your Node.
 -->
 你现在可以关闭连接到节点的 Shell。
-
-<!--
-## Mounting the same persistentVolume in two places
--->
-## 在两个地方挂载相同的 persistentVolume   {#mounting-the-same-pv-in-two-places}
-
-{{% code_sample file="pods/storage/pv-duplicate.yaml" %}}
-
-<!--
-You can perform 2 volume mounts on your nginx container:
-
-- `/usr/share/nginx/html` for the static website
-- `/etc/nginx/nginx.conf` for the default config
--->
-你可以在 nginx 容器上执行两个卷挂载：
-
-- `/usr/share/nginx/html` 用于静态网站
-- `/etc/nginx/nginx.conf` 作为默认配置
 
 <!-- discussion -->
 

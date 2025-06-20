@@ -186,6 +186,7 @@ Leader Migration can be enabled without a configuration. Please see
 kind: LeaderMigrationConfiguration
 apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
+resourceLock: leases
 controllerLeaders:
   - name: route
     component: kube-controller-manager
@@ -208,6 +209,7 @@ between both parties of the migration.
 kind: LeaderMigrationConfiguration
 apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
+resourceLock: leases
 controllerLeaders:
   - name: route
     component: *
@@ -260,6 +262,7 @@ which has the same effect.
 kind: LeaderMigrationConfiguration
 apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
+resourceLock: leases
 controllerLeaders:
   - name: route
     component: cloud-controller-manager
@@ -400,6 +403,7 @@ controllers.
 kind: LeaderMigrationConfiguration
 apiVersion: controllermanager.config.k8s.io/v1
 leaderName: cloud-provider-extraction-migration
+resourceLock: leases
 controllerLeaders:
   - name: route
     component: *

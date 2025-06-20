@@ -32,7 +32,7 @@ Kubernetes 在节点上设置的预设标签有：
 
 <!--
 * [`kubernetes.io/arch`](/docs/reference/labels-annotations-taints/#kubernetes-io-arch)
-* [`kubernetes.io/hostname`](/docs/reference/labels-annotations-taints/#kubernetes-io-hostname)
+* [`kubernetes.io/hostname`](/docs/reference/labels-annotations-taints/#kubernetesiohostname)
 * [`kubernetes.io/os`](/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 * [`node.kubernetes.io/instance-type`](/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
   (if known to the kubelet &ndash; Kubernetes may not have this information to set the label)
@@ -42,7 +42,7 @@ Kubernetes 在节点上设置的预设标签有：
   (if known to the kubelet &ndash; Kubernetes may not have this information to set the label)
 -->
 * [`kubernetes.io/arch`](/zh-cn/docs/reference/labels-annotations-taints/#kubernetes-io-arch)
-* [`kubernetes.io/hostname`](/zh-cn/docs/reference/labels-annotations-taints/#kubernetes-io-hostname)
+* [`kubernetes.io/hostname`](/zh-cn/docs/reference/labels-annotations-taints/#kubernetesiohostname)
 * [`kubernetes.io/os`](/zh-cn/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 * [`node.kubernetes.io/instance-type`](/zh-cn/docs/reference/labels-annotations-taints/#nodekubernetesioinstance-type)
   （如果 kubelet 知道此信息 &ndash; Kubernetes 可能没有这些信息来设置标签）

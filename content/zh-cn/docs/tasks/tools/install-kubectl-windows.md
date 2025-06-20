@@ -35,28 +35,39 @@ The following methods exist for installing kubectl on Windows:
 在 Windows 系统中安装 kubectl 有如下几种方法：
 
 <!--
-- [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
+- [Install kubectl binary on Windows (via direct download or curl)](#install-kubectl-binary-on-windows-via-direct-download-or-curl)
 - [Install on Windows using Chocolatey, Scoop, or winget](#install-nonstandard-package-tools)
 -->
-- [用 curl 在 Windows 上安装 kubectl](#install-kubectl-binary-with-curl-on-windows)
+- [在 Windows 上安装 kubectl（通过直接下载或使用 curl）](#install-kubectl-binary-on-windows-via-direct-download-or-curl)
 - [在 Windows 上用 Chocolatey、Scoop 或 winget 安装](#install-nonstandard-package-tools)
 
 <!--
-### Install kubectl binary with curl on Windows
+### Install kubectl binary on Windows (via direct download or curl)
 -->
-### 用 curl 在 Windows 上安装 kubectl {#install-kubectl-binary-with-curl-on-windows}
+### 在 Windows 上安装 kubectl（通过直接下载或使用 curl） {#install-kubectl-binary-on-windows-via-direct-download-or-curl}
 
 <!--
-1. Download the latest {{< skew currentVersion >}} patch release:
-   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
--->
-1. 下载最新补丁版 {{< skew currentVersion >}}：
-   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe)。
+1. You have two options for installing kubectl on your Windows device
+   
+   - Direct download:
 
-   <!--
-   Or if you have `curl` installed, use this command:
-   -->
-   如果你已安装了 `curl`，也可以使用此命令：
+     Download the latest {{< skew currentVersion >}} patch release binary directly for your specific architecture by visiting the [Kubernetes release page](https://kubernetes.io/releases/download/#binaries). Be sure to select the correct binary for your architecture (e.g., amd64, arm64, etc.).
+
+   - Using curl:
+
+     If you have `curl` installed, use this command:
+-->
+1. 你有两种方式可以在 Windows 设备上安装 kubectl
+
+   直接下载：
+
+   通过访问 [Kubernetes 发布页面](https://kubernetes.io/releases/download/#binaries)
+   直接下载特定于你的体系结构的二进制文件的最新 {{< skew currentVersion >}} 补丁版本。
+   请务必选择适用于你的体系结构的二进制文件（例如，amd64、arm64 等）。
+
+   使用 curl：
+
+   如果你已安装 `curl`，可以使用以下命令：
 
    ```powershell
    curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe"
@@ -256,6 +267,15 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 下面是设置 PowerShell 自动补全功能的操作步骤。
 
 {{< include "included/optional-kubectl-configs-pwsh.md" >}}
+
+<!--
+### Configure kuberc
+
+See [kuberc](/docs/reference/kubectl/kuberc) for more information.
+-->
+### 配置 kuberc  {#configure-kuberc}
+
+更多信息请参见 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
 
 <!--
 ### Install `kubectl convert` plugin

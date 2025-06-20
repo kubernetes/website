@@ -59,7 +59,8 @@ Towards the end of the twelve month, the following will happen:
 During the two-month maintenance mode period, Release Managers may cut
 additional maintenance releases to resolve:
 
-- CVEs (under the advisement of the Security Response Committee)
+- [Vulnerabilities](/docs/reference/issues-security/official-cve-feed/) that have an assigned
+  CVE ID (under the advisement of the Security Response Committee)
 - dependency issues (including base image updates)
 - critical core component issues
 

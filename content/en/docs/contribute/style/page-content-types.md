@@ -58,17 +58,17 @@ You can declare a `prerequisites` heading as follows:
 ```
 
 The `heading` shortcode expects one string parameter.
-The heading string parameter matches the prefix of a variable in the `i18n/<lang>.toml` files.
+The heading string parameter matches the prefix of a variable in the `i18n/<lang>/<lang>.toml` files.
 For example:
 
-`i18n/en.toml`:
+`i18n/en/en.toml`:
 
 ```toml
 [whatsnext_heading]
 other = "What's next"
 ```
 
-`i18n/ko.toml`:
+`i18n/ko/ko.toml`:
 
 ```toml
 [whatsnext_heading]

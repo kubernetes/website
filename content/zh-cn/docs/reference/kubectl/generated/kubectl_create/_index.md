@@ -46,19 +46,19 @@ kubectl create -f FILENAME
 ```
 -->
 ```shell
-  # 使用 pod.json 中的数据创建一个 Pod
-  kubectl create -f ./pod.json
-  
-  # 基于传入到标准输入的 JSON 创建一个 Pod
-  cat pod.json | kubectl create -f -
-  
-  # 以 JSON 编辑 registry.yaml 中的数据，然后使用已编辑的数据来创建资源
-  kubectl create -f registry.yaml --edit -o json
+# 使用 pod.json 中的数据创建一个 Pod
+kubectl create -f ./pod.json
+
+# 基于传入到标准输入的 JSON 创建一个 Pod
+cat pod.json | kubectl create -f -
+
+# 以 JSON 编辑 registry.yaml 中的数据，然后使用已编辑的数据来创建资源
+kubectl create -f registry.yaml --edit -o json
 ```
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -207,10 +207,11 @@ If true, the configuration of current object will be saved in its annotation. Ot
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。
+匹配的对象必须满足所有指定的标签约束。
 </p></td>
 </tr>
 
@@ -245,12 +246,12 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Must be one of: strict (or true), warn, ignore (or false).<br/>&quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and fail the request if invalid. It will perform server side validation if ServerSideFieldValidation is enabled on the api-server, but will fall back to less reliable client-side validation if not.<br/>&quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise.<br/>&quot;false&quot; or &quot;ignore&quot; will not perform any schema validation, silently dropping any unknown or duplicate fields.
+Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and fail the request if invalid. It will perform server side validation if ServerSideFieldValidation is enabled on the api-server, but will fall back to less reliable client-side validation if not. &quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise. &quot;false&quot; or &quot;ignore&quot; will not perform any schema validation, silently dropping any unknown or duplicate fields.
 -->
-必须是以下选项之一：strict（或 true）、warn、ignore（或 false）。<br/>
+必须是以下选项之一：strict（或 true）、warn、ignore（或 false）。
 "true" 或 "strict" 将使用模式定义来验证输入，如果无效，则请求失败。
 如果在 API 服务器上启用了 ServerSideFieldValidation，则执行服务器端验证，
-但如果未启用，它将回退到可靠性较低的客户端验证。<br/>
+但如果未启用，它将回退到可靠性较低的客户端验证。
 如果在 API 服务器上启用了服务器端字段验证，"warn" 将警告未知或重复的字段而不阻止请求，
 否则操作与 "ignore" 的表现相同。<br/>
 "false" 或 "ignore" 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
@@ -274,7 +275,7 @@ Only relevant if --edit=true. Defaults to the line ending native to your platfor
 
 ## {{% heading "parentoptions" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -362,30 +363,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 

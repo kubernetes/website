@@ -38,6 +38,13 @@ kubeadm upgrade node phase control-plane [flags]
 </tr>
 
 <tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>

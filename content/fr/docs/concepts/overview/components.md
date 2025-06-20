@@ -1,129 +1,88 @@
 ---
 title: Composants de Kubernetes
 content_type: concept
-weight: 20
+description: >
+  Un aperçu des principaux composants qui constituent un cluster Kubernetes.
+weight: 10
 card:
+  title: Composants d'un cluster
   name: concepts
   weight: 20
 ---
 
 <!-- overview -->
-Ce document résume les divers composants binaires requis pour livrer
-un cluster Kubernetes fonctionnel.
 
+Cette page fournit un aperçu général des composants essentiels qui constituent un cluster Kubernetes.
+
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Composants de Kubernetes" caption="Les composants d'un cluster Kubernetes" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
-## Composants Master
 
-Les composants Master fournissent le plan de contrôle (control plane) du cluster.
-Les composants Master prennent des décisions globales à propos du cluster (par exemple, la planification (scheduling)).
-Ils détectent et répondent aux événements du cluster (par exemple, démarrer un nouveau {{< glossary_tooltip text="Pod" term_id="pod">}} lorsque le champ `replicas` d'un déploiement n'est pas satisfait).
+## Composants principaux
 
-Les composants Master peuvent être exécutés sur n'importe quelle machine du cluster. Toutefois,
-par soucis de simplicité, les scripts de mise en route démarrent typiquement tous les composants master sur la
-même machine et n'exécutent pas de conteneurs utilisateur sur cette machine.
-Voir [Construire des Clusters en Haute Disponibilité](/docs/admin/high-availability/) pour une configuration d'exemple en multi-master-VM.
+Un cluster Kubernetes est composé d'un plan de contrôle et d'un ou plusieurs nœuds de travail.
+Voici un bref aperçu des principaux composants :
 
-### kube-apiserver
+### Composants du plan de contrôle
 
-{{< glossary_definition term_id="kube-apiserver" length="all" >}}
+Gèrent l'état global du cluster :
 
-### etcd
+[kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
+: Le serveur principal qui expose l'API HTTP de Kubernetes
 
-{{< glossary_definition term_id="etcd" length="all" >}}
+[etcd](/docs/concepts/architecture/#etcd)
+: Un magasin de clés-valeurs cohérent et hautement disponible pour toutes les données du serveur API
 
-### kube-scheduler
+[kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
+: Recherche les Pods qui ne sont pas encore liés à un nœud et attribue chaque Pod à un nœud approprié.
 
-{{< glossary_definition term_id="kube-scheduler" length="all" >}}
+[kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
+: Exécute des {{< glossary_tooltip text="contrôleurs" term_id="controller" >}} pour mettre en œuvre le comportement de l'API Kubernetes.
 
-### kube-controller-manager
+[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (optionnel)
+: S'intègre aux fournisseurs de cloud sous-jacents.
 
-{{< glossary_definition term_id="kube-controller-manager" length="all" >}}
+### Composants des nœuds
 
-Ces contrôleurs incluent :
+S'exécutent sur chaque nœud, maintiennent les pods en cours d'exécution et fournissent l'environnement d'exécution Kubernetes :
 
-  * Node Controller : Responsable de détecter et apporter une réponse lorsqu'un nœud tombe en panne.
-  * Replication Controller : Responsable de maintenir le bon nombre de pods pour chaque objet
-  ReplicationController dans le système.
-  * Endpoints Controller : Remplit les objets Endpoints (c'est-à-dire joint les Services et Pods).
-  * Service Account & Token Controllers : Créent des comptes par défaut et des jetons d'accès à l'API
-  pour les nouveaux namespaces.
+[kubelet](/docs/concepts/architecture/#kubelet)
+: Veille à ce que les Pods s'exécutent, y compris leurs conteneurs.
 
-### cloud-controller-manager
+[kube-proxy](/docs/concepts/architecture/#kube-proxy) (optionnel)
+: Maintient les règles réseau sur les nœuds pour mettre en œuvre les {{< glossary_tooltip text="Services" term_id="service" >}}.
 
-Le [cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) exécute les contrôleurs
-qui interagissent avec les fournisseurs cloud sous-jacents. Le binaire du cloud-controller-manager est une
-fonctionnalité alpha introduite dans la version 1.6 de Kubernetes.
+[Runtime de conteneur](/docs/concepts/architecture/#container-runtime)
+: Logiciel responsable de l'exécution des conteneurs. Lisez
+  [Runtimes de conteneurs](/docs/setup/production-environment/container-runtimes/) pour en savoir plus.
 
-Le cloud-controller-manager exécute seulement les boucles spécifiques des fournisseurs cloud.
-Vous devez désactiver ces boucles de contrôleurs dans le kube-controller-manager.
-Vous pouvez désactiver les boucles de contrôleurs en définissant la valeur du flag `--cloud-provider` à `external` lors du démarrage du kube-controller-manager.
+{{% thirdparty-content single="true" %}}
 
-Le cloud-controller-manager permet au code du fournisseur cloud et au code de Kubernetes d'évoluer indépendamment l'un de l'autre.
-Dans des versions antérieures, le code de base de Kubernetes dépendait du code spécifique du fournisseur cloud pour la fonctionnalité. Dans des versions ultérieures, le code spécifique des fournisseurs cloud devrait être maintenu par les fournisseurs cloud eux-mêmes et lié au cloud-controller-manager lors de l'exécution de Kubernetes.
+Votre cluster peut nécessiter des logiciels supplémentaires sur chaque nœud ; par exemple, vous pouvez également
+exécuter [systemd](https://systemd.io/) sur un nœud Linux pour superviser les composants locaux.
 
-Les contrôleurs suivants ont des dépendances vers des fournisseurs cloud :
+## Extensions
 
-  * Node Controller : Pour vérifier le fournisseur de cloud afin de déterminer si un nœud a été supprimé dans le cloud après avoir cessé de répondre
-  * Route Controller : Pour mettre en place des routes dans l'infrastructure cloud sous-jacente
-  * Service Controller : Pour créer, mettre à jour et supprimer les load balancers des fournisseurs cloud
-  * Volume Controller : Pour créer, attacher et monter des Volumes, et interagir avec le fournisseur cloud pour orchestrer les volumes.
+Les extensions étendent les fonctionnalités de Kubernetes. Quelques exemples importants incluent :
 
-## Composants de nœud
+[DNS](/docs/concepts/architecture/#dns)
+: Pour la résolution DNS à l'échelle du cluster
 
-Les composants de nœud (Node components) s'exécutent sur chaque nœud, en maintenant les pods en exécution
-et en fournissant l'environnement d'exécution Kubernetes.
+[Interface utilisateur Web](/docs/concepts/architecture/#web-ui-dashboard) (Tableau de bord)
+: Pour la gestion du cluster via une interface web
 
-### kubelet
+[Surveillance des ressources des conteneurs](/docs/concepts/architecture/#container-resource-monitoring)
+: Pour collecter et stocker les métriques des conteneurs
 
-{{< glossary_definition term_id="kubelet" length="all" >}}
+[Journalisation au niveau du cluster](/docs/concepts/architecture/#cluster-level-logging)
+: Pour enregistrer les journaux des conteneurs dans un référentiel de journaux centralisé
 
-### kube-proxy
+## Flexibilité dans l'architecture
 
-{{< glossary_definition term_id="kube-proxy" length="all" >}}
+Kubernetes permet une flexibilité dans la façon dont ces composants sont déployés et gérés.
+L'architecture peut être adaptée à différents besoins, des environnements de développement réduits
+aux déploiements de production à grande échelle.
 
-### Container Runtime
-
-{{< glossary_definition term_id="container-runtime" length="all" >}}
-
-## Addons
-
-Les addons utilisent les ressources Kubernetes ({{< glossary_tooltip term_id="daemonset" >}}, {{< glossary_tooltip term_id="deployment" >}}, etc)
-pour implémenter des fonctionnalités cluster. Comme ces derniers fournissent des fonctionnalités au niveau
-du cluster, les ressources dans des namespaces pour les addons appartiennent au namespace `kube-system`.
-
-Les addons sélectionnés sont décrits ci-dessous. Pour une liste étendue des addons disponibles, voir la page
-[Addons](/docs/concepts/cluster-administration/addons/).
-
-### DNS
-
-Tandis que les autres addons ne sont pas strictement requis, tous les clusters Kubernetes devraient avoir un
-[DNS cluster](/fr/docs/concepts/services-networking/dns-pod-service/) car de nombreux exemples en dépendent.
-
-Le DNS Cluster est un serveur DNS, en plus des autres serveurs DNS dans votre environnement, qui sert
-les enregistrements DNS pour les services Kubernetes.
-
-Les conteneurs démarrés par Kubernetes incluent automatiquement ce serveur DNS dans leurs recherches DNS.
-
-### Interface utilisateur Web (Dashboard)
-
-Le [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) est une interface utilisateur web à but général pour les clusters Kubernetes. Il permet aux utilisateurs de gérer et de dépanner aussi bien des
-applications s'exécutant dans le cluster que le cluster lui-même.
-
-### La surveillance des ressources de conteneur
-
-[La surveillance des ressources de conteneur](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) enregistre des métriques chronologiques génériques à propos des conteneurs dans une base de données centrale et
-fournit une interface utilisateur pour parcourir ces données.
-
-### Le logging au niveau cluster
-
-Un mécanisme de [logging au niveau cluster](/docs/concepts/cluster-administration/logging/) est chargé
-de sauvegarder les logs des conteneurs dans un magasin de logs central avec une interface de recherche/navigation.
-
-
-## {{% heading "whatsnext" %}}
-
-* En savoir plus sur les [Nœuds](/fr/docs/concepts/architecture/nodes/)
-* En savoir plus sur [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
-* Lire la [documentation officielle d'etcd](https://etcd.io/docs/)
+Pour plus d'informations détaillées sur chaque composant et les différentes façons de configurer votre
+architecture de cluster, consultez la page [Architecture du cluster](/docs/concepts/architecture/).
 

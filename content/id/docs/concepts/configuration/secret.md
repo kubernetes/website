@@ -265,8 +265,8 @@ melakukan mekanisme _pipeline_ `base64 | tr -d '\n'` jika tidak terdapat opsi `-
 
 #### Membuat Secret dengan Menggunakan _Generator_
 Kubectl mendukung [mekanisme manajemen objek dengan menggunakan Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
-sejak versi 1.14. Dengan fitur baru ini, kamu juga dapat membuat sebuah Secret dari sebuah _generator_ 
-dan kemudian mengaplikasikannya untuk membuat sebuah objek pada Apiserver. _Generator_ yang digunakan haruslah 
+sejak versi 1.14. Dengan fitur baru ini, kamu juga dapat membuat sebuah Secret dari sebuah _generator_
+dan kemudian mengaplikasikannya untuk membuat sebuah objek pada Apiserver. _Generator_ yang digunakan haruslah
 dispesifikasikan di dalam sebuah _file_ `kustomization.yaml` di dalam sebuah direktori.
 
 Sebagai contoh, untuk menghasilan sebuah Secret dari _file-file_ `./username.txt` dan `./password.txt`
@@ -325,14 +325,14 @@ $ kubectl apply -k .
 secret/db-user-pass-dddghtt9b5 created
 ```
 {{< note >}}
-Secret yang dihasilkan nantinya akan memiliki tambahan sufix dengan cara melakukan teknik _hashing_ 
-pada isi Secret tersebut. Hal ini dilakukan untuk menjamin dibuatnya sebuah Secret baru setiap kali terjadi 
+Secret yang dihasilkan nantinya akan memiliki tambahan sufix dengan cara melakukan teknik _hashing_
+pada isi Secret tersebut. Hal ini dilakukan untuk menjamin dibuatnya sebuah Secret baru setiap kali terjadi
 perubahan isi dari Secret tersebut.
 {{< /note >}}
 
 #### Melakukan Proses _Decode_ pada Secret
 
-Secret dapat dibaca dengan menggunakan perintah `kubectl get secret`. 
+Secret dapat dibaca dengan menggunakan perintah `kubectl get secret`.
 Misalnya saja, untuk membaca Secret yang dibuat pada bagian sebelumya:
 
 ```shell
@@ -366,9 +366,9 @@ echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
 ## Menggunakan Secret
 
 Secret dapat di-_mount_ sebagai _volume_ data atau dapat diekspos sebagai {{< glossary_tooltip text="variabel-variabel environment" term_id="container-env-variables" >}}
-dapat digunakan di dalam Pod. Secret ini juga dapat digunakan secara langsug 
-oleh bagian lain dari sistem, tanpa secara langsung berkaitan dengan Pod. 
-Sebagai contoh, Secret dapat berisikan kredensial bagian suatu sistem lain yang digunakan 
+dapat digunakan di dalam Pod. Secret ini juga dapat digunakan secara langsug
+oleh bagian lain dari sistem, tanpa secara langsung berkaitan dengan Pod.
+Sebagai contoh, Secret dapat berisikan kredensial bagian suatu sistem lain yang digunakan
 untuk berinteraksi dengan sistem eksternal yang kamu butuhkan.
 
 ### Menggunakan Secret sebagai _File_ melalui Pod
@@ -403,17 +403,17 @@ spec:
 
 Setiap Secret yang ingin kamu gunakan harus dirujuk pada _field_ `.spec.volumes`.
 
-Jika terdapat lebih dari satu container di dalam Pod, 
-maka setiap container akan membutuhkan blok `volumeMounts`-nya masing-masing, 
+Jika terdapat lebih dari satu container di dalam Pod,
+maka setiap container akan membutuhkan blok `volumeMounts`-nya masing-masing,
 meskipun demikian hanya sebuah _field_ `.spec.volumes`  yang dibutuhkan untuk setiap Secret.
 
-Kamu dapat menyimpan banyak _file_ ke dalam satu Secret, 
+Kamu dapat menyimpan banyak _file_ ke dalam satu Secret,
 atau menggunakan banyak Secret, hal ini tentunya bergantung pada preferensi pengguna.
 
 **Proyeksi _key_ Secret pada Suatu _Path_ Spesifik**
 
-Kita juga dapat mengontrol _path_ di dalam _volume_ di mana sebuah Secret diproyeksikan. 
-Kamu dapat menggunakan _field_ `.spec.volumes[].secret.items` untuk mengubah 
+Kita juga dapat mengontrol _path_ di dalam _volume_ di mana sebuah Secret diproyeksikan.
+Kamu dapat menggunakan _field_ `.spec.volumes[].secret.items` untuk mengubah
 _path_ target dari setiap _key_:
 
 ```yaml
@@ -443,17 +443,17 @@ Apa yang akan terjadi jika kita menggunakan definisi di atas:
 * Secret `username` akan disimpan pada _file_ `/etc/foo/my-group/my-username` dan bukan `/etc/foo/username`.
 * Secret `password` tidak akan diproyeksikan.
 
-Jika _field_ `.spec.volumes[].secret.items` digunakan, hanya _key-key_ yang dispesifikan di dalam 
-`items` yang diproyeksikan. Untuk mengonsumsi semua _key-key_ yang ada dari Secret, 
+Jika _field_ `.spec.volumes[].secret.items` digunakan, hanya _key-key_ yang dispesifikan di dalam
+`items` yang diproyeksikan. Untuk mengonsumsi semua _key-key_ yang ada dari Secret,
 semua _key_ yang ada harus didaftarkan pada _field_ `items`.
-Semua _key_ yang didaftarkan juga harus ada di dalam Secret tadi. 
+Semua _key_ yang didaftarkan juga harus ada di dalam Secret tadi.
 Jika tidak, _volume_ yang didefinisikan tidak akan dibuat.
 
 **_Permission_ _File-File_ Secret**
 
-Kamu juga dapat menspesifikasikan mode _permission_ dari _file_ Secret yang kamu inginkan. 
-Jika kamu tidak menspesifikasikan hal tersebut, maka nilai _default_ yang akan diberikan adalah `0644` is used by default. 
-Kamu dapat memberikan mode _default_ untuk semua Secret yang ada serta melakukan mekanisme _override_ _permission_ 
+Kamu juga dapat menspesifikasikan mode _permission_ dari _file_ Secret yang kamu inginkan.
+Jika kamu tidak menspesifikasikan hal tersebut, maka nilai _default_ yang akan diberikan adalah `0644` is used by default.
+Kamu dapat memberikan mode _default_ untuk semua Secret yang ada serta melakukan mekanisme _override_ _permission_
 pada setiap _key_ jika memang diperlukan.
 
 Sebagai contoh, kamu dapat memberikan spesifikasi mode _default_ sebagai berikut:
@@ -477,15 +477,15 @@ spec:
       defaultMode: 256
 ```
 
-Kemudian, sebuah Secret akan di-_mount_ pada `/etc/foo`, selanjutnya semua _file_ 
+Kemudian, sebuah Secret akan di-_mount_ pada `/etc/foo`, selanjutnya semua _file_
 yang dibuat pada _volume_ secret tersebut akan memiliki _permission_ `0400`.
 
-Perhatikan bahwa spesifikasi JSON tidak mendukung notasi _octal_, dengan demikian gunakanlah 
-_value_ 256 untuk _permission_ 0400. Jika kamu menggunakan format YAML untuk spesifikasi Pod, 
-kamu dapat menggunakan notasi _octal_ untuk memberikan spesifikasi _permission_ dengan cara yang lebih 
+Perhatikan bahwa spesifikasi JSON tidak mendukung notasi _octal_, dengan demikian gunakanlah
+_value_ 256 untuk _permission_ 0400. Jika kamu menggunakan format YAML untuk spesifikasi Pod,
+kamu dapat menggunakan notasi _octal_ untuk memberikan spesifikasi _permission_ dengan cara yang lebih
 natural.
 
-Kamu juga dapat melakukan mekanisme pemetaan, seperti yang sudah dilakukan pada contoh sebelumnya, 
+Kamu juga dapat melakukan mekanisme pemetaan, seperti yang sudah dilakukan pada contoh sebelumnya,
 dan kemudian memberikan spesifikasi _permission_ yang berbeda untuk _file_ yang berbeda.
 
 ```yaml
@@ -510,19 +510,19 @@ spec:
         mode: 511
 ```
 
-Pada kasus tersebut, _file_ yang dihasilkan pada `/etc/foo/my-group/my-username` akan memiliki 
-_permission_ `0777`. Karena terdapat batasan pada representasi JSON, maka kamu 
+Pada kasus tersebut, _file_ yang dihasilkan pada `/etc/foo/my-group/my-username` akan memiliki
+_permission_ `0777`. Karena terdapat batasan pada representasi JSON, maka kamu
 harus memberikan spesifikasi mode _permission_ dalam bentuk notasi desimal.
 
-Perhatikan bahwa _permission_ ini bida saja ditampilkan dalam bentuk notasi desimal, 
+Perhatikan bahwa _permission_ ini bida saja ditampilkan dalam bentuk notasi desimal,
 hal ini akan ditampilkan pada bagian selanjutnya.
 
 **Mengonsumsi _Value_ dari Secret melalui Volume**
 
-Di dalam sebuah container dimana _volume_ secret di-_mount_, 
-_key_ dari Secret akan ditampilkan sebagai _file_ dan _value_ dari Secret yang berada dalam bentuk 
-base64 ini akan di-_decode_ dam disimpan pada _file-file_ tadi. 
-Berikut merupakan hasil dari eksekusi perintah di dalam container berdasarkan contoh 
+Di dalam sebuah container dimana _volume_ secret di-_mount_,
+_key_ dari Secret akan ditampilkan sebagai _file_ dan _value_ dari Secret yang berada dalam bentuk
+base64 ini akan di-_decode_ dam disimpan pada _file-file_ tadi.
+Berikut merupakan hasil dari eksekusi perintah di dalam container berdasarkan contoh
 yang telah dipaparkan di atas:
 
 ```shell
@@ -548,34 +548,34 @@ cat /etc/foo/password
 1f2d1e2e67df
 ```
 
-Program di dalam container bertanggung jawab untuk membaca Secret 
+Program di dalam container bertanggung jawab untuk membaca Secret
 dari _file-file_ yang ada.
 
 **Secret yang di-_mount_ Akan Diubah Secara Otomatis**
 
-Ketika sebuah Secret yang sedang digunakan di dalam _volume_ diubah, 
-maka _key_ yang ada juga akan diubah. Kubelet akan melakukan mekanisme pengecekan secara periodik 
-apakah  terdapat perubahan pada Secret yang telah di-_mount_. Meskipun demikian, 
-proses pengecekan ini dilakukan dengan menggunakan _cache_ lokal untuk mendapatkan _value_ saat ini 
-dari sebuah Secret. Tipe _cache_ yang ada dapat diatur dengan menggunakan 
+Ketika sebuah Secret yang sedang digunakan di dalam _volume_ diubah,
+maka _key_ yang ada juga akan diubah. Kubelet akan melakukan mekanisme pengecekan secara periodik
+apakah  terdapat perubahan pada Secret yang telah di-_mount_. Meskipun demikian,
+proses pengecekan ini dilakukan dengan menggunakan _cache_ lokal untuk mendapatkan _value_ saat ini
+dari sebuah Secret. Tipe _cache_ yang ada dapat diatur dengan menggunakan
 (_field_ `ConfigMapAndSecretChangeDetectionStrategy` pada
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)).
-Mekanisme ini kemudian dapat diteruskan dengan mekanisme _watch_(_default_), ttl, atau melakukan pengalihan semua 
+Mekanisme ini kemudian dapat diteruskan dengan mekanisme _watch_(_default_), ttl, atau melakukan pengalihan semua
 _request_ secara langsung pada kube-apiserver.
-Sebagai hasilnya, _delay_ total dari pertama kali Secret diubah hingga dilakukannya mekanisme 
-proyeksi _key_ yang baru pada Pod berlangsung dalam jangka waktu sinkronisasi periodik kubelet + 
-_delay_ propagasi _cache_, dimana _delay_ propagasi _cache_ bergantung pada jenis _cache_ yang digunakan 
+Sebagai hasilnya, _delay_ total dari pertama kali Secret diubah hingga dilakukannya mekanisme
+proyeksi _key_ yang baru pada Pod berlangsung dalam jangka waktu sinkronisasi periodik kubelet +
+_delay_ propagasi _cache_, dimana _delay_ propagasi _cache_ bergantung pada jenis _cache_ yang digunakan
 (ini sama dengan _delay_ propagasi _watch_, ttl dari _cache_, atau nol).
 
 {{< note >}}
 Sebuah container menggunakan Secret sebagai
-[subPath](/id/docs/concepts/storage/volumes#using-subpath) dari _volume_ 
+[subPath](/id/docs/concepts/storage/volumes#using-subpath) dari _volume_
 yang di-_mount_ tidak akan menerima perubahan Secret.
 {{< /note >}}
 
 ### Menggunakan Secret sebagai Variabel _Environment_
 
-Berikut merupakan langkah-langkah yang harus kamu terapkan, 
+Berikut merupakan langkah-langkah yang harus kamu terapkan,
 untuk menggunakan secret sebagai {{< glossary_tooltip text="variabel _environment_" term_id="container-env-variables" >}}
 pada sebuah Pod:
 
@@ -610,9 +610,9 @@ spec:
 
 **Menggunakan Secret dari Variabel _Environment_**
 
-Di dalam sebuah container yang mengkonsumsi Secret pada sebuah variabel _environment_, _key_ dari sebuah secret 
-akan ditampilkan sebagai variabel _environment_ pada umumnya dengan _value_ berupa informasi yang telah di-_decode_ 
-ke dalam base64. Berikut merupakan hasil yang didapatkan apabila perintah-perintah di bawah ini 
+Di dalam sebuah container yang mengkonsumsi Secret pada sebuah variabel _environment_, _key_ dari sebuah secret
+akan ditampilkan sebagai variabel _environment_ pada umumnya dengan _value_ berupa informasi yang telah di-_decode_
+ke dalam base64. Berikut merupakan hasil yang didapatkan apabila perintah-perintah di bawah ini
 dijalankan dari dalam container yang didefinisikan di atas:
 
 ```shell
@@ -630,8 +630,8 @@ echo $SECRET_PASSWORD
 
 ### Menggunakan imagePullSecrets
 
-Sebuah `imagePullSecret` merupakan salah satu cara yang dapat digunakan untuk menempatkan secret 
-yang mengandung _password_ dari registri Docker (atau registri _image_ lainnya) 
+Sebuah `imagePullSecret` merupakan salah satu cara yang dapat digunakan untuk menempatkan secret
+yang mengandung _password_ dari registri Docker (atau registri _image_ lainnya)
 pada Kubelet, sehingga Kubelet dapat mengunduh _image_ dan menempatkannya pada Pod.
 
 **Memberikan spesifikasi manual dari sebuah imagePullSecret**
@@ -640,17 +640,17 @@ Penggunaan imagePullSecrets dideskripsikan di dalam [dokumentasi _image_](/id/do
 
 ### Mekanisme yang Dapat Diterapkan agar imagePullSecrets dapat Secara Otomatis Digunakan
 
-Kamu dapat secara manual membuat sebuah imagePullSecret, serta merujuk imagePullSecret 
-yang sudah kamu buat dari sebuah serviceAccount. Semua Pod yang dibuat dengan menggunakan 
-serviceAccount tadi atau serviceAccount _default_ akan menerima _field_ imagePullSecret dari 
+Kamu dapat secara manual membuat sebuah imagePullSecret, serta merujuk imagePullSecret
+yang sudah kamu buat dari sebuah serviceAccount. Semua Pod yang dibuat dengan menggunakan
+serviceAccount tadi atau serviceAccount _default_ akan menerima _field_ imagePullSecret dari
 serviceAccount yang digunakan.
-Bacalah [Cara menambahkan ImagePullSecrets pada sebuah _service account_](/id/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) 
+Bacalah [Cara menambahkan ImagePullSecrets pada sebuah _service account_](/id/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
 untuk informasi lebih detail soal proses yang dijalankan.
 
 ### Mekanisme _Mounting_ Otomatis dari Secret yang Sudah Dibuat
 
-Secret yang dibuat secara manual (misalnya, secret yang mengandung token yang dapat digunakan 
-untuk mengakses akun GitHub) dapat di-_mount_ secara otomatis pada sebuah Pod berdasarkan _service account_ 
+Secret yang dibuat secara manual (misalnya, secret yang mengandung token yang dapat digunakan
+untuk mengakses akun GitHub) dapat di-_mount_ secara otomatis pada sebuah Pod berdasarkan _service account_
 yang digunakan oleh Pod tadi.
 Baca [Bagaimana Penggunaan PodPreset untuk Memasukkan Informasi ke Dalam Pod](/docs/tasks/inject-data-application/podpreset/) untuk informasi lebih lanjut.
 
@@ -658,41 +658,41 @@ Baca [Bagaimana Penggunaan PodPreset untuk Memasukkan Informasi ke Dalam Pod](/d
 
 ### Batasan-Batasan
 
-Sumber dari _secret volume_ akan divalidasi untuk menjamin rujukan pada 
-objek yang dispesifikasikan mengarah pada objek dengan _type_ `Secret`. 
-Oleh karenanya, sebuah _secret_ harus dibuat sebelum Pod yang merujuk pada _secret_ 
+Sumber dari _secret volume_ akan divalidasi untuk menjamin rujukan pada
+objek yang dispesifikasikan mengarah pada objek dengan _type_ `Secret`.
+Oleh karenanya, sebuah _secret_ harus dibuat sebelum Pod yang merujuk pada _secret_
 tersebut dibuat.
 
 Sebuah objek API Secret berada di dalam sebuah {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 Objek-objek ini hanya dapat dirujuk oleh Pod-Pod yang ada pada namespace yang sama.
 
-Secret memiliki batasi dalam hal ukuran maksimalnya yaitu hanya sampai 1MiB per objek. 
-Oleh karena itulah, pembuatan secret dalam ukuran yang sangat besar tidak dianjurkan 
-karena dapat menghabiskan sumber daya apiserver dan memori kubelet. Meskipun demikian, 
-pembuatan banyak secret dengan ukuran kecil juga dapat menhabiskan memori. Pembatasan 
-sumber daya yang diizinkan untuk pembuatan secret merupakan salah satu fitur tambahan 
+Secret memiliki batasi dalam hal ukuran maksimalnya yaitu hanya sampai 1MiB per objek.
+Oleh karena itulah, pembuatan secret dalam ukuran yang sangat besar tidak dianjurkan
+karena dapat menghabiskan sumber daya apiserver dan memori kubelet. Meskipun demikian,
+pembuatan banyak secret dengan ukuran kecil juga dapat menhabiskan memori. Pembatasan
+sumber daya yang diizinkan untuk pembuatan secret merupakan salah satu fitur tambahan
 yang direncanakan kedepannya.
 
-Kubelet hanya mendukung penggunaan secret oleh Pod apabila Pod tersebut 
-didapatkan melalui apiserver. Hal ini termasuk Pod yang dibuat dengan menggunakan 
-kubectl, atau secara tak langsung melalui _replication controller_. Hal ini tidak 
-termasuk Pod yang dibuat melalui _flag_ `--manifest-url` yang ada pada kubelet, 
-maupun REST API yang disediakan (hal ini bukanlah merupakan mekanisme umum yang dilakukan 
+Kubelet hanya mendukung penggunaan secret oleh Pod apabila Pod tersebut
+didapatkan melalui apiserver. Hal ini termasuk Pod yang dibuat dengan menggunakan
+kubectl, atau secara tak langsung melalui _replication controller_. Hal ini tidak
+termasuk Pod yang dibuat melalui _flag_ `--manifest-url` yang ada pada kubelet,
+maupun REST API yang disediakan (hal ini bukanlah merupakan mekanisme umum yang dilakukan
 untuk membuat sebuah Pod).
 
-Secret harus dibuat sebelum digunakan oleh Pod sebagai variabel _environment_, 
-kecuali apabila variabel _environment_ ini dianggap opsional. Rujukan pada Secret 
+Secret harus dibuat sebelum digunakan oleh Pod sebagai variabel _environment_,
+kecuali apabila variabel _environment_ ini dianggap opsional. Rujukan pada Secret
 yang tidak dapat dipenuhi akan menyebabkan Pod gagal _start_.
 
-Rujukan melalui `secretKeyRef` pada _key_ yang tidak ada pada _named_ Secret 
+Rujukan melalui `secretKeyRef` pada _key_ yang tidak ada pada _named_ Secret
 akan akan menyebabkan Pod gagal _start_.
 
-Secret yang digunakan untuk memenuhi variabel _environment_ melalui `envFrom` yang 
-memiliki _key_ yang dianggap memiliki penamaan yang tidak valid akan diabaikan. 
-Hal ini akan akan menyebabkan Pod gagal _start_. Selanjutnya akan terdapat _event_ 
-dengan alasan `InvalidvariabeleNames` dan pesan yang berisikan _list_ dari 
-_key_ yang diabaikan akibat penamaan yang tidak valid. Contoh yang ada akan menunjukkan 
-sebuah pod yang merujuk pada secret `default/mysecret` yang mengandung dua buah _key_ 
+Secret yang digunakan untuk memenuhi variabel _environment_ melalui `envFrom` yang
+memiliki _key_ yang dianggap memiliki penamaan yang tidak valid akan diabaikan.
+Hal ini akan akan menyebabkan Pod gagal _start_. Selanjutnya akan terdapat _event_
+dengan alasan `InvalidvariabeleNames` dan pesan yang berisikan _list_ dari
+_key_ yang diabaikan akibat penamaan yang tidak valid. Contoh yang ada akan menunjukkan
+sebuah pod yang merujuk pada secret `default/mysecret` yang mengandung dua buah _key_
 yang tidak valid, yaitu 1badkey dan 2alsobad.
 
 ```shell
@@ -705,15 +705,15 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 
 ### Interaksi Secret dan Pod Lifetime
 
-Ketika sebuah pod dibuat melalui API, tidak terdapat mekanisme pengecekan 
-yang digunakan untuk mengetahui apakah sebuah Secret yang dirujuk sudah dibuat 
-atau belum. Ketika sebuah Pod di-_schedule_, kubelet akan mencoba mengambil 
-informasi mengenai _value_ dari secret tadi. Jika secret tidak dapat diambil 
-_value_-nya dengan alasan temporer karena hilangnya koneksi ke API server atau 
-secret yang dirujuk tidak ada, kubelet akan melakukan mekanisme _retry_ secara periodik. 
-Kubelet juga akan memberikan laporan mengenai _event_ yang terjadi pada Pod serta alasan 
-kenapa Pod tersebut belum di-_start_. Apabila Secret berhasil didapatkan, kubelet 
-akan membuat dan me-_mount_ volume yang mengandung secret tersebut. Tidak akan ada 
+Ketika sebuah pod dibuat melalui API, tidak terdapat mekanisme pengecekan
+yang digunakan untuk mengetahui apakah sebuah Secret yang dirujuk sudah dibuat
+atau belum. Ketika sebuah Pod di-_schedule_, kubelet akan mencoba mengambil
+informasi mengenai _value_ dari secret tadi. Jika secret tidak dapat diambil
+_value_-nya dengan alasan temporer karena hilangnya koneksi ke API server atau
+secret yang dirujuk tidak ada, kubelet akan melakukan mekanisme _retry_ secara periodik.
+Kubelet juga akan memberikan laporan mengenai _event_ yang terjadi pada Pod serta alasan
+kenapa Pod tersebut belum di-_start_. Apabila Secret berhasil didapatkan, kubelet
+akan membuat dan me-_mount_ volume yang mengandung secret tersebut. Tidak akan ada
 container dalam pod yang akan di-_start_ hingga semua volume pod berhasil di-_mount_.
 
 ## Contoh-Contoh Penggunaan
@@ -731,12 +731,12 @@ secret "ssh-key-secret" created
 ```
 
 {{< caution >}}
-Pikirkanlah terlebih dahulu sebelum kamu menggunakan _ssh key_ milikmu sendiri: pengguna lain pada kluster tersebut bisa saja memiliki akses pada secret yang kamu definisikan. 
-Gunakanlah service account untuk membagi informasi yang kamu inginkan di dalam kluster tersebut, dengan demikian kamu dapat membatalkan service account tersebut apabila secret tersebut disalahgunakan.
+Pikirkanlah terlebih dahulu sebelum kamu menggunakan _ssh key_ milikmu sendiri: pengguna lain pada klaster tersebut bisa saja memiliki akses pada secret yang kamu definisikan.
+Gunakanlah service account untuk membagi informasi yang kamu inginkan di dalam klaster tersebut, dengan demikian kamu dapat membatalkan service account tersebut apabila secret tersebut disalahgunakan.
 {{< /caution >}}
 
 
-Sekarang, kita dapat membuat sebuah pod yang merujuk pada secret dengan _ssh key_ yang sudah 
+Sekarang, kita dapat membuat sebuah pod yang merujuk pada secret dengan _ssh key_ yang sudah
 dibuat tadi serta menggunakannya melalui sebuah volume yang di-_mount_:
 
 ```yaml
@@ -760,7 +760,7 @@ spec:
       mountPath: "/etc/secret-volume"
 ```
 
-Ketika sebuah perintah dijalankan di dalam container, bagian dari _key_ tadi akan 
+Ketika sebuah perintah dijalankan di dalam container, bagian dari _key_ tadi akan
 terdapat pada:
 
 ```shell
@@ -768,12 +768,12 @@ terdapat pada:
 /etc/secret-volume/ssh-privatekey
 ```
 
-container kemudian dapat menggunakan secret secara bebas untuk 
+container kemudian dapat menggunakan secret secara bebas untuk
 membuat koneksi ssh.
 
 ### Contoh Penggunaan: Pod dengan kredensial prod / test
 
-Contoh ini memberikan ilustrasi pod yang mengonsumsi secret yang mengandung 
+Contoh ini memberikan ilustrasi pod yang mengonsumsi secret yang mengandung
 kredensial dari _environment_ _production_ atau _environment_ _test_.
 
 Buatlah suatu kustomization.yaml dengan SecretGenerator
@@ -793,8 +793,8 @@ secret "test-db-secret" created
 ```
 {{< note >}}
 Karakter spesial seperti `$`, `\*`, dan `!` membutuhkan mekanisme _escaping_.
-Jika password yang kamu gunakan memiliki karakter spesial, kamu dapat melakukan mekanisme _escape_ 
-dengan karakter `\\` character. Sebagai contohnya, jika _password_ kamu yang sebenarnya adalah 
+Jika password yang kamu gunakan memiliki karakter spesial, kamu dapat melakukan mekanisme _escape_
+dengan karakter `\\` character. Sebagai contohnya, jika _password_ kamu yang sebenarnya adalah
 `S!B\*d$zDsb`, maka kamu harus memanggil perintah eksekusi dengan cara sebagai berikut:
 
 ```shell
@@ -864,7 +864,7 @@ Terapkan semua perubahan pada objek-objek tadi ke Apiserver dengan menggunakan
 kubectl apply --k .
 ```
 
-Kedua container kemudian akan memiliki _file-file_ berikut ini di dalam 
+Kedua container kemudian akan memiliki _file-file_ berikut ini di dalam
 _filesystem_ keduanya dengan _value_ sebagai berikut untuk masing-masing _environment_:
 
 ```shell
@@ -872,12 +872,12 @@ _filesystem_ keduanya dengan _value_ sebagai berikut untuk masing-masing _enviro
 /etc/secret-volume/password
 ```
 
-Perhatikan bahwa _specs_ untuk kedua pod berbeda hanya pada satu _field_ saja; 
-hal ini bertujuan untuk memfasilitasi adanya kapabilitas yang berbeda dari templat 
+Perhatikan bahwa _specs_ untuk kedua pod berbeda hanya pada satu _field_ saja;
+hal ini bertujuan untuk memfasilitasi adanya kapabilitas yang berbeda dari templat
 konfigurasi umum yang tersedia.
 
-Kamu dapat mensimplifikasi spesifikasi dasar Pod dengan menggunakan dua buah _service account_ yang berbeda: 
-misalnya saja salah satunya disebut sebagai `prod-user` dengan `prod-db-secret`, dan satunya lagi disebut 
+Kamu dapat mensimplifikasi spesifikasi dasar Pod dengan menggunakan dua buah _service account_ yang berbeda:
+misalnya saja salah satunya disebut sebagai `prod-user` dengan `prod-db-secret`, dan satunya lagi disebut
 `test-user` dengan `test-db-secret`. Kemudian spesifikasi Pod tadi dapat diringkas menjadi:
 
 ```yaml
@@ -896,9 +896,9 @@ spec:
 
 ### Contoh Penggunaan: _Dotfiles_ pada volume secret
 
-Dengan tujuan membuat data yang ada 'tersembunyi' (misalnya, di dalam sebuah _file_ dengan nama yang dimulai 
-dengan karakter titik), kamu dapat melakukannya dengan cara yang cukup sederhana, yaitu cukup dengan membuat 
-karakter awal _key_ yang kamu inginkan dengan titik. Contohnya, ketika sebuah secret di bawah ini di-_mount_ 
+Dengan tujuan membuat data yang ada 'tersembunyi' (misalnya, di dalam sebuah _file_ dengan nama yang dimulai
+dengan karakter titik), kamu dapat melakukannya dengan cara yang cukup sederhana, yaitu cukup dengan membuat
+karakter awal _key_ yang kamu inginkan dengan titik. Contohnya, ketika sebuah secret di bawah ini di-_mount_
 pada sebuah volume:
 
 ```yaml
@@ -932,8 +932,8 @@ spec:
 ```
 
 
-Volume `secret-volume` akan mengandung sebuah _file_, yang disebut sebagai `.secret-file`, serta 
-container `dotfile-test-container` akan memiliki _file_ konfigurasinya pada _path_ 
+Volume `secret-volume` akan mengandung sebuah _file_, yang disebut sebagai `.secret-file`, serta
+container `dotfile-test-container` akan memiliki _file_ konfigurasinya pada _path_
 `/etc/secret-volume/.secret-file`.
 
 {{< note >}}
@@ -943,20 +943,20 @@ kamu harus menggunakan perintah `ls -la` untuk melihat _file-file_ tadi dari seb
 
 ### Contoh Penggunaan: Secret yang dapat diakses hanya pada salah satu container di dalam pod
 
-Misalkan terdapat sebuah program yang memiliki kebutuhan untuk menangani _request_ HTTP, 
-melakukan logika bisnis yang kompleks, serta kemudian menandai beberapa _message_ yang ada 
-dengan menggunakan HMAC. Karena program ini memiliki logika aplikasi yang cukup kompleks, 
-maka bisa jadi terdapat beberapa celah terjadinya eksploitasi _remote_ _file_ pada server, 
+Misalkan terdapat sebuah program yang memiliki kebutuhan untuk menangani _request_ HTTP,
+melakukan logika bisnis yang kompleks, serta kemudian menandai beberapa _message_ yang ada
+dengan menggunakan HMAC. Karena program ini memiliki logika aplikasi yang cukup kompleks,
+maka bisa jadi terdapat beberapa celah terjadinya eksploitasi _remote_ _file_ pada server,
 yang nantinya bisa saja mengekspos _private key_ yang ada pada _attacker_.
 
-Hal ini dapat dipisah menjadi dua buah proses yang berbeda di dalam dua container: 
-sebuah container _frontend_ yang menangani interaksi pengguna dan logika bisnis, tetapi 
-tidak memiliki kapabilitas untuk melihat _private key_; container lain memiliki kapabilitas 
-melihat _private key_ yang ada dan memiliki fungsi untuk menandai _request_ yang berasal 
+Hal ini dapat dipisah menjadi dua buah proses yang berbeda di dalam dua container:
+sebuah container _frontend_ yang menangani interaksi pengguna dan logika bisnis, tetapi
+tidak memiliki kapabilitas untuk melihat _private key_; container lain memiliki kapabilitas
+melihat _private key_ yang ada dan memiliki fungsi untuk menandai _request_ yang berasal
 dari _frontend_ (melalui jaringan _localhost_).
 
-Dengan strategi ini, seorang _attacker_ harus melakukan teknik tambahan 
-untuk memaksa aplikasi melakukan hal yang acak, yang kemudian menyebabkan 
+Dengan strategi ini, seorang _attacker_ harus melakukan teknik tambahan
+untuk memaksa aplikasi melakukan hal yang acak, yang kemudian menyebabkan
 mekanisme pembacaan _file_ menjadi lebih susah.
 
 <!-- TODO: menjelaskan bagaimana cara melakukan hal ini menggunakan mekanisme yang diotomatisasi. -->
@@ -965,34 +965,34 @@ mekanisme pembacaan _file_ menjadi lebih susah.
 
 ### Klien yang menggunakan API secret
 
-Ketika men-_deploy_ aplikasi yang berinteraksi dengan API secret, akses yang dilakukan 
+Ketika men-_deploy_ aplikasi yang berinteraksi dengan API secret, akses yang dilakukan
 haruslah dibatasi menggunakan [_policy_ autorisasi](
 /docs/reference/access-authn-authz/authorization/) seperti [RBAC](
 /docs/reference/access-authn-authz/rbac/).
 
-Secret seringkali menyimpan _value_ yang memiliki jangkauan spektrum 
-kepentingan, yang mungkin saja dapat menyebabkan terjadinya eskalasi baik 
-di dalam Kubernetes (misalnya saja token dari sebuah _service account_) maupun  
-sistem eksternal. Bahkan apabila setiap aplikasi secara individual memiliki 
-kapabilitas untuk memahami tingkatan yang dimilikinya untuk berinteraksi dengan secret tertentu, 
+Secret seringkali menyimpan _value_ yang memiliki jangkauan spektrum
+kepentingan, yang mungkin saja dapat menyebabkan terjadinya eskalasi baik
+di dalam Kubernetes (misalnya saja token dari sebuah _service account_) maupun
+sistem eksternal. Bahkan apabila setiap aplikasi secara individual memiliki
+kapabilitas untuk memahami tingkatan yang dimilikinya untuk berinteraksi dengan secret tertentu,
 aplikasi lain dalam namespace itu bisa saja menyebabkan asumsi tersebut menjadi tidak valid.
 
-Karena alasan-alasan yang sudah disebutkan tadi _request_  `watch` dan `list` untuk sebuah 
-secret di dalam suatu namespace merupakan kapabilitas yang sebisa mungkin harus dihindari, 
-karena menampilkan semua secret yang ada berimplikasi pada akses untuk melihat isi yang ada 
-pada secret yang ada. Kapabilitas untuk melakukan _request_ `watch` dan `list` pada semua secret di kluster 
+Karena alasan-alasan yang sudah disebutkan tadi _request_  `watch` dan `list` untuk sebuah
+secret di dalam suatu namespace merupakan kapabilitas yang sebisa mungkin harus dihindari,
+karena menampilkan semua secret yang ada berimplikasi pada akses untuk melihat isi yang ada
+pada secret yang ada. Kapabilitas untuk melakukan _request_ `watch` dan `list` pada semua secret di klaster
 hanya boleh dimiliki oleh komponen pada sistem level yang paling _previleged_.
 
-Aplikasi yang membutuhkan akses ke API secret harus melakukan _request_ `get` pada 
-secret yang dibutuhkan. Hal ini memungkinkan administrator untuk membatasi 
-akses pada semua secret dengan tetap memberikan [akses pada instans secret tertentu](/id/docs/reference/access-authn-authz/rbac/#referring-to-resources) 
+Aplikasi yang membutuhkan akses ke API secret harus melakukan _request_ `get` pada
+secret yang dibutuhkan. Hal ini memungkinkan administrator untuk membatasi
+akses pada semua secret dengan tetap memberikan [akses pada instans secret tertentu](/id/docs/reference/access-authn-authz/rbac/#referring-to-resources)
 yang dibutuhkan aplikasi.
 
-Untuk meningkatkan performa dengan menggunakan iterasi `get`, klien dapat mendesain 
-sumber daya yang merujuk pada suatu secret dan kemudian melakukan `watch` pada secret tersebut, 
+Untuk meningkatkan performa dengan menggunakan iterasi `get`, klien dapat mendesain
+sumber daya yang merujuk pada suatu secret dan kemudian melakukan `watch` pada secret tersebut,
 serta melakukan _request_ secret ketika terjadi perubahan pada rujukan tadi. Sebagai tambahan, [API "bulk watch"](
 https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/bulk_watch.md)
-yang dapat memberikan kapabilitas `watch` individual pada sumber daya melalui klien juga sudah direncanakan, 
+yang dapat memberikan kapabilitas `watch` individual pada sumber daya melalui klien juga sudah direncanakan,
 dan kemungkinan akan diimplementasikan dirilis Kubernetes selanjutnya.
 
 ## Properti Keamanan
@@ -1000,59 +1000,59 @@ dan kemungkinan akan diimplementasikan dirilis Kubernetes selanjutnya.
 
 ### Proteksi
 
-Karena objek `secret` dapat dibuat secara independen dengan `pod` yang menggunakannya, 
-risiko tereksposnya secret di dalam workflow pembuatan, pemantauan, serta pengubahan pod. 
-Sistem yang ada juga dapat memberikan tindakan pencegahan ketika berinteraksi dengan `secret`, 
-misalnya saja tidak melakukan penulisan isi `secret` ke dalam disk apabila hal tersebut 
-memungkinkan. 
+Karena objek `secret` dapat dibuat secara independen dengan `pod` yang menggunakannya,
+risiko tereksposnya secret di dalam workflow pembuatan, pemantauan, serta pengubahan pod.
+Sistem yang ada juga dapat memberikan tindakan pencegahan ketika berinteraksi dengan `secret`,
+misalnya saja tidak melakukan penulisan isi `secret` ke dalam disk apabila hal tersebut
+memungkinkan.
 
-Sebuah secret hanya diberikan pada node apabila pod yang ada di dalam node 
-membutuhkan secret tersebut. Kubelet menyimpan secret yang ada pada `tmpfs` 
-sehingga secret tidak ditulis pada disk. Setelah pod yang bergantung pada secret tersebut dihapus, 
+Sebuah secret hanya diberikan pada node apabila pod yang ada di dalam node
+membutuhkan secret tersebut. Kubelet menyimpan secret yang ada pada `tmpfs`
+sehingga secret tidak ditulis pada disk. Setelah pod yang bergantung pada secret tersebut dihapus,
 maka kubelet juga akan menghapus salinan lokal data secret.
 
-Di dalam sebuah node bisa saja terdapat beberapa secret yang dibutuhkan 
-oleh pod yang ada di dalamnya. Meskipun demikian, hanya secret yang di-_request_ 
-oleh sebuah pod saja yang dapat dilihat oleh container yang ada di dalamnya. 
-Dengan demikian, sebuah Pod tidak memiliki akses untuk melihat secret yang ada 
+Di dalam sebuah node bisa saja terdapat beberapa secret yang dibutuhkan
+oleh pod yang ada di dalamnya. Meskipun demikian, hanya secret yang di-_request_
+oleh sebuah pod saja yang dapat dilihat oleh container yang ada di dalamnya.
+Dengan demikian, sebuah Pod tidak memiliki akses untuk melihat secret yang ada
 pada pod yang lain.
 
-Di dalam sebuah pod bisa jadi terdapat beberapa container. 
-Meskipun demikian, agar sebuah container bisa mengakses _volume secret_, container 
-tersebut haruslah mengirimkan _request_ `volumeMounts` yang ada dapat diakses dari 
-container tersebut. Pengetahuan ini dapat digunakan untuk membentuk [partisi security 
-pada level pod](#contoh-penggunaan-secret-yang-dapat-diakses-hanya-pada-salah-satu-container-di-dalam-pod). 
+Di dalam sebuah pod bisa jadi terdapat beberapa container.
+Meskipun demikian, agar sebuah container bisa mengakses _volume secret_, container
+tersebut haruslah mengirimkan _request_ `volumeMounts` yang ada dapat diakses dari
+container tersebut. Pengetahuan ini dapat digunakan untuk membentuk [partisi security
+pada level pod](#contoh-penggunaan-secret-yang-dapat-diakses-hanya-pada-salah-satu-container-di-dalam-pod).
 
-Pada sebagian besar distribusi yang dipelihara projek Kubernetes, 
+Pada sebagian besar distribusi yang dipelihara projek Kubernetes,
 komunikasi antara pengguna dan apiserver serta apisserver dan kubelet dilindungi dengan menggunakan SSL/TLS.
 Dengan demikian, secret dalam keadaan dilindungi ketika ditransmisi.
 
 {{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 Kamu dapat mengaktifkan [enkripsi pada rest](/docs/tasks/administer-cluster/encrypt-data/)
-untuk data secret, sehingga secret yang ada tidak akan ditulis ke dalam {{< glossary_tooltip term_id="etcd" >}} 
+untuk data secret, sehingga secret yang ada tidak akan ditulis ke dalam {{< glossary_tooltip term_id="etcd" >}}
 dalam keadaan tidak terenkripsi.
 
 ### Resiko
 
  - Pada API server, data secret disimpan di dalam {{< glossary_tooltip term_id="etcd" >}};
    dengan demikian:
-   - Administrator harus mengaktifkan enkripsi pada rest untuk data kluster (membutuhkan versi v1.13 atau lebih)
+   - Administrator harus mengaktifkan enkripsi pada rest untuk data klaster (membutuhkan versi v1.13 atau lebih)
    - Administrator harus membatasi akses etcd pada pengguna dengan kapabilitas admin
    - Administrator bisa saja menghapus data disk yang sudah tidak lagi digunakan oleh etcd
-   - Jika etcd dijalankan di dalam kluster, administrator harus memastikan SSL/TLS 
+   - Jika etcd dijalankan di dalam klaster, administrator harus memastikan SSL/TLS
      digunakan pada proses komunikasi peer-to-peer etcd.
- - Jika kamu melakukan konfigurasi melalui sebuah _file_ manifest (JSON or YAML) 
-   yang menyimpan data secret dalam bentuk base64, membagi atau menyimpan secret ini 
-   dalam repositori kode sumber sama artinya dengan memberikan informasi mengenai data secret. 
+ - Jika kamu melakukan konfigurasi melalui sebuah _file_ manifest (JSON or YAML)
+   yang menyimpan data secret dalam bentuk base64, membagi atau menyimpan secret ini
+   dalam repositori kode sumber sama artinya dengan memberikan informasi mengenai data secret.
    Mekanisme _encoding_ base64 bukanlah merupakan teknik enkripsi dan nilainya dianggap sama saja dengan _plain text_.
- - Aplikasi masih harus melindungi _value_ dari secret setelah membaca nilainya dari suatu volume 
-   dengan demikian risiko terjadinya _logging_ secret secara tidak engaja dapat dihindari. 
- - Seorang pengguna yang dapat membuat suatu pod yang menggunakan secret, juga dapat melihat _value_ secret. 
-   Bahkan apabila _policy_ apiserver tidak memberikan kapabilitas untuk membaca objek secret, pengguna 
+ - Aplikasi masih harus melindungi _value_ dari secret setelah membaca nilainya dari suatu volume
+   dengan demikian risiko terjadinya _logging_ secret secara tidak engaja dapat dihindari.
+ - Seorang pengguna yang dapat membuat suatu pod yang menggunakan secret, juga dapat melihat _value_ secret.
+   Bahkan apabila _policy_ apiserver tidak memberikan kapabilitas untuk membaca objek secret, pengguna
    dapat menjalankan pod yang mengekspos secret.
- - Saat ini, semua orang dengan akses _root_ pada node dapat membaca secret _apapun_ dari apiserver,  
-   dengan cara meniru kubelet. Meskipun begitu, terdapat fitur yang direncanakan pada rilis selanjutnya yang memungkinkan pengiriman secret hanya dapat 
+ - Saat ini, semua orang dengan akses _root_ pada node dapat membaca secret _apapun_ dari apiserver,
+   dengan cara meniru kubelet. Meskipun begitu, terdapat fitur yang direncanakan pada rilis selanjutnya yang memungkinkan pengiriman secret hanya dapat
    mengirimkan secret pada node yang membutuhkan secret tersebut untuk membatasi adanya eksploitasi akses _root_ pada node ini.
 
 ## {{% heading "whatsnext" %}}

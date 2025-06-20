@@ -26,11 +26,44 @@ You may be interested in using this capability if any of the below are true:
 
 This guide demonstrates how to configure the kubelet's image credential provider plugin mechanism.
 
+## Service Account Token for Image Pulls
+{{< feature-state feature_gate_name="KubeletServiceAccountTokenForCredentialProviders" >}}
+
+Starting from Kubernetes v1.33,
+the kubelet can be configured to send a service account token
+bound to the pod for which the image pull is being performed
+to the credential provider plugin.
+
+This allows the plugin to exchange the token for credentials
+to access the image registry.
+
+To enable this feature,
+the `KubeletServiceAccountTokenForCredentialProviders` feature gate
+must be enabled on the kubelet,
+and the `tokenAttributes` field must be set
+in the `CredentialProviderConfig` file for the plugin.
+
+The `tokenAttributes` field contains information
+about the service account token that will be passed to the plugin,
+including the intended audience for the token
+and whether the plugin requires the pod to have a service account.
+
+Using service account token credentials can enable the following use-cases:
+
+* Avoid needing a kubelet/node-based identity to pull images from a registry.
+* Allow workloads to pull images based on their own runtime identity
+without long-lived/persisted secrets.
+
 ## {{% heading "prerequisites" %}}
 
 * You need a Kubernetes cluster with nodes that support kubelet credential
   provider plugins. This support is available in Kubernetes {{< skew currentVersion >}};
   Kubernetes v1.24 and v1.25 included this as a beta feature, enabled by default.
+* If you are configuring a credential provider plugin
+that requires the service account token,
+you need a Kubernetes cluster with nodes running Kubernetes v1.33 or later
+and the `KubeletServiceAccountTokenForCredentialProviders` feature gate
+enabled on the kubelet.
 * A working implementation of a credential provider exec plugin. You can build your own plugin or use one provided by cloud providers.
 
 {{< version-check >}}
@@ -115,6 +148,49 @@ providers:
     env:
       - name: AWS_PROFILE
         value: example_profile
+
+    # tokenAttributes is the configuration for the service account token that will be passed to the plugin.
+    # The credential provider opts in to using service account tokens for image pull by setting this field.
+    # if this field is set without the `KubeletServiceAccountTokenForCredentialProviders` feature gate enabled, 
+    # kubelet will fail to start with invalid configuration error.
+    # +optional
+    tokenAttributes:
+      # serviceAccountTokenAudience is the intended audience for the projected service account token.
+      # +required
+      serviceAccountTokenAudience: "<audience for the token>"
+      # requireServiceAccount indicates whether the plugin requires the pod to have a service account.
+      # If set to true, kubelet will only invoke the plugin if the pod has a service account.
+      # If set to false, kubelet will invoke the plugin even if the pod does not have a service account
+      # and will not include a token in the CredentialProviderRequest. This is useful for plugins
+      # that are used to pull images for pods without service accounts (e.g., static pods).
+      # +required
+      requireServiceAccount: true
+      # requiredServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in 
+      # and that are required to be present in the service account.
+      # The keys defined in this list will be extracted from the corresponding service account and passed 
+      # to the plugin as part of the CredentialProviderRequest. If any of the keys defined in this list 
+      # are not present in the service account, kubelet will not invoke the plugin and will return an error. 
+      # This field is optional and may be empty. Plugins may use this field to extract additional information 
+      # required to fetch credentials or allow workloads to opt in to using service account tokens for image pull.
+      # If non-empty, requireServiceAccount must be set to true.
+      # The keys defined in this list must be unique and not overlap with the keys defined in the
+      # optionalServiceAccountAnnotationKeys list.
+      # +optional
+      requiredServiceAccountAnnotationKeys:
+      - "example.com/required-annotation-key-1"
+      - "example.com/required-annotation-key-2"
+      # optionalServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in 
+      # and that are optional to be present in the service account.
+      # The keys defined in this list will be extracted from the corresponding service account and passed 
+      # to the plugin as part of the CredentialProviderRequest. The plugin is responsible for validating the 
+      # existence of annotations and their values. This field is optional and may be empty. 
+      # Plugins may use this field to extract additional information required to fetch credentials.
+      # The keys defined in this list must be unique and not overlap with the keys defined in the
+      # requiredServiceAccountAnnotationKeys list.
+      # +optional
+      optionalServiceAccountAnnotationKeys:
+      - "example.com/optional-annotation-key-1"
+      - "example.com/optional-annotation-key-2"
 ```
 
 The `providers` field is a list of enabled plugins used by the kubelet. Each entry has a few required fields:
@@ -129,6 +205,26 @@ The `providers` field is a list of enabled plugins used by the kubelet. Each ent
 
 Each credential provider can also be given optional args and environment variables as well.
 Consult the plugin implementors to determine what set of arguments and environment variables are required for a given plugin.
+
+If you are using the KubeletServiceAccountTokenForCredentialProviders feature gate
+and configuring the plugin to use the service account token
+by setting the tokenAttributes field,
+the following fields are required:
+
+* `serviceAccountTokenAudience`:
+  the intended audience for the projected service account token.
+  This cannot be the empty string.
+* `requireServiceAccount`:
+  whether the plugin requires the pod to have a service account.
+  * If set to `true`, kubelet will only invoke the plugin
+if the pod has a service account.
+  * If set to `false`, kubelet will invoke the plugin
+even if the pod does not have a service account
+and will not include a token in the `CredentialProviderRequest`.
+
+This is useful for plugins that are used
+to pull images for pods without service accounts
+(e.g., static pods).
 
 #### Configure image matching
 

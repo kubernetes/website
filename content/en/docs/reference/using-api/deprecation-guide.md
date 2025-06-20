@@ -22,11 +22,11 @@ deprecated API versions to newer and more stable API versions.
 
 ### v1.32
 
-The **v1.32** release will stop serving the following deprecated API versions:
+The **v1.32** release stopped serving the following deprecated API versions:
 
 #### Flow control resources {#flowcontrol-resources-v132}
 
-The **flowcontrol.apiserver.k8s.io/v1beta3** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.32.
+The **flowcontrol.apiserver.k8s.io/v1beta3** API version of FlowSchema and PriorityLevelConfiguration is no longer served as of v1.32.
 
 * Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1** API version, available since v1.29.
 * All existing persisted objects are accessible via the new API

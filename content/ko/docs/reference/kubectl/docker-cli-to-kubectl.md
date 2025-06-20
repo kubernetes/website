@@ -15,6 +15,7 @@ weight: 50
 ## docker run
 
 nginx 디플로이먼트(Deployment)를 실행하고 해당 디플로이먼트를 노출시키려면, [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-)을 참고한다.
+
 docker:
 
 ```shell

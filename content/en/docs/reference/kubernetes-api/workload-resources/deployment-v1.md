@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Deployment enables declarative updates for Pods and ReplicaSets."
 title: "Deployment"
-weight: 5
+weight: 6
 auto_generated: true
 ---
 
@@ -134,15 +134,15 @@ DeploymentStatus is the most recently observed status of the Deployment.
 
 - **replicas** (int32)
 
-  Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+  Total number of non-terminating pods targeted by this deployment (their labels match the selector).
 
 - **availableReplicas** (int32)
 
-  Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+  Total number of available non-terminating pods (ready for at least minReadySeconds) targeted by this deployment.
 
 - **readyReplicas** (int32)
 
-  readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
+  Total number of non-terminating pods targeted by this Deployment with a Ready Condition.
 
 - **unavailableReplicas** (int32)
 
@@ -150,7 +150,13 @@ DeploymentStatus is the most recently observed status of the Deployment.
 
 - **updatedReplicas** (int32)
 
-  Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+  Total number of non-terminating pods targeted by this deployment that have the desired template spec.
+
+- **terminatingReplicas** (int32)
+
+  Total number of terminating pods targeted by this deployment. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+  
+  This is an alpha field. Enable DeploymentReplicaSetTerminatingReplicas to be able to use this field.
 
 - **collisionCount** (int32)
 
@@ -159,6 +165,8 @@ DeploymentStatus is the most recently observed status of the Deployment.
 - **conditions** ([]DeploymentCondition)
 
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   
   Represents the latest available observations of a deployment's current state.
 
@@ -771,6 +779,11 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -829,6 +842,11 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

@@ -45,11 +45,11 @@ no_list: true
   অ্যাডমিন সুবিধা রয়েছে। কিন্তু গুরুত্বপূর্ণ ওয়ার্কলোড সহ ভাগ করা ক্লাস্টার, এবং
   এক বা দুইজনের বেশি ব্যবহারকারীর জন্য কে এবং কি ক্লাস্টার রিসোর্স অ্যাক্সেস করতে পারে তার
   জন্য আরও পরিমার্জিত পদ্ধতির প্রয়োজন। আপনি রোল-বেসড অ্যাক্সেস কন্ট্রোল
-  ([RBAC](/bn/docs/reference/access-authn-authz/rbac/)) এবং অন্যান্য
+  ([RBAC](/docs/reference/access-authn-authz/rbac/)) এবং অন্যান্য
   নিরাপত্তা ব্যবস্থা ব্যবহার করতে পারেন যাতে ব্যবহারকারী এবং ওয়ার্কলোড তাদের প্রয়োজনীয়
   রিসোর্সগুলিতে অ্যাক্সেস পেতে পারে ওয়ার্কলোড, এবং ক্লাস্টার নিজেই নিরাপদ।
   [পলিসি](/bn/docs/concepts/policy/) এবং
-  [কন্টেইনার রিসোর্স](/bn/docs/concepts/configuration/manage-resources-containers/) পরিচালনার মাধ্যমে
+  [কন্টেইনার রিসোর্স](/docs/concepts/configuration/manage-resources-containers/) পরিচালনার মাধ্যমে
   ব্যবহারকারী এবং ওয়ার্কলোড যে রিসোর্সগুলি অ্যাক্সেস করতে পারে তার উপর আপনি সীমা নির্ধারণ করতে পারেন।
 
 কুবারনেটিস প্রোডাকশন এনভায়রনমেন্ট নিজে থেকে তৈরি করার আগে, এই
@@ -86,7 +86,7 @@ no_list: true
 
 সহজতম কুবারনেটিস ক্লাস্টারে একই মেশিনে পুরো কন্ট্রোল প্লেন এবং ওয়ার্কার
 নোড সার্ভিসগুলি চলে। আপনি ওয়ার্কার নোডগুলি যোগ করে সেই এনভায়রনমেন্ট
-বাড়াতে পারেন, যেমনটি [কুবারনেটিস কম্পোনেন্ট](/bn/docs/concepts/overview/components/) এ
+বাড়াতে পারেন, যেমনটি [কুবারনেটিস কম্পোনেন্ট](/docs/concepts/overview/components/) এ
 চিত্রিত চিত্রে প্রতিফলিত হয়েছে।
 যদি ক্লাস্টারটি অল্প সময়ের জন্য পাওয়া যায় বা কিছু গুরুতর ভুল হয়ে গেলে তা
 বাতিল করা যেতে পারে, তাহলে এটি আপনার প্রয়োজন মেটাতে পারে।
@@ -107,10 +107,10 @@ no_list: true
 - *সার্টিফিকেট পরিচালনা করুন*: কন্ট্রোল প্লেন সার্ভিসগুলির মধ্যে সুরক্ষিত যোগাযোগ সার্টিফিকেট
   ব্যবহার করে প্রয়োগ করা হয়। সার্টিফিকেটগুলি স্থাপনের সময় স্বয়ংক্রিয়ভাবে তৈরি হয় বা
   আপনি আপনার নিজের সার্টিফিকেট কর্তৃপক্ষ ব্যবহার করে সেগুলি তৈরি করতে পারেন৷
-  বিস্তারিত জানার জন্য [PKI সার্টিফিকেট এবং প্রয়োজনীয়তা](/bn/docs/setup/best-practices/certificates/) দেখুন।
+  বিস্তারিত জানার জন্য [PKI সার্টিফিকেট এবং প্রয়োজনীয়তা](/docs/setup/best-practices/certificates/) দেখুন।
 - *apiserver এর জন্য লোড ব্যালেন্সার কনফিগার করুন*: বিভিন্ন নোডে চলমান apiserver
   সার্ভিস দৃষ্টান্তগুলিতে বহিরাগত API অনুরোধগুলি বিতরণ করতে একটি লোড ব্যালেন্সার কনফিগার করুন। দেখুন
-  [একটি বাহ্যিক লোড ব্যালেন্সার তৈরি করুন](/bn/docs/tasks/access-application-cluster/create-external-load-balancer/)
+  [একটি বাহ্যিক লোড ব্যালেন্সার তৈরি করুন](/docs/tasks/access-application-cluster/create-external-load-balancer/)
   বিস্তারিত জানার জন্য.
 - *পৃথক এবং ব্যাকআপ etcd সার্ভিস*: etcd সার্ভিসগুলি হয় অন্যান্য কন্ট্রোল প্লেন
   সার্ভিসগুলির মতো একই মেশিনে চলতে পারে বা অতিরিক্ত নিরাপত্তা এবং প্রাপ্যতার জন্য
@@ -118,8 +118,8 @@ no_list: true
   তাই etcd ডাটাবেসের ব্যাকআপ নিয়মিত করা উচিত যাতে আপনি প্রয়োজনে
   সেই ডাটাবেসটি মেরামত করতে পারেন।
   etcd কনফিগার করা এবং ব্যবহার করার বিষয়ে বিস্তারিত জানার জন্য [etcd FAQ](https://etcd.io/docs/v3.5/faq/) দেখুন।
-  [কুবারনেটিস-এর জন্য অপারেটিং etcd ক্লাস্টার](/bn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-  দেখুন এবং [kubeadm-এর সাথে একটি উচ্চ প্রাপ্যতা etcd ক্লাস্টার সেট আপ করুন](/bn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+  [কুবারনেটিস-এর জন্য অপারেটিং etcd ক্লাস্টার](/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+  দেখুন এবং [kubeadm-এর সাথে একটি উচ্চ প্রাপ্যতা etcd ক্লাস্টার সেট আপ করুন](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
   বিস্তারিত জানার জন্য।
 - *মাল্টিপল কন্ট্রোল প্লেন সিস্টেম তৈরি করুন*: উচ্চ প্রাপ্যতা জন্য,
   কন্ট্রোল প্লেন একটি একক মেশিনে সীমাবদ্ধ করা উচিত নয়। যদি কন্ট্রোল প্লেন
@@ -137,25 +137,25 @@ no_list: true
   একই রিজিওনে মাল্টিপল জোনে
   একটি ক্লাস্টার ছড়িয়ে দেওয়ার মাধ্যমে, এটি একটি জোন অপ্রাপ্য হয়ে গেলেও
   আপনার ক্লাস্টারটি কাজ করা চালিয়ে যাওয়ার সম্ভাবনাকে উন্নত করতে পারে।
-  বিস্তারিত জানার জন্য [মাল্টিপল জোনে চলমান](/bn/docs/setup/best-practices/multiple-zones/) দেখুন।
+  বিস্তারিত জানার জন্য [মাল্টিপল জোনে চলমান](/docs/setup/best-practices/multiple-zones/) দেখুন।
 - *চলমান ফিচারগুলি পরিচালনা করুন*: আপনি যদি সময়ের সাথে সাথে আপনার ক্লাস্টার রাখার পরিকল্পনা করেন
   তবে এর স্বাস্থ্য এবং নিরাপত্তা বজায় রাখার জন্য আপনাকে কিছু কাজ করতে হবে। উদাহরণস্বরূপ,
   আপনি যদি kubeadm-এর সাথে ইনস্টল করেন, তাহলে আপনাকে
-  [সার্টিফিকেট ম্যানেজমেন্ট](/bn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
-  এবং [kubeadm ক্লাস্টার আপগ্রেড করা](/bn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) সাহায্য করার জন্য নির্দেশাবলী রয়েছে।
+  [সার্টিফিকেট ম্যানেজমেন্ট](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
+  এবং [kubeadm ক্লাস্টার আপগ্রেড করা](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/) সাহায্য করার জন্য নির্দেশাবলী রয়েছে।
   কুবারনেটিস অ্যাডমিনিস্ট্রেটিভ কাজগুলির একটি দীর্ঘ তালিকার জন্য
-  [একটি ক্লাস্টার পরিচালনা](/bn/docs/tasks/administer-cluster/) দেখুন।
+  [একটি ক্লাস্টার পরিচালনা](/docs/tasks/administer-cluster/) দেখুন।
 
 আপনি যখন কন্ট্রোল প্লেন সার্ভিসগুলি চালান তখন এভেইল্যাবল বিকল্পগুলি সম্পর্কে জানতে,
-[kube-apiserver](/bn/docs/reference/command-line-tools-reference/kube-apiserver/),
-[kube-controller-manager](/bn/docs/reference/command-line-tools-reference/kube-controller-manager/) দেখুন,
-এবং [kube-scheduler](/bn/docs/reference/command-line-tools-reference/kube-scheduler/)
+[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/),
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) দেখুন,
+এবং [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
 কম্পোনেন্ট পৃষ্ঠা। হাইলি এভেইল্যাবল কন্ট্রোল প্লেন উদাহরণের জন্য,
-[হাইলি এভেইল্যাবল টপোলজির বিকল্পগুলি](/bn/docs/setup/production-environment/tools/kubeadm/ha-topology/),
-[kubeadm-এর সাহায্যে হাইলি এভেইল্যাবল ক্লাস্টার তৈরি করা](/bn/docs/setup/production-environment/tools/kubeadm/high-availability/) দেখুন,
-এবং [অপারেটিং etcd ক্লাস্টার-এর জন্য কুবারনেটিস](/bn/docs/tasks/administer-cluster/configure-upgrade-etcd/)।
+[হাইলি এভেইল্যাবল টপোলজির বিকল্পগুলি](/docs/setup/production-environment/tools/kubeadm/ha-topology/),
+[kubeadm-এর সাহায্যে হাইলি এভেইল্যাবল ক্লাস্টার তৈরি করা](/docs/setup/production-environment/tools/kubeadm/high-availability/) দেখুন,
+এবং [অপারেটিং etcd ক্লাস্টার-এর জন্য কুবারনেটিস](/docs/tasks/administer-cluster/configure-upgrade-etcd/)।
 একটি etcd ব্যাকআপ প্ল্যান তৈরির তথ্যের জন্য
-[একটি etcd ক্লাস্টার ব্যাক আপ করা](/bn/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) দেখুন।
+[একটি etcd ক্লাস্টার ব্যাক আপ করা](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) দেখুন।
 
 ### প্রোডাকশন ওয়ার্কার নোড
 
@@ -167,13 +167,13 @@ no_list: true
 
 - *নোডগুলি কনফিগার করুন*: নোডগুলি ফিজিক্যাল বা ভার্চুয়াল মেশিন হতে পারে। আপনি যদি
   নিজের নোডগুলি তৈরি করতে এবং পরিচালনা করতে চান তবে আপনি একটি সমর্থিত অপারেটিং সিস্টেম ইনস্টল করতে পারেন,
-  তারপরে উপযুক্ত [নোড সার্ভিসগুলি](/bn/docs/concepts/overview/components/#node-components)
+  তারপরে উপযুক্ত [নোড সার্ভিসগুলি](/docs/concepts/architecture/#node-components)
   যোগ করুন এবং চালান। বিবেচনা করুন:
   - উপযুক্ত মেমরি, সিপি উ, এবং ডিস্কের গতি এবং স্টোরেজ ক্ষমতা এভেইল্যাবল থাকার মাধ্যমে আপনি যখন নোড সেট আপ করেন তখন আপনার ওয়ার্কলোডের চাহিদা।
   - জেনেরিক কম্পিউটার সিস্টেমগুলি করবে কিনা বা আপনার কাছে এমন ওয়ার্কলোড আছে যেগুলির জন্য জিপিউ প্রসেসর, উইন্ডোজ নোড, বা ভিএম আইসোলেশন প্রয়োজন।
 - *ভ্যালিডেট নোড*: কিভাবে একটি নোড একটি কুবারনেটিস ক্লাস্টারে
   যোগদানের প্রয়োজনীয়তা পূরণ করে তা নিশ্চিত করার তথ্যের জন্য
-  [ভ্যালিড নোড সেটআপ](/bn/docs/setup/best-practices/node-conformance/) দেখুন।
+  [ভ্যালিড নোড সেটআপ](/docs/setup/best-practices/node-conformance/) দেখুন।
 - *ক্লাস্টারে নোড যোগ করুন*: আপনি যদি নিজের ক্লাস্টার পরিচালনা করেন তাহলে আপনি
   আপনার নিজস্ব মেশিন সেট আপ করে নোড যোগ করতে পারেন এবং হয় সেগুলিকে ম্যানুয়ালি যোগ করে অথবা
   ক্লাস্টারের apiserver এ নিজেদের নিবন্ধন করতে পারেন। এই উপায়ে
@@ -181,14 +181,14 @@ no_list: true
 - *নোড স্কেল করুন*: আপনার ক্লাস্টারের শেষ পর্যন্ত যে ক্ষমতা প্রয়োজন তা প্রসারিত করার জন্য একটি
   পরিকল্পনা করুন। আপনার চালানোর জন্য কতগুলি পড এবং কন্টেইনার প্রয়োজন
   তার উপর ভিত্তি করে আপনার কতগুলি নোড প্রয়োজন তা নির্ধারণ করতে সাহায্য করতে
-  [বড় ক্লাস্টারগুলির জন্য বিবেচনা](/bn/docs/setup/best-practices/cluster-large/) দেখুন। আপনি যদি নিজে নোড পরিচালনা করেন, তাহলে এর অর্থ
+  [বড় ক্লাস্টারগুলির জন্য বিবেচনা](/docs/setup/best-practices/cluster-large/) দেখুন। আপনি যদি নিজে নোড পরিচালনা করেন, তাহলে এর অর্থ
   হতে পারে আপনার নিজের ফিজিক্যাল টুল কেনা এবং ইনস্টল করা।
 - *নোড অটোস্কেল করুন*: আপনার নোডগুলি স্বয়ংক্রিয়ভাবে পরিচালনা করার জন্য উপলব্ধ সরঞ্জামগুলি এবং
   তাদের সরবরাহ করা ক্ষমতা সম্পর্কে জানতে
-  [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) পড়ুন।
+  [ক্লাস্টার অটোস্কেলিং](/docs/concepts/cluster-administration/cluster-autoscaling) পড়ুন।
 - *নোড স্বাস্থ্য পরীক্ষা সেট আপ করুন*: গুরুত্বপূর্ণ ওয়ার্কলোডের জন্য, আপনি নিশ্চিত করতে চান যে
   সেই নোডগুলিতে চলমান নোড এবং পডগুলি স্বাস্থ্যকর।
-  [নোড প্রবলেম ডিটেক্টর](/bn/docs/tasks/debug-application-cluster/monitor-node-health/)
+  [নোড প্রবলেম ডিটেক্টর](/docs/tasks/debug-application-cluster/monitor-node-health/)
   daemon ব্যবহার করে, আপনি নিশ্চিত করতে পারেন আপনার নোডগুলি সুস্থ।
 
 ## প্রোডাকশন ব্যবহারকারী ব্যবস্থাপনা
@@ -210,45 +210,45 @@ no_list: true
   আপনি কোন অথেনটিকেশন পদ্ধতি ব্যবহার করতে চান তা নির্বাচন করতে পারেন।
   প্লাগইন ব্যবহার করে, apiserver আপনার প্রতিষ্ঠানের বিদ্যমান সুবিধা নিতে পারে
   অথেনটিকেশন পদ্ধতি, যেমন LDAP বা Kerberos। দেখা
-  [অথেনটিকেশন](/bn/docs/reference/access-authn-authz/authentication/)
+  [অথেনটিকেশন](/docs/reference/access-authn-authz/authentication/)
   কুবারনেটিস ব্যবহারকারীদের অথেনটিকেশনের এই বিভিন্ন পদ্ধতির বর্ণনার জন্য।
 - *অথোরাইজেশন*: আপনি যখন আপনার নিয়মিত ব্যবহারকারীদের অথোরাইজেশন করার জন্য প্রস্তুত হন, আপনি সম্ভবত
   RBAC এবং ABAC অথোরাইজেশনের মধ্যে বেছে নেবেন। ব্যবহারকারীর অ্যাকাউন্ট অথোরাইজেশনের জন্য বিভিন্ন মোড পর্যালোচনা করতে
-  [অথোরাইজেশন  ওভারভিউ](/bn/docs/reference/access-authn-authz/authorization/) দেখুন (সেইসাথে আপনার ক্লাস্টারে সার্ভিস
+  [অথোরাইজেশন  ওভারভিউ](/docs/reference/access-authn-authz/authorization/) দেখুন (সেইসাথে আপনার ক্লাস্টারে সার্ভিস
   অ্যাকাউন্ট অ্যাক্সেস):
-  - *রোল-বেসড অ্যাক্সেস কন্ট্রোল* ([RBAC](/bn/docs/reference/access-authn-authz/rbac/)):
+  - *রোল-বেসড অ্যাক্সেস কন্ট্রোল* ([RBAC](/docs/reference/access-authn-authz/rbac/)):
     অথেন্টিকেটেড ব্যবহারকারীদের নির্দিষ্ট সেটের অনুমতি প্রদান করে আপনাকে আপনার ক্লাস্টারে অ্যাক্সেস বরাদ্দ করতে দেয়।
     একটি নির্দিষ্ট নেমস্পেস (Role) বা সমগ্র ক্লাস্টার জুড়ে (ClusterRole) অনুমতিগুলি বরাদ্দ
     করা যেতে পারে। তারপর RoleBindings এবং ClusterRoleBindings ব্যবহার করে, সেই অনুমতিগুলি নির্দিষ্ট ব্যবহারকারীদের সাথে
     সংযুক্ত করা যেতে পারে।
-  - *অ্যাট্রিবিউট-বেসড অ্যাক্সেস কন্ট্রোল* ([ABAC](/bn/docs/reference/access-authn-authz/abac/)):
+  - *অ্যাট্রিবিউট-বেসড অ্যাক্সেস কন্ট্রোল* ([ABAC](/docs/reference/access-authn-authz/abac/)):
     আপনাকে ক্লাস্টারে রিসোর্স অ্যাট্রিবিউটের উপর ভিত্তি করে পলিসি তৈরি করতে দেয় এবং সেই অ্যাট্রিবিউটগুলির উপর ভিত্তি করে অ্যাক্সেসের
     অনুমতি দেয় বা অস্বীকার করে। একটি পলিসি ফাইলের প্রতিটি লাইন ভার্শনিং বৈশিষ্ট্য (apiVersion
     এবং kind) এবং বিষয় (ব্যবহারকারী বা গ্রুপ), রিসোর্স বৈশিষ্ট্য,
     নন-রিসোর্সে বৈশিষ্ট্য (/version বা /apis) এবং শুধুমাত্র পঠনযোগ্য বৈশিষ্ট্যের সাথে মেলে বিশেষ বৈশিষ্ট্যগুলির একটি মানচিত্র সনাক্ত করে।
-    বিস্তারিত জানার জন্য [উদাহরণ](/bn/docs/reference/access-authn-authz/abac/#examples) দেখুন.
+    বিস্তারিত জানার জন্য [উদাহরণ](/docs/reference/access-authn-authz/abac/#examples) দেখুন.
 
 যেহেতু কেউ আপনার প্রোডাকশন কুবারনেটস ক্লাস্টারে অথেনটিকেশন এবং অথোরাইজেশন সেট আপ করছে, এখানে কিছু বিষয় বিবেচনা করার আছেঃ
 
 - *অথোরাইজেশন মোড সেট করুন*: যখন Kubernetes API সার্ভার
-  ([kube-apiserver](/bn/docs/reference/command-line-tools-reference/kube-apiserver/)) শুরু হয়,
+  ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)) শুরু হয়,
   তখন সমর্থিত অথেনটিকেশন মোডগুলি *--authorization-mode* ফ্ল্যাগ ব্যবহার করে সেট করতে হবে।
   উদাহরণস্বরূপ, *kube-adminserver.yaml* ফাইলে (*/etc/kubernetes/manifests*-এ) সেই ফ্ল্যাগটি
   Node,RBAC-তে সেট করা যেতে পারে। এটি অথেন্টিকেটেড অনুরোধের জন্য নোড এবং RBAC অথোরাইজেশনের অনুমতি দেবে।
 - *ব্যবহারকারী সার্টিফিকেট এবং রোল বাইন্ডিং (RBAC)ভর্তি নিয়ন্ত্রক বিবেচনা করুন*: আপনি যদি RBAC অথোরাইজেশন ব্যবহার করেন,
   ব্যবহারকারীরা একটি CertificateSigningRequest (CSR) তৈরি করতে পারে যা ক্লাস্টার
   CA দ্বারা স্বাক্ষরিত হতে পারে। তারপর আপনি প্রতিটি ব্যবহারকারীর রোল এবং ক্লাস্টার রোল বাইন্ড করতে পারেন।
-  বিস্তারিত জানার জন্য [সার্টিফিকেট স্বাক্ষরের অনুরোধ](/bn/docs/reference/access-authn-authz/certificate-signing-requests/)
+  বিস্তারিত জানার জন্য [সার্টিফিকেট স্বাক্ষরের অনুরোধ](/docs/reference/access-authn-authz/certificate-signing-requests/)
   দেখুন।
 - *অ্যাট্রিবিউটগুলিকে একত্রিত করে এমন পলিসি তৈরি করুন (ABAC)*: আপনি যদি ABAC অথোরাইজেশন ব্যবহার করেন,
   আপনি নির্দিষ্ট রিসোর্সগুলি (যেমন একটি পড), নেমস্পেস, বা apiGroup অ্যাক্সেস করার জন্য নির্বাচিত
   ব্যবহারকারী বা গ্রুপগুলিকে অথোরাইজেশন করার জন্য পলিসিগুলি গঠনের জন্য অ্যাট্রিবিউটগুলিকে সংমিশ্রণ
   বরাদ্দ করতে পারেন। আরও তথ্যের জন্য,
-  [উদাহরণ](/bn/docs/reference/access-authn-authz/abac/#examples) দেখুন।
+  [উদাহরণ](/docs/reference/access-authn-authz/abac/#examples) দেখুন।
 - *অ্যাডমিশন কন্ট্রোলারদের বিবেচনা করুন*: API সার্ভারের মাধ্যমে যে অনুরোধগুলি
   আসতে পারে তার অথোরাইজেশনের অতিরিক্ত ফর্মগুলির মধ্যে রয়েছে
-  [ওয়েবহুক টোকেন অথেনটিকেশন](/bn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)।
-  API সার্ভারে [অ্যাডমিশন কন্ট্রোলার](/bn/docs/reference/access-authn-authz/admission-controllers/)
+  [ওয়েবহুক টোকেন অথেনটিকেশন](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)।
+  API সার্ভারে [অ্যাডমিশন কন্ট্রোলার](/docs/reference/access-authn-authz/admission-controllers/)
   যোগ করে ওয়েবহুক এবং অন্যান্য বিশেষ অথোরাইজেশনের ধরন
   সক্ষম করতে হবে।
 
@@ -259,23 +259,23 @@ no_list: true
 এই আইটেমগুলি বিবেচনা করুনঃ
 
 - *নেমস্পেস সীমা সেট করুন*: মেমরি এবং সিপিইউ এর মত জিনিসগুলিতে প্রতি-নেমস্পেস কোটা সেট করুন। বিস্তারিত
-  জানার জন্য [Manage Memory, CPU, and API Resources](/bn/docs/tasks/administer-cluster/manage-resources/)
+  জানার জন্য [Manage Memory, CPU, and API Resources](/docs/tasks/administer-cluster/manage-resources/)
   দেখুন। এছাড়াও আপনি উত্তরাধিকার
   সীমার জন্য [হায়ারার্কিক্যাল নেমস্পেস](/blog/2020/08/14/introducing-hierarchical-namespaces/)
   সেট করতে পারেন।
 - *ডিএনএস চাহিদার জন্য প্রস্তুত করুন*: আপনি যদি আশা করেন যে ওয়ার্কলোড ব্যাপকভাবে বৃদ্ধি পাবে,
   আপনার DNS সার্ভিসটিও স্কেল বাড়াতে প্রস্তুত থাকতে হবে। দেখুন
-  [একটি ক্লাস্টারে DNS সার্ভিসটি অটোস্কেল করুন](/bn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)।
+  [একটি ক্লাস্টারে DNS সার্ভিসটি অটোস্কেল করুন](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)।
 - *অতিরিক্ত সার্ভিস অ্যাকাউন্ট তৈরি করুন*: ব্যবহারকারীর অ্যাকাউন্টগুলি নির্ধারণ করে যে ব্যবহারকারীরা
   একটি ক্লাস্টারে কী করতে পারে, যখন একটি সার্ভিস অ্যাকাউন্ট একটি নির্দিষ্ট নেমস্পেসের মধ্যে পড
   অ্যাক্সেসকে সংজ্ঞায়িত করে। ডিফল্টরূপে, একটি পড তার নেমস্পেস থেকে ডিফল্ট সার্ভিস অ্যাকাউন্টে নেয়।
-  একটি নতুন সার্ভিস অ্যাকাউন্ট তৈরি করার তথ্যের জন্য [সার্ভিস অ্যাকাউন্ট পরিচালনা করা](/bn/docs/reference/access-authn-authz/service-accounts-admin/)
+  একটি নতুন সার্ভিস অ্যাকাউন্ট তৈরি করার তথ্যের জন্য [সার্ভিস অ্যাকাউন্ট পরিচালনা করা](/docs/reference/access-authn-authz/service-accounts-admin/)
   দেখুন। উদাহরণস্বরূপ, আপনি চাইতে পারেন:
   - সিক্রেট যোগ করুন যা একটি পড একটি নির্দিষ্ট কন্টেইনার রেজিস্ট্রি থেকে ইমেজ পুল করতে ব্যবহার করতে পারে।
-    উদাহরণের জন্য [পডের জন্য সার্ভিস অ্যাকাউন্ট কনফিগার করুন](/bn/docs/tasks/configure-pod-container/configure-service-account/)
+    উদাহরণের জন্য [পডের জন্য সার্ভিস অ্যাকাউন্ট কনফিগার করুন](/docs/tasks/configure-pod-container/configure-service-account/)
     দেখুন।
   - একটি সার্ভিস অ্যাকাউন্টে RBAC অনুমতিগুলি বরাদ্দ করুন৷ বিস্তারিত জানার জন্য
-    [সার্ভিস অ্যাকাউন্ট অনুমতি](/bn/docs/reference/access-authn-authz/rbac/#service-account-permissions)
+    [সার্ভিস অ্যাকাউন্ট অনুমতি](/docs/reference/access-authn-authz/rbac/#service-account-permissions)
     দেখুন।
 
 ## {{% heading "whatsnext" %}}
@@ -285,17 +285,17 @@ no_list: true
   অথবা [কুবারনেটিস অংশীদার](/bn/partners/) থেকে একটি পেতে চান।
 - আপনি যদি নিজের ক্লাস্টার তৈরি করতে চান,
   তাহলে পরিকল্পনা করুন আপনি কীভাবে
-  [সার্টিফিকেট](/bn/docs/setup/best-practices/certificates/) পরিচালনা করতে চান এবং
-  [etcd](/bn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+  [সার্টিফিকেট](/docs/setup/best-practices/certificates/) পরিচালনা করতে চান এবং
+  [etcd](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
   এর মতো ফিচারগুলির জন্য উচ্চ প্রাপ্যতা সেট আপ করুন)
-  এবং [API সার্ভার](/bn/docs/setup/production-environment/tools/kubeadm/ha-topology/)।
+  এবং [API সার্ভার](/docs/setup/production-environment/tools/kubeadm/ha-topology/)।
 - [kubeadm](/bn/docs/setup/production-environment/tools/kubeadm/) থেকে ডিপ্লয়মেন্ট পদ্ধতি বেছে নিন,
   [kops](https://kops.sigs.k8s.io/) অথবা
   [Kubespray](https://kubespray.io/)।
-- আপনার [অথেনটিকেশন](/bn/docs/reference/access-authn-authz/authentication/)
-  এবং [অথোরাইজেশন](/bn/docs/reference/access-authn-authz/authorization/)
+- আপনার [অথেনটিকেশন](/docs/reference/access-authn-authz/authentication/)
+  এবং [অথোরাইজেশন](/docs/reference/access-authn-authz/authorization/)
   পদ্ধতি নির্ধারণ করে ব্যবহারকারী ব্যবস্থাপনা কনফিগার করুন।
-- [রিসোর্স লিমিট](/bn/docs/tasks/administer-cluster/manage-resources/),
-  [DNS autoscaling](/bn/docs/tasks/administer-cluster/dns-horizontal-autoscaling)
+- [রিসোর্স লিমিট](/docs/tasks/administer-cluster/manage-resources/),
+  [DNS autoscaling](/docs/tasks/administer-cluster/dns-horizontal-autoscaling)
   সেট আপ করে অ্যাপ্লিকেশন ওয়ার্কলোডের জন্য প্রস্তুত করুন /) এবং
-  [সার্ভিস অ্যাকাউন্ট](/bn/docs/reference/access-authn-authz/service-accounts-admin/)।
+  [সার্ভিস অ্যাকাউন্ট](/docs/reference/access-authn-authz/service-accounts-admin/)।

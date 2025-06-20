@@ -1,7 +1,6 @@
 ---
 title: "Reporting Errors from Control Plane to Applications Using Kubernetes Events"
 date: 2018-01-25
-published: true
 slug: reporting-errors-using-kubernetes-events
 url: /blog/2018/01/Reporting-Errors-Using-Kubernetes-Events
 author: >

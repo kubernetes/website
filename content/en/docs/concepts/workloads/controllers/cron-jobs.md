@@ -60,12 +60,12 @@ The `.spec.schedule` field is required. The value of that field follows the [Cro
 # │ │ │ ┌───────────── month (1 - 12)
 # │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
 # │ │ │ │ │                                   OR sun, mon, tue, wed, thu, fri, sat
-# │ │ │ │ │ 
+# │ │ │ │ │
 # │ │ │ │ │
 # * * * * *
 ```
 
-For example, `0 0 13 * 5` states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight.
+For example, `0 3 * * 1` means this task is scheduled to run weekly on a Monday at 3 AM.
 
 The format also includes extended "Vixie cron" step values. As explained in the
 [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
@@ -192,13 +192,10 @@ A time zone database from the Go standard library is included in the binaries an
 ### Unsupported TimeZone specification
 
 Specifying a timezone using `CRON_TZ` or `TZ` variables inside `.spec.schedule`
-is **not officially supported** (and never has been).
-
-Starting with Kubernetes 1.29 if you try to set a schedule that includes `TZ` or `CRON_TZ`
-timezone specification, Kubernetes will fail to create the resource with a validation
-error.
-Updates to CronJobs already using `TZ` or `CRON_TZ` will continue to report a
-[warning](/blog/2020/09/03/warnings/) to the client.
+is **not officially supported** (and never has been). If you try to set a schedule
+that includes `TZ` or `CRON_TZ` timezone specification, Kubernetes will fail to
+create or update the resource with a validation error. You should specify time zones
+using the [time zone field](#time-zones), instead.
 
 ### Modifying a CronJob
 
@@ -215,6 +212,10 @@ The scheduling is approximate because there
 are certain circumstances where two Jobs might be created, or no Job might be created.
 Kubernetes tries to avoid those situations, but does not completely prevent them. Therefore,
 the Jobs that you define should be _idempotent_.
+
+Starting with Kubernetes v1.32, CronJobs apply an annotation
+`batch.kubernetes.io/cronjob-scheduled-timestamp` to their created Jobs. This annotation
+indicates the originally scheduled creation time for the Job and is formatted in RFC3339.
 
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the Jobs will always run

@@ -6,7 +6,7 @@ reviewers:
 - derekwaynecarr
 
 content_type: task
-min-kubernetes-server-version: v1.21
+min-kubernetes-server-version: v1.32
 weight: 410
 ---
 
@@ -46,7 +46,7 @@ Preceding v1.22, the `kubelet` must be started with the following flag:
 
 in order to enable the Memory Manager feature.
 
-## How Memory Manager Operates?
+## How does the Memory Manager Operate?
 
 The Memory Manager currently offers the guaranteed memory (and hugepages) allocation
 for Pods in Guaranteed QoS class.
@@ -57,7 +57,7 @@ prepare and deploy a `Guaranteed` pod as illustrated in the section
 
 The Memory Manager is a Hint Provider, and it provides topology hints for
 the Topology Manager which then aligns the requested resources according to these topology hints.
-It also enforces `cgroups` (i.e. `cpuset.mems`) for pods.
+On Linux, it also enforces `cgroups` (i.e. `cpuset.mems`) for pods.
 The complete flow diagram concerning pod admission and deployment process is illustrated in
 [Memory Manager KEP: Design Overview][4] and below:
 
@@ -91,6 +91,14 @@ The problem has been solved as elaborated in
 Also, reference [Memory Manager KEP: Simulation - how the Memory Manager works? (by examples)][1]
 illustrates how the management of groups occurs.
 
+### Windows Support
+
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+
+Windows support can be enabled via the `WindowsCPUAndMemoryAffinity` feature gate
+and it requires support in the container runtime.
+Only the [BestEffort Policy](#policy-best-effort) is supported on Windows.
+
 ## Memory Manager configuration
 
 Other Managers should be first pre-configured. Next, the Memory Manager feature should be enabled
@@ -103,7 +111,8 @@ node stability (section [Reserved memory flag](#reserved-memory-flag)).
 Memory Manager supports two policies. You can select a policy via a `kubelet` flag `--memory-manager-policy`:
 
 * `None` (default)
-* `Static`
+* `Static` (Linux only)
+* `BestEffort` (Windows Only)
 
 #### None policy {#policy-none}
 
@@ -122,6 +131,24 @@ and reserves the memory through updating the internal [NodeMap][2] object.
 In the case of the `BestEffort` or `Burstable` pod, the `Static` Memory Manager policy sends back
 the default topology hint as there is no request for the guaranteed memory,
 and does not reserve the memory in the internal [NodeMap][2] object.
+
+This policy is only supported on Linux.
+
+#### BestEffort policy {#policy-best-effort}
+
+{{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
+
+This policy is only supported on Windows.
+
+On Windows, NUMA node assignment works differently than Linux.
+There is no mechanism to ensure that Memory access only comes from a specific NUMA node.
+Instead the Windows scheduler will select the most optimal NUMA node based on the CPU(s) assignments.
+It is possible that Windows might use other NUMA nodes if deemed optimal by the Windows scheduler. 
+
+The policy does track the amount of memory available and requested through the internal [NodeMap][2]. 
+The memory manager will make a best effort at ensuring that enough memory is available on
+a NUMA node before making the assignment.  
+This means that in most cases memory assignment should function as expected.
 
 ### Reserved memory flag
 
@@ -217,11 +244,15 @@ display an error.
 Here is an example of a correct configuration:
 
 ```shell
---feature-gates=MemoryManager=true
 --kube-reserved=cpu=4,memory=4Gi
 --system-reserved=cpu=1,memory=1Gi
 --memory-manager-policy=Static
 --reserved-memory '0:memory=3Gi;1:memory=2148Mi'
+```
+
+Prior to Kubernetes 1.32, you also need to add
+```shell
+--feature-gates=MemoryManager=true
 ```
 
 Let us validate the configuration above:

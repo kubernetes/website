@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler 是水平 Pod 自动扩缩器的配置，它根据指定的指标自动管理实现 scale 子资源的任何资源的副本数。"
 title: "HorizontalPodAutoscaler"
-weight: 12
+weight: 13
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified."
 title: "HorizontalPodAutoscaler"
-weight: 12
+weight: 13
 auto_generated: true
 -->
 
@@ -173,13 +173,28 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     <a name="HPAScalingRules"></a>
 
     <!--
-    *HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.*
+    *HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
 
+    Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+    -->
+  
+    **HPAScalingRules** 配置一个方向上的扩缩行为，通过扩缩策略规则和可配置的对度量值的容差。
+
+    扩缩策略规则在根据 HPA 的度量值计算出期望的副本数后应用。它们可以通过指定扩缩策略来限制扩缩速度。
+    它们可以通过指定稳定窗口防止波动，这样不会立即设置副本数量，而是从稳定窗口中选择最安全的值。
+    
+    <!--
+    The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)*
+    -->
+
+    容忍度应用于度量值，防止因度量的微小变化而过于急切地扩缩。
+   （注意，设置容忍度需要启用 Alpha **特性门控** HPAConfigurableTolerance。）
+  
     - **behavior.scaleDown.policies** ([]HPAScalingPolicy)
 
       *Atomic: will be replaced during a merge*
 
-      policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+      policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
     -->
 
     HPAScalingRules 为一个方向配置扩缩行为。在根据 HPA 的指标计算 desiredReplicas 后应用这些规则。
@@ -190,7 +205,10 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
 
       **原子性：将在合并时被替换**
 
-      policies 是可在扩缩容过程中使用的潜在扩缩策略的列表。必须至少指定一个策略，否则 HPAScalingRules 将被视为无效而丢弃。
+      policies 是可在扩缩容过程中使用的潜在扩缩策略的列表。
+      如果未设置，使用默认值：
+      - 对于扩容：允许将 Pod 数量翻倍，或在 15 秒窗口内绝对增加 4 个 Pod。
+      - 对于缩容：允许在 15 秒窗口内移除所有 Pod。
 
       <a name="HPAScalingPolicy"></a>
 
@@ -254,6 +272,30 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
       - 扩容：0（不设置稳定窗口）。
       - 缩容：300（即稳定窗口为 300 秒）。
 
+    - **behavior.scaleDown.tolerance** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    <!--
+    tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+    -->
+  
+    tolerance 是当前的度量值和期望的指标值之间比率的容差，在此容差范围内，系统不会更新期望的副本数量
+    （例如，0.01 为 1%）。必须大于或等于零。如果未设置，则应用默认的集群范围容差
+    （默认为 10%）。
+   
+    <!--
+    For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+    -->
+
+    例如，如果配置了以 100Mi 的内存消耗为目标的自动扩缩容，
+    并且扩缩容的容差分别为 5% 和 1%，那么当实际消耗低于 95Mi
+    或超过 101Mi 时，将触发扩缩容。
+
+    <!--
+    This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+    -->
+
+    这是一个 Alpha 字段，需要启用 **HPAConfigurableTolerance** 特性门控。
+  
   <!--
   - **behavior.scaleUp** (HPAScalingRules)
 
@@ -275,24 +317,38 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     <a name="HPAScalingRules"></a>
 
     <!--
-    *HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.*
+    *HPAScalingRules configures the scaling behavior for one direction via scaling Policy Rules and a configurable metric tolerance.
+    
+    Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
+    -->
+  
+    **HPAScalingRules** 配置了一个方向上的扩缩行为，通过扩缩策略规则和可配置的指标容忍度。
 
+    扩缩策略规则在根据 HPA 的指标计算出期望的副本数后应用。它们可以通过指定扩缩策略来限制扩缩速度。
+    它们可以通过指定稳定窗口防止波动，这样不会立即设置副本数量，而是从稳定窗口中选择最安全的值。
+
+    <!--
+    The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires enabling the alpha HPAConfigurableTolerance feature gate.)*
+    -->
+  
+    容忍度应用于指标值，防止因小的指标变化而过于急切地扩缩。
+    （注意，设置容忍度需要启用 Alpha 特性门控 **HPAConfigurableTolerance**。）
+
+    <!--
     - **behavior.scaleUp.policies** ([]HPAScalingPolicy)
 
       *Atomic: will be replaced during a merge*
 
-      policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
+      policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
     -->
-
-    HPAScalingRules 为一个方向配置扩缩行为。在根据 HPA 的指标计算 desiredReplicas 后应用这些规则。
-    可以通过指定扩缩策略来限制扩缩速度。可以通过指定稳定窗口来防止抖动，
-    因此不会立即设置副本数，而是选择稳定窗口中最安全的值。
 
     - **behavior.scaleUp.policies** ([]HPAScalingPolicy)
 
       **原子性：将在合并时被替换**
 
-      policies 是可在扩缩容过程中使用的潜在扩缩策略的列表。必须至少指定一个策略，否则 HPAScalingRules 将被视为无效而丢弃。
+      policies 是一个潜在的扩缩策略列表，可以在扩缩期间使用。如果未设置，则使用默认值：
+      - 对于扩容：允许将 Pod 数量翻倍，或在 15 秒窗口内绝对增加 4 个 Pod。
+      - 对于缩容：允许在 15 秒窗口内移除所有 Pod。
 
       <a name="HPAScalingPolicy"></a>
 
@@ -355,6 +411,31 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
       - 扩容：0（不设置稳定窗口）。
       - 缩容：300（即稳定窗口为 300 秒）。
 
+    - **behavior.scaleUp.tolerance** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+      <!--
+      tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
+      -->
+  
+      tolerance 是当前和期望的指标值之间比率的容差，
+      在此容差下不会更新期望的副本数量（例如，1% 为 0.01）。
+      必须大于或等于零。如果未设置，则应用默认的集群范围容差（默认为 10%）。
+  
+      <!--
+      For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
+      -->
+  
+      例如，如果配置了以 100Mi 的内存消耗为目标的自动扩缩容，
+      并且扩缩容的容差分别为 5% 和 1%，那么当实际消耗低于 95Mi
+      或超过 101Mi 时，将触发扩缩容。
+
+      <!--
+      This is an alpha field and requires enabling the HPAConfigurableTolerance feature gate.
+      -->
+  
+      这是一个 Alpha 字段，需要启用 **HPAConfigurableTolerance** 特性门控。
+
+
 <!--
 - **metrics** ([]MetricSpec)
 
@@ -380,7 +461,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
   
   - **metrics.type** (string), required
   
-    type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+    type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object.
   -->
 
   **MetricSpec 指定如何基于单个指标进行扩缩容（一次只能设置 `type` 和一个其他匹配字段）**
@@ -388,12 +469,12 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
   - **metrics.type** (string)，必需
 
     type 是指标源的类别。它取值是 “ContainerResource”、“External”、“Object”、“Pods” 或 “Resource” 之一，
-    每个类别映射到对象中的一个对应的字段。注意：“ContainerResource” 类别在特性门控 HPAContainerMetrics 启用时可用。
+    每个类别映射到对象中的一个对应的字段。
 
   <!--
   - **metrics.containerResource** (ContainerResourceMetricSource)
 
-    containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
+    containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
   -->
 
   - **metrics.containerResource** (ContainerResourceMetricSource)
@@ -401,7 +482,6 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 预期的功能。
     containerResource 是指 Kubernetes 已知的资源指标（例如在请求和限制中指定的那些），
     描述当前扩缩目标中每个 Pod 中的单个容器（例如 CPU 或内存）。
     此类指标内置于 Kubernetes 中，在使用 “pods” 源的、按 Pod 计算的普通指标之外，还具有一些特殊的扩缩选项。
-    这是一个 Alpha 特性，可以通过 HPAContainerMetrics 特性标志启用。
 
     <a name="ContainerResourceMetricSource"></a>
 
@@ -1080,7 +1160,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
 
   - **currentMetrics.type** (string), required
 
-    type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+    type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
   -->
 
   **MetricStatus 描述了单个指标的最后读取状态。**
@@ -1088,7 +1168,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自动扩缩器的当前状态
   - **currentMetrics.type** (string)，必需
 
     type 是指标源的类别。它取值是 “ContainerResource”、“External”、“Object”、“Pods” 或 “Resource” 之一，
-    每个类别映射到对象中的一个对应的字段。注意：“ContainerResource” 类别在特性门控 HPAContainerMetrics 启用时可用。
+    每个类别映射到对象中的一个对应的字段。
 
   <!--
   - **currentMetrics.containerResource** (ContainerResourceMetricStatus)
@@ -2283,6 +2363,10 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers/{nam
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** <!--(*in query*)-->（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** <!--(*in query*)-->（**查询参数**）: string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -2343,6 +2427,10 @@ DELETE /apis/autoscaling/v2/namespaces/{namespace}/horizontalpodautoscalers
 - **gracePeriodSeconds** <!--(*in query*)-->（**查询参数**）: integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** <!--(*in query*)-->（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** <!--(*in query*)-->（**查询参数**）: string
 
