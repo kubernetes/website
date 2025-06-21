@@ -6,9 +6,8 @@ weight: 100
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
-{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-
 {{<note>}}
+{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 Функція _split image filesystem_, яка забезпечує підтримку файлової системи `containerfs`, додає кілька нових сигналів виселення, порогів та метрик. Щоб використовувати `containerfs`, у випуску Kubernetes v{{< skew currentVersion >}} потрібно увімкнути [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `KubeletSeparateDiskGC`. Наразі підтримка файлової системи `containerfs` доступна лише в CRI-O (версія 1.29 або вище).
 {{</note>}}
 

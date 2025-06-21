@@ -235,12 +235,12 @@ pause_image="registry.k8s.io/pause:3.10"
 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) є комерційно доступною реалізацією середовища виконання контейнерів, яка була раніше відома як Docker Enterprise Edition.
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR) є комерційно доступною реалізацією середовища виконання контейнерів, яка була раніше відома як Docker Enterprise Edition.
 
 Ви можете використовувати Mirantis Container Runtime з Kubernetes за допомогою відкритої реалізації компонента [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/), який входить до складу MCR.
 
 Для отримання докладнішої інформації щодо встановлення Mirantis Container Runtime
-дивіться [посібник з розгортання MCR](https://docs.mirantis.com/mcr/20.10/install.html).
+дивіться [посібник з розгортання MCR](https://docs.mirantis.com/mcr/25.0/install.html).
 
 Перевірте юніт systemd із назвою `cri-docker.socket`, щоб дізнатися шлях до сокета CRI.
 
