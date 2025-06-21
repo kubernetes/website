@@ -1,7 +1,8 @@
 ---
 layout: blog
 title: "Image Compatibility In Cloud Native Environments"
-draft: true # will be changed to date: YYYY-MM-DD before publication
+date: 2025-06-25
+draft: false
 slug: image-compatibility-in-cloud-native-environments
 author: >
   Chaoyi Huang (Huawei),
