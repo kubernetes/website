@@ -33,8 +33,9 @@ curl -k https://<NODE_IP>:10250/stats/summary
 
 {{< note >}}
 Direct access to the kubelet requires proper authentication and is typically
-restricted in production environments. Using `kubectl proxy` is the recommended
-approach.
+restricted in production environments. The `-k` flag bypasses certificate 
+verification, leaving the connection subject to MITM attacks. Using `kubectl 
+proxy` is the recommended approach for secure access.
 {{< /note >}}
 
 ## API Response Structure
