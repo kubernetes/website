@@ -502,6 +502,7 @@ languagedirection = "ltr"
 [languages.vi.params]
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
+language_alternatives = ["en"]
 
 # Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
 [[module.mounts]]

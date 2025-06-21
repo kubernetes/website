@@ -2161,7 +2161,7 @@ at all times during the update is at least 70% of the desired Pods.
 
 `.spec.strategy.rollingUpdate.maxSurge` is an optional field that specifies the maximum number of Pods
 that can be created over the desired number of Pods. The value can be an absolute number (for example, 5) or a
-percentage of desired Pods (for example, 10%). The value cannot be 0 if `MaxUnavailable` is 0. The absolute number
+percentage of desired Pods (for example, 10%). The value cannot be 0 if `maxUnavailable` is 0. The absolute number
 is calculated from the percentage by rounding up. The default value is 25%.
 -->
 ##### 最大峰值   {#max-surge}
@@ -2326,7 +2326,7 @@ a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/
 
 {{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
 
-You can enable this feature it by setting the `DeploymentReplicaSetTerminatingReplicas`
+You can enable this feature by setting the `DeploymentReplicaSetTerminatingReplicas`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
 and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)

@@ -7,10 +7,13 @@ schedules:
 - endOfLifeDate: "2026-06-28"
   maintenanceModeStartDate: "2026-04-28"
   next:
-    cherryPickDeadline: "2025-06-06"
-    release: 1.33.2
-    targetDate: "2025-06-10"
+    cherryPickDeadline: "2025-07-11"
+    release: 1.33.3
+    targetDate: "2025-07-15"
   previousPatches:
+  - cherryPickDeadline: "2025-06-06"
+    release: 1.33.2
+    targetDate: "2025-06-17"
   - cherryPickDeadline: "2025-05-09"
     release: 1.33.1
     targetDate: "2025-05-15"
@@ -19,10 +22,13 @@ schedules:
 - endOfLifeDate: "2026-02-28"
   maintenanceModeStartDate: "2025-12-28"
   next:
-    cherryPickDeadline: "2025-06-06"
-    release: 1.32.6
-    targetDate: "2025-06-10"
+    cherryPickDeadline: "2025-07-11"
+    release: 1.32.7
+    targetDate: "2025-07-15"
   previousPatches:
+  - cherryPickDeadline: "2025-06-06"
+    release: 1.32.6
+    targetDate: "2025-06-17"
   - cherryPickDeadline: "2025-05-09"
     release: 1.32.5
     targetDate: "2025-05-15"
@@ -45,10 +51,13 @@ schedules:
 - endOfLifeDate: "2025-10-28"
   maintenanceModeStartDate: "2025-08-28"
   next:
-    cherryPickDeadline: "2025-06-06"
-    release: 1.31.10
-    targetDate: "2025-06-10"
+    cherryPickDeadline: "2025-07-11"
+    release: 1.31.11
+    targetDate: "2025-07-15"
   previousPatches:
+  - cherryPickDeadline: "2025-06-06"
+    release: 1.31.10
+    targetDate: "2025-06-17"
   - cherryPickDeadline: "2025-05-09"
     release: 1.31.9
     targetDate: "2025-05-15"
@@ -83,10 +92,13 @@ schedules:
 - endOfLifeDate: "2025-06-28"
   maintenanceModeStartDate: "2025-04-28"
   next:
-    cherryPickDeadline: "2025-06-06"
-    release: 1.30.14
-    targetDate: "2025-06-10"
+    cherryPickDeadline: "2025-07-11"
+    release: 1.30.15
+    targetDate: "2025-07-15"
   previousPatches:
+  - cherryPickDeadline: "2025-06-06"
+    release: 1.30.14
+    targetDate: "2025-06-17"
   - cherryPickDeadline: "2025-05-09"
     release: 1.30.13
     targetDate: "2025-05-15"
@@ -131,9 +143,9 @@ schedules:
   release: "1.30"
   releaseDate: "2024-04-17"
 upcoming_releases:
-- cherryPickDeadline: "2025-06-06"
-  targetDate: "2025-06-10"
 - cherryPickDeadline: "2025-07-11"
   targetDate: "2025-07-15"
 - cherryPickDeadline: "2025-08-08"
   targetDate: "2025-08-12"
+- cherryPickDeadline: "2025-09-05"
+  targetDate: "2025-09-09"

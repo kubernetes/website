@@ -42,6 +42,7 @@ budgets.
 -->
 Gateway API v1.3.0 为 **Standard** 渠道（Gateway API 的正式发布渠道）带来了一个新功能：**基于百分比的流量复制**，
 并引入了三个新的实验性功能：
+
 - 跨源资源共享（CORS）过滤器
 - Listener 和 Gateway 合并的标准化机制
 - 重试预算（Retry Budgets）
@@ -333,6 +334,7 @@ The complete list of fields in the new CORS filter:
 See [CORS protocol](https://fetch.spec.whatwg.org/#http-cors-protocol) for details.
 -->
 新的 CORS 过滤器中的完整字段列表如下：
+
 * `allowOrigins`：允许的请求来源列表。
 * `allowMethods`：允许的 HTTP 方法（如 `GET`、`POST` 等）。
 * `allowHeaders`：允许携带的请求头字段。
@@ -521,8 +523,10 @@ Gateway, listeners are ordered using the following precedence:
    - alphabetically based on "{namespace}/{name of listener}"
 -->
 2. 其余监听器按以下顺序排序：
-   - 按对象创建时间排序（最早创建的优先）；如果两个监听器所在的对象具有相同的时间戳，
-      则按照 `{namespace}/{监听器名称}` 的字母顺序排序
+
+   - 按对象创建时间排序（最早创建的优先）；
+   - 如果两个监听器所在的对象具有相同的时间戳，
+     则按照 `{namespace}/{监听器名称}` 的字母顺序排序
 
 <!--
 ### Retry budgets (XBackendTrafficPolicy) {#XBackendTrafficPolicy}
@@ -592,7 +596,7 @@ spec:
 <!--
 ## Try it out
 -->
-## 试用
+## 试用   {#try-it-out}
 
 <!--
 Unlike other Kubernetes APIs, you don't need to upgrade to the latest version of
@@ -611,30 +615,15 @@ v1.3 experimental channel features. In alphabetical order:
 要试用 API，请按照[入门指南](https://gateway-api.sigs.k8s.io/guides/)操作。
 截至本文撰写时，已有四个实现符合 Gateway API v1.3 实验渠道功能。按字母顺序排列：
 
-<!--
 - [Airlock Microgateway 4.6](https://github.com/airlock/microgateway/releases/tag/4.6.0)
--->
-- [Airlock Microgateway 4.6](https://github.com/airlock/microgateway/releases/tag/4.6.0)
-
-<!--
 - [Cilium main](https://github.com/cilium/cilium)
--->
-- [Cilium main](https://github.com/cilium/cilium)
-
-<!--
 - [Envoy Gateway v1.4.0](https://github.com/envoyproxy/gateway/releases/tag/v1.4.0)
--->
-- [Envoy Gateway v1.4.0](https://github.com/envoyproxy/gateway/releases/tag/v1.4.0)
-
-<!--
-- [Istio 1.27-dev](https://istio.io)
--->
 - [Istio 1.27-dev](https://istio.io)
 
 <!--
 ## Get involved
 -->
-## 参与其中
+## 参与其中   {#get-involved}
 
 <!--
 Wondering when a feature will be added?  There are lots of opportunities to get
@@ -645,18 +634,12 @@ and service mesh.
 
 <!--
 * Check out the [user guides](https://gateway-api.sigs.k8s.io/guides) to see what use-cases can be addressed.
--->
-* 查看[用户指南](https://gateway-api.sigs.k8s.io/guides)了解可以解决哪些用例。
-
-<!--
 * Try out one of the [existing Gateway controllers](https://gateway-api.sigs.k8s.io/implementations/).
--->
-* 试用[现有的 Gateway 控制器](https://gateway-api.sigs.k8s.io/implementations/)之一。
-
-<!--
 * Or [join us in the community](https://gateway-api.sigs.k8s.io/contributing/)
 and help us build the future of Gateway API together!
 -->
+* 查看[用户指南](https://gateway-api.sigs.k8s.io/guides)了解可以解决哪些用例。
+* 试用[现有的 Gateway 控制器](https://gateway-api.sigs.k8s.io/implementations/)之一。
 * 或者[加入我们的社区](https://gateway-api.sigs.k8s.io/contributing/)，
   帮助我们共同构建 Gateway API 的未来！
 
@@ -672,32 +655,23 @@ this dedicated and active community.
 <!--
 ## Related Kubernetes blog articles
 -->
-## 相关 Kubernetes 博客文章
+## 相关 Kubernetes 博客文章   {#related-kubernetes-blog-articles}
 
 <!--
 * [Gateway API v1.2: WebSockets, Timeouts, Retries, and More](/blog/2024/11/21/gateway-api-v1-2/)
   (November 2024)
--->
-* [Gateway API v1.2：WebSockets、超时、重试等](/blog/2024/11/21/gateway-api-v1-2/)
-  （2024 年 11 月）
-
-<!--
 * [Gateway API v1.1: Service mesh, GRPCRoute, and a whole lot more](/blog/2024/05/09/gateway-api-v1-1/)
   (May 2024)
--->
-* [Gateway API v1.1：服务网格、GRPCRoute 和更多变化](/zh-cn/blog/2024/05/09/gateway-api-v1-1/)
-  （2024 年 5 月）
-
-<!--
 * [New Experimental Features in Gateway API v1.0](/blog/2023/11/28/gateway-api-ga/)
   (November 2023)
--->
-* [Gateway API v1.0 中的新实验功能](/blog/2023/11/28/gateway-api-ga/)
-  （2023 年 11 月）
-
-<!--
 * [Gateway API v1.0: GA Release](/blog/2023/10/31/gateway-api-ga/)
   (October 2023)
 -->
+* [Gateway API v1.2：WebSockets、超时、重试等](/blog/2024/11/21/gateway-api-v1-2/)
+  （2024 年 11 月）
+* [Gateway API v1.1：服务网格、GRPCRoute 和更多变化](/zh-cn/blog/2024/05/09/gateway-api-v1-1/)
+  （2024 年 5 月）
+* [Gateway API v1.0 中的新实验功能](/blog/2023/11/28/gateway-api-ga/)
+  （2023 年 11 月）
 * [Gateway API v1.0：正式发布（GA）](/zh-cn/blog/2023/10/31/gateway-api-ga/)
   （2023 年 10 月）

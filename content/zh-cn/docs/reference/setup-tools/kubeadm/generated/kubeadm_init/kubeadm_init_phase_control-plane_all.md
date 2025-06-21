@@ -13,7 +13,7 @@ Generate all static Pod manifest files
 -->
 生成所有的静态 Pod 清单文件。
 
-```
+```shell
 kubeadm init phase control-plane all [flags]
 ```
 
@@ -56,25 +56,29 @@ kubeadm init phase control-plane all --config config.yaml
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-<p>
 API 服务器所公布的其正在监听的 IP 地址。如果未设置，将使用默认的网络接口。
 </p>
 </td>
 </tr>
 
 <tr>
-<!-- td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443</td -->
-<td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：6443</td>
+<td colspan="2">
+<!--
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
+-->
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：6443
+</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Port for the API Server to bind to.
 -->
-<p>
 API 服务器要绑定的端口。
 </p>
 </td>
@@ -85,10 +89,10 @@ API 服务器要绑定的端口。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
-<p>
 形式为 &lt;flagname&gt;=&lt;value&gt; 的一组额外参数，用来传递给 API 服务器，
 或者覆盖其默认配置值。
 </p>
@@ -105,10 +109,10 @@ A set of extra flags to pass to the API Server or override default ones in form 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path where to save and store the certificates.
 -->
-<p>
 存储证书的路径。
 </p>
 </td>
@@ -119,10 +123,10 @@ The path where to save and store the certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -133,10 +137,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify a stable IP address or DNS name for the control plane.
 -->
-<p>
 为控制平面选择一个稳定的 IP 地址或者 DNS 名称。
 </p>
 </td>
@@ -147,10 +151,10 @@ Specify a stable IP address or DNS name for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
-<p>
 一组形式为 &lt;flagname&gt;=&lt;value&gt; 的额外参数，用来传递给控制管理器（Controller Manager）
 或覆盖其默认设置值。
 </p>
@@ -174,6 +178,7 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
 ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
@@ -183,7 +188,6 @@ PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
 WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
 -->
-<p>
 一组用来描述各种特性门控的键值（key=value）对。选项是：<br/>
 ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
 EtcdLearnerMode=true|false (默认值=true)<br/>
@@ -200,10 +204,10 @@ WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for all
 -->
-<p>
 all 操作的帮助命令。
 </p>
 </td>
@@ -219,10 +223,10 @@ all 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a container registry to pull control plane images from
 -->
-<p>
 选择用于拉取控制平面镜像的容器仓库。
 </p>
 </td>
@@ -238,10 +242,10 @@ Choose a container registry to pull control plane images from
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
-<p>
 为控制平面选择指定的 Kubernetes 版本。
 </p>
 </td>
@@ -252,10 +256,10 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
-<p>
 包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
 例如，&quot;kube-apiserver0+merge.yaml&quot; 或是简单的 &quot;etcd.json&quot;。
 &quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot;、&quot;kubeletconfiguration&quot; 之一。
@@ -273,10 +277,10 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
-<p>
 指定 Pod 网络的 IP 地址范围。如果设置了此标志，控制平面将自动地为每个节点分配 CIDR。
 </p>
 </td>
@@ -287,10 +291,10 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
-<p>
 一组形式为 &lt;flagname&gt;=&lt;value&gt; 的额外参数，用来传递给调度器（Scheduler）
 或覆盖其默认设置值。
 <p>
@@ -307,11 +311,11 @@ A set of extra flags to pass to the Scheduler or override default ones in form o
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Use alternative range of IP address for service VIPs.
 -->
-<p>
-为服务 VIP 选择 IP 地址范围。
+为 Service VIP 选择 IP 地址范围。
 </p>
 </td>
 </tr>
@@ -336,10 +340,10 @@ Use alternative range of IP address for service VIPs.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 指向'真实'宿主机的根文件系统的路径。
 </p>
 </td>

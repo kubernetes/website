@@ -38,13 +38,14 @@ receivers:
       grpc:
 exporters:
   # 이 exporter를 사용자의 백엔드를 위한 exporter로 변경
-  logging:
-    logLevel: debug
+  exporters:
+    debug:
+      verbosity: detailed
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [logging]
+      exporters: [debug]
 ```
 
 ## 컴포넌트 추적

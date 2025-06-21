@@ -614,17 +614,17 @@ kernel patch.
 <!--
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR)
 is available as a container runtime for all Windows Server 2019 and later versions.
 
-See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
+See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/25.0/install/mcr-windows.html) for more information.
 -->
 ### Mirantis 容器运行时   {#mcr}
 
-[Mirantis 容器运行时](https://docs.mirantis.com/mcr/20.10/overview.html)（MCR）
+[Mirantis 容器运行时](https://docs.mirantis.com/mcr/25.0/overview.html)（MCR）
 可作为所有 Windows Server 2019 和更高版本的容器运行时。
 
-有关更多信息，请参考[在 Windows Server 上安装 MCR](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html)。
+有关更多信息，请参考[在 Windows Server 上安装 MCR](https://docs.mirantis.com/mcr/25.0/install/mcr-windows.html)。
 
 <!--
 ## Windows OS version compatibility {#windows-os-version-support}
