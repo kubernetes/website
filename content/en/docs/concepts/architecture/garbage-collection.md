@@ -166,17 +166,25 @@ is restarted, the tracked image age is reset, causing the kubelet to wait the fu
 based on image age.
 {{< /note>}}
 
-### Container garbage collection {#container-image-garbage-collection}
+### Container garbage collection {#container-image-garbage-collection} (deprecated)
+
+{{< caution >}}
+Container garbage collection is deprecated in favour of `--eviction-hard` or
+`--eviction-soft` and will be removed in a future version. For more details on
+eviction policy, see [node-pressure-eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
+{{< /caution >}}
 
 The kubelet garbage collects unused containers based on the following variables,
 which you can define:
 
-* `MinAge`: the minimum age at which the kubelet can garbage collect a
-  container. Disable by setting to `0`.
-* `MaxPerPodContainer`: the maximum number of dead containers each Pod 
-  can have. Disable by setting to less than `0`.
+* `MinAge`: the minimum age at which the kubelet can garbage collect a container.
+  Disable by setting a kubelet config flag `--minimum-container-ttl-duration` to `0`.
+* `MaxPerPodContainer`: the maximum number of dead containers each Pod can have.
+  Disable by setting a kubelet config flag `--maximum-dead-containers-per-container`
+  to less than `0`.
 * `MaxContainers`: the maximum number of dead containers the cluster can have.
-  Disable by setting to less than `0`.
+  Disable by setting a kubelet config flag `--maximum-dead-containers`
+  to less than `0`.
 
 In addition to these variables, the kubelet garbage collects unidentified and
 deleted containers, typically starting with the oldest first.
