@@ -16,7 +16,6 @@ timeZone = "UTC"
 enableRobotsTXT = true
 disableBrowserError = true
 
-disableKinds = ["taxonomy"]
 
 ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 

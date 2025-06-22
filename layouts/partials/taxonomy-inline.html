@@ -1,0 +1,18 @@
+{{- $page := . -}}
+{{- $separator := "" -}}
+{{- $output := slice -}}
+
+{{- range $taxonomy, $_ := site.Taxonomies -}}
+  {{- with $terms := $page.GetTerms $taxonomy -}}
+    {{- $title := humanize $taxonomy -}}
+    {{- $html := print `<span class="taxonomy-label"><b>` $title `: </b></span>` -}}
+    {{- range $term := $terms -}}
+      {{- $html = print $html `<a href="` $term.Permalink `" class="taxonomy-term">` $term.LinkTitle `</a>` -}}
+    {{- end -}}
+    {{- $output = $output | append $html -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if gt (len $output) 0 -}}
+  | {{ delimit $output " | " | safeHTML }}
+{{- end -}}

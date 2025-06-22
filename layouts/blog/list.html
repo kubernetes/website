@@ -25,6 +25,7 @@ have blog posts -->
 						<small class="text-muted">
 							{{ with .Params.author }}{{ T "post_byline_by" }} <b>{{ . | markdownify }}</b> |{{ end}}
 							{{ .Date.Format ($.Param "time_format_blog") }} {{ T "ui_in"}} {{ .CurrentSection.LinkTitle }}
+							{{ partial "taxonomy-inline.html" . }}
 						</small>
 					</p>
 					{{ partial "featured-image.html" (dict "p" . "w" 250 "h" 125 "class" "float-left mr-3 pt-1 d-none d-md-block") }}
