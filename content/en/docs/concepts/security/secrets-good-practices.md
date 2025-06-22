@@ -87,6 +87,11 @@ the data.
 For a list of supported providers, refer to
 [Providers for the Secret Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
 
+## Good practices for using swap memory
+
+For best practices for setting swap memory for Linux nodes, please refer to
+[swap memory management](/docs/concepts/cluster-administration/swap-memory-management/#good-practice-for-using-swap-in-a-kubernetes-cluster).
+
 ## Developers
 
 This section provides good practices for developers to use to improve the
