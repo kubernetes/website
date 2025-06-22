@@ -1183,7 +1183,7 @@ replacement will be created immediately (even if the old Pod is still in a Termi
 #### Rolling Update Deployment
 
 The Deployment updates Pods in a rolling update
-fashion when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
+fashion (gradually scale down the old ReplicaSets and scale up the new one) when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
 
 ##### Max Unavailable
