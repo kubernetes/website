@@ -2,6 +2,10 @@
 layout: blog
 title: "Kubernetes v1.33: HorizontalPodAutoscaler Configurable Tolerance"
 slug: kubernetes-v1-33-hpa-configurable-tolerance
+tags:
+- release-1.33
+categories:
+- Feature Blog
 math: true # for formulae
 date: 2025-04-28T10:30:00-08:00
 author: "Jean-Marc François (Google)"

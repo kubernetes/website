@@ -2,6 +2,10 @@
 layout: blog
 title: "Kubernetes v1.33: New features in DRA"
 slug: kubernetes-v1-33-dra-updates
+tags:
+- release-1.33
+categories:
+- Feature Blog
 date: 2025-05-01T10:30:00-08:00
 author: >
   [Morten Torkildsen](https://github.com/mortent) (Google)

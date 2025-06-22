@@ -3,6 +3,10 @@ layout: blog
 title: 'Kubernetes v1.33 sneak peek'
 date: 2025-03-26T10:30:00-08:00
 slug: kubernetes-v1-33-upcoming-changes
+tags:
+- release-1.33
+categories:
+- Kubernetes Release Preview
 author: >
   Agustina Barbetta,
   Aakanksha Bhende,

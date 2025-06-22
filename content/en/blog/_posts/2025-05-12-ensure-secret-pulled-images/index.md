@@ -3,6 +3,10 @@ layout: blog
 title: "Kubernetes v1.33: Image Pull Policy the way you always thought it worked!"
 date:  2025-05-12T10:30:00-08:00
 slug: kubernetes-v1-33-ensure-secret-pulled-images-alpha
+tags:
+- release-1.33
+categories:
+- Feature Blog
 author: >
   [Ben Petersen](https://github.com/benjaminapetersen) (Microsoft),
   [Stanislav Láznička](https://github.com/stlaz) (Microsoft)
