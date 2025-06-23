@@ -12,7 +12,7 @@ weight: 75
 
 Linuxノードでは、{{< glossary_tooltip text="cgroups" term_id="cgroup" >}} がリソース管理のPodの境界として使われています。
 コンテナはネットワーク、プロセス、ファイルシステムが分離された境界内に作成されます。
-Linux cgroup APIを利用して、CPU、IO、メモリの統計情報を収集することが出来ます。
+Linux cgroup APIを利用して、CPU、IO、メモリの統計情報を収集することができます。
 
 対照的に、Windowsは、システム名前空間フィルターを使用してコンテナごとに[_ジョブオブジェクト_](https://learn.microsoft.com/ja-jp/windows/win32/procthread/job-objects)を利用し、すべてのプロセスをコンテナ内に含めて、ホストからの論理的な分離を実現しています。
 (ジョブオブジェクトはWindowsのプロセス分離のための機構であり、Kubernetesの{{< glossary_tooltip term_id="job" text="Job" >}}とは異なります。)
