@@ -181,14 +181,16 @@ You can use `flags` to set the default value of a command line argument.
 你可以使用 `flags` 来设置命令行参数的默认值。
 
 <!--
-If you explicitly specify a flag on your terminal, explicit value will always take precedence over the value you defined in kuberc using `overrides`.
+If you explicitly specify a flag on your terminal, explicit value will always take precedence over
+the value you defined in kuberc using `overrides`.
 -->
 如果你在终端中显式地指定了一个**标志**，那么显式指定的值将始终优先于你在
 `kuberc` 中使用 `overrides` 定义的值。
-{{< note >}}
 
+{{< note >}}
 <!--
-You cannot use `kuberc` to override the value of a command line argument to take precedence over what the user specifies on the command line. The term `overrides`
+You cannot use `kuberc` to override the value of a command line argument to take precedence over
+what the user specifies on the command line. The term `overrides`
 in this context refers to specifying a default value that is different from the
 compiled-in default value.
 -->
@@ -197,9 +199,9 @@ compiled-in default value.
 {{< /note >}}
 
 <!--
-#### Example:
+#### Example
 -->
-#### 示例：
+#### 示例
 
 ```yaml
 apiVersion: kubectl.config.k8s.io/v1alpha1
