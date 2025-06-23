@@ -48,7 +48,7 @@ werden:
 - *Sicherheit und Zugriffskontrolle*: Sie haben Vollzugriff auf Ihren eigenen
   Cluster in einer Lernumgebung. Kubernetes Cluster mit mehr als ein paar Nutzern
   und kritischen Workloads benötigen jedoch eine granulare Verwaltung "Wer" und "Was" Zugriff
-  auf Ressourcen in Ihrem Cluster hat. Dafür stehen die role-based access control
+  auf Ressourcen in Ihrem Cluster hat. Dafür stehen die _role-based access control_
   ([RBAC](/docs/reference/access-authn-authz/rbac/)) und weitere
   Sicherheitsmechanismen zur Verfügung. Diese können Sie benutzen, um
   sicherzustellen, dass Nutzer und Workloads Zugriff auf die Ressourcen haben,
