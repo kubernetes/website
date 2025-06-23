@@ -59,7 +59,7 @@ client libraries:
   a set of back-ends.
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) -
   Scheduler that manages availability, performance, and capacity.
-  
+
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
@@ -76,6 +76,7 @@ operator to use or manage a cluster.
 
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
 * [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/)
+* [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
 * [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
 * [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) and
@@ -89,7 +90,7 @@ operator to use or manage a cluster.
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and 
+* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and
   [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
