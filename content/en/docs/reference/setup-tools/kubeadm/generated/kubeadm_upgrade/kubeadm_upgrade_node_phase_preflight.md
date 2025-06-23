@@ -10,7 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Run upgrade node pre-flight checks
 
 ### Synopsis
 
