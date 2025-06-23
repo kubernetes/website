@@ -93,6 +93,18 @@ The following IPAM options are supported on Windows:
 * [azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md) (for azure-cni only)
 * [Windows Server IPAM](https://docs.microsoft.com/windows-server/networking/technologies/ipam/ipam-top) (fallback option if no IPAM is set)
 
+## Direct Server Return (DSR) {#dsr}
+
+{{< feature-state for_k8s_version="v1.33" state="beta" >}}
+
+Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly;
+service traffic arrives with the source IP set as the originating pod IP.
+This provides performance optimizations by allowing the return traffic routed through load balancers
+to bypass the load balancer and respond directly to the client;
+reducing load on the load balancer and also reducing overall latency.
+For more information, read
+[Direct Server Return (DSR) in a nutshell](https://techcommunity.microsoft.com/blog/networkingblog/direct-server-return-dsr-in-a-nutshell/693710).
+
 ## Load balancing and Services
 
 A Kubernetes {{< glossary_tooltip text="Service" term_id="service" >}} is an abstraction
@@ -115,22 +127,11 @@ balancing behavior:
 | Feature | Description | Minimum Supported Windows OS build | How to enable |
 | ------- | ----------- | -------------------------- | ------------- |
 | Session affinity | Ensures that connections from a particular client are passed to the same Pod each time. | Windows Server 2022 | Set `service.spec.sessionAffinity` to "ClientIP" |
-| Direct Server Return (DSR) | Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP. | Windows Server 2019 | Set the following flags in kube-proxy: `--feature-gates="WinDSR=true" --enable-dsr=true` |
+| Direct Server Return (DSR) | See [DSR](#dsr) notes above. | Windows Server 2019 | Set the following command line argument (assuming version {{< skew currentVersion >}}): ` --enable-dsr=true` |
 | Preserve-Destination | Skips DNAT of service traffic, thereby preserving the virtual IP of the target service in packets reaching the backend Pod. Also disables node-node forwarding. | Windows Server, version 1903 | Set `"preserve-destination": "true"` in service annotations and enable DSR in kube-proxy. |
 | IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | Windows Server 2019 | See [IPv4/IPv6 dual-stack](/docs/concepts/services-networking/dual-stack/#windows-support) |
 | Client IP preservation | Ensures that source IP of incoming ingress traffic gets preserved. Also disables node-node forwarding. |  Windows Server 2019  | Set `service.spec.externalTrafficPolicy` to "Local" and enable DSR in kube-proxy |
 {{< /table >}}
-
-{{< warning >}}
-There are known issue with NodePort Services on overlay networking, if the destination node is running Windows Server 2022.
-To avoid the issue entirely, you can configure the service with `externalTrafficPolicy: Local`.
-
-There are known issues with Pod to Pod connectivity on l2bridge network on Windows Server 2022 with KB5005619 or higher installed.
-To workaround the issue and restore Pod to Pod connectivity, you can disable the WinDSR feature in kube-proxy.
-
-These issues require OS fixes.
-Please follow https://github.com/microsoft/Windows-Containers/issues/204 for updates.
-{{< /warning >}}
 
 ## Limitations
 
@@ -141,7 +142,7 @@ The following networking functionality is _not_ supported on Windows nodes:
 * More than 64 backend pods (or unique destination addresses) for a single Service
 * IPv6 communication between Windows pods connected to overlay networks
 * Local Traffic Policy in non-DSR mode
-* Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.\
+* Outbound communication using the ICMP protocol via the `win-overlay`, `win-bridge`, or using the Azure-CNI plugin.
   Specifically, the Windows data plane ([VFP](https://www.microsoft.com/research/project/azure-virtual-filtering-platform/))
   doesn't support ICMP packet transpositions, and this means:
   * ICMP packets directed to destinations within the same network (such as pod to pod communication via ping) 

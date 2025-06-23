@@ -442,7 +442,7 @@ node only (e.g. the node ip).</p>
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta3-JoinConfiguration)
 
 ## `BootstrapToken`     {#BootstrapToken}
-    
+
 <!--
 **Appears in:**
 -->
@@ -458,7 +458,7 @@ BootstrapToken describes one bootstrap token, stored as a Secret in the cluster
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>token</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
 </td>
@@ -496,7 +496,7 @@ for, so other administrators can know its purpose.
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--
@@ -535,7 +535,7 @@ used for authentication
 </table>
 
 ## `BootstrapTokenString`     {#BootstrapTokenString}
-    
+
 <!--
 **Appears in:**
 -->
@@ -556,7 +556,7 @@ of view and as an authentication method for the node in the bootstrap phase of
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -746,7 +746,7 @@ and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the 
 </table>
 
 ## `InitConfiguration`     {#kubeadm-k8s-io-v1beta3-InitConfiguration}
-    
+
 <!--
 <p>InitConfiguration contains a list of elements that is specific &quot;kubeadm init&quot;-only runtime
 information.
@@ -763,10 +763,10 @@ that is used by <code>kubeadm upgrade</code> for instance. These fields must be 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>apiVersion</code><br/>string</td><td><code>kubeadm.k8s.io/v1beta3</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>InitConfiguration</code></td></tr>
-  
+
 <tr><td><code>bootstrapTokens</code><br/>
 <a href="#BootstrapToken"><code>[]BootstrapToken</code></a>
 </td>
@@ -1438,7 +1438,7 @@ Required if using a TLS connection.</p>
 </table>
 
 ## `FileDiscovery`     {#kubeadm-k8s-io-v1beta3-FileDiscovery}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1456,7 +1456,7 @@ cluster information.</p>
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>kubeConfigPath</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1473,7 +1473,7 @@ file from which to load cluster information.</p>
 </table>
 
 ## `HostPathMount`     {#kubeadm-k8s-io-v1beta3-HostPathMount}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1484,12 +1484,12 @@ file from which to load cluster information.</p>
 <!--
 HostPathMount contains elements describing volumes that are mounted from the host.
 -->
-<p>HostPathMount 包含从主机节点挂载的卷的信息。</p-->
+<p>HostPathMount 包含从主机节点挂载的卷的信息。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1531,7 +1531,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--
@@ -1544,7 +1544,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </table>
 
 ## `ImageMeta`     {#kubeadm-k8s-io-v1beta3-ImageMeta}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1562,7 +1562,7 @@ originated from the Kubernetes/Kubernetes release process
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-    
+
 <tr><td><code>imageRepository</code><br/>
 <code>string</code>
 </td>
@@ -1609,7 +1609,7 @@ to be deployed on the joining node.
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>localAPIEndpoint</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-APIEndpoint"><code>APIEndpoint</code></a>
 </td>
@@ -1656,7 +1656,7 @@ LocalEtcd describes that kubeadm should run an etcd cluster locally.
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>ImageMeta</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeadm-k8s-io-v1beta3-ImageMeta"><code>ImageMeta</code></a>
 </td>
@@ -1724,7 +1724,7 @@ signing certificate.
 </table>
 
 ## `Networking`     {#kubeadm-k8s-io-v1beta3-Networking}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1740,7 +1740,7 @@ Networking contains elements describing cluster's networking configuration.
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>serviceSubnet</code><br/>
 <code>string</code>
 </td>
@@ -1777,7 +1777,7 @@ Networking contains elements describing cluster's networking configuration.
 </table>
 
 ## `NodeRegistrationOptions`     {#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1796,7 +1796,7 @@ node to the cluster, either via <code>kubeadm init</code> or <code>kubeadm join<
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>name</code><br/>
 <code>string</code>
 </td>
@@ -1827,7 +1827,7 @@ This information will be annotated to the Node API object, for later re-use.
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -1880,7 +1880,7 @@ the current node is registered, e.g.
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--
@@ -1900,7 +1900,7 @@ images if not present on the host.
 </table>
 
 ## `Patches`     {#kubeadm-k8s-io-v1beta3-Patches}
-    
+
 <!--
 **Appears in:**
 -->
@@ -1917,7 +1917,7 @@ Patches contains options related to applying patches to components deployed by k
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
-  
+
 <tr><td><code>directory</code><br/>
 <code>string</code>
 </td>

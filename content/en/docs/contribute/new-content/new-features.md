@@ -21,6 +21,9 @@ feature as a pull request to the appropriate development branch of the
 editorial feedback or edits the draft directly. This section covers the branching
 conventions and process used during a release by both groups.
 
+To learn about announcing features on the blog, read
+[post-release communications](/docs/contribute/blog/release-comms/).
+
 <!-- body -->
 
 ## For documentation contributors
