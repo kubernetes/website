@@ -87,9 +87,10 @@ Kubernetesのリソース名や技術用語などは、原則としてそのま�
 
 特定の用語がKubernetes固有の技術用語であるかどうかについて迷った時は、次の判断フローを参考にしてください。
 
-1. [APIリソースの一覧](https://kubernetes.io/docs/reference/kubernetes-api/)または[標準化用語集](https://kubernetes.io/ja/docs/reference/glossary/?fundamental=true)に対象の用語が掲載されている場合は、掲載されている用語で表記します。
+1. [APIリソースの一覧](/docs/reference/kubernetes-api/)または[標準化用語集](/docs/reference/glossary/?all=true)に対象の用語が掲載されている場合は、掲載されている用語で表記します。
 2. その他のKubernetesに関連する用語については、固有名詞と判断できるものは原則アルファベットで表記します。
 3. 新しく用語を日本語として翻訳する際は、レビュアーやそのコンポーネントを熟知した人に意見を聞いて下さい。
+
 `kubernetes-docs-ja` チームは、あなたのコメントを歓迎します！
 
 ### 頻出表記(日本語) {#frequent-phrases}
