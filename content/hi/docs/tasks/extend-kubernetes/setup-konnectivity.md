@@ -1,116 +1,72 @@
 ---
-title: Konnectivity सेटअप
+title: Konnectivity सेवा सेटअप करें
 content_type: task
-weight: 20
+weight: 70
 ---
 
 <!-- overview -->
-Konnectivity एक नेटवर्क प्रॉक्सी है जो कंट्रोल प्लेन और नोड्स के बीच सुरक्षित संचार प्रदान करता है। यह कंट्रोल प्लेन से नोड्स तक सुरक्षित टनल बनाता है।
+
+Konnectivity सेवा कंट्रोल प्लेन से क्लस्टर संचार के लिए TCP स्तर का प्रॉक्सी प्रदान करती है।
 
 ## {{% heading "prerequisites" %}}
 
-आपके पास एक Kubernetes क्लस्टर होना चाहिए, और kubectl कमांड-लाइन टूल को आपके क्लस्टर के साथ संवाद करने के लिए कॉन्फ़िगर किया जाना चाहिए। इस ट्यूटोरियल को कम से कम दो नोड्स वाले क्लस्टर पर चलाने की सलाह दी जाती है जो कंट्रोल प्लेन होस्ट के रूप में कार्य नहीं कर रहे हैं। यदि आपके पास पहले से कोई क्लस्टर नहीं है, तो आप इसे minikube का उपयोग करके बना सकते हैं या आप इनमें से किसी एक Kubernetes प्लेग्राउंड का उपयोग कर सकते हैं:
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* Killercoda
-* KodeKloud
-* Play with Kubernetes
+<!-- steps -->
 
-संस्करण की जांच करने के लिए, `kubectl version` दर्ज करें।
+## Konnectivity सेवा को कॉन्फ़िगर करें
 
-## Konnectivity सेटअप
+निम्नलिखित चरणों के लिए एक egress कॉन्फ़िगरेशन की आवश्यकता होती है, उदाहरण के लिए:
 
-1. Konnectivity एजेंट को नोड्स पर डिप्लॉय करें:
+{{% code_sample file="admin/konnectivity/egress-selector-configuration.yaml" %}}
 
-```yaml
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: konnectivity-agent
-  namespace: kube-system
-spec:
-  selector:
-    matchLabels:
-      app: konnectivity-agent
-  template:
-    metadata:
-      labels:
-        app: konnectivity-agent
-    spec:
-      containers:
-      - name: konnectivity-agent
-        image: k8s.gcr.io/konnectivity-agent:v0.0.30
-        args:
-        - --agent-id=$(NODE_NAME)
-        - --ca-cert=/etc/kubernetes/pki/ca.crt
-        - --client-cert=/etc/kubernetes/pki/konnectivity-agent.crt
-        - --client-key=/etc/kubernetes/pki/konnectivity-agent.key
-        - --proxy-server-addr=127.0.0.1:8132
-        env:
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        volumeMounts:
-        - name: k8s-certs
-          mountPath: /etc/kubernetes/pki
-          readOnly: true
-      volumes:
-      - name: k8s-certs
-        hostPath:
-          path: /etc/kubernetes/pki
-```
+आपको API सर्वर को Konnectivity सेवा का उपयोग करने और नेटवर्क ट्रैफ़िक को क्लस्टर नोड्स की ओर निर्देशित करने के लिए कॉन्फ़िगर करना होगा:
 
-2. Konnectivity सर्वर को कंट्रोल प्लेन पर डिप्लॉय करें:
+1. सुनिश्चित करें कि आपके क्लस्टर में [Service Account Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection) फ़ीचर सक्षम है। यह डिफ़ॉल्ट रूप से कुबेरनेट्स v1.20 से सक्षम है।
+1. एक egress कॉन्फ़िगरेशन फ़ाइल बनाएं, जैसे `admin/konnectivity/egress-selector-configuration.yaml`।
+1. API सर्वर के `--egress-selector-config-file` फ्लैग को अपनी egress कॉन्फ़िगरेशन फ़ाइल के पथ पर सेट करें।
+1. यदि आप UDS कनेक्शन का उपयोग करते हैं, तो kube-apiserver में वॉल्यूम्स कॉन्फ़िग जोड़ें:
+   ```yaml
+   spec:
+     containers:
+       volumeMounts:
+       - name: konnectivity-uds
+         mountPath: /etc/kubernetes/konnectivity-server
+         readOnly: false
+     volumes:
+     - name: konnectivity-uds
+       hostPath:
+         path: /etc/kubernetes/konnectivity-server
+         type: DirectoryOrCreate
+   ```
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: konnectivity-server
-  namespace: kube-system
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: konnectivity-server
-  template:
-    metadata:
-      labels:
-        app: konnectivity-server
-    spec:
-      containers:
-      - name: konnectivity-server
-        image: k8s.gcr.io/konnectivity-server:v0.0.30
-        args:
-        - --server-port=8132
-        - --server-cert=/etc/kubernetes/pki/konnectivity-server.crt
-        - --server-key=/etc/kubernetes/pki/konnectivity-server.key
-        - --ca-cert=/etc/kubernetes/pki/ca.crt
-        volumeMounts:
-        - name: k8s-certs
-          mountPath: /etc/kubernetes/pki
-          readOnly: true
-      volumes:
-      - name: k8s-certs
-        hostPath:
-          path: /etc/kubernetes/pki
-```
-
-3. आवश्यक प्रमाणपत्र बनाएं:
+Konnectivity-server के लिए प्रमाणपत्र और kubeconfig जनरेट या प्राप्त करें। उदाहरण के लिए, आप OpenSSL कमांड लाइन टूल का उपयोग करके X.509 प्रमाणपत्र जारी कर सकते हैं, क्लस्टर CA प्रमाणपत्र `/etc/kubernetes/pki/ca.crt` का उपयोग करते हुए:
 
 ```bash
-# Konnectivity सर्वर प्रमाणपत्र
-kubectl create secret tls konnectivity-server-tls \
-  --cert=/etc/kubernetes/pki/konnectivity-server.crt \
-  --key=/etc/kubernetes/pki/konnectivity-server.key \
-  -n kube-system
-
-# Konnectivity एजेंट प्रमाणपत्र
-kubectl create secret tls konnectivity-agent-tls \
-  --cert=/etc/kubernetes/pki/konnectivity-agent.crt \
-  --key=/etc/kubernetes/pki/konnectivity-agent.key \
-  -n kube-system
+openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key
+openssl x509 -req -in konnectivity.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out konnectivity.crt -days 375 -sha256
+SERVER=$(kubectl config view -o jsonpath='{.clusters..server}')
+kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-credentials system:konnectivity-server --client-certificate konnectivity.crt --client-key konnectivity.key --embed-certs=true
+kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-cluster kubernetes --server "$SERVER" --certificate-authority /etc/kubernetes/pki/ca.crt --embed-certs=true
+kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-context system:konnectivity-server@kubernetes --cluster kubernetes --user system:konnectivity-server
+kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config use-context system:konnectivity-server@kubernetes
+rm -f konnectivity.crt konnectivity.key konnectivity.csr
 ```
+
+अब, आपको Konnectivity सर्वर और एजेंट्स को डिप्लॉय करना होगा।
+[kubernetes-sigs/apiserver-network-proxy](https://github.com/kubernetes-sigs/apiserver-network-proxy) एक रेफरेंस इम्प्लीमेंटेशन है।
+
+कंट्रोल प्लेन नोड पर Konnectivity सर्वर डिप्लॉय करें। दिया गया `konnectivity-server.yaml` मैनिफेस्ट मानता है कि कुबेरनेट्स घटक आपके क्लस्टर में एक {{< glossary_tooltip text="static Pod" term_id="static-pod" >}} के रूप में डिप्लॉय किए गए हैं। यदि नहीं, तो आप Konnectivity सर्वर को DaemonSet के रूप में डिप्लॉय कर सकते हैं।
+
+{{% code_sample file="admin/konnectivity/konnectivity-server.yaml" %}}
+
+फिर अपने क्लस्टर में Konnectivity एजेंट्स डिप्लॉय करें:
+
+{{% code_sample file="admin/konnectivity/konnectivity-agent.yaml" %}}
+
+अंत में, यदि आपके क्लस्टर में RBAC सक्षम है, तो संबंधित RBAC नियम बनाएं:
+
+{{% code_sample file="admin/konnectivity/konnectivity-rbac.yaml" %}}
 
 ## Konnectivity का उपयोग करें
 
@@ -118,5 +74,5 @@ Konnectivity सेटअप के बाद, आप नोड्स से क
 
 ## {{% heading "whatsnext" %}}
 
-* [HTTP प्रॉक्सी का उपयोग करके Kubernetes API तक पहुंचें](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
-* [SOCKS5 प्रॉक्सी का उपयोग करके Kubernetes API तक पहुंचें](/docs/tasks/extend-kubernetes/socks5-proxy-access-api/) 
+* [HTTP प्रॉक्सी का उपयोग करके कुबेरनेट्स API तक पहुंचें](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
+* [SOCKS5 प्रॉक्सी का उपयोग करके कुबेरनेट्स API तक पहुंचें](/docs/tasks/extend-kubernetes/socks5-proxy-access-api/) 

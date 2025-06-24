@@ -1,21 +1,15 @@
 ---
-title: HTTP प्रॉक्सी का उपयोग करके Kubernetes API तक पहुंचें
+title: HTTP प्रॉक्सी का उपयोग करके कुबेरनेट्स API तक पहुँचें
 content_type: task
-weight: 20
+weight: 40
 ---
 
 <!-- overview -->
-यह पेज दिखाता है कि Kubernetes API तक पहुंचने के लिए HTTP प्रॉक्सी का उपयोग कैसे करें।
+यह पेज दिखाता है कि कुबेरनेट्स API तक पहुँचने के लिए HTTP प्रॉक्सी का उपयोग कैसे करें।
 
 ## {{% heading "prerequisites" %}}
 
-आपके पास एक Kubernetes क्लस्टर होना चाहिए, और kubectl कमांड-लाइन टूल को आपके क्लस्टर के साथ संवाद करने के लिए कॉन्फ़िगर किया जाना चाहिए। इस ट्यूटोरियल को कम से कम दो नोड्स वाले क्लस्टर पर चलाने की सलाह दी जाती है जो कंट्रोल प्लेन होस्ट के रूप में कार्य नहीं कर रहे हैं। यदि आपके पास पहले से कोई क्लस्टर नहीं है, तो आप इसे minikube का उपयोग करके बना सकते हैं या आप इनमें से किसी एक Kubernetes प्लेग्राउंड का उपयोग कर सकते हैं:
-
-* Killercoda
-* KodeKloud
-* Play with Kubernetes
-
-संस्करण की जांच करने के लिए, `kubectl version` दर्ज करें।
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 यदि आपके क्लस्टर में पहले से कोई एप्लिकेशन नहीं चल रहा है, तो इस कमांड को दर्ज करके एक Hello world एप्लिकेशन शुरू करें:
 
@@ -23,25 +17,27 @@ weight: 20
 kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0 --port=8080
 ```
 
+<!-- steps -->
+
 ## kubectl का उपयोग करके प्रॉक्सी सर्वर शुरू करें
 
-यह कमांड Kubernetes API सर्वर के लिए एक प्रॉक्सी शुरू करता है:
+यह कमांड कुबेरनेट्स API सर्वर के लिए एक प्रॉक्सी शुरू करता है:
 
 ```
 kubectl proxy --port=8080
 ```
 
-## Kubernetes API का अन्वेषण करें
+## कुबेरनेट्स API का अन्वेषण करें
 
 जब प्रॉक्सी सर्वर चल रहा हो, तो आप `curl`, `wget`, या ब्राउज़र का उपयोग करके API का अन्वेषण कर सकते हैं।
 
-API संस्करण प्राप्त करें:
+API वर्शन प्राप्त करें:
 
 ```
 curl http://localhost:8080/api/
 ```
 
-आउटपुट इस तरह दिखना चाहिए:
+आउटपुट कुछ इस तरह दिखेगा:
 
 ```
 {
@@ -64,7 +60,7 @@ curl http://localhost:8080/api/
 curl http://localhost:8080/api/v1/namespaces/default/pods
 ```
 
-आउटपुट इस तरह दिखना चाहिए:
+आउटपुट कुछ इस तरह दिखेगा:
 
 ```
 {
@@ -92,4 +88,4 @@ curl http://localhost:8080/api/v1/namespaces/default/pods
 
 ## {{% heading "whatsnext" %}}
 
-kubectl proxy के बारे में और जानें। 
+[kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy) के बारे में और जानें। 
