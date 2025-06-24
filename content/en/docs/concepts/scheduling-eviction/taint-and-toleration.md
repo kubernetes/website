@@ -289,6 +289,13 @@ Nodes for 5 minutes after one of these problems is detected.
 
 This ensures that DaemonSet pods are never evicted due to these problems.
 
+{{< note >}}
+The node controller was responsible for adding taints to nodes and evicting pods. But after 1.29,
+the taint-based eviction implementation has been moved out of node controller into a separate,
+and independent component called taint-eviction-controller. Users can optionally disable taint-based
+eviction by setting `--controllers=-taint-eviction-controller` in kube-controller-manager.
+{{< /note >}}
+
 ## Taint Nodes by Condition
 
 The control plane, using the node {{<glossary_tooltip text="controller" term_id="controller">}},
