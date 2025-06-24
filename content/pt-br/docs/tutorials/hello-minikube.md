@@ -103,7 +103,7 @@ escalonamento dos Pods.
    O Pod executa um contêiner baseado na imagem do Docker disponibilizada.
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 1. Visualize o Deployment:
