@@ -11,9 +11,8 @@ weight: 100
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
-{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-
 {{<note>}}
+{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 <!--
 The _split image filesystem_ feature, which enables support for the `containerfs`
 filesystem, adds several new eviction signals, thresholds and metrics. To use
