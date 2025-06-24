@@ -1,36 +1,38 @@
 ---
-title: "Solution professionnelle d’orchestration de conteneurs"
-abstract: "Déploiement, mise à l'échelle et gestion automatisée des conteneurs"
+title: "Solution professionelle d'Orchestration de Conteneurs"
+abstract: "Déploiement, mise à l'échelle et gestion automatisés des conteneurs"
 cid: home
 sitemap:
   priority: 1.0
 ---
 
-{{< blocks/section id="oceanNodes" >}}
-{{% blocks/feature image="flower" %}}
-### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/" >}}) est un système open-source permettant d'automatiser le déploiement, la mise à l'échelle et la gestion des applications conteneurisées.
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
+[Kubernetes]({{< relref "/docs/concepts/overview/" >}}), connu aussi sous K8s, est un système *open source* pour automatiser le déploiement, la mise à l'échelle, et la gestion des applications conteneurisées.
 
-Les conteneurs qui composent une application sont regroupés dans des unités logiques pour en faciliter la gestion et la découverte. Kubernetes s’appuie sur [15 années d’expérience dans la gestion de charges de travail de production (workloads) chez Google](https://queue.acm.org/detail.cfm?id=2898444), associé aux meilleures idées et pratiques de la communauté.
+Il regroupe les conteneurs contenant une application en unitéß logiques pour faciliter la gestion et la découverte. Kubernetes s'appuie sur [15 ans d'expériences sur l'exécution de charges de travail dans des environnements de production chez Google](https://queue.acm.org/detail.cfm?id=2898444), ainsi que sur les meilleures idées et bonnes pratiques de la communauté..
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="scalable" %}}
-#### Quel que soit le nombre
+#### Mise à l'échelle contrôlée
 
-Conçu selon les mêmes principes qui permettent à Google de gérer des milliards de conteneurs par semaine, Kubernetes peut évoluer sans augmenter votre équipe d'opérations.
+Conçu selon les mêmes principes qui permettent à Google d'exécuter des milliards de conteneurs par semaine, Kubernetes peut évoluer sans agrandir votre équipe d'opérations..
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="blocks" %}}
-#### Quelle que soit la complexité
+#### S'adapte selon vos besoins
 
-Qu'il s'agisse de tester localement ou d'une implémentation globale, Kubernetes est suffisamment flexible pour fournir vos applications de manière cohérente et simple, quelle que soit la complexité de vos besoins.
+Que vous testiez localement ou que vous gériez une entreprise internationale, la flexibilité de Kubernetes évolue avec vous pour mettre à disposition facilement vos applications et de manière cohérente, quelle que soit la complexité de vos besoins.
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="suitcase" %}}
-#### Quel que soit l'endroit
+#### Utiliser K8s n'importe où
 
-Kubernetes est une solution open-source qui vous permet de tirer parti de vos infrastructures qu'elles soient sur site (on-premises), hybride ou en Cloud public. Vous pourrez ainsi répartir sans effort vos workloads là où vous le souhaitez.
+Kubernetes est une solution *open-source* vous donnant la liberté de tirer parti d'une infrastructure sur site, hybride ou dans le nuage public, vous permettant de déplacer sans effort les charges de travail là où vous le souhaitez.
+
+Pour obtenir Kubernetes, dirigez vous vers la section [Téléchargement](/releases/download/).
 
 {{% /blocks/feature %}}
 
@@ -38,16 +40,16 @@ Kubernetes est une solution open-source qui vous permet de tirer parti de vos in
 
 {{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
 <div class="light-text">
-<h2>Les défis de la migration de plus de 150 microservices vers Kubernetes</h2>
-        <p>Par Sarah Wells, directrice technique des opérations et de la fiabilité, Financial Times</p>
-        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Voir la video (en)</button>
+    <h2>Les défis de la migration de plus de 150 micro services vers Kubernetes</h2>
+        <p>Par Sarah Wells, Directrice Technique des Opérations et de la Fiabilité, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Regarder la Video</button>
 
-<h3>Assistez à la prochaine KubeCon + CloudNativeCon</h3>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>China</strong> (Hong Kong, juin 10-11)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>Japan</strong> (Tokyo, juin 16-17)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>India</strong> (Hyderabad, août 6-7)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>North America</strong> (Atlanta, nov. 10-13)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Amsterdam, mars 1-4, 2026)</a>
+    <h3>Assister aux prochains événements KubeCon + CloudNativeCon</h3>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>Chine</strong> (Hong Kong, Jun 10-11)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>Japon</strong> (Tokyo, Jun 16-17)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>Inde</strong> (Hyderabad, Aug 6-7)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>Amérique du Nord</strong> (Atlanta, Nov 10-13)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europe</strong> (Amsterdam, Mar 23-26, 2026)</a>
 </div>
 <div id="videoPlayer">
     <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
@@ -58,3 +60,5 @@ Kubernetes est une solution open-source qui vous permet de tirer parti de vos in
 {{< blocks/kubernetes-features >}}
 
 {{< blocks/case-studies >}}
+
+{{< kubeweekly id="kubeweekly" >}}

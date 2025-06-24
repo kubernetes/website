@@ -30,7 +30,7 @@ cards:
   button: "Voir les tutoriels"
   button_path: "/docs/tutorials"
 - name: setup
-  title: "Mettre en place un << cluster >> K8s"
+  title: "Mettre en place une grappe K8s"
   description: "Faites fonctionner Kubernetes en fonction de vos ressources et de vos besoins."
   button: "Mettre en place Kubernetes"
   button_path: "/docs/setup"
@@ -51,7 +51,7 @@ cards:
   button_path: /docs/contribute
 - name: training
   title: "Formation"
-  description: "Obtenez une certification Kubernetes et réussissez vos projets « cloud native » !"
+  description: "Obtenez une certification Kubernetes et réussissez vos projets natifs dans le nuage !"
   button: "Voir la formation"
   button_path: "/training"  
 - name: Download

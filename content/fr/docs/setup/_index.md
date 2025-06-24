@@ -6,7 +6,7 @@ reviewers:
 - awkif
 - yastij
 no_issue: true
-title: Installation
+title: Pour bien démarrer
 description: Panorama de solution Kubernetes
 main_menu: true
 weight: 30
