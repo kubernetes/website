@@ -1,44 +1,36 @@
 ---
-title: ネームスペースのデフォルトのCPU要求と制限を設定する
+title: NamespaceのデフォルトのCPU要求と制限を設定する
 content_type: task
 weight: 20
 description: >-
-  ネームスペースのデフォルトのCPU要求と制限を定義して、そのネームスペース内の
+  NamespaceのデフォルトのCPU要求と制限を定義して、そのNamespace内の
   すべての新しいPodにCPUリソース制限が設定されるようにします。
 ---
 
 <!-- overview -->
 
-このページでは、{{< glossary_tooltip text="ネームスペース" term_id="namespace" >}}の
-デフォルトのCPU要求と制限を設定する方法を説明します。
+このページでは、{{< glossary_tooltip text="Namespace" term_id="namespace" >}}のデフォルトのCPU要求と制限を設定する方法を説明します。
 
-Kubernetesクラスターはネームスペースに分割することができます。デフォルトのCPU
-[制限](/ja/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を持つ
-ネームスペースがあり、
-独自のCPU制限を指定しないコンテナでPodを作成しようとすると、
-{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}は
-そのコンテナにデフォルトのCPU制限を割り当てます。
+KubernetesクラスターはNamespaceに分割することができます。
+デフォルトのCPU[制限](/ja/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を持つNamespaceがあり、独自のCPU制限を指定しないコンテナでPodを作成しようとすると、{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}はそのコンテナにデフォルトのCPU制限を割り当てます。
 
-Kubernetesは、このトピックで後ほど説明する特定の条件下で、
-デフォルトのCPU[要求](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を
-割り当てます。
+Kubernetesは、このトピックで後ほど説明する特定の条件下で、デフォルトのCPU[要求](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)を割り当てます。
 
 ## {{% heading "prerequisites" %}}
 
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-クラスターにネームスペースを作成するには、アクセス権が必要です。
+クラスターにNamespaceを作成するには、アクセス権が必要です。
 
 もしKubernetesにおいて1.0 CPUが何を意味するのかが分からなければ、
 [CPUの意味](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)をご一読ください。
 
 <!-- steps -->
 
-## ネームスペースの作成
+## Namespaceの作成
 
-この演習で作成したリソースがクラスターの他の部分から分離されるように、
-ネームスペースを作成します:
+この演習で作成したリソースがクラスターの他の部分から分離されるように、Namespaceを作成します:
 
 ```shell
 kubectl create namespace default-cpu-example
@@ -51,16 +43,13 @@ kubectl create namespace default-cpu-example
 
 {{% code_sample file="admin/resource/cpu-defaults.yaml" %}}
 
-default-cpu-exampleネームスペースにLimitRangeを作成します:
+default-cpu-example NamespaceにLimitRangeを作成します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults.yaml --namespace=default-cpu-example
 ```
 
-default-cpu-exampleネームスペースでPodを作成し、
-そのPod内のコンテナがCPU要求とCPU制限の値を独自に指定しない場合、
-コントロールプレーンはデフォルト値の
-CPU要求0.5とCPU制限1を適用します。
+default-cpu-example NamespaceでPodを作成し、そのPod内のコンテナがCPU要求とCPU制限の値を独自に指定しない場合、コントロールプレーンはデフォルト値のCPU要求0.5とCPU制限1を適用します。
 
 以下は、コンテナを1つ持つPodのマニフェストの例です。
 コンテナは、CPU要求とCPU制限を指定していません。
@@ -79,8 +68,7 @@ Podの仕様を表示します:
 kubectl get pod default-cpu-demo --output=yaml --namespace=default-cpu-example
 ```
 
-この出力は、PodのコンテナのCPU要求が500m`cpu`(「500ミリCPU」と読みます) で、
-CPU制限が1`cpu`であることを示しています。
+この出力は、PodのコンテナのCPU要求が500m`cpu`(「500ミリCPU」と読みます) で、CPU制限が1`cpu`であることを示しています。
 これらはLimitRangeで指定されたデフォルト値です。
 
 ```shell
@@ -109,8 +97,7 @@ Podを作成します:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
 ```
 
-作成したPodの[仕様](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
-を表示します:
+作成したPodの[仕様](/docs/concepts/overview/working-with-objects/#object-spec-and-status)を表示します:
 
 ```
 kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
@@ -149,7 +136,7 @@ kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
 この出力は、コンテナのCPU要求がPodを作成した際に指定した値に
 設定されていることを示しています(言い換えると、マニフェストと一致しています)。
 しかし、コンテナのCPU制限は1`cpu`に設定されており、
-これはネームスペースのデフォルトのCPU制限と一致します。
+これはNamespaceのデフォルトのCPU制限と一致します。
 
 ```
 resources:
@@ -161,26 +148,22 @@ resources:
 
 ## デフォルトのCPU制限と要求の動機
 
-ネームスペースにCPU{{< glossary_tooltip text="リソースクォータ" term_id="resource-quota" >}}が
-設定されている場合、
-CPU制限のデフォルト値があると便利です。
-以下はCPUリソースクォータがネームスペースに課す制限のうちの2つです。
+NamespaceにCPU{{< glossary_tooltip text="リソースクォータ" term_id="resource-quota" >}}が設定されている場合、CPU制限のデフォルト値があると便利です。
+以下はCPUリソースクォータがNamespaceに課す制限のうちの2つです。
 
-* ネームスペースで実行されるすべてのPodについて、その各コンテナにCPU制限を設ける必要があります。
+* Namespaceで実行されるすべてのPodについて、その各コンテナにCPU制限を設ける必要があります。
 * CPU制限は、当該Podがスケジュールされているノードに対してリソースの予約を適用します。  
-  ネームスペース内のすべてのPodに対して予約されるCPUの総量は、
-  指定された制限を超えてはなりません。
+  Namespace内のすべてのPodに対して予約されるCPUの総量は、指定された制限を超えてはなりません。
 
 LimitRangeの追加時:
 
-そのネームスペース内のいずれかのコンテナを持つPodが独自のCPU制限を指定していない場合、
-コントロールプレーンはそのコンテナにデフォルトのCPU制限を適用します。
-CPUのResourceQuotaによって制限されているネームスペース内でもPodが実行できるようになります。
+そのNamespace内のいずれかのコンテナを持つPodが独自のCPU制限を指定していない場合、コントロールプレーンはそのコンテナにデフォルトのCPU制限を適用します。
+CPUのResourceQuotaによって制限されているNamespace内でもPodが実行できるようになります。
 
 
 ## クリーンアップ
 
-ネームスペースを削除します:
+Namespaceを削除します:
 
 ```shell
 kubectl delete namespace default-cpu-example
