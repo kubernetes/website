@@ -227,16 +227,11 @@ have some limitations:
 
 - Most of the metadata about a Pod is immutable. For example, you cannot
   change the `namespace`, `name`, `uid`, or `creationTimestamp` fields.
-  - The `generation` field is unique. It will be automatically set by the
-    system such that new pods have a `generation` of 1, and every update to
-    mutable fields in the pod's spec will increment the `generation` by 1. If the
-    alpha feature gate PodObservedGenerationTracking is set, the
-    pod's `status.observedGeneration` will reflect the `metadata.generation` of
-    the pod at the point that the pod status is being reported.
+
 - If the `metadata.deletionTimestamp` is set, no new entry can be added to the
   `metadata.finalizers` list.
 - Pod updates may not change fields other than `spec.containers[*].image`,
-  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds` or
+  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds`, `spec.terminationGracePeriodSeconds` or
   `spec.tolerations`. For `spec.tolerations`, you can only add new entries.
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
@@ -259,6 +254,19 @@ The above update rules apply to regular pod updates, but other pod fields can be
   This is typically only used by the Kubelet and other system controllers.
 - **Binding:** The `binding` subresource allows setting the pod's `spec.nodeName` via a `Binding` request.
   This is typically only used by the {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
+
+### Pod generation
+
+- The `generation` field is unique. It will be automatically set by the
+  system such that new pods have a `metadata.generation` of 1, and every update to
+  mutable fields in the pod's spec will increment the `metadata.generation` by 1.
+
+  {{< feature-state for_k8s_version="v1.34" state="beta" >}}
+
+- `observedGeneration` is an optional field that is captured in the `status` section of the Pod
+  object. Kubelet will set `status.observedGeneration` to track the pod state to the current pod status.
+  The pod's `status.observedGeneration` will reflect the `metadata.generation` of the pod at the point
+  that the pod status is being reported.
 
 ## Resource sharing and communication
 
