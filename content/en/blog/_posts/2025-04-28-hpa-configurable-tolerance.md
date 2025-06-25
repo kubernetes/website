@@ -8,7 +8,7 @@ author: "Jean-Marc François (Google)"
 ---
 
 This post describes _configurable tolerance for horizontal Pod autoscaling_,
-a new alpha feature first available in Kubernetes 1.33.
+a new feature first available in Kubernetes 1.33.
 
 ## What is it?
 
@@ -51,14 +51,15 @@ result, the community has long
 [asked](https://github.com/kubernetes/kubernetes/issues/116984) to be able to
 tune this value.
 
-In Kubernetes v1.33, this is now possible.
+Starting with Kubernetes 1.33, this is now possible.
 
 ## How do I use it?
 
 After enabling the `HPAConfigurableTolerance`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in
-your Kubernetes v1.33 cluster, you can add your desired tolerance for your
-HorizontalPodAutoscaler object.
+your Kubernetes cluster, you can add your desired tolerance for your
+HorizontalPodAutoscaler object. This feature gate is in alpha in Kubernetes
+1.33, and has been promoted to beta in version 1.34.
 
 Tolerances appear under the `spec.behavior.scaleDown` and
 `spec.behavior.scaleUp` fields and can thus be different for scale up and scale
