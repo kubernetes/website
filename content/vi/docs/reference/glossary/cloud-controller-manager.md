@@ -10,7 +10,7 @@ tags:
 - architecture
 - operation
 ---
-Đây là một chức năng {{< glossary_tooltip text="control plane" term_id="control-plane" >}} của Kubernetes cho phép nhúng logic điều khiển các cloud-specific(AWS Lambda/Azure Functions). Cloud controller manager cho phép bạn liên kết cluster của mình với API của nhà cung cấp cloud,  đồng thời tách biệt các thành phần tương tác với nền tảng đám mây đó ra khỏi các thành phần chỉ tương tác với cụm của bạn.
+Đây là một chức năng {{< glossary_tooltip text="control plane" term_id="control-plane" >}} của Kubernetes cho phép nhúng logic điều khiển các cloud-specific(AWS Lambda/Azure Functions). Cloud controller manager cho phép bạn liên kết cluster của mình với API của cloud provider,  đồng thời tách biệt các thành phần tương tác với nền tảng đám mây đó ra khỏi các thành phần chỉ tương tác với cụm của bạn.
 
 <!--more-->
 
