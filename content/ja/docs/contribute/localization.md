@@ -16,7 +16,7 @@ card:
 
 ## ドキュメントを日本語に翻訳するまでの流れ {#translate-flow}
 
-翻訳を行うための基本的な流れについて説明します。不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。
+翻訳を行うための基本的な流れについて説明します。不明点がある場合は[Kubernetes公式Slack](https://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。
 
 ### 前提知識 {#prerequisite}
 
@@ -32,7 +32,7 @@ card:
 2. 自分自身を翻訳作業に割り当てたい場合は、Issueのメッセージまたはコメントに`/assign`と書く
 3. [新規ページを翻訳する場合](#translate-new-page)のステップに進む
 
-**不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。**
+**不明点がある場合は[Kubernetes公式Slack](https://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。**
 
 #### 翻訳を希望するページのIssueが存在する場合 {#exist-issue}
 
@@ -89,7 +89,7 @@ Kubernetesのリソース名や技術用語などは、原則としてそのま�
 
 1. [APIリソースの一覧](/docs/reference/kubernetes-api/)または[標準化用語集](/docs/reference/glossary/?all=true)に対象の用語が掲載されている場合は、掲載されている用語で表記します。
 2. その他のKubernetesに関連する用語については、固有名詞と判断できるものは原則アルファベットで表記します。
-3. 新しく用語を日本語として翻訳する際は、レビュアーやそのコンポーネントを熟知した人に意見を聞いて下さい。
+3. 新しく用語を日本語として翻訳する際は、レビュアーやローカライゼーションチームに意見を聞いて下さい。
 
 `kubernetes-docs-ja` チームは、あなたのコメントを歓迎します！
 
