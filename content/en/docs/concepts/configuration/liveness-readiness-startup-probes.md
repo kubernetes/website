@@ -26,7 +26,7 @@ Liveness probes do not wait for readiness probes to succeed. If you want to wait
 
 ## Readiness probe
 
-Readiness probes determine when a container is ready to start accepting traffic. This is useful when waiting for an application to perform time-consuming initial tasks, such as establishing network connections, loading files, and warming caches.
+Readiness probes determine whether a container is able to accept traffic. This is useful when waiting for an application to perform time-consuming tasks be it at startup, such as establishing network connections, loading files, and warming caches, or when recovering from a fault or overload situation that does not require the container to be restarted.
 
 If the readiness probe returns a failed state, Kubernetes removes the pod from all matching service endpoints.
 
