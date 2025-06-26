@@ -13,7 +13,7 @@ weight: 80
 _ただし、クラスターが対応する環境で実行されており、適切なクラウドロードバランサープロバイダーのパッケージが構成されている必要があります_。
 
 Serviceの代わりに、{{< glossary_tooltip term_id="ingress" >}}を使用することもできます。
-詳細については、[Ingress](/ja/docs/concepts/services-networking/ingress/)のドキュメントを参照してください。
+詳細については、[Ingress](/docs/concepts/services-networking/ingress/)のドキュメントを参照してください。
 
 ## {{% heading "prerequisites" %}}
 
@@ -65,7 +65,7 @@ kubectl expose deployment example --port=8765 --target-port=9376 \
 
 ## IPアドレスの確認
 
-`kubectl`を使用してServiceの情報を取得することで、そのServiceに割り当てられたIPアドレスを確認できます:
+`kubectl`を使用してサービスの情報を取得することで、そのサービスに割り当てられたIPアドレスを確認できます:
 
 ```bash
 kubectl describe services example-service
@@ -96,7 +96,7 @@ Events:                   <none>
 ロードバランサーのIPアドレスは、`LoadBalancer Ingress`の横に表示されます。
 
 {{< note >}}
-Minikube上でServiceを実行している場合は、次のコマンドで割り当てられたIPアドレスとポートを確認できます:
+Minikube上でサービスを実行している場合は、割り当てられたIPアドレスとポートを、次のコマンドで確認できます:
 
 ```bash
 minikube service example-service --url
@@ -109,7 +109,7 @@ minikube service example-service --url
 クライアントIPの保持を有効にするには、Serviceの`.spec`内で次のフィールドを設定する必要があります:
 
 * `.spec.externalTrafficPolicy` - このServiceが外部トラフィックをノードローカルのエンドポイントにルーティングするか、クラスター全体のエンドポイントにルーティングするかを指定します。指定可能な値は`Cluster`(デフォルト)と`Local`の2つです。`Cluster`を指定するとクライアントの送信元IPは隠蔽され、他のノードへの2回目のホップが発生する可能性がありますが、全体的な負荷分散は良好になります。`Local`を指定するとクライアントの送信元IPが保持され、LoadBalancer型およびNodePort型Serviceにおいて2回目のホップを回避できますが、トラフィックの分散が偏るリスクがあります。
-* `.spec.healthCheckNodePort` - Serviceのヘルスチェック用ノードポート(数値のポート番号)を指定します。`healthCheckNodePort`を指定しない場合、ServiceコントローラーがクラスターのNodePortレンジから自動的にポートを割り当てます。
+* `.spec.healthCheckNodePort` - サービスのヘルスチェック用ノードポート(数値のポート番号)を指定します。`healthCheckNodePort`を指定しない場合、サービスコントローラーがクラスターのNodePortレンジから自動的にポートを割り当てます。
 このポートレンジは、APIサーバーのコマンドラインオプション`--service-node-port-range`で設定できます。Serviceの`type`がLoadBalancerで、`externalTrafficPolicy`が`Local`に設定されている場合に限り、指定した`healthCheckNodePort`の値が使用されます。
 
 Serviceのマニフェストで`externalTrafficPolicy`をLocalに設定することで、この機能が有効になります。
@@ -163,6 +163,6 @@ Kubernetesのコントロールプレーンは、外部ロードバランサー�
 
 ## {{% heading "whatsnext" %}}
 
-* [アプリケーションをServiceに接続する](/ja/docs/tutorials/services/connect-applications-service/)チュートリアルを参照してください
-* [Service](/ja/docs/concepts/services-networking/service/)について読む
-* [Ingress](/ja/docs/concepts/services-networking/ingress/)について読む
+* [アプリケーションをServiceに接続する](/docs/tutorials/services/connect-applications-service/)チュートリアルを参照してください
+* [Service](/docs/concepts/services-networking/service/)について読む
+* [Ingress](/docs/concepts/services-networking/ingress/)について読む
