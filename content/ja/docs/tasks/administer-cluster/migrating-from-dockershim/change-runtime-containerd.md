@@ -7,7 +7,7 @@ content_type: task
 このタスクでは、コンテナランタイムをDockerからcontainerdに更新するために必要な手順について説明します。
 これは、Kubernetes 1.23以前を使用しているクラスターオペレーターに適用されます。
 また、dockershimからcontainerdへの移行を行う際の具体的なシナリオ例も含まれています。
-代替のコンテナランタイムについては、この[ページ](/ja/docs/setup/production-environment/container-runtimes/)を参照してください。
+代替のコンテナランタイムについては、この[ページ](/docs/setup/production-environment/container-runtimes/)を参照してください。
 
 ## {{% heading "prerequisites" %}}
 
@@ -15,7 +15,7 @@ content_type: task
 
 containerdをインストールします。
 詳細については[containerdのインストールドキュメント](https://containerd.io/docs/getting-started/)を参照してください。
-特定の前提条件については、[containerdガイド](/ja/docs/setup/production-environment/container-runtimes/#containerd)を参照してください。
+特定の前提条件については、[containerdガイド](/docs/setup/production-environment/container-runtimes/#containerd)を参照してください。
 
 ## ノードのドレイン
 
@@ -34,7 +34,7 @@ systemctl disable docker.service --now
 
 ## containerdのインストール
 
-containerdをインストールする手順の詳細については、[ガイド](/ja/docs/setup/production-environment/container-runtimes/#containerd)を参照してください。
+containerdをインストールする手順の詳細については、[ガイド](/docs/setup/production-environment/container-runtimes/#containerd)を参照してください。
 
 {{< tabs name="tab-cri-containerd-installation" >}}
 {{% tab name="Linux" %}}
@@ -74,7 +74,7 @@ PowerShellセッションを開始し、`$Version`に目的のバージョンを
    cd $Env:ProgramFiles\containerd\
    .\containerd.exe config default | Out-File config.toml -Encoding ascii
 
-   # 設定内容を確認します。セットアップによっては、以下を調整する必要がある場合があります:
+   # 設定内容を確認します。セットアップによっては、以下を調整する必要があります:
    # - sandbox_image(Kubernetesのpauseイメージ)
    # - cniのbin_dirおよびconf_dirの場所
    Get-Content config.toml
