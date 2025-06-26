@@ -26,25 +26,22 @@ each Node in your cluster, so that the
 The kubelet acts as a client when connecting to the container runtime via gRPC.
 The runtime and image service endpoints have to be available in the container
 runtime, which can be configured separately within the kubelet by using the
-`--image-service-endpoint` [command line flags](/docs/reference/command-line-tools-reference/kubelet).
+`--container-runtime-endpoint`
+[command line flag](/docs/reference/command-line-tools-reference/kubelet/).
 
-For Kubernetes v{{< skew currentVersion >}}, the kubelet prefers to use CRI `v1`.
-If a container runtime does not support `v1` of the CRI, then the kubelet tries to
-negotiate any older supported version.
-The v{{< skew currentVersion >}} kubelet can also negotiate CRI `v1alpha2`, but
-this version is considered as deprecated.
-If the kubelet cannot negotiate a supported CRI version, the kubelet gives up
-and doesn't register as a node.
+For Kubernetes v1.26 and later, the kubelet requires that the container runtime
+supports the `v1` CRI API. If a container runtime does not support the `v1` API,
+the kubelet will not register the node.
 
 ## Upgrading
 
-When upgrading Kubernetes, the kubelet tries to automatically select the
-latest CRI version on restart of the component. If that fails, then the fallback
-will take place as mentioned above. If a gRPC re-dial was required because the
-container runtime has been upgraded, then the container runtime must also
-support the initially selected version or the redial is expected to fail. This
-requires a restart of the kubelet.
+When upgrading the Kubernetes version on a node, the kubelet restarts. If the
+container runtime does not support the `v1` CRI API, the kubelet will fail to
+register and report an error. If a gRPC re-dial is required because the container
+runtime has been upgraded, the runtime must support the `v1` CRI API for the
+connection to succeed. This might require a restart of the kubelet after the
+container runtime is correctly configured.
 
 ## {{% heading "whatsnext" %}}
 
-- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/c75ef5b/pkg/apis/runtime/v1/api.proto)
+- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/v0.33.1/pkg/apis/runtime/v1/api.proto)
