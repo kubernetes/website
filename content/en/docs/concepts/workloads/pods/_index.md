@@ -257,16 +257,47 @@ The above update rules apply to regular pod updates, but other pod fields can be
 
 ### Pod generation
 
-- The `generation` field is unique. It will be automatically set by the
+- The `metadata.generation` field is unique. It will be automatically set by the
   system such that new pods have a `metadata.generation` of 1, and every update to
   mutable fields in the pod's spec will increment the `metadata.generation` by 1.
 
   {{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
-- `observedGeneration` is an optional field that is captured in the `status` section of the Pod
-  object. Kubelet will set `status.observedGeneration` to track the pod state to the current pod status.
-  The pod's `status.observedGeneration` will reflect the `metadata.generation` of the pod at the point
-  that the pod status is being reported.
+- `observedGeneration` is a field that is captured in the `status` section of the Pod
+  object. If the feature gate `PodObservedGenerationTracking` is set, the Kubelet will set `status.observedGeneration`
+  to track the pod state to the current pod status. The pod's `status.observedGeneration` will reflect the
+  `metadata.generation` of the pod at the point that the pod status is being reported.
+
+The key distinction is whether a change in the `spec` is reflected directly in the `status` or is an indirect result
+of a running process.
+
+#### Direct Status Updates
+
+For fields where a change can be directly observed and reflected in the Pod's status, the `observedGeneration` will
+match the current `spec` generation (Generation N) during the same sync loop.
+
+This behavior applies to:
+
+- **Resize Status**: The status of a resource resize operation.
+- **Allocated Resources**: The resources allocated to the Pod after a resize.
+- **Ephemeral Containers**: When a new ephemeral container is added, and it is in `Waiting` state.
+
+#### Indirect Status Updates
+
+For changes that require a process to run before the result is visible the status will reflect the outcome of the previous
+`spec` generation (Generation N-1) during the current sync loop. The `observedGeneration` will update in a subsequent loop
+after the process completes.
+
+This behavior applies to:
+
+- **Container Image**: The `ContainerStatus.ImageID` reflects the image from the previous generation until the new image
+  is pulled and the container is updated.
+- **Actual Resources**: During an in-progress resize, the actual resources in use still belong to the previous generation's
+  request.
+- **Container state**: During an in-progress resize, with require restart policy reflects the previous generation's
+  request.
+- **activeDeadlineSeconds** & **terminationGracePeriodSeconds** & **DeletionTimestamp**: The effects of these fields on the
+  Pod's status are a result of the previously observed specification.
 
 ## Resource sharing and communication
 
