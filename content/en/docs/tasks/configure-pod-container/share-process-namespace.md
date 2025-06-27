@@ -62,7 +62,7 @@ Process namespace sharing is enabled using the `shareProcessNamespace` field of
    ```
 
 You can signal processes in other containers. For example, send `SIGHUP` to
-`nginx` to restart the worker process. This requires the `SYS_PTRACE` capability.
+`nginx` to restart the worker process.
 
 ```shell
 # run this inside the "shell" container
