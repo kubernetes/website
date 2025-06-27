@@ -1,0 +1,15 @@
+{{/*
+remote-coc shortcode: Fetches remote Markdown, cleans up 'Other languages' section, renders as HTML
+*/}}
+
+{{ $url := "https://raw.githubusercontent.com/cncf/foundation/main/code-of-conduct.md" }}
+{{ with resources.GetRemote $url }}
+    {{ $raw := .Content }}
+    {{ $clean := replaceRE "(?ms)^Other languages available:\\s*\\n(?:- .+\\n)*- \\[Vietnamese/Tiếng Việt\\]\\(code-of-conduct-languages/vi\\.md\\)\\n*" "" $raw }}
+    {{ $html := $clean | markdownify }}
+    {{ $html }}
+{{ else }}
+    {{ warnf "remote-coc shortcode: Failed to fetch remote resource from %s" $url }}
+    <p><em>Content temporarily unavailable. Please try again later.</em></p>
+{{ end }}
+    
