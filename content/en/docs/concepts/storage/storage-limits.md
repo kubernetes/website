@@ -81,11 +81,9 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 
 ### Mutable CSI Node Allocatable Count
 
-{{< feature-state state="alpha" for_k8s_version="v1.33" >}}
+{{< feature-state feature_gate_name="MutableCSINodeAllocatableCount" >}}
 
 CSI drivers can dynamically adjust the maximum number of volumes that can be attached to a Node at runtime. This enhances scheduling accuracy and reduces pod scheduling failures due to changes in resource availability.
-
-This is an alpha feature and is disabled by default.
 
 To use this feature, you must enable the `MutableCSINodeAllocatableCount` feature gate on the following components:
 
