@@ -3,6 +3,10 @@ layout: blog
 title: "Kubernetes v1.33: Streaming List responses"
 date: 2025-05-09T10:30:00-08:00
 slug: kubernetes-v1-33-streaming-list-responses
+tags:
+- release-1.33
+categories:
+- Feature Blog
 author: >
   Marek Siarkowicz (Google),
   Wei Fu (Microsoft)

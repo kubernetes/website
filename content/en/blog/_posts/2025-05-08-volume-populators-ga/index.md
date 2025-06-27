@@ -3,6 +3,10 @@ layout: blog
 title: "Kubernetes 1.33: Volume Populators Graduate to GA"
 date: 2025-05-08T10:30:00-08:00
 slug: kubernetes-v1-33-volume-populators-ga
+tags:
+- release-1.33
+categories:
+- Feature Blog
 author: >
   Danna Wang (Google)
   Sunny Song (Google)

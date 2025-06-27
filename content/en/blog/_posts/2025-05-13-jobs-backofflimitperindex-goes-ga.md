@@ -3,6 +3,10 @@ layout: blog
 title: "Kubernetes v1.33: Job's Backoff Limit Per Index Goes GA"
 date: 2025-05-13T10:30:00-08:00
 slug: kubernetes-v1-33-jobs-backoff-limit-per-index-goes-ga
+tags:
+- release-1.33
+categories:
+- Feature Blog
 author: >
   [Michał Woźniak](https://github.com/mimowo) (Google)
 ---
