@@ -1,0 +1,77 @@
+---
+title: ThredUp Case Study
+linkTitle: thredup
+case_study_styles: true
+cid: caseStudies
+featured: false
+
+new_case_study_styles: true
+heading_background: /images/case-studies/thredup/banner1.jpg
+heading_title_logo: /images/thredup_logo.png
+case_study_details:
+  - Company: ThredUp
+  - Location: San Francisco, CA
+  - Industry: eCommerce
+---
+
+<h2>Challenge</h2>
+
+<p>The largest online consignment store for women's and children's clothes, ThredUP launched in 2009 with a monolithic application running on Amazon Web Services. Though the company began breaking up the monolith into microservices a few years ago, the infrastructure  team was still dealing with handcrafted servers, which hampered productivity. "We've configured them just to get them out as fast as we could, but there was no standardization, and as we kept growing, that became a bigger and bigger chore to manage," says Cofounder/CTO Chris Homer. The infrastructure, they realized, needed to be modernized to enable the velocity the company needed. "It's really important to a company like us who's disrupting the retail industry to make sure that as we're building software and getting it out in front of our users, we can do it on a fast cycle and learn a ton as we experiment," adds Homer. "We wanted to make sure that our engineers could embrace the DevOps mindset as they built software. It was really important to us that they could own the life cycle from end to end, from conception at design, through shipping it and running it in production, from marketing to ecommerce, the user experience and our internal distribution center operations."</p>
+
+<h2>Solution</h2>
+
+<p>In early 2017, the company adopted Kubernetes for container orchestration, and in the course of a year, the entire infrastructure was moved to Kubernetes.</p>
+
+<h2>Impact</h2>
+
+<p>Before, "even considering that we already have all the infrastructure in the cloud, databases and services, and all these good things," says Infrastructure Engineer Oleksandr Snagovskyi, setting up a new service meant waiting 2-4 weeks just to get the environment. With Kubernetes, new application roll-out time has decreased from several days or weeks to minutes or hours. Now, says Infrastructure Engineer Oleksii Asiutin, "our developers can experiment with existing applications and create new services, and do it all blazingly fast." In fact, deployment time has decreased about 50% on average for key services. "Lead time" for all applications is under 20 minutes, enabling engineers to deploy multiple times a day. Plus, 3200+ ansible scripts have been deprecated in favor of helm charts. And impressively, hardware cost has decreased 56% while the number of services ThredUP runs has doubled.</p>
+
+{{< case-studies/quote author="CHRIS HOMER, COFOUNDER/CTO, THREDUP" >}}
+<iframe width="504" height="296" src="https://www.youtube.com/embed/t0csOf-uDrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+"Moving towards cloud native technologies like Kubernetes really unlocks our ability to experiment quickly and learn from customers along the way."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+The largest online consignment store for women's and children's clothes, ThredUP is focused on getting consumers to think second-hand first. "We're disrupting the retail industry, and it's really important to us to make sure that as we're building software and getting it out in front of our users, we can do it on a fast cycle and learn a ton as we experiment," says Cofounder/CTO Chris Homer.
+{{< /case-studies/lead >}}
+
+<p>But over the past few years, ThredUP, which was launched in 2009 with a monolithic application running on Amazon Web Services, was feeling growing pains as its user base passed the 20- million mark. Though the company had begun breaking up the monolith into microservices, the infrastructure team was still dealing with handcrafted servers, which hampered productivity. "We've configured them just to get them out as fast as we could, but there was no standardization, and as we kept growing, that became a bigger and bigger chore to manage," says Homer. The infrastructure, Homer realized, needed to be modernized to enable the velocity—and the culture—the company wanted.</p>
+
+<p>"We wanted to make sure that our engineers could embrace the DevOps mindset as they built software," Homer says. "It was really important to us that they could own the life cycle from end to end, from conception at design, through shipping it and running it in production, from marketing to ecommerce, the user experience and our internal distribution center operations."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/thredup/banner3.jpg"
+  author="CHRIS HOMER, COFOUNDER/CTO, THREDUP"
+>}}
+"Kubernetes enabled auto scaling in a seamless and easily manageable way on days like Black Friday. We no longer have to sit there adding instances, monitoring the traffic, doing a lot of manual work."
+{{< /case-studies/quote >}}
+
+<p>In early 2017, Homer found the solution with Kubernetes container orchestration. In the course of a year, the company migrated its entire infrastructure to Kubernetes, starting with its website applications and concluding with its operations backend. Teams are now also using Fluentd and Helm. "Initially there were skeptics about the value that this move to cloud native technologies would bring, but as we went through the process, people very quickly started to realize the benefit of having seamless upgrades and easy rollbacks without having to worry about what was happening," says Homer. "It unlocks the developers' confidence in being able to deploy quickly, learn, and if you make a mistake, you can roll it back without any issue."</p>
+
+<p>According to the infrastructure team, the key improvement was the consistent experience Kubernetes enabled for developers. "It lets developers work in the same environment that their application will be running in production," says Infrastructure Engineer Oleksandr Snagovskyi. Plus, "It became easier to test, easier to refine, and easier to deploy, because everything's done automatically," says Infrastructure Engineer Oleksii Asiutin. "One of the main goals of our team is to make developers' lives more comfortable, and we are achieving this with Kubernetes. They can experiment with existing applications and create new services, and do it all blazingly fast."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/thredup/banner4.jpg"
+  author="OLEKSII ASIUTIN, INFRASTRUCTURE ENGINEER, THREDUP"
+>}}
+"One of the main goals of our team is to make developers' lives more comfortable, and we are achieving this with Kubernetes. They can experiment with existing applications and create new services, and do it all blazingly fast."
+{{< /case-studies/quote >}}
+
+<p>Before, "even considering that we already have all the infrastructure in the cloud, databases and services, and all these good things," says Snagovskyi, setting up a new service meant waiting 2-4 weeks just to get the environment. With Kubernetes, because of simple configuration and minimal dependency on the infrastructure team, the roll-out time for new applications has decreased from several days or weeks to minutes or hours.</p>
+
+<p>In fact, deployment time has decreased about 50% on average for key services. "Fast deployment and parallel test execution in Kubernetes keep a 'lead time' for all applications under 20 minutes," allowing engineers to do multiple releases a day, says Director of Infrastructure Roman Chepurnyi. The infrastructure team's jobs, he adds, have become less burdensome, too: "We can execute seamless upgrades frequently and keep cluster performance and security up-to-date because OS-level hardening and upgrades of a Kubernetes cluster is a non-blocking activity for production operations and does not involve coordination with multiple engineering teams."</p>
+
+<p>More than 3,200 ansible scripts have been deprecated in favor of Helm charts. And impressively, hardware cost has decreased 56% while the number of services ThredUP runs has doubled.</p>
+
+{{< case-studies/quote author="CHRIS HOMER, COFOUNDER/CTO, THREDUP">}}
+"Our future's all about automation, and behind that, cloud native technologies are going to unlock our ability to embrace that and go full force towards the future."
+{{< /case-studies/quote >}}
+
+<p>Perhaps the impact is most evident on the busiest days in retail. "Kubernetes enabled auto scaling in a seamless and easily manageable way on days like Black Friday," says Homer. "We no longer have to sit there adding instances, monitoring the traffic, doing a lot of manual work. That's handled for us, and instead we can actually have some turkey, drink some wine and enjoy our families."</p>
+
+<p>For ThredUP, Kubernetes fits perfectly with the company's vision for how it's changing retail. Some of what ThredUP does is still very manual: "As our customers send bags of items to our distribution centers, they're photographed, inspected, tagged, and put online today," says Homer.</p>
+
+<p>But in every other aspect, "we use different forms of technology to drive everything we do," Homer says. "We have machine learning algorithms to help predict the likelihood of sale for items, which drives our pricing algorithm. We have personalization algorithms that look at the images and try to determine style and match users' preferences across our systems."</p>
+
+<p>Count Kubernetes as one of those drivers. "Our future's all about automation," says Homer, "and behind that, cloud native technologies are going to unlock our ability to embrace that and go full force towards the future."</p>
