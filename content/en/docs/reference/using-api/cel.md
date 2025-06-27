@@ -113,6 +113,11 @@ Example CEL expressions:
 CEL is configured with the following options, libraries and language features,
 introduced at the specified Kubernetes versions:
 
+{{< note >}}
+CEL libraries are available for use starting one minor release after they are introduced.
+For example, a library introduced in Kubernetes 1.32 would be available in Kubernetes 1.33.
+{{< /note >}}
+
 <table>
 <thead>
 <tr>
