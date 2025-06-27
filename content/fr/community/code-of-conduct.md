@@ -1,26 +1,25 @@
 ---
-title: Communauté
-layout: basic
-cid: community
-css: /css/community.css
+title: Code de conduite de la Communauté de Kubernetes
+body_class: code-of-conduct
+cid: code-of-conduct
 ---
 
-<div class="community_main">
-<h1>Code de conduite de la communauté Kubernetes</h1>
+_Kubernetes suit la
+[Code de Conduite de la CNCF](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
+Le texte de la CNCF CoC est répliqué ci-dessous, en tant que
+[commit 71412bb02](https://github.com/cncf/foundation/blob/71412bb029090d42ecbeadb39374a337bfb48a9c/code-of-conduct.md)._
 
-Kubernetes suit le
-<a href="https://github.com/cncf/foundation/blob/master/code-of-conduct.md">Code de Conduite de la CNCF</a>.
-Le texte du CdC de la CNCF est reproduit ci-dessous
-<a href="https://github.com/cncf/foundation/blob/214585e24aab747fb85c2ea44fbf4a2442e30de6/code-of-conduct.md">commit 214585e</a>.
-Si vous remarquez que ce document n'est plus à jour, n'hésitez pas à
-<a href="https://github.com/kubernetes/website/issues/new">créer une issue</a>.
+<div id="cncf-code-of-conduct">
+{{< include "static/cncf-code-of-conduct.md" >}}
+</div>
 
+---
 
-Si vous remarquez une violation du Code de conduite lors d'un événement ou d'une réunion, sur Slack, ou sur tout autre mécanisme de communication, contactez le <a href="https://git.k8s.io/community/committee-code-of-conduct">Comité du Code de conduite de Kubernetes</a>.
-Vous pouvez nous joindre par courriel à <a href="mailto:conduct@kubernetes.io">conduct@kubernetes.io</a>.
+Si vous remarquez toute violation de la Code de Conduite lors d'un évènement ou d'une réunion, sur
+Slack, ou bien dans un autre moyen de communication , veuillez vous adressez à
+la [Comité du code de conduite de Kubernetes](https://git.k8s.io/community/committee-code-of-conduct)
+
+Vouz pouvez la contacter via ce courrier électronique [conduct@kubernetes.io](mailto:conduct@kubernetes.io).
 Votre anonymat sera protégé.
 
-<div class="cncf_coc_container">
-{{< include "/static/cncf-code-of-conduct.md" >}}
-</div>
-</div>
+Si vous constatez que cette page n'est pas à jour, veuillez [le signalez ici](https://github.com/kubernetes/website/issues/new/choose).
