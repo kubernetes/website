@@ -1129,7 +1129,7 @@ Deployment може примусово завершити Podʼи, мітки я
 
 #### Оновлення Deployment {#rolling-update-deployment}
 
-Deployment оновлює Podʼи в режимі поетапного оновлення, коли `.spec.strategy.type==RollingUpdate`. Ви можете вказати `maxUnavailable` та `maxSurge`, щоб контролювати процес поетапного оновлення.
+Deployment оновлює Podʼи в режимі поетапного оновлення (поступово прибираючи старі ReplicaSets і додаючи нові), коли `.spec.strategy.type==RollingUpdate`. Ви можете вказати `maxUnavailable` та `maxSurge`, щоб контролювати процес поетапного оновлення.
 
 ##### Максимально недоступний {#max-unavailable}
 

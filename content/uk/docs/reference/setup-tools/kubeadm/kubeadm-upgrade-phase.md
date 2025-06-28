@@ -8,7 +8,7 @@ content_type: concept
 
 За допомогою фаз `kubeadm upgrade apply` ви можете вибрати виконання окремих кроків початкового оновлення вузла панелі управління.
 
-{{< tabs name="tab-phase" >}}
+{{< tabs name="tab-apply-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase.md" />}}
 {{< tab name="preflight" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_control-plane.md" />}}
@@ -23,7 +23,7 @@ content_type: concept
 
 За допомогою фаз `kubeadm upgrade node` ви можете вибрати окремі кроки оновлення вторинної панелі управління або робочих вузлів.
 
-{{< tabs name="tab-phase" >}}
+{{< tabs name="tab-upgrade-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase.md" />}}
 {{< tab name="preflight" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_control-plane.md" />}}

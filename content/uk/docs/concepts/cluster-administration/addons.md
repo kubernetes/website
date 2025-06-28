@@ -34,6 +34,7 @@ weight: 150
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst): платформа SDN, яка забезпечує мережеву політику між кластерами Kubernetes Pods та некластерними середовищами з можливістю моніторингу видимості та безпеки.
 * [Romana](https://github.com/romana): рішення мережі рівня Layer 3 для мережевих мереж Podʼів, яке також підтримує [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API.
 * [Spiderpool](https://github.com/spidernet-io/spiderpool): рішення мережі основи та RDMA для Kubernetes. Spiderpool підтримується на bare metal, віртуальних машинах та публічних хмарних середовищах.
+* [Terway](https://github.com/AliyunContainerService/terway/): це набір втулків CNI, заснований на мережевих продуктах VPC та ECS від AlibabaCloud. Він забезпечує нативну мережу VPC та мережеві політики в середовищах AlibabaCloud.
 * [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes): надає мережу та політику мережі, буде продовжувати працювати з обох боків розділу мережі та не потребує зовнішньої бази даних.
 
 ## Виявлення служб {#service-discovery}
