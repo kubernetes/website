@@ -515,7 +515,7 @@ other = "Параметри завантаженя"
 other = "Операційна система"
 
 [release_binary_os_option]
-other = "Операційниі системи"
+other = "Операційні системи"
 
 [release_binary_os_darwin]
 other = "darwin"
@@ -582,7 +582,6 @@ other = """ℹ️ **Kubernetes {{ .minor_version }} переходить у ре
 
 Дата закінчення життєвого циклу Kubernetes {{ .minor_version }} — {{ .release_eol_date }}."""
 
-
 [release_full_details_initial_text]
 other = "Повний"
 
@@ -595,12 +594,16 @@ other = "Мінорна версія"
 [release_info_next_patch]
 other = "Наступний патч **%s**."
 
-# Deprecated. Set release_maintenance_and_end_of_life_details_current
-# and release_maintenance_and_end_of_life_details_past instead.
-# OK to remove once all localizations have switched to the new strings.
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
 [release_info_eol]
-# Set this to "" if your localization implements the new strings.
-other = ""
+other = "**%s** переходить в режим технічного обслуговування **%s**, кінець життєвого циклу — **%s**."
 
 [release_note]
 other = "Примітка"

@@ -152,6 +152,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * `emptyDir` volumes
   * Named pipe host mounts
   * Resource limits
+  * OS field: 
   -->
   * 每个 Pod 有一个或多个容器，具有进程隔离和卷共享能力
   * Pod `status` 字段
@@ -161,19 +162,17 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * `emptyDir` 卷
   * 命名管道形式的主机挂载
   * 资源限制
-  <!--
-  * OS field:
-
-    The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
-  -->
   * 操作系统字段：
 
-    `.spec.os.name` 字段应设置为 `windows` 以表明当前 Pod 使用 Windows 容器。
-
     <!--
+    The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
+
     If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:
     -->
+
+    `.spec.os.name` 字段应设置为 `windows` 以表明当前 Pod 使用 Windows 容器。
+
     如果你将 `.spec.os.name` 字段设置为 `windows`，
     则你必须不能在对应 Pod 的 `.spec` 中设置以下字段：
 
@@ -204,6 +203,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
     for all containers. If any of these fields is specified, the Pod will
     not be admitted by the API server.
     -->
+
     在上述列表中，通配符（`*`）表示列表中的所有项。
     例如，`spec.containers[*].securityContext` 指代所有容器的 SecurityContext 对象。
     如果指定了这些字段中的任意一个，则 API 服务器不会接受此 Pod。
@@ -581,20 +581,16 @@ The following container runtimes work with Windows:
 
 {{% thirdparty-content %}}
 
-<!--
 ### ContainerD
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
+<!--
 You can use {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+
 as the container runtime for Kubernetes nodes that run Windows.
 
 Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#containerd).
 -->
-### ContainerD
-
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
-
 对于运行 Windows 的 Kubernetes 节点，你可以使用
 {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0+ 作为容器运行时。
 
@@ -644,12 +640,20 @@ is as follows:
 
 对于 Kubernetes v{{< skew currentVersion >}}，Windows 节点（和 Pod）的操作系统兼容性如下：
 
+<!--
 Windows Server LTSC release
 : Windows Server 2019
 : Windows Server 2022
 
 Windows Server SAC release
-: Windows Server version 20H2
+:  Windows Server version 20H2
+-->
+Windows Server LTSC（长期服务渠道）版本
+: Windows Server 2019
+: Windows Server 2022
+
+Windows Server SAC（半年渠道）版本
+: Windows Server 版本 20H2
 
 <!--
 The Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) also applies.
@@ -776,7 +780,6 @@ It can be used to validate all the functionalities of a Windows and hybrid syste
 To set up the project on a newly created cluster, refer to the instructions in the
 [project guide](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md).
 -->
-
 ### 验证 Windows 集群的操作性  {#validating-windows-cluster-operability}
 
 Kubernetes 项目提供了 **Windows 操作准备**规范，配备了结构化的测试套件。
@@ -785,7 +788,6 @@ Kubernetes 项目提供了 **Windows 操作准备**规范，配备了结构化�
 
 要在新创建的集群上搭建此项目，
 请参考[项目指南](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md)中的说明。
-
 
 <!--
 ## Deployment tools

@@ -9,7 +9,7 @@ content_type: concept
 Using the phases of `kubeadm upgrade apply`, you can choose to execute the separate steps of the initial upgrade
 of a control plane node.
 
-{{< tabs name="tab-phase" >}}
+{{< tabs name="tab-apply-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase.md" />}}
 {{< tab name="preflight" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_control-plane.md" />}}
@@ -25,7 +25,7 @@ of a control plane node.
 Using the phases of `kubeadm upgrade node` you can choose to execute the separate steps of the upgrade of
 secondary control-plane or worker nodes.
 
-{{< tabs name="tab-phase" >}}
+{{< tabs name="tab-upgrade-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase.md" />}}
 {{< tab name="preflight" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_control-plane.md" />}}

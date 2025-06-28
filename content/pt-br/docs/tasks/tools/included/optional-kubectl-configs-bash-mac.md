@@ -23,7 +23,7 @@ Existem duas versões do bash-completion, v1 e v2. V1 é para Bash 3.2
 do kubectl **não funciona** corretamente com o bash-completion v1 e o
 Bash 3.2. Ele requer **bash-completion v2** e **Bash 4.1+**. Por isso, para
 executarmos o autocompletar do kubectl no macOS de forma correta, você precisa 
-instalar e usar o Bash 4.1+ ([*guia*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)).
+instalar e usar o Bash 4.1+ ([*guia*](https://apple.stackexchange.com/a/292760)).
 As instruções a seguir, levam em conta que você utilize o Bash 4.1+.
 (ou seja, a versão 4.1 do Bash ou qualquer outra mais recente).
 {{< /warning >}}

@@ -20,9 +20,15 @@ Author: >
 -->
 
 <!--
-Kubernetes Slack will lose its special status and will be changing into a standard free Slack on June 20. Sometime later this year, our community will likely move to a new platform. If you are responsible for a channel or private channel, or a member of a User Group, you will need to take some actions as soon as you can.
+**UPDATE**: We've received notice from Salesforce that our Slack workspace **WILL NOT BE DOWNGRADED** on June 20th. Stand by for more details, but for now, there is no urgency to back up private channels or direct messages.
 -->
-Kubernetes Slack 将在 6 月 20 日失去原有的专属支持，并转变为标准免费版 Slack。
+**更新**：我们已收到 Salesforce 的通知，我们的 Slack 工作区在 6 月 20 日**不会被降级**。
+请等待更多细节更新，目前**无需紧急备份**私有频道或私信。
+
+<!--
+~Kubernetes Slack will lose its special status and will be changing into a standard free Slack on June 20, 2025~~. Sometime later this year, our community may move to a new platform. If you are responsible for a channel or private channel, or a member of a User Group, you will need to take some actions as soon as you can.
+-->
+~Kubernetes Slack 将在 6 月 20 日失去原有的专属支持，并转变为标准免费版 Slack~~。
 今年晚些时候，我们的社区可能会迁移到新平台。
 如果你是频道或私有频道的负责人，又或是用户组的成员，你需要尽快采取一些行动。
 
