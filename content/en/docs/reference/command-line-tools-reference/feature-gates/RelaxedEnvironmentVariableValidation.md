@@ -13,5 +13,7 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.32"
+
+    
 ---
 Allow almost all printable ASCII characters in environment variables.
