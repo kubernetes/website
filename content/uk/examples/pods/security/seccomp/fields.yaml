@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod
+spec:
+  securityContext:
+    seccompProfile:
+      type: Unconfined
+  ephemeralContainers:
+  - name: ephemeral-container
+    image: debian
+    securityContext:
+      seccompProfile:
+        type: RuntimeDefault
+  initContainers:
+  - name: init-container
+    image: debian
+    securityContext:
+      seccompProfile:
+        type: RuntimeDefault
+  containers:
+  - name: container
+    image: docker.io/library/debian:stable
+    securityContext:
+      seccompProfile:
+        type: Localhost
+        localhostProfile: my-profile.json

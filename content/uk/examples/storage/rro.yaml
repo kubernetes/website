@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rro
+spec:
+  volumes:
+    - name: mnt
+      hostPath:
+        # tmpfs змонтовано у /mnt/tmpfs
+        path: /mnt
+  containers:
+    - name: busybox
+      image: busybox
+      args: ["sleep", "infinity"]
+      volumeMounts:
+        # /mnt-rro/tmpfs не має права на запис
+        - name: mnt
+          mountPath: /mnt-rro
+          readOnly: true
+          mountPropagation: None
+          recursiveReadOnly: Enabled
+        # /mnt-ro/tmpfs має право на запис
+        - name: mnt
+          mountPath: /mnt-ro
+          readOnly: true
+        # /mnt-rw/tmpfs має право на запис
+        - name: mnt
+          mountPath: /mnt-rw
