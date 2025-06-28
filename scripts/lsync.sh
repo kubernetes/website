@@ -19,20 +19,20 @@ fi
 
 if [ -d "$1" ] ; then
   SYNCED=1
-  for f in `find $1 -name "*.md"` ; do
-    EN_VERSION=`echo $f | sed "s/content\/.\{2,5\}\//content\/en\//g"`
-    if [ ! -e $EN_VERSION ]; then
+  while IFS= read -r -d '' f; do
+    EN_VERSION=$(echo "$f" | sed "s/content\/.\{2,5\}\//content\/en\//g")
+    if [ ! -e "$EN_VERSION" ]; then
       echo -e "**removed**\t$EN_VERSION"
       SYNCED=0
       continue
     fi
 
-    LASTCOMMIT=`git log -n 1 --pretty=format:%h -- $f`
-    git diff --exit-code --numstat $LASTCOMMIT...HEAD $EN_VERSION
-    if [ $? -ne 0 ] ; then
+    LASTCOMMIT=$(git log -n 1 --pretty=format:%h -- "$f")
+    if ! git diff --exit-code --numstat "$LASTCOMMIT...HEAD" -- "$EN_VERSION"; then
       SYNCED=0
     fi
-  done
+  done < <(find "$1" -name "*.md" -print0)
+
   if [ $SYNCED -eq 1 ]; then
     echo "$1 is still in sync"
     exit 0
@@ -43,18 +43,18 @@ fi
 LOCALIZED="$1"
 
 # Try get the English version
-EN_VERSION=`echo $LOCALIZED | sed "s/content\/.\{2,5\}\//content\/en\//g"`
-if [ ! -e $EN_VERSION ]; then
+EN_VERSION=$(echo "$LOCALIZED" | sed "s/content\/.\{2,5\}\//content\/en\//g")
+if [ ! -e "$EN_VERSION" ]; then
   echo "$EN_VERSION has been removed."
   exit 3
 fi
 
 # Last commit for the localized path
-LASTCOMMIT=`git log -n 1 --pretty=format:%h -- $LOCALIZED`
+LASTCOMMIT=$(git log -n 1 --pretty=format:%h -- "$LOCALIZED")
 
-git diff --exit-code $LASTCOMMIT...HEAD $EN_VERSION
+diff_output=$(git diff --quiet "$LASTCOMMIT...HEAD" -- "$EN_VERSION" || echo "changed")
 
-if [ "$?" -eq 0 ]; then
+if [ -z "$diff_output" ]; then
   echo "$LOCALIZED is still in sync"
   exit 0
 fi
