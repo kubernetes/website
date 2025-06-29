@@ -1,0 +1,107 @@
+---
+layout: blog
+title: "Kubernetes v1.34: Pod Replacement Policy for Jobs Goes GA"
+date: 2025-0X-XX
+draft: true
+slug: kubernetes-v1-34-pod-replacement-policy-for-jobs-goes-ga
+author: >
+  [Dejan Zele Pejchev](https://github.com/dejanzele) (G-Research)
+---
+
+In Kubernetes v1.34, the _Pod Replacement Policy_ feature reaches general availability (GA).
+This blog post describes the Pod Replacement Policy feature and how to use it in your Jobs.
+
+## About Pod Replacement Policy
+
+By default, the Job controller immediately recreates Pods as soon as they fail or begin terminating (when they have a deletion timestamp).
+
+As a result, while some Pods are terminating, the total number of running Pods for a Job can temporarily exceed the specified parallelism.
+For Indexed Jobs, this can even mean multiple Pods running for the same index at the same time.
+
+This behavior works fine for many workloads, but it can cause problems in certain cases.
+
+For example, popular machine learning frameworks like TensorFlow and
+[JAX](https://jax.readthedocs.io/en/latest/) expect exactly one Pod per worker index.
+If two Pods run at the same time, you might encounter errors such as:
+```
+/job:worker/task:4: Duplicate task registration with task_name=/job:worker/replica:0/task:4
+```
+
+Additionally, starting replacement Pods before the old ones fully terminate can lead to:
+- Scheduling delays by kube-scheduler as the nodes remain occupied.
+- Unnecessary cluster scale-ups to accommodate the replacement Pods.
+- Temporary bypassing of quota checks by workload orchestrators like [Kueue](https://kueue.sigs.k8s.io/).
+
+The _Pod Replacement Policy_ feature gives you control over when Kubernetes replaces terminating Pods, helping you avoid these issues.
+
+## How Pod Replacement Policy works
+
+The feature introduces a new Job-level field, `podReplacementPolicy`, which controls when Kubernetes replaces terminating Pods.  
+You can choose one of two policies:
+- TerminatingOrFailed (default): Replaces Pods as soon as they start terminating.
+- Failed: Replaces Pods only after they fully terminate and transition to the `Failed` phase.
+
+Setting the policy to `Failed` ensures that a new Pod is only created after the previous one has completely terminated.
+
+For Jobs with a Pod Failure Policy, the default `podReplacementPolicy` is `Failed`, and no other value is allowed.
+See [Pod Failure Policy](/docs/concepts/workloads/controllers/job/#pod-failure-policy) to learn more about Pod Failure Policies for Jobs.
+
+You can check how many Pods are currently terminating by inspecting the Job’s `.status.terminating` field:
+
+```sh
+kubectl get job myjob -o=jsonpath='{.status.terminating}'
+```
+
+## Example
+
+Here’s a simple Job spec that ensures Pods are replaced only after they terminate completely:
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: example-job
+spec:
+  podReplacementPolicy: Failed
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: worker
+        image: your-image
+```
+
+With this setting, Kubernetes won’t launch a replacement Pod while the previous Pod is still terminating.
+
+## How can you learn more?
+
+- Read the user-facing documentation for [Pod Replacement Policy](/docs/concepts/workloads/controllers/job/#pod-replacement-policy),
+  [Backoff Limit per Index](/docs/concepts/workloads/controllers/job/#backoff-limit-per-index), and
+  [Pod Failure Policy](/docs/concepts/workloads/controllers/job/#pod-failure-policy).
+- Read the KEPs for [Pod Replacement Policy](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/3939-allow-replacement-when-fully-terminated),
+  [Backoff Limit per Index](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/3850-backoff-limits-per-index-for-indexed-jobs), and
+  [Pod Failure Policy](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/3329-retriable-and-non-retriable-failures).
+
+
+## Acknowledgments
+
+As with any Kubernetes feature, multiple people contributed to getting this
+done, from testing and filing bugs to reviewing code.
+
+As this feature moves to stable after 2 years, we would like to thank the following people:
+* [Kevin Hannon](https://github.com/kannon92) - for writing the KEP and the initial implementation.
+* [Michał Woźniak](https://github.com/mimowo) - for guidance, mentorship, and reviews.
+* [Aldo Culquicondor](https://github.com/alculquicondor) - for guidance, mentorship, and reviews.
+* [Maciej Szulik](https://github.com/soltysh) - for guidance, mentorship, and reviews.
+* [Dejan Zele Pejchev](https://github.com/dejanzele) - for taking over the feature and promoting it from Alpha through Beta to GA.
+
+## Get involved
+
+This work was sponsored by the Kubernetes
+[batch working group](https://github.com/kubernetes/community/tree/master/wg-batch)
+in close collaboration with the
+[SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) community.
+
+If you are interested in working on new features in the space we recommend
+subscribing to our [Slack](https://kubernetes.slack.com/messages/wg-batch)
+channel and attending the regular community meetings.
