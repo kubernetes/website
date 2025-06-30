@@ -18,7 +18,7 @@ _Resource quotas_ are a tool for administrators to address this concern.
 
 A resource quota, defined by a ResourceQuota object, provides constraints that limit
 aggregate resource consumption per {{< glossary_tooltip text="namespace" term_id="namespace" >}}. A ResourceQuota can also
-limit the [quantity of objects that can be created in a namespace](#quota-on-object-count) by API kind, as well as the total
+limit the [quantity of objects that can be created in a namespace](#object-count-quota) by API kind, as well as the total
 amount of {{< glossary_tooltip text="infrastructure resources" term_id="infrastructure-resource" >}} that may be consumed by
 API objects found in that namespace.
 
