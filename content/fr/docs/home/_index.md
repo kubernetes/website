@@ -51,7 +51,7 @@ cards:
   button_path: /docs/contribute
 - name: training
   title: "Formation"
-  description: "Obtenez une certification Kubernetes et réussissez vos projets natifs dans le nuage !"
+  description: "Obtenez une certification Kubernetes et réussissez vos projets « cloud native » !"
   button: "Voir la formation"
   button_path: "/training"  
 - name: Download
