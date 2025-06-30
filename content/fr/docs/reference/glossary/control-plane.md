@@ -1,5 +1,5 @@
 ---
-title: Centre de contrôle
+title: Unité de Contrôle
 id: control-plane
 date: 2019-05-12
 full_link:
