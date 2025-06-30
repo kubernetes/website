@@ -553,7 +553,7 @@ metadata:
   namespace: "default"
 type: kubernetes.io/tls
 data:
-  # 注意：将以下值替换为你自己的base64编码的证书和密钥。
+  # 注意：将以下值替换为你自己 base64 编码后的证书和密钥。
   tls.crt: "REPLACE_WITH_BASE64_CERT" 
   tls.key: "REPLACE_WITH_BASE64_KEY"
 ```
