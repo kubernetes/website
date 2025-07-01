@@ -38,7 +38,7 @@ API objects found in that namespace.
 -->
 资源配额，由 ResourceQuota 对象定义，
 提供了限制每个{{< glossary_tooltip text="命名空间" term_id="namespace" >}}的资源总消耗的约束。
-资源配额还可以限制在命名空间中可以创建的[对象数量](#quota-on-object-count)（按 API 类型计算），
+资源配额还可以限制在命名空间中可以创建的[对象数量](#object-count-quota)（按 API 类型计算），
 以及该命名空间中存在的 API
 对象可能消耗的{{< glossary_tooltip text="基础设施资源" term_id="infrastructure-resource" >}}的总量。
 
