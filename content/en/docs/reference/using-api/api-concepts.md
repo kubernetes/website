@@ -127,7 +127,7 @@ virtual resource type would be used if that becomes necessary.
 
 ## HTTP media types {#alternate-representations-of-resources}
 
-Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
+Over HTTP, Kubernetes supports JSON, YAML, CBOR and Protobuf wire encodings.
 
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
 `application/json` media type. Although JSON is the default, clients may request a response in
@@ -143,6 +143,13 @@ If you request an available media type, the API server returns a response with a
 `Content-Type`; if none of the media types you request are supported, the API server returns
 a `406 Not acceptable` error message.
 All built-in resource types support the `application/json` media type.
+
+#### Chunked encoding of collections
+
+For JSON and Protobuf encoding, Kubernetes implements custom encoders that write item, by item.
+The feature doesn't change the output, but allows API server to avoid loading whole LIST response into memory.
+Using other types of encoding (including pretty representation of JSON)
+should be avoided for large collections of resources (>100MB) as it can have negative performance impact.
 
 ### JSON resource encoding {#json-encoding}
 
