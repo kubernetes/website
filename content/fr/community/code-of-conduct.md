@@ -16,10 +16,9 @@ Le texte de la CNCF CoC est répliqué ci-dessous, en tant que
 ---
 
 Si vous remarquez toute violation de la Code de Conduite lors d'un évènement ou d'une réunion, sur
-Slack, ou bien dans un autre moyen de communication , veuillez vous adressez à
-la [Comité du code de conduite de Kubernetes](https://git.k8s.io/community/committee-code-of-conduct)
+Slack, ou bien dans un autre moyen de communication , veuillez vous adressez au [Comité du code de conduite de Kubernetes](https://git.k8s.io/community/committee-code-of-conduct)
 
-Vouz pouvez la contacter via ce courrier électronique [conduct@kubernetes.io](mailto:conduct@kubernetes.io).
+Vouz pouvez le contacter via ce courrier électronique [conduct@kubernetes.io](mailto:conduct@kubernetes.io).
 Votre anonymat sera protégé.
 
-Si vous constatez que cette page n'est pas à jour, veuillez [le signalez ici](https://github.com/kubernetes/website/issues/new/choose).
+Si vous constatez que cette page n'est pas à jour, veuillez [le signaler ici](https://github.com/kubernetes/website/issues/new/choose).
