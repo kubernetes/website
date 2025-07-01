@@ -1820,7 +1820,7 @@ volume detach operations for the Pods terminating on the node will happen immedi
 This allows the Pods on the out-of-service node to recover quickly on a different node.
 
 {{< caution >}}
-Refer to [Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+Refer to [Non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 {{< /caution >}}
 
