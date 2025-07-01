@@ -165,14 +165,14 @@ is an invalid value, while by using the milliCPU form, it's easier to spot that
 Limits and requests for `memory` are measured in bytes. You can express memory as
 a plain integer or as a fixed-point number using one of these
 [quantity](/docs/reference/kubernetes-api/common-definitions/quantity/) suffixes:
-E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k, m (for millibytes: 1/1000 of a byte). You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 
 ```shell
 128974848, 129e6, 129M,  128974848000m, 123Mi
 ```
 
-Pay attention to the case of the suffixes. If you request `400m` of memory, this is a request
+Pay attention to the case of the suffixes. "M" means megabytes, while "m" means millibytes. If you request `400m` of memory, this is a request
 for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
 or 400 megabytes (`400M`).
 
