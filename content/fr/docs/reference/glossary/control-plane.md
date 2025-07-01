@@ -22,4 +22,4 @@ tags:
  * {{< glossary_tooltip text="Gestionnaire de contrôleurs" term_id="kube-controller-manager" >}}
  * {{< glossary_tooltip text="Gestionnaore de contrôleurs du cloud" term_id="cloud-controller-manager" >}}
 
- Ces éléments peuvent être exécutés en tant que services traditionnels du système d'exploitation (programmes fantômes) ou dans des conteneurs. Historiquement, les hôtes exécutant ces éléments étaient appelés {{< glossary_tooltip text="masters" term_id="master" >}}.
+ Ces éléments peuvent être exécutés en tant que services traditionnels du système d'exploitation (démons) ou dans des conteneurs. Historiquement, les hôtes exécutant ces éléments étaient appelés {{< glossary_tooltip text="masters" term_id="master" >}}.
