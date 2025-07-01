@@ -12,12 +12,12 @@ tags:
 - operation
 ---
 Un ensemble de machines physiques et/ou virtuelles appelées {{< glossary_tooltip text="noeuds" term_id="node" >}},
-qui peuvent exécuter des applications conteneurisées. Chaque grappe a au moins un noeud de calcul.
+qui peuvent exécuter des applications conteneurisées. Chaque cluster a au moins un noeud de calcul.
 
 <!--more-->
 Les noeuds de calcul hébergent les {{< glossary_tooltip text="Pods" term_id="pod" >}} qui sont
 les composants de la charge de travail des applications. Le
 {{< glossary_tooltip text="centre de contrôle" term_id="control-plane" >}} gère les noeuds de calcul
-et les Pods dans la grappe. Dans les environnements de production en général, le centre de contrôle repose sur
-plusieurs machines et la grappe est constitué de plusieurs noeuds, offrant ainsi
+et les Pods dans la cluster. Dans les environnements de production en général, le centre de contrôle repose sur
+plusieurs machines et le cluster est constitué de plusieurs noeuds, offrant ainsi
 une tolérance aux pannes et une haute disponibilité.
