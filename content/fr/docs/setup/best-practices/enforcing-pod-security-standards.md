@@ -23,7 +23,7 @@ tend à remplacer *PodSecurityPolicies* qui est obsolète.
 ### Configurer tous les *namespaces* d'une grappe
 
 Les *namespaces* dépourvus de toute configuration doivent être considérés comme des lacunes importantes dans 
-le modèle de sécurité de votre grappe. Nous recommandons de prendre le temps d'analyser les types de charges de travail qui 
+le modèle de sécurité de votre cluster. Nous recommandons de prendre le temps d'analyser les types de charges de travail qui 
 se produisent dans chaque *namespace*, et en se référant aux Normes de Sécurité des Pods, de décider du niveau approprié pour
 chacun d'entre eux. Les *namespaces* non étiquetés doivent uniquement indiquer qu'ils n'ont pas encore été étudiés.
 
