@@ -11,7 +11,7 @@ weight: 50
 Kubernetes requiert les certificats gérés par *PKI* (*Public Key Infrastructure* ou *ICP* pour *Infrastructure à Clé Publique*) 
 pour l'authentification via *TLS*.
 Si vous installez Kubernetes à l'aide de [kubeadm](/docs/reference/setup-tools/kubeadm/),
-les certificats dont votre grappe exige sont automatiquement générés.
+les certificats que votre cluster exige sont automatiquement générés.
 Vous pouvez également générer vos propres certificats -- par exemple, mieux sécuriser vos clés privées
 en ne les stockant pas tous sur la machine hébergeant le *serveur API*.
 
@@ -93,7 +93,7 @@ Certificats racines requis:
 | etcd/ca.crt,key        | etcd-ca                   | Pour tout ce qui est lié à *etcd*                                                     |
 | front-proxy-ca.crt,key | kubernetes-front-proxy-ca | Pour le [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
-Avant les certificats racines précedent, il est aussi nécessaire d'avoir un couple de clés publiaue/privé pour la gestion du *service account*,
+Avant les certificats racines précedent, il est aussi nécessaire d'avoir un couple de clés publique/privé pour la gestion du *service account*,
 `sa.key` and `sa.pub`.
 L'exemple ci-dessous illustre les fichiers vus dans le tableau précédent:
 
@@ -108,8 +108,8 @@ L'exemple ci-dessous illustre les fichiers vus dans le tableau précédent:
 
 ### Tous les certificats
 
-Si vous ne souhaitez pas stocker les clés privées de vos certificats racine au sein de votre grappe,
-vous pouvez génrer tous les certificqts en dehors de cette dernière.
+Si vous ne souhaitez pas stocker les clés privées de vos certificats racine au sein de votre cluster,
+vous pouvez génrer tous les certificats en dehors de cette dernière.
 
 Certificats requis:
 
@@ -128,11 +128,11 @@ Au lieu d'utiliser le groupe `system:masters` qui possède tous les privilèges 
 un autre groupe avec moins de privilèges devrait être uttlisé. Par exemple, *kubeadm* utilise `kubeadm:cluster-admins`
 {{< /note >}}
 
-[^1]: tout autre IP ou nom DNS sur lequel joindre votre grappe (comme ceux utilisés par [kubeadm](/docs/reference/setup-tools/kubeadm/), 
+[^1]: tout autre IP ou nom DNS sur lequel joindre votre cluster (comme ceux utilisés par [kubeadm](/docs/reference/setup-tools/kubeadm/), 
 l'adresse IP et/ou le nom DNS du répartisseur de charge, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-où `kind` correspond à une ou plusieurs valeurs de *key usqge* de *x509* (dont *key usage* est une extension du standard *x509*), qui est documenté ici
+où `kind` correspond à une ou plusieurs valeurs de *key usage* de *x509* (dont *key usage* est une extension du standard *x509*), qui est documenté ici
 `.spec.usages` pour le type [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest):
 
 | *kind* | *Key usage*                                      |
@@ -141,18 +141,18 @@ où `kind` correspond à une ou plusieurs valeurs de *key usqge* de *x509* (dont
 | client | digital signature, key encipherment, client auth |
 
 {{< note >}}
-*Hosts/SAN* listés ci-dessus sont les premières valeurs recommandées pour avoir une grappe fonctionelle; 
-si d'autres éléments sont nécessaire pour
+*Hosts/SAN* listés ci-dessus sont les premières valeurs recommandées pour avoir un cluster fonctionnel; 
+si d'autres éléments sont nécessaires pour
 une configuraion spécifique, il est possible d'ajouter des *SANs* dans tous les certificats serveurs.
 {{< /note >}}
 
 {{< note >}}
-Seulement pour les utilisateurs de kubeadm:
+Seulement pour les utilisateurs de `kubeadm`:
 
-* Le scénario où vous copiez vos certificats du *CA* sans les clés privées vers  votre grappe est
+* Le scénario où vous copiez vos certificats du *CA* sans les clés privées vers votre cluster est
   reférrée en tant que *CA* externe dans la documentation de *kubeadm*.
 * Si vous comparez la liste des certificats ci-dessus avec une autre contenant les certificats *PKI* générés par *kubeadm*, 
-  veuillez considérez que les certificats
+  veuillez considérer que les certificats
   `kube-etcd`, `kube-etcd-peer` et `kube-etcd-healthcheck-client` ne sont pas générés
   dans le cas d'un *etcd* externe.
 
@@ -187,7 +187,7 @@ Les mêmes recommandations s'appliquent pour la paire de clés du *service accou
 | sa.key                  |                           | kube-controller-manager | --service-account-private-key-file |
 |                         | sa.pub                    | kube-apiserver          | --service-account-key-file         |
 
-L'example suivant illustrate les chemins des fichiers [du précédent tableau](#certificate-paths)
+L'example suivant illustre les chemins des fichiers [du précédent tableau](#certificate-paths)
 dont vous devez mettre en place si vous générez vous-même tous vos clés privées et vos certificats:
 
 ```
