@@ -106,8 +106,6 @@ This is an example snippet of a kubelet config that records spans for 1 in 10000
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-featureGates:
-  KubeletTracing: true
 tracing:
   # default value
   #endpoint: localhost:4317
