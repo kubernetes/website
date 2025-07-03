@@ -1352,6 +1352,8 @@ Not older than
   of the items in that collection.
   Always served from _watch cache_, improving performance and reducing etcd load.
 
+// TODO: Update defaults with ListFromCacheSnapshot going to Beta default.
+
 Exact
 : Return data at the exact resource version provided. If the provided `resourceVersion` is
   unavailable, the server responds with HTTP `410 Gone`. For **list** requests to servers that honor the
