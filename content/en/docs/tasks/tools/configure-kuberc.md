@@ -5,8 +5,6 @@ slug: customize-kubectl-kuberc
 weight: 11
 ---
 
-## {{< heading "overview" >}}
-
 The `.kuberc` file is an optional user-level configuration file introduced in newer versions of `kubectl` (v1.33+).  
 It allows you to define preferences for how `kubectl` behaves — such as setting a default namespace, hiding warnings, or modifying CLI behavior — without affecting cluster configuration.
 
@@ -28,8 +26,8 @@ It allows you to define preferences for how `kubectl` behaves — such as settin
 
 To get started, create the file in your home directory:
 
-> 🖥️ On Linux/macOS: `~/.kuberc`  
-> 🪟 On Windows: `%USERPROFILE%\.kuberc`
+On **Linux/macOS**: `~/.kuberc`  
+On **Windows**: `%USERPROFILE%\.kuberc`
 
 ```bash
 touch ~/.kuberc
