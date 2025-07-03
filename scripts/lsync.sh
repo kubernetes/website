@@ -37,7 +37,7 @@ if [ -d "$1" ] ; then
     echo "$1 is still in sync"
     exit 0
   fi
-  exit 1
+  exit 0
 fi
 
 LOCALIZED="$1"
@@ -52,9 +52,11 @@ fi
 # Last commit for the localized path
 LASTCOMMIT=$(git log -n 1 --pretty=format:%h -- "$LOCALIZED")
 
-diff_output=$(git diff --quiet "$LASTCOMMIT...HEAD" -- "$EN_VERSION" || echo "changed")
+DIFF_OUTPUT=$(git diff --color=always "$LASTCOMMIT...HEAD" -- "$EN_VERSION")
 
-if [ -z "$diff_output" ]; then
+if [ -z "$DIFF_OUTPUT" ]; then
   echo "$LOCALIZED is still in sync"
   exit 0
+else
+  printf "%s\n" "$DIFF_OUTPUT"
 fi
