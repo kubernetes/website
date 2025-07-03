@@ -283,7 +283,8 @@ to delay the preshutdown event with a given duration.
 
 Windows graceful node shutdown is controlled with the `WindowsGracefulNodeShutdown`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-which is introduced in 1.32 as an alpha feature.
+which is introduced in 1.32 as an alpha feature. In Kubernetes 1.34 the feature is Beta
+and is enabled by default.
 
 Windows graceful node shutdown can not be cancelled.
 
