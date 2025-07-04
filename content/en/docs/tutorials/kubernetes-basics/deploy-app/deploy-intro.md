@@ -152,7 +152,7 @@ pod name, that is also accessible through the proxy.
 First we need to get the Pod name, and we'll store it in the environment variable `POD_NAME`.
 
 ```shell
-export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'| grep kubernetes-bootcamp)
 echo Name of the Pod: $POD_NAME
 ```
 
