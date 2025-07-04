@@ -3,7 +3,7 @@ title: 节点压力驱逐
 content_type: concept
 weight: 100
 ---
-<!-- 
+<!--
 title: Node-pressure Eviction
 content_type: concept
 weight: 100
@@ -14,6 +14,7 @@ weight: 100
 {{<note>}}
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 <!--
+{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 The _split image filesystem_ feature, which enables support for the `containerfs`
 filesystem, adds several new eviction signals, thresholds and metrics. To use
 `containerfs`, the Kubernetes release v{{< skew currentVersion >}} requires the
@@ -21,6 +22,7 @@ filesystem, adds several new eviction signals, thresholds and metrics. To use
 to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
 filesystem support.
 -->
+{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 **拆分镜像文件系统** 功能支持 `containerfs` 文件系统，并增加了几个新的驱逐信号、阈值和指标。
 要使用 `containerfs`，Kubernetes 版本 v{{< skew currentVersion >}} 需要启用 `KubeletSeparateDiskGC`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
@@ -45,8 +47,9 @@ Node-pressure eviction is not the same as
 当这些资源中的一个或者多个达到特定的消耗水平，
 kubelet 可以主动地使节点上一个或者多个 Pod 失效，以回收资源防止饥饿。
 
-在节点压力驱逐期间，kubelet 将所选 Pod 的[阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
-设置为 `Failed` 并终止 Pod。
+在节点压力驱逐期间，kubelet 将所选 Pod
+的[阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)设置为
+`Failed` 并终止 Pod。
 
 节点压力驱逐不同于 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)。
 
@@ -64,7 +67,7 @@ kubelet 并不理会你配置的 {{<glossary_tooltip term_id="pod-disruption-bud
 如果你使用了[硬驱逐条件](#hard-eviction-thresholds)，kubelet 使用 `0s`
 宽限期（立即关闭）来终止 Pod。
 
-<!-- 
+<!--
 ## Self healing behavior
 
 The kubelet attempts to [reclaim node-level resources](#reclaim-node-resources)
@@ -150,6 +153,18 @@ kubelet 使用驱逐信号，通过将信号与驱逐条件进行比较来做出
 
 kubelet 使用以下驱逐信号：
 
+<!--
+| Eviction Signal          | Description                                                                           | Linux Only |
+|--------------------------|---------------------------------------------------------------------------------------|------------|
+| `memory.available`       | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |            |
+| `nodefs.available`       | `nodefs.available` := `node.stats.fs.available`                                       |            |
+| `nodefs.inodesFree`      | `nodefs.inodesFree` := `node.stats.fs.inodesFree`                                     |      •     |
+| `imagefs.available`      | `imagefs.available` := `node.stats.runtime.imagefs.available`                         |            |
+| `imagefs.inodesFree`     | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree`                       |      •     |
+| `containerfs.available`  | `containerfs.available` := `node.stats.runtime.containerfs.available`                 |            |
+| `containerfs.inodesFree` | `containerfs.inodesFree` := `node.stats.runtime.containerfs.inodesFree`               |      •     |
+| `pid.available`          | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |      •     |
+-->
 | 驱逐信号                  | 描述                                                                                  | 仅限于 Linux |
 |--------------------------|---------------------------------------------------------------------------------------|------------|
 | `memory.available`       | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |            |
@@ -185,16 +200,15 @@ reproduces the same set of steps that the kubelet performs to calculate
 file-backed memory on inactive LRU list) from its calculation as it assumes that
 memory is reclaimable under pressure.
 -->
-
 #### 内存信号 {#memory-signals}
 
 在 Linux 节点上，`memory.available` 的值来自 cgroupfs，而不是像 `free -m` 这样的工具。
-这很重要，因为 `free -m` 在容器中不起作用，如果用户使用
-[节点可分配资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-这一功能特性，资源不足的判定是基于 cgroup 层次结构中的用户 Pod 所处的局部及 cgroup 根节点作出的。
+这很重要，因为 `free -m` 在容器中不起作用，
+如果用户使用[节点可分配资源](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)这一功能特性，
+资源不足的判定是基于 cgroup 层次结构中的用户 Pod 所处的局部及 cgroup 根节点作出的。
 这个[脚本](/zh-cn/examples/admin/resource/memory-available.sh)或者
-[cgroupv2 脚本](/zh-cn/examples/admin/resource/memory-available-cgroupv2.sh)
-重现了 kubelet 为计算 `memory.available` 而执行的相同步骤。
+[cgroupv2 脚本](/zh-cn/examples/admin/resource/memory-available-cgroupv2.sh)重现了
+kubelet 为计算 `memory.available` 而执行的相同步骤。
 kubelet 在其计算中排除了 inactive_file（非活动 LRU 列表上基于文件来虚拟的内存的字节数），
 因为它假定在压力下内存是可回收的。
 
@@ -205,7 +219,8 @@ system call) by subtracting the node's global [`CommitTotal`](https://learn.micr
 -->
 在 Windows 节点上，`memory.available` 的值来自节点的全局内存提交级别
 （通过 [`GetPerformanceInfo()`](https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo)系统调用查询），
-方法是从节点的 [`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)减去节点的全局
+方法是从节点的 [`CommitLimit`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)
+减去节点的全局
 [`CommitTotal`](https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information)。
 请注意，如果节点的页面文件大小发生变化，`CommitLimit` 也会发生变化！
 
@@ -498,24 +513,25 @@ The kubelet maps eviction signals to node conditions as follows:
 | `MemoryPressure`  | `memory.available`                                                                    | Available memory on the node has satisfied an eviction threshold                           |
 | `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, `imagefs.inodesFree`, `containerfs.available`, or `containerfs.inodesFree` | Available disk space and inodes on either the node's root filesystem, image filesystem, or container filesystem has satisfied an eviction threshold              |
 | `PIDPressure`     | `pid.available`                                                                       | Available processes identifiers on the (Linux) node has fallen below an eviction threshold |
+-->
+kubelet 根据下表将驱逐信号映射为节点状况：
 
+| 节点状况 | 驱逐信号 | 描述 |
+|---------|--------|------|
+| `MemoryPressure` | `memory.available` | 节点上的可用内存已满足驱逐条件 |
+| `DiskPressure`   | `nodefs.available`、`nodefs.inodesFree`、`imagefs.available`、`imagefs.inodesFree`、`containerfs.available` 或 `containerfs.inodesFree` | 节点的根文件系统、镜像文件系统或容器文件系统上的可用磁盘空间和 inode 已满足驱逐阈值 |
+| `PIDPressure`    | `pid.available` | （Linux）节点上的可用进程标识符已低于驱逐条件 |
+
+<!--
 The control plane also [maps](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 these node conditions to taints.
 
 The kubelet updates the node conditions based on the configured
 `--node-status-update-frequency`, which defaults to `10s`.
 -->
-kubelet 根据下表将驱逐信号映射为节点状况：
-
-| 节点条件 | 驱逐信号 | 描述 |
-|---------|--------|------|
-| `MemoryPressure` | `memory.available` | 节点上的可用内存已满足驱逐条件 |
-| `DiskPressure`   | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, `imagefs.inodesFree`, `containerfs.available`, 或 `containerfs.inodesFree` | 节点的根文件系统、镜像文件系统或容器文件系统上的可用磁盘空间和 inode 已满足驱逐阈值 |
-| `PIDPressure`    | `pid.available` | (Linux) 节点上的可用进程标识符已低于驱逐条件 |
-
 控制平面还将这些节点状况[映射](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)为其污点。
 
-kubelet 根据配置的 `--node-status-update-frequency` 更新节点条件，默认为 `10s`。
+kubelet 根据配置的 `--node-status-update-frequency` 更新节点状况，默认为 `10s`。
 
 <!--
 ### Node condition oscillation
@@ -531,10 +547,10 @@ condition to a different state. The transition period has a default value of `5m
 ### 节点状况波动   {#node-condition-oscillation}
 
 在某些情况下，节点在软驱逐条件上下振荡，而没有保持定义的宽限期。
-这会导致报告的节点条件在 `true` 和 `false` 之间不断切换，从而导致错误的驱逐决策。
+这会导致报告的节点状况在 `true` 和 `false` 之间不断切换，从而导致错误的驱逐决策。
 
 为了防止振荡，你可以使用 `eviction-pressure-transition-period` 标志，
-该标志控制 kubelet 在将节点条件转换为不同状态之前必须等待的时间。
+该标志控制 kubelet 在将节点状况转换为不同状态之前必须等待的时间。
 过渡期的默认值为 `5m`。
 
 <!--
@@ -600,12 +616,12 @@ reclaim resources as follows:
 - If the `imagefs` filesystem meets the eviction thresholds, the kubelet
   deletes all unused images.
 -->
-#### 使用 `imagefs` 和 `containerfs` {#with-imagefs-and-containerfs}
+#### 有 `imagefs` 和 `containerfs` {#with-imagefs-and-containerfs}
 
 如果节点除了 `imagefs` 文件系统之外还配置了专用的 `containerfs` 以供容器运行时使用，
 则 kubelet 将尝试按如下方式回收资源：
 
-- 如果 `containerfs` 文件系统满足驱逐阈值，则 kubelet 将垃圾收集死机的 pod 和容器。
+- 如果 `containerfs` 文件系统满足驱逐阈值，则 kubelet 将垃圾收集死机的 Pod 和容器。
 
 - 如果 `imagefs` 文件系统满足驱逐阈值，则 kubelet 将删除所有未使用的镜像。
 
@@ -648,7 +664,7 @@ As a result, kubelet ranks and evicts pods in the following order:
 1. 资源使用量少于请求量的 `Guaranteed` Pod 和 `Burstable` Pod 根据其优先级被最后驱逐。
 
 {{<note>}}
-<!-- 
+<!--
 The kubelet does not use the pod's [QoS class](/docs/concepts/workloads/pods/pod-qos/) to determine the eviction order.
 You can use the QoS class to estimate the most likely pod eviction order when
 reclaiming resources like memory. QoS classification does not apply to EphemeralStorage requests,
@@ -740,30 +756,30 @@ kubelet 根据节点是否具有专用的 `imagefs` 文件系统 或者 `contain
 - 如果 `containerfs` 触发驱逐，kubelet 将根据
   `containerfs` 使用情况（`本地卷 + 日志和所有容器的可写层`）对 Pod 进行排序。
 
-- 如果 `imagefs` 触发驱逐，kubelet 将根据
-  `镜像存储` 用量对 Pod 进行排序，该用量表示给定镜像的磁盘使用情况。
+- 如果 `imagefs` 触发驱逐，kubelet
+  将根据`镜像存储`用量对 Pod 进行排序，该用量表示给定镜像的磁盘使用情况。
 
 <!--
 ### Minimum eviction reclaim
-
-{{<note>}}
-As of Kubernetes v{{< skew currentVersion >}}, you cannot set a custom value
-for the `containerfs.available` metric. The configuration for this specific
-metric will be set automatically to reflect values set for either the `nodefs`
-or `imagefs`, depending on the configuration.
-{{</note>}}
-
-In some cases, pod eviction only reclaims a small amount of the starved resource.
-This can lead to the kubelet repeatedly hitting the configured eviction thresholds
-and triggering multiple evictions.
 -->
 ### 最小驱逐回收 {#minimum-eviction-reclaim}
 
 {{<note>}}
+<!--
+As of Kubernetes v{{< skew currentVersion >}}, you cannot set a custom value
+for the `containerfs.available` metric. The configuration for this specific
+metric will be set automatically to reflect values set for either the `nodefs`
+or `imagefs`, depending on the configuration.
+-->
 在 Kubernetes v{{< skew currentVersion >}} 中，你无法为 `containerfs.available` 指标设置自定义值。
 此特定指标的配置将自动设置为反映为 `nodefs` 或 `imagefs` 设置的值，具体取决于配置。
 {{</note>}}
 
+<!--
+In some cases, pod eviction only reclaims a small amount of the starved resource.
+This can lead to the kubelet repeatedly hitting the configured eviction thresholds
+and triggering multiple evictions.
+-->
 在某些情况下，驱逐 Pod 只会回收少量的紧俏资源。
 这可能导致 kubelet 反复达到配置的驱逐条件并触发多次驱逐。
 
@@ -776,8 +792,7 @@ reclaims the quantity you specify.
 For example, the following configuration sets minimum reclaim amounts:
 -->
 你可以使用 `--eviction-minimum-reclaim` 标志或
-[kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
-为每个资源配置最小回收量。
+[kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)为每个资源配置最小回收量。
 当 kubelet 注意到某个资源耗尽时，它会继续回收该资源，直到回收到你所指定的数量为止。
 
 例如，以下配置设置最小回收量：
@@ -833,6 +848,13 @@ The kubelet sets an `oom_score_adj` value for each container based on the QoS fo
 
 kubelet 根据 Pod 的服务质量（QoS）为每个容器设置一个 `oom_score_adj` 值。
 
+<!--
+| Quality of Service | `oom_score_adj`                                                                   |
+|--------------------|-----------------------------------------------------------------------------------|
+| `Guaranteed`       | -997                                                                              |
+| `BestEffort`       | 1000                                                                              |
+| `Burstable`        | _min(max(2, 1000 - (1000 × memoryRequestBytes) / machineMemoryCapacityBytes), 999)_ |
+-->
 | 服务质量            | `oom_score_adj`                                                                        |
 |--------------------|---------------------------------------------------------------------------------------|
 | `Guaranteed`       | -997                                                                                  |
@@ -840,13 +862,13 @@ kubelet 根据 Pod 的服务质量（QoS）为每个容器设置一个 `oom_scor
 | `Burstable`        | **min(max(2, 1000 - (1000 * memoryRequestBytes) / machineMemoryCapacityBytes), 999)** |
 
 {{<note>}}
-<!-- 
+<!--
 The kubelet also sets an `oom_score_adj` value of `-997` for any containers in Pods that have
 `system-node-critical` {{<glossary_tooltip text="Priority" term_id="pod-priority">}}.
 -->
 kubelet 还将具有 `system-node-critical`
-{{<glossary_tooltip text="优先级" term_id="pod-priority">}}
-的任何 Pod 中的容器 `oom_score_adj` 值设为 `-997`。
+{{<glossary_tooltip text="优先级" term_id="pod-priority">}}的任何
+Pod 中的容器 `oom_score_adj` 值设为 `-997`。
 {{</note>}}
 
 <!--
@@ -869,7 +891,7 @@ based on its `restartPolicy`.
 这意味着低 QoS Pod 中相对于其调度请求消耗内存较多的容器，将首先被杀死。
 
 与 Pod 驱逐不同，如果容器被 OOM 杀死，
-`kubelet` 可以根据其 `restartPolicy` 重新启动它。
+kubelet 可以根据其 `restartPolicy` 重新启动它。
 
 <!--
 ## Good practices {#node-pressure-eviction-good-practices}
@@ -944,8 +966,7 @@ Pod 优先级是做出驱逐决定的主要因素。
 如果你不希望 kubelet 驱逐属于 DaemonSet 的 Pod，
 请在 Pod 规约中通过指定合适的 `priorityClassName` 为这些 Pod
 提供足够高的 `priorityClass`。
-你还可以使用较低优先级或默认优先级，以便
-仅在有足够资源时才运行 `DaemonSet` Pod。
+你还可以使用较低优先级或默认优先级，以便仅在有足够资源时才运行 `DaemonSet` Pod。
 
 <!--
 ## Known issues
@@ -1013,7 +1034,8 @@ You can work around that behavior by setting the memory limit and memory request
 the same for containers likely to perform intensive I/O activity. You will need
 to estimate or measure an optimal memory limit value for that container.
 -->
-更多细节请参见 [https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)。
+更多细节请参见
+[https://github.com/kubernetes/kubernetes/issues/43916](https://github.com/kubernetes/kubernetes/issues/43916)。
 
 你可以通过为可能执行 I/O 密集型活动的容器设置相同的内存限制和内存请求来应对该行为。
 你将需要估计或测量该容器的最佳内存限制值。
