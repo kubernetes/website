@@ -420,7 +420,7 @@ JobBackoffLimitPerIndex=true|false (BETA - default=true)<br/>
 JobManagedBy=true|false (ALPHA - default=false)<br/>
 JobPodReplacementPolicy=true|false (BETA - default=true)<br/>
 JobSuccessPolicy=true|false (BETA - default=true)<br/>
-KubeletCgroupDriverFromCRI=true|false (BETA - default=true)<br/>
+KubeletCgroupDriverFromCRI=true|false (STABLE - default=true)<br/>
 KubeletCrashLoopBackOffMax=true|false (ALPHA - default=false)<br/>
 KubeletFineGrainedAuthz=true|false (ALPHA - default=false)<br/>
 KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
