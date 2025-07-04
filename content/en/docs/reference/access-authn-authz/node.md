@@ -29,10 +29,7 @@ Read operations:
 
 {{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
 
-When the `AuthorizeNodeWithSelectors` feature is enabled
-(along with the pre-requisite `AuthorizeWithSelectors` feature),
-kubelets are only allowed to read their own Node objects,
-and are only allowed to read pods bound to their node.
+Kubelets are limited to reading their own Node objects, and only reading pods bound to their node.
 
 Write operations:
 
