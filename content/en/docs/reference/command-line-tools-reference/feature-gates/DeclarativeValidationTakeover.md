@@ -10,7 +10,7 @@ stages:
     defaultValue: false
     fromVersion: "1.33"
 ---
-When enabled, along with the [DeclarativeValidation](/docs/reference/command-line-tools-reference/feature-gates/DeclarativeValidation/)
+When enabled, along with the DeclarativeValidation
 feature gate, declarative validation errors are returned directly to the caller,
 replacing hand-written validation errors for rules that have declarative implementations.
 When disabled (and `DeclarativeValidation` is enabled), hand-written validation errors are always returned,
