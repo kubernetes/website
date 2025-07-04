@@ -374,6 +374,90 @@ spec:
           value: 6Gi
 ```
 
+## Consumable capacity
+
+{{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
+
+A device with the property `allowMultipleAllocations` can be allocated or shared
+among multiple independent ResourceClaim's requests.
+
+For a device sharing purpose, consumable capacity refers to the device capacity that,
+the driver can manage and dynamically allocate a portion of it to a Pod,
+based on the amount requested in a ResourceClaim and its `sharingPolicy`.
+
+Here is an example of a network device which allows multiple allocations and contains
+a consumable bandwidth capacity.
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1beta2
+metadata:
+  name: resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  devices:
+  - name: eth1
+    basic:
+      allowMultipleAllocations: true
+      attributes:
+        name:
+          string: "eth1"
+      capacity:
+        bandwidth:
+          sharingPolicy:
+            default: "1M"
+            validRange:
+              minimum: "1M"
+              chunkSize: "8"
+          value: "10G"
+```
+
+The property of `allowMultipleAllocations` can be used in CEL
+and the consumable capacity can be requested as shown in the below example.
+
+```yaml
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceClaimTemplate
+metadata:
+  name: bandwidth-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        exactly:
+        - name:
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.allowMultipleAllocations == true
+          capacityRequests:
+            minimum:
+              bandwidth: 1G
+```
+
+The allocation result will include the consumed capacity and the identifier of the share.
+
+```yaml
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceClaim
+...
+status:
+  allocation:
+    devices:
+      results:
+      - consumedCapacities:
+          bandwidth: 1G
+        device: eth1
+        shareID: 0d274f
+```
+
 ## Device taints and tolerations
 
 {{< feature-state feature_gate_name="DRADeviceTaints" >}}
@@ -531,6 +615,13 @@ is enabled.
 and only enabled when the `DRAPartitionableDevices` 
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
+
+### Enabling consumable capacity
+
+[Consumable Capacity](#consumable-capacity) is an *alpha feature*
+and only enabled when the `DRAConsumableCapacity`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kubelet, kube-apiserver and kube-scheduler.
 
 ### Enabling device taints and tolerations
 
