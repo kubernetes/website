@@ -2691,7 +2691,7 @@ See more details on [Audit Annotations](/docs/reference/labels-annotations-taint
 
 ## kubeadm
 
-### kubeadm.alpha.kubernetes.io/cri-socket
+### kubeadm.alpha.kubernetes.io/cri-socket (deprecated)
 
 Type: Annotation
 
@@ -2703,6 +2703,11 @@ Annotation that kubeadm uses to preserve the CRI socket information given to kub
 `init`/`join` time for later use. kubeadm annotates the Node object with this information.
 The annotation remains "alpha", since ideally this should be a field in KubeletConfiguration
 instead.
+
+{{< note >}}
+Starting from v1.34, this annotation is deprecated, kubeadm will no longer actively set and use it.
+{{< /note >}}
+
 
 ### kubeadm.kubernetes.io/etcd.advertise-client-urls
 

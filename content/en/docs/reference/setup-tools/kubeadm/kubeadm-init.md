@@ -156,7 +156,7 @@ List of feature gates:
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
 `ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
-`NodeLocalCRISocket` | `false` | 1.32 | - | -
+`NodeLocalCRISocket` | `true` | 1.32 | 1.34 | -
 `WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | 1.34
 {{< /table >}}
 

@@ -70,6 +70,10 @@ object under the `kube-system` namespace.
 Executing the sub commands `init`, `join` and `upgrade` would result in kubeadm
 writing the `KubeletConfiguration` as a file under `/var/lib/kubelet/config.yaml`
 and passing it to the local node kubelet.
+
+For each node, kubeadm detects the CRI socket and stores it in the `/var/lib/kubelet/instance-config.yaml` file.
+When executing the `init`, `join`, or `upgrade` subcommands, 
+kubeadm patches the `containerRuntimeEndpoint` value from this instance configuration into `/var/lib/kubelet/config.yaml`.
 {{< /note >}}
 
 ## Using the `cgroupfs` driver
