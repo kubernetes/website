@@ -348,7 +348,7 @@ em execução no mesmo nó. Execute o passo a seguir apenas em um cluster de tes
 kubectl drain <node-name> --force --delete-emptydir-data --ignore-daemonsets
 ```
 
-Agora você pode observar o Pod sendo reagendado em outro Nó:
+Agora você pode observar o Pod sendo realocado em outro Nó:
 
 ```shell
 kubectl get pod mysql-2 -o wide --watch
