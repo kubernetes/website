@@ -127,7 +127,7 @@ A próxima seção destaca algumas dessas técnicas para explicar o que acontece
 
 ## Entendendo a inicialização de Pods com estado
 
-O controlador do StatefulSet inicia os Pods um de cada vez, na ordem do seu índice ordinal.
+O controlador de StatefulSet inicia os Pods um de cada vez, na ordem do seu índice ordinal.
 Ele aguarda até que cada Pod reporte estar Ready antes de iniciar o próximo.
 
 Além disso, o controlador atribui a cada Pod um nome único e estável no formato
