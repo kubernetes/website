@@ -6,31 +6,31 @@ sitemap:
   priority: 1.0
 ---
 
-{{< blocks/section id="oceanNodes" >}}
-{{% blocks/feature image="flower" %}}
+{{< blocks/section class="k8s-overview" >}}
+{{% blocks/feature image="flower" id="feature-primary" %}}
 [Kubernetes]({{< relref "/docs/concepts/overview/" >}}), znany też jako K8s, to otwarte oprogramowanie służące do automatyzacji procesów uruchamiania, skalowania i zarządzania aplikacjami w kontenerach.
 
 Kubernetes grupuje kontenery, które są częścią jednej aplikacji, w logicznie grupy, ułatwiając ich odnajdywanie i zarządzanie nimi. Korzysta z [piętnastoletniego doświadczenia Google w uruchamianiu wielkoskalowych serwisów](https://queue.acm.org/detail.cfm?id=2898444) i łączy je z najlepszymi pomysłami i praktykami wypracowanymi przez społeczność.
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="scalable" %}}
-#### W skali globalnej
+#### W skali globalnej {#planet-scale}
 
 Zaprojektowany według tych samych zasad, które pozwalają Google uruchamiać miliardy kontenerów każdego tygodnia, Kubernetes może skalować się bez konieczności powiększania zespołu administratorów.
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="blocks" %}}
-#### Nigdy za mały
+#### Nigdy za mały {#never-outgrow}
 
 Niezależnie, czy prowadzisz tylko testy, czy globalny koncern, dzięki elastyczności Kubernetesa Twoje aplikacje mogą być instalowane w łatwy i nieprzerwany sposób, bez względu na to, jak bardzo skomplikowane są Twoje wymagania.
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="suitcase" %}}
-#### K8s działa w każdym środowisku
+#### K8s działa w każdym środowisku {#run-k8s-anywhere}
 
-Kubernetes jako projekt open-source daje Ci wolność wyboru ⏤ skorzystaj z prywatnego centrum danych, infrastruktury hybrydowej lub chmury publicznej. Bez wysiłku możesz przenieść swoje aplikacje tam, gdzie są najbardziej potrzebne.
+Kubernetes jako projekt open-source daje Ci wolność wyboru - skorzystaj z prywatnego centrum danych, infrastruktury hybrydowej lub chmury publicznej. Bez wysiłku możesz przenieść swoje aplikacje tam, gdzie są najbardziej potrzebne.
 
 Żeby pobrać Kubernetesa, odwiedź sekcję [pobierania](/releases/download/).
 
@@ -45,11 +45,9 @@ Kubernetes jako projekt open-source daje Ci wolność wyboru ⏤ skorzystaj z pr
         <button id="desktopShowVideoButton" onclick="kub.showVideo()">Obejrzyj wideo</button>
 
     <h3>Weź udział w KubeCon + CloudNativeCon</h3>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" class="desktopKCButton"><strong>Europa</strong> (Londyn, 1–4 kwietnia)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-china/" class="desktopKCButton"><strong>Chiny</strong> (Hongkong, 10–11 czerwca)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-japan/" class="desktopKCButton"><strong>Japonia</strong> (Tokio, 16–17 czerwca)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>Indie</strong> (Hyderabad, 6–7 sierpnia)</a>
-        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america-2025/" class="desktopKCButton"><strong>Ameryka Północna</strong> (Atlanta, 10–13 listopada)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-india/" class="desktopKCButton"><strong>Indie</strong> (Hyderabad, 6-7 sierpnia)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" class="desktopKCButton"><strong>Ameryka Północna</strong> (Atlanta, 10-13 listopada)</a>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe-2026/" class="desktopKCButton"><strong>Europa</strong> (Amsterdam, 23-26 marca 2026)</a>
 </div>
 <div id="videoPlayer">
     <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
