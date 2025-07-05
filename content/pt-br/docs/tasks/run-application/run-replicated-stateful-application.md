@@ -194,7 +194,7 @@ Além disso, como as réplicas procuram o servidor primário pelo seu nome DNS e
 (`mysql-0.mysql`), elas o encontram automaticamente mesmo que ele receba um novo
 IP de Pod devido a um reagendamento.
 
-Por fim, após iniciar a replicação, o contêiner `xtrabackup` fica ouvindo conexões de outros
+Por fim, após iniciar a replicação, o contêiner `xtrabackup` fica aguardando conexões de outros
 Pods que solicitam a clonagem de dados.
 Esse servidor permanece ativo indefinidamente caso o StatefulSet seja escalonado para mais réplicas,
 ou caso o próximo Pod perca seu PersistentVolumeClaim e precise refazer a clonagem.
