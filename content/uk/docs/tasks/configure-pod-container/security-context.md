@@ -326,7 +326,7 @@ securityContext:
 ```
 
 {{< note >}}
-Це поле не впливає на типи ефемерних томів, таких як [`secret`](/docs/concepts/storage/volumes/#secret), [`configMap`](/docs/concepts/storage/volumes/#configmap), та [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
+Це поле не впливає на типи ефемерних томів, таких як [`secret`](/docs/concepts/storage/volumes/#secret), [`configMap`](/docs/concepts/storage/volumes/#configmap), та [`emptyDir`](/docs/concepts/storage/volumes/#emptydir).
 {{< /note >}}
 
 ## Делегування зміни прав власності та дозволів тому до драйвера CSI {#delegating-volume-permission-and-ownership-change-to-csi-driver}
