@@ -119,7 +119,7 @@ Pressione **Ctrl+C** para cancelar o watch.
 
 {{< note >}}
 Se você não observar nenhum progresso, certifique-se de que há um provisionador dinâmico
-de PersistentVolume habilitado, conforme mencionado nos [pré-requisitos](#before-you-begin).
+de PersistentVolume habilitado, conforme mencionado nos [pré-requisitos](#antes-de-você-começar).
 {{< /note >}}
 
 Este manifesto utiliza diversas técnicas para gerenciar Pods com estado como parte de um StatefulSet.
