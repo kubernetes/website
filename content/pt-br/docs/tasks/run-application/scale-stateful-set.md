@@ -18,7 +18,7 @@ Esta tarefa mostra como escalonar um StatefulSet. Escalonar um StatefulSet refer
   ou [Tutorial de StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/) para mais informações.
 
 - Você deve realizar o escalonamento apenas quando tiver certeza de que o cluster da sua aplicação com estado
-  está completamente saudável.
+  está completamente íntegro.
 
 <!-- steps -->
 
@@ -68,23 +68,23 @@ kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-repl
 ### Reduzir o escalonamento não funciona corretamente
 
 Você não pode reduzir o escalonamento de um StatefulSet enquanto qualquer um dos Pods
-com estado que ele gerencia estiver com problemas de saúde. A redução do escalonamento
+com estado que ele gerencia não estiver íntegro. A redução do escalonamento
 só ocorre depois que esses Pods com estado estiverem em execução e prontos.
 
 Se `spec.replicas` > 1, o Kubernetes não consegue determinar o motivo de um Pod com estado
-estar com problemas de saúde. Isso pode ser resultado de uma falha permanente ou de uma falha transitória.
+não estar íntegro. Isso pode ser resultado de uma falha permanente ou de uma falha transitória.
 Uma falha transitória pode ser causada por uma reinicialização necessária devido a uma atualização ou manutenção.
 
-Se o Pod estiver com problemas de saúde devido a uma falha permanente, escalonar sem corrigir
+Se o Pod não estiver íntegro devido a uma falha permanente, escalonar sem corrigir
 a falha pode levar a um estado em que a quantidade de membros do StatefulSet fique abaixo
 do número mínimo de réplicas necessário para funcionar corretamente.
 Isso pode fazer com que seu StatefulSet se torne indisponível.
 
-Se o Pod estiver com problemas de saúde devido a uma falha transitória e o Pod possa voltar a ficar disponível,
+Se o Pod não estiver íntegro devido a uma falha transitória e o Pod possa voltar a ficar disponível,
 o erro transitório pode interferir na sua operação de aumento ou redução de escalonamento.
 Alguns bancos de dados distribuídos apresentam problemas quando nós entram e saem ao mesmo tempo. Nesses casos,
 é melhor analisar as operações de escalonamento no nível da aplicação e realizar o escalonamento apenas quando
-você tiver certeza de que o cluster da sua aplicação com estado está completamente saudável.
+você tiver certeza de que o cluster da sua aplicação com estado está completamente íntegro.
 
 ## {{% heading "whatsnext" %}}
 
