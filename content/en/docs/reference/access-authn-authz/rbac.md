@@ -216,10 +216,11 @@ rules:
 ```
 
 {{< note >}}
-You cannot restrict `create` or `deletecollection` requests by their resource name.
-For `create`, this limitation is because the name of the new object may not be known at authorization time.
-If you restrict `list` or `watch` by resourceName, clients must include a `metadata.name` field selector in their `list` or `watch` request that matches the specified resourceName in order to be authorized.
-For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
+You cannot restrict **deletecollection** or top-level **create** requests by resource name.
+For **create**, this limitation is because the name of the new object may not be known at authorization time. However, the **create** limitation applies only to top-level resources, not subresources. For example, you can use the `resourceNames` field with `pods/exec`.
+If you restrict **list** or **watch** by `resourceName`, clients must include a `metadata.name` field selector in their **list** or **watch** request (that matches the specified `resourceName`)
+in order to be authorized.
+For example: `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
 Rather than referring to individual `resources`, `apiGroups`, and `verbs`,
