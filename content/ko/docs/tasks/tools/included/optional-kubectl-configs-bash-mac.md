@@ -11,7 +11,7 @@ Bash의 kubectl 자동 완성 스크립트는 `kubectl completion bash` 로 생�
 그러나 kubectl 자동 완성 스크립트는 미리 [**bash-completion**](https://github.com/scop/bash-completion)을 설치해야 동작한다.
 
 {{< warning>}}
-bash-completion에는 v1과 v2 두 가지 버전이 있다. v1은 Bash 3.2(macOS의 기본 설치 버전) 버전용이고, v2는 Bash 4.1 이상 버전용이다. kubectl 자동 완성 스크립트는 bash-completion v1과 Bash 3.2 버전에서는 **작동하지 않는다**. **bash-completion v2** 와 **Bash 4.1 이상 버전** 이 필요하다. 따라서, macOS에서 kubectl 자동 완성 기능을 올바르게 사용하려면, Bash 4.1 이상을 설치하고 사용해야 한다([*지침*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). 다음의 내용에서는 Bash 4.1 이상(즉, 모든 Bash 버전 4.1 이상)을 사용한다고 가정한다.
+bash-completion에는 v1과 v2 두 가지 버전이 있다. v1은 Bash 3.2(macOS의 기본 설치 버전) 버전용이고, v2는 Bash 4.1 이상 버전용이다. kubectl 자동 완성 스크립트는 bash-completion v1과 Bash 3.2 버전에서는 **작동하지 않는다**. **bash-completion v2** 와 **Bash 4.1 이상 버전** 이 필요하다. 따라서, macOS에서 kubectl 자동 완성 기능을 올바르게 사용하려면, Bash 4.1 이상을 설치하고 사용해야 한다([*지침*](https://apple.stackexchange.com/a/292760)). 다음의 내용에서는 Bash 4.1 이상(즉, 모든 Bash 버전 4.1 이상)을 사용한다고 가정한다.
 {{< /warning >}}
 
 ### Bash 업그레이드
