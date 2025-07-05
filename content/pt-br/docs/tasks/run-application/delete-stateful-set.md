@@ -79,7 +79,7 @@ substitua pelo seu próprio rótulo, conforme apropriado.
 ### Forçar a exclusão de pods de um StatefulSet
 
 Se você perceber que alguns pods no seu StatefulSet estão presos nos estados 'Terminating' ou 'Unknown' por um longo período de tempo, pode ser
-necessário intervir manualmente para forçar a exclusão dos pods do apiserver.
+necessário intervir manualmente para forçar a exclusão dos pods do servidor de API.
 Esta é uma tarefa potencialmente perigosa. Consulte [Forçar a exclusão de pods de um StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/) para mais detalhes.
 
 ## {{% heading "whatsnext" %}}
