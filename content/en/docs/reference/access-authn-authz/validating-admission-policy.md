@@ -181,7 +181,7 @@ not been bound, so for policies requiring a parameter resource, it can be useful
 ensure one has been bound. A parameter resource will not be bound and `params` will be null
 if `paramKind` of the policy, or `paramRef` of the binding are not specified.
 
-For the use cases require parameter configuration, we recommend to add a param check in
+For the use cases requiring parameter configuration, we recommend to add a param check in
 `spec.validations[0].expression`:
 
 ```
