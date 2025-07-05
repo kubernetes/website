@@ -453,7 +453,7 @@ kubectl delete pvc data-mysql-4
 
 ## {{% heading "cleanup" %}}
 
-1. Cancele o loop do `SELECT @@server_id` pressionando **Ctrl+C** no terminal correspondente,
+1. Cancele o loop `SELECT @@server_id` pressionando **Ctrl+C** no terminal correspondente,
    ou executando o seguinte comando em outro terminal:
 
    ```shell
