@@ -23,7 +23,7 @@ please refer to following pages instead:
 
 The Kubernetes project recommends upgrading to the latest patch releases promptly, and
 to ensure that you are running a supported minor release of Kubernetes.
-Following this recommendation helps you to to stay secure.
+Following this recommendation helps you to stay secure.
 
 The upgrade workflow at high level is the following:
 
