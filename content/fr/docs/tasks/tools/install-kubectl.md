@@ -385,7 +385,7 @@ Le script de complétion kubectl pour Bash peut être généré avec la commande
 En revanche, le script de complétion dépend de [**bash-completion**](https://github.com/scop/bash-completion), ce qui implique que vous devez d'abord installer ce logiciel.
 
 {{< warning>}}
-macOS inclut Bash 3.2 par défaut. Le script de complétion kubectl nécessite Bash 4.1+ et ne fonctionne pas avec Bash 3.2. Une des solutions possibles est d'installer une version plus récente de Bash sous macOS (voir instructions [ici](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Les instructions ci-dessous ne fonctionnent que si vous utilisez Bash 4.1+.
+macOS inclut Bash 3.2 par défaut. Le script de complétion kubectl nécessite Bash 4.1+ et ne fonctionne pas avec Bash 3.2. Une des solutions possibles est d'installer une version plus récente de Bash sous macOS (voir instructions [ici](https://apple.stackexchange.com/a/292760)). Les instructions ci-dessous ne fonctionnent que si vous utilisez Bash 4.1+.
 {{< /warning >}}
 
 
