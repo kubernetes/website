@@ -1,9 +1,9 @@
 ---
 layout: blog
 title: "Navigating Failures in Pods With Devices"
-date: 2025-04-01
+date: 2025-07-03
 slug: navigating-failures-in-pods-with-devices
-draft: true
+draft: false
 author: >
   Sergey Kanzhelev (Google)
   Mrunal Patel (RedHat)
