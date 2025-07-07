@@ -9,6 +9,10 @@ stages:
   - stage: alpha 
     defaultValue: false
     fromVersion: "1.30"
+    toVersion: "1.33"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.34"
 ---
 
 Enable [MutatingAdmissionPolicy](/docs/reference/access-authn-authz/mutating-admission-policy/) support for [CEL](https://kubernetes.io/docs/reference/using-api/cel/) mutations be used in admission control.

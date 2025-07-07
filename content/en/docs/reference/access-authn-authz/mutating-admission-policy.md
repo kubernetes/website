@@ -9,7 +9,7 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 <!-- due to feature gate history, use manual version specification here -->
 
 This page provides an overview of _MutatingAdmissionPolicies_.
