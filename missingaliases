@@ -1,0 +1,53 @@
+**Title**: Correction needed in kubectl quick reference - missing essential aliases for CKA exam
+
+**Description**:
+I found an issue in the kubectl quick reference documentation that affects CKA exam preparation. The documentation is missing several essential aliases that are commonly used in exam scenarios.
+
+**Current Issue**:
+The quick reference page doesn't include some critical aliases that CKA candidates need:
+
+**Missing Aliases:**
+- `krun` - kubectl run (for imperative pod creation)
+- `kcn` - kubectl create namespace
+- `kdelns` - kubectl delete namespace
+- `kexec` - kubectl exec -it
+- `klogs` - kubectl logs
+- `kap` - kubectl apply -f
+
+**Impact:**
+- CKA candidates may encounter "command not found" errors
+- Inconsistent with exam environment expectations
+- Missing essential shortcuts for time-sensitive exam scenarios
+
+**Proposed Solution:**
+Add these aliases to the quick reference page:
+
+```bash
+# Imperative commands
+alias krun='kubectl run'
+alias kcn='kubectl create namespace'
+alias kdelns='kubectl delete namespace'
+
+# Interactive commands
+alias kexec='kubectl exec -it'
+alias klogs='kubectl logs'
+
+# Apply commands
+alias kap='kubectl apply -f'
+```
+
+**Location**: https://kubernetes.io/docs/reference/kubectl/quick-reference/
+
+**Priority**: Medium (affects CKA exam preparation)
+
+**Additional Context**:
+These aliases are essential for CKA exam scenarios where candidates need to:
+- Quickly create pods imperatively (`krun`)
+- Manage namespaces (`kcn`, `kdelns`)
+- Debug pods interactively (`kexec`, `klogs`)
+- Apply YAML manifests (`kap`)
+
+**References**:
+- CKA exam environment requirements
+- Common kubectl usage patterns in production
+- Time-sensitive troubleshooting scenarios
