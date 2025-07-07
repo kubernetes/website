@@ -44,7 +44,7 @@ please refer to following pages instead:
 <!--
 The Kubernetes project recommends upgrading to the latest patch releases promptly, and
 to ensure that you are running a supported minor release of Kubernetes.
-Following this recommendation helps you to to stay secure.
+Following this recommendation helps you to stay secure.
 -->
 Kubernetes 项目建议立即升级到最新的补丁版本，并确保你运行的是受支持的 Kubernetes 次要版本。
 遵循此建议可帮助你保持安全。
