@@ -31,6 +31,7 @@
 {{ $jsBase := resources.Get "js/base.js" }}
 {{ $jsAnchor := resources.Get "js/anchor.js" }}
 {{ $jsNav := resources.Get "js/nav.js" | resources.ExecuteAsTemplate "js/nav.js" .Site.Params }}
+{{ $jsSidebarTree := resources.Get "js/sidebar-tree.js" | resources.ExecuteAsTemplate "js/sidebar-tree.js" .Site.Params }}
 {{ $jsSearch := resources.Get "js/search.js" | resources.ExecuteAsTemplate "js/search.js" .Site.Home }}
 {{ if .Site.Params.offlineSearch }}
 {{ $jsSearch = resources.Get "js/offline-search.js" }}
@@ -38,7 +39,7 @@
 {{ else if .Site.Params.customSearch }}
 {{ $jsSearch = resources.Get "js/custom-search.js" }}
 {{ end }}
-{{ $js := (slice $jsBs $jsBase $jsAnchor $jsNav $jsSearch) | resources.Concat "js/main.js" -}}
+{{ $js := (slice $jsBs $jsBase $jsAnchor $jsNav $jsSidebarTree $jsSearch) | resources.Concat "js/main.js" -}}
 {{ if hugo.IsProduction -}}
   {{ $js := $js | minify | fingerprint -}}
   <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" crossorigin="anonymous"></script>
@@ -57,36 +58,5 @@
     integrity="{{ . }}" {{ end -}}
     crossorigin="anonymous"></script>
 {{ end -}}
-
-<!--for the splitter-->
-<!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
-<script src="/js/split-1.6.0.js" integrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
-<script>
-  let splitInstance = null;
-
-  function enableSplitter(mediaQuery) {
-    if (mediaQuery.matches) {
-      if (!splitInstance) {
-        splitInstance = Split(["#sidebarnav", "#maindoc"], {
-          sizes: [20, 80],
-          minSize: 100,
-        });
-      }
-    } else {
-      if (splitInstance) {
-        splitInstance.destroy();
-        splitInstance = null;
-      }
-    }
-  }
-
-  const screenWidthMediaQuery = window.matchMedia("(min-width: 768px)");
-
-  const eleNav = document.getElementById("sidebarnav");
-  if (eleNav !== null) {
-    enableSplitter(screenWidthMediaQuery);
-    screenWidthMediaQuery.addListener(enableSplitter);
-  }
-</script>
 
 {{ partial "hooks/body-end.html" . }}
