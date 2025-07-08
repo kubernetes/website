@@ -46,6 +46,14 @@ which is no longer supported. This documentation, which is for Kubernetes
 v{{< skew currentVersion >}}, explains the current approach to dynamic resource
 allocation within Kubernetes.
 
+TODO:
+- https://github.com/kubernetes/kubernetes/issues/131877#issuecomment-3007242752
+- include trouble-shooting from https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters#troubleshooting
+- include metrics from https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/4381-dra-structured-parameters#what-are-the-slis-service-level-indicators-an-operator-can-use-to-determine-the-health-of-the-service.
+  add `dra_grpc_operations_duration_seconds` (missing in KEP, also add there),
+  add `scheduler_framework_extension_point_duration_seconds` and `scheduler_plugin_execution_duration_seconds`
+
+
 ## {{% heading "prerequisites" %}}
 
 Kubernetes v{{< skew currentVersion >}} includes cluster-level API support for
