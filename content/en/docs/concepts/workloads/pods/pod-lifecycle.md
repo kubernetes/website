@@ -236,7 +236,7 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
    application code. Running this container image locally or in a development
    environment can help diagnose application specific issues.
 
-### Container restart policy {#restart-policy}
+### Pod restart policy {#restart-policy}
 
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
@@ -261,6 +261,50 @@ restarts them with an exponential backoff delay (10s, 20s, 40s, …), that is ca
 problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
+
+#### Container Restart Policy
+
+{{< feature-state
+feature_gate_name="ContainerRestartRules" >}}
+
+With the alpha feature gate `ContainerRestartRules` enabled, containers can specify
+`restartPolicy` and `restartPolicyRules` to override the Pod restart policy. Container
+restart policy and rules applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
+in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/),
+overriding the Pod restart policy. [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/)
+ignore `restartPolicyRules`. The container restarts will follow the same exponential backoff
+as pod restart policy described above. Supported container restart policies:
+
+* `Always`: Automatically restarts the container after any termination.
+* `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
+* `Never`: Does not automatically restart the terminated container. 
+
+Additionally, containers can specify `restartPolicyRules`. If the `restartPolicyRules` 
+is specified, then container `restartPolicy` must also be specified. The `restartPolicyRules`
+define a list of rules to apply on container exit. Each rule will consist of a condition
+(onExitCodes) and an action (Restart). The rules will be evaluated in order; if none
+of the rules’ conditions matched, the default action will fallback to container’s `restartPolicy`.
+
+To specify a container to only restart with an exit code of 42, here is an example:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  restartPolicy: OnFailure   # Pod restart policy will be overriden by container restart policy
+  containers:
+  - name: my-container
+    image: nginx:latest
+    restartPolicy: Never     # Overrides the pod restart policy to Never
+    restartPolicyRules:      # Only restart the container if it exits with code 42
+    - action: Restart
+      when:
+        exitCodes:
+          operator: In
+          values: [42]
+```
 
 ### Reduced container restart delay
 
