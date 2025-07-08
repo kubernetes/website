@@ -6,7 +6,6 @@ weight: 100
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
-
 {{<note>}}
 {{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
 The _split image filesystem_ feature, which enables support for the `containerfs`
