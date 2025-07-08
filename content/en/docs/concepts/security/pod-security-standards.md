@@ -168,6 +168,41 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
+			<td style="white-space: nowrap">Host Ports</td>
+			<td>
+				<p>HostProbeOrHostLifecycle should be disallowed entirely (recommended) or restricted to a known list</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].livenessProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].readinessProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].startupProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].livenessProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].readinessProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].startupProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].lifecycle.postStart.tcpSocket.host</code> <small>Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility.</small></li>
+					<li><code>spec.containers[*].lifecycle.preStop.tcpSocket.host</code> <small>Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility.</small></li>
+					<li><code>spec.containers[*].lifecycle.postStart.httpGet.host</code></li>
+					<li><code>spec.containers[*].lifecycle.preStop.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].livenessProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].readinessProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].startupProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].livenessProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].readinessProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].startupProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].lifecycle.postStart.tcpSocket.host</code> <small>Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility.</small></li>
+					<li><code>spec.initContainers[*].lifecycle.preStop.tcpSocket.host</code> <small>Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility.</small></li>
+					<li><code>spec.initContainers[*].lifecycle.postStart.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].lifecycle.preStop.httpGet.host</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>"127.0.0.1"/"::1"</li>
+					<li>Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)</li>
+					<li><code>0</code></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
 			<td style="white-space: nowrap">AppArmor</td>
 			<td>
 				<p>On supported hosts, the <code>RuntimeDefault</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.</p>
