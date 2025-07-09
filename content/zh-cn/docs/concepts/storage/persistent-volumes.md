@@ -658,7 +658,8 @@ the following types of volumes:
 现在，对扩充 PVC 申领的支持默认处于被启用状态。你可以扩充以下类型的卷：
 
 <!--
-* {{< glossary_tooltip text="csi" term_id="csi" >}} (including some CSI migrated volume types)
+* {{< glossary_tooltip text="csi" term_id="csi" >}} (including some CSI migrated
+volme types)
 * flexVolume (deprecated)
 * portworxVolume (deprecated)
 -->
