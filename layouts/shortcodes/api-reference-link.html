@@ -1,0 +1,13 @@
+{{/*
+Shortcode to generate links to the Kubernetes API reference.
+Usage: {{< api-reference-link version="latest" >}}
+       {{< api-reference-link version="v1.33" >}}
+       {{< api-reference-link >}} (defaults to latest)
+*/}}
+{{- $version := .Get "version" | default "latest" -}}
+{{- $baseURL := "/docs/reference/generated/kubernetes-api" -}}
+{{- if eq $version "latest" -}}
+  {{- printf "%s/latest/" $baseURL -}}
+{{- else -}}
+  {{- printf "%s/%s/" $baseURL $version -}}
+{{- end -}}
