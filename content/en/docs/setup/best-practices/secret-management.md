@@ -1,12 +1,10 @@
 ---
 reviewers:
 - Random-Liu
-title: Best Practices for Kubernetes Secrets Management
+title: Kubernetes Secrets Management
 weight: 60
 ---
 
-
-# Best Practices for Kubernetes Secrets Management
 
 Kubernetes `Secret` objects are designed to store sensitive information such as passwords, tokens, and SSH keys. However, they are **base64-encoded**, not encrypted by default, and require careful handling to ensure confidentiality, integrity, and availability.
 
