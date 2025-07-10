@@ -36,11 +36,20 @@ kubectl scale [--resource-version=version] [--current-replicas=count] --replicas
 
 <!--
 ```
-  # Scale a replica set named 'foo' to 3
-  # Scale a resource identified by type and name specified in "foo.yaml" to 3
-  # If the deployment named mysql's current size is 2, scale mysql to 3
-  # Scale multiple replication controllers
-  # Scale stateful set named 'web' to 3
+# Scale a replica set named 'foo' to 3
+kubectl scale --replicas=3 rs/foo
+  
+# Scale a resource identified by type and name specified in "foo.yaml" to 3
+kubectl scale --replicas=3 -f foo.yaml
+  
+# If the deployment named mysql's current size is 2, scale mysql to 3
+kubectl scale --current-replicas=2 --replicas=3 deployment/mysql
+  
+# Scale multiple replication controllers
+kubectl scale --replicas=5 rc/example1 rc/example2 rc/example3
+  
+# Scale stateful set named 'web' to 3
+kubectl scale --replicas=3 statefulset/web
 ```
 -->
 ```shell
@@ -62,7 +71,7 @@ kubectl scale --replicas=3 statefulset/web
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -78,7 +87,8 @@ kubectl scale --replicas=3 statefulset/web
 Select all resources in the namespace of the specified resource types
 -->
 选择指定资源类型的命名空间中的所有资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -91,7 +101,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -104,7 +115,8 @@ Precondition for current size. Requires that the current size of the resource ma
 -->
 当前副本数的前提条件。要求资源的当前副本数与此值匹配才能进行扩缩容。
 默认值 -1 表示没有条件。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -129,7 +141,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Filename, directory, or URL to files identifying the resource to set a new size
 -->
 文件名、目录或文件 URL 的列表，用于标识要设置新副本数的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -141,7 +154,8 @@ Filename, directory, or URL to files identifying the resource to set a new size
 help for scale
 -->
 scale 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -153,7 +167,8 @@ scale 操作的帮助命令。
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -166,7 +181,8 @@ Output format. One of: (json, yaml, name, go-template, go-template-file, templat
 -->
 输出格式。可选值为：
 json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -178,7 +194,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 递归处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -190,7 +207,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 The new desired number of replicas. Required.
 -->
 期望新的副本数。必需。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -202,7 +220,8 @@ The new desired number of replicas. Required.
 Precondition for resource version. Requires that the current resource version match this value in order to scale.
 -->
 资源版本的前提条件。要求当前资源版本与此值匹配才能进行扩缩容。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -211,11 +230,13 @@ Precondition for resource version. Requires that the current resource version ma
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
-</p></td>
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。
+匹配的对象必须满足所有指定的标签约束。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -240,7 +261,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -253,7 +275,8 @@ The length of time to wait before giving up on a scale operation, zero means don
 -->
 等待放弃扩缩容操作之前的时长，零表示不等待。
 其他值应包含相应的时间单位（例如 1s、2m、3h）。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -261,7 +284,7 @@ The length of time to wait before giving up on a scale operation, zero means don
 
 ## {{% heading "parentoptions" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
