@@ -232,7 +232,7 @@ have some limitations:
   `metadata.finalizers` list.
 - Pod updates may not change fields other than `spec.containers[*].image`,
   `spec.initContainers[*].image`, `spec.activeDeadlineSeconds`, `spec.terminationGracePeriodSeconds` or
-  `spec.tolerations`. For `spec.tolerations`, you can only add new entries.
+  `spec.tolerations` or `spec.schedulingGates`. For `spec.tolerations`, you can only add new entries.
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
 
@@ -261,20 +261,21 @@ The above update rules apply to regular pod updates, but other pod fields can be
   system such that new pods have a `metadata.generation` of 1, and every update to
   mutable fields in the pod's spec will increment the `metadata.generation` by 1.
 
-  {{< feature-state for_k8s_version="v1.34" state="beta" >}}
+{{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
 
 - `observedGeneration` is a field that is captured in the `status` section of the Pod
   object. If the feature gate `PodObservedGenerationTracking` is set, the Kubelet will set `status.observedGeneration`
   to track the pod state to the current pod status. The pod's `status.observedGeneration` will reflect the
   `metadata.generation` of the pod at the point that the pod status is being reported.
 
-The key distinction is whether a change in the `spec` is reflected directly in the `status` or is an indirect result
-of a running process.
+Different status fields may either be associated with the `metadata.generation` of the current sync loop, or with the
+`metadata.generation` of the previous sync loop. The key distinction is whether a change in the `spec` is reflected
+directly in the `status` or is an indirect result of a running process.
 
 #### Direct Status Updates
 
-For fields where a change can be directly observed and reflected in the Pod's status, the `observedGeneration` will
-match the current `spec` generation (Generation N) during the same sync loop.
+For status fields where the allocated spec is directly reflected, the `observedGeneration` will
+be associated with the current `metadata.generation` (Generation N).
 
 This behavior applies to:
 
@@ -284,9 +285,8 @@ This behavior applies to:
 
 #### Indirect Status Updates
 
-For changes that require a process to run before the result is visible the status will reflect the outcome of the previous
-`spec` generation (Generation N-1) during the current sync loop. The `observedGeneration` will update in a subsequent loop
-after the process completes.
+For status fields that are an indirect result of running the spec, the `observedGeneration` will be associated
+with the `metadata.generation` of the previous sync loop (Generation N-1).
 
 This behavior applies to:
 
