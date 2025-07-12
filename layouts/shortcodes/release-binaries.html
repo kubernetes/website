@@ -2,15 +2,15 @@
 {{- $url := "https://raw.githubusercontent.com/kubernetes-sigs/downloadkubernetes/master/dist/release_binaries.json" }}
 {{- $response := "" }}
 
-{{- with resources.GetRemote $url -}}
-  {{- if .Err -}}
-    {{- $message := printf "Failed to retrieve release binaries data: %s" .Err -}}
+{{- with try (resources.GetRemote $url) -}}
+  {{- with .Err -}}
+    {{- $message := printf "Failed to retrieve release binaries data: %s" . -}}
     {{- if eq hugo.Environment "production" -}}
       {{- errorf $message -}}
     {{- else -}}
       {{- warnf $message -}}
     {{- end -}}
-  {{- else -}}
+  {{- else with .Value -}}
     {{- $response = .Content | transform.Unmarshal }}
   {{- end -}}
 {{- else -}}
