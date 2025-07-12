@@ -4,7 +4,7 @@
 # test at https://play.netlify.com/redirects  #
 ###############################################
 
-/concepts/containers/container-lifecycle-hooks/     /docs/concepts/containers/container-lifecycle-hooks/ 301
+/docs/reference/generated/kubernetes-api/latest/   /docs/reference/generated/kubernetes-api/v1.33/   301!
 /docs/     /docs/home/ 301!
 /bn/docs/     /bn/docs/home/ 301!
 /de/docs/     /de/docs/home/ 301!
