@@ -381,8 +381,7 @@ to `Retain`, including cases where you are reusing an existing PV.
 Support for expanding PersistentVolumeClaims (PVCs) is enabled by default. You can expand
 the following types of volumes:
 
-* {{< glossary_tooltip text="csi" term_id="csi" >}} (including some CSI migrated
-volme types)
+* {{< glossary_tooltip text="csi" term_id="csi" >}} (including some CSI migrated volume types)
 * flexVolume (deprecated)
 * portworxVolume (deprecated)
 
