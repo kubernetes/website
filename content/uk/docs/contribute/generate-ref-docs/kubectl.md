@@ -71,7 +71,7 @@ git checkout v{{< skew prevMinorVersion >}}.0
 git pull https://github.com/kubernetes/kubernetes {{< skew prevMinorVersion >}}.0
 ```
 
-Якщо вам не потрібно редагувати вихідний код `kubectl`, дотримуйтесь інструкцій для [Налаштування змінних для зборки](#setting-build-variables).
+Якщо вам не потрібно редагувати вихідний код `kubectl`, дотримуйтесь інструкцій для [Налаштування змінних для зборки](#set-build-variables).
 
 ## Редагування вихідного коду kubectl {#edit-the-kubectl-source-code}
 

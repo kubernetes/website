@@ -27,47 +27,43 @@ card:
 
 ## Модулі «Основи Kubernetes» {#kubernetes-basics-modules}
 
-<!-- css code to preserve original format -->
-<link rel="stylesheet" href="/css/style_tutorials.css">
+{{< tutorials/modules >}}
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347"
+      alt="Модуль 1"
+      title="1. Створення кластера Kubernetes" >}}
 
-<div class="tutorials-modules">
-  <div class="module">
-    <a href="/uk/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt="Module 1">
-      <h5>1. Створення кластера Kubernetes</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/uk/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt="Module 2">
-      <h5>2. Розгортання застосунку</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/uk/docs/tutorials/kubernetes-basics/explore/explore-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt="Module 3">
-      <h5>3. Дослідить свій застосунок</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/uk/docs/tutorials/kubernetes-basics/expose/expose-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt="Module 4">
-      <h5>4. Відкриття доступу до застосунку за межами кластера</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/uk/docs/tutorials/kubernetes-basics/scale/scale-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347" alt="Module 5">
-      <h5>5. Масштабування застосунку</h5>
-    </a>
-  </div>
-  <div class="module">
-    <a href="/uk/docs/tutorials/kubernetes-basics/update/update-intro/">
-      <img src="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347" alt="Module 6">
-      <h5>6. Оновлення застосунку</h5>
-    </a>
-  </div>
-</div>
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347"
+      alt="Модуль 2"
+      title="2. Розгортання застосунку" >}}
+
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/explore/explore-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347"
+      alt="Модуль 3"
+      title="3. Дослідить свій застосунок" >}}
+
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/expose/expose-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347"
+      alt="Модуль 4"
+      title="4. Відкриття доступу до застосунку за межами кластера" >}}
+
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/scale/scale-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347"
+      alt="Модуль 5"
+      title="5. Масштабування застосунку" >}}
+
+  {{< tutorials/module
+      path="/docs/tutorials/kubernetes-basics/update/update-intro/"
+      image="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347"
+      alt="Модуль 6"
+      title="6. Оновлення застосунку" >}}
+{{< /tutorials/modules >}}
 
 ## {{% heading "whatsnext" %}}
 
