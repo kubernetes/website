@@ -89,13 +89,13 @@ Existence of kube-apiserver leases enables future capabilities that may require 
 each kube-apiserver.
 
 You can inspect Leases owned by each kube-apiserver by checking for lease objects in the `kube-system` namespace
-with the name `kube-apiserver-<sha256-hash>`. Alternatively you can use the label selector `apiserver.kubernetes.io/identity=kube-apiserver`:
+with the name `apiserver-<sha256-hash>`. Alternatively you can use the label selector `apiserver.kubernetes.io/identity=kube-apiserver`:
 -->
 从 Kubernetes v1.26 开始，每个 `kube-apiserver` 都使用 Lease API 将其身份发布到系统中的其他位置。
 虽然它本身并不是特别有用，但为客户端提供了一种机制来发现有多少个 `kube-apiserver` 实例正在操作
 Kubernetes 控制平面。kube-apiserver 租约的存在使得未来可以在各个 kube-apiserver 之间协调新的能力。
 
-你可以检查 `kube-system` 名字空间中名为 `kube-apiserver-<sha256-hash>` 的 Lease 对象来查看每个
+你可以检查 `kube-system` 名字空间中名为 `apiserver-<sha256-hash>` 的 Lease 对象来查看每个
 kube-apiserver 拥有的租约。你还可以使用标签选择算符 `apiserver.kubernetes.io/identity=kube-apiserver`：
 
 ```shell

@@ -29,7 +29,7 @@ AMD 및 NVIDIA GPU(그래픽 프로세싱 유닛)를 여러 노드들에 걸쳐 
 설치해야 하며, GPU 벤더가 제공하는 디바이스 플러그인을
 실행해야 한다. 다음은 몇몇 벤더의 지침에 대한 웹페이지이다.
 
-* [AMD](https://github.com/RadeonOpenCompute/k8s-device-plugin#deployment)
+* [AMD](https://github.com/ROCm/k8s-device-plugin#deployment)
 * [Intel](https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/gpu_plugin/README.html)
 * [NVIDIA](https://github.com/NVIDIA/k8s-device-plugin#quick-start)
 
@@ -84,7 +84,7 @@ kubectl label nodes node2 accelerator=other-gpu-k915
 ## 노드 레이블링 자동화 {#node-labeller}
 
 만약 AMD GPU 디바이스를 사용하고 있다면,
-[노드 레이블러](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller)를 배치할 수 있다.
+[노드 레이블러](https://github.com/ROCm/k8s-device-plugin/tree/master/cmd/k8s-node-labeller)를 배치할 수 있다.
 노드 레이블러는 GPU 디바이스의 속성에 따라서 노드에 자동으로 레이블을 달아 주는
 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}이다.
 

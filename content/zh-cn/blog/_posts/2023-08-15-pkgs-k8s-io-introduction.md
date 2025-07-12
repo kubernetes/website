@@ -3,20 +3,19 @@ layout: blog
 title: "pkgs.k8s.io：介绍 Kubernetes 社区自有的包仓库"
 date: 2023-08-15T20:00:00+0000
 slug: pkgs-k8s-io-introduction
+author: >
+  Marko Mudrinić (Kubermatic)
+translator: >
+  Wilson Wu (DaoCloud)
 ---
 <!--
 layout: blog
 title: "pkgs.k8s.io: Introducing Kubernetes Community-Owned Package Repositories"
 date: 2023-08-15T20:00:00+0000
 slug: pkgs-k8s-io-introduction
+author: >
+  Marko Mudrinić (Kubermatic)
 -->
-
-<!--
-**Author**: Marko Mudrinić (Kubermatic)
--->
-**作者**：Marko Mudrinić (Kubermatic)
-
-**译者**：Wilson Wu (DaoCloud)
 
 <!--
 On behalf of Kubernetes SIG Release, I am very excited to introduce the
@@ -39,13 +38,15 @@ repositories.
 这篇博文包含关于这些新的包仓库的信息、它对最终用户意味着什么以及如何迁移到新仓库。
 
 <!--
-**ℹ️  Update (January 12, 2024):** the _**legacy Google-hosted repositories are going
-away in January 2024.**_
+**ℹ️ Update (March 26, 2024): _the legacy Google-hosted repositories went
+away on March 4, 2024. It's not possible to install Kubernetes packages from
+the legacy Google-hosted package repositories any longer._**
 Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
 for more details about this change.
 -->
-**ℹ️ 更新（2024 年 1 月 12 日）：旧版托管在 Google 的仓库已被弃用，并将于 2024 年 1 月开始被冻结。**
-查看[弃用公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)了解有关此更改的更多详细信息。
+**ℹ️ 更新（2024 年 3 月 26 日）：旧版托管在 Google 的仓库于 2024 年 3 月 4 日停用。
+你不能再从旧版托管在 Google 的包仓库中安装 Kubernetes 包。**
+查看[弃用公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)了解本次变更的更多细节。
 
 <!--
 ## What you need to know about the new package repositories?
@@ -53,9 +54,9 @@ for more details about this change.
 ## 关于新的包仓库，你需要了解哪些信息？ {#what-you-need-to-know-about-the-new-package-repositories}
 
 <!--
-_(updated on January 12, 2024)_
+_(updated on January 12, 2024 and March 26, 2024)_
 -->
-**（更新于 2024 年 1 月 12 日）**
+**（更新于 2024 年 1 月 12 日和 3 月 26 日）**
 
 <!--
 - This is an **opt-in change**; you're required to manually migrate from the
@@ -68,47 +69,63 @@ _(updated on January 12, 2024)_
   了解迁移信息和说明。
 
 <!--
-- **The legacy Google-hosted package repositories are going away in January 2024.** These repositories
-  have been **deprecated as of August 31, 2023**, and **frozen as of September 13, 2023**.
+- **The legacy Google-hosted package repositories went away on March 4, 2024. It's not possible
+  to install Kubernetes packages from the legacy Google-hosted package repositories any longer.**
+  These repositories have been **deprecated as of August 31, 2023**, and **frozen as of September 13, 2023**.
   Check out the [deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
   for more details about this change.
 -->
-- **旧版托管在 Google 的包仓库于 2024 年 1 月停用。**
+- **旧版托管在 Google 的包仓库于 2024 年 3 月 4 日停用。
+  你不能再从旧版托管在 Google 的包仓库中安装 Kubernetes 包。**
   这些仓库**自 2023 年 8 月 31 日起被弃用** ，并**自 2023 年 9 月 13 日被冻结** 。  
   有关此变更的更多细节请查阅[弃用公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)。
+
+<!--
+- ~~**The legacy Google-hosted package repositories are going away in January 2024.** These repositories
+  have been **deprecated as of August 31, 2023**, and **frozen as of September 13, 2023**.
+  Check out the [deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
+  for more details about this change.~~
+-->
+- ~~**旧版托管在 Google 的包仓库在 2024 年 1 月停用。**
+  这些仓库自 **2023 年 8 月 31 日起被弃用**，并且 **自 2023 年 9 月 13 日起被冻结**。
+  有关此更改的更多细节请查阅[弃用公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)。~~
 
 <!--
 - ~~The existing packages in the legacy repositories will be available for the foreseeable future.
   However, the Kubernetes project can't provide any guarantees on how long is that going to be.
   The deprecated legacy repositories, and their contents, might be removed at any time in the future
-  and without a further notice period.~~ **The legacy package repositories are going away in
-  January 2024.**
+  and without a further notice period. **The legacy package repositories are going away in
+  January 2024.**~~ **The legacy Google-hosted package repositories went away on March 4, 2024.**
 -->
 - ~~旧仓库中的现有包将在可预见的未来一段时间内可用。
   然而，Kubernetes 项目无法保证这会持续多久。
-  已弃用的旧仓库及其内容可能会在未来随时被删除，恕不另行通知。~~
-  **旧版包仓库于 2024 年 1 月停用。**
+  已弃用的旧仓库及其内容可能会在未来随时被删除，恕不另行通知。
+  **旧版包仓库于 2024 年 1 月停用。**~~
+  **旧版托管在 Google 上的包仓库于 2024 年 3 月 4 日停用。**
 
 <!--
 - Given that no new releases will be published to the legacy repositories after
   the September 13, 2023 cut-off point, you will not be able to upgrade to any patch or minor
   release made from that date onwards if you don't migrate to the new Kubernetes package repositories.
-  That said, we recommend migrating to the new Kubernetes package repositories **as soon as possible**.
+  ~~That said, we recommend migrating to the new Kubernetes package repositories **as soon as possible**.~~
+  Migrating to the new Kubernetes package repositories is required to consume the official Kubernetes
+  packages.
 -->
 - 鉴于在 2023 年 9 月 13 日这个截止时间点之后不会向旧仓库发布任何新版本，
   如果你不在该截止时间点迁移至新的 Kubernetes 仓库，
   你将无法升级到该日期之后发布的任何补丁或次要版本。
-  也就是说，我们建议**尽快**迁移到新的 Kubernetes 仓库。
+  ~~也就是说，我们建议**尽快**迁移到新的 Kubernetes 仓库。~~
+  你需要迁移到新的 Kubernetes 包仓库，才能使用官方 Kubernetes 包。
 
 <!--
-- The new Kubernetes package repositories contain packages beginning with those
+- **The new Kubernetes package repositories contain packages beginning with those
   Kubernetes versions that were still under support when the community took
   over the package builds. This means that the new package repositories have Linux packages for all
-  Kubernetes releases starting with v1.24.0.
+  Kubernetes releases starting with v1.24.0.**
 -->
-- 新的 Kubernetes 仓库中包含社区开始接管包构建以来仍在支持的 Kubernetes 版本的包。
+- **新的 Kubernetes 仓库中包含社区开始接管包构建以来仍在支持的 Kubernetes 版本的包。
   这意味着 v1.24.0 之前的任何内容都只存在于托管在 Google 的仓库中。
-  这意味着新的包仓库将为从 v1.24.0 开始的所有 Kubernetes 版本提供 Linux 包。
+  这意味着新的包仓库将为从 v1.24.0 开始的所有 Kubernetes 版本提供 Linux 包。**
 
 <!--
 - Kubernetes does not have official Linux packages available for earlier releases of Kubernetes;
@@ -119,10 +136,14 @@ _(updated on January 12, 2024)_
 <!--
 - There's a dedicated package repository for each Kubernetes minor version.
   When upgrading to a different minor release, you must bear in mind that
-  the package repository details also change.
+  the package repository details also change. Check out
+  [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
+  guide for information about steps that you need to take upon upgrading the Kubernetes minor version.
 -->
 - 每个 Kubernetes 次要版本都有一个专用的仓库。
   当升级到不同的次要版本时，你必须记住，仓库详细信息也会发生变化。
+  查阅[变更 Kubernetes 包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)指南，
+  了解升级 Kubernetes 次要版本时需要采取的步骤信息。
 
 <!--
 ## Why are we introducing new package repositories?
@@ -301,20 +322,35 @@ There are three significant differences that you should be aware of:
 ## 这是否会影响现有的托管在 Google 的仓库？ {#does-this-in-any-way-affect-existing-google-hosted-repositories}
 
 <!--
-The Google-hosted repository and all packages published to it will continue
-working in the same way as before. There are no changes in how we build and
-publish packages to the Google-hosted repository, all newly-introduced changes
-are only affecting packages publish to the community-owned repositories.
+_(updated on March 26, 2024)_
 -->
-托管在 Google 的仓库以及发布到其中的所有包仍然可用，与之前一样。
-我们构建包并将其发布到托管在 Google 仓库的方式没有变化，
-所有新引入的更改仅影响发布到社区自有仓库的包。
+**（更新于 2024 年 3 月 26 日）**
 
 <!--
-However, as mentioned at the beginning of this blog post, we plan to stop
-publishing packages to the Google-hosted repository in the future.
+**The legacy Google-hosted repositories went away on March 4, 2024. It's not possible to
+install Kubernetes packages from the legacy Google-hosted package repositories any longer.**
+Check out [the deprecation announcement](/blog/2023/08/31/legacy-package-repository-deprecation/)
+for more details about this change.
 -->
-然而，正如本文开头提到的，我们计划将来停止将包发布到托管在 Google 的仓库。
+**旧版托管在 Google 的仓库于 2024 年 3 月 4 日停用。
+你不能再从旧版托管在 Google 的包仓库中安装 Kubernetes 包。**
+有关本次变更细节查阅[弃用公告](/zh-cn/blog/2023/08/31/legacy-package-repository-deprecation/)。
+
+<!--
+~~The Google-hosted repository and all packages published to it will continue
+working in the same way as before. There are no changes in how we build and
+publish packages to the Google-hosted repository, all newly-introduced changes
+are only affecting packages publish to the community-owned repositories.~~
+-->
+~~托管在 Google 的仓库以及发布到其中的所有包仍然可用，与之前一样。
+我们构建包并将其发布到托管在 Google 仓库的方式没有变化，
+所有新引入的更改仅影响发布到社区自有仓库的包。~~
+
+<!--
+~~However, as mentioned at the beginning of this blog post, we plan to stop
+publishing packages to the Google-hosted repository in the future.~~
+-->
+~~然而，正如本文开头提到的，我们计划将来停止将包发布到托管在 Google 的仓库。~~
 
 <!--
 ## How to migrate to the Kubernetes community-owned repositories? {#how-to-migrate}
@@ -350,6 +386,13 @@ publishing packages to the Google-hosted repository in the future.
    ```shell
    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
+
+    <!--
+    _Update: In releases older than Debian 12 and Ubuntu 22.04, the folder `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command._
+    -->
+
+    **更新：在 Debian 12 和 Ubuntu 22.04 之前的版本中，`/etc/apt/keyrings` 文件夹默认不存在，
+    因此在执行 curl 命令之前应该先创建此文件夹。**
 
 <!--
 3. Update the `apt` package index:
@@ -387,17 +430,51 @@ publishing packages to the Google-hosted repository in the future.
    ```
 
 <!--
+## Where can I get packages for Kubernetes versions prior to v1.24.0?
+
+_(updated on March 26, 2024)_
+-->
+## 我在哪里可以获取 Kubernetes v1.24.0 之前的软件包？
+
+**(更新于 2024 年 3 月 26 日)**
+
+<!--
+For Kubernetes v1.24 and onwards, Linux packages of Kubernetes components are available for
+download via the official Kubernetes package repositories. Kubernetes does not publish any
+software packages for releases of Kubernetes older than v1.24.0; however, your Linux
+distribution may provide its own packages. Alternatively, you can directly download binaries
+instead of using packages. As an example, see `Without a package manager` instructions in
+["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm)
+document.
+-->
+对于 Kubernetes v1.24 及更高版本，Kubernetes 组件的 Linux 包可以通过官方 Kubernetes 包仓库下载。
+Kubernetes 不会再发布 v1.24.0 之前的任何包；然而，你的 Linux 发行版可能会提供自己的包。
+或者，你也可以直接下载二进制文件，而不是使用包。
+有关细节参见[安装 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm)
+文档中“没有包管理器”一节的内容。
+
+<!--
 ## Can I rollback to the Google-hosted repository after migrating to the Kubernetes repositories?
 -->
 ## 迁移到 Kubernetes 仓库后是否可以回滚到托管在 Google 的仓库？ {#can-i-rollback-to-the-google-hosted-repository-after-migrating-to-the-kubernetes-repositories}
 
 <!--
-In general, yes. Just do the same steps as when migrating, but use parameters
-for the Google-hosted repository. You can find those parameters in a document
-like ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
+_(updated on March 26, 2024)_
+
+**The legacy Google-hosted repositories went away on March 4, 2024 and therefore it's not possible
+to rollback to the legacy Google-hosted repositories any longer.**
 -->
-一般来说，可以。只需执行与迁移时相同的步骤，但使用托管在 Google 的仓库参数。
-你可以在[“安装 kubeadm”](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm)等文档中找到这些参数。
+**(更新于 2024 年 3 月 26 日)**
+
+**旧版托管在 Google 的仓库于 2024 年 3 月 4 日停用，因此你不能再回滚到旧版托管在 Google 的仓库。**
+
+<!--
+~~In general, yes. Just do the same steps as when migrating, but use parameters
+for the Google-hosted repository. You can find those parameters in a document
+like ["Installing kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).~~
+-->
+~~一般来说，可以。只需执行与迁移时相同的步骤，但使用托管在 Google 的仓库参数。
+你可以在[“安装 kubeadm”](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm)等文档中找到这些参数。~~
 
 <!--
 ## Why isn’t there a stable list of domains/IPs? Why can’t I restrict package downloads?

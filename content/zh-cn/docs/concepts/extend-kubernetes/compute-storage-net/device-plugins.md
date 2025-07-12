@@ -131,7 +131,7 @@ metadata:
 spec:
   containers:
     - name: demo-container-1
-      image: registry.k8s.io/pause:2.0
+      image: registry.k8s.io/pause:3.8
       resources:
         limits:
           hardware-vendor.example/foo: 2
@@ -900,10 +900,13 @@ Here are some examples of device plugin implementations:
 * [Akri](https://github.com/project-akri/akri), which lets you easily expose heterogeneous leaf devices (such as IP cameras and USB devices).
 * The [AMD GPU device plugin](https://github.com/ROCm/k8s-device-plugin)
 * The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
+* The [HAMi](https://github.com/Project-HAMi/HAMi) for heterogeneous AI computing virtualization middleware (for example, NVIDIA, Cambricon, Hygon, Iluvatar, MThreads, Ascend, Metax)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
   hardware-assisted virtualization
+* The [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin), NVIDIA's 
+  official device plugin to expose NVIDIA GPUs and monitor GPU health
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)
@@ -916,9 +919,11 @@ Here are some examples of device plugin implementations:
 * [Akri](https://github.com/project-akri/akri)，它可以让你轻松公开异构叶子设备（例如 IP 摄像机和 USB 设备）。
 * [AMD GPU 设备插件](https://github.com/ROCm/k8s-device-plugin)
 * 适用于通用 Linux 设备和 USB 设备的[通用设备插件](https://github.com/squat/generic-device-plugin)
+* 用于异构 AI 计算虚拟化中间件（例如 NVIDIA、Cambricon、Hygon、Iluvatar、MThreads、Ascend、Metax 设备）的 [HAMi](https://github.com/Project-HAMi/HAMi)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持
   Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins)用于硬件辅助的虚拟化
+* [NVIDIA GPU 设备插件](https://github.com/NVIDIA/k8s-device-plugin)NVIDIA 的官方设备插件，用于公布 NVIDIA GPU 和监控 GPU 健康状态。
 * [为 Container-Optimized OS 所提供的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 设备插件](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [SocketCAN 设备插件](https://github.com/collabora/k8s-socketcan)

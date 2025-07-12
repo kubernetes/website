@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.17：稳定"
-date: 2019-12-09T13：00：00-08：00
+date: 2019-12-09T13:00:00-08:00
 slug: kubernetes-1-17-release-announcement
 evergreen: true
 ---

@@ -26,8 +26,6 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 ## Konfiguracja
 
-* [Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
-
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Aplikacje bezstanowe *(Stateless Applications)*

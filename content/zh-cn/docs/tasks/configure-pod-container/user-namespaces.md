@@ -127,12 +127,12 @@ to `false`. For example:
    ```
 
 <!--
-1. Attach to the container and run `readlink /proc/self/ns/user`:
+1. Add a debugging container and attach to it and run `readlink /proc/self/ns/user`:
 -->
-2. 挂接到容器上并执行 `readlink /proc/self/ns/user`：
+2. 运行一个调试容器，挂接此 Pod 上并执行 `readlink /proc/self/ns/user`：
 
    ```shell
-   kubectl attach -it userns bash
+   kubectl debug userns -it --image=busybox
    ```
 
 <!--

@@ -21,11 +21,6 @@ weight: 4
 auto_generated: true
 -->
 
-<!--
-`apiVersion: certificates.k8s.io/v1`
-
-`import "k8s.io/api/certificates/v1"`
--->
 `apiVersion: certificates.k8s.io/v1`
 
 `import "k8s.io/api/certificates/v1"`
@@ -44,7 +39,7 @@ Kubelets use this API to obtain:
 -->
 CertificateSigningRequest 对象提供了一种通过提交证书签名请求并异步批准和颁发 x509 证书的机制。
 
-Kubelets 使用 CertificateSigningRequest API 来获取：
+kubelet 使用 CertificateSigningRequest API 来获取：
 
 1. 向 kube-apiserver 进行身份认证的客户端证书（使用 “kubernetes.io/kube-apiserver-client-kubelet” signerName）。
 2. kube-apiserver 可以安全连接到 TLS 端点的服务证书（使用 “kubernetes.io/kubelet-serving” signerName）。
@@ -81,7 +76,7 @@ or to obtain certificates from custom non-Kubernetes signers.
   Other fields are derived by Kubernetes and cannot be modified by users.
 -->
 - **spec** (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequestSpec" >}}">
-   CertificateSigningRequestSpec</a>)，必需
+  CertificateSigningRequestSpec</a>)，必需
 
   spec 包含证书请求，并且在创建后是不可变的。
   只有 request、signerName、expirationSeconds 和 usages 字段可以在创建时设置。
@@ -109,6 +104,7 @@ CertificateSigningRequestSpec contains the certificate request.
 CertificateSigningRequestSpec 包含证书请求。
 
 <hr>
+
 <!--
 - **request** ([]byte), required
 
@@ -220,7 +216,7 @@ CertificateSigningRequestSpec 包含证书请求。
   
   The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.  
   -->
-  由于各种原因，证书签名者可能忽略此字段:
+  由于各种原因，证书签名者可能忽略此字段：
 
   1. 不认识此字段的旧签名者(如 v1.22 版本之前的实现)
   2. 配置的最大持续时间小于请求持续时间的签名者
@@ -321,8 +317,6 @@ CertificateSigningRequestSpec 包含证书请求。
 
 CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, 
 and the issued certificate.
-
-<hr>
 -->
 ## CertificateSigningRequestStatus {#CertificateSigningRequestStatus}
 
@@ -358,7 +352,7 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
    3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
     to allow for explanatory text as described in section 5.2 of RFC7468.
   -->
-  验证要求:
+  验证要求：
 
   1. 证书必须包含一个或多个 PEM 块。
   2. 所有的 PEM 块必须有 “CERTIFICATE” 标签，不包含头和编码的数据，
@@ -387,7 +381,7 @@ CertificateSigningRequestStatus 包含用于指示请求的批准/拒绝/失败�
   -->
   证书编码为 PEM 格式。
   
-  当序列化为 JSON 或 YAML 时，数据额外采用 base64 编码，它包括:
+  当序列化为 JSON 或 YAML 时，数据额外采用 base64 编码，它包括：
 
   ```
   base64(
@@ -1432,6 +1426,10 @@ DELETE /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1443,6 +1441,10 @@ DELETE /apis/certificates.k8s.io/v1/certificatesigningrequests/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -1520,6 +1522,10 @@ DELETE /apis/certificates.k8s.io/v1/certificatesigningrequests
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -1535,6 +1541,10 @@ DELETE /apis/certificates.k8s.io/v1/certificatesigningrequests
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 

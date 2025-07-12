@@ -3,20 +3,17 @@ layout: blog
 title: 'Kubernetes 1.25：Pod 新增 PodHasNetwork 状况'
 date: 2022-09-14
 slug: pod-has-network-condition
+author: >
+  Deep Debroy (Apple)
 ---
 <!--
 layout: blog
 title: 'Kubernetes 1.25: PodHasNetwork Condition for Pods'
 date: 2022-09-14
 slug: pod-has-network-condition
+author: >
+  Deep Debroy (Apple)
 -->
-
-<!--
-**Author:**
-Deep Debroy (Apple)
--->
-**作者：**
-Deep Debroy (Apple)
 
 <!--
 Kubernetes 1.25 introduces Alpha support for a new kubelet-managed pod condition
@@ -42,6 +39,21 @@ Kubernetes 1.25 引入了对 kubelet 所管理的新的 Pod 状况 `PodHasNetwor
 （无需知道每个容器的镜像大小或有效负载等特征）就可以利用 `PodHasNetwork`
 状况来准确生成服务水平指标（Service Level Indicator，SLI）。
 某些管理底层 Pod 的 Operator 或控制器可以利用 `PodHasNetwork` 状况来优化 Pod 反复出现失败时要执行的操作。
+
+<!--
+### Updates for Kubernetes 1.28
+
+The `PodHasNetwork` condition has been renamed to `PodReadyToStartContainers`.
+Alongside that change, the feature gate `PodHasNetworkCondition` has been replaced by
+`PodReadyToStartContainersCondition`. You need to set `PodReadyToStartContainersCondition`
+to true in order to use the new feature in v1.28.0 and later.
+-->
+### Kubernetes 1.28 更新内容  
+
+`PodHasNetwork` 状况已更名为 `PodReadyToStartContainers`。与此变更同步的是，特性门控
+`PodHasNetworkCondition` 已被替换为 `PodReadyToStartContainersCondition`。
+你需要将 `PodReadyToStartContainersCondition` 设置为 true，
+才能在 v1.28.0 及更高版本中使用这一新特性。
 
 <!--
 ### How is this different from the existing Initialized condition reported for pods?

@@ -37,7 +37,8 @@ You should carefully consider the advantages and disadvantages of each topology 
 
 {{< note >}}
 <!--
-kubeadm bootstraps the etcd cluster statically. Read the etcd [Clustering Guide](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
+kubeadm bootstraps the etcd cluster statically. Read the etcd
+[Clustering Guide](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
 for more details.
 -->
 kubeadm 静态引导 etcd 集群。
@@ -111,13 +112,19 @@ on control plane nodes when using `kubeadm init` and `kubeadm join --control-pla
 ## 外部 etcd 拓扑    {#external-etcd-topology}
 
 <!--
-An HA cluster with external etcd is a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed data storage cluster provided by etcd is external to the cluster formed by the nodes that run control plane components.
+An HA cluster with external etcd is a [topology](https://en.wikipedia.org/wiki/Network_topology)
+where the distributed data storage cluster provided by etcd is external to the cluster formed by
+the nodes that run control plane components.
 -->
 具有外部 etcd 的 HA 集群是一种这样的[拓扑](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91)，
 其中 etcd 分布式数据存储集群在独立于控制平面节点的其他节点上运行。
 
 <!--
-Like the stacked etcd topology, each control plane node in an external etcd topology runs an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`. And the `kube-apiserver` is exposed to worker nodes using a load balancer. However, etcd members run on separate hosts, and each etcd host communicates with the `kube-apiserver` of each control plane node.
+Like the stacked etcd topology, each control plane node in an external etcd topology runs
+an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`.
+And the `kube-apiserver` is exposed to worker nodes using a load balancer. However,
+etcd members run on separate hosts, and each etcd host communicates with the
+`kube-apiserver` of each control plane node.
 -->
 就像堆叠的 etcd 拓扑一样，外部 etcd 拓扑中的每个控制平面节点都会运行
 `kube-apiserver`、`kube-scheduler` 和 `kube-controller-manager` 实例。
@@ -134,7 +141,8 @@ the cluster redundancy as much as the stacked HA topology.
 
 <!--
 However, this topology requires twice the number of hosts as the stacked HA topology.
-A minimum of three hosts for control plane nodes and three hosts for etcd nodes are required for an HA cluster with this topology.
+A minimum of three hosts for control plane nodes and three hosts for etcd nodes are
+required for an HA cluster with this topology.
 -->
 但此拓扑需要两倍于堆叠 HA 拓扑的主机数量。
 具有此拓扑的 HA 集群至少需要三个用于控制平面节点的主机和三个用于 etcd 节点的主机。

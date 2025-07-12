@@ -80,7 +80,7 @@ MySQL을 실행하고 퍼시스턴트볼륨클레임을 참조하는 디플로�
           Labels:       app=mysql
           Containers:
            mysql:
-            Image:      mysql:5.6
+            Image:      mysql:9
             Port:       3306/TCP
             Environment:
               MYSQL_ROOT_PASSWORD:      password
@@ -141,7 +141,7 @@ MySQL을 실행하고 퍼시스턴트볼륨클레임을 참조하는 디플로�
 서버에 접속하기 위하여 MySQL 클라이언트를 실행한다.
 
 ```
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+kubectl run -it --rm --image=mysql:9 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
 이 명령어는 MySQL 클라이언트를 실행하는 파드를 클러스터에 생성하고, 

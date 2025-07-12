@@ -121,7 +121,7 @@ Kubernetes 通过 Discovery API 发布集群所支持的所有组版本和资源
 - 组、版本、类别
 
 <!--
-The API is available both aggregated and unaggregated form. The aggregated
+The API is available in both aggregated and unaggregated form. The aggregated
 discovery serves two endpoints while the unaggregated discovery serves a
 separate endpoint for each group version.
 -->
@@ -157,14 +157,14 @@ document.
 如果没有使用 `Accept` 头指示资源类型，对于 `/api` 和 `/apis` 端点的默认响应将是一个非聚合的发现文档。
 
 <!--
-The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
+The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)
 for the built-in resources can be found in the Kubernetes GitHub repository.
 This Github document can be used as a reference of the base set of the available resources
 if a Kubernetes cluster is not available to query.
 
 The endpoint also supports ETag and protobuf encoding.
 -->
-内置资源的[发现文档](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)可以在
+内置资源的[发现文档](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)可以在
 Kubernetes GitHub 代码仓库中找到。如果手头没有 Kubernetes 集群可供查询，
 此 Github 文档可用作可用资源的基础集合的参考。端点还支持 ETag 和 protobuf 编码。
 
@@ -326,6 +326,19 @@ Kubernetes API 服务器通过 `/openapi/v2` 端点提供聚合的 OpenAPI v2 �
      </tr>
   </tbody>
 </table>
+
+{{< warning >}}
+<!--
+The validation rules published as part of OpenAPI schemas may not be complete, and usually aren't.
+Additional validation occurs within the API server. If you want precise and complete verification,
+a `kubectl apply --dry-run=server` runs all the applicable validation (and also activates admission-time
+checks).
+-->
+
+作为 OpenAPI 模式的一部分发布的校验规则可能不完整，而且通常也确实不完整。
+在 API 服务器内部会进行额外的校验。如果你希望进行精确且完整的验证，
+可以使用 `kubectl apply --dry-run=server`，这条命令将运行所有适用的校验（同时也会触发准入时检查）。
+{{< /warning >}}
 
 ### OpenAPI v3
 

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned."
 title: "StorageClass"
-weight: 6
+weight: 8
 auto_generated: true
 ---
 
@@ -63,6 +63,8 @@ StorageClasses are non-namespaced; the name of the storage class according to et
 
   - **allowedTopologies.matchLabelExpressions** ([]TopologySelectorLabelRequirement)
 
+    *Atomic: will be replaced during a merge*
+    
     A list of topology selector requirements by labels.
 
     <a name="TopologySelectorLabelRequirement"></a>
@@ -74,10 +76,14 @@ StorageClasses are non-namespaced; the name of the storage class according to et
 
     - **allowedTopologies.matchLabelExpressions.values** ([]string), required
 
+      *Atomic: will be replaced during a merge*
+      
       An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
 
 - **mountOptions** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 
 - **parameters** (map[string]string)
@@ -413,6 +419,11 @@ DELETE /apis/storage.k8s.io/v1/storageclasses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -466,6 +477,11 @@ DELETE /apis/storage.k8s.io/v1/storageclasses
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

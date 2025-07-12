@@ -1,6 +1,6 @@
 ---
 reviewers:
-- smarterclayton
+- aramase
 - enj
 title: Using a KMS provider for data encryption
 content_type: task
@@ -28,9 +28,6 @@ for information security.
 The version of Kubernetes that you need depends on which KMS API version
 you have selected.  Kubernetes recommends using KMS v2.
 
-- If you selected KMS API v2, you should use Kubernetes v{{< skew currentVersion >}}
-  (if you are running a different version of Kubernetes that also supports the v2 KMS
-  API, switch to the documentation for that version of Kubernetes).
 - If you selected KMS API v1 to support clusters prior to version v1.27
   or if you have a legacy KMS plugin that only supports KMS v1,
   any supported Kubernetes version will work.  This API is deprecated as of Kubernetes v1.28.
@@ -337,7 +334,7 @@ These healthcheck endpoint paths are hard coded and generated/controlled by the 
 Until the steps defined in [Ensuring all secrets are encrypted](#ensuring-all-secrets-are-encrypted) are performed, the `providers` list should end with the `identity: {}` provider to allow unencrypted data to be read.  Once all resources are encrypted, the `identity` provider should be removed to prevent the API server from honoring unencrypted data.
 
 For details about the `EncryptionConfiguration` format, please check the
-[API server encryption API reference](/docs/reference/config-api/apiserver-encryption.v1/).
+[API server encryption API reference](/docs/reference/config-api/apiserver-config.v1/).
 
 ## Verifying that the data is encrypted
 

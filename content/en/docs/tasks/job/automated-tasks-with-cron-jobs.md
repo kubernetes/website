@@ -49,7 +49,7 @@ hello   */1 * * * *   False     0        <none>          10s
 ```
 
 As you can see from the results of the command, the cron job has not scheduled or run any jobs yet.
-Watch for the job to be created in around one minute:
+{{< glossary_tooltip text="Watch" term_id="watch" >}} for the job to be created in around one minute:
 
 ```shell
 kubectl get jobs --watch

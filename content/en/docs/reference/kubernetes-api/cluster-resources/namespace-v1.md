@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Namespace provides a scope for Names."
 title: "Namespace"
-weight: 2
+weight: 7
 auto_generated: true
 ---
 
@@ -62,6 +62,8 @@ NamespaceSpec describes the attributes on a Namespace.
 
 - **finalizers** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
 
 
@@ -78,6 +80,8 @@ NamespaceStatus is information about the current status of a Namespace.
 
   *Patch strategy: merge on key `type`*
   
+  *Map: unique values on key type will be kept during a merge*
+  
   Represents the latest available observations of a namespace's current state.
 
   <a name="NamespaceCondition"></a>
@@ -93,15 +97,18 @@ NamespaceStatus is information about the current status of a Namespace.
 
   - **conditions.lastTransitionTime** (Time)
 
+    Last time the condition transitioned from one status to another.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
   - **conditions.message** (string)
 
+    Human-readable message indicating details about last transition.
 
   - **conditions.reason** (string)
 
+    Unique, one-word, CamelCase reason for the condition's last transition.
 
 - **phase** (string)
 
@@ -609,6 +616,11 @@ DELETE /api/v1/namespaces/{name}
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **pretty** (*in query*): string

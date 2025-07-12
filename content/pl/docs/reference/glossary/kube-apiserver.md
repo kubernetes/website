@@ -14,7 +14,7 @@ tags:
 ---
 Serwer API jest składnikiem
 {{< glossary_tooltip text="warstwy sterowania" term_id="control-plane" >}} Kubernetesa, który udostępnia API.
-Server API służy jako front-end warstwy sterowania Kubernetes.
+Server API służy jako front-end warstwy sterowania Kubernetesa.
 
 <!--more-->
 

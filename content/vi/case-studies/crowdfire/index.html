@@ -1,0 +1,85 @@
+---
+title: Crowdfire Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/crowdfire/banner1.jpg
+heading_title_logo: /images/crowdfire_logo.png
+subheading: >
+  How to Keep Iterating a Fast-Growing App With a Cloud-Native Approach
+case_study_details:
+  - Company: Crowdfire
+  - Location: Mumbai, India
+  - Industry: Social Media Software
+---
+
+<h2>Challenge</h2>
+
+<p><a href="https://www.crowdfireapp.com/">Crowdfire</a> helps content creators create their content anywhere on the Internet and publish it everywhere else in the right format. Since its launch in 2010, it has grown to 16 million users. The product began as a monolith app running on <a href="https://cloud.google.com/appengine/">Google App Engine</a>, and in 2015, the company began a transformation to microservices running on Amazon Web Services <a href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a>. "It was okay for our use cases initially, but as the number of services, development teams and scale increased, the deploy times, self-healing capabilities and resource utilization started to become problems for us," says Software Engineer Amanpreet Singh, who leads the infrastructure team for Crowdfire.</p>
+
+<h2>Solution</h2>
+
+<p>"We realized that we needed a more cloud-native approach to deal with these issues," says Singh. The team decided to implement a custom setup of Kubernetes based on <a href="https://www.terraform.io/">Terraform</a> and <a href="https://www.ansible.com/">Ansible</a>.</p>
+
+<h2>Impact</h2>
+
+<p>"Kubernetes has helped us reduce the deployment time from 15 minutes to less than a minute," says Singh. "Due to Kubernetes's self-healing nature, the operations team doesn't need to do any manual intervention in case of a node or pod failure." Plus, he says, "Dev-Prod parity has improved since developers can experiment with options in dev/staging clusters, and when it's finalized, they just commit the config changes in the respective code repositories. These changes automatically get replicated on the production cluster via CI/CD pipelines."</p>
+
+{{< case-studies/quote author="Amanpreet Singh, Software Engineer at Crowdfire" >}}
+"In the 15 months that we've been using Kubernetes, it has been amazing for us. It enabled us to iterate quickly, increase development speed, and continuously deliver new features and bug fixes to our users, while keeping our operational costs and infrastructure management overhead under control."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+"If you build it, they will come."
+{{< /case-studies/lead >}}
+
+<p>For most content creators, only half of that movie quote may ring true. Sure, platforms like Wordpress, YouTube and Shopify have made it simple for almost anyone to start publishing new content online, but attracting an audience isn't as easy. Crowdfire "helps users publish their content to all possible places where their audience exists," says Amanpreet Singh, a Software Engineer at the company based in Mumbai, India. Crowdfire has gained more than 16 million users—from bloggers and artists to makers and small businesses—since its launch in 2010.</p>
+
+<p>With that kind of growth—and a high demand from users for new features and continuous improvements—the Crowdfire team struggled to keep up behind the scenes. In 2015, they moved their monolith Java application to Amazon Web Services <a href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a> and started breaking it down into microservices.</p>
+
+<p>It was a good first step, but the team soon realized they needed to go further down the cloud-native path, which would lead them to Kubernetes. "It was okay for our use cases initially, but as the number of services and development teams increased and we scaled further, deploy times, self-healing capabilities and resource utilization started to become problematic," says Singh, who leads the infrastructure team at Crowdfire. "We realized that we needed a more cloud-native approach to deal with these issues."</p>
+
+<p>As he looked around for solutions, Singh had a checklist of what Crowdfire needed. "We wanted to keep some things separate so they could be shipped independent of other things; this would help remove blockers and let different teams work at their own pace," he says. "We also make a lot of data-driven decisions, so shipping a feature and its iterations quickly was a must."</p>
+
+<p>Kubernetes checked all the boxes and then some. "One of the best things was the built-in service discovery," he says. "When you have a bunch of microservices that need to call each other, having internal DNS readily available and service IPs and ports automatically set as environment variables help a lot." Plus, he adds, "Kubernetes's opinionated approach made it easier to get started."</p>
+
+{{< case-studies/quote image="/images/case-studies/crowdfire/banner3.jpg" >}}
+"We realized that we needed a more cloud-native approach to deal with these issues," says Singh. The team decided to implement a custom setup of Kubernetes based on Terraform and Ansible."
+{{< /case-studies/quote >}}
+
+<p>There was another compelling business reason for the cloud-native approach. "In today's world of ever-changing business requirements, using cloud native technology provides a variety of options to choose from—even the ability to run services in a hybrid cloud environment," says Singh. "Businesses can keep services in a region closest to the users, and thus benefit from high-availability and resiliency."</p>
+
+<p>So in February 2016, Singh set up a test Kubernetes cluster using the kube-up scripts provided. "I explored the features and was able to deploy an application pretty easily," he says. "However, it seemed like a black box since I didn't understand the components completely, and had no idea what the kube-up script did under the hood. So when it broke, it was hard to find the issue and fix it."</p>
+
+<p>To get a better understanding, Singh dove into the internals of Kubernetes, reading the docs and even some of the code. And he looked to the Kubernetes community for more insight. "I used to stay up a little late every night (a lot of users were active only when it's night here in India) and would try to answer questions on the Kubernetes community Slack from users who were getting started," he says. "I would also follow other conversations closely. I must admit I was able to avoid a lot of issues in our setup because I knew others had faced the same issues."</p>
+
+<p>Based on the knowledge he gained, Singh decided to implement a custom setup of Kubernetes based on <a href="https://www.terraform.io/">Terraform</a> and <a href="https://www.ansible.com/">Ansible</a>. "I wrote Terraform to launch Kubernetes master and nodes (Auto Scaling Groups) and an Ansible playbook to install the required components," he says. (The company recently switched to using prebaked <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">AMIs</a> to make the node bringup faster, and is planning to change its networking layer.)</p>
+
+{{< case-studies/quote image="/images/case-studies/crowdfire/banner4.jpg" >}}
+"Kubernetes helped us reduce the deployment time from 15 minutes to less than a minute. Due to Kubernetes's self-healing nature, the operations team doesn't need to do any manual intervention in case of a node or pod failure."
+{{< /case-studies/quote >}}
+
+<p>First, the team migrated a few staging services from Elastic Beanstalk to the new Kubernetes staging cluster, and then set up a production cluster a month later to deploy some services. The results were convincing. "By the end of March 2016, we established that all the new services must be deployed on Kubernetes," says Singh. "Kubernetes helped us reduce the deployment time from 15 minutes to less than a minute. Due to Kubernetes's self-healing nature, the operations team doesn't need to do any manual intervention in case of a node or pod failure." On top of that, he says, "Dev-Prod parity has improved since developers can experiment with options in dev/staging clusters, and when it's finalized, they just commit the config changes in the respective code repositories. These changes automatically get replicated on the production cluster via CI/CD pipelines. This brings more visibility into the changes being made, and keeping an audit trail."</p>
+
+<p>Over the next six months, the team worked on migrating all the services from Elastic Beanstalk to Kubernetes, except for the few that were deprecated and would soon be terminated anyway. The services were moved one at a time, and their performance was monitored for two to three days each. Today, "We're completely migrated and we run all new services on Kubernetes," says Singh.</p>
+
+<p>The impact has been considerable: With Kubernetes, the company has experienced a 90% cost savings on Elastic Load Balancer, which is now only used for their public, user-facing services. Their EC2 operating expenses have been decreased by as much as 50%.</p>
+
+<p>All 30 engineers at Crowdfire were onboarded at once. "I gave an internal talk where I shared the basic components and demoed the usage of kubectl," says Singh. "Everyone was excited and happy about using Kubernetes. Developers have more control and visibility into their applications running in production now. Most of all, they're happy with the low deploy times and self-healing services."</p>
+
+<p>And they're much more productive, too. "Where we used to do about 5 deployments per day," says Singh, "now we're doing 30+ production and 50+ staging deployments almost every day."</p>
+
+{{< case-studies/quote >}}
+The impact has been considerable: With Kubernetes, the company has experienced a 90% cost savings on Elastic Load Balancer, which is now only used for their public, user-facing services. Their EC2 operating expenses have been decreased by as much as 50%.
+{{< /case-studies/quote >}}
+
+<p>Singh notes that almost all of the engineers interact with the staging cluster on a daily basis, and that has created a cultural change at Crowdfire. "Developers are more aware of the cloud infrastructure now," he says. "They've started following cloud best practices like better health checks, structured logs to stdout [standard output], and config via files or environment variables."</p>
+
+<p>With Crowdfire's commitment to Kubernetes, Singh is looking to expand the company's cloud-native stack. The team already uses <a href="https://prometheus.io/">Prometheus</a> for monitoring, and he says he is evaluating <a href="https://linkerd.io/">Linkerd</a> and <a href="https://envoyproxy.github.io/">Envoy Proxy</a> as a way to "get more metrics about request latencies and failures, and handle them better." Other CNCF projects, including <a href="http://opentracing.io/">OpenTracing</a> and <a href="https://grpc.io/">gRPC</a> are also on his radar.</p>
+
+<p>Singh has found that the cloud-native community is growing in India, too, particularly in Bangalore. "A lot of startups and new companies are starting to run their infrastructure on Kubernetes," he says.</p>
+
+<p>And when people ask him about Crowdfire's experience, he has this advice to offer: "Kubernetes is a great piece of technology, but it might not be right for you, especially if you have just one or two services or your app isn't easy to run in a containerized environment," he says. "Assess your situation and the value that Kubernetes provides before going all in. If you do decide to use Kubernetes, make sure you understand the components that run under the hood and what role they play in smoothly running the cluster. Another thing to consider is if your apps are 'Kubernetes-ready,' meaning if they have proper health checks and handle termination signals to shut down gracefully."</p>
+
+<p>And if your company fits that profile, go for it. Crowdfire clearly did—and is now reaping the benefits. "In the 15 months that we've been using Kubernetes, it has been amazing for us," says Singh. "It enabled us to iterate quickly, increase development speed and continuously deliver new features and bug fixes to our users, while keeping our operational costs and infrastructure management overhead under control."</p>

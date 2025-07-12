@@ -44,7 +44,7 @@
 {{ end }}
 
 
-<!-- The below <div> defines an alternate content to be displayed only 
+<!-- The below <div> defines an alternate content to be displayed only
      when Javascript is disabled or when user's browser doesn't support Javascript -->
 <div class="downloadbinaries-nojs">
         <p>{{ T "release_binary_alternate_links" | markdownify }}</p>
@@ -61,10 +61,10 @@
     <div class="alert alert-info note callout" role="alert">
         <strong>{{ T "note" }}</strong>
         {{ $releaseBinarySectionNote := T "release_binary_section_note" }}
-        {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-changelog-url>" (replace $currentVersion "v" "") }}    
+        {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-changelog-url>" (replace $currentVersion "v" "") }}
         {{ $releaseBinarySectionNote = replace $releaseBinarySectionNote "<current-version>" $currentVersion }}
         {{ $releaseBinarySectionNote | markdownify }}
-    </div>    
+    </div>
     <details>
         <summary>{{ T "release_binary_options" }}</summary>
         <div class="text-center w-100">
@@ -137,7 +137,7 @@
                     </td>
                     <td>
                         <span class="icon">
-                            <i class="fa fa-copy"></i>
+                            <i class="fa-solid fa-copy"></i>
                         </span>
                         <span title="{{ T "release_binary_copy_link_tooltip" }}">
                             <a class="release-binary-copy" href="{{$BinaryLink}}">{{$LinkText}}</a>

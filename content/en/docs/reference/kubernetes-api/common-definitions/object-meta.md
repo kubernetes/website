@@ -63,10 +63,14 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
 
 - **finalizers** ([]string)
 
+  *Set: unique values will be kept during a merge*
+  
   Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
 
 - **managedFields** ([]ManagedFieldsEntry)
 
+  *Atomic: will be replaced during a merge*
+  
   ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
 
   <a name="ManagedFieldsEntry"></a>
@@ -113,6 +117,8 @@ ObjectMeta is metadata that all persisted resources must have, which includes al
 - **ownerReferences** ([]OwnerReference)
 
   *Patch strategy: merge on key `uid`*
+  
+  *Map: unique values on key uid will be kept during a merge*
   
   List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
 

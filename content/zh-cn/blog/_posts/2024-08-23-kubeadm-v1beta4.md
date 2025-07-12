@@ -36,7 +36,7 @@ I'll explain about the kubeadm v1beta4 configuration format,
 and how to migrate from v1beta3 to v1beta4.
 
 You can read the reference for the v1beta4 configuration format:
-[kubeadm Configuration (v1beta4)]((/docs/reference/config-api/kubeadm-config.v1beta4/)).
+[kubeadm Configuration (v1beta4)](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
 在本文中，我将介绍关键的变更；我将解释 kubeadm v1beta4 配置格式，以及如何从 v1beta3 迁移到 v1beta4。
 

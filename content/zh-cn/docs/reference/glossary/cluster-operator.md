@@ -37,7 +37,7 @@ Their primary responsibility is keeping a cluster up and running, which may invo
 
 {{< note >}}
 <!--			
-**NOTE:** Cluster operators are different from the [Operator pattern](https://www.openshift.com/learn/topics/operators) that extends the Kubernetes API.
+**NOTE:** Cluster operators are different from the [Operator pattern](/docs/concepts/extend-kubernetes/operator/) that extends the Kubernetes API.
 -->
-**注意：** 集群操作者不同于[操作者模式（Operator Pattern）](https://www.openshift.com/learn/topics/operators)，操作者模式是用来扩展 Kubernetes API 的。
+**注意：** 集群操作者不同于[操作者模式（Operator Pattern）](/zh-cn/docs/concepts/extend-kubernetes/operator/)，操作者模式是用来扩展 Kubernetes API 的。
 {{< /note >}}

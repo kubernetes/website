@@ -56,17 +56,13 @@ presents a valid certificate signed by the cluster's certificate authority
 the username from the common name field in the 'subject' of the cert (e.g.,
 "/CN=bob"). From there, the role based access control (RBAC) sub-system would
 determine whether the user is authorized to perform a specific operation on a
-resource. For more details, refer to the normal users topic in
-[certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-for more details about this.
+resource.
 -->
 尽管无法通过 API 调用来添加普通用户，
 Kubernetes 仍然认为能够提供由集群的证书机构签名的合法证书的用户是通过身份认证的用户。
 基于这样的配置，Kubernetes 使用证书中的 'subject' 的通用名称（Common Name）字段
 （例如，"/CN=bob"）来确定用户名。
 接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对某资源执行特定的操作。
-进一步的细节可参阅[证书请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-下普通用户主题。
 
 <!--
 In contrast, service accounts are users managed by the Kubernetes API. They are
@@ -352,7 +348,23 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 {{< /note >}}
 
 <!--
-# this apiVersion is relevant as of Kubernetes 1.9
+```yaml
+apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: default
+spec:
+  replicas: 3
+  template:
+    metadata:
+    # ...
+    spec:
+      serviceAccountName: bob-the-bot
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+```
 -->
 ```yaml
 apiVersion: apps/v1 # 此 apiVersion 从 Kubernetes 1.9 开始可用
@@ -574,7 +586,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate. Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
-| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is RS256. Allowed values are: RS256, RS384, RS512, ES256, ES384, ES512, PS256, PS384, PS512. Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1. | `RS512` | No |
 -->
 
 | 参数 | 描述 | 示例 | 必需？ |
@@ -587,7 +599,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | 添加到组申领的前缀，用来避免与现有用户组名（如：`system:` 组）发生冲突。例如，此标志值为 `oidc:` 时，所得到的用户组名形如 `oidc:engineering` 和 `oidc:infra`。 | `oidc:` | 否 |
 | `--oidc-required-claim` | 取值为一个 key=value 偶对，意为 ID 令牌中必须存在的申领。如果设置了此标志，则 ID 令牌会被检查以确定是否包含取值匹配的申领。此标志可多次重复，以指定多个申领。 | `claim=value` | 否 |
 | `--oidc-ca-file` | 指向一个 CA 证书的路径，该 CA 负责对你的身份服务的 Web 证书提供签名。默认值为宿主系统的根 CA。 | `/etc/kubernetes/ssl/kc-ca.pem` | 否 |
-| `--oidc-signing-algs` | 采纳的签名算法。默认为 "RS256"。 | `RS512` | 否 |
+| `--oidc-signing-algs` | 采纳的签名算法。默认为 "RS256"。可选值为：RS256、RS384、RS512、ES256、ES384、ES512、PS256、PS384、PS512。值由 RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1 定义。| `RS512` | 否 |
 
 <!--
 ##### Authentication configuration from a file {#using-authentication-configuration}
@@ -747,7 +759,9 @@ jwt:
       # 1.  If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
       #     username.expression or extra[*].valueExpression or claimValidationRules[*].expression.
       #     An example claim validation rule expression that matches the validation automatically
-      #     applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.
+      #     applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'.
+      #     By explicitly comparing the value to true, we let type-checking see the result will be a boolean, and
+      #     to make sure a non-boolean email_verified claim will be caught at runtime.
       # 2.  If the username asserted based on username.expression is the empty string, the authentication
       #     request will fail.
       expression: 'claims.username + ":external-user"'
@@ -771,6 +785,12 @@ jwt:
       expression: 'claims.sub'
     # extra attributes to be added to the UserInfo object. Keys must be domain-prefix path and must be unique.
     extra:
+      # key is a string to use as the extra attribute key.
+      # key must be a domain-prefix path (e.g. example.org/foo). All characters before the first "/" must be a valid
+      # subdomain as defined by RFC 1123. All characters trailing the first "/" must
+      # be valid HTTP Path characters as defined by RFC 3986.
+      # k8s.io, kubernetes.io and their subdomains are reserved for Kubernetes use and cannot be used.
+      # key must be lowercase and unique across all extra attributes.
     - key: 'example.com/tenant'
       # valueExpression is a CEL expression that evaluates to a string or a list of strings.
       valueExpression: 'claims.tenant'
@@ -846,7 +866,9 @@ jwt:
       # 1.  如果 username.expression 使用 “claims.email”，则必须在 username.expression
       #     或 extra[*].valueExpression 或 ClaimValidationRules[*].expression 中使用 “claims.email_verified”。
       #     与 username.claim 设置为 “email” 时自动应用的验证相匹配的示例声明验证规则表达式是
-      #     “claims.?email_verified.orValue(true)”。
+      #     “claims.?email_verified.orValue(true) == true”。
+      #     通过显式地将该值与 true 进行比较，可以让类型检查器识别出结果是布尔值，
+      #     并确保在运行时能够识别出任何非布尔类型的 email_verified 声明。
       # 2.  如果根据 username.expression 断言的用户名是空字符串，则身份认证请求将失败。
       expression: 'claims.username + ":external-user"'
     # groups 代表 groups 属性的一个选项。
@@ -869,6 +891,12 @@ jwt:
       expression: 'claims.sub'
     # 要添加到 UserInfo 对象的其他属性，键必须是域前缀路径并且必须是唯一的。
     extra:
+      # key 是用作额外属性键的字符串。
+      # key 必须是域名前缀路径（例如 example.org/foo）。
+      # 第一个 "/" 之前的所有字符必须是 RFC 1123 定义的有效子域名。
+      # 第一个 "/" 之后的所有字符必须是 RFC 3986 定义的有效 HTTP 路径字符。
+      # k8s.io, kubernetes.io 及其子域名保留供 Kubernetes 使用，不能使用。
+      # key 必须是小写，并且在所有额外属性中唯一。
     - key: 'example.com/tenant'
       # valueExpression 是一个计算结果为字符串或字符串列表的 CEL 表达式。
       valueExpression: 'claims.tenant'
@@ -877,7 +905,7 @@ jwt:
     # expression 是一个计算结果为布尔值的 CEL 表达式。
     # 所有表达式的计算结果必须为 true，用户才有效。
   - expression: "!user.username.startsWith('system:')"
-    # Message 自定义验证失败时在 API 服务器日志中看到的错误消息。
+    # message 是自定义验证失败时在 API 服务器日志中看到的错误消息。
     message: 'username cannot used reserved system: prefix'
   - expression: "user.groups.all(group, !group.startsWith('system:'))"
     message: 'groups cannot used reserved system: prefix'
@@ -931,7 +959,7 @@ jwt:
 
   Here are examples of the `AuthenticationConfiguration` with different token payloads.
   -->
-  要了解更多信息，请参阅[CEL 文档](/docs/reference/using-api/cel/)。
+  要了解更多信息，请参阅 [CEL 文档](/zh-cn/docs/reference/using-api/cel/)。
 
   以下是具有不同令牌有效负载的 “AuthenticationConfiguration” 示例。
 
@@ -939,8 +967,30 @@ jwt:
   {{< tabs name="example_configuration" >}}
   {{% tab name="Valid token" %}}
   <!--
-  # the expression will evaluate to true, so validation will succeed.
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1beta1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimMappings:
+      username:
+        expression: 'claims.username + ":external-user"'
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+  userValidationRules:
+  - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+      message: 'username cannot used reserved system: prefix'
+  ```
   -->
+
   ```yaml
   apiVersion: apiserver.config.k8s.io/v1beta1
   kind: AuthenticationConfiguration
@@ -1010,8 +1060,32 @@ jwt:
   {{% /tab %}}
   {{% tab name="Fails claim validation" %}}
   <!--
-  # the token below does not have this claim, so validation will fail.
-  # the expression will evaluate to true, so validation will succeed.
+  ```yaml
+   apiVersion: apiserver.config.k8s.io/v1beta1
+   kind: AuthenticationConfiguration
+   jwt:
+   - issuer:
+        url: https://example.com
+        audiences:
+        - my-app
+   claimValidationRules:
+   - expression: 'claims.hd == "example.com"' # the token below does not have this claim, so validation will fail.
+        message: the hd claim must be set to example.com
+   claimMappings:
+        username:
+          expression: 'claims.username + ":external-user"'
+        groups:
+          expression: 'claims.roles.split(",")'
+        uid:
+          expression: 'claims.sub'
+        extra:
+        - key: 'example.com/tenant'
+          valueExpression: 'claims.tenant'
+   userValidationRules:
+   - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+        message: 'username cannot used reserved system: prefix'
+  ```
+
   -->
   ```yaml
    apiVersion: apiserver.config.k8s.io/v1beta1
@@ -1073,9 +1147,33 @@ jwt:
   {{% tab name="Fails user validation" %}}
 
   <!--
-  # this will prefix the username with "system:" and will fail user validation.
-  # the username will be system:foo and expression will evaluate to false, so validation will fail.
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1beta1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimValidationRules:
+    - expression: 'claims.hd == "example.com"'
+      message: the hd claim must be set to example.com
+    claimMappings:
+      username:
+        expression: '"system:" + claims.username' # this will prefix the username with "system:" and will fail user validation.
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+    userValidationRules:
+    - expression: "!user.username.startsWith('system:')" # the username will be system:foo and expression will evaluate to false, so validation will fail.
+      message: 'username cannot used reserved system: prefix'
+  ```
   -->
+
   ```yaml
   apiVersion: apiserver.config.k8s.io/v1beta1
   kind: AuthenticationConfiguration
@@ -1901,13 +1999,12 @@ that grant access to the `*` user or `*` group do not include anonymous users.
 
 <!--
 The `AuthenticationConfiguration` can be used to configure the anonymous
-authenticator. To enable configuring anonymous auth via the config file you need
-enable the `AnonymousAuthConfigurableEndpoints` feature gate. When this feature
-gate is enabled you cannot set the `--anonymous-auth` flag.
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` flag.
 -->
 `AuthenticationConfiguration` 可用于配置匿名身份认证模块。
-要通过配置文件启用匿名身份认证配置，你需要启用 `AnonymousAuthConfigurableEndpoints` 特性门控。
-当此特性门控被启用时，你不能设置 `--anonymous-auth` 标志。
+如果你在 `AuthenticationConfiguration` 文件中设置了 anonymous 字段，
+那么你不能设置 `--anonymous-auth` 标志。
 
 <!--
 The main advantage of configuring anonymous authenticator using the authentication
@@ -2132,6 +2229,19 @@ for UIDs, a user should be granted the following role:
 附加字段会被作为 `userextras` 资源的子资源来执行权限评估。
 如果要允许用户为附加字段 “scopes” 和 UID 设置伪装头部，该用户需要被授予以下角色：
 
+<!--
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: scopes-and-uid-impersonator
+rules:
+# Can set "Impersonate-Extra-scopes" header and the "Impersonate-Uid" header.
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras/scopes", "uids"]
+  verbs: ["impersonate"]
+```
+-->
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -2150,6 +2260,38 @@ of `resourceNames` a resource can take.
 -->
 你也可以通过约束资源可能对应的 `resourceNames` 限制伪装头部的取值：
 
+<!--
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: limited-impersonator
+rules:
+# Can impersonate the user "jane.doe@example.com"
+- apiGroups: [""]
+  resources: ["users"]
+  verbs: ["impersonate"]
+  resourceNames: ["jane.doe@example.com"]
+
+# Can impersonate the groups "developers" and "admins"
+- apiGroups: [""]
+  resources: ["groups"]
+  verbs: ["impersonate"]
+  resourceNames: ["developers","admins"]
+
+# Can impersonate the extras field "scopes" with the values "view" and "development"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras/scopes"]
+  verbs: ["impersonate"]
+  resourceNames: ["view", "development"]
+
+# Can impersonate the uid "06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["uids"]
+  verbs: ["impersonate"]
+  resourceNames: ["06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"]
+```
+-->
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -2574,6 +2716,17 @@ the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
 `./bin/example-client-go-exec-plugin`，则要执行的可执行文件为
 `/home/jane/bin/example-client-go-exec-plugin`。
 
+<!--
+```yaml
+- name: my-user
+  user:
+    exec:
+      # Path relative to the directory of the kubeconfig
+      command: "./bin/example-client-go-exec-plugin"
+      apiVersion: "client.authentication.k8s.io/v1"
+      interactiveMode: Never
+```
+-->
 ```yaml
 - name: my-user
   user:
@@ -2613,7 +2766,6 @@ to run successfully) is declared via the `user.exec.interactiveMode` field in th
 below for valid values). The `user.exec.interactiveMode` field is optional in `client.authentication.k8s.io/v1beta1`
 and required in `client.authentication.k8s.io/v1`.
 -->
-
 在交互式会话（即，某终端）中运行时，`stdin` 是直接暴露给插件使用的。
 插件应该使用来自 `KUBERNETES_EXEC_INFO` 环境变量的 `ExecCredential`
 输入对象中的 `spec.interactive` 字段来确定是否提供了 `stdin`。
@@ -2643,7 +2795,8 @@ and required in `client.authentication.k8s.io/v1`.
 To use bearer token credentials, the plugin returns a token in the status of the
 [`ExecCredential`](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 -->
-与使用持有者令牌凭据，插件在 [`ExecCredential`](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
+要使用持有者令牌凭据，此插件将在
+[`ExecCredential`](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 的状态中返回一个令牌：
 
 {{< tabs name="exec_plugin_ExecCredential_example_1" >}}
@@ -3035,8 +3188,11 @@ You can only make `SelfSubjectReview` requests if:
 ## {{% heading "whatsnext" %}}
 
 <!--
+* To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 -->
+* 要了解为用户颁发证书的有关信息，
+  阅读[使用 CertificateSigningRequest 为 Kubernetes API 客户端颁发证书](/zh-cn/docs/tasks/tls/certificate-issue-client-csr/)。
 * 阅读[客户端认证参考文档（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)。
 * 阅读[客户端认证参考文档（v1）](/zh-cn/docs/reference/config-api/client-authentication.v1/)。

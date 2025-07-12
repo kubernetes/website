@@ -174,7 +174,7 @@ SIG Docs активно принимает правки и дополнения 
 
 ### Файлы OWNERS и вступительная часть
 
-Проект Kubernetes использует инструмент автоматизации под названием prow, чтобы автоматизировать процесс, связанный с ишью и пулреквестами на GitHub. [Репозиторий сайта Kubernetes](https://github.com/kubernetes/website) использует два [плагина prow](https://github.com/kubernetes/test-infra/tree/master/prow/plugins):
+Проект Kubernetes использует инструмент автоматизации под названием prow, чтобы автоматизировать процесс, связанный с ишью и пулреквестами на GitHub. [Репозиторий сайта Kubernetes](https://github.com/kubernetes/website) использует два [плагина prow](https://github.com/kubernetes-sigs/prow/tree/main/pkg/plugins):
 
 - blunderbuss
 - approve

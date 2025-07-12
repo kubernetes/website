@@ -501,7 +501,7 @@ class zoneC cluster;
 예시 구성은 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -558,7 +558,7 @@ defaultConstraints:
 `defaultConstraints` 를 비워두어 기본값을 비활성화할 수 있다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:

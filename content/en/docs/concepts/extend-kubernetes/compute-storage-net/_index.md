@@ -35,7 +35,7 @@ fabric that links Pods together.
 
 * [Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 
-  A network plugin allow Kubernetes to work with different networking topologies and technologies.
+  Network plugins allow Kubernetes to work with different networking topologies and technologies.
   Your Kubernetes cluster needs a _network plugin_ in order to have a working Pod network
   and to support other aspects of the Kubernetes network model.
 

@@ -18,4 +18,4 @@ spec:
     spec:
       containers:
       - name: php-redis
-        image: gcr.io/google_samples/gb-frontend:v3
+        image: us-docker.pkg.dev/google-samples/containers/gke/gb-frontend:v5

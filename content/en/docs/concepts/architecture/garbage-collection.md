@@ -82,21 +82,26 @@ owner object:
 * The object remains visible through the Kubernetes API until the deletion
   process is complete.
 
-After the owner object enters the deletion in progress state, the controller
-deletes the dependents. After deleting all the dependent objects, the controller
-deletes the owner object. At this point, the object is no longer visible in the
+After the owner object enters the *deletion in progress* state, the controller
+deletes dependents it knows about. After deleting all the dependent objects it knows about,
+the controller deletes the owner object. At this point, the object is no longer visible in the
 Kubernetes API.
 
 During foreground cascading deletion, the only dependents that block owner
-deletion are those that have the `ownerReference.blockOwnerDeletion=true` field.
+deletion are those that have the `ownerReference.blockOwnerDeletion=true` field
+and are in the garbage collection controller cache. The garbage collection controller
+cache may not contain objects whose resource type cannot be listed / watched successfully,
+or objects that are created concurrent with deletion of an owner object.
 See [Use foreground cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)
 to learn more.
 
 ### Background cascading deletion {#background-deletion}
 
 In background cascading deletion, the Kubernetes API server deletes the owner
-object immediately and the controller cleans up the dependent objects in
-the background. By default, Kubernetes uses background cascading deletion unless
+object immediately and the garbage collector controller (custom or default)
+cleans up the dependent objects in the background.
+If a finalizer exists, it ensures that objects are not deleted until all necessary clean-up tasks are completed.
+By default, Kubernetes uses background cascading deletion unless
 you manually use foreground deletion or choose to orphan the dependent objects.
 
 See [Use background cascading deletion](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)
@@ -111,7 +116,7 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 ## Garbage collection of unused containers and images {#containers-images}
 
 The {{<glossary_tooltip text="kubelet" term_id="kubelet">}} performs garbage
-collection on unused images every two minutes and on unused containers every
+collection on unused images every five minutes and on unused containers every
 minute. You should avoid using external garbage collection tools, as these can
 break the kubelet behavior and remove containers that should exist.
 
@@ -144,21 +149,15 @@ until disk usage reaches the `LowThresholdPercent` value.
 As a beta feature, you can specify the maximum time a local image can be unused for,
 regardless of disk usage. This is a kubelet setting that you configure for each node.
 
-To configure the setting, enable the `ImageMaximumGCAge`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kubelet,
-and also set a value for the `imageMaximumGCAge` field in the kubelet configuration file.
+To configure the setting, you need to set a value for the `imageMaximumGCAge`
+field in the kubelet configuration file.
 
-The value is specified as a Kubernetes _duration_; 
-Valid time units for the `imageMaximumGCAge` field in the kubelet configuration file are:
-- "ns" for nanoseconds
-- "us" or "µs" for microseconds
-- "ms" for milliseconds
-- "s" for seconds
-- "m" for minutes
-- "h" for hours
+The value is specified as a Kubernetes {{< glossary_tooltip text="duration" term_id="duration" >}}.
+See [duration](/docs/reference/glossary/?all=true#term-duration) in the glossary
+for more details.
 
 For example, you can set the configuration field to `12h45m`,
-which means 12 hours and 45 minutes. 
+which means 12 hours and 45 minutes.
 
 {{< note >}}
 This feature does not track image usage across kubelet restarts. If the kubelet

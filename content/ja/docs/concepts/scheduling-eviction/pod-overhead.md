@@ -8,11 +8,7 @@ weight: 30
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-
 PodをNode上で実行する時に、Pod自身は大量のシステムリソースを消費します。これらのリソースは、Pod内のコンテナ(群)を実行するために必要なリソースとして追加されます。Podのオーバーヘッドは、コンテナの要求と制限に加えて、Podのインフラストラクチャで消費されるリソースを計算するための機能です。
-
-
-
 
 <!-- body -->
 
@@ -20,7 +16,7 @@ Kubernetesでは、Podの[RuntimeClass](/docs/concepts/containers/runtime-class/
 
 Podのオーバーヘッドを有効にした場合、Podのスケジューリング時にコンテナのリソース要求の合計に加えて、オーバーヘッドも考慮されます。同様に、Kubeletは、Podのcgroupのサイズ決定時およびPodの退役の順位付け時に、Podのオーバーヘッドを含めます。
 
-## Podのオーバーヘッドの有効化　{#set-up}
+## Podのオーバーヘッドの有効化 {#set-up}
 
 クラスター全体で`PodOverhead`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっていること（1.18時点ではデフォルトでオンになっています）と、`overhead`フィールドを定義する`RuntimeClass`が利用されていることを確認する必要があります。
 

@@ -9,11 +9,11 @@ Generate all static Pod manifest files necessary to establish the control plane
 ### 概要
 
 <!--
-This command is not meant to be run on its own. See list of available subcommands.
+Generate all static Pod manifest files necessary to establish the control plane
 -->
-此命令并非设计用来单独运行。请参阅可用子命令列表。
+生成建立控制平面所需的所有静态 Pod 的清单文件
 
-```
+```shell
 kubeadm init phase control-plane [flags]
 ```
 
@@ -22,7 +22,7 @@ kubeadm init phase control-plane [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -34,10 +34,12 @@ kubeadm init phase control-plane [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!-- 
-<p>help for control-plane</p> 
+help for control-plane
 -->
-<p>control-plane 操作的帮助命令。</p>
+control-plane 操作的帮助命令。
+</p>
 </td>
 </tr>
 
@@ -49,7 +51,7 @@ kubeadm init phase control-plane [flags]
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -61,11 +63,12 @@ kubeadm init phase control-plane [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!-- 
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>  
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
-</td>
+[实验] 到'真实'主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

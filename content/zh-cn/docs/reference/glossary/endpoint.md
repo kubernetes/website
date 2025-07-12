@@ -4,7 +4,7 @@ id: endpoints
 date: 2020-04-23
 full_link: 
 short_description: >
-  端点负责记录与服务（Service）的选择器相匹配的 Pod 的 IP 地址。
+  Service 的一个端点是实现该服务的 Pod 之一（或外部服务器）。
 
 aka:
 tags:
@@ -16,7 +16,7 @@ id: endpoints
 date: 2020-04-23
 full_link: 
 short_description: >
-  Endpoints track the IP addresses of Pods with matching Service selectors.
+  An endpoint of a Service is one of the Pods (or external servers) that implements the Service.
 
 aka:
 tags:
@@ -24,18 +24,27 @@ tags:
 -->
 
 <!--
- Endpoints track the IP addresses of Pods with matching  {{< glossary_tooltip text="selectors" term_id="selector" >}}.
+ An endpoint of a {{< glossary_tooltip text="Service" term_id="service" >}} is one of the {{< glossary_tooltip text="Pods" term_id="pod" >}} (or external servers) that implements the Service.
 -->
-端点负责记录与服务的{{< glossary_tooltip text="选择器" term_id="selector" >}}相匹配的 Pod 的 IP 地址。
+一个 {{< glossary_tooltip text="Service" term_id="service" >}}
+的端点是实现该 Service 的 {{< glossary_tooltip text="Pod 之一" term_id="pod" >}}
+（或外部服务器）。
 
 <!--more-->
 
 <!--
-Endpoints can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
+For Services with {{< glossary_tooltip text="selectors" term_id="selector" >}},
+the EndpointSlice controller will automatically create one or more {{<
+glossary_tooltip text="EndpointSlices" term_id="endpoint-slice" >}} giving the
+IP addresses of the selected endpoint Pods.
 -->
-端点可以手动配置到{{< glossary_tooltip text="服务（Service）" term_id="service" >}}上，而不必指定选择器标识。
+对于带有{{< glossary_tooltip text="选择器" term_id="selector" >}}的 Service，
+EndpointSlice 控制器将自动创建一个或多个
+{{< glossary_tooltip text="EndpointSlices" term_id="endpoint-slice" >}}，
+提供选定端点 Pod 的 IP 地址。
 
 <!--
-The {{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} resource provides a scalable and extensible alternative to Endpoints.
+EndpointSlices can also be created manually to indicate the endpoints of
+Services that have no selector specified.
 -->
-{{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} 提供了一种可伸缩、可扩展的替代方案。
+EndpointSlices 也可以手动创建，以指示没有指定选择器的服务的端点。

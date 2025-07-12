@@ -17,6 +17,22 @@ Upgrade your Kubernetes cluster to the specified version
 
 Upgrade your Kubernetes cluster to the specified version
 
+The "apply [version]" command executes the following phases:
+```
+preflight        Run preflight checks before upgrade
+control-plane    Upgrade the control plane
+upload-config    Upload the kubeadm and kubelet configurations to ConfigMaps
+  /kubeadm         Upload the kubeadm ClusterConfiguration to a ConfigMap
+  /kubelet         Upload the kubelet configuration to a ConfigMap
+kubelet-config   Upgrade the kubelet configuration for this node
+bootstrap-token  Configures bootstrap token and cluster-info RBAC rules
+addon            Upgrade the default kubeadm addons
+  /coredns         Upgrade the CoreDNS addon
+  /kube-proxy      Upgrade the kube-proxy addon
+post-upgrade     Run post upgrade tasks
+```
+
+
 ```
 kubeadm upgrade apply [version]
 ```
@@ -112,6 +128,13 @@ kubeadm upgrade apply [version]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Specifies whether the configuration file that will be used in the upgrade should be printed or not.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--skip-phases strings</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>List of phases to be skipped</p></td>
 </tr>
 
 <tr>

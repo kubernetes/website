@@ -149,16 +149,6 @@ $( document ).ready(function() {
         }
       });
     });
-
-    // Shows permalink when term name is hovered over
-    $(".term-name").each(function() {
-      var permalink = $($(this).parent().find(".permalink")[0]);
-      $(this).mouseenter(function(){
-        permalink.removeClass("hide");
-      }).mouseleave(function(){
-        permalink.addClass("hide");
-      });
-    });
   };
 
   function initActiveTags() {

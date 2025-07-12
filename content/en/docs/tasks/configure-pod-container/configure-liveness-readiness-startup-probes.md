@@ -21,9 +21,12 @@ as for readiness probes, but with a higher failureThreshold. This ensures that t
 is observed as not-ready for some period of time before it is hard killed.
 
 The kubelet uses readiness probes to know when a container is ready to start
-accepting traffic. A Pod is considered ready when all of its containers are ready.
-One use of this signal is to control which Pods are used as backends for Services.
-When a Pod is not ready, it is removed from Service load balancers.
+accepting traffic. One use of this signal is to control which Pods are used as
+backends for Services. A Pod is considered ready when its `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+is true. When a Pod is not ready, it is removed from Service load balancers.
+A Pod's `Ready` condition is false when its Node's `Ready` condition is not true,
+when one of the Pod's `readinessGates` is false, or when at least one of its containers
+is not ready.
 
 The kubelet uses startup probes to know when a container application has started.
 If such a probe is configured, liveness and readiness probes do not start until
@@ -57,7 +60,7 @@ broken states, and cannot recover except by being restarted. Kubernetes provides
 liveness probes to detect and remedy such situations.
 
 In this exercise, you create a Pod that runs a container based on the
-`registry.k8s.io/busybox` image. Here is the configuration file for the Pod:
+`registry.k8s.io/busybox:1.27.2` image. Here is the configuration file for the Pod:
 
 {{% code_sample file="pods/probe/exec-liveness.yaml" %}}
 
@@ -98,8 +101,8 @@ The output indicates that no liveness probes have failed yet:
 Type    Reason     Age   From               Message
 ----    ------     ----  ----               -------
 Normal  Scheduled  11s   default-scheduler  Successfully assigned default/liveness-exec to node01
-Normal  Pulling    9s    kubelet, node01    Pulling image "registry.k8s.io/busybox"
-Normal  Pulled     7s    kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
+Normal  Pulling    9s    kubelet, node01    Pulling image "registry.k8s.io/busybox:1.27.2"
+Normal  Pulled     7s    kubelet, node01    Successfully pulled image "registry.k8s.io/busybox:1.27.2"
 Normal  Created    7s    kubelet, node01    Created container liveness
 Normal  Started    7s    kubelet, node01    Started container liveness
 ```
@@ -117,8 +120,8 @@ probes have failed, and the failed containers have been killed and recreated.
 Type     Reason     Age                From               Message
 ----     ------     ----               ----               -------
 Normal   Scheduled  57s                default-scheduler  Successfully assigned default/liveness-exec to node01
-Normal   Pulling    55s                kubelet, node01    Pulling image "registry.k8s.io/busybox"
-Normal   Pulled     53s                kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
+Normal   Pulling    55s                kubelet, node01    Pulling image "registry.k8s.io/busybox:1.27.2"
+Normal   Pulled     53s                kubelet, node01    Successfully pulled image "registry.k8s.io/busybox:1.27.2"
 Normal   Created    53s                kubelet, node01    Created container liveness
 Normal   Started    53s                kubelet, node01    Started container liveness
 Warning  Unhealthy  10s (x3 over 20s)  kubelet, node01    Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
@@ -399,6 +402,8 @@ liveness and readiness checks:
   ignored. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
+  While a container is not Ready, the `ReadinessProbe` may be executed at times other than
+  the configured `periodSeconds` interval. This is to make the Pod ready faster.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
   Defaults to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be considered successful
@@ -490,9 +495,9 @@ startupProbe:
 ```
 
 {{< note >}}
-When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect   
+When the kubelet probes a Pod using HTTP, it only follows redirects if the redirect
 is to the same host. If the kubelet receives 11 or more redirects during probing, the probe is considered successful
-and a related Event is created:  
+and a related Event is created:
 
 ```none
 Events:
@@ -503,7 +508,7 @@ Events:
   Normal   Pulled        24m                     kubelet            Successfully pulled image "docker.io/kennethreitz/httpbin" in 5m12.402735213s
   Normal   Created       24m                     kubelet            Created container httpbin
   Normal   Started       24m                     kubelet            Started container httpbin
- Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects  
+ Warning  ProbeWarning  4m11s (x1197 over 24m)  kubelet            Readiness probe warning: Probe terminated redirects
 ```
 
 If the kubelet receives a redirect where the hostname is different from the request, the outcome of the probe is treated as successful and kubelet creates an event to report the redirect failure.

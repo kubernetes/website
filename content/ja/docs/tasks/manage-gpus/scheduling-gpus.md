@@ -54,7 +54,7 @@ spec:
 
 ### AMDのGPUデバイスプラグインをデプロイする {#deploying-amd-gpu-device-plugin}
 
-[AMD公式のGPUデバイスプラグイン](https://github.com/RadeonOpenCompute/k8s-device-plugin)には以下の要件があります。
+[AMD公式のGPUデバイスプラグイン](https://github.com/ROCm/k8s-device-plugin)には以下の要件があります。
 
 - Kubernetesのノードに、AMDのGPUのLinuxドライバーがあらかじめインストール済みでなければならない。
 
@@ -64,7 +64,7 @@ spec:
 kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/v1.10/k8s-ds-amdgpu-dp.yaml
 ```
 
-このサードパーティーのデバイスプラグインに関する問題は、[RadeonOpenCompute/k8s-device-plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)で報告できます。
+このサードパーティーのデバイスプラグインに関する問題は、[RadeonOpenCompute/k8s-device-plugin](https://github.com/ROCm/k8s-device-plugin)で報告できます。
 
 ### NVIDIAのGPUデバイスプラグインをデプロイする {#deploying-nvidia-gpu-device-plugin}
 
@@ -123,7 +123,7 @@ kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 
 ## 自動的なNodeラベルの付加 {#node-labeller}
 
-AMDのGPUデバイスを使用している場合、[Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller)をデプロイできます。Node Labellerは{{< glossary_tooltip text="コントローラー" term_id="controller" >}}の1種で、GPUデバイスのプロパティを持つノードに自動的にラベルを付けてくれます。
+AMDのGPUデバイスを使用している場合、[Node Labeller](https://github.com/ROCm/k8s-device-plugin/tree/master/cmd/k8s-node-labeller)をデプロイできます。Node Labellerは{{< glossary_tooltip text="コントローラー" term_id="controller" >}}の1種で、GPUデバイスのプロパティを持つノードに自動的にラベルを付けてくれます。
 
 現在は、このコントローラーは以下のプロパティに基づいてラベルを追加できます。
 

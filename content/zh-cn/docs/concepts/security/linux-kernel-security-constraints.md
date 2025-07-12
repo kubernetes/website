@@ -157,14 +157,16 @@ Kubernetes 还可以为 Pod 和容器设置 `allowPrivilegeEscalation`。当此�
 
 <!--
 To learn how to implement seccomp in Kubernetes, refer to
-[Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/).
+[Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/)
+or the [Seccomp node reference](/docs/reference/node/seccomp/)
 
 To learn more about seccomp, see
 [Seccomp BPF](https://www.kernel.org/doc/html/latest/userspace-api/seccomp_filter.html)
 in the Linux kernel documentation.
 -->
 要了解如何在 Kubernetes 中实现 seccomp，
-请参阅[使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)。
+请参阅[使用 seccomp 限制容器的系统调用](/zh-cn/docs/tutorials/security/seccomp/)或
+[Seccomp 节点参考](/zh-cn/docs/reference/node/seccomp/)。
 
 要了解 seccomp 的更多细节，请参阅 Linux 内核文档中的
 [Seccomp BPF](https://www.kernel.org/doc/html/latest/userspace-api/seccomp_filter.html)。
@@ -506,7 +508,9 @@ of support that you need. For instructions, refer to
 * [Learn how to use AppArmor](/docs/tutorials/security/apparmor/)
 * [Learn how to use seccomp](/docs/tutorials/security/seccomp/)
 * [Learn how to use SELinux](/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container)
+* [Seccomp Node Reference](/docs/reference/node/seccomp/)
 -->
 * [学习如何使用 AppArmor](/zh-cn/docs/tutorials/security/apparmor/)
 * [学习如何使用 seccomp](/zh-cn/docs/tutorials/security/seccomp/)
 * [学习如何使用 SELinux](/zh-cn/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container)
+* [Seccomp 节点参考](/zh-cn/docs/reference/node/seccomp/)

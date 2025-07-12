@@ -30,6 +30,9 @@ parts:
     - Probe
     - PodStatus
     - PodList
+  - name: Binding
+    group: ""
+    version: v1
   - name: PodTemplate
     group: ""
     version: v1
@@ -68,16 +71,16 @@ parts:
     version: v1
   - name: PodSchedulingContext
     group: resource.k8s.io
-    version: v1alpha2
+    version: v1alpha3
   - name: ResourceClaim
     group: resource.k8s.io
-    version: v1alpha2
+    version: v1alpha3
   - name: ResourceClaimTemplate
     group: resource.k8s.io
-    version: v1alpha2
-  - name: ResourceClass
+    version: v1alpha3
+  - name: ResourceSlice
     group: resource.k8s.io
-    version: v1alpha2
+    version: v1alpha3
 - name: Service Resources
   chapters:
   - name: Service
@@ -108,23 +111,6 @@ parts:
   - name: Secret
     group: ""
     version: v1
-  - name: Volume
-    key: io.k8s.api.core.v1.Volume
-    otherDefinitions:
-    - DownwardAPIVolumeFile
-    - KeyToPath
-  - name: PersistentVolumeClaim
-    group: ""
-    version: v1
-  - name: PersistentVolume
-    group: ""
-    version: v1
-  - name: StorageClass
-    group: storage.k8s.io
-    version: v1
-  - name: VolumeAttachment
-    group: storage.k8s.io
-    version: v1
   - name: CSIDriver
     group: storage.k8s.io
     version: v1
@@ -134,6 +120,29 @@ parts:
   - name: CSIStorageCapacity
     group: storage.k8s.io
     version: v1
+  - name: PersistentVolumeClaim
+    group: ""
+    version: v1
+  - name: PersistentVolume
+    group: ""
+    version: v1
+  - name: StorageClass
+    group: storage.k8s.io
+    version: v1
+  - name: StorageVersionMigration
+    group: storagemigration.k8s.io
+    version: v1alpha1
+  - name: Volume
+    key: io.k8s.api.core.v1.Volume
+    otherDefinitions:
+    - DownwardAPIVolumeFile
+    - KeyToPath
+  - name: VolumeAttachment
+    group: storage.k8s.io
+    version: v1
+  - name: VolumeAttributesClass
+    group: storage.k8s.io
+    version: v1beta1
 - name: Authentication Resources
   chapters:
   - name: ServiceAccount
@@ -182,6 +191,9 @@ parts:
     version: v1
 - name: Policy Resources
   chapters:
+  - name: FlowSchema
+    group: flowcontrol.apiserver.k8s.io
+    version: v1
   - name: LimitRange
     group: ""
     version: v1
@@ -194,9 +206,21 @@ parts:
   - name: PodDisruptionBudget
     group: policy
     version: v1
-  - name: IPAddress
-    group: networking.k8s.io
-    version: v1alpha1
+  - name: PriorityLevelConfiguration
+    group: flowcontrol.apiserver.k8s.io
+    version: v1
+  - name: ValidatingAdmissionPolicy
+    group: admissionregistration.k8s.io
+    version: v1
+    otherDefinitions:
+    - ValidatingAdmissionPolicyList
+    - ValidatingAdmissionPolicyBinding
+  - name: ValidatingAdmissionPolicyBinding
+    group: admissionregistration.k8s.io
+    version: v1
+    otherDefinitions:
+    - ValidatingAdmissionPolicy
+    - ValidatingAdmissionPolicyBindingList
 - name: Extend Resources
   chapters:
   - name: CustomResourceDefinition
@@ -207,53 +231,49 @@ parts:
     - JSONSchemaProps
     - CustomResourceDefinitionStatus
     - CustomResourceDefinitionList
+  - name: DeviceClass
+    group: resource.k8s.io
+    version: v1alpha3
   - name: MutatingWebhookConfiguration
     group: admissionregistration.k8s.io
     version: v1
   - name: ValidatingWebhookConfiguration
     group: admissionregistration.k8s.io
     version: v1
-  - name: ValidatingAdmissionPolicy
-    group: admissionregistration.k8s.io
-    version: v1beta1
     otherDefinitions:
-    - ValidatingAdmissionPolicyList
-    - ValidatingAdmissionPolicyBinding
+    - ValidatingWebhookConfigurationList
 - name: Cluster Resources
   chapters:
-  - name: Node
-    group: ""
+  - name: APIService
+    group: apiregistration.k8s.io
     version: v1
-  - name: Namespace
+  - name: ComponentStatus
     group: ""
     version: v1
   - name: Event
     group: events.k8s.io
     version: v1
-  - name: APIService
-    group: apiregistration.k8s.io
-    version: v1
+  - name: IPAddress
+    group: networking.k8s.io
+    version: v1beta1
   - name: Lease
     group: coordination.k8s.io
+    version: v1
+  - name: LeaseCandidate
+    group: coordination.k8s.io
+    version: v1alpha1
+  - name: Namespace
+    group: ""
+    version: v1
+  - name: Node
+    group: ""
     version: v1
   - name: RuntimeClass
     group: node.k8s.io
     version: v1
-  - name: FlowSchema
-    group: flowcontrol.apiserver.k8s.io
-    version: v1beta3
-  - name: PriorityLevelConfiguration
-    group: flowcontrol.apiserver.k8s.io
-    version: v1beta3
-  - name: Binding
-    group: ""
-    version: v1
-  - name: ComponentStatus
-    group: ""
-    version: v1
-  - name: ClusterCIDR
+  - name: ServiceCIDR
     group: networking.k8s.io
-    version: v1alpha1
+    version: v1beta1
 - name: Common Definitions
   chapters:
   - name: DeleteOptions

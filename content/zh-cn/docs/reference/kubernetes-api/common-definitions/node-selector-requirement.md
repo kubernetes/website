@@ -50,9 +50,13 @@ A node selector requirement is a selector that contains values, a key, and an op
 <!--
 - **values** ([]string)
 
+  *Atomic: will be replaced during a merge*
+
   An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 -->
 - **values** ([]string)
+
+  **原子性：将在合并期间被替换**
 
   一个由字符串值组成的数组。如果 operator 是 `In` 或 `NotIn`，则 values 数组不能为空。
   如果 operator 为 `Exists` 或 `DoesNotExist`，则 values 数组只能为空。
