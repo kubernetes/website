@@ -61,7 +61,7 @@ omawiają skalowanie i aktualizowanie Deploymentów.
 Na potrzeby pierwszej instalacji użyjesz aplikacji hello-node zapakowaną w kontener Docker-a,
 która korzysta z NGINXa i powtarza wszystkie wysłane do niej zapytania. (Jeśli jeszcze nie
 próbowałeś stworzyć aplikacji hello-node i uruchomić za pomocą kontenerów, możesz spróbować
-teraz, kierując się instrukcjami samouczka [samouczku Hello Minikube](/docs/tutorials/hello-minikube/).
+teraz, kierując się instrukcjami samouczka [samouczku Hello Minikube](/docs/tutorials/hello-minikube/).)
 
 Musisz mieć zainstalowane narzędzie kubectl. Jeśli potrzebujesz
 go zainstalować, odwiedź [install tools](/docs/tasks/tools/#kubectl).

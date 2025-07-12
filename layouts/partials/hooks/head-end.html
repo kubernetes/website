@@ -108,3 +108,7 @@
 {{- end -}}
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
+
+<!--for the splitter-->
+<!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
+<script src="/js/split-1.6.0.js" integrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
