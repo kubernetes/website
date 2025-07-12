@@ -16,7 +16,7 @@ of `type` other than
 [`ExternalName`](/docs/concepts/services-networking/service/#externalname).
 Each instance of kube-proxy watches the Kubernetes
 {{< glossary_tooltip term_id="control-plane" text="control plane" >}}
-for the addition and removal of Service and EndpointSlice
+for the addition and removal of Service and {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
 {{< glossary_tooltip term_id="object" text="objects" >}}. For each Service, kube-proxy
 calls appropriate APIs (depending on the kube-proxy mode) to configure
 the node to capture traffic to the Service's `clusterIP` and `port`,
