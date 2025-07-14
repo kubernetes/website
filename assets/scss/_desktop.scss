@@ -4,18 +4,6 @@ $video-section-height: 580px;
 
 @media screen and (min-width: 1024px) {
 
-  body:lang(fa) {
-    overflow-x: hidden;
-  }
-
-  table:dir(rtl) {
-    text-align: left;
-    direction: ltr;
-  }
-  
-  .breadcrumb-item + .breadcrumb-item::before {
-    float: right;
-  }
   .td-home {
     .header-hero {
       #vendorStrip {
@@ -46,9 +34,6 @@ $video-section-height: 580px;
         h3,
         p {
           text-align: left
-        }
-        p:dir(rtl) {
-          text-align: right
         }
 
         .image-wrapper {

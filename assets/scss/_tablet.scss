@@ -17,15 +17,6 @@ $video-section-height: 400px;
 @media screen and (min-width: 768px) {
   @import "size";
 
-  body:lang(fa) {
-    overflow-x: hidden;
-  }
-  
-  table:dir(rtl) {
-    text-align: left;
-    direction: ltr;
-  }
-  
   #hamburger {
     display: none;
   }
@@ -130,12 +121,6 @@ $video-section-height: 400px;
       display: block;
       float: right;
       text-align: left;
-      margin-right: 5%;
-    }
-    &:dir(rtl) > .light-text {
-      display: block;
-      float: right;
-      text-align: right;
       margin-right: 5%;
     }
   }
