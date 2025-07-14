@@ -1,5 +1,5 @@
 ---
-title: Feature Gates
+title: دروازه‌های ویژگی
 weight: 10
 content_type: concept
 card:

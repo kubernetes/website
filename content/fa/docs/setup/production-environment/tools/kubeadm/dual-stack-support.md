@@ -10,7 +10,7 @@ min-kubernetes-server-version: 1.21
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 خوشه Kubernetes شما شامل شبکه‌بندی [dual-stack](/docs/concepts/services-networking/dual-stack/) است، به این معنی که شبکه‌بندی cluster به شما امکان می‌دهد از هر دو خانواده آدرس استفاده کنید.
-در یک خوشه، صفحه کنترل می‌تواند هم یک آدرس IPv4 و هم یک آدرس IPv6 را به یک {{< glossary_tooltip text="Pod" term_id="pod" >}} یا یک {{< glossary_tooltip text="Service" term_id="service" >} اختصاص دهد.
+در یک خوشه، صفحه کنترل می‌تواند هم یک آدرس IPv4 و هم یک آدرس IPv6 را به یک {{< glossary_tooltip text="Pod" term_id="pod" >}} یا یک {{< glossary_tooltip text="Service" term_id="service" >}} اختصاص دهد.
 
 <!-- body -->
 

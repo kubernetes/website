@@ -35,13 +35,15 @@
 &#x202b;
 ### فارسی
 &#x202b;
-با تیم بومی سازی فارسی می‌توانید از طریق آدرس‌های زیر در ارتباط بود:
+با تیم بومی سازی فارسی می‌توان از طریق آدرس‌های زیر در ارتباط باشید:
 &#x202b;
 * محمدامین طاهری ([@xirehat](https://github.com/xirehat))
 &#x202b;
 * محمد زارعی ([@moh0ps](https://github.com/moh0ps))
 &#x202b;
 * به‌دین طالبی ([@behiuu](https://github.com/behiuu))
+&#x202b;
+* محمدرضا بهفر ([@mamrezb](https://github.com/mamrezb))
 &#x202b;
 * [کانال Slack](https://kubernetes.slack.com/messages/kubernetes-docs-fa)
 

@@ -1,15 +1,15 @@
 ---
-بررسی کنندگان:
+reviewers:
 - sig-api-machinery
 - sig-architecture
 - sig-cli
 - sig-cluster-lifecycle
 - sig-node
 - sig-release
-موضوع: سیاست اختلاف نسخه (Version Skew Policy)
-نوع: مستندات 
-توضیح: >
-حداکثر اختلاف نسخه (version skew) پشتیبانی‌شده بین اجزای مختلف Kubernetes.
+title: سیاست اختلاف نسخه (Version Skew Policy)
+type: docs
+description: >
+  حداکثر اختلاف نسخه (version skew) پشتیبانی‌شده بین اجزای مختلف Kubernetes.
 ---
 <div dir="rtl" style="text-align: right;">
 <!-- overview -->
@@ -56,7 +56,7 @@
 * `kubelet`پشتیبانی میشود در  **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**,
   **{{< skew currentVersionAddMinor -2 >}}**, و **{{< skew currentVersionAddMinor -3 >}}**
 
-{{< توجه داشته باشید >}}
+{{< note >}}
 اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد، این موضوع دامنهٔ نسخه‌های مجاز برای `kubelet` را محدود می‌کند.
 {{</ note >}}
 اگر نسخه skew بین 
@@ -79,9 +79,9 @@
 * `kube-proxy` پشتیبانی میشود در **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**,
   **{{< skew currentVersionAddMinor -2 >}}**, و **{{< skew currentVersionAddMinor -3 >}}**
 
-{{< توجه >}}
+{{< note >}}
 اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد، این موضوع دامنه نسخه‌های مجاز برای `kube-proxy` را محدود می‌کند.
-{{</ توجه >}}
+{{</ note >}}
 
 مثال:
 
@@ -103,9 +103,9 @@ but may be up to one minor version older (to allow live upgrades).
 * `kube-apiserver` در **{{< skew currentVersion >}}**
 * `kube-controller-manager`, `kube-scheduler`, و `cloud-controller-manager` در ایجا پشتیبانی میشود  **{{< skew currentVersion >}}** و **{{< skew currentVersionAddMinor -1 >}}**
 
-{{< توجه >}}
+{{< note >}}
 اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد و این اجزا بتوانند با هر نمونه kube-apiserver در کلاستر ارتباط برقرار کنند (مثلاً از طریق یک load balancer)، این موضوع دامنه نسخه‌های مجاز این اجزا را محدود می‌کند.
-{{< /توجه >}}
+{{< /note >}}
 
 مثال:
 
@@ -128,9 +128,9 @@ but may be up to one minor version older (to allow live upgrades).
 * `kube-apiserver` در نسخه **{{< skew currentVersion >}}**
 * `kubectl` در نسخه‌های **{{< skew currentVersionAddMinor 1 >}}**، **{{< skew currentVersion >}}** و **{{< skew currentVersionAddMinor -1 >}}**
 
-{{< مثال >}}
+{{< note >}}
 اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد، این موضوع نسخه‌های پشتیبانی شده kubectl را محدود می‌کند.
-{{< /مثال >}}
+{{< /note >}}
 
 مثال:
 
@@ -171,12 +171,12 @@ but may be up to one minor version older (to allow live upgrades).
 
 
 `kube-apiserver`   اپدیت کنید **{{< skew currentVersion >}}**  به نسخه 
-{{< توجه >}}
+{{< note >}}
 قوانین پروژه برای  [API deprecation](/docs/reference/using-api/deprecation-policy/) و
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 نیازمند این هست که `Kube-apiserver` در نسخه minor رد نشود در هنگام بروزرسانی، حتی در حالت یک کلاستر داریم 
-{{< /توجه >}}
+{{< /note >}}
 
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
 
@@ -197,23 +197,23 @@ require `kube-apiserver` to not skip minor versions when upgrading, even in sing
 * نمونه‌های `kube-apiserver` که `kubelet` با آن‌ها ارتباط برقرار می‌کند، در نسخه **{{< skew currentVersion >}}** هستند.
 
 اختیاری است که نمونه‌های `kubelet` را به نسخه **{{< skew currentVersion >}}** ارتقاء دهید
-(یا می‌توان آن‌ها را در نسخه‌های **{{< skew currentVersionAddMinor -1 >}}**، **{{< skew currentVersionAddMinor -2 >}}**، یا **{{< skew currentVersionAddMinor -3 >}**} باقی گذاشت).
+(یا می‌توان آن‌ها را در نسخه‌های **{{< skew currentVersionAddMinor -1 >}}**، **{{< skew currentVersionAddMinor -2 >}}**، یا **{{< skew currentVersionAddMinor -3 >}}** باقی گذاشت).
 
-{{< توجه >}}
+{{< note >}}
 Before performing a minor version `kubelet` upgrade, [drain](/docs/tasks/administer-cluster/safely-drain-node/) pods from that node.
 In-place minor version `kubelet` upgrades are not supported.
 
 قبل از انجام ارتقاء نسخه minor `kubelet`، پادهای آن نود را خالی کنید [drain](/docs/tasks/administer-cluster/safely-drain-node/).
 ارتقاء نسخه minor `kubelet` به صورت  (in-place) پشتیبانی نمی‌شود.
 
-{{</ توجه >}}
+{{</ note >}}
 
 
-{{< توجه >}}
+{{< note >}}
 
 اجرای یک کلاستر با نمونه‌های `kubelet` که به طور مداوم سه نسخه جزئی از `kube-apiserver` عقب‌تر هستند، به این معنی است که آن‌ها باید قبل از ارتقاء control plane به‌روزرسانی شوند.
 
-{{</ توجه >}}
+{{</ note >}}
 
 ### kube-proxy
 
@@ -225,6 +225,6 @@ In-place minor version `kubelet` upgrades are not supported.
 (یا می‌توان آن‌ها را در نسخه‌های **{{< skew currentVersionAddMinor -1 >}}**، **{{< skew currentVersionAddMinor -2 >}}**، یا **{{< skew currentVersionAddMinor -3 >}}** باقی گذاشت).
 
 
-{{< توجه >}}
+{{< note >}}
 اجرای یک خوشه با نمونه‌های `kube-proxy` که به‌طور مداوم سه نسخه جزئی از `kube-apiserver` عقب‌تر هستند، به این معنی است که آن‌ها باید قبل از ارتقاء کنترل پلین، به‌روزرسانی شوند.
-{{</ توجه >}}
+{{</ note >}}

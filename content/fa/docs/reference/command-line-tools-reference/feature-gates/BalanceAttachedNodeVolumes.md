@@ -12,7 +12,7 @@ stages:
     defaultValue: false
     fromVersion: "1.11"
     toVersion: "1.21"
-  - stage: depricated
+  - stage: deprecated
     defaultValue: false
     fromVersion: "1.22"
     toVersion: "1.22"

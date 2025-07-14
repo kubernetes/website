@@ -7,7 +7,7 @@ weight: 20
 card: 
   name: tutorials
   weight: 40
-  title: "Stateful Example: Wordpress with Persistent Volumes"
+  title: "مثال: استقرار وردپرس و MySQL با حجم های پایدار"
 ---
 
 <!-- overview -->

@@ -1,5 +1,5 @@
 ---
-title: Hello Minikube
+title: سلام Minikube
 content_type: tutorial
 weight: 5
 card:

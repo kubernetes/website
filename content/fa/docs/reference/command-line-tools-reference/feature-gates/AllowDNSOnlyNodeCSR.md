@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: depricated
+  - stage: deprecated
     defaultValue: false
     fromVersion: "1.31"
 ---

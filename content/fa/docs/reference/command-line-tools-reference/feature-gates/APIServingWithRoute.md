@@ -5,7 +5,7 @@ _build:
   list: never
   render: false
 stages:
-  - stage: aplgha 
+  - stage: alpha 
     defaultValue: false
     fromVersion: "1.30"
 ---

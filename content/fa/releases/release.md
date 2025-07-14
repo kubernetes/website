@@ -1,7 +1,7 @@
 ---
-عنوان: چرخه انتشار Kubernetes
-نوع: مستندات (docs)
-خودکار تولید شده: بله (auto_generated: true)
+title: چرخه انتشار Kubernetes
+type: docs
+auto_generated: true
 ---
 <!-- این محتوا به صورت خودکار تولید می‌شود از طریق https://github.com/kubernetes/website/blob/main/scripts/releng/update-release-info.sh -->
 

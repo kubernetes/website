@@ -7,11 +7,11 @@ _build:
   render: false
 
 stages:
-  - stage: alpgha 
+  - stage: alpha 
     defaultValue: false
     fromVersion: "1.6"
     toVersion: "1.10"
-  - stage: depricated
+  - stage: deprecated
     fromVersion: "1.11"
     toVersion: "1.11"
 

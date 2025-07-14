@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: aplgha 
+  - stage: alpha 
     defaultValue: false
     fromVersion: "1.8"
     toVersion: "1.8"
