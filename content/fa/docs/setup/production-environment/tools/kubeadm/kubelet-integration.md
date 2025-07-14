@@ -113,9 +113,9 @@ systemctl daemon-reload && systemctl restart kubelet
 
 این چیزی است که احتمالاً در `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf` خواهید یافت:
 
-{{< توجه >}}
+{{< note >}}
 مطالب زیر فقط یک مثال هستند. اگر نمی‌خواهید از مدیر بسته استفاده کنید، راهنمای ذکر شده در بخش ([بدون مدیر بسته](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2)) را دنبال کنید.
-{{< /توجه >}}
+{{< /note >}}
 
 ```none
 [Service]

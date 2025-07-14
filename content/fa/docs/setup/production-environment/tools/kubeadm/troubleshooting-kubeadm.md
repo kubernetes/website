@@ -247,9 +247,9 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 
 یکی دیگر از دلایل بروز خطای «CrashLoopBackOff» در CoreDNS زمانی است که یک CoreDNS Pod مستقر در Kubernetes یک حلقه را تشخیص دهد. [چندین راه حل](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters) برای جلوگیری از تلاش Kubernetes برای راه‌اندازی مجدد CoreDNS Pod هر بار که CoreDNS حلقه را تشخیص داده و خارج می‌شود، در دسترس هستند.
 
-{{< هشدار >}}
+{{< caution >}}
 غیرفعال کردن SELinux یا تنظیم allowPrivilegeEscalation روی true می‌تواند امنیت خوشه شما را به خطر بیندازد.
-{{< /هشدار >}}
+{{< /caution >}}
 
 ## پادهای etcd مرتباً مجدداً راه‌اندازی می‌شوند
 
@@ -332,9 +332,9 @@ kubectl -n kube-system patch ds kube-proxy -p='{
 
 در توزیع‌های لینوکس مانند Fedora CoreOS یا Flatcar Container Linux، پوشه `/usr` به عنوان یک پرونده سیستم فقط خواندنی نصب می‌شود. برای [پشتیبانی از flex-volume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md)، اجزای کوبرنتیز مانند kubelet و kube-controller-manager از مسیر پیش‌فرض `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/` استفاده می‌کنند، با این حال پوشه flex-volume باید قابل نوشتن باشد تا این ویژگی کار کند.
 
-{{< توجه >}}
+{{< note >}}
 FlexVolume در نسخه کوبرنتیز v1.23 منسوخ شد.
-{{< /توجه >}}
+{{< /note >}}
 
 برای حل این مشکل، می‌توانید پوشه flex-volume را با استفاده از kubeadm پیکربندی کنید. [پرونده پیکربندی](/docs/reference/config-api/kubeadm-config.v1beta4/).
 

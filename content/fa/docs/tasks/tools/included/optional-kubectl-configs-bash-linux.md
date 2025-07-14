@@ -51,9 +51,9 @@ echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 ```
 
-{{< توجه >}}
+{{< note >}}
 bash-completion تمام اسکریپت‌های تکمیل را در `/etc/bash_completion.d` قرار می دهد.
-{{< /توجه >}}
+{{< /note >}}
 
 هر دو رویکرد معادل هستند. پس از بارگذاری مجدد پوسته، تکمیل خودکار kubectl باید کار کند. برای فعال کردن تکمیل خودکار bash در جلسه فعلی پوسته، پرونده ~/.bashrc را منبع کنید:
 

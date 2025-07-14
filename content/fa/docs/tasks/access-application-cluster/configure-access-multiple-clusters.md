@@ -12,14 +12,14 @@ card:
 
 این صفحه نحوه پیکربندی دسترسی به چندین خوشه را با استفاده از پوشه های پیکربندی نشان می‌دهد. پس از اینکه خوشه‌ها، کاربران و زمینه‌های شما در یک یا چند پوشه پیکربندی تعریف شدند، می‌توانید با استفاده از دستور `kubectl config use-context` به سرعت بین خوشه‌ها جابجا شوید.
 
-{{< توجه >}}
+{{< note >}}
 پوشه ای که برای پیکربندی دسترسی به یک خوشه استفاده می‌شود، گاهی اوقات *پوشه kubeconfig* نامیده می‌شود. این یک روش عمومی برای اشاره به پوشه های پیکربندی است. این به این معنی نیست که پوشه ای با نام `kubeconfig` وجود دارد.
-{{< /توجه >}}
+{{< /note >}}
 
 
-{{< هشدار >}}
+{{< warning >}}
 فقط از پوشه های kubeconfig از منابع معتبر استفاده کنید. استفاده از یک پوشه  kubeconfig که به طور خاص ساخته شده است، می‌تواند منجر به اجرای کد مخرب یا افشای پوشه شود. اگر مجبور به استفاده از یک پوشه kubeconfig نامعتبر هستید، ابتدا آن را با دقت بررسی کنید، دقیقاً مانند یک اسکریپت پوسته.
-{{< /هشدار>}}
+{{< /warning >}}
 
 
 ## {{% heading "prerequisites" %}}
@@ -71,20 +71,20 @@ kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.
 
 جزئیات کاربر را به پرونده پیکربندی خود اضافه کنید:
 
-{{< احتیاط >}}
+{{< caution >}}
 ذخیره رمزهای عبور در پیکربندی کلاینت کوبرنتیز خطرناک است. یک جایگزین بهتر، استفاده از یک افزونه اعتبارنامه و ذخیره جداگانه آنها است. به این لینک مراجعه کنید: [افزونه‌های اعتبارسنجی client-go](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
-{{< /احتیاط >}}
+{{< /caution >}}
 
 ```shell
 kubectl config --kubeconfig=config-demo set-credentials developer --client-certificate=fake-cert-file --client-key=fake-key-seefile
 kubectl config --kubeconfig=config-demo set-credentials experimenter --username=exp --password=some-password
 ```
 
-{{< توجه >}}
+{{< note >}}
 - برای حذف یک کاربر می‌توانید دستور `kubectl --kubeconfig=config-demo config unset users.<name>` را اجرا کنید.
 - برای حذف یک خوشه، می‌توانید دستور `kubectl --kubeconfig=config-demo config unset clusters.<name>` را اجرا کنید.
 - برای حذف یک زمینه، می‌توانید دستور `kubectl --kubeconfig=config-demo config unset contexts.<name>` را اجرا کنید.
-{{< /توجه >}}
+{{< /note >}}
 
 جزئیات زمینه را به پرونده پیکربندی خود اضافه کنید:
 

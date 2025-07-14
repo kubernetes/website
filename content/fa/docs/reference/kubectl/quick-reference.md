@@ -13,9 +13,9 @@ card:
 
 این صفحه شامل فهرستی از دستورات و پرچم‌های پرکاربرد `kubectl` است.
 
-{{< توجه >}}
+{{< note >}}
 این دستورالعمل‌ها برای کوبرنتیز v{{< skew currentVersion >}} هستند. برای بررسی نسخه، از دستور `kubectl version` استفاده کنید.
-{{< /توجه >}}
+{{< /note >}}
 <!-- body -->
 
 ## تکمیل خودکار Kubectl
@@ -43,9 +43,9 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 
 ### ماهی
 
-{{< توجه >}}
+{{< note >}}
 به kubectl نسخه ۱.۲۳ یا بالاتر نیاز دارد.
-{{< /توجه >}}
+{{< /note >}}
 
 ```bash
 echo 'kubectl completion fish | source' > ~/.config/fish/completions/kubectl.fish && source ~/.config/fish/completions/kubectl.fish
@@ -383,9 +383,9 @@ kubectl cp /tmp/foo my-pod:/tmp/bar -c my-container    # پوشه محلی /tmp/
 kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # پوشه محلی /tmp/foo را در /tmp/bar در یک پاد راه دور در فضای نام my-namespace رونوشت می کند
 kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # پوشه ‎/tmp/foo‎ از یک پاد راه دور به ‎/tmp/bar‎ به صورت محلی رونوشت می کند
 ```
-{{< توجه >}}
+{{< note >}}
 اجرای دستور `kubectl cp` مستلزم وجود پوشه دودویی `tar` در image کانتینر شماست. اگر `tar` موجود نباشد، `kubectl cp` با شکست مواجه خواهد شد. برای موارد استفاده پیشرفته، مانند پیوندهای نمادین، بسط نویسه جانشین یا حفظ حالت پرونده، استفاده از `kubectl exec` را در نظر بگیرید.
-{{< /توجه >}}
+{{< /note >}}
 
 ```bash
 tar cf - /tmp/foo | kubectl exec -i -n my-namespace my-pod -- tar xf - -C /tmp/bar           # پرونده محلی /tmp/foo را در /tmp/bar در یک پاد راه دور در فضای نام کپی کنید my-namespace

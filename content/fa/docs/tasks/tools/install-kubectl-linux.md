@@ -31,7 +31,7 @@ weight: 10
    {{< /tab >}}
    {{< /tabs >}}
 
-   {{< توجه >}}
+   {{< note >}}
    برای دانلود یک نسخه خاص، بخش `$(curl -L -s https://dl.k8s.io/release/stable.txt)` از دستور را با نسخه خاص جایگزین کنید.
 
    برای مثال، برای دانلود نسخه {{< skew currentPatchVersion >}} در لینوکس x86-64، تایپ کنید:
@@ -46,7 +46,7 @@ weight: 10
    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
    ```
 
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. اعتبارسنجی پوشه دودویی (اختیاری)
 
@@ -80,9 +80,9 @@ weight: 10
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
 
-   {{< توجه >}}
+   {{< note >}}
    نسخه یکسانی از پوشه دودویی و checksum را دانلود کنید.
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. نصب kubectl
 
@@ -90,7 +90,7 @@ weight: 10
    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
    ```
 
-   {{< توجه >}}
+   {{< note >}}
    اگر در سیستم هدف دسترسی روت ندارید، همچنان می‌توانید kubectl را در پرونده `~/.local/bin` نصب کنید:
 
    ```bash
@@ -100,7 +100,7 @@ weight: 10
    # and then append (or prepend) ~/.local/bin to $PATH
    ```
 
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. برای اطمینان از به‌روز بودن نسخه نصب‌شده، آزمایش کنید:
 
@@ -136,9 +136,9 @@ weight: 10
    sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg # به برنامه‌های APT بدون امتیاز اجازه می‌دهد این حلقه کلید را بخوانند
    ```
    
-{{< توجه >}}
+{{< note >}}
 در نسخه‌های قدیمی‌تر از دبیان ۱۲ و اوبونتو ۲۲.۰۴، پوشه `/etc/apt/keyrings` به طور پیش‌فرض وجود ندارد و باید قبل از دستور curl ایجاد شود.
-{{< /توجه >}}
+{{< /note >}}
 
 3. مخزن کوبرنتیز `apt` مناسب را اضافه کنید. اگر می‌خواهید از نسخه کوبرنتیز متفاوتی نسبت به {{< param "version" >}} استفاده کنید، {{< param "version" >}} را با نسخه فرعی مورد نظر در دستور زیر جایگزین کنید:
 
@@ -148,9 +148,9 @@ weight: 10
    sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list   # به ابزارهایی مانند command-not-found کمک می‌کند تا به درستی کار کنند
    ```
 
-{{< توجه >}}
+{{< note >}}
 برای ارتقاء kubectl به نسخه فرعی دیگر، باید قبل از اجرای `apt-get update` و `apt-get upgrade`، نسخه را در `/etc/apt/sources.list.d/kubernetes.list` تغییر دهید. این روش با جزئیات بیشتر در [تغییر مخزن بسته کوبرنتیز](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) توضیح داده شده است.
-{{< /توجه >}}
+{{< /note >}}
 
 4. فهرست بسته `apt` را به‌روزرسانی کنید، سپس kubectl را نصب کنید:
 
@@ -178,9 +178,9 @@ weight: 10
    EOF
    ```
 
-{{< توجه >}}
+{{< note >}}
 برای ارتقاء kubectl به نسخه فرعی دیگر، باید قبل از اجرای `yum update`، نسخه را در `/etc/yum.repos.d/kubernetes.repo` تغییر دهید. این روش با جزئیات بیشتر در [تغییر مخزن بسته کوبرنتیز](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) توضیح داده شده است.
-{{< /توجه >}}
+{{< /note >}}
 
 2. نصب kubectl با استفاده از `yum`:
 
@@ -206,9 +206,9 @@ weight: 10
    EOF
    ```
 
-{{< توجه >}}
+{{< note >}}
 برای ارتقاء kubectl به نسخه فرعی دیگر، باید قبل از اجرای `zypper update`، نسخه را در `/etc/zypp/repos.d/kubernetes.repo` تغییر دهید. این روش با جزئیات بیشتر در [تغییر مخزن بسته کوبرنتیز](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) توضیح داده شده است.
-{{< /توجه >}}
+{{< /note >}}
 
 2. `zypper` را به‌روزرسانی کنید و افزودن مخزن جدید را تأیید کنید:
    
@@ -340,9 +340,9 @@ kubectl از تکمیل خودکار دستورات Bash، Zsh، Fish و PowerSh
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
 
-   {{< توجه >}}
+   {{< note >}}
    نسخه یکسانی از پوشه دودویی و checksum را دانلود کنید.
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. نصب kubectl-convert
 

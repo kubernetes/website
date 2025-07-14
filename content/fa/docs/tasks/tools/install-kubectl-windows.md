@@ -33,9 +33,9 @@ weight: 10
      curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe"
      ```
 
-   {{< توجه >}}
+   {{< note >}}
   برای اطلاع از آخرین نسخه پایدار (مثلاً برای اسکریپت‌نویسی)، به [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt) نگاهی بیندازید.
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. اعتبارسنجی پوشه دودویی (اختیاری)
 
@@ -76,9 +76,9 @@ weight: 10
 
 
 
-{{< توجه >}}
+{{< note >}}
 [داکر دسکتاپ برای ویندوز](https://docs.docker.com/docker-for-windows/#kubernetes) نسخه مخصوص به خود از `kubectl` را به `PATH` اضافه می‌کند. اگر قبلاً داکر دسکتاپ را نصب کرده‌اید، ممکن است لازم باشد ورودی `PATH` خود را قبل از ورودی اضافه شده توسط نصب‌کننده داکر دسکتاپ قرار دهید یا `kubectl` مربوط به داکر دسکتاپ را حذف کنید.
-{{< /توجه >}}
+{{< /note >}}
 
 ### نصب روی ویندوز با استفاده از Chocolatey، Scoop یا winget {#install-nonstandard-package-tools}
 
@@ -133,9 +133,9 @@ weight: 10
    New-Item config -type file
    ```
 
-{{< توجه >}}
+{{< note >}}
 پوشه پیکربندی را با یک ویرایشگر متن دلخواه مانند Notepad ویرایش کنید.
-{{< /توجه >}}
+{{< /note >}}
 
 ## بررسی پیکربندی kubectl
 

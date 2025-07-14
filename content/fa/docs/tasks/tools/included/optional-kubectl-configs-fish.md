@@ -8,9 +8,9 @@ _build:
   publishResources: false
 ---
 
-{{< توجه >}}
+{{< note >}}
 تکمیل خودکار برای Fish به kubectl 1.23 یا بالاتر نیاز دارد.
-{{< /توجه >}}
+{{< /note >}}
 
 اسکریپت تکمیل kubectl برای Fish را می‌توان با دستور `kubectl completion fish` ایجاد کرد. منبع‌یابی اسکریپت تکمیل در پوسته شما، تکمیل خودکار kubectl را فعال می‌کند.
 

@@ -36,7 +36,7 @@ weight: 10
    {{< /tab >}}
    {{< /tabs >}}
 
-   {{< توجه >}}
+   {{< note >}}
    برای دانلود یک نسخه خاص، بخش `$(curl -L -s https://dl.k8s.io/release/stable.txt)` از دستور را با نسخه خاص جایگزین کنید.
 
    به عنوان مثال، برای دانلود نسخه {{< skew currentPatchVersion >}} در MacOS اینتل، تایپ کنید:
@@ -51,7 +51,7 @@ weight: 10
    curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
 
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. اعتبارسنجی پوشه دودویی (اختیاری)
 
@@ -85,9 +85,9 @@ weight: 10
    shasum: WARNING: 1 computed checksum did NOT match
    ```
 
-   {{< توجه >}}
+   {{< note >}}
    نسخه یکسانی از پوشه دودویی و checksum را دانلود کنید.
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. پوشه دودویی kubectl را قابل اجرا کنید.
 
@@ -102,9 +102,9 @@ weight: 10
    sudo chown root: /usr/local/bin/kubectl
    ```
 
-   {{< توجه >}}
+   {{< note >}}
    مطمئن شوید که `/usr/local/bin` در متغیر محیطی PATH شما قرار دارد.
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. تست کنید تا مطمئن شوید نسخه ای که نصب کرده اید به روز است:
 
@@ -228,9 +228,9 @@ kubectl از تکمیل خودکار دستورات Bash، Zsh، Fish و PowerSh
    shasum: WARNING: 1 computed checksum did NOT match
    ```
 
-   {{< توجه >}}
+   {{< note >}}
    نسخه یکسانی از پوشه دودویی و checksum را دانلود کنید.
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. تبدیل پوشه دودویی kubectl-convert به پوشه اجرایی
 
@@ -245,9 +245,9 @@ kubectl از تکمیل خودکار دستورات Bash، Zsh، Fish و PowerSh
    sudo chown root: /usr/local/bin/kubectl-convert
    ```
 
-   {{< توجه >}}
+   {{< note >}}
    مطمئن شوید که `/usr/local/bin` در متغیر محیطی PATH شما قرار دارد.
-   {{< /توجه >}}
+   {{< /note >}}
 
 1. تأیید کنید که افزونه با موفقیت نصب شده است
 
