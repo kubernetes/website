@@ -14,5 +14,5 @@ tags:
 
 <!--more--> 
 
-تأمین پویای حجم، نیاز مدیران خوشه را به پیش‌تخصیص ذخیره‌سازی از میان برمی‌دارد. در عوض، ذخیره‌سازی به‌طور خودکار بر اساس درخواست کاربر فراهم می‌شود. تأمین پویای حجم بر پایهٔ یک شیء API به نام {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} است که به یک {{< glossary_tooltip text="Volume Plugin" term_id="volume-plugin" >}} اشاره می‌کند؛ این افزونه یک {{< glossary_tooltip text="Volume" term_id="volume" >}} را فراهم کرده و مجموعه‌ای از پارامترها را برای ارسال به Volume Plugin تعیین می‌کند.
+تأمین پویای حجم، نیاز مدیران خوشه را به پیش‌تخصیص ذخیره‌سازی از میان برمی‌دارد. در عوض، ذخیره‌سازی به‌طور خودکار بر اساس درخواست کاربر فراهم می‌شود. تأمین پویای حجم بر پایه یک شیء API به نام {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}} است که به یک {{< glossary_tooltip text="Volume Plugin" term_id="volume-plugin" >}} اشاره می‌کند؛ این افزونه یک {{< glossary_tooltip text="Volume" term_id="volume" >}} را فراهم کرده و مجموعه‌ای از پارامترها را برای ارسال به Volume Plugin تعیین می‌کند.
 

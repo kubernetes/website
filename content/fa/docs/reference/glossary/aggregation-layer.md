@@ -4,7 +4,7 @@ id: aggregation-layer
 date: 2018-10-08
 full_link: /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/
 short_description: >
-  لایه تجمیع به شما امکان می‌دهد APIهای اضافی به سبک کوبرنتیز را در کلاستر خود نصب کنید.
+  لایه تجمیع به شما امکان می‌دهد APIهای اضافی به سبک کوبرنتیز را در خوشه خود نصب کنید.
 
 aka: 
 tags:
@@ -12,7 +12,7 @@ tags:
 - extension
 - operation
 ---
-  لایه تجمیع به شما امکان می‌دهد APIهای اضافی به سبک کوبرنتیز را در کلاستر خود نصب کنید.
+  لایه تجمیع به شما امکان می‌دهد APIهای اضافی به سبک کوبرنتیز را در خوشه خود نصب کنید.
 
 <!--more-->
 

@@ -18,4 +18,4 @@ tags:
 
 اشیای بارکاری مانند {{< glossary_tooltip term_id="deployment" >}} از ReplicaSet استفاده می‌کنند
 تا بر اساس مشخصات آن ReplicaSet اطمینان یابند تعداد پیکربندی‌شده‌ای از
-{{< glossary_tooltip term_id="pod" text="Pods" >}} در خوشهٔ شما در حال اجرا باشند.
+{{< glossary_tooltip term_id="pod" text="Pods" >}} در خوشه شما در حال اجرا باشند.

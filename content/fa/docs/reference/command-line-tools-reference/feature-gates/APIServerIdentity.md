@@ -15,4 +15,4 @@ stages:
     defaultValue: true
     fromVersion: "1.26"  
 ---
-با استفاده از یک [Lease](/docs/concepts/architecture/leases)، به هر سرور API در یک کلاستر یک شناسه اختصاص دهید.
+با استفاده از یک [Lease](/docs/concepts/architecture/leases)، به هر سرور API در یک خوشه یک شناسه اختصاص دهید.

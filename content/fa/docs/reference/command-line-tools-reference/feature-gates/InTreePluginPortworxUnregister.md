@@ -10,4 +10,4 @@ stages:
     defaultValue: false
     fromVersion: "1.23"
 ---
-ثبت افزونه‌ی کلاستر Portworx را در kubelet و volume controllers متوقف می‌کند.
+ثبت افزونه‌ی خوشه Portworx را در kubelet و volume controllers متوقف می‌کند.

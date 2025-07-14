@@ -8,7 +8,7 @@ weight: 30
 
 <!-- overview -->
 
-این صفحه یک نمونهٔ واقعی از نحوه پیکربندی Redis با استفاده از یک ConfigMap ارائه می‌دهد و بر روی وظیفهٔ [پیکربندی یک پاد برای استفاده از یک ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) بنا شده است.
+این صفحه یک نمونه واقعی از نحوه پیکربندی Redis با استفاده از یک ConfigMap ارائه می‌دهد و بر روی وظیفه [پیکربندی یک پاد برای استفاده از یک ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) بنا شده است.
 
 ## {{% heading "objectives" %}}
 
@@ -58,7 +58,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/conte
   ConfigMap به نام `example-redis-config` به‌صورت فایلی با نام `redis.conf` روی volume `config` در دسترس قرار می‌دهد.  
 * سپس volume `config` با استفاده از `spec.containers[0].volumeMounts[1]` در مسیر `/redis-master` mount می‌شود.  
 
-در نتیجه، دادهٔ موجود در `data.redis-config` از ConfigMap ‌`example-redis-config` داخل پاد به شکل فایل  
+در نتیجه، داده موجود در `data.redis-config` از ConfigMap ‌`example-redis-config` داخل پاد به شکل فایل  
 `/redis-master/redis.conf` در دسترس خواهد بود.  
 
 {{% code_sample file="pods/config/redis-pod.yaml" %}}

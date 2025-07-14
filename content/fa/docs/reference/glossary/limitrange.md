@@ -1,5 +1,5 @@
 ---
-title: محدودهٔ محدودیت
+title: محدوده محدودیت
 id: limitrange
 date: 2019-04-15
 full_link:  /docs/concepts/policy/limit-range/

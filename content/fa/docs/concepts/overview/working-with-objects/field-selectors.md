@@ -17,13 +17,13 @@ kubectl get pods --field-selector status.phase=Running
 ```
 
 {{< note >}}
-انتخابگرهای فیلد در اصل *فیلتر* منابع هستند. به‌طور پیش‌فرض هیچ انتخابگر/فیلتری اعمال نمی‌شود؛ یعنی همهٔ منابع از نوع مشخص‌شده برگزیده می‌شوند. به همین دلیل دو فرمان زیر در `kubectl` معادل‌اند:  
+انتخابگرهای فیلد در اصل *فیلتر* منابع هستند. به‌طور پیش‌فرض هیچ انتخابگر/فیلتری اعمال نمی‌شود؛ یعنی همه منابع از نوع مشخص‌شده برگزیده می‌شوند. به همین دلیل دو فرمان زیر در `kubectl` معادل‌اند:  
 `kubectl get pods` و `kubectl get pods --field-selector ""`.
 {{< /note >}}
 
 ## فیلدهای پشتیبانی‌شده
 
-انتخابگرهای فیلد پشتیبانی‌شده بسته به نوع منبع کوبرنتیز متفاوت‌اند. همهٔ انواع منبع از فیلدهای `metadata.name` و `metadata.namespace` پشتیبانی می‌کنند. استفاده از انتخابگرهای فیلد پشتیبانی‌نشده باعث خطا می‌شود. برای مثال:
+انتخابگرهای فیلد پشتیبانی‌شده بسته به نوع منبع کوبرنتیز متفاوت‌اند. همه انواع منبع از فیلدهای `metadata.name` و `metadata.namespace` پشتیبانی می‌کنند. استفاده از انتخابگرهای فیلد پشتیبانی‌نشده باعث خطا می‌شود. برای مثال:
 
 ```shell
 kubectl get ingress --field-selector foo.bar=baz
@@ -50,7 +50,7 @@ Error from server (BadRequest): Unable to find "ingresses" that match label sele
 
 تمام انواع منبع سفارشی از فیلدهای `metadata.name` و `metadata.namespace` پشتیبانی می‌کنند.
 
-علاوه بر این، فیلد `spec.versions[*].selectableFields` در یک {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} تعیین می‌کند که کدام فیلدهای دیگرِ یک منبع سفارشی را می‌توان در انتخابگرهای فیلد به‌کار برد. برای اطلاعات بیشتر دربارهٔ استفاده از انتخابگرهای فیلد همراه با CustomResourceDefinitionها، به [فیلدهای قابل انتخاب برای منابع سفارشی](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#crd-selectable-fields) مراجعه کنید.
+علاوه بر این، فیلد `spec.versions[*].selectableFields` در یک {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} تعیین می‌کند که کدام فیلدهای دیگرِ یک منبع سفارشی را می‌توان در انتخابگرهای فیلد به‌کار برد. برای اطلاعات بیشتر درباره استفاده از انتخابگرهای فیلد همراه با CustomResourceDefinitionها، به [فیلدهای قابل انتخاب برای منابع سفارشی](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#crd-selectable-fields) مراجعه کنید.
 
 ## عملگرهای پشتیبانی‌شده
 

@@ -220,7 +220,7 @@ source: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 
 ### ایجاد سرویس Frontend
 
-سرویس‌های `Redis` که شما اعمال کرده‌اید، فقط در داخل کلاستر Kubernetes قابل دسترسی هستند، زیرا نوع پیش‌فرض برای یک سرویس، [ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types) است. `ClusterIP` یک آدرس IP واحد برای مجموعه پادهایی که سرویس به آنها اشاره می‌کند، ارائه می‌دهد. این آدرس IP فقط در داخل کلاستر قابل دسترسی است.
+سرویس‌های `Redis` که شما اعمال کرده‌اید، فقط در داخل خوشه Kubernetes قابل دسترسی هستند، زیرا نوع پیش‌فرض برای یک سرویس، [ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types) است. `ClusterIP` یک آدرس IP واحد برای مجموعه پادهایی که سرویس به آنها اشاره می‌کند، ارائه می‌دهد. این آدرس IP فقط در داخل خوشه قابل دسترسی است.
 
 اگر می‌خواهید مهمانان بتوانند به guestbook شما دسترسی داشته باشند، باید سرویس frontend را طوری پیکربندی کنید که از خارج قابل مشاهده باشد، بنابراین یک کلاینت می‌تواند سرویس را از خارج از خوشه Kubernetes درخواست کند. با این حال، یک کاربر Kubernetes می‌تواند از `kubectl port-forward` برای دسترسی به سرویس استفاده کند، حتی اگر از `ClusterIP` استفاده کند.
 

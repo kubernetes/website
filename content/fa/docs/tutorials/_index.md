@@ -15,7 +15,7 @@ content_type: concept
 
 ## مبانی
 
-* [مبانی کوبرنتیز](/docs/tutorials/kubernetes-basics/) یک آموزش تعاملی عمیق است که به شما کمک می‌کند سیستم کوبرنتیز را بشناسید و برخی قابلیت‌های پایهٔ آن را امتحان کنید.  
+* [مبانی کوبرنتیز](/docs/tutorials/kubernetes-basics/) یک آموزش تعاملی عمیق است که به شما کمک می‌کند سیستم کوبرنتیز را بشناسید و برخی قابلیت‌های پایه آن را امتحان کنید.  
 * [مقدمه‌ای بر کوبرنتیز (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)  
 * [سلام Minikube](/docs/tutorials/hello-minikube/)
 

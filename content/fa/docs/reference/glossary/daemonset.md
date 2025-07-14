@@ -4,7 +4,7 @@ id: daemonset
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/daemonset
 short_description: >
-  تضمین می‌کند که یک کپی از یک Pod در مجموعه‌ای از گره‌ها در یک کلاستر در حال اجرا است.
+  تضمین می‌کند که یک کپی از یک Pod در مجموعه‌ای از گره‌ها در یک خوشه در حال اجرا است.
 
 aka: 
 tags:

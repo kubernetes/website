@@ -16,7 +16,7 @@ card:
 - بهبود محتوای موجود
 - ایجاد محتوای جدید
 - ترجمه مستندات
-- مدیریت و انتشار بخش‌های مستندات در چرخهٔ انتشار کوبرنتیز
+- مدیریت و انتشار بخش‌های مستندات در چرخه انتشار کوبرنتیز
 
 تیم وب نوشت، که بخشی از SIG Docs است، به مدیریت وب نوشت‌های رسمی کمک می‌کند. برای کسب اطلاعات بیشتر،  
 [مشارکت در وب نوشت‌های کوبرنتیز](/docs/contribute/blog/) را بخوانید.
@@ -108,7 +108,7 @@ SIG Docs با روش‌های مختلفی ارتباط برقرار می‌کن
 
 - [به کانال `#sig-docs` در Slack کوبرنتیز بپیوندید](https://slack.k8s.io/). حتماً خودتان را معرفی کنید!
 - به [لیست‌پستی `kubernetes-sig-docs`](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) ملحق شوید؛ مباحث گسترده‌تر در اینجا انجام می‌شود و تصمیم‌های رسمی ثبت می‌شوند.
-- در [جلسهٔ ویدئویی SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) که هر دو هفته یک‌بار برگزار می‌شود شرکت کنید. این جلسات همیشه در `#sig-docs` اعلام شده و به [تقویم جلسات جامعه کوبرنتیز](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) افزوده می‌شوند. لازم است [Zoom client](https://zoom.us/download) را نصب کنید یا از طریق تلفن وارد شوید.
+- در [جلسه ویدئویی SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs) که هر دو هفته یک‌بار برگزار می‌شود شرکت کنید. این جلسات همیشه در `#sig-docs` اعلام شده و به [تقویم جلسات جامعه کوبرنتیز](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles) افزوده می‌شوند. لازم است [Zoom client](https://zoom.us/download) را نصب کنید یا از طریق تلفن وارد شوید.
 - در هفته‌هایی که جلسه حضوری Zoom برگزار نمی‌شود، در جلسه ایستای غیرهمزمان (Async Stand-up) SIG Docs در Slack شرکت کنید. این جلسات نیز همیشه در `#sig-docs` اعلام می‌شوند. تا ۲۴ ساعت پس از اعلام جلسه می‌توانید در یکی از رشته‌ها مشارکت کنید.
 
 

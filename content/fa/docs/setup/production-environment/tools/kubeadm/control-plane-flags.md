@@ -8,12 +8,12 @@ weight: 40
 
 <!-- overview -->
 
-این صفحه نحوهٔ **سفارشی‌سازی مؤلفه‌هایی** را توضیح می‌دهد که ‌kubeadm استقرار می‌دهد.  
+این صفحه نحوه **سفارشی‌سازی مؤلفه‌هایی** را توضیح می‌دهد که ‌kubeadm استقرار می‌دهد.  
 برای مؤلفه‌های *کنترل پلِین* می‌توانید از فلگ‌ها در ساختار `ClusterConfiguration` یا از پچ‌های تک‌نودی استفاده کنید.  
 برای **kubelet** و **kube-proxy** نیز به ترتیب از `KubeletConfiguration` و `KubeProxyConfiguration` بهره بگیرید.
 
-همهٔ این گزینه‌ها از طریق **API پیکربندی kubeadm** قابل اعمال است.  
-برای جزئیات بیش‌تر دربارهٔ هر فیلد در این پیکربندی‌ها می‌توانید به صفحات مرجع
+همه این گزینه‌ها از طریق **API پیکربندی kubeadm** قابل اعمال است.  
+برای جزئیات بیش‌تر درباره هر فیلد در این پیکربندی‌ها می‌توانید به صفحات مرجع
 [API](/docs/reference/config-api/kubeadm-config.v1beta4/) مراجعه کنید.
 
 {{< note >}}
@@ -21,7 +21,7 @@ weight: 40
 باید به صورت دستی {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} مربوط به
 `kube-system/coredns` را پچ کرده و سپس {{< glossary_tooltip text="Pods" term_id="pod" >}}
 های CoreDNS را دوباره ایجاد کنید. به‌عنوان جایگزین، می‌توانید از استقرار پیش‌فرض CoreDNS صرف‌نظر کرده و
-نسخهٔ دلخواه خود را پیاده کنید. برای جزئیات بیش‌تر، به بخش
+نسخه دلخواه خود را پیاده کنید. برای جزئیات بیش‌تر، به بخش
 [استفاده از فازهای init در kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases) مراجعه کنید.
 {{< /note >}}
 
@@ -44,11 +44,11 @@ weight: 40
 - `etcd`
 
 همۀ این ساختارها دارای فیلد مشترک `extraArgs` هستند که از جفت‌های `نام / مقدار` تشکیل می‌شود.
-برای بازنویسی یک فلگ در مؤلفهٔ کنترل پلِین:
+برای بازنویسی یک فلگ در مؤلفه کنترل پلِین:
 
 1.  فیلد `extraArgs` مناسب را به پیکربندی خود بیفزایید.
 2.  فلگ‌های موردنظر را در فیلد `extraArgs` قرار دهید.
-3.  فرمان `kubeadm init` را با گزینهٔ `--config <YOUR CONFIG YAML>` اجرا کنید.
+3.  فرمان `kubeadm init` را با گزینه `--config <YOUR CONFIG YAML>` اجرا کنید.
 
 {{< note >}}
 می‌توانید با اجرای دستور `kubeadm config print init-defaults` و ذخیرۀ خروجی در فایلی دلخواه،
@@ -63,7 +63,7 @@ weight: 40
 {{< /note >}}
 
 {{< note >}}
-فلگ‌های تکراری (کلیدهای مشابه) یا ارسال چندبارهٔ یک فلگ مانند `--foo` در حال حاضر
+فلگ‌های تکراری (کلیدهای مشابه) یا ارسال چندباره یک فلگ مانند `--foo` در حال حاضر
 پشتیبانی نمی‌شود. برای دور زدن این محدودیت باید از
 [وصله‌ها](#patches) بهره بگیرید.
 {{< /note >}}
@@ -73,7 +73,7 @@ weight: 40
 
 برای جزئیات بیش‌تر، به [مستند مرجع kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) مراجعه کنید.
 
-نمونهٔ استفاده:
+نمونه استفاده:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -91,7 +91,7 @@ apiServer:
 
 برای جزئیات بیش‌تر، به [مستند مرجع kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) مراجعه کنید.
 
-نمونهٔ استفاده:
+نمونه استفاده:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -109,7 +109,7 @@ controllerManager:
 
 برای جزئیات بیشتر، به [مستند مرجع kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) مراجعه کنید.
 
-نمونهٔ استفاده:
+نمونه استفاده:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -131,7 +131,7 @@ scheduler:
 
 برای جزئیات بیشتر، به [مستندات سرور etcd](https://etcd.io/docs/) مراجعه کنید.
 
-نمونهٔ استفاده:
+نمونه استفاده:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -150,7 +150,7 @@ etcd:
 **kubeadm** به شما اجازه می‌دهد مسیری شامل فایل‌های وصله را به `InitConfiguration` و `JoinConfiguration`
 روی هر نود بدهید. این پچ‌ها می‌توانند به‌عنوان آخرین گام سفارشی‌سازی، پیش از آنکه پیکربندی مؤلفه‌ها روی دیسک نوشته شود، به کار روند.
 
-می‌توانید این فایل را با گزینهٔ `--config <YOUR CONFIG YAML>` به دستور `kubeadm init` بدهید:
+می‌توانید این فایل را با گزینه `--config <YOUR CONFIG YAML>` به دستور `kubeadm init` بدهید:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -163,7 +163,7 @@ patches:
 برای `kubeadm init` می‌توانید فایلی ارائه کنید که هر دو بخش `ClusterConfiguration` و `InitConfiguration` را در خود داشته باشد و با `---` از هم جدا شده باشند.
 {{< /note >}}
 
-می‌توانید این فایل را با گزینهٔ `--config <YOUR CONFIG YAML>` به `kubeadm join` بدهید:
+می‌توانید این فایل را با گزینه `--config <YOUR CONFIG YAML>` به `kubeadm join` بدهید:
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -177,7 +177,7 @@ patches:
 
 - **`target`** می‌تواند یکی از این موارد باشد: `kube-apiserver`، `kube-controller-manager`، `kube-scheduler`، `etcd`
   و `kubeletconfiguration`.
-- **`suffix`** یک رشتهٔ اختیاری است که می‌توان از آن برای تعیین ترتیب اعمال پچ‌ها به‌صورت الفباـعددی استفاده کرد.
+- **`suffix`** یک رشته اختیاری است که می‌توان از آن برای تعیین ترتیب اعمال پچ‌ها به‌صورت الفباـعددی استفاده کرد.
 - **`patchtype`** می‌تواند یکی از `strategic`، `merge` یا `json` باشد و باید با قالب‌های پچی که
   [kubectl پشتیبانی می‌کند](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch)
   سازگار باشد. مقدار پیش‌فرض `strategic` است.
@@ -194,10 +194,10 @@ patches:
 
 برای سفارشی‌سازی **kubelet** می‌توانید یک [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 را در همان فایل پیکربندی، کنار `ClusterConfiguration` یا `InitConfiguration` و جدا شده با `---` قرار دهید.
-سپس این فایل را به `kubeadm init` بدهید؛ kubeadm همان پیکربندی پایهٔ `KubeletConfiguration`
+سپس این فایل را به `kubeadm init` بدهید؛ kubeadm همان پیکربندی پایه `KubeletConfiguration`
 را روی تمام نودهای خوشه اعمال می‌کند.
 
-برای اعمال پیکربندی ویژهٔ هر نود بر روی `KubeletConfiguration` پایه می‌توانید از
+برای اعمال پیکربندی ویژه هر نود بر روی `KubeletConfiguration` پایه می‌توانید از
 هدف پچ [`kubeletconfiguration`](#patches) استفاده کنید.
 
 روش دیگر این است که فلگ‌های kubelet را به‌عنوان جایگزین در فیلد

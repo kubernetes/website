@@ -4,13 +4,13 @@ id: preemption
 date: 2019-01-31
 full_link: /docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption
 short_description: >
-  منطق پیش‌دستی در کوبرنتیز به یک پاد معلق کمک می‌کند با تخلیهٔ پادهای کم‌اولویت روی همان گره، گرهٔ مناسب خود را بیابد.
+  منطق پیش‌دستی در کوبرنتیز به یک پاد معلق کمک می‌کند با تخلیه پادهای کم‌اولویت روی همان گره، گره مناسب خود را بیابد.
 
 aka:
 tags:
 - operation
 ---
- منطق پیش‌دستی در کوبرنتیز به یک {{< glossary_tooltip term_id="pod" >}} معلق کمک می‌کند با تخلیهٔ پادهای کم‌اولویت موجود روی آن {{< glossary_tooltip term_id="node" >}}، گرهٔ مناسب خود را بیابد.
+ منطق پیش‌دستی در کوبرنتیز به یک {{< glossary_tooltip term_id="pod" >}} معلق کمک می‌کند با تخلیه پادهای کم‌اولویت موجود روی آن {{< glossary_tooltip term_id="node" >}}، گره مناسب خود را بیابد.
 
 <!--more-->
 

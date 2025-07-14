@@ -15,6 +15,6 @@ tags:
 
 <!--more-->
 
-اگر خوشهٔ کوبرنتیز شما از etcd به‌عنوان مخزن پشتیبان استفاده می‌کند، مطمئن شوید که برای داده‌ها یک طرح [پشتیبان‌گیری](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) داشته باشید.
+اگر خوشه کوبرنتیز شما از etcd به‌عنوان مخزن پشتیبان استفاده می‌کند، مطمئن شوید که برای داده‌ها یک طرح [پشتیبان‌گیری](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster) داشته باشید.
 
-می‌توانید اطلاعات عمیق دربارهٔ etcd را در [مستندات](https://etcd.io/docs/) رسمی بیابید.
+می‌توانید اطلاعات عمیق درباره etcd را در [مستندات](https://etcd.io/docs/) رسمی بیابید.

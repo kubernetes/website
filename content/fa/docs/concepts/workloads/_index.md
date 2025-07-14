@@ -11,16 +11,16 @@ card:
 ---
 
 {{< glossary_definition term_id="workload" length="short" >}}
-چه وظیفهٔ شما یک مؤلفهٔ واحد باشد یا چندین مؤلفه که با هم کار می‌کنند، در کوبرنتیز آن را
+چه وظیفه شما یک مؤلفه واحد باشد یا چندین مؤلفه که با هم کار می‌کنند، در کوبرنتیز آن را
 درون مجموعه‌ای از [_Pods_](/docs/concepts/workloads/pods) اجرا می‌کنید.
 در کوبرنتیز، یک Pod نمایانگر مجموعه‌ای از
 {{< glossary_tooltip text="Containers" term_id="container" >}}
-در حال اجرا روی کلاستر شماست.
+در حال اجرا روی خوشه شماست.
 
-Pods در کوبرنتیز یک [چرخهٔ عمر تعریف‌شده](/docs/concepts/workloads/pods/pod-lifecycle/) دارند.
-برای مثال، وقتی یک Pod در کلاستر شما در حال اجراست، یک خطای بحرانی در
+Pods در کوبرنتیز یک [چرخه عمر تعریف‌شده](/docs/concepts/workloads/pods/pod-lifecycle/) دارند.
+برای مثال، وقتی یک Pod در خوشه شما در حال اجراست، یک خطای بحرانی در
 {{< glossary_tooltip text="Node" term_id="node" >}}
-که آن Pod روی آن اجرا می‌شود، به معنای از کار افتادن همهٔ Podهای آن Node است.
+که آن Pod روی آن اجرا می‌شود، به معنای از کار افتادن همه Podهای آن Node است.
 کوبرنتیز این سطح از خطا را نهایی در نظر می‌گیرد: برای بازیابی باید یک Pod جدید ایجاد کنید،
 حتی اگر آن Node بعداً سالم شود.
 
@@ -35,7 +35,7 @@ Pods در کوبرنتیز یک [چرخهٔ عمر تعریف‌شده](/docs/co
 * [Deployment](/docs/concepts/workloads/controllers/deployment/) و [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)  
   (جایگزین منبع قدیمی  
   {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}}).  
-  Deployment برای مدیریت یک بار کاری بدون وضعیت (stateless) در کلاستر شما مناسب است،  
+  Deployment برای مدیریت یک بار کاری بدون وضعیت (stateless) در خوشه شما مناسب است،  
   جایی که هر Pod در این Deployment قابل تعویض بوده و در صورت لزوم می‌توان آن را جایگزین کرد.
 
 * [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)  
@@ -48,11 +48,11 @@ Pods در کوبرنتیز یک [چرخهٔ عمر تعریف‌شده](/docs/co
 
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)  
   Pods‌ای را تعریف می‌کند که خدمات محلی (local) به هر Node ارائه می‌دهند.  
-  هر بار که یک Node جدید به کلاستر شما اضافه شود و با مشخصات یک DaemonSet مطابقت داشته باشد،  
+  هر بار که یک Node جدید به خوشه شما اضافه شود و با مشخصات یک DaemonSet مطابقت داشته باشد،  
   کنترل‌پلن یک Pod از آن DaemonSet را روی Node جدید زمان‌بندی می‌کند.  
   هر Pod در یک DaemonSet کاری شبیه یک سرویس سیستم (system daemon) در سرورهای کلاسیک Unix/POSIX انجام می‌دهد.  
-  یک DaemonSet ممکن است برای عملکرد کلاستر شما اساسی باشد، مانند افزونه‌ای برای اجرای  
-  [شبکه‌بندی کلاستر](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)،  
+  یک DaemonSet ممکن است برای عملکرد خوشه شما اساسی باشد، مانند افزونه‌ای برای اجرای  
+  [شبکه‌بندی خوشه](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)،  
   یا ممکن است به مدیریت Node کمک کند، یا رفتاری اختیاری فراهم کند که پلتفرم کانتینری شما را بهبود دهد.
 
 * [Job](/docs/concepts/workloads/controllers/job/) و  
@@ -63,7 +63,7 @@ Pods در کوبرنتیز یک [چرخهٔ عمر تعریف‌شده](/docs/co
   می‌توانید از [CronJob](/docs/concepts/workloads/controllers/cron-jobs/)  
   برای اجرای مکرر همان Job طبق یک زمان‌بندی مشخص استفاده کنید.
 
-در اکوسیستم گسترده‌تر کوبرنتیز، می‌توانید منابع workload شخص ثالث را بیابید که رفتارهای اضافی ارائه می‌دهند.  
+در بن‌سازه گسترده‌تر کوبرنتیز، می‌توانید منابع workload شخص ثالث را بیابید که رفتارهای اضافی ارائه می‌دهند.  
 با استفاده از یک  
 [Custom Resource Definition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)،  
 می‌توانید منبع workload شخص ثالثی اضافه کنید اگر به رفتار خاصی نیاز دارید که در هسته کوبرنتیز موجود نیست.  
@@ -76,17 +76,17 @@ Pods در کوبرنتیز یک [چرخهٔ عمر تعریف‌شده](/docs/co
 هم‌چنین علاوه بر مطالعه هر نوع API برای مدیریت Workload، می‌توانید یاد بگیرید چگونه کارهای خاص را انجام دهید:
 
 * [اجرای یک برنامه بدون وضعیت با استفاده از Deployment](/docs/tasks/run-application/run-stateless-application-deployment/)  
-* اجرای یک برنامه با وضعیت به‌صورت [یک نمونهٔ واحد](/docs/tasks/run-application/run-single-instance-stateful-application/)  
-  یا به‌صورت [مجموعهٔ تکرارشده](/docs/tasks/run-application/run-replicated-stateful-application/)  
+* اجرای یک برنامه با وضعیت به‌صورت [یک نمونه واحد](/docs/tasks/run-application/run-single-instance-stateful-application/)  
+  یا به‌صورت [مجموعه تکرارشده](/docs/tasks/run-application/run-replicated-stateful-application/)  
 * [اجرای وظایف خودکار با CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 
 برای آشنایی با مکانیزم‌های کوبرنتیز برای جدا کردن کد از پیکربندی، به [Configuration](/docs/concepts/configuration/) مراجعه کنید.
 
-دو مفهوم پشتیبان وجود دارند که زمینهٔ نحوهٔ مدیریت Pods برای برنامه‌ها توسط کوبرنتیز را توضیح می‌دهند:
+دو مفهوم پشتیبان وجود دارند که زمینه نحوه مدیریت Pods برای برنامه‌ها توسط کوبرنتیز را توضیح می‌دهند:
 * [Garbage collection](/docs/concepts/architecture/garbage-collection/) اشیاء را پس از حذف _منبع مالک_ آن‌ها از بین می‌برد.  
 * [_time-to-live after finished_ controller](/docs/concepts/workloads/controllers/ttlafterfinished/)  
   پس از گذشت زمان مشخصی از تکمیل Jobs، آن‌ها را حذف می‌کند.
 
-پس از اجرای برنامهٔ شما، ممکن است بخواهید آن را به‌صورت یک [Service](/docs/concepts/services-networking/service/)  
+پس از اجرای برنامه شما، ممکن است بخواهید آن را به‌صورت یک [Service](/docs/concepts/services-networking/service/)  
 در اینترنت در دسترس قرار دهید یا برای برنامه‌های وب فقط با استفاده از یک [Ingress](/docs/concepts/services-networking/ingress/) منتشر کنید.  
 

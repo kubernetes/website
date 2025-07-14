@@ -374,7 +374,7 @@ horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 (برای اطلاعات بیشتر نگاه کنید به [configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html))  
 تا بتوان آن‌ها را همراه با کد منابع‌شان نگهداری و نسخه‌بندی کرد.  
 سپس می‌توانید از [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_apply/)  
-برای اعمال تغییرات پیکربندی خود به کلاستر استفاده کنید.
+برای اعمال تغییرات پیکربندی خود به خوشه استفاده کنید.
 
 این دستور نسخه‌ی پیکربندی ارسالی شما را با نسخه‌ی قبلی مقایسه کرده و تغییراتی را که اعمال کرده‌اید به‌کار می‌گیرد،  
 بدون آنکه تغییرات خودکار روی ویژگی‌هایی که مشخص نکرده‌اید را بازنویسی کند.

@@ -326,7 +326,7 @@ other = "مناسب برای کاربرانی که برای اولین بار ا
 other = "بنیادی"
 
 [layout_docs_glossary_networking_description]
-other = "چگونه اجزای کوبرنتیز با یکدیگر (و با برنامه‌های خارج از کلاستر) ارتباط برقرار می‌کنند."
+other = "چگونه اجزای کوبرنتیز با یکدیگر (و با برنامه‌های خارج از خوشه) ارتباط برقرار می‌کنند."
 
 [layout_docs_glossary_networking_name]
 other = "شبکه‌سازی"
@@ -406,7 +406,7 @@ other = "جامعه را کاوش کنید"
 other = "مشارکت"
 
 [main_copyright_notice]
-other = """بنیاد لینوکس &reg;. کلیهٔ حقوق محفوظ است. بنیاد لینوکس دارای علائم تجاری ثبت‌شده است و از علائم تجاری استفاده می‌کند. برای فهرستی از علائم تجاری بنیاد لینوکس، لطفاً به <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحهٔ استفاده از علائم تجاری</a> ما مراجعه کنید."""
+other = """بنیاد لینوکس &reg;. کلیه حقوق محفوظ است. بنیاد لینوکس دارای علائم تجاری ثبت‌شده است و از علائم تجاری استفاده می‌کند. برای فهرستی از علائم تجاری بنیاد لینوکس، لطفاً به <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحه استفاده از علائم تجاری</a> ما مراجعه کنید."""
 
 [main_documentation_license]
 other = """نویسندگان کوبرنتیز | مستندات تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> توزیع‌شده است."""

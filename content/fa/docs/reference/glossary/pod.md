@@ -4,14 +4,14 @@ id: pod
 date: 2018-04-12
 full_link: /docs/concepts/workloads/pods/
 short_description: >
-  یک پاد نمایانگر مجموعه‌ای از کانتینرهای در حال اجرا در خوشهٔ شما است.
+  یک پاد نمایانگر مجموعه‌ای از کانتینرهای در حال اجرا در خوشه شما است.
 
 aka: 
 tags:
 - core-object
 - fundamental
 ---
- کوچک‌ترین و ساده‌ترین شیء کوبرنتیز. یک پاد نمایانگر مجموعه‌ای از {{< glossary_tooltip text="containers" term_id="container" >}} در حال اجرا روی خوشهٔ شما است.
+ کوچک‌ترین و ساده‌ترین شیء کوبرنتیز. یک پاد نمایانگر مجموعه‌ای از {{< glossary_tooltip text="containers" term_id="container" >}} در حال اجرا روی خوشه شما است.
 
 <!--more--> 
 

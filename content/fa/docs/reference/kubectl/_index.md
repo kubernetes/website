@@ -74,9 +74,9 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 اگر به کمک نیاز دارید، `kubectl help` را از پنجره ترمینال اجرا کنید.
 
-## احراز هویت درون کلاستر و لغو فضای نام
+## احراز هویت درون خوشه و لغو فضای نام
 
-به طور پیش‌فرض، `kubectl` ابتدا بررسی می‌کند که آیا درون یک pod و بنابراین در یک کلاستر در حال اجرا است یا خیر. این کار با بررسی متغیرهای محیطی `KUBERNETES_SERVICE_HOST` و `KUBERNETES_SERVICE_PORT` و وجود فایل توکن حساب سرویس در `/var/run/secrets/kubernetes.io/serviceaccount/token` آغاز می‌شود. در صورت وجود هر سه مورد، احراز هویت درون کلاستر انجام می‌شود.
+به طور پیش‌فرض، `kubectl` ابتدا بررسی می‌کند که آیا درون یک pod و بنابراین در یک خوشه در حال اجرا است یا خیر. این کار با بررسی متغیرهای محیطی `KUBERNETES_SERVICE_HOST` و `KUBERNETES_SERVICE_PORT` و وجود فایل توکن حساب سرویس در `/var/run/secrets/kubernetes.io/serviceaccount/token` آغاز می‌شود. در صورت وجود هر سه مورد، احراز هویت درون خوشه انجام می‌شود.
 
 برای حفظ سازگاری با نسخه‌های قبلی، اگر متغیر محیطی `POD_NAMESPACE` در طول احراز هویت درون خوشه‌ای تنظیم شود، فضای نام پیش‌فرض را از توکن حساب سرویس لغو می‌کند. هرگونه مانیفست یا ابزاری که به پیش‌فرض بودن فضای نام متکی است، تحت تأثیر این امر قرار خواهد گرفت.
 
@@ -96,7 +96,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 * متغیر محیطی `KUBERNETES_SERVICE_PORT` تنظیم شده باشد، و
 * شما به طور صریح فضای نامی را در خط فرمان kubectl مشخص نکرده باشید
 
-در این صورت kubectl فرض می‌کند که در کلاستر شما در حال اجرا است. ابزار kubectl فضای نام آن ServiceAccount (که همان فضای نام Pod است) را جستجو می‌کند و بر اساس آن فضای نام عمل می‌کند. این با آنچه در خارج از یک کلاستر اتفاق می‌افتد متفاوت است؛ وقتی kubectl خارج از یک کلاستر اجرا می‌شود و شما فضای نامی را مشخص نکرده باشید، دستور kubectl بر اساس فضای نامی که برای زمینه فعلی در پیکربندی کلاینت شما تنظیم شده است عمل می‌کند. برای تغییر فضای نام پیش‌فرض برای kubectl خود، می‌توانید از دستور زیر استفاده کنید:
+در این صورت kubectl فرض می‌کند که در خوشه شما در حال اجرا است. ابزار kubectl فضای نام آن ServiceAccount (که همان فضای نام Pod است) را جستجو می‌کند و بر اساس آن فضای نام عمل می‌کند. این با آنچه در خارج از یک خوشه اتفاق می‌افتد متفاوت است؛ وقتی kubectl خارج از یک خوشه اجرا می‌شود و شما فضای نامی را مشخص نکرده باشید، دستور kubectl بر اساس فضای نامی که برای زمینه فعلی در پیکربندی کلاینت شما تنظیم شده است عمل می‌کند. برای تغییر فضای نام پیش‌فرض برای kubectl خود، می‌توانید از دستور زیر استفاده کنید:
 
 ```shell
 kubectl config set-context --current --namespace=<namespace-name>
@@ -108,7 +108,7 @@ kubectl config set-context --current --namespace=<namespace-name>
 
 Operation       | Syntax    |       Description
 -------------------- | -------------------- | --------------------
-`alpha` | `kubectl alpha SUBCOMMAND [flags]` | دستورات موجود مربوط به ویژگی‌های آلفا را که به طور پیش‌فرض در کلاسترهای Kubernetes فعال نیستند، فهرست کنید.
+`alpha` | `kubectl alpha SUBCOMMAND [flags]` | دستورات موجود مربوط به ویژگی‌های آلفا را که به طور پیش‌فرض در خوشههای Kubernetes فعال نیستند، فهرست کنید.
 `annotate` | <code>kubectl annotate (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | حاشیه‌نویسی‌های یک یا چند منبع را اضافه یا به‌روزرسانی کنید.
 `api-resources` | `kubectl api-resources [flags]` | فهرست منابع API موجود.
 `api-versions` | `kubectl api-versions [flags]` | فهرست نسخه‌های API موجود.
@@ -145,7 +145,7 @@ Operation       | Syntax    |       Description
 `proxy` | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | یک پروکسی برای سرور API کوبرنتیز اجرا کنید.
 `replace` | `kubectl replace -f FILENAME` | جایگزینی یک منبع از یک فایل یا stdin.
 `rollout` | `kubectl rollout SUBCOMMAND [options]` | مدیریت rollout یک منبع. انواع منابع معتبر عبارتند از: deployments، daemonsets و statefulsets.
-`run` | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | یک تصویر مشخص شده را روی کلاستر اجرا کن.
+`run` | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | یک تصویر مشخص شده را روی خوشه اجرا کن.
 `scale` | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | اندازه کنترل‌کننده تکثیر مشخص‌شده را به‌روزرسانی می‌کند.
 `set` | `kubectl set SUBCOMMAND [options]` | پیکربندی منابع برنامه.
 `taint` | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | taintها را در یک یا چند گره به‌روزرسانی کنید.
@@ -433,7 +433,7 @@ kubectl logs <pod-name>
 kubectl logs -f <pod-name>
 ```
 
-`kubectl diff` - مشاهده‌ی تفاوت به‌روزرسانی‌های پیشنهادی برای یک کلاستر.
+`kubectl diff` - مشاهده‌ی تفاوت به‌روزرسانی‌های پیشنهادی برای یک خوشه.
 
 ```shell
 # Diff resources included in "pod.json".

@@ -4,7 +4,7 @@ id: sidecar-container
 date: 2018-04-12
 full_link: 
 short_description: >
-  یک کانتینر کمکی که در سراسر چرخهٔ عمر یک پاد در حال اجرا باقی می‌ماند.
+  یک کانتینر کمکی که در سراسر چرخه عمر یک پاد در حال اجرا باقی می‌ماند.
 full_link: /docs/concepts/workloads/pods/sidecar-containers/
 tags:
 - fundamental

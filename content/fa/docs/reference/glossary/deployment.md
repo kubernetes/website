@@ -4,7 +4,7 @@ id: deployment
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/deployment/
 short_description: >
-  یک برنامه‌ی تکثیر شده را در کلاستر شما مدیریت می‌کند.
+  یک برنامه‌ی تکثیر شده را در خوشه شما مدیریت می‌کند.
 
 aka: 
 tags:

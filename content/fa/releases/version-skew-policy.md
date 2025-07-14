@@ -14,7 +14,7 @@ description: >
 <div dir="rtl" style="text-align: right;">
 <!-- overview -->
 این مستندات حداکثر اختلاف نسخه (version skew) پشتیبانی‌شده بین اجزای مختلف Kubernetes را توضیح می‌دهد.
-ابزارهای خاص استقرار کلاستر ممکن است محدودیت‌های بیشتری بر اختلاف نسخه اعمال کنند.
+ابزارهای خاص استقرار خوشه ممکن است محدودیت‌های بیشتری بر اختلاف نسخه اعمال کنند.
 
 <!-- body -->
 
@@ -29,11 +29,11 @@ description: >
 نسخه‌های 1.19 به بعد از[approximately 1 year of patch support](/releases/patch-releases/#support-period). Kubernetes حدوداً ۱ سال پشتیبانی پچ دریافت می‌کنند.
 نسخه‌های 1.18 و قبل‌تر تقریباً ۹ ماه پشتیبانی پچ دریافت می‌کردند.
 
-اصلاحات قابل اعمال، از جمله اصلاحات امنیتی، ممکن است بسته به شدت (severity) و امکان‌پذیری (feasibility) به آن سه شاخهٔ انتشار بازگردانده شوند (backport). نسخه‌های پچ از این شاخه‌ها در یک [regular cadence](/releases/patch-releases/#cadence) منتشر می‌شوند، به‌علاوه انتشارهای اضطراری اضافی در صورت نیاز.
+اصلاحات قابل اعمال، از جمله اصلاحات امنیتی، ممکن است بسته به شدت (severity) و امکان‌پذیری (feasibility) به آن سه شاخه انتشار بازگردانده شوند (backport). نسخه‌های پچ از این شاخه‌ها در یک [regular cadence](/releases/patch-releases/#cadence) منتشر می‌شوند، به‌علاوه انتشارهای اضطراری اضافی در صورت نیاز.
 
 
 گروه [Release Managers](/releases/release-managers/) مالک این تصمیم است.
-برای اطلاعات بیشتر، به صفحهٔ [patch releases](/releases/patch-releases/) در Kubernetes مراجعه کنید.
+برای اطلاعات بیشتر، به صفحه [patch releases](/releases/patch-releases/) در Kubernetes مراجعه کنید.
 ## نسخه پشتیبانی شده skew
 
 ### kube-apiserver
@@ -48,7 +48,7 @@ description: >
 ### kubelet
 
 * `kubelet` نبایدجدید تر از  `kube-apiserver`.
-* `kubelet` ممکن است تا سه نسخه فرعی (minor) قدیمی‌تر از نسخهٔ زیر باشند `kube-apiserver` (`kubelet` < نسخهٔ 1.25 ممکن است حداکثر تا دو نسخه فرعی (minor) قدیمی‌تر از نسخهٔ زیر باشد: `kube-apiserver`).
+* `kubelet` ممکن است تا سه نسخه فرعی (minor) قدیمی‌تر از نسخه زیر باشند `kube-apiserver` (`kubelet` < نسخه 1.25 ممکن است حداکثر تا دو نسخه فرعی (minor) قدیمی‌تر از نسخه زیر باشد: `kube-apiserver`).
 
 مثال:
 
@@ -57,7 +57,7 @@ description: >
   **{{< skew currentVersionAddMinor -2 >}}**, و **{{< skew currentVersionAddMinor -3 >}}**
 
 {{< note >}}
-اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد، این موضوع دامنهٔ نسخه‌های مجاز برای `kubelet` را محدود می‌کند.
+اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد، این موضوع دامنه نسخه‌های مجاز برای `kubelet` را محدود می‌کند.
 {{</ note >}}
 اگر نسخه skew بین 
 مثال:
@@ -104,7 +104,7 @@ but may be up to one minor version older (to allow live upgrades).
 * `kube-controller-manager`, `kube-scheduler`, و `cloud-controller-manager` در ایجا پشتیبانی میشود  **{{< skew currentVersion >}}** و **{{< skew currentVersionAddMinor -1 >}}**
 
 {{< note >}}
-اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد و این اجزا بتوانند با هر نمونه kube-apiserver در کلاستر ارتباط برقرار کنند (مثلاً از طریق یک load balancer)، این موضوع دامنه نسخه‌های مجاز این اجزا را محدود می‌کند.
+اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد و این اجزا بتوانند با هر نمونه kube-apiserver در خوشه ارتباط برقرار کنند (مثلاً از طریق یک load balancer)، این موضوع دامنه نسخه‌های مجاز این اجزا را محدود می‌کند.
 {{< /note >}}
 
 مثال:
@@ -141,7 +141,7 @@ but may be up to one minor version older (to allow live upgrades).
 ## سفارش ارتقاء مؤلفه پشتیبانی شده
 
 اختلاف نسخه (version skew) پشتیبانی شده بین اجزا تأثیراتی بر ترتیب به‌روزرسانی آن‌ها دارد.
-این بخش ترتیب به‌روزرسانی اجزا را برای انتقال یک کلاستر موجود از نسخه **{{< skew currentVersionAddMinor -1 >}}** به نسخه **{{< skew currentVersion >}}** توضیح می‌دهد.
+این بخش ترتیب به‌روزرسانی اجزا را برای انتقال یک خوشه موجود از نسخه **{{< skew currentVersionAddMinor -1 >}}** به نسخه **{{< skew currentVersion >}}** توضیح می‌دهد.
 
 به طور اختیاری، هنگام آماده‌سازی برای ارتقا، پروژه Kubernetes توصیه می‌کند که موارد زیر را انجام دهید تا از بیشترین تعداد اصلاحات برگشتی (regression) و رفع اشکالات در طول فرآیند ارتقا بهره‌مند شوید:
 
@@ -155,8 +155,8 @@ but may be up to one minor version older (to allow live upgrades).
 
 پیش‌نیازها:
 
-* در یک کلاستر تک‌نمونه‌ای (single-instance)، نمونه‌ی موجود `kube-apiserver` دارای نسخه **{{< skew currentVersionAddMinor -1 >}}** است.
-*در یک کلاستر HA، تمام نمونه‌های kube-apiserver دارای نسخه **{{< skew currentVersionAddMinor -1 >}}** یا
+* در یک خوشه تک‌نمونه‌ای (single-instance)، نمونه‌ی موجود `kube-apiserver` دارای نسخه **{{< skew currentVersionAddMinor -1 >}}** است.
+*در یک خوشه HA، تمام نمونه‌های kube-apiserver دارای نسخه **{{< skew currentVersionAddMinor -1 >}}** یا
 **{{< skew currentVersion >}}** هستند (این موضوع اطمینان می‌دهد که اختلاف نسخه بین قدیمی‌ترین و جدیدترین نمونه‌ی `kube-apiserver` حداکثر یک نسخه‌ی جزئی است).
 *نمونه‌های `kube-controller-manager`، `kube-scheduler` و `cloud-controller-manager` که با این سرور ارتباط دارند، در نسخه **{{< skew currentVersionAddMinor -1 >}}** قرار دارند
 (این موضوع تضمین می‌کند که نسخه آن‌ها از نسخه فعلی سرور API جدیدتر نباشد و حداکثر یک نسخه جزئی با نسخه جدید سرور API اختلاف داشته باشند)
@@ -175,7 +175,7 @@ but may be up to one minor version older (to allow live upgrades).
 قوانین پروژه برای  [API deprecation](/docs/reference/using-api/deprecation-policy/) و
 [API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
-نیازمند این هست که `Kube-apiserver` در نسخه minor رد نشود در هنگام بروزرسانی، حتی در حالت یک کلاستر داریم 
+نیازمند این هست که `Kube-apiserver` در نسخه minor رد نشود در هنگام بروزرسانی، حتی در حالت یک خوشه داریم 
 {{< /note >}}
 
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
@@ -211,7 +211,7 @@ In-place minor version `kubelet` upgrades are not supported.
 
 {{< note >}}
 
-اجرای یک کلاستر با نمونه‌های `kubelet` که به طور مداوم سه نسخه جزئی از `kube-apiserver` عقب‌تر هستند، به این معنی است که آن‌ها باید قبل از ارتقاء control plane به‌روزرسانی شوند.
+اجرای یک خوشه با نمونه‌های `kubelet` که به طور مداوم سه نسخه جزئی از `kube-apiserver` عقب‌تر هستند، به این معنی است که آن‌ها باید قبل از ارتقاء control plane به‌روزرسانی شوند.
 
 {{</ note >}}
 

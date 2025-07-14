@@ -3,7 +3,7 @@ title: مانیفست
 id: manifest
 date: 2019-06-28
 short_description: >
-  مشخصات سریال‌شدهٔ یک یا چند شیء API کوبرنتیز.
+  مشخصات سریال‌شده یک یا چند شیء API کوبرنتیز.
 
 aka:
 tags:

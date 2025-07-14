@@ -33,7 +33,7 @@ weight: 20
 [اعلام شد](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)).
 برای درک این‌که این تغییر چه تأثیری بر شما می‌گذارد، بخش
 [بررسی کنید که آیا حذف Dockershim بر شما تأثیر می‌گذارد](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
-را مطالعه کنید. برای آشنایی با نحوهٔ مهاجرت از dockershim نیز به
+را مطالعه کنید. برای آشنایی با نحوه مهاجرت از dockershim نیز به
 [مهاجرت از dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/)
 مراجعه کنید.
 
@@ -46,7 +46,7 @@ weight: 20
 
 ### پیکربندی شبکه
 
-به‌طور پیش‌فرض، هستهٔ لینوکس اجازه نمی‌دهد بسته‌های IPv4 بین رابط‌ها مسیریابی شوند. اکثر پیاده‌سازی‌های شبکهٔ خوشهٔ کوبرنتیز این تنظیم را (در صورت نیاز) تغییر می‌دهند، اما بعضی ممکن است انتظار داشته باشند که مدیر سیستم خودش این کار را انجام دهد. (همچنین ممکن است انتظار داشته باشند پارامترهای sysctl دیگری تنظیم شود، ماژول‌های هسته بارگذاری شوند و غیره؛ مستندات پیاده‌سازی شبکهٔ خاص خود را بررسی کنید.)
+به‌طور پیش‌فرض، هسته لینوکس اجازه نمی‌دهد بسته‌های IPv4 بین رابط‌ها مسیریابی شوند. اکثر پیاده‌سازی‌های شبکه خوشه کوبرنتیز این تنظیم را (در صورت نیاز) تغییر می‌دهند، اما بعضی ممکن است انتظار داشته باشند که مدیر سیستم خودش این کار را انجام دهد. (همچنین ممکن است انتظار داشته باشند پارامترهای sysctl دیگری تنظیم شود، ماژول‌های هسته بارگذاری شوند و غیره؛ مستندات پیاده‌سازی شبکه خاص خود را بررسی کنید.)
 
 ### فعال کردن ارسال بسته IPv4 {#prerequisite-ipv4-forwarding-optional}
 
@@ -89,22 +89,22 @@ sysctl net.ipv4.ip_forward
 فایل‌سیستم cgroup برای پیکربندی cgroupها تعامل می‌کنند.
 
 درایور `cgroupfs` هنگامی که
-[systemd](https://www.freedesktop.org/wiki/Software/systemd/) به‌عنوان سامانهٔ init استفاده می‌شود **توصیه نمی‌شود**،
+[systemd](https://www.freedesktop.org/wiki/Software/systemd/) به‌عنوان سامانه init استفاده می‌شود **توصیه نمی‌شود**،
 چرا که systemd انتظار دارد در سیستم تنها یک مدیر cgroup وجود داشته باشد. افزون بر این،
 اگر از [cgroup v2](/docs/concepts/architecture/cgroups) استفاده می‌کنید، به‌جای `cgroupfs`
 از درایور `systemd` بهره بگیرید.
 
 ### درایور systemd cgroup {#systemd-cgroup-driver}
 
-هنگامی که [systemd](https://www.freedesktop.org/wiki/Software/systemd/) به‌عنوان سامانهٔ init در یک توزیع لینوکس انتخاب می‌شود، فرایند init یک گروه کنترل ریشه (`cgroup`) ایجاد کرده و از آن استفاده می‌کند و در نقش مدیر cgroup عمل می‌کند.
+هنگامی که [systemd](https://www.freedesktop.org/wiki/Software/systemd/) به‌عنوان سامانه init در یک توزیع لینوکس انتخاب می‌شود، فرایند init یک گروه کنترل ریشه (`cgroup`) ایجاد کرده و از آن استفاده می‌کند و در نقش مدیر cgroup عمل می‌کند.
 
-systemd با cgroupها یکپارچگی تنگاتنگی دارد و برای هر واحد systemd یک cgroup اختصاص می‌دهد. بنابراین، اگر systemd سامانهٔ init باشد ولی از درایور `cgroupfs` استفاده کنید، سیستم دو مدیر cgroup متفاوت خواهد داشت.
+systemd با cgroupها یکپارچگی تنگاتنگی دارد و برای هر واحد systemd یک cgroup اختصاص می‌دهد. بنابراین، اگر systemd سامانه init باشد ولی از درایور `cgroupfs` استفاده کنید، سیستم دو مدیر cgroup متفاوت خواهد داشت.
 
-وجود دو مدیر cgroup باعث می‌شود دو نما از منابعِ در دسترس و در حال استفادهٔ سیستم شکل گیرد. در برخی موارد، نودهایی که kubelet و موتور کانتینر آن‌ها از `cgroupfs` استفاده می‌کند اما سایر فرایندها زیر نظر systemd اجرا می‌شوند، زیر فشار منابع دچار ناپایداری می‌گردند.
+وجود دو مدیر cgroup باعث می‌شود دو نما از منابعِ در دسترس و در حال استفاده سیستم شکل گیرد. در برخی موارد، نودهایی که kubelet و موتور کانتینر آن‌ها از `cgroupfs` استفاده می‌کند اما سایر فرایندها زیر نظر systemd اجرا می‌شوند، زیر فشار منابع دچار ناپایداری می‌گردند.
 
 راهکار کاهش این ناپایداری آن است که وقتی systemd به‌عنوان init استفاده می‌شود، برای kubelet و موتور کانتینر نیز درایور cgroup را `systemd` قرار دهید.
 
-برای تنظیم `systemd` به‌عنوان درایور cgroup، گزینهٔ `cgroupDriver` را در
+برای تنظیم `systemd` به‌عنوان درایور cgroup، گزینه `cgroupDriver` را در
 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)
 ویرایش کرده و مقدار آن را `systemd` بگذارید. برای مثال:
 
@@ -116,7 +116,7 @@ cgroupDriver: systemd
 ```
 
 {{< note >}}
-از نسخهٔ v1.22 به بعد، هنگام ایجاد یک خوشه با **kubeadm**، اگر کاربر فیلد `cgroupDriver` را در بخش `KubeletConfiguration` تنظیم نکند، **kubeadm** به‌صورت پیش‌فرض آن را روی `systemd` قرار می‌دهد.
+از نسخه v1.22 به بعد، هنگام ایجاد یک خوشه با **kubeadm**، اگر کاربر فیلد `cgroupDriver` را در بخش `KubeletConfiguration` تنظیم نکند، **kubeadm** به‌صورت پیش‌فرض آن را روی `systemd` قرار می‌دهد.
 {{< /note >}}
 
 اگر `systemd` را به‌عنوان درایور cgroup برای **kubelet** پیکربندی می‌کنید، باید برای
@@ -127,7 +127,7 @@ cgroupDriver: systemd
 *  [CRI-O](#cri-o)
 
 در کوبرنتیز {{< skew currentVersion >}}، با فعال بودن
-دروازهٔ ویژگی `KubeletCgroupDriverFromCRI`
+دروازه ویژگی `KubeletCgroupDriverFromCRI`
 و وجود موتور کانتینری که فراخوان (RPC) ‏`RuntimeConfig` را در رابط CRI پشتیبانی کند،
 **kubelet** درایور cgroup مناسب را به‌طور خودکار از موتور تشخیص می‌دهد
 و تنظیم `cgroupDriver` در پیکربندی kubelet را نادیده می‌گیرد.
@@ -149,12 +149,12 @@ cgroupDriver: systemd
 
 ## پشتیبانی از نسخه CRI {#cri-versions}
 
-موتور کانتینر شما باید دست‌کم از نسخهٔ **v1alpha2** رابط اجرای کانتینر (CRI) پشتیبانی کند.
+موتور کانتینر شما باید دست‌کم از نسخه **v1alpha2** رابط اجرای کانتینر (CRI) پشتیبانی کند.
 
-کوبرنتیز از [نسخهٔ v1.26 به بعد](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
-_تنها با_ نسخهٔ **v1** رابط CRI کار می‌کند. نسخه‌های پیشین به‌طور پیش‌فرض از همین نسخهٔ v1 استفاده می‌کنند؛
-اما اگر موتور کانتینر از API نسخهٔ v1 پشتیبانی نکند، **kubelet** به‌جای آن به نسخهٔ قدیمی
-(منسوخ‌شدهٔ) **v1alpha2** بازمی‌گردد.
+کوبرنتیز از [نسخه v1.26 به بعد](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
+_تنها با_ نسخه **v1** رابط CRI کار می‌کند. نسخه‌های پیشین به‌طور پیش‌فرض از همین نسخه v1 استفاده می‌کنند؛
+اما اگر موتور کانتینر از API نسخه v1 پشتیبانی نکند، **kubelet** به‌جای آن به نسخه قدیمی
+(منسوخ‌شده) **v1alpha2** بازمی‌گردد.
 
 ## Container runtimes
 
@@ -166,7 +166,7 @@ _تنها با_ نسخهٔ **v1** رابط CRI کار می‌کند. نسخه‌
 
 برای نصب containerd روی سیستم خود، دستورالعمل‌های
 [شروع به کار با containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
-را دنبال کنید. پس از آنکه یک پروندهٔ پیکربندی معتبر `config.toml` ایجاد کردید، به این مرحله بازگردید.
+را دنبال کنید. پس از آنکه یک پرونده پیکربندی معتبر `config.toml` ایجاد کردید، به این مرحله بازگردید.
 
 {{< tabs name="Finding your config.toml file" >}}
 {{% tab name="Linux" %}}
@@ -178,7 +178,7 @@ _تنها با_ نسخهٔ **v1** رابط CRI کار می‌کند. نسخه‌
 {{< /tabs >}}
 
 در لینوکس، سوکت پیش‌فرض CRI برای containerd مسیر `/run/containerd/containerd.sock` است.  
-در ویندوز، نقطهٔ پایانی پیش‌فرض CRI مقدار `npipe://./pipe/containerd-containerd` است.
+در ویندوز، نقطه پایانی پیش‌فرض CRI مقدار `npipe://./pipe/containerd-containerd` است.
 
 #### پیکربندی درایور cgroup مربوط به systemd {#containerd-systemd}
 
@@ -194,14 +194,14 @@ _تنها با_ نسخهٔ **v1** رابط CRI کار می‌کند. نسخه‌
 درایور cgroup `systemd` در صورتی که از [cgroup v2](/docs/concepts/architecture/cgroups) استفاده می‌کنید توصیه می‌شود.
 
 {{< note >}}
-اگر containerd را از طریق بستهٔ نصبی (مثلاً RPM یا `.deb`) نصب کرده باشید، ممکن است
-افزونهٔ یکپارچه‌سازی CRI به‌طور پیش‌فرض غیرفعال باشد.
+اگر containerd را از طریق بسته نصبی (مثلاً RPM یا `.deb`) نصب کرده باشید، ممکن است
+افزونه یکپارچه‌سازی CRI به‌طور پیش‌فرض غیرفعال باشد.
 
 برای استفاده از containerd با Kubernetes باید پشتیبانی CRI فعال باشد. مطمئن شوید که `cri`
 در فهرست `disabled_plugins` در فایل `/etc/containerd/config.toml` درج نشده است؛
 اگر در این فایل تغییری ایجاد کردید، حتماً `containerd` را نیز راه‌اندازی مجدد کنید.
 
-اگر پس از نصب اولیهٔ خوشه یا نصب یک CNI با حلقهٔ کرش کانتینر مواجه شدید،
+اگر پس از نصب اولیه خوشه یا نصب یک CNI با حلقه کرش کانتینر مواجه شدید،
 احتمالاً پیکربندی containerd ارائه‌شده در بسته شامل پارامترهای ناسازگار است.
 در این صورت، پیکربندی containerd را با اجرای دستور
 `containerd config default > /etc/containerd/config.toml`
@@ -219,7 +219,7 @@ sudo systemctl restart containerd
 هنگام استفاده از **kubeadm**، درایور cgroup برای **kubelet** را به‌صورت دستی پیکربندی کنید:
 [cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
-در کوبرنتیز نسخهٔ v1.28، می‌توانید شناسایی خودکار درایور cgroup را به‌عنوان یک قابلیت آلفا فعال کنید. برای جزئیات بیش‌تر، بخش
+در کوبرنتیز نسخه v1.28، می‌توانید شناسایی خودکار درایور cgroup را به‌عنوان یک قابلیت آلفا فعال کنید. برای جزئیات بیش‌تر، بخش
 [درایور cgroup systemd](#systemd-cgroup-driver) را ببینید.
 
 #### نادیده گرفتن sandbox (pause) image {#override-pause-image-containerd}
@@ -251,9 +251,9 @@ conmon_cgroup = "pod"
 cgroup_manager = "cgroupfs"
 ```
 
-همچنین باید به گزینهٔ تغییر‌یافتهٔ `conmon_cgroup` توجه کنید؛ هنگام استفاده از CRI-O همراه با `cgroupfs`، این گزینه باید روی مقدار `pod` تنظیم شود. به‌طور کلی، لازم است پیکربندی درایور cgroup در kubelet (که معمولاً با kubeadm انجام می‌شود) و در CRI-O با هم همگام باشند.
+همچنین باید به گزینه تغییر‌یافته `conmon_cgroup` توجه کنید؛ هنگام استفاده از CRI-O همراه با `cgroupfs`، این گزینه باید روی مقدار `pod` تنظیم شود. به‌طور کلی، لازم است پیکربندی درایور cgroup در kubelet (که معمولاً با kubeadm انجام می‌شود) و در CRI-O با هم همگام باشند.
 
-در کوبرنتیز نسخهٔ v1.28، می‌توانید تشخیص خودکار درایور cgroup را به‌عنوان یک ویژگی آلفا فعال کنید. برای جزئیات بیش‌تر به [درایور cgroup systemd](#systemd-cgroup-driver) مراجعه کنید.
+در کوبرنتیز نسخه v1.28، می‌توانید تشخیص خودکار درایور cgroup را به‌عنوان یک ویژگی آلفا فعال کنید. برای جزئیات بیش‌تر به [درایور cgroup systemd](#systemd-cgroup-driver) مراجعه کنید.
 
 در CRI-O، سوکت CRI به‌صورت پیش‌فرض `/var/run/crio/crio.sock` است.
 
@@ -266,7 +266,7 @@ cgroup_manager = "cgroupfs"
 pause_image="registry.k8s.io/pause:3.10"
 ```
 
-این گزینهٔ پیکربندی از **بارگذاری زندهٔ پیکربندی** برای اعمال تغییر پشتیبانی می‌کند؛ کافی است دستور
+این گزینه پیکربندی از **بارگذاری زنده پیکربندی** برای اعمال تغییر پشتیبانی می‌کند؛ کافی است دستور
 `systemctl reload crio` را اجرا کنید یا سیگنال `SIGHUP` را به فرایند `crio` بفرستید.
 
 ### Docker Engine {#docker}
@@ -291,7 +291,7 @@ pause_image="registry.k8s.io/pause:3.10"
 می‌توانید Mirantis Container Runtime را با استفاده از مؤلفۀ متن‌باز
 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/) ــ که همراه با MCR عرضه می‌شود ــ در Kubernetes به کار بگیرید.
 
-برای آگاهی بیش‌تر از نحوهٔ نصب Mirantis Container Runtime،
+برای آگاهی بیش‌تر از نحوه نصب Mirantis Container Runtime،
 به راهنمای [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html) مراجعه کنید.
 
 واحد systemd با نام `cri-docker.socket` را بررسی کنید تا مسیر سوکت CRI را بیابید.
@@ -304,5 +304,5 @@ pause_image="registry.k8s.io/pause:3.10"
 ## {{% heading "whatsnext" %}}
 
 علاوه بر یک محیط اجرای کانتینر، خوشۀ شما به یک
-[افزونهٔ شبکه](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)
+[افزونه شبکه](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)
 سالم و فعال نیز نیاز دارد.

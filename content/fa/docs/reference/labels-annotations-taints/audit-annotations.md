@@ -8,7 +8,7 @@ weight: 10
 این صفحه به عنوان مرجعی برای حاشیه‌نویسی‌های حسابرسی نیم اسپیس  kubernetes.io عمل می‌کند. این حاشیه‌نویسی‌ها برای شیء `Event` از گروه API `audit.k8s.io` اعمال می‌شوند.
 
 {{< note >}}
-حاشیه‌نویسی‌های زیر در API Kubernetes استفاده نمی‌شوند. وقتی شما در کلاستر خود، حسابرسی را فعال می‌کنید، داده‌های رویداد حسابرسی با استفاده از `Event` از گروه API `audit.k8s.io` [enable auditing](/docs/tasks/debug/debug-cluster/audit/)نوشته می‌شوند. این حاشیه‌نویسی‌ها برای رویدادهای حسابرسی اعمال می‌شوند. رویدادهای حسابرسی با اشیاء موجود در [Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group `events.k8s.io`). متفاوت هستند.
+حاشیه‌نویسی‌های زیر در API Kubernetes استفاده نمی‌شوند. وقتی شما در خوشه خود، حسابرسی را فعال می‌کنید، داده‌های رویداد حسابرسی با استفاده از `Event` از گروه API `audit.k8s.io` [enable auditing](/docs/tasks/debug/debug-cluster/audit/)نوشته می‌شوند. این حاشیه‌نویسی‌ها برای رویدادهای حسابرسی اعمال می‌شوند. رویدادهای حسابرسی با اشیاء موجود در [Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group `events.k8s.io`). متفاوت هستند.
 {{< /note >}}
 
 <!-- body -->

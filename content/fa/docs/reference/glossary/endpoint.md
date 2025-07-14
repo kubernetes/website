@@ -10,7 +10,7 @@ aka:
 tags:
 - networking
 ---
-نقطهٔ پایانی یک {{< glossary_tooltip text="Service" term_id="service" >}} یکی از {{< glossary_tooltip text="Pods" term_id="pod" >}} (یا سرورهای خارجی) است که آن سرویس را پیاده‌سازی می‌کند.
+نقطه پایانی یک {{< glossary_tooltip text="Service" term_id="service" >}} یکی از {{< glossary_tooltip text="Pods" term_id="pod" >}} (یا سرورهای خارجی) است که آن سرویس را پیاده‌سازی می‌کند.
 
 <!--more-->
 

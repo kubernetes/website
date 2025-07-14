@@ -4,13 +4,13 @@ id: member
 date: 2018-04-12
 full_link: 
 short_description: >
-  یک مشارکت‌کنندهٔ فعال مستمر در جامعهٔ K8s.
+  یک مشارکت‌کننده فعال مستمر در جامعه K8s.
 
 aka: 
 tags:
 - community
 ---
- یک {{< glossary_tooltip text="contributor" term_id="contributor" >}} فعال و مداوم در جامعهٔ K8s.
+ یک {{< glossary_tooltip text="contributor" term_id="contributor" >}} فعال و مداوم در جامعه K8s.
 
 <!--more--> 
 

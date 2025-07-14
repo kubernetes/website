@@ -18,5 +18,5 @@ tags:
 FlexVolumeها به کاربران اجازه می‌دهند درایورهای خود را بنویسند و پشتیبانی از حجم‌هایشان را در کوبرنتیز اضافه کنند. فایل‌های باینری درایور FlexVolume و وابستگی‌های آن باید روی ماشین‌های میزبان نصب شوند که به دسترسی ریشه نیاز دارد. گروه SIG Storage پیشنهاد می‌کند در صورت امکان یک درایور {{< glossary_tooltip text="CSI" term_id="csi" >}} پیاده‌سازی شود، زیرا محدودیت‌های FlexVolume را رفع می‌کند.
 
 * [FlexVolume در مستندات کوبرنتیز](/docs/concepts/storage/volumes/#flexvolume)
-* [اطلاعات بیشتر دربارهٔ FlexVolumeها](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
-* [سؤالات متداول افزونهٔ حجم برای فروشندگان ذخیره‌سازی](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)
+* [اطلاعات بیشتر درباره FlexVolumeها](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
+* [سؤالات متداول افزونه حجم برای فروشندگان ذخیره‌سازی](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)

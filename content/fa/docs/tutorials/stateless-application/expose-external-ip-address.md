@@ -1,5 +1,5 @@
 ---
-title: افشای یک آدرس IP خارجی برای دسترسی به یک برنامه در یک کلاستر
+title: افشای یک آدرس IP خارجی برای دسترسی به یک برنامه در یک خوشه
 content_type: آموزش
 weight: 10
 ---
@@ -15,7 +15,7 @@ weight: 10
 
 
 *  نصب [kubectl](/docs/tasks/tools/).
-* از یک ارائه‌دهنده ابری مانند Google Kubernetes Engine یا Amazon Web Services برای ایجاد یک کلاستر Kubernetes استفاده کنید. این آموزش یک [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/) ایجاد می‌کند که به یک ارائه‌دهنده ابری نیاز دارد.
+* از یک ارائه‌دهنده ابری مانند Google Kubernetes Engine یا Amazon Web Services برای ایجاد یک خوشه Kubernetes استفاده کنید. این آموزش یک [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/) ایجاد می‌کند که به یک ارائه‌دهنده ابری نیاز دارد.
 * `kubectl` را برای ارتباط با سرور Kubernetes API خود پیکربندی کنید. برای دستورالعمل‌ها، به مستندات ارائه‌دهنده ابری خود مراجعه کنید.
 
 ## {{% heading "objectives" %}}
@@ -28,7 +28,7 @@ weight: 10
 
 ## ایجاد یک سرویس برای اجرای یک برنامه در پنج پاد
 
-1. یک برنامه Hello World را در کلاستر خود اجرا کنید:
+1. یک برنامه Hello World را در خوشه خود اجرا کنید:
 
 
    {{% code_sample file="service/load-balancer-example.yaml" %}}
