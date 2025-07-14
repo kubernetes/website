@@ -18,7 +18,7 @@ Secrets are often a target for attackers. Mismanaged secrets can lead to serious
 
 ---
 
-## 1. Avoid Committing Secrets to Git.
+## 1. Avoid Committing Secrets to Git
 
 **Bad Example:**
 ```yaml
@@ -36,7 +36,7 @@ Use `External Secrets` or reference secrets from secure vaults, and avoid storin
 
 ---
 
-## 2. Use External Secrets Managers.
+## 2. Use External Secrets Managers
 
 Integrate Kubernetes with:
 
@@ -49,7 +49,7 @@ For dynamic secrets that expire, Vault provides short-lived DB credentials that 
 
 ---
 
-## 3. Enable Encryption at Rest.
+## 3. Enable Encryption at Rest
 
 By default, secrets are stored unencrypted in etcd. Enable encryption using a Key Management System (KMS):
 
@@ -69,7 +69,7 @@ Ensure your cloud provider’s KMS is enabled (e.g., AWS KMS, Azure Key Vault).
 
 ---
 
-## 4. Use RBAC to Control Access.
+## 4. Use RBAC to Control Access
 
 Limit which users and service accounts can access secrets:
 ```yaml
@@ -85,7 +85,7 @@ rules:
 
 ---
 
-## 5. Avoid Using Environment Variables for Secrets.
+## 5. Avoid Using Environment Variables for Secrets
 
 **Why:** Environment variables are exposed in process listings and logs.
 
@@ -99,7 +99,7 @@ volumes:
 
 ---
 
-## 6. Automate Secret Rotation.
+## 6. Automate Secret Rotation
 
 Use tools like **Vault**, **cert-manager**, or **AWS Secrets Manager** to:
 - Rotate API keys and DB credentials
@@ -109,7 +109,7 @@ Use tools like **Vault**, **cert-manager**, or **AWS Secrets Manager** to:
 
 ---
 
-## 7. Audit Secret Access.
+## 7. Audit Secret Access
 
 - Enable Kubernetes Audit Logs
 - Use `opa-gatekeeper` or Kyverno to enforce policies
@@ -117,7 +117,7 @@ Use tools like **Vault**, **cert-manager**, or **AWS Secrets Manager** to:
 
 ---
 
-## 8. Use Namespace Isolation.
+## 8. Use Namespace Isolation
 
 Keep secrets scoped to namespaces, and limit cross-namespace access using `RoleBinding` or `NetworkPolicies`.
 
