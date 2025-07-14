@@ -1,0 +1,17 @@
+---
+title: SupplementalGroupsPolicy
+content_type: feature_gate
+_build:
+  list: never
+  render: false
+
+stages:
+  - stage: alpha
+    defaultValue: false
+    fromVersion: "1.31"
+    toVersion: "1.32"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.33"
+---
+پشتیبانی از کنترل دقیق SupplementalGroups را فعال می‌کند. برای جزئیات بیشتر، به [Configure fine-grained SupplementalGroups control for a Pod](/content/en/docs/tasks/configure-pod-container/security-context/#supplementalgroupspolicy). مراجعه کنید.
