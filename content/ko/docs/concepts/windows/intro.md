@@ -333,7 +333,7 @@ containerd와 GMSA 사용 시 윈도우 네트워크 공유 접근에 대한
 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html)(MCR)은 
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html)(MCR)은 
 Windows Server 2019 및 이후 버전을 지원하는 컨테이너 런타임이다.
 
 더 많은 정보는 [Windows Server에 MCR 설치하기](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html)를 참고한다.
