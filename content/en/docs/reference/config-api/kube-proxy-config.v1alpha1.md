@@ -656,7 +656,7 @@ traffic to be local if its source IP is in this range. (Otherwise it is not
 used.)</p>
 </td>
 </tr>
-<tr><td><code>nodePortAddresses</code> <B>[Required]</B><br/>
+<tr><td><code>nodePortAddresses</code><br/>
 <code>[]string</code>
 </td>
 <td>
