@@ -2745,8 +2745,6 @@ Type: Label
 Example: `service.kubernetes.io/service-proxy-name: "foo-bar"`
 
 Used on: Service
-
-The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
 -->
 ### service.kubernetes.io/service-proxy-name {#servicekubernetesioservice-proxy-name}
 
@@ -2756,7 +2754,17 @@ The kube-proxy has this label for custom proxy, which delegates service control 
 
 用于：Service
 
-kube-proxy 自定义代理会使用这个标签，它将服务控制委托给自定义代理。
+<!--
+Setting a value for this label tells kube-proxy to ignore this service for proxying purposes.
+This allows for use of alternative proxy implementations for this service (e.g. running
+a DaemonSet that manages nftables its own way). Multiple alternative proxy implementations
+could be active simultaneously using this field, e.g. by having a value unique to each
+alternative proxy implementation to be responsible for their respective services.
+-->
+为这个标签设置一个值会告诉 kube-proxy 在执行代理操作时忽略此 Service。
+这一标签使得用户能够为此 Service 使用替代的代理实现（例如，运行管理 nftables 的 DaemonSet）。
+通过此字段，可以同时激活多个替代代理实现，例如，为每个替代代理实现设置唯一值，
+以负责各自的 Service。
 
 <!--
 ### experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
@@ -3375,13 +3383,6 @@ Type: Annotation
 Example: `scheduler.alpha.kubernetes.io/tolerationsWhitelist: '[{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}]'`
 
 Used on: Namespace
-
-This annotation is only useful when the (Alpha)
-[PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
-admission controller is enabled. The annotation value is a JSON document that defines a list of
-allowed tolerations for the namespace it annotates. When you create a Pod or modify its
-tolerations, the API server checks the tolerations to see if they are mentioned in the allow list.
-The pod is admitted only if the check succeeds.
 -->
 ### scheduler.alpha.kubernetes.io/tolerationsWhitelist {#schedulerkubernetestolerations-whitelist}
 
@@ -3391,6 +3392,14 @@ The pod is admitted only if the check succeeds.
 
 用于：命名空间
 
+<!--
+This annotation is only useful when the (Alpha)
+[PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
+admission controller is enabled. The annotation value is a JSON document that defines a list of
+allowed tolerations for the namespace it annotates. When you create a Pod or modify its
+tolerations, the API server checks the tolerations to see if they are mentioned in the allow list.
+The pod is admitted only if the check succeeds.
+-->
 此注解只有在启用（Alpha）
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
 控制器时才生效。注解值是一个 JSON 文档，它为它所注解的命名空间定义了一个允许容忍的列表。
@@ -4878,10 +4887,6 @@ Used on: Pod
 This annotation was only relevant if you were using
 [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) objects.
 Kubernetes v{{< skew currentVersion >}} does not support the PodSecurityPolicy API.
-
-When the PodSecurityPolicy admission controller admitted a Pod, the admission controller
-modified the Pod to have this annotation.
-The value of the annotation was the name of the PodSecurityPolicy that was used for validation.
 -->
 ### kubernetes.io/psp（已弃用） {#kubernetes-io-psp}
 
@@ -4894,6 +4899,11 @@ The value of the annotation was the name of the PodSecurityPolicy that was used 
 这个注解只在你使用 [PodSecurityPolicies](/zh-cn/docs/concepts/security/pod-security-policy/) 时才有意义。
 Kubernetes v{{< skew currentVersion >}} 不支持 PodSecurityPolicy API。
 
+<!--
+When the PodSecurityPolicy admission controller admitted a Pod, the admission controller
+modified the Pod to have this annotation.
+The value of the annotation was the name of the PodSecurityPolicy that was used for validation.
+-->
 当 PodSecurityPolicy 准入控制器接受一个 Pod 时，会修改该 Pod，并给这个 Pod 添加此注解。
 注解的值是用来对 Pod 进行验证检查的 PodSecurityPolicy 的名称。
 
