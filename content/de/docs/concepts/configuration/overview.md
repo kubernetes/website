@@ -1,7 +1,5 @@
 ---
-reviewers:
-- mikedanese
-title: Configuration Best Practices
+title: Bewährte Konfigurationspraktiken
 content_type: concept
 weight: 10
 ---
