@@ -258,7 +258,7 @@ multi-tenant clusters. Starting with Kubernetes v1.33, only users authorized to
 create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 `resource.k8s.io/admin-access: "true"` (case-sensitive) can use the
 `adminAccess` field. This ensures that non-admin users cannot misuse the
-feature. 
+feature. Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
 
 ## ResourceClaim Device Status
 
@@ -506,9 +506,8 @@ be installed. Please refer to the driver's documentation for details.
 
 ### Enabling admin access
 
-[Admin access](#admin-access) is an *alpha feature* and only enabled when the
-`DRAAdminAccess` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver and kube-scheduler.
+[Admin access](#admin-access) is a *beta feature* and is enabled by default with the
+`DRAAdminAccess` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in the kube-apiserver and kube-scheduler.
 
 ### Enabling Device Status
 
@@ -519,7 +518,7 @@ is enabled in the kube-apiserver.
 
 ### Enabling Prioritized List
 
-[Prioritized List](#prioritized-list)) is an *alpha feature* and only enabled when the
+[Prioritized List](#prioritized-list) is an *alpha feature* and only enabled when the
 `DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler. It also requires that the
 `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
