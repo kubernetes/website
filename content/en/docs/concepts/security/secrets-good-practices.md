@@ -137,14 +137,6 @@ Base64 encoding is _not_ an encryption method, it provides no additional
 confidentiality over plain text.
 {{< /caution >}}
 
-### Avoid committing Secrets to version control
-
-Never commit raw or base64-encoded Secret manifests to version control systems like GitHub or GitLab. Instead:
-
-* Use sealed secrets or GitOps tools with encryption (e.g., Mozilla SOPS)
-
-* Store sensitive values in external secret stores and reference them dynamically during CI/CD deployment
-
 ### Prefer volume mounts over environment variables
 
 When passing secrets to applications, use volumes instead of environment variables. Environment variables may be exposed via /proc/self/environ or during core dumps and are visible through tools like ps.
