@@ -109,9 +109,10 @@ Dwie istotne kolumny tego wyniku to:
 
 * _DESIRED_ pokazuje żądaną liczbę replik aplikacji, którą
   określasz podczas tworzenia Deploymentu. Jest to pożądany stan.
-* _CURRENT_ pokazuje, ile replik obecnie działa. Następnie
-  skalujemy Deployment do 4 replik. Użyjemy polecenia `kubectl scale`,
-  po którym podajemy typ Deployment, nazwę i pożądaną liczbę instancji:
+* _CURRENT_ pokazuje, ile replik obecnie działa.
+
+Następnie skalujemy Deployment do 4 replik. Użyjemy polecenia
+`kubectl scale`, po którym podajemy typ Deployment, nazwę i pożądaną liczbę instancji:
 
 ```shell
 kubectl scale deployments/kubernetes-bootcamp --replicas=4
