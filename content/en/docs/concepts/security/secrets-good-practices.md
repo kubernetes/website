@@ -62,7 +62,7 @@ recommendations include:
 *  Implement audit rules that alert on specific events, such as concurrent
    reading of multiple Secrets by a single user
 
-#### Isolate Secrets by namespace
+### Isolate Secrets by namespace
 Limit the scope of Secrets to individual namespaces to enforce strong security boundaries. Avoid creating Secrets in the default namespace or sharing them across multiple applications or teams unless explicitly required.
 
 Example:
