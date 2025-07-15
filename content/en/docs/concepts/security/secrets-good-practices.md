@@ -62,8 +62,22 @@ recommendations include:
 *  Implement audit rules that alert on specific events, such as concurrent
    reading of multiple Secrets by a single user
 
-#### Restrict Access for Secrets
-Use separate namespaces to isolate access to mounted secrets.
+#### Isolate Secrets by namespace
+Limit the scope of Secrets to individual namespaces to enforce strong security boundaries. Avoid creating Secrets in the default namespace or sharing them across multiple applications or teams unless explicitly required.
+
+Example:
+
+If you have a team working in team-a namespace, ensure all Secrets they require are defined and used only within team-a.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+  namespace: team-a
+```
+
+Use [RoleBindings](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) to control access to Secrets per namespace and prevent accidental leaks across environments.
 
 ### Improve etcd management policies
 
@@ -122,3 +136,15 @@ repository means the secret is available to everyone who can read the manifest.
 Base64 encoding is _not_ an encryption method, it provides no additional
 confidentiality over plain text.
 {{< /caution >}}
+
+### Avoid committing Secrets to version control
+
+Never commit raw or base64-encoded Secret manifests to version control systems like GitHub or GitLab. Instead:
+
+* Use sealed secrets or GitOps tools with encryption (e.g., Mozilla SOPS)
+
+* Store sensitive values in external secret stores and reference them dynamically during CI/CD deployment
+
+### Prefer volume mounts over environment variables
+
+When passing secrets to applications, use volumes instead of environment variables. Environment variables may be exposed via /proc/self/environ or during core dumps and are visible through tools like ps.
