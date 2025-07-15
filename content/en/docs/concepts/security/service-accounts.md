@@ -133,10 +133,10 @@ You can use RBAC to allow service accounts in one namespace to perform actions
 on resources in a different namespace in the cluster. For example, consider a
 scenario where you have a service account and Pod in the `dev` namespace and
 you want your Pod to see Jobs running in the `maintenance` namespace. You could
-create a Role object that grants permissions to list Job objects. Then,
-you'd create a RoleBinding object in the `maintenance` namespace to bind the
-Role to the ServiceAccount object. Now, Pods in the `dev` namespace can list
-Job objects in the `maintenance` namespace using that service account.
+create a Cluster Role object that grants permissions to list Job objects. Then,
+you'd create a Cluster RoleBinding to bind the Cluster Role to the ServiceAccount object.
+Now, Pods in the `dev` namespace can listJob objects in the `maintenance` namespace
+using that service account.
 
 ### Assign a ServiceAccount to a Pod {#assign-to-pod}
 
