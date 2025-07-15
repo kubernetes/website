@@ -101,44 +101,10 @@ the data.
 For a list of supported providers, refer to
 [Providers for the Secret Store CSI Driver](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
 
-### Enable audit logging for Secret access
+## Good practices for using swap memory
 
-You should enable [Kubernetes Audit Logs](https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/) to monitor access to Secret objects. By configuring audit policies to capture `get`, `list`, or `watch` operations on Secrets, administrators can detect unauthorized access attempts or unusual behavior.
-
-**Example Audit Policy:**
-
-```yaml
-apiVersion: audit.k8s.io/v1
-kind: Policy
-rules:
-  - level: RequestResponse
-    resources:
-      - group: ""
-        resources: ["secrets"]
-```
-### Use admission policies to enforce Secret handling rules
-
-Admission controllers such as [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper) or [Kyverno](https://kyverno.io/docs/introduction/) can help enforce organizational policies around Secrets. These tools support writing constraints or policies that prevent insecure practices at deployment time.
-
-Examples:
-
-Deny Secrets mounted as environment variables:
-
-```yaml
-match:
-  kinds:
-    - apiGroups: [""]
-      kinds: ["Pod"]
-validate:
-  message: "Secrets must be mounted as volumes, not env vars."
-  deny:
-    conditions:
-      - key: "spec.containers[*].env[*].valueFrom.secretKeyRef"
-        operator: NotEquals
-        value: null
-```
-
-
+For best practices for setting swap memory for Linux nodes, please refer to
+[swap memory management](/docs/concepts/cluster-administration/swap-memory-management/#good-practice-for-using-swap-in-a-kubernetes-cluster).
 
 ## Developers
 
