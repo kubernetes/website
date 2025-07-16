@@ -3,7 +3,6 @@ title: 容器运行时接口（CRI）
 content_type: concept
 weight: 60
 ---
-
 <!-- 
 title: Container Runtime Interface (CRI)
 content_type: concept
@@ -27,9 +26,13 @@ CRI 是一个插件接口，它使 kubelet 能够使用各种容器运行时，�
 这样 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 能启动
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 及其容器。
 
+<!--
+{{< glossary_definition prepend="The Container Runtime Interface (CRI) is" term_id="cri" length="all" >}}
+-->
 {{< glossary_definition prepend="容器运行时接口（CRI）是" term_id="cri" length="all" >}}
 
 <!-- body -->
+
 <!--
 ## The API {#api}
 -->
@@ -46,7 +49,8 @@ runtime, which can be configured separately within the kubelet by using the
 -->
 当通过 gRPC 连接到容器运行时，kubelet 将充当客户端。运行时和镜像服务端点必须在容器运行时中可用，
 可以使用 `--container-runtime-endpoint`
-[命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)在 kubelet 中单独配置。
+[命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kubelet)在
+kubelet 中单独配置。
 
 <!-- 
 For Kubernetes v1.26 and later, the kubelet requires that the container runtime
@@ -71,12 +75,13 @@ container runtime is correctly configured.
 
 在节点上升级 Kubernetes 版本时，kubelet 会重新启动。
 如果容器运行时不支持 `v1` 版本的 CRI API，kubelet 将无法注册节点并报告错误。
-如果由于容器运行时已升级而需要重新建立 gRPC 连接，则该容器运行时必须支持 v1 版本的 CRI API，连接才能成功。
+如果由于容器运行时已升级而需要重新建立 gRPC 连接，
+则该容器运行时必须支持 v1 版本的 CRI API，连接才能成功。
 在容器运行时正确配置后，可能需要重新启动 kubelet 才能建立连接。
 
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/c75ef5b/pkg/apis/runtime/v1/api.proto)
+- Learn more about the CRI [protocol definition](https://github.com/kubernetes/cri-api/blob/v0.33.1/pkg/apis/runtime/v1/api.proto)
 -->
 - 了解更多有关 CRI [协议定义](https://github.com/kubernetes/cri-api/blob/v0.33.1/pkg/apis/runtime/v1/api.proto)

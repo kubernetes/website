@@ -288,7 +288,7 @@ See the Pod's status:
 kubectl get pod security-context-demo -o yaml
 ```
 
-You can see that the `status.containerStatuses[].user.linux` field exposes the process identitiy
+You can see that the `status.containerStatuses[].user.linux` field exposes the process identity
 attached to the first container process.
 
 ```none

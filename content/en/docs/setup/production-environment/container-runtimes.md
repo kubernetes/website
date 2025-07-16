@@ -204,12 +204,24 @@ On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
-To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
+To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
+set the following config based on your Containerd version
+
+Containerd versions 1.x:
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
   ...
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
+
+Containerd versions 2.x:
+
+```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
+  ...
+  [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
 
