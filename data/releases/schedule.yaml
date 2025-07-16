@@ -7,10 +7,13 @@ schedules:
 - endOfLifeDate: "2026-06-28"
   maintenanceModeStartDate: "2026-04-28"
   next:
-    cherryPickDeadline: "2025-07-11"
+    cherryPickDeadline: "2025-08-08"
+    release: 1.33.4
+    targetDate: "2025-08-12"
+  previousPatches:
+  - cherryPickDeadline: "2025-07-11"
     release: 1.33.3
     targetDate: "2025-07-15"
-  previousPatches:
   - cherryPickDeadline: "2025-06-06"
     release: 1.33.2
     targetDate: "2025-06-17"
@@ -22,10 +25,13 @@ schedules:
 - endOfLifeDate: "2026-02-28"
   maintenanceModeStartDate: "2025-12-28"
   next:
-    cherryPickDeadline: "2025-07-11"
+    cherryPickDeadline: "2025-08-08"
+    release: 1.32.8
+    targetDate: "2025-08-12"
+  previousPatches:
+  - cherryPickDeadline: "2025-07-11"
     release: 1.32.7
     targetDate: "2025-07-15"
-  previousPatches:
   - cherryPickDeadline: "2025-06-06"
     release: 1.32.6
     targetDate: "2025-06-17"
@@ -51,10 +57,13 @@ schedules:
 - endOfLifeDate: "2025-10-28"
   maintenanceModeStartDate: "2025-08-28"
   next:
-    cherryPickDeadline: "2025-07-11"
+    cherryPickDeadline: "2025-08-08"
+    release: 1.31.12
+    targetDate: "2025-08-12"
+  previousPatches:
+  - cherryPickDeadline: "2025-07-11"
     release: 1.31.11
     targetDate: "2025-07-15"
-  previousPatches:
   - cherryPickDeadline: "2025-06-06"
     release: 1.31.10
     targetDate: "2025-06-17"
@@ -89,63 +98,10 @@ schedules:
     targetDate: "2024-08-13"
   release: "1.31"
   releaseDate: "2024-08-13"
-- endOfLifeDate: "2025-06-28"
-  maintenanceModeStartDate: "2025-04-28"
-  next:
-    cherryPickDeadline: "2025-07-11"
-    release: 1.30.15
-    targetDate: "2025-07-15"
-  previousPatches:
-  - cherryPickDeadline: "2025-06-06"
-    release: 1.30.14
-    targetDate: "2025-06-17"
-  - cherryPickDeadline: "2025-05-09"
-    release: 1.30.13
-    targetDate: "2025-05-15"
-  - cherryPickDeadline: "2025-04-11"
-    release: 1.30.12
-    targetDate: "2025-04-22"
-  - cherryPickDeadline: "2025-03-07"
-    release: 1.30.11
-    targetDate: "2025-03-11"
-  - cherryPickDeadline: "2025-02-07"
-    release: 1.30.10
-    targetDate: "2025-02-11"
-  - cherryPickDeadline: "2025-01-10"
-    release: 1.30.9
-    targetDate: "2025-01-14"
-  - cherryPickDeadline: "2024-12-06"
-    release: 1.30.8
-    targetDate: "2024-12-10"
-  - cherryPickDeadline: "2024-11-15"
-    release: 1.30.7
-    targetDate: "2024-11-19"
-  - cherryPickDeadline: "2024-10-11"
-    release: 1.30.6
-    targetDate: "2024-10-22"
-  - cherryPickDeadline: "2024-09-06"
-    release: 1.30.5
-    targetDate: "2024-09-10"
-  - cherryPickDeadline: "2024-08-09"
-    release: 1.30.4
-    targetDate: "2024-08-14"
-  - cherryPickDeadline: "2024-07-12"
-    release: 1.30.3
-    targetDate: "2024-07-16"
-  - cherryPickDeadline: "2024-06-07"
-    release: 1.30.2
-    targetDate: "2024-06-11"
-  - cherryPickDeadline: "2024-05-10"
-    release: 1.30.1
-    targetDate: "2024-05-15"
-  - release: 1.30.0
-    targetDate: "2024-04-17"
-  release: "1.30"
-  releaseDate: "2024-04-17"
 upcoming_releases:
-- cherryPickDeadline: "2025-07-11"
-  targetDate: "2025-07-15"
 - cherryPickDeadline: "2025-08-08"
   targetDate: "2025-08-12"
 - cherryPickDeadline: "2025-09-05"
   targetDate: "2025-09-09"
+- cherryPickDeadline: "2025-10-10"
+  targetDate: "2025-10-14"
