@@ -7,9 +7,6 @@ $headline-wrapper-margin-bottom: 40px;
 $quickstart-button-padding: 0 50px;
 $vendor-strip-font-size: 16px;
 
-//video
-$video-section-height: 400px;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,15 +110,13 @@ $video-section-height: 400px;
   }
 
   #video {
-    height: $video-section-height;
     display: block;
-    height: 550px;
 
     & > .light-text {
       display: block;
       float: right;
       text-align: left;
-      margin-right: 5%;
+      margin: 0 5% 15px 0;
     }
   }
 

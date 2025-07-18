@@ -345,7 +345,7 @@ Beide Ansätze sind gleichwertig. Nach dem erneuten Laden der Shell sollte kubec
 {{% tab name="Bash auf macOS" %}}
 
 {{< warning>}}
-macOS beinhaltet standardmäßig Bash 3.2. Das kubectl-Vervollständigunsskript erfordert Bash 4.1+ und funktioniert nicht mit Bash 3.2. Um dies zu umgehen, können Sie eine neuere Version von Bash unter macOS installieren (folgen Sie den Anweisungen [hier](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Die folgenden Anweisungen funktionieren nur, wenn Sie Bash 4.1 oder höher verwenden.
+macOS beinhaltet standardmäßig Bash 3.2. Das kubectl-Vervollständigunsskript erfordert Bash 4.1+ und funktioniert nicht mit Bash 3.2. Um dies zu umgehen, können Sie eine neuere Version von Bash unter macOS installieren (folgen Sie den Anweisungen [hier](https://apple.stackexchange.com/a/292760)). Die folgenden Anweisungen funktionieren nur, wenn Sie Bash 4.1 oder höher verwenden.
 {{< /warning >}}
 
 ### Einführung

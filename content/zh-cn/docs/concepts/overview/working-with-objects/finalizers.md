@@ -46,9 +46,9 @@ and does the following:
 当你试图删除该资源时，处理删除请求的 API 服务器会注意到 `finalizers` 字段中的值，
 并进行以下操作：
 
-  * 修改对象，将你开始执行删除的时间添加到 `metadata.deletionTimestamp` 字段。
-  * 禁止对象被删除，直到其 `metadata.finalizers` 字段内的所有项被删除。
-  * 返回 `202` 状态码（HTTP "Accepted"）。
+* 修改对象，将你开始执行删除的时间添加到 `metadata.deletionTimestamp` 字段。
+* 禁止对象被删除，直到其 `metadata.finalizers` 字段内的所有项被删除。
+* 返回 `202` 状态码（HTTP "Accepted"）。
 
 <!--
 The controller managing that finalizer notices the update to the object setting the
@@ -83,7 +83,7 @@ Kubernetes 会添加 `pv-protection` Finalizer。
 当 Pod 停止使用 `PersistentVolume` 时，
 Kubernetes 清除 `pv-protection` Finalizer，控制器就会删除该卷。
 
-{{<note>}}
+{{< note >}}
 <!--
 * When you `DELETE` an object, Kubernetes adds the deletion timestamp for that object and then
 immediately starts to restrict changes to the `.metadata.finalizers` field for the object that is
@@ -93,12 +93,23 @@ object once it is set.
 
 * After the deletion is requested, you can not resurrect this object. The only way is to delete it and make a new similar object.
 -->
-* 当你 `DELETE` 一个对象时，Kubernetes 为该对象增加删除时间戳，然后立即开始限制
-对这个正处于待删除状态的对象的 `.metadata.finalizers` 字段进行修改。
-你可以删除现有的 finalizers （从 `finalizers` 列表删除条目），但你不能添加新的 finalizer。
-对象的 `deletionTimestamp` 被设置后也不能修改。
+* 当你 `DELETE` 一个对象时，Kubernetes 为该对象添加删除时间戳，
+  然后立即开始限制对这个正处于待删除状态的对象的 `.metadata.finalizers` 字段进行修改。
+  你可以删除现有的 finalizers （从 `finalizers` 列表删除条目），但你不能添加新的 finalizer。
+  对象的 `deletionTimestamp` 被设置后也不能修改。
+
 * 删除请求已被发出之后，你无法复活该对象。唯一的方法是删除它并创建一个新的相似对象。
-{{</note>}}
+{{< /note >}}
+
+{{< note >}}
+<!--
+Custom finalizer names **must** be publicly qualified finalizer names, such as `example.com/finalizer-name`.
+Kubernetes enforces this format; the API server rejects writes to objects where the change does not use qualified finalizer names for any custom finalizer.
+-->
+自定义 finalizer 名称**必须**是公开限定的 finalizer 名称，例如 `example.com/finalizer-name`。
+Kubernetes 强制要求使用此格式；
+如果任意自定义 finalizer 在更改时未使用限定的 finalizer 名称，API 服务器将拒绝写入到这些对象。
+{{< /note >}}
 
 {{<note>}}
 <!--
@@ -126,10 +137,10 @@ any Pods in the cluster with the same label.
 ## 属主引用、标签和 Finalizers {#owners-labels-finalizers}
 
 与{{<glossary_tooltip text="标签" term_id="label">}}类似，
-[属主引用](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)
-描述了 Kubernetes 中对象之间的关系，但它们作用不同。
-当一个{{<glossary_tooltip text="控制器" term_id="controller">}}
-管理类似于 Pod 的对象时，它使用标签来跟踪相关对象组的变化。
+[属主引用](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)描述了
+Kubernetes 中对象之间的关系，但它们作用不同。
+当一个{{<glossary_tooltip text="控制器" term_id="controller">}}管理类似于
+Pod 的对象时，它使用标签来跟踪相关对象组的变化。
 例如，当 {{<glossary_tooltip text="Job" term_id="job">}} 创建一个或多个 Pod 时，
 Job 控制器会给这些 Pod 应用上标签，并跟踪集群中的具有相同标签的 Pod 的变化。
 
@@ -166,7 +177,6 @@ to resources for a reason, so forcefully removing them can lead to issues in
 your cluster. This should only be done when the purpose of the finalizer is
 understood and is accomplished in another way (for example, manually cleaning
 up some dependent object).
-
 -->
 在对象卡在删除状态的情况下，要避免手动移除 Finalizers，以允许继续删除操作。
 Finalizers 通常因为特殊原因被添加到资源上，所以强行删除它们会导致集群出现问题。

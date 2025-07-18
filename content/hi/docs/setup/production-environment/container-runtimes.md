@@ -386,6 +386,6 @@ cgroup_manager = "cgroupfs"
 
 ### मिरांटिस कंटेनर रनटाइम {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) एक व्यावसायिक रूप से है उपलब्ध कंटेनर रनटाइम जिसे पहले डॉकर एंटरप्राइज एडिशन के नाम से जाना जाता था।
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR) एक व्यावसायिक रूप से है उपलब्ध कंटेनर रनटाइम जिसे पहले डॉकर एंटरप्राइज एडिशन के नाम से जाना जाता था।
 
 आप खुले स्रोत का उपयोग करके कुबेरनेट्स के साथ मिरांटिस कंटेनर रनटाइम का उपयोग कर सकते हैं [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) घटक, MCR के साथ शामिल है।

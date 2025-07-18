@@ -509,7 +509,7 @@ PodTopologyLabels 准入控制器变更所有绑定到节点的 pod 的 `pods/bi
 [topology.kubernetes.io/region](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesioregion) 和
 [topology.kubernetes.io/zone](/zh-cn/docs/reference/labels-annotations-taints/#topologykubernetesiozone) 标签。
 
-{{ <note> }}
+{{< note >}}
 <!--
 If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,
 these changes will propagate to pod labels as a result of this controller,
@@ -517,7 +517,7 @@ overwriting labels with conflicting keys.
 -->
 如果有任何变更的准入 Webhook 添加或修改了 `pods/binding` 子资源的标签，
 这些变更将由于此控制器传播到 Pod 标签，覆盖具有冲突键的标签。
-{{ </note> }}
+{{< /note >}}
 
 <!--
 This admission controller is enabled when the `PodTopologyLabelsAdmission` feature gate is enabled.
@@ -1099,7 +1099,7 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
 * **Allows** kubelets to add/remove/update these labels and label prefixes:
 -->
 * **禁止** kubelet 添加、删除或更新前缀为 `node-restriction.kubernetes.io/` 的标签。
-  这类前缀的标签时保留给管理员的，用以为 `Node` 对象设置标签以隔离工作负载，而不允许 kubelet
+  这类前缀的标签是保留给管理员的，用于为 `Node` 对象设置标签以隔离工作负载，而不允许 kubelet
   修改带有该前缀的标签。
 * **允许** kubelet 添加、删除、更新以下标签：
   * `kubernetes.io/hostname`

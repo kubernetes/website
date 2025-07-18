@@ -213,12 +213,12 @@ If you choose to use Google Docs, you can set your document into Markdown mode.
 <!--
 Your writing buddy can provide comments and / or feedback for your draft text and
 will (or should) check that it's in line with the guidelines. At the same time, you'll
-be their writing buddy and can follow the [guide](/docs/contribute/blog/editing/#writing-buddies)
+be their writing buddy and can follow the [guide](/docs/contribute/blog/writing-buddy/)
 that explains how you'll be supporting their work.
 -->
 你的写作搭档可以对你的草稿文字进行评论和反馈，并检查是否符合博客指南。
 与此同时，你也是他们的写作搭档，
-参考[编辑指南](/zh-cn/docs/contribute/blog/editing/#writing-buddies)了解如何支持搭档的工作。
+参考[编辑指南](/zh-cn/docs/contribute/blog/writing-buddy/)了解如何支持搭档的工作。
 
 <!--
 Don't worry too much at this stage about getting the Markdown formatting exactly right, though.

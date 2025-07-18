@@ -65,18 +65,18 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <p>
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
-ControlPlaneKubeletLocalMode=true|false (ALPHA - default=false)<br/>
-EtcdLearnerMode=true|false (BETA - default=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - default=false)
+WaitForAllControlPlaneComponents=true|false (BETA - default=true)
 -->
 一系列键值对（key=value），用于描述各种特性。可选项是：<br/>
-ControlPlaneKubeletLocalMode=true|false (ALPHA - 默认值=false)<br/>
-EtcdLearnerMode=true|false (BETA - 默认值=true)<br/>
+ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
+NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (ALPHA - 默认值=false)
+WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
 </p>
 </td>
 </tr>

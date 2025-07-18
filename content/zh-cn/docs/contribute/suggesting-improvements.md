@@ -1,7 +1,7 @@
 ---
 title: 提出内容改进建议
 content_type: concept
-weight: 10
+weight: 20
 card:
   name: contribute
   weight: 15
@@ -12,7 +12,7 @@ card:
 <!--
 title: Suggesting content improvements
 content_type: concept
-weight: 10
+weight: 20
 card:
   name: contribute
   weight: 15
