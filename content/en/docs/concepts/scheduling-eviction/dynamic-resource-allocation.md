@@ -626,6 +626,26 @@ spec:
     effect: NoExecute
 ```
 
+### Device Binding Conditions {#device-binding-conditions}
+
+{{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
+
+Device Binding Conditions allow for the setting of `BindingConditions` and `BindingFailureConditions`,
+which help determine if a device needs preparation before proceeding to the Bind Phase.
+This is particularly useful in systems where devices must be attached to nodes.
+The DRA driver sets these conditions based on the specific characteristics of the device it manages.
+
+A key feature is the ability to wait for device attachment during the PreBind Phase.
+The scheduler ensures that all `Conditions` in `BindingConditions` are met before moving forward.
+This involves updating the ResourceClaim with the necessary conditions and monitoring the status of the device.
+If a device requires preparation, the DRA driver handles these tasks and updates the conditions accordingly.
+Additionally, if any `BindingFailureConditions` are met, the system identifies an error and terminates the waiting process.
+
+If you want to set a timeout period for waiting during the PreBind phase,
+you can specify the desired number of seconds in `BindingTimeoutSeconds`.
+Furthermore, by setting `BindsToNode` to `true`, you can configure the nodeSelector to match only a single node.
+
+
 ## {{% heading "whatsnext" %}}
 
 - [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
