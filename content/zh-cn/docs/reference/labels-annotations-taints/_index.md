@@ -3612,11 +3612,11 @@ This allows the Pods on the out-of-service node to recover quickly on a differen
 
 {{< caution >}}
 <!--
-Refer to [Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+Refer to [Non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 -->
 有关何时以及如何使用此污点的更多详细信息，
-请参阅[非正常节点关闭](/zh-cn/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)。
+请参阅[非正常节点关闭](/zh-cn/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown)。
 {{< /caution >}}
 
 <!--

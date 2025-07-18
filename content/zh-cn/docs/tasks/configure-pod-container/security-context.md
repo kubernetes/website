@@ -633,12 +633,12 @@ securityContext:
 This field has no effect on ephemeral volume types such as
 [`secret`](/docs/concepts/storage/volumes/#secret),
 [`configMap`](/docs/concepts/storage/volumes/#configmap),
-and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
+and [`emptyDir`](/docs/concepts/storage/volumes/#emptydir).
 -->
 {{< note >}}
 此字段对于 [`secret`](/zh-cn/docs/concepts/storage/volumes/#secret)、
 [`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
-和 [`emptydir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
+和 [`emptyDir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
 这类临时性存储无效。
 {{< /note >}}
 

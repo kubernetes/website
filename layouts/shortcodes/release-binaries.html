@@ -23,7 +23,7 @@
 {{- end -}}
 
 <!-- Continue processing only if release binaries JSON is available, accommodating for offline builds. -->
-{{ if ne $response nil }}
+{{ if and (ne $response nil) ((ne (printf "%T" $response) "string")) }}
 {{ $currentVersion := site.Params.version }}
 
 {{ $Binaries := slice }}

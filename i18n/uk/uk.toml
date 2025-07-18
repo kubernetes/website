@@ -61,6 +61,9 @@ other = "Я..."
 # other = "Users"
 other = "Користувачі"
 
+[end_of_life]
+other = "Завершення життєвого циклу:"
+
 [feedback_heading]
 # other = "Feedback"
 other = "Ваша думка"
@@ -76,6 +79,12 @@ other = "Чи була ця сторінка корисною?"
 [feedback_yes]
 # other = "Yes"
 other = "Так"
+
+[final_patch_release]
+other = "Остаточний патч-випуск"
+
+[inline_list_separator]
+other = ","
 
 [input_placeholder_email_address]
 # other = "email address"
@@ -228,9 +237,142 @@ other = "Примітка:"
 # other = "Objectives"
 other = "Цілі"
 
+[patch_release]
+other = "Патч"
+
 [prerequisites_heading]
 # other = "Before you begin"
 other = "Перш ніж ви розпочнете"
+
+[previous_patches]
+other = "Патч-версії:"
+
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other = """Ви можете знайти посилання на завантаження компонентів Kubernetes (та їх контрольні суми) у файлах [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG).
+Або ж, скористайтесь [downloadkubernetes.com](https://www.downloadkubernetes.com/) для вибору за версією та архітектурою."""
+
+[release_binary_arch]
+other = "Архітектура"
+
+[release_binary_arch_option]
+other = "Архітектури"
+
+[release_binary_copy_link]
+other = "Копіювати посилання"
+
+[release_binary_copy_link_certifcate]
+other = "cert"
+
+[release_binary_copy_link_checksum]
+other = "checksum"
+
+[release_binary_copy_link_signature]
+other = "signature"
+
+[release_binary_copy_link_tooltip]
+other = "копіювати в буфер обміну"
+
+[release_binary_download]
+other = "Компонент"
+
+[release_binary_download_tooltip]
+other = "завантажити бінарний файл"
+
+[release_binary_options]
+other = "Параметри завантаженя"
+
+[release_binary_os]
+other = "Операційна система"
+
+[release_binary_os_option]
+other = "Операційні системи"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Завантаження бінарних компонентів Kubernetes"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """Ви можете знайти посилання для завантаження компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами) нижче.
+Щоб отримати доступ до завантажень для попередніх підтримуваних версій, перейдіть за відповідним посиланням в 
+документації для [попередніх версій](/docs/home/supported-doc-versions/#versions-older) або скористайтеся [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """Для завантаження старіших патч-версій компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами), 
+дивіться файл [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md).""" 
+
+[release_binary_version]
+other = "Версія"
+
+[release_binary_version_option]
+other = "Остання версія"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(випущено: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
+[release_date_format_month]
+other = "January 2006"
+
+[release_cherry_pick_deadline]
+other = "Строк Cherry Pick"
+
+[release_end_of_life_date]
+other = "Завершення життєвого циклу"
+
+[release_full_details_initial_text]
+other = "Повний"
+
+[release_information_navbar]
+other = "Інформація про випуск"
+
+[release_minor_version]
+other = "Мінорна версія"
+
+[release_info_next_patch]
+other = "Наступний патч **%s**."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** переходить в режим технічного обслуговування **%s**, кінець життєвого циклу — **%s**."
+
+[release_note]
+other = "Примітка"
+
+[release_schedule]
+other = "Розклад"
+
+[release_target_date]
+other = "Заплановано"
+
+[release_changelog]
+other = "Зміни"
 
 [subscribe_button]
 # other = "Subscribe"
@@ -251,6 +393,9 @@ other = "Версія вашого Kubernetes сервера має дорівн
 [version_check_tocheck]
 # other = "To check the version, enter "
 other = "Для перевірки версії введіть "
+
+[version_menu]
+other = "Версії"
 
 [warning]
 # other = "Warning:"

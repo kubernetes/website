@@ -1,24 +1,25 @@
-{{/* Always cache this partial; set the active class client side. */}}
-{{ $shouldDelayActive := true }}
+{{/* We cache this partial for bigger sites and set the active class client side. */}}
+{{ $sidebarCacheLimit := cond (isset .Site.Params.ui "sidebar_cache_limit") .Site.Params.ui.sidebar_cache_limit 2000 -}}
+{{ $shouldDelayActive := ge (len .Site.Pages) $sidebarCacheLimit -}}
 <div id="td-sidebar-menu" class="td-sidebar__inner{{ if $shouldDelayActive }} d-none{{ end }}">
   {{ if not .Site.Params.ui.sidebar_search_disable -}}
   <form class="td-sidebar__search d-flex align-items-center">
     {{ partial "search-input.html" . }}
-    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fa-solid fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
     </button>
   </form>
   {{ else -}}
   <div id="content-mobile">
   <form class="td-sidebar__search d-flex align-items-center">
     {{ partial "search-input.html" . }}
-    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fa-solid fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="{{ T "sidebar_toggle_nav" }}">
     </button>
   </form>
   </div>
   <div id="content-desktop"></div>
   {{ end -}}
   <nav class="collapse td-sidebar-nav{{ if .Site.Params.ui.sidebar_menu_foldable }} foldable-nav{{ end }}" id="td-section-nav">
-    {{- if (and false (gt (len .Site.Home.Translations) 0) ) -}}
+    {{ if  (gt (len .Site.Home.Translations) 0) -}}
     <div class="nav-item dropdown d-block d-lg-none">
       {{ partial "navbar-lang-selector.html" . }}
     </div>
@@ -34,52 +35,49 @@
   </nav>
 </div>
 {{ define "section-tree-nav-section" -}}
-  {{ $s := .section -}}
-  {{ $p := .page -}}
-  {{ $shouldDelayActive := .shouldDelayActive -}}
-  {{ $sidebarMenuTruncate := .sidebarMenuTruncate -}}
-  {{ $treeRoot := cond (eq .ulNr 0) true false -}}
-  {{ $ulNr := .ulNr -}}
-  {{ $ulShow := .ulShow -}}
-  {{ $currentLang := .currentLang -}}
-  {{ $active := and (not $shouldDelayActive) (eq $s $p) -}}
-  {{ $activePath := and (not $shouldDelayActive) ($p.IsDescendant $s) -}}
-  {{ $show := cond (or (lt $ulNr $ulShow) $activePath (and (not $shouldDelayActive) (eq $s.Parent $p.Parent)) (and (not $shouldDelayActive) (eq $s.Parent $p)) (not $p.Site.Params.ui.sidebar_menu_compact) (and (not $shouldDelayActive) ($p.IsDescendant $s.Parent))) true false -}}
-  {{ $mid := printf "m-%s" ($s.RelPermalink | anchorize) -}}
-  {{ $pages_tmp := where (union $s.Pages $s.Sections).ByWeight ".Params.toc_hide" "!=" true -}}
-  {{/* We get untranslated subpages below to make sure we build all levels of the sidenav in localizationed docs sets */}}
-  {{ with site.Params.language_alternatives -}}
-    {{ range . }}
-      {{ with (where $.section.Translations ".Lang" . ) -}}
-        {{ $p := index . 0 -}}
-        {{ $pages_tmp = where ( $pages_tmp | lang.Merge (union $p.Pages $p.Sections)) ".Params.toc_hide" "!=" true -}}
-      {{ end -}}
+{{ $s := .section -}}
+{{ $p := .page -}}
+{{ $shouldDelayActive := .shouldDelayActive -}}
+{{ $sidebarMenuTruncate := .sidebarMenuTruncate -}}
+{{ $treeRoot := cond (eq .ulNr 0) true false -}}
+{{ $ulNr := .ulNr -}}
+{{ $ulShow := .ulShow -}}
+{{ $currentLang := .currentLang -}}
+{{ $active := and (not $shouldDelayActive) (eq $s $p) -}}
+{{ $activePath := and (not $shouldDelayActive) (or (eq $p $s) ($p.IsDescendant $s)) -}}
+{{ $show := cond (or (lt $ulNr $ulShow) $activePath (and (not $shouldDelayActive) (eq $s.Parent $p.Parent)) (and (not $shouldDelayActive) (eq $s.Parent $p)) (not $p.Site.Params.ui.sidebar_menu_compact) (and (not $shouldDelayActive) ($p.IsDescendant $s.Parent))) true false -}}
+{{ $mid := printf "m-%s" ($s.RelPermalink | anchorize) -}}
+{{ $pages_tmp := where (union $s.Pages $s.Sections).ByWeight ".Params.toc_hide" "!=" true -}}
+{{/* We get untranslated subpages below to make sure we build all levels of the sidenav in localized docs sets */}}
+{{ with site.Params.language_alternatives -}}
+  {{ range . }}
+    {{ with (where $.section.Translations ".Lang" . ) -}}
+      {{ $p := index . 0 -}}
+      {{ $pages_tmp = where ( $pages_tmp | lang.Merge (union $p.Pages $p.Sections)) ".Params.toc_hide" "!=" true -}}
     {{ end -}}
   {{ end -}}
-  {{ $pages := $pages_tmp | first $sidebarMenuTruncate -}}
-  {{ $withChild := gt (len $pages) 0 -}}
-  {{ $manualLink := cond (isset $s.Params "manuallink") $s.Params.manualLink ( cond (isset $s.Params "manuallinkrelref") (relref $s $s.Params.manualLinkRelref) $s.RelPermalink) -}}
-  {{ $manualLinkTitle := cond (isset $s.Params "manuallinktitle") $s.Params.manualLinkTitle $s.Title -}}
-  {{ $isForeignLanguage := (ne (string $s.Lang) ($.currentLang)) -}}
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section{{ if $withChild }} with-child{{ else }} without-child{{ end }}{{ if $activePath }} active-path{{ end }}{{ if (not (or $show $p.Site.Params.ui.sidebar_menu_foldable )) }} collapse{{ end }}" id="{{ $mid }}-li">
-    {{ if (and $p.Site.Params.ui.sidebar_menu_foldable (ge $ulNr 1)) -}}
-    <input type="checkbox" id="{{ $mid }}-check"{{ if $activePath}} checked{{ end }}/>
-    <label for="{{ $mid }}-check"><a href="{{ $manualLink }}"{{ if ne $s.LinkTitle $manualLinkTitle }} title="{{ $manualLinkTitle }}"{{ end }}{{ with $s.Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }} class="align-left pl-0 {{ if $active}} active{{ end }} td-sidebar-link{{ if $s.IsPage }} td-sidebar-link__page{{ else }} td-sidebar-link__section{{ end }}{{ if $treeRoot }} tree-root{{ end }}" id="{{ $mid }}">{{ with $s.Params.Icon}}<i class="{{ . }}"></i>{{ end }}<span class="{{ if $active }}td-sidebar-nav-active-item{{ end }}">{{ $s.LinkTitle }}</span>{{ if $isForeignLanguage }} <small title="{{ T (printf "i18n_language_name_long_%s" $s.Lang ) }}">({{ $s.Lang | upper }})</small>{{ end -}}</a></label>
-    {{ else -}}
-    {{ if not $treeRoot }}
-    <a href="{{ $manualLink }}"{{ if ne $s.LinkTitle $manualLinkTitle }} title="{{ $manualLinkTitle }}"{{ end }}{{ with $s.Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }} class="align-left pl-0{{ if $active}} active{{ end }} td-sidebar-link{{ if $s.IsPage }} td-sidebar-link__page{{ else }} td-sidebar-link__section{{ end }}{{ if $treeRoot }} tree-root{{ end }}" id="{{ $mid }}">{{ with $s.Params.Icon}}<i class="{{ . }}"></i>{{ end }}<span class="{{ if $active }}td-sidebar-nav-active-item{{ end }}">{{ $s.LinkTitle }}</span>{{ if $isForeignLanguage }} <small title="{{ T (printf "i18n_language_name_long_%s" $s.Lang ) }}">({{ $s.Lang | upper }})</small>{{ end -}}</a>
+{{ end -}}
+{{ $pages := $pages_tmp | first $sidebarMenuTruncate -}}
+{{ $withChild := gt (len $pages) 0 -}}
+{{ $manualLink := cond (isset $s.Params "manuallink") $s.Params.manualLink ( cond (isset $s.Params "manuallinkrelref") (relref $s $s.Params.manualLinkRelref) $s.RelPermalink) -}}
+{{ $manualLinkTitle := cond (isset $s.Params "manuallinktitle") $s.Params.manualLinkTitle $s.Title -}}
+{{ $isForeignLanguage := (ne (string $s.Lang) ($.currentLang)) -}}
+<li class="td-sidebar-nav__section-title td-sidebar-nav__section{{ if $withChild }} with-child{{ else }} without-child{{ end }}{{ if $activePath }} active-path{{ end }}" id="{{ $mid }}-li">
+  {{ if (and $p.Site.Params.ui.sidebar_menu_foldable (ge $ulNr 1)) -}}
+  <input type="checkbox" id="{{ $mid }}-check"{{ if $activePath}} checked{{ end }}/>
+  <label for="{{ $mid }}-check"><a href="{{ $manualLink }}"{{ if ne $s.LinkTitle $manualLinkTitle }} title="{{ $manualLinkTitle }}"{{ end }}{{ with $s.Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }} class="align-left pl-0 {{ if $active}} active{{ end }} td-sidebar-link{{ if $s.IsPage }} td-sidebar-link__page{{ else }} td-sidebar-link__section{{ end }}{{ if $treeRoot }} tree-root{{ end }}" id="{{ $mid }}">{{ with $s.Params.Icon}}<i class="{{ . }}"></i>{{ end }}<span class="{{ if $active }}td-sidebar-nav-active-item{{ end }}">{{ $s.LinkTitle }}</span>{{ if $isForeignLanguage }} <small title="{{ T (printf "i18n_language_name_long_%s" $s.Lang ) }}">({{ $s.Lang | upper }})</small>{{ end -}}</a></label>
+  {{ else -}}
+  <a href="{{ $manualLink }}"{{ if ne $s.LinkTitle $manualLinkTitle }} title="{{ $manualLinkTitle }}"{{ end }}{{ with $s.Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }} class="align-left pl-0{{ if $active}} active{{ end }} td-sidebar-link{{ if $s.IsPage }} td-sidebar-link__page{{ else }} td-sidebar-link__section{{ end }}{{ if $treeRoot }} tree-root{{ end }}" id="{{ $mid }}">{{ with $s.Params.Icon}}<i class="{{ . }}"></i>{{ end }}<span class="{{ if $active }}td-sidebar-nav-active-item{{ end }}">{{ $s.LinkTitle }}</span>{{ if $isForeignLanguage }} <small title="{{ T (printf "i18n_language_name_long_%s" $s.Lang ) }}">({{ $s.Lang | upper }})</small>{{ end -}}</a>
+  {{- end }}
+  {{- if $withChild }}
+  {{- $ulNr := add $ulNr 1 }}
+  <ul class="ul-{{ $ulNr }}{{ if (gt $ulNr 1)}} foldable{{end}}">
+    {{ range $pages -}}
+    {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
+    {{ template "section-tree-nav-section" (dict "page" $p "section" . "shouldDelayActive" $shouldDelayActive "sidebarMenuTruncate" $sidebarMenuTruncate "ulNr" $ulNr "ulShow" $ulShow "currentLang" $currentLang) }}
     {{- end }}
     {{- end }}
-    {{- if $withChild }}
-    {{- $ulNr := add $ulNr 1 }}
-    <ul class="ul-{{ $ulNr }}{{ if (gt $ulNr 1)}} foldable{{end}}">
-      {{ range $pages -}}
-      {{ $mid := printf "m-%s" (.RelPermalink | anchorize) -}}
-      {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
-      {{ template "section-tree-nav-section" (dict "page" $p "section" . "shouldDelayActive" $shouldDelayActive "sidebarMenuTruncate" $sidebarMenuTruncate "ulNr" $ulNr "ulShow" $ulShow "currentLang" $currentLang) }}
-      {{- end }}
-      {{- end }}
-    </ul>
-    {{- end }}
-  </li>
+  </ul>
+  {{- end }}
+</li>
 {{- end }}

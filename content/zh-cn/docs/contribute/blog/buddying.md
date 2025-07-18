@@ -17,7 +17,7 @@ weight: 70
 There are two official Kubernetes blogs, and the CNCF has its own blog where you can cover Kubernetes too.
 Read [contributing to Kubernetes blogs](/docs/contribute/blog/) to learn about these two blogs.
 
-When people contributor to either blog as an author, the Kubernetes project pairs up authors
+When people contribute to either blog as an author, the Kubernetes project pairs up authors
 as _writing buddies_. This page explains how to fulfil the buddy role.
 
 You should make sure that you have at least read an outline of [article submission](/docs/contribute/blog/submission/)

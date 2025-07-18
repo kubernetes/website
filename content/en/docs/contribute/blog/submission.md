@@ -107,7 +107,7 @@ If you choose to use Google Docs, you can set your document into Markdown mode.
 
 Your writing buddy can provide comments and / or feedback for your draft text and
 will (or should) check that it's in line with the guidelines. At the same time, you'll
-be their writing buddy and can follow the [guide](/docs/contribute/blog/editing/#writing-buddies)
+be their writing buddy and can follow the [guide](/docs/contribute/blog/writing-buddy/)
 that explains how you'll be supporting their work.
 
 Don't worry too much at this stage about getting the Markdown formatting exactly right, though.

@@ -600,6 +600,12 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"node-problem-detector-configmap": {&apps.DaemonSet{}},
 			"termination":                     {&api.Pod{}},
 		},
+		"dra": {
+			"deviceclass":	          {&resource.DeviceClass{}},
+      "resourceclaim":          {&resource.ResourceClaim{}},
+      "resourceclaimtemplate":  {&resource.ResourceClaimTemplate{}},
+      "dra-example-job":        {&batch.Job{}},
+		},
 		"pods": {
 			"commands":                            {&api.Pod{}},
 			"image-volumes":                       {&api.Pod{}},

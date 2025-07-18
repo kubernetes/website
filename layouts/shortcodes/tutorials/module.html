@@ -1,0 +1,12 @@
+{{ $path := .Get "path" }}
+{{ $defaultLang := .Site.Params.defaultContentLanguage | default "en" }}
+{{ $url := $path }}
+{{ if ne .Page.Lang $defaultLang }}
+    {{ $url = printf "/%s%s" .Page.Lang $path }}
+{{ end }}
+<div class="module">
+    <a href="{{ $url }}">
+        <img src="{{ .Get "image" }}" alt="{{ .Get "alt" }}">
+        <h5>{{ .Get "title" }}</h5>
+    </a>
+</div>
