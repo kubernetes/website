@@ -275,7 +275,7 @@ via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure ment
 
 ## Windows Graceful node shutdown {#windows-graceful-node-shutdown}
 
-{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
+{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" for_k8s_version="v1.34" state="beta" >}}
 
 The Windows graceful node shutdown feature depends on kubelet running as a Windows service,
 it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
