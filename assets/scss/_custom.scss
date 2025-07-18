@@ -50,35 +50,6 @@ body {
   }
 }
 
-/* Gutter for sidebar splitter */
-.gutter {
-    background-color: #eee;
-    background-repeat: no-repeat;
-    background-position: 50%;
-}
-
-.gutter.gutter-horizontal {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
-    cursor: col-resize;
-}
-
-#sidebarnav,
-#maindoc {
-  max-width: 100%;
-}
-
-#maindoc {
-  overflow-wrap: break-word;
-}
-
-@media (max-width: 768px) {
-  #sidebarnav {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-}
-
 /* Complex table layout support */
 
 .td-content, body.td-content {
@@ -1381,58 +1352,12 @@ body.cid-code-of-conduct main {
     }
 }
 
-// search & sidebar
-.td-sidebar {
-  @media only screen and (min-width: 768px) {
-    padding-top: 1.5rem !important;
-
-    .td-sidebar__inner {
-      top: 8.5rem;
-
-      @media only screen and (min-width: 1075px) {
-        top: 6.5rem;
-      }
-    }
-  }
-}
-
-.td-sidebar-nav {
-  & > .td-sidebar-nav__section {
-    padding-top: .5rem;
-    padding-left: 1.5rem;
-  }
-}
-
-.td-sidebar__inner {
-  form.td-sidebar__search {
-
-    .td-sidebar__toggle {
-      &:hover {
-        color: #000000;
-      }
-
-      color: $primary;
-      margin: 1rem;
-    }
-  }
-}
-
 .no-underline {
   text-decoration: none !important;
 }
 
 .hide {
   display: none !important;
-}
-
-.td-sidebar-link__page {
-  &#m-docs-search {
-    display: none;
-  }
-
-  &#m-docs-test {
-    display: none;
-  }
 }
 
 //Tutorials
@@ -1460,6 +1385,13 @@ main.content {
 .td-blog .header-hero h1, .td-blog .header-hero h2 {
   font-size: 2.25rem; // match rest of site, even if it is actually h2
   margin-bottom: 20px;
+}
+
+/* CAREERS */
+
+// Set 14px font size for GitJobs attribution text
+.gitjobs-legend {
+  font-size: 14px;
 }
 
 /* CASE-STUDIES */
