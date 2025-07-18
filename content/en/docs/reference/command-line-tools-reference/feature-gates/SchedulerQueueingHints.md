@@ -17,6 +17,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.32"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
 Enables [the scheduler's _queueing hints_ feature](/docs/concepts/scheduling-eviction/scheduling-framework/#queueinghint),
 which benefits to reduce the useless requeueing.
