@@ -1,5 +1,5 @@
 ---
-title: Issue 랭글러(Issue Wrangler)
+title: 이슈 랭글러(Issue Wrangler)
 content_type: concept
 weight: 20
 ---
@@ -15,7 +15,7 @@ weight: 20
 
 ## 의무
 
-Issue 랭글러는 일주일간 매일 다음을 담당한다:
+이슈 랭글러는 일주일간 매일 다음을 담당한다:
 
 - 매일 새로 들어오는 이슈를 심사한다. SIG Docs가 
     메타데이터를 사용하는 방법에 대한 지침은 [이슈 심사](/docs/contribute/review/for-approvers/#이슈-심사)
