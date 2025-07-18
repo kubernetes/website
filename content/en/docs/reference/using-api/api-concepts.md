@@ -133,6 +133,8 @@ By default, Kubernetes returns objects in [JSON serialization](#json-encoding), 
 `application/json` media type. Although JSON is the default, clients may request a response in
 YAML, or use the more efficient binary [Protobuf representation](#protobuf-encoding) for better performance at scale.
 
+TODO: Document streaming, its impact on performance and which media types are supported.
+
 The Kubernetes API implements standard HTTP content type negotiation: passing an
 `Accept` header with a `GET` call will request that the server tries to return
 a response in your preferred media type. If you want to send an object in Protobuf to
