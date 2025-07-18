@@ -1391,7 +1391,11 @@ Example: `service.kubernetes.io/service-proxy-name: "foo-bar"`
 
 Used on: Service
 
-The kube-proxy has this label for custom proxy, which delegates service control to custom proxy.
+Setting a value for this label tells kube-proxy to ignore this service for proxying purposes.
+This allows for use of alternative proxy implementations for this service (e.g. running
+a DaemonSet that manages nftables its own way). Multiple alternative proxy implementations
+could be active simultaneously using this field, e.g. by having a value unique to each
+alternative proxy implementation to be responsible for their respective services.
 
 ### experimental.windows.kubernetes.io/isolation-type (deprecated) {#experimental-windows-kubernetes-io-isolation-type}
 

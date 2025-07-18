@@ -113,7 +113,7 @@ We can categorize Service CIDR reconfiguration into the following scenarios:
   replacing the default ServiceCIDR is a complex operation. If the new
   ServiceCIDR does not overlap with the existing one, [it will require
   renumbering all existing Services and changing the `kubernetes.default`
-  service](#Illustrative Reconfiguration Steps). The case where the primary IP
+  service](#illustrative-reconfiguration-steps). The case where the primary IP
   family also changes is even more complicated, and may require to change
   multiple cluster components (kubelet, network plugins, etc.) to match the new
   primary IP family.

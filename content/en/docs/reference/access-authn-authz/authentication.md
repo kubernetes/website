@@ -699,12 +699,8 @@ jwt:
 1. Egress selector configuration is not supported for calls to `issuer.url` and `issuer.discoveryURL`.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
-You can use an existing public OpenID Connect Identity Provider (such as Google, or
-[others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
-[Keycloak](https://github.com/keycloak/keycloak),
-CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://openunison.github.io/).
+You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
+that supports the OpenID Connect protocol.
 
 For an identity provider to work with Kubernetes it must:
 
@@ -719,20 +715,11 @@ For an identity provider to work with Kubernetes it must:
 1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 
 A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
-identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST
-have your identity provider's web server certificate signed by a certificate with the `CA` flag
-set to `TRUE`, even if it is self signed. This is due to GoLang's TLS client implementation
-being very strict to the standards around certificate validation. If you don't have a CA handy,
-you can use the [gencert script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
-from the Dex team to create a simple CA and a signed certificate and key pair. Or you can use
-[this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)
-that generates SHA256 certs with a longer life and larger key size.
-
-Refer to setup instructions for specific systems:
-
-- [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
-- [Dex](https://dexidp.io/docs/kubernetes/)
-- [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
+identity provider you MUST have your identity provider's web server certificate signed by a
+certificate with the `CA` flag set to `TRUE`, even if it is self signed. This is due to GoLang's
+TLS client implementation being very strict to the standards around certificate validation. If you
+don't have a CA handy, you can create a simple CA and a signed certificate and key pair using
+standard certificate generation tools.
 
 #### Using kubectl
 

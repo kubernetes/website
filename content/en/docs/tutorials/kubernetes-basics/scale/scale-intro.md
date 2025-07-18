@@ -110,6 +110,7 @@ Two important columns of this output are:
 * _DESIRED_ displays the desired number of replicas of the application, which you
 define when you create the Deployment. This is the desired state.
 * _CURRENT_ displays how many replicas are currently running.
+
 Next, let’s scale the Deployment to 4 replicas. We’ll use the `kubectl scale` command,
 followed by the Deployment type, name and desired number of instances:
 
