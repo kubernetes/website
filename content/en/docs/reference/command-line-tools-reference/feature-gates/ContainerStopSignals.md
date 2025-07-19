@@ -9,5 +9,6 @@ stages:
   - stage: alpha 
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "v1.34"
 ---
 Enables usage of the StopSignal lifecycle for containers for configuring custom stop signals using which the containers would be stopped.
