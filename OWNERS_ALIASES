@@ -223,6 +223,16 @@ aliases:
     - Arhell
     - idvoretskyi
     - MaxymVlasov
+  sig-docs-fa-owners: # Admins for Persian content
+    - behiuu
+    - mamrezb
+    - moh0ps
+    - xirehat
+  sig-docs-fa-reviews: # PR reviews for Persian content
+    - behiuu
+    - mamrezb
+    - moh0ps
+    - xirehat
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - aojea
