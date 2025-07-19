@@ -10,4 +10,8 @@ stages:
     defaultValue: false
     fromVersion: "1.33"
 ---
-Enables the kubelet to set `observedGeneration` in the pod status and other components to set `observedGeneration` in pod conditions to reflect the `metadata.generation` of the pod at the time that the status or condition is being recorded.
+Enables the kubelet to set `observedGeneration` in the Pod status and
+other components to set `observedGeneration` in Pod conditions
+to reflect the `metadata.generation` of the Pod at the time
+that the status or condition is being recorded.
+
