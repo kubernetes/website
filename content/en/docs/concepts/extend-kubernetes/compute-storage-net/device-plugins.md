@@ -246,7 +246,7 @@ In order to monitor resources provided by device plugins, monitoring agents need
 discover the set of devices that are in-use on the node and obtain metadata to describe which
 container the metric should be associated with. [Prometheus](https://prometheus.io/) metrics
 exposed by device monitoring agents should follow the
-[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/instrumentation.md),
+[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md),
 identifying containers using `pod`, `namespace`, and `container` prometheus labels.
 
 The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata
