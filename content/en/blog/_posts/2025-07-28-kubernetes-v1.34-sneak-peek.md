@@ -28,7 +28,7 @@ With DRA, device drivers and cluster admins define device classes that are avail
 
 As part of [KEP-4412](https://kep.k8s.io/4412), the Service Account token integration for `kubelet` credential providers is graduating to beta in Kubernetes v1.34. This feature allows the `kubelet` to use short-lived, automatically rotated service account tokens that follow OIDC-compliant semantics to authenticate image pulls. These tokens are scoped to individual pods and replace the need for long-lived image pull secrets. This improves security, supports workload identity, and reduces operational overhead. It brings image pull authentication closer to modern, identity-aware best practices.
 
-### PodReplacementPolicy for Deployments
+### Pod replacement policy for Deployments
 
 After a change to a Deployment, terminating pods may stay up for a considerable amount of time and may consume additional resources. As part of [KEP-3973](https://kep.k8s.io/3973), the `.spec.podReplacementPolicy` field is introduced in Deployments.
 
