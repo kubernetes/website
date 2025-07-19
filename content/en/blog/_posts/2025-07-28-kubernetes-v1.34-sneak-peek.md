@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes v1.34: Sneak peek'
+title: 'Kubernetes v1.34 Sneak Peek'
 date: 2025-07-28
 slug: kubernetes-v1-34-sneak-peek
 author: >
