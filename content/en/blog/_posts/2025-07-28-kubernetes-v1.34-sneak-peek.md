@@ -70,7 +70,7 @@ This might sound a lot like JSON, because it is! But unlike JSON, KYAML:
 
 In Kubernetes v1.34, KYAML will be introduced as a new output format for `kubectl` (as in `kubectl get -o kayml ...`). KYAML is and will remain a strict subset of YAML, ensuring that any compliant YAML parser can parse KYAML documents.
 
-### Fine-Grained Autoscaling Control with HPA Configurable Tolerance
+### Fine-grained autoscaling control with HPA configurable tolerance
 
 [KEP-4951](https://kep.k8s.io/4951) introduces a new feature that allows users to configure autoscaling tolerance on a per-HPA basis, overriding the default cluster-wide 10% tolerance setting that often proves too coarse-grained for diverse workloads. The enhancement adds an optional `tolerance` field to the HPA's `spec.behavior.scaleUp` and `spec.behavior.scaleDown` sections, enabling different tolerance values for scale-up and scale-down operations, which is particularly valuable since scale-up responsiveness is typically more critical than scale-down speed for handling traffic surges.   
 Released as alpha in Kubernetes v1.33 behind the `HPAConfigurableTolerance` feature gate, this feature is graduating to beta in v1.34. This enhancement addresses scaling challenges where large deployments might require hundreds of pods for a 10% change, enabling workload-specific optimization for both responsive and conservative scaling behaviors.
