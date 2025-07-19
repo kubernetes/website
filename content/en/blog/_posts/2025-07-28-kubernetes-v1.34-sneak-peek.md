@@ -24,7 +24,7 @@ Dynamic Resource Allocation (DRA) provides a flexible way to categorize, request
 Structured parameters ([KEP-4381](https://kep.k8s.io/4381)) is a Kubernetes enhancement introduced in v1.31 that provides the core framework for DRA, and is targeting graduation to stable in v1.34. Taking inspiration from dynamic volume provisioning, it introduces ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under resource.k8s.io, while extending PodSpec with a `resourceClaims` field.  
 With DRA, device drivers and cluster admins define device classes that are available to request in a cluster. Workloads can claim devices from a device class. Kubernetes allocates matching devices to specific claims and places the corresponding Pods on nodes that can access the allocated devices. This framework provides flexible device filtering using CEL, centralized device categorization, and simplified Pod requests, among other benefits
 
-### Service Account Token for Image Pulls 
+### ServiceAccount tokens for image pull authentication
 
 As part of [KEP-4412](https://kep.k8s.io/4412), the Service Account token integration for `kubelet` credential providers is graduating to beta in Kubernetes v1.34. This feature allows the `kubelet` to use short-lived, automatically rotated service account tokens that follow OIDC-compliant semantics to authenticate image pulls. These tokens are scoped to individual pods and replace the need for long-lived image pull secrets. This improves security, supports workload identity, and reduces operational overhead. It brings image pull authentication closer to modern, identity-aware best practices.
 
