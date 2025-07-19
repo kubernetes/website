@@ -2,6 +2,10 @@
 layout: blog
 title: "Kubernetes v1.33: Continuing the transition from Endpoints to EndpointSlices"
 slug: endpoints-deprecation
+tags:
+- release-1.33
+categories:
+- Feature Blog
 date: 2025-04-24T10:30:00-08:00
 author: >
   Dan Winship (Red Hat)
