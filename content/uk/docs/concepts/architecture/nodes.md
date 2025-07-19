@@ -67,7 +67,7 @@ Kubernetes зберігає обʼєкт для недійсного Вузла 
 - `--register-with-taints` — Реєстрація вузла з заданим списком {{< glossary_tooltip text="позначок" term_id="taint" >}} (розділених комами `<ключ>=<значення>:<ефект>`).
 
   Нічого не відбувається, якщо `register-node` є false.
-- `--node-ip` — Необовʼязковий розділений комами список IP-адрес вузла. Можна вказати лише одну адресу для кожного роду адрес. Наприклад, у кластері з одним стеком IPv4 ви встановлюєте це значення як IPv4-адресу, яку повинен використовувати kubelet для вузла. Див. [налаштування подвійного стека IPv4/IPv6](/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack) для отримання відомостей з запуску кластера з подвійним стеком.
+- `--node-ip` — Необовʼязковий розділений комами список IP-адрес вузла. Можна вказати лише одну адресу для кожного роду адрес. Наприклад, у кластері з одним стеком IPv4 ви встановлюєте це значення як IPv4-адресу, яку повинен використовувати kubelet для вузла. Див. [Налаштування подвійного стека IPv4/IPv6](/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack) для отримання відомостей з запуску кластера з подвійним стеком.
 
   Якщо ви не вказали цей аргумент, kubelet використовує стандартну IPv4-адресу вузла, якщо є; якщо у вузла немає адреси IPv4, тоді kubelet використовує стандартну IPv6-адресу вузла.
 - `--node-labels` - {{< glossary_tooltip text="Мітки" term_id="label" >}} для додавання при реєстрації вузла в кластері (див. обмеження міток, що накладаються [втулком доступу NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
@@ -184,45 +184,6 @@ kubectl describe node <вставте-назву-вузла-тут>
 
 Якщо ви увімкнули [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) ресурсу `TopologyManager`, то kubelet може використовувати підказки топології при прийнятті рішень щодо призначення ресурсів. Див. [Керування політиками топології на вузлі](/docs/tasks/administer-cluster/topology-manager/)
 для отримання додаткової інформації.
-
-## Керування swapʼом {#swap-memory}
-
-{{< feature-state feature_gate_name="NodeSwap" >}}
-
-Щоб увімкнути swap на вузлі, feature gate `NodeSwap` повинен бути активований у kubelet (типово так), і прапорець командного рядка `--fail-swap-on` або [параметр конфігурації](/docs/reference/config-api/kubelet-config.v1beta1/)  `failSwapOn` повинен бути встановлений в значення false. Для того, щоб дозволити Podʼам використовувати swap, `swapBehavior` не повинен мати значення `NoSwap` (яке є стандартним) у конфігурації kubelet.
-
-{{< warning >}}
-Коли увімкнено swap, дані Kubernetes, такі як вміст обʼєктів Secret, які були записані у tmpfs, тепер можуть переноситись на диск.
-{{< /warning >}}
-
-Користувач також може налаштувати `memorySwap.swapBehavior`, щоб вказати, як вузол буде використовувати swap. Наприклад,
-
-```yaml
-memorySwap:
-  swapBehavior: LimitedSwap
-```
-
-- `NoSwap` (стандартно): Робочі навантаження Kubernetes не використовуватимуть swap.
-- `LimitedSwap`: Використання робочими навантаженнями Kubernetes swap обмежено. Тільки Podʼи Burstable QoS мають право використовувати swap.
-
-Якщо конфігурація для `memorySwap` не вказана, і feature gate увімкнено, типово kubelet застосовує ту ж саму поведінку, що й налаштування `NoSwap`.
-
-З `LimitedSwap`, Podʼам, які не відносяться до класифікації Burstable QoS (тобто Podʼи QoS `BestEffort`/`Guaranteed`), заборонено використовувати swap. Для забезпечення гарантій безпеки і справності вузла цим Podʼам заборонено використовувати swap при включеному `LimitedSwap`.
-
-Перед тим як розглядати обчислення ліміту swap, необхідно визначити наступне:
-
-- `nodeTotalMemory`: Загальна кількість фізичної памʼяті, доступної на вузлі.
-- `totalPodsSwapAvailable`: Загальний обсяг swap на вузлі, доступний для використання Podʼами (деякий swap може бути зарезервовано для системного використання).
-- `containerMemoryRequest`: Запит на памʼять для контейнера.
-
-Ліміт swap налаштовується так: `(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable`.
-
-Важливо враховувати, що для контейнерів у Podʼах Burstable QoS можна
-відмовитися від використання swap, вказавши запити на памʼять, рівні лімітам памʼяті. Контейнери, налаштовані таким чином, не матимуть доступу до swap.
-
-Swap підтримується тільки з **cgroup v2**, cgroup v1 не підтримується.
-
-Для отримання додаткової інформації, а також для допомоги у тестуванні та надання зворотного звʼязку, будь ласка, перегляньте блог-пост [Kubernetes 1.28: NodeSwap виходить у Beta1](/blog/2023/08/24/swap-linux-beta/), [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) та його [проєкт концепції](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 
 ## {{% heading "whatsnext" %}}
 

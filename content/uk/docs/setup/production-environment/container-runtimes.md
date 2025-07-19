@@ -7,11 +7,9 @@ weight: 20
 
 {{% dockershim-removal %}}
 
-Для того, щоб запускати Podʼи на кожному вузлі кластера, потрібно встановити
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}. Ця сторінка надає огляд того, які компоненти беруть в цьому участь, та описує повʼязані завдання для налаштування вузлів.
+Для того, щоб запускати Podʼи на кожному вузлі кластера, потрібно встановити {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}. Ця сторінка надає огляд того, які компоненти беруть в цьому участь, та описує повʼязані завдання для налаштування вузлів.
 
-Kubernetes {{< skew currentVersion >}} вимагає використання runtime, який відповідає
-специфікації {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI).
+Kubernetes {{< skew currentVersion >}} вимагає використання runtime, який відповідає специфікації {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI).
 
 Дивіться [Підтримка версій CRI](#cri-versions) для отримання додаткової інформації.
 
@@ -23,8 +21,7 @@ Kubernetes {{< skew currentVersion >}} вимагає використання r
 - [Mirantis Container Runtime](#mcr)
 
 {{< note >}}
-Релізи Kubernetes до v1.24 включно мали безпосередню інтеграцію з Docker Engine, використовуючи компонент під назвою _dockershim_. Ця безпосередня інтеграція більше не є частиною Kubernetes (про що було [оголошено](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation) у випуску v1.20). Ви можете ознайомитись з матеріалами статті [Перевірте, чи вас стосується видалення Dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/), щоб зрозуміти, як це видалення може вплинути на вас. Щоб дізнатися про міграцію з dockershim, перегляньте
-[Міграція з dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
+Релізи Kubernetes до v1.24 включно мали безпосередню інтеграцію з Docker Engine, використовуючи компонент під назвою _dockershim_. Ця безпосередня інтеграція більше не є частиною Kubernetes (про що було [оголошено](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation) у випуску v1.20). Ви можете ознайомитись з матеріалами статті [Перевірте, чи вас стосується видалення Dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/), щоб зрозуміти, як це видалення може вплинути на вас. Щоб дізнатися про міграцію з dockershim, перегляньте [Міграція з dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 
 Якщо ви використовуєте версію Kubernetes іншу, ніж v{{< skew currentVersion >}}, перевірте документацію для цієї версії.
 {{< /note >}}
@@ -146,7 +143,9 @@ Kubernetes [починаючи з v1.26](/blog/2022/11/18/upcoming-changes-in-ku
 
 #### Налаштування драйвера cgroup `systemd` {#containerd-systemd}
 
-Щоб використовувати драйвер cgroup `systemd` в `/etc/containerd/config.toml` з `runc`, встановіть
+Щоб використовувати драйвер cgroup `ystemd` у `/etc/containerd/config.toml` за допомогою `runc`, встановіть наступний конфіг залежно від вашої версії Containerd
+
+Containerd версії 1.x:
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
@@ -157,6 +156,15 @@ Kubernetes [починаючи з v1.26](/blog/2022/11/18/upcoming-changes-in-ku
  SystemdCgroup = true
 ```
 
+Containerd версії 2.x:
+
+```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
+  ...
+  [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
+
 Драйвер cgroup `systemd` є рекомендованим, якщо ви використовуєте [cgroup v2](/docs/concepts/architecture/cgroups).
 
 {{< note >}}
@@ -164,7 +172,7 @@ Kubernetes [починаючи з v1.26](/blog/2022/11/18/upcoming-changes-in-ku
 
 Вам потрібно увімкнути підтримку CRI для того, щоб мати можливість використовувати containerd в Kubernetes. Переконайтеся, що `cri` немає в `disabled_plugins` у файлі `/etc/containerd/config.toml`; якщо вносили зміни до цього файлу, перезапустіть `containerd`.
 
-Якщо ви стикаєтесь з постійними збоями після початкового встановлення кластера або після встановлення CNI, скоріш за все конфігурація containerd отримана з пакунка містить несумісні налаштування. Зважте на перевстановлення налаштувань containerd,  командою `containerd config default > /etc/containerd/config.toml` (див. [getting-strated.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics) і потім внесіть зміни в налаштування, як вказано вище.
+Якщо ви стикаєтесь з постійними збоями після початкового встановлення кластера або після встановлення CNI, скоріш за все конфігурація containerd отримана з пакунка містить несумісні налаштування. Зважте на перевстановлення налаштувань containerd,  командою `containerd config default > /etc/containerd/config.toml` (див. [getting-strated.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)) і потім внесіть зміни в налаштування, як вказано вище.
 {{< /note >}}
 
 Після внесення змін в перезавантажте containerd.
@@ -239,8 +247,7 @@ pause_image="registry.k8s.io/pause:3.10"
 
 Ви можете використовувати Mirantis Container Runtime з Kubernetes за допомогою відкритої реалізації компонента [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/), який входить до складу MCR.
 
-Для отримання докладнішої інформації щодо встановлення Mirantis Container Runtime
-дивіться [посібник з розгортання MCR](https://docs.mirantis.com/mcr/25.0/install.html).
+Для отримання докладнішої інформації щодо встановлення Mirantis Container Runtime дивіться [посібник з розгортання MCR](https://docs.mirantis.com/mcr/25.0/install.html).
 
 Перевірте юніт systemd із назвою `cri-docker.socket`, щоб дізнатися шлях до сокета CRI.
 

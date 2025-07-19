@@ -55,6 +55,10 @@ weight: 70
 
 Для списку підтримуваних постачальників дивіться [Постачальники для драйвера сховища Secret Store CSI](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
 
+## Поради щодо використання swap{#good-practices-for-using-swap-memory}
+
+Для отримання порад щодо налаштування памʼяті swap для вузлів Linux, будь ласка, зверніться до [управління памʼяттю swap](/docs/concepts/cluster-administration/swap-memory-management/#good-practice-for-using-swap-in-a-kubernetes-cluster).
+
 ## Розробники {#developers}
 
 У цьому розділі наведено рекомендації для розробників щодо покращення безпеки конфіденційних даних при створенні та розгортанні ресурсів Kubernetes.
