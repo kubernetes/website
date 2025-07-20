@@ -20,13 +20,13 @@ The following list of enhancements is likely to be included in the v1.34 release
 
 ### The core of DRA targets stable
 
-Dynamic Resource Allocation (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.  
+[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.  
 Structured parameters ([KEP-4381](https://kep.k8s.io/4381)) is a Kubernetes enhancement introduced in v1.30 that provides the core framework for DRA, and is targeting graduation to stable in v1.34. Taking inspiration from dynamic volume provisioning, it introduces ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under resource.k8s.io, while extending PodSpec with a `resourceClaims` field.  
 With DRA, device drivers and cluster admins define device classes that are available to request in a cluster. Workloads can claim devices from a device class. Kubernetes allocates matching devices to specific claims and places the corresponding Pods on nodes that can access the allocated devices. This framework provides flexible device filtering using CEL, centralized device categorization, and simplified Pod requests, among other benefits
 
 ### ServiceAccount tokens for image pull authentication
 
-The existing ServiceAccount token integration for `kubelet` credential providers is likely to reach to beta in Kubernetes v1.34, and is likely to be enabled by default. You'll then be able to have the kubelet use these tokens when pulling container images from registries that require authentication.
+The existing [ServiceAccount](/docs/concepts/security/service-accounts/) token integration for `kubelet` credential providers is likely to reach to beta in Kubernetes v1.34, and is likely to be enabled by default. You'll then be able to have the kubelet use these tokens when pulling container images from registries that require authentication.
 
 That support already exists as alpha, and is tracked as part of [KEP-4412](https://kep.k8s.io/4412).
 
@@ -36,7 +36,7 @@ Adopting this new approach reduces security risks, supports workload-level ident
 
 ### Pod replacement policy for Deployments
 
-After a change to a Deployment, terminating pods may stay up for a considerable amount of time and may consume additional resources. As part of [KEP-3973](https://kep.k8s.io/3973), the `.spec.podReplacementPolicy` field is introduced in Deployments.
+After a change to a [Deployment](/docs/concepts/workloads/controllers/deployment/), terminating pods may stay up for a considerable amount of time and may consume additional resources. As part of [KEP-3973](https://kep.k8s.io/3973), the `.spec.podReplacementPolicy` field is introduced in Deployments.
 
 Two policies are available:
 
@@ -54,7 +54,7 @@ This effort is complemented by a parallel enhancement, [KEP-647](https://kep.k8s
 
 ### `PreferSameZone` and `PreferSameNode` traffic distribution for Services
 
-The `spec.trafficDistribution` field within a Kubernetes Service allows users to express preferences for how traffic should be routed to Service endpoints.  
+The `spec.trafficDistribution` field within a Kubernetes [Service](/docs/concepts/services-networking/service/) allows users to express preferences for how traffic should be routed to Service endpoints.  
 [KEP-3015](https://kep.k8s.io/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. `PreferSameZone` is equivalent to the current `PreferClose`. `PreferSameNode` prioritizes sending traffic to endpoints on the same node as the client.  
 This feature was introduced in v1.33 behind the `PreferSameTrafficDistribution` feature gate. It is targeting graduation to beta in v1.34 with its feature gate enabled by default.
 
