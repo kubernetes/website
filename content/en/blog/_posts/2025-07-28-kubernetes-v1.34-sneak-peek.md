@@ -26,7 +26,13 @@ With DRA, device drivers and cluster admins define device classes that are avail
 
 ### ServiceAccount tokens for image pull authentication
 
-As part of [KEP-4412](https://kep.k8s.io/4412), the Service Account token integration for `kubelet` credential providers is graduating to beta in Kubernetes v1.34. This feature allows the `kubelet` to use short-lived, automatically rotated service account tokens that follow OIDC-compliant semantics to authenticate image pulls. These tokens are scoped to individual pods and replace the need for long-lived image pull secrets. This improves security, supports workload identity, and reduces operational overhead. It brings image pull authentication closer to modern, identity-aware best practices.
+The existing ServiceAccount token integration for `kubelet` credential providers is likely to reach to beta in Kubernetes v1.34, and is likely to be enabled by default. You'll then be able to have the kubelet use these tokens when pulling container images from registries that require authentication.
+
+That support already exists as alpha, and is tracked as part of [KEP-4412](https://kep.k8s.io/4412).
+
+The existing alpha integration allows the `kubelet` to use short-lived, automatically rotated ServiceAccount tokens (that follow OIDC-compliant semantics) to authenticate to a container registry image pulls. Each token is scoped to one associated Pod; the overall mechanism replaces the need for long-lived image pull Secrets.
+
+Adopting this new approach reduces security risks, supports workload-level identity, and helps to cut operational overhead. It brings image pull authentication closer to modern, identity-aware good practice.
 
 ### Pod replacement policy for Deployments
 
