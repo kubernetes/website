@@ -68,7 +68,7 @@ This might sound a lot like JSON, because it is! But unlike JSON, KYAML:
 * Allows trailing commas in lists and maps for improved usability.  
 * Does not require quoted keys.
 
-In Kubernetes v1.34, KYAML will be introduced as a new output format for `kubectl` (as in `kubectl get -o kayml ...`). KYAML is and will remain a strict subset of YAML, ensuring that any compliant YAML parser can parse KYAML documents.
+In Kubernetes v1.34, KYAML will be introduced as a new output format for `kubectl` (as in `kubectl get -o kyaml ...`). KYAML is and will remain a strict subset of YAML, ensuring that any compliant YAML parser can parse KYAML documents.
 
 ### Fine-grained autoscaling control with HPA configurable tolerance
 
