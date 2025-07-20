@@ -18,7 +18,7 @@ Please note that this information reflects the current state of v1.34 developmen
 
 The following list of enhancements is likely to be included in the v1.34 release. This is not a commitment and the release content is subject to change.
 
-### The core of DRA gets closer to production-ready
+### The core of DRA targets stable
 
 Dynamic Resource Allocation (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.  
 Structured parameters ([KEP-4381](https://kep.k8s.io/4381)) is a Kubernetes enhancement introduced in v1.30 that provides the core framework for DRA, and is targeting graduation to stable in v1.34. Taking inspiration from dynamic volume provisioning, it introduces ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under resource.k8s.io, while extending PodSpec with a `resourceClaims` field.  
