@@ -79,7 +79,7 @@ Kubernetes 是一个可用于生产环境的开源平台，基于 Google 在容�
       title="1. Create a Kubernetes cluster" >}}
   -->
   {{< tutorials/module
-      path="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"
+      path="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"
       image="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347"
       alt="模块一"
       title="1.  创建一个 Kubernetes 集群" >}}
@@ -92,7 +92,7 @@ Kubernetes 是一个可用于生产环境的开源平台，基于 Google 在容�
       title="2. Deploy an app" >}}
   -->
   {{< tutorials/module
-      path="/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"
+      path="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"
       image="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347"
       alt="模块二"
       title="2. 部署一个应用" >}}
@@ -105,7 +105,7 @@ Kubernetes 是一个可用于生产环境的开源平台，基于 Google 在容�
       title="3. Explore your app" >}}
   -->
   {{< tutorials/module
-      path="/zh-cn/docs/tutorials/kubernetes-basics/explore/explore-intro/"
+      path="/docs/tutorials/kubernetes-basics/explore/explore-intro/"
       image="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347"
       alt="模块三"
       title="3. 访问你的应用" >}}
@@ -118,7 +118,7 @@ Kubernetes 是一个可用于生产环境的开源平台，基于 Google 在容�
       title="4. Expose your app publicly" >}}
   -->
   {{< tutorials/module
-      path="/zh-cn/docs/tutorials/kubernetes-basics/expose/expose-intro/"
+      path="/docs/tutorials/kubernetes-basics/expose/expose-intro/"
       image="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347"
       alt="模块四"
       title="4. 公开发布你的应用" >}}
@@ -131,7 +131,7 @@ Kubernetes 是一个可用于生产环境的开源平台，基于 Google 在容�
       title="5. Scale up your app" >}}
   -->
   {{< tutorials/module
-      path="/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/"
+      path="/docs/tutorials/kubernetes-basics/scale/scale-intro/"
       image="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347"
       alt="模块五"
       title="5. 扩大你的应用规模" >}}
@@ -144,7 +144,7 @@ Kubernetes 是一个可用于生产环境的开源平台，基于 Google 在容�
       title="6. Update your app" >}}
   -->
   {{< tutorials/module
-      path="/zh-cn/docs/tutorials/kubernetes-basics/update/update-intro/"
+      path="/docs/tutorials/kubernetes-basics/update/update-intro/"
       image="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347"
       alt="模块六"
       title="6. 更新你的应用" >}}
