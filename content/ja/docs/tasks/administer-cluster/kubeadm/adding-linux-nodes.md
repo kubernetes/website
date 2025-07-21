@@ -11,7 +11,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 * ワーカーノードとして追加する各マシンに、[kubeadmのインストール](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)で要求されている、kubeadm、kubelet、{{< glossary_tooltip term_id="container-runtime" text="コンテナランタイム" >}}等のコンポーネントがインストールされていること。
-* `kubeadm init`で構築され、[kubeadmを使用したクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)ドキュメントの手順に従った稼働中のkubeadmクラスターが存在すること。
+* `kubeadm init`で構築され、[kubeadmを使用したクラスターの作成](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)ドキュメントの手順に従った稼働中のkubeadmクラスターが存在すること。
 * ノードにスーパーユーザー権限でアクセスできること。
 
 <!-- steps -->
