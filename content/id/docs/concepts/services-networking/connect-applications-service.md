@@ -1,11 +1,11 @@
 ---
 title: Menghubungkan aplikasi dengan Service
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 ## Model Kubernetes untuk menghubungkan kontainer
 
@@ -17,15 +17,15 @@ Akan sulit untuk mengkoordinasikan *port* yang digunakan oleh banyak pengembang.
 
 Panduan ini menggunakan server *nginx* sederhana untuk mendemonstrasikan konsepnya. Konsep yang sama juga ditulis lebih lengkap di [Aplikasi Jenkins CI](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mengekspos Pod ke dalam klaster
 
 Kita melakukan ini di beberapa contoh sebelumnya, tetapi mari kita lakukan sekali lagi dan berfokus pada prespektif jaringannya. Buat sebuah *nginx Pod*, dan perhatikan bahwa templat tersebut mempunyai spesifikasi *port* kontainer:
 
-{{< codenew file="service/networking/run-my-nginx.yaml" >}}
+{{% codenew file="service/networking/run-my-nginx.yaml" %}}
 
 Ini membuat aplikasi tersebut dapat diakses dari *node* manapun di dalam klaster kamu. Cek lokasi *node* dimana *Pod* tersebut berjalan:
 ```shell
@@ -47,7 +47,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 Kamu dapat melakukan akses dengan *ssh* ke dalam *node* di dalam klaster dan mengakses IP *Pod* tersebut menggunakan *curl*. Perlu dicatat bahwa kontainer tersebut tidak menggunakan *port* 80 di dalam *node*, atau aturan *NAT* khusus untuk merutekan trafik ke dalam *Pod*. Ini berarti kamu dapat menjalankan banyak *nginx Pod* di *node* yang sama dimana setiap *Pod* dapat menggunakan *containerPort* yang sama, kamu dapat mengakses semua itu dari *Pod* lain ataupun dari *node* di dalam klaster menggunakan IP. Seperti *Docker*, *port* masih dapat di publikasi ke dalam * interface node*, tetapi kebutuhan seperti ini sudah berkurang karena model jaringannya.
 
-Kamu dapat membaca lebih detail [bagaimana kita melakukan ini](/docs/concepts/cluster-administration/networking/#how-to-achieve-this) jika kamu penasaran.
+Kamu dapat membaca lebih detail [bagaimana kita melakukan ini](/id/docs/concepts/cluster-administration/networking/#how-to-achieve-this) jika kamu penasaran.
 
 ## Membuat Service
 
@@ -66,7 +66,7 @@ service/my-nginx exposed
 
 Perintah di atas sama dengan `kubectl apply -f` dengan *yaml* sebagai berikut:
 
-{{< codenew file="service/networking/nginx-svc.yaml" >}}
+{{% codenew file="service/networking/nginx-svc.yaml" %}}
 
 Spesifikasi ini akan membuat *Service* yang membuka *TCP port 80* di setiap *Pod* dengan label `run: my-nginx` dan mengeksposnya ke dalam *port Service* (`targetPort`: adalah port kontainer yang menerima trafik, `port` adalah *service port* yang dapat berupa *port* apapun yang digunakan *Pod* lain untuk mengakses *Service*).
 
@@ -93,8 +93,12 @@ Labels:              run=my-nginx
 Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
+IP Family Policy:    SingleStack
+IP Families:         IPv4
 IP:                  10.0.162.149
+IPs:                 10.0.162.149
 Port:                <unset> 80/TCP
+TargetPort:          80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
 Events:              <none>
@@ -107,7 +111,7 @@ NAME       ENDPOINTS                     AGE
 my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 ```
 
-Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<PORT>` dari *node* manapun di klaster. Perlu dicatat bahwa *Service IP* adalah IP virtual, IP tersebut tidak pernah ada di *interface node* manapun. Jika kamu penasaran bagaimana konsep ini bekerja, kamu dapat membaca lebih lanjut tentang [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<PORT>` dari *node* manapun di klaster. Perlu dicatat bahwa *Service IP* adalah IP virtual, IP tersebut tidak pernah ada di *interface node* manapun. Jika kamu penasaran bagaimana konsep ini bekerja, kamu dapat membaca lebih lanjut tentang [service proxy](/id/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
 
 ## Mengakses Service
 
@@ -170,7 +174,7 @@ Jika *DNS* belum berjalan, kamu dapat [mengaktifkannya](http://releases.k8s.io/{
 Sisa panduan ini mengasumsikan kamu mempunyai *Service* dengan IP (my-nginx), dan sebuah server *DNS*  yang memberikan nama ke dalam IP tersebut (CoreDNS klaster), jadi kamu dapat berkomunikasi dengan *Service* dari *Pod* lain di dalam klaster menggunakan metode standar (contohnya *gethostbyname*). Jalankan aplikasi *curl* lain untuk melakukan pengujian ini:
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty
+kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
 ```
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
@@ -194,7 +198,7 @@ Hingga sekarang kita hanya mengakses *nginx* server dari dalam klaster. Sebelum 
 
 * *Self signed certificates* untuk *https* (kecuali jika kamu sudah mempunyai *identity certificate*)
 * Sebuah server *nginx* yang terkonfigurasi untuk menggunakan *certificate* tersebut
-* Sebuah [secret](/docs/concepts/configuration/secret/) yang membuat setifikat tersebut dapat diakses oleh *pod*
+* Sebuah [secret](/id/docs/concepts/configuration/secret/) yang membuat setifikat tersebut dapat diakses oleh *pod*
 
 
 Kamu dapat melihat semua itu di [contoh nginx https](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). Contoh ini mengaharuskan kamu melakukan instalasi *go* dan *make*. Jika kamu tidak ingin melakukan instalasi tersebut, ikuti langkah-langkah manualnya nanti, singkatnya:
@@ -249,7 +253,7 @@ nginxsecret           Opaque                                2         1m
 
 Sekarang modifikasi replika *nginx* untuk menjalankan server *https* menggunakan *certificate* di dalam *secret* dan *Service* untuk mengekspos semua *port* (80 dan 443):
 
-{{< codenew file="service/networking/nginx-secure-app.yaml" >}}
+{{% codenew file="service/networking/nginx-secure-app.yaml" %}}
 
 Berikut catatan penting tentang manifes *nginx-secure-app*:
 
@@ -264,8 +268,12 @@ kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.ya
 Pada tahapan ini, kamu dapat berkomunikasi dengan server *nginx* dari *node* manapun.
 
 ```shell
-kubectl get pods -o yaml | grep -i podip
-    podIP: 10.244.3.5
+kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
+    POD_IP
+    [map[ip:10.244.3.5]]
+```
+
+```shell
 node $ curl -k https://10.244.3.5
 ...
 <h1>Welcome to nginx!</h1>
@@ -273,7 +281,7 @@ node $ curl -k https://10.244.3.5
 
 Perlu dicatat bahwa kita menggunakan parameter `-k` saat menggunakan *curl*, ini karena kita tidak tau apapun tentang *Pod* yang menjalankan *nginx* saat pembuatan seritifikat, jadi kita harus memberitahu *curl* untuk mengabaikan ketidakcocokan *CName*. Dengan membuat *Service*, kita menghubungkan *CName* yang digunakan pada *certificate* dengan nama pada *DNS* yang digunakan *Pod*. Lakukan pengujian dari sebuah *Pod* (*secret* yang sama digunakan untuk agar mudah, *Pod* tersebut hanya membutuhkan *nginx.crt* untuk mengakses *Service*)
 
-{{< codenew file="service/networking/curlpod.yaml" >}}
+{{% codenew file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml
@@ -357,10 +365,11 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-Kubernetes juga mendukung *Federated Service*, yang bisa mempengaruhi banyak klaster dan penyedia layanan *cloud*, untuk meningkatkan ketersediaan, peningkatan toleransi kesalahan, dan pengembangan dari *Service* kamu. Lihat [Panduan Federated Service](/docs/concepts/cluster-administration/federation-service-discovery/) untuk informasi lebih lanjut.
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+Kubernetes juga mendukung *Federated Service*, yang bisa mempengaruhi banyak klaster dan penyedia layanan *cloud*, untuk meningkatkan ketersediaan, peningkatan toleransi kesalahan, dan pengembangan dari *Service* kamu. Lihat [Panduan Federated Service](/id/docs/concepts/cluster-administration/federation-service-discovery/) untuk informasi lebih lanjut.
+
+
