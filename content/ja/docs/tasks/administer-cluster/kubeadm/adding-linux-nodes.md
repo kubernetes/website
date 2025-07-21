@@ -10,7 +10,7 @@ weight: 10
 
 ## {{% heading "prerequisites" %}}
 
-* ワーカーノードとして追加する各マシンに、[kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)で要求されている、kubeadm、kubelet、 {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}等のコンポーネントがインストールされていること。
+* ワーカーノードとして追加する各マシンに、[kubeadmのインストール](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)で要求されている、kubeadm、kubelet、{{< glossary_tooltip term_id="container-runtime" text="コンテナランタイム" >}}等のコンポーネントがインストールされていること。
 * `kubeadm init`で構築され、[kubeadmを使用したクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)ドキュメントの手順に従った稼働中のkubeadmクラスターが存在すること。
 * ノードにスーパーユーザー権限でアクセスできること。
 
@@ -30,14 +30,14 @@ weight: 10
 ### kubeadm joinに関する追加情報
 
 {{< note >}}
-IPv6タプルを`<control-plane-host>:<control-plane-port>`と指定するためには、IPv6アドレスを角括弧で囲みます。
+`<control-plane-host>:<control-plane-port>`にIPv6タプルを指定するには、IPv6アドレスを角括弧で囲みます。
 例: `[2001:db8::101]:2073`
 {{< /note >}}
 
 トークンが不明な場合は、コントロールプレーンノードで次のコマンドを実行すると取得できます。
 
 ```bash
-# コントロールプレーン上で実行してください。
+# コントロールプレーンノード上で実行してください。
 sudo kubeadm token list
 ```
 
@@ -97,10 +97,10 @@ Run 'kubectl get nodes' on control-plane to see this machine join.
 数秒後、`kubectl get nodes`を実行すると、出力内にこのノードが表示されるはずです(`kubectl`コマンドは、コントロールプレーンノード等で実行してください)。
 
 {{< note >}}
-クラスターのノードは順番に初期化されるため、CoreDNSのPodは全て最初のコントロールプレーンノードで実行されている可能性があります。
+クラスターのノードは、通常は順番に初期化されるため、CoreDNSのPodは全て最初のコントロールプレーンノードで実行されている可能性があります。
 高可用性を実現するため、新たなノードを追加した後には`kubectl -n kube-system rollout restart deployment coredns`コマンドを実行してCoreDNSのPodを再配置してください。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
-* [Windowsワーカーノードの追加](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)する方法を参照してください。
+* [Windowsワーカーノードを追加](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)する方法を参照してください。
