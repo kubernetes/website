@@ -4,7 +4,7 @@ content_type: concept
 weight: 70
 ---
 
-{{< feature-state state="alpha" for_k8s_version="1.33" >}}
+{{< feature-state state="beta" for_k8s_version="1.34" >}}
 
 A Kubernetes `kuberc` configuration file allows you to define preferences for kubectl, such as default options and command aliases.
 Unlike the kubeconfig file, a `kuberc` configuration file does **not** contain cluster details, usernames or passwords.
@@ -25,20 +25,24 @@ Alias name must not collide with the built-in commands.
 
 Specify the underlying built-in command that your alias will execute. This includes support for subcommands like `create role`.
 
-### flags
+### options
 
-Specify default values for command line arguments (which the kuberc format terms _flags_). 
-If you explicitly specify a command line argument when you run kubectl, the value you provide takes precedence over the default one defined in kuberc. 
+Specify default values for command line arguments (which the kuberc format terms _options_ in v1beta1). 
+If you explicitly specify a command line argument when you run kubectl, the value you provide takes precedence over the default one defined in kuberc.
+
+{{< note >}}
+In kuberc v1alpha1, these are called `flags`. In v1beta1 and later, they are called `options`.
+{{< /note >}} 
 
 #### Example  {#flags-example}
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1alpha1
+apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 aliases:
 - name: getn
   command: get
-  flags:
+  options:
    - name: output
      default: json
 ```
@@ -52,14 +56,14 @@ Insert arbitrary arguments immediately after the kubectl command and its subcomm
 #### Example {#prependArgs-example}
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1alpha1
+apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 aliases:
   - name: getn
     command: get
     prependArgs:
       - namespace
-    flags:
+    options:
       - name: output
         default: json
 ```
@@ -73,12 +77,12 @@ Append arbitrary arguments to the end of the kubectl command.
 #### Example {#appendArgs-example}
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1alpha1
+apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 aliases:
 - name: runx
   command: run
-  flags:
+  options:
     - name: image
       default: busybox
     - name: namespace
@@ -98,10 +102,10 @@ Within a `kuberc` configuration, _command overrides_ let you specify custom valu
 
 Specify the built-in command. This includes support for subcommands like `create role`.
 
-### flags
+### options
 
-Within a `kuberc`, configuration, command line arguments are termed _flags_ (even if they do not represent a boolean type).
-You can use `flags` to set the default value of a command line argument.
+Within a `kuberc` configuration, command line arguments are termed _options_ in v1beta1 (even if they do not represent a boolean type).
+You can use `options` to set the default value of a command line argument.
 
 If you explicitly specify a flag on your terminal, explicit value will always take precedence over
 the value you defined in kuberc using `overrides`.
@@ -116,11 +120,11 @@ compiled-in default value.
 #### Example
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1alpha1
+apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
-overrides:
+defaults:
 - command: delete
-  flags:
+  options:
     - name: interactive
       default: "true"
 ```
@@ -131,15 +135,15 @@ However, `kubectl delete pod/test-pod --interactive=false` will bypass the confi
 The kubectl maintainers encourage you to adopt kuberc with the given defaults:
 
 ```yaml
-apiVersion: kubectl.config.k8s.io/v1alpha1
+apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
-overrides:
+defaults:
   - command: apply
-    flags:
+    options:
       - name: server-side
         default: "true"
   - command: delete
-    flags:
+    options:
       - name: interactive
         default: "true"
 ```
