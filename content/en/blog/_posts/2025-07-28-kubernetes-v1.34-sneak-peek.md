@@ -16,7 +16,7 @@ Please note that this information reflects the current state of v1.34 developmen
 
 ## Featured enhancements of Kubernetes v1.34
 
-The following list of enhancements is likely to be included in the v1.34 release. This is not a commitment and the release content is subject to change.
+The following list highlights some of the notable enhancements likely to be included in the v1.34 release, but is not an exhaustive list of all planned changes. This is not a commitment and the release content is subject to change.
 
 ### The core of DRA targets stable
 
