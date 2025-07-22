@@ -210,10 +210,13 @@ set the following config based on your Containerd version
 Containerd versions 1.x:
 
 ```
+version = 2
+
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-  ...
-  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-    SystemdCgroup = true
+runtime_type = "io.containerd.runc.v2"
+
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+SystemdCgroup = true
 ```
 
 Containerd versions 2.x:
