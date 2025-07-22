@@ -10,7 +10,7 @@ A Kubernetes `kuberc` configuration file allows you to define preferences for ku
 Unlike the kubeconfig file, a `kuberc` configuration file does **not** contain cluster details, usernames or passwords.
 
 The default location of this configuration file is `$HOME/.kube/kuberc`. 
-You can instruct `kubectl` to look at a custom path for this configuration using the `--kuberc` command line argument.  
+You can instruct `kubectl` to look at a custom path for this configuration using the `--kuberc` command line argument or `KUBERC` environment variable.  
 
 ## aliases
 
