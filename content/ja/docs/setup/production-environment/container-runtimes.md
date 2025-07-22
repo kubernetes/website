@@ -269,13 +269,13 @@ pause_image="registry.k8s.io/pause:3.6"
 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html)(MCR)は、
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html)(MCR)は、
 以前はDocker Enterprise Editionとして知られていた、商業的に利用可能なコンテナランタイムです。
 
 MCRに含まれるオープンソースの[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)コンポーネントを使用することで、
 Mirantis Container RuntimeをKubernetesで使用することができます。
 
-Mirantis Container Runtimeのインストール方法について知るには、[MCRデプロイガイド](https://docs.mirantis.com/mcr/20.10/install.html)を参照してください。
+Mirantis Container Runtimeのインストール方法について知るには、[MCRデプロイガイド](https://docs.mirantis.com/mcr/25.0/install.html)を参照してください。
 
 CRIソケットのパスを見つけるには、systemdの`cri-docker.socket`という名前のユニットを確認してください。
 

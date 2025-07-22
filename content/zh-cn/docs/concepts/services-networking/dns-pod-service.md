@@ -96,7 +96,7 @@ options ndots:5
 In summary, a Pod in the _test_ namespace can successfully resolve either
 `data.prod` or `data.prod.svc.cluster.local`.
 -->
-概括起来，命名空间 _test_ 中的 Pod 可以成功地解析 `data.prod` 或者
+概括起来，命名空间 **test** 中的 Pod 可以成功地解析 `data.prod` 或者
 `data.prod.svc.cluster.local`。
 
 <!--
@@ -112,8 +112,8 @@ What objects get DNS records?
 
 哪些对象会获得 DNS 记录呢？
 
-1. Services
-2. Pods
+1. Service
+2. Pod
 
 <!--
 The following sections detail the supported DNS record types and layout that is
@@ -149,7 +149,7 @@ selection from the set.
 
 #### A/AAAA 记录 {#a-aaaa-records}
 
-除了无头 Service 之外的 “普通” Service 会被赋予一个形如 `my-svc.my-namespace.svc.cluster-domain.example`
+除了无头 Service 之外的“普通” Service 会被赋予一个形如 `my-svc.my-namespace.svc.cluster-domain.example`
 的 DNS A 和/或 AAAA 记录，取决于 Service 的 IP 协议族（可能有多个）设置。
 该名称会解析成对应 Service 的集群 IP。
 
@@ -171,7 +171,6 @@ services.
 - For a headless Service, this resolves to multiple answers, one for each Pod
   that is backing the Service, and contains the port number and the domain name of the Pod
   of the form `hostname.my-svc.my-namespace.svc.cluster-domain.example`.
-
 -->
 #### SRV 记录  {#srv-records}
 
@@ -193,39 +192,49 @@ Kubernetes 根据普通 Service 或无头 Service 中的命名端口创建 SRV �
 Kube-DNS versions, prior to the implementation of the
 [DNS specification](https://github.com/kubernetes/dns/blob/master/docs/specification.md),
 had the following DNS resolution:
-
-```
-pod-ipv4-address.my-namespace.pod.cluster-domain.example
-```
-
-For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
-and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
-
-```
-172-17-0-3.default.pod.cluster.local
-```
-
-Some cluster DNS mechanisms, like [CoreDNS](https://coredns.io/), also provide `A` records for:
-
-```
-<pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>
-```
 -->
 ### A/AAAA 记录 {#a-aaaa-records}
 
 在实现 [DNS 规范](https://github.com/kubernetes/dns/blob/master/docs/specification.md)之前，
 Kube-DNS 版本使用以下 DNS 解析：
 
-`pod-ipv4-address.my-namespace.pod.cluster-domain.example`
+```
+<pod-IPv4-address>.<namespace>.pod.<cluster-domain>
+```
 
+<!--
+For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
+and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
+-->
 例如，对于一个位于 `default` 命名空间，IP 地址为 172.17.0.3 的 Pod，
 如果集群的域名为 `cluster.local`，则 Pod 会对应 DNS 名称：
 
-`172-17-0-3.default.pod.cluster.local`
+```
+172-17-0-3.default.pod.cluster.local
+```
 
+<!--
+Some cluster DNS mechanisms, like [CoreDNS](https://coredns.io/), also provide `A` records for:
+-->
 一些集群 DNS 机制（如 [CoreDNS](https://coredns.io/)）还会为以下内容提供 `A` 记录：
 
-`<pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>.`
+```
+<pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>
+```
+
+<!--
+For example, if a Pod in the `cafe` namespace has the IP address 172.17.0.3,
+is an endpoint of a Service named `barista`, and the domain name for your cluster is
+`cluster.local`, then the Pod would have this service-scoped DNS `A` record.
+-->
+例如，如果 `cafe` 命名空间中的一个 Pod 拥有 IP 地址
+172.17.0.3（是名为 `barista` 的服务的端点），
+并且集群的域名是 `cluster.local`，
+那么此 Pod 将拥有这样的服务范围的 DNS A 记录：
+
+```
+172-17-0-3.barista.cafe.svc.cluster.local
+```
 
 <!--
 ### Pod's hostname and subdomain fields
@@ -275,6 +284,53 @@ Example:
 
 示例：
 
+<!--
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: busybox-subdomain
+spec:
+  selector:
+    name: busybox
+  clusterIP: None
+  ports:
+  - name: foo # name is not required for single-port Services
+    port: 1234
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox1
+  labels:
+    name: busybox
+spec:
+  hostname: busybox-1
+  subdomain: busybox-subdomain
+  containers:
+  - image: busybox:1.28
+    command:
+      - sleep
+      - "3600"
+    name: busybox
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox2
+  labels:
+    name: busybox
+spec:
+  hostname: busybox-2
+  subdomain: busybox-subdomain
+  containers:
+  - image: busybox:1.28
+    command:
+      - sleep
+      - "3600"
+    name: busybox
+```
+-->
 ```yaml
 apiVersion: v1
 kind: Service
@@ -328,8 +384,8 @@ to `"busybox-subdomain"`, the first Pod will see its own FQDN as
 A and/or AAAA records at that name, pointing to the Pod's IP. Both Pods "`busybox1`" and
 "`busybox2`" will have their own address records.
 -->
-鉴于上述服务 `“busybox-subdomain”` 和将 `spec.subdomain` 设置为 `“busybox-subdomain”` 的 Pod，
-第一个 Pod 将看到自己的 FQDN 为 `“busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example”`。
+鉴于上述 `"busybox-subdomain"` Service 和将 `spec.subdomain` 设置为 `"busybox-subdomain"` 的 Pod，
+第一个 Pod 将看到自己的 FQDN 为 `"busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example"`。
 DNS 会为此名字提供一个 A 记录和/或 AAAA 记录，指向该 Pod 的 IP。
 Pod “`busybox1`” 和 “`busybox2`” 都将有自己的地址记录。
 
@@ -372,7 +428,7 @@ then by default the `hostname` command inside that Pod returns `busybox-1` and t
 
 When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the Pod's FQDN into the hostname for that Pod's namespace. In this case, both `hostname` and `hostname --fqdn` return the Pod's FQDN.
 -->
-当 Pod 配置为具有全限定域名 (FQDN) 时，其主机名是短主机名。
+当 Pod 配置为具有全限定域名（FQDN）时，其主机名是短主机名。
 例如，如果你有一个具有完全限定域名 `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example` 的 Pod，
 则默认情况下，该 Pod 内的 `hostname` 命令返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
 
@@ -660,4 +716,4 @@ For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 -->
 有关管理 DNS 配置的指导，
-请查看[配置 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/)
+请查看[配置 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/)。

@@ -568,3 +568,11 @@ target = "i18n"
 [[module.mounts]]
 source = "i18n/zh-cn"
 target = "i18n"
+
+[segments]
+  [segments.all]
+    [[segments.all.includes]]
+      path = '{/**}'
+  [segments.en]
+    [[segments.en.includes]]
+      lang = 'en'
