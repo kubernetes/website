@@ -35,10 +35,10 @@ the target localization.
 [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT)
 : Replacing the destination IP on a packet; in this page, that usually means replacing with the IP address of a {{< glossary_tooltip term_id="pod" >}}
 
-[VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
+[VIP](/docs/concepts/services-networking/service/#virtual-ip-addressing-mechanism)
 : A virtual IP address, such as the one assigned to every {{< glossary_tooltip text="Service" term_id="service" >}} in Kubernetes
 
-[kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
+[kube-proxy](/docs/concepts/services-networking/service/#virtual-ip-addressing-mechanism)
 : A network daemon that orchestrates Service VIP management on every node
 
 ### Prerequisites
