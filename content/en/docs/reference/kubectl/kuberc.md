@@ -27,11 +27,11 @@ Specify the underlying built-in command that your alias will execute. This inclu
 
 ### options
 
-Specify default values for command line arguments (which the kuberc format terms _options_ in v1beta1). 
-If you explicitly specify a command line argument when you run kubectl, the value you provide takes precedence over the default one defined in kuberc.
+You can use `options` to specify default command line arguments for an alias.
+If you explicitly specify a command line option when you run kubectl, the value you provide takes precedence over the default one defined in kuberc.
 
 {{< note >}}
-In kuberc v1alpha1, these are called `flags`. In v1beta1 and later, they are called `options`.
+In kuberc v1alpha1, these were called `flags`. For v1beta1, they are called `options`.
 {{< /note >}} 
 
 #### Example  {#flags-example}
@@ -104,11 +104,10 @@ Specify the built-in command. This includes support for subcommands like `create
 
 ### options
 
-Within a `kuberc` configuration, command line arguments are termed _options_ in v1beta1 (even if they do not represent a boolean type).
-You can use `options` to set the default value of a command line argument.
+You can use `options` to specify default values for command line options.
 
 If you explicitly specify a flag on your terminal, explicit value will always take precedence over
-the value you defined in kuberc using `overrides`.
+the value you defined in kuberc using `defaults`.
 
 {{< note >}}
 You cannot use `kuberc` to override the value of a command line argument to take precedence over
