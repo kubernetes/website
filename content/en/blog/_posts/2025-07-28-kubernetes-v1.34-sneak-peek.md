@@ -58,23 +58,22 @@ The `spec.trafficDistribution` field within a Kubernetes [Service](/docs/concept
 [KEP-3015](https://kep.k8s.io/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. `PreferSameZone` is equivalent to the current `PreferClose`. `PreferSameNode` prioritizes sending traffic to endpoints on the same node as the client.  
 This feature was introduced in v1.33 behind the `PreferSameTrafficDistribution` feature gate. It is targeting graduation to beta in v1.34 with its feature gate enabled by default.
 
-### `kubectl` supports KYAML as an output format
+### Support for KYAML: a Kubernetes dialect of YAML
 
-[KEP-5295](https://kep.k8s.io/5295) introduces KYAML, a safer and less ambiguous YAML subset and encoding, designed specifically for Kubernetes. KYAML addresses the shortcomings of both YAML and JSON. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion. Meanwhile, JSON lacks comment support and has strict requirements for trailing commas and quoted keys.  
-KYAML addresses the problems by:
+KYAML is a safer and less ambiguous YAML subset designed specifically for Kubernetes. You can use KYAML for writing manifests and Helm charts, and request KYAML output from `kubectl` (as in `kubectl get -o kyaml ...`).
+
+KYAML addresses specific challenges with both YAML and JSON. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion (for e.g.: ["The Norway Bug"](https://hitchdev.com/strictyaml/why/implicit-typing-removed/)). Meanwhile, JSON lacks comment support and has strict requirements for trailing commas and quoted keys.  
+
+[KEP-5295](https://kep.k8s.io/5295) introduces KYAML, which addresses the problems by:
 
 * Always double-quoting value strings   
 * Leaving keys unquoted unless they are potentially ambiguous  
 * Always using {} for structs and maps  
 * Always using [] for lists
 
-This might sound a lot like JSON, because it is! But unlike JSON, KYAML:
+This might sound a lot like JSON, because it is! But unlike JSON, KYAML supports comments, allows trailing commas, and doesn't require quoted keys.
 
-* Supports comments  
-* Allows trailing commas in lists and maps for improved usability.  
-* Does not require quoted keys.
-
-In Kubernetes v1.34, KYAML will be introduced as a new output format for `kubectl` (as in `kubectl get -o kyaml ...`). KYAML is and will remain a strict subset of YAML, ensuring that any compliant YAML parser can parse KYAML documents.
+KYAML is targeting alpha in Kubernetes v1.34. Since KYAML is and will remain a strict subset of YAML, any compliant YAML parser can process KYAML documents.
 
 ### Fine-grained autoscaling control with HPA configurable tolerance
 
