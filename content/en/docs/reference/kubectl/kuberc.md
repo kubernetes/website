@@ -4,6 +4,13 @@ content_type: concept
 weight: 70
 ---
 
+{{< note >}}
+You cannot use `kuberc` to override the value of a command line argument to take precedence over
+what the user specifies on the command line. The term `overrides`
+in this context refers to specifying a default value that is different from the
+compiled-in default value.
+{{< /note >}}
+
 {{< feature-state state="beta" for_k8s_version="1.34" >}}
 
 A Kubernetes `kuberc` configuration file allows you to define preferences for kubectl, such as default options and command aliases.
@@ -34,7 +41,7 @@ If you explicitly specify a command line option when you run kubectl, the value 
 In kuberc v1alpha1, these were called `flags`. For v1beta1, they are called `options`.
 {{< /note >}} 
 
-#### Example  {#flags-example}
+#### Example  {#options-example}
 
 ```yaml
 apiVersion: kubectl.config.k8s.io/v1beta1
@@ -94,9 +101,9 @@ aliases:
 
 `kubectl runx test-pod` will be translated to `kubectl run test-pod --namespace test-ns --image busybox -- custom-arg`.
 
-## Command overrides
+## Command defaults
 
-Within a `kuberc` configuration, _command overrides_ let you specify custom values for command line arguments.
+Within a `kuberc` configuration, _command defaultss_ let you specify custom values for command line arguments.
 
 ### command
 
@@ -106,12 +113,12 @@ Specify the built-in command. This includes support for subcommands like `create
 
 You can use `options` to specify default values for command line options.
 
-If you explicitly specify a flag on your terminal, explicit value will always take precedence over
+If you explicitly specify a `options` on your terminal, explicit value will always take precedence over
 the value you defined in kuberc using `defaults`.
 
 {{< note >}}
 You cannot use `kuberc` to override the value of a command line argument to take precedence over
-what the user specifies on the command line. The term `overrides`
+what the user specifies on the command line. The term `defaults`
 in this context refers to specifying a default value that is different from the
 compiled-in default value.
 {{< /note >}}
@@ -128,7 +135,7 @@ defaults:
       default: "true"
 ```
 
-With this override, running `kubectl delete pod/test-pod` will default to prompting for confirmation. 
+With this defaults, running `kubectl delete pod/test-pod` will default to prompting for confirmation. 
 However, `kubectl delete pod/test-pod --interactive=false` will bypass the confirmation.
 
 The kubectl maintainers encourage you to adopt kuberc with the given defaults:
