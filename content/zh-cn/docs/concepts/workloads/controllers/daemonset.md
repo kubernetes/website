@@ -9,7 +9,6 @@ content_type: concept
 weight: 40
 hide_summary: true # 在章节索引中单独列出
 ---
-
 <!--
 reviewers:
 - enisoc
@@ -68,16 +67,16 @@ different flags and/or different memory and cpu requests for different hardware 
 
 ### Create a DaemonSet
 -->
-## 编写 DaemonSet Spec   {#writing-a-daemon-set-spec}
+## 编写 DaemonSet 规约   {#writing-a-daemonset-spec}
 
-### 创建 DaemonSet   {#create-a-daemon-set}
+### 创建 DaemonSet   {#create-a-daemonset}
 
 <!--
 You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` file below
 describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 -->
 你可以在 YAML 文件中描述 DaemonSet。
-例如，下面的 daemonset.yaml 文件描述了一个运行 fluentd-elasticsearch Docker 镜像的 DaemonSet：
+例如，下面的 `daemonset.yaml` 文件描述了一个运行 fluentd-elasticsearch Docker 镜像的 DaemonSet：
 
 {{% code_sample file="controllers/daemonset.yaml" %}}
 
@@ -86,7 +85,7 @@ Create a DaemonSet based on the YAML file:
 -->
 基于 YAML 文件创建 DaemonSet：
 
-```
+```shell
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
 
@@ -114,7 +113,8 @@ section.
 DaemonSet 对象的名称必须是一个合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
-DaemonSet 也需要 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
+DaemonSet 也需要
+[`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Pod Template
@@ -137,7 +137,7 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 
 `.spec.template` 是一个 [Pod 模板](/zh-cn/docs/concepts/workloads/pods/#pod-templates)。
 除了它是嵌套的，因而不具有 `apiVersion` 或 `kind` 字段之外，它与
-{{< glossary_tooltip text="Pod" term_id="pod" >}} 具有相同的 schema。
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 具有相同的模式。
 
 除了 Pod 必需字段外，在 DaemonSet 中的 Pod 模板必须指定合理的标签（查看 [Pod 选择算符](#pod-selector)）。
 
@@ -179,7 +179,7 @@ The `.spec.selector` is an object consisting of two fields:
 -->
 * `matchLabels` - 与 [ReplicationController](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/)
   的 `.spec.selector` 的作用相同。
-* `matchExpressions` - 允许构建更加复杂的选择器，可以通过指定 key、value
+* `matchExpressions` - 允许构建更加复杂的选择算符，可以通过指定 key、value
   列表以及将 key 和 value 列表关联起来的 Operator。
 
 <!--
@@ -215,7 +215,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 <!--
 ## How Daemon Pods are scheduled
 -->
-## Daemon Pods 是如何被调度的   {#how-daemon-pods-are-scheduled}
+## Daemon Pod 是如何被调度的   {#how-daemon-pods-are-scheduled}
 
 <!--
 A DaemonSet can be used to ensure that all eligible nodes run a copy of a Pod.
@@ -299,7 +299,7 @@ nodeAffinity:
 The DaemonSet controller automatically adds a set of {{< glossary_tooltip
 text="tolerations" term_id="toleration" >}} to DaemonSet Pods:
 -->
-### 污点和容忍度   {#taint-and-toleration}
+### 污点和容忍度   {#taints-and-tolerations}
 
 DaemonSet 控制器会自动将一组容忍度添加到 DaemonSet Pod：
 
@@ -401,7 +401,7 @@ You can modify the Pods that a DaemonSet creates.  However, Pods do not allow al
 fields to be updated.  Also, the DaemonSet controller will use the original template the next
 time a node (even with the same name) is created.
 -->
-## 更新 DaemonSet   {#updating-a-daemon-set}
+## 更新 DaemonSet   {#updating-a-daemonset}
 
 如果节点的标签被修改，DaemonSet 将立刻向新匹配上的节点添加 Pod，
 同时删除不匹配的节点上的 Pod。
@@ -429,7 +429,7 @@ You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/)
 
 ### Init scripts
 -->
-## DaemonSet 的替代方案   {#alternatives-to-daemon-set}
+## DaemonSet 的替代方案   {#alternatives-to-daemonset}
 
 ### init 脚本   {#init-scripts}
 
@@ -479,9 +479,9 @@ in cluster bootstrapping cases.  Also, static Pods may be deprecated in the futu
 -->
 ### 静态 Pod   {#static-pods}
 
-通过在一个指定的、受 `kubelet` 监视的目录下编写文件来创建 Pod 也是可行的。
+通过在一个指定的、受 kubelet 监视的目录下编写文件来创建 Pod 也是可行的。
 这类 Pod 被称为[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)。
-不像 DaemonSet，静态 Pod 不受 `kubectl` 和其它 Kubernetes API 客户端管理。
+不像 DaemonSet，静态 Pod 不受 kubectl 和其它 Kubernetes API 客户端管理。
 静态 Pod 不依赖于 API 服务器，这使得它们在启动引导新集群的情况下非常有用。
 此外，静态 Pod 在将来可能会被废弃。
 
@@ -501,7 +501,7 @@ For example, [network plugins](/docs/concepts/extend-kubernetes/compute-storage-
 often include a component that runs as a DaemonSet. The DaemonSet component makes sure
 that the node where it's running has working cluster networking.
 -->
-### Deployment
+### Deployment {#deployments}
 
 DaemonSet 与 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 非常类似，
 它们都能创建 Pod，并且 Pod 中的进程都不希望被终止（例如，Web 服务器、存储服务器）。
@@ -511,10 +511,11 @@ DaemonSet 与 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment
 当需要 Pod 副本总是运行在全部或特定主机上，并且当该 DaemonSet 提供了节点级别的功能（允许其他 Pod 在该特定节点上正确运行）时，
 应该使用 DaemonSet。
 
-例如，[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)通常包含一个以 DaemonSet 运行的组件。
-这个 DaemonSet 组件确保它所在的节点的集群网络正常工作。
+例如，[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)通常包含一个以
+DaemonSet 运行的组件。这个 DaemonSet 组件确保它所在的节点的集群网络正常工作。
 
 ## {{% heading "whatsnext" %}}
+
 <!--
 * Learn about [Pods](/docs/concepts/workloads/pods).
   * Learn about [static Pods](#static-pods), which are useful for running Kubernetes
@@ -531,11 +532,12 @@ DaemonSet 与 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment
   object definition to understand the API for daemon sets.
 -->
 * 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
-  * 了解[静态 Pod](#static-pods)，这对运行 Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}组件有帮助。
+  * 了解[静态 Pod](#static-pods)，这对运行 Kubernetes
+    {{< glossary_tooltip text="控制面" term_id="control-plane" >}}组件有帮助。
 * 了解如何使用 DaemonSet
   * [对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)
   * [对 DaemonSet 执行回滚](/zh-cn/docs/tasks/manage-daemon/rollback-daemon-set/)（例如：新的版本没有达到你的预期）
-* 理解[Kubernetes 如何将 Pod 分配给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
+* 理解 [Kubernetes 如何将 Pod 分配给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
 * 了解[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)和
   [扩展（Addons）](/zh-cn/docs/concepts/cluster-administration/addons/)，它们常以 DaemonSet 运行。
 * `DaemonSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/daemon-set-v1" >}}

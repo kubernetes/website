@@ -2,6 +2,9 @@ HUGO_VERSION      = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d
 NODE_BIN          = node_modules/.bin
 NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
 
+# The segments variable is used to specify which segments to render.
+segments          ?= all
+
 # The CONTAINER_ENGINE variable is used for specifying the container engine. By default 'docker' is used
 # but this can be overridden when calling make, e.g.
 # CONTAINER_ENGINE=podman make container-image
@@ -69,7 +72,7 @@ non-production-build: module-check ## Build the non-production site, which adds 
 	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildDrafts --buildFuture --environment development
+	hugo server --buildDrafts --buildFuture --environment development --renderSegments $(segments)
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -118,7 +121,7 @@ container-build: module-check
 container-serve: module-check ## Boot the development server using container.
 	$(CONTAINER_RUN_TTY) --cap-drop=ALL --cap-add=AUDIT_WRITE $(CONTAINER_HUGO_MOUNTS) \
 		-p 1313:1313 $(CONTAINER_IMAGE) \
-		hugo server --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock
+		hugo server --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock --renderSegments $(segments)
 
 test-examples:
 	scripts/test_examples.sh install
