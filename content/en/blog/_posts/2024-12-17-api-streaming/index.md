@@ -99,3 +99,15 @@ Kubernetes v1.33 introduced two related feature gates, `StreamingCollectionEncod
 These features encode via a stream and avoid allocating all the memory at once.
 This functionality is bit-for-bit compatible with existing **list** encodings, produces even greater server-side memory savings, and doesn't require any changes to client code.
 In 1.33, the `WatchList` feature gate is disabled by default.
+
+
+## Kubernetes 1.34 update
+
+In 1.34, the `WatchList` feature gate is enabled by default.
+The primary motivation was the potential for significant client-side memory savings. 
+During relists, reflectors/informers often hold two full snapshots in memory. 
+With `WatchList` objects can be streamed and unchanged ones reused potentially cutting memory usage by up to half.
+The improvement also formalizes legacy semantics (dating back as far as Kubernetes
+issue [#13969](https://github.com/kubernetes/kubernetes/issues/13969) from 2015)
+and aligns the implementation to other features such as
+[consistent reads from cache](/blog/2024/08/15/consistent-read-from-cache-beta/).
