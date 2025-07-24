@@ -41,7 +41,8 @@ Adopting this new approach reduces security risks, supports workload-level ident
 
 ### Pod replacement policy for Deployments
 
-After a change to a [Deployment](/docs/concepts/workloads/controllers/deployment/), terminating pods may stay up for a considerable amount of time and may consume additional resources. As part of [KEP-3973](https://kep.k8s.io/3973), the `.spec.podReplacementPolicy` field is introduced in Deployments.
+After a change to a [Deployment](/docs/concepts/workloads/controllers/deployment/), terminating pods may stay up for a considerable amount of time and may consume additional resources.
+As part of [KEP-3973](https://kep.k8s.io/3973), the `.spec.podReplacementPolicy` field will be introduced (as alpha) for Deployments.
 
 Two policies are available:
 
