@@ -64,7 +64,7 @@ KYAML is a safer and less ambiguous YAML subset designed specifically for Kubern
 
 KYAML addresses specific challenges with both YAML and JSON. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion (for e.g.: ["The Norway Bug"](https://hitchdev.com/strictyaml/why/implicit-typing-removed/)). Meanwhile, JSON lacks comment support and has strict requirements for trailing commas and quoted keys.  
 
-[KEP-5295](https://kep.k8s.io/5295) introduces KYAML, which addresses the problems by:
+[KEP-5295](https://kep.k8s.io/5295) introduces KYAML, which tries to address the most significant problems by:
 
 * Always double-quoting value strings   
 * Leaving keys unquoted unless they are potentially ambiguous  
