@@ -12,6 +12,7 @@ author: >
 ---
 
 Kubernetes v1.34 is coming at the end of August 2025. This release will not include any removal or deprecation, but it is packed with an impressive number of enhancements. Here are some of the features we are most excited about in this cycle!  
+
 Please note that this information reflects the current state of v1.34 development and may change before release.
 
 ## Featured enhancements of Kubernetes v1.34
@@ -21,8 +22,11 @@ The following list highlights some of the notable enhancements likely to be incl
 ### The core of DRA targets stable
 
 [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.  
+
 Structured parameters ([KEP-4381](https://kep.k8s.io/4381)) is a Kubernetes enhancement introduced in v1.30 that provides the core framework for DRA, and is targeting graduation to stable in v1.34. Taking inspiration from dynamic volume provisioning, it introduces ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under resource.k8s.io, while extending PodSpec with a `resourceClaims` field.  
+
 With DRA, device drivers and cluster admins define device classes that are available for use. Workloads can claim devices from a device class within device requests. Kubernetes allocates matching devices to specific claims and places the corresponding Pods on nodes that can access the allocated devices. This framework provides flexible device filtering using CEL, centralized device categorization, and simplified Pod requests, among other benefits.
+
 Once this feature has graduated, the resource.k8s.io/v1 API will be enabled by default.
 
 ### ServiceAccount tokens for image pull authentication
@@ -54,12 +58,15 @@ It’s expected to be available as an alpha feature and can be enabled using the
 ### `kubelet` observability gets a major boost with production-ready tracing
 
 To address the longstanding challenge of debugging node-level issues by correlating disconnected logs, the Kubelet OpenTelemetry Tracing enhancement ([KEP-2831](https://kep.k8s.io/2831)) provides deep, contextual insights into the `kubelet`. It instruments the `kubelet`'s critical control loops and interfaces, most notably the gRPC calls made via the Container Runtime Interface (CRI). By generating and exporting distributed trace data using the vendor-agnostic OpenTelemetry standard, it fundamentally transforms node-level diagnostics from parsing disparate log files to analyzing a single, cohesive trace. This allows operators to visualize the entire lifecycle of critical operations like Pod startup, precisely pinpointing sources of latency and errors. Its most powerful aspect is the propagation of trace context; the `kubelet` passes a trace ID with its requests to the container runtime, enabling runtimes like containerd or CRI-O to link their own spans.  
+
 This effort is complemented by a parallel enhancement, [KEP-647](https://kep.k8s.io/647), which brings the same tracing capabilities to the Kubernetes API server. Together, these enhancements provide a more unified, end-to-end view of events, simplifying the process of pinpointing latency and errors from the control plane down to the node. These features have matured through the official Kubernetes release process. [KEP-2831](https://kep.k8s.io/2831) was introduced as an alpha feature in v1.25, while [KEP-647](https://kep.k8s.io/647) debuted as alpha in v1.22. Both enhancements were promoted to beta together in the v1.27 release. Looking forward, Kubelet Tracing ([KEP-2831](https://kep.k8s.io/2831)) is now targeting graduation to stable in the upcoming v1.34 release.
 
 ### `PreferSameZone` and `PreferSameNode` traffic distribution for Services
 
 The `spec.trafficDistribution` field within a Kubernetes [Service](/docs/concepts/services-networking/service/) allows users to express preferences for how traffic should be routed to Service endpoints.  
+
 [KEP-3015](https://kep.k8s.io/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. `PreferSameZone` is equivalent to the current `PreferClose`. `PreferSameNode` prioritizes sending traffic to endpoints on the same node as the client.  
+
 This feature was introduced in v1.33 behind the `PreferSameTrafficDistribution` feature gate. It is targeting graduation to beta in v1.34 with its feature gate enabled by default.
 
 ### Support for KYAML: a Kubernetes dialect of YAML
@@ -70,9 +77,12 @@ KYAML addresses specific challenges with both YAML and JSON. YAML's significant 
 
 [KEP-5295](https://kep.k8s.io/5295) introduces KYAML, which tries to address the most significant problems by:
 
-* Always double-quoting value strings   
-* Leaving keys unquoted unless they are potentially ambiguous  
-* Always using {} for structs and maps  
+* Always double-quoting value strings
+
+* Leaving keys unquoted unless they are potentially ambiguous
+
+* Always using {} for structs and maps
+
 * Always using [] for lists
 
 This might sound a lot like JSON, because it is! But unlike JSON, KYAML supports comments, allows trailing commas, and doesn't require quoted keys.
@@ -84,7 +94,8 @@ As a format, KYAML is and will remain a **strict subset of YAML**, ensuring that
 
 ### Fine-grained autoscaling control with HPA configurable tolerance
 
-[KEP-4951](https://kep.k8s.io/4951) introduces a new feature that allows users to configure autoscaling tolerance on a per-HPA basis, overriding the default cluster-wide 10% tolerance setting that often proves too coarse-grained for diverse workloads. The enhancement adds an optional `tolerance` field to the HPA's `spec.behavior.scaleUp` and `spec.behavior.scaleDown` sections, enabling different tolerance values for scale-up and scale-down operations, which is particularly valuable since scale-up responsiveness is typically more critical than scale-down speed for handling traffic surges.   
+[KEP-4951](https://kep.k8s.io/4951) introduces a new feature that allows users to configure autoscaling tolerance on a per-HPA basis, overriding the default cluster-wide 10% tolerance setting that often proves too coarse-grained for diverse workloads. The enhancement adds an optional `tolerance` field to the HPA's `spec.behavior.scaleUp` and `spec.behavior.scaleDown` sections, enabling different tolerance values for scale-up and scale-down operations, which is particularly valuable since scale-up responsiveness is typically more critical than scale-down speed for handling traffic surges.  
+
 Released as alpha in Kubernetes v1.33 behind the `HPAConfigurableTolerance` feature gate, this feature is graduating to beta in v1.34. This enhancement addresses scaling challenges where large deployments might require hundreds of pods for a 10% change, enabling workload-specific optimization for both responsive and conservative scaling behaviors.
 
 ## Want to know more?
