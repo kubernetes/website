@@ -23,7 +23,11 @@ The following list highlights some of the notable enhancements likely to be incl
 
 [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.  
 
-Structured parameters ([KEP-4381](https://kep.k8s.io/4381)) is a Kubernetes enhancement introduced in v1.30 that provides the core framework for DRA, and is targeting graduation to stable in v1.34. Taking inspiration from dynamic volume provisioning, it introduces ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under resource.k8s.io, while extending PodSpec with a `resourceClaims` field.  
+Since the v1.30 release, DRA is based around RC concept of claiming devices using _structured parameters_ that are opaque to the core of Kubernetes.
+The relevant enhancement proposal, ([KEP-4381](https://kep.k8s.io/4381)), took inspiration from dynamic provisioning for storage volumes.
+DRA with structured parameters relies on a set of supporting APi kinds: ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under `resource.k8s.io`, while extending the `.spec` for Pods with a new `resourceClaims` field.
+The core of DRA is targeting graduation to stable in Kubernetes v1.34.
+
 
 With DRA, device drivers and cluster admins define device classes that are available for use. Workloads can claim devices from a device class within device requests. Kubernetes allocates matching devices to specific claims and places the corresponding Pods on nodes that can access the allocated devices. This framework provides flexible device filtering using CEL, centralized device categorization, and simplified Pod requests, among other benefits.
 
