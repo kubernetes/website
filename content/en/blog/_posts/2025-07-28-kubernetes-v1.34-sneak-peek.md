@@ -55,7 +55,7 @@ This feature makes Deployment behavior more predictable by letting you choose wh
 
 It’s expected to be available as an alpha feature and can be enabled using the `DeploymentPodReplacementPolicy` and `DeploymentReplicaSetTerminatingReplicas` feature gates in the API server and kube-controller-manager.
 
-### `kubelet` observability gets a major boost with production-ready tracing
+### Production-ready tracing for `kubelet` and API Server
 
 To address the longstanding challenge of debugging node-level issues by correlating disconnected logs, the Kubelet OpenTelemetry Tracing enhancement ([KEP-2831](https://kep.k8s.io/2831)) provides deep, contextual insights into the `kubelet`. It instruments the `kubelet`'s critical control loops and interfaces, most notably the gRPC calls made via the Container Runtime Interface (CRI). By generating and exporting distributed trace data using the vendor-agnostic OpenTelemetry standard, it fundamentally transforms node-level diagnostics from parsing disparate log files to analyzing a single, cohesive trace. This allows operators to visualize the entire lifecycle of critical operations like Pod startup, precisely pinpointing sources of latency and errors. Its most powerful aspect is the propagation of trace context; the `kubelet` passes a trace ID with its requests to the container runtime, enabling runtimes like containerd or CRI-O to link their own spans.  
 
