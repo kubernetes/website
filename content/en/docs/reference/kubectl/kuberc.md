@@ -129,14 +129,14 @@ compiled-in default value.
 apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 defaults:
-- command: delete
+- command: plugin list
   options:
-    - name: interactive
+    - name: name-only
       default: "true"
 ```
 
-With this defaults, running `kubectl delete pod/test-pod` will default to prompting for confirmation. 
-However, `kubectl delete pod/test-pod --interactive=false` will bypass the confirmation.
+With this override, running `kubectl plugin list` will default to showing only plugin names without their full paths. 
+However, `kubectl plugin list --name-only=false` will display the full paths to each plugin.
 
 The kubectl maintainers encourage you to adopt kuberc with the given defaults:
 
