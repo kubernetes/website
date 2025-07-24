@@ -44,7 +44,7 @@ Adopting this new approach reduces security risks, supports workload-level ident
 After a change to a [Deployment](/docs/concepts/workloads/controllers/deployment/), terminating pods may stay up for a considerable amount of time and may consume additional resources.
 As part of [KEP-3973](https://kep.k8s.io/3973), the `.spec.podReplacementPolicy` field will be introduced (as alpha) for Deployments.
 
-Two policies are available:
+If your cluster has the feature enabled, you'll be able to select one of two policies:
 
 `TerminationStarted`
 : Creates new pods as soon as old ones start terminating, resulting in faster rollouts and temporary higher resource consumption.
