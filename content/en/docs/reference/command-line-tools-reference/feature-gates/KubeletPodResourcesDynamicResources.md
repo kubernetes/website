@@ -8,7 +8,11 @@ _build:
 stages:
   - stage: alpha
     defaultValue: false
-    fromVersion: "1.27"  
+    fromVersion: "1.27"
+    toVersion: "1.33" 
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.34"
 ---
 Extend the kubelet's pod resources gRPC endpoint to
 to include resources allocated in `ResourceClaims` via `DynamicResourceAllocation` API.
