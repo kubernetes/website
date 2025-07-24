@@ -44,7 +44,7 @@ Two policies are available:
 * `TerminationStarted`: Creates new pods as soon as old ones start terminating, resulting in faster rollouts and temporary higher resource consumption.  
 * `TerminationComplete`: Waits until old pods fully terminate before creating new ones, resulting in slower rollouts and a more controlled resource consumption.
 
-This feature provides greater control, and makes deployment behavior more predictable, especially when working in clusters with tight resource constraints or with workloads with long termination periods. 
+This feature provides greater control and makes deployment behavior more predictable, especially when working in clusters with tight resource constraints or with workloads with long termination periods. 
 
 It’s introduced in alpha behind the `DeploymentPodReplacementPolicy` and `DeploymentReplicaSetTerminatingReplicas` feature gates in the API server and the kube-controller-manager.
 
