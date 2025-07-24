@@ -47,14 +47,14 @@ In kuberc v1alpha1, these were called `flags`. For v1beta1, they are called `opt
 apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 aliases:
-- name: getn
-  command: get
+- name: rolloutwatch
+  command: rollout status
   options:
-   - name: output
-     default: json
+   - name: watch
+     default: "true"
 ```
 
-With this alias, running `kubectl getn pods` will default JSON output. However, if you execute `kubectl getn pods -oyaml`, the output will be in YAML format.
+With this alias, running `kubectl rolloutwatch deployments/nginx` will be translated to `kubectl rollout status deployments/nginx --watch`. This demonstrates how aliases can work with multi-word commands like `rollout status`.
 
 ### prependArgs
 
