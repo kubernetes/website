@@ -41,8 +41,11 @@ After a change to a [Deployment](/docs/concepts/workloads/controllers/deployment
 
 Two policies are available:
 
-* `TerminationStarted`: Creates new pods as soon as old ones start terminating, resulting in faster rollouts and temporary higher resource consumption.  
-* `TerminationComplete`: Waits until old pods fully terminate before creating new ones, resulting in slower rollouts and a more controlled resource consumption.
+`TerminationStarted`
+: Creates new pods as soon as old ones start terminating, resulting in faster rollouts and temporary higher resource consumption.
+
+`TerminationComplete`
+: Waits until old pods fully terminate before creating new ones, resulting in slower rollouts and a more controlled resource consumption.
 
 This feature provides greater control and makes deployment behavior more predictable, especially when working in clusters with tight resource constraints or with workloads with long termination periods. 
 
