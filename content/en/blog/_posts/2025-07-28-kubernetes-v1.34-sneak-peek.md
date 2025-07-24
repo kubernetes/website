@@ -97,7 +97,11 @@ As a format, KYAML is and will remain a **strict subset of YAML**, ensuring that
 
 [KEP-4951](https://kep.k8s.io/4951) introduces a new feature that allows users to configure autoscaling tolerance on a per-HPA basis, overriding the default cluster-wide 10% tolerance setting that often proves too coarse-grained for diverse workloads. The enhancement adds an optional `tolerance` field to the HPA's `spec.behavior.scaleUp` and `spec.behavior.scaleDown` sections, enabling different tolerance values for scale-up and scale-down operations, which is particularly valuable since scale-up responsiveness is typically more critical than scale-down speed for handling traffic surges.  
 
-Released as alpha in Kubernetes v1.33 behind the `HPAConfigurableTolerance` feature gate, this feature is graduating to beta in v1.34. This enhancement addresses scaling challenges where large deployments might require hundreds of pods for a 10% change, enabling workload-specific optimization for both responsive and conservative scaling behaviors.
+Released as alpha in Kubernetes v1.33 behind the `HPAConfigurableTolerance` feature gate, this feature is expected to graduate to beta in v1.34.
+This improvement helps to address scaling challenges with large deployments, where for scaling in,
+a 10% tolerance might mean leaving hundreds of unnecessary Pods running.
+Using the new more flexible approach would enable workload-specific optimization for both
+responsive and conservative scaling behaviors.
 
 ## Want to know more?
 New features and deprecations are also announced in the Kubernetes release notes. We will formally announce what's new in [Kubernetes v1.34](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.34.md) as part of the CHANGELOG for that release.
