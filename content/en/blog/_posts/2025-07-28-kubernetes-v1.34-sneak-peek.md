@@ -73,7 +73,10 @@ KYAML addresses specific challenges with both YAML and JSON. YAML's significant 
 
 This might sound a lot like JSON, because it is! But unlike JSON, KYAML supports comments, allows trailing commas, and doesn't require quoted keys.
 
-KYAML is targeting alpha in Kubernetes v1.34. Since KYAML is and will remain a strict subset of YAML, any compliant YAML parser can process KYAML documents.
+We're hoping to see KYAML introduced as a new output format for `kubectl` v1.34.
+As with all these features, none of these changes are 100% confirmed; watch this space!
+
+As a format, KYAML is and will remain a **strict subset of YAML**, ensuring that any compliant YAML parser can parse KYAML documents.
 
 ### Fine-grained autoscaling control with HPA configurable tolerance
 
