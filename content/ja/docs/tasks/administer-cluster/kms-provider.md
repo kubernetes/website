@@ -1,7 +1,4 @@
 ---
-reviewers:
-- aramase
-- enj
 title: データ暗号化にKMSプロバイダーを使用する
 content_type: task
 weight: 370
