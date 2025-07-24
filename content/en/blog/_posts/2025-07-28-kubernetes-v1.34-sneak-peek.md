@@ -82,9 +82,9 @@ KYAML addresses specific challenges with both YAML and JSON. YAML's significant 
 
 * Leaving keys unquoted unless they are potentially ambiguous
 
-* Always using {} for structs and maps
+* Always using `{`}` for mappings (associative arrays)
 
-* Always using [] for lists
+* Always using `[]` for lists
 
 This might sound a lot like JSON, because it is! But unlike JSON, KYAML supports comments, allows trailing commas, and doesn't require quoted keys.
 
