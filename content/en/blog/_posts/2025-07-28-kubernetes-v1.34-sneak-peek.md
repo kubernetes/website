@@ -92,7 +92,7 @@ KYAML addresses specific challenges with both YAML and JSON. YAML's significant 
 
 * Leaving keys unquoted unless they are potentially ambiguous
 
-* Always using `{`}` for mappings (associative arrays)
+* Always using `{}` for mappings (associative arrays)
 
 * Always using `[]` for lists
 
