@@ -31,7 +31,7 @@ The existing [ServiceAccount](/docs/concepts/security/service-accounts/) token i
 
 That support already exists as alpha, and is tracked as part of [KEP-4412](https://kep.k8s.io/4412).
 
-The existing alpha integration allows the `kubelet` to use short-lived, automatically rotated ServiceAccount tokens (that follow OIDC-compliant semantics) to authenticate to a container registry image pulls. Each token is scoped to one associated Pod; the overall mechanism replaces the need for long-lived image pull Secrets.
+The existing alpha integration allows the `kubelet` to use short-lived, automatically rotated ServiceAccount tokens (that follow OIDC-compliant semantics) to authenticate to a container image registry. Each token is scoped to one associated Pod; the overall mechanism replaces the need for long-lived image pull Secrets.
 
 Adopting this new approach reduces security risks, supports workload-level identity, and helps to cut operational overhead. It brings image pull authentication closer to modern, identity-aware good practice.
 
