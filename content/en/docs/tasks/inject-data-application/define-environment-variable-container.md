@@ -102,10 +102,7 @@ Honorable`, and `Kubernetes`, respectively. The environment variable
 `MESSAGE` combines the set of all these environment variables and then uses it 
 as a CLI argument passed to the `env-print-demo` container.
 
-Environment variable names consist of letters, numbers, underscores,
-dots, or hyphens, but the first character cannot be a digit.
-If the `RelaxedEnvironmentVariableValidation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-all [printable ASCII characters](https://www.ascii-code.com/characters/printable-characters) except "=" may be used for environment variable names.
+Environment variable names may consist of any [printable ASCII characters](https://www.ascii-code.com/characters/printable-characters) except '='.
 
 ```yaml
 apiVersion: v1
