@@ -47,9 +47,9 @@ Two policies are available:
 `TerminationComplete`
 : Waits until old pods fully terminate before creating new ones, resulting in slower rollouts and a more controlled resource consumption.
 
-This feature provides greater control and makes deployment behavior more predictable, especially when working in clusters with tight resource constraints or with workloads with long termination periods. 
+This feature makes Deployment behavior more predictable by letting you choose when new pods should be created during updates or scaling. It's beneficial when working in clusters with tight resource constraints or with workloads with long termination periods. 
 
-It’s introduced in alpha behind the `DeploymentPodReplacementPolicy` and `DeploymentReplicaSetTerminatingReplicas` feature gates in the API server and the kube-controller-manager.
+It’s expected to be available as an alpha feature and can be enabled using the `DeploymentPodReplacementPolicy` and `DeploymentReplicaSetTerminatingReplicas` feature gates in the API server and kube-controller-manager.
 
 ### `kubelet` observability gets a major boost with production-ready tracing
 
