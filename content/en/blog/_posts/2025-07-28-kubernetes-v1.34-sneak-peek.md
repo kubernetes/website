@@ -27,7 +27,7 @@ Structured parameters ([KEP-4381](https://kep.k8s.io/4381)) is a Kubernetes enha
 
 With DRA, device drivers and cluster admins define device classes that are available for use. Workloads can claim devices from a device class within device requests. Kubernetes allocates matching devices to specific claims and places the corresponding Pods on nodes that can access the allocated devices. This framework provides flexible device filtering using CEL, centralized device categorization, and simplified Pod requests, among other benefits.
 
-Once this feature has graduated, the resource.k8s.io/v1 API will be enabled by default.
+Once this feature has graduated, the `resource.k8s.io/v1` APIs will be available by default.
 
 ### ServiceAccount tokens for image pull authentication
 
