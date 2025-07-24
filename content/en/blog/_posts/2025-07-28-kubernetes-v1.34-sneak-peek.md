@@ -63,7 +63,7 @@ This feature was introduced in v1.33 behind the `PreferSameTrafficDistribution` 
 
 KYAML is a safer and less ambiguous YAML subset designed specifically for Kubernetes. You can use KYAML for writing manifests and Helm charts, and request KYAML output from `kubectl` (as in `kubectl get -o kyaml ...`).
 
-KYAML addresses specific challenges with both YAML and JSON. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion (for e.g.: ["The Norway Bug"](https://hitchdev.com/strictyaml/why/implicit-typing-removed/)). Meanwhile, JSON lacks comment support and has strict requirements for trailing commas and quoted keys.  
+KYAML addresses specific challenges with both YAML and JSON. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion (for example: ["The Norway Bug"](https://hitchdev.com/strictyaml/why/implicit-typing-removed/)). Meanwhile, JSON lacks comment support and has strict requirements for trailing commas and quoted keys.  
 
 [KEP-5295](https://kep.k8s.io/5295) introduces KYAML, which tries to address the most significant problems by:
 
