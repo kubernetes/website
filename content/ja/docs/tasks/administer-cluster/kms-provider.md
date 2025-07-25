@@ -398,7 +398,7 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
          - aescbc:
              keys:
                - name: key1
-                 secret: <BASE 64 ENCODED SECRET>
+                 secret: <BASE64エンコード済みシークレット>
    ```
 
 1. すべての`kube-apiserver`プロセスを再起動します。
@@ -411,8 +411,7 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 
 ## {{% heading "whatsnext" %}}
 
-<!-- preserve legacy hyperlinks -->
-<a id="disabling-encryption-at-rest" />
+<!-- no need to preserve legacy hyperlinks -->
 
 Kubernetes APIに永続化されたデータの暗号化をもう使用したくない場合は、
 [既に保存時に保存されているデータの復号化](/docs/tasks/administer-cluster/decrypt-data/)を読んでください。
