@@ -48,9 +48,9 @@ File with admission control configuration.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address on which to advertise the apiserver to members of the cluster.
-This address must be reachable by the rest of the cluster. If blank,
-the --bind-address will be used. If --bind-address is unspecified,
+The IP address on which to advertise the apiserver to members of the cluster. 
+This address must be reachable by the rest of the cluster. If blank, 
+the --bind-address will be used. If --bind-address is unspecified, 
 the host's default interface will be used.
 -->
 <p>
@@ -121,9 +121,9 @@ If true, allow privileged containers. [default=false]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Enables anonymous requests to the secure port of the API server.
-Requests that are not rejected by another authentication method
-are treated as anonymous requests. Anonymous requests have a
+Enables anonymous requests to the secure port of the API server. 
+Requests that are not rejected by another authentication method 
+are treated as anonymous requests. Anonymous requests have a 
 username of system:anonymous, and a group name of system:unauthenticated.
 -->
 启用针对 API 服务器的安全端口的匿名请求。
@@ -139,10 +139,10 @@ username of system:anonymous, and a group name of system:unauthenticated.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Identifiers of the API. The service account token authenticator will
-validate that tokens used against the API are bound to at least one
-of these audiences. If the --service-account-issuer flag is configured
-and this flag is not, this field defaults to a single element list
+Identifiers of the API. The service account token authenticator will 
+validate that tokens used against the API are bound to at least one 
+of these audiences. If the --service-account-issuer flag is configured 
+and this flag is not, this field defaults to a single element list 
 containing the issuer URL.
 -->
 API 的标识符。
@@ -182,7 +182,7 @@ The maximum size of a batch. Only used in batch mode.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The amount of time to wait before force writing the batch that hadn't reached the max size.
+The amount of time to wait before force writing the batch that hadn't reached the max size. 
 Only used in batch mode.
 -->
 强制写入尚未达到最大大小的批次之前要等待的时间。
@@ -196,7 +196,7 @@ Only used in batch mode.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum number of requests sent at the same moment if ThrottleQPS was not utilized before.
+Maximum number of requests sent at the same moment if ThrottleQPS was not utilized before. 
 Only used in batch mode.
 -->
 如果之前未使用 ThrottleQPS，则为同时发送的最大请求数。
@@ -298,8 +298,8 @@ The maximum size in megabytes of the audit log file before it gets rotated.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Strategy for sending audit events. Blocking indicates sending events should block server responses.
-Batch causes the backend to buffer and write events asynchronously.
+Strategy for sending audit events. Blocking indicates sending events should block server responses. 
+Batch causes the backend to buffer and write events asynchronously. 
 Known modes are batch,blocking,blocking-strict.
 -->
 用来发送审计事件的策略。
@@ -341,8 +341,8 @@ Whether event and batch truncating is enabled.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum size of the batch sent to the underlying backend. Actual serialized size can be
-several hundreds of bytes greater. If a batch exceeds this limit, it is split into
+Maximum size of the batch sent to the underlying backend. Actual serialized size can be 
+several hundreds of bytes greater. If a batch exceeds this limit, it is split into 
 several batches of smaller size.
 -->
 发送到下层后端的每批次的最大数据量。
@@ -358,7 +358,7 @@ several batches of smaller size.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Maximum size of the audit event sent to the underlying backend. If the size of an event
-is greater than this number, first request and response are removed, and if this doesn't
+is greater than this number, first request and response are removed, and if this doesn't 
 reduce the size enough, event is discarded.
 -->
 发送到下层后端的每批次的最大数据量。
@@ -423,7 +423,7 @@ The maximum size of a batch. Only used in batch mode.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The amount of time to wait before force writing the batch that hadn't reached the max size.
+The amount of time to wait before force writing the batch that hadn't reached the max size. 
 Only used in batch mode.
 -->
 强制写入尚未达到最大大小的批处理之前要等待的时间。
@@ -437,7 +437,7 @@ Only used in batch mode.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum number of requests sent at the same moment if ThrottleQPS was not utilized before.
+Maximum number of requests sent at the same moment if ThrottleQPS was not utilized before. 
 Only used in batch mode.
 -->
 如果之前未使用 ThrottleQPS，同时发送的最大请求数。
@@ -498,7 +498,7 @@ The amount of time to wait before retrying the first failed request.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Strategy for sending audit events. Blocking indicates sending events should block server responses.
+Strategy for sending audit events. Blocking indicates sending events should block server responses. 
 Batch causes the backend to buffer and write events asynchronously. Known modes are batch,blocking,blocking-strict.
 -->
 发送审计事件的策略。
@@ -525,9 +525,9 @@ Whether event and batch truncating is enabled.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-Maximum size of the batch sent to the underlying backend. Actual serialized size can be
-several hundreds of bytes greater. If a batch exceeds this limit, it is split into
+<!-- 
+Maximum size of the batch sent to the underlying backend. Actual serialized size can be 
+several hundreds of bytes greater. If a batch exceeds this limit, it is split into 
 several batches of smaller size.
 -->
 发送到下层后端的批次的最大数据量。
@@ -599,7 +599,7 @@ The duration to cache responses from the webhook token authenticator.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-File with webhook configuration for token authentication in kubeconfig format.
+File with webhook configuration for token authentication in kubeconfig format. 
 The API server will query the remote service to determine authentication for bearer tokens.
 -->
 包含 Webhook 配置的 kubeconfig 格式文件，用于进行令牌认证。
@@ -640,7 +640,7 @@ File with Authorization Configuration to configure the authorizer chain. Require
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Ordered list of plug-ins to do authorization on secure port. Comma-delimited list of:
+Ordered list of plug-ins to do authorization on secure port. Comma-delimited list of: 
 AlwaysAllow,AlwaysDeny,ABAC,Webhook,RBAC,Node.
 -->
 在安全端口上进行鉴权的插件的顺序列表。
@@ -654,7 +654,7 @@ AlwaysAllow,AlwaysDeny,ABAC,Webhook,RBAC,Node.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-File with authorization policy in json line by line format,
+File with authorization policy in json line by line format, 
 used with --authorization-mode=ABAC, on the secure port.
 -->
 包含鉴权策略的文件，其内容为分行 JSON 格式，
@@ -692,7 +692,7 @@ The duration to cache 'unauthorized' responses from the webhook authorizer.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-File with webhook configuration in kubeconfig format, used with --authorization-mode=Webhook.
+File with webhook configuration in kubeconfig format, used with --authorization-mode=Webhook. 
 The API server will query the remote service to determine access on the API server's secure port.
 -->
 包含 Webhook 配置的文件，其格式为 kubeconfig，
@@ -732,7 +732,7 @@ The IP address on which to listen for the --secure-port port. The associated int
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The directory where the TLS certs are located. If --tls-cert-file and
+The directory where the TLS certs are located. If --tls-cert-file and 
 --tls-private-key-file are provided, this flag will be ignored.
 -->
 TLS 证书所在的目录。
@@ -747,8 +747,8 @@ TLS 证书所在的目录。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If set, any request presenting a client certificate signed by one of the authorities
-in the client-ca-file is authenticated with an identity corresponding to the CommonName
+If set, any request presenting a client certificate signed by one of the authorities 
+in the client-ca-file is authenticated with an identity corresponding to the CommonName 
 of the client certificate.
 -->
 如果已设置，则使用与客户端证书的 CommonName 对应的标识对任何出示由
@@ -775,8 +775,8 @@ Enable block profiling, if profiling is enabled
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-List of allowed origins for CORS, comma separated.
-An allowed origin can be a regular expression to support subdomain matching.
+List of allowed origins for CORS, comma separated.  
+An allowed origin can be a regular expression to support subdomain matching. 
 If this list is empty CORS will not be enabled. Please ensure each expression matches the entire hostname by anchoring to the start with '^' or including the '//' prefix, and by anchoring to the end with '$' or including the ':' port separator suffix. Examples of valid expressions are '//example.com(:|$)' and '^https://example.com(:|$)'
 -->
 CORS 允许的来源清单，以逗号分隔。
@@ -819,7 +819,7 @@ Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute
+Indicates the tolerationSeconds of the toleration for unreachable:NoExecute 
 that is added by default to every pod that does not already have such a toleration.
 -->
 对污点 Unreachable:NoExecute 的容忍时长（以秒计）
@@ -1194,8 +1194,8 @@ List of etcd servers to connect with (scheme://ip:port), comma separated.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Per-resource etcd servers overrides, comma separated.
-The individual override format: group/resource#servers,
+Per-resource etcd servers overrides, comma separated. 
+The individual override format: group/resource#servers, 
 where servers are URLs, semicolon separated.
 Note that this applies only to resources compiled into this server binary.
 -->
@@ -1224,7 +1224,7 @@ Amount of time to retain events.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The hostname to use when generating externalized URLs for this master
+The hostname to use when generating externalized URLs for this master 
 (e.g. Swagger API Docs or OpenID Discovery).
 -->
 为此主机生成外部化 UR L时要使用的主机名（例如 Swagger API 文档或 OpenID 发现）。
@@ -1533,13 +1533,13 @@ kube:WindowsGracefulNodeShutdown=true|false (ALPHA - 默认值=false)
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-To prevent HTTP/2 clients from getting stuck on a single apiserver,
-randomly close a connection (GOAWAY). The client's other in-flight
-requests won't be affected, and the client will reconnect, likely
-landing on a different apiserver after going through the load
-balancer again. This argument sets the fraction of requests that
-will be sent a GOAWAY. Clusters with single apiservers, or which
-don't use a load balancer, should NOT enable this. Min is 0 (off),
+To prevent HTTP/2 clients from getting stuck on a single apiserver, 
+randomly close a connection (GOAWAY). The client's other in-flight 
+requests won't be affected, and the client will reconnect, likely 
+landing on a different apiserver after going through the load 
+balancer again. This argument sets the fraction of requests that 
+will be sent a GOAWAY. Clusters with single apiservers, or which 
+don't use a load balancer, should NOT enable this. Min is 0 (off), 
 Max is .02 (1/50 requests); .001 (1/1000) is a recommended starting point.
 -->
 为防止 HTTP/2 客户端卡在单个 API 服务器上，随机关闭某连接（GOAWAY）。
@@ -1569,7 +1569,7 @@ kube-apiserver 的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The limit that the server gives to clients for the maximum number
+The limit that the server gives to clients for the maximum number 
 of streams in an HTTP/2 connection. Zero means to use golang's default.
 -->
 服务器为客户端提供的 HTTP/2 连接中最大流数的限制。
@@ -1643,8 +1643,8 @@ kubelet 操作超时时间。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If non-zero, the Kubernetes master service (which apiserver creates/maintains)
-will be of type NodePort, using this as the value of the port. If zero,
+If non-zero, the Kubernetes master service (which apiserver creates/maintains) 
+will be of type NodePort, using this as the value of the port. If zero, 
 the Kubernetes master service will be of type ClusterIP.
 -->
 如果非零，那么 Kubernetes 主服务（由 apiserver 创建/维护）将是 NodePort 类型，
@@ -1673,9 +1673,9 @@ The time in seconds that each lease is reused. A lower value could avoid large n
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-This option represents the maximum amount of time it should take for apiserver
-to complete its startup sequence and become live. From apiserver's start time
-to when this amount of time has elapsed, /livez will assume that unfinished
+This option represents the maximum amount of time it should take for apiserver 
+to complete its startup sequence and become live. From apiserver's start time 
+to when this amount of time has elapsed, /livez will assume that unfinished 
 post-start hooks will complete successfully and therefore return true.
 -->
 此选项代表 API 服务器完成启动序列并生效所需的最长时间。
@@ -1742,10 +1742,10 @@ Enable the LoggingAlphaOptions feature gate to use this.
 </td>
 <td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Sets the log format. Permitted formats: &quot;text&quot or &quot;json&quot;.
+Sets the log format. Permitted formats: &quot;text&quot;.
 -->
 <p>
-设置日志格式。允许的格式：&quot;text&quot; or &quot;json&quot;。
+设置日志格式。允许的格式：&quot;text&quot;。
 </p>
 </td>
 </tr>
@@ -1810,10 +1810,10 @@ Otherwise, this flag limits the maximum number of non-mutating requests in fligh
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-An optional field indicating the minimum number of seconds a handler must
-keep a request open before timing it out. Currently only honored by the
-watch request handler, which picks a randomized value above this number
+<!--  
+An optional field indicating the minimum number of seconds a handler must 
+keep a request open before timing it out. Currently only honored by the 
+watch request handler, which picks a randomized value above this number 
 as the connection timeout, to spread out load.
 -->
 可选字段，表示处理程序在请求超时前，必须保持连接处于打开状态的最小秒数。
@@ -1829,7 +1829,7 @@ Watch 请求的处理程序会基于这个值选择一个随机数作为连接�
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If set, the OpenID server's certificate will be verified by one of
+If set, the OpenID server's certificate will be verified by one of 
 the authorities in the oidc-ca-file, otherwise the host's root CA set will be used.
 -->
 如果设置该值，将会使用 oidc-ca-file 中的机构之一对 OpenID 服务的证书进行验证，
@@ -1855,8 +1855,8 @@ OpenID 连接客户端的要使用的客户 ID，如果设置了 oidc-issuer-url
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If provided, the name of a custom OpenID Connect claim for specifying user groups.
-The claim value is expected to be a string or array of strings.
+If provided, the name of a custom OpenID Connect claim for specifying user groups. 
+The claim value is expected to be a string or array of strings. 
 This flag is experimental, please see the authentication documentation for further details.
 -->
 如果提供该值，这个自定义 OpenID 连接声明将被用来设定用户组。
@@ -1871,7 +1871,7 @@ This flag is experimental, please see the authentication documentation for furth
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If provided, all groups will be prefixed with this value to
+If provided, all groups will be prefixed with this value to 
 prevent conflicts with other authentication strategies.
 -->
 如果提供了此值，则所有组都将以该值作为前缀，以防止与其他身份认证策略冲突。
@@ -1884,7 +1884,7 @@ prevent conflicts with other authentication strategies.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The URL of the OpenID issuer, only HTTPS scheme will be accepted.
+The URL of the OpenID issuer, only HTTPS scheme will be accepted. 
 If set, it will be used to verify the OIDC JSON Web Token (JWT).
 -->
 OpenID 颁发者 URL，只接受 HTTPS 方案。
@@ -1898,8 +1898,8 @@ OpenID 颁发者 URL，只接受 HTTPS 方案。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A key=value pair that describes a required claim in the ID Token.
-If set, the claim is verified to be present in the ID Token with a matching value.
+A key=value pair that describes a required claim in the ID Token. 
+If set, the claim is verified to be present in the ID Token with a matching value. 
 Repeat this flag to specify multiple claims.
 -->
 描述 ID 令牌中必需声明的键值对。
@@ -1914,7 +1914,7 @@ Repeat this flag to specify multiple claims.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated list of allowed JOSE asymmetric signing algorithms.
+Comma-separated list of allowed JOSE asymmetric signing algorithms. 
 JWTs with a supported 'alg' header values are: RS256, RS384, RS512, ES256, ES384, ES512, PS256, PS384, PS512.
 Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1.
 -->
@@ -1931,7 +1931,7 @@ Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1.
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 The OpenID claim to use as the user name. Note that claims other than
- the default ('sub') is not guaranteed to be unique and immutable.
+ the default ('sub') is not guaranteed to be unique and immutable. 
  This flag is experimental, please see the authentication documentation for further details.
 -->
 要用作用户名的 OpenID 声明。
@@ -1946,7 +1946,7 @@ The OpenID claim to use as the user name. Note that claims other than
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If provided, all usernames will be prefixed with this value.
+If provided, all usernames will be prefixed with this value. 
 If not provided, username claims other than 'email' are prefixed
  by the issuer URL to avoid clashes. To skip any prefixing, provide the value '-'.
 -->
@@ -2019,7 +2019,7 @@ If set and the UnknownVersionInteroperabilityProxy feature gate is enabled, this
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If true, SO_REUSEPORT will be used when binding the port,
+If true, SO_REUSEPORT will be used when binding the port, 
 which allows more than one instance to bind on the same address and port. [default=false]
 -->
 如果为 true，则在绑定端口时将使用 <tt>SO_REUSEPORT</tt>，
@@ -2045,13 +2045,13 @@ Enable profiling via web interface host:port/debug/pprof/
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Client certificate used to prove the identity of the aggregator or
-kube-apiserver when it must call out during a request. This includes
-proxying requests to a user api-server and calling out to webhook
-admission plugins. It is expected that this cert includes a signature
-from the CA in the --requestheader-client-ca-file flag. That CA is
-published in the 'extension-apiserver-authentication' configmap in
-the kube-system namespace. Components receiving calls from kube-aggregator
+Client certificate used to prove the identity of the aggregator or 
+kube-apiserver when it must call out during a request. This includes 
+proxying requests to a user api-server and calling out to webhook 
+admission plugins. It is expected that this cert includes a signature 
+from the CA in the --requestheader-client-ca-file flag. That CA is 
+published in the 'extension-apiserver-authentication' configmap in 
+the kube-system namespace. Components receiving calls from kube-aggregator 
 should use that CA to perform their half of the mutual TLS verification.
 -->
 当必须调用外部程序以处理请求时，用于证明聚合器或者 kube-apiserver 的身份的客户端证书。
@@ -2068,9 +2068,9 @@ Kubernetes 期望此证书包含来自于 --requestheader-client-ca-file 标志�
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Private key for the client certificate used to prove the identity of
-the aggregator or kube-apiserver when it must call out during a request.
-This includes proxying requests to a user api-server and calling out to
+Private key for the client certificate used to prove the identity of 
+the aggregator or kube-apiserver when it must call out during a request. 
+This includes proxying requests to a user api-server and calling out to 
 webhook admission plugins.
 -->
 当必须调用外部程序来处理请求时，用来证明聚合器或者 kube-apiserver 的身份的客户端私钥。
@@ -2084,9 +2084,9 @@ webhook admission plugins.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-An optional field indicating the duration a handler must keep a request
-open before timing it out. This is the default request timeout for
-requests but may be overridden by flags such as --min-request-timeout
+An optional field indicating the duration a handler must keep a request 
+open before timing it out. This is the default request timeout for 
+requests but may be overridden by flags such as --min-request-timeout 
 for specific types of requests.
 -->
 可选字段，指示处理程序在超时之前必须保持打开请求的持续时间。
@@ -2101,9 +2101,9 @@ for specific types of requests.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-List of client certificate common names to allow to provide usernames
-in headers specified by --requestheader-username-headers. If empty,
-any client certificate validated by the authorities in
+List of client certificate common names to allow to provide usernames 
+in headers specified by --requestheader-username-headers. If empty, 
+any client certificate validated by the authorities in 
 --requestheader-client-ca-file is allowed.
 -->
 此值为客户端证书通用名称（Common Name）的列表；表中所列的表项可以用来提供用户名，
@@ -2119,9 +2119,9 @@ any client certificate validated by the authorities in
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Root certificate bundle to use to verify client certificates on
-incoming requests before trusting usernames in headers specified
-by --requestheader-username-headers. WARNING: generally do not
+Root certificate bundle to use to verify client certificates on 
+incoming requests before trusting usernames in headers specified 
+by --requestheader-username-headers. WARNING: generally do not 
 depend on authorization being already done for incoming requests.
 -->
 在信任请求头中以 <code>--requestheader-username-headers</code> 指示的用户名之前，
@@ -2196,7 +2196,7 @@ A set of key=value pairs that enable or disable built-in APIs. Supported options
 -->
 一组启用或禁用内置 API 的键值对。支持的选项包括：
 <br/>v1=true|false（针对核心 API 组）
-<br/>&lt;group&gt;/&lt;version&gt;=true|false（针对特定 API 组和版本，例如：apps/v1=true）
+<br/>&lt;group&gt;/&lt;version&gt;=true|false（针对特定 API 组和版本，例如：apps/v1=true） 
 <br/>api/all=true|false 控制所有 API 版本
 <br/>api/ga=true|false 控制所有 v[0-9]+ API 版本
 <br/>api/beta=true|false 控制所有 v[0-9]+beta[0-9]+ API 版本
@@ -2211,7 +2211,7 @@ A set of key=value pairs that enable or disable built-in APIs. Supported options
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The port on which to serve HTTPS with authentication and authorization.
+The port on which to serve HTTPS with authentication and authorization. 
 It cannot be switched off with 0.
 -->
 带身份认证和鉴权机制的 HTTPS 服务端口。
@@ -2225,9 +2225,9 @@ It cannot be switched off with 0.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Turns on projected service account expiration extension during token generation,
-which helps safe transition from legacy token to bound service account token feature.
-If this flag is enabled, admission injected tokens would be extended up to
+Turns on projected service account expiration extension during token generation, 
+which helps safe transition from legacy token to bound service account token feature. 
+If this flag is enabled, admission injected tokens would be extended up to 
 1 year to prevent unexpected failure during transition, ignoring value of service-account-max-token-expiration.
 -->
 在生成令牌时，启用投射服务帐户到期时间扩展，
@@ -2243,14 +2243,14 @@ If this flag is enabled, admission injected tokens would be extended up to
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Identifier of the service account token issuer. The issuer will assert this
-identifier in "iss" claim of issued tokens. This value is a string or URI.
-If this option is not a valid URI per the OpenID Discovery 1.0 spec,
-the ServiceAccountIssuerDiscovery feature will remain disabled, even if
-the feature gate is set to true. It is highly recommended that this value
-comply with the OpenID spec: https://openid.net/specs/openid-connect-discovery-1_0.html.
-In practice, this means that service-account-issuer must be an https URL.
-It is also highly recommended that this URL be capable of serving OpenID
+Identifier of the service account token issuer. The issuer will assert this 
+identifier in "iss" claim of issued tokens. This value is a string or URI. 
+If this option is not a valid URI per the OpenID Discovery 1.0 spec, 
+the ServiceAccountIssuerDiscovery feature will remain disabled, even if 
+the feature gate is set to true. It is highly recommended that this value 
+comply with the OpenID spec: https://openid.net/specs/openid-connect-discovery-1_0.html. 
+In practice, this means that service-account-issuer must be an https URL. 
+It is also highly recommended that this URL be capable of serving OpenID 
 discovery documents at {service-account-issuer}/.well-known/openid-configuration.
 When this flag is specified multiple times, the first is used to generate tokens
 and all are used to determine which issuers are accepted.
@@ -2274,9 +2274,9 @@ ServiceAccountIssuerDiscovery 功能也将保持禁用状态。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Overrides the URI for the JSON Web Key Set in the discovery doc served at
-/.well-known/openid-configuration. This flag is useful if the discovery
-docand key set are served to relying parties from a URL other than the
+Overrides the URI for the JSON Web Key Set in the discovery doc served at 
+/.well-known/openid-configuration. This flag is useful if the discovery 
+docand key set are served to relying parties from a URL other than the 
 API server's external (as auto-detected or overridden with external-hostname).
 -->
 覆盖 <code>/.well-known/openid-configuration</code> 提供的发现文档中 JSON Web 密钥集的 URI。
@@ -2292,9 +2292,9 @@ API server's external (as auto-detected or overridden with external-hostname).
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 File containing PEM-encoded x509 RSA or ECDSA private or public keys,
-used to verify ServiceAccount tokens. The specified file can contain
-multiple keys, and the flag can be specified multiple times with
-different files. If unspecified, --tls-private-key-file is used.
+used to verify ServiceAccount tokens. The specified file can contain 
+multiple keys, and the flag can be specified multiple times with 
+different files. If unspecified, --tls-private-key-file is used. 
 Must be specified when --service-account-signing-key-file is provided
 -->
 包含 PEM 编码的 x509 RSA 或 ECDSA 私钥或公钥的文件，用于验证 ServiceAccount 令牌。
@@ -2322,8 +2322,8 @@ If true, validate ServiceAccount tokens exist in etcd as part of authentication.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The maximum validity duration of a token created by the service account token issuer.
-If an otherwise valid TokenRequest with a validity duration larger than this value is requested,
+The maximum validity duration of a token created by the service account token issuer. 
+If an otherwise valid TokenRequest with a validity duration larger than this value is requested, 
 a token will be issued with a validity duration of this value.
 -->
 服务帐户令牌发布者创建的令牌的最长有效期。
@@ -2351,8 +2351,8 @@ Path to socket where a external JWT signer is listening. This flag is mutually e
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to the file that contains the current private key of the service account token issuer.
-The issuer will sign issued ID tokens with this private key.
+Path to the file that contains the current private key of the service account token issuer. 
+The issuer will sign issued ID tokens with this private key. 
 -->
 包含服务帐户令牌颁发者当前私钥的文件的路径。
 颁发者将使用此私钥签署所颁发的 ID 令牌。
@@ -2365,7 +2365,7 @@ The issuer will sign issued ID tokens with this private key.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A CIDR notation IP range from which to assign service cluster IPs.
+A CIDR notation IP range from which to assign service cluster IPs. 
 This must not overlap with any IP ranges assigned to nodes or pods.
 Max of two dual-stack CIDRs is allowed.
 -->
@@ -2395,11 +2395,11 @@ CIDR 表示的 IP 范围用来为服务分配集群 IP。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The previous version for which you want to show hidden metrics. Only the
-previous minor version is meaningful, other values will not be allowed.
-The format is &lt;major&gt;.&lt;minor&gt;, e.g.: '1.16'. The purpose of
+The previous version for which you want to show hidden metrics. Only the 
+previous minor version is meaningful, other values will not be allowed. 
+The format is &lt;major&gt;.&lt;minor&gt;, e.g.: '1.16'. The purpose of 
 this format is make sure you have the opportunity to notice if the next
-release hides additional metrics, rather than being surprised when they
+release hides additional metrics, rather than being surprised when they 
 are permanently removed in the release after that.
 -->
 你要显示隐藏指标的先前版本。仅先前的次要版本有意义，不允许其他值。
@@ -2415,9 +2415,9 @@ are permanently removed in the release after that.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Time to delay the termination. During that time the server keeps serving requests normally.
-The endpoints /healthz and /livez will return success, but /readyz immediately returns failure.
-Graceful termination starts after this delay has elapsed.
+Time to delay the termination. During that time the server keeps serving requests normally. 
+The endpoints /healthz and /livez will return success, but /readyz immediately returns failure. 
+Graceful termination starts after this delay has elapsed. 
 This can be used to allow load balancer to stop sending traffic to this server.
 -->
 延迟终止时间。在此期间，服务器将继续正常处理请求。
@@ -2433,8 +2433,8 @@ This can be used to allow load balancer to stop sending traffic to this server.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If true the HTTP Server will continue listening until all non long running request(s) in flight have been drained,
-during this window all incoming requests will be rejected with a status code 429 and a 'Retry-After' response header,
+If true the HTTP Server will continue listening until all non long running request(s) in flight have been drained, 
+during this window all incoming requests will be rejected with a status code 429 and a 'Retry-After' response header, 
 in addition 'Connection: close' response header is set in order to tear down the TCP connection when idle.
 -->
 值为 true 表示 HTTP 服务器将继续监听直到耗尽所有非长时间运行的请求，
@@ -2516,10 +2516,10 @@ List of directives for HSTS, comma separated. If this list is empty, then HSTS d
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-File containing the default x509 Certificate for HTTPS.
+File containing the default x509 Certificate for HTTPS. 
 (CA cert, if any, concatenated after server cert).
-If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided,
-a self-signed certificate and key are generated for
+If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, 
+a self-signed certificate and key are generated for 
 the public address and saved to the directory specified by --cert-dir.
 -->
 包含用于 HTTPS 的默认 x509 证书的文件。（CA 证书（如果有）在服务器证书之后并置）。
@@ -2535,10 +2535,10 @@ the public address and saved to the directory specified by --cert-dir.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Comma-separated list of cipher suites for the server.
-If omitted, the default Go cipher suites will be used.
+Comma-separated list of cipher suites for the server. 
+If omitted, the default Go cipher suites will be used. 
 <br/>Preferred values:
-TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
+TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, 
 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256.<br/>
 Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_RSA_WITH_RC4_128_SHA.
 -->
@@ -2581,15 +2581,15 @@ File containing the default x509 private key matching --tls-cert-file.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A pair of x509 certificate and private key file paths, optionally
-suffixed with a list of domain patterns which are fully qualified
-domain names, possibly with prefixed wildcard segments. The domain
-patterns also allow IP addresses, but IPs should only be used if
-the apiserver has visibility to the IP address requested by a client.
-If no domain patterns are provided, the names of the certificate are
+A pair of x509 certificate and private key file paths, optionally 
+suffixed with a list of domain patterns which are fully qualified 
+domain names, possibly with prefixed wildcard segments. The domain 
+patterns also allow IP addresses, but IPs should only be used if 
+the apiserver has visibility to the IP address requested by a client. 
+If no domain patterns are provided, the names of the certificate are 
 extracted. Non-wildcard matches trump over wildcard matches, explicit
-domain patterns trump over extracted names. For multiple key/certificate
-pairs, use the --tls-sni-cert-key multiple times. Examples:
+domain patterns trump over extracted names. For multiple key/certificate 
+pairs, use the --tls-sni-cert-key multiple times. Examples: 
 "example.crt,example.key" or "foo.crt,foo.key:*.foo.com,foo.com".
 -->
 一对 x509 证书和私钥文件路径，（可选）后缀为全限定域名的域名模式列表，可以使用带有通配符的前缀。
