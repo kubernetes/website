@@ -112,7 +112,7 @@ As a format, KYAML is and will remain a **strict subset of YAML**, ensuring that
 Released as alpha in Kubernetes v1.33 behind the `HPAConfigurableTolerance` feature gate, this feature is expected to graduate to beta in v1.34.
 This improvement helps to address scaling challenges with large deployments, where for scaling in,
 a 10% tolerance might mean leaving hundreds of unnecessary Pods running.
-Using the new more flexible approach would enable workload-specific optimization for both
+Using the new, more flexible approach would enable workload-specific optimization for both
 responsive and conservative scaling behaviors.
 
 ## Want to know more?
