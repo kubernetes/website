@@ -25,6 +25,7 @@ Currently, the following types of volume sources can be projected:
 * [`configMap`](/docs/concepts/storage/volumes/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
 * [`clusterTrustBundle`](#clustertrustbundle)
+* [`podCertificate`](#podcertificate)
 
 All sources are required to be in the same namespace as the Pod. For more details,
 see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
@@ -95,6 +96,108 @@ The kubelet deduplicates the certificates in the selected ClusterTrustBundle obj
 By default, the kubelet will prevent the pod from starting if the named ClusterTrustBundle is not found, or if `signerName` / `labelSelector` do not match any ClusterTrustBundles.  If this behavior is not what you want, then set the `optional` field to `true`, and the pod will start up with an empty file at `path`.
 
 {{% code_sample file="pods/storage/projected-clustertrustbundle.yaml" %}}
+
+## podCertificate projected volumes {#podcertificate}
+
+{{< feature-state feature_gate_name="PodCertificateRequest" >}}
+
+{{< note >}}
+In Kubernetes {{< skew currentVersion >}}, you must enable the
+`PodCertificateRequest` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) _and_ the
+`certificates.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
+term_id="api-group" >}} in order to use this API.
+{{< /note >}}
+
+The `podCertificate` projected volumes source securely provisions a private key
+and X.509 certificate chain for pod to use as client or server credentials.
+Kubelet will then handle refreshing the private key and certificate chain when
+they get close to expiration.  The application just has to make sure that it
+reloads the file promptly when it changes, with a mechanism like `inotify` or
+polling.
+
+Each container within a pod can mount more than one podCertificate projection,
+and the same projection can safely be shared between multiple containers as
+well.
+
+Each `podCertificate` projection supports the following configuration fields:
+* `signerName`: Which
+  [signer](/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-unlinked#signers)
+  you want to issue the certificate.  Note that signers may have their own
+  access requirements, and may refuse to issue certificates to your pod.
+* `keyType`: The type of private key that should be generated.  Valid values are
+  `ED25519`, `ECDSAP256`, `ECDSAP384`, `ECDSAP521`, `RSA3072`, and `RSA4096`.
+* `maxExpirationSeconds`: What's the maximum lifetime you want for the
+  certificate issued to the pod?  If not set, will be defaulted to `86400` (24
+  hours).  Must be at least `3600` (1 hour), and at most `7862400` (91 days).
+* `credentialBundlePath`: Relative path within the projection where the
+  credential bundle should be written.  The credential bundle is a PEM-formatted
+  file, where the first block is a "PRIVATE KEY" block that contains a
+  PKCS#8-serialized private key, and the remaining blocks are "CERTIFICATE"
+  blocks that comprise the certificate chain (leaf certificate and any
+  intermediates).
+* `keyPath` and `certificateChainPath`: Separate paths where Kubelet should
+  write *just* the private key or certificate chain.
+
+{{< note >}}
+
+Most applications should prefer using `credentialBundlePath` unless they need
+the key and certificates in separate files for compatibility reasons. Kubelet
+uses an atomic writing strategy based on symlinks to make sure that when you
+open the files it projects, you read either the old content or the new content.
+However, if you read the key and certificate chain from separate files, Kubelet
+may rotate the credentials after your first read and before your second read,
+resulting in your application loading a mismatched key and certificate.
+
+{{< /note >}}
+
+Under the hood, Kubelet will run the state machine depicted in Figure 1 for each
+`podCertificate` projection.
+
+{{< mermaid >}} 
+    graph LR
+    Initial --> Wait
+    Wait --> Fresh
+    Wait --> Failed
+    Wait --> Denied
+    Fresh --> WaitRefresh
+    WaitRefresh --> Failed
+    WaitRefresh --> Denied
+{{< /mermaid >}}
+Figure 1.  Kubelet podCertificate lifecycle
+
+1. The projection starts out in `Initial` state.
+2. Kubelet generates a private key and holds it in memory.
+3. Kubelet creates a
+   [PodCertificateRequest](/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-unlinked#pod-certificate-requests)
+   addressed to the requested signer.  Kubelet then moves the projection into
+   the `Wait` state.
+4. If the PodCertificateRequest is marked "Denied", move to the `Denied` state.  This is
+   a permanent error state, and the container(s) that mount this projection will
+   fail to start.
+5. If the PodCertificateRequest is marked "Failed", move to the `Failed` state.
+   This is a permanent error state, and the container(s) that mount this
+   projection will fail to start.
+6. If the PodCertificate is marked "Issued", move to the `Fresh` state.  Kubelet
+   holds the private key and certificate chain in memory, and will periodically
+   write them to the filesystem at the requested location.  The container that
+   mounts this projection will start up and run (assuming nothing else blocks
+   its execution).
+7. The signer indicated an appropriate time to begin refreshing the certificate
+   when it issued the PodCertificateRequest.  Once that time has passed Kubelet
+   will generate a new private key, create a new PodCertificateRequest, and move
+   the projection into `WaitRefresh` state.
+8. If the PodCertificateRequest is marked "Denied", move to the `Denied` state.
+   This is a permanent error state, and the container(s) will begin to get
+   Kubelet volume remount errors.
+9. If the PodCertificateRequest is marked "Failed", move to the `Failed` state.
+   This is a permanent error state, and the container(s) will begin to get
+   Kubelet volume remount errors.
+10. If the PodCertificate is marked "Issued", move back to the `Fresh` state. The
+  container(s) will continue to run, with the new private key and certificate
+  chain written to the filesystem.
+
+{{% code_sample file="pods/storage/projected-podcertificate.yaml" %}}
 
 ## SecurityContext interactions
 
