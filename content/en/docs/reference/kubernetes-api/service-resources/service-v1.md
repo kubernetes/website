@@ -105,7 +105,7 @@ ServiceSpec describes the attributes that a user creates on a service.
     * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
     
     * Kubernetes-defined prefixed names:
-      * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+      * 'kubernetes.io/h2c' - HTTP/2 prior knowledge over cleartext as described in https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior-
       * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
       * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
     
@@ -141,6 +141,8 @@ ServiceSpec describes the attributes that a user creates on a service.
 
 - **externalIPs** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
 
 - **sessionAffinity** (string)
@@ -153,6 +155,8 @@ ServiceSpec describes the attributes that a user creates on a service.
 
 - **loadBalancerSourceRanges** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
 
 - **loadBalancerClass** (string)
@@ -200,6 +204,10 @@ ServiceSpec describes the attributes that a user creates on a service.
 - **allocateLoadBalancerNodePorts** (boolean)
 
   allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
+
+- **trafficDistribution** (string)
+
+  TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
 
 
 
@@ -258,6 +266,8 @@ ServiceStatus represents the current status of a service.
 
   - **loadBalancer.ingress** ([]LoadBalancerIngress)
 
+    *Atomic: will be replaced during a merge*
+    
     Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
 
     <a name="LoadBalancerIngress"></a>
@@ -282,7 +292,7 @@ ServiceStatus represents the current status of a service.
       Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 
       <a name="PortStatus"></a>
-      **
+      *PortStatus represents the error condition of a service port*
 
       - **loadBalancer.ingress.ports.port** (int32), required
 
@@ -871,6 +881,11 @@ DELETE /api/v1/namespaces/{namespace}/services/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -929,6 +944,11 @@ DELETE /api/v1/namespaces/{namespace}/services
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

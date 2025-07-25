@@ -1,0 +1,53 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $href := $u.String -}}
+{{- $langCode := .Page.Site.Language.Lang -}}
+
+{{- if strings.HasPrefix $u.String "#" }}
+  {{- /* Anchor link in the document, leave unchanged */ -}}
+
+{{- else if $u.IsAbs -}}
+  {{- /* External link, leave unchanged */ -}}
+
+{{- else if strings.HasPrefix $u.Path (printf "/%s/" $langCode) -}}
+  {{- /* Internal link in the current language, leave unchanged */ -}}
+
+{{- else if strings.HasPrefix $u.Path "/" -}}
+  {{- $localizedPath := printf "/%s%s" $langCode $u.Path -}}
+  {{- with or
+    (.Page.GetPage $localizedPath)
+    (.Page.Resources.Get $localizedPath)
+    (resources.Get $localizedPath)
+  -}}
+    {{- $href = .RelPermalink -}}
+  {{- else -}}
+    {{- $path := strings.TrimPrefix "./" $u.Path }}
+    {{- with or
+      (.Page.GetPage $path)
+      (.Page.Resources.Get $path)
+      (resources.Get $path)
+    -}}
+      {{- $href = .RelPermalink -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- if and $u.RawQuery (not (strings.Contains $href "?")) -}}
+    {{- $href = printf "%s?%s" $href $u.RawQuery -}}
+  {{- end -}}
+  {{- if and $u.Fragment (not (strings.Contains $href "#")) -}}
+    {{- $href = printf "%s#%s" $href $u.Fragment -}}
+  {{- end -}}
+
+{{- else -}}
+  {{- /* Other internal links, leave unchanged */ -}}
+
+{{- end -}}
+
+{{- $attributes := dict "href" $href "title" (.Title | transform.HTMLEscape) -}}
+<a
+  {{- range $k, $v := $attributes -}}
+    {{- if $v -}}
+      {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+    {{- end -}}
+  {{- end -}}
+  >{{ .Text | safeHTML }}</a>
+{{- /**/ -}}

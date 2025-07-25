@@ -2,6 +2,7 @@
 title: Pod Lifecycle
 content_type: concept
 weight: 30
+math: true
 ---
 
 <!-- overview -->
@@ -39,7 +40,7 @@ assigning a Pod to a specific node is called _binding_, and the process of selec
 which node to use is called _scheduling_.
 Once a Pod has been scheduled and is bound to a node, Kubernetes tries
 to run that Pod on the node. The Pod runs on that node until it stops, or until the Pod
-is [terminated](#pod-termination); if Kubernetes isn't able start the Pod on the selected
+is [terminated](#pod-termination); if Kubernetes isn't able to start the Pod on the selected
 node (for example, if the node crashes before the Pod starts), then that particular Pod
 never starts.
 
@@ -112,7 +113,8 @@ Value       | Description
 
 {{< note >}}
 
-When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands. Similarly, when a pod is being deleted, `Terminating` may appear in the `Status` field of some kubectl commands. 
+When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands.
+Similarly, when a pod is being deleted, `Terminating` may appear in the `Status` field of some kubectl commands. 
 
 Make sure not to confuse _Status_, a kubectl display field for user intuition, with the pod's `phase`.
 Pod phase is an explicit part of the Kubernetes data model and of the
@@ -260,6 +262,59 @@ problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 
+### Reduced container restart delay
+
+{{< feature-state
+feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
+
+With the alpha feature gate `ReduceDefaultCrashLoopBackOffDecay` enabled,
+container start retries across your cluster will be reduced to begin at 1s
+(instead of 10s) and increase exponentially by 2x each restart until a maximum
+delay of 60s (instead of 300s which is 5 minutes).
+
+If you use this feature along with the alpha feature
+`KubeletCrashLoopBackOffMax` (described below), individual nodes may have
+different maximum delays.
+
+### Configurable container restart delay
+
+{{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
+
+With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
+reconfigure the maximum delay between container start retries from the default
+of 300s (5 minutes). This configuration is set per node using kubelet
+configuration. In your [kubelet
+configuration](/docs/tasks/administer-cluster/kubelet-config-file/), under
+`crashLoopBackOff` set the `maxContainerRestartPeriod` field between `"1s"` and
+`"300s"`. As described above in [Container restart policy](#restart-policy),
+delays on that node will still start at 10s and increase exponentially by 2x
+each restart, but will now be capped at your configured maximum. If the
+`maxContainerRestartPeriod` you configure is less than the default initial value
+of 10s, the initial delay will instead be set to the configured maximum.
+
+See the following kubelet configuration examples:
+
+```yaml
+# container restart delays will start at 10s, increasing
+# 2x each time they are restarted, to a maximum of 100s
+kind: KubeletConfiguration
+crashLoopBackOff:
+    maxContainerRestartPeriod: "100s"
+```
+
+```yaml
+# delays between container restarts will always be 2s
+kind: KubeletConfiguration
+crashLoopBackOff:
+    maxContainerRestartPeriod: "2s"
+```
+
+If you use this feature along with the alpha feature
+`ReduceDefaultCrashLoopBackOffDecay` (described above), your cluster defaults
+for initial backoff and maximum backoff will no longer be 10s and 300s, but 1s
+and 60s. Per node configuration takes precedence over the defaults set by
+`ReduceDefaultCrashLoopBackOffDecay`, even if this would result in a node having
+a longer maximum backoff than other nodes in the cluster.
 
 ## Pod conditions
 
@@ -276,6 +331,9 @@ PodConditions:
   have completed successfully.
 * `Ready`: the Pod is able to serve requests and should be added to the load
   balancing pools of all matching Services.
+* `DisruptionTarget`: the pod is about to be terminated due to a disruption (such as preemption, eviction or garbage-collection).
+* `PodResizePending`: a pod resize was requested but cannot be applied. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `PodResizeInProgress`: the pod is in the process of resizing. See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 
 Field name           | Description
 :--------------------|:-----------
@@ -420,9 +478,14 @@ Each probe must define exactly one of these four mechanisms:
   the port is open. If the remote system (the container) closes
   the connection immediately after it opens, this counts as healthy.
 
-{{< caution >}} Unlike the other mechanisms, `exec` probe's implementation involves the creation/forking of multiple processes each time when executed.
-As a result, in case of the clusters having higher pod densities, lower intervals of `initialDelaySeconds`, `periodSeconds`, configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
-In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.{{< /caution >}}
+{{< caution >}}
+Unlike the other mechanisms, `exec` probe's implementation involves
+the creation/forking of multiple processes each time when executed.
+As a result, in case of the clusters having higher pod densities, 
+lower intervals of `initialDelaySeconds`, `periodSeconds`, 
+configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
+In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.
+{{< /caution >}}
 
 ### Probe outcome
 
@@ -451,8 +514,8 @@ containers:
 
 `readinessProbe`
 : Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the endpoints controller removes the Pod's IP
-  address from the endpoints of all Services that match the Pod. The default
+  If the readiness probe fails, the EndpointSlice controller removes the Pod's IP
+  address from the EndpointSlices of all Services that match the Pod. The default
   state of readiness before the initial delay is `Failure`. If a container does
   not provide a readiness probe, the default state is `Success`.
 
@@ -502,10 +565,11 @@ processing its startup data, you might prefer a readiness probe.
 
 {{< note >}}
 If you want to be able to drain requests when the Pod is deleted, you do not
-necessarily need a readiness probe; on deletion, the Pod automatically puts itself
-into an unready state regardless of whether the readiness probe exists.
-The Pod remains in the unready state while it waits for the containers in the Pod
-to stop.
+necessarily need a readiness probe; when the Pod is deleted, the corresponding endpoint
+in the `EndppointSlice` will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions):
+the endpoint `ready` condition will be set to `false`, so load balancers
+will not use the Pod for regular traffic. See [Pod termination](#pod-termination)
+for more information about how the kubelet handles Pod deletion.
 {{< /note >}}
 
 #### When should you use a startup probe?
@@ -515,8 +579,9 @@ come into service. Rather than set a long liveness interval, you can configure
 a separate configuration for probing the container as it starts up, allowing
 a time longer than the liveness interval would allow.
 
+<!-- ensure front matter contains math: true -->
 If your container usually starts in more than
-`initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a
+\\( initialDelaySeconds + failureThreshold \times  periodSeconds \\), you should specify a
 startup probe that checks the same endpoint as the liveness probe. The default for
 `periodSeconds` is 10s. You should then set its `failureThreshold` high enough to
 allow the container to start, without changing the default values of the liveness
@@ -535,12 +600,52 @@ before the Pod is allowed to be forcefully killed. With that forceful shutdown t
 place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
 shutdown.
 
-Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, with a grace period timeout, to the main process in each container. The requests to stop the containers are processed by the container runtime asynchronously. There is no guarantee to the order of processing for these requests. Many container runtimes respect the `STOPSIGNAL` value defined in the container image and, if different, send the container image configured STOPSIGNAL instead of TERM.
+Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime
+to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, 
+with a grace period timeout, to the main process in each container.
+The requests to stop the containers are processed by the container runtime asynchronously.
+There is no guarantee to the order of processing for these requests.
+Many container runtimes respect the `STOPSIGNAL` value defined in the container image and,
+if different, send the container image configured STOPSIGNAL instead of TERM.
 Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
 container runtime's management service is restarted while waiting for processes to terminate, the
 cluster retries from the start including the full original grace period.
+
+### Stop Signals {#pod-termination-stop-signals}
+
+The stop signal used to kill the container can be defined in the container image with the `STOPSIGNAL` instruction.
+If no stop signal is defined in the image, the default signal of the container runtime 
+(SIGTERM for both containerd and CRI-O) would be used to kill the container.
+
+### Defining custom stop signals
+
+{{< feature-state feature_gate_name="ContainerStopSignals" >}}
+
+If the `ContainerStopSignals` feature gate is enabled, you can configure a custom stop signal
+for your containers from the container Lifecycle. We require the Pod's `spec.os.name` field
+to be present as a requirement for defining stop signals in the container lifecycle.
+The list of signals that are valid depends on the OS the Pod is scheduled to.
+For Pods scheduled to Windows nodes, we only support SIGTERM and SIGKILL as valid signals.
+
+Here is an example Pod spec defining a custom stop signal:
+
+```yaml
+spec:
+  os:
+    name: linux
+  containers:
+    - name: my-container
+      image: container-image:latest
+      lifecycle:
+        stopSignal: SIGUSR1
+```
+
+If a stop signal is defined in the lifecycle, this will override the signal defined in the container image.
+If no stop signal is defined in the container spec, the container would fall back to the default behavior.
+
+### Pod Termination Flow {#pod-termination-flow}
 
 Pod termination flow, illustrated with an example:
 
@@ -576,7 +681,7 @@ Pod termination flow, illustrated with an example:
       to synchronize (or switch to using sidecar containers).
 
 1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
-   evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects,
+   evaluates whether to remove that shutting-down Pod from EndpointSlice objects,
    where those objects represent a {{< glossary_tooltip term_id="service" text="Service" >}}
    with a configured {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -589,7 +694,7 @@ Pod termination flow, illustrated with an example:
 
    Any endpoints that represent the terminating Pods are not immediately removed from
    EndpointSlices, and a status indicating [terminating state](/docs/concepts/services-networking/endpoint-slices/#conditions)
-   is exposed from the EndpointSlice API (and the legacy Endpoints API).
+   is exposed from the EndpointSlice API.
    Terminating endpoints always have their `ready` status as `false` (for backward compatibility
    with versions before 1.26), so load balancers will not use it for regular traffic.
 
@@ -677,8 +782,7 @@ Additionally, PodGC cleans up any Pods which satisfy any of the following condit
 1. are orphan Pods - bound to a node which no longer exists,
 1. are unscheduled terminating Pods,
 1. are terminating Pods, bound to a non-ready node tainted with
-   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service),
-   when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+   [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service).
 
 Along with cleaning up the Pods, PodGC will also mark them as failed if they are in a non-terminal
 phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Pod.

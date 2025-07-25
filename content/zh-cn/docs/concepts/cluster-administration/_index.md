@@ -10,7 +10,7 @@ card:
   weight: 60
   anchors:
   - anchor: "#securing-a-cluster"
-    title: 保护集群
+    title: 加固集群
 ---
 <!--
 title: Cluster Administration
@@ -98,14 +98,14 @@ Before choosing a guide, here are some considerations:
 ## Managing a cluster
 
 * Learn how to [manage nodes](/docs/concepts/architecture/nodes/).
-  * Read about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/).
+  * Read about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/).
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 -->
 ## 管理集群   {#managing-a-cluster}
 
 * 学习如何[管理节点](/zh-cn/docs/concepts/architecture/nodes/)。
-  * 阅读[集群自动扩缩](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
+  * 阅读[节点自动扩缩](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)。
 
 * 学习如何设定和管理集群共享的[资源配额](/zh-cn/docs/concepts/policy/resource-quotas/)。
 
@@ -124,12 +124,15 @@ Before choosing a guide, here are some considerations:
 * [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
   explains plug-ins which intercepts requests to the Kubernetes API server after authentication
   and authorization.
+* [Admission Webhook Good Practices](/docs/concepts/cluster-administration/admission-webhooks-good-practices/)
+  provides good practices and considerations when designing mutating admission
+  webhooks and validating admission webhooks.
 * [Using Sysctls in a Kubernetes Cluster](/docs/tasks/administer-cluster/sysctl-cluster/)
   describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters.
 * [Auditing](/docs/tasks/debug/debug-cluster/audit/) describes how to interact with Kubernetes'
   audit logs.
 -->
-## 保护集群  {#securing-a-cluster}
+## 加固集群  {#securing-a-cluster}
 
 * [生成证书](/zh-cn/docs/tasks/administer-cluster/certificates/)描述了使用不同的工具链生成证书的步骤。
 * [Kubernetes 容器环境](/zh-cn/docs/concepts/containers/container-environment/)描述了
@@ -141,6 +144,8 @@ Before choosing a guide, here are some considerations:
 * [鉴权](/zh-cn/docs/reference/access-authn-authz/authorization/)与身份认证不同，用于控制如何处理 HTTP 请求。
 * [使用准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers)阐述了在认证和授权之后拦截到
   Kubernetes API 服务的请求的插件。
+* [准入 Webhook 的最佳实践](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/)
+  提供了设计变更型准入 Webhook 和验证型准入 Webhook 时的最佳实践和注意事项。
 * [在 Kubernetes 集群中使用 sysctl](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/)
   描述了管理员如何使用 `sysctl` 命令行工具来设置内核参数。
 * [审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)描述了如何与 Kubernetes 的审计日志交互。
@@ -152,7 +157,7 @@ Before choosing a guide, here are some considerations:
 * [TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 * [Kubelet authentication/authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/)
 -->
-### 保护 kubelet   {#securing-the-kubelet}
+### 加固 kubelet   {#securing-the-kubelet}
 
 * [节点与控制面之间的通信](/zh-cn/docs/concepts/architecture/control-plane-node-communication/)
 * [TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
@@ -172,4 +177,3 @@ Before choosing a guide, here are some considerations:
   名解析到一个 Kubernetes service。
 * [记录和监控集群活动](/zh-cn/docs/concepts/cluster-administration/logging/)阐述了 Kubernetes
   的日志如何工作以及怎样实现。
-

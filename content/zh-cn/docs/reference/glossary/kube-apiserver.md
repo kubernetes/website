@@ -2,7 +2,7 @@
 title: API 服务器
 id: kube-apiserver
 date: 2018-04-12
-full_link: /zh-cn/docs/concepts/overview/components/#kube-apiserver
+full_link: /zh-cn/docs/concepts/architecture/#kube-apiserver
 short_description: >
   提供 Kubernetes API 服务的控制面组件。
 
@@ -16,7 +16,7 @@ tags:
 title: API server
 id: kube-apiserver
 date: 2018-04-12
-full_link: /docs/concepts/overview/components/#kube-apiserver
+full_link: /docs/concepts/architecture/#kube-apiserver
 short_description: >
   Control plane component that serves the Kubernetes API.
 

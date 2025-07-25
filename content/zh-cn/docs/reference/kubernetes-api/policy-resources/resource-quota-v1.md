@@ -6,10 +6,10 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceQuota 设置每个命名空间强制执行的聚合配额限制。"
 title: "ResourceQuota"
-weight: 2
+weight: 3
 ---
 
-<!-- a
+<!--
 api_metadata:
   apiVersion: "v1"
   import: "k8s.io/api/core/v1"
@@ -17,7 +17,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ResourceQuota sets aggregate quota restrictions enforced per namespace."
 title: "ResourceQuota"
-weight: 2
+weight: 3
 auto_generated: true 
 -->
 
@@ -95,13 +95,16 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
   *A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.* 
   -->
 
-  scope 选择算符表示的是由限定范围的资源选择算符进行 **逻辑与** 计算得出的结果。
+  scope 选择算符表示的是由限定范围的资源选择算符进行**逻辑与**运算得出的结果。
 
   - **scopeSelector.matchExpressions** ([]ScopedResourceSelectorRequirement)
 
-    <!-- 
+    <!--
+    *Atomic: will be replaced during a merge*
+    
     A list of scope selector requirements by scope of the resources. 
     -->
+    **原子：将在合并期间被替换**
 
     按资源范围划分的范围选择算符需求列表。
 
@@ -130,9 +133,12 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
 
     - **scopeSelector.matchExpressions.values** ([]string)
 
-      <!-- 
+      <!--
+      *Atomic: will be replaced during a merge*
+
       An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch. 
       -->
+      **原子：将在合并期间被替换**
 
       字符串值数组。
       如果操作符是 In 或 NotIn，values 数组必须是非空的。
@@ -141,9 +147,13 @@ ResourceQuotaSpec 定义为 Quota 强制执行所需的硬限制。
 
 - **scopes** ([]string)
 
-  <!-- 
+  <!--
+  *Atomic: will be replaced during a merge*
+  
   A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects. 
   -->
+
+  **原子：将在合并期间被替换**
 
   一个匹配被配额跟踪的所有对象的过滤器集合。
   如果没有指定，则默认匹配所有对象。
@@ -226,12 +236,24 @@ GET /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 <!--
 #### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the ResourceQuota
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
 - **name** （**路径参数**）: string, 必需
 
-  ResourceQuota 的名称
+  ResourceQuota 的名称。
 
 - **namespace** （**路径参数**）: string, 必需
 
@@ -264,12 +286,24 @@ GET /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 <!--
 #### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the ResourceQuota
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
 - **name** （**路径参数**）: string, 必需
 
-  ResourceQuota 的名称
+  ResourceQuota 的名称。
 
 - **namespace** （**路径参数**）: string, 必需
 
@@ -302,6 +336,54 @@ GET /api/v1/namespaces/{namespace}/resourcequotas
 
 <!--
 #### Parameters
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 #### 参数
 
@@ -376,6 +458,50 @@ GET /api/v1/resourcequotas
 
 <!--
 #### Parameters
+
+- **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 #### 参数
 
@@ -446,6 +572,28 @@ POST /api/v1/namespaces/{namespace}/resourcequotas
 
 <!--
 #### Parameters
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
@@ -498,12 +646,38 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 <!--
 #### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the ResourceQuota
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
 - **name** （**路径参数**）: string, 必需
 
-  ResourceQuota 的名称
+  ResourceQuota 的名称。
 
 - **namespace** （**路径参数**）: string, 必需
 
@@ -552,12 +726,38 @@ PUT /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 <!--
 #### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the ResourceQuota
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../policy-resources/resource-quota-v1#ResourceQuota" >}}">ResourceQuota</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
 - **name** （**路径参数**）: string, 必需
 
-  ResourceQuota 的名称
+  ResourceQuota 的名称。
 
 - **namespace** （**路径参数**）: string, 必需
 
@@ -606,12 +806,42 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 <!--
 #### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the ResourceQuota
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
 - **name** （**路径参数**）: string, 必需
 
-  ResourceQuota 的名称
+  ResourceQuota 的名称。
 
 - **namespace** （**路径参数**）: string, 必需
 
@@ -664,12 +894,42 @@ PATCH /api/v1/namespaces/{namespace}/resourcequotas/{name}/status
 
 <!--
 #### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the ResourceQuota
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 
 - **name** （**路径参数**）: string, 必需
 
-  ResourceQuota 的名称
+  ResourceQuota 的名称。
 
 - **namespace** （**路径参数**）: string, 必需
 
@@ -722,12 +982,42 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas/{name}
 
 <!--
 #### Parameters
+
+- **name** (*in path*): string, required
+
+  name of the ResourceQuota
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
 #### 参数
 
 - **name** （**路径参数**）: string, 必需
 
-  ResourceQuota 的名称
+  ResourceQuota 的名称。
 
 - **namespace** （**路径参数**）: string, 必需
 
@@ -742,6 +1032,10 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas/{name}
 - **gracePeriodSeconds** （**查询参数**）: integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** （**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** （**查询参数**）: string
 
@@ -776,6 +1070,64 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas
 
 <!--
 #### Parameters
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 #### 参数
 
@@ -800,6 +1152,10 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas
 - **gracePeriodSeconds** （**查询参数**）: integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** （**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** （**查询参数**）: string
 
@@ -841,4 +1197,3 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

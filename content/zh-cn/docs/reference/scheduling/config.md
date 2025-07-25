@@ -303,11 +303,11 @@ extension points:
 
   {{< note >}}
   <!--
-  `score` extension point is enabled when `VolumeCapacityPriority` feature is
+  `score` extension point is enabled when `StorageCapacityScoring` feature is
   enabled. It prioritizes the smallest PVs that can fit the requested volume
   size.
   -->
-  当 `VolumeCapacityPriority` 特性被启用时，`score` 扩展点也被启用。
+  当 `StorageCapacityScoring` 特性被启用时，`score` 扩展点也被启用。
   它优先考虑可以满足所需卷大小的最小 PV。
   {{< /note >}}
   
@@ -638,24 +638,24 @@ The general hierarchy for precedence when configuring `MultiPoint` plugins is as
 
 <!--
 To demonstrate the above hierarchy, the following example is based on these plugins:
-|Plugin|Extension Points|
-|---|---|
-|`DefaultQueueSort`|`QueueSort`|
-|`CustomQueueSort`|`QueueSort`|
-|`DefaultPlugin1`|`Score`, `Filter`|
-|`DefaultPlugin2`|`Score`|
-|`CustomPlugin1`|`Score`, `Filter`|
-|`CustomPlugin2`|`Score`, `Filter`|
+| Plugin             | Extension Points  |
+| ------------------ | ----------------- |
+| `DefaultQueueSort` | `QueueSort`       |
+| `CustomQueueSort`  | `QueueSort`       |
+| `DefaultPlugin1`   | `Score`, `Filter` |
+| `DefaultPlugin2`   | `Score`           |
+| `CustomPlugin1`    | `Score`, `Filter` |
+| `CustomPlugin2`    | `Score`, `Filter` |
 -->
 为了演示上述层次结构，以下示例基于这些插件：
-|插件|扩展点|
-|---|---|
-|`DefaultQueueSort`|`QueueSort`|
-|`CustomQueueSort`|`QueueSort`|
-|`DefaultPlugin1`|`Score`, `Filter`|
-|`DefaultPlugin2`|`Score`|
-|`CustomPlugin1`|`Score`, `Filter`|
-|`CustomPlugin2`|`Score`, `Filter`|
+|插件                |扩展点              |
+| ------------------ | ----------------- |
+| `DefaultQueueSort` | `QueueSort`       |
+| `CustomQueueSort`  | `QueueSort`       |
+| `DefaultPlugin1`   | `Score`、`Filter` |
+| `DefaultPlugin2`   | `Score`           |
+| `CustomPlugin1`    | `Score`、`Filter` |
+| `CustomPlugin2`    | `Score`、`Filter` |
 
 <!--
 A valid sample configuration for these plugins would be:

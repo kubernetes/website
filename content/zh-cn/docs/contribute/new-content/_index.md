@@ -2,23 +2,36 @@
 title: 贡献新内容
 content_type: 概念
 main_menu: true
-weight: 20
+weight: 25
+simple_list: true # 针对 whatsnext 一节
 ---
 <!-- 
 title: Contributing new content
 content_type: concept
 main_menu: true
-weight: 20
+weight: 25
+simple_list: true # for whatsnext section
 -->
 
 <!-- overview -->
 
 <!-- 
 This section contains information you should know before contributing new
-content. 
--->
+content.
 
+There are also dedicated pages about submitting [case studies](/docs/contribute/new-content/case-studies)
+and [blog articles](/docs/contribute/blog/).
+-->
 本节包含你在贡献新内容之前需要知晓的信息。
+
+另请参阅如何提交[案例分析](/zh-cn/docs/contribute/new-content/case-studies)和[博客文章](/zh-cn/docs/contribute/blog/)的专门页面。
+
+<!-- body -->
+
+<!--
+## New content task flow
+-->
+## 新内容的任务流程   {#new-content-task-flow}
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -58,8 +71,7 @@ class first,second white
 The figure above depicts the information you should know
 prior to submitting new content. The information details follow.
 -->
-
-***插图 - 贡献新内容准备工作***
+**插图 - 贡献新内容准备工作**
 
 上图描述了你在提交新内容之前需要知晓的信息。
 详细信息见下文。
@@ -77,9 +89,8 @@ prior to submitting new content. The information details follow.
   the `update-imported-docs/` directory.
 - [Page content types](/docs/contribute/style/page-content-types/) describe the
   presentation of documentation content in Hugo.
-  -->
-
-## 基本知识
+-->
+## 基本知识   {#contributing-basics}
 
 - 使用 Markdown 编写 Kubernetes 文档并使用 [Hugo](https://gohugo.io/) 构建网站。
 - Kubernetes 文档使用 [CommonMark](https://commonmark.org/) 作为 Markdown 的风格。
@@ -101,7 +112,6 @@ prior to submitting new content. The information details follow.
   or starting a new translation,
   see [localization](/docs/contribute/localization).
 -->
-
 - 你可以使用 [Docsy 短代码](https://www.docsy.dev/docs/adding-content/shortcodes/)
   或[定制的 Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)贡献 Kubernetes 文档。
 - 除了标准的 Hugo 短代码外，
@@ -115,26 +125,28 @@ prior to submitting new content. The information details follow.
 
 <!-- 
 ## Before you begin {#before-you-begin}
+
 ### Sign the CNCF CLA {#sign-the-cla}
+
 All Kubernetes contributors **must** read
 the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)
 and [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
+
 Pull requests from contributors who haven't signed the CLA fail the automated
 tests. The name and email you provide must match those found in
 your `git config`, and your git name and email must match those used for the
 CNCF CLA.
 -->
+## 开始之前   {#before-you-begin}
 
-## 开始之前 {#before-you-begin}
-
-### 签署 CNCF CLA {#sign-the-cla}
+### 签署 CNCF CLA   {#sign-the-cla}
 
 所有 Kubernetes 贡献者**必须**阅读[贡献者指南](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md)
 并[签署贡献者授权同意书 (Contributor License Agreement, CLA)](https://github.com/kubernetes/community/blob/master/CLA.md)。  
 
 若贡献者尚未签署 CLA，其发起的 PR 将无法通过自动化测试。
 你所提供的姓名和邮件地址必须与 `git config` 中配置的完全相同，
-而且你的 git 用户名和邮件地址必须与用来签署 CNCF CLA 的信息一致。
+而且你的 Git 用户名和邮件地址必须与用来签署 CNCF CLA 的信息一致。
 
 <!-- 
 ### Choose which Git branch to use
@@ -150,26 +162,23 @@ Content in other languages (localizations) | Use the localization's convention. 
 
 If you're still not sure which branch to choose, ask in `#sig-docs` on Slack.
 -->
-
-### 选择要使用的 Git 分支
+### 选择要使用的 Git 分支   {#choose-which-git-branch-to-use}
 
 在发起 PR 时，你需要预先知道基于哪个分支来开展工作。
 
 场景 | 分支
 :---------|:------------
 针对当前发行版本的，对现有英文内容的修改或新的英文内容 | `main`
- 针对功能特性变更的内容 | 分支对应于功能特性变更的主要和次要版本，分支名称采用 `dev-<version>` 的模式。例如，如果某功能特性在 `v{{< skew nextMinorVersion >}}` 版本发生变化，则对应的文档变化要添加到 `dev-{{< skew nextMinorVersion >}}` 分支。
- 其他语言的内容（本地化） | 基于本地化团队的约定。参见[本地化分支策略](/zh-cn/docs/contribute/localization/#branch-strategy)了解更多信息。 
+针对功能特性变更的内容 | 分支对应于功能特性变更的主要和次要版本，分支名称采用 `dev-<version>` 的模式。例如，如果某功能特性在 `v{{< skew nextMinorVersion >}}` 版本发生变化，则对应的文档变化要添加到 `dev-{{< skew nextMinorVersion >}}` 分支。
+其他语言的内容（本地化） | 基于本地化团队的约定。参见[本地化分支策略](/zh-cn/docs/contribute/localization/#branch-strategy)了解更多信息。
 
 如果你仍不能确定要选择哪个分支，请在 Slack 的 `#sig-docs` 频道上提出问题。  
 
-<!-- 
-{{< note >}} If you already submitted your pull request and you know that the
-base branch was wrong, you (and only you, the submitter) can change it. {{<
-/note >}}
--->
-
 {{< note >}}
+<!-- 
+If you already submitted your pull request and you know that the
+base branch was wrong, you (and only you, the submitter) can change it.
+-->
 如果你已经提交了 PR，并且发现所针对的分支选错了，你（且只有作为提交人的你）可以更改分支。
 {{< /note >}}
 
@@ -180,8 +189,7 @@ Limit pull requests to one language per PR. If you need to make an identical
 change to the same code sample in multiple languages, open a separate PR for
 each language.
 -->
-
-### 每个 PR 牵涉的语言
+### 每个 PR 牵涉的语言   {#languages-per-pr}
 
 请确保每个 PR 仅涉及一种语言。
 如果你需要对多种语言下的同一代码示例进行相同的修改，也请为每种语言发起一个独立的 PR。
@@ -193,8 +201,7 @@ The [doc contributors tools](https://github.com/kubernetes/website/tree/main/con
 directory in the `kubernetes/website` repository contains tools to help your
 contribution journey go more smoothly.
 -->
-
-## 为贡献者提供的工具
+## 为贡献者提供的工具   {#tools-for-contributors}
 
 `kubernetes/website` 仓库的[文档贡献者工具](https://github.com/kubernetes/website/tree/main/content/zh-cn/docs/doc-contributor-tools)目录中包含了一些工具，
 有助于使你的贡献过程更为顺畅。

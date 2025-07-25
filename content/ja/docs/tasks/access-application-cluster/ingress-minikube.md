@@ -114,10 +114,6 @@ weight: 110
     http://172.17.0.15:31637
     ```
 
-    {{< note >}}
-    Katacoda環境の場合のみ: 上部のterminalパネルでプラスのアイコンをクリックして、**Select port to view on Host 1**(Host 1を表示するポートを選択)をクリックします。NodePort(上の例では`31637`)を入力して、**Display Port**(ポートを表示)をクリックしてください。
-    {{< /note >}}
-
     出力は次のようになります。
 
     ```shell

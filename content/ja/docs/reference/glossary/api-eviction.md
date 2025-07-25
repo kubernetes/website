@@ -4,7 +4,7 @@ id: api-eviction
 date: 2021-04-27
 full_link: /ja/docs/concepts/scheduling-eviction/api-eviction/
 short_description: >
-  APIを起点とした退避は、Eviction　APIを使用してEvictionオブジェクトを作成し、Podの正常終了を起動させるプロセスです。
+  APIを起点とした退避は、Eviction APIを使用してEvictionオブジェクトを作成し、Podの正常終了を起動させるプロセスです。
 aka:
 tags:
 - operation

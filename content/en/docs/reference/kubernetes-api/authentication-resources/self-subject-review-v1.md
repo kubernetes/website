@@ -69,6 +69,8 @@ SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 
   - **userInfo.groups** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     The names of groups this user is a part of.
 
   - **userInfo.uid** (string)

@@ -19,7 +19,7 @@ I'll explain about the kubeadm v1beta4 configuration format,
 and how to migrate from v1beta3 to v1beta4.
 
 You can read the reference for the v1beta4 configuration format:
-[kubeadm Configuration (v1beta4)]((/docs/reference/config-api/kubeadm-config.v1beta4/)).
+[kubeadm Configuration (v1beta4)](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 ### A list of changes since v1beta3
 

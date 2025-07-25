@@ -1,28 +1,8 @@
 @import "reset";
 
+
 // header
 $full-width-paddingX: 20px;
-
-$main-width: 100%;
-$main-max-width: 100%;
-
-$header-height: 80px;
-
-$logo-width: 180px;
-
-$nav-buttons-margin-left: 30px;
-
-$hamburger-size: 50px;
-
-// main nav
-$main-nav-padding: 140px 0 30px;
-$main-nav-h5-margin-bottom: 1em;
-$main-nav-h3-margin-bottom: 0.6em;
-$nav-box-width: 20%;
-$nav-box-sibling-margin-left: calc(20% / 3);
-$main-nav-main-sibling-margin-top: 60px;
-$main-nav-left-button-size: 50px;
-$main-nav-left-button-font-size: 18px;
 
 // hero
 $hero-padding-top: 80px;
@@ -31,10 +11,8 @@ $quickstart-button-padding: 0 50px;
 $vendor-strip-height: 88px;
 $vendor-strip-font-size: 16px;
 
-// video
-$video-section-height: 200px;
-
 @import "size";
+@import "documentation";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,7 +22,7 @@ body {
   background-color: white;
 
   a {
-    color: $blue;
+    color: $primary;
   }
 }
 
@@ -72,13 +50,13 @@ footer {
     padding: 6px 20px;
     line-height: 1.3rem;
     color: white;
-    background-color: $blue;
+    background-color: $primary;
     text-decoration: none;
     font-size: 1rem;
     border: 0px;
 
     &:hover {
-      background-color: darken($blue, 10%);
+      background-color: darken($primary, 10%);
       color: white;
     }
   }
@@ -94,19 +72,19 @@ footer {
 }
 
 main {
-  .button {
+  .button, .portal-button {
     display: inline-block;
     border-radius: 6px;
     padding: 6px 20px;
     line-height: 1.3rem;
     color: white;
-    background-color: $blue;
+    background-color: $primary;
     text-decoration: none;
     font-size: 1rem;
     border: 0px;
 
     &:hover {
-      background-color: darken($blue, 10%);
+      background-color: darken($primary, 10%);
       color: white;
     }
   }
@@ -120,50 +98,6 @@ main {
 ::-moz-selection {
   background: #326ce5;
   color: white;
-}
-
-// HEADER
-
-#hamburger {
-  display: inline-block;
-  position: relative;
-  margin-left: auto;
-  vertical-align: middle;
-  padding: 0;
-  border: 0;
-  background: none;
-
-  div,
-  &:before,
-  &:after {
-    position: absolute;
-    left: 15%;
-    width: 70%;
-    height: 2px;
-    background-color: $blue;
-    transition: 0.3s;
-    content: "";
-  }
-
-  div {
-    top: calc(50% - 1px);
-  }
-
-  &:before {
-    top: 24%;
-  }
-
-  &:after {
-    bottom: 24%;
-  }
-
-  &:hover {
-    div,
-    &:before,
-    &:after {
-      background-color: white;
-    }
-  }
 }
 
 // HERO
@@ -257,7 +191,7 @@ main {
     transition: 0.3s;
 
     &:hover {
-      color: $blue;
+      color: $primary;
     }
   }
 
@@ -265,7 +199,7 @@ main {
     color: black;
 
     &:hover {
-      color: $blue;
+      color: $primary;
     }
   }
 
@@ -277,7 +211,7 @@ main {
       left: 2px;
       border-style: solid;
       border-width: 5px 0 5px 8px;
-      border-color: transparent transparent transparent $blue;
+      border-color: transparent transparent transparent $primary;
       transform: rotate(0deg);
       transition: 0.3s;
     }
@@ -314,143 +248,12 @@ dd {
   margin-bottom: 16px;
 }
 
-.pi-pushmenu {
-  display: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s;
-
-  &.on {
-    opacity: 1;
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  .sled {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background-color: white;
-    overflow: auto;
-    transition: 0.3s;
-  }
-
-  &.on .sled {
-    width: 400px;
-    max-width: 100vw;
-  }
-
-  .top-bar {
-    height: 0;
-    line-height: 60px;
-    background-color: #444;
-  }
-
-  ul {
-    margin-top: 25px;
-  }
-
-  li {
-    position: relative;
-    display: block;
-    width: 100%;
-    min-height: 45px;
-    padding: 0 60px 0 20px;
-    border-bottom: 1px solid #cccccc;
-  }
-
-  a {
-    display: inline-block;
-    width: 100%;
-    height: 45px;
-    line-height: 45px;
-    font-size: 20px;
-    color: $blue;
-  }
-
-  .button {
-    background: none;
-    padding: 0;
-  }
-
-  ul ul {
-    padding: 0 20px;
-
-    li {
-      min-height: 40px;
-    }
-
-    a {
-      height: 40px;
-      line-height: 40px;
-      font-size: 18px;
-      color: lighten(#222222, 20%);
-    }
-  }
-}
-
-.push-menu-close-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50px;
-  height: 50px;
-
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    top: calc(50% - 1px);
-    left: 25%;
-    width: 50%;
-    height: 2px;
-    background-color: black;
-  }
-
-  &:before {
-    transform: rotate(45deg);
-  }
-
-  &:after {
-    transform: rotate(-45deg);
-  }
-}
-
 // ocean nodes
 $ocean-nodes-padding-Y: 60px;
 $ocean-nodes-main-margin-bottom: 60px;
 $ocean-nodes-h3-margin-bottom: 30px;
 
-// video
-$video-section-height: 200px;
-
-// features
-$features-h3-margin-bottom: 20px;
-$feature-box-div-width: 100%;
-$feature-box-margin-bottom: 0;
-$feature-box-div-margin-bottom: 40px;
-
 // Home-specific
-
-.td-home {
-  &.flip-nav,
-  &.open-nav {
-    .logo {
-      background-image: url(/images/nav_logo2.svg);
-    }
-  }
-}
 
 .header-hero {
   margin-bottom: 0;
@@ -466,16 +269,6 @@ $feature-box-div-margin-bottom: 40px;
   }
 }
 
-// Add logo to CNCF section
-section#cncf {
-  padding-top: 60px;
-  padding-bottom: 140px;
-  background-image: url(/images/cncf-color.svg);
-  background-position: center 100px;
-  background-repeat: no-repeat;
-  background-size: 300px;
-}
-
 // OCEAN NODES
 #oceanNodes, .td-home .k8s-overview {
 
@@ -483,7 +276,7 @@ section#cncf {
   padding-bottom: $ocean-nodes-padding-Y;
 
   a {
-    color: $blue;
+    color: $primary;
   }
 
   .main-section {
@@ -519,12 +312,9 @@ section#cncf {
 
 // Video thingy
 #video {
-  height: $video-section-height;
-}
-
-#video {
   width: 100%;
   position: relative;
+  overflow: hidden;
   background-position: center center;
   background-size: cover;
 
@@ -549,16 +339,27 @@ section#cncf {
     margin-bottom: 20px;
   }
 
-  #desktopKCButton {
-    position: absolute;
+  // All #desktopKCButton blocks are left for back compatibility and
+  // should be removed later, leaving .desktopKCButton only
+  // See https://github.com/kubernetes/website/pull/49167 for details
+  #desktopKCButton, .desktopKCButton {
+    display: inline-block;
     font-size: 18px;
     background-color: $dark-grey;
     border-radius: 8px;
     color: $white;
-    padding: 20px 10px 20px 10px;
+    padding: 2px 8px;
+    margin: 5px;
   }
 
-  #desktopKCButton:hover{
+  #desktopKCButton {
+    display: inline;
+    position: absolute;
+    padding: 20px 10px 20px 10px;
+    margin: 0;
+  }
+
+  #desktopKCButton:hover, .desktopKCButton:hover{
     background-color: #ffffff;
     color: #326ce5;
     transition: 150ms;
@@ -569,9 +370,9 @@ section#cncf {
     font-size: 24px;
     background-color: white;
     border-radius: 8px;
-    color: $blue;
+    color: $primary;
     padding: 15px 30px 15px 80px;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 
     &:before {
       content: "";
@@ -581,7 +382,7 @@ section#cncf {
       height: 0;
       border-style: solid;
       border-width: 10px 0 10px 20px;
-      border-color: transparent transparent transparent $blue;
+      border-color: transparent transparent transparent $primary;
     }
 
     &:hover::before {
@@ -614,6 +415,10 @@ section#cncf {
       border-color: transparent transparent transparent #ffffff;
     }
   }
+}
+
+#video:has(#desktopKCButton) {
+  height: 580px;
 }
 
 #videoPlayer {
@@ -679,53 +484,64 @@ section#cncf {
   padding: 0 20px;
   line-height: 31px;
   color: white;
-  background-color: blue;
+  background-color: $primary;
   text-decoration: none;
   font-size: 14px;
 }
 
 // Features
-#features {
-  padding-top: 140px;
+body.td-home section.features-container {
+  padding: 0; // reset
+  padding-top: 140px; // make room for logo
+
   background-color: $light-grey;
   background-image: url(/images/wheel.svg);
   background-position: center 60px;
   background-repeat: no-repeat;
   background-size: 60px;
-}
 
-.feature-box {
-  //padding: 50px 0
-  width: 100%;
-  overflow: hidden;
-  clear: both;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  padding-bottom: 2em;
 
-  h4 {
-    line-height: normal;
-    margin-bottom: 15px;
+  .k8s-features-heading {
+    color: $primary;
+    text-align: center;
   }
 
   & > div {
-    background-color: #daeaf9;
-    border-radius: 20px;
-    padding: 25px;
-  }
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: stretch;
+    gap: 1.2rem;
 
-#features {
-  h3 {
-    margin-bottom: $features-h3-margin-bottom;
-  }
+    margin-top: 1.8em;
 
-  .feature-box {
-    margin-bottom: $feature-box-margin-bottom;
+    max-width: clamp(75em, 25cm, 90vw);
+    margin-left: auto;
+    margin-right: auto;
 
-    & > div {
-      width: $feature-box-div-width;
-      margin-bottom: $feature-box-div-margin-bottom;
+    background: initial;
+
+    & > .feature-box {
+        margin: 0;
+
+        h3 {
+          text-align: center;
+          line-height: normal;
+          font-size: 1.3em;
+          margin-bottom: 1rem;
+        }
+
+        flex-basis: calc(min(75vw, 12.5cm, 35em));
+        flex-shrink: 0;
+
+        border-radius: 0.5em;
+        padding: 1em;
+        padding-bottom: 1.2em;
+
+        background-color: #daeaf9; // light blue
     }
   }
 }
@@ -786,7 +602,7 @@ section#cncf {
 
     a {
       display: inline-block;
-      color: $blue;
+      color: $primary;
       font-size: 24px;
       font-weight: 400;
       text-decoration: none;
@@ -841,7 +657,7 @@ section#cncf {
       bottom: -30px;
       left: 50%;
       transform: translateX(-50%);
-      color: $blue;
+      color: $primary;
       font-weight: 400;
     }
   }
@@ -866,7 +682,7 @@ section#cncf {
   white-space: nowrap;
   text-indent: 50px;
   overflow: hidden;
-  background: $blue url(/images/icon-pencil.svg) no-repeat;
+  background: $primary url(/images/icon-pencil.svg) no-repeat;
   background-position: 12px 10px;
   background-size: 29px 29px;
 }
@@ -893,34 +709,8 @@ section#cncf {
   }
 }
 
-/* DOCUMENTATION */
-
-// nav-tabs and tab-content
-.nav-tabs {
-  border-bottom: none !important;
-
-  .nav-item {
-    margin-bottom: 0;
-  }
+footer.row {
+  margin-left: initial;
+  margin-right: initial;
 }
 
-.td-content .tab-content .highlight {
-  margin: 0;
-}
-
-//Table Content
-.tab-content table{
-  border-collapse: separate;
-  border-spacing: 6px;
-}
-
-.tab-pane {
-  border-radius: 0.25rem;
-  padding: 0 16px 16px;
-  overflow: auto;
-
-  border: 1px solid #dee2e6;
-  &:first-of-type.active {
-    border-top-left-radius: 0;
-  }
-}

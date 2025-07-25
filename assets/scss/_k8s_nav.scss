@@ -1,0 +1,164 @@
+.td-navbar {
+  background: transparent !important;
+  position: fixed !important;
+  transition: 0.3s;
+  width: 100%;
+
+  // Based on from Bootstrap's _navbar.scss
+  .active > .nav-link,
+  .nav-link.active {
+    box-shadow: 0 2px $navbar-dark-active-color;
+  }
+
+  .navbar-brand__name {
+    display: none;
+  }
+
+  .navbar-brand {
+    @include media-breakpoint-down(sm) {
+      margin-left: auto;
+    }
+
+    svg {
+      height: 38px;
+    }
+  }
+
+  @media only screen and (max-width: 1500px) {
+    .td-navbar-nav-scroll {
+      font-size: .875rem;
+    }
+  }
+
+  #hamburger {
+    color: $navbar-dark-color;
+
+    @include hover-focus() {
+      color: $navbar-dark-hover-color;
+    }
+
+    margin-left: auto;
+    font-size: xx-large;
+
+    // Bootstrap buttons have a noticeable depression effect when clicked which is not desirable for the hamburger button
+    &:focus,
+    &:active {
+      box-shadow: none !important;
+    }
+  }
+}
+
+.navbar-bg-onscroll {
+  background: white !important;
+  box-shadow: 0 1px 2px $medium-grey;
+
+  .navbar-nav .nav-link, #hamburger {
+    color: $dark-grey;
+
+    @include hover-focus() {
+      color: $medium-grey;
+    }
+  }
+
+  .navbar-nav {
+    // Based on from Bootstrap's _navbar.scss
+    .show > .nav-link,
+    .nav-link.show {
+      color: $medium-light-grey;
+    }
+
+    .active > .nav-link,
+    .nav-link.active {
+      color: $dark-grey;
+      box-shadow: 0 2px $dark-grey;
+    }
+  }
+
+  .navbar-brand__logo.navbar-logo svg #its-pronounced path {
+    fill: $primary;
+  }
+}
+
+/* Small/Mobile viewport nav menu */
+
+.pi-pushmenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  &.on {
+    opacity: 1;
+
+    .sled {
+      width: 400px;
+      max-width: 100vw;
+    }
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .sled {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: white;
+    overflow: auto;
+    transition: 0.3s;
+
+    .content ul {
+      padding: 0;
+      margin-top: 25px;
+
+      li {
+        position: relative;
+        display: block;
+        width: 100%;
+        min-height: 2.75rem;
+        padding: 0 60px 0 20px;
+        border-bottom: 1px solid #cccccc;
+
+        // Hides the logo that will be in the list
+        &:first-child {
+          display: none;
+        }
+
+        a {
+          display: inline-block;
+          width: 100%;
+          height: 2.75rem;
+          line-height: 2.75rem;
+          font-size: 1.25rem;
+          color: $primary;
+
+          .nav-link {
+            padding: 0;
+          }
+        }
+      }
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: xx-large;
+
+      &:focus,
+      &:active {
+        box-shadow: none !important;
+      }
+    }
+  }
+}

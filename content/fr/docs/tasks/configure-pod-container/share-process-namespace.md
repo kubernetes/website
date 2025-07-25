@@ -34,7 +34,7 @@ Le partage de l'espace de nommage du processus est activé en utilisant le champ
 1. Attachez-le au conteneur `shell` et lancez `ps` :
 
     ```shell
-    kubectl attach -it nginx -c shell
+    kubectl exec -it nginx -c shell -- /bin/sh
     ```
 
     Si vous ne verrez pas d'invite de commande, appuyez sur la touche Entrée.

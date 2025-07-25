@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
 content_type: task
-weight: 40
+weight: 30
 ---
 
 <!-- overview -->
@@ -20,6 +20,10 @@ please refer to following pages instead:
 - [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -3 >}} to {{< skew currentVersionAddMinor -2 >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -4 >}} to {{< skew currentVersionAddMinor -3 >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -5 >}} to {{< skew currentVersionAddMinor -4 >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+
+The Kubernetes project recommends upgrading to the latest patch releases promptly, and
+to ensure that you are running a supported minor release of Kubernetes.
+Following this recommendation helps you to to stay secure.
 
 The upgrade workflow at high level is the following:
 
@@ -108,6 +112,8 @@ sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 
 {{% /tab %}}
 {{< /tabs >}}
+
+If you don't see the version you expect to upgrade to, [verify if the Kubernetes package repositories are used.](/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)
 
 ## Upgrading control plane nodes
 

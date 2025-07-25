@@ -38,7 +38,7 @@ Huawei Cloud | https://www.huaweicloud.com/intl/id-id/securecenter/overallsafety
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
-VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
+VMWare VSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 Jika kamu mengoperasikan perangkat keras kamu sendiri, atau penyedia layanan cloud yang berbeda, kamu perlu merujuk pada dokumentasi penyedia layanan cloud yang kamu pakai untuk praktik keamanan terbaik.
 

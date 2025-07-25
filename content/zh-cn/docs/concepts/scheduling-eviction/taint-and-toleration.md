@@ -141,15 +141,14 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 <!--
 There are two special cases:
 
-An empty `key` with operator `Exists` matches all keys, values and effects which means this
-will tolerate everything.
+If the `key` is empty, then the `operator` must be `Exists`, which matches all keys and values. Note that the `effect` still needs to be matched at the same time.
 
 An empty `effect` matches all effects with key `key1`.
 -->
 存在两种特殊情况：
 
-如果一个容忍度的 `key` 为空且 `operator` 为 `Exists`，
-表示这个容忍度与任意的 key、value 和 effect 都匹配，即这个容忍度能容忍任何污点。
+如果 `key` 为空，那么 `operator` 必须是 `Exists`，匹配所有 key 和 value。
+注意，同时 `effect` 仍然需要匹配。
 
 如果 `effect` 为空，则可以与所有键名 `key1` 的效果相匹配。
 {{< /note >}}
@@ -280,7 +279,7 @@ to the node after the taint is added. For example,
 则任何不能容忍这个污点的 Pod 都会马上被驱逐，任何可以容忍这个污点的 Pod 都不会被驱逐。
 但是，如果 Pod 存在一个 effect 值为 `NoExecute` 的容忍度指定了可选属性
 `tolerationSeconds` 的值，则表示在给节点添加了上述污点之后，
-Pod 还能继续在节点上运行的时间。例如，
+Pod 还能继续在节点上运行的时间。例如：
 
 ```yaml
 tolerations:
@@ -578,6 +577,23 @@ Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
 -->
 添加上述容忍度确保了向后兼容，你也可以选择自由向 DaemonSet 添加容忍度。
+
+<!--
+## Device taints and tolerations
+
+Instead of tainting entire nodes, administrators can also [taint individual devices](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
+when the cluster uses [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+to manage special hardware. The advantage is that tainting can be targeted towards exactly the hardware that
+is faulty or needs maintenance. Tolerations are also supported and can be specified when requesting
+devices. Like taints they apply to all pods which share the same allocated device.
+-->
+## 设备污点与容忍度    {#device-taints-and-tolerations}
+
+在使用[动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation)管理特殊硬件的集群中，
+管理员可以选择[为单个设备设置污点](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)，
+而不是为整个节点打污点。这样做的好处是，污点可以精确地作用于出现故障或需要维护的硬件。
+同时也支持容忍度配置，并且可以在请求设备时指定。
+与污点类似，容忍度会应用于共享同一分配设备的所有 Pod。
 
 ## {{% heading "whatsnext" %}}
 

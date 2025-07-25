@@ -3,7 +3,6 @@ title: 云控制器管理器
 content_type: concept
 weight: 40
 ---
-
 <!--
 title: Cloud Controller Manager
 content_type: concept
@@ -186,26 +185,18 @@ routes appropriately. It requires Get access to Node objects.
 ### Service controller {#authorization-service-controller}
 
 The service controller watches for Service object **create**, **update** and **delete** events and then
-configures Endpoints for those Services appropriately (for EndpointSlices, the
-kube-controller-manager manages these on demand).
+configures load balancers for those Services appropriately.
 
 To access Services, it requires **list**, and **watch** access. To update Services, it requires
-**patch** and **update** access.
-
-To set up Endpoints resources for the Services, it requires access to **create**, **list**,
-**get**, **watch**, and **update**.
+**patch** and **update** access to the `status` subresource.
 -->
 ### 服务控制器 {#authorization-service-controller}
 
 服务控制器监测 Service 对象的 **create**、**update** 和 **delete** 事件，
-并配置对应服务的 Endpoints 对象
-（对于 EndpointSlices，kube-controller-manager 按需对其进行管理）。
+并配置对应 Service 的负载均衡器。
 
 为了访问 Service 对象，它需要 **list** 和 **watch** 访问权限。
-为了更新 Service 对象，它需要 **patch** 和 **update** 访问权限。
-
-为了能够配置 Service 对应的 Endpoints 资源，
-它需要 **create**、**list**、**get**、**watch** 和 **update** 等访问权限。
+为了更新 Service 对象，它需要针对 `status` 子资源的 **patch** 和 **update** 访问权限。
 
 `v1/Service`：
 
@@ -275,9 +266,14 @@ rules:
   - services
   verbs:
   - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - services/status
+  verbs:
   - patch
   - update
-  - watch
 - apiGroups:
   - ""
   resources:
@@ -293,16 +289,6 @@ rules:
   - list
   - update
   - watch
-- apiGroups:
-  - ""
-  resources:
-  - endpoints
-  verbs:
-  - create
-  - get
-  - list
-  - watch
-  - update
 ```
 
 ## {{% heading "whatsnext" %}}

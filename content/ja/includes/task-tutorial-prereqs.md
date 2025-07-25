@@ -4,4 +4,5 @@ Kubernetesクラスターが必要、かつそのクラスターと通信する�
 以下のいずれかのKubernetesプレイグラウンドも使用できます:
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)

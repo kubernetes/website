@@ -141,7 +141,7 @@ stable in the latest Kubernetes version.
 <!--
 Renders to:
 -->
-渲染到：
+会转换为：
 
 {{< feature-gate-description name="DryRun" >}}
 
@@ -202,7 +202,8 @@ Here's a short glossary definition:
 which renders as:
 {{< glossary_definition prepend="A cluster is" term_id="cluster" length="short" >}}
 -->
-呈现为： 
+呈现为：
+
 {{< glossary_definition prepend="A cluster is" term_id="cluster" length="short" >}}
 
 <!--
@@ -217,7 +218,8 @@ You can also include a full definition:
 <!--
 which renders as:
 -->
-呈现为： 
+呈现为：
+
 {{< glossary_definition term_id="cluster" length="all" >}}
 
 <!--
@@ -258,7 +260,6 @@ section of the page:
 {{</* api-reference page="workload-resources/pod-v1" anchor="PodSpec" */>}}
 {{</* api-reference page="workload-resources/pod-v1" anchor="environment-variables" */>}}
 ```
-
 
 <!--
 You can change the text of the link by specifying a `text` parameter, for
@@ -377,9 +378,9 @@ The `tabs` shortcode takes these parameters:
   under `codelang` or the language is taken based on the file name.
   Non-content files are code-highlighted by default.
 -->
-* `name`： 标签页上显示的名字。
-* `codelang`: 如果要在 `tab` 短代码中加入内部内容，需要告知 Hugo 使用的是什么代码语言，方便代码高亮。
-* `include`: 标签页中所要包含的文件。如果标签页是在 Hugo 的
+* `name`：标签页上显示的名字。
+* `codelang`：如果要在 `tab` 短代码中加入内部内容，需要告知 Hugo 使用的是什么代码语言，方便代码高亮。
+* `include`：标签页中所要包含的文件。如果标签页是在 Hugo 的
   [叶子包](https://gohugo.io/content-management/page-bundles/#leaf-bundles)中定义，
   Hugo 会在包内查找文件（可以是 Hugo 所支持的任何 MIME 类型文件）。
   否则，Hugo 会在当前路径的相对路径下查找所要包含的内容页面。
@@ -512,6 +513,7 @@ This shortcode is used when the contents of the sample file is generic and reusa
 and you want the users to try it out themselves.
 -->
 ## 源代码文件
+
 你可以使用 `{{%/* code_sample */%}}` 短代码将文件内容嵌入代码块中，
 以允许用户下载或复制其内容到他们的剪贴板。
 当示例文件的内容是通用的、可复用的，并且希望用户自己尝试使用示例文件时，
@@ -530,6 +532,8 @@ For example:
 必选参数 `file` 用于指定要显示的文件的路径，
 可选参数 `language` 用于指定文件的编程语言。
 如果未提供 `language` 参数，短代码将尝试根据文件扩展名推测编程语言。
+
+例如：
 
 ```none
 {{%/* code_sample language="yaml" file="application/deployment-scale.yaml" */%}}
@@ -607,6 +611,7 @@ that uses them.
 For a list of several third-party items, add:
 -->
 对于有关几个第三方项目的列表，请添加：
+
 ```
 {{%/* thirdparty-content */%}}
 ```
@@ -636,10 +641,73 @@ Add the shortcode:
 
 before the item, or just below the heading for the specific item.
 -->
+添加短代码：
+
 在项目之前，或在特定项目的段落下方添加此短代码：
+
 ```
 {{%/* thirdparty-content single="true" */%}}
 ```
+
+<!--
+## Details
+
+You can render a `<details>` HTML element using a shortcode:
+-->
+## 详细信息
+
+你可以使用短代码呈现 `<details>` HTML 元素：
+
+<!--
+```markdown
+{{</* details summary="More about widgets" */>}}
+The frobnicator extension API implements _widgets_ using example running text.
+
+Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+dolore magnam aliquam quaerat voluptatem.
+{{</* /details */>}}
+```
+-->
+```markdown
+{{</* details summary="有关 widgets 的更多信息" */>}}
+frobnicator 扩展 API 使用示例运行文本实现 **widgets**。
+
+没有哪个人会因为痛苦本身就是令人愉悦的，而选择痛苦，
+尽管他们有时因为追求某种快乐而不得不承受痛苦。
+但这并不是说他们喜欢痛苦本身，而是因为通过忍受痛苦，他们可以得到更大的快乐。
+{{</* /details */>}}
+```
+
+<!--
+This renders as:
+-->
+渲染结果如下：
+
+<!--
+{{< details summary="More about widgets" >}}
+The frobnicator extension API implements _widgets_ using example running text.
+
+Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+dolore magnam aliquam quaerat voluptatem.
+{{< /details >}}
+-->
+{{< details summary="有关 widgets 的更多信息" >}}
+frobnicator 扩展 API 使用示例运行文本实现 **widgets**。
+
+没有哪个人会因为痛苦本身就是令人愉悦的，而选择痛苦，
+尽管他们有时因为追求某种快乐而不得不承受痛苦。
+但这并不是说他们喜欢痛苦本身，而是因为通过忍受痛苦，他们可以得到更大的快乐。
+{{< /details >}}
+
+{{< note >}}
+<!--
+Use this shortcode sparingly; it is usually best to have all of the text directly shown
+to readers.
+-->
+谨慎使用此短代码；通常最好将所有文本直接显示给读者。
+{{< /note >}}
 
 <!--
 ## Version strings
@@ -667,16 +735,14 @@ version of the Kubernetes documentation from the `version` site parameter. The
 `{{</* param "version" */>}}` 短代码可以基于站点参数 `version` 生成 Kubernetes
 文档的当前版本号取值。短代码 `param` 允许传入一个站点参数名称，在这里是 `version`。
 
-<!--
 {{< note >}}
+<!--
 In previously released documentation, `latest` and `version` parameter values
 are not equivalent.  After a new version is released, `latest` is incremented
 and the value of `version` for the documentation set remains unchanged. For
 example, a previously released version of the documentation displays `version`
 as `v1.19` and `latest` as `v1.20`.
-{{< /note >}}
 -->
-{{< note >}}
 在先前已经发布的文档中，`latest` 和 `version` 参数值并不完全等价。新版本文档发布后，参数
 `latest` 会增加，而 `version` 则保持不变。例如，在上一版本的文档中使用 `version` 会得到
 `v1.19`，而使用 `latest` 则会得到 `v1.20`。

@@ -168,27 +168,23 @@ Add-on 扩展了 Kubernetes 的功能。
 ## Service Discovery
 
 * [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can
-  be [installed](https://github.com/coredns/deployment/tree/master/kubernetes)
+  be [installed](https://github.com/coredns/helm)
   as the in-cluster DNS for pods.
 -->
 ## 服务发现   {#service-discovery}
 
 * [CoreDNS](https://coredns.io) 是一种灵活的，可扩展的 DNS 服务器，可以
-  [安装](https://github.com/coredns/deployment/tree/master/kubernetes)为集群内的 Pod 提供 DNS 服务。
+  [安装](https://github.com/coredns/helm)为集群内的 Pod 提供 DNS 服务。
 
 <!--
 ## Visualization &amp; Control
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   is a dashboard web interface for Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a
-  tool for visualizing your containers, Pods, Services and more.
 -->
 ## 可视化管理   {#visualization-and-control}
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) 是一个 Kubernetes 的 Web 控制台界面。
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)
-  是一个可视化工具，用于查看你的容器、Pod、服务等。
 
 <!--
 ## Infrastructure

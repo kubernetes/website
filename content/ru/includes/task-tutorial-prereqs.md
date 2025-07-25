@@ -5,4 +5,5 @@
 или вы можете использовать одну из песочниц Kubernetes:
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
+* [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)

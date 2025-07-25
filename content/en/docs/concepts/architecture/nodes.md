@@ -23,7 +23,7 @@ and contains the services necessary to run
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
 
-The [components](/docs/concepts/overview/components/#node-components) on a node include the
+The [components](/docs/concepts/architecture/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
@@ -139,6 +139,11 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node or mark it unschedulable.
+
+You can set optional node role(s) for nodes by adding one or more `node-role.kubernetes.io/<role>: <role>` labels to the node where characters of `<role>` 
+are limited by the [syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
+
+Kubernetes ignores the label value for node roles; by convention, you can set it to the same string you used for the node role in the label key.
 
 You can use labels on Nodes in conjunction with node selectors on Pods to control
 scheduling. For example, you can constrain a Pod to only be eligible to run on
@@ -352,12 +357,12 @@ see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/202
 
 Learn more about the following:
 
-* [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+* [Components](/docs/concepts/architecture/#node-components) that make up a node.
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * [Graceful/non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/).
-* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+* [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/) to
   manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).

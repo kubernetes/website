@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node."
 title: "VolumeAttachment"
-weight: 7
+weight: 11
 auto_generated: true
 ---
 
@@ -75,7 +75,7 @@ VolumeAttachmentSpec is the specification of a VolumeAttachment request.
   source represents the volume that should be attached.
 
   <a name="VolumeAttachmentSource"></a>
-  *VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.*
+  *VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.*
 
   - **source.inlineVolumeSpec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeSpec" >}}">PersistentVolumeSpec</a>)
 
@@ -106,6 +106,12 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
   <a name="VolumeError"></a>
   *VolumeError captures an error encountered during a volume operation.*
 
+  - **attachError.errorCode** (int32)
+
+    errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+    
+    This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+
   - **attachError.message** (string)
 
     message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
@@ -127,6 +133,12 @@ VolumeAttachmentStatus is the status of a VolumeAttachment request.
 
   <a name="VolumeError"></a>
   *VolumeError captures an error encountered during a volume operation.*
+
+  - **detachError.errorCode** (int32)
+
+    errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+    
+    This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
 
   - **detachError.message** (string)
 
@@ -593,6 +605,11 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -646,6 +663,11 @@ DELETE /apis/storage.k8s.io/v1/volumeattachments
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

@@ -65,8 +65,8 @@ the Discovery API. This includes the following for each resource:
 - Alternative names
 - Group, version, kind
 
-The API is available both aggregated and unaggregated form. The aggregated
-discovery serves two endpoints while the unaggregated discovery serves a
+The API is available in both aggregated and unaggregated form. The aggregated
+discovery serves two endpoints, while the unaggregated discovery serves a
 separate endpoint for each group version.
 
 ### Aggregated discovery
@@ -86,7 +86,7 @@ Without indicating the resource type using the `Accept` header, the default
 response for the `/api` and `/apis` endpoint is an unaggregated discovery
 document.
 
-The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2beta1.json)
+The [discovery document](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)
 for the built-in resources can be found in the Kubernetes GitHub repository.
 This Github document can be used as a reference of the base set of the available resources
 if a Kubernetes cluster is not available to query.
@@ -192,6 +192,12 @@ request headers as follows:
   </tbody>
 </table>
 
+{{< warning >}}
+The validation rules published as part of OpenAPI schemas may not be complete, and usually aren't.
+Additional validation occurs within the API server. If you want precise and complete verification,
+a `kubectl apply --dry-run=server` runs all the applicable validation (and also activates admission-time
+checks).
+{{< /warning >}}
 
 ### OpenAPI V3
 

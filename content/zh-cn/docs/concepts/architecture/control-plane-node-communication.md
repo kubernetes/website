@@ -231,7 +231,7 @@ Konnectivity 代理建立并维持到 Konnectivity 服务器的网络连接。
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read about the [Kubernetes control plane components](/docs/concepts/overview/components/#control-plane-components)
+* Read about the [Kubernetes control plane components](/docs/concepts/architecture/#control-plane-components)
 * Learn more about [Hubs and Spoke model](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
 * Learn how to [Secure a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) 
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
@@ -239,7 +239,7 @@ Konnectivity 代理建立并维持到 Konnectivity 服务器的网络连接。
 * [Use Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Learn how to [Fetch logs for Pods](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [use kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)
 -->
-* 阅读 [Kubernetes 控制面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
+* 阅读 [Kubernetes 控制面组件](/zh-cn/docs/concepts/architecture/#control-plane-components)
 * 进一步了解 [Hubs and Spoke model](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
 * 进一步了解如何[保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
 * 进一步了解 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)

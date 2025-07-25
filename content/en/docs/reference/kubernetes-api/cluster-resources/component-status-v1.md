@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ComponentStatus (and ComponentStatusList) holds the cluster validation info."
 title: "ComponentStatus"
-weight: 10
+weight: 2
 auto_generated: true
 ---
 
@@ -45,6 +45,8 @@ ComponentStatus (and ComponentStatusList) holds the cluster validation info. Dep
 - **conditions** ([]ComponentCondition)
 
   *Patch strategy: merge on key `type`*
+  
+  *Map: unique values on key type will be kept during a merge*
   
   List of component conditions observed
 

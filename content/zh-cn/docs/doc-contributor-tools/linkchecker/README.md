@@ -4,7 +4,9 @@
 # 内置链接检查工具
 
 <!--
-You can use [htmltest](https://github.com/wjdp/htmltest) to check for broken links in [`/content/en/`](https://git.k8s.io/website/content/en/). This is useful when refactoring sections of content, moving pages around, or renaming files or page headers.
+You can use [htmltest](https://github.com/wjdp/htmltest) to check for broken links in
+[`/content/en/`](https://git.k8s.io/website/content/en/). This is useful when refactoring
+sections of content, moving pages around, or renaming files or page headers.
 -->
 你可以使用 [htmltest](https://github.com/wjdp/htmltest) 来检查
 [`/content/en/`](https://git.k8s.io/website/content/en/) 下面的失效链接。
@@ -16,15 +18,18 @@ You can use [htmltest](https://github.com/wjdp/htmltest) to check for broken lin
 ## 工作原理   {#how-the-tool-works}
 
 <!--
-`htmltest` scans links in the generated HTML files of the kubernetes website repository. It runs using a `make` command which does the following:
+`htmltest` scans links in the generated HTML files of the kubernetes website repository.
+It runs using a `make` command which does the following:
 -->
 `htmltest` 会扫描 Kubernetes website 仓库构建生成的 HTML 文件。通过执行 `make` 命令进行了下列操作：
 
 <!--
-- Builds the site and generates output HTML in the `/public` directory of your local `kubernetes/website` repository
+- Builds the site and generates output HTML in the `/public` directory of your
+  local `kubernetes/website` repository
 - Pulls the `wdjp/htmltest` Docker image
 - Mounts your local `kubernetes/website` repository to the Docker image
-- Scans the files generated in the `/public` directory and provides command line output when it encounters broken internal links 
+- Scans the files generated in the `/public` directory and provides command line output
+  when it encounters broken internal links 
 -->
 - 构建站点并输出 HTML 到本地 `kubernetes/website` 仓库下的 `/public` 目录中
 - 拉取 Docker 镜像 `wdjp/htmltest`
@@ -37,7 +42,10 @@ You can use [htmltest](https://github.com/wjdp/htmltest) to check for broken lin
 ## 哪些链接不会检查   {#what-it-does-and-doesnot-check}
 
 <!--
-The link checker scans generated HTML files, not raw Markdown. The htmltest tool depends on a configuration file, [`.htmltest.yml`](https://git.k8s.io/website/.htmltest.yml), to determine which content to examine.
+The link checker scans generated HTML files, not raw Markdown.
+The htmltest tool depends on a configuration file,
+[`.htmltest.yml`](https://git.k8s.io/website/.htmltest.yml),
+to determine which content to examine.
 
 The link checker scans the following:
 -->
@@ -47,8 +55,10 @@ The link checker scans the following:
 该链接检查器扫描以下内容：
 
 <!--
-- All content generated from Markdown in [`/content/en/docs`](https://git.k8s.io/website/content/en/docs/) directory, excluding:
-  - Generated API references, for example https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
+- All content generated from Markdown in
+  [`/content/en/docs`](https://git.k8s.io/website/content/en/docs/) directory, excluding:
+  - Generated API references, for example
+     https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
 - All internal links, excluding:
   - Empty hashes (`<a href="#">` or `[title](#)`) and empty hrefs (`<a href="">` or `[title]()`)
   - Internal links to images and other media files
@@ -66,16 +76,18 @@ The link checker does not scan the following:
 该链接检查器不会扫描以下内容：
 
 <!--
-- Links included in the top and side nav bars, footer links, or links in a page's `<head>` section, such as links to CSS stylesheets, scripts, and meta information
+- Links included in the top and side nav bars, footer links, or links in a page's `<head>` section,
+  such as links to CSS stylesheets, scripts, and meta information
 - Top level pages and their children, for example: `/training`, `/community`, `/case-studies/adidas`
 - Blog posts
-- API Reference documentation, for example: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
+- API Reference documentation, for example
+  https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
 - Localizations
 -->
 - 包含在顶部和侧边导航栏的链接，以及页脚链接或者页面的 `<head>` 部分中的链接，例如 CSS 样式表、脚本以及元信息的链接。
 - 顶级页面及其子页面，例如：`/training`、`/community`、`/case-studies/adidas`
 - 博客文章
-- API 参考文档，例如： https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
+- API 参考文档，例如 https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
 - 本地化内容
 
 <!--
@@ -87,6 +99,7 @@ The link checker does not scan the following:
 You must install
 -->
 必须安装：
+
 * [Docker](https://docs.docker.com/get-docker/)
 * [make](https://www.gnu.org/software/make/)
 
@@ -109,7 +122,7 @@ To run the link checker:
 
 2. 执行如下命令：
 
-   ```
+   ```shell
    make container-internal-linkcheck
    ```
 
@@ -152,8 +165,10 @@ One way to fix this is to:
 
 <!--
 1. Navigate to the Markdown file with a broken link.
-2. Using a text editor, do a full-text search (usually Ctrl+F or Command+F) for the broken link's URL, `#preserving-unknown-fields`.
-3. Fix the link. For a broken page hash (or _anchor_) link, check whether the topic was renamed or removed.
+2. Using a text editor, do a full-text search (usually Ctrl+F or Command+F) for the
+   broken link's URL, `#preserving-unknown-fields`.
+3. Fix the link. For a broken page hash (or _anchor_) link,
+   check whether the topic was renamed or removed.
 -->
 1. 转到含有失效链接的 Markdown 文件。
 2. 使用文本编辑器全文搜索失效链接的 URL（通常使用 Ctrl+F 或 Command+F）`#preserving-unknown-fields`。

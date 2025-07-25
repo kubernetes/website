@@ -3,6 +3,7 @@ title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
 weight: 40
+math: true
 ---
 
 <!-- overview -->
@@ -317,6 +318,18 @@ kind: Pod
 ...
 ```
 
+## Formulae and equations
+
+You can use the Docsy support for [diagrams and formulae](https://www.docsy.dev/docs/adding-content/diagrams-and-formulae/#latex-support-with-katex).
+
+For example: `\\(\frac{7}{9} \sqrt{K^8 s}\\)`, which renders as \\(\frac{7}{9} \sqrt{K^8 s}\\).
+
+Prefer inline formulae where reasonable, but you can use a `math` block if that's likely to help readers.
+
+Read the Docsy guide to find out what you need to change in your page to activate support;
+if you have problems, add `math: true` to the page [front matter](https://gohugo.io/content-management/front-matter/)
+(you can do this even if you think the automatic activation should be enough).
+
 ## Kubernetes.io word list
 
 A list of Kubernetes-specific terms and words to be used consistently across the site.
@@ -510,6 +523,8 @@ Use ordered headings to provide a meaningful high-level outline of your content.
 Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
 Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
 Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
+Place relevant links in the body copy. | Include hyperlinks (`<a href=""></a>`) in headings.
+Use pound or hash signs (`#`) to indicate headings. | Use **bold** text or other indicators to split paragraphs.
 {{< /table >}}
 
 ### Paragraphs

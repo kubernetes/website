@@ -72,8 +72,6 @@ var kub = (function () {
         headlineWrapper = $('#headlineWrapper');
         HEADER_HEIGHT = header.outerHeight();
 
-        document.documentElement.classList.remove('no-js');
-
         resetTheView();
 
         window.addEventListener('resize', resetTheView);
@@ -129,8 +127,6 @@ var kub = (function () {
         if (html.hasClass('open-toc')) {
             toggleToc();
         }
-
-        classOnCondition(html, 'flip-nav', window.pageYOffset > 0);
 
         if (html[0].id == 'home') {
             setHomeHeaderStyles();
@@ -425,7 +421,7 @@ var pushmenu = (function(){
 
         sled.appendChild(content);
 
-        var closeButton = newDOMElement('button', 'push-menu-close-button');
+        var closeButton = newDOMElement('button', 'btn fa fa-times');
         closeButton.onclick = closeMe;
 
         sled.appendChild(closeButton);
@@ -448,14 +444,10 @@ var pushmenu = (function(){
             $(el).removeClass('on');
             setTimeout(function(){
                 $(el).css({display: 'none'});
-
-                $(body).removeClass('overlay-on');
             }, 300);
         }
 
         function exposeMe(){
-            $(body).addClass('overlay-on'); // in the default config, kills body scrolling
-
             $(el).css({
                 display: 'block',
                 zIndex: highestZ()

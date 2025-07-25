@@ -152,43 +152,26 @@ You should not use the `AlwaysAllow` mode on a Kubernetes cluster where the API 
 is reachable from the public internet.
 {{< /warning >}}
 
+### The system:masters group
+
+The `system:masters` group is a built-in Kubernetes group that grants unrestricted
+access to the API server. Any user assigned to this group has full cluster administrator
+privileges, bypassing any authorization restrictions imposed by the RBAC or Webhook mechanisms.
+[Avoid adding users](/docs/concepts/security/rbac-good-practices/#least-privilege)
+to this group. If you do need to grant a user cluster-admin rights, you can create a
+[ClusterRoleBinding](/docs/reference/access-authn-authz/rbac/#user-facing-roles)
+to the built-in `cluster-admin` ClusterRole.
+
 ### Authorization mode configuration {#choice-of-authz-config}
 
 You can configure the Kubernetes API server's authorizer chain using either
-[command line arguments](#using-flags-for-your-authorization-module) only or, as a beta feature,
-using a [configuration file](#using-configuration-file-for-authorization).
+a [configuration file](#using-configuration-file-for-authorization) only or
+[command line arguments](#using-flags-for-your-authorization-module).
 
 You have to pick one of the two configuration approaches; setting both `--authorization-config`
 path and configuring an authorization webhook using the `--authorization-mode` and
 `--authorization-webhook-*` command line arguments is not allowed.
 If you try this, the API server reports an error message during startup, then exits immediately.
-
-### Command line authorization mode configuration {#using-flags-for-your-authorization-module}
-
-{{< feature-state state="stable" for_k8s_version="v1.8" >}}
-
-You can use the following modes:
-
-* `--authorization-mode=ABAC` (Attribute-based access control mode)
-* `--authorization-mode=RBAC` (Role-based access control mode)
-* `--authorization-mode=Node` (Node authorizer)
-* `--authorization-mode=Webhook` (Webhook authorization mode)
-* `--authorization-mode=AlwaysAllow` (always allows requests; carries [security risks](#warning-always-allow))
-* `--authorization-mode=AlwaysDeny` (always denies requests)
-
-You can choose more than one authorization mode; for example:
-`--authorization-mode=Node,Webhook`
-
-Kubernetes checks authorization modules based on the order that you specify them
-on the API server's command line, so an earlier module has higher priority to allow
-or deny a request.
-
-You cannot combine the `--authorization-mode` command line argument with the
-`--authorization-config` command line argument used for
-[configuring authorization using a local file](#using-configuration-file-for-authorization-mode).
-
-For more information on command line arguments to the API server, read the
-[`kube-apiserver` reference](/docs/reference/command-line-tools-reference/kube-apiserver/).
 
 <!-- keep legacy hyperlinks working -->
 <a id="configuring-the-api-server-using-an-authorization-config-file" />
@@ -197,7 +180,7 @@ For more information on command line arguments to the API server, read the
 
 {{< feature-state feature_gate_name="StructuredAuthorizationConfiguration" >}}
 
-As a beta feature, Kubernetes lets you configure authorization chains that can include multiple
+Kubernetes lets you configure authorization chains that can include multiple
 webhooks. The authorization items in that chain can have well-defined parameters that validate
 requests in a particular order, offering you fine-grained control, such as explicit Deny on failures.
 
@@ -220,7 +203,7 @@ are only available if you use an authorization configuration file.
 #
 # DO NOT USE THE CONFIG AS IS. THIS IS AN EXAMPLE.
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthorizationConfiguration
 authorizers:
   - type: Webhook
@@ -268,14 +251,14 @@ authorizers:
       connectionInfo:
         # Controls how the webhook should communicate with the server.
         # Valid values:
-        # - KubeConfig: use the file specified in kubeConfigFile to locate the
+        # - KubeConfigFile: use the file specified in kubeConfigFile to locate the
         #   server.
         # - InClusterConfig: use the in-cluster configuration to call the
         #   SubjectAccessReview API hosted by kube-apiserver. This mode is not
         #   allowed for kube-apiserver.
-        type: KubeConfig
+        type: KubeConfigFile
         # Path to KubeConfigFile for connection info
-        # Required, if connectionInfo.Type is KubeConfig
+        # Required, if connectionInfo.Type is KubeConfigFile
         kubeConfigFile: /kube-system-authz-webhook.yaml
         # matchConditions is a list of conditions that must be met for a request to be sent to this
         # webhook. An empty list of matchConditions matches all requests.
@@ -300,7 +283,7 @@ authorizers:
       # only intercept requests to kube-system
       - expression: request.resourceAttributes.namespace == 'kube-system'
       # don't intercept requests from kube-system service accounts
-      - expression: !('system:serviceaccounts:kube-system' in request.user.groups)
+      - expression: "!('system:serviceaccounts:kube-system' in request.groups)"
   - type: Node
     name: node
   - type: RBAC
@@ -336,6 +319,31 @@ You must ensure that all non-webhook authorizer types remain unchanged in the fi
 A reload **must not** add or remove Node or RBAC authorizers (they can be reordered,
 but cannot be added or removed).
 {{< /note >}}
+
+### Command line authorization mode configuration {#using-flags-for-your-authorization-module}
+
+You can use the following modes:
+
+* `--authorization-mode=ABAC` (Attribute-based access control mode)
+* `--authorization-mode=RBAC` (Role-based access control mode)
+* `--authorization-mode=Node` (Node authorizer)
+* `--authorization-mode=Webhook` (Webhook authorization mode)
+* `--authorization-mode=AlwaysAllow` (always allows requests; carries [security risks](#warning-always-allow))
+* `--authorization-mode=AlwaysDeny` (always denies requests)
+
+You can choose more than one authorization mode; for example:
+`--authorization-mode=Node,RBAC,Webhook`
+
+Kubernetes checks authorization modules based on the order that you specify them
+on the API server's command line, so an earlier module has higher priority to allow
+or deny a request.
+
+You cannot combine the `--authorization-mode` command line argument with the
+`--authorization-config` command line argument used for
+[configuring authorization using a local file](#using-configuration-file-for-authorization-mode).
+
+For more information on command line arguments to the API server, read the
+[`kube-apiserver` reference](/docs/reference/command-line-tools-reference/kube-apiserver/).
 
 ## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
 

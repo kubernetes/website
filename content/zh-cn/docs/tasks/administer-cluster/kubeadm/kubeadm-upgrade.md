@@ -1,14 +1,14 @@
 ---
 title: 升级 kubeadm 集群
 content_type: task
-weight: 40
+weight: 30
 ---
 <!--
 reviewers:
 - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
 content_type: task
-weight: 40
+weight: 30
 -->
 
 <!-- overview -->
@@ -40,6 +40,14 @@ please refer to following pages instead:
 - [将 kubeadm 集群从 {{< skew currentVersionAddMinor -3 >}} 升级到 {{< skew currentVersionAddMinor -2 >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [将 kubeadm 集群从 {{< skew currentVersionAddMinor -4 >}} 升级到 {{< skew currentVersionAddMinor -3 >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [将 kubeadm 集群从 {{< skew currentVersionAddMinor -5 >}} 升级到 {{< skew currentVersionAddMinor -4 >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+
+<!--
+The Kubernetes project recommends upgrading to the latest patch releases promptly, and
+to ensure that you are running a supported minor release of Kubernetes.
+Following this recommendation helps you to to stay secure.
+-->
+Kubernetes 项目建议立即升级到最新的补丁版本，并确保你运行的是受支持的 Kubernetes 次要版本。
+遵循此建议可帮助你保持安全。
 
 <!--
 The upgrade workflow at high level is the following:
@@ -208,6 +216,12 @@ sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 
 {{% /tab %}}
 {{< /tabs >}}
+
+<!--
+If you don't see the version you expect to upgrade to, [verify if the Kubernetes package repositories are used.](/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)
+-->
+如果你没有看到预期要升级到的版本，
+请[验证是否使用了 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/#verifying-if-the-kubernetes-package-repositories-are-used)。
 
 <!--
 ## Upgrading control plane nodes

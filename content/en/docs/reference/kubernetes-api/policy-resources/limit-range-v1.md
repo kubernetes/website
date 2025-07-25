@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "LimitRange sets resource usage limits for each kind of resource in a Namespace."
 title: "LimitRange"
-weight: 1
+weight: 2
 auto_generated: true
 ---
 
@@ -58,6 +58,8 @@ LimitRangeSpec defines a min/max usage limit for resources that match on kind.
 
 - **limits** ([]LimitRangeItem), required
 
+  *Atomic: will be replaced during a merge*
+  
   Limits is the list of LimitRangeItem objects that are enforced.
 
   <a name="LimitRangeItem"></a>
@@ -511,6 +513,11 @@ DELETE /api/v1/namespaces/{namespace}/limitranges/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -569,6 +576,11 @@ DELETE /api/v1/namespaces/{namespace}/limitranges
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

@@ -201,8 +201,11 @@ For example: `partition in (customerA, customerB),environment!=qa`.
 
 ### LIST and WATCH filtering
 
-LIST and WATCH operations may specify label selectors to filter the sets of objects
-returned using a query parameter. Both requirements are permitted
+For **list** and **watch** operations, you can specify label selectors to filter the sets of objects
+returned; you specify the filter using a query parameter.
+(To learn in detail about watches in Kubernetes, read
+[efficient detection of changes](/docs/reference/using-api/api-concepts/#efficient-detection-of-changes)).
+Both requirements are permitted
 (presented here as they would appear in a URL query string):
 
 * _equality-based_ requirements: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`

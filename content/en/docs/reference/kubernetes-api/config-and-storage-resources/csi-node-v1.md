@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSINode holds information about all CSI drivers installed on a node."
 title: "CSINode"
-weight: 9
+weight: 4
 auto_generated: true
 ---
 
@@ -60,6 +60,8 @@ CSINodeSpec holds information about the specification of all CSI drivers install
 
   *Patch strategy: merge on key `name`*
   
+  *Map: unique values on key name will be kept during a merge*
+  
   drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
 
   <a name="CSINodeDriver"></a>
@@ -86,6 +88,8 @@ CSINodeSpec holds information about the specification of all CSI drivers install
 
   - **drivers.topologyKeys** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
 
 
@@ -409,6 +413,11 @@ DELETE /apis/storage.k8s.io/v1/csinodes/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -462,6 +471,11 @@ DELETE /apis/storage.k8s.io/v1/csinodes
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

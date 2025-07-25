@@ -35,12 +35,11 @@ Esta página lista alguns dos complementos disponíveis e links com suas respect
 
 ## Descoberta de Serviço
 
-* [CoreDNS](https://coredns.io) é um servidor DNS flexível e extensível que pode ser [instalado](https://github.com/coredns/deployment/tree/master/kubernetes) como o serviço de DNS dentro do cluster para ser utilizado por pods.
+* [CoreDNS](https://coredns.io) é um servidor DNS flexível e extensível que pode ser [instalado](https://github.com/coredns/helm) como o serviço de DNS dentro do cluster para ser utilizado por pods.
 
 ## Visualização &amp; Controle
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) é uma interface web para gestão do Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) é uma ferramenta gráfica para visualizar contêineres, pods, serviços, entre outros objetos do cluster. Pode ser utilizado com uma [conta Weave Cloud](https://cloud.weave.works/). Como alternativa, é possível hospedar a interface do usuário por conta própria.
 
 ## Infraestrutura
 

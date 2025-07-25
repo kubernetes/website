@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSIStorageCapacity 存储一个 CSI GetCapacity 调用的结果。"
 title: "CSIStorageCapacity"
-weight: 10
+weight: 5
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSIStorageCapacity stores the result of one CSI GetCapacity call."
 title: "CSIStorageCapacity"
-weight: 10
+weight: 5
 -->
 
 `apiVersion: storage.k8s.io/v1`
@@ -98,7 +98,6 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 
   The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
 -->
-
 - **storageClassName** (string)，必需
 
   storageClassName 是已报告容量所对应的 StorageClass 的名称。
@@ -159,19 +158,14 @@ CSIStorageCapacityList 是 CSIStorageCapacity 对象的集合。
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>), required
 
-  *Map: unique values on key name will be kept during a merge*
-
   items is the list of CSIStorageCapacity objects.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准的列表元数据。
-  更多信息：
+  标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>)，必需
-
-  **映射：有关键名称的唯一值将在合并期间被保留**
 
   items 是 CSIStorageCapacity 对象的列表。
 
@@ -202,7 +196,7 @@ GET /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 - **name** (**路径参数**): string，必需
 
-  CSIStorageCapacity 的名称
+  CSIStorageCapacity 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -463,7 +457,7 @@ PUT /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 - **name** (**路径参数**): string，必需
 
-  CSIStorageCapacity 的名称
+  CSIStorageCapacity 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -524,7 +518,7 @@ PATCH /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name}
 
 - **name** (**路径参数**): string，必需
 
-  CSIStorageCapacity 的名称
+  CSIStorageCapacity 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -581,6 +575,7 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 -->
@@ -588,7 +583,7 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name
 
 - **name** (**路径参数**): string，必需
 
-  CSIStorageCapacity 的名称
+  CSIStorageCapacity 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -603,6 +598,10 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -641,6 +640,7 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 - **dryRun** (*in query*): string
 - **fieldSelector** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **labelSelector** (*in query*): string
 - **limit** (*in query*): integer
 - **pretty** (*in query*): string
@@ -672,6 +672,10 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 

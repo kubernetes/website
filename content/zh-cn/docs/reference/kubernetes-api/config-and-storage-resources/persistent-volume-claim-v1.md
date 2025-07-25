@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PersistentVolumeClaim 是用户针对一个持久卷的请求和申领。"
 title: "PersistentVolumeClaim"
-weight: 4
+weight: 6
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PersistentVolumeClaim is a user's request for and claim to a persistent volume."
 title: "PersistentVolumeClaim"
-weight: 4
+weight: 6
 -->
 
 `apiVersion: v1`
@@ -66,10 +66,13 @@ PersistentVolumeClaim 是用户针对一个持久卷的请求和申领。
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
 ## PersistentVolumeClaimSpec {#PersistentVolumeClaimSpec}
+
 <!--
 PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
 <hr>
 - **accessModes** ([]string)
+
+  *Atomic: will be replaced during a merge*
 
   accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 
@@ -83,6 +86,8 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
 - **accessModes** ([]string)
 
+  **原子性：将在合并期间被替换**
+
   accessModes 包含卷应具备的预期访问模式。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes-1
 
@@ -91,57 +96,24 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
   selector 是在绑定时对卷进行选择所执行的标签查询。
 
 <!--
-- **resources** (ResourceRequirements)
+-  **resources** (VolumeResourceRequirements)
 
   resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-
-  <a name="ResourceRequirements"></a>
-  *ResourceRequirements describes the compute resource requirements.*
 -->
-- **resources** (ResourceRequirements)
+-  **resources** (VolumeResourceRequirements)
 
   resources 表示卷应拥有的最小资源。
   如果启用了 RecoverVolumeExpansionFailure 功能特性，则允许用户指定这些资源要求，
   此值必须低于之前的值，但必须高于申领的状态字段中记录的容量。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#resources
 
-  <a name="ResourceRequirements"></a>
-  **ResourceRequirements 描述计算资源要求。**
+  <!--
+  <a name="VolumeResourceRequirements"></a>
+  *VolumeResourceRequirements describes the storage resource requirements for a volume.*
+  -->
 
-  - **resources.claims** ([]ResourceClaim)
-
-    <!--
-    *Map: unique values on key name will be kept during a merge*
-
-    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
-
-    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
-
-    This field is immutable. It can only be set for containers.
-    -->
-
-    **集合：键 name 的唯一值将在合并期间被保留**
-
-    claims 列出了此容器使用的、在 spec.resourceClaims 中定义的资源的名称。
-
-    这是一个 Alpha 字段，需要启用 DynamicResourceAllocation 特性门控。
-
-    此字段是不可变的。
-
-    <!--
-    <a name="ResourceClaim"></a>
-    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
-
-    - **resources.claims.name** (string), required
-
-      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
-    -->
-    <a name="ResourceClaim"></a>
-    **ResourceClaim 引用 PodSpec.ResourceClaims 中的一个条目。**
-
-    - **resources.claims.name** (string)，必需
-
-      对于使用此字段的 Pod，name 必须与 pod.spec.resourceClaims 中的一个条目的名称匹配。
+  <a name="VolumeResourceRequirements"></a>
+  **VolumeResourceRequirements 描述了卷的存储资源要求。**
 
   <!--
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -151,6 +123,7 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
     Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
   -->
+
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
     limits 描述允许的最大计算资源量。更多信息：
@@ -233,6 +206,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
     in any namespaces.
   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
   -->
+
   * dataSource 仅允许两个特定类型的对象，而 dataSourceRef 允许任何非核心对象以及 PersistentVolumeClaim 对象。
   * dataSource 忽略不允许的值（这类值会被丢弃），而 dataSourceRef 保留所有值并在指定不允许的值时产生错误。
   * dataSource 仅允许本地对象，而 dataSourceRef 允许任意名字空间中的对象。
@@ -240,7 +214,13 @@ dataSourceRef specifies the object from which to populate the volume with data, 
   (Beta) 使用此字段需要启用 AnyVolumeDataSource 特性门控。
   (Alpha) 使用 dataSourceRef 的名字空间字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
 
+  <!--
   <a name="TypedObjectReference"></a>
+  *TypedObjectReference contains enough information to let you locate the typed referenced object*
+  -->
+
+  <a name="TypedObjectReference"></a>
+  **TypedObjectReference 包含足够的信息，可以让你定位特定类型的引用对象。**
 
   <!--
   - **dataSourceRef.kind** (string), required
@@ -251,6 +231,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
 
     Name is the name of resource being referenced
   -->
+
   - **dataSourceRef.kind** (string)，必需
 
     kind 是正被引用的资源的类型。
@@ -268,6 +249,7 @@ dataSourceRef specifies the object from which to populate the volume with data, 
 
     Namespace is the namespace of resource being referenced Note that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details. (Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
   -->
+
   - **dataSourceRef.apiGroup** (string)
 
     apiGroup 是正被引用的资源的组。如果 apiGroup 未被指定，则指定的 kind 必须在核心 API 组中。
@@ -280,13 +262,34 @@ dataSourceRef specifies the object from which to populate the volume with data, 
     以允许该名字空间的所有者接受引用。有关详细信息，请参阅 ReferenceGrant 文档。
     (Alpha) 此字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
 
+- **volumeAttributesClassName** (string)
+
+  <!--
+  volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
+  -->
+
+  `volumeAttributesClassName` 可用于设置此申领所使用的 VolumeAttributesClass。
+  如果设置了此字段，CSI 驱动程序将使用相应 VolumeAttributesClass 中定义的属性创建或更新卷。
+  与 `storageClassName` 的用途不同，此属性可以在创建申领之后更改。空字符串值表示不会将 VolumeAttributesClass
+  应用于申领，但一旦设置，就不允许将此字段重置为空字符串。如果未指定且 PersistentVolumeClaim 未绑定，
+  则持久卷控制器将设置默认的 VolumeAttributesClass（如果存在）。
+  如果 VolumeAttributesClass 所引用的资源不存在，则此 PersistentVolumeClaim 将被设置为 Pending 状态，
+  如 `modifyVolumeStatus` 字段所示，直到存在此类资源。更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/storage/volume-attributes-classes/
+  
+  （Beta）使用此字段需要启用 VolumeAttributesClass 特性门控（默认情况下关闭）。
+
 ## PersistentVolumeClaimStatus {#PersistentVolumeClaimStatus}
+
 <!--
 PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 
 <hr>
 
 - **accessModes** ([]string)
+
+  *Atomic: will be replaced during a merge*
+
   accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 -->
 PersistentVolumeClaimStatus 是持久卷申领的当前状态。
@@ -294,6 +297,8 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 <hr>
 
 - **accessModes** ([]string)
+
+  **原子性：将在合并期间被替换**
 
   accessModes 包含支持 PVC 的卷所具有的实际访问模式。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes-1
@@ -311,9 +316,11 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   allocatedResourceStatuses 存储为给定 PVC 而调整大小的资源的状态。键名遵循标准的 Kubernetes 标签语法。
   有效值为：
+
   * 未加前缀的键：
     - storage - 卷的容量。
   * 自定义资源必须使用实现定义的带前缀的名称，如 "example.com/my-custom-resource"。
+  
   除上述值之外，未加前缀或具有 `kubernetes.io` 前缀的键被视为保留键，因此不能使用。
 
   <!--
@@ -331,7 +338,9 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   		State set when resizing has failed in kubelet with a terminal error. Transient errors don't set
   		NodeResizeFailed.
   -->
+
   ClaimResourceStatus 可以处于以下任一状态：
+
   - ControllerResizeInProgress：大小调整控制器开始在控制平面中调整卷大小时所设置的状态。
   - ControllerResizeFailed：大小调整控制器出现致命错误导致大小调整失败时所设置的状态。
   - NodeResizePending：大小调整控制器已完成对卷大小的调整但需要在节点上进一步调整卷大小时的状态。
@@ -348,12 +357,15 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
        - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeFailed"
   When this field is not set, it means that no resize operation is in progress for the given PVC.
   -->
+
   例如：如果扩展 PVC 以获取更多的容量，则此字段可以是以下状态之一：
+
   - pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeInProgress"
     - pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeFailed"
     - pvc.status.allocatedResourceStatus['storage'] = "NodeResizePending"
     - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeInProgress"
     - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeFailed"
+  
   当未设置此字段时，表示没有针对给定 PVC 执行大小调整操作。
 
   <!--
@@ -361,6 +373,7 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   
   This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
   -->
+
   如果控制器收到具有先前未知的 resourceName 或 ClaimResourceStatus 的 PVC 更新，
   则该控制器应忽略此项更新才能按预期工作。例如，仅负责调整卷容量大小的控制器应忽略更改与
   PVC 关联的其他合法资源的 PVC 更新。
@@ -376,16 +389,20 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   	* Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
   Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
   -->
+
   allocatedResources 跟踪分配给 PVC 的资源，包括其容量。键名遵循标准的 Kubernetes 标签语法。
   有效值为：
+  
   * 未加前缀的键：
     - storage - 卷的容量。
   * 自定义资源必须使用实现定义的带前缀的名称，如 "example.com/my-custom-resource"。
+  
   除上述值之外，未加前缀或具有 `kubernetes.io` 前缀的键被视为保留键，因此不能使用。
   
   <!--
   Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
   -->
+
   当出现卷扩充操作请求时，此字段可能大于实际的容量。
   就存储配额而言，将使用 allocatedResources 和 PVC.spec.resources 二者中的更大值。
   如果未设置 allocatedResources，则 PVC.spec.resources 单独用于配额计算。
@@ -397,6 +414,7 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
   -->
+
   如果控制器收到具有先前未知的 resourceName 的 PVC 更新，则该控制器应忽略此项更新才能按预期工作。
   例如，仅负责调整卷容量大小的控制器应忽略更改与 PVC 关联的其他合法资源的 PVC 更新。
 
@@ -415,7 +433,9 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 - **conditions** ([]PersistentVolumeClaimCondition)
   *Patch strategy: merge on key `type`*
 
-  conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+  *Map: unique values on key type will be kept during a merge*
+
+  conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
 
   <a name="PersistentVolumeClaimCondition"></a>
   *PersistentVolumeClaimCondition contains details about state of pvc*
@@ -424,36 +444,53 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 
   **补丁策略：按照键 `type` 合并**
 
+  **映射：基于 `name` 键的唯一值将在合并期间被保留**
+
   conditions 是持久卷声明的当前的状况。
-  如果正在调整底层持久卷的大小，则状况将被设为 “ResizeStarted”。
+  如果正在调整底层持久卷的大小，则状况将被设为 “Resizing”。
 
   <a name="PersistentVolumeClaimCondition"></a>
   **PersistentVolumeClaimCondition 包含有关 PVC 状态的详细信息。**
 
-<!--
+  <!--
   - **conditions.status** (string), required
 
+    Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+  -->
+
+  - **conditions.status** (string)，必需
+
+    status 是状况的状态。可选值为 True、False、Unknown。更多信息：
+    https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=state%20of%20pvc-,conditions.status,-(string)%2C%20required
+
+  <!--
   - **conditions.type** (string), required
 
+    Type is the type of the condition. More info: https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+  -->
+
+  - **conditions.type** (string)，必需
+
+    type 是状况的类型。更多信息：
+    https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/#:~:text=set%20to%20%27ResizeStarted%27.-,PersistentVolumeClaimCondition,-contains%20details%20about
+
+  <!--
   - **conditions.lastProbeTime** (Time)
     lastProbeTime is the time we probed the condition.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
--->  
-  - **conditions.status** (string)，必需
-  
-  - **conditions.type** (string)，必需
-  
+  -->  
+
   - **conditions.lastProbeTime** (Time)
     
     lastProbeTime 是我们探测 PVC 状况的时间。
     
-    <a name="Time"></a> 
+    <a name="Time"></a>
     **Time 是 time.Time 的包装类，支持正确地序列化为 YAML 和 JSON。
     为 time 包提供的许多工厂方法提供了包装类。**
 
-<!--
+  <!--
   - **conditions.lastTransitionTime** (Time)
     lastTransitionTime is the time the condition transitioned from one status to another.
 
@@ -464,8 +501,9 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
     message is the human-readable message indicating details about last transition.
 
   - **conditions.reason** (string)
-    reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
--->
+    reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "Resizing" that means the underlying persistent volume is being resized.
+  -->
+
   - **conditions.lastTransitionTime** (Time)
 
     lastTransitionTime 是状况从一个状态转换为另一个状态的时间。
@@ -481,7 +519,75 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   - **conditions.reason** (string)
 
     reason 是唯一的，它应该是一个机器可理解的简短字符串，指明上次状况转换的原因。
-    如果它报告 “ResizeStarted”，则意味着正在调整底层持久卷的大小。
+    如果它报告 “Resizing”，则意味着正在调整底层持久卷的大小。
+
+  - **currentVolumeAttributesClassName** (string)
+
+    <!--
+    currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    -->
+
+    `currentVolumeAttributesClassName` 是 PVC 所使用的 VolumeAttributesClass 的当前名称。
+    这是一个 Beta 级别字段，需要启用 VolumeAttributesClass 特性（默认情况下处于关闭状态）。
+
+  - **modifyVolumeStatus** (ModifyVolumeStatus)
+
+    <!--
+    ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+    -->
+
+    `modifyVolumeStatus` 表示 ControllerModifyVolume 操作的状态对象。
+    如果未设置，则表示没有尝试执行任何修改卷操作。这是一个测试字段，需要启用
+    VolumeAttributesClass 特性（默认关闭）。
+
+    <!--
+    <a name="ModifyVolumeStatus"></a>
+    *ModifyVolumeStatus represents the status object of ControllerModifyVolume operation*
+    -->
+
+    <a name="ModifyVolumeStatus"></a>
+    **ModifyVolumeStatus 表示 ControllerModifyVolume 操作的状态对象**
+
+  <!--
+  - **modifyVolumeStatus.status** (string), required
+
+    status is the status of the ControllerModifyVolume operation. It can be in any of following states:
+     - Pending
+       Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as
+       the specified VolumeAttributesClass not existing.
+     - InProgress
+       InProgress indicates that the volume is being modified.
+     - Infeasible
+      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+         resolve the error, a valid VolumeAttributesClass needs to be specified.
+    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+  -->
+
+  - **modifyVolumeStatus.status** (string)，必需
+
+    status 是 ControllerModifyVolume 操作的状态。它可以是以下任一状态：
+
+    - Pending
+
+      Pending 表示由于未满足要求（例如指定的 VolumeAttributesClass 不存在）而无法修改 PersistentVolumeClaim。
+
+    - InProgress
+
+      InProgress 表示卷正在被修改。
+
+    - Infeasible
+
+      Infeasible 表示请求已被 CSI 驱动程序拒绝，因为请求无效。要解决此错误，需要指定有效的 VolumeAttributesClass。
+
+    注意：将来可能会添加新状态。消费者应当检查未知状态，并适当地处理失败情况。
+
+  - **modifyVolumeStatus.targetVolumeAttributesClassName** (string)
+
+  <!--
+  targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
+  -->
+
+  targetVolumeAttributesClassName 是当前正在协调的 PVC 的 VolumeAttributesClass 的名称。
 
 <!--
 - **phase** (string)
@@ -492,6 +598,7 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   phase 表示 PersistentVolumeClaim 的当前阶段。
 
 ## PersistentVolumeClaimList {#PersistentVolumeClaimList}
+
 <!--
 PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
 -->
@@ -527,24 +634,35 @@ PersistentVolumeClaimList 是 PersistentVolumeClaim 各项的列表。
 #### HTTP Request
 -->
 ## 操作 {#Operations}
+
 <hr>
 
 ### `get` 读取指定的 PersistentVolumeClaim
+
 #### HTTP 请求
+
 GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
+
   name of the PersistentVolumeClaim
+
 - **namespace** (*in path*): string, required
 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
-  PersistentVolumeClaim 的名称
+  PersistentVolumeClaim 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -558,6 +676,7 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
 
 401: Unauthorized
@@ -567,22 +686,31 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### HTTP Request
 -->
 ### `get` 读取指定的 PersistentVolumeClaim 的状态
+
 #### HTTP 请求
 
 GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
+
   name of the PersistentVolumeClaim
+
 - **namespace** (*in path*): string, required
 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
-  PersistentVolumeClaim 的名称
+  PersistentVolumeClaim 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -596,6 +724,7 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
 
 401: Unauthorized
@@ -605,24 +734,64 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### HTTP Request
 -->
 ### `list` 列出或观测类别为 PersistentVolumeClaim 的对象
+
 #### HTTP 请求
+
 GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
 
 <!--
 #### Parameters
+
 - **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
 - **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
 - **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
 - **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
 - **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
 - **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
 - **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 #### 参数
+
 - **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -675,6 +844,7 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimList" >}}">PersistentVolumeClaimList</a>): OK
 
 401: Unauthorized
@@ -684,23 +854,60 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### HTTP Request
 -->
 ### `list` 列出或观测类别为 PersistentVolumeClaim 的对象
+
 #### HTTP 请求
+
 GET /api/v1/persistentvolumeclaims
 
 <!--
 #### Parameters
+
 - **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
 - **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
 - **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
 - **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
 - **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
 - **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
 - **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 #### 参数
+
 - **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
@@ -749,6 +956,7 @@ GET /api/v1/persistentvolumeclaims
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimList" >}}">PersistentVolumeClaimList</a>): OK
 
 401: Unauthorized
@@ -758,19 +966,38 @@ GET /api/v1/persistentvolumeclaims
 #### HTTP Request
 -->
 ### `create` 创建 PersistentVolumeClaim
+
 #### HTTP 请求
+
 POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
 
 <!--
 #### Parameters
+
 - **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+
 - **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
 - **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
+
 - **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -797,6 +1024,7 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
@@ -810,24 +1038,45 @@ POST /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### HTTP Request
 -->
 ### `update` 替换指定的 PersistentVolumeClaim
+
 #### HTTP 请求
+
 PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
+
   name of the PersistentVolumeClaim
+
 - **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+
 - **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
 - **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
-  PersistentVolumeClaim 的名称
+  PersistentVolumeClaim 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -855,6 +1104,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
@@ -866,24 +1116,45 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### HTTP Request
 -->
 ### `update` 替换指定的 PersistentVolumeClaim 的状态
+
 #### HTTP 请求
+
 PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
+
   name of the PersistentVolumeClaim
+
 - **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **body**: <a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>, required
+
 - **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
 - **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
-  PersistentVolumeClaim 的名称
+  PersistentVolumeClaim 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -911,6 +1182,7 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
@@ -922,25 +1194,48 @@ PUT /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 PersistentVolumeClaim
+
 #### HTTP 请求
+
 PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
+
   name of the PersistentVolumeClaim
+
 - **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
 - **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
 - **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
 - **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
 - **name** (**路径参数**): string，必需
 
-  PersistentVolumeClaim 的名称
+  PersistentVolumeClaim 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -972,6 +1267,7 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
@@ -983,25 +1279,49 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### HTTP Request
 -->
 ### `patch` 部分更新指定的 PersistentVolumeClaim 的状态
+
 #### HTTP 请求
+
 PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
+
   name of the PersistentVolumeClaim
+
 - **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
 - **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
 - **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
 - **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
-  PersistentVolumeClaim 的名称
+  PersistentVolumeClaim 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -1033,6 +1353,7 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Created
@@ -1044,21 +1365,46 @@ PATCH /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}/status
 #### HTTP Request
 -->
 ### `delete` 删除 PersistentVolumeClaim
+
 #### HTTP 请求
+
 DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 
 <!--
 #### Parameters
+
 - **name** (*in path*): string, required
+
   name of the PersistentVolumeClaim
+
 - **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
 - **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
   PersistentVolumeClaim 的名称
@@ -1077,6 +1423,10 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1089,6 +1439,7 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): OK
 
 202 (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>): Accepted
@@ -1100,26 +1451,74 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims/{name}
 #### HTTP Request
 -->
 ### `deletecollection` 删除 PersistentVolumeClaim 的集合
+
 #### HTTP 请求
+
 DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
 
 <!--
 #### Parameters
+
 - **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
 - **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
 - **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
 - **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
 - **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
 - **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
 - **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 #### 参数
+
 - **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
@@ -1141,6 +1540,10 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 
@@ -1178,6 +1581,7 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized

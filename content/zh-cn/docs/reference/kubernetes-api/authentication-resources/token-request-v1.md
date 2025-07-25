@@ -25,6 +25,7 @@ auto_generated: true
 `import "k8s.io/api/authentication/v1"`
 
 ## TokenRequest {#TokenRequest}
+
 <!--
 TokenRequest requests a token for a given service account.
 -->
@@ -60,6 +61,7 @@ TokenRequest 为给定的服务账号请求一个令牌。
   status 由服务器填充，表示该令牌是否可用于身份认证。
 
 ## TokenRequestSpec {#TokenRequestSpec}
+
 <!--
 TokenRequestSpec contains client provided parameters of a token request.
 -->
@@ -70,10 +72,14 @@ TokenRequestSpec 包含客户端提供的令牌请求参数。
 <!--
 - **audiences** ([]string), required
 
+  *Atomic: will be replaced during a merge*
+
   Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 -->
 - **audiences** ([]string)，必需
-  
+
+  **原子：将在合并期间被替换**
+
   audiences 是令牌预期的受众。
   令牌的接收方必须在令牌的受众列表中用一个标识符来标识自己，否则应拒绝该令牌。
   为多个受众签发的令牌可用于认证所列举的任意受众的身份，但这意味着目标受众彼此之间的信任程度较高。
@@ -106,6 +112,7 @@ TokenRequestSpec 包含客户端提供的令牌请求参数。
   - **boundObjectRef.uid** (string)
     UID of the referent.
   -->
+
   - **boundObjectRef.apiVersion** (string)
 
     引用对象的 API 版本。
@@ -132,6 +139,7 @@ TokenRequestSpec 包含客户端提供的令牌请求参数。
   令牌签发方可能返回一个生效期不同的令牌，因此客户端需要检查响应中的 “expiration” 字段。
 
 ## TokenRequestStatus {#TokenRequestStatus}
+
 <!--
 TokenRequestStatus is the result of a token request.
 -->
@@ -167,10 +175,13 @@ TokenRequestStatus 是一个令牌请求的结果。
 #### HTTP Request
 -->
 ## 操作 {#Operations}
+
 <hr>
 
 ### `create` 创建 ServiceAccount 的令牌
+
 #### HTTP 请求
+
 POST /api/v1/namespaces/{namespace}/serviceaccounts/{name}/token
 
 <!--
@@ -185,6 +196,7 @@ POST /api/v1/namespaces/{namespace}/serviceaccounts/{name}/token
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
   TokenRequest 的名称
@@ -215,6 +227,7 @@ POST /api/v1/namespaces/{namespace}/serviceaccounts/{name}/token
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../authentication-resources/token-request-v1#TokenRequest" >}}">TokenRequest</a>): OK
 
 201 (<a href="{{< ref "../authentication-resources/token-request-v1#TokenRequest" >}}">TokenRequest</a>): Created
@@ -222,4 +235,3 @@ POST /api/v1/namespaces/{namespace}/serviceaccounts/{name}/token
 202 (<a href="{{< ref "../authentication-resources/token-request-v1#TokenRequest" >}}">TokenRequest</a>): Accepted
 
 401: Unauthorized
-

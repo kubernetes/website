@@ -6,10 +6,10 @@
   {{ range where .Site.Pages "Section" "releases" }}
     {{ if not .IsNode }}
       <div class="entry">
-        <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
+        <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a> {{ T "page_deprecated" }}</h5>
       </div>
     {{ end }}
   {{ end }}
-</div>    
+</div>
 {{ end }}
 {{ end }}

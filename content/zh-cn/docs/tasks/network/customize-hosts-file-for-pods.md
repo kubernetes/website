@@ -4,7 +4,6 @@ content_type: task
 weight: 60
 min-kubernetes-server-version: 1.7
 ---
-
 <!--
 reviewers:
 - rickypai
@@ -20,14 +19,18 @@ min-kubernetes-server-version: 1.7
 <!--
 Adding entries to a Pod's `/etc/hosts` file provides Pod-level override of hostname resolution when DNS and other options are not applicable. You can add these custom entries with the HostAliases field in PodSpec.
 
-Modification not using HostAliases is not suggested because the file is managed by the kubelet and can be overwritten on during Pod creation/restart.
+The Kubernetes project recommends modifying DNS configuration using the `hostAliases` field
+(part of the `.spec` for a Pod), and not by using an init container or other means to edit `/etc/hosts`
+directly.
+Change made in other ways may be overwritten by the kubelet during Pod creation or restart.
 -->
 当 DNS 配置以及其它选项不合理的时候，通过向 Pod 的 `/etc/hosts` 文件中添加条目，
 可以在 Pod 级别覆盖对主机名的解析。你可以通过 PodSpec 的 HostAliases
 字段来添加这些自定义条目。
 
-建议通过使用 HostAliases 来进行修改，因为该文件由 Kubelet 管理，并且
-可以在 Pod 创建/重启过程中被重写。
+Kubernetes 项目建议使用 `hostAliases` 字段（Pod `.spec` 的一部分）来修改 DNS 配置，
+而不是通过使用 Init 容器或其他方式直接编辑 `/etc/hosts`。
+以其他方式所做的更改可能会在 Pod 创建或重启过程中被 kubelet 重写。
 
 <!-- steps -->
 
@@ -36,7 +39,7 @@ Modification not using HostAliases is not suggested because the file is managed 
 
 Start an Nginx Pod which is assigned a Pod IP:
 -->
-## 默认 hosts 文件内容
+## 默认 hosts 文件内容   {#default-hosts-file-content}
 
 让我们从一个 Nginx Pod 开始，该 Pod 被分配一个 IP：
 
@@ -65,7 +68,7 @@ nginx    1/1       Running   0          13s    10.200.0.4   worker0
 <!--
 The hosts file content would look like this:
 -->
-主机文件的内容如下所示：
+hosts 文件的内容如下所示：
 
 ```shell
 kubectl exec nginx -- cat /etc/hosts
@@ -97,7 +100,7 @@ For example: to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`
 `bar.remote` to `10.1.2.3`, you can configure HostAliases for a Pod under
 `.spec.hostAliases`:
 -->
-## 通过 HostAliases 增加额外条目
+## 通过 HostAliases 增加额外条目   {#adding-additional-entries-with-hostaliases}
 
 除了默认的样板内容，你可以向 `hosts` 文件添加额外的条目。
 例如，要将 `foo.local`、`bar.local` 解析为 `127.0.0.1`，

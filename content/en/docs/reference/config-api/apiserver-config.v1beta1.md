@@ -331,9 +331,11 @@ The claim's value must be a singular string.
 Same as the --oidc-username-claim and --oidc-username-prefix flags.
 If username.expression is set, the expression must produce a string value.
 If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
-username.expression or extra[<em>].valueExpression or claimValidationRules[</em>].expression.
+username.expression or extra[&ast;].valueExpression or claimValidationRules[&ast;].expression.
 An example claim validation rule expression that matches the validation automatically
-applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.</p>
+applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'. By explicitly comparing
+the value to true, we let type-checking see the result will be a boolean, and to make sure a non-boolean email_verified
+claim will be caught at runtime.</p>
 <p>In the flag based approach, the --oidc-username-claim and --oidc-username-prefix are optional. If --oidc-username-claim is not set,
 the default value is &quot;sub&quot;. For the authentication config, there is no defaulting for claim or prefix. The claim and prefix must be set explicitly.
 For claim, if --oidc-username-claim was not set with legacy flag approach, configure username.claim=&quot;sub&quot; in the authentication config.
@@ -1197,6 +1199,14 @@ Required, if connectionInfo.Type is KubeConfig</p>
 CEL expressions have access to the contents of the SubjectAccessReview in v1 version.
 If version specified by subjectAccessReviewVersion in the request variable is v1beta1,
 the contents would be converted to the v1 version before evaluating the CEL expression.</p>
+<ul>
+<li>'resourceAttributes' describes information for a resource access request and is unset for non-resource requests. e.g. has(request.resourceAttributes) &amp;&amp; request.resourceAttributes.namespace == 'default'</li>
+<li>'nonResourceAttributes' describes information for a non-resource access request and is unset for resource requests. e.g. has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'.</li>
+<li>'user' is the user to test for. e.g. request.user == 'alice'</li>
+<li>'groups' is the groups to test for. e.g. ('group1' in request.groups)</li>
+<li>'extra' corresponds to the user.Info.GetExtra() method from the authenticator.</li>
+<li>'uid' is the information about the requesting user. e.g. request.uid == '1'</li>
+</ul>
 <p>Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/</p>
 </td>
 </tr>

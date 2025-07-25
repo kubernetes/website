@@ -616,7 +616,7 @@ kubectl get service hostnames -o json
 * 端口的 `protocol` 和 Pod 的是否对应？
 
 <!--
-## Does the Service have any Endpoints?
+## Does the Service have any EndpointSlices?
 
 If you got this far, you have confirmed that your Service is correctly
 defined and is resolved by DNS.  Now let's check that the Pods you ran are
@@ -624,7 +624,7 @@ actually being selected by the Service.
 
 Earlier you saw that the Pods were running.  You can re-check that:
 -->
-## Service 有 Endpoints 吗？  {#does-the-service-have-any-endpoints}
+## Service 有 EndpointSlices 吗？  {#does-the-service-have-any-endpoints}
 
 如果你已经走到了这一步，你已经确认你的 Service 被正确定义，并能通过 DNS 解析。
 现在，让我们检查一下，你运行的 Pod 确实是被 Service 选中的。
@@ -658,26 +658,26 @@ restarted.  Frequent restarts could lead to intermittent connectivity issues.
 If the restart count is high, read more about how to [debug pods](/docs/tasks/debug/debug-application/debug-pods).
 
 Inside the Kubernetes system is a control loop which evaluates the selector of
-every Service and saves the results into a corresponding Endpoints object.
+every Service and saves the results into a corresponding EndpointSlice object.
 -->
 "RESTARTS" 列表明 Pod 没有经常崩溃或重启。经常性崩溃可能导致间歇性连接问题。
 如果重启次数过大，通过[调试 Pod](/zh-cn/docs/tasks/debug/debug-application/debug-pods)
 了解相关技术。
 
 在 Kubernetes 系统中有一个控制回路，它评估每个 Service 的选择算符，并将结果保存到
-Endpoints 对象中。
+EndpointSlice 对象中。
 
 ```shell
-kubectl get endpoints hostnames
+kubectl get endpointslices -l k8s.io/service-name=hostnames
 ```
 
 ```
-NAME        ENDPOINTS
-hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
+NAME              ADDRESSTYPE   PORTS   ENDPOINTS
+hostnames-ytpni   IPv4          9376    10.244.0.5,10.244.0.6,10.244.0.7
 ```
 
 <!--
-This confirms that the endpoints controller has found the correct Pods for
+This confirms that the EndpointSlice controller has found the correct Pods for
 your Service.  If the `ENDPOINTS` column is `<none>`, you should check that
 the `spec.selector` field of your Service actually selects for
 `metadata.labels` values on your Pods.  A common mistake is to have a typo or
@@ -685,7 +685,7 @@ other error, such as the Service selecting for `app=hostnames`, but the
 Deployment specifying `run=hostnames`, as in versions previous to 1.18, where
 the `kubectl run` command could have been also used to create a Deployment.
 -->
-这证实 Endpoints 控制器已经为你的 Service 找到了正确的 Pods。
+这证实 EndpointSlice 控制器已经为你的 Service 找到了正确的 Pods。
 如果 `ENDPOINTS` 列的值为 `<none>`，则应检查 Service 的 `spec.selector` 字段，
 以及你实际想选择的 Pod 的 `metadata.labels` 的值。
 常见的错误是输入错误或其他错误，例如 Service 想选择 `app=hostnames`，但是
@@ -737,7 +737,7 @@ hostnames-632524106-tlaok
 ```
 
 <!--
-You expect each Pod in the Endpoints list to return its own hostname.  If
+You expect each Pod in the endpoints list to return its own hostname.  If
 this is not what happens (or whatever the correct behavior is for your own
 Pods), you should investigate what's happening there.
 -->
@@ -747,7 +747,7 @@ Pods), you should investigate what's happening there.
 <!--
 ## Is the kube-proxy working?
 
-If you get here, your Service is running, has Endpoints, and your Pods
+If you get here, your Service is running, has EndpointSlices, and your Pods
 are actually serving.  At this point, the whole Service proxy mechanism is
 suspect.  Let's confirm it, piece by piece.
 
@@ -759,7 +759,7 @@ will have to investigate whatever implementation of Services you are using.
 -->
 ## kube-proxy 正常工作吗？  {#is-the-kube-proxy-working}
 
-如果你到达这里，则说明你的 Service 正在运行，拥有 Endpoints，Pod 真正在提供服务。
+如果你到达这里，则说明你的 Service 正在运行，拥有 EndpointSlices，Pod 真正在提供服务。
 此时，整个 Service 代理机制是可疑的。让我们一步一步地确认它没问题。
 
 Service 的默认实现（在大多数集群上应用的）是 kube-proxy。
@@ -811,20 +811,8 @@ I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/ku
 <!--
 If you see error messages about not being able to contact the master, you
 should double-check your Node configuration and installation steps.
-
-One of the possible reasons that `kube-proxy` cannot run correctly is that the
-required `conntrack` binary cannot be found. This may happen on some Linux
-systems, depending on how you are installing the cluster, for example, you are
-installing Kubernetes from scratch. If this is the case, you need to manually
-install the `conntrack` package (e.g. `sudo apt install conntrack` on Ubuntu)
-and then retry.
 -->
 如果你看到有关无法连接主节点的错误消息，则应再次检查节点配置和安装步骤。
-
-`kube-proxy` 无法正确运行的可能原因之一是找不到所需的 `conntrack` 二进制文件。
-在一些 Linux 系统上，这也是可能发生的，这取决于你如何安装集群，
-例如，你是手动开始一步步安装 Kubernetes。如果是这样的话，你需要手动安装
-`conntrack` 包（例如，在 Ubuntu 上使用 `sudo apt install conntrack`），然后重试。
 
 <!--
 Kube-proxy can run in one of a few modes.  In the log listed above, the
@@ -1048,7 +1036,7 @@ used and configured properly, you should see:
 ## Seek help
 
 If you get this far, something very strange is happening.  Your Service is
-running, has Endpoints, and your Pods are actually serving.  You have DNS
+running, has EndpointSlices, and your Pods are actually serving.  You have DNS
 working, and `kube-proxy` does not seem to be misbehaving.  And yet your
 Service is not working.  Please let us know what is going on, so we can help
 investigate!
@@ -1060,7 +1048,7 @@ Contact us on
 -->
 ## 寻求帮助  {#seek-help}
 
-如果你走到这一步，那么就真的是奇怪的事情发生了。你的 Service 正在运行，有 Endpoints 存在，
+如果你走到这一步，那么就真的是奇怪的事情发生了。你的 Service 正在运行，有 EndpointSlices 存在，
 你的 Pods 也确实在提供服务。你的 DNS 正常，`iptables` 规则已经安装，`kube-proxy` 看起来也正常。
 然而 Service 还是没有正常工作。这种情况下，请告诉我们，以便我们可以帮助调查！
 

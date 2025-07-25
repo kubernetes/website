@@ -52,7 +52,7 @@ allocation to Pods. This is similar to how you can reserve CPU, memory, or other
 resources for use by the operating system and other facilities outside of Pods
 and their containers.
 
-PID limiting is a an important sibling to [compute
+PID limiting is an important sibling to [compute
 resource](/docs/concepts/configuration/manage-resources-containers/) requests
 and limits. However, you specify it in a different way: rather than defining a
 Pod's resource limit in the `.spec` for a Pod, you configure the limit as a

@@ -42,7 +42,7 @@ There are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2
 script **doesn't work** correctly with bash-completion v1 and Bash 3.2.
 It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to
 correctly use kubectl completion on macOS, you have to install and use
-Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)).
+Bash 4.1+ ([*instructions*](https://apple.stackexchange.com/a/292760)).
 The following instructions assume that you use Bash 4.1+
 (that is, any Bash version of 4.1 or newer).
 -->
@@ -50,7 +50,7 @@ bash-completion 有两个版本：v1 和 v2。v1 对应 Bash 3.2（也是 macOS 
 v2 对应 Bash 4.1+。kubectl 的补全脚本**无法适配** bash-completion v1 和 Bash 3.2。
 必须为它配备 **bash-completion v2** 和 **Bash 4.1+**。
 有鉴于此，为了在 macOS 上使用 kubectl 补全功能，你必须要安装和使用 Bash 4.1+
-（[**说明**](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)）。
+（[**说明**](https://apple.stackexchange.com/a/292760)）。
 后续说明假定你用的是 Bash 4.1+（也就是 Bash 4.1 或更新的版本）。
 {{< /warning >}}
 

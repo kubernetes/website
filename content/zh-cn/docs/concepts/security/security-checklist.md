@@ -65,7 +65,7 @@ evaluated on its merits.
 - [ ] The [Role Based Access Control Good Practices](/docs/concepts/security/rbac-good-practices/)
   are followed for guidance related to authentication and authorization.
 -->
-## 认证和鉴权 {#authentication-authorization}
+## 身份验证和鉴权 {#authentication-authorization}
 
 - [ ] 在启动后 `system:masters` 组不用于用户或组件的身份验证。
 - [ ] kube-controller-manager 运行时要启用 `--use-service-account-credentials` 参数。
@@ -89,7 +89,7 @@ an admin user.
 <!--
 ## Network security
 
-- [ ] CNI plugins in-use supports network policies.
+- [ ] CNI plugins in use support network policies.
 - [ ] Ingress and egress network policies are applied to all workloads in the
   cluster.
 - [ ] Default network policies within each namespace, selecting all pods, denying
@@ -115,16 +115,15 @@ plugins provide the functionality to
 restrict network resources that pods may communicate with. This is most commonly done
 through [Network Policies](/docs/concepts/services-networking/network-policies/)
 which provide a namespaced resource to define rules. Default network policies
-blocking everything egress and ingress, in each namespace, selecting all the
-pods, can be useful to adopt an allow list approach, ensuring that no workloads
-is missed.
+that block all egress and ingress, in each namespace, selecting all pods, can be
+useful to adopt an allow list approach to ensure that no workloads are missed.
 -->
 许多[容器网络接口（Container Network Interface，CNI）插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)提供了限制
 Pod 可能与之通信的网络资源的功能。
 这种限制通常通过[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)来完成，
 网络策略提供了一种名字空间作用域的资源来定义规则。
 在每个名字空间中，默认的网络策略会阻塞所有的出入站流量，并选择所有 Pod，
-采用允许列表的方法很有用，可以确保不遗漏任何工作负载。
+这种采用允许列表的方法很有用，可以确保不遗漏任何工作负载。
 
 <!--
 Not all CNI plugins provide encryption in transit. If the chosen plugin lacks this
@@ -145,12 +144,12 @@ should be unique to etcd.
 
 <!--
 External Internet access to the Kubernetes API server should be restricted to
-not expose the API publicly. Be careful as many managed Kubernetes distribution
+not expose the API publicly. Be careful, as many managed Kubernetes distributions
 are publicly exposing the API server by default. You can then use a bastion host
 to access the server.
 
 The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) API access
-should be restricted and not publicly exposed, the defaults authentication and
+should be restricted and not exposed publicly, the default authentication and
 authorization settings, when no configuration file specified with the `--config`
 flag, are overly permissive.
 -->
@@ -383,8 +382,8 @@ SELinux 仅在 Linux 节点上可用，
 -->
 ## Pod 布局 {#pod-placement}
 
-- [ ] Pod 布局是根据应用程序的敏感级别来完成的。
-- [ ] 敏感应用程序在节点上隔离运行或使用特定的沙箱运行时运行。
+- [ ] Pod 布局是根据应用的敏感级别来完成的。
+- [ ] 敏感应用在节点上隔离运行或使用特定的沙箱运行时运行。
 
 <!--
 Pods that are on different tiers of sensitivity, for example, an application pod
@@ -395,8 +394,8 @@ pivot within the cluster. This separation should be enforced to prevent pods
 accidentally being deployed onto the same node. This could be enforced with the
 following features:
 -->
-处于不同敏感级别的 Pod，例如，应用程序 Pod 和 Kubernetes API 服务器，应该部署到不同的节点上。
-节点隔离的目的是防止应用程序容器的逃逸，进而直接访问敏感度更高的应用，
+处于不同敏感级别的 Pod，例如，应用程序 Pod 和 Kubernetes API 服务器应该被部署到不同的节点上。
+节点隔离的目的是防止应用容器的逃逸，进而直接访问敏感度更高的应用，
 甚至轻松地改变集群工作机制。
 这种隔离应该被强制执行，以防止 Pod 集合被意外部署到同一节点上。
 可以通过以下功能实现：
@@ -437,7 +436,7 @@ overhead.
 : RuntimeClass 是一个用于选择容器运行时配置的特性，容器运行时配置用于运行 Pod 中的容器，
   并以性能开销为代价提供或多或少的主机隔离能力。
 
-## Secrets {#secrets}
+## Secret {#secrets}
 
 <!--
 - [ ] ConfigMaps are not used to hold confidential data.
@@ -591,20 +590,20 @@ Production.
 - [ ] 保证准入链插件和 Webhook 的配置都是安全的。
 
 <!--
-Admission controllers can help to improve the security of the cluster. However,
+Admission controllers can help improve the security of the cluster. However,
 they can present risks themselves as they extend the API server and
 [should be properly secured](/blog/2022/01/19/secure-your-admission-controllers-and-webhooks/).
 -->
 准入控制器可以帮助提高集群的安全性。
 然而，由于它们是对 API 服务器的扩展，其自身可能会带来风险，
-所以它们[应该得到适当的保护](/blog/2022/01/19/secure-your-admission-controllers-and-webhooks/)。
+所以它们[应该得到适当的保护](/zh-cn/blog/2022/01/19/secure-your-admission-controllers-and-webhooks/)。
 
 <!--
 The following lists present a number of admission controllers that could be
 considered to enhance the security posture of your cluster and application. It
 includes controllers that may be referenced in other parts of this document.
 -->
-下面列出了一些准入控制器，可以考虑用这些控制器来增强集群和应用程序的安全状况。
+下面列出了一些准入控制器，可以考虑用这些控制器来增强集群和应用的安全状况。
 列表中包括了可能在本文档其他部分曾提及的控制器。
 
 <!--
@@ -641,7 +640,7 @@ attribute') of `system:masters`.
 
 <!--
 [`LimitRanger`](/docs/reference/access-authn-authz/admission-controllers/#limitranger)
-: Enforce the LimitRange API constraints.
+: Enforces the LimitRange API constraints.
 -->
 [`LimitRanger`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#limitranger)
 : 强制执行 LimitRange API 约束。
@@ -649,10 +648,10 @@ attribute') of `system:masters`.
 <!--
 [`MutatingAdmissionWebhook`](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
 : Allows the use of custom controllers through webhooks, these controllers may
-mutate requests that it reviews.
+mutate requests that they review.
 -->
 [`MutatingAdmissionWebhook`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
-: 允许通过 Webhook 使用自定义控制器，这些控制器可能会变更它所审查的请求。
+: 允许通过 Webhook 使用自定义控制器，这些控制器可能会变更它们所审查的请求。
 
 <!--
 [`PodSecurity`](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
@@ -678,8 +677,8 @@ not mutate requests that it reviews.
 : 允许通过 Webhook 使用自定义控制器，这些控制器不变更它所审查的请求。
 
 <!--
-The second group includes plugin that are not enabled by default but in general
-availability state and recommended to improve your security posture:
+The second group includes plugins that are not enabled by default but are in general
+availability state and are recommended to improve your security posture:
 -->
 第二组包括默认情况下没有启用、但处于正式发布状态的插件，建议启用这些插件以改善你的安全状况：
 

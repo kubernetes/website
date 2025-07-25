@@ -6,6 +6,7 @@ spec:
   containers:
   - name: busybox-cnt01
     image: busybox:1.28
+    command: ["sleep", "3600"]
     resources:
       limits:
         memory: "300Mi"

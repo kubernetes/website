@@ -14,13 +14,12 @@ weight: 30
 
 <!-- overview -->
 <!--
-This command initializes a Kubernetes worker node and joins it to the cluster.
+This command initializes a new Kubernetes node and joins it to the cluster.
 -->
-此命令用来初始化 Kubernetes 工作节点并将其加入集群。
-
+此命令用来初始化新的 Kubernetes 节点并将其加入集群。
 
 <!-- body -->
-{{< include "generated/kubeadm_join.md" >}}
+{{< include "generated/kubeadm_join/_index.md" >}}
 
 <!--
 ### The join workflow {#join-workflow}
@@ -183,7 +182,7 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 <!--
 **Example `kubeadm join` commands:**
 -->
-**`kubeadm join` 命令示例**
+**`kubeadm join` 命令示例：**
 
 <!--
 For worker nodes:
@@ -365,7 +364,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 #### 将自定义 kubelet 凭据与 `kubeadm join` 结合使用
 
 <!--
-To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
+To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap
 and CSR approval for a new node:
 -->
 要允许 `kubeadm join` 使用预定义的 kubelet 凭据并跳过客户端 TLS 引导程序和新节点的 CSR 批准：
@@ -477,9 +476,9 @@ After that, `kubeadm join` will block until the admin has manually approved the 
    ```
 
 <!--
-3. This would change the CRS resource to Active state.
+3. This would change the CSR resource to Active state.
 -->
-3. 这会将 CRS 资源更改为 Active 状态。
+3. 这会将 CSR 资源更改为 Active 状态。
 
    ```shell
    kubectl get csr
@@ -603,10 +602,10 @@ the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/
 
 <!--
 For more information on the fields and usage of the configuration you can navigate to our
-[API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[API reference](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
 有关配置的字段和用法的更多信息，你可以导航到我们的
-[API 参考页](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
+[API 参考页](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 ## {{% heading "whatsnext" %}}
 

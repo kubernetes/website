@@ -38,7 +38,7 @@ Kubernetes 文档的这一部分包含教程。
 -->
 ## 基础知识  {#basics}
 
-* [Kubernetes 基础知识](/zh-cn/docs/tutorials/Kubernetes-Basics/)
+* [Kubernetes 基础知识](/zh-cn/docs/tutorials/kubernetes-basics/)
   是一个深入的交互式教程，帮助你理解 Kubernetes 系统，并尝试一些基本的 Kubernetes 特性。
 * [Kubernetes 介绍 (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 * [你好 Minikube](/zh-cn/docs/tutorials/hello-minikube/)
@@ -46,13 +46,20 @@ Kubernetes 文档的这一部分包含教程。
 <!--
 ## Configuration
 
-* [Example: Configuring a Java Microservice](/docs/tutorials/configuration/configure-java-microservice/)
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 -->
 ## 配置  {#configuration}
 
-* [示例：配置 Java 微服务](/zh-cn/docs/tutorials/configuration/configure-java-microservice/)
 * [使用 ConfigMap 配置 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
+
+<!--
+## Authoring Pods
+
+* [Adopting Sidecar Containers](/docs/tutorials/configuration/pod-sidecar-containers/)
+-->
+## 构造 Pod
+
+* [采用 Sidecar 容器](/zh-cn/docs/tutorials/configuration/pod-sidecar-containers/)
 
 <!--
 ## Stateless Applications
@@ -105,6 +112,15 @@ Kubernetes 文档的这一部分包含教程。
 * [在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss/)
 * [使用 AppArmor 限制容器对资源的访问](/zh-cn/docs/tutorials/security/apparmor/)
 * [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)
+
+<!--
+## Cluster Management
+
+* [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
+-->
+## 集群管理
+
+* [以独立模式运行 kubelet](/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/)
 
 ## {{% heading "whatsnext" %}}
 

@@ -63,6 +63,8 @@ ClusterRoleBinding references a ClusterRole, but not contain it.  It can referen
 
 - **subjects** ([]Subject)
 
+  *Atomic: will be replaced during a merge*
+  
   Subjects holds references to the objects the role applies to.
 
   <a name="Subject"></a>
@@ -405,6 +407,11 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -458,6 +465,11 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

@@ -7,7 +7,7 @@ spec:
     runAsUser: 1000
   containers:
   - name: sec-ctx-demo-2
-    image: gcr.io/google-samples/node-hello:1.0
+    image: gcr.io/google-samples/hello-app:2.0
     securityContext:
       runAsUser: 2000
       allowPrivilegeEscalation: false

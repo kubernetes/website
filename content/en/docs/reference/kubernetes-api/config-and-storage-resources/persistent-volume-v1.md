@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PersistentVolume (PV) is a storage resource provisioned by an administrator."
 title: "PersistentVolume"
-weight: 5
+weight: 7
 auto_generated: true
 ---
 
@@ -62,6 +62,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **accessModes** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -74,6 +76,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **mountOptions** ([]string)
 
+  *Atomic: will be replaced during a merge*
+  
   mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 
 - **nodeAffinity** (VolumeNodeAffinity)
@@ -92,6 +96,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
     - **nodeAffinity.required.nodeSelectorTerms** ([]NodeSelectorTerm), required
 
+      *Atomic: will be replaced during a merge*
+      
       Required. A list of node selector terms. The terms are ORed.
 
       <a name="NodeSelectorTerm"></a>
@@ -99,10 +105,14 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
       - **nodeAffinity.required.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         A list of node selector requirements by node's labels.
 
       - **nodeAffinity.required.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         A list of node selector requirements by node's fields.
 
 - **persistentVolumeReclaimPolicy** (string)
@@ -112,6 +122,10 @@ PersistentVolumeSpec is the specification of a persistent volume.
 - **storageClassName** (string)
 
   storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+
+- **volumeAttributesClassName** (string)
+
+  Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
 
 - **volumeMode** (string)
 
@@ -142,7 +156,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
   local represents directly-attached storage with node affinity
 
   <a name="LocalVolumeSource"></a>
-  *Local represents directly-attached storage with node affinity (Beta feature)*
+  *Local represents directly-attached storage with node affinity*
 
   - **local.path** (string), required
 
@@ -157,7 +171,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   *Represents a Persistent Disk resource in AWS.
@@ -182,7 +196,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 
   <a name="AzureDiskVolumeSource"></a>
   *AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.*
@@ -213,7 +227,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **azureFile** (AzureFilePersistentVolumeSource)
 
-  azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+  azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 
   <a name="AzureFilePersistentVolumeSource"></a>
   *AzureFile represents an Azure File Service mount on the host and bind mount to the pod.*
@@ -236,13 +250,15 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **cephfs** (CephFSPersistentVolumeSource)
 
-  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 
   <a name="CephFSPersistentVolumeSource"></a>
   *Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.*
 
   - **cephfs.monitors** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.path** (string)
@@ -278,7 +294,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **cinder** (CinderPersistentVolumeSource)
 
-  cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderPersistentVolumeSource"></a>
   *Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.*
@@ -312,10 +328,10 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **csi** (CSIPersistentVolumeSource)
 
-  csi represents storage that is handled by an external CSI driver (Beta feature).
+  csi represents storage that is handled by an external CSI driver.
 
   <a name="CSIPersistentVolumeSource"></a>
-  *Represents storage that is managed by an external CSI volume driver (Beta feature)*
+  *Represents storage that is managed by an external CSI volume driver*
 
   - **csi.driver** (string), required
 
@@ -361,7 +377,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -433,15 +449,19 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **fc.targetWWNs** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     targetWWNs is Optional: FC target worldwide names (WWNs)
 
   - **fc.wwids** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 
 - **flexVolume** (FlexPersistentVolumeSource)
 
-  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 
   <a name="FlexPersistentVolumeSource"></a>
   *FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.*
@@ -479,7 +499,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **flocker** (FlockerVolumeSource)
 
-  flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+  flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 
   <a name="FlockerVolumeSource"></a>
   *Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.*
@@ -494,7 +514,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
-  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
   *Represents a Persistent Disk resource in Google Compute Engine.
@@ -519,7 +539,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **glusterfs** (GlusterfsPersistentVolumeSource)
 
-  glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+  glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsPersistentVolumeSource"></a>
   *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
@@ -581,6 +601,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **iscsi.portals** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 
   - **iscsi.readOnly** (boolean)
@@ -623,7 +645,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
-  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   *Represents a Photon Controller persistent disk resource.*
@@ -638,7 +660,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
@@ -657,7 +679,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **quobyte** (QuobyteVolumeSource)
 
-  quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+  quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 
   <a name="QuobyteVolumeSource"></a>
   *Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.*
@@ -688,7 +710,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **rbd** (RBDPersistentVolumeSource)
 
-  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDPersistentVolumeSource"></a>
   *Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.*
@@ -699,6 +721,8 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **rbd.monitors** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.fsType** (string)
@@ -738,7 +762,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **scaleIO** (ScaleIOPersistentVolumeSource)
 
-  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 
   <a name="ScaleIOPersistentVolumeSource"></a>
   *ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume*
@@ -796,7 +820,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **storageos** (StorageOSPersistentVolumeSource)
 
-  storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+  storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
 
   <a name="StorageOSPersistentVolumeSource"></a>
   *Represents a StorageOS persistent volume resource.*
@@ -823,7 +847,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
-  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   *Represents a vSphere volume resource.*
@@ -854,7 +878,7 @@ PersistentVolumeStatus is the current status of a persistent volume.
 
 - **lastPhaseTransitionTime** (Time)
 
-  lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+  lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions.
 
   <a name="Time"></a>
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
@@ -1325,6 +1349,11 @@ DELETE /api/v1/persistentvolumes/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -1378,6 +1407,11 @@ DELETE /api/v1/persistentvolumes
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

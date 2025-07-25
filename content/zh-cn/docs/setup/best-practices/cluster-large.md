@@ -2,7 +2,6 @@
 title: 大规模集群的注意事项
 weight: 10
 ---
-
 <!-- 
 reviewers:
 - davidopp
@@ -18,11 +17,10 @@ or virtual machines) running Kubernetes agents, managed by the
 Kubernetes {{< param "version" >}} supports clusters with up to 5,000 nodes. More specifically,
 Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
 -->
-集群是运行 Kubernetes 代理的、
-由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}管理的一组
-{{< glossary_tooltip text="节点" term_id="node" >}}（物理机或虚拟机）。
+集群包含多个运行着 Kubernetes 代理程序、
+由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}管理的一组{{< glossary_tooltip text="节点" term_id="node" >}}（物理机或虚拟机）。
 Kubernetes {{< param "version" >}} 单个集群支持的最大节点数为 5,000。
-更具体地说，Kubernetes 旨在适应满足以下**所有**标准的配置：
+更具体地说，Kubernetes 设计为满足以下**所有**标准的配置：
 
 <!--
 * No more than 110 pods per node
@@ -39,7 +37,7 @@ Kubernetes {{< param "version" >}} 单个集群支持的最大节点数为 5,000
 You can scale your cluster by adding or removing nodes. The way you do this depends
 on how your cluster is deployed.
 -->
-你可以通过添加或删除节点来扩展集群。集群扩缩的方式取决于集群的部署方式。
+你可以通过添加或删除节点来对集群扩缩容。集群扩缩容的方式取决于集群的部署方式。
 
 <!--  
 ## Cloud provider resource quotas {#quota-issues}
@@ -139,8 +137,8 @@ See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 for details on configuring and managing etcd for a large cluster.
 -->
 有关为大型集群配置和管理 etcd 的详细信息，
-请参阅[为 Kubernetes 运行 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
-和使用 [kubeadm 创建一个高可用 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
+请参阅[为 Kubernetes 运行 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)和使用
+[kubeadm 创建一个高可用 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 
 <!--
 ### Addon Resources
@@ -155,8 +153,9 @@ impact on other components. These resource limits apply to
 
 For example, you can set CPU and memory limits for a logging component:
 -->
-Kubernetes [资源限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
-有助于最大程度地减少内存泄漏的影响以及 Pod 和容器可能对其他组件的其他方式的影响。
+Kubernetes
+[资源限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)有助于最大程度地减少内存泄漏的影响以及
+Pod 和容器可能对其他组件的其他方式的影响。
 这些资源限制适用于{{< glossary_tooltip text="插件" term_id="addons" >}}资源，
 就像它们适用于应用程序工作负载一样。
 
@@ -196,7 +195,7 @@ many nodes, consider the following:
   as you scale out your cluster.
 * Many addons scale horizontally - you add capacity by running more pods - but with
   a very large cluster you may also need to raise CPU or memory limits slightly.
-  The VerticalPodAutoscaler can run in _recommender_ mode to provide suggested
+  The [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) can run in _recommender_ mode to provide suggested
   figures for requests and limits.
 * Some addons run as one copy per node, controlled by a {{< glossary_tooltip text="DaemonSet"
   term_id="daemonset" >}}: for example, a node-level log aggregator. Similar to
@@ -209,8 +208,8 @@ many nodes, consider the following:
   对于这些附加组件，请在扩大集群时加大资源请求和资源限制。
 * 许多水平扩展插件 —— 你可以通过运行更多的 Pod 来增加容量——但是在大规模集群下，
   可能还需要稍微提高 CPU 或内存限制。
-  VerticalPodAutoscaler 可以在 **recommender** 模式下运行，
-  以提供有关请求和限制的建议数字。
+  [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
+  可以在 **recommender** 模式下运行，以提供有关请求和限制的建议数字。
 * 一些插件在每个节点上运行一个副本，并由 DaemonSet 控制：
   例如，节点级日志聚合器。与水平扩展插件的情况类似，
   你可能还需要稍微提高 CPU 或内存限制。
@@ -224,13 +223,13 @@ Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autosca
 and how you can use it to scale cluster
 components, including cluster-critical addons.
 
-* Read about [cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/)
+* Read about [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
 -->
 * `VerticalPodAutoscaler` 是一种自定义资源，你可以将其部署到集群中，帮助你管理 Pod 的资源请求和资源限制。
   了解有关 [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
   的更多信息，了解如何用它扩展集群组件（包括对集群至关重要的插件）的信息。
 
-* 阅读关于[集群自动扩缩容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)的信息。
+* 阅读关于[节点自动扩缩](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)的信息。
 
 <!-- 
 * The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)

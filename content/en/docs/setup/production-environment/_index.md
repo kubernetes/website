@@ -168,7 +168,7 @@ simply as *nodes*).
 - *Configure nodes*: Nodes can be physical or virtual machines. If you want to
   create and manage your own nodes, you can install a supported operating system,
   then add and run the appropriate
-  [Node services](/docs/concepts/overview/components/#node-components). Consider:
+  [Node services](/docs/concepts/architecture/#node-components). Consider:
   - The demands of your workloads when you set up nodes by having appropriate memory, CPU, and disk speed and storage capacity available.
   - Whether generic computer systems will do or you have workloads that need GPU processors, Windows nodes, or VM isolation.
 - *Validate nodes*: See [Valid node setup](/docs/setup/best-practices/node-conformance/)
@@ -183,7 +183,7 @@ simply as *nodes*).
   to help determine how many nodes you need, based on the number of pods and
   containers you need to run. If you are managing nodes yourself, this can mean
   purchasing and installing your own physical equipment.
-- *Autoscale nodes*: Read [Cluster Autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling) to learn about the
+- *Autoscale nodes*: Read [Node Autoscaling](/docs/concepts/cluster-administration/node-autoscaling) to learn about the
   tools available to automatically manage your nodes and the capacity they
   provide.
 - *Set up node health checks*: For important workloads, you want to make sure
@@ -232,7 +232,7 @@ As someone setting up authentication and authorization on your production Kubern
 
 - *Set the authorization mode*: When the Kubernetes API server
   ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))
-  starts, the supported authentication modes must be set using the *--authorization-mode*
+  starts, supported authorization modes must be set using an *--authorization-config* file or the *--authorization-mode*
   flag. For example, that flag in the *kube-adminserver.yaml* file (in */etc/kubernetes/manifests*)
   could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
 - *Create user certificates and role bindings (RBAC)*: If you are using RBAC
@@ -260,9 +260,7 @@ needs of your cluster's workloads:
 
 - *Set namespace limits*: Set per-namespace quotas on things like memory and CPU. See
   [Manage Memory, CPU, and API Resources](/docs/tasks/administer-cluster/manage-resources/)
-  for details. You can also set
-  [Hierarchical Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)
-  for inheriting limits.
+  for details.
 - *Prepare for DNS demand*: If you expect workloads to massively scale up,
   your DNS service must be ready to scale up as well. See
   [Autoscale the DNS service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).

@@ -6,8 +6,10 @@ weight: 20
 <!--
 reviewers:
 - davidopp
+- dom4ha
 - kevin-wangzefeng
-- alculquicondor
+- macsko
+- sanposhiho
 title: Assigning Pods to Nodes
 content_type: concept
 weight: 20
@@ -30,8 +32,8 @@ or to co-locate Pods from two different services that communicate a lot into the
 -->
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 以便**限制**其只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行，
-或优先在特定的节点上运行。有几种方法可以实现这点，推荐的方法都是用
-[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
+或优先在特定的节点上运行。有几种方法可以实现这点，
+推荐的方法都是用[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
 通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 Pod 分散到节点上，
 而不是将 Pod 放置在可用资源不足的节点上等等）。但在某些情况下，你可能需要进一步控制
 Pod 被部署到哪个节点。例如，确保 Pod 最终落在连接了 SSD 的机器上，
@@ -151,7 +153,7 @@ information.
 ## Affinity and anti-affinity
 
 `nodeSelector` is the simplest way to constrain Pods to nodes with specific
-labels. Affinity and anti-affinity expands the types of constraints you can
+labels. Affinity and anti-affinity expand the types of constraints you can
 define. Some of the benefits of affinity and anti-affinity include:
 -->
 ## 亲和性与反亲和性  {#affinity-and-anti-affinity}
@@ -231,6 +233,7 @@ your Pod spec.
 For example, consider the following Pod spec:
 -->
 你可以使用 Pod 规约中的 `.spec.affinity.nodeAffinity` 字段来设置节点亲和性。
+
 例如，考虑下面的 Pod 规约：
 
 {{% code_sample file="pods/pod-with-node-affinity.yaml" %}}
@@ -376,7 +379,7 @@ in the [scheduler configuration](/docs/reference/scheduling/config/). For exampl
 `args` 字段添加 `addedAffinity`。例如：
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -430,22 +433,26 @@ DaemonSet 控制器创建 Pod 时，默认的 Kubernetes 调度器负责放置 P
 ### Inter-pod affinity and anti-affinity
 
 Inter-pod affinity and anti-affinity allow you to constrain which nodes your
-Pods can be scheduled on based on the labels of **Pods** already running on that
+Pods can be scheduled on based on the labels of Pods already running on that
 node, instead of the node labels.
 -->
 ### Pod 间亲和性与反亲和性  {#inter-pod-affinity-and-anti-affinity}
 
-Pod 间亲和性与反亲和性使你可以基于已经在节点上运行的 **Pod** 的标签来约束
+Pod 间亲和性与反亲和性使你可以基于已经在节点上运行的 Pod 的标签来约束
 Pod 可以调度到的节点，而不是基于节点上的标签。
 
 <!--
-Inter-pod affinity and anti-affinity rules take the form "this
+#### Types of Inter-pod Affinity and Anti-affinity
+
+Inter-pod affinity and anti-affinity take the form "this
 Pod should (or, in the case of anti-affinity, should not) run in an X if that X
 is already running one or more Pods that meet rule Y", where X is a topology
 domain like node, rack, cloud provider zone or region, or similar and Y is the
 rule Kubernetes tries to satisfy.
 -->
-Pod 间亲和性与反亲和性的规则格式为“如果 X 上已经运行了一个或多个满足规则 Y 的 Pod，
+#### Pod 间亲和性与反亲和性的类型
+
+Pod 间亲和性与反亲和性的格式为“如果 X 上已经运行了一个或多个满足规则 Y 的 Pod，
 则这个 Pod 应该（或者在反亲和性的情况下不应该）运行在 X 上”。
 这里的 X 可以是节点、机架、云提供商可用区或地理区域或类似的拓扑域，
 Y 则是 Kubernetes 尝试满足的规则。
@@ -494,13 +501,9 @@ Pod 反亲和性需要节点上存在一致性的标签。换言之，
 {{< /note >}}
 
 <!--
-#### Types of inter-pod affinity and anti-affinity
-
 Similar to [node affinity](#node-affinity) are two types of Pod affinity and
 anti-affinity as follows:
 -->
-#### Pod 间亲和性与反亲和性的类型
-
 与[节点亲和性](#node-affinity)类似，Pod 的亲和性与反亲和性也有两种类型：
 
 - `requiredDuringSchedulingIgnoredDuringExecution`
@@ -528,13 +531,54 @@ spec.
 对于 Pod 间反亲和性，可以使用 Pod 规约中的 `.affinity.podAntiAffinity` 字段。
 
 <!--
-#### Scheduling a group of pods with inter-pod affinity to themselves
+#### Scheduling Behavior
+
+When scheduling a new Pod, the Kubernetes scheduler evaluates the Pod's affinity/anti-affinity rules in the context of the current cluster state:
+
+1. Hard Constraints (Node Filtering):
+   - `podAffinity.requiredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`:
+     - The scheduler ensures the new Pod is assigned to nodes that satisfy these required affinity and anti-affinity rules based on existing Pods.
+-->
+#### 调度行为
+
+在调度新 Pod 时，Kubernetes 调度器会根据当前集群状态评估 Pod 的亲和性/反亲和性规则：
+
+1. 硬约束（节点过滤）：
+   - `podAffinity.requiredDuringSchedulingIgnoredDuringExecution` 和
+     `podAntiAffinity.requiredDuringSchedulingIgnoredDuringExecution`：
+     - 调度器基于现有 Pod，确保新 Pod 被分配到满足这些必需的亲和性和反亲和性规则的节点上。
+
+<!--
+2. Soft Constraints (Scoring):
+   - `podAffinity.preferredDuringSchedulingIgnoredDuringExecution` and `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
+     - The scheduler scores nodes based on how well they meet these preferred affinity and anti-affinity rules to optimize Pod placement.
+-->
+2. 软约束（评分）：
+   - `podAffinity.preferredDuringSchedulingIgnoredDuringExecution` 和
+     `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`：
+     - 调度器根据节点满足这些优选的亲和性和反亲和性规则的程度来评分，以优化 Pod 的放置。
+
+<!--
+3. Ignored Fields:
+   - Existing Pods' `podAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
+     - These preferred affinity rules are not considered during the scheduling decision for new Pods.
+   - Existing Pods' `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`:
+     - Similarly, preferred anti-affinity rules of existing Pods are ignored during scheduling.
+-->
+3. 忽略的字段：
+   - 现有 Pod 的 `podAffinity.preferredDuringSchedulingIgnoredDuringExecution`：
+     - 在为新 Pod 做调度决策时，不会考虑这些优选的亲和性规则。
+   - 现有 Pod 的 `podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution`：
+     - 同样，在调度时会忽略现有 Pod 的优选反亲和性规则。
+
+<!--
+#### Scheduling a Group of Pods with Inter-pod Affinity to Themselves
 
 If the current Pod being scheduled is the first in a series that have affinity to themselves,
 it is allowed to be scheduled if it passes all other affinity checks. This is determined by
-verifying that no other pod in the cluster matches the namespace and selector of this pod,
-that the pod matches its own terms, and the chosen node matches all requested topologies.
-This ensures that there will not be a deadlock even if all the pods have inter-pod affinity
+verifying that no other Pod in the cluster matches the namespace and selector of this Pod,
+that the Pod matches its own terms, and the chosen node matches all requested topologies.
+This ensures that there will not be a deadlock even if all the Pods have inter-pod affinity
 specified.
 -->
 #### 调度一组具有 Pod 间亲和性的 Pod   {#scheduling-a-group-of-pods-with-inter-pod-affinity-to-themselves}
@@ -546,7 +590,7 @@ specified.
 这确保即使所有的 Pod 都配置了 Pod 间亲和性，也不会出现调度死锁的情况。
 
 <!--
-#### Pod affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
+#### Pod Affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
 
 Consider the following Pod spec:
 -->
@@ -611,8 +655,7 @@ refer to the [design proposal](https://git.k8s.io/design-proposals-archive/sched
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 `operator` field for Pod affinity and anti-affinity.
 -->
-你可以针对 Pod 间亲和性与反亲和性为其 `operator` 字段使用 `In`、`NotIn`、`Exists`、
-`DoesNotExist` 等值。
+你可以针对 Pod 间亲和性与反亲和性为其 `operator` 字段使用 `In`、`NotIn`、`Exists`、`DoesNotExist` 等值。
 
 <!--
 Read [Operators](#operators)
@@ -656,7 +699,7 @@ affinity/anti-affinity definition appears.
 如果 `namespaces` 被忽略或者为空，则默认为 Pod 亲和性/反亲和性的定义所在的名字空间。
 
 <!--
-#### Namespace selector
+#### Namespace Selector
 -->
 #### 名字空间选择算符  {#namespace-selector}
 
@@ -679,32 +722,45 @@ null `namespaceSelector` matches the namespace of the Pod where the rule is defi
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
-<!-- UPDATE THIS WHEN PROMOTING TO BETA -->
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 <!--
-The `matchLabelKeys` field is an alpha-level field and is disabled by default in
+The `matchLabelKeys` field is a beta-level field and is enabled by default in
 Kubernetes {{< skew currentVersion >}}.
-When you want to use it, you have to enable it via the
+When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`matchLabelKeys` 字段是一个 Alpha 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
-当你想要使用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)启用它。
+`matchLabelKeys` 字段是一个 Beta 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被启用。
+当你想要禁用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
 
 <!--
 Kubernetes includes an optional `matchLabelKeys` field for Pod affinity
-or anti-affinity. The field specifies keys for the labels that should  match with the incoming Pod's labels,
+or anti-affinity. The field specifies keys for the labels that should match with the incoming Pod's labels,
 when satisfying the Pod (anti)affinity.
 
-The keys are used to look up values from the pod labels; those key-value labels are combined
+The keys are used to look up values from the Pod labels; those key-value labels are combined
 (using `AND`) with the match restrictions defined using the `labelSelector` field. The combined
-filtering selects the set of existing pods that will be taken into Pod (anti)affinity calculation.
+filtering selects the set of existing Pods that will be taken into Pod (anti)affinity calculation.
 -->
 Kubernetes 在 Pod 亲和性或反亲和性中包含一个可选的 `matchLabelKeys` 字段。
 此字段指定了应与传入 Pod 的标签匹配的标签键，以满足 Pod 的（反）亲和性。
 
-这些键用于从 Pod 的标签中查找值；这些键值标签与使用 `labelSelector` 字段定义的匹配限制组合（使用 `AND` 操作）。
+这些键用于从 Pod 的标签中查找值；这些键值标签与使用 `labelSelector`
+字段定义的匹配限制组合（使用 `AND` 操作）。
 这种组合的过滤机制选择将用于 Pod（反）亲和性计算的现有 Pod 集合。
+
+{{< caution >}}
+<!--
+It's not recommended to use `matchLabelKeys` with labels that might be updated directly on pods.
+Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**, (that is, not via a deployment),
+kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
+-->
+不建议在 `matchLabelKeys` 中使用可能会直接在 Pod 上更新的标签。  
+即使你编辑**直接**在 `matchLabelKeys` 中指定的 Pod 的标签
+（也就是说，不是通过 Deployment 进行更新），
+kube-apiserver 也不会将这种标签的更新反映到合并后的 `labelSelector` 上。
+{{< /caution >}}
 
 <!--
 A common use case is to use `matchLabelKeys` with `pod-template-hash` (set on Pods
@@ -718,9 +774,31 @@ to the same revision as the incoming Pod, so that a rolling upgrade won't break 
 确保滚动升级不会破坏亲和性。
 
 <!--
-# Only Pods from a given rollout are taken into consideration when calculating pod affinity.
-# If you update the Deployment, the replacement Pods follow their own affinity rules
-# (if there are any defined in the new Pod template)
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application-server
+...
+spec:
+  template:
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - database
+            topologyKey: topology.kubernetes.io/zone
+            # Only Pods from a given rollout are taken into consideration when calculating pod affinity.
+            # If you update the Deployment, the replacement Pods follow their own affinity rules
+            # (if there are any defined in the new Pod template)
+            matchLabelKeys:
+            - pod-template-hash
+```
 -->
 ```yaml
 apiVersion: apps/v1
@@ -753,29 +831,42 @@ spec:
 {{< feature-state feature_gate_name="MatchLabelKeysInPodAffinity" >}}
 
 {{< note >}}
-<!-- UPDATE THIS WHEN PROMOTING TO BETA -->
+<!-- UPDATE THIS WHEN PROMOTING TO STABLE -->
 <!--
-The `mismatchLabelKeys` field is an alpha-level field and is disabled by default in
+The `mismatchLabelKeys` field is an beta-level field and is disabled by default in
 Kubernetes {{< skew currentVersion >}}.
-When you want to use it, you have to enable it via the
+When you want to disable it, you have to disable it explicitly via the
 `MatchLabelKeysInPodAffinity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-`mismatchLabelKeys` 字段是一个 Alpha 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
-当你想要使用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)启用它。
+`mismatchLabelKeys` 字段是一个 Beta 级别的字段，在 Kubernetes {{< skew currentVersion >}} 中默认被禁用。
+当你想要禁用此字段时，你必须通过 `MatchLabelKeysInPodAffinity`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)禁用它。
 {{< /note >}}
 
 <!--
 Kubernetes includes an optional `mismatchLabelKeys` field for Pod affinity
-or anti-affinity. The field specifies keys for the labels that should **not** match with the incoming Pod's labels,
+or anti-affinity. The field specifies keys for the labels that should not match with the incoming Pod's labels,
 when satisfying the Pod (anti)affinity.
+-->
+Kubernetes 为 Pod 亲和性或反亲和性提供了一个可选的 `mismatchLabelKeys` 字段。
+此字段指定了在满足 Pod（反）亲和性时，不应与传入 Pod 的标签匹配的键。
 
+{{< caution >}}
+<!--
+It's not recommended to use `mismatchLabelKeys` with labels that might be updated directly on pods.
+Even if you edit the pod's label that is specified at `mismatchLabelKeys` **directly**, (that is, not via a deployment),
+kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
+-->
+不建议在 `matchLabelKeys` 中使用可能会直接在 Pod 上更新的标签。  
+即使你编辑**直接**在 `matchLabelKeys` 中指定的 Pod 的标签
+（也就是说，不是通过 Deployment 进行更新），
+kube-apiserver 也不会将这种标签的更新反映到合并后的 `labelSelector` 上。
+{{< /caution >}}
+
+<!--
 One example use case is to ensure Pods go to the topology domain (node, zone, etc) where only Pods from the same tenant or team are scheduled in.
 In other words, you want to avoid running Pods from two different tenants on the same topology domain at the same time.
 -->
-Kubernetes 为 Pod 亲和性或反亲和性提供了一个可选的 `mismatchLabelKeys` 字段。
-此字段指定了在满足 Pod（反）亲和性时，**不**应与传入 Pod 的标签匹配的键。
-
 一个示例用例是确保 Pod 进入指定的拓扑域（节点、区域等），在此拓扑域中只调度来自同一租户或团队的 Pod。
 换句话说，你想要避免在同一拓扑域中同时运行来自两个不同租户的 Pod。
 
@@ -792,20 +883,20 @@ spec:
   affinity:
     podAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-      # ensure that pods associated with this tenant land on the correct node pool
+      # ensure that Pods associated with this tenant land on the correct node pool
       - matchLabelKeys:
           - tenant
         topologyKey: node-pool
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
-      # ensure that pods associated with this tenant can't schedule to nodes used for another tenant
+      # ensure that Pods associated with this tenant can't schedule to nodes used for another tenant
       - mismatchLabelKeys:
         - tenant # whatever the value of the "tenant" label for this Pod, prevent
                  # scheduling to nodes in any pool where any Pod from a different
                  # tenant is running.
         labelSelector:
           # We have to have the labelSelector which selects only Pods with the tenant label,
-          # otherwise this Pod would hate Pods from daemonsets as well, for example,
+          # otherwise this Pod would have anti-affinity against Pods from daemonsets as well, for example,
           # which aren't supposed to have the tenant label.
           matchExpressions:
           - key: tenant
@@ -838,8 +929,8 @@ spec:
                  # 都会阻碍此 Pod 被调度到这些节点池中的节点上
         labelSelector:
           # 我们必须有一个 labelSelector，只选择具有 “tenant” 标签的 Pod，
-          # 否则此 Pod 也会与来自 DaemonSet 的 Pod 发生冲突，
-          # 而这些 Pod 不应该具有 “tenant” 标签
+          # 否则此 Pod 也会与来自 DaemonSet 的 Pod 产生反亲和性，
+          # 例如，这些 Pod 不应该具有 “tenant” 标签
           matchExpressions:
           - key: tenant
             operator: Exists
@@ -1118,13 +1209,13 @@ The following operators can only be used with `nodeAffinity`.
 -->
 | 操作符 | 行为 |
 | :------------: | :-------------: |
-| `Gt` | 字段值将被解析为整数，并且该整数小于通过解析此选择算符命名的标签的值所得到的整数  | 
-| `Lt` | 字段值将被解析为整数，并且该整数大于通过解析此选择算符命名的标签的值所得到的整数 | 
+| `Gt` | 字段值将被解析为整数，并且该整数小于通过解析此选择算符命名的标签的值所得到的整数 |
+| `Lt` | 字段值将被解析为整数，并且该整数大于通过解析此选择算符命名的标签的值所得到的整数 |
 
 {{<note>}}
 <!--
 `Gt` and `Lt` operators will not work with non-integer values. If the given value
-doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt`
+doesn't parse as an integer, the Pod will fail to get scheduled. Also, `Gt` and `Lt`
 are not available for `podAffinity`.
 -->
 `Gt` 和 `Lt` 操作符不能与非整数值一起使用。

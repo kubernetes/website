@@ -51,7 +51,7 @@ generally using their own Kubernetes distributions and therefore they don't use
 packages provided by the Kubernetes project; more importantly, if someone else is
 managing Kubernetes for you, then they would usually take responsibility for that check.
 
-If you have a managed [control plane](/docs/concepts/overview/components/#control-plane-components)
+If you have a managed [control plane](/docs/concepts/architecture/#control-plane-components)
 but you are responsible for **managing the nodes yourself**, and any of those nodes run Linux,
 you should [check](#check-if-affected) whether you are affected.
 
