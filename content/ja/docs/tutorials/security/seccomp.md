@@ -9,9 +9,9 @@ min-kubernetes-server-version: v1.22
 
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
-seccomp(SECure COMPuting mode)はLinuxカーネル2.7.12以降の機能です。
+seccomp(SECure COMPuting mode)はLinuxカーネル2.6.12以降の機能です。
 この機能を用いると、ユーザー空間からカーネルに対して発行できるシステムコールを制限することで、プロセス権限のサンドボックスを構築することができます。
-Kubernetesでは、ノード上で読み込んだseccompプロファイルをPodやコンテナに対して自動で適用することができます。
+Kubernetesでは、{{< glossary_tooltip text="ノード" term_id="node" >}}上で読み込んだseccompプロファイルをPodやコンテナに対して自動で適用することができます。
 
 あなたのワークロードが必要とする権限を特定するのは、実際には難しい作業になるかもしれません。
 このチュートリアルでは、ローカルのKubernetesクラスターでseccompプロファイルを読み込むための方法を説明し、seccompプロファイルのPodへの適用方法について学んだ上で、コンテナプロセスに対して必要な権限のみを付与するためのseccompプロファイルを作成する方法を概観していきます。
@@ -22,7 +22,7 @@ Kubernetesでは、ノード上で読み込んだseccompプロファイルをPod
 * seccompプロファイルをコンテナに適用する方法を学ぶ。
 * コンテナプロセスが生成するシステムコールの監査出力を確認する。
 * seccompプロファイルが指定されない場合の挙動を確認する。
-* seccompプロファイルの侵害を観測する。
+* seccompプロファイルの違反を確認する。
 * きめ細やかなseccompプロファイルの作成方法を学ぶ。
 * コンテナランタイムの標準seccompプロファイルを適用する方法を学ぶ。
 
@@ -35,7 +35,7 @@ Kubernetesでは、ノード上で読み込んだseccompプロファイルをPod
 [Podman](https://podman.io/)を使うこともできますが、チュートリアルを完了するためには、所定の[手順](https://kind.sigs.k8s.io/docs/user/rootless/)に従う必要があります。
 
 このチュートリアルでは、現時点(v1.25以降)でのベータ機能を利用する設定例をいくつか示しますが、その他の例についてはGAなseccomp関連機能を用いています。
-利用するKubernetesバージョンを対象としたクラスタの[正しい設定](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)がなされていることを確認してください。
+利用するKubernetesバージョンを対象としたクラスターの[正しい設定](https://kind.sigs.k8s.io/docs/user/quick-start/#setting-kubernetes-version)がなされていることを確認してください。
 
 チュートリアル内では、サンプルをダウンロードするために`curl`を利用します。
 この手順については、ほかの好きなツールを用いて実施してもかまいません。
@@ -73,15 +73,15 @@ curl -L -o profiles/fine-grained.json https://k8s.io/examples/pods/security/secc
 ls profiles
 ```
 
-最終的に３つのプロファイルが確認できるはずです:
+最終的に3つのプロファイルが確認できるはずです:
 ```
 audit.json  fine-grained.json  violation.json
 ```
 
 ## kindでローカルKubernetesクラスターを構築する {#create-a-local-kubernetes-cluster-with-kind}
 
-手順を簡略化するために、単一ノードクラスターを構築するために[kind](https://kind.sigs.k8s.io/)を利用します。
-kindはKubernetesをDocker内で稼働させるため、クラスターの各ノードはコンテナの中にあります。
+手軽な方法として、[kind](https://kind.sigs.k8s.io/)を利用することで、seccompプロファイルを読み込んだ単一ノードクラスターを構築できます。
+kindはKubernetesをDocker内で稼働させるため、クラスターの各ノードはコンテナとなります。
 これにより、ノード上にファイルを展開するのと同じように、各コンテナのファイルシステムに対してファイルをマウントすることが可能です。
 
 {{% code_sample file="pods/security/seccomp/kind.yaml" %}}
@@ -92,10 +92,10 @@ curl -L -O https://k8s.io/examples/pods/security/seccomp/kind.yaml
 ```
 
 ノードのコンテナイメージを設定する際には、特定のKubernetesバージョンを指定することもできます。
-この設定方法の詳細については、kindのドキュメンテーションにおける[ノード](https://kind.sigs.k8s.io/docs/user/configuration/#nodes)の項目を参照してください。
+この設定方法の詳細については、kindのドキュメント内の、[ノード](https://kind.sigs.k8s.io/docs/user/configuration/#nodes)の項目を参照してください。
 このチュートリアルではKubernetes {{< param "version" >}}を使用することを前提とします。
 
-ベータ機能として、`Unconfined`へのフォールバックを防ぐ目的で{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}が定義する標準seccompプロファイルを利用することもできます。
+ベータ機能として、`Unconfined`にフォールバックするのではなく、{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}がデフォルトで推奨するプロファイルを利用するようにKubernetesを設定することもできます。
 この機能を試したい場合、これ以降の手順に進む前に、[全ワークロードに対する標準seccompプロファイルとして`RuntimeDefault`を使用する](#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads)を参照してください。
 
 kindの設定ファイルを設置したら、kindクラスターを作成します:
@@ -136,11 +136,10 @@ kind内で稼働しているkubeletがseccompプロファイルを利用可能�
 
 ほとんどのコンテナランタイムは、許可・拒否の対象とする標準的なシステムコールの集合を提供しています。
 
-PodやContainerのセキュリティコンテキストでseccompタイプを`RuntimeDefault`に設定すると、コンテナランタイムが提供するデフォルトのプロファイルを適用することができます。
+PodやContainerのセキュリティコンテキストでseccompタイプを`RuntimeDefault`に設定すると、コンテナランタイムが提供するデフォルトのプロファイルをワークロードに適用することができます。
 
 {{< note >}}
-`seccompDefault`の[設定](/docs/reference/config-api/kubelet-config.v1beta1/)を有効化している場合、
-他にseccompプロファイルを定義しなくても、Podは`RuntimeDefault` seccompプロファイルを使用します。
+`seccompDefault`の[設定](/docs/reference/config-api/kubelet-config.v1beta1/)を有効化している場合、他にseccompプロファイルを定義しなくても、Podは`RuntimeDefault` seccompプロファイルを使用します。
 `seccompDefault`が無効の場合のデフォルトは`Unconfined`です。
 {{< /note >}}
 
@@ -171,7 +170,7 @@ kubectl delete pod default-pod --wait --now
 
 ## システムコール監査のためのseccompプロファイルを利用してPodを作成する {#create-a-pod-with-a-seccomp-profile-for-syscall-auditing}
 
-最初に、新しいPodでプロセスの全システムコールを記録するための`audit.json`プロファイルを適用します。
+最初に、新しいPodにプロセスの全システムコールを記録するための`audit.json`プロファイルを適用します。
 
 このPodのためのマニフェストは次の通りです:
 
@@ -182,13 +181,13 @@ kubectl delete pod default-pod --wait --now
 Kubernetes {{< skew currentVersion >}}におけるseccompの設定では`.spec.securityContext`フィールドのみをサポートしており、このチュートリアルではKubernetes {{< skew currentVersion >}}における手順を解説しています。
 {{< /note >}}
 
-クラスタ内にPodを作成します:
+クラスター内にPodを作成します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/audit-pod.yaml
 ```
 
-このプロファイルはシステムコールを禁止しませんので、Podは正常に起動するはずです。
+このプロファイルは、いかなるシステムコールも制限しないため、Podは正常に起動するはずです。
 
 ```shell
 kubectl get pod audit-pod
@@ -199,7 +198,7 @@ NAME        READY   STATUS    RESTARTS   AGE
 audit-pod   1/1     Running   0          30s
 ```
 
-このコンテナが露出するエンドポイントとやりとりするために、kindのコントロールプレーンコンテナの内部からこのエンドポイントにアクセスできるように、NodePort {{< glossary_tooltip text="Service" term_id="service" >}}を作成します。
+このコンテナが公開するエンドポイントとやりとりするために、kindのコントロールプレーンコンテナの内部からこのエンドポイントにアクセスできるように、NodePort {{< glossary_tooltip text="Service" term_id="service" >}}を作成します。
 
 ```shell
 kubectl expose pod audit-pod --type NodePort --port 5678
@@ -217,7 +216,7 @@ NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 audit-pod   NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
 ```
 
-ここまで来れば、kindのコントロールプレーンコンテナの内部からエンドポイントに対して、Serviceの露出するポートを通じて`curl`で接続することができます。
+ここまで来れば、kindのコントロールプレーンコンテナの内部からエンドポイントに対して、Serviceが公開するポートを通じて`curl`で接続することができます。
 `docker exec`を使って、コントロールプレーンコンテナに属するコンテナの中から`curl`を実行しましょう:
 
 ```shell
@@ -229,7 +228,7 @@ docker exec -it 6a96207fed4b curl localhost:32373
 just made some syscalls!
 ```
 
-プロセスが走っていることは確認できましたが、実際にどんなシステムコールが発行されているのでしょうか？
+プロセスが実行されていることは確認できましたが、実際にどんなシステムコールが発行されているのでしょうか？
 このPodはローカルクラスターで稼働しているため、発行されたシステムコールを`/var/log/syslog`で確認することができるはずです。
 新しいターミナルを開いて、`http-echo`が発行するシステムコールを`tail`してみましょう:
 
@@ -263,7 +262,7 @@ kubectl delete service audit-pod --wait
 kubectl delete pod audit-pod --wait --now
 ```
 
-## seccompプロファイルの侵害を引き起こすPodを作成する {#create-a-pod-with-a-seccomp-profile-that-causes-violation}
+## 違反が発生するseccompプロファイルでPodを作成する {#create-a-pod-with-a-seccomp-profile-that-causes-violation}
 
 
 デモとして、いかなるシステムコールも許可しないseccompプロファイルをPodに適用してみましょう。
@@ -291,7 +290,7 @@ violation-pod   0/1     CrashLoopBackOff   1          6s
 ```
 
 
-直前の事例で見てきたように、`http-echo`プロセスはいくつかのシステムコールを必要とします。
+直前の事例で見てきたように、`http-echo`プロセスは多くのシステムコールを必要とします。
 ここでは`"defaultAction": "SCMP_ACT_ERRNO"`が設定されているため、あらゆるシステムコールに対してseccompがエラーを発生させました。
 
 この構成はとてもセキュアですが、有意義な処理は何もできないことを意味します。
@@ -307,13 +306,13 @@ kubectl delete pod violation-pod --wait --now
 
 `fine-grained.json`プロファイルの内容を見れば、最初の例で`"defaultAction":"SCMP_ACT_LOG"`を設定していた際に、ログに表示されたシステムコールが含まれていることに気づくでしょう。
 今回のプロファイルでも`"defaultAction": "SCMP_ACT_ERRNO"`を設定しているものの、`"action": "SCMP_ACT_ALLOW"`ブロックで明示的に一連のシステムコールを許可しています。
-理想的な状況下であれば、コンテナが正常に稼働することに加え、`syslog`へのメッセージ送信は確認できなくなるでしょう。
+理想的な状況下であれば、コンテナが正常に稼働することに加え、`syslog`へのメッセージ送信を見ることはなくなるでしょう。
 
 この事例のマニフェストは次の通りです:
 
 {{% code_sample file="pods/security/seccomp/ga/fine-pod.yaml" %}}
 
-クラスタ内にPodを作成します:
+クラスター内にPodを作成します:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/fine-pod.yaml
@@ -382,10 +381,10 @@ kubectl delete pod fine-pod --wait --now
 
 {{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
-標準seccompプロファイルを指定するためには、この機能を利用したい全てのノードで`--seccomp-default`[コマンドラインフラグ](/docs/reference/command-line-tools-reference/kubelet)を用いてkubeletを起動する必要があります。
+標準seccompプロファイルを指定するためには、この機能を利用したい全てのノードで`--seccomp-default`[コマンドラインフラグ](/docs/reference/command-line-tools-reference/kubelet/)を用いてkubeletを起動する必要があります。
 
 この機能を有効化すると、kubeletはコンテナランタイムが定義する`RuntimeDefault`のseccompプロファイルをデフォルトで使用するようになり、`Unconfined`モード(seccomp無効化)になることはありません。
-コンテナランタイムが用意する標準プロファイルは、ワークロードの機能をそのものを維持しつつ、強力な標準セキュリティルールの束を用意することを目指しています。
+コンテナランタイムが用意する標準プロファイルは、ワークロードの機能性を維持しつつ、強力な標準セキュリティルールの一式を用意することを目指しています。
 標準のプロファイルはコンテナランタイムやリリースバージョンによって異なる可能性があります。
 例えば、CRI-Oとcontainerdの標準プロファイルを比較してみるとよいでしょう。
 
@@ -436,7 +435,7 @@ nodes:
             seccomp-default: "true"
 ```
 
-クラスターの準備ができたら、Podを走らせます:
+クラスターの準備ができたら、Podを実行します:
 
 ```shell
 kubectl run --rm -it --restart=Never --image=alpine alpine -- sh
