@@ -18,6 +18,6 @@ to run on.
 <!--more-->
 
 Factors taken into account for scheduling decisions include:
-individual and collective resource requirements, hardware/software/policy
-constraints, affinity and anti-affinity specifications, data locality,
-inter-workload interference, and deadlines.
+individual and collective {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}}
+requirements, hardware/software/policy constraints, affinity and anti-affinity specifications,
+data locality, inter-workload interference, and deadlines.
