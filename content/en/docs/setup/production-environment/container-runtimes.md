@@ -202,6 +202,27 @@ You can find this file under the path `C:\Program Files\containerd\config.toml`.
 On Linux the default CRI socket for containerd is `/run/containerd/containerd.sock`.
 On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
+#### Making sure the `config.toml` uses version 2 format {#containerd-v2}
+
+The `config.toml` file supports multiple format versions. 
+By default, it uses `version = 1`, but this guide requires `version = 2`. 
+Make sure the file begins with: 
+
+```
+version = 2
+```
+
+#### Configuring the runc CRI runtime handler {#containerd-runc}
+
+For containerd to implement a CRI runtime handler 
+with runc as the low-level container runtime 
+make sure you have this in your `config.toml`:
+
+```
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+runtime_type = "io.containerd.runc.v2"
+```
+
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
