@@ -209,6 +209,11 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
 The kube-controller-manager implements [control plane signing](#signer-control-plane) for each of the built in
 signers. Failures for all of these are only reported in kube-controller-manager logs.
 
+{{< caution >}}
+Signer names with domain prefix `kubernetes.io` (including any subdomains) are
+reserved by the Kubernetes project.
+{{< /caution >}}
+
 {{< note >}}
 The `spec.expirationSeconds` field was added in Kubernetes v1.22. Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
