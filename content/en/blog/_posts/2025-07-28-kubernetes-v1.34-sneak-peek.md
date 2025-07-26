@@ -35,7 +35,7 @@ Once this feature has graduated, the `resource.k8s.io/v1` APIs will be available
 
 ### ServiceAccount tokens for image pull authentication
 
-The existing [ServiceAccount](/docs/concepts/security/service-accounts/) token integration for `kubelet` credential providers is likely to reach beta in Kubernetes v1.34, and is likely to be enabled by default. You'll then be able to have the `kubelet` use these tokens when pulling container images from registries that require authentication.
+The [ServiceAccount](/docs/concepts/security/service-accounts/) token integration for `kubelet` credential providers is likely to reach beta and be enabled by default in Kubernetes v1.34. You'll then be able to have the `kubelet` use these tokens when pulling container images from registries that require authentication.
 
 That support already exists as alpha, and is tracked as part of [KEP-4412](https://kep.k8s.io/4412).
 
