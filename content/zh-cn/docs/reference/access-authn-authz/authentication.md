@@ -482,6 +482,34 @@ is included in a request.
 `id_token`（而非 `access_token`）作为持有者令牌。
 关于如何在请求中设置令牌，可参见[前文](#putting-a-bearer-token-in-a-request)。
 
+<!--
+sequenceDiagram
+    participant user as User
+    participant idp as Identity Provider
+    participant kube as kubectl
+    participant api as API Server
+
+    user ->> idp: 1. Log in to IdP
+    activate idp
+    idp -->> user: 2. Provide access_token,<br>id_token, and refresh_token
+    deactivate idp
+    activate user
+    user ->> kube: 3. Call kubectl<br>with --token being the id_token<br>OR add tokens to .kube/config
+    deactivate user
+    activate kube
+    kube ->> api: 4. Authorization: Bearer...
+    deactivate kube
+    activate api
+    api ->> api: 5. Is JWT signature valid?
+    api ->> api: 6. Has the JWT expired? (iat+exp)
+    api ->> api: 7. User authorized?
+    api -->> kube: 8. Authorized: Perform<br>action and return result
+    deactivate api
+    activate kube
+    kube --x user: 9. Return result
+    deactivate kube
+-->
+
 {{< mermaid >}}
 sequenceDiagram
     participant user as 用户
@@ -722,7 +750,7 @@ jwt:
     # PEM encoded CA certificates used to validate the connection when fetching
     # discovery information. If not set, the system verifier will be used.
     # Same value as the content of the file referenced by the --oidc-ca-file flag.
-    certificateAuthority: <PEM encoded CA certificates>    
+    certificateAuthority: <PEM encoded CA certificates>
     # audiences is the set of acceptable audiences the JWT must be issued to.
     # At least one of the entries must match the "aud" claim in presented JWTs.
     audiences:
@@ -936,8 +964,8 @@ jwt:
 
  `jwt.userValidationRules[i].expression` 表示将由 CEL 计算的表达式。
   CEL 表达式可以访问 `userInfo` 的内容，并组织成 `user` CEL 变量。
-  有关 `user` 的架构，请参阅
-  [UserInfo](/zh-cn/docs/reference/ generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io) API 文档。
+  有关 `user` 的结构，请参阅
+  [UserInfo](/zh-cn/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io) API 文档。
 
 <!--
 * Claim mapping expression
@@ -962,7 +990,6 @@ jwt:
   要了解更多信息，请参阅 [CEL 文档](/zh-cn/docs/reference/using-api/cel/)。
 
   以下是具有不同令牌有效负载的 “AuthenticationConfiguration” 示例。
-
 
   {{< tabs name="example_configuration" >}}
   {{% tab name="Valid token" %}}
@@ -1247,7 +1274,7 @@ jwt:
   which will fail user validation because the username starts with `system:`.
   The API server will return `401 Unauthorized` error.
   -->
-  这将导致用户验证失败，因为用户名以 `system:` 开头。 API 服务器将返回 `401 Unauthorized` 错误。
+  这将导致用户验证失败，因为用户名以 `system:` 开头。API 服务器将返回 `401 Unauthorized` 错误。
   {{% /tab %}}
   {{< /tabs >}}
 
@@ -1264,20 +1291,12 @@ jwt:
 
 <!--
 Kubernetes does not provide an OpenID Connect Identity Provider.
-You can use an existing public OpenID Connect Identity Provider (such as Google, or
-[others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
-[Keycloak](https://github.com/keycloak/keycloak),
-CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://openunison.github.io/).
+You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
+that supports the OpenID Connect protocol.
 -->
 Kubernetes 并未提供 OpenID Connect 的身份服务。
-你可以使用现有的公共的 OpenID Connect 身份服务
-（例如 Google 或者[其他服务](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)）。
-或者，你也可以选择自己运行一个身份服务，例如 [dex](https://dexidp.io/)、
-[Keycloak](https://github.com/keycloak/keycloak)、
-CloudFoundry [UAA](https://github.com/cloudfoundry/uaa) 或者
-Tremolo Security 的 [OpenUnison](https://openunison.github.io/)。
+你可以使用现有的公共的 OpenID Connect 身份服务或者运行你自己的
+OpenID Connect 身份服务。
 
 <!--
 For an identity provider to work with Kubernetes it must:
@@ -1306,33 +1325,18 @@ For an identity provider to work with Kubernetes it must:
 
 <!--
 A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
-identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST
-have your identity provider's web server certificate signed by a certificate with the `CA` flag
-set to `TRUE`, even if it is self signed. This is due to GoLang's TLS client implementation
-being very strict to the standards around certificate validation. If you don't have a CA handy,
-you can use the [gencert script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
-from the Dex team to create a simple CA and a signed certificate and key pair. Or you can use
-[this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)
-that generates SHA256 certs with a longer life and larger key size.
+identity provider you MUST have your identity provider's web server certificate signed by a
+certificate with the `CA` flag set to `TRUE`, even if it is self signed. This is due to GoLang's
+TLS client implementation being very strict to the standards around certificate validation. If you
+don't have a CA handy, you can create a simple CA and a signed certificate and key pair using
+standard certificate generation tools.
 -->
 关于上述第三条需求，即要求具备 CA 签名的证书，有一些额外的注意事项。
-如果你部署了自己的身份服务，而不是使用云厂商（如 Google 或 Microsoft）所提供的服务，
-你必须对身份服务的 Web 服务器证书进行签名，签名所用证书的 `CA` 标志要设置为
-`TRUE`，即使用的是自签名证书。这是因为 GoLang 的 TLS 客户端实现对证书验证标准方面有非常严格的要求。
-如果你手头没有现成的 CA 证书，可以使用 Dex
-团队所开发的[证书生成脚本](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
-来创建一个简单的 CA 和被签了名的证书与密钥对。
-或者你也可以使用[这个类似的脚本](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)，
-生成一个合法期更长、密钥尺寸更大的 SHA256 证书。
-
-<!--
-Refer to setup instructions for specific systems:
--->
-参阅特定系统的安装指令：
-
-- [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
-- [Dex](https://dexidp.io/docs/kubernetes/)
-- [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
+如果你部署了自己的身份服务，你必须对身份服务的 Web 服务器证书进行签名，
+签名所用证书的 `CA` 标志要设置为 `TRUE`，即使用的是自签名证书。
+这是因为 GoLang 的 TLS 客户端实现对证书验证标准方面有非常严格的要求。
+如果你手头没有现成的 CA 证书，可以使用标准证书生成工具来创建一个简单的
+CA 和被签了名的证书与密钥对。
 
 <!--
 #### Using kubectl
@@ -1448,7 +1452,7 @@ Webhook 身份认证是一种用来验证持有者令牌的回调机制。
   默认时长为 2 分钟。
 * `--authentication-token-webhook-version` 决定是使用 `authentication.k8s.io/v1beta1` 还是
   `authenticationk8s.io/v1` 版本的 `TokenReview` 对象从 Webhook 发送/接收信息。
-  默认为“v1beta1”。
+  默认为 `v1beta1`。
 
 <!--
 The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
@@ -1535,7 +1539,7 @@ and **must** respond with a `TokenReview` object of the same version as the requ
 要注意的是，Webhook API 对象和其他 Kubernetes API 对象一样，
 也要受到同一[版本兼容规则](/zh-cn/docs/concepts/overview/kubernetes-api/)约束。
 实现者应检查请求的 `apiVersion` 字段以确保正确的反序列化，
-并且 **必须** 以与请求相同版本的 `TokenReview` 对象进行响应。
+并且**必须**以与请求相同版本的 `TokenReview` 对象进行响应。
 
 {{< tabs name="TokenReview_request" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
@@ -1573,7 +1577,7 @@ Kubernetes API 服务器默认发送 `authentication.k8s.io/v1beta1` 令牌以�
   "apiVersion": "authentication.k8s.io/v1",
   "kind": "TokenReview",
   "spec": {
-   # 发送到 API 服务器的不透明持有者令牌
+    # 发送到 API 服务器的不透明持有者令牌
     "token": "014fbff9a07c...",
    
     # 提供令牌的服务器的受众标识符的可选列表。
@@ -2115,7 +2119,7 @@ The following HTTP headers can be used to performing an impersonation request:
   此字段可选；要求 "Impersonate-User" 被设置。为了能够以一致的形式保留，
   `<附加名称>`部分必须是小写字符，
   如果有任何字符不是[合法的 HTTP 头部标签字符](https://tools.ietf.org/html/rfc7230#section-3.2.6)，
-  则必须是 utf8 字符，且转换为[百分号编码](https://tools.ietf.org/html/rfc3986#section-2.1)。
+  则必须是 UTF-8 字符，且转换为[百分号编码](https://tools.ietf.org/html/rfc3986#section-2.1)。
 * `Impersonate-Uid`：一个唯一标识符，用来表示所伪装的用户。此头部可选。
   如果设置，则要求 "Impersonate-User" 也存在。Kubernetes 对此字符串没有格式要求。
 
@@ -2519,7 +2523,7 @@ users:
       - "arg1"
       - "arg2"
 
-      # 当可执行文件不存在时显示给用户的文本。可选的。
+      # 当可执行文件不存在时显示给用户的文本。可选字段。
       installHint: |
         需要 example-client-go-exec-plugin 来在当前集群上执行身份认证。可以通过以下命令安装：
 
@@ -2662,7 +2666,7 @@ users:
       - "arg1"
       - "arg2"
 
-      # 当可执行文件不存在时显示给用户的文本。可选的。
+      # 当可执行文件不存在时显示给用户的文本。可选字段。
       installHint: |
         需要 example-client-go-exec-plugin 来在当前集群上执行身份认证。可以通过以下命令安装：
 
@@ -2702,7 +2706,6 @@ contexts:
     user: my-user
 current-context: my-cluster
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -2953,6 +2956,7 @@ The following `ExecCredential` manifest describes a cluster information sample.
 }
 ```
 {{% /tab %}}
+
 {{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {

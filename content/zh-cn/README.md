@@ -1,5 +1,4 @@
 # Kubernetes 文档
-
 <!--
 # The Kubernetes documentation
 -->
@@ -117,17 +116,37 @@ To build the site in a container, run the following:
 <!--
 ```bash
 # You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
+
+# Render the full website
 make container-serve
+
+# Render only a specific language segment (e.g., English)
+make container-serve segments=en
+
+# Render multiple languages (e.g., English and Korean)
+make container-serve segments=en,ko
 ```
 -->
 ```bash
 # 你可以将 $CONTAINER_ENGINE 设置为任何 Docker 类容器工具的名称
+
+# 渲染整个网站
 make container-serve
+
+# 仅渲染特定语言（例如英语）
+make container-serve segments=en
+
+# 渲染多种语言（例如英语和韩语）
+make container-serve segments=en,ko
 ```
 
 <!--
+**💡 Tip:** Using _Hugo segments_ speeds up local preview builds, by rendering only selected language(s).
+
 If you see errors, it probably means that the hugo container did not have enough computing resources available. To solve it, increase the amount of allowed CPU and memory usage for Docker on your machine ([MacOS](https://docs.docker.com/desktop/settings/mac/) and [Windows](https://docs.docker.com/desktop/settings/windows/)).
 -->
+**💡 提示：**使用 **Hugo 分段机制**可以加快本地预览构建速度，因为它只渲染选定的语言。
+
 如果你看到错误，这可能意味着 Hugo 容器没有足够的可用计算资源。
 要解决这个问题，请增加机器（[MacOS](https://docs.docker.com/desktop/settings/mac/)
 和 [Windows](https://docs.docker.com/desktop/settings/windows/)）上
@@ -153,10 +172,38 @@ To install dependencies, deploy and test the site locally, run:
 -->
 - 对于 macOS 和 Linux
 
+  <!--
   ```bash
   npm ci
+
+  # Render the full site (default)
   make serve
+
+  # Render only a specific language segment
+  make serve segments=en
+
+  # Render multiple language segments
+  make serve segments=en,ko
   ```
+  -->
+
+  ```bash
+  npm ci
+
+  # 渲染整个网站（默认）
+  make serve
+
+  # 仅渲染特定语言
+  make serve segments=en
+
+  # 渲染多种语言
+  make serve segments=en,ko
+  ```
+
+<!--
+**💡 Tip:** Hugo segments are defined in `hugo.toml` and allow faster rendering by limiting the scope to specific language(s).
+-->
+**💡 提示：** Hugo 分段在 `hugo.toml` 中定义，通过将渲染范围限定为特定语言，可以加快构建速度。
 
 <!--
 - For Windows (PowerShell)

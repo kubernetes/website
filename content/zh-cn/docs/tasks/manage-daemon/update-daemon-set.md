@@ -3,7 +3,6 @@ title: 对 DaemonSet 执行滚动更新
 content_type: task
 weight: 10
 ---
-
 <!--
 reviewers:
 - janetkuo
@@ -44,7 +43,6 @@ DaemonSet 有两种更新策略：
   will be created automatically, in a controlled fashion. At most one pod of
   the DaemonSet will be running on each node during the whole update process.
 -->
-
 * `OnDelete`：使用 `OnDelete` 更新策略时，在更新 DaemonSet 模板后，只有当你手动删除老的
   DaemonSet Pod 之后，新的 DaemonSet Pod **才会**被自动创建。跟 Kubernetes 1.6 以前的版本类似。
 * `RollingUpdate`：这是默认的更新策略。使用 `RollingUpdate` 更新策略时，在更新 DaemonSet 模板后，
@@ -125,7 +123,7 @@ kubectl get ds/fluentd-elasticsearch -o go-template='{{.spec.updateStrategy.type
 If you haven't created the DaemonSet in the system, check your DaemonSet
 manifest with the following command instead:
 -->
-如果还没在系统中创建 DaemonSet，请使用以下命令检查 DaemonSet 的清单：
+如果你还没在系统中创建 DaemonSet，请使用以下命令检查 DaemonSet 的清单：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dry-run=client -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
@@ -272,12 +270,12 @@ make room for new DaemonSet pods.
 -->
 一旦找到这些节点，从节点上删除一些非 DaemonSet Pod，为新的 DaemonSet Pod 腾出空间。
 
+{{< note >}}
 <!--
 This will cause service disruption when deleted pods are not controlled by any controllers or pods are not
 replicated. This does not respect [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/)
 either.
 -->
-{{< note >}}
 当所删除的 Pod 不受任何控制器管理，也不是多副本的 Pod 时，上述操作将导致服务中断。
 同时，上述操作也不会考虑
 [PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)
@@ -335,4 +333,3 @@ kubectl delete ds fluentd-elasticsearch -n kube-system
 -->
 * 查看[在 DaemonSet 上执行回滚](/zh-cn/docs/tasks/manage-daemon/rollback-daemon-set/)
 * 查看[创建 DaemonSet 以收养现有 DaemonSet Pod](/zh-cn/docs/concepts/workloads/controllers/daemonset/)
-

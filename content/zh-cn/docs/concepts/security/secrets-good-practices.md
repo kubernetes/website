@@ -162,6 +162,17 @@ For a list of supported providers, refer to
 [Secret 存储 CSI 驱动的提供商](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)。
 
 <!--
+## Good practices for using swap memory
+
+For best practices for setting swap memory for Linux nodes, please refer to
+[swap memory management](/docs/concepts/cluster-administration/swap-memory-management/#good-practice-for-using-swap-in-a-kubernetes-cluster).
+-->
+## 使用交换内存的良好实践     {#good-practices-for-using-swap-memory}
+
+对于为 Linux 节点设置交换内存的最佳实践，
+请参阅[交换内存管理](/zh-cn/docs/concepts/cluster-administration/swap-memory-management/#good-practice-for-using-swap-in-a-kubernetes-cluster)。
+
+<!--
 ## Developers
 
 This section provides good practices for developers to use to improve the
