@@ -108,7 +108,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
 
-   Diese Warnung kann ignoriert werden. Prüfe lediglich die `kubectl` Version, eelche installiert wurde.
+   Diese Warnung kann ignoriert werden. Prüfe lediglich die `kubectl` Version, welche installiert wurde.
    
    {{< /note >}}
    
