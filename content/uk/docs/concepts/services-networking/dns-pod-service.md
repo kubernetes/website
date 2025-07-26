@@ -68,7 +68,7 @@ options ndots:5
 Версії Kube-DNS, до впровадження [специфікації DNS](https://github.com/kubernetes/dns/blob/master/docs/specification.md), мали наступне DNS-подання:
 
 ```none
-pod-ipv4-address.my-namespace.pod.cluster-domain.example
+<pod-IPv4-address>.<namespace>.pod.<cluster-domain>
 ```
 
 Наприклад, якщо Pod в просторі імен `default` має IP-адресу 172.17.0.3, а доменне імʼя вашого кластера — `cluster.local`, то у Podʼа буде DNS-імʼя:
@@ -81,6 +81,12 @@ pod-ipv4-address.my-namespace.pod.cluster-domain.example
 
 ```none
 <pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>
+```
+
+Наприклад, якщо Pod у просторі імен `cafe` має IP-адресу 172.17.0.3, є точкою доступу до Service на імʼя `barista`, а доменне імʼя вашого кластера — `cluster.local`, то Pod матиме такий запис DNS `A`, в межах Service.
+
+```none
+172-17-0-3.barista.cafe.svc.cluster.local
 ```
 
 ### Поля hostname та subdomain Podʼа {#pod-s-hostname-and-subdomain-fields}
