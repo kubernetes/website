@@ -22,7 +22,7 @@ explica as considerações que devem ser levadas em conta ao fazer isso.
 Na operação normal de um StatefulSet, **nunca** há necessidade de forçar a exclusão de um Pod.
 O [controlador de StatefulSet](/docs/concepts/workloads/controllers/statefulset/) é responsável por criar,
 escalar e excluir os membros do StatefulSet. Ele tenta garantir que o número especificado de Pods,
-do ordinal 0 até N-1, esteja ativo e pronto. O StatefulSet garante que, a qualquer momento,
+do ordinal 0 até N-1, estejam ativos e prontos. O StatefulSet garante que, a qualquer momento,
 exista no máximo um Pod com uma determinada identidade em execução no cluster. Isso é chamado de semântica
 *no máximo um* fornecida por um StatefulSet.
 
@@ -30,7 +30,7 @@ A exclusão forçada manual deve ser realizada com cautela, pois tem o potencial
 inerente ao StatefulSet. StatefulSets podem ser usados para executar aplicações distribuídas e em cluster que
 necessitam de uma identidade de rede estável e armazenamento estável. Essas aplicações frequentemente possuem
 configurações que dependem de um conjunto fixo de membros com identidades fixas. Ter múltiplos membros com a mesma
-identidade pode ser desastroso e pode levar à perda de dados (por exemplo, cenário de split brain em sistemas baseados em quórum).
+identidade pode ser desastroso e pode levar à perda de dados (por exemplo, cenário de _split brain_ em sistemas baseados em quórum).
 
 ## Excluir Pods
 
@@ -47,17 +47,17 @@ A exclusão graciosa é segura e garantirá que o Pod
 [seja finalizado de forma adequada](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) antes que o
 kubelet remova o nome do Pod do servidor de API.
 
-Um Pod não é excluído automaticamente quando um nó se torna inacessível. Os Pods em execução em um Nó
+Um Pod não é excluído automaticamente quando um Nó (Node) se torna inacessível. Os Pods em execução em um Nó
 inacessível entram no estado 'Terminating' ou 'Unknown' após um [timeout](/docs/concepts/architecture/nodes/#condition).
 Os Pods também podem entrar nesses estados quando o usuário tenta realizar a exclusão graciosa de um Pod em um Nó inacessível.
 As únicas formas de remover um Pod nesse estado do servidor de API são as seguintes:
 
-- O objeto Node é excluído (por você ou pelo [Node Controller](/docs/concepts/architecture/nodes/#node-controller)).
+- O objeto Nó é excluído (por você ou pelo [Node Controller](/docs/concepts/architecture/nodes/#node-controller)).
 - O kubelet no Nó sem resposta volta a responder, encerra o Pod e remove a entrada do servidor de API.
 - Exclusão forçada do Pod pelo usuário.
 
 A prática recomendada é utilizar a primeira ou a segunda abordagem. Se um Nó for confirmado como morto
-(por exemplo, desconectado permanentemente da rede, desligado, etc.), exclua o objeto Node.
+(por exemplo, desconectado permanentemente da rede, desligado, etc.), exclua o objeto Nó.
 Se o Nó estiver sofrendo uma partição de rede, tente resolver o problema ou aguarde até que ele seja resolvido.
 Quando a partição for sanada, o kubelet concluirá a exclusão do Pod e liberará seu nome no servidor de API.
 
