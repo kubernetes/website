@@ -153,7 +153,7 @@ We will formally announce what's new in [Kubernetes v1.34](https://github.com/ku
 The Kubernetes v1.34 release is planned for **Wednesday 27th August 2025**. Stay tuned for updates!
 
 ## Get involved
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. 
+The simplest way to get involved with Kubernetes is to join one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. 
 Have something you'd like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. 
 Thank you for your continued feedback and support.
 
