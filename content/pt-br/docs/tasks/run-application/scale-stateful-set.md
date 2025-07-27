@@ -13,11 +13,11 @@ Esta tarefa mostra como escalar um StatefulSet. Escalar um StatefulSet refere-se
 - Os StatefulSets estão disponíveis apenas no Kubernetes na versão 1.5 ou superior.
   Para verificar sua versão do Kubernetes, execute `kubectl version`.
 
-- Nem todas as aplicações com estado escalonam de forma adequada. Se você não tem certeza se deve escalar seus StatefulSets,
+- Nem todas as aplicações com estado escalam de forma adequada. Se você não tem certeza se deve escalar seus StatefulSets,
   consulte [Conceitos de StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
   ou [Tutorial de StatefulSet](/docs/tutorials/stateful-application/basic-stateful-set/) para mais informações.
 
-- Você deve realizar o escalonamento apenas quando tiver certeza de que o cluster da sua aplicação com estado
+- Você deve realizar o redimensionamento apenas quando tiver certeza de que o cluster da sua aplicação com estado
   está completamente íntegro.
 
 <!-- steps -->
@@ -65,10 +65,10 @@ kubectl patch statefulsets <stateful-set-name> -p '{"spec":{"replicas":<new-repl
 
 ## Solução de problemas
 
-### Reduzir o escalonamento não funciona corretamente
+### Reduzir o número de réplicas não funciona corretamente
 
-Você não pode reduzir o escalonamento de um StatefulSet enquanto qualquer um dos Pods
-com estado que ele gerencia não estiver íntegro. A redução do escalonamento
+Você não pode reduzir o número de réplicas de um StatefulSet enquanto qualquer um dos Pods
+com estado que ele gerencia não estiver íntegro. A redução do número de réplicas
 só ocorre depois que esses Pods com estado estiverem em execução e prontos.
 
 Se `spec.replicas` > 1, o Kubernetes não consegue determinar o motivo de um Pod com estado
@@ -81,9 +81,9 @@ do número mínimo de réplicas necessário para funcionar corretamente.
 Isso pode fazer com que seu StatefulSet se torne indisponível.
 
 Se o Pod não estiver íntegro devido a uma falha transitória e o Pod possa voltar a ficar disponível,
-o erro transitório pode interferir na sua operação de aumento ou redução de escalonamento.
+o erro transitório pode interferir na sua operação de aumento ou redução do número de réplicas.
 Alguns bancos de dados distribuídos apresentam problemas quando nós entram e saem ao mesmo tempo. Nesses casos,
-é melhor analisar as operações de escalonamento no nível da aplicação e realizar o escalonamento apenas quando
+é melhor analisar as operações de redimensionamento no nível da aplicação e realizar o ajuste apenas quando
 você tiver certeza de que o cluster da sua aplicação com estado está completamente íntegro.
 
 ## {{% heading "whatsnext" %}}
