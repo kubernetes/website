@@ -77,7 +77,7 @@ It's expected to be available as an alpha feature and can be enabled using the `
 To address the longstanding challenge of debugging node-level issues by correlating disconnected logs, 
 [KEP-2831](https://kep.k8s.io/2831) provides deep, contextual insights into the `kubelet`. 
 
-This feature instruments the `kubelet`'s critical operations, particularly its gRPC calls to the Container Runtime Interface (CRI), using the vendor-agnostic OpenTelemetry standard. 
+This feature instruments critical `kubelet` operations, particularly its gRPC calls to the Container Runtime Interface (CRI), using the vendor-agnostic OpenTelemetry standard. 
 It allows operators to visualize the entire lifecycle of events (for example: a Pod startup) to pinpoint sources of latency and errors. 
 Its most powerful aspect is the propagation of trace context; the `kubelet` passes a trace ID with its requests to the container runtime, enabling runtimes to link their own spans. 
 
