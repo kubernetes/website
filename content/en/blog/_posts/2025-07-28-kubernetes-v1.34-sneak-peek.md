@@ -107,7 +107,7 @@ and/or Helm charts.
 You can write KYAML and pass it as an input to **any** version of `kubectl`,
 because all KYAML files are also valid as YAML.
 With kubectl v1.34, we expect you'll also be able to request KYAML output from `kubectl` (as in `kubectl get -o kyaml …`).
-Of course, you can still request JSON or YAML output if you prefer that.
+If you prefer, you can still request the output in JSON or YAML format.
 
 KYAML addresses specific challenges with both YAML and JSON. 
 YAML's significant whitespace requires careful attention to indentation and nesting, 
