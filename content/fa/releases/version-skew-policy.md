@@ -6,10 +6,9 @@ reviewers:
 - sig-cluster-lifecycle
 - sig-node
 - sig-release
-title: سیاست اختلاف نسخه (Version Skew Policy)
-type: docs
+title: سیاست اختلاف نسخه 
 description: >
-  حداکثر اختلاف نسخه (version skew) پشتیبانی‌شده بین اجزای مختلف Kubernetes.
+  حداکثر اختلاف نسخه  پشتیبانی‌شده بین اجزای مختلف Kubernetes.
 ---
 <div dir="rtl" style="text-align: right;">
 <!-- overview -->

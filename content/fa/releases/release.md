@@ -1,7 +1,6 @@
 ---
 title: چرخه انتشار Kubernetes
 type: docs
-auto_generated: true
 ---
 <!-- این محتوا به صورت خودکار تولید می‌شود از طریق https://github.com/kubernetes/website/blob/main/scripts/releng/update-release-info.sh -->
 
@@ -16,21 +15,21 @@ auto_generated: true
 این سند بر توسعه‌دهندگان و مشارکت‌کنندگان Kubernetes متمرکز است که نیاز به ایجاد یک بهبود، مشکل یا درخواست pull دارند که یک نقطه عطف انتشار خاص را هدف قرار می‌دهد.
 
 - [TL;DR](#tldr)
-  - [Normal Dev (Weeks 1-11)](#normal-dev-weeks-1-11)
-  - [Code Freeze (Weeks 12-14)](#code-freeze-weeks-12-14)
-  - [Post-Release (Weeks 14+)](#post-release-weeks-14+)
-- [Definitions](#definitions)
-- [The Release Cycle](#the-release-cycle)
-- [Removal Of Items From The Milestone](#removal-of-items-from-the-milestone)
-- [Adding An Item To The Milestone](#adding-an-item-to-the-milestone)
-  - [Milestone Maintainers](#milestone-maintainers)
-  - [Feature additions](#feature-additions)
-  - [Issue additions](#issue-additions)
-  - [PR Additions](#pr-additions)
-- [Other Required Labels](#other-required-labels)
-  - [SIG Owner Label](#sig-owner-label)
-  - [Priority Label](#priority-label)
-  - [Issue/PR Kind Label](#issuepr-kind-label)
+  - [توسعه عادی (هفته‌های ۱ تا ۱۱))](#normal-dev-weeks-1-11)
+  - [فریز کردن کد (هفته‌های ۱۲ تا ۱۴))](#code-freeze-weeks-12-14)
+  - [پس از انتشار (هفته‌های ۱۴+))](#post-release-weeks-14+)
+- [تعاریف](#definitions)
+- [چرخه انتشار](#the-release-cycle)
+- [حذف موارد از مرحله‌ی مهم](#removal-of-items-from-the-milestone)
+- [اضافه کردن یک مورد به مرحله‌ی مهم](#adding-an-item-to-the-milestone)
+  - [نگهبانان نقطه عطف](#milestone-maintainers)
+  - [ویژگی های اضافه شده](#feature-additions)
+  - [اضافات را صادر کنید](#issue-additions)
+  - [اضافات روابط عمومی](#pr-additions)
+- [سایر برچسب های مورد نیاز](#other-required-labels)
+  - [برچسب مالک SIG](#sig-owner-label)
+  - [برچسب اولویت](#priority-label)
+  - [برچسب نوع شماره/روابط عمومی](#issuepr-kind-label)
 
 فرآیند هدایت بهبودها، مشکلات و درخواست‌های pull به یک نسخه Kubernetes، ذینفعان متعددی را در بر می‌گیرد:
 
@@ -49,7 +48,7 @@ auto_generated: true
 
 اگر می‌خواهید PR شما ادغام شود، به برچسب‌ها و مراحل مهم زیر نیاز دارد که در اینجا با Prow/commands نشان داده شده‌اند و برای اضافه کردن آنها لازم است:
 
-### Normal Dev (Weeks 1-11)
+### عادی  Dev (Weeks 1-11)
 
 - /sig {name}
 - /kind {type}

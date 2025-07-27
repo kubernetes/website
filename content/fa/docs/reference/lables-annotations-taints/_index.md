@@ -1,6 +1,6 @@
 ---
 title: برچسب‌ها، حاشیه‌نویسی‌ها و رنگ‌های شناخته‌شده
-content_type: مفهوم
+content_type: content
 weight: 40
 no_list: true
 card:

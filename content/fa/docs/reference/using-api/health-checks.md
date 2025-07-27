@@ -1,7 +1,5 @@
 ---
-title: Kubernetes API health endpoints
-reviewers:
-- logicalhan
+title: نقاط پایانی سلامت API کوبرنتیز
 content_type: concept
 weight: 50
 ---
@@ -26,13 +24,13 @@ Kubernetes {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}} �
 curl -k https://localhost:6443/livez?verbose
 ```
 
-or from a remote host with authentication:
+یا از یک میزبان راه دور با احراز هویت:
 
 ```shell
 kubectl get --raw='/readyz?verbose'
 ```
 
-The output will look like this:
+خروجی به این شکل خواهد بود:
 
     [+]ping ok
     [+]log ok
@@ -54,14 +52,14 @@ The output will look like this:
     [+]poststarthook/apiservice-openapi-controller ok
     healthz check passed
 
-The Kubernetes API server also supports to exclude specific checks.
-The query parameters can also be combined like in this example:
+سرور Kubernetes API همچنین از حذف بررسی‌های خاص پشتیبانی می‌کند.
+پارامترهای پرس‌وجو را می‌توان مانند این مثال نیز ترکیب کرد:
 
 ```shell
 curl -k 'https://localhost:6443/readyz?verbose&exclude=etcd'
 ```
 
-The output show that the `etcd` check is excluded:
+خروجی نشان می‌دهد که بررسی `etcd` مستثنی است:
 
     [+]ping ok
     [+]log ok
@@ -84,7 +82,7 @@ The output show that the `etcd` check is excluded:
     [+]shutdown ok
     healthz check passed
 
-## Individual health checks
+## بررسی های سلامت فردی
 
 {{< feature-state state="alpha" >}}
 

@@ -3,7 +3,7 @@ reviewers:
 - bgrant0607
 - lavalamp
 - thockin
-title: Kubernetes Deprecation Policy
+title: سیاست منسوخ شدن Kubernetes
 content_type: concept
 weight: 40
 ---
@@ -14,11 +14,11 @@ weight: 40
 <!-- body -->
 کوبرنتیز یک سیستم بزرگ با اجزای زیاد و مشارکت‌کنندگان فراوان است. مانند هر نرم‌افزار دیگری از این دست، مجموعه ویژگی‌ها به طور طبیعی با گذشت زمان تکامل می‌یابد و گاهی اوقات ممکن است نیاز به حذف یک ویژگی باشد. این می‌تواند شامل یک API، یک پرچم یا حتی کل یک ویژگی باشد. برای جلوگیری از ایجاد مشکل برای کاربران فعلی، کوبرنتیز از یک سیاست منسوخ‌سازی برای جنبه‌هایی از سیستم که قرار است حذف شوند، پیروی می‌کند.
 
-## Deprecating parts of the API
+## منسوخ کردن بخش‌هایی از API
 
 از آنجایی که Kubernetes یک سیستم مبتنی بر API است، API آن در طول زمان تکامل یافته تا منعکس کننده درک در حال تکامل از فضای مشکل باشد. API Kubernetes در واقع مجموعه‌ای از APIها است که "گروه‌های API" نامیده می‌شوند و هر گروه API به طور مستقل نسخه‌بندی می‌شود. [API versions](/docs/reference/using-api/#api-versioning) در 3 مسیر اصلی قرار می‌گیرند که هر کدام سیاست‌های متفاوتی برای منسوخ شدن دارند:
 
-| Example  | Track                            |
+| مثال  | ترک                            |
 |----------|----------------------------------|
 | v1       | GA (generally available, stable) |
 | v1beta1  | Beta (pre-release)               |
@@ -51,13 +51,13 @@ weight: 40
 
 برای مثال، یک شیء می‌تواند به صورت v1 نوشته شود و سپس به صورت v2 خوانده شود و به v1 تبدیل شود، و منبع v1 حاصل با منبع اصلی یکسان خواهد بود. نمایش در v2 ممکن است با v1 متفاوت باشد، اما سیستم می‌داند که چگونه بین آنها در هر دو جهت تبدیل کند. علاوه بر این، هر فیلد جدیدی که در v2 اضافه می‌شود باید بتواند به v1 رفت و برگشت کند، به این معنی که v1 ممکن است مجبور شود یک فیلد معادل اضافه کند یا آن را به عنوان یک حاشیه‌نویسی نمایش دهد.
 
-**Rule #3: An API version in a given track may not be deprecated in favor of a less stable API version.**
+**قانون #3: یک نسخه API در یک مسیر مشخص ممکن است به نفع یک نسخه API با پایداری کمتر منسوخ نشود..**
 
 * نسخه‌های API GA می‌توانند جایگزین نسخه‌های بتا و آلفا API شوند.
 * نسخه‌های API بتا می‌توانند جایگزین نسخه‌های بتا و آلفا API قبلی شوند، اما *ممکن است* جایگزین نسخه‌های API GA نشوند.
 * نسخه‌های API آلفا می‌توانند جایگزین نسخه‌های آلفا API قبلی شوند، اما *ممکن است* جایگزین نسخه‌های GA یا بتا API نشوند.
 
-**Rule #4a: API lifetime is determined by the API stability level**
+**قانون #4a: طول عمر API توسط سطح پایداری API تعیین می‌شود.**
 
 * نسخه‌های API GA ممکن است به عنوان منسوخ علامت‌گذاری شوند، اما نباید در نسخه اصلی Kubernetes حذف شوند.
 * نسخه‌های API بتا حداکثر ۹ ماه یا ۳ نسخه فرعی پس از معرفی (هر کدام که طولانی‌تر باشد) منسوخ می‌شوند،
@@ -102,7 +102,7 @@ weight: 40
       <td>v1alpha2</td>
       <td>
         <ul>
-           <li>v1alpha1 is removed. See release notes for required actions.</li>
+           <li>نسخه ۱alpha1 حذف شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید..</li>
         </ul>
       </td>
     </tr>
@@ -112,7 +112,7 @@ weight: 40
       <td>v1beta1</td>
       <td>
         <ul>
-          <li>v1alpha2 is removed. See release notes for required actions.</li>
+          <li>نسخه ۱alpha2 حذف شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید..</li>
         </ul>
       </td>
     </tr>
@@ -122,39 +122,39 @@ weight: 40
       <td>v1beta1</td>
       <td>
         <ul>
-          <li>v1beta1 is deprecated. See release notes for required actions.</li>
+          <li>نسخه v1beta1 منسوخ شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+4</td>
-      <td>v1beta2, v1beta1 (deprecated)</td>
+      <td>v1beta2, v1beta1 (منسوخ شده است)</td>
       <td>v1beta2</td>
       <td></td>
     </tr>
     <tr>
       <td>X+5</td>
-      <td>v1, v1beta1 (deprecated), v1beta2 (deprecated)</td>
+      <td>v1, v1beta1 (منسوخ شده است), v1beta2 (منسوخ شده است)</td>
       <td>v1beta2</td>
       <td>
         <ul>
-          <li>v1beta2 is deprecated. See release notes for required actions.</li>
+          <li>نسخه v1beta2 منسوخ شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+6</td>
-      <td>v1, v1beta2 (deprecated)</td>
+      <td>v1, v1beta2 (منسوخ شده است)</td>
       <td>v1</td>
       <td>
         <ul>
-          <li>v1beta1 is removed. See release notes for required actions.</li>
+          <li>نسخه v1beta1 حذف شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+7</td>
-      <td>v1, v1beta2 (deprecated)</td>
+      <td>v1, v1beta2 (منسوخ شده است)</td>
       <td>v1</td>
       <td></td>
     </tr>
@@ -164,7 +164,7 @@ weight: 40
       <td>v1</td>
       <td>
         <ul>
-          <li>v1beta2 is removed. See release notes for required actions.</li>
+          <li>نسخه ۱ بتا ۲ حذف شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
         </ul>
       </td>
     </tr>
@@ -174,7 +174,7 @@ weight: 40
       <td>v1</td>
       <td>
         <ul>
-           <li>v2alpha1 is removed. See release notes for required actions.</li>
+           <li>نسخه ۲alpha1 حذف شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید..</li>
         </ul>
       </td>
     </tr>
@@ -184,61 +184,61 @@ weight: 40
       <td>v1</td>
       <td>
         <ul>
-          <li>v2alpha2 is removed. See release notes for required actions.</li>
+          <li>نسخه ۲alpha1 حذف شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+11</td>
-      <td>v2beta2, v2beta1 (deprecated), v1</td>
+      <td>v2beta2, v2beta1 (منسوخ شده است), v1</td>
       <td>v1</td>
       <td>
         <ul>
-          <li>v2beta1 is deprecated. See release notes for required actions.</li>
+          <li>نسخه v2beta1 منسوخ شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+12</td>
-      <td>v2, v2beta2 (deprecated), v2beta1 (deprecated), v1 (deprecated)</td>
+      <td>v2, v2beta2 (منسوخ شده است), v2beta1 (منسوخ شده است), v1 (منسوخ شده است)</td>
       <td>v1</td>
       <td>
         <ul>
-          <li>v2beta2 is deprecated. See release notes for required actions.</li>
-          <li>v1 is deprecated in favor of v2, but will not be removed</li>
+          <li>نسخه v2beta2 منسوخ شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
+          <li>نسخه ۱ به نفع نسخه ۲ منسوخ شده است، اما حذف نخواهد شد.</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+13</td>
-      <td>v2, v2beta1 (deprecated), v2beta2 (deprecated), v1 (deprecated)</td>
+      <td>v2, v2beta1 (منسوخ شده است), v2beta2 (منسوخ شده است), v1 (منسوخ شده است)</td>
       <td>v2</td>
       <td></td>
     </tr>
     <tr>
       <td>X+14</td>
-      <td>v2, v2beta2 (deprecated), v1 (deprecated)</td>
+      <td>v2, v2beta2 (منسوخ شده است), v1 (منسوخ شده است)</td>
       <td>v2</td>
       <td>
         <ul>
-          <li>v2beta1 is removed. See release notes for required actions.</li>
+          <li>نسخه ۲ بتا ۱ حذف شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td>X+15</td>
-      <td>v2, v1 (deprecated)</td>
+      <td>v2, v1 (منسوخ شده است)</td>
       <td>v2</td>
       <td>
         <ul>
-          <li>v2beta2 is removed. See release notes for required actions.</li>
+          <li>نسخه ۲ بتا ۲ حذف شده است. برای اقدامات لازم به یادداشت‌های انتشار مراجعه کنید.</li>
         </ul>
       </td>
     </tr>
   </tbody>
 </table>
 
-### REST resources (aka API objects)
+### منابع REST (معروف به اشیاء API)
 
 
 یک منبع فرضی REST به نام Widget را در نظر بگیرید که در جدول زمانی بالا در API نسخه ۱ وجود داشته و باید منسوخ شود. ما منسوخ شدن را همزمان با انتشار X+1 مستند و اعلام می‌کنیم [announce](https://groups.google.com/forum/#!forum/kubernetes-announce). منبع Widget هنوز در API نسخه ۱ (منسوخ شده) وجود دارد اما در نسخه ۲alpha1 وجود ندارد. منبع Widget همچنان در نسخه‌های تا X+۸ و از جمله آن وجود دارد و کار می‌کند. تنها در نسخه X+۹، زمانی که API نسخه ۱ منسوخ شده است، منبع Widget از بین می‌رود و رفتار آن حذف می‌شود.
@@ -270,7 +270,7 @@ weight: 40
 
 با گذشت زمان، کوبرنتیز نسخه‌های API دقیق‌تری را معرفی خواهد کرد که در آن زمان این قوانین در صورت نیاز تنظیم می‌شوند.
 
-## Deprecating a flag or CLI
+## منسوخ کردن یک flag یا CLI
 
 سیستم Kubernetes از چندین برنامه مختلف تشکیل شده است که با هم همکاری می‌کنند.
 گاهی اوقات، یک نسخه Kubernetes ممکن است پرچم‌ها یا دستورات CLI (در مجموع "عناصر CLI") را در این برنامه‌ها حذف کند. برنامه‌های منفرد
@@ -279,12 +279,6 @@ weight: 40
 
 عناصر CLI عملاً بخشی از API سیستم هستند، اما از آنجایی که به روش REST API نسخه‌بندی نمی‌شوند، قوانین منسوخ شدن آنها به شرح زیر است:
 
-**قانون شماره ۵a: عناصر رابط خط فرمان 
-(CLI) کامپوننت‌های کاربرپسند (مثلاً kubectl) باید پس از انقضای اعلام‌شده‌شان، حداقل به مدت زیر عمل کنند:**
-
-* **GA: 12 months or 2 releases (whichever is longer)**
-* **Beta: 3 months or 1 release (whichever is longer)**
-* **Alpha: 0 releases**
 
 **قانون شماره ۵ب:
  عناصر رابط خط فرمان (CLI) کامپوننت‌های مربوط به ادمین (مثلاً kubelet) باید پس از انقضای اعلام‌شده‌شان، حداقل به مدت زیر عمل کنند:**
@@ -332,7 +326,7 @@ weight: 40
 * GA: دروازه ویژگی منسوخ شده است (به ["انحراف"](#انحراف) مراجعه کنید) و غیرعملیاتی می‌شود.
 * GA، پنجره منسوخ شدن کامل: دروازه ویژگی حذف شده و فراخوانی‌های آن دیگر پذیرفته نمی‌شوند.
 
-### Deprecation
+### منسوخ شدن
 
 ویژگی‌ها می‌توانند در هر نقطه‌ای از چرخه حیات قبل از GA حذف شوند. وقتی ویژگی‌ها قبل از GA حذف می‌شوند، دروازه‌های ویژگی مرتبط با آنها نیز منسوخ می‌شوند.
 
@@ -356,7 +350,7 @@ weight: 40
 **قانون شماره ۱۰: گیت‌های ویژگی منسوخ‌شده باید هنگام استفاده با یک هشدار پاسخ دهند. هنگامی که یک گیت ویژگی منسوخ می‌شود، باید هم در یادداشت‌های انتشار و هم در راهنمای CLI مربوطه مستند شود.
 هم هشدارها و هم مستندات باید نشان دهند که آیا یک گیت ویژگی غیرفعال است یا خیر.**
 
-## Deprecating a metric
+## منسوخ کردن یک معیار
 
 هر جزء از صفحه کنترل Kubernetes معیارهایی (معمولاً نقطه پایانی `/metrics`) را در معرض نمایش قرار می‌دهد که معمولاً توسط مدیران خوشه استفاده می‌شوند.
 همه معیارها یکسان نیستند: برخی از معیارها معمولاً به عنوان SLI یا برای تعیین SLO استفاده می‌شوند، که معمولاً اهمیت بیشتری دارند. سایر معیارها ماهیت تجربی‌تری دارند یا در درجه اول در فرآیند توسعه Kubernetes استفاده می‌شوند.

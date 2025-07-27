@@ -1,10 +1,5 @@
 ---
-reviewers:
-- liggitt
-- lavalamp
-- thockin
-- smarterclayton
-title: "Deprecated API Migration Guide"
+title: "راهنمای مهاجرت API منسوخ‌شده"
 weight: 45
 content_type: reference
 ---
@@ -17,7 +12,8 @@ content_type: reference
 
 <!-- body -->
 
-## Removed APIs by release
+## API های حذف شده با انتشار
+
 
 ### v1.32
 
@@ -157,10 +153,10 @@ The **v1.26** release stopped serving the following deprecated API versions:
 
 یک `spec.selector` تنظیم نشده، هیچ پادی را در هیچ یک از نسخه‌های API انتخاب نمی‌کند.
 
-#### PodSecurityPolicy {#psp-v125}
+#### سیاست امنیتی پاد {#psp-v125}
 
 
-PodSecurityPolicy در نسخه API **policy/v1beta1** از نسخه ۱.۲۵ دیگر ارائه نمی‌شود و کنترل‌کننده پذیرش PodSecurityPolicy حذف خواهد شد.
+سیاست امنیتی پاد در نسخه API **policy/v1beta1** از نسخه ۱.۲۵ دیگر ارائه نمی‌شود و کنترل‌کننده پذیرش سیاست امنیتی پاد حذف خواهد شد.
 
 به [Pod Security Admission](/docs/concepts/security/pod-security-admission/) یا یک [3rd party admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/). مهاجرت کنید.
 
@@ -367,16 +363,16 @@ Role، و RoleBinding از نسخه ۱.۲۲ دیگر ارائه نمی‌شود.
 * تغییرات قابل توجه:
 * `spec.selector` اکنون پس از ایجاد، الزامی و غیرقابل تغییر است؛ از برچسب‌های الگوی موجود به عنوان انتخابگر برای ارتقاءهای یکپارچه استفاده کنید.
 
-#### PodSecurityPolicy {#psp-v116}
+#### سیاست امنیتی پاد {#psp-v116}
 
-نسخه API **extensions/v1beta1** از PodSecurityPolicy از نسخه ۱.۱۶ دیگر ارائه نمی‌شود.
+نسخه API **extensions/v1beta1** از سیاست امنیتی پاد از نسخه ۱.۱۶ دیگر ارائه نمی‌شود.
 
 * برای استفاده از نسخه API **policy/v1beta1** که از نسخه ۱.۱۰ در دسترس است، مانیفست‌ها و کلاینت API را منتقل کنید.
-* توجه داشته باشید که نسخه API **policy/v1beta1** از PodSecurityPolicy در نسخه ۱.۲۵ حذف خواهد شد.
+* توجه داشته باشید که نسخه API **policy/v1beta1** از سیاست امنیتی پاد در نسخه ۱.۲۵ حذف خواهد شد.
 
-## What to do
+## چه باید کرد
 
-### Test with deprecated APIs disabled
+### تست با API های منسوخ غیرفعال
 
 شما می‌توانید خوشه‌های خود را با راه‌اندازی یک سرور API با نسخه‌های API خاص غیرفعال، آزمایش کنید تا حذف‌های آینده را شبیه‌سازی کنید. پرچم زیر را به آرگومان‌های راه‌اندازی سرور API اضافه کنید:
 
@@ -386,11 +382,11 @@ Role، و RoleBinding از نسخه ۱.۲۲ دیگر ارائه نمی‌شود.
 
 `--runtime-config=admissionregistration.k8s.io/v1beta1=false,apiextensions.k8s.io/v1beta1,...`
 
-### Locate use of deprecated APIs
+### استفاده از API های منسوخ شده را پیدا کنید
 
-برای یافتن محل استفاده از APIهای منسوخ‌شده، از [client warnings, metrics, and audit information available in 1.19+](/blog/2020/09/03/warnings/#deprecation-warnings) استفاده کنید.
+برای یافتن محل استفاده از APIهای منسوخ‌شده، از [هشدارهای مشتری، معیارها و اطلاعات حسابرسی موجود در 1.19+](/blog/2020/09/03/warnings/#deprecation-warnings) استفاده کنید.
 
-### Migrate to non-deprecated APIs
+### مهاجرت به API های منسوخ نشده
 
 * به‌روزرسانی یکپارچه‌سازی‌ها و کنترلرهای سفارشی برای فراخوانی APIهای منسوخ‌نشده
 * تغییر فایل‌های YAML برای ارجاع به APIهای منسوخ‌نشده

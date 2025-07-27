@@ -1,5 +1,5 @@
 ---
-title: Release Managers
+title: رها کردن مدیریت 
 type: docs
 ---
 <div dir="rtl" style="text-align: right;">

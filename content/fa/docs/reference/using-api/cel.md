@@ -1,8 +1,5 @@
 ---
-title: Common Expression Language in Kubernetes
-reviewers:
-- jpbetz
-- cici37
+title: زبان عبارات مشترک در Kubernetes
 content_type: concept
 weight: 35
 min-kubernetes-server-version: 1.25
@@ -10,13 +7,13 @@ min-kubernetes-server-version: 1.25
 
 <!-- overview -->
 
-زبان عبارت مشترک [Common Expression Language (CEL)](https://github.com/google/cel-go) در API کوبرنتیز برای اعلام قوانین اعتبارسنجی، قوانین سیاست و سایر محدودیت‌ها یا شرایط استفاده می‌شود.
+زبان عبارت مشترک [ زبان عبارات مشترک در Kubernetes (CEL)](https://github.com/google/cel-go) در API کوبرنتیز برای اعلام قوانین اعتبارسنجی، قوانین سیاست و سایر محدودیت‌ها یا شرایط استفاده می‌شود.
 عبارات CEL مستقیماً در {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} ارزیابی می‌شوند، که CEL را به جایگزینی مناسب برای مکانیسم‌های خارج از فرآیند، مانند webhooks، برای بسیاری از موارد استفاده از توسعه‌پذیری تبدیل می‌کند. عبارات CEL شما تا زمانی که مؤلفه سرور API صفحه کنترل در دسترس باشد، به اجرای خود ادامه می‌دهند.
 <!-- body -->
 
 ## مروری بر زبان
 
-زبان [CEL language](https://github.com/google/cel-spec/blob/master/doc/langdef.md) دارای سینتکس سرراستی است که مشابه عبارات موجود در C، C++، جاوا، جاوا اسکریپت و Go می‌باشد.
+زبان [CEL زبان](https://github.com/google/cel-spec/blob/master/doc/langdef.md) دارای سینتکس سرراستی است که مشابه عبارات موجود در C، C++، جاوا، جاوا اسکریپت و Go می‌باشد.
 
 
 CEL برای جاسازی در برنامه‌ها طراحی شده است. هر "برنامه" CEL یک عبارت واحد است که به یک مقدار واحد ارزیابی می‌شود. عبارات CEL معمولاً "جمله‌های تک‌خطی" کوتاهی هستند که به خوبی در فیلدهای رشته‌ای منابع API Kubernetes قرار می‌گیرند.
