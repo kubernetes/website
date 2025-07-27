@@ -75,7 +75,7 @@ Se `spec.replicas` > 1, o Kubernetes não consegue determinar o motivo de um Pod
 não estar íntegro. Isso pode ser resultado de uma falha permanente ou de uma falha transitória.
 Uma falha transitória pode ser causada por uma reinicialização necessária devido a uma atualização ou manutenção.
 
-Se o Pod não estiver íntegro devido a uma falha permanente, escalar sem corrigir
+Se o Pod não estiver íntegro devido a uma falha permanente, redimensionar sem corrigir
 a falha pode levar a um estado em que a quantidade de membros do StatefulSet fique abaixo
 do número mínimo de réplicas necessário para funcionar corretamente.
 Isso pode fazer com que seu StatefulSet se torne indisponível.
