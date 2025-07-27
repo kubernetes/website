@@ -54,7 +54,7 @@ If your cluster has the feature enabled, you'll be able to select one of two pol
 : Creates new pods as soon as old ones start terminating, resulting in faster rollouts at the cost of potentially higher resource consumption.
 
 `TerminationComplete`
-: Waits until old pods fully terminate before creating new ones, resulting in slower rollouts and a more controlled resource consumption.
+: Waits until old pods fully terminate before creating new ones, resulting in slower rollouts but ensuring controlled resource consumption.
 
 This feature makes Deployment behavior more predictable by letting you choose when new pods should be created during updates or scaling. It's beneficial when working in clusters with tight resource constraints or with workloads with long termination periods. 
 
