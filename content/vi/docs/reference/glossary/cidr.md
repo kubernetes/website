@@ -10,7 +10,7 @@ aka:
 tags:
 - networking
 ---
-CIDR (Classless Inter-Domain Routing) là một dải dùng để mô tả các khối địa chỉ IP và được sử dụng rộng rãi trong nhiều cấu hình mạng khác nhau.
+_Classless Inter-Domain Routing_ (CIDR) là một dải dùng để mô tả các khối địa chỉ IP và được sử dụng rộng rãi trong nhiều cấu hình mạng khác nhau.
 
 <!--more-->
 
