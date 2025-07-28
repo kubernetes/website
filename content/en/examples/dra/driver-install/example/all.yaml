@@ -1,0 +1,32 @@
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceClaim
+metadata:
+ name: some-gpu
+spec:
+   devices:
+     requests:
+     - name: some-gpu
+       exactly:
+         deviceClassName: gpu.example.com
+         selectors:
+         - cel:
+             expression: "device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi')) >= 0"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod0
+  labels:
+    app: pod
+spec:
+  containers:
+  - name: ctr0
+    image: ubuntu:22.04
+    command: ["bash", "-c"]
+    args: ["export; trap 'exit 0' TERM; sleep 9999 & wait"]
+    resources:
+      claims:
+      - name: gpu
+  resourceClaims:
+  - name: gpu
+    resourceClaimName: some-gpu
