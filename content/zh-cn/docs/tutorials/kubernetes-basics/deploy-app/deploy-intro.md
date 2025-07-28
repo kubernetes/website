@@ -115,7 +115,7 @@ kubectl 使用 Kubernetes API 与集群进行交互。在本单元中，你将�
 For your first Deployment, you'll use a hello-node application packaged in a Docker
 container that uses NGINX to echo back all the requests. (If you didn't already try
 creating a hello-node application and deploying it using a container, you can do
-that first by following the instructions from the [Hello Minikube tutorial](/docs/tutorials/hello-minikube/).
+that first by following the instructions from the [Hello Minikube tutorial](/docs/tutorials/hello-minikube/).)
 -->
 对于你第一次部署，你将使用打包在 Docker 容器中的 hello-node 应用，该应用使用 NGINX 回显所有请求。
 （如果你尚未尝试创建 hello-node 应用并使用容器进行部署，则可以首先按照
