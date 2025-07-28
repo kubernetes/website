@@ -122,7 +122,7 @@ CONTAINER ID        IMAGE                  COMMAND                  CREATED     
 Pod内でコマンドを実行するために`docker exec`を使います:
 
 ```shell
-# 6a96207fed4b を"docker ps"で確認したコンテナIDに変更してください。
+# 6a96207fed4bを"docker ps"で確認したコンテナIDに変更してください。
 docker exec -it 6a96207fed4b ls /var/lib/kubelet/seccomp/profiles
 ```
 
@@ -220,7 +220,7 @@ audit-pod   NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
 `docker exec`を使って、コントロールプレーンコンテナに属するコンテナの中から`curl`を実行しましょう:
 
 ```shell
-# 6a96207fed4b をコントロールプレーンコンテナのIDに変更し、32373を"kubectl get service"で確認したポート番号に変更してください。
+# 6a96207fed4bと32373を、それぞれ"docker ps"で確認したコンテナIDとポート番号に変更してください。
 docker exec -it 6a96207fed4b curl localhost:32373
 ```
 
@@ -357,7 +357,7 @@ fine-pod    NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
 kindのコントロールプレーンコンテナの内部から、`curl`を用いてエンドポイントにアクセスします:
 
 ```shell
-# 6a96207fed4b をコントロールプレーンコンテナのIDに変更し、32373を"kubectl get service"で確認したポート番号に変更してください。
+# 6a96207fed4bと32373を、それぞれ"docker ps"で確認したコンテナIDとポート番号に変更してください。
 docker exec -it 6a96207fed4b curl localhost:32373
 ```
 
