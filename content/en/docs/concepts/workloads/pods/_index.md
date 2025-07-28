@@ -231,7 +231,7 @@ have some limitations:
 - If the `metadata.deletionTimestamp` is set, no new entry can be added to the
   `metadata.finalizers` list.
 - Pod updates may not change fields other than `spec.containers[*].image`,
-  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds`, `spec.terminationGracePeriodSeconds` or
+  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds`, `spec.terminationGracePeriodSeconds`,
   `spec.tolerations` or `spec.schedulingGates`. For `spec.tolerations`, you can only add new entries.
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
@@ -268,6 +268,10 @@ The above update rules apply to regular pod updates, but other pod fields can be
   to track the pod state to the current pod status. The pod's `status.observedGeneration` will reflect the
   `metadata.generation` of the pod at the point that the pod status is being reported.
 
+{{< note >}}
+The `status.observedGeneration` field is managed by the kubelet and external controllers should **not** modify this field.
+{{< /note >}}
+
 Different status fields may either be associated with the `metadata.generation` of the current sync loop, or with the
 `metadata.generation` of the previous sync loop. The key distinction is whether a change in the `spec` is reflected
 directly in the `status` or is an indirect result of a running process.
@@ -296,7 +300,7 @@ This behavior applies to:
   request.
 - **Container state**: During an in-progress resize, with require restart policy reflects the previous generation's
   request.
-- **activeDeadlineSeconds** & **terminationGracePeriodSeconds** & **DeletionTimestamp**: The effects of these fields on the
+- **activeDeadlineSeconds** & **terminationGracePeriodSeconds** & **deletionTimestamp**: The effects of these fields on the
   Pod's status are a result of the previously observed specification.
 
 ## Resource sharing and communication
