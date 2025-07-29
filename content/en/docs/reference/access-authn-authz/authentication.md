@@ -374,6 +374,12 @@ If you want to switch to using structured authentication configuration, you have
 command line arguments, and use the configuration file instead.
 {{< /note >}}
 
+{{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
+
+The `egressSelectorType` field in the JWT issuer configuration allows you to specify which egress selector
+should be used for sending all traffic related to the issuer (discovery, JWKS, distributed claims, etc).
+This feature requires the `StructuredAuthenticationConfigurationEgressSelector` feature gate to be enabled.
+
 ```yaml
 ---
 #
@@ -411,6 +417,13 @@ jwt:
     - my-other-app
     # this is required to be set to "MatchAny" when multiple audiences are specified.
     audienceMatchPolicy: MatchAny
+    # egressSelectorType is an indicator of which egress selection should be used for sending all traffic related
+    # to this issuer (discovery, JWKS, distributed claims, etc).  If unspecified, no custom dialer is used.
+    # When specified, the valid choices are "controlplane" and "cluster".  These correspond to the associated
+    # values in the --egress-selector-config-file.
+    # - controlplane: for traffic intended to go to the control plane.
+    # - cluster: for traffic intended to go to the system being managed by Kubernetes.
+    egressSelectorType: <egress selector type>
   # rules applied to validate token claims to authenticate users.
   claimValidationRules:
     # Same as --oidc-required-claim key=value.
@@ -696,7 +709,6 @@ jwt:
 ###### Limitations
 
 1. Distributed claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
-1. Egress selector configuration is not supported for calls to `issuer.url` and `issuer.discoveryURL`.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
