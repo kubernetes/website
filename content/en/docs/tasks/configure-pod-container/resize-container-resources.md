@@ -69,6 +69,19 @@ The Kubelet updates the Pod's status conditions to indicate the state of a resiz
   This is usually brief but might take longer depending on the resource type and runtime behavior.
   Any errors during actuation are reported in the `message` field (along with `reason: Error`).
 
+### How kubelet retries Deferred resizes
+
+If the requested resize is 'Deferred', the kubelet will periodically re-attempt the resize,
+for example when another pod is removed or scaled down. If there are multiple deferred
+resizes, they are retried according to the following priority:
+
+* Pods with a higher Priority (based on PriorityClass) will have their resize request retried first.
+* If two pods have the same Priority, resize of guaranteed pods will be retried before the resize of burstable pods.
+* If all else is the same, pods that have been in the Deferred state longer will be prioritized.
+
+A higher priority resize being marked as pending will not block the remaining pending resizes from being attempted;
+all remaining pending resizes will still be retried even if a higher-priority resize gets deferred again. 
+
 ## Container resize policies
 
 You can control whether a container should be restarted when resizing
