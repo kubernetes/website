@@ -638,6 +638,16 @@ Existing Pods maintain a mount point to the deleted Secret - it is recommended t
 these pods.
 {{< /note >}}
 
+## Viewing Secrets information
+
+Although getting secrets could be performed using 'kubectl get secret' command, a broader view of the 
+secret information needs the secret to be outputted in yaml format. The below command can be used to 
+output a detailed information of the secret. 
+
+```shell
+kubectl get secret name-of-secret -o yaml
+```
+
 ## Information security for Secrets
 
 Although ConfigMap and Secret work similarly, Kubernetes applies some additional
