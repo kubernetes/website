@@ -71,7 +71,7 @@ The Kubelet updates the Pod's status conditions to indicate the state of a resiz
 
 ### How kubelet retries Deferred resizes
 
-If the requested resize is 'Deferred', the kubelet will periodically re-attempt the resize,
+If the requested resize is _Deferred_, the kubelet will periodically re-attempt the resize,
 for example when another pod is removed or scaled down. If there are multiple deferred
 resizes, they are retried according to the following priority:
 
@@ -81,6 +81,15 @@ resizes, they are retried according to the following priority:
 
 A higher priority resize being marked as pending will not block the remaining pending resizes from being attempted;
 all remaining pending resizes will still be retried even if a higher-priority resize gets deferred again. 
+
+
+### Leveraging `observedGeneration` Fields
+
+{{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
+
+* The top-level `status.observedGeneration` field shows the `metadata.generation` corresponding to the latest pod specification that the kubelet has acknowledged. You can use this to determine the most recent resize request the kubelet has processed.
+* In the `PodResizeInProgress` condition, the `conditions[].observedGeneration` field indicates the `metadata.generation` of the podSpec when the current in-progress resize was initiated.
+* In the `PodResizePending` condition, the `conditions[].observedGeneration` field indicates the `metadata.generation` of the podSpec when the pending resize's allocation was last attempted.
 
 ## Container resize policies
 
@@ -120,7 +129,7 @@ Consider a container configured with `restartPolicy: NotRequired` for CPU and `r
 For Kubernetes {{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
 
 * **Resource Types:** Only CPU and memory resources can be resized.
-* **Memory Decrease:** If the memory resize restart policy is `NotRequired` (or unspecified), the Kubelet will make a
+* **Memory Decrease:** If the memory resize restart policy is `NotRequired` (or unspecified), the kubelet will make a
 best-effort attempt to prevent oom-kills when decreasing memory limits, but doesn't provide any guarantees. 
 Before decreasing container memory limits, if memory usage exceeds the requested limit, the resize will be skipped
 and the status will remain in an "In Progress" state. This is considered best-effort because it is still subject
