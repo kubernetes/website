@@ -421,10 +421,24 @@ language_alternatives = ["en"]
 description = "운영 수준의 컨테이너 오케스트레이션"
 languageNameLatinScript = "Korean"
 
+[languages.fa]
+title = "Kubernetes"
+languageName = "فارسی (Persian)"
+weight = 11
+contentDir = "content/fa"
+languagedirection = "rtl"
+
+[languages.fa.params]
+time_format_blog = "2006.01.02"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+description = "کوبرنتیز، مدیریت کانتینر در سطح عملیاتی"
+languageNameLatinScript = "Persian"
+
 [languages.pl]
 title = "Kubernetes"
 languageName = "Polski (Polish)"
-weight = 11
+weight = 12
 contentDir = "content/pl"
 languagedirection = "ltr"
 
@@ -438,7 +452,7 @@ languageNameLatinScript = "Polski"
 [languages.pt-br]
 title = "Kubernetes"
 languageName = "Português (Portuguese)"
-weight = 12
+weight = 13
 
 contentDir = "content/pt-br"
 languagedirection = "ltr"
@@ -453,7 +467,7 @@ languageNameLatinScript = "Português"
 [languages.ru]
 title = "Kubernetes"
 languageName = "Русский (Russian)"
-weight = 13
+weight = 14
 contentDir = "content/ru"
 languagedirection = "ltr"
 
@@ -467,7 +481,7 @@ languageNameLatinScript = "Russian"
 [languages.es]
 title = "Kubernetes"
 languageName = "Español (Spanish)"
-weight = 14
+weight = 15
 contentDir = "content/es"
 languagedirection = "ltr"
 
@@ -481,7 +495,7 @@ languageNameLatinScript = "Español"
 [languages.uk]
 title = "Kubernetes"
 languageName = "Українська (Ukrainian)"
-weight = 15
+weight = 16
 contentDir = "content/uk"
 languagedirection = "ltr"
 
@@ -496,7 +510,7 @@ languageNameLatinScript = "Ukrainian"
 title = "Kubernetes"
 languageName = "Tiếng Việt (Vietnamese)"
 contentDir = "content/vi"
-weight = 16
+weight = 17
 languagedirection = "ltr"
 
 [languages.vi.params]
@@ -543,6 +557,10 @@ target = "i18n"
 
 [[module.mounts]]
 source = "i18n/ko"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/fa"
 target = "i18n"
 
 [[module.mounts]]
