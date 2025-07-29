@@ -53,7 +53,7 @@ ConfigMap example-redis-config como um arquivo chamado redis.conf no volume conf
 O volume config é então montado em /redis-master por spec.containers[0].volumeMounts[1].
 
 Isso tem o efeito líquido de expor os dados em data.redis-config do
-ConfigMap example-redis-config acima como /redis-master/redis.conf dentro do Pod.
+ConfigMap `example-redis-config` acima como `/redis-master/redis.conf` dentro do Pod.
 
 {{% code_sample file="pods/config/redis-pod.yaml" %}}
 
@@ -113,7 +113,7 @@ Shell
 
 1) "maxmemory-policy"
 2) "noeviction"
-Agora vamos adicionar alguns valores de configuração ao ConfigMap example-redis-config:
+Agora vamos adicionar alguns valores de configuração ao ConfigMap `example-redis-config`:
 
 {{% code_sample file="pods/config/example-redis-config.yaml" %}}
 
