@@ -113,7 +113,9 @@ resource requests/limits of that type for each container in the Pod.
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
-Starting in Kubernetes 1.34, you can also specify resource requests and limits at
+Provided your cluster has the `PodLevelResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
+you can specify resource requests and limits at
 the Pod level. At the Pod level, Kubernetes {{< skew currentVersion >}}
 only supports resource requests or limits for specific resource types: `cpu` and /
 or `memory`. This feature is currently in alpha and with the feature enabled,
