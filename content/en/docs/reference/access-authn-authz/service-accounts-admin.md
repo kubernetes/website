@@ -628,7 +628,7 @@ This feature enables kubernetes distributions to integrate with key management s
 To configure kube-apiserver to use external-jwt-signer set the `--service-account-signing-endpoint` flag
 to the location of a Unix domain socket (UDS) on a filesystem, or be prefixed with an @ symbol and name
 a UDS in the abstract socket namespace. At the configured UDS, shall be an RPC server which implements
-[ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto).
+[ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/461ba83084ab7cb91ab692687bb7aedb05c6eb65/staging/src/k8s.io/externaljwt/apis/v1/api.proto).
 The external-jwt-signer must be healthy and be ready to serve supported service account keys for the kube-apiserver to start.
 
 Check out [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing)
