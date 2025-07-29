@@ -107,8 +107,11 @@ Consider a container configured with `restartPolicy: NotRequired` for CPU and `r
 For Kubernetes {{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
 
 * **Resource Types:** Only CPU and memory resources can be resized.
-* **Memory Decrease:** Memory limits _cannot be decreased_ unless the `resizePolicy` for memory is `RestartContainer`.
-  Memory requests can generally be decreased.
+* **Memory Decrease:** If the memory resize restart policy is `NotRequired` (or unspecified), the Kubelet will make a
+best-effort attempt to prevent oom-kills when decreasing memory limits, but doesn't provide any guarantees. 
+Before decreasing container memory limits, if memory usage exceeds the requested limit, the resize will be skipped
+and the status will remain in an "In Progress" state. This is considered best-effort because it is still subject
+to a race condition where memory usage may spike right after the check is performed. 
 * **QoS Class:** The Pod's original [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
   (Guaranteed, Burstable, or BestEffort) is determined at creation and **cannot** be changed by a resize.
   The resized resource values must still adhere to the rules of the original QoS class:
