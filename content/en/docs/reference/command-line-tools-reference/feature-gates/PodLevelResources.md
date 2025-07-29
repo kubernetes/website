@@ -11,7 +11,7 @@ stages:
     fromVersion: "1.32"
     toVersion: "1.33"
   - stage: beta
-    defaultValue: false
+    defaultValue: true
     fromVersion: "1.34"
 ---
 Enable _Pod level resources_:  the ability to specify resource requests and limits
