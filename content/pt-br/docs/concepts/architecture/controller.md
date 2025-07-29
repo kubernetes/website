@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-Em robótica e automação, um _ciclo de controle_ é
+Em robótica e automação um _control loop_, ou em português _ciclo de controle_, é
 um ciclo não terminado que regula o estado de um sistema.
 
 Aqui está um exemplo de um ciclo de controle: um termostato em uma sala.
