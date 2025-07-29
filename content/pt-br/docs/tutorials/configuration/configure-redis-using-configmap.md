@@ -1,3 +1,4 @@
+---
 reviewers:
 - eparis
 - pmorie
@@ -208,6 +209,7 @@ Shell
 
 kubectl delete pod/redis configmap/example-redis-config
 {{% heading "whatsnext" %}}
-Saiba mais sobre ConfigMaps.
 
-Siga um exemplo de Atualizando a configuração via um ConfigMap.
+* Saiba mais sobre [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+
+* Siga um exemplo de [Atualizando a configuração via um ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
