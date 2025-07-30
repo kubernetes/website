@@ -1,7 +1,6 @@
 ---
-title: Client Libraries
-reviewers:
-- ahmetb
+title: کتابخانه های کلاینت ها
+
 content_type: concept
 weight: 30
 ---
@@ -20,7 +19,7 @@ weight: 30
 
 کتابخانه‌های کلاینت زیر رسماً توسط [Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery). نگهداری می‌شوند.
 
-| Language   | Client Library | Sample Programs |
+| زبان   | کتابخانه کلایسنت ها  | برنامه ساده |
 |------------|----------------|-----------------|
 | C          | [github.com/kubernetes-client/c](https://github.com/kubernetes-client/c/) | [browse](https://github.com/kubernetes-client/c/tree/master/examples)
 | dotnet     | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [browse](https://github.com/kubernetes-client/csharp/tree/master/examples)
@@ -32,13 +31,13 @@ weight: 30
 | Python     | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [browse](https://github.com/kubernetes-client/python/tree/master/examples)
 | Ruby       | [github.com/kubernetes-client/ruby/](https://github.com/kubernetes-client/ruby/) | [browse](https://github.com/kubernetes-client/ruby/tree/master/examples)
 
-## Community-maintained client libraries
+## کتابخانه‌های کلاینت تحت مدیریت جامعه 
 
 {{% thirdparty-content %}}
 
 کتابخانه‌های کلاینت Kubernetes API زیر توسط نویسندگان آنها ارائه و نگهداری می‌شوند، نه تیم Kubernetes.
 
-| Language             | Client Library                           |
+| زبان             | کتابخانه کلایسنت ها                         |
 | -------------------- | ---------------------------------------- |
 | Clojure              | [github.com/yanatan16/clj-kubernetes-api](https://github.com/yanatan16/clj-kubernetes-api) |
 | DotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |

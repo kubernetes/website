@@ -1,12 +1,11 @@
 ---
-title: Patch Releases
+title: انتشارات پچ
 type: docs
 ---
-<div dir="rtl" style="text-align: right;">
 
 اطلاعات تماس و زمان‌بندی تیم برای انتشار وصله‌های Kubernetes.
 برای اطلاعات کلی در مورد چرخه انتشار Kubernetes، به
-[release process description].
+[شرح فرآیند انتشار].
 
 ## اهنگ
 آهنگ انتشار پچ ما معمولاً ماهانه است.
@@ -22,7 +21,7 @@ type: docs
 این تیم از طریق روابط عمومی گیت‌هاب با ارسال‌کنندگان تماس خواهد گرفت.
 کانال سیج در اسلک ،یا پیام به صورت مستقیم در اسلک و یا از طریق [email](mailto:release-managers-private@kubernetes.io)
 
-## گیلاس چینی
+## cherry pick
 
  [cherry pick process][cherry-picks]. را دنبال کنید لطفا 
 
@@ -40,7 +39,6 @@ PR های Cherry Pick که معیارهای ادغام را نداشته باش�
 
 دوازده ماه اول این بازه زمانی، دوره استاندارد در نظر گرفته خواهد شد.
 
-Towards the end of the twelve month, the following will happen:
 در پایان ماه دوازدهم، موارد زیر اتفاق خواهد افتاد:
 
 - [Release Managers][release-managers] انتشار را قطع خواهد کرد
@@ -72,7 +70,7 @@ Towards the end of the twelve month, the following will happen:
 
 {{< eol-releases >}}
 
-[چیدن گیلاس]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
+[ cherry pick]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
 [مدیران انتشار]: /releases/release-managers
 [شرح فرآیند انتشار]: /releases/release
 [پشتیبانی سالانه]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md

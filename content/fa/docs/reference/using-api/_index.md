@@ -1,9 +1,5 @@
 ---
 title: نمای کلی API
-reviewers:
-- erictune
-- lavalamp
-- jbeda
 content_type: مفهوم
 weight: 20
 no_list: true
@@ -30,19 +26,19 @@ REST API ساختار اساسی کوبرنتیز است. تمام عملیات 
 
 
 
-## API versioning
+## نسخه API
 
 طرح‌های سریال‌سازی JSON و Protobuf از دستورالعمل‌های یکسانی برای تغییرات طرحواره پیروی می‌کنند. توضیحات زیر هر دو قالب را پوشش می‌دهد.
 
 نسخه‌بندی API و نسخه‌بندی نرم‌افزار به طور غیرمستقیم به هم مرتبط هستند.
 
-[API and release versioning proposal](https://git.k8s.io/sig-release/release-engineering/versioning.md)
+[پیشنهاد نسخه‌بندی API و انتشار](https://git.k8s.io/sig-release/release-engineering/versioning.md)
 
 رابطه بین نسخه‌بندی API و نسخه‌بندی نرم‌افزار را شرح می‌دهد.
 
 نسخه‌های مختلف API سطوح مختلف پایداری و پشتیبانی را نشان می‌دهند.
 
-می‌توانید اطلاعات بیشتری در مورد معیارهای هر سطح را در [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions). بیابید.
+می‌توانید اطلاعات بیشتری در مورد معیارهای هر سطح را در [API اسناد را تغییر می دهد](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions). بیابید.
 
 
 در اینجا خلاصه‌ای از هر سطح آمده است:
@@ -80,7 +76,7 @@ REST API ساختار اساسی کوبرنتیز است. تمام عملیات 
   - نسخه‌های پایدار API برای تمام نسخه‌های آینده در نسخه اصلی Kubernetes در دسترس خواهند بود،
     و در حال حاضر هیچ برنامه‌ای برای نسخه اصلی Kubernetes که APIهای پایدار را حذف کند، وجود ندارد.
 
-## API groups
+## API گروه ها
 
 [API groups](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)
 گسترش API Kubernetes را آسان‌تر می‌کند.
@@ -96,7 +92,7 @@ REST API ساختار اساسی کوبرنتیز است. تمام عملیات 
 *  گروه‌های نامگذاری شده در مسیر REST `/apis/$GROUP_NAME/$VERSION` قرار دارند و از `apiVersion: $GROUP_NAME/$VERSION` (برای مثال، `apiVersion: batch/v1`) استفاده می‌کنند.
 شما می‌توانید لیست کامل گروه‌های API پشتیبانی شده را در
 [مرجع API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#-strong-api-groups-strong-) بیابید.
-## Enabling or disabling API groups   {#enabling-or-disabling}
+## فعال یا غیرفعال کردن گروه‌های API  {#enabling-or-disabling}
 
 منابع و گروه‌های API خاصی به طور پیش‌فرض فعال هستند. می‌توانید با تنظیم `--runtime-config` در سرور API، آنها را فعال یا غیرفعال کنید. پرچم `--runtime-config` جفت‌های `<key>[=<value>]` را که با کاما از هم جدا شده‌اند، می‌پذیرد که پیکربندی زمان اجرای سرور API را توصیف می‌کنند. اگر قسمت `=<value>` حذف شود، طوری رفتار می‌شود که انگار `=true` مشخص شده است. به عنوان مثال:
 
@@ -108,12 +104,12 @@ REST API ساختار اساسی کوبرنتیز است. تمام عملیات 
 وقتی گروه‌ها یا منابع را فعال یا غیرفعال می‌کنید، باید سرور API و مدیر کنترل را مجدداً راه‌اندازی کنید تا تغییرات `--runtime-config` اعمال شوند.
 {{< /note >}}
 
-## Persistence
+## ماندگاری
 
 کوبرنتس حالت سریالیزه شده خود را بر اساس منابع API با نوشتن آنها در ... ذخیره می‌کند.
 {{< glossary_tooltip term_id="etcd" >}}.
 
 ## {{% heading "whatsnext" %}}
 
-- درباره  بیشتر بدانید [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
-- مستندات طراحی [aggregator] را مطالعه کنید (https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)
+- درباره  بیشتر بدانید [کنوانسیون های API](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
+- مستندات طراحی [جمع کننده] را مطالعه کنید (https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)

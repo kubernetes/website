@@ -1,6 +1,6 @@
 ---
 # Removed from Kubernetes
-title: WindowsRunAsUserName
+title: نام کاربری ویندوز (WindowsRunAsUserName)
 content_type: feature_gate
 
 _build:

@@ -19,7 +19,7 @@ content_type: reference
 
 نسخه **v1.32** ارائه نسخه‌های API منسوخ‌شده زیر را متوقف کرد:
 
-#### Flow control resources {#flowcontrol-resources-v132}
+#### منابع کنترل جریان {#flowcontrol-resources-v132}
 
 نسخه API مربوط به FlowSchema و PriorityLevelConfiguration از نسخه ۱.۳۲ به بعد دیگر ارائه نمی‌شود. **flowcontrol.apiserver.k8s.io/v1beta3**
 
@@ -33,7 +33,7 @@ content_type: reference
 
 نسخه **v1.29** ارائه نسخه‌های API منسوخ‌شده زیر را متوقف کرد:
 
-#### Flow control resources {#flowcontrol-resources-v129}
+#### منابع کنترل جریان {#flowcontrol-resources-v129}
 
 نسخه API مربوط به FlowSchema و PriorityLevelConfiguration از نسخه ۱.۲۹ به بعد دیگر ارائه نمی‌شود. **flowcontrol.apiserver.k8s.io/v1beta2**
 
@@ -64,7 +64,7 @@ k8s.io/v1beta3**:
 
 The **v1.26** release stopped serving the following deprecated API versions:
 
-#### Flow control resources {#flowcontrol-resources-v126}
+#### منابع کنترل جریان {#flowcontrol-resources-v126}
 
 نسخه API **flowcontrol.apiserver.k8s.io/v1beta1** از FlowSchema و PriorityLevelConfiguration از نسخه ۱.۲۶ دیگر ارائه نمی‌شود.
 

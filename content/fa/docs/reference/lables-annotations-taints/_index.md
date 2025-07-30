@@ -1,14 +1,14 @@
 ---
 title: برچسب‌ها، حاشیه‌نویسی‌ها و رنگ‌های شناخته‌شده
-content_type: content
+content_type: concept
 weight: 40
 no_list: true
 card:
-  name: مرجع
+  name: reference 
   weight: 30
   anchors:
-  - anchor: "#برچسب‌ها-حاشیه‌نویسی‌ها-و-رنگ‌های-استفاده‌شده-روی-اشیاء-api"
-    title: برچسب‌ها، حاشیه‌نویسی‌ها و رنگ‌آمیزی‌ها
+  - anchor:  "#labels-annotations-and-taints-used-on-api-objects"
+    title: Labels, annotations and taints 
 ---
 
 <!-- overview -->
@@ -32,7 +32,7 @@ card:
 
 مورد استفاده در: اشیاء [`FlowSchema` و `PriorityLevelConfiguration`](/docs/concepts/cluster-administration/flow-control/#defaults)
 
-اگر این حاشیه‌نویسی در FlowSchema یا PriorityLevelConfiguration روی true تنظیم شده باشد، `spec` آن شیء توسط kube-apiserver مدیریت می‌شود. اگر سرور API یک شیء APF را تشخیص ندهد و شما آن را برای به‌روزرسانی خودکار حاشیه‌نویسی کنید، سرور API کل شیء را حذف می‌کند. در غیر این صورت، سرور API مشخصات شیء را مدیریت نمی‌کند. برای جزئیات بیشتر، [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects). را مطالعه کنید.
+اگر این حاشیه‌نویسی در FlowSchema یا PriorityLevelConfiguration روی true تنظیم شده باشد، `spec` آن شیء توسط kube-apiserver مدیریت می‌شود. اگر سرور API یک شیء APF را تشخیص ندهد و شما آن را برای به‌روزرسانی خودکار حاشیه‌نویسی کنید، سرور API کل شیء را حذف می‌کند. در غیر این صورت، سرور API مشخصات شیء را مدیریت نمی‌کند. برای جزئیات بیشتر، [نگهداری اشیاء پیکربندی اجباری و پیشنهادی](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects). را مطالعه کنید.
 
 
 ### app.kubernetes.io/component
