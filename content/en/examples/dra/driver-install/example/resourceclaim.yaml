@@ -2,6 +2,7 @@ apiVersion: resource.k8s.io/v1beta2
 kind: ResourceClaim
 metadata:
  name: some-gpu
+ namespace: dra-tutorial
 spec:
    devices:
      requests:

@@ -128,8 +128,8 @@ that there are no such objects stored yet as you, the user, have not created any
 
 3. Check with `kubectl`:
 ```shell
-kubectl get resourceclaims
-kubectl get resourceclaimtemplates
+kubectl get resourceclaims -A
+kubectl get resourceclaimtemplates -A
 ```
 The output is similar to this:
 ```
@@ -158,6 +158,16 @@ example driver which can be found in the
 [kubernetes-sigs/dra-example-driver](https://github.com/kubernetes-sigs/dra-example-driver)
 repository.
 
+### Procedure
+
+### Create a namespace for the tutorial
+
+To make it easier to cleanup later, create a namespace called `dra-tutorial` in your cluster.
+
+```shell
+kubectl create namespace dra-tutorial 
+```
+
 ### Enable access to your DRA driver's image
 
 In a production environment, you would likely be using a previously released or
@@ -183,7 +193,7 @@ components individually with `kubectl`.
 {{% code_sample language="yaml" file="dra/driver-install/deviceclass.yaml" %}}
 
 ```shell
-kubectl apply -f https://k8s.io/examples/dra/driver-install/deviceclass.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/deviceclass.yaml
 ```
 
 4. Create the ServiceAccount, ClusterRole and ClusterRoleBinding that will
@@ -193,19 +203,19 @@ kubectl apply -f https://k8s.io/examples/dra/driver-install/deviceclass.yaml
 {{% code_sample language="yaml" file="dra/driver-install/serviceaccount.yaml" %}}
 
 ```shell
-kubectl apply -f https://k8s.io/examples/dra/driver-install/serviceaccount.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/serviceaccount.yaml
 ```
 
 {{% code_sample language="yaml" file="dra/driver-install/clusterrole.yaml" %}}
 
 ```shell
-kubectl apply -f https://k8s.io/examples/dra/driver-install/clusterrole.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/clusterrole.yaml
 ```
 
 {{% code_sample language="yaml" file="dra/driver-install/clusterrolebinding.yaml" %}}
 
 ```shell
-kubectl apply -f https://k8s.io/examples/dra/driver-install/clusterrolebinding.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/clusterrolebinding.yaml
 ```
 
 5. Deploy the actual DRA driver as a DaemonSet configured to run the example
@@ -217,7 +227,7 @@ kubectl apply -f https://k8s.io/examples/dra/driver-install/clusterrolebinding.y
 {{% code_sample language="yaml" file="dra/driver-install/daemonset.yaml" %}}
 
 ```shell
-kubectl apply -f https://k8s.io/examples/dra/driver-install/daemonset.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/daemonset.yaml
 ```
 
 ### Confirm the DRA driver is running
@@ -286,7 +296,7 @@ Note that the name of the claim is set to `some-gpu`.
 {{% code_sample language="yaml" file="dra/driver-install/example/resourceclaim.yaml" %}}
 
 ```shell
-kubectl apply -f https://k8s.io/examples/dra/driver-install/example/resourceclaim.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/example/resourceclaim.yaml
 ```
 
 ### Create the Pod that references that ResourceClaim
@@ -300,7 +310,7 @@ underlying container.
 {{% code_sample language="yaml" file="dra/driver-install/example/pod.yaml" %}}
 
 ```shell
-kubectl apply -f https://k8s.io/examples/dra/driver-install/example/pod.yaml
+kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/example/pod.yaml
 ```
 
 ### Explore the DRA state
@@ -319,7 +329,7 @@ have been handled by the system.
 1. Confirm the pod has deployed with `kubectl`:
 
 ```shell
-kubectl get pod pod0
+kubectl get pod pod0 -n dra-tutorial
 ```
 
 The output is similar to this:
@@ -331,7 +341,7 @@ pod0   1/1     Running   0          9s
 2. Observe the pod logs which report the name of the mock GPU allocated:
 
 ```shell
-kubectl logs pod0 -c ctr0 | grep -E "GPU_DEVICE_[0-9]+=" | grep -v "RESOURCE_CLAIM"
+kubectl logs pod0 -c ctr0 -n dra-tutorial | grep -E "GPU_DEVICE_[0-9]+=" | grep -v "RESOURCE_CLAIM"
 ```
 
 The output is similar to this:
@@ -345,7 +355,7 @@ You can observe the ResourceClaim more closely, first only to see its state
 is allocated and reserved.
 
 ```shell
-kubectl get resourceclaims
+kubectl get resourceclaims -n dra-tutorial
 ```
 
 The output is similar to this:
@@ -355,11 +365,11 @@ NAME       STATE                AGE
 some-gpu   allocated,reserved   34s
 ```
 
-Looking deeper, you can see that the status stanza includes information about the
+Looking deeper at the `some-gpu` ResourceClaim, you can see that the status stanza includes information about the
 device that has been allocated and for what pod it has been reserved for:
 
 ```shell
-kubectl get resourceclaim -o yaml
+kubectl get resourceclaim some-gpu -n dra-tutorial -o yaml
 ```
 
 The output is similar to this:
@@ -373,7 +383,7 @@ items:
     finalizers:
     - resource.kubernetes.io/delete-protection
     name: some-gpu
-    namespace: default
+    namespace: dra-tutorial
     resourceVersion: "58357"
     uid: 79e1e8d8-7e53-4362-aad1-eca97678339e
   spec:
@@ -417,7 +427,7 @@ metadata:
    daemonset:
 
 ```shell
-kubectl logs -l app.kubernetes.io/name=dra-example-driver
+kubectl logs -l app.kubernetes.io/name=dra-example-driver -n dra-tutorial
 ```
 
 The output is similar to this:
@@ -445,7 +455,7 @@ pod with a claim and seeing that the state of the ResourceClaim changes.
 1. Use `kubectl` to delete the pod directly:
 
 ```shell
-kubectl delete pod pod0
+kubectl delete pod pod0 -n dra-tutorial
 ```
 
 The output is similar to this:
@@ -462,7 +472,7 @@ ResourceClaim resource that previously held the association.
 2. Use `kubectl` to check the ResourceClaim is now pending:
 
 ```shell
-kubectl get resourceclaims
+kubectl get resourceclaims -n dra-tutorial
 ```
 
 The output is similar to this:
@@ -475,7 +485,7 @@ some-gpu   pending   76s
    this claim:
 
 ```shell
-kubectl logs -l app.kubernetes.io/name=dra-example-driver
+kubectl logs -l app.kubernetes.io/name=dra-example-driver -n dra-tutorial
 ```
 The output is similar to this:
 ```
@@ -490,12 +500,11 @@ reflect that the resource is available again for future scheduling.
 
 ## {{% heading "cleanup" %}}
 
-To cleanup the resources, delete the Pod, ResourceClaim, and driver components
-by unapplying the tutorial manifests with `kubectl`:
+To cleanup the resources, delete the namespace for the tutorial which will clean up the ResourceClaims, driver components, and RBAC objects. Then also delete the cluster level DeviceClass resource.
 
 ```shell
-kubectl delete -f https://k8s.io/examples/dra/driver-install/example/all.yaml
-kubectl delete -f https://k8s.io/examples/dra/driver-install/all.yaml
+kubectl delete namespace dra-tutorial
+kubectl delete deviceclass gpu.example.com
 ```
 
 ## {{% heading "whatsnext" %}}
