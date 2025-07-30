@@ -1,5 +1,5 @@
 ---
-title: Install and Use DRA Drivers
+title: Dynamic Resource Allocation Tutorial
 content_type: tutorial
 weight: 60
 min-kubernetes-server-version: v1.32
@@ -9,7 +9,8 @@ min-kubernetes-server-version: v1.32
 
 
 <!-- overview -->
-This page then explains what to expect when installing DRA drivers in your
+This tutorial explains what to expect when installing
+{{< glossary_tooltip term_id="dra" text="DRA" >}} drivers in your
 cluster and how to use them in conjunction with the DRA APIs to request and
 observe the allocation of a Pod's hardware claim. This page is intended for
 cluster administrators.
@@ -17,26 +18,48 @@ cluster administrators.
 <!-- objectives -->
 
 ### {{% heading "objectives" %}}
-
-* Install an example DRA driver
+* Compile and deploy an example DRA driver
 * Deploy a Pod requesting a hardware claim using DRA APIs
-* Remove the Pod and observe the cleanup
+* Understand what happened to fulfil the resource claim
+
+(and clean up)
 
 <!-- prerequisites -->
 ## {{% heading "prerequisites" %}}
 
+Your cluster should support [RBAC](/docs/reference/access-authn-authz/rbac/).
+You can try this tutorial with a cluster using
+a different authorization mechanism, but in that case you will have to adapt the
+steps around defining roles and permissions.
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 Your cluster also must be configured to use the Dynamic Resource Allocation
-feature. DRA APIs are stable as of Kubernetes version 1.34 but can be disabled.
-If your cluster has disabled them or you are using an older version of
-Kubernetes, you must enable the DRA API groups as described in [Setting up
-Dynamic Resource
-Allocation](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/#enable-dra).
+feature.
+To enable the DRA feature, you must enable the following feature gates and API groups:
+
+1.  Enable the `DynamicResourceAllocation`
+    [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+    on all of the following components:
+   
+    * `kube-apiserver`
+    * `kube-controller-manager`
+    * `kube-scheduler`
+    * `kubelet`
+
+1.  Enable the following
+    {{< glossary_tooltip text="API groups" term_id="api-group" >}}:
+
+    * `resource.k8s.io/v1beta1`: required for DRA to function.
+    * `resource.k8s.io/v1beta2`: optional, recommended improvements to the user
+      experience.
+     
+    For more information, see
+    [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
 
 <!-- lessoncontent -->
 
-## Background
+## {{% heading "synopsis" %}}  
 
 Dynamic Resource Allocation (DRA) is a Kubernetes feature that allows a cluster
 to manage availability and allocation of hardware resources to satisfy Pod-based
@@ -56,14 +79,14 @@ new fields in the Pod spec itself.
 With no driver installed or Pod claims yet to satisfy, you can observe the
 initial state of a cluster with DRA enabled.
 
-### {{% heading "procedure" %}}
+### Procedure
 
-#### Check the `DeviceClasses`
+### Check the DeviceClasses in your cluster
 
-The DeviceClass resources represent a centralized list of the device
+The {{< api-reference page="extend-resources/device-class-v1beta2" >}} resources represent a centralized list of the device
 classes known to the cluster, each managed by a uniquely named
-DRA driver. Intially, there should be no device classes
-listed as no DRA driver has been installed yet. 
+DRA driver. If you set up a new test cluster for this tutorial, there should be no
+DeviceClasses.
 
 1. Check with `kubectl`:
 ```shell
@@ -74,11 +97,18 @@ The output is similar to this:
 No resources found
 ```
 
-#### Check the `ResourceSlices`
+### Check on ResourceSlices
+A ResourceSlice is a partial list of the [{< glossary_tooltip text="infrastructure resources" term_id="infrastructure-resource" >}} that are potentially available to use from Nodes. It is a partial list. Some infrastructure resource types (such as CPU and memory)
+don't need to be claimed, and are handled through other mechanisms.
+Storage (as in files and block devices) has its own management mechanism too; see [Storage](/docs/concepts/storage/volumes) elsewhere in the documentation.
 
-The ResourceSlice resources represent a centralized list of the device
-classes available on different nodes. Initially, there should be no
-ResourceSlices advertised as no DRA drivers have been installed on any nodes yet.
+ResourceSlices can represent existing allocated infrastructure, but they can also
+represent an offer to provide infrastructure. For example, a specialized driver
+can offer an neural networking accelerator ResourceSlice, even though none of the nodes in the cluster have that kind of accelerator attached.
+currently have
+
+If you set up a new blank cluster for this tutorial, it's normal to find that there
+are no ResourceSlices advertised.
 
 2. Check with `kubectl`:
 
@@ -86,11 +116,10 @@ ResourceSlices advertised as no DRA drivers have been installed on any nodes yet
 kubectl get resourceslices
 ```
 The output is similar to this:
-```
 No resources found
 ```
 
-#### Check the `ResourceClaims` and `ResourceClaimTemplates`
+### View existing ResourceClaims and ResourceClaimTemplates  
 
 ResourceClaim and ResourceClaimTemplate resources contain user-defined objects
 that encapsulate the requests or requirements of Pods for different types of
@@ -108,19 +137,18 @@ No resources found
 No resources found
 ```
 
-### Checkpoint
+### Section summary  
 
 At this point, you have confirmed that DRA is enabled and configured properly in
 the cluster, and that no DRA drivers have advertised any resources to the DRA
 APIs yet.
 
-## Install your DRA driver
+## Install an example DRA driver {#install-example-driver}  
 
 DRA drivers are third-party applications that run on each node of your cluster
 to interface with the hardware of that node and Kubernetes' native DRA
 components. The installation procedure depends on the driver you choose, but is
-likely deployed as a DaemonSet to all or a selection of the nodes (using node
-selectors or similar mechanisms) in your cluster.
+likely deployed as a {{< glossary_tooltip term_id="daemonset" >}} to all or a selection of the nodes (using {{< glossary_tooltip text="selectors" term_id="selector" >}} or similar mechanisms) in your cluster.
 
 Check your driver's documentation for specific installation instructions, which
 may include a helm chart, a set of manifests, or other deployment tooling.
@@ -130,42 +158,26 @@ example driver which can be found in the
 [kubernetes-sigs/dra-example-driver](https://github.com/kubernetes-sigs/dra-example-driver)
 repository.
 
-### {{% heading "procedure" %}}
-
-#### Download the source code for the example driver
-
-1. Clone the repository:
-
-```shell
-git clone https://github.com/kubernetes-sigs/dra-example-driver.git
-cd dra-example-driver
-```
-
-#### Enable access to your DRA driver's image
+### Enable access to your DRA driver's image
 
 In a production environment, you would likely be using a previously released or
 qualified image from the driver vendor or your own organization, and your nodes
 would need to have access to the image registry where the driver image is
-hosted. In this tutorial, you will build an image locally to simulate access to a
-DRA driver image. 
+hosted. In this tutorial, you will use a public released image of the dra-example-driver to simulate access to a
+DRA driver image. You can confirm your nodes have access to it by running the following from within one of your cluster's nodes:
 
-2. Build an image containing the binary for the example driver:
+2. Test pull the image for the example DRA driver.
 
 ```shell
-./demo/build-driver.sh
+docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.1.0
 ```
 
-#### Deploy the DRA driver components
+### Deploy the DRA driver components
 
 For this tutorial, you will install the critical example resource driver
 components individually with `kubectl`.
 
-{{< note >}}
-You can deploy all components from this section at once from one file with
-`kubectl apply -f https://k8s.io/examples/dra/driver-install/all.yaml`.
-{{< /note >}}
-
-3. Create the DeviceClass resource representing the device types this DRA driver
+3. Create the DeviceClass representing the device types this DRA driver
    supports:
 
 {{% code_sample language="yaml" file="dra/driver-install/deviceclass.yaml" %}}
@@ -208,7 +220,7 @@ kubectl apply -f https://k8s.io/examples/dra/driver-install/clusterrolebinding.y
 kubectl apply -f https://k8s.io/examples/dra/driver-install/daemonset.yaml
 ```
 
-#### Confirm the DRA driver is running
+### Confirm the DRA driver is running
 
 6. Use `kubectl` to observe the Pods of the DRA driver DaemonSet across all worker nodes:
 
@@ -222,14 +234,14 @@ dra-example-driver-kubeletplugin-4sk2x   1/1     Running   0          13s
 dra-example-driver-kubeletplugin-cttr2   1/1     Running   0          13s
 ```
 
-#### Explore the DRA state
+### Explore the DRA state
 
 The initial reponsibility of each node's local DRA driver is to update the
-cluster with what device classes are available on that node by publishing its
+cluster with what classes of devices are available to Pods on that node, by publishing its
 metadata to the ResourceSlices API. You can check that API to see that each node
 with a driver is advertising the device class it represents.
 
-7. Check with `kubectl`:
+7. Check for available ResourceSlices (using `kubectl`): 
 
 ```shell
 kubectl get resourceslices
@@ -241,7 +253,7 @@ kind-worker-gpu.example.com-k69gd    kind-worker    gpu.example.com   kind-worke
 kind-worker2-gpu.example.com-qdgpn   kind-worker2   gpu.example.com   kind-worker2   19s
 ```
 
-### Checkpoint
+### Section summary
 
 At this point, you have successfully installed the example DRA driver, and
 confirmed its initial configuration. You're now ready to use DRA to schedule
@@ -256,20 +268,14 @@ that attribute using {{< glossary_tooltip term_id="cel" >}} to express a highly
 customizable requirement in a ResourceClaim, then attach that ResourceClaim to a
 Pod via its manifest and observe the deployment.
 
-{{< note >}}
-This tutorial showcases only one basic example of a DRA
-ResourceClaim. See more at [the concepts homepage for Dynamic Resource
-Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/). 
-{{< /note >}}
+This tutorial showcases only one basic example of a DRA  
+ResourceClaim. Read [Dynamic Resource  
+Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)  
+to learn more about ResourceClaims.  
 
-### {{% heading "procedure" %}}
+### Procedure
 
-{{< note >}}
-You can create all objects from this section at once using `kubectl apply -f
-https://k8s.io/examples/dra/driver-install/example/all.yaml`.
-{{< /note >}}
-
-#### Create the ResourceClaim
+### Create the ResourceClaim
 
 The Pod manifest itself will need to include a reference to a ResourceClaim, so
 you will make the ResourceClaim first. This is one of the simpler ResourceClaims
@@ -283,7 +289,7 @@ Note that the name of the claim is set to `some-gpu`.
 kubectl apply -f https://k8s.io/examples/dra/driver-install/example/resourceclaim.yaml
 ```
 
-#### Create the Pod that references that ResourceClaim
+### Create the Pod that references that ResourceClaim
 
 Below is the Pod manifest referencing the ResourceClaim you just made,
 `some-gpu`, in the `spec.resourceClaims.resourceClaimName` field. The local name
@@ -297,9 +303,10 @@ underlying container.
 kubectl apply -f https://k8s.io/examples/dra/driver-install/example/pod.yaml
 ```
 
-#### Explore the DRA state
+### Explore the DRA state
 
-The Pod will now be scheduled to a node that satisfies the claim. In our
+The cluster now tries to schedule that Pod to a node where Kubernetes can  
+satisfies the ResourceClaim. In our  
 situation, the DRA driver is deployed on all nodes, and is advertising mock GPUs
 on all nodes, all of which have enough capacity advertised to satisfy the Pod's
 claim, so this Pod may be scheduled to any node and any of the mock GPUs on that
@@ -362,9 +369,6 @@ items:
 - apiVersion: resource.k8s.io/v1beta2
   kind: ResourceClaim
   metadata:
-    annotations:
-      kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"resource.k8s.io/v1beta2","kind":"ResourceClaim","metadata":{"annotations":{},"name":"some-gpu","namespace":"default"},"spec":{"devices":{"requests":[{"exactly":{"deviceClassName":"gpu.example.com","selectors":[{"cel":{"expression":"device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi')) \u003e= 0"}}]},"name":"some-gpu"}]}}}
     creationTimestamp: "2025-07-29T05:11:52Z"
     finalizers:
     - resource.kubernetes.io/delete-protection
@@ -422,7 +426,7 @@ I0729 05:11:52.679057       1 driver.go:84] NodePrepareResource is called: numbe
 I0729 05:11:52.684450       1 driver.go:112] Returning newly prepared devices for claim '79e1e8d8-7e53-4362-aad1-eca97678339e': [&Device{RequestNames:[some-gpu],PoolName:kind-worker,DeviceName:gpu-4,CDIDeviceIDs:[k8s.gpu.example.com/gpu=common k8s.gpu.example.com/gpu=79e1e8d8-7e53-4362-aad1-eca97678339e-gpu-4],}]
 ```
 
-### Checkpoint
+### Section summary
 
 You have now successfully deployed a Pod with a DRA based claim, and seen it
 scheduled to an appropriate node and the associated DRA APIs updated to reflect
@@ -434,9 +438,9 @@ When a Pod with a claim is deleted, the DRA driver deallocates the resource so
 it can be available for future scheduling. You can observe that by deleting our
 pod with a claim and seeing that the state of the ResourceClaim changes.
 
-### {{% heading "procedure" %}}
+### Procedure
 
-####  Delete the pod using the resource claim
+###  Delete the pod using the resource claim
 
 1. Use `kubectl` to delete the pod directly:
 
@@ -450,7 +454,7 @@ The output is similar to this:
 pod "pod0" deleted
 ```
 
-#### Observe the DRA state
+### Observe the DRA state
 
 The driver will deallocate the hardware and update the corresponding
 ResourceClaim resource that previously held the association.
@@ -478,7 +482,7 @@ The output is similar to this:
 I0729 05:13:02.144623       1 driver.go:117] NodeUnPrepareResource is called: number of claims: 1
 ```
 
-### Checkpoint
+### Section summary
 
 You have now deleted a Pod that had a claim, and observed that the driver took
 action to unprepare the underlying hardware resource and update the DRA APIs to

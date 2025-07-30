@@ -474,9 +474,6 @@ other = "Before you begin"
 [previous_patches]
 other = "Patch Releases:"
 
-[procedure_heading]
-other = "Procedure"
-
 # The following text is displayed when JavaScript isn't available.
 [release_binary_alternate_links]
 other  = """You can find links to download Kubernetes components (and their checksums) in the [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) files.
