@@ -219,7 +219,7 @@ creating or modifying ResourceSlices.
 Consider the following example ResourceSlice:
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1
 kind: ResourceSlice
 metadata:
   name: cat-slice
@@ -233,14 +233,13 @@ spec:
   allNodes: true
   devices:
   - name: "large-black-cat"
-    basic:
-      attributes:
-        color:
-          string: "black"
-        size:
-          string: "large"
-        cat:
-          boolean: true
+    attributes:
+      color:
+        string: "black"
+      size:
+        string: "large"
+      cat:
+        boolean: true
 ```
 This ResourceSlice is managed by the `resource-driver.example.com` driver in the
 `black-cat-pool` pool. The `allNodes: true` field indicates that any node in the
@@ -399,7 +398,7 @@ admin access grants access to in-use devices and may enable additional
 permissions when making the device available in a container:
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta2
+apiVersion: resource.k8s.io/v1
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -441,7 +440,7 @@ allocated if it is available. But if it is not and two small white devices are a
 the pod will still be able to run.
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta2
+apiVersion: resource.k8s.io/v1
 kind: ResourceClaimTemplate
 metadata:
   name: prioritized-list-claim-template
@@ -495,7 +494,7 @@ handles this and it is transparent to the consumer as the ResourceClaim API is n
 
 ```yaml
 kind: ResourceSlice
-apiVersion: resource.k8s.io/v1beta2
+apiVersion: resource.k8s.io/v1
 metadata:
   name: resourceslice
 spec:
