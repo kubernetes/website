@@ -37,9 +37,9 @@ For details, see
 
 <!-- steps -->
 
-## Optional: enable legacy DRA API groups {#enable-dra}
+## Optional: enable additional DRA API groups {#enable-dra}
 
-DRA graduated to stable in Kubernetes 1.34 and is enabled by default.
+DRA reached GA in Kubernetes 1.34 and is enabled by default.
 Some older DRA drivers or workloads might still need the
 v1beta1 API from Kubernetes 1.30 or v1beta2 from Kubernetes 1.32.
 If and only if support for those is desired, then enable the following
@@ -76,9 +76,9 @@ Try the following troubleshooting steps:
 
 1. Reconfigure and restart the `kube-apiserver` component.
 
-1. If the complete `.spec.resourceClaims` field gets removed from Pods, or if
+1. If the complete `pod.spec.resourceClaims` field gets removed from Pods or
    Pods get scheduled without considering the ResourceClaims, then verify
-   that the `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is not turned off
+   that the `DynamicResourceAllocation` feature gate is not turned off
    for kube-apiserver, kube-controller-manager, kube-scheduler or the kubelet.
 
 ## Install device drivers {#install-drivers}
