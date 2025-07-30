@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: pod0
+  namespace: dra-tutorial
   labels:
     app: pod
 spec:

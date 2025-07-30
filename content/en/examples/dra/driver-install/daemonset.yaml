@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: dra-example-driver-kubeletplugin
-  namespace: default
+  namespace: dra-tutorial
   labels:
     app.kubernetes.io/name: dra-example-driver
 spec:
