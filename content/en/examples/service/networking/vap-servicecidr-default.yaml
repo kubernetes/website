@@ -1,0 +1,31 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "servicecidrs.default"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["networking.k8s.io"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["servicecidrs"]
+  matchConditions:
+  - name: 'exclude-default-servicecidr'
+    expression: "object.metadata.name != 'kubernetes'"
+  variables:
+  - name: allowed
+    expression: "['10.96.0.0/16','2001:db8::/64']"
+  validations:
+  - expression: "object.spec.cidrs.all(newCIDR, variables.allowed.exists(allowedCIDR, cidr(allowedCIDR).containsCIDR(newCIDR)))"
+  # For all CIDRs (newCIDR) listed in the spec.cidrs of the submitted ServiceCIDR
+  # object, check if there exists at least one CIDR (allowedCIDR) in the `allowed`
+  # list of the VAP such that the allowedCIDR fully contains the newCIDR.
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "servicecidrs-binding"
+spec:
+  policyName: "servicecidrs.default"
+  validationActions: [Deny,Audit]
