@@ -376,7 +376,7 @@ command line arguments, and use the configuration file instead.
 
 {{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
 
-The `egressSelectorType` field in the JWT issuer configuration allows you to specify which egress selector
+The _egressSelectorType_ field in the JWT issuer configuration allows you to specify which egress selector
 should be used for sending all traffic related to the issuer (discovery, JWKS, distributed claims, etc).
 This feature requires the `StructuredAuthenticationConfigurationEgressSelector` feature gate to be enabled.
 
@@ -423,7 +423,7 @@ jwt:
     # values in the --egress-selector-config-file.
     # - controlplane: for traffic intended to go to the control plane.
     # - cluster: for traffic intended to go to the system being managed by Kubernetes.
-    egressSelectorType: <egress selector type>
+    egressSelectorType: <egress-selector-type>
   # rules applied to validate token claims to authenticate users.
   claimValidationRules:
     # Same as --oidc-required-claim key=value.
