@@ -27,9 +27,7 @@ While you can use this feature with an earlier version, the feature is only GA a
 
 ## Extend Service IP Ranges
 
-Kubernetes clusters with kube-apiservers that have enabled the `MultiCIDRServiceAllocator`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and have the
-`networking.k8s.io/v1beta1` API group active, will create a ServiceCIDR object that takes
+Kubernetes clusters with kube-apiservers will create a ServiceCIDR object that takes
 the well-known name `kubernetes`, and that specifies an IP address range
 based on the value of the `--service-cluster-ip-range` command line argument to kube-apiserver.
 
@@ -107,7 +105,7 @@ that extends or adds new IP address ranges.
 
 ```sh
 cat <EOF | kubectl apply -f -
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   name: newcidr1
@@ -153,7 +151,7 @@ kubectl get servicecidr newcidr1 -o yaml
 ```
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   creationTimestamp: "2023-10-12T15:11:07Z"
@@ -249,7 +247,7 @@ spec:
   matchConstraints:
     resourceRules:
     - apiGroups:   ["networking.k8s.io"]
-      apiVersions: ["v1","v1beta1"]
+      apiVersions: ["v1"]
       operations:  ["CREATE", "UPDATE"]
       resources:   ["servicecidrs"]
   matchConditions:
@@ -291,11 +289,14 @@ spec:
   matchConstraints:
     resourceRules:
     - apiGroups:   ["networking.k8s.io"]
-      apiVersions: ["v1","v1beta1"]
+      apiVersions: ["v1"]
       operations:  ["CREATE", "UPDATE"]
       resources:   ["servicecidrs"]
   validations:
   - expression: "object.metadata.name == 'kubernetes'"
+    message: "only allow changes on the default servicecidr"
+  - expression: "request.userInfo.username == 'system:apiserver' && 'system:masters' in request.userInfo.groups"
+    message: "only apiserver can update and create servicecidrs"
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
