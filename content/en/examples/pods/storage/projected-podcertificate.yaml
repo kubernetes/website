@@ -1,6 +1,6 @@
 # Sample Pod spec that uses a podCertificate projection to request an ED25519
 # private key, a certificate from the `coolcert.example.com/foo` signer, and
-# write the results to `/var/run/my-x509-credentials/coolcert.example.com/foo`.
+# write the results to `/var/run/my-x509-credentials/credentialbundle.pem`.
 apiVersion: v1
 kind: Pod
 metadata:

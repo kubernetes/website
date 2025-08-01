@@ -102,11 +102,11 @@ By default, the kubelet will prevent the pod from starting if the named ClusterT
 {{< feature-state feature_gate_name="PodCertificateRequest" >}}
 
 {{< note >}}
-In Kubernetes {{< skew currentVersion >}}, you must enable the
-`PodCertificateRequest` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) _and_ the
-`certificates.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} in order to use this API.
+In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
+Certificates using the `PodCertificateRequest` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
+`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+kube-apiserver flag.
 {{< /note >}}
 
 The `podCertificate` projected volumes source securely provisions a private key
@@ -116,20 +116,18 @@ they get close to expiration.  The application just has to make sure that it
 reloads the file promptly when it changes, with a mechanism like `inotify` or
 polling.
 
-Each container within a pod can mount more than one podCertificate projection,
-and the same projection can safely be shared between multiple containers as
-well.
-
 Each `podCertificate` projection supports the following configuration fields:
-* `signerName`: Which
+* `signerName`: The
   [signer](/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-unlinked#signers)
   you want to issue the certificate.  Note that signers may have their own
   access requirements, and may refuse to issue certificates to your pod.
 * `keyType`: The type of private key that should be generated.  Valid values are
   `ED25519`, `ECDSAP256`, `ECDSAP384`, `ECDSAP521`, `RSA3072`, and `RSA4096`.
-* `maxExpirationSeconds`: What's the maximum lifetime you want for the
-  certificate issued to the pod?  If not set, will be defaulted to `86400` (24
+* `maxExpirationSeconds`: The maximum lifetime you will accept for the
+  certificate issued to the pod.  If not set, will be defaulted to `86400` (24
   hours).  Must be at least `3600` (1 hour), and at most `7862400` (91 days).
+  The signer is allowed to issue a certificate with a lifetime shorter than what
+  you've specified.
 * `credentialBundlePath`: Relative path within the projection where the
   credential bundle should be written.  The credential bundle is a PEM-formatted
   file, where the first block is a "PRIVATE KEY" block that contains a
@@ -151,25 +149,35 @@ resulting in your application loading a mismatched key and certificate.
 
 {{< /note >}}
 
-Under the hood, Kubelet will run the state machine depicted in Figure 1 for each
+Under the hood, Kubelet runs the state machine depicted in Figure 1 for each
 `podCertificate` projection.
 
 {{< mermaid >}} 
-    graph LR
-    Initial --> Wait
-    Wait --> Fresh
-    Wait --> Failed
-    Wait --> Denied
-    Fresh --> WaitRefresh
-    WaitRefresh --> Failed
-    WaitRefresh --> Denied
+stateDiagram-v2
+
+classDef endState text-decoration:underline,font-style:italic
+classDef startState font-weight:bold
+
+direction LR
+
+Initial --> Wait
+Wait --> Fresh
+Wait --> Failed
+Wait --> Denied
+Fresh --> WaitRefresh
+WaitRefresh --> Failed
+WaitRefresh --> Denied
+
+class Denied endState
+class Failed endState
+class Initial startState
 {{< /mermaid >}}
 Figure 1.  Kubelet podCertificate lifecycle
 
 1. The projection starts out in `Initial` state.
 2. Kubelet generates a private key and holds it in memory.
 3. Kubelet creates a
-   [PodCertificateRequest](/docs/reference/access-authn-authz/certificate-signing-requests#ctb-signer-unlinked#pod-certificate-requests)
+   [PodCertificateRequest](/docs/reference/access-authn-authz/certificate-signing-requests#pod-certificate-requests)
    addressed to the requested signer.  Kubelet then moves the projection into
    the `Wait` state.
 4. If the PodCertificateRequest is marked "Denied", move to the `Denied` state.  This is

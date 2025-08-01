@@ -39,8 +39,8 @@ particular signer.
 
 Each signer is backed by a set of {{< glossary_tooltip text="controllers"
 term_id="controller" >}} that do one or more of the following things to let
-pods, users, and external workloads provision and validate certificates issued
-by the signer.
+pods, users, and external workloads provision and verify certificates issued by
+the signer.
 * Certificate Issuance: The signer responds to CertificateSigningRequests and
   PodCertificateRequests addressed to the signer's name.
 * Trust Anchor distribution: The controller publishes the trust anchors (root
@@ -52,11 +52,12 @@ that are available in every cluster.  It is also possible to install (or build
 your own) [third-party signers](#third-party-signers).
 
 
-## Interacting with Signers
+## Interacting with signers
 
 There are three dedicated API types for workloads and users to interact with a
 signer:
-* CertificateSigningRequests and PodCertificateRequests allow requesting arbitrary certificates from a signer, and
+* CertificateSigningRequests and PodCertificateRequests allow requesting
+  arbitrary certificates from a signer, and
 * ClusterTrustBundles allow users to retrieve the trust anchors (root
 certificates) of a signer.
 
@@ -81,12 +82,13 @@ conditions must always have `status` set to `True`. These conditions are
 mutually-exclusive.
 
 Different signers have different expectations around their approval workflows,
-so signers are encouraged to document whether and how they expect CSRs to be
-approved.  Broadly speaking:
-* Some signers ship provide a  controller to automatically approve conforming CSRs,
-  and will refuse to issue a certificate to a non-conforming CSR.  These signers
-  will move an approved, but non-conforming CSR into the `Failed` terminal
-  state, rather than issuing it.
+so signer authors are encourages to document whether and how they expect CSRs to
+be approved.  Broadly speaking:
+* Some signers automatically approve conforming CSRs, and will refuse to issue a
+  certificate to a non-conforming CSR.  These signers will move an approved, but
+  non-conforming CSR into the `Failed` terminal state, rather than issuing it.
+  For example, a signer might only want to issue SPIFFE certificates, and so
+  will fail any CSR that requests a non-SPIFFE-formatted CSR.
 * Some signers expect a human reviewer to inspect and approve all
   CSRs.  The `kubectl certificate approve/deny`
   convenience commands may be used for this purpose.
@@ -110,14 +112,15 @@ have to, consider the CSR's `spec.request` field.  It is free to issue an
 entirely different certificate.
 
 {{< note >}}
-When encoded in JSON or YAML, `status.conditions` field is base-64 encoded, so it is not directly readable.  This is handled transparently when using a client library.
+When encoded in JSON or YAML, `status.certificate` field is base-64 encoded, so
+it is not directly readable.  This is handled transparently when using a client
+library.
 {{< /note >}}
 
 Signer implementations are encouraged to:
 * Document whether or not they consider manual approval decisions on
   CertificateSigningRequests.
-* Document whether or not they consider the input PKCS#10 request, or only take
-  the public key from it.
+* Document which parts, if any, of the PKCS#10 request they consider.
 * Document the concrete format of the certificates they issue.
 
 Once the `status.certificate` field has been populated, the request has been
@@ -154,28 +157,32 @@ that have not changed state for some duration:
 {{< feature-state feature_gate_name="PodCertificateRequest" >}}
 
 {{< note >}}
-In Kubernetes {{< skew currentVersion >}}, you must enable the `PodCertificateRequest`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-_and_ the `certificates.k8s.io/v1alpha1`
-{{< glossary_tooltip text="API group" term_id="api-group" >}} in order to use
-this API.
+In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
+Certificates using the `PodCertificateRequest` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
+`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+kube-apiserver flag.
 {{< /note >}}
 
-PodCertificateRequests are similar to CertificateSigningRequests, but tailored
-to the use case of provisioning certificates to workloads running as Pods within
-a cluster.  The primary user interface is via [podCertificate projected volume
-sources](/docs/concepts/storage/projected-volumes#podcertificate), which are a
-`kubelet` feature that handles secure key provisioning and automatic certificate
-refresh.  The application inside the pod only needs to know how to read the
-certificates from the filesystem.
+PodCertificateRequests are API objects tailored to provisioning certificates to
+workloads running as Pods within a cluster.  The user typically does not
+interact with PodCertificateRequests directly, but uses [podCertificate
+projected volume sources](
+/docs/concepts/storage/projected-volumes#podcertificate), which are a `kubelet`
+feature that handles secure key provisioning and automatic certificate refresh.
+The application inside the pod only needs to know how to read the certificates
+from the filesystem.
+
+PodCertificateRequests are similar to CertificateSigningRequests, but have a
+simpler format enabled by their narrower use case.
 
 A PodCertificateRequest has the following spec fields:
-* `signerName`: To which signer is this request addressed?
-* `podName` and `podUID`: For which pod is this certificate requested?
-* `serviceAccountName` and `serviceAccountUID`: What ServiceAccount is that pod running as?
-* `nodeName` and `nodeUID`: On which node is the pod running.
-* `maxExpirationSeconds`: What's the maximum lifetime that the requester wants
-  on the certificate?  (Defaults to 24 hours if not specified).
+* `signerName`: The signer to which this request is addressed.
+* `podName` and `podUID`: The Pod that Kubelet is requesting a certificate for.
+* `serviceAccountName` and `serviceAccountUID`: The ServiceAccount corresponding to the Pod.
+* `nodeName` and `nodeUID`: The Node corresponding to the Pod.
+* `maxExpirationSeconds`: The maximum lifetime that the workload author will
+  accept for this certificate.  Defaults to 24 hours if not specified.
 * `pkixPublicKey`: The public key for which the certificate should be issued.
 * `proofOfPossession`: A signature demonstrating that the requester controls the
   private key corresponding to `pkixPublicKey`.
@@ -236,7 +243,7 @@ To ensure that terminal PodCertificateRequests do not build up in the cluster, a
 than 15 minutes.  All certificate issuance flows are expected to complete within
 this 15-minute limit.
 
-### Cluster Trust Bundles {#cluster-trust-bundles}
+### ClusterTrustBundles {#cluster-trust-bundles}
 
 {{< feature-state feature_gate_name="ClusterTrustBundle" >}}
 
@@ -398,14 +405,16 @@ The issued certificate has the following properties:
 
 {{< caution >}}
 
-Because the API server blindly treats `Subject.CommonName` and
-`Subject.Organization` as the username and groups of the user, care must be
-taken when approving CertificateSigningRequests addressed to this signer.
+Because the API server treats `Subject.CommonName` and `Subject.Organization` as
+the username and groups of the user, you must take care  when approving CSRs
+addressed to this signer.  If you approve CSRs that request identities that are
+internal to the function of your Kubernetes distribution, the user that gets the
+certificate can compromise your cluster.
 
 The `CertificateSubjectRestriction` admission plugin (enabled by default)
-prevents creation of CertificateSigningRequests that would assert membership in
-the `system:masters` group, but this is typically not the only highly-privileged
-identity present in a cluster.
+prevents creation of CSRs that would assert membership in the `system:masters`
+group, but this is typically not the only highly-privileged identity present in
+a cluster.
 
 {{</ caution >}}
 
@@ -543,7 +552,7 @@ The issued certificate has the following properties:
 * The CA bit to false.
 
 
-## Third-Party Signer {#third-party-signers}
+## Third-party signers {#third-party-signers}
 
 You can also introduce your own custom signer, which should have a similar prefixed name but using your
 own domain name. For example, if you represent an open source project that uses the domain `open-fictional.example`
