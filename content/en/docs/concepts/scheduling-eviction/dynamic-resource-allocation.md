@@ -529,6 +529,89 @@ Partitionable devices is an *alpha feature* and only enabled when the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
 
+## Consumable capacity
+
+{{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
+
+Device driver can set `allowMultipleAllocations` field added in `.spec.devices` of `ResourceSlice` to allow allocating that device to multiple independent ResourceClaims or to multiple requests within a ResourceClaim.
+
+Users can set `capacity` field added in `spec.devices.requests` of `ResourceClaim` to specify the device resource requirements for each allocation.
+
+For the device that allows multiple allocations, the requested capacity is drawn from—or consumed from—its total capacity, a concept known as **consumable capacity**.
+Then, the scheduler ensures that the aggregate consumed capacity across all claims does not exceed the device’s overall capacity and complies with any configured `requestPolicy` constraints in `.spec.devices[*].capacity`, if specified.
+
+Here is an example of a network device which allows multiple allocations and contains
+a consumable bandwidth capacity.
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1beta2
+metadata:
+  name: resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  devices:
+  - name: eth1
+    allowMultipleAllocations: true
+    attributes:
+      name:
+        string: "eth1"
+    capacity:
+      bandwidth:
+        requestPolicy:
+          default: "1M"
+          validRange:
+            min: "1M"
+            step: "8"
+        value: "10G"
+```
+
+The property of `allowMultipleAllocations` can be used in CEL
+and the consumable capacity can be requested as shown in the below example.
+
+```yaml
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceClaimTemplate
+metadata:
+  name: bandwidth-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        exactly:
+        - name:
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.allowMultipleAllocations == true
+          capacity:
+            requests:
+              bandwidth: 1G
+```
+
+The allocation result will include the consumed capacity and the identifier of the share.
+
+```yaml
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceClaim
+...
+status:
+  allocation:
+    devices:
+      results:
+      - consumedCapacity:
+          bandwidth: 1G
+        device: eth1
+        shareID: "a671734a-e8e5-11e4-8fde-42010af09327"
+```
+
 ### Device taints and tolerations {#device-taints-and-tolerations}
 
 {{< feature-state feature_gate_name="DRADeviceTaints" >}}
