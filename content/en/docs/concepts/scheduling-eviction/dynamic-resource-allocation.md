@@ -625,6 +625,89 @@ spec:
     effect: NoExecute
 ```
 
+### Device Binding Conditions {#device-binding-conditions}
+
+{{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
+
+Device Binding Conditions allow the Kubernetes scheduler to delay Pod binding until
+external resources—such as fabric-attached GPUs or reprogrammable FPGAs—are confirmed
+to be ready.
+
+This waiting behavior is implemented in the 
+[PreBind phase](/docs/concepts/scheduling-eviction/scheduling-framework/#pre-bind)
+of the scheduling framework.
+During this phase, the scheduler checks whether all required device conditions are
+satisfied before proceeding with binding.
+
+This improves scheduling reliability by avoiding premature binding and enables coordination
+with external device controllers.
+
+To use this feature, device drivers (typically managed by driver owners) must publish the
+following fields in the `Device` section of a `ResourceSlice`. Cluster administrators
+must enable the `DRADeviceBindingConditions` and `DRAResourceClaimDeviceStatus` feature
+gates for the scheduler to honor these fields.
+
+- `bindingConditions`: a list of condition keys that must have status `True` before binding.
+This indicate readiness signals such as "device attached" or "initialized".
+- `bindingFailureConditions`: a list of failure condition keys. If any have status `True`,
+indicate that binding should be aborted and the Pod rescheduled.
+- `bindsToNode`: if set to `true`, the scheduler records the selected node name in the
+  `status.allocation.nodeSelector` field of the ResourceClaim.
+  This does not affect the Pod’s `spec.nodeSelector`. Instead, it sets a node selector
+  inside the ResourceClaim, which external controllers can use to perform node-specific
+  operations such as device attachment or preparation.
+
+These conditions are evaluated from the `status.conditions` field of the ResourceClaim.
+External controllers are responsible for updating these conditions using standard Kubernetes
+condition semantics (`type`, `status`, `reason`, `message`, `lastTransitionTime`).
+
+The scheduler waits up to **600 seconds** for all `bindingConditions` to become `True`.
+If the timeout is reached or any `bindingFailureConditions` are `True`, the scheduler
+clears the allocation and reschedules the Pod.
+
+#### Example ResourceSlice
+
+```yaml
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceSlice
+metadata:
+  name: gpu-slice
+spec:
+  driver: dra.example.com
+  nodeSelector:
+    accelerator-type: high-performance
+  pool:
+    name: gpu-pool
+    generation: 1
+    resourceSliceCount: 1
+  devices:
+    - name: gpu-1
+      attributes:
+        vendor:
+          string: "example"
+        model:
+          string: "example-gpu"
+      bindsToNode: true
+      bindingConditions:
+        - dra.example.com/is-prepared
+      bindingFailureConditions:
+        - dra.example.com/preparing-failed
+```
+In this example:
+
+- The ResourceSlice targets nodes labeled with accelerator-type=high-performance, 
+allowing the scheduler to choose from a group of eligible nodes.
+- The scheduler selects one node from this group (e.g., node-3) and sets 
+ResourceClaim.status.allocation.nodeSelector to that node name.
+- The device gpu-1 must be prepared before binding (is-prepared must have status True).
+- If preparation fails (preparing-failed has status True), the scheduler aborts binding.
+- The scheduler waits up to 600 seconds for the device to become ready.
+- External controllers can use the node selector in the ResourceClaim to perform
+node-specific setup on the selected node.
+
+This feature is useful for asynchronous device preparation workflows,
+such as dynamic GPU attachment or FPGA initialization.
+
 ## {{% heading "whatsnext" %}}
 
 - [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
