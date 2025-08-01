@@ -90,13 +90,19 @@ div.feature-state-notice {
 
 // All callout headings should be bold
 .alert {
-  border-style: solid;
-  border-width: 0 0 0 4px;
-  border-radius: 0 0 2rem 0;
   h4 {
     font-weight: bold;
     font-style: initial;
   }
+}
+.alert:dir(ltr) {
+  // color the left border (left-to-right locales)
+  border-width: 0 0 0 4px;
+}
+
+.alert:dir(rtl) {
+  // color the right border (right-to-left locales)
+  border-width: 0 4px 0 0;
 }
 
 .glossary-tooltip {
