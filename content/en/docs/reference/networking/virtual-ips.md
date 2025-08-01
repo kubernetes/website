@@ -362,7 +362,7 @@ IP address and not the specific backend Pod.
 
 #### Direct server return for `kernelspace` mode {#windows-direct-server-return}
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state feature_gate_name="WinDSR" >}}
 
 As an alternative to the basic operation, a node that hosts the backend Pod for a Service can
 apply the packet rewriting directly, rather than placing this burden on the node where the client
