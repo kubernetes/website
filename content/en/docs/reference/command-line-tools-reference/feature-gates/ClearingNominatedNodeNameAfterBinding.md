@@ -6,10 +6,10 @@ _build:
   render: false
 
 stages:
-  - stage: beta
-    defaultValue: true
+  - stage: alpha
+    defaultValue: false
     fromVersion: "1.34"
     toVersion: "1.34"
 ---
 
-Clears NominatedNodeName at the pod binding API. 
+Enable clearing `.status.nominatedNodeName` whenever Pods are bound to nodes.

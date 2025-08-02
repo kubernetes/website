@@ -6,11 +6,12 @@ _build:
   render: false
 
 stages:
-  - stage: beta
-    defaultValue: true
+  - stage: alpha
+    defaultValue: false
     fromVersion: "1.34"
     toVersion: "1.34"
 ---
 
-It makes the scheduler use NominatedNodeName to express where the pod is going to be bound.
-And also, it allows the external components to put NominatedNodeName as a suggestion of the node placement.
+
+External components can also write to `.status.nominatedNodeName` for a Pod to provide
+a suggested placement.
