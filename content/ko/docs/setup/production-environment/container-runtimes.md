@@ -297,7 +297,7 @@ live configuration reload 기능을 지원한다.
 
 ### 미란티스 컨테이너 런타임 {#mcr}
 
-[미란티스 컨테이너 런타임](https://docs.mirantis.com/mcr/20.10/overview.html)(MCR)은 상용 컨테이너 런타임이며
+[미란티스 컨테이너 런타임](https://docs.mirantis.com/mcr/25.0/overview.html)(MCR)은 상용 컨테이너 런타임이며
 이전에는 도커 엔터프라이즈 에디션으로 알려져 있었다.
 
 오픈소스인 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) 컴포넌트를 이용하여 쿠버네티스에서 미란티스 컨테이너 런타임을 사용할 수 있으며,
