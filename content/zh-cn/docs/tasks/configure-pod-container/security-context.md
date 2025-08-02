@@ -29,7 +29,6 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/):
   Give a process some privileges, but not all the privileges of the root user.
-
 -->
 安全上下文（Security Context）定义 Pod 或 Container 的特权与访问控制设置。
 安全上下文包括但不限于：
@@ -472,7 +471,7 @@ kubectl get pod security-context-demo -o yaml
 ```
 
 <!--
-You can see that the `status.containerStatuses[].user.linux` field exposes the process identitiy
+You can see that the `status.containerStatuses[].user.linux` field exposes the process identity
 attached to the first container process.
 -->
 你可以看到 `status.containerStatuses[].user.linux` 字段暴露了挂接到第一个容器进程的进程身份。
