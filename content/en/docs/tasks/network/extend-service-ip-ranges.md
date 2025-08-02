@@ -294,9 +294,9 @@ spec:
       resources:   ["servicecidrs"]
   validations:
   - expression: "object.metadata.name == 'kubernetes'"
-    message: "only allow changes on the default servicecidr"
+    message: "you can only create or update the default ServiceCIDR"
   - expression: "request.userInfo.username == 'system:apiserver' && 'system:masters' in request.userInfo.groups"
-    message: "only apiserver can update and create servicecidrs"
+    message: "you can not create or update ServiceCIDR objects"
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicyBinding
