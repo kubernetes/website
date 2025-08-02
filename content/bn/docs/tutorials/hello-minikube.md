@@ -77,7 +77,7 @@ minikube dashboard --url
 1. পড পরিচালনা ও ডিপ্লয়মেন্ট তৈরি করতে `kubectl create` কমান্ডটি চালান। এই পডগুলি প্রদত্ত Docker ইমেজ এর উপর ভিত্তি করে কন্টেইনার চালায়।
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. ডিপ্লয়মেন্টটি দেখুন:
