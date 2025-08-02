@@ -185,6 +185,58 @@ the Pod that triggered the generation.
 To learn how to claim resources using one of these methods, see
 [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/).
 
+#### Prioritized list {#prioritized-list}
+
+{{< feature-state feature_gate_name="DRAPrioritizedList" >}}
+
+You can provide a prioritized list of subrequests for requests in a ResourceClaim or
+ResourceClaimTemplate. The scheduler will then select the first subrequest that can be allocated.
+This allows users to specify alternative devices that can be used by the workload if the primary
+choice is not available.
+
+In the example below, the ResourceClaimTemplate requested a device with the color black
+and the size large. If a device with those attributes are not available, the pod can not
+be scheduled. With the priotized list feature, a second alternative can be specified, which
+requests two devices with the color white and size small. The large black device will be
+allocated if it is available. But if it is not and two small white devices are available,
+the pod will still be able to run.
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: prioritized-list-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        firstAvailable:
+        - name: large-black
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "black" &&
+                device.attributes["resource-driver.example.com"].size == "large"
+        - name: small-white
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "white" &&
+                device.attributes["resource-driver.example.com"].size == "small"
+          count: 2
+```
+
+The decision is made on a per-Pod basis, so if the Pod is a member of a ReplicaSet or
+similar grouping, you cannot rely on all the members of the group having the same subrequest
+chosen. Your workload must be able to accommodate this.
+
+Prioritized lists is a *beta feature* and is enabled by default with the
+`DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in
+the kube-apiserver and kube-scheduler.
+
 ### ResourceSlice {#resourceslice}
 
 Each ResourceSlice represents one or more
@@ -422,54 +474,6 @@ create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 `resource.k8s.io/admin-access: "true"` (case-sensitive) can use the
 `adminAccess` field. This ensures that non-admin users cannot misuse the
 feature.
-
-### Prioritized list {#prioritized-list}
-
-{{< feature-state feature_gate_name="DRAPrioritizedList" >}}
-
-You can provide a prioritized list of subrequests for requests in a ResourceClaim. The
-scheduler will then select the first subrequest that can be allocated. This allows users to
-specify alternative devices that can be used by the workload if the primary choice is not
-available.
-
-In the example below, the ResourceClaimTemplate requested a device with the color black
-and the size large. If a device with those attributes are not available, the pod can not
-be scheduled. With the priotized list feature, a second alternative can be specified, which
-requests two devices with the color white and size small. The large black device will be
-allocated if it is available. But if it is not and two small white devices are available,
-the pod will still be able to run.
-
-```yaml
-apiVersion: resource.k8s.io/v1
-kind: ResourceClaimTemplate
-metadata:
-  name: prioritized-list-claim-template
-spec:
-  spec:
-    devices:
-      requests:
-      - name: req-0
-        firstAvailable:
-        - name: large-black
-          deviceClassName: resource.example.com
-          selectors:
-          - cel:
-              expression: |-
-                device.attributes["resource-driver.example.com"].color == "black" &&
-                device.attributes["resource-driver.example.com"].size == "large"
-        - name: small-white
-          deviceClassName: resource.example.com
-          selectors:
-          - cel:
-              expression: |-
-                device.attributes["resource-driver.example.com"].color == "white" &&
-                device.attributes["resource-driver.example.com"].size == "small"
-          count: 2
-```
-
-Prioritized lists is an *alpha feature* and only enabled when the
-`DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver and kube-scheduler.
 
 ### Partitionable devices {#partitionable-devices}
 
