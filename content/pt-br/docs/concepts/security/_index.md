@@ -9,19 +9,16 @@ simple_list: true
 Essa seção da documentação do Kubernetes busca ensinar a executar cargas de trabalho
 mais seguras e aspectos essenciais para a manutenção de um cluster Kubernetes seguro.
 
+O Kubernetes é baseado em uma arquitetura cloud native e segue as boas práticas de segurança da informação 
+para ambientes cloud native recomendadas pela {{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
 
-Kubernetes is based on a cloud-native architecture, and draws on advice from the
-{{< glossary_tooltip text="CNCF" term_id="cncf" >}} about good practice for
-cloud native information security.
+Leia [Segurança Cloud Native e Kubernetes](/docs/concepts/security/cloud-native-security/) 
+para entender o contexto mais amplo sobre como proteger seu cluster e as aplicações que você está executando nele.
 
-Read [Cloud Native Security and Kubernetes](/docs/concepts/security/cloud-native-security/)
-for the broader context about how to secure your cluster and the applications that
-you're running on it.
+## Mecanismos de segurança do Kubernetes {#security-mechanisms}
 
-## Kubernetes security mechanisms {#security-mechanisms}
-
-Kubernetes includes several APIs and security controls, as well as ways to
-define [policies](#policies) that can form part of how you manage information security.
+O Kubernetes inclui várias APIs e controles de segurança, além de mecanismos 
+para definir [políticas](#policies) que podem fazer parte da sua estratégia de gestão da segurança da informação.
 
 ### Control plane protection
 
