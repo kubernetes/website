@@ -101,6 +101,15 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 {{< /note >}}
 
+{{< warning >}}
+
+unattended-upgrades package conflicts with Node graceful shutdown. Kubelet fails to obtain the necessary lock to handle shutdown events 
+properly if the `shutdownGracePeriod` value is greater than 30 seconds. unattended-upgrades configuration must be suppressed by creating
+`/etc/systemd/logind.conf.d/unattended-upgrades-logind-maxdelay.conf` symlink to `/dev/null`. Refer to 
+[logind.conf documentation](https://www.freedesktop.org/software/systemd/man/latest/logind.conf.html) for more details.
+
+{{< /warning >}} 
+
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
 
 {{< feature-state feature_gate_name="GracefulNodeShutdownBasedOnPodPriority" >}}
