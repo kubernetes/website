@@ -55,7 +55,7 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 #### コンポーネントのインストール
 
 {{< glossary_tooltip term_id="container-runtime" text="コンテナランタイム" >}}と、kubeadmを全てのホストにインストールしてください。
-インストールの詳細やその他の準備については、[kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)を読んでください。
+インストールの詳細やその他の準備については、[kubeadmのインストール](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)を読んでください。
 
 {{< note >}}
 すでにkubeadmがインストール済みである場合は、kubeadmのアップグレード手順については[Linuxノードのアップグレード](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes)の最初の2ステップを確認してください。
@@ -92,12 +92,12 @@ Kubernetesコンポーネントはカスタムネットワークインターフ�
 
 全てのノード上のkubeletに対して、`--node-ip`オプションはkubeadmの設定ファイル(`InitConfiguration`または`JoinConfiguration`)の`.nodeRegistration.kubeletExtraArgs`にて指定することができます。
 
-デュアルスタックについては、[kubeadmによるデュアルスタックのサポート](/ja/docs/setup/production-environment/tools/kubeadm/dual-stack-support)を参照してください。
+デュアルスタックについては、[kubeadmによるデュアルスタックのサポート](/docs/setup/production-environment/tools/kubeadm/dual-stack-support)を参照してください。
 
 コントロールプレーンのコンポーネントに割り当てたIPアドレスは、X.509証明書のSubject Alternative Nameフィールドの一部になります。
 これらのIPアドレスを変更するには、新しい証明書に署名し、影響を受けるコンポーネントを再起動する必要があります。
 これにより、証明書ファイルの変更が反映されます。
-詳細は、[kubeadmによる証明書管理](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)を参照してください。
+詳細は、[kubeadmによる証明書管理](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)を参照してください。
 
 {{< warning >}}
 Kubernetesプロジェクトは、このアプローチ(全てのコンポーネントのインスタンスにカスタムIPアドレスを設定すること)を推奨していません。
@@ -122,14 +122,14 @@ kubeadmはカスタムイメージリポジトリから必要なイメージを�
 
 コントロールプレーンノードとは、{{< glossary_tooltip term_id="etcd" >}}(クラスターのデータベース)や{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}({{< glossary_tooltip text="kubectl" term_id="kubectl" >}}コマンドラインツールが通信する相手)などのコントロールプレーンのコンポーネントが実行されるマシンです。
 
-1. (推奨)シングルコントロールプレーンの`kubeadm`クラスターを[高可用性クラスター](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)にアップグレードする予定がある場合、`--control-plane-endpoint`を指定して、すべてのコントロールプレーンノードとエンドポイントを共有する必要があります。
+1. (推奨)シングルコントロールプレーンの`kubeadm`クラスターを[高可用性クラスター](/docs/setup/production-environment/tools/kubeadm/high-availability/)にアップグレードする予定がある場合、`--control-plane-endpoint`を指定して、すべてのコントロールプレーンノードとエンドポイントを共有する必要があります。
     エンドポイントにはDNS名やロードバランサーのIPアドレスが使用できます。
 1. Podネットワークアドオンを選んで、`kubeadm init`に引数を渡す必要があるかどうか確認してください。
     選んだサードパーティのプロバイダーによっては、`--pod-network-cidr`をプロバイダー固有の値に設定する必要がある場合があります。
     詳しくは、[Podネットワークアドオンのインストール](#pod-network)を参照してください。
 1. (オプション)`kubeadm`は既知のエンドポイントの一覧を用いて、コンテナランタイムの検出を試みます。
     異なるコンテナランタイムを使用する場合やプロビジョニングするノードに2つ以上のランタイムがインストールされている場合、`kubeadm`に`--cri-socket`引数を指定してください。
-    詳しくは、[ランタイムのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)を参照してください。
+    詳しくは、[ランタイムのインストール](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)を参照してください。
 
 コントロールプレーンノードを初期化するには、次のコマンドを実行します。
 
@@ -158,11 +158,11 @@ kubeadmでは、`--control-plane-endpoint`を渡さずに構築したシング�
 
 ### 詳細な情報
 
-`kubeadm init`の引数のより詳細な情報は、[kubeadmリファレンスガイド](/ja/docs/reference/setup-tools/kubeadm/)を参照してください。
+`kubeadm init`の引数のより詳細な情報は、[kubeadmリファレンスガイド](/docs/reference/setup-tools/kubeadm/)を参照してください。
 
 `kubeadm init`を設定ファイルにて設定するには、[設定ファイルのドキュメント](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)を参照してください。
 
-コントロールプレーンコンポーネントやetcdサーバーのliveness probeへのオプションのIPv6の割り当てなど、コントロールプレーンのコンポーネントをカスタマイズしたい場合は、[カスタムの引数](/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)に示されている方法で各コンポーネントに追加の引数を与えてください。
+コントロールプレーンコンポーネントやetcdサーバーのliveness probeへのオプションのIPv6の割り当てなど、コントロールプレーンのコンポーネントをカスタマイズしたい場合は、[カスタムの引数](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)に示されている方法で各コンポーネントに追加の引数を与えてください。
 
 既存のクラスターの再設定を行う場合は、[kubeadmクラスターの再設定](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure/)を参照してください。
 
@@ -221,7 +221,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 `super-admin.conf`は誰とも共有しないでください。
 このファイルは安全な場所に退避させることを推奨します。
 
-追加ユーザーへkubeconfigファイルを生成するために`kubeadm kubeconfig user`を実行するには、[追加ユーザのためのkubeconfigファイルの生成](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)を参照してください。
+追加ユーザーへkubeconfigファイルを生成するために`kubeadm kubeconfig user`を実行するには、[追加ユーザのためのkubeconfigファイルの生成](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)を参照してください。
 {{< /warning >}}
 
 `kubeadm init`が出力した`kubeadm join`コマンドをメモしておいてください。[クラスターにノードを追加する](#join-nodes)ために、このコマンドが必要です。
@@ -254,9 +254,9 @@ kubeadmはCNIに依存すべきではないため、CNIプロバイダーの検�
 CNIプラグインに関する問題を見つけた場合、kubeadmやKubernetesではなく、そのCNIプラグインの課題管理システムへ問題を報告してください。
 {{< /note >}}
 
-CNIを使用するKubernetes Podネットワークを提供する外部のプロジェクトがいくつかあります。一部のプロジェクトでは、[ネットワークポリシー](/ja/docs/concepts/services-networking/network-policies/)もサポートしています。
+CNIを使用するKubernetes Podネットワークを提供する外部のプロジェクトがいくつかあります。一部のプロジェクトでは、[ネットワークポリシー](/docs/concepts/services-networking/network-policies/)もサポートしています。
 
-[Kubernetesのネットワークモデル](/ja/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)を実装したアドオンの一覧も確認してください。
+[Kubernetesのネットワークモデル](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)を実装したアドオンの一覧も確認してください。
 
 Podネットワークアドオンをインストールするには、コントロールプレーンノード上またはkubeconfigクレデンシャルを持っているノード上で、次のコマンドを実行します。
 
@@ -265,14 +265,14 @@ kubectl apply -f <add-on.yaml>
 ```
 {{< note >}}
 WindowsをサポートするCNIプラグインは少数です。
-詳細とセットアップ手順は、[Windowsワーカーノードの追加](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/#network-config)を参照してください。
+詳細とセットアップ手順は、[Windowsワーカーノードの追加](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/#network-config)を参照してください。
 {{< /note >}}
 
 インストールできるPodネットワークは、クラスターごとに1つだけです。
 
 Podネットワークがインストールされたら、`kubectl get pods --all-namespaces`の出力結果でCoreDNS Podが`Running`状態であることをチェックすることで、ネットワークが動作していることを確認できます。そして、一度CoreDNS Podが動作すれば、続けてノードを追加できます。
 
-ネットワークやCoreDNSが`Running`状態にならない場合は、`kubeadm`の[トラブルシューティングガイド](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)をチェックしてください。
+ネットワークやCoreDNSが`Running`状態にならない場合は、`kubeadm`の[トラブルシューティングガイド](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)をチェックしてください。
 
 ### 管理されたノードラベル
 
@@ -309,15 +309,15 @@ kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancer
 
 ### コントロールプレーンノードの追加
 
-コントロールプレーンノードの追加によって高可用性kubeadmクラスターを構築する手順は、[kubeadmを使用した高可用性クラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)を参照してください。
+コントロールプレーンノードの追加によって高可用性kubeadmクラスターを構築する手順は、[kubeadmを使用した高可用性クラスターの作成](/docs/setup/production-environment/tools/kubeadm/high-availability/)を参照してください。
 
 ### ワーカーノードの追加 {#join-nodes}
 
 ワーカーノードは、ワークロード(コンテナやPodなど)が実行される場所です。
 
 `kubeadm join`コマンドを使用したLinux、Windowsワーカーノードの追加方法は、以下のページを参照してください。
-* [Linuxワーカーノードの追加](/ja/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)
-* [Windowsワーカーノードの追加](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* [Linuxワーカーノードの追加](/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)
+* [Windowsワーカーノードの追加](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 
 ### (オプション)コントロールプレーンノード以外のマシンからのクラスター操作
 
@@ -470,7 +470,7 @@ kubeadmのdeb/rpmパッケージおよびバイナリは、[multi-platform propo
 
 ## トラブルシューティング {#troubleshooting}
 
-kubeadmに関する問題が起きたときは、[トラブルシューティングドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を確認してください。
+kubeadmに関する問題が起きたときは、[トラブルシューティングドキュメント](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を確認してください。
 
 <!-- discussion -->
 
@@ -479,9 +479,9 @@ kubeadmに関する問題が起きたときは、[トラブルシューティン
 * [Sonobuoy](https://github.com/heptio/sonobuoy)を使用してクラスターが適切に動作しているか検証する。
 * <a id="lifecycle" />`kubeadm`を使用したクラスターをアップグレードする方法について、[kubeadmクラスターをアップグレードする](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を参照する。
 * `kubeadm`の高度な利用方法について[kubeadmリファレンスドキュメント](/docs/reference/setup-tools/kubeadm/)で学ぶ。
-* Kubernetesの[コンセプト](/ja/docs/concepts/)や[`kubectl`](/ja/docs/reference/kubectl/)についてさらに学ぶ。
-* Podネットワークアドオンのより完全なリストを[クラスターのネットワーク](/ja/docs/concepts/cluster-administration/networking/)で確認する。
-* <a id="other-addons" />ロギング、モニタリング、ネットワークポリシー、仮想化、Kubernetesクラスターの制御のためのツールなど、その他のアドオンについて、[アドオンのリスト](/ja/docs/concepts/cluster-administration/addons/)で確認する。
+* Kubernetesの[コンセプト](/docs/concepts/)や[`kubectl`](/docs/reference/kubectl/)についてさらに学ぶ。
+* Podネットワークアドオンのより完全なリストを[クラスターのネットワーク](/docs/concepts/cluster-administration/networking/)で確認する。
+* <a id="other-addons" />ロギング、モニタリング、ネットワークポリシー、仮想化、Kubernetesクラスターの制御のためのツールなど、その他のアドオンについて、[アドオンのリスト](/docs/concepts/cluster-administration/addons/)で確認する。
 * クラスターイベントやPod内で実行中のアプリケーションから送られるログをクラスターがハンドリングする方法を設定する。関係する要素の概要を理解するために、[ロギングのアーキテクチャ](/docs/concepts/cluster-administration/logging/)を読む。
 
 ### フィードバック {#feedback}
