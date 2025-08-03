@@ -8,7 +8,7 @@ weight: 30
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 ベストプラクティスに準拠した実用最小限のKubernetesクラスターを作成します。
-実際、`kubeadm`を使用すれば、[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification)に通るクラスターをセットアップすることができます。
+実際、`kubeadm`を使用すれば、[Kubernetes Conformance tests](/blog/2017/10/software-conformance-certification/)に通るクラスターをセットアップすることができます。
 `kubeadm`は、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)やクラスターのアップグレードなどのその他のクラスターのライフサイクルの機能もサポートします。
 
 `kubeadm`ツールは、次のようなときに適しています。
@@ -30,8 +30,8 @@ weight: 30
 
 また、新しいクラスターで使いたいKubernetesのバージョンをデプロイできるバージョンの`kubeadm`を使用する必要もあります。
 
-[Kubernetesのバージョンとバージョンスキューポリシー](/ja/docs/setup/release/version-skew-policy/#supported-versions)
-は、`kubeadm`にもKubernetes全体と同じように当てはまります。Kubernetesと`kubeadm`がサポートするバージョンを理解するには、上記のポリシーを確認してください。このページは、Kubernetes {{< param "version" >}}向けに書かれています。
+[Kubernetesのバージョンとバージョンスキューポリシー](/docs/setup/release/version-skew-policy/#supported-versions)は、`kubeadm`にもKubernetes全体と同じように当てはまります。
+Kubernetesと`kubeadm`がサポートするバージョンを理解するには、上記のポリシーを確認してください。このページは、Kubernetes {{< param "version" >}}向けに書かれています。
 
 kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。一部のサブ機能はまだ活発に開発が行われています。クラスター作成の実装は、ツールの進化に伴ってわずかに変わるかもしれませんが、全体の実装は非常に安定しているはずです。
 
@@ -54,14 +54,13 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 
 #### コンポーネントのインストール
 
-{{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}
-と、 kubeadmを全てのホストにインストールしてください。
+{{< glossary_tooltip term_id="container-runtime" text="コンテナランタイム" >}}と、kubeadmを全てのホストにインストールしてください。
 インストールの詳細やその他の準備については、[kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)を読んでください。
 
 {{< note >}}
 すでにkubeadmがインストール済みである場合は、kubeadmのアップグレード手順については[Linuxノードのアップグレード](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes)の最初の2ステップを確認してください。
 
-アップグレード中、kubeletはクラッシュループに陥り、kubeadmの指示を待つため、数秒ごとに再起動します。
+アップグレード中、kubeletはクラッシュループによってkubeadmの指示を待つため、数秒ごとに再起動します。
 このクラッシュループは想定内の正常な動作です。
 コントロールプレーンの初期化が完了すれば、kubeletは正常に動作します。
 {{< /note >}}
@@ -74,11 +73,11 @@ kubeadmは他のKubernetesコンポーネントと同様に、ホスト上のデ
 Linuxのホスト上でこのIPを確認するには次のようにします:
 
 ```shell
-ip route show # Look "default via" で始まる行を探してください。
+ip route show # "default via"で始まる行を探してください。
 ```
 
 {{< note >}}
-2つ以上のデフォルトゲートウェイがホスト上に存在する場合、Kubernetesコンポーネントは適切なグローバルユニキャストIPアドレスを持つ最初のゲートウェイを使用しようとします。
+2つ以上のデフォルトゲートウェイがホスト上に存在する場合、Kubernetesコンポーネントは、適切なグローバルユニキャストIPアドレスを持つ最初に検出したゲートウェイを使用しようとします。
 この選択を行う際、ゲートウェイの正確な順序は、オペレーティングシステムやカーネルのバージョンにより異なる場合があります。
 {{< /note >}}
 
@@ -96,7 +95,7 @@ Kubernetesコンポーネントはカスタムネットワークインターフ�
 デュアルスタックについては、[kubeadmによるデュアルスタックのサポート](/ja/docs/setup/production-environment/tools/kubeadm/dual-stack-support)を参照してください。
 
 コントロールプレーンのコンポーネントに割り当てたIPアドレスは、X.509証明書のSubject Alternative Nameフィールドの一部になります。
-これらのIPアドレスを変更するには、新しいの証明書に署名し、影響を受けるコンポーネントを再起動する必要があります。
+これらのIPアドレスを変更するには、新しい証明書に署名し、影響を受けるコンポーネントを再起動する必要があります。
 これにより、証明書ファイルの変更が反映されます。
 詳細は、[kubeadmによる証明書管理](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#manual-certificate-renewal)を参照してください。
 
@@ -113,7 +112,7 @@ Linuxノード上では、ネットワーク設定に`ip route`のようなコ�
 
 このステップは任意で、`kubeadm init`および`kubeadm join`実行時に`registry.k8s.io`に存在するデフォルトのコンテナイメージをダウンロードしない場合のみ行います。
 
-kubeadmは、ノードにインターネット接続がない状態でクラスターを構築する際に、必要なイメージを事前にプルするのに役立つコマンドがあります。
+kubeadmは、ノードにインターネット接続がない状態でクラスターを構築する際に、必要なイメージを事前に取得するのに役立つコマンドがあります。
 詳細は、[インターネット接続無しでのkubeadmの稼働](/docs/reference/setup-tools/kubeadm/kubeadm-init#without-internet-connection)を参照してください。
 
 kubeadmはカスタムイメージリポジトリから必要なイメージを使用することもできます。
@@ -124,11 +123,10 @@ kubeadmはカスタムイメージリポジトリから必要なイメージを�
 コントロールプレーンノードとは、{{< glossary_tooltip term_id="etcd" >}}(クラスターのデータベース)や{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}({{< glossary_tooltip text="kubectl" term_id="kubectl" >}}コマンドラインツールが通信する相手)などのコントロールプレーンのコンポーネントが実行されるマシンです。
 
 1. (推奨)シングルコントロールプレーンの`kubeadm`クラスターを[高可用性クラスター](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)にアップグレードする予定がある場合、`--control-plane-endpoint`を指定して、すべてのコントロールプレーンノードとエンドポイントを共有する必要があります。
-    エンドポイントにはDNSネームやロードバランサーのIPアドレスが使用できます。
+    エンドポイントにはDNS名やロードバランサーのIPアドレスが使用できます。
 1. Podネットワークアドオンを選んで、`kubeadm init`に引数を渡す必要があるかどうか確認してください。
-    選んだサードパーティーのプロバイダーによっては、`--pod-network-cidr`をプロバイダー固有の値に設定する必要がある場合があります。詳しくは、
-    [Podネットワークアドオンのインストール](#pod-network)
-    を参照してください。
+    選んだサードパーティのプロバイダーによっては、`--pod-network-cidr`をプロバイダー固有の値に設定する必要がある場合があります。
+    詳しくは、[Podネットワークアドオンのインストール](#pod-network)を参照してください。
 1. (オプション)`kubeadm`は既知のエンドポイントの一覧を用いて、コンテナランタイムの検出を試みます。
     異なるコンテナランタイムを使用する場合やプロビジョニングするノードに2つ以上のランタイムがインストールされている場合、`kubeadm`に`--cri-socket`引数を指定してください。
     詳しくは、[ランタイムのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)を参照してください。
@@ -152,8 +150,8 @@ kubeadm init <args>
 192.168.0.102 cluster-endpoint
 ```
 
-ここでは、`192.168.0.102`がこのノードのIPアドレスであり、`cluster-endpoint`がこのIPアドレスへとマッピングされるカスタムDNSネームです。
-このように設定することで、`--control-plane-endpoint=cluster-endpoint`を`kubeadm init`に渡せるようになり、`kubeadm join`にも同じDNSネームを渡せます。
+ここでは、`192.168.0.102`がこのノードのIPアドレスであり、`cluster-endpoint`がこのIPアドレスへとマッピングされるカスタムDNS名です。
+このように設定することで、`--control-plane-endpoint=cluster-endpoint`を`kubeadm init`に渡せるようになり、`kubeadm join`にも同じDNS名を渡せます。
 後で`cluster-endpoint`を修正して、高可用性が必要なシナリオでロードバランサーのアドレスを指すようにすることができます。
 
 kubeadmでは、`--control-plane-endpoint`を渡さずに構築したシングルコントロールプレーンのクラスターを高可用性クラスターに切り替えることはサポートされていません。
@@ -166,14 +164,16 @@ kubeadmでは、`--control-plane-endpoint`を渡さずに構築したシング�
 
 コントロールプレーンコンポーネントやetcdサーバーのliveness probeへのオプションのIPv6の割り当てなど、コントロールプレーンのコンポーネントをカスタマイズしたい場合は、[カスタムの引数](/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)に示されている方法で各コンポーネントに追加の引数を与えてください。
 
-既存のクラスターの再設定を行う場合は、[kubeadmクラスターの再設定](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)を参照してください。
+既存のクラスターの再設定を行う場合は、[kubeadmクラスターの再設定](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure/)を参照してください。
 
-`kubeadm init`を再び実行する場合は、初めに[クラスターの破壊](#tear-down)を行う必要があります。
+`kubeadm init`を再び実行する場合は、初めに[クラスターの破棄](#tear-down)を行う必要があります。
 
 もし異なるアーキテクチャのノードをクラスターにjoinさせたい場合は、デプロイしたDaemonSetがそのアーキテクチャ向けのコンテナイメージをサポートしているか確認してください。
 
-初めに`kubeadm init`は、マシンがKubernetesを実行する準備ができているかを確認する、一連の事前チェックを行います。これらの事前チェックはエラー発生時には警告を表示して終了します。
-次に、`kubeadm init`はクラスターのコントロールプレーンのコンポーネントをダウンロードしてインストールします。これには数分掛かるかもしれません。
+初めに`kubeadm init`は、マシンがKubernetesを実行する準備ができているかを確認するための、一連の事前チェックを行います。
+これらの事前チェックは、エラー発生時には警告を表示して終了します。
+次に、`kubeadm init`はクラスターのコントロールプレーンのコンポーネントをダウンロードしてインストールします。
+これには数分掛かるかもしれません。
 これらが終了すると以下が出力されます。
 
 ```none
@@ -212,17 +212,16 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 {{< warning >}}
 `kubeadm init`によって生成されたkubeconfigファイルの`admin.conf`は、`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`
 の証明書を内包しています。
-`kubeadm:cluster-admins`グループは、ビルドインのClusterRoleである`cluster-admin`と紐づいています。
+`kubeadm:cluster-admins`グループは、ビルトインのClusterRoleである`cluster-admin`と紐づいています。
 `admin.conf`は誰とも共有しないでください。
 
-`kubeadm init`は、別のファイルである`super-admin.conf`も生成します。 
+`kubeadm init`は、別のkubeconfigファイルである`super-admin.conf`も生成します。 
 これは、`Subject: O = system:masters, CN = kubernetes-super-admin`の証明書を内包しています。
-`system:masters`は認可のレイヤー(例: RBAC)をバイパスする特権ユーザグループであり、抜け穴です。
+`system:masters`は認可のレイヤー(例: RBAC)をバイパスする、緊急用のスーパーユーザーグループです。
 `super-admin.conf`は誰とも共有しないでください。
 このファイルは安全な場所に退避させることを推奨します。
 
-追加ユーザへkubeconfigファイルを生成するために`kubeadm kubeconfig user`を実行するには、[追加ユーザのためのkubeconfigファイルの生成](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)
-を参照してください。
+追加ユーザーへkubeconfigファイルを生成するために`kubeadm kubeconfig user`を実行するには、[追加ユーザのためのkubeconfigファイルの生成](/ja/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#kubeconfig-additional-users)を参照してください。
 {{< /warning >}}
 
 `kubeadm init`が出力した`kubeadm join`コマンドをメモしておいてください。[クラスターにノードを追加する](#join-nodes)ために、このコマンドが必要です。
@@ -298,7 +297,7 @@ node "test-01" untainted
 ...
 ```
 
-このコマンドは、コントロールプレーンノードを含むすべてのノードから`node-role.kubernetes.io/control-plane:NoSchedule`taintを削除します。
+このコマンドは、コントロールプレーンノードを含むすべてのノードから`node-role.kubernetes.io/control-plane:NoSchedule` taintを削除します。
 その結果、スケジューラーはどこにでもPodをスケジューリングできるようになります。
 
 さらに、以下のコマンドを実行することでコントロールプレーンノードから[`node.kubernetes.io/exclude-from-external-load-balancers`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-exclude-from-external-load-balancers)ラベルを削除できます。
@@ -316,13 +315,13 @@ kubectl label nodes --all node.kubernetes.io/exclude-from-external-load-balancer
 
 ワーカーノードは、ワークロード(コンテナやPodなど)が実行される場所です。
 
-`kubeadm join` コマンドを使用したLinux、Windowsワーカーノードの追加方法は、以下のページを参照してください。
+`kubeadm join`コマンドを使用したLinux、Windowsワーカーノードの追加方法は、以下のページを参照してください。
 * [Linuxワーカーノードの追加](/ja/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/)
 * [Windowsワーカーノードの追加](/ja/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
 
 ### (オプション)コントロールプレーンノード以外のマシンからのクラスター操作
 
-他のコンピューター(例: ラップトップ)上のkubectlがクラスターと通信できるようにするためには、次のようにして特権のkubeconfigファイルをコントロールプレーンノードから対象のコンピューター上にコピーする必要があります。
+他のコンピューター(例: ラップトップ)上のkubectlがクラスターと通信できるようにするためには、次のようにして管理者のkubeconfigファイルをコントロールプレーンノードから対象のコンピューター上にコピーする必要があります。
 
 ```bash
 scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
@@ -333,11 +332,11 @@ kubectl --kubeconfig ./admin.conf get nodes
 上の例では、rootユーザーに対するSSH接続が有効であることを仮定しています。
 そうでない場合は、`admin.conf`ファイルを他のユーザーからアクセスできるようにコピーした上で、代わりにそのユーザーを使って`scp`してください。
 
-`admin.conf`ファイルはユーザーにクラスターに対する _特権ユーザー_ の権限を与えます。
-そのため、このファイルを使うのは控えめにしなければなりません。
+`admin.conf`ファイルはユーザーにクラスターに対する _スーパーユーザー_ の権限を与えます。
+そのため、このファイルは慎重に使用しなければなりません。
 通常のユーザーには、明示的に許可した権限を持つユニークなクレデンシャルを生成することを推奨します。
 これには、`kubeadm kubeconfig user --client-name <CN>`コマンドが使えます。
-このコマンドを実行すると、KubeConfigファイルがSTDOUTに出力されるので、ファイルに保存してユーザーに配布します。
+このコマンドを実行すると、KubeConfigファイルがSTDOUTに出力されるため、ファイルに保存してユーザーに配布します。
 その後、`kubectl create (cluster)rolebinding`コマンドを使って権限を付与します。
 {{< /note >}}
 
@@ -402,53 +401,53 @@ kubectl delete node <node name>
 
 ## バージョンスキューポリシー {#version-skew-policy}
 
-kubedmは、kubeadmが管理するコンポーネントに対してバージョンの差異を許容しますが、kubeadmのバージョンをコントロールプレーン、kube-proxy、kubeletと一致させることを推奨します。
+kubeadmは、kubeadmが管理するコンポーネントに対してバージョンの差異を許容しますが、kubeadmのバージョンをコントロールプレーンのコンポーネント、kube-proxy、kubeletと一致させることを推奨します。
 
-### kubeadmとkubernetesのバージョンの互換性
+### kubernetesのバージョンに対するkubeadmのバージョンの差異
 
-kubeadmはkubeadmと同じバージョンか1つ前のバージョンのKubernetesコンポーネントで使用できます。
+kubeadmはkubeadmと同じバージョンか、1つ前のバージョンのKubernetesコンポーネントで使用できます。
 Kubernetesのバージョンは`kubeadm init`の`--kubernetes-version`、もしくは`--config`を使用する場合の[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta4/)フィールドで指定できます。 
-このオプションはkube-apiserver、kube-controller-manager、kube-scheduler、 kube-proxyのバージョンを制御します。
+このオプションはkube-apiserver、kube-controller-manager、kube-scheduler、kube-proxyのバージョンを制御します。
+
+例:
+
+* kubeadmのバージョン: {{< skew currentVersion >}}でなければならない
+* `kubernetesVersion`は、{{< skew currentVersion >}}または{{< skew currentVersionAddMinor -1 >}}でなければならない
+
+### kubeadmに対するkubeletのバージョンの差異
+
+Kubernetesのバージョンと同様に、kubeadmは、kubeadmと同じバージョン、もしくは3つ前までのバージョンをkubeletに使用できます。
 
 例:
 
 * kubeadmのバージョン: {{< skew currentVersion >}}
-* `kubernetesVersion`は {{< skew currentVersion >}} または {{< skew currentVersionAddMinor -1 >}} でなければならない。
+* ホスト上のkubeletのバージョンは、{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、
+  {{< skew currentVersionAddMinor -2 >}}、もしくは{{< skew currentVersionAddMinor -3 >}}でなければならない
 
-### kubeadmとkubeletのバージョン互換性
-
-Kubernetesのバージョンと類似して、kubeadmはkubeadmと同じバージョンもしくは3つ前までのバージョンをkubeletに使用できます。
-
-例:
-
-* kubeadm のバージョン: {{< skew currentVersion >}}
-* ホスト上のkubeletのバージョンは {{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、
-  {{< skew currentVersionAddMinor -2 >}} もしくは {{< skew currentVersionAddMinor -3 >}} でなければなりません。
-
-### kubeadmとkubeadmのバージョン互換性
+### kubeadmに対するkubeadmのバージョン差異
 
 kubeadmによって管理されている既存のノードまたはクラスター全体を、kubeadmコマンドが操作するには一定の制限が存在します。
 
-新たなノードをクラスターに参加させる場合、`kubeadm join`を実行するkubeadmのバイナリーは、`kubeadm init`によるクラスター構築もしくは `kubeadm upgrade`によるノードのアップグレードのいずれかに使用されたkubeadmの最新バージョンと一致している必要があります。
+新たなノードをクラスターに参加させる場合、`kubeadm join`を実行するkubeadmのバイナリは、`kubeadm init`によるクラスター構築、もしくは`kubeadm upgrade`によるノードのアップグレードのいずれかに使用されたkubeadmの最新バージョンと一致している必要があります。
 同様の制限は`kubeadm upgrade`を除く他のkubeadmのコマンドにも適用されます。
 
 `kubeadm join`の例:
 
 * `kubeadm init`によるクラスター構築で使用したkubeadmのバージョン: {{< skew currentVersion >}}
-* 参加するノードは　{{< skew currentVersion >}}のバージョンのkubeadmバイナリーを使用しなければなりません。
+* 参加するノードは{{< skew currentVersion >}}のバージョンのkubeadmバイナリを使用しなければならない
 
- アップグレードするノードでは、マイナーバージョンが同じ、もしくはクラスター管理に使用していたkubeadmのバージョンよりマイナーバージョンが1つ新しいkubeadmを使用する必要があります。
+アップグレードするノードでは、そのノードの管理に使用しているkubeadmのバージョンと同じマイナーバージョン、もしくはマイナーバージョンが1つ新しいkubeadmを使用する必要があります。
 
 `kubeadm upgrade`の例:
 
 * クラスター構築またはノードのアップグレードに使用されたkubeadmのバージョン: {{< skew currentVersionAddMinor -1 >}}
-* ノードのアップグレードで使用するkubeadmのバージョンは {{< skew currentVersionAddMinor -1 >}} または {{< skew currentVersion >}} でなければなりません。
+* ノードのアップグレードで使用するkubeadmのバージョンは、{{< skew currentVersionAddMinor -1 >}}または{{< skew currentVersion >}}でなければならない
 
-上記以外のKubernetesコンポーネントに対するバージョン互換性についてさらに学ぶには、[バージョンスキューポリシー](/ja/releases/version-skew-policy/)を参照してください。
+異なるKubernetesコンポーネント間のバージョン差異についてさらに学ぶには、[バージョンスキューポリシー](/ja/releases/version-skew-policy/)を参照してください。
 
 ## 制限事項 {#limitations}
 
-### クラスターのレジリエンス {#resilience}
+### クラスターの弾力性 {#resilience}
 
 ここで作られたクラスターは、1つのコントロールプレーンノードと、その上で動作する1つのetcdデータベースしか持ちません。
 つまり、コントロールプレーンノードが故障した場合、クラスターのデータは失われ、クラスターを最初から作り直す必要がある可能性があります。
@@ -459,7 +458,7 @@ kubeadmによって管理されている既存のノードまたはクラスタ�
   kubeadmが設定するetcdのデータディレクトリは、コントロールプレーンノードの`/var/lib/etcd`にあります。
 
 * 複数のコントロールプレーンノードを使用する。
-  [高可用性トポロジーのオプション](/ja/docs/setup/production-environment/tools/kubeadm/ha-topology/)では、[より高い可用性](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)を提供するクラスターのトポロジーの選択について説明してます。
+  [高可用性トポロジーのオプション](/docs/setup/production-environment/tools/kubeadm/ha-topology/)では、[より高い可用性](/docs/setup/production-environment/tools/kubeadm/high-availability/)を提供するクラスターのトポロジーの選択について説明しています。
 
 ### プラットフォームの互換性 {#multi-platform}
 
@@ -477,18 +476,18 @@ kubeadmに関する問題が起きたときは、[トラブルシューティン
 
 ## {{% heading "whatsnext" %}}
 
-* [Sonobuoy](https://github.com/heptio/sonobuoy)を使用してクラスターが適切に動作しているか検証しましょう。
-* <a id="lifecycle" />`kubeadm`を使用したクラスターをアップグレードする方法について、[kubeadmクラスターをアップグレードする](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を見てみましょう。
-* `kubeadm`の高度な利用方法について[kubeadmリファレンスドキュメント](/docs/reference/setup-tools/kubeadm/)で学びましょう。
-* Kubernetesの[コンセプト](/ja/docs/concepts/)や[`kubectl`](/ja/docs/reference/kubectl/)についてもっと学びましょう。
+* [Sonobuoy](https://github.com/heptio/sonobuoy)を使用してクラスターが適切に動作しているか検証する。
+* <a id="lifecycle" />`kubeadm`を使用したクラスターをアップグレードする方法について、[kubeadmクラスターをアップグレードする](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を参照する。
+* `kubeadm`の高度な利用方法について[kubeadmリファレンスドキュメント](/docs/reference/setup-tools/kubeadm/)で学ぶ。
+* Kubernetesの[コンセプト](/ja/docs/concepts/)や[`kubectl`](/ja/docs/reference/kubectl/)についてさらに学ぶ。
 * Podネットワークアドオンのより完全なリストを[クラスターのネットワーク](/ja/docs/concepts/cluster-administration/networking/)で確認する。
-* <a id="other-addons" />ロギング、モニタリング、ネットワークポリシー、仮想化、Kubernetesクラスターの制御のためのツールなど、その他のアドオンについて、[アドオンのリスト](/ja/docs/concepts/cluster-administration/addons/)で確認しましょう。
-* クラスターイベントやPod内で実行中のアプリケーションから送られるログをクラスターがハンドリングする方法を設定する。関係する要素の概要を理解するために、[ロギングのアーキテクチャ](/docs/concepts/cluster-administration/logging/)を読んでください。
+* <a id="other-addons" />ロギング、モニタリング、ネットワークポリシー、仮想化、Kubernetesクラスターの制御のためのツールなど、その他のアドオンについて、[アドオンのリスト](/ja/docs/concepts/cluster-administration/addons/)で確認する。
+* クラスターイベントやPod内で実行中のアプリケーションから送られるログをクラスターがハンドリングする方法を設定する。関係する要素の概要を理解するために、[ロギングのアーキテクチャ](/docs/concepts/cluster-administration/logging/)を読む。
 
 ### フィードバック {#feedback}
 
 * バグを見つけた場合は、[kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)で報告してください。
-* サポートを受けたい場合は、[#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)Slackチャンネルを訪ねてください。
-* General SIG Cluster Lifecycle development Slackチャンネル:[#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
+* サポートを受けたい場合は、[#kubeadm](https://kubernetes.slack.com/messages/kubeadm/) Slackチャンネルを訪ねてください。
+* General SIG Cluster Lifecycle development Slackチャンネル: [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
 * SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
-* SIG Cluster Lifecycleメーリングリスト:[kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
+* SIG Cluster Lifecycleメーリングリスト: [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
