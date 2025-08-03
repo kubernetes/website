@@ -24,7 +24,7 @@ weight: 30
 このガイドを進めるには、以下の環境が必要です。
 
 - UbuntuやCentOSなど、deb/rpmパッケージと互換性のあるLinux OSが動作している1台以上のマシンがあること。
-- マシンごとに2GiB以上のRAMが搭載されていること。それ以下の場合、アプリ実行用のメモリーがほとんど残りません。
+- マシンごとに2GiB以上のRAMが搭載されていること。それ以下の場合、アプリ実行用のメモリがほとんど残りません。
 - コントロールプレーンノードとして使用するマシンには、最低でも2CPU以上あること。
 - クラスター内の全マシン間に完全なネットワーク接続があること。パブリックネットワークとプライベートネットワークのいずれでも使えます。
 
@@ -258,6 +258,7 @@ CNIを使用するKubernetes Podネットワークを提供する外部のプロ
 
 [Kubernetesのネットワークモデル](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)を実装したアドオンの一覧も確認してください。
 
+Kubernetesでサポートされているネットワークアドオンの非網羅的な一覧については、[アドオンのインストール](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)のページを参照してください。
 Podネットワークアドオンをインストールするには、コントロールプレーンノード上またはkubeconfigクレデンシャルを持っているノード上で、次のコマンドを実行します。
 
 ```bash
