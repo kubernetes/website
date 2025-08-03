@@ -4,6 +4,7 @@ linkTitle: Блог
 menu:
   main:
     title: "Блог"
+    weight: 20
 ---
 {{< comment >}}
 

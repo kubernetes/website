@@ -208,7 +208,7 @@ Address 1: 10.0.162.149
 * Сервер nginx, налаштований для використання сертифікатів
 * [Secret](/docs/concepts/configuration/secret/), що робить сертифікати доступними для Pod
 
-Ви можете отримати все це з [прикладу nginx https](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). Це вимагає встановлення інструментів go та make. Якщо ви не хочете їх встановлювати, тоді дотримуйтесь ручних кроків, описаних нижче. Коротко:
+Ви можете отримати все це з [прикладу nginx https](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/). Це вимагає встановлення інструментів go та make. Якщо ви не хочете їх встановлювати, тоді дотримуйтесь ручних кроків, описаних нижче. Коротко:
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -335,7 +335,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 Примітні моменти про маніфест nginx-secure-app:
 
 * Він містить як специфікацію Deployment, так і Service в одному файлі.
-* [nginx сервер](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf) обслуговує HTTP трафік на порту 80 та HTTPS трафік на порту 443, і Service nginx відкриває доступ до обох портів.
+* [nginx сервер](https://github.com/kubernetes/examples/blob/master/_archived/https-nginx/default.conf) обслуговує HTTP трафік на порту 80 та HTTPS трафік на порту 443, і Service nginx відкриває доступ до обох портів.
 * Кожен контейнер має доступ до ключів через том, змонтовану в `/etc/nginx/ssl`. Це налаштовується *до* запуску nginx сервера.
 
 ```shell

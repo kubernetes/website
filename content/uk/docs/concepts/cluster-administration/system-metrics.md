@@ -191,6 +191,6 @@ Pressure Stall Information вимагає:
 
 ## {{% heading "whatsnext" %}}
 
-* Дізнайтеся про [текстовий формат Prometheus](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) для метрик
+* Дізнайтеся про [текстовий формат Prometheus](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format) для метрик
 * Перегляньте список [стабільних метрик Kubernetes](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Прочитайте про [політику застаріння Kubernetes](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
