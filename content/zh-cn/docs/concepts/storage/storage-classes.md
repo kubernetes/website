@@ -453,6 +453,8 @@ Kubernetes 项目建议你转为使用 [AWS EBS](https://github.com/kubernetes-s
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-aws-ebs.yaml" %}}
 
+`tagSpecification`: 带有这个前缀的 tag 被应用到动态制备的 EBS 卷
+
 ### AWS EFS
 
 <!--
