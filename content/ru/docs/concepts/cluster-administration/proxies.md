@@ -1,7 +1,7 @@
 ---
 title: Типы прокси-серверов в Kubernetes
 content_type: concept
-weight: 90
+weight: 100
 ---
 
 <!-- overview -->
