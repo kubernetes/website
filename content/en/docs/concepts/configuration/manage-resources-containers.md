@@ -113,21 +113,24 @@ resource requests/limits of that type for each container in the Pod.
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
-Starting in Kubernetes 1.32, you can also specify resource requests and limits at
+Provided your cluster has the `PodLevelResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
+you can specify resource requests and limits at
 the Pod level. At the Pod level, Kubernetes {{< skew currentVersion >}}
 only supports resource requests or limits for specific resource types: `cpu` and /
-or `memory`. This feature is currently in alpha and with the feature enabled,
-Kubernetes allows you to declare an overall resource budget for the Pod, which is
-especially helpful when dealing with a large number of containers where it can be
-difficult to accurately gauge individual resource needs. Additionally, it enables
-containers within a Pod to share idle resources with each other, improving resource
-utilization. 
+or `memory` and / or `hugepages`. With this feature, Kubernetes allows you to declare an overall resource
+budget for the Pod, which is especially helpful when dealing with a large number of
+containers where it can be difficult to accurately gauge individual resource needs.
+Additionally, it enables containers within a Pod to share idle resources with each
+other, improving resource utilization.
 
 For a Pod, you can specify resource limits and requests for CPU and memory by including the following:
 * `spec.resources.limits.cpu`
 * `spec.resources.limits.memory`
+* `spec.resources.limits.hugepages-<size>`
 * `spec.resources.requests.cpu`
 * `spec.resources.requests.memory`
+* `spec.resources.requests.hugepages-<size>`
 
 ## Resource units in Kubernetes
 
