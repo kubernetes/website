@@ -310,6 +310,7 @@ following methods:
 
 * [kubelet device metrics](#monitoring-resources)
 * [ResourceClaim status](#resourceclaim-device-status)
+* [Device health monitoring](#device-health-monitoring)
 
 ### kubelet device metrics {#monitoring-resources}
 
@@ -342,6 +343,19 @@ set.
 
 For details about the `status.devices` field, see the
 {{< api-reference page="workload-resources/resource-claim-v1beta1" anchor="ResourceClaimStatus" text="ResourceClaim" >}} API reference.
+
+### Device Health Monitoring {#device-health-monitoring}
+
+{{< feature-state feature_gate_name="ResourceHealthStatus" >}}
+
+As an alpha feature, Kubernetes provides a mechanism for monitoring and reporting the health of dynamically allocated infrastructure resources.
+For stateful applications running on specialized hardware, it is critical to know when a device has failed or become unhealthy. It is also helpful to find out if the device recovers.
+
+To enable this functionality, the `ResourceHealthStatus` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/resource-health-status/) must be enabled, and the DRA driver must implement the `DRAResourceHealth` gRPC service.
+
+When a DRA driver detects that an allocated device has become unhealthy, it reports this status back to the kubelet. This health information is then exposed directly in the Pod's status. The kubelet populates the `allocatedResourcesStatus` field in the status of each container, detailing the health of each device assigned to that container.
+
+This provides crucial visibility for users and controllers to react to hardware failures. For a Pod that is failing, you can inspect this status to determine if the failure was related to an unhealthy device.
 
 ## Pre-scheduled Pods
 
