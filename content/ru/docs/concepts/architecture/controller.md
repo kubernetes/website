@@ -109,7 +109,7 @@ Kubernetes позволяет вам запускать устойчивый у�
 
 ## {{% heading "whatsnext" %}}
 
-* Прочтите об [управляющем слое Kubernetes ](/ru/docs/concepts/overview/components/#компоненты-управляющего-слоя)
+* Прочтите об [управляющем слое Kubernetes ](/ru/docs/concepts/architecture/#компоненты-управляющего-слоя)
 * Откройте для себя некоторые из основных [объектов Kubernetes](/ru/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 * Узнайте больше о [Kubernetes API](/ru/docs/concepts/overview/kubernetes-api/)
 * Если вы хотите написать собственный контроллер, см [Шаблоны расширения](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) в расширении Kubernetes.
