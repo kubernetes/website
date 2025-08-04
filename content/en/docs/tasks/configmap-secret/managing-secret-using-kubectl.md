@@ -126,7 +126,7 @@ accidentally, or from being stored in a terminal log.
 ## Viewing Secret information
 
 Although verifying secrets could be performed using 'kubectl get secret' command, a broader view of the 
-secret information needs the secret to be outputted in yaml format. The below command can be used to 
+secret information needs the Secret to be outputted in JSON or YAML format. The below command can be used to 
 output a detailed information of the secret. This will display the content of the secret file explicitly,
 and as stated in the previous section, it is not advised to run it unless it is absolutely necessary to view the file.
 
