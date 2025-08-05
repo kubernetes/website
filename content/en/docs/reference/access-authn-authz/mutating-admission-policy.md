@@ -19,6 +19,9 @@ If you want to use declarative policies just to prevent a particular kind of cha
 is
 a simpler and more effective alternative.
 
+To use the feature, enable the `MutatingAdmissionPolicy` feature gate (which is off by default) and set `--runtime-config=admissionregistration.k8s.io/v1beta1=true` on the kube-apiserver. 
+Note that the default stored version remains alpha in 1.34 and whoever enabled beta during 1.34 needs to run a storage migration yourself to ensure you don't depend on alpha data in etcd later.
+
 <!-- body -->
 
 ## What are MutatingAdmissionPolicies?
