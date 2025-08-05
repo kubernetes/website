@@ -5,7 +5,7 @@ weight: 370
 ---
 <!-- overview -->
 このページでは、機密データの暗号化を有効にするために、Key Management Service(KMS)プロバイダーとプラグインを設定する方法について説明します。
-Kubernetes {{< skew currentVersion >}}では、KMS保存時暗号化の2つのバージョンがあります。
+Kubernetes {{< skew currentVersion >}}では、KMSによる保存時暗号化はv1とv2の2つのバージョンが利用できます。
 KMS v1は(Kubernetes v1.28以降で)非推奨であり、(Kubernetes v1.29以降では)デフォルトで無効化されているため、特段の理由がない限りKMS v2を使用すべきです。
 KMS v2は、KMS v1よりも大幅に優れたパフォーマンス特性を提供します。
 
@@ -24,7 +24,7 @@ KubernetesではKMS v2の使用を推奨しています。
 
 - バージョンv1.27より前のクラスターをサポートするためにKMS API v1を選択した場合、またはKMS v1のみをサポートするレガシーKMSプラグインを使用している場合、KMS v1をサポートする全てのKubernetesバージョンが動作します。
 このAPIはKubernetes v1.28時点で非推奨です。
-  KubernetesではこのAPIの使用を推奨していません。
+KubernetesではこのAPIの使用を推奨していません。
 
 {{< version-check >}}
 
