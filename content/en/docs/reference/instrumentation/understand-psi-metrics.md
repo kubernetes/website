@@ -21,10 +21,12 @@ PSI metrics are exposed through two different sources:
 
 ### Requirements
 
-Pressure Stall Information requires:
+Pressure Stall Information requires the following on your Linux nodes:
 
-- [Linux kernel versions 4.20 or later](/docs/reference/node/kernel-version-requirements#requirements-psi).
-- [cgroup v2](/docs/concepts/architecture/cgroups)
+- The Linux kernel must be version **4.20 or newer**.
+- The kernel must be compiled with the `CONFIG_PSI=y` option. Most modern distributions enable this by default. You can check your kernel's configuration by running `zgrep CONFIG_PSI /proc/config.gz`.
+- Some Linux distributions may compile PSI into the kernel but disable it by default. If so, you need to enable it at boot time by adding the `psi=1` parameter to the kernel command line.
+- The node must be using [cgroup v2](/docs/concepts/architecture/cgroups).
 
 <!-- body -->
 
