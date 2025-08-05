@@ -392,14 +392,11 @@ spec:
 You may also be able to mutate the incoming Pod, at admission time, to unset
 the `.spec.nodeName` field and to use a node selector instead.
 
-## DRA alpha features {#alpha-features}
+## DRA beta features {#beta-features}
 
-The following sections describe DRA features that are available in the Alpha
+The following sections describe DRA features that are available in the Beta
 [feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-To use any of these features, you must also set up DRA in your clusters by
-enabling the DynamicResourceAllocation feature gate and the DRA
-{{< glossary_tooltip text="API groups" term_id="api-group" >}}. For more
-information, see
+For more information, see
 [Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
 ### Admin access {#admin-access}
@@ -435,7 +432,17 @@ multi-tenant clusters. Starting with Kubernetes v1.33, only users authorized to
 create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 `resource.k8s.io/admin-access: "true"` (case-sensitive) can use the
 `adminAccess` field. This ensures that non-admin users cannot misuse the
-feature.
+feature. Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
+
+## DRA alpha features {#alpha-features}
+
+The following sections describe DRA features that are available in the Alpha
+[feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
+To use any of these features, you must also set up DRA in your clusters by
+enabling the DynamicResourceAllocation feature gate and the DRA
+{{< glossary_tooltip text="API groups" term_id="api-group" >}}. For more
+information, see
+[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
 ### Prioritized list {#prioritized-list}
 

@@ -2806,11 +2806,11 @@ workloads to schedule on them. Replaced by the
 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)
 taint. kubeadm no longer sets or uses this deprecated taint.
 
-### resource.k8s.io/admin-access {resource-k8s-io-admin-access}
+### resource.kubernetes.io/admin-access {resource-kubernetes-io-admin-access}
 
 Type: Label
 
-Example: `resource.k8s.io/admin-access: "true"`
+Example: `resource.kubernetes.io/admin-access: "true"`
 
 Used on: Namespace
 
