@@ -9,7 +9,9 @@ author: >
 ---
 
 Have you ever made a typo when expanding your persistent volumes in Kubernetes? Meant to specify `2TB`
-but specified `20TB`? This seemingly innocous problem was kinda hard to fix and took us almost 5 year to fix but we have finally made `RecoverVolumeExpansionFailure` feature GA in v1.34 of Kubernetes - https://kubernetes.io/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes
+but specified `20TiB`? This seemingly innocuous problem was kinda hard to fix - and took the project almost 5 years to fix.
+[Automated recovery from storage expansion](/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes) has been around for a while in beta; however, with the v1.34 release, we have graduated this to
+**general availability**.
 
 While it was always possible to recover from failing volume expansions manually, it usually required cluster-admin access and was tedious to do (See aformentioned link for more information).
 
