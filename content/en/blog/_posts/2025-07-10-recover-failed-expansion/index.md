@@ -58,7 +58,9 @@ This feature does have a caveat that, whatever new size you specify for the PVC,
 
 ## Improved error handling and observability of volume expansion
 
-This seemingly innocuos feature also required us to almost redo how volume expansion works under the hood in Kubernetes. There are new API fields available in PVC objects which you can monitor to observe progress of volume expansion.
+Implementing what might look like a relatively minor change also required us to almost 
+fully redo how volume expansion works under the hood in Kubernetes.
+There are new API fields available in PVC objects which you can monitor to observe progress of volume expansion.
 
 ### Improved observability of in-progress expansion
 
