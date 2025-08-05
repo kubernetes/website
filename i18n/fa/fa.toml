@@ -1,0 +1,47 @@
+# i18n strings for the Persian localization.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+# Localization note (no need to translate this note)
+# This is always followed by Chinese text, as required by the Kubernetes
+# project's ICP license, issued by the government of the People's Republic
+# of China.
+[china_icp_license]
+other = "مجوز ICP:"
+
+[input_placeholder_email_address]
+other = "نشانی رایانامه"
+
+[main_cncf_project]
+other = """ما یک پروژه فارغ التحصیل <a href="https://cncf.io/">CNCF</a> هستیم</p>"""
+
+[main_copyright_notice]
+other = """بنیاد لینوکس &reg;. کلیه حقوق محفوظ است. بنیاد لینوکس دارای علائم تجاری ثبت‌شده است و از علائم تجاری استفاده می‌کند. برای فهرستی از علائم تجاری بنیاد لینوکس، لطفاً به <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحه استفاده از علائم تجاری</a> ما مراجعه کنید."""
+
+[main_documentation_license]
+other = """نویسندگان کوبرنتیز | مستندات تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> توزیع‌شده است."""
+
+[main_kubernetes_features]
+other = "ویژگی‌های کوبرنتیز"
+
+[main_kubeweekly_baseline]
+other = "علاقه‌مند به دریافت آخرین اخبارکوبرنتیز هستید؟ در KubeWeekly ثبت‌نام کنید."
+
+[main_kubeweekly_past_link]
+other = "مشاهده خبرنامه‌های گذشته"
+
+[main_kubeweekly_signup]
+other = "اشتراک خبرنامه"
+
+[release_information_navbar]
+other = "اطلاعات نسخه‌ها"
+
+[subscribe_button]
+other = "اشتراک خبرنامه"
+
+[ui_search]
+other = "جستجو در این سایت"
+
+[version_menu]
+other = "نسخه‌ها"
