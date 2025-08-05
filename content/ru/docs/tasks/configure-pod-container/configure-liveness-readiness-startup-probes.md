@@ -1,7 +1,7 @@
 ---
 title: Настройка Liveness, Readiness и Startup проб
 content_type: task
-weight: 110
+weight: 140
 ---
 
 <!-- overview -->
