@@ -80,4 +80,7 @@ Errors observerd during volume expansion are now reported as condition on PVC ob
 
 This feature also has allowed us to fix long standing bugs in resizing workflow such as - https://github.com/kubernetes/kubernetes/issues/115294 . If you observe anything broken please report your bugs to https://github.com/kubernetes/kubernetes/issues .
 
-Working on this feature through its lifecycle was challenging and it wouldn't have been possible without feedback from @msau42, @jsafrane and @xingyang. We also appreciate all the input provided by @thockin and @liggit at various kubecon contributor summits.
+Working on this feature through its lifecycle was challenging and it wouldn't have been possible to reach GA
+without feedback from [@msau42](https://github.com/msau42), [@jsafrane](https://github.com/jsafrane) and [@xing-yang](https://github.com/xing-yang).
+
+All of the contributors who worked on this also appreciate the input provided by [@thockin](https://github.com/thockin) and [@liggitt](https://github.comliggitt) at various Kubernetes contributor summits.
