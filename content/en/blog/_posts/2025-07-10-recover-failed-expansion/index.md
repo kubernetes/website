@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Recover from volume expansion failure"
+title: "Kubernetes v1.34: Recover from volume expansion failure"
 date: 2025-07-10T09:00:00-08:00
 draft: true
 slug: recover-expansion-failure
