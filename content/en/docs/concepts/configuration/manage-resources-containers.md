@@ -723,7 +723,7 @@ extender.
 
 #### Extended resources allocation by DRA
 Extended resources allocation by DRA allows cluster administrators to specify an `extendedResourceName`
-in `DeviceClass`, then the devices matching the `DeviceClass` can be requested from a pod's extended
+in DeviceClass, then the devices matching the DeviceClass can be requested from a pod's extended
 resource requests. Read more about
 [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource).
 
