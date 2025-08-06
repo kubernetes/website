@@ -770,6 +770,89 @@ spec:
     effect: NoExecute
 ```
 
+### Device Binding Conditions {#device-binding-conditions}
+
+{{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
+
+Device Binding Conditions allow the Kubernetes scheduler to delay Pod binding until
+external resources, such as fabric-attached GPUs or reprogrammable FPGAs, are confirmed
+to be ready.
+
+This waiting behavior is implemented in the 
+[PreBind phase](/docs/concepts/scheduling-eviction/scheduling-framework/#pre-bind)
+of the scheduling framework.
+During this phase, the scheduler checks whether all required device conditions are
+satisfied before proceeding with binding.
+
+This improves scheduling reliability by avoiding premature binding and enables coordination
+with external device controllers.
+
+To use this feature, device drivers (typically managed by driver owners) must publish the
+following fields in the `Device` section of a `ResourceSlice`. Cluster administrators
+must enable the `DRADeviceBindingConditions` and `DRAResourceClaimDeviceStatus` feature
+gates for the scheduler to honor these fields.
+
+- `bindingConditions`: A list of condition types that must be set to True in the
+  status.conditions field of the associated ResourceClaim before the Pod can be bound.
+  These typically represent readiness signals such as "DeviceAttached" or "DeviceInitialized".
+- `bindingFailureConditions`: A list of condition types that, if set to True in
+  status.conditions field of the associated ResourceClaim, indicate a failure state.
+  If any of these conditions are True, the scheduler will abort binding and reschedule the Pod.
+- `bindsToNode`: if set to `true`, the scheduler records the selected node name in the
+  `status.allocation.nodeSelector` field of the ResourceClaim.
+  This does not affect the Pod's `spec.nodeSelector`. Instead, it sets a node selector
+  inside the ResourceClaim, which external controllers can use to perform node-specific
+  operations such as device attachment or preparation.
+
+All condition types listed in bindingConditions and bindingFailureConditions are evaluated
+from the `status.conditions` field of the ResourceClaim.
+External controllers are responsible for updating these conditions using standard Kubernetes
+condition semantics (`type`, `status`, `reason`, `message`, `lastTransitionTime`).
+
+The scheduler waits up to **600 seconds** for all `bindingConditions` to become `True`.
+If the timeout is reached or any `bindingFailureConditions` are `True`, the scheduler
+clears the allocation and reschedules the Pod.
+
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+metadata:
+  name: gpu-slice
+spec:
+  driver: dra.example.com
+  nodeSelector:
+    accelerator-type: high-performance
+  pool:
+    name: gpu-pool
+    generation: 1
+    resourceSliceCount: 1
+  devices:
+    - name: gpu-1
+      attributes:
+        vendor:
+          string: "example"
+        model:
+          string: "example-gpu"
+      bindsToNode: true
+      bindingConditions:
+        - dra.example.com/is-prepared
+      bindingFailureConditions:
+        - dra.example.com/preparing-failed
+```
+This example ResourceSlice has the following properties:
+
+- The ResourceSlice targets nodes labeled with `accelerator-type=high-performance`, 
+so that the scheduler uses only a specific set of eligible nodes.
+- The scheduler selects one node from the selected group (for example, `node-3`) and sets 
+the `status.allocation.nodeSelector` field in the ResourceClaim to that node name.
+- The `dra.example.com/is-prepared` binding condition indicates that the device `gpu-1`
+must be prepared (the `is-prepared` condition has a status of `True`) before binding. 
+- If the `gpu-1` device preparation fails (the `preparing-failed` condition has a status of `True`), the scheduler aborts binding.
+- The scheduler waits up to 600 seconds for the device to become ready.
+- External controllers can use the node selector in the ResourceClaim to perform
+node-specific setup on the selected node.
+
 ## {{% heading "whatsnext" %}}
 
 - [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/)
