@@ -188,8 +188,10 @@ kubectl describe node <your-node-name> | grep dongle
 ### For application developers
 
 - [Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/)
+- [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
 ### For cluster administrators
 
 - [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 - [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

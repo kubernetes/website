@@ -721,6 +721,12 @@ extender.
 }
 ```
 
+#### Extended resources allocation by DRA
+Extended resources allocation by DRA allows cluster administrators to specify an `extendedResourceName`
+in `DeviceClass`, then the devices matching the `DeviceClass` can be requested from a pod's extended
+resource requests. Read more about
+[Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource).
+
 ### Consuming extended resources
 
 Users can consume extended resources in Pod specs like CPU and memory.
@@ -937,3 +943,4 @@ memory limit (and possibly request) for that container.
 * Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
+* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
