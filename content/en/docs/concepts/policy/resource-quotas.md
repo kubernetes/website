@@ -104,7 +104,12 @@ one of its arguments.
 A resource quota is enforced in a particular namespace when there is a
 ResourceQuota in that namespace.
 
-## Compute Resource Quota
+## Types of resource quota
+
+The ResourceQuota mechanism lets you enforce different kinds of limits. This
+section describes the types of limit that you can enforce.
+
+### Quota for infrastructure resources {#compute-resource-quota}
 
 You can limit the total sum of
 [compute resources](/docs/concepts/configuration/manage-resources-containers/)
@@ -122,7 +127,7 @@ The following resource types are supported:
 | `cpu` | Same as `requests.cpu` |
 | `memory` | Same as `requests.memory` |
 
-### Resource Quota For Extended Resources
+### Quota for extended resources
 
 In addition to the resources mentioned above, in release 1.10, quota support for
 [extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) is added.
@@ -138,12 +143,13 @@ limit the total number of GPUs requested in a namespace to 4, you can define a q
 
 See [Viewing and Setting Quotas](#viewing-and-setting-quotas) for more details.
 
-## Storage Resource Quota
+### Quota for storage
 
-You can limit the total sum of [storage resources](/docs/concepts/storage/persistent-volumes/)
+You can limit the total sum of [storage](/docs/concepts/storage/persistent-volumes/) for volumes
 that can be requested in a given namespace.
 
-In addition, you can limit consumption of storage resources based on associated storage-class.
+In addition, you can limit consumption of storage resources based on associated
+[StorageClass](/docs/concepts/storage/storage-classes/).
 
 | Resource Name | Description |
 | ------------- | ----------- |
@@ -158,7 +164,10 @@ a `bronze` StorageClass, you can define a quota as follows:
 * `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
 * `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
 
-In release 1.8, quota support for local ephemeral storage is added as an alpha feature:
+#### Quota for local ephemeral storage
+
+{{< feature-state for_k8s_version="v1.8" state="alpha" >}}
+
 
 | Resource Name | Description |
 | ------------- | ----------- |
@@ -169,46 +178,56 @@ In release 1.8, quota support for local ephemeral storage is added as an alpha f
 {{< note >}}
 When using a CRI container runtime, container logs will count against the ephemeral storage quota.
 This can result in the unexpected eviction of pods that have exhausted their storage quotas.
+
 Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
 {{< /note >}}
 
-## Object Count Quota
+### Quota on object count
 
-You can set quota for *the total number of one particular resource kind* in the Kubernetes API,
+You can set quota for *the total number of one particular {{< glossary_tooltip text="resource" term_id="api-resource" >}} kind* in the Kubernetes API,
 using the following syntax:
 
-* `count/<resource>.<group>` for resources from non-core groups
-* `count/<resource>` for resources from the core group
+* `count/<resource>.<group>` for resources from non-core API groups
+* `count/<resource>` for resources from the core API group
 
-Here is an example set of resources users may want to put under object count quota:
+For example, the PodTemplate API is in the core API group and so if you want to limit the number of
+PodTemplate objects in a namespace, you use `count/podtemplates`.
 
+These types of quotas are useful to protect against exhaustion of control plane storage. For example, you may
+want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
+actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
+a poorly configured CronJob. CronJobs that create too many Jobs in a namespace can lead to a denial of service.
+
+
+
+If you define a quota this way, it applies to Kubernetes' APIs that are part of the API server, and
+to any custom resources backed by a CustomResourceDefinition.
+For example, to create a quota on a `widgets` custom resource in the `example.com` API group,
+use `count/widgets.example.com`.
+If you use [API aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) to
+add additional, custom APIs that are not defined as CustomResourceDefinitions, the core Kubernetes
+control plane does not enforce quota for the aggregated API. The extension API server is expected to
+provide quota enforcement if that's appropriate for the custom API.
+
+##### Generic syntax {#resource-quota-object-count-generic}
+
+This is a list of common examples of object kinds that you may want to put under object count quota,
+listed by the configuration string that you would use.
+
+* `count/pods`
 * `count/persistentvolumeclaims`
 * `count/services`
 * `count/secrets`
 * `count/configmaps`
-* `count/replicationcontrollers`
 * `count/deployments.apps`
 * `count/replicasets.apps`
 * `count/statefulsets.apps`
 * `count/jobs.batch`
 * `count/cronjobs.batch`
 
-If you define a quota this way, it applies to Kubernetes' APIs that are part of the API server, and
-to any custom resources backed by a CustomResourceDefinition. If you use
-[API aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) to
-add additional, custom APIs that are not defined as CustomResourceDefinitions, the core Kubernetes
-control plane does not enforce quota for the aggregated API. The extension API server is expected to
-provide quota enforcement if that's appropriate for the custom API.
-For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
+##### Specialized syntax {#resource-quota-object-count-specialized}
 
-When using such a resource quota (nearly for all object kinds), an object is charged
-against the quota if the object kind exists (is defined) in the control plane.
-These types of quotas are useful to protect against exhaustion of storage resources. For example, you may
-want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
-actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
-a poorly configured CronJob. CronJobs that create too many Jobs in a namespace can lead to a denial of service.
-
-There is another syntax only to set the same type of quota for certain resources.
+There is another syntax only to set the same type of quota, that only works for certain API kinds.
 The following types are supported:
 
 | Resource Name | Description |
