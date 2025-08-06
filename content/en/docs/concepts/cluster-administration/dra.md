@@ -109,7 +109,9 @@ client side rate limiter was triggered enough to protect apiserver from
 explosive burst but was high enough that pod startup SLOs were not impacted.
 While this is a good starting point, you can get a better idea of how to tune
 the different components that have the biggest effect on DRA performance for
-your deployment by monitoring the following metrics.
+your deployment by monitoring the following metrics. For more information on all
+the stable metrics in Kubernetes, see the [Kubernetes Metrics
+Reference](/docs/reference/generated/metrics/).
 
 ### `kube-controller-manager` metrics
 
@@ -196,3 +198,5 @@ metrics.
 
 * [Learn more about
   DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* Read about the metrics Kubernetes components export in the [Kubernetes Metrics
+Reference](/docs/reference/generated/metrics/).
