@@ -206,17 +206,24 @@ ResourceQuota in that namespace.
 当命名空间中存在一个 ResourceQuota 对象时，对于该命名空间而言，资源配额就是开启的。
 
 <!--
-## Compute Resource Quota
+## Types of resource quota
+
+The ResourceQuota mechanism lets you enforce different kinds of limits. This
+section describes the types of limit that you can enforce.
+
+### Quota for infrastructure resources {#compute-resource-quota}
 
 You can limit the total sum of
 [compute resources](/docs/concepts/configuration/manage-resources-containers/)
 that can be requested in a given namespace.
 -->
-## 计算资源配额  {#compute-resource-quota}
+## 资源配额的类型 {#types-of-resource-quota}
 
-用户可以对给定命名空间下的可被请求的
-[计算资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
-总量进行限制。
+ResourceQuota 机制允许你执行不同类别的限制。本节说明你可以执行的限制类型。
+
+### 基础设施资源的配额  {#compute-resource-quota}
+
+用户可以对给定命名空间下的可被请求的[计算资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)总量进行限制。
 
 <!--
 The following resource types are supported:
@@ -245,16 +252,15 @@ The following resource types are supported:
 | `memory` | 与 `requests.memory` 相同。 |
 
 <!--
-### Resource Quota For Extended Resources
+### Quota for extended resources
 
 In addition to the resources mentioned above, in release 1.10, quota support for
 [extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) is added.
 -->
-### 扩展资源的资源配额  {#resource-quota-for-extended-resources}
+### 扩展资源的配额  {#quota-for-extended-resources}
 
 除上述资源外，在 Kubernetes 1.10 版本中，
-还添加了对[扩展资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)
-的支持。
+还添加了对[扩展资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)的支持。
 
 <!--
 As overcommit is not allowed for extended resources, it makes no sense to specify both `requests`
@@ -279,19 +285,19 @@ See [Viewing and Setting Quotas](#viewing-and-setting-quotas) for more details.
 有关更多详细信息，请参阅[查看和设置配额](#viewing-and-setting-quotas)。
 
 <!--
-## Storage Resource Quota
+### Quota for storage
 
-You can limit the total sum of [storage resources](/docs/concepts/storage/persistent-volumes/)
+You can limit the total sum of [storage](/docs/concepts/storage/persistent-volumes/) for volumes
 that can be requested in a given namespace.
 
-In addition, you can limit consumption of storage resources based on associated storage-class.
+In addition, you can limit consumption of storage resources based on associated
+[StorageClass](/docs/concepts/storage/storage-classes/).
 -->
-## 存储资源配额  {#storage-resource-quota}
+## 存储的配额  {#quota-for-storage}
 
-用户可以对给定命名空间下的[存储资源](/zh-cn/docs/concepts/storage/persistent-volumes/)
-总量进行限制。
+你可以对给定命名空间下可以请求的[存储卷](/zh-cn/docs/concepts/storage/persistent-volumes/)总量进行限制。
 
-此外，还可以根据相关的存储类（Storage Class）来限制存储资源的消耗。
+此外，你还可以基于关联的 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes/) 来限制存储资源的消耗。
 
 <!--
 | Resource Name | Description |
@@ -319,9 +325,11 @@ a `bronze` StorageClass, you can define a quota as follows:
 * `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
 
 <!--
-In release 1.8, quota support for local ephemeral storage is added as an alpha feature:
+#### Quota for local ephemeral storage
 -->
-在 Kubernetes 1.8 版本中，本地临时存储的配额支持已经是 Alpha 功能：
+#### 本地临时存储的配额
+
+{{< feature-state for_k8s_version="v1.8" state="alpha" >}}
 
 <!--
 | Resource Name | Description |
@@ -340,39 +348,81 @@ In release 1.8, quota support for local ephemeral storage is added as an alpha f
 <!--
 When using a CRI container runtime, container logs will count against the ephemeral storage quota.
 This can result in the unexpected eviction of pods that have exhausted their storage quotas.
+
 Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
 -->
 如果所使用的是 CRI 容器运行时，容器日志会被计入临时存储配额，
 这可能会导致存储配额耗尽的 Pod 被意外地驱逐出节点。
+
 参考[日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)了解详细信息。
 {{< /note >}}
 
 <!--
-## Object Count Quota
+### Quota on object count
 
-You can set quota for *the total number of one particular resource kind* in the Kubernetes API,
+You can set quota for *the total number of one particular {{< glossary_tooltip text="resource" term_id="api-resource" >}} kind* in the Kubernetes API,
 using the following syntax:
 
-* `count/<resource>.<group>` for resources from non-core groups
-* `count/<resource>` for resources from the core group
+* `count/<resource>.<group>` for resources from non-core API groups
+* `count/<resource>` for resources from the core API group
 -->
-## 对象数量配额  {#object-count-quota}
+### 对象数量的配额  {#quota-on-object-count}
 
-你可以使用以下语法为 Kubernetes API 中“一种特定资源类型的总数”设置配额：
+你可以使用以下语法为 Kubernetes API
+中**一种特定{{< glossary_tooltip text="资源" term_id="api-resource" >}}类型的总数**设置配额：
 
-* `count/<resource>.<group>`：用于非核心（core）组的资源
-* `count/<resource>`：用于核心组的资源
+* `count/<resource>.<group>`：用于非核心 API 组的资源
+* `count/<resource>`：用于核心 API 组的资源
 
 <!--
-Here is an example set of resources users may want to put under object count quota:
--->
-这是用户可能希望利用对象计数配额来管理的一组资源示例：
+For example, the PodTemplate API is in the core API group and so if you want to limit the number of
+PodTemplate objects in a namespace, you use `count/podtemplates`.
 
+These types of quotas are useful to protect against exhaustion of control plane storage. For example, you may
+want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
+actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
+a poorly configured CronJob. CronJobs that create too many Jobs in a namespace can lead to a denial of service.
+-->
+例如，PodTemplate API 属于核心 API 组，因此如果你想限制某个命名空间中的
+PodTemplate 对象的数量，你可以使用 `count/podtemplates`。
+
+这类配额非常有助于防止控制平面存储资源耗尽。
+例如，由于某台服务器上的 Secret 较大，你可能希望对其进行限制。
+集群中 Secret 过多实际上可能导致服务器和控制器无法启动。
+你也可以为 Job 设置配额，以防止出现配置不当的 CronJob。
+某些 CronJob 如果在一个命名空间中创建了过多的 Job，可能会引发 DoS 攻击。
+
+<!--
+If you define a quota this way, it applies to Kubernetes' APIs that are part of the API server, and
+to any custom resources backed by a CustomResourceDefinition.
+For example, to create a quota on a `widgets` custom resource in the `example.com` API group,
+use `count/widgets.example.com`.
+If you use [API aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) to
+add additional, custom APIs that are not defined as CustomResourceDefinitions, the core Kubernetes
+control plane does not enforce quota for the aggregated API. The extension API server is expected to
+provide quota enforcement if that's appropriate for the custom API.
+-->
+如果你以这种方式定义配额，它将应用于属于 API 服务器一部分的 Kubernetes API，以及 CustomResourceDefinition
+支持的任何自定义资源。例如，要在 `example.com` API 组中创建 `widgets` 定制资源的配额，可以使用 `count/widgets.example.com`。
+如果你使用[聚合 API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+添加未定义为 CustomResourceDefinitions 的其他自定义 API，则核心 Kubernetes 控制平面不会对聚合 API 实施配额管理。
+如果合适，扩展 API 服务器需要为自定义 API 提供配额管理。
+
+<!--
+##### Generic syntax {#resource-quota-object-count-generic}
+
+This is a list of common examples of object kinds that you may want to put under object count quota,
+listed by the configuration string that you would use.
+-->
+##### 通用语法   {#resource-quota-object-count-generic}
+
+以下是一些常见对象类别的示例，建议你为这些对象设置数量配额。每一项后面列出了相应的配置字符串：
+
+* `count/pods`
 * `count/persistentvolumeclaims`
 * `count/services`
 * `count/secrets`
 * `count/configmaps`
-* `count/replicationcontrollers`
 * `count/deployments.apps`
 * `count/replicasets.apps`
 * `count/statefulsets.apps`
@@ -380,44 +430,14 @@ Here is an example set of resources users may want to put under object count quo
 * `count/cronjobs.batch`
 
 <!--
-If you define a quota this way, it applies to Kubernetes' APIs that are part of the API server, and
-to any custom resources backed by a CustomResourceDefinition. If you use
-[API aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) to
-add additional, custom APIs that are not defined as CustomResourceDefinitions, the core Kubernetes
-control plane does not enforce quota for the aggregated API. The extension API server is expected to
-provide quota enforcement if that's appropriate for the custom API.
-For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
--->
-如果你以这种方式定义配额，它将应用于属于 API 服务器一部分的 Kubernetes API，以及 CustomResourceDefinition
-支持的任何自定义资源。
-如果你使用[聚合 API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
-添加未定义为 CustomResourceDefinitions 的其他自定义 API，则核心 Kubernetes 控制平面不会对聚合 API 实施配额管理。
-如果合适，扩展 API 服务器需要为自定义 API 提供配额管理。
-例如，要对 `example.com` API 组中的自定义资源 `widgets` 设置配额，请使用
-`count/widgets.example.com`。
+##### Specialized syntax {#resource-quota-object-count-specialized}
 
-<!--
-When using such a resource quota (nearly for all object kinds), an object is charged
-against the quota if the object kind exists (is defined) in the control plane.
-These types of quotas are useful to protect against exhaustion of storage resources. For example, you may
-want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
-actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
-a poorly configured CronJob. CronJobs that create too many Jobs in a namespace can lead to a denial of service.
--->
-当使用这样的资源配额（几乎涵盖所有对象类别）时，如果对象类别在控制平面中已存在（已定义），
-则该对象管理会参考配额设置。
-这些类型的配额有助于防止存储资源耗尽。例如，用户可能想根据服务器的存储能力来对服务器中
-Secret 的数量进行配额限制。
-集群中存在过多的 Secret 实际上会导致服务器和控制器无法启动。
-用户可以选择对 Job 进行配额管理，以防止配置不当的 CronJob 在某命名空间中创建太多
-Job 而导致集群拒绝服务。
-
-<!--
-There is another syntax only to set the same type of quota for certain resources.
+There is another syntax only to set the same type of quota, that only works for certain API kinds.
 The following types are supported:
 -->
-还有另一种语法仅用于为某些资源设置相同类型的配额。
+##### 特殊语法   {#resource-quota-object-count-specialized}
 
+还有另一种语法只能设置相同类型的配额，只对某些 API 类别起作用。
 支持以下类型：
 
 <!--
