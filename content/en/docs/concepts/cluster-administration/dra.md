@@ -33,7 +33,7 @@ selectors or similar mechanisms) in your cluster.
 
 DRA drivers implement the [`kubeletplugin` package
 interface](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin).
-Your driver may support seamless upgrades by implementing a property of this
+Your driver may support _seamless upgrades_ by implementing a property of this
 interface that allows two versions of the same DRA driver to coexist for a short
 time. This is only available for kubelet versions 1.33 and above and may not be
 supported by your driver for heterogeneous clusters with attached nodes running
@@ -53,7 +53,7 @@ observe that:
 
 ### Confirm your DRA driver exposes a liveness probe and utilize it
 
-Your DRA driver likely implements a grpc socket for healthchecks as part of DRA
+Your DRA driver likely implements a gRPC socket for healthchecks as part of DRA
 driver good practices. The easiest way to utilize this grpc socket is to
 configure it as a liveness probe for the DaemonSet deploying your DRA driver.
 Your driver's documentation or deployment tooling may already include this, but
@@ -75,13 +75,15 @@ ResourceClaimTemplates before terminating the DRA driver itself.
 
 ## Monitor and tune components for higher load, especially in high scale environments
 
-Control plane component `kube-scheduler` and the internal ResourceClaim
-controller orchestrated by the component `kube-controller-manager` do the heavy
-lifting during scheduling of Pods with claims based on metadata stored in the
-DRA APIs. Compared to non-DRA scheduled Pods, the number of API server calls,
-memory, and CPU utilization needed by these components is increased for Pods
-using DRA claims. In addition, node local components like the DRA driver and
-kubelet utilize DRA APIs to allocated the hardware request at Pod sandbox
+Control plane component {{< glossary_tooltip text="`kube-scheduler`"
+term_id="kube-scheduler" >}} and the internal ResourceClaim controller
+orchestrated by the component {{< glossary_tooltip
+text="`kube-controller-manager`" term_id="kube-controller-manager >}} do the
+heavy lifting during scheduling of Pods with claims based on metadata stored in
+the DRA APIs. Compared to non-DRA scheduled Pods, the number of API server
+calls, memory, and CPU utilization needed by these components is increased for
+Pods using DRA claims. In addition, node local components like the DRA driver
+and kubelet utilize DRA APIs to allocated the hardware request at Pod sandbox
 creation time. Especially in high scale environments where clusters have many
 nodes, and/or deploy many workloads that heavily utilize DRA defined resource
 claims, the cluster administrator should configure the relevant components to
@@ -96,7 +98,7 @@ client-go configuration within `kube-controller-manager` are critical.
 
 The specific values to tune your cluster to depend on a variety of factors like
 number of nodes/pods, rate of pod creation, churn, even in non-DRA environments;
-see the [SIG-Scalability README on Kubernetes scalability
+see the [SIG Scalability README on Kubernetes scalability
  thresholds](https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md)
 for more information. In scale tests performed against a DRA enabled cluster
 with 100 nodes, involving 720 long-lived pods (90% saturation) and 80 churn pods
@@ -104,7 +106,7 @@ with 100 nodes, involving 720 long-lived pods (90% saturation) and 80 churn pods
 QPS could be set to as low as 75 and Burst to 150 to meet equivalent metric
 targets for non-DRA deployments. At this lower bound, it was observed that the
 client side rate limiter was triggered enough to protect apiserver from
-explosive burst but was is high enough that pod startup SLOs were not impacted.
+explosive burst but was high enough that pod startup SLOs were not impacted.
 While this is a good starting point, you can get a better idea of how to tune
 the different components that have the biggest effect on DRA performance for
 your deployment by monitoring the following metrics.
@@ -143,7 +145,7 @@ manageable.
 The following scheduler metrics are high level metrics aggregating performance
 across all Pods scheduled, not just those using DRA. It is important to note
 that the end-to-end metrics are ultimately influenced by the
-kube-controller-manager's performance in creating ResourceClaims from
+`kube-controller-manager`'s performance in creating ResourceClaims from
 ResourceClainTemplates in deployments that heavily use ResourceClainTemplates.
 
 * Scheduler End-to-End Duration: Monitor `histogram_quantile(0.99,
