@@ -34,6 +34,8 @@ When `optional` field is set to false, the specified `key` in `fileKeyRef` must 
 The volume will only be mounted to the container that writes to the file
 (`initContainer`), while the consumer container that consumes the environment variable will not have the volume mounted.
 
+The env file format adheres to the [kubernetes env file standard](/docs/tasks/inject-data-application/define-environment-variable-via-file/#env-file-syntax).
+
 During container initialization, the kubelet retrieves environment variables 
 from specified files in the `emptyDir` volume and exposes them to the container.
 
@@ -73,9 +75,13 @@ The output shows the values of selected environment variables:
 DB_ADDRESS=address
 ```
 
-## `.env` File Syntax
+## Env File Syntax {#env-file-syntax}
 
-The following syntax rules apply to environment files:
+The format of Kubernetes env files originates from `.env` files.
+
+In a shell environment, `.env` files are typically loaded using the `source .env` command.
+
+For Kubernetes, the defined env file format adheres to stricter syntax rules:
 
 * Blank Lines: Blank lines are ignored.
 
