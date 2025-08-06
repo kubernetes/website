@@ -116,16 +116,16 @@ your deployment by monitoring the following metrics.
 The following metrics look closely at the internal ResourceClaim controller
 managed by the `kube-controller-manager` component.
 
-* Workqueue Add Rate: Monitor
-  `sum(rate(workqueue_adds_total{name="resource_claim"}[5m]))` to gauge how
-  quickly items are added to the ResourceClaim controller.
+* Workqueue Add Rate: Monitor {{< highlight promql
+  >}}sum(rate(workqueue_adds_total{name="resource_claim"}[5m])){{< /highlight
+  >}} to gauge how quickly items are added to the ResourceClaim controller.
 * Workqueue Depth: Track
-  `sum(workqueue_depth{endpoint="kube-controller-manager",
-  name="resource_claim"})` to identify any backlogs in the ResourceClaim
+  {{< highlight promql >}}sum(workqueue_depth{endpoint="kube-controller-manager",
+  name="resource_claim"}){{< /highlight >}} to identify any backlogs in the ResourceClaim
   controller.
-* Workqueue Work Duration: Observe `histogram_quantile(0.99,
+* Workqueue Work Duration: Observe {{< highlight promql >}}histogram_quantile(0.99,
   sum(rate(workqueue_work_duration_seconds_bucket{name="resource_claim"}[5m]))
-  by (le))` to understand the speed at which the ResourceClaim controller
+  by (le)){{< /highlight >}} to understand the speed at which the ResourceClaim controller
   processes work.
 
 If you are experiencing low Workqueue Add Rate, high Workqueue Depth, and/or
@@ -148,12 +148,14 @@ that the end-to-end metrics are ultimately influenced by the
 `kube-controller-manager`'s performance in creating ResourceClaims from
 ResourceClainTemplates in deployments that heavily use ResourceClainTemplates.
 
-* Scheduler End-to-End Duration: Monitor `histogram_quantile(0.99,
+* Scheduler End-to-End Duration: Monitor {{< highlight promql
+  >}}histogram_quantile(0.99,
   sum(increase(scheduler_pod_scheduling_sli_duration_seconds_bucket[5m])) by
-  (le))`.
-* Scheduler Algorithm Latency: Track `histogram_quantile(0.99,
+  (le)){{< /highlight >>}}.
+* Scheduler Algorithm Latency: Track {{< highlight promql
+  >}}histogram_quantile(0.99,
   sum(increase(scheduler_scheduling_algorithm_duration_seconds_bucket[5m])) by
-  (le))`.
+  (le)){{< /highlight >}}.
 
 ### `kubelet` metrics
 
@@ -162,12 +164,14 @@ the `NodePrepareResources` and `NodeUnprepareResources` methods of the DRA
 driver. You can observe this behavior from the kubelet's point of view with the
 following metrics.
 
-* Kubelet NodePrepareResources: Monitor `histogram_quantile(0.99,
+* Kubelet NodePrepareResources: Monitor {{< highlight promql
+  >}}histogram_quantile(0.99,
   sum(rate(dra_operations_duration_seconds_bucket{operation_name="PrepareResources"}[5m]))
-  by (le))`.
-* Kubelet NodeUnprepareResources: Track `histogram_quantile(0.99,
+  by (le)){{< /highlight >}}.
+* Kubelet NodeUnprepareResources: Track {{< highlight promql
+  >}}histogram_quantile(0.99,
   sum(rate(dra_operations_duration_seconds_bucket{operation_name="UnprepareResources"}[5m]))
-  by (le))`.
+  by (le)){{< /highlight >}}.
 
 ### DRA kubeletplugin operations
 
@@ -178,14 +182,17 @@ which surfaces its own metric for the underlying gRPC operation
 behavior from the point of view of the internal kubeletplugin with the following
 metrics.
 
-* DRA kubeletplugin gRPC NodePrepareResources operation: Observe `histogram_quantile(0.99,
+* DRA kubeletplugin gRPC NodePrepareResources operation: Observe {{< highlight
+  promql >}}histogram_quantile(0.99,
   sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".*NodePrepareResources"}[5m]))
-  by (le))` 
-* DRA kubeletplugin gRPC NodeUnprepareResources operation: Observe `histogram_quantile(0.99,
+  by (le)){{< /highlight >}} .
+* DRA kubeletplugin gRPC NodeUnprepareResources operation: Observe {{< highlight
+  promql >}}histogram_quantile(0.99,
   sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".*NodeUnprepareResources"}[5m]))
-  by (le))`.
+  by (le)){{< /highlight >}}.
 
 
 ## {{% heading "whatsnext" %}}
 
-* [Learn more about DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+* [Learn more about
+  DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
