@@ -66,41 +66,48 @@ heal, reducing scheduling delays or troubleshooting time.
 ### When draining a node, drain the DRA driver as late as possible
 
 The DRA driver is responsible for unpreparing any devices that were allocated to
-Pods, and if the DRA driver is drained before Pods with claims have been
-deleted, it will not be able to finalize its cleanup. If you implement custom
-drain logic for nodes, consider checking that there are no allocated/reserved
-ResourceClaim or ResourceClaimTemplates before terminating the DRA driver
-itself.
+Pods, and if the DRA driver is {{< glossary_tooltip text="drained"
+term_id="drain" >}} before Pods with claims have been deleted, it will not be
+able to finalize its cleanup. If you implement custom drain logic for nodes,
+consider checking that there are no allocated/reserved ResourceClaim or
+ResourceClaimTemplates before terminating the DRA driver itself.
 
 
 ## Monitor and tune components for higher load, especially in high scale environments
 
 Control plane component `kube-scheduler` and the internal ResourceClaim
 controller orchestrated by the component `kube-controller-manager` do the heavy
-lifting during scheduling and binding of Pods with claims based on metadata
-stored in the DRA APIs. Compared to non-DRA scheduled Pods, the number of API
-server calls, memory, and CPU utilization needed by these components is
-increased for Pods using DRA claims. In addition, node local components like the
-DRA driver and kubelet utilize DRA APIs to determine what hardware to allocate
-at Pod sandbox creation time. Especially in high scale environments where
-clusters have many nodes, and/or deploy many workloads that heavily utilize
-DRA defined resource claims, the cluster administrator should configure the
-relevant components to anticipate the increased load. 
+lifting during scheduling of Pods with claims based on metadata stored in the
+DRA APIs. Compared to non-DRA scheduled Pods, the number of API server calls,
+memory, and CPU utilization needed by these components is increased for Pods
+using DRA claims. In addition, node local components like the DRA driver and
+kubelet utilize DRA APIs to allocated the hardware request at Pod sandbox
+creation time. Especially in high scale environments where clusters have many
+nodes, and/or deploy many workloads that heavily utilize DRA defined resource
+claims, the cluster administrator should configure the relevant components to
+anticipate the increased load. 
 
 The effects of mistuned components can have direct or snowballing affects
 causing different symptoms during the Pod lifecycle. If the `kube-scheduler`
 component's QPS and burst configurations are too low, the scheduler might
 quickly identify a suitable node for a Pod but take longer to bind the Pod to
-that node. During Pod startup, the QPS and Burst parameters in the client-go
-configuration within `kube-controller-manager` are critical.
+that node. With DRA, during Pod scheduling, the QPS and Burst parameters in the
+client-go configuration within `kube-controller-manager` are critical.
 
-The specific values to tune your cluster to depend on a variety of factors. For
-example, a 100-node test involving 720 long-lived pods (90% saturation) and 80
-churn pods (10% churn, 10 times), with a job creation QPS of 10, necessitated
-setting kube-controller-manager QPS to 200 and Burst to 400 to meet equivalent
-metric targets for non-DRA deployments. You can get a better idea of how to tune
-the different components that have the biggest effect on DRA performance by
-monitoring the following metrics.
+The specific values to tune your cluster to depend on a variety of factors like
+number of nodes/pods, rate of pod creation, churn, even in non-DRA environments;
+see the [SIG-Scalability README on Kubernetes scalability
+ thresholds](https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md)
+for more information. In scale tests performed against a DRA enabled cluster
+with 100 nodes, involving 720 long-lived pods (90% saturation) and 80 churn pods
+(10% churn, 10 times), with a job creation QPS of 10, `kube-controller-manager`
+QPS could be set to as low as 75 and Burst to 150 to meet equivalent metric
+targets for non-DRA deployments. At this lower bound, it was observed that the
+client side rate limiter was triggered enough to protect apiserver from
+explosive burst but was is high enough that pod startup SLOs were not impacted.
+While this is a good starting point, you can get a better idea of how to tune
+the different components that have the biggest effect on DRA performance for
+your deployment by monitoring the following metrics.
 
 ### `kube-controller-manager` metrics
 
@@ -125,9 +132,11 @@ optimally. Consider tuning parameters like QPS, burst, and CPU/memory
 configurations.
 
 If you are experiencing high Workequeue Add Rate, high Workqueue Depth, but
-reasonable Workqueue Work Duration, this indicates the controller is
-processing work, but concurrency might be insufficient. Adjust tuning
-accordingly.
+reasonable Workqueue Work Duration, this indicates the controller is processing
+work, but concurrency might be insufficient. Concurrency is hardcoded in the
+controller, so as a cluster administrator, you can tune for this by reducing the
+pod creation QPS, so the add rate to the resource claim workqueue is more
+manageable.
 
 ### `kube-scheduler` metrics
 
