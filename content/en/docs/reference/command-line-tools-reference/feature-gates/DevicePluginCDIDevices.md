@@ -17,7 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
-    
+    toVersion: "1.33"
+
+removed: true
 ---
 Enable support to CDI device IDs in the
 [Device Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) API.
