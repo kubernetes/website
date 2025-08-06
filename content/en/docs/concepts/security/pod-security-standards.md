@@ -197,6 +197,7 @@ fail validation.
 				<p><strong>Allowed Values</strong></p>
 				<ul>
 					<li>Undefined/nil</li>
+					<li>""</li>
 				</ul>
 			</td>
 		</tr>
