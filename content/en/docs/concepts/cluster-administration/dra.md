@@ -78,7 +78,7 @@ ResourceClaimTemplates before terminating the DRA driver itself.
 Control plane component {{< glossary_tooltip text="`kube-scheduler`"
 term_id="kube-scheduler" >}} and the internal ResourceClaim controller
 orchestrated by the component {{< glossary_tooltip
-text="`kube-controller-manager`" term_id="kube-controller-manager >}} do the
+text="`kube-controller-manager`" term_id="kube-controller-manager" >}} do the
 heavy lifting during scheduling of Pods with claims based on metadata stored in
 the DRA APIs. Compared to non-DRA scheduled Pods, the number of API server
 calls, memory, and CPU utilization needed by these components is increased for
