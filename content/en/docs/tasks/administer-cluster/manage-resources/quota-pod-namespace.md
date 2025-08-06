@@ -134,7 +134,7 @@ kubectl delete namespace quota-pod-example
 
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+* [Configure Quotas for Storage](/docs/tasks/administer-cluster/quota-storage/)
 
 ### For app developers
 
