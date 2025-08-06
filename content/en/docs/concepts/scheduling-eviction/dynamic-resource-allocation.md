@@ -195,10 +195,10 @@ This allows users to specify alternative devices that can be used by the workloa
 choice is not available.
 
 In the example below, the ResourceClaimTemplate requested a device with the color black
-and the size large. If a device with those attributes are not available, the pod can not
+and the size large. If a device with those attributes is not available, the pod cannot
 be scheduled. With the priotized list feature, a second alternative can be specified, which
 requests two devices with the color white and size small. The large black device will be
-allocated if it is available. But if it is not and two small white devices are available,
+allocated if it is available. If it is not, but two small white devices are available,
 the pod will still be able to run.
 
 ```yaml
