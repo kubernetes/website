@@ -76,7 +76,7 @@ kubectl edit SampleDB/example-database # ручна заміна деяких п
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
-* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
+* [KubeOps](https://dotnet.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that
   you implement yourself
