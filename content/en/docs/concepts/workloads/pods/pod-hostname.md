@@ -11,7 +11,7 @@ potential side effects after configuration, and the underlying mechanics.
 
 <!-- body -->
 
-## Default Pod Hostname
+## Default Pod hostname
 
 When a Pod is created, its hostname (as observed from within the Pod) 
 is derived from the Pod's metadata.name value. 
@@ -88,7 +88,7 @@ Setting a value for `hostnameOverride` in the Pod spec causes the kubelet
 to unconditionally set both the Pod's hostname and fully qualified domain name (FQDN)
 to the `hostnameOverride` value. 
 
-The hostnameOverride field has a length limitation of 64 characters 
+The `hostnameOverride` field has a length limitation of 64 characters 
 and must adhere to the DNS subdomain names standard defined in [RFC 1123](https://datatracker.ietf.org/doc/html/rfc1123).
 
 Example:
@@ -110,9 +110,10 @@ spec:
 This only affects the hostname within the Pod; it does not affect the Pod's A or AAAA records in the cluster DNS server.
 {{< /note >}}
 
-If hostnameOverride is set alongside hostname and subdomain fields:
-* The hostname inside the Pod is overridden to the hostnameOverride value.
-* The Pod's A and/or AAAA records in the cluster DNS server are still generated based on the hostname and subdomain fields.
+If `hostnameOverride` is set alongside `hostname` and `subdomain` fields:
+* The hostname inside the Pod is overridden to the `hostnameOverride` value.
+  
+* The Pod's A and/or AAAA records in the cluster DNS server are still generated based on the `hostname` and `subdomain` fields.
 
 Note: If `hostnameOverride` is set, you cannot simultaneously set the `hostNetwork` and `setHostnameAsFQDN` fields.
 The API server will explicitly reject any create request attempting this combination.
