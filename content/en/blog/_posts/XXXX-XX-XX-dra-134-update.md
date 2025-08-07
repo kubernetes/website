@@ -11,15 +11,15 @@ author: >
 Kubernetes 1.34 is here, and it brings a huge wave of enhancements for Dynamic Resource Allocation (DRA)! This
 release marks a major milestone with the Structured Parameters feature graduating to General Availability (GA),
 unlocking the full potential of how you manage devices on Kubernetes. On top of that, several key features have
-moved to beta, and a fresh batch of new alpha features promise even more expresiveness and flexibility.
+moved to beta, and a fresh batch of new alpha features promise even more expressiveness and flexibility.
 
 Let's dive into what's new for DRA in Kubernetes 1.34!
 
 ### Structured Parameters is Now GA
-The headline feature for DRA in this release is the graduation of Structured Parameters to General Availability. 
+The headline feature of the v1.34 release is that the core of DRA has graduated to General Availability.
 
 Kubernetes Dynamic Resource Allocation (DRA) provides a flexible framework for managing specialized hardware
-resources such as GPUs and FPGAs. It provices a flexible API for letting workloads specify the properties of the
+and infrastructure resources, such as GPUs or FPGAs. DRA provides APIs that enable each workload to specify the properties of the
 devices it needs, but leaving it to the scheduler to allocate actual devices, allowing increased reliability and
 improved utilization of expensive hardware.
 
@@ -27,33 +27,36 @@ With the graduation to GA, DRA is stable and will be part of Kubernetes for the 
 expect a steady stream of new features being added to DRA over the next several Kubernetes releases, but they will
 not make any breaking changes to DRA. So users and developers of DRA drivers can start adopting DRA with confidence.
 
-Starting with Kubernetes 1.34, DRA will be enabled by default, as will DRA features that have reached beta.
+Starting with Kubernetes 1.34, DRA is enabled by default; DRA features that have reached beta are also enabled by default.
+That's because the default API version for DRA is now the stable `v1` version, and not the earlier versions
+(eg: `v1beta1` or `v1beta2`) that needed explicit opt in.
 
 ### Features promoted to beta
 Several powerful features have been promoted to beta, adding more control, flexibility, and observability to resource
 management with DRA.
 
-[Admin Access](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access) has been updated so that
-only users with access to a namespace with the resource.k8s.io/admin-access: "true" label are authorized to create
-ResourceClaim or ResourceClaimTemplates objects with the adminAccess field within the namespace. This grants
-administrators access to in-use devices and may enable additional permissions when making the device available in a
-container. This ensures that non-admin users cannot misuse the feature.
+[Admin access labelling](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#admin-access) has been updated.
+In v1.34, you can restrict device support to people (or software) authorized to use it. This is meant
+as a way to avoid privilege escalation through use of hardware devices that can bypass other security controls. 
+The restriction works by ensuring that only users with access to a namespace with the 
+`resource.k8s.io/admin-access: "true"` label are authorized to create
+ResourceClaim or ResourceClaimTemplates objects with the `adminAccess` field set to true. This ensures that non-admin users cannot misuse the feature.
 
 [Prioritized List](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#prioritized-list) lets users specify
 a list of acceptable devices for their workloads, rather than just a single type of device. So while the workload
 might run best on a single high-performance GPU, it might also be able to run on 2 mid-level GPUs. The scheduler will
 attempt to satisfy the alternatives in the list in order, so the workload will be allocated the best set of devices
-available in the cluster.
+available on the node.
 
-The PodResources API has been updated to include resources allocated through DRA. This allows node monitoring agents 
+The kubelet's API has been updated to report on Pod resources allocated through DRA. This allows node monitoring agents
 to know the allocated DRA resources for Pods on a node and makes it possible to use the DRA information in the PodResources API
 to develop new features and integrations.
 
 ### New alpha features
 Kubernetes 1.34 also introduces several new alpha features that give us a glimpse into the future of resource management with DRA.
 
-[Extended Resource](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource) support in DRA allow
-cluster administrators to advertise DRA-managed resources as extended resources, allowing developers to consume them using
+[Extended resource mapping](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource) support in DRA allows
+cluster administrators to advertise DRA-managed resources as _extended resources_, allowing developers to consume them using
 the familiar, simpler request syntax while still benefiting from dynamic allocation. This makes it possible for existing
 workloads to start using DRA without modifications, simplifying the transition to DRA for both application developers and
 cluster administrators.
@@ -76,7 +79,7 @@ unhealthy device and respond properly.
 
 ### What’s next?
 
-While DRA got promoted to GA this cycle, the hard on DRA doesn't stop. There are several features in alpha and beta that
+While DRA got promoted to GA this cycle, the hard work on DRA doesn't stop. There are several features in alpha and beta that
 we plan to bring to GA in the next couple of releases and we are looking to continue to improve performance, scalability
 and reliability of DRA. So expect an equally ambitious set of features in DRA for 1.35.
 
