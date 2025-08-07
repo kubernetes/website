@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.34: Decoupling taint-manager from node-lifecycle-controller Moves to GA"
+title: "Kubernetes v1.34: Decoupling taint-manager from node-lifecycle-controller Moves to GA"
 date: XXXX-XX-XX
 slug: kubernetes-1-34-taint-eviction-controller
 author: >
