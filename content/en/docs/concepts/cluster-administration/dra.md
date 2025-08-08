@@ -75,10 +75,10 @@ ResourceClaimTemplates before terminating the DRA driver itself.
 
 ## Monitor and tune components for higher load, especially in high scale environments
 
-Control plane component {{< glossary_tooltip text="`kube-scheduler`"
+Control plane component {{< glossary_tooltip text="kube-scheduler"
 term_id="kube-scheduler" >}} and the internal ResourceClaim controller
 orchestrated by the component {{< glossary_tooltip
-text="`kube-controller-manager`" term_id="kube-controller-manager" >}} do the
+text="kube-controller-manager" term_id="kube-controller-manager" >}} do the
 heavy lifting during scheduling of Pods with claims based on metadata stored in
 the DRA APIs. Compared to non-DRA scheduled Pods, the number of API server
 calls, memory, and CPU utilization needed by these components is increased for
@@ -105,7 +105,7 @@ with 100 nodes, involving 720 long-lived pods (90% saturation) and 80 churn pods
 (10% churn, 10 times), with a job creation QPS of 10, `kube-controller-manager`
 QPS could be set to as low as 75 and Burst to 150 to meet equivalent metric
 targets for non-DRA deployments. At this lower bound, it was observed that the
-client side rate limiter was triggered enough to protect apiserver from
+client side rate limiter was triggered enough to protect the API server from
 explosive burst but was high enough that pod startup SLOs were not impacted.
 While this is a good starting point, you can get a better idea of how to tune
 the different components that have the biggest effect on DRA performance for
@@ -118,14 +118,12 @@ Reference](/docs/reference/generated/metrics/).
 The following metrics look closely at the internal ResourceClaim controller
 managed by the `kube-controller-manager` component.
 
-* Workqueue Add Rate: Monitor {{< highlight promql
-  >}}sum(rate(workqueue_adds_total{name="resource_claim"}[5m])){{< /highlight
-  >}} to gauge how quickly items are added to the ResourceClaim controller.
+* Workqueue Add Rate: Monitor {{< highlight promql "hl_inline=true"  >}} sum(rate(workqueue_adds_total{name="resource_claim"}[5m])) {{< /highlight >}} to gauge how quickly items are added to the ResourceClaim controller.
 * Workqueue Depth: Track
-  {{< highlight promql >}}sum(workqueue_depth{endpoint="kube-controller-manager",
+  {{< highlight promql "hl_inline=true" >}}sum(workqueue_depth{endpoint="kube-controller-manager",
   name="resource_claim"}){{< /highlight >}} to identify any backlogs in the ResourceClaim
   controller.
-* Workqueue Work Duration: Observe {{< highlight promql >}}histogram_quantile(0.99,
+* Workqueue Work Duration: Observe {{< highlight promql "hl_inline=true">}}histogram_quantile(0.99,
   sum(rate(workqueue_work_duration_seconds_bucket{name="resource_claim"}[5m]))
   by (le)){{< /highlight >}} to understand the speed at which the ResourceClaim controller
   processes work.
@@ -150,12 +148,10 @@ that the end-to-end metrics are ultimately influenced by the
 `kube-controller-manager`'s performance in creating ResourceClaims from
 ResourceClainTemplates in deployments that heavily use ResourceClainTemplates.
 
-* Scheduler End-to-End Duration: Monitor {{< highlight promql
-  >}}histogram_quantile(0.99,
+* Scheduler End-to-End Duration: Monitor {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
   sum(increase(scheduler_pod_scheduling_sli_duration_seconds_bucket[5m])) by
-  (le)){{< /highlight >>}}.
-* Scheduler Algorithm Latency: Track {{< highlight promql
-  >}}histogram_quantile(0.99,
+  (le)){{< /highlight >}}.
+* Scheduler Algorithm Latency: Track {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
   sum(increase(scheduler_scheduling_algorithm_duration_seconds_bucket[5m])) by
   (le)){{< /highlight >}}.
 
@@ -166,12 +162,10 @@ the `NodePrepareResources` and `NodeUnprepareResources` methods of the DRA
 driver. You can observe this behavior from the kubelet's point of view with the
 following metrics.
 
-* Kubelet NodePrepareResources: Monitor {{< highlight promql
-  >}}histogram_quantile(0.99,
+* Kubelet NodePrepareResources: Monitor {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
   sum(rate(dra_operations_duration_seconds_bucket{operation_name="PrepareResources"}[5m]))
   by (le)){{< /highlight >}}.
-* Kubelet NodeUnprepareResources: Track {{< highlight promql
-  >}}histogram_quantile(0.99,
+* Kubelet NodeUnprepareResources: Track {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
   sum(rate(dra_operations_duration_seconds_bucket{operation_name="UnprepareResources"}[5m]))
   by (le)){{< /highlight >}}.
 
@@ -184,12 +178,10 @@ which surfaces its own metric for the underlying gRPC operation
 behavior from the point of view of the internal kubeletplugin with the following
 metrics.
 
-* DRA kubeletplugin gRPC NodePrepareResources operation: Observe {{< highlight
-  promql >}}histogram_quantile(0.99,
+* DRA kubeletplugin gRPC NodePrepareResources operation: Observe {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
   sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".*NodePrepareResources"}[5m]))
   by (le)){{< /highlight >}} .
-* DRA kubeletplugin gRPC NodeUnprepareResources operation: Observe {{< highlight
-  promql >}}histogram_quantile(0.99,
+* DRA kubeletplugin gRPC NodeUnprepareResources operation: Observe {{< highlight promql "hl_inline=true" >}} histogram_quantile(0.99,
   sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".*NodeUnprepareResources"}[5m]))
   by (le)){{< /highlight >}}.
 
@@ -197,6 +189,6 @@ metrics.
 ## {{% heading "whatsnext" %}}
 
 * [Learn more about
-  DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+  DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
 * Read about the metrics Kubernetes components export in the [Kubernetes Metrics
 Reference](/docs/reference/generated/metrics/).
