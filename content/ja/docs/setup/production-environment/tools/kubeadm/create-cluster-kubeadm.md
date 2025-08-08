@@ -404,7 +404,7 @@ kubectl delete node <node name>
 
 kubeadmは、kubeadmが管理するコンポーネントに対してバージョンの差異を許容しますが、kubeadmのバージョンをコントロールプレーンのコンポーネント、kube-proxy、kubeletと一致させることを推奨します。
 
-### kubernetesのバージョンに対するkubeadmのバージョンの差異
+### Kubernetesのバージョンに対するkubeadmのバージョンの差異
 
 kubeadmはkubeadmと同じバージョンか、1つ前のバージョンのKubernetesコンポーネントで使用できます。
 Kubernetesのバージョンは`kubeadm init`の`--kubernetes-version`、もしくは`--config`を使用する場合の[`ClusterConfiguration.kubernetesVersion`](/docs/reference/config-api/kubeadm-config.v1beta4/)フィールドで指定できます。 
