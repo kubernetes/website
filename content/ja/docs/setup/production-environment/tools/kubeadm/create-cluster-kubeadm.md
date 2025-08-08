@@ -412,7 +412,7 @@ Kubernetesのバージョンは`kubeadm init`の`--kubernetes-version`、もし�
 
 例:
 
-* kubeadmのバージョン: {{< skew currentVersion >}}でなければならない
+* kubeadmのバージョン: {{< skew currentVersion >}}
 * `kubernetesVersion`は、{{< skew currentVersion >}}または{{< skew currentVersionAddMinor -1 >}}でなければならない
 
 ### kubeadmに対するkubeletのバージョンの差異
