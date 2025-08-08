@@ -422,8 +422,7 @@ Kubernetesのバージョンと同様に、kubeadmは、kubeadmと同じバー�
 例:
 
 * kubeadmのバージョン: {{< skew currentVersion >}}
-* ホスト上のkubeletのバージョンは、{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、
-  {{< skew currentVersionAddMinor -2 >}}、もしくは{{< skew currentVersionAddMinor -3 >}}でなければならない
+* ホスト上のkubeletのバージョンは、{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、{{< skew currentVersionAddMinor -2 >}}、もしくは{{< skew currentVersionAddMinor -3 >}}でなければならない
 
 ### kubeadmに対するkubeadmのバージョン差異
 
