@@ -180,7 +180,7 @@ metrics.
 
 * DRA kubeletplugin gRPC NodePrepareResources operation: Observe {{< highlight promql "hl_inline=true" >}}histogram_quantile(0.99,
   sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".*NodePrepareResources"}[5m]))
-  by (le)){{< /highlight >}} .
+  by (le)){{< /highlight >}}.
 * DRA kubeletplugin gRPC NodeUnprepareResources operation: Observe {{< highlight promql "hl_inline=true" >}} histogram_quantile(0.99,
   sum(rate(dra_grpc_operations_duration_seconds_bucket{method_name=~".*NodeUnprepareResources"}[5m]))
   by (le)){{< /highlight >}}.
@@ -190,5 +190,5 @@ metrics.
 
 * [Learn more about
   DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)
-* Read about the metrics Kubernetes components export in the [Kubernetes Metrics
-Reference](/docs/reference/generated/metrics/).
+* Read the [Kubernetes Metrics
+Reference](/docs/reference/generated/metrics/)
