@@ -97,7 +97,28 @@ CPU에 대해 `restartPolicy: NotRequired`로, 메모리에 대해 `restartPolic
 
 먼저, 제자리 CPU 크기 조정과 재시작이 필요한 메모리 크기 조정을 위해 설계된 파드를 생성한다.
 
-{{% code_sample file="pods/resource/pod-resize.yaml" %}}
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resize-demo
+spec:
+  containers:
+  - name: pause
+    image: registry.k8s.io/pause:3.8
+    resizePolicy:
+    - resourceName: cpu
+      restartPolicy: NotRequired
+    - resourceName: memory
+      restartPolicy: RestartContainer
+    resources:
+      limits:
+        memory: "200Mi"
+        cpu: "700m"
+      requests:
+        memory: "200Mi"
+        cpu: "700m"
+```
 
 파드를 생성한다:
 
