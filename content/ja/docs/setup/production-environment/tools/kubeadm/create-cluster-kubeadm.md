@@ -434,7 +434,7 @@ kubeadmによって管理されている既存のノードまたはクラスタ�
 `kubeadm join`の例:
 
 * `kubeadm init`によるクラスター構築で使用したkubeadmのバージョン: {{< skew currentVersion >}}
-* 参加するノードは{{< skew currentVersion >}}のバージョンのkubeadmバイナリを使用しなければならない
+* 参加するノードは、{{< skew currentVersion >}}のバージョンのkubeadmバイナリを使用しなければならない
 
 アップグレードするノードでは、そのノードの管理に使用しているkubeadmのバージョンと同じマイナーバージョン、もしくはマイナーバージョンが1つ新しいkubeadmを使用する必要があります。
 
