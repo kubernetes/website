@@ -424,7 +424,7 @@ Kubernetesのバージョンと同様に、kubeadmは、kubeadmと同じバー�
 * kubeadmのバージョン: {{< skew currentVersion >}}
 * ホスト上のkubeletのバージョンは、{{< skew currentVersion >}}、{{< skew currentVersionAddMinor -1 >}}、{{< skew currentVersionAddMinor -2 >}}、もしくは{{< skew currentVersionAddMinor -3 >}}でなければならない
 
-### kubeadmに対するkubeadmのバージョン差異
+### kubeadmに対するkubeadmのバージョンの差異
 
 kubeadmによって管理されている既存のノードまたはクラスター全体を、kubeadmコマンドが操作するには一定の制限が存在します。
 
