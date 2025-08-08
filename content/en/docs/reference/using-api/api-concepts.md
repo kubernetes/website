@@ -248,7 +248,7 @@ For example:
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
-   … JSON encoded collection of Pods (PodList object)
+   … binary encoded collection of Pods (PodList object)
    ```
 
 1. Create a pod by sending Protobuf encoded data to the server, but request a response

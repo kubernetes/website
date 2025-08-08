@@ -111,7 +111,7 @@ This means that swap should either be disabled or tolerated by kubelet.
   Note: even if `failSwapOn: false` is provided, workloads wouldn't have swap access by default.
   This can be changed by setting a `swapBehavior`, again in the kubelet configuration file. To use swap,
   set a `swapBehavior` other than the default `NoSwap` setting.
-  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
+  See [Swap memory management](/docs/concepts/cluster-administration/swap-memory-management) for more details.
 * To disable swap, `sudo swapoff -a` can be used to disable swapping temporarily.
   To make this change persistent across reboots, make sure swap is disabled in
   config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="{{.Params.class}} no-js">
+<html lang="{{ .Site.Language.Lang }}" class="{{.Params.class}} no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
 {{- if eq hugo.Environment "preview" -}}
   <!-- deploy preview -->
 {{- end -}}

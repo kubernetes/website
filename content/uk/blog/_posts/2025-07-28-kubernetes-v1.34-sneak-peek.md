@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: Попередній перегляд Kubernetes v1.34
+title: Попередній огляд Kubernetes v1.34
 date: 2025-07-28
 slug: kubernetes-v1-34-sneak-peek
 author: >
