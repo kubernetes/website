@@ -674,7 +674,10 @@ upgrades the control plane node where it's run. The steps it performs are:
   for the kubelet to restart the components if the files have changed.
 - Uploads the updated kubeadm and kubelet configurations to the cluster in the `kubeadm-config`
   and the `kubelet-config` ConfigMaps (both in the `kube-system` namespace).
-- Writes updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`.
+- Writes updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`,
+  and read the node's `/var/lib/kubelet/instance-config.yaml` file
+  and patch fields like `containerRuntimeEndpoint`
+  from this instance configuration into `/var/lib/kubelet/config.yaml`. 
 - Configures bootstrap token and the `cluster-info` ConfigMap for RBAC rules. This is the same as
   in the `kubeadm init` stage and ensures that the cluster continues to support nodes joining with bootstrap tokens.
 - Upgrades the kube-proxy and CoreDNS addons conditionally if all existing kube-apiservers in the cluster
@@ -691,7 +694,10 @@ infers that there is a running kube-apiserver Pod on this node.
 - Runs preflight checks similarly to `kubeadm upgrade apply`.
 - For control plane nodes, upgrades the control plane manifest files on disk in `/etc/kubernetes/manifests`
   and waits for the kubelet to restart the components if the files have changed.
-- Writes the updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`.
+- Writes updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`,
+  and read the node's `/var/lib/kubelet/instance-config.yaml` file and
+  patch fields like `containerRuntimeEndpoint`
+  from this instance configuration into `/var/lib/kubelet/config.yaml`. 
 - (For control plane nodes) upgrades the kube-proxy and CoreDNS
   {{< glossary_tooltip text="addons" term_id="addons" >}} conditionally, provided that all existing
   API servers in the cluster have already been upgraded to the target version.

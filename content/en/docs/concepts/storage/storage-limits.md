@@ -81,11 +81,9 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 
 ### Mutable CSI Node Allocatable Count
 
-{{< feature-state state="alpha" for_k8s_version="v1.33" >}}
+{{< feature-state feature_gate_name="MutableCSINodeAllocatableCount" >}}
 
 CSI drivers can dynamically adjust the maximum number of volumes that can be attached to a Node at runtime. This enhances scheduling accuracy and reduces pod scheduling failures due to changes in resource availability.
-
-This is an alpha feature and is disabled by default.
 
 To use this feature, you must enable the `MutableCSINodeAllocatableCount` feature gate on the following components:
 
@@ -107,5 +105,5 @@ spec:
 
 Kubelet will periodically call the corresponding CSI driver’s `NodeGetInfo` endpoint to refresh the maximum number of attachable volumes, using the interval specified in `nodeAllocatableUpdatePeriodSeconds`. The minimum allowed value for this field is 10 seconds.
 
-Additionally, if a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8), Kubernetes triggers an immediate update to the allocatable volume count for that Node.
+If a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8), Kubernetes triggers an immediate update to the allocatable volume count for that Node. Additionally, kubelet marks affected pods as Failed, allowing their controllers to handle recreation. This prevents pods from getting stuck indefinitely in the `ContainerCreating` state.
 

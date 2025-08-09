@@ -13,5 +13,9 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.30"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
 Enables the `sleep` action in Container lifecycle hooks.

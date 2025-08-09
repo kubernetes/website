@@ -71,7 +71,6 @@ Labels:             beta.kubernetes.io/arch=amd64
                     kubernetes.io/arch=amd64
                     kubernetes.io/hostname=kube-worker-1
                     kubernetes.io/os=linux
-Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
                     node.alpha.kubernetes.io/ttl: 0
                     volumes.kubernetes.io/controller-managed-attach-detach: true
 CreationTimestamp:  Thu, 17 Feb 2022 16:46:30 -0500
@@ -144,7 +143,6 @@ apiVersion: v1
 kind: Node
 metadata:
   annotations:
-    kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
     node.alpha.kubernetes.io/ttl: "0"
     volumes.kubernetes.io/controller-managed-attach-detach: "true"
   creationTimestamp: "2022-02-17T21:46:30Z"

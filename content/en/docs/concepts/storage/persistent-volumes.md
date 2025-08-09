@@ -477,17 +477,8 @@ administrator intervention.
 
 {{% /tab %}}
 {{% tab name="By requesting expansion to smaller size" %}}
-{{< feature-state feature_gate_name="RecoverVolumeExpansionFailure" >}}
 
-{{< note >}}
-Recover from failing PVC expansion by users (`RecoverVolumeExpansionFailure`) is available as an beta feature
-since Kubernetes 1.32 and should be enabled by default. Refer to the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-documentation for more information.
-{{< /note >}}
-
-
-When using `RecoverVolumeExpansionFailure` feature, if expansion has failed for a PVC, you can retry expansion with a
+If expansion has failed for a PVC, you can retry expansion with a
 smaller size than the previously requested value. To request a new expansion attempt with a
 smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
 value you previously tried.

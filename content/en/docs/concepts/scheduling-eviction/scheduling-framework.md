@@ -74,20 +74,13 @@ Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should i
 
 ### QueueingHint
 
-{{< feature-state for_k8s_version="v1.32" state="beta" >}}
+{{< feature-state feature_gate_name="SchedulerQueueingHints" >}}
 
 QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue.
 It's executed every time a certain kind of event or change happens in the cluster.
 When the QueueingHint finds that the event might make the Pod schedulable,
 the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
-
-{{< note >}}
-QueueingHint evaluation during scheduling is a beta-level feature.
-In Kubernetes {{< skew currentVersion >}}, this feature gate is enabled by default,
-and you can disable it via the
-`SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-{{< /note >}}
 
 ### QueueSort {#queue-sort}
 

@@ -1074,13 +1074,7 @@ scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 
 ### Delayed creation of replacement pods {#pod-replacement-policy}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-You can only set `podReplacementPolicy` on Jobs if you enable the `JobPodReplacementPolicy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(enabled by default).
-{{< /note >}}
+{{< feature-state feature_gate_name="JobPodReplacementPolicy" >}}
 
 By default, the Job controller recreates Pods as soon they either fail or are terminating (have a deletion timestamp).
 This means that, at a given time, when some of the Pods are terminating, the number of running Pods for a Job

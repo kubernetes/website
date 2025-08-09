@@ -168,6 +168,40 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
+			<td>Host Probes / Lifecycle Hooks (v1.34+)</td>
+			<td>
+				<p>The Host field in probes and lifecycle hooks must be disallowed.</p>
+				<p><strong>Restricted Fields</strong></p>
+				<ul>
+					<li><code>spec.containers[*].livenessProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].readinessProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].startupProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].livenessProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].readinessProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].startupProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].lifecycle.postStart.tcpSocket.host</code>
+					<li><code>spec.containers[*].lifecycle.preStop.tcpSocket.host</code>
+					<li><code>spec.containers[*].lifecycle.postStart.httpGet.host</code></li>
+					<li><code>spec.containers[*].lifecycle.preStop.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].livenessProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].readinessProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].startupProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].livenessProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].readinessProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].startupProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].lifecycle.postStart.tcpSocket.host</code>
+					<li><code>spec.initContainers[*].lifecycle.preStop.tcpSocket.host</code>
+					<li><code>spec.initContainers[*].lifecycle.postStart.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].lifecycle.preStop.httpGet.host</code></li>
+				</ul>
+				<p><strong>Allowed Values</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li>""</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
 			<td style="white-space: nowrap">AppArmor</td>
 			<td>
 				<p>On supported hosts, the <code>RuntimeDefault</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.</p>
