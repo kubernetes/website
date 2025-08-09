@@ -207,7 +207,7 @@ Sekarang kamu dapat memverifikasi bahwa semua objek ada.
 
    kamu akan melihat halaman pengaturan WordPress yang mirip dengan tangkapan layar berikut.
 
-   ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
+  ![wordpress-init](../../../../../images/Wordpress-mysql-quickstart.png)
 
    {{< warning >}}
    Jangan biarkan instalasi WordPress kamu di halaman ini. Jika pengguna lain menemukannya, mereka dapat mengatur situs web di instance kamu dan menggunakannya untuk menyajikan konten berbahaya.<br/><br/>
