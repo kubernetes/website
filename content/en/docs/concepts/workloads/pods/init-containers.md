@@ -363,11 +363,13 @@ init container completion record has been lost due to garbage collection. This
 applies for Kubernetes v1.20 and later. If you are using an earlier version of
 Kubernetes, consult the documentation for the version you are using.
 
-## {{% heading "whatsnext" %}}
 
-Learn more about the following:
+
+
+
 * [Creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container).
 * [Debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/).
 * Overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/).
 * [Types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
 * [Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers).
+
