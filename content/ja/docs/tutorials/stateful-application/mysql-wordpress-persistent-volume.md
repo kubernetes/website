@@ -212,7 +212,7 @@ kubectl apply -k ./
 
    WordPressによりセットアップされた次のスクリーンショットのようなページが表示されるはずです。
 
-![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
+   ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
 {{< warning >}}
 WordPressのインストールをこのページのまま放置してはいけません。もしほかのユーザーがこのページを見つけた場合、その人はインスタンス上にウェブサイトをセットアップして、悪意のあるコンテンツの配信に利用できてしまいます。<br/><br/>ユーザー名とパスワードを決めてWordPressをインストールするか、このインスタンスを削除してください。
