@@ -774,7 +774,7 @@ use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.h
 You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 {{< /note >}}
 
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/_archived/volumes/nfs)
 for an example of mounting NFS volumes with PersistentVolumes.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
