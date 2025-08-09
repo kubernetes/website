@@ -1179,8 +1179,7 @@ Default: &quot;5m&quot;</p>
    <p>evictionMaxPodGracePeriod is the maximum allowed grace period (in seconds) to use
 when terminating pods in response to a soft eviction threshold being met. This value
 effectively caps the Pod's terminationGracePeriodSeconds value during soft evictions. 
-Negative values are not supported and do not defer to the Pod's value; 
-they may result in immediate termination. A value of 0 results in immediate termination.
+Negative values cause the pod to terminate immediately, rather than deferring to the pod's setting.
 Default: 0</p>
 </td>
 </tr>
