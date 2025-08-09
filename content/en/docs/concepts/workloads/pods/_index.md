@@ -220,7 +220,7 @@ template instead of updating or patching the existing Pods.
 
 Kubernetes doesn't prevent you from managing Pods directly. It is possible to
 update some fields of a running Pod, in place. However, Pod update operations
-like 
+like
 [`patch`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#patch-pod-v1-core), and
 [`replace`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#replace-pod-v1-core)
 have some limitations:
@@ -241,7 +241,7 @@ have some limitations:
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
 
-  1. setting the unassigned field to a positive number; 
+  1. setting the unassigned field to a positive number;
   1. updating the field from a positive number to a smaller, non-negative
      number.
 
@@ -301,7 +301,7 @@ To set security constraints on Pods and containers, you use the
 `securityContext` field in the Pod specification. This field gives you
 granular control over what a Pod or individual containers can do.
 
-For basic security configuration, you can set simple security contexts:
+For basic security configuration, you should meet the Baseline Pod security standard and run containers as non-root. You can set simple security contexts:
 
 ```yaml
 apiVersion: v1
@@ -319,7 +319,7 @@ spec:
     command: ["sh", "-c", "sleep 1h"]
 ```
 
-For advanced security context configuration including capabilities, seccomp profiles, and detailed security options, see [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/#advanced-security-context-configuration).
+For advanced security context configuration including capabilities, seccomp profiles, and detailed security options, see the [security concepts](/docs/concepts/security/) section.
 
 * To learn about kernel-level security constraints that you can use,
   see [Linux kernel security constraints for Pods and containers](/docs/concepts/security/linux-kernel-security-constraints).
@@ -412,7 +412,7 @@ To perform a diagnostic, the kubelet can invoke different actions:
 - `TCPSocketAction` (checked directly by the kubelet)
 - `HTTPGetAction` (checked directly by the kubelet)
 
-You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes) 
+You can read more about [probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
 in the Pod Lifecycle documentation.
 
 ## {{% heading "whatsnext" %}}
@@ -425,7 +425,11 @@ in the Pod Lifecycle documentation.
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
 * Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-* Explore [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/) for priority classes, runtime classes, and detailed node selection strategies.
+* Read [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/) to learn the topic in detail.
+  That page covers aspects of Pod configuration beyond the essentials, including:
+  * PriorityClasses
+  * RuntimeClasses
+  * advanced ways to configure _scheduling_: the way that Kubernetes decides which node a Pod should run on.
 
 To understand the context for why Kubernetes wraps a common Pod API in other resources
 (such as {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}} or
