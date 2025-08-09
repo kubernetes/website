@@ -408,7 +408,7 @@ Now you can verify that all objects exist.
 
    你应该看到类似于以下屏幕截图的 WordPress 设置页面。
 
-![wordpress-init](../../../../../images/Wordpress-mysql-quickstart.png)
+   ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
    {{< warning >}}
    <!--
