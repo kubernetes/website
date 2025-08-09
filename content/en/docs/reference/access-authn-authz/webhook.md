@@ -166,8 +166,9 @@ Access to non-resource paths are sent as:
 
 {{< feature-state feature_gate_name="AuthorizeWithSelectors" >}}
 
-With the `AuthorizeWithSelectors` feature enabled, field and label selectors in the request
-are passed to the authorization webhook. The webhook can make authorization decisions
+When calling out to an authorization webhook, Kubernetes passes
+label and field selectors in the request to the authorization webhook.
+The authorization webhook can make authorization decisions
 informed by the scoped field and label selectors, if it wishes.
 
 The [SubjectAccessReview API documentation](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)
