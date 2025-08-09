@@ -1,0 +1,14 @@
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceClaim
+metadata:
+ name: some-gpu
+ namespace: dra-tutorial
+spec:
+   devices:
+     requests:
+     - name: some-gpu
+       exactly:
+         deviceClassName: gpu.example.com
+         selectors:
+         - cel:
+             expression: "device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi')) >= 0"
