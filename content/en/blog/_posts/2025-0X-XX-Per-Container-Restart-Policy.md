@@ -2,7 +2,7 @@
 layout: blog
 title: "Kubernetes v1.34: Finer-Grained Control Over Container Restarts"
 date: 2025-0X-XX
-draft: false
+draft: true
 slug: kubernetes-v1-34-per-container-restart-policy
 author: >
   [Yuan Wang](https://github.com/yuanwang04)
