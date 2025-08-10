@@ -568,3 +568,56 @@ target = "i18n"
 [[module.mounts]]
 source = "i18n/zh-cn"
 target = "i18n"
+
+[segments]
+  [segments.all]
+    [[segments.all.includes]]
+      path = '{/**}'
+  [segments.en]
+    [[segments.en.includes]]
+      lang = 'en'
+  [segments.bn]
+    [[segments.bn.includes]]
+      lang = 'bn'
+  [segments.zh-cn]
+    [[segments.zh-cn.includes]]
+      lang = 'zh-cn'
+  [segments.fr]
+    [[segments.fr.includes]]
+      lang = 'fr'
+  [segments.de]
+    [[segments.de.includes]]
+      lang = 'de'
+  [segments.hi]
+    [[segments.hi.includes]]
+      lang = 'hi'
+  [segments.id]
+    [[segments.id.includes]]
+      lang = 'id'
+  [segments.it]
+    [[segments.it.includes]]
+      lang = 'it'
+  [segments.ja]
+    [[segments.ja.includes]]
+      lang = 'ja'
+  [segments.ko]
+    [[segments.ko.includes]]
+      lang = 'ko'
+  [segments.pl]
+    [[segments.pl.includes]]
+      lang = 'pl'
+  [segments.pt-br]
+    [[segments.pt-br.includes]]
+      lang = 'pt-br'
+  [segments.ru]
+    [[segments.ru.includes]]
+      lang = 'ru'
+  [segments.es]
+    [[segments.es.includes]]
+      lang = 'es'
+  [segments.uk]
+    [[segments.uk.includes]]
+      lang = 'uk'
+  [segments.vi]
+    [[segments.vi.includes]]
+      lang = 'vi'

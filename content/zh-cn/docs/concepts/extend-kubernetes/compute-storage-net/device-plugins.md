@@ -459,13 +459,13 @@ In order to monitor resources provided by device plugins, monitoring agents need
 discover the set of devices that are in-use on the node and obtain metadata to describe which
 container the metric should be associated with. [Prometheus](https://prometheus.io/) metrics
 exposed by device monitoring agents should follow the
-[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/instrumentation.md),
+[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md),
 identifying containers using `pod`, `namespace`, and `container` prometheus labels.
 -->
 为了监控设备插件提供的资源，监控代理程序需要能够发现节点上正在使用的设备，
 并获取元数据来描述哪个指标与容器相关联。
 设备监控代理暴露给 [Prometheus](https://prometheus.io/) 的指标应该遵循
-[Kubernetes Instrumentation Guidelines（英文）](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/instrumentation.md)，
+[Kubernetes Instrumentation Guidelines（英文）](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md)，
 使用 `pod`、`namespace` 和 `container` 标签来标识容器。
 
 <!--

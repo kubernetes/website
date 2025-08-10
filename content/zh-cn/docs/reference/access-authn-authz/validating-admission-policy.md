@@ -331,7 +331,7 @@ not been bound, so for policies requiring a parameter resource, it can be useful
 ensure one has been bound. A parameter resource will not be bound and `params` will be null
 if `paramKind` of the policy, or `paramRef` of the binding are not specified.
 
-For the use cases require parameter configuration, we recommend to add a param check in
+For the use cases requiring parameter configuration, we recommend to add a param check in
 `spec.validations[0].expression`:
 -->
 如果参数资源尚未被绑定，代表参数资源的 params 对象将不会被设置，
@@ -341,7 +341,7 @@ For the use cases require parameter configuration, we recommend to add a param c
 
 对于需要参数配置的场景，我们建议在 `spec.validations[0].expression` 中添加一个参数检查：
 
-```
+```yaml
 - expression: "params != null"
   message: "params missing but required to bind to this policy"
 ```

@@ -381,7 +381,7 @@ Skrip penyelesaian (_completion script_) `kubectl` untuk Bash dapat dibuat denga
 Namun, skrip penyelesaian tersebut bergantung pada [**bash-completion**](https://github.com/scop/bash-completion), yang artinya kamu harus menginstal program tersebut terlebih dahulu.
 
 {{< warning>}}
-Terdapat dua versi bash-completion, v1 dan v2. V1 untuk Bash 3.2 (bawaan dari macOs), dan v2 untuk Bash 4.1+. Skrip penyelesaian `kubectl` **tidak kompatibel** dengan bash-completion v1 dan Bash 3.2. Dibutuhkan **bash-completion v2** dan **Bash 4.1+** agar skrip penyelesaian `kubectl` dapat bekerja dengan baik. Maka dari itu, kamu harus menginstal dan menggunakan Bash 4.1+ ([*panduan*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)) untuk dapat menggunakan fitur penyelesaian otomatis dari `kubectl`. Ikuti panduan di bawah setelah kamu menginstal Bash 4.1+ (yaitu, Bash versi 4.1 atau lebih baru).
+Terdapat dua versi bash-completion, v1 dan v2. V1 untuk Bash 3.2 (bawaan dari macOs), dan v2 untuk Bash 4.1+. Skrip penyelesaian `kubectl` **tidak kompatibel** dengan bash-completion v1 dan Bash 3.2. Dibutuhkan **bash-completion v2** dan **Bash 4.1+** agar skrip penyelesaian `kubectl` dapat bekerja dengan baik. Maka dari itu, kamu harus menginstal dan menggunakan Bash 4.1+ ([*panduan*](https://apple.stackexchange.com/a/292760)) untuk dapat menggunakan fitur penyelesaian otomatis dari `kubectl`. Ikuti panduan di bawah setelah kamu menginstal Bash 4.1+ (yaitu, Bash versi 4.1 atau lebih baru).
 {{< /warning >}}
 
 ### Pemutakhiran Bash
