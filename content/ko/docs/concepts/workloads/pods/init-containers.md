@@ -331,7 +331,7 @@ Active deadline은 초기화 컨테이너를 포함한다.
 
 ## {{% heading "whatsnext" %}}
 
-* [초기화 컨테이너를 가진 파드 생성하기](/ko/docs/tasks/configure-pod-container/configure-pod-initialization/#초기화-컨테이너를-갖는-파드-생성)
+* [초기화 컨테이너를 가진 파드 생성하기](https://kubernetes.io/ko/docs/tasks/configure-pod-container/configure-pod-initialization/)
 * [초기화 컨테이너 디버깅](/ko/docs/tasks/debug/debug-application/debug-init-containers/) 알아보기
 * [kubelet](/ko/docs/reference/command-line-tools-reference/kubelet/)과 [kubectl](/ko/docs/reference/kubectl/) 개요
 * [프로브의 종류](/ko/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup 프로브
