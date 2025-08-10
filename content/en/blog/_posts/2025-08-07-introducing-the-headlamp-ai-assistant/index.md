@@ -28,7 +28,7 @@ Whether you're a seasoned engineer or just getting started, the AI Assistant off
 Here is a demo of the AI Assistant in action as it helps troubleshoot an
 application running with issues in a Kubernetes cluster:
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/GzXkUuCTcd4?si=9pRjNma4UYdJa3Ig" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+{{< youtube id="GzXkUuCTcd4" title="Headlamp AI Assistant" class="youtube-quote-sm" >}}
 
 ## Hopping on the AI train
 
