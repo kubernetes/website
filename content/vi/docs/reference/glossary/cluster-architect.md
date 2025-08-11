@@ -13,8 +13,5 @@ tags:
   Người chuyên thiết kế hạ tầng bao gồm một hoặc nhiều cụm (cluster) Kubernetes.
 
 <!--more--> 
-
-Người chuyên thiết kế hạ tầng bao gồm một hoặc nhiều cụm (cluster) Kubernetes.
-
 Các kiến trúc sư Cluster quan tâm đến các best practices cho hệ thống phân tán, ví dụ như: tính sẵn sàng cao và bảo mật..
 
