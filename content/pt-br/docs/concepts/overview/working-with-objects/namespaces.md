@@ -93,7 +93,7 @@ Isso é útil para utilizar a mesma configuração em vários namespaces, por ex
 Nomes de namespaces devem ser válidos conforme a [RFC 1123 para rótulos DNS](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 
 {{< warning >}}  
-Ao criar namespaces com o mesmo nome de [domínios de topo públicos (TLDs)](https://data.iana.org/TLD/tlds-alpha-by-domain.txt), os *Services* dentro desses namespaces podem ter nomes DNS curtos que colidem com registros DNS públicos. Com isso, _workloads_ de qualquer namespace que realizem consultas DNS sem um [ponto final (trailing dot)](https://datatracker.ietf.org/doc/html/rfc1034#page-8) podem ser redirecionadas para esses serviços, tendo precedência sobre o DNS público.
+Ao criar namespaces com o mesmo nome de [domínios de topo públicos (TLDs)](https://data.iana.org/TLD/tlds-alpha-by-domain.txt), os Services dentro desses namespaces podem ter nomes DNS curtos que colidem com registros DNS públicos. Com isso, cargas de trabalho de qualquer namespace que realizem consultas DNS sem um [ponto final (trailing dot)](https://datatracker.ietf.org/doc/html/rfc1034#page-8) podem ser redirecionadas para esses serviços, tendo precedência sobre o DNS público.
 
 Para mitigar esse risco, limite a criação de namespaces apenas a usuários confiáveis. Se necessário, você também pode configurar controles de segurança de terceiros, como [admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/), para bloquear a criação de namespaces com nomes que coincidam com [TLDs públicos](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 {{< /warning >}}
