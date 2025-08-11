@@ -80,10 +80,10 @@ initial state of a cluster with DRA enabled.
 
 ### Check the DeviceClasses in your cluster
 
-The {{< api-reference page="extend-resources/device-class-v1beta2" >}} resources represent a centralized list of the device
-classes known to the cluster, each managed by a uniquely named
-DRA driver. If you set up a new test cluster for this tutorial, there should be no
-DeviceClasses.
+The {{< glossary_tooltip text="DeviceClass" term_id="deviceclass" >}} resources
+represent a centralized list of the device classes known to the cluster, each
+managed by a uniquely named DRA driver. If you set up a new test cluster for
+this tutorial, there should be no DeviceClasses.
 
 1. Check the DeviceClasses:
 
@@ -97,16 +97,16 @@ DeviceClasses.
 
 ### Check the ResourceSlices in your cluster
 
-A {{< api-reference page="extend-resources/resourceslice-v1beta2" >}} is a
+A {{< glossary_tooltip text="ResourceSlice" term_id="resourceslice" >}} is a
 partial list of the {{< glossary_tooltip text="infrastructure resources"
 term_id="infrastructure-resource" >}} that are potentially available to use from
 Nodes. The collection of all ResourcesSlices in the cluster make up the entire
-set of devices available. Some infrastructure resource types (such as CPU and
-memory) are handled through other mechanisms (like [CPU limits and
-requests](docs/tasks/configure-pod-container/assign-cpu-resource/)), so they
-won't appear in the ResourceSlices. Storage (as in files and block devices) has
-its own management mechanism too; see [Storage](/docs/concepts/storage/volumes)
-elsewhere in the documentation.
+set of devices available for dynamic assignment. Some infrastructure resource
+types (such as CPU and memory) are handled through other mechanisms (like [CPU
+limits and requests](docs/tasks/configure-pod-container/assign-cpu-resource/)),
+so they won't appear in the ResourceSlices. Storage (as in files and block
+devices) has its own management mechanism too; see
+[Storage](/docs/concepts/storage/volumes) elsewhere in the documentation.
 
 ResourceSlices can represent existing allocated infrastructure, but they can
 also represent an offer to provide infrastructure. For example, a specialized
@@ -128,12 +128,12 @@ are no ResourceSlices advertised.
 
 ### View existing ResourceClaims and ResourceClaimTemplates  
 
-{{< api-reference page="extend-resources/resourceclaim-v1beta2" >}} and {{<
-api-reference page="extend-resources/resourceclaimtemplate-v1beta2" >}}
-resources contain user-defined objects that encapsulate the requests or
-requirements of Pods for different types of specialized devices. These are
-further described later, but you can see for now that there are no such objects
-stored yet as you, the user, have not created any.
+{{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} and {{<
+glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate"
+>}} are user-defined objects that encapsulate the requests or requirements of
+Pods for different types of specialized devices. These are further described
+later, but you can see for now that there are no such objects stored yet as you,
+the user, have not created any.
 
 1. Check the ResourceClaims and ResourceClaimTemplates:
 
