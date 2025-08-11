@@ -1,9 +1,9 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Service Account Token Integration for Image Pulls Graduates to Beta"
-date: XXXX-XX-XX
+date: 2025-08-15
 slug: kubernetes-v1-34-sa-tokens-image-pulls-beta
-draft: true
+draft: false
 author: >
   [Anish Ramasekar](https://github.com/aramase) (Microsoft)
 ---
@@ -11,7 +11,7 @@ author: >
 The Kubernetes community continues to advance security best practices
 by reducing reliance on long-lived credentials.
 Following the successful [alpha release in Kubernetes v1.33](/blog/2025/05/07/kubernetes-v1-33-wi-for-image-pulls/),
-**Service Account Token Integration for Kubelet Credential Providers**
+*Service Account Token Integration for Kubelet Credential Providers*
 has now graduated to **beta** in Kubernetes v1.34,
 bringing us closer to eliminating long-lived image pull secrets from Kubernetes clusters.
 
@@ -31,6 +31,7 @@ in the credential provider configuration when using service account tokens.
 This field is new in beta and must be specified to ensure proper caching behavior.
 
 ```yaml
+# CAUTION: this is not a complete configuration example, just a reference for the 'tokenAttributes.cacheType' field.
 tokenAttributes:
   serviceAccountTokenAudience: "my-registry-audience"
   cacheType: "ServiceAccount"  # Required field in beta
@@ -47,40 +48,33 @@ Choose between two caching strategies:
 - **`ServiceAccount`**: Cache credentials per service account identity
   (use when credentials are valid for all pods using the same service account)
 
-### Full integration with Ensure Secret Pull Images
+### Isolated image pull credentials
 
-Beta brings **complete compatibility**
-with the [Ensure Secret Pull Images](/docs/concepts/containers/images/#ensureimagepullcredentialverification) feature.
-This integration ensures that:
+The beta release provides stronger security isolation for container images
+when using service account tokens for image pulls.
+It ensures that pods can only access images that were pulled using ServiceAccounts they're authorized to use.
+This prevents unauthorized access to sensitive container images
+and enables granular access control where different workloads can have different registry permissions
+based on their ServiceAccount.
 
-- **Service account coordinates are tracked**:
-  The system tracks which ServiceAccount (namespace, name, UID) was used to pull each image
-- **Proper authorization enforcement**:
-  Pods can only access images that were pulled using credentials
-  from ServiceAccounts they're authorized to use
-- **Lifecycle management**:
-  Administrators can revoke access by deleting and recreating ServiceAccounts,
-  which invalidates cached credentials
+When credential providers use service account tokens,
+the system tracks ServiceAccount identity (namespace, name, and [UID](/docs/concepts/overview/working-with-objects/names/#uids)) for each pulled image.
+When a pod attempts to use a cached image,
+the system verifies that the pod's ServiceAccount matches exactly with the ServiceAccount
+that was used to originally pull the image.
 
-The authorization model works as follows:
+Administrators can revoke access to previously pulled images
+by deleting and recreating the ServiceAccount,
+which changes the UID and invalidates cached image access.
 
-- **Different ServiceAccounts for the same image**:
-  Pods using different ServiceAccounts will trigger a fresh image pull from the registry
-  since they have different service account coordinates
-- **Same ServiceAccount for the same image**:
-  Pods using the exact same ServiceAccount (matching namespace, name, and UID)
-  will be allowed to reuse the previously pulled image without triggering a new registry pull
-- **ServiceAccount lifecycle management**:
-  If administrators want to revoke access to previously pulled images for a ServiceAccount,
-  they can delete and recreate the ServiceAccount.
-  This changes the UID, which invalidates any cached image credentials
-  associated with the old ServiceAccount coordinates
+For more details about this capability,
+see the [image pull credential verification](/docs/concepts/containers/images/#ensureimagepullcredentialverification) documentation.
 
 ## How it works
 
 ### Configuration
 
-Credential providers opt into using service account tokens
+Credential providers opt into using ServiceAccount tokens
 by configuring the `tokenAttributes` field:
 
 ```yaml
@@ -131,7 +125,7 @@ and the container runtime as follows:
   - If they differ, `kubelet` performs a fresh pull
     using credentials for the new ServiceAccount
 
-- With Ensure Secret Pull Images enabled:
+- With image pull credential verification enabled:
   - Authorization is enforced using the recorded ServiceAccount coordinates,
     ensuring pods only use images pulled by a ServiceAccount
     they are authorized to use
@@ -140,9 +134,9 @@ and the container runtime as follows:
 
 ### Audience restriction
 
-The beta release builds on the `ServiceAccountNodeAudienceRestriction` feature
+The beta release builds on service account node audience restriction
 (beta since v1.33) to ensure `kubelet` can only request tokens for authorized audiences.
-Administrators configure allowed audiences using RBAC:
+Administrators configure allowed audiences using RBAC to enable kubelet to request service account tokens for image pulls:
 
 ```yaml
 #
@@ -180,12 +174,13 @@ the migration to beta requires minimal changes:
 2. **Review caching strategy**:
    Choose between `Token` and `ServiceAccount` cache types based on your provider's behavior
 3. **Test audience restrictions**:
-   Ensure your RBAC configuration properly restricts token audiences
+   Ensure your RBAC configuration, or other cluster authorization rules, will properly restrict token audiences
 
 ### Example setup
 
 Here's a complete example
-for setting up a credential provider with service account tokens:
+for setting up a credential provider with service account tokens
+(this example assumes your cluster uses RBAC authorization):
 
 ```yaml
 #
@@ -235,12 +230,12 @@ spec:
   serviceAccountName: registry-access-sa
   containers:
   - name: my-app
-    image: myregistry.io/my-app:latest
+    image: myregistry.example/my-app:latest
 ```
 
 ## What's next?
 
-For Kubernetes v1.35, we expect the feature to stay in beta,
+For Kubernetes v1.35, we - Kubernetes SIG Auth - expect the feature to stay in beta,
 and we will continue to solicit feedback.
 
 You can learn more about this feature
@@ -254,9 +249,9 @@ to track progress across the coming Kubernetes releases.
 ## Call to action
 
 In this blog post,
-we have covered the beta graduation of Service Account Token Integration
+I have covered the beta graduation of ServiceAccount token integration
 for Kubelet Credential Providers in Kubernetes v1.34.
-We have discussed the key improvements,
+I discussed the key improvements,
 including the required `cacheType` field
 and enhanced integration with Ensure Secret Pull Images.
 
