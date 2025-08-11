@@ -4,6 +4,21 @@ content_type: tutorial
 weight: 60
 min-kubernetes-server-version: v1.32
 ---
+<!-- FUTURE MAINTAINERS: 
+The original point of this doc was for people (mainly cluster administrators) to
+understand the importance of the DRA driver and its interaction with the DRA
+APIs. As a result it was a requirement of this tutorial to not use Helm and to
+be more direct with all the component installation procedures. While much of
+this content is also useful to workload authors, I see the primary audience of
+_this_ tutorial as cluster administrators, who I feel also need to understand
+how the DRA APIs interact with the driver to maintain them well. If I had to
+choose which audience to focus on in this doc, I would choose cluster
+administrators. If the prose gets too muddied by considering both of them, I'd
+rather make a second tutorial for the workload authors that doesn't go into the
+driver at all (since IMHO that is more representative of what we think their
+experience should be like) and also potentially goes into much more detailed/ ✨
+fun ✨ use cases. 
+-->
 
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
 
