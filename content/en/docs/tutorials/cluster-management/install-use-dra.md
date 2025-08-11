@@ -1,5 +1,5 @@
 ---
-title: Dynamic Resource Allocation Tutorial
+title: Install Drivers and Allocate Devices with DRA
 content_type: tutorial
 weight: 60
 min-kubernetes-server-version: v1.32
@@ -85,41 +85,46 @@ classes known to the cluster, each managed by a uniquely named
 DRA driver. If you set up a new test cluster for this tutorial, there should be no
 DeviceClasses.
 
-1. Check with `kubectl`:
-```shell
-kubectl get deviceclasses
-```
-The output is similar to this:
-```
-No resources found
-```
+1. Check the DeviceClasses:
 
-### Check on ResourceSlices
-A ResourceSlice is a partial list of the {< glossary_tooltip
-text="infrastructure resources" term_id="infrastructure-resource" >} that are
+  ```shell
+  kubectl get deviceclasses
+  ```
+  The output is similar to this:
+  ```
+  No resources found
+  ```
+
+### Check the ResourceSlices in your cluster
+
+A ResourceSlice is a partial list of the {{< glossary_tooltip
+text="infrastructure resources" term_id="infrastructure-resource" >}} that are
 potentially available to use from Nodes. The collection of all ResourcesSlices
 in the cluster make up the entire set of devices available. Some infrastructure
-resource types (such as CPU and memory) don't need to be claimed, and are
-handled through other mechanisms, so they won't appear in the ResourceSlices.
-Storage (as in files and block devices) has its own management mechanism too;
-see [Storage](/docs/concepts/storage/volumes) elsewhere in the documentation.
+resource types (such as CPU and memory) are handled through other mechanisms
+(like [CPU limits and
+requests](docs/tasks/configure-pod-container/assign-cpu-resource/)), so they
+won't appear in the ResourceSlices. Storage (as in files and block devices) has
+its own management mechanism too; see [Storage](/docs/concepts/storage/volumes)
+elsewhere in the documentation.
 
-ResourceSlices can represent existing allocated infrastructure, but they can also
-represent an offer to provide infrastructure. For example, a specialized driver
-can offer a neural networking accelerator ResourceSlice, even though none of the nodes in the cluster have that kind of accelerator currently attached.
+ResourceSlices can represent existing allocated infrastructure, but they can
+also represent an offer to provide infrastructure. For example, a specialized
+driver can offer a neural networking accelerator ResourceSlice, even though none
+of the nodes in the cluster have that kind of accelerator currently attached.
 
 If you set up a new blank cluster for this tutorial, it's normal to find that there
 are no ResourceSlices advertised.
 
 1. Check the ResourceSlices:
 
-```shell
-kubectl get resourceslices
-```
-The output is similar to this:
-```
-No resources found
-```
+  ```shell
+  kubectl get resourceslices
+  ```
+  The output is similar to this:
+  ```
+  No resources found
+  ```
 
 ### View existing ResourceClaims and ResourceClaimTemplates  
 
@@ -129,15 +134,16 @@ specialized devices. These are further described later, but you can see for now
 that there are no such objects stored yet as you, the user, have not created any.
 
 1. Check the ResourceClaims and ResourceClaimTemplates:
-```shell
-kubectl get resourceclaims -A
-kubectl get resourceclaimtemplates -A
-```
-The output is similar to this:
-```
-No resources found
-No resources found
-```
+
+  ```shell
+  kubectl get resourceclaims -A
+  kubectl get resourceclaimtemplates -A
+  ```
+  The output is similar to this:
+  ```
+  No resources found
+  No resources found
+  ```
 
 At this point, you have confirmed that DRA is enabled and configured properly in
 the cluster, and that no DRA drivers have advertised any resources to the DRA
@@ -148,7 +154,9 @@ APIs yet.
 DRA drivers are third-party applications that run on each node of your cluster
 to interface with the hardware of that node and Kubernetes' built-in DRA
 components. The installation procedure depends on the driver you choose, but is
-likely deployed as a {{< glossary_tooltip term_id="daemonset" >}} to all or a selection of the nodes (using {{< glossary_tooltip text="selectors" term_id="selector" >}} or similar mechanisms) in your cluster.
+likely deployed as a {{< glossary_tooltip term_id="daemonset" >}} to all or a
+selection of the nodes (using {{< glossary_tooltip text="selectors"
+term_id="selector" >}} or similar mechanisms) in your cluster.
 
 Check your driver's documentation for specific installation instructions, which
 may include a Helm chart, a set of manifests, or other deployment tooling.
@@ -167,16 +175,19 @@ would need to have access to the image registry where the driver image is
 hosted. In this tutorial, you will use a publicly released image of the
 dra-example-driver to simulate access to a DRA driver image.
 
-```shell
-kubectl create namespace dra-tutorial 
-```
 
-You can confirm your nodes have access to the image by running the following
+1. Create the namespace:
+
+  ```shell
+  kubectl create namespace dra-tutorial 
+  ```
+
+1. Confirm your nodes have access to the image by running the following
 from within one of your cluster's nodes:
 
-```shell
-docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.1.0
-```
+  ```shell
+  docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.1.0
+  ```
 
 ### Deploy the DRA driver components
 
@@ -197,19 +208,25 @@ components individually with `kubectl`.
    on this cluster:
 
       1. Create the Service Account: 
+
         {{% code_sample language="yaml" file="dra/driver-install/serviceaccount.yaml" %}}
+
         ```shell
         kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/serviceaccount.yaml
         ```
 
       1. Create the ClusterRole: 
+
         {{% code_sample language="yaml" file="dra/driver-install/clusterrole.yaml" %}}
+
         ```shell
         kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/clusterrole.yaml
         ```
 
       1. Create the ClusterRoleBinding:
+
         {{% code_sample language="yaml" file="dra/driver-install/clusterrolebinding.yaml" %}}
+
         ```shell
         kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/clusterrolebinding.yaml
         ```
@@ -229,34 +246,34 @@ components individually with `kubectl`.
 
 ### Verify the DRA driver installation
 
-1. Use `kubectl` to observe the Pods of the DRA driver DaemonSet across all worker nodes:
+1. Observe the Pods of the DRA driver DaemonSet across all worker nodes:
 
-```shell
-kubectl get pod -l app.kubernetes.io/name=dra-example-driver
-```
-The output is similar to this:
-```
-NAME                                     READY   STATUS    RESTARTS   AGE
-dra-example-driver-kubeletplugin-4sk2x   1/1     Running   0          13s
-dra-example-driver-kubeletplugin-cttr2   1/1     Running   0          13s
-```
+  ```shell
+  kubectl get pod -l app.kubernetes.io/name=dra-example-driver
+  ```
+  The output is similar to this:
+  ```
+  NAME                                     READY   STATUS    RESTARTS   AGE
+  dra-example-driver-kubeletplugin-4sk2x   1/1     Running   0          13s
+  dra-example-driver-kubeletplugin-cttr2   1/1     Running   0          13s
+  ```
 
 The initial reponsibility of each node's local DRA driver is to update the
 cluster with what devices are available to Pods on that node, by publishing its
 metadata to the ResourceSlices API. You can check that API to see that each node
 with a driver is advertising the device class it represents.
 
-7. Check for available ResourceSlices: 
+1. Check for available ResourceSlices: 
 
-```shell
-kubectl get resourceslices
-```
-The output is similar to this:
-```
-NAME                                 NODE           DRIVER            POOL           AGE
-kind-worker-gpu.example.com-k69gd    kind-worker    gpu.example.com   kind-worker    19s
-kind-worker2-gpu.example.com-qdgpn   kind-worker2   gpu.example.com   kind-worker2   19s
-```
+  ```shell
+  kubectl get resourceslices
+  ```
+  The output is similar to this:
+  ```
+  NAME                                 NODE           DRIVER            POOL           AGE
+  kind-worker-gpu.example.com-k69gd    kind-worker    gpu.example.com   kind-worker    19s
+  kind-worker2-gpu.example.com-qdgpn   kind-worker2   gpu.example.com   kind-worker2   19s
+  ```
 
 At this point, you have successfully installed the example DRA driver, and
 confirmed its initial configuration. You're now ready to use DRA to schedule
@@ -271,18 +288,18 @@ This section shows you how to use {{< glossary_tooltip term_id="cel" >}} to
 express your requirements in a ResourceClaim, select that ResourceClaim in a Pod
 specification, and observe the resource allocation.
 
-This tutorial showcases only one basic example of a DRA  
-ResourceClaim. Read [Dynamic Resource  
-Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)  
-to learn more about ResourceClaims. 
+This tutorial showcases only one basic example of a DRA ResourceClaim. Read
+[Dynamic Resource
+Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) to
+learn more about ResourceClaims. 
 
 ### Create the ResourceClaim
 
-The Pod manifest itself will include a reference to its relevant ResourceClaim object.
-
-possible. The request itself includes a {{< glossary_tooltip term_id="cel" >}} expression that will accept
-any GPU advertising over 10Gi memory capacity by a `gpu.example.com` driver.
-Note that the name of the claim is set to `some-gpu`.
+The Pod manifest itself will include a reference to its relevant ResourceClaim
+object, which you will create now. The request itself includes a {{<
+glossary_tooltip term_id="cel" >}} expression that will accept any GPU
+advertising over 10Gi memory capacity by a `gpu.example.com` driver. Note that
+the name of the claim is set to `some-gpu`.
 
 {{% code_sample language="yaml" file="dra/driver-install/example/resourceclaim.yaml" %}}
 
@@ -306,129 +323,131 @@ kubectl apply --server-side -f https://k8s.io/examples/dra/driver-install/exampl
 
 ### Explore the DRA state
 
-The cluster now tries to schedule that Pod to a node where Kubernetes can  
+The cluster now tries to schedule that Pod to a node where Kubernetes can
 satisfy the ResourceClaim. In our situation, the DRA driver is deployed on all
 nodes, and is advertising mock GPUs on all nodes, all of which have enough
 capacity advertised to satisfy the Pod's claim, so this Pod may be scheduled to
-any node and any of the mock GPUs on that node may be allocated. The mock GPU
-driver injects environment variables in each container it is allocated to in
-order to indicate which GPUs _would_ have been injected into them by a real
-resource driver and how they would have been configured, so you can check those
-environment variables to see how the Pods have been handled by the system.
+any node and any of the mock GPUs on that node may be allocated.
+
+The mock GPU driver injects environment variables in each container it is
+allocated to in order to indicate which GPUs _would_ have been injected into
+them by a real resource driver and how they would have been configured, so you
+can check those environment variables to see how the Pods have been handled by
+the system.
 
 1. Confirm the pod has deployed:
 
-```shell
-kubectl get pod pod0 -n dra-tutorial
-```
+  ```shell
+  kubectl get pod pod0 -n dra-tutorial
+  ```
 
-The output is similar to this:
-```
-NAME   READY   STATUS    RESTARTS   AGE
-pod0   1/1     Running   0          9s
-```
+  The output is similar to this:
+  ```
+  NAME   READY   STATUS    RESTARTS   AGE
+  pod0   1/1     Running   0          9s
+  ```
 
 1. Observe the pod logs which report the name of the mock GPU allocated:
 
-```shell
-kubectl logs pod0 -c ctr0 -n dra-tutorial | grep -E "GPU_DEVICE_[0-9]+=" | grep -v "RESOURCE_CLAIM"
-```
+  ```shell
+  kubectl logs pod0 -c ctr0 -n dra-tutorial | grep -E "GPU_DEVICE_[0-9]+=" | grep -v "RESOURCE_CLAIM"
+  ```
 
-The output is similar to this:
-```
-declare -x GPU_DEVICE_4="gpu-4"
-```
+  The output is similar to this:
+  ```
+  declare -x GPU_DEVICE_4="gpu-4"
+  ```
 
 1. Observe the ResourceClaim object:
 
-You can observe the ResourceClaim more closely, first only to see its state
-is allocated and reserved.
+  You can observe the ResourceClaim more closely, first only to see its state
+  is allocated and reserved.
 
-```shell
-kubectl get resourceclaims -n dra-tutorial
-```
+  ```shell
+  kubectl get resourceclaims -n dra-tutorial
+  ```
 
-The output is similar to this:
+  The output is similar to this:
 
-```
-NAME       STATE                AGE
-some-gpu   allocated,reserved   34s
-```
+  ```
+  NAME       STATE                AGE
+  some-gpu   allocated,reserved   34s
+  ```
 
-Looking deeper at the `some-gpu` ResourceClaim, you can see that the status stanza includes information about the
-device that has been allocated and for what pod it has been reserved for:
+  Looking deeper at the `some-gpu` ResourceClaim, you can see that the status stanza includes information about the
+  device that has been allocated and for what pod it has been reserved for:
 
-```shell
-kubectl get resourceclaim some-gpu -n dra-tutorial -o yaml
-```
+  ```shell
+  kubectl get resourceclaim some-gpu -n dra-tutorial -o yaml
+  ```
 
-The output is similar to this:
-```yaml
-apiVersion: v1
-items:
-- apiVersion: resource.k8s.io/v1beta2
-  kind: ResourceClaim
-  metadata:
-    creationTimestamp: "2025-07-29T05:11:52Z"
-    finalizers:
-    - resource.kubernetes.io/delete-protection
-    name: some-gpu
-    namespace: dra-tutorial
-    resourceVersion: "58357"
-    uid: 79e1e8d8-7e53-4362-aad1-eca97678339e
-  spec:
-    devices:
-      requests:
-      - exactly:
-          allocationMode: ExactCount
-          count: 1
-          deviceClassName: gpu.example.com
-          selectors:
-          - cel:
-              expression: device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi'))
-                >= 0
-        name: some-gpu
-  status:
-    allocation:
+  The output is similar to this:
+  {{< highlight yaml "linenos=inline, hl_lines=30-33 41-44, style=emacs" >}}
+  apiVersion: v1
+  items:
+  - apiVersion: resource.k8s.io/v1beta2
+    kind: ResourceClaim
+    metadata:
+      creationTimestamp: "2025-07-29T05:11:52Z"
+      finalizers:
+      - resource.kubernetes.io/delete-protection
+      name: some-gpu
+      namespace: dra-tutorial
+      resourceVersion: "58357"
+      uid: 79e1e8d8-7e53-4362-aad1-eca97678339e
+    spec:
       devices:
-        results:
-        - adminAccess: null
-          device: gpu-4
-          driver: gpu.example.com
-          pool: kind-worker
-          request: some-gpu
-      nodeSelector:
-        nodeSelectorTerms:
-        - matchFields:
-          - key: metadata.name
-            operator: In
-            values:
-            - kind-worker
-    reservedFor:
-    - name: pod0
-      resource: pods
-      uid: fa55b59b-d28d-4f7d-9e5b-ef4c8476dff5
-kind: List
-metadata:
-  resourceVersion: ""
-```
+        requests:
+        - exactly:
+            allocationMode: ExactCount
+            count: 1
+            deviceClassName: gpu.example.com
+            selectors:
+            - cel:
+                expression: device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi'))
+                  >= 0
+          name: some-gpu
+    status:
+      allocation:
+        devices:
+          results:
+          - adminAccess: null
+            device: gpu-4
+            driver: gpu.example.com
+            pool: kind-worker
+            request: some-gpu
+        nodeSelector:
+          nodeSelectorTerms:
+          - matchFields:
+            - key: metadata.name
+              operator: In
+              values:
+              - kind-worker
+      reservedFor:
+      - name: pod0
+        resource: pods
+        uid: fa55b59b-d28d-4f7d-9e5b-ef4c8476dff5
+  kind: List
+  metadata:
+    resourceVersion: ""
+  {{< /highlight >}}
 
 1. Observe the driver by checking the pod logs for pods backing the driver
    daemonset:
 
-```shell
-kubectl logs -l app.kubernetes.io/name=dra-example-driver -n dra-tutorial
-```
+  ```shell
+  kubectl logs -l app.kubernetes.io/name=dra-example-driver -n dra-tutorial
+  ```
 
-The output is similar to this:
-```
-I0729 05:11:52.679057       1 driver.go:84] NodePrepareResource is called: number of claims: 1
-I0729 05:11:52.684450       1 driver.go:112] Returning newly prepared devices for claim '79e1e8d8-7e53-4362-aad1-eca97678339e': [&Device{RequestNames:[some-gpu],PoolName:kind-worker,DeviceName:gpu-4,CDIDeviceIDs:[k8s.gpu.example.com/gpu=common k8s.gpu.example.com/gpu=79e1e8d8-7e53-4362-aad1-eca97678339e-gpu-4],}]
-```
+  The output is similar to this:
+  ```
+  I0729 05:11:52.679057       1 driver.go:84] NodePrepareResource is called: number of claims: 1
+  I0729 05:11:52.684450       1 driver.go:112] Returning newly prepared devices for claim '79e1e8d8-7e53-4362-aad1-eca97678339e': [&Device{RequestNames:[some-gpu],PoolName:kind-worker,DeviceName:gpu-4,CDIDeviceIDs:[k8s.gpu.example.com/gpu=common k8s.gpu.example.com/gpu=79e1e8d8-7e53-4362-aad1-eca97678339e-gpu-4],}]
+  ```
 
-You have now successfully deployed a Pod with a DRA based claim, and seen it
-scheduled to an appropriate node and the associated DRA APIs updated to reflect
-its status.
+  You have now successfully deployed a Pod with a DRA based claim, and seen it
+  scheduled to an appropriate node and the associated DRA APIs updated to reflect
+  its status.
 
 ## Remove the Pod with a claim
 
@@ -438,45 +457,45 @@ pod with a claim and seeing that the state of the ResourceClaim changes.
 
 ###  Delete the pod using the resource claim
 
-1. Use `kubectl` to delete the pod directly:
+1. Delete the pod directly:
 
-```shell
-kubectl delete pod pod0 -n dra-tutorial
-```
+  ```shell
+  kubectl delete pod pod0 -n dra-tutorial
+  ```
 
-The output is similar to this:
+  The output is similar to this:
 
-```
-pod "pod0" deleted
-```
+  ```
+  pod "pod0" deleted
+  ```
 
 ### Observe the DRA state
 
 The driver will deallocate the hardware and update the corresponding
 ResourceClaim resource that previously held the association.
 
-1. Use `kubectl` to check the ResourceClaim is now pending:
+1. Check the ResourceClaim is now pending:
 
-```shell
-kubectl get resourceclaims -n dra-tutorial
-```
+  ```shell
+  kubectl get resourceclaims -n dra-tutorial
+  ```
 
-The output is similar to this:
-```
-NAME       STATE     AGE
-some-gpu   pending   76s
-```
+  The output is similar to this:
+  ```
+  NAME       STATE     AGE
+  some-gpu   pending   76s
+  ```
 
 1. Observe the driver logs and see that it processed unpreparing the device for
    this claim:
 
-```shell
-kubectl logs -l app.kubernetes.io/name=dra-example-driver -n dra-tutorial
-```
-The output is similar to this:
-```
-I0729 05:13:02.144623       1 driver.go:117] NodeUnPrepareResource is called: number of claims: 1
-```
+  ```shell
+  kubectl logs -l app.kubernetes.io/name=dra-example-driver -n dra-tutorial
+  ```
+  The output is similar to this:
+  ```
+  I0729 05:13:02.144623       1 driver.go:117] NodeUnPrepareResource is called: number of claims: 1
+  ```
 
 You have now deleted a Pod that had a claim, and observed that the driver took
 action to unprepare the underlying hardware resource and update the DRA APIs to
