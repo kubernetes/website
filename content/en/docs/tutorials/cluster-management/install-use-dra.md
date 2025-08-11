@@ -93,14 +93,7 @@ To enable the DRA feature, you must enable the following feature gates and API g
 With no driver installed or Pod claims yet to satisfy, you can observe the
 initial state of a cluster with DRA enabled.
 
-### Check the DeviceClasses in your cluster
-
-The {{< glossary_tooltip text="DeviceClass" term_id="deviceclass" >}} resources
-represent a centralized list of the device classes known to the cluster, each
-managed by a uniquely named DRA driver. If you set up a new test cluster for
-this tutorial, there should be no DeviceClasses.
-
-1. Check the DeviceClasses:
+1. Get a list of {{< glossary_tooltip text="DeviceClasses" term_id="deviceclass" >}}:
 
   ```shell
   kubectl get deviceclasses
@@ -110,28 +103,11 @@ this tutorial, there should be no DeviceClasses.
   No resources found
   ```
 
-### Check the ResourceSlices in your cluster
+  These resources represent a centralized list of the device classes known to
+  the cluster, each managed by a uniquely named DRA driver. If you set up a new
+  test cluster for this tutorial, there should be no DeviceClasses.
 
-A {{< glossary_tooltip text="ResourceSlice" term_id="resourceslice" >}} is a
-partial list of the {{< glossary_tooltip text="infrastructure resources"
-term_id="infrastructure-resource" >}} that are potentially available to use from
-Nodes. The collection of all ResourcesSlices in the cluster make up the entire
-set of devices available for dynamic assignment. Some infrastructure resource
-types (such as CPU and memory) are handled through other mechanisms (like [CPU
-limits and requests](docs/tasks/configure-pod-container/assign-cpu-resource/)),
-so they won't appear in the ResourceSlices. Storage (as in files and block
-devices) has its own management mechanism too; see
-[Storage](/docs/concepts/storage/volumes) elsewhere in the documentation.
-
-ResourceSlices can represent existing allocated infrastructure, but they can
-also represent an offer to provide infrastructure. For example, a specialized
-driver can offer a neural networking accelerator ResourceSlice, even though none
-of the nodes in the cluster have that kind of accelerator currently attached.
-
-If you set up a new blank cluster for this tutorial, it's normal to find that there
-are no ResourceSlices advertised.
-
-1. Check the ResourceSlices:
+2. Get a list of  {{< glossary_tooltip text="ResourceSlices" term_id="resourceslice" >}}:
 
   ```shell
   kubectl get resourceslices
@@ -141,16 +117,28 @@ are no ResourceSlices advertised.
   No resources found
   ```
 
-### View existing ResourceClaims and ResourceClaimTemplates  
+  ResourceSlices represent a partial list of {{< glossary_tooltip
+  text="infrastructure resources" term_id="infrastructure-resource" >}} that are
+  potentially available to use from Nodes. The collection of all ResourcesSlices
+  in the cluster make up the entire set of devices available for dynamic
+  assignment. Some infrastructure resource types (such as CPU and memory) are
+  handled through other mechanisms (like [CPU limits and
+  requests](docs/tasks/configure-pod-container/assign-cpu-resource/)), so they
+  won't appear in the ResourceSlices. Storage (as in files and block devices) has
+  its own management mechanism too; see [Storage](/docs/concepts/storage/volumes)
+  elsewhere in the documentation.
 
-{{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} and {{<
+  ResourceSlices can represent existing allocated infrastructure, but they can
+  also represent an offer to provide infrastructure. For example, a specialized
+  driver can offer a neural networking accelerator ResourceSlice, even though none
+  of the nodes in the cluster have that kind of accelerator currently attached.
+
+  If you set up a new blank cluster for this tutorial, it's normal to find that there
+  are no ResourceSlices advertised.
+
+1. View {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} and {{<
 glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate"
->}} are user-defined objects that encapsulate the requests or requirements of
-Pods for different types of specialized devices. These are further described
-later, but you can see for now that there are no such objects stored yet as you,
-the user, have not created any.
-
-1. Check the ResourceClaims and ResourceClaimTemplates:
+>}}
 
   ```shell
   kubectl get resourceclaims -A
@@ -162,9 +150,16 @@ the user, have not created any.
   No resources found
   ```
 
-At this point, you have confirmed that DRA is enabled and configured properly in
-the cluster, and that no DRA drivers have advertised any resources to the DRA
-APIs yet.
+  {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} and {{<
+  glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate"
+  >}} are user-defined objects that encapsulate the requests or requirements of
+  Pods for different types of specialized devices. These are further described
+  later, but you can see for now that there are no such objects stored yet as you,
+  the user, have not created any.
+
+  At this point, you have confirmed that DRA is enabled and configured properly in
+  the cluster, and that no DRA drivers have advertised any resources to the DRA
+  APIs yet.
 
 ## Install an example DRA driver {#install-example-driver}  
 
