@@ -103,9 +103,9 @@ initial state of a cluster with DRA enabled.
   No resources found
   ```
 
-  These resources represent a centralized list of the device classes known to
-  the cluster, each managed by a uniquely named DRA driver. If you set up a new
-  test cluster for this tutorial, there should be no DeviceClasses.
+  If you set up a new blank cluster for this tutorial, it's normal to find that
+  there are no DeviceClasses. [Learn more about DeviceClasses
+  here.](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass)
 
 2. Get a list of  {{< glossary_tooltip text="ResourceSlices" term_id="resourceslice" >}}:
 
@@ -117,24 +117,9 @@ initial state of a cluster with DRA enabled.
   No resources found
   ```
 
-  ResourceSlices represent a partial list of {{< glossary_tooltip
-  text="infrastructure resources" term_id="infrastructure-resource" >}} that are
-  potentially available to use from Nodes. The collection of all ResourcesSlices
-  in the cluster make up the entire set of devices available for dynamic
-  assignment. Some infrastructure resource types (such as CPU and memory) are
-  handled through other mechanisms (like [CPU limits and
-  requests](docs/tasks/configure-pod-container/assign-cpu-resource/)), so they
-  won't appear in the ResourceSlices. Storage (as in files and block devices) has
-  its own management mechanism too; see [Storage](/docs/concepts/storage/volumes)
-  elsewhere in the documentation.
-
-  ResourceSlices can represent existing allocated infrastructure, but they can
-  also represent an offer to provide infrastructure. For example, a specialized
-  driver can offer a neural networking accelerator ResourceSlice, even though none
-  of the nodes in the cluster have that kind of accelerator currently attached.
-
-  If you set up a new blank cluster for this tutorial, it's normal to find that there
-  are no ResourceSlices advertised.
+  If you set up a new blank cluster for this tutorial, it's normal to find that
+  there are no ResourceSlices advertised. [Learn mroe about ResourceSlices
+  here.](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceslice)
 
 1. View {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} and {{<
 glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate"
@@ -150,16 +135,15 @@ glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate"
   No resources found
   ```
 
-  {{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} and {{<
-  glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate"
-  >}} are user-defined objects that encapsulate the requests or requirements of
-  Pods for different types of specialized devices. These are further described
-  later, but you can see for now that there are no such objects stored yet as you,
-  the user, have not created any.
+  If you set up a new blank cluster for this tutorial, it's normal to find that
+  there are no ResourceClaims or ResourceClaimTemplates as you, the user, have
+  not created any. [Learn more about ResourceClaims and ResourceClaimTemplates
+  here.](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaims-templates)
 
-  At this point, you have confirmed that DRA is enabled and configured properly in
-  the cluster, and that no DRA drivers have advertised any resources to the DRA
-  APIs yet.
+
+At this point, you have confirmed that DRA is enabled and configured properly in
+the cluster, and that no DRA drivers have advertised any resources to the DRA
+APIs yet.
 
 ## Install an example DRA driver {#install-example-driver}  
 
