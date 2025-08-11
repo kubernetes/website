@@ -29,7 +29,7 @@ Para clusters em produção, considere _não_ utilizar o namespace `default`. Em
 O Kubernetes é inicializado com quatro namespaces:
 
 `default`
-: O namespace padrão para objetos sem namespace
+: O Kubernetes inclui esse namespace para que você possa começar a usar seu novo cluster sem precisar criar um namespace primeiro.
 
 `kube-node-lease`
 : Este namespace contém os objetos de [Lease](/docs/concepts/architecture/leases/) associados com cada node. Node leases permitem que o kubelet envie [heartbeats](/docs/concepts/architecture/nodes/#node-heartbeats) para que a camada de gerenciamento detecte falhas nos nodes.
@@ -116,9 +116,8 @@ kubectl api-resources --namespaced=false
 
 {{< feature-state for_k8s_version="1.22" state="stable" >}}
 
-A camada de gerenciamento Kubernetes configura um {{< glossary_tooltip text="label" term_id="label" >}} imutável `kubernetes.io/metadata.name` em todos os namespaces se a 
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`NamespaceDefaultLabelName` estiver habilitada. O valor do label é o nome do namespace.
+A camada de gerenciamento Kubernetes configura um {{< glossary_tooltip text="label" term_id="label" >}} imutável `kubernetes.io/metadata.name` em todos os namespaces. 
+O valor do label é o nome do namespace.
 
 ## {{% heading "whatsnext" %}}
 
