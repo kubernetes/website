@@ -59,7 +59,7 @@ O controlador Job não executa nenhum Pod ou container
 ele próprio. Em vez disso, o controlador Job informa o servidor de API para criar ou remover
 Pods.
 Outros componentes no
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+{{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}}
 atuam na nova informação (existem novos Pods para serem agendados e executados),
 e eventualmente o trabalho é feito.
 
@@ -97,7 +97,7 @@ seu estado desejado, e então relata o estado atual de volta ao servidor de API 
 Outros ciclos de controle podem observar esses dados relatados e tomar suas próprias ações.
 
 No exemplo do termostato, se a sala estiver muito fria, então um controlador diferente
-pode também ligar um aquecedor de proteção contra geada. Com clusters Kubernetes, o control plane
+pode também ligar um aquecedor de proteção contra geada. Com clusters Kubernetes, a camada de gerenciamento
 indiretamente trabalha com ferramentas de gerenciamento de endereços IP, serviços de armazenamento,
 APIs de provedores de nuvem, e outros serviços através de
 [estender o Kubernetes](/docs/concepts/extend-kubernetes/) para implementar isso.
@@ -147,10 +147,10 @@ controladores embutidos fornecem comportamentos centrais importantes.
 
 O controlador Deployment e o controlador Job são exemplos de controladores que
 vêm como parte do próprio Kubernetes (controladores "embutidos").
-O Kubernetes permite que você execute um control plane resiliente, para que se qualquer
-um dos controladores embutidos falhar, outra parte do control plane assumirá o trabalho.
+O Kubernetes permite que você execute uma camada de gerenciamento resiliente, para que se qualquer
+um dos controladores embutidos falhar, outra parte da camada de gerenciamento assumirá o trabalho.
 
-Você pode encontrar controladores que executam fora do control plane, para estender o Kubernetes.
+Você pode encontrar controladores que executam fora da camada de gerenciamento, para estender o Kubernetes.
 Ou, se quiser, pode escrever um novo controlador você mesmo.
 Você pode executar seu próprio controlador como um conjunto de Pods,
 ou externamente ao Kubernetes. O que se encaixa melhor dependerá do que esse
@@ -158,7 +158,7 @@ controlador particular faz.
 
 ## {{% heading "whatsnext" %}}
 
-- Leia sobre o [control plane do Kubernetes](/docs/concepts/architecture/#control-plane-components)
+- Leia sobre a [camada de gerenciamento do Kubernetes](/docs/concepts/architecture/#control-plane-components)
 - Descubra alguns dos [objetos Kubernetes](/docs/concepts/overview/working-with-objects/) básicos
 - Saiba mais sobre a [API do Kubernetes](/docs/concepts/overview/kubernetes-api/)
 - Se quiser escrever seu próprio controlador, veja
