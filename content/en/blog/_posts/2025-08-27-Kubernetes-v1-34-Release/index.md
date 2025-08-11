@@ -1,6 +1,6 @@
 ---  
 layout: blog  
-title: 'Kubernetes v1.34: <Release Name>'  
+title: 'Kubernetes v1.34: RELEASE NAME'  
 date: 2025-08-27T10:30:00-08:00
 draft: true
 evergreen: true
