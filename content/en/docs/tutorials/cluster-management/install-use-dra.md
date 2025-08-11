@@ -14,6 +14,22 @@ text="DRA" >}} drivers in your cluster and how to use them in conjunction with
 the DRA APIs to allocate {{< glossary_tooltip text="devices" term_id="device"
 >}} to Pods. This page is intended for cluster administrators.
 
+{{< glossary_tooltip text="Dynamic Resource Allocation (DRA)" term_id="dra" >}}
+is a Kubernetes feature that allows a cluster to manage availability and
+allocation of hardware resources to satisfy Pod-based claims for hardware
+requirements and preferences (see the [DRA Concept
+page](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) for more
+background). To support this, a mixture of Kubernetes built-in components (like
+the Kubernetes scheduler, kubelet, and kube-controller-manager) and third-party
+components (called DRA drivers) share the responsibility to advertise, allocate,
+prepare, mount, healthcheck, unprepare, and cleanup resources throughout the Pod
+lifecycle. These components share information via a series of DRA specific APIs
+in the `resource.k8s.io` API group, including {{< glossary_tooltip
+text="DeviceClasses" term_id="deviceclass" >}}, {{< glossary_tooltip
+text="ResourceSlices" term_id="resourceslice" >}}, {{< glossary_tooltip
+text="ResourceClaims" term_id="resourceclaim" >}}, as well as new fields in the
+Pod spec itself.
+
 <!-- objectives -->
 
 ### {{% heading "objectives" %}}
@@ -54,24 +70,8 @@ To enable the DRA feature, you must enable the following feature gates and API g
     For more information, see
     [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
 
+
 <!-- lessoncontent -->
-
-## {{% heading "synopsis" %}}  
-
-{{< glossary_tooltip
-text="Dynamic Resource Allocation (DRA)" term_id="dra" >}} is a Kubernetes feature that allows a cluster
-to manage availability and allocation of hardware resources to satisfy Pod-based
-claims for hardware requirements and preferences (see the [DRA Concept page](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) for more background). To support this, a mixture of
-Kubernetes built-in components (like the Kubernetes scheduler, kubelet, and
-kube-controller-manager) and third-party components (called DRA drivers) share
-the responsibility to advertise, allocate, prepare, mount, healthcheck,
-unprepare, and cleanup resources throughout the Pod lifecycle. These components
-share information via a series of DRA specific APIs in the
-`resource.k8s.io` API group, including {{< glossary_tooltip
-text="DeviceClasses" term_id="deviceclass" >}}, {{< glossary_tooltip
-text="ResourceSlices" term_id="resourceslice" >}}, {{<
-glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}, as well as
-new fields in the Pod spec itself.
 
 ## Explore the DRA initial state
 
