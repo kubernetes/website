@@ -9,7 +9,7 @@ min-kubernetes-server-version: v1.32
 
 
 <!-- overview -->
-This tutorial show you how to install {{< glossary_tooltip term_id="dra"
+This tutorial shows you how to install {{< glossary_tooltip term_id="dra"
 text="DRA" >}} drivers in your cluster and how to use them in conjunction with
 the DRA APIs to allocate {{< glossary_tooltip text="devices" term_id="device"
 >}} to Pods. This page is intended for cluster administrators.
@@ -97,12 +97,12 @@ DeviceClasses.
 
 ### Check the ResourceSlices in your cluster
 
-A ResourceSlice is a partial list of the {{< glossary_tooltip
-text="infrastructure resources" term_id="infrastructure-resource" >}} that are
-potentially available to use from Nodes. The collection of all ResourcesSlices
-in the cluster make up the entire set of devices available. Some infrastructure
-resource types (such as CPU and memory) are handled through other mechanisms
-(like [CPU limits and
+A {{< api-reference page="extend-resources/resourceslice-v1beta2" >}} is a
+partial list of the {{< glossary_tooltip text="infrastructure resources"
+term_id="infrastructure-resource" >}} that are potentially available to use from
+Nodes. The collection of all ResourcesSlices in the cluster make up the entire
+set of devices available. Some infrastructure resource types (such as CPU and
+memory) are handled through other mechanisms (like [CPU limits and
 requests](docs/tasks/configure-pod-container/assign-cpu-resource/)), so they
 won't appear in the ResourceSlices. Storage (as in files and block devices) has
 its own management mechanism too; see [Storage](/docs/concepts/storage/volumes)
@@ -128,10 +128,12 @@ are no ResourceSlices advertised.
 
 ### View existing ResourceClaims and ResourceClaimTemplates  
 
-ResourceClaim and ResourceClaimTemplate resources contain user-defined objects
-that encapsulate the requests or requirements of Pods for different types of
-specialized devices. These are further described later, but you can see for now
-that there are no such objects stored yet as you, the user, have not created any.
+{{< api-reference page="extend-resources/resourceclaim-v1beta2" >}} and {{<
+api-reference page="extend-resources/resourceclaimtemplate-v1beta2" >}}
+resources contain user-defined objects that encapsulate the requests or
+requirements of Pods for different types of specialized devices. These are
+further described later, but you can see for now that there are no such objects
+stored yet as you, the user, have not created any.
 
 1. Check the ResourceClaims and ResourceClaimTemplates:
 
