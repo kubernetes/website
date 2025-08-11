@@ -285,7 +285,7 @@ Pods.
 
 To request resources using DRA, you create ResourceClaims or
 ResourceClaimTemplates that define the resources that your Pods need. In the
-example driver, a `capacity.memory` attribute is exposed for mock GPU devices.
+example driver, a memory capacity attribute is exposed for mock GPU devices.
 This section shows you how to use {{< glossary_tooltip term_id="cel" >}} to
 express your requirements in a ResourceClaim, select that ResourceClaim in a Pod
 specification, and observe the resource allocation.
@@ -298,10 +298,16 @@ learn more about ResourceClaims.
 ### Create the ResourceClaim
 
 The Pod manifest itself will include a reference to its relevant ResourceClaim
-object, which you will create now. The request itself includes a {{<
-glossary_tooltip term_id="cel" >}} expression that will accept any GPU
-advertising over 10Gi memory capacity by a `gpu.example.com` driver. Note that
-the name of the claim is set to `some-gpu`.
+object, which you will create now. Whatever the claim, the `deviceClassName` is
+a required field, narrowing down the scope of the request to a specific device
+class. The request itself can include a {{< glossary_tooltip term_id="cel" >}}
+expression that references attributes that may be advertised by the driver
+managing that device class. 
+
+In this example, you will create a request for any GPU advertising over 10Gi
+memory capacity. The attribute exposing capacity from the example driver takes
+the form `device.capacity['gpu.example.com'].memory`. Note also that the name of
+the claim is set to `some-gpu`.
 
 {{% code_sample language="yaml" file="dra/driver-install/example/resourceclaim.yaml" %}}
 
