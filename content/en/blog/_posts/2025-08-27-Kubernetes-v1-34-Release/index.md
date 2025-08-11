@@ -1,12 +1,12 @@
 ---  
-layout: blog  
-title: 'Kubernetes v1.34: RELEASE NAME'  
+layout: blog
+title: 'Kubernetes v1.34: RELEASE NAME'
 date: 2025-08-27T10:30:00-08:00
 draft: true
 evergreen: true
 slug: kubernetes-v1-34-release
-author: >  
-  [Kubernetes v1.34 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.34/release-team.md)  
+author: >
+  [Kubernetes v1.34 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.34/release-team.md)
 ---
 
 **Editors:** Agustina Barbetta, Alejandro Josue Leon Bellido, Graziano Casto, Melony Qin, Dipesh Rawat
