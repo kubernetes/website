@@ -285,9 +285,10 @@ based on the proportion of the memory requested relative to the node's total mem
 
 This design means that usually there would be some portion of swap that will remain
 restricted for Kubernetes workloads.
-For example, since Guaranteed QoS pods are currently not permitted to use swap,
-the amount of swap that's proportional to the memory request will remain unused
-by Kubernetes workloads.
+For example, since Kubernetes {{< skew currentVersion >}} does not permit swap use for
+Pods in the Guaranteed {{< glossary_tooltip text="QoS class" term_id="qos-class" >}},
+the amount of swap that's proportional to the memory request for Guaranteed pods would
+remain unused by Kubernetes workloads.
 
 This behavior carries some risk in a situation where many pods are not eligible for swapping.
 On the other hand, it effectively keeps some system-reserved amount of swap memory that can be used by processes
