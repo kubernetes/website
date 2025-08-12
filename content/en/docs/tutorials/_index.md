@@ -57,6 +57,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 ## Cluster Management
 
+* [Configuring Swap Memory on Kubernetes Nodes](/docs/tutorials/cluster-management/provision-swap-memory/)
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 
 ## {{% heading "whatsnext" %}}
