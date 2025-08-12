@@ -8,20 +8,20 @@ author: >
   The DRA team
 ---
 
-Kubernetes 1.34 is here, and it brings a huge wave of enhancements for Dynamic Resource Allocation (DRA)! This
+[Kubernetes 1.34](XXXXX) is here, and it brings a huge wave of enhancements for Dynamic Resource Allocation (DRA)! This
 release marks a major milestone with the Structured Parameters feature graduating to General Availability (GA),
 unlocking the full potential of how you manage devices on Kubernetes. On top of that, several key features have
 moved to beta, and a fresh batch of new alpha features promise even more expressiveness and flexibility.
 
 Let's dive into what's new for DRA in Kubernetes 1.34!
 
-### Structured Parameters is Now GA
+## Structured Parameters is now GA
 The headline feature of the v1.34 release is that the core of DRA has graduated to General Availability.
 
-Kubernetes Dynamic Resource Allocation (DRA) provides a flexible framework for managing specialized hardware
-and infrastructure resources, such as GPUs or FPGAs. DRA provides APIs that enable each workload to specify the properties of the
-devices it needs, but leaving it to the scheduler to allocate actual devices, allowing increased reliability and
-improved utilization of expensive hardware.
+Kubernetes [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) provides
+a flexible framework for managing specialized hardware and infrastructure resources, such as GPUs or FPGAs. DRA
+provides APIs that enable each workload to specify the properties of the devices it needs, but leaving it to the
+scheduler to allocate actual devices, allowing increased reliability and improved utilization of expensive hardware.
 
 With the graduation to GA, DRA is stable and will be part of Kubernetes for the long run. The community can still
 expect a steady stream of new features being added to DRA over the next several Kubernetes releases, but they will
@@ -31,7 +31,7 @@ Starting with Kubernetes 1.34, DRA is enabled by default; DRA features that have
 That's because the default API version for DRA is now the stable `v1` version, and not the earlier versions
 (eg: `v1beta1` or `v1beta2`) that needed explicit opt in.
 
-### Features promoted to beta
+## Features promoted to beta
 Several powerful features have been promoted to beta, adding more control, flexibility, and observability to resource
 management with DRA.
 
@@ -52,7 +52,7 @@ The kubelet's API has been updated to report on Pod resources allocated through 
 to know the allocated DRA resources for Pods on a node and makes it possible to use the DRA information in the PodResources API
 to develop new features and integrations.
 
-### New alpha features
+## New alpha features
 Kubernetes 1.34 also introduces several new alpha features that give us a glimpse into the future of resource management with DRA.
 
 [Extended resource mapping](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource) support in DRA allows
@@ -77,19 +77,26 @@ Resource Health Status for DRA improves observability by exposing the health sta
 This works whether the device is allocated through DRA or Device Plugin. This makes it easier to understand the cause of an
 unhealthy device and respond properly.
 
-### What’s next?
+## What’s next?
 
 While DRA got promoted to GA this cycle, the hard work on DRA doesn't stop. There are several features in alpha and beta that
 we plan to bring to GA in the next couple of releases and we are looking to continue to improve performance, scalability
 and reliability of DRA. So expect an equally ambitious set of features in DRA for 1.35.
 
-### Getting involved
+## Getting involved
 
 A good starting point is joining the WG Device Management [Slack channel](https://kubernetes.slack.com/archives/C0409NGC1TK) and [meetings](https://docs.google.com/document/d/1qxI87VqGtgN7EAJlqVfxx86HGKEAc2A3SKru8nJHNkQ/edit?tab=t.0#heading=h.tgg8gganowxq), which happen at US/EU and EU/APAC friendly time slots.
 
 Not all enhancement ideas are tracked as issues yet, so come talk to us if you want to help or have some ideas yourself! We have work to do at all levels, from difficult core changes to usability enhancements in kubectl, which could be picked up by newcomers.
 
-### Acknowledgments
+## Acknowledgments
 
 A huge thanks to the new contributors to DRA this cycle:
-* TODO
+* Alay Patel ([alaypatel07](https://github.com/alaypatel07))
+* Gaurav Kumar Ghildiyal ([gauravkghildiyal](https://github.com/gauravkghildiyal))
+* JP ([Jpsassine](https://github.com/Jpsassine))
+* Kobayashi Daisuke ([KobayashiD27](https://github.com/KobayashiD27))
+* Laura Lorenz ([lauralorenz](https://github.com/lauralorenz))
+* Sunyanan Choochotkaew ([sunya-ch](https://github.com/sunya-ch))
+* Swati Gupta ([guptaNswati](https://github.com/guptaNswati))
+* Yu Liao ([yliaog](https://github.com/yliaog))
