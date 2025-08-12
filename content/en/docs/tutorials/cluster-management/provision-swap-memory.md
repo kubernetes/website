@@ -119,7 +119,14 @@ In a similar way, using systemd allows your server to leave swap active until ku
 
 ### Set up kubelet configuration
 
-After enabling swap on the node, kubelet needs to be configured in the following way:
+After enabling swap on the node, kubelet needs to be configured to use it.
+You need to select a [swap behavior](/docs/reference/node/swap-behavior/)
+for this node. You'll configure _LimitedSwap_ behavior for this tutorial.
+
+Find and edit the kubelet configuration file, and:
+
+- set `failSwapOn` to false
+- set `memorySwap.swapBehavior` to LimitedSwap
 
 ```yaml
  # this fragment goes into the kubelet's configuration file
@@ -129,3 +136,10 @@ After enabling swap on the node, kubelet needs to be configured in the following
 ```
 
 In order for these configurations to take effect, kubelet needs to be restarted. 
+Typically you do that by running:
+```shell
+systemctl restart kubelet.service
+```
+
+You should find that the kubelet is now healthy, and that you can run Pods
+that use swap memory as needed.
