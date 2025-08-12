@@ -716,7 +716,7 @@ resources:
 images:
 - name: nginx
   newName: my.image.registry/nginx
-  newTag: 1.4.0
+  newTag: "1.4.0"
 EOF
 ```
 사용된 이미지가 갱신되었는지 확인하려면 `kubectl kustomize ./`를 실행한다.
