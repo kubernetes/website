@@ -27,7 +27,7 @@ card:
 {{< note >}}
 어떻게 현지화에 기여하는지에 대한 상세 내용은 이 페이지의 각 언어별 현지화 버전에서 확인할 수 있다. 
 
-한국어의 경우, [쿠버네티스 한글화 가이드](/docs/contribute/localization_ko.md)가 별도로 존재한다.
+한국어의 경우, [쿠버네티스 한글화 가이드](/ko/docs/contribute/localization_ko)가 별도로 존재한다.
 {{< /note >}}
 
 ### 각 언어별 두 자리 코드 찾기
