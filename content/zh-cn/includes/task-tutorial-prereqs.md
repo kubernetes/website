@@ -11,10 +11,12 @@ or you can use one of these Kubernetes playgrounds:
 构建一个你自己的集群，或者你可以使用下面的 Kubernetes 练习环境之一：
 
 <!--
+* [iximiuz Labs](https://labs.iximiuz.com/playgrounds?category=kubernetes&filter=all)
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)
 -->
+* [iximiuz Labs](https://labs.iximiuz.com/playgrounds?category=kubernetes&filter=all)
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [玩转 Kubernetes](https://labs.play-with-k8s.com/)

@@ -10,7 +10,7 @@ Kubernetes cluster.
 
 The Kubernetes project recommends upgrading to the latest patch releases promptly, and
 to ensure that you are running a supported minor release of Kubernetes.
-Following this recommendation helps you to to stay secure.
+Following this recommendation helps you to stay secure.
 
 The way that you upgrade a cluster depends on how you initially deployed it
 and on any subsequent changes.

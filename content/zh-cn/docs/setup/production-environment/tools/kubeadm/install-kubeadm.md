@@ -43,7 +43,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap configuration. The default behavior of a kubelet was to fail to start if swap memory was detected on a node.
-  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
+  See [Swap memory management](/docs/concepts/cluster-administration/swap-memory-management) for more details.
   * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
     will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
     config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
@@ -56,7 +56,7 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
 * 交换分区的配置。kubelet 的默认行为是在节点上检测到交换内存时无法启动。
-  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
+  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/cluster-administration/swap-memory-management)。
   * 如果 kubelet 未被正确配置使用交换分区，则你**必须**禁用交换分区。
     例如，`sudo swapoff -a` 将暂时禁用交换分区。要使此更改在重启后保持不变，请确保在如
     `/etc/fstab`、`systemd.swap` 等配置文件中禁用交换分区，具体取决于你的系统如何配置。
