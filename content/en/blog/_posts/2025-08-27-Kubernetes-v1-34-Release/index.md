@@ -88,7 +88,7 @@ This work was done as part of [KEP \#3331](https://kep.k8s.io/3331) led by SIG A
 
 This feature makes it possible for authorizers, including webhooks and the node authorizer, to make decisions on field and label selectors in incoming requests. When you send **List**, **Watch** or **DeleteCollection** requests with selectors, the authorization layer can now evaluate access with that additional context. 
 
-For example, an authorization policy can now limit a request to list only pods with a specific \``spec.nodeName`\`, or reject requests that attempt to access resources with certain labels. This change supports more granular control in environments like per-node isolation or custom multi-tenant setups.
+For example, an authorization policy can now limit a request to list only pods with a specific `.spec.nodeName`, or reject requests that attempt to access resources with certain labels. This change supports more granular control in environments like per-node isolation or custom multi-tenant setups.
 
 This work was done as part of [KEP \#4601](https://kep.k8s.io/4601) led by SIG Auth.
 
@@ -270,7 +270,7 @@ This enhancement graduated to beta in v1.33 and continues as beta in v1.34, it b
 
 This work was done as part of [KEP \#5073](https://kep.k8s.io/5073) led by SIG API Machinery.
 
-### Streaming Informers for LIST Requests
+### Streaming Informers for `LIST` Requests
 
 The streaming informers feature, which has been in beta since v1.32, gains further beta refinements in v1.34. This capability allows `LIST` requests to return data as a continuous stream of objects from the API server’s watch cache, rather than assembling paged results directly from etcd. By reusing the same mechanics used for `WATCH` operations, the API server can serve large datasets while keeping memory usage steady and avoiding allocation spikes that can affect stability.
 
