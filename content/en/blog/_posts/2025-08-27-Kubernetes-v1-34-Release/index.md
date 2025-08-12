@@ -73,7 +73,7 @@ This work was done as part of [KEP \#1790](https://kep.k8s.io/1790) led by SIG S
 
 ### VolumeAttributesClass for volume modification
 
-[VolumeAttributesClass](https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/) has graduated to stable in v1.34. VolumeAttributesClass is a generic, Kubernetes-native API for modifying volume parameters like provisioned IO. It allows workloads to vertically scale their volumes on-line to balance cost and performance, if supported by their provider.  
+[VolumeAttributesClass](/docs/concepts/storage/volume-attributes-classes/) has graduated to stable in v1.34. VolumeAttributesClass is a generic, Kubernetes-native API for modifying volume parameters like provisioned IO. It allows workloads to vertically scale their volumes on-line to balance cost and performance, if supported by their provider.  
 Like all new volume features in Kubernetes, this API is implemented via the [container storage interface (CSI)](https://kubernetes-csi.github.io/docs/). Your provisioner-specific CSI driver must support the new ModifyVolume API which is the CSI side of this feature.
 
 This work was done as part of [KEP \#3751](https://kep.k8s.io/3751) led by SIG Storage.
@@ -110,7 +110,7 @@ This work was done as part of [KEP \#4247](https://kep.k8s.io/4247) led by SIG S
 
 ### The core of DRA is GA
 
-[Dynamic Resource Allocation](http:///docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.
+[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.
 
 Since the v1.30 release, DRA has been based around claiming devices using *structured parameters* that are opaque to the core of Kubernetes. This enhancement took inspiration from dynamic provisioning for storage volumes. DRA with structured parameters relies on a set of supporting API kinds: ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under `resource.k8s.io`, while extending the `.spec` for Pods with a new `resourceClaims` field.  
 The `resource.k8s.io/v1` APIs have graduated to stable and are now available by default.
@@ -120,7 +120,7 @@ This work was done as part of [KEP \#4381](https://kep.k8s.io/4381) led by WG De
 ### Ordered Namespace deletion
 
 Semi-random resource deletion order can create security gaps or unintended behavior, such as Pods persisting after their associated NetworkPolicies are deleted.  
-This improvement introduces a more structured deletion process for Kubernetes [namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/) to ensure secure and deterministic resource removal. By enforcing a structured deletion sequence that respects logical and security dependencies, this approach ensures Pods are removed before other resources.   
+This improvement introduces a more structured deletion process for Kubernetes [namespaces](/docs/concepts/overview/working-with-objects/namespaces/) to ensure secure and deterministic resource removal. By enforcing a structured deletion sequence that respects logical and security dependencies, this approach ensures Pods are removed before other resources.   
 This feature was introduced in Kubernetes v1.33 and graduated to stable in v1.34, improving security and reliability by mitigating risks from non-deterministic deletions.
 
 This work was done as part of [KEP \#5080](https://kep.k8s.io/5080) led by SIG API Machinery.
@@ -270,10 +270,18 @@ This enhancement graduated to beta in v1.33 and continues as beta in v1.34, it b
 
 This work was done as part of [KEP \#5073](https://kep.k8s.io/5073) led by SIG API Machinery.
 
+### Streaming Informers for LIST Requests
+
+The streaming informers feature, which has been in beta since v1.32, gains further beta refinements in v1.34. This capability allows `LIST` requests to return data as a continuous stream of objects from the API server’s watch cache, rather than assembling paged results directly from etcd. By reusing the same mechanics used for `WATCH` operations, the API server can serve large datasets while keeping memory usage steady and avoiding allocation spikes that can affect stability.
+
+In this release, the `WatchList` feature gate is now enabled by default for the `kube-apiserver`, and `WatchListClient` is enabled by default for `kube-controller-manager`. These changes strengthen integration with informer workflows, reduce memory pressure during large list operations, and improve reliability under sustained load, making `LIST` streaming more predictable and efficient.
+
+This work was done as part of [KEP \#3157](https://kep.k8s.io/3157) led by SIG API Machinery.
+
 ### `PreferSameZone` and `PreferSameNode` traffic distribution for Services
 
-The `spec.trafficDistribution` field within a Kubernetes [Service](https://kubernetes.io/docs/concepts/services-networking/service/) allows users to express preferences for how traffic should be routed to Service endpoints.  
-[KEP-3015](https://github.com/kubernetes/enhancements/issues/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. `PreferSameZone` is an alias for the existing `PreferClose` to clarify its semantics. `PreferSameNode` allows connections to be delivered to a local endpoint when possible, falling back to a remote endpoint when not possible.  
+The `spec.trafficDistribution` field within a Kubernetes [Service](/docs/concepts/services-networking/service/) allows users to express preferences for how traffic should be routed to Service endpoints.  
+[KEP-3015](https://kep.k8s.io/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. `PreferSameZone` is an alias for the existing `PreferClose` to clarify its semantics. `PreferSameNode` allows connections to be delivered to a local endpoint when possible, falling back to a remote endpoint when not possible.  
 This feature was introduced in v1.33 behind the `PreferSameTrafficDistribution` feature gate. It has graduated to beta in v1.34 and is enabled by default. 
 
 This work was done as part of [KEP \#3015](https://kep.k8s.io/3015) led by SIG Network.
@@ -361,7 +369,7 @@ This work was done as part of [KEP \#5075](https://kep.k8s.io/5075) led by WG De
 #### Device binding conditions
 
 The Kubernetes scheduler gets more reliable by delaying binding a Pod to a Node until its required external resources, such as attachable devices or FPGAs, are confirmed to be ready.  
-This delay mechanism is implemented in the [PreBind phase](https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/#pre-bind) of the scheduling framework. During this phase, the scheduler checks whether all required device conditions are satisfied before proceeding with binding. This enables coordination with external device controllers, ensuring more robust, predictable scheduling.
+This delay mechanism is implemented in the [PreBind phase](/docs/concepts/scheduling-eviction/scheduling-framework/#pre-bind) of the scheduling framework. During this phase, the scheduler checks whether all required device conditions are satisfied before proceeding with binding. This enables coordination with external device controllers, ensuring more robust, predictable scheduling.
 
 This work was done as part of [KEP \#5007](https://kep.k8s.io/5007) led by WG Device Management.
 
@@ -380,28 +388,28 @@ This lists all the features that graduated to stable (also known as *general ava
 
 This release includes a total of 23 enhancements promoted to stable:
 
-* [Allow almost all printable ASCII characters in environment variables](https://kep.k8s.io/4369)  
-* [Allow for recreation of pods once fully terminated in the job controller](https://kep.k8s.io/3939)  
-* [Allow zero value for Sleep Action of PreStop Hook](https://kep.k8s.io/4818)  
-* [API Server tracing](https://kep.k8s.io/647)  
-* [AppArmor support](https://kep.k8s.io/24)  
-* [Authorize with Field and Label Selectors](https://kep.k8s.io/4601)  
-* [Consistent Reads from Cache](https://kep.k8s.io/2340)  
-* [Decouple TaintManager from NodeLifecycleController](https://kep.k8s.io/3902)  
-* [Discover cgroup driver from CRI](https://kep.k8s.io/4033)  
-* [DRA: structured parameters](https://kep.k8s.io/4381)  
-* [Introducing Sleep Action for PreStop Hook](https://kep.k8s.io/3960)  
-* [Kubelet OpenTelemetry Tracing](https://kep.k8s.io/2831)  
-* [Kubernetes VolumeAttributesClass ModifyVolume](https://kep.k8s.io/3751)  
-* [Node memory swap support](https://kep.k8s.io/2400)  
-* [Only allow anonymous auth for configured endpoints](https://kep.k8s.io/4633)  
-* [Ordered namespace deletion](https://kep.k8s.io/5080)  
-* [Per-plugin callback functions for accurate requeueing in kube-scheduler](https://kep.k8s.io/4247)  
-* [Relaxed DNS search string validation](https://kep.k8s.io/4427)  
-* [Resilient Watchcache Initialization](https://kep.k8s.io/4568)  
-* [Streaming Encoding for LIST Responses](https://kep.k8s.io/5116)  
-* [Structured Authentication Config](https://kep.k8s.io/3331)  
-* [Support for Direct Service Return (DSR) and overlay networking in Windows kube-proxy](https://kep.k8s.io/5100)  
+* [Allow almost all printable ASCII characters in environment variables](https://kep.k8s.io/4369)
+* [Allow for recreation of pods once fully terminated in the job controller](https://kep.k8s.io/3939)
+* [Allow zero value for Sleep Action of PreStop Hook](https://kep.k8s.io/4818)
+* [API Server tracing](https://kep.k8s.io/647)
+* [AppArmor support](https://kep.k8s.io/24)
+* [Authorize with Field and Label Selectors](https://kep.k8s.io/4601)
+* [Consistent Reads from Cache](https://kep.k8s.io/2340)
+* [Decouple TaintManager from NodeLifecycleController](https://kep.k8s.io/3902)
+* [Discover cgroup driver from CRI](https://kep.k8s.io/4033)
+* [DRA: structured parameters](https://kep.k8s.io/4381)
+* [Introducing Sleep Action for PreStop Hook](https://kep.k8s.io/3960)
+* [Kubelet OpenTelemetry Tracing](https://kep.k8s.io/2831)
+* [Kubernetes VolumeAttributesClass ModifyVolume](https://kep.k8s.io/3751)
+* [Node memory swap support](https://kep.k8s.io/2400)
+* [Only allow anonymous auth for configured endpoints](https://kep.k8s.io/4633)
+* [Ordered namespace deletion](https://kep.k8s.io/5080)
+* [Per-plugin callback functions for accurate requeueing in kube-scheduler](https://kep.k8s.io/4247)
+* [Relaxed DNS search string validation](https://kep.k8s.io/4427)
+* [Resilient Watchcache Initialization](https://kep.k8s.io/4568)
+* [Streaming Encoding for LIST Responses](https://kep.k8s.io/5116)
+* [Structured Authentication Config](https://kep.k8s.io/3331)
+* [Support for Direct Service Return (DSR) and overlay networking in Windows kube-proxy](https://kep.k8s.io/5100)
 * [Support recovery from volume expansion failure](https://kep.k8s.io/1790)
 
 ### Deprecations and removals
@@ -432,7 +440,31 @@ Kubernetes is only possible with the support, commitment, and hard work of its c
 
 Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudNativeCon, KCD, and other notable conferences worldwide. Stay informed and get involved with the Kubernetes community\!
 
-\<TODO PULL EVENTS FROM [https://community.cncf.io/events/\#/list](https://community.cncf.io/events/#/list) \>
+**August 2025**
+
+- [**KCD - Kubernetes Community Days:  Colombia**](https://community.cncf.io/events/details/cncf-kcd-colombia-presents-kcd-colombia-2025/): Aug 28, 2025 | Bogotá, Colombia
+
+**September 2025**
+
+- [**KCD - Kubernetes Community Days: San Francisco Bay Area**](https://community.cncf.io/events/details/cncf-kcd-sf-bay-area-presents-kcd-san-francisco-bay-area/): Sep 9, 2025 | San Francisco, USA
+- [**KCD - Kubernetes Community Days: Washington DC**](https://community.cncf.io/events/details/cncf-kcd-washington-dc-presents-kcd-washington-dc-2025/): Sep 16, 2025 | Washington, D.C., USA
+- [**KCD - Kubernetes Community Days: Sofia**](https://community.cncf.io/events/details/cncf-kcd-sofia-presents-kubernetes-community-days-sofia/): Sep 18, 2025 | Sofia, Bulgaria
+- [**KCD - Kubernetes Community Days: El Salvador**](https://community.cncf.io/events/details/cncf-kcd-el-salvador-presents-kcd-el-salvador/): Sep 20, 2025 | San Salvador, El Salvador
+
+**October 2025**
+
+- [**KCD - Kubernetes Community Days: Warsaw**](https://community.cncf.io/events/details/cncf-kcd-warsaw-presents-kcd-warsaw-2025/): Oct 9, 2025 | Warsaw, Poland
+- [**KCD - Kubernetes Community Days: Edinburgh**](https://community.cncf.io/events/details/cncf-kcd-uk-presents-kubernetes-community-days-uk-edinburgh-2025/): Oct 21, 2025 | Edinburgh, United Kingdom
+- [**KCD - Kubernetes Community Days: Sri Lanka**](https://community.cncf.io/events/details/cncf-kcd-sri-lanka-presents-kcd-sri-lanka-2025/): Oct 26, 2025 | Colombo, Sri Lanka
+
+**November 2025**
+
+- [**KCD - Kubernetes Community Days: Porto**](https://community.cncf.io/events/details/cncf-kcd-porto-presents-kcd-porto-2025/): Nov 3, 2025 | Porto, Portugal
+- [**KubeCon + CloudNativeCon North America 2025**](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/): Nov 10-13, 2025 | Atlanta, USA
+
+**December 2025**
+
+- [**KCD - Kubernetes Community Days: Suisse Romande**](https://community.cncf.io/events/details/cncf-kcd-suisse-romande-presents-kcd-suisse-romande/): Dec 4, 2025 | Geneva, Switzerland
 
 You can find the latest event details [here](https://community.cncf.io/events/#/list).
 
@@ -444,10 +476,10 @@ Join members of the Kubernetes v1.34 Release Team on \<TODO RELEASE WEBINAR DATE
 
 The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
 
-* Follow us on Bluesky [@Kubernetesio](https://bsky.app/profile/kubernetes.io) for the latest updates  
-* Join the community discussion on [Discuss](https://discuss.kubernetes.io/)  
-* Join the community on [Slack](http://slack.k8s.io/)  
-* Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)  
-* Share your Kubernetes [story](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)  
-* Read more about what’s happening with Kubernetes on the [blog](https://kubernetes.io/blog/)  
+* Follow us on Bluesky [@Kubernetesio](https://bsky.app/profile/kubernetes.io) for the latest updates
+* Join the community discussion on [Discuss](https://discuss.kubernetes.io/)
+* Join the community on [Slack](http://slack.k8s.io/)
+* Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
+* Share your Kubernetes [story](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform)
+* Read more about what’s happening with Kubernetes on the [blog](https://kubernetes.io/blog/)
 * Learn more about the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team)
