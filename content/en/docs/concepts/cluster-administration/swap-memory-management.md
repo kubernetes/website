@@ -15,53 +15,17 @@ It also helps prevent Pods from being terminated during memory pressure spikes,
 shields nodes from system-level memory spikes that might compromise its stability,
 allows for more flexible memory management on the node, and much more.
 
+To learn about configuring swap in your cluster, read
+[Configuring swap memory on Kubernetes nodes](/docs/tutorials/configuration/provision-swap-memory/).
+
 <!-- body -->
 
-## How to use it?
+## Operating system support
 
-### Prerequisites
-
-- Swap must be enabled and provisioned on the node.
-- The node must run a Linux operating system.
-- The node must use cgroup v2. Kubernetes does not support swap on cgroup v1 nodes.
-
-## Enabling swap for Kubernetes Workloads
-
-To allow Kubernetes workloads to use swap,
-you must disable the kubelet's default behavior of failing when swap is detected,
-and specify memory-swap behavior as `LimitedSwap`:
-
-**Update kubelet configuration:**
- ```yaml
- # this fragment goes into the kubelet's configuration file
- failSwapOn: false
- memorySwap:
-     swapBehavior: LimitedSwap
-```
-
-The available choices for `swapBehavior` are:
-- `NoSwap` (default): Kubernetes workloads cannot use swap. However, processes
-  outside of Kubernetes' scope, like system daemons (such as kubelet itself!) can utilize swap.
-  This behavior is beneficial for protecting the node from system-level memory spikes,
-  but it does not safeguard the workloads themselves from such spikes.
-- `LimitedSwap`: Kubernetes workloads can utilize swap memory.
-  The amount of swap available to a Pod is determined automatically.
-  For more details, see the [section below](#how-is-the-swap-limit-being-determined-with-limitedswap).
-
-If configuration for `memorySwap` is not specified,
-by default the kubelet will apply the same behaviour as the `NoSwap` setting.
-
-Bear in mind that the following pods would be excluded from swap access
-(see more info in the [section below](#how-is-the-swap-limit-being-determined-with-limitedswap)):
-- Pods that are not classified as Burstable QoS.
-- Pods of High-priority.
-- Containers with memory limit that equals to memory request.
-
-{{< note >}}
-
-Kubernetes only supports swap for Linux nodes.
-
-{{< /note >}}
+* Linux nodes support swap; you need to configure each node to enable it.
+  By default, the kubelet will **not** start on a node that has swap enabled.
+* Windows nodes require swap space.
+  By default, the kubelet will **not** start on a node that has swap disabled.
 
 ## How does it work?
 
@@ -357,7 +321,7 @@ For modern performance needs, a device such as a Solid State Drive (SSD) is prob
 as its low-latency electronic access minimizes the slowdown.
 
 
-## Swap Behavior Details
+## Swap behavior details
 
 ### How is the swap limit being determined with LimitedSwap?
 
@@ -398,6 +362,8 @@ Containers configured in this manner will not have access to swap memory.
 
 ## {{% heading "whatsnext" %}}
 
+- To learn about managing swap on Linux nodes, read
+  [configuring swap memory on Kubernetes nodes](/docs/tutorials/configuration/provision-swap-memory/).
 - You can check out a [blog post about Kubernetes and swap](/blog/2025/03/25/swap-linux-improvements/)
-- For more information, please see the original KEP, [KEP-2400](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2400-node-swap),
+- For background information, please see the original KEP, [KEP-2400](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2400-node-swap),
 and its [design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
