@@ -27,7 +27,7 @@ Kubernetes v1.34 is packed with new features and improvements. Here are a few se
 
 ### Stable: Automated cgroup driver detection
 
-Historically, configuring the correct cgroup driver has been a pain point for users running Kubernetes clusters. This feature instructs the kubelet to ask the CRI implementation which cgroup driver to use. It was introduced in v1.28 and has graduated to stable in v1.34.  
+Historically, configuring the correct cgroup driver has been a pain point for users running Kubernetes clusters. This feature instructs the `kubelet` to ask the CRI implementation which cgroup driver to use. It was introduced in v1.28 and has graduated to stable in v1.34.  
 The `kubelet` command line flag `--cgroup-driver` (and its alternative `cgroupDriver` in KubeletConfiguration) is marked as deprecated and in two releases or later it will be removed. This will make it impossible to use Kubernetes with the containerd 1.X versions. The timeline of this deprecation is aligned with containerd 1.7 EOL. This is an early warning that if you are using containerd 1.X, consider switching to 2.0+ soon.
 
 This work was done as part of [KEP \#4033](https://kep.k8s.io/4033) led by SIG Node.
@@ -94,15 +94,15 @@ This work was done as part of [KEP \#4601](https://kep.k8s.io/4601) led by SIG A
 
 ### Restrict anonymous requests with fine-grained controls
 
-Instead of fully enabling or disabling anonymous access, you can now configure a strict list of endpoints where unauthenticated requests are allowed. This provides a safer alternative for clusters that rely on anonymous access to health or bootstrap endpoints like `/healthz`, `/readyz,` or `/livez`.
+Instead of fully enabling or disabling anonymous access, you can now configure a strict list of endpoints where unauthenticated requests are allowed. This provides a safer alternative for clusters that rely on anonymous access to health or bootstrap endpoints like `/healthz`, `/readyz`, or `/livez`.
 
-With this feature, accidental RBAC misconfigurations that grant broad access to anonymous users can be avoided, without requiring changes to external probes or bootstrapping tools.
+With this feature, accidental RBAC misconfigurations that grant broad access to anonymous users can be avoided without requiring changes to external probes or bootstrapping tools.
 
 This work was done as part of [KEP \#4633](https://kep.k8s.io/4633) led by SIG Auth.
 
 ### More efficient requeueing through plugin-specific callbacks
 
-The kube-scheduler can now make more accurate decisions about when to retry scheduling Pods that were previously unschedulable. Each scheduling plugin can now register callback functions that tell the scheduler whether an incoming cluster event is likely to make a rejected Pod schedulable again.
+The `kube-scheduler` can now make more accurate decisions about when to retry scheduling Pods that were previously unschedulable. Each scheduling plugin can now register callback functions that tell the scheduler whether an incoming cluster event is likely to make a rejected Pod schedulable again.
 
 This reduces unnecessary retries and improves overall scheduling throughput \- especially in clusters using dynamic resource allocation. The feature also lets certain plugins skip the usual backoff delay when it is safe to do so, making scheduling faster in specific cases.
 
@@ -125,7 +125,7 @@ This feature was introduced in Kubernetes v1.33 and graduated to stable in v1.34
 
 This work was done as part of [KEP \#5080](https://kep.k8s.io/5080) led by SIG API Machinery.
 
-### Streaming LIST Responses
+### Streaming `LIST` responses
 
 Handling large `LIST` responses in Kubernetes previously posed a significant scalability challenge. When clients requested extensive resource lists, such as thousands of Pods or Custom Resources, the API server was required to serialize the entire collection of objects into a single, large memory buffer before sending it. This process created substantial memory pressure and could lead to performance degradation, impacting the overall stability of the cluster.  
 To address this limitation, a streaming encoding mechanism for `LIST` responses has been introduced and is now a stable feature. The primary benefit of this approach is the avoidance of large memory allocations on the API server, resulting in a much smaller and more predictable memory footprint. Consequently, the cluster becomes more resilient and performant, especially in large-scale environments where frequent requests for extensive resource lists are common.
@@ -137,7 +137,7 @@ This work was done as part of [KEP \#5116](https://kep.k8s.io/5116) led by SIG A
 Kubernetes `GET` and `LIST` requests are guaranteed to be consistent reads if the  
 `resourceVersion` parameter is not provided. Consistent reads are served from  
 etcd using a quorum read. But often the watch cache contains sufficiently up-to-date data to serve the read request, and could serve it far more efficiently.  
-This feature guarantees that `LIST` requests served from the apiserver's watch cache are consistent with the requested resource version. This eliminates stale reads and provides stronger data consistency for all clients, simplifying the logic in controllers and operators.
+This feature guarantees that `LIST` requests served from the API server's watch cache are consistent with the requested resource version. This eliminates stale reads and provides stronger data consistency for all clients, simplifying the logic in controllers and operators.
 
 This work was done as part of [KEP \#2340](https://kep.k8s.io/2340) led by SIG API Machinery.
 
@@ -154,7 +154,7 @@ To address this, relaxed DNS validation was introduced as alpha in v1.32. This a
 
 This work was done as part of [KEP \#4427](https://kep.k8s.io/4427) led by SIG Network.
 
-### Support for Direct Service Return (DSR) in Windows kube-proxy
+### Support for Direct Service Return (DSR) in Windows `kube-proxy`
 
 DSR provides performance optimizations by allowing return traffic routed through load balancers to bypass the load balancer and respond directly to the client, reducing load on the load balancer and improving overall latency. For information on DSR on Windows, read [Direct Server Return (DSR) in a nutshell](https://techcommunity.microsoft.com/blog/networkingblog/direct-server-return-dsr-in-a-nutshell/693710).  
 Initially introduced in v1.14, this feature has graduated to stable in v1.34.
@@ -181,9 +181,9 @@ This work was done as part of [KEP \#2400](https://kep.k8s.io/2400) led by SIG N
 
 ### `kubelet` distributed tracing
 
-The internal operations of the kubelet have been historically difficult to observe, making it challenging for administrators to debug issues occurring at the node level. This lack of deep visibility complicated the process of diagnosing performance bottlenecks, understanding Pod startup latency, and analyzing failures within the node agent.
+The internal operations of the `kubelet` have been historically difficult to observe, making it challenging for administrators to debug issues occurring at the node level. This lack of deep visibility complicated the process of diagnosing performance bottlenecks, understanding Pod startup latency, and analyzing failures within the node agent.
 
-To address this visibility gap, distributed tracing capabilities are introduced directly into the kubelet using the OpenTelemetry standard. By enabling this feature, operators can export detailed trace data to their observability backends. This provides an unprecedented level of insight, allowing for the precise tracing of requests related to the pod lifecycle, volume management, and other critical functions, which is essential for effective debugging and performance analysis.
+To address this visibility gap, distributed tracing capabilities are introduced directly into the `kubelet` using the OpenTelemetry standard. By enabling this feature, operators can export detailed trace data to their observability backends. This provides an unprecedented level of insight, allowing for the precise tracing of requests related to the Pod lifecycle, volume management, and other critical functions, which is essential for effective debugging and performance analysis.
 
 This work was done as part of [KEP \#2831](https://kep.k8s.io/2831) led by SIG Node.
 
@@ -227,7 +227,7 @@ DRA supports controlled administrative access through the `adminAccess` field in
 
 This work was done as part of [KEP \#5018](https://kep.k8s.io/5018) led by WG Device Management and SIG Auth.
 
-#### Prioritized Alternatives in ResourceClaims and ResourceClaimTemplates
+#### Prioritized alternatives in ResourceClaims and ResourceClaimTemplates
 
 While a workload might run best on a single high-performance GPU, it might also be able to run on two mid-level GPUs.  
 With the feature gate `DRAPrioritizedList` (now enabled by default), ResourceClaims and ResourceClaimTemplates get a new field named `firstAvailable`. This field is an ordered list that allows users to specify that a request may be satisfied in different ways, including allocating nothing at all if specific hardware is not available. The scheduler will attempt to satisfy the alternatives in the list in order, so the workload will be allocated the best set of devices available in the cluster.
@@ -236,14 +236,14 @@ This work was done as part of [KEP \#4816](https://kep.k8s.io/4816) led by WG De
 
 #### The `kubelet` reports allocated DRA resources
 
-The kubelet's API has been updated to report on Pod resources allocated through DRA. This allows node monitoring agents to discover the allocated DRA resources for Pods on a node. Additionally, it enables node components to use the PodResourcesAPI and leverage this DRA information when developing new features and integrations.  
+The `kubelet`'s API has been updated to report on Pod resources allocated through DRA. This allows node monitoring agents to discover the allocated DRA resources for Pods on a node. Additionally, it enables node components to use the PodResourcesAPI and leverage this DRA information when developing new features and integrations.  
 Starting from Kubernetes v1.34, this feature is enabled by default.
 
 This work was done as part of [KEP \#3695](https://kep.k8s.io/3695) led by WG Device Management.
 
-### kube-scheduler non-blocking API calls
+### `kube-scheduler` non-blocking API calls
 
-The kube-scheduler makes blocking API calls during scheduling cycles, creating performance bottlenecks. This feature introduces asynchronous API handling through a prioritized queue system with request deduplication, allowing the scheduler to continue processing Pods while API operations complete in the background. Key benefits include reduced scheduling latency, prevention of scheduler thread starvation during API delays, and immediate retry capability for unschedulable Pods. The implementation maintains backward compatibility and adds metrics for monitoring pending API operations.
+The `kube-scheduler` makes blocking API calls during scheduling cycles, creating performance bottlenecks. This feature introduces asynchronous API handling through a prioritized queue system with request deduplication, allowing the scheduler to continue processing Pods while API operations complete in the background. Key benefits include reduced scheduling latency, prevention of scheduler thread starvation during API delays, and immediate retry capability for unschedulable Pods. The implementation maintains backward compatibility and adds metrics for monitoring pending API operations.
 
 This work was done as part of [KEP \#5229](https://kep.k8s.io/5229) led by SIG Scheduling.
 
@@ -257,8 +257,8 @@ This work was done as part of [KEP \#3962](https://kep.k8s.io/3962) led by SIG A
 
 ### Snapshottable API server cache
 
-The kube-apiserver's caching mechanism (watchcache) efficiently serves requests for the latest observed state. However, `LIST` requests for previous states (e.g., via pagination or by specifying a `resourceVersion`) often bypass this cache and are served directly from etcd. This direct etcd access significantly increases performance costs and can lead to stability issues, particularly with large resources, due to memory pressure from transferring large data blobs.  
-With the `ListFromCacheSnapshot` feature gate enabled by default, kube-apiserver will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested. The kube-apiserver starts with no snapshots, creates a new snapshot on every watch event and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds. If the provided `resourceVersion` is unavailable, the server will fallback to etcd.
+The `kube-apiserver`'s caching mechanism (watchcache) efficiently serves requests for the latest observed state. However, `LIST` requests for previous states (for example, via pagination or by specifying a `resourceVersion`) often bypass this cache and are served directly from etcd. This direct etcd access significantly increases performance costs and can lead to stability issues, particularly with large resources, due to memory pressure from transferring large data blobs.  
+With the `ListFromCacheSnapshot` feature gate enabled by default, `kube-apiserver` will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested. The `kube-apiserver` starts with no snapshots, creates a new snapshot on every watch event, and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds. If the provided `resourceVersion` is unavailable, the server will fallback to etcd.
 
 This work was done as part of [KEP \#4988](https://kep.k8s.io/4988) led by SIG API Machinery.
 
@@ -270,7 +270,7 @@ This enhancement graduated to beta in v1.33 and continues as beta in v1.34, it b
 
 This work was done as part of [KEP \#5073](https://kep.k8s.io/5073) led by SIG API Machinery.
 
-### `PreferSameZone` and `PreferSameNode` Traffic Distribution for Services
+### `PreferSameZone` and `PreferSameNode` traffic distribution for Services
 
 The `spec.trafficDistribution` field within a Kubernetes [Service](https://kubernetes.io/docs/concepts/services-networking/service/) allows users to express preferences for how traffic should be routed to Service endpoints.  
 [KEP-3015](https://github.com/kubernetes/enhancements/issues/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. `PreferSameZone` is an alias for the existing `PreferClose` to clarify its semantics. `PreferSameNode` allows connections to be delivered to a local endpoint when possible, falling back to a remote endpoint when not possible.  
@@ -328,8 +328,8 @@ This work was done as part of [KEP \#4940](https://kep.k8s.io/4940) led by SIG A
 
 ### Use `.status.nominatedNodeName` to express Pod placement
 
-When the kube-scheduler takes time to bind Pods to Nodes, cluster autoscalers may not understand that a Pod will be bound to a specific Node. Consequently, they may mistakenly consider the Node as underutilized and delete it.  
-To address this issue, the kube-scheduler can use `.status.nominatedNodeName` not only to indicate ongoing preemption but also to express Pod placement intentions. By enabling the `NominatedNodeNameForExpectation` feature gate, the scheduler uses this field to indicate where a Pod will be bound. This exposes internal reservations to help external components make informed decisions.
+When the `kube-scheduler` takes time to bind Pods to Nodes, cluster autoscalers may not understand that a Pod will be bound to a specific Node. Consequently, they may mistakenly consider the Node as underutilized and delete it.  
+To address this issue, the `kube-scheduler` can use `.status.nominatedNodeName` not only to indicate ongoing preemption but also to express Pod placement intentions. By enabling the `NominatedNodeNameForExpectation` feature gate, the scheduler uses this field to indicate where a Pod will be bound. This exposes internal reservations to help external components make informed decisions.
 
 This work was done as part of [KEP \#5278](https://kep.k8s.io/5278) led by SIG Scheduling.
 
