@@ -39,8 +39,8 @@ replaces terminating Pods, helping you avoid these issues.
 
 This enhancement means that Jobs in Kubernetes have an optional field `.spec.podReplacementPolicy`.  
 You can choose one of two policies:
-- TerminatingOrFailed (default): Replaces Pods as soon as they start terminating.
-- Failed: Replaces Pods only after they fully terminate and transition to the `Failed` phase.
+- `TerminatingOrFailed` (default): Replaces Pods as soon as they start terminating.
+- `Failed`: Replaces Pods only after they fully terminate and transition to the `Failed` phase.
 
 Setting the policy to `Failed` ensures that a new Pod is only created after the previous one has completely terminated.
 
@@ -49,20 +49,22 @@ See [Pod Failure Policy](/docs/concepts/workloads/controllers/job/#pod-failure-p
 
 You can check how many Pods are currently terminating by inspecting the Job’s `.status.terminating` field:
 
-```sh
+```shell
 kubectl get job myjob -o=jsonpath='{.status.terminating}'
 ```
 
 ## Example
 
-Here’s a simple Job spec that ensures Pods are replaced only after they terminate completely:
-
+Here’s a Job example that executes a task two times (`spec.completions: 2`) in parallel (`spec.parallelism: 2`) and 
+replaces Pods only after they fully terminate (`spec.podReplacementPolicy: Failed`):
 ```yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: example-job
 spec:
+  completions: 2
+  parallelism: 2
   podReplacementPolicy: Failed
   template:
     spec:
@@ -72,7 +74,47 @@ spec:
         image: your-image
 ```
 
-With this setting, Kubernetes won’t launch a replacement Pod while the previous Pod is still terminating.
+If a Pod receives a SIGTERM signal (deletion, eviction, preemption...), it begins terminating.
+When the container handles termination gracefully, cleanup may take some time.
+
+When the Job starts, we will see two Pods running:
+```shell
+kubectl get pods
+
+NAME                READY   STATUS    RESTARTS   AGE
+example-job-qr8kf   1/1     Running   0          2s
+example-job-stvb4   1/1     Running   0          2s
+```
+
+Let's delete one of the Pods (`example-job-qr8kf`).
+
+With the `TerminatingOrFailed` policy, as soon as one Pod (`example-job-qr8kf`) starts terminating, the Job controller immediately creates a new Pod (`example-job-b59zk`) to replace it.
+```shell
+kubectl get pods
+
+NAME                READY   STATUS        RESTARTS   AGE
+example-job-b59zk   1/1     Running       0          1s
+example-job-qr8kf   1/1     Terminating   0          17s
+example-job-stvb4   1/1     Running       0          17s
+```
+
+With the `Failed` policy, the new Pod (`example-job-b59zk`) is not created while the old Pod (`example-job-qr8kf`) is terminating.
+```shell
+kubectl get pods
+
+NAME                READY   STATUS        RESTARTS   AGE
+example-job-qr8kf   1/1     Terminating   0          17s
+example-job-stvb4   1/1     Running       0          17s
+```
+
+When the terminating Pod has fully transitioned to the `Failed` phase, a new Pod is created:
+```shell
+kubectl get pods
+
+NAME                READY   STATUS        RESTARTS   AGE
+example-job-b59zk   1/1     Running       0          1s
+example-job-stvb4   1/1     Running       0          25s
+```
 
 ## How can you learn more?
 
