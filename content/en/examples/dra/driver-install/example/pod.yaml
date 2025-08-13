@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
   - name: ctr0
-    image: ubuntu:22.04
+    image: ubuntu:24.04
     command: ["bash", "-c"]
     args: ["export; trap 'exit 0' TERM; sleep 9999 & wait"]
     resources:

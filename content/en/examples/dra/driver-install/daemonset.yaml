@@ -16,7 +16,7 @@ spec:
       labels:
         app.kubernetes.io/name: dra-example-driver
     spec:
-      priorityClassName: system-node-critical
+      priorityClassName: dra-driver-high-priority
       serviceAccountName: dra-example-driver-service-account
       securityContext:
         {}
