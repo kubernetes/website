@@ -16,6 +16,7 @@ moved to beta, and a fresh batch of new alpha features promise even more express
 Let's dive into what's new for DRA in Kubernetes 1.34!
 
 ## Structured Parameters is now GA
+
 The headline feature of the v1.34 release is that the core of DRA has graduated to General Availability.
 
 Kubernetes [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) provides
@@ -32,6 +33,7 @@ That's because the default API version for DRA is now the stable `v1` version, a
 (eg: `v1beta1` or `v1beta2`) that needed explicit opt in.
 
 ## Features promoted to beta
+
 Several powerful features have been promoted to beta, adding more control, flexibility, and observability to resource
 management with DRA.
 
@@ -53,6 +55,7 @@ to know the allocated DRA resources for Pods on a node and makes it possible to 
 to develop new features and integrations.
 
 ## New alpha features
+
 Kubernetes 1.34 also introduces several new alpha features that give us a glimpse into the future of resource management with DRA.
 
 [Extended resource mapping](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource) support in DRA allows
