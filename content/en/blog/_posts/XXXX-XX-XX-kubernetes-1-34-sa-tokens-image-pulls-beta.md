@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Service Account Token Integration for Image Pulls Graduates to Beta"
-date: 2025-08-15
+date: 2025-XX-XX
 slug: kubernetes-v1-34-sa-tokens-image-pulls-beta
 draft: true
 author: >
