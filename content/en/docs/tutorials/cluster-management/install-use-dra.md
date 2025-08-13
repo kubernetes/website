@@ -232,6 +232,20 @@ on this cluster:
           kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/clusterrolebinding.yaml
           ```
 
+1.  Create a {{< glossary_tooltip term_id="priority-class" >}} for the DRA
+    driver. The DRA driver component is responsible for important lifecycle
+    operations for Pods with claims, so you don't want it to be preempted. Learn
+    more about [pod priority and preemption
+    here](/docs/concepts/scheduling-eviction/pod-priority-preemption/). Learn
+    more about [good practices when maintaining a DRA driver
+    here](/docs/concepts/cluster-administration/dra/).
+
+    {{% code_sample language="yaml" file="dra/driver-install/priorityclass.yaml" %}}
+
+    ```shell
+    kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/priorityclass.yaml
+    ```
+
 1.  Deploy the actual DRA driver as a DaemonSet configured to run the example
    driver binary with the permissions provisioned above.
 
