@@ -8,8 +8,8 @@ author: >
   [Dejan Zele Pejchev](https://github.com/dejanzele) (G-Research)
 ---
 
-In Kubernetes v1.34, the _Pod Replacement Policy_ feature reaches general availability (GA).
-This blog post describes the Pod Replacement Policy feature and how to use it in your Jobs.
+In Kubernetes v1.34, the _Pod replacement policy_ feature has reached general availability (GA).
+This blog post describes the Pod replacement policy feature and how to use it in your Jobs.
 
 ## About Pod Replacement Policy
 
@@ -32,11 +32,12 @@ Additionally, starting replacement Pods before the old ones fully terminate can 
 - Unnecessary cluster scale-ups to accommodate the replacement Pods.
 - Temporary bypassing of quota checks by workload orchestrators like [Kueue](https://kueue.sigs.k8s.io/).
 
-The _Pod Replacement Policy_ feature gives you control over when Kubernetes replaces terminating Pods, helping you avoid these issues.
+With Pod replacement policy, Kubernetes gives you control over when the control plane
+replaces terminating Pods, helping you avoid these issues.
 
 ## How Pod Replacement Policy works
 
-The feature introduces a new Job-level field, `podReplacementPolicy`, which controls when Kubernetes replaces terminating Pods.  
+This enhancement means that Jobs in Kubernetes have an optional field `.spec.podReplacementPolicy`.  
 You can choose one of two policies:
 - TerminatingOrFailed (default): Replaces Pods as soon as they start terminating.
 - Failed: Replaces Pods only after they fully terminate and transition to the `Failed` phase.
