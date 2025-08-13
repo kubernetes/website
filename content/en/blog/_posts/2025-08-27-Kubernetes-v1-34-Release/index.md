@@ -434,7 +434,17 @@ Kubernetes is only possible with the support, commitment, and hard work of its c
 
 ## Project Velocity
 
-\<TODO CHECKOUT THE DEVSTATS AND HIGHLIGHT SOME INTRESTING NUMBERS [https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1\&refresh=15m](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1&refresh=15m), INCLUDE ANY INTERESTED DATA YOU FIND FOR THE CYCLE\>
+The CNCF K8s [DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All) project aggregates a number of interesting data points related to the velocity of Kubernetes and various sub-projects. This includes everything from individual contributions to the number of companies that are contributing and is an illustration of the depth and breadth of effort that goes into evolving this ecosystem.
+
+During the v1.34 release cycle, which spanned 15 weeks from 19th May 2025 to 27th August 2025, Kubernetes received contributions from as many as 106 different companies and 491 individuals. In the wider cloud native ecosystem, the figure goes up to 370 companies, counting 2235 total contributors.
+
+Note that "contribution" counts when someone makes a commit, code review, comment, creates an issue or PR, reviews a PR (including blogs and documentation) or comments on issues and PRs.  
+If you are interested in contributing, visit [Getting Started](https://www.kubernetes.dev/docs/guide/#getting-started) on our contributor website.
+
+Source for this data:
+
+* [Companies contributing to Kubernetes](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1747609200000&to=1756335599000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)  
+* [Overall ecosystem contributions](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1747609200000&to=1756335599000&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes)
 
 ## Event Update
 
