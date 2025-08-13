@@ -22,7 +22,19 @@ Machines that check the `healthz`/`livez`/`readyz` of the API server should rely
 A status code `200` indicates the API server is `healthy`/`live`/`ready`, depending on the called endpoint.
 The more verbose options shown below are intended to be used by human operators to debug their cluster or understand the state of the API server.
 
+## Kubelet /statusz Endpoints
+
+The kubelet exposes several health endpoints under `/statusz` to indicate its current state.
+
+**Paths:**
+
+- `/livez` - Liveness endpoint
+- `/readyz` - Readiness endpoint
+- `/healthz` - Health endpoint (deprecated but remains supported)
+- `/metrics` - Metrics endpoint
+
 The following examples will show how you can interact with the health API endpoints.
+
 
 For all endpoints, you can use the `verbose` parameter to print out the checks and their status.
 This can be useful for a human operator to debug the current status of the API server, it is not intended to be consumed by a machine:
