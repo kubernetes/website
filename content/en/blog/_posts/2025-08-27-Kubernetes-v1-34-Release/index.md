@@ -64,7 +64,7 @@ Introduced as alpha in v1.28, this feature has graduated to stable in v1.34.
 
 This work was done as part of [KEP \#3939](https://kep.k8s.io/3939) led by SIG Apps.
 
-### Recover from volume expansion failure
+### Recovery from volume expansion failure
 
 This feature allows users to cancel volume expansions that are unsupported by the underlying storage provider, and retry volume expansion with smaller values that may succeed.  
 Introduced as alpha in v1.23, this feature has graduated to stable in v1.34.
@@ -80,13 +80,16 @@ This work was done as part of [KEP \#3751](https://kep.k8s.io/3751) led by SIG S
 
 ### Structured authentication configuration
 
-A formal configuration file for authentication in the Kubernetes API server was introduced in v1.29, moving away from the previous reliance on a large set of command-line flags. The AuthenticationConfiguration object allows administrators to define and manage authentication methods, such as multiple OIDC providers, in a structured and dynamic way. This change significantly improves the manageability and auditability of the cluster's authentication settings and has graduated to stable in v1.34.
+A configuration file format (for configurating how the Kubernetes API server authenticates clients) was introduced in v1.29,
+starting a move away from the previous reliance on a large set of command-line options.
+The AuthenticationConfiguration configuration kind allows administrators to define and manage authentication methods, such as multiple OIDC providers, in a structured and dynamic way.
+This change significantly improves the manageability and auditability of the cluster's authentication settings - and has graduated to stable in v1.34.
 
 This work was done as part of [KEP \#3331](https://kep.k8s.io/3331) led by SIG Auth.
 
 ### Finer-grained authorization based on selectors
 
-This feature makes it possible for authorizers, including webhooks and the node authorizer, to make decisions on field and label selectors in incoming requests. When you send **List**, **Watch** or **DeleteCollection** requests with selectors, the authorization layer can now evaluate access with that additional context. 
+Kubernetes authorizers, including webhooks and the node authorizer, can now make authorization decisions based on field and label selectors in incoming requests. When you send **List**, **Watch** or **DeleteCollection** requests with selectors, the authorization layer can now evaluate access with that additional context. 
 
 For example, an authorization policy can now limit a request to list only pods with a specific `.spec.nodeName`, or reject requests that attempt to access resources with certain labels. This change supports more granular control in environments like per-node isolation or custom multi-tenant setups.
 
@@ -128,20 +131,27 @@ This work was done as part of [KEP \#5080](https://kep.k8s.io/5080) led by SIG A
 ### Streaming `LIST` responses
 
 Handling large `LIST` responses in Kubernetes previously posed a significant scalability challenge. When clients requested extensive resource lists, such as thousands of Pods or Custom Resources, the API server was required to serialize the entire collection of objects into a single, large memory buffer before sending it. This process created substantial memory pressure and could lead to performance degradation, impacting the overall stability of the cluster.  
-To address this limitation, a streaming encoding mechanism for `LIST` responses has been introduced and is now a stable feature. The primary benefit of this approach is the avoidance of large memory allocations on the API server, resulting in a much smaller and more predictable memory footprint. Consequently, the cluster becomes more resilient and performant, especially in large-scale environments where frequent requests for extensive resource lists are common.
+To address this limitation, a streaming encoding mechanism for collections (list responses)
+has been introduced. For the JSON and Kubernetes Protobuf response formats, that streaming mechanism
+is automatically active and the associated feature gate is stable.
+The primary benefit of this approach is the avoidance of large memory allocations on the API server, resulting in a much smaller and more predictable memory footprint.
+Consequently, the cluster becomes more resilient and performant, especially in large-scale environments where frequent requests for extensive resource lists are common.
 
 This work was done as part of [KEP \#5116](https://kep.k8s.io/5116) led by SIG API Machinery.
 
 ### Consistent reads from cache
 
-Kubernetes `GET` and `LIST` requests are guaranteed to be consistent reads if the  
-`resourceVersion` parameter is not provided. Consistent reads are served from  
+Kubernetes guarantees that **get** and **list** requests are _consistent reads_, provided that the
+`resourceVersion` query parameter is not provided.
+In earlier versions of Kubernetes, the API server ensured consistent reads by fetching data
+directly from
 etcd using a quorum read. But often the watch cache contains sufficiently up-to-date data to serve the read request, and could serve it far more efficiently.  
-This feature guarantees that `LIST` requests served from the API server's watch cache are consistent with the requested resource version. This eliminates stale reads and provides stronger data consistency for all clients, simplifying the logic in controllers and operators.
+Kubernetes v1.34 uses an optimized mechanism that
+provides the same guarantee, but allows the API server to rely on cache more often.
 
 This work was done as part of [KEP \#2340](https://kep.k8s.io/2340) led by SIG API Machinery.
 
-### Resilient watchcache initialization
+### Resilient watch cache initialization
 
 \<TODO 1-2 PARAGRAPH DESCRIPTION OF CHANGE\>
 
@@ -169,7 +179,7 @@ The Sleep action was introduced in Kubernetes v1.29, with zero value support add
 
 This work was done as part of [KEP \#3960](https://kep.k8s.io/3960) and [KEP \#4818](https://kep.k8s.io/4818) led by SIG Node.
 
-### Node swap support
+### Linux node swap support
 
 Historically, the lack of swap support in Kubernetes could lead to workload instability, as nodes under memory pressure often had to terminate processes abruptly. This particularly affected applications with large but infrequently accessed memory footprints and prevented more graceful resource management.
 
@@ -301,7 +311,7 @@ When the system begins shutting down, the `kubelet` reacts by using standard ter
 
 This work was done as part of [KEP \#4802](https://kep.k8s.io/4802) led by SIG Windows.
 
-### In-Place Update of Pod Resources
+### In-place update of Pod resources
 
 \<TODO 1-2 PARAGRAPH DESCRIPTION OF CHANGE\>
 
