@@ -11,7 +11,7 @@ The [functionality for CSI drivers to update information about attachable volume
 
 ## Background
 
-Traditionally, Kubernetes CSI drivers report a static maximum volume attachment limit when initializing. However, actual attachment capacities can change during a node's lifecycle for various reasons, such as:
+Traditionally, Kubernetes [CSI drivers](https://kubernetes-csi.github.io/docs/introduction.html) report a static maximum volume attachment limit when initializing. However, actual attachment capacities can change during a node's lifecycle for various reasons, such as:
 
 - Manual or external operations attaching/detaching volumes outside of Kubernetes control.
 - Dynamically attached network interfaces or specialized hardware (GPUs, NICs, etc.) consuming available slots.
