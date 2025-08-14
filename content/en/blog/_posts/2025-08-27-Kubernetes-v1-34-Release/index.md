@@ -227,7 +227,9 @@ This work was done as part of [KEP \#3104](https://kep.k8s.io/3104) led by SIG C
 
 ### External ServiceAccount token signing
 
-\<TODO 1-2 PARAGRAPH DESCRIPTION OF CHANGE\>
+Traditionally, Kubernetes manages ServiceAccount tokens using static signing keys that are loaded from disk at `kube-apiserver` startup. This feature introduces an `ExternalJWTSigner` gRPC service for out-of-process signing, enabling Kubernetes distributions to integrate with external key management solutions (for example, HSMs, cloud KMSes) for ServiceAccount token signing instead of static disk-based keys.
+
+Introduced as alpha in v1.32, this external JWT signing capability advances to beta and is enabled by default in v1.34.
 
 This work was done as part of [KEP \#740](https://kep.k8s.io/740) led by SIG Auth.
 
