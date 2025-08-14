@@ -50,7 +50,7 @@ spec:
   nodeAllocatableUpdatePeriodSeconds: 60
 ```
 
-This configuration directs Kubelet to periodically call the CSI driver's `NodeGetInfo` method every 60 seconds, updating the node’s allocatable volume count. Kubernetes enforces a minimum update interval of 10 seconds to balance accuracy and resource usage.
+This configuration directs kubelet to periodically call the CSI driver's `NodeGetInfo` method every 60 seconds, updating the node’s allocatable volume count. Kubernetes enforces a minimum update interval of 10 seconds to balance accuracy and resource usage.
 
 ### Immediate updates on attachment failures
 
