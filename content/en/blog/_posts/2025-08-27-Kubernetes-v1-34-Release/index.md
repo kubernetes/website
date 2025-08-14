@@ -134,9 +134,9 @@ This feature was introduced in Kubernetes v1.33 and graduated to stable in v1.34
 
 This work was done as part of [KEP \#5080](https://kep.k8s.io/5080) led by SIG API Machinery.
 
-### Streaming `LIST` responses
+### Streaming **list** responses
 
-Handling large `LIST` responses in Kubernetes previously posed a significant scalability challenge. When clients requested extensive resource lists, such as thousands of Pods or Custom Resources, the API server was required to serialize the entire collection of objects into a single, large memory buffer before sending it. This process created substantial memory pressure and could lead to performance degradation, impacting the overall stability of the cluster.  
+Handling large **list** responses in Kubernetes previously posed a significant scalability challenge. When clients requested extensive resource lists, such as thousands of Pods or Custom Resources, the API server was required to serialize the entire collection of objects into a single, large memory buffer before sending it. This process created substantial memory pressure and could lead to performance degradation, impacting the overall stability of the cluster.  
 To address this limitation, a streaming encoding mechanism for collections (list responses)
 has been introduced. For the JSON and Kubernetes Protobuf response formats, that streaming mechanism
 is automatically active and the associated feature gate is stable.
@@ -269,7 +269,7 @@ This work was done as part of [KEP \#5229](https://kep.k8s.io/5229) led by SIG S
 
 ### Mutating admission policies
 
-Mutating admission policies offer a declarative, in-process alternative to mutating admission webhooks. This feature leverages CEL's object instantiation and JSON Patch strategies, combined with Server Side Apply’s merge algorithms.  
+[MutatingAdmissionPolicies](/docs/reference/access-authn-authz/mutating-admission-policy/) offer a declarative, in-process alternative to mutating admission webhooks. This feature leverages CEL's object instantiation and JSON Patch strategies, combined with Server Side Apply’s merge algorithms.  
 This significantly simplifies admission control by allowing administrators to define mutation rules directly in the API server.  
 Introduced as alpha in v1.32, mutating admission policies has graduated to beta in v1.34.
 
@@ -277,7 +277,7 @@ This work was done as part of [KEP \#3962](https://kep.k8s.io/3962) led by SIG A
 
 ### Snapshottable API server cache
 
-The `kube-apiserver`'s caching mechanism (watchcache) efficiently serves requests for the latest observed state. However, `LIST` requests for previous states (for example, via pagination or by specifying a `resourceVersion`) often bypass this cache and are served directly from etcd. This direct etcd access significantly increases performance costs and can lead to stability issues, particularly with large resources, due to memory pressure from transferring large data blobs.  
+The `kube-apiserver`'s caching mechanism (watchcache) efficiently serves requests for the latest observed state. However, **list** requests for previous states (for example, via pagination or by specifying a `resourceVersion`) often bypass this cache and are served directly from etcd. This direct etcd access significantly increases performance costs and can lead to stability issues, particularly with large resources, due to memory pressure from transferring large data blobs.  
 With the `ListFromCacheSnapshot` feature gate enabled by default, `kube-apiserver` will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested. The `kube-apiserver` starts with no snapshots, creates a new snapshot on every watch event, and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds. If the provided `resourceVersion` is unavailable, the server will fallback to etcd.
 
 This work was done as part of [KEP \#4988](https://kep.k8s.io/4988) led by SIG API Machinery.
@@ -290,9 +290,9 @@ This enhancement graduated to beta in v1.33 and continues as beta in v1.34, it b
 
 This work was done as part of [KEP \#5073](https://kep.k8s.io/5073) led by SIG API Machinery.
 
-### Streaming Informers for `LIST` Requests
+### Streaming Informers for **list** Requests
 
-The streaming informers feature, which has been in beta since v1.32, gains further beta refinements in v1.34. This capability allows `LIST` requests to return data as a continuous stream of objects from the API server’s watch cache, rather than assembling paged results directly from etcd. By reusing the same mechanics used for `WATCH` operations, the API server can serve large datasets while keeping memory usage steady and avoiding allocation spikes that can affect stability.
+The streaming informers feature, which has been in beta since v1.32, gains further beta refinements in v1.34. This capability allows **list** requests to return data as a continuous stream of objects from the API server’s watch cache, rather than assembling paged results directly from etcd. By reusing the same mechanics used for **watch** operations, the API server can serve large datasets while keeping memory usage steady and avoiding allocation spikes that can affect stability.
 
 In this release, the `WatchList` feature gate is now enabled by default for the `kube-apiserver`, and `WatchListClient` is enabled by default for `kube-controller-manager`. These changes strengthen integration with informer workflows, reduce memory pressure during large list operations, and improve reliability under sustained load, making `LIST` streaming more predictable and efficient.
 
@@ -314,7 +314,7 @@ The primary benefit is a more intuitive and straightforward way to manage resour
 
 This work was done as part of [KEP \#2837](https://kep.k8s.io/2837) led by SIG Autoscaling.
 
-### Graceful node shutdown for Windows nodes
+### Graceful node shutdown handling for Windows nodes
 
 The `kubelet` on Windows nodes can now detect system shutdown events and begin graceful termination of running pods. This mirrors existing behavior on Linux and helps ensure workloads exit cleanly during planned shutdowns or restarts.   
 When the system begins shutting down, the `kubelet` reacts by using standard termination logic. It respects the configured lifecycle hooks and grace periods, giving pods time to stop before the node powers off. The feature relies on Windows pre-shutdown notifications to coordinate this process. This enhancement improves workload reliability during maintenance, restarts, or system updates. It is now in beta and enabled by default.
