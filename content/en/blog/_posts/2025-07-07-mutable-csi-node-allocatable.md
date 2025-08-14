@@ -7,7 +7,7 @@ draft: true
 author: Eddie Torres (Amazon Web Services)
 ---
 
-The [functionality for CSI drivers to update information about attachable volume count on the nodes](https://github.com/kubernetes/enhancements/issues/4876), first introduced as Alpha in Kubernetes v1.33, has graduated to **Beta** in the Kubernetes v1.34 release! This marks a significant milestone in enhancing the accuracy of stateful pod scheduling by reducing failures due to outdated attachable volume capacity information.
+The [functionality for CSI drivers to update information about attachable volume count on the nodes](https://kep.k8s.io/4876), first introduced as Alpha in Kubernetes v1.33, has graduated to **Beta** in the Kubernetes v1.34 release! This marks a significant milestone in enhancing the accuracy of stateful pod scheduling by reducing failures due to outdated attachable volume capacity information.
 
 ## Background
 
