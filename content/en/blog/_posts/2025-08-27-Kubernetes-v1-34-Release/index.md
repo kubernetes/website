@@ -40,7 +40,7 @@ The primary benefit is a significant security improvement. It eliminates the nee
 
 This work was done as part of [KEP \#4412](https://kep.k8s.io/4412) led by SIG Auth.
 
-### Alpha: Support for KYAML,a Kubernetes dialect of YAML
+### Alpha: Support for KYAML, a Kubernetes dialect of YAML
 
 KYAML aims to be a safer and less ambiguous YAML subset, and was designed specifically for Kubernetes. Whatever version of Kubernetes you use, starting from Kubernetes v1.34 you are able to use KYAML for writing manifests and/or Helm charts.
    
