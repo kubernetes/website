@@ -40,9 +40,15 @@ The primary benefit is a significant security improvement. It eliminates the nee
 
 This work was done as part of [KEP \#4412](https://kep.k8s.io/4412) led by SIG Auth.
 
-### \<Stable/Beta/Alpha\>: \<THEME 3\>
+### Alpha: Support for KYAML,a Kubernetes dialect of YAML
 
-\<Pick a highlight from below and promote to spotlight?\>
+KYAML aims to be a safer and less ambiguous YAML subset, and was designed specifically for Kubernetes. Whatever version of Kubernetes you use, starting from Kubernetes v1.34 you are able to use KYAML for writing manifests and/or Helm charts.
+   
+KYAML addresses specific challenges with both YAML and JSON. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion (for example: ["The Norway Bug"](https://hitchdev.com/strictyaml/why/implicit-typing-removed/)). Meanwhile, JSON lacks comment support and has strict requirements for trailing commas and quoted keys. 
+  
+You can write KYAML and pass it as an input to any version of `kubectl`, because all KYAML files are also valid as YAML. With `kubectl` v1.34, you are also able to request KYAML output (as in `kubectl get -o kyaml …`). If you prefer, you can still request the output in JSON or YAML format.
+
+This work was done as part of [KEP \#5295](https://kep.k8s.io/5295) led by SIG CLI.
 
 ### \<Stable/Beta/Alpha\>: \<THEME 4\>
 
@@ -327,13 +333,8 @@ This work was done as part of [KEP \#1287](https://kep.k8s.io/1287) led by SIG N
 
 *This is a selection of some of the improvements that are now alpha following the v1.34 release.*
 
-### Support for KYAML: a Kubernetes dialect of YAML
 
-KYAML aims to be a safer and less ambiguous YAML subset, and was designed specifically for Kubernetes. Whatever version of Kubernetes you use, you'll be able to use KYAML for writing manifests and/or Helm charts.   
-KYAML addresses specific challenges with both YAML and JSON. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion (for example: ["The Norway Bug"](https://hitchdev.com/strictyaml/why/implicit-typing-removed/)). Meanwhile, JSON lacks comment support and has strict requirements for trailing commas and quoted keys.   
-You can write KYAML and pass it as an input to any version of `kubectl`, because all KYAML files are also valid as YAML. With `kubectl` v1.34, we expect you'll also be able to request KYAML output (as in `kubectl get -o kyaml …`). If you prefer, you can still request the output in JSON or YAML format.
 
-This work was done as part of [KEP \#5295](https://kep.k8s.io/5295) led by SIG CLI.
 
 ### Pod certificates for mTLS authentication
 
