@@ -153,9 +153,11 @@ This work was done as part of [KEP \#2340](https://kep.k8s.io/2340) led by SIG A
 
 ### Resilient watch cache initialization
 
-\<TODO 1-2 PARAGRAPH DESCRIPTION OF CHANGE\>
+Watch cache is a caching layer inside `kube-apiserver` that maintains an eventually consistent cache of cluster state stored in etcd. In the past, issues could occur when the watch cache was not yet initialized during `kube-apiserver` startup or when it required re-initialization.
 
-This work was done as part of [KEP \#4568](https://kep.k8s.io/4568) led by SIG API Machinery.
+To address these issues, the watch cache initialization process has been made more resilient to failures, improving control plane robustness and ensuring controllers and clients can reliably establish watches. This improvement was introduced as beta in v1.31 and is now stable.
+
+This work was done as part of [KEP \#4568](https://kep.k8s.io/4568) led by SIG API Machinery and SIG Scalability.
 
 ### Relaxing DNS search path validation
 
