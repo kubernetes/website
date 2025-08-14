@@ -4,7 +4,7 @@ reviewers:
 - lavalamp
 - deads2k
 - liggitt
-title: Authenticating
+title: Authentication
 content_type: concept
 weight: 10
 ---
