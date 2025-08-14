@@ -333,9 +333,6 @@ This work was done as part of [KEP \#1287](https://kep.k8s.io/1287) led by SIG N
 
 *This is a selection of some of the improvements that are now alpha following the v1.34 release.*
 
-
-
-
 ### Pod certificates for mTLS authentication
 
 Authenticating workloads within a cluster, especially for communication with the API server, has primarily relied on ServiceAccount tokens. While effective, these tokens aren't always ideal for establishing a strong, verifiable identity for mutual TLS (mTLS) and can present challenges when integrating with external systems that expect certificate-based authentication.  
