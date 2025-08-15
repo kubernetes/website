@@ -138,18 +138,6 @@ Consequently, the cluster becomes more resilient and performant, especially in l
 
 This work was done as part of [KEP \#5116](https://kep.k8s.io/5116) led by SIG API Machinery.
 
-### Consistent reads from cache
-
-Kubernetes guarantees that **get** and **list** requests are _consistent reads_, provided that the
-`resourceVersion` query parameter is not provided.
-In earlier versions of Kubernetes, the API server ensured consistent reads by fetching data
-directly from
-etcd using a quorum read. But often the watch cache contains sufficiently up-to-date data to serve the read request, and could serve it far more efficiently.  
-Kubernetes v1.34 uses an optimized mechanism that
-provides the same guarantee, but allows the API server to rely on cache more often.
-
-This work was done as part of [KEP \#2340](https://kep.k8s.io/2340) led by SIG API Machinery.
-
 ### Resilient watch cache initialization
 
 Watch cache is a caching layer inside `kube-apiserver` that maintains an eventually consistent cache of cluster state stored in etcd. In the past, issues could occur when the watch cache was not yet initialized during `kube-apiserver` startup or when it required re-initialization.
