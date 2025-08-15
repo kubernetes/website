@@ -25,13 +25,6 @@ There are also some [deprecations and removals](#deprecations-and-removals) in t
 
 Kubernetes v1.34 is packed with new features and improvements. Here are a few select updates the Release Team would like to highlight!
 
-### Stable: Automated cgroup driver detection
-
-Historically, configuring the correct cgroup driver has been a pain point for users running Kubernetes clusters. This feature instructs the `kubelet` to ask the CRI implementation which cgroup driver to use. It was introduced in v1.28 and has graduated to stable in v1.34.  
-The `kubelet` command line flag `--cgroup-driver` (and its alternative `cgroupDriver` in KubeletConfiguration) is marked as deprecated and in two releases or later it will be removed. This will make it impossible to use Kubernetes with the containerd 1.X versions. The timeline of this deprecation is aligned with containerd 1.7 EOL. This is an early warning that if you are using containerd 1.X, consider switching to 2.0+ soon.
-
-This work was done as part of [KEP \#4033](https://kep.k8s.io/4033) led by SIG Node.
-
 ### Beta: Projected ServiceAccount tokens for `kubelet` image credential providers
 
 The `kubelet` credential providers, used for pulling private container images, traditionally relied on long-lived secrets stored on the node or in the cluster. This approach increased security risks and management overhead, as these credentials were not tied to the specific workload and did not rotate automatically.  
@@ -425,11 +418,16 @@ ones to improve the project's overall health. See the Kubernetes
 [deprecation and removal policy](/docs/reference/using-api/deprecation-policy/) for more details on
 this process. Kubernetes v1.34 includes a couple of deprecations.
 
-#### Deprecation of containerd v1.y support
+#### Automated cgroup driver detection
+
+Historically, configuring the correct cgroup driver has been a pain point for users running Kubernetes clusters. This feature instructs the `kubelet` to ask the CRI implementation which cgroup driver to use. It was introduced in v1.28 and has graduated to stable in v1.34.  
+The `kubelet` command line flag `--cgroup-driver` (and its alternative `cgroupDriver` in KubeletConfiguration) is marked as deprecated and in two releases or later it will be removed.
+
+This work was done as part of [KEP \#4033](https://kep.k8s.io/4033) led by SIG Node.
+
+#### Deprecation of containerd v1.X support
 While Kubernetes v1.34 still supports containerd 1.7 and other LTS releases
-of containerd the Kubernetes SIG Node community has formally agreed upon a final support
-timeline for containerd v1.y. The last Kubernetes release to offer this support
-will be v1.36.0. You are able to monitor the
+of containerd, the Kubernetes SIG Node community has formally agreed upon a final support timeline for containerd v1.X. The last Kubernetes release to offer this support will be v1.36.0. This is an early warning that if you are using containerd 1.X, consider switching to 2.0+ soon. You are able to monitor the
 `kubelet_cri_losing_support` metric to determine if any nodes in your cluster
 are using a containerd version that will soon be outdated.
 
