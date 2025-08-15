@@ -15,7 +15,7 @@ Similar to previous releases, the release of Kubernetes v1.34 introduces new sta
 
 This release consists of 58 enhancements. Of those enhancements, 23 have graduated to Stable, 22 are entering Beta, and 13 have graduated to Alpha.
 
-There are no deprecations or removals in this release.
+There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
 
 ## Release theme and logo
 
