@@ -16,7 +16,7 @@ shields nodes from system-level memory spikes that might compromise its stabilit
 allows for more flexible memory management on the node, and much more.
 
 To learn about configuring swap in your cluster, read
-[Configuring swap memory on Kubernetes nodes](/docs/tutorials/configuration/provision-swap-memory/).
+[Configuring swap memory on Kubernetes nodes](/docs/tutorials/cluster-management/provision-swap-memory/).
 
 <!-- body -->
 
