@@ -55,7 +55,7 @@ This work was done as part of [KEP \#5295](https://kep.k8s.io/5295) led by SIG C
 
 *This is a selection of some of the improvements that are now stable following the v1.34 release.*
 
-### Delayed creation of Job’s replacement pods 
+### Delayed creation of Job’s replacement Pods 
 
 By default, when a Pod enters a terminating state, the Job controller immediately creates a replacement Pod. Therefore, both Pods are running at the same time. This scenario is problematic for popular machine learning frameworks, such as TensorFlow and [JAX](https://jax.readthedocs.io/en/latest/), which require at most one Pod running at the same time, for a given index.  
 This feature introduces `.spec.podReplacementPolicy` in Jobs. You may choose to create replacement Pods only when the terminating Pod is fully terminal (has `.status.phase: Failed`). To do this, set `.spec.podReplacementPolicy: Failed`.  
@@ -281,8 +281,8 @@ This work was done as part of [KEP \#2837](https://kep.k8s.io/2837) led by SIG A
 
 ### Graceful node shutdown handling for Windows nodes
 
-The `kubelet` on Windows nodes can now detect system shutdown events and begin graceful termination of running pods. This mirrors existing behavior on Linux and helps ensure workloads exit cleanly during planned shutdowns or restarts.   
-When the system begins shutting down, the `kubelet` reacts by using standard termination logic. It respects the configured lifecycle hooks and grace periods, giving pods time to stop before the node powers off. The feature relies on Windows pre-shutdown notifications to coordinate this process. This enhancement improves workload reliability during maintenance, restarts, or system updates. It is now in beta and enabled by default.
+The `kubelet` on Windows nodes can now detect system shutdown events and begin graceful termination of running Pods. This mirrors existing behavior on Linux and helps ensure workloads exit cleanly during planned shutdowns or restarts.   
+When the system begins shutting down, the `kubelet` reacts by using standard termination logic. It respects the configured lifecycle hooks and grace periods, giving Pods time to stop before the node powers off. The feature relies on Windows pre-shutdown notifications to coordinate this process. This enhancement improves workload reliability during maintenance, restarts, or system updates. It is now in beta and enabled by default.
 
 This work was done as part of [KEP \#4802](https://kep.k8s.io/4802) led by SIG Windows.
 
