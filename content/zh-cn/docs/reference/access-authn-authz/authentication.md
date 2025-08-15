@@ -16,9 +16,11 @@ weight: 10
 
 <!-- overview -->
 <!--
-This page provides an overview of authentication.
+This page provides an overview of authentication in Kubernetes, with a focus on
+authentication to the [Kubernetes API](/docs/concepts/overview/kubernetes-api/).
 -->
-本页提供身份认证有关的概述。
+本页提供 Kubernetes 中身份认证有关的概述，重点介绍与
+[Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 有关的身份认证。
 
 <!-- body -->
 <!--
@@ -43,7 +45,7 @@ Normal users cannot be added to a cluster through an API call.
 Kubernetes 假定普通用户是由一个与集群无关的服务通过以下方式之一进行管理的：
 
 - 负责分发私钥的管理员
-- 类似 Keystone 或者 Google Accounts 这类用户数据库
+- 类似 Keystone 或者 Google Account 这类用户数据库
 - 包含用户名和密码列表的文件
 
 有鉴于此，**Kubernetes 并不包含用来代表普通用户账号的对象**。
@@ -3168,10 +3170,10 @@ You can only make `SelfSubjectReview` requests if:
 
 <!--
 * To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
-* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
+* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 -->
 * 要了解为用户颁发证书的有关信息，
   阅读[使用 CertificateSigningRequest 为 Kubernetes API 客户端颁发证书](/zh-cn/docs/tasks/tls/certificate-issue-client-csr/)。
-* 阅读[客户端认证参考文档（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)。
 * 阅读[客户端认证参考文档（v1）](/zh-cn/docs/reference/config-api/client-authentication.v1/)。
+* 阅读[客户端认证参考文档（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)。

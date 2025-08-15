@@ -4,9 +4,7 @@ linkTitle: ブログ
 menu:
   main:
     title: "ブログ"
-    weight: 40
-    post: >
-       <p>Kubernetesやコンテナ全般に関する最新ニュースを読んで、技術的なハウツーをいち早く入手しましょう。</p>
+    weight: 20
 ---
 {{< comment >}}
 

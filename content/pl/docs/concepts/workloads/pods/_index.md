@@ -227,17 +227,12 @@ mają pewne ograniczenia:
 
 - Większość metadanych o Podzie jest niezmienna. Na przykład, nie
   można zmienić pól `namespace`, `name`, `uid` ani `creationTimestamp`.
-  - Pole `generation` jest unikatowe. Zostanie automatycznie
-    ustawione przez system w taki sposób, że nowe pody będą miały ustawioną
-    wartość na 1, a każda aktualizacja pól w specyfikacji poda zwiększy
-    `generation` o 1. Jeśli funkcja alfa PodObservedGenerationTracking
-    jest włączona, `status.observedGeneration` poda będzie odzwierciedlał `metadata.generation`
-    poda w momencie, gdy status poda jest raportowany.
+
 - Jeśli parametr `metadata.deletionTimestamp` jest
   ustawiony, nie można dodać nowego wpisu do listy `metadata.finalizers`.
-- Aktualizacje Podów nie mogą zmieniać pól innych niż
-  `spec.containers[*].image`, `spec.initContainers[*].image`, `spec.activeDeadlineSeconds` lub `spec.tolerations`.
-  Dla `spec.tolerations` można jedynie dodawać nowe wpisy.
+- Aktualizacje Podów nie mogą zmieniać pól innych niż `spec.containers[*].image`,
+  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds`, `spec.terminationGracePeriodSeconds`,
+  `spec.tolerations` lub `spec.schedulingGates`. Dla `spec.tolerations` można jedynie dodawać nowe wpisy.
 - Podczas aktualizacji pola
   `spec.activeDeadlineSeconds` dozwolone są dwa typy aktualizacji:
 
@@ -259,6 +254,54 @@ Powyższe zasady aktualizacji dotyczą standardowych zmian w Podach, jednak niek
   jest to używane tylko przez Kubelet i kontrolery systemowe.
 - **Przypisanie Poda do węzła:** Podzasób `binding` umożliwia ustawienie `spec.nodeName` poda za pomocą żądania typu
   `Binding`. Zazwyczaj jest to używane tylko przez {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
+
+### Generacja poda {#pod-generation}
+
+- Pole `metadata.generation` jest unikatowe. Zostanie automatycznie ustawione przez
+  system w taki sposób, że nowe pody będą miały ustawioną wartość `metadata.generation` na
+  1, a każda aktualizacja pól zmiennych w specyfikacji poda zwiększy `metadata.generation` o 1.
+
+{{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
+
+- Pole `observedGeneration` znajduje się w sekcji `status` obiektu typu Pod. Gdy aktywna
+  jest opcja `PodObservedGenerationTracking`, Kubelet aktualizuje `status.observedGeneration`,
+  aby odzwierciedlało ono numer generacji (`metadata.generation`) poda w chwili raportowania
+  jego statusu. Dzięki temu możliwe jest powiązanie aktualnego stanu poda z wersją jego specyfikacji.
+
+{{< note >}}
+Pole `status.observedGeneration` jest zarządzane przez kubelet i zewnętrzne kontrolery **nie powinny modyfikować** tego pola.
+{{< /note >}}
+
+Różne pola statusu mogą być powiązane z `metadata.generation` bieżącej pętli synchronizacji lub z
+`metadata.generation` poprzedniej pętli synchronizacji. Kluczowa różnica polega na tym, czy zmiana w `spec`
+jest bezpośrednio odzwierciedlona w `status`, czy jest pośrednim wynikiem działającego procesu.
+
+#### Bezpośrednie aktualizacje statusu {#direct-status-updates}
+
+Dla pól statusu, gdzie przydzielona specyfikacja jest odzwierciedlona bezpośrednio, `observedGeneration`
+będzie powiązane z bieżącym `metadata.generation` (Generacja N).
+
+To zachowanie dotyczy:
+
+- **Statusu zmiany przydzielonych zasobów**: Status operacji zmiany rozmiaru zasobu.
+- **Przydzielonych zasobów**: Zasoby przydzielone do Poda po zmianie rozmiaru.
+- **Kontenerów efemerycznych**: Gdy nowy tymczasowy kontener zostaje dodany i znajduje się w stanie `Waiting`.
+
+#### Pośrednie aktualizacje statusu {#indirect-status-updates}
+
+Dla pól statusu, które są pośrednim wynikiem wykonania specyfikacji, pole `observedGeneration`
+będzie powiązane z wartością z `metadata.generation` z poprzedniej pętli synchronizacji (Generacja N-1).
+
+To zachowanie dotyczy:
+
+- **Obrazu Kontenera**: pole `ContainerStatus.ImageID` odzwierciedla obraz z
+  poprzedniej generacji do momentu pobrania nowego obrazu i zaktualizowania kontenera.
+- **Rzeczywiście używanych zasobów**: Podczas trwającej zmiany rozmiaru,
+  faktycznie wykorzystywane zasoby nadal odpowiadają żądaniu z poprzedniej generacji.
+- **Stanu kontenera**: Podczas trwającej zmiany rozmiaru z wymaganą
+  polityką restartu, stan kontenera odzwierciedla żądanie z poprzedniej generacji.
+- **activeDeadlineSeconds** i **terminationGracePeriodSeconds** oraz **deletionTimestamp**:
+  Zmiany w statusie poda wynikające z tych pól odnoszą się do specyfikacji z poprzedniej generacji.
 
 ## Udostępnianie zasobów i komunikacja {#resource-sharing-and-communication}
 
