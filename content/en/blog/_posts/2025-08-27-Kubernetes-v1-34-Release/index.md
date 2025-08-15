@@ -178,14 +178,6 @@ This feature improves workload stability and allows for more efficient resource 
 
 This work was done as part of [KEP \#2400](https://kep.k8s.io/2400) led by SIG Node.
 
-### `kubelet` distributed tracing
-
-The internal operations of the `kubelet` have been historically difficult to observe, making it challenging for administrators to debug issues occurring at the node level. This lack of deep visibility complicated the process of diagnosing performance bottlenecks, understanding Pod startup latency, and analyzing failures within the node agent.
-
-To address this visibility gap, distributed tracing capabilities are introduced directly into the `kubelet` using the OpenTelemetry standard. By enabling this feature, operators can export detailed trace data to their observability backends. This provides an unprecedented level of insight, allowing for the precise tracing of requests related to the Pod lifecycle, volume management, and other critical functions, which is essential for effective debugging and performance analysis.
-
-This work was done as part of [KEP \#2831](https://kep.k8s.io/2831) led by SIG Node.
-
 ### Allow special characters in environment variables
 
 The environment variable validation rules in Kubernetes have been relaxed to allow nearly all printable ASCII characters, excluding \=. This change supports scenarios where workloads require nonstandard characters in variable names \- for example, frameworks like .NET Core that use :  to represent nested config paths.
