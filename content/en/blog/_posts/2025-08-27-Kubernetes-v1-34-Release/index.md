@@ -130,7 +130,7 @@ This work was done as part of [KEP \#4381](https://kep.k8s.io/4381) led by WG De
 
 Semi-random resource deletion order can create security gaps or unintended behavior, such as Pods persisting after their associated NetworkPolicies are deleted.  
 This improvement introduces a more structured deletion process for Kubernetes [namespaces](/docs/concepts/overview/working-with-objects/namespaces/) to ensure secure and deterministic resource removal. By enforcing a structured deletion sequence that respects logical and security dependencies, this approach ensures Pods are removed before other resources.   
-This feature was introduced in Kubernetes v1.33 and graduated to stable in v1.34, improving security and reliability by mitigating risks from non-deterministic deletions.
+This feature was introduced in Kubernetes v1.33 and graduated to stable in v1.34. The graduation improves security and reliability by mitigating risks from non-deterministic deletions, including the vulnerability described in [CVE-2024-7598](https://github.com/advisories/GHSA-r56h-j38w-hrqq).
 
 This work was done as part of [KEP \#5080](https://kep.k8s.io/5080) led by SIG API Machinery.
 
