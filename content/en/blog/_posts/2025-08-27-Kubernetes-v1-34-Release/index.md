@@ -405,11 +405,14 @@ The `kubelet` command line flag `--cgroup-driver` (and its alternative `cgroupDr
 
 This work was done as part of [KEP \#4033](https://kep.k8s.io/4033) led by SIG Node.
 
-#### Deprecation of containerd v1.X support
-While Kubernetes v1.34 still supports containerd 1.7 and other LTS releases
-of containerd, the Kubernetes SIG Node community has formally agreed upon a final support timeline for containerd v1.X. The last Kubernetes release to offer this support will be v1.36.0. This is an early warning that if you are using containerd 1.X, consider switching to 2.0+ soon. You are able to monitor the
-`kubelet_cri_losing_support` metric to determine if any nodes in your cluster
-are using a containerd version that will soon be outdated.
+#### Kubernetes to end containerd 1.x support in v1.36
+While Kubernetes v1.34 still supports containerd 1.7 and other LTS releases of containerd, 
+as a consequence of automated cgroup driver detection, the Kubernetes SIG Node community 
+has formally agreed upon a final support timeline for containerd v1.X. 
+The last Kubernetes release to offer this support will be v1.36 (aligned with containerd 1.7 EOL). 
+This is an early warning that if you are using containerd 1.X, consider switching to 2.0+ soon. 
+You are able to monitor the `kubelet_cri_losing_support` metric to determine if any nodes in your 
+cluster are using a containerd version that will soon be outdated.
 
 This work was done as part of [KEP \#4033](https://kep.k8s.io/4033) led by SIG Node.
 
