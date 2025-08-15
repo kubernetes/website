@@ -51,9 +51,9 @@ KMSプロバイダーは、etcd内のデータを暗号化するためにエン�
 データはデータ暗号化鍵(DEK)を使用して暗号化されます。
 DEKは、リモートKMSで保存・管理される鍵暗号化鍵(KEK)で暗号化されます。
 
-(非推奨の)KMSのv1実装を使用する場合、各暗号化ごとに新しいDEKが生成されます。
+(非推奨の)KMSのv1実装を使用する場合、各暗号化に対して新しいDEKが生成されます。
 
-KMS v2では、**暗号化ごと**に新しいDEKが生成されます: APIサーバーは_キー派生関数_を使用して、シークレットシードとランダムデータを組み合わせて単一用途のデータ暗号化鍵を生成します。
+KMS v2では、**暗号化ごと**に新しいDEKが生成されます: APIサーバーは _鍵導出関数_ を使用して、シークレットシード(暗号鍵生成の種)とランダムデータを組み合わせて単一用途のデータ暗号化鍵を生成します。
 シードは、KEKがローテーションされるたびにローテーションされます(詳細については、以下の「key_idと鍵ローテーションの理解」セクションを参照してください)。
 
 KMSプロバイダーは、UNIXドメインソケット経由で特定のKMSプラグインと通信するためにgRPCを使用します。
@@ -122,15 +122,19 @@ Go用に利用可能なスタブファイルを使用してKMSプラグインgRP
   低レベルの実装では、スタブファイル内の関数とデータ構造を使用できます:
   [api.pb.go](https://github.com/kubernetes/kms/blob/release-{{< skew currentVersion >}}/apis/v2/api.pb.go)
 
+* Go以外の言語を使用する場合:
+  個別言語向けのスタブファイルを生成するには、protocコンパイラーとprotoファイルを使用してください:
+  [api.proto](https://github.com/kubernetes/kms/blob/release-{{< skew currentVersion >}}/apis/v2/api.proto)
+
 その後、スタブファイル内の関数とデータ構造を使用してサーバーコードを開発してください。
 
 #### 注意事項
 
 ##### KMS v1 {#developing-a-kms-plugin-gRPC-server-notes-kms-v1}
 
-* kmsプラグインバージョン: `v1beta1`
+* KMSプラグインバージョン: `v1beta1`
 
-  Version プロシージャコールへの応答で、互換性のあるKMSプラグインは`VersionResponse.version`として`v1beta1`を返す必要があります。
+  Versionプロシージャコールへの応答で、互換性のあるKMSプラグインは`VersionResponse.version`として`v1beta1`を返す必要があります。
 
 * メッセージバージョン: `v1beta1`
 
@@ -152,7 +156,7 @@ Go用に利用可能なスタブファイルを使用してKMSプラグインgRP
   `Status`リモートプロシージャコールへの応答の際、KMS v2に互換なKMSプラグインは`StatusResponse.version`としてKMS互換性バージョンを返す必要があります。
   また、ステータス応答には`StatusResponse.healthz`として「ok」、`StatusResponse.key_id`として`key_id`(リモートKMSのKEK ID)を含める必要があります。
   Kubernetesプロジェクトでは、プラグインを安定した`v2` KMS APIと互換性があるようにすることを推奨します。
-Kubernetes {{< skew currentVersion >}}はKMS用の`v2beta1` APIもサポートしています; 将来のKubernetesリリースでもそのベータバージョンのサポートが継続される可能性があります。
+Kubernetes {{< skew currentVersion >}}はKMS用の`v2beta1` APIもサポートしており、将来のKubernetesリリースでもそのベータバージョンのサポートが継続される可能性があります。
 
   APIサーバーは、すべてが正常な場合は約1分ごとに`Status`プロシージャコールをポーリングし、プラグインが正常でない場合は10秒ごとにポーリングします。
   プラグインは、常にこの呼び出し負荷がかかることを考慮して最適化する必要があります。
@@ -160,7 +164,7 @@ Kubernetes {{< skew currentVersion >}}はKMS用の`v2beta1` APIもサポート�
 * 暗号化
 
   `EncryptRequest`プロシージャコールは、平文に加えて、ログ目的のUIDフィールドを提供します。
-  応答には暗号文と使用するKEKの`key_id`を含める必要があり、任意のフィールドとして、将来の`DecryptRequest`呼び出しを(`annotations`フィールド経由で) KMSプラグインが支援するためのメタデータを含めることができます。
+  応答には暗号文と使用するKEKの`key_id`を含める必要があり、KMSプラグインが将来の`DecryptRequest`呼び出しを(`annotations`フィールド経由で)支援するために必要とする、任意のメタデータを含めることもできます。
   プラグインは、異なる任意の平文が異なる応答`(ciphertext, key_id, annotations)`を与えることを保証しなければなりません(MUST)。
 
   プラグインが空でない`annotations`マップを返す場合、すべてのマップキーは`example.com`のような完全修飾ドメイン名である必要があります。
@@ -178,9 +182,9 @@ Kubernetes {{< skew currentVersion >}}はKMS用の`v2beta1` APIもサポート�
   APIサーバーは、Watchキャッシュを満たすために起動時に何千もの`DecryptRequest`プロシージャコールを実行する可能性があります。
   したがって、プラグインの実装はこれらの呼び出しを可能な限り迅速に実行する必要があり、各リクエストのレイテンシーを10ミリ秒未満に保つことを目指す必要があります。
 
-* `key_id`とキーローテーションの理解
+* `key_id`と鍵ローテーションの理解
 
-  `key_id`は、現在使用中のリモートKMS KEKの公開された非秘密の名前です。
+  `key_id`は、現在使用中のリモートKMS KEKの公開された非機密の名前です。
 APIサーバーの通常の動作中にログに記録される可能性があるため、プライベートデータを含んではいけません。
 プラグインの実装では、データの漏洩を避けるためにハッシュの使用が推奨されます。
 KMS v2メトリクスは、`/metrics`エンドポイント経由で公開する前にこの値をハッシュ化するよう注意しています。
@@ -196,7 +200,7 @@ KMS v2メトリクスは、`/metrics`エンドポイント経由で公開する�
 
   APIサーバーは約1分ごとに`Status`をポーリングするため、`key_id`ローテーションは即座には行われません。
 さらに、APIサーバーは約3分間最後の有効な状態で継続します。
-したがって、ユーザーがストレージ移行に対して受動的なアプローチ(つまり、待機による)を取りたい場合、リモートKEKがローテーションされた後の`3 + N + M`分でマイグレーションを予定する必要があります(`N`はプラグインが`key_id`変更を観察するのにかかる時間、`M`は設定変更が処理されることを許可するための望ましいバッファです - 最低5分の`M`が推奨されます)。
+したがって、ユーザーがストレージ移行に対して受動的な(つまり、待機による)アプローチを取りたい場合、リモートKEKがローテーションされた後の`3 + N + M`分でマイグレーションを予定する必要があります(`N`はプラグインが`key_id`の変更を検知するのにかかる時間、`M`は設定変更が処理されることを許可するための望ましいバッファです。`M`の最小値は5分が推奨されます)。
 KEKローテーションを実行するためにAPIサーバーの再起動は必要ないことに注意してください。
 
   {{< caution >}}
@@ -229,7 +233,7 @@ KMSプラグインがKubernetes APIサーバーと同じホストで実行され
 1. SecretやConfigMapなどのリソースを暗号化するために、`kms`プロバイダーの適切なプロパティを使用して新しい`EncryptionConfiguration`ファイルを作成します。
 CustomResourceDefinitionで定義された拡張APIを暗号化したい場合、クラスターはKubernetes v1.26以降を実行している必要があります。
 
-1. kube-apiserverの`--encryption-provider-config`フラグを設定ファイルの場所を指すように設定します。
+1. kube-apiserverの`--encryption-provider-config`フラグを、設定ファイルの場所を指すように設定します。
 
 1. `--encryption-provider-config-automatic-reload`ブール引数は、`--encryption-provider-config`で設定されたファイルがディスクの内容が変更された場合に[自動的にリロード](/docs/tasks/administer-cluster/encrypt-data/#configure-automatic-reloading)されるかどうかを決定します。
 
@@ -284,7 +288,7 @@ CustomResourceDefinitionで定義された拡張APIを暗号化したい場合�
 `--encryption-provider-config-automatic-reload`を`true`に設定すると、すべてのヘルスチェックが単一のヘルスチェックエンドポイントに統合されます。
 個別のヘルスチェックは、KMS v1プロバイダーが使用されており、暗号化設定が自動リロードされない場合にのみ利用できます。
 
-以下の表は、各KMSバージョンのヘルスチェックエンドポイントをまとめています：
+以下の表は、各KMSバージョンのヘルスチェックエンドポイントをまとめています:
 
 | KMS設定 | 自動リロードなし | 自動リロードあり |
 | ------------------ | ------------------------ | --------------------- |
@@ -300,24 +304,24 @@ CustomResourceDefinitionで定義された拡張APIを暗号化したい場合�
 これらのヘルスチェックエンドポイントパスはハードコードされており、サーバーによって生成/制御されます。
 個別ヘルスチェックのインデックスは、KMS暗号化設定が処理される順序に対応します。
 
-[すべての秘密が暗号化されていることを確認する](#ensuring-all-secrets-are-encrypted)で定義された手順が実行されるまで、`providers`リストは暗号化されていないデータの読み取りを許可するために`identity: {}`プロバイダーで終わる必要があります。
+[すべてのシークレットが暗号化されていることを確認する](#ensuring-all-secrets-are-encrypted)で定義された手順が実行されるまで、`providers`リストは暗号化されていないデータの読み取りを許可するために`identity: {}`プロバイダーで終わる必要があります。
 すべてのリソースが暗号化されたら、APIサーバーが暗号化されていないデータを受け入れることを防ぐために`identity`プロバイダーを削除する必要があります。
 
-`EncryptionConfiguration`形式の詳細については、[APIサーバー暗号化API参照](/docs/reference/config-api/apiserver-config.v1/)を確認してください。
+`EncryptionConfiguration`形式の詳細については、[APIサーバー暗号化APIリファレンス](/docs/reference/config-api/apiserver-config.v1/)を確認してください。
 
 ## データが暗号化されていることを確認する
 
 保存時暗号化が正しく設定されている場合、リソースは書き込み時に暗号化されます。
 `kube-apiserver`を再起動した後、新しく作成または更新されたSecretや`EncryptionConfiguration`で設定されたその他のリソースタイプは、保存時に暗号化される必要があります。
-確認するには、`etcdctl`コマンドラインプログラムを使用して秘密データの内容を取得できます。
+確認するには、`etcdctl`コマンドラインプログラムを使用して機密データの内容を取得できます。
 
-1. `default`名前空間に`secret1`という新しい秘密を作成します:
+1. `default`名前空間に`secret1`という新しいシークレットを作成します:
 
    ```shell
    kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
    ```
 
-1. `etcdctl`コマンドラインを使用して、etcdからその秘密を読み取ります:
+1. `etcdctl`コマンドラインを使用して、etcdからそのシークレットを読み取ります:
 
    ```shell
    ETCDCTL_API=3 etcdctl get /kubernetes.io/secrets/default/secret1 [...] | hexdump -C
@@ -325,10 +329,10 @@ CustomResourceDefinitionで定義された拡張APIを暗号化したい場合�
 
    ここで`[...]`にはetcdサーバーに接続するための追加の引数が含まれます。
 
-1. 保存された秘密がKMS v1の場合は`k8s:enc:kms:v1:`で、KMS v2の場合は`k8s:enc:kms:v2:`でプレフィックスされていることを確認します。
+1. 保存されたシークレットがKMS v1の場合は`k8s:enc:kms:v1:`で始まり、KMS v2の場合は`k8s:enc:kms:v2:`で始まることを確認します。
 これは`kms`プロバイダーが結果データを暗号化したことを示します。
 
-1. API経由で取得されたときに秘密が正しく復号されることを確認します:
+1. API経由で取得されたときに、シークレットが正しく復号されることを確認します:
 
    ```shell
    kubectl describe secret secret1 -n default
@@ -336,14 +340,14 @@ CustomResourceDefinitionで定義された拡張APIを暗号化したい場合�
 
    Secretには`mykey: mydata`が含まれている必要があります
 
-## すべての秘密が暗号化されていることを確認する
+## すべてのシークレットが暗号化されていることを確認する {#ensuring-all-secrets-are-encrypted}
 
 保存時暗号化が正しく設定されている場合、リソースは書き込み時に暗号化されます。
 したがって、データが暗号化されることを確保するために、インプレースでno-op更新を実行できます。
 
-以下のコマンドは、すべての秘密を読み取り、その後サーバーサイド暗号化を適用するために更新します。
+以下のコマンドは、すべてのシークレットを読み取り、その後サーバーサイド暗号化を適用するために更新します。
 競合する書き込みによるエラーが発生した場合は、コマンドを再試行してください。
-大きなクラスターの場合、名前空間によって秘密を細分化するか、更新をスクリプト化することをお勧めします。
+大規模なクラスターの場合、名前空間によってシークレットを細分化するか、更新をスクリプト化することをお勧めします。
 
 ```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
@@ -351,7 +355,7 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 
 ## ローカル暗号化プロバイダーからKMSプロバイダーへの切り替え
 
-ローカル暗号化プロバイダーから`kms`プロバイダーに切り替えて、すべての秘密を再暗号化するには:
+ローカル暗号化プロバイダーから`kms`プロバイダーに切り替えて、すべてのシークレットを再暗号化するには:
 
 1. 以下の例に示すように、`kms`プロバイダーを設定ファイルの最初のエントリとして追加します。
 
@@ -374,7 +378,7 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 
 1. すべての`kube-apiserver`プロセスを再起動します。
 
-1. 以下のコマンドを実行して、`kms`プロバイダーを使用してすべての秘密を強制的に再暗号化します。
+1. 以下のコマンドを実行して、`kms`プロバイダーを使用してすべてのシークレットを強制的に再暗号化します。
 
    ```shell
    kubectl get secrets --all-namespaces -o json | kubectl replace -f -
