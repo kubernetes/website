@@ -298,14 +298,6 @@ In this release, the `WatchList` feature gate is now enabled by default for the 
 
 This work was done as part of [KEP \#3157](https://kep.k8s.io/3157) led by SIG API Machinery.
 
-### `PreferSameZone` and `PreferSameNode` traffic distribution for Services
-
-The `spec.trafficDistribution` field within a Kubernetes [Service](/docs/concepts/services-networking/service/) allows users to express preferences for how traffic should be routed to Service endpoints.  
-[KEP-3015](https://kep.k8s.io/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. `PreferSameZone` is an alias for the existing `PreferClose` to clarify its semantics. `PreferSameNode` allows connections to be delivered to a local endpoint when possible, falling back to a remote endpoint when not possible.  
-This feature was introduced in v1.33 behind the `PreferSameTrafficDistribution` feature gate. It has graduated to beta in v1.34 and is enabled by default. 
-
-This work was done as part of [KEP \#3015](https://kep.k8s.io/3015) led by SIG Network.
-
 ### Pod-level resource requests and limits
 
 Defining resource needs for Pods with multiple containers has been challenging, as requests and limits could only be set on a per-container basis. This forced developers to either over-provision resources for each container or meticulously divide the total desired resources, making configuration complex and often leading to inefficient resource allocation.  
@@ -428,7 +420,29 @@ This release includes a total of 23 enhancements promoted to stable:
 
 ### Deprecations and removals
 
-As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better ones for the project's overall health. However, **Kubernetes v1.34 does not include any removal or deprecation.**
+As Kubernetes develops and matures, features may be deprecated, removed, or replaced with better
+ones to improve the project's overall health. See the Kubernetes
+[deprecation and removal policy](/docs/reference/using-api/deprecation-policy/) for more details on
+this process. Kubernetes v1.34 includes a couple of deprecations.
+
+#### Deprecation of containerd v1.y support
+While Kubernetes v1.34 still supports containerd 1.7 and other LTS releases
+of containerd the Kubernetes SIG Node community has formally agreed upon a final support
+timeline for containerd v1.y. The last Kubernetes release to offer this support
+will be v1.36.0. You are able to monitor the
+`kubelet_cri_losing_support` metric to determine if any nodes in your cluster
+are using a containerd version that will soon be outdated.
+
+This work was done as part of [KEP \#4033](https://kep.k8s.io/4033) led by SIG Node.
+
+#### `PreferClose` traffic distribution is deprecated
+The `spec.trafficDistribution` field within a Kubernetes [Service](/docs/concepts/services-networking/service/) allows users to express preferences for how traffic should be routed to Service endpoints.  
+
+[KEP-3015](https://kep.k8s.io/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. `PreferSameZone` is an alias for the existing `PreferClose` to clarify its semantics. `PreferSameNode` allows connections to be delivered to a local endpoint when possible, falling back to a remote endpoint when not possible.
+
+This feature was introduced in v1.33 behind the `PreferSameTrafficDistribution` feature gate. It has graduated to beta in v1.34 and is enabled by default.
+
+This work was done as part of [KEP \#3015](https://kep.k8s.io/3015) led by SIG Network.
 
 ## Release notes
 
