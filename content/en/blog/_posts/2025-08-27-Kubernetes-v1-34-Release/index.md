@@ -323,7 +323,7 @@ This work was done as part of [KEP \#4802](https://kep.k8s.io/4802) led by SIG W
 
 ### In-place Pod resize improvements
 
-Graduated to beta and enabled by default in v1.33, in-place Pod resizing receives additional improvements in v1.34. These improvements include support for decreasing memory usage, and integration with Pod-level resources.
+Graduated to beta and enabled by default in v1.33, in-place Pod resizing receives further improvements in v1.34. These include support for decreasing memory usage and integration with Pod-level resources.
 
 This feature remains in beta in v1.34. For detailed usage instructions and examples, refer to the documentation: [Resize CPU and Memory Resources assigned to Containers](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/).
 
