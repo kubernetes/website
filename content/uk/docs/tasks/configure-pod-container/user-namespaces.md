@@ -57,10 +57,10 @@ Podʼів, вам також потрібно забезпечити те, що 
    kubectl apply -f https://k8s.io/examples/pods/user-namespaces-stateless.yaml
    ```
 
-1. Додайте контейнер налагодження та приєднайтеся до нього і виконайте `readlink /proc/self/ns/user`:
+1. Приєднайтеся до Podʼа і виконайте `readlink /proc/self/ns/user`:
 
    ```shell
-   kubectl debug userns -it --image=busybox
+   kubectl exec -ti userns -- bash
    ```
 
 Виконайте цю команду:

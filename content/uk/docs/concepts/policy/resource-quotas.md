@@ -13,7 +13,7 @@ weight: 20
 
 _Квоти ресурсів_ є інструментом для адміністраторів для розвʼязання цієї проблеми.
 
-Квота ресурсів, визначена обʼєктом `ResourceQuota`, надає обмеження, які обмежують загальне споживання ресурсів у  {{< glossary_tooltip text="просторі імен" term_id="namespace" >}}. ResourceQuota також може обмежувати [кількість обʼєктів, які можуть бути створені в просторі імен](#object-count-quota) за типом API, так само як й загальний обсяг {{< glossary_tooltip text="ресурсів інфраструктури" term_id="infrastructure-resource" >}} які можуть бути спожиті обʼєктами API у цьому просторі імен.
+Квота ресурсів, визначена обʼєктом `ResourceQuota`, надає обмеження, які обмежують загальне споживання ресурсів у  {{< glossary_tooltip text="просторі імен" term_id="namespace" >}}. ResourceQuota також може обмежувати [кількість обʼєктів, які можуть бути створені в просторі імен](#quota-on-object-count) за типом API, так само як й загальний обсяг {{< glossary_tooltip text="ресурсів інфраструктури" term_id="infrastructure-resource" >}} які можуть бути спожиті обʼєктами API у цьому просторі імен.
 
 {{< caution >}}
 Neither contention nor changes to quota will affect already created resources.
