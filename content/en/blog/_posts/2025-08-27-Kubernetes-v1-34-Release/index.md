@@ -149,9 +149,7 @@ This work was done as part of [KEP \#4568](https://kep.k8s.io/4568) led by SIG A
 ### Relaxing DNS search path validation
 
 Previously, the strict validation of a Pod's DNS `search` path in Kubernetes often created integration challenges in complex or legacy network environments. This restrictiveness could block configurations that were necessary for an organization's infrastructure, forcing administrators to implement difficult workarounds.  
-To address this, relaxed DNS validation was introduced as alpha in v1.32 and now has graduated to stable in v1.34. 
-
-A common use case is for a Pod that needs to communicate with both internal Kubernetes services and external domains. By setting a single dot (.) as the first entry in the searches list of the Pod's `dnsConfig`, administrators can prevent the system's resolver from appending the cluster's internal search domains to external queries. This avoids generating unnecessary DNS requests to the internal DNS server for external hostnames, improving efficiency and preventing potential resolution errors.
+To address this, relaxed DNS validation was introduced as alpha in v1.32 and has now graduated to stable in v1.34. A common use case involves Pods that need to communicate with both internal Kubernetes services and external domains. By setting a single dot (`.`) as the first entry in the `searches` list of the Pod's `.spec.dnsConfig`, administrators can prevent the system's resolver from appending the cluster's internal search domains to external queries. This avoids generating unnecessary DNS requests to the internal DNS server for external hostnames, improving efficiency and preventing potential resolution errors.
 
 This work was done as part of [KEP \#4427](https://kep.k8s.io/4427) led by SIG Network.
 
