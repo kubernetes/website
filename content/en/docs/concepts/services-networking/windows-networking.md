@@ -95,7 +95,7 @@ The following IPAM options are supported on Windows:
 
 ## Direct Server Return (DSR) {#dsr}
 
-{{< feature-state for_k8s_version="v1.33" state="beta" >}}
+{{< feature-state feature_gate_name="WinDSR" >}}
 
 Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly;
 service traffic arrives with the source IP set as the originating pod IP.

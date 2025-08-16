@@ -376,6 +376,97 @@ you like. If you want to add a note for human consumption, use the
 `status.conditions.message` field.
 
 
+## PodCertificateRequests {#pod-certificate-requests}
+
+{{< feature-state feature_gate_name="PodCertificateRequest" >}}
+
+{{< note >}}
+In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
+Certificates using the `PodCertificateRequest` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
+`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+kube-apiserver flag.
+{{< /note >}}
+
+PodCertificateRequests are API objects tailored to provisioning certificates to
+workloads running as Pods within a cluster.  The user typically does not
+interact with PodCertificateRequests directly, but uses [podCertificate
+projected volume sources](
+/docs/concepts/storage/projected-volumes#podcertificate), which are a `kubelet`
+feature that handles secure key provisioning and automatic certificate refresh.
+The application inside the pod only needs to know how to read the certificates
+from the filesystem.
+
+PodCertificateRequests are similar to CertificateSigningRequests, but have a
+simpler format enabled by their narrower use case.
+
+A PodCertificateRequest has the following spec fields:
+* `signerName`: The signer to which this request is addressed.
+* `podName` and `podUID`: The Pod that Kubelet is requesting a certificate for.
+* `serviceAccountName` and `serviceAccountUID`: The ServiceAccount corresponding to the Pod.
+* `nodeName` and `nodeUID`: The Node corresponding to the Pod.
+* `maxExpirationSeconds`: The maximum lifetime that the workload author will
+  accept for this certificate.  Defaults to 24 hours if not specified.
+* `pkixPublicKey`: The public key for which the certificate should be issued.
+* `proofOfPossession`: A signature demonstrating that the requester controls the
+  private key corresponding to `pkixPublicKey`.
+
+Nodes automatically receive permissions to create PodCertificateRequests and
+read PodCertificateRequests related to them (as determined by the
+`spec.nodeName` field).  The `NodeRestriction` admission plugin, if enabled,
+ensures that nodes can only create PodCertificateRequests that correspond to a
+real pod that is currently running on the node.
+
+After creation, the `spec` of a PodCertificateRequest is immutable.
+
+Unlike CSRs, PodCertificateRequests do not have an
+approval phase.  Once the PodCertificateRequest is created, the signer's
+controller directly decides to issue or deny the request.  It also has the
+option to mark the request as failed, if it encountered a permanent error when
+attempting to issue the request.
+
+To take any of these actions, the signing controller needs to have the
+appropriate permissions on both the PodCertificateRequest type, as well as on
+the signer name:
+* Verbs: **update**, group: `certificates.k8s.io`, resource:
+  `podcertificaterequests/status`
+* Verbs: **sign**, group: `certificates.k8s.io`, resource: `signers`,
+  resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
+
+The signing controller is free to consider other information beyond what's
+contained in the request, but it can rely on the information in the request to
+be accurate.  For example, the signing controller might load the Pod and read
+annotations set on it, or perform a SubjectAccessReview on the ServiceAccount.  
+
+To issue a certificate in response to a request, the signing controller:
+* Adds an `Issued` condition to `status.conditions`.
+* Puts the issued certificate in `status.certificateChain`
+* Puts the `NotBefore` and `NotAfter` fields of the certificate in the
+  `status.notBefore` and `status.notAfter` fields &mdash; these fields are
+  denormalized into the Kubernetes API in order to aid debugging
+* Suggests a time to begin attempting to refresh the certificate using
+  `status.beginRefreshAt`.
+
+To deny a request, the signing controller adds a "Denied" condition to
+`status.conditions[]`.
+
+To mark a request failed, the signing controller adds a "Failed" condition to
+`status.conditions[]`.
+
+All of these conditions are mutually-exclusive, and must have status "True".  No
+other condition types are permitted on PodCertificateRequests.  In addition,
+once any of these conditions are set, the `status` field becomes immutable.
+
+Like all conditions, the `status.conditions[].reason` field is meant to contain
+a machine-readable code describing the condition in TitleCase.  The
+`status.conditions[].message` field is meant for a free-form explanation for
+human consumption.
+
+To ensure that terminal PodCertificateRequests do not build up in the cluster, a
+`kube-controller-manager` controller deletes all PodCertificateRequests older
+than 15 minutes.  All certificate issuance flows are expected to complete within
+this 15-minute limit.
+
 ## Cluster trust bundles {#cluster-trust-bundles}
 
 {{< feature-state feature_gate_name="ClusterTrustBundle" >}}

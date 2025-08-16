@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: envfile-test-pod
+spec:
+  initContainers:
+    - name: setup-envfile
+      image:  nginx
+      command: ['sh', '-c', 'echo "DB_ADDRESS=address\nREST_ENDPOINT=endpoint" > /data/config.env']
+      volumeMounts:
+        - name: config
+          mountPath: /data
+  containers:
+    - name: use-envfile
+      image: nginx
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        - name: DB_ADDRESS
+          valueFrom:
+            fileKeyRef:
+              path: config.env
+              volumeName: config
+              key: DB_ADDRESS
+              optional: false
+  restartPolicy: Never
+  volumes:
+    - name: config
+      emptyDir: {}
