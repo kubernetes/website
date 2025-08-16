@@ -39,7 +39,7 @@ KYAML aims to be a safer and less ambiguous YAML subset, and was designed specif
    
 KYAML addresses specific challenges with both YAML and JSON. YAML's significant whitespace requires careful attention to indentation and nesting, while its optional string-quoting can lead to unexpected type coercion (for example: ["The Norway Bug"](https://hitchdev.com/strictyaml/why/implicit-typing-removed/)). Meanwhile, JSON lacks comment support and has strict requirements for trailing commas and quoted keys. 
   
-You can write KYAML and pass it as an input to any version of `kubectl`, because all KYAML files are also valid as YAML. With `kubectl` v1.34, you are also able to request KYAML output (as in `kubectl get -o kyaml …`). If you prefer, you can still request the output in JSON or YAML format.
+You can write KYAML and pass it as an input to any version of `kubectl`, because all KYAML files are also valid as YAML. With `kubectl` v1.34, you are also able to [request KYAML output](https://kubernetes.io/docs/reference/kubectl/#syntax-1) (as in kubectl get -o kyaml …) when the feature is enabled. If you prefer, you can still request the output in JSON or YAML format.
 
 This work was done as part of [KEP \#5295](https://kep.k8s.io/5295) led by SIG CLI.
 
