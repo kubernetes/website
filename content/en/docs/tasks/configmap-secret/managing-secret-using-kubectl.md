@@ -123,6 +123,17 @@ The commands `kubectl get` and `kubectl describe` avoid showing the contents
 of a `Secret` by default. This is to protect the `Secret` from being exposed
 accidentally, or from being stored in a terminal log.
 
+## Viewing Secret information
+
+Although verifying secrets could be performed using 'kubectl get secret' command, a broader view of the 
+secret information needs the Secret to be outputted in JSON or YAML format. The below command can be used to 
+output a detailed information about the Secret. This will display the content of the Secret explicitly,
+and as stated in the previous section, it is not advised to run it unless it is absolutely necessary to view the file.
+
+```shell
+kubectl get secret name-of-secret -o yaml
+```
+
 ### Decode the Secret  {#decoding-secret}
 
 1. View the contents of the Secret you created:
