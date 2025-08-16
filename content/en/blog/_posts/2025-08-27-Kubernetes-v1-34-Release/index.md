@@ -89,7 +89,7 @@ This work was done as part of [KEP \#3331](https://kep.k8s.io/3331) led by SIG A
 
 ### Finer-grained authorization based on selectors
 
-Kubernetes authorizers, including webhooks and the node authorizer, can now make authorization decisions based on field and label selectors in incoming requests. When you send **List**, **Watch** or **DeleteCollection** requests with selectors, the authorization layer can now evaluate access with that additional context. 
+Kubernetes authorizers, including webhook authorizers and the built-in node authorizer, can now make authorization decisions based on field and label selectors in incoming requests. When you send **list**, **watch** or **deletecollection** requests with selectors, the authorization layer can now evaluate access with that additional context. 
 
 For example, an authorization policy can now limit a request to list only pods with a specific `.spec.nodeName`, or reject requests that attempt to access resources with certain labels. This change supports more granular control in environments like per-node isolation or custom multi-tenant setups.
 
@@ -181,9 +181,12 @@ This work was done as part of [KEP \#2400](https://kep.k8s.io/2400) led by SIG N
 
 ### Allow special characters in environment variables
 
-The environment variable validation rules in Kubernetes have been relaxed to allow nearly all printable ASCII characters, excluding \=. This change supports scenarios where workloads require nonstandard characters in variable names \- for example, frameworks like .NET Core that use :  to represent nested config paths.
+The environment variable validation rules in Kubernetes have been relaxed
+to allow nearly all printable ASCII characters in variable names, excluding `=`.
+This change supports scenarios where workloads require nonstandard characters in variable names - for example, frameworks like .NET Core that use `:` to represent nested configuration keys.
 
-The relaxed validation applies to environment variables defined directly in Pod spec, as well as those injected using envFrom references to ConfigMaps and Secrets.
+The relaxed validation applies to environment variables defined directly in Pod spec,
+as well as those injected using `envFrom` references to ConfigMaps and Secrets.
 
 This work was done as part of [KEP \#4369](https://kep.k8s.io/4369) led by SIG Node.
 
@@ -258,9 +261,15 @@ This work was done as part of [KEP \#4988](https://kep.k8s.io/4988) led by SIG A
 
 ### Tooling for declarative validation of Kubernetes-native types
 
-Kubernetes API validation rules are currently written by hand, which makes them difficult for users to access directly, review, maintain, and test.  
-Declarative validation benefits Kubernetes maintainers by making API development, maintenance, and review easier while enabling programmatic inspection for better tooling and documentation. For Kubernetes users, it streamlines adding new fields through simple IDL tags rather than complex validation functions, speeds up API creation by automating validation boilerplate, and provides more relevant error messages by performing validation on versioned types.​​​​​​​​​​​​​​​​  
-This enhancement graduated to beta in v1.33 and continues as beta in v1.34, it brings CEL-based validation rules to native Kubernetes types. It allows for more granular and declarative validation to be defined directly in the type definitions, improving API consistency and developer experience.
+Prior to this release, validation rules for the
+APIs built into Kubernetes were written entirely by hand, which makes them difficult for maintainers to discover, understand, improve or test.
+There was no single way to find all the validation rules that might apply to an API.
+_Declarative validation_ benefits Kubernetes maintainers by making API development, maintenance, and review easier while enabling programmatic inspection for better tooling and documentation.
+For people using Kubernetes libraries to write their own code
+(for example: a controller), the new approach streamlines adding new fields through IDL tags, rather than complex validation functions.
+This change helps speed up API creation by automating validation boilerplate,
+and provides more relevant error messages by performing validation on versioned types.​​​​​​​​​​​​​​​​  
+This enhancement (which graduated to beta in v1.33 and continues as beta in v1.34) brings CEL-based validation rules to native Kubernetes types. It allows for more granular and declarative validation to be defined directly in the type definitions, improving API consistency and developer experience.
 
 This work was done as part of [KEP \#5073](https://kep.k8s.io/5073) led by SIG API Machinery.
 
@@ -291,7 +300,7 @@ This work was done as part of [KEP \#4802](https://kep.k8s.io/4802) led by SIG W
 
 Graduated to beta and enabled by default in v1.33, in-place Pod resizing receives further improvements in v1.34. These include support for decreasing memory usage and integration with Pod-level resources.
 
-This feature remains in beta in v1.34. For detailed usage instructions and examples, refer to the documentation: [Resize CPU and Memory Resources assigned to Containers](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/).
+This feature remains in beta in v1.34. For detailed usage instructions and examples, refer to the documentation: [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/).
 
 This work was done as part of [KEP \#1287](https://kep.k8s.io/1287) led by SIG Node and SIG Autoscaling.
 
@@ -302,15 +311,21 @@ This work was done as part of [KEP \#1287](https://kep.k8s.io/1287) led by SIG N
 ### Pod certificates for mTLS authentication
 
 Authenticating workloads within a cluster, especially for communication with the API server, has primarily relied on ServiceAccount tokens. While effective, these tokens aren't always ideal for establishing a strong, verifiable identity for mutual TLS (mTLS) and can present challenges when integrating with external systems that expect certificate-based authentication.  
-A built-in mechanism for Pods to obtain X.509 certificates was introduced in v1.34. The `kubelet` can now request and manage certificates for Pods, which can then be used to authenticate to the Kubernetes API server and other services using mTLS.  
+Kubernetes v1.34 introduces a built-in mechanism for Pods to obtain X.509 certificates via [PodCertificateRequests](/docs/reference/access-authn-authz/certificate-signing-requests/#pod-certificate-requests). The `kubelet` can request and manage certificates for Pods, which can then be used to authenticate to the Kubernetes API server and other services using mTLS.
 The primary benefit is a more robust and flexible identity mechanism for Pods. It provides a native way to implement strong mTLS authentication without relying solely on bearer tokens, aligning Kubernetes with standard security practices and simplifying integrations with certificate-aware observability and security tooling.
 
 This work was done as part of [KEP \#4317](https://kep.k8s.io/4317) led by SIG Auth.
 
-### PodSecurityAdmission to control `host` in probes and lifecycle handlers
+### "Restricted" Pod security standard now forbids remote probes
 
-The `host` field within probes and lifecycle handlers allows users to specify an entity other than the `podIP` for the `kubelet` to probe. However, this opens it up for security attacks since the `host` field can be set to any value in the system, including security sensitive external hosts or localhost on the node.   
-This improvement introduces a Pod Security Admission policy to prevent SSRF attacks by warning or blocking users when `host` field is used.
+The `host` field within probes and lifecycle handlers allows users to specify an entity other than the `podIP` for the `kubelet` to probe.
+However, this opens up a route for misuse and for attacks that bypass security controls, since the `host` field could be set to **any** value, including security sensitive external hosts, or localhost on the node.
+In Kubernetes v1.34, Pods only meet the 
+[Restricted](/docs/concepts/security/pod-security-standards/#restricted)
+Pod security standard if they either leave the `host` field unset, or if they don't even use this
+kind of probe.
+You can use _Pod security admission_, or a third party solution, to enforce that Pods meet this standard. Because these are security controls, check
+the documentation to understand the limitations and behavior of the enforcement mechanism you choose.
 
 This work was done as part of [KEP \#4940](https://kep.k8s.io/4940) led by SIG Auth.
 
@@ -338,10 +353,14 @@ This enables existing workloads to adopt DRA without modifications, simplifying 
 
 This work was done as part of [KEP \#5004](https://kep.k8s.io/5004) led by WG Device Management.
 
-#### DRA Consumable Capacity
+#### DRA consumable capacity
 
 Kubernetes v1.33 added support for resource drivers to advertise slices of a device that are available, rather than exposing the entire device as an all-or-nothing resource. However, this approach couldn't handle scenarios where device drivers manage fine-grained, dynamic portions of a device resource based on user demand, or share those resources independently of ResourceClaims, which are restricted by their spec and namespace.  
-Introduced as alpha in v1.34, the `DRAConsumableCapacity` feature gate allows resource drivers to share the same device, or even a slice of a device, across multiple ResourceClaims or across multiple DeviceRequests. The feature also extends the scheduler to support allocating portions of device resources as defined in the `capacity` field.  
+Enabling the `DRAConsumableCapacity` feature gate
+(introduced as alpha in v1.34)
+allows resource drivers to share the same device, or even a slice of a device, across multiple ResourceClaims or across multiple DeviceRequests.
+The feature also extends the scheduler to support allocating portions of device resources,
+as defined in the `capacity` field.
 This DRA feature improves device sharing across namespaces and claims, tailoring it to Pod needs. It enables drivers to enforce capacity limits, enhances scheduling, and supports new use cases like bandwidth-aware networking and multi-tenant sharing.
 
 This work was done as part of [KEP \#5075](https://kep.k8s.io/5075) led by WG Device Management.
