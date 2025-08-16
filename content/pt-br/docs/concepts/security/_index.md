@@ -1,6 +1,6 @@
 ---
 title: "Segurança"
-weight: 81
+weight: 85
 description: >
   Conceitos para manutenção das suas cargas de trabalho cloud native seguras.
 simple_list: true
@@ -20,7 +20,7 @@ para entender o contexto mais amplo sobre como proteger seu cluster e as aplica�
 O Kubernetes inclui várias APIs e controles de segurança, além de mecanismos 
 para definir [políticas](#policies) que podem fazer parte da sua estratégia de gestão da segurança da informação.
 
-### Proteção do control plane
+### Proteção da camada de gerenciamento
 
 Um mecanismo de segurança fundamental para qualquer cluster Kubernetes é [controlar o acesso à API do Kubernetes](/docs/concepts/security/controlling-access).
 
@@ -72,7 +72,7 @@ VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 
-## Políticas
+## Políticas {#policies}
 
 Você pode definir políticas de segurança usando mecanismos nativos do Kubernetes, como [NetworkPolicy](/docs/concepts/services-networking/network-policies/) (controle declarativo sobre filtragem de pacotes de rede) ou [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) (restrições declarativas sobre quais alterações alguém pode fazer usando a API do Kubernetes).
 
@@ -87,7 +87,7 @@ Saiba mais sobre tópicos relacionados à segurança no Kubernetes:
 
 * [Protegendo seu cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
 * [Vulnerabilidades conhecidas](/docs/reference/issues-security/official-cve-feed/) no Kubernetes (e links para mais informações)
-* [Criptografia de dados em trânsito](/docs/tasks/tls/managing-tls-in-a-cluster/) para o plano de controle
+* [Criptografia de dados em trânsito](/docs/tasks/tls/managing-tls-in-a-cluster/) para a camada de gerenciamento
 * [Criptografia de dados em repouso](/docs/tasks/administer-cluster/encrypt-data/)
 * [Controlando o acesso à API do Kubernetes](/docs/concepts/security/controlling-access)
 * [Políticas de rede](/docs/concepts/services-networking/network-policies/) para Pods
