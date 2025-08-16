@@ -91,7 +91,11 @@ This work was done as part of [KEP \#3331](https://kep.k8s.io/3331) led by SIG A
 
 Kubernetes authorizers, including webhook authorizers and the built-in node authorizer, can now make authorization decisions based on field and label selectors in incoming requests. When you send **list**, **watch** or **deletecollection** requests with selectors, the authorization layer can now evaluate access with that additional context. 
 
-For example, an authorization policy can now limit a request to list only pods with a specific `.spec.nodeName`, or reject requests that attempt to access resources with certain labels. This change supports more granular control in environments like per-node isolation or custom multi-tenant setups.
+For example, you can write an authorization policy that only allows listing Pods bound to a specific `.spec.nodeName`.
+The client (perhaps the kubelet on a particular node) must specify
+the field selector that the policy requires, otherwise the request is forbidden.
+This change makes it feasible to set up least privilege rules, provided that the client knows how to conform to the restrictions you set.
+Kubernetes v1.34 now supports more granular control in environments like per-node isolation or custom multi-tenant setups.
 
 This work was done as part of [KEP \#4601](https://kep.k8s.io/4601) led by SIG Auth.
 
