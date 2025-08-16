@@ -11,8 +11,8 @@ card:
   name: concepts
   weight: 10
   anchors:
-  - anchor: "#why-you-need-kubernetes-and-what-can-it-do"
-    title: Why Kubernetes?
+  - anchor: "#쿠버네티스가-왜-필요하고-무엇을-할-수-있나"
+    title: 왜 쿠버네티스인가?
 no_list: true
 ---
 
@@ -61,7 +61,7 @@ no_list: true
 * **수평 확장**
   간단한 명령어, UI, 또는 CPU 사용량에 따라 자동으로 애플리케이션을 확장하거나 축소할 수 있다.
 * **확장성을 고려한 설계**
-  업스트림 소스 코드를 변경하지 않고 쿠버네티스 클러스 기능을 추가할 수 있다.
+  업스트림 소스 코드를 변경하지 않고 쿠버네티스 클러스터 기능을 추가할 수 있다.
 
 ## 쿠버네티스가 아닌 것
 
