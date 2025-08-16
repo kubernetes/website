@@ -57,7 +57,8 @@ This work was done as part of [KEP \#5295](https://kep.k8s.io/5295) led by SIG C
 
 ### Delayed creation of Job’s replacement Pods 
 
-By default, when a Pod enters a terminating state, the Job controller immediately creates a replacement Pod. Therefore, both Pods are running at the same time. This scenario is problematic for popular machine learning frameworks, such as TensorFlow and [JAX](https://jax.readthedocs.io/en/latest/), which require at most one Pod running at the same time, for a given index.  
+By default, Job controllers create replacement Pods immediately when a Pod starts terminating, causing both Pods to run simultaneously. This can cause resource contention in constrained clusters, where the replacement Pod may struggle to find available nodes until the original Pod fully terminates. The situation can also trigger unwanted cluster autoscaler scale-ups.
+Additionally, some machine learning frameworks like TensorFlow and [JAX](https://jax.readthedocs.io/en/latest/) require only one Pod per index to run at a time, making simultaneous Pod execution problematic. 
 This feature introduces `.spec.podReplacementPolicy` in Jobs. You may choose to create replacement Pods only when the terminating Pod is fully terminal (has `.status.phase: Failed`). To do this, set `.spec.podReplacementPolicy: Failed`.  
 Introduced as alpha in v1.28, this feature has graduated to stable in v1.34.
 
