@@ -25,6 +25,15 @@ There are also some [deprecations and removals](#deprecations-and-removals) in t
 
 Kubernetes v1.34 is packed with new features and improvements. Here are a few select updates the Release Team would like to highlight!
 
+### Stable: The core of DRA is GA
+
+[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.
+
+Since the v1.30 release, DRA has been based around claiming devices using *structured parameters* that are opaque to the core of Kubernetes. This enhancement took inspiration from dynamic provisioning for storage volumes. DRA with structured parameters relies on a set of supporting API kinds: ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under `resource.k8s.io`, while extending the `.spec` for Pods with a new `resourceClaims` field.  
+The `resource.k8s.io/v1` APIs have graduated to stable and are now available by default.
+
+This work was done as part of [KEP \#4381](https://kep.k8s.io/4381) led by WG Device Management.
+
 ### Beta: Projected ServiceAccount tokens for `kubelet` image credential providers
 
 The `kubelet` credential providers, used for pulling private container images, traditionally relied on long-lived Secrets stored on the node or in the cluster. This approach increased security risks and management overhead, as these credentials were not tied to the specific workload and did not rotate automatically.  
@@ -42,14 +51,6 @@ KYAML addresses specific challenges with both YAML and JSON. YAML's significant 
 You can write KYAML and pass it as an input to any version of `kubectl`, because all KYAML files are also valid as YAML. With `kubectl` v1.34, you are also able to [request KYAML output](https://kubernetes.io/docs/reference/kubectl/#syntax-1) (as in kubectl get -o kyaml …) when the feature is enabled. If you prefer, you can still request the output in JSON or YAML format.
 
 This work was done as part of [KEP \#5295](https://kep.k8s.io/5295) led by SIG CLI.
-
-### \<Stable/Beta/Alpha\>: \<THEME 4\>
-
-\<Pick a highlight from below and promote to spotlight?\>
-
-### \<Stable/Beta/Alpha\>: \<THEME 5\>
-
-\<Pick a highlight from below and promote to spotlight?\>
 
 ## Features graduating to Stable
 
@@ -114,15 +115,6 @@ The `kube-scheduler` can now make more accurate decisions about when to retry sc
 This reduces unnecessary retries and improves overall scheduling throughput \- especially in clusters using dynamic resource allocation. The feature also lets certain plugins skip the usual backoff delay when it is safe to do so, making scheduling faster in specific cases.
 
 This work was done as part of [KEP \#4247](https://kep.k8s.io/4247) led by SIG Scheduling.
-
-### The core of DRA is GA
-
-[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA) provides a flexible way to categorize, request, and use devices like GPUs or custom hardware in your Kubernetes cluster.
-
-Since the v1.30 release, DRA has been based around claiming devices using *structured parameters* that are opaque to the core of Kubernetes. This enhancement took inspiration from dynamic provisioning for storage volumes. DRA with structured parameters relies on a set of supporting API kinds: ResourceClaim, DeviceClass, ResourceClaimTemplate, and ResourceSlice API types under `resource.k8s.io`, while extending the `.spec` for Pods with a new `resourceClaims` field.  
-The `resource.k8s.io/v1` APIs have graduated to stable and are now available by default.
-
-This work was done as part of [KEP \#4381](https://kep.k8s.io/4381) led by WG Device Management.
 
 ### Ordered Namespace deletion
 
