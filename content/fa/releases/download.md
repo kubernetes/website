@@ -1,5 +1,5 @@
 ---
-title: Download Kubernetes
+title: دانلود کوبرنتیز
 type: docs
 ---
 <div dir="rtl" style="text-align: right;">

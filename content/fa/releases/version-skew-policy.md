@@ -1,11 +1,4 @@
 ---
-reviewers:
-- sig-api-machinery
-- sig-architecture
-- sig-cli
-- sig-cluster-lifecycle
-- sig-node
-- sig-release
 title: سیاست اختلاف نسخه 
 description: >
   حداکثر اختلاف نسخه  پشتیبانی‌شده بین اجزای مختلف Kubernetes.

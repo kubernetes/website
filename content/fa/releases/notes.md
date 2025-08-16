@@ -1,9 +1,9 @@
 ---
-linktitle: Release Notes
-title: Notes
+linktitle: یادداشت های انتشار
+title: یادداشت ها
 type: docs
 description: >
-  Kubernetes release notes.
+  یادداشت‌های انتشار Kubernetes
 sitemap:
   priority: 0.5
 ---

@@ -1,6 +1,6 @@
 ---
-linktitle: Release History
-title: Releases
+linktitle: تاریخچه انتشار
+title: منتشر می کند
 type: docs
 layout: release-info
 notoc: true
