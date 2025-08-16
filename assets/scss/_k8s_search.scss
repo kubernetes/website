@@ -1,0 +1,22 @@
+.td-navbar, .td-search {
+  .td-search__input, .td-search__input::placeholder {
+    background: white;
+    color: black;
+  }
+
+  .td-search__icon {
+    color: black;
+  }
+}
+
+// PageFind Styles
+
+#search .pagefind-ui form {
+  input, button {
+    display: none;
+  }
+
+  .pagefind-ui__message {
+    margin-left: 1rem;
+  }
+}
