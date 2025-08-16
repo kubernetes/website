@@ -27,9 +27,9 @@ Kubernetes v1.34 is packed with new features and improvements. Here are a few se
 
 ### Beta: Projected ServiceAccount tokens for `kubelet` image credential providers
 
-The `kubelet` credential providers, used for pulling private container images, traditionally relied on long-lived secrets stored on the node or in the cluster. This approach increased security risks and management overhead, as these credentials were not tied to the specific workload and did not rotate automatically.  
+The `kubelet` credential providers, used for pulling private container images, traditionally relied on long-lived Secrets stored on the node or in the cluster. This approach increased security risks and management overhead, as these credentials were not tied to the specific workload and did not rotate automatically.  
 To solve this, the `kubelet` can now request short-lived, audience-bound ServiceAccount tokens for authenticating to container registries. This allows image pulls to be authorized based on the Pod's own identity rather than a node-level credential.  
-The primary benefit is a significant security improvement. It eliminates the need for long-lived secrets for image pulls, reducing the attack surface and simplifying credential management for both administrators and developers
+The primary benefit is a significant security improvement. It eliminates the need for long-lived Secrets for image pulls, reducing the attack surface and simplifying credential management for both administrators and developers.
 
 This work was done as part of [KEP \#4412](https://kep.k8s.io/4412) led by SIG Auth.
 
