@@ -224,7 +224,7 @@ This work was done as part of [KEP \#740](https://kep.k8s.io/740) led by SIG Aut
 
 #### Admin access for secure resource monitoring
 
-DRA supports controlled administrative access through the `adminAccess` field in ResourceClaims or ResourceClaimTemplates, allowing cluster operators to access devices already in use by others for monitoring or diagnostics. This privileged mode is restricted to users authorized to create such objects in namespaces labeled with resource.k8s.io/admin-access: "true", ensuring regular workloads remain unaffected. This feature graduated to beta in v1.34, providing secure introspection capabilities while maintaining isolation through namespace-based authorization checks.
+DRA supports controlled administrative access via the `adminAccess` field in ResourceClaims or ResourceClaimTemplates, allowing cluster operators to access devices already in use by others for monitoring or diagnostics. This privileged mode is limited to users authorized to create such objects in namespaces labeled `resource.k8s.io/admin-access: "true"`, ensuring regular workloads remain unaffected. Graduating to beta in v1.34, this feature provides secure introspection capabilities while preserving workload isolation through namespace-based authorization checks.
 
 This work was done as part of [KEP \#5018](https://kep.k8s.io/5018) led by WG Device Management and SIG Auth.
 
