@@ -277,7 +277,7 @@ This work was done as part of [KEP \#5073](https://kep.k8s.io/5073) led by SIG A
 
 The streaming informers feature, which has been in beta since v1.32, gains further beta refinements in v1.34. This capability allows **list** requests to return data as a continuous stream of objects from the API server’s watch cache, rather than assembling paged results directly from etcd. By reusing the same mechanics used for **watch** operations, the API server can serve large datasets while keeping memory usage steady and avoiding allocation spikes that can affect stability.
 
-In this release, the `WatchList` feature gate is now enabled by default for the `kube-apiserver`, and `WatchListClient` is enabled by default for `kube-controller-manager`. These changes strengthen integration with informer workflows, reduce memory pressure during large list operations, and improve reliability under sustained load, making `LIST` streaming more predictable and efficient.
+In this release, the `kube-apiserver` and `kube-controller-manager` both take advantage of the new `WatchList` mechanism by default. For the `kube-apiserver`, this means list requests are streamed more efficiently, while the `kube-controller-manager` benefits from a more memory-efficient and predictable way to work with informers. Together, these improvements reduce memory pressure during large list operations, and improve reliability under sustained load, making list streaming more predictable and efficient.
 
 This work was done as part of [KEP \#3157](https://kep.k8s.io/3157) led by SIG API Machinery.
 
