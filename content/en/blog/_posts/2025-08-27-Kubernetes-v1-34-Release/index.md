@@ -196,7 +196,7 @@ This work was done as part of [KEP \#4369](https://kep.k8s.io/4369) led by SIG N
 
 ### Taint management is separated from Node lifecycle
 
-Historically, the `TaintManager`'s logic for applying NoSchedule and NoExecute taints to nodes based on their condition (e.g., NotReady, Unreachable) was tightly coupled with the `NodeLifecycleController`. This tight coupling made the code harder to maintain and test, and it also limited the flexibility of the taint-based eviction mechanism.  
+Historically, the `TaintManager`'s logic for applying NoSchedule and NoExecute taints to nodes based on their condition (NotReady, Unreachable, etc.) was tightly coupled with the node lifecycle controller. This tight coupling made the code harder to maintain and test, and it also limited the flexibility of the taint-based eviction mechanism.
 This KEP refactors the `TaintManager` into its own separate controller within the Kubernetes controller manager. It is an internal architectural improvement designed to increase code modularity and maintainability. This change allows the logic for taint-based evictions to be tested and evolved independently, but it has no direct user-facing impact on how taints are used.
 
 This work was done as part of [KEP \#3902](https://kep.k8s.io/3902) led by SIG Node.
