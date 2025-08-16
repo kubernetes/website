@@ -2,7 +2,7 @@
 title: "Segurança"
 weight: 85
 description: >
-  Conceitos para manutenção das suas cargas de trabalho cloud native seguras.
+  Conceitos para manter suas cargas de trabalho cloud native seguras.
 simple_list: true
 ---
 
