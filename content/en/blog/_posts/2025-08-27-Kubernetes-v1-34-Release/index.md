@@ -173,7 +173,7 @@ This work was done as part of [KEP \#3960](https://kep.k8s.io/3960) and [KEP \#4
 
 Historically, the lack of swap support in Kubernetes could lead to workload instability, as nodes under memory pressure often had to terminate processes abruptly. This particularly affected applications with large but infrequently accessed memory footprints and prevented more graceful resource management.
 
-To address this, configurable per-node swap support was introduced in v1.22. It has progressed through alpha and beta stages and has graduated to stable in v1.34. The primary mode, `LimitedSwap`, allows Pods to use swap within their existing memory limits, providing a direct solution to the problem.
+To address this, configurable per-node swap support was introduced in v1.22. It has progressed through alpha and beta stages and has graduated to stable in v1.34. The primary mode, `LimitedSwap`, allows Pods to use swap within their existing memory limits, providing a direct solution to the problem. By default, the `kubelet` is configured with `NoSwap` mode, which means Kubernetes workloads cannot use swap.
 
 This feature improves workload stability and allows for more efficient resource utilization. It enables clusters to support a wider variety of applications, especially in resource-constrained environments, though administrators must consider the potential performance impact of swapping.
 
