@@ -381,7 +381,7 @@ command line arguments, and use the configuration file instead.
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 # list of authenticators to authenticate Kubernetes users using JWT compliant tokens.
 # the maximum number of allowed authenticators is 64.
@@ -514,7 +514,7 @@ jwt:
   {{< tabs name="example_configuration" >}}
   {{% tab name="Valid token" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -575,7 +575,7 @@ jwt:
   {{% /tab %}}
   {{% tab name="Fails claim validation" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -626,7 +626,7 @@ jwt:
   {{% /tab %}}
   {{% tab name="Fails user validation" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -1096,7 +1096,7 @@ A sample authentication configuration file is below:
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 anonymous:
   enabled: true
