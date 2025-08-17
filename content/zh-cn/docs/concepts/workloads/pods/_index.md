@@ -420,17 +420,11 @@ Kubernetes 并不禁止你直接管理 Pod。对运行中的 Pod 的某些字段
 <!--
 - Most of the metadata about a Pod is immutable. For example, you cannot
   change the `namespace`, `name`, `uid`, or `creationTimestamp` fields.
-  - The `generation` field is unique. It will be automatically set by the
-    system such that new pods have a `generation` of 1, and every update to
-    mutable fields in the pod's spec will increment the `generation` by 1. If the
-    alpha feature gate PodObservedGenerationTracking is set, the
-    pod's `status.observedGeneration` will reflect the `metadata.generation` of
-    the pod at the point that the pod status is being reported.
 - If the `metadata.deletionTimestamp` is set, no new entry can be added to the
   `metadata.finalizers` list.
 - Pod updates may not change fields other than `spec.containers[*].image`,
-  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds` or
-  `spec.tolerations`. For `spec.tolerations`, you can only add new entries.
+  `spec.initContainers[*].image`, `spec.activeDeadlineSeconds`, `spec.terminationGracePeriodSeconds`,
+   `spec.tolerations` or `spec.schedulingGates`. For `spec.tolerations`, you can only add new entries.
 - When updating the `spec.activeDeadlineSeconds` field, two types of updates
   are allowed:
 
@@ -440,15 +434,10 @@ Kubernetes 并不禁止你直接管理 Pod。对运行中的 Pod 的某些字段
 -->
 - Pod 的绝大多数元数据都是不可变的。例如，你不可以改变其 `namespace`、`name`、
   `uid` 或者 `creationTimestamp` 字段。
-  - `generation` 字段是特别的。它将由系统自动设置，使得新
-    Pod 的 `generation` 为 1，并且每次更新 Pod 规格中的可变字段时，
-    `generation` 将增加 1。如果设置了 Alpha 基本特性门控 PodObservedGenerationTracking，
-    则 Pod 的 `status.observedGeneration` 将反映报告 Pod 状态时的
-    Pod 的 `metadata.generation`。
 - 如果 `metadata.deletionTimestamp` 已经被设置，则不可以向 `metadata.finalizers`
   列表中添加新的条目。
-- Pod 更新不可以改变除 `spec.containers[*].image`、`spec.initContainers[*].image`、
-  `spec.activeDeadlineSeconds` 或 `spec.tolerations` 之外的字段。
+- Pod 更新不可以改变除 `spec.initContainers[*].image`、`spec.activeDeadlineSeconds`、
+  `spec.terminationGracePeriodSeconds`、`spec.tolerations` 或 `spec.schedulingGates` 之外的字段。
   对于 `spec.tolerations`，你只被允许添加新的条目到其中。
 - 在更新 `spec.activeDeadlineSeconds` 字段时，以下两种更新操作是被允许的：
 
@@ -486,6 +475,100 @@ The above update rules apply to regular pod updates, but other pod fields can be
   这通常仅由 kubelet 和其他系统控制器使用。
 - **绑定：** `binding` 子资源允许通过 `Binding` 请求设置 Pod 的 `spec.nodeName`。
   这通常仅由 {{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}} 使用。
+
+<!--
+### Pod generation
+
+- The `metadata.generation` field is unique. It will be automatically set by the
+  system such that new pods have a `metadata.generation` of 1, and every update to
+  mutable fields in the pod's spec will increment the `metadata.generation` by 1.
+-->
+### Pod 生成
+
+- `metadata.generation` 字段是唯一的。它将由系统自动设置，使得新 Pod 的 `metadata.generation` 为 1，
+  并且对 Pod 规约中可变字段的每次更新都会使 `metadata.generation` 增加 1。
+
+{{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
+
+<!--
+- `observedGeneration` is a field that is captured in the `status` section of the Pod
+  object. If the feature gate `PodObservedGenerationTracking` is set, the Kubelet will set `status.observedGeneration`
+  to track the pod state to the current pod status. The pod's `status.observedGeneration` will reflect the
+  `metadata.generation` of the pod at the point that the pod status is being reported.
+-->
+- `observedGeneration` 是在 Pod 对象的 `status` 部分中捕获的一个字段。
+  如果启用了 **PodObservedGenerationTracking** 特性门控，
+  kubelet 将设置 `status.observedGeneration` 来追踪当前 Pod 的状态。
+  Pod 的 `status.observedGeneration` 将展示报告 Pod 状态时的 Pod 的 `metadata.generation`。
+
+{{< note >}}
+<!--
+The `status.observedGeneration` field is managed by the kubelet and external controllers should **not** modify this field.
+-->
+`status.observedGeneration` 字段由 kubelet 管理，外部控制器**不**应修改此字段。
+{{< /note >}}
+
+<!--
+Different status fields may either be associated with the `metadata.generation` of the current sync loop, or with the
+`metadata.generation` of the previous sync loop. The key distinction is whether a change in the `spec` is reflected
+directly in the `status` or is an indirect result of a running process.
+-->
+不同的状态字段可能与当前同步循环的 `metadata.generation` 相关联，
+或者与前一个同步循环的 `metadata.generation` 相关联。
+关键区别在于，`spec` 中的变化是直接体现在 `status` 中，还是作为运行过程的间接结果展示。
+
+<!--
+#### Direct Status Updates
+
+For status fields where the allocated spec is directly reflected, the `observedGeneration` will
+be associated with the current `metadata.generation` (Generation N).
+
+This behavior applies to:
+
+- **Resize Status**: The status of a resource resize operation.
+- **Allocated Resources**: The resources allocated to the Pod after a resize.
+- **Ephemeral Containers**: When a new ephemeral container is added, and it is in `Waiting` state.
+-->
+#### 直接状态更新
+
+对于那些直接反映分配的 spec 的状态字段，`observedGeneration`
+将与当前的 `metadata.generation`（第 N 代）相关联。
+
+此行为适用于：
+
+- **扩缩状态**：资源扩缩操作的状态。
+- **分配的资源**：扩缩后分配给 Pod 的资源。
+- **临时容器**：当添加一个新的临时容器，并且它处于 `Waiting` 状态时。
+
+<!--
+#### Indirect Status Updates
+
+For status fields that are an indirect result of running the spec, the `observedGeneration` will be associated
+with the `metadata.generation` of the previous sync loop (Generation N-1).
+
+This behavior applies to:
+-->
+#### 间接状态更新
+
+对于那些运行规约的间接结果的状态字段，`observedGeneration`
+将与上一个同步循环的 `metadata.generation`（第 N-1 代）相关联。
+
+此行为适用于：
+
+<!--
+- **Container Image**: The `ContainerStatus.ImageID` reflects the image from the previous generation until the new image
+  is pulled and the container is updated.
+- **Actual Resources**: During an in-progress resize, the actual resources in use still belong to the previous generation's
+  request.
+- **Container state**: During an in-progress resize, with require restart policy reflects the previous generation's
+  request.
+- **activeDeadlineSeconds** & **terminationGracePeriodSeconds** & **deletionTimestamp**: The effects of these fields on the
+  Pod's status are a result of the previously observed specification.
+-->
+- **容器镜像**：`ContainerStatus.ImageID` 反映的是上一代的镜像，直到新的镜像被拉取并且容器被更新。
+- **实际资源**：在扩缩进行中，实际使用的资源仍然属于上一代请求的资源。
+- **容器状态**：在扩缩进行中，需要重启策略反映的是上一代的请求。
+- **activeDeadlineSeconds** & **terminationGracePeriodSeconds** & **deletionTimestamp**：这些字段对 Pod 状态的影响是之前观察到的规约的结果。
 
 <!--
 ## Resource sharing and communication
