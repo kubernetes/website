@@ -26,7 +26,7 @@ to kubeadm certificate management.
 <!--
 The Kubernetes project recommends upgrading to the latest patch releases promptly, and
 to ensure that you are running a supported minor release of Kubernetes.
-Following this recommendation helps you to to stay secure.
+Following this recommendation helps you to stay secure.
 -->
 Kubernetes 项目建议及时升级到最新的补丁版本，并确保你正在运行受支持的 Kubernetes 次要版本。
 遵循这一建议有助于你确保安全。
