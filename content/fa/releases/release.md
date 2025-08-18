@@ -2,13 +2,10 @@
 title: چرخه انتشار Kubernetes
 type: docs
 ---
-<!-- این محتوا به صورت خودکار تولید می‌شود از طریق https://github.com/kubernetes/website/blob/main/scripts/releng/update-release-info.sh -->
 
-{{% pageinfo color="light" %}}
 این محتوا به صورت خودکار تولید می‌شود و ممکن است لینک‌ها کار نکنند. منبع سند مشخص شده است.
 [اینجا](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
 {{% /pageinfo %}}
-<!-- Lنکته محلی‌سازی: هنگام محلی‌سازی، بلوک pageinfo را حذف کنید -->
 
 ## هدف قرار دادن پیشرفت‌ها، مشکلات و روابط عمومی‌ها برای انتشار نقاط عطف
 
@@ -72,7 +69,7 @@ type: docs
 - /lgtm
 - /approved
 
-ادغام‌ها در شاخه ۱.y اکنون انجام می‌شوند.[cherry-picks], تأیید شده توسط [ SIG Owner Label][release-managers].
+ادغام‌ها در شاخه ۱.y اکنون انجام می‌شوند.[cherry-picks], تأیید شده توسط [ برچسب مالک SIG][release-managers].
 
 در گذشته، برای درخواست‌های pull که با هدف تعیین نقطه عطف milestone-targeted انجام می‌شدند، الزام باز بودن یک issue مرتبط در GitHub وجود داشت، اما دیگر این‌طور نیست.
 ویژگی‌ها یا بهبودها عملاً مشکلات گیت‌هاب یا [KEP] هستند.[keps] که منجر به PR های بعدی می شود.
@@ -96,7 +93,7 @@ type: docs
 - *[enhancements-freeze][enhancements-freeze]*:
   مهلتی که [KEPs][keps] برای اینکه پیشرفت‌ها بخشی از نسخه فعلی باشند، باید تکمیل شوند
 
-- *[exceptions][exceptions]*:
+- *[استثنائات][exceptions]*:
   فرآیند درخواست تمدید مهلت برای یک مورد خاص
 ارتقاء 
 
@@ -139,7 +136,7 @@ type: docs
 
 پس از انجماد بهبودها (Enhancements Freeze)، پیگیری مایل‌استون‌ها (milestones) در Pull Requestها و Issueها اهمیت زیادی دارد. مواردی که درون یک مایل‌استون قرار دارند، به عنوان یک لیست انجام (punchdown list) برای تکمیل نسخه انتشار مورد استفاده قرار می‌گیرند.
 
-در مورد Issueها، مایل‌استون‌ها باید به‌درستی اعمال شوند؛ این کار باید از طریق triage توسط گروه SIG انجام شود تا [تیم انتشار [Release Team][release-team] بتواند باگ‌ها و بهبودها را دنبال کند.
+در مورد Issueها، مایل‌استون‌ها باید به‌درستی اعمال شوند؛ این کار باید از طریق triage توسط گروه SIG انجام شود تا [تیم انتشار [تیم انتشارات][release-team] بتواند باگ‌ها و بهبودها را دنبال کند.
 (هر Issue مرتبط با بهبود باید حتماً دارای یک مایل‌استون باشد.)
 
 
@@ -179,13 +176,13 @@ type: docs
 ## حذف موارد از Milestone
 
 قبل از پیش رفتن زیاد در روند افزودن یک مورد به milestone، لطفاً توجه کنید:
-اعضای تیم [Release Team][release-team] می‌توانند مسائل را از milestone حذف کنند اگر خودشان یا SIG مسئول تشخیص دهند که آن مسئله در واقع مانع انتشار نیست و احتمال حل شدن به موقع آن کم است.
+اعضای تیم [تیم انتشارات][release-team] می‌توانند مسائل را از milestone حذف کنند اگر خودشان یا SIG مسئول تشخیص دهند که آن مسئله در واقع مانع انتشار نیست و احتمال حل شدن به موقع آن کم است.
 
 اعضای تیم Release Team ممکن است PRها را از milestone به دلایل زیر یا دلایل مشابه حذف کنند:
 
 - PR ممکن است باعث ناپایداری شود و برای حل یک مشکل مسدودکننده ضروری نباشد.
 
-- PR یک ویژگی جدید و دیرهنگام است و از فرآیند بهبودها یا [exception process][exceptions] عبور نکرده است.
+- PR یک ویژگی جدید و دیرهنگام است و از فرآیند بهبودها یا [استثنات][exceptions] عبور نکرده است.
 - هیچ SIG مسئول و آماده‌ای برای قبول مالکیت PR و حل مشکلات پیگیری‌کننده آن وجود ندارد.
 -PR به درستی برچسب‌گذاری نشده است.
 -کار روی PR به‌وضوح متوقف شده است و تاریخ‌های تحویل نامشخص یا دیر شده‌اند.
@@ -197,11 +194,11 @@ type: docs
 - ثبت کامنت در GitHub با ذکر نام تیم SIG و اعضای SIG مربوطه بسته به نوع مسئله.
 - ارسال ایمیل به لیست پستی SIG
   - راه‌اندازی شده با آدرس‌های ایمیل گروهی از
-    [community sig list][sig-list]
+    [لیست انجمن sig][sig-list]
   - اختیاری، همچنین مستقیماً خطاب قرار دادن رهبری SIG یا سایر اعضای SIG
 - ارسال پیام به کانال Slack تیم SIG
   -راه‌اندازی شده با کانال Slack و رهبری SIG از
-    [community sig list][sig-list]
+    [لیست انجمن sig][sig-list]
   - اختیاری، به‌صورت مستقیم با استفاده از علامت "@" رهبری SIG یا سایر اعضا را با شناسه‌شان ذکر کردن
   
 
@@ -210,12 +207,12 @@ type: docs
 
 ### بررسی Milestone
 
-The members of the [`milestone-maintainers`](https://github.com/orgs/kubernetes/teams/milestone-maintainers/members)
+The members of the [`نگهدارنده‌های نقاط عطف`](https://github.com/orgs/kubernetes/teams/milestone-maintainers/members)
 GitHub team are entrusted with the responsibility of specifying the release
 milestone on GitHub artifacts.
-اعضای گروه [`milestone-maintainers`](https://github.com/orgs/kubernetes/teams/milestone-maintainers/members)
+اعضای گروه [`نگهدارنده‌های نقاط عطف`](https://github.com/orgs/kubernetes/teams/milestone-maintainers/members)
 گره github  این مسعولیت را بر عهده داردند که اپدیت ها و artifact  خای جدید را بروز رسانی کنند 
-[maintained](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers) بررسی میشنود و اخرین اپدیت های leadership  ها در این جا قرار میگیرینداین گروه توسط 
+[نگهداری می شود](https://git.k8s.io/sig-release/release-team/README.md#milestone-maintainers) بررسی میشنود و اخرین اپدیت های leadership  ها در این جا قرار میگیرینداین گروه توسط 
 
 اضافه کردن مرحله انتشار در حال انجام به  pull request  پس از توقف کد اکیداً ممنوع است، زیرا می‌تواند پایداری نسخه را به خطر بیندازد. قبل از اعمال چنین تغییراتی، باید از سرپرست تیم انتشار و مشاور  تأییدیه گرفته شود.
 
@@ -232,7 +229,7 @@ milestone on GitHub artifacts.
 
 مسائل (Issues) با استفاده از دستور /milestone در Prow به‌عنوان هدف‌گذاری‌شده برای یک نسخه مشخص علامت‌گذاری می‌شوند.
 
-رهبر تیم انتشار با عنوان  [Bug Triage Lead](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)و همچنین کل جامعه، مسائل ورودی را زیر نظر گرفته و آن‌ها را دسته‌بندی می‌کنند، همان‌طور که در بخش راهنمای مشارکت‌کنندگان درباره‌ی [issue triage](https://k8s.dev/docs/guide/issue-triage/). توضیح داده شده است.
+رهبر تیم انتشار با عنوان  [ارزیابی مشکلات توسط لیدر](https://git.k8s.io/sig-release/release-team/role-handbooks/bug-triage/README.md)و همچنین کل جامعه، مسائل ورودی را زیر نظر گرفته و آن‌ها را دسته‌بندی می‌کنند، همان‌طور که در بخش راهنمای مشارکت‌کنندگان درباره‌ی [یافتن مشکلات](https://k8s.dev/docs/guide/issue-triage/). توضیح داده شده است.
 
 علامت‌گذاری مسائل (Issues) با نسخه (milestone) دید بهتری به جامعه ارائه می‌دهد تا بدانند یک مسئله کی مشاهده شده و تا چه زمانی جامعه احساس می‌کند باید حل شود. در طول دوره‌ی [Code Freeze][code-freeze]، برای ادغام یک PR حتماً باید یک نسخه (milestone) تعیین شود.
 

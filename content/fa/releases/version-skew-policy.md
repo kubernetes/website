@@ -12,24 +12,24 @@ description: >
 ## ورژن های قابل پشتیبانی شده
 
 نسخه‌های Kubernetes به صورت  **x.y.z** بیان می‌شوند، که در آن **x** نسخه اصلی (major)، **y** نسخه فرعی (minor) و **z** نسخه پچ (patch) است، مطابق با اصطلاحات [Semantic Versioning](https://semver.org/).
-برای اطلاعات بیشتر، به [Kubernetes Release Versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning) مراجعه کنید.
+برای اطلاعات بیشتر، به [نسخه‌بندی انتشار Kubernetes](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning) مراجعه کنید.
 
 
-پروژه Kubernetes شاخه‌های انتشار (release branches) مربوط به سه نسخه فرعی (minor) اخیر را نگهداری می‌کند
+پروژه Kubernetes شاخه‌های انتشار (انتشار برنچ ها) مربوط به سه نسخه فرعی (minor) اخیر را نگهداری می‌کند
 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
-نسخه‌های 1.19 به بعد از[approximately 1 year of patch support](/releases/patch-releases/#support-period). Kubernetes حدوداً ۱ سال پشتیبانی پچ دریافت می‌کنند.
+نسخه‌های 1.19 به بعد از[تقریباً ۱ سال پشتیبانی پچ](/releases/patch-releases/#support-period). Kubernetes حدوداً ۱ سال پشتیبانی پچ دریافت می‌کنند.
 نسخه‌های 1.18 و قبل‌تر تقریباً ۹ ماه پشتیبانی پچ دریافت می‌کردند.
 
 اصلاحات قابل اعمال، از جمله اصلاحات امنیتی، ممکن است بسته به شدت (severity) و امکان‌پذیری (feasibility) به آن سه شاخه انتشار بازگردانده شوند (backport). نسخه‌های پچ از این شاخه‌ها در یک [regular cadence](/releases/patch-releases/#cadence) منتشر می‌شوند، به‌علاوه انتشارهای اضطراری اضافی در صورت نیاز.
 
 
-گروه [Release Managers](/releases/release-managers/) مالک این تصمیم است.
-برای اطلاعات بیشتر، به صفحه [patch releases](/releases/patch-releases/) در Kubernetes مراجعه کنید.
+گروه [مدیریت انتشار](/releases/release-managers/) مالک این تصمیم است.
+برای اطلاعات بیشتر، به صفحه [انتشار پچ](/releases/patch-releases/) در Kubernetes مراجعه کنید.
 ## نسخه پشتیبانی شده skew
 
 ### kube-apiserver
 
-در [highly-available (HA) clusters](/docs/setup/production-environment/tools/kubeadm/high-availability/)، جدیدترین و قدیمی‌ترین نمونه‌های  `kube-apiserver`  باید حداکثر یک نسخه فرعی (minor) اختلاف داشته باشند.
+در [کلاستر های مقیاس پذیر](/docs/setup/production-environment/tools/kubeadm/high-availability/)، جدیدترین و قدیمی‌ترین نمونه‌های  `kube-apiserver`  باید حداکثر یک نسخه فرعی (minor) اختلاف داشته باشند.
 
  مثال:
 
@@ -82,10 +82,6 @@ description: >
 
 ### kube-controller-manager, kube-scheduler, , cloud-controller-manager
 
-`kube-controller-manager`, `kube-scheduler`, , `cloud-controller-manager` must not be newer than the
-`kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version,
-but may be up to one minor version older (to allow live upgrades).
-
 `kube-controller-manager`، `kube-scheduler`و `cloud-controller-manager` نباید جدیدتر از نمونه‌های `kube-apiserver` که با آنها ارتباط دارند باشند. انتظار می‌رود که نسخه فرعی (minor) آنها با نسخه `kube-apiserver` مطابقت داشته باشد، اما ممکن است حداکثر تا یک نسخه فرعی قدیمی‌تر باشند (برای اجازه دادن به ارتقاء در لحظه)
 
 
@@ -103,9 +99,6 @@ but may be up to one minor version older (to allow live upgrades).
 * نمونه‌های `kube-apiserver` در نسخه‌های **{{< skew currentVersion >}}** و **{{< skew currentVersionAddMinor -1 >}}** قرار دارن
 
 * `kube-controller-manager`، `kube-scheduler` و `cloud-controller-manager` با یک load balancer ارتباط برقرار می‌کنند که می‌تواند درخواست‌ها را به هر نمونه‌ی `kube-apiserver` هدایت کند.
-* `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` are supported at
-  **{{< skew currentVersionAddMinor -1 >}}** (**{{< skew currentVersion >}}** is not supported
-  because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
 
  `kube-controller-manager`،`kube-scheduler` و `cloud-controller-manager` در نسخه   **{{< skew currentVersionAddMinor -1 >}}** پشتیبانی می‌شوند (نسخه (**{{< skew currentVersion >}}** پشتیبانی نمی‌شود زیرا جدیدتر از نمونه kube-apiserver در نسخه **{{< skew currentVersionAddMinor -1 >}}** خواهد بود).
 
@@ -163,8 +156,8 @@ but may be up to one minor version older (to allow live upgrades).
 
 `kube-apiserver`   اپدیت کنید **{{< skew currentVersion >}}**  به نسخه 
 {{< note >}}
-قوانین پروژه برای  [API deprecation](/docs/reference/using-api/deprecation-policy/) و
-[API change guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
+قوانین پروژه برای  [API منسوخ شدن](/docs/reference/using-api/deprecation-policy/) و
+[API دستور العمل های تغیرات در ](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
 require `kube-apiserver` to not skip minor versions when upgrading, even in single-instance clusters.
 نیازمند این هست که `Kube-apiserver` در نسخه minor رد نشود در هنگام بروزرسانی، حتی در حالت یک خوشه داریم 
 {{< /note >}}
@@ -191,9 +184,6 @@ require `kube-apiserver` to not skip minor versions when upgrading, even in sing
 (یا می‌توان آن‌ها را در نسخه‌های **{{< skew currentVersionAddMinor -1 >}}**، **{{< skew currentVersionAddMinor -2 >}}**، یا **{{< skew currentVersionAddMinor -3 >}}** باقی گذاشت).
 
 {{< note >}}
-Before performing a minor version `kubelet` upgrade, [drain](/docs/tasks/administer-cluster/safely-drain-node/) pods from that node.
-In-place minor version `kubelet` upgrades are not supported.
-
 قبل از انجام ارتقاء نسخه minor `kubelet`، پادهای آن نود را خالی کنید [drain](/docs/tasks/administer-cluster/safely-drain-node/).
 ارتقاء نسخه minor `kubelet` به صورت  (in-place) پشتیبانی نمی‌شود.
 

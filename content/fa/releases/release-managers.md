@@ -2,7 +2,6 @@
 title: رها کردن مدیریت 
 type: docs
 ---
-<div dir="rtl" style="text-align: right;">
 
 «مدیران انتشار» یک اصطلاح کلی است که شامل مجموعه‌ای از مشارکت‌کنندگان Kubernetes می‌شود که مسئول نگهداری شاخه‌های انتشار و ایجاد نسخه‌ها با استفاده از ابزارهایی هستند که SIG Release ارائه می‌دهد.
 
@@ -32,13 +31,13 @@ type: docs
 برخی از اطلاعات مربوط به انتشارها مشمول تحریم هستند و ما سیاستی در مورد نحوه اعمال این تحریم‌ها تعریف کرده‌ایم.
 لطفا به[Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.
 برای اطلاعات بیشتر
-[Security Embargo Policy](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy)
+[سیاست تحریم امنیتی](https://github.com/kubernetes/committee-security-response/blob/main/private-distributors-list.md#embargo-policy)
 
 ## کتاب های راهنما
 
 **توجه: کتابچه‌های راهنمای تیم انتشار وصله و مدیر شعبه در تاریخ دیگری از حالت تکراری خارج خواهند شد.**
 
-- [تیم انتشار پچm][handbook-patch-release]
+- [تیم انتشار پچ][handbook-patch-release]
 - [مدیران شعب][handbook-branch-mgmt]
 
 ## مدیران شعب 
@@ -164,7 +163,7 @@ type: docs
 مدیران شعبه‌های قبلی، در [فهرست انتشارها] قابل مشاهده هستند.[k-sig-release-releases]
 از مخزن kubernetes/sig-release در داخل `release-x.y/release_team.md`.
 
-مثال: [1.15 Release Team](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md)
+مثال: [1.15 تیم انتشار](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md)
 
 [عضویت در جامعه]: https://git.k8s.io/community/community-membership.md#member
 [دفتر-شعبه-مدیریت-دفترچه]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
