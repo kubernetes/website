@@ -243,7 +243,7 @@ This includes:
    when usages different than the signer-determined usages are specified in the CSR.
 1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR `spec.expirationSeconds` field, etc
    and the behavior when the signer-determined expiration is different from the CSR `spec.expirationSeconds` field.
-1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request a for a CA certificate when the signer does not permit it.
+1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request for a CA certificate when the signer does not permit it.
 -->
 1. **信任分发**：信任锚点（CA 证书或证书包）是如何分发的。
 1. **许可的主体**：当一个受限制的主体（subject）发送请求时，相应的限制和应对手段。

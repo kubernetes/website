@@ -7,16 +7,6 @@ weight: 100
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
 
-{{<note>}}
-{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
-The _split image filesystem_ feature, which enables support for the `containerfs`
-filesystem, adds several new eviction signals, thresholds and metrics. To use
-`containerfs`, the Kubernetes release v{{< skew currentVersion >}} requires the
-`KubeletSeparateDiskGC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
-filesystem support.
-{{</note>}}
-
 The {{<glossary_tooltip term_id="kubelet" text="kubelet">}} monitors resources
 like memory, disk space, and filesystem inodes on your cluster's nodes.
 When one or more of these resources reach specific consumption levels, the
@@ -131,6 +121,16 @@ eviction signals (`<identifier>.inodesFree` or `<identifier>.available`):
    log storage, and ephemeral storage, except for the container images. When
    `containerfs` is used, the `imagefs` filesystem can be split to only store
    images (read-only layers) and nothing else.
+
+{{<note>}}
+{{< feature-state feature_gate_name="KubeletSeparateDiskGC" >}}
+The _split image filesystem_ feature, which enables support for the `containerfs`
+filesystem, adds several new eviction signals, thresholds and metrics. To use
+`containerfs`, the Kubernetes release v{{< skew currentVersion >}} requires the
+`KubeletSeparateDiskGC` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to be enabled. Currently, only CRI-O (v1.29 or higher) offers the `containerfs`
+filesystem support.
+{{</note>}}
 
 As such, kubelet generally allows three options for container filesystems:
 
