@@ -2,7 +2,7 @@
 reviewers:
   - dchen1107
   - liggitt
-title: Comunicação entre Nós e o Control Plane
+title: Comunicação entre Nós e a Camada de Gerenciamento
 content_type: concept
 weight: 20
 aliases:
@@ -19,10 +19,10 @@ provedor de nuvem).
 
 <!-- body -->
 
-## Nó para o Control Plane
+## Nó para a Camada de Gerenciamento
 
 O Kubernetes tem um padrão de API "hub-and-spoke". Todo uso da API dos nós (ou dos pods que eles executam)
-termina no servidor de API. Nenhum dos outros componentes do control plane são projetados para expor
+termina no servidor de API. Nenhum dos outros componentes da camada de gerenciamento são projetados para expor
 serviços remotos. O servidor de API é configurado para escutar conexões remotas em uma porta HTTPS segura
 (tipicamente 443) com uma ou mais formas de [autenticação](/docs/reference/access-authn-authz/authentication/) de cliente habilitada.
 Uma ou mais formas de [autorização](/docs/reference/access-authn-authz/authorization/) devem ser
@@ -32,24 +32,24 @@ são permitidos.
 
 Os nós devem ser provisionados com o {{< glossary_tooltip text="certificado" term_id="certificate" >}} raiz público do cluster de tal forma que eles podem
 se conectar de forma segura ao servidor de API junto com credenciais de cliente válidas. Uma boa abordagem é que as
-credenciais de cliente fornecidas ao kubelet estão na forma de um certificado de cliente. Veja
-[bootstrapping TLS do kubelet](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
+credenciais de cliente fornecidas ao kubelet estejam na forma de um certificado de cliente. Veja
+[inicialização TLS do kubelet](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 para provisionamento automatizado de certificados de cliente do kubelet.
 
 {{< glossary_tooltip text="Pods" term_id="pod" >}} que desejam se conectar ao servidor de API podem fazê-lo com segurança, aproveitando uma conta de serviço para
-que o Kubernetes injetará automaticamente o certificado raiz público e um token de portador válido
+que o Kubernetes injete automaticamente o certificado raiz público e um token de portador válido
 no pod quando ele for instanciado.
 O serviço `kubernetes` (no namespace `default`) é configurado com um endereço IP virtual que é
 redirecionado (via `{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}`) para o endpoint HTTPS no servidor de API.
 
-Os componentes do control plane também se comunicam com o servidor de API através da porta segura.
+Os componentes da camada de gerenciamento também se comunicam com o servidor de API através da porta segura.
 
-Como resultado, o modo de operação padrão para conexões dos nós e pods executando nos
-nós para o control plane é protegido por padrão e pode executar por redes não confiáveis e/ou públicas.
+Como resultado, o modo de operação padrão para conexões dos nós e dos pods em execução nos
+nós para a camada de gerenciamento é seguro por padrão e pode operar em redes não confiáveis e/ou públicas.
 
-## Control Plane para o Nó
+## Camada de Gerenciamento para o Nó
 
-Existem dois caminhos de comunicação primários do control plane (o servidor de API) para os nós.
+Existem dois caminhos de comunicação primários da camada de gerenciamento (o servidor de API) para os nós.
 O primeiro é do servidor de API para o processo {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} que executa em cada nó no cluster.
 O segundo é do servidor de API para qualquer nó, pod, ou serviço através da funcionalidade de _proxy_ do servidor de API.
 
@@ -58,7 +58,7 @@ O segundo é do servidor de API para qualquer nó, pod, ou serviço através da 
 As conexões do servidor de API para o kubelet são usadas para:
 
 - Buscar logs para pods.
-- Anexar (geralmente através de `kubectl`) a pods em execução.
+- Conectar-se (geralmente através de `kubectl`) a pods em execução.
 - Fornecer a funcionalidade de encaminhamento de porta do kubelet.
 
 Essas conexões terminam no endpoint HTTPS do kubelet. Por padrão, o servidor de API não
@@ -76,7 +76,7 @@ deve ser habilitada para proteger a API do kubelet.
 
 ### Servidor de API para nós, pods e serviços
 
-As conexões do servidor de API para um nó, pod, ou serviço padrão para conexões HTTP simples
+As conexões do servidor de API com um nó, pod, ou serviço são conexões HTTP simples por padrão
 e, portanto, não são autenticadas nem criptografadas. Elas podem ser executadas por uma conexão HTTPS
 segura prefixando `https:` ao nome do nó, pod, ou serviço na URL da API, mas elas não
 validarão o certificado fornecido pelo endpoint HTTPS nem fornecerão credenciais de cliente. Então
@@ -85,7 +85,7 @@ conexões **não são atualmente seguras** para executar por redes não confiáv
 
 ### Túneis SSH
 
-O Kubernetes suporta [túneis SSH](https://www.ssh.com/academy/ssh/tunneling) para proteger os caminhos de comunicação do control plane para os nós. Nesta
+O Kubernetes suporta [túneis SSH](https://www.ssh.com/academy/ssh/tunneling) para proteger os caminhos de comunicação da camada de gerenciamento para os nós. Nesta
 configuração, o servidor de API inicia um túnel SSH para cada nó no cluster (conectando ao
 servidor SSH escutando na porta 22) e passa todo o tráfego destinado a um kubelet, nó, pod, ou
 serviço através do túnel.
@@ -98,15 +98,15 @@ fazendo. O [serviço Konnectivity](#konnectivity-service) é um substituto para 
 canal de comunicação.
 {{< /note >}}
 
-### Serviço Konnectivity
+### Serviço Konnectivity {#konnectivity-service}
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 Como um substituto aos túneis SSH, o serviço Konnectivity fornece proxy de nível TCP para a
-comunicação do control plane para o cluster. O serviço Konnectivity consiste em duas partes: o
-servidor Konnectivity na rede do control plane e os agentes Konnectivity na rede dos nós.
+comunicação da camada de gerenciamento para o cluster. O serviço Konnectivity consiste em duas partes: o
+servidor Konnectivity na rede da camada de gerenciamento e os agentes Konnectivity na rede dos nós.
 Os agentes Konnectivity iniciam conexões com o servidor Konnectivity e mantêm as conexões de rede.
-Após habilitar o serviço Konnectivity, todo o tráfego do control plane para os nós passa por essas
+Após habilitar o serviço Konnectivity, todo o tráfego da camada de gerenciamento para os nós passa por essas
 conexões.
 
 Siga a [tarefa do serviço Konnectivity](/docs/tasks/extend-kubernetes/setup-konnectivity/) para configurar
@@ -114,7 +114,7 @@ o serviço Konnectivity no seu cluster.
 
 ## {{% heading "whatsnext" %}}
 
-- Leia sobre os [componentes do control plane do Kubernetes](/docs/concepts/architecture/#control-plane-components)
+- Leia sobre os [componentes da camada de gerenciamento do Kubernetes](/docs/concepts/architecture/#control-plane-components)
 - Saiba mais sobre o [modelo Hubs and Spoke](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
 - Aprenda como [Proteger um Cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
 - Saiba mais sobre a [API do Kubernetes](/docs/concepts/overview/kubernetes-api/)
