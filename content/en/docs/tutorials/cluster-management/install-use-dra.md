@@ -25,8 +25,9 @@ fun ✨ use cases.
 
 <!-- overview -->
 This tutorial shows you how to install {{< glossary_tooltip term_id="dra"
-text="Dynamic Resource Allocation (DRA)" >}} drivers in your cluster and how to use them in conjunction with
-the DRA APIs to allocate {{< glossary_tooltip text="devices" term_id="device"
+text="Dynamic Resource Allocation (DRA)" >}} drivers in your cluster and how to
+use them in conjunction with the DRA APIs to allocate {{< glossary_tooltip
+text="devices" term_id="device"
 >}} to Pods. This page is intended for cluster administrators.
 
 {{< glossary_tooltip text="Dynamic Resource Allocation (DRA)" term_id="dra" >}}
@@ -393,8 +394,9 @@ the system.
     some-gpu   allocated,reserved   34s
     ```
 
-    Looking deeper at the `some-gpu` ResourceClaim, you can see that the status stanza includes information about the
-    device that has been allocated and for what pod it has been reserved for:
+    Looking deeper at the `some-gpu` ResourceClaim, you can see that the status
+    stanza includes information about the device that has been allocated and for
+    what pod it has been reserved for:
 
     ```shell
     kubectl get resourceclaim some-gpu -n dra-tutorial -o yaml
@@ -476,7 +478,7 @@ pod with a claim and seeing that the state of the ResourceClaim changes.
 
 ###  Delete the pod using the resource claim
 
-1.  Delete the `pod0` Pod`:
+1.  Delete the `pod0` Pod:
 
     ```shell
     kubectl delete pod pod0 -n dra-tutorial
