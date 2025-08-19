@@ -12,7 +12,7 @@ For years, the Kubernetes community has been on a mission to improve the stabili
 A major focus of this effort has been taming **list** requests, which have historically been a primary source of high memory usage and heavy load on the `etcd` datastore.
 With each release, we've chipped away at the problem, and today, we're thrilled to announce the final major piece of this puzzle.
 
-The *snapshottable API server cache** feature has graduated to **Beta** in Kubernetes v1.34,
+The *snapshottable API server cache* feature has graduated to **Beta** in Kubernetes v1.34,
 culminating a multi-release effort to allow virtually all read requests to be served directly from the API server's cache.
 
 ## Evolving the cache for performance and stability
@@ -33,7 +33,7 @@ Despite these huge improvements, a critical gap remained. Any request for a hist
 
 ## Kubernetes 1.34: snapshots complete the picture
 
-The Snapshottable API Server Cache solves this final piece of the puzzle.
+The _snapshottable API server cache_ solves this final piece of the puzzle.
 This feature enhances the watch cache, enabling it to generate efficient, point-in-time snapshots of its state.
 
 Here’s how it works: for each update, the cache creates a lightweight snapshot.
@@ -54,7 +54,7 @@ This means dramatically reduced memory pressure, a lighter load on `etcd`, and a
 
 ## How to get started
 
-With its graduation to Beta, the `SnapshottableCache` feature is **enabled by default** in Kubernetes v1.34. There are no actions required to start benefiting from these performance and stability improvements.
+With its graduation to Beta, the `SnapshottableCache` feature gate is **enabled by default** in Kubernetes v1.34. There are no actions required to start benefiting from these performance and stability improvements.
 
 ## Acknowledgements
 
