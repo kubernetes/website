@@ -1,14 +1,17 @@
 ---
 layout: blog
 title: "Tuning Linux Swap for Kubernetes: A Deep Dive"
-date: 2025-07-xx
-draft: true
+date: 2025-08-19T10:30:00-08:00
+draft: false
 slug: tuning-linux-swap-for-kubernetes-a-deep-dive
 author: >
   Ajay Sundar Karuppasamy (Google)
 ---
 
-The Kubernetes [NodeSwap feature](/docs/concepts/cluster-administration/swap-memory-management/) now enables controlled swap usage, a significant shift from the traditional practice of disabling swap for performance predictability. This article focuses exclusively on tuning swap on Linux nodes, where this feature is available. By allowing Linux nodes to use secondary storage for additional virtual memory when physical RAM is exhausted, `NodeSwap` aims to improve resource utilization and reduce out-of-memory (OOM) kills.
+The Kubernetes [NodeSwap feature](/docs/concepts/cluster-administration/swap-memory-management/), likely to graduate to _stable_ in the upcoming Kubernetes v1.34 release,
+allows swap usage:
+a significant shift from the conventional practice of disabling swap for performance predictability.
+This article focuses exclusively on tuning swap on Linux nodes, where this feature is available. By allowing Linux nodes to use secondary storage for additional virtual memory when physical RAM is exhausted, node swap support aims to improve resource utilization and reduce out-of-memory (OOM) kills.
 
 However, enabling swap is not a "turn-key" solution. The performance and stability of your nodes under memory pressure are critically dependent on a set of Linux kernel parameters. Misconfiguration can lead to performance degradation and interfere with Kubelet's eviction logic.
 
