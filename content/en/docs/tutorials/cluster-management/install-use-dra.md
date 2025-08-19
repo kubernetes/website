@@ -25,25 +25,23 @@ fun ✨ use cases.
 
 <!-- overview -->
 This tutorial shows you how to install {{< glossary_tooltip term_id="dra"
-text="DRA" >}} drivers in your cluster and how to use them in conjunction with
+text="Dynamic Resource Allocation (DRA)" >}} drivers in your cluster and how to use them in conjunction with
 the DRA APIs to allocate {{< glossary_tooltip text="devices" term_id="device"
 >}} to Pods. This page is intended for cluster administrators.
 
 {{< glossary_tooltip text="Dynamic Resource Allocation (DRA)" term_id="dra" >}}
-is a Kubernetes feature that allows a cluster to manage availability and
-allocation of hardware resources to satisfy Pod-based claims for hardware
-requirements and preferences (see the [DRA Concept
-page](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) for more
-background). To support this, a mixture of Kubernetes built-in components (like
-the Kubernetes scheduler, kubelet, and kube-controller-manager) and third-party
-components (called DRA drivers) share the responsibility to advertise, allocate,
-prepare, mount, healthcheck, unprepare, and cleanup resources throughout the Pod
-lifecycle. These components share information via a series of DRA specific APIs
-in the `resource.k8s.io` API group, including {{< glossary_tooltip
-text="DeviceClasses" term_id="deviceclass" >}}, {{< glossary_tooltip
-text="ResourceSlices" term_id="resourceslice" >}}, {{< glossary_tooltip
-text="ResourceClaims" term_id="resourceclaim" >}}, as well as new fields in the
-Pod spec itself.
+lets a cluster manage availability and allocation of hardware resources to
+satisfy Pod-based claims for hardware requirements and preferences. To support
+this, a mixture of Kubernetes built-in components (like the Kubernetes
+scheduler, kubelet, and kube-controller-manager) and third-party drivers from
+device owners (called DRA drivers) share the responsibility to advertise,
+allocate, prepare, mount, healthcheck, unprepare, and cleanup resources
+throughout the Pod lifecycle. These components share information via a series of
+DRA specific APIs in the `resource.k8s.io` API group including {{<
+glossary_tooltip text="DeviceClasses" term_id="deviceclass" >}}, {{<
+glossary_tooltip text="ResourceSlices" term_id="resourceslice" >}}, {{<
+glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}, as well as
+new fields in the Pod spec itself.
 
 <!-- objectives -->
 
@@ -83,9 +81,8 @@ To enable the DRA feature, you must enable the following feature gates and API g
 1.  Enable the following
     {{< glossary_tooltip text="API groups" term_id="api-group" >}}:
 
-    * `resource.k8s.io/v1beta1`: required for DRA to function.
-    * `resource.k8s.io/v1beta2`: optional, recommended improvements to the user
-      experience.
+    * `resource.k8s.io/v1beta1`
+    * `resource.k8s.io/v1beta2`
      
     For more information, see
     [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
@@ -479,7 +476,7 @@ pod with a claim and seeing that the state of the ResourceClaim changes.
 
 ###  Delete the pod using the resource claim
 
-1.  Delete the pod directly:
+1.  Delete the `pod0` Pod`:
 
     ```shell
     kubectl delete pod pod0 -n dra-tutorial
@@ -493,10 +490,11 @@ pod with a claim and seeing that the state of the ResourceClaim changes.
 
 ### Observe the DRA state
 
-The driver will deallocate the hardware and update the corresponding
-ResourceClaim resource that previously held the association.
+When the Pod is deleted, the driver deallocates the device from the
+ResourceClaim and updates the ResourceClaim resource in the Kubernetes API. The
+ResourceClaim has a `pending` state until it's referenced in a new Pod.
 
-1.  Check the ResourceClaim is now pending:
+1.  Check the state of the `some-gpu` ResourceClaim:
 
     ```shell
     kubectl get resourceclaims -n dra-tutorial
@@ -508,8 +506,8 @@ ResourceClaim resource that previously held the association.
     some-gpu   pending   76s
     ```
 
-1.  Observe the driver logs and see that it processed unpreparing the device for
-   this claim:
+1.  Verify that the driver processed unpreparing the device for this claim by
+   checking the driver logs:
 
     ```shell
     kubectl logs -l app.kubernetes.io/name=dra-example-driver -n dra-tutorial
@@ -525,13 +523,14 @@ reflect that the resource is available again for future scheduling.
 
 ## {{% heading "cleanup" %}}
 
-To cleanup the resources, delete the namespace for the tutorial which will clean up the ResourceClaims, driver components, and ServiceAccount. Then also delete the cluster level DeviceClass resource and cluster level RBAC resources.
+To clean up the resources that you created in this tutorial, follow these steps:
 
 ```shell
 kubectl delete namespace dra-tutorial
 kubectl delete deviceclass gpu.example.com
 kubectl delete clusterrole dra-example-driver-role
 kubectl delete clusterrolebinding dra-example-driver-role-binding
+kubectl delete priorityclass dra-driver-high-priority
 ```
 
 ## {{% heading "whatsnext" %}}
