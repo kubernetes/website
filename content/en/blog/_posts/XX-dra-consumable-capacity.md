@@ -13,7 +13,8 @@ Dynamic Resource Allocation (DRA) is a Kubernetes API for managing scarce resour
 It enables flexible resource requests, going beyond simply allocating *N* number of devices to support more granular usage scenarios.
 With DRA, users can request specific types of devices based on their attributes, define custom configurations tailored to their workloads, and even share the same resource among multiple containers or Pods.
 
-In this blog, we focus on the device sharing feature and dive into a new capability introduced in Kubernetes 1.34: `DRAConsumableCapacity`, which extends DRA to support finer-grained device sharing.
+In this blog, we focus on the device sharing feature and dive into a new capability introduced in Kubernetes 1.34: _DRA consumable capacity_,
+which extends DRA to support finer-grained device sharing.
 
 ## Background: device sharing via ResourceClaims
 
