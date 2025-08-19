@@ -318,7 +318,11 @@ $ocean-nodes-h3-margin-bottom: 30px;
   background-position: center center;
   background-size: cover;
 
-  & > .light-text {
+  & > .col > .row {
+    padding-left: 20vw;
+  }
+
+  & > .col > .row > .light-text {
     display: none;
     // position: absolute;
     // top: 50%;
@@ -467,6 +471,7 @@ $ocean-nodes-h3-margin-bottom: 30px;
 
 // KubeWeekly
 #kubeweekly {
+  visibility: hidden;
   background-color: $light-grey;
   padding-top: 30px;
   padding-bottom: 80px;
