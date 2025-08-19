@@ -174,10 +174,9 @@ Windowsでは、デフォルトのCRIエンドポイントは`npipe://./pipe/con
 
 #### `systemd` cgroupドライバーを構成する {#containerd-systemd}
 
-`/etc/containerd/config.toml`内で`runc`が`systemd` cgroupドライバーを使うようにするには、
-Containerdのバージョンに基づいて以下の設定を行ってください。
+`/etc/containerd/config.toml`内で`runc`が`systemd` cgroupドライバーを使うようにするには、Containerdのバージョンに基づいて以下の設定を行ってください。
 
-Containerd バージョン 1.x:
+Containerdバージョン1.x:
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
@@ -186,7 +185,7 @@ Containerd バージョン 1.x:
     SystemdCgroup = true
 ```
 
-Containerd バージョン 2.x:
+Containerdバージョン2.x:
 
 ```
 [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
