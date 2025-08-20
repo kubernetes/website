@@ -508,7 +508,7 @@ ResourceClaim has a `pending` state until it's referenced in a new Pod.
     some-gpu   pending   76s
     ```
 
-1.  Verify that the driver processed unpreparing the device for this claim by
+1.  Verify that the driver has processed unpreparing the device for this claim by
    checking the driver logs:
 
     ```shell
