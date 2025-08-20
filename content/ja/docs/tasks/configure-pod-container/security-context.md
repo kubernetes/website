@@ -345,7 +345,7 @@ securityContext:
 このフィールドは
 [`secret`](/docs/concepts/storage/volumes/#secret)、
 [`configMap`](/docs/concepts/storage/volumes/#configmap)、
-[`emptydir`](/docs/concepts/storage/volumes/#emptydir)
+[`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
 のようなエフェメラルボリュームタイプに対しては効果がありません。
 {{< /note >}}
 
