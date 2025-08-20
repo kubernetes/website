@@ -59,6 +59,10 @@ In [Linux 5.8](https://github.com/torvalds/linux/commit/4a7e89c5ec0238017a757131
 
 In runc document, Kernel older than 5.2 is not recommended due to lack of freezer.
 
+## Pressure Stall Information (PSI) {#requirements-psi}
+
+[Pressure Stall Information](/docs/reference/instrumentation/node-metrics#psi) is supported in Linux kernel versions 4.20 and up.
+
 ## Other kernel requirements {#requirements-other}
 
 Some features may depend on new kernel functionalities and have specific kernel requirements:

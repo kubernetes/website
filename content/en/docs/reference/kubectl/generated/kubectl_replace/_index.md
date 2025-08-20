@@ -159,7 +159,7 @@ kubectl replace -f FILENAME
 <td colspan="2">--subresource string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, replace will operate on the subresource of the requested object. This flag is beta and may change in the future.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, replace will operate on the subresource of the requested object.</p></td>
 </tr>
 
 <tr>

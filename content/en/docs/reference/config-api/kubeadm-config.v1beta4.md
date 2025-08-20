@@ -8,6 +8,12 @@ auto_generated: true
 <p>Package v1beta4 defines the v1beta4 version of the kubeadm configuration file format.
 This version improves on the v1beta3 format by fixing some minor issues and adding a few new fields.</p>
 <p>A list of changes since v1beta3:</p>
+<p>v1.33:</p>
+<ul>
+<li>Add an <code>EtcdUpgrade</code> field to <code>UpgradeConfiguration.plan</code> that can be used to
+control whether the etcd upgrade plan should be displayed.</li>
+</ul>
+<p>v1.31:</p>
 <ul>
 <li>Support custom environment variables in control plane components under <code>ClusterConfiguration</code>.
 Use <code>apiServer.extraEnvs</code>, <code>controllerManager.extraEnvs</code>, <code>scheduler.extraEnvs</code>,
@@ -49,34 +55,33 @@ certificates. Only non-CA certificates continue to be renewable by <code>kubeadm
 <li>kubeadm v1.31.x and newer can be used to migrate from v1beta3 to v1beta4.</li>
 </ul>
 <h2>Basics</h2>
-<p>The preferred way to configure kubeadm is to pass an YAML configuration file with
+<p>The preferred way to configure kubeadm is to pass a YAML configuration file with
 the <code>--config</code> option. Some of the configuration options defined in the kubeadm
 config file are also available as command line flags, but only the most
 common/simple use case are supported with this approach.</p>
 <p>A kubeadm config file could contain multiple configuration types separated using three dashes (<code>---</code>).</p>
 <p>kubeadm supports the following configuration types:</p>
-<pre><code>apiVersion: kubeadm.k8s.io/v1beta4
-kind: InitConfiguration
-
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: ClusterConfiguration
-
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-
-apiVersion: kubeproxy.config.k8s.io/v1alpha1
-kind: KubeProxyConfiguration
-
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: JoinConfiguration
-
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: ResetConfiguration
-
-apiVersion: kubeadm.k8s.io/v1beta4
-kind: UpgradeConfiguration
-</code></pre>
-<p>To print the defaults for <code>init</code> and <code>join</code> actions use the following commands:</p>
+<pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>InitConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeletConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeproxy.config.k8s.io/v1alpha1<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>KubeProxyConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>JoinConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ResetConfiguration<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta4<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>UpgradeConfiguration<span style="color:#bbb">
+</span></pre><p>To print the defaults for <code>init</code> and <code>join</code> actions use the following commands:</p>
 <pre style="background-color:#fff">kubeadm config print init-defaults
 kubeadm config print join-defaults
 kubeadm config print reset-defaults
@@ -388,7 +393,7 @@ for, so other administrators can know its purpose.</p>
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
@@ -940,7 +945,7 @@ directories during &quot;reset&quot;. This flag can be one of: <code>&quot;MNT_F
 <code>string</code>
 </td>
 <td>
-   <p><code>dvertiseAddress</code> sets the IP address for the API server to advertise.</p>
+   <p><code>advertiseAddress</code> sets the IP address for the API server to advertise.</p>
 </td>
 </tr>
 <tr><td><code>bindPort</code><br/>
@@ -1238,7 +1243,7 @@ does not contain any other authentication information.</p>
     
   
 <tr><td><code>EnvVar</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#envvar-v1-core"><code>core/v1.EnvVar</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#envvar-v1-core"><code>core/v1.EnvVar</code></a>
 </td>
 <td>(Members of <code>EnvVar</code> are embedded into this type.)
    <span class="text-muted">No description provided.</span></td>
@@ -1405,7 +1410,7 @@ file from which to load cluster information.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <p><code>pathType</code> is the type of the <code>hostPath</code>.</p>
@@ -1640,7 +1645,7 @@ This information will be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
@@ -1673,7 +1678,7 @@ Value 'all' ignores errors from all checks.</p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during kubeadm <code>init</code> and
@@ -1950,7 +1955,7 @@ NOTE: This field is currently ignored for <code>kubeadm upgrade apply</code>, bu
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during <code>kubeadm upgrade apply</code> operations.
@@ -2065,7 +2070,7 @@ The list of phases can be obtained with the <code>kubeadm upgrade node phase --h
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during <code>kubeadm upgrade node</code> operations.

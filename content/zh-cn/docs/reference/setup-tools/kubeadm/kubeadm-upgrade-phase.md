@@ -15,7 +15,7 @@ of a control plane node.
 使用 `kubeadm upgrade apply` 的各个阶段，
 你可以选择执行控制平面节点初始升级的单独步骤。
 
-{{< tabs name="tab-phase" >}}
+{{< tabs name="tab-apply-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase.md" />}}
 {{< tab name="preflight" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade/kubeadm_upgrade_apply_phase_control-plane.md" />}}
@@ -37,7 +37,7 @@ secondary control-plane or worker nodes.
 -->
 使用 `kubeadm upgrade node` 的各个阶段，你可以选择执行次要控制平面节点或工作节点升级的单独步骤。
 
-{{< tabs name="tab-phase" >}}
+{{< tabs name="tab-apply-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase.md" />}}
 {{< tab name="preflight" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade/kubeadm_upgrade_node_phase_control-plane.md" />}}

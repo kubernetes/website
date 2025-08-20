@@ -59,6 +59,13 @@ kubeadm upgrade plan [version] [flags]
 </tr>
 
 <tr>
+<td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Perform the upgrade of etcd.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>

@@ -152,10 +152,10 @@ git pull https://github.com/kubernetes/kubernetes {{< skew prevMinorVersion >}}.
 
 <!-- 
 If you do not need to edit the kubectl source code, follow the instructions to
-[Setting build variables](#setting-build-variables).
+[Setting build variables](#set-build-variables).
 -->
 如果不需要编辑 `kubectl`
-源码，请按照说明[配置构建变量](#setting-build-variables)。
+源码，请按照说明[配置构建变量](#set-build-variables)。
 
 <!--
 ## Edit the kubectl source code
@@ -233,7 +233,7 @@ need to work with someone who can set the label and milestone for you.
 
 Go to `<rdocs-base>`, and open the `Makefile` for editing:
 -->
-## 设置构建变量 {#setting-build-variables}
+## 设置构建变量 {#set-build-variables}
 
 进入 `<rdocs-base>` 目录, 打开 `Makefile` 进行编辑：
 

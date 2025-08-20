@@ -74,7 +74,7 @@ pour une approche sécurisée.
      Labels:       app=mysql
      Containers:
        mysql:
-       Image:      mysql:5.6
+       Image:      mysql:9
        Port:       3306/TCP
        Environment:
          MYSQL_ROOT_PASSWORD:      password
@@ -146,7 +146,7 @@ d'augmenter le nombre de pods.
 Exécutez un client MySQL pour vous connecter au serveur :
 
 ```shell
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+kubectl run -it --rm --image=mysql:9 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
 Cette commande crée un nouveau pod dans le cluster exécutant 

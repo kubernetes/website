@@ -17,6 +17,8 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.29"    
+    toVersion: "1.32"
+removed: true
 ---
 Enable the API clients to retrieve (`LIST` or `GET`)
 resources from API server in chunks.

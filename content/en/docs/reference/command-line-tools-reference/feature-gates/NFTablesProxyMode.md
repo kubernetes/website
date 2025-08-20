@@ -13,5 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.33"
 ---
 Allow running kube-proxy in [nftables mode](/docs/reference/networking/virtual-ips/#proxy-mode-nftables).

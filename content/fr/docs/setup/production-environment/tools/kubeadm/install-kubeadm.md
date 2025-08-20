@@ -177,19 +177,50 @@ Pour plus d'informations sur les compatibilités de version, voir:
 * Kubeadm-specific [politique de compatibilité de version](/fr/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
-```bash
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
-```
+{{% tab name="Distributions basées sur Debian" %}}
+
+Les instructions suivantes sont pour Kubernetes v{{< skew currentVersion >}}.
+
+1. Mettez à jour l'index de package `apt` et installez les dépendances suivantes nécessaires au dépôt `apt` Kubernetes:
+
+   ```shell
+   sudo apt-get update
+   # apt-transport-https n'est plus utile; vous pouvez l'ignorez
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+   ```
+
+2. Téléchargez la clé publique pour les dépôts de paquets Kubernetes.
+   La même clé de signature est utilisée pour tous les dépôts, vous pouvez donc ne pas tenir compte de la version dans l’URL.
+   
+   ```shell
+   # Si le répertoire `/etc/apt/keyrings` n'existe pas, vous devez le créer avant la curl, avec la commande ci-dessous par exemple.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   ```
+
+3. Ajoutez le dépôt `apt` approprié pour Kubernetes.
+   Veuillez noter que ce dépôt contient uniquement les paquets pour Kubernetes {{< skew currentVersion >}}; pour d'autres versions mineures de Kubernetes, vous devez modifier la version mineure dans l'URL afin qu'elle corresponde à la version souhaitée.
+
+   ```shell
+   # Cette commande écrase toute configuration préexistante du fichier `/etc/apt/sources.list.d/kubernetes.list`
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
+
+4. Mettez à jour l'index de package `apt` puis installez kubelet, kubeadm et kubectl. Puis verrouillez leurs version:
+
+   ```shell
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
+5. (Optionnel) Démarrez le service `kubelet` avant de démarrer `kubeadm`:
+
+   ```shell
+   sudo systemctl enable --now kubelet
+   ```
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="Distributions basées sur Red Hat" %}}
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -220,7 +251,7 @@ sudo systemctl enable --now kubelet
   - Vous pouvez laisser SELinux activé si vous savez comment le configurer, mais il peut nécessiter des paramètres qui ne sont pas pris en charge par kubeadm.
 
 {{% /tab %}}
-{{% tab name="Fedora CoreOS ou Flatcar Container Linux" %}}
+{{% tab name="Sans gestionnaire de paquets" %}}
 Installez les plugins CNI (requis pour la plupart des réseaux de pods) :
 
 ```bash

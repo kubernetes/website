@@ -146,7 +146,7 @@ option. Your cluster requirements may need a different configuration.
    connection:
 
    ```shell
-   nc -v <LOAD_BALANCER_IP> <PORT>
+   nc -zv -w 2 <LOAD_BALANCER_IP> <PORT>
    ```
 
    A connection refused error is expected because the API server is not yet

@@ -24,6 +24,7 @@ weight: 4
 `import "k8s.io/api/storage/v1"`
 
 ## CSINode {#CSINode}
+
 <!--
 CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
 -->
@@ -56,6 +57,7 @@ CSINode 包含指向相应节点对象的 OwnerReference。
   spec 是 CSINode 的规约。
 
 ## CSINodeSpec {#CSINodeSpec}
+
 <!--
 CSINodeSpec holds information about the specification of all CSI drivers installed on a node
 -->
@@ -119,11 +121,11 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
 
   - **drivers.allocatable** (VolumeNodeResources)
 
-    allocatable 表示一个节点上可供调度的卷资源。此字段处于 beta 阶段。
+    allocatable 表示一个节点上可供调度的卷资源。此字段处于 Beta 阶段。
 
     <a name="VolumeNodeResources"></a>
-
     **VolumeNodeResources 是调度卷时所用的一组资源限制。**
+
     <!--
     - **drivers.allocatable.count** (int32)
 
@@ -159,6 +161,7 @@ CSINodeSpec 包含一个节点上安装的所有 CSI 驱动规约有关的信息
     如果驱动不支持拓扑，则此字段可以为空。
 
 ## CSINodeList {#CSINodeList}
+
 <!--
 CSINodeList is a collection of CSINode objects.
 -->
@@ -209,9 +212,10 @@ GET /apis/storage.k8s.io/v1/csinodes/{name}
 - **pretty** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
-  CSINode 的名称
+  CSINode 的名称。
 
 - **pretty** (**查询参数**): string
 
@@ -221,6 +225,7 @@ GET /apis/storage.k8s.io/v1/csinodes/{name}
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): OK
 
 401: Unauthorized
@@ -229,7 +234,8 @@ GET /apis/storage.k8s.io/v1/csinodes/{name}
 ### `list` list or watch objects of kind CSINode
 #### HTTP Request
 -->
-### `list` 列出或观测类别为 CSINode 的对象
+### `list` 列举或观测类别为 CSINode 的对象
+
 #### HTTP 请求
 
 GET /apis/storage.k8s.io/v1/csinodes
@@ -248,6 +254,7 @@ GET /apis/storage.k8s.io/v1/csinodes
 - **watch** (*in query*): boolean
 -->
 #### 参数
+
 - **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
@@ -296,6 +303,7 @@ GET /apis/storage.k8s.io/v1/csinodes
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINodeList" >}}">CSINodeList</a>): OK
 
 401: Unauthorized
@@ -305,6 +313,7 @@ GET /apis/storage.k8s.io/v1/csinodes
 #### HTTP Request
 -->
 ### `create` 创建 CSINode
+
 #### HTTP 请求
 
 POST /apis/storage.k8s.io/v1/csinodes
@@ -341,6 +350,7 @@ POST /apis/storage.k8s.io/v1/csinodes
 #### Response
 -->
 #### 响应
+
 200 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): OK
 
 201 (<a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>): Created
@@ -373,7 +383,7 @@ PUT /apis/storage.k8s.io/v1/csinodes/{name}
 
 - **name** (**路径参数**): string，必需
 
-  CSINode 的名称
+  CSINode 的名称。
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/csi-node-v1#CSINode" >}}">CSINode</a>，必需
 
@@ -429,7 +439,7 @@ PATCH /apis/storage.k8s.io/v1/csinodes/{name}
 
 - **name** (**路径参数**): string，必需
 
-  CSINode 的名称
+  CSINode 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
@@ -481,13 +491,15 @@ DELETE /apis/storage.k8s.io/v1/csinodes/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 -->
 #### 参数
+
 - **name** (**路径参数**): string，必需
 
-  CSINode 的名称
+  CSINode 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
@@ -498,6 +510,10 @@ DELETE /apis/storage.k8s.io/v1/csinodes/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -535,6 +551,7 @@ DELETE /apis/storage.k8s.io/v1/csinodes
 - **dryRun** (*in query*): string
 - **fieldSelector** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **labelSelector** (*in query*): string
 - **limit** (*in query*): integer
 - **pretty** (*in query*): string
@@ -562,6 +579,10 @@ DELETE /apis/storage.k8s.io/v1/csinodes
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 

@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 StorageVersionMigration represents a migration of stored data to the latest storage version.
 -->
-StorageVersionMigration 表示将表示存储的数据向最新存储版本的一次迁移。
+StorageVersionMigration 表示存储的数据向最新存储版本的一次迁移。
 
 <hr>
 
@@ -79,7 +79,7 @@ Spec of the storage version migration.
 
   The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
 
-- **resource** (GroupVersionResource)，必需
+- **resource** (GroupVersionResource), required
 
   The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
 
@@ -88,7 +88,7 @@ Spec of the storage version migration.
 -->
 - **continueToken** (string)
 
-  在 list 操作中用来获取下一批要迁移的对象时要所用的令牌。
+  在 list 操作中用来获取下一批要迁移的对象时所用的令牌。
   当 `.status.conditions` 指示迁移处于 “Running” 状态时，用户可以使用此令牌检查迁移的进度。
 
 - **resource** (GroupVersionResource)，必需
@@ -854,6 +854,10 @@ DELETE /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -877,6 +881,10 @@ DELETE /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
 
@@ -929,6 +937,10 @@ DELETE /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -980,6 +992,10 @@ DELETE /apis/storagemigration.k8s.io/v1alpha1/storageversionmigrations
 - **gracePeriodSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
 

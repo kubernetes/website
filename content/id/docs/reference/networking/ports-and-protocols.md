@@ -25,6 +25,7 @@ Meskipun *port* Etcd termasuk dalam bagian panel kontrol diatas (sebagai bawaan 
 | TCP      | Inbound   | 10250       | Kubelet API           | Self, Control plane     |
 | TCP      | Inbound   | 10256       | kube-proxy            | Self, Load balancers    |
 | TCP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
+| UDP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
 
 † Rentang *port* bawaan untuk [Service berbasis NodePort](/docs/concepts/services-networking/service/).
 

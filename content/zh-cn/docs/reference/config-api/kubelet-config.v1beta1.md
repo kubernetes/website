@@ -521,13 +521,13 @@ providers is a list of credential provider plugins that will be enabled by the k
 Multiple providers may match against a single image, in which case credentials
 from all providers will be returned to the kubelet. If multiple providers are called
 for a single image, the results are combined. If providers return overlapping
-auth keys, the value from the provider earlier in this list is used.
+auth keys, the value from the provider earlier in this list is attempted first.
 -->
    <p>
    <code>providers</code> 是一组凭据提供者插件，这些插件会被 kubelet 启用。
    多个提供者可以匹配到同一镜像上，这时，来自所有提供者的凭据信息都会返回给 kubelet。
    如果针对同一镜像调用了多个提供者，则结果会被组合起来。如果提供者返回的认证主键有重复，
-   列表中先出现的提供者所返回的值将被使用。
+   列表中先出现的提供者所返回的值将被首先尝试。
    </p>
 </td>
 </tr>
@@ -892,6 +892,68 @@ Default: 10
 不过仍然不超过 <code>registryPullQPS</code> 所设置的约束。此值必须是非负值。
 只有 <code>registryPullQPS</code> 参数值大于 0 时才会使用此设置。</p>
   <p>默认值：10</p>
+</td>
+</tr>
+
+<tr><td><code>imagePullCredentialsVerificationPolicy</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy"><code>ImagePullCredentialsVerificationPolicy</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   imagePullCredentialsVerificationPolicy determines how credentials should be
+verified when pod requests an image that is already present on the node:
+-->
+<code>imagePullCredentialsVerificationPolicy</code> 决定当 Pod 请求节点上已存在的镜像时，凭据应被如何验证：
+</p>
+<ul>
+<li>NeverVerify
+<!--
+anyone on a node can use any image present on the node
+-->
+节点上的任何人都可以使用该节点上存在的所有镜像
+</li>
+<li>NeverVerifyPreloadedImages
+<!--
+images that were pulled to the node by something else than the kubelet
+can be used without reverifying pull credentials
+-->
+由 kubelet 以外的方式拉取到节点上的镜像可以在不重新验证凭据的情况下使用
+</li>
+<li>NeverVerifyAllowlistedImages
+<!--
+like &quot;NeverVerifyPreloadedImages&quot; but only node images from
+<code>preloadedImagesVerificationAllowlist</code> don't require reverification
+-->
+类似于 &quot;NeverVerifyPreloadedImages&quot;，但只有源于
+<code>preloadedImagesVerificationAllowlist</code> 的节点镜像无需重新验证
+</li>
+<li>AlwaysVerify
+<!--
+all images require credential reverification
+-->
+所有镜像都需要重新验证凭据
+</li>
+</ul>
+</td>
+</tr>
+<tr><td><code>preloadedImagesVerificationAllowlist</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>
+   <!--
+   preloadedImagesVerificationAllowlist specifies a list of images that are
+exempted from credential reverification for the &quot;NeverVerifyAllowlistedImages&quot;
+<code>imagePullCredentialsVerificationPolicy</code>.
+The list accepts a full path segment wildcard suffix &quot;/*&quot;.
+Only use image specs without an image tag or digest.
+-->
+<code>preloadedImagesVerificationAllowlist</code> 指定一个镜像列表，对于
+<code>imagePullCredentialsVerificationPolicy</code> 设置为
+&quot;NeverVerifyAllowlistedImages&quot; 时，这些镜像可免于重新验证凭据。
+此列表支持以 &quot;/*&quot; 结尾的路径通配符。请仅使用不带镜像标签或摘要的镜像规约。
+</p>
 </td>
 </tr>
 
@@ -1286,11 +1348,9 @@ Default: &quot;cgroupfs&quot;
 <td>
    <!--
    cpuManagerPolicy is the name of the policy to use.
-Requires the CPUManager feature gate to be enabled.
 Default: &quot;None&quot;
    -->
-   <p><code>cpuManagerPolicy</code> 是要使用的策略名称。需要启用 <code>CPUManager</code>
-特性门控。</p>
+   <p><code>cpuManagerPolicy</code> 是要使用的策略名称。</p>
    <p>默认值：&quot;None&quot;</p>
 </td>
 </tr>
@@ -1328,12 +1388,10 @@ On cgroup v2 linux, null / absent, true and false are allowed. The default value
    <!--
    cpuManagerPolicyOptions is a set of key=value which 	allows to set extra options
 to fine tune the behaviour of the cpu manager policies.
-Requires  both the &quot;CPUManager&quot; and &quot;CPUManagerPolicyOptions&quot; feature gates to be enabled.
 Default: nil
    -->
    <p><code>cpuManagerPolicyOptions</code> 是一组 <code>key=value</code> 键值映射，
-容许通过额外的选项来精细调整 CPU 管理器策略的行为。需要 <code>CPUManager</code> 和
-<code>CPUManagerPolicyOptions</code> 两个特性门控都被启用。</p>
+容许通过额外的选项来精细调整 CPU 管理器策略的行为。</p>
    <p>默认值：nil</p>
 </td>
 </tr>
@@ -1344,11 +1402,10 @@ Default: nil
 <td>
    <!--
    cpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
-Requires the CPUManager feature gate to be enabled.
 Default: &quot;10s&quot;
    -->
    <p><code>cpuManagerReconcilePeriod</code> 是 CPU 管理器的协调周期时长。
-要求启用 <code>CPUManager</code> 特性门控。默认值：&quot;10s&quot;</p>
+默认值：&quot;10s&quot;</p>
 </td>
 </tr>
 
@@ -1777,10 +1834,11 @@ Default: nil
    <!--
    evictionPressureTransitionPeriod is the duration for which the kubelet has to wait
 before transitioning out of an eviction pressure condition.
+A duration of 0s will be converted to the default value of 5m
 Default: &quot;5m&quot;
    -->
    <p><code>evictionPressureTransitionPeriod</code> 设置 kubelet
-离开驱逐压力状况之前必须要等待的时长。</p>
+离开驱逐压力状况之前必须要等待的时长。0s 的时长将被转换为默认值 5m。</p>
    <p>默认值：&quot;5m&quot;</p>
 </td>
 </tr>
@@ -1817,6 +1875,31 @@ Default: nil
 最小回收量指的是资源压力较大而执行 Pod 驱逐操作时，kubelet 对给定资源的最小回收量。
 例如：<code>{&quot;imagefs.available&quot;: &quot;2Gi&quot;}</code>。</p>
    <p>默认值：nil</p>
+</td>
+</tr>
+
+<tr><td><code>mergeDefaultEvictionSettings</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>
+   <!--
+   mergeDefaultEvictionSettings indicates that defaults for the evictionHard, evictionSoft, evictionSoftGracePeriod, and evictionMinimumReclaim
+fields should be merged into values specified for those fields in this configuration.
+Signals specified in this configuration take precedence.
+Signals not specified in this configuration inherit their defaults.
+If false, and if any signal is specified in this configuration then other signals that
+are not specified in this configuration will be set to 0.
+It applies to merging the fields for which the default exists, and currently only evictionHard has default values.
+Default: false
+-->
+<code>mergeDefaultEvictionSettings</code> 表示是否应将 evictionHard、evictionSoft、
+evictionSoftGracePeriod 和 evictionMinimumReclaim 字段的默认值合并到此配置中为这些字段指定的取值中。
+在此配置中显式指定的信号优先生效。未在此配置中指定的信号将继承其默认值。
+如果设置为 false，并且此配置中指定了任一信号，则此配置中未指定的其他信号将被设置为 0。
+此字段适用于合并存在默认值的字段，目前仅 evictionHard 有默认值。
+默认值：false。
+</p>
 </td>
 </tr>
 
@@ -2297,9 +2380,13 @@ Default: true
    <!--
    enableSystemLogQuery enables the node log query feature on the /logs endpoint.
 EnableSystemLogHandler has to be enabled in addition for this feature to work.
+Enabling this feature has security implications. The recommendation is to enable it on a need basis for debugging
+purposes and disabling otherwise.
    -->
    <p><code>enableSystemLogQuery</code> 启用在 /logs 端点上的节点日志查询功能。
-此外，还必须启用 enableSystemLogHandler 才能使此功能起作用。</p>
+此外，还必须启用 enableSystemLogHandler 才能使此功能起作用。
+启用此特性具有安全隐患。建议仅在调试需要时才启用，其他情况下应禁用。
+</p>
    <p>默认值：false</p>
 </td>
 </tr>
@@ -2520,7 +2607,7 @@ Default: 0.8
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.32/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -2632,6 +2719,20 @@ Default: false
 </p>
 </td>
 </tr>
+
+<tr><td><code>userNamespaces</code><br/>
+<a href="#kubelet-config-k8s-io-v1beta1-UserNamespaces"><code>UserNamespaces</code></a>
+</td>
+<td>
+   <p>
+   <!--
+   UserNamespaces contains User Namespace configurations.
+   -->
+   <code>userNamespaces</code> 包含用户命名空间配置。
+   </p>
+</td>
+</tr>
+
 </tbody>
 </table>
 
@@ -2654,7 +2755,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.32/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.33/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--
@@ -2726,11 +2827,13 @@ CredentialProvider 代表的是要被 kubelet 调用的一个 exec 插件。
 name is the required name of the credential provider. It must match the name of the
 provider executable as seen by the kubelet. The executable must be in the kubelet's
 bin directory (set by the --image-credential-provider-bin-dir flag).
+Required to be unique across all providers.
 -->
    <p>
    <code>name</code> 是凭据提供者的名称（必需）。此名称必须与 kubelet
    所看到的提供者可执行文件的名称匹配。可执行文件必须位于 kubelet 的 
    <code>bin</code> 目录（通过 <code>--image-credential-provider-bin-dir</code> 设置）下。
+   在所有提供程序中，名称是唯一的。
    </p>
 </td>
 </tr>
@@ -2893,6 +2996,26 @@ ExecEnvVar 用来在执行基于 exec 的凭据插件时设置环境变量。
 </tbody>
 </table>
 
+## `ImagePullCredentialsVerificationPolicy`     {#kubelet-config-k8s-io-v1beta1-ImagePullCredentialsVerificationPolicy}
+    
+<!--
+(Alias of `string`)
+
+**Appears in:**
+-->
+（`string` 的别名）
+
+**出现在：**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+<p>
+<!--
+ImagePullCredentialsVerificationPolicy is an enum for the policy that is enforced
+when pod is requesting an image that appears on the system
+-->
+ImagePullCredentialsVerificationPolicy 是一个枚举类型，用于指定在 Pod 请求系统上已存在的镜像时所强制执行的策略。
+</p>
 
 ## `KubeletAnonymousAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
 
@@ -3169,7 +3292,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </tr>
 
 <tr><td><code>limits</code> <B><!-- [Required] -->[必需]</B><br/>
-<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.32/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/zh-cn/docs/reference/generated/kubernetes-api/v1.33/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->
@@ -3269,6 +3392,49 @@ ShutdownGracePeriodByPodPriority 基于 Pod 关联的优先级类数值来为其
    shutdownGracePeriodSeconds is the shutdown grace period in seconds
    -->
    <p><code>shutdownGracePeriodSeconds</code> 是按秒数给出的关闭宽限期限。
+</td>
+</tr>
+</tbody>
+</table>
+
+## `UserNamespaces`     {#kubelet-config-k8s-io-v1beta1-UserNamespaces}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+<p>
+<!--
+UserNamespaces contains User Namespace configurations.
+-->
+<code>UserNamespaces</code> 包含用户命名空间配置。
+</p>
+
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>idsPerPod</code><br/>
+<code>int64</code>
+</td>
+<td>
+   <!--
+   <p>IDsPerPod is the mapping length of UIDs and GIDs.
+The length must be a multiple of 65536, and must be less than 1&lt;&lt;32.
+On non-linux such as windows, only null / absent is allowed.</p>
+<p>Changing the value may require recreating all containers on the node.</p>
+<p>Default: 65536</p>
+-->
+<p><code>idsPerPod</code> 是 UID 和 GID 的映射长度。
+长度值必须是 65536 的倍数，且必须小于 1&lt;&lt;32。
+在非 Linux 系统（如 Windows）上，仅允许空或不设置。</p>
+<p>更改此值可能需要重新创建节点上的所有容器。</p>
+<p>默认值：65536</p>
 </td>
 </tr>
 </tbody>

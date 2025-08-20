@@ -155,10 +155,9 @@ List of feature gates:
 {{< table caption="kubeadm feature gates" >}}
 Feature | Default | Alpha | Beta | GA
 :-------|:--------|:------|:-----|:----
-`ControlPlaneKubeletLocalMode` | `false` | 1.31 | - | -
-`EtcdLearnerMode` | `true` | 1.27 | 1.29 | 1.32
+`ControlPlaneKubeletLocalMode` | `true` | 1.31 | 1.33 | -
 `NodeLocalCRISocket` | `false` | 1.32 | - | -
-`WaitForAllControlPlaneComponents` | `false` | 1.30 | - | -
+`WaitForAllControlPlaneComponents` | `true` | 1.30 | 1.33 | -
 {{< /table >}}
 
 {{< note >}}
@@ -171,10 +170,6 @@ Feature gate descriptions:
 : With this feature gate enabled, when joining a new control plane node, kubeadm will configure the kubelet
   to connect to the local kube-apiserver. This ensures that there will not be a violation of the version skew
   policy during rolling upgrades.
-
-`EtcdLearnerMode`
-: With this feature gate enabled, when joining a new control plane node, a new etcd member will be created
-  as a learner and promoted to a voting member only after the etcd data are fully aligned.
 
 `NodeLocalCRISocket`
 : With this feature gate enabled, kubeadm will read/write the CRI socket for each node from/to the file
@@ -232,12 +227,17 @@ List of removed feature gates:
 {{< table caption="kubeadm removed feature gates" >}}
 Feature | Alpha | Beta | GA | Removed
 :-------|:------|:-----|:---|:-------
+`EtcdLearnerMode` | 1.27 | 1.29 | 1.32 | 1.33
 `IPv6DualStack` | 1.16 | 1.21 | 1.23 | 1.24
 `UnversionedKubeletConfigMap` | 1.22 | 1.23 | 1.25 | 1.26
 `UpgradeAddonsBeforeControlPlane` | 1.28 | - | - | 1.31
 {{< /table >}}
 
 Feature gate descriptions:
+
+`EtcdLearnerMode`
+: When joining a new control plane node, a new etcd member will be created
+as a learner and promoted to a voting member only after the etcd data are fully aligned.
 
 `IPv6DualStack`
 : This flag helps to configure components dual stack when the feature is in progress. For more details on Kubernetes

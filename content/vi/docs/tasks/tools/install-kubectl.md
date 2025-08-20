@@ -378,7 +378,7 @@ Kubectl completion script trên Bash được tạo ra bởi `kubectl completion
 Tuy nhiên, kubectl completion script phụ thuộc vào [**bash-completion**](https://github.com/scop/bash-completion) mà bạn cài trước đó.
 
 {{< warning>}}
-Có 2 phiên bản của bash-completion là v1 và v2. V1 dành cho Bash 3.2 (Bash mặc định trên macOS), và v2 dành cho Bash 4.1+. Kubectl completion script **không làm việc** phù hợp với bash-completion v1 và Bash 3.2. Nó tương thích với **bash-completion v2** và **Bash 4.1+**. Vì vậy, để sử dụng kubectl completion một cách chính xác trên macOS thì bạn phải cài đặt Bash 4.1+ ([*hướng dẫn*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Hướng dẫn tiếp theo giả định rằng bạn đang sử dụng Bash 4.1+ (nghĩa là, bất kỳ phiên bản Bash nào từ 4.1 trở lên).
+Có 2 phiên bản của bash-completion là v1 và v2. V1 dành cho Bash 3.2 (Bash mặc định trên macOS), và v2 dành cho Bash 4.1+. Kubectl completion script **không làm việc** phù hợp với bash-completion v1 và Bash 3.2. Nó tương thích với **bash-completion v2** và **Bash 4.1+**. Vì vậy, để sử dụng kubectl completion một cách chính xác trên macOS thì bạn phải cài đặt Bash 4.1+ ([*hướng dẫn*](https://apple.stackexchange.com/a/292760)). Hướng dẫn tiếp theo giả định rằng bạn đang sử dụng Bash 4.1+ (nghĩa là, bất kỳ phiên bản Bash nào từ 4.1 trở lên).
 {{< /warning >}}
 
 

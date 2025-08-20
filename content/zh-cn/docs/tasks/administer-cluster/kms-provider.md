@@ -5,7 +5,7 @@ weight: 370
 ---
 <!--
 reviewers:
-- smarterclayton
+- aramase
 - enj
 title: Using a KMS provider for data encryption
 content_type: task

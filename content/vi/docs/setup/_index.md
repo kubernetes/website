@@ -24,13 +24,13 @@ Trong trường hợp bạn không muốn tự quản lý Kubernetes cluster, b�
 
 <!-- body -->
 
-## Môi trường để học
+## Môi trường học tập
 
 Nếu bạn đang ở trong giai đoạn học Kubernetes, bạn có thể sử dụng những công cụ (tools) được hỗ trợ bởi cộng đồng Kubernetes, hoặc những công cụ trong hệ sinh thái để cài đặt Kubernetes cluster trên máy của bạn. [Xem thêm](/docs/tasks/tools/).
 
-## Môi trường sản phẩm
+## Môi trường production
 
-Khi đánh giá một giải pháp dành cho [môi trường sản phẩm](/docs/setup/production-environment/),
+Khi đánh giá một giải pháp dành cho [môi trường production](/docs/setup/production-environment/),
 bạn cần xem xét những khía cạnh về việc vận hành Kubernetes cluster (hoặc khái niệm trừu trượng của nó) mà bạn muốn tự quản lý, 
 hoặc những phần nào bạn muốn để cho nhà cung cấp quản lý.
 

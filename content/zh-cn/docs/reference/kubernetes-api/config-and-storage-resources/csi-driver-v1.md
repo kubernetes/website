@@ -109,6 +109,29 @@ CSIDriverSpec 是 CSIDriver 的规约。
   采用默认策略时，如果定义了 fstype 且卷的访问模式包含 ReadWriteOnce，将仅应用定义的 fsGroup。
 
 <!--
+- **nodeAllocatableUpdatePeriodSeconds** (int64)
+
+  nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+-->
+- **nodeAllocatableUpdatePeriodSeconds** (int64)
+
+  nodeAllocatableUpdatePeriodSeconds 指定了 CSINode
+  针对此驱动对可分配容量作定期更新的时间间隔。
+  设置后，定期更新和由容量相关故障触发的更新均会启用。
+  如果没有设置，则不会发生更新（无论是定期更新还是检测到与容量相关的故障），
+   并且 `allocatable.count` 保持为固定值。此字段允许的最小值为 10 秒。
+
+  <!--
+  This is an alpha feature and requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+  
+  This field is mutable.
+  -->
+
+  这是一个 Alpha 级别特性，需要启用特性门控 MutableCSINodeAllocatableCount。
+
+  此字段是可变更的。
+
+<!--
 - **podInfoOnMount** (boolean)
 
   podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
@@ -125,6 +148,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   The following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume
                                   defined by a CSIVolumeSource, otherwise "false"
   -->
+
   CSI 驱动将 podInfoOnMount 指定为驱动部署的一部分。
   如果为 true，Kubelet 将在 CSI NodePublishVolume() 调用中作为 VolumeContext 传递 Pod 信息。
   CSI 驱动负责解析和校验作为 VolumeContext 传递进来的信息。
@@ -143,6 +167,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   
   This field was immutable in Kubernetes \< 1.29 and now is mutable.
   -->
+
   “csi.storage.k8s.io/ephemeral” 是 Kubernetes 1.16 中一个新的功能特性。
   只有同时支持 “Persistent” 和 “Ephemeral” VolumeLifecycleMode 的驱动，此字段才是必需的。
   其他驱动可以保持禁用 Pod 信息或忽略此字段。
@@ -189,6 +214,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   
   Default is "false".
   -->
+
   当值为 “false” 时，Kubernetes 不会将任何特殊的 SELinux 挂载选项传递给驱动。
   这通常用于代表更大共享文件系统的子目录的卷。
   
@@ -243,8 +269,8 @@ CSIDriverSpec 是 CSIDriver 的规约。
   ```
   "csi.storage.k8s.io/serviceAccount.tokens": {
     "<audience>": {
-      "token": <token>,
-      "expirationTimestamp": <expiration timestamp in RFC3339>,
+      "token": <令牌>,
+      "expirationTimestamp": <格式为 RFC3339 的过期时间戳>,
     },
     ...
   }
@@ -256,6 +282,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   <a name="TokenRequest"></a>
   *TokenRequest contains parameters of a service account token.*
   -->
+
   注：每个 tokenRequest 中的受众应该不同，且最多有一个令牌是空字符串。
   要在令牌过期后接收一个新的令牌，requiresRepublish 可用于周期性地触发 NodePublishVolume。
   
@@ -270,14 +297,15 @@ CSIDriverSpec 是 CSIDriver 的规约。
   - **tokenRequests.expirationSeconds** (int64)
 
     expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
-  -->  
+  -->
+
   - **tokenRequests.audience** (string)，必需
-    
+
     audience 是 “TokenRequestSpec” 中令牌的目标受众。
     它默认为 kube apiserver 的受众。
   
   - **tokenRequests.expirationSeconds** (int64)
-    
+
     expirationSeconds 是 “TokenRequestSpec” 中令牌的有效期。
     它具有与 “TokenRequestSpec” 中 “expirationSeconds” 相同的默认值。
 
@@ -303,6 +331,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
   
   This field is beta. This field is immutable.
   -->
+
   另一种模式是 “Ephemeral”。
   在这种模式下，在 Pod 规约中用 CSIVolumeSource 以内联方式定义卷，其生命周期与该 Pod 的生命周期相关联。
   驱动必须感知到这一点，因为只有针对这种卷才会接收到 NodePublishVolume 调用。
@@ -691,6 +720,7 @@ DELETE /apis/storage.k8s.io/v1/csidrivers/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 -->
@@ -709,6 +739,10 @@ DELETE /apis/storage.k8s.io/v1/csidrivers/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
   
@@ -761,6 +795,10 @@ DELETE /apis/storage.k8s.io/v1/csidrivers
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
 - **labelSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
@@ -812,6 +850,10 @@ DELETE /apis/storage.k8s.io/v1/csidrivers
 - **gracePeriodSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
   

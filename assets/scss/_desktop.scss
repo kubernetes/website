@@ -1,8 +1,20 @@
 $main-max-width: 1200px;
 $vendor-strip-height: 44px;
-$video-section-height: 580px;
 
 @media screen and (min-width: 1024px) {
+
+  body:dir(rtl) {
+    overflow-x: hidden;
+  }
+
+  table:dir(rtl) {
+    text-align: right;
+    direction: rtl;
+  }
+
+  .breadcrumb-item:dir(rtl) + .breadcrumb-item:dir(rtl)::before {
+    float: right;
+  }
 
   .td-home {
     .header-hero {
@@ -35,6 +47,9 @@ $video-section-height: 580px;
         p {
           text-align: left
         }
+        p:dir(rtl) {
+          text-align: right
+        }
 
         .image-wrapper {
           position: absolute;
@@ -50,13 +65,12 @@ $video-section-height: 580px;
   }
 
   #video {
-    height: $video-section-height;
     position: relative;
-    background-position: center center;
+    background-position: top center;
     background-size: cover;
 
     &>.light-text {
-      margin-right: 10%;
+      margin: 0 10% 15px 0;
     }
   }
 

@@ -263,9 +263,8 @@ The program was introduced to help new contributors understand the PR wrangling 
   to see the PR wrangling schedule for this year and sign up.
 
 - Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs)
-  for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to
-  Brad Topol (`@bradtopol`) or one of the
-  [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
+  for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to one of
+  the [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
 
 - Once you've signed up to shadow a PR Wrangler, introduce yourself to the PR Wrangler on the
   [Kubernetes Slack](https://slack.k8s.io).
@@ -277,7 +276,7 @@ The program was introduced to help new contributors understand the PR wrangling 
   PR 管理轮值表，然后注册报名。
 
 - 其他人可以通过 [#sig-docs Slack 频道](https://kubernetes.slack.com/messages/sig-docs)申请成为指定
-  PR 管理者某一周的影子。可以随时咨询（`@bradtopol`）或某一位
+  PR 管理者某一周的影子。可以随时咨询某一位
   [SIG Docs 联席主席/主管](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)。
 
 - 注册成为一名 PR 管理者的影子时，

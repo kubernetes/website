@@ -243,7 +243,7 @@ After that, `kubeadm join` will block until the admin has manually approved the 
    certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
    ```
 
-3. This would change the CRS resource to Active state.
+3. This would change the CSR resource to Active state.
 
    ```shell
    kubectl get csr

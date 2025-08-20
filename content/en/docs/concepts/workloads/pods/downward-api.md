@@ -99,6 +99,15 @@ These container-level fields allow you to provide information about
 [requests and limits](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 for resources such as CPU and memory.
 
+{{< note >}}
+{{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
+Container CPU and memory resources can be resized while the container is running.
+If this happens, a downward API volume will be updated,
+but environment variables will not be updated unless the container restarts.
+See [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
+for more details.
+{{< /note >}}
+
 
 `resource: limits.cpu`
 : A container's CPU limit

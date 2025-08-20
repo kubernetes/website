@@ -572,14 +572,14 @@ kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 
 ## API implementation
 
-The `PATCH` verb for a resource that supports Server-Side Apply can accepts the
+The `PATCH` verb (for an object that supports Server-Side Apply) accepts the
 unofficial `application/apply-patch+yaml` content type. Users of Server-Side
 Apply can send partially specified objects as YAML as the body of a `PATCH` request
 to the URI of a resource.  When applying a configuration, you should always include all the
 fields that are important to the outcome (such as a desired state) that you want to define.
 
-All JSON messages are valid YAML. Some clients specify Server-Side Apply requests using YAML
-request bodies that are also valid JSON.
+All JSON messages are valid YAML. Therefore, in addition to using YAML request bodies for Server-Side Apply requests, you can also use JSON request bodies, as they are also valid YAML.
+In either case, use the media type `application/apply-patch+yaml` for the HTTP request.
 
 ### Access control and permissions {#rbac-and-permissions}
 

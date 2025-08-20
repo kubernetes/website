@@ -14,6 +14,7 @@ weight: 20
 -->
 
 <!-- overview -->
+
 <!--
 The Kubernetes API is a resource-based (RESTful) programmatic interface
 provided via HTTP. It supports retrieving, creating, updating, and deleting
@@ -65,6 +66,7 @@ API concepts:
 ## Kubernetes API 术语  {#standard-api-terminology}
 
 Kubernetes 通常使用常见的 RESTful 术语来描述 API 概念：
+
 * **资源类型（Resource Type）** 是 URL 中使用的名称（`pods`、`namespaces`、`services`）
 * 所有资源类型都有一个具体的表示（它们的对象模式），称为 **类别（Kind）**
 * 资源类型的实例的列表称为 **集合（Collection）**
@@ -102,12 +104,10 @@ of a given kind can have a given name at a time. However, if you delete the obje
 you can make a new object with the same name. Some objects are not namespaced (for
 example: Nodes), and so their names must be unique across the whole cluster.
 -->
-
 ### 对象名字 {#object-names}
 
 你可以通过 API 创建的所有对象都有一个唯一的{{< glossary_tooltip text="名字" term_id="name" >}}，
-以允许幂等创建和检索，
-但如果虚拟资源类型不可检索或不依赖幂等性，则它们可能没有唯一名称。
+以允许幂等创建和检索，但如果虚拟资源类型不可检索或不依赖幂等性，则它们可能没有唯一名称。
 在{{< glossary_tooltip text="名字空间" term_id="namespace" >}}内，
 同一时刻只能有一个给定类别的对象具有给定名称。
 但是，如果你删除该对象，你可以创建一个具有相同名称的新对象。
@@ -119,7 +119,13 @@ example: Nodes), and so their names must be unique across the whole cluster.
 Almost all object resource types support the standard HTTP verbs - GET, POST, PUT, PATCH,
 and DELETE. Kubernetes also uses its own verbs, which are often written in lowercase to distinguish
 them from HTTP verbs.
+-->
+### API 动词 {#api-verbs}
 
+几乎所有对象资源类型都支持标准 HTTP 动词 - GET、POST、PUT、PATCH 和 DELETE。
+Kubernetes 也使用自己的动词，这些动词通常写成小写，以区别于 HTTP 动词。
+
+<!--
 Kubernetes uses the term **list** to describe the action of returning a [collection](#collections) of
 resources, to distinguish it from retrieving a single resource which is usually called
 a **get**. If you sent an HTTP GET request with the `?watch` query parameter,
@@ -130,11 +136,6 @@ For PUT requests, Kubernetes internally classifies these as either **create** or
 based on the state of the existing object. An **update** is different from a **patch**; the
 HTTP verb for a **patch** is PATCH.
 -->
-### API 动词 {#api-verbs}
-
-几乎所有对象资源类型都支持标准 HTTP 动词 - GET、POST、PUT、PATCH 和 DELETE。
-Kubernetes 也使用自己的动词，这些动词通常写成小写，以区别于 HTTP 动词。
-
 Kubernetes 使用术语 **list** 来描述返回资源[集合](#collections)的操作，
 以区别于检索单个资源、通常名为 **get** 的操作。
 如果你发送带有 `?watch` 查询参数的 HTTP GET 请求，
@@ -162,7 +163,7 @@ Examples:
 名字空间作用域的资源类型会在其名字空间被删除时也被删除，
 并且对该资源类型的访问是由定义在名字空间域中的授权检查来控制的。
 
-注意： 核心资源使用 `/api` 而不是 `/apis`，并且不包含 GROUP 路径段。
+注意：核心资源使用 `/api` 而不是 `/apis`，并且不包含 GROUP 路径段。
 
 例如：
 
@@ -181,7 +182,15 @@ The following paths are used to retrieve collections and resources:
 
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of resources of the resource type
   * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - return the resource with NAME under the resource type
+-->
+你还可以访问资源集合（例如：列出所有 Node）。以下路径用于检索集合和资源：
 
+* 集群作用域的资源：
+
+  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回指定资源类型的资源的集合
+  * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - 返回指定资源类型下名称为 NAME 的资源
+
+<!--
 * Namespace-scoped resources:
 
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - return the collection of all
@@ -191,13 +200,6 @@ The following paths are used to retrieve collections and resources:
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` -
     return the instance of the resource type with NAME in NAMESPACE
 -->
-你还可以访问资源集合（例如：列出所有 Node）。以下路径用于检索集合和资源：
-
-* 集群作用域的资源：
-
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回指定资源类型的资源的集合
-  * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - 返回指定资源类型下名称为 NAME 的资源
-
 * 名字空间作用域的资源：
 
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回所有名字空间中指定资源类型的全部实例的集合
@@ -298,6 +300,7 @@ Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 
    … JSON encoded collection of Pods (PodList object)
    ```
    -->
+
    ```
    200 OK
    Content-Type: application/json
@@ -318,6 +321,7 @@ Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 
    … JSON encoded Pod object
    ```
    -->
+
    ```http
    POST /api/v1/namespaces/test/pods
    Content-Type: application/json
@@ -361,7 +365,7 @@ Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512
    GET /api/v1/pods
    Accept: application/yaml
    ```
-   
+
    <!--
    ```
    200 OK
@@ -370,6 +374,7 @@ Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512
    … YAML encoded collection of Pods (PodList object)
    ```
    -->
+
    ```
    200 OK
    Content-Type: application/yaml
@@ -390,6 +395,7 @@ Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512
    … YAML encoded Pod object
    ```
    -->
+
    ```http
    POST /api/v1/namespaces/test/pods
    Content-Type: application/yaml
@@ -446,14 +452,15 @@ For example:
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
-   … JSON encoded collection of Pods (PodList object)
+   … binary encoded collection of Pods (PodList object)
    ```
    -->
+
    ```
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
-   … JSON 编码的 Pod 集合（PodList 对象）
+   … 二进制编码的 Pod 集合（PodList 对象）
    ```
 
 <!--
@@ -470,6 +477,7 @@ For example:
    … binary encoded Pod object
    ```
    -->
+
    ```http
    POST /api/v1/namespaces/test/pods
    Content-Type: application/vnd.kubernetes.protobuf
@@ -769,7 +777,7 @@ this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache
 重新执行 **get** 或者 **list** 操作，
 并基于新返回的 `resourceVersion` 来开始新的 **watch** 操作。
 
-对于订阅集合，Kubernetes 客户端库通常会为 **list** -然后- **watch** 的逻辑提供某种形式的标准工具。
+对于订阅集合，Kubernetes 客户端库通常会为 **list** - 然后 - **watch** 的逻辑提供某种形式的标准工具。
 （在 Go 客户端库中，这称为 `反射器（Reflector）`，位于 `k8s.io/client-go/tools/cache` 包中。）
 
 <!--
@@ -992,8 +1000,7 @@ resources in the result and include a `continue` value if there are more resourc
 in the collection.
 -->
 你可以请求 API 服务器通过使用页（Kubernetes 将其称为“块（Chunk）”）的方式来处理 **list**，
-完成单个集合的响应。
-要以块的形式检索单个集合，针对集合的请求支持两个查询参数 `limit` 和 `continue`，
+完成单个集合的响应。要以块的形式检索单个集合，针对集合的请求支持两个查询参数 `limit` 和 `continue`，
 并且从集合元 `metadata` 字段中的所有 **list** 操作返回响应字段 `continue`。
 客户端应该指定他们希望在每个带有 `limit` 的块中接收的条目数上限，如果集合中有更多资源，
 服务器将在结果中返回 `limit` 资源并包含一个 `continue` 值。
@@ -1143,7 +1150,7 @@ each item in that collection represents a single Service. For example:
 -->
 ## 集合 {#collections}
 
-在 Kubernetes 术语中，你从 **list** 中获得的响应是一个“集合（Collections）”。
+在 Kubernetes 术语中，你从 **list** 中获得的响应是一个“集合（Collection）”。
 然而，Kubernetes 为不同类型资源的集合定义了具体类型。
 集合的类别名是针对资源类别的，并附加了 `List`。
 
@@ -1197,6 +1204,7 @@ Kubernetes API 中定义了数十种集合类型（如 `PodList`、`ServiceList`
 ```shell
 kubectl get services -A -o yaml
 ```
+
 ```yaml
 apiVersion: v1
 kind: List
@@ -1365,7 +1373,7 @@ When you **delete** a resource this takes place in two phases.
 
 当你 **delete** 资源时，操作将分两个阶段进行。
 
-1. 终结（finalization）
+1. **终结（finalization）**
 2. 移除
 
 ```yaml
@@ -1447,7 +1455,8 @@ setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDelet
 The user performing the force **delete** operation must have the privileges to do both
 the **delete** and **unsafe-delete-ignore-read-errors** verbs on the given resource.
 -->
-执行强制**删除**操作的用户必须拥有对给定资源执行 **delete** 和 **unsafe-delete-ignore-read-errors** 动作的权限。
+执行强制**删除**操作的用户必须拥有对给定资源执行 **delete** 和
+**unsafe-delete-ignore-read-errors** 动作的权限。
 {{< /note >}}
 
 <!--
@@ -2225,29 +2234,29 @@ This table explains the behavior of **list** requests with various combinations 
 下表解释了具有各种 `resourceVersion` 和 `resourceVersionMatch` 组合的 **list** 请求的行为：
 
 <!--
-| resourceVersionMatch param | paging params | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
-|----------------------------|---------------|-------------------------|---------------------|----------------------------------------|
-| _unset_ | _limit unset_ | Most Recent | Any | Not older than |
-| _unset_ | limit=\<n\>, _continue unset_ | Most Recent | Any | Exact |
-| _unset_ | limit=\<n\>, continue=\<token\>| Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request` |
-| `resourceVersionMatch=Exact` | _limit unset_ | Invalid | Invalid | Exact |
-| `resourceVersionMatch=Exact` | limit=\<n\>, _continue unset_ | Invalid | Invalid | Exact |
-| `resourceVersionMatch=NotOlderThan` | _limit unset_ | Invalid | Any | Not older than |
-| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid | Any | Not older than |
+| resourceVersionMatch param          | paging params                  | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
+|-------------------------------------|--------------------------------|-------------------------|---------------------|----------------------------------------|
+| _unset_                             | _limit unset_                  | Most Recent             | Any                 | Not older than                         |
+| _unset_                             | limit=\<n\>, _continue unset_  | Most Recent             | Any                 | Exact                                  |
+| _unset_                             | limit=\<n\>, continue=\<token\>| Continuation            | Continuation        | Invalid, HTTP `400 Bad Request`        |
+| `resourceVersionMatch=Exact`        | _limit unset_                  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=NotOlderThan` | _limit unset_                  | Invalid                 | Any                 | Not older than                         |
+| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_  | Invalid                 | Any                 | Not older than                         |
 
 {{</* /table */>}}
 -->
 {{< table caption="list 操作的 resourceVersionMatch 与分页参数" >}}
 
-| resourceVersionMatch 参数 | 分页参数 | resourceVersion 未设置 | resourceVersion="0" | resourceVersion="\<非零值\>" |
-|--------------------------|---------|-----------------------|---------------------|-----------------------------|
-| **未设置** | **limit 未设置** | 最新版本 | 任意版本 | 不老于指定版本 |
-| **未设置** | limit=\<n\>, **continue 未设置** | 最新版本 | 任意版本 | 精确匹配 |
-| **未设置** | limit=\<n\>, continue=\<token\> | 从 token 开始、精确匹配 | 非法请求，视为从 token 开始、精确匹配 | 非法请求，返回 HTTP `400 Bad Request` |
-| `resourceVersionMatch=Exact` [1] | **limit 未设置** | 非法请求 | 非法请求 | 精确匹配 |
-| `resourceVersionMatch=Exact` [1] | limit=\<n\>, **continue 未设置** | 非法请求 | 非法请求 | 精确匹配 |
-| `resourceVersionMatch=NotOlderThan` [1] | **limit 未设置** | 非法请求 | 任意版本 | 不老于指定版本 |
-| `resourceVersionMatch=NotOlderThan` [1] | limit=\<n\>, **continue 未设置** | 非法请求 | 任意版本 | 不老于指定版本 |
+| resourceVersionMatch 参数                    | 分页参数                         | resourceVersion 未设置             | resourceVersion="0"                | resourceVersion="\<非零值\>" |
+|---------------------------------------------|---------------------------------|-----------------------------------|------------------------------------|-----------------------------|
+| **未设置**                                   | **limit 未设置**                 | 最新版本                           | 任意版本                             | 不老于指定版本                |
+| **未设置** | limit=\<n\>, **continue 未设置** | 最新版本                         | 任意版本                           | 精确匹配                             |                             ｜
+| **未设置** | limit=\<n\>, continue=\<token\> | 从 token 开始、精确匹配            | 非法请求，视为从 token 开始、精确匹配 | 非法请求，返回 HTTP `400 Bad Request` |                             ｜
+| `resourceVersionMatch=Exact` [1]            | **limit 未设置**                 | 非法请求                           | 非法请求                            | 精确匹配                       |
+| `resourceVersionMatch=Exact` [1]            | limit=\<n\>, **continue 未设置** | 非法请求                           | 非法请求                            | 精确匹配                       |
+| `resourceVersionMatch=NotOlderThan` [1]     | **limit 未设置**                 | 非法请求                           | 任意版本                            | 不老于指定版本                  |
+| `resourceVersionMatch=NotOlderThan` [1]     | limit=\<n\>, **continue 未设置** | 非法请求                           | 任意版本                            | 不老于指定版本                  |
 
 {{< /table >}}
 
@@ -2272,12 +2281,14 @@ Any
   for the request to return data at a much older resource version that the client has previously
   observed, particularly in high availability configurations, due to partitions or stale
   caches. Clients that cannot tolerate this should not use this semantic.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 -->
 任意版本
 : 返回任何资源版本的数据。最新可用资源版本优先，但不需要强一致性；
   可以提供任何资源版本的数据。由于分区或过时的缓存，
   请求可能返回客户端先前观察到的更旧资源版本的数据，特别是在高可用性配置中。
   不能容忍这种情况的客户不应该使用这种语义。
+  始终通过**监视缓存**提供服务，提高性能并减少 etcd 负载。
 
 <!--
 Most recent
@@ -2306,6 +2317,7 @@ Not older than
   guarantees that the collection's `.metadata.resourceVersion` is not older than the requested
   `resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
   of the items in that collection.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 -->
 不老于指定版本
 : 返回数据至少与提供的 `resourceVersion` 一样新。
@@ -2313,6 +2325,7 @@ Not older than
   对于对遵守 `resourceVersionMatch` 参数的服务器的 **list** 请求，
   这保证了集合的 `.metadata.resourceVersion` 不早于请求的 `resourceVersion`，
   但不保证该集合中任何项目的 `.metadata.resourceVersion`。
+  始终通过**监视缓存**提供服务，提高性能并减少 etcd 负载。
 
 <!--
 Exact
@@ -2322,10 +2335,10 @@ Exact
   is the same as the `resourceVersion` you requested in the query string. That guarantee does
   not apply to the `.metadata.resourceVersion` of any items within that collection.
 
-Continue Token, Exact
-: Return data at the resource version of the initial paginated **list** call. The returned _continue
-  tokens_ are responsible for keeping track of the initially provided resource version for all paginated
-  **list** calls after the initial paginated **list**.
+  By default served from _etcd_, but with the `ListFromCacheSnapshot` feature gate enabled,
+  API server will attempt to serve the response from snapshot if available.
+  This improves performance and reduces etcd load. Cache snapshots are kept by default for 75 seconds,
+  so if the provided `resourceVersion` is unavailable, the server will fallback to etcd.
 -->
 精确匹配
 : 以提供的确切资源版本返回数据。如果提供的 `resourceVersion` 不可用，
@@ -2333,9 +2346,30 @@ Continue Token, Exact
   这可以保证集合的 `.metadata.resourceVersion` 与你在查询字符串中请求的 `resourceVersion` 相同。
   该保证不适用于该集合中任何项目的 `.metadata.resourceVersion`。
 
-从 token 开始、精确匹配
-: 返回初始分页 **list** 调用的资源版本的数据。
-  返回的 **Continue 令牌**负责跟踪最初提供的资源版本，最初提供的资源版本用于在初始分页 **list** 之后的所有分页 **list** 中。
+  默认情况下，由 **etcd** 提供服务，但是当启用了 `ListFromCacheSnapshot` 特性门控时，
+  如果可用，API 服务器将尝试从快照提供响应。
+  这提升了性能并减少了 etcd 的负载。缓存快照默认保留 75 秒，
+  因此如果提供的 `resourceVersion` 不可用，服务器将回退到 etcd。
+
+<!--
+Continuation
+: Return the next page of data for a paginated list request, ensuring consistency with the exact `resourceVersion` established by the initial request in the sequence.
+  Response to **list** requests with limit include _continue token_, that encodes the  `resourceVersion` and last observed position from which to resume the list.
+  If the `resourceVersion` in the provided _continue token_ is unavailable, the server responds with HTTP `410 Gone`.
+  By default served from _etcd_, but with the `ListFromCacheSnapshot` feature gate enabled,
+  API server will attempt to serve the response from snapshot if available.
+  This improves performance and reduces etcd load. Cache snapshots are kept by default for 75 seconds,
+  so if the `resourceVersion` in provided _continue token_ is unavailable, the server will fallback to etcd.
+-->
+续页
+: 为分页列表请求返回下一页数据，确保与序列中初始请求建立的确切 `resourceVersion` 保持一致。
+  对带有限制的 **list** 请求的响应包括 **continue 令牌**，它编码了 `resourceVersion`
+  和最后观察到的位置，给出继续列表的起点。
+  如果提供的 **continue 令牌**中的 `resourceVersion` 不可用，服务器将返回 HTTP `410 Gone`。
+  默认情况下，由 **etcd** 提供服务，但是当启用了 `ListFromCacheSnapshot` 特性门控时，
+  API 服务器将尝试从快照提供响应（如果缓存快可用）。
+  这提升了性能并减少了 etcd 的负载。缓存快照默认保留 75 秒，
+  因此如果提供的 **continue 令牌**中的 `resourceVersion` 不可用，服务器将回退到 etcd。
 
 {{< note >}}
 <!--

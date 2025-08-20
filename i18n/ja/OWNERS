@@ -3,12 +3,15 @@
 # Localized strings for Japanese.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
-reviewers:
-- sig-docs-ja-reviews
+filters:
+  "\\.toml$":
 
-approvers:
-- sig-docs-ja-owners
+    reviewers:
+    - sig-docs-ja-reviews
 
-labels:
-- area/localization
-- language/ja
+    approvers:
+    - sig-docs-ja-owners
+
+    labels:
+    - area/localization
+    - language/ja

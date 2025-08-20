@@ -90,6 +90,20 @@ Path to a kubeadm configuration file.
 </tr>
 
 <tr>
+<td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Perform the upgrade of etcd.
+-->
+执行 etcd 升级。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
 </tr>
 <tr>

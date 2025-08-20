@@ -259,7 +259,9 @@ When reviewing, use the following as a starting point.
 - 内容本身是否过度依赖于网站范畴之外、独立供应商或者非开源的文档？
 
 <!--
-### Website
+### Documentation
+
+Some checks to consider:
 
 - Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken
   links as a result of this PR? Is there another option, like changing the page title without
@@ -275,7 +277,9 @@ When reviewing, use the following as a starting point.
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code
   blocks, tables, notes and images.
 -->
-### 网站 {#Website}
+### 文档   {#documentation}
+
+考虑做一些检查：
 
 - PR 是否改变或者删除了某页面的标题、slug/别名或者链接锚点？
   如果是这样，PR 是否会导致出现新的失效链接？
@@ -294,113 +298,76 @@ When reviewing, use the following as a starting point.
 <!--
 ### Blog
 
-- Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).
-- Before reviewing blog PRs, be familiar with [Submitting blog posts and case studies](/docs/contribute/new-content/blogs-case-studies/).
--->
-### 博客
+Early feedback on blog posts is welcome via a Google Doc or HackMD. Please request input early from the [#sig-docs-blog Slack channel](https://kubernetes.slack.com/archives/CJDHVD54J).
 
-- 欢迎通过 Google Doc 或 HackMD 对博客文章提供早期反馈。请尽早通过
-  [#sig-docs-blog Slack 频道](https://kubernetes.slack.com/archives/CJDHVD54J)请求输入。
-- 在审查博客的拉取请求（PR）之前，请熟悉[提交博客文章和案例研究](/zh-cn/docs/contribute/new-content/blogs-case-studies/)的相关指南。
-<!--
-- We are willing to mirror any blog article that was published to https://kubernetes.dev/blog/ (the contributor blog) provided that:
-  - the mirrored article has the same publication date as the original (it should have the same publication time too, but you can also set a time stamp up to 12 hours later for special cases)
-  - for PRs that arrive the original article was merged to https://kubernetes.dev/, there haven't been 
-    (and won't be) any articles published to the main blog between time that the original and mirrored article 
-    [will] publish. 
-    This is because we don't want to add articles to people's feeds, such as RSS, except at the very end of their feed.
-  - the original article doesn't contravene any strongly recommended review guidelines or community norms.
-- You should set the canonical URL for the mirrored article, to the URL of the original article
-  (you can use a preview to predict the URL and fill this in ahead of actual publication). Use the `canonicalUrl`
-  field in [front matter](https://gohugo.io/content-management/front-matter/) for this.
+Before reviewing blog PRs, be familiar with the [blog guidelines](/docs/contribute/blog/guidelines/)
+  and with [submitting blog posts and case studies](/docs/contribute/new-content/blogs-case-studies/).
 -->
-- 我们愿意镜像任何发布到 https://kubernetes.dev/blog/（贡献者博客）的博客文章，前提是：
-  - 镜像的文章应与原文有相同的发布日期（理想情况下，发布时间也应相同，但在特殊情况下，
-    可以设置一个最多晚于原时间 12 小时的时间戳）。
-  - 对于那些原始文章已被合并到 https://kubernetes.dev/ 的拉取请求（PR），在原始文章和镜像文章发布之间，
-    主博客上没有（也不会有）任何文章发布。这是因为我们不希望除了在 RSS 等订阅源的末端之外添加新的文章到人们的订阅源中。
-  - 原始文章不应违反任何强烈推荐的审核指南或社区规范。
-- 应为镜像文章设置规范URL（canonical URL），指向原始文章的URL（你可以使用预览来预测URL并在实际发布前填写）。
-  为此，请在[前置元数据](https://gohugo.io/content-management/front-matter/)中使用 `canonicalUrl` 字段。
-<!--
-- Consider the target audience and whether the blog post is appropriate for kubernetes.io 
-  For example, if the target audience are Kubernetes contributors only then kubernetes.dev
-  may be more appropriate, 
-  or if the blog post is on general platform engineering then it may be more suitable on another site.
+### 博客   {#blog}
 
-  This consideration applies to mirrored articles too; although we are willing to consider all valid
-  contributor articles for mirroring if a PR is opened, we don't mirror all of them.
--->
-- 考虑目标受众以及博客文章是否适合发布在 kubernetes.io 上。例如，如果目标受众仅限于
-  Kubernetes 贡献者，则 kubernetes.dev 可能更为合适；如果博客文章是关于通用平台工程的内容，
-  则可能更适合跨站发布。
+欢迎通过 Google Doc 或 HackMD 对博文提供早期反馈。请尽早通过
+[#sig-docs-blog Slack 频道](https://kubernetes.slack.com/archives/CJDHVD54J)请求输入。
 
-  这一考量同样适用于镜像文章；虽然我们愿意考虑镜像所有有效的贡献者文章（如果有拉取请求的话），
-  我们并不会镜像所有的文章。
+在审查博客的拉取请求（PR）之前，请熟悉[博客指南](/zh-cn/docs/contribute/blog/guidelines/)
+和[提交博文和案例分析](/zh-cn/docs/contribute/new-content/blogs-case-studies/)。
 
 <!--
-- We only mark blog articles as maintained (`evergreen: true` in front matter) if the Kubernetes project 
-  is happy to commit to maintaining them indefinitely. Some blog articles absolutely merit this, and we 
-  always mark our release announcements evergreen. Check with other contributors if you are not sure 
-  how to review on this point.
--->
-- 我们仅在 Kubernetes 项目愿意无限期维护某博客文章的情况下，才将其标记为持续维护状态（在前置元数据中设置
-  `evergreen: true`）。某些博客文章确实值得这样做，而且我们总是将版本发布通知标记为持续维护状态。
-  如果你不确定如何在此点上进行审查，请与其他贡献者确认。
-<!--
-- The [content guide](/docs/contribute/style/content-guide/) applies unconditionally to blog articles
-  and the PRs that add them. Bear in mind that some restrictions in the guide state that they are only relevant to documentation; those restrictions don't apply to blog articles.
--->
-- [内容指南](/zh-cn/docs/contribute/style/content-guide/)无条件地适用于博客文章及添加这些文章的拉取请求（PR）。
-  请注意，指南中的一些限制规定仅适用于文档，并不适用于博客文章。
-<!--
-- The [style guide](/docs/contribute/style/style-guide/) largely also applies to blog PRs, but we make some exceptions.
+Make sure you also know about [evergreen](/docs/contribute/blog/#maintenance-evergreen) articles
+and how to decide if an article is evergreen.
 
-  - it is OK to use “we“ in a blog article that has multiple authors, or where the article introduction clearly indicates that the author is writing on behalf of a specific group.
-  - we avoid using Kubernetes shortcodes for callouts (such as `{{</* caution */>}}`)
-  - statements about the future are OK, albeit we use them with care in official announcements on
-    behalf of Kubernetes
-  - code samples don't need to use the `{{</* code_sample */>}}` shortcode, and often it is better if they do not
-  - we are OK to have authors write an article in their own writing style, so long as most readers
-    would follow the point being made
+Blog articles may contain [direct quotes](https://en.wikipedia.org/wiki/Direct_discourse) and
+[indirect speech](https://en.wikipedia.org/wiki/Indirect_speech). Avoid suggesting a rewording for
+anything that is attributed to someone or part of a dialog that has happened - even if you think
+the original speaker's grammar was not correct. For those cases, also, try to respect the article
+author's suggested punctuation unless it is obviously wrong.
 -->
-- [样式指南](/zh-cn/docs/contribute/style/style-guide/)大部分也适用于博客的拉取请求（PR），
-  但我们做出了一些例外。
+确保你了解[长期维护（Evergreen）](/zh-cn/docs/contribute/blog/#maintenance-evergreen)文章，
+并知道如何判断一篇文章是否应标记为长期维护。
 
-  - 在有多位作者的博客文章中，或者文章介绍明确指出作者代表特定群体写作的情况下，使用“我们”是可以接受的。
-  - 我们避免使用 Kubernetes 短代码（如 `{{</* caution */>}}`）来创建提示框。
-  - 关于未来的陈述是可以接受的，尽管我们在代表 Kubernetes 发布官方公告时会谨慎使用。
-  - 代码示例不需要使用 `{{</* code_sample */>}}` 短代码，通常情况下不使用反而更好。
-  - 只要大多数读者能够理解作者所表达的观点，我们允许作者以自己的写作风格撰写文章。
+博文可能包含[直接引语](https://en.wikipedia.org/wiki/Direct_discourse)和[间接引语](https://en.wikipedia.org/wiki/Indirect_speech)。
+避免对任何归因于个人或已发生的部分对话提出修改建议，即使你认为原话的语法不正确，也不应该如此操作。
+在这些情况下，也应尽量尊重文章作者的标点符号建议，除非是明显错误。  
+
 <!--
-- The [diagram guide](/docs/contribute/style/diagram-guide/) is aimed at Kubernetes documentation,
-  not blog articles. It is still good to align with it but:
-  - we prefer SVG over raster diagram formats, and also over Mermaid (you can still capture the Mermaid source in a comment)
-  - there is no need to caption diagrams as Figure 1, Figure 2 etc
+As a project, we only mark blog articles as maintained (`evergreen: true` in front matter) if the Kubernetes project
+is happy to commit to maintaining them indefinitely.
+Some blog articles absolutely merit this, and we always mark our release announcements evergreen. Check with other contributors if you are not sure how to review on this point.
 -->
-- [图表指南](/zh-cn/docs/contribute/style/diagram-guide/)主要针对 Kubernetes 文档，
-  而不是博客文章。尽管如此，保持一致仍然是好的，但是：
-  - 我们更倾向于使用 SVG 而不是栅格图像格式，也优于 Mermaid（你仍然可以在注释中保留 Mermaid 源码）。
-  - 不需要将图表标注为图 1、图 2 等。
+作为一个项目，我们只有在 Kubernetes 社区愿意长期维护某篇博文时，才会将其标记为长期维护
+（即在 front matter 中设置 `evergreen: true`）。
+有些博文绝对值得这样做，我们始终将发布公告标记为长期维护。
+如果你不确定如何评审这部分内容，请咨询其他贡献者。
+
+<!--
+The [content guide](/docs/contribute/style/content-guide/) applies unconditionally to blog articles and the PRs that add them. Bear in mind that some restrictions in the guide state that they are only relevant to documentation; those restrictions don't apply to blog articles.
+
+Check if the Markdown source is using the right [page content type](/docs/contribute/style/page-content-types/) and / or `layout`.
+-->
+[内容指南](/zh-cn/docs/contribute/style/content-guide/)无条件适用于博文及相关 PR。
+请注意，该指南中的某些限制仅适用于文档，而不适用于博文。  
+
+检查 Markdown 源文件是否使用了正确的[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)和/或 `layout`。
 
 <!--
 ### Other
 
-- Watch out for [trivial edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits);
+Watch out for [trivial edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits);
   if you see a change that you think is a trivial edit, please point out that policy
-  (it's still OK to accept the change if it is genuinely an improvement).
-- Encourage authors who are making whitespace fixes to do
-  so in the first commit of their PR, and then add other changes on top of that. This
-  makes both merges and reviews easier. Watch out especially for a trivial change that
-  happens in a single commit along with a large amount of whitespace cleanup
-  (and if you see that, encourage the author to fix it).
+(it's still OK to accept the change if it is genuinely an improvement).
+
+Encourage authors who are making whitespace fixes to do
+so in the first commit of their PR, and then add other changes on top of that. This
+makes both merges and reviews easier. Watch out especially for a trivial change that
+happens in a single commit along with a large amount of whitespace cleanup
+(and if you see that, encourage the author to fix it).
 -->
 ### 其他 {#other}
 
-- 查阅 [Trivial Edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)；
-  如果你看到某个变更在你看来是一个 Trivial Edit，请向作者指明这项政策（如果该变更确实会有所改进，那仍然可以接受）。
-- 鼓励作者们在第一次发 PR 时修复一些空格相关的问题，在随后的 PR 中增加其他更改。
-  这样更便于合并和评审。尤其要注意在单个 commit 中大量空格清理附带的微小变更（如果你看到，请鼓励作者进行修复）。
+查阅 [Trivial Edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)；
+如果你看到某个变更在你看来是一个 Trivial Edit，请向作者指明这项政策（如果该变更确实会有所改进，那仍然可以接受）。
+
+鼓励作者们在第一次发 PR 时修复一些空格相关的问题，在随后的 PR 中增加其他更改。
+这样更便于合并和评审。尤其要注意在单个 commit 中大量空格清理附带的微小变更（如果你看到，请鼓励作者进行修复）。
 
 <!--
 As a reviewer, if you identify small issues with a PR that aren't essential to the meaning,

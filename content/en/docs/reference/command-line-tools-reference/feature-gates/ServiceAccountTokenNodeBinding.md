@@ -13,5 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.33"
 ---
 Controls whether the API server allows binding service account tokens to Node objects.

@@ -370,7 +370,5 @@ The output is similar to this:
 
 <!--
 * [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
 -->
 * [进一步了解 `crictl`](https://github.com/kubernetes-sigs/cri-tools)
-* [将 `docker` CLI 命令映射到 `crictl`](/zh-cn/docs/reference/tools/map-crictl-dockercli/)

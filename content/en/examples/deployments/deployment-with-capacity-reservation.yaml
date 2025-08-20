@@ -20,10 +20,12 @@ spec:
                 # if possible
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchLabels:
-                app: placeholder
-            topologyKey: "kubernetes.io/hostname"
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: capacity-placeholder
+              topologyKey: topology.kubernetes.io/hostname
       containers:
       - name: pause
         image: registry.k8s.io/pause:3.6

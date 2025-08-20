@@ -10,15 +10,18 @@ stages:
     defaultValue: false
     fromVersion: "1.22"
     toVersion: "1.28"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.29"
     toVersion: "1.30"
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.32"
 
+removed: true
 ---
+
 <!--
 Enabling this feature gate deactivated functionality in `kube-apiserver`,
 `kube-controller-manager` and `kubelet` that related to the `--cloud-provider`

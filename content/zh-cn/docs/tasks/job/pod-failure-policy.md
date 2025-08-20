@@ -50,74 +50,95 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-## Using Pod failure policy to avoid unnecessary Pod retries
+## Usage scenarios
+
+Consider the following usage scenarios for Jobs that define a Pod failure policy :
+- [Avoiding unnecessary Pod retries](#pod-failure-policy-failjob)
+- [Ignoring Pod disruptions](#pod-failure-policy-ignore)
+- [Avoiding unnecessary Pod retries based on custom Pod Conditions](#pod-failure-policy-config-issue)
+- [Avoiding unnecessary Pod retries per index](#backoff-limit-per-index-failindex)
+-->
+## 使用场景   {#usage-scenarios}
+
+针对定义了 Pod 失效策略的 Job，可以考虑以下一些使用场景：
+
+- [避免不必要的 Pod 重试](#pod-failure-policy-failjob)  
+- [忽略 Pod 干扰](#pod-failure-policy-ignore)  
+- [基于自定义 Pod 状况避免不必要的 Pod 重试](#pod-failure-policy-config-issue)  
+- [按索引避免不必要的 Pod 重试](#backoff-limit-per-index-failindex)
+
+<!--
+### Using Pod failure policy to avoid unnecessary Pod retries {#pod-failure-policy-failjob}
 
 With the following example, you can learn how to use Pod failure policy to
 avoid unnecessary Pod restarts when a Pod failure indicates a non-retriable
 software bug.
-
-First, create a Job based on the config:
 -->
 ## 使用 Pod 失效策略以避免不必要的 Pod 重试  {#using-pod-failure-policy-to-avoid-unecessary-pod-retries}
 
 借用以下示例，你可以学习在 Pod 失效表明有一个不可重试的软件漏洞时如何使用
 Pod 失效策略来避免不必要的 Pod 重启。
 
-首先，基于配置创建一个 Job：
-
-{{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
-
 <!--
-by running:
+1. Examine the following manifest:
 -->
-运行以下命令：
+1. 检查以下清单文件：
 
-```sh
-kubectl create -f job-pod-failure-policy-failjob.yaml
-```
+   {{% code_sample file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
 
 <!--
-After around 30s the entire Job should be terminated. Inspect the status of the Job by running:
+1. Apply the manifest:
 -->
-大约 30 秒后，整个 Job 应被终止。通过运行以下命令来查看 Job 的状态：
+2. 应用此清单：
 
-```sh
-kubectl get jobs -l job-name=job-pod-failure-policy-failjob -o yaml
-```
+   ```sh
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-failjob.yaml
+   ```
 
 <!--
-In the Job status, the following conditions display:
-- `FailureTarget` condition: has a `reason` field set to `PodFailurePolicy` and
-  a `message` field with more information about the termination, like
-  `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`.
-  The Job controller adds this condition as soon as the Job is considered a failure.
-  For details, see [Termination of Job Pods](/docs/concepts/workloads/controllers/job/#termination-of-job-pods).
-- `Failed` condition: same `reason` and `message` as the `FailureTarget`
-  condition. The Job controller adds this condition after all of the Job's Pods
-  are terminated.
+1. After around 30 seconds the entire Job should be terminated. Inspect the status of the Job by running:
 -->
-在 Job 状态中，显示以下情况：
+3. 大约 30 秒后，整个 Job 应被终止。通过运行以下命令来查看 Job 的状态：
 
-- `FailureTarget` 状况：有一个设置为 `PodFailurePolicy` 的 `reason`
-  字段和一个包含更多有关终止信息的 `message` 字段，例如
-  `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`。
-  一旦 Job 被视为失败，Job 控制器就会添加此状况。有关详细信息，请参阅
-  [Job Pod 的终止](/zh-cn/docs/concepts/workloads/controllers/job/#termination-of-job-pods)。
-- `Failed`：与 `FailureTarget` 状况相同的 `reason` 和 `message`。
-  Job 控制器会在 Job 的所有 Pod 终止后添加此状况。
+   ```sh
+   kubectl get jobs -l job-name=job-pod-failure-policy-failjob -o yaml
+   ```
+
+   <!--
+   In the Job status, the following conditions display:
+   - `FailureTarget` condition: has a `reason` field set to `PodFailurePolicy` and
+     a `message` field with more information about the termination, like
+     `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`.
+     The Job controller adds this condition as soon as the Job is considered a failure.
+     For details, see [Termination of Job Pods](/docs/concepts/workloads/controllers/job/#termination-of-job-pods).
+   - `Failed` condition: same `reason` and `message` as the `FailureTarget`
+     condition. The Job controller adds this condition after all of the Job's Pods
+     are terminated.
+   -->
+
+   在 Job 状态中，显示以下状况信息：
+
+   - `FailureTarget` 状况：有一个设置为 `PodFailurePolicy` 的 `reason`
+     字段和一个包含更多有关终止信息的 `message` 字段，例如
+    `Container main for pod default/job-pod-failure-policy-failjob-8ckj8 failed with exit code 42 matching FailJob rule at index 0`。
+     一旦 Job 被视为失败，Job 控制器就会添加此状况。有关详细信息，请参阅
+     [Job Pod 的终止](/zh-cn/docs/concepts/workloads/controllers/job/#termination-of-job-pods)。
+   - `Failed`：与 `FailureTarget` 状况相同的 `reason` 和 `message`。
+     Job 控制器会在 Job 的所有 Pod 终止后添加此状况。
+
+   <!--
+   For comparison, if the Pod failure policy was disabled it would take 6 retries
+   of the Pod, taking at least 2 minutes.
+   -->
+
+   为了比较，如果 Pod 失效策略被禁用，将会让 Pod 重试 6 次，用时至少 2 分钟。
 
 <!--
-For comparison, if the Pod failure policy was disabled it would take 6 retries
-of the Pod, taking at least 2 minutes.
--->
-为了比较，如果 Pod 失效策略被禁用，将会让 Pod 重试 6 次，用时至少 2 分钟。
-
-<!--
-### Clean up
+#### Clean up
 
 Delete the Job you created:
 -->
-### 清理
+#### 清理
 
 删除你创建的 Job：
 
@@ -128,7 +149,7 @@ kubectl delete jobs/job-pod-failure-policy-failjob
 <!--
 The cluster automatically cleans up the Pods.
 
-## Using Pod failure policy to ignore Pod disruptions
+### Using Pod failure policy to ignore Pod disruptions {#pod-failure-policy-ignore}
 
 With the following example, you can learn how to use Pod failure policy to
 ignore Pod disruptions from incrementing the Pod retry counter towards the
@@ -136,7 +157,7 @@ ignore Pod disruptions from incrementing the Pod retry counter towards the
 -->
 集群自动清理这些 Pod。
 
-## 使用 Pod 失效策略来忽略 Pod 干扰  {#using-pod-failure-policy-to-ignore-pod-disruptions}
+### 使用 Pod 失效策略来忽略 Pod 干扰  {#pod-failure-policy-ignore}
 
 通过以下示例，你可以学习如何使用 Pod 失效策略将 Pod 重试计数器朝着 `.spec.backoffLimit` 限制递增来忽略 Pod 干扰。
 
@@ -151,52 +172,52 @@ node while the Pod is running on it (within 90s since the Pod is scheduled).
 {{< /caution >}}
 
 <!--
-1. Create a Job based on the config:
+1. Examine the following manifest:
 -->
-1. 基于配置创建 Job：
+1. 检查以下清单文件：
 
    {{% code_sample file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
 
-   <!--
-   by running:
-   -->
-   运行以下命令：
+<!--
+1. Apply the manifest:
+-->
+2. 应用此清单：
 
    ```sh
-   kubectl create -f job-pod-failure-policy-ignore.yaml
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-ignore.yaml
    ```
 
 <!--
-2. Run this command to check the `nodeName` the Pod is scheduled to:
+1. Run this command to check the `nodeName` the Pod is scheduled to:
 -->
-2. 运行以下这条命令检查将 Pod 调度到的 `nodeName`：
+3. 运行以下这条命令检查 Pod 被调度到的 `nodeName`：
 
    ```sh
    nodeName=$(kubectl get pods -l job-name=job-pod-failure-policy-ignore -o jsonpath='{.items[0].spec.nodeName}')
    ```
 
 <!--
-3. Drain the node to evict the Pod before it completes (within 90s):
+1. Drain the node to evict the Pod before it completes (within 90s):
 -->
-3. 腾空该节点以便在 Pod 完成任务之前将其驱逐（90 秒内）：
+4. 腾空该节点以便在 Pod 完成任务之前将其驱逐（90 秒内）：
 
    ```sh
    kubectl drain nodes/$nodeName --ignore-daemonsets --grace-period=0
    ```
 
 <!--
-4. Inspect the `.status.failed` to check the counter for the Job is not incremented:
+1. Inspect the `.status.failed` to check the counter for the Job is not incremented:
 -->
-4. 查看 `.status.failed` 以检查针对 Job 的计数器未递增：
+5. 查看 `.status.failed` 以检查针对 Job 的计数器未递增：
 
    ```sh
    kubectl get jobs -l job-name=job-pod-failure-policy-ignore -o yaml
    ```
 
 <!--
-5. Uncordon the node:
+1. Uncordon the node:
 -->
-5. 解除节点的保护：
+6. 解除节点的保护：
 
    ```sh
    kubectl uncordon nodes/$nodeName
@@ -213,11 +234,11 @@ Job 恢复并成功完成。
 为了比较，如果 Pod 失效策略被禁用，Pod 干扰将使得整个 Job 终止（随着 `.spec.backoffLimit` 设置为 0）。
 
 <!--
-### Cleaning up
+#### Cleaning up
 
 Delete the Job you created:
 -->
-### 清理
+#### 清理
 
 删除你创建的 Job：
 
@@ -231,12 +252,12 @@ The cluster automatically cleans up the Pods.
 集群自动清理 Pod。
 
 <!--
-## Using Pod failure policy to avoid unnecessary Pod retries based on custom Pod Conditions
+### Using Pod failure policy to avoid unnecessary Pod retries based on custom Pod Conditions {#pod-failure-policy-config-issue}
 
 With the following example, you can learn how to use Pod failure policy to
 avoid unnecessary Pod restarts based on custom Pod Conditions.
 -->
-## 基于自定义 Pod 状况使用 Pod 失效策略避免不必要的 Pod 重试   {#avoid-pod-retries-based-on-custom-conditions}
+### 基于自定义 Pod 状况使用 Pod 失效策略避免不必要的 Pod 重试   {#pod-failure-policy-config-issue}
 
 根据以下示例，你可以学习如何基于自定义 Pod 状况使用 Pod 失效策略避免不必要的 Pod 重启。
 
@@ -251,19 +272,19 @@ deleted pods, in the `Pending` phase, to a terminal phase
 {{< /note >}}
 
 <!--
-1. First, create a Job based on the config:
+1. Examine the following manifest:
 -->
-1. 首先基于配置创建一个 Job：
+1. 检查以下清单文件：
 
    {{% code_sample file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
 
-   <!--
-   by running:
-   -->
-   执行以下命令：
+<!--
+1. Apply the manifest:
+-->
+2. 应用此清单：
 
    ```sh
-   kubectl create -f job-pod-failure-policy-config-issue.yaml
+   kubectl create -f https://k8s.io/examples/controllers/job-pod-failure-policy-config-issue.yaml
    ```
 
    <!--
@@ -272,9 +293,9 @@ deleted pods, in the `Pending` phase, to a terminal phase
    请注意，镜像配置不正确，因为该镜像不存在。
 
 <!--
-2. Inspect the status of the job's Pods by running:
+1. Inspect the status of the job's Pods by running:
 -->
-2. 通过执行以下命令检查任务 Pod 的状态：
+3. 通过执行以下命令检查任务 Pod 的状态：
 
    ```sh
    kubectl get pods -l job-name=job-pod-failure-policy-config-issue -o yaml
@@ -308,9 +329,9 @@ deleted pods, in the `Pending` phase, to a terminal phase
    镜像不存在，因为我们通过一个自定义状况表明了这个事实。
 
 <!--
-3. Add the custom condition. First prepare the patch by running:
+1. Add the custom condition. First prepare the patch by running:
 -->
-3. 添加自定义状况。执行以下命令先准备补丁：
+4. 添加自定义状况。执行以下命令先准备补丁：
 
    ```sh
    cat <<EOF > patch.yaml
@@ -326,6 +347,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
    <!--
    Second, select one of the pods created by the job by running:
    -->
+
    其次，执行以下命令选择通过任务创建的其中一个 Pod：
 
    ```
@@ -335,6 +357,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
    <!--
    Then, apply the patch on one of the pods by running the following command:
    -->
+
    随后执行以下命令将补丁应用到其中一个 Pod 上：
 
    ```sh
@@ -344,6 +367,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
    <!--
    If applied successfully, you will get a notification like this:
    -->
+
    如果被成功应用，你将看到类似以下的一条通知：
 
    ```sh
@@ -351,18 +375,18 @@ deleted pods, in the `Pending` phase, to a terminal phase
    ```
 
 <!--
-4. Delete the pod to transition it to `Failed` phase, by running the command:
+1. Delete the pod to transition it to `Failed` phase, by running the command:
 -->
-4. 执行以下命令删除此 Pod 将其过渡到 `Failed` 阶段：
+5. 执行以下命令删除此 Pod 将其过渡到 `Failed` 阶段：
 
    ```sh
    kubectl delete pods/$podName
    ```
 
 <!--
-5. Inspect the status of the Job by running:
+1. Inspect the status of the Job by running:
 -->
-5. 执行以下命令查验 Job 的状态：
+6. 执行以下命令查验 Job 的状态：
 
    ```sh
    kubectl get jobs -l job-name=job-pod-failure-policy-config-issue -o yaml
@@ -374,6 +398,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
    more detailed information about the Job termination, such as:
    `Pod default/job-pod-failure-policy-config-issue-k6pvp has condition ConfigIssue matching FailJob rule at index 0`.
    -->
+
    在 Job 状态中，看到任务 `Failed` 状况的 `reason` 字段等于 `PodFailurePolicy`。
    此外，`message` 字段包含了与 Job 终止相关的更多详细信息，例如：
    `Pod default/job-pod-failure-policy-config-issue-k6pvp has condition ConfigIssue matching FailJob rule at index 0`。
@@ -387,16 +412,119 @@ user-provided controller.
 {{< /note >}}
 
 <!--
-### Cleaning up
+#### Cleaning up
 
 Delete the Job you created:
 -->
-### 清理
+#### 清理
 
 删除你创建的 Job：
 
 ```sh
 kubectl delete jobs/job-pod-failure-policy-config-issue
+```
+
+<!--
+The cluster automatically cleans up the Pods.
+-->
+集群自动清理 Pod。
+
+<!--
+### Using Pod Failure Policy to avoid unnecessary Pod retries per index {#backoff-limit-per-index-failindex}
+
+To avoid unnecessary Pod restarts per index, you can use the _Pod failure policy_ and
+_backoff limit per index_ features. This section of the page shows how to use these features
+together.
+-->
+### 使用 Pod 失效策略按索引避免不必要的 Pod 重试   {#backoff-limit-per-index-failindex}
+
+为了按索引避免不必要的 Pod 重启，你可以结合使用 **Pod 失效策略**和**按索引的回退限制**特性。
+本节将展示如何同时使用这两个特性。
+
+<!--
+1. Examine the following manifest:
+-->
+1. 检查以下清单文件：
+   
+   {{% code_sample file="/controllers/job-backoff-limit-per-index-failindex.yaml" %}}
+
+<!--
+1. Apply the manifest:
+-->
+2. 应用此清单：
+
+   ```sh
+   kubectl create -f https://k8s.io/examples/controllers/job-backoff-limit-per-index-failindex.yaml
+   ```
+
+<!--
+1. After around 15 seconds, inspect the status of the Pods for the Job. You can do that by running:
+-->
+3. 大约 15 秒后，检查 Job 所对应的 Pod 状态。你可以运行以下命令：
+
+   ```shell
+   kubectl get pods -l job-name=job-backoff-limit-per-index-failindex -o yaml
+   ```
+
+   <!--
+   You will see output similar to this:
+   -->
+
+   你将看到类似如下的输出：
+
+   ```none
+   NAME                                            READY   STATUS      RESTARTS   AGE
+   job-backoff-limit-per-index-failindex-0-4g4cm   0/1     Error       0          4s
+   job-backoff-limit-per-index-failindex-0-fkdzq   0/1     Error       0          15s
+   job-backoff-limit-per-index-failindex-1-2bgdj   0/1     Error       0          15s
+   job-backoff-limit-per-index-failindex-2-vs6lt   0/1     Completed   0          11s
+   job-backoff-limit-per-index-failindex-3-s7s47   0/1     Completed   0          6s
+   ```
+
+   <!--
+   Note that the output shows the following:
+
+   * Two Pods have index 0, because of the backoff limit allowed for one retry
+   of the index.
+   * Only one Pod has index 1, because the exit code of the failed Pod matched
+   the Pod failure policy with the `FailIndex` action.
+   -->
+
+   注意输出显示了以下几点：
+
+   * 索引为 0 的 Pod 有两个，因为回退限制允许该索引重试一次。
+   * 索引为 1 的 Pod 只有一个，因为失效 Pod 的退出码符合 Pod 失效策略中指定的 `FailIndex` 动作。
+
+
+<!--
+1. Inspect the status of the Job by running:
+-->
+4. 运行以下命令来查看 Job 的状态：
+
+   ```sh
+   kubectl get jobs -l job-name=job-backoff-limit-per-index-failindex -o yaml
+   ```
+
+   <!--
+   In the Job status, see that the `failedIndexes` field shows "0,1", because
+   both indexes failed. Because the index 1 was not retried the number of failed
+   Pods, indicated by the status field "failed" equals 3.
+   -->
+
+   在 Job 的状态中，可以看到 `failedIndexes` 字段显示为 "0,1"，表示两个索引都失效了。
+   由于索引 1 未被重试，状态字段中的 `failed` 值为 3，表示有 3 个失效的 Pod。
+
+<!--
+#### Cleaning up
+
+Delete the Job you created:
+-->
+#### 清理
+
+删除你创建的 Job：
+
+```sh
+kubectl delete jobs/job-backoff-limit-per-index-failindex
 ```
 
 <!--

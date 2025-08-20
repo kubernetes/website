@@ -9,6 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.32"
+    toVersion: "1.32"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.33"
 ---
 
 Enable running some expensive operations within the scheduler, associated with

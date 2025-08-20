@@ -43,6 +43,9 @@ other = "Fórum"
 [community_github_name]
 other = "GitHub"
 
+[community_linkedin_name]
+other = "LinkedIn"
+
 [community_server_fault_name]
 other = "Server Fault"
 
@@ -597,7 +600,7 @@ other = """Itens nesta página referem-se a fornecedores externos ao Kubernetes.
 [translated_by]
 other = "Traduzido Por"
 
-[ui_search_placeholder]
+[ui_search]
 other = "Procurar"
 
 [version_check_mustbe]

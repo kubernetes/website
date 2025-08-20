@@ -1,7 +1,7 @@
 ---
 title: Encrypting Confidential Data at Rest
 reviewers:
-- smarterclayton
+- aramase
 - enj
 content_type: task
 weight: 210

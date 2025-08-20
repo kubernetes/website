@@ -130,6 +130,18 @@ defined range of integers representing the minimum and maximum scores. After the
 [NormalizeScore](#normalize-scoring) phase, the scheduler will combine node
 scores from all plugins according to the configured plugin weights.
 
+#### Capacity scoring {#scoring-capacity}
+
+{{< feature-state feature_gate_name="StorageCapacityScoring" >}}
+
+The feature gate `VolumeCapacityPriority` was used in v1.32 to support storage that are
+statically provisioned. Starting from v1.33, the new feature gate `StorageCapacityScoring`
+replaces the old `VolumeCapacityPriority` gate with added support to dynamically provisioned storage.
+When `StorageCapacityScoring` is enabled, the VolumeBinding plugin in the kube-scheduler is extended
+to score Nodes based on the storage capacity on each of them.
+This feature is applicable to CSI volumes that supported [Storage Capacity](/docs/concepts/storage/storage-capacity/),
+including local storage backed by a CSI driver.
+
 ### NormalizeScore {#normalize-scoring}
 
 These plugins are used to modify scores before the scheduler computes a final
