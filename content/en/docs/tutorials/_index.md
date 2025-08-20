@@ -58,6 +58,7 @@ Before walking through each tutorial, you may want to bookmark the
 ## Cluster Management
 
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
+* [Install Drivers and Allocate Devices with DRA](/docs/tutorials/cluster-management/install-use-dra/)
 
 ## {{% heading "whatsnext" %}}
 
