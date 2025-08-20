@@ -173,7 +173,7 @@ dra-example-driver to simulate access to a DRA driver image.
 from within one of your cluster's nodes:
 
     ```shell
-    docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.1.0-dev134
+    docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.2.0
     ```
 
 ### Deploy the DRA driver components
