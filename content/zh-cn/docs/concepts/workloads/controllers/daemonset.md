@@ -376,7 +376,8 @@ Some possible patterns for communicating with Pods in a DaemonSet are:
   with the same pod selector, and then discover DaemonSets using the `endpoints`
   resource or retrieve multiple A records from DNS.
 - **Service**: Create a service with the same Pod selector, and use the service to reach a
-  daemon on a random node. (No way to reach specific node.)
+  daemon on a random node. Use [Service Internal Traffic Policy](/docs/concepts/services-networking/service-traffic-policy/)
+  to limit to pods on the same node.
 -->
 与 DaemonSet 中的 Pod 进行通信的几种可能模式如下：
 
@@ -389,7 +390,8 @@ Some possible patterns for communicating with Pods in a DaemonSet are:
 - **DNS**：创建具有相同 Pod 选择算符的[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)，
   通过使用 `endpoints` 资源或从 DNS 中检索到多个 A 记录来发现 DaemonSet。
 
-- **Service**：创建具有相同 Pod 选择算符的服务，并使用该服务随机访问到某个节点上的守护进程（没有办法访问到特定节点）。
+- **Service**：创建具有相同 Pod 选择算符的服务，并使用该服务随机访问到某个节点上的守护进程。
+  使用 [Service 内部流量策略](/zh-cn/docs/concepts/services-networking/service-traffic-policy/)限制同一节点上的 Pod。
 
 <!--
 ## Updating a DaemonSet

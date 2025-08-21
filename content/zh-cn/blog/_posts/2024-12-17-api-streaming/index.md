@@ -44,9 +44,9 @@ kube-apiserver 免受 CPU 过载，但其对内存保护的影响却明显较弱
 为了更直观地查验这个问题，我们看看下面的图表。
 
 <!--
-{{< figure src="kube-apiserver-memory_usage.png" alt="Monitoring graph showing kube-apiserver memory usage" >}}
+{{< figure src="kube-apiserver-memory_usage.png" alt="Monitoring graph showing kube-apiserver memory usage" class="diagram-large" clicktozoom="true" >}}
 -->
-{{< figure src="kube-apiserver-memory_usage.png" alt="显示 kube-apiserver 内存使用量的监控图表" >}}
+{{< figure src="kube-apiserver-memory_usage.png" alt="显示 kube-apiserver 内存使用量的监控图表" class="diagram-large" clicktozoom="true" >}}
 
 <!--
 The graph shows the memory usage of a kube-apiserver during a synthetic test.
@@ -203,3 +203,21 @@ Special shout out to [@deads2k](https://github.com/deads2k) for his help in shap
 结果令人担忧，仅需 16 个 informer 就足以导致测试服务器内存耗尽并崩溃，展示了在这些状况下内存消耗快速增长的方式。
 
 特别感谢 [@deads2k](https://github.com/deads2k) 在构造此特性所提供的帮助。
+
+<!--
+## Kubernetes 1.33 update
+
+Since this feature was started, [Marek Siarkowicz](https://github.com/serathius) integrated a new technology into the
+Kubernetes API server: _streaming collection encoding_.
+Kubernetes v1.33 introduced two related feature gates, `StreamingCollectionEncodingToJSON` and `StreamingCollectionEncodingToProtobuf`.
+These features encode via a stream and avoid allocating all the memory at once.
+This functionality is bit-for-bit compatible with existing **list** encodings, produces even greater server-side memory savings, and doesn't require any changes to client code.
+In 1.33, the `WatchList` feature gate is disabled by default.
+-->
+## Kubernetes 1.33 更新   {#kubernetes-1.33-update}
+
+自该功能启动以来，[Marek Siarkowicz](https://github.com/serathius) 在 Kubernetes API
+服务器中加入了一项新技术：**流式集合编码**。在 Kubernetes v1.33 中，引入了两个相关的特性门控：
+`StreamingCollectionEncodingToJSON` 和 `StreamingCollectionEncodingToProtobuf`。它们通过流的方式进行编码，
+避免一次性分配所有内存。该功能与现有的 **list** 编码实现了比特级完全兼容，不仅能更显著地节省服务器端内存，
+而且无需修改任何客户端代码。在 1.33 版本中，`WatchList` 特性门控默认是禁用的。  

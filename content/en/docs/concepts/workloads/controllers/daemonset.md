@@ -196,7 +196,8 @@ Some possible patterns for communicating with Pods in a DaemonSet are:
   with the same pod selector, and then discover DaemonSets using the `endpoints`
   resource or retrieve multiple A records from DNS.
 - **Service**: Create a service with the same Pod selector, and use the service to reach a
-  daemon on a random node. (No way to reach specific node.)
+  daemon on a random node. Use [Service Internal Traffic Policy](/docs/concepts/services-networking/service-traffic-policy/)
+  to limit to pods on the same node.
 
 ## Updating a DaemonSet
 
