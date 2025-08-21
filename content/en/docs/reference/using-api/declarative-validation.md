@@ -70,30 +70,30 @@ This document provides a comprehensive reference for all available declarative v
 
 | Tag | Description |
 | --- | --- |
-| [`+k8s:eachKey`](#k8seachkey) | Declares a validation for each key in a map. |
-| [`+k8s:eachVal`](#k8seachval) | Declares a validation for each value in a map or list. |
-| [`+k8s:enum`](#k8senum) | Indicates that a string type is an enum. |
-| [`+k8s:forbidden`](#k8sforbidden) | Indicates that a field may not be specified. |
-| [`+k8s:format`](#k8sformat) | Indicates that a string field has a particular format. |
-| [`+k8s:ifDisabled`](#k8sifdisabled) | Declares a validation that only applies when an option is disabled. |
-| [`+k8s:ifEnabled`](#k8sifenabled) | Declares a validation that only applies when an option is enabled. |
-| [`+k8s:immutable`](#k8simmutable) | Indicates that a field may not be updated. |
-| [`+k8s:isSubresource`](#k8sissubresource) | Specifies that validations in a package only apply to a specific subresource. |
-| [`+k8s:item`](#k8sitem) | Declares a validation for an item of a slice declared as a `+k8s:listType=map`. |
-| [`+k8s:listMapKey`](#k8slistmapkey) | Declares a named sub-field of a list's value-type to be part of the list-map key. |
-| [`+k8s:listType`](#k8slisttype) | Declares a list field's semantic type. |
-| [`+k8s:maxItems`](#k8smaxitems) | Indicates that a list field has a limit on its size. |
-| [`+k8s:maxLength`](#k8smaxlength) | Indicates that a string field has a limit on its length. |
-| [`+k8s:minimum`](#k8sminimum) | Indicates that a numeric field has a minimum value. |
-| [`+k8s:neq`](#k8sneq) | Verifies the field's value is not equal to a specific disallowed value. |
-| [`+k8s:opaqueType`](#k8sopaquetype) | Indicates that any validations declared on the referenced type will be ignored. |
-| [`+k8s:optional`](#k8soptional) | Indicates that a field is optional to clients. |
-| [`+k8s:required`](#k8srequired) | Indicates that a field must be specified by clients. |
-| [`+k8s:subfield`](#k8ssubfield) | Declares a validation for a subfield of a struct. |
-| [`+k8s:supportsSubresource`](#k8ssupportssubresource) | Declares a supported subresource for the types within a package. |
-| [`+k8s:unionDiscriminator`](#k8suniondiscriminator) | Indicates that this field is the discriminator for a union. |
-| [`+k8s:unionMember`](#k8sunionmember) | Indicates that this field is a member of a union. |
-| [`+k8s:zeroOrOneOfMember`](#k8szerooroneofmember) | Indicates that this field is a member of a zero-or-one-of union. |
+| [`+k8s:eachKey`](#tag-eachKey) | Declares a validation for each key in a map. |
+| [`+k8s:eachVal`](#tag-eachVal) | Declares a validation for each value in a map or list. |
+| [`+k8s:enum`](#tag-enum) | Indicates that a string type is an enum. |
+| [`+k8s:forbidden`](#tag-forbidden) | Indicates that a field may not be specified. |
+| [`+k8s:format`](#tag-format) | Indicates that a string field has a particular format. |
+| [`+k8s:ifDisabled`](#tag-ifDisabled) | Declares a validation that only applies when an option is disabled. |
+| [`+k8s:ifEnabled`](#tag-ifEnabled) | Declares a validation that only applies when an option is enabled. |
+| [`+k8s:immutable`](#tag-immutable) | Indicates that a field may not be updated. |
+| [`+k8s:isSubresource`](#tag-isSubresource) | Specifies that validations in a package only apply to a specific subresource. |
+| [`+k8s:item`](#tag-item) | Declares a validation for an item of a slice declared as a `+k8s:listType=map`. |
+| [`+k8s:listMapKey`](#tag-listMapKey) | Declares a named sub-field of a list's value-type to be part of the list-map key. |
+| [`+k8s:listType`](#tag-listType) | Declares a list field's semantic type. |
+| [`+k8s:maxItems`](#tag-maxItems) | Indicates that a list field has a limit on its size. |
+| [`+k8s:maxLength`](#tag-maxLength) | Indicates that a string field has a limit on its length. |
+| [`+k8s:minimum`](#tag-minimum) | Indicates that a numeric field has a minimum value. |
+| [`+k8s:neq`](#tag-neq) | Verifies the field's value is not equal to a specific disallowed value. |
+| [`+k8s:opaqueType`](#tag-opaqueType) | Indicates that any validations declared on the referenced type will be ignored. |
+| [`+k8s:optional`](#tag-optional) | Indicates that a field is optional to clients. |
+| [`+k8s:required`](#tag-required) | Indicates that a field must be specified by clients. |
+| [`+k8s:subfield`](#tag-subfield) | Declares a validation for a subfield of a struct. |
+| [`+k8s:supportsSubresource`](#tag-supportsSubresource) | Declares a supported subresource for the types within a package. |
+| [`+k8s:unionDiscriminator`](#tag-unionDiscriminator) | Indicates that this field is the discriminator for a union. |
+| [`+k8s:unionMember`](#tag-unionMember) | Indicates that this field is a member of a union group. |
+| [`+k8s:zeroOrOneOfMember`](#tag-zeroOrOneOfMember) | Indicates that this field is a member of a zero-or-one-of group. |
 
 ---
 
@@ -120,7 +120,7 @@ type MyObject struct {
 
 In this example, `eachKey` is used to specify that the `+k8s:minimum` tag should be applied to each `int` key in `MyMap`. This means that all keys in the map must be >= 1.
 
-### `+k8s:eachVal`
+### `+k8s:eachVal` {#tag-eachVal}
 
 **Description:**
 
@@ -141,7 +141,7 @@ type MyObject struct {
 
 In this example, `eachVal` is used to specify that the `+k8s:minimum` tag should be applied to each element in `MyList`. This means that all fields in `MyStruct` must be >= 1.
 
-### `+k8s:enum`
+### `+k8s:enum` {#tag-enum}
 
 **Description:**
 
@@ -171,7 +171,7 @@ type MyObject struct {
 
 The validation logic will ensure that `MyField` is one of the defined enum values (`"A"` or `"B"`).
 
-### `+k8s:forbidden`
+### `+k8s:forbidden` {#tag-forbidden}
 
 **Description:**
 
@@ -188,7 +188,7 @@ type MyObject struct {
 
 In this example, `MyField` cannot be provided (it is forbidden) when creating or updating `MyObject`.
 
-### `+k8s:format`
+### `+k8s:format` {#tag-format}
 
 **Description:**
 
@@ -220,7 +220,7 @@ In this example:
 *   `Subdomain` must be a valid DNS subdomain.
 *   `Label` must be a valid DNS label.
 
-### `+k8s:ifDisabled`
+### `+k8s:ifDisabled` {#tag-ifDisabled}
 
 **Description:**
 
@@ -245,7 +245,7 @@ type MyObject struct {
 
 In this example, `MyField` is required only if the "my-feature" option is disabled.
 
-### `+k8s:ifEnabled`
+### `+k8s:ifEnabled` {#tag-ifEnabled}
 
 **Description:**
 
@@ -270,7 +270,7 @@ type MyObject struct {
 
 In this example, `MyField` is required only if the "my-feature" option is enabled.
 
-### `+k8s:isSubresource`
+### `+k8s:isSubresource` {#tag-isSubresource}
 
 **Description:**
 
@@ -310,7 +310,7 @@ type T1 struct {
 }
 ```
 
-### `+k8s:item`
+### `+k8s:item` {#tag-item}
 
 **Description:**
 
@@ -348,7 +348,7 @@ In this example:
 *   The item with `name` "http" and `port` 80 is immutable.
 *   The item with `name` "https" and `port` 443 is required.
 
-### `+k8s:listMapKey`
+### `+k8s:listMapKey` {#tag-listMapKey}
 
 **Description:**
 
@@ -375,7 +375,7 @@ type MyStruct struct {
 
 In this example, `listMapKey` is used to specify that the `keyField` of `MyStruct` should be used as the key for the list-map. 
 
-### `+k8s:listType`
+### `+k8s:listType` {#tag-listType}
 
 **Description:**
 
@@ -402,7 +402,7 @@ type MyStruct struct {
 
 In this example, `MyList` is declared as a list of type `map`, with `keyField` as the key. This means that the validation logic will ensure that each element in the list has a unique `keyField`.
 
-### `+k8s:maxItems`
+### `+k8s:maxItems` {#tag-maxItems}
 
 **Description:**
 
@@ -423,7 +423,7 @@ type MyObject struct {
 
 In this example, `MyList` cannot contain more than 5 items.
 
-### `+k8s:maxLength`
+### `+k8s:maxLength` {#tag-maxLength}
 
 **Description:**
 
@@ -444,7 +444,7 @@ type MyObject struct {
 
 In this example, `MyString` cannot be longer than 10 characters.
 
-### `+k8s:minimum`
+### `+k8s:minimum` {#tag-minimum}
 
 **Description:**
 
@@ -465,7 +465,7 @@ type MyObject struct {
 
 In this example, `MyInt` must be greater than or equal to 0.
 
-### `+k8s:neq`
+### `+k8s:neq` {#tag-neq}
 
 **Description:**
 
@@ -495,7 +495,7 @@ In this example:
 *   `MyInt` cannot be equal to `0`.
 *   `MyBool` cannot be equal to `true`.
 
-### `+k8s:opaqueType`
+### `+k8s:opaqueType` {#tag-opaqueType}
 
 **Description:**
 
@@ -514,7 +514,7 @@ type MyObject struct {
 
 In this example, any validation tags on `package.ExternalType` will be ignored.
 
-### `+k8s:optional`
+### `+k8s:optional` {#tag-optional}
 
 **Description:**
 
@@ -531,7 +531,7 @@ type MyObject struct {
 
 In this example, `MyField` is not required to be provided when creating or updating `MyObject`.
 
-### `+k8s:required`
+### `+k8s:required` {#tag-required}
 
 **Description:**
 
@@ -548,7 +548,7 @@ type MyObject struct {
 
 In this example, `MyField` must be provided when creating or updating `MyObject`.
 
-### `+k8s:subfield`
+### `+k8s:subfield` {#tag-subfield}
 
 **Description:**
 
@@ -577,7 +577,7 @@ type MyStruct struct {
 
 In this example, `MySubfield` within `MyStruct` is required.
 
-### `+k8s:supportsSubresource`
+### `+k8s:supportsSubresource` {#tag-supportsSubresource}
 
 **Description:**
 
@@ -603,7 +603,7 @@ package v1
 
 In this example, the package `v1` declares that the `/status` and `/scale` subresources are supported, allowing validation rules to be specifically targeted to them.
 
-### `+k8s:unionDiscriminator`
+### `+k8s:unionDiscriminator` {#tag-unionDiscriminator}
 
 **Description:**
 
@@ -630,7 +630,7 @@ type MyObject struct {
 
 In this example, the `Type` field is the discriminator for the union. The value of `Type` will determine which of the union members (`A` or `B`) is expected to be present.
 
-### `+k8s:unionMember`
+### `+k8s:unionMember` {#tag-unionMember}
 
 **Description:**
 
@@ -658,7 +658,7 @@ type MyObject struct {
 
 In this example, `A` and `B` are members of the union. If the `Type` field has the value `"a"`, then the `a` field is expected to be present. If the `Type` field has the value `"b-member"`, then the `b` field is expected to be present.
 
-### `+k8s:zeroOrOneOfMember`
+### `+k8s:zeroOrOneOfMember` {#tag-zeroOrOneOfMember}
 
 **Description:**
 
