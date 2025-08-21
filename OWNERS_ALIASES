@@ -21,6 +21,7 @@ aliases:
     - nate-double-u
     - reylejano
     - salaxander
+    - SayakMukhopadhyay
     - tengqm
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
@@ -64,6 +65,7 @@ aliases:
     - nate-double-u
     - reylejano
     - salaxander
+    - SayakMukhopadhyay
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
@@ -75,6 +77,7 @@ aliases:
     - nate-double-u
     - reylejano
     - salaxander
+    - SayakMukhopadhyay
     - shannonxtreme
     - tengqm
     - windsonsea

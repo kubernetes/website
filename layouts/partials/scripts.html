@@ -1,5 +1,3 @@
-<script src="{{ "js/script.js" | relURL }}"></script>
-
 {{/* Handle legacy Kubernetes shortcode for Mermaid diagrams */}}
 {{- if (.HasShortcode "mermaid") -}}
 {{ .Page.Store.Set "hasmermaid" true -}}
