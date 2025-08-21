@@ -62,11 +62,11 @@ Disabling the feature acts as a safety mechanism. However, be aware of a potenti
 
 For details on managing feature gates, see [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/).
 
-# Declarative Validation Tag Reference
+## Declarative validation tag reference
 
-This document provides a comprehensive reference for all available Declarative Validation (DV) tags.
+This document provides a comprehensive reference for all available declarative validation tags.
 
-## Tag Catalog
+### Tag catalog {#catalog}
 
 | Tag | Description |
 | --- | --- |
