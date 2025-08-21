@@ -39,10 +39,10 @@ a Pod or Container. Security context settings include, but are not limited to:
 
   If `allowPrivilegeEscalation` is not defined in the `securityContext` field of a container specification, then it will default to true.
 
-  `allowPrivilegeEscalation` is always true when the container:
+  `allowPrivilegeEscalation: false` is inconsistent, and therefore cannot be set in combination, with a container that:
 
   - is run as privileged, or
-  - has `CAP_SYS_ADMIN`
+  - has the capability `CAP_SYS_ADMIN`
 
 * `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 
