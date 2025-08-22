@@ -87,7 +87,7 @@ Um Probleme mit Addon-Ressourcen in großen Clustern zu vermeiden, sollten Sie F
 
 - Einige Addons skalieren vertikal – es gibt eine Replik des Addons für das Cluster oder für eine gesamte Ausfallzone. Für diese Addons sollten Sie Anfragen und Limits erhöhen, wenn Sie Ihr Cluster erweitern.
 - Viele Addons skalieren horizontal – Sie erhöhen die Kapazität, indem Sie mehr Pods ausführen – aber bei einem sehr großen Cluster müssen Sie möglicherweise auch die CPU- oder Speicherlimits leicht anheben. Der [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) kann im *Recommender*-Modus ausgeführt werden, um empfohlene Werte für Anfragen und Limits bereitzustellen.
-- Einige Addons laufen als eine Instanz pro Node, gesteuert durch ein {{< glossary\_tooltip text="DaemonSet" term\_id="daemonset" >}}, z. B. ein Node-level Log-Aggregator. Ähnlich wie bei horizontal skalierten Addons müssen Sie eventuell CPU- oder Speicherlimits leicht erhöhen.
+- Einige Addons laufen als eine Instanz pro Node, gesteuert durch ein {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}, z. B. ein Node-level Log-Aggregator. Ähnlich wie bei horizontal skalierten Addons müssen Sie eventuell CPU- oder Speicherlimits leicht erhöhen.
 
 ## {{% heading "whatsnext" %}}
 
