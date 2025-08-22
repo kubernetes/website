@@ -39,6 +39,26 @@ credential provider plugin request. Plugins may optionally parse the image
 to extract any information required to fetch credentials.</p>
 </td>
 </tr>
+<tr><td><code>serviceAccountToken</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>serviceAccountToken is the service account token bound to the pod for which
+the image is being pulled. This token is only sent to the plugin if the
+tokenAttributes.serviceAccountTokenAudience field is configured in the kubelet's credential
+provider configuration.</p>
+</td>
+</tr>
+<tr><td><code>serviceAccountAnnotations</code> <B>[Required]</B><br/>
+<code>map[string]string</code>
+</td>
+<td>
+   <p>serviceAccountAnnotations is a map of annotations on the service account bound to the
+pod for which the image is being pulled. The list of annotations in the service account
+that need to be passed to the plugin is configured in the kubelet's credential provider
+configuration.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -88,8 +108,8 @@ should be valid for all images that match against this key. A plugin should set
 this field to null if no valid credentials can be returned for the requested image.</p>
 <p>Each key in the map is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
-Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
+as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
+Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
 a single subdomain segment, so *.io does not match *.k8s.io.</p>
 <p>The kubelet will match images against the key when all of the below are true:</p>
 <ul>
@@ -107,9 +127,9 @@ stopping after the first successfully authenticated pull.</p>
 <p>Example keys:</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>*.azurecr.io</li>
+<li>&ast;.azurecr.io</li>
 <li>gcr.io</li>
-<li><em>.</em>.registry.io</li>
+<li>&ast;.&ast;.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>

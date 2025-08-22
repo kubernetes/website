@@ -234,7 +234,7 @@ Serviceをインターネットに公開する前に、通信経路がセキュ�
 * 証明書を使うよう設定されたnginxサーバー
 * 証明書をPodからアクセスできるようにする[Secret](/ja/docs/concepts/configuration/secret/)
 
-これら全ては[nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)から取得できます。
+これら全ては[nginx https example](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/)から取得できます。
 go環境とmakeツールのインストールが必要です
 (もしこれらをインストールしたくないときには、後述の手動手順に従ってください)。簡潔には:
 
@@ -287,7 +287,7 @@ metadata:
   namespace: "default"
 type: kubernetes.io/tls
 data:
-# 注意: 以下の値はご自身で base64 エンコードした証明書と鍵に置き換えてください。
+  # 注意: 以下の値はご自身で base64 エンコードした証明書と鍵に置き換えてください。
   tls.crt: "REPLACE_WITH_BASE64_CERT" 
   tls.key: "REPLACE_WITH_BASE64_KEY"
 ```
@@ -309,7 +309,7 @@ Secretにある証明書を使ってhttpsサーバーを開始するために、
 nginx-secure-appマニフェストの注目すべきポイント:
 
 - DeploymentとServiceの指定の両方が同じファイルに含まれています。
-- [nginxサーバー](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)は、ポート80でHTTPトラフィック、ポート443でHTTPSトラフィックをサービスし、nginx Serviceは両方のポートを公開します。
+- [nginxサーバー](https://github.com/kubernetes/examples/blob/master/_archived/https-nginx/default.conf)は、ポート80でHTTPトラフィック、ポート443でHTTPSトラフィックをサービスし、nginx Serviceは両方のポートを公開します。
 - 各コンテナは、`/etc/nginx/ssl`にマウントされたボリューム経由で鍵にアクセスできます。
   これはnginxサーバーが開始する*前*にセットアップされます。
 

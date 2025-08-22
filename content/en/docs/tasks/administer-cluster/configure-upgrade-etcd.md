@@ -158,7 +158,7 @@ To configure etcd with secure peer communication, specify flags
 the URL schema.
 
 Similarly, to configure etcd with secure client communication, specify flags
-`--key-file=k8sclient.key` and `--cert-file=k8sclient.cert`, and use HTTPS as
+`--key=k8sclient.key` and `--cert=k8sclient.cert`, and use HTTPS as
 the URL schema. Here is an example on a client command that uses secure
 communication:
 
@@ -413,7 +413,7 @@ restoration, critical components will lose leader lock and restart themselves.
 {{< /caution >}}
 
 etcd supports restoring from snapshots that are taken from an etcd process of
-the [major.minor](http://semver.org/) version. Restoring a version from a
+the [major.minor](https://semver.org/) version. Restoring a version from a
 different patch version of etcd is also supported. A restore operation is
 employed to recover the data of a failed cluster.
 

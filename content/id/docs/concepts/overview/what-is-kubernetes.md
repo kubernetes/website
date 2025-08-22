@@ -29,7 +29,7 @@ yang besar dan berkembang cepat. <i>Service</i>, <i>support</i>, dan perkakas
 Kubernetes tersedia secara meluas.
 
 Google membuka Kubernetes sebagai proyek <i>open source</i> pada tahun 2014.
-Kubernetes dibangun berdasarkan [pengalaman Google selama satu setengah dekade dalam menjalankan workloads](https://research.google.com/pubs/pub43438.html)
+Kubernetes dibangun berdasarkan [pengalaman Google selama satu setengah dekade dalam menjalankan workloads](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
 bersamaan dengan kontribusi berupa ide-ide terbaik yang diberikan oleh komunitas.
 
 ## Mengapa Kubernetes dan hal apa saja yang dapat dilakukan oleh Kubernetes?
@@ -54,7 +54,7 @@ proses pengembangan aplikasi dapat ditambahkan pada <i>streamline</i> untuk meni
 produktivitas developer. Orkestrasi ad-hoc yang dapat diterima biasanya membutuhkan desain
 otomatisasi yang kokoh agar bersifat <i>scalable</i>. Hal inilah yang membuat
 Kubernetes juga didesain sebagai <i>platform</i> untuk membangun ekosistem komponen dan
-dan perkakas untuk memudahkan proses <i>deployment</i>, <i>scale</i>, dan juga manajemen
+perkakas untuk memudahkan proses <i>deployment</i>, <i>scale</i>, dan juga manajemen
 aplikasi.
 
 [Labels]() memudahkan pengguna mengkategorisasikan <i>resources</i> yang mereka miliki

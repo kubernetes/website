@@ -22,25 +22,56 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
   based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
-* 2 CPUs or more.
+* 2 CPUs or more for control plane machines.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
-* Swap configuration. The default behavior of a kubelet was to fail to start if swap memory was detected on a node.
-  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
-  * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
-    will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
-    config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
 
 {{< note >}}
 The `kubeadm` installation is done via binaries that use dynamic linking and assumes that your target system provides `glibc`.
 This is a reasonable assumption on many Linux distributions (including Debian, Ubuntu, Fedora, CentOS, etc.)
 but it is not always the case with custom and lightweight distributions which don't include `glibc` by default, such as Alpine Linux.
-The expectation is that the distribution either includes `glibc` or a [compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
+The expectation is that the distribution either includes `glibc` or a
+[compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
 that provides the expected symbols.
 {{< /note >}}
 
 <!-- steps -->
+
+## Check your OS version
+
+{{% thirdparty-content %}}
+
+{{< tabs name="operating_system_version_check" >}}
+{{% tab name="Linux" %}}
+
+* The kubeadm project supports LTS kernels. See [List of LTS kernels](https://www.kernel.org/category/releases.html).
+* You can get the kernel version using the command `uname -r`
+
+For more information, see [Linux Kernel Requirements](/docs/reference/node/kernel-version-requirements/).
+
+{{% /tab %}}
+
+{{% tab name="Windows" %}}
+
+* The kubeadm project supports recent kernel versions. For a list of recent kernels, see [Windows Server Release Information](https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info).
+* You can get the kernel version (also called the OS version) using the command `systeminfo`
+
+For more information, see [Windows OS version compatibility](/docs/concepts/windows/intro/#windows-os-version-support).
+
+{{% /tab %}}
+{{< /tabs >}}
+
+A Kubernetes cluster created by kubeadm depends on software that use kernel features.
+This software includes, but is not limited to the
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}},
+the {{< glossary_tooltip term_id="kubelet" text="kubelet">}}, and a {{< glossary_tooltip text="Container Network Interface" term_id="cni" >}} plugin.
+
+To help you avoid unexpected errors as a result of an unsupported kernel version, kubeadm runs the `SystemVerification`
+pre-flight check. This check fails if the kernel version is not supported.
+
+You may choose to skip the check, if you know that your kernel
+provides the required features, even though kubeadm does not support its version.
 
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
 
@@ -64,12 +95,27 @@ need to be open in order for Kubernetes components to communicate with each othe
 You can use tools like [netcat](https://netcat.sourceforge.net) to check if a port is open. For example:
 
 ```shell
-nc 127.0.0.1 6443 -v
+nc 127.0.0.1 6443 -zv -w 2
 ```
 
 The pod network plugin you use may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
+
+## Swap configuration {#swap-configuration}
+
+The default behavior of a kubelet is to fail to start if swap memory is detected on a node.
+This means that swap should either be disabled or tolerated by kubelet.
+
+* To tolerate swap, add `failSwapOn: false` to kubelet configuration or as a command line argument.
+  Note: even if `failSwapOn: false` is provided, workloads wouldn't have swap access by default.
+  This can be changed by setting a `swapBehavior`, again in the kubelet configuration file. To use swap,
+  set a `swapBehavior` other than the default `NoSwap` setting.
+  See [Swap memory management](/docs/concepts/cluster-administration/swap-memory-management) for more details.
+* To disable swap, `sudo swapoff -a` can be used to disable swapping temporarily.
+  To make this change persistent across reboots, make sure swap is disabled in
+  config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
+
 
 ## Installing a container runtime {#installing-runtime}
 
@@ -187,7 +233,8 @@ These instructions are for Kubernetes v{{< skew currentVersion >}}.
    ```
 
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not exist by default, and it should be created before the curl command.
+In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings` does not
+exist by default, and it should be created before the curl command.
 {{< /note >}}
 
 3. Add the appropriate Kubernetes `apt` repository. Please note that this repository have packages
@@ -230,11 +277,11 @@ In releases older than Debian 12 and Ubuntu 22.04, directory `/etc/apt/keyrings`
 
 {{< caution >}}
 - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...`
-effectively disables it. This is required to allow containers to access the host
-filesystem; for example, some cluster network plugins require that. You have to
-do this until SELinux support is improved in the kubelet.
+  effectively disables it. This is required to allow containers to access the host
+  filesystem; for example, some cluster network plugins require that. You have to
+  do this until SELinux support is improved in the kubelet.
 - You can leave SELinux enabled if you know how to configure it but it may require
-settings that are not supported by kubeadm.
+  settings that are not supported by kubeadm.
 {{< /caution >}}
 
 2. Add the Kubernetes `yum` repository. The `exclude` parameter in the

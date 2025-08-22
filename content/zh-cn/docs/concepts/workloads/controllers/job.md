@@ -12,8 +12,8 @@ hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
-- alculquicondor
 - erictune
+- mimowo
 - soltysh
 title: Jobs
 content_type: concept
@@ -273,7 +273,7 @@ Job 的名字必须是合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/wo
 [DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
 即使该名字被要求遵循 DNS 子域名规则，也不得超过 63 个字符。
 
-Job 配置还需要一个 [`.spec` 节](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
+Job 配置还需要一个 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Job Labels
@@ -598,10 +598,30 @@ Pod 考虑在内，评估相关 Job 的 `.backoffLimit` 和 `.podFailurePolicy`�
 There are situations where you want to fail a Job after some amount of retries
 due to a logical error in configuration etc.
 To do so, set `.spec.backoffLimit` to specify the number of retries before
-considering a Job as failed. The back-off limit is set by default to 6. Failed
-Pods associated with the Job are recreated by the Job controller with an
-exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
+considering a Job as failed.
 
+The `.spec.backoffLimit` is set by default to 6, unless the
+[backoff limit per index](#backoff-limit-per-index) (only Indexed Job) is specified.
+When `.spec.backoffLimitPerIndex` is specified, then `.spec.backoffLimit` defaults
+to 2147483647 (MaxInt32).
+
+Failed Pods associated with the Job are recreated by the Job controller with an
+exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
+-->
+### Pod 回退失效策略    {#pod-backoff-failure-policy}
+
+在有些情形下，你可能希望 Job 在经历若干次重试之后直接进入失败状态，
+因为这很可能意味着遇到了配置错误。
+为了实现这点，可以将 `.spec.backoffLimit` 设置为视 Job 为失败之前的重试次数。
+`.spec.backoffLimit` 的值默认为 6，
+除非指定了[每个索引的退避限制](#backoff-limit-per-index)（仅限带索引的 Job）。
+当指定 `.spec.backoffLimitPerIndex` 时，`.spec.backoffLimit`
+默认为 2147483647 (MaxInt32)。
+
+与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会按指数增长
+（从 10 秒、20 秒到 40 秒）最多至 6 分钟。
+
+<!--
 The number of retries is calculated in two ways:
 
 - The number of Pods with `.status.phase = "Failed"`.
@@ -611,15 +631,6 @@ The number of retries is calculated in two ways:
 If either of the calculations reaches the `.spec.backoffLimit`, the Job is
 considered failed.
 -->
-### Pod 回退失效策略    {#pod-backoff-failure-policy}
-
-在有些情形下，你可能希望 Job 在经历若干次重试之后直接进入失败状态，
-因为这很可能意味着遇到了配置错误。
-为了实现这点，可以将 `.spec.backoffLimit` 设置为视 Job 为失败之前的重试次数。
-失效回退的限制值默认为 6。
-与 Job 相关的失效的 Pod 会被 Job 控制器重建，回退重试时间将会按指数增长
-（从 10 秒、20 秒到 40 秒）最多至 6 分钟。
-
 计算重试次数有以下两种方法：
 - 计算 `.status.phase = "Failed"` 的 Pod 数量。
 - 当 Pod 的 `restartPolicy = "OnFailure"` 时，针对 `.status.phase` 等于 `Pending` 或
@@ -647,18 +658,7 @@ from failed Jobs is not lost inadvertently.
 -->
 ### 逐索引的回退限制    {#backoff-limit-per-index}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-<!--
-You can only configure the backoff limit per index for an [Indexed](#completion-mode) Job, if you
-have the `JobBackoffLimitPerIndex` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
--->
-只有在集群中启用了 `JobBackoffLimitPerIndex`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-才能为 [Indexed](#completion-mode) Job 配置逐索引的回退限制。
-{{< /note >}}
+{{< feature-state feature_gate_name="JobBackoffLimitPerIndex" >}}
 
 <!--
 When you run an [indexed](#completion-mode) Job, you can choose to handle retries
@@ -964,19 +964,6 @@ For more details, see [Job termination and cleanup](#job-termination-and-cleanup
 -->
 ## 成功策略   {#success-policy}
 
-{{< feature-state feature_gate_name="JobSuccessPolicy" >}}
-
-{{< note >}}
-<!--
-You can only configure a success policy for an Indexed Job if you have the
-`JobSuccessPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster.
--->
-只有你在集群中启用了 `JobSuccessPolicy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，
-才可以为带索引的 Job 配置成功策略。
-{{< /note >}}
-
 <!--
 When creating an Indexed Job, you can define when a Job can be declared as succeeded using a `.spec.successPolicy`,
 based on the pods that succeeded.
@@ -1227,13 +1214,14 @@ Pod 终结器，Job 控制器就会给 Job 添加 `Complete` 或 `Failed` 终止
 
 <!--
 In Kubernetes v1.31 and later, the controller only adds the Job terminal conditions
-_after_ all of the Pods are terminated. You can enable this behavior by using the
-`JobManagedBy` or the `JobPodReplacementPolicy` (enabled by default)
+_after_ all of the Pods are terminated. You can control this behavior by using the
+`JobManagedBy` and the `JobPodReplacementPolicy` (both enabled by default)
 [feature gates](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
-在 Kubernetes v1.31 及更高版本中，控制器仅在所有 Pod 终止后添加 Job 终止状况。
-你可以使用 `JobManagedBy` 或 `JobPodReplacementPolicy`（默认启用）
-启用此行为的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+在 Kubernetes v1.31 及更高版本中，控制器仅在所有 Pod 都终止**之后**才会添加作业（Job）的终止条件。
+你可以通过使用 `JobManagedBy` 和 `JobPodReplacementPolicy`（都默认启用）
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+来控制这一行为。
 
 <!--
 ### Termination of Job pods
@@ -1874,13 +1862,13 @@ and `.spec.completions` together such that `.spec.parallelism == .spec.completio
 When scaling down, Kubernetes removes the Pods with higher indexes.
 
 Use cases for elastic Indexed Jobs include batch workloads which require 
-scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
+scaling an indexed Job, such as MPI, Horovod, Ray, and PyTorch training jobs.
 -->
 你可以通过同时改变 `.spec.parallelism` 和 `.spec.completions` 来扩大或缩小带索引 Job，
 从而满足 `.spec.parallelism == .spec.completions`。
 缩减规模时，Kubernetes 会删除具有更高索引的 Pod。
 
-弹性索引 Job 的使用场景包括需要扩展索引 Job 的批处理工作负载，例如 MPI、Horovord、Ray
+弹性索引 Job 的使用场景包括需要扩展索引 Job 的批处理工作负载，例如 MPI、Horovod、Ray
 和 PyTorch 训练作业。
 
 <!--
@@ -1975,10 +1963,10 @@ status:
 <!--
 You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(disabled by default).
+(enabled by default).
 -->
 你只有在启用了 `JobManagedBy`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认禁用）时，
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)（默认开启）时，
 才可以在 Job 上设置 `managedBy` 字段。
 {{< /note >}}
 

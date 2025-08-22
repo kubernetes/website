@@ -3,13 +3,6 @@ title: ReplicaSet
 api_metadata:
 - apiVersion: "apps/v1"
   kind: "ReplicaSet"
-feature:
-  title: 自我修复
-  anchor: ReplicationController 如何工作
-  description: >
-    重新启动失败的容器，在节点死亡时替换并重新调度容器，
-    杀死不响应用户定义的健康检查的容器，
-    并且在它们准备好服务之前不会将它们公布给客户端。
 content_type: concept
 description: >-
   ReplicaSet 的作用是维持在任何给定时间运行的一组稳定的副本 Pod。
@@ -18,6 +11,12 @@ weight: 20
 hide_summary: true # 在章节索引中单独列出
 ---
 <!--
+# NOTE TO LOCALIZATION TEAMS
+#
+# If updating front matter for your localization because there is still
+# a "feature" key in this page, then you also need to update
+# content/??/docs/concepts/architecture/self-healing.md (which is where
+# it moved to)
 reviewers:
 - Kashomon
 - bprashanth
@@ -26,13 +25,6 @@ title: ReplicaSet
 api_metadata:
 - apiVersion: "apps/v1"
   kind: "ReplicaSet"
-feature:
-  title: Self-healing
-  anchor: How a ReplicaSet works
-  description: >
-    Restarts containers that fail, replaces and reschedules containers when nodes die,
-    kills containers that don't respond to your user-defined health check,
-    and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
 description: >-
   A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time.
@@ -47,7 +39,6 @@ hide_summary: true # Listed separately in section index
 A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often
 used to guarantee the availability of a specified number of identical Pods.
 -->
-
 ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。
 因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。
 
@@ -218,7 +209,7 @@ You can also verify that the owner reference of these pods is set to the fronten
 To do this, get the yaml of one of the Pods running:
 -->
 你也可以查看 Pod 的属主引用被设置为前端的 ReplicaSet。
-要实现这点，可取回运行中的某个 Pod 的 YAML：
+要实现这点，可获取运行中的某个 Pod 的 YAML：
 
 ```shell
 kubectl get pods frontend-gbgfx -o yaml
@@ -296,7 +287,7 @@ Fetching the Pods:
 新的 Pod 会被该 ReplicaSet 获取，并立即被 ReplicaSet 终止，
 因为它们的存在会使得 ReplicaSet 中 Pod 个数超出其期望值。
 
-取回 Pod：
+获取 Pod：
 
 
 ```shell
@@ -341,7 +332,7 @@ number of its new Pods and the original matches its desired count. As fetching t
 -->
 你会看到 ReplicaSet 已经获得了该 Pod，并仅根据其规约创建新的 Pod，
 直到新的 Pod 和原来的 Pod 的总数达到其预期个数。
-这时取回 Pod 列表：
+这时获取 Pod 列表：
 
 ```shell
 kubectl get pods
@@ -391,8 +382,7 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 [DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
 
 ReplicaSet 也需要
-[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
-部分。
+[`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Pod Template
@@ -539,6 +529,33 @@ ReplicaSets do not support a rolling update directly.
 若想要以可控的方式更新 Pod 的规约，可以使用
 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#creating-a-deployment)
 资源，因为 ReplicaSet 并不直接支持滚动更新。
+
+<!--
+### Terminating Pods
+
+{{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
+
+You can enable this feature by setting the `DeploymentReplicaSetTerminatingReplicas`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+and on the [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+
+Pods that become terminating due to deletion or scale down may take a long time to terminate, and may consume
+additional resources during that period. As a result, the total number of all pods can temporarily exceed
+`.spec.replicas`. Terminating pods can be tracked using the `.status.terminatingReplicas` field of the ReplicaSet.
+-->
+### 终止中的 Pod  {#terminating-pods}
+
+{{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
+
+你可以通过在 [API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
+和 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
+上启用 `DeploymentReplicaSetTerminatingReplicas`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来开启此功能。
+
+由于删除或缩减副本导致的终止中的 Pod 可能需要较长时间才能完成终止，且在此期间可能会消耗额外资源。
+因此，所有 Pod 的总数可能会暂时超过 `.spec.replicas` 指定的数量。
+可以通过 ReplicaSet 的 `.status.terminatingReplicas` 字段来跟踪终止中的 Pod。
 
 <!--
 ### Isolating Pods from a ReplicaSet

@@ -69,7 +69,7 @@ metadata:
 spec:
   containers:
     - name: demo-container-1
-      image: registry.k8s.io/pause:2.0
+      image: registry.k8s.io/pause:3.8
       resources:
         limits:
           hardware-vendor.example/foo: 2
@@ -246,7 +246,7 @@ In order to monitor resources provided by device plugins, monitoring agents need
 discover the set of devices that are in-use on the node and obtain metadata to describe which
 container the metric should be associated with. [Prometheus](https://prometheus.io/) metrics
 exposed by device monitoring agents should follow the
-[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/instrumentation.md),
+[Kubernetes Instrumentation Guidelines](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md),
 identifying containers using `pod`, `namespace`, and `container` prometheus labels.
 
 The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata
@@ -486,10 +486,13 @@ Here are some examples of device plugin implementations:
 * [Akri](https://github.com/project-akri/akri), which lets you easily expose heterogeneous leaf devices (such as IP cameras and USB devices).
 * The [AMD GPU device plugin](https://github.com/ROCm/k8s-device-plugin)
 * The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic Linux devices and USB devices
+* The [HAMi](https://github.com/Project-HAMi/HAMi) for heterogeneous AI computing virtualization middleware (for example, NVIDIA, Cambricon, Hygon, Iluvatar, MThreads, Ascend, Metax)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
 * The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
   hardware-assisted virtualization
+* The [NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin), NVIDIA's 
+  official device plugin to expose NVIDIA GPUs and monitor GPU health
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)

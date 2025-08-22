@@ -1,0 +1,17 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Localized strings for Italian.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+filters:
+  "\\.toml$":
+
+    reviewers:
+    - sig-docs-it-reviews
+
+    approvers:
+    - sig-docs-it-owners
+
+    labels:
+    - area/localization
+    - language/it

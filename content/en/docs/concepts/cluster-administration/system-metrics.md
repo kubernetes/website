@@ -170,9 +170,42 @@ Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` a
 the series is no longer reported since the scheduler is now free to schedule other pods to run.
 The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_limit`.
 
-The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same
-authorization as the `/metrics` endpoint on the scheduler. You must use the
-`--show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+The metrics are exposed at the HTTP endpoint `/metrics/resources`. They require
+authorization for the `/metrics/resources` endpoint, usually granted by a
+ClusterRole with the `get` verb for the `/metrics/resources` non-resource URL.
+
+On Kubernetes 1.21 you must use the `--show-hidden-metrics-for-version=1.20`
+flag to expose these alpha stability metrics.
+
+### kubelet Pressure Stall Information (PSI) metrics
+
+{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+
+As an alpha feature, Kubernetes lets you configure kubelet to collect Linux kernel
+[Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
+(PSI) for CPU, memory and IO usage.
+The information is collected at node, pod and container level.
+The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
+
+```
+container_pressure_cpu_stalled_seconds_total
+container_pressure_cpu_waiting_seconds_total
+container_pressure_memory_stalled_seconds_total
+container_pressure_memory_waiting_seconds_total
+container_pressure_io_stalled_seconds_total
+container_pressure_io_waiting_seconds_total
+```
+
+You must enable the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to use this feature. The information is also exposed in the
+[Summary API](/docs/reference/instrumentation/node-metrics#psi).
+
+#### Requirements
+
+Pressure Stall Information requires:
+
+- [Linux kernel versions 4.20 or later](/docs/reference/node/kernel-version-requirements#requirements-psi).
+- [cgroup v2](/docs/concepts/architecture/cgroups)
 
 ## Disabling metrics
 
@@ -183,7 +216,7 @@ disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
 ## Metric cardinality enforcement
 
 Metrics with unbounded dimensions could cause memory issues in the components they instrument. To
-limit resource use, you can use the `--allow-label-value` command line option to dynamically
+limit resource use, you can use the `--allow-metric-labels` command line option to dynamically
 configure an allow-list of label values for a metric.
 
 In alpha stage, the flag can only take in a series of mappings as metric label allow-list.
@@ -193,13 +226,13 @@ Each mapping is of the format `<metric_name>,<label_name>=<allowed_labels>` wher
 The overall format looks like:
 
 ```
---allow-label-value <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...
+--allow-metric-labels <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...
 ```
 
 Here is an example:
 
 ```none
---allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'
+--allow-metric-labels number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'
 ```
 
 In addition to specifying this from the CLI, this can also be done within a configuration file. You
@@ -207,9 +240,8 @@ can specify the path to that configuration file using the `--allow-metric-labels
 line argument to a component. Here's an example of the contents of that configuration file:
 
 ```yaml
-allow-list:
-- "metric1,label2": "v1,v2,v3"
-- "metric2,label1": "v1,v2,v3"
+"metric1,label2": "v1,v2,v3"
+"metric2,label1": "v1,v2,v3"
 ```
 
 Additionally, the `cardinality_enforcement_unexpected_categorizations_total` meta-metric records the
@@ -218,7 +250,7 @@ is encountered that is not allowed with respect to the allow-list constraints.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
+* Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
 * See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

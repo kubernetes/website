@@ -113,18 +113,12 @@ recommendations include:
 * 实现对特定事件发出警报的审计规则，例如同一用户并发读取多个 Secret 时发出警报
 
 <!--
-#### Additional ServiceAccount annotations for Secret management
-
-You can also use the `kubernetes.io/enforce-mountable-secrets` annotation on
-a ServiceAccount to enforce specific rules on how Secrets are used in a Pod.
-For more details, see the [documentation on this annotation](/docs/reference/labels-annotations-taints/#enforce-mountable-secrets).
+#### Restrict Access for Secrets
+Use separate namespaces to isolate access to mounted secrets.
 -->
-#### 用于 Secret 管理的附加 ServiceAccount 注解
+#### 限制 Secret 的访问
 
-你还可以在 ServiceAccount 上使用 `kubernetes.io/enforce-mountable-secrets`
-注解来强制执行有关如何在 Pod 中使用 Secret 的特定规则。
-
-更多详细信息，请参阅[有关此注解的文档](/zh-cn/docs/reference/labels-annotations-taints/#enforce-mountable-secrets)。
+使用单独的命名空间来隔离对挂载 Secret 的访问。
 
 <!--
 ### Improve etcd management policies
@@ -166,6 +160,17 @@ For a list of supported providers, refer to
 -->
 有关支持的提供商列表，请参阅
 [Secret 存储 CSI 驱动的提供商](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)。
+
+<!--
+## Good practices for using swap memory
+
+For best practices for setting swap memory for Linux nodes, please refer to
+[swap memory management](/docs/concepts/cluster-administration/swap-memory-management/#good-practice-for-using-swap-in-a-kubernetes-cluster).
+-->
+## 使用交换内存的良好实践     {#good-practices-for-using-swap-memory}
+
+对于为 Linux 节点设置交换内存的最佳实践，
+请参阅[交换内存管理](/zh-cn/docs/concepts/cluster-administration/swap-memory-management/#good-practice-for-using-swap-in-a-kubernetes-cluster)。
 
 <!--
 ## Developers

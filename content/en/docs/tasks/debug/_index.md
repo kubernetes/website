@@ -15,13 +15,16 @@ card:
 
 <!-- overview -->
 
-Sometimes things go wrong. This guide is aimed at making them right. It has
-two sections:
+Sometimes things go wrong. This guide helps you gather the relevant information and resolve issues. It has four sections:
 
 * [Debugging your application](/docs/tasks/debug/debug-application/) - Useful
   for users who are deploying code into Kubernetes and wondering why it is not working.
 * [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - Useful
-  for cluster administrators and people whose Kubernetes cluster is unhappy.
+  for cluster administrators and operators troubleshooting issues with the Kubernetes cluster itself.
+* [Logging in Kubernetes](/docs/tasks/debug/logging/) - Useful
+  for cluster administrators who want to set up and manage logging in Kubernetes.
+* [Monitoring in Kubernetes](/docs/tasks/debug/monitoring/) - Useful
+  for cluster administrators who want to enable monitoring in a Kubernetes cluster.
 
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
 you're using.

@@ -1,0 +1,16 @@
+apiVersion: resource.k8s.io/v1beta2
+kind: ResourceClaimTemplate
+metadata:
+  name: example-resource-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: gpu-claim
+        exactly:
+          deviceClassName: example-device-class
+          selectors:
+          - cel:
+            expression: |-
+                device.attributes["driver.example.com"].type == "gpu" &&
+                device.capacity["driver.example.com"].memory == quantity("64Gi")

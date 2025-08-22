@@ -3,7 +3,7 @@
 # 例如，如果命名空间的标签为 {"environment": "staging"}，则所有容器镜像必须是
 # staging.example.com/* 或根本不包含 “example.com”，除非 Deployment 有
 # {"exempt": "true"} 标签。
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingAdmissionPolicy
 metadata:
   name: "image-matches-namespace-environment.policy.example.com"

@@ -24,7 +24,7 @@ _複数の回答者による共同回答の場合は、回答者全員のイニ�
 
 **Matthias:** Matthias Bertschyと申します。フランス人で、フランスアルプスの近く、ジュネーブ湖のそばに住んでいます。2017年からKubernetesのコントリビューターとして活動し、SIG Nodeのレビュアー、そして[Prow](https://docs.prow.k8s.io/docs/overview/)のメンテナーを務めています。現在は、[ARMO](https://www.armosec.io/)というセキュリティスタートアップでシニアKubernetes開発者として働いています。ARMOは、[Kubescape](https://www.cncf.io/projects/kubescape/)というプロジェクトをCNCFに寄贈しました。
 
-![ジュネーブ湖とアルプス](/ja/Lake_Geneva_and_the_Alps.jpg)
+![ジュネーブ湖とアルプス](Lake_Geneva_and_the_Alps.jpg)
 
 **Gunju:** Gunju Kimと申します。[NAVER](https://www.navercorp.com/naver/naverMain)でソフトウェアエンジニアとして働いており、検索サービス用のクラウドプラットフォームの開発に注力しています。2021年から空き時間を使ってKubernetesプロジェクトにコントリビュートしています。
 

@@ -2,16 +2,32 @@ HUGO_VERSION      = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d
 NODE_BIN          = node_modules/.bin
 NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
 
+# The segments variable is used to specify which segments to render.
+segments          ?= all
+
 # The CONTAINER_ENGINE variable is used for specifying the container engine. By default 'docker' is used
 # but this can be overridden when calling make, e.g.
 # CONTAINER_ENGINE=podman make container-image
 CONTAINER_ENGINE ?= docker
 IMAGE_REGISTRY ?= gcr.io/k8s-staging-sig-docs
-IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile | cut -c 1-12)
+IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile netlify.toml .dockerignore cloudbuild.yaml package.json package-lock.json | cut -c 1-12)
 CONTAINER_IMAGE   = $(IMAGE_REGISTRY)/k8s-website-hugo:v$(HUGO_VERSION)-$(IMAGE_VERSION)
 # Mount read-only to allow use with tools like Podman in SELinux mode
 # Container targets don't need to write into /src
 CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume "$(CURDIR):/src:ro,Z"
+CONTAINER_RUN_TTY = "$(CONTAINER_ENGINE)" run --rm --interactive --tty
+CONTAINER_HUGO_MOUNTS = \
+	--read-only \
+	--mount type=bind,source=$(CURDIR)/.git,target=/src/.git,readonly \
+	--mount type=bind,source=$(CURDIR)/archetypes,target=/src/archetypes,readonly \
+	--mount type=bind,source=$(CURDIR)/assets,target=/src/assets,readonly \
+	--mount type=bind,source=$(CURDIR)/content,target=/src/content,readonly \
+	--mount type=bind,source=$(CURDIR)/data,target=/src/data,readonly \
+	--mount type=bind,source=$(CURDIR)/i18n,target=/src/i18n,readonly \
+	--mount type=bind,source=$(CURDIR)/layouts,target=/src/layouts,readonly \
+	--mount type=bind,source=$(CURDIR)/static,target=/src/static,readonly \
+	--mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 \
+	--mount type=bind,source=$(CURDIR)/hugo.toml,target=/src/hugo.toml,readonly
 
 CCRED=\033[0;31m
 CCEND=\033[0m
@@ -40,7 +56,7 @@ build-preview: module-check ## Build site with drafts and future posts enabled
 	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --buildDrafts --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
@@ -56,7 +72,7 @@ non-production-build: module-check ## Build the non-production site, which adds 
 	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
-	hugo server --buildFuture --environment development
+	hugo server --buildDrafts --buildFuture --environment development --renderSegments $(segments)
 
 docker-image:
 	@echo -e "$(CCRED)**** The use of docker-image is deprecated. Use container-image instead. ****$(CCEND)"
@@ -81,7 +97,7 @@ container-push: container-image ## Push container image for the preview of the w
 
 PLATFORMS ?= linux/arm64,linux/amd64
 docker-push: ## Build a multi-architecture image and push that into the registry
-	docker run --rm --privileged tonistiigi/binfmt:qemu-v6.2.0-26@sha256:5bf63a53ad6222538112b5ced0f1afb8509132773ea6dd3991a197464962854e --install all
+	docker run --rm --privileged tonistiigi/binfmt:qemu-v8.1.5-43@sha256:46c5a036f13b8ad845d6703d38f8cce6dd7c0a1e4d42ac80792279cabaeff7fb --install all
 	docker version
 	$(DOCKER_BUILDX) version
 	$(DOCKER_BUILDX) inspect image-builder > /dev/null 2>&1 || $(DOCKER_BUILDX) create --name image-builder --use
@@ -97,11 +113,15 @@ docker-push: ## Build a multi-architecture image and push that into the registry
 	rm Dockerfile.cross
 
 container-build: module-check
-	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"
+	mkdir -p public
+	$(CONTAINER_RUN_TTY) $(CONTAINER_HUGO_MOUNTS) $(CONTAINER_IMAGE) \
+		hugo --destination /tmp/public --cleanDestinationDir --buildDrafts --buildFuture --environment preview --noBuildLock
 
 # no build lock to allow for read-only mounts
 container-serve: module-check ## Boot the development server using container.
-	$(CONTAINER_RUN) --cap-drop=ALL --cap-add=AUDIT_WRITE --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/hugo --cleanDestinationDir --noBuildLock
+	$(CONTAINER_RUN_TTY) --cap-drop=ALL --cap-add=AUDIT_WRITE $(CONTAINER_HUGO_MOUNTS) \
+		-p 1313:1313 $(CONTAINER_IMAGE) \
+		hugo server --buildDrafts --buildFuture --environment development --bind 0.0.0.0 --destination /tmp/public --cleanDestinationDir --noBuildLock --renderSegments $(segments)
 
 test-examples:
 	scripts/test_examples.sh install

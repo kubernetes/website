@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "CSIStorageCapacity stores the result of one CSI GetCapacity call."
 title: "CSIStorageCapacity"
-weight: 10
+weight: 5
 auto_generated: true
 ---
 
@@ -96,8 +96,6 @@ CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-storage-capacity-v1#CSIStorageCapacity" >}}">CSIStorageCapacity</a>), required
 
-  *Map: unique values on key name will be kept during a merge*
-  
   items is the list of CSIStorageCapacity objects.
 
 
@@ -500,6 +498,11 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities/{name
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -558,6 +561,11 @@ DELETE /apis/storage.k8s.io/v1/namespaces/{namespace}/csistoragecapacities
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

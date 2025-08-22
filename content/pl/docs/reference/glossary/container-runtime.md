@@ -11,7 +11,8 @@ tags:
 - fundamental
 - workload
 ---
- *Container runtime* to oprogramowanie zajmujące się uruchamianiem kontenerów.
+ Podstawowy komponent umożliwiający efektywne uruchamianie kontenerów w Kubernetesie.
+Odpowiada za zarządzanie uruchamianiem i cyklem życia kontenerów w środowisku Kubernetes.
 
 <!--more-->
 
