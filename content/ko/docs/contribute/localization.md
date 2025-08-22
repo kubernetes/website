@@ -133,7 +133,7 @@ SIG Docs Leadership team이 고려해야 할 새로운 요구사항을 식별하
 [Organization 멤버십 요청](https://github.com/kubernetes/org/issues/new/choose)을
 직접 생성해야 한다.
 
-### GitHub에 현지화 팀 추가하기
+### GitHub에 현지화 팀 추가하기 {#Add-your-localization-team-in-GitHub}
 
 다음으로, 쿠버네티스 현지화 팀을
 [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml)에 직접 추가한다.
@@ -229,9 +229,9 @@ mkdir content/de
 언어별 하위 디렉터리 안에 `OWNERS` 파일을 생성하고 다음 내용을 추가한다.
 
 - **reviewers**: 리뷰어 역할을 가진 쿠버네티스 팀 목록.
-- 이 경우, [GitHub에 현지화 팀 추가하기](#GitHub에-현지화-팀-추가하기) 단계에서 생성한 `sig-docs-**-reviews` 팀이다.
+- 이 경우, [GitHub에 현지화 팀 추가하기](#Add-your-localization-team-in-GitHub) 단계에서 생성한 `sig-docs-**-reviews` 팀이다.
 - **approvers**: 승인자 역할을 가진 쿠버네티스 팀 목록.
-- 이 경우, [GitHub에 현지화 팀 추가하기](#GitHub에-현지화-팀-추가하기) 단계에서 생성한 `sig-docs-**-owners` 팀이다.
+- 이 경우, [GitHub에 현지화 팀 추가하기](#Add-your-localization-team-in-GitHub) 단계에서 생성한 `sig-docs-**-owners` 팀이다.
 - **labels**: PR에 자동으로 적용할 Github 라벨 목록. 이 경우,
 [워크플로 구성하기](#워크플로-구성하기) 단계에서 생성한 언어 라벨이다다.
 
@@ -263,7 +263,7 @@ labels:
 해당 현지화의 신규 쿠버네티스 팀인 `sig-docs-**-owners`와
 `sig-docs-**-reviews`를 업데이트한다.
 
-각 팀에는, [GitHub에 현지화 팀 추가하기](#GitHub에-현지화-팀-추가하기)에서
+각 팀에는, [GitHub에 현지화 팀 추가하기](#Add-your-localization-team-in-GitHub)에서
 요청한 GitHub 사용자 목록을
 알파벳 순으로 추가한다.
 
@@ -499,7 +499,7 @@ SIG Docs에서 이 과정을 자동화할 때까지 업로드 절차를 지원�
     현지화 브랜치를 생성한다.
 
     [`kubernetes/org`](https://github.com/kubernetes/org) 저장소에
-    [현지화 팀을 추가](#GitHub에-현지화-팀-추가하기)할 때
+    [현지화 팀을 추가](#Add-your-localization-team-in-GitHub)할 때
     팀의 승인자가 `@kubernetes/website-maintainers` 팀에 포함된다.
 
     권장 브랜치 명명 규칙은 다음과 같다.
