@@ -1,8 +1,7 @@
 ---  
 layout: blog
-title: 'Kubernetes v1.34: RELEASE NAME'
+title: 'Kubernetes v1.34: Of Wind & Will'
 date: 2025-08-27T10:30:00-08:00
-draft: true
 evergreen: true
 slug: kubernetes-v1-34-release
 author: >
@@ -18,6 +17,9 @@ This release consists of 58 enhancements. Of those enhancements, 23 have graduat
 There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
 
 ## Release theme and logo
+
+{{< figure src="k8s-v1.34.png" alt="Kubernetes v1.34 logo: Three bears sail a wooden ship with a flag featuring a paw and a helm symbol on the sail, as wind blows across the ocean"
+class="release-logo" >}}
 
 \<TODO RELEASE THEME AND LOGO\>
 
