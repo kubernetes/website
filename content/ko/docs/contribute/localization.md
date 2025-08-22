@@ -150,7 +150,7 @@ SIG Docs Leadership team이 고려해야 할 새로운 요구사항을 식별하
 
 ### 워크플로 구성하기
 
-다음으로, `kubernetes/test-infra` 저장소에 현지화용 GitHub 라벨을 
+다음으로, `kubernetes/test-infra` 저장소에 현지화용 Github 라벨을 
 추가한다. 라벨은 특정 언어에 해당하는 이슈와 풀 리퀘스트를 필터링하는 데
 사용된다.
 
@@ -231,8 +231,8 @@ mkdir content/de
 - **reviewers**: 리뷰어 역할을 가진 쿠버네티스 팀 목록.
 - 이 경우, [GitHub에 현지화 팀 추가하기](#GitHub에-현지화-팀-추가하기) 단계에서 생성한 `sig-docs-**-reviews` 팀이다.
 - **approvers**: 승인자 역할을 가진 쿠버네티스 팀 목록.
-- 이 경우, [GitHub에 현지화 팀 추가하기](##GitHub에-현지화-팀-추가하기) 단계에서 생성한 `sig-docs-**-owners` 팀이다.
-- **labels**: PR에 자동으로 적용할 GitHub 라벨 목록. 이 경우,
+- 이 경우, [GitHub에 현지화 팀 추가하기](#GitHub에-현지화-팀-추가하기) 단계에서 생성한 `sig-docs-**-owners` 팀이다.
+- **labels**: PR에 자동으로 적용할 Github 라벨 목록. 이 경우,
 [워크플로 구성하기](#워크플로-구성하기) 단계에서 생성한 언어 라벨이다다.
 
 OWNERS 파일에 대한 더 많은 정보는
