@@ -21,13 +21,14 @@ card:
 
 ## 쿠버네티스 문서 현지화에 기여하기
 
-당신은 현지화 문서의 내용을 추가하거나 개선하는 데 도움을 줄 수 있으며,
-[쿠버네티스 공식 Slack](https://slack.k8s.io/)에서 각 언어별 현지화 채널을
-찾을 수 있다. 이외에도 인사말을 나눌 수 있는 일반적인
-[SIG Docs Localizations Slack 채널](https://kubernetes.slack.com/messages/sig-docs-localizations)도 있다.
+당신은 현지화 문서의 내용을 추가하거나 개선하는 데 도움을 줄 수 있다.
+[쿠버네티스 Slack](https://slack.k8s.io/)에서는, 각 언어별 현지화 채널을
+찾을 수 있다. 물론 인사말을 나눌 수 있는 일반적인
+[SIG Docs Localizations Slack 채널](https://kubernetes.slack.com/messages/sig-docs-localizations)도
+있다.
 
 {{< note >}}
-어떻게 현지화에 기여하는지에 대한 상세 내용은
+어떻게 현지화에 기여하는지에 대한 상세 내용은,
 이 페이지의 각 언어별 현지화 버전에서 확인할 수 있다.
 {{< /note >}}
 
@@ -38,36 +39,36 @@ card:
 을 참조하여 해당 현지화의 두 자리 언어 코드를 찾는다. 예를 들어, 한국어의
 두 자리 코드는 `ko`이다.
 
-일부 언어는 언어 코드와 함께 ISO-3166에서 정의한 소문자 국가 코드를 사용한다.
-예를 들어, 브라질에서 사용하는 포르투갈어의
+일부 언어는 언어 코드와 함께 ISO-3166에서 정의한 소문자 국가 코드를
+사용한다. 예를 들어, 브라질에서 사용하는 포르투갈어의
 언어 코드는 `pt-br`이다.
 
 ### 저장소를 포크(fork) 및 클론(clone) 하기
 
-첫번째로, [kubernetes/website](https://github.com/kubernetes/website) 리포지터리를
-자신의 리포지터리로 [포크(fork)](/ko/docs/contribute/new-content/open-a-pr/#fork-the-repo)한다.
+첫번째로, [kubernetes/website](https://github.com/kubernetes/website) 저장소를
+자신의 저장소로 [포크](/ko/docs/contribute/new-content/open-a-pr/#fork-the-repo)한다.
 
-그런 다음, 포크한 리포지터리를 클론(clone)하고 `cd` 명령어로 해당 디렉터리에 들어간다.
+그런 다음, 포크한 저장소를 클론하고 `cd` 명령어로 해당 디렉터리에 들어간다.
 
 ```shell
 git clone https://github.com/<username>/website
 cd website
 ```
 
-website의 content 디렉터리에는 각 언어별 하위 디렉터리가 포함되어 있다. 
-현지화 문서는 `content/<두 자리 코드>` 디렉터리 안에 있다.
+website의 content 디렉터리에는 각 언어별 하위 디렉터리가 포함되어 있다. 현지화
+문서는 `content/<두 자리 코드>` 디렉터리 안에 있다.
 
 ### 변경 제안하기
 
-영어 원문을 기준으로 선택한 현지화 페이지를 생성하거나 업데이트한다.
-자세한 내용은 [콘텐츠 현지화](#localize-content)를 참고한다.
+영어 원문을 기준으로 선택한 현지화 페이지를 생성하거나 업데이트한다. 자세한
+내용은 [콘텐츠 현지화](#콘텐츠-현지화)를 참고한다.
 
-업스트림(영문)의 기술적인 부정확성이나 기타 문제를 발견한 경우,
-먼저 업스트림(영문)을 수정한 뒤
+업스트림(영문)의 기술적인 부정확성이나 기타 문제를
+발견한 경우, 먼저 업스트림(영문)을 수정한 뒤
 동일한 수정을 작업 중인 현지화 문서에도 반영한다.
 
-풀 리퀘스트의 변경 사항은 하나의 현지화로만 제한한다.
-여러 현지화 콘텐츠를 변경하는 풀 리퀘스트는 검토하기 어렵기 때문이다.
+풀 리퀘스트의 변경 사항은 하나의 현지화로만 제한한다. 여러 현지화
+콘텐츠를 변경하는 풀 리퀘스트는 검토하기 어렵기 때문이다.
 
 해당 현지화에 변경 사항을 제안하려면 [콘텐츠 개선 제안](/docs/contribute/suggesting-improvements/)
 을 따른다. 이 과정은 업스트림(영문) 콘텐츠에 변경 사항을
@@ -75,11 +76,11 @@ website의 content 디렉터리에는 각 언어별 하위 디렉터리가 포�
 
 ## 신규 언어 현지화 시작하기
 
-쿠버네티스 문서를 새로운 언어로 현지화하려면
-다음과 같은 절차를 따라야 한다.
+쿠버네티스 문서를 신규 언어로 현지화하려면, 다음과
+같은 절차를 따라야 한다.
 
-기여자는 자신의 풀 리퀘스트를 스스로 승인할 수 없기 때문에,
-현지화를 시작하려면 _최소한 두 명 이상의 기여자_가 있어야 한다.
+기여자는 자신의 풀 리퀘스트를 스스로 승인할 수 없기 때문에, 현지화를
+시작하려면 _최소한 두 명 이상의 기여자_가 있어야 한다.
 
 모든 현지화 팀은 자체 관리가 가능해야 한다. 쿠버네티스 웹사이트는 
 작업물을 호스팅하도록 제공할 뿐, 번역을 수행하고 기존 현지화를 최신 상태로 유지하는 것은
@@ -95,9 +96,10 @@ website의 content 디렉터리에는 각 언어별 하위 디렉터리가 포�
 언어 코드를 결합하는 것이 좋을 수 있다.
 예를 들어, 브라질에서 사용하는 포르투갈 언어의 경우 `pt-br`이다.
 
-새로운 현지화를 시작할 때는, 쿠버네티스 프로젝트가
+신규 현지화를 시작할 때는, 쿠버네티스 프로젝트가
 변경 사항을 라이브 웹사이트에 반영하기 전에
-[최소 요구 콘텐츠](#최소-요구-콘텐츠)를 모두 현지화해야 한다.
+[최소 요구 콘텐츠](#최소-요구-콘텐츠)를 모두
+현지화해야 한다.
 
 SIG Docs는 별도의 브랜치에서 작업할 수 있도록 도와주어
 그 목표를 단계적으로 달성할 수 있게 한다.
@@ -107,7 +109,7 @@ SIG Docs는 별도의 브랜치에서 작업할 수 있도록 도와주어
 현지화에 관심이 있다면 쿠버네티스 SIG Docs에 알린다.
 [SIG Docs Slack 채널](https://kubernetes.slack.com/messages/sig-docs)과
 [SIG Docs Localizations Slack 채널](https://kubernetes.slack.com/messages/sig-docs-localizations)에 참여하면,
-다른 현지화 팀들이 새로운 팀이 시작할 수 있도록 도움을 주고 질문에도 친절히
+다른 현지화 팀들이 신규 팀이 시작할 수 있도록 도움을 주고 질문에도 친절히
 답변해줄 것이다.
 
 또한, [SIG Docs Localization Subgroup meeting](https://github.com/kubernetes/community/tree/master/sig-docs)
@@ -116,18 +118,18 @@ SIG Docs localization subgroup의 목표는 SIG Docs의
 여러 현지화 팀들이 협력하여 각 언어별 기여 가이드를 만드는 프로세스를
 정의하고 문서화하는 것이다. 또한, SIG Docs localization subgroup은
 여러 현지화 팀이 함께 사용할 수 있는 공통 도구를 만들고 공유할 기회를 모색하고,
-SIG Docs Leadership team이 고려해야 할 새운 요구사항을 식별하는 역할도 한다.
+SIG Docs Leadership team이 고려해야 할 새로운 요구사항을 식별하는 역할도 한다.
 이 회의에 대해 궁금한 점이 있다면
 [SIG Docs Localizations Slack 채널](https://kubernetes.slack.com/messages/sig-docs-localizations)에 문의하면 된다.
 
-또한, `kubernetes/community` 리포지터리 안에
+또한, `kubernetes/community` 저장소 안에
 현지화를 위한 Slack 채널을 생성할 수 있다. Slack 채널 추가에 대한 예시는
 [페르시아어 채널 추가 PR](https://github.com/kubernetes/community/pull/4980)에서 확인할 수 있다.
 
 ### 쿠버네티스 Github organization에 가입하기
 
 현지화 PR을 생성했다면, 쿠버네티스 Github organization의 멤버
-될 수 있다. 팀의 각 구성원은 `kubernetes/org` 리포지터리에서 자신의
+될 수 있다. 팀의 각 멤버는 `kubernetes/org` 저장소에서 자신의
 [Organization 멤버십 요청](https://github.com/kubernetes/org/issues/new/choose)을
 직접 생성해야 한다.
 
@@ -138,31 +140,31 @@ SIG Docs Leadership team이 고려해야 할 새운 요구사항을 식별하는
 현지화 팀 등록 예시는
 [스페인어 현지화 팀 추가 PR](https://github.com/kubernetes/org/pull/685)에서 확인할 수 있다.
 
-`@kubernetes/sig-docs-**-owners` 팀의 구성원은 
+`@kubernetes/sig-docs-**-owners` 팀의 멤버는 
 해당 현지화 디렉터리(`/content/**/`) 내의 콘텐츠 변경 PR만 승인할 수 있다. 각
-현지화에 대해, `@kubernetes/sig-docs-**-reviews` 팀이 새 PR의 리뷰어를
-자동으로 지정한다. `@kubernetes/website-maintainers` 팀의 구성원은
-번역 작업을 조율하기 위해 새로운 현지화 브랜치를 생성할 수 있다.
-`@kubernetes/website-milestone-maintainers` 팀의 구성원은 `/milestone`
+현지화에 대해, `@kubernetes/sig-docs-**-reviews` 팀이 신규 PR의 리뷰어를
+자동으로 지정한다. `@kubernetes/website-maintainers` 팀의 멤버는
+번역 작업을 조율하기 위해 신규 현지화 브랜치를 생성할 수 있다.
+`@kubernetes/website-milestone-maintainers` 팀의 멤버는 `/milestone`
 [Prow 명령어](https://prow.k8s.io/command-help)를 사용하여 이슈나 PR에 마일스톤을 할당할 수 있다.
-
 
 ### 워크플로 구성하기
 
-다음으로, `kubernetes/test-infra` 리포지터리에 현지화용 GitHub 라벨을 
+다음으로, `kubernetes/test-infra` 저장소에 현지화용 GitHub 라벨을 
 추가한다. 라벨은 특정 언어에 해당하는 이슈와 풀 리퀘스트를 필터링하는 데
 사용된다.
 
-레이블 추가 예시는 [이탈리아어 레이블 추가 PR](https://github.com/kubernetes/test-infra/pull/11316)에서 확인할 수 있다.
+레이블 추가 예시는
+[이탈리아어 레이블 추가 PR](https://github.com/kubernetes/test-infra/pull/11316)에서 확인할 수 있다.
 
 ### 사이트 구성 수정하기
 
 쿠버네티스 웹사이트는 Hugo를 웹 프레임워크로 사용한다. 웹사이트의 Hugo에
 대한 구성은
 [`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml)
-파일에 있다. 새로운 현지화를 지원하려면 `hugo.toml`을 수정해야 한다.
+파일에 있다. 신규 현지화를 지원하려면 `hugo.toml`을 수정해야 한다.
 
-`hogo.toml`의 기존 [languages] 블록 아래에 새 언어에 대한
+`hogo.toml`의 기존 [languages] 블록 아래에 신규 언어에 대한
 구성 블록을 추가한다. 예를 들어, 독일어 블록은 다음과 같다.
 
 ```toml
@@ -186,23 +188,22 @@ languageNameLatinScript = "Deutsch"
 "Deutsch (German)"`와 같이 설정한다.
 
 `languageNameLatinScript`는 라틴 문자로 된 언어명을 가져와
-테마에서 사용할 수 있다.
-languageNameLatinScript에는 “라틴 문자로 된 언어명”을
+테마에서 사용할 수 있다. languageNameLatinScript에는 “라틴 문자로 된 언어명”을
 지정한다. 예를 들어, `languageNameLatinScript = "Korean"` 또는
 `languageNameLatinScript = "Deutsch"`롸 같이 설정한다.
 
 `weight` 매개변수는 언어 선택 바에서 언어의 표시 순서를 결정한다.
 값이 낮을수록 우선순위가 높아, 해당 언어가 먼저 표시된다.
 `weight`를 지정할 때는 기존 언어 블록의 값을
-확인하고, 새로 추가되는 언어를 포함하여
+확인하고, 신규로 추가되는 언어를 포함하여
 모든 언어의 순서가 올바르게 정렬되도록 조정해야 한다.
 
 Hugo의 다국어 지원에 대한 자세한 내용은
 [다국어 모드](https://gohugo.io/content-management/multilingual/)에서 확인할 수 있다.
 
-### 새로운 현지화 디렉터리 추가하기
+### 신규 현지화 디렉터리 추가하기
 
-리포지터리의 [`content`](https://github.com/kubernetes/website/tree/main/content) 폴더에
+저장소의 [`content`](https://github.com/kubernetes/website/tree/main/content) 폴더에
 언어별 하위 디렉터리를
 추가한다. 예를 들어, 독일어의 두 자리 코드는 `de`이다.
 
@@ -220,7 +221,7 @@ mkdir content/de
 
 해당 언어로 된 행동 강령을 추가하려면
 [`cncf/foundation`](https://github.com/cncf/foundation/tree/main/code-of-conduct-languages)
-리포지터리에 PR을 열면 된다.
+저장소에 PR을 열면 된다.
 
 ### OWNERS 파일 설정하기
 
@@ -259,7 +260,7 @@ labels:
 
 언어별 OWNERS 파일을 추가한 후, [root
 `OWNERS_ALIASES`](https://git.k8s.io/website/OWNERS_ALIASES) 파일에
-해당 현지화의 새로운 쿠버네티스 팀인 `sig-docs-**-owners`와
+해당 현지화의 신규 쿠버네티스 팀인 `sig-docs-**-owners`와
 `sig-docs-**-reviews`를 업데이트한다.
 
 각 팀에는, [Github에 현지화 팀 추가하기](#GitHub에-현지화-팀-추가하기)에서
@@ -288,12 +289,12 @@ labels:
 
 ### 풀 리퀘스트 생성하기
 
-다음으로, `kubernetes/website` 리포지터리에 현지화를 추가하기 위해
+다음으로, `kubernetes/website` 저장소에 현지화를 추가하기 위해
 [풀 리퀘스트를 생성](/docs/contribute/new-content/open-a-pr/#open-a-pr)한다. 이 PR은
 승인되기 전에 [최소 요구 콘텐츠](#최소-요구-콘텐츠)를
 모두 포함해야 한다.
 
-새로운 현지화를 추가한 예시는
+신규 현지화를 추가한 예시는
 [프랑스어 문서 PR](https://github.com/kubernetes/website/pull/12548)에서 확인할 수 있다.
 
 ### 현지화된 README 파일 추가하기
@@ -324,7 +325,7 @@ Docs는 다음을 수행한다.
 - 웹사이트에서 언어 선택 기능을 활성화한다.
 - [Cloud Native Computing Foundation](https://www.cncf.io/about/)(CNCF) 채널,
 [쿠버네티스 블로그](/blog/) 등을 통해
-새 현지화 공개를 홍보한다.
+신규 현지화 공개를 홍보한다.
 
 ## 콘텐츠 현지화
 
@@ -361,7 +362,7 @@ cp -ra content/en/docs/tutorials/kubernetes-basics/ content/de/docs/tutorials/
 최소 품질 기준을 충족하기 위해 반드시 광범위한 사람의 검수가 필요하다.
 {{< /caution >}}
 
-문법과 의미의 정확성을 보장하려면, 현지화 팀 구성원이
+문법과 의미의 정확성을 보장하려면, 현지화 팀 멤버가
 게시 전에 모든 기계 번역 결과를 꼼꼼히 검토해야 한다.
 
 ### SVG 이미지 현지화하기
@@ -415,7 +416,7 @@ SVG(Scalable Vector Graphics) 이미지 안의 텍스트를 번역할 때는,
 대상 버전의 소스 파일을 찾으려면 다음을 수행한다.
 
 1. https://github.com/kubernetes/website 를 통해
-   쿠버네티스 웹사이트 리포지터리로 이동한다.
+   쿠버네티스 웹사이트 저장소로 이동한다.
 
 1. 아래 표에서 대상 버전에 해당하는 브랜치를 선택한다.
 
@@ -433,10 +434,10 @@ SVG(Scalable Vector Graphics) 이미지 안의 텍스트를 번역할 때는,
 
 현지화에는
 [`i18n/en/en.toml`](https://github.com/kubernetes/website/blob/main/i18n/en/en.toml)의
-내용을 새로운 언어별 파일에 포함해야 한다. 예를 들어, 독일어의 경우 파일 경로는
+내용을 신규 언어별 파일에 포함해야 한다. 예를 들어, 독일어의 경우 파일 경로는
 `i18n/de/de.toml`이 된다.
 
-`i18n/`에 새로운 현지화 디렉터리와 파일을 추가한다. 예를 들어,
+`i18n/`에 신규 현지화 디렉터리와 파일을 추가한다. 예를 들어,
 독일어(`de`)의 경우 다음과 같다.
 
 ```bash
@@ -493,10 +494,11 @@ SIG Docs에서 이 과정을 자동화할 때까지 업로드 절차를 지원�
 현지화 브랜치에서 협업하기 위해 다음을 따른다.
 
 1. [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers)
-    팀의 구성원이 https://github.com/kubernetes/website 에서
-    소스 브랜치로부터 현지화 브랜치를 생성한다.
+    팀의 멤버가 https://github.com/kubernetes/website 에서
+    소스 브랜치로부터
+    현지화 브랜치를 생성한다.
 
-    [`kubernetes/org`](https://github.com/kubernetes/org) 리포지터리에
+    [`kubernetes/org`](https://github.com/kubernetes/org) 저장소에
     [현지화 팀을 추가](#GitHub에-현지화-팀-추가하기)할 때
     팀의 승인자가 `@kubernetes/website-maintainers` 팀에 포함된다.
 
@@ -506,7 +508,7 @@ SIG Docs에서 이 과정을 자동화할 때까지 업로드 절차를 지원�
 
     예를 들어, 독일어 현지화 팀의 승인자가
     쿠버네티스 v1.12 소스 브랜치를 기반으로
-    kubernetes/website 리포지터리에 직접 dev-1.12-de.1 현지화 브랜치를 생성한다.
+    kubernetes/website 저장소에 직접 dev-1.12-de.1 현지화 브랜치를 생성한다.
 
 1. 개인 기여자는 현지화 브랜치를 기반으로
    기능 브랜치를 생성한다.
@@ -555,8 +557,8 @@ dev-1.12-de.3 등이 될 수 있다.
 누구나 새 현지화 브랜치에 대한 풀 리퀘스트를 열 수 있다. 그 과정에서
 특별한 권한은 필요하지 않다.
 
-포크(fork)한 리포저티리에서 작업하거나, 원본 리포지터리에서 직접 작업하는 방법에 대한 자세한 내용은
-["리포지터리를 포크(fork) 및 클론(clone) 하기"](#리포지터리를-포크(fork)-및-클론(clone)-하기)를 참고한다.
+포크(fork)한 리포저티리에서 작업하거나, 원본 저장소에서 직접 작업하는 방법에 대한 자세한 내용은
+["저장소를 포크(fork) 및 클론(clone) 하기"](#저장소를-포크(fork)-및-클론(clone)-하기)를 참고한다.
 
 ## 업스트림에 기여하기
 
