@@ -1,6 +1,5 @@
 ---
 reviewers:
-- davidopp
 - lavalamp
 title: Überlegungen für große Cluster
 weight: 10
