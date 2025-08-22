@@ -845,6 +845,62 @@ extensions, you should make requests that specify multiple content types in the
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
 ```
 
+## Receiving only the metadata of resources
+
+To request partial object metadata, you can request metadata only responses in the `Accept`
+header. The Kubernetes API implements standard HTTP content type negotiation. For read requests,
+passing an `Accept` header containing a value of `application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`
+will request that the server return objects containing only metadata.
+
+For example, to list all of the pods on a cluster returning only the metadata for each pod:
+
+```http
+GET /api/v1/pods
+Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1
+---
+200 OK
+Content-Type: application/json
+
+{
+    "kind": "PartialObjectMetadataList",
+    "apiVersion": "meta.k8s.io/v1",
+    "metadata": {
+        "resourceVersion": "...",
+    },
+    "items": [
+        {
+            "apiVersion": "meta.k8s.io/v1",
+            "kind": "PartialObjectMetadata",
+            "metadata": {
+                "name": "pod-1",
+                ...
+            }
+        },
+        {
+            "apiVersion": "meta.k8s.io/v1",
+            "kind": "PartialObjectMetadata",
+            "metadata": {
+                "name": "pod-2",
+                ...
+            }
+        }
+    ]
+}
+```
+
+For a request for a collection, the API server returns a `PartialObjectMetadataList`.
+For a request for a single object, the API server returns a `PartialObjectMetadata`
+object. In both cases, the returned objects only contain the `metadata` field.
+The `spec` and `status` fields are omitted.
+
+This feature is useful for clients that only need to check for the existence of
+an object, or that only need to read its metadata. It can significantly reduce
+the size of the response from the API server.
+
+This feature works with both JSON and Protobuf media types. For Protobuf, the
+`Accept` header would be
+`application/vnd.kubernetes.protobuf;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`.
+
 ## Resource deletion
 
 When you **delete** a resource this takes place in two phases.
