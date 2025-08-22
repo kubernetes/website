@@ -6,8 +6,8 @@ title: Überlegungen für große Cluster
 weight: 10
 ---
 
-Ein Cluster ist ein Satz von {{< glossary\_tooltip text="Nodes" term\_id="node" >}} (physikalisch oder virtuell), auf denen Kubernetes-Agents laufen. 
-Diese ermöglichen es der Kubernetes-{{< glossary\_tooltip text="Control Plane" term\_id="control-plane" >}}, die Nodes zu steuern. 
+Ein Cluster ist ein Satz von {{< glossary_tooltip text="Nodes" term_id="node" >}} (physikalisch oder virtuell), auf denen Kubernetes-Agents laufen. 
+Diese ermöglichen es der Kubernetes-{{< glossary_tooltip text="Control Plane" term_id="control-plane" >}}, die Nodes zu steuern. 
 Kubernetes {{< param "version" >}} unterstützt Cluster mit bis zu 5000 Nodes. Genauer gesagt ist Kubernetes auf folgende Konfigurationen ausgelegt:
 
 - Nicht mehr als 110 Pods pro Node
@@ -53,7 +53,7 @@ Um die Leistung großer Cluster zu verbessern, können Sie Event-Objekte in eine
 Bei der Erstellung eines Clusters können Sie (mit benutzerdefinierten Tools):
 
 - eine zusätzliche etcd-Instanz starten und konfigurieren
-- den {{< glossary\_tooltip term\_id="kube-apiserver" text="API-Server" >}} so konfigurieren, dass er diese Instanz zur Speicherung von Ereignissen nutzt
+- den {{< glossary_tooltip term_id="kube-apiserver" text="API-Server" >}} so konfigurieren, dass er diese Instanz zur Speicherung von Ereignissen nutzt
 
 Siehe [Betrieb von etcd-Clustern für Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) und 
 [Einrichten eines hochverfügbaren etcd-Clusters mit kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) für Details zur Konfiguration und Verwaltung von etcd für große Cluster.
