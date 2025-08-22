@@ -43,7 +43,7 @@ card:
 사용한다. 예를 들어, 브라질에서 사용하는 포르투갈어의
 언어 코드는 `pt-br`이다.
 
-### 저장소를 포크(fork) 및 클론(clone) 하기
+### 저장소를 포크(fork) 및 클론(clone) 하기 {#fork-and-clone-the-repo}
 
 첫번째로, [kubernetes/website](https://github.com/kubernetes/website) 저장소를
 자신의 저장소로 [포크](/ko/docs/contribute/new-content/open-a-pr/#fork-the-repo)한다.
@@ -133,7 +133,7 @@ SIG Docs Leadership team이 고려해야 할 새로운 요구사항을 식별하
 [Organization 멤버십 요청](https://github.com/kubernetes/org/issues/new/choose)을
 직접 생성해야 한다.
 
-### Github에 현지화 팀 추가하기
+### GitHub에 현지화 팀 추가하기
 
 다음으로, 쿠버네티스 현지화 팀을
 [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml)에 직접 추가한다.
@@ -263,7 +263,7 @@ labels:
 해당 현지화의 신규 쿠버네티스 팀인 `sig-docs-**-owners`와
 `sig-docs-**-reviews`를 업데이트한다.
 
-각 팀에는, [Github에 현지화 팀 추가하기](#GitHub에-현지화-팀-추가하기)에서
+각 팀에는, [GitHub에 현지화 팀 추가하기](#GitHub에-현지화-팀-추가하기)에서
 요청한 GitHub 사용자 목록을
 알파벳 순으로 추가한다.
 
@@ -558,7 +558,7 @@ dev-1.12-de.3 등이 될 수 있다.
 특별한 권한은 필요하지 않다.
 
 포크(fork)한 리포저티리에서 작업하거나, 원본 저장소에서 직접 작업하는 방법에 대한 자세한 내용은
-["저장소를 포크(fork) 및 클론(clone) 하기"](#저장소를-포크(fork)-및-클론(clone)-하기)를 참고한다.
+["저장소를 포크(fork) 및 클론(clone) 하기"](#fork-and-clone-the-repo)를 참고한다.
 
 ## 업스트림에 기여하기
 
