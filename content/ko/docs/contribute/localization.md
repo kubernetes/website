@@ -1,11 +1,14 @@
 ---
-title: 쿠버네티스 문서 한글화
+title: 쿠버네티스 문서 현지화
 content_type: concept
+# approvers:
+# - remyleone
+# - rlenferink
 weight: 50
 card:
   name: contribute
   weight: 50
-  title: 쿠버네티스 문서 한글화
+  title: 쿠버네티스 문서 현지화
 ---
 
 <!-- overview -->
@@ -39,7 +42,7 @@ card:
 예를 들어, 브라질에서 사용하는 포르투갈어의
 언어 코드는 `pt-br`이다.
 
-### 리포지터리를 포크(fork) 및 클론(clone) 하기
+### 저장소를 포크(fork) 및 클론(clone) 하기
 
 첫번째로, [kubernetes/website](https://github.com/kubernetes/website) 리포지터리를
 자신의 리포지터리로 [포크(fork)](/ko/docs/contribute/new-content/open-a-pr/#fork-the-repo)한다.
@@ -61,16 +64,16 @@ website의 content 디렉터리에는 각 언어별 하위 디렉터리가 포�
 
 업스트림(영문)의 기술적인 부정확성이나 기타 문제를 발견한 경우,
 먼저 업스트림(영문)을 수정한 뒤
-동일한 수정을 작업중인 현지화 문서에도 반영한다.
+동일한 수정을 작업 중인 현지화 문서에도 반영한다.
 
 풀 리퀘스트의 변경 사항은 하나의 현지화로만 제한한다.
-여러 현지화 컨텐츠를 변경하는 풀 리퀘스트는 검토하기 어렵기 때문이다.
+여러 현지화 콘텐츠를 변경하는 풀 리퀘스트는 검토하기 어렵기 때문이다.
 
 해당 현지화에 변경 사항을 제안하려면 [콘텐츠 개선 제안](/docs/contribute/suggesting-improvements/)
 을 따른다. 이 과정은 업스트림(영문) 콘텐츠에 변경 사항을
 제안하는 과정과 유사하다.
 
-## 새로운 언어로 현지화 진행하기
+## 신규 언어 현지화 시작하기
 
 쿠버네티스 문서를 새로운 언어로 현지화하려면
 다음과 같은 절차를 따라야 한다.
@@ -78,7 +81,7 @@ website의 content 디렉터리에는 각 언어별 하위 디렉터리가 포�
 기여자는 자신의 풀 리퀘스트를 스스로 승인할 수 없기 때문에,
 현지화를 시작하려면 _최소한 두 명 이상의 기여자_가 있어야 한다.
 
-모든 현지화 팀은 자급자족이 가능해야 한다. 쿠버네티스 웹사이트는 
+모든 현지화 팀은 자체 관리가 가능해야 한다. 쿠버네티스 웹사이트는 
 작업물을 호스팅하도록 제공할 뿐, 번역을 수행하고 기존 현지화를 최신 상태로 유지하는 것은
 전적으로 여러분들의 책임이다.
 
@@ -94,7 +97,7 @@ website의 content 디렉터리에는 각 언어별 하위 디렉터리가 포�
 
 새로운 현지화를 시작할 때는, 쿠버네티스 프로젝트가
 변경 사항을 라이브 웹사이트에 반영하기 전에
-[필수 최소 콘텐츠](#minimum-required-content)를 모두 현지화해야 한다.
+[최소 요구 콘텐츠](#최소-요구-콘텐츠)를 모두 현지화해야 한다.
 
 SIG Docs는 별도의 브랜치에서 작업할 수 있도록 도와주어
 그 목표를 단계적으로 달성할 수 있게 한다.
@@ -123,9 +126,9 @@ SIG Docs Leadership team이 고려해야 할 새운 요구사항을 식별하는
 
 ### 쿠버네티스 Github organization에 가입하기
 
-현지화 PR을 생성했다면, 쿠버네티스 Github orginization의 구성원이
+현지화 PR을 생성했다면, 쿠버네티스 Github organization의 멤버
 될 수 있다. 팀의 각 구성원은 `kubernetes/org` 리포지터리에서 자신의
-[Organization Membership Request](https://github.com/kubernetes/org/issues/new/choose)을
+[Organization 멤버십 요청](https://github.com/kubernetes/org/issues/new/choose)을
 직접 생성해야 한다.
 
 ### Github에 현지화 팀 추가하기
@@ -141,7 +144,7 @@ SIG Docs Leadership team이 고려해야 할 새운 요구사항을 식별하는
 자동으로 지정한다. `@kubernetes/website-maintainers` 팀의 구성원은
 번역 작업을 조율하기 위해 새로운 현지화 브랜치를 생성할 수 있다.
 `@kubernetes/website-milestone-maintainers` 팀의 구성원은 `/milestone`
-[Prow command](https://prow.k8s.io/command-help)를 사용하여 이슈나 PR에 마일스톤을 할당할 수 있다.
+[Prow 명령어](https://prow.k8s.io/command-help)를 사용하여 이슈나 PR에 마일스톤을 할당할 수 있다.
 
 
 ### 워크플로 구성하기
@@ -150,7 +153,7 @@ SIG Docs Leadership team이 고려해야 할 새운 요구사항을 식별하는
 추가한다. 라벨은 특정 언어에 해당하는 이슈와 풀 리퀘스트를 필터링하는 데
 사용된다.
 
-라벨 추가 예시는 [이탈리아어 라벨 추가 PR](https://github.com/kubernetes/test-infra/pull/11316)에서 확인할 수 있다.
+레이블 추가 예시는 [이탈리아어 레이블 추가 PR](https://github.com/kubernetes/test-infra/pull/11316)에서 확인할 수 있다.
 
 ### 사이트 구성 수정하기
 
@@ -313,8 +316,9 @@ GitHub ID, 이메일 주소, [`Slack 채널`](https://slack.com/) 또는 기타 
 또한, 현지화된 커뮤니티 행동 강령 링크도 반드시
 제공해야 한다.
 
-### 새 현지화 공개하기
-현지화가 워크플로롸 최소 산출물 요건을 충족하면, SIG
+### 신규 현지화 작업 공개하기
+
+현지화 작업이 워크플로우 최소 산출물 요건을 충족하면, SIG
 Docs는 다음을 수행한다.
 
 - 웹사이트에서 언어 선택 기능을 활성화한다.
@@ -341,7 +345,7 @@ Docs는 다음을 수행한다.
 
 번역된 문서는 반드시 해당 언어의 `content/**/` 하위 디렉터리에 있어야 하며, 그 외에는
 영문 원본과 동일한 URL 경로를 따라야 한다. 예를 들어,
-[쿠버네티스 베이직](/docs/tutorials/kubernetes-basics/) 튜토리얼을 독일어로 번역하려면,
+[쿠버네티스 기본](/docs/tutorials/kubernetes-basics/) 튜토리얼을 독일어로 번역하려면,
 `content/de/` 디렉터리 아래에 하위 디렉터리를 만들고 영어 원본 또는 디렉터리를 복사한다.
 
 ```shell
@@ -364,7 +368,7 @@ cp -ra content/en/docs/tutorials/kubernetes-basics/ content/de/docs/tutorials/
 
 쿠버네티스 프로젝트에서는 가능하면 벡터(SVG) 이미지를 사용할 것을 권장한다.
 벡터 이미지는 현지화 팀이 수정하기 훨씬 쉽기 때문이다. 현지화가 필요한
-래스터 이미지를 발견한 경우, 먼저 영어 버전을
+래스터(raster) 이미지를 발견한 경우, 먼저 영어 버전을
 벡터 이미지로 다시 그린 뒤 현지화하는 것을 고려한다.
 
 SVG(Scalable Vector Graphics) 이미지 안의 텍스트를 번역할 때는,
@@ -387,7 +391,7 @@ SVG(Scalable Vector Graphics) 이미지 안의 텍스트를 번역할 때는,
 1. **텍스트 번역하기**: 원본 텍스트를 원하는 언어로
     번역한 내용으로 교체한다. 번역된 텍스트가 의도한 의미를
     정확히 전달하며 이미지 안의 사용 가능한 공간에 맞도록 한다. 라틴 알파벳을
-    사용하는 언어를 작업할 때는 Open Sans 폰트 패밀리를
+    사용하는 언어를 작업할 때는 Open Sans 글꼴 계열을
     사용해야 한다. Open Sans 글꼴은
     [Open Sans Typeface](https://fonts.google.com/specimen/Open+Sans)에서 다운로드할 수 있다.
 
