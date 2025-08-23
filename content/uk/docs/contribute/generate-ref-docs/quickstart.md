@@ -42,6 +42,10 @@ git clone git@github.com:<your_github_username>/website.git
 * Довідка по команді `kubectl`
 * Довідка по API Kubernetes
 
+{{< note >}}
+Сторінка [довідника `kubelet`](/docs/reference/command-line-tools-reference/kubelet/) не генерується цим скриптом і підтримується вручну. Щоб оновити довідку kubelet, дотримуйтесь стандартного процесу внесення змін, описаного в [Відкриття pull request](/docs/contribute/new-content/open-a-pr/).
+{{< /note >}}
+
 Скрипт `update-imported-docs.py` генерує довідкову документацію Kubernetes з вихідного коду Kubernetes. Скрипт створює тимчасову теку в `/tmp` на вашій машині та клонує потрібні репозиторії: `kubernetes/kubernetes` та `kubernetes-sigs/reference-docs` у цю теку. Скрипт встановлює вашу змінну середовища `GOPATH` на цю тимчасову теку. Встановлюються три додаткові змінні середовища:
 
 * `K8S_RELEASE`
@@ -144,7 +148,6 @@ git status
 ### Згенеровані файли компонентів інструментів {#generated-component-tool-files}
 
 ```none
-content/en/docs/reference/command-line-tools-reference/cloud-controller-manager.md
 content/en/docs/reference/command-line-tools-reference/kube-apiserver.md
 content/en/docs/reference/command-line-tools-reference/kube-controller-manager.md
 content/en/docs/reference/command-line-tools-reference/kube-proxy.md

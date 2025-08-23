@@ -53,6 +53,7 @@ weight: 60
 ## Керування кластером {#cluster-management}
 
 * [Запуск автономного Kublet](/docs/tutorials/cluster-management/kubelet-standalone/)
+* [Встановлення драйверів та виділення пристроїв за допомогою DRA](/docs/tutorials/cluster-management/install-use-dra/)
 
 ## {{% heading "whatsnext" %}}
 
