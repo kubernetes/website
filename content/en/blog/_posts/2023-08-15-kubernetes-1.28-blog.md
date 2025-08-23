@@ -83,7 +83,7 @@ their pods will be deleted by its kubelet and new pods can be created on a diffe
 If the original node does not come up (common with an [immutable infrastructure](https://glossary.cncf.io/immutable-infrastructure/) design),  those pods would be stuck in a `Terminating` status on the shut-down node forever.
 
 For more information on how to trigger cleanup after a non-graceful node shutdown,
-read [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
+read [non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown).
     
 ## Improvements to CustomResourceDefinition validation rules 
 

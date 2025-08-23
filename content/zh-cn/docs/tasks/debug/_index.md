@@ -27,21 +27,28 @@ card:
 <!-- overview -->
 
 <!--
-Sometimes things go wrong. This guide is aimed at making them right. It has
-two sections:
+Sometimes things go wrong. This guide helps you gather the relevant information and resolve issues. It has four sections:
 -->
-有时候事情会出错。本指南旨在解决这些问题。它包含两个部分：
+有时候事情会出错。本指南可帮助你收集相关信息并解决这些问题。它包含两个部分：
 
 <!--
 * [Debugging your application](/docs/tasks/debug/debug-application/) - Useful
   for users who are deploying code into Kubernetes and wondering why it is not working.
 * [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - Useful
-  for cluster administrators and people whose Kubernetes cluster is unhappy.
+  for cluster administrators and operators troubleshooting issues with the Kubernetes cluster itself.
+* [Logging in Kubernetes](/docs/tasks/debug/logging/) - Useful
+  for cluster administrators who want to set up and manage logging in Kubernetes.
+* [Monitoring in Kubernetes](/docs/tasks/debug/monitoring/) - Useful
+  for cluster administrators who want to enable monitoring in a Kubernetes cluster.
 -->
 * [应用排错](/zh-cn/docs/tasks/debug/debug-application/) -
   针对部署代码到 Kubernetes 并想知道代码为什么不能正常运行的用户。
 * [集群排错](/zh-cn/docs/tasks/debug/debug-cluster/) -
-  针对集群管理员以及 Kubernetes 集群表现异常的用户。
+  供集群管理员和操作员解决 Kubernetes 集群本身的问题。
+* [日志记录](/zh-cn/docs/tasks/debug/logging/) -
+  针对想要在 Kubernetes 中设置和管理日志记录的集群管理员。
+* [监控](/zh-cn/docs/tasks/debug/monitoring/) -
+  针对想要在 Kubernetes 集群中启用监控的集群管理员。
 
 <!--
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)

@@ -93,7 +93,7 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
   * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
   * [kube-rs](https://kube.rs/) (Rust)
   * [kubebuilder](https://book.kubebuilder.io/)を使います
-  * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
+  * [KubeOps](https://dotnet.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
   * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
   * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)を自分で実装したWebHooksと一緒に使います
   * [Operator Framework](https://operatorframework.io)を使います
