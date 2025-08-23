@@ -9,7 +9,7 @@ author: >
 ---
 
 Volume group snapshots were [introduced](/blog/2023/05/08/kubernetes-1-27-volume-group-snapshot-alpha/)
-as an Alpha feature with the Kubernetes 1.27 release and moved to [Beta](blog/2024/12/18/kubernetes-1-32-volume-group-snapshot-beta/) in the Kubernetes 1.32 release.
+as an Alpha feature with the Kubernetes 1.27 release and moved to [Beta](/blog/2024/12/18/kubernetes-1-32-volume-group-snapshot-beta/) in the Kubernetes 1.32 release.
 The recent release of Kubernetes v1.34 moved that support to a second beta.
 The support for volume group snapshots relies on a set of
 [extension APIs for group snapshots](https://kubernetes-csi.github.io/docs/group-snapshot-restore-feature.html#volume-group-snapshot-apis).
