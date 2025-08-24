@@ -42,7 +42,7 @@ card:
 : {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}를 실행하여 쿠버네티스 API 동작을 구현한다.
 
 [cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (선택 사항)
-: 기반이 되는 클라우드 공급자와 통합한다.
+: 기본 클라우드 공급자와 통합한다.
 
 ## 노드 컴포넌트
 
