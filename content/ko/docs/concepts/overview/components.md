@@ -30,7 +30,7 @@ card:
 클러스터의 전체 상태를 관리한다.
 
 [kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
-: Kubernetes HTTP API를 노출하는 핵심 서버 컴포넌트이다.
+: 쿠버네티스 HTTP API를 노출하는 핵심 서버 컴포넌트이다.
 
 [etcd](/docs/concepts/architecture/#etcd)
 : 모든 API 서버 데이터를 위한 일관성과 고가용성을 갖춘 키-값 저장소이다.
