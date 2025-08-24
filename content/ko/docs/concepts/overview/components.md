@@ -71,7 +71,7 @@ card:
 : 클러스터 전반의 DNS 해석을 담당한다.
 
 [웹 UI](/docs/concepts/architecture/#web-ui-dashboard) (대시보드)
-: 웹 인터페이스를 통해 클러스터를 관리할 수 있다.
+: 웹 인터페이스를 통한 클러스터 관리를 제공한다.
 
 [컨테이너 리소스 모니터링](/docs/concepts/architecture/#container-resource-monitoring)
 : 컨테이너 매트릭을 수집하고 저장한다.
