@@ -39,7 +39,7 @@ card:
 : 아직 노드에 할당되지 않은 파드를 찾아 적절한 노드에 할당한다.
 
 [kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
-: Kubernetes API 동작을 구현하기 위해 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}를 실행한다.
+: {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}를 실행하여 쿠버네티스 API 동작을 구현한다.
 
 [cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (선택 사항)
 : 기반이 되는 클라우드 공급자와 통합한다.
