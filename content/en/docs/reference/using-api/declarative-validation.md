@@ -77,7 +77,6 @@ This document provides a comprehensive reference for all available declarative v
 | [`+k8s:format`](#tag-format) | Indicates that a string field has a particular format. |
 | [`+k8s:ifDisabled`](#tag-ifDisabled) | Declares a validation that only applies when an option is disabled. |
 | [`+k8s:ifEnabled`](#tag-ifEnabled) | Declares a validation that only applies when an option is enabled. |
-| [`+k8s:immutable`](#tag-immutable) | Indicates that a field may not be updated. |
 | [`+k8s:isSubresource`](#tag-isSubresource) | Specifies that validations in a package only apply to a specific subresource. |
 | [`+k8s:item`](#tag-item) | Declares a validation for an item of a slice declared as a `+k8s:listType=map`. |
 | [`+k8s:listMapKey`](#tag-listMapKey) | Declares a named sub-field of a list's value-type to be part of the list-map key. |
@@ -112,7 +111,7 @@ Declares a validation for each key in a map.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:eachKey=+k8s:minimum=1
     MyMap map[int]string `json:"myMap"`
 }
@@ -133,7 +132,7 @@ Declares a validation for each value in a map or list.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:eachVal=+k8s:minimum=1
     MyMap map[string]int `json:"myMap"`
 }
@@ -164,7 +163,7 @@ const (
 Then, use this type in another struct:
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     MyField MyEnum `json:"myField"`
 }
 ```
@@ -180,13 +179,13 @@ Indicates that a field may not be specified.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:forbidden
     MyField string `json:"myField"`
 }
 ```
 
-In this example, `MyField` cannot be provided (it is forbidden) when creating or updating `MyObject`.
+In this example, `MyField` cannot be provided (it is forbidden) when creating or updating `MyStruct`.
 
 ### `+k8s:format` {#tag-format}
 
@@ -203,7 +202,7 @@ Indicates that a string field has a particular format.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:format=k8s-ip
     IPAddress string `json:"ipAddress"`
 
@@ -237,7 +236,7 @@ Declares a validation that only applies when an option is disabled.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:ifDisabled("my-feature")=+k8s:required
     MyField string `json:"myField"`
 }
@@ -262,7 +261,7 @@ Declares a validation that only applies when an option is enabled.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:ifEnabled("my-feature")=+k8s:required
     MyField string `json:"myField"`
 }
@@ -274,41 +273,57 @@ In this example, `MyField` is required only if the "my-feature" option is enable
 
 **Description:**
 
-The `+k8s:isSubresource` tag is a package-level comment tag used to specify that the validation rules defined within the package should only be applied when validating a specific subresource.
+The `+k8s:isSubresource` tag is a package-level comment that **scopes the validation rules within that package to a specific subresource**. It essentially tells the code generator, "The validation logic defined here is the specific implementation for this subresource and should not be applied to the root object or any other subresource."
 
-For this tag to be effective, the subresource it refers to must be declared as supported in the API type's main package using the `+k8s:supportsSubresource` tag. This allows for creating separate packages of validation rules that are conditionally applied based on the subresource being accessed during an API request.
+**CRITICAL DEPENDENCY:**
+
+This tag is **dependent** on a corresponding `+k8s:supportsSubresource` tag being present in the package where the main API type is defined.
+
+*   `+k8s:supportsSubresource` opens the door by telling the dispatcher that a subresource is valid.
+*   `+k8s:isSubresource` provides the specialized validation logic that runs when a request comes through that door.
+
+If you use `+k8s:isSubresource` without the corresponding `+k8s:supportsSubresource` declaration on the main type, the specialized validation code will be generated but will be **unreachable**. The main dispatcher will not recognize the subresource path and will reject the request before it can be routed to your specific validation logic.
+
+This dependency allows for powerful organization, such as placing your main API types in one package and defining their subresource-specific validations in separate, dedicated packages.
 
 **Scope:** Package
 
 **Payload:**
 
-*   `<subresource-path>`: The path of the subresource to which the validations should apply (e.g., `"/status"`, `"/scale"`).
+*   `<subresource-path>`: The path of the subresource to which the validations in this package should apply (e.g., `"/status"`, `"/scale"`).
 
 **Usage Example:**
 
-Imagine you have validations that should only run for the `/scale` subresource of a `Deployment`.
+This two-part example demonstrates the intended use case of separating concerns.
 
-In the main package for the `Deployment` type:
+**1. Declare Support in the Main API Package:**
+First, declare that the `Deployment` type supports `/scale` validation in its primary package.
+
+*File: `staging/src/k8s.io/api/apps/v1/doc.go`*
 ```go
-// staging/src/k8s.io/api/apps/v1/doc.go
-
+// This enables the validation dispatcher to handle requests for "/scale".
 // +k8s:supportsSubresource="/scale"
 package v1
+
+// ... includes the definition for the Deployment type
 ```
 
-In a separate package containing only the scale-specific validations:
+**2. Scope Validation Logic in a Separate Package:**
+Next, create a separate package for the validation rules that are specific *only* to the `/scale` subresource.
+
+*File: `staging/src/k8s.io/api/apps/v1/validations/scale/doc.go`*
 ```go
-// staging/src/k8s.io/code-generator/cmd/validation-gen/output_tests/tags/supported_resources/issubresource/doc.go
-
+// This ensures the rules in this package ONLY run for the "/scale" subresource.
 // +k8s:isSubresource="/scale"
-package issubresource
+package scale
 
-type T1 struct {
-    // This validation only applies to the /scale subresource.
-    // +k8s:validateTrue="field T1.S"
-    S string `json:"s"`
-}
+import "k8s.io/api/apps/v1"
+
+// Validation code in this package would reference types from package v1 (e.g., v1.Scale).
+// The generated validation function will only be invoked for requests to the "/scale"
+// subresource of a type defined in a package that supports it.
 ```
+
 
 ### `+k8s:item` {#tag-item}
 
@@ -331,22 +346,23 @@ Arguments must be named with the JSON names of the list-map key fields. Values c
 **Usage Example:**
 
 ```go
-// +k8s:listType=map
-// +k8s:listMapKey=name
-// +k8s:listMapKey=port
-// +k8s:item(name: "http", port: 80)=+k8s:immutable
-// +k8s:item(name: "https", port: 443)=+k8s:required
-type MyList []MyStruct
-
 type MyStruct struct {
-    name string `json:"name"`
-    port int `json:"port"`
+	// +k8s:listType=map
+	// +k8s:listMapKey=type
+	// +k8s:item(type: "Approved")=+k8s:zeroOrOneOfMember
+	// +k8s:item(type: "Denied")=+k8s:zeroOrOneOfMember
+	MyConditions []MyCondition `json:"conditions"`
+}
+
+type MyCondition struct {
+    Type string `json:"type"`
+    Status string `json:"status"`
 }
 ```
 
 In this example:
-*   The item with `name` "http" and `port` 80 is immutable.
-*   The item with `name` "https" and `port` 443 is required.
+*   The condition with `type` "Approved" is part of a zero-or-one-of group.
+*   The condition with `type` "Denied" is part of a zero-or-one-of group.
 
 ### `+k8s:listMapKey` {#tag-listMapKey}
 
@@ -415,7 +431,7 @@ Indicates that a list field has a limit on its size.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:maxItems=5
     MyList []string `json:"myList"`
 }
@@ -436,7 +452,7 @@ Indicates that a string field has a limit on its length.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:maxLength=10
     MyString string `json:"myString"`
 }
@@ -457,7 +473,7 @@ Indicates that a numeric field has a minimum value.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:minimum=0
     MyInt int `json:"myInt"`
 }
@@ -478,8 +494,8 @@ Verifies the field's value is not equal to a specific disallowed value. Supports
 **Usage Example:**
 
 ```go
-type MyObject struct {
-    // +k8s:neq="default"
+type MyStruct struct {
+    // +k8s:neq="disallowed"
     MyString string `json:"myString"`
 
     // +k8s:neq=0
@@ -491,7 +507,7 @@ type MyObject struct {
 ```
 
 In this example:
-*   `MyString` cannot be equal to `"default"`.
+*   `MyString` cannot be equal to `"disallowed"`.
 *   `MyInt` cannot be equal to `0`.
 *   `MyBool` cannot be equal to `true`.
 
@@ -506,7 +522,7 @@ Indicates that any validations declared on the referenced type will be ignored. 
 ```go
 import "some/external/package"
 
-type MyObject struct {
+type MyStruct struct {
     // +k8s:opaqueType
     ExternalField package.ExternalType `json:"externalField"`
 }
@@ -523,13 +539,13 @@ Indicates that a field is optional to clients.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:optional
     MyField string `json:"myField"`
 }
 ```
 
-In this example, `MyField` is not required to be provided when creating or updating `MyObject`.
+In this example, `MyField` is not required to be provided when creating or updating `MyStruct`.
 
 ### `+k8s:required` {#tag-required}
 
@@ -540,13 +556,13 @@ Indicates that a field must be specified by clients.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:required
     MyField string `json:"myField"`
 }
 ```
 
-In this example, `MyField` must be provided when creating or updating `MyObject`.
+In this example, `MyField` must be provided when creating or updating `MyStruct`.
 
 ### `+k8s:subfield` {#tag-subfield}
 
@@ -565,9 +581,9 @@ Declares a validation for a subfield of a struct.
 **Usage Example:**
 
 ```go
-type MyObject struct {
+type MyStruct struct {
     // +k8s:subfield("mySubfield")=+k8s:required
-    MyStruct MyStruct `json:"myStruct"`
+    MyStruct MyStruct `json:"MyStruct"`
 }
 
 type MyStruct struct {
@@ -581,9 +597,15 @@ In this example, `MySubfield` within `MyStruct` is required.
 
 **Description:**
 
-The `+k8s:supportsSubresource` tag is a package-level comment tag that declares a supported subresource for the types within that package. This tag informs the validation generator that the specified subresource is a valid context for applying validations. Multiple tags can be used to declare support for several subresources.
+The `+k8s:supportsSubresource` tag is a package-level comment tag that **declares which subresources are valid targets for validation** for the types within that package. Think of this tag as registering an endpoint; it tells the validation framework that a specific subresource path is recognized and should not be immediately rejected.
 
-This tag does not, by itself, apply any validation rules. It only signals which subresources are available for validation checks defined by other tags like `+k8s:isSubresource`.
+When the validation code is generated, this tag adds the specified subresource path to the main dispatch function for a type. This allows incoming requests for that subresource to be routed to a validation implementation.
+
+Multiple tags can be used to declare support for several subresources. If no `+k8s:supportsSubresource` tags are present in a package, validation is only enabled for the root resource (e.g., `.../myresources/myobject`), and any requests to subresources will fail with a "no validation found" error.
+
+**Standalone Usage:**
+
+If you use `+k8s:supportsSubresource` without a corresponding `+k8s:isSubresource` tag for a specific validation, the validation rules for the root object will be applied to the subresource by default.
 
 **Scope:** Package
 
@@ -593,15 +615,14 @@ This tag does not, by itself, apply any validation rules. It only signals which 
 
 **Usage Example:**
 
-```go
-// staging/src/k8s.io/api/core/v1/doc.go
+By adding these tags, you are enabling the validation system to handle requests for the `/status` and `/scale` subresources for the types defined in package `v1`.
 
+*File: `staging/src/k8s.io/api/core/v1/doc.go`*
+```go
 // +k8s:supportsSubresource="/status"
 // +k8s:supportsSubresource="/scale"
 package v1
 ```
-
-In this example, the package `v1` declares that the `/status` and `/scale` subresources are supported, allowing validation rules to be specifically targeted to them.
 
 ### `+k8s:unionDiscriminator` {#tag-unionDiscriminator}
 
@@ -616,19 +637,34 @@ Indicates that this field is the discriminator for a union.
 **Usage Example:**
 
 ```go
-type MyObject struct {
-    // +k8s:unionDiscriminator
-    Type string `json:"type"`
+type MyStruct struct {
+	TypeMeta int
 
-    // +k8s:unionMember
-    A *A `json:"a,omitempty"`
+	// +k8s:unionDiscriminator
+	D D `json:"d"`
 
-    // +k8s:unionMember
-    B *B `json:"b,omitempty"`
+	// +k8s:unionMember
+	// +k8s:optional
+	M1 *M1 `json:"m1"`
+
+	// +k8s:unionMember
+	// +k8s:optional
+	M2 *M2 `json:"m2"`
 }
+
+type D string
+
+const (
+	DM1 D = "M1"
+	DM2 D = "M2"
+)
+
+type M1 struct{}
+
+type M2 struct{}
 ```
 
-In this example, the `Type` field is the discriminator for the union. The value of `Type` will determine which of the union members (`A` or `B`) is expected to be present.
+In this example, the `Type` field is the discriminator for the union. The value of `Type` will determine which of the union members (`M1` or `M2`) is expected to be present.
 
 ### `+k8s:unionMember` {#tag-unionMember}
 
@@ -644,19 +680,23 @@ Indicates that this field is a member of a union.
 **Usage Example:**
 
 ```go
-type MyObject struct {
-    // +k8s:unionDiscriminator
-    Type string `json:"type"`
+type MyStruct struct {
+	// +k8s:unionMember(union: "union1")
+	// +k8s:optional
+	M1 *M1 `json:"u1m1"`
 
-    // +k8s:unionMember
-    A *A `json:"a,omitempty"`
-
-    // +k8s:unionMember="b-member"
-    B *B `json:"b,omitempty"`
+	// +k8s:unionMember(union: "union1")
+	// +k8s:optional
+	M2 *M2 `json:"u1m2"`
 }
+
+type M1 struct{}
+
+type M2 struct{}
+
 ```
 
-In this example, `A` and `B` are members of the union. If the `Type` field has the value `"a"`, then the `a` field is expected to be present. If the `Type` field has the value `"b-member"`, then the `b` field is expected to be present.
+In this example, `M1` and `M2` are members of the named union `union1`.
 
 ### `+k8s:zeroOrOneOfMember` {#tag-zeroOrOneOfMember}
 
@@ -672,13 +712,19 @@ Indicates that this field is a member of a zero-or-one-of union. A zero-or-one-o
 **Usage Example:**
 
 ```go
-type MyObject struct {
-    // +k8s:zeroOrOneOfMember
-    A *A `json:"a,omitempty"`
+type MyStruct struct {
+	// +k8s:zeroOrOneOfMember
+	// +k8s:optional
+	M1 *M1 `json:"m1"`
 
-    // +k8s:zeroOrOneOfMember
-    B *B `json:"b,omitempty"`
+	// +k8s:zeroOrOneOfMember
+	// +k8s:optional
+	M2 *M2 `json:"m2"`
 }
+
+type M1 struct{}
+
+type M2 struct{}
 ```
 
 In this example, at most one of `A` or `B` can be set. It is also valid for neither to be set.
