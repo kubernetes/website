@@ -55,7 +55,7 @@ card:
 : 노드에서 네트워크 규칙을 유지하여 {{< glossary_tooltip text="서비스" term_id="service" >}}를 구현한다.
 
 [컨테이너 런타임](/docs/concepts/architecture/#container-runtime)
-: 컨테이너를 실행하는 소프트웨어이다. 자세한 내용은
+: 컨테이너 실행을 담당하는 소프트웨어이다. 자세한 내용은
  [컨테이너 런타임](/ko/docs/setup/production-environment/container-runtimes/)을 참고한다.
 
 {{% thirdparty-content single="true" %}}
