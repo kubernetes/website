@@ -77,7 +77,7 @@ card:
 : 컨테이너 매트릭을 수집하고 저장한다.
 
 [클러스터-레벨 로깅](/docs/concepts/architecture/#cluster-level-logging)
-: 컨테이너 로그를 중앙 로그 저장소에 보관한다.
+: 컨테이너 로그를 중앙 로그 저장소에 저장한다.
 
 ## 아키텍처의 유연성
 
