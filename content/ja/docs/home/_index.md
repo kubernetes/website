@@ -12,9 +12,7 @@ hide_feedback: true
 menu:
   main:
     title: "ドキュメント"
-    weight: 20
-    post: >
-      <p>チュートリアル、サンプルやドキュメントのリファレンスを使って Kubernetes の利用方法を学んでください。あなたは<a href="/editdocs/" data-auto-burger-exclude>ドキュメントへコントリビュートをする</a>こともできます!</p>
+    weight: 10
 description: >
   Kubernetesは、コンテナ化されたアプリケーションの展開、スケーリング、また管理を自動化するためのオープンソースコンテナプラットフォームです。このオープンソースプロジェクトは、Cloud Native Computing Foundationによってホストされています。
 overview: >

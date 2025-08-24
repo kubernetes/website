@@ -186,6 +186,8 @@ or across all namespaces (depending on how it is [bound](#rolebinding-and-cluste
 {{< glossary_tooltip text="Secret" term_id="secret" >}} 授予读访问权限，
 或者跨名字空间的访问权限（取决于该角色是如何[绑定](#rolebinding-and-clusterrolebinding)的）：
 
+{{% code_sample file="access/simple-clusterrole.yaml" %}}
+
 <!--
 The name of a Role or a ClusterRole object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).

@@ -11,7 +11,7 @@ hide_feedback: true
 menu:
   main:
     title: "Документація"
-    weight: 20
+    weight: 10
 description: >
   Kubernetes — рушій оркестрування контейнерів, створений для автоматичного розгортання, масштабування і управління контейнеризованими застосунками, є проєктом з відкритим вихідним кодом. Цей проєкт знаходиться під егідою Cloud Native Computing Foundation.
 overview: >

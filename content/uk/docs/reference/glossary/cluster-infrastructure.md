@@ -11,7 +11,7 @@ short_description: >
 
 aka:
 tags:
-- operations
+- operation
 ---
 <!-- The infrastructure layer provides and maintains VMs, networking, security groups and others. -->
 Шар інфраструктури забезпечує і підтримує роботу ВМ, мережі, груп безпеки тощо.

@@ -11,9 +11,7 @@ hide_feedback: true
 menu:
   main:
     title: "Dokumentation"
-    weight: 20
-    post: >
-      <p>Erfahren Sie, wie Sie Kubernetes mit Konzept-, Tutorial- und Referenzdokumentation verwenden. Sie können sogar zur <a href="/editdocs/" data-auto-burger-exclude>mithelfen und zur Dokumentation beitragen</a>!</p>
+    weight: 10
 overview: >
   Kubernetes ist ein Open-Source-System zur Automatisierung der Bereitstellung, Skalierung und Verwaltung von containerisierten Anwendungen. Das Open-Source Project wird von der Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>) gehosted.
 cards:

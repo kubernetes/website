@@ -233,7 +233,7 @@ Address 1: 10.0.162.149
 * 인증서를 사용하도록 구성된 nginx 서버
 * 파드에 접근할 수 있는 인증서를 만드는 [시크릿](/ko/docs/concepts/configuration/secret/)
 
-[nginx https 예제](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)에서 이 모든 것을 얻을 수 있다. 이를 위해서는 도구를 설치해야 한다. 만약 설치하지 않으려면 나중에 수동으로 단계를 수행한다. 한마디로:
+[nginx https 예제](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/)에서 이 모든 것을 얻을 수 있다. 이를 위해서는 도구를 설치해야 한다. 만약 설치하지 않으려면 나중에 수동으로 단계를 수행한다. 한마디로:
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -304,7 +304,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 nginx-secure-app의 매니페스트에 대한 주목할만한 점:
 
 - 이것은 동일한 파일에 디플로이먼트와 서비스의 사양을 모두 포함하고 있다.
-- [nginx 서버](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)
+- [nginx 서버](https://github.com/kubernetes/examples/blob/master/_archived/https-nginx/default.conf)
   는 포트 80에서 HTTP 트래픽을 443에서 HTTPS 트래픽 서비스를 제공하고, nginx 서비스는
   두 포트를 모두 노출한다.
 - 각 컨테이너는 `/etc/nginx/ssl` 에 마운트된 볼륨을 통해 키에 접근할 수 있다.

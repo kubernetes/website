@@ -1,7 +1,9 @@
 ---
 title: Руководство по быстрому старту
+linkTitle: Быстрый старт
 content_type: task
-weight: 40
+weight: 10
+hide_summary: true
 ---
 
 <!-- overview -->

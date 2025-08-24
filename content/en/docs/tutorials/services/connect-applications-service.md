@@ -270,7 +270,7 @@ channel is secure. For this, you will need:
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
 You can acquire all these from the
-[nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/).
+[nginx https example](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/).
 This requires having go and make tools installed. If you don't want to install those,
 then follow the manual steps later. In short:
 
@@ -393,7 +393,7 @@ in the secret, and the Service, to expose both ports (80 and 443):
 Noteworthy points about the nginx-secure-app manifest:
 
 - It contains both Deployment and Service specification in the same file.
-- The [nginx server](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)
+- The [nginx server](https://github.com/kubernetes/examples/blob/master/_archived/https-nginx/default.conf)
   serves HTTP traffic on port 80 and HTTPS traffic on 443, and nginx Service
   exposes both ports.
 - Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
