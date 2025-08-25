@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: User preferences (kuberc) are available for testing in kubectl 1.34"
-draft: true
+date: 2025-08-28T10:30:00-08:00
 slug: kubernetes-v1-34-kubectl-kuberc-beta
 Author: >
   [Maciej Szulik](https://github.com/soltysh) (Defense Unicorns, Inc.)
