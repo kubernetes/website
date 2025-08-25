@@ -10,7 +10,8 @@ weight: 10
 ---
 
 <!-- overview -->
-This page provides an overview of authentication.
+This page provides an overview of authentication in Kubernetes, with a focus on
+authentication to the [Kubernetes API](/docs/concepts/overview/kubernetes-api/).
 
 <!-- body -->
 ## Users in Kubernetes
@@ -1803,5 +1804,5 @@ You can only make `SelfSubjectReview` requests if:
 ## {{% heading "whatsnext" %}}
 
 * To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
-* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
+* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
