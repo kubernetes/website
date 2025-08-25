@@ -69,6 +69,17 @@ The Kubelet updates the Pod's status conditions to indicate the state of a resiz
   This is usually brief but might take longer depending on the resource type and runtime behavior.
   Any errors during actuation are reported in the `message` field (along with `reason: Error`).
 
+## Tracking resize progress with observedGeneration
+
+You can track the status of a resize request using the Pod's status conditions and the `status.observedGeneration` field.
+When a resize request is made, the `observedGeneration` is incremented.
+You can compare the `observedGeneration` with the Pod's `metadata.generation` to determine if the resize is still in progress.
+
+* `status.observedGeneration` – shows the latest Pod `.metadata.generation` acknowledged by the kubelet.  
+* `conditions[*].observedGeneration` – shows which generation a condition (such as `PodResizePending` or `PodResizeInProgress`) refers to.
+
+These fields are populated when the `PodObservedGenerationTracking` feature gate is enabled
+
 ## Container resize policies
 
 You can control whether a container should be restarted when resizing
