@@ -24,12 +24,13 @@ tags:
 <!--
  Disruptions are events that lead to one or more
 {{< glossary_tooltip term_id="pod" text="Pods" >}} going out of service.
-A disruption has consequences for workload resources, such as
-{{< glossary_tooltip term_id="deployment" >}}, that rely on the affected
+A disruption has consequences for workload management {{< glossary_tooltip text="resources" term_id="api-resource" >}},
+such as {{< glossary_tooltip term_id="deployment" >}}, that rely on the affected
 Pods.
 -->
 干扰（Disruption）是指导致一个或者多个 {{< glossary_tooltip term_id="pod" text="Pod" >}} 服务停止的事件。
-干扰会影响依赖于受影响的 Pod 的资源，例如 {{< glossary_tooltip term_id="deployment" >}}。
+干扰会影响依赖于受影响的 Pod 的{{< glossary_tooltip text="资源" term_id="api-resource" >}}，
+例如 {{< glossary_tooltip term_id="deployment" >}}。
 
 <!--more-->
 
