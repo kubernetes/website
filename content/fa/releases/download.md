@@ -1,5 +1,5 @@
 ---
-title: دانلود کوبرنتیز
+title: دریافت کوبرنتیز
 type: docs
 ---
 Kubernetes باینری‌هایی را برای هر مؤلفه، همراه با مجموعه‌ای استاندارد از برنامه‌های کلاینت برای راه‌اندازی (bootstrap) یا تعامل با یک خوشه ارائه می‌دهد.
@@ -11,7 +11,7 @@ Kubernetes باینری‌هایی را برای هر مؤلفه، همراه ب
 
 <!-- overview -->
 
-ابزار خط فرمان Kubernetes، یعنی [kubectl](/docs/reference/kubectl/kubectl/)، این امکان را به شما می‌دهد که دستورات را علیه خوشههای Kubernetes اجرا کنید.
+ابزار خط فرمان Kubernetes، یعنی [kubectl](/docs/reference/kubectl/kubectl/)، این امکان را به شما می‌دهد که دستورات را علیه خوشه های Kubernetes اجرا کنید.
 
 شما می‌توانید از kubectl برای استقرار (deploy) برنامه‌ها، بررسی و مدیریت منابع خوشه، و مشاهده لاگ‌ها استفاده کنید.
 برای اطلاعات بیشتر، از جمله فهرست کامل عملیات‌های kubectl، به مستندات مرجع [`kubectl` reference documentation](/docs/reference/kubectl/). مراجعه کنید.

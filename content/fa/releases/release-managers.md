@@ -81,15 +81,15 @@ type: docs
 کنترل‌های دسترسی در گیت‌هاب:[@kubernetes/release-managers](https://github.com/orgs/kubernetes/teams/release-managers)
 اشاره‌های گیت‌هاب: @kubernetes/release-engineering
 
-- آدولفو گارسیا ویتیا([@puerco](https://github.com/puerco))
-- سیسی هوانگ([@cici37](https://github.com/cici37))
-- کارلوس پاناتو ([@cpanato](https://github.com/cpanato))
-- جرمی ریکارد ([@jeremyrickard](https://github.com/jeremyrickard))
-- مارکو مودرینیچ ([@xmudrii](https://github.com/xmudrii))
-- نبارون پال ([@palnabarun](https://github.com/palnabarun))
-- ساشا گرونرت ([@saschagrunert](https://github.com/saschagrunert))
-- استفان آگوستوس ([@justaugustus](https://github.com/justaugustus))
-- ورونیکا لوپز ([@verolop](https://github.com/verolop))
+- Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Cici Huang ([@cici37](https://github.com/cici37))
+- Carlos Panato([@cpanato](https://github.com/cpanato))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
+- Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
+- Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
+- Sascha Grunert ([@saschagruner](https://github.com/saschagrunert))
+- Stephen Augustus ([@justaugustus](https://github.com/justaugustus))
+- Verónica López ([@verolop](https://github.com/verolop))
 
 ### تبدیل شدن به یک مدیر انتشار
 
@@ -111,7 +111,7 @@ type: docs
 - مشارکت در انتشار k/release: به‌روزرسانی وابستگی‌ها و عادت کردن به کد منبع
 - مشارکت در مستندسازی: نگهداری کتابچه‌های راهنما، حصول اطمینان از مستندسازی فرآیندهای انتشار
 - با کمک مدیر انتشار: همکاری با تیم انتشار در طول چرخه انتشار و حذف انتشار های kuberntetes
--جستجوی فرصت‌هایی برای کمک به اولویت‌بندی و ارتباطات
+- جستجوی فرصت‌هایی برای کمک به اولویت‌بندی و ارتباطات
   - ارسال پیش‌اعلان‌ها و به‌روزرسانی‌ها در مورد انتشار وصله‌ها
   - به‌روزرسانی تقویم، کمک به تاریخ‌های انتشار و مراحل مهم ا
     [جدول زمانی چرخه انتشار][k-sig-release-releases]
@@ -119,10 +119,10 @@ type: docs
 
 اشاره‌های گیت‌هاب: @kubernetes/release-engineering
 
-- آرنود میوکام ([@ameukam](https://github.com/ameukam))
-- جیم آنجل ([@jimangel](https://github.com/jimangel))
-- جوزف سندووال ([@jrsapi](https://github.com/jrsapi))
-- زاندر گرزیوینسکی([@salaxander](https://github.com/salaxander))
+- Arnaud Meukam ([@ameukam](https://github.com/ameukam))
+- Jim Angel ([@jimangel](https://github.com/jimangel))
+- Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
+- Xander Grzywinski ([@salaxander](https://github.com/salaxander))
 
 ### تبدیل شدن به یک همکار مدیر انتشار
 مشارکت‌کنندگان می‌توانند با ارائه موارد زیر به عنوان همکار (همکار) فعالیت کنند:
@@ -148,19 +148,19 @@ type: docs
 
 ### صندلی
 
-- جرمی ریکارد ([@jeremyrickard](https://github.com/jeremyrickard))
-- ساشا گرونرت ([@saschagrunert](https://github.com/saschagrunert))
-- استفان آگوستوس ([@justaugustus](https://github.com/justaugustus))
+- Jeremy Rickard  ([@jeremyrickard](https://github.com/jeremyrickard))
+- Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
+- Stephen Augustus  ([@justaugustus](https://github.com/justaugustus))
 
 ### سرنخ های فنی
 
--آدولفو گارسیا ویتیا ([@puerco](https://github.com/puerco))
-- کارلوس پاناتو ([@cpanato](https://github.com/cpanato))
-- ورونیکا لوپز ([@verolop](https://github.com/verolop))
+- Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Carlos Panato ([@cpanato](https://github.com/cpanato))
+- Verónica López  ([@verolop](https://github.com/verolop))
 
 ---
 
-مدیران شعبه‌های قبلی، در [فهرست انتشارها] قابل مشاهده هستند.[k-sig-release-releases]
+مدیران شاخه های قبلی، در [فهرست انتشارها] قابل مشاهده هستند.[k-sig-release-releases]
 از مخزن kubernetes/sig-release در داخل `release-x.y/release_team.md`.
 
 مثال: [1.15 تیم انتشار](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md)

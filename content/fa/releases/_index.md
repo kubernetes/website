@@ -30,5 +30,4 @@ Kubernetes 1.19 و نسخه های جدید تر ان
 برای انتشار نسخه بعدی **{{< skew nextMinorVersion >}}** کوبرنتیز!
 ## منابع مفید
 
-
 برای اطلاعات کلیدی درباره نقش‌ها و فرآیند انتشار[به منابع تیم انتشار Kubernetes](https://github.com/kubernetes/sig-release/tree/master/release-team)، به منابع تیم انتشار Kubernetes مراجعه کنید.
