@@ -1011,6 +1011,11 @@ a boolean flag.
 
 {{< /note >}}
 
+Starting from v1.33, Kubernetes (including v{{< skew currentVersion>}}) offers a way to define field validations using _declarative tags_.
+This is useful for people contributing to Kubernetes itself, and it's also relevant if you're
+writing your own API using Kubernetes libraries.
+To learn more, see [Declarative API Validation](/docs/reference/using-api/declarative-validation/).
+
 ## Dry-run
 
 {{< feature-state feature_gate_name="DryRun" >}}

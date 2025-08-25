@@ -130,3 +130,4 @@ Kubernetes stores its serialized state in terms of the API resources by writing 
 - Learn more about [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
 - Read the design documentation for
   [aggregator](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)
+- Learn about [Declarative API Validation](/docs/reference/using-api/declarative-validation/).
