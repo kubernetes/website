@@ -31,6 +31,11 @@ More information in the [version skew policy](/releases/version-skew-policy/) do
 Check out the [schedule](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
 for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
 
+{{< note >}}
+This schedule link may be temporarily unavailable during early release planning phases.  
+Check the [SIG Release repository](https://github.com/kubernetes/sig-release/tree/master/releases) for the latest updates.
+{{< /note >}}
+
 ## Helpful Resources
 
 Refer to the [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team) resources 
