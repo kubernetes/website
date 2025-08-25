@@ -25,6 +25,7 @@ Currently, the following types of volume sources can be projected:
 * [`configMap`](/docs/concepts/storage/volumes/#configmap)
 * [`serviceAccountToken`](#serviceaccounttoken)
 * [`clusterTrustBundle`](#clustertrustbundle)
+* [`podCertificate`](#podcertificate)
 
 All sources are required to be in the same namespace as the Pod. For more details,
 see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
@@ -95,6 +96,62 @@ The kubelet deduplicates the certificates in the selected ClusterTrustBundle obj
 By default, the kubelet will prevent the pod from starting if the named ClusterTrustBundle is not found, or if `signerName` / `labelSelector` do not match any ClusterTrustBundles.  If this behavior is not what you want, then set the `optional` field to `true`, and the pod will start up with an empty file at `path`.
 
 {{% code_sample file="pods/storage/projected-clustertrustbundle.yaml" %}}
+
+
+## podCertificate projected volumes {#podcertificate}
+
+{{< feature-state feature_gate_name="PodCertificateRequest" >}}
+
+{{< note >}}
+In Kubernetes {{< skew currentVersion >}}, you must enable support for Pod
+Certificates using the `PodCertificateRequest` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
+`--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true`
+kube-apiserver flag.
+{{< /note >}}
+
+The `podCertificate` projected volumes source securely provisions a private key
+and X.509 certificate chain for pod to use as client or server credentials.
+Kubelet will then handle refreshing the private key and certificate chain when
+they get close to expiration.  The application just has to make sure that it
+reloads the file promptly when it changes, with a mechanism like `inotify` or
+polling.
+
+Each `podCertificate` projection supports the following configuration fields:
+* `signerName`: The
+  [signer](/docs/reference/access-authn-authz/certificate-signing-requests#signers)
+  you want to issue the certificate.  Note that signers may have their own
+  access requirements, and may refuse to issue certificates to your pod.
+* `keyType`: The type of private key that should be generated.  Valid values are
+  `ED25519`, `ECDSAP256`, `ECDSAP384`, `ECDSAP521`, `RSA3072`, and `RSA4096`.
+* `maxExpirationSeconds`: The maximum lifetime you will accept for the
+  certificate issued to the pod.  If not set, will be defaulted to `86400` (24
+  hours).  Must be at least `3600` (1 hour), and at most `7862400` (91 days).
+  Kubernetes built-in signers are restricted to a max lifetime of `86400` (1
+  day). The signer is allowed to issue a certificate with a lifetime shorter
+  than what you've specified.
+* `credentialBundlePath`: Relative path within the projection where the
+  credential bundle should be written.  The credential bundle is a PEM-formatted
+  file, where the first block is a "PRIVATE KEY" block that contains a
+  PKCS#8-serialized private key, and the remaining blocks are "CERTIFICATE"
+  blocks that comprise the certificate chain (leaf certificate and any
+  intermediates).
+* `keyPath` and `certificateChainPath`: Separate paths where Kubelet should
+  write *just* the private key or certificate chain.
+
+{{< note >}}
+
+Most applications should prefer using `credentialBundlePath` unless they need
+the key and certificates in separate files for compatibility reasons. Kubelet
+uses an atomic writing strategy based on symlinks to make sure that when you
+open the files it projects, you read either the old content or the new content.
+However, if you read the key and certificate chain from separate files, Kubelet
+may rotate the credentials after your first read and before your second read,
+resulting in your application loading a mismatched key and certificate.
+
+{{< /note >}}
+
+{{% code_sample file="pods/storage/projected-podcertificate.yaml" %}}
 
 ## SecurityContext interactions
 

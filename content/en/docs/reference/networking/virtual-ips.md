@@ -362,7 +362,7 @@ IP address and not the specific backend Pod.
 
 #### Direct server return for `kernelspace` mode {#windows-direct-server-return}
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state feature_gate_name="WinDSR" >}}
 
 As an alternative to the basic operation, a node that hosts the backend Pod for a Service can
 apply the packet rewriting directly, rather than placing this burden on the node where the client
@@ -701,9 +701,10 @@ express preferences for how traffic should be routed to Service endpoints.
 
 {{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
 
-Two additional values are available when the `PreferSameTrafficDistribution`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled:
+In Kubernetes {{< skew currentVersion >}}, two additional values are
+available (unless the `PreferSameTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+disabled):
 
 `PreferSameZone`
 : This means the same thing as `PreferClose`, but is more explicit. (Originally,
