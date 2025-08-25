@@ -317,9 +317,6 @@ You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to th
 beforehand so that Kubernetes hosts can access them.
 {{< /note >}}
 
-See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
-for more details.
-
 ### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
 In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `gcePersistentDisk` type
@@ -663,8 +660,6 @@ and then serve it in parallel from as many Pods as you need. Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode.
 Simultaneous writers are not allowed.
 
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) for more details.
-
 ### local
 
 A `local` volume represents a mounted local storage device such as a disk,
@@ -774,9 +769,6 @@ use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.h
 You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 {{< /note >}}
 
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
-for an example of mounting NFS volumes with PersistentVolumes.
-
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 A `persistentVolumeClaim` volume is used to mount a
@@ -825,8 +817,6 @@ Make sure you have an existing PortworxVolume with name `pxvol`
 before using it in the Pod.
 {{< /note >}}
 
-For more details, see the
-[Portworx volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) examples.
 
 #### Portworx CSI migration
 {{< feature-state feature_gate_name="CSIMigrationPortworx" >}}
