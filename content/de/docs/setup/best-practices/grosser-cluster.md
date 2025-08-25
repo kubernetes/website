@@ -57,14 +57,14 @@ Bei der Erstellung eines Clusters können Sie (mit benutzerdefinierten Tools):
 Siehe [Betrieb von etcd-Clustern für Kubernetes](/docs/tasks/administer-cluster/configure-upgrade-etcd/) und 
 [Einrichten eines hochverfügbaren etcd-Clusters mit kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) für Details zur Konfiguration und Verwaltung von etcd für große Cluster.
 
-## Addon resources
+## Addon-Ressourcen
 
-Kubernetes [resource limits](/docs/concepts/configuration/manage-resources-containers/)
-help to minimize the impact of memory leaks and other ways that pods and containers can
-impact on other components. These resource limits apply to
-{{< glossary_tooltip text="addon" term_id="addons" >}} resources just as they apply to application workloads.
+Kubernetes-[Ressourcenlimits](/docs/concepts/configuration/manage-resources-containers/) helfen dabei, die Auswirkungen von Speicherlecks und anderer Probleme zu minimieren, 
+bei denen Pods und Container andere Komponenten beeinträchtigen können. 
 
-For example, you can set CPU and memory limits for a logging component:
+Diese Ressourcenlimits gelten auch für {{< glossary\_tooltip text="Addons" term\_id="addons" >}} ebenso wie für Anwendungs-Workloads.
+
+Beispielsweise können Sie CPU- und Speicherlimits für eine Logging-Komponente festlegen:
 
 ```yaml
   ...
