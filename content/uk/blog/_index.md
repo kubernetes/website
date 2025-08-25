@@ -1,5 +1,5 @@
 ---
-title: Блог Kubernetes
+title: Блог
 linkTitle: Блог
 menu:
   main:
@@ -8,6 +8,6 @@ menu:
 ---
 {{< comment >}}
 
-Щодо інформації про участь у створенні матеріалів для блогу, див. [https://kubernetes.io/docs/contribute/new-content/blogs-case-studies/#write-a-blog-post](https://kubernetes.io/docs/contribute/new-content/blogs-case-studies/#write-a-blog-post)
+Щодо інформації про участь у створенні матеріалів для блогу, див. [https://kubernetes.io/docs/contribute/new-content/blogs-case-studies/#write-a-blog-post](/docs/contribute/new-content/blogs-case-studies/#write-a-blog-post)
 
 {{< /comment >}}
