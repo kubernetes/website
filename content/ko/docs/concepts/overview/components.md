@@ -51,7 +51,7 @@ card:
 [kubelet](/docs/concepts/architecture/#kubelet)
 : 파드와 그 안의 컨트롤러가 실행 중임을 보장한다.
 
-[kube-proxy](/docs/concepts/architecture/#kube-proxy) (optional)
+[kube-proxy](/docs/concepts/architecture/#kube-proxy) (선택 사항)
 : 노드에서 네트워크 규칙을 유지하여 {{< glossary_tooltip text="서비스" term_id="service" >}}를 구현한다.
 
 [컨테이너 런타임](/docs/concepts/architecture/#container-runtime)
