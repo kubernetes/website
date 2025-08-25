@@ -96,6 +96,31 @@ body.td-home main[role="main"] > section:first-of-type .content p:first-child {
   }
 }
 
+section#upcoming-events {
+  color: $white;
+  background: $secondary;
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+  > div {
+    margin: 1.5em;
+    padding: 0.5em 0 0.5em 0;
+    a, a:hover {
+      color: $white;
+      background: transparent;
+      font-size: 1.5rem;
+      text-decoration: underline;
+      strong {
+        color: $white;
+        background: transparent;
+      }
+    }
+  }
+}
+
 .section-feature#kubeweekly {
 
   a.kubeweekly-signup, a.kubeweekly-signup:hover {
@@ -397,6 +422,68 @@ footer {
         background-color: #a9a9a9 !important;
       }
     }
+  }
+}
+
+.td-home section#video {
+  display: block;
+  clear: both;
+  min-height: 24rem;
+} 
+
+
+.td-home section#video.section-with-bgimage {
+  background: #13110f; // match video
+  background-position: 65% center, left center;
+  background-repeat: no-repeat, repeat;
+  background-size: auto 100%, cover;
+  .video-text-optional {
+    padding-left: calc(max(10vw, 5rem));
+
+    button::before, button::after {
+      color: $secondary;
+      padding-left:  0.5rem;
+      padding-right: 0.5rem;
+    }
+    button:dir(ltr)::before {
+      content: "▶︎ ";
+    }
+    button:dir(rtl)::after {
+      content: " ▶︎";
+    }
+    
+    h2, h3, h4, h5, h6, p {
+      visibility: hidden; // the background has the same works
+      font-size: inherit;
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .td-home section#video.section-with-bgimage {
+    background-size: contain, cover;
+    .video-text-optional {
+      padding: 0.5rem;
+      padding-top: 40%;
+      width: 100%;   
+    }
+    button {
+      min-width: calc(min(90vw,20rem));
+      font-size: 1.2rem;
+      margin-bottom: 3em;
+    }
+  }
+}
+
+@media (max-width: 10cm) {
+  .td-home section#video {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 640px) and (orientation: portrait) {
+  .td-home section#video {
+    display: none;
   }
 }
 
