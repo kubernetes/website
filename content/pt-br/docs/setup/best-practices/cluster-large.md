@@ -6,9 +6,9 @@ weight: 10
 Um cluster é um conjunto de {{< glossary_tooltip text="nós" term_id="node" >}} (máquinas físicas ou virtuais) executando agentes do Kubernetes, gerenciados pela {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}}.
 O Kubernetes {{< param "version" >}} suporta clusters com até 5.000 nós. Mais especificamente, o Kubernetes foi projetado para acomodar configurações que atendem a *todos* os seguintes critérios:
 
-* Não mais de 110 pods por nó
+* Não mais de 110 Pods por nó
 * Não mais de 5.000 nós
-* Não mais de 150.000 pods no total
+* Não mais de 150.000 Pods no total
 * Não mais de 300.000 contêineres no total
 
 Você pode escalar seu cluster adicionando ou removendo nós. A forma como você faz isso depende de como seu cluster está implantado.
@@ -53,7 +53,7 @@ para detalhes sobre configuração e gerenciamento do etcd para um cluster grand
 ## Recursos de complementos
 
 Os [limites de recursos](/pt-br/docs/concepts/configuration/manage-resources-containers/) do Kubernetes
-ajudam a minimizar o impacto de vazamentos de memória e outras formas como pods e contêineres podem
+ajudam a minimizar o impacto de vazamentos de memória e outras formas como Pods e contêineres podem
 impactar outros componentes. Esses limites de recursos se aplicam a
 recursos de {{< glossary_tooltip text="complementos" term_id="addons" >}} assim como se aplicam a cargas de trabalho de aplicação.
 
@@ -77,14 +77,14 @@ Alternativamente, o complemento pode executar, mas com desempenho ruim devido a 
 Para evitar problemas de recursos de complementos do cluster, ao criar um cluster com muitos nós, considere o seguinte:
 
 * Alguns complementos escalonam verticalmente - há uma réplica do complemento para o cluster ou servindo uma zona de falha inteira. Para esses complementos, aumente os requerimentos e limites conforme você escalona seu cluster.
-* Muitos complementos escalonam horizontalmente - você adiciona capacidade executando mais pods - mas com um cluster muito grande, você também pode precisar aumentar ligeiramente os limites de CPU ou memória.
+* Muitos complementos escalonam horizontalmente - você adiciona capacidade executando mais Pods - mas com um cluster muito grande, você também pode precisar aumentar ligeiramente os limites de CPU ou memória.
   O [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) pode executar no modo _recommender_ para fornecer valores sugeridos para requerimentos e limites.
 * Alguns complementos executam como uma cópia por nó controlados por um {{< glossary_tooltip text="DaemonSet"
 term_id="daemonset" >}}: por exemplo, um agregador de log a nível de nó. Similar ao caso com complementos escalonados horizontalmente, você também pode precisar aumentar ligeiramente os limites de CPU ou memória.
 
 ## {{% heading "whatsnext" %}}
 
-* `VerticalPodAutoscaler` é um recurso personalizado que você pode implantar em seu cluster para ajudá-lo a gerenciar requerimentos e limites de recursos para pods.  
+* `VerticalPodAutoscaler` é um recurso personalizado que você pode implantar em seu cluster para ajudá-lo a gerenciar requerimentos e limites de recursos para Pods.  
 Saiba mais sobre [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) 
 e como você pode usá-lo para escalonar componentes do cluster, incluindo complementos críticos do cluster.
 
