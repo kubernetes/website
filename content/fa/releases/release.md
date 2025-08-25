@@ -3,6 +3,7 @@ title: چرخه انتشار Kubernetes
 type: docs
 ---
 
+{{% pageinfo %}}
 این محتوا به صورت خودکار تولید می‌شود و ممکن است لینک‌ها کار نکنند. منبع سند مشخص شده است.
 [اینجا](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/release.md).
 {{% /pageinfo %}}
