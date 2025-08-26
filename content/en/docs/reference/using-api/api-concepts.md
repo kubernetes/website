@@ -191,6 +191,9 @@ For example:
    }
    ```
 
+You can also request [table](#table-fetches) and [metadata-only](#metadata-only-fetches)
+representations of this encoding.
+
 ### YAML resource encoding {#yaml-encoding}
 
 Kubernetes also supports the [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512.html)
@@ -232,6 +235,9 @@ For example:
      name: my-pod
      …
    ```
+
+You can also request [table](#table-fetches) and [metadata-only](#metadata-only-fetches)
+representations of this encoding.
 
 ### Kubernetes Protobuf encoding {#protobuf-encoding}
 
@@ -322,6 +328,9 @@ to alter the serialization format in an incompatible way and will do so by chang
 the prefix.
 {{< /note >}}
 
+You can also request [table](#table-fetches) and [metadata-only](#metadata-only-fetches)
+representations of this encoding.
+
 #### Compatibility with Kubernetes Protobuf {#protobuf-encoding-compatibility}
 
 Not all API resource types support Kubernetes' Protobuf encoding; specifically, Protobuf isn't
@@ -366,6 +375,9 @@ In addition to the existing `application/apply-patch+yaml` media type for YAML-e
 `application/apply-patch+cbor` media type for CBOR-encoded server-side apply configurations. There
 is no supported CBOR equivalent for `application/json-patch+json` or `application/merge-patch+json`,
 or `application/strategic-merge-patch+json`.
+
+You can also request [table](#table-fetches) and [metadata-only](#metadata-only-fetches)
+representations of this encoding.
 
 ## Efficient detection of changes
 
@@ -765,7 +777,7 @@ collections that might be of different kinds of object. Avoid depending on
 `kind: List` in automation or other code.
 {{< /note >}}
 
-## Receiving resources as Tables
+## Table fetches
 
 When you run `kubectl get`, the default output format is a simple tabular
 representation of one or more instances of a particular resource type. In the past,
@@ -845,7 +857,21 @@ extensions, you should make requests that specify multiple content types in the
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
 ```
 
-## Receiving only the metadata of resources
+If the client indicates it only accepts `...;as=Table;g=meta.k8s.io;v=v1`, servers
+that don't support table responses will return a 406 error code.
+
+If falling back to full objects in that case is desired, clients can add `,application/json`
+(or any other supported encoding) to their Accept header, and handle either
+table or full objects in the response:
+
+```http
+Accept: application/json;as=Table;g=meta.k8s.io;v=v1,application/json`
+```
+
+For more information on content type negotiation, see the
+[MDN Content Negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation).
+
+## Metadata-only fetches
 
 To request partial object metadata, you can request metadata only responses in the `Accept`
 header. The Kubernetes API implements standard HTTP content type negotiation. For read requests,
@@ -900,6 +926,20 @@ the size of the response from the API server.
 This feature works with both JSON and Protobuf media types. For Protobuf, the
 `Accept` header would be
 `application/vnd.kubernetes.protobuf;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`.
+
+If the client indicates it only accepts `...;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`, servers
+that don't support partial object metadata responses will return a 406 error code.
+
+If falling back to full objects in that case is desired, clients can add `,application/json`
+(or any other supported encoding) to their Accept header, and handle either
+PartialObjectMetadata or full objects in the response:
+
+```http
+Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1,application/json`
+```
+
+For more information on content type negotiation, see the
+[MDN Content Negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation).
 
 ## Resource deletion
 
