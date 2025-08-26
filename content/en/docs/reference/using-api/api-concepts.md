@@ -874,11 +874,13 @@ For more information on content type negotiation, see the
 ## Metadata-only fetches
 
 To request partial object metadata, you can request metadata only responses in the `Accept`
-header. The Kubernetes API implements standard HTTP content type negotiation. For read requests,
-passing an `Accept` header containing a value of `application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`
-will request that the server return objects containing only metadata.
+header. The Kubernetes API implements a variation on HTTP content type negotiation.
+As a client, you can provide an `Accept` header with the desired media type,
+along with parameters that indicate you want only metadata.
+For example: `Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`
+for JSON.
 
-For example, to list all of the pods on a cluster returning only the metadata for each pod:
+For example, to list all of the pods in a cluster, across all namespaces, but returning only the metadata for each pod:
 
 ```http
 GET /api/v1/pods
@@ -914,8 +916,9 @@ Content-Type: application/json
 }
 ```
 
-For a request for a collection, the API server returns a `PartialObjectMetadataList`.
-For a request for a single object, the API server returns a `PartialObjectMetadata`
+For a request for a collection, the API server returns a PartialObjectMetadataList.
+For a request for a single object, the API server returns a PartialObjectMetadata
+representation of the
 object. In both cases, the returned objects only contain the `metadata` field.
 The `spec` and `status` fields are omitted.
 
@@ -923,19 +926,28 @@ This feature is useful for clients that only need to check for the existence of
 an object, or that only need to read its metadata. It can significantly reduce
 the size of the response from the API server.
 
-This feature works with both JSON and Protobuf media types. For Protobuf, the
+You can request a metadata-only fetch for all available media types (JSON, YAML, CBOR and Kubernetes Protobuf).
+For Protobuf, the
 `Accept` header would be
 `application/vnd.kubernetes.protobuf;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`.
 
-If the client indicates it only accepts `...;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`, servers
-that don't support partial object metadata responses will return a 406 error code.
+The Kubernetes API server supports partial fetching for nearly all of its built-in APIs.
+However, you can use Kubernetes to access other API servers via the
+{{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}}, and those
+APIs may not support partial fetches.
+
+If a client uses the `Accept` header to **only** request a response `...;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`,
+and accesses an API that doesn't support partial responses, Kubernetes responds
+with a 406 HTTP error.
+
 
 If falling back to full objects in that case is desired, clients can add `,application/json`
 (or any other supported encoding) to their Accept header, and handle either
-PartialObjectMetadata or full objects in the response:
+PartialObjectMetadata or full objects in the response. It's a good idea to specify
+that a partial response is preferred, using the `q` (_quality_) parameter. For example:
 
 ```http
-Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1,application/json`
+Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1, application/json;q=0.9
 ```
 
 For more information on content type negotiation, see the
