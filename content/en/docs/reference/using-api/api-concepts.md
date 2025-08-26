@@ -783,10 +783,11 @@ had to be in place for types unrecognized by a client.
 
 In order to avoid potential limitations as described above, clients may request
 the Table representation of objects, delegating specific details of printing to the
-server. The Kubernetes API implements standard HTTP content type negotiation: passing
-an `Accept` header containing a value of `application/json;as=Table;g=meta.k8s.io;v=v1`
-with a `GET` call will request that the server return objects in the Table content
-type.
+server. The Kubernetes API implements a variation of HTTP content type negotiation: passing
+an `Accept` header with the desired media type, along with parameters that indicate you
+want a table response.
+For example: `Accept: application/json;as=Table;g=meta.k8s.io;v=v1`
+for JSON.
 
 For example, list all of the pods on a cluster in the Table format.
 
@@ -844,25 +845,9 @@ might not define field-to-table mappings, and an APIService that
 might not serve Table responses at all. If you are implementing a client that
 uses the Table information and must work against all resource types, including
 extensions, you should make requests that specify multiple content types in the
-`Accept` header. For example:
+`Accept` header.
 
-```
-Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
-```
-
-If the client indicates it only accepts `...;as=Table;g=meta.k8s.io;v=v1`, servers
-that don't support table responses will return a 406 error code.
-
-If falling back to full objects in that case is desired, clients can add `,application/json`
-(or any other supported encoding) to their Accept header, and handle either
-table or full objects in the response:
-
-```http
-Accept: application/json;as=Table;g=meta.k8s.io;v=v1,application/json`
-```
-
-For more information on content type negotiation, see the
-[MDN Content Negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation).
+See [Fallback to full objects](#fallback-to-full-objects) for more information.
 
 ## Metadata-only fetches
 
@@ -873,10 +858,11 @@ along with parameters that indicate you want only metadata.
 For example: `Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`
 for JSON.
 
-For example, to list all of the pods in a cluster, across all namespaces, but returning only the metadata for each pod:
+For example, to list all of the pods in a namespace, but returning only the
+metadata for each pod:
 
 ```http
-GET /api/v1/pods
+GET /api/v1/namespaces/example-namespace/pods
 Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1
 ---
 200 OK
@@ -909,38 +895,32 @@ Content-Type: application/json
 }
 ```
 
-For a request for a collection, the API server returns a PartialObjectMetadataList.
-For a request for a single object, the API server returns a PartialObjectMetadata
-representation of the
-object. In both cases, the returned objects only contain the `metadata` field.
-The `spec` and `status` fields are omitted.
+For a request for a collection, the API server returns a `PartialObjectMetadataList`.
+For a request for a single object, the API server returns a `PartialObjectMetadata`
+object. In both cases, the returned objects only contain the `metadata`, `kind` and
+`apiVersion` fields. The `spec` and `status` fields are omitted.
 
-This feature is useful for clients that only need to check for the existence of
-an object, or that only need to read its metadata. It can significantly reduce
-the size of the response from the API server.
+See [Fallback to full objects](#fallback-to-full-objects) for information on how
+to handle servers that may not support this feature.
 
-You can request a metadata-only fetch for all available media types (JSON, YAML, CBOR and Kubernetes Protobuf).
-For Protobuf, the
-`Accept` header would be
-`application/vnd.kubernetes.protobuf;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`.
+## Fallback to full objects
 
-The Kubernetes API server supports partial fetching for nearly all of its built-in APIs.
+The Kubernetes API server supports table and metadata-only fetching for nearly all of its built-in APIs.
 However, you can use Kubernetes to access other API servers via the
 {{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}}, and those
 APIs may not support partial fetches.
 
-If a client uses the `Accept` header to **only** request a response `...;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`,
+If a client uses the `Accept` header to **only** request a table or metadata-only response,
 and accesses an API that doesn't support partial responses, Kubernetes responds
 with a 406 HTTP error.
 
+If falling back to full objects in that case is desired, clients can add multiple
+content types to their Accept header.
 
-If falling back to full objects in that case is desired, clients can add `,application/json`
-(or any other supported encoding) to their Accept header, and handle either
-PartialObjectMetadata or full objects in the response. It's a good idea to specify
-that a partial response is preferred, using the `q` (_quality_) parameter. For example:
+For example:
 
 ```http
-Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1, application/json; q=0.9`
+Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1, application/json;q=0.9`
 ```
 
 For more information on content type negotiation, see the
