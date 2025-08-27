@@ -68,6 +68,12 @@ The output is similar to this:
 5didvk.d09sbcov8ph2amjw
 ```
 
+To print a kubeadm join command while also generating a new token you can use:
+
+```bash
+sudo kubeadm token create --print-join-command
+```
+
 If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
 following commands on the control plane node:
 

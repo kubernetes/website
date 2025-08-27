@@ -31,6 +31,11 @@ Więcej informacji można z znaleźć w dokumencie [version skew policy](/releas
 Zajrzyj na [harmonogram](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
 nadchodzącego wydania Kubernetesa numer **{{< skew nextMinorVersion >}}**!
 
+{{< note >}}
+Ten link do harmonogramu może być tymczasowo niedostępny podczas wczesnych faz planowania wydania. Sprawdź
+[SIG Release repository](https://github.com/kubernetes/sig-release/tree/master/releases) aby uzyskać informacje o najnowszych aktualizacjach.
+{{< /note >}}
+
 ## Przydatne zasoby {#helpful-resources}
 
 Zajrzyj do zasobów zespołu [Kubernetes Release Team](https://github.com/kubernetes/sig-release/tree/master/release-team)
