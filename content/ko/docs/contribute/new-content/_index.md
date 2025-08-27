@@ -100,10 +100,10 @@ git 이름과 이메일은 CNCF CLA에 사용된 것과
 기능 변경 릴리스의 콘텐츠 | `dev-<version>` 패턴을 사용하여 기능 변경이 있는 주 버전과 부 버전에 해당하는 브랜치. 예를 들어, `v{{< skew nextMinorVersion >}}` 에서 기능이 변경된 경우, ``dev-{{< skew nextMinorVersion >}}`` 에 문서 변경을 추가한다.
 다른 언어로된 콘텐츠(현지화) | 현지화 규칙을 사용. 자세한 내용은 [현지화 브랜치 전략](/docs/contribute/localization/#branching-strategy)을 참고한다.
 
-어떤 브랜치를 선택해야 할지 잘 모르는 경우 슬랙의 `#sig-docs` 에 문의한다.
+어떤 브랜치를 선택해야 할지 모르는 경우 슬랙의 `#sig-docs` 에 문의한다.
 
 {{< note >}} 풀 리퀘스트를 이미 제출했는데 기본 브랜치가 잘못되었다는 것을 알게 되면,
-제출자(제출자인 여러분만)가 이를 변경할 수 있다.
+제출자 본인만 이를 변경할 수 있다.
 {{< /note >}}
 
 ### PR 당 언어
@@ -116,5 +116,5 @@ PR 당 하나의 언어로 풀 리퀘스트를 제한한다.
 
 `kubernetes/website` 리포지터리의 
 [문서 기여자를 위한 도구](https://github.com/kubernetes/website/tree/main/content/en/docs/doc-contributor-tools) 
-디렉터리에는 기여 여정을 좀 더 순조롭게 도와주는 도구들이 포함되어 있다.
+디렉터리에는 기여에 도움이 되는 도구들이 있다.
 

@@ -69,16 +69,27 @@ The Kubelet updates the Pod's status conditions to indicate the state of a resiz
   This is usually brief but might take longer depending on the resource type and runtime behavior.
   Any errors during actuation are reported in the `message` field (along with `reason: Error`).
 
-## Tracking resize progress with observedGeneration
+### How kubelet retries Deferred resizes
 
-You can track the status of a resize request using the Pod's status conditions and the `status.observedGeneration` field.
-When a resize request is made, the `observedGeneration` is incremented.
-You can compare the `observedGeneration` with the Pod's `metadata.generation` to determine if the resize is still in progress.
+If the requested resize is _Deferred_, the kubelet will periodically re-attempt the resize,
+for example when another pod is removed or scaled down. If there are multiple deferred
+resizes, they are retried according to the following priority:
 
-* `status.observedGeneration` – shows the latest Pod `.metadata.generation` acknowledged by the kubelet.  
-* `conditions[*].observedGeneration` – shows which generation a condition (such as `PodResizePending` or `PodResizeInProgress`) refers to.
+* Pods with a higher Priority (based on PriorityClass) will have their resize request retried first.
+* If two pods have the same Priority, resize of guaranteed pods will be retried before the resize of burstable pods.
+* If all else is the same, pods that have been in the Deferred state longer will be prioritized.
 
-These fields are populated when the `PodObservedGenerationTracking` feature gate is enabled
+A higher priority resize being marked as pending will not block the remaining pending resizes from being attempted;
+all remaining pending resizes will still be retried even if a higher-priority resize gets deferred again. 
+
+
+### Leveraging `observedGeneration` Fields
+
+{{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
+
+* The top-level `status.observedGeneration` field shows the `metadata.generation` corresponding to the latest pod specification that the kubelet has acknowledged. You can use this to determine the most recent resize request the kubelet has processed.
+* In the `PodResizeInProgress` condition, the `conditions[].observedGeneration` field indicates the `metadata.generation` of the podSpec when the current in-progress resize was initiated.
+* In the `PodResizePending` condition, the `conditions[].observedGeneration` field indicates the `metadata.generation` of the podSpec when the pending resize's allocation was last attempted.
 
 ## Container resize policies
 
@@ -118,8 +129,11 @@ Consider a container configured with `restartPolicy: NotRequired` for CPU and `r
 For Kubernetes {{< skew currentVersion >}}, resizing pod resources in-place has the following limitations:
 
 * **Resource Types:** Only CPU and memory resources can be resized.
-* **Memory Decrease:** Memory limits _cannot be decreased_ unless the `resizePolicy` for memory is `RestartContainer`.
-  Memory requests can generally be decreased.
+* **Memory Decrease:** If the memory resize restart policy is `NotRequired` (or unspecified), the kubelet will make a
+best-effort attempt to prevent oom-kills when decreasing memory limits, but doesn't provide any guarantees. 
+Before decreasing container memory limits, if memory usage exceeds the requested limit, the resize will be skipped
+and the status will remain in an "In Progress" state. This is considered best-effort because it is still subject
+to a race condition where memory usage may spike right after the check is performed. 
 * **QoS Class:** The Pod's original [Quality of Service (QoS) class](/docs/concepts/workloads/pods/pod-qos/)
   (Guaranteed, Burstable, or BestEffort) is determined at creation and **cannot** be changed by a resize.
   The resized resource values must still adhere to the rules of the original QoS class:

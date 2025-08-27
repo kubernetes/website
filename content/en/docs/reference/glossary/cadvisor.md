@@ -9,7 +9,8 @@ aka:
 tags:
 - tool
 ---
-cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running {{< glossary_tooltip text="containers" term_id="container" >}}.
+cAdvisor (Container Advisor) provides container users an understanding of the {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}}
+usage and performance characteristics of their running {{< glossary_tooltip text="containers" term_id="container" >}}.
 
 <!--more-->
 
