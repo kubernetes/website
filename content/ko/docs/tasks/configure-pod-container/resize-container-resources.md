@@ -81,7 +81,7 @@ CPU에 대해 `restartPolicy: NotRequired`로, 메모리에 대해 `restartPolic
 
 * **리소스 유형:** CPU와 메모리 리소스만 크기를 조정할 수 있다.
 * **메모리 감소:** 메모리에 대한 `resizePolicy`가 `RestartContainer`가 아닌 경우 메모리 제한량을 *감소시킬 수 없다*. 메모리 요청량은 일반적으로 감소시킬 수 있다.
-* **QoS 클래스:** 파드의 원래 [서비스 품질(QoS) 클래스](/docs/concepts/workloads/pods/pod-qos/)(Guaranteed, Burstable, 또는 BestEffort)는 생성 시 결정되며 크기 조정으로 **변경할 수 없다**. 크기 조정된 리소스 값은 여전히 원래 QoS 클래스의 규칙을 준수해야 한다:
+* **QoS 클래스:** 파드의 원래 [서비스 품질(QoS) 클래스](/docs/concepts/workloads/pods/pod-qos/)(Guaranteed, Burstable, 또는 BestEffort)는 생성 시 결정되며 크기 조정으로 **변경할 수 없다**. 크기 조정된 리소스 값은 여전히 원래 QoS 클래스의 규칙을 준수해야 한다.
     * *Guaranteed*: 크기 조정 후에도 CPU와 메모리 모두에 대해 요청량이 제한량과 계속 같아야 한다.
     * *Burstable*: CPU와 메모리 *모두*에 대해 요청량과 제한량이 동시에 같아질 수 없다(이는 Guaranteed로 변경될 것이므로).
     * *BestEffort*: 리소스 요구사항(`requests` 또는 `limits`)을 추가할 수 없다(이는 Burstable 또는 Guaranteed로 변경될 것이므로).
@@ -120,7 +120,7 @@ spec:
         cpu: "700m"
 ```
 
-파드를 생성한다:
+파드를 생성한다.
 
 ```shell
 kubectl create -f pod-resize.yaml
