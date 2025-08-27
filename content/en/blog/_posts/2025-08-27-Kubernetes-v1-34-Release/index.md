@@ -1,8 +1,7 @@
 ---  
 layout: blog
-title: 'Kubernetes v1.34: RELEASE NAME'
+title: "Kubernetes v1.34: Of Wind & Will (O' WaW)"
 date: 2025-08-27T10:30:00-08:00
-draft: true
 evergreen: true
 slug: kubernetes-v1-34-release
 author: >
@@ -13,13 +12,32 @@ author: >
 
 Similar to previous releases, the release of Kubernetes v1.34 introduces new stable, beta, and alpha features. The consistent delivery of high-quality releases underscores the strength of our development cycle and the vibrant support from our community.
 
-This release consists of 58 enhancements. Of those enhancements, 23 have graduated to Stable, 22 are entering Beta, and 13 have graduated to Alpha.
+This release consists of 58 enhancements. Of those enhancements, 23 have graduated to Stable, 22 have entered Beta, and 13 have entered Alpha.
 
 There are also some [deprecations and removals](#deprecations-and-removals) in this release; make sure to read about those.
 
 ## Release theme and logo
 
-\<TODO RELEASE THEME AND LOGO\>
+{{< figure src="k8s-v1.34.png" alt="Kubernetes v1.34 logo: Three bears sail a wooden ship with a flag featuring a paw and a helm symbol on the sail, as wind blows across the ocean" class="release-logo" >}}
+
+A release powered by the wind around us — and the will within us.
+
+Every release cycle, we inherit winds that we don't really control — the state
+of our tooling, documentation, and the historical quirks of our project.
+Sometimes these winds fill our sails, sometimes they push us sideways or die
+down.
+
+What keeps Kubernetes moving isn't the perfect winds, but the will of our
+sailors who adjust the sails, man the helm, chart the courses and keep the ship
+steady. The release happens not because conditions are always ideal, but because
+of the people who build it, the people who release it, and the bears<sup>
+^</sup>, cats, dogs, wizards, and curious minds who keep Kubernetes sailing
+strong — no matter which way the wind blows.
+
+This release, **Of Wind & Will (O' WaW)**, honors the winds that have shaped us,
+and the will that propels us forward.
+
+<sub>^ Oh, and you wonder why bears? Keep wondering!</sub>
 
 ## Spotlight on key updates
 
@@ -552,7 +570,7 @@ You can find the latest event details [here](https://community.cncf.io/events/#/
 
 ## Upcoming Release Webinar
 
-Join members of the Kubernetes v1.34 Release Team on \<TODO RELEASE WEBINAR DATE AND TIME\>, to learn about the release highlights of this release. For more information and registration, visit the [event page](<TODO RELEASE WEBINAR LINK>) on the CNCF Online Programs site.
+Join members of the Kubernetes v1.34 Release Team on **Wednesday, September 24th 2025 at 4:00 PM (UTC)**, to learn about the release highlights of this release. For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cloud-native-live-kubernetes-v134-release/) on the CNCF Online Programs site.
 
 ## Get Involved
 
