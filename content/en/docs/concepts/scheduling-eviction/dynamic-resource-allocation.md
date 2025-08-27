@@ -185,6 +185,58 @@ the Pod that triggered the generation.
 To learn how to claim resources using one of these methods, see
 [Allocate Devices to Workloads with DRA](/docs/tasks/configure-pod-container/assign-resources/allocate-devices-dra/).
 
+#### Prioritized list {#prioritized-list}
+
+{{< feature-state feature_gate_name="DRAPrioritizedList" >}}
+
+You can provide a prioritized list of subrequests for requests in a ResourceClaim or
+ResourceClaimTemplate. The scheduler will then select the first subrequest that can be allocated.
+This allows users to specify alternative devices that can be used by the workload if the primary
+choice is not available.
+
+In the example below, the ResourceClaimTemplate requested a device with the color black
+and the size large. If a device with those attributes is not available, the pod cannot
+be scheduled. With the priotized list feature, a second alternative can be specified, which
+requests two devices with the color white and size small. The large black device will be
+allocated if it is available. If it is not, but two small white devices are available,
+the pod will still be able to run.
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: prioritized-list-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        firstAvailable:
+        - name: large-black
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "black" &&
+                device.attributes["resource-driver.example.com"].size == "large"
+        - name: small-white
+          deviceClassName: resource.example.com
+          selectors:
+          - cel:
+              expression: |-
+                device.attributes["resource-driver.example.com"].color == "white" &&
+                device.attributes["resource-driver.example.com"].size == "small"
+          count: 2
+```
+
+The decision is made on a per-Pod basis, so if the Pod is a member of a ReplicaSet or
+similar grouping, you cannot rely on all the members of the group having the same subrequest
+chosen. Your workload must be able to accommodate this.
+
+Prioritized lists is a *beta feature* and is enabled by default with the
+`DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in
+the kube-apiserver and kube-scheduler.
+
 ### ResourceSlice {#resourceslice}
 
 Each ResourceSlice represents one or more
@@ -219,7 +271,7 @@ creating or modifying ResourceSlices.
 Consider the following example ResourceSlice:
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta1
+apiVersion: resource.k8s.io/v1
 kind: ResourceSlice
 metadata:
   name: cat-slice
@@ -233,14 +285,13 @@ spec:
   allNodes: true
   devices:
   - name: "large-black-cat"
-    basic:
-      attributes:
-        color:
-          string: "black"
-        size:
-          string: "large"
-        cat:
-          boolean: true
+    attributes:
+      color:
+        string: "black"
+      size:
+        string: "large"
+      cat:
+        boolean: true
 ```
 This ResourceSlice is managed by the `resource-driver.example.com` driver in the
 `black-cat-pool` pool. The `allNodes: true` field indicates that any node in the
@@ -311,6 +362,7 @@ following methods:
 
 * [kubelet device metrics](#monitoring-resources)
 * [ResourceClaim status](#resourceclaim-device-status)
+* [Device health monitoring](#device-health-monitoring)
 
 ### kubelet device metrics {#monitoring-resources}
 
@@ -343,6 +395,19 @@ set.
 
 For details about the `status.devices` field, see the
 {{< api-reference page="workload-resources/resource-claim-v1beta1" anchor="ResourceClaimStatus" text="ResourceClaim" >}} API reference.
+
+### Device Health Monitoring {#device-health-monitoring}
+
+{{< feature-state feature_gate_name="ResourceHealthStatus" >}}
+
+As an alpha feature, Kubernetes provides a mechanism for monitoring and reporting the health of dynamically allocated infrastructure resources.
+For stateful applications running on specialized hardware, it is critical to know when a device has failed or become unhealthy. It is also helpful to find out if the device recovers.
+
+To enable this functionality, the `ResourceHealthStatus` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/resource-health-status/) must be enabled, and the DRA driver must implement the `DRAResourceHealth` gRPC service.
+
+When a DRA driver detects that an allocated device has become unhealthy, it reports this status back to the kubelet. This health information is then exposed directly in the Pod's status. The kubelet populates the `allocatedResourcesStatus` field in the status of each container, detailing the health of each device assigned to that container.
+
+This provides crucial visibility for users and controllers to react to hardware failures. For a Pod that is failing, you can inspect this status to determine if the failure was related to an unhealthy device.
 
 ## Pre-scheduled Pods
 
@@ -379,14 +444,11 @@ spec:
 You may also be able to mutate the incoming Pod, at admission time, to unset
 the `.spec.nodeName` field and to use a node selector instead.
 
-## DRA alpha features {#alpha-features}
+## DRA beta features {#beta-features}
 
-The following sections describe DRA features that are available in the Alpha
+The following sections describe DRA features that are available in the Beta
 [feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-To use any of these features, you must also set up DRA in your clusters by
-enabling the DynamicResourceAllocation feature gate and the DRA
-{{< glossary_tooltip text="API groups" term_id="api-group" >}}. For more
-information, see
+For more information, see
 [Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
 ### Admin access {#admin-access}
@@ -399,7 +461,7 @@ admin access grants access to in-use devices and may enable additional
 permissions when making the device available in a container:
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta2
+apiVersion: resource.k8s.io/v1
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -422,55 +484,57 @@ multi-tenant clusters. Starting with Kubernetes v1.33, only users authorized to
 create ResourceClaim or ResourceClaimTemplate objects in namespaces labeled with
 `resource.k8s.io/admin-access: "true"` (case-sensitive) can use the
 `adminAccess` field. This ensures that non-admin users cannot misuse the
-feature.
+feature. Starting with Kubernetes v1.34, this label has been updated to `resource.kubernetes.io/admin-access: "true"`.
 
-### Prioritized list {#prioritized-list}
+## DRA alpha features {#alpha-features}
 
-{{< feature-state feature_gate_name="DRAPrioritizedList" >}}
+The following sections describe DRA features that are available in the Alpha
+[feature stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
+To use any of these features, you must also set up DRA in your clusters by
+enabling the DynamicResourceAllocation feature gate and the DRA
+{{< glossary_tooltip text="API groups" term_id="api-group" >}}. For more
+information, see
+[Set up DRA in the cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster/).
 
-You can provide a prioritized list of subrequests for requests in a ResourceClaim. The
-scheduler will then select the first subrequest that can be allocated. This allows users to
-specify alternative devices that can be used by the workload if the primary choice is not
-available.
+### Extended resource allocation by DRA {#extended-resource}
 
-In the example below, the ResourceClaimTemplate requested a device with the color black
-and the size large. If a device with those attributes are not available, the pod can not
-be scheduled. With the priotized list feature, a second alternative can be specified, which
-requests two devices with the color white and size small. The large black device will be
-allocated if it is available. But if it is not and two small white devices are available,
-the pod will still be able to run.
+{{< feature-state feature_gate_name="DRAExtendedResource" >}}
+
+You can provide an extended resource name for a DeviceClass. The scheduler will then
+select the devices matching the class for the extended resource requests. This allows
+users to continue using extended resource requests in a pod to request either
+extended resources provided by device plugin, or DRA devices. The same extended
+resource can be provided either by device plugin, or DRA on one single cluster node.
+The same extended resource can be provided by device plugin on some nodes, and
+DRA on other nodes in the same cluster.
+
+In the example below, the DeviceClass is given an extendedResourceName `example.com/gpu`.
+If a pod requested for the extended resource `example.com/gpu: 2`, it can be scheduled to
+a node with two or more devices matching the DeviceClass.
 
 ```yaml
-apiVersion: resource.k8s.io/v1beta2
-kind: ResourceClaimTemplate
+apiVersion: resource.k8s.io/v1
+kind: DeviceClass
 metadata:
-  name: prioritized-list-claim-template
+  name: gpu.example.com
 spec:
-  spec:
-    devices:
-      requests:
-      - name: req-0
-        firstAvailable:
-        - name: large-black
-          deviceClassName: resource.example.com
-          selectors:
-          - cel:
-              expression: |-
-                device.attributes["resource-driver.example.com"].color == "black" &&
-                device.attributes["resource-driver.example.com"].size == "large"
-        - name: small-white
-          deviceClassName: resource.example.com
-          selectors:
-          - cel:
-              expression: |-
-                device.attributes["resource-driver.example.com"].color == "white" &&
-                device.attributes["resource-driver.example.com"].size == "small"
-          count: 2
+  selectors:
+  - cel:
+      expression: device.driver == 'gpu.example.com' && device.attributes['gpu.example.com'].type
+        == 'gpu'
+  extendedResourceName: example.com/gpu
 ```
 
-Prioritized lists is an *alpha feature* and only enabled when the
-`DRAPrioritizedList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled in the kube-apiserver and kube-scheduler.
+In addition, users can use a special extended resource to allocate devices without
+having to explicitly create a ResourceClaim. Using the extended resource name
+prefix `deviceclass.resource.kubernetes.io/` and the DeviceClass name. This works
+for any DeviceClass, even if it does not specify the an extended resource name.
+The resulting ResourceClaim will contain a request for an `ExactCount` of the
+specified number of devices of that DeviceClass.
+
+Extended resource allocation by DRA is an *alpha feature* and only enabled when the
+`DRAExtendedResource` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled in the kube-apiserver, kube-scheduler, and kubelet.
 
 ### Partitionable devices {#partitionable-devices}
 
@@ -495,7 +559,7 @@ handles this and it is transparent to the consumer as the ResourceClaim API is n
 
 ```yaml
 kind: ResourceSlice
-apiVersion: resource.k8s.io/v1beta2
+apiVersion: resource.k8s.io/v1
 metadata:
   name: resourceslice
 spec:
@@ -529,6 +593,89 @@ Partitionable devices is an *alpha feature* and only enabled when the
 `DRAPartitionableDevices`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled in the kube-apiserver and kube-scheduler.
+
+## Consumable capacity
+
+{{< feature-state feature_gate_name="DRAConsumableCapacity" >}}
+
+The consumable capacity feature allows the same devices to be consumed by multiple independent ResourceClaims, with the Kubernetes scheduler
+managing how much of the device's capacity is used up by each claim. This is analogous to how Pods can share
+the resources on a Node; ResourceClaims can share the resources on a Device.
+
+The device driver can set `allowMultipleAllocations` field added in `.spec.devices` of `ResourceSlice` to allow allocating that device to multiple independent ResourceClaims or to multiple requests within a ResourceClaim.
+
+Users can set `capacity` field added in `spec.devices.requests` of `ResourceClaim` to specify the device resource requirements for each allocation.
+
+For the device that allows multiple allocations, the requested capacity is drawn from — or consumed from — its total capacity, a concept known as **consumable capacity**.
+Then, the scheduler ensures that the aggregate consumed capacity across all claims does not exceed the device’s overall capacity. Furthermore, driver authors can use the `requestPolicy` constraints on individual device capacities to control how those capacities are consumed. For example, the driver author can specify that a given capacity is only consumed in increments of 1Gi.
+
+Here is an example of a network device which allows multiple allocations and contains
+a consumable bandwidth capacity.
+
+```yaml
+kind: ResourceSlice
+apiVersion: resource.k8s.io/v1
+metadata:
+  name: resourceslice
+spec:
+  nodeName: worker-1
+  pool:
+    name: pool
+    generation: 1
+    resourceSliceCount: 1
+  driver: dra.example.com
+  devices:
+  - name: eth1
+    allowMultipleAllocations: true
+    attributes:
+      name:
+        string: "eth1"
+    capacity:
+      bandwidth:
+        requestPolicy:
+          default: "1M"
+          validRange:
+            min: "1M"
+            step: "8"
+        value: "10G"
+```
+
+The consumable capacity can be requested as shown in the below example.
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaimTemplate
+metadata:
+  name: bandwidth-claim-template
+spec:
+  spec:
+    devices:
+      requests:
+      - name: req-0
+        exactly:
+        - deviceClassName: resource.example.com
+          capacity:
+            requests:
+              bandwidth: 1G
+```
+
+The allocation result will include the consumed capacity and the identifier of the share.
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceClaim
+...
+status:
+  allocation:
+    devices:
+      results:
+      - consumedCapacity:
+          bandwidth: 1G
+        device: eth1
+        shareID: "a671734a-e8e5-11e4-8fde-42010af09327"
+```
+
+In this example, a multiply-allocatable device was chosen. However, any `resource.example.com` device with at least the requested 1G bandwidth could have met the requirement. If a non-multiply-allocatable device were chosen, the allocation would have resulted in the entire device. To force the use of a only multiply-allocatable devices, you can use the CEL criteria `device.allowMultipleAllocations == true`.
 
 ### Device taints and tolerations {#device-taints-and-tolerations}
 
@@ -625,6 +772,89 @@ spec:
     value: Broken
     effect: NoExecute
 ```
+
+### Device Binding Conditions {#device-binding-conditions}
+
+{{< feature-state feature_gate_name="DRADeviceBindingConditions" >}}
+
+Device Binding Conditions allow the Kubernetes scheduler to delay Pod binding until
+external resources, such as fabric-attached GPUs or reprogrammable FPGAs, are confirmed
+to be ready.
+
+This waiting behavior is implemented in the 
+[PreBind phase](/docs/concepts/scheduling-eviction/scheduling-framework/#pre-bind)
+of the scheduling framework.
+During this phase, the scheduler checks whether all required device conditions are
+satisfied before proceeding with binding.
+
+This improves scheduling reliability by avoiding premature binding and enables coordination
+with external device controllers.
+
+To use this feature, device drivers (typically managed by driver owners) must publish the
+following fields in the `Device` section of a `ResourceSlice`. Cluster administrators
+must enable the `DRADeviceBindingConditions` and `DRAResourceClaimDeviceStatus` feature
+gates for the scheduler to honor these fields.
+
+- `bindingConditions`: A list of condition types that must be set to True in the
+  status.conditions field of the associated ResourceClaim before the Pod can be bound.
+  These typically represent readiness signals such as "DeviceAttached" or "DeviceInitialized".
+- `bindingFailureConditions`: A list of condition types that, if set to True in
+  status.conditions field of the associated ResourceClaim, indicate a failure state.
+  If any of these conditions are True, the scheduler will abort binding and reschedule the Pod.
+- `bindsToNode`: if set to `true`, the scheduler records the selected node name in the
+  `status.allocation.nodeSelector` field of the ResourceClaim.
+  This does not affect the Pod's `spec.nodeSelector`. Instead, it sets a node selector
+  inside the ResourceClaim, which external controllers can use to perform node-specific
+  operations such as device attachment or preparation.
+
+All condition types listed in bindingConditions and bindingFailureConditions are evaluated
+from the `status.conditions` field of the ResourceClaim.
+External controllers are responsible for updating these conditions using standard Kubernetes
+condition semantics (`type`, `status`, `reason`, `message`, `lastTransitionTime`).
+
+The scheduler waits up to **600 seconds** for all `bindingConditions` to become `True`.
+If the timeout is reached or any `bindingFailureConditions` are `True`, the scheduler
+clears the allocation and reschedules the Pod.
+
+
+```yaml
+apiVersion: resource.k8s.io/v1
+kind: ResourceSlice
+metadata:
+  name: gpu-slice
+spec:
+  driver: dra.example.com
+  nodeSelector:
+    accelerator-type: high-performance
+  pool:
+    name: gpu-pool
+    generation: 1
+    resourceSliceCount: 1
+  devices:
+    - name: gpu-1
+      attributes:
+        vendor:
+          string: "example"
+        model:
+          string: "example-gpu"
+      bindsToNode: true
+      bindingConditions:
+        - dra.example.com/is-prepared
+      bindingFailureConditions:
+        - dra.example.com/preparing-failed
+```
+This example ResourceSlice has the following properties:
+
+- The ResourceSlice targets nodes labeled with `accelerator-type=high-performance`, 
+so that the scheduler uses only a specific set of eligible nodes.
+- The scheduler selects one node from the selected group (for example, `node-3`) and sets 
+the `status.allocation.nodeSelector` field in the ResourceClaim to that node name.
+- The `dra.example.com/is-prepared` binding condition indicates that the device `gpu-1`
+must be prepared (the `is-prepared` condition has a status of `True`) before binding. 
+- If the `gpu-1` device preparation fails (the `preparing-failed` condition has a status of `True`), the scheduler aborts binding.
+- The scheduler waits up to 600 seconds for the device to become ready.
+- External controllers can use the node selector in the ResourceClaim to perform
+node-specific setup on the selected node.
 
 ## {{% heading "whatsnext" %}}
 

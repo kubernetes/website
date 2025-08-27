@@ -236,7 +236,26 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
    application code. Running this container image locally or in a development
    environment can help diagnose application specific issues.
 
-### Container restart policy {#restart-policy}
+### Container restarts {#restart-policy}
+
+When a container in your Pod stops, or experiences failure, Kubernetes can restart it.
+A restart isn't always appropriate; for example,
+{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once,
+during Pod startup.
+<!-- TODO reword when ContainerRestartRules graduates -->
+You can configure restarts as a policy that applies to all Pods, or using container-level configuration (for example: when you define a 
+{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}).
+
+#### Container restarts and resilience {#container-restart-resilience}
+
+The Kubernetes project recommends following cloud-native principles, including resilient
+design that accounts for unannounced or arbitrary restarts. You can achieve this either
+by failing the Pod and relying on automatic
+[replacement](/docs/concepts/workloads/controllers/), or you can design for container-level resilience.
+Either approach helps to ensure that your overall workload remains available despite
+partial failure.
+
+#### Pod-level container restart policy
 
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
@@ -261,6 +280,104 @@ restarts them with an exponential backoff delay (10s, 20s, 40s, …), that is ca
 problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
+
+#### Individual container restart policy and rules {#container-restart-rules}
+
+{{< feature-state
+feature_gate_name="ContainerRestartRules" >}}
+
+If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify 
+`restartPolicy` and `restartPolicyRules` on _inidividual containers_ to override the Pod
+restart policy. Container restart policy and rules applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
+in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
+
+A Kubernetes-native [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
+has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`. 
+
+The container restarts will follow the same exponential backoff as pod restart policy described above. 
+Supported container restart policies:
+
+* `Always`: Automatically restarts the container after any termination.
+* `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
+* `Never`: Does not automatically restart the terminated container. 
+
+Additionally, _individual containers_ can specify `restartPolicyRules`. If the `restartPolicyRules`
+field is specified, then container `restartPolicy` **must** also be specified. The `restartPolicyRules`
+define a list of rules to apply on container exit. Each rule will consist of a condition
+and an action. The supported condition is `exitCodes`, which compares the exit code of the container
+with a list of given values. The supported action is `Restart`, which means the container will be
+restarted. The rules will be evaluated in order. On the first match, the action will be applied.
+If none of the rules’ conditions matched, Kubernetes fallback to container’s configured
+`restartPolicy`.
+
+For example, a Pod with OnFailure restart policy that have a `try-once` container. This allows
+Pod to only restart certain containers:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: on-failure-pod
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - name: try-once-container    # This container will run only once because the restartPolicy is Never.
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Only running once" && sleep 10 && exit 1']
+    restartPolicy: Never     
+  - name: on-failure-container  # This container will be restarted on failure.
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Keep restarting" && sleep 1800 && exit 1']
+```
+
+A Pod with Always restart policy with an init container that only execute once. If the init
+container fails, the Pod fails. This alllows the Pod to fail if the initialiaztion failed,
+but also keep running once the initialization succeeds:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fail-pod-if-init-fails
+spec:
+  restartPolicy: Always
+  initContainers:
+  - name: init-once      # This init container will only try once. If it fails, the pod will fail.
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Failing initialization" && sleep 10 && exit 1']
+    restartPolicy: Never
+  containers:
+  - name: main-container # This container will always be restarted once initialization succeeds.
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'sleep 1800 && exit 0']
+```
+
+A Pod with Never restart policy with a container that ignores and restarts on specific exit codes.
+This is useful to differentiate between restartable errors and non-restartable errors:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restart-on-exit-codes
+spec:
+  restartPolicy: Never
+  containers:
+  - name: restart-on-exit-codes
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'sleep 60 && exit 0']
+    restartPolicy: Never     # Container restart policy must be specified if rules are specified
+    restartPolicyRules:      # Only restart the container if it exits with code 42
+    - action: Restart
+      exitCodes:
+        operator: In
+        values: [42]
+```
+
+Restart rules can be used for many more advanced lifecycle management scenarios. Note, restart rules
+are affected by the same inconsistencies as the regular restart policy. Kubelet restarts, container
+runtime garbage collection, intermitted connectivity issues with the control plane may cause the state
+loss and containers may be re-run even when you expect a container not to be restarted.
 
 ### Reduced container restart delay
 

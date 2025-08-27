@@ -734,9 +734,10 @@ To perform an authorization check for a service account:
 </tbody>
 </table>
 
-{{< feature-state state="alpha" for_k8s_version="v1.31" >}}
+{{< feature-state feature_gate_name="AuthorizeWithSelectors" >}}
 
-With the alpha `AuthorizeWithSelectors` feature enabled, field and label selectors can be added to authorization checks.
+For CEL expressions in the API where a variable of type `Authorizer` is available,
+field and label selectors can be included in authorization checks.
 
 <table>
 <caption>Examples of CEL expressions using selector authorization functions</caption>

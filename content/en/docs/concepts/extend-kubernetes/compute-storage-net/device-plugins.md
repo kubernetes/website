@@ -270,11 +270,12 @@ the NUMA node where these devices are allocated. Also, for NUMA-based machines, 
 information about memory and hugepages reserved for a container.
 
 Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
-of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API. To enable
-this feature `kubelet` must be started with the following flags:
+of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API.
+Starting from Kubernetes v1.34, this feature is enabled by default.
+To disable, `kubelet` must be started with the following flags:
 
 ```
---feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
+--feature-gates=KubeletPodResourcesDynamicResources=false
 ```
 
 ```gRPC
@@ -414,7 +415,7 @@ will continue working.
 
 ### `Get` gRPC endpoint {#grpc-endpoint-get}
 
-{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+{{< feature-state state="beta" for_k8s_version="v1.34" >}}
 
 The `Get` endpoint provides information on resources of a running Pod. It exposes information
 similar to those described in the `List` endpoint. The `Get` endpoint requires `PodName`
@@ -428,18 +429,19 @@ message GetPodResourcesRequest {
 }
 ```
 
-To enable this feature, you must start your kubelet services with the following flag:
+To disable this feature, you must start your kubelet services with the following flag:
 
 ```
---feature-gates=KubeletPodResourcesGet=true
+--feature-gates=KubeletPodResourcesGet=false
 ```
 
 The `Get` endpoint can provide Pod information related to dynamic resources
-allocated by the dynamic resource allocation API. To enable this feature, you must
-ensure your kubelet services are started with the following flags:
+allocated by the dynamic resource allocation API.
+Starting from Kubernetes v1.34, this feature is enabled by default.
+To disable, `kubelet` must be started with the following flags:
 
 ```
---feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
+--feature-gates=KubeletPodResourcesDynamicResources=false
 ```
 
 ## Device plugin integration with the Topology Manager
@@ -509,3 +511,4 @@ Here are some examples of device plugin implementations:
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 * Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
   with Kubernetes
+* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

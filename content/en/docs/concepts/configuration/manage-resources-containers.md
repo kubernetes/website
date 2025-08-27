@@ -113,21 +113,24 @@ resource requests/limits of that type for each container in the Pod.
 
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
-Starting in Kubernetes 1.32, you can also specify resource requests and limits at
+Provided your cluster has the `PodLevelResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
+you can specify resource requests and limits at
 the Pod level. At the Pod level, Kubernetes {{< skew currentVersion >}}
 only supports resource requests or limits for specific resource types: `cpu` and /
-or `memory`. This feature is currently in alpha and with the feature enabled,
-Kubernetes allows you to declare an overall resource budget for the Pod, which is
-especially helpful when dealing with a large number of containers where it can be
-difficult to accurately gauge individual resource needs. Additionally, it enables
-containers within a Pod to share idle resources with each other, improving resource
-utilization. 
+or `memory` and / or `hugepages`. With this feature, Kubernetes allows you to declare an overall resource
+budget for the Pod, which is especially helpful when dealing with a large number of
+containers where it can be difficult to accurately gauge individual resource needs.
+Additionally, it enables containers within a Pod to share idle resources with each
+other, improving resource utilization.
 
 For a Pod, you can specify resource limits and requests for CPU and memory by including the following:
 * `spec.resources.limits.cpu`
 * `spec.resources.limits.memory`
+* `spec.resources.limits.hugepages-<size>`
 * `spec.resources.requests.cpu`
 * `spec.resources.requests.memory`
+* `spec.resources.requests.hugepages-<size>`
 
 ## Resource units in Kubernetes
 
@@ -718,6 +721,12 @@ extender.
 }
 ```
 
+#### Extended resources allocation by DRA
+Extended resources allocation by DRA allows cluster administrators to specify an `extendedResourceName`
+in DeviceClass, then the devices matching the DeviceClass can be requested from a pod's extended
+resource requests. Read more about
+[Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource).
+
 ### Consuming extended resources
 
 Users can consume extended resources in Pod specs like CPU and memory.
@@ -934,3 +943,4 @@ memory limit (and possibly request) for that container.
 * Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
+* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
