@@ -26,7 +26,7 @@ min-kubernetes-server-version: 1.33
 
 ## {{% heading "prerequisites" %}}
 
-쿠버네티스 클러스터가 필요하고, kubectl 커맨드라인 도구가 클러스터와 통신할 수 있도록 구성되어 있어야 한다. 컨트롤 플레인 호스트 역할을 하지 않는 최소 두 개의 노드가 있는 클러스터에서 이 튜토리얼을 실행하는 것을 권장한다. 클러스터가 아직 없다면, minikube를 사용하여 생성하거나 다음 쿠버네티스 플레이그라운드 중 하나를 사용할 수 있다:
+쿠버네티스 클러스터가 필요하고, kubectl 커맨드라인 도구가 클러스터와 통신할 수 있도록 구성되어 있어야 한다. 컨트롤 플레인 호스트 역할을 하지 않는 최소 두 개의 노드가 있는 클러스터에서 이 튜토리얼을 실행하는 것을 권장한다. 클러스터가 아직 없다면, minikube를 사용하여 생성하거나 다음 쿠버네티스 플레이그라운드 중 하나를 사용할 수 있다.
 
 * Killercoda
 * KodeKloud
@@ -40,7 +40,7 @@ min-kubernetes-server-version: 1.33
 
 ## 파드 크기 조정 상태
 
-kubelet은 크기 조정 요청의 상태를 나타내기 위해 파드의 상태 조건을 업데이트한다:
+kubelet은 크기 조정 요청의 상태를 나타내기 위해 파드의 상태 조건을 업데이트한다.
 
 * `type: PodResizePending`: kubelet이 요청을 즉시 승인할 수 없다. `message` 필드에서 이유에 대한 설명을 제공한다.
     * `reason: Infeasible`: 요청된 크기 조정이 현재 노드에서 불가능하다(예: 노드가 가진 것보다 더 많은 리소스 요청).
@@ -77,18 +77,18 @@ CPU에 대해 `restartPolicy: NotRequired`로, 메모리에 대해 `restartPolic
 
 ## 제한사항
 
-쿠버네티스 {{< skew currentVersion >}}에서 파드 리소스의 제자리 크기 조정에는 다음 제한사항이 있다:
+쿠버네티스 {{< skew currentVersion >}}에서 파드 리소스의 제자리 크기 조정에는 다음 제한사항이 있다.
 
 * **리소스 유형:** CPU와 메모리 리소스만 크기를 조정할 수 있다.
 * **메모리 감소:** 메모리에 대한 `resizePolicy`가 `RestartContainer`가 아닌 경우 메모리 제한량을 *감소시킬 수 없다*. 메모리 요청량은 일반적으로 감소시킬 수 있다.
-* **QoS 클래스:** 파드의 원래 [서비스 품질(QoS) 클래스](/ko/docs/concepts/workloads/pods/pod-qos/)(Guaranteed, Burstable, 또는 BestEffort)는 생성 시 결정되며 크기 조정으로 **변경할 수 없다**. 크기 조정된 리소스 값은 여전히 원래 QoS 클래스의 규칙을 준수해야 한다:
+* **QoS 클래스:** 파드의 원래 [서비스 품질(QoS) 클래스](/docs/concepts/workloads/pods/pod-qos/)(Guaranteed, Burstable, 또는 BestEffort)는 생성 시 결정되며 크기 조정으로 **변경할 수 없다**. 크기 조정된 리소스 값은 여전히 원래 QoS 클래스의 규칙을 준수해야 한다:
     * *Guaranteed*: 크기 조정 후에도 CPU와 메모리 모두에 대해 요청량이 제한량과 계속 같아야 한다.
     * *Burstable*: CPU와 메모리 *모두*에 대해 요청량과 제한량이 동시에 같아질 수 없다(이는 Guaranteed로 변경될 것이므로).
     * *BestEffort*: 리소스 요구사항(`requests` 또는 `limits`)을 추가할 수 없다(이는 Burstable 또는 Guaranteed로 변경될 것이므로).
-* **컨테이너 유형:** 재시작할 수 없는 {{< glossary_tooltip text="초기화 컨테이너" term_id="init-container" >}}와 {{< glossary_tooltip text="임시 컨테이너" term_id="ephemeral-container" >}}는 크기를 조정할 수 없다. [사이드카 컨테이너](/ko/docs/concepts/workloads/pods/sidecar-containers/)는 크기를 조정할 수 있다.
+* **컨테이너 유형:** 재시작할 수 없는 {{< glossary_tooltip text="초기화 컨테이너" term_id="init-container" >}}와 {{< glossary_tooltip text="임시 컨테이너" term_id="ephemeral-container" >}}는 크기를 조정할 수 없다. [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)는 크기를 조정할 수 있다.
 * **리소스 제거:** 리소스 요청량과 제한량은 한 번 설정되면 완전히 제거할 수 없으며, 다른 값으로만 변경할 수 있다.
 * **운영 체제:** Windows 파드는 제자리 크기 조정을 지원하지 않는다.
-* **노드 정책:** [정적 CPU 또는 메모리 관리자 정책](/ko/docs/tasks/administer-cluster/cpu-management-policies/)에 의해 관리되는 파드는 제자리에서 크기를 조정할 수 없다.
+* **노드 정책:** [정적 CPU 또는 메모리 관리자 정책](/docs/tasks/administer-cluster/cpu-management-policies/)에 의해 관리되는 파드는 제자리에서 크기를 조정할 수 없다.
 * **스왑:** [스왑 메모리](/ko/docs/concepts/architecture/nodes/#swap-memory)를 활용하는 파드는 메모리에 대한 `resizePolicy`가 `RestartContainer`가 아닌 경우 메모리 요청량을 크기 조정할 수 없다.
 
 이러한 제한사항은 향후 쿠버네티스 버전에서 완화될 수 있다.
@@ -126,7 +126,7 @@ spec:
 kubectl create -f pod-resize.yaml
 ```
 
-이 파드는 Guaranteed QoS 클래스에서 시작된다. 초기 상태를 확인한다:
+이 파드는 Guaranteed QoS 클래스에서 시작된다. 초기 상태를 확인한다.
 
 ```shell
 # 파드가 실행될 때까지 잠시 기다린다
@@ -151,13 +151,13 @@ kubectl patch pod resize-demo --subresource resize --patch \
 `--subresource resize` 커맨드라인 인수는 `kubectl` 클라이언트 버전 v1.32.0 이상이 필요하다. 이전 버전은 `invalid subresource` 오류를 보고한다.
 {{< /note >}}
 
-패치 후 파드 상태를 다시 확인한다:
+패치 후 파드 상태를 다시 확인한다.
 
 ```shell
 kubectl get pod resize-demo --output=yaml
 ```
 
-다음을 확인할 수 있어야 한다:
+다음을 확인할 수 있어야 한다.
 * `spec.containers[0].resources`는 이제 `cpu: 800m`를 보여준다.
 * `status.containerStatuses[0].resources`도 `cpu: 800m`를 보여주며, 노드에서 크기 조정이 성공했음을 나타낸다.
 * `status.containerStatuses[0].restartCount`는 `0`으로 유지된다. CPU `resizePolicy`가 `NotRequired`였기 때문이다.
@@ -172,13 +172,13 @@ kubectl patch pod resize-demo --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"memory":"300Mi"}, "limits":{"memory":"300Mi"}}}]}}'
 ```
 
-패치 직후 파드 상태를 확인한다:
+패치 직후 파드 상태를 확인한다.
 
 ```shell
 kubectl get pod resize-demo --output=yaml
 ```
 
-이제 다음을 관찰할 수 있어야 한다:
+이제 다음을 관찰할 수 있어야 한다.
 * `spec.containers[0].resources`는 `memory: 300Mi`를 보여준다.
 * `status.containerStatuses[0].resources`도 `memory: 300Mi`를 보여준다.
 * `status.containerStatuses[0].restartCount`가 `1`로 증가했다(또는 이전에 재시작이 발생했다면 더 많이),
@@ -194,13 +194,13 @@ kubectl patch pod resize-demo --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"1000"}, "limits":{"cpu":"1000"}}}]}}'
 ```
 
-파드의 세부사항을 조회한다:
+파드의 세부사항을 조회한다.
 
 ```shell
 kubectl get pod resize-demo --output=yaml
 ```
 
-문제를 나타내는 변경사항을 확인할 수 있다:
+문제를 나타내는 변경사항을 확인할 수 있다.
 
 * `spec.containers[0].resources`는 *원하는* 상태(`cpu: "1000"`)를 반영한다.
 * `type: PodResizePending`과 `reason: Infeasible`이 있는 조건이 파드에 추가되었다.
@@ -212,7 +212,7 @@ kubectl get pod resize-demo --output=yaml
 
 ## 정리
 
-파드를 삭제한다:
+파드를 삭제한다.
 
 ```shell
 kubectl delete pod resize-demo
@@ -224,7 +224,7 @@ kubectl delete pod resize-demo
 
 * [컨테이너와 파드에 메모리 리소스 할당](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [컨테이너와 파드에 CPU 리소스 할당](/ko/docs/tasks/configure-pod-container/assign-cpu-resource/)
-* [파드 수준 CPU 및 메모리 리소스 할당](/ko/docs/tasks/configure-pod-container/assign-pod-level-resources/)
+* [파드 수준 CPU 및 메모리 리소스 할당](/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
 ### 클러스터 관리자를 위한 추가 자료
 
