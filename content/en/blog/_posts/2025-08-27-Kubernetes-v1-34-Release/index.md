@@ -18,7 +18,7 @@ There are also some [deprecations and removals](#deprecations-and-removals) in t
 
 ## Release theme and logo
 
-{{< figure src="k8s-v1.34.png" alt="Kubernetes v1.34 logo: Three bears sail a wooden ship with a flag featuring a paw and a helm symbol on the sail, as wind blows across the ocean" >}}
+{{< figure src="k8s-v1.34.png" alt="Kubernetes v1.34 logo: Three bears sail a wooden ship with a flag featuring a paw and a helm symbol on the sail, as wind blows across the ocean" class="release-logo" >}}
 
 A release powered by the wind around us — and the will within us.
 
