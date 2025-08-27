@@ -198,6 +198,12 @@ githubbranch = "v1.31.12"
 docsbranch = "release-1.31"
 url = "https://v1-31.docs.kubernetes.io"
 
+[[params.versions]]
+version = "v1.30"
+githubbranch = "v1.30.14"
+docsbranch = "release-1.30"
+url = "https://v1-30.docs.kubernetes.io"
+
 # User interface configuration
 [params.ui]
 # Enable to show the side bar menu in its compact state.
