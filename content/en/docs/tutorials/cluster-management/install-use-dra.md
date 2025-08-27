@@ -55,9 +55,9 @@ new fields in the Pod spec itself.
 ## {{% heading "prerequisites" %}}
 
 Your cluster should support [RBAC](/docs/reference/access-authn-authz/rbac/).
-You can try this tutorial with a cluster using
-a different authorization mechanism, but in that case you will have to adapt the
-steps around defining roles and permissions.
+You can try this tutorial with a cluster using a different authorization
+mechanism, but in that case you will have to adapt the steps around defining
+roles and permissions.
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -66,26 +66,9 @@ other types of nodes.
 
  {{< version-check >}}
 
-Your cluster also must be configured to use the Dynamic Resource Allocation
-feature.
-To enable the DRA feature, you must enable the following feature gates and API groups:
-
-1.  Enable the `DynamicResourceAllocation`
-    [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-    on all of the following components:
-   
-    * `kube-apiserver`
-    * `kube-controller-manager`
-    * `kube-scheduler`
-    * `kubelet`
-
-1.  Enable the following
-    {{< glossary_tooltip text="API groups" term_id="api-group" >}}:
-
-    * `resource.k8s.io/v1`
-     
-    For more information, see
-    [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
+If your cluster is not currently running Kubernetes {{< skew currentVersion
+>}} then please check the documentation for the version of Kubernetes that you
+plan to use.
 
 
 <!-- lessoncontent -->
