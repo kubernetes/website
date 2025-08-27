@@ -174,13 +174,7 @@ algolia_docsearch = false
 offlineSearch = false
 
 # Official CVE feed bucket URL
-cveFeedBucket = "https://storage.googleapis.
-
-[[params.versions]]
-version = "v1.30"
-githubbranch = "v1.30.12"
-docsbranch = "release-1.30"
-url = "https://v1-30.docs.kubernetes.io"com/k8s-cve-feed/official-cve-feed.json"
+cveFeedBucket = "https://storage.googleapis.com/k8s-cve-feed/official-cve-feed.json"
 
 [params.pushAssets]
 css = [
