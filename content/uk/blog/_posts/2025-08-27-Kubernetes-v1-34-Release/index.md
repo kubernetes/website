@@ -1,8 +1,7 @@
 ---
 layout: blog
-title: 'Kubernetes v1.34: НАЗВА РЕЛІЗУ'
+title: "Kubernetes v1.34: Of Wind & Will (O' WaW)"
 date: 2025-08-27T10:30:00-08:00
-draft: true
 evergreen: true
 slug: kubernetes-v1-34-release
 author: >
@@ -19,7 +18,17 @@ author: >
 
 ## Тема та логотип релізу {#release-theme-and-logo}
 
-\<TODO RELEASE THEME AND LOGO\>
+{{< figure src="k8s-v1.34.png" alt="Логотип Kubernetes v1.34: Три ведмеді пливуть на дерев'яному кораблі з прапором, на якому зображені лапа і штурвал, а вітер дме над океаном." class="release-logo" >}}
+
+Випуск, що рухається силою вітру навколо нас — і силою нашої волі.
+
+Кожен цикл випуску ми успадковуємо вітри, які насправді не контролюємо — стан наших інструментів, документації та історичні особливості нашого проєкту. Іноді ці вітри наповнюють наші вітрила, іноді вони штовхають нас убік або стихають.
+
+Те, що тримає Kubernetes в русі, не ідеальні вітри, а воля наших моряків, які регулюють вітрила, тримають штурвал, прокладають курси і тримають корабель на плаву. Випуск відбувається не тому, що умови завжди ідеальні, а завдяки людям, які його створюють, людям, які його випускають, і ведмедям<sup>^</sup>, котам, собакам, чарівникам і допитливим умам, які допомагають Kubernetes залишатися на плаву — незалежно від того, в якому напрямку дме вітер.
+
+Цей реліз, **Of Wind & Will (O' WaW)**, вшановує вітри, які сформували нас, і волю, яка штовхає нас вперед.
+
+<sub>^ О, і ви здивовані, чому ведмеді? Продовжуйте дивуватися!</sub>
 
 ## Основні оновлення {#spotlight-on-key-updates}
 
@@ -418,6 +427,7 @@ Kubernetes можливий лише завдяки підтримці, відд
 
 **Вересень 2025**
 
+- [**CloudCon Sydney**](https://community.cncf.io/events/details/cncf-cloud-native-sydney-presents-cloudcon-sydney-sydney-international-convention-centre-910-september/): 9–10 вересня 2025 року | Сідней, Австралія
 - [**KCD — Дні спільноти Kubernetes: Сан-Франциско**](https://community.cncf.io/events/details/cncf-kcd-sf-bay-area-presents-kcd-san-francisco-bay-area/): 9 вересня 2025 року | Сан-Франциско, США
 - [**KCD — Дні спільноти Kubernetes: Вашингтон**](https://community.cncf.io/events/details/cncf-kcd-washington-dc-presents-kcd-washington-dc-2025/): 16 вересня 2025 року | Вашингтон, округ Колумбія, США
 - [**KCD — Дні спільноти Kubernetes: Софія**](https://community.cncf.io/events/details/cncf-kcd-sofia-presents-kubernetes-community-days-sofia/): 18 вересня 2025 року | Софія, Болгарія
@@ -443,7 +453,7 @@ Kubernetes можливий лише завдяки підтримці, відд
 
 ## Вебінар про майбутній реліз {#upcoming-release-webinar}
 
-Приєднуйтесь до членів команди випуску Kubernetes v1.34 на \<TODO RELEASE WEBINAR DATE AND TIME\>, щоб дізнатися про основні моменти цього випуску. Для отримання додаткової інформації та реєстрації відвідайте [сторінку події](<TODO RELEASE WEBINAR LINK>) на сайті CNCF Online Programs.
+Приєднуйтесь до членів команди випуску Kubernetes v1.34 у  **середу, 24 вересня 2025 року о 16:00 (UTC)**, щоб дізнатися про основні моменти цього випуску. Для отримання додаткової інформації та реєстрації відвідайте [сторінку події](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cloud-native-live-kubernetes-v134-release/) на сайті CNCF Online Programs.
 
 ## Долучайтесь {#get-involved}
 
