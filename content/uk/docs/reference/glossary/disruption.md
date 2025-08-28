@@ -11,7 +11,7 @@ tags:
 - fundamental
 ---
 
-Розлади — це події, які призводять до виходу з ладу одного чи кількох {{< glossary_tooltip term_id="pod" text="Podʼів" >}}. Розлад має наслідки для ресурсів робочого навантаження, таких як {{< glossary_tooltip term_id="deployment" >}}, які покладаються уражені Podʼі.
+Розлади — це події, які призводять до виходу з ладу одного чи кількох {{< glossary_tooltip term_id="pod" text="Podʼів" >}}. Розлад має наслідки для {{< glossary_tooltip text="ресурсів" term_id="api-resource" >}} робочого навантаження, таких як {{< glossary_tooltip term_id="deployment" >}}, які покладаються уражені Podʼі.
 
 <!--more-->
 

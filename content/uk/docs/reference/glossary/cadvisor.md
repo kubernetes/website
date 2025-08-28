@@ -11,7 +11,7 @@ tags:
 - tool
 ---
 
-cAdvisor (Container Advisor) надає користувачам контейнерів розуміння використання ресурсів і характеристик продуктивності роботи {{< glossary_tooltip text="контейнерів" term_id="container" >}}.
+cAdvisor (Container Advisor) надає користувачам контейнерів розуміння використання {{< glossary_tooltip text="ресурсів" term_id="infrastructure-resource" >}} і характеристик продуктивності роботи {{< glossary_tooltip text="контейнерів" term_id="container" >}}.
 
 <!--more-->
 

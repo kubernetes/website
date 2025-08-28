@@ -12,7 +12,7 @@ tags:
 - fundamental
 ---
 
-Дозволяє користувачам фільтрувати ресурси за {{< glossary_tooltip text="мітками" term_id="label" >}}.
+Дозволяє користувачам фільтрувати {{< glossary_tooltip text="ресурси API" term_id="api-resource" >}} за {{< glossary_tooltip text="мітками" term_id="label" >}}.
 
 <!--more-->
 

@@ -84,3 +84,4 @@ Kubernetes зберігає свій серіалізований стан у т
 
 - Дізнайтеся більше про [домовленості API](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
 - Прочитайте документацію [агрегатора](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)
+- Дізнайтесь про [Декларативну перевірку API](/docs/reference/using-api/declarative-validation/).

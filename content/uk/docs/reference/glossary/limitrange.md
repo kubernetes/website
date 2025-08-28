@@ -6,7 +6,7 @@ full_link:  /uk/docs/concepts/policy/limit-range/
 short_description: >
   Впроваджує ліміти для обмеження обсягу споживання ресурсів для кожного контейнера чи Podʼа в просторі імен.
 
-aka: 
+aka:
 tags:
 - core-object
 - fundamental
@@ -16,8 +16,8 @@ related:
  - container
 ---
 
-Впроваджує ліміти для обмеження обсягу споживання ресурсів для кожного {{< glossary_tooltip text="контейнера" term_id="container" >}} чи {{< glossary_tooltip text="Podʼа" term_id="pod" >}} в просторі імен.
+Обмеження споживання ресурсів на {{< glossary_tooltip text="контейнера" term_id="container" >}} або {{< glossary_tooltip text="Podʼа" term_id="pod" >}}, визначених для конкретного {{< glossary_tooltip text="простору імен" term_id="namespace" >}}.
 
 <!--more-->
 
-LimitRange обмежує кількість обʼєктів, які можна створити за типом, а також обсяг обчислювальних ресурсів, які можуть бути затребувані/спожиті окремими {{< glossary_tooltip text="контейнерами" term_id="container" >}} чи {{< glossary_tooltip text="Podʼами" term_id="pod" >}} в просторі імен.
+[LimitRange](/docs/concepts/policy/limit-range/) обмежує кількість {{< glossary_tooltip text="ресурсів API" term_id="api-resource" >}}, які можуть бути створені (для певного типу ресурсів), або кількість {{< glossary_tooltip text="ресурсів інфраструктури" term_id="infrastructure-resource" >}}, які можуть бути затребувані/спожиті окремими контейнерами або Podʼами в межах простору імен.

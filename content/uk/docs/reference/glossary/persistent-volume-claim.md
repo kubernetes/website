@@ -12,7 +12,7 @@ tags:
 - storage
 ---
 
-Запит на використання ресурсів зберігання, визначених у {{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}}, для їх монтування як томів в {{< glossary_tooltip text="контейнері" term_id="container" >}}.
+Запит на використання {{< glossary_tooltip text="ресурсів" term_id="infrastructure-resource" >}} зберігання, визначених у {{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}}, для їх монтування як томів в {{< glossary_tooltip text="контейнері" term_id="container" >}}.
 
 <!--more-->
 

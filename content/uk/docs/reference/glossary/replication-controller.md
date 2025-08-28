@@ -2,17 +2,17 @@
 title: ReplicationController
 id: replication-controller
 date: 2018-04-12
-full_link: 
+full_link:
 short_description: >
   Обʼєкт API (застарілий), який керує реплікованим застосунком.
 
-aka: 
+aka:
 tags:
 - workload
 - core-object
 ---
 
-Ресурс робочого навантаження, який керує реплікованим застосунком, забезпечуючи наявність певної кількості екземплярів обʼекта {{< glossary_tooltip text="Pod" term_id="pod" >}}.
+{{< glossary_tooltip text="Обʼєкт" term_id="object" >}} робочого навантаження, який керує реплікованим застосунком, забезпечуючи наявність певної кількості екземплярів обʼекта {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
 <!--more-->
 

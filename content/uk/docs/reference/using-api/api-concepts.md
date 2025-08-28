@@ -730,6 +730,8 @@ Kubernetes завжди перевіряє тип полів. Наприклад
 
 {{< /note >}}
 
+Починаючи з версії 1.33, Kubernetes (включно з версією {{< skew currentVersion>}}) пропонує спосіб визначення перевірки полів за допомогою _декларативних теґів_. Це корисно для тих, хто бере участь у розробці самого Kubernetes, а також для тих, хто пише власний API з використанням бібліотек Kubernetes. Щоб дізнатися більше, див. [Декларативна перевірка API](/docs/reference/using-api/declarative-validation/).
+
 ## Dry-run
 
 {{< feature-state feature_gate_name="DryRun" >}}

@@ -4,7 +4,7 @@ id: event
 date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
-   Події — це обʼєкти Kubernetes, які описують зміну стану в системі.
+   Обʼєкти Kubernetes, які описують зміну стану в кластері.
 
 aka:
 - Event
@@ -13,7 +13,7 @@ tags:
 - fundamental
 ---
 
-Подія – це обʼєкт Kubernetes, який описує зміну стану або помітні події в системі.
+{{< glossary_tooltip text="Обʼєкт" term_id="object" >}} Kubernetes, який описує зміну стану або помітні події в кластері.
 
 <!--more-->
 

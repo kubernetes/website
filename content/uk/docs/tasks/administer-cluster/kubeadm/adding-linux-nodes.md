@@ -65,6 +65,12 @@ sudo kubeadm token create
 5didvk.d09sbcov8ph2amjw
 ```
 
+Щоб вивести команду kubeadm join і одночасно створити новий токен, можна використати:
+
+```bash
+sudo kubeadm token create --print-join-command
+```
+
 Якщо у вас немає значення `--discovery-token-ca-cert-hash`, ви можете отримати його, виконавши наступні команди на вузлі панелі управління:
 
 ```bash
