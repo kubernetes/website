@@ -141,7 +141,12 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Privileged Containers-->特权容器</td>
 			<td>
-				<p><!--Privileged Pods disable most security mechanisms and must be disallowed.-->特权 Pod 会使大多数安全性机制失效，必须被禁止。</p>
+				<p>
+				<!--
+				Privileged Pods disable most security mechanisms and must be disallowed.
+				-->
+				特权 Pod 会使大多数安全性机制失效，必须被禁止。
+				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.privileged</code></li>
@@ -158,7 +163,12 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Capabilities-->权能</td>
 			<td>
-				<p><!--Adding additional capabilities beyond those listed below must be disallowed.-->必须禁止添加除下列字段之外的权能。</p>
+				<p>
+				<!--
+				Adding additional capabilities beyond those listed below must be disallowed.
+				-->
+				必须禁止添加除下列字段之外的权能。
+				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.capabilities.add</code></li>
@@ -201,7 +211,12 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Host Ports-->宿主端口</td>
 			<td>
-				<p><!--HostPorts should be disallowed entirely (recommended) or restricted to a known list.-->应该完全禁止使用宿主端口（推荐）或者至少限制只能使用某确定列表中的端口。</p>
+				<p>
+				<!--
+				HostPorts should be disallowed entirely (recommended) or restricted to a known list.
+				-->
+				应该完全禁止使用宿主端口（推荐）或者至少限制只能使用某确定列表中的端口。
+				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].ports[*].hostPort</code></li>
@@ -214,6 +229,65 @@ fail validation.
 					<li><!--Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)-->
 					已知列表（不支持内置的 <a href="/zh-cn/docs/concepts/security/pod-security-admission/">Pod 安全性准入控制器</a> ）</li>
 					<li><code>0</code></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<!--
+			Host Probes / Lifecycle Hooks (v1.34+)
+			-->
+			主机探针/生命周期回调（v1.34+）
+			</td>
+			<td>
+				<p>
+				<!--
+				The Host field in probes and lifecycle hooks must be disallowed.
+				-->
+				探针和生命周期回调中的 Host 字段必须被禁止使用。
+				</p>
+				<p><strong>
+				<!--
+				Restricted Fields
+				-->
+				限制的字段
+				</strong></p>
+				<ul>
+					<li><code>spec.containers[*].livenessProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].readinessProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].startupProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].livenessProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].readinessProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].startupProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].lifecycle.postStart.tcpSocket.host</code>
+					<li><code>spec.containers[*].lifecycle.preStop.tcpSocket.host</code>
+					<li><code>spec.containers[*].lifecycle.postStart.httpGet.host</code></li>
+					<li><code>spec.containers[*].lifecycle.preStop.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].livenessProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].readinessProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].startupProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].livenessProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].readinessProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].startupProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].lifecycle.postStart.tcpSocket.host</code>
+					<li><code>spec.initContainers[*].lifecycle.preStop.tcpSocket.host</code>
+					<li><code>spec.initContainers[*].lifecycle.postStart.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].lifecycle.preStop.httpGet.host</code></li>
+				</ul>
+				<p><strong>
+				<!--
+				Allowed Values
+				-->
+				准许的取值
+				</strong></p>
+				<ul>
+					<li>
+					<!--
+					Undefined/nil
+					-->
+					未定义、nil
+					</li>
+					<li>""</li>
 				</ul>
 			</td>
 		</tr>
@@ -236,7 +310,7 @@ fail validation.
         </ul>
         <p><strong><!--Allowed Values-->准许的取值<</strong></p>
         <ul>
-              <li>Undefined/nil</li>
+              <li><!--Undefined/nil-->未定义、nil</li>
               <li><code>RuntimeDefault</code></li>
               <li><code>Localhost</code></li>
         </ul>
@@ -297,7 +371,12 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><code>/proc</code><!--Mount Type-->挂载类型</td>
 			<td>
-				<p><!--The default <code>/proc</code> masks are set up to reduce attack surface, and should be required.-->要求使用默认的 <code>/proc</code> 掩码以减小攻击面。</p>
+				<p>
+				<!--
+				The default <code>/proc</code> masks are set up to reduce attack surface, and should be required.
+				-->
+				要求使用默认的 <code>/proc</code> 掩码以减小攻击面。
+				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.procMount</code></li>
@@ -314,7 +393,12 @@ fail validation.
 		<tr>
   			<td>Seccomp</td>
   			<td>
-  				<p><!--Seccomp profile must not be explicitly set to <code>Unconfined</code>.-->Seccomp 配置必须不能显式设置为 <code>Unconfined</code>。</p>
+  				<p>
+				<!--
+				Seccomp profile must not be explicitly set to <code>Unconfined</code>.
+				-->
+				Seccomp 配置必须不能显式设置为 <code>Unconfined</code>。
+				</p>
   				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -456,8 +540,12 @@ fail validation.
 					<li><code>true</code></li>
 				</ul>
 				<small>
-					<!--The container fields may be undefined/<code>nil</code> if the pod-level
-					<code>spec.securityContext.runAsNonRoot</code> is set to <code>true</code>.-->如果 Pod 级别 <code>spec.securityContext.runAsNonRoot</code> 设置为 <code>true</code>，则允许容器组的安全上下文字段设置为 未定义/<code>nil</code>。
+					<!--
+					The container fields may be undefined/<code>nil</code> if the pod-level
+					<code>spec.securityContext.runAsNonRoot</code> is set to <code>true</code>.
+					-->
+					如果 Pod 级别 <code>spec.securityContext.runAsNonRoot</code> 设置为 <code>true</code>，
+					则允许容器组的安全上下文字段设置为未定义/<code>nil</code>。
 				</small>
 			</td>
 		</tr>
@@ -518,7 +606,8 @@ fail validation.
 					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
           -->
           容器必须弃用 <code>ALL</code> 权能，并且只允许添加
-          <code>NET_BIND_SERVICE</code> 权能。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(.spec.os.name != "windows")</code></em>
+          <code>NET_BIND_SERVICE</code> 权能。<em><a href="#policies-specific-to-linux">这是
+          v1.25+ 中仅针对 Linux 的策略</a> <code>(.spec.os.name != "windows")</code></em>。
 				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>

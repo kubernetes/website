@@ -16,22 +16,58 @@ either **graceful** or **non-graceful**.
 
 ## Graceful node shutdown {#graceful-node-shutdown}
 
-{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
-
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
 
-kubelet ensures that pods follow the normal
+Kubelet ensures that pods follow the normal
 [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 during the node shutdown. During node shutdown, the kubelet does not accept new
 Pods (even if those Pods are already bound to the node).
 
+### Enabling graceful node shutdown
+
+{{< tabs name="graceful_shutdown_os" >}}
+{{% tab name="Linux" %}}
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
+
+On Linux, the graceful node shutdown feature is controlled with the `GracefulNodeShutdown`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) which is
+enabled by default in 1.21.
+
+{{< note >}}
 The graceful node shutdown feature depends on systemd since it takes advantage of
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
 delay the node shutdown with a given duration.
+{{</ note >}}
+{{% /tab %}}
 
-Graceful node shutdown is controlled with the `GracefulNodeShutdown`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) which is
-enabled by default in 1.21.
+{{% tab name="Windows" %}}
+{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
+
+On Windows, the graceful node shutdown feature is controlled with the `WindowsGracefulNodeShutdown`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+which is introduced in 1.32 as an alpha feature. In Kubernetes 1.34 the feature is Beta
+and is enabled by default.
+
+{{< note >}}
+The Windows graceful node shutdown feature depends on kubelet running as a Windows service,
+it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
+to delay the preshutdown event with a given duration.
+{{</ note >}}
+
+Windows graceful node shutdown can not be cancelled.
+
+If kubelet is not running as a Windows service, it will not be able to set and monitor
+the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
+the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
+
+In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not
+running as a Windows service, the kubelet will continue running instead of failing. However,
+it will log an error indicating that it needs to be run as a Windows service.
+{{% /tab %}}
+
+{{< /tabs >}}
+
+### Configuring graceful node shutdown
 
 Note that by default, both configuration options described below,
 `shutdownGracePeriod` and `shutdownGracePeriodCriticalPods`, are set to zero,
@@ -39,7 +75,7 @@ thus not activating the graceful node shutdown functionality.
 To activate the feature, both options should be configured appropriately and
 set to non-zero values.
 
-Once systemd detects or is notified of a node shutdown, the kubelet sets a `NotReady` condition on
+Once the kubelet is notified of a node shutdown, it sets a `NotReady` condition on
 the Node, with the `reason` set to `"node is shutting down"`. The kube-scheduler honors this condition
 and does not schedule any Pods onto the affected node; other third-party schedulers are
 expected to follow the same logic. This means that new Pods won't be scheduled onto that node
@@ -272,28 +308,6 @@ via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure ment
 - Deviation from the steps documented above can result in data corruption.
 
 {{< /note >}}
-
-## Windows Graceful node shutdown {#windows-graceful-node-shutdown}
-
-{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
-
-The Windows graceful node shutdown feature depends on kubelet running as a Windows service,
-it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
-to delay the preshutdown event with a given duration.
-
-Windows graceful node shutdown is controlled with the `WindowsGracefulNodeShutdown`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-which is introduced in 1.32 as an alpha feature.
-
-Windows graceful node shutdown can not be cancelled.
-
-If kubelet is not running as a Windows service, it will not be able to set and monitor
-the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
-the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
-
-In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not
-running as a Windows service, the kubelet will continue running instead of failing. However,
-it will log an error indicating that it needs to be run as a Windows service.
 
 ## {{% heading "whatsnext" %}}
 

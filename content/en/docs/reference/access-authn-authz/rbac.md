@@ -788,7 +788,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:monitoring</b></td>
 <td><b>system:monitoring</b> group</td>
-<td>Allows read access to control-plane monitoring endpoints (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  and <tt>/metrics</tt>). Note that individual health check endpoints and the metric endpoint may expose sensitive information.</td>
+<td>Allows read access to control-plane monitoring endpoints (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  <tt>/metrics</tt>), and causes the kube-apiserver to respect the traceparent header provided with requests for tracing. Note that individual health check endpoints and the metric endpoint may expose sensitive information.</td>
 </tr>
 </tbody>
 </table>

@@ -153,6 +153,14 @@ enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
 the kubelet automatically detects the appropriate cgroup driver from the runtime,
 and ignores the `cgroupDriver` setting within the kubelet configuration.
 
+However, older versions of container runtimes (specifically,
+containerd 1.y and below) do not support the `RuntimeConfig` CRI RPC, and
+may not respond correctly to this query, and thus the Kubelet falls back to using the
+value in its own `--cgroup-driver` flag.
+
+In Kubernetes 1.36, this fallback behavior will be dropped, and older versions
+of containerd will fail with newer kubelets.
+
 {{< caution >}}
 Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation.
 If the kubelet has created Pods using the semantics of one cgroup driver, changing the container

@@ -24,9 +24,10 @@ tags:
 -->
 
 <!--
-A group of Linux processes with optional resource isolation, accounting and limits.
+A group of Linux processes with optional {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}} isolation, accounting and limits.
 -->
-一组具有可选资源隔离、审计和限制的 Linux 进程。
+一组具有可选{{< glossary_tooltip text="资源" term_id="infrastructure-resource" >}}隔离、
+审计和限制的 Linux 进程。
 
 <!--more--> 
 

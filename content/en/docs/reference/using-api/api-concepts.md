@@ -127,7 +127,7 @@ virtual resource type would be used if that becomes necessary.
 
 ## HTTP media types {#alternate-representations-of-resources}
 
-Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
+Over HTTP, Kubernetes supports JSON, YAML, CBOR and Protobuf wire encodings.
 
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
 `application/json` media type. Although JSON is the default, clients may request a response in
@@ -143,6 +143,13 @@ If you request an available media type, the API server returns a response with a
 `Content-Type`; if none of the media types you request are supported, the API server returns
 a `406 Not acceptable` error message.
 All built-in resource types support the `application/json` media type.
+
+#### Chunked encoding of collections
+
+For JSON and Protobuf encoding, Kubernetes implements custom encoders that write item, by item.
+The feature doesn't change the output, but allows API server to avoid loading whole LIST response into memory.
+Using other types of encoding (including pretty representation of JSON)
+should be avoided for large collections of resources (>100MB) as it can have negative performance impact.
 
 ### JSON resource encoding {#json-encoding}
 
@@ -1363,19 +1370,21 @@ Exact
   `resourceVersionMatch` parameter, this guarantees that the collection's `.metadata.resourceVersion`
   is the same as the `resourceVersion` you requested in the query string. That guarantee does
   not apply to the `.metadata.resourceVersion` of any items within that collection.
-  By default served from _etcd_, but with the `ListFromCacheSnapshot` feature gate enabled,
-  API server will attempt to serve the response from snapshot if available.
-  This improves performance and reduces etcd load. Cache snapshots are kept by default for 75 seconds,
-  so if the provided `resourceVersion` is unavailable, the server will fallback to etcd.
+  With the `ListFromCacheSnapshot` feature gate enabled by default,
+  API server will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested.
+  This improves performance and reduces etcd load. API server starts with no snapshots,
+  creates a new snapshot on every watch event and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds.
+  If the provided `resourceVersion` is unavailable, the server will fallback to etcd.
 
 Continuation
 : Return the next page of data for a paginated list request, ensuring consistency with the exact `resourceVersion` established by the initial request in the sequence.
   Response to **list** requests with limit include _continue token_, that encodes the  `resourceVersion` and last observed position from which to resume the list.
   If the `resourceVersion` in the provided _continue token_ is unavailable, the server responds with HTTP `410 Gone`.
-  By default served from _etcd_, but with the `ListFromCacheSnapshot` feature gate enabled,
-  API server will attempt to serve the response from snapshot if available.
-  This improves performance and reduces etcd load. Cache snapshots are kept by default for 75 seconds,
-  so if the `resourceVersion` in provided _continue token_ is unavailable, the server will fallback to etcd.
+  With the `ListFromCacheSnapshot` feature gate enabled by default,
+  API server will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested.
+  This improves performance and reduces etcd load. API server starts with no snapshots,
+  creates a new snapshot on every watch event and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds.
+  If the `resourceVersion` in provided _continue token_ is unavailable, the server will fallback to etcd.
 
 {{< note >}}
 When you **list** resources and receive a collection response, the response includes the
