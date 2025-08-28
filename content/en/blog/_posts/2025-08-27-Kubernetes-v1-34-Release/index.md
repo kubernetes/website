@@ -545,6 +545,7 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 
 **September 2025**
 
+- [**CloudCon Sydney**](https://community.cncf.io/events/details/cncf-cloud-native-sydney-presents-cloudcon-sydney-sydney-international-convention-centre-910-september/): Sep 9–10, 2025 | Sydney, Australia.
 - [**KCD - Kubernetes Community Days: San Francisco Bay Area**](https://community.cncf.io/events/details/cncf-kcd-sf-bay-area-presents-kcd-san-francisco-bay-area/): Sep 9, 2025 | San Francisco, USA
 - [**KCD - Kubernetes Community Days: Washington DC**](https://community.cncf.io/events/details/cncf-kcd-washington-dc-presents-kcd-washington-dc-2025/): Sep 16, 2025 | Washington, D.C., USA
 - [**KCD - Kubernetes Community Days: Sofia**](https://community.cncf.io/events/details/cncf-kcd-sofia-presents-kubernetes-community-days-sofia/): Sep 18, 2025 | Sofia, Bulgaria
