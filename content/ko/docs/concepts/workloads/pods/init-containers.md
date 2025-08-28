@@ -335,7 +335,7 @@ Active deadline은 초기화 컨테이너를 포함한다.
 * [초기화 컨테이너 디버깅](/ko/docs/tasks/debug/debug-application/debug-init-containers/) 알아보기
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)과 [kubectl](/ko/docs/reference/kubectl/) 개요
 * [프로브의 종류](/ko/docs/concepts/workloads/pods/pod-lifecycle/#프로브-종류): liveness, readiness, startup 프로브
-* [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/)
+* [사이드카 컨테이너](/docs/concepts/workloads/pods/sidecar-containers/) 
 
 
 
