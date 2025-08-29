@@ -13,5 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.29"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
+
 Дозволяє вказувати заміну для Podʼів, що завершуються, в [Job](/docs/concepts/workloads/controllers/job)

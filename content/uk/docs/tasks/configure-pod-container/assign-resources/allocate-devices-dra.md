@@ -1,7 +1,7 @@
 ---
 title: Призначення пристроїв робочим навантаженням за допомогою DRA
 content_type: task
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 weight: 20
 ---
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
@@ -115,6 +115,11 @@ kubectl apply -f https://k8s.io/examples/dra/resourceclaim.yaml
    ```shell
    kubectl apply -f https://k8s.io/examples/dra/dra-example-job.yaml
    ```
+
+Спробуйте наступні кроки для усунення неполадок:
+
+1. Коли робоче навантаження не запускається, як очікувалося, перевірте обʼєкти на кожному рівні з `kubectl describe`, щоб дізнатися, чи є якісь поля статусу або події, які можуть пояснити, чому робоче навантаження не запускається.
+1. Коли створення Pod не вдається з `must specify one of: resourceClaimName, resourceClaimTemplateName`, перевірте, що всі записи в `pod.spec.resourceClaims` мають точно одне з цих полів. Якщо так, то можливо, що в кластері встановлено модифікуючий веб-хук Podʼа, який був створений для API Kubernetes < 1.32. Попросіть адміністратора кластера перевірити це.
 
 ## Очищення {#clean-up}
 

@@ -81,9 +81,13 @@ spec:
 
 - **labelSelector** використовується для знаходження відповідних Podʼів. Podʼи, які відповідають цьому селектору міток, враховуються для визначення кількості Podʼів у відповідному домені топології. Дивіться [селектори міток](/docs/concepts/overview/working-with-objects/labels/#label-selectors) для отримання додаткових відомостей.
 
-- **matchLabelKeys** — це список ключів міток Podʼа для вибору Podʼів, відносно яких буде розраховано поширення. Ключі використовуються для вибору значень з міток Podʼів, ці ключі-значення міток AND `labelSelector` вибирають групу наявних Podʼів, відносно яких буде розраховано поширення для вхідного Podʼа. Існування однакового ключа заборонене як у `matchLabelKeys`, так і в `labelSelector`. `matchLabelKeys` не може бути встановлено, коли `labelSelector` не встановлено. Ключі, яких не існує в мітках Podʼа, будуть проігноровані. Порожній або нульовий список означає, що збіг буде відповідати лише `labelSelector`.
+- **matchLabelKeys** — це список ключів міток Podʼа для вибору Podʼів, відносно яких буде розраховано поширення. При створенні Podʼа kube-apiserver використовує ці ключі для пошуку значень з вхідних міток Podʼа, і ці мітки ключ-значення будуть обʼєднані з будь-яким наявним `labelSelector`. Існування однакового ключа заборонене як у `matchLabelKeys`, так і в `labelSelector`. `matchLabelKeys` не може бути встановлено, коли `labelSelector` не встановлено. Ключі, яких не існує в мітках Podʼа, будуть проігноровані. Порожній або нульовий список означає, що збіг буде відповідати лише `labelSelector`.
 
-  З `matchLabelKeys` вам не потрібно оновлювати `pod.spec` між різними версіями. Контролер/оператор просто повинен встановити різні значення для того самого ключа мітки для різних версій. Планувальник автоматично припускає значення на основі `matchLabelKeys`. Наприклад, якщо ви налаштовуєте Deployment, ви можете використовувати мітку за ключем [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label), яка додається автоматично контролером Deployment, для розрізнення різних версій в одному Deployment.
+  {{< caution >}}
+  Не рекомендується використовувати `matchLabelKeys` з мітками, які можуть бути оновлені безпосередньо на Podʼах. Навіть якщо ви редагуєте мітку Podʼа, яка вказана в `matchLabelKeys` **безпосередньо**, (тобто, ви редагуєте Pod, а не Deployment), kube-apiserver не відображає оновлення мітки на обʼєднаний `labelSelector`.
+  {{< /caution >}}
+
+  З `matchLabelKeys` вам не потрібно оновлювати `pod.spec` між різними версіями. Контролер/оператор просто повинен встановити різні значення для того самого ключа мітки для різних версій. Наприклад, якщо ви налаштовуєте Deployment, ви можете використовувати мітку за ключем [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label), яка додається автоматично контролером Deployment, для розрізнення різних версій в одному Deployment.
 
   ```yaml
       topologySpreadConstraints:
@@ -99,6 +103,8 @@ spec:
 
   {{< note >}}
   Поле `matchLabelKeys` є полем на рівні бета-версії та включено стандартно у 1.27. Ви можете відключити його, вимкнувши [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `MatchLabelKeysInPodTopologySpread`.
+
+  До v1.34, `matchLabelKeys` оброблявся неявно. З v1.34, мітки ключ-значення, що відповідають `matchLabelKeys`, явно обʼєднуються з `labelSelector`. Ви можете відключити це і повернутися до попередньої поведінки, вимкнувши [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `MatchLabelKeysInPodTopologySpreadSelectorMerge` kube-apiserver.
   {{< /note >}}
 
 - **nodeAffinityPolicy** вказує, як ми будемо обробляти nodeAffinity/nodeSelector Pod, коли розраховуємо розрив поширення топології Podʼів. Опції:

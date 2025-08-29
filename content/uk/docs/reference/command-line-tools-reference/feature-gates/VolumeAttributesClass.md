@@ -13,5 +13,10 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.31"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
+
 Вмикання підтримки класів VolumeAttributesClasses. Докладні відомості див. у статті [Класи атрибутів томів](/docs/concepts/storage/volume-attributes-classes/).

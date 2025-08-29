@@ -9,5 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.33"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.34"
 ---
-Дозволяє kubelet встановлювати `observedGeneration` у статусі podʼів та іншим компонентам встановлювати `observedGeneration` в станах podʼів, щоб відобразити `metadata.generation` podʼу на момент запису статусу або стану.
+
+Дозволяє kubelet встановлювати `observedGeneration` у статусі Podʼів, а також дозволяє іншим компонентам встановлювати `observedGeneration` в станах Podʼів. Ця функція дозволяє відобразити `metadata.generation` Podʼу на момент запису статусу або стану. Зберігання цієї інформації допомагає уникнути ризиків, повʼязаних із _втраченими оновленнями_.

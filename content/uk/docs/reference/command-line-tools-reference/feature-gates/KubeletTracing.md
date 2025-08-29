@@ -13,5 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.27"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
+
 Додавання підтримки розподіленого трасування в kubelet. Якщо увімкнено, інтерфейс CRI kubelet та автентифіковані http-сервери використовуються для генерації відрізків трасування OpenTelemetry. Дивіться [Трасування для системних компонентів Kubernetes](/docs/concepts/cluster-administration/system-traces) для більш детальної інформації.

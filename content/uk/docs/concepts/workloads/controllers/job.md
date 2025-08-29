@@ -747,11 +747,7 @@ spec:
 
 ### Відкладене створення замінних Podʼів {#pod-replacement-policy}
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
-
-{{< note >}}
-Ви можете встановити `podReplacementPolicy` для Завдань тільки у випадку, якщо увімкнуто [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `JobPodReplacementPolicy` (стандартно увімкнено).
-{{< /note >}}
+{{< feature-state feature_gate_name="JobPodReplacementPolicy" >}}
 
 Типово контролер Job створює Podʼи якнайшвидше, якщо вони або зазнають невдачі, або знаходяться в стані завершення (мають відмітку видалення). Це означає, що в певний момент часу, коли деякі з Podʼів знаходяться в стані завершення, кількість робочих Podʼів для Завдання може бути більшою, ніж `parallelism` або більше, ніж один Pod на індекс (якщо ви використовуєте Індексоване Завданя).
 

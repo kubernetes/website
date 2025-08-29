@@ -50,13 +50,9 @@ EnqueueExtension — це інтерфейс, де втулок може кон
 
 ### QueueingHint
 
-{{< feature-state for_k8s_version="v1.32" state="beta" >}}
+{{< feature-state feature_gate_name="SchedulerQueueingHints" >}}
 
 QueueingHint — це функція зворотного виклику для вирішення того, чи можна повторно включити Pod до активної черги або черги відстрочки. Вона виконується кожного разу, коли в кластері відбувається певний вид події або зміна. Коли QueueingHint виявляє, що подія може зробити Pod запланованим, Pod поміщається в активну чергу або чергу відстрочки, щоб планувальник повторно спробував спланувати Pod.
-
-{{< note >}}
-У Kubernetes {{< skew currentVersion >}} ця функціональна можливість увімкнена стандартно, і ви можете вимкнути її за допомогою [функціональної можливості](/docs/reference/command-line-tools-reference/feature-gates/) `SchedulerQueueingHints`.
-{{< /note >}}
 
 ### QueueSort {#queue-sort}
 

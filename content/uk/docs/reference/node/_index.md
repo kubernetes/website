@@ -22,3 +22,5 @@ no_list: true
 * [Дані метрик вузла](/docs/reference/instrumentation/node-metrics).
 
 * [Метрики CRI для Podʼів та контейнерів](/docs/reference/instrumentation/cri-pod-container-metrics).
+
+* [Розуміння метрик Pressure Stall Information (PSI)](/docs/reference/instrumentation/understand-psi-metrics).

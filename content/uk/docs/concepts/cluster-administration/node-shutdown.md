@@ -12,19 +12,48 @@ weight: 10
 
 ## Належне вимикання вузла {#graceful-node-shutdown}
 
-{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
-
 Kubelet намагається виявити вимикання системи вузла та завершує виконання Podʼів на вузлі.
 
 Kubelet забезпечує виконання нормального [процесу завершення роботи Podʼа](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) під час вимикання вузла. Під час вимикання вузла kubelet не приймає нові Podʼи (навіть якщо ці Podʼи вже призначені вузлу).
 
+### Увімкнення належного вимикання вузла{#enabling-graceful-node-shutdown}
+
+{{< tabs name="graceful_shutdown_os" >}}
+{{% tab name="Linux" %}}
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
+
+У Linux, функція належного вимикання вузла контролюється [функціональною можливістю](/docs/reference/command-line-tools-reference/feature-gates/) `GracefulNodeShutdown`, яка є стандартно увімкненою з 1.21.
+
+{{< note >}}
+
 Можливість належного вимикання вузла (graceful node shutdown) залежить від systemd, оскільки вона використовує [блокування інгібіторів systemd](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) для затримки вимкнення вузла на певний час.
 
-Вимикання вузла керується [функціональною можливістю](/docs/reference/command-line-tools-reference/feature-gates/) `GracefulNodeShutdown`, що є типово увімкненим з версії 1.21.
+{{</ note >}}
+{{% /tab %}}
+
+{{% tab name="Windows" %}}
+{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
+
+У Windows, функція належного вимикання вузла контролюється [функціональною можливістю](/docs/reference/command-line-tools-reference/feature-gates/) `WindowsGracefulNodeShutdown`, яка була представлена в 1.32 як альфа-функція. У Kubernetes 1.34 ця функція стала бета-версією і є стандартно увімкненою.
+
+{{< note >}}
+Функція належного вимикання вузла для Windows залежить від того, що kubelet працює як служба Windows, тоді він матиме зареєстрований [обробник керування службами](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function) для затримки події попереднього вимкнення на певний час.
+{{</ note >}}
+
+Процес належного вимикання вузла Windows не може бути скасований.
+
+Якщо kubelet не працює як служба Windows, він не зможе встановити та контролювати подію [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info), вузлу доведеться пройти процедуру [неналежного вимкнення вузла](#non-graceful-node-shutdown), згадану вище.
+
+У випадку, якщо функція належного вимикання вузла для Windows увімкнена, але kubelet не працює як служба Windows, kubelet продовжить працювати замість того, щоб зазнати збою. Однак він зафіксує помилку, вказуючи на те, що його потрібно запускати як службу Windows.
+{{% /tab %}}
+
+{{< /tabs >}}
+
+### Налаштування належного вимикання вузла {#configuring-graceful-node-shutdown}
 
 Зауважте, що типово обидва налаштування конфігурації, описані нижче, `shutdownGracePeriod` та `shutdownGracePeriodCriticalPods`, встановлені на нуль, таким чином, не активуючи функціональність належного вимикання вузла. Для активації цієї функції, обидва налаштування конфігурації kubelet повинні бути належним чином налаштовані та встановлені на значення, відмінні від нуля.
 
-Як тільки systemd виявляє або повідомляє про вимикання вузла, kubelet встановлює умову `NotReady` на вузлі з причиною `"node is shutting down"`. Kube-scheduler дотримується цієї умови та не планує жодних Podʼів на цьому вузлі; очікується, що інші планувальники сторонніх постачальників дотримуватимуться такої ж логіки. Це означає, що нові Podʼи не будуть плануватися на цьому вузлі, і, отже, жоден із них не розпочне роботу.
+Як тільки kubelet виявляє або повідомляє про вимикання вузла, він встановлює стан `NotReady` на вузлі з `reason` `"node is shutting down"`. Kube-scheduler дотримується цієї умови та не планує жодних Podʼів на цьому вузлі; очікується, що інші планувальники сторонніх постачальників дотримуватимуться такої ж логіки. Це означає, що нові Podʼи не будуть плануватися на цьому вузлі, і, отже, жоден із них не розпочне роботу.
 
 Kubelet **також** відхиляє Podʼи під час фази `PodAdmission`, якщо виявлено поточне вимикання вузла, так що навіть Podʼи з {{< glossary_tooltip text="toleration" term_id="toleration" >}} для `node.kubernetes.io/not-ready:NoSchedule` не почнуть виконання там.
 
@@ -162,20 +191,6 @@ shutdownGracePeriodByPodPriority:
 - Відхилення від документованих вище кроків може призвести до пошкодження даних.
 
 {{< /note >}}
-
-## Належне припинення роботи вузла Windows{#windows-graceful-node-shutdown}
-
-{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
-
-Функція Windows graceful node shutdown залежить від того, чи працює kubelet як служба Windows, тоді він матиме зареєстрований [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function) для затримки події вимкнення на задану тривалість.
-
-Керування вимкненням вузла Windows здійснюється за допомогою [функціональної можливості](/docs/reference/command-line-tools-reference/feature-gates/) `WindowsGracefulNodeShutdown`, яку було представлено у 1.32 як альфа-версію.
-
-Належне завершення роботи вузла у Windows не може бути скасовано.
-
-Якщо kubelet не запущено як службу Windows, він не зможе встановити та відстежувати подію [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info), вузол буде змушений пройти через процедуру [Non-Graceful Node Shutdown](#non-graceful-node-shutdown), згадану вище.
-
-У випадку, якщо у Windows увімкнено функцію належного завершення роботи вузла, але kubelet не запущено як службу Windows, kubelet продовжить роботу, а не завершить її. Однак, він буде реєструвати помилку, яка вказує на те, що його потрібно запустити як службу Windows.
 
 ## {{% heading "whatsnext" %}}
 

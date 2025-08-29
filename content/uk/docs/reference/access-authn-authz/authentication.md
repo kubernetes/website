@@ -264,13 +264,17 @@ JWT Автентифікатор є автентифікатором для ав
 Якщо ви вкажете `--authentication-config` разом з будь-якими аргументами командного рядка `--oidc-*`, це є некоректною конфігурацією. У цій ситуації сервер API повідомить про помилку й одразу завершить роботу. Якщо ви хочете перейти на використання структурованої конфігурації автентифікації, вам потрібно видалити аргументи командного рядка `--oidc-*` і використовувати конфігураційний файл замість них.
 {{< /note >}}
 
+{{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
+
+Поле _egressSelectorType_ в конфігурації видавця JWT дозволяє вказати, який селектор виходу має використовуватися для надсилання всього трафіку, повʼязаного з видавцем (виявлення, JWKS, розподілені твердження тощо). Ця функція вимагає, щоб функціональна можливість `StructuredAuthenticationConfigurationEgressSelector` була увімкнена.
+
 ```yaml
 ---
 #
 # УВАГА: це приклад конфігурації.
 #        Не використовуйте це для вашого кластера!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 # список автентифікаторів для автентифікації користувачів Kubernetes за допомогою токенів, що відповідають стандарту JWT.
 # максимальна кількість дозволених автентифікаторів – 64.
@@ -301,6 +305,13 @@ jwt:
     - my-other-app
     # це повинно бути встановлено на "MatchAny", коли вказано кілька аудиторій.
     audienceMatchPolicy: MatchAny
+    # egressSelectorType є індикатором того, який селектор виходу має використовуватися для надсилання всього трафіку, повʼязаного з
+    # цим видавцем (виявлення, JWKS, розподілені твердження тощо). Якщо не вказано, не використовується жоден спеціальний набір.
+    # Коли вказано, допустимі варіанти - "controlplane" і "cluster". Це відповідає асоційованим
+    # значенням у --egress-selector-config-file.
+    # - controlplane: для трафіку, призначеного для контрольної площини.
+    # - cluster: для трафіку, призначеного для системи, що керується Kubernetes.
+    egressSelectorType: <egress-selector-type>
   # правила, що застосовуються для перевірки тверджень токена для автентифікації користувачів.
   claimValidationRules:
     # Те ж саме, що і --oidc-required-claim key=value.
@@ -391,7 +402,7 @@ jwt:
   {{% tab name="Валідний токен token" %}}
 
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -460,7 +471,7 @@ jwt:
   {{% tab name="Твердження не проходить перевірку" %}}
 
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -511,7 +522,7 @@ jwt:
   {{% tab name="Користувач не проходить перевірку" %}}
 
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -581,7 +592,6 @@ jwt:
 ###### Обмеження {#limitations}
 
 1. Розподілені твердження не працюють через вирази [CEL](/docs/reference/using-api/cel/).
-2. Конфігурація селектора вихідного трафіку не підтримується для викликів до `issuer.url` та `issuer.discoveryURL`.
 
 Kubernetes не надає постачальника ідентифікаційних даних OpenID Connect. Ви можете скористатися наявним загальнодоступним постачальником ідентифікаційних даних OpenID Connect або запустити власного постачальника ідентифікаційних даних, який підтримує протокол OpenID Connect.
 
@@ -940,7 +950,7 @@ extra:
 # УВАГА: це приклад конфігурації.
 #        Не використовуйте його для вашого власного кластера!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 anonymous:
   enabled: true

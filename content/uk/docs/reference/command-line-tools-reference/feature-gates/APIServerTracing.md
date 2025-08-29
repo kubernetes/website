@@ -13,5 +13,9 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.27"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
 Додає підтримку розподіленого трасування у сервері API. Докладні відомості наведено у статті [Трасування системних компонентів Kubernetes](/docs/concepts/cluster-administration/system-traces).

@@ -1,7 +1,7 @@
 ---
 title: "Налаштування DRA у кластері"
 content_type: task
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 weight: 10
 ---
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
@@ -28,23 +28,15 @@ weight: 10
 
 <!-- steps -->
 
-## Увімкніть групи API DRA {#enable-dra}
+## Опціонально: увімкніть застарілі групи API DRA {#enable-dra}
 
-Щоб Kubernetes міг виділяти ресурси для ваших Podʼів за допомогою DRA, виконайте наступні кроки налаштування:
+DRA перейшов на стабільну версію в Kubernetes 1.34 і є стандартно увімкненим. Деякі старі драйвери або робочі навантаження DRA можуть все ще потребувати API v1beta1 з Kubernetes 1.30 або v1beta2 з Kubernetes 1.32. Тільки якщо потрібна підтримка цих версій, увімкніть наступні {{< glossary_tooltip text="API groups" term_id="api-group" >}}:
 
-1. Увімкніть [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `DynamicResourceAllocation` на всіх наступних компонентах:
+    * `resource.k8s.io/v1beta1`
+    * `resource.k8s.io/v1beta2`
 
-   * `kube-apiserver`
-   * `kube-controller-manager`
-   * `kube-scheduler`
-   * `kubelet`
-
-2. Увімкніть наступні {{< glossary_tooltip text="API groups" term_id="api-group" >}}:
-
-   * `resource.k8s.io/v1beta1`: необхідна для роботи DRA.
-   * `resource.k8s.io/v1beta2`: необов'язкова, рекомендовані покращення для користувачів.
-
-   Детальніше дивіться [Увімкнення або вимкнення груп API](/docs/reference/using-api/#enabling-or-disabling).
+Для отримання додаткової інформації дивіться
+[Увімкнення або вимкнення груп API](/docs/reference/using-api/#enabling-or-disabling).
 
 ## Перевірте, що DRA увімкнено {#verify}
 
@@ -68,8 +60,9 @@ error: the server doesn't have a resource type "deviceclasses"
 
 Спробуйте наступні кроки для усунення несправностей:
 
-1. Переконайтеся, що компонент `kube-scheduler` має увімкнений feature gate `DynamicResourceAllocation` *та* використовує [v1 API конфігурації](/docs/reference/config-api/kube-scheduler-config.v1/). Якщо ви використовуєте власну конфігурацію, можливо, потрібно виконати додаткові дії для активації плагіна `DynamicResource`.
-1. Перезапустіть компоненти `kube-apiserver` та `kube-controller-manager`, щоб зміни груп API набули чинності.
+1. Переконфігуруйте та перезапустіть компонент `kube-apiserver`.
+
+1. Якщо повне поле `.spec.resourceClaims` видаляється з Podʼів, або якщо Podʼи плануються без урахування ResourceClaims, перевірте, чи не вимкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `DynamicResourceAllocation` для kube-apiserver, kube-controller-manager, kube-scheduler або kubelet.
 
 ## Встановіть драйвери пристроїв {#install-drivers}
 
@@ -89,6 +82,10 @@ cluster-1-device-pool-1-driver.example.com-lqx8x      cluster-1-node-1    driver
 cluster-1-device-pool-2-driver.example.com-29t7b      cluster-1-node-2    driver.example.com   cluster-1-device-pool-2-446z     8s
 ```
 
+Спробуйте наступні кроки для усунення несправностей:
+
+1. Перевірте стан драйвера DRA та шукайте повідомлення про помилки щодо публікації ResourceSlices у виводі його журналу. Постачальник драйвера може надати додаткові інструкції щодо встановлення та усунення несправностей.
+
 ## Створіть DeviceClasses {#create-deviceclasses}
 
 Ви можете визначити категорії пристроїв, які оператори ваших застосунків можуть використовувати у робочих навантаженнях, створюючи {{< glossary_tooltip text="DeviceClasses" term_id="deviceclass" >}}. Деякі постачальники драйверів також можуть рекомендувати створити DeviceClasses під час встановлення драйверів.
@@ -104,30 +101,28 @@ ResourceSlices, які публікує ваш драйвер, містять і
     Вивід буде схожий на:
 
     ```yaml
-    apiVersion: resource.k8s.io/v1beta1
+    apiVersion: resource.k8s.io/v1
     kind: ResourceSlice
-    # деякі рядки пропущено для зручності
+    # lines omitted for clarity
     spec:
       devices:
-      - basic:
-          attributes:
-            type:
-              string: gpu
-          capacity:
-            memory:
-              value: 64Gi
-          name: gpu-0
-      - basic:
-          attributes:
-            type:
-              string: gpu
-          capacity:
-            memory:
-              value: 64Gi
-          name: gpu-1
+      - attributes:
+          type:
+            string: gpu
+        capacity:
+          memory:
+            value: 64Gi
+        name: gpu-0
+      - attributes:
+          type:
+            string: gpu
+        capacity:
+          memory:
+            value: 64Gi
+        name: gpu-1
       driver: driver.example.com
       nodeName: cluster-1-node-1
-    # деякі рядки пропущено для зручності
+    # lines omitted for clarity
     ```
 
     Ви також можете переглянути документацію постачальника драйверів для доступних властивостей і значень.

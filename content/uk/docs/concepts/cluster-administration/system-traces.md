@@ -57,14 +57,14 @@ Kube-apiserver генерує відрізки для вхідних HTTP-зап
 Щоб увімкнути трейси, надайте kube-apiserver файл конфігурації тресів з `--tracing-config-file=<шлях-до-конфігу>`. Це приклад конфігурації, яка записує відрізки для 1 з 10000 запитів та використовує типову точку доступу OpenTelemetry:
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: TracingConfiguration
 # типове значення
 #endpoint: localhost:4317
 samplingRatePerMillion: 100
 ```
 
-Для отримання додаткової інформації про структуру `TracingConfiguration`, див. [API сервера конфігурації (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
+Для отримання додаткової інформації про структуру `TracingConfiguration`, див. [API сервера конфігурації (v1)](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration).
 
 ### Трейси kubelet {#kubelet-traces}
 
@@ -79,8 +79,6 @@ samplingRatePerMillion: 100
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-featureGates:
-  KubeletTracing: true
 tracing:
   # типове значення
   #endpoint: localhost:4317

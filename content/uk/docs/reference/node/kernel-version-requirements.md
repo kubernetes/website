@@ -48,7 +48,10 @@ Code: https://github.com/kubernetes/kubernetes/blob/00236ae0d73d2455a2470469ed10
 
 ## Pressure Stall Information (PSI) {#requirements-psi}
 
-[Pressure Stall Information](/docs/reference/instrumentation/node-metrics#psi) підтримується в ядрі Linux версії 4.20 та новіших.
+[Pressure Stall Information](/docs/reference/instrumentation/understand-psi-metrics/) підтримується в ядрі Linux версії 4.20 та новіших, але вимагає наступної конфігурації:
+
+- Ядро повинно бути скомпільоване з опцією `CONFIG_PSI=y`. Більшість сучасних дистрибутивів це стандартно увімкнено. Ви можете перевірити конфігурацію вашого ядра, виконавши команду `zgrep CONFIG_PSI /proc/config.gz`.
+- Деякі дистрибутиви Linux можуть скомпілювати PSI в ядро, але вимкнути його. Якщо так, вам потрібно увімкнути його під час завантаження, додайте параметр `psi=1` до командного рядка ядра.
 
 ## Інші вимоги до ядра {#requirements-other}
 

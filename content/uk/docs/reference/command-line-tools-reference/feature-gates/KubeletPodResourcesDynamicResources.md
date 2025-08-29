@@ -9,5 +9,10 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.27"
+    toVersion: "1.33"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.34"
 ---
-Розширює ресурси gRPC точки доступу Podʼа kublet, щоб включати ресурси, що виділені в `ResourceClaims` через API `DynamicResourceAllocation`. Див. [звіт про виділення ресурсів](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources) для отримання додаткових відомостей. З цією інформацією про ресурси, клієнти можуть належним чином відстежувати вільні обчислювальні ресурси на вузлі.
+
+Розширює кінцеві точки [API gRPC для моніторингу ресурсів pod](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins.md) kubelet List і Get, щоб включити ресурси, виділені в ResourceClaims за допомогою [Динамічного розподілу ресурсів](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).

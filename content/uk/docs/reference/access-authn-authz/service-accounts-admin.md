@@ -455,13 +455,108 @@ kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 
 {{< feature-state feature_gate_name="ExternalServiceAccountTokenSigner" >}}
 
-Kube-apiserver можна налаштувати на використання зовнішнього підписувача для підпису токенів та управління ключами для перевірки токенів. Ця можливість дозволяє дистрибутивам kubernetes інтегруватися з рішеннями керування ключами за власним вибором (наприклад, HSM, хмарні KMS) для підписання та перевірки облікових даних службових облікових записів. Щоб налаштувати kube-apiserver на використання external-jwt-signer, встановіть прапорець `--service-account-signing-endpoint` на розташування сокета домену Unix (UDS) у файловій системі, або додайте префікс @ і назвіть UDS в абстрактному просторі назв сокетів. На сконфігурованому UDS має бути RPC-сервер, який реалізує [ExternalJWTSigner](https://github.com/kubernetes/kubernetes/blob/release-1.32/staging/src/k8s.io/externaljwt/apis/v1alpha1/api.proto). External-jwt-signer має бути працездатним і готовим обслуговувати підтримувані ключі сервісних облікових записів для запуску kube-apiserver.
+Kube-apiserver можна налаштувати на використання зовнішнього підписувача для підпису токенів та управління ключами для перевірки токенів. Ця можливість дозволяє дистрибутивам kubernetes інтегруватися з рішеннями керування ключами за власним вибором (наприклад, HSM, хмарні KMS) для підписання та перевірки облікових даних службових облікових записів. Щоб налаштувати kube-apiserver на використання external-jwt-signer, встановіть прапорець `--service-account-signing-endpoint` на розташування сокета домену Unix (UDS) у файловій системі, або додайте префікс @ і назвіть UDS в абстрактному просторі назв сокетів. На сконфігурованому UDS має бути RPC-сервер, який реалізує gRPC-сервіс `ExternalJWTSigner`.
 
-Докладнішу інформацію про ExternalJWTSigner можна знайти у [KEP-740](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/740-service-account-external-signing).
+External-jwt-signer має бути працездатним і готовим обслуговувати підтримувані ключі сервісних облікових записів для запуску kube-apiserver.
 
 {{< note >}}
 Прапорці kube-apiserver `--service-account-key-file` і `--service-account-signing-key-file` і надалі використовуватимуться для читання з файлів, якщо не встановлено `--service-account-signing-endpoint`; вони є взаємовиключними способами підтримки підпису та автентифікації JWT.
 {{< /note >}}
+
+Зовнішній підписувач надає gRPC-сервіс `v1.ExternalJWTSigner`, який реалізує 3 методи:
+
+### Metadata
+
+Metadata має викликатись один раз `kube-apiserver` під час запуску. Це дозволяє зовнішньому підписувачу ділитися метаданими з kube-apiserver, такими як максимальний термін дії токена, який підтримує підписувач.
+
+```proto
+rpc Metadata(MetadataRequest) returns (MetadataResponse) {}
+
+message MetadataRequest {}
+
+message MetadataResponse {
+  // використовується kube-apiserver для встановлення стандартних значень/перевірки терміну дії JWT з урахуванням значень прапорців конфігурації:
+  // 1. `--service-account-max-token-expiration`
+  // 2. `--service-account-extend-token-expiration`
+  //
+  // * Якщо `--service-account-max-token-expiration` більше ніж `max_token_expiration_seconds`, kube-apiserver вважає це неправильним налаштуванням і завершує роботу.
+  // * Якщо `--service-account-max-token-expiration` не встановлено явно, kube-apiserver за замовчуванням використовує `max_token_expiration_seconds`.
+  // * Якщо `--service-account-extend-token-expiration` істинне, розширений термін дії становить `min(1 year, max_token_expiration_seconds)`.
+  //
+  // `max_token_expiration_seconds` повинен бути не менше 600s.
+  int64 max_token_expiration_seconds = 1;
+}
+```
+
+### FetchKeys
+
+FetchKeys повертає набір (set) публічних ключів, які мають відповідну довіру для підпису токенів службових облікових записів Kubernetes. Kube-apiserver буде викликати цей RPC:
+
+- Кожного разу, коли він намагається перевірити JWT від видавця службового облікового запису з невідомим ідентифікатором ключа, і
+- Періодично, щоб він міг надавати досить актуальні ключі з кінцевої точки OIDC JWKs.
+
+```proto
+rpc FetchKeys(FetchKeysRequest) returns (FetchKeysResponse) {}
+
+message FetchKeysRequest {}
+
+message FetchKeysResponse {
+  repeated Key keys = 1;
+
+  // Часовий відбиток, коли ці дані були отримані з авторитетного джерела
+  // істини для ключів перевірки.
+  // kube-apiserver може експортувати це з метрик, щоб уможливити наскрізні SLO.
+  google.protobuf.Timestamp data_timestamp = 2;
+
+  // інтервал оновлення для ключів перевірки, щоб виявити зміни, якщо такі є.
+  // будь-яке значення <= 0 вважається неправильним налаштуванням.
+  int64 refresh_hint_seconds = 3;
+}
+
+message Key {
+  // Унікальний ідентифікатор для цього ключа.
+  // Довжина повинна бути <=1024.
+  string key_id = 1;
+
+  // Публічний ключ, PKIX-серіалізований.
+  // повинен бути публічним ключем, підтримуваним kube-apiserver (в даний час RSA 256 або ECDSA 256/384/521)
+  bytes key = 2;
+
+  // Встановлюється тільки для ключів, які не використовуються для підписання повʼязаних токенів.
+  // Наприклад: підтримувані ключі для застарілих токенів.
+  // Якщо встановлено, ключ використовується для перевірки, але виключається з документів OIDC discovery.
+  // Якщо встановлено, зовнішній підписувач не повинен використовувати цей ключ для підписання JWT.
+  bool exclude_from_oidc_discovery = 3;
+}
+```
+
+### Sign
+
+Sign бере серіалізоване навантаження JWT і повертає серіалізований заголовок і підпис.  `kube-apiserver` потім збирає JWT з заголовка, навантаження та підпису.
+
+```proto
+rpc Sign(SignJWTRequest) returns (SignJWTResponse) {}
+
+message SignJWTRequest {
+  // URL-безпечний base64-загорнутий корисне навантаження, що підлягає підписанню.
+  // Так само, як він зʼявляється у другому сегменті JWT
+  string claims = 1;
+}
+
+message SignJWTResponse {
+  // заголовок має містити лише claims alg, kid, typ.
+  // typ повинен бути “JWT”.
+  // kid повинен бути непорожнім, <=1024 символів, і його відповідний публічний ключ не повинен бути виключений з OIDC discovery.
+  // alg повинен бути одним з алгоритмів, підтримуваних kube-apiserver (в даний час RS256, ES256, ES384, ES512).
+  // заголовок не може містити жодних додаткових даних, які kube-apiserver не розпізнає.
+  // Вже загорнуто в URL-безпечний base64, точно так, як він зʼявляється в першому сегменті JWT.
+  string header = 1;
+
+  // Підпис для JWT.
+  // Вже загорнуто в URL-безпечний base64, точно так, як він зʼявляється в останньому сегменті JWT.
+  string signature = 2;
+}
+```
 
 ## Прибирання {#clean-up}
 

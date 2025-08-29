@@ -136,9 +136,9 @@ kube-scheduler ідентифікує ресурсні [запити та обм
 
 ### Метрики kubelet Pressure Stall Information (PSI) {#kubelet-pressure-stall-information-psi-metrics}
 
-{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
-У альфа-версії Kubernetes дозволяє налаштувати kubelet для збору даних про ядро Linux [Інформація про зупинку тиску](https://docs.kernel.org/accounting/psi.html) (PSI) про використання CPU, памʼяті та вводу-виводу. Інформація збирається на рівні вузлів, podʼів та контейнерів. Метрики виводяться у точці доступу `/metrics/cadvisor` з наступними назвами:
+У бета-версії Kubernetes дозволяє налаштувати kubelet для збору даних про ядро Linux [Інформація про зупинку тиску](https://docs.kernel.org/accounting/psi.html) (PSI) про використання CPU, памʼяті та вводу-виводу. Інформація збирається на рівні вузлів, podʼів та контейнерів. Метрики виводяться у точці доступу `/metrics/cadvisor` з наступними назвами:
 
 ```none
 container_pressure_cpu_stalled_seconds_total
@@ -149,7 +149,9 @@ container_pressure_io_stalled_seconds_total
 контейнер_тиск_іо_очікування_секунд_всього
 ```
 
-Вам слід увімкнути [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `KubeletPSI` щоб скористатися цією можливістю. Інформацію також наведено у [Summary API](/docs/reference/instrumentation/node-metrics#psi).
+Ця функція є стандартно увімкненою за допомогою [функціональної можливості](/docs/reference/command-line-tools-reference/feature-gates/) `KubeletPSI`. Інформацію також наведено у [Summary API](/docs/reference/instrumentation/node-metrics#psi).
+
+Ви можете дізнатися, як інтерпретувати метрики PSI зі статті [Розуміння метрик PSI](/docs/reference/instrumentation/understand-psi-metrics/).
 
 #### Вимоги {#requirements}
 

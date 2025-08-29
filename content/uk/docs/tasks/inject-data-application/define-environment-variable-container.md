@@ -83,7 +83,7 @@ weight: 20
 
 Змінні середовища, які ви визначаєте у конфігурації Pod у `.spec.containers[*].env[*]`, можна використовувати в інших частинах конфігурації, наприклад, у командах та аргументах, які ви задаєте для контейнерів Pod. У наступній конфігурації прикладу, змінні середовища `GREETING`, `HONORIFIC` та `NAME` встановлені на `Warm greetings to`, `The Most Honorable` та `Kubernetes` відповідно. Змінна середовища `MESSAGE` комбінує набір усіх цих змінних середовища, а потім використовує їх як аргумент командного рядка, переданий контейнеру `env-print-demo`.
 
-Імена змінних середовища складаються з літер, цифр, підкреслення, крапок або дефісів, але перший символ не може бути цифрою. Якщо ввімкнуто [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `RelaxedEnvironmentVariableValidation`, можна використовувати всі [друковані символи ASCII](https://www.ascii-code.com/characters/printable-characters), окрім "=" для імен змінних середовища.
+Імена змінних середовища можуть складатися з будь-яких [друкованих символів ASCII](https://www.ascii-code.com/characters/printable-characters), окрім "=".
 
 ```yaml
 apiVersion: v1

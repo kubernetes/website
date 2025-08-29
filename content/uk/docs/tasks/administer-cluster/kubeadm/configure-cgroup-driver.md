@@ -53,6 +53,8 @@ kubeadm init --config kubeadm-config.yaml
 Kubeadm використовує ту саму конфігурацію `KubeletConfiguration` для всіх вузлів у кластері. `KubeletConfiguration` зберігається в обʼєкті [ConfigMap](/docs/concepts/configuration/configmap) в просторі імен `kube-system`.
 
 Виконання підкоманд `init`, `join` та `upgrade` призведе до запису kubeadm `KubeletConfiguration` у файл під `/var/lib/kubelet/config.yaml` і передачі його до kubelet локального вузла.
+
+На кожному вузлі kubeadm виявляє сокет CRI та зберігає його деталі у файлі `/var/lib/kubelet/instance-config.yaml`. Коли виконуються підкоманди `init`, `join` або `upgrade`, kubeadm вносить зміни до значення `containerRuntimeEndpoint` з цієї конфігурації інстансу у `/var/lib/kubelet/config.yaml`.
 {{< /note >}}
 
 ## Використання драйвера `cgroupfs` {#using-the-cgroupfs-driver}

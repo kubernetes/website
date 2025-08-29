@@ -265,6 +265,59 @@ status:
 
 Зазвичай встановлюється в поле `status.conditions.reason` код причини, зручний для машинного зчитування, використовуючи TitleCase; це є умовністю, але ви можете встановити тут будь-яке значення. Якщо ви хочете додати примітку для читання людьми, використовуйте поле `status.conditions.message`.
 
+## PodCertificateRequests {#pod-certificate-requests}
+
+{{< feature-state feature_gate_name="PodCertificateRequest" >}}
+
+{{< note >}}
+В Kubernetes {{< skew currentVersion >}}, ви повинні увімкнути підтримку Pod Certificates за допомогою [функціональної можливості](/docs/reference/command-line-tools-reference/feature-gates/) `PodCertificateRequest` та прапорця `--runtime-config=certificates.k8s.io/v1alpha1/podcertificaterequests=true` kube-apiserver.
+{{< /note >}}
+
+PodCertificateRequests є API обʼєктами, які призначені для надання сертифікатів для робочих навантажень, що працюють як Podʼи в кластері. Користувач зазвичай не взаємодіє з PodCertificateRequests безпосередньо, а використовує [podCertificate projected volume sources](/docs/concepts/storage/projected-volumes#podcertificate), які є функцією `kubelet`, що обробляє безпечне надання ключів і автоматичне оновлення сертифікатів. Застосунок всередині пода повинен лише знати, як читати сертифікати з файлової системи.
+
+PodCertificateRequests подібні до CertificateSigningRequests, але мають спрощений формат, що дозволяє їх вузьке використання.
+
+PodCertificateRequest має такі поля специфікації:
+
+* `signerName`: Імʼя підписувача, до якого адресовано цей запит.
+* `podName` та `podUID`: Pod, для якого Kubelet запитує сертифікат.
+* `serviceAccountName` та `serviceAccountUID`: ServiceAccount, що відповідає Pod.
+* `nodeName` та `nodeUID`: Node, що відповідає Pod.
+* `maxExpirationSeconds`: Максимальний термін дії, який автор робочого навантаження готовий прийняти для цього сертифіката. За замовчуванням становить 24 години, якщо не вказано.
+* `pkixPublicKey`: Публічний ключ, для якого має бути видано сертифікат.
+* `proofOfPossession`: Підпис, що демонструє, що запитувач контролює приватний ключ, що відповідає `pkixPublicKey`.
+
+Вузли автоматично отримують дозволи на створення PodCertificateRequests і читання PodCertificateRequests, повʼязаних з ними (як визначено полем `spec.nodeName`). Втулок допуску `NodeRestriction`, якщо він увімкнений, забезпечує, щоб вузли могли створювати лише PodCertificateRequests, які відповідають реальному поду, що в даний час працює на вузлі.
+
+Після створення `spec` PodCertificateRequest є незмінним.
+
+На відміну від CSR, PodCertificateRequests не мають фази затвердження. Як тільки PodCertificateRequest створено, контролер підписувач безпосередньо вирішує, чи видати або відхилити запит. Він також має можливість позначити запит як невдалий, якщо під час спроби видати запит виникла постійна помилка.
+
+Щоб виконати будь-яку з цих дій, контролер підписувач повинен мати відповідні дозволи на тип PodCertificateRequest, а також на імʼя підписувача:
+
+* Дієслова: **update**, група: `certificates.k8s.io`, ресурс:
+  `podcertificaterequests/status`
+* Дієслова: **sign**, група: `certificates.k8s.io`, ресурс: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
+
+Контролер підписувач може вільно враховувати іншу інформацію, крім тієї, що міститься в запиті, але він може покладатися на інформацію в запиті як на точну. Наприклад, контролер підписувач може завантажити Pod і прочитати анотації, встановлені на ньому, або виконати SubjectAccessReview на ServiceAccount.
+
+Щоб видати сертифікат у відповідь на запит, контролер підписувач:
+
+* Додає умову `Issued` до `status.conditions`.
+* Поміщає виданий сертифікат у `status.certificateChain`
+* Поміщає поля `NotBefore` і `NotAfter` сертифіката в `status.notBefore` і `status.notAfter` поля &mdash; ці поля є денормалізованими в API Kubernetes для полегшення налагодження
+* Пропонує час для початку спроби оновлення сертифіката за допомогою `status.beginRefreshAt`.
+
+Щоб відхилити запит, контролер підписувач додає умову "Denied" до `status.conditions[]`.
+
+Щоб позначити запит як невдалий, контролер підписувач додає умову "Failed" до `status.conditions[]`.
+
+Усі ці умови є взаємовиключними і повинні мати статус "True". Не дозволяються інші типи умов на PodCertificateRequests. Крім того, після встановлення будь-якої з цих умов поле `status` стає незмінним.
+
+Як і всі умови, поле `status.conditions[].reason` призначене для того щоб містити код, зручний для машинного зчитування, що описує умову в TitleCase. Поле `status.conditions[].message` призначене для вільного пояснення для людського сприйняття.
+
+Щоб забезпечити те, щоб термінові PodCertificateRequests не накопичувалися в кластері, контролер `kube-controller-manager` видаляє всі PodCertificateRequests старше 15 хвилин. Усі потоки видачі сертифікатів повинні завершитися протягом цього 15-хвилинного обмеження.
+
 ## Пакети довіри кластера {#cluster-trust-bundles}
 
 {{< feature-state feature_gate_name="ClusterTrustBundle" >}}

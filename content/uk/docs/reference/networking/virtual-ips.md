@@ -174,7 +174,7 @@ kube-proxy налаштовує правила фільтрації пакеті
 
 #### Прямий вивід сервера для режиму `kernelspace` {#windows-direct-server-return}
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state feature_gate_name="WinDSR" >}}
 
 Як альтернативу базовому способу роботи, вузол, на якому розміщено бекенд Pod для Service, може застосовувати пряме переписування пакетів безпосередньо, а не покладати це завдання на вузол, на якому працює клієнтський Pod. Це називається _прямим виводом сервера_.
 
@@ -394,7 +394,7 @@ Kubernetes віддає перевагу виділенню динамічних
 
 {{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
 
-Два додаткових значення доступні, якщо увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `PreferSameTrafficDistribution`:
+В Kubernetes {{< skew currentVersion >}}, два додаткових значення доступні (якщо [функціональна можливість](/docs/reference/command-line-tools-reference/feature-gates/) `PreferSameTrafficDistribution` не вимкнена):
 
 `PreferSameZone`
 : Це означає те саме, що і `PreferClose`, але більш чітко. (Спочатку планувалося, що `PreferClose` може згодом включати функціональність, відмінну від простого «надавати перевагу тій самій зоні», але це більше не планується. У майбутньому `PreferSameZone` буде рекомендованим значенням для цієї функціональності, а `PreferClose` вважатиметься застарілим псевдонімом для нього).

@@ -279,9 +279,9 @@ isCIDR('::1/129')           // повертає false
 | `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | Перевіряє, чи службовий обліковий запис має дозвіл на видалення deployments. |
 {{< /table >}}
 
-{{< feature-state state="alpha" for_k8s_version="v1.31" >}}
+{{< feature-state feature_gate_name="AuthorizeWithSelectors" >}}
 
-З увімкненою альфа-функцією `AuthorizeWithSelectors`, до перевірок авторизації можна додавати селектори полів і міток.
+Для виразів CEL в API, де доступна змінна типу `Authorizer`, селектори полів і міток можуть бути включені в перевірки авторизації.
 
 {{< table caption="Приклади CEL виразів із використанням функцій авторизації для селекторів" >}}
 | CEL вираз | Призначення |

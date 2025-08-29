@@ -35,9 +35,11 @@ curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
 
 ## Pressure Stall Information (PSI) {#psi}
 
-{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
-У альфа-версії Kubernetes ви можете налаштувати kubelet для збору інформації про використання ядром Linux [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html) (PSI) щодо використання CPU, памʼяті та вводу-виводу. Інформація збирається на рівні вузлів, podʼів та контейнерів. Докладну схему див. у [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/). Щоб скористатися цією можливістю, вам слід увімкнути  [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `KubeletPSI`. Інформацію також наведено у [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
+У бета-версії Kubernetes ви можете налаштувати kubelet для збору інформації про використання ядром Linux [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html) (PSI) щодо використання CPU, памʼяті та вводу-виводу. Інформація збирається на рівні вузлів, podʼів та контейнерів. Докладну схему див. у [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/). Ця функція є стандартно увімкненою через [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `KubeletPSI`. Інформацію також наведено у [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
+
+Для того, щоб зрозуміти метрики PSI, ви можете ознайомитися зі статею [Розуміння метрик PSI](/docs/reference/instrumentation/understand-psi-metrics/).
 
 ### Вимоги {#requirements}
 

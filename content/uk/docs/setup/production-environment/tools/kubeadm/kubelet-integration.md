@@ -70,8 +70,7 @@ clusterDNS:
 
 ### Послідовність дій при використанні `kubeadm init` {#workflow-when-using-kubeadm-init}
 
-Коли ви викликаєте `kubeadm init`, конфігурація kubelet записується на диск
-в `/var/lib/kubelet/config.yaml` і також завантажується в ConfigMap `kubelet-config` в просторі імен `kube-system` кластера. Файл конфігурації kubelet також записується у `/etc/kubernetes/kubelet.conf` із базовою конфігурацією кластера для всіх kubelet в кластері. Цей файл конфігурації вказує на клієнтські сертифікати, які дозволяють kubelet взаємодіяти з сервером API. Це вирішує необхідність [поширення конфігурації на рівні кластера для кожного kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
+Коли ви викликаєте `kubeadm init`, конфігурація kubelet записується на диск в `/var/lib/kubelet/config.yaml` і також завантажується в ConfigMap `kubelet-config` в просторі імен `kube-system` кластера. Додатково, інструмент kubeadm виявляє сокет CRI на вузлі та записує його деталі (включаючи шлях до сокета) у локальну конфігурацію, `/var/lib/kubelet/instance-config.yaml`. Файл конфігурації kubelet також записується у `/etc/kubernetes/kubelet.conf` із базовою конфігурацією кластера для всіх kubelet в кластері. Цей файл конфігурації вказує на клієнтські сертифікати, які дозволяють kubelet взаємодіяти з сервером API. Це вирішує необхідність [поширення конфігурації на рівні кластера для кожного kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
 
 Щоб вирішити другий шаблон [надання конфігурації, специфічної для екземпляра](#providing-instance-specific-configuration-details), kubeadm записує файл середовища у `/var/lib/kubelet/kubeadm-flags.env`, який містить список прапорців, які слід передати kubelet при запуску. Прапорці виглядають у файлі наступним чином:
 
@@ -79,7 +78,7 @@ clusterDNS:
 KUBELET_KUBEADM_ARGS="--flag1=value1 --flag2=value2 ..."
 ```
 
-Крім прапорців, використовуваних при запуску kubelet, файл також містить динамічні параметри, такі як драйвер cgroup та використання іншого сокету контейнерного середовища (`--cri-socket`).
+Крім прапорців, використовуваних при запуску kubelet, файл також містить динамічні параметри, такі як драйвер cgroup.
 
 Після того як ці два файли конвертуються на диск, kubeadm намагається виконати дві команди, якщо ви використовуєте systemd:
 
@@ -91,7 +90,7 @@ systemctl daemon-reload && systemctl restart kubelet
 
 ### Послідовність при використанні `kubeadm join` {#workflow-when-using-kubeadm-join}
 
-Коли ви викликаєте `kubeadm join`, kubeadm використовує облікові дані Bootstrap Token, щоб виконати запуск TLS, який отримує необхідні облікові дані для завантаження `kubelet-config` ConfigMap та записує його в `/var/lib/kubelet/config.yaml`. Файл середовища генерується точно так само, як і при `kubeadm init`.
+Коли ви викликаєте `kubeadm join`, kubeadm використовує облікові дані Bootstrap Token, щоб виконати запуск TLS, який отримує необхідні облікові дані для завантаження `kubelet-config` ConfigMap та записує його в `/var/lib/kubelet/config.yaml`. Додатково, інструмент kubeadm виявляє сокет CRI на вузлі та записує його деталі (включаючи шлях до сокета) у локальну конфігурацію, `/var/lib/kubelet/instance-config.yaml`. Файл середовища генерується точно так само, як і при `kubeadm init`.
 
 Далі `kubeadm` виконує дві команди для завантаження нової конфігурації в kubelet:
 

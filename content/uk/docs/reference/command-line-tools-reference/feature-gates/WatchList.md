@@ -17,5 +17,10 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.33"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.34"
 ---
+
 Вмикання підтримки [потокового передавання початкового стану обʼєктів у запитах на спостереження](/docs/reference/using-api/api-concepts/#streaming-lists).

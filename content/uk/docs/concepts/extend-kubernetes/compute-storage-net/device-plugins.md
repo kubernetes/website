@@ -192,10 +192,10 @@ service PodResourcesLister {
 
 Точка доступу `List` надає інформацію про ресурси запущених Podʼів, з деталями, такими як ідентифікатори виключно виділених ЦП, ідентифікатор пристрою так, як він був повідомлений втулками пристроїів, і ідентифікатор NUMA-вузла, де ці пристрої розміщені. Крім того, для машин, що базуються на NUMA, вона містить інформацію про памʼять та великі сторінки, призначені для контейнера.
 
-Починаючи з Kubernetes v1.27, точка доступу `List` може надавати інформацію про ресурси запущених Podʼів, виділені в `ResourceClaims` за допомогою API `DynamicResourceAllocation`. Щоб увімкнути цю функцію, `kubelet` повинен бути запущений з наступними прапорцями:
+Починаючи з Kubernetes v1.27, точка доступу `List` може надавати інформацію про ресурси запущених Podʼів, виділені в `ResourceClaims` за допомогою API `DynamicResourceAllocation`. Починаючи з Kubernetes v1.34, ця функціє є стандартно увімкненою. Щоб її вимкнути, `kubelet` повинен бути запущений з наступними прапорцями:
 
 ```sh
---feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
+--feature-gates=KubeletPodResourcesDynamicResources=false
 ```
 
 ```gRPC
@@ -311,7 +311,7 @@ message AllocatableResourcesResponse {
 
 ### Точка доступу gRPC `Get` {#grpc-endpoint-get}
 
-{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+{{< feature-state state="beta" for_k8s_version="v1.34" >}}
 
 Точка доступу `Get` надає інформацію про ресурси робочого Pod. Вона експонує інформацію, аналогічну тій, що описана в точці доступу `List`. Точка доступу `Get` вимагає `PodName` і `PodNamespace` робочого Pod.
 
@@ -323,16 +323,16 @@ message GetPodResourcesRequest {
 }
 ```
 
-Для включення цієї функції вам потрібно запустити ваші служби kubelet з такими прапорцями:
+Для вимкнення цієї функції вам потрібно запустити ваші служби kubelet з такими прапорцями:
 
 ```sh
---feature-gates=KubeletPodResourcesGet=true
+--feature-gates=KubeletPodResourcesGet=false
 ```
 
-Точка доступу `Get` може надавати інформацію про Pod, повʼязану з динамічними ресурсами, виділеними за допомогою API динамічного виділення ресурсів. Для включення цієї функції вам потрібно забезпечити, щоб ваші служби kubelet були запущені з наступними прапорцями:
+Точка доступу `Get` може надавати інформацію про Pod, повʼязану з динамічними ресурсами, виділеними за допомогою API динамічного виділення ресурсів. Починаючи з версії Kubernetes v1.34, ця функція є стандартно увімкненою. Щоб її вимкнути, `kubelet` повинен бути запущений з наступними прапорцями:
 
 ```sh
---feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
+--feature-gates=KubeletPodResourcesDynamicResources=false
 ```
 
 ### Інтеграція втулка пристрою з Менеджером Топології {#device-plugin-integration-with-the-topology-manager}
@@ -389,3 +389,4 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 * Дізнайтеся про [оголошення розширених ресурсів](/docs/tasks/administer-cluster/extended-resource-node/) на вузлі
 * Дізнайтеся про [Менеджер Топології](/docs/tasks/administer-cluster/topology-manager/)
 * Прочитайте про використання [апаратного прискорення для TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) з Kubernetes
+* Дізнайтеся більше про [Розширене виділення ресурсів за допомогою DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

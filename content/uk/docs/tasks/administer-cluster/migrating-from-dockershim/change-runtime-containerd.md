@@ -91,19 +91,11 @@ systemctl disable docker.service --now
 
 Відредагуйте файл `/var/lib/kubelet/kubeadm-flags.env` та додайте середовище виконання контейнерів до прапорців; `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 
-Користувачі, які використовують kubeadm, повинні знати, що інструмент `kubeadm` зберігає сокет CRI для кожного хосту як анотацію в обʼєкті Node для цього хосту. Щоб змінити його, ви можете виконати наступну команду на машині, на якій є файл `kubeadm` `/etc/kubernetes/admin.conf`.
+Використовуючи kubeadm, користувачі повинні знати, що інструмент kubeadm зберігає сокет CRI хоста в файлі `/var/lib/kubelet/instance-config.yaml` на кожному вузлі. Ви можете створити цей файл `/var/lib/kubelet/instance-config.yaml` на вузлі.
 
-```shell
-kubectl edit no <імʼя-вузла>
-```
+Файл `/var/lib/kubelet/instance-config.yaml` дозволяє налаштувати параметр `containerRuntimeEndpoint`.
 
-Це запустить текстовий редактор, де ви можете редагувати обʼєкт Node. Для вибору текстового редактора ви можете встановити змінну середовища `KUBE_EDITOR`.
-
-- Змініть значення `kubeadm.alpha.kubernetes.io/cri-socket` з `/var/run/dockershim.sock` на шлях сокета CRI за вашим вибором (наприклад, `unix:///run/containerd/containerd.sock`).
-
-  Зауважте, що нові шляхи сокета CRI в ідеалі повині мати префікс `unix://`.
-
-- Збережіть зміни в текстовому редакторі, що оновить обʼєкт Node.
+Ви можете встановити значення цього параметра на шлях до вибраного вами сокета CRI (наприклад, `unix:///run/containerd/containerd.sock`).
 
 ## Перезапустіть kubelet {#restart-the-kubelet}
 

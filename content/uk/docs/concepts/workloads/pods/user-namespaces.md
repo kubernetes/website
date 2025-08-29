@@ -175,6 +175,21 @@ userNamespaces:
 * `hostIPC: true`
 * `hostPID: true`
 
+Жоден контейнер також не може використовувати `volumeDevices` (блокові томи raw, такі як /dev/sda). Це стосується всіх масивів контейнерів у специфікації pod:
+
+* `containers`
+* `initContainers`
+* `ephemeralContainers`
+
+## Метрики та спостережуваність {#metrics-and-observability}
+
+{{< feature-state state="beta" for_k8s_version="v1.30" >}}
+
+Kubelet експортує дві метрики prometheus, специфічні для просторів користувачів:
+
+* `started_user_namespaced_pods_total`: лічильник, який відстежує кількість спроб створення Podʼів з просторами користувачів.
+* `started_user_namespaced_pods_errors_total`: лічильник, який відстежує кількість помилок при створенні Podʼів з просторами користувачів.
+
 ## {{% heading "whatsnext" %}}
 
 * Подивіться [Використання простору користувача в Podʼах](/docs/tasks/configure-pod-container/user-namespaces/)

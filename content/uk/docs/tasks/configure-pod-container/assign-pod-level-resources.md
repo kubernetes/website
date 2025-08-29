@@ -2,7 +2,7 @@
 title: Надання ресурсів CPU та памʼяті на рівні Podʼів
 content_type: task
 weight: 30
-min-kubernetes-server-version: 1.32
+min-kubernetes-server-version: 1.34
 ---
 
 <!-- overview -->
@@ -27,6 +27,15 @@ min-kubernetes-server-version: 1.32
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 [Функціональна можливість](/docs/reference/command-line-tools-reference/feature-gates/) `PodLevelResources` має бути увімкнена для вашої панелі управління та для всіх вузлів у вашому кластері.
+
+## Обмеження {#limitations}
+
+Для Kubernetes {{< skew currentVersion >}}, зміна розміру ресурсів на рівні podʼа має такі обмеження:
+
+* **Типи ресурсів:** Тільки ресурси CPU, памʼяті та hugepages можуть бути вказані на рівні podʼа.
+* **Операційна система:** Ресурси на рівні podʼа не підтримуються для Windows podʼів.
+* **Менеджери ресурсів:** Менеджери ресурсів Topology Manager, Memory Manager та CPU Manager не розташовують podʼи та контейнери на основі ресурсів на рівні podʼа, оскільки ці менеджери ресурсів наразі не підтримують ресурси на рівні podʼа.
+* **[In-Place Resize](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/):** Зміна розміру ресурсів на рівні podʼа не підтримується. Зміна лімітів або запитів ресурсів на рівні podʼа призводить до помилки field.Forbidden. Повідомлення про помилку чітко вказує: "pods with pod-level resources cannot be resized."
 
 <!-- steps -->
 

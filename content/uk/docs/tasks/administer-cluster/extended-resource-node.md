@@ -161,8 +161,10 @@ kubectl describe node <your-node-name> | grep dongle
 ### Для розробників застосунків {#for-application-developers}
 
 - [Призначення розширених ресурсів контейнеру](/docs/tasks/configure-pod-container/extended-resource/)
+- [Розширений розподіл ресурсів за допомогою DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
 ### Для адміністраторів кластера {#for-cluster-administrators}
 
 - [Налаштування мінімальних та максимальних обмежень памʼяті для простору імен](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 - [Налаштування мінімальних та максимальних обмежень CPU для простору імен](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Розширений розподіл ресурсів за допомогою DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

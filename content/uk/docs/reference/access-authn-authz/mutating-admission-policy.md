@@ -5,10 +5,12 @@ content_type: concept
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.32" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 <!-- due to feature gate history, use manual version specification here -->
 
-На цій сторінці ви можете ознайомитися з інформацією про _MutatingAdmissionPolicies_.
+На цій сторінці ви можете ознайомитися з інформацією про _MutatingAdmissionPolicies_. MutatingAdmissionPolicies дозволяють вам змінювати те, що відбувається, коли хтось вносить зміни до API Kubernetes. Якщо ви хочете використовувати декларативні політики лише для запобігання певному виду змін ресурсів (наприклад: захист платформених просторів імен від видалення), [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) є простішою та ефективнішою альтернативою.
+
+Щоб використовувати цю функцію, увімкніть функціональну можливість `MutatingAdmissionPolicy` (яка стандартно є вимкненою) і встановіть `--runtime-config=admissionregistration.k8s.io/v1beta1=true` на kube-apiserver.
 
 <!-- body -->
 

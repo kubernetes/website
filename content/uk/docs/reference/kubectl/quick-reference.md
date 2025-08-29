@@ -454,6 +454,7 @@ kubectl api-resources --api-group=extensions # Усі ресурси в API гр
 `-o=json`     | Вивести API обʼєкт у форматі JSON
 `-o=jsonpath=<template>` | Вивести поля, визначені за допомогою виразу [jsonpath](/docs/reference/kubectl/jsonpath)
 `-o=jsonpath-file=<filename>` | Вивести поля, визначені за допомогою виразу [jsonpath](/docs/reference/kubectl/jsonpath) з файлу `<filename>`
+`-o=kyaml`    | Вивести API обʼєкт у форматі KYAML (альфа, вимагає змінну середовища `KUBECTL_KYAML="true"`). KYAML є експериментальним діалектом YAML, специфічним для Kubernetes, і може бути проаналізований як YAML.
 `-o=name`     | Вивести лише назву ресурсу і нічого більше
 `-o=wide`     | Вивести в текстовому форматі з додатковою інформацією, включаючи імʼя вузла для Podʼів
 `-o=yaml`     | Вивести API обʼєкт у форматі YAML

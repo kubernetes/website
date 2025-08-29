@@ -13,5 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.33"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
+
 Дозволяє встановлювати нульове значення для дії `sleep` в [хуках життєвого циклу контейнера](/docs/concepts/containers/container-lifecycle-hooks/).

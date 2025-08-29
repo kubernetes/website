@@ -17,5 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.33"
+
+removed: true
 ---
+
 Вмикає підтримку додавання спеціальної умови, яка вказує на те, що Pod видаляється через збій.

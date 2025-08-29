@@ -13,5 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.33"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
 ---
-Дозволяє видаляти podʼи перед рештою ресурсів під час видалення простору імен.
+
+Під час видалення простору імен ресурси podʼів будуть видалені перед рештою ресурсів.

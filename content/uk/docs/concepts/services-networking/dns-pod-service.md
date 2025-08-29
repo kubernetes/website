@@ -89,7 +89,7 @@ options ndots:5
 172-17-0-3.barista.cafe.svc.cluster.local
 ```
 
-### Поля hostname та subdomain Podʼа {#pod-s-hostname-and-subdomain-fields}
+### Поля hostname та subdomain Podʼа {#pod-hostname-and-subdomain-field}
 
 Наразі, при створенні Podʼа, його імʼя (як його видно зсередини Podʼа) визначається як значення `metadata.name` Podʼа.
 

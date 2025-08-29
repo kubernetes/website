@@ -14,19 +14,7 @@ weight: 45
 
 Клас VolumeAttributesClass надає адміністраторам можливість описати змінні "класи" сховищ, які вони пропонують. Різні класи можуть відповідати різним рівням якості обслуговування. Kubernetes сам по собі не виражає думки про те, що представляють ці класи.
 
-Це бета-функція, її типово вимкнено.
-
-Якщо ви хочете протестувати функцію, поки вона бета, вам потрібно ввімкнути [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `VolumeAttributesClass` для kube-controller-manager, kube-scheduler та kube-apiserver. Використовуйте аргумент командного рядка `--feature-gates`:
-
-```shell
---feature-gates="...,VolumeAttributesClass=true"
-```
-
-Вам також потрібно буде увімкнути API групу `storage.k8s.io/v1beta1` через `kube-apiserver` [runtime-config](https://kubernetes.io/docs/tasks/administer-cluster/enable-disable-api/). Для цього використовуйте наступний аргумент командного рядка:
-
-```shell
---runtime-config=storage.k8s.io/v1beta1=true
-```
+Ця функція загалом доступна (GA) з версії 1.34, і користувачі мають можливість вимкнути її.
 
 Ви також можете використовувати VolumeAttributesClass лише зі сховищем, підтримуваним {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}, і лише там, де відповідний драйвер CSI реалізує API `ModifyVolume`.
 
@@ -37,7 +25,7 @@ weight: 45
 Назва обʼєкта VolumeAttributesClass має значення, і вона використовується користувачами для запиту конкретного класу. Адміністратори встановлюють імʼя та інші параметри класу при створенні обʼєктів VolumeAttributesClass. Хоча імʼя обʼєкта VolumeAttributesClass в `PersistentVolumeClaim` може змінюватися, параметри в наявному класі є незмінними.
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: silver
@@ -54,6 +42,8 @@ parameters:
 Підтримка функції для VolumeAttributesClass реалізована у [kubernetes-csi/external-provisioner](https://github.com/kubernetes-csi/external-provisioner).
 
 Ви не обмежені вказанням [kubernetes-csi/external-provisioner](https://github.com/kubernetes-csi/external-provisioner). Ви також можете використовувати та вказувати зовнішні постачальники, які є незалежними програмами та відповідають специфікації, визначеною Kubernetes. Автори зовнішніх постачальників мають повну свободу в тому, де знаходиться їх код, як постачальник надається, як його потрібно запускати, який втулок тому він використовує та інше.
+
+Щоб зрозуміти, як постачальник працює з VolumeAttributesClass, зверніться до [документації CSI external-provisioner](https://kubernetes-csi.github.io/docs/external-provisioner.html).
 
 ### Модифікатор розміру {#resizer}
 
@@ -77,7 +67,7 @@ spec:
 В кластері доступний новий клас VolumeAttributesClass з імʼям gold:
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: gold
@@ -99,6 +89,8 @@ spec:
   volumeAttributesClassName: gold
   …
 ```
+
+Щоб зрозуміти, як модифікатор розміру працює з VolumeAttributesClass, зверніться до  [документації CSI external-resizer](https://kubernetes-csi.github.io/docs/external-resizer.html).
 
 ## Параметри {#parameters}
 

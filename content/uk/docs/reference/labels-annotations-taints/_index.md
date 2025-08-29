@@ -2123,7 +2123,7 @@ Kubelet перевіряє D-значення розміру `/proc/sys/kernel/p
 
 ## kubeadm
 
-### kubeadm.alpha.kubernetes.io/cri-socket
+### kubeadm.alpha.kubernetes.io/cri-socket (deprecated) {#kubeadm-alpha-kubernetes-io-cri-socket}
 
 Тип: Annotation
 
@@ -2131,7 +2131,9 @@ Kubelet перевіряє D-значення розміру `/proc/sys/kernel/p
 
 Використовується для: Node
 
-Анотація, яку kubeadm використовує для збереження інформації про сокет CRI, наданої kubeadm під час `init`/`join` для подальшого використання. kubeadm додає цю інформацію як анотацію до обʼєкта Node. Ця анотація залишається "альфа", оскільки в ідеалі це має бути поле в KubeletConfiguration.
+{{< note >}}
+Починаючи з v1.34, ця анотація застаріла, kubeadm більше не буде встановлювати та використовувати її.
+{{< /note >}}
 
 ### kubeadm.kubernetes.io/etcd.advertise-client-urls
 
@@ -2211,11 +2213,11 @@ kubectl taint nodes <node-name> node-role.kubernetes.io/control-plane:NoSchedule
 
 Позначення, що раніше kubeadm застосовував на вузли панелі управління, щоб дозволити розміщувати на них лише критичні навантаження. Замінений позначенням [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint). kubeadm більше не встановлює або не використовує це застаріле позначення.
 
-### resource.k8s.io/admin-access {resource-k8s-io-admin-access}
+### resource.kubernetes.io/admin-access {resource-kubernetes-io-admin-access}
 
 Тип: Label
 
-Приклад: `resource.k8s.io/admin-access: "true"`
+Приклад: `resource.kubernetes.io/admin-access: "true"`
 
 Використовується для:: Namespace
 

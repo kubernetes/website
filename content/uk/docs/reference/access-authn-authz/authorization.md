@@ -160,11 +160,23 @@ authorizers:
       # Те саме, що і встановлення прапорця `--authorization-webhook-cache-authorized-ttl`.
       # Стандартно: 5m0s
       authorizedTTL: 30s
+      # Якщо встановлено в false, 'authorized' відповіді від вебхука не кешуються
+      # і вказаний authorizedTTL ігнорується/не має ефекту.
+      # Те саме, що і встановлення прапорця `--authorization-webhook-cache-authorized-ttl` в `0`.
+      # Примітка: Встановлення authorizedTTL в `0` призводить до використання його стандартного значення.
+      # Стандартне: true
+      cacheAuthorizedRequests: true
       # Тривалість кешування відповідей 'unauthorized' від вебхука
       # авторизатора.
       # Те саме, що і встановлення прапорця `--authorization-webhook-cache-unauthorized-ttl`.
       # Стандартно: 30 с
       unauthorizedTTL: 30s
+      # Якщо встановлено в false, 'unauthorized' відповіді від вебхука не кешуються
+      # і вказаний unauthorizedTTL ігнорується/не має ефекту.
+      # Те саме, що і встановлення прапорця `--authorization-webhook-cache-unauthorized-ttl` в `0`.
+      # Примітка: Встановлення unauthorizedTTL в `0` призводить до використання його стандартного значення.
+      # Стандартне: true
+      cacheUnauthorizedRequests: true
       # Тайм-аут для запиту вебхука
       # Максимально допустимий: 30 с
       # Обовʼязково, немає стандартного значення

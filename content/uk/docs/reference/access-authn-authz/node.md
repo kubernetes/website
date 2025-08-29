@@ -24,22 +24,18 @@ weight: 34
 
 {{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
 
-Коли функціональну можливість `AuthorizeNodeWithSelectors` увімкнено (разом із передумовою `AuthorizeWithSelectors`), kubelets можуть читати лише власні обʼєкти Node і можуть читати лише Podʼи, привʼязані до їхнього вузла.
+Kubelets обмежені читанням власних обʼєктів Node і читанням тільки подів, привʼязаних до їхнього вузла.
 
 Операції запису:
 
-* вузли та статус вузлів (увімкніть втулок допуску `NodeRestriction`, щоб обмежити
-  kubelet у зміні свого власного вузла)
-* поди та статус подів (увімкніть втулок допуску `NodeRestriction`, щоб обмежити
-  kubelet у зміні подів, привʼязаних до себе)
+* вузли та статус вузлів (увімкніть втулок допуску `NodeRestriction`, щоб обмежити kubelet у зміні свого власного вузла)
+* поди та статус подів (увімкніть втулок допуску `NodeRestriction`, щоб обмежити kubelet у зміні подів, привʼязаних до себе)
 * події
 
 Операції, повʼязані з авторизацією:
 
-* доступ на читання/запис
-  [API CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/) для TLS початкового запуску
-* можливість створювати TokenReview та SubjectAccessReview для делегованої
-  автентифікації/авторизації
+* доступ на читання/запис [API CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/) для TLS початкового запуску
+* можливість створювати TokenReview та SubjectAccessReview для делегованої автентифікації/авторизації
 
 У майбутніх випусках авторизатор вузлів може додавати або видаляти дозволи, щоб забезпечити kubelet-и мінімальним набором дозволів, необхідних для правильної роботи.
 

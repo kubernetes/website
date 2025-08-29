@@ -156,6 +156,40 @@ weight: 15
 			</td>
 		</tr>
 		<tr>
+			<td>Проби хосту / хуки життєвого циклу (v1.34+)</td>
+			<td>
+				<p>Поле Host у пробах і хуках життєвого циклу має бути заборонене.</p>
+				<p><strong>Заборонені поля</strong></p>
+				<ul>
+					<li><code>spec.containers[*].livenessProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].readinessProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].startupProbe.httpGet.host</code></li>
+					<li><code>spec.containers[*].livenessProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].readinessProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].startupProbe.tcpSocket.host</code></li>
+					<li><code>spec.containers[*].lifecycle.postStart.tcpSocket.host</code>
+					<li><code>spec.containers[*].lifecycle.preStop.tcpSocket.host</code>
+					<li><code>spec.containers[*].lifecycle.postStart.httpGet.host</code></li>
+					<li><code>spec.containers[*].lifecycle.preStop.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].livenessProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].readinessProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].startupProbe.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].livenessProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].readinessProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].startupProbe.tcpSocket.host</code></li>
+					<li><code>spec.initContainers[*].lifecycle.postStart.tcpSocket.host</code>
+					<li><code>spec.initContainers[*].lifecycle.preStop.tcpSocket.host</code>
+					<li><code>spec.initContainers[*].lifecycle.postStart.httpGet.host</code></li>
+					<li><code>spec.initContainers[*].lifecycle.preStop.httpGet.host</code></li>
+				</ul>
+				<p><strong>Дозволені значення</strong></p>
+				<ul>
+					<li>Undefined/nil</li>
+					<li>""</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
 			<td style="white-space: nowrap">AppArmor</td>
 			<td>
 				<p>На підтримуваних вузлах стандартно застосовується профіль AppArmor <code>RuntimeDefault</code>. Політика Baseline має заборонити зміну або вимкнення профілю AppArmor стандартно, або обмежити заміни дозволеним набором профілів.</p>
