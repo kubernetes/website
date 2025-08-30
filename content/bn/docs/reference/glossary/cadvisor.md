@@ -9,7 +9,8 @@ aka:
 tags:
 - tool
 ---
-cAdvisor (কন্টেইনার অ্যাডভাইজার) কন্টেইনার ব্যবহারকারীদের রিসোর্স ব্যবহার এবং তাদের চলার পারফরম্যান্স বৈশিষ্ট্য সম্পর্কে একটি ধারণা প্রদান করে {{< glossary_tooltip text="কন্টেইনারস" term_id="container" >}}।
+cAdvisor (কন্টেইনার অ্যাডভাইজার) কন্টেইনার ব্যবহারকারীদের {{< glossary_tooltip text="রিসোর্স" term_id="infrastructure-resource" >}} 
+ব্যবহার এবং তাদের চলার পারফরম্যান্স বৈশিষ্ট্য সম্পর্কে একটি ধারণা প্রদান করে {{< glossary_tooltip text="কন্টেইনারস" term_id="container" >}}।
 
 <!--more-->
 
