@@ -121,14 +121,18 @@ $vendor-strip-font-size: 16px;
   #video {
     display: block;
 
-    & > .light-text {
+    & > .col > .row {
+      padding: 2rem;
+      padding-left: 20vw;
+    }
+
+    & > .col > .row > .light-text {
       display: block;
       float: right;
-      text-align: left;
       margin: 0 5% 15px 0;
     }
 
-    &:dir(rtl) > .light-text {
+    &:dir(rtl) .light-text {
       text-align: right;
     }
   }
