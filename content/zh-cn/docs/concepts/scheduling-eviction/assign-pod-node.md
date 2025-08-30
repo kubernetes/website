@@ -290,7 +290,8 @@ types, then the Pod can be scheduled onto a node if one of the specified terms
 can be satisfied (terms are ORed).
 -->
 如果你在与 nodeAffinity 类型关联的 nodeSelectorTerms 中指定多个条件，
-只要其中一个 `nodeSelectorTerms` 满足（各个条件按逻辑或操作组合）的话，Pod 就可以被调度到节点上。
+只要其中一个 `nodeSelectorTerms` 满足（各个条件按逻辑或操作组合）的话，
+Pod 就可以被调度到节点上。
 
 <!--
 If you specify multiple expressions in a single `matchExpressions` field associated with a
@@ -1149,6 +1150,44 @@ spec:
 The above Pod will only run on the node `kube-01`.
 -->
 上面的 Pod 只能运行在节点 `kube-01` 之上。
+
+## nominatedNodeName
+
+{{< feature-state feature_gate_name="NominatedNodeNameForExpectation" >}}
+
+<!--
+`nominatedNodeName` can be used for external components to nominate node for a pending pod.
+This nomination is best effort: it might be ignored if the scheduler determines the pod cannot go to a nominated node.
+-->
+外部组件可以使用 `nominatedNodeName` 为待处理的 Pod 提名节点。
+这种提名是尽力而为的：如果调度器确定 Pod 不能进入被提名的节点，
+那么这个提名可能会被忽略。
+
+<!--
+Also, this field can be (over)written by the scheduler:
+- If the scheduler finds a node to nominate via the preemption.
+- If the scheduler decides where the pod is going, and move it to the binding cycle.
+  - Note that, in this case, `nominatedNodeName` is put only when the pod has to go through `WaitOnPermit` or `PreBind` extension points.
+
+Here is an example of a Pod status using the `nominatedNodeName` field:
+-->
+此外，此字段可以由调度器（重新）写入：
+- 如果调度器通过抢占找到一个可提名的节点。
+- 如果调度器决定了 Pod 的去向，并将其移至绑定阶段。
+  - 注意，在这种情况下，仅当 Pod 必须经过 `WaitOnPermit` 或
+    `PreBind` 扩展点时，才会设置 `nominatedNodeName`。
+
+以下是使用 `nominatedNodeName` 字段的 Pod 状态示例：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+...
+status:
+  nominatedNodeName: kube-01
+```
 
 <!--
 ## Pod topology spread constraints
