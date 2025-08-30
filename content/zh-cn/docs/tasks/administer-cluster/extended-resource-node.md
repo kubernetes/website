@@ -293,17 +293,21 @@ kubectl describe node <your-node-name> | grep dongle
 ### For application developers
 
 - [Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/)
+- [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
 ### For cluster administrators
 
 - [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 - [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 -->
 ### 针对应用开发人员
 
 - [将扩展资源分配给容器](/zh-cn/docs/tasks/configure-pod-container/extended-resource/)
+- [通过 DRA 为节点分配扩展资源](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
 ### 针对集群管理员
 
 - [为名字空间配置最小和最大内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 - [为名字空间配置最小和最大 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [通过 DRA 为节点分配扩展资源](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
