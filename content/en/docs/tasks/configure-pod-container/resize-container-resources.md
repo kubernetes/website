@@ -202,7 +202,7 @@ kubectl get pod resize-demo --output=yaml --namespace=qos-example
 You should see:
 * `spec.containers[0].resources` now shows `cpu: 800m`.
 * `status.containerStatuses[0].resources` also shows `cpu: 800m`, indicating the resize was successful on the node.
-* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `resizePolicy` was `NotRequired`.
+* `status.containerStatuses[0].restartCount` remains `0`, because the CPU `restartPolicy` was `NotRequired`.
 
 ## Example 2: Resizing memory with restart
 
