@@ -29,13 +29,6 @@
   height: 100vh;
 }
 
-@mixin pureCenter($left: 50%, $top: 50%) {
-  position: absolute;
-  top: $top;
-  left: $left;
-  transform: translate(-50%, -50%);
-}
-
 @mixin maintain-aspect-ratio(
   $width-factor: 16,
   $height-factor: 9,
