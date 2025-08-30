@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: VolumeAttributesClass for Volume Modification GA"
-draft: true
+date: 2025-09-08T10:30:00-08:00
 slug: kubernetes-v1-34-volume-attributes-class
 author: >
   Sunny Song (Google)
