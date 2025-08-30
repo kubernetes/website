@@ -24,7 +24,7 @@ spec:
       - name: plugin
         securityContext:
           privileged: true
-        image: registry.k8s.io/dra-example-driver/dra-example-driver:v0.1.0
+        image: registry.k8s.io/dra-example-driver/dra-example-driver:v0.2.0
         imagePullPolicy: IfNotPresent
         command: ["dra-example-kubeletplugin"]
         resources:
