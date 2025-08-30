@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+data:
+  primary.cnf: |
+    # Застосовує цю конфігурацію до primary.
+    [mysqld]
+    log-bin
+  replica.cnf: |
+    # Застосовує цю конфігурацію до реплік.
+    [mysqld]
+    super-read-only
+
