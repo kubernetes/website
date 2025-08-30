@@ -9,7 +9,7 @@ weight: 40
 <!-- overview -->
 
 애플리케이션을 배포하고 서비스를 통해 노출했다. 이제 무엇을 해야 할까요? 쿠버네티스는 
-스케일링과 업데이트를 포함한 애플리케이션 배포를 관리하기 위한 여러 도구를 제공한다.
+스케일링과 업데이트를 포함하여 애플리케이션 배포 관리에 도움을 주는 여러 도구를 제공한다.
 
 <!-- body -->
 
@@ -81,11 +81,11 @@ deployment.apps/my-nginx created
 독립 실행형 바이너리와 kubectl의 [기본 기능](/ko/docs/tasks/manage-kubernetes-objects/kustomization/)으로 
 모두 제공된다.
 
-## kubectl 대량 작업
+## kubectl 일괄 작업
 
-리소스 생성이 `kubectl`이 할 수 있는 유일한 대량 작업은 아니다. 구성 파일에서 
-리소스 이름을 추출하여 다른 작업, 특히 
-생성한 리소스를 삭제하는 작업을 수행할 수 있다.
+리소스 생성만이 `kubectl`이 할 수 있는 유일한 일괄 작업은 아니다. 구성 파일에서 
+리소스 이름을 추출하여 다른 작업을 수행하는 것도 가능하다.
+특히, 생성한 리소스를 삭제하는 작업을 수행할 수 있다.
 
 ```shell
 kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
@@ -202,12 +202,12 @@ persistentvolumeclaim/my-pvc created
 
 ## 중단 없이 애플리케이션 업데이트하기
 
-어느 시점에, 결국 일반적으로 새 이미지나 이미지 태그를 지정하여 
+어느 시점이 되면, 결국 일반적으로 새 이미지나 이미지 태그를 지정하여 
 배포된 애플리케이션을 업데이트 해야 할 수 있다. `kubectl`는 여러 업데이트 작업을 제공하며, 
 각 작업은 다양한 시나리오에 적용 가능하다.
 
 앱의 여러 복사본을 실행하고, _롤아웃(rollout)_ 을 사용하여 트래픽을 점진적으로
-새로운 정상 파드로 전환할 수 있다. 결국, 실행 중인 모든 파드에 새로운 소프트웨어가 설치 된다.
+새로운 정상 파드로 전환할 수 있다. 결국, 실행 중인 모든 파드에 새로운 소프트웨어가 설치된다.
 
 이 페이지의 섹션에서는 디플로이먼트를 통해 애플리케이션을 생성하고 업데이트하는 방법을 안내한다.
 
@@ -337,7 +337,7 @@ selector:
 
 스테이블 릴리스와 카나리아 릴리스의 복제본 수를 조정하여 라이브 프로덕션 트래픽을 받을 
 각 릴리스의 비율을 결정할 수 있다 (이 경우, 3:1).
-자신감이 생기면, 안정적인 트랙을 새 애플리케이션 릴리즈로 업데이트하고 카나리아 트랙을
+충분히 확신이 서면, 안정적인 트랙을 새 애플리케이션 릴리즈로 업데이트하고 카나리아 트랙을
 제거할 수 있다.
 
 ## 어노테이션 업데이트하기
@@ -445,7 +445,7 @@ kubectl edit deployment/my-nginx
 ```shell
 kubectl get deployment my-nginx -o yaml > /tmp/nginx.yaml
 vi /tmp/nginx.yaml
-# do some edit, and then save the file
+# 파일을 약간 수정한 뒤 저장한다
 
 kubectl apply -f /tmp/nginx.yaml
 deployment.apps/my-nginx configured
