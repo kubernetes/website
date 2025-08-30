@@ -59,29 +59,6 @@ Kubernetes 调度器对挂接到一个节点的卷数有默认限制：
 </table>
 
 <!--
-## Custom limits
-
-You can change these limits by setting the value of the
-`KUBE_MAX_PD_VOLS` environment variable, and then starting the scheduler.
-CSI drivers might have a different procedure, see their documentation
-on how to customize their limits.
-
-Use caution if you set a limit that is higher than the default limit. Consult
-the cloud provider's documentation to make sure that Nodes can actually support
-the limit you set.
-
-The limit applies to the entire cluster, so it affects all Nodes.
--->
-## 自定义限制   {#custom-limits}
-
-你可以通过设置 `KUBE_MAX_PD_VOLS` 环境变量的值来设置这些限制，然后再启动调度器。
-各个 CSI 驱动可能采用不同的步骤，关于如何自定义其限制请参阅相关文档。
-
-如果设置的限制高于默认限制，请谨慎使用。请参阅云提供商的文档以确保节点可支持你设置的限制。
-
-此限制应用于整个集群，所以它会影响所有节点。
-
-<!--
 ## Dynamic volume limits
 -->
 ## 动态卷限制   {#dynamic-volume-limits}
@@ -90,11 +67,6 @@ The limit applies to the entire cluster, so it affects all Nodes.
 
 <!--
 Dynamic volume limits are supported for following volume types.
-
-- Amazon EBS
-- Google Persistent Disk
-- Azure Disk
-- CSI
 -->
 以下卷类型支持动态卷限制。
 
@@ -114,7 +86,11 @@ type and enforces the appropriate maximum number of volumes for the node. For ex
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>,
 up to 127 volumes can be attached to a node, [depending on the node
 type](https://cloud.google.com/compute/docs/disks/#pdnumberlimits).
+-->
+* 在 <a href="https://cloud.google.com/compute/">Google Compute Engine</a> 环境中，
+  [根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将 127 个卷挂接到节点。
 
+<!--
 * For Amazon EBS disks on M5,C5,R5,T3 and Z1D instance types, Kubernetes allows only 25
 volumes to be attached to a Node. For other instance types on
 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
@@ -122,9 +98,6 @@ Kubernetes allows 39 volumes to be attached to a Node.
 
 * On Azure, up to 64 disks can be attached to a node, depending on the node type. For more details, refer to [Sizes for virtual machines in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes).
 -->
-* 在 <a href="https://cloud.google.com/compute/">Google Compute Engine</a> 环境中，
-  [根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将 127 个卷挂接到节点。
-
 * 对于 M5、C5、R5、T3 和 Z1D 实例类型的 Amazon EBS 磁盘，Kubernetes 仅允许 25 个卷挂接到节点。
   对于 <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a> 上的其他实例类型，
   Kubernetes 允许 39 个卷挂接至节点。
@@ -149,20 +122,15 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 -->
 ### 可变的 CSI 节点可分配数   {#mutable-csi-node-allocatable-count}
 
-{{< feature-state state="alpha" for_k8s_version="v1.33" >}}
+{{< feature-state feature_gate_name="MutableCSINodeAllocatableCount" >}}
 
 <!--
 CSI drivers can dynamically adjust the maximum number of volumes that can be attached to a Node at runtime. This enhances scheduling accuracy and reduces pod scheduling failures due to changes in resource availability.
--->
-CSI 驱动可以在运行时动态调整可以挂载到 Node 的最大卷数量。
-这提高了调度准确性，并减少了由于资源可用性变化导致的 Pod 调度失败。
-
-<!--
-This is an alpha feature and is disabled by default.
 
 To use this feature, you must enable the `MutableCSINodeAllocatableCount` feature gate on the following components:
 -->
-这是一个 Alpha 级别特性，默认情况下是禁用的。
+CSI 驱动可以在运行时动态调整可以挂载到 Node 的最大卷数量。
+这提高了调度准确性，并减少了由于资源可用性变化导致的 Pod 调度失败。
 
 要使用此特性，你必须在以下组件上启用 `MutableCSINodeAllocatableCount`
 特性门控：
@@ -198,7 +166,13 @@ kubelet 将使用 `nodeAllocatableUpdatePeriodSeconds`
 端点来刷新可挂接卷的最大数量。此字段允许的最小值为 10 秒。
 
 <!--
-Additionally, if a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8), Kubernetes triggers an immediate update to the allocatable volume count for that Node.
+If a volume attachment operation fails with a `ResourceExhausted` error (gRPC code 8),
+Kubernetes triggers an immediate update to the allocatable volume count for that Node.
+Additionally, kubelet marks affected pods as Failed, allowing their controllers to
+handle recreation. This prevents pods from getting stuck indefinitely in the
+`ContainerCreating` state.
 -->
-此外，如果卷挂接操作失败并返回 `ResourceExhausted` 错误（gRPC 代码 8），
-Kubernetes 会立即触发对该 Node 的可分配卷数量的更新。
+如果卷挂载操作失败并返回 `ResourceExhausted` 错误（gRPC 代码 8），
+Kubernetes 会立即触发对此节点可分配卷数量的更新。此外，kubelet
+会将受影响的 Pod 标记为 Failed，从而使它们的控制器处理重新创建。
+这防止了 Pod 无限期地停留在 `ContainerCreating` 状态。
