@@ -83,13 +83,13 @@ _স্কোরিং_ ধাপে, শিডিউলার বাকি ন�
 
 ## {{% heading "whatsnext" %}}
 
-* শিডিউলার পারফরম্যান্স টিউনিং সম্পর্কে পড়ুন [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* পড টপোলজি স্প্রেড কনস্ট্রেইন্টস সম্পর্কে পড়ুন [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
-* kube-scheduler এর রেফারেন্স ডকুমেন্টেশন পড়ুন [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/)
-* kube-scheduler কনফিগ (v1) রেফারেন্স পড়ুন [kube-scheduler config (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
-* একাধিক শিডিউলার কনফিগার করা সম্পর্কে জানুন [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
-* টপোলজি ম্যানেজমেন্ট পলিসি সম্পর্কে জানুন [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
-* পড ওভারহেড সম্পর্কে জানুন [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+* [শিডিউলার পারফরম্যান্স টিউনিং](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/) সম্পর্কে পড়ুন
+* [পড টপোলজি স্প্রেড কনস্ট্রেইন্টস](/docs/concepts/scheduling-eviction/topology-spread-constraints/) সম্পর্কে পড়ুন
+* kube-scheduler এর [রেফারেন্স ডকুমেন্টেশন](/docs/reference/command-line-tools-reference/kube-scheduler/) পড়ুন 
+* [kube-scheduler কনফিগ (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) রেফারেন্স পড়ুন 
+* [একাধিক শিডিউলার কনফিগার](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) করা সম্পর্কে জানুন 
+* [টপোলজি ম্যানেজমেন্ট পলিসি](/docs/tasks/administer-cluster/topology-manager/) সম্পর্কে জানুন 
+* [পড ওভারহেড](/docs/concepts/scheduling-eviction/pod-overhead/) সম্পর্কে জানুন 
 * ভলিউম ব্যবহারকারী পডের শিডিউলিং সম্পর্কে জানুন:
   * [ভলিউম টপোলজি সাপোর্ট](/docs/concepts/storage/storage-classes/#volume-binding-mode)
   * [স্টোরেজ ক্যাপাসিটি ট্র্যাকিং](/docs/concepts/storage/storage-capacity/)
