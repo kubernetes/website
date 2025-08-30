@@ -177,7 +177,7 @@ spec:
 ## Learn more
 
 - Read the documentation for
-  [container restart policy](/docs/concepts/workloads/pod-lifecycle/#container-restart-rules).
+  [container restart policy](/docs/concepts/workloads/pods/pod-lifecycle/#container-restart-rules).
 - Read the KEP for the
   [Container Restart Rules](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/5307-container-restart-policy)
 
