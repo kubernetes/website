@@ -2,8 +2,7 @@
 layout: blog
 title: "Kubernetes v1.34: Pods Report DRA Resource Health"
 slug: kubernetes-v1-34-pods-report-dra-resource-health
-draft: true
-date: 2025-XX-XX
+date: 2025-09-17T10:30:00-08:00
 author: >
   John-Paul Sassine (Google)
 ---
