@@ -62,6 +62,11 @@ spec:
     - "stress"
     - "--cpus"
     - "1"
+    resources:
+      limits:
+        cpu: "500m"
+      requests:
+        cpu: "500m"
 ```
 
 Apply it to your cluster: `kubectl apply -f cpu-pressure-pod.yaml`
@@ -85,7 +90,7 @@ Query the `/metrics/cadvisor` endpoint to see the `container_pressure_cpu_waitin
 ```shell
 # Replace <node-name> with the name of the node where the pod is running
 kubectl get --raw "/api/v1/nodes/<node-name>/proxy/metrics/cadvisor" | \
-    grep 'container_pressure_cpu_waiting_seconds_total{container="cpu-stress",pod="cpu-pressure-pod"}'
+    grep 'container_pressure_cpu_waiting_seconds_total{container="cpu-stress"'
 ```
 The output should show an increasing value, indicating that the container is spending time stalled waiting for CPU resources.
 
@@ -139,7 +144,7 @@ Query the `/metrics/cadvisor` endpoint to see the `container_pressure_memory_wai
 ```shell
 # Replace <node-name> with the name of the node where the pod is running
 kubectl get --raw "/api/v1/nodes/<node-name>/proxy/metrics/cadvisor" | \
-    grep 'container_pressure_memory_waiting_seconds_total{container="memory-stress",pod="memory-pressure-pod"}'
+    grep 'container_pressure_memory_waiting_seconds_total{container="memory-stress"'
 ```
 In the output, you will observe an increasing value for the metric, indicating that the system is under significant memory pressure.
 
@@ -188,7 +193,7 @@ Query the `/metrics/cadvisor` endpoint to see the `container_pressure_io_waiting
 ```shell
 # Replace <node-name> with the name of the node where the pod is running
 kubectl get --raw "/api/v1/nodes/<node-name>/proxy/metrics/cadvisor" | \
-    grep 'container_pressure_io_waiting_seconds_total{container="io-stress",pod="io-pressure-pod"}'
+    grep 'container_pressure_io_waiting_seconds_total{container="io-stress"'
 ```
 You will see the metric's value increase as the Pod continuously writes to disk.
 
