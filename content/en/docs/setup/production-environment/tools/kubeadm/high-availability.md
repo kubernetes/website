@@ -265,6 +265,12 @@ For each additional control plane node you should:
 
 You can join multiple control-plane nodes in parallel.
 
+{{< note >}}
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
+on the first control plane node. To provide higher availability, please rebalance the CoreDNS Pods
+with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
+{{< /note >}}
+
 ## External etcd nodes
 
 Setting up a cluster with external etcd nodes is similar to the procedure used for stacked etcd
