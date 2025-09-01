@@ -1,11 +1,10 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Snapshottable API server cache"
-date: XXX
+date: 2025-09-09T10:30:00-08:00
 slug: kubernetes-v1-34-snapshottable-api-server-cache
 author: >
   [Marek Siarkowicz](https://github.com/serathius) (Google)
-draft: true
 ---
 
 For years, the Kubernetes community has been on a mission to improve the stability and performance predictability of the API server.
