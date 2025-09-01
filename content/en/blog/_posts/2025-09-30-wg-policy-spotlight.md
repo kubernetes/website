@@ -2,8 +2,8 @@
 layout: blog
 title: "Spotlight on Policy Working Group"
 slug: wg-policy-spotlight-2025
-draft: true
-date: 2025-05-22
+draft: false
+date: 2025-09-30
 author: "Arujjwal Negi"
 ---  
 
