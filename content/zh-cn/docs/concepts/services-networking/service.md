@@ -1732,9 +1732,10 @@ Kubernetes {{< skew currentVersion >}} 支持以下字段值：
 {{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
 
 <!--
-Two additional values are available when the `PreferSameTrafficDistribution`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled:
+In Kubernetes {{< skew currentVersion >}}, two additional values are
+available (unless the `PreferSameTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+disabled):
 
 `PreferSameZone`
 : This is an alias for `PreferClose` that is clearer about the intended semantics.
@@ -1743,8 +1744,9 @@ enabled:
 : Indicates a preference for routing traffic to endpoints that are on the same
   node as the client.
 -->
-当 `PreferSameTrafficDistribution`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用时，还可以使用两个附加的取值：
+在 Kubernetes {{< skew currentVersion >}} 中，
+另外提供了两个可选值（除非禁用了 `PreferSameTrafficDistribution` 
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) ）：
 
 `PreferSameZone`  
 : 这是 `PreferClose` 的别名，但它更清晰地表达了预期的语义。
