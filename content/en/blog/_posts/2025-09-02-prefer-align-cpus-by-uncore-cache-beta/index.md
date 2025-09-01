@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: 'Kubernetes v1.34: Introducing CPU Manager Static Policy Option for Uncore Cache Alignment'
-date: 2025-xx-xx
-draft: true
+date: 2025-09-02T10:30:00-08:00
 slug: kubernetes-v1-34-prefer-align-by-uncore-cache-cpumanager-static-policy-optimization
 author: Charles Wong (AMD)
 ---
