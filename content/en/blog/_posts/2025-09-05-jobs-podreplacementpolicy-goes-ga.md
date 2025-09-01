@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Pod Replacement Policy for Jobs Goes GA"
-date: 2025-0X-XX
-draft: true
+date: 2025-09-05T10:30:00-08:00
 slug: kubernetes-v1-34-pod-replacement-policy-for-jobs-goes-ga
 author: >
   [Dejan Zele Pejchev](https://github.com/dejanzele) (G-Research)
