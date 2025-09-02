@@ -10,7 +10,7 @@
 {{ end }}
 {{ $featured := (where $pages "Params.featured" true).ByWeight | first 4 }}
 	<section id="case-studies">
-		<h2>{{ .Title }}</h2>
+		<h1>{{ .Title }}</h1>
 		<div class="case-studies">
 			{{ range $featured }}
 			{{ template "case-study-featured-block" (dict "ctx" $ "page" .) }}
@@ -57,7 +57,8 @@
 		{{ end }}
 		</a>
 		{{ end }}
-		<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story">{{ T "layouts_case_studies_list_tell" }}</a>	</div>
+		<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img height="127px"src="/images/case-studies/story.svg" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
+	</div>
 </section>
 {{ .Content }}
 {{ end }}
