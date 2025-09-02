@@ -1,5 +1,5 @@
 ---
-title: رها کردن مدیریت 
+title: مدیران انتشار 
 type: docs
 ---
 
@@ -20,7 +20,7 @@ type: docs
 
 ## تماس بگیرید
 
-| لیست پستی | اسلک | دید | کاربرد | عضویت |
+| لیست پستی | Slack | دید | کاربرد | عضویت |
 | --- | --- | --- | --- | --- |
 | [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | عمومی | بحث عمومی برای انتشارManagers | Aهمه مدیران انتشار (شامل همکاران و روسای SIG) |
 | [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | N/A | خصوصی | خصوصی بحث برای مدیران انتشار ممتاز | مدیران انتشار، رهبری انتشار SIG |
@@ -35,12 +35,12 @@ type: docs
 
 ## کتاب های راهنما
 
-**توجه: کتابچه‌های راهنمای تیم انتشار وصله و مدیر شعبه در تاریخ دیگری از حالت تکراری خارج خواهند شد.**
+**توجه: کتابچه‌های راهنمای تیم انتشار وصله (patch) و مدیر (branch) در تاریخ دیگری از حالت تکراری خارج خواهند شد.**
 
-- [تیم انتشار پچ][handbook-patch-release]
+- [تیم انتشار وصله (patch)][handbook-patch-release]
 - [مدیران شعب][handbook-branch-mgmt]
 
-## مدیران شعب 
+## مدیران انتشار  
 
 **توجه:** مستندات ممکن است به تیم انتشار وصله و نقش مدیریت شاخه اشاره داشته باشد. این دو نقش در نقش مدیران انتشار ادغام شده‌اند.
 
@@ -56,14 +56,14 @@ type: docs
 مدیران انتشار مسئول موارد زیر هستند:
 
 - هماهنگی و کاهش انتشارهای Kubernetes:
-  - انتشار وصله‌ها (`x.y.z`، که در آن `z` > 0)
+  - انتشار وصله‌(patch)ها (`x.y.z`، که در آن `z` > 0)
   - نسخه‌های جزئی (`x.y.z`، که `z` = 0)
   - نسخه‌های پیش‌انتشار (آلفا، بتا و نسخه‌های آزمایشی)
   - همکاری با [تیم انتشار][release-team] از طریق هر کدام
   چرخه انتشار
   - تنظیم [زمان‌بندی و آهنگ انتشار پچ‌ها][patches]
 - نگهداری شاخه‌های انتشار:
-  - بررسی گیلاس پیک
+  - بررسی Cherry-picks
   - اطمینان از سالم ماندن شاخه انتشار و عدم وجود وصله ناخواسته
     ادغام می شود
 - راهنمایی [همکاران مدیر انتشار](#release-manager-associates) گروه
@@ -107,13 +107,13 @@ type: docs
 
 همکاران مدیر انتشار، کارآموزان مدیران انتشار هستند که قبلاً به عنوان سایه‌های مدیر انتشار شناخته می‌شدند. آنها مسئول موارد زیر هستند:
 
-- کار انتشار پچ، بررسی گلچین شده
+- کار انتشار وصله(patch)، بررسی cherry pick
 - مشارکت در انتشار k/release: به‌روزرسانی وابستگی‌ها و عادت کردن به کد منبع
 - مشارکت در مستندسازی: نگهداری کتابچه‌های راهنما، حصول اطمینان از مستندسازی فرآیندهای انتشار
 - با کمک مدیر انتشار: همکاری با تیم انتشار در طول چرخه انتشار و حذف انتشار های kuberntetes
 - جستجوی فرصت‌هایی برای کمک به اولویت‌بندی و ارتباطات
   - ارسال پیش‌اعلان‌ها و به‌روزرسانی‌ها در مورد انتشار وصله‌ها
-  - به‌روزرسانی تقویم، کمک به تاریخ‌های انتشار و مراحل مهم ا
+  - به‌روزرسانی تقویم، کمک به تاریخ‌های انتشار و مراحل مهم از 
     [جدول زمانی چرخه انتشار][k-sig-release-releases]
 - از طریق برنامه‌ی Buddy، جذب مشارکت‌کنندگان جدید و جفت‌سازی با آنها در انجام وظایف
 
@@ -166,10 +166,10 @@ type: docs
 مثال: [1.15 تیم انتشار](https://git.k8s.io/sig-release/releases/release-1.15/release_team.md)
 
 [عضویت در جامعه]: https://git.k8s.io/community/community-membership.md#member
-[دفتر-شعبه-مدیریت-دفترچه]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
+[دفتر-(branch)-مدیریت-دفترچه]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/branch-manager.md
 [کتابچه راهنما-انتشار وصله]: https://git.k8s.io/sig-release/release-engineering/role-handbooks/patch-release-team.md
 [انتشار k-sig]: https://git.k8s.io/sig-release/releases
-[تکه ها]: /releases/patch-releases/
+[وصله(patch) ها ]: /releases/patch-releases/
 [منابع]: https://git.k8s.io/community/committee-security-response/README.md
 [تیم توسعه]: https://git.k8s.io/sig-release/release-team/README.md
 [فرآیند آزادسازی امنیت]: https://git.k8s.io/security/security-release-process.md
