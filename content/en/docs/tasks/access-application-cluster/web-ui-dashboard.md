@@ -153,9 +153,8 @@ If needed, you can expand the **Advanced options** section where you can specify
   track=stable
   ```
 
-- **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-  These virtual clusters are called [namespaces](/docs/tasks/administer-cluster/namespaces/).
-  They let you partition resources into logically named groups.
+- **Namespace**: Kubernetes supports partitioning resources within a single cluster into logical, named groups.
+  These groups are called [namespaces](/docs/tasks/administer-cluster/namespaces/).
 
   Dashboard offers all available namespaces in a dropdown list, and allows you to create a new namespace.
   The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-) but can not contain capital letters.
