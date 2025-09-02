@@ -26,8 +26,7 @@ This page introduces the ServiceAccount object in Kubernetes, providing
 information about how service accounts work, use cases, limitations,
 alternatives, and links to resources for additional guidance.
 -->
-本页介绍 Kubernetes 中的 ServiceAccount 对象，
-讲述服务账号的工作原理、使用场景、限制、替代方案，还提供了一些资源链接方便查阅更多指导信息。
+本页介绍 Kubernetes 中的 ServiceAccount 对象，讲述服务账号的工作原理、使用场景、限制、替代方案，还提供了一些资源链接方便查阅更多指导信息。
 
 <!-- body -->
 
@@ -44,9 +43,7 @@ ServiceAccount's credentials to identify as that ServiceAccount. This identity
 is useful in various situations, including authenticating to the API server or
 implementing identity-based security policies.
 -->
-服务账号是在 Kubernetes 中一种用于非人类用户的账号，在 Kubernetes 集群中提供不同的身份标识。
-应用 Pod、系统组件以及集群内外的实体可以使用特定 ServiceAccount 的凭据来将自己标识为该 ServiceAccount。
-这种身份可用于许多场景，包括向 API 服务器进行身份认证或实现基于身份的安全策略。
+服务账号是在 Kubernetes 中一种用于非人类用户的账号，在 Kubernetes 集群中提供不同的身份标识。应用 Pod、系统组件以及集群内外的实体可以使用特定 ServiceAccount 的凭据来将自己标识为该 ServiceAccount。这种身份可用于许多场景，包括向 API 服务器进行身份认证或实现基于身份的安全策略。
 
 <!--
 Service accounts exist as ServiceAccount objects in the API server. Service
@@ -63,8 +60,7 @@ accounts have the following properties:
   defined in the Kubernetes API. You can quickly create service accounts to
   enable specific tasks.
 -->
-* **名字空间限定：** 每个服务账号都与一个 Kubernetes 名字空间绑定。
-  每个名字空间在创建时，会获得一个[名为 `default` 的 ServiceAccount](#default-service-accounts)。
+* **名字空间限定：** 每个服务账号都与一个 Kubernetes 名字空间绑定。每个名字空间在创建时，会获得一个[名为 `default` 的 ServiceAccount](#default-service-accounts)。
 
 * **轻量级：** 服务账号存在于集群中，并在 Kubernetes API 中定义。你可以快速创建服务账号以支持特定任务。
 
@@ -74,8 +70,7 @@ accounts have the following properties:
   lightweight nature of service accounts and the namespaced identities make
   the configurations portable.
 -->
-* **可移植性：** 复杂的容器化工作负载的配置包中可能包括针对系统组件的服务账号定义。
-  服务账号的轻量级性质和名字空间作用域的身份使得这类配置可移植。
+* **可移植性：** 复杂的容器化工作负载的配置包中可能包括针对系统组件的服务账号定义。服务账号的轻量级性质和名字空间作用域的身份使得这类配置可移植。
 
 <!--
 Service accounts are different from user accounts, which are authenticated
@@ -85,10 +80,7 @@ data. You can authenticate as a user account using multiple methods. Some
 Kubernetes distributions might add custom extension APIs to represent user
 accounts in the API server.
 -->
-服务账号与用户账号不同，用户账号是集群中通过了身份认证的人类用户。默认情况下，
-用户账号不存在于 Kubernetes API 服务器中；相反，API 服务器将用户身份视为不透明数据。
-你可以使用多种方法认证为某个用户账号。某些 Kubernetes 发行版可能会添加自定义扩展 API
-来在 API 服务器中表示用户账号。
+服务账号与用户账号不同，用户账号是集群中通过了身份认证的人类用户。默认情况下，用户账号不存在于 Kubernetes API 服务器中；相反，API 服务器将用户身份视为不透明数据。你可以使用多种方法认证为某个用户账号。某些 Kubernetes 发行版可能会添加自定义扩展 API 来在 API 服务器中表示用户账号。
 
 <!-- Comparison between service accounts and users -->
 {{< table caption="服务账号与用户之间的比较" >}}
@@ -122,20 +114,14 @@ If you delete the `default` ServiceAccount object in a namespace, the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 replaces it with a new one.
 -->
-在你创建集群时，Kubernetes 会自动为集群中的每个名字空间创建一个名为 `default` 的 ServiceAccount 对象。
-在启用了基于角色的访问控制（RBAC）时，Kubernetes 为所有通过了身份认证的主体赋予
-[默认 API 发现权限](/zh-cn/docs/reference/access-authn-authz/rbac/#default-roles-and-role-bindings)。
-每个名字空间中的 `default` 服务账号除了这些权限之外，默认没有其他访问权限。
-如果基于角色的访问控制（RBAC）被启用，当你删除名字空间中的 `default` ServiceAccount 对象时，
-{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}会用新的 ServiceAccount 对象替换它。
+在你创建集群时，Kubernetes 会自动为集群中的每个名字空间创建一个名为 `default` 的 ServiceAccount 对象。在启用了基于角色的访问控制（RBAC）时，Kubernetes 为所有通过了身份认证的主体赋予[默认 API 发现权限](/zh-cn/docs/reference/access-authn-authz/rbac/#default-roles-and-role-bindings)。每个名字空间中的 `default` 服务账号除了这些权限之外，默认没有其他访问权限。如果基于角色的访问控制（RBAC）被启用，当你删除名字空间中的 `default` ServiceAccount 对象时，{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}会用新的 ServiceAccount 对象替换它。
 
 <!--
 If you deploy a Pod in a namespace, and you don't
 [manually assign a ServiceAccount to the Pod](#assign-to-pod), Kubernetes
 assigns the `default` ServiceAccount for that namespace to the Pod.
 -->
-如果你在某个名字空间中部署 Pod，并且你没有[手动为 Pod 指派 ServiceAccount](#assign-to-pod)，
-Kubernetes 将该名字空间的 `default` 服务账号指派给这一 Pod。
+如果你在某个名字空间中部署 Pod，并且你没有[手动为 Pod 指派 ServiceAccount](#assign-to-pod)，Kubernetes 将该名字空间的 `default` 服务账号指派给这一 Pod。
 
 <!--
 ## Use cases for Kubernetes service accounts {#use-cases}
@@ -166,8 +152,7 @@ the following scenarios:
   and the commercial provider allows configuring a suitable trust relationship.
 * [Authenticating to a private image registry using an `imagePullSecret`](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 -->
-* 你的 Pod 需要与外部服务进行通信。例如，工作负载 Pod 需要一个身份来访问某商业化的云 API，
-  并且商业化 API 的提供商允许配置适当的信任关系。
+* 你的 Pod 需要与外部服务进行通信。例如，工作负载 Pod 需要一个身份来访问某商业化的云 API，并且商业化 API 的提供商允许配置适当的信任关系。
 * [使用 `imagePullSecret` 完成在私有镜像仓库上的身份认证](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
 
 <!--
@@ -208,7 +193,7 @@ To use a Kubernetes service account, you do the following:
 -->
 3. 在创建 Pod 期间将 ServiceAccount 对象指派给 Pod。
 
-   如果你所使用的是来自外部服务的身份，可以[获取 ServiceAccount 令牌](#get-a-token)，并在该服务中使用这一令牌。
+   如果你所使用的是来自外部服务的身份，可以 [获取 ServiceAccount 令牌](#get-a-token)，并在该服务中使用这一令牌。
 
 <!--
 For instructions, refer to
@@ -231,11 +216,7 @@ service account permissions follow the principle of least privilege. Pods that
 use that service account don't get more permissions than are required to
 function correctly.
 -->
-你可以使用 Kubernetes 内置的
-[基于角色的访问控制 (RBAC)](/zh-cn/docs/reference/access-authn-authz/rbac/)机制来为每个服务账号授予所需的最低权限。
-你可以创建一个用来授权的**角色**，然后将此角色**绑定**到你的 ServiceAccount 上。
-RBAC 可以让你定义一组最低权限，使得服务账号权限遵循最小特权原则。
-这样使用服务账号的 Pod 不会获得超出其正常运行所需的权限。
+你可以使用 Kubernetes 内置的[基于角色的访问控制 (RBAC)](/zh-cn/docs/reference/access-authn-authz/rbac/)机制来为每个服务账号授予所需的最低权限。你可以创建一个用来授权的**角色**，然后将此角色**绑定**到你的 ServiceAccount 上。RBAC 可以让你定义一组最低权限，使得服务账号权限遵循最小特权原则。这样使用服务账号的 Pod 不会获得超出其正常运行所需的权限。
 
 <!--
 For instructions, refer to
@@ -260,9 +241,7 @@ Job objects in the `maintenance` namespace using that service account.
 -->
 你可以使用 RBAC 允许一个名字空间中的服务账号对集群中另一个名字空间的资源执行操作。
 例如，假设你在 `dev` 名字空间中有一个服务账号和一个 Pod，并且希望该 Pod 可以查看 `maintenance`
-名字空间中正在运行的 Job。你可以创建一个 Role 对象来授予列举 Job 对象的权限。
-随后在 `maintenance` 名字空间中创建 RoleBinding 对象将 Role 绑定到此 ServiceAccount 对象上。
-现在，`dev` 名字空间中的 Pod 可以使用该服务账号列出 `maintenance` 名字空间中的 Job 对象集合。
+名字空间中正在运行的 Job。你可以创建一个 Role 对象来授予列举 Job 对象的权限。随后在 `maintenance` 名字空间中创建 RoleBinding 对象将 Role 绑定到此 ServiceAccount 对象上。现在，`dev` 名字空间中的 Pod 可以使用该服务账号列出 `maintenance` 名字空间中的 Job 对象集合。
 
 <!--
 ### Assign a ServiceAccount to a Pod {#assign-to-pod}
@@ -276,10 +255,7 @@ API and mounts the token as a
 -->
 ### 将 ServiceAccount 指派给 Pod   {#assign-to-pod}
 
-要将某 ServiceAccount 指派给某 Pod，你需要在该 Pod 的规约中设置 `spec.serviceAccountName` 字段。
-Kubernetes 将自动为 Pod 提供该 ServiceAccount 的凭据。在 Kubernetes v1.22 及更高版本中，
-Kubernetes 使用 `TokenRequest` API 获取一个短期的、**自动轮换**的令牌，
-并以[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/#serviceaccounttoken)的形式挂载此令牌。
+要将某 ServiceAccount 指派给某 Pod，你需要在该 Pod 的规约中设置 `spec.serviceAccountName` 字段。Kubernetes 将自动为 Pod 提供该 ServiceAccount 的凭据。在 Kubernetes v1.22 及更高版本中，Kubernetes 使用 `TokenRequest` API 获取一个短期的、**自动轮换**的令牌，并以[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/#serviceaccounttoken)的形式挂载此令牌。
 
 <!--
 By default, Kubernetes provides the Pod
@@ -293,8 +269,7 @@ credentials for a specified ServiceAccount or the `default` ServiceAccount, set 
 默认情况下，Kubernetes 会将所指派的 ServiceAccount
 （无论是 `default` 服务账号还是你指定的定制 ServiceAccount）的凭据提供给 Pod。
 
-要防止 Kubernetes 自动注入指定的 ServiceAccount 或 `default` ServiceAccount 的凭据，
-可以将 Pod 规约中的 `automountServiceAccountToken` 字段设置为 `false`。
+要防止 Kubernetes 自动注入指定的 ServiceAccount 或 `default` ServiceAccount 的凭据，可以将 Pod 规约中的 `automountServiceAccountToken` 字段设置为 `false`。
 
 <!-- OK to remove this historical detail after Kubernetes 1.31 is released -->
 
@@ -325,9 +300,7 @@ following methods:
   and make them available to the application workload.
 -->
 * [TokenRequest API](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)（推荐）：
-  在你自己的**应用代码**中请求一个短期的服务账号令牌。此令牌会自动过期，并可在过期时被轮换。
-  如果你有一个旧的、对 Kubernetes 无感知能力的应用，你可以在同一个 Pod
-  内使用边车容器来获取这些令牌，并将其提供给应用工作负载。
+  在你自己的**应用代码**中请求一个短期的服务账号令牌。此令牌会自动过期，并可在过期时被轮换。如果你有一个旧的、对 Kubernetes 无感知能力的应用，你可以在同一个 Pod 内使用边车容器来获取这些令牌，并将其提供给应用工作负载。
 
 <!--
 * [Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)
@@ -337,8 +310,7 @@ following methods:
   rotates the token before it expires.
 -->
 * [令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)（同样推荐）：
-  在 Kubernetes v1.20 及更高版本中，使用 Pod 规约告知 kubelet 将服务账号令牌作为**投射卷**添加到 Pod 中。
-  所投射的令牌会自动过期，在过期之前 kubelet 会自动轮换此令牌。
+  在 Kubernetes v1.20 及更高版本中，使用 Pod 规约告知 kubelet 将服务账号令牌作为**投射卷**添加到 Pod 中。所投射的令牌会自动过期，在过期之前 kubelet 会自动轮换此令牌。
 
 <!--
 * [Service Account Token Secrets](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)
@@ -350,13 +322,9 @@ following methods:
   ServiceAccounts. The feature gate is removed in v1.27, because it was elevated to GA status; you can still create indefinite service account tokens manually, but should take into account the security implications.
 -->
 * [服务账号令牌 Secret](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)（不推荐）：
-  你可以将服务账号令牌以 Kubernetes Secret 的形式挂载到 Pod 中。这些令牌不会过期且不会轮换。
-  在 v1.24 版本之前，系统会为每个服务账户自动创建一个永久令牌。此方法已不再被推荐，
-  尤其是在大规模应用时，因为使用静态、长期有效的凭证存在风险。
+  你可以将服务账号令牌以 Kubernetes Secret 的形式挂载到 Pod 中。这些令牌不会过期且不会轮换。在 v1.24 版本之前，系统会为每个服务账户自动创建一个永久令牌。此方法已不再被推荐，尤其是在大规模应用时，因为使用静态、长期有效的凭证存在风险。
   [LegacyServiceAccountTokenNoAutoGeneration 特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed)
-  （从 Kubernetes v1.24 至 v1.26 默认启用），阻止 Kubernetes 自动为 ServiceAccount 创建这些令牌。
-  此特性门控在 v1.27 版本中被移除，因为此特性已升级为正式发布（GA）状态；
-  你仍然可以手动为 ServiceAccount 创建无限期的服务账户令牌，但应考虑到安全影响。
+  （从 Kubernetes v1.24 至 v1.26 默认启用），阻止 Kubernetes 自动为 ServiceAccount 创建这些令牌。此特性门控在 v1.27 版本中被移除，因为此特性已升级为正式发布（GA）状态；你仍然可以手动为 ServiceAccount 创建无限期的服务账户令牌，但应考虑到安全影响。
 
 {{< note >}}
 <!--
@@ -367,12 +335,7 @@ can be misused. Instead, consider using an alternative. For example, your extern
 application can authenticate using a well-protected private key `and` a certificate,
 or using a custom mechanism such as an [authentication webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) that you implement yourself.
 -->
-对于运行在 Kubernetes 集群外的应用，你可能考虑创建一个长期有效的 ServiceAccount 令牌，
-并将其存储在 Secret 中。尽管这种方式可以实现身份认证，但 Kubernetes 项目建议你避免使用此方法。
-长期有效的持有者令牌（Bearer Token）会带来安全风险，一旦泄露，此令牌就可能被滥用。
-为此，你可以考虑使用其他替代方案。例如，你的外部应用可以使用一个保护得很好的私钥和证书进行身份认证，
-或者使用你自己实现的[身份认证 Webhook](/zh-cn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
-这类自定义机制。
+对于运行在 Kubernetes 集群外的应用，你可能考虑创建一个长期有效的 ServiceAccount 令牌，并将其存储在 Secret 中。尽管这种方式可以实现身份认证，但 Kubernetes 项目建议你避免使用此方法。长期有效的持有者令牌（Bearer Token）会带来安全风险，一旦泄露，此令牌就可能被滥用。为此，你可以考虑使用其他替代方案。例如，你的外部应用可以使用一个保护得很好的私钥和证书进行身份认证，或者使用你自己实现的[身份认证 Webhook](/zh-cn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)这类自定义机制。
 
 <!--
 You can also use TokenRequest to obtain short-lived tokens for your external application.
@@ -391,8 +354,7 @@ You can also use TokenRequest to obtain short-lived tokens for your external app
 <!--
 `kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32. Use separate namespaces to isolate access to mounted secrets.
 -->
-`kubernetes.io/enforce-mountable-secrets` 自 Kubernetes v1.32 起已弃用。
-你可以使用单独的命名空间来隔离对挂载 Secret 的访问。
+`kubernetes.io/enforce-mountable-secrets` 自 Kubernetes v1.32 起已弃用。你可以使用单独的命名空间来隔离对挂载 Secret 的访问。
 {{< /note >}}
 
 <!--
@@ -403,9 +365,7 @@ enhancing the security posture of your cluster.
 
 You can add the annotation to a ServiceAccount using a manifest:
 -->
-Kubernetes 提供了名为 `kubernetes.io/enforce-mountable-secrets` 的注解，
-你可以添加到你的 ServiceAccount 中。当应用了这个注解后，
-ServiceAccount 的 Secret 只能挂载到特定类型的资源上，从而增强集群的安全性。
+Kubernetes 提供了名为 `kubernetes.io/enforce-mountable-secrets` 的注解，你可以添加到你的 ServiceAccount 中。当应用了这个注解后，ServiceAccount 的 Secret 只能挂载到特定类型的资源上，从而增强集群的安全性。
 
 你可以使用以下清单将注解添加到一个 ServiceAccount 中：
 
@@ -469,11 +429,7 @@ request. The API server checks the validity of that bearer token as follows:
 -->
 ServiceAccount 使用签名的 JSON Web Token（JWT）来向 Kubernetes API
 服务器以及任何其他存在信任关系的系统进行身份认证。根据令牌的签发方式
-（使用 `TokenRequest` 限制时间或使用传统的 Secret 机制），ServiceAccount
-令牌也可能有到期时间、受众和令牌**开始**生效的时间点。
-当客户端以 ServiceAccount 的身份尝试与 Kubernetes API 服务器通信时，
-客户端会在 HTTP 请求中包含 `Authorization: Bearer <token>` 标头。
-API 服务器按照以下方式检查该持有者令牌的有效性：
+（使用 `TokenRequest` 限制时间或使用传统的 Secret 机制），ServiceAccount 令牌也可能有到期时间、受众和令牌**开始**生效的时间点。当客户端以 ServiceAccount 的身份尝试与 Kubernetes API 服务器通信时，客户端会在 HTTP 请求中包含 `Authorization: Bearer <token>` 标头。API 服务器按照以下方式检查该持有者令牌的有效性：
 
 <!--
 1. Checks the token signature.
@@ -501,12 +457,9 @@ object. For legacy tokens that are mounted as Secrets in Pods, the API server
 checks the token against the Secret.
 -->
 TokenRequest API 为 ServiceAccount 生成**绑定令牌**。这种绑定与以该 ServiceAccount
-身份运行的客户端（如 Pod）的生命期相关联。有关绑定 Pod 服务账号令牌的 JWT 模式和载荷的示例，
-请参阅[服务账号令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)。
+身份运行的客户端（如 Pod）的生命期相关联。有关绑定 Pod 服务账号令牌的 JWT 模式和载荷的示例，请参阅[服务账号令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)。
 
-对于使用 `TokenRequest` API 签发的令牌，API 服务器还会检查正在使用 ServiceAccount 的特定对象引用是否仍然存在，
-方式是通过该对象的{{< glossary_tooltip term_id="uid" text="唯一 ID" >}} 进行匹配。
-对于以 Secret 形式挂载到 Pod 中的旧有令牌，API 服务器会基于 Secret 来检查令牌。
+对于使用 `TokenRequest` API 签发的令牌，API 服务器还会检查正在使用 ServiceAccount 的特定对象引用是否仍然存在，方式是通过该对象的{{< glossary_tooltip term_id="uid" text="唯一 ID" >}} 进行匹配。对于以 Secret 形式挂载到 Pod 中的旧有令牌，API 服务器会基于 Secret 来检查令牌。
 
 <!--
 For more information about the authentication process, refer to
@@ -541,11 +494,7 @@ invalidates that token immediately and a TokenReview immediately fails.
 If you use OIDC validation instead, your clients continue to treat the token
 as valid until the token reaches its expiration timestamp.
 -->
-Kubernetes 项目建议你使用 TokenReview API，因为当你删除某些 API 对象
-（如 Secret、ServiceAccount、Pod 和 Node）的时候，此方法将使绑定到这些 API 对象上的令牌失效。
-例如，如果删除包含投射 ServiceAccount 令牌的 Pod，则集群立即使该令牌失效，
-并且 TokenReview 操作也会立即失败。
-如果你使用的是 OIDC 验证，则客户端将继续将令牌视为有效，直到令牌达到其到期时间戳。
+Kubernetes 项目建议你使用 TokenReview API，因为当你删除某些 API 对象（如 Secret、ServiceAccount、Pod 和 Node）的时候，此方法将使绑定到这些 API 对象上的令牌失效。例如，如果删除包含投射 ServiceAccount 令牌的 Pod，则集群立即使该令牌失效，并且 TokenReview 操作也会立即失败。如果你使用的是 OIDC 验证，则客户端将继续将令牌视为有效，直到令牌达到其到期时间戳。
 
 <!--
 Your application should always define the audience that it accepts, and should
@@ -553,8 +502,7 @@ check that the token's audiences match the audiences that the application
 expects. This helps to minimize the scope of the token so that it can only be
 used in your application and nowhere else.
 -->
-你的应用应始终定义其所接受的受众，并检查令牌的受众是否与应用期望的受众匹配。
-这有助于将令牌的作用域最小化，这样它只能在你的应用内部使用，而不能在其他地方使用。
+你的应用应始终定义其所接受的受众，并检查令牌的受众是否与应用期望的受众匹配。这有助于将令牌的作用域最小化，这样它只能在你的应用内部使用，而不能在其他地方使用。
 
 <!--
 ## Alternatives
