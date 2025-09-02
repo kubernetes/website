@@ -69,8 +69,17 @@ $vendor-strip-height: 44px;
     background-position: top center;
     background-size: cover;
 
-    &>.light-text {
-      margin: 0 10% 15px 0;
+    > .col {
+      padding-left: 45vw;
+    }
+
+    > .col > .row {
+      min-height: 25rem;
+
+      &.light-text {
+        text-align: inherit;
+        margin: 0 10% 15px 0;
+      }
     }
   }
 
