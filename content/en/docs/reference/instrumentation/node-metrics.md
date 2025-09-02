@@ -45,15 +45,16 @@ the kubelet [fetches Pod- and container-level metric data using CRI](/docs/refer
 
 ## Pressure Stall Information (PSI) {#psi}
 
-{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
-As an alpha feature, Kubernetes lets you configure kubelet to collect Linux kernel
+As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
-(PSI) for CPU, memory and IO usage. The information is collected at node, pod and container level.
+(PSI) for CPU, memory, and I/O usage. The information is collected at node, pod and container level.
 See [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/) for detailed schema.
-You must enable the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to use this feature. The information is also exposed in
+This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in
 [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
+
+You can learn how to interpret the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
 
 ### Requirements
 

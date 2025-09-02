@@ -3,6 +3,19 @@ $vendor-strip-height: 44px;
 
 @media screen and (min-width: 1024px) {
 
+  body:dir(rtl) {
+    overflow-x: hidden;
+  }
+
+  table:dir(rtl) {
+    text-align: right;
+    direction: rtl;
+  }
+
+  .breadcrumb-item:dir(rtl) + .breadcrumb-item:dir(rtl)::before {
+    float: right;
+  }
+
   .td-home {
     .header-hero {
       #vendorStrip {
@@ -33,6 +46,9 @@ $vendor-strip-height: 44px;
         h3,
         p {
           text-align: left
+        }
+        p:dir(rtl) {
+          text-align: right
         }
 
         .image-wrapper {

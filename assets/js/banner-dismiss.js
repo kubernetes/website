@@ -19,11 +19,18 @@ $(document).ready(function() {
     return matches ? "true" : undefined;
   }
 
+  function getTokenName() {
+    let announcement_name_rewritten = announcement.getAttribute('data-announcement-name').replace(/\s/g, '_');
+    let token = 'announcement_ack_'+announcement_name_rewritten; // Generate the unique token for this announcement
+    return token;
+  }
+
   /* Check the presence of a cookie */
   let announcement = document.querySelector("#announcement");
   if (announcement) {
-    let token = `announcement_ack_${announcement.getAttribute('data-announcement-name').replace(/\s/g, '_')}`; // Generate the unique token for announcement
-    let acknowledged = getCookie(token);
+    let announcement_name_rewritten = announcement.getAttribute('data-announcement-name').replace(/\s/g, '_');
+    let tokenName = getTokenName();
+    let acknowledged = getCookie(tokenName);
     if (acknowledged === "true") {
       announcement.remove(); // Remove the announcement if the cookie is set
     }
@@ -35,9 +42,10 @@ $(document).ready(function() {
   /* Driver code to set the cookie */
   let button = document.querySelector('#banner-dismiss');
   if (button) {
+    let tokenName = getTokenName();
     button.removeAttribute('style');
     button.addEventListener('click', function() {
-      setCookie(token, "true",
+      setCookie(tokenName, "true",
       button.getAttribute('data-ttl')); // Set a cookie with time to live parameter
       announcement.remove();
     });

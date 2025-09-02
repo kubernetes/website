@@ -16,8 +16,12 @@ related:
  - container
 
 ---
- Provides constraints to limit resource consumption per {{< glossary_tooltip text="Containers" term_id="container" >}} or {{< glossary_tooltip text="Pods" term_id="pod" >}} in a namespace.
+Constraints resource consumption per {{< glossary_tooltip text="container" term_id="container" >}} or {{< glossary_tooltip text="Pod" term_id="pod" >}},
+specified for a particular {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 
 <!--more--> 
-LimitRange limits the quantity of objects that can be created  by type, 
-as well as the amount of compute resources that may be requested/consumed by individual {{< glossary_tooltip text="Containers" term_id="container" >}} or {{< glossary_tooltip text="Pods" term_id="pod" >}} in a namespace.
+
+A [LimitRange](/docs/concepts/policy/limit-range/) either limits the quantity of {{< glossary_tooltip text="API resources" term_id="api-resource" >}}
+that can be created (for a particular resource type),
+or the amount of {{< glossary_tooltip text="infrastructure resources" term_id="infrastructure-resource" >}}
+that may be requested/consumed by individual containers or Pods within a namespace.

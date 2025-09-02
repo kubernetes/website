@@ -2,7 +2,7 @@
 title: Assign Pod-level CPU and memory resources
 content_type: task
 weight: 30
-min-kubernetes-server-version: 1.32
+min-kubernetes-server-version: 1.34
 ---
 
 
@@ -42,6 +42,23 @@ For Pod Level Resources:
 The `PodLevelResources` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled
 for your control plane and for all nodes in your cluster.
+
+## Limitations
+
+For Kubernetes {{< skew currentVersion >}}, resizing pod-level resources has the
+following limitations:
+
+* **Resource Types:** Only CPU, memory and hugepages resources can be specified at pod-level.
+* **Operating System:** Pod-level resources are not supported for Windows
+  pods.
+* **Resource Managers:** The Topology Manager, Memory Manager and CPU Manager do not
+  align pods and containers based on pod-level resources as these resource managers 
+  don't currently support pod-level resources.
+* **[In-Place
+  Resize](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/):**
+  In-place resize of pod-level resources is not supported. Modifying the pod-level resource
+  limits or requests on a pod result in a field.Forbidden error. The error message
+  explicitly states, "pods with pod-level resources cannot be resized."
 
 <!-- steps -->
 

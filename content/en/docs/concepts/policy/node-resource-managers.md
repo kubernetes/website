@@ -207,7 +207,7 @@ listed in alphabetical order:
 : Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
   (available since Kubernetes v1.32)
 
-`prefer-align-cpus-by-uncorecache` (alpha, hidden by default)
+`prefer-align-cpus-by-uncorecache` (beta, visible by default)
 : Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
   (available since Kubernetes v1.32)
 

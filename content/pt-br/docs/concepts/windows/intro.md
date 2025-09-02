@@ -210,7 +210,7 @@ Há uma [limitação conhecida](pt-br/docs/tasks/configure-pod-container/configu
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR) está disponível como um agente de execução de contêiner para todas as versões do Windows Server 2019 e posteriores.
 
-Veja [Instalar MCR em servidores Windows](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) para mais informações.
+Veja [Instalar MCR em servidores Windows](https://docs.mirantis.com/mcr/25.0/install/mcr-windows.html) para mais informações.
 
 ## Compatibilidade de versão do sistema operacional Windows{#windows-os-version-support}
 

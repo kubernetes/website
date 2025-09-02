@@ -10,13 +10,14 @@ aka:
 tags:
 - architecture
 ---
-Składnik warstwy sterowania, który śledzi tworzenie nowych
-{{< glossary_tooltip term_id="pod" text="podów" >}} i przypisuje im {{< glossary_tooltip term_id="node" text="węzły">}},
+Składnik warstwy sterowania, który śledzi tworzenie
+nowych {{< glossary_tooltip term_id="pod" text="podów" >}}
+i przypisuje im {{< glossary_tooltip term_id="node" text="węzły">}},
 na których powinny zostać uruchomione.
 
 <!--more-->
 
-Przy podejmowaniu decyzji o wyborze węzła brane pod uwagę są wymagania
-indywidualne i zbiorcze odnośnie zasobów, ograniczenia wynikające z polityk
-sprzętu i oprogramowania, wymagania *affinity* i *anty-affinity*, lokalizacja danych,
-zależności między zadaniami i wymagania czasowe.
+Przy podejmowaniu decyzji o wyborze węzła brane pod uwagę są wymagania indywidualne i zbiorcze
+odnośnie {{< glossary_tooltip text="zasobów" term_id="infrastructure-resource" >}},
+ograniczenia wynikające z polityk sprzętu i oprogramowania, wymagania
+*affinity* i *anty-affinity*, lokalizacja danych, zależności między zadaniami i wymagania czasowe.

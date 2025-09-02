@@ -51,12 +51,14 @@ Liveness probes do not wait for readiness probes to succeed. If you want to wait
 <!--
 ## Readiness probe
 
-Readiness probes determine when a container is ready to start accepting traffic. This is useful when waiting for an application to perform time-consuming initial tasks, such as establishing network connections, loading files, and warming caches.
+Readiness probes determine when a container is ready to accept traffic. This is useful when waiting for an application to perform time-consuming initial tasks that depend on its backing services; for example: establishing network connections, loading files, and warming caches. Readiness probes can also be useful later in the container’s lifecycle, for example, when recovering from temporary faults or overloads.
 -->
 ## 就绪探针   {#readiness-probe}
 
-就绪探针决定何时容器准备好开始接受流量。
-这种探针在等待应用执行耗时的初始任务时非常有用，例如建立网络连接、加载文件和预热缓存。
+就绪探针决定容器何时准备好接受流量。
+这种探针在等待应用执行耗时的初始任务时非常有用；
+例如：建立网络连接、加载文件和预热缓存。在容器的生命周期后期，
+就绪探针也很有用，例如，从临时故障或过载中恢复时。
 
 <!--
 If the readiness probe returns a failed state, Kubernetes removes the pod from all matching service endpoints.

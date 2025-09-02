@@ -32,8 +32,8 @@ tags:
 <!--more-->
 
 <!--
-Container environment variables provide information that is required by the running containerized applications along with information about important resources to the {{< glossary_tooltip text="containers" term_id="container" >}}. For example, file system details, information about the container itself, and other cluster resources such as service endpoints.
+Container environment variables provide information that is required by the running containerized applications along with information about important related details to the {{< glossary_tooltip text="containers" term_id="container" >}}. For example, file system details, information about the container itself, and other cluster resources such as service endpoints.
 -->
 容器环境变量为运行中的容器化应用提供必要的信息，
-同时还提供与{{< glossary_tooltip text="容器" term_id="container" >}}重要资源相关的其他信息，
+同时还提供与{{< glossary_tooltip text="容器" term_id="container" >}}相关的重要细节信息，
 例如：文件系统信息、容器自身的信息以及其他像服务端点（Service endpoints）这样的集群资源信息。

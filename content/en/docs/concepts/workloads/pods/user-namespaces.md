@@ -280,6 +280,18 @@ allowed to set any of:
  * `hostIPC: true`
  * `hostPID: true`
 
+No container can use `volumeDevices` (raw block volumes, like /dev/sda) either.
+This includes all the container arrays in the pod spec:
+ * `containers`
+ * `initContainers`
+ * `ephemeralContainers`
+
+## Metrics and observability
+
+The kubelet exports two prometheus metrics specific to user-namespaces:
+ * `started_user_namespaced_pods_total`: a counter that tracks the number of user namespaced pods that are attempted to be created.
+ * `started_user_namespaced_pods_errors_total`: a counter that tracks the number of errors creating user namespaced pods.
+
 ## {{% heading "whatsnext" %}}
 
 * Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)
