@@ -261,7 +261,7 @@ infrastructure into a kubeadm-built cluster. If the default kubeadm configuratio
 needs, you should let kubeadm manage certificates instead.
 {{< /caution >}}
 
-### Set up a signer {#set-up-a-signer}
+### Set up a signer
 
 The Kubernetes Certificate Authority does not work out of the box.
 You can configure an external signer such as [cert-manager](https://cert-manager.io/docs/configuration/ca/),
