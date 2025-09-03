@@ -166,7 +166,7 @@ kubectl describe node <選択したNodeの名前> | grep dongle
 
 * [Namespaceに対してメモリの最小値と最大値の制約を設定する](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [Namespaceに対してCPUの最小値と最大値の制約を設定する](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [DRA による拡張リソースの割り当て](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+* [DRAによる動的リソース割り当て](/ja/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
 
 
