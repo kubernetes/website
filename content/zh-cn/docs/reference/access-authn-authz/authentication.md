@@ -326,7 +326,7 @@ bearer tokens to verify requests. The plugin takes two optional flags:
 
 * `--service-account-key-file` 文件包含 PEM 编码的 x509 RSA 或 ECDSA 私钥或公钥，
   用于验证 ServiceAccount 令牌。这样指定的文件可以包含多个密钥，
-  并且可以使用不同的文件多次指定此参数。若未指定，则使用 --tls-private-key-file 参数。
+  并且可以使用不同的文件多次指定此参数。若未指定，则使用 `--tls-private-key-file` 参数。
 * `--service-account-lookup` 如果启用，则从 API 删除的令牌会被回收。
 
 <!--
@@ -521,10 +521,6 @@ sequenceDiagram
 1. Check to make sure the `id_token` hasn't expired
 
    Perform claim and/or user validation if CEL expressions are configured with `AuthenticationConfiguration`.
-
-1. Make sure the user is authorized
-1. Once authorized the API server returns a response to `kubectl`
-1. `kubectl` provides feedback to the user
 -->
 1. 登录到你的身份服务（Identity Provider）
 2. 你的身份服务将为你提供 `access_token`、`id_token` 和 `refresh_token`
@@ -536,6 +532,11 @@ sequenceDiagram
 
    如果使用 `AuthenticationConfiguration` 配置了 CEL 表达式，则执行申领和/或用户验证。
 
+<!--
+1. Make sure the user is authorized
+1. Once authorized the API server returns a response to `kubectl`
+1. `kubectl` provides feedback to the user
+-->
 7. 确认用户有权限执行操作
 8. 鉴权成功之后，API 服务器向 `kubectl` 返回响应
 9. `kubectl` 向用户提供反馈信息
@@ -693,6 +694,17 @@ command line arguments, and use the configuration file instead.
 如果你想切换到使用结构化身份认证配置，则必须删除 `--oidc-*` 命令行参数，并改用配置文件。
 {{< /note >}}
 
+{{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
+
+<!--
+The _egressSelectorType_ field in the JWT issuer configuration allows you to specify which egress selector
+should be used for sending all traffic related to the issuer (discovery, JWKS, distributed claims, etc).
+This feature requires the `StructuredAuthenticationConfigurationEgressSelector` feature gate to be enabled.
+-->
+JWT 发行者配置中的 **egressSelectorType**
+字段允许你指定应使用哪个出口选择器来发送与发行者相关的所有流量（发现、JWKS、分布式申领等）。
+此特性要求启用 `StructuredAuthenticationConfigurationEgressSelector` 特性门控。
+
 <!--
 ```yaml
 ---
@@ -700,7 +712,7 @@ command line arguments, and use the configuration file instead.
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 # list of authenticators to authenticate Kubernetes users using JWT compliant tokens.
 # the maximum number of allowed authenticators is 64.
@@ -731,6 +743,13 @@ jwt:
     - my-other-app
     # this is required to be set to "MatchAny" when multiple audiences are specified.
     audienceMatchPolicy: MatchAny
+    # egressSelectorType is an indicator of which egress selection should be used for sending all traffic related
+    # to this issuer (discovery, JWKS, distributed claims, etc).  If unspecified, no custom dialer is used.
+    # When specified, the valid choices are "controlplane" and "cluster".  These correspond to the associated
+    # values in the --egress-selector-config-file.
+    # - controlplane: for traffic intended to go to the control plane.
+    # - cluster: for traffic intended to go to the system being managed by Kubernetes.
+    egressSelectorType: <egress-selector-type>
   # rules applied to validate token claims to authenticate users.
   claimValidationRules:
     # Same as --oidc-required-claim key=value.
@@ -811,7 +830,7 @@ jwt:
 #
 # 注意：这是一个示例配置，不要将其用于你自己的集群！
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 # 使用 JWT 兼容令牌对 Kubernetes 用户进行身份认证的认证组件列表，允许的最大认证组件数量为 64。
 jwt:
@@ -838,6 +857,14 @@ jwt:
     - my-other-app
     # 当指定多个受众时，需要将此字段设置为 “MatchAny”。
     audienceMatchPolicy: MatchAny
+    # egressSelectorType 是一个指示符，用于指定应使用哪个出口选择器发送与此发行者相关的所有流量
+    #（发现、JWKS、分布式申领等）。  
+    # 如果未指定，则不使用自定义拨号器。  
+    # 当指定时，有效选项为 "controlplane" 和 "cluster"。这些对应于
+    # --egress-selector-config-file 中的相关值。  
+    # - controlplane：用于打算发往控制平面的流量。  
+    # - cluster：用于打算发往由 Kubernetes 管理的系统的流量。
+    egressSelectorType: <egress-selector-type>
   # 用于验证令牌申领以对用户进行身份认证的规则。
   claimValidationRules:
     # 与 --oidc-required-claim key=value 一致
@@ -938,7 +965,8 @@ jwt:
   `jwt.userValidationRules[i].expression` 表示将由 CEL 计算的表达式。
   CEL 表达式可以访问 `userInfo` 的内容，并组织成 `user` CEL 变量。
   有关 `user` 的结构，请参阅
-  [UserInfo](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io) API 文档。
+  [UserInfo](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io)
+  API 文档。
 
 <!--
 * Claim mapping expression
@@ -969,7 +997,7 @@ jwt:
   {{% tab name="合法的令牌" %}}
   <!--
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -993,7 +1021,7 @@ jwt:
   -->
 
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -1062,56 +1090,56 @@ jwt:
   {{% tab name="申领校验失败" %}}
   <!--
   ```yaml
-   apiVersion: apiserver.config.k8s.io/v1beta1
-   kind: AuthenticationConfiguration
-   jwt:
-   - issuer:
-        url: https://example.com
-        audiences:
-        - my-app
-   claimValidationRules:
-   - expression: 'claims.hd == "example.com"' # the token below does not have this claim, so validation will fail.
-        message: the hd claim must be set to example.com
-   claimMappings:
-        username:
-          expression: 'claims.username + ":external-user"'
-        groups:
-          expression: 'claims.roles.split(",")'
-        uid:
-          expression: 'claims.sub'
-        extra:
-        - key: 'example.com/tenant'
-          valueExpression: 'claims.tenant'
-   userValidationRules:
-   - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
-        message: 'username cannot used reserved system: prefix'
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+       url: https://example.com
+       audiences:
+       - my-app
+  claimValidationRules:
+  - expression: 'claims.hd == "example.com"' # the token below does not have this claim, so validation will fail.
+       message: the hd claim must be set to example.com
+  claimMappings:
+       username:
+         expression: 'claims.username + ":external-user"'
+       groups:
+         expression: 'claims.roles.split(",")'
+       uid:
+         expression: 'claims.sub'
+       extra:
+       - key: 'example.com/tenant'
+         valueExpression: 'claims.tenant'
+  userValidationRules:
+  - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+       message: 'username cannot used reserved system: prefix'
   ```
   -->
 
   ```yaml
-   apiVersion: apiserver.config.k8s.io/v1beta1
-   kind: AuthenticationConfiguration
-   jwt:
-   - issuer:
-        url: https://example.com
-        audiences:
-        - my-app
-   claimValidationRules:
-   - expression: 'claims.hd == "example.com"' # 下面的令牌没有此申领，因此验证将失败。
-        message: the hd claim must be set to example.com
-   claimMappings:
-        username:
-          expression: 'claims.username + ":external-user"'
-        groups:
-          expression: 'claims.roles.split(",")'
-        uid:
-          expression: 'claims.sub'
-        extra:
-        - key: 'example.com/tenant'
-          valueExpression: 'claims.tenant'
-   userValidationRules:
-   - expression: "!user.username.startsWith('system:')" # 该表达式的计算结果将为 true，因此验证将会成功。
-        message: 'username cannot used reserved system: prefix'
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+       url: https://example.com
+       audiences:
+       - my-app
+  claimValidationRules:
+  - expression: 'claims.hd == "example.com"' # 下面的令牌没有此申领，因此验证将失败。
+       message: the hd claim must be set to example.com
+  claimMappings:
+       username:
+         expression: 'claims.username + ":external-user"'
+       groups:
+         expression: 'claims.roles.split(",")'
+       uid:
+         expression: 'claims.sub'
+       extra:
+       - key: 'example.com/tenant'
+         valueExpression: 'claims.tenant'
+  userValidationRules:
+  - expression: "!user.username.startsWith('system:')" # 该表达式的计算结果将为 true，因此验证将会成功。
+       message: 'username cannot used reserved system: prefix'
   ```
   
   ```bash
@@ -1149,7 +1177,7 @@ jwt:
 
   <!--
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -1176,7 +1204,7 @@ jwt:
   -->
 
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -1257,12 +1285,10 @@ jwt:
 ###### Limitations
 
 1. Distributed claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
-1. Egress selector configuration is not supported for calls to `issuer.url` and `issuer.discoveryURL`.
 -->
 ###### 局限性
 
 1. 分布式申领无法通过 [CEL](/zh-cn/docs/reference/using-api/cel/) 表达式工作。
-2. 不支持调用 `issuer.url` 和 `issuer.discoveryURL` 的出口选择器配置。
 
 <!--
 Kubernetes does not provide an OpenID Connect Identity Provider.
@@ -2006,7 +2032,7 @@ A sample authentication configuration file is below:
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 anonymous:
   enabled: true
@@ -2022,7 +2048,7 @@ anonymous:
 # 注意：这是一个示例配置。
 #      请勿将其用于你自己的集群！
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 anonymous:
   enabled: true

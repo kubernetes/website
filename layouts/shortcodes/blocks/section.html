@@ -10,7 +10,7 @@
 	{{ template "shortcodes-blocks_getimage" (dict "name" $bg "ctx" . "target" "bg") }}
 {{- end -}}
 {{- $image := $.Scratch.Get "bg" -}}
-<section id="{{ $id }}"{{ with $class }} class="{{ . }}"{{ end }} style="{{ with $image }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
+<section id="{{ $id }}" class="{{ with $image }}section-with-bgimage{{end}} {{ with $class }}{{ . }}{{ end }}" style="{{ with $image }}background-image: url({{ .Permalink }}); {{ end }}{{ with $style }}{{ . | safeCSS }}{{ end }}">
 	{{ $.Inner }}
 </section>
 {{- end -}}

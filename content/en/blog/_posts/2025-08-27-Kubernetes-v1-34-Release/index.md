@@ -561,7 +561,7 @@ Explore upcoming Kubernetes and cloud native events, including KubeCon \+ CloudN
 
 - [**KCD - Kubernetes Community Days: Porto**](https://community.cncf.io/events/details/cncf-kcd-porto-presents-kcd-porto-2025/): Nov 3, 2025 | Porto, Portugal
 - [**KubeCon + CloudNativeCon North America 2025**](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/): Nov 10-13, 2025 | Atlanta, USA
-- [**KCD - Kubernetes Community Days: Hangzhou**](https://sessionize.com/kcd-hangzhou-and-oicd-2025/): Nov 14, 2025 | Hangzhou, China
+- [**KCD - Kubernetes Community Days: Hangzhou**](https://sessionize.com/kcd-hangzhou-and-oicd-2025/): Nov 15, 2025 | Hangzhou, China
 
 **December 2025**
 
