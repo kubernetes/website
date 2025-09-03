@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Use An Init Container To Define App Environment Variables"
-date: 2025-09-10
+date: 2025-09-10T10:30:00-08:00
 slug: kubernetes-v1-34-env-files
 author: >
   HirazawaUi

@@ -1,7 +1,7 @@
 ---
 layout: blog
-title: "Kubernetes 1.34: Autoconfiguration for Node Cgroup Driver Goes GA"
-date: 2025-09-12
+title: "Kubernetes v1.34: Autoconfiguration for Node Cgroup Driver Goes GA"
+date: 2025-09-12T10:30:00-08:00
 slug: kubernetes-v1-34-cri-cgroup-driver-lookup-now-GA
 author: Peter Hunt (Red Hat), Sergey Kanzhelev (Google)
 ---

@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: DRA Consumable Capacity"
-date: 2025-09-18
+date: 2025-09-18T10:30:00-08:00
 slug: kubernetes-v1-34-dra-consumable-capacity
 author: >
   Sunyanan Choochotkaew (IBM),
