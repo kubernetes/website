@@ -106,19 +106,7 @@ For example, suppose you have a set of Pods that each listen on TCP port 9376
 and are labelled as `app.kubernetes.io/name=MyApp`. You can define a Service to
 publish that TCP listener:
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app.kubernetes.io/name: MyApp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
-```
+{{% code_sample file="service/simple-service.yaml" %}}
 
 Applying this manifest creates a new Service named "my-service" with the default
 ClusterIP [service type](#publishing-services-service-types). The Service
@@ -225,8 +213,8 @@ spec:
       targetPort: 9376
 ```
 
-Because this Service has no selector, the corresponding EndpointSlice (and
-legacy Endpoints) objects are not created automatically. You can map the Service
+Because this Service has no selector, the corresponding EndpointSlice
+objects are not created automatically. You can map the Service
 to the network address and port where it's running, by adding an EndpointSlice
 object manually. For example:
 
@@ -319,14 +307,22 @@ until an extra endpoint needs to be added.
 See [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) for more
 information about this API.
 
-### Endpoints
+### Endpoints (deprecated) {#endpoints}
 
-In the Kubernetes API, an
+{{< feature-state for_k8s_version="v1.33" state="deprecated" >}}
+
+The EndpointSlice API is the evolution of the older
 [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-(the resource kind is plural) defines a list of network endpoints, typically
-referenced by a Service to define which Pods the traffic can be sent to.
+API. The deprecated Endpoints API has several problems relative to
+EndpointSlice:
 
-The EndpointSlice API is the recommended replacement for Endpoints.
+  - It does not support dual-stack clusters.
+  - It does not contain information needed to support newer features, such as
+    [trafficDistribution](/docs/concepts/services-networking/service/#traffic-distribution).
+  - It will truncate the list of endpoints if it is too long to fit in a single object.
+
+Because of this, it is recommended that all clients use the
+EndpointSlice API rather than Endpoints.
 
 #### Over-capacity endpoints
 
@@ -525,8 +521,6 @@ spec:
 
 #### Reserve Nodeport ranges to avoid collisions  {#avoid-nodeport-collisions}
 
-{{< feature-state for_k8s_version="v1.29" state="stable" >}}
-
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that
 uses a specific port, the target port may conflict with another port that has already been assigned.
@@ -683,14 +677,11 @@ The value of `spec.loadBalancerClass` must be a label-style identifier,
 with an optional prefix such as "`internal-vip`" or "`example.com/internal-vip`".
 Unprefixed names are reserved for end-users.
 
-#### Specifying IPMode of load balancer status {#load-balancer-ip-mode}
+#### Load balancer IP address mode {#load-balancer-ip-mode}
 
 {{< feature-state feature_gate_name="LoadBalancerIPMode" >}}
 
-As a Beta feature in Kubernetes 1.30,
-a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
-named `LoadBalancerIPMode` allows you to set the `.status.loadBalancer.ingress.ipMode` 
-for a Service with `type` set to `LoadBalancer`. 
+For a Service of `type: LoadBalancer`, a controller can set `.status.loadBalancer.ingress.ipMode`. 
 The `.status.loadBalancer.ingress.ipMode` specifies how the load-balancer IP behaves. 
 It may be specified only when the `.status.loadBalancer.ingress.ip` field is also specified.
 
@@ -1000,20 +991,26 @@ The `.spec.trafficDistribution` field provides another way to influence traffic
 routing within a Kubernetes Service. While traffic policies focus on strict
 semantic guarantees, traffic distribution allows you to express _preferences_
 (such as routing to topologically closer endpoints). This can help optimize for
-performance, cost, or reliability. This optional field can be used if you have
-enabled the `ServiceTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) for your
-cluster and all of its nodes. In Kubernetes {{< skew currentVersion >}}, the
+performance, cost, or reliability. In Kubernetes {{< skew currentVersion >}}, the
 following field value is supported: 
 
 `PreferClose`
-: Indicates a preference for routing traffic to endpoints that are topologically
-  proximate to the client. The interpretation of "topologically proximate" may
-  vary across implementations and could encompass endpoints within the same
-  node, rack, zone, or even region. Setting this value gives implementations
-  permission to make different tradeoffs, e.g. optimizing for proximity rather
-  than equal distribution of load. Users should not set this value if such
-  tradeoffs are not acceptable.
+: Indicates a preference for routing traffic to endpoints that are in the same
+  zone as the client.
+
+{{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
+
+In Kubernetes {{< skew currentVersion >}}, two additional values are
+available (unless the `PreferSameTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+disabled):
+
+`PreferSameZone`
+: This is an alias for `PreferClose` that is clearer about the intended semantics.
+
+`PreferSameNode`
+: Indicates a preference for routing traffic to endpoints that are on the same
+  node as the client.
 
 If the field is not set, the implementation will apply its default routing strategy.
 

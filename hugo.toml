@@ -3,6 +3,7 @@ title = "Kubernetes"
 
 # Hugo allows theme composition (and inheritance). The precedence is from left to right.
 theme = ["docsy"]
+themesDir = "node_modules"
 
 # Language settings
 contentDir = "content/en"
@@ -21,20 +22,8 @@ ignoreFiles = [ "(?:^|/)OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "co
 
 timeout = "180s"
 
-# Highlighting config.
-pygmentsCodeFences = true
-pygmentsUseClasses = false
-# Use the new Chroma Go highlighter in Hugo.
-pygmentsUseClassic = false
-#pygmentsOptions = "linenos=table"
-# See https://help.farbox.com/pygments.html
-pygmentsStyle = "emacs"
-
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
-
-# Norwegian ("no") is sometimes but not currently used for testing.
-disableLanguages = ["no"]
 
 [caches]
  [caches.assets]
@@ -114,7 +103,7 @@ notAlternative = true
 
 # Image processing configuration.
 [imaging]
-resampleFilter = "CatmullRom"
+resampleFilter = "CatmullRom" # cSpell:disable-line
 quality = 75
 anchor = "smart"
 
@@ -127,6 +116,7 @@ id = "UA-00000000-0"
 copyright_k8s = "The Kubernetes Authors"
 copyright_linux = "Copyright © 2020 The Linux Foundation ®."
 
+contribution_guidelines_url = "https://www.kubernetes.dev/docs/contributor-cheatsheet/"
 # privacy_policy = "https://policies.google.com/privacy"
 
 # First one is picked as the Twitter card image if not set on page.
@@ -142,13 +132,14 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.30"
+latest = "v1.34"
 
-version = "v1.30"
+version = "v1.34"
 githubbranch = "main"
 docsbranch = "main"
+# Should be changed to Docsy provided `archived_version` in the future.
 deprecated = false
-currentUrl = "https://kubernetes.io/docs/home/"
+url_latest_version = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 
 # See code_sample shortcode
@@ -158,12 +149,12 @@ githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 github_repo = "https://github.com/kubernetes/website"
 
 # Searching
-k8s_search = true
+customSearch = true
 
 # The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
-#gcs_engine_id = "011737558837375720776:fsdu1nryfng"
+#gcs_engine_id = "011737558837375720776:fsdu1nryfng" # cSpell:disable-line
 
 # Enable Algolia DocSearch
 algolia_docsearch = false
@@ -184,39 +175,41 @@ js = [
 ]
 
 [[params.versions]]
-version = "v1.30"
-githubbranch = "v1.30.0"
+version = "v1.34"
+githubbranch = "v1.34.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-version = "v1.29"
-githubbranch = "v1.29.3"
-docsbranch = "release-1.29"
-url = "https://v1-29.docs.kubernetes.io"
+version = "v1.33"
+githubbranch = "v1.33.4"
+docsbranch = "release-1.33"
+url = "https://v1-33.docs.kubernetes.io"
 
 [[params.versions]]
-version = "v1.28"
-githubbranch = "v1.28.8"
-docsbranch = "release-1.28"
-url = "https://v1-28.docs.kubernetes.io"
+version = "v1.32"
+githubbranch = "v1.32.8"
+docsbranch = "release-1.32"
+url = "https://v1-32.docs.kubernetes.io"
 
 [[params.versions]]
-version = "v1.27"
-githubbranch = "v1.27.12"
-docsbranch = "release-1.27"
-url = "https://v1-27.docs.kubernetes.io"
+version = "v1.31"
+githubbranch = "v1.31.12"
+docsbranch = "release-1.31"
+url = "https://v1-31.docs.kubernetes.io"
 
 [[params.versions]]
-version = "v1.26"
-githubbranch = "v1.26.15"
-docsbranch = "release-1.26"
-url = "https://v1-26.docs.kubernetes.io"
+version = "v1.30"
+githubbranch = "v1.30.14"
+docsbranch = "release-1.30"
+url = "https://v1-30.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
 # Enable to show the side bar menu in its compact state.
 sidebar_menu_compact = false
+# Show this many levels in compact mode
+ul_show = 3
 # Show expand/collapse icon for sidebar sections.
 sidebar_menu_foldable = true
 # https://github.com/gohugoio/hugo/issues/8918#issuecomment-903314696
@@ -243,53 +236,55 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [params.links]
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
 [[params.links.user]]
-	name = "User mailing list"
-	url = "https://discuss.kubernetes.io"
-	icon = "fa fa-envelope"
-	desc = "Discussion and help from your fellow users"
-
-[[params.links.user]]
-	name = "X(Twitter)"
-	url = "https://twitter.com/kubernetesio"
-	icon = "fab fa-x-twitter"
-	desc = "Follow us on X (formerly Twitter) to get the latest news!"
-
-[[params.links.user]]
-	name = "Calendar"
-	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
-	icon = "fas fa-calendar-alt"
-	desc = "Google Calendar for Kubernetes"
-
-[[params.links.user]]
-	name = "Youtube"
+	name_key = "community_youtube_name"
 	url = "https://youtube.com/kubernetescommunity"
-	icon = "fab fa-youtube"
-	desc = "Youtube community videos"
+	icon = "fa-brands fa-youtube"
+
+[[params.links.user]]
+	name_key = "community_forum_name"
+	url = "https://discuss.kubernetes.io"
+	icon = "fa-solid fa-envelope"
+
+[[params.links.user]]
+	name_key = "community_server_fault_name"
+	url = "https://serverfault.com/questions/tagged/kubernetes"
+	icon = "fa-brands fa-stack-overflow"
+
+[[params.links.user]]
+  name_key = "community_linkedin_name"
+  url = "https://www.linkedin.com/company/kubernetes/"
+  icon = "fa-brands fa-linkedin"
+
+[[params.links.user]]
+	name_key = "community_bluesky_name"
+	url = "https://bsky.app/profile/kubernetes.io"
+	icon = "fa-brands fa-bluesky"
+
+[[params.links.user]]
+	name_key = "community_x_name"
+	url = "https://x.com/kubernetesio"
+	icon = "fa-brands fa-x-twitter"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
-	name = "GitHub"
+	name_key = "community_contributor_site_name"
+	url = "https://k8s.dev/"
+	icon = "fa-solid fa-laptop-code"
+
+[[params.links.developer]]
+	name_key = "community_github_name"
 	url = "https://github.com/kubernetes/kubernetes"
-	icon = "fab fa-github"
-	desc = "Development takes place here!"
+	icon = "fa-brands fa-github"
 
 [[params.links.developer]]
-	name = "Slack"
+	name_key = "community_slack_name"
 	url = "https://slack.k8s.io"
-	icon = "fab fa-slack"
-	desc = "Chat with other project developers"
+	icon = "fa-brands fa-slack"
 
 [[params.links.developer]]
-	name = "Contribute"
-	url = "https://git.k8s.io/community/contributors/guide"
-	icon = "fas fa-edit"
-	desc = "Contribute to the Kubernetes website"
-
-[[params.links.developer]]
-	name = "Stack Overflow"
-	url = "https://stackoverflow.com/questions/tagged/kubernetes"
-	icon = "fab fa-stack-overflow"
-	desc = "Practical questions and curated answers"
+	name_key = "community_calendar_name"
+	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
+	icon = "fa-solid fa-calendar-days"
 
 # Language definitions.
 
@@ -300,7 +295,6 @@ languageName = "English"
 # Weight used for sorting.
 weight = 1
 languagedirection = "ltr"
-i18nDir = "./data/i18n"
 
 [languages.en.params]
 description = "Production-Grade Container Orchestration"
@@ -313,7 +307,7 @@ contentDir = "content/bn"
 languagedirection = "ltr"
 
 [languages.bn.params]
-time_format_blog = "01.02.2006"
+time_format_blog = "02.01.2006"
 language_alternatives = ["en"]
 description = "প্রোডাকশন-গ্রেড কন্টেইনার অর্কেস্ট্রেশন"
 languageNameLatinScript = "Bengali" # aka Bangla
@@ -361,7 +355,7 @@ languageNameLatinScript = "Deutsch"
 
 [languages.hi]
 title = "Kubernetes"
-languageName = "हिन्दी (Hindi)"  
+languageName = "हिन्दी (Hindi)"
 weight = 6
 contentDir = "content/hi"
 languagedirection = "ltr"
@@ -420,21 +414,6 @@ languageName = "한국어 (Korean)"
 weight = 10
 contentDir = "content/ko"
 languagedirection = "ltr"
-
-# 'Norsk (Norwegian)' language is disabled via 'disableLanguages' config.
-[languages.no]
-title = "Kubernetes"
-languageName = "Norsk (Norwegian)"
-weight = 7
-contentDir = "content/no"
-languagedirection = "ltr"
-
-[languages.no.params]
-time_format_blog = "02.01.2006"
-# A list of language codes to look for untranslated content, ordered from left to right.
-language_alternatives = ["en"]
-description = "Production-Grade Container Orchestration"
-languageNameLatinScript = "Norsk"
 
 [languages.ko.params]
 time_format_blog = "2006.01.02"
@@ -523,4 +502,122 @@ languagedirection = "ltr"
 [languages.vi.params]
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
+language_alternatives = ["en"]
 
+# Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
+[[module.mounts]]
+source = "i18n/bn"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/de"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/en"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/es"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/fr"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/hi"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/id"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/it"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ja"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ko"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/pl"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/pt-br"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/ru"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/uk"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/vi"
+target = "i18n"
+
+[[module.mounts]]
+source = "i18n/zh-cn"
+target = "i18n"
+
+[segments]
+  [segments.all]
+    [[segments.all.includes]]
+      path = '{/**}'
+  [segments.en]
+    [[segments.en.includes]]
+      lang = 'en'
+  [segments.bn]
+    [[segments.bn.includes]]
+      lang = 'bn'
+  [segments.zh-cn]
+    [[segments.zh-cn.includes]]
+      lang = 'zh-cn'
+  [segments.fr]
+    [[segments.fr.includes]]
+      lang = 'fr'
+  [segments.de]
+    [[segments.de.includes]]
+      lang = 'de'
+  [segments.hi]
+    [[segments.hi.includes]]
+      lang = 'hi'
+  [segments.id]
+    [[segments.id.includes]]
+      lang = 'id'
+  [segments.it]
+    [[segments.it.includes]]
+      lang = 'it'
+  [segments.ja]
+    [[segments.ja.includes]]
+      lang = 'ja'
+  [segments.ko]
+    [[segments.ko.includes]]
+      lang = 'ko'
+  [segments.pl]
+    [[segments.pl.includes]]
+      lang = 'pl'
+  [segments.pt-br]
+    [[segments.pt-br.includes]]
+      lang = 'pt-br'
+  [segments.ru]
+    [[segments.ru.includes]]
+      lang = 'ru'
+  [segments.es]
+    [[segments.es.includes]]
+      lang = 'es'
+  [segments.uk]
+    [[segments.uk.includes]]
+      lang = 'uk'
+  [segments.vi]
+    [[segments.vi.includes]]
+      lang = 'vi'

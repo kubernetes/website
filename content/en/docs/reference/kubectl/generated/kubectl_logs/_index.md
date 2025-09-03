@@ -34,14 +34,32 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
   # Return snapshot logs from pod nginx with only one container
   kubectl logs nginx
   
+  # Return snapshot logs from pod nginx, prefixing each line with the source pod and container name
+  kubectl logs nginx --prefix
+  
+  # Return snapshot logs from pod nginx, limiting output to 500 bytes
+  kubectl logs nginx --limit-bytes=500
+  
+  # Return snapshot logs from pod nginx, waiting up to 20 seconds for it to start running.
+  kubectl logs nginx --pod-running-timeout=20s
+  
   # Return snapshot logs from pod nginx with multi containers
   kubectl logs nginx --all-containers=true
+  
+  # Return snapshot logs from all pods in the deployment nginx
+  kubectl logs deployment/nginx --all-pods=true
   
   # Return snapshot logs from all containers in pods defined by label app=nginx
   kubectl logs -l app=nginx --all-containers=true
   
+  # Return snapshot logs from all pods defined by label app=nginx, limiting concurrent log requests to 10 pods
+  kubectl logs -l app=nginx --max-log-requests=10
+  
   # Return snapshot of previous terminated ruby container logs from pod web-1
   kubectl logs -p -c ruby web-1
+  
+  # Begin streaming the logs from pod nginx, continuing even if errors occur
+  kubectl logs nginx -f --ignore-errors=true
   
   # Begin streaming the logs of the ruby container in pod web-1
   kubectl logs -f -c ruby web-1
@@ -54,6 +72,9 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
   
   # Show all logs from pod nginx written in the last hour
   kubectl logs --since=1h nginx
+  
+  # Show all logs with timestamps from pod nginx starting from August 30, 2024, at 06:00:00 UTC
+  kubectl logs nginx --since-time=2024-08-30T06:00:00Z --timestamps=true
   
   # Show logs from a kubelet with an expired serving certificate
   kubectl logs --insecure-skip-tls-verify-backend nginx
@@ -79,6 +100,13 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Get all containers' logs in the pod(s).</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--all-pods</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Get logs from all pod(s). Sets prefix to true.</p></td>
 </tr>
 
 <tr>
@@ -155,7 +183,7 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.</p></td>
 </tr>
 
 <tr>
@@ -247,20 +275,6 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>

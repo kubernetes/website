@@ -1,0 +1,17 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Localized strings for German.
+# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
+
+filters:
+  "\\.toml$":
+
+    reviewers:
+    - sig-docs-de-reviews
+
+    approvers:
+    - sig-docs-de-owners
+
+    labels:
+    - area/localization
+    - language/de

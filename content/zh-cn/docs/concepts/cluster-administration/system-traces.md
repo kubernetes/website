@@ -23,12 +23,12 @@ System component traces record the latency of and relationships between operatio
 
 <!-- 
 Kubernetes components emit traces using the
-[OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification)
+[OpenTelemetry Protocol](https://opentelemetry.io/docs/specs/otlp/)
 with the gRPC exporter and can be collected and routed to tracing backends using an
 [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector#-opentelemetry-collector).
 -->
 Kubernetes 组件基于 gRPC 导出器的
-[OpenTelemetry 协议](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/otlp.md#opentelemetry-protocol-specification)
+[OpenTelemetry 协议](https://opentelemetry.io/docs/specs/otlp/)
 发送追踪信息，并用
 [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector#-opentelemetry-collector)
 收集追踪信息，再将其转交给追踪系统的后台。
@@ -74,13 +74,14 @@ receivers:
       grpc:
 exporters:
   # Replace this exporter with the exporter for your backend
-  logging:
-    logLevel: debug
+  exporters:
+    debug:
+      verbosity: detailed
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [logging]
+      exporters: [debug]
 ```
 -->
 ```yaml
@@ -90,13 +91,14 @@ receivers:
       grpc:
 exporters:
   # 用适合你后端环境的导出器替换此处的导出器
-  logging:
-    logLevel: debug
+  exporters:
+    debug:
+      verbosity: detailed
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [logging]
+      exporters: [debug]
 ```
 
 <!--
@@ -155,7 +157,7 @@ with `--tracing-config-file=<path-to-config>`. This is an example config that re
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: TracingConfiguration
 # default value
 #endpoint: localhost:4317
@@ -167,7 +169,7 @@ kube-apiserver 提供追踪配置文件。下面是一个示例配置，它为�
 span，并使用了默认的 OpenTelemetry 端点。
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: TracingConfiguration
 # 默认值
 #endpoint: localhost:4317
@@ -176,10 +178,10 @@ samplingRatePerMillion: 100
 
 <!-- 
 For more information about the `TracingConfiguration` struct, see
-[API server config API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
+[API server config API (v1)](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration).
 -->
 有关 TracingConfiguration 结构体的更多信息，请参阅
-[API 服务器配置 API (v1beta1)](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration)。
+[API 服务器配置 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration)。
 
 <!--
 ### kubelet traces
@@ -211,8 +213,6 @@ This is an example snippet of a kubelet config that records spans for 1 in 10000
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-featureGates:
-  KubeletTracing: true
 tracing:
   # default value
   #endpoint: localhost:4317
@@ -228,8 +228,6 @@ span，并使用默认的 OpenTelemetry 端点：
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-featureGates:
-  KubeletTracing: true
 tracing:
   # 默认值
   #endpoint: localhost:4317
@@ -240,7 +238,8 @@ tracing:
 If the `samplingRatePerMillion` is set to one million (`1000000`), then every
 span will be sent to the exporter.
 -->
-如果 `samplingRatePerMillion` 被设置为一百万 (`1000000`)，则所有 span 都将被发送到导出器。
+如果 `samplingRatePerMillion` 被设置为一百万（`1000000`），
+则所有 span 都将被发送到导出器。
 
 <!--
 The kubelet in Kubernetes v{{< skew currentVersion >}} collects spans from

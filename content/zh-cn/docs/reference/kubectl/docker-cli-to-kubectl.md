@@ -31,7 +31,7 @@ To run an nginx Deployment and expose the Deployment, see [kubectl create deploy
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx
@@ -79,7 +79,7 @@ deployment.apps/nginx-app env updated
 <!--
 `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
 -->
-`kubectl` 命令打印创建或突变资源的类型和名称，然后可以在后续命令中使用。部署后，你可以公开新服务。
+`kubectl` 命令打印创建或突变资源的类型和名称，然后可以在后续命令中使用。部署后，你可以公开新的 Service。
 {{< /note >}}
 
 <!--
@@ -89,7 +89,7 @@ kubectl expose deployment nginx-app --port=80 --name=nginx-http
 ```
 -->
 ```shell
-# 通过服务公开端口
+# 通过 Service 公开端口
 kubectl expose deployment nginx-app --port=80 --name=nginx-http
 ```
 ```
@@ -101,14 +101,14 @@ By using kubectl, you can create a [Deployment](/docs/concepts/workloads/control
 -->
 在 kubectl 命令中，我们创建了一个 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)，
 这将保证有 N 个运行 nginx 的 Pod（N 代表 spec 中声明的副本数，默认为 1）。
-我们还创建了一个 [service](/zh-cn/docs/concepts/services-networking/service/)，其选择算符与容器标签匹配。
-查看[使用服务访问集群中的应用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster)获取更多信息。
+我们还创建了一个 [Service](/zh-cn/docs/concepts/services-networking/service/)，其选择算符与容器标签匹配。
+查看[使用 Service 访问集群中的应用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster)获取更多信息。
 
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
 -->
 默认情况下镜像会在后台运行，与 `docker run -d ...` 类似，如果你想在前台运行，
-使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 在前台运行 Pod:
+使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 在前台运行 Pod：
 
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
@@ -139,7 +139,7 @@ To list what is currently running, see [kubectl get](/docs/reference/generated/k
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker ps -a
@@ -175,7 +175,7 @@ To attach a process that is already running in a container, see [kubectl attach]
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker ps
@@ -190,7 +190,10 @@ docker attach 55c103fa1296
 ...
 ```
 
+<!--
 kubectl:
+-->
+使用 kubectl 命令：
 
 ```shell
 kubectl get pods
@@ -220,7 +223,7 @@ To execute a command in a container, see [kubectl exec](/docs/reference/generate
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker ps
@@ -264,14 +267,17 @@ To use interactive commands.
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker exec -ti 55c103fa1296 /bin/sh
 # exit
 ```
 
+<!--
 kubectl:
+-->
+使用 kubectl 命令：
 
 ```shell
 kubectl exec -ti nginx-app-5jyvm -- /bin/sh
@@ -293,7 +299,7 @@ To follow stdout/stderr of a process that is running, see [kubectl logs](/docs/r
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker logs -f a9e
@@ -320,7 +326,7 @@ kubectl logs -f nginx-app-zibvs
 There is a slight difference between pods and containers; by default pods do not terminate if their processes exit. Instead the pods restart the process. This is similar to the docker run option `--restart=always` with one major difference. In docker, the output for each invocation of the process is concatenated, but for Kubernetes, each invocation is separate. To see the output from a previous run in Kubernetes, do this:
 -->
 现在是时候提一下 Pod 和容器之间的细微差别了；默认情况下如果 Pod 中的进程退出 Pod 也不会终止，
-相反它将会重启该进程。这类似于 docker run 时的 `--restart=always` 选项，这是主要差别。
+相反它将会重启该进程。这类似于 `docker run` 时的 `--restart=always` 选项，这是主要差别。
 在 Docker 中，进程的每个调用的输出都是被连接起来的，但是对于 Kubernetes，每个调用都是分开的。
 要查看以前在 Kubernetes 中执行的输出，请执行以下操作：
 
@@ -350,7 +356,7 @@ To stop and delete a running process, see [kubectl delete](/docs/reference/gener
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker ps
@@ -427,12 +433,12 @@ There is no direct analog of `docker login` in kubectl. If you are interested in
 <!--
 To get the version of client and server, see [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version).
 -->
-如何查看客户端和服务端的版本？查看 [kubectl version](/docs/reference/generated/kubectl/kubectl-commands/#version)。
+如何查看客户端和服务端的版本？查看 [kubectl version](/zh-cn/docs/reference/generated/kubectl/kubectl-commands/#version)。
 
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker version
@@ -473,7 +479,7 @@ To get miscellaneous information about the environment and configuration, see [k
 <!--
 docker:
 -->
-使用 Docker 命令：
+使用 docker 命令：
 
 ```shell
 docker info

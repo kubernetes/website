@@ -133,7 +133,7 @@ both the original request and some subsidiary ones(s), no matter how
 deep in the recursion, there is a danger of priority inversions and/or
 deadlocks.
 -->
-## 递归服务器场景     {#Recursive server scenarios}
+## 递归服务器场景     {#recursive-server-scenarios}
 
 在递归服务器场景中，必须谨慎使用 API 优先级和公平性。这些场景指的是服务器 A 在处理一个请求时，
 会向服务器 B 发出一个辅助请求。服务器 B 可能会进一步向服务器 A 发出辅助请求。

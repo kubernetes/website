@@ -17,7 +17,7 @@ no_list: true
 <!--
 Display one or many resources.
 
- Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in your current namespace unless you pass --all-namespaces.
+ Prints a table of the most important information about the specified resources. You can filter the list using a label selector and the --selector flag. If the desired resource type is namespaced you will only see results in the current namespace unless you pass --all-namespaces.
 -->
 显示一个或多个资源。
 
@@ -55,6 +55,8 @@ kubectl get [(-o|--output=)json|yaml|name|go-template|go-template-file|template|
   # List all replication controllers and services together in ps output format
   # List one or more resources by their type and names
   # List the 'status' subresource for a single pod
+  # List all deployments in namespace 'backend'
+  # List all pods existing in all namespaces
 ```
 -->
 ```shell
@@ -93,6 +95,12 @@ kubectl get rc/web service/frontend pods/web-pod-13je7
   
 # 列举单个 Pod 的 “status” 子资源
 kubectl get pod web-pod-13je7 --subresource status
+
+# 列出 “backend” 命名空间中的所有 Deployment
+kubectl get deployments.apps --namespace backend
+  
+# 列出所有命名空间中存在的所有 Pod
+kubectl get pods --all-namespaces
 ```
 
 ## {{% heading "options" %}}
@@ -287,10 +295,10 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 -l key1=value1,key2=value2,key3 in (value3)）。匹配的对象必须满足所有指定的标签约束。
 </p></td>
 </tr>
 
@@ -362,10 +370,10 @@ If non-empty, sort list types using this field specification.  The field specifi
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-If specified, gets the subresource of the requested object. Must be one of [status scale]. This flag is beta and may change in the future.
+If specified, gets the subresource of the requested object.
 -->
 如果指定，则读取所请求对象的指定子资源。
-必须是 status、scale 之一。此标志处于 Beta 阶段，未来可能会有所变化。
+此标志处于 Beta 阶段，未来可能会有所变化。
 </p></td>
 </tr>
 
@@ -377,7 +385,7 @@ If specified, gets the subresource of the requested object. Must be one of [stat
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
-当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
+当 -o=go-template、-o=go-template-file 时所使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
 </p></td>
 </tr>
@@ -499,30 +507,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 
@@ -835,7 +819,7 @@ Username for basic authentication to the API server
 <!--
 --version, --version=raw prints version information and quits; --version=vX.Y.Z... sets the reported version
 -->
---version, --version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
+--version、--version=raw 打印版本信息并退出；--version=vX.Y.Z... 设置报告的版本。
 </p></td>
 </tr>
 

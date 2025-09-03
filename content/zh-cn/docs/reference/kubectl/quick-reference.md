@@ -729,7 +729,7 @@ kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 kubectl exec --stdin --tty my-pod -- /bin/sh        # Interactive shell access to a running pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
-kubectl debug my-pod -it --image=busybox:1.28       # Create an interactive debugging session witin existing pod and immediately attach to it
+kubectl debug my-pod -it --image=busybox:1.28       # Create an interactive debugging session within existing pod and immediately attach to it
 kubectl debug node/my-node -it --image=busybox:1.28 # Create an interactive debugging session on a node and immediately attach to it
 kubectl top pod                                     # Show metrics for all pods in the default namespace
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
@@ -1031,11 +1031,14 @@ Verbosity | Description
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 
+* See [kuberc](/docs/reference/kubectl/kuberc) options.
+
 * Also read [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use kubectl in reusable scripts.
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 -->
 * 参阅 [kubectl 概述](/zh-cn/docs/reference/kubectl/)，进一步了解 [JsonPath](/zh-cn/docs/reference/kubectl/jsonpath)。
 * 参阅 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 选项。
+* 参阅 [kuberc](/zh-cn/docs/reference/kubectl/kuberc) 选项。
 * 参阅 [kubectl 使用约定](/zh-cn/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
 * 查看社区中其他的 [kubectl 备忘单](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)。

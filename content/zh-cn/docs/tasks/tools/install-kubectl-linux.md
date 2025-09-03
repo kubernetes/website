@@ -47,7 +47,7 @@ The following methods exist for installing kubectl on Linux:
 <!--
 ### Install kubectl binary with curl on Linux
 -->
-### 用 curl 在 Linux 系统中安装 kubectl {#install-kubectl-binary-with-curl-on-linux}
+### 用 curl 在 Linux 系统中安装 kubectl  {#install-kubectl-binary-with-curl-on-linux}
 
 <!--
 1. Download the latest release with the command:
@@ -145,7 +145,7 @@ The following methods exist for installing kubectl on Linux:
 <!--
 1. Install kubectl
 -->
-3. 安装 kubectl
+3. 安装 kubectl：
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -380,9 +380,46 @@ To upgrade kubectl to another minor release, you'll need to bump the version in 
 {{< /note >}}
 
 <!--
-2. Install kubectl using `zypper`:
+2. Update `zypper` and confirm the new repo addition:
 -->
-2. 使用 `zypper` 安装 kubectl：
+2. 更新 zypper 并确认新的仓库已添加：
+
+   ```bash
+   sudo zypper update
+   ```
+
+   <!--
+   When this message appears, press 't' or 'a':
+   -->
+   出现此信息时，按 't' 或 'a''：
+
+   ```
+   New repository or package signing key received:
+
+   Repository:       Kubernetes
+   Key Fingerprint:  1111 2222 3333 4444 5555 6666 7777 8888 9999 AAAA
+   Key Name:         isv:kubernetes OBS Project <isv:kubernetes@build.opensuse.org>
+   Key Algorithm:    RSA 2048
+   Key Created:      Thu 25 Aug 2022 01:21:11 PM -03
+   Key Expires:      Sat 02 Nov 2024 01:21:11 PM -03 (expires in 85 days)
+   Rpm Name:         gpg-pubkey-9a296436-6307a177
+
+   Note: Signing data enables the recipient to verify that no modifications occurred after the data
+   were signed. Accepting data with no, wrong or unknown signature can lead to a corrupted system
+   and in extreme cases even to a system compromise.
+
+   Note: A GPG pubkey is clearly identified by its fingerprint. Do not rely on the key's name. If
+   you are not sure whether the presented key is authentic, ask the repository provider or check
+   their web site. Many providers maintain a web page showing the fingerprints of the GPG keys they
+   are using.
+
+   Do you want to reject the key, trust temporarily, or trust always? [r/t/a/?] (r): a
+   ```
+
+<!--
+3. Install kubectl using `zypper`:
+-->
+3. 使用 `zypper` 安装 kubectl：
 
    ```bash
    sudo zypper install -y kubectl
@@ -464,6 +501,15 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 {{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
+
+<!--
+### Configure kuberc
+
+See [kuberc](/docs/reference/kubectl/kuberc) for more information.
+-->
+### 配置 kuberc  {#configure-kuberc}
+
+更多信息请参见 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
 
 <!--
 ### Install `kubectl convert` plugin

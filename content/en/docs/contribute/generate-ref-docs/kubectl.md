@@ -94,7 +94,7 @@ git pull https://github.com/kubernetes/kubernetes {{< skew prevMinorVersion >}}.
 ```
 
 If you do not need to edit the `kubectl` source code, follow the instructions for
-[Setting build variables](#setting-build-variables).
+[Setting build variables](#set-build-variables).
 
 ## Edit the kubectl source code
 

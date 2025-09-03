@@ -18,8 +18,8 @@ for the repository.
 This section covers the duties of a PR wrangler. For more information on giving good reviews,
 see [Reviewing changes](/docs/contribute/review/).
 -->
-SIG Docs 的[批准人（Approver）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)们每周轮流负责
-[管理仓库的 PR](https://github.com/kubernetes/website/wiki/PR-Wranglers)。
+SIG Docs 的[批准人（Approver）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)
+们每周轮流负责[管理仓库的 PR](https://github.com/kubernetes/website/wiki/PR-Wranglers)。
 
 本节介绍 PR 管理者的职责。关于如何提供较好的评审意见，
 可参阅[评审变更](/zh-cn/docs/contribute/review/)。
@@ -33,7 +33,8 @@ Each day in a week-long shift as PR Wrangler:
 - Review [open pull requests](https://github.com/kubernetes/website/pulls) for quality
   and adherence to the [Style](/docs/contribute/style/style-guide/) and
   [Content](/docs/contribute/style/content-guide/) guides.
-    - Start with the smallest PRs (`size/XS`) first, and end with the largest (`size/XXL`). Review as many PRs as you can.
+  - Start with the smallest PRs (`size/XS`) first, and end with the largest (`size/XXL`).
+    Review as many PRs as you can.
 -->
 ## 职责 {#duties}
 
@@ -47,15 +48,15 @@ Each day in a week-long shift as PR Wrangler:
     PR（`size/XXL`），尽可能多地评审 PR。
 <!-- 
 - Make sure PR contributors sign the [CLA](https://github.com/kubernetes/community/blob/master/CLA.md).
-    - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to remind contributors
-      that haven't signed the CLA to do so.
+  - Use [this](https://github.com/zparnold/k8s-docs-pr-botherer) script to remind contributors
+    that haven't signed the CLA to do so.
 - Provide feedback on changes and ask for technical reviews from members of other SIGs.
-    - Provide inline suggestions on the PR for the proposed content changes.
-    - If you need to verify content, comment on the PR and request more details.
-    - Assign relevant `sig/` label(s).
-    - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
-    - You can also tag a [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md)
-      for a review by commenting `@kubernetes/<sig>-pr-reviews` on the PR.
+  - Provide inline suggestions on the PR for the proposed content changes.
+  - If you need to verify content, comment on the PR and request more details.
+  - Assign relevant `sig/` label(s).
+  - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
+  - You can also tag a [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md)
+    for a review by commenting `@kubernetes/<sig>-pr-reviews` on the PR.
 -->
 - 确保贡献者签署 [CLA](https://github.com/kubernetes/community/blob/master/CLA.md)。
   - 使用[此脚本](https://github.com/zparnold/k8s-docs-pr-botherer)自动提醒尚未签署
@@ -69,13 +70,13 @@ Each day in a week-long shift as PR Wrangler:
     [SIG](https://github.com/kubernetes/community/blob/master/sig-list.md) 来评审。
 <!-- 
 - Use the `/approve` comment to approve a PR for merging. Merge the PR when ready.
-    - PRs should have a `/lgtm` comment from another member before merging.
-    - Consider accepting technically accurate content that doesn't meet the
-      [style guidelines](/docs/contribute/style/style-guide/). As you approve the change,
-      open a new issue to address the style concern. You can usually write these style fix
-      issues as [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue).
-    - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
-      to help onboard new contributors.
+  - PRs should have a `/lgtm` comment from another member before merging.
+  - Consider accepting technically accurate content that doesn't meet the
+    [style guidelines](/docs/contribute/style/style-guide/). As you approve the change,
+    open a new issue to address the style concern. You can usually write these style fix
+    issues as [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue).
+  - Using style fixups as good first issues is a good way to ensure a supply of easier tasks
+    to help onboard new contributors.
 -->
 - 使用 `/approve` 评论来批准可以合并的 PR，在 PR 就绪时将其合并。
   - PR 在被合并之前，应该有来自其他成员的 `/lgtm` 评论。
@@ -87,7 +88,8 @@ Each day in a week-long shift as PR Wrangler:
     这有助于接纳新的贡献者。
 
 <!--
-- Also check for pull requests against the [reference docs generator](https://github.com/kubernetes-sigs/reference-docs) code, and review those (or bring in help).
+- Also check for pull requests against the [reference docs generator](https://github.com/kubernetes-sigs/reference-docs)
+  code, and review those (or bring in help).
 - Support the [issue wrangler](/docs/contribute/participate/issue-wrangler/) to
   triage and tag incoming issues daily.
   See [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues)
@@ -101,11 +103,12 @@ Each day in a week-long shift as PR Wrangler:
 
 {{< note >}}
 <!--
-PR wrangler duties do not apply to localization PRs (non-English PRs). 
-Localization teams have their own processes and teams for reviewing their language PRs. 
-However, it's often helpful to ensure language PRs are labeled correctly, 
-review small non-language dependent PRs (like a link update), 
-or tag reviewers or contributors in long-running PRs (ones opened more than 6 months ago and have not been updated in a month or more).
+PR wrangler duties do not apply to localization PRs (non-English PRs).
+Localization teams have their own processes and teams for reviewing their language PRs.
+However, it's often helpful to ensure language PRs are labeled correctly,
+review small non-language dependent PRs (like a link update),
+or tag reviewers or contributors in long-running PRs
+(ones opened more than 6 months ago and have not been updated in a month or more).
 -->
 PR 管理者的职责不适用于本地化 PR（非英语 PR）。
 本地化团队有自己的流程和团队来审查其语言 PR。
@@ -164,8 +167,8 @@ These queries exclude localization PRs. All queries are against the main branch 
 
 - [非主分支的 PR](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amain): 
   如果 PR 针对 `dev-` 分支，则表示它适用于即将发布的版本。
-  请添加带有 `/assign @<负责人的 github 账号>`，将其指派给 
-  [发行版本负责人](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)。
+  请添加带有 `/assign @<负责人的 github 账号>`，
+  将其指派给[发行版本负责人](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)。
   如果 PR 是针对旧分支，请帮助 PR 作者确定是否所针对的是最合适的分支。
 
 <!--
@@ -201,10 +204,11 @@ These queries exclude localization PRs. All queries are against the main branch 
 Reviews and approvals are one tool to keep our PR queue short and current. Another tool is closure.
 
 Close PRs where:
+
 - The author hasn't signed the CLA for two weeks.
 
-    Authors can reopen the PR after signing the CLA. This is a low-risk way to make
-    sure nothing gets merged without a signed CLA.
+  Authors can reopen the PR after signing the CLA. This is a low-risk way to make
+  sure nothing gets merged without a signed CLA.
 
 - The author has not responded to comments or feedback in 2 or more weeks.
 
@@ -237,7 +241,7 @@ and closes them. PR wranglers should close issues after 14-30 days of inactivity
 -->
 一个名为 [`k8s-ci-robot`](https://github.com/k8s-ci-robot) 的自动服务会在 Issue 停滞 90
 天后自动将其标记为过期；然后再等 30 天，如果仍然无人过问，则将其关闭。
-PR 管理者应该在 issues 处于无人过问状态 14-30 天后关闭它们。
+PR 管理者应该在 Issue 处于无人过问状态 14-30 天后关闭它们。
 {{< /note >}}
 
 <!--
@@ -258,14 +262,9 @@ The program was introduced to help new contributors understand the PR wrangling 
   [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
   to see the PR wrangling schedule for this year and sign up.
 
-- Kubernetes org members can edit the
-  [PR Wranglers Wiki page](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-  and sign up to shadow an existing PR Wrangler for a week.
-
 - Others can reach out on the [#sig-docs Slack channel](https://kubernetes.slack.com/messages/sig-docs)
-  for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to
-  Brad Topol (`@bradtopol`) or one of the
-  [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
+  for requesting to shadow an assigned PR Wrangler for a specific week. Feel free to reach out to one of
+  the [SIG Docs co-chairs/leads](https://github.com/kubernetes/community/tree/master/sig-docs#leadership).
 
 - Once you've signed up to shadow a PR Wrangler, introduce yourself to the PR Wrangler on the
   [Kubernetes Slack](https://slack.k8s.io).
@@ -276,12 +275,8 @@ The program was introduced to help new contributors understand the PR wrangling 
   [PR 管理者维基页面](https://github.com/kubernetes/website/wiki/PR-Wranglers)查看今年的
   PR 管理轮值表，然后注册报名。
 
-- Kubernetes 组织成员可以编辑
-  [PR 管理者维基页面](https://github.com/kubernetes/website/wiki/PR-Wranglers)，
-  注册成为一名现有 PR 管理者一周内的影子。
-
 - 其他人可以通过 [#sig-docs Slack 频道](https://kubernetes.slack.com/messages/sig-docs)申请成为指定
-  PR 管理者某一周的影子。可以随时咨询 (`@bradtopol`) 或某一位
+  PR 管理者某一周的影子。可以随时咨询某一位
   [SIG Docs 联席主席/主管](https://github.com/kubernetes/community/tree/master/sig-docs#leadership)。
 
 - 注册成为一名 PR 管理者的影子时，

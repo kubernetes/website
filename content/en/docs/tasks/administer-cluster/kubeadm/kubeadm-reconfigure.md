@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Reconfiguring a kubeadm cluster
 content_type: task
-weight: 30
+weight: 90
 ---
 
 <!-- overview -->
@@ -60,7 +60,7 @@ component configuration and avoid introducing typos and YAML indentation mistake
 #### Updating the `ClusterConfiguration`
 
 During cluster creation and upgrade, kubeadm writes its
-[`ClusterConfiguration`](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[`ClusterConfiguration`](/docs/reference/config-api/kubeadm-config.v1beta4/)
 in a ConfigMap called `kubeadm-config` in the `kube-system` namespace.
 
 To change a particular option in the `ClusterConfiguration` you can edit the ConfigMap with this command:
@@ -173,16 +173,10 @@ The configuration is located under the `data.config.conf` key.
 
 Once the `kube-proxy` ConfigMap is updated, you can restart all kube-proxy Pods:
 
-Obtain the Pod names:
+Delete the Pods with:
 
 ```shell
-kubectl get po -n kube-system | grep kube-proxy
-```
-
-Delete a Pod with:
-
-```shell
-kubectl delete po -n kube-system <pod-name>
+kubectl delete po -n kube-system -l k8s-app=kube-proxy
 ```
 
 New Pods that use the updated ConfigMap will be created.
@@ -208,21 +202,11 @@ kubectl edit service -n kube-system kube-dns
 
 #### Reflecting the CoreDNS changes
 
-Once the CoreDNS changes are applied you can delete the CoreDNS Pods:
-
-Obtain the Pod names:
+Once the CoreDNS changes are applied you can restart the CoreDNS deployment:
 
 ```shell
-kubectl get po -n kube-system | grep coredns
+kubectl rollout restart deployment -n kube-system coredns
 ```
-
-Delete a Pod with:
-
-```shell
-kubectl delete po -n kube-system <pod-name>
-```
-
-New Pods with the updated CoreDNS configuration will be created.
 
 {{< note >}}
 kubeadm does not allow CoreDNS configuration during cluster creation and upgrade.

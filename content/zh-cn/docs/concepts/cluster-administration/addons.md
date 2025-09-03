@@ -148,6 +148,9 @@ Add-on 扩展了 Kubernetes 的功能。
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
   networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
   and public cloud environments.
+* [Terway](https://github.com/AliyunContainerService/terway/) is a suite of CNI plugins
+  based on AlibabaCloud's VPC and ECS network products. It provides native VPC networking
+  and network policies in AlibabaCloud environments.
 * [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
@@ -161,6 +164,8 @@ Add-on 扩展了 Kubernetes 的功能。
   [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/) API。
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) 为 Kubernetes
   提供了下层网络和 RDMA 高速网络解决方案，兼容裸金属、虚拟机和公有云等运行环境。
+* [Terway](https://github.com/AliyunContainerService/terway/)
+  是一套基于阿里云 VPC 和 ECS 网络产品的 CNI 插件，能够在阿里云环境中提供原生的 VPC 网络和网络策略支持。
 * [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   提供在网络分组两端参与工作的联网和网络策略，并且不需要额外的数据库。
 
@@ -168,27 +173,23 @@ Add-on 扩展了 Kubernetes 的功能。
 ## Service Discovery
 
 * [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can
-  be [installed](https://github.com/coredns/deployment/tree/master/kubernetes)
+  be [installed](https://github.com/coredns/helm)
   as the in-cluster DNS for pods.
 -->
 ## 服务发现   {#service-discovery}
 
 * [CoreDNS](https://coredns.io) 是一种灵活的，可扩展的 DNS 服务器，可以
-  [安装](https://github.com/coredns/deployment/tree/master/kubernetes)为集群内的 Pod 提供 DNS 服务。
+  [安装](https://github.com/coredns/helm)为集群内的 Pod 提供 DNS 服务。
 
 <!--
 ## Visualization &amp; Control
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   is a dashboard web interface for Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a
-  tool for visualizing your containers, Pods, Services and more.
 -->
 ## 可视化管理   {#visualization-and-control}
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) 是一个 Kubernetes 的 Web 控制台界面。
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)
-  是一个可视化工具，用于查看你的容器、Pod、服务等。
 
 <!--
 ## Infrastructure

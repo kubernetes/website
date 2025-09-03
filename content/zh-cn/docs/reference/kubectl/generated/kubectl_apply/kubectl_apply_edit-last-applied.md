@@ -29,7 +29,7 @@ Edit the latest last-applied-configuration annotations of resources from the def
   它将打开由 KUBE_EDITOR 或 EDITOR 环境变量定义的编辑器，或者在 Linux 上默认使用 "vi" 或在 Windows 上默认使用 "notepad"。
   你可以编辑多个对象，不过所做的更改只能是逐个被应用的。此命令接受文件名以及命令行参数，但你指向的文件必须是资源的先前保存的版本。
 - 默认格式为 YAML。若要以 JSON 格式编辑，请指定 `-o json`。
-- 标志 --windows-line-endings 可用于强制使用 Windows 风格的行尾，否则将使用操作系统的默认设置。
+- 标志 `--windows-line-endings` 可用于强制使用 Windows 风格的行尾，否则将使用操作系统的默认设置。
 - 如果在更新过程中发生错误，则会在磁盘上创建一个包含未被应用的变更的临时文件。
   更新资源时最常见的错误是另一个编辑者更改了服务器上的资源，发生这种情况时，你必须将更改应用于资源的较新版本，
   或更新临时保存的副本以包含最新的资源版本。
@@ -42,11 +42,11 @@ kubectl apply edit-last-applied (RESOURCE/NAME | -f FILENAME)
 
 <!--
 ```
-  # Edit the last-applied-configuration annotations by type/name in YAML
-  kubectl apply edit-last-applied deployment/nginx
-  
-  # Edit the last-applied-configuration annotations by file in JSON
-  kubectl apply edit-last-applied -f deploy.yaml -o json
+# Edit the last-applied-configuration annotations by type/name in YAML
+kubectl apply edit-last-applied deployment/nginx
+
+# Edit the last-applied-configuration annotations by file in JSON
+kubectl apply edit-last-applied -f deploy.yaml -o json
 ```
 -->
 ```shell
@@ -80,7 +80,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 </tr>
 
 <tr>
-<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "kubectl-client-side-apply"</td>
+<td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "kubectl-client-side-apply"-->默认值："kubectl-client-side-apply"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -184,18 +184,27 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 <td colspan="2">--validate string[="strict"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："strict"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Must be one of: strict (or true), warn, ignore (or false).<br/>&quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and fail the request if invalid. It will perform server side validation if ServerSideFieldValidation is enabled on the api-server, but will fall back to less reliable client-side validation if not.<br/>&quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise.<br/>&quot;false&quot; or &quot;ignore&quot; will not perform any schema validation, silently dropping any unknown or duplicate fields.
+Must be one of: strict (or true), warn, ignore (or false).
+&quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and
+fail the request if invalid. It will perform server side validation if ServerSideFieldValidation
+is enabled on the api-server, but will fall back to less reliable client-side validation if not.
+&quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if
+server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise.
+&quot;false&quot; or &quot;ignore&quot; will not perform any schema validation,
+silently dropping any unknown or duplicate fields.
 -->
-必须是以下选项之一：strict（或 true）、warn、ignore（或 false）。<br/>
-"true" 或 "strict" 将使用模式定义来验证输入，如果无效，则请求失败。
+必须是以下选项之一：strict（或 true）、warn、ignore（或 false）。
+&quot;true&quot; 或 &quot;strict&quot; 将使用模式定义来验证输入，如果无效，则请求失败。
 如果在 API 服务器上启用了 ServerSideFieldValidation，则执行服务器端验证，
-但如果未启用，它将回退到可靠性较低的客户端验证。<br/>
-如果在 API 服务器上启用了服务器端字段验证，"warn" 将警告未知或重复的字段而不阻止请求，
-否则操作与 "ignore" 的表现相同。<br/>
-"false" 或 "ignore" 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
-</p></td>
+但如果未启用此参数，它将回退到可靠性较低的客户端验证。
+如果在 API 服务器上启用了服务器端字段验证，&quot;warn&quot; 将警告未知或重复的字段而不阻止请求，
+否则操作与 &quot;ignore&quot; 的表现相同。
+&quot;false&quot; 或 &quot;ignore&quot; 将不会执行任何模式定义检查，而是静默删除所有未知或重复的字段。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -207,7 +216,8 @@ Must be one of: strict (or true), warn, ignore (or false).<br/>&quot;true&quot; 
 Only relevant if --edit=true. Defaults to the line ending native to your platform.
 -->
 仅在 --edit=true 时起作用。默认为你所用平台本地的行结尾格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -303,30 +313,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,35.191.0.0/16"-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 

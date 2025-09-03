@@ -82,6 +82,9 @@ installation instructions. The list does not try to be exhaustive.
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) is an underlay and RDMA
   networking solution for Kubernetes. Spiderpool is supported on bare metal, virtual machines,
   and public cloud environments.
+* [Terway](https://github.com/AliyunContainerService/terway/) is a suite of CNI plugins
+  based on AlibabaCloud's VPC and ECS network products. It provides native VPC networking
+  and network policies in AlibabaCloud environments.
 * [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
   provides networking and network policy, will carry on working on both sides
   of a network partition, and does not require an external database.
@@ -89,15 +92,13 @@ installation instructions. The list does not try to be exhaustive.
 ## Service Discovery
 
 * [CoreDNS](https://coredns.io) is a flexible, extensible DNS server which can
-  be [installed](https://github.com/coredns/deployment/tree/master/kubernetes)
+  be [installed](https://github.com/coredns/helm)
   as the in-cluster DNS for pods.
 
 ## Visualization &amp; Control
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   is a dashboard web interface for Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a
-  tool for visualizing your containers, Pods, Services and more.
 
 ## Infrastructure
 

@@ -246,7 +246,7 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
 <!--
 1. View application logs for a container in a pod (replace pod name with the one you got from `kubectl get pods`).
 -->
-1. 查看 Pod 中容器的应用程序日志（将 Pod 名称替换为你用 `kubectl get pods` 命令获得的名称）。
+6. 查看 Pod 中容器的应用程序日志（将 Pod 名称替换为你用 `kubectl get pods` 命令获得的名称）。
 
    {{< note >}}
    <!--
@@ -568,7 +568,7 @@ This page covered the basic aspects to get a minikube cluster up and running. Yo
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
-* **[使用 kubectl 在 Kubernetes 上部署你的第一个应用程序](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)**教程。
+* [使用 kubectl 在 Kubernetes 上部署你的第一个应用程序](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)教程。
 * 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 * 进一步了解[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
 * 进一步了解 [Service 对象](/zh-cn/docs/concepts/services-networking/service/)。

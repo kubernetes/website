@@ -22,7 +22,6 @@ A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; 
 WebHook 是一种 HTTP 回调：某些条件下触发的 HTTP POST 请求；通过 HTTP POST
 发送的简单事件通知。一个基于 web 应用实现的 WebHook 会在特定事件发生时把消息发送给特定的 URL。
 
-
 <!-- body -->
 
 <!--
@@ -50,7 +49,7 @@ file format. Within the file "users" refers to the API Server webhook and
 -->
 配置文件的格式使用
 [kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
-在该文件中，“users” 代表着 API 服务器的 webhook，而 “cluster” 代表着远程服务。
+在该文件中，“users” 代表着 API 服务器的 Webhook，而 “cluster” 代表着远程服务。
 
 <!--
 A configuration example which uses HTTPS client auth:
@@ -93,21 +92,21 @@ contexts:
 apiVersion: v1
 # API 对象种类
 kind: Config
-# clusters 代表远程服务。
+# clusters 代表远程服务
 clusters:
   - name: name-of-remote-authz-service
     cluster:
-      # 对远程服务进行身份认证的 CA。
+      # 对远程服务进行身份认证的 CA
       certificate-authority: /path/to/ca.pem
-      # 远程服务的查询 URL。必须使用 'https'。
+      # 远程服务的查询 URL。必须使用 'https'。不可以包含参数。
       server: https://authz.example.com/authorize
 
 # users 代表 API 服务器的 webhook 配置
 users:
   - name: name-of-api-server
     user:
-      client-certificate: /path/to/cert.pem # webhook plugin 使用 cert
-      client-key: /path/to/key.pem          # cert 所对应的 key
+      client-certificate: /path/to/cert.pem # 要使用的 webhook 插件的证书
+      client-key: /path/to/key.pem          # 与证书匹配的密钥
 
 # kubeconfig 文件必须有 context。需要提供一个给 API 服务器。
 current-context: webhook
@@ -143,7 +142,8 @@ enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-confi
 需要注意的是 webhook API 对象与其他 Kubernetes API
 对象一样都同样都遵从[版本兼容规则](/zh-cn/docs/concepts/overview/kubernetes-api/)。
 实施人员应该了解 beta 对象的更宽松的兼容性承诺，同时确认请求的 "apiVersion" 字段能被正确地反序列化。
-此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
+此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API
+扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
 <!--
 An example request body:
@@ -175,7 +175,8 @@ The remote service is expected to fill the `status` field of
 the request and respond to either allow or disallow access. The response body's
 `spec` field is ignored and may be omitted. A permissive response would return:
 -->
-期待远程服务填充请求的 `status` 字段并响应允许或禁止访问。响应主体的 `spec` 字段被忽略，可以省略。允许的响应将返回:
+期待远程服务填充请求的 `status` 字段并响应允许或禁止访问。
+响应主体的 `spec` 字段被忽略，可以省略。允许的响应将返回：
 
 ```json
 {
@@ -199,8 +200,9 @@ authorizers are configured, they are given a chance to allow the request.
 If there are no other authorizers, or none of them allow the request, the
 request is forbidden. The webhook would return:
 -->
-在大多数情况下，第一种方法是首选方法，它指示授权 webhook 不允许或对请求 “无意见”。
-但是，如果配置了其他授权者，则可以给他们机会允许请求。如果没有其他授权者，或者没有一个授权者，则该请求被禁止。webhook 将返回：
+在大多数情况下，第一种方法是首选方法，它指示授权 Webhook 不允许或对请求 “无意见”。
+但是，如果配置了其他授权者，则可以给他们机会允许请求。
+如果没有其他授权者，或者没有一个授权者，则该请求被禁止。Webhook 将返回：
 
 ```json
 {
@@ -219,7 +221,8 @@ configured authorizers. This should only be used by webhooks that have
 detailed knowledge of the full authorizer configuration of the cluster.
 The webhook would return:
 -->
-第二种方法立即拒绝其他配置的授权者进行短路评估。仅应由对集群的完整授权者配置有详细了解的 webhook 使用。webhook 将返回：
+第二种方法立即拒绝其他配置的授权者进行短路评估。
+仅应由对集群的完整授权者配置有详细了解的 Webhook 使用。Webhook 将返回：
 
 ```json
 {
@@ -256,6 +259,54 @@ Access to non-resource paths are sent as:
 }
 ```
 
+{{< feature-state feature_gate_name="AuthorizeWithSelectors" >}}
+
+<!--
+With the `AuthorizeWithSelectors` feature enabled, field and label selectors in the request
+are passed to the authorization webhook. The webhook can make authorization decisions
+informed by the scoped field and label selectors, if it wishes.
+-->
+启用 `AuthorizeWithSelectors` 特性后，请求中的字段和标签选择算符将被传递给授权 Webhook。
+此 Webhook 可以根据作用域字段和标签选择算符做出授权决策（如果它愿意的话）。
+
+<!--
+The [SubjectAccessReview API documentation](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)
+gives guidelines for how these fields should be interpreted and handled by authorization webhooks,
+specifically using the parsed requirements rather than the raw selector strings,
+and how to handle unrecognized operators safely.
+-->
+[SubjectAccessReview API 文档](/zh-cn/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)提供了这些字段应如何被授权
+Webhook 解释和处理的指南，特别是应使用解析后的要求而不是原始选择算符字符串，以及如何安全地处理未识别的操作符。
+
+```json
+{
+  "apiVersion": "authorization.k8s.io/v1beta1",
+  "kind": "SubjectAccessReview",
+  "spec": {
+    "resourceAttributes": {
+      "verb": "list",
+      "group": "",
+      "resource": "pods",
+      "fieldSelector": {
+        "requirements": [
+          {"key":"spec.nodeName", "operator":"In", "values":["mynode"]}
+        ]
+      },
+      "labelSelector": {
+        "requirements": [
+          {"key":"example.com/mykey", "operator":"In", "values":["myvalue"]}
+        ]
+      }
+    },
+    "user": "jane",
+    "group": [
+      "group1",
+      "group2"
+    ]
+  }
+}
+```
+
 <!--
 Non-resource paths include: `/api`, `/apis`, `/metrics`,
 `/logs`, `/debug`, `/healthz`, `/livez`, `/openapi/v2`, `/readyz`, and
@@ -270,9 +321,11 @@ to the REST api.
 能发现服务器上有什么资源和版本。对于其他非资源类的路径访问在没有 REST API 访问限制的情况下拒绝。
 
 <!--
-For further documentation refer to the authorization.v1beta1 API objects and
-[webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
+For further information, refer to the
+[SubjectAccessReview API documentation](/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)
+and
+[webhook.go implementation](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
 -->
-更多信息可以参考 authorization.v1beta1 API 对象和
-[webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go)。
-
+更多信息请参阅
+[SubjectAccessReview API 文档](/zh-cn/docs/reference/kubernetes-api/authorization-resources/subject-access-review-v1/)和
+[webhook.go 实现](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go)。

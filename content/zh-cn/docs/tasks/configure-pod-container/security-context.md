@@ -29,7 +29,6 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/):
   Give a process some privileges, but not all the privileges of the root user.
-
 -->
 安全上下文（Security Context）定义 Pod 或 Container 的特权与访问控制设置。
 安全上下文包括但不限于：
@@ -117,6 +116,8 @@ all processes within any containers of the Pod. If this field is omitted, the pr
 will be root(0). Any files created will also be owned by user 1000 and group 3000 when `runAsGroup` is specified.
 Since `fsGroup` field is specified, all processes of the container are also part of the supplementary group ID 2000.
 The owner for volume `/data/demo` and any files created in that volume will be Group ID 2000.
+Additionally, when the `supplementalGroups` field is specified, all processes of the container are also part of the
+specified groups. If this field is omitted, it means empty.
 
 Create the Pod:
 -->
@@ -126,6 +127,8 @@ Create the Pod:
 当 `runAsGroup` 被设置时，所有创建的文件也会划归用户 1000 和组 3000。
 由于 `fsGroup` 被设置，容器中所有进程也会是附组 ID 2000 的一部分。
 卷 `/data/demo` 及在该卷中创建的任何文件的属主都会是组 ID 2000。
+此外，当 `supplementalGroups` 字段被指定时，容器的所有进程也会成为所指定的组的一部分。
+如果此字段被省略，则表示为空。
 
 创建该 Pod：
 
@@ -235,20 +238,23 @@ The output is similar to this:
 输出类似于：
 
 ```none
-uid=1000 gid=3000 groups=2000
+uid=1000 gid=3000 groups=2000,3000,4000
 ```
 
 <!--
 From the output, you can see that `gid` is 3000 which is same as the `runAsGroup` field.
 If the `runAsGroup` was omitted, the `gid` would remain as 0 (root) and the process will
 be able to interact with files that are owned by the root(0) group and groups that have
-the required group permissions for the root (0) group.
+the required group permissions for the root (0) group. You can also see that `groups`
+contains the group IDs which are specified by `fsGroup` and `supplementalGroups`,
+in addition to `gid`.
 
 Exit your shell:
 -->
 从输出中你会看到 `gid` 值为 3000，也就是 `runAsGroup` 字段的值。
 如果 `runAsGroup` 被忽略，则 `gid` 会取值 0（root），而进程就能够与 root
 用户组所拥有以及要求 root 用户组访问权限的文件交互。
+你还可以看到，除了 `gid` 之外，`groups` 还包含了由 `fsGroup` 和 `supplementalGroups` 指定的组 ID。
 
 退出你的 Shell：
 
@@ -257,9 +263,321 @@ exit
 ```
 
 <!--
+### Implicit group memberships defined in `/etc/group` in the container image
+
+By default, kubernetes merges group information from the Pod with information defined in `/etc/group` in the container image.
+-->
+### 容器镜像内 `/etc/group` 中定义的隐式组成员身份
+
+默认情况下，Kubernetes 会将 Pod 中的组信息与容器镜像内 `/etc/group` 中定义的信息合并。
+
+{{% code_sample file="pods/security/security-context-5.yaml" %}}
+
+<!--
+This Pod security context contains `runAsUser`, `runAsGroup` and `supplementalGroups`.
+However, you can see that the actual supplementary groups attached to the container process
+will include group IDs which come from `/etc/group` in the container image.
+
+Create the Pod:
+-->
+此 Pod 的安全上下文包含 `runAsUser`、`runAsGroup` 和 `supplementalGroups`。  
+然而，你可以看到，挂接到容器进程的实际附加组将包括来自容器镜像中 `/etc/group` 的组 ID。
+
+创建 Pod：
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-5.yaml
+```
+
+<!--
+Verify that the Pod's Container is running:
+-->
+验证 Pod 的 Container 正在运行：
+
+```shell
+kubectl get pod security-context-demo
+```
+
+<!--
+Get a shell to the running Container:
+-->
+打开一个 Shell 进入正在运行的 Container：
+
+```shell
+kubectl exec -it security-context-demo -- sh
+```
+
+<!--
+Check the process identity:
+-->
+检查进程身份：
+
+```shell
+$ id
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```none
+uid=1000 gid=3000 groups=3000,4000,50000
+```
+
+<!--
+You can see that `groups` includes group ID `50000`. This is because the user (`uid=1000`),
+which is defined in the image, belongs to the group (`gid=50000`), which is defined in `/etc/group`
+inside the container image.
+
+Check the `/etc/group` in the container image:
+-->
+你可以看到 `groups` 包含组 ID `50000`。
+这是因为镜像中定义的用户（`uid=1000`）属于在容器镜像内 `/etc/group` 中定义的组（`gid=50000`）。
+
+检查容器镜像中的 `/etc/group`：
+
+```shell
+$ cat /etc/group
+```
+
+<!--
+You can see that uid `1000` belongs to group `50000`.
+-->
+你可以看到 uid `1000` 属于组 `50000`。
+
+```none
+...
+user-defined-in-image:x:1000:
+group-defined-in-image:x:50000:user-defined-in-image
+```
+
+<!--
+Exit your shell:
+-->
+退出你的 Shell：
+
+```shell
+exit
+```
+
+{{<note>}}
+<!--
+_Implicitly merged_ supplementary groups may cause security problems particularly when accessing
+the volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details).
+If you want to avoid this. Please see the below section.
+-->
+**隐式合并的**附加组可能会导致安全问题，
+特别是在访问卷时（有关细节请参见 [kubernetes/kubernetes#112879](https://issue.k8s.io/112879)）。  
+如果你想避免这种问题，请查阅以下章节。
+{{</note>}}
+
+<!--
+## Configure fine-grained SupplementalGroups control for a Pod {#supplementalgroupspolicy}
+-->
+## 配置 Pod 的细粒度 SupplementalGroups 控制   {#supplementalgroupspolicy}
+
+{{< feature-state feature_gate_name="SupplementalGroupsPolicy" >}}
+
+<!--
+This feature can be enabled by setting the `SupplementalGroupsPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for kubelet and
+kube-apiserver, and setting the `.spec.securityContext.supplementalGroupsPolicy` field for a pod.
+
+The `supplementalGroupsPolicy` field defines the policy for calculating the
+supplementary groups for the container processes in a pod. There are two valid
+values for this field:
+-->
+通过为 kubelet 和 kube-apiserver 设置 `SupplementalGroupsPolicy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+并为 Pod 设置 `.spec.securityContext.supplementalGroupsPolicy` 字段，此特性可以被启用。
+
+`supplementalGroupsPolicy` 字段为 Pod 中的容器进程定义了计算附加组的策略。
+此字段有两个有效值：
+
+<!--
+* `Merge`: The group membership defined in `/etc/group` for the container's primary user will be merged.
+  This is the default policy if not specified.
+
+* `Strict`: Only group IDs in `fsGroup`, `supplementalGroups`, or `runAsGroup` fields 
+  are attached as the supplementary groups of the container processes.
+  This means no group membership from `/etc/group` for the container's primary user will be merged.
+-->
+* `Merge`：为容器的主用户在 `/etc/group` 中定义的组成员身份将被合并。
+  如果不指定，这就是默认策略。
+
+* `Strict`：仅将 `fsGroup`、`supplementalGroups` 或 `runAsGroup`
+  字段中的组 ID 挂接为容器进程的附加组。这意味着容器主用户在 `/etc/group` 中的组成员身份将不会被合并。
+
+<!--
+When the feature is enabled, it also exposes the process identity attached to the first container process
+in `.status.containerStatuses[].user.linux` field. It would be useful for detecting if
+implicit group ID's are attached.
+-->
+当此特性被启用时，它还会在 `.status.containerStatuses[].user.linux`
+字段中暴露挂接到第一个容器进程的进程身份。这对于检测是否挂接了隐式组 ID 非常有用。
+
+{{% code_sample file="pods/security/security-context-6.yaml" %}}
+
+<!--
+This pod manifest defines `supplementalGroupsPolicy=Strict`. You can see that no group memberships
+defined in `/etc/group` are merged to the supplementary groups for container processes.
+
+Create the Pod:
+-->
+此 Pod 清单定义了 `supplementalGroupsPolicy=Strict`。
+你可以看到没有将 `/etc/group` 中定义的组成员身份合并到容器进程的附加组中。
+
+创建 Pod：
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-6.yaml
+```
+
+<!--
+Verify that the Pod's Container is running:
+-->
+验证 Pod 的 Container 正在运行：
+
+```shell
+kubectl get pod security-context-demo
+```
+
+<!--
+Check the process identity:
+-->
+检查进程身份：
+
+```shell
+kubectl exec -it security-context-demo -- id
+```
+
+<!--
+The output is similar to this:
+-->
+输出类似于：
+
+```none
+uid=1000 gid=3000 groups=3000,4000
+```
+
+<!--
+See the Pod's status:
+-->
+查看 Pod 的状态：
+
+```shell
+kubectl get pod security-context-demo -o yaml
+```
+
+<!--
+You can see that the `status.containerStatuses[].user.linux` field exposes the process identity
+attached to the first container process.
+-->
+你可以看到 `status.containerStatuses[].user.linux` 字段暴露了挂接到第一个容器进程的进程身份。
+
+```none
+...
+status:
+  containerStatuses:
+  - name: sec-ctx-demo
+    user:
+      linux:
+        gid: 3000
+        supplementalGroups:
+        - 3000
+        - 4000
+        uid: 1000
+...
+```
+
+{{<note>}}
+<!--
+Please note that the values in the `status.containerStatuses[].user.linux` field is _the first attached_
+process identity to the first container process in the container. If the container has sufficient privilege
+to make system calls related to process identity
+(e.g. [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html),
+[`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) or
+[`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html), etc.),
+the container process can change its identity. Thus, the _actual_ process identity will be dynamic.
+-->
+请注意，`status.containerStatuses[].user.linux` 字段的值是**第一个挂接到**容器中第一个容器进程的进程身份。
+如果容器具有足够的权限来进行与进程身份相关的系统调用
+（例如 [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html)、
+[`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) 或
+[`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html) 等），
+则容器进程可以更改其身份。因此，**实际**进程身份将是动态的。
+{{</note>}}
+
+<!--
+### Implementations {#implementations-supplementalgroupspolicy}
+-->
+### 实现   {#implementations-supplementalgroupspolicy}
+
+{{% thirdparty-content %}}
+
+<!--
+The following container runtimes are known to support fine-grained SupplementalGroups control.
+
+CRI-level:
+- [containerd](https://containerd.io/), since v2.0
+- [CRI-O](https://cri-o.io/), since v1.31
+
+You can see if the feature is supported in the Node status.
+-->
+已知以下容器运行时支持细粒度的 SupplementalGroups 控制。
+
+CRI 级别：
+
+- [containerd](https://containerd.io/)，自 v2.0 起
+- [CRI-O](https://cri-o.io/)，自 v1.31 起
+
+你可以在 Node 状态中查看此特性是否受支持。
+
+```yaml
+apiVersion: v1
+kind: Node
+...
+status:
+  features:
+    supplementalGroupsPolicy: true
+```
+
+{{<note>}}
+<!--
+At this alpha release(from v1.31 to v1.32), when a pod with `SupplementalGroupsPolicy=Strict` are scheduled to a node that does NOT support this feature(i.e. `.status.features.supplementalGroupsPolicy=false`), the pod's supplemental groups policy falls back to the `Merge` policy _silently_.
+-->
+在这个 Alpha 版本（从 v1.31 到 v1.32）中，当一个带有
+`SupplementalGroupsPolicy=Strict` 的 Pod
+被调度到不支持此功能的节点上（即 `.status.features.supplementalGroupsPolicy=false`），
+Pod 的补充组策略会**静默地**回退到 `Merge` 策略。
+
+<!--
+However, since the beta release (v1.33), to enforce the policy more strictly, __such pod creation will be rejected by kubelet because the node cannot ensure the specified policy__. When your pod is rejected, you will see warning events with `reason=SupplementalGroupsPolicyNotSupported` like below:
+-->
+然而，自从 Beta 版本（v1.33）以来，为了更严格地实施该策略，**此类
+Pod 创建将被 kubelet 拒绝，因为节点无法确保指定的策略**。
+当你的 Pod 被拒绝时，你将会看到带有 `reason=SupplementalGroupsPolicyNotSupported`
+的警告事件，如下所示：
+
+```yaml
+apiVersion: v1
+kind: Event
+...
+type: Warning
+reason: SupplementalGroupsPolicyNotSupported
+message: "SupplementalGroupsPolicy=Strict is not supported in this node"
+involvedObject:
+  apiVersion: v1
+  kind: Pod
+  ...
+```
+{{</note>}}
+
+<!--
 ## Configure volume permission and ownership change policy for Pods
 -->
-## 为 Pod 配置卷访问权限和属主变更策略
+## 为 Pod 配置卷访问权限和属主变更策略    {#configure-volume-permission-and-ownership-change-policy-for-pods}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
@@ -314,12 +632,12 @@ securityContext:
 This field has no effect on ephemeral volume types such as
 [`secret`](/docs/concepts/storage/volumes/#secret),
 [`configMap`](/docs/concepts/storage/volumes/#configmap),
-and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
+and [`emptyDir`](/docs/concepts/storage/volumes/#emptydir).
 -->
 {{< note >}}
 此字段对于 [`secret`](/zh-cn/docs/concepts/storage/volumes/#secret)、
 [`configMap`](/zh-cn/docs/concepts/storage/volumes/#configmap)
-和 [`emptydir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
+和 [`emptyDir`](/zh-cn/docs/concepts/storage/volumes/#emptydir)
 这类临时性存储无效。
 {{< /note >}}
 
@@ -634,11 +952,8 @@ Valid options for `type` include `RuntimeDefault`, `Unconfined`, and
 indicates the path of the pre-configured profile on the node, relative to the
 kubelet's configured Seccomp profile location (configured with the `--root-dir`
 flag).
-
-Here is an example that sets the Seccomp profile to the node's container runtime
-default profile:
 -->
-## 为容器设置 Seccomp 配置 
+## 为容器设置 Seccomp 配置
 
 若要为容器设置 Seccomp 配置（Profile），可在你的 Pod 或 Container 清单的
 `securityContext` 节中包含 `seccompProfile` 字段。该字段是一个 
@@ -649,6 +964,10 @@ default profile:
 该字段标明节点上预先设定的配置的路径，路径是相对于 kubelet 所配置的
 Seccomp 配置路径（使用 `--root-dir` 设置）而言的。
 
+<!--
+Here is an example that sets the Seccomp profile to the node's container runtime
+default profile:
+-->
 下面是一个例子，设置容器使用节点上容器运行时的默认配置作为 Seccomp 配置：
 
 ```yaml
@@ -675,6 +994,85 @@ securityContext:
 ```
 
 <!--
+## Set the AppArmor Profile for a Container
+-->
+## 为 Container 设置 AppArmor 配置   {#set-the-apparmor-profile-for-a-container}
+
+<!--
+To set the AppArmor profile for a Container, include the `appArmorProfile` field
+in the `securityContext` section of your Container. The `appArmorProfile` field
+is a
+[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
+>}}/#apparmorprofile-v1-core) object consisting of `type` and `localhostProfile`.
+Valid options for `type` include `RuntimeDefault`(default), `Unconfined`, and
+`Localhost`. `localhostProfile` must only be set if `type` is `Localhost`. It
+indicates the name of the pre-configured profile on the node. The profile needs
+to be loaded onto all nodes suitable for the Pod, since you don't know where the
+pod will be scheduled. 
+Approaches for setting up custom profiles are discussed in
+[Setting up nodes with profiles](/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles).
+-->
+要为 Container 设置 AppArmor 配置，请在 Container 的 `securityContext` 节中包含 `appArmorProfile` 字段。
+`appArmorProfile` 字段是一个
+[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apparmorprofile-v1-core)
+对象，由 `type` 和 `localhostProfile` 组成。  
+`type` 的有效选项包括 `RuntimeDefault`（默认）、`Unconfined` 和 `Localhost`。
+只有当 `type` 为 `Localhost` 时，才能设置 `localhostProfile`。  
+它表示节点上预配的配置文件的名称。
+此配置需要被加载到所有适合 Pod 的节点上，因为你不知道 Pod 将被调度到哪里。  
+关于设置自定义配置的方法，参见[使用配置文件设置节点](/zh-cn/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles)。
+
+<!--
+Note: If `containers[*].securityContext.appArmorProfile.type` is explicitly set 
+to `RuntimeDefault`, then the Pod will not be admitted if AppArmor is not
+enabled on the Node. However if `containers[*].securityContext.appArmorProfile.type`
+is not specified, then the default (which is also `RuntimeDefault`) will only
+be applied if the node has AppArmor enabled. If the node has AppArmor disabled
+the Pod will be admitted but the Container will not be restricted by the 
+`RuntimeDefault` profile.
+
+Here is an example that sets the AppArmor profile to the node's container runtime
+default profile:
+-->
+注意：如果 `containers[*].securityContext.appArmorProfile.type` 被显式设置为
+`RuntimeDefault`，那么如果 AppArmor 未在 Node 上被启用，Pod 将不会被准入。  
+然而，如果 `containers[*].securityContext.appArmorProfile.type` 未被指定，
+则只有在节点已启用 AppArmor 时才会应用默认值（也是 `RuntimeDefault`）。  
+如果节点已禁用 AppArmor，Pod 将被准入，但 Container 将不受 `RuntimeDefault` 配置的限制。
+
+以下是将 AppArmor 配置设置为节点的容器运行时默认配置的例子：
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: RuntimeDefault
+```
+
+<!--
+Here is an example that sets the AppArmor profile to a pre-configured profile
+named `k8s-apparmor-example-deny-write`:
+-->
+以下是将 AppArmor 配置设置为名为 `k8s-apparmor-example-deny-write` 的预配配置的例子：
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: k8s-apparmor-example-deny-write
+```
+
+<!--
+For more details please see, [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/).
+-->
+有关更多细节参见[使用 AppArmor 限制容器对资源的访问](/zh-cn/docs/tutorials/security/apparmor/)。
+
+<!--
 ## Assign SELinux labels to a Container
 
 To assign SELinux labels to a Container, include the `seLinuxOptions` field in
@@ -683,7 +1081,7 @@ the `securityContext` section of your Pod or Container manifest. The
 [SELinuxOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#selinuxoptions-v1-core)
 object. Here's an example that applies an SELinux level:
 -->
-## 为 Container 赋予 SELinux 标签
+## 为 Container 赋予 SELinux 标签   {#assign-selinux-labels-to-a-container}
 
 若要给 Container 设置 SELinux 标签，可以在 Pod 或 Container 清单的
 `securityContext` 节包含 `seLinuxOptions` 字段。
@@ -698,11 +1096,15 @@ securityContext:
     level: "s0:c123,c456"
 ```
 
+{{< note >}}
 <!--
 To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
+On Windows and Linux worker nodes without SELinux support, this field and any SELinux feature gates described
+below have no effect.
 -->
-{{< note >}}
 要指定 SELinux，需要在宿主操作系统中装载 SELinux 安全性模块。
+在不支持 SELinux 的 Windows 和 Linux 工作节点上，此字段和下面描述的任何
+SELinux 特性开关均不起作用。
 {{< /note >}}
 
 <!--
@@ -721,25 +1123,29 @@ Kubernetes v1.27 引入了此行为的早期受限形式，仅适用于使用 `R
 访问模式的卷（和 PersistentVolumeClaim）。
 
 <!--
-As an alpha feature, you can enable the `SELinuxMount`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
-performance improvement to other kinds of PersistentVolumeClaims, as explained in detail
-below.
+Kubernetes v1.33 promotes `SELinuxChangePolicy` and `SELinuxMount`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+as beta to widen that performance improvement to other kinds of PersistentVolumeClaims,
+as explained in detail below. While in beta, `SELinuxMount` is still disabled by default.
 -->
-作为一项 Alpha 特性，你可以启用 `SELinuxMount`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-将性能改进扩展到其他类型的 PersistentVolumeClaim，如下文详细解释。
+Kubernetes v1.33 将 `SELinuxChangePolicy` 和 `SELinuxMount`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)提升
+Beta 级别，以将该性能改进扩展到其他类型的 PersistentVolumeClaims，
+如下文详细解释。在 Beta 阶段，`SELinuxMount` 仍然是默认禁用的。
 {{< /note >}}
 
-
 <!--
-By default, the container runtime recursively assigns SELinux label to all
-files on all Pod volumes. To speed up this process, Kubernetes can change the
+With `SELinuxMount` feature gate disabled (the default in Kubernetes 1.33 and any previous release),
+the container runtime recursively assigns SELinux label to all
+files on all Pod volumes by default. To speed up this process, Kubernetes can change the
 SELinux label of a volume instantly by using a mount option
 `-o context=<label>`.
 -->
-默认情况下，容器运行时递归地将 SELinux 标签赋予所有 Pod 卷上的所有文件。
-为了加快该过程，Kubernetes 使用挂载可选项 `-o context=<label>` 可以立即改变卷的 SELinux 标签。
+在禁用 `SELinuxMount` 特性开关时（默认在
+Kubernetes 1.33 及之前的所有版本中），容器运行时会默认递归地为
+Pod 卷上的所有文件分配 SELinux 标签。
+为了加快此过程，Kubernetes 使用挂载可选项 `-o context=<label>`
+可以立即改变卷的 SELinux 标签。
 
 <!--
 To benefit from this speedup, all these conditions must be met:
@@ -747,21 +1153,25 @@ To benefit from this speedup, all these conditions must be met:
 要使用这项加速功能，必须满足下列条件：
 
 <!--
-* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
-  and `SELinuxMountReadWriteOncePod` must be enabled.
+* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+  `SELinuxMountReadWriteOncePod` must be enabled.
 -->
-* 必须启用 `ReadWriteOncePod` 和 `SELinuxMountReadWriteOncePod`
+* 必须启用 `SELinuxMountReadWriteOncePod`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 * Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
   * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
-  * Or the volume can use any other access modes and both feature gates `SELinuxMountReadWriteOncePod` and `SELinuxMount` must be enabled.
+  * Or the volume can use any other access modes and all feature gates
+    `SELinuxMountReadWriteOncePod`, `SELinuxChangePolicy` and `SELinuxMount` must be enabled
+    and the Pod has `spec.securityContext.seLinuxChangePolicy` either nil (default) or `MountOption`. 
 -->
 * Pod 必须使用带有对应的 `accessModes` 和[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
   的 PersistentVolumeClaim。
   * 卷具有 `accessModes: ["ReadWriteOncePod"]`，并且 `SELinuxMountReadWriteOncePod` 特性门控已启用。
-  * 或者卷可以使用任何其他访问模式，并且必须启用 `SELinuxMountReadWriteOncePod` 和 `SELinuxMount` 特性门控。
+  * 或者卷可以使用任何其他访问模式，并且必须启用 `SELinuxMountReadWriteOncePod`、`SELinuxChangePolicy`
+    和 `SELinuxMount` 特性门控，且 Pod 已将 `spec.securityContext.seLinuxChangePolicy` 设置为
+    nil（默认值）或 `MountOption`。
 
 <!--
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
@@ -785,19 +1195,152 @@ To benefit from this speedup, all these conditions must be met:
 -->
 * 对应的 PersistentVolume 必须是：
   * 使用传统树内（In-Tree） `iscsi`、`rbd` 或 `fs` 卷类型的卷。
-  * 或者是使用 {< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序的卷
+  * 或者是使用 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序的卷
     CSI 驱动程序必须能够通过在 CSIDriver 实例中设置 `spec.seLinuxMount: true`
     以支持 `-o context` 挂载。
 
 <!--
-For any other volume types, SELinux relabelling happens another way: the container
+When any of these conditions is not met, SELinux relabelling happens another way: the container
 runtime  recursively changes the SELinux label for all inodes (files and directories)
-in the volume.
-The more files and directories in the volume, the longer that relabelling takes.
+in the volume. Calling out explicitly, this applies to Kubernetes ephemeral volumes like
+`secret`, `configMap` and `projected`, and all volumes whose CSIDriver instance does not
+explicitly announce mounting with `-o context`.
 -->
-对于所有其他卷类型，重打 SELinux 标签的方式有所不同：
+对于这些所有卷类型，重打 SELinux 标签的方式有所不同：
 容器运行时为卷中的所有节点（文件和目录）递归地修改 SELinux 标签。
-卷中的文件和目录越多，重打标签需要耗费的时间就越长。
+明确地说，这适用于 Kubernetes 临时卷，如 `secret`、`configMap`
+和 `projected`，以及所有 CSIDriver 实例未明确宣布使用
+`-o context` 选项进行挂载的卷。
+
+<!--
+When this speedup is used, all Pods that use the same applicable volume concurrently on the same node
+**must have the same SELinux label**. A Pod with a different SELinux label will fail to start and will be
+`ContainerCreating` until all Pods with other SELinux labels that use the volume are deleted.
+-->
+当使用这种加速时，所有在同一个节点上同时使用相同适用卷的 Pod
+**必须具有相同的 SELinux 标签**。具有不同 SELinux 标签的 Pod 将无法启动，
+并且会处于 `ContainerCreating` 状态，直到使用该卷的所有其他
+SELinux 标签的 Pod 被删除。
+
+{{< feature-state feature_gate_name="SELinuxChangePolicy" >}}
+
+<!--
+For Pods that want to opt-out from relabeling using mount options, they can set
+`spec.securityContext.seLinuxChangePolicy` to `Recursive`. This is required
+when multiple pods share a single volume on the same node, but they run with
+different SELinux labels that allows simultaneous access to the volume. For example, a privileged pod
+running with label `spc_t` and an unprivileged pod running with the default label `container_file_t`.
+With unset `spec.securityContext.seLinuxChangePolicy` (or with the default value `MountOption`),
+only one of such pods is able to run on a node, the other one gets ContainerCreating with error
+`conflicting SELinux labels of volume <name of the volume>: <label of the running pod> and <label of the pod that can't start>`.
+-->
+对于不希望使用挂载选项来重新打标签的 Pod，可以将
+`spec.securityContext.seLinuxChangePolicy` 设置为 `Recursive`。
+当多个 Pod 共享同一节点上的单个卷，但使用不同的 SELinux 标签以允许同时访问此卷时，
+此配置是必需的。例如，一个特权 Pod 运行时使用 `spc_t` 标签，
+而一个非特权 Pod 运行时使用默认标签 `container_file_t`。
+在不设置 `spec.securityContext.seLinuxChangePolicy`（或使用默认值 `MountOption`）的情况下，
+这样的多个 Pod 中只能有一个在节点上运行，其他 Pod 会在 ContainerCreating 时报错
+`conflicting SELinux labels of volume <卷名称>: <正运行的 Pod 的标签> and <未启动的 Pod 的标签>`。
+
+<!--
+#### SELinuxWarningController
+To make it easier to identify Pods that are affected by the change in SELinux volume relabeling,
+a new controller called `SELinuxWarningController` has been introduced in kube-controller-manager.
+It is disabled by default and can be enabled by either setting the `--controllers=*,selinux-warning-controller`
+[command line flag](/docs/reference/command-line-tools-reference/kube-controller-manager/),
+or by setting `genericControllerManagerConfiguration.controllers`
+[field in KubeControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration).
+This controller requires `SELinuxChangePolicy` feature gate to be enabled.
+-->
+#### SELinuxWarningController
+
+为了更容易识别受 SELinux 卷重新打标签的变化所影响的 Pod，一个名为
+`SELinuxWarningController` 的新控制器已被添加到 kube-controller-manager 中。
+这个控制器默认是被禁用的，你可以通过设置 `--controllers=*,selinux-warning-controller`
+[命令行标志](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)或通过在
+[KubeControllerManagerConfiguration 中设置 `genericControllerManagerConfiguration.controllers` 字段](/zh-cn/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)来启用。
+此控制器需要启用 `SELinuxChangePolicy` 特性门控。
+
+<!--
+When enabled, the controller observes running Pods and when it detects that two Pods use the same volume
+with different SELinux labels:
+1. It emits an event to both of the Pods. `kubectl describe pod <pod-name>` the shows
+  `SELinuxLabel "<label on the pod>" conflicts with pod <the other pod name> that uses the same volume as this pod
+  with SELinuxLabel "<the other pod label>". If both pods land on the same node, only one of them may access the volume`.
+2. Raise `selinux_warning_controller_selinux_volume_conflict` metric. The metric has both pod
+  names + namespaces as labels to identify the affected pods easily.
+-->
+当此控制器被启用时，它会观察运行中的 Pod。
+当控制器检测到两个 Pod 使用相同的卷但具有不同的 SELinux 标签时：
+
+1. 它会向这两个 Pod 发出一个事件。通过 `kubectl describe pod <Pod 名称>` 可以看到：
+
+   ```
+   SELinuxLabel "<Pod 上的标签>" conflicts with pod <另一个 Pod 名称> that uses the same volume as this pod with SELinuxLabel "<另一个 Pod 标签>". If both pods land on the same node, only one of them may access the volume.
+   ```
+
+2. 增加 `selinux_warning_controller_selinux_volume_conflict` 指标值。
+   此指标将两个 Pod 的名称 + 命名空间作为标签，以便轻松识别受影响的 Pod。
+
+<!--
+A cluster admin can use this information to identify pods affected by the planning change and
+proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.seLinuxChangePolicy: Recursive`).
+-->
+集群管理员可以使用此信息识别受规划变更所影响的 Pod，并主动筛选出不需优化的 Pod
+（即设置 `spec.securityContext.seLinuxChangePolicy: Recursive`）。
+
+{{< warning >}}
+<!--
+We strongly recommend clusters that use SELinux to enable this controller and make sure that
+`selinux_warning_controller_selinux_volume_conflict` metric does not report any conflicts before enabling `SELinuxMount`
+feature gate or upgrading to a version where `SELinuxMount` is enabled by default.
+-->
+我们强烈建议使用 SELinux 的集群启用此控制器，并确保在启用
+`SELinuxMount` 特性门控或升级到默认启用 `SELinuxMount`
+的版本之前，`selinux_warning_controller_selinux_volume_conflict`
+指标没有报告任何冲突。
+{{< /warning >}}
+
+
+<!--
+#### Feature gates
+
+The following feature gates control the behavior of SELinux volume relabeling:
+
+* `SELinuxMountReadWriteOncePod`: enables the optimization for volumes with `accessModes: ["ReadWriteOncePod"]`.
+  This is a very safe feature gate to enable, as it cannot happen that two pods can share one single volume with
+  this access mode. This feature gate is enabled by default sine v1.28.
+-->
+#### 特性门控
+
+以下特性门控可以控制 SELinux 卷重新打标签的行为：
+
+* `SELinuxMountReadWriteOncePod`：为具有 `accessModes: ["ReadWriteOncePod"]` 的卷启用优化。
+  启用此特性门控是非常安全的，因为在这种访问模式下，不会出现两个 Pod 共享同一卷的情况。
+  此特性门控自 v1.28 起默认被启用。
+
+<!--
+* `SELinuxChangePolicy`: enables `spec.securityContext.seLinuxChangePolicy` field in Pod and related SELinuxWarningController
+  in kube-controller-manager. This feature can be used before enabling `SELinuxMount` to check Pods running on a cluster,
+  and to pro-actively opt-out Pods from the optimization.
+  This feature gate requires `SELinuxMountReadWriteOncePod` enabled. It is beta and enabled by default in 1.33.
+-->
+* `SELinuxChangePolicy`：在 Pod 中启用 `spec.securityContext.seLinuxChangePolicy` 字段，
+  并在 kube-controller-manager 中启用相关的 SELinuxWarningController。
+  你可以在启用 `SELinuxMount` 之前使用此特性来检查集群中正在运行的 Pod，并主动筛选出不需优化的 Pod。
+  此特性门控需要启用 `SELinuxMountReadWriteOncePod`。它在 1.33 中是 Beta 阶段，并默认被启用。
+
+<!--
+* `SELinuxMount` enables the optimization for all eligible volumes. Since it can break existing workloads, we recommend
+  enabling `SELinuxChangePolicy` feature gate + SELinuxWarningController first to check the impact of the change.
+  This feature gate requires `SELinuxMountReadWriteOncePod` and `SELinuxChangePolicy` enabled. It is beta, but disabled
+  by default in 1.33.
+-->
+* `SELinuxMount`：为所有符合条件的卷启用优化。由于可能会破坏现有的工作负载，所以我们建议先启用
+  `SELinuxChangePolicy` 特性门控和 SELinuxWarningController，以检查这种更改的影响。
+  此特性门控要求启用 `SELinuxMountReadWriteOncePod` 和 `SELinuxChangePolicy`。
+  它在 1.33 中是 Beta 阶段，但是默认被禁用。
 
 <!--
 ## Managing access to the `/proc` filesystem {#proc-access}

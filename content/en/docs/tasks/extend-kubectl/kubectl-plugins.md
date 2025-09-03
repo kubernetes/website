@@ -9,8 +9,10 @@ content_type: task
 
 <!-- overview -->
 
-This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/). By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster, a cluster administrator can think
-of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
+This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/).
+By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster,
+a cluster administrator can think of plugins as a means of utilizing these building blocks to create more complex behavior.
+Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
 
 ## {{% heading "prerequisites" %}}
 
@@ -35,7 +37,8 @@ own risk, since they are arbitrary programs running on your machine.
 ### Discovering plugins
 
 `kubectl` provides a command `kubectl plugin list` that searches your `PATH` for valid plugin executables.
-Executing this command causes a traversal of all files in your `PATH`. Any files that are executable, and begin with `kubectl-` will show up *in the order in which they are present in your `PATH`* in this command's output.
+Executing this command causes a traversal of all files in your `PATH`. Any files that are executable, and
+begin with `kubectl-` will show up *in the order in which they are present in your `PATH`* in this command's output.
 A warning will be included for any files beginning with `kubectl-` that are *not* executable.
 A warning will also be included for any valid plugin files that overlap each other's name.
 
@@ -43,9 +46,17 @@ You can use [Krew](https://krew.dev/) to discover and install `kubectl`
 plugins from a community-curated
 [plugin index](https://krew.sigs.k8s.io/plugins/).
 
+#### Create plugins
+
+`kubectl` allows plugins to add custom create commands of the shape `kubectl create something` by providing a `kubectl-create-something` binary in the `PATH`.
+
 #### Limitations
 
-It is currently not possible to create plugins that overwrite existing `kubectl` commands. For example, creating a plugin `kubectl-version` will cause that plugin to never be executed, as the existing `kubectl version` command will always take precedence over it. Due to this limitation, it is also *not* possible to use plugins to add new subcommands to existing `kubectl` commands. For example, adding a subcommand `kubectl create foo` by naming your plugin `kubectl-create-foo` will cause that plugin to be ignored.
+It is currently not possible to create plugins that overwrite existing `kubectl` commands or extend commands other than `create`.
+For example, creating a plugin `kubectl-version` will cause that plugin to never be executed, as the existing `kubectl version`
+command will always take precedence over it.
+Due to this limitation, it is also *not* possible to use plugins to add new subcommands to existing `kubectl` commands.
+For example, adding a subcommand `kubectl attach vm` by naming your plugin `kubectl-attach-vm` will cause that plugin to be ignored.
 
 `kubectl plugin list` shows warnings for any valid plugins that attempt to do this.
 

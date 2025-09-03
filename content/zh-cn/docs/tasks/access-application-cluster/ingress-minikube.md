@@ -75,7 +75,7 @@ If you haven't already set up a cluster locally, run `minikube start` to create 
 -->
 ## 启用 Ingress 控制器   {#enable-ingress-controller}
 
-1. 为了启用 NGINIX Ingress 控制器，可以运行下面的命令：
+1. 为了启用 NGINX Ingress 控制器，可以运行下面的命令：
 
    ```shell
    minikube addons enable ingress

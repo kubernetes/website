@@ -19,7 +19,8 @@ Mark the provided resource as paused.
 -->
 将所提供的资源标记为已暂停。
 
-控制器不会调和已暂停的资源。使用 `kubectl rollout resume` 可恢复已暂停的资源，目前只有 Deployment 支持暂停。
+控制器不会调和已暂停的资源。使用 `kubectl rollout resume` 可恢复已暂停的资源，
+目前只有 Deployment 支持暂停。
 
 ```shell
 kubectl rollout pause RESOURCE
@@ -147,13 +148,16 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
-</p></td>
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 -l key1=value1,key2=value2,key3 in (value3)）。
+匹配的对象必须满足所有指定的标签约束。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -279,30 +283,6 @@ TLS 客户端密钥文件的路径。
 </tr>
 
 <tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,35.191.0.0/16"-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
@@ -334,7 +314,8 @@ The name of the kubeconfig context to use
 <!--
 Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
 -->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
+设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，
+默认添加到所有尚未设置此容忍度的 Pod。
 </p></td>
 </tr>
 
@@ -346,7 +327,8 @@ Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is
 <!--
 Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
 -->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
+设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，
+默认添加到所有尚未设置此容忍度的 Pod。
 </p></td>
 </tr>
 

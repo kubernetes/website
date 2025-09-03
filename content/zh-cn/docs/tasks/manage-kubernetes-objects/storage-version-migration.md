@@ -74,13 +74,13 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   kind: EncryptionConfiguration
   apiVersion: apiserver.config.k8s.io/v1
   resources:
-    - resources:
-        - secrets
-      providers:
-        - aescbc:
-          keys:
-            - name: key1
-              secret: c2VjcmV0IGlzIHNlY3VyZQ==
+  - resources:
+    - secrets
+    providers:
+    - aescbc:
+        keys:
+        - name: key1
+          secret: c2VjcmV0IGlzIHNlY3VyZQ==
   ```
 
   <!--
@@ -113,26 +113,26 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   kind: EncryptionConfiguration
   apiVersion: apiserver.config.k8s.io/v1
   resources:
-    - resources:
-        - secrets
-      providers:
-        - aescbc:
-          keys:
-            - name: key2
-              secret: c2VjcmV0IGlzIHNlY3VyZSwgaXMgaXQ/
-        - aescbc:
-          keys:
-            - name: key1
-              secret: c2VjcmV0IGlzIHNlY3VyZQ==
+  - resources:
+    - secrets
+    providers:
+    - aescbc:
+        keys:
+        - name: key2
+          secret: c2VjcmV0IGlzIHNlY3VyZSwgaXMgaXQ/
+    - aescbc:
+        keys:
+        - name: key1
+          secret: c2VjcmV0IGlzIHNlY3VyZQ==
   ```
 
 <!--
-- To ensure that previously created secret `my-secert` is re-encrypted
+- To ensure that previously created secret `my-secret` is re-encrypted
   with new key `key2`, you will use _Storage Version Migration_.
 
 - Create a StorageVersionMigration manifest named `migrate-secret.yaml` as follows:
 -->
-- 要确保之前创建的 Secret `my-secert` 使用新密钥 `key2` 进行重新加密，你将使用**存储版本迁移**。
+- 要确保之前创建的 Secret `my-secret` 使用新密钥 `key2` 进行重新加密，你将使用**存储版本迁移**。
 
 - 创建以下名为 `migrate-secret.yaml` 的 StorageVersionMigration 清单：
 

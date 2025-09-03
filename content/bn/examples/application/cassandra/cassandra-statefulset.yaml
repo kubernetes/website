@@ -15,7 +15,7 @@ spec:
       labels:
         app: cassandra
     spec:
-      terminationGracePeriodSeconds: 1800
+      terminationGracePeriodSeconds: 500
       containers:
       - name: cassandra
         image: gcr.io/google-samples/cassandra:v13
@@ -43,7 +43,7 @@ spec:
         lifecycle:
           preStop:
             exec:
-              command: 
+              command:
               - /bin/sh
               - -c
               - nodetool drain

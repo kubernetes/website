@@ -355,7 +355,7 @@ kubelet স্বয়ংক্রিয়ভাবে প্রতিটি �
 আপনার কাছে [সাইডকার কন্টেইনার](/bn/docs/concepts/workloads/pods/sidecar-containers/) থাকতে পারে
 যেগুলি প্রধান অ্যাপ্লিকেশন পডকে সহায়ক পরিষেবা প্রদান করে (উদাহরণস্বরূপ: একটি পরিষেবা মেশ)।
 
-{{< feature-state for_k8s_version="v1.29" state="beta" >}}
+{{< feature-state feature_gate_name="SidecarContainers" >}}
 
 ডিফল্টরূপে সক্রিয় করা হয়েছে, `SidecarContainers` [ফিচার গেট](/bn/docs/reference/command-line-tools-reference/feature-gates/)
 init কন্টেইনারগুলির জন্য আপনাকে `restartPolicy: Always` নির্দিষ্ট করতে দেয়।
@@ -392,7 +392,7 @@ init কন্টেইনারগুলির জন্য আপনাকে 
 কুবারনেটিস কেন অন্যান্য রিসোর্সগুলিতে মোড়ানোর প্রসঙ্গটি বোঝার জন্য একটি সাধারণ পড API (যেমন {{< glossary_tooltip text="স্টেটফুল সেট" term_id="statefulset" >}}) বা {{< glossary_tooltip text="ডিপলয়মেন্ট" term_id="deployment">}}) তে , আপনি পূর্ববর্তী আর্ট সম্পর্কে পড়তে পারেন, যার মধ্যে রয়েছে:
 
 * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
-* [Borg](https://research.google.com/pubs/pub43438.html)
-* [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+* [Borg](https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/)
+* [Marathon](https://github.com/d2iq-archive/marathon)
 * [Omega](https://research.google/pubs/pub41684/)
 * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/)।

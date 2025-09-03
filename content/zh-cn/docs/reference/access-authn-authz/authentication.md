@@ -16,9 +16,11 @@ weight: 10
 
 <!-- overview -->
 <!--
-This page provides an overview of authentication.
+This page provides an overview of authentication in Kubernetes, with a focus on
+authentication to the [Kubernetes API](/docs/concepts/overview/kubernetes-api/).
 -->
-本页提供身份认证有关的概述。
+本页提供 Kubernetes 中身份认证有关的概述，重点介绍与
+[Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 有关的身份认证。
 
 <!-- body -->
 <!--
@@ -43,7 +45,7 @@ Normal users cannot be added to a cluster through an API call.
 Kubernetes 假定普通用户是由一个与集群无关的服务通过以下方式之一进行管理的：
 
 - 负责分发私钥的管理员
-- 类似 Keystone 或者 Google Accounts 这类用户数据库
+- 类似 Keystone 或者 Google Account 这类用户数据库
 - 包含用户名和密码列表的文件
 
 有鉴于此，**Kubernetes 并不包含用来代表普通用户账号的对象**。
@@ -56,17 +58,13 @@ presents a valid certificate signed by the cluster's certificate authority
 the username from the common name field in the 'subject' of the cert (e.g.,
 "/CN=bob"). From there, the role based access control (RBAC) sub-system would
 determine whether the user is authorized to perform a specific operation on a
-resource. For more details, refer to the normal users topic in
-[certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-for more details about this.
+resource.
 -->
 尽管无法通过 API 调用来添加普通用户，
 Kubernetes 仍然认为能够提供由集群的证书机构签名的合法证书的用户是通过身份认证的用户。
 基于这样的配置，Kubernetes 使用证书中的 'subject' 的通用名称（Common Name）字段
 （例如，"/CN=bob"）来确定用户名。
 接下来，基于角色访问控制（RBAC）子系统会确定用户是否有权针对某资源执行特定的操作。
-进一步的细节可参阅[证书请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
-下普通用户主题。
 
 <!--
 In contrast, service accounts are users managed by the Kubernetes API. They are
@@ -328,7 +326,7 @@ bearer tokens to verify requests. The plugin takes two optional flags:
 
 * `--service-account-key-file` 文件包含 PEM 编码的 x509 RSA 或 ECDSA 私钥或公钥，
   用于验证 ServiceAccount 令牌。这样指定的文件可以包含多个密钥，
-  并且可以使用不同的文件多次指定此参数。若未指定，则使用 --tls-private-key-file 参数。
+  并且可以使用不同的文件多次指定此参数。若未指定，则使用 `--tls-private-key-file` 参数。
 * `--service-account-lookup` 如果启用，则从 API 删除的令牌会被回收。
 
 <!--
@@ -352,7 +350,23 @@ talk to the API server. Accounts may be explicitly associated with pods using th
 {{< /note >}}
 
 <!--
-# this apiVersion is relevant as of Kubernetes 1.9
+```yaml
+apiVersion: apps/v1 # this apiVersion is relevant as of Kubernetes 1.9
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: default
+spec:
+  replicas: 3
+  template:
+    metadata:
+    # ...
+    spec:
+      serviceAccountName: bob-the-bot
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+```
 -->
 ```yaml
 apiVersion: apps/v1 # 此 apiVersion 从 Kubernetes 1.9 开始可用
@@ -507,10 +521,6 @@ sequenceDiagram
 1. Check to make sure the `id_token` hasn't expired
 
    Perform claim and/or user validation if CEL expressions are configured with `AuthenticationConfiguration`.
-
-1. Make sure the user is authorized
-1. Once authorized the API server returns a response to `kubectl`
-1. `kubectl` provides feedback to the user
 -->
 1. 登录到你的身份服务（Identity Provider）
 2. 你的身份服务将为你提供 `access_token`、`id_token` 和 `refresh_token`
@@ -520,8 +530,13 @@ sequenceDiagram
 5. API 服务器将确保 JWT 的签名是有效的
 6. 检查确认 `id_token` 尚未过期
 
-   如果使用 `AuthenticationConfiguration` 配置了 CEL 表达式，则执行声明和/或用户验证。
+   如果使用 `AuthenticationConfiguration` 配置了 CEL 表达式，则执行申领和/或用户验证。
 
+<!--
+1. Make sure the user is authorized
+1. Once authorized the API server returns a response to `kubectl`
+1. `kubectl` provides feedback to the user
+-->
 7. 确认用户有权限执行操作
 8. 鉴权成功之后，API 服务器向 `kubectl` 返回响应
 9. `kubectl` 向用户提供反馈信息
@@ -574,9 +589,8 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate. Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
-| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is RS256. Allowed values are: RS256, RS384, RS512, ES256, ES384, ES512, PS256, PS384, PS512. Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1. | `RS512` | No |
 -->
-
 | 参数 | 描述 | 示例 | 必需？ |
 | --------- | ----------- | ------- | ------- |
 | `--oidc-issuer-url` | 允许 API 服务器发现公开的签名密钥的服务的 URL。只接受模式为 `https://` 的 URL。此值通常设置为服务的发现 URL，已更改为空路径。 | 如果发行人的 OIDC 发现 URL 是 `https://accounts.google.com/.well-known/openid-configuration`，则此值应为 `https://accounts.provider.example` | 是 |
@@ -587,7 +601,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | 添加到组申领的前缀，用来避免与现有用户组名（如：`system:` 组）发生冲突。例如，此标志值为 `oidc:` 时，所得到的用户组名形如 `oidc:engineering` 和 `oidc:infra`。 | `oidc:` | 否 |
 | `--oidc-required-claim` | 取值为一个 key=value 偶对，意为 ID 令牌中必须存在的申领。如果设置了此标志，则 ID 令牌会被检查以确定是否包含取值匹配的申领。此标志可多次重复，以指定多个申领。 | `claim=value` | 否 |
 | `--oidc-ca-file` | 指向一个 CA 证书的路径，该 CA 负责对你的身份服务的 Web 证书提供签名。默认值为宿主系统的根 CA。 | `/etc/kubernetes/ssl/kc-ca.pem` | 否 |
-| `--oidc-signing-algs` | 采纳的签名算法。默认为 "RS256"。 | `RS512` | 否 |
+| `--oidc-signing-algs` | 采纳的签名算法。默认为 "RS256"。可选值为：RS256、RS384、RS512、ES256、ES384、ES512、PS256、PS384、PS512。值由 RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1 定义。| `RS512` | 否 |
 
 <!--
 ##### Authentication configuration from a file {#using-authentication-configuration}
@@ -607,7 +621,7 @@ JWT Authenticator 是一个使用 JWT 兼容令牌对 Kubernetes 用户进行身
 认证组件将尝试解析原始 ID 令牌，验证它是否是由所配置的颁发者签名。
 用于验证签名的公钥是使用 OIDC 发现从发行者的公共端点发现的。
 
-最小有效 JWT 负载必须包含以下声明：
+最小有效 JWT 负载必须包含以下申领：
 
 <!--
 ```json
@@ -622,9 +636,9 @@ JWT Authenticator 是一个使用 JWT 兼容令牌对 Kubernetes 用户进行身
 ```json
 {
   "iss": "https://example.com",   // 必须与 issuer.url 匹配
-  "aud": ["my-app"],              // issuer.audiences 中至少一项必须与所提供的 JWT 中的 "aud" 声明相匹配。
+  "aud": ["my-app"],              // issuer.audiences 中至少一项必须与所提供的 JWT 中的 "aud" 申领相匹配。
   "exp": 1234567890,              // 令牌过期时间为 UNIX 时间（自 1970 年 1 月 1 日 UTC 以来经过的秒数）
-  "<username-claim>": "user"      // 这是在 claimMappings.username.claim 或 claimMappings.username.expression 中配置的用户名声明
+  "<username-claim>": "user"      // 这是在 claimMappings.username.claim 或 claimMappings.username.expression 中配置的用户名申领
 }
 ```
 
@@ -638,7 +652,7 @@ to monitor the last time the configuration was reloaded by the API server.
 -->
 配置文件方法允许你配置多个 JWT 认证组件，每个身份认证组件都有唯一的 `issuer.url` 和 `issuer.discoveryURL`。
 配置文件甚至允许你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)
-表达式以将声明映射到用户属性，并验证声明和用户信息。
+表达式以将申领映射到用户属性，并验证申领和用户信息。
 当配置文件修改时，API 服务器还会自动重新加载认证组件。
 你可以使用 `apiserver_authentication_config_controller_automatic_reload_last_timestamp_seconds`
 指标来监控 API 服务器上次重新加载配置的时间。
@@ -649,7 +663,7 @@ on the API server. If you want to use command line flags instead of the configur
 continue to work as-is. To access the new capabilities like configuring multiple authenticators,
 setting multiple audiences for an issuer, switch to using the configuration file.
 -->
-你必须使用 API 服务器上的 `--authentication-config` 标志指定身份验证配置的路径。
+你必须使用 API 服务器上的 `--authentication-config` 标志指定身份认证配置的路径。
 如果你想使用命令行标志而不是配置文件，命令行标志仍然有效。
 要使用新功能（例如配置多个认证组件、为发行者设置多个受众），请切换到使用配置文件。
 
@@ -676,9 +690,20 @@ If you want to switch to using structured authentication configuration, you have
 command line arguments, and use the configuration file instead.
 -->
 你不能同时指定 `--authentication-config` 和 `--oidc-*` 命令行参数，
-否则API服务器会报告错误，然后立即退出。
-如果你想切换到使用结构化身份验证配置，则必须删除 `--oidc-*` 命令行参数，并改用配置文件。
+否则 API 服务器会报告错误，然后立即退出。
+如果你想切换到使用结构化身份认证配置，则必须删除 `--oidc-*` 命令行参数，并改用配置文件。
 {{< /note >}}
+
+{{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
+
+<!--
+The _egressSelectorType_ field in the JWT issuer configuration allows you to specify which egress selector
+should be used for sending all traffic related to the issuer (discovery, JWKS, distributed claims, etc).
+This feature requires the `StructuredAuthenticationConfigurationEgressSelector` feature gate to be enabled.
+-->
+JWT 发行者配置中的 **egressSelectorType**
+字段允许你指定应使用哪个出口选择器来发送与发行者相关的所有流量（发现、JWKS、分布式申领等）。
+此特性要求启用 `StructuredAuthenticationConfigurationEgressSelector` 特性门控。
 
 <!--
 ```yaml
@@ -687,7 +712,7 @@ command line arguments, and use the configuration file instead.
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 # list of authenticators to authenticate Kubernetes users using JWT compliant tokens.
 # the maximum number of allowed authenticators is 64.
@@ -710,7 +735,7 @@ jwt:
     # PEM encoded CA certificates used to validate the connection when fetching
     # discovery information. If not set, the system verifier will be used.
     # Same value as the content of the file referenced by the --oidc-ca-file flag.
-    certificateAuthority: <PEM encoded CA certificates>    
+    certificateAuthority: <PEM encoded CA certificates>
     # audiences is the set of acceptable audiences the JWT must be issued to.
     # At least one of the entries must match the "aud" claim in presented JWTs.
     audiences:
@@ -718,6 +743,13 @@ jwt:
     - my-other-app
     # this is required to be set to "MatchAny" when multiple audiences are specified.
     audienceMatchPolicy: MatchAny
+    # egressSelectorType is an indicator of which egress selection should be used for sending all traffic related
+    # to this issuer (discovery, JWKS, distributed claims, etc).  If unspecified, no custom dialer is used.
+    # When specified, the valid choices are "controlplane" and "cluster".  These correspond to the associated
+    # values in the --egress-selector-config-file.
+    # - controlplane: for traffic intended to go to the control plane.
+    # - cluster: for traffic intended to go to the system being managed by Kubernetes.
+    egressSelectorType: <egress-selector-type>
   # rules applied to validate token claims to authenticate users.
   claimValidationRules:
     # Same as --oidc-required-claim key=value.
@@ -747,7 +779,9 @@ jwt:
       # 1.  If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
       #     username.expression or extra[*].valueExpression or claimValidationRules[*].expression.
       #     An example claim validation rule expression that matches the validation automatically
-      #     applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true)'.
+      #     applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'.
+      #     By explicitly comparing the value to true, we let type-checking see the result will be a boolean, and
+      #     to make sure a non-boolean email_verified claim will be caught at runtime.
       # 2.  If the username asserted based on username.expression is the empty string, the authentication
       #     request will fail.
       expression: 'claims.username + ":external-user"'
@@ -771,6 +805,12 @@ jwt:
       expression: 'claims.sub'
     # extra attributes to be added to the UserInfo object. Keys must be domain-prefix path and must be unique.
     extra:
+      # key is a string to use as the extra attribute key.
+      # key must be a domain-prefix path (e.g. example.org/foo). All characters before the first "/" must be a valid
+      # subdomain as defined by RFC 1123. All characters trailing the first "/" must
+      # be valid HTTP Path characters as defined by RFC 3986.
+      # k8s.io, kubernetes.io and their subdomains are reserved for Kubernetes use and cannot be used.
+      # key must be lowercase and unique across all extra attributes.
     - key: 'example.com/tenant'
       # valueExpression is a CEL expression that evaluates to a string or a list of strings.
       valueExpression: 'claims.tenant'
@@ -790,7 +830,7 @@ jwt:
 #
 # 注意：这是一个示例配置，不要将其用于你自己的集群！
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 # 使用 JWT 兼容令牌对 Kubernetes 用户进行身份认证的认证组件列表，允许的最大认证组件数量为 64。
 jwt:
@@ -802,7 +842,7 @@ jwt:
     # 系统会使用所给的配置值，因此如果需要，“/.well-known/openid-configuration” 必须包含在 discoveryURL 中。
     #
     # 取回的发现信息中的 “issuer” 字段必须与 AuthenticationConfiguration 中的
-    # “issuer.url” 字段匹配，并被用于验证所呈现的 JWT 中的 “iss” 声明。
+    # “issuer.url” 字段匹配，并被用于验证所呈现的 JWT 中的 “iss” 申领。
     # 这适用于众所周知的端点和 jwks 端点托管在与颁发者不同的位置（例如集群本地）的场景。
     # discoveryURL 必须与 url 不同（如果指定），并且在所有认证组件中必须是唯一的。
     discoveryURL: https://discovery.example.com/.well-known/openid-configuration
@@ -811,18 +851,26 @@ jwt:
     # 与 --oidc-ca-file 标志引用的文件内容的值相同。
     certificateAuthority: <PEM encoded CA certificates>    
     # audiences 是 JWT 必须发布给的一组可接受的受众。
-    # 至少其中一项必须与所提供的 JWT 中的 “aud” 声明相匹配。
+    # 至少其中一项必须与所提供的 JWT 中的 “aud” 申领相匹配。
     audiences:
     - my-app # 与 --oidc-client-id 一致。
     - my-other-app
     # 当指定多个受众时，需要将此字段设置为 “MatchAny”。
     audienceMatchPolicy: MatchAny
-  # 用于验证令牌声明以对用户进行身份认证的规则。
+    # egressSelectorType 是一个指示符，用于指定应使用哪个出口选择器发送与此发行者相关的所有流量
+    #（发现、JWKS、分布式申领等）。  
+    # 如果未指定，则不使用自定义拨号器。  
+    # 当指定时，有效选项为 "controlplane" 和 "cluster"。这些对应于
+    # --egress-selector-config-file 中的相关值。  
+    # - controlplane：用于打算发往控制平面的流量。  
+    # - cluster：用于打算发往由 Kubernetes 管理的系统的流量。
+    egressSelectorType: <egress-selector-type>
+  # 用于验证令牌申领以对用户进行身份认证的规则。
   claimValidationRules:
     # 与 --oidc-required-claim key=value 一致
   - claim: hd
     requiredValue: example.com
-    # 你可以使用表达式来验证声明，而不是仅仅靠 claim 和 requiredValue 来执行检查。
+    # 你可以使用表达式来验证申领，而不是仅仅靠 claim 和 requiredValue 来执行检查。
     # expression 是一个计算结果为布尔值的 CEL 表达式。
     # 所有表达式的计算结果必须为 true 才能使验证成功。
   - expression: 'claims.hd == "example.com"'
@@ -845,8 +893,10 @@ jwt:
       #
       # 1.  如果 username.expression 使用 “claims.email”，则必须在 username.expression
       #     或 extra[*].valueExpression 或 ClaimValidationRules[*].expression 中使用 “claims.email_verified”。
-      #     与 username.claim 设置为 “email” 时自动应用的验证相匹配的示例声明验证规则表达式是
-      #     “claims.?email_verified.orValue(true)”。
+      #     与 username.claim 设置为 “email” 时自动应用的验证相匹配的示例申领验证规则表达式是
+      #     “claims.?email_verified.orValue(true) == true”。
+      #     通过显式地将该值与 true 进行比较，可以让类型检查器识别出结果是布尔值，
+      #     并确保在运行时能够识别出任何非布尔类型的 email_verified 申领。
       # 2.  如果根据 username.expression 断言的用户名是空字符串，则身份认证请求将失败。
       expression: 'claims.username + ":external-user"'
     # groups 代表 groups 属性的一个选项。
@@ -869,6 +919,12 @@ jwt:
       expression: 'claims.sub'
     # 要添加到 UserInfo 对象的其他属性，键必须是域前缀路径并且必须是唯一的。
     extra:
+      # key 是用作额外属性键的字符串。
+      # key 必须是域名前缀路径（例如 example.org/foo）。
+      # 第一个 "/" 之前的所有字符必须是 RFC 1123 定义的有效子域名。
+      # 第一个 "/" 之后的所有字符必须是 RFC 3986 定义的有效 HTTP 路径字符。
+      # k8s.io, kubernetes.io 及其子域名保留供 Kubernetes 使用，不能使用。
+      # key 必须是小写，并且在所有额外属性中唯一。
     - key: 'example.com/tenant'
       # valueExpression 是一个计算结果为字符串或字符串列表的 CEL 表达式。
       valueExpression: 'claims.tenant'
@@ -877,7 +933,7 @@ jwt:
     # expression 是一个计算结果为布尔值的 CEL 表达式。
     # 所有表达式的计算结果必须为 true，用户才有效。
   - expression: "!user.username.startsWith('system:')"
-    # Message 自定义验证失败时在 API 服务器日志中看到的错误消息。
+    # message 是自定义验证失败时在 API 服务器日志中看到的错误消息。
     message: 'username cannot used reserved system: prefix'
   - expression: "user.groups.all(group, !group.startsWith('system:'))"
     message: 'groups cannot used reserved system: prefix'
@@ -890,11 +946,11 @@ jwt:
   CEL expressions have access to the contents of the token payload, organized into `claims` CEL variable.
   `claims` is a map of claim names (as strings) to claim values (of any type).
 -->
-* 声明验证规则表达式
+* 申领验证规则表达式
 
-`jwt.claimValidationRules[i].expression` 表示将由 CEL 计算的表达式。
- CEL 表达式可以访问令牌有效负载的内容，这些内容被组织成 `claims` CEL 变量。
- `claims` 是声明名称（作为字符串）到声明值（任何类型）的映射。
+  `jwt.claimValidationRules[i].expression` 表示将由 CEL 计算的表达式。
+  CEL 表达式可以访问令牌有效负载的内容，这些内容被组织成 `claims` CEL 变量。
+  `claims` 是申领名称（作为字符串）到申领值（任何类型）的映射。
 
 <!--
 * User validation rule expression
@@ -906,10 +962,11 @@ jwt:
 -->
 * 用户验证规则表达式
 
- `jwt.userValidationRules[i].expression` 表示将由 CEL 计算的表达式。
+  `jwt.userValidationRules[i].expression` 表示将由 CEL 计算的表达式。
   CEL 表达式可以访问 `userInfo` 的内容，并组织成 `user` CEL 变量。
-  有关 `user` 的架构，请参阅
-  [UserInfo](/zh-cn/docs/reference/ generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io) API 文档。
+  有关 `user` 的结构，请参阅
+  [UserInfo](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#userinfo-v1-authentication-k8s-io)
+  API 文档。
 
 <!--
 * Claim mapping expression
@@ -919,30 +976,52 @@ jwt:
   CEL expressions have access to the contents of the token payload, organized into `claims` CEL variable.
   `claims` is a map of claim names (as strings) to claim values (of any type).
 -->
-* 声明映射表达式
+* 申领映射表达式
 
   `jwt.claimMappings.username.expression`、`jwt.claimMappings.groups.expression`、
   `jwt.claimMappings.uid.expression` `jwt.claimMappings.extra[i].valueExpression` 表示将由 CEL 计算的表达式。
   CEL 表达式可以访问令牌有效负载的内容，这些内容被组织成 `claims` CEL 变量。
-  `claims` 是声明名称（作为字符串）到声明值（任何类型）的映射。
+  `claims` 是申领名称（作为字符串）到申领值（任何类型）的映射。
 
   <!--
   To learn more, see the [Documentation on CEL](/docs/reference/using-api/cel/)
 
   Here are examples of the `AuthenticationConfiguration` with different token payloads.
   -->
-  要了解更多信息，请参阅[CEL 文档](/docs/reference/using-api/cel/)。
+
+  要了解更多信息，请参阅 [CEL 文档](/zh-cn/docs/reference/using-api/cel/)。
 
   以下是具有不同令牌有效负载的 “AuthenticationConfiguration” 示例。
 
-
   {{< tabs name="example_configuration" >}}
-  {{% tab name="Valid token" %}}
+  {{% tab name="合法的令牌" %}}
   <!--
-  # the expression will evaluate to true, so validation will succeed.
-  -->
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimMappings:
+      username:
+        expression: 'claims.username + ":external-user"'
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+  userValidationRules:
+  - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+      message: 'username cannot used reserved system: prefix'
+  ```
+  -->
+
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -1002,41 +1081,65 @@ jwt:
            "admin"
        ],
        "extra": {
-           "example.com/tenant": "72f988bf-86f1-41af-91ab-2d7cd011db4a"
+           "example.com/tenant": ["72f988bf-86f1-41af-91ab-2d7cd011db4a"]
        }
   }
   ```
 
   {{% /tab %}}
-  {{% tab name="Fails claim validation" %}}
+  {{% tab name="申领校验失败" %}}
   <!--
-  # the token below does not have this claim, so validation will fail.
-  # the expression will evaluate to true, so validation will succeed.
-  -->
   ```yaml
-   apiVersion: apiserver.config.k8s.io/v1beta1
-   kind: AuthenticationConfiguration
-   jwt:
-   - issuer:
-        url: https://example.com
-        audiences:
-        - my-app
-   claimValidationRules:
-   - expression: 'claims.hd == "example.com"' # 下面的令牌没有此声明，因此验证将失败。
-        message: the hd claim must be set to example.com
-   claimMappings:
-        username:
-          expression: 'claims.username + ":external-user"'
-        groups:
-          expression: 'claims.roles.split(",")'
-        uid:
-          expression: 'claims.sub'
-        extra:
-        - key: 'example.com/tenant'
-          valueExpression: 'claims.tenant'
-   userValidationRules:
-   - expression: "!user.username.startsWith('system:')" # 该表达式的计算结果将为 true，因此验证将会成功。
-        message: 'username cannot used reserved system: prefix'
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+       url: https://example.com
+       audiences:
+       - my-app
+  claimValidationRules:
+  - expression: 'claims.hd == "example.com"' # the token below does not have this claim, so validation will fail.
+       message: the hd claim must be set to example.com
+  claimMappings:
+       username:
+         expression: 'claims.username + ":external-user"'
+       groups:
+         expression: 'claims.roles.split(",")'
+       uid:
+         expression: 'claims.sub'
+       extra:
+       - key: 'example.com/tenant'
+         valueExpression: 'claims.tenant'
+  userValidationRules:
+  - expression: "!user.username.startsWith('system:')" # the expression will evaluate to true, so validation will succeed.
+       message: 'username cannot used reserved system: prefix'
+  ```
+  -->
+
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+       url: https://example.com
+       audiences:
+       - my-app
+  claimValidationRules:
+  - expression: 'claims.hd == "example.com"' # 下面的令牌没有此申领，因此验证将失败。
+       message: the hd claim must be set to example.com
+  claimMappings:
+       username:
+         expression: 'claims.username + ":external-user"'
+       groups:
+         expression: 'claims.roles.split(",")'
+       uid:
+         expression: 'claims.sub'
+       extra:
+       - key: 'example.com/tenant'
+         valueExpression: 'claims.tenant'
+  userValidationRules:
+  - expression: "!user.username.startsWith('system:')" # 该表达式的计算结果将为 true，因此验证将会成功。
+       message: 'username cannot used reserved system: prefix'
   ```
   
   ```bash
@@ -1068,16 +1171,40 @@ jwt:
   `hd` claim is not set to `example.com`. The API server will return `401 Unauthorized` error.
   -->
   具有上述 `AuthenticationConfiguration` 的令牌将无法进行身份认证，
-  因为 `hd` 声明未设置为 `example.com`。API 服务器将返回 `401 Unauthorized` 错误。
+  因为 `hd` 申领未设置为 `example.com`。API 服务器将返回 `401 Unauthorized` 错误。
   {{% /tab %}}
-  {{% tab name="Fails user validation" %}}
+  {{% tab name="用户校验失败" %}}
 
   <!--
-  # this will prefix the username with "system:" and will fail user validation.
-  # the username will be system:foo and expression will evaluate to false, so validation will fail.
-  -->
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: AuthenticationConfiguration
+  jwt:
+  - issuer:
+      url: https://example.com
+      audiences:
+      - my-app
+    claimValidationRules:
+    - expression: 'claims.hd == "example.com"'
+      message: the hd claim must be set to example.com
+    claimMappings:
+      username:
+        expression: '"system:" + claims.username' # this will prefix the username with "system:" and will fail user validation.
+      groups:
+        expression: 'claims.roles.split(",")'
+      uid:
+        expression: 'claims.sub'
+      extra:
+      - key: 'example.com/tenant'
+        valueExpression: 'claims.tenant'
+    userValidationRules:
+    - expression: "!user.username.startsWith('system:')" # the username will be system:foo and expression will evaluate to false, so validation will fail.
+      message: 'username cannot used reserved system: prefix'
+  ```
+  -->
+
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -1101,6 +1228,7 @@ jwt:
     - expression: "!user.username.startsWith('system:')" # 用户名将为 system:foo 并且表达式将计算为 false，因此验证将失败。
       message: 'username cannot used reserved system: prefix'
   ```
+
   ```bash
   TOKEN=eyJhbGciOiJSUzI1NiIsImtpZCI6ImY3dF9tOEROWmFTQk1oWGw5QXZTWGhBUC04Y0JmZ0JVbFVpTG5oQkgxdXMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNzAzMjMyOTQ5LCJoZCI6ImV4YW1wbGUuY29tIiwiaWF0IjoxNzAxMTEzMTAxLCJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tIiwianRpIjoiYjViMDY1MjM3MmNkMjBlMzQ1YjZmZGZmY2RjMjE4MWY0YWZkNmYyNTlhYWI0YjdlMzU4ODEyMzdkMjkyMjBiYyIsIm5iZiI6MTcwMTExMzEwMSwicm9sZXMiOiJ1c2VyLGFkbWluIiwic3ViIjoiYXV0aCIsInRlbmFudCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0YSIsInVzZXJuYW1lIjoiZm9vIn0.FgPJBYLobo9jnbHreooBlvpgEcSPWnKfX6dc0IvdlRB-F0dCcgy91oCJeK_aBk-8zH5AKUXoFTlInfLCkPivMOJqMECA1YTrMUwt_IVqwb116AqihfByUYIIqzMjvUbthtbpIeHQm2fF0HbrUqa_Q0uaYwgy8mD807h7sBcUMjNd215ff_nFIHss-9zegH8GI1d9fiBf-g6zjkR1j987EP748khpQh9IxPjMJbSgG_uH5x80YFuqgEWwq-aYJPQxXX6FatP96a2EAn7wfPpGlPRt0HcBOvq5pCnudgCgfVgiOJiLr_7robQu4T1bis0W75VPEvwWtgFcLnvcQx0JWg
   ```
@@ -1129,7 +1257,7 @@ jwt:
   <!--
   The token with the above `AuthenticationConfiguration` will produce the following `UserInfo` object:
   -->
-  具有上述 “AuthenticationConfiguration” 的令牌将生成以下 “UserInfo” 对象：
+  具有上述 “AuthenticationConfiguration” 的令牌将生成以下 `UserInfo` 对象：
 
   ```json
   {
@@ -1140,7 +1268,7 @@ jwt:
           "admin"
       ],
       "extra": {
-          "example.com/tenant": "72f988bf-86f1-41af-91ab-2d7cd011db4a"
+          "example.com/tenant": ["72f988bf-86f1-41af-91ab-2d7cd011db4a"]
       }
   }
   ```
@@ -1149,7 +1277,7 @@ jwt:
   which will fail user validation because the username starts with `system:`.
   The API server will return `401 Unauthorized` error.
   -->
-  这将导致用户验证失败，因为用户名以 `system:` 开头。 API 服务器将返回 `401 Unauthorized` 错误。
+  这将导致用户验证失败，因为用户名以 `system:` 开头。API 服务器将返回 `401 Unauthorized` 错误。
   {{% /tab %}}
   {{< /tabs >}}
 
@@ -1157,29 +1285,19 @@ jwt:
 ###### Limitations
 
 1. Distributed claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
-1. Egress selector configuration is not supported for calls to `issuer.url` and `issuer.discoveryURL`.
 -->
 ###### 局限性
 
-1. 分布式声明无法通过 [CEL](/zh-cn/docs/reference/using-api/cel/) 表达式工作。
-2. 不支持调用 `issuer.url` 和 `issuer.discoveryURL` 的出口选择器配置。
+1. 分布式申领无法通过 [CEL](/zh-cn/docs/reference/using-api/cel/) 表达式工作。
 
 <!--
 Kubernetes does not provide an OpenID Connect Identity Provider.
-You can use an existing public OpenID Connect Identity Provider (such as Google, or
-[others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
-[Keycloak](https://github.com/keycloak/keycloak),
-CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://openunison.github.io/).
+You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
+that supports the OpenID Connect protocol.
 -->
 Kubernetes 并未提供 OpenID Connect 的身份服务。
-你可以使用现有的公共的 OpenID Connect 身份服务
-（例如 Google 或者[其他服务](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)）。
-或者，你也可以选择自己运行一个身份服务，例如 [dex](https://dexidp.io/)、
-[Keycloak](https://github.com/keycloak/keycloak)、
-CloudFoundry [UAA](https://github.com/cloudfoundry/uaa) 或者
-Tremolo Security 的 [OpenUnison](https://openunison.github.io/)。
+你可以使用现有的公共的 OpenID Connect 身份服务或者运行你自己的
+OpenID Connect 身份服务。
 
 <!--
 For an identity provider to work with Kubernetes it must:
@@ -1208,33 +1326,18 @@ For an identity provider to work with Kubernetes it must:
 
 <!--
 A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
-identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST
-have your identity provider's web server certificate signed by a certificate with the `CA` flag
-set to `TRUE`, even if it is self signed. This is due to GoLang's TLS client implementation
-being very strict to the standards around certificate validation. If you don't have a CA handy,
-you can use the [gencert script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
-from the Dex team to create a simple CA and a signed certificate and key pair. Or you can use
-[this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)
-that generates SHA256 certs with a longer life and larger key size.
+identity provider you MUST have your identity provider's web server certificate signed by a
+certificate with the `CA` flag set to `TRUE`, even if it is self signed. This is due to GoLang's
+TLS client implementation being very strict to the standards around certificate validation. If you
+don't have a CA handy, you can create a simple CA and a signed certificate and key pair using
+standard certificate generation tools.
 -->
 关于上述第三条需求，即要求具备 CA 签名的证书，有一些额外的注意事项。
-如果你部署了自己的身份服务，而不是使用云厂商（如 Google 或 Microsoft）所提供的服务，
-你必须对身份服务的 Web 服务器证书进行签名，签名所用证书的 `CA` 标志要设置为
-`TRUE`，即使用的是自签名证书。这是因为 GoLang 的 TLS 客户端实现对证书验证标准方面有非常严格的要求。
-如果你手头没有现成的 CA 证书，可以使用 Dex
-团队所开发的[证书生成脚本](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
-来创建一个简单的 CA 和被签了名的证书与密钥对。
-或者你也可以使用[这个类似的脚本](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)，
-生成一个合法期更长、密钥尺寸更大的 SHA256 证书。
-
-<!--
-Refer to setup instructions for specific systems:
--->
-参阅特定系统的安装指令：
-
-- [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
-- [Dex](https://dexidp.io/docs/kubernetes/)
-- [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
+如果你部署了自己的身份服务，你必须对身份服务的 Web 服务器证书进行签名，
+签名所用证书的 `CA` 标志要设置为 `TRUE`，即使用的是自签名证书。
+这是因为 GoLang 的 TLS 客户端实现对证书验证标准方面有非常严格的要求。
+如果你手头没有现成的 CA 证书，可以使用标准证书生成工具来创建一个简单的
+CA 和被签了名的证书与密钥对。
 
 <!--
 #### Using kubectl
@@ -1350,7 +1453,7 @@ Webhook 身份认证是一种用来验证持有者令牌的回调机制。
   默认时长为 2 分钟。
 * `--authentication-token-webhook-version` 决定是使用 `authentication.k8s.io/v1beta1` 还是
   `authenticationk8s.io/v1` 版本的 `TokenReview` 对象从 Webhook 发送/接收信息。
-  默认为“v1beta1”。
+  默认为 `v1beta1`。
 
 <!--
 The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
@@ -1358,7 +1461,7 @@ file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 -->
 配置文件使用 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-文件的格式。文件中，`clusters` 指代远程服务，`users` 指代远程 API 服务
+文件的格式。在此文件中，`clusters` 指代远程服务，`users` 指代远程 API 服务
 Webhook。下面是一个例子：
 
 <!--
@@ -1437,10 +1540,11 @@ and **must** respond with a `TokenReview` object of the same version as the requ
 要注意的是，Webhook API 对象和其他 Kubernetes API 对象一样，
 也要受到同一[版本兼容规则](/zh-cn/docs/concepts/overview/kubernetes-api/)约束。
 实现者应检查请求的 `apiVersion` 字段以确保正确的反序列化，
-并且 **必须** 以与请求相同版本的 `TokenReview` 对象进行响应。
+并且**必须**以与请求相同版本的 `TokenReview` 对象进行响应。
 
 {{< tabs name="TokenReview_request" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
+
 {{< note >}}
 <!--
 The Kubernetes API server defaults to sending `authentication.k8s.io/v1beta1` token reviews for backwards compatibility.
@@ -1451,12 +1555,32 @@ Kubernetes API 服务器默认发送 `authentication.k8s.io/v1beta1` 令牌以�
 `--authentication-token-webhook-version=v1` 启动。
 {{< /note >}}
 
+<!--
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1",
   "kind": "TokenReview",
   "spec": {
-   # 发送到 API 服务器的不透明持有者令牌
+    # Opaque bearer token sent to the API server
+    "token": "014fbff9a07c...",
+
+    # Optional list of the audience identifiers for the server the token was presented to.
+    # Audience-aware token authenticators (for example, OIDC token authenticators)
+    # should verify the token was intended for at least one of the audiences in this list,
+    # and return the intersection of this list and the valid audiences for the token in the response status.
+    # This ensures the token is valid to authenticate to the server it was presented to.
+    # If no audiences are provided, the token should be validated to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
+  }
+}
+```
+-->
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "spec": {
+    # 发送到 API 服务器的不透明持有者令牌
     "token": "014fbff9a07c...",
    
     # 提供令牌的服务器的受众标识符的可选列表。
@@ -1471,6 +1595,26 @@ Kubernetes API 服务器默认发送 `authentication.k8s.io/v1beta1` 令牌以�
 ```
 {{% /tab %}}
 {{% tab name="authentication.k8s.io/v1beta1" %}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "spec": {
+    # Opaque bearer token sent to the API server
+    "token": "014fbff9a07c...",
+
+    # Optional list of the audience identifiers for the server the token was presented to.
+    # Audience-aware token authenticators (for example, OIDC token authenticators)
+    # should verify the token was intended for at least one of the audiences in this list,
+    # and return the intersection of this list and the valid audiences for the token in the response status.
+    # This ensures the token is valid to authenticate to the server it was presented to.
+    # If no audiences are provided, the token should be validated to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com", "https://myserver.internal.example.com"]
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
@@ -1505,6 +1649,7 @@ A successful validation of the bearer token would return:
 
 {{< tabs name="TokenReview_response_success" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
+<!--
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1",
@@ -1512,7 +1657,38 @@ A successful validation of the bearer token would return:
   "status": {
     "authenticated": true,
     "user": {
-      # 必要
+      # Required
+      "username": "janedoe@example.com",
+      # Optional
+      "uid": "42",
+      # Optional group memberships
+      "groups": ["developers", "qa"],
+      # Optional additional information provided by the authenticator.
+      # This should not contain confidential data, as it can be recorded in logs
+      # or API objects, and is made available to admission webhooks.
+      "extra": {
+        "extrafield1": [
+          "extravalue1",
+          "extravalue2"
+        ]
+      }
+    },
+    # Optional list audience-aware token authenticators can return,
+    # containing the audiences from the `spec.audiences` list for which the provided token was valid.
+    # If this is omitted, the token is considered to be valid to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com"]
+  }
+}
+```
+-->
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": true,
+    "user": {
+      # 必需
       "username": "janedoe@example.com",
       # 可选
       "uid": "42",
@@ -1520,7 +1696,7 @@ A successful validation of the bearer token would return:
       "groups": ["developers", "qa"],
       # 认证者提供的可选附加信息。
       # 此字段不可包含机密数据，因为这类数据可能被记录在日志或 API 对象中，
-      # 并且可能传递给 admission webhook。
+      # 并且可能传递给准入 Webhook。
       "extra": {
         "extrafield1": [
           "extravalue1",
@@ -1537,6 +1713,7 @@ A successful validation of the bearer token would return:
 ```
 {{% /tab %}}
 {{% tab name="authentication.k8s.io/v1beta1" %}}
+<!--
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
@@ -1544,7 +1721,38 @@ A successful validation of the bearer token would return:
   "status": {
     "authenticated": true,
     "user": {
-      # 必要
+      # Required
+      "username": "janedoe@example.com",
+      # Optional
+      "uid": "42",
+      # Optional group memberships
+      "groups": ["developers", "qa"],
+      # Optional additional information provided by the authenticator.
+      # This should not contain confidential data, as it can be recorded in logs
+      # or API objects, and is made available to admission webhooks.
+      "extra": {
+        "extrafield1": [
+          "extravalue1",
+          "extravalue2"
+        ]
+      }
+    },
+    # Optional list audience-aware token authenticators can return,
+    # containing the audiences from the `spec.audiences` list for which the provided token was valid.
+    # If this is omitted, the token is considered to be valid to authenticate to the Kubernetes API server.
+    "audiences": ["https://myserver.example.com"]
+  }
+}
+```
+-->
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": true,
+    "user": {
+      # 必需
       "username": "janedoe@example.com",
       # 可选
       "uid": "42",
@@ -1552,7 +1760,7 @@ A successful validation of the bearer token would return:
       "groups": ["developers", "qa"],
       # 认证者提供的可选附加信息。
       # 此字段不可包含机密数据，因为这类数据可能被记录在日志或 API 对象中，
-      # 并且可能传递给 admission webhook。
+      # 并且可能传递给准入 Webhook。
       "extra": {
         "extrafield1": [
           "extravalue1",
@@ -1577,6 +1785,21 @@ An unsuccessful request would return:
 
 {{< tabs name="TokenReview_response_error" >}}
 {{% tab name="authentication.k8s.io/v1" %}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # Optionally include details about why authentication failed.
+    # If no error is provided, the API will return a generic Unauthorized message.
+    # The error field is ignored when authenticated=true.
+    "error": "Credentials are expired"
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1",
@@ -1592,6 +1815,21 @@ An unsuccessful request would return:
 ```
 {{% /tab %}}
 {{% tab name="authentication.k8s.io/v1beta1" %}}
+<!--
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "TokenReview",
+  "status": {
+    "authenticated": false,
+    # Optionally include details about why authentication failed.
+    # If no error is provided, the API will return a generic Unauthorized message.
+    # The error field is ignored when authenticated=true.
+    "error": "Credentials are expired"
+  }
+}
+```
+-->
 ```yaml
 {
   "apiVersion": "authentication.k8s.io/v1beta1",
@@ -1760,6 +1998,75 @@ that grant access to the `*` user or `*` group do not include anonymous users.
 `*` 赋予访问权限的策略规则都不再包含匿名用户。
 
 <!--
+### Anonymous Authenticator Configuration
+-->
+### 匿名身份认证模块配置   {#anonymous-authenticator-configuration}
+
+{{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
+
+<!--
+The `AuthenticationConfiguration` can be used to configure the anonymous
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` flag.
+-->
+`AuthenticationConfiguration` 可用于配置匿名身份认证模块。
+如果你在 `AuthenticationConfiguration` 文件中设置了 anonymous 字段，
+那么你不能设置 `--anonymous-auth` 标志。
+
+<!--
+The main advantage of configuring anonymous authenticator using the authentication
+configuration file is that in addition to enabling and disabling anonymous authentication
+you can also configure which endpoints support anonymous authentication.
+
+A sample authentication configuration file is below:
+-->
+使用身份认证配置文件来配置匿名身份认证模块的主要优点是，
+除了启用和禁用匿名身份认证外，你还可以配置哪些端点支持匿名身份认证。
+
+以下是一个身份认证配置文件示例：
+
+<!--
+```yaml
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this for your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: true
+  conditions:
+  - path: /livez
+  - path: /readyz
+  - path: /healthz
+```
+-->
+```yaml
+---
+#
+# 注意：这是一个示例配置。
+#      请勿将其用于你自己的集群！
+#
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: true
+  conditions:
+  - path: /livez
+  - path: /readyz
+  - path: /healthz
+```
+
+<!--
+In the configuration above only the `/livez`, `/readyz` and `/healthz` endpoints
+are reachable by anonymous requests. Any other endpoints will not be reachable
+even if it is allowed by RBAC configuration.
+-->
+在上述配置中，只有 `/livez`、`/readyz` 和 `/healthz` 端点可以通过匿名请求进行访问。
+即使 RBAC 配置允许进行匿名请求，也不可以访问任何其他端点。
+
+<!--
 ## User impersonation
 
 A user can act as another user through impersonation headers. These let requests
@@ -1815,7 +2122,7 @@ The following HTTP headers can be used to performing an impersonation request:
   此字段可选；要求 "Impersonate-User" 被设置。为了能够以一致的形式保留，
   `<附加名称>`部分必须是小写字符，
   如果有任何字符不是[合法的 HTTP 头部标签字符](https://tools.ietf.org/html/rfc7230#section-3.2.6)，
-  则必须是 utf8 字符，且转换为[百分号编码](https://tools.ietf.org/html/rfc3986#section-2.1)。
+  则必须是 UTF-8 字符，且转换为[百分号编码](https://tools.ietf.org/html/rfc3986#section-2.1)。
 * `Impersonate-Uid`：一个唯一标识符，用来表示所伪装的用户。此头部可选。
   如果设置，则要求 "Impersonate-User" 也存在。Kubernetes 对此字符串没有格式要求。
 
@@ -1929,6 +2236,19 @@ for UIDs, a user should be granted the following role:
 附加字段会被作为 `userextras` 资源的子资源来执行权限评估。
 如果要允许用户为附加字段 “scopes” 和 UID 设置伪装头部，该用户需要被授予以下角色：
 
+<!--
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: scopes-and-uid-impersonator
+rules:
+# Can set "Impersonate-Extra-scopes" header and the "Impersonate-Uid" header.
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras/scopes", "uids"]
+  verbs: ["impersonate"]
+```
+-->
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -1947,6 +2267,38 @@ of `resourceNames` a resource can take.
 -->
 你也可以通过约束资源可能对应的 `resourceNames` 限制伪装头部的取值：
 
+<!--
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: limited-impersonator
+rules:
+# Can impersonate the user "jane.doe@example.com"
+- apiGroups: [""]
+  resources: ["users"]
+  verbs: ["impersonate"]
+  resourceNames: ["jane.doe@example.com"]
+
+# Can impersonate the groups "developers" and "admins"
+- apiGroups: [""]
+  resources: ["groups"]
+  verbs: ["impersonate"]
+  resourceNames: ["developers","admins"]
+
+# Can impersonate the extras field "scopes" with the values "view" and "development"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["userextras/scopes"]
+  verbs: ["impersonate"]
+  resourceNames: ["view", "development"]
+
+# Can impersonate the uid "06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["uids"]
+  verbs: ["impersonate"]
+  resourceNames: ["06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"]
+```
+-->
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -2174,7 +2526,7 @@ users:
       - "arg1"
       - "arg2"
 
-      # 当可执行文件不存在时显示给用户的文本。可选的。
+      # 当可执行文件不存在时显示给用户的文本。可选字段。
       installHint: |
         需要 example-client-go-exec-plugin 来在当前集群上执行身份认证。可以通过以下命令安装：
 
@@ -2317,7 +2669,7 @@ users:
       - "arg1"
       - "arg2"
 
-      # 当可执行文件不存在时显示给用户的文本。可选的。
+      # 当可执行文件不存在时显示给用户的文本。可选字段。
       installHint: |
         需要 example-client-go-exec-plugin 来在当前集群上执行身份认证。可以通过以下命令安装：
 
@@ -2357,7 +2709,6 @@ contexts:
     user: my-user
 current-context: my-cluster
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -2371,6 +2722,17 @@ the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
 `./bin/example-client-go-exec-plugin`，则要执行的可执行文件为
 `/home/jane/bin/example-client-go-exec-plugin`。
 
+<!--
+```yaml
+- name: my-user
+  user:
+    exec:
+      # Path relative to the directory of the kubeconfig
+      command: "./bin/example-client-go-exec-plugin"
+      apiVersion: "client.authentication.k8s.io/v1"
+      interactiveMode: Never
+```
+-->
 ```yaml
 - name: my-user
   user:
@@ -2410,14 +2772,13 @@ to run successfully) is declared via the `user.exec.interactiveMode` field in th
 below for valid values). The `user.exec.interactiveMode` field is optional in `client.authentication.k8s.io/v1beta1`
 and required in `client.authentication.k8s.io/v1`.
 -->
-
 在交互式会话（即，某终端）中运行时，`stdin` 是直接暴露给插件使用的。
 插件应该使用来自 `KUBERNETES_EXEC_INFO` 环境变量的 `ExecCredential`
 输入对象中的 `spec.interactive` 字段来确定是否提供了 `stdin`。
 插件的 `stdin` 需求（即，为了能够让插件成功运行，是否 `stdin` 是可选的、
 必须提供的或者从不会被使用的）是通过
 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-中的 `user.exec.interactiveMode` 来声明的（参见下面的表格了解合法值）。
+中的 `user.exec.interactiveMode` 来申领的（参见下面的表格了解合法值）。
 字段 `user.exec.interactiveMode` 在 `client.authentication.k8s.io/v1beta1`
 中是可选的，在 `client.authentication.k8s.io/v1` 中是必需的。
 
@@ -2440,7 +2801,8 @@ and required in `client.authentication.k8s.io/v1`.
 To use bearer token credentials, the plugin returns a token in the status of the
 [`ExecCredential`](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 -->
-与使用持有者令牌凭据，插件在 [`ExecCredential`](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
+要使用持有者令牌凭据，此插件将在
+[`ExecCredential`](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 的状态中返回一个令牌：
 
 {{< tabs name="exec_plugin_ExecCredential_example_1" >}}
@@ -2597,6 +2959,7 @@ The following `ExecCredential` manifest describes a cluster information sample.
 }
 ```
 {{% /tab %}}
+
 {{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
@@ -2832,8 +3195,11 @@ You can only make `SelfSubjectReview` requests if:
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+* To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
+* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 -->
-* 阅读[客户端认证参考文档（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)。
+* 要了解为用户颁发证书的有关信息，
+  阅读[使用 CertificateSigningRequest 为 Kubernetes API 客户端颁发证书](/zh-cn/docs/tasks/tls/certificate-issue-client-csr/)。
 * 阅读[客户端认证参考文档（v1）](/zh-cn/docs/reference/config-api/client-authentication.v1/)。
+* 阅读[客户端认证参考文档（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/)。

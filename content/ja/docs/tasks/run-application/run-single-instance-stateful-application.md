@@ -70,7 +70,7 @@ Kubernetes Deploymentを作成し、PersistentVolumeClaimを使用して既存�
           Labels:       app=mysql
           Containers:
            mysql:
-            Image:      mysql:5.6
+            Image:      mysql:9
             Port:       3306/TCP
             Environment:
               MYSQL_ROOT_PASSWORD:      password
@@ -125,7 +125,7 @@ Serviceのオプションで`clusterIP: None`を指定すると、ServiceのDNS�
 MySQLクライアントを実行してサーバーに接続します。
 
 ```
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+kubectl run -it --rm --image=mysql:9 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
 このコマンドは、クラスター内にMySQLクライアントを実行する新しいPodを作成し、Serviceを通じてMySQLサーバーに接続します。

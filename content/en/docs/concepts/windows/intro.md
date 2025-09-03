@@ -149,13 +149,12 @@ Some kubelet command line options behave differently on Windows, as described be
 * The `--kube-reserved`, `--system-reserved` , and `--eviction-hard` flags update
   [NodeAllocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 * Eviction by using `--enforce-node-allocable` is not implemented
-* Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
 * When running on a Windows node the kubelet does not have memory or CPU
   restrictions. `--kube-reserved` and `--system-reserved` only subtract from `NodeAllocatable`
   and do not guarantee resource provided for workloads.
   See [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/#resource-reservation)
   for more information.
-* The `MemoryPressure` Condition is not implemented
+* The `PIDPressure` Condition is not implemented
 * The kubelet does not take OOM eviction actions
 
 ### API compatibility {#api}
@@ -234,7 +233,7 @@ work between Windows and Linux:
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
 * `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - [see below](#compatibility-v1-pod-spec-containers-hostnetwork)
+* `hostNetwork` - host networking is not possible on Windows
 * `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
    not supported on Windows because host networking is not provided. Pods always
    run with a container network.
@@ -257,16 +256,12 @@ The following list documents differences between how Pod specifications work bet
 * You cannot enable `mountPropagation` for volume mounts as this is not
   supported on Windows.
 
-#### Field compatibility for hostNetwork {#compatibility-v1-pod-spec-containers-hostnetwork}
+#### Host network access {#compatibility-v1-pod-sec-containers-hostnetwork}
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+Kubernetes v1.26 to v1.32  included alpha support for running Windows Pods in the host's network namespace.
 
-The kubelet can now request that pods running on Windows nodes use the host's network namespace instead
-of creating a new pod network namespace. To enable this functionality pass `--feature-gates=WindowsHostNetwork=true` to the kubelet.
-
-{{< note >}}
-This functionality requires a container runtime that supports this functionality.
-{{< /note >}}
+Kubernetes v{{< skew currentVersion >}} does **not** include the `WindowsHostNetwork` feature gate
+or support for running Windows Pods in the host's network namespace.
 
 #### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
@@ -329,10 +324,10 @@ kernel patch.
 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR)
 is available as a container runtime for all Windows Server 2019 and later versions.
 
-See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
+See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/25.0/install/mcr-windows.html) for more information.
 
 ## Windows OS version compatibility {#windows-os-version-support}
 
@@ -369,7 +364,7 @@ Depending on the requirements for your workload these values may need to be adju
 Refer to
 [Hardware requirements for Windows Server Microsoft documentation](https://learn.microsoft.com/en-us/windows-server/get-started/hardware-requirements)
 for the most up-to-date information on minimum hardware requirements. For guidance on deciding on resources for
-production worker nodes refer to [Production worker nodes Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/#production-worker-nodes).
+production worker nodes refer to [Production worker nodes Kubernetes documentation](/docs/setup/production-environment/#production-worker-nodes).
 
 To optimize system resources, if a graphical user interface is not required,
 it may be preferable to use a Windows Server OS installation that excludes

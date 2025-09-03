@@ -243,7 +243,7 @@ the exact mechanisms for issuing and refreshing those session tokens.
 -->
 你还可以将如上选项的两种或多种进行组合，包括直接使用 Secret 对象本身也是一种选项。
 
-例如：实现（或部署）一个 {{< glossary_tooltip text="operator" term_id="operator-pattern" >}}，
+例如：实现（或部署）一个 {{< glossary_tooltip text="Operator" term_id="operator-pattern" >}}，
 从外部服务取回生命期很短的会话令牌，之后基于这些生命期很短的会话令牌来创建 Secret。
 运行在集群中的 Pod 可以使用这些会话令牌，而 Operator 则确保这些令牌是合法的。
 这种责权分离意味着你可以运行那些不了解会话令牌如何发放与刷新的确切机制的 Pod。
@@ -589,8 +589,8 @@ Secret must contain one of the following two keys:
 `kubernetes.io/basic-auth` 类型用来存放用于基本身份认证所需的凭据信息。
 使用这种 Secret 类型时，Secret 的 `data` 字段必须包含以下两个键之一：
 
-- `username`: 用于身份认证的用户名；
-- `password`: 用于身份认证的密码或令牌。
+- `username`：用于身份认证的用户名；
+- `password`：用于身份认证的密码或令牌。
 
 <!--
 Both values for the above two keys are base64 encoded strings. You can
@@ -981,8 +981,8 @@ the filesystem of one or more of the Pod's containers.
 -->
 ### 在 Pod 以文件形式使用 Secret   {#using-secrets-as-files-from-a-pod}
 
-如果你要在 Pod 中访问来自 Secret 的数据，一种方式是让 Kubernetes 将该 Secret 的值以
-文件的形式呈现，该文件存在于 Pod 中一个或多个容器内的文件系统内。
+如果你要在 Pod 中访问来自 Secret 的数据，一种方式是让 Kubernetes 将该 Secret
+的值以文件的形式呈现，该文件存在于 Pod 中一个或多个容器内的文件系统内。
 
 <!--
 For instructions, refer to
@@ -1139,7 +1139,7 @@ for a detailed explanation of that process.
 你可以手动创建 `imagePullSecret`，并在一个 ServiceAccount 中引用它。
 对使用该 ServiceAccount 创建的所有 Pod，或者默认使用该 ServiceAccount 创建的 Pod
 而言，其 `imagePullSecrets` 字段都会设置为该服务账号。
-请阅读[向服务账号添加 ImagePullSecrets](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
+请阅读[向服务账号添加 ImagePullSecret](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
 来详细了解这一过程。
 
 <!--
@@ -1561,17 +1561,11 @@ Therefore, one Pod does not have access to the Secrets of another Pod.
 <!--
 ### Configure least-privilege access to Secrets
 
-To enhance the security measures around Secrets, Kubernetes provides a mechanism: you can
-annotate a ServiceAccount as `kubernetes.io/enforce-mountable-secrets: "true"`.
-
-For more information, you can refer to the [documentation about this annotation](/docs/concepts/security/service-accounts/#enforce-mountable-secrets).
+To enhance the security measures around Secrets, use separate namespaces to isolate access to mounted secrets.
 -->
 ### 配置 Secret 资源的最小特权访问
 
-为了加强对 Secret 的安全措施，Kubernetes 提供了一种机制：
-你可以为 ServiceAccount 添加 `kubernetes.io/enforce-mountable-secrets: "true"` 注解。
-
-想了解更多信息，你可以参考[此注解的文档](/zh-cn/docs/concepts/security/service-accounts/#enforce-mountable-secrets)。
+为了增强 Secrets 的安全措施，使用单独的命名空间来隔离对挂载 Secret 的访问。
 
 {{< warning >}}
 <!--

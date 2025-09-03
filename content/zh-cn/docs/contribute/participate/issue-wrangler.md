@@ -64,7 +64,7 @@ Each day in a week-long shift the Issue Wrangler will be responsible for:
 
 Below are some commonly used commands for Issue Wranglers:
 -->
-## 对管理者有帮助的 Prow 命令
+## 对管理者有帮助的 Prow 命令  {#helpful-prow-commands-for-wranglers}
 
 以下是 Issue 管理者的一些常用命令：
 
@@ -135,7 +135,7 @@ Below are some commonly used commands for Issue Wranglers:
 # 接受某个 Issue 的归类
 /triage accepted
 
-# 关闭还未处理且未修复的 Issue
+# 关闭将不会处理且尚未修复的 Issue
 /close not-planned
 ```
 

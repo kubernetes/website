@@ -69,9 +69,9 @@ spec:
   type: ClusterIP
 ```
 
-but as it was explained before, the IP address 10.96.0.10 has not been reserved; if other Services are created
-before or in parallel with dynamic allocation, there is a chance they can allocate this IP, hence,
-you will not be able to create the DNS Service because it will fail with a conflict error.
+But, as it was explained before, the IP address 10.96.0.10 has not been reserved.
+If other Services are created before or in parallel with dynamic allocation, there is a chance they can allocate this IP.
+Hence, you will not be able to create the DNS Service because it will fail with a conflict error.
 
 ## How can you avoid Service ClusterIP conflicts? {#avoid-ClusterIP-conflict}
 

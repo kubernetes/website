@@ -72,10 +72,10 @@ to `false`. For example:
    kubectl apply -f https://k8s.io/examples/pods/user-namespaces-stateless.yaml
    ```
 
-1. Attach to the container and run `readlink /proc/self/ns/user`:
+1. Exec into the pod and run `readlink /proc/self/ns/user`:
 
    ```shell
-   kubectl attach -it userns bash
+   kubectl exec -ti userns -- bash
    ```
 
 Run this command:

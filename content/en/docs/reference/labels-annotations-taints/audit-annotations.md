@@ -31,7 +31,7 @@ request used a deprecated API version.
 
 Example: `k8s.io/removed-release: "1.22"`
 
-Value **must** be in the format "<major>.<minor>". It is set to target the removal release
+Value **must** be in the format "\<MAJOR>\.\<MINOR>\". It is set to target the removal release
 on requests made to deprecated API versions with a target removal release.
 
 ## pod-security.kubernetes.io/exempt
@@ -81,11 +81,36 @@ The API server only adds this audit annotation for requests where the total late
 and responding to that request exceeds a threshold; in Kubernetes {{< skew currentVersion >}}
 that threshold is 500ms (half a second).
 
+## apiserver.latency.k8s.io/etcd
+
+Example: `apiserver.latency.k8s.io/etcd: "4.730661757s"`
+
+This annotation indiactes the measure of latency incurred inside the storage layer,
+it accounts for the time it takes to send data to the etcd and get the complete response back.
+
+The value of this audit annotation does not include the time incurred in admission, or validation.
+
+## apiserver.latency.k8s.io/decode-response-object
+
+Example: `apiserver.latency.k8s.io/decode-response-object: "450.6649ns"`
+
+This annotation records the time taken to decode the response received from the storage layer (etcd)
+
+## apiserver.latency.k8s.io/apf-queue-wait
+
+Example: `apiserver.latency.k8s.io/apf-queue-wait: "100ns"`
+
+This annotation records the time that a request spent queued due to API server priorities.
+
+See [API Priority and Fairness](/docs/concepts/cluster-administration/flow-control/) (APF)
+for more information about this mechanism.
+
 ## authorization.k8s.io/decision
 
 Example: `authorization.k8s.io/decision: "forbid"`
 
-This annotation indicates whether or not a request was authorized in Kubernetes audit logs.
+Value must be **forbid** or **allow**. This annotation indicates whether or not a request
+was authorized in Kubernetes audit logs.
 
 See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 

@@ -75,6 +75,37 @@ appending a container name to the command, with a `-c` flag, like so:
 kubectl logs counter -c count
 ```
 
+
+### Container log streams
+
+{{< feature-state feature_gate_name="PodLogsQuerySplitStreams" >}}
+
+As an alpha feature, the kubelet can split out the logs from the two standard streams produced
+by a container: [standard output](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout))
+and [standard error](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)).
+To use this behavior, you must enable the `PodLogsQuerySplitStreams`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+With that feature gate enabled, Kubernetes {{< skew currentVersion >}} allows access to these
+log streams directly via the Pod API. You can fetch a specific stream by specifying the stream name (either `Stdout` or `Stderr`),
+using the `stream` query string. You must have access to read the `log` subresource of that Pod.
+
+To demonstrate this feature, you can create a Pod that periodically writes text to both the standard output and error stream.
+
+{{% code_sample file="debug/counter-pod-err.yaml" %}}
+
+To run this pod, use the following command:
+
+```shell
+kubectl apply -f https://k8s.io/examples/debug/counter-pod-err.yaml
+```
+
+To fetch only the stderr log stream, you can run:
+
+```shell
+kubectl get --raw "/api/v1/namespaces/default/pods/counter-err/log?stream=Stderr"
+```
+
+
 See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs)
 for more details.
 

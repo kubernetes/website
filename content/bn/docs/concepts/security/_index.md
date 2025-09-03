@@ -79,7 +79,8 @@ IaaS প্রদায়ক        | লিঙ্ক |
 আইবিএম ক্লাউড | https://www.ibm.com/cloud/security |
 মাইক্রোসফট আজওর | https://docs.microsoft.com/en-us/azure/security/azure-security |
 অরাকেল ক্লাউড ইন্ফ্রাস্ট্রাকচার | https://www.oracle.com/security |
-VMware vSphere | https://www.vmware.com/security/hardening-guides |
+টেনসেন্ট ক্লাউড | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
+ভিএমওয়্যার ভিস্ফিয়ার | https://www.vmware.com/solutions/security/hardening-guides |
 
 {{< /table >}}
 
@@ -88,7 +89,7 @@ VMware vSphere | https://www.vmware.com/security/hardening-guides |
 আপনি কুবারনেটিস-নেটিভ মেকানিজম ব্যবহার করে নিরাপত্তা পলিসি নির্ধারণ করতে পারেন,
 যেমন [NetworkPolicy](/bn/docs/concepts/services-networking/network-policies/)
 (নেটওয়ার্ক প্যাকেট ফিল্টারিং উপর ঘোষণামূলক কন্ট্রোল) বা
-[ValidatingAdmisisonPolicy](/bn/docs/reference/access-authn-authz/validating-admission-policy/)
+[ValidatingAdmissionPolicy](/bn/docs/reference/access-authn-authz/validating-admission-policy/)
 (কুবারনেটিস API ব্যবহার করে কেউ কী পরিবর্তন করতে পারে তার ঘোষণামূলক সীমাবদ্ধতা)।
 
 তবে, আপনি কুবারনেটিস পরিবেশের চারপাশে পলিসি কার্যান্বয়নে নির্ভর করতে পারেন। কুবারনেটিস এক্সটেনশন মেকানিজম সরবরাহ করে

@@ -89,11 +89,11 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
 * ユースケースに合わせた、既製のオペレーターを[OperatorHub.io](https://operatorhub.io/)から見つけます
 * 自前のオペレーターを書くために既存のツールを使います、例:
   * [Charmed Operator Framework](https://juju.is/)
-  * [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+  * [Java Operator SDK](https://github.com/operator-framework/java-operator-sdk)
   * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
   * [kube-rs](https://kube.rs/) (Rust)
   * [kubebuilder](https://book.kubebuilder.io/)を使います
-  * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
+  * [KubeOps](https://dotnet.github.io/dotnet-operator-sdk/) (dotnet operator SDK)
   * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
   * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)を自分で実装したWebHooksと一緒に使います
   * [Operator Framework](https://operatorframework.io)を使います

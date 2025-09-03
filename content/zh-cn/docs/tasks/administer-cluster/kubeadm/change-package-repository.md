@@ -1,12 +1,12 @@
 ---
 title: 更改 Kubernetes 软件包仓库
 content_type: task
-weight: 120
+weight: 150
 ---
 <!--
 title: Changing The Kubernetes Package Repository
 content_type: task
-weight: 120
+weight: 150
 -->
 
 <!-- overview -->

@@ -5,6 +5,9 @@ reviewers:
 - thockin
 - msau42
 title: Storage Classes
+api_metadata:
+- apiVersion: "storage.k8s.io/v1"
+  kind: "StorageClass"
 content_type: concept
 weight: 40
 ---
@@ -204,28 +207,7 @@ If `nodeName` is used in this case, the scheduler will be bypassed and PVC will 
 Instead, you can use node selector for `kubernetes.io/hostname`:
 {{< /note >}}
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: task-pv-pod
-spec:
-  nodeSelector:
-    kubernetes.io/hostname: kube-01
-  volumes:
-    - name: task-pv-storage
-      persistentVolumeClaim:
-        claimName: task-pv-claim
-  containers:
-    - name: task-pv-container
-      image: nginx
-      ports:
-        - containerPort: 80
-          name: "http-server"
-      volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          name: task-pv-storage
-```
+{{% code_sample language="yaml" file="storage/storageclass/pod-volume-binding.yaml" %}}
 
 ## Allowed topologies
 
@@ -237,22 +219,7 @@ This example demonstrates how to restrict the topology of provisioned volumes to
 zones and should be used as a replacement for the `zone` and `zones` parameters for the
 supported plugins.
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: standard
-provisioner: kubernetes.io/example
-parameters:
-  type: pd-standard
-volumeBindingMode: WaitForFirstConsumer
-allowedTopologies:
-- matchLabelExpressions:
-  - key: topology.kubernetes.io/zone
-    values:
-    - us-central-1a
-    - us-central-1b
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-topology.yaml" %}}
 
 ## Parameters
 
@@ -278,24 +245,23 @@ The Kubernetes project suggests that you use the [AWS EBS](https://github.com/ku
 out-of-tree storage driver instead.
 
 Here is an example StorageClass for the AWS EBS CSI driver:
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.com
-volumeBindingMode: WaitForFirstConsumer
-parameters:
-  csi.storage.k8s.io/fstype: xfs
-  type: io1
-  iopsPerGB: "50"
-  encrypted: "true"
-allowedTopologies:
-- matchLabelExpressions:
-  - key: topology.ebs.csi.aws.com/zone
-    values:
-    - us-east-2c
-```
+
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-aws-ebs.yaml" %}}
+
+`tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes.
+
+### AWS EFS
+
+To configure AWS EFS storage, you can use the out-of-tree [AWS_EFS_CSI_DRIVER](https://github.com/kubernetes-sigs/aws-efs-csi-driver).
+
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-aws-efs.yaml" %}}
+
+- `provisioningMode`: The type of volume to be provisioned by Amazon EFS. Currently, only access point based provisioning is supported (`efs-ap`).
+- `fileSystemId`: The file system under which the access point is created.
+- `directoryPerms`: The directory permissions of the root directory created by the access point.
+
+For more details, refer to the [AWS_EFS_CSI_Driver Dynamic Provisioning](https://github.com/kubernetes-sigs/aws-efs-csi-driver/blob/master/examples/kubernetes/dynamic_provisioning/README.md) documentation.
+
 
 ### NFS
 
@@ -303,17 +269,7 @@ To configure NFS storage, you can use the in-tree driver or the
 [NFS CSI driver for Kubernetes](https://github.com/kubernetes-csi/csi-driver-nfs#readme)
 (recommended).
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: example-nfs
-provisioner: example.com/external-nfs
-parameters:
-  server: nfs-server.example.com
-  path: /share
-  readOnly: "false"
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-nfs.yaml" %}}
 
 - `server`: Server is the hostname or IP address of the NFS server.
 - `path`: Path that is exported by the NFS server.
@@ -423,25 +379,7 @@ This internal provisioner of Ceph RBD is deprecated. Please use
 [CephFS RBD CSI driver](https://github.com/ceph/ceph-csi).
 {{< /note >}}
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: fast
-provisioner: kubernetes.io/rbd
-parameters:
-  monitors: 10.16.153.105:6789
-  adminId: kube
-  adminSecretName: ceph-secret
-  adminSecretNamespace: kube-system
-  pool: kube
-  userId: kube
-  userSecretName: ceph-secret-user
-  userSecretNamespace: default
-  fsType: ext4
-  imageFormat: "2"
-  imageFeatures: "layering"
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-ceph-rbd.yaml" %}}
 
 - `monitors`: Ceph monitors, comma delimited. This parameter is required.
 - `adminId`: Ceph client ID that is capable of creating images in the pool.
@@ -485,17 +423,7 @@ storage driver instead.
 
 ### Azure File (deprecated) {#azure-file}
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: azurefile
-provisioner: kubernetes.io/azure-file
-parameters:
-  skuName: Standard_LRS
-  location: eastus
-  storageAccount: azure_storage_account_name
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-azure-file.yaml" %}}
 
 - `skuName`: Azure storage account SKU tier. Default is empty.
 - `location`: Azure storage account location. Default is empty.
@@ -525,17 +453,7 @@ be read by other users.
 
 ### Portworx volume (deprecated) {#portworx-volume}
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: portworx-io-priority-high
-provisioner: kubernetes.io/portworx-volume
-parameters:
-  repl: "1"
-  snap_interval: "70"
-  priority_io: "high"
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-portworx-volume.yaml" %}}
 
 - `fs`: filesystem to be laid out: `none/xfs/ext4` (default: `ext4`).
 - `block_size`: block size in Kbytes (default: `32`).
@@ -559,14 +477,7 @@ parameters:
 
 ### Local
 
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: local-storage
-provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
-```
+{{% code_sample language="yaml" file="storage/storageclass/storageclass-local.yaml" %}}
 
 Local volumes do not support dynamic provisioning in Kubernetes {{< skew currentVersion >}};
 however a StorageClass should still be created to delay volume binding until a Pod is actually

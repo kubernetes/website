@@ -67,6 +67,22 @@ deletionPolicy: Delete
 parameters:
 ```
 
+If multiple CSI drivers exist, a default VolumeSnapshotClass can be specified
+for each of them.
+
+### VolumeSnapshotClass dependencies
+
+When you create a VolumeSnapshot without specifying a VolumeSnapshotClass, Kubernetes
+automatically selects a default VolumeSnapshotClass that has a CSI driver matching
+the CSI driver of the PVC’s StorageClass.
+
+This behavior allows multiple default VolumeSnapshotClass objects to coexist in a cluster, as long as
+each one is associated with a unique CSI driver.
+
+Always ensure that there is only one default VolumeSnapshotClass for each CSI driver. If
+multiple default VolumeSnapshotClass objects are created using the same CSI driver,
+a VolumeSnapshot creation will fail because Kubernetes cannot determine which one to use.
+
 ### Driver
 
 Volume snapshot classes have a driver that determines what CSI volume plugin is

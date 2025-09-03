@@ -127,12 +127,12 @@ to `false`. For example:
    ```
 
 <!--
-1. Attach to the container and run `readlink /proc/self/ns/user`:
+1. Exec into the pod and run `readlink /proc/self/ns/user`:
 -->
-2. 挂接到容器上并执行 `readlink /proc/self/ns/user`：
+2. 进入一个 Pod 并运行 `readlink /proc/self/ns/user`：
 
    ```shell
-   kubectl attach -it userns bash
+   kubectl exec -ti userns -- bash
    ```
 
 <!--

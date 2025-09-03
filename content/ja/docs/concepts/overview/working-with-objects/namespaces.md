@@ -9,9 +9,6 @@ weight: 45
 Kubernetesは、同一の物理クラスター上で複数の仮想クラスターの動作をサポートします。
 この仮想クラスターをNamespaceと呼びます。
 
-
-
-
 <!-- body -->
 
 ## 複数のNamespaceを使う時
@@ -32,7 +29,7 @@ Namespaceは、複数のユーザーの間でクラスターリソースを分�
 Namespaceの作成と削除方法は[Namespaceの管理ガイドドキュメント](/docs/tasks/administer-cluster/namespaces/)に記載されています。
 
 {{< note >}}
-　　プレフィックス`kube-`を持つNamespaceは、KubernetesシステムのNamespaceとして予約されているため利用は避けてください。
+プレフィックス`kube-`を持つNamespaceは、KubernetesシステムのNamespaceとして予約されているため利用は避けてください。
 {{< /note >}}
 
 ### Namespaceの表示

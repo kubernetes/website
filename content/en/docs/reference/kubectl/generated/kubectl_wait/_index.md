@@ -26,12 +26,12 @@ Experimental: Wait for a specific condition on one or many resources.
 
  The command takes multiple resources and waits until the specified condition is seen in the Status field of every given resource.
 
- Alternatively, the command can wait for the given set of resources to be deleted by providing the "delete" keyword as the value to the --for flag.
+ Alternatively, the command can wait for the given set of resources to be created or deleted by providing the "create" or "delete" keyword as the value to the --for flag.
 
  A successful message will be printed to stdout indicating when the specified condition has been met. You can use -o option to change to output destination.
 
 ```
-kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available|--for=jsonpath='{}'[=value]]
+kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=create|--for=delete|--for condition=available|--for=jsonpath='{}'[=value]]
 ```
 
 ## {{% heading "examples" %}}
@@ -49,8 +49,12 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
   # Wait for pod "busybox1" to be Ready
   kubectl wait --for='jsonpath={.status.conditions[?(@.type=="Ready")].status}=True' pod/busybox1
   
-  # Wait for the service "loadbalancer" to have ingress.
+  # Wait for the service "loadbalancer" to have ingress
   kubectl wait --for=jsonpath='{.status.loadBalancer.ingress}' service/loadbalancer
+  
+  # Wait for the secret "busybox1" to be created, with a timeout of 30s
+  kubectl create secret generic busybox1
+  kubectl wait --for=create secret/busybox1 --timeout=30s
   
   # Wait for the pod "busybox1" to be deleted, with a timeout of 60s, after having issued the "delete" command
   kubectl delete pod/busybox1
@@ -105,7 +109,7 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 <td colspan="2">--for string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The condition to wait on: [delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]. The default condition-value is true.  Condition values are compared after Unicode simple case folding, which is a more general form of case-insensitivity.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The condition to wait on: [create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]]. The default condition-value is true. Condition values are compared after Unicode simple case folding, which is a more general form of case-insensitivity.</p></td>
 </tr>
 
 <tr>
@@ -161,7 +165,7 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 <td colspan="2">--timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 30s</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The length of time to wait before giving up.  Zero means check once and don't wait, negative means wait for a week.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The length of time to wait before giving up. Zero means check once and don't wait, negative means wait for a week.</p></td>
 </tr>
 
 </tbody>
@@ -225,20 +229,6 @@ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a client key file for TLS</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks</p></td>
 </tr>
 
 <tr>

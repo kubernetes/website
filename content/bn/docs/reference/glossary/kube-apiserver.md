@@ -2,7 +2,7 @@
 title: API সার্ভার
 id: kube-apiserver
 date: 2018-04-12
-full_link: /bn/docs/concepts/overview/components/#kube-apiserver
+full_link: /docs/concepts/architecture/#kube-apiserver
 short_description: >
    কন্ট্রোল প্লেন উপাদান যা কুবারনেটিস API পরিবেশন করে।
 

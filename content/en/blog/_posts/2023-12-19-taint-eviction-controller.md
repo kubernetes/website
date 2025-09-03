@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.29: Decoupling taint-manager from node-lifecycle-controller"
+title: "Kubernetes 1.29: Decoupling taint manager from node lifecycle controller"
 date: 2023-12-19
 slug: kubernetes-1-29-taint-eviction-controller
 author: >

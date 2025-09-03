@@ -22,8 +22,30 @@ You need to have installed the {{< glossary_tooltip text="kubeadm" term_id="kube
 following the steps from [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 For each server that you want to use as a {{< glossary_tooltip text="node" term_id="node" >}},
-make sure it allows IPv6 forwarding. On Linux, you can set this by running run
-`sysctl -w net.ipv6.conf.all.forwarding=1` as the root user on each server.
+make sure it allows IPv6 forwarding. 
+
+### Enable IPv6 packet forwarding {#prerequisite-ipv6-forwarding}
+
+To check if IPv6 packet forwarding is enabled:
+
+```bash
+sysctl net.ipv6.conf.all.forwarding
+```
+If the output is `net.ipv6.conf.all.forwarding = 1` it is already enabled. 
+Otherwise it is not enabled yet.
+
+To manually enable IPv6 packet forwarding:
+
+```bash
+# sysctl params required by setup, params persist across reboots
+cat <<EOF | sudo tee -a /etc/sysctl.d/k8s.conf
+net.ipv6.conf.all.forwarding = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
+
 
 You need to have an IPv4 and and IPv6 address range to use. Cluster operators typically
 use private address ranges for IPv4. For IPv6, a cluster operator typically chooses a global
@@ -50,25 +72,26 @@ kubeadm init --pod-network-cidr=10.244.0.0/16,2001:db8:42:0::/56 --service-cidr=
 ```
 
 To make things clearer, here is an example kubeadm
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for the primary dual-stack control plane node.
 
 ```yaml
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 networking:
   podSubnet: 10.244.0.0/16,2001:db8:42:0::/56
   serviceSubnet: 10.96.0.0/16,2001:db8:42:1::/112
 ---
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: "10.100.0.1"
   bindPort: 6443
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.2,fd00:1:2:3::2
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::2"
 ```
 
 `advertiseAddress` in InitConfiguration specifies the IP address that the API Server
@@ -92,11 +115,11 @@ The `--apiserver-advertise-address` flag does not support dual-stack.
 
 Before joining a node, make sure that the node has IPv6 routable network interface and allows IPv6 forwarding.
 
-Here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+Here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for joining a worker node to the cluster.
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 discovery:
   bootstrapToken:
@@ -107,14 +130,15 @@ discovery:
     # change auth info above to match the actual token and CA certificate hash for your cluster
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.3,fd00:1:2:3::3
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::3"
 ```
 
-Also, here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+Also, here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for joining another control plane node to the cluster.
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 controlPlane:
   localAPIEndpoint:
@@ -129,8 +153,8 @@ discovery:
     # change auth info above to match the actual token and CA certificate hash for your cluster
 nodeRegistration:
   kubeletExtraArgs:
-    node-ip: 10.100.0.4,fd00:1:2:3::4
-
+  - name: "node-ip"
+    value: "10.100.0.2,fd00:1:2:3::4"
 ```
 
 `advertiseAddress` in JoinConfiguration.controlPlane specifies the IP address that the
@@ -149,11 +173,11 @@ You can deploy a single-stack cluster that has the dual-stack networking feature
 {{< /note >}}
 
 To make things more clear, here is an example kubeadm
-[configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
+[configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for the single-stack control plane node.
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 networking:
   podSubnet: 10.244.0.0/16
@@ -164,4 +188,4 @@ networking:
 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 * Read about [Dual-stack](/docs/concepts/services-networking/dual-stack/) cluster networking
-* Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta3/)
+* Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta4/)

@@ -66,6 +66,8 @@ all processes within any containers of the Pod. If this field is omitted, the pr
 will be root(0). Any files created will also be owned by user 1000 and group 3000 when `runAsGroup` is specified.
 Since `fsGroup` field is specified, all processes of the container are also part of the supplementary group ID 2000.
 The owner for volume `/data/demo` and any files created in that volume will be Group ID 2000.
+Additionally, when the `supplementalGroups` field is specified, all processes of the container are also part of the
+specified groups. If this field is omitted, it means empty.
 
 Create the Pod:
 
@@ -142,19 +144,217 @@ id
 The output is similar to this:
 
 ```none
-uid=1000 gid=3000 groups=2000
+uid=1000 gid=3000 groups=2000,3000,4000
 ```
 
 From the output, you can see that `gid` is 3000 which is same as the `runAsGroup` field.
 If the `runAsGroup` was omitted, the `gid` would remain as 0 (root) and the process will
 be able to interact with files that are owned by the root(0) group and groups that have
-the required group permissions for the root (0) group.
+the required group permissions for the root (0) group. You can also see that `groups`
+contains the group IDs which are specified by `fsGroup` and `supplementalGroups`,
+in addition to `gid`.
 
 Exit your shell:
 
 ```shell
 exit
 ```
+
+### Implicit group memberships defined in `/etc/group` in the container image
+
+By default, kubernetes merges group information from the Pod with information defined in `/etc/group` in the container image.
+
+{{% code_sample file="pods/security/security-context-5.yaml" %}}
+
+This Pod security context contains `runAsUser`, `runAsGroup` and `supplementalGroups`.
+However, you can see that the actual supplementary groups attached to the container process
+will include group IDs which come from `/etc/group` in the container image.
+
+Create the Pod:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-5.yaml
+```
+
+Verify that the Pod's Container is running:
+
+```shell
+kubectl get pod security-context-demo
+```
+
+Get a shell to the running Container:
+
+```shell
+kubectl exec -it security-context-demo -- sh
+```
+
+Check the process identity:
+
+```shell
+$ id
+```
+
+The output is similar to this:
+
+```none
+uid=1000 gid=3000 groups=3000,4000,50000
+```
+
+You can see that `groups` includes group ID `50000`. This is because the user (`uid=1000`),
+which is defined in the image, belongs to the group (`gid=50000`), which is defined in `/etc/group`
+inside the container image.
+
+Check the `/etc/group` in the container image:
+
+```shell
+$ cat /etc/group
+```
+
+You can see that uid `1000` belongs to group `50000`.
+
+```none
+...
+user-defined-in-image:x:1000:
+group-defined-in-image:x:50000:user-defined-in-image
+```
+
+Exit your shell:
+
+```shell
+exit
+```
+
+{{<note>}}
+_Implicitly merged_ supplementary groups may cause security problems particularly when accessing
+the volumes (see [kubernetes/kubernetes#112879](https://issue.k8s.io/112879) for details).
+If you want to avoid this. Please see the below section.
+{{</note>}}
+
+## Configure fine-grained SupplementalGroups control for a Pod {#supplementalgroupspolicy}
+
+{{< feature-state feature_gate_name="SupplementalGroupsPolicy" >}}
+
+This feature can be enabled by setting the `SupplementalGroupsPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for kubelet and
+kube-apiserver, and setting the `.spec.securityContext.supplementalGroupsPolicy` field for a pod.
+
+The `supplementalGroupsPolicy` field defines the policy for calculating the
+supplementary groups for the container processes in a pod. There are two valid
+values for this field:
+
+* `Merge`: The group membership defined in `/etc/group` for the container's primary user will be merged.
+  This is the default policy if not specified.
+
+* `Strict`: Only group IDs in `fsGroup`, `supplementalGroups`, or `runAsGroup` fields 
+  are attached as the supplementary groups of the container processes.
+  This means no group membership from `/etc/group` for the container's primary user will be merged.
+
+When the feature is enabled, it also exposes the process identity attached to the first container process
+in `.status.containerStatuses[].user.linux` field. It would be useful for detecting if
+implicit group ID's are attached.
+
+{{% code_sample file="pods/security/security-context-6.yaml" %}}
+
+This pod manifest defines `supplementalGroupsPolicy=Strict`. You can see that no group memberships
+defined in `/etc/group` are merged to the supplementary groups for container processes.
+
+Create the Pod:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/security-context-6.yaml
+```
+
+Verify that the Pod's Container is running:
+
+```shell
+kubectl get pod security-context-demo
+```
+
+Check the process identity:
+
+```shell
+kubectl exec -it security-context-demo -- id
+```
+
+The output is similar to this:
+
+```none
+uid=1000 gid=3000 groups=3000,4000
+```
+
+See the Pod's status:
+
+```shell
+kubectl get pod security-context-demo -o yaml
+```
+
+You can see that the `status.containerStatuses[].user.linux` field exposes the process identity
+attached to the first container process.
+
+```none
+...
+status:
+  containerStatuses:
+  - name: sec-ctx-demo
+    user:
+      linux:
+        gid: 3000
+        supplementalGroups:
+        - 3000
+        - 4000
+        uid: 1000
+...
+```
+
+{{<note>}}
+Please note that the values in the `status.containerStatuses[].user.linux` field is _the first attached_
+process identity to the first container process in the container. If the container has sufficient privilege
+to make system calls related to process identity
+(e.g. [`setuid(2)`](https://man7.org/linux/man-pages/man2/setuid.2.html),
+[`setgid(2)`](https://man7.org/linux/man-pages/man2/setgid.2.html) or
+[`setgroups(2)`](https://man7.org/linux/man-pages/man2/setgroups.2.html), etc.),
+the container process can change its identity. Thus, the _actual_ process identity will be dynamic.
+{{</note>}}
+
+### Implementations {#implementations-supplementalgroupspolicy}
+
+{{% thirdparty-content %}}
+
+The following container runtimes are known to support fine-grained SupplementalGroups control.
+
+CRI-level:
+- [containerd](https://containerd.io/), since v2.0
+- [CRI-O](https://cri-o.io/), since v1.31
+
+You can see if the feature is supported in the Node status.
+
+```yaml
+apiVersion: v1
+kind: Node
+...
+status:
+  features:
+    supplementalGroupsPolicy: true
+```
+{{<note>}}
+At this alpha release(from v1.31 to v1.32), when a pod with `SupplementalGroupsPolicy=Strict` are scheduled to a node that does NOT support this feature(i.e. `.status.features.supplementalGroupsPolicy=false`), the pod's supplemental groups policy falls back to the `Merge` policy _silently_.
+
+However, since the beta release (v1.33), to enforce the policy more strictly, __such pod creation will be rejected by kubelet because the node cannot ensure the specified policy__. When your pod is rejected, you will see warning events with `reason=SupplementalGroupsPolicyNotSupported` like below:
+
+```yaml
+apiVersion: v1
+kind: Event
+...
+type: Warning
+reason: SupplementalGroupsPolicyNotSupported
+message: "SupplementalGroupsPolicy=Strict is not supported in this node"
+involvedObject:
+  apiVersion: v1
+  kind: Pod
+  ...
+```
+{{</note>}}
+
 
 ## Configure volume permission and ownership change policy for Pods
 
@@ -192,7 +392,7 @@ securityContext:
 This field has no effect on ephemeral volume types such as
 [`secret`](/docs/concepts/storage/volumes/#secret),
 [`configMap`](/docs/concepts/storage/volumes/#configmap),
-and [`emptydir`](/docs/concepts/storage/volumes/#emptydir).
+and [`emptyDir`](/docs/concepts/storage/volumes/#emptydir).
 {{< /note >}}
 
 ## Delegating volume permission and ownership change to CSI driver
@@ -419,6 +619,56 @@ securityContext:
     localhostProfile: my-profiles/profile-allow.json
 ```
 
+## Set the AppArmor Profile for a Container
+
+To set the AppArmor profile for a Container, include the `appArmorProfile` field
+in the `securityContext` section of your Container. The `appArmorProfile` field
+is a
+[AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version"
+>}}/#apparmorprofile-v1-core) object consisting of `type` and `localhostProfile`.
+Valid options for `type` include `RuntimeDefault`(default), `Unconfined`, and
+`Localhost`. `localhostProfile` must only be set if `type` is `Localhost`. It
+indicates the name of the pre-configured profile on the node. The profile needs
+to be loaded onto all nodes suitable for the Pod, since you don't know where the
+pod will be scheduled. 
+Approaches for setting up custom profiles are discussed in
+[Setting up nodes with profiles](/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles).
+
+Note: If `containers[*].securityContext.appArmorProfile.type` is explicitly set 
+to `RuntimeDefault`, then the Pod will not be admitted if AppArmor is not
+enabled on the Node. However if `containers[*].securityContext.appArmorProfile.type`
+is not specified, then the default (which is also `RuntimeDefault`) will only
+be applied if the node has AppArmor enabled. If the node has AppArmor disabled
+the Pod will be admitted but the Container will not be restricted by the 
+`RuntimeDefault` profile.
+
+Here is an example that sets the AppArmor profile to the node's container runtime
+default profile:
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: RuntimeDefault
+```
+
+Here is an example that sets the AppArmor profile to a pre-configured profile
+named `k8s-apparmor-example-deny-write`:
+
+```yaml
+...
+containers:
+- name: container-1
+  securityContext:
+    appArmorProfile:
+      type: Localhost
+      localhostProfile: k8s-apparmor-example-deny-write
+```
+
+For more details please see, [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/).
+
 ## Assign SELinux labels to a Container
 
 To assign SELinux labels to a Container, include the `seLinuxOptions` field in
@@ -436,6 +686,8 @@ securityContext:
 
 {{< note >}}
 To assign SELinux labels, the SELinux security module must be loaded on the host operating system.
+On Windows and Linux worker nodes without SELinux support, this field and any SELinux feature gates described
+below have no effect.
 {{< /note >}}
 
 ### Efficient SELinux volume relabeling
@@ -446,24 +698,27 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 Kubernetes v1.27 introduced an early limited form of this behavior that was only applicable
 to volumes (and PersistentVolumeClaims) using the `ReadWriteOncePod` access mode.
 
-As an alpha feature, you can enable the `SELinuxMount`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to widen that
-performance improvement to other kinds of PersistentVolumeClaims, as explained in detail
-below.
+Kubernetes v1.33 promotes `SELinuxChangePolicy` and `SELinuxMount`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+as beta to widen that performance improvement to other kinds of PersistentVolumeClaims,
+as explained in detail below. While in beta, `SELinuxMount` is still disabled by default.
 {{< /note >}}
 
-By default, the container runtime recursively assigns SELinux label to all
-files on all Pod volumes. To speed up this process, Kubernetes can change the
+With `SELinuxMount` feature gate disabled (the default in Kubernetes 1.33 and any previous release),
+the container runtime recursively assigns SELinux label to all
+files on all Pod volumes by default. To speed up this process, Kubernetes can change the
 SELinux label of a volume instantly by using a mount option
 `-o context=<label>`.
 
 To benefit from this speedup, all these conditions must be met:
 
-* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
-  and `SELinuxMountReadWriteOncePod` must be enabled.
+* The [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  `SELinuxMountReadWriteOncePod` must be enabled.
 * Pod must use PersistentVolumeClaim with applicable `accessModes` and [feature gates](/docs/reference/command-line-tools-reference/feature-gates/):
   * Either the volume has `accessModes: ["ReadWriteOncePod"]`, and feature gate `SELinuxMountReadWriteOncePod` is enabled.
-  * Or the volume can use any other access modes and both feature gates `SELinuxMountReadWriteOncePod` and `SELinuxMount` must be enabled.
+  * Or the volume can use any other access modes and all feature gates
+    `SELinuxMountReadWriteOncePod`, `SELinuxChangePolicy` and `SELinuxMount` must be enabled
+    and the Pod has `spec.securityContext.seLinuxChangePolicy` either nil (default) or `MountOption`. 
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.
 * The corresponding PersistentVolume must be either:
@@ -472,10 +727,67 @@ To benefit from this speedup, all these conditions must be met:
     The CSI driver must announce that it supports mounting with `-o context` by setting
     `spec.seLinuxMount: true` in its CSIDriver instance.
 
-For any other volume types, SELinux relabelling happens another way: the container
+When any of these conditions is not met, SELinux relabelling happens another way: the container
 runtime  recursively changes the SELinux label for all inodes (files and directories)
-in the volume.
-The more files and directories in the volume, the longer that relabelling takes.
+in the volume. Calling out explicitly, this applies to Kubernetes ephemeral volumes like
+`secret`, `configMap` and `projected`, and all volumes whose CSIDriver instance does not
+explicitly announce mounting with `-o context`.
+
+When this speedup is used, all Pods that use the same applicable volume concurrently on the same node
+**must have the same SELinux label**. A Pod with a different SELinux label will fail to start and will be
+`ContainerCreating` until all Pods with other SELinux labels that use the volume are deleted.
+
+{{< feature-state feature_gate_name="SELinuxChangePolicy" >}}
+For Pods that want to opt-out from relabeling using mount options, they can set
+`spec.securityContext.seLinuxChangePolicy` to `Recursive`. This is required
+when multiple pods share a single volume on the same node, but they run with
+different SELinux labels that allows simultaneous access to the volume. For example, a privileged pod
+running with label `spc_t` and an unprivileged pod running with the default label `container_file_t`.
+With unset `spec.securityContext.seLinuxChangePolicy` (or with the default value `MountOption`),
+only one of such pods is able to run on a node, the other one gets ContainerCreating with error
+`conflicting SELinux labels of volume <name of the volume>: <label of the running pod> and <label of the pod that can't start>`.
+
+#### SELinuxWarningController
+To make it easier to identify Pods that are affected by the change in SELinux volume relabeling,
+a new controller called `SELinuxWarningController` has been introduced in kube-controller-manager.
+It is disabled by default and can be enabled by either setting the `--controllers=*,selinux-warning-controller`
+[command line flag](/docs/reference/command-line-tools-reference/kube-controller-manager/),
+or by setting `genericControllerManagerConfiguration.controllers`
+[field in KubeControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration).
+This controller requires `SELinuxChangePolicy` feature gate to be enabled.
+
+When enabled, the controller observes running Pods and when it detects that two Pods use the same volume
+with different SELinux labels:
+1. It emits an event to both of the Pods. `kubectl describe pod <pod-name>` the shows
+  `SELinuxLabel "<label on the pod>" conflicts with pod <the other pod name> that uses the same volume as this pod
+  with SELinuxLabel "<the other pod label>". If both pods land on the same node, only one of them may access the volume`.
+2. Raise `selinux_warning_controller_selinux_volume_conflict` metric. The metric has both pod
+  names + namespaces as labels to identify the affected pods easily.
+
+A cluster admin can use this information to identify pods affected by the planning change and
+proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.seLinuxChangePolicy: Recursive`).
+
+{{< warning >}}
+We strongly recommend clusters that use SELinux to enable this controller and make sure that
+`selinux_warning_controller_selinux_volume_conflict` metric does not report any conflicts before enabling `SELinuxMount`
+feature gate or upgrading to a version where `SELinuxMount` is enabled by default.
+{{< /warning >}}
+
+#### Feature gates
+
+The following feature gates control the behavior of SELinux volume relabeling:
+
+* `SELinuxMountReadWriteOncePod`: enables the optimization for volumes with `accessModes: ["ReadWriteOncePod"]`.
+  This is a very safe feature gate to enable, as it cannot happen that two pods can share one single volume with
+  this access mode. This feature gate is enabled by default sine v1.28.
+* `SELinuxChangePolicy`: enables `spec.securityContext.seLinuxChangePolicy` field in Pod and related SELinuxWarningController
+  in kube-controller-manager. This feature can be used before enabling `SELinuxMount` to check Pods running on a cluster,
+  and to pro-actively opt-out Pods from the optimization.
+  This feature gate requires `SELinuxMountReadWriteOncePod` enabled. It is beta and enabled by default in 1.33.
+* `SELinuxMount` enables the optimization for all eligible volumes. Since it can break existing workloads, we recommend
+  enabling `SELinuxChangePolicy` feature gate + SELinuxWarningController first to check the impact of the change.
+  This feature gate requires `SELinuxMountReadWriteOncePod` and `SELinuxChangePolicy` enabled. It is beta, but disabled
+  by default in 1.33.
 
 ## Managing access to the `/proc` filesystem {#proc-access}
 

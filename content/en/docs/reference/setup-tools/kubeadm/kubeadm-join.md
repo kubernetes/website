@@ -7,10 +7,10 @@ content_type: concept
 weight: 30
 ---
 <!-- overview -->
-This command initializes a Kubernetes worker node and joins it to the cluster.
+This command initializes a new Kubernetes node and joins it to the existing cluster.
 
 <!-- body -->
-{{< include "generated/kubeadm_join.md" >}}
+{{< include "generated/kubeadm_join/_index.md" >}}
 
 ### The join workflow {#join-workflow}
 
@@ -182,7 +182,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 
 #### Use of custom kubelet credentials with `kubeadm join`
 
-To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
+To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap
 and CSR approval for a new node:
 
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key`
@@ -243,7 +243,7 @@ After that, `kubeadm join` will block until the admin has manually approved the 
    certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
    ```
 
-3. This would change the CRS resource to Active state.
+3. This would change the CSR resource to Active state.
 
    ```shell
    kubectl get csr
@@ -317,7 +317,7 @@ If your configuration is not using the latest version it is **recommended** that
 the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 
 For more information on the fields and usage of the configuration you can navigate to our
-[API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[API reference](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 ## {{% heading "whatsnext" %}}
 

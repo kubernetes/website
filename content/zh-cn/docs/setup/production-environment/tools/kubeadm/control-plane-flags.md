@@ -20,7 +20,7 @@ and kube-proxy you can use `KubeletConfiguration` and `KubeProxyConfiguration`, 
 
 All of these options are possible via the kubeadm configuration API.
 For more details on each field in the configuration you can navigate to our
-[API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
+[API reference pages](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
 本页面介绍了如何自定义 kubeadm 部署的组件。
 你可以使用 `ClusterConfiguration` 结构中定义的参数，或者在每个节点上应用补丁来定制控制平面组件。
@@ -28,7 +28,7 @@ For more details on each field in the configuration you can navigate to our
 
 所有这些选项都可以通过 kubeadm 配置 API 实现。
 有关配置中的每个字段的详细信息，你可以导航到我们的
-[API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/) 。
+[API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/) 。
 
 {{< note >}}
 <!--
@@ -75,10 +75,10 @@ kubeadm `ClusterConfiguration` 对象为用户提供了一种方法，
 - `etcd`
 
 <!--
-These structures contain a common `extraArgs` field, that consists of `key: value` pairs.
+These structures contain a common `extraArgs` field, that consists of `name` / `value` pairs.
 To override a flag for a control plane component:
 -->
-这些结构包含一个通用的 `extraArgs` 字段，该字段由 `key: value` 组成。
+这些结构包含一个通用的 `extraArgs` 字段，该字段由 `name` / `value` 组成。
 要覆盖控制平面组件的参数：
 
 <!--
@@ -135,14 +135,15 @@ Example usage:
 使用示例：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 apiServer:
   extraArgs:
-    anonymous-auth: "false"
-    enable-admission-plugins: AlwaysPullImages,DefaultStorageClass
-    audit-log-path: /home/johndoe/audit.log
+  - name: "enable-admission-plugins"
+    value: "AlwaysPullImages,DefaultStorageClass"
+  - name: "audit-log-path"
+    value: "/home/johndoe/audit.log"
 ```
 
 <!--
@@ -161,13 +162,15 @@ Example usage:
 使用示例：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 controllerManager:
   extraArgs:
-    cluster-signing-key-file: /home/johndoe/keys/ca.key
-    deployment-controller-sync-period: "50"
+  - name: "cluster-signing-key-file"
+    value: "/home/johndoe/keys/ca.key"
+  - name: "deployment-controller-sync-period"
+    value: "50"
 ```
 
 <!--
@@ -186,12 +189,13 @@ Example usage:
 使用示例：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 kubernetesVersion: v1.16.0
 scheduler:
   extraArgs:
-    config: /etc/kubernetes/scheduler-config.yaml
+  - name: "config"
+    value: "/etc/kubernetes/scheduler-config.yaml"
   extraVolumes:
     - name: schedulerconfig
       hostPath: /home/johndoe/schedconfig.yaml
@@ -213,12 +217,13 @@ Example usage:
 使用示例：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
 etcd:
   local:
     extraArgs:
-      election-timeout: 1000
+    - name: "election-timeout"
+      value: 1000
 ```
 <!--
 ## Customizing with patches {#patches}
@@ -239,7 +244,7 @@ Kubeadm 允许将包含补丁文件的目录传递给各个节点上的 `InitCon
 可以使用 `--config <你的 YAML 格式控制文件>` 将配置文件传递给 `kubeadm init`：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: InitConfiguration
 patches:
   directory: /home/user/somedir
@@ -259,7 +264,7 @@ You can pass this file to `kubeadm join` with `--config <YOUR CONFIG YAML>`:
 你可以使用 `--config <你的 YAML 格式配置文件>` 将配置文件传递给 `kubeadm join`：
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta3
+apiVersion: kubeadm.k8s.io/v1beta4
 kind: JoinConfiguration
 patches:
   directory: /home/user/somedir
@@ -343,14 +348,14 @@ For additional details see [Configuring each kubelet in your cluster using kubea
 To customize kube-proxy you can pass a `KubeProxyConfiguration` next your `ClusterConfiguration` or
 `InitConfiguration` to `kubeadm init` separated by `---`.
 
-For more details you can navigate to our [API reference pages](/docs/reference/config-api/kubeadm-config.v1beta3/).
+For more details you can navigate to our [API reference pages](/docs/reference/config-api/kubeadm-config.v1beta4/).
 -->
 ## 自定义 kube-proxy   {#customizing-kube-proxy}
 
 要自定义 kube-proxy，你可以在 `ClusterConfiguration` 或 `InitConfiguration`
 之外添加一个由 `---` 分隔的 `KubeProxyConfiguration`， 传递给 `kubeadm init`。
 
-可以导航到 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)查看更多详情，
+可以导航到 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)查看更多详情，
 
 {{< note >}}
 <!--
