@@ -160,7 +160,7 @@ kubectl describe node <選択したNodeの名前> | grep dongle
 ### アプリケーション開発者向け
 
 * [拡張リソースをコンテナに割り当てる](/ja/docs/tasks/configure-pod-container/extended-resource/)
-* [DRA による拡張リソースの割り当て](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
+* [DRAによる動的リソース割り当て](/ja/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
 ### クラスター管理者向け
 
