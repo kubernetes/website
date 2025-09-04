@@ -377,7 +377,7 @@ reports health information for each device assigned to the container.
 `allocatedResourcesStatus` 字段报告分配给容器的每个设备的健康信息。
 
 <!--
-For a failed Pod, or or where you suspect a fault, you can use this status to understand whether
+For a failed Pod, or where you suspect a fault, you can use this status to understand whether
 the Pod behavior may be associated with device failure. For example, if an accelerator is reporting
 an over-temperature event, the `allocatedResourcesStatus` field may be able to report this.
 -->
