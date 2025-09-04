@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta2"
-  import: "k8s.io/api/resource/v1beta2"
+  apiVersion: "resource.k8s.io/v1"
+  import: "k8s.io/api/resource/v1"
   kind: "DeviceClass"
 content_type: "api_reference"
 description: "DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors."
-title: "DeviceClass v1beta2"
+title: "DeviceClass"
 weight: 2
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1beta2`
+`apiVersion: resource.k8s.io/v1`
 
-`import "k8s.io/api/resource/v1beta2"`
+`import "k8s.io/api/resource/v1"`
 
 
 ## DeviceClass {#DeviceClass}
@@ -34,7 +34,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 
 - **kind**: DeviceClass
@@ -44,7 +44,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
+- **spec** (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
 
   Spec defines what can be allocated and how to configure it.
   
@@ -134,6 +134,12 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
       
       So what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)*
 
+- **extendedResourceName** (string)
+
+  ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+  
+  This is an alpha field.
+
 - **selectors** ([]DeviceSelector)
 
   *Atomic: will be replaced during a merge*
@@ -160,6 +166,8 @@ DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and h
          (e.g. device.attributes["dra.example.com"] evaluates to an object with all
          of the attributes which were prefixed by "dra.example.com".
        - capacity (map[string]object): the device's capacities, grouped by prefix.
+       - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+         (v1.34+ with the DRAConsumableCapacity feature enabled).
       
       Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
       
@@ -192,7 +200,7 @@ DeviceClassList is a collection of classes.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 
 - **kind**: DeviceClassList
@@ -202,7 +210,7 @@ DeviceClassList is a collection of classes.
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>), required
+- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>), required
 
   Items is the list of resource classes.
 
@@ -225,7 +233,7 @@ DeviceClassList is a collection of classes.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+GET /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### Parameters
 
@@ -244,7 +252,7 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
 401: Unauthorized
 
@@ -253,7 +261,7 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/deviceclasses
+GET /apis/resource.k8s.io/v1/deviceclasses
 
 #### Parameters
 
@@ -317,7 +325,7 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassList" >}}">DeviceClassList</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClassList" >}}">DeviceClassList</a>): OK
 
 401: Unauthorized
 
@@ -326,12 +334,12 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1beta2/deviceclasses
+POST /apis/resource.k8s.io/v1/deviceclasses
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>, required
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>, required
 
   
 
@@ -360,11 +368,11 @@ POST /apis/resource.k8s.io/v1beta2/deviceclasses
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Created
 
-202 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Accepted
 
 401: Unauthorized
 
@@ -373,7 +381,7 @@ POST /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+PUT /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### Parameters
 
@@ -383,7 +391,7 @@ PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
   name of the DeviceClass
 
 
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>, required
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>, required
 
   
 
@@ -412,9 +420,9 @@ PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Created
 
 401: Unauthorized
 
@@ -423,7 +431,7 @@ PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+PATCH /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### Parameters
 
@@ -467,9 +475,9 @@ PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Created
 
 401: Unauthorized
 
@@ -478,7 +486,7 @@ PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+DELETE /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### Parameters
 
@@ -522,9 +530,9 @@ DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
-202 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Accepted
 
 401: Unauthorized
 
@@ -533,7 +541,7 @@ DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/deviceclasses
+DELETE /apis/resource.k8s.io/v1/deviceclasses
 
 #### Parameters
 

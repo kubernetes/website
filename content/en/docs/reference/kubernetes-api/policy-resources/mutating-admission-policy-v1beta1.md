@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "admissionregistration.k8s.io/v1alpha1"
-  import: "k8s.io/api/admissionregistration/v1alpha1"
+  apiVersion: "admissionregistration.k8s.io/v1beta1"
+  import: "k8s.io/api/admissionregistration/v1beta1"
   kind: "MutatingAdmissionPolicy"
 content_type: "api_reference"
 description: "MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain."
-title: "MutatingAdmissionPolicy v1alpha1"
+title: "MutatingAdmissionPolicy v1beta1"
 weight: 9
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: admissionregistration.k8s.io/v1alpha1`
+`apiVersion: admissionregistration.k8s.io/v1beta1`
 
-`import "k8s.io/api/admissionregistration/v1alpha1"`
+`import "k8s.io/api/admissionregistration/v1beta1"`
 
 
 ## MutatingAdmissionPolicy {#MutatingAdmissionPolicy}
@@ -32,7 +32,7 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
 <hr>
 
-- **apiVersion**: admissionregistration.k8s.io/v1alpha1
+- **apiVersion**: admissionregistration.k8s.io/v1beta1
 
 
 - **kind**: MutatingAdmissionPolicy
@@ -77,7 +77,7 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
          - If failurePolicy=Ignore, the policy is skipped
 
     <a name="MatchCondition"></a>
-    **
+    *MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.*
 
     - **spec.matchConditions.expression** (string), required
 
@@ -108,7 +108,7 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
       *Atomic: will be replaced during a merge*
       
-      ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+      ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -157,9 +157,9 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
       matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
       
-      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy does not consider requests to apps/v1beta1 or extensions/v1beta1 API groups.
+      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
       
-      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
+      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
       
       Defaults to "Equivalent"
 
@@ -199,13 +199,13 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
 
     - **spec.matchConstraints.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+      ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 
     - **spec.matchConstraints.resourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
       
-      ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+      ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -397,7 +397,7 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, variables must be sorted by the order of first appearance and acyclic.
 
     <a name="Variable"></a>
-    *Variable is the definition of a variable that is used for composition.*
+    *Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.*
 
     - **spec.variables.expression** (string), required
 
@@ -451,7 +451,7 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
 
       *Atomic: will be replaced during a merge*
       
-      ExcludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+      ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -500,9 +500,9 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
 
       matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
       
-      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy does not consider requests to apps/v1beta1 or extensions/v1beta1 API groups.
+      - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
       
-      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
+      - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
       
       Defaults to "Equivalent"
 
@@ -542,13 +542,13 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
 
     - **spec.matchResources.objectSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      ObjectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+      ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
 
     - **spec.matchResources.resourceRules** ([]NamedRuleWithOperations)
 
       *Atomic: will be replaced during a merge*
       
-      ResourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
+      ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
 
       <a name="NamedRuleWithOperations"></a>
       *NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.*
@@ -602,9 +602,11 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
 
     - **spec.paramRef.name** (string)
 
-      `name` is the name of the resource being referenced.
+      name is the name of the resource being referenced.
       
-      `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+      One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+      
+      A single parameter used for all admission requests can be configured by setting the `name` field, leaving `selector` blank, and setting namespace if `paramKind` is namespace-scoped.
 
     - **spec.paramRef.namespace** (string)
 
@@ -620,7 +622,9 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
 
       `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
       
-      Allowed values are `Allow` or `Deny` Default to `Deny`
+      Allowed values are `Allow` or `Deny`
+      
+      Required
 
     - **spec.paramRef.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -644,7 +648,7 @@ MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
 
 <hr>
 
-- **items** ([]<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>), required
 
   List of ValidatingAdmissionPolicy.
 
@@ -679,7 +683,7 @@ MutatingAdmissionPolicyList is a list of MutatingAdmissionPolicy.
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
+GET /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -698,7 +702,7 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
 
 401: Unauthorized
 
@@ -707,7 +711,7 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies
+GET /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
 
 #### Parameters
 
@@ -771,7 +775,7 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1alpha1#MutatingAdmissionPolicyList" >}}">MutatingAdmissionPolicyList</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicyList" >}}">MutatingAdmissionPolicyList</a>): OK
 
 401: Unauthorized
 
@@ -780,12 +784,12 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies
 
 #### HTTP Request
 
-POST /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies
+POST /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>, required
+- **body**: <a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>, required
 
   
 
@@ -814,11 +818,11 @@ POST /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
 
-202 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Accepted
 
 401: Unauthorized
 
@@ -827,7 +831,7 @@ POST /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies
 
 #### HTTP Request
 
-PUT /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
+PUT /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -837,7 +841,7 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
   name of the MutatingAdmissionPolicy
 
 
-- **body**: <a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>, required
+- **body**: <a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>, required
 
   
 
@@ -866,9 +870,9 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -877,7 +881,7 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
 
 #### HTTP Request
 
-PATCH /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
+PATCH /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -921,9 +925,9 @@ PATCH /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{nam
 #### Response
 
 
-200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-binding-v1alpha1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../policy-resources/mutating-admission-policy-v1beta1#MutatingAdmissionPolicy" >}}">MutatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -932,7 +936,7 @@ PATCH /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{nam
 
 #### HTTP Request
 
-DELETE /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{name}
+DELETE /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -987,7 +991,7 @@ DELETE /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies/{na
 
 #### HTTP Request
 
-DELETE /apis/admissionregistration.k8s.io/v1alpha1/mutatingadmissionpolicies
+DELETE /apis/admissionregistration.k8s.io/v1beta1/mutatingadmissionpolicies
 
 #### Parameters
 
