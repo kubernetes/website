@@ -1,6 +1,6 @@
 ---
-linktitle: প্রকাশের ইতিহাস
-title: প্রকাশনাসমূহ
+linktitle: রিলিজের ইতিহাস
+title: রিলিজসমূহ
 type: docs
 layout: release-info
 notoc: true
@@ -22,7 +22,7 @@ notoc: true
 
 <!-- body -->
 
-## প্রকাশের ইতিহাস
+## রিলিজের ইতিহাস
 
 {{< release-data >}}
 
