@@ -18,7 +18,7 @@ weight: 10
 
 - JSONではなくYAMLを使って設定ファイルを書いてください。これらのフォーマットはほとんどすべてのシナリオで互換的に使用できますが、YAMLはよりユーザーフレンドリーになる傾向があります。
 
-- 意味がある場合は常に、関連オブジェクトを単一ファイルにグループ化します。多くの場合、1つのファイルの方が管理が簡単です。例として[guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml)ファイルを参照してください。
+- 意味がある場合は常に、関連オブジェクトを単一ファイルにグループ化します。多くの場合、1つのファイルの方が管理が簡単です。例として[guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml)ファイルを参照してください。
 
 - 多くの`kubectl`コマンドがディレクトリに対しても呼び出せることも覚えておきましょう。たとえば、設定ファイルのディレクトリで `kubectl apply`を呼び出すことができます。
 
