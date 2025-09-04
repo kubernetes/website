@@ -13,17 +13,10 @@ guide. You can file document formatting bugs against the
 ### Synopsis
 
 
-Run all kubelet-finalize phases
+Wait for the control plane to start
 
 ```
-kubeadm init phase kubelet-finalize all [flags]
-```
-
-### Examples
-
-```
-  # Updates settings relevant to the kubelet after TLS bootstrap"
-  kubeadm init phase kubelet-finalize all --config
+kubeadm init phase wait-control-plane [flags]
 ```
 
 ### Options
@@ -36,31 +29,10 @@ kubeadm init phase kubelet-finalize all [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The path where to save and store the certificates.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--dry-run</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for all</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for wait-control-plane</p></td>
 </tr>
 
 </tbody>

@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Generate the manifests for the new control plane components
-
 ### Synopsis
 
 
