@@ -331,7 +331,7 @@ for more details about the calculation. To use container resources for autoscali
 source as follows:
 
 ```yaml
-type: ContainerResource
+type: containerResource
 containerResource:
   name: cpu
   container: application
