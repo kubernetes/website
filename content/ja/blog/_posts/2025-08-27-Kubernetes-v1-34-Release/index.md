@@ -8,7 +8,7 @@ author: >
 translator: >
   [Taisuke Okamoto](https://github.com/b1gb4by) ([PLAID, Inc.](https://plaid.co.jp/)),
   [Kaito Ii](https://github.com/kaitoii11) ([Hewlett Packard Enterprise Co.](https://www.hpe.com/)),
-  [inukai](https://github.com/t-inu)
+  [Toshiaki Inukai](https://github.com/t-inu)
 ---
 
 **編集者:** Agustina Barbetta, Alejandro Josue Leon Bellido, Graziano Casto, Melony Qin, Dipesh Rawat
@@ -39,7 +39,7 @@ Kubernetesを前進させ続けているのは完璧な風ではなく、船員�
 それを構築する人々、リリースする人々、そしてクマ<sup>^</sup>、猫、犬、魔法使い、好奇心に満ちた人々がいるからこそ実現するのです。
 風がどの方向に吹いても、彼らはKubernetesを力強く前進させ続けています。
 
-このリリース「**Of Wind & Will (O' WaW)**」は、私たちを形作ってきた風と、私たちを前進させる意志に敬意を表しています。
+このリリース **Of Wind & Will (O' WaW)** は、私たちを形作ってきた風と、私たちを前進させる意志に敬意を表しています。
 
 <sub>^ なぜクマなのか？ その答えはご想像にお任せします！</sub>
 
@@ -50,15 +50,16 @@ Kubernetes v1.34は新機能と改善点が満載です。
 
 ### GA: DRAのコア機能
 
-[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)(DRA)は、GPU、TPU、NICおよびその他のデバイスを選択、割り当て、共有、設定するための、より強力な方法を提供します。
+[Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/) (DRA)は、GPU、TPU、NICおよびその他のデバイスを選択、割り当て、共有、設定するためのより強力な方法を提供します。
 
 v1.30リリース以降、DRAは構造化パラメーターを使ってデバイスを要求する仕組みを採用しています。
 これらのパラメーターはKubernetesのコアからは直接見えない形で処理されます。
 この設計は、ストレージボリュームの動的プロビジョニングから着想を得ています。
 構造化パラメーターを使用するDRAは、`resource.k8s.io`配下の以下のAPIに依存しています。ResourceClaim、DeviceClass、ResourceClaimTemplate、ResourceSlice。
-また、Podの`.spec`に新しい`resourceClaims`フィールドを追加しています。
+また、Podの`.spec`に新しい`resourceClaims`フィールドを追加しています。  
 
-`resource.k8s.io/v1` APIはGAに昇格し、現在はデフォルトで利用可能です。  
+`resource.k8s.io/v1` APIはGAに昇格し、現在はデフォルトで利用可能です。
+
 この作業はWG Device Managementが主導した[KEP \#4381](https://kep.k8s.io/4381)の一環として行われました。
 
 ### ベータ: `kubelet`イメージ認証プロバイダー向けのProjected ServiceAccountトークン
@@ -75,11 +76,13 @@ v1.30リリース以降、DRAは構造化パラメーターを使ってデバイ
 ### アルファ: KYAML(Kubernetes向けに最適化されたYAML形式)のサポート
 
 KYAMLは、Kubernetes向けに最適化された、より安全で曖昧さの少ないYAMLのサブセットです。
-Kubernetes v1.34以降、どのバージョンのKubernetesを使用していても、kubectlの新しい出力形式としてKYAMLを利用できます。  
+Kubernetes v1.34以降、どのバージョンのKubernetesを使用していても、kubectlの新しい出力形式としてKYAMLを利用できます。
+
 KYAMLは、YAMLとJSONそれぞれが抱える課題を解決します。
 YAMLでは空白文字が重要な意味を持つため、インデントやネストに細心の注意が必要です。
 また、文字列の引用符を省略できることで、予期しない型変換が発生することがあります(例: [「ノルウェー問題」](https://hitchdev.com/strictyaml/why/implicit-typing-removed/))。
-一方、JSONはコメントが書けず、末尾のカンマや引用符付きのキーに関して厳密なルールがあります。  
+一方、JSONはコメントが書けず、末尾のカンマや引用符付きのキーに関して厳密なルールがあります。
+
 KYAMLファイルはすべて有効なYAMLでもあるため、KYAMLで記述したファイルはどのバージョンの`kubectl`にも入力として渡せます。
 v1.34の`kubectl`では、環境変数`KUBECTL_KYAML=true`を設定することで、[KYAML形式での出力](/docs/reference/kubectl/#syntax-1)もリクエストできます(例: `kubectl get -o kyaml ...`)。
 もちろん、従来通りJSONやYAML形式での出力も可能です。
@@ -119,7 +122,7 @@ v1.23でアルファとして導入されたこの機能は、v1.34でGAに昇�
 
 VolumeAttributesClassは、プロビジョニングされたIOなどのボリュームパラメーターを変更するための、汎用的なKubernetesネイティブなAPIです。
 プロバイダーがサポートしている場合、ワークロードがコストとパフォーマンスのバランスを取りながら、稼働中にボリュームを垂直スケーリングできるようになります。  
-Kubernetesの他のすべての新しいボリューム機能と同様に、このAPIは[Container Storage Interface(CSI)](https://kubernetes-csi.github.io/docs/)を介して実装されています。
+Kubernetesの他のすべての新しいボリューム機能と同様に、このAPIは[Container Storage Interface (CSI)](https://kubernetes-csi.github.io/docs/)を介して実装されています。
 この機能を使用するには、お使いのプロビジョナー固有のCSIドライバーが、この機能のCSI側の実装である新しいModifyVolume APIをサポートしている必要があります。
 
 この作業はSIG Storageが主導した[KEP \#3751](https://kep.k8s.io/3751)の一環として行われました。
@@ -170,11 +173,9 @@ Kubernetes v1.34では、ノードごとのリソース分離やカスタムマ�
 ### 順序付けられたNamespace削除
 
 ランダムに近いリソース削除順序は、セキュリティギャップや意図しない動作を引き起こす可能性があります。
-例えば、NetworkPolicyが削除された後もPodが残り続けるといった問題です。
-
+例えば、NetworkPolicyが削除された後もPodが残り続けるといった問題です。  
 この改善により、Kubernetes[名前空間](/docs/concepts/overview/working-with-objects/namespaces/)に対して、より構造化された削除プロセスが導入され、安全で決定的なリソース削除が保証されます。
-論理的な依存関係やセキュリティの依存関係を尊重する削除順序を強制することで、Podが他のリソースよりも先に削除されることが保証されます。
-
+論理的な依存関係やセキュリティの依存関係を尊重する削除順序を強制することで、Podが他のリソースよりも先に削除されることが保証されます。  
 この機能はKubernetes v1.33で導入され、v1.34でGAに昇格しました。
 この昇格により、[CVE-2024-7598](https://github.com/advisories/GHSA-r56h-j38w-hrqq)で説明されている脆弱性を含む、非決定的な削除によるリスクを軽減し、セキュリティと信頼性が向上します。
 
@@ -184,7 +185,7 @@ Kubernetes v1.34では、ノードごとのリソース分離やカスタムマ�
 
 Kubernetesで大規模な**list**応答を処理することは、これまで大きなスケーラビリティの課題でした。
 クライアントが数千のPodやカスタムリソースなどの大規模なリソースリストを要求した場合、APIサーバーは送信前にオブジェクトのコレクション全体を単一の大きなメモリバッファにシリアライズする必要がありました。
-このプロセスは大量のメモリ負荷を生み出し、パフォーマンスの低下を引き起こし、クラスター全体の安定性に影響を与える可能性がありました。
+このプロセスは大量のメモリ負荷を生み出し、パフォーマンスの低下を引き起こし、クラスター全体の安定性に影響を与える可能性がありました。  
 この制限に対処するため、コレクション( **list** 応答)のストリーミングエンコーディングメカニズムが導入されました。
 JSONおよびKubernetes Protobuf応答形式では、このストリーミングメカニズムが自動的に有効になり、関連するフィーチャーゲートはGAとなっています。
 この方法の主な利点は、APIサーバーでの大規模なメモリ割り当てを回避し、メモリフットプリントをより小さく予測可能にすることです。
@@ -216,18 +217,16 @@ Podの`.spec.dnsConfig`の`searches`リストの最初のエントリに単一�
 
 DSRは、ロードバランサーを経由したリターントラフィックがロードバランサーをバイパスしてクライアントに直接応答できるようにすることで、パフォーマンスを最適化します。
 これにより、ロードバランサーの負荷が軽減され、全体的なレイテンシーが改善されます。
-Windows上のDSRの詳細については、[Direct Server Return(DSR) in a nutshell](https://techcommunity.microsoft.com/blog/networkingblog/direct-server-return-dsr-in-a-nutshell/693710)をご覧ください。  
+Windows上のDSRの詳細については、[Direct Server Return (DSR) in a nutshell](https://techcommunity.microsoft.com/blog/networkingblog/direct-server-return-dsr-in-a-nutshell/693710)をご覧ください。  
 v1.14で最初に導入されたこの機能は、v1.34でGAに昇格しました。
 
 この作業はSIG Windowsが主導した[KEP \#5100](https://kep.k8s.io/5100)の一環として行われました。
 
 ### コンテナライフサイクルフックのSleepアクション
 
-コンテナのPreStopおよびPostStartライフサイクルフックにSleepアクションが導入され、安全な終了の管理とコンテナライフサイクル管理全体を改善する簡単な方法が提供されました。
-
+コンテナのPreStopおよびPostStartライフサイクルフックにSleepアクションが導入され、安全な終了の管理とコンテナライフサイクル管理全体を改善する簡単な方法が提供されました。  
 Sleepアクションにより、コンテナは起動後または終了前に指定された時間だけ一時停止できます。
-負の値またはゼロのスリープ時間を使用すると、すぐに戻り、結果的に何も実行しない(no-op)動作となります。
-
+負の値またはゼロのスリープ時間を使用すると、すぐに戻り、結果的に何も実行しない(no-op)動作となります。  
 Sleepアクションは、Kubernetes v1.29で導入され、v1.32でゼロ値のサポートが追加されました。
 両方の機能がv1.34でGAに昇格しました。
 
@@ -348,8 +347,8 @@ Kubernetes v1.34以降、この機能はデフォルトで有効になってい�
 
 ### Mutating Admission Policy
 
-[MutatingAdmissionPolicy](/docs/reference/access-authn-authz/mutating-admission-policy/)は、Mutating Admission Webhookに対する宣言的でプロセス内の代替手段を提供します。  
-この機能はCELのオブジェクトインスタンス化とJSONのパッチ戦略を、Server-Side Applyのマージアルゴリズムと組み合わせて活用します。
+[MutatingAdmissionPolicy](/docs/reference/access-authn-authz/mutating-admission-policy/)は、Mutating Admission Webhookに対する宣言的でプロセス内の代替手段を提供します。
+この機能はCELのオブジェクトインスタンス化とJSONのパッチ戦略を、Server-Side Applyのマージアルゴリズムと組み合わせて活用します。  
 これにより、管理者がAPIサーバー内で直接Mutationルールを定義できるようになり、アドミッション制御が大幅に簡素化されます。  
 v1.32でアルファとして導入されたMutating Admission Policyは、v1.34でベータに昇格しました。
 
@@ -610,9 +609,9 @@ Kubernetesは、コミュニティの支援と献身的な努力によって成�
 これを実現するには、コードそのものからドキュメント作成、プロジェクト管理に至るまで、コミュニティのあらゆる分野の専門スキルが必要です。
 
 私たちは、技術とコミュニティ構築への情熱でKubernetesコミュニティに大きな足跡を残した献身的なコントリビューター、[Rodolfo "Rodo" Martínez Vegaを追悼します](https://github.com/cncf/memorials/blob/main/rodolfo-martinez.md)。
-Rodoは、v1.22-v1.23およびv1.25-v1.30を含む複数のリリースでKubernetesリリースチームのメンバーとして活動し、プロジェクトの成功と安定性に対する揺るぎない献身を示しました。
+Rodoは、v1.22-v1.23およびv1.25-v1.30を含む複数のリリースでKubernetesリリースチームのメンバーとして活動し、プロジェクトの成功と安定性に対する揺るぎない献身を示しました。  
 リリースチームでの活動に加え、RodoはCloud Native LATAMコミュニティの発展に深く関わり、この分野における言語と文化の壁を越える架け橋となりました。
-Kubernetesドキュメントのスペイン語版やCNCF用語集での活動は、世界中のスペイン語話者の開発者に知識を届けたいという彼の強い思いを体現していました。
+Kubernetesドキュメントのスペイン語版やCNCF Glossaryでの活動は、世界中のスペイン語話者の開発者に知識を届けたいという彼の強い思いを体現していました。
 Rodoが指導した数多くのコミュニティメンバー、彼が支えたリリース、そして彼が育んだ活気あるLATAM Kubernetesコミュニティを通じて、彼の遺産は今も生き続けています。
 
 Kubernetes v1.34リリースをコミュニティに届けるために多くの時間を費やして取り組んでくれた[リリースチーム](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.34/release-team.md)全体に感謝します。
