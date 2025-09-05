@@ -2,7 +2,7 @@
 title: Ingress
 id: ingress
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/ingress/
+full_link: /bn/docs/concepts/services-networking/ingress/
 short_description: >
   একটি API অবজেক্ট যা একটি ক্লাস্টারে সার্ভিসগুলিতে এক্সটার্নাল অ্যাক্সেস পরিচালনা করে, সাধারণত HTTP৷
 
