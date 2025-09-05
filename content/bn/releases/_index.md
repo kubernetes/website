@@ -1,6 +1,6 @@
 ---
-linktitle: প্রকাশের ইতিহাস
-title: প্রকাশনাসমূহ
+linktitle: রিলিজের ইতিহাস
+title: রিলিজসমূহ
 type: docs
 layout: release-info
 notoc: true
@@ -22,13 +22,21 @@ notoc: true
 
 <!-- body -->
 
-## প্রকাশের ইতিহাস
+## রিলিজের ইতিহাস
 
 {{< release-data >}}
 
 ## আসন্ন রিলিজ
 
-চেক করুন [সময়সূচী](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
-আসন্ন **{{< skew nextMinorVersion >}}** কুবারনেটিস রিলিজ!
+আসন্ন **{{< skew nextMinorVersion >}}** কুবারনেটস রিলিজের 
+[শিডিউল](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}}) দেখে নিন!
+
+{{< note >}}
+এই শিডিউল লিংকটি প্রাথমিক রিলিজ পরিকল্পনা পর্যায়ে সাময়িকভাবে অ্যাভেইলেবল না-ও থাকতে পারে।
+সর্বশেষ আপডেটের জন্য [SIG Release রিপোজিটরি](https://github.com/kubernetes/sig-release/tree/master/releases)  চেক করুন।
+{{< /note >}}
 
 ## সহায়ক রিসোর্স
+
+রিলিজ প্রক্রিয়া এবং বিভিন্ন ভূমিকা সম্পর্কে গুরুত্বপূর্ণ তথ্যের জন্য 
+[কুবারনেটিস রিলিজ টিমের](https://github.com/kubernetes/sig-release/tree/master/release-team) রিসোর্সগুলো দেখুন।
