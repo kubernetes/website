@@ -8,7 +8,8 @@ author: >
 translator: >
   [Taisuke Okamoto](https://github.com/b1gb4by) ([PLAID, Inc.](https://plaid.co.jp/)),
   [Kaito Ii](https://github.com/kaitoii11) ([Hewlett Packard Enterprise Co.](https://www.hpe.com/)),
-  [Toshiaki Inukai](https://github.com/t-inu)
+  [Toshiaki Inukai](https://github.com/t-inu),
+  [Junya Okabe](https://github.com/Okabe-Junya) (筑波大学)
 ---
 
 **編集者:** Agustina Barbetta, Alejandro Josue Leon Bellido, Graziano Casto, Melony Qin, Dipesh Rawat
@@ -76,13 +77,11 @@ v1.30リリース以降、DRAは構造化パラメーターを使ってデバイ
 ### アルファ: KYAML(Kubernetes向けに最適化されたYAML形式)のサポート
 
 KYAMLは、Kubernetes向けに最適化された、より安全で曖昧さの少ないYAMLのサブセットです。
-Kubernetes v1.34以降、どのバージョンのKubernetesを使用していても、kubectlの新しい出力形式としてKYAMLを利用できます。
-
+Kubernetes v1.34以降、どのバージョンのKubernetesを使用していても、kubectlの新しい出力形式としてKYAMLを利用できます。  
 KYAMLは、YAMLとJSONそれぞれが抱える課題を解決します。
 YAMLでは空白文字が重要な意味を持つため、インデントやネストに細心の注意が必要です。
 また、文字列の引用符を省略できることで、予期しない型変換が発生することがあります(例: [「ノルウェー問題」](https://hitchdev.com/strictyaml/why/implicit-typing-removed/))。
-一方、JSONはコメントが書けず、末尾のカンマや引用符付きのキーに関して厳密なルールがあります。
-
+一方、JSONはコメントが書けず、末尾のカンマや引用符付きのキーに関して厳密なルールがあります。  
 KYAMLファイルはすべて有効なYAMLでもあるため、KYAMLで記述したファイルはどのバージョンの`kubectl`にも入力として渡せます。
 v1.34の`kubectl`では、環境変数`KUBECTL_KYAML=true`を設定することで、[KYAML形式での出力](/docs/reference/kubectl/#syntax-1)もリクエストできます(例: `kubectl get -o kyaml ...`)。
 もちろん、従来通りJSONやYAML形式での出力も可能です。
@@ -99,9 +98,7 @@ v1.34の`kubectl`では、環境変数`KUBECTL_KYAML=true`を設定すること�
 その結果、終了中の古いPodとまだ新しいPodが同時に存在し、両方がリソースを使用する状態になります。
 リソースが限られたクラスターでは、古いPodが完全に終了してリソースを解放するまで、新しいPodが起動できずに待機状態となり、リソースの競合が発生します。
 また、この状況により、クラスターオートスケーラーが不必要にノードを追加してしまうこともあります。
-
 さらに、TensorFlowや[JAX](https://jax.readthedocs.io/en/latest/)などの機械学習フレームワークは、同じインデックスのPodが複数同時に動作することを許可しないため、この同時実行が問題となります。
-
 この機能により、Jobに`.spec.podReplacementPolicy`が導入されます。
 Podが完全に終了した後(`.status.phase: Failed`となった後)にのみ代替Podを作成するよう設定できます。
 これを行うには、`.spec.podReplacementPolicy: Failed`を設定します。  
@@ -119,7 +116,6 @@ v1.23でアルファとして導入されたこの機能は、v1.34でGAに昇�
 ### ボリューム変更のためのVolumeAttributesClass
 
 [VolumeAttributesClass](/docs/concepts/storage/volume-attributes-classes/)がv1.34でGAに昇格しました。
-
 VolumeAttributesClassは、プロビジョニングされたIOなどのボリュームパラメーターを変更するための、汎用的なKubernetesネイティブなAPIです。
 プロバイダーがサポートしている場合、ワークロードがコストとパフォーマンスのバランスを取りながら、稼働中にボリュームを垂直スケーリングできるようになります。  
 Kubernetesの他のすべての新しいボリューム機能と同様に、このAPIは[Container Storage Interface (CSI)](https://kubernetes-csi.github.io/docs/)を介して実装されています。
@@ -132,7 +128,6 @@ Kubernetesの他のすべての新しいボリューム機能と同様に、こ�
 Kubernetes v1.29では、APIサーバーのクライアント認証を管理する新しい方法が導入されました。
 これまで多数のコマンドラインオプションで設定していた認証を、構造化された設定ファイルで管理できるようになりました。
 [AuthenticationConfiguration](/docs/reference/access-authn-authz/authentication/#using-authentication-configuration)という新しいリソースにより、管理者は複数のJWT認証機構の設定、CEL式を使った柔軟な検証ルールの定義、そしてサーバーを再起動することなく設定を動的に再読み込みすることが可能になります。
-
 この変更により、クラスターの認証設定がより管理しやすく、監査しやすくなりました。
 この機能はv1.34でGAに昇格しています。
 
@@ -423,7 +418,6 @@ _これはv1.34リリース後にアルファとなった改善点の一部で�
 効果的ではあるものの、これらのトークンは相互TLS(mTLS)のための強力で検証可能なアイデンティティを確立するには必ずしも理想的ではなく、証明書ベースの認証を期待する外部システムとの統合時に課題が生じることがあります。  
 Kubernetes v1.34では、[PodCertificateRequest](/docs/reference/access-authn-authz/certificate-signing-requests/#pod-certificate-requests)を介してPodがX.509証明書を取得するための組み込みメカニズムが導入されます。
 `kubelet`はPod用の証明書を要求・管理でき、これらの証明書はmTLSを使用してKubernetes APIサーバーや他のサービスへの認証に使用できます。
-
 主な利点は、Podのためのより堅牢で柔軟なアイデンティティメカニズムです。
 Bearerトークンのみに依存することなく、強力なmTLS認証を実装するネイティブな方法を提供し、Kubernetesを標準的なセキュリティプラクティスに合わせ、証明書対応の可観測性やセキュリティツールとの統合を簡素化します。
 
@@ -581,7 +575,7 @@ containerd 1.Xを使用している場合は、早急に2.0以降への切り替
 
 #### `PreferClose`トラフィック分散の非推奨化
 
-Kubernetes [Service](/docs/concepts/services-networking/service/)内の`spec.trafficDistribution`フィールドにより、ユーザーはServiceエンドポイントへのトラフィックのルーティング方法に関する優先設定を指定できます。
+Kubernetes [Service](/docs/concepts/services-networking/service/)内の`spec.trafficDistribution`フィールドにより、ユーザーはServiceエンドポイントへのトラフィックのルーティング方法に関する優先設定を指定できます。  
 
 [KEP-3015](https://kep.k8s.io/3015)では`PreferClose`を非推奨とし、2つの新しい値`PreferSameZone`と`PreferSameNode`を導入します。
 `PreferSameZone`は既存の`PreferClose`のエイリアスで、その意味をより明確にします。
@@ -627,13 +621,12 @@ CNCF K8sの[DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-i
 v1.34リリースサイクル(2025年5月19日から2025年8月27日までの15週間)において、Kubernetesには最大106の異なる企業と491人の個人から貢献がありました。
 より広範なクラウドネイティブエコシステムでは、この数字は370社、合計2235人のコントリビューターに達しています。
 
-なお、「貢献」とはコミットの作成、コードレビュー、コメント、IssueやPRの作成、PRのレビュー(ブログやドキュメントを含む)、またはIssueやPRへのコメントを行うことを指します。
-
+なお、「貢献」とはコミットの作成、コードレビュー、コメント、IssueやPRの作成、PRのレビュー(ブログやドキュメントを含む)、またはIssueやPRへのコメントを行うことを指します。  
 貢献に興味がある場合は、コントリビューター向けWebサイトの[はじめに](https://www.kubernetes.dev/docs/guide/#getting-started)をご覧ください。
 
 データソース:
 
-* [Companies contributing to Kubernetes](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1747609200000&to=1756335599000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)
+* [Companies contributing to Kubernetes](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1747609200000&to=1756335599000&var-period=d28&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes)  
 * [Overall ecosystem contributions](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&from=1747609200000&to=1756335599000&var-period=d28&var-repogroup_name=All&var-repo_name=kubernetes%2Fkubernetes)
 
 ## イベント情報
