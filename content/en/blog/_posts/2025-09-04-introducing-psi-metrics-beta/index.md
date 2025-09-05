@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "PSI Metrics for Kubernetes Graduates to Beta"
+title: "Kubernetes v1.34: PSI Metrics for Kubernetes Graduates to Beta"
 date: 2025-09-04T10:30:00-08:00
 slug: kubernetes-v1-34-introducing-psi-metrics-beta
 author: "Haowei Cai (Google)"
