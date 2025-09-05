@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Recovery From Volume Expansion Failure (GA)"
-date: 2025-0X-XXT09:00:00-08:00
-draft: true
+date: 2025-09-19T10:30:00-08:00
 slug: kubernetes-v1-34-recover-expansion-failure
 author: >
   [Hemant Kumar](https://github.com/gnufied) (Red Hat)

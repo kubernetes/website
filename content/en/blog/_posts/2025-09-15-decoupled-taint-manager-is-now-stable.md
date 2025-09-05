@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Decoupled Taint Manager Is Now Stable"
-draft: true
-date: 2025-XX-XX
+date: 2025-09-15T10:30:00-08:00
 slug: kubernetes-v1-34-decoupled-taint-manager-is-now-stable
 author: >
   Baofa Fan (DaoCloud)

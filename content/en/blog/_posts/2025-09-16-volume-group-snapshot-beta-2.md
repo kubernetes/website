@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Moving Volume Group Snapshots to v1beta2"
-draft: true
-date: 2025-XX-XX
+date: 2025-09-16T10:30:00-08:00
 slug: kubernetes-v1-34-volume-group-snapshot-beta-2
 author: >
    Xing Yang (VMware by Broadcom)

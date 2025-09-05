@@ -1,9 +1,8 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Mutable CSI Node Allocatable Graduates to Beta"
-date: 2025-XX-XX
+date: 2025-09-11T10:30:00-08:00
 slug: kubernetes-v1-34-mutable-csi-node-allocatable-count
-draft: true
 author: Eddie Torres (Amazon Web Services)
 ---
 
