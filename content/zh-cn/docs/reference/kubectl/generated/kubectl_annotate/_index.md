@@ -42,25 +42,25 @@ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=V
 
 <!--
 ```
-  # Update pod 'foo' with the annotation 'description' and the value 'my frontend'
-  # If the same annotation is set multiple times, only the last value will be applied
-  kubectl annotate pods foo description='my frontend'
-  
-  # Update a pod identified by type and name in "pod.json"
-  kubectl annotate -f pod.json description='my frontend'
-  
-  # Update pod 'foo' with the annotation 'description' and the value 'my frontend running nginx', overwriting any existing value
-  kubectl annotate --overwrite pods foo description='my frontend running nginx'
-  
-  # Update all pods in the namespace
-  kubectl annotate pods --all description='my frontend running nginx'
-  
-  # Update pod 'foo' only if the resource is unchanged from version 1
-  kubectl annotate pods foo description='my frontend running nginx' --resource-version=1
-  
-  # Update pod 'foo' by removing an annotation named 'description' if it exists
-  # Does not require the --overwrite flag
-  kubectl annotate pods foo description-
+# Update pod 'foo' with the annotation 'description' and the value 'my frontend'
+# If the same annotation is set multiple times, only the last value will be applied
+kubectl annotate pods foo description='my frontend'
+
+# Update a pod identified by type and name in "pod.json"
+kubectl annotate -f pod.json description='my frontend'
+
+# Update pod 'foo' with the annotation 'description' and the value 'my frontend running nginx', overwriting any existing value
+kubectl annotate --overwrite pods foo description='my frontend running nginx'
+
+# Update all pods in the namespace
+kubectl annotate pods --all description='my frontend running nginx'
+
+# Update pod 'foo' only if the resource is unchanged from version 1
+kubectl annotate pods foo description='my frontend running nginx' --resource-version=1
+
+# Update pod 'foo' by removing an annotation named 'description' if it exists
+# Does not require the --overwrite flag
+kubectl annotate pods foo description-
 ```
 -->
 ```shell
@@ -87,7 +87,7 @@ kubectl annotate pods foo description-
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -103,7 +103,8 @@ kubectl annotate pods foo description-
 Select all resources, in the namespace of the specified resource types.
 -->
 在指定资源类型的命名空间中，选择所有资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -115,7 +116,8 @@ Select all resources, in the namespace of the specified resource types.
 If true, check the specified action in all namespaces.
 -->
 如果为 true，则在所有命名空间中执行指定的操作。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -128,7 +130,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -153,7 +156,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -166,7 +170,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 -->
 过滤所用的选择算符（字段查询），支持 '='、'==' 和 '!='。
 （例如 --field-selector key1=value1,key2=value2）。服务器针对每种类型仅支持有限数量的字段查询。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -178,7 +183,8 @@ Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-
 Filename, directory, or URL to files identifying the resource to update the annotation
 -->
 文件名、目录或文件 URL，用于标识要更新注解的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -190,7 +196,8 @@ Filename, directory, or URL to files identifying the resource to update the anno
 help for annotate
 -->
 annotate 的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -202,7 +209,8 @@ annotate 的帮助命令。
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -434,31 +442,8 @@ kubeconfig 中要使用的集群的名称。
 The name of the kubeconfig context to use
 -->
 kubeconfig 要使用的上下文的名称。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -494,7 +479,23 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>
