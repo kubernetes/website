@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Output a kubeconfig file for an additional user
-
 ### Synopsis
 
 

@@ -103,7 +103,7 @@ users:
 
 DRA uses the following Kubernetes API kinds to provide the core allocation
 functionality. All of these API kinds are included in the
-`resource.k8s.io/v1beta1`
+`resource.k8s.io/v1`
 {{< glossary_tooltip text="API group" term_id="api-group" >}}.
 
 DeviceClass

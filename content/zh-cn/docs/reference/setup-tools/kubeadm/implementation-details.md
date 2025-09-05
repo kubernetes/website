@@ -121,6 +121,7 @@ Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，
   - `super-admin.conf` for the cluster super-admin that can bypass RBAC
 -->
 - `/etc/kubernetes/` 作为带有控制平面组件身份标识的 kubeconfig 文件的路径。kubeconfig 文件的名称为：
+
   - `kubelet.conf`（在 TLS 引导时名称为 `bootstrap-kubelet.conf`）
   - `controller-manager.conf`
   - `scheduler.conf`
@@ -139,6 +140,7 @@ Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，
   - `front-proxy-client.crt`, `front-proxy-client.key` for the front proxy client
 -->
 - 证书和密钥文件的名称：
+
   - `ca.crt`、`ca.key` 用于 Kubernetes 证书颁发机构
   - `apiserver.crt`、`apiserver.key` 用于 API 服务器证书
   - `apiserver-kubelet-client.crt`、`apiserver-kubelet-client.key`
@@ -738,11 +740,6 @@ Other API server flags that are set unconditionally are:
 - Other flags for securing the front proxy
   ([API Aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/))
   communications:
-
-  - `--requestheader-username-headers=X-Remote-User`
-  - `--requestheader-group-headers=X-Remote-Group`
-  - `--requestheader-extra-headers-prefix=X-Remote-Extra-`
-  - `--requestheader-allowed-names=front-proxy-client`
 -->
 - 其他用于保护前端代理（
   [API 聚合层](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)）
@@ -866,7 +863,7 @@ Please note that:
 1. etcd 容器镜像默认从 `registry.gcr.io` 拉取。有关自定义镜像仓库，
    请参阅[使用自定义镜像](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-images)。
 2. 如果你以 `--dry-run` 模式执行 kubeadm 命令，etcd 的静态 Pod 清单将被写入一个临时文件夹。
-3. 你可以使用 ['kubeadm init phase etcd local'](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
+3. 你可以使用 [`kubeadm init phase etcd local`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-etcd)
    命令为本地 etcd 直接调用静态 Pod 清单生成逻辑。
 
 <!--
@@ -1123,7 +1120,7 @@ kubeadm 通过 API 服务器安装内部 DNS 服务器和 kube-proxy 插件。
 This phase can be invoked individually with the command
 [`kubeadm init phase addon all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
 -->
-此步骤可以通过 ['kubeadm init phase addon all'](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
+此步骤可以通过 [`kubeadm init phase addon all`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
 命令单独执行。
 {{< /note >}}
 
@@ -1431,7 +1428,10 @@ upgrades the control plane node where it's run. The steps it performs are:
   for the kubelet to restart the components if the files have changed.
 - Uploads the updated kubeadm and kubelet configurations to the cluster in the `kubeadm-config`
   and the `kubelet-config` ConfigMaps (both in the `kube-system` namespace).
-- Writes updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`.
+- Writes updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`,
+  and read the node's `/var/lib/kubelet/instance-config.yaml` file
+  and patch fields like `containerRuntimeEndpoint`
+  from this instance configuration into `/var/lib/kubelet/config.yaml`. 
 - Configures bootstrap token and the `cluster-info` ConfigMap for RBAC rules. This is the same as
   in the `kubeadm init` stage and ensures that the cluster continues to support nodes joining with bootstrap tokens.
 - Upgrades the kube-proxy and CoreDNS addons conditionally if all existing kube-apiservers in the cluster
@@ -1442,7 +1442,9 @@ upgrades the control plane node where it's run. The steps it performs are:
 - 升级位于磁盘上 `/etc/kubernetes/manifests` 的控制平面清单文件，并在文件发生更改时等待 kubelet 重启组件。
 - 将更新的 kubeadm 和 kubelet 配置上传到 `kubeadm-config` 和 `kubelet-config` ConfigMap
   中（都在 `kube-system` 命名空间内）。
-- 在 `/var/lib/kubelet/config.yaml` 中为此节点写入更新的 kubelet 配置。
+- 在 `/var/lib/kubelet/config.yaml` 中为此节点写入更新的 kubelet 配置，
+  并读取节点的 `/var/lib/kubelet/instance-config.yaml` 文件以及将此实例配置中的
+  `containerRuntimeEndpoint` 等补丁字段写入 `/var/lib/kubelet/config.yaml`。
 - 配置引导令牌和 `cluster-info` ConfigMap 以用于 RBAC 规则。这一操作与 `kubeadm init`
   阶段相同，确保集群继续支持使用引导令牌加入的节点。
 - 如果集群中所有现有的 kube-apiserver 已经升级到目标版本，则根据情况升级 kube-proxy 和 CoreDNS 插件。
@@ -1466,7 +1468,10 @@ infers that there is a running kube-apiserver Pod on this node.
 - Runs preflight checks similarly to `kubeadm upgrade apply`.
 - For control plane nodes, upgrades the control plane manifest files on disk in `/etc/kubernetes/manifests`
   and waits for the kubelet to restart the components if the files have changed.
-- Writes the updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`.
+- Writes updated kubelet configuration for this node in `/var/lib/kubelet/config.yaml`,
+  and read the node's `/var/lib/kubelet/instance-config.yaml` file and
+  patch fields like `containerRuntimeEndpoint`
+  from this instance configuration into `/var/lib/kubelet/config.yaml`.
 - (For control plane nodes) upgrades the kube-proxy and CoreDNS
   {{< glossary_tooltip text="addons" term_id="addons" >}} conditionally, provided that all existing
   API servers in the cluster have already been upgraded to the target version.
@@ -1475,7 +1480,9 @@ infers that there is a running kube-apiserver Pod on this node.
 - 类似于 `kubeadm upgrade apply`，运行预检操作。
 - 对于控制平面节点，升级位于磁盘上 `/etc/kubernetes/manifests` 的控制平面清单文件，
   并在文件发生更改时等待 kubelet 重启组件。
-- 在 `/var/lib/kubelet/config.yaml` 中为此节点写入更新的 kubelet 配置。
+- 在 `/var/lib/kubelet/config.yaml` 中为此节点写入更新的 kubelet 配置，
+  并读取节点的 `/var/lib/kubelet/instance-config.yaml` 文件以及将此实例配置中的
+  `containerRuntimeEndpoint` 等补丁字段写入 `/var/lib/kubelet/config.yaml`。
 - （针对控制平面节点）如果集群中所有现有的 API 服务器已经升级到目标版本，则根据情况升级
   kube-proxy 和 CoreDNS {{< glossary_tooltip text="插件" term_id="addons" >}}。
 - 执行剩下的所有升级后任务，例如清理特定发布版本中废弃的特性。

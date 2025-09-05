@@ -22,7 +22,7 @@ and emits this information in the
 -->
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 在节点、卷、Pod 和容器级别收集统计信息，
-并在[概要 API](zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)
+并在 [Summary API](zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)
 中输出这些信息。
 
 <!--
@@ -31,9 +31,9 @@ Kubernetes API server.
 
 Here is an example of a Summary API request for a node named `minikube`:
 -->
-你可以通过 Kubernetes API 服务器将代理的请求发送到 stats 概要 API。
+你可以通过 Kubernetes API 服务器将代理的请求发送到 stats Summary API。
 
-下面是一个名为 `minikube` 的节点的概要 API 请求示例：
+下面是一个名为 `minikube` 的节点的 Summary API 请求示例：
 
 ```shell
 kubectl get --raw "/api/v1/nodes/minikube/proxy/stats/summary"
@@ -89,25 +89,30 @@ the kubelet [fetches Pod- and container-level metric data using CRI](/docs/refer
 -->
 ## 压力停滞信息（PSI）
 
-{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
 <!--
-As an alpha feature, Kubernetes lets you configure kubelet to collect Linux kernel
+As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
-(PSI) for CPU, memory and IO usage. The information is collected at node, pod and container level.
+(PSI) for CPU, memory and I/O usage. The information is collected at node, pod and container level.
 See [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/) for detailed schema.
-You must enable the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to use this feature. The information is also exposed in
+This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in
 [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
 -->
-作为 Alpha 级别特性，Kubernetes 允许你配置 kubelet 来收集 Linux
+作为 Beta 级别特性，Kubernetes 允许你配置 kubelet 来收集 Linux
 内核的[压力停滞信息](https://docs.kernel.org/accounting/psi.html)（PSI）
-的 CPU、内存和 IO 使用情况。这些信息是在节点、Pod 和容器级别上收集的。
+的 CPU、内存和 I/O 使用情况。这些信息是在节点、Pod 和容器级别上收集的。
 详细模式请参见 [Summary API](/zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)。
-你必须启用 `KubeletPSI`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此特性。
+此特性默认启用，通过 `KubeletPSI`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)管理。
 这些信息也在
 [Prometheus 指标](/zh-cn/docs/concepts/cluster-administration/system-metrics#psi-metrics)中暴露。
+
+<!--
+You can learn how to interpret the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
+-->
+参见[了解 PSI 指标](/zh-cn/docs/reference/instrumentation/understand-psi-metrics/)，
+学习如何解读 PSI 指标。
 
 <!--
 ### Requirements

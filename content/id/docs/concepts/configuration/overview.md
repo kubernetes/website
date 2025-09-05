@@ -21,7 +21,7 @@ Dokumentasi ini terbuka. Jika Anda menemukan sesuatu yang tidak ada dalam daftar
 
 - Tulis file konfigurasi Anda menggunakan YAML tidak dengan JSON. Meskipun format ini dapat digunakan secara bergantian di hampir semua skenario, YAML cenderung lebih ramah pengguna.
 
-- Kelompokkan objek terkait ke dalam satu file yang memungkinkan. Satu file seringkali lebih mudah dikelola daripada beberapa file. Lihat pada [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml) sebagai contoh file sintaks ini.
+- Kelompokkan objek terkait ke dalam satu file yang memungkinkan. Satu file seringkali lebih mudah dikelola daripada beberapa file. Lihat pada [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml) sebagai contoh file sintaks ini.
 
 - Perhatikan juga bahwa banyak perintah `kubectl` dapat dipanggil pada direktori. Misalnya, Anda dapat memanggil `kubectl apply` pada direktori file konfigurasi.
 

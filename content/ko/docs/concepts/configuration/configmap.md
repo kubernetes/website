@@ -174,7 +174,7 @@ spec:
       readOnly: true
   volumes:
   - name: foo
-    configmap:
+    configMap:
       name: myconfigmap
 ```
 

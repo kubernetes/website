@@ -2,7 +2,7 @@
 title: Install Drivers and Allocate Devices with DRA
 content_type: tutorial
 weight: 60
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 ---
 <!-- FUTURE MAINTAINERS: 
 The original point of this doc was for people (mainly cluster administrators) to
@@ -55,9 +55,9 @@ new fields in the Pod spec itself.
 ## {{% heading "prerequisites" %}}
 
 Your cluster should support [RBAC](/docs/reference/access-authn-authz/rbac/).
-You can try this tutorial with a cluster using
-a different authorization mechanism, but in that case you will have to adapt the
-steps around defining roles and permissions.
+You can try this tutorial with a cluster using a different authorization
+mechanism, but in that case you will have to adapt the steps around defining
+roles and permissions.
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -66,27 +66,9 @@ other types of nodes.
 
  {{< version-check >}}
 
-Your cluster also must be configured to use the Dynamic Resource Allocation
-feature.
-To enable the DRA feature, you must enable the following feature gates and API groups:
-
-1.  Enable the `DynamicResourceAllocation`
-    [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-    on all of the following components:
-   
-    * `kube-apiserver`
-    * `kube-controller-manager`
-    * `kube-scheduler`
-    * `kubelet`
-
-1.  Enable the following
-    {{< glossary_tooltip text="API groups" term_id="api-group" >}}:
-
-    * `resource.k8s.io/v1beta1`
-    * `resource.k8s.io/v1beta2`
-     
-    For more information, see
-    [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
+If your cluster is not currently running Kubernetes {{< skew currentVersion
+>}} then please check the documentation for the version of Kubernetes that you
+plan to use.
 
 
 <!-- lessoncontent -->
@@ -174,7 +156,7 @@ dra-example-driver to simulate access to a DRA driver image.
 from within one of your cluster's nodes:
 
     ```shell
-    docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.1.0
+    docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.2.0
     ```
 
 ### Deploy the DRA driver components
@@ -363,7 +345,7 @@ variables to see how the Pods have been handled by the system.
 
     The output is similar to this:
     ```
-    declare -x GPU_DEVICE_4="gpu-4"
+    declare -x GPU_DEVICE_0="gpu-0"
     ```
 
 1.  Check the state of the ResourceClaim object:
@@ -391,54 +373,48 @@ variables to see how the Pods have been handled by the system.
     ```
 
     The output is similar to this:
-    {{< highlight yaml "linenos=inline, hl_lines=30-33 41-44, style=emacs" >}}
-    apiVersion: v1
-    items:
-    - apiVersion: resource.k8s.io/v1beta2
-      kind: ResourceClaim
-      metadata:
-        creationTimestamp: "2025-07-29T05:11:52Z"
+    {{< highlight yaml "linenos=inline, hl_lines=27-30 38-41, style=emacs" >}}
+    apiVersion: resource.k8s.io/v1
+    kind: ResourceClaim
+    metadata:
+        creationTimestamp: "2025-08-20T18:17:31Z"
         finalizers:
         - resource.kubernetes.io/delete-protection
         name: some-gpu
         namespace: dra-tutorial
-        resourceVersion: "58357"
-        uid: 79e1e8d8-7e53-4362-aad1-eca97678339e
-      spec:
+        resourceVersion: "2326"
+        uid: d3e48dbf-40da-47c3-a7b9-f7d54d1051c3
+    spec:
         devices:
-          requests:
-          - exactly:
-              allocationMode: ExactCount
-              count: 1
-              deviceClassName: gpu.example.com
-              selectors:
-              - cel:
-                  expression: device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi'))
+            requests:
+            - exactly:
+                allocationMode: ExactCount
+                count: 1
+                deviceClassName: gpu.example.com
+                selectors:
+                - cel:
+                    expression: device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi'))
                     >= 0
             name: some-gpu
-      status:
+    status:
         allocation:
-          devices:
+            devices:
             results:
-            - adminAccess: null
-              device: gpu-4
-              driver: gpu.example.com
-              pool: kind-worker
-              request: some-gpu
-          nodeSelector:
+            - device: gpu-0
+                driver: gpu.example.com
+                pool: kind-worker
+                request: some-gpu
+            nodeSelector:
             nodeSelectorTerms:
             - matchFields:
-              - key: metadata.name
+                - key: metadata.name
                 operator: In
                 values:
                 - kind-worker
         reservedFor:
         - name: pod0
-          resource: pods
-          uid: fa55b59b-d28d-4f7d-9e5b-ef4c8476dff5
-    kind: List
-    metadata:
-      resourceVersion: ""
+            resource: pods
+            uid: c4dadf20-392a-474d-a47b-ab82080c8bd7
     {{< /highlight >}}
 
 1.  To check how the driver handled device allocation, get the logs for the
@@ -450,8 +426,8 @@ variables to see how the Pods have been handled by the system.
 
     The output is similar to this:
     ```
-    I0729 05:11:52.679057       1 driver.go:84] NodePrepareResource is called: number of claims: 1
-    I0729 05:11:52.684450       1 driver.go:112] Returning newly prepared devices for claim '79e1e8d8-7e53-4362-aad1-eca97678339e': [&Device{RequestNames:[some-gpu],PoolName:kind-worker,DeviceName:gpu-4,CDIDeviceIDs:[k8s.gpu.example.com/gpu=common k8s.gpu.example.com/gpu=79e1e8d8-7e53-4362-aad1-eca97678339e-gpu-4],}]
+    I0820 18:17:44.131324       1 driver.go:106] PrepareResourceClaims is called: number of claims: 1
+    I0820 18:17:44.135056       1 driver.go:133] Returning newly prepared devices for claim 'd3e48dbf-40da-47c3-a7b9-f7d54d1051c3': [{[some-gpu] kind-worker gpu-0 [k8s.gpu.example.com/gpu=common k8s.gpu.example.com/gpu=d3e48dbf-40da-47c3-a7b9-f7d54d1051c3-gpu-0]}]
     ```
 
 You have now successfully deployed a Pod that claims devices using DRA, verified
@@ -503,7 +479,7 @@ ResourceClaim has a `pending` state until it's referenced in a new Pod.
     ```
     The output is similar to this:
     ```
-    I0729 05:13:02.144623       1 driver.go:117] NodeUnPrepareResource is called: number of claims: 1
+    I0820 18:22:15.629376       1 driver.go:138] UnprepareResourceClaims is called: number of claims: 1
     ```
 
 You have now deleted a Pod that had a claim, and observed that the driver took
