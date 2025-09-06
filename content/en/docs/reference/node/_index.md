@@ -17,6 +17,8 @@ This section contains the following reference topics about nodes:
 
 * [Node `.status` information](/docs/reference/node/node-status/)
 
+* [Linux Node Swap Behaviors](/docs/reference/node/swap-behavior/)
+
 * [Seccomp information](/docs/reference/node/seccomp/)
 
 You can also read node reference details from elsewhere in the
