@@ -176,7 +176,7 @@ kubectl delete namespace default-mem-example
 
 ### クラスター管理者向け
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [ネームスペースのデフォルトのCPU要求と制限を設定する](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
 * [Namespaceに対する最小および最大メモリー制約の構成](/ja/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
