@@ -260,8 +260,8 @@ Esta é uma lista incompleta de coisas que podem dar errado e como ajustar a con
     - pods e services existentes devem continuar funcionando normalmente, a menos que dependam da API do Kubernetes
 - Armazenamento de apoio do servidor de API perdido
   - Resultados
-    - o componente kube-apiserver falha ao iniciar com sucesso e se tornar saudável
-    - kubelets não conseguirão alcançá-lo, mas continuarão a executar os mesmos pods e fornecer o mesmo proxy de service
+    - o componente kube-apiserver falha ao iniciar com sucesso e se tornar íntegro
+    - kubelets não conseguirão alcançá-lo, mas continuarão a executar os mesmos pods e fornecer o mesmo proxy de serviço
     - recuperação manual ou recriação do estado do servidor de API necessária antes que o servidor de API seja reiniciado
 - Desligamento ou falha de VM dos serviços de apoio (controlador de nó, gerenciador de replication controller, agendador, etc)
   - atualmente eles estão colocalizados com o servidor de API, e sua indisponibilidade tem consequências similares ao servidor de API
