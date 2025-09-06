@@ -224,7 +224,7 @@ status:
 
 ## Examinando logs
 
-Por enquanto, investigar mais profundamente o cluster requer fazer login nas máquinas relevantes. Aqui estão as localizações
+Por enquanto, investigar mais profundamente o cluster requer fazer login nas máquinas relevantes. Veja abaixo as localizações
 dos arquivos de log relevantes. Em sistemas baseados em systemd, você pode precisar usar `journalctl` ao invés de examinar arquivos de log.
 
 ### Nós da camada de gerenciamento
