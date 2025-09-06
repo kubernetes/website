@@ -19,7 +19,7 @@ Para solução de problemas do {{<glossary_tooltip text="kubectl" term_id="kubec
 
 ## Listando seu cluster
 
-A primeira coisa a depurar no seu cluster é se todos os seus nós (nodes) estão registrados corretamente.
+A primeira coisa a depurar no seu cluster é se todos os seus nós estão registrados corretamente.
 
 Execute o seguinte comando:
 
