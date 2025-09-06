@@ -70,7 +70,7 @@ Un [*Deployment*](/docs/concepts/workloads/controllers/deployment/) en Kubernete
 1. Ejecutar el comando `kubectl create` para crear un Deployment que maneje un Pod. El Pod ejecuta un contenedor basado en la imagen proveida por Docker.
 
     ```shell
-    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. Ver el Deployment:
