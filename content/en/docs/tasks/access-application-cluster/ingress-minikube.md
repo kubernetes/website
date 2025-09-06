@@ -32,7 +32,7 @@ If you are using an older Kubernetes version, switch to the documentation for th
 
 ### Create a minikube cluster
 
-If you haven't already set up a cluster locally, run `minikube start` to create a cluster.
+If you have already set up a cluster locally, run `minikube start` to create a cluster.
 
 
 <!-- steps -->
@@ -262,6 +262,8 @@ The following manifest defines an Ingress that sends traffic to your Service via
      minikube ip 
    ``` 
    <br>
+
+   The output is similar to:
 
    ```none
      172.17.0.15 hello-world.example
