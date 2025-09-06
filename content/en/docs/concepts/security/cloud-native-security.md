@@ -41,7 +41,7 @@ To achieve this, you can:
    that minimizes attack surfaces, even for internal threats.
 1. Define a code review process that considers security concerns.
 1. Build a _threat model_ of your system or application that identifies
-   trust boundaries. Use that to model to identify risks and to help find
+   trust boundaries. Use that model to identify risks and to help find
    ways to treat those risks.
 1. Incorporate advanced security automation, such as _fuzzing_ and
    [security chaos engineering](https://glossary.cncf.io/security-chaos-engineering/),
