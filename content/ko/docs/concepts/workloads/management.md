@@ -254,9 +254,9 @@ kubectl edit deployment/my-nginx
 백그라운드에서 선언적으로 업데이트한다. 이는 업데이트되는 동안 특정 수의 이전 복제본만 
 중단되고, 원하는 수의 파드 위에 특정 수의 새 복제본만 생성되도록 
 보장한다. 어떻게 동작하는지 더 많은 정보를 배우기 위해,
-[디플로이먼트](/docs/concepts/workloads/controllers/deployment/)을 방문한다.
+[디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)을 방문한다.
 
-데몬셋(DaemonSet), 디플로이먼트(Deployment), 또는 스테이트풀셋(StatefulSet)에서 롤아웃을 사용할 수 있다.
+데몬셋(DaemonSet), 디플로이먼트, 또는 스테이트풀셋(StatefulSet)에서 롤아웃을 사용할 수 있다.
 
 ### 롤아웃 관리하기
 
@@ -360,7 +360,7 @@ metadata:
 ...
 ```
 
-자세한 내용은 [어노테이션](/docs/concepts/overview/working-with-objects/annotations/)과
+자세한 내용은 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)과
 [kubectl annotate](/docs/reference/kubectl/generated/kubectl_annotate/)을 참고한다.
 
 ## 애플리케이션 스케일링하기
@@ -429,7 +429,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 deployment.apps/my-nginx configured
 ```
 
-기본 메커니즘에 대해 자세히 알아보려면, [서버측 적용](/docs/reference/using-api/server-side-apply/)을 읽어보자.
+기본 메커니즘에 대해 자세히 알아보려면, [서버 측 적용](/docs/reference/using-api/server-side-apply/)을 읽어보자.
 
 ### kubectl edit
 
