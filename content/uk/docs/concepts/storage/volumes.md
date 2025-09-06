@@ -225,8 +225,6 @@ spec:
 Ви повинні налаштувати зону FC SAN, щоб виділити та приховати ці LUN (томи) для WWN цілей заздалегідь, щоб хости Kubernetes могли до них отримувати доступ.
 {{< /note >}}
 
-Дивіться [приклад fibre channel](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) для отримання докладнішої інформації.
-
 ### gcePersistentDisk (застаріло) {#gcepersistentdisk}
 
 У Kubernetes {{< skew currentVersion >}}, всі операції з типом `gcePersistentDisk` будуть перенаправлені на драйвер `pd.csi.storage.gke.io` {{< glossary_tooltip text="CSI" term_id="csi" >}}.
@@ -481,8 +479,6 @@ spec:
 
 Особливістю iSCSI є те, що його можна монтувати як тільки для читання одночасно багатьма споживачами. Це означає, що ви можете наперед наповнити том своїми даними та потім надавати їх паралельно зі стількох Podʼів, скільки вам потрібно. На жаль, томи iSCSI можна монтувати тільки одним споживачем у режимі читання-запису. Одночасні операції запису не допускаються.
 
-Докладніше дивіться у [прикладі iSCSI](https://github.com/kubernetes/examples/tree/master/volumes/iscsi).
-
 ### local
 
 Обʼєкт `local` представляє собою підключений локальний пристрій зберігання, такий як диск, розділ чи теку.
@@ -562,8 +558,6 @@ spec:
 Також враховуйте, що ви не можете вказувати параметри монтування NFS у специфікації Podʼа. Ви можете встановлювати параметри монтування на боці сервера або використовувати [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html). Ви також можете монтувати томи NFS через PersistentVolumes, які дозволяють вам встановлювати параметри монтування.
 {{< /note >}}
 
-Дивіться [приклад NFS](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) для прикладу монтування томів NFS з PersistentVolumes.
-
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 Обʼєкт `persistentVolumeClaim` використовується для монтування [PersistentVolume](/docs/concepts/storage/persistent-volumes/) в Pod. PersistentVolumeClaim є способом для користувачів "вимагати" надійне сховище (наприклад, том iSCSI) без знання деталей конкретного хмарного середовища.
@@ -601,8 +595,6 @@ spec:
 {{< note >}}
 Переконайтеся, що існує том Portworx з іменем `pxvol`, перш ніж використовувати його в Podʼі.
 {{< /note >}}
-
-Докладніше дивіться [приклади томів Portworx](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md).
 
 #### Міграція на Portworx CSI {#portworx-csi-migration}
 

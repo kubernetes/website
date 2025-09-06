@@ -1,5 +1,3 @@
-Налаштовує токен bootstrap та правила cluster-info RBAC
-
 ### Опис {#synopsis}
 
 Налаштовує токен bootstrap та правила cluster-info RBAC

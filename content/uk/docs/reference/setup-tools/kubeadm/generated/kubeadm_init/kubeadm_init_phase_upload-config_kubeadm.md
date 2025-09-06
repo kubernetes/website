@@ -1,6 +1,3 @@
-
-Завантажує kubeadm ClusterConfiguration у ConfigMap
-
 ### Опис {#synopsis}
 
 Завантажує конфігурацію кластера kubeadm ClusterConfig до ConfigMap з назвою kubeadm-config у просторі імен kube-system. Це дозволить правильно конфігурувати компоненти системи та спростить роботу користувачів під час оновлення.

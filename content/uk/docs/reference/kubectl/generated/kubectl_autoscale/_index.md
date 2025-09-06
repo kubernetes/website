@@ -13,7 +13,7 @@ no_list: true
 Шукає deployment, replica set, stateful set або контролер реплікації за назвою і створює автомасштабувальник, який використовує даний ресурс як зразок. Автомасштабувальник може автоматично збільшувати або зменшувати кількість розгорнутих у системі Podʼів за потребою.
 
 ```shell
-kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]
+kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu=CPU] [--memory=MEMORY]
 ```
 
 ## {{% heading "examples" %}}
@@ -26,7 +26,13 @@ kubectl autoscale deployment foo --min=2 --max=10
 
 # Автоматично масштабувати контролер реплікації "foo" з кількістю Podʼів від
 # 1 до 5, цільове використання CPU на рівні 80%
-kubectl autoscale rc foo --max=5 --cpu-percent=80
+kubectl autoscale rc foo --max=5 --cpu=80%
+
+# Автоматично масштабувати deployment "bar" з кількістю Podʼів від 3 до 6, цільове середнє використання CPU на рівні 500m та памʼяті 200Mi
+kubectl autoscale deployment bar --min=3 --max=6 --cpu=500m --memory=200Mi
+
+# Автоматично масштабувати deployment "bar" з кількістю Podʼів від 2 до 8, цільове використання CPU на рівні 60% та памʼяті 70%
+kubectl autoscale deployment bar --min=3 --max=6 --cpu=60% --memory=70%
 ```
 
 ## {{% heading "options" %}}
@@ -45,11 +51,11 @@ kubectl autoscale rc foo --max=5 --cpu-percent=80
             <td style="line-height: 130%; word-wrap: break-word;"><p>Якщо true, ігнорувати будь-які помилки в шаблонах, коли в шаблоні відсутнє поле або ключ map. Застосовується лише до форматів виводу golang та jsonpath.</p></td>
         </tr>
         <tr>
-            <td colspan="2">--cpu-percent int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: -1</td>
+            <td colspan="2">--cpu string</td>
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Цільове середнє використання CPU (представлене у відсотках від запитуваного CPU) для всіх Podʼів. Якщо він не вказаний або відʼємний, буде використано стандартну політику автомасштабування.</p></td>
+            <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Цільове використання процесора для всіх подів. Якщо вказано у відсотках (наприклад, &quot;70%&quot; для 70% від запитуваного CPU), буде вказано середнє значення використання. Якщо вказано як кількість (наприклад, &quot;500m&quot; для 500 міліCPU), це буде середнє значення. Значення без одиниць виміру розглядається як кількість, одиницею якої є miliCPU (наприклад, &quot;500&quot; — це &quot;500m&quot;).</p></td>
         </tr>
         <tr>
             <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: "none"</td>
@@ -92,6 +98,13 @@ kubectl autoscale rc foo --max=5 --cpu-percent=80
         <tr>
             <td></td>
             <td style="line-height: 130%; word-wrap: break-word;"><p>Верхня межа для кількості Podʼів, яку може встановити автомасштабування. Обовʼязково.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2">--memory string</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Цільове використання памʼяті для всіх podʼів. Коли вказано у відсотках (наприклад, &quot;60%&quot; для 60% запитуваної памʼяті), воно буде націлене на середнє використання. Коли вказано як кількість (наприклад, &quot;200Mi&quot; для 200 MiB, &quot;1Gi&quot; для 1 GiB), воно буде націлене на середнє значення. Значення без одиниць розглядається як кількість з меібібайтами як одиницею (наприклад, &quot;200&quot; є &quot;200Mi&quot;).</p></td>
         </tr>
         <tr>
             <td colspan="2">--min int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: -1</td>
@@ -217,20 +230,6 @@ kubectl autoscale rc foo --max=5 --cpu-percent=80
             <td style="line-height: 130%; word-wrap: break-word;"><p>Назва контексту kubeconfig, який слід використовувати</p></td>
         </tr>
         <tr>
-            <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: 300</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Вказує tolerationSeconds для toleration notReady:NoExecute, який типово додається до кожного Pod, який ще не має такої толерантності.</p></td>
-        </tr>
-        <tr>
-            <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: 300</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Вказує tolerationSeconds для toleration unreachable:NoExecute, який типово додається до кожного Pod, який ще не має такої толерантності.</p></td>
-        </tr>
-        <tr>
             <td colspan="2">--disable-compression</td>
         </tr>
         <tr>
@@ -250,6 +249,13 @@ kubectl autoscale rc foo --max=5 --cpu-percent=80
         <tr>
             <td></td>
             <td style="line-height: 130%; word-wrap: break-word;"><p>Шлях до файлу kubeconfig, який слід використовувати для CLI-запитів.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2">--kuberc string</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Шлях до файлу kuberc, який буде використовуватися для налаштувань. Цю функцію можна вимкнути, експортувавши функцію KUBECTL_KUBERC=false або вимкнувши функцію KUBERC=off.</p></td>
         </tr>
         <tr>
             <td colspan="2">--match-server-version</td>

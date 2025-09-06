@@ -9,6 +9,8 @@ author: >
   Kristin Martin,
   Abigail McCarthy,
   Natali Vlatko
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 ## Швидкий огляд: зміни у Kubernetes v1.30 {#a-quick-look-exciting-changes-in-kubernetes-v1.30}

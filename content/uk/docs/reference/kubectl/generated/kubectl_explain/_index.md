@@ -66,7 +66,7 @@ kubectl explain deployment --output=plaintext-openapiv2
             <td style="line-height: 130%; word-wrap: break-word;"><p>Довідка explain</p></td>
         </tr>
         <tr>
-            <td colspan="2">--output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: "plaintext"</td>
+            <td colspan="2">-o,--output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: "plaintext"</td>
         </tr>
         <tr>
             <td></td>
@@ -154,20 +154,6 @@ kubectl explain deployment --output=plaintext-openapiv2
             <td style="line-height: 130%; word-wrap: break-word;"><p>Назва контексту kubeconfig, який слід використовувати</p></td>
         </tr>
         <tr>
-            <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: 300</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Вказує tolerationSeconds для toleration notReady:NoExecute, який типово додається до кожного Pod, який ще не має такої толерантності.</p></td>
-        </tr>
-        <tr>
-            <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: 300</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Вказує tolerationSeconds для toleration unreachable:NoExecute, який типово додається до кожного Pod, який ще не має такої толерантності.</p></td>
-        </tr>
-        <tr>
             <td colspan="2">--disable-compression</td>
         </tr>
         <tr>
@@ -187,6 +173,13 @@ kubectl explain deployment --output=plaintext-openapiv2
         <tr>
             <td></td>
             <td style="line-height: 130%; word-wrap: break-word;"><p>Шлях до файлу kubeconfig, який слід використовувати для CLI-запитів.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2">--kuberc string</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Шлях до файлу kuberc, який буде використовуватися для налаштувань. Цю функцію можна вимкнути, експортувавши функцію KUBECTL_KUBERC=false або вимкнувши функцію KUBERC=off.</p></td>
         </tr>
         <tr>
             <td colspan="2">--match-server-version</td>

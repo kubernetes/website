@@ -1,6 +1,3 @@
-
-Витягує образи які використовує kubeadm з реєстру
-
 ### Опис {#synopsis}
 
 Витягує образи які використовує kubeadm з реєстру
@@ -38,10 +35,10 @@ kubeadm config images pull [flags]
             <td></td>
             <td style="line-height: 130%; word-wrap: break-word;"><p>Набір пар ключ=значення, що описують ворота функцій для різних можливостей. Варіанти:<br/>
             ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
-            NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
+            NodeLocalCRISocket=true|false (BETA - default=true)<br/>
             PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
             RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-            WaitForAllControlPlaneComponents=true|false (BETA - default=true)</p></td>
+            WaitForAllControlPlaneComponents=true|false (default=true)</p></td>
         </tr>
         <tr>
             <td colspan="2">-h, --help</td>

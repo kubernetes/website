@@ -5,6 +5,8 @@ slug: endpoints-deprecation
 date: 2025-04-24T10:30:00-08:00
 author: >
   Dan Winship (Red Hat)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 Відтоді як [EndpointSlices] ([KEP-752]) з’явились у версії v1.15 як alpha, а згодом стали стабільними (GA) у v1.21, API Endpoints у Kubernetes поступово втрачало актуальність. Нові можливості Service, як-от [dual-stack networking] та [traffic distribution], підтримуються лише через API EndpointSlice, тож усі проксі-сервери сервісів, реалізації Gateway API та подібні контролери мусили перейти від використання Endpoints до EndpointSlices. Станом на сьогодні API Endpoints зберігається здебільшого задля сумісності — щоб не ламати робочі навантаження та скрипти користувачів, які досі його використовують.

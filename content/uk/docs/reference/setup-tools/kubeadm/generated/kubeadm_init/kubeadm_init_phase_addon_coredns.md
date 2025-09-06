@@ -38,10 +38,10 @@ kubeadm init phase addon coredns [flags]
             <td></td>
             <td style="line-height: 130%; word-wrap: break-word;"><p>Набір пар ключ=значення, що описують функціональні можливості для різних функцій. Опції:<br/>
             ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
-            NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
+            NodeLocalCRISocket=true|false (BETA - default=true)<br/>
             PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
             RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-            WaitForAllControlPlaneComponents=true|false (BETA - default=true)</p></td>
+            WaitForAllControlPlaneComponents=true|false (default=true)</p></td>
         </tr>
         <tr>
             <td colspan="2">-h, --help</td>

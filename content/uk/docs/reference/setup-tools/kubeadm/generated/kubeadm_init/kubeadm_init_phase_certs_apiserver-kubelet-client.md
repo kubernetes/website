@@ -1,6 +1,3 @@
-
-Генерує сертифікати для сервера API для зʼєднання з kubelet
-
 ### Опис {#synopsis}
 
 Генерує сертифікати для сервера API для зʼєднання з kubelet та зберігає їх у файлах apiserver-kubelet-client.crt та apiserver-kubelet-client.key.

@@ -4,6 +4,8 @@ title: "Kubernetes v1.33: Томи Image (Image Volumes) переходять в
 date: 2025-04-29T10:30:00-08:00
 slug: kubernetes-v1-33-image-volume-beta
 author: Sascha Grunert (Red Hat)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 [Томи Image](/blog/2024/08/16/kubernetes-1-31-image-volume-source) було представлено як альфа фіункціонал в Kubernetes v1.31, як частину [KEP-4639](https://github.com/kubernetes/enhancements/issues/4639). В Kubernetes v1.33, ця функція переходить в стан **бета**.

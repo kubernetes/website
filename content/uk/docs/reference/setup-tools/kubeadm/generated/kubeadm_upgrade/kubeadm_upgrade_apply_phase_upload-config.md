@@ -1,5 +1,3 @@
-Завантаження конфігурацій kubeadm та kubelet до ConfigMaps
-
 ### Опис {#synopsis}
 
 Завантаження конфігурацій kubeadm та kubelet до ConfigMaps

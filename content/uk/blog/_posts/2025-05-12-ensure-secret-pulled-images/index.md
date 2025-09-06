@@ -6,6 +6,8 @@ slug: kubernetes-v1-33-ensure-secret-pulled-images-alpha
 author: >
   [Ben Petersen](https://github.com/benjaminapetersen) (Microsoft),
   [Stanislav Láznička](https://github.com/stlaz) (Microsoft)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 ## Image Pull Policy працює так, як ви завжди вважали! {#image-pull-policy-the-way-you-always-thought-it-worked}

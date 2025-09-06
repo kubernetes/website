@@ -1,6 +1,3 @@
-
-Оновлює надбудову kube-proxy
-
 ### Опис {#synopsis}
 
 Оновлює надбудову kube-proxy

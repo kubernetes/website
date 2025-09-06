@@ -5,6 +5,8 @@ date: 2025-08-28T10:30:00-08:00
 slug: kubernetes-v1-34-kubectl-kuberc-beta
 Author: >
   [Maciej Szulik](https://github.com/soltysh) (Defense Unicorns, Inc.)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 Чи хотіли ви будь-коли, щоб ви могли мати стандартно увімкнене [інтерактивне видалення](https://kep.k8s.io/3895) у `kubectl`? Або, можливо, ви хочете визначити власні псевдоніми, але не обовʼязково [генерувати сотні з них вручну](https://github.com/ahmetb/kubectl-aliases)? Шукайте далі. [SIG-CLI](https://git.k8s.io/community/sig-cli/) наполегливо працює над додаванням [налаштувань користувача до kubectl](https://kep.k8s.io/3104), і ми раді оголосити, що ця функціональність досягає бета-версії в рамках випуску Kubernetes v1.34.

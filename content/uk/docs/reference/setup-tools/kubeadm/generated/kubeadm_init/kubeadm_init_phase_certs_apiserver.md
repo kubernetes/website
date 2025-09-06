@@ -1,6 +1,3 @@
-
-Генерує сертифікати для обслуговування API Kubernetes
-
 ### Опис {#synopsis}
 
 Генерує сертифікати для обслуговування API Kubernetes та зберігає їх у файли apiserver.crt та apiserver.key.

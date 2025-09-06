@@ -1,6 +1,3 @@
-
-Завантажує конфігурації kubeadm та kubelet у ConfigMap
-
 ### Опис {#synopsis}
 
 Завантажує конфігурації kubeadm та kubelet у ConfigMap

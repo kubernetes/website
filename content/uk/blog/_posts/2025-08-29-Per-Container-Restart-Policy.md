@@ -5,6 +5,8 @@ date: 2025-08-29T10:30:00-08:00
 slug: kubernetes-v1-34-per-container-restart-policy
 author: >
   [Yuan Wang](https://github.com/yuanwang04)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 З виходом Kubernetes 1.34, було представлено нову альфа-функцію, яка надає більш детальний контроль над перезапусками контейнерів у межах Pod. Ця функція, названа **Container Restart Policy and Rules**, дозволяє вам вказати політику перезапуску для кожного контейнера окремо, перевизначаючи глобальну політику перезапуску Podʼа. Крім того, вона також дозволяє перезапускати окремі контейнери на основі їх кодів виходу. Ця функція доступна за альфа-функціональною можливістю `ContainerRestartRules`.
@@ -129,7 +131,7 @@ spec:
 
 ## Дізнайтеся більше {#learn-more}
 
-- Ознайомтеся з документацією про [політику перезапуску контейнерів](/docs/concepts/workloads/pod-lifecycle/#container-restart-rules).
+- Ознайомтеся з документацією про [політику перезапуску контейнерів](/docs/concepts/workloads/pods/pod-lifecycle/#container-restart-rules).
 - Ознайомтеся з KEP для [правил перезапуску контейнерів](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/5307-container-restart-policy)
 
 ## Плани {#roadmap}

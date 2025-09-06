@@ -84,6 +84,13 @@ kubectl top pod -l name=myLabel
             <td style="line-height: 130%; word-wrap: break-word;"><p>Селектор (запит на мітки) для фільтрації, що підтримує '=', '==', '!=', 'in', 'notin' (наприклад, -l key1=value1,key2=value2,key3 in (value3)). Обʼєкти, щоб мати збіг, повинні задовольняти усім зазначеним обмеженням міток.</p></td>
         </tr>
         <tr>
+            <td colspan="2">--show-swap</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Виводить інформацію про ресурси вузла повʼязані зі своп-памʼяттю.</p></td>
+        </tr>
+        <tr>
             <td colspan="2">--sort-by string</td>
         </tr>
         <tr>
@@ -179,20 +186,6 @@ kubectl top pod -l name=myLabel
             <td style="line-height: 130%; word-wrap: break-word;"><p>Назва контексту kubeconfig, який слід використовувати</p></td>
         </tr>
         <tr>
-            <td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: 300</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Вказує tolerationSeconds для toleration notReady:NoExecute, який типово додається до кожного Pod, який ще не має такої толерантності.</p></td>
-        </tr>
-        <tr>
-            <td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: 300</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Вказує tolerationSeconds для toleration unreachable:NoExecute, який типово додається до кожного Pod, який ще не має такої толерантності.</p></td>
-        </tr>
-        <tr>
             <td colspan="2">--disable-compression</td>
         </tr>
         <tr>
@@ -212,6 +205,13 @@ kubectl top pod -l name=myLabel
         <tr>
             <td></td>
             <td style="line-height: 130%; word-wrap: break-word;"><p>Шлях до файлу kubeconfig, який слід використовувати для CLI-запитів.</p></td>
+        </tr>
+        <tr>
+            <td colspan="2">--kuberc string</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Шлях до файлу kuberc, який буде використовуватися для налаштувань. Цю функцію можна вимкнути, експортувавши функцію KUBECTL_KUBERC=false або вимкнувши функцію KUBERC=off.</p></td>
         </tr>
         <tr>
             <td colspan="2">--match-server-version</td>

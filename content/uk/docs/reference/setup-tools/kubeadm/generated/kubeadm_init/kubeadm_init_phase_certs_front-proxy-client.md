@@ -1,6 +1,3 @@
-
-Генерує сетритфікати для клієнта front proxy
-
 ### Опис {#synopsis}
 
 Генерує сертифікати для клієнта front proxy, та зберігає їх у файлах front-proxy-client.crt та front-proxy-client.key.

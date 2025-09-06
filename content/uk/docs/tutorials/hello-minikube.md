@@ -84,7 +84,7 @@ minikube dashboard --url
 
    ```shell
    # Запустіть тестовий образ контейнера, який містить вебсервер
-   kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
+   kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
    ```
 
 1. Перевірте, чи створено Deployment.

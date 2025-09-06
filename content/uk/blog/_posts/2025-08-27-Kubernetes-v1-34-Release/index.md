@@ -6,6 +6,8 @@ evergreen: true
 slug: kubernetes-v1-34-release
 author: >
   [Команда випуску Kubernetes v1.34](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.34/release-team.md)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 **Редактори:** Agustina Barbetta, Alejandro Josue Leon Bellido, Graziano Casto, Melony Qin, Dipesh Rawat
@@ -443,7 +445,7 @@ Kubernetes можливий лише завдяки підтримці, відд
 
 - [**KCD — Дні спільноти Kubernetes: Порту**](https://community.cncf.io/events/details/cncf-kcd-porto-presents-kcd-porto-2025/): 3 листопада 2025 року | Порту, Португалія
 - [**KubeCon + CloudNativeCon Північна Америка 2025**](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/): 10-13 листопада 2025 року | Атланта, США
-- [**KCD — Дні спільноти Kubernetes: Ханчжоу**](https://sessionize.com/kcd-hangzhou-and-oicd-2025/): 14 листопада 2025 року | Ханчжоу, Китай
+- [**KCD — Дні спільноти Kubernetes: Ханчжоу**](https://sessionize.com/kcd-hangzhou-and-oicd-2025/): 15 листопада 2025 року | Ханчжоу, Китай
 
 **Грудень 2025**
 

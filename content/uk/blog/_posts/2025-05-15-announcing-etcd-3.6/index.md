@@ -6,6 +6,8 @@ slug: announcing-etcd-3.6
 author: >
   Benjamin Wang (VMware by Broadcom)
 canonicalUrl: "https://etcd.io/blog/2025/announcing-etcd-3.6/"
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 _Це оголошення спочатку було [опубліковане](https://etcd.io/blog/2025/announcing-etcd-3.6/) в блозі etcd._

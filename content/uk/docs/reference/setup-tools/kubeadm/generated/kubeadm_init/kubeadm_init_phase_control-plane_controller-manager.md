@@ -1,6 +1,3 @@
-
-Генерує маніфест статичного Podʼа для kube-controller-manager
-
 ### Опис {#synopsis}
 
 Генерує маніфест статичного Podʼа для kube-controller-manager

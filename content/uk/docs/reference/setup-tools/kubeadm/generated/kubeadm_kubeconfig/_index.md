@@ -1,6 +1,3 @@
-
-Файлові утиліти Kubeconfig
-
 ### Опис {#synopsis}
 
 Файлові утиліти Kubeconfig.

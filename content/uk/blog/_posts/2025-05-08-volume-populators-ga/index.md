@@ -6,6 +6,8 @@ slug: kubernetes-v1-33-volume-populators-ga
 author: >
   Danna Wang (Google)
   Sunny Song (Google)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 _Заповнювачі томів_ у Kubernetes тепер загальнодоступні (GA)! Функціональна можливість `AnyVolumeDataSource` вважається увімкненою у Kubernetes v1.33, що означає, що користувачі можуть вказати будь-який відповідний [власний ресурс](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources) в якості джерела даних для PersistentVolumeClaim (PVC).

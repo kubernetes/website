@@ -61,6 +61,11 @@ spec:
     - "stress"
     - "--cpus"
     - "1"
+    resources:
+      limits:
+        cpu: "500m"
+      requests:
+        cpu: "500m"
 ```
 
 Застосуйте його до вашого кластера: `kubectl apply -f cpu-pressure-pod.yaml`
@@ -87,7 +92,7 @@ kubectl get --raw "/api/v1/nodes/<node-name>/proxy/stats/summary" | jq '.pods[] 
 ```shell
 # Замініть <node-name> на імʼя вузла, на якому працює Pod
 kubectl get --raw "/api/v1/nodes/<node-name>/proxy/metrics/cadvisor" | \
-    grep 'container_pressure_cpu_waiting_seconds_total{container="cpu-stress",pod="cpu-pressure-pod"}'
+    grep 'container_pressure_cpu_waiting_seconds_total{container="cpu-stress"}'
 ```
 
 Вихідні дані повинні показувати зростаюче значення, що вказує на те, що контейнер витрачає час на блокування в очікуванні ресурсів CPU.
@@ -146,7 +151,7 @@ kubectl get --raw "/api/v1/nodes/<node-name>/proxy/stats/summary" | jq '.pods[] 
 ```shell
 # Замініть <node-name> на імʼя вузла, на якому працює Pod
 kubectl get --raw "/api/v1/nodes/<node-name>/proxy/metrics/cadvisor" | \
-    grep 'container_pressure_memory_waiting_seconds_total{container="memory-stress",pod="memory-pressure-pod"}'
+    grep 'container_pressure_memory_waiting_seconds_total{container="memory-stress"}'
 ```
 
 У виводі ви спостерігатимете зростання значення метрики, що вказує на те, що система зазнає значного тиску на памʼять.
@@ -200,7 +205,7 @@ kubectl get --raw "/api/v1/nodes/<node-name>/proxy/stats/summary" | jq '.pods[] 
 ```shell
 # Замініть <node-name> на імʼя вузла, на якому працює Pod
 kubectl get --raw "/api/v1/nodes/<node-name>/proxy/metrics/cadvisor" | \
-    grep 'container_pressure_io_waiting_seconds_total{container="io-stress",pod="io-pressure-pod"}'
+    grep 'container_pressure_io_waiting_seconds_total{container="io-stress"}'
 ```
 
 Ви побачите, що значення метрики зростає, оскільки Pod безперервно записує на диск.

@@ -2,7 +2,7 @@
 title: Встановлення драйверів та виділення пристроїв з DRA
 content_type: tutorial
 weight: 60
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 ---
 <!-- МАЙБУТНІМ СУПРОВОДЖУВАЧАМ:
 Початкова мета цього документа полягала в тому, щоб люди (в основному адміністратори кластера) зрозуміли важливість драйвера DRA та його взаємодію з API DRA. В результаті цього для цього навчального посібника було вимогою не використовувати Helm і бути більш прямолінійним з усіма процедурами встановлення компонентів. Хоча багато з цього вмісту також корисно для авторів робочих навантажень, я бачу основну аудиторію _цього_ посібника як адміністраторів кластера, які, на мою думку, також повинні розуміти, як API DRA взаємодіють з драйвером для їх належного обслуговування. Якби мені довелося вибирати, на якій аудиторії зосередитися в цьому документі, я б вибрав адміністраторів кластера. Якщо текст стає занадто заплутаним через врахування обох аудиторій, я б краще створив другий посібник для авторів робочих навантажень, який взагалі не зачіпає драйвер (оскільки, на мою думку, це більше відповідає тому, яким ми думаємо має бути їхній досвід) і також потенційно розглядає більш детальні/ ✨ цікаві ✨ випадки використання.
@@ -19,6 +19,7 @@ min-kubernetes-server-version: v1.32
 <!-- objectives -->
 
 ### {{% heading "objectives" %}}
+
 * Розгорнути приклад драйвера DRA
 * Розгорнути Pod, що виконує заявку на апаратні ресурси за допомогою API DRA
 * Видалити Pod, який має заявку
@@ -34,21 +35,7 @@ min-kubernetes-server-version: v1.32
 
  {{< version-check >}}
 
-Ваш кластер також повинен бути налаштований на використання функції Динамічного виділення ресурсів. Щоб увімкнути функцію DRA, ви повинні активувати наступні функціональні можливості та групи API:
-
-1.  Увімкніть функціональну можливість `DynamicResourceAllocation` [докладніше](/docs/reference/command-line-tools-reference/feature-gates/) на всіх з наступних компонентів:
-
-    * `kube-apiserver`
-    * `kube-controller-manager`
-    * `kube-scheduler`
-    * `kubelet`
-
-1.  Увімкніть наступні {{< glossary_tooltip text="групи API" term_id="api-group" >}}:
-
-    * `resource.k8s.io/v1beta1`
-    * `resource.k8s.io/v1beta2`
-
-    Для отримання додаткової інформації див. [Увімкнення або вимкнення груп API](/docs/reference/using-api/#enabling-or-disabling).
+Якщо ваш кластер наразі не працює під управлінням Kubernetes {{< skew currentVersion >}}, перегляньте документацію щодо версії Kubernetes, яку ви плануєте використовувати.
 
 <!-- lessoncontent -->
 
@@ -116,11 +103,10 @@ min-kubernetes-server-version: v1.32
 
 У промисловому середовищі ви, напевно, використовували б раніше випущений або кваліфікований образ від постачальника драйвера або вашої організації, і ваші вузли повинні мати доступ до реєстру образів, де зберігається образ драйвера. У цьому навчальному посібнику ви будете використовувати публічно випущений образ dra-example-driver, щоб змоделювати доступ до образу драйвера DRA.
 
-
 1.  Підтвердіть, що ваші вузли мають доступ до образу, виконавши наступну команду зсередини одного з вузлів вашого кластера:
 
     ```shell
-    docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.1.0
+    docker pull registry.k8s.io/dra-example-driver/dra-example-driver:v0.2.0
     ```
 
 ### Розгортання компонентів драйвера DRA {#deploy-the-dra-driver-components}
@@ -271,7 +257,7 @@ kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/example
     Вивід буде схожий на цей:
 
     ```text
-    declare -x GPU_DEVICE_4="gpu-4"
+    declare -x GPU_DEVICE_0="gpu-0"
     ```
 
 1.  Перевірте стан обʼєкта ResourceClaim:
@@ -297,54 +283,48 @@ kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/example
 
     Вивід буде схожий на цей:
 
-    {{< highlight yaml "linenos=inline, hl_lines=30-33 41-44, style=emacs" >}}
-    apiVersion: v1
-    items:
-    - apiVersion: resource.k8s.io/v1beta2
-      kind: ResourceClaim
-      metadata:
-        creationTimestamp: "2025-07-29T05:11:52Z"
+    {{< highlight yaml "linenos=inline, hl_lines=27-30 38-41, style=emacs" >}}
+    apiVersion: resource.k8s.io/v1
+    kind: ResourceClaim
+    metadata:
+        creationTimestamp: "2025-08-20T18:17:31Z"
         finalizers:
         - resource.kubernetes.io/delete-protection
         name: some-gpu
         namespace: dra-tutorial
-        resourceVersion: "58357"
-        uid: 79e1e8d8-7e53-4362-aad1-eca97678339e
-      spec:
+        resourceVersion: "2326"
+        uid: d3e48dbf-40da-47c3-a7b9-f7d54d1051c3
+    spec:
         devices:
-          requests:
-          - exactly:
-              allocationMode: ExactCount
-              count: 1
-              deviceClassName: gpu.example.com
-              selectors:
-              - cel:
-                  expression: device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi'))
+            requests:
+            - exactly:
+                allocationMode: ExactCount
+                count: 1
+                deviceClassName: gpu.example.com
+                selectors:
+                - cel:
+                    expression: device.capacity['gpu.example.com'].memory.compareTo(quantity('10Gi'))
                     >= 0
             name: some-gpu
-      status:
+    status:
         allocation:
-          devices:
+            devices:
             results:
-            - adminAccess: null
-              device: gpu-4
-              driver: gpu.example.com
-              pool: kind-worker
-              request: some-gpu
-          nodeSelector:
+            - device: gpu-0
+                driver: gpu.example.com
+                pool: kind-worker
+                request: some-gpu
+            nodeSelector:
             nodeSelectorTerms:
             - matchFields:
-              - key: metadata.name
+                - key: metadata.name
                 operator: In
                 values:
                 - kind-worker
         reservedFor:
         - name: pod0
-          resource: pods
-          uid: fa55b59b-d28d-4f7d-9e5b-ef4c8476dff5
-    kind: List
-    metadata:
-      resourceVersion: ""
+            resource: pods
+            uid: c4dadf20-392a-474d-a47b-ab82080c8bd7
     {{< /highlight >}}
 
 1.  Щоб перевірити, як драйвер обробив виділення пристрою, отримайте журнали для Podʼів DaemonSet драйвера:
@@ -404,7 +384,7 @@ kubectl apply --server-side -f http://k8s.io/examples/dra/driver-install/example
     Вивід буде схожий на цей:
 
     ```log
-    I0729 05:13:02.144623       1 driver.go:117] NodeUnPrepareResource is called: number of claims: 1
+    I0820 18:22:15.629376       1 driver.go:138] UnprepareResourceClaims is called: number of claims: 1
     ```
 
 Тепер ви видалили Pod, який мав заявку, і спостерігали, що драйвер вживав заходів для скасування підготовки підлягаючого апаратного ресурсу та оновлення API DRA, щоб відобразити, що ресурс знову доступний для майбутнього планування.

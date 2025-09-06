@@ -1,5 +1,3 @@
-Завантаження конфігурації kubelet до ConfigMap
-
 ### Опис {#synopsis}
 
 Завантаження конфігурації kubelet до ConfigMap

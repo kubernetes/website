@@ -6,6 +6,8 @@ draft: false
 slug: tuning-linux-swap-for-kubernetes-a-deep-dive
 author: >
   Ajay Sundar Karuppasamy (Google)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 Функція Kubernetes [NodeSwap](/docs/concepts/cluster-administration/swap-memory-management/), яка, ймовірно, отримає статус _stable_ у майбутньому релізі Kubernetes v1.34, дозволяє використання swap: це значна зміна порівняно з традиційною практикою вимкнення swap для передбачуваної продуктивності. Ця стаття зосереджена виключно на налаштуванні swap на вузлах Linux, де ця функція доступна. Дозволяючи вузлам Linux використовувати вторинне сховище для додаткової віртуальної памʼяті, коли фізична RAM вичерпана, підтримка swap на вузлах спрямована на покращення використання ресурсів та зменшення кількості припинень процесів через нестачу памʼяті (OOM kills).

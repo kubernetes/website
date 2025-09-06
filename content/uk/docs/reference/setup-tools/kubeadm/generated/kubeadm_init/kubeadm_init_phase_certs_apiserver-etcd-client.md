@@ -1,6 +1,3 @@
-
-Генерує сертифікати, які apiserver використовує для доступу до etcd
-
 ### Опис {#synopsis}
 
 Генерує сертифікати, які apiserver використовує для доступу до etcd та зберігає їх у файлах apiserver-etcd-client.crt та apiserver-etcd-client.key

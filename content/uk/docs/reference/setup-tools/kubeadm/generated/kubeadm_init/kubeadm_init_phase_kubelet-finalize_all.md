@@ -1,6 +1,3 @@
-
-Запускає всі фази kubelet-finalize
-
 ### Опис {#synopsis}
 
 Запускає всі фази kubelet-finalize.

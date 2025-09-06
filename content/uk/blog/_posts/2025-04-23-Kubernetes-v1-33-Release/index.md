@@ -6,6 +6,8 @@ slug: kubernetes-v1-33-release
 evergreen: true
 author: >
   [Kubernetes v1.33 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.33/release-team.md)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 **Редактори:** Agustina Barbetta, Aakanksha Bhende, Udi Hofesh, Ryota Sawada, Sneha Yadav

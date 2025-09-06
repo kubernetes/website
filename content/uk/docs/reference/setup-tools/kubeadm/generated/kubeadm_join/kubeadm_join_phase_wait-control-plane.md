@@ -1,9 +1,6 @@
-
-[EXPERIMENTAL] Очікує запуску панелі управління
-
 ### Опис {#synopsis}
 
-[EXPERIMENTAL] Очікує запуску панелі управління
+Очікує запуску панелі управління
 
 ```shell
 kubeadm join phase wait-control-plane [flags]

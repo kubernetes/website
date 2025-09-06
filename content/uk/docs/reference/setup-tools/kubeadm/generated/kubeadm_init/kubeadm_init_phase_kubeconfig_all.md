@@ -1,6 +1,3 @@
-
-Генерує всі файли kubeconfig
-
 ### Опис {#synopsis}
 
 Генерує всі файли kubeconfig.

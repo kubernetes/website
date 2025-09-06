@@ -1,5 +1,3 @@
-Завантаження конфігурації кластера kubeadm ClusterConfiguration до ConfigMap
-
 ### Опис {#synopsis}
 
 Завантаження конфігурації кластера kubeadm ClusterConfiguration до ConfigMap

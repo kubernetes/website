@@ -6,7 +6,7 @@ date: 2024-04-05T07:40:00+00:00
 author: >
   Andrei Kvapil (Ænix)
 translator: >
-  Андрій Головін
+  [Андрій Головін](https://github.com/Andygol)
 ---
 
 Наближаючись до найцікавішої фази, ця стаття розглядає запуск Kubernetes всередині Kubernetes. Висвітлюються такі технології, як Kamaji та Cluster API, а також їх інтеграція з KubeVirt.
