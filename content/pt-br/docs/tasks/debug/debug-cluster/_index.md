@@ -1,6 +1,6 @@
 ---
 title: "Solução de problemas em Clusters"
-description: Depuração de problemas comuns em clusters.
+description: Depurando problemas comuns em clusters.
 weight: 20
 no_list: true
 ---
