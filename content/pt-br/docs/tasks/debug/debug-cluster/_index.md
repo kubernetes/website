@@ -29,7 +29,7 @@ kubectl get nodes
 
 E verifique se todos os nós que você espera ver estão presentes e se todos estão no estado `Ready`.
 
-Para obter informações detalhadas sobre a saúde geral do seu cluster, você pode executar:
+Para obter informações detalhadas sobre a integridade geral do seu cluster, você pode executar:
 
 ```shell
 kubectl cluster-info dump
