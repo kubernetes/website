@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta2"
-  import: "k8s.io/api/resource/v1beta2"
+  apiVersion: "resource.k8s.io/v1"
+  import: "k8s.io/api/resource/v1"
   kind: "ResourceSlice"
 content_type: "api_reference"
 description: "ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver."
-title: "ResourceSlice v1beta2"
+title: "ResourceSlice"
 weight: 18
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1beta2`
+`apiVersion: resource.k8s.io/v1`
 
-`import "k8s.io/api/resource/v1beta2"`
+`import "k8s.io/api/resource/v1"`
 
 
 ## ResourceSlice {#ResourceSlice}
@@ -42,7 +42,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 
 - **kind**: ResourceSlice
@@ -52,7 +52,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), required
 
   Contains the information published by the driver.
   
@@ -126,6 +126,12 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     
     Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
 
+  - **devices.allowMultipleAllocations** (boolean)
+
+    AllowMultipleAllocations marks whether the device is allowed to be allocated to multiple DeviceRequests.
+    
+    If AllowMultipleAllocations is set to true, the device can be allocated more than once, and all of its capacity is consumable, regardless of whether the requestPolicy is defined or not.
+
   - **devices.attributes** (map[string]DeviceAttribute)
 
     Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
@@ -151,6 +157,36 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
       VersionValue is a semantic version according to semver.org spec 2.0.0. Must not be longer than 64 characters.
 
+  - **devices.bindingConditions** ([]string)
+
+    *Atomic: will be replaced during a merge*
+    
+    BindingConditions defines the conditions for proceeding with binding. All of these conditions must be set in the per-device status conditions with a value of True to proceed with binding the pod to the node while scheduling the pod.
+    
+    The maximum number of binding conditions is 4.
+    
+    The conditions must be a valid condition type string.
+    
+    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+
+  - **devices.bindingFailureConditions** ([]string)
+
+    *Atomic: will be replaced during a merge*
+    
+    BindingFailureConditions defines the conditions for binding failure. They may be set in the per-device status conditions. If any is set to "True", a binding failure occurred.
+    
+    The maximum number of binding failure conditions is 4.
+    
+    The conditions must be a valid condition type string.
+    
+    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+
+  - **devices.bindsToNode** (boolean)
+
+    BindsToNode indicates if the usage of an allocation involving this device has to be limited to exactly the node that was chosen when allocating the claim. If set to true, the scheduler will set the ResourceClaim.Status.Allocation.NodeSelector to match the node where the allocation was made.
+    
+    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+
   - **devices.capacity** (map[string]DeviceCapacity)
 
     Capacity defines the set of capacities for this device. The name of each capacity must be unique in that set.
@@ -162,7 +198,78 @@ ResourceSliceSpec contains the information published by the driver in one Resour
 
     - **devices.capacity.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
 
-      Value defines how much of a certain device capacity is available.
+      Value defines how much of a certain capacity that device has.
+      
+      This field reflects the fixed total capacity and does not change. The consumed amount is tracked separately by scheduler and does not affect this value.
+
+    - **devices.capacity.requestPolicy** (CapacityRequestPolicy)
+
+      RequestPolicy defines how this DeviceCapacity must be consumed when the device is allowed to be shared by multiple allocations.
+      
+      The Device must have allowMultipleAllocations set to true in order to set a requestPolicy.
+      
+      If unset, capacity requests are unconstrained: requests can consume any amount of capacity, as long as the total consumed across all allocations does not exceed the device's defined capacity. If request is also unset, default is the full capacity value.
+
+      <a name="CapacityRequestPolicy"></a>
+      *CapacityRequestPolicy defines how requests consume device capacity.
+      
+      Must not set more than one ValidRequestValues.*
+
+      - **devices.capacity.requestPolicy.default** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+        Default specifies how much of this capacity is consumed by a request that does not contain an entry for it in DeviceRequest's Capacity.
+
+      - **devices.capacity.requestPolicy.validRange** (CapacityRequestPolicyRange)
+
+        ValidRange defines an acceptable quantity value range in consuming requests.
+        
+        If this field is set, Default must be defined and it must fall within the defined ValidRange.
+        
+        If the requested amount does not fall within the defined range, the request violates the policy, and this device cannot be allocated.
+        
+        If the request doesn't contain this capacity entry, Default value is used.
+
+        <a name="CapacityRequestPolicyRange"></a>
+        *CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+        
+          - If the requested amount is less than Min, it is rounded up to the Min value.
+          - If Step is set and the requested amount is between Min and Max but not aligned with Step,
+            it will be rounded up to the next value equal to Min + (n * Step).
+          - If Step is not set, the requested amount is used as-is if it falls within the range Min to Max (if set).
+          - If the requested or rounded amount exceeds Max (if set), the request does not satisfy the policy,
+            and the device cannot be allocated.*
+
+        - **devices.capacity.requestPolicy.validRange.min** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), required
+
+          Min specifies the minimum capacity allowed for a consumption request.
+          
+          Min must be greater than or equal to zero, and less than or equal to the capacity value. requestPolicy.default must be more than or equal to the minimum.
+
+        - **devices.capacity.requestPolicy.validRange.max** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+          Max defines the upper limit for capacity that can be requested.
+          
+          Max must be less than or equal to the capacity value. Min and requestPolicy.default must be less than or equal to the maximum.
+
+        - **devices.capacity.requestPolicy.validRange.step** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+          Step defines the step size between valid capacity amounts within the range.
+          
+          Max (if set) and requestPolicy.default must be a multiple of Step. Min + Step must be less than or equal to the capacity value.
+
+      - **devices.capacity.requestPolicy.validValues** ([]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+        *Atomic: will be replaced during a merge*
+        
+        ValidValues defines a set of acceptable quantity values in consuming requests.
+        
+        Must not contain more than 10 entries. Must be sorted in ascending order.
+        
+        If this field is set, Default must be defined and it must be included in ValidValues list.
+        
+        If the requested amount does not match any valid value but smaller than some valid values, the scheduler calculates the smallest valid value that is greater than or equal to the request. That is: min(ceil(requestedValue) ∈ validValues), where requestedValue ≤ max(validValues).
+        
+        If the requested amount exceeds all valid values, the request violates the policy, and this device cannot be allocated.
 
   - **devices.consumesCounters** ([]DeviceCounterConsumption)
 
@@ -352,7 +459,7 @@ ResourceSliceList is a collection of ResourceSlices.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 
 - **kind**: ResourceSliceList
@@ -362,7 +469,7 @@ ResourceSliceList is a collection of ResourceSlices.
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>), required
 
   Items is the list of resource ResourceSlices.
 
@@ -385,7 +492,7 @@ ResourceSliceList is a collection of ResourceSlices.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/resourceslices/{name}
+GET /apis/resource.k8s.io/v1/resourceslices/{name}
 
 #### Parameters
 
@@ -404,7 +511,7 @@ GET /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
 401: Unauthorized
 
@@ -413,7 +520,7 @@ GET /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/resourceslices
+GET /apis/resource.k8s.io/v1/resourceslices
 
 #### Parameters
 
@@ -477,7 +584,7 @@ GET /apis/resource.k8s.io/v1beta2/resourceslices
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSliceList" >}}">ResourceSliceList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSliceList" >}}">ResourceSliceList</a>): OK
 
 401: Unauthorized
 
@@ -486,12 +593,12 @@ GET /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1beta2/resourceslices
+POST /apis/resource.k8s.io/v1/resourceslices
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>, required
 
   
 
@@ -520,11 +627,11 @@ POST /apis/resource.k8s.io/v1beta2/resourceslices
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Accepted
 
 401: Unauthorized
 
@@ -533,7 +640,7 @@ POST /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
+PUT /apis/resource.k8s.io/v1/resourceslices/{name}
 
 #### Parameters
 
@@ -543,7 +650,7 @@ PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
   name of the ResourceSlice
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>, required
 
   
 
@@ -572,9 +679,9 @@ PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Created
 
 401: Unauthorized
 
@@ -583,7 +690,7 @@ PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta2/resourceslices/{name}
+PATCH /apis/resource.k8s.io/v1/resourceslices/{name}
 
 #### Parameters
 
@@ -627,9 +734,9 @@ PATCH /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Created
 
 401: Unauthorized
 
@@ -638,7 +745,7 @@ PATCH /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/resourceslices/{name}
+DELETE /apis/resource.k8s.io/v1/resourceslices/{name}
 
 #### Parameters
 
@@ -682,9 +789,9 @@ DELETE /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Accepted
 
 401: Unauthorized
 
@@ -693,7 +800,7 @@ DELETE /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/resourceslices
+DELETE /apis/resource.k8s.io/v1/resourceslices
 
 #### Parameters
 

@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "storage.k8s.io/v1beta1"
-  import: "k8s.io/api/storage/v1beta1"
-  kind: "VolumeAttributesClass"
+  apiVersion: "resource.k8s.io/v1"
+  import: "k8s.io/api/resource/v1"
+  kind: "ResourceClaimTemplate"
 content_type: "api_reference"
-description: "VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver."
-title: "VolumeAttributesClass v1beta1"
-weight: 12
+description: "ResourceClaimTemplate is used to produce ResourceClaim objects."
+title: "ResourceClaimTemplate"
+weight: 17
 auto_generated: true
 ---
 
@@ -21,60 +21,76 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: storage.k8s.io/v1beta1`
+`apiVersion: resource.k8s.io/v1`
 
-`import "k8s.io/api/storage/v1beta1"`
+`import "k8s.io/api/resource/v1"`
 
 
-## VolumeAttributesClass {#VolumeAttributesClass}
+## ResourceClaimTemplate {#ResourceClaimTemplate}
 
-VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
+ResourceClaimTemplate is used to produce ResourceClaim objects.
+
+This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1beta1
+- **apiVersion**: resource.k8s.io/v1
 
 
-- **kind**: VolumeAttributesClass
+- **kind**: ResourceClaimTemplate
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard object metadata
 
-- **driverName** (string), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), required
 
-  Name of the CSI driver This field is immutable.
-
-- **parameters** (map[string]string)
-
-  parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
+  Describes the ResourceClaim that is to be generated.
   
-  This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+  This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
 
 
 
 
 
-## VolumeAttributesClassList {#VolumeAttributesClassList}
+## ResourceClaimTemplateSpec {#ResourceClaimTemplateSpec}
 
-VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
+ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1beta1
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
+
+  Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+
+- **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+  ObjectMeta may contain labels and annotations that will be copied into the ResourceClaim when creating it. No other fields are allowed and will be rejected during validation.
 
 
-- **kind**: VolumeAttributesClassList
+
+
+
+## ResourceClaimTemplateList {#ResourceClaimTemplateList}
+
+ResourceClaimTemplateList is a collection of claim templates.
+
+<hr>
+
+- **apiVersion**: resource.k8s.io/v1
+
+
+- **kind**: ResourceClaimTemplateList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  Standard list metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), required
 
-  items is the list of VolumeAttributesClass objects.
+  Items is the list of resource claim templates.
 
 
 
@@ -91,18 +107,23 @@ VolumeAttributesClassList is a collection of VolumeAttributesClass objects.
 
 
 
-### `get` read the specified VolumeAttributesClass
+### `get` read the specified ResourceClaimTemplate
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+GET /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the VolumeAttributesClass
+  name of the ResourceClaimTemplate
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **pretty** (*in query*): string
@@ -114,16 +135,94 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind VolumeAttributesClass
+### `list` list or watch objects of kind ResourceClaimTemplate
 
 #### HTTP Request
 
-GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+GET /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates
+
+#### Parameters
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
+
+- **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
+
+- **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
+
+401: Unauthorized
+
+
+### `list` list or watch objects of kind ResourceClaimTemplate
+
+#### HTTP Request
+
+GET /apis/resource.k8s.io/v1/resourceclaimtemplates
 
 #### Parameters
 
@@ -187,21 +286,26 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClassList" >}}">VolumeAttributesClassList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a VolumeAttributesClass
+### `create` create a ResourceClaimTemplate
 
 #### HTTP Request
 
-POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+POST /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, required
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
 
   
 
@@ -230,30 +334,35 @@ POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified VolumeAttributesClass
+### `update` replace the specified ResourceClaimTemplate
 
 #### HTTP Request
 
-PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+PUT /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the VolumeAttributesClass
+  name of the ResourceClaimTemplate
 
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, required
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
 
   
 
@@ -282,25 +391,30 @@ PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified VolumeAttributesClass
+### `patch` partially update the specified ResourceClaimTemplate
 
 #### HTTP Request
 
-PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+PATCH /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the VolumeAttributesClass
+  name of the ResourceClaimTemplate
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -337,25 +451,30 @@ PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
 
-### `delete` delete a VolumeAttributesClass
+### `delete` delete a ResourceClaimTemplate
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+DELETE /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the VolumeAttributesClass
+  name of the ResourceClaimTemplate
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -392,20 +511,25 @@ DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of VolumeAttributesClass
+### `deletecollection` delete collection of ResourceClaimTemplate
 
 #### HTTP Request
 
-DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+DELETE /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaimtemplates
 
 #### Parameters
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>

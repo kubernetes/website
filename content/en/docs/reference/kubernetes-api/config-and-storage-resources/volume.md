@@ -219,6 +219,67 @@ Volume represents a named volume in a pod that may be accessed by any container 
         
         Items is a list of DownwardAPIVolume file
 
+    - **projected.sources.podCertificate** (PodCertificateProjection)
+
+      Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+      
+      Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+      
+      Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+      
+      Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+      
+      The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+      
+      Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+      
+      The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+
+      <a name="PodCertificateProjection"></a>
+      *PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.*
+
+      - **projected.sources.podCertificate.keyType** (string), required
+
+        The type of keypair Kubelet will generate for the pod.
+        
+        Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+
+      - **projected.sources.podCertificate.signerName** (string), required
+
+        Kubelet's generated CSRs will be addressed to this signer.
+
+      - **projected.sources.podCertificate.certificateChainPath** (string)
+
+        Write the certificate chain at this path in the projected volume.
+        
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+
+      - **projected.sources.podCertificate.credentialBundlePath** (string)
+
+        Write the credential bundle at this path in the projected volume.
+        
+        The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+        
+        The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+        
+        Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+
+      - **projected.sources.podCertificate.keyPath** (string)
+
+        Write the key at this path in the projected volume.
+        
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+
+      - **projected.sources.podCertificate.maxExpirationSeconds** (int32)
+
+        maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+        
+        Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+        
+        If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+        
+        The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+
     - **projected.sources.secret** (SecretProjection)
 
       secret information about the secret data to project
@@ -596,14 +657,14 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **glusterfs** (GlusterfsVolumeSource)
 
-  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
 
   <a name="GlusterfsVolumeSource"></a>
   *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
 
   - **glusterfs.endpoints** (string), required
 
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    endpoints is the endpoint name that details Glusterfs topology.
 
   - **glusterfs.path** (string), required
 
@@ -615,7 +676,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **iscsi** (ISCSIVolumeSource)
 
-  iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+  iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
 
   <a name="ISCSIVolumeSource"></a>
   *Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.*
@@ -771,7 +832,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **rbd** (RBDVolumeSource)
 
-  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
 
   <a name="RBDVolumeSource"></a>
   *Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.*
