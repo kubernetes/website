@@ -69,7 +69,6 @@ Labels:             beta.kubernetes.io/arch=amd64
                     kubernetes.io/arch=amd64
                     kubernetes.io/hostname=kube-worker-1
                     kubernetes.io/os=linux
-Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
                     node.alpha.kubernetes.io/ttl: 0
                     volumes.kubernetes.io/controller-managed-attach-detach: true
 CreationTimestamp:  Thu, 17 Feb 2022 16:46:30 -0500
@@ -142,7 +141,6 @@ apiVersion: v1
 kind: Node
 metadata:
   annotations:
-    kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
     node.alpha.kubernetes.io/ttl: "0"
     volumes.kubernetes.io/controller-managed-attach-detach: "true"
   creationTimestamp: "2022-02-17T21:46:30Z"
@@ -264,8 +262,8 @@ Esta é uma lista incompleta de coisas que podem dar errado e como ajustar a con
     - kubelets não conseguirão alcançá-lo, mas continuarão a executar os mesmos pods e fornecer o mesmo proxy de serviço
     - recuperação manual ou recriação do estado do servidor de API necessária antes que o servidor de API seja reiniciado
 - Desligamento ou falha de VM dos serviços de apoio (controlador de nó, gerenciador de replication controller, agendador, etc)
-  - atualmente eles estão colocalizados com o servidor de API, e sua indisponibilidade tem consequências similares ao servidor de API
-  - no futuro, estes serão replicados também e podem não estar colocalizados
+  - atualmente eles estão localizados junto com o servidor de API, e sua indisponibilidade tem consequências similares ao servidor de API
+  - no futuro, estes serão replicados também e podem não estar localizados juntos
   - eles não têm seu próprio estado persistente
 - Nó individual (VM ou máquina física) desliga
   - Resultados
@@ -278,7 +276,7 @@ Esta é uma lista incompleta de coisas que podem dar errado e como ajustar a con
   - Resultados
     - kubelet com falha não consegue iniciar novos pods no nó
     - kubelet pode deletar os pods ou não
-    - nó marcado como não saudável
+    - nó marcado como não íntegro
     - replication controllers iniciam novos pods em outros lugares
 - Erro do operador do cluster
   - Resultados
@@ -323,7 +321,7 @@ Esta é uma lista incompleta de coisas que podem dar errado e como ajustar a con
 * Descubra ferramentas adicionais para
   [monitoramento de uso de recursos](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 * Use o Node Problem Detector para
-  [monitorar a saúde do nó](/docs/tasks/debug/debug-cluster/monitor-node-health/)
+  [monitorar a integridade do nó](/docs/tasks/debug/debug-cluster/monitor-node-health/)
 * Use `kubectl debug node` para [depurar nós do Kubernetes](/docs/tasks/debug/debug-cluster/kubectl-node-debug)
 * Use `crictl` para [depurar nós do Kubernetes](/docs/tasks/debug/debug-cluster/crictl/)
 * Obtenha mais informações sobre [auditoria do Kubernetes](/docs/tasks/debug/debug-cluster/audit/)
