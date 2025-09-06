@@ -26,7 +26,7 @@ notoc: true
 
 ## انتشار آینده
 
-نگاهی بیندازید به [برنامه ریزی](https://github.com/Kubernetes /sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
+نگاهی بیندازید به [برنامه ریزی](https://github.com/Kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})
 برای انتشار نسخه بعدی **{{< skew nextMinorVersion >}}** کوبرنتیز !
 ## منابع مفید
 
