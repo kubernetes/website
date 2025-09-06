@@ -1,6 +1,6 @@
 ---
 title: "Solução de problemas em Clusters"
-description: Depuração de problemas comuns em clusters.
+description: Depurando problemas comuns em clusters.
 weight: 20
 no_list: true
 ---
@@ -19,7 +19,7 @@ Para solução de problemas do {{<glossary_tooltip text="kubectl" term_id="kubec
 
 ## Listando seu cluster
 
-A primeira coisa a depurar no seu cluster é se todos os seus nós (nodes) estão registrados corretamente.
+A primeira coisa a depurar no seu cluster é se todos os seus nós estão registrados corretamente.
 
 Execute o seguinte comando:
 
@@ -29,7 +29,7 @@ kubectl get nodes
 
 E verifique se todos os nós que você espera ver estão presentes e se todos estão no estado `Ready`.
 
-Para obter informações detalhadas sobre a saúde geral do seu cluster, você pode executar:
+Para obter informações detalhadas sobre a integridade geral do seu cluster, você pode executar:
 
 ```shell
 kubectl cluster-info dump
@@ -224,7 +224,7 @@ status:
 
 ## Examinando logs
 
-Por enquanto, investigar mais profundamente o cluster requer fazer login nas máquinas relevantes. Aqui estão as localizações
+Por enquanto, investigar mais profundamente o cluster requer fazer login nas máquinas relevantes. Veja abaixo as localizações
 dos arquivos de log relevantes. Em sistemas baseados em systemd, você pode precisar usar `journalctl` ao invés de examinar arquivos de log.
 
 ### Nós da camada de gerenciamento
@@ -257,11 +257,11 @@ Esta é uma lista incompleta de coisas que podem dar errado e como ajustar a con
 - Desligamento de VM do servidor de API ou falha do servidor de API
   - Resultados
     - incapaz de parar, atualizar ou iniciar novos pods, services, replication controller
-    - pods e services existentes devem continuar a funcionar normalmente, a menos que dependam da API do Kubernetes
+    - pods e services existentes devem continuar funcionando normalmente, a menos que dependam da API do Kubernetes
 - Armazenamento de apoio do servidor de API perdido
   - Resultados
-    - o componente kube-apiserver falha ao iniciar com sucesso e se tornar saudável
-    - kubelets não conseguirão alcançá-lo, mas continuarão a executar os mesmos pods e fornecer o mesmo proxy de service
+    - o componente kube-apiserver falha ao iniciar com sucesso e se tornar íntegro
+    - kubelets não conseguirão alcançá-lo, mas continuarão a executar os mesmos pods e fornecer o mesmo proxy de serviço
     - recuperação manual ou recriação do estado do servidor de API necessária antes que o servidor de API seja reiniciado
 - Desligamento ou falha de VM dos serviços de apoio (controlador de nó, gerenciador de replication controller, agendador, etc)
   - atualmente eles estão colocalizados com o servidor de API, e sua indisponibilidade tem consequências similares ao servidor de API
@@ -273,7 +273,7 @@ Esta é uma lista incompleta de coisas que podem dar errado e como ajustar a con
 - Partição de rede
   - Resultados
     - partição A pensa que os nós na partição B estão inativos; partição B pensa que o servidor de API está inativo.
-      (Assumindo que a VM master termina na partição A.)
+      (Assumindo que a VM principal fique na partição A.)
 - Falha de software do Kubelet
   - Resultados
     - kubelet com falha não consegue iniciar novos pods no nó
