@@ -206,13 +206,13 @@ Turkey | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-ev
 -->
 国家   | 频道
 :------|:------------
-中国   | [`#cn-users`](https://kubernetes.slack.com/messages/cn-users), [`#cn-events`](https://kubernetes.slack.com/messages/cn-events)
+中国   | [`#cn-users`](https://kubernetes.slack.com/messages/cn-users)、[`#cn-events`](https://kubernetes.slack.com/messages/cn-events)
 芬兰   | [`#fi-users`](https://kubernetes.slack.com/messages/fi-users)
-法国   | [`#fr-users`](https://kubernetes.slack.com/messages/fr-users), [`#fr-events`](https://kubernetes.slack.com/messages/fr-events)
-德国   | [`#de-users`](https://kubernetes.slack.com/messages/de-users), [`#de-events`](https://kubernetes.slack.com/messages/de-events)
-印度   | [`#in-users`](https://kubernetes.slack.com/messages/in-users), [`#in-events`](https://kubernetes.slack.com/messages/in-events)
-意大利 | [`#it-users`](https://kubernetes.slack.com/messages/it-users), [`#it-events`](https://kubernetes.slack.com/messages/it-events)
-日本   | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users), [`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
+法国   | [`#fr-users`](https://kubernetes.slack.com/messages/fr-users)、[`#fr-events`](https://kubernetes.slack.com/messages/fr-events)
+德国   | [`#de-users`](https://kubernetes.slack.com/messages/de-users)、[`#de-events`](https://kubernetes.slack.com/messages/de-events)
+印度   | [`#in-users`](https://kubernetes.slack.com/messages/in-users)、[`#in-events`](https://kubernetes.slack.com/messages/in-events)
+意大利 | [`#it-users`](https://kubernetes.slack.com/messages/it-users)、[`#it-events`](https://kubernetes.slack.com/messages/it-events)
+日本   | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users)、[`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
 韩国   | [`#kr-users`](https://kubernetes.slack.com/messages/kr-users)
 荷兰   | [`#nl-users`](https://kubernetes.slack.com/messages/nl-users)
 挪威   | [`#norw-users`](https://kubernetes.slack.com/messages/norw-users)
@@ -220,7 +220,7 @@ Turkey | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-ev
 俄罗斯 | [`#ru-users`](https://kubernetes.slack.com/messages/ru-users)
 西班牙 | [`#es-users`](https://kubernetes.slack.com/messages/es-users)
 瑞典   | [`#se-users`](https://kubernetes.slack.com/messages/se-users)
-土耳其 | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-events`](https://kubernetes.slack.com/messages/tr-events)
+土耳其 | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users)、[`#tr-events`](https://kubernetes.slack.com/messages/tr-events)
 
 {{< /table >}}
 
