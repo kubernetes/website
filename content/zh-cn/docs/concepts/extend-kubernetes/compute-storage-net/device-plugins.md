@@ -62,13 +62,6 @@ During the registration, the device plugin needs to send:
   [extended resource naming scheme](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
   as `vendor-domain/resourcetype`.
   (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
-
-Following a successful registration, the device plugin sends the kubelet the
-list of devices it manages, and the kubelet is then in charge of advertising those
-resources to the API server as part of the kubelet node status update.
-For example, after a device plugin registers `hardware-vendor.example/foo` with the kubelet
-and reports two healthy devices on a node, the node status is updated
-to advertise that the node has 2 "Foo" devices installed and available.
 -->
 设备插件可以通过此 gRPC 服务在 kubelet 进行注册。在注册期间，设备插件需要发送下面几样内容：
 
@@ -78,6 +71,14 @@ to advertise that the node has 2 "Foo" devices installed and available.
   需要遵循[扩展资源命名方案](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)，
   类似于 `vendor-domain/resourcetype`。（比如 NVIDIA GPU 就被公布为 `nvidia.com/gpu`。）
 
+<!--
+Following a successful registration, the device plugin sends the kubelet the
+list of devices it manages, and the kubelet is then in charge of advertising those
+resources to the API server as part of the kubelet node status update.
+For example, after a device plugin registers `hardware-vendor.example/foo` with the kubelet
+and reports two healthy devices on a node, the node status is updated
+to advertise that the node has 2 "Foo" devices installed and available.
+-->
 成功注册后，设备插件就向 kubelet 发送它所管理的设备列表，然后 kubelet
 负责将这些资源发布到 API 服务器，作为 kubelet 节点状态更新的一部分。
 
@@ -114,6 +115,19 @@ on certain nodes. Here is an example of a pod requesting this resource to run a 
 下面就是一个 Pod 示例，请求此资源以运行一个工作负载的示例：
 
 <!--
+```yaml
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo-pod
+spec:
+  containers:
+    - name: demo-container-1
+      image: registry.k8s.io/pause:3.8
+      resources:
+        limits:
+          hardware-vendor.example/foo: 2
 #
 # This Pod needs 2 of the hardware-vendor.example/foo devices
 # and can only schedule onto a Node that's able to satisfy
@@ -121,6 +135,7 @@ on certain nodes. Here is an example of a pod requesting this resource to run a 
 #
 # If the Node has more than 2 of those devices available, the
 # remainder would be available for other Pods to use.
+```
 -->
 ```yaml
 ---
@@ -362,7 +377,7 @@ reports health information for each device assigned to the container.
 `allocatedResourcesStatus` 字段报告分配给容器的每个设备的健康信息。
 
 <!--
-For a failed Pod, or or where you suspect a fault, you can use this status to understand whether
+For a failed Pod, or where you suspect a fault, you can use this status to understand whether
 the Pod behavior may be associated with device failure. For example, if an accelerator is reporting
 an over-temperature event, the `allocatedResourcesStatus` field may be able to report this.
 -->
@@ -511,15 +526,17 @@ CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUM
 
 <!--
 Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
-of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API. To enable
-this feature `kubelet` must be started with the following flags:
+of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API.
+Starting from Kubernetes v1.34, this feature is enabled by default.
+To disable, `kubelet` must be started with the following flags:
 -->
 从 Kubernetes v1.27 开始，`List` 端点可以通过 `DynamicResourceAllocation` API 提供在
 `ResourceClaims` 中分配的当前运行 Pod 的资源信息。
-要启用此特性，必须使用以下标志启动 `kubelet`：
+从 Kubernetes v1.34 开始，此特性默认启用。
+要禁用此特性，必须使用以下标志启动 `kubelet`：
 
 ```
---feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
+--feature-gates=KubeletPodResourcesDynamicResources=false
 ```
 
 <!--
@@ -785,7 +802,7 @@ will continue working.
 -->
 ### `Get` gRPC 端点   {#grpc-endpoint-get}
 
-{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+{{< feature-state state="beta" for_k8s_version="v1.34" >}}
 
 <!--
 The `Get` endpoint provides information on resources of a running Pod. It exposes information
@@ -813,24 +830,26 @@ message GetPodResourcesRequest {
 ```
 
 <!--
-To enable this feature, you must start your kubelet services with the following flag:
+To disable this feature, you must start your kubelet services with the following flag:
 -->
-要启用此特性，你必须使用以下标志启动 kubelet 服务：
+要禁用此特性，你必须使用以下标志启动 kubelet 服务：
 
 ```
---feature-gates=KubeletPodResourcesGet=true
+--feature-gates=KubeletPodResourcesGet=false
 ```
 
 <!--
 The `Get` endpoint can provide Pod information related to dynamic resources
-allocated by the dynamic resource allocation API. To enable this feature, you must
-ensure your kubelet services are started with the following flags:
+allocated by the dynamic resource allocation API.
+Starting from Kubernetes v1.34, this feature is enabled by default.
+To disable, `kubelet` must be started with the following flags:
 -->
 `Get` 端点可以提供与动态资源分配 API 所分配的动态资源相关的 Pod 信息。
-要启用此特性，你必须确保使用以下标志启动 kubelet 服务：
+从 Kubernetes v1.34 开始，此特性已默认启用。
+要禁用此特性，你必须确保使用以下标志启动 kubelet 服务：
 
 ```
---feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamicResources=true
+--feature-gates=KubeletPodResourcesDynamicResources=false
 ```
 
 <!--
@@ -919,11 +938,13 @@ Here are some examples of device plugin implementations:
 * [Akri](https://github.com/project-akri/akri)，它可以让你轻松公开异构叶子设备（例如 IP 摄像机和 USB 设备）。
 * [AMD GPU 设备插件](https://github.com/ROCm/k8s-device-plugin)
 * 适用于通用 Linux 设备和 USB 设备的[通用设备插件](https://github.com/squat/generic-device-plugin)
-* 用于异构 AI 计算虚拟化中间件（例如 NVIDIA、Cambricon、Hygon、Iluvatar、MThreads、Ascend、Metax 设备）的 [HAMi](https://github.com/Project-HAMi/HAMi)
+* 用于异构 AI 计算虚拟化中间件（例如 NVIDIA、Cambricon、Hygon、Iluvatar、MThreads、Ascend、Metax 设备）的
+  [HAMi](https://github.com/Project-HAMi/HAMi)
 * [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持
   Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins)用于硬件辅助的虚拟化
-* [NVIDIA GPU 设备插件](https://github.com/NVIDIA/k8s-device-plugin)NVIDIA 的官方设备插件，用于公布 NVIDIA GPU 和监控 GPU 健康状态。
+* [NVIDIA GPU 设备插件](https://github.com/NVIDIA/k8s-device-plugin)NVIDIA 的官方设备插件，
+  用于公布 NVIDIA GPU 和监控 GPU 健康状态。
 * [为 Container-Optimized OS 所提供的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 设备插件](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [SocketCAN 设备插件](https://github.com/collabora/k8s-socketcan)
@@ -941,8 +962,10 @@ Here are some examples of device plugin implementations:
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 * Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
   with Kubernetes
+* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 -->
 * 查看[调度 GPU 资源](/zh-cn/docs/tasks/manage-gpus/scheduling-gpus/)来学习使用设备插件
 * 查看在节点上如何[公布扩展资源](/zh-cn/docs/tasks/administer-cluster/extended-resource-node/)
 * 学习[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
 * 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](/zh-cn/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
+* 阅读更多关于[使用 DRA 分配扩展资源](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

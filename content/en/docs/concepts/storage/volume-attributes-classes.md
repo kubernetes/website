@@ -20,23 +20,7 @@ A VolumeAttributesClass provides a way for administrators to describe the mutabl
 "classes" of storage they offer. Different classes might map to different quality-of-service levels.
 Kubernetes itself is un-opinionated about what these classes represent.
 
-This is a beta feature and disabled by default.
-
-If you want to test the feature whilst it's beta, you need to enable the `VolumeAttributesClass`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kube-controller-manager, kube-scheduler,
-and the kube-apiserver. You use the `--feature-gates` command line argument:
-
-```
---feature-gates="...,VolumeAttributesClass=true"
-```
-
-You will also have to enable the `storage.k8s.io/v1beta1` API group through the
-`kube-apiserver` [runtime-config](https://kubernetes.io/docs/tasks/administer-cluster/enable-disable-api/).
-You use the following command line argument:
-
-```
---runtime-config=storage.k8s.io/v1beta1=true
-```
+This feature is generally available (GA) as of version 1.34, and users have the option to disable it.
 
 You can also only use VolumeAttributesClasses with storage backed by
 {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}}, and only where the
@@ -53,7 +37,7 @@ Administrators set the name and other parameters of a class when first creating 
 While the name of a VolumeAttributesClass object in a `PersistentVolumeClaim` is mutable, the parameters in an existing class are immutable.
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: silver
@@ -76,6 +60,9 @@ You can also run and specify external provisioners,
 which are independent programs that follow a specification defined by Kubernetes.
 Authors of external provisioners have full discretion over where their code lives, how
 the provisioner is shipped, how it needs to be run, what volume plugin it uses, etc.
+
+To understand how the provisioner works with VolumeAttributesClass, refer to 
+the [CSI external-provisioner documentation](https://kubernetes-csi.github.io/docs/external-provisioner.html).
 
 ### Resizer
 
@@ -101,7 +88,7 @@ spec:
 A new VolumeAttributesClass gold is available in the cluster:
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: gold
@@ -123,6 +110,9 @@ spec:
   volumeAttributesClassName: gold
   …
 ```
+
+To understand how the resizer works with VolumeAttributesClass, refer to 
+the [CSI external-resizer documentation](https://kubernetes-csi.github.io/docs/external-resizer.html).
 
 ## Parameters
 

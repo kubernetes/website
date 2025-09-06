@@ -25,3 +25,5 @@ Kubernetes documentation, including:
 * [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
 
 * [CRI Pod & Container Metrics](/docs/reference/instrumentation/cri-pod-container-metrics).
+
+* [Understand Pressure Stall Information (PSI) Metrics](/docs/reference/instrumentation/understand-psi-metrics).

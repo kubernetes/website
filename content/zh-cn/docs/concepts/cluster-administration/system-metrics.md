@@ -68,7 +68,7 @@ authorization via a user, group or ServiceAccount with a ClusterRole that allows
 [Prometheus 服务器](https://prometheus.io/)或某些其他指标搜集器以定期收集这些指标，
 并使它们在某种时间序列数据库中可用。
 
-请注意，{{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 还会在 `/metrics/cadvisor`，
+请注意，{{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 还会在 `/metrics/cadvisor`、
 `/metrics/resource` 和 `/metrics/probes` 端点中公开度量值。这些度量值的生命周期各不相同。
 
 如果你的集群使用了 {{< glossary_tooltip term_id="rbac" text="RBAC" >}}，
@@ -172,7 +172,7 @@ patch release, the reason for that is the metrics deprecation policy runs agains
 
 `show-hidden-metrics-for-version` 参数接受版本号作为取值，
 版本号给出你希望显示该发行版本中已弃用的指标。
-版本表示为 x.y，其中 x 是主要版本，y 是次要版本。补丁程序版本不是必须的，
+版本表示为 `x.y`，其中 `x` 是主要版本，`y` 是次要版本。补丁程序版本不是必须的，
 即使指标可能会在补丁程序发行版中弃用，原因是指标弃用策略规定仅针对次要版本。
 
 <!--
@@ -186,7 +186,7 @@ deprecated policy, we can reach the following conclusion:
 此参数的取值只能使用前一个次要版本。如果管理员将前一个版本设置为 `show-hidden-metrics-for-version`，
 则前一个版本中隐藏的度量值会再度生成。不允许使用过旧的版本，因为那样会违反指标弃用策略。
 
-以指标 `A` 为例，此处假设 `A` 在 1.n 中已弃用。根据指标弃用策略，我们可以得出以下结论：
+以指标 `A` 为例，此处假设 `A` 在 `1.n` 中已弃用。根据指标弃用策略，我们可以得出以下结论：
 
 <!--
 * In release `1.n`, the metric is deprecated, and it can be emitted by default.
@@ -317,16 +317,16 @@ flag to expose these alpha stability metrics.
 -->
 ### kubelet 压力阻塞信息（PSI）指标
 
-{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
 <!--
-As an alpha feature, Kubernetes lets you configure kubelet to collect Linux kernel
+As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
-(PSI) for CPU, memory and IO usage.
+(PSI) for CPU, memory and I/O usage.
 The information is collected at node, pod and container level.
 The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
 -->
-作为一个 Alpha 阶段的特性，Kubernetes 允许你配置 kubelet 以基于 CPU、内存和 IO 的使用情况收集 Linux
+作为一个 Beta 阶段的特性，Kubernetes 允许你配置 kubelet 以基于 CPU、内存和 I/O 的使用情况收集 Linux
 内核的[压力阻塞信息（PSI）](https://docs.kernel.org/accounting/psi.html)。
 此信息是在节点、Pod 和容器级别进行收集的。
 这些指标通过 `/metrics/cadvisor` 端点暴露，指标名称如下：
@@ -341,12 +341,18 @@ container_pressure_io_waiting_seconds_total
 ```
 
 <!--
-You must enable the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to use this feature. The information is also exposed in the
+This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in the
 [Summary API](/docs/reference/instrumentation/node-metrics#psi).
 -->
-要使用此特性，你必须启用 `KubeletPSI` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+此特性默认启用，通过 `KubeletPSI`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)管理。
 此信息也会通过 [Summary API](/zh-cn/docs/reference/instrumentation/node-metrics#psi) 暴露。
+
+<!--
+You can learn how to interpret the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
+-->
+参见[了解 PSI 指标](/zh-cn/docs/reference/instrumentation/understand-psi-metrics/)，
+学习如何解读 PSI 指标。
 
 <!--
 #### Requirements
@@ -361,7 +367,7 @@ Pressure Stall Information requires:
 启用压力阻塞信息需满足以下条件：
 
 - [Linux 内核版本为 4.20 或更高](/zh-cn/docs/reference/node/kernel-version-requirements#requirements-psi)
-- [cgroup v2](/zh-cn/docs/concepts/architecture/cgroups)
+- [CGroup v2](/zh-cn/docs/concepts/architecture/cgroups)
 
 <!--
 ## Disabling metrics
