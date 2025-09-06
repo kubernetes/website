@@ -273,7 +273,7 @@ Esta é uma lista incompleta de coisas que podem dar errado e como ajustar a con
 - Partição de rede
   - Resultados
     - partição A pensa que os nós na partição B estão inativos; partição B pensa que o servidor de API está inativo.
-      (Assumindo que a VM master termina na partição A.)
+      (Assumindo que a VM principal fique na partição A.)
 - Falha de software do Kubelet
   - Resultados
     - kubelet com falha não consegue iniciar novos pods no nó
