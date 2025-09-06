@@ -35,7 +35,7 @@ kubectl create configmap sport --from-literal=sport=football
 ```
 
 아래는 컨피그맵 `sport`가 파드의 유일한 컨테이너에 
-{{< glossary_tooltip text="볼륨" term_id="volume">}} 으로 마운트된 디플로이먼트 매니페스트의 예이다. 
+{{< glossary_tooltip text="볼륨" term_id="volume">}}으로 마운트된 디플로이먼트(Deployment) 매니페스트의 예이다. 
 {{% code_sample file="deployments/deployment-with-configmap-as-volume.yaml" %}} 
 
 디플로이먼트를 생성한다.
@@ -44,8 +44,8 @@ kubectl create configmap sport --from-literal=sport=football
 kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-as-volume.yaml
 ```
 
-이 디플로이먼트의 파드가 준비되었는지 확인한다 
-({{< glossary_tooltip text="셀렉터" term_id="selector" >}} 와 일치).
+이 디플로이먼트의 파드가 준비되었는지 확인한다.
+({{< glossary_tooltip text="셀렉터" term_id="selector" >}}와 일치)
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=configmap-volume
@@ -90,7 +90,7 @@ kubectl edit configmap sport
 ```
 
 편집기가 나타나면, 키 `sport`의 값을 `football`에서 `cricket`으로 변경한다. 변경 사항을 저장한다.
-kubectl 도구가 컨피그맵을 적절히 업데이트한다 (오류가 발생되면 다시 시도한다).
+kubectl 도구가 컨피그맵을 적절히 업데이트한다. (오류가 발생되면 다시 시도한다)
 
 다음은 매니페스트를 편집한 후 어떻게 표시되는지 보여주는 예이다.
 
@@ -115,7 +115,7 @@ metadata:
 configmap/sport edited
 ```
 
-이 디플로이먼트에 속하는 파드 중 하나의 로그를 추적한다 (최신 항목을 따른다).
+이 디플로이먼트에 속하는 파드 중 하나의 로그를 추적한다. (최신 항목을 따른다)
 
 ```shell
 kubectl logs deployments/configmap-volume --follow
@@ -163,8 +163,8 @@ kubectl create configmap fruits --from-literal=fruits=apples
 kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-as-envvar.yaml
 ```
 
-이 디플로이먼트에 대한 파드가 준비되었는지 확인한다 ({{< glossary_tooltip text="셀렉터" term_id="selector" >}} 
-와 일치).
+이 디플로이먼트에 대한 파드가 준비되었는지 확인한다. ({{< glossary_tooltip text="셀렉터" term_id="selector" >}}
+와 일치)
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=configmap-env-var
@@ -326,10 +326,10 @@ Thu Jan  4 16:30:55 UTC 2024 The basket is full of mangoes
 kubectl create configmap color --from-literal=color=red
 ```
 
-아래는 파드 집합을 관리하는 디플로이먼트(Deployment) 매니페스트 예시이며, 각 파드에 2개의 컨테이너가 있다.
+아래는 파드 집합을 관리하는 디플로이먼트 매니페스트 예시이며, 각 파드에 2개의 컨테이너가 있다.
 각 파드에는 두 개의 컨테이너가 있으며, 이 두 컨테이너는 통신을 위해 `emptyDir` 볼륨을 공유한다.
 첫번째 컨테이너는 웹 서버(`nginx`)를 실행한다. 웹 서버 컨테이너에서 공유 볼륨의 
-마운트 경로는 `/usr/share/nginx/html`이다. 두 번째 보조(helper) 컨테이너는 `alpine`을 기반으로 하며,
+마운트 경로는 `/usr/share/nginx/html`이다. 두 번째 보조 컨테이너는 `alpine`을 기반으로 하며,
 이 컨테이너에는 `emptyDir` 볼륨이 `/pod-data`에 마운트 된다. 보조 컨테이너는 
 컨피그맵을 기반으로 HTML 내용을 가진 파일을 작성한다. 웹 서버 컨테이너는 해당 HTML을 HTTP를 통해 제공한다. 
 
@@ -341,7 +341,7 @@ kubectl create configmap color --from-literal=color=red
 kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-two-containers.yaml
 ```
 
-이 디플로이먼트의 파드들이 준비되었는지 확인하려면 ({{< glossary_tooltip text="셀렉터" term_id="selector" >}} 로 매칭하여) 
+이 디플로이먼트의 파드들이 준비되었는지 확인하려면 ({{< glossary_tooltip text="셀렉터" term_id="selector" >}}로 매칭하여) 
 파드를 점검한다.
 
 ```shell
@@ -474,8 +474,8 @@ configmap-sidecar-container-5fb59f558b-ccs7s   2/2     Running   0          94s
 configmap-sidecar-container-5fb59f558b-wnmgk   2/2     Running   0          94s
 ```
 
-디플로이먼트를 노출한다 (`kubectl` 도구가 
-{{<glossary_tooltip text="서비스" term_id="service">}} 룰 생성해준다).
+디플로이먼트를 노출한다. (`kubectl` 도구가 
+{{<glossary_tooltip text="서비스" term_id="service">}}를 생성한다)
 
 ```shell
 kubectl expose deployment configmap-sidecar-container --name=configmap-sidecar-service --port=8081 --target-port=80
@@ -578,8 +578,8 @@ kubectl apply -f https://k8s.io/examples/configmap/immutable-configmap.yaml
 kubectl apply -f https://k8s.io/examples/deployments/deployment-with-immutable-configmap-as-volume.yaml
 ```
 
-디플로이먼트의 파드들이 준비되었는지 확인한다 
-({{< glossary_tooltip text="셀렉터" term_id="selector" >}} 로 매칭).
+디플로이먼트의 파드들이 준비되었는지 확인한다.
+({{< glossary_tooltip text="셀렉터" term_id="selector" >}}로 매칭)
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=immutable-configmap-volume
