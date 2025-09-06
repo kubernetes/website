@@ -257,7 +257,7 @@ Esta é uma lista incompleta de coisas que podem dar errado e como ajustar a con
 - Desligamento de VM do servidor de API ou falha do servidor de API
   - Resultados
     - incapaz de parar, atualizar ou iniciar novos pods, services, replication controller
-    - pods e services existentes devem continuar a funcionar normalmente, a menos que dependam da API do Kubernetes
+    - pods e services existentes devem continuar funcionando normalmente, a menos que dependam da API do Kubernetes
 - Armazenamento de apoio do servidor de API perdido
   - Resultados
     - o componente kube-apiserver falha ao iniciar com sucesso e se tornar saudável
