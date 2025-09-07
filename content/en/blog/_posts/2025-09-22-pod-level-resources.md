@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: Pod Level Resources Graduated to Beta"
-date: 2025-xx-xx
-draft: true
+date: 2025-09-22T10:30:00-08:00
 slug: kubernetes-v1-34-pod-level-resources
 author: Dixita Narang (Google)
 ---
