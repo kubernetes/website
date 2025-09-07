@@ -47,7 +47,7 @@ This feature enhances resource management in Kubernetes by offering *flexible re
   for the combined resource usage of all containers. Crucially, this pod-level limit
   is the absolute enforcer; even if the sum of the individual container limits is
   higher, the total resource consumption can never exceed the pod-level limit.
-* Pod-level resources are **prioritized** in influencing the [Quality of Service (QoS)](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2837-pod-level-resource-spec/README.md#qos-changes) class of the Pod.
+* Pod-level resources are **prioritized** in influencing the Quality of Service (QoS) class of the Pod.
 * For Pods running on Linux nodes, the Out-Of-Memory (OOM) score adjustment
   calculation considers both pod-level and container-level resources requests.
 * Pod-level resources are **designed to be compatible with existing Kubernetes functionalities**, ensuring a smooth integration into your workflows.
