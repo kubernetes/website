@@ -92,7 +92,7 @@ JobSpec describes how the job execution will look like.
 
 - **backoffLimit** (int32)
 
-  Specifies the number of retries before marking this job failed. Defaults to 6
+  Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 
 - **activeDeadlineSeconds** (int64)
 
@@ -207,7 +207,7 @@ JobSpec describes how the job execution will look like.
 
     *Atomic: will be replaced during a merge*
     
-    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+    rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
 
     <a name="SuccessPolicyRule"></a>
     *SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.*
@@ -244,7 +244,7 @@ JobSpec describes how the job execution will look like.
   - Failed means to wait until a previously created Pod is fully terminated (has phase
     Failed or Succeeded) before creating a replacement Pod.
   
-  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 
 
 
