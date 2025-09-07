@@ -105,7 +105,7 @@ are only placed into the same zone as that volume.
 `NoVolumeZoneConflict` is a scheduler rule (predicate) that ensures Pods using a PersistentVolume are only scheduled onto nodes in the same zone as that volume. Many cloud providers make PersistentVolumes zonal resources, which means they exist in a single zone and cannot be attached across zones. This rule prevents scheduling Pods in zones where their storage is not available.
 {{< /note >}}
 
-Please note that the method of adding zone labels can depend on your
+The method of adding zone labels can depend on your
 cloud provider and the storage provisioner you’re using. Always refer to the specific
 documentation for your environment to ensure correct configuration.
 
