@@ -7,8 +7,8 @@ weight: 5
 
 이 페이지는 쿠버네티스 클러스터의 모든 노드에서 파드를 실행하는 기본 {{< glossary_tooltip text="데몬셋" term_id="daemonset" >}}을 
 만드는 방법을 보여준다.  
-호스트로부터 파일을 마운트하고, [init 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)를 사용해 
-그 내용을 로그로 남기며, pause 컨테이너를 이용하는 간단한 유스케이스를 다룬다.
+호스트로부터 파일을 마운트하고, [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)를 사용해 
+그 내용을 로그로 남기며, pause 컨테이너를 이용하는 간단한 사용 사례를 다룬다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -20,7 +20,7 @@ weight: 5
 ## 데몬셋 정의하기
 
 이 태스크에서는 기본 데몬셋을 생성하여 클러스터의 모든 노드에 파드가 하나씩 스케줄되도록 한다.  
-파드는 init 컨테이너를 이용해 호스트의 `/etc/machine-id` 내용을 읽어 로그에 남기고, 
+파드는 초기화 컨테이너를 이용해 호스트의 `/etc/machine-id` 내용을 읽어 로그에 남기고, 
 메인 컨테이너는 파드를 실행 상태로 유지하는 `pause` 컨테이너가 된다.
 
 {{% code_sample file="application/basic-daemonset.yaml" %}}
@@ -56,17 +56,17 @@ weight: 5
 
 ## {{% heading "cleanup" %}}
 
-데몬셋을 삭제하려면 다음 명령어를 실행해라:
+데몬셋을 삭제하려면 다음 명령어를 실행한다.
 
 ```shell
 kubectl delete --cascade=foreground --ignore-not-found --now daemonsets/example-daemonset
 ```
 
-이 간단한 데몬셋 예제는 init 컨테이너와 호스트 패스 볼륨 같은 핵심 컴포넌트를 소개하며, 
+이 간단한 데몬셋 예제는 초기화 컨테이너와 호스트 패스 볼륨 같은 핵심 컴포넌트를 소개하며, 
 더 고급 사용 사례로 확장할 수 있다. 더 자세한 내용은
 [데몬셋](/ko/docs/concepts/workloads/controllers/daemonset/)을 참고하자.
 
 ## {{% heading "whatsnext" %}}
 
-* See [데몬셋에서 롤링 업데이트 수행](/ko/docs/tasks/manage-daemon/update-daemon-set/)
-* See [기존 데몬셋 파드를 인계받기 위한 데몬셋 생성](/ko/docs/concepts/workloads/controllers/daemonset/)
+* [데몬셋에서 롤링 업데이트 수행](/ko/docs/tasks/manage-daemon/update-daemon-set/)을 참고한다.
+* [기존 데몬셋 파드를 인계받기 위한 데몬셋 생성](/ko/docs/concepts/workloads/controllers/daemonset/)을 참고한다.
