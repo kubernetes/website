@@ -148,7 +148,7 @@ JobSpec 描述了任务执行的情况。
 <!--
 - **backoffLimit** (int32)
 
-  Specifies the number of retries before marking this job failed. Defaults to 6
+  Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
 
 - **activeDeadlineSeconds** (int64)
 
@@ -156,7 +156,8 @@ JobSpec 描述了任务执行的情况。
 -->
 - **backoffLimit** (int32)
 
-  指定标记此任务失败之前的重试次数。默认值为 6。
+  指定标记此任务失败之前的重试次数。默认值为 6，除非指定了 backoffLimitPerIndex（仅限 Indexed Job）。
+  指定 backoffLimitPerIndex 时，backoffLimit 默认为 2147483647。
 
 - **activeDeadlineSeconds** (int64)
 
@@ -429,7 +430,7 @@ JobSpec 描述了任务执行的情况。
 
   *Atomic: will be replaced during a merge*
    
-  rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SucceededCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
+  rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
   -->
 
   **successPolicy 描述何时可以根据某些索引的成功将任务声明为成功。**
@@ -439,7 +440,7 @@ JobSpec 描述了任务执行的情况。
   **原子性：合并期间会被替换**
 
   rules 表示在 `.status.succeeded >= .spec.completions` 之前将任务声明为成功的备选规则列表。
-  一旦满足任何规则，就会添加 `SucceededCriteriaMet` 状况，并删除滞留的 Pod。
+  一旦满足任何规则，就会添加 `SuccessCriteriaMet` 状况，并删除滞留的 Pod。
   此类 Pod 的最终状态具有 `Complete` 状况。此外，这些规则按顺序进行评估；
   一旦任务满足其中一条规则，其他规则将被忽略。最多允许 20 个元素。
 
@@ -448,7 +449,8 @@ JobSpec 描述了任务执行的情况。
   *SuccessPolicyRule describes rule for declaring a Job as succeeded. Each rule must have at least one of the "succeededIndexes" or "succeededCount" specified.*
   -->
 
-  **SuccessPolicyRule 描述了将任务声明为成功的规则。每条规则必须至少指定 `succeededIndexes` 或 `succeededCount` 之一。**
+  **SuccessPolicyRule 描述了将任务声明为成功的规则。每条规则必须至少指定 `succeededIndexes`
+  或 `succeededCount` 之一。**
 
 - **successPolicy.rules.succeededCount** (int32)
 
@@ -514,10 +516,10 @@ JobSpec 描述了任务执行的情况。
 -->
 - **maxFailedIndexes**（int32）
 
-  指定在 backoffLimitPerIndex 被设置时、标记 Job 为失败之前所允许的最大失败索引数。
+  指定在 `backoffLimitPerIndex` 被设置时、标记 Job 为失败之前所允许的最大失败索引数。
   一旦失败的索引数超过此数值，整个 Job 将被标记为 Failed 并终止执行。
   如果不设置此字段（对应为 null），则作业继续执行其所有索引，且 Job 会被标记 `Complete` 状况。
-  此字段只能在设置 backoffLimitPerIndex 时指定。此字段值可以是 null 或完成次数之内的值。
+  此字段只能在设置 `backoffLimitPerIndex` 时指定。此字段值可以是 null 或完成次数之内的值。
   当完成次数大于 10^5 时，此字段是必需的且必须小于等于 10^4。
 
 <!--
@@ -536,12 +538,11 @@ JobSpec 描述了任务执行的情况。
   - Failed：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 Failed 或 Succeeded 阶段）。
 
   <!--
-  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field.
   -->
   当使用 podFailurePolicy 时，Failed 是唯一允许值。
   当不使用 podFailurePolicy 时，允许使用 TerminatingOrFailed 和 Failed。
-  这是一个 Beta 级别的字段。要使用此特性，请启用 JobPodReplacementPolicy 特性门控。
-  此特性默认处于被启用状态。
+  这是一个 Beta 级别的字段。
 
 ## JobStatus {#JobStatus}
 
