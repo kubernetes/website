@@ -16,7 +16,7 @@ card:
 
 이 페이지는 쿠버네티스 클러스터를 구성하는 필수 컴포넌트에 대한 상위 수준의 개요를 제공한다.
 
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="쿠버네티스의 컴포넌트" caption="쿠버네티스 클러스터 컴포넌트" class="diagram-large" clicktozoom="true" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="쿠버네티스 컴포넌트" caption="쿠버네티스 클러스터 컴포넌트" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
 
