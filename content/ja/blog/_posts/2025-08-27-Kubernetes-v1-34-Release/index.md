@@ -76,11 +76,13 @@ v1.30リリース以降、DRAは構造化パラメーターを使ってデバイ
 ### アルファ: KYAML(Kubernetes向けに最適化されたYAML形式)のサポート
 
 KYAMLは、Kubernetes向けに最適化された、より安全で曖昧さの少ないYAMLのサブセットです。
-Kubernetes v1.34以降、どのバージョンのKubernetesを使用していても、kubectlの新しい出力形式としてKYAMLを利用できます。  
+Kubernetes v1.34以降、どのバージョンのKubernetesを使用していても、kubectlの新しい出力形式としてKYAMLを利用できます。
+  
 KYAMLは、YAMLとJSONそれぞれが抱える課題を解決します。
 YAMLでは空白文字が重要な意味を持つため、インデントやネストに細心の注意が必要です。
 また、文字列の引用符を省略できることで、予期しない型変換が発生することがあります(例: [「ノルウェー問題」](https://hitchdev.com/strictyaml/why/implicit-typing-removed/))。
-一方、JSONはコメントが書けず、末尾のカンマや引用符付きのキーに関して厳密なルールがあります。  
+一方、JSONはコメントが書けず、末尾のカンマや引用符付きのキーに関して厳密なルールがあります。
+  
 KYAMLファイルはすべて有効なYAMLでもあるため、KYAMLで記述したファイルはどのバージョンの`kubectl`にも入力として渡せます。
 v1.34の`kubectl`では、環境変数`KUBECTL_KYAML=true`を設定することで、[KYAML形式での出力](/docs/reference/kubectl/#syntax-1)もリクエストできます(例: `kubectl get -o kyaml ...`)。
 もちろん、従来通りJSONやYAML形式での出力も可能です。
