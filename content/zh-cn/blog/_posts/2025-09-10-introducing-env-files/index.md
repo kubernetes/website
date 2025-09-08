@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes v1.34: 使用 Init 容器定义应用环境变量"
-date: 2025-09-01
+date: 2025-09-10T10:30:00-08:00
 slug: kubernetes-v1-34-env-files
 author: >
   HirazawaUi
@@ -10,7 +10,7 @@ translator: Michael Yao (DaoCloud)
 <!--
 layout: blog
 title: "Kubernetes v1.34: Use An Init Container To Define App Environment Variables"
-date: 2025-09-01
+date: 2025-09-10T10:30:00-08:00
 draft: true
 slug: kubernetes-v1-34-env-files
 author: >
