@@ -4,6 +4,7 @@ kubectl কমান্ড-লাইন টুলটি কনফিগার �
 ব্যবহার করে একটি তৈরি করতে পারেনি বা এই  Kubernetes playground-গুলির 
 মধ্যে একটি ব্যবহার করতে পারেন ।
 
+* [iximiuz Labs](https://labs.iximiuz.com/playgrounds?category=kubernetes&filter=all)
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)
