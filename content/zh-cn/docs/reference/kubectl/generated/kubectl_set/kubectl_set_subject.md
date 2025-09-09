@@ -25,14 +25,14 @@ kubectl set subject (-f FILENAME | TYPE NAME) [--user=username] [--group=groupna
 
 <!--
 ```
-  # Update a cluster role binding for serviceaccount1
-  kubectl set subject clusterrolebinding admin --serviceaccount=namespace:serviceaccount1
-  
-  # Update a role binding for user1, user2, and group1
-  kubectl set subject rolebinding admin --user=user1 --user=user2 --group=group1
-  
-  # Print the result (in YAML format) of updating rolebinding subjects from a local, without hitting the server
-  kubectl create rolebinding admin --role=admin --user=admin -o yaml --dry-run=client | kubectl set subject --local -f - --user=foo -o yaml
+# Update a cluster role binding for serviceaccount1
+kubectl set subject clusterrolebinding admin --serviceaccount=namespace:serviceaccount1
+
+# Update a role binding for user1, user2, and group1
+kubectl set subject rolebinding admin --user=user1 --user=user2 --group=group1
+
+# Print the result (in YAML format) of updating rolebinding subjects from a local, without hitting the server
+kubectl create rolebinding admin --role=admin --user=admin -o yaml --dry-run=client | kubectl set subject --local -f - --user=foo -o yaml
 ```
 -->
 ```shell
@@ -48,7 +48,7 @@ kubectl create rolebinding admin --role=admin --user=admin -o yaml --dry-run=cli
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -64,7 +64,8 @@ kubectl create rolebinding admin --role=admin --user=admin -o yaml --dry-run=cli
 Select all resources, in the namespace of the specified resource types
 -->
 在指定资源类型的命名空间中，选择所有资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -77,7 +78,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -90,7 +92,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -102,7 +105,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -114,7 +118,8 @@ Name of the manager used to track field ownership.
 Filename, directory, or URL to files the resource to update the subjects
 -->
 文件名、目录或文件 URL 的列表，用于标识要更新主体的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -126,7 +131,8 @@ Filename, directory, or URL to files the resource to update the subjects
 Groups to bind to the role
 -->
 要绑定到角色的组列表。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -138,7 +144,8 @@ Groups to bind to the role
 help for subject
 -->
 subject 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -150,7 +157,8 @@ subject 操作的帮助命令。
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
 处理 kustomization 目录。此标志不能与 -f 或 -R 一起使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -161,8 +169,9 @@ Process the kustomization directory. This flag can't be used together with -f or
 <!--
 If true, set subject will NOT contact api-server but run locally.
 -->
-如果为真，`set subject` 将不会与 API 服务器通信，而是在本地运行。
-</p></td>
+如果为真，<code>set subject</code> 将不会与 API 服务器通信，而是在本地运行。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -175,7 +184,8 @@ Output format. One of: (json, yaml, name, go-template, go-template-file, templat
 -->
 输出格式。可选值为：
 json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -187,7 +197,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 递归处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -215,7 +226,8 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 Service accounts to bind to the role
 -->
 要绑定到角色的服务账号列表。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -227,7 +239,8 @@ Service accounts to bind to the role
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为真，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -240,7 +253,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -376,30 +390,6 @@ The name of the kubeconfig context to use
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -432,7 +422,23 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>

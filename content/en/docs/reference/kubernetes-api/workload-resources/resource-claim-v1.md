@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta2"
-  import: "k8s.io/api/resource/v1beta2"
+  apiVersion: "resource.k8s.io/v1"
+  import: "k8s.io/api/resource/v1"
   kind: "ResourceClaim"
 content_type: "api_reference"
 description: "ResourceClaim describes a request for access to resources in the cluster, for use by workloads."
-title: "ResourceClaim v1beta2"
+title: "ResourceClaim"
 weight: 16
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1beta2`
+`apiVersion: resource.k8s.io/v1`
 
-`import "k8s.io/api/resource/v1beta2"`
+`import "k8s.io/api/resource/v1"`
 
 
 ## ResourceClaim {#ResourceClaim}
@@ -34,7 +34,7 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 
 - **kind**: ResourceClaim
@@ -44,11 +44,11 @@ This is an alpha type and requires enabling the DynamicResourceAllocation featur
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
 
   Spec describes what is being requested and how to configure it. The spec is immutable.
 
-- **status** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimStatus" >}}">ResourceClaimStatus</a>)
+- **status** (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaimStatus" >}}">ResourceClaimStatus</a>)
 
   Status describes whether the claim is ready to use and what has been allocated.
 
@@ -156,6 +156,16 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
     <a name="DeviceConstraint"></a>
     *DeviceConstraint must have exactly one field set besides Requests.*
 
+    - **devices.constraints.distinctAttribute** (string)
+
+      DistinctAttribute requires that all devices in question have this attribute and that its type and value are unique across those devices.
+      
+      This acts as the inverse of MatchAttribute.
+      
+      This constraint is used to avoid allocating multiple requests to the same device by ensuring attribute-level differentiation.
+      
+      This is useful for scenarios where resource requests must be fulfilled by separate physical devices. For example, a container requests two network interfaces that must be allocated from two different physical NICs.
+
     - **devices.constraints.matchAttribute** (string)
 
       MatchAttribute requires that all devices in question have this attribute and that its type and value are the same across those devices.
@@ -229,6 +239,31 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 
+      - **devices.requests.exactly.capacity** (CapacityRequirements)
+
+        Capacity define resource requirements against each capacity.
+        
+        If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+        
+        Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+
+        <a name="CapacityRequirements"></a>
+        *CapacityRequirements defines the capacity requirements for a specific device request.*
+
+        - **devices.requests.exactly.capacity.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+          Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+          
+          This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[\<domain>].\<name>.compareTo(quantity(\<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+          
+          When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+          
+          For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+            (i.e., the whole device is claimed).
+          - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+          
+          If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+
       - **devices.requests.exactly.count** (int64)
 
         Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
@@ -259,6 +294,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
                (e.g. device.attributes["dra.example.com"] evaluates to an object with all
                of the attributes which were prefixed by "dra.example.com".
              - capacity (map[string]object): the device's capacities, grouped by prefix.
+             - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+               (v1.34+ with the DRAConsumableCapacity feature enabled).
             
             Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
             
@@ -361,6 +398,31 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         
         More modes may get added in the future. Clients must refuse to handle requests with unknown modes.
 
+      - **devices.requests.firstAvailable.capacity** (CapacityRequirements)
+
+        Capacity define resource requirements against each capacity.
+        
+        If this field is unset and the device supports multiple allocations, the default value will be applied to each capacity according to requestPolicy. For the capacity that has no requestPolicy, default is the full capacity value.
+        
+        Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
+
+        <a name="CapacityRequirements"></a>
+        *CapacityRequirements defines the capacity requirements for a specific device request.*
+
+        - **devices.requests.firstAvailable.capacity.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+          Requests represent individual device resource requests for distinct resources, all of which must be provided by the device.
+          
+          This value is used as an additional filtering condition against the available capacity on the device. This is semantically equivalent to a CEL selector with `device.capacity[\<domain>].\<name>.compareTo(quantity(\<request quantity>)) >= 0`. For example, device.capacity['test-driver.cdi.k8s.io'].counters.compareTo(quantity('2')) >= 0.
+          
+          When a requestPolicy is defined, the requested amount is adjusted upward to the nearest valid value based on the policy. If the requested amount cannot be adjusted to a valid value—because it exceeds what the requestPolicy allows— the device is considered ineligible for allocation.
+          
+          For any capacity that is not explicitly requested: - If no requestPolicy is set, the default consumed capacity is equal to the full device capacity
+            (i.e., the whole device is claimed).
+          - If a requestPolicy is set, the default consumed capacity is determined according to that policy.
+          
+          If the device allows multiple allocation, the aggregated amount across all requests must not exceed the capacity value. The consumed capacity, which may be adjusted based on the requestPolicy if defined, is recorded in the resource claim’s status.devices[*].consumedCapacity field.
+
       - **devices.requests.firstAvailable.count** (int64)
 
         Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
@@ -391,6 +453,8 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
                (e.g. device.attributes["dra.example.com"] evaluates to an object with all
                of the attributes which were prefixed by "dra.example.com".
              - capacity (map[string]object): the device's capacities, grouped by prefix.
+             - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+               (v1.34+ with the DRAConsumableCapacity feature enabled).
             
             Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
             
@@ -466,6 +530,15 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
   <a name="AllocationResult"></a>
   *AllocationResult contains attributes of an allocated resource.*
+
+  - **allocation.allocationTimestamp** (Time)
+
+    AllocationTimestamp stores the time when the resources were allocated. This field is not guaranteed to be set, in which case that time is unknown.
+    
+    This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gate.
+
+    <a name="Time"></a>
+    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
 
   - **allocation.devices** (DeviceAllocationResult)
 
@@ -595,6 +668,34 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         
         This is an alpha field and requires enabling the DRAAdminAccess feature gate. Admin access is disabled if this field is unset or set to false, otherwise it is enabled.
 
+      - **allocation.devices.results.bindingConditions** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        BindingConditions contains a copy of the BindingConditions from the corresponding ResourceSlice at the time of allocation.
+        
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+
+      - **allocation.devices.results.bindingFailureConditions** ([]string)
+
+        *Atomic: will be replaced during a merge*
+        
+        BindingFailureConditions contains a copy of the BindingFailureConditions from the corresponding ResourceSlice at the time of allocation.
+        
+        This is an alpha field and requires enabling the DRADeviceBindingConditions and DRAResourceClaimDeviceStatus feature gates.
+
+      - **allocation.devices.results.consumedCapacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+        ConsumedCapacity tracks the amount of capacity consumed per device as part of the claim request. The consumed amount may differ from the requested amount: it is rounded up to the nearest valid value based on the device’s requestPolicy if applicable (i.e., may not be less than the requested amount).
+        
+        The total consumed capacity for each device must not exceed the DeviceCapacity's Value.
+        
+        This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
+
+      - **allocation.devices.results.shareID** (string)
+
+        ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+
       - **allocation.devices.results.tolerations** ([]DeviceToleration)
 
         *Atomic: will be replaced during a merge*
@@ -658,12 +759,14 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
 - **devices** ([]AllocatedDeviceStatus)
 
-  *Map: unique values on keys `driver, device, pool` will be kept during a merge*
+  *Map: unique values on keys `driver, device, pool, shareID` will be kept during a merge*
   
   Devices contains the status of each device allocated for this claim, as reported by the driver. This can include driver-specific information. Entries are owned by their respective drivers.
 
   <a name="AllocatedDeviceStatus"></a>
-  *AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.*
+  *AllocatedDeviceStatus contains the status of an allocated device, if the driver chooses to report it. This may include driver-specific information.
+  
+  The combination of Driver, Pool, Device, and ShareID must match the corresponding key in Status.Allocation.Devices.*
 
   - **devices.device** (string), required
 
@@ -790,6 +893,10 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
       
       IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
 
+  - **devices.shareID** (string)
+
+    ShareID uniquely identifies an individual allocation share of the device.
+
 - **reservedFor** ([]ResourceClaimConsumerReference)
 
   *Patch strategy: merge on key `uid`*
@@ -833,7 +940,7 @@ ResourceClaimList is a collection of claims.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 
 - **kind**: ResourceClaimList
@@ -843,7 +950,7 @@ ResourceClaimList is a collection of claims.
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>), required
 
   Items is the list of resource claims.
 
@@ -866,7 +973,7 @@ ResourceClaimList is a collection of claims.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
+GET /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims/{name}
 
 #### Parameters
 
@@ -890,7 +997,7 @@ GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): OK
 
 401: Unauthorized
 
@@ -899,7 +1006,7 @@ GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/status
+GET /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims/{name}/status
 
 #### Parameters
 
@@ -923,7 +1030,7 @@ GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/s
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): OK
 
 401: Unauthorized
 
@@ -932,7 +1039,7 @@ GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/s
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
+GET /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims
 
 #### Parameters
 
@@ -1001,7 +1108,7 @@ GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimList" >}}">ResourceClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaimList" >}}">ResourceClaimList</a>): OK
 
 401: Unauthorized
 
@@ -1010,7 +1117,7 @@ GET /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/resourceclaims
+GET /apis/resource.k8s.io/v1/resourceclaims
 
 #### Parameters
 
@@ -1074,7 +1181,7 @@ GET /apis/resource.k8s.io/v1beta2/resourceclaims
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimList" >}}">ResourceClaimList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaimList" >}}">ResourceClaimList</a>): OK
 
 401: Unauthorized
 
@@ -1083,7 +1190,7 @@ GET /apis/resource.k8s.io/v1beta2/resourceclaims
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
+POST /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims
 
 #### Parameters
 
@@ -1093,7 +1200,7 @@ POST /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>, required
 
   
 
@@ -1122,11 +1229,11 @@ POST /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): Accepted
 
 401: Unauthorized
 
@@ -1135,7 +1242,7 @@ POST /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
+PUT /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims/{name}
 
 #### Parameters
 
@@ -1150,7 +1257,7 @@ PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>, required
 
   
 
@@ -1179,9 +1286,9 @@ PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): Created
 
 401: Unauthorized
 
@@ -1190,7 +1297,7 @@ PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/status
+PUT /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims/{name}/status
 
 #### Parameters
 
@@ -1205,7 +1312,7 @@ PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/s
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>, required
 
   
 
@@ -1234,9 +1341,9 @@ PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/s
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): Created
 
 401: Unauthorized
 
@@ -1245,7 +1352,7 @@ PUT /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/s
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
+PATCH /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims/{name}
 
 #### Parameters
 
@@ -1294,9 +1401,9 @@ PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): Created
 
 401: Unauthorized
 
@@ -1305,7 +1412,7 @@ PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}/status
+PATCH /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims/{name}/status
 
 #### Parameters
 
@@ -1354,9 +1461,9 @@ PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): Created
 
 401: Unauthorized
 
@@ -1365,7 +1472,7 @@ PATCH /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name}
+DELETE /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims/{name}
 
 #### Parameters
 
@@ -1414,9 +1521,9 @@ DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaim" >}}">ResourceClaim</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-v1#ResourceClaim" >}}">ResourceClaim</a>): Accepted
 
 401: Unauthorized
 
@@ -1425,7 +1532,7 @@ DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims/{name
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/namespaces/{namespace}/resourceclaims
+DELETE /apis/resource.k8s.io/v1/namespaces/{namespace}/resourceclaims
 
 #### Parameters
 

@@ -292,3 +292,19 @@ announcements:
     <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/register/?utm_source=kubernetes&utm_medium=all&utm_campaign=KubeCon-EU-2025&utm_content=slim-banner">
     Buy your ticket now! 1 - 4 April | London, England
     </a>     
+
+- name: KubeCon 2025 NA
+  startTime: 2025-09-29T00:00:00 #Added in https://github.com/kubernetes/website/pull/52126
+  endTime: 2025-11-13T18:00:00
+  style: >-
+    background: #912666;
+    color: #fffff;
+    a, a:visited { color: #ffffff; }
+  title: |
+    <img src ="/images/announcements/kccnc-na-2025-white.svg" style="float: right; height: 100px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/register/?utm_source=kubernetes&utm_medium=banner&utm_campaign=10608228-KubeCon-NA-2025&utm_content=hero">KubeCon + CloudNativeCon 2025</a>
+  message: |
+    Join us for four days of incredible opportunities to collaborate, learn and share with the cloud native community.<br/> 
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/register/?utm_source=kubernetes&utm_medium=banner&utm_campaign=10608228-KubeCon-NA-2025&utm_content=hero">
+    Buy your ticket now! 10 - 13 November | Atlanta, Georgia
+    </a>

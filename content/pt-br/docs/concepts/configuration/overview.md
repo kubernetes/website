@@ -23,7 +23,7 @@ Isso permite que você reverta rapidamente uma alteração de configuração, ca
 - Escreva seus arquivos de configuração usando YAML ao invés de JSON. Embora esses formatos possam ser usados alternadamente em quase todos os cenários, YAML tende a ser mais amigável.
 
 - Agrupe objetos relacionados em um único arquivo sempre que fizer sentido. Geralmente, um arquivo é mais fácil de
-gerenciar do que vários. Veja o [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml) como exemplo dessa sintaxe.
+gerenciar do que vários. Veja o [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml) como exemplo dessa sintaxe.
 
 - Observe também que vários comandos `kubectl` podem ser chamados em um diretório. Por exemplo, você pode chamar
 `kubectl apply` em um diretório de arquivos de configuração.

@@ -19,37 +19,43 @@ Attach to a process that is already running inside an existing container.
 -->
 挂接到现有容器内已运行的进程。
 
-```
+```shell
 kubectl attach (POD | TYPE/NAME) -c CONTAINER
 ```
 
 ## {{% heading "examples" %}}
 
 <!--
+```
 # Get output from running pod mypod; use the 'kubectl.kubernetes.io/default-container' annotation
 # for selecting the container to be attached or the first container in the pod will be chosen
+kubectl attach mypod
 
 # Get output from ruby-container from pod mypod
+kubectl attach mypod -c ruby-container
 
 # Switch to raw terminal mode; sends stdin to 'bash' in ruby-container from pod mypod
 # and sends stdout/stderr from 'bash' back to the client
+kubectl attach mypod -c ruby-container -i -t
 
 # Get output from the first pod of a replica set named nginx
--->
+kubectl attach rs/nginx
 ```
-  # 从运行的 Pod mypod 获取输出；使用 'kubectl.kubernetes.io/default-container' 注解来选择要挂接的容器，
-  # 否则将选择 Pod 中的第一个容器
-  kubectl attach mypod
-  
-  # 从 Pod mypod 获取 ruby-container 的输出
-  kubectl attach mypod -c ruby-container
-  
-  # 切换到原始终端模式；从 Pod mypod 将 stdin 发送到 ruby-container 中的 'bash'，
-  # 并将 stdout/stderr 从 'bash' 发送回客户端
-  kubectl attach mypod -c ruby-container -i -t
-  
-  # 获取名为 nginx 的 ReplicaSet 中第一个 Pod 的输出
-  kubectl attach rs/nginx
+-->
+```shell
+# 从运行的 Pod mypod 获取输出；使用 'kubectl.kubernetes.io/default-container' 注解来选择要挂接的容器，
+# 否则将选择 Pod 中的第一个容器
+kubectl attach mypod
+
+# 从 Pod mypod 获取 ruby-container 的输出
+kubectl attach mypod -c ruby-container
+
+# 切换到原始终端模式；从 Pod mypod 将 stdin 发送到 ruby-container 中的 'bash'，
+# 并将 stdout/stderr 从 'bash' 发送回客户端
+kubectl attach mypod -c ruby-container -i -t
+
+# 获取名为 nginx 的 ReplicaSet 中第一个 Pod 的输出
+kubectl attach rs/nginx
 ```
 
 ## {{% heading "options" %}}
@@ -147,8 +153,6 @@ Stdin 是一个 TTY。
 
 </tbody>
 </table>
-
-
 
 ## {{% heading "parentoptions" %}}
 
@@ -264,31 +268,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -324,7 +305,23 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -336,7 +333,8 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 Require server version to match client version
 -->
 要求服务器版本与客户端版本匹配。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -348,7 +346,8 @@ Require server version to match client version
 If present, the namespace scope for this CLI request
 -->
 如果存在，则是此 CLI 请求的命名空间范围。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -360,7 +359,8 @@ If present, the namespace scope for this CLI request
 Password for basic authentication to the API server
 -->
 对 API 服务器进行基本身份验证所用的密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -372,7 +372,8 @@ Password for basic authentication to the API server
 Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|mutex)
 -->
 要记录的性能分析信息。可选值为（none|cpu|heap|goroutine|threadcreate|block|mutex）。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -384,7 +385,8 @@ Name of profile to capture. One of (none|cpu|heap|goroutine|threadcreate|block|m
 Name of the file to write the profile to
 -->
 性能分析信息要写入的目标文件的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -397,7 +399,8 @@ The length of time to wait before giving up on a single server request. Non-zero
 -->
 在放弃某个服务器请求之前等待的时长。非零值应包含相应的时间单位（例如 1s、2m、3h）。
 值为零表示请求不会超时。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -447,7 +450,8 @@ database name
 database host:port
 -->
 数据库 host:port。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -459,7 +463,8 @@ database host:port
 database password
 -->
 数据库密码。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -471,7 +476,8 @@ database password
 use secure connection with database
 -->
 使用与数据库的安全连接。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -495,7 +501,8 @@ table name
 database username
 -->
 数据库用户名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -507,7 +514,8 @@ database username
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
 服务器证书验证所用的服务器名称。如果未提供，则使用与服务器通信所用的主机名。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
