@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: ""
 title: "Загальні параметри"
-weight: 10
+weight: 11
 auto_generated: false
 ---
 

@@ -1,19 +1,19 @@
 ---
 api_metadata:
-  apiVersion: "storage.k8s.io/v1beta1"
-  import: "k8s.io/api/storage/v1beta1"
+  apiVersion: "storage.k8s.io/v1"
+  import: "k8s.io/api/storage/v1"
   kind: "VolumeAttributesClass"
 content_type: "api_reference"
 description: "VolumeAttributesClass представляє специфікацію змінних атрибутів тома, визначених драйвером CSI."
-title: "VolumeAttributesClass v1beta1"
+title: "VolumeAttributesClass v1"
 weight: 12
 auto_generated: false
 ---
 
 
-`apiVersion: storage.k8s.io/v1beta1`
+`apiVersion: storage.k8s.io/v1`
 
-`import "k8s.io/api/storage/v1beta1"`
+`import "k8s.io/api/storage/v1"`
 
 ## VolumeAttributesClass {#VolumeAttributesClass}
 
@@ -21,7 +21,7 @@ VolumeAttributesClass представляє специфікацію змінн
 
 ---
 
-- **apiVersion**: storage.k8s.io/v1beta1
+- **apiVersion**: storage.k8s.io/v1
 
 - **kind**: VolumeAttributesClass
 
@@ -39,7 +39,7 @@ VolumeAttributesClassList — це колекція обʼєктів VolumeAttr
 
 ---
 
-- **apiVersion**: storage.k8s.io/v1beta1
+- **apiVersion**: storage.k8s.io/v1
 
 - **kind**: VolumeAttributesClassList
 
@@ -47,7 +47,7 @@ VolumeAttributesClassList — це колекція обʼєктів VolumeAttr
 
   Стандартні метадані списку. Докладніше: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>), обовʼязково
+- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>), обовʼязково
 
   items — це список обʼєктів VolumeAttributesClass.
 
@@ -59,7 +59,7 @@ VolumeAttributesClassList — це колекція обʼєктів VolumeAttr
 
 #### HTTP запит {#http-request}
 
-GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+GET /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 #### Параметри {#parameters}
 
@@ -73,7 +73,7 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### Відповідь {#response}
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
 401: Unauthorized
 
@@ -81,7 +81,7 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### HTTP запит {#http-request-1}
 
-GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+GET /apis/storage.k8s.io/v1/volumeattributesclasses
 
 #### Параметри {#parameters-1}
 
@@ -131,7 +131,7 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 
 #### Відповідь {#response-1}
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClassList" >}}">VolumeAttributesClassList</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClassList" >}}">VolumeAttributesClassList</a>): OK
 
 401: Unauthorized
 
@@ -139,11 +139,11 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 
 #### HTTP запит {#http-request-2}
 
-POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+POST /apis/storage.k8s.io/v1/volumeattributesclasses
 
 #### Параметри {#parameters-2}
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, обовʼязково
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -163,11 +163,11 @@ POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 
 #### Відповідь {#response-2}
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
 
 401: Unauthorized
 
@@ -175,7 +175,7 @@ POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 
 #### HTTP запит {#http-request-3}
 
-PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+PUT /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 #### Параметри {#parameters-3}
 
@@ -183,7 +183,7 @@ PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
   імʼя VolumeAttributesClass
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, обовʼязково
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -203,9 +203,9 @@ PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### Відповідь {#response-3}
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
 401: Unauthorized
 
@@ -213,7 +213,7 @@ PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### HTTP запит {#http-request-4}
 
-PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+PATCH /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 #### Параметри {#parameters-4}
 
@@ -245,9 +245,9 @@ PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### Відповідь {#response-4}
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
 401: Unauthorized
 
@@ -255,7 +255,7 @@ PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### HTTP запит {#http-request-5}
 
-DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+DELETE /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 #### Параметри {#parameters-5}
 
@@ -287,9 +287,9 @@ DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### Відповідь {#response-5}
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
 
 401: Unauthorized
 
@@ -298,7 +298,7 @@ DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### HTTP запит {#http-request-6}
 
-DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+DELETE /apis/storage.k8s.io/v1/volumeattributesclasses
 
 #### Параметри {#parameters-6}
 

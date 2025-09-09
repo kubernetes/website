@@ -68,8 +68,6 @@ SelfSubjectAccessReviewSpec є описом запиту на доступ. Ма
 
     fieldSelector описує обмеження доступу на основі поля. Він може лише обмежувати доступ, але не розширювати його.
 
-    Це поле є на рівні альфа. Щоб використовувати це поле, ви повинні ввімкнути функціональну можливість `AuthorizeWithSelectors` (стандартно вимкнено).
-
     <a name="FieldSelectorAttributes"></a>
     *FieldSelectorAttributes вказує на доступ, обмежений за полем. Автори вебхуків заохочуються до таких дій:*
     - *переконатися, що rawSelector і requirements не встановлені одночасно;*
@@ -116,8 +114,6 @@ SelfSubjectAccessReviewSpec є описом запиту на доступ. Ма
   - **resourceAttributes.labelSelector** (LabelSelectorAttributes)
 
     labelSelector описує обмеження доступу на основі міток. Він може лише обмежувати доступ, але не розширювати його.
-
-    Це поле є на рівні альфа. Щоб використовувати це поле, потрібно ввімкнути функціональну можливість `AuthorizeWithSelectors` (стандартно вимкнено).
 
     <a name="LabelSelectorAttributes"></a>
     *LabelSelectorAttributes вказує на доступ, обмежений за мітками. Автори вебхуків заохочуються до таких дій:*

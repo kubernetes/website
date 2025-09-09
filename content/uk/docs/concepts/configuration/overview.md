@@ -20,7 +20,7 @@ weight: 10
 - Пишіть файли конфігурації за допомогою YAML, а не JSON. Хоча ці формати можна використовувати взаємозамінно практично в усіх сценаріях, YAML зазвичай є більш зручним для користувачів.
 
 - Гуртуйте повʼязані обʼєкти в один файл, якщо це має сенс. Одним файлом часто легше
-  керувати, ніж кількома. Podʼивіться на файл [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml) як приклад використання цього синтаксису.
+  керувати, ніж кількома. Podʼивіться на файл [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml) як приклад використання цього синтаксису.
 
 - Також зверніть увагу, що багато команд `kubectl` можна виконувати з теками. Наприклад, ви можете застосувати `kubectl apply` в теці з файлами конфігурації.
 

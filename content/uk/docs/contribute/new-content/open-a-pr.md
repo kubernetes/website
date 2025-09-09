@@ -35,13 +35,13 @@ subgraph tasks[Зміни за допомогою GitHub]
 direction TB
     0[ ] -.-
     1[1. Редагувати цю сторінку] --> 2[2. Використовуйте GitHub markdown<br>редактор для внесення змін]
-    2 --> 3[3. Заповніть форму Propose file change]
+    2 --> 3[3. Виберіть Commit changes...]
 
 end
 subgraph tasks2[ ]
 direction TB
-4[4. оберіть Propose file change] --> 5[5. оберіть Create pull request] --> 6[6. заповніть форму Open a pull request]
-6 --> 7[7. оберіть Create pull request]
+4[4. Оберіть Propose file change] --> 5[5. Оберіть Create pull request] --> 6[6. Заповніть форму Open a pull request]
+6 --> 7[7. Оберіть Create pull request]
 end
 
 id1 --> tasks --> tasks2
@@ -62,27 +62,27 @@ class id1 k8s
 
 1. Внесіть зміни у GitHub markdown редакторі.
 
-1. Під редактором заповніть форму **Propose file change**. У першому полі дайте заголовок вашому повідомленню коміту. У другому полі надайте опис.
+1. Праворуч над редактором, оберіть **Commit changes**. У першому полі дайте заголовок вашому повідомленню коміту. У другому полі надайте опис.
 
    {{< note >}}
    Не використовуйте жодних [ключових слів GitHub](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) у повідомленні вашого коміту. Ви можете додати їх до опису pull request пізніше.
    {{< /note >}}
 
-1. Оберіть **Propose file change**.
+2. Оберіть **Propose changes**.
 
-1. Оберіть **Create pull request**.
+3. Оберіть **Create pull request**.
 
-1. Зʼявиться екран **Open a pull request**. Заповніть форму:
+4. Зʼявиться екран **Open a pull request**. Заповніть форму:
 
-   - Поле **Subject** pull request стандартно містить заголовок коміту. Ви можете змінити його за потреби.
-   - Поле **Body** містить розширене повідомлення коміту, якщо у вас є, і деякий текст шаблону. Додайте деталі, які вимагає текст шаблону, потім видаліть зайвий текст шаблону.
+   - Поле **Add a title** pull request стандартно містить заголовок коміту. Ви можете змінити його за потреби.
+   - Поле **Add a description** містить розширене повідомлення коміту, якщо у вас є, і деякий текст шаблону. Додайте деталі, які вимагає текст шаблону, потім видаліть зайвий текст шаблону.
    - Залиште прапорець **Allow edits from maintainers** увімкненим.
 
    {{< note >}}
    Опис PR — це чудовий спосіб допомогти рецензентам зрозуміти ваші зміни.    Для отримання додаткової інформації див. [Відкриття PR](#open-a-pr).
    {{</ note >}}
 
-1. Оберіть **Create pull request**.
+5. Оберіть **Create pull request**.
 
 ### Робота з відгуками на GitHub {#addressing-feedback-in-github}
 

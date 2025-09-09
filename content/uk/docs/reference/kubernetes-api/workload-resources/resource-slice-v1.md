@@ -1,18 +1,18 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta2"
-  import: "k8s.io/api/resource/v1beta2"
+  apiVersion: "resource.k8s.io/v1"
+  import: "k8s.io/api/resource/v1"
   kind: "ResourceSlice"
 content_type: "api_reference"
 description: "ResourceSlice представляє один або декілька ресурсів у пулі подібних ресурсів, керованих спільним драйвером."
-title: "ResourceSlice v1beta2"
+title: "ResourceSlice v1"
 weight: 18
 auto_generated: true
 ---
 
-`apiVersion: resource.k8s.io/v1beta2`
+`apiVersion: resource.k8s.io/v1`
 
-`import "k8s.io/api/resource/v1beta2"`
+`import "k8s.io/api/resource/v1"`
 
 ## ResourceSlice {#ResourceSlice}
 
@@ -30,7 +30,7 @@ ResourceSlice представляє один або кілька ресурсі
 
 ---
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 - **kind**: ResourceSlice
 
@@ -38,7 +38,7 @@ ResourceSlice представляє один або кілька ресурсі
 
   Стандартні метадані обʼєкта
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), обовʼязково
+- **spec** (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSliceSpec" >}}">ResourceSliceSpec</a>), обовʼязково
 
   Містить інформацію, опубліковану драйвером.
 
@@ -108,6 +108,12 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
     Має бути задано тільки якщо Spec.PerDeviceNodeSelection має значення true. Може бути задано не більше одного з NodeName, NodeSelector та AllNodes.
 
+  - **devices.allowMultipleAllocations** (boolean)
+
+    AllowMultipleAllocations позначає, чи можна пристрій розподілити між декількома DeviceRequests.
+
+    Якщо AllowMultipleAllocations встановлено на true, пристрій можна розподілити більше ніж один раз, і вся його ємність є споживчою, незалежно від того, чи визначено requestPolicy.
+
   - **devices.attributes** (map[string]DeviceAttribute)
 
     Attributes визначає набір атрибутів для цього пристрою. Імʼя кожного атрибута повинно бути унікальним у цьому наборі.
@@ -133,6 +139,36 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
       VersionValue є семантичною версією відповідно до специфікації semver.org 2.0.0. Не повинна перевищувати 64 символи в довжину.
 
+  - **devices.bindingConditions** ([]string)
+
+    *Atomic: буде замінено під час злиття*
+
+    BindingConditions визначає умови для продовження звʼязування. Усі ці умови повинні бути встановлені в умовах стану для кожного пристрою із значенням True, щоб продовжити звʼязування пода з вузлом під час планування подачі.
+
+    Максимальна кількість умов звʼязування — 4.
+
+    Умови повинні бути дійсним рядком типу умови.
+
+    Це альфа-поле, яке вимагає увімкнення функціональних можливостей DRADeviceBindingConditions та DRAResourceClaimDeviceStatus.
+
+  - **devices.bindingFailureConditions** ([]string)
+
+    *Atomic: буде замінено під час злиття*
+
+    BindingFailureConditions визначає умови для невдалого звʼязування. Вони можуть бути встановлені в умовах стану для кожного пристрою. Якщо будь-яка з них встановлена на "True", відбулася невдача звʼязування.
+
+    Максимальна кількість умов невдалого звʼязування становить 4.
+
+    Умови повинні бути дійсним рядком типу умови.
+
+    Це альфа-поле, яке вимагає увімкнення функціональних можливостей DRADeviceBindingConditions та DRAResourceClaimDeviceStatus.
+
+  - **devices.bindsToNode** (boolean)
+
+    BindsToNode вказує, чи використання розподілу, що стосується цього пристрою, має бути обмежене саме тим вузлом, який було обрано під час розподілу заявки. Якщо встановлено значення true, планувальник встановить ResourceClaim.Status.Allocation.NodeSelector відповідно до вузла, де було здійснено розподіл.
+
+    Це поле альфа-версії, яке вимагає увімкнення функціональних можливостей DRADeviceBindingConditions та DRAResourceClaimDeviceStatus.
+
   - **devices.capacity** (map[string]DeviceCapacity)
 
     Capacity визначає набір ємностей для цього пристрою. Імʼя кожної ємності повинно бути унікальним у цьому наборі.
@@ -144,7 +180,76 @@ ResourceSliceSpec містить інформацію, опубліковану 
 
     - **devices.capacity.value** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), обовʼязково
 
-      Value визначає, яка частина певної ємності пристрою є доступною.
+      Value визначає, яку частину певної ємності має пристрій.
+
+      Це поле показує загальну фіксовану ємність і не змінюється. Спожита кількість відстежується окремо планувальником і не впливає на це значення.
+
+    - **devices.capacity.requestPolicy** (CapacityRequestPolicy)
+
+      RequestPolicy визначає, як ця DeviceCapacity повинна використовуватися, коли пристрій може бути спільним для декількох розподілів.
+
+      Для встановлення requestPolicy пристрій повинен мати allowMultipleAllocations, встановлений на true.
+
+      Якщо значення не встановлено, запити на ємність не обмежуються: запити можуть споживати будь-яку кількість ємності, якщо загальне споживання по всіх розподілах не перевищує визначену ємність пристрою. Якщо значення request також не встановлено, стандартно використовується повне значення ємності.
+
+      <a name="CapacityRequestPolicy"></a>
+      *CapacityRequestPolicy визначає, як запити використовують потужність пристрою.*
+
+      *Не можна встановлювати більше одного ValidRequestValues.*
+
+      - **devices.capacity.requestPolicy.default** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+        Default визначає, скільки з цієї ємності споживається запитом, який не містить запису про неї в DeviceRequest's Capacity.
+
+      - **devices.capacity.requestPolicy.validRange** (CapacityRequestPolicyRange)
+
+        ValidRange визначає прийнятний діапазон значень кількості в запитах на споживання.
+
+        Якщо це поле встановлено, необхідно визначити значення Default, яке повинно знаходитися в межах визначеного діапазону ValidRange.
+
+        Якщо запитувана кількість не знаходиться в межах визначеного діапазону, запит порушує політику, і цей пристрій не може бути виділений.
+
+        Якщо запит не містить цього запису про ємність, використовується значення Default.
+
+        <a name="CapacityRequestPolicyRange"></a>
+        *CapacityRequestPolicyRange визначає допустимий діапазон значень споживчої ємності.*
+
+          - *Якщо запитувана сума менше Min, вона округлюється до значення Min.*
+          - *Якщо встановлено Step і запитувана сума знаходиться між Min і Max, але не відповідає Step, вона округлюється до наступного значення, рівного Min + (n \* Step).*
+          - *Якщо Step не встановлено, запитувана сума використовується без змін, якщо вона знаходиться в діапазоні від Min до Max (якщо встановлено).*
+          - *Якщо запитувана або округлена сума перевищує Max (якщо встановлено), запит не відповідає політиці, і пристрій не може бути виділений.*
+
+        - **devices.capacity.requestPolicy.validRange.min** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>), обовʼязково
+
+          Min визначає мінімальну ємність, дозволену для запиту на споживання.
+
+          Min має бути більшим або дорівнювати нулю і меншим або дорівнювати значенню ємності. requestPolicy.default має бути більшим або дорівнювати мінімуму.
+
+        - **devices.capacity.requestPolicy.validRange.max** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+          Max визначає верхню межу ємності, яку можна запитувати.
+
+          Max має бути меншим або дорівнювати значенню ємності. Min і requestPolicy.default мають бути меншими або дорівнювати максимальному значенню.
+
+        - **devices.capacity.requestPolicy.validRange.step** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+          Step визначає розмір кроку між допустимими величинами ємності в межах діапазону.
+
+          Max (якщо встановлено) і requestPolicy.default повинні бути кратними Step. Min + Step повинні бути меншими або дорівнювати значенню ємності.
+
+      - **devices.capacity.requestPolicy.validValues** ([]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+        *Atomic: буде замінено під час злиття*
+
+        ValidValues визначає набір прийнятних значень кількості в запитах на споживання.
+
+        Не може містити більше 10 записів. Повинен бути відсортований у порядку зростання.
+
+        Якщо це поле встановлено, необхідно визначити значення Default і включити його до списку ValidValues.
+
+        Якщо запитувана кількість не відповідає жодному дійсному значенню, але є меншою за деякі дійсні значення, планувальник обчислює найменше дійсне значення, яке є більшим або дорівнює запиту. Тобто: min(ceil(requestedValue) ∈ validValues), де requestedValue ≤ max(validValues).
+
+        Якщо запитувана кількість перевищує всі дійсні значення, запит порушує політику, і цей пристрій не може бути виділений.
 
   - **devices.consumesCounters** ([]DeviceCounterConsumption)
 
@@ -330,7 +435,7 @@ ResourceSliceList — колекція класів ResourceSlices.
 
 ---
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 - **kind**: ResourceSliceList
 
@@ -338,7 +443,7 @@ ResourceSliceList — колекція класів ResourceSlices.
 
   Стандартні метадані списку
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>), обовʼязково
+- **items** ([]<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>), обовʼязково
 
   Items is the list of resource ResourceSlices.
 
@@ -350,7 +455,7 @@ ResourceSliceList — колекція класів ResourceSlices.
 
 #### HTTP запит {#http-request}
 
-GET /apis/resource.k8s.io/v1beta2/resourceslices/{name}
+GET /apis/resource.k8s.io/v1/resourceslices/{name}
 
 #### Параметри {#parameters}
 
@@ -364,7 +469,7 @@ GET /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Відповідь {#response}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
 401: Unauthorized
 
@@ -372,7 +477,7 @@ GET /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### HTTP запит {#http-request-1}
 
-GET /apis/resource.k8s.io/v1beta2/resourceslices
+GET /apis/resource.k8s.io/v1/resourceslices
 
 #### Параметри {#parameters-1}
 
@@ -422,7 +527,7 @@ GET /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### Відповідь {#response-1}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSliceList" >}}">ResourceSliceList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSliceList" >}}">ResourceSliceList</a>): OK
 
 401: Unauthorized
 
@@ -430,11 +535,11 @@ GET /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### HTTP запит {#http-request-2}
 
-POST /apis/resource.k8s.io/v1beta2/resourceslices
+POST /apis/resource.k8s.io/v1/resourceslices
 
 #### Параметри {#parameters-2}
 
-- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>, обовʼязково
+- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -454,11 +559,11 @@ POST /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### Відповідь {#response-2}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Accepted
 
 401: Unauthorized
 
@@ -466,7 +571,7 @@ POST /apis/resource.k8s.io/v1beta2/resourceslices
 
 #### HTTP запит {#http-request-3}
 
-PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
+PUT /apis/resource.k8s.io/v1/resourceslices/{name}
 
 #### Параметри {#parameters-3}
 
@@ -474,7 +579,7 @@ PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
   імʼя ResourceSlice
 
-- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>, обовʼязково
+- **body**: <a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>, обовʼязково
 
 - **dryRun** (*в запиті*): string
 
@@ -494,9 +599,9 @@ PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Відповідь {#response-3}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Created
 
 401: Unauthorized
 
@@ -504,7 +609,7 @@ PUT /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### HTTP запит {#http-request-4}
 
-PATCH /apis/resource.k8s.io/v1beta2/resourceslices/{name}
+PATCH /apis/resource.k8s.io/v1/resourceslices/{name}
 
 #### Параметри {#parameters-4}
 
@@ -536,9 +641,9 @@ PATCH /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Відповідь {#response-4}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Created
 
 401: Unauthorized
 
@@ -546,7 +651,7 @@ PATCH /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### HTTP запит {#http-request-5}
 
-DELETE /apis/resource.k8s.io/v1beta2/resourceslices/{name}
+DELETE /apis/resource.k8s.io/v1/resourceslices/{name}
 
 #### Параметри {#parameters-5}
 
@@ -578,9 +683,9 @@ DELETE /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### Відповідь {#response-5}
 
-200 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-slice-v1beta2#ResourceSlice" >}}">ResourceSlice</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-slice-v1#ResourceSlice" >}}">ResourceSlice</a>): Accepted
 
 401: Unauthorized
 
@@ -588,7 +693,7 @@ DELETE /apis/resource.k8s.io/v1beta2/resourceslices/{name}
 
 #### HTTP запит {#http-request-6}
 
-DELETE /apis/resource.k8s.io/v1beta2/resourceslices
+DELETE /apis/resource.k8s.io/v1/resourceslices
 
 #### Параметри {#parameters-6}
 
