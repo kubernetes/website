@@ -330,8 +330,9 @@ variables as well as some other useful variables:
 - `authorizer.requestResource` - A shortcut for an authorization check configured with the request
   resource (group, resource, (subresource), namespace, name).
 	
-The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
-the root of the object. No other metadata properties are accessible.
+When writing expressions, variables such as object and oldObject are strongly-typed. This means you can access any field defined in the object's schema, including all properties within metadata (e.g., object.metadata.labels, object.metadata.annotations) and spec.
+
+At a more fundamental level, the CEL environment only guarantees that a minimal set of root properties are always accessible for any Kubernetes object, even for schemaless Custom Resources. These guaranteed properties are apiVersion, kind, metadata.name, and metadata.generateName..
 	
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
