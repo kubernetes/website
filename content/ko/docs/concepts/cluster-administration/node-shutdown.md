@@ -87,7 +87,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ### 파드 우선순위 기반 그레이스풀 노드 셧다운 {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+{{< feature-state feature_gate_name="GracefulNodeShutdownBasedOnPodPriority" >}}
 
 그레이스풀 노드 셧다운 시 파드 셧다운 순서에 더 많은 유연성을 제공할 수 있도록, 
 클러스터에 프라이어리티클래스(PriorityClass) 기능이 활성화되어 있으면 
