@@ -100,7 +100,7 @@ kubelet 플래그 `--register-node`가 참(기본값)일 경우, kubelet은 API 
     각 주소 체계마다 하나의 주소만 지정 가능.
     예를 들어, 단일 스택 IPv4 클러스터에서는 kubelet이 노드의 주소로 쓸 수 있게 IPv4 주소로 설정함.
     
-    이중 스택 클러스터 실행에 관한 상세 정보는 [IPv4/IPv6 이중 스택 구성](/ko/docs/concepts/services-networking/dual-stack/#IPv4%2FIPv6-이중-스택-구성)을 참고.
+    이중 스택 클러스터 실행에 관한 상세 정보는 [IPv4/IPv6 이중 스택 구성](/ko/docs/concepts/services-networking/dual-stack/#ipv4%2Fipv6-이중-스택-구성)을 참고.
 
     이 인자를 사용하지 않으면 kubelet은 노드의 기본 IPv4 주소를 사용함.
     만약 노드가 IPv4 주소가 없으면 kubelet은 노드의 기본 IPv6 주소를 사용함.
