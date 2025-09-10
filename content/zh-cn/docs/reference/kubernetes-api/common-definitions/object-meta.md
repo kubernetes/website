@@ -8,7 +8,6 @@ description: "ObjectMeta 是所有持久化资源必须具有的元数据，其�
 title: "ObjectMeta"
 weight: 7
 ---
-
 <!-- 
 api_metadata:
   apiVersion: ""
@@ -45,6 +44,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   <!-- 
   GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
   -->
+
   generateName 是一个可选前缀，由服务器使用，**仅在**未提供 name 字段时生成唯一名称。
   如果使用此字段，则返回给客户端的名称将与传递的名称不同。该值还将与唯一的后缀组合。
   提供的值与 name 字段具有相同的验证规则，并且可能会根据所需的后缀长度被截断，以使该值在服务器上唯一。
@@ -54,7 +54,8 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   
   Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
   -->
-  如果指定了此字段并且生成的名称存在，则服务器将不会返回 409 ——相反，它将返回 201 Created 或 500，
+
+  如果指定了此字段并且生成的名称存在，则服务器将不会返回 409。相反，它将返回 201 Created 或 500，
   原因是 ServerTimeout 指示在分配的时间内找不到唯一名称，客户端应重试（可选，在 Retry-After 标头中指定的时间之后）。
   
   仅在未指定 name 时应用。更多信息：
@@ -68,7 +69,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
   -->
 
-  namespace 定义了一个值空间，其中每个名称必须唯一。空命名空间相当于 “default” 命名空间，但 “default” 是规范表示。
+  namespace 定义了一个值空间，其中每个名称必须唯一。空命名空间相当于 “default” 命名空间，但 “default” 是规范的表示。
   并非所有对象都需要限定在命名空间中——这些对象的此字段的值将为空。
   
   必须是 DNS_LABEL。无法更新。更多信息：
@@ -94,10 +95,18 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   它们不可查询，在修改对象时应保留。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/annotations
 
-<!-- ### System {#System} -->
+<!--
+### System {#System}
+-->
 ### 系统字段 {#System}
 
 - **finalizers** ([]string)
+
+  <!--
+  *Set: unique values will be kept during a merge*
+  -->
+
+  **集合：唯一值将在合并期间被保留**
 
   <!-- 
   Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
@@ -114,6 +123,12 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   并且不容易受到列表中排序更改的影响。
 
 - **managedFields** ([]ManagedFieldsEntry)
+
+  <!--
+  *Atomic: will be replaced during a merge*
+  -->
+
+  **原子性：将在合并期间被替换**
 
   <!-- 
   ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
@@ -179,13 +194,17 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
     2. `v:<value>`，其中 `<value>` 是列表项的精确 json 格式值
     3. `i:<index>`，其中 `<index>` 是列表中项目的位置
     4. `k:<keys>`，其中 `<keys>` 是列表项的关键字段到其唯一值的映射。
+  
     如果一个键映射到一个空的 Fields 值，则该键表示的字段是集合的一部分。
     
     确切的格式在 sigs.k8s.io/structured-merge-diff 中定义。
 
   - **managedFields.manager** (string)
 
-    <!-- Manager is an identifier of the workflow managing these fields. -->
+    <!--
+    Manager is an identifier of the workflow managing these fields.
+    -->
+
     manager 是管理这些字段的工作流的标识符。
 
   - **managedFields.operation** (string)
@@ -228,6 +247,8 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
 
   <!-- 
   *Patch strategy: merge on key `uid`*
+
+  *Map: unique values on key uid will be kept during a merge*
   
   List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
   
@@ -237,6 +258,8 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
 
   **补丁策略：根据 `uid` 键执行合并操作**
 
+  **映射：在合并期间将根据键 uid 保留唯一值**
+
   此对象所依赖的对象列表。如果列表中的所有对象都已被删除，则该对象将被垃圾回收。
   如果此对象由控制器管理，则此列表中的条目将指向此控制器，controller 字段设置为 true。
   管理控制器不能超过一个。
@@ -245,26 +268,37 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   **OwnerReference 包含足够可以让你识别属主对象的信息。
   属主对象必须与依赖对象位于同一命名空间中，或者是集群作用域的，因此没有命名空间字段。**
 
-  - **ownerReferences.apiVersion** (string)，<!-- required -->必选
-    <!-- API version of the referent. -->
+  - **ownerReferences.apiVersion** (string)，<!-- required -->必需
+    
+    <!--
+    API version of the referent.
+    -->
+
     被引用资源的 API 版本。
 
-  - **ownerReferences.kind** (string)，<!-- required -->必选
+  - **ownerReferences.kind** (string)，<!-- required -->必需
 
-    <!-- Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds -->
+    <!--
+    Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    -->
+
     被引用资源的类别。更多信息：
     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
-  - **ownerReferences.name** (string)，<!-- required -->必选
+  - **ownerReferences.name** (string)，<!-- required -->必需
 
-    <!-- Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names-->
+    <!--
+    Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
+    -->
 
     被引用资源的名称。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names/
 
-  - **ownerReferences.uid** (string)，<!-- required -->必选
+  - **ownerReferences.uid** (string)，<!-- required -->必需
 
-    <!-- UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids -->
+    <!--
+    UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
+    -->
 
     被引用资源的 uid。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#uids
@@ -274,6 +308,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
     <!--
     If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
     -->
+
     如果为 true，**并且** 如果属主具有 “foregroundDeletion” 终结器，
     则在删除此引用之前，无法从键值存储中删除属主。
     默认为 false。要设置此字段，用户需要属主的 “delete” 权限，
@@ -281,11 +316,16 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
 
   - **ownerReferences.controller** (boolean)
 
-    <!-- If true, this reference points to the managing controller. -->
+    <!--
+    If true, this reference points to the managing controller.
+    -->
+
     如果为 true，则此引用指向管理的控制器。
 
-<!-- ### Read-only {#Read-only} -->
-### 只读字段 {#Read-only}
+<!--
+### Read-only {#Read-only}
+-->
+### 只读字段   {#Read-only}
 
 - **creationTimestamp** (Time)
 
@@ -297,6 +337,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   <a name="Time"></a>
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
+
   creationTimestamp 是一个时间戳，表示创建此对象时的服务器时间。
   不能保证在单独的操作中按发生前的顺序设置。
   客户端不得设置此值。它以 RFC3339 形式表示，并采用 UTC。
@@ -313,6 +354,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   <!-- 
   Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
   -->
+
   此对象从系统中删除之前允许正常终止的秒数。
   仅当设置了 deletionTimestamp 时才设置。
   只能缩短。只读。
@@ -342,6 +384,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   <a name="Time"></a>
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
+
   请求体面删除时由系统填充。只读。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
@@ -354,6 +397,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   <!-- 
   A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
   -->
+
   表示期望状态的特定生成的序列号。由系统填充。只读。
 
 - **resourceVersion** (string)
@@ -363,6 +407,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   
   Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
   -->
+
   一个不透明的值，表示此对象的内部版本，客户端可以使用该值来确定对象是否已被更改。
   可用于乐观并发、变更检测以及对资源或资源集的监听操作。
   客户端必须将这些值视为不透明的，且未更改地传回服务器。
@@ -378,6 +423,7 @@ ObjectMeta 是所有持久化资源必须具有的元数据，其中包括用户
   
   DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
   -->
+
   selfLink 是表示此对象的 URL。由系统填充。只读。
   
   **已弃用**。Kubernetes 将在 1.20 版本中停止传播该字段，并计划在 1.21 版本中删除该字段。

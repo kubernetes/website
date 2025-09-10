@@ -225,7 +225,7 @@ BROKER_URL=amqp://guest:guest@$RABBITMQ_SERVICE_SERVICE_HOST:5672
 
 # 现在创建队列：
 
-/usr/bin/amqp-declare-queue --url=$BROKER_URL -q foo -d foo
+/usr/bin/amqp-declare-queue --url=$BROKER_URL -q foo -d
 ```
 ```
 foo

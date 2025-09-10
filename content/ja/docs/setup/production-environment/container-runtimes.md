@@ -172,14 +172,25 @@ Kubernetes {{< skew currentVersion >}}は、デフォルトでCRI APIのv1を使
 Linuxでは、containerd用のデフォルトのCRIソケットは`/run/containerd/containerd.sock`です。
 Windowsでは、デフォルトのCRIエンドポイントは`npipe://./pipe/containerd-containerd`です。
 
-#### `systemd` cgroupドライバーを構成する
+#### `systemd` cgroupドライバーを構成する {#containerd-systemd}
 
-`/etc/containerd/config.toml`内で`runc`が`systemd` cgroupドライバーを使うようにするには、次のように設定します。
+`/etc/containerd/config.toml`内で`runc`が`systemd` cgroupドライバーを使うようにするには、Containerdのバージョンに基づいて以下の設定を行ってください。
+
+Containerdバージョン1.x:
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
   ...
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
+
+Containerdバージョン2.x:
+
+```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
+  ...
+  [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
 
@@ -269,13 +280,13 @@ pause_image="registry.k8s.io/pause:3.6"
 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html)(MCR)は、
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html)(MCR)は、
 以前はDocker Enterprise Editionとして知られていた、商業的に利用可能なコンテナランタイムです。
 
 MCRに含まれるオープンソースの[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)コンポーネントを使用することで、
 Mirantis Container RuntimeをKubernetesで使用することができます。
 
-Mirantis Container Runtimeのインストール方法について知るには、[MCRデプロイガイド](https://docs.mirantis.com/mcr/20.10/install.html)を参照してください。
+Mirantis Container Runtimeのインストール方法について知るには、[MCRデプロイガイド](https://docs.mirantis.com/mcr/25.0/install.html)を参照してください。
 
 CRIソケットのパスを見つけるには、systemdの`cri-docker.socket`という名前のユニットを確認してください。
 

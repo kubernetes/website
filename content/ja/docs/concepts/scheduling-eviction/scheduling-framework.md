@@ -97,7 +97,7 @@ NormalizeScoreプラグインが途中でエラーを返した場合、Schedulin
 
 ### Reserve {#reserve}
 
-Reserve拡張を実装したプラグインには、ReserveとUnreserve　という2つのメソッドがあり、それぞれ`Reserve`
+Reserve拡張を実装したプラグインには、ReserveとUnreserveという2つのメソッドがあり、それぞれ`Reserve`
 と`Unreserve`と呼ばれる2つの情報スケジューリングフェーズを返します。
 実行状態を保持するプラグイン（別名「ステートフルプラグイン」）は、これらのフェーズを使用して、Podに対してNodeのリソースが予約されたり予約解除された場合に、スケジューラーから通知を受け取ります。
 

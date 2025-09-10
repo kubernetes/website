@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Volume represents a named volume in a pod that may be accessed by any container in the pod."
 title: "Volume"
-weight: 3
+weight: 10
 auto_generated: true
 ---
 
@@ -70,7 +70,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **configMap.name** (string)
 
-    Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+    Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
   - **configMap.optional** (boolean)
 
@@ -82,6 +82,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+    *Atomic: will be replaced during a merge*
+    
     items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
 - **secret** (SecretVolumeSource)
@@ -107,6 +109,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+    *Atomic: will be replaced during a merge*
+    
     items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
 - **downwardAPI** (DownwardAPIVolumeSource)
@@ -122,6 +126,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
+    *Atomic: will be replaced during a merge*
+    
     Items is a list of downward API volume file
 
 - **projected** (ProjectedVolumeSource)
@@ -137,10 +143,45 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **projected.sources** ([]VolumeProjection)
 
-    sources is the list of volume projections
+    *Atomic: will be replaced during a merge*
+    
+    sources is the list of volume projections. Each entry in this list handles one source.
 
     <a name="VolumeProjection"></a>
-    *Projection that may be projected along with other supported volume types*
+    *Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.*
+
+    - **projected.sources.clusterTrustBundle** (ClusterTrustBundleProjection)
+
+      ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
+      
+      Alpha, gated by the ClusterTrustBundleProjection feature gate.
+      
+      ClusterTrustBundle objects can either be selected by name, or by the combination of signer name and a label selector.
+      
+      Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
+
+      <a name="ClusterTrustBundleProjection"></a>
+      *ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.*
+
+      - **projected.sources.clusterTrustBundle.path** (string), required
+
+        Relative path from the volume root to write the bundle.
+
+      - **projected.sources.clusterTrustBundle.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+        Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
+
+      - **projected.sources.clusterTrustBundle.name** (string)
+
+        Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
+
+      - **projected.sources.clusterTrustBundle.optional** (boolean)
+
+        If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
+
+      - **projected.sources.clusterTrustBundle.signerName** (string)
+
+        Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
 
     - **projected.sources.configMap** (ConfigMapProjection)
 
@@ -153,7 +194,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.configMap.name** (string)
 
-        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
       - **projected.sources.configMap.optional** (boolean)
 
@@ -161,6 +202,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
     - **projected.sources.downwardAPI** (DownwardAPIProjection)
@@ -172,7 +215,70 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         Items is a list of DownwardAPIVolume file
+
+    - **projected.sources.podCertificate** (PodCertificateProjection)
+
+      Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+      
+      Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+      
+      Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+      
+      Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+      
+      The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+      
+      Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+      
+      The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+
+      <a name="PodCertificateProjection"></a>
+      *PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.*
+
+      - **projected.sources.podCertificate.keyType** (string), required
+
+        The type of keypair Kubelet will generate for the pod.
+        
+        Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+
+      - **projected.sources.podCertificate.signerName** (string), required
+
+        Kubelet's generated CSRs will be addressed to this signer.
+
+      - **projected.sources.podCertificate.certificateChainPath** (string)
+
+        Write the certificate chain at this path in the projected volume.
+        
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+
+      - **projected.sources.podCertificate.credentialBundlePath** (string)
+
+        Write the credential bundle at this path in the projected volume.
+        
+        The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+        
+        The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+        
+        Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+
+      - **projected.sources.podCertificate.keyPath** (string)
+
+        Write the key at this path in the projected volume.
+        
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+
+      - **projected.sources.podCertificate.maxExpirationSeconds** (int32)
+
+        maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+        
+        Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+        
+        If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+        
+        The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
 
     - **projected.sources.secret** (SecretProjection)
 
@@ -185,7 +291,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.secret.name** (string)
 
-        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 
       - **projected.sources.secret.optional** (boolean)
 
@@ -193,6 +299,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
       - **projected.sources.secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
 
+        *Atomic: will be replaced during a merge*
+        
         items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 
     - **projected.sources.serviceAccountToken** (ServiceAccountTokenProjection)
@@ -252,7 +360,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
 
-  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+  awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 
   <a name="AWSElasticBlockStoreVolumeSource"></a>
   *Represents a Persistent Disk resource in AWS.
@@ -277,7 +385,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **azureDisk** (AzureDiskVolumeSource)
 
-  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+  azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
 
   <a name="AzureDiskVolumeSource"></a>
   *AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.*
@@ -308,7 +416,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **azureFile** (AzureFileVolumeSource)
 
-  azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+  azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
 
   <a name="AzureFileVolumeSource"></a>
   *AzureFile represents an Azure File Service mount on the host and bind mount to the pod.*
@@ -327,13 +435,15 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **cephfs** (CephFSVolumeSource)
 
-  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+  cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
 
   <a name="CephFSVolumeSource"></a>
   *Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.*
 
   - **cephfs.monitors** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.path** (string)
@@ -358,7 +468,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **cinder** (CinderVolumeSource)
 
-  cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+  cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
   <a name="CinderVolumeSource"></a>
   *Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.*
@@ -381,7 +491,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **csi** (CSIVolumeSource)
 
-  csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+  csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
 
   <a name="CSIVolumeSource"></a>
   *Represents a source location of a volume to mount, managed by an external CSI driver*
@@ -468,15 +578,19 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **fc.targetWWNs** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     targetWWNs is Optional: FC target worldwide names (WWNs)
 
   - **fc.wwids** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 
 - **flexVolume** (FlexVolumeSource)
 
-  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+  flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
 
   <a name="FlexVolumeSource"></a>
   *FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.*
@@ -503,7 +617,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **flocker** (FlockerVolumeSource)
 
-  flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+  flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
 
   <a name="FlockerVolumeSource"></a>
   *Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.*
@@ -518,7 +632,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
-  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+  gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
   *Represents a Persistent Disk resource in Google Compute Engine.
@@ -543,14 +657,14 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **glusterfs** (GlusterfsVolumeSource)
 
-  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
 
   <a name="GlusterfsVolumeSource"></a>
   *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
 
   - **glusterfs.endpoints** (string), required
 
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    endpoints is the endpoint name that details Glusterfs topology.
 
   - **glusterfs.path** (string), required
 
@@ -562,7 +676,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **iscsi** (ISCSIVolumeSource)
 
-  iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+  iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
 
   <a name="ISCSIVolumeSource"></a>
   *Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.*
@@ -601,6 +715,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **iscsi.portals** ([]string)
 
+    *Atomic: will be replaced during a merge*
+    
     portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 
   - **iscsi.readOnly** (boolean)
@@ -610,6 +726,25 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **iscsi.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
     secretRef is the CHAP Secret for iSCSI target and initiator authentication
+
+- **image** (ImageVolumeSource)
+
+  image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
+  
+  - Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. - Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. - IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
+  
+  The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro) and non-executable files (noexec). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
+
+  <a name="ImageVolumeSource"></a>
+  *ImageVolumeSource represents a image volume resource.*
+
+  - **image.pullPolicy** (string)
+
+    Policy for pulling OCI objects. Possible values are: Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails. Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present. IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.
+
+  - **image.reference** (string)
+
+    Required: Image or artifact reference to be used. Behaves in the same way as pod.spec.containers[*].image. Pull secrets will be assembled in the same way as for the container image by looking up node credentials, SA image pull secrets, and pod spec image pull secrets. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
 
 - **nfs** (NFSVolumeSource)
 
@@ -632,7 +767,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
-  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+  photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
 
   <a name="PhotonPersistentDiskVolumeSource"></a>
   *Represents a Photon Controller persistent disk resource.*
@@ -647,7 +782,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **portworxVolume** (PortworxVolumeSource)
 
-  portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+  portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver when the CSIMigrationPortworx feature-gate is on.
 
   <a name="PortworxVolumeSource"></a>
   *PortworxVolumeSource represents a Portworx volume resource.*
@@ -666,7 +801,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **quobyte** (QuobyteVolumeSource)
 
-  quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+  quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
 
   <a name="QuobyteVolumeSource"></a>
   *Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.*
@@ -697,7 +832,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **rbd** (RBDVolumeSource)
 
-  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
 
   <a name="RBDVolumeSource"></a>
   *Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.*
@@ -708,6 +843,8 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **rbd.monitors** ([]string), required
 
+    *Atomic: will be replaced during a merge*
+    
     monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.fsType** (string)
@@ -736,7 +873,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **scaleIO** (ScaleIOVolumeSource)
 
-  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+  scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
 
   <a name="ScaleIOVolumeSource"></a>
   *ScaleIOVolumeSource represents a persistent ScaleIO volume*
@@ -783,7 +920,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **storageos** (StorageOSVolumeSource)
 
-  storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+  storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
 
   <a name="StorageOSVolumeSource"></a>
   *Represents a StorageOS persistent volume resource.*
@@ -810,7 +947,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
-  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+  vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
 
   <a name="VsphereVirtualDiskVolumeSource"></a>
   *Represents a vSphere volume resource.*
@@ -836,7 +973,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
 - **gitRepo** (GitRepoVolumeSource)
 
-  gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+  gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 
   <a name="GitRepoVolumeSource"></a>
   *Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
@@ -869,7 +1006,7 @@ DownwardAPIVolumeFile represents information to create the file containing the p
 
 - **fieldRef** (<a href="{{< ref "../common-definitions/object-field-selector#ObjectFieldSelector" >}}">ObjectFieldSelector</a>)
 
-  Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+  Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
 
 - **mode** (int32)
 

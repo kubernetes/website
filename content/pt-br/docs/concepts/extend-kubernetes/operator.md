@@ -83,7 +83,7 @@ A seguir estão algumas bibliotecas e ferramentas que você pode usar para escre
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
 * [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/)
-* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
+* [KubeOps](https://dotnet.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
 * [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) em conjunto com webhooks que você mesmo implementa
 * [Operator Framework](https://operatorframework.io)

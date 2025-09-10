@@ -63,48 +63,71 @@ kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)
 <!--
 ```
   # Delete a pod using the type and name specified in pod.json
+  kubectl delete -f ./pod.json
+  
   # Delete resources from a directory containing kustomization.yaml - e.g. dir/kustomization.yaml
+  kubectl delete -k dir
+  
   # Delete resources from all files that end with '.json'
+  kubectl delete -f '*.json'
+  
   # Delete a pod based on the type and name in the JSON passed into stdin
+  cat pod.json | kubectl delete -f -
+  
   # Delete pods and services with same names "baz" and "foo"
+  kubectl delete pod,service baz foo
+  
   # Delete pods and services with label name=myLabel
+  kubectl delete pods,services -l name=myLabel
+  
   # Delete a pod with minimal delay
+  kubectl delete pod foo --now
+  
   # Force delete a pod on a dead node
+  kubectl delete pod foo --force
+  
   # Delete all pods
+  kubectl delete pods --all
+  
+  # Delete all pods only if the user confirms the deletion
+  kubectl delete pods --all --interactive
 ```
 -->
 ```shell
 # 使用 pod.json 中指定的类型和名称删除一个 Pod
 kubectl delete -f ./pod.json
-  
+
 # 基于包含 kustomization.yaml 的目录（例如 dir/kustomization.yaml）中的内容删除资源
 kubectl delete -k dir
-  
+
 # 删除所有以 '.json' 结尾的文件中的资源
 kubectl delete -f '*.json'
-  
+
 # 基于传递到标准输入的 JSON 中的类型和名称删除一个 Pod
 cat pod.json | kubectl delete -f -
-  
+
 # 删除名称为 "baz" 和 "foo" 的 Pod 和 Service
 kubectl delete pod,service baz foo
-  
+
 # 删除打了标签 name=myLabel 的 Pod 和 Service
 kubectl delete pods,services -l name=myLabel
-  
+
 # 以最小延迟删除一个 Pod
 kubectl delete pod foo --now
-  
+
 # 强制删除一个死节点上的 Pod
 kubectl delete pod foo --force
-  
+
 # 删除所有 Pod
 kubectl delete pods --all
+
+# 仅在用户确认删除的情况下删除所有 Pod
+kubectl delete pods --all --interactive
 ```
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -317,10 +340,11 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-过滤所用的选择算符（标签查询），支持 '='、'==' 和 '！='。
-（例如 -l key1=value1,key2=value2）。匹配的对象必须满足所有指定的标签约束。
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。
+匹配的对象必须满足所有指定的标签约束。
 </p></td>
 </tr>
 
@@ -353,7 +377,7 @@ If true, wait for resources to be gone before returning. This waits for finalize
 
 ## {{% heading "parentoptions" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -441,30 +465,6 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-l7lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L7 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L7 负载均衡流量代理和健康检查开放的 CIDR。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--cloud-provider-gce-lb-src-cidrs cidrs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：130.211.0.0/22,209.85.152.0/22,209.85.204.0/22,35.191.0.0/16</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-CIDRs opened in GCE firewall for L4 LB traffic proxy &amp; health checks
--->
-GCE 防火墙中为 L4 负载均衡流量代理和健康检查开放的 CIDR。
 </p></td>
 </tr>
 

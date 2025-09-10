@@ -2,12 +2,6 @@
 title: Halo Minikube
 content_type: tutorial
 weight: 5
-menu:
-  main:
-    title: "Mulai"
-    weight: 10
-    post: >
-      <p>Siap untuk mengotori tanganmu? Yuk kita buat klaster Kubernetes sederhana yang menjalankan Node.js aplikasi "Halo Dunia".</p>
 card:
   name: tutorials
   weight: 10

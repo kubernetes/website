@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Generates the kube-scheduler static Pod manifest
-
 ### Synopsis
 
 

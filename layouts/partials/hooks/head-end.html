@@ -1,4 +1,51 @@
+{{/* reference page-specific open graph image */}}
+{{- if ( eq .Section "blog" ) -}}
+{{ with findRE "<img.*?>" .Content 1 }}
+<meta property="og:image" content="{{ index . 0 | replaceRE ".*src=\"(.+?)\".*" "$1" }}">
+{{ end }}
+{{- else -}}
+{{- with resources.Get "images/kubernetes-horizontal-color.png" -}}
+{{- with resources.Copy "images/kubernetes-open-graph.png" . -}}
+<meta property="og:image" content="{{ .RelPermalink }}">
+{{- else -}}
+{{- warnf "No image. Boo." -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
 <link rel="manifest" href="/manifest.webmanifest">
+{{ range .Translations -}}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{ end -}}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://kubernetes.io",
+    "logo": "https://kubernetes.io/images/favicon.png",
+{{- if not .Site.Params.deprecated }}
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ printf "%s%s" ("search/" | absURL) "?q={search_term_string}" }},
+      "query-input": "required name=search_term_string"
+    }
+{{ end }}
+  }
+</script>
+
+<meta name="theme-color" content="#326ce5">
+
+<link rel="manifest" href="/manifest.webmanifest">
+
+{{- if .HasShortcode "kubeweekly" -}}
+<link href="https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+        #mc_embed_signup{clear:left; width:100%;}
+        #mc_embed_signup .button, #mc_embed_signup input.email {margin-right:15px; vertical-align: bottom}
+        /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+           We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+{{- end -}}
 
 {{- if or (.HasShortcode "table")  (.HasShortcode "feature-gate-table") -}}
   {{- if hugo.IsProduction -}}
@@ -42,3 +89,29 @@
 <script defer src="{{ $releaseBinariesJs.RelPermalink }}"></script>
   {{- end -}}
 {{- end -}}
+
+{{/* JavaScript for announcements */}}
+{{- if hugo.IsProduction -}}
+  {{- $bannerDismissJs :=  resources.Get "js/banner-dismiss.js" | minify | fingerprint -}}
+<script defer src="{{ $bannerDismissJs.RelPermalink }}" integrity="{{ $bannerDismissJs.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- else -}}
+  {{- $bannerDismissJs := resources.Get "js/banner-dismiss.js" -}}
+<script defer src="{{ $bannerDismissJs.RelPermalink }}"></script>
+{{- end -}}
+
+{{- if or (.HasShortcode "code_sample") (.HasShortcode "code") (.HasShortcode "codenew") -}}
+    <link rel="stylesheet" href="/css/toastr-2.1.4.min.css">
+{{- end -}}
+
+{{- if eq (lower .Params.cid) "community" -}}
+<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{- end -}}
+{{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
+{{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
+
+<!--for the splitter-->
+<!--script src="https://unpkg.com/split.js/dist/split.min.js"></script-->
+<script src="/js/split-1.6.0.js" integrity="sha384-0blL3GqHy6+9fw0cyY2Aoiwg4onHAtslAs4OkqZY7UQBrR65/K4gI+hxLdWDrjpz"></script>
+
+{{- $legacyScriptJs := resources.Get "js/legacy-script.js" -}}
+<script src="{{ $legacyScriptJs.RelPermalink }}"></script>

@@ -49,13 +49,26 @@ kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP|SCTP]
 
 <!--
 ```
-  # Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000
-  # Create a service for a replication controller identified by type and name specified in "nginx-controller.yaml", which serves on port 80 and connects to the containers on port 8000
-  # Create a service for a pod valid-pod, which serves on port 444 with the name "frontend"
-  # Create a second service based on the above service, exposing the container port 8443 as port 443 with the name "nginx-https"
-  # Create a service for a replicated streaming application on port 4100 balancing UDP traffic and named 'video-stream'.
-  # Create a service for a replicated nginx using replica set, which serves on port 80 and connects to the containers on port 8000
-  # Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000
+# Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000
+kubectl expose rc nginx --port=80 --target-port=8000
+
+# Create a service for a replication controller identified by type and name specified in "nginx-controller.yaml", which serves on port 80 and connects to the containers on port 8000
+kubectl expose -f nginx-controller.yaml --port=80 --target-port=8000
+
+# Create a service for a pod valid-pod, which serves on port 444 with the name "frontend"
+kubectl expose pod valid-pod --port=444 --name=frontend
+
+# Create a second service based on the above service, exposing the container port 8443 as port 443 with the name "nginx-https"
+kubectl expose service nginx --port=443 --target-port=8443 --name=nginx-https
+
+# Create a service for a replicated streaming application on port 4100 balancing UDP traffic and named 'video-stream'.
+kubectl expose rc streamer --port=4100 --protocol=UDP --name=video-stream
+
+# Create a service for a replicated nginx using replica set, which serves on port 80 and connects to the containers on port 8000
+kubectl expose rs nginx --port=80 --target-port=8000
+
+# Create a service for an nginx deployment, which serves on port 80 and connects to the containers on port 8000
+kubectl expose deployment nginx --port=80 --target-port=8000
 ```
 -->
 ```shell
@@ -84,7 +97,7 @@ kubectl expose deployment nginx --port=80 --target-port=8000
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -95,7 +108,8 @@ kubectl expose deployment nginx --port=80 --target-port=8000
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
@@ -108,7 +122,8 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <td colspan="2">--cluster-ip string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 ClusterIP to be assigned to the service. Leave empty to auto-allocate, or set to 'None' to create a headless service.
 -->
@@ -120,7 +135,8 @@ ClusterIP to be assigned to the service. Leave empty to auto-allocate, or set to
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
@@ -133,7 +149,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 <td colspan="2">--external-ip string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Additional external IP address (not managed by Kubernetes) to accept for the service. If this IP is routed to a node, the service can be accessed by this IP in addition to its generated service IP.
 -->
@@ -146,7 +163,8 @@ Additional external IP address (not managed by Kubernetes) to accept for the ser
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-expose"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name of the manager used to track field ownership.
 -->
@@ -158,7 +176,8 @@ Name of the manager used to track field ownership.
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Filename, directory, or URL to files identifying the resource to expose a service
 -->
@@ -170,7 +189,8 @@ Filename, directory, or URL to files identifying the resource to expose a servic
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for expose
 -->
@@ -182,7 +202,8 @@ expose 操作的帮助命令。
 <td colspan="2">-k, --kustomize string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process the kustomization directory. This flag can't be used together with -f or -R.
 -->
@@ -194,7 +215,8 @@ Process the kustomization directory. This flag can't be used together with -f or
 <td colspan="2">-l, --labels string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Labels to apply to the service created by this call.
 -->
@@ -206,7 +228,8 @@ Labels to apply to the service created by this call.
 <td colspan="2">--load-balancer-ip string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 IP to assign to the LoadBalancer. If empty, an ephemeral IP will be created and used (cloud-provider specific).
 -->
@@ -218,7 +241,8 @@ IP to assign to the LoadBalancer. If empty, an ephemeral IP will be created and 
 <td colspan="2">--name string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name for the newly created object.
 -->
@@ -230,7 +254,8 @@ The name for the newly created object.
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
@@ -243,7 +268,8 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 <td colspan="2">--override-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："merge"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The method used to override the generated object: json, merge, or strategic.
 -->
@@ -255,7 +281,8 @@ The method used to override the generated object: json, merge, or strategic.
 <td colspan="2">--overrides string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 An inline JSON override for the generated object. If this is non-empty, it is used to override the generated object. Requires that the object supply a valid apiVersion field.
 -->
@@ -268,7 +295,8 @@ An inline JSON override for the generated object. If this is non-empty, it is us
 <td colspan="2">--port string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The port that the service should serve on. Copied from the resource being exposed, if unspecified
 -->
@@ -280,11 +308,12 @@ The port that the service should serve on. Copied from the resource being expose
 <td colspan="2">--protocol string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The network protocol for the service to be created. Default is 'TCP'.
 -->
-要创建的服务的网络协议。默认是 “TCP”。
+要创建的服务的网络协议。默认是 'TCP'。
 </p></td>
 </tr>
 
@@ -292,7 +321,8 @@ The network protocol for the service to be created. Default is 'TCP'.
 <td colspan="2">-R, --recursive</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
@@ -304,7 +334,8 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 <td colspan="2">--save-config</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
 -->
@@ -317,7 +348,8 @@ If true, the configuration of current object will be saved in its annotation. Ot
 <td colspan="2">--selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A label selector to use for this service. Only equality-based selector requirements are supported. If empty (the default) infer the selector from the replication controller or replica set.)
 -->
@@ -330,11 +362,12 @@ A label selector to use for this service. Only equality-based selector requireme
 <td colspan="2">--session-affinity string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If non-empty, set the session affinity for the service to this; legal values: 'None', 'ClientIP'
 -->
-如果非空，将服务的会话亲和性设置为此值；有效值为：“None”、“ClientIP”。
+如果非空，将服务的会话亲和性设置为此值；有效值为：'None'、'ClientIP'。
 </p></td>
 </tr>
 
@@ -342,7 +375,8 @@ If non-empty, set the session affinity for the service to this; legal values: 'N
 <td colspan="2">--show-managed-fields</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
@@ -354,7 +388,8 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <td colspan="2">--target-port string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Name or number for the port on the container that the service should direct traffic to. Optional.
 -->
@@ -508,30 +543,6 @@ The name of the kubeconfig context to use
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -565,6 +576,21 @@ Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
 </p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>

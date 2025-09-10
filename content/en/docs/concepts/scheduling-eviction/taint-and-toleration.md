@@ -85,8 +85,7 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 
 There are two special cases:
 
-An empty `key` with operator `Exists` matches all keys, values and effects which means this
-will tolerate everything.
+If the `key` is empty, then the `operator` must be `Exists`, which matches all keys and values. Note that the `effect` still needs to be matched at the same time.
 
 An empty `effect` matches all effects with key `key1`.
 
@@ -290,6 +289,13 @@ Nodes for 5 minutes after one of these problems is detected.
 
 This ensures that DaemonSet pods are never evicted due to these problems.
 
+{{< note >}}
+The node controller was responsible for adding taints to nodes and evicting pods. But after 1.29,
+the taint-based eviction implementation has been moved out of node controller into a separate,
+and independent component called taint-eviction-controller. Users can optionally disable taint-based
+eviction by setting `--controllers=-taint-eviction-controller` in kube-controller-manager.
+{{< /note >}}
+
 ## Taint Nodes by Condition
 
 The control plane, using the node {{<glossary_tooltip text="controller" term_id="controller">}},
@@ -323,9 +329,18 @@ tolerations to all daemons, to prevent DaemonSets from breaking.
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
 
+## Device taints and tolerations
+
+Instead of tainting entire nodes, administrators can also [taint individual devices](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
+when the cluster uses [dynamic resource allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
+to manage special hardware. The advantage is that tainting can be targeted towards exactly the hardware that
+is faulty or needs maintenance. Tolerations are also supported and can be specified when requesting
+devices. Like taints they apply to all pods which share the same allocated device.
+
 ## {{% heading "whatsnext" %}}
 
 * Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
   and how you can configure it
 * Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* Read about [device taints and tolerations](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
 

@@ -88,7 +88,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 {{< table caption = "Node conditions, and a description of when each condition applies." >}}
 | Node Condition       | Description |
 |----------------------|-------------|
-| `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
+| `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 50 seconds) |
 | `DiskPressure`       | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
 | `MemoryPressure`     | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
 | `PIDPressure`        | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
@@ -98,7 +98,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 {{< table caption = "节点状况及每种状况适用场景的描述" >}}
 | 节点状况       | 描述        |
 |----------------|-------------|
-| `Ready` | 如节点是健康的并已经准备好接收 Pod 则为 `True`；`False` 表示节点不健康而且不能接收 Pod；`Unknown` 表示节点控制器在最近 `node-monitor-grace-period` 期间（默认 40 秒）没有收到节点的消息 |
+| `Ready` | 如节点是健康的并已经准备好接收 Pod 则为 `True`；`False` 表示节点不健康而且不能接收 Pod；`Unknown` 表示节点控制器在最近 `node-monitor-grace-period` 期间（默认 50 秒）没有收到节点的消息 |
 | `DiskPressure` | `True` 表示节点存在磁盘空间压力，即磁盘可用量低，否则为 `False` |
 | `MemoryPressure` | `True` 表示节点存在内存压力，即节点内存可用量低，否则为 `False` |
 | `PIDPressure` | `True` 表示节点存在进程压力，即节点上进程过多；否则为 `False` |
@@ -141,13 +141,13 @@ When problems occur on nodes, the Kubernetes control plane automatically creates
 [taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that match the conditions
 affecting the node. An example of this is when the `status` of the Ready condition
 remains `Unknown` or `False` for longer than the kube-controller-manager's `NodeMonitorGracePeriod`,
-which defaults to 40 seconds. This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
+which defaults to 50 seconds. This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
 or a `node.kubernetes.io/not-ready` taint, for a `False` status, to be added to the Node.
 -->
 当节点上出现问题时，Kubernetes 控制面会自动创建与影响节点的状况对应的
 [污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 例如当 Ready 状况的 `status` 保持 `Unknown` 或 `False` 的时间长于
-kube-controller-manager 的 `NodeMonitorGracePeriod`（默认为 40 秒）时，
+kube-controller-manager 的 `NodeMonitorGracePeriod`（默认为 50 秒）时，
 会造成 `Unknown` 状态下为节点添加 `node.kubernetes.io/unreachable` 污点或在
 `False` 状态下为节点添加 `node.kubernetes.io/not-ready` 污点。
 

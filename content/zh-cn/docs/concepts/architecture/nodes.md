@@ -32,7 +32,7 @@ and contains the services necessary to run
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
 
-The [components](/docs/concepts/overview/components/#node-components) on a node include the
+The [components](/docs/concepts/architecture/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
@@ -45,7 +45,7 @@ Kubernetes 通过将容器放入在节点（Node）上运行的 Pod
 
 通常集群中会有若干个节点；而在一个学习所用或者资源受限的环境中，你的集群中也可能只有一个节点。
 
-节点上的[组件](/zh-cn/docs/concepts/overview/components/#node-components)包括
+节点上的[组件](/zh-cn/docs/concepts/architecture/#node-components)包括
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}以及
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}。
@@ -68,11 +68,11 @@ is valid. For example, if you try to create a Node from the following JSON manif
 
 向 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}添加节点的方式主要有两种：
 
-1. 节点上的 `kubelet` 向控制面执行自注册；
+1. 节点上的 kubelet 向控制面执行自注册；
 2. 你（或者别的什么人）手动添加一个 Node 对象。
 
 在你创建了 Node {{< glossary_tooltip text="对象" term_id="object" >}}或者节点上的
-`kubelet` 执行了自注册操作之后，控制面会检查新的 Node 对象是否合法。
+kubelet 执行了自注册操作之后，控制面会检查新的 Node 对象是否合法。
 例如，如果你尝试使用下面的 JSON 对象来创建 Node 对象：
 
 ```json
@@ -95,7 +95,7 @@ field of the Node. If the node is healthy (i.e. all necessary services are runni
 then it is eligible to run a Pod. Otherwise, that node is ignored for any cluster activity
 until it becomes healthy.
 -->
-Kubernetes 会在内部创建一个 Node 对象作为节点的表示。Kubernetes 检查 `kubelet`
+Kubernetes 会在内部创建一个 Node 对象作为节点的表示。Kubernetes 检查 kubelet
 向 API 服务器注册节点时使用的 `metadata.name` 字段是否匹配。
 如果节点是健康的（即所有必要的服务都在运行中），则该节点可以用来运行 Pod。
 否则，直到该节点变为健康之前，所有的集群活动都会忽略该节点。
@@ -246,6 +246,12 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node or mark it unschedulable.
+
+You can set optional node role(s) for nodes by adding one or more
+`node-role.kubernetes.io/<role>: <role>` labels to the node where characters of `<role>` are limited by the
+[syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
+
+Kubernetes ignores the label value for node roles; by convention, you can set it to the same string you used for the node role in the label key.
 -->
 ### 手动节点管理 {#manual-node-administration}
 
@@ -256,6 +262,12 @@ For example, you can set labels on an existing Node or mark it unschedulable.
 
 你可以修改 Node 对象（忽略 `--register-node` 设置）。
 例如，你可以修改节点上的标签或并标记其为不可调度。
+
+你可以通过在节点上添加一个或多个 `node-role.kubernetes.io/<role>: <role>` 标签，
+来为节点设置可选的节点角色。其中，`<role>`
+的字符受[标签键名格式](/zh-cn/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)规则限制。
+
+Kubernetes 会忽略节点角色标签的值；按照惯例，你可以将其设置为与标签键中的 `<role>` 相同的字符串。
 
 <!--
 You can use labels on Nodes in conjunction with node selectors on Pods to control
@@ -524,7 +536,7 @@ Kubernetes {{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}
 保证节点上有足够的资源供其上的所有 Pod 使用。
 它会检查节点上所有容器的请求的总和不会超过节点的容量。
 总的请求包括由 kubelet 启动的所有容器，但不包括由容器运行时直接启动的容器，
-也不包括不受 `kubelet` 控制的其他进程。
+也不包括不受 kubelet 控制的其他进程。
 
 {{< note >}}
 <!--
@@ -550,125 +562,17 @@ See [Control Topology Management Policies on a Node](/docs/tasks/administer-clus
 for more information.
 -->
 如果启用了 `TopologyManager` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-`kubelet` 可以在作出资源分配决策时使用拓扑提示。
+kubelet 可以在作出资源分配决策时使用拓扑提示。
 参考[控制节点上拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)了解详细信息。
-
-<!--
-## Swap memory management {#swap-memory}
--->
-## 交换内存（swap）管理 {#swap-memory}
-
-{{< feature-state feature_gate_name="NodeSwap" >}}
-
-<!--
-To enable swap on a node, the `NodeSwap` feature gate must be enabled on
-the kubelet (default is true), and the `--fail-swap-on` command line flag or `failSwapOn`
-[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
-must be set to false.
-To allow Pods to utilize swap, `swapBehavior` should not be set to `NoSwap` (which is the default behavior) in the kubelet config.
--->
-要在节点上启用交换内存，必须启用 kubelet 的 `NodeSwap` 特性门控（默认启用），
-同时使用 `--fail-swap-on` 命令行参数或者将 `failSwapOn`
-[配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)设置为 false。
-为了允许 Pod 使用交换内存，在 kubelet 配置中不应将 `swapBehavior` 设置为 `NoSwap`（默认行为）。
-
-{{< warning >}}
-<!--
-When the memory swap feature is turned on, Kubernetes data such as the content
-of Secret objects that were written to tmpfs now could be swapped to disk.
--->
-当内存交换功能被启用后，Kubernetes 数据（如写入 tmpfs 的 Secret 对象的内容）可以被交换到磁盘。
-{{< /warning >}}
-
-<!--
-A user can also optionally configure `memorySwap.swapBehavior` in order to
-specify how a node will use swap memory. For example,
--->
-用户还可以选择配置 `memorySwap.swapBehavior` 以指定节点使用交换内存的方式。例如：
-
-```yaml
-memorySwap:
-  swapBehavior: LimitedSwap
-```
-
-<!--
-- `NoSwap` (default): Kubernetes workloads will not use swap.
-- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
-  Only Pods of Burstable QoS are permitted to employ swap.
--->
-- `NoSwap`（默认）：Kubernetes 工作负载不会使用交换内存。
-- `LimitedSwap`：Kubernetes 工作负载对交换内存的使用受到限制。
-  只有具有 Burstable QoS 的 Pod 可以使用交换内存。
-
-<!--
-If configuration for `memorySwap` is not specified and the feature gate is
-enabled, by default the kubelet will apply the same behaviour as the
-`NoSwap` setting.
--->
-如果启用了特性门控但是未指定 `memorySwap` 的配置，默认情况下 kubelet 将使用与
-`NoSwap` 设置相同的行为。
-
-<!--
-With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
-`BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory.
-To maintain the aforementioned security and node
-health guarantees, these Pods are not permitted to use swap memory when `LimitedSwap` is
-in effect.
--->
-采用 `LimitedSwap` 时，不属于 Burstable QoS 分类的 Pod
-（即 `BestEffort`/`Guaranteed` QoS Pod）
-被禁止使用交换内存。为了保持上述的安全性和节点健康性保证，
-在 `LimitedSwap` 生效时，不允许这些 Pod 使用交换内存。
-
-<!--
-Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
-* `nodeTotalMemory`: The total amount of physical memory available on the node.
-* `totalPodsSwapAvailable`: The total amount of swap memory on the node that is available for use by Pods (some swap memory may be reserved for system use).
-* `containerMemoryRequest`: The container's memory request.
--->
-在详细介绍交换限制的计算之前，有必要定义以下术语：
-
-* `nodeTotalMemory`：节点上可用的物理内存总量。
-* `totalPodsSwapAvailable`：节点上可供 Pod 使用的交换内存总量
-  （一些交换内存可能被保留由系统使用）。
-* `containerMemoryRequest`：容器的内存请求。
-
-<!--
-Swap limitation is configured as:
-`(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable`.
-
-It is important to note that, for containers within Burstable QoS Pods, it is possible to
-opt-out of swap usage by specifying memory requests that are equal to memory limits.
-Containers configured in this manner will not have access to swap memory.
--->
-交换内存限制被配置为 `(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable` 的值。
-
-需要注意的是，位于 Burstable QoS Pod 中的容器可以通过将内存请求设置为与内存限制相同来选择不使用交换内存。
-以这种方式配置的容器将无法访问交换内存。
-
-<!--
-Swap is supported only with **cgroup v2**, cgroup v1 is not supported. 
-
-For more information, and to assist with testing and provide feedback, please
-see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/08/24/swap-linux-beta/),
-[KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
-[design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
--->
-只有 **Cgroup v2** 支持交换内存，Cgroup v1 不支持。
-
-如需了解更多信息、协助测试和提交反馈，请参阅关于
-[Kubernetes 1.28：NodeSwap 进阶至 Beta1](/zh-cn/blog/2023/08/24/swap-linux-beta/) 的博客文章、
-[KEP-2400](https://github.com/kubernetes/enhancements/issues/4128)
-及其[设计提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md)。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 Learn more about the following:
-* [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+* [Components](/docs/concepts/architecture/#node-components) that make up a node.
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
-* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+* [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/) to
   manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
@@ -676,12 +580,12 @@ Learn more about the following:
 -->
 进一步了解以下资料：
 
-* 构成节点的[组件](/zh-cn/docs/concepts/overview/components/#node-components)。
+* 构成节点的[组件](/zh-cn/docs/concepts/architecture/#node-components) 。
 * [Node 的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
 * 架构设计文档中有关
   [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   的章节。
-* [集群自动扩缩](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
+* [节点自动扩缩](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)
   以管理集群中节点的数量和规模。
 * [污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 * [节点资源管理器](/zh-cn/docs/concepts/policy/node-resource-managers/)。

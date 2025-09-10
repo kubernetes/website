@@ -33,15 +33,15 @@ Kubernetes v1.26から、各`kube-apiserver`はLease APIを利用して自身の
 それ自体は特に有用ではありませんが、何台の`kube-apiserver`がKubernetesコントロールプレーンを稼働させているのかをクライアントが知るためのメカニズムを提供します。
 kube-apiserverリースが存在することで、各kube-apiserver間の調整が必要となる可能性がある将来の機能が使えるようになります。
 
-`kube-system`名前空間の`kube-apiserver-<sha256-hash>`という名前のリースオブジェクトを確認することで、各kube-apiserverが所有しているLeaseを確認することができます。
+`kube-system`名前空間の`apiserver-<sha256-hash>`という名前のリースオブジェクトを確認することで、各kube-apiserverが所有しているLeaseを確認することができます。
 また、`k8s.io/component=kube-apiserver`ラベルセレクターを利用することもできます。
 
 ```shell
 $ kubectl -n kube-system get lease -l k8s.io/component=kube-apiserver
 NAME                                        HOLDER                                                                           AGE
-kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a   kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a_9cbf54e5-1136-44bd-8f9a-1dcd15c346b4   5m33s
-kube-apiserver-dz2dqprdpsgnm756t5rnov7yka   kube-apiserver-dz2dqprdpsgnm756t5rnov7yka_84f2a85d-37c1-4b14-b6b9-603e62e4896f   4m23s
-kube-apiserver-fyloo45sdenffw2ugwaz3likua   kube-apiserver-fyloo45sdenffw2ugwaz3likua_c5ffa286-8a9a-45d4-91e7-61118ed58d2e   4m43s
+apiserver-c4vwjftbvpc5os2vvzle4qg27a   kube-apiserver-c4vwjftbvpc5os2vvzle4qg27a_9cbf54e5-1136-44bd-8f9a-1dcd15c346b4   5m33s
+apiserver-dz2dqprdpsgnm756t5rnov7yka   kube-apiserver-dz2dqprdpsgnm756t5rnov7yka_84f2a85d-37c1-4b14-b6b9-603e62e4896f   4m23s
+apiserver-fyloo45sdenffw2ugwaz3likua   kube-apiserver-fyloo45sdenffw2ugwaz3likua_c5ffa286-8a9a-45d4-91e7-61118ed58d2e   4m43s
 ```
 
 リースの名前に使われているSHA256ハッシュはkube-apiserverのOSホスト名に基づいています。各kube-apiserverはクラスター内で一意なホスト名を使用するように構成する必要があります。 

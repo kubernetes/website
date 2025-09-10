@@ -76,7 +76,7 @@ This feature can be enabled using the following steps:
 
 * Prepare a manifest similar to the sample
   [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml)
-  and save it as `nodelocaldns.yaml.`
+  and save it as `nodelocaldns.yaml`.
 
 * If using IPv6, the CoreDNS configuration file needs to enclose all the IPv6 addresses
   into square brackets if used in 'IP:Port' format. 

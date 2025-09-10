@@ -7,20 +7,21 @@ weight: 30
 
 <!-- overview -->
 
-In this example, you will run a Job in [Indexed completion mode](/blog/2021/04/19/introducing-indexed-jobs/) configured such that
-the pods created by the Job can communicate with each other using pod hostnames rather than pod IP addresses.
+In this example, you will run a Job in [Indexed completion mode](/blog/2021/04/19/introducing-indexed-jobs/)
+configured such that the pods created by the Job can communicate with each other using pod hostnames rather
+than pod IP addresses.
 
-Pods within a Job might need to communicate among themselves. The user workload running in each pod could query the Kubernetes API server
-to learn the IPs of the other Pods, but it's much simpler to rely on Kubernetes' built-in DNS resolution.
+Pods within a Job might need to communicate among themselves. The user workload running in each pod
+could query the Kubernetes API server to learn the IPs of the other Pods, but it's much simpler to
+rely on Kubernetes' built-in DNS resolution.
 
 Jobs in Indexed completion mode automatically set the pods' hostname to be in the format of
 `${jobName}-${completionIndex}`. You can use this format to deterministically build
 pod hostnames and enable pod communication *without* needing to create a client connection to
-the Kubernetes control plane to obtain pod hostnames/IPs via API requests. 
+the Kubernetes control plane to obtain pod hostnames/IPs via API requests.
 
-This configuration is useful
-for use cases where pod networking is required but you don't want to depend on a network 
-connection with the Kubernetes API server.
+This configuration is useful for use cases where pod networking is required but you don't want
+to depend on a network connection with the Kubernetes API server.
 
 ## {{% heading "prerequisites" %}}
 
@@ -28,40 +29,43 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{<note>}}
-If you are using MiniKube or a similar tool, you may need to take
+{{< note >}}
+If you are using minikube or a similar tool, you may need to take
 [extra steps](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns/)
 to ensure you have DNS.
-{{</note>}}
+{{< /note >}}
 
 <!-- steps -->
 
-## Starting a Job with Pod-to-Pod Communication
+## Starting a Job with pod-to-pod communication
 
 To enable pod-to-pod communication using pod hostnames in a Job, you must do the following:
 
 1. Set up a [headless Service](/docs/concepts/services-networking/service/#headless-services)
-with a valid label selector for the pods created by your Job. The headless service must be in the same namespace as 
-the Job. One easy way to do this is to use the `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added by Kubernetes. This configuration will trigger the DNS system to create records of the hostnames of 
-the pods running your Job. 
+   with a valid label selector for the pods created by your Job. The headless service must be
+   in the same namespace as the Job. One easy way to do this is to use the
+   `job-name: <your-job-name>` selector, since the `job-name` label will be automatically added
+   by Kubernetes. This configuration will trigger the DNS system to create records of the hostnames
+   of the pods running your Job.
 
-2. Configure the headless service as subdomain service for the Job pods by including the following value in your Job template spec: 
+1. Configure the headless service as subdomain service for the Job pods by including the following
+   value in your Job template spec:
 
    ```yaml
    subdomain: <headless-svc-name>
    ```
 
-### Example 
+### Example
+
 Below is a working example of a Job with pod-to-pod communication via pod hostnames enabled.
 The Job is completed only after all pods successfully ping each other using hostnames.
 
-{{<note>}}
+{{< note >}}
 In the Bash script executed on each pod in the example below, the pod hostnames can be prefixed
-by the namespace as well  if the pod needs to be reached from outside the namespace.
-{{</note>}}
+by the namespace as well if the pod needs to be reached from outside the namespace.
+{{< /note >}}
 
 ```yaml
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -121,8 +125,8 @@ Successfully pinged pod: example-job-1.headless-svc
 Successfully pinged pod: example-job-2.headless-svc
 ```
 
-{{<note>}}
+{{< note >}}
 Keep in mind that the `<pod-hostname>.<headless-service-name>` name format used
 in this example would not work with DNS policy set to `None` or `Default`.
-You can learn more about pod DNS policies [here](/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy).
-{{</note>}}
+Refer to [Pod's DNS Policy](/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy).
+{{< /note >}}

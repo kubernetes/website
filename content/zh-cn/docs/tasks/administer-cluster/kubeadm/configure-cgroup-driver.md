@@ -1,12 +1,12 @@
 ---
 title: 配置 cgroup 驱动
 content_type: task
-weight: 20
+weight: 50
 ---
 <!-- 
 title: Configuring a cgroup driver
 content_type: task
-weight: 10
+weight: 50
 -->
 
 <!-- overview -->
@@ -124,6 +124,17 @@ Kubeadm 对集群所有的节点，使用相同的 `KubeletConfiguration`。
 执行 `init`、`join` 和 `upgrade` 等子命令会促使 kubeadm 
 将 `KubeletConfiguration` 写入到文件 `/var/lib/kubelet/config.yaml` 中，
 继而把它传递给本地节点的 kubelet。
+
+<!--
+On each node, kubeadm detects the CRI socket and stores its details into the `/var/lib/kubelet/instance-config.yaml` file.
+When executing the `init`, `join`, or `upgrade` subcommands, 
+kubeadm patches the `containerRuntimeEndpoint` value from this instance configuration into `/var/lib/kubelet/config.yaml`.
+-->
+在每个节点上，kubeadm 会检测 CRI 套接字，并将其详细信息存储到
+`/var/lib/kubelet/instance-config.yaml` 文件中。
+当执行 `init`、`join` 或 `upgrade` 子命令时，
+kubeadm 会将此实例配置中的 `containerRuntimeEndpoint` 值 patch 到
+`/var/lib/kubelet/config.yaml` 中。
 
 {{< /note >}}
 

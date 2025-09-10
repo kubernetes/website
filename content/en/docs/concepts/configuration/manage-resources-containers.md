@@ -28,22 +28,37 @@ that system resource specifically for that container to use.
 
 If the node where a Pod is running has enough of a resource available, it's possible (and
 allowed) for a container to use more resource than its `request` for that resource specifies.
-However, a container is not allowed to use more than its resource `limit`.
 
 For example, if you set a `memory` request of 256 MiB for a container, and that container is in
 a Pod scheduled to a Node with 8GiB of memory and no other Pods, then the container can try to use
 more RAM.
 
-If you set a `memory` limit of 4GiB for that container, the kubelet (and
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}) enforce the limit.
-The runtime prevents the container from using more than the configured resource limit. For example:
-when a process in the container tries to consume more than the allowed amount of memory,
-the system kernel terminates the process that attempted the allocation, with an out of memory
-(OOM) error.
+Limits are a different story. Both `cpu` and `memory` limits are applied by the kubelet (and
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}),
+and are ultimately enforced by the kernel. On Linux nodes, the Linux kernel
+enforces limits with
+{{< glossary_tooltip text="cgroups" term_id="cgroup" >}}.
+The behavior of `cpu` and `memory` limit enforcement is slightly different.
 
-Limits can be implemented either reactively (the system intervenes once it sees a violation)
-or by enforcement (the system prevents the container from ever exceeding the limit). Different
-runtimes can have different ways to implement the same restrictions.
+`cpu` limits are enforced by CPU throttling. When a container approaches
+its `cpu` limit, the kernel will restrict access to the CPU corresponding to the
+container's limit. Thus, a `cpu` limit is a hard limit the kernel enforces.
+Containers may not use more CPU than is specified in their `cpu` limit.
+
+`memory` limits are enforced by the kernel with out of memory (OOM) kills. When
+a container uses more than its `memory` limit, the kernel may terminate it. However,
+terminations only happen when the kernel detects memory pressure. Thus, a
+container that over allocates memory may not be immediately killed. This means
+`memory` limits are enforced reactively. A container may use more memory than
+its `memory` limit, but if it does, it may get killed.
+
+{{< note >}}
+There is an alpha feature `MemoryQoS` which attempts to add more preemptive
+limit enforcement for memory (as opposed to reactive enforcement by the OOM
+killer). However, this effort is
+[stalled](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)
+due to a potential livelock situation a memory hungry can cause.
+{{< /note >}}
 
 {{< note >}}
 If you specify a limit for a resource, but do not specify any request, and no admission-time
@@ -93,6 +108,29 @@ it is also useful to think about the overall resource requests and limits for
 a Pod.
 For a particular resource, a *Pod resource request/limit* is the sum of the
 resource requests/limits of that type for each container in the Pod.
+
+## Pod-level resource specification
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+Provided your cluster has the `PodLevelResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
+you can specify resource requests and limits at
+the Pod level. At the Pod level, Kubernetes {{< skew currentVersion >}}
+only supports resource requests or limits for specific resource types: `cpu` and /
+or `memory` and / or `hugepages`. With this feature, Kubernetes allows you to declare an overall resource
+budget for the Pod, which is especially helpful when dealing with a large number of
+containers where it can be difficult to accurately gauge individual resource needs.
+Additionally, it enables containers within a Pod to share idle resources with each
+other, improving resource utilization.
+
+For a Pod, you can specify resource limits and requests for CPU and memory by including the following:
+* `spec.resources.limits.cpu`
+* `spec.resources.limits.memory`
+* `spec.resources.limits.hugepages-<size>`
+* `spec.resources.requests.cpu`
+* `spec.resources.requests.memory`
+* `spec.resources.requests.hugepages-<size>`
 
 ## Resource units in Kubernetes
 
@@ -177,6 +215,21 @@ spec:
         cpu: "500m"
 ```
 
+## Pod resources example {#example-2}
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+This feature can be enabled by setting the `PodLevelResources` 
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates).
+The following Pod has an explicit request of 1 CPU and 100 MiB of memory, and an
+explicit limit of 1 CPU and 200 MiB of memory. The `pod-resources-demo-ctr-1`
+container has explicit requests and limits set. However, the
+`pod-resources-demo-ctr-2` container will simply share the resources available
+within the Pod resource boundaries, as it does not have explicit requests and limits
+set.
+
+{{% code_sample file="pods/resource/pod-level-resources.yaml" %}}
+
 ## How Pods with resource requests are scheduled
 
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
@@ -199,7 +252,7 @@ On Linux, the container runtime typically configures
 kernel {{< glossary_tooltip text="cgroups" term_id="cgroup" >}} that apply and enforce the
 limits you defined.
 
-- The CPU limit defines a hard ceiling on how much CPU time that the container can use.
+- The CPU limit defines a hard ceiling on how much CPU time the container can use.
   During each scheduling interval (time slice), the Linux kernel checks to see if this
   limit is exceeded; if so, the kernel waits before allowing that cgroup to resume execution.
 - The CPU request typically defines a weighting. If several different containers (cgroups)
@@ -244,30 +297,30 @@ directly or from your monitoring tools.
 If you do not specify a `sizeLimit` for an `emptyDir` volume, that volume may
 consume up to that pod's memory limit (`Pod.spec.containers[].resources.limits.memory`).
 If you do not set a memory limit, the pod has no upper bound on memory consumption,
-and can consume all available memory on the node.  Kubernetes schedules pods based
+and can consume all available memory on the node. Kubernetes schedules pods based
 on resource requests (`Pod.spec.containers[].resources.requests`) and will not
 consider memory usage above the request when deciding if another pod can fit on
-a given node.  This can result in a denial of service and cause the OS to do
-out-of-memory (OOM) handling.  It is possible to create any number of `emptyDir`s
+a given node. This can result in a denial of service and cause the OS to do
+out-of-memory (OOM) handling. It is possible to create any number of `emptyDir`s
 that could potentially consume all available memory on the node, making OOM
 more likely.
 {{< /caution >}}
 
 From the perspective of memory management, there are some similarities between
 when a process uses memory as a work area and when using memory-backed
-`emptyDir`. But when using memory as a volume like memory-backed `emptyDir`,
-there are additional points below that you should be careful of.
+`emptyDir`. But when using memory as a volume, like memory-backed `emptyDir`,
+there are additional points below that you should be careful of:
 
 * Files stored on a memory-backed volume are almost entirely managed by the
-  user application.  Unlike when used as a work area for a process, you can not
+  user application. Unlike when used as a work area for a process, you can not
   rely on things like language-level garbage collection.
 * The purpose of writing files to a volume is to save data or pass it between
-  applications.  Neither Kubernetes nor the OS may automatically delete files
+  applications. Neither Kubernetes nor the OS may automatically delete files
   from a volume, so memory used by those files can not be reclaimed when the
   system or the pod are under memory pressure.
 * A memory-backed `emptyDir` is useful because of its performance, but memory
   is generally much smaller in size and much higher in cost than other storage
-  media, such as disks or SSDs.  Using large amounts of memory for `emptyDir`
+  media, such as disks or SSDs. Using large amounts of memory for `emptyDir`
   volumes may affect the normal operation of your pod or of the whole node,
   so should be used carefully.
 
@@ -668,6 +721,12 @@ extender.
 }
 ```
 
+#### Extended resources allocation by DRA
+Extended resources allocation by DRA allows cluster administrators to specify an `extendedResourceName`
+in DeviceClass, then the devices matching the DeviceClass can be requested from a pod's extended
+resource requests. Read more about
+[Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource).
+
 ### Consuming extended resources
 
 Users can consume extended resources in Pod specs like CPU and memory.
@@ -884,4 +943,4 @@ memory limit (and possibly request) for that container.
 * Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
-
+* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

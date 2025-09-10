@@ -60,7 +60,7 @@ When present, indicates that modifications should not be persisted. An invalid o
 
 ## fieldManager {#fieldManager}
 
-fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://pkg.go.dev/unicode#IsPrint.
+fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
 
 <hr>
 
@@ -108,6 +108,16 @@ The duration in seconds before the object should be deleted. Value must be non-n
 
 
 
+## ignoreStoreReadErrorWithClusterBreakingPotential {#ignoreStoreReadErrorWithClusterBreakingPotential}
+
+if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+
+<hr>
+
+
+
+
+
 ## labelSelector {#labelSelector}
 
 A selector to restrict the list of returned objects by their labels. Defaults to everything.
@@ -142,7 +152,7 @@ object name and auth scope, such as for teams and projects
 
 ## pretty {#pretty}
 
-If 'true', then the output is pretty printed.
+If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).
 
 <hr>
 

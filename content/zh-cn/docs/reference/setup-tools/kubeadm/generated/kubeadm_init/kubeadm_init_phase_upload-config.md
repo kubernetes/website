@@ -8,10 +8,10 @@ Upload the kubeadm and kubelet configuration to a ConfigMap
 -->
 ### 概要
 
-<!--
-This command is not meant to be run on its own. See list of available subcommands.
+<!-- 
+Upload the kubeadm and kubelet configuration to a ConfigMap
 -->
-此命令并非设计用来单独运行。请参阅可用的子命令列表。
+上传 kubeadm 和 kubelet 配置到 ConfigMap 中。
 
 ```
 kubeadm init phase upload-config [flags]

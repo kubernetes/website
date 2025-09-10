@@ -1,0 +1,406 @@
+# i18n strings for the Ukrainian (main) site.
+
+[blog_post_show_more]
+other = "Показати більше…"
+
+[caution]
+# other = "Caution:"
+other = "Увага:"
+
+[cleanup_heading]
+# other = "Cleaning up"
+other = "Очистка"
+
+[community_events_calendar]
+# other = "Events Calendar"
+other = "Календар подій"
+
+[community_forum_name]
+# other = "Forum"
+other = "Форум"
+
+[community_github_name]
+other = "GitHub"
+
+[community_linkedin_name]
+other = "LinkedIn"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_warning]
+# other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
+other = " документація більше не підтримується. Версія, яку ви зараз переглядаєте, є статичною. Для перегляду актуальної документації дивіться "
+
+[deprecation_file_warning]
+# other = "Deprecated"
+other = "Застаріла версія"
+
+[docs_label_browse]
+# other = "Browse Docs"
+other = "Переглянути документацію"
+
+[docs_label_contributors]
+# other = "Contributors"
+other = "Контриб'ютори"
+
+[docs_label_i_am]
+# other = "I AM..."
+other = "Я..."
+
+[docs_label_users]
+# other = "Users"
+other = "Користувачі"
+
+[end_of_life]
+other = "Завершення життєвого циклу:"
+
+[feedback_heading]
+# other = "Feedback"
+other = "Ваша думка"
+
+[feedback_no]
+# other = "No"
+other = "Ні"
+
+[feedback_question]
+# other = "Was this page helpful?"
+other = "Чи була ця сторінка корисною?"
+
+[feedback_yes]
+# other = "Yes"
+other = "Так"
+
+[final_patch_release]
+other = "Остаточний патч-випуск"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+# other = "email address"
+other = "електронна адреса"
+
+[latest_version]
+# other = "latest version."
+other = "остання версія."
+
+[layouts_blog_pager_prev]
+# other = "<< Prev"
+other = "<< Назад"
+
+[layouts_blog_pager_next]
+# other = "Next >>"
+other = "Далі >>"
+
+[layouts_case_studies_list_tell]
+# other = "Tell your story"
+other = "Розкажіть свою історію"
+
+[layouts_docs_glossary_aka]
+# other = "Also known as"
+other = "Також відомий як"
+
+[layouts_docs_glossary_description]
+# other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+other = "Даний словник створений як повний стандартизований список термінології Kubernetes. Він включає в себе технічні терміни, специфічні для Kubernetes, а також більш загальні терміни, необхідні для кращого розуміння контексту."
+
+[layouts_docs_glossary_deselect_all]
+# other = "Deselect all"
+other = "Очистити вибір"
+
+[layouts_docs_glossary_click_details_after]
+# other = "indicators below to get a longer explanation for any particular term."
+other = "для отримання розширеного пояснення конкретного терміна."
+
+[layouts_docs_glossary_click_details_before]
+# other = "Click on the"
+other = "Натисність на"
+
+[layouts_docs_glossary_filter]
+# other = "Filter terms according to their tags"
+other = "Відфільтрувати терміни за тегами"
+
+[layouts_docs_glossary_select_all]
+# other = "Select all"
+other = "Вибрати все"
+
+[layouts_docs_partials_feedback_improvement]
+# other = "suggest an improvement"
+other = "запропонувати покращення"
+
+[layouts_docs_partials_feedback_issue]
+# other = "Open an issue in the GitHub repo if you want to "
+other = "Створіть issue в GitHub репозиторії, якщо ви хочете "
+
+[layouts_docs_partials_feedback_or]
+# other = "or"
+other = "або"
+
+[layouts_docs_partials_feedback_problem]
+# other = "report a problem"
+other = "повідомити про проблему"
+
+[layouts_docs_partials_feedback_thanks]
+# other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+other = "Дякуємо за ваш відгук. Якщо ви маєте конкретне запитання щодо використання Kubernetes, ви можете поставити його"
+
+[layouts_docs_search_fetching]
+# other = "Fetching results..."
+other = "Отримання результатів..."
+
+[main_by]
+other = "by"
+
+[main_cncf_project]
+# other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+other = """Ми є проектом <a href="https://cncf.io/">CNCF</a></p>"""
+
+[main_community_explore]
+# other = "Explore the community"
+other = "Познайомитись із спільнотою"
+
+[main_contribute]
+# other = "Contribute"
+other = "Допомогти проекту"
+
+[main_copyright_notice]
+# other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+other = """The Linux Foundation &reg;. Всі права застережено. The Linux Foundation є зареєстрованою торговою маркою. Перелік торгових марок The Linux Foundation ви знайдете на нашій сторінці <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Використання торгових марок</a>"""
+
+[main_documentation_license]
+# other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+other = """Автори Kubernetes | Документація розповсюджується під ліцензією <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_edit_this_page]
+# other = "Edit This Page"
+other = "Редагувати цю сторінку"
+
+[main_github_create_an_issue]
+# other = "Create an Issue"
+other = "Створити issue"
+
+[main_github_invite]
+# other = "Interested in hacking on the core Kubernetes code base?"
+other = "Хочете зламати основну кодову базу Kubernetes?"
+
+[main_github_view_on]
+# other = "View On GitHub"
+other = "Переглянути у GitHub"
+
+[main_kubernetes_features]
+# other = "Kubernetes Features"
+other = "Функціональні можливості Kubernetes"
+
+[main_kubeweekly_baseline]
+# other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
+other = "Хочете отримувати останні новини Kubernetes? Підпишіться на KubeWeekly."
+
+[main_kubeweekly_past_link]
+# other = "View past newsletters"
+other = "Переглянути попередні інформаційні розсилки"
+
+[main_kubeweekly_signup]
+# other = "Subscribe"
+other = "Підписатися"
+
+[main_page_history]
+# other ="Page History"
+other ="Історія сторінки"
+
+[main_page_last_modified_on]
+# other = "Page last modified on"
+other = "Сторінка востаннє редагувалася"
+
+[main_read_about]
+# other = "Read about"
+other = "Прочитати про"
+
+[main_read_more]
+# other = "Read more"
+other = "Прочитати більше"
+
+[note]
+# other = "Note:"
+other = "Примітка:"
+
+[objectives_heading]
+# other = "Objectives"
+other = "Цілі"
+
+[patch_release]
+other = "Патч"
+
+[prerequisites_heading]
+# other = "Before you begin"
+other = "Перш ніж ви розпочнете"
+
+[previous_patches]
+other = "Патч-версії:"
+
+# The following text is displayed when JavaScript isn't available.
+[release_binary_alternate_links]
+other = """Ви можете знайти посилання на завантаження компонентів Kubernetes (та їх контрольні суми) у файлах [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG).
+Або ж, скористайтесь [downloadkubernetes.com](https://www.downloadkubernetes.com/) для вибору за версією та архітектурою."""
+
+[release_binary_arch]
+other = "Архітектура"
+
+[release_binary_arch_option]
+other = "Архітектури"
+
+[release_binary_copy_link]
+other = "Копіювати посилання"
+
+[release_binary_copy_link_certifcate]
+other = "cert"
+
+[release_binary_copy_link_checksum]
+other = "checksum"
+
+[release_binary_copy_link_signature]
+other = "signature"
+
+[release_binary_copy_link_tooltip]
+other = "копіювати в буфер обміну"
+
+[release_binary_download]
+other = "Компонент"
+
+[release_binary_download_tooltip]
+other = "завантажити бінарний файл"
+
+[release_binary_options]
+other = "Параметри завантаженя"
+
+[release_binary_os]
+other = "Операційна система"
+
+[release_binary_os_option]
+other = "Операційні системи"
+
+[release_binary_os_darwin]
+other = "darwin"
+
+[release_binary_os_linux]
+other = "linux"
+
+[release_binary_os_windows]
+other = "windows"
+
+[release_binary_table_caption]
+other = "Завантаження бінарних компонентів Kubernetes"
+
+# NOTE: <current-version> is a placeholder for the actual version number set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> placeholder.
+[release_binary_section]
+other = """Ви можете знайти посилання для завантаження компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами) нижче.
+Щоб отримати доступ до завантажень для попередніх підтримуваних версій, перейдіть за відповідним посиланням в 
+документації для [попередніх версій](/docs/home/supported-doc-versions/#versions-older) або скористайтеся [downloadkubernetes.com](https://www.downloadkubernetes.com/).""" 
+
+# NOTE: <current-version> and <current-changelog-url> are placeholders set by 'release-binaries' shortcode.
+# Please do not localize or modify <current-version> and <current-changelog-url>  placeholders.
+[release_binary_section_note]
+other = """Для завантаження старіших патч-версій компонентів версії <current-version> Kubernetes (разом з їх контрольними сумами), 
+дивіться файл [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG/CHANGELOG-<current-changelog-url>.md).""" 
+
+[release_binary_version]
+other = "Версія"
+
+[release_binary_version_option]
+other = "Остання версія"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(випущено: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
+[release_date_format_month]
+other = "January 2006"
+
+[release_cherry_pick_deadline]
+other = "Строк Cherry Pick"
+
+[release_end_of_life_date]
+other = "Завершення життєвого циклу"
+
+[release_full_details_initial_text]
+other = "Повний"
+
+[release_information_navbar]
+other = "Інформація про випуск"
+
+[release_minor_version]
+other = "Мінорна версія"
+
+[release_info_next_patch]
+other = "Наступний патч **%s**."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** переходить в режим технічного обслуговування **%s**, кінець життєвого циклу — **%s**."
+
+[release_note]
+other = "Примітка"
+
+[release_schedule]
+other = "Розклад"
+
+[release_target_date]
+other = "Заплановано"
+
+[release_changelog]
+other = "Зміни"
+
+[subscribe_button]
+# other = "Subscribe"
+other = "Підписатися"
+
+[ui_search]
+# other = "Search"
+other = "Пошук"
+
+[version_check_mustbe]
+# other = "Your Kubernetes server must be version "
+other = "Версія вашого Kubernetes сервера має бути "
+
+[version_check_mustbeorlater]
+# other = "Your Kubernetes server must be at or later than version "
+other = "Версія вашого Kubernetes сервера має дорівнювати або бути молодшою ніж "
+
+[version_check_tocheck]
+# other = "To check the version, enter "
+other = "Для перевірки версії введіть "
+
+[version_menu]
+other = "Версії"
+
+[warning]
+# other = "Warning:"
+other = "Попередження:"
+
+[whatsnext_heading]
+# other = "What's next"
+other = "Що далі"

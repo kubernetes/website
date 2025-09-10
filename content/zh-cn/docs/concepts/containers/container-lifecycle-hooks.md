@@ -83,6 +83,23 @@ A more detailed description of the termination behavior can be found in
 请参见[终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
+`StopSignal`
+
+The StopSignal lifecycle can be used to define a stop signal which would be sent to the container when it is
+stopped. If you set this, it overrides any `STOPSIGNAL` instruction defined within the container image.
+
+A more detailed description of termination behaviour with custom stop signals can be found in
+[Stop Signals](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals).
+-->
+`StopSignal`
+
+StopSignal 生命周期可用于定义停止信号，该信号将在容器停止时发送给容器。
+如果设置了该字段，将会覆盖容器镜像中定义的 `STOPSIGNAL` 指令。
+
+关于自定义停止信号的终止行为的更为详细的描述，请参阅
+[停止信号](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals)。
+
+<!--
 ### Hook handler implementations
 
 Containers can access a hook by implementing and registering a handler for that hook.
@@ -98,27 +115,25 @@ There are three types of hook handlers that can be implemented for Containers:
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 * Sleep - Pauses the container for a specified duration.
-  This is a beta-level feature default enabled by the `PodLifecycleSleepAction` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 -->
 
 * Exec - 在容器的 cgroups 和名字空间中执行特定的命令（例如 `pre-stop.sh`）。
   命令所消耗的资源计入容器的资源消耗。
 * HTTP - 对容器上的特定端点执行 HTTP 请求。
 * Sleep - 将容器暂停一段指定的时间。
-  这是由 `PodLifecycleSleepAction`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)默认启用的 Beta 级特性。
 
 <!--
 ### Hook handler execution
 
 When a Container lifecycle management hook is called,
 the Kubernetes management system executes the handler according to the hook action,
-`httpGet` , `tcpSocket` and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
+and `sleep` are executed by the kubelet process, and `exec` is executed in the container.
 -->
 ### 回调处理程序执行   {#hook-handler-execution}
 
 当调用容器生命周期管理回调时，Kubernetes 管理系统根据回调动作执行其处理程序，
-`httpGet`、`tcpSocket` 和 `sleep` 由 kubelet 进程执行，而 `exec` 在容器中执行。
+`httpGet`、`tcpSocket`（[已弃用](/docs/reference/generated/kubernetes-api/v1.31/#lifecyclehandler-v1-core)）
+和 `sleep` 由 kubelet 进程执行，而 `exec` 在容器内执行。
 
 <!--
 The `PostStart` hook handler call is initiated when a container is created,
@@ -201,8 +216,11 @@ The logs for a Hook handler are not exposed in Pod events.
 If a handler fails for some reason, it broadcasts an event.
 For `PostStart`, this is the `FailedPostStartHook` event,
 and for `PreStop`, this is the `FailedPreStopHook` event.
-To generate a failed `FailedPostStartHook` event yourself, modify the [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) file to change the postStart command to "badcommand" and apply it.
-Here is some example output of the resulting events you see from running `kubectl describe pod lifecycle-demo`:
+To generate a failed `FailedPostStartHook` event yourself, modify the
+[lifecycle-events.yaml](https://k8s.io/examples/pods/lifecycle-events.yaml)
+file to change the postStart command to "badcommand" and apply it.
+Here is some example output of the resulting events you see from running `kubectl describe
+pod lifecycle-demo`:
 -->
 ### 调试回调处理程序   {#debugging-hook-handlers}
 
@@ -210,7 +228,7 @@ Here is some example output of the resulting events you see from running `kubect
 如果处理程序由于某种原因失败，它将播放一个事件。
 对于 `PostStart`，这是 `FailedPostStartHook` 事件，对于 `PreStop`，这是 `FailedPreStopHook` 事件。
 要自己生成失败的 `FailedPostStartHook` 事件，请修改
-[lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml)
+[lifecycle-events.yaml](https://k8s.io/examples/pods/lifecycle-events.yaml)
 文件将 postStart 命令更改为 “badcommand” 并应用它。
 以下是通过运行 `kubectl describe pod lifecycle-demo` 后你看到的一些结果事件的示例输出：
 

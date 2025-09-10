@@ -29,10 +29,7 @@ Read operations:
 
 {{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
 
-When the `AuthorizeNodeWithSelectors` feature is enabled
-(along with the pre-requisite `AuthorizeWithSelectors` feature),
-kubelets are only allowed to read their own Node objects,
-and are only allowed to read pods bound to their node.
+Kubelets are limited to reading their own Node objects, and only reading pods bound to their node.
 
 Write operations:
 
@@ -69,7 +66,24 @@ the local `hostname` and the `--hostname-override` option.
 For specifics about how the kubelet determines the hostname, see the
 [kubelet options reference](/docs/reference/command-line-tools-reference/kubelet/).
 
-To enable the Node authorizer, start the apiserver with `--authorization-mode=Node`.
+To enable the Node authorizer, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
+with the `--authorization-config` flag set to a file that includes the `Node` authorizer; for example:
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthorizationConfiguration
+authorizers:
+  ...
+  - type: Node
+  ...
+```
+
+Or, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} with
+the `--authorization-mode` flag set to a comma-separated list that includes `Node`;
+for example:
+```shell
+kube-apiserver --authorization-mode=...,Node --other-options --more-options
+```
 
 To limit the API objects kubelets are able to write, enable the
 [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#noderestriction)

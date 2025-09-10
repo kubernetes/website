@@ -241,18 +241,6 @@ the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `s
 {{< /note >}}
 
 <!--
-In Kubernetes v1.28, with the `KubeletCgroupDriverFromCRI`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
-the kubelet automatically detects the appropriate cgroup driver from the runtime,
-and ignores the `cgroupDriver` setting within the kubelet configuration.
--->
-在 Kubernetes v1.28 中，启用 `KubeletCgroupDriverFromCRI`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)结合支持
-`RuntimeConfig` CRI RPC 的容器运行时，kubelet 会自动从运行时检测适当的 Cgroup
-驱动程序，并忽略 kubelet 配置中的 `cgroupDriver` 设置。
-
-<!--
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
@@ -262,6 +250,34 @@ the documentation for your container runtime for instructions. For example:
 
 *  [containerd](#containerd-systemd)
 *  [CRI-O](#cri-o)
+
+<!--
+In Kubernetes {{< skew currentVersion >}}, with the `KubeletCgroupDriverFromCRI`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
+the kubelet automatically detects the appropriate cgroup driver from the runtime,
+and ignores the `cgroupDriver` setting within the kubelet configuration.
+-->
+在 Kubernetes {{< skew currentVersion >}} 中，启用 `KubeletCgroupDriverFromCRI`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)结合支持
+`RuntimeConfig` CRI RPC 的容器运行时，kubelet 会自动从运行时检测适当的 Cgroup
+驱动程序，并忽略 kubelet 配置中的 `cgroupDriver` 设置。
+
+<!--
+However, older versions of container runtimes (specifically,
+containerd 1.y and below) do not support the `RuntimeConfig` CRI RPC, and
+may not respond correctly to this query, and thus the Kubelet falls back to using the
+value in its own `--cgroup-driver` flag.
+
+In Kubernetes 1.36, this fallback behavior will be dropped, and older versions
+of containerd will fail with newer kubelets.
+-->
+然而，较旧版本的容器运行时（特别是 containerd 1.y 及以下版本）
+不支持 `RuntimeConfig` CRI RPC，可能无法正确响应此查询。
+因此，kubelet 会回退到使用其自身的 `--cgroup-driver` 标志中的值。
+
+在 Kubernetes 1.36 中，这种回退行为将被移除，旧版本的 containerd
+将无法与新版本的 kubelet 一起工作。
 
 {{< caution >}}
 <!--
@@ -363,11 +379,17 @@ On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 <!--
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
-To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
+To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
+set the following config based on your Containerd version
+
+Containerd versions 1.x:
 -->
 #### 配置 `systemd` cgroup 驱动 {#containerd-systemd}
 
-结合 `runc` 使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置：
+要在 `/etc/containerd/config.toml` 中将 `runc` 配置为使用 `systemd` cgroup 驱动，
+请根据你使用的 Containerd 版本设置以下配置：
+
+Containerd 1.x 版本：
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
@@ -375,6 +397,19 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+
+<!--
+Containerd versions 2.x:
+-->
+Containerd versions 2.x 版本：
+
+```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
+  ...
+  [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
+
 
 <!--
 The `systemd` cgroup driver is recommended if you use [cgroup v2](/docs/concepts/architecture/cgroups).
@@ -449,24 +484,13 @@ sandbox image by setting the following config:
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "registry.k8s.io/pause:3.2"
+  sandbox_image = "registry.k8s.io/pause:3.10"
 ```
 
 <!--
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 -->
 一旦你更新了这个配置文件，可能就同样需要重启 `containerd`：`systemctl restart containerd`。
-
-<!--
-Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
-If not configured, kubelet may attempt to garbage collect the `pause` image.
-There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352)
-and not require this setting on kubelet any longer.
--->
-请注意，声明匹配的 `pod-infra-container-image` 是 kubelet 的最佳实践。
-如果未配置，kubelet 可能会尝试对 `pause` 镜像进行垃圾回收。
-[containerd 固定 pause 镜像](https://github.com/containerd/containerd/issues/6352)的工作正在进行中，
-将不再需要在 kubelet 上进行此设置。
 
 ### CRI-O
 
@@ -534,7 +558,7 @@ config value:
 
 ```toml
 [crio.image]
-pause_image="registry.k8s.io/pause:3.6"
+pause_image="registry.k8s.io/pause:3.10"
 ```
 
 <!--
@@ -576,7 +600,7 @@ For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 <!-- 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR) is a commercially
 available container runtime that was formerly known as Docker Enterprise Edition.
 
 You can use Mirantis Container Runtime with Kubernetes using the open source
@@ -584,17 +608,17 @@ You can use Mirantis Container Runtime with Kubernetes using the open source
 -->
 ### Mirantis 容器运行时 {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR)
 是一种商用容器运行时，以前称为 Docker 企业版。
 你可以使用 MCR 中包含的开源 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/)
 组件将 Mirantis Container Runtime 与 Kubernetes 一起使用。
 
 <!--
 To learn more about how to install Mirantis Container Runtime,
-visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html). 
+visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/25.0/install.html). 
 -->
 要了解有关如何安装 Mirantis Container Runtime 的更多信息，
-请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/20.10/install.html)。
+请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/25.0/install.html)。
 
 <!-- 
 Check the systemd unit named `cri-docker.socket` to find out the path to the CRI

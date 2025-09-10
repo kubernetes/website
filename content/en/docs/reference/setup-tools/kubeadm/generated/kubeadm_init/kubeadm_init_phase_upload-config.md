@@ -10,12 +10,10 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upload the kubeadm and kubelet configuration to a ConfigMap
-
 ### Synopsis
 
 
-This command is not meant to be run on its own. See list of available subcommands.
+Upload the kubeadm and kubelet configuration to a ConfigMap
 
 ```
 kubeadm init phase upload-config [flags]

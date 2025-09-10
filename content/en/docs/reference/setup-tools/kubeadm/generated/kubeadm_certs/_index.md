@@ -10,12 +10,10 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Commands related to handling kubernetes certificates
-
 ### Synopsis
 
 
-Commands related to handling kubernetes certificates
+Commands related to handling Kubernetes certificates
 
 ```
 kubeadm certs [flags]

@@ -159,7 +159,7 @@ kubectl replace -f FILENAME
 <td colspan="2">--subresource string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, replace will operate on the subresource of the requested object. Must be one of [status scale]. This flag is beta and may change in the future.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>If specified, replace will operate on the subresource of the requested object.</p></td>
 </tr>
 
 <tr>
@@ -180,7 +180,7 @@ kubectl replace -f FILENAME
 <td colspan="2">--validate string[="strict"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "strict"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Must be one of: strict (or true), warn, ignore (or false).<br/>&quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and fail the request if invalid. It will perform server side validation if ServerSideFieldValidation is enabled on the api-server, but will fall back to less reliable client-side validation if not.<br/>&quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise.<br/>&quot;false&quot; or &quot;ignore&quot; will not perform any schema validation, silently dropping any unknown or duplicate fields.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and fail the request if invalid. It will perform server side validation if ServerSideFieldValidation is enabled on the api-server, but will fall back to less reliable client-side validation if not. &quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise. &quot;false&quot; or &quot;ignore&quot; will not perform any schema validation, silently dropping any unknown or duplicate fields.</p></td>
 </tr>
 
 <tr>
@@ -268,20 +268,6 @@ kubectl replace -f FILENAME
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -300,6 +286,13 @@ kubectl replace -f FILENAME
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kubeconfig file to use for CLI requests.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.</p></td>
 </tr>
 
 <tr>

@@ -52,7 +52,7 @@ when localizing, that's even better.
 {{< /comment >}}
 
 <!--
-The CNCF [white paper](https://github.com/cncf/tag-security/tree/main/security-whitepaper)
+The CNCF [white paper](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)
 on cloud native security defines security controls and practices that are
 appropriate to different _lifecycle phases_.
 -->
@@ -131,7 +131,7 @@ To achieve this, you can:
 1. Adopt and follow processes to update dependencies when updates are
    available, especially in response to security announcements.
 -->
-3. 在有更新，尤其时安全公告时，采用并遵循更新依赖项的流程。
+3. 在有更新，尤其是安全公告时，采用并遵循更新依赖项的流程。
 <!--
 1. Use validation mechanisms such as digital certificates for supply
    chain assurance.
@@ -180,11 +180,11 @@ layers expect.
 ## 运行阶段 {#lifecycle-phase-runtime}
 
 <!--
-The Runtime phase comprises three critical areas: [compute](#protection-runtime-compute),
-[access](#protection-runtime-access), and [storage](#protection-runtime-storage).
+The Runtime phase comprises three critical areas: [access](#protection-runtime-access),
+[compute](#protection-runtime-compute), and [storage](#protection-runtime-storage).
 -->
-运行阶段包含三个关键领域：[计算](#protection-runtime-compute)，
-[访问](#protection-runtime-access)和[存储](#protection-runtime-storage)。
+运行阶段包含三个关键领域：[访问](#protection-runtime-access)、
+[计算](#protection-runtime-compute)和[存储](#protection-runtime-storage)。
 
 
 <!--
@@ -240,12 +240,11 @@ Kubernetes 使用 TLS 保护 API 流量；确保在部署集群时采用了 TLS�
 things: isolation between different applications, and a mechanism to combine
 those isolated applications to run on the same host computer. Those two
 aspects, isolation and aggregation, mean that runtime security involves
-trade-offs and finding an appropriate balance.
+identifying trade-offs and finding an appropriate balance.
 -->
 {{< glossary_tooltip text="容器" term_id="container" >}} 提供了两种功能：
-不同应用程序间的隔离和将这些隔离的应用程序合并运行到同一台主机。
-隔离和聚合这两个方面意味着运行时安全需要权衡利弊，
-找到合适的平衡点。
+不同应用程序间的隔离，以及将这些隔离的应用程序合并运行到同一台主机的机制。
+隔离和聚合这两个方面意味着运行时安全需要权衡利弊，并找到合适的平衡点。
 
 <!--
 Kubernetes relies on a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
@@ -440,10 +439,10 @@ logs are both tamper-proof and confidential.
 ### 云原生安全 {#further-reading-cloud-native}
 
 <!--
-* CNCF [white paper](https://github.com/cncf/tag-security/tree/main/security-whitepaper)
+* CNCF [white paper](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)
   on cloud native security.
 -->
-* CNCF 有关云原生安全的[白皮书](https://github.com/cncf/tag-security/tree/main/security-whitepaper)。
+* CNCF 有关云原生安全的[白皮书](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)。
 <!--
 * CNCF [white paper](https://github.com/cncf/tag-security/blob/f80844baaea22a358f5b20dca52cd6f72a32b066/supply-chain-security/supply-chain-security-paper/CNCF_SSCP_v1.pdf)
   on good practices for securing a software supply chain.

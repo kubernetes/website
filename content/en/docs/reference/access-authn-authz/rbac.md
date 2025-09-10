@@ -20,10 +20,22 @@ RBAC authorization uses the `rbac.authorization.k8s.io`
 decisions, allowing you to dynamically configure policies through the Kubernetes API.
 
 To enable RBAC, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
-with the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
+with the `--authorization-config` flag set to a file that includes the `RBAC` authorizer; for example:
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthorizationConfiguration
+authorizers:
+  ...
+  - type: RBAC
+  ...
+```
+
+Or, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} with
+the `--authorization-mode` flag set to a comma-separated list that includes `RBAC`;
 for example:
 ```shell
-kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
+kube-apiserver --authorization-mode=...,RBAC --other-options --more-options
 ```
 
 ## API objects {#api-overview}
@@ -66,17 +78,7 @@ a role cluster-wide, use a ClusterRole.
 Here's an example Role in the "default" namespace that can be used to grant read access to
 {{< glossary_tooltip text="pods" term_id="pod" >}}:
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  namespace: default
-  name: pod-reader
-rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources: ["pods"]
-  verbs: ["get", "watch", "list"]
-```
+{{% code_sample file="access/simple-role.yaml" %}}
 
 #### ClusterRole example
 
@@ -94,20 +96,7 @@ Here is an example of a ClusterRole that can be used to grant read access to
 {{< glossary_tooltip text="secrets" term_id="secret" >}} in any particular namespace,
 or across all namespaces (depending on how it is [bound](#rolebinding-and-clusterrolebinding)):
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  # "namespace" omitted since ClusterRoles are not namespaced
-  name: secret-reader
-rules:
-- apiGroups: [""]
-  #
-  # at the HTTP level, the name of the resource for accessing Secret
-  # objects is "secrets"
-  resources: ["secrets"]
-  verbs: ["get", "watch", "list"]
-```
+{{% code_sample file="access/simple-clusterrole.yaml" %}}
 
 The name of a Role or a ClusterRole object must be a valid
 [path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
@@ -134,25 +123,7 @@ Here is an example of a RoleBinding that grants the "pod-reader" Role to the use
 within the "default" namespace.
 This allows "jane" to read pods in the "default" namespace.
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# This role binding allows "jane" to read pods in the "default" namespace.
-# You need to already have a Role named "pod-reader" in that namespace.
-kind: RoleBinding
-metadata:
-  name: read-pods
-  namespace: default
-subjects:
-# You can specify more than one "subject"
-- kind: User
-  name: jane # "name" is case sensitive
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  # "roleRef" specifies the binding to a Role / ClusterRole
-  kind: Role #this must be Role or ClusterRole
-  name: pod-reader # this must match the name of the Role or ClusterRole you wish to bind to
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-rolebinding-with-role.yaml" %}}
 
 A RoleBinding can also reference a ClusterRole to grant the permissions defined in that
 ClusterRole to resources inside the RoleBinding's namespace. This kind of reference
@@ -163,26 +134,7 @@ For instance, even though the following RoleBinding refers to a ClusterRole,
 "dave" (the subject, case sensitive) will only be able to read Secrets in the "development"
 namespace, because the RoleBinding's namespace (in its metadata) is "development".
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# This role binding allows "dave" to read secrets in the "development" namespace.
-# You need to already have a ClusterRole named "secret-reader".
-kind: RoleBinding
-metadata:
-  name: read-secrets
-  #
-  # The namespace of the RoleBinding determines where the permissions are granted.
-  # This only grants permissions within the "development" namespace.
-  namespace: development
-subjects:
-- kind: User
-  name: dave # Name is case sensitive
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-rolebinding-with-clusterrole.yaml" %}}
 
 #### ClusterRoleBinding example
 
@@ -190,21 +142,7 @@ To grant permissions across a whole cluster, you can use a ClusterRoleBinding.
 The following ClusterRoleBinding allows any user in the group "manager" to read
 secrets in any namespace.
 
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-# This cluster role binding allows anyone in the "manager" group to read secrets in any namespace.
-kind: ClusterRoleBinding
-metadata:
-  name: read-secrets-global
-subjects:
-- kind: Group
-  name: manager # Name is case sensitive
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: secret-reader
-  apiGroup: rbac.authorization.k8s.io
-```
+{{% code_sample file="access/simple-clusterrolebinding.yaml" %}}
 
 After you create a binding, you cannot change the Role or ClusterRole that it refers to.
 If you try to change a binding's `roleRef`, you get a validation error. If you do want
@@ -717,9 +655,9 @@ When used in a <b>RoleBinding</b>, it gives full control over every resource in 
 If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
 including the ability to create roles and role bindings within the namespace.
 This role does not allow write access to resource quota or to the namespace itself.
-This role also does not allow write access to EndpointSlices (or Endpoints) in clusters created
+This role also does not allow write access to EndpointSlices in clusters created
 using Kubernetes v1.22+. More information is available in the
-["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).</td>
+["Write Access for EndpointSlices" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
@@ -729,9 +667,9 @@ using Kubernetes v1.22+. More information is available in the
 This role does not allow viewing or modifying roles or role bindings.
 However, this role allows accessing Secrets and running Pods as any ServiceAccount in
 the namespace, so it can be used to gain the API access levels of any ServiceAccount in
-the namespace. This role also does not allow write access to EndpointSlices (or Endpoints) in
+the namespace. This role also does not allow write access to EndpointSlices in
 clusters created using Kubernetes v1.22+. More information is available in the
-["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).</td>
+["Write Access for EndpointSlices" section](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>view</b></td>
@@ -850,7 +788,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <tr>
 <td><b>system:monitoring</b></td>
 <td><b>system:monitoring</b> group</td>
-<td>Allows read access to control-plane monitoring endpoints (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  and <tt>/metrics</tt>). Note that individual health check endpoints and the metric endpoint may expose sensitive information.</td>
+<td>Allows read access to control-plane monitoring endpoints (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  <tt>/metrics</tt>), and causes the kube-apiserver to respect the traceparent header provided with requests for tracing. Note that individual health check endpoints and the metric endpoint may expose sensitive information.</td>
 </tr>
 </tbody>
 </table>
@@ -1224,10 +1162,10 @@ In order from most secure to least secure, the approaches are:
      --group=system:serviceaccounts
    ```
 
-## Write access for EndpointSlices and Endpoints {#write-access-for-endpoints}
+## Write access for EndpointSlices {#write-access-for-endpoints}
 
 Kubernetes clusters created before Kubernetes v1.22 include write access to
-EndpointSlices (and Endpoints) in the aggregated "edit" and "admin" roles.
+EndpointSlices (and the now-deprecated Endpoints API) in the aggregated "edit" and "admin" roles.
 As a mitigation for [CVE-2021-25740](https://github.com/kubernetes/kubernetes/issues/103675),
 this access is not part of the aggregated roles in clusters that you create using
 Kubernetes v1.22 or later.

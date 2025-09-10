@@ -23,7 +23,7 @@ and contains the services necessary to run
 Typically you have several nodes in a cluster; in a learning or resource-limited
 environment, you might have only one node.
 
-The [components](/docs/concepts/overview/components/#node-components) on a node include the
+The [components](/docs/concepts/architecture/#node-components) on a node include the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}, a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
@@ -139,6 +139,11 @@ When you want to create Node objects manually, set the kubelet flag `--register-
 
 You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node or mark it unschedulable.
+
+You can set optional node role(s) for nodes by adding one or more `node-role.kubernetes.io/<role>: <role>` labels to the node where characters of `<role>` 
+are limited by the [syntax](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) rules for labels.
+
+Kubernetes ignores the label value for node roles; by convention, you can set it to the same string you used for the node role in the label key.
 
 You can use labels on Nodes in conjunction with node selectors on Pods to control
 scheduling. For example, you can constrain a Pod to only be eligible to run on
@@ -291,73 +296,16 @@ the kubelet can use topology hints when making resource assignment decisions.
 See [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/)
 for more information.
 
-## Swap memory management {#swap-memory}
-
-{{< feature-state feature_gate_name="NodeSwap" >}}
-
-To enable swap on a node, the `NodeSwap` feature gate must be enabled on
-the kubelet (default is true), and the `--fail-swap-on` command line flag or `failSwapOn`
-[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
-must be set to false. 
-To allow Pods to utilize swap, `swapBehavior` should not be set to `NoSwap` (which is the default behavior) in the kubelet config.
-
-{{< warning >}}
-When the memory swap feature is turned on, Kubernetes data such as the content
-of Secret objects that were written to tmpfs now could be swapped to disk.
-{{< /warning >}}
-
-A user can also optionally configure `memorySwap.swapBehavior` in order to
-specify how a node will use swap memory. For example,
-
-```yaml
-memorySwap:
-  swapBehavior: LimitedSwap
-```
-
-- `NoSwap` (default): Kubernetes workloads will not use swap.
-- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
-  Only Pods of Burstable QoS are permitted to employ swap.
-
-If configuration for `memorySwap` is not specified and the feature gate is
-enabled, by default the kubelet will apply the same behaviour as the
-`NoSwap` setting.
-
-With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
-`BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory.
-To maintain the aforementioned security and node health guarantees, these Pods
-are not permitted to use swap memory when `LimitedSwap` is in effect. 
-
-Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
-
-* `nodeTotalMemory`: The total amount of physical memory available on the node.
-* `totalPodsSwapAvailable`: The total amount of swap memory on the node that is available for use by Pods
-  (some swap memory may be reserved for system use).
-* `containerMemoryRequest`: The container's memory request.
-
-Swap limitation is configured as:
-`(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable`.
-
-It is important to note that, for containers within Burstable QoS Pods, it is possible to
-opt-out of swap usage by specifying memory requests that are equal to memory limits.
-Containers configured in this manner will not have access to swap memory.
-
-Swap is supported only with **cgroup v2**, cgroup v1 is not supported.
-
-For more information, and to assist with testing and provide feedback, please
-see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/08/24/swap-linux-beta/),
-[KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
-[design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
-
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
 
-* [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+* [Components](/docs/concepts/architecture/#node-components) that make up a node.
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * [Graceful/non-graceful node shutdown](/docs/concepts/cluster-administration/node-shutdown/).
-* [Cluster autoscaling](/docs/concepts/cluster-administration/cluster-autoscaling/) to
+* [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/) to
   manage the number and size of nodes in your cluster.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).

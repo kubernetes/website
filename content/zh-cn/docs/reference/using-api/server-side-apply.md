@@ -18,7 +18,7 @@ weight: 25
 
 {{< feature-state feature_gate_name="ServerSideApply" >}}
 
-<!-- 
+<!--
 Kubernetes supports multiple appliers collaborating to manage the fields
 of a single [object](/docs/concepts/overview/working-with-objects/).
 
@@ -77,7 +77,7 @@ Kubernetes API 服务器跟踪所有新建对象的**受控字段（Managed Fiel
 这样做是为了表明操作可能会撤消另一个合作者的更改。
 可以强制写入具有托管字段的对象，在这种情况下，任何冲突字段的值都将被覆盖，并且所有权将被转移。
 
-<!-- 
+<!--
 Whenever a field's value does change, ownership moves from its current manager to the
 manager making the change.
 
@@ -106,7 +106,18 @@ by including a value for that field in a Server-Side Apply operation.
 最后一次对字段值做出断言的用户将被记录到当前字段管理器。
 这可以通过发送 `POST`（**create**）、`PUT`（**update**）、或非应用的 `PATCH`（**patch**）
 显式更改字段管理器详细信息来实现。
-还可以通过在服务器端应用操作中包含字段的值来声明和记录字段管理器。
+你还可以通过在服务器端应用操作中包含字段的值来声明和记录字段管理器。
+
+<!--
+A Server-Side Apply **patch** request requires the client to provide its identity
+as a [field manager](#managers). When using Server-Side Apply, trying to change a
+field that is controlled by a different manager results in a rejected
+request unless the client forces an override.
+For details of overrides, see [Conflicts](#conflicts).
+-->
+服务器端应用场景中的 **patch** 请求要求客户端提供自身的标识作为[字段管理器（Field Manager）](#managers)。
+使用服务器端应用时，如果尝试变更由别的管理器来控制的字段，会导致请求被拒绝，除非客户端强制要求进行覆盖。
+关于覆盖操作的细节，可参阅[冲突](#conflicts)节。
 
 <!--
 When two or more appliers set a field to the same value, they share ownership of
@@ -126,7 +137,7 @@ object's [`metadata`](/docs/reference/kubernetes-api/common-definitions/object-m
 [`metadata`](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/)
 中的一部分。
 
-<!-- 
+<!--
 If you remove a field from a manifest and apply that manifest, Server-Side
 Apply checks if there are any other field managers that also own the field.
 If the field is not owned by any other field managers, it is either deleted
@@ -137,7 +148,7 @@ The same rule applies to associative list or map items.
 如果该字段不属于任何其他字段管理器，则服务器会将其从活动对象中删除，或者重置为其默认值（如果有）。
 同样的规则也适用于关联列表（list）或键值对（map）。
 
-<!-- 
+<!--
 Compared to the (legacy)
 [`kubectl.kubernetes.io/last-applied-configuration`](/docs/reference/labels-annotations-taints/#kubectl-kubernetes-io-last-applied-configuration)
 annotation managed by `kubectl`, Server-Side Apply uses a more declarative
@@ -152,7 +163,7 @@ becomes available.
 它跟踪用户（或客户端）的字段管理，而不是用户上次应用的状态。
 作为服务器端应用的副作用，哪个字段管理器管理的对象的哪个字段的相关信息也会变得可用。
 
-<!-- 
+<!--
 ### Example {#ssa-example-configmap}
 
 A simple example of an object created using Server-Side Apply could look like this:
@@ -161,6 +172,16 @@ A simple example of an object created using Server-Side Apply could look like th
 
 服务器端应用创建对象的简单示例如下：
 
+{{< note >}}
+<!--
+`kubectl get` omits managed fields by default. 
+Add `--show-managed-fields` to show `managedFields` when the output format is either `json` or `yaml`.
+-->
+`kubectl get` 默认省略 `managedFields`。
+当输出格式为 `json` 或 `yaml` 时，你可以添加 `--show-managed-fields` 参数以显示 `managedFields`。
+{{< /note >}}
+
+<!--
 ```yaml
 ---
 apiVersion: v1
@@ -172,7 +193,32 @@ metadata:
     test-label: test
   managedFields:
   - manager: kubectl
-    operation: Apply # 注意大写: “Apply” (或者 “Update”)
+    operation: Apply # note capitalization: "Apply" (or "Update")
+    apiVersion: v1
+    time: "2010-10-10T0:00:00Z"
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          f:test-label: {}
+      f:data:
+        f:key: {}
+data:
+  key: some value
+```
+-->
+```yaml
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cm
+  namespace: default
+  labels:
+    test-label: test
+  managedFields:
+  - manager: kubectl
+    operation: Apply # 注意大写：“Apply” (或者 “Update”)
     apiVersion: v1
     time: "2010-10-10T0:00:00Z"
     fieldsType: FieldsV1
@@ -186,7 +232,7 @@ data:
   key: some value
 ```
 
-<!-- 
+<!--
 That example ConfigMap object contains a single field management record in
 `.metadata.managedFields`. The field management record consists of basic information
 about the managing entity itself, plus details about the fields being managed and
@@ -196,9 +242,9 @@ otherwise, it is `Update`.
 -->
 示例的 ConfigMap 对象在 `.metadata.managedFields` 中包含字段管理记录。
 字段管理记录包括关于管理实体本身的基本信息，以及关于被管理的字段和相关操作（`Apply` 或 `Update`）的详细信息。
-如果最后更改该字段的请求是服务器端应用的**patch**操作，则 `operation` 的值为 `Apply`；否则为 `Update`。
+如果最后更改该字段的请求是服务器端应用的 **patch** 操作，则 `operation` 的值为 `Apply`；否则为 `Update`。
 
-<!-- 
+<!--
 There is another possible outcome. A client could submit an invalid request
 body. If the fully specified intent does not produce a valid object, the
 request fails.
@@ -217,18 +263,17 @@ for example, the `.metadata.managedFields` get into an inconsistent state
 比如 `managedFields` 进入不一致的状态（显然不应该发生这种情况），
 这么做也是一个合理的尝试。
 
-<!-- 
+<!--
 The format of `managedFields` is [described](/docs/reference/kubernetes-api/common-definitions/object-meta/#System)
 in the Kubernetes API reference.
-
-{{< caution >}}
-The `.metadata.managedFields` field is managed by the API server.
-You should avoid updating it manually.
-{{< /caution >}}
 -->
 `managedFields` 的格式在 Kubernetes API 参考中[描述](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/#System)。
 
 {{< caution >}}
+<!--
+The `.metadata.managedFields` field is managed by the API server.
+You should avoid updating it manually.
+-->
 `.metadata.managedFields` 字段由 API 服务器管理。
 你不应该手动更新它。
 {{< /caution >}}
@@ -255,13 +300,24 @@ this occurs, the applier has 3 options to resolve the conflicts:
   you use the `--force-conflicts` command line parameter), and make the request
   again. This forces the operation to succeed, changes the value of the field,
   and removes the field from all other managers' entries in `managedFields`.
+-->
+* **覆盖前值，成为唯一的管理器：** 如果打算覆盖该值（或应用者是一个自动化部件，比如控制器），
+  应用者应该设置查询参数 `force` 为 true（对 `kubectl apply` 来说，你可以使用命令行参数
+  `--force-conflicts`），然后再发送一次请求。
+  这将强制操作成功，改变字段的值，从所有其他管理器的 `managedFields` 条目中删除指定字段。
 
+<!--
 * **Don't overwrite value, give up management claim:** If the applier doesn't
   care about the value of the field any more, the applier can remove it from their
   local model of the resource, and make a new request with that particular field
   omitted. This leaves the value unchanged, and causes the field to be removed
   from the applier's entry in `managedFields`.
+-->
+* **不覆盖前值，放弃管理权：** 如果应用者不再关注该字段的值，
+  应用者可以从资源的本地模型中删掉它，并在省略该字段的情况下发送请求。
+  这就保持了原值不变，并从 `managedFields` 的应用者条目中删除该字段。
 
+<!--
 * **Don't overwrite value, become shared manager:** If the applier still cares
   about the value of a field, but doesn't want to overwrite it, they can
   change the value of that field in their local model of the resource so as to
@@ -270,15 +326,6 @@ this occurs, the applier has 3 options to resolve the conflicts:
   and causes that field's management to be shared by the applier along with all
   other field managers that already claimed to manage it.
 -->
-* **覆盖前值，成为唯一的管理器：** 如果打算覆盖该值（或应用者是一个自动化部件，比如控制器），
-  应用者应该设置查询参数 `force` 为 true（对 `kubectl apply` 来说，你可以使用命令行参数
-  `--force-conflicts`），然后再发送一次请求。
-  这将强制操作成功，改变字段的值，从所有其他管理器的 `managedFields` 条目中删除指定字段。
-
-* **不覆盖前值，放弃管理权：** 如果应用者不再关注该字段的值，
-  应用者可以从资源的本地模型中删掉它，并在省略该字段的情况下发送请求。
-  这就保持了原值不变，并从 `managedFields` 的应用者条目中删除该字段。
-
 * **不覆盖前值，成为共享的管理器：** 如果应用者仍然关注字段值，并不想覆盖它，
   他们可以更改资源的本地模型中该字段的值，以便与服务器上对象的值相匹配，
   然后基于本地更新发出新请求。这样做会保持值不变，
@@ -309,8 +356,7 @@ sets the manager identity to `"kubectl"` by default.
 
 当你使用 `kubectl` 工具执行服务器端应用操作时，`kubectl` 默认情况下会将管理器标识设置为 `“kubectl”`。
 
-
-<!-- 
+<!--
 ## Serialization
 
 At the protocol level, Kubernetes represents Server-Side Apply message bodies
@@ -318,11 +364,11 @@ as [YAML](https://yaml.org/), with the media type `application/apply-patch+yaml`
 -->
 ## 序列化 {#serialization}
 
-在协议层面，Kubernetes 用 [YAML](https://yaml.org/) 来表示 Server-Side Apply 的消息体，
+在协议层面，Kubernetes 用 [YAML](https://yaml.org/) 来表示服务器端应用的消息体，
 媒体类型为 `application/apply-patch+yaml`。
 
 {{< note >}}
-<!-- 
+<!--
 Whether you are submitting JSON data or YAML data, use
 `application/apply-patch+yaml` as the `Content-Type` header value.
 
@@ -355,7 +401,7 @@ Here's an example of a Server-Side Apply message body (fully specified intent):
 }
 ```
 
-<!-- 
+<!--
 (this would make a no-change update, provided that it was sent as the body
 of a **patch** request to a valid `v1/configmaps` resource, and with the
 appropriate request `Content-Type`).
@@ -363,7 +409,7 @@ appropriate request `Content-Type`).
 （这个请求将导致无更改的更新，前提是它作为 **patch** 请求的主体发送到有效的 `v1/configmaps` 资源，
 并且请求中设置了合适的 `Content-Type`）。
 
-<!-- 
+<!--
 ## Operations in scope for field management {#apply-and-update}
 
 The Kubernetes API operations where field management is considered are:
@@ -378,7 +424,7 @@ The Kubernetes API operations where field management is considered are:
 1. 服务器端应用（HTTP `PATCH`，内容类型为 `application/apply-patch+yaml`）
 2. 替换现有对象（对 Kubernetes 而言是 **update**；HTTP 层面表现为 `PUT`）
 
-<!-- 
+<!--
 Both operations update `.metadata.managedFields`, but behave a little differently.
 
 Unless you specify a forced override, an apply operation that encounters field-level
@@ -535,7 +581,7 @@ keys are treated the same as struct fields, and all lists are considered atomic.
 默认情况下，服务器端应用将自定义资源视为无结构的数据。
 所有键被视为 struct 数据类型的字段，所有列表都被视为 atomic 形式。
 
-<!-- 
+<!--
 If the CustomResourceDefinition defines a
 [schema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)
 that contains annotations as defined in the previous [Merge Strategy](#merge-strategy)
@@ -599,10 +645,11 @@ kind: Foo
 metadata:
   name: foo-sample
   managedFields:
-  - manager: manager-one
+  - manager: "manager-one"
     operation: Apply
     apiVersion: example.com/v1
-    fields:
+    fieldsType: FieldsV1
+    fieldsV1:
       f:spec:
         f:data: {}
 spec:
@@ -712,8 +759,7 @@ This is not what the user wants to happen, even temporarily - it might well degr
 a running workload.
 -->
 现在，用户希望从他们的配置中删除 `replicas`，从而避免与 HorizontalPodAutoscaler（HPA）及其控制器发生冲突。
-然而，这里存在一个竞态：
-在 HPA 需要调整 `.spec.replicas` 之前会有一个时间窗口，
+然而，这里存在一个竞态：在 HPA 需要调整 `.spec.replicas` 之前会有一个时间窗口，
 如果在 HPA 写入字段并成为新的属主之前，用户删除了 `.spec.replicas`，
 那 API 服务器就会把 `.spec.replicas` 的值设为 1（Deployment 的默认副本数）。
 这不是用户希望发生的事情，即使是暂时的——它很可能会导致正在运行的工作负载降级。
@@ -741,6 +787,17 @@ First, the user defines a new manifest containing only the `replicas` field:
 
 首先，用户新定义一个只包含 `replicas` 字段的新清单：
 
+<!--
+```yaml
+# Save this file as 'nginx-deployment-replicas-only.yaml'.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+```
+-->
 ```yaml
 # 将此文件另存为 'nginx-deployment-replicas-only.yaml'
 apiVersion: apps/v1
@@ -835,7 +892,7 @@ field in an object also becomes available.
 服务器端应用使用一种更具声明性的方法来跟踪对象的字段管理，而不是记录用户最后一次应用的状态。
 这意味着，使用服务器端应用的副作用，就是字段管理器所管理的对象的每个字段的相关信息也会变得可用。
 
-<!-- 
+<!--
 A consequence of the conflict detection and resolution implemented by Server-Side
 Apply is that an applier always has up to date field values in their local
 state. If they don't, they get a conflict the next time they apply. Any of the
@@ -882,6 +939,7 @@ using server-side apply with the following flag.
 ```shell
 kubectl apply --server-side [--dry-run=server]
 ```
+
 <!--
 By default, field management of the object transfers from client-side apply to
 kubectl server-side apply, without encountering conflicts.
@@ -956,25 +1014,26 @@ kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 <!--
 ## API implementation
 
-The `PATCH` verb for a resource that supports Server-Side Apply can accepts the
+The `PATCH` verb (for a resource that supports Server-Side Apply) accepts the
 unofficial `application/apply-patch+yaml` content type. Users of Server-Side
 Apply can send partially specified objects as YAML as the body of a `PATCH` request
 to the URI of a resource.  When applying a configuration, you should always include all the
 fields that are important to the outcome (such as a desired state) that you want to define.
 
-All JSON messages are valid YAML. Some clients specify Server-Side Apply requests using YAML
-request bodies that are also valid JSON.
+All JSON messages are valid YAML. Therefore, in addition to using YAML request bodies for Server-Side Apply requests, you can also use JSON request bodies, as they are also valid YAML.
+In either case, use the media type `application/apply-patch+yaml` for the HTTP request.
 -->
 ## API 实现 {#api-implementation}
 
-支持服务器端应用的资源的 `PATCH` 动词可以接受非官方的 `application/apply-patch+yaml` 内容类型。
+`PATCH` 动词（支持服务器端应用的资源）接受非官方的 `application/apply-patch+yaml` 内容类型。
 服务器端应用的用户可以将部分指定的对象以 YAML 格式作为 `PATCH` 请求的主体发送到资源的 URI。
 应用配置时，你应该始终包含对要定义的结果（如所需状态）重要的所有字段。
 
-所有 JSON 消息都是有效的 YAML。一些客户端使用 YAML 请求体指定服务器端应用请求，
-而这些 YAML 同样是合法的 JSON。
+所有 JSON 消息都是有效的 YAML。因此，除了可以为 Server-Side Apply 请求使用
+YAML 请求体外，你也可以使用 JSON 请求体，因为它们同样是有效的 YAML。
+无论哪种情况，请为 HTTP 请求使用媒体类型 `application/apply-patch+yaml`。
 
-<!-- 
+<!--
 ### Access control and permissions {#rbac-and-permissions}
 
 Since Server-Side Apply is a type of `PATCH`, a principal (such as a Role for Kubernetes
@@ -1049,7 +1108,7 @@ applier takes ownership of any fields updated in the same request.
 其结果是，应用者取得了同一个请求中所有字段的所有权。
 
 {{< note >}}
-<!-- 
+<!--
 Server-Side Apply does not correctly track ownership on
 sub-resources that don't receive the resource object type. If you are
 using Server-Side Apply with such a sub-resource, the changed fields
@@ -1061,7 +1120,7 @@ may not be tracked.
 
 ## {{% heading "whatsnext" %}}
 
-<!-- 
+<!--
 You can read about `managedFields` within the Kubernetes API reference for the
 [`metadata`](/docs/reference/kubernetes-api/common-definitions/object-meta/)
 top level field.

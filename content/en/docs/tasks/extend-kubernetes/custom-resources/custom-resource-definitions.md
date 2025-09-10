@@ -221,51 +221,51 @@ A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
 
 Non-structural example 1:
 
-```none
+```yaml
 allOf:
 - properties:
     foo:
-      ...
+      # ...
 ```
 
 conflicts with rule 2. The following would be correct:
 
-```none
+```yaml
 properties:
   foo:
-    ...
+    # ...
 allOf:
 - properties:
     foo:
-      ...
+      # ...
 ```
 
 Non-structural example 2:
 
-```none
+```yaml
 allOf:
 - items:
     properties:
       foo:
-        ...
+        # ...
 ```
 conflicts with rule 2. The following would be correct:
 
-```none
+```yaml
 items:
   properties:
     foo:
-      ...
+      # ...
 allOf:
 - items:
     properties:
       foo:
-        ...
+        # ...
 ```
 
 Non-structural example 3:
 
-```none
+```yaml
 properties:
   foo:
     pattern: "abc"
@@ -479,7 +479,7 @@ properties:
 Also those nodes are partially excluded from rule 3 in the sense that the following two patterns are allowed
 (exactly those, without variations in order to additional fields):
 
-```none
+```yaml
 x-kubernetes-int-or-string: true
 anyOf:
   - type: integer
@@ -489,13 +489,13 @@ anyOf:
 
 and
 
-```none
+```yaml
 x-kubernetes-int-or-string: true
 allOf:
   - anyOf:
       - type: integer
       - type: string
-  - ... # zero or more
+  - # ... zero or more
 ...
 ```
 
@@ -522,12 +522,12 @@ properties:
 
 Here, the field `foo` holds a complete object, e.g.:
 
-```none
+```yaml
 foo:
   apiVersion: v1
   kind: Pod
   spec:
-    ...
+    # ...
 ```
 
 Because `x-kubernetes-preserve-unknown-fields: true` is specified alongside, nothing is pruned.
@@ -579,7 +579,7 @@ deleted by Kubernetes.
 ### Validation
 
 Custom resources are validated via
-[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject),
+[OpenAPI v3.0 schemas](https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/3.0.0.md#schema-object),
 by x-kubernetes-validations when the [Validation Rules feature](#validation-rules) is enabled, and you
 can add additional validation using
 [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
@@ -727,7 +727,7 @@ enable the `CRDValidationRatcheting`
 use this behavior, which then applies to all CustomResourceDefinitions in your
 cluster. 
 
-Provided you enabled the feature gate, Kubernetes implements _validation racheting_
+Provided you enabled the feature gate, Kubernetes implements _validation ratcheting_
 for CustomResourceDefinitions. The API server is willing to accept updates to resources that
 are not valid after the update, provided that each part of the resource that failed to validate
 was not changed by the update operation. In other words, any invalid part of the resource
@@ -762,7 +762,7 @@ validations are not supported by ratcheting under the implementation in Kubernet
   Errors arising from changing the list type of a subschema will not be 
   ratcheted. For example adding `set` onto a list with duplicates will always 
   result in an error.
-- `x-kubernetes-map-keys`
+- `x-kubernetes-list-map-keys`
   Errors arising from changing the map keys of a list schema will not be 
   ratcheted.
 - `required`
@@ -796,8 +796,8 @@ rules are supported.
 
 For example:
 
-```none
-  ...
+```yaml
+  # ...
   openAPIV3Schema:
     type: object
     properties:
@@ -809,7 +809,7 @@ For example:
           - rule: "self.replicas <= self.maxReplicas"
             message: "replicas should be smaller than or equal to maxReplicas."
         properties:
-          ...
+          # ...
           minReplicas:
             type: integer
           replicas:
@@ -912,8 +912,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   `metadata.generateName`. This includes selection of fields in both the `spec` and `status` in the
   same expression:
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       x-kubernetes-validations:
@@ -924,7 +924,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
             properties:
               minReplicas:
                 type: integer
-              ...
+              # ...
           status:
             type: object
             properties:
@@ -936,8 +936,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as
   absent fields in CEL expressions.
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
@@ -946,7 +946,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
           x-kubernetes-validations:
             - rule: "has(self.foo)"
           properties:
-            ...
+            # ...
             foo:
               type: integer
   ```
@@ -955,8 +955,8 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all
   entries of the map are accessible via CEL macros and functions such as `self.all(...)`.
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
@@ -965,7 +965,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
           x-kubernetes-validations:
             - rule: "self['xyz'].foo > 0"
           additionalProperties:
-            ...
+            # ...
             type: object
             properties:
               foo:
@@ -975,12 +975,12 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 - If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and
   also by macros and functions.
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
-        ...
+        # ...
         foo:
           type: array
           x-kubernetes-validations:
@@ -991,15 +991,15 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 
 - If the Rule is scoped to a scalar, `self` is bound to the scalar value.
 
-  ```none
-    ...
+  ```yaml
+    # ...
     openAPIV3Schema:
       type: object
       properties:
         spec:
           type: object
           properties:
-            ...
+            # ...
             foo:
               type: integer
               x-kubernetes-validations:
@@ -1204,9 +1204,9 @@ Example Usage:
 
 | CEL                                     | Description |
 |-----------------------------------------|-------------|
-| `self.foo == "foo" || (oldSelf.hasValue() && oldSelf.value().foo != "foo")` | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
-| [oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) || ["NewCase1", "NewCase2"].exists(case, self == case) || ["NewCase"].has(self)` | "Ratcheted validation for removed enum cases if oldSelf used them" |
-| oldSelf.optMap(o, o.size()).orValue(0) < 4 || self.size() >= 4 | Ratcheted validation of newly increased minimum map or list size |
+| <code>self.foo == "foo" &#124;&#124; (oldSelf.hasValue() && oldSelf.value().foo != "foo")</code> | Ratcheted rule. Once a value is set to "foo", it must stay foo. But if it existed before the "foo" constraint was introduced, it may use any value |
+| <code>[oldSelf.orValue(""), self].all(x, ["OldCase1", "OldCase2"].exists(case, x == case)) &#124;&#124; ["NewCase1", "NewCase2"].exists(case, self == case) &#124;&#124; ["NewCase"].has(self)</code> | "Ratcheted validation for removed enum cases if oldSelf used them" |
+| <code>oldSelf.optMap(o, o.size()).orValue(0) < 4 &#124;&#124; self.size() >= 4</code> | Ratcheted validation of newly increased minimum map or list size |
 
 
 #### Validation functions {#available-validation-functions}
@@ -1466,8 +1466,9 @@ Defaulting happens on the object
 Defaults applied when reading data from etcd are not automatically written back to etcd.
 An update request via the API is required to persist those defaults back into etcd.
 
-Default values must be pruned (with the exception of defaults for `metadata` fields) and must
-validate against a provided schema.
+Default values for non-leaf fields must be pruned (with the exception of defaults for `metadata` fields) and must
+validate against a provided schema. For example in the above example, a default of `{"replicas": "foo", "badger": 1}`
+for the `spec` field would be invalid, because `badger` is an unknown field, and `replicas` is not a string.
 
 Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` nodes (or parts of
 a default value covering `metadata`) are not pruned during CustomResourceDefinition creation, but
@@ -1685,10 +1686,6 @@ may also be used with field selectors when included in the `spec.versions[*].sel
 
 {{< feature-state feature_gate_name="CustomResourceFieldSelectors" >}}
 
-For Kubernetes {{< skew currentVersion >}} the ability to define field selectors for
-custom resources is available by default (enabled by default since Kubernetes v1.31);
-you can disable it for your cluster  by turning off the `CustomResourceFieldSelectors`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 The `spec.versions[*].selectableFields` field of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} may be used to
 declare which other fields in a custom resource may be used in field selectors
 with the feature of `CustomResourceFieldSelectors`

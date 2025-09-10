@@ -13,7 +13,11 @@ This section contains the following reference topics about nodes:
 
 * [Node Labels Populated By The Kubelet](/docs/reference/node/node-labels)
 
+* [Local Files And Paths Used By The Kubelet](/docs/reference/node/kubelet-files)
+
 * [Node `.status` information](/docs/reference/node/node-status/)
+
+* [Seccomp information](/docs/reference/node/seccomp/)
 
 You can also read node reference details from elsewhere in the
 Kubernetes documentation, including:
@@ -21,3 +25,5 @@ Kubernetes documentation, including:
 * [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
 
 * [CRI Pod & Container Metrics](/docs/reference/instrumentation/cri-pod-container-metrics).
+
+* [Understand Pressure Stall Information (PSI) Metrics](/docs/reference/instrumentation/understand-psi-metrics).

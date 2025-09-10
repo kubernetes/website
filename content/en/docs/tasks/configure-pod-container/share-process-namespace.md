@@ -40,7 +40,7 @@ Process namespace sharing is enabled using the `shareProcessNamespace` field of
 1. Attach to the `shell` container and run `ps`:
 
    ```shell
-   kubectl attach -it nginx -c shell
+   kubectl exec -it nginx -c shell -- /bin/sh
    ```
 
    If you don't see a command prompt, try pressing enter. In the container shell:

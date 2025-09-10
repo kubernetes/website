@@ -62,7 +62,7 @@ control how Kubernetes API data is encrypted in etcd.
 If it is not specified, you do not have encryption at rest enabled.
 
 The format of that configuration file is YAML, representing a configuration API kind named
-[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/).
+[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-config.v1/).
 You can see an example configuration
 in [Encryption at rest configuration](/docs/tasks/administer-cluster/encrypt-data/#understanding-the-encryption-at-rest-configuration).
 

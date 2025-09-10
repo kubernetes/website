@@ -20,7 +20,7 @@ For example:
 
 - [kubespray](https://kubespray.io/):
   A composition of [Ansible](https://docs.ansible.com/) playbooks,
-  [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory),
+  [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible/inventory.md),
   provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration
   management tasks. You can reach out to the community on Slack channel
   [#kubespray](https://kubernetes.slack.com/messages/kubespray/).

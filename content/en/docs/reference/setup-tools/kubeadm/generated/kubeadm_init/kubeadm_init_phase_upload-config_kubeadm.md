@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upload the kubeadm ClusterConfiguration to a ConfigMap
-
 ### Synopsis
 
 
@@ -27,7 +25,7 @@ kubeadm init phase upload-config kubeadm [flags]
 
 ```
   # upload the configuration of your cluster
-  kubeadm init phase upload-config --config=myConfig.yaml
+  kubeadm init phase upload-config kubeadm --config=myConfig.yaml
 ```
 
 ### Options

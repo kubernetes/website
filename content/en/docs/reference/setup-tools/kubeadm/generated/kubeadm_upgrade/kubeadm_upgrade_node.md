@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upgrade commands for a node in the cluster
-
 ### Synopsis
 
 
@@ -22,6 +20,10 @@ The "node" command executes the following phases:
 preflight       Run upgrade node pre-flight checks
 control-plane   Upgrade the control plane instance deployed on this node, if any
 kubelet-config  Upgrade the kubelet configuration for this node
+addon           Upgrade the default kubeadm addons
+  /coredns        Upgrade the CoreDNS addon
+  /kube-proxy     Upgrade the kube-proxy addon
+post-upgrade    Run post upgrade tasks
 ```
 
 

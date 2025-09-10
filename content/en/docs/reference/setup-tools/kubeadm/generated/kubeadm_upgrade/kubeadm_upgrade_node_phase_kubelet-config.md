@@ -10,12 +10,10 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upgrade the kubelet configuration for this node
-
 ### Synopsis
 
 
-Download the kubelet configuration from the kubelet-config ConfigMap stored in the cluster
+Upgrade the kubelet configuration for this node by downloading it from the kubelet-config ConfigMap stored in the cluster
 
 ```
 kubeadm upgrade node phase kubelet-config [flags]
@@ -29,6 +27,13 @@ kubeadm upgrade node phase kubelet-config [flags]
 <col span="1" />
 </colgroup>
 <tbody>
+
+<tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+</tr>
 
 <tr>
 <td colspan="2">--dry-run</td>

@@ -67,7 +67,7 @@ The architecture components, from right to left in the figure, consist of the fo
 
 * [cAdvisor](https://github.com/google/cadvisor): Daemon for collecting, aggregating and exposing
   container metrics included in Kubelet.
-* [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
+* [kubelet](/docs/concepts/architecture/#kubelet): Node agent for managing container
   resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet
   API endpoints.
 * [node level resource metrics](/docs/reference/instrumentation/node-metrics): API provided by the kubelet for discovering and retrieving

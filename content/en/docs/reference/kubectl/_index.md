@@ -270,9 +270,10 @@ Output format | Description
 `-o json`     | Output a JSON formatted API object.
 `-o jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath/) expression.
 `-o jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath/) expression in the `<filename>` file.
+`-o kyaml`    | Output a KYAML formatted API object (alpha, requires environment variable `KUBECTL_KYAML="true"`).
 `-o name`     | Print only the resource name and nothing else.
 `-o wide`     | Output in the plain-text format with any additional information. For pods, the node name is included.
-`-o yaml`     | Output a YAML formatted API object.
+`-o yaml`     | Output a YAML formatted API object. KYAML is an experimental Kubernetes-specific dialect of YAML, and can be parsed as YAML.
 
 ##### Example
 

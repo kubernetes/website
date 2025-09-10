@@ -42,13 +42,13 @@ subgraph tasks[Changes using GitHub]
 direction TB
     0[ ] -.-
     1[1. Edit this page] --> 2[2. Use GitHub markdown<br>editor to make changes]
-    2 --> 3[3. fill in Propose file change]
+    2 --> 3[3. Select Commit changes...]
 
 end
 subgraph tasks2[ ]
 direction TB
-4[4. select Propose file change] --> 5[5. select Create pull request] --> 6[6. fill in Open a pull request]
-6 --> 7[7. select Create pull request] 
+4[4. Select Propose file change] --> 5[5. Select Create pull request] --> 6[6. Fill in Open a pull request]
+6 --> 7[7. Select Create pull request] 
 end
 
 id1 --> tasks --> tasks2
@@ -69,7 +69,7 @@ Figure 1. Steps for opening a PR using GitHub.
 
 1. Make your changes in the GitHub markdown editor.
 
-1. Below the editor, fill in the **Propose file change** form.
+1. On the right above the editor, Select **Commit changes**.
    In the first field, give your commit message a title.
    In the second field, provide a description.
 
@@ -78,15 +78,15 @@ Figure 1. Steps for opening a PR using GitHub.
    in your commit message. You can add those to the pull request description later.
    {{< /note >}}
 
-1. Select **Propose file change**.
+1. Select **Propose changes**.
 
 1. Select **Create pull request**.
 
 1. The **Open a pull request** screen appears. Fill in the form:
 
-   - The **Subject** field of the pull request defaults to the commit summary.
+   - The **Add a title** field of the pull request defaults to the commit summary.
      You can change it if needed.
-   - The **Body** contains your extended commit message, if you have one,
+   - The **Add a description** field contains your extended commit message, if you have one,
      and some template text. Add the
      details the template text asks for, then delete the extra template text.
    - Leave the **Allow edits from maintainers** checkbox selected.
@@ -169,7 +169,6 @@ Figure 2. Working from a local fork to make your changes.
    ```shell
    git clone git@github.com:<github_username>/website
    cd website
-   git submodule update --init --recursive --depth 1
    ```
 
 1. Navigate to the new `website` directory. Set the `kubernetes/website` repository as the `upstream` remote:
@@ -313,6 +312,13 @@ variable to override this behaviour.
    make container-image
    ```
 
+1. Fetch submodule dependencies in your local repository:
+
+   ```shell
+   # Run this in a terminal
+   make module-init
+   ```
+
 1. Start Hugo in a container:
 
    ```shell
@@ -320,7 +326,7 @@ variable to override this behaviour.
    make container-serve
    ```
 
-1. In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
    changes and rebuilds the site as needed.
 
 1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
@@ -331,24 +337,28 @@ variable to override this behaviour.
 
 Alternately, install and use the `hugo` command on your computer:
 
-1. Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in
+1. Install the [Hugo (Extended edition)](https://gohugo.io/getting-started/installing/) and [Node](https://nodejs.org/en) version specified in
    [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/main/netlify.toml).
 
-1. If you have not updated your website repository, the `website/themes/docsy` directory is empty.
-   The site cannot build without a local copy of the theme. To update the website theme, run:
+1. Install any dependencies:
 
    ```shell
-   git submodule update --init --recursive --depth 1
+   npm ci
    ```
 
 1. In a terminal, go to your Kubernetes website repository and start the Hugo server:
 
    ```shell
    cd <path_to_your_repo>/website
+   make serve
+   ```
+   If you're on a Windows machine or unable to run the `make` command, use the following command:
+
+   ```
    hugo server --buildFuture
    ```
 
-1. In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+1. In a web browser, navigate to `http://localhost:1313`. Hugo watches the
    changes and rebuilds the site as needed.
 
 1. To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
