@@ -16,7 +16,7 @@ weight: 10
 
 {{< feature-state state="beta" for_k8s_version="v1.21" >}}
 
-kubelet은 노드 시스템 셧다운을 감지하고 노드에서 실행 중인 파드를 종료하려고 시도한다.
+Kubelet은 노드 시스템 셧다운을 감지하고 노드에서 실행 중인 파드를 종료하려고 시도한다.
 
 Kubelet은 노드가 종료되는 동안 파드가 
 일반 [파드 종료 프로세스](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)를 
