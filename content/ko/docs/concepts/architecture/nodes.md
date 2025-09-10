@@ -3,6 +3,9 @@
 # - caesarxuchao
 # - dchen1107
 title: 노드
+api_metadata:
+- apiVersion: "v1"
+  kind: "Node"
 content_type: concept
 weight: 10
 ---
