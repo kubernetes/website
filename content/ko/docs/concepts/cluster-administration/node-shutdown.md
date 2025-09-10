@@ -38,7 +38,7 @@ Kubelet은 노드가 종료되는 동안 파드가
 
 일단 systemd가 노드 셧다운을 감지하거나 알림을 받으면, kubelet은 해당 노드에 대해 `NotReady` 상태를 설정하고, `reason`은 `"node is shutting down"`으로 기록된다. kube-scheduler는 이 상태를 인식하고 해당 노드에 새로운 파드를 스케줄링하지 않는다; 다른 서드파티 스케줄러들도 동일한 로직을 따르도록 기대된다. 즉, 새로운 파드는 해당 노드에 배치되지 않으며 따라서 실행되지 않는다.
 
-Kubelet은 **또한** 노드 셧다운을 감지하면 `PodAdmission` 단계에서 파드를 거절하고, 따라서 `node.kubernetes.io/not-ready:NoSchedule`에 대한 {{< glossary_tooltip text="톨러레이션" term_id="toleration" >}}을 가진 파드조차도 그 노드에서는 실행되지 않는다.
+**또한** kubelet은 노드 셧다운을 감지하면 `PodAdmission` 단계에서 파드를 거절하고, 따라서 `node.kubernetes.io/not-ready:NoSchedule`에 대한 {{< glossary_tooltip text="톨러레이션" term_id="toleration" >}}을 가진 파드조차도 그 노드에서는 실행되지 않는다.
 
 Kubelet이 API를 통해 노드에 이런 상태를 설정할 때, 동시에 로컬에서 실행 중인 모든 파드들을 종료하기 시작한다.
 
@@ -59,6 +59,13 @@ Kubelet이 API를 통해 노드에 이런 상태를 설정할 때, 동시에 로
   * 노드 종료 중에 [중요 파드](/ko/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#파드를-중요-critical-로-표시하기)를 
     종료하는 데 사용되는 기간을 지정한다. 
     이 값은 `shutdownGracePeriod` 보다 작아야 한다.
+
+{{< note >}}
+
+시스템(또는 관리자가 수동으로)에 의해 노드 셧다운이 취소되는 경우가 있다. 이런 상황에서는 노드가 다시 Ready 상태로 돌아간다.
+그러나 이미 종료 절차가 시작된 파드들은 kubelet에 의해 복구되지 않으며, 다시 스케줄링되어야 한다.
+
+{{< /note >}}
 
 예를 들어, `shutdownGracePeriod=30s`,
 `shutdownGracePeriodCriticalPods=10s` 인 경우, kubelet은 노드 종료를 30초까지
