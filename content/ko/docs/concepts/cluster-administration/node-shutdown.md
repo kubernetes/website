@@ -1,4 +1,3 @@
-
 ---
 title: 노드 셧다운
 content_type: concept
