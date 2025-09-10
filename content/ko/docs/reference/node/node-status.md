@@ -7,7 +7,22 @@ weight: 80
 
 쿠버네티스에서 [노드](/ko/docs/concepts/architecture/nodes/) 상태는 클러스터 관리에서 중요한 부분이다. 이 문서에서는 건강하고 안정적인 클러스터를 보장하기 위해 노드 상태를 모니터링하고 관리하는 기초를 다룬다.
 
-<!-- body -->
+## 노드 상태 필드
+
+노드의 상태는 다음의 정보를 포함한다:
+
+* [주소](#addresses)
+* [컨디션](#condition)
+* [용량과 할당가능](#capacity)
+* [정보](#info)
+
+`kubectl`을 사용해서 노드의 상태와 다른 세부 정보를 볼 수 있다:
+
+```shell
+kubectl describe node <insert-node-name-here>
+```
+
+출력의 각 섹션은 아래에서 설명된다. 
 
 ## 주소 {#addresses}
 
@@ -99,7 +114,7 @@ API 서버와의 통신이 재개될 때까지 파드 삭제에 대한 결정은
 [컴퓨팅 리소스 예약](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)하는 방법을
 배우는 동안 용량 및 할당가능 리소스에 대해 자세히 읽어보자.
 
-## 정보
+## 정보 {#info}
 
 커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), 컨테이너
 런타임 상세 정보 및 노드가 사용하는 운영 체제가 무엇인지와 같은
