@@ -22,7 +22,7 @@ weight: 10
 단일 오브젝트가 네임스페이스 내에서 사용 가능한 모든 리소스를 독점하지 못하도록 하는 것에 대해 우려할 수도 있다.
 
 리밋레인지는 네임스페이스의 각 적용 가능한 
-오브젝트 종류(예: 파드 또는 {{< glossary_tooltip text="퍼시스턴트볼륨클레임" term_id="persistent-volume-claim" >}})에 대해 지정할 수 있는 리소스 할당(제한 및 요청)을 제한하는 정책이다.
+오브젝트 종류(예: 파드 또는 {{< glossary_tooltip text="퍼시스턴트볼륨클레임(PersistentVolumeClaim)" term_id="persistent-volume-claim" >}})에 대해 지정할 수 있는 리소스 할당(제한 및 요청)을 제한하는 정책이다.
 
 <!-- body -->
 
