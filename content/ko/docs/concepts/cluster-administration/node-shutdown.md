@@ -226,7 +226,7 @@ VolumeAttachment도 기존의 셧다운된 노드에서 삭제되지 않아
   사용자가 서비스 불가 상태 테인트를 수동으로 제거해야 한다.
 {{< /note >}}
 
-### 타임아웃 시 강제 스토리지 분리
+### 타임아웃 시 강제 스토리지 분리 {#storage-force-detach-on-timeout}
 
 Pod 삭제가 6분 동안 성공하지 못한 상황에서는, 해당 시점에 노드가 정상적이지 않다면 쿠버네티스가 마운트 해제 중인 볼륨을 강제로 분리한다.
 노드에서 여전히 실행 중인 워크로드가 강제로 분리된 볼륨을 사용하면 CSI 사양 위반이 발생할 수 있다. [CSI 사양](https://github.com/container-storage-interface/spec/blob/master/spec.md#controllerunpublishvolume)에는 `ControllerUnpublishVolume`이 "모든 `NodeUnstageVolume`과 `NodeUnpublishVolume`이 호출되고 성공한 이후에 **반드시** 호출되어야 한다"고 명시되어 있다. 이런 상황에서는 해당 노드의 볼륨에서 데이터 손상이 발생할 수 있다.
