@@ -1,5 +1,5 @@
 ---
-title: 컨피그맵으로 구성파일 업데이트하기
+title: 컨피그맵으로 구성 파일 업데이트하기
 content_type: tutorial
 weight: 20
 ---
@@ -13,7 +13,7 @@ weight: 20
 ## {{% heading "prerequisites" %}}
 {{< include "task-tutorial-prereqs.md" >}}
 
-터미널이나 명령 프롬포트에서 HTTP 요청을 하려면 
+터미널이나 명령 프롬프트에서 HTTP 요청을 하려면 
 [curl](https://curl.se/) 명령줄 도구가 필요하다. `curl`이 설치되어 있지 않으면, 직접 설치할 수 있다. 로컬 운영 체제에 해당하는
 문서를 확인한다.
 
@@ -35,7 +35,7 @@ kubectl create configmap sport --from-literal=sport=football
 ```
 
 아래는 컨피그맵 `sport`가 파드의 유일한 컨테이너에 
-{{< glossary_tooltip text="볼륨" term_id="volume">}}으로 마운트된 디플로이먼트(Deployment) 매니페스트의 예이다. 
+{{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트된 디플로이먼트(Deployment) 매니페스트의 예이다. 
 {{% code_sample file="deployments/deployment-with-configmap-as-volume.yaml" %}} 
 
 디플로이먼트를 생성한다.
@@ -44,8 +44,8 @@ kubectl create configmap sport --from-literal=sport=football
 kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-as-volume.yaml
 ```
 
-이 디플로이먼트의 파드가 준비되었는지 확인한다.
-({{< glossary_tooltip text="셀렉터" term_id="selector" >}}와 일치)
+이 디플로이먼트의 파드가 준비되었는지 확인한다
+({{< glossary_tooltip text="셀렉터" term_id="selector" >}}와 일치).
 
 ```shell
 kubectl get pods --selector=app.kubernetes.io/name=configmap-volume
@@ -90,7 +90,7 @@ kubectl edit configmap sport
 ```
 
 편집기가 나타나면, 키 `sport`의 값을 `football`에서 `cricket`으로 변경한다. 변경 사항을 저장한다.
-kubectl 도구가 컨피그맵을 적절히 업데이트한다. (오류가 발생되면 다시 시도한다)
+kubectl 도구가 컨피그맵을 적절히 업데이트한다(오류가 발생하면 다시 시도한다). 
 
 다음은 매니페스트를 편집한 후 어떻게 표시되는지 보여주는 예이다.
 
@@ -135,7 +135,7 @@ Thu Jan  4 14:12:16 UTC 2024 My preferred sport is cricket
 실행 중인 파드에 매핑된 컨피그맵이 있고, 해당 컨피그맵을 업데이트하면,
 실행 중인 파드는 거의 즉시 업데이트를 인식한다.  
 하지만, 애플리케이션은 변경 사항을 폴링하거나 파일 업데이트를 감시하도록 
-작성된 경우에만 변경 사항을 인식힌다.  
+작성된 경우에만 변경 사항을 인식한다.  
 시작 시 구성을 한 번 로드하는 애플리케이션은 변경 사항을 인식하지 못한다.
 
 {{< note >}}
@@ -147,7 +147,7 @@ Thu Jan  4 14:12:16 UTC 2024 My preferred sport is cricket
 ## 컨피그맵으로 파드 환경 변수 업데이트하기 {#rollout-configmap-env}
 
 `kubectl create configmap` 명령어를 사용하여 
-[리터럴 값](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values)을 사용하고 컨피그맵을 생성한다.
+[리터럴 값](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values)으로 컨피그맵을 생성한다.
 
 ```shell
 kubectl create configmap fruits --from-literal=fruits=apples
@@ -229,7 +229,7 @@ configmap/fruits edited
 디플로이먼트 로그를 추적하고 몇 초 동안 출력을 관찰한다.
 
 ```shell
-# As the text explains, the output does NOT change
+# 텍스트에서 설명한 대로 출력은 변경되지 않는다
 kubectl logs deployments/configmap-env-var --follow
 ```
 
@@ -280,7 +280,7 @@ configmap-env-var   3/3     3            3           12m
 kubectl get pods --selector=app.kubernetes.io/name=configmap-env-var
 ```
 
-롤아웃은 쿠버네티스가 새로운 디플로이먼트에 대해 {{< glossary_tooltip term_id="replica-set" text="레플리카셋(ReplicaSet)" >}} 을 
+롤아웃은 쿠버네티스가 새로운 디플로이먼트에 대해 {{< glossary_tooltip term_id="replica-set" text="레플리카셋(ReplicaSet)" >}}을 
 만든다. 즉, 기존 파드는 결국 종료되고 새로운 파드가 생성된다. 
 몇 초후, 다음과 유사한 출력을 확인할 수 있다.
 
@@ -357,8 +357,8 @@ configmap-two-containers-565fb6d4f4-g5v4j   2/2     Running   0          20s
 configmap-two-containers-565fb6d4f4-mzsmf   2/2     Running   0          20s
 ```
 
-디플로이먼트를 노출한다 (`kubectl` 도구가 
-{{<glossary_tooltip text="서비스" term_id="service">}}를 생성해준다).
+디플로이먼트를 노출한다(`kubectl` 도구가 
+{{<glossary_tooltip text="서비스" term_id="service">}}를 생성한다).
 
 ```shell
 kubectl expose deployment configmap-two-containers --name=configmap-service --port=8080 --target-port=80
@@ -389,7 +389,7 @@ Fri Jan  5 08:08:22 UTC 2024 My preferred color is red
 kubectl edit configmap color
 ```
 
-편집기가 열리면 `color`키의 값을 `red`애서 `blue`로 변경한다. 변경 사항을 저장한다. 
+편집기가 열리면 `color`키의 값을 `red`에서 `blue`로 변경한다. 변경 사항을 저장한다. 
 kubectl 도구는 이에 따라 컨피그맵을 업데이트한다 (만약 오류가 발생하면 다시 시도한다).
 
 아래는 편집 후 매니페스트가 어떻게 보일 수 있는지에 대한 예시이다.
@@ -437,7 +437,7 @@ Fri Jan  5 08:15:00 UTC 2024 My preferred color is blue
 
 이전 시나리오에 이어서 진행하는 경우, 이번 시나리오에서도 `color`라는 이름의 컨피그맵을 재사용할 수 있다. 
 이 시나리오를 독립적으로 실행하는 경우, `kubectl create configmap` 명령을 사용하여 
-[리터럴 값](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values)에서 컨피그맵을 생성한다.
+[리터럴 값](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values)으로 컨피그맵을 생성한다.
 
 ```shell
 kubectl create configmap color --from-literal=color=blue
@@ -448,7 +448,7 @@ kubectl create configmap color --from-literal=color=blue
 메인 컨테이너는 웹 서버(NGINX)를 실행한다. 웹 서버 컨테이너에서 마운트된 공유된 볼륨의 경로는 
 `/usr/share/nginx/html`이다. 두 번째 컨테이너는 Alpine Linux 기반의 사이드카 컨테이너로 보조 컨테이너 
 역할을 한다. 이 컨테이너에서 `emptyDir` 볼륨은 `/pod-data`에 마운트된다. 사이드카 컨테이너는 
-컨테이너 기반으로 HTML 파일을 작성한다. 웹 서버 컨테이너는 HTML을 HTTP를 통해 제공한다.
+컨피그맵 기반으로 HTML 파일을 작성한다. 웹 서버 컨테이너는 HTTP를 통해 HTML을 제공한다.
 
 {{% code_sample file="deployments/deployment-with-configmap-and-sidecar-container.yaml" %}}
 
@@ -458,7 +458,7 @@ kubectl create configmap color --from-literal=color=blue
 kubectl apply -f https://k8s.io/examples/deployments/deployment-with-configmap-and-sidecar-container.yaml
 ```
 
-이 디플로이먼트의 파드들이 준비되었는지 확인한다 ({{< glossary_tooltip text="셀렉터" term_id="selector" >}}로 
+이 디플로이먼트의 파드들이 준비되었는지 확인한다({{< glossary_tooltip text="셀렉터" term_id="selector" >}}로 
 매칭한다).
 
 ```shell
@@ -474,14 +474,14 @@ configmap-sidecar-container-5fb59f558b-ccs7s   2/2     Running   0          94s
 configmap-sidecar-container-5fb59f558b-wnmgk   2/2     Running   0          94s
 ```
 
-디플로이먼트를 노출한다. (`kubectl` 도구가 
-{{<glossary_tooltip text="서비스" term_id="service">}}를 생성한다)
+디플로이먼트를 노출한다(`kubectl` 도구가 
+{{<glossary_tooltip text="서비스" term_id="service">}}를 생성한다). 
 
 ```shell
 kubectl expose deployment configmap-sidecar-container --name=configmap-sidecar-service --port=8081 --target-port=80
 ```
 
-`kubectl` 을 사용하여 포트를 포워딩한다.
+`kubectl`을 사용하여 포트를 포워딩한다.
 
 ```shell
 # 이는 백그라운드에서 실행된다.
@@ -507,7 +507,7 @@ kubectl edit configmap color
 ```
 
 편집기가 열리면 `color`키의 값을 `blue`에서 `green`으로 변경한다. 변경 사항을 저장한다.
-kubectl 도구는 이에 따라 컨피그맵을 업데이트한다. (오류가 발생하면 다시 시도한다).
+kubectl 도구는 이에 따라 컨피그맵을 업데이트한다(오류가 발생하면 다시 시도한다).
 
 아래는 편집 후 매니페스트가 어떻게 보일 수 있는지에 대한 예시이다.
 
@@ -555,10 +555,10 @@ Sat Feb 17 13:13:35 UTC 2024 My preferred color is green
 
 - 컨피그맵의 이름을 변경하고, 새 이름을 참조하는 파드를 실행하도록 전환한다
 - 이전 값을 사용한 파드를 실행했던 클러스터의 모든 노드를 교체한다
-- 과거에 오래된 컨피그맵을 로드했던 노드에서 kubelet을 재시작한다.
+- 과거에 오래된 컨피그맵을 로드했던 노드에서 kubelet을 재시작한다
 {{< /note >}}
 
-아래는 [불변 컨피그맵](/docs/concepts/configuration/configmap/#configmap-immutable)의 매니페스트 예시이다.
+아래는 [불변 컨피그맵](/ko/docs/concepts/configuration/configmap/#configmap-immutable)의 매니페스트 예시이다.
 {{% code_sample file="configmap/immutable-configmap.yaml" %}}
 
 불변 컨피그맵을 생성한다.
@@ -568,7 +568,7 @@ kubectl apply -f https://k8s.io/examples/configmap/immutable-configmap.yaml
 ```
 
 아래는 불변 컨피그맵 `company-name-20150801`을 파드의 유일한 컨테이너에
-{{< glossary_tooltip text="볼륨" term_id="volume" >}} 으로 마운트한 디플로이먼트 매니페스트 예시이다.
+{{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트한 디플로이먼트 매니페스트 예시이다.
 
 {{% code_sample file="deployments/deployment-with-immutable-configmap-as-volume.yaml" %}} 
 
@@ -619,7 +619,7 @@ data 또는 binaryData 필드의 내용을 변경할 수도 없다.
 새 컨피그맵을 참조하도록 약간 다른 파드 템플릿을 정의해야 한다.
 {{< /note >}}
 
-아래 매니페스트를 사용해 새 불변 컨피그맵을 생성한다. 
+아래 매니페스트를 사용하여 새 불변 컨피그맵을 생성한다. 
 
 {{% code_sample file="configmap/new-immutable-configmap.yaml" %}}
 
@@ -639,7 +639,7 @@ configmap/company-name-20240312 created
 kubectl get configmap
 ```
 
-이전 것과 새로운 두 컨피그맵이 모두 표시된다.
+이전과 새로운 두 컨피그맵이 모두 표시된다.
 
 ```
 NAME                    DATA   AGE
@@ -655,7 +655,7 @@ company-name-20240312   1      24s
 kubectl edit deployment immutable-configmap-volume
 ```
 
-열린 편집기에서 기존 볼류 정의를 새 컨피그맵을 사용하도록 업데이트한다.
+열린 편집기에서 기존 볼륨 정의를 새 컨피그맵을 사용하도록 업데이트한다.
 
 ```yaml
 volumes:
@@ -689,7 +689,7 @@ immutable-configmap-volume-78b6fbff95-7vcj4   1/1     Terminating   0          3
 immutable-configmap-volume-78b6fbff95-vdslm   1/1     Terminating   0          32m
 ```
 
-잠시 후에는 다음과 유사한 출력이 표시된다.
+잠시 후에 다음과 유사한 출력이 표시된다.
 
 ```
 NAME                                          READY   STATUS    RESTARTS   AGE
@@ -735,7 +735,7 @@ kubectl delete configmap company-name-20150801
 
 ## {{% heading "cleanup" %}}
 
-실행 중인 `kubectl port-forward` 가 있다면 종료한다.
+실행 중인 `kubectl port-forward`가 있다면 종료한다.
 
 튜토리얼에서 생성한 리소스를 삭제한다.
 
