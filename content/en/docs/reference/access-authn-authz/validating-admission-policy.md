@@ -336,7 +336,6 @@ You can access any field in the object's schema, such as `object.metadata.labels
 For any Kubernetes object, including schemaless Custom Resources, CEL guarantees access to a minimal set of properties:
 `apiVersion`, `kind`, `metadata.name`, and `metadata.generateName`.
 
-
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
 
