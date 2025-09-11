@@ -190,8 +190,11 @@ for more details.
 
 <!--
 When you call `kubeadm init`, the kubelet configuration is marshalled to disk
-at `/var/lib/kubelet/config.yaml`, and also uploaded to a `kubelet-config` ConfigMap in the `kube-system`
-namespace of the cluster. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf`
+at `/var/lib/kubelet/config.yaml`, and also uploaded to a `kubelet-config` 
+ConfigMap in the `kube-system` namespace of the cluster. 
+Additionally, the kubeadm tool detects the CRI socket on the node and writes its details
+(including the socket path) into a local configuration, `/var/lib/kubelet/instance-config.yaml`.
+A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf`
 with the baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
 points to the client certificates that allow the kubelet to communicate with the API server. This
 addresses the need to
@@ -199,6 +202,8 @@ addresses the need to
 -->
 当调用 `kubeadm init` 时，kubelet 的配置会被写入磁盘 `/var/lib/kubelet/config.yaml`，
 并上传到集群 `kube-system` 命名空间的 `kubelet-config` ConfigMap。
+此外，kubeadm 工具会在节点上检测 CRI 套接字，
+并将其详细信息（包括套接字路径）写入本地配置文件 `/var/lib/kubelet/instance-config.yaml`。
 kubelet 配置信息也被写入 `/etc/kubernetes/kubelet.conf`，其中包含集群内所有 kubelet 的基线配置。
 此配置文件指向允许 kubelet 与 API 服务器通信的客户端证书。
 这解决了[将集群级配置传播到每个 kubelet](#propagating-cluster-level-configuration-to-each-kubelet) 的需求。
@@ -219,11 +224,9 @@ KUBELET_KUBEADM_ARGS="--flag1=value1 --flag2=value2 ..."
 
 <!--
 In addition to the flags used when starting the kubelet, the file also contains dynamic
-parameters such as the cgroup driver and whether to use a different container runtime socket
-(`--cri-socket`).
+parameters such as the cgroup driver.
 -->
-除了启动 kubelet 时所使用的标志外，该文件还包含动态参数，例如 cgroup
-驱动程序以及是否使用其他容器运行时套接字（`--cri-socket`）。
+除了启动 kubelet 时所使用的标志外，该文件还包含诸如 CGroup 驱动程序等动态参数。
 
 <!--
 After marshalling these two files to disk, kubeadm attempts to run the following two
@@ -245,13 +248,17 @@ If the reload and restart are successful, the normal `kubeadm init` workflow con
 
 When you run `kubeadm join`, kubeadm uses the Bootstrap Token credential to perform
 a TLS bootstrap, which fetches the credential needed to download the
-`kubelet-config` ConfigMap and writes it to `/var/lib/kubelet/config.yaml`. The dynamic
-environment file is generated in exactly the same way as `kubeadm init`.
+`kubelet-config` ConfigMap and writes it to `/var/lib/kubelet/config.yaml`.
+Additionally, the kubeadm tool detects the CRI socket on the node and writes its details
+(including the socket path) into a local configuration, `/var/lib/kubelet/instance-config.yaml`.
+The dynamic environment file is generated in exactly the same way as `kubeadm init`.
 -->
 ### 使用 `kubeadm join` 时的工作流程    {#workflow-when-using-kubeadm-join}
 
 当运行 `kubeadm join` 时，kubeadm 使用 Bootstrap Token 证书执行 TLS 引导，该引导会获取一份证书，
 该证书需要下载 `kubelet-config` ConfigMap 并把它写入 `/var/lib/kubelet/config.yaml` 中。
+此外，kubeadm 会在节点上自动检测 CRI 套接字，
+并将其详细信息（包括套接字路径）写入本地配置文件 `/var/lib/kubelet/instance-config.yaml`。
 动态环境文件的生成方式恰好与 `kubeadm init` 完全相同。
 
 <!--
