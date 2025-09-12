@@ -131,9 +131,9 @@ kubectl get pod resize-demo --output=yaml
 kubectl patch pod resize-demo --subresource resize --patch \
   '{"spec":{"containers":[{"name":"pause", "resources":{"requests":{"cpu":"800m"}, "limits":{"cpu":"800m"}}}]}}'
 
-# Альтерантивні методиs:
+# Альтернативні методи:
 # kubectl -n qos-example edit pod resize-demo --subresource resize
-# kubectl -n qos-example apply -f <updated-manifest> --subresource resize
+# kubectl -n qos-example apply -f <updated-manifest> --subresource resize --server-side
 ```
 
 {{< note >}}

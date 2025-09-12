@@ -242,7 +242,7 @@ serverTLSBootstrap: true
 
 Якщо ви вже створили кластер, вам слід адаптувати його, виконавши наступне:
 
-- Знайдіть і відредагуйте ConfigMap `kubelet-config-{{< skew currentVersion >}}` в просторі імен `kube-system`. У ConfigMap ключ `kubelet` має документ [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/) як своє значення. Відредагуйте документ KubeletConfiguration, щоб встановити `serverTLSBootstrap: true`.
+- Знайдіть і відредагуйте ConfigMap `kubelet-config` в просторі імен `kube-system`. У ConfigMap ключ `kubelet` має документ [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/) як своє значення. Відредагуйте документ KubeletConfiguration, щоб встановити `serverTLSBootstrap: true`.
 - На кожному вузлі додайте поле `serverTLSBootstrap: true` у `/var/lib/kubelet/config.yaml` і перезапустіть kubelet за допомогою `systemctl restart kubelet`.
 
 Поле `serverTLSBootstrap: true` дозволить ініціювати завантаження службових сертифікатів kubelet, запитуючи їх з API `certificates.k8s.io`. Одне з відомих обмежень поля `serverTLSBootstrap: true` — CSRs (запити на підпис сертифікатів) для цих сертифікатів не можуть бути автоматично затверджені типовим підписувачем в kube-controller-manager — [`kubernetes.io/kubelet-serving`](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers). Це потребує дій користувача або стороннього контролера.

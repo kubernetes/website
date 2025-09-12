@@ -237,7 +237,9 @@ spec:
 - `authorizer` — Авторизатор CEL. Може використовуватися для виконання перевірок авторизації для принципала (автентифікованого користувача) запиту. Див. [AuthzSelectors](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors) та [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) в документації бібліотеки Kubernetes CEL для отримання додаткових відомостей.
 - `authorizer.requestResource` — Скорочення для перевірки авторизації, налаштоване з ресурсом запиту (група, ресурс, (субресурс), простір імен, імʼя).
 
-`apiVersion`, `kind`, `metadata.name` і `metadata.generateName` завжди доступні з кореня обʼєкта. Інші властивості метаданих не доступні.
+У виразах CEL змінні, такі як `object` та `oldObject`, є строго типізованими. Ви можете отримати доступ до будь-якого поля в схемі обʼєкта, наприклад `object.metadata.labels` та полів у `spec`.
+
+Для будь-якого обʼєкта Kubernetes, включаючи безсхемні власні ресурси, CEL гарантує доступ до мінімального набору властивостей: `apiVersion`, `kind`, `metadata.name` та `metadata.generateName`.
 
 Рівність у масивах із типом списку 'set' або 'map' ігнорує порядок елементів, тобто [1, 2] == [2, 1]. Конкатенація у масивах з x-kubernetes-list-type використовує семантику типу списку:
 
