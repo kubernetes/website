@@ -60,6 +60,15 @@ for the upcoming **{{< skew nextMinorVersion >}}** Kubernetes release!
 查看即将发布的 Kubernetes **{{< skew nextMinorVersion >}}**
 [时间表](https://github.com/kubernetes/sig-release/tree/master/releases/release-{{< skew nextMinorVersion >}})！
 
+{{< note >}}
+<!--
+This schedule link may be temporarily unavailable during early release planning phases.  
+Check the [SIG Release repository](https://github.com/kubernetes/sig-release/tree/master/releases) for the latest updates.
+-->
+此时间表链接可能在早期发布计划期间暂时不可用。
+检查 [SIG Release 仓库](https://github.com/kubernetes/sig-release/tree/master/releases)以获取最新版本。
+{{< /note >}}
+
 <!--
 ## Helpful Resources
 -->

@@ -263,7 +263,12 @@ For each additional control plane node you should:
    - The `--certificate-key ...` will cause the control plane certificates to be downloaded
      from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
 
-You can join multiple control-plane nodes in parallel.
+
+{{< note >}}
+As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
+on the first control plane node. To provide higher availability, please rebalance the CoreDNS Pods
+with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
+{{< /note >}}
 
 ## External etcd nodes
 

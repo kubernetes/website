@@ -511,6 +511,18 @@ This ensures that DaemonSet pods are never evicted due to these problems.
 
 这保证了出现上述问题时 DaemonSet 中的 Pod 永远不会被驱逐。
 
+{{< note >}}
+<!--
+The node controller was responsible for adding taints to nodes and evicting pods. But after 1.29,
+the taint-based eviction implementation has been moved out of node controller into a separate,
+and independent component called taint-eviction-controller. Users can optionally disable taint-based
+eviction by setting `--controllers=-taint-eviction-controller` in kube-controller-manager.
+-->
+在 1.29 之前，节点控制器负责为节点添加污点并驱逐 Pod。自 1.29 起，
+基于污点的驱逐已从节点控制器中抽离，迁移为一个名为 taint-eviction-controller 的独立组件。
+用户如需禁用基于污点的驱逐，可在 kube-controller-manager 中设置 `--controllers=-taint-eviction-controller`。
+{{< /note >}}
+
 <!--
 ## Taint Nodes by Condition
 

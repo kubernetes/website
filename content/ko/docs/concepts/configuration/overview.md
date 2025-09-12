@@ -27,7 +27,7 @@ weight: 10
 
 - 의미상 맞다면 가능한 연관된 오브젝트들을 하나의 파일에 모아 놓는다.
   때로는 여러 개의 파일보다 하나의 파일이 더 관리하기 쉽다. 이 문법의 예시로서 
-  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml) 
+  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml) 
   파일을 참고한다.
 
 - 많은 `kubectl` 커맨드들은 디렉터리에 대해 호출될 수 있다. 예를 들어,

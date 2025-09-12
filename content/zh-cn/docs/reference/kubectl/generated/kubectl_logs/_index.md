@@ -27,59 +27,59 @@ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]
 
 <!--
 ```
-  # Return snapshot logs from pod nginx with only one container
-  kubectl logs nginx
+# Return snapshot logs from pod nginx with only one container
+kubectl logs nginx
 
-  # Return snapshot logs from pod nginx, prefixing each line with the source pod and container name
-  kubectl logs nginx --prefix
-  
-  # Return snapshot logs from pod nginx, limiting output to 500 bytes
-  kubectl logs nginx --limit-bytes=500
-  
-  # Return snapshot logs from pod nginx, waiting up to 20 seconds for it to start running.
-  kubectl logs nginx --pod-running-timeout=20s
+# Return snapshot logs from pod nginx, prefixing each line with the source pod and container name
+kubectl logs nginx --prefix
 
-  # Return snapshot logs from pod nginx with multi containers
-  kubectl logs nginx --all-containers=true
+# Return snapshot logs from pod nginx, limiting output to 500 bytes
+kubectl logs nginx --limit-bytes=500
 
-  # Return snapshot logs from all pods in the deployment nginx
-  kubectl logs deployment/nginx --all-pods=true
+# Return snapshot logs from pod nginx, waiting up to 20 seconds for it to start running.
+kubectl logs nginx --pod-running-timeout=20s
 
-  # Return snapshot logs from all containers in pods defined by label app=nginx
-  kubectl logs -l app=nginx --all-containers=true
+# Return snapshot logs from pod nginx with multi containers
+kubectl logs nginx --all-containers=true
 
-  # Return snapshot logs from all pods defined by label app=nginx, limiting concurrent log requests to 10 pods
-  kubectl logs -l app=nginx --max-log-requests=10
+# Return snapshot logs from all pods in the deployment nginx
+kubectl logs deployment/nginx --all-pods=true
 
-  # Return snapshot of previous terminated ruby container logs from pod web-1
-  kubectl logs -p -c ruby web-1
+# Return snapshot logs from all containers in pods defined by label app=nginx
+kubectl logs -l app=nginx --all-containers=true
 
-  # Begin streaming the logs from pod nginx, continuing even if errors occur
-  kubectl logs nginx -f --ignore-errors=true
+# Return snapshot logs from all pods defined by label app=nginx, limiting concurrent log requests to 10 pods
+kubectl logs -l app=nginx --max-log-requests=10
 
-  # Begin streaming the logs of the ruby container in pod web-1
-  kubectl logs -f -c ruby web-1
+# Return snapshot of previous terminated ruby container logs from pod web-1
+kubectl logs -p -c ruby web-1
 
-  # Begin streaming the logs from all containers in pods defined by label app=nginx
-  kubectl logs -f -l app=nginx --all-containers=true
+# Begin streaming the logs from pod nginx, continuing even if errors occur
+kubectl logs nginx -f --ignore-errors=true
 
-  # Display only the most recent 20 lines of output in pod nginx
-  kubectl logs --tail=20 nginx
+# Begin streaming the logs of the ruby container in pod web-1
+kubectl logs -f -c ruby web-1
 
-  # Show all logs from pod nginx written in the last hour
-  kubectl logs --since=1h nginx
+# Begin streaming the logs from all containers in pods defined by label app=nginx
+kubectl logs -f -l app=nginx --all-containers=true
 
-  # Show all logs with timestamps from pod nginx starting from August 30, 2024, at 06:00:00 UTC
-  kubectl logs nginx --since-time=2024-08-30T06:00:00Z --timestamps=true
+# Display only the most recent 20 lines of output in pod nginx
+kubectl logs --tail=20 nginx
 
-  # Show logs from a kubelet with an expired serving certificate
-  kubectl logs --insecure-skip-tls-verify-backend nginx
+# Show all logs from pod nginx written in the last hour
+kubectl logs --since=1h nginx
 
-  # Return snapshot logs from first container of a job named hello
-  kubectl logs job/hello
+# Show all logs with timestamps from pod nginx starting from August 30, 2024, at 06:00:00 UTC
+kubectl logs nginx --since-time=2024-08-30T06:00:00Z --timestamps=true
 
-  # Return snapshot logs from container nginx-1 of a deployment named nginx
-  kubectl logs deployment/nginx -c nginx-1
+# Show logs from a kubelet with an expired serving certificate
+kubectl logs --insecure-skip-tls-verify-backend nginx
+
+# Return snapshot logs from first container of a job named hello
+kubectl logs job/hello
+
+# Return snapshot logs from container nginx-1 of a deployment named nginx
+kubectl logs deployment/nginx -c nginx-1
 ```
 -->
 ```shell
@@ -480,30 +480,6 @@ The name of the kubeconfig context to use
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -537,6 +513,21 @@ Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
 </p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>

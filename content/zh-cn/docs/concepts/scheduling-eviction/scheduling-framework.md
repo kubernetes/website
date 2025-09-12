@@ -141,7 +141,7 @@ Pod。实现 PreEnqueue、PreFilter、Filter、Reserve 或 Permit 的插件应�
 
 ### QueueingHint
 
-{{< feature-state for_k8s_version="v1.32" state="beta" >}}
+{{< feature-state feature_gate_name="SchedulerQueueingHints" >}}
 
 <!--
 QueueingHint is a callback function for deciding whether a Pod can be requeued to the active queue or backoff queue.
@@ -154,17 +154,6 @@ QueueingHint 作为一个回调函数，用于决定是否将 Pod 重新排队�
 每当集群中发生某种事件或变化时，此函数就会被执行。
 当 QueueingHint 发现事件可能使 Pod 可调度时，Pod 将被放入活跃队列或回退队列，
 以便调度器可以重新尝试调度 Pod。
-
-{{< note >}}
-<!--
-In Kubernetes {{< skew currentVersion >}}, this feature gate is enabled by default,
-and you can disable it via the
-`SchedulerQueueingHints` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
--->
-在 Kubernetes 的 {{< skew currentVersion >}} 版本中，此特性门控默认启用，
-你可以通过 `SchedulerQueueingHints`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用它。
-{{< /note >}}
 
 <!--
 ### QueueSort {#queue-sort}

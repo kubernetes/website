@@ -196,7 +196,7 @@ choice is not available.
 
 In the example below, the ResourceClaimTemplate requested a device with the color black
 and the size large. If a device with those attributes is not available, the pod cannot
-be scheduled. With the priotized list feature, a second alternative can be specified, which
+be scheduled. With the prioritized list feature, a second alternative can be specified, which
 requests two devices with the color white and size small. The large black device will be
 allocated if it is available. If it is not, but two small white devices are available,
 the pod will still be able to run.
