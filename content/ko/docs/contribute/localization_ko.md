@@ -276,6 +276,7 @@ Cluster | 클러스터 |
 ClusterRole | 클러스터롤(ClusterRole) | API 오브젝트인 경우
 ClusterRoleBinding | 클러스터롤바인딩(ClusterRoleBinding) | API 오브젝트인 경우
 Command Line Tool | 커맨드라인 툴 |
+Component | 컴포넌트 |
 ComponentStatus | 컴포넌트스테이터스(ComponentStatus) | API 오브젝트인 경우
 ConfigMap | 컨피그맵(ConfigMap) | API 오브젝트인 경우
 configuration | 구성, 설정 |
