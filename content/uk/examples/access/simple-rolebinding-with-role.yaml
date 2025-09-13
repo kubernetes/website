@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+# Це рольове звʼязування дозволяє "jane" читати Podʼи в просторі імен "default".
+# Ви повинні вже мати роль з назвою "pod-reader" в цьому просторі імен.
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: default
+subjects:
+# Ви можете вказати більше одного "субʼєкта"
+- kind: User
+  name: jane # "name" чутливе до регістру
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  # "roleRef" вказує на звʼязування з Role / ClusterRole
+  kind: Role # має бути Role або ClusterRole
+  name: pod-reader # має збігатися з назвою Role або ClusterRole, з якою ви хочете звʼязати
+  apiGroup: rbac.authorization.k8s.io
