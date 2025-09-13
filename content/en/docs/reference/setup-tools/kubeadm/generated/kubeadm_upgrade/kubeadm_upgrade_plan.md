@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Check which versions are available to upgrade to and validate whether your current cluster is upgradeable.
-
 ### Synopsis
 
 
@@ -56,6 +54,13 @@ kubeadm upgrade plan [version] [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--etcd-upgrade&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Perform the upgrade of etcd.</p></td>
 </tr>
 
 <tr>

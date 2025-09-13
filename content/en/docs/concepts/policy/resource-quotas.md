@@ -14,36 +14,57 @@ weight: 20
 When several users or teams share a cluster with a fixed number of nodes,
 there is a concern that one team could use more than its fair share of resources.
 
-Resource quotas are a tool for administrators to address this concern.
+_Resource quotas_ are a tool for administrators to address this concern.
+
+A resource quota, defined by a ResourceQuota object, provides constraints that limit
+aggregate resource consumption per {{< glossary_tooltip text="namespace" term_id="namespace" >}}. A ResourceQuota can also
+limit the [quantity of objects that can be created in a namespace](#quota-on-object-count) by API kind, as well as the total
+amount of {{< glossary_tooltip text="infrastructure resources" term_id="infrastructure-resource" >}} that may be consumed by
+API objects found in that namespace.
+
+{{< caution >}}
+Neither contention nor changes to quota will affect already created resources.
+{{< /caution >}}
 
 <!-- body -->
 
-A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
-aggregate resource consumption per namespace. It can limit the quantity of objects that can
-be created in a namespace by type, as well as the total amount of compute resources that may
-be consumed by resources in that namespace.
+## How Kubernetes ResourceQuotas work
 
-Resource quotas work like this:
+ResourceQuotas work like this:
 
-- Different teams work in different namespaces. This can be enforced with
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
+- Different teams work in different namespaces. This separation can be enforced with
+  [RBAC](/docs/reference/access-authn-authz/rbac/) or any other [authorization](/docs/reference/access-authn-authz/authorization/)
+  mechanism.
 
-- The administrator creates one ResourceQuota for each namespace.
+- A cluster administrator creates at least one ResourceQuota for each namespace.
+  - To make sure the enforcement stays enforced, the cluster administrator should also restrict access to delete or update
+    that ResourceQuota; for example, by defining a [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/).
 
 - Users create resources (pods, services, etc.) in the namespace, and the quota system
   tracks usage to ensure it does not exceed hard resource limits defined in a ResourceQuota.
 
-- If creating or updating a resource violates a quota constraint, the request will fail with HTTP
-  status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
+  You can apply a [scope](#quota-scopes) to a ResourceQuota to limit where it applies,
 
-- If quotas are enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
-  requests or limits for those values; otherwise, the quota system may reject pod creation. Hint: Use
-  the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
+- If creating or updating a resource violates a quota constraint, the control plane rejects that request with HTTP
+  status code `403 Forbidden`. The error includes a message explaining the constraint that would have been violated.
 
-  See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-  for an example of how to avoid this problem.
+- If quotas are enabled in a namespace for {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}}
+  such as `cpu` and `memory`, users must specify requests or limits for those values when they define a Pod; otherwise,
+  the quota system may reject pod creation.
+
+  The resource quota [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+  shows an example of how to avoid this problem.
 
 {{< note >}}
+* You can define a [LimitRange](/docs/concepts/policy/limit-range/)
+  to force defaults on pods that make no compute resource requirements (so that users don't have to remember to do that).
+{{< /note >}}
+
+You often do not create Pods directly; for example, you more usually create a [workload management](/docs/concepts/workloads/controllers/)
+object such as a {{< glossary_tooltip term_id="deployment" >}}. If you create a Deployment that tries to use more
+resources than are available, the creation of the Deployment (or other workload management object) **succeeds**, but
+the Deployment may not be able to get all of the Pods it manages to exist. In that case you can check the status of
+the Deployment, for example with `kubectl describe`, to see what has happened.
 
 - For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
   (new) pod in that namespace sets a limit for that resource.
@@ -59,8 +80,6 @@ Resource quotas work like this:
 You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
 a default request for these resources.
 
-{{< /note >}}
-
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
@@ -74,7 +93,6 @@ Examples of policies that could be created using namespaces and quotas are:
 In the case where the total capacity of the cluster is less than the sum of the quotas of the namespaces,
 there may be contention for resources. This is handled on a first-come-first-served basis.
 
-Neither contention nor changes to quota will affect already created resources.
 
 ## Enabling Resource Quota
 
@@ -86,7 +104,12 @@ one of its arguments.
 A resource quota is enforced in a particular namespace when there is a
 ResourceQuota in that namespace.
 
-## Compute Resource Quota
+## Types of resource quota
+
+The ResourceQuota mechanism lets you enforce different kinds of limits. This
+section describes the types of limit that you can enforce.
+
+### Quota for infrastructure resources {#compute-resource-quota}
 
 You can limit the total sum of
 [compute resources](/docs/concepts/configuration/manage-resources-containers/)
@@ -104,7 +127,7 @@ The following resource types are supported:
 | `cpu` | Same as `requests.cpu` |
 | `memory` | Same as `requests.memory` |
 
-### Resource Quota For Extended Resources
+### Quota for extended resources
 
 In addition to the resources mentioned above, in release 1.10, quota support for
 [extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) is added.
@@ -120,12 +143,13 @@ limit the total number of GPUs requested in a namespace to 4, you can define a q
 
 See [Viewing and Setting Quotas](#viewing-and-setting-quotas) for more details.
 
-## Storage Resource Quota
+### Quota for storage
 
-You can limit the total sum of [storage resources](/docs/concepts/storage/persistent-volumes/)
+You can limit the total sum of [storage](/docs/concepts/storage/persistent-volumes/) for volumes
 that can be requested in a given namespace.
 
-In addition, you can limit consumption of storage resources based on associated storage-class.
+In addition, you can limit consumption of storage resources based on associated
+[StorageClass](/docs/concepts/storage/storage-classes/).
 
 | Resource Name | Description |
 | ------------- | ----------- |
@@ -140,7 +164,10 @@ a `bronze` StorageClass, you can define a quota as follows:
 * `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
 * `bronze.storageclass.storage.k8s.io/requests.storage: 100Gi`
 
-In release 1.8, quota support for local ephemeral storage is added as an alpha feature:
+#### Quota for local ephemeral storage
+
+{{< feature-state for_k8s_version="v1.8" state="alpha" >}}
+
 
 | Resource Name | Description |
 | ------------- | ----------- |
@@ -151,46 +178,56 @@ In release 1.8, quota support for local ephemeral storage is added as an alpha f
 {{< note >}}
 When using a CRI container runtime, container logs will count against the ephemeral storage quota.
 This can result in the unexpected eviction of pods that have exhausted their storage quotas.
+
 Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
 {{< /note >}}
 
-## Object Count Quota
+### Quota on object count
 
-You can set quota for *the total number of one particular resource kind* in the Kubernetes API,
+You can set quota for *the total number of one particular {{< glossary_tooltip text="resource" term_id="api-resource" >}} kind* in the Kubernetes API,
 using the following syntax:
 
-* `count/<resource>.<group>` for resources from non-core groups
-* `count/<resource>` for resources from the core group
+* `count/<resource>.<group>` for resources from non-core API groups
+* `count/<resource>` for resources from the core API group
 
-Here is an example set of resources users may want to put under object count quota:
+For example, the PodTemplate API is in the core API group and so if you want to limit the number of
+PodTemplate objects in a namespace, you use `count/podtemplates`.
 
+These types of quotas are useful to protect against exhaustion of control plane storage. For example, you may
+want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
+actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
+a poorly configured CronJob. CronJobs that create too many Jobs in a namespace can lead to a denial of service.
+
+
+
+If you define a quota this way, it applies to Kubernetes' APIs that are part of the API server, and
+to any custom resources backed by a CustomResourceDefinition.
+For example, to create a quota on a `widgets` custom resource in the `example.com` API group,
+use `count/widgets.example.com`.
+If you use [API aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) to
+add additional, custom APIs that are not defined as CustomResourceDefinitions, the core Kubernetes
+control plane does not enforce quota for the aggregated API. The extension API server is expected to
+provide quota enforcement if that's appropriate for the custom API.
+
+##### Generic syntax {#resource-quota-object-count-generic}
+
+This is a list of common examples of object kinds that you may want to put under object count quota,
+listed by the configuration string that you would use.
+
+* `count/pods`
 * `count/persistentvolumeclaims`
 * `count/services`
 * `count/secrets`
 * `count/configmaps`
-* `count/replicationcontrollers`
 * `count/deployments.apps`
 * `count/replicasets.apps`
 * `count/statefulsets.apps`
 * `count/jobs.batch`
 * `count/cronjobs.batch`
 
-If you define a quota this way, it applies to Kubernetes' APIs that are part of the API server, and
-to any custom resources backed by a CustomResourceDefinition. If you use
-[API aggregation](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) to
-add additional, custom APIs that are not defined as CustomResourceDefinitions, the core Kubernetes
-control plane does not enforce quota for the aggregated API. The extension API server is expected to
-provide quota enforcement if that's appropriate for the custom API.
-For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
+##### Specialized syntax {#resource-quota-object-count-specialized}
 
-When using such a resource quota (nearly for all object kinds), an object is charged
-against the quota if the object kind exists (is defined) in the control plane.
-These types of quotas are useful to protect against exhaustion of storage resources. For example, you may
-want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
-actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
-a poorly configured CronJob. CronJobs that create too many Jobs in a namespace can lead to a denial of service.
-
-There is another syntax only to set the same type of quota for certain resources.
+There is another syntax only to set the same type of quota, that only works for certain API kinds.
 The following types are supported:
 
 | Resource Name | Description |
@@ -228,6 +265,7 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
 | `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
 | `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
+| `VolumeAttributesClass` | Match persistentvolumeclaims that references the specified [volume attributes class](/docs/concepts/storage/volume-attributes-classes). |
 
 The `BestEffort` scope restricts a quota to tracking the following resource:
 
@@ -459,6 +497,257 @@ With the above configuration, pods can use `namespaces` and `namespaceSelector` 
 if the namespace where they are created have a resource quota object with
 `CrossNamespacePodAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
 
+### Resource Quota Per VolumeAttributesClass
+
+{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
+
+PersistentVolumeClaims can be created with a specific [volume attributes class](/docs/concepts/storage/volume-attributes-classes/), and might be modified after creation. You can control a PVC's consumption of storage resources based on the associated volume attributes classes, by using the `scopeSelector` field in the quota spec.
+
+The PVC references the associated volume attributes class by the following fields:
+
+* `spec.volumeAttributesClassName`
+* `status.currentVolumeAttributesClassName`
+* `status.modifyVolumeStatus.targetVolumeAttributesClassName`
+
+A quota is matched and consumed only if `scopeSelector` in the quota spec selects the PVC.
+
+When the quota is scoped for the volume attributes class using the `scopeSelector` field, the quota object is restricted to track only the following resources:
+
+* `persistentvolumeclaims`
+* `requests.storage`
+
+This example creates a quota object and matches it with PVC at specific volume attributes classes. The example works as follows:
+
+- PVCs in the cluster have at least one of the three volume attributes classes, "gold", "silver", "copper".
+- One quota object is created for each volume attributes class.
+
+Save the following YAML to a file `quota-vac.yaml`.
+
+{{% code_sample file="policy/quota-vac.yaml" %}}
+
+Apply the YAML using `kubectl create`.
+
+```shell
+kubectl create -f ./quota-vac.yaml
+```
+
+```
+resourcequota/pvcs-gold created
+resourcequota/pvcs-silver created
+resourcequota/pvcs-copper created
+```
+
+Verify that `Used` quota is `0` using `kubectl describe quota`.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Create a pvc with volume attributes class "gold". Save the following YAML to a file `gold-vac-pvc.yaml`.
+
+{{% code_sample file="policy/gold-vac-pvc.yaml" %}}
+
+Apply it with `kubectl create`.
+
+```shell
+kubectl create -f ./gold-vac-pvc.yaml
+```
+
+Verify that "Used" stats for "gold" volume attributes class quota, `pvcs-gold` has changed and that the other two quotas are unchanged.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Once the PVC is bound, it is allowed to modify the desired volume attributes class. Let's change it to "silver" with kubectl patch.
+
+```shell
+kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"silver"}}'
+```
+
+Verify that "Used" stats for "silver" volume attributes class quota, `pvcs-silver` has changed, `pvcs-copper` is unchanged, and `pvcs-gold` might be unchanged or released, which depends on the PVC's status.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     30Gi
+```
+
+Let's change it to "copper" with kubectl patch. 
+
+```shell
+kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"copper"}}'
+```
+
+Verify that "Used" stats for "copper" volume attributes class quota, `pvcs-copper` has changed, `pvcs-silver` and `pvcs-gold` might be unchanged or released, which depends on the PVC's status. 
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   30Gi
+```
+
+Print the manifest of the PVC using the following command:
+
+```shell
+kubectl get pvc gold-vac-pvc -o yaml
+```
+
+It might show the following output:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gold-vac-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: default
+  volumeAttributesClassName: copper
+status:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  currentVolumeAttributesClassName: gold
+  phase: Bound
+  modifyVolumeStatus:
+    status: InProgress
+    targetVolumeAttributesClassName: silver
+  storageClassName: default
+```
+
+Wait a moment for the volume modification to complete, then verify the quota again.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:                   pvcs-gold
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     10Gi
+
+
+Name:                   pvcs-silver
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  0     10
+requests.storage        0     20Gi
+
+
+Name:                   pvcs-copper
+Namespace:              default
+Resource                Used  Hard
+--------                ----  ----
+persistentvolumeclaims  1     10
+requests.storage        2Gi   30Gi
+```
+
 ## Requests compared to Limits {#requests-vs-limits}
 
 When allocating compute resources, each container may specify a request and a limit value for either CPU or memory.
@@ -664,8 +953,9 @@ and it is to be created in a namespace other than `kube-system`.
 
 ## {{% heading "whatsnext" %}}
 
-- See [ResourceQuota design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)
-  for more information.
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read [Quota support for priority class design document](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
-- See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765).
+- Read the ResourceQuota [API reference](/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
+- Learn about [LimitRanges](/docs/concepts/policy/limit-range/)
+- You can read the historical [ResourceQuota design document](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md)
+  for more information.
+- You can also read the [Quota support for priority class design document](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).

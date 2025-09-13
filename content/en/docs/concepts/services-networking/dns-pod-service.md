@@ -105,7 +105,7 @@ Kube-DNS versions, prior to the implementation of the
 had the following DNS resolution:
 
 ```
-pod-ipv4-address.my-namespace.pod.cluster-domain.example
+<pod-IPv4-address>.<namespace>.pod.<cluster-domain>
 ```
 
 For example, if a Pod in the `default` namespace has the IP address 172.17.0.3,
@@ -121,7 +121,15 @@ Some cluster DNS mechanisms, like [CoreDNS](https://coredns.io/), also provide `
 <pod-ipv4-address>.<service-name>.<my-namespace>.svc.<cluster-domain.example>
 ```
 
-### Pod's hostname and subdomain fields
+For example, if a Pod in the `cafe` namespace has the IP address 172.17.0.3,
+is an endpoint of a Service named `barista`, and the domain name for your cluster is
+`cluster.local`, then the Pod would have this service-scoped DNS `A` record.
+
+```
+172-17-0-3.barista.cafe.svc.cluster.local
+```
+
+### Pod's hostname and subdomain fields {#pod-hostname-and-subdomain-field}
 
 Currently when a Pod is created, its hostname (as observed from within the Pod)
 is the Pod's `metadata.name` value.

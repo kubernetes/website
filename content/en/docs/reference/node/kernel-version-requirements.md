@@ -59,6 +59,13 @@ In [Linux 5.8](https://github.com/torvalds/linux/commit/4a7e89c5ec0238017a757131
 
 In runc document, Kernel older than 5.2 is not recommended due to lack of freezer.
 
+## Pressure Stall Information (PSI) {#requirements-psi}
+
+[Pressure Stall Information](/docs/reference/instrumentation/understand-psi-metrics/) is supported in Linux kernel versions 4.20 and up, but requires the following configuration:
+
+- The kernel must be compiled with the `CONFIG_PSI=y` option. Most modern distributions enable this by default. You can check your kernel's configuration by running `zgrep CONFIG_PSI /proc/config.gz`.
+- Some Linux distributions may compile PSI into the kernel but disable it by default. If so, you need to enable it at boot time by adding the `psi=1` parameter to the kernel command line.
+
 ## Other kernel requirements {#requirements-other}
 
 Some features may depend on new kernel functionalities and have specific kernel requirements:

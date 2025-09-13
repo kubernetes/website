@@ -27,7 +27,7 @@ to others, please don't hesitate to file an issue or submit a PR.
 
 - Group related objects into a single file whenever it makes sense. One file is often easier to
   manage than several. See the
-  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml)
+  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml)
   file as an example of this syntax.
 
 - Note also that many `kubectl` commands can be called on a directory. For example, you can call

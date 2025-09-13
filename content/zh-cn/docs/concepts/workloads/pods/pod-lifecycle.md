@@ -221,7 +221,8 @@ Value       | Description
 
 {{< note >}}
 <!--
-When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands. Similarly, when a pod is being deleted, `Terminating` may appear in the `Status` field of some kubectl commands. 
+When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands.
+Similarly, when a pod is being deleted, `Terminating` may appear in the `Status` field of some kubectl commands.
 
 Make sure not to confuse _Status_, a kubectl display field for user intuition, with the pod's `phase`.
 Pod phase is an explicit part of the Kubernetes data model and of the
@@ -458,7 +459,44 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
    在本地或开发环境中运行此容器镜像有助于诊断应用程序的特定问题。
 
 <!--
-### Container restart policy {#restart-policy}
+### Container restarts {#restart-policy}
+
+When a container in your Pod stops, or experiences failure, Kubernetes can restart it.
+A restart isn't always appropriate; for example,
+{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once,
+during Pod startup.
+-->
+### 容器重启   {#restart-policy}
+
+当 Pod 中的某个容器停止或发生故障时，Kubernetes 可以重新启动此容器。但重启并不总是合适的；例如，
+{{< glossary_tooltip text="Init 容器" term_id="init-container" >}}只在 Pod 启动期间运行一次。
+<!-- TODO reword when ContainerRestartRules graduates -->
+<!--
+You can configure restarts as a policy that applies to all Pods, or using container-level configuration (for example: when you define a 
+{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}).
+-->
+你可以将重启配置为适用于所有 Pod 的策略，或者使用容器级别的配置（例如：
+在你定义{{< glossary_tooltip text="边车容器" term_id="sidecar-container" >}}时）。
+
+<!--
+#### Container restarts and resilience {#container-restart-resilience}
+
+The Kubernetes project recommends following cloud-native principles, including resilient
+design that accounts for unannounced or arbitrary restarts. You can achieve this either
+by failing the Pod and relying on automatic
+[replacement](/docs/concepts/workloads/controllers/), or you can design for container-level resilience.
+Either approach helps to ensure that your overall workload remains available despite
+partial failure.
+-->
+#### 容器重启与弹性   {#container-restart-resilience}
+
+Kubernetes 项目建议遵循云原生原则，包括能够应对未预告或随意重启的弹性设计。
+你可以通过让 Pod 失败并依赖自动[替换](/zh-cn/docs/concepts/workloads/controllers/)，
+或者通过容器级别的弹性设计来实现。
+无论哪种方式，都有助于确保即使在部分故障的情况下，你的整体工作负载依然保持可用。
+
+<!--
+#### Pod-level container restart policy
 
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
@@ -475,7 +513,7 @@ the Pod level `restartPolicy` is either `OnFailure` or `Always`.
 * `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
 * `Never`: Does not automatically restart the terminated container.
 -->
-### 容器重启策略 {#restart-policy}
+### Pod 级别容器重启策略
 
 Pod 的 `spec` 中包含一个 `restartPolicy` 字段，其可能取值包括
 Always、OnFailure 和 Never。默认值是 Always。
@@ -510,6 +548,186 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 kubelet 就会重置该容器的重启延迟计时器。
 [Sidecar 容器和 Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)中解释了
 `init containers` 在指定 `restartpolicy` 字段时的行为。
+
+<!--
+#### Individual container restart policy and rules {#container-restart-rules}
+-->
+#### 单个容器的重启策略与规则   {#container-restart-rules}
+
+{{< feature-state feature_gate_name="ContainerRestartRules" >}}
+
+<!--
+If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify 
+`restartPolicy` and `restartPolicyRules` on _inidividual containers_ to override the Pod
+restart policy. Container restart policy and rules applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
+in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
+
+A Kubernetes-native [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
+has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`.
+-->
+如果你的集群启用了 `ContainerRestartRules` 特性门控，你可以针对**单个容器**指定
+`restartPolicy` 和 `restartPolicyRules` 来覆盖 Pod 重启策略。容器重启策略和规则适用于 Pod
+中的{{< glossary_tooltip text="应用容器" term_id="app-container" >}}以及常规的
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
+
+Kubernetes 原生的[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)将其容器级别的
+`restartPolicy` 设置为 `Always`，并且不支持 `restartPolicyRules`。
+
+<!--
+The container restarts will follow the same exponential backoff as pod restart policy described above. 
+Supported container restart policies:
+
+* `Always`: Automatically restarts the container after any termination.
+* `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
+* `Never`: Does not automatically restart the terminated container.
+-->
+容器重启会遵循与前文所述的 Pod 重启策略相同的指数回退机制。支持的容器重启策略有：
+
+* `Always`：在任何原因的容器终止后都会自动重启容器。
+* `OnFailure`：仅当容器因错误退出（非零退出状态）时才重启。
+* `Never`：不自动重启已终止的容器。
+
+<!--
+Additionally, _individual containers_ can specify `restartPolicyRules`. If the `restartPolicyRules`
+field is specified, then container `restartPolicy` **must** also be specified. The `restartPolicyRules`
+define a list of rules to apply on container exit. Each rule will consist of a condition
+and an action. The supported condition is `exitCodes`, which compares the exit code of the container
+with a list of given values. The supported action is `Restart`, which means the container will be
+restarted. The rules will be evaluated in order. On the first match, the action will be applied.
+If none of the rules’ conditions matched, Kubernetes fallback to container’s configured
+`restartPolicy`.
+-->
+此外，**单个容器**可以指定 `restartPolicyRules`。如果指定了 `restartPolicyRules` 字段，
+则**必须**同时指定容器的 `restartPolicy`。`restartPolicyRules` 定义了一系列在容器退出时应用的规则。
+每条规则由条件和动作组成。支持的条件是 `exitCodes`，用于将容器的退出码与给定值列表进行比较。
+支持的动作是 `Restart`，表示容器将被重启。这些规则会按顺序进行评估。一旦匹配成功，立即执行相应动作。
+如果没有任何规则的状况被匹配，Kubernetes 回退到容器配置的 `restartPolicy`。
+
+<!--
+For example, a Pod with OnFailure restart policy that have a `try-once` container. This allows
+Pod to only restart certain containers:
+-->
+例如，重启策略为 OnFailure 的某个 Pod 包含一个 `try-once` 容器。
+这样可以让 Pod 仅重启某些容器：
+
+<!--
+# This container will run only once because the restartPolicy is Never.
+# This container will be restarted on failure.
+-->
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: on-failure-pod
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - name: try-once-container    # 此容器只运行一次，因为 restartPolicy 设置为 Never。
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Only running once" && sleep 10 && exit 1']
+    restartPolicy: Never     
+  - name: on-failure-container  # 此容器将在失败时重启。
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Keep restarting" && sleep 1800 && exit 1']
+```
+
+<!--
+A Pod with Always restart policy with an init container that only execute once. If the init
+container fails, the Pod fails. This alllows the Pod to fail if the initialiaztion failed,
+but also keep running once the initialization succeeds:
+-->
+下面是一个重启策略为 Always 的 Pod，其中包含一个只执行一次的 Init 容器。
+如果 Init 容器失败，则 Pod 也会失败。
+这样可以在初始化失败时让 Pod 失败，但在初始化成功后保持 Pod 运行：
+
+<!--
+# This init container will only try once. If it fails, the pod will fail.
+# This container will always be restarted once initialization succeeds.
+-->
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fail-pod-if-init-fails
+spec:
+  restartPolicy: Always
+  initContainers:
+  - name: init-once      # 这个 Init 容器只尝试一次。如果失败，Pod 将失败。
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Failing initialization" && sleep 10 && exit 1']
+    restartPolicy: Never
+  containers:
+  - name: main-container # 一旦初始化成功，此容器会始终被重启。
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'sleep 1800 && exit 0']
+```
+
+<!--
+A Pod with Never restart policy with a container that ignores and restarts on specific exit codes.
+This is useful to differentiate between restartable errors and non-restartable errors:
+-->
+下面是一个重启策略为 Never 的 Pod，其中包含的容器会在遇到特定的退出码时忽略之并重启。
+这种配置有助于区分可重启错误和不可重启错误：
+
+<!--
+# Container restart policy must be specified if rules are specified
+# Only restart the container if it exits with code 42
+-->
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restart-on-exit-codes
+spec:
+  restartPolicy: Never
+  containers:
+  - name: restart-on-exit-codes
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'sleep 60 && exit 0']
+    restartPolicy: Never     # 如果指定了规则，必须同时指定容器重启策略
+    restartPolicyRules:      # 仅当退出码为 42 时才重启容器
+    - action: Restart
+      exitCodes:
+        operator: In
+        values: [42]
+```
+
+<!--
+Restart rules can be used for many more advanced lifecycle management scenarios. Note, restart rules
+are affected by the same inconsistencies as the regular restart policy. Kubelet restarts, container
+runtime garbage collection, intermitted connectivity issues with the control plane may cause the state
+loss and containers may be re-run even when you expect a container not to be restarted.
+-->
+重启规则可用于许多其他高级的生命周期管理场景。
+需要注意的是，重启规则会受到不一致性影响，这一点上与常规的重启策略相同。
+kubelet 重启、容器运行时垃圾收集、与控制平面的间歇性连接问题都可能导致状态丢失，
+容器可能会在你预期不应被重启的情况下被再次运行。
+
+<!--
+### Reduced container restart delay
+
+{{< feature-state
+feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
+
+With the alpha feature gate `ReduceDefaultCrashLoopBackOffDecay` enabled,
+container start retries across your cluster will be reduced to begin at 1s
+(instead of 10s) and increase exponentially by 2x each restart until a maximum
+delay of 60s (instead of 300s which is 5 minutes).
+
+If you use this feature along with the alpha feature
+`KubeletCrashLoopBackOffMax` (described below), individual nodes may have
+different maximum delays.
+-->
+### 减少容器重启延迟   {#Reduced-container-restart-delay}
+
+{{< feature-state feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
+
+启用 Alpha 特性开关 `ReduceDefaultCrashLoopBackOffDecay` 后，
+集群中容器启动重试的初始延迟将从 10 秒减少到 1 秒，
+之后每次重启延迟时间按 2 倍指数增长，直到达到最大延迟 60 秒（之前为 300 秒，即 5 分钟）。
+
+如果你同时使用了下面介绍的 Alpha 特性 `KubeletCrashLoopBackOffMax`，
+那么单个节点上可能会有不同的最大延迟值。
 
 <!--
 ### Configurable container restart delay
@@ -577,6 +795,19 @@ crashLoopBackOff:
 ```
 
 <!--
+If you use this feature along with the alpha feature
+`ReduceDefaultCrashLoopBackOffDecay` (described above), your cluster defaults
+for initial backoff and maximum backoff will no longer be 10s and 300s, but 1s
+and 60s. Per node configuration takes precedence over the defaults set by
+`ReduceDefaultCrashLoopBackOffDecay`, even if this would result in a node having
+a longer maximum backoff than other nodes in the cluster.
+-->
+如果你将此特性与上文提到的 Alpha 特性 `ReduceDefaultCrashLoopBackOffDecay` 一起使用，
+那么集群的初始退避时间和最大退避时间默认值将不再是 10 秒和 300 秒，而是 1 秒和 60 秒。
+每个节点上的配置优先于 `ReduceDefaultCrashLoopBackOffDecay` 所设置的默认值，
+即使这会导致某些节点的最大退避时间比集群中的其他节点更长。
+
+<!--
 ## Pod conditions
 
 A Pod has a PodStatus, which has an array of
@@ -600,12 +831,23 @@ Kubelet 管理以下 PodCondition：
   have completed successfully.
 * `Ready`: the Pod is able to serve requests and should be added to the load
   balancing pools of all matching Services.
+* `DisruptionTarget`: the pod is about to be terminated due to a disruption
+  (such as preemption, eviction or garbage-collection).
+* `PodResizePending`: a pod resize was requested but cannot be applied.
+  See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
+* `PodResizeInProgress`: the pod is in the process of resizing.
+  See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 -->
 * `PodScheduled`：Pod 已经被调度到某节点；
 * `PodReadyToStartContainers`：Pod 沙箱被成功创建并且配置了网络（Beta 特性，[默认](#pod-has-network)启用）；
 * `ContainersReady`：Pod 中所有容器都已就绪；
 * `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)都已成功完成；
 * `Ready`：Pod 可以为请求提供服务，并且应该被添加到对应服务的负载均衡池中。
+* `DisruptionTarget`：由于干扰（例如抢占、驱逐或垃圾回收），Pod 即将被终止。
+* `PodResizePending`：已请求对 Pod 进行调整大小，但尚无法应用。
+  详见 [Pod 调整大小状态](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status)。
+* `PodResizeInProgress`：Pod 正在调整大小中。
+  详见 [Pod 调整大小状态](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status)。
 
 <!--
 Field name           | Description
@@ -921,8 +1163,8 @@ containers:
 
 `readinessProbe`
 : Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the endpoints controller removes the Pod's IP
-  address from the endpoints of all Services that match the Pod. The default
+  If the readiness probe fails, the EndpointSlice controller removes the Pod's IP
+  address from the EndpointSlices of all Services that match the Pod. The default
   state of readiness before the initial delay is `Failure`. If a container does
   not provide a readiness probe, the default state is `Success`.
 
@@ -941,7 +1183,7 @@ containers:
 
 `readinessProbe`
 : 指示容器是否准备好为请求提供服务。如果就绪态探测失败，
-  端点控制器将从与 Pod 匹配的所有服务的端点列表中删除该 Pod 的 IP 地址。
+  EndpointSlice 控制器将从与该 Pod 匹配的所有 Service 的 EndpointSlice 中删除该 Pod 的 IP 地址。
   初始延迟之前的就绪态的状态值默认为 `Failure`。
   如果容器不提供就绪态探针，则默认状态为 `Success`。
 
@@ -1026,14 +1268,16 @@ processing its startup data, you might prefer a readiness probe.
 {{< note >}}
 <!--
 If you want to be able to drain requests when the Pod is deleted, you do not
-necessarily need a readiness probe; on deletion, the Pod automatically puts itself
-into an unready state regardless of whether the readiness probe exists.
-The Pod remains in the unready state while it waits for the containers in the Pod
-to stop.
+necessarily need a readiness probe; when the Pod is deleted, the corresponding endpoint
+in the `EndppointSlice` will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions):
+the endpoint `ready` condition will be set to `false`, so load balancers
+will not use the Pod for regular traffic. See [Pod termination](#pod-termination)
+for more information about how the kubelet handles Pod deletion.
 -->
 请注意，如果你只是想在 Pod 被删除时能够排空请求，则不一定需要使用就绪态探针；
-在删除 Pod 时，Pod 会自动将自身置于未就绪状态，无论就绪态探针是否存在。
-等待 Pod 中的容器停止期间，Pod 会一直处于未就绪状态。
+当 Pod 被删除时，`EndpointSlice` 中对应的端点会更新其[状况](/zh-cn/docs/concepts/services-networking/endpoint-slices/#conditions)：
+该端点的 `ready` 状况将被设置为 `false`，因此负载均衡器不会再将该 Pod 用于常规流量。
+关于 kubelet 如何处理 Pod 删除的更多信息，请参见 [Pod 终止](#pod-termination)。
 {{< /note >}}
 
 <!--
@@ -1094,7 +1338,13 @@ shutdown.
 Pod。
 
 <!--
-Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal, with a grace period timeout, to the main process in each container. The requests to stop the containers are processed by the container runtime asynchronously. There is no guarantee to the order of processing for these requests. Many container runtimes respect the `STOPSIGNAL` value defined in the container image and, if different, send the container image configured STOPSIGNAL instead of TERM.
+Typically, with this graceful termination of the pod, kubelet makes requests to the container runtime
+to attempt to stop the containers in the pod by first sending a TERM (aka. SIGTERM) signal,
+with a grace period timeout, to the main process in each container.
+The requests to stop the containers are processed by the container runtime asynchronously.
+There is no guarantee to the order of processing for these requests.
+Many container runtimes respect the `STOPSIGNAL` value defined in the container image and,
+if different, send the container image configured STOPSIGNAL instead of TERM.
 Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
@@ -1112,6 +1362,71 @@ Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserv
 集群会从头开始重试，赋予 Pod 完整的体面终止限期。
 
 <!--
+### Stop Signals {#pod-termination-stop-signals}
+
+The stop signal used to kill the container can be defined in the container image with the `STOPSIGNAL` instruction.
+If no stop signal is defined in the image, the default signal of the container runtime
+(SIGTERM for both containerd and CRI-O) would be used to kill the container.
+-->
+### 停止信号 {#pod-termination-stop-signals}
+
+用于终止容器的停止信号可以通过容器镜像中的 `STOPSIGNAL` 指令进行定义。
+如果镜像中未定义停止信号，容器运行时（containerd 和 CRI-O 都是 SIGTERM）
+会使用默认的停止信号来终止容器。
+
+<!--
+### Defining custom stop signals
+
+{{< feature-state feature_gate_name="ContainerStopSignals" >}}
+
+If the `ContainerStopSignals` feature gate is enabled, you can configure a custom stop signal
+for your containers from the container Lifecycle. We require the Pod's `spec.os.name` field
+to be present as a requirement for defining stop signals in the container lifecycle.
+The list of signals that are valid depends on the OS the Pod is scheduled to.
+For Pods scheduled to Windows nodes, we only support SIGTERM and SIGKILL as valid signals.
+
+Here is an example Pod spec defining a custom stop signal:
+
+```yaml
+spec:
+  os:
+    name: linux
+  containers:
+    - name: my-container
+      image: container-image:latest
+      lifecycle:
+        stopSignal: SIGUSR1
+```
+
+If a stop signal is defined in the lifecycle, this will override the signal defined in the container image.
+If no stop signal is defined in the container spec, the container would fall back to the default behavior.
+-->
+### 定义自定义停止信号  {#Defining-custom-stop-signals}
+
+{{< feature-state feature_gate_name="ContainerStopSignals" >}}
+
+如果启用了 `ContainerStopSignals` 特性门控（feature gate），
+你可以通过容器的生命周期（Lifecycle）配置自定义的停止信号。
+在容器生命周期中定义停止信号时，Pod 的 `spec.os.name` 字段必须存在。
+可用的信号列表取决于 Pod 调度到的操作系统。
+对于调度到 Windows 节点的 Pod，仅支持 SIGTERM 和 SIGKILL 信号。
+
+以下是一个定义了自定义停止信号的 Pod 示例：
+
+```yaml
+spec:
+  os:
+    name: linux
+  containers:
+    - name: my-container
+      image: container-image:latest
+      lifecycle:
+        stopSignal: SIGUSR1
+```
+
+<!--
+### Pod Termination Flow {#pod-termination-flow}
+
 Pod termination flow, illustrated with an example:
 
 1. You use the `kubectl` tool to manually delete a specific Pod, with the default grace period
@@ -1124,6 +1439,8 @@ Pod termination flow, illustrated with an example:
    as terminating (a graceful shutdown duration has been set), the kubelet begins the local Pod
    shutdown process.
 -->
+### Pod 终止流程 {#pod-termination-flow}
+
 Pod 终止流程，如下例所示：
 
 1. 你使用 `kubectl` 工具手动删除某个特定的 Pod，而该 Pod 的体面终止限期是默认值（30 秒）。
@@ -1184,7 +1501,7 @@ Pod 终止流程，如下例所示：
 
 <!--
 1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane
-   evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects,
+   evaluates whether to remove that shutting-down Pod from EndpointSlice objects,
    where those objects represent a {{< glossary_tooltip term_id="service" text="Service" >}}
    with a configured {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -1196,7 +1513,7 @@ Pod 终止流程，如下例所示：
    and completion.
 -->
 3. 在 `kubelet` 启动 Pod 的体面关闭逻辑的同时，控制平面会评估是否将关闭的
-   Pod 从对应的 EndpointSlice（和端点）对象中移除，过滤条件是 Pod
+   Pod 从对应的 EndpointSlice 对象中移除，过滤条件是 Pod
    被对应的{{< glossary_tooltip term_id="service" text="服务" >}}以某
    {{< glossary_tooltip text="选择算符" term_id="selector" >}}选定。
    {{< glossary_tooltip text="ReplicaSet" term_id="replica-set" >}}
@@ -1209,7 +1526,7 @@ Pod 终止流程，如下例所示：
    <!--
    Any endpoints that represent the terminating Pods are not immediately removed from
    EndpointSlices, and a status indicating [terminating state](/docs/concepts/services-networking/endpoint-slices/#conditions)
-   is exposed from the EndpointSlice API (and the legacy Endpoints API).
+   is exposed from the EndpointSlice API.
    Terminating endpoints always have their `ready` status as `false` (for backward compatibility
    with versions before 1.26), so load balancers will not use it for regular traffic.
 
@@ -1218,7 +1535,7 @@ Pod 终止流程，如下例所示：
    tutorial [Pods And Endpoints Termination Flow](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
    -->
    任何正在终止的 Pod 所对应的端点都不会立即从 EndpointSlice
-   中被删除，EndpointSlice API（以及传统的 Endpoints API）会公开一个状态来指示其处于
+   中被删除，EndpointSlice API 会公开一个状态来指示其处于
    [终止状态](/zh-cn/docs/concepts/services-networking/endpoint-slices/#conditions)。
    正在终止的端点始终将其 `ready` 状态设置为 `false`（为了向后兼容 1.26 之前的版本），
    因此负载均衡器不会将其用于常规流量。

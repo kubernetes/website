@@ -316,11 +316,12 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  The `nodeAffinityPolicy` became beta in 1.26 and graduated to GA in 1.33.
+  It's enabled by default in beta, you can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `nodeAffinityPolicy` 是 1.26 中默认启用的一个 Beta 级别字段。
-  你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
+  `nodeAffinityPolicy` 在 1.26 版本中进入 Beta 阶段，并在 1.33 版本中升级为 GA（正式可用）。
+  该功能在 Beta 阶段默认启用，你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
@@ -341,11 +342,12 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  The `nodeTaintsPolicy` became beta in 1.26 and graduated to GA in 1.33.
+  It's enabled by default in beta, you can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `nodeTaintsPolicy` 是一个 Beta 级别字段，在 1.26 版本默认启用。
-  你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
+  `nodeTaintsPolicy` 在 1.26 版本中进入 Beta 阶段，并在 1.33 版本中升级为 GA（正式可用）。
+  该功能在 Beta 阶段默认启用，你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 

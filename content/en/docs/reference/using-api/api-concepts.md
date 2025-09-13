@@ -127,7 +127,7 @@ virtual resource type would be used if that becomes necessary.
 
 ## HTTP media types {#alternate-representations-of-resources}
 
-Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
+Over HTTP, Kubernetes supports JSON, YAML, CBOR and Protobuf wire encodings.
 
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
 `application/json` media type. Although JSON is the default, clients may request a response in
@@ -143,6 +143,13 @@ If you request an available media type, the API server returns a response with a
 `Content-Type`; if none of the media types you request are supported, the API server returns
 a `406 Not acceptable` error message.
 All built-in resource types support the `application/json` media type.
+
+#### Chunked encoding of collections
+
+For JSON and Protobuf encoding, Kubernetes implements custom encoders that write item, by item.
+The feature doesn't change the output, but allows API server to avoid loading whole LIST response into memory.
+Using other types of encoding (including pretty representation of JSON)
+should be avoided for large collections of resources (>100MB) as it can have negative performance impact.
 
 ### JSON resource encoding {#json-encoding}
 
@@ -248,7 +255,7 @@ For example:
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
-   … JSON encoded collection of Pods (PodList object)
+   … binary encoded collection of Pods (PodList object)
    ```
 
 1. Create a pod by sending Protobuf encoded data to the server, but request a response
@@ -1011,6 +1018,11 @@ a boolean flag.
 
 {{< /note >}}
 
+Starting from v1.33, Kubernetes (including v{{< skew currentVersion>}}) offers a way to define field validations using _declarative tags_.
+This is useful for people contributing to Kubernetes itself, and it's also relevant if you're
+writing your own API using Kubernetes libraries.
+To learn more, see [Declarative API Validation](/docs/reference/using-api/declarative-validation/).
+
 ## Dry-run
 
 {{< feature-state feature_gate_name="DryRun" >}}
@@ -1307,15 +1319,15 @@ This table explains the behavior of **list** requests with various combinations 
 
 {{< table caption="resourceVersionMatch and paging parameters for list" >}}
 
-| resourceVersionMatch param | paging params | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
-|----------------------------|---------------|-------------------------|---------------------|----------------------------------------|
-| _unset_ | _limit unset_ | Most Recent | Any | Not older than |
-| _unset_ | limit=\<n\>, _continue unset_ | Most Recent | Any | Exact |
-| _unset_ | limit=\<n\>, continue=\<token\>| Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request` |
-| `resourceVersionMatch=Exact` | _limit unset_ | Invalid | Invalid | Exact |
-| `resourceVersionMatch=Exact` | limit=\<n\>, _continue unset_ | Invalid | Invalid | Exact |
-| `resourceVersionMatch=NotOlderThan` | _limit unset_ | Invalid | Any | Not older than |
-| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid | Any | Not older than |
+| resourceVersionMatch param          | paging params                  | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
+|-------------------------------------|--------------------------------|-------------------------|---------------------|----------------------------------------|
+| _unset_                             | _limit unset_                  | Most Recent             | Any                 | Not older than                         |
+| _unset_                             | limit=\<n\>, _continue unset_  | Most Recent             | Any                 | Exact                                  |
+| _unset_                             | limit=\<n\>, continue=\<token\>| Continuation            | Continuation        | Invalid, HTTP `400 Bad Request`        |
+| `resourceVersionMatch=Exact`        | _limit unset_                  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=NotOlderThan` | _limit unset_                  | Invalid                 | Any                 | Not older than                         |
+| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_  | Invalid                 | Any                 | Not older than                         |
 
 {{< /table >}}
 
@@ -1332,6 +1344,7 @@ Any
   for the request to return data at a much older resource version that the client has previously
   observed, particularly in high availability configurations, due to partitions or stale
   caches. Clients that cannot tolerate this should not use this semantic.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 
 Most recent
 : Return data at the most recent resource version. The returned data must be
@@ -1349,6 +1362,7 @@ Not older than
   guarantees that the collection's `.metadata.resourceVersion` is not older than the requested
   `resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
   of the items in that collection.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 
 Exact
 : Return data at the exact resource version provided. If the provided `resourceVersion` is
@@ -1356,11 +1370,21 @@ Exact
   `resourceVersionMatch` parameter, this guarantees that the collection's `.metadata.resourceVersion`
   is the same as the `resourceVersion` you requested in the query string. That guarantee does
   not apply to the `.metadata.resourceVersion` of any items within that collection.
+  With the `ListFromCacheSnapshot` feature gate enabled by default,
+  API server will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested.
+  This improves performance and reduces etcd load. API server starts with no snapshots,
+  creates a new snapshot on every watch event and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds.
+  If the provided `resourceVersion` is unavailable, the server will fallback to etcd.
 
-Continue Token, Exact
-: Return data at the resource version of the initial paginated **list** call. The returned _continue
-  tokens_ are responsible for keeping track of the initially provided resource version for all paginated
-  **list** calls after the initial paginated **list**.
+Continuation
+: Return the next page of data for a paginated list request, ensuring consistency with the exact `resourceVersion` established by the initial request in the sequence.
+  Response to **list** requests with limit include _continue token_, that encodes the  `resourceVersion` and last observed position from which to resume the list.
+  If the `resourceVersion` in the provided _continue token_ is unavailable, the server responds with HTTP `410 Gone`.
+  With the `ListFromCacheSnapshot` feature gate enabled by default,
+  API server will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested.
+  This improves performance and reduces etcd load. API server starts with no snapshots,
+  creates a new snapshot on every watch event and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds.
+  If the `resourceVersion` in provided _continue token_ is unavailable, the server will fallback to etcd.
 
 {{< note >}}
 When you **list** resources and receive a collection response, the response includes the

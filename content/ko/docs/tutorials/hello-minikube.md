@@ -9,14 +9,8 @@ card:
 
 <!-- overview -->
 
-이 튜토리얼에서는 Minikube와 Katacoda를 이용하여
-쿠버네티스에서 샘플 애플리케이션을 어떻게 실행하는지 살펴본다.
-Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
-
-{{< note >}}
-로컬에서 Minikube를 설치했다면 이 튜토리얼도 따라 할 수 있다.
-설치 안내는 [minikube 시작](https://minikube.sigs.k8s.io/docs/start/)을 참고한다.
-{{< /note >}}
+이 튜토리얼에서는 Minikube를 이용하여 쿠버네티스에서 샘플 애플리케이션을 어떻게 실행하는지 살펴본다.
+이 튜토리얼은 NGINX를 통해 모든 요청을 그대로 되돌려 주는 (echo back) 컨테이너 이미지를 제공한다.
 
 ## {{% heading "objectives" %}}
 
@@ -27,53 +21,68 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 ## {{% heading "prerequisites" %}}
 
 
-이 튜토리얼은 NGINX를 사용해서 모든 요청에 응답하는 컨테이너 이미지를 제공한다.
+이 튜토리얼은 이미 `minikube`가 이미 구축되어 있다고 가정한다.
+설치 방법은 [minikube 시작](https://minikube.sigs.k8s.io/docs/start/)의 __Step 1, Installation__ 을 참고한다.
+{{< note >}}
+**Step 1, Installation**의 지침만 실행한다. 나머지 내용은 이 페이지에서 다룬다.
+{{< /note >}}
 
+또한, `kubectl` 을 설치해야 한다.
+설치 방법은 [도구 설치](/ko/docs/tasks/tools/)를 참고한다.
 
 
 <!-- lessoncontent -->
 
 ## minikube 클러스터 만들기
 
-1. **Launch Terminal** 을 클릭
-
-    {{< kat-button >}}
-
-{{< note >}}
-    minikube를 로컬에 설치했다면 `minikube start`를 실행한다. `minikube dashboard` 명령을 실행하기 전에, 새 터미널을 열고, 그 터미널에서 `minikube dashboard` 명령을 실행한 후, 원래의 터미널로 돌아온다.
-{{< /note >}}
-
-2. 브라우저에서 쿠버네티스 대시보드를 열어보자.
-
-    ```shell
-    minikube dashboard
-    ```
-
-3. Katacoda 환경에서는: 터미널 패널의 상단에서 플러스를 클릭하고, 이어서 **Select port to view on Host 1** 을 클릭
-
-4. Katacoda 환경에서는: 30000 을 입력하고 **Display Port** 를 클릭.
-
-{{< note >}}
-`minikube dashboard` 명령을 내리면 대시보드 애드온과 프록시가 활성화되고 해당 프록시로 접속하는 기본 웹 브라우저 창이 열린다.
-대시보드에서 디플로이먼트나 서비스와 같은 쿠버네티스 자원을 생성할 수 있다.
-
-root 환경에서 명령어를 실행하고 있다면, [URL을 이용하여 대시보드 접속하기](#open-dashboard-with-url)를 참고한다.
-
-기본적으로 대시보드는 쿠버네티스 내부 가상 네트워크 안에서만 접근할 수 있다.
-`dashboard` 명령은 쿠버네티스 가상 네트워크 외부에서 대시보드에 접근할 수 있도록 임시 프록시를 만든다.
-
-`Ctrl+C` 를 눌러 프록시를 종료할 수 있다. 대시보드는 종료되지 않고 실행 상태로 남아 있다.
-명령이 종료된 후 대시보드는 쿠버네티스 클러스터에서 계속 실행된다.
-`dashboard` 명령을 다시 실행하여 대시보드에 접근하기 위한 다른 프록시를 생성할 수 있다.
-{{< /note >}}
-
-## URL을 이용하여 대시보드 접속하기 {#open-dashboard-with-url}
-
-자동으로 웹 브라우저가 열리는 것을 원치 않는다면, `--url` 플래그와 함께 다음과 같은 명령어를 실행하여 대시보드 접속 URL을 출력할 수 있다.
-
 ```shell
+minikube start
+```
+
+## 대시보드 접속하기
+
+쿠버네티스 대시보드를 여는 방법은 두 가지 방법이 있다.
+
+{{< tabs name="dashboard" >}}
+{{% tab name="브라우저 구동" %}}
+**새** 터미널을 열고 다음 명령어를 실행한다.
+```shell
+# 새 터미널에서 시작하고, 해당 터미널은 실행 상태로 두어야 함.
+minikube dashboard
+```
+
+이제 `minikube start`를 실행했던 터미널로 다시 전환한다.
+
+{{< note >}}
+`dashboard` 명령어는 대시보드 애드온을 활성화하고 기본 웹 브라우저에서 프록시를 연다.
+대시보드에서 디플로이먼트(Deployment), 서비스와 같은 쿠버네티스 리소스를 생성할 수 있다.
+
+브라우저를 터미널에서 직접 호출하지 않고 웹 대시보드에 접속하기 위한 URL을 얻는 방법을 알아보려면, "URL 복사 및 붙여넣기" 탭을 참고한다.
+
+기본적으로 대시보드는 쿠버네티스 내부 가상 네트워크 내에서만 접근할 수 있다.
+`dashboard` 명령어는 대시보드가 쿠버네티스 가상 네트워크 외부에서 접근할 수 있도록 임시 프록시를 생성한다.
+
+프록시를 중지하려면 `Ctrl+C`를 실행하여 프로세스를 종료한다.
+명령이 종료된 후에도 대시보드는 쿠버네티스 클러스터에서 계속 실행된다.
+대시보드에 접근하기 위한 또 다른 프록시를 생성하려면 `dashboard` 명령어를 다시 실행하면 된다.
+{{< /note >}}
+
+{{% /tab %}}
+{{% tab name="URL 복사 및 붙여넣기" %}}
+
+minikube가 자동으로 웹 브라우저를 열지 않게 하려면, `dashboard` 서브커맨드를 
+`--url` 플래그와 함께 실행한다. `minikube`는 사용자가 선호하는 브라우저를 사용할 수 있도록 URL을 출력한다.
+
+**새** 터미널을 열고 다음 명령어를 실행한다.
+```Shell
+# 새 터미널에서 시작하고, 해당 터미널은 실행 상태로 두어야 함.
 minikube dashboard --url
 ```
+
+이제 이 URL을 사용하여 `minikube start`를 실행했던 터미널로 다시 전환할 수 있다.
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## 디플로이먼트 만들기
 
@@ -81,13 +90,14 @@ minikube dashboard --url
 네트워킹 목적으로 함께 묶여 있는 하나 이상의 컨테이너 그룹이다.
 이 튜토리얼의 파드에는 단 하나의 컨테이너만 있다. 쿠버네티스
 [*디플로이먼트*](/ko/docs/concepts/workloads/controllers/deployment/)는 파드의
-헬스를 검사해서 파드의 컨테이너가 종료되었다면 재시작해준다.
+상태를 확인하고, 파드의 컨테이너가 종료되었다면 재시작한다.
 파드의 생성 및 스케일링을 관리하는 방법으로 디플로이먼트를 권장한다.
 
 1. `kubectl create` 명령어를 실행하여 파드를 관리할 디플로이먼트를 만든다. 이
 파드는 제공된 Docker 이미지를 기반으로 한 컨테이너를 실행한다.
 
     ```shell
+    # 테스트용 웹 서버 컨테이너 이미지를 실행한다.
     kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
     ```
 
@@ -103,6 +113,8 @@ minikube dashboard --url
     NAME         READY   UP-TO-DATE   AVAILABLE   AGE
     hello-node   1/1     1            1           1m
     ```
+
+    (파드가 준비되는 데 시간이 걸릴 수 있다. "0/1"이 표시되면 몇 초 후에 다시 시도해본다.)
 
 3. 파드 보기
 
@@ -129,8 +141,26 @@ minikube dashboard --url
     kubectl config view
     ```
 
+6. 파드 내 컨테이너의 애플리케이션 로그를 확인한다. (파드 이름을 `kubectl get pods` 명령어로 얻은 이름으로 교체한다)
+
+    {{< note >}}    
+    아래 `kubectl logs` 명령어에서 `hello-node-5f76cf6ccf-br9b5` 부분을 `kubectl get pods` 명령어 출력에서 얻은 파드 이름으로 교체한다.
+    {{< /note >}}
+
+    ```shell
+    kubectl logs hello-node-5f76cf6ccf-br9b5
+    ```
+
+    출력은 다음과 유사하다.
+    
+    ```
+    I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
+    I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
+    ```
+
+
 {{< note >}}
-`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/ko/docs/reference/kubectl/)을 살펴보자.
+`kubectl` 명령어에 관해 자세히 알고 싶다면 [kubectl 개요](/ko/docs/reference/kubectl/)을 살펴본다.
 {{< /note >}}
 
 ## 서비스 만들기
@@ -139,6 +169,12 @@ minikube dashboard --url
 접근할 수 있다. `hello-node` 컨테이너를 쿠버네티스 가상 네트워크
 외부에서 접근하려면 파드를 쿠버네티스
 [*서비스*](/ko/docs/concepts/services-networking/service/)로 노출해야 한다.
+
+{{< warning >}}
+agnhost 컨테이너에는 디버깅에 유용한 `/shell` 엔드포인트가 있지만, 이는 
+공용 인터넷에 노출하기에 위험하다. 이 컨테이너를 인터넷에 연결된 클러스터나 
+프로덕션 클러스터에서 실행하지 않는다.
+{{< /warning >}}
 
 1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출하기
 
@@ -177,11 +213,7 @@ minikube dashboard --url
     minikube service hello-node
     ```
 
-4. Katacoda 환경에서만: 플러스를 클릭한 후에 **Select port to view on Host 1** 를 클릭.
-
-5. Katacoda 환경에서만: 서비스 출력에서 `8080`의 반대편에 표시되는 5자리 포트 번호를 기록 한다. 이 포트 번호는 무작위로 생성되며, 사용자마다 다를 수 있다. 포트 번호 텍스트 상자에 포트 번호를 입력한 다음, 포트 표시를 클릭한다. 이전 예시를 사용해서 `30369` 를 입력한다.
-
-    이렇게 하면 당신의 앱을 서비스하는 브라우저 윈도우를 띄우고 애플리케이션의 응답을 볼 수 있다.
+    이 명령은 브라우저 창을 열어 앱을 보여주고, 그 응답을 표시한다.
 
 ## 애드온 사용하기
 
@@ -256,7 +288,26 @@ minikube 툴은 활성화하거나 비활성화할 수 있고 로컬 쿠버네�
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. `metrics-server` 비활성화
+4. `metrics-server`의 출력 결과를 확인한다.
+
+    ```shell
+    kubectl top pods
+    ```
+
+    다음과 유사하게 출력된다.
+
+    ```
+    NAME                         CPU(cores)   MEMORY(bytes)   
+    hello-node-ccf4b9788-4jn97   1m           6Mi             
+    ```
+
+    만약 다음의 메시지가 보인다면, 잠시 기다렸다가 다시 시도한다.
+
+    ```
+    error: Metrics API not available
+    ```
+
+5. `metrics-server`를 비활성화한다.
 
     ```shell
     minikube addons disable metrics-server
@@ -277,7 +328,7 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-필요하면 Minikube 가상 머신(VM)을 정지한다.
+Minikube 클러스터를 종료한다.
 
 ```shell
 minikube stop
@@ -286,15 +337,21 @@ minikube stop
 필요하면 minikube VM을 삭제한다.
 
 ```shell
+# 선택사항
 minikube delete
 ```
 
+쿠버네티스를 더 배우기 위해 minikube를 다시 사용할 계획이라면, 굳이 삭제하지 않아도 된다.
 
+## 결론
+
+이 페이지에서는 minikube 클러스터를 실행하고 애플리케이션을 배포하기 위한 기본적인 내용을 다루었다. 이제 애플리케이션을 배포할 준비가 되었다.
 
 ## {{% heading "whatsnext" %}}
 
 
+* _[kubectl을 사용해 쿠버네티스에 첫 번째 애플리케이션 배포하기](/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_ 에 대한 튜토리얼.
 * [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해서 더 배워 본다.
 * [애플리케이션 배포](/ko/docs/tasks/run-application/run-stateless-application-deployment/)에 대해서 더 배워 본다.
-* [서비스 오브젝트](/ko/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
+* [서비스 오브젝트](/ko/docs/concepts/services-networking/service)에 대해서 더 배워 본다.
 

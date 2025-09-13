@@ -7,9 +7,6 @@ $headline-wrapper-margin-bottom: 40px;
 $quickstart-button-padding: 0 50px;
 $vendor-strip-font-size: 16px;
 
-//video
-$video-section-height: 400px;
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,6 +16,15 @@ $video-section-height: 400px;
 
   #hamburger {
     display: none;
+  }
+
+  body:dir(rtl) {
+    overflow-x: hidden;
+  }
+
+  table:dir(rtl) {
+    text-align: right;
+    direction: rtl;
   }
 
   .td-home {
@@ -109,19 +115,6 @@ $video-section-height: 400px;
       img {
         width: 100%;
       }
-    }
-  }
-
-  #video {
-    height: $video-section-height;
-    display: block;
-    height: 550px;
-
-    & > .light-text {
-      display: block;
-      float: right;
-      text-align: left;
-      margin-right: 5%;
     }
   }
 

@@ -40,33 +40,40 @@ kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_
 ## {{% heading "examples" %}}
 
 <!--
+```shell
 # Update node 'foo' with a taint with key 'dedicated' and value 'special-user' and effect 'NoSchedule'
 # If a taint with that key and effect already exists, its value is replaced as specified
+kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 # Remove from node 'foo' the taint with key 'dedicated' and effect 'NoSchedule' if one exists
+kubectl taint nodes foo dedicated:NoSchedule-
 
 # Remove from node 'foo' all the taints with key 'dedicated'
+kubectl taint nodes foo dedicated-
 
 # Add a taint with key 'dedicated' on nodes having label myLabel=X
+kubectl taint node -l myLabel=X  dedicated=foo:PreferNoSchedule
 
 # Add to node 'foo' a taint with key 'bar' and no value
--->
+kubectl taint nodes foo bar:NoSchedule
 ```
-  # 使用带有键为 "dedicated" 和值为 "special-user" 以及效果为 "NoSchedule" 的污点来更新节点 "foo"
-  # 如果具有该键和效果的污点已经存在，则其值将按指定方式替换
-  kubectl taint nodes foo dedicated=special-user:NoSchedule
-  
-  # 从节点 "foo" 中删除键为 "dedicated" 且效果为 "NoSchedule" 的污点（如果存在）
-  kubectl taint nodes foo dedicated:NoSchedule-
-  
-  # 从节点 "foo" 中删除所有带有键为 "dedicated" 的污点
-  kubectl taint nodes foo dedicated-
-  
-  # 在标签为 myLabel=X 的节点上添加键为 'dedicated' 的污点
-  kubectl taint node -l myLabel=X  dedicated=foo:PreferNoSchedule
-  
-  # 向节点 "foo" 添加一个带有键 "bar" 且没有值的污点
-  kubectl taint nodes foo bar:NoSchedule
+-->
+```shell
+# 使用带有键为 "dedicated" 和值为 "special-user" 以及效果为 "NoSchedule" 的污点来更新节点 "foo"
+# 如果具有该键和效果的污点已经存在，则其值将按指定方式替换
+kubectl taint nodes foo dedicated=special-user:NoSchedule
+
+# 从节点 "foo" 中删除键为 "dedicated" 且效果为 "NoSchedule" 的污点（如果存在）
+kubectl taint nodes foo dedicated:NoSchedule-
+
+# 从节点 "foo" 中删除所有带有键为 "dedicated" 的污点
+kubectl taint nodes foo dedicated-
+
+# 在标签为 myLabel=X 的节点上添加键为 'dedicated' 的污点
+kubectl taint node -l myLabel=X  dedicated=foo:PreferNoSchedule
+
+# 向节点 "foo" 添加一个带有键 "bar" 且没有值的污点
+kubectl taint nodes foo bar:NoSchedule
 ```
 
 ## {{% heading "options" %}}
@@ -87,7 +94,8 @@ kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_
 Select all nodes in the cluster
 -->
 选择集群中的所有节点
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -184,9 +192,10 @@ If true, allow taints to be overwritten, otherwise reject taint updates that ove
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
-Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching objects must satisfy all of the specified label constraints.
+Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
-用来执行过滤的选择算符（标签查询），支持 '='、'==' 和 '!='（例如 -l key1=value1,key2=value2）。
+过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
+（例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。
 匹配的对象必须满足所有指定的标签约束。
 </p>
 </td>
@@ -303,7 +312,7 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">

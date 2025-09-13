@@ -38,7 +38,7 @@ Kubernetes 文档的这一部分包含教程。
 -->
 ## 基础知识  {#basics}
 
-* [Kubernetes 基础知识](/zh-cn/docs/tutorials/Kubernetes-Basics/)
+* [Kubernetes 基础知识](/zh-cn/docs/tutorials/kubernetes-basics/)
   是一个深入的交互式教程，帮助你理解 Kubernetes 系统，并尝试一些基本的 Kubernetes 特性。
 * [Kubernetes 介绍 (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 * [你好 Minikube](/zh-cn/docs/tutorials/hello-minikube/)
@@ -117,10 +117,12 @@ Kubernetes 文档的这一部分包含教程。
 ## Cluster Management
 
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
+* [Install Drivers and Allocate Devices with DRA](/docs/tutorials/cluster-management/install-use-dra/)
 -->
 ## 集群管理
 
 * [以独立模式运行 kubelet](/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/)
+* [安装驱动程序并使用 DRA 来分配设备](/zh-cn/docs/tutorials/cluster-management/install-use-dra/)
 
 ## {{% heading "whatsnext" %}}
 

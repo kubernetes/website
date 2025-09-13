@@ -36,6 +36,11 @@ Debug cluster resources using interactive debugging containers.
 * 工作负载：向已运行的 Pod 中添加临时容器，例如在不重启 Pod 的情况下添加调试工具。
 * 节点：新建一个在节点的主机命名空间中运行并可以访问节点文件系统的 Pod。
 
+<!--
+Note: When a non-root user is configured for the entire target Pod, some capabilities granted by debug profile may not work.
+-->
+注意：当为目标 Pod 配置了非 root 用户时，由调试模式授予的某些能力可能无法工作。
+
 ```shell
 kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 ```
@@ -45,15 +50,30 @@ kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
 <!--
 ```
 # Create an interactive debugging session in pod mypod and immediately attach to it.
+kubectl debug mypod -it --image=busybox
+
 # Create an interactive debugging session for the pod in the file pod.yaml and immediately attach to it.
 # (requires the EphemeralContainers feature to be enabled in the cluster)
+kubectl debug -f pod.yaml -it --image=busybox
+
 # Create a debug container named debugger using a custom automated debugging image.
+kubectl debug --image=myproj/debug-tools -c debugger mypod
+
 # Create a copy of mypod adding a debug container and attach to it
+kubectl debug mypod -it --image=busybox --copy-to=my-debugger
+
 # Create a copy of mypod changing the command of mycontainer
+kubectl debug mypod -it --copy-to=my-debugger --container=mycontainer -- sh
+
 # Create a copy of mypod changing all container images to busybox
+kubectl debug mypod --copy-to=my-debugger --set-image=*=busybox
+
 # Create a copy of mypod adding a debug container and changing container images
+kubectl debug mypod -it --copy-to=my-debugger --image=debian --set-image=app=app:debug,sidecar=sidecar:debug
+
 # Create an interactive debugging session on a node and immediately attach to it.
 # The container will run in the host namespaces and the host's filesystem will be mounted at /host
+kubectl debug node/mynode -it --image=busybox
 ```
 -->
 ```shell
@@ -86,7 +106,7 @@ kubectl debug node/mynode -it --image=busybox
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -97,49 +117,57 @@ kubectl debug node/mynode -it --image=busybox
 <td colspan="2">--arguments-only</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If specified, everything after -- will be passed to the new container as Args instead of Command.
 -->
 如果指定，`--` 之后的所有内容将作为 Args 而不是作为 Command 传递给新容器。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--attach</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, wait for the container to start running, and then attach as if 'kubectl attach ...' were called.  Default false, unless '-i/--stdin' is set, in which case the default is true.
 -->
-如果为 true，则等待容器开始运行，然后就像以前调用 “kubectl attach ...” 一样执行挂接操作。
-默认为 false，如果设置了 “-i/--stdin”，则默认为 true。
-</p></td>
+如果为 true，则等待容器开始运行，然后就像以前调用 "kubectl attach ..." 一样执行挂接操作。
+默认为 false，如果设置了 "-i/--stdin"，则默认为 true。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-c, --container string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Container name to use for debug container.
 -->
 调试容器要使用的容器名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--copy-to string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Create a copy of the target Pod with this name.
 -->
 创建目标 Pod 的副本，并将副本命名为指定名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -157,63 +185,73 @@ Path to a JSON or YAML file containing a partial container spec to customize bui
 </tr>
 
 <tr>
-<td colspan="2">--env stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[]</td>
+<td colspan="2">--env stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: []-->默认值：[]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Environment variables to set in the container.
 -->
 要在容器中设置的环境变量。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-f, --filename strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 identifying the resource to debug
 -->
 标识要调试的资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for debug
 -->
 debug 操作的帮助命令。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--image string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Container image to use for debug container.
 -->
 调试容器要使用的容器镜像。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--image-pull-policy string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The image pull policy for the container. If left empty, this value will not be specified by the client and defaulted by the server.
 -->
 容器的镜像拉取策略。如果留空，此值将不会由客户端指定，而是默认由服务器指定。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -227,11 +265,12 @@ If true, keep the original pod annotations.(This flag only works when used with 
 -->
 如果为真，则保留原始 Pod 的注解。
 （此标志仅与 '--copy-to' 一起使用时才有效）
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
-<td colspan="2">--keep-init-containers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
+<td colspan="2">--keep-init-containers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->默认值：true</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -283,7 +322,8 @@ If true, keep the original pod readiness probes.(This flag only works when used 
 -->
 如果为真，则保留原始 Pod 的就绪性探测。
 （此标志仅与 '--copy-to; 一起使用时才有效）
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -297,110 +337,128 @@ If true, keep the original startup probes.(This flag only works when used with '
 -->
 如果为真，则保留原始 Pod 的启动性检测。
 （此标志仅与 '--copy-to' 一起使用时才有效）
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
-<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："legacy"</td>
+<td colspan="2">--profile string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "legacy"-->默认值："legacy"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Options are &quot;legacy&quot;, &quot;general&quot;, &quot;baseline&quot;, &quot;netadmin&quot;, &quot;restricted&quot; or &quot;sysadmin&quot;.
 -->
 可选项包括 "legacy"、"general"、"baseline"、"netadmin"、"restricted" 或 "sysadmin"。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-q, --quiet</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 If true, suppress informational messages.
 -->
 如果为 true，则抑制资讯类消息。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--replace</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 When used with '--copy-to', delete the original Pod.
 -->
-当与 “--copy-to” 一起使用时，删除原来的 Pod。
-</p></td>
+当与 '--copy-to' 一起使用时，删除原来的 Pod。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--same-node</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 When used with '--copy-to', schedule the copy of target Pod on the same node.
 -->
-当与 “--copy-to” 一起使用时，将目标 Pod 的副本调度到同一个节点上。
-</p></td>
+当与 '--copy-to' 一起使用时，将目标 Pod 的副本调度到同一个节点上。
+</p>
+</td>
 </tr>
 
 <tr>
-<td colspan="2">--set-image stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[]</td>
+<td colspan="2">--set-image stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: []-->默认值：[]</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 When used with '--copy-to', a list of name=image pairs for changing container images, similar to how 'kubectl set image' works.
 -->
-当与 “--copy-to” 一起使用时，提供一个 name=image 对的列表以更改容器镜像，类似于 `kubectl set image` 的工作方式。
-</p></td>
+当与 '--copy-to' 一起使用时，提供一个 name=image 对的列表以更改容器镜像，类似于 `kubectl set image` 的工作方式。
+</p>
+</td>
 </tr>
 
 <tr>
-<td colspan="2">--share-processes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
+<td colspan="2">--share-processes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: true-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 When used with '--copy-to', enable process namespace sharing in the copy.
 -->
-当与 “--copy-to” 一起使用时，在副本中启用进程命名空间共享。
-</p></td>
+当与 '--copy-to' 一起使用时，在副本中启用进程命名空间共享。
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-i, --stdin</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Keep stdin open on the container(s) in the pod, even if nothing is attached.
 -->
 即使什么都没挂接，也要保持 Pod 中容器上的标准输入处于打开状态。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--target string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 When using an ephemeral container, target processes in this container name.
 -->
 当使用临时容器时，将目标锁定为名称所指定的容器中的进程。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-t, --tty</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Allocate a TTY for the debugging container.
 -->
@@ -413,7 +471,7 @@ Allocate a TTY for the debugging container.
 
 ## {{% heading "parentoptions" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -424,7 +482,8 @@ Allocate a TTY for the debugging container.
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
@@ -436,7 +495,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
@@ -448,7 +508,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 UID to impersonate for the operation.
 -->
@@ -457,10 +518,11 @@ UID to impersonate for the operation.
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "$HOME/.kube/cache"-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Default cache directory
 -->
@@ -472,7 +534,8 @@ Default cache directory
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a cert file for the certificate authority
 -->
@@ -484,7 +547,8 @@ Path to a cert file for the certificate authority
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a client certificate file for TLS
 -->
@@ -529,30 +593,6 @@ The name of the kubeconfig context to use
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -580,12 +620,28 @@ If true, the server's certificate will not be checked for validity. This will ma
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
 </p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>
@@ -625,7 +681,7 @@ Password for basic authentication to the API server
 </tr>
 
 <tr>
-<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："profile.pprof"</td>
+<td colspan="2">--profile-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "profile.pprof"-->默认值："profile.pprof"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -637,7 +693,7 @@ Name of the file to write the profile to
 </tr>
 
 <tr>
-<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："0"</td>
+<td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "0"-->默认值："0"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -662,7 +718,7 @@ Kubernetes API 服务器的地址和端口。
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：1m0s</td>
+<td colspan="2">--storage-driver-buffer-duration duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 1m0s-->默认值：1m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -674,7 +730,7 @@ Writes in the storage driver will be buffered for this duration, and committed t
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："cadvisor"</td>
+<td colspan="2">--storage-driver-db string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "cadvisor"-->默认值："cadvisor"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -686,7 +742,7 @@ database name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："localhost:8086"</td>
+<td colspan="2">--storage-driver-host string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "localhost:8086"-->默认值："localhost:8086"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -698,7 +754,7 @@ database host:port
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
+<td colspan="2">--storage-driver-password string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -722,7 +778,7 @@ use secure connection with database
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："stats"</td>
+<td colspan="2">--storage-driver-table string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "stats"-->默认值："stats"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
@@ -734,7 +790,7 @@ table name
 </tr>
 
 <tr>
-<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："root"</td>
+<td colspan="2">--storage-driver-user string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "root"-->默认值："root"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>

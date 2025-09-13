@@ -10,7 +10,8 @@ weight: 10
 ---
 
 <!-- overview -->
-This page provides an overview of authentication.
+This page provides an overview of authentication in Kubernetes, with a focus on
+authentication to the [Kubernetes API](/docs/concepts/overview/kubernetes-api/).
 
 <!-- body -->
 ## Users in Kubernetes
@@ -327,7 +328,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate. Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
-| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is RS256. Allowed values are: RS256, RS384, RS512, ES256, ES384, ES512, PS256, PS384, PS512. Values are defined by RFC 7518 https://tools.ietf.org/html/rfc7518#section-3.1. | `RS512` | No |
 
 ##### Authentication configuration from a file {#using-authentication-configuration}
 
@@ -374,13 +375,19 @@ If you want to switch to using structured authentication configuration, you have
 command line arguments, and use the configuration file instead.
 {{< /note >}}
 
+{{< feature-state feature_gate_name="StructuredAuthenticationConfigurationEgressSelector" >}}
+
+The _egressSelectorType_ field in the JWT issuer configuration allows you to specify which egress selector
+should be used for sending all traffic related to the issuer (discovery, JWKS, distributed claims, etc).
+This feature requires the `StructuredAuthenticationConfigurationEgressSelector` feature gate to be enabled.
+
 ```yaml
 ---
 #
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 # list of authenticators to authenticate Kubernetes users using JWT compliant tokens.
 # the maximum number of allowed authenticators is 64.
@@ -411,6 +418,13 @@ jwt:
     - my-other-app
     # this is required to be set to "MatchAny" when multiple audiences are specified.
     audienceMatchPolicy: MatchAny
+    # egressSelectorType is an indicator of which egress selection should be used for sending all traffic related
+    # to this issuer (discovery, JWKS, distributed claims, etc).  If unspecified, no custom dialer is used.
+    # When specified, the valid choices are "controlplane" and "cluster".  These correspond to the associated
+    # values in the --egress-selector-config-file.
+    # - controlplane: for traffic intended to go to the control plane.
+    # - cluster: for traffic intended to go to the system being managed by Kubernetes.
+    egressSelectorType: <egress-selector-type>
   # rules applied to validate token claims to authenticate users.
   claimValidationRules:
     # Same as --oidc-required-claim key=value.
@@ -513,7 +527,7 @@ jwt:
   {{< tabs name="example_configuration" >}}
   {{% tab name="Valid token" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -567,14 +581,14 @@ jwt:
           "admin"
       ],
       "extra": {
-          "example.com/tenant": "72f988bf-86f1-41af-91ab-2d7cd011db4a"
+          "example.com/tenant": ["72f988bf-86f1-41af-91ab-2d7cd011db4a"]
       }
   }
   ```
   {{% /tab %}}
   {{% tab name="Fails claim validation" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -625,7 +639,7 @@ jwt:
   {{% /tab %}}
   {{% tab name="Fails user validation" %}}
   ```yaml
-  apiVersion: apiserver.config.k8s.io/v1beta1
+  apiVersion: apiserver.config.k8s.io/v1
   kind: AuthenticationConfiguration
   jwt:
   - issuer:
@@ -683,7 +697,7 @@ jwt:
           "admin"
       ],
       "extra": {
-          "example.com/tenant": "72f988bf-86f1-41af-91ab-2d7cd011db4a"
+          "example.com/tenant": ["72f988bf-86f1-41af-91ab-2d7cd011db4a"]
       }
   }
   ```
@@ -696,15 +710,10 @@ jwt:
 ###### Limitations
 
 1. Distributed claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
-1. Egress selector configuration is not supported for calls to `issuer.url` and `issuer.discoveryURL`.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
-You can use an existing public OpenID Connect Identity Provider (such as Google, or
-[others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
-[Keycloak](https://github.com/keycloak/keycloak),
-CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://openunison.github.io/).
+You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
+that supports the OpenID Connect protocol.
 
 For an identity provider to work with Kubernetes it must:
 
@@ -719,20 +728,11 @@ For an identity provider to work with Kubernetes it must:
 1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
 
 A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
-identity provider (as opposed to one of the cloud providers like Google or Microsoft) you MUST
-have your identity provider's web server certificate signed by a certificate with the `CA` flag
-set to `TRUE`, even if it is self signed. This is due to GoLang's TLS client implementation
-being very strict to the standards around certificate validation. If you don't have a CA handy,
-you can use the [gencert script](https://github.com/dexidp/dex/blob/master/examples/k8s/gencert.sh)
-from the Dex team to create a simple CA and a signed certificate and key pair. Or you can use
-[this similar script](https://raw.githubusercontent.com/TremoloSecurity/openunison-qs-kubernetes/master/src/main/bash/makessl.sh)
-that generates SHA256 certs with a longer life and larger key size.
-
-Refer to setup instructions for specific systems:
-
-- [UAA](https://docs.cloudfoundry.org/concepts/architecture/uaa.html)
-- [Dex](https://dexidp.io/docs/kubernetes/)
-- [OpenUnison](https://www.tremolosecurity.com/orchestra-k8s/)
+identity provider you MUST have your identity provider's web server certificate signed by a
+certificate with the `CA` flag set to `TRUE`, even if it is self signed. This is due to GoLang's
+TLS client implementation being very strict to the standards around certificate validation. If you
+don't have a CA handy, you can create a simple CA and a signed certificate and key pair using
+standard certificate generation tools.
 
 #### Using kubectl
 
@@ -1108,7 +1108,7 @@ A sample authentication configuration file is below:
 # CAUTION: this is an example configuration.
 #          Do not use this for your own cluster!
 #
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: AuthenticationConfiguration
 anonymous:
   enabled: true
@@ -1816,5 +1816,5 @@ You can only make `SelfSubjectReview` requests if:
 ## {{% heading "whatsnext" %}}
 
 * To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
-* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
+* Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
