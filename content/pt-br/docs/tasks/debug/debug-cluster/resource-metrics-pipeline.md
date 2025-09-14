@@ -78,7 +78,7 @@ As métricas de recursos são acessíveis usando os endpoints da API do kubelet 
 
 <!-- body -->
 
-## API de Métricas:
+## API de Métricas
 {{< feature-state for_k8s_version="1.8" state="beta" >}}
 
 O metrics-server implementa a API de Métricas. Esta API permite que você acesse o uso de CPU e memória
