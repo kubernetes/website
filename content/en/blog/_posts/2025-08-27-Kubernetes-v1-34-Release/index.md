@@ -472,7 +472,7 @@ Kubernetes v1.28 added a way for the `kubelet`
 to query the CRI implementation and find which cgroup driver to use. That automated detection is now
 **strongly recommended** and support for it has graduated to stable in v1.34.
 If your CRI container runtime does not support the
-ability to report the croup driver it needs, you
+ability to report the cgroup driver it needs, you
 should upgrade or change your container runtime.
 The `cgroupDriver` configuration setting in the `kubelet` configuration file is now deprecated. 
 The corresponding command-line option `--cgroup-driver` was previously deprecated, 
