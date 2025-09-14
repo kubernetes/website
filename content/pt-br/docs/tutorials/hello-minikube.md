@@ -100,7 +100,7 @@ verifica a integridade do seu Pod e reinicia o contêiner do Pod caso este seja
 finalizado. Deployments são a maneira recomendada de gerenciar a criação e
 escalonamento dos Pods.
 
-1. Usando o comando `kubectl create` para criar um Deployment que gerencia um Pod.
+1. Use o comando `kubectl create` para criar um Deployment que gerencia um Pod.
    O Pod executa um contêiner baseado na imagem do Docker disponibilizada.
 
     ```shell
@@ -196,7 +196,7 @@ cluster voltado para a internet ou em um cluster de produção.
     você usou `kubectl expose` para expor uma porta diferente, os clientes não
     conseguirão se conectar a essa outra porta.
 
-1. Visualize o service que você acabou de criar:
+1. Visualize o Service que você acabou de criar:
 
     ```shell
     kubectl get services
@@ -344,7 +344,7 @@ Encerre o cluster do minikube:
 minikube stop
 ```
 
-(Opcional) Apague a máquina virtual (VM) do minikube:
+Opcionalmente, apague a máquina virtual (VM) do minikube:
 
 ```shell
 # Opcional
