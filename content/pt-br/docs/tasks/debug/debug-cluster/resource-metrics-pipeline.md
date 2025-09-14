@@ -6,7 +6,7 @@ weight: 15
 
 <!-- overview -->
 
-Para o Kubernetes, a API de Métricas oferece um conjunto básico de métricas para dar suporte ao escalonamento automático e
+Para o Kubernetes, a _API de Métricas_ oferece um conjunto básico de métricas para dar suporte ao escalonamento automático e
 casos de uso similares. Esta API disponibiliza informações sobre o uso de recursos para nó e pod, incluindo métricas para CPU e memória.
 Se você implantar a API de Métricas em seu cluster, os clientes da API do Kubernetes podem então consultar essas informações,
 e você pode usar os mecanismos de controle de acesso do Kubernetes para gerenciar permissões ao fazê-lo.
