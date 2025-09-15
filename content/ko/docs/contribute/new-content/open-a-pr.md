@@ -40,15 +40,15 @@ flowchart LR
 A([fa:fa-user 신규<br>기여자]) --- id1[(K8s/Website<br>GitHub)]
 subgraph tasks[GitHub 상에서 변경하기]
 direction TB
-0[ ] -.-
-1[1. '페이지 편집' 누르기] --> 2[2. GitHub 마크다운<br>편집기로 편집하기]
-2 --> 3[3. 'Propose file change'에<br>추가 내용 기재하기]
+    0[ ] -.-
+    1[1. '페이지 편집' 누르기] --> 2[2. GitHub 마크다운<br>편집기로 편집하기]
+    2 --> 3[3. 'Propose file change'에<br>추가 내용 기재하기]
 
 end
 subgraph tasks2[ ]
 direction TB
 4[4. 'Propose changes' 누르기] --> 5[5. 'Create pull request' 누르기] --> 6[6. 'Open a pull request'에<br>추가 내용 기재하기]
-6 --> 7[7. 'Create pull request' 누르기]
+6 --> 7[7. 'Create pull request' 누르기] 
 end
 
 id1 --> tasks --> tasks2
@@ -63,45 +63,45 @@ class tasks,tasks2 white
 class id1 k8s
 {{</ mermaid >}}
 
-그림 1. GitHub를 사용하여 PR을 여는 단계
+그림 1. GitHub를 사용하여 PR을 여는 단계.
 
-1.  문제가 있는 페이지에서, 오른쪽 사이드 내비게이션 패널에 있는 **페이지 편집** 옵션을 선택한다.
+1. 문제가 있는 페이지에서, 오른쪽 사이드 내비게이션 패널에 있는 **페이지 편집** 옵션을 선택한다.
 
-1.  GitHub 마크다운 에디터에서 내용을 수정한다.
+1. GitHub 마크다운 에디터에서 내용을 수정한다.
 
-1.  에디터 아래쪽의 **Propose file change** 양식을 작성한다.
-    첫 번째 필드에는, 커밋 메시지 제목을 지정한다.
-    두 번째 필드에는, 설명을 제공한다.
+1. 에디터 아래쪽의 **Propose file change** 양식을 작성한다.
+   첫 번째 필드에는, 커밋 메시지 제목을 지정한다.
+   두 번째 필드에는, 설명을 제공한다.
 
-    {{< note >}}
-    커밋 메시지에 어떤 [GitHub 키워드](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
-    도 사용하지 않는다. 이 키워드들은 나중에 풀 리퀘스트 설명에 추가할 수 있다.
-    {{< /note >}}
+   {{< note >}}
+   커밋 메시지에 어떤 [GitHub 키워드](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+   도 사용하지 않는다. 이 키워드들은 나중에 풀 리퀘스트 설명에 추가할 수 있다.
+   {{< /note >}}
 
-1.  **Propose file change**를 선택한다.
+1. **Propose file change**를 선택한다.
 
-1.  **Create pull requests**를 선택한다.
+1. **Create pull requests**를 선택한다.
 
-1.  **Open a pull request** 화면이 나타나면 양식을 작성한다.
+1. **Open a pull request** 화면이 나타나면 양식을 작성한다.
 
-  - 풀 리퀘스트의 **Subject** 필드는 기본적으로 커밋 내용을 요약하여 작성한다.
-    이는 필요한 경우 변경할 수 있다.
-  - **Body**는 만약 내용이 있다면, 확장된 커밋 메시지를 포함한다.
-    그리고 일부 템플릿 텍스트를 포함한다. 템플릿 텍스트에
-    필요한 세부 정보를 추가한 다음, 추가 템플릿 텍스트는 삭제한다.
-  - **Allow edits from maintainers** 체크박스는 선택된 상태로 둔다.
+   - 풀 리퀘스트의 **Subject** 필드는 기본적으로 커밋 내용을 요약하여 작성한다.
+     이는 필요한 경우 변경할 수 있다.
+   - **Body**에는 작성할 확장 커밋 메시지가 있다면, 그것을 포함하고,
+     일부 템플릿 텍스트도 포함한다. 템플릿 텍스트에서
+     요구하는 세부 정보를 추가한 다음, 남은 템플릿 텍스트는 삭제한다.
+   - **Allow edits from maintainers** 체크박스는 선택된 상태로 둔다.
 
-    {{< note >}}
-    PR 설명은 리뷰어가 변경 사항을 이해하는 데 유용한 방법이다.
-    자세한 내용은 [PR 열기](#open-a-pr)를 참고한다.
-    {{</ note >}}
+   {{< note >}}
+   PR 설명은 리뷰어가 변경 사항을 이해하는 데 유용한 방법이다.
+   자세한 내용은 [PR 열기](#open-a-pr)를 참고한다.
+   {{</ note >}}
 
-1.  **Create pull request** 를 선택한다.
+1. **Create pull request** 를 선택한다.
 
 ### GitHub에서 피드백 반영하기
 
-풀 리퀘스트가 병합되기 전에, 쿠버네티스 커뮤니티 회원이 이를 리뷰하고
-승인한다. `k8s-ci-robot` 은 페이지에 언급된 가장 가까운
+풀 리퀘스트가 병합되기 전에, 쿠버네티스 커뮤니티 멤버가 이를 리뷰하고
+승인한다. `k8s-ci-robot` 해당 페이지에 언급된 가장 가까운
 오너(owner)를 기준으로 리뷰어를 제안한다. 특정한 사람을 염두에 두고 있다면,
 GitHub 사용자 이름을 코멘트로 남긴다.
 
@@ -155,7 +155,7 @@ class S,T spacewhite
 class changes,changes2 white
 {{</ mermaid >}}
 
-그림 2. 로컬 포크에서 변경 사항 작업하기
+그림 2. 로컬 포크에서 변경 사항 작업하기.
 
 ### kubernetes/website 리포지터리 포크하기
 
@@ -166,40 +166,40 @@ class changes,changes2 white
 
 1. 터미널 창에서, 포크를 클론하고 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 업데이트한다.
 
-    ```shell
-    git clone git@github.com/<github_username>/website
-    cd website
-    ```
+   ```shell
+   git clone git@github.com/<github_username>/website
+   cd website
+   ```
 
 1. 새 `website` 디렉터리로 이동한다. `kubernetes/website` 리포지터리를 `upstream` 원격으로 설정한다.
 
-      ```shell
-      cd website
+   ```shell
+   cd website
 
-      git remote add upstream https://github.com/kubernetes/website.git
-      ```
+   git remote add upstream https://github.com/kubernetes/website.git
+   ```
 
 1. `origin` 과 `upstream` 리포지터리를 확인한다.
 
-    ```shell
-    git remote -v
-    ```
+   ```shell
+   git remote -v
+   ```
 
    출력은 다음과 비슷하다.
 
-    ```none
-    origin	git@github.com:<github_username>/website.git (fetch)
-    origin	git@github.com:<github_username>/website.git (push)
-    upstream	https://github.com/kubernetes/website.git (fetch)
-    upstream	https://github.com/kubernetes/website.git (push)
-    ```
+   ```none
+   origin	git@github.com:<github_username>/website.git (fetch)
+   origin	git@github.com:<github_username>/website.git (push)
+   upstream	https://github.com/kubernetes/website.git (fetch)
+   upstream	https://github.com/kubernetes/website.git (push)
+   ```
 
 1. 포크의 `origin/main` 과 `kubernetes/website` 의 `upstream/main` 에서 커밋을 가져온다.
 
-    ```shell
-    git fetch origin
-    git fetch upstream
-    ```
+   ```shell
+   git fetch origin
+   git fetch upstream
+   ```
 
    이를 통해 변경을 시작하기 전에 로컬 리포지터리가 최신 상태인지 확인한다.
 
@@ -214,25 +214,25 @@ class changes,changes2 white
 
 1. 작업할 브랜치 기반을 결정한다.
 
-  - 기존 콘텐츠를 개선하려면, `upstream/main` 를 사용한다.
-  - 기존 기능에 대한 새로운 콘텐츠를 작성하려면, `upstream/main` 를 사용한다.
-  - 현지화된 콘텐츠의 경우, 현지화 규칙을 사용한다. 자세한 내용은
-    [쿠버네티스 문서 현지화](/ko/docs/contribute/localization_ko/)를 참고한다.
-  - 다가오는 쿠버네티스 릴리스의 새로운 기능에 대해서는 기능 브랜치(feature branch)를 사용한다. 자세한 정보는
-    [릴리스 문서화](/docs/contribute/new-content/new-features/)를 참고한다.
-  - 콘텐츠 재구성과 같이 여러 SIG Docs 기여자들이 협업하는 장기적인 작업에는,
-    해당 작업을 위해 작성된 특정 기능 브랜치를 사용한다.
+   - 기존 콘텐츠를 개선하려면, `upstream/main` 를 사용한다.
+   - 기존 기능에 대한 새로운 콘텐츠를 작성하려면, `upstream/main` 를 사용한다.
+   - 현지화된 콘텐츠의 경우, 현지화 규칙을 사용한다. 자세한 내용은
+     [쿠버네티스 문서 현지화](/ko/docs/contribute/localization_ko/)를 참고한다.
+   - 다가오는 쿠버네티스 릴리스의 새로운 기능에 대해서는 기능 브랜치(feature branch)를 사용한다. 자세한 정보는
+     [릴리스 문서화](/ko/docs/contribute/new-content/new-features/)를 참고한다.
+   - 콘텐츠 재구성과 같이 여러 SIG Docs 기여자들이 협업하는 장기적인 작업에는,
+     해당 작업을 위해 작성된 특정 기능 브랜치를 사용한다.
 
    브랜치 선택에 도움이 필요하면, Slack 채널 `#sig-docs` 에 문의한다.
 
 1. 1단계에서 식별된 브랜치를 기반으로 새 브랜치를 작성한다. 이 예에서는 기본 브랜치가
    `upstream/main` 라고 가정한다.
 
-    ```shell
-    git checkout -b <my_new_branch> upstream/main
-    ```
+   ```shell
+   git checkout -b <my_new_branch> upstream/main
+   ```
 
-1.  텍스트 편집기를 사용하여 변경한다.
+1. 텍스트 편집기를 사용하여 변경한다.
 
 언제든지, `git status` 명령을 사용하여 변경한 파일을 볼 수 있다.
 
@@ -242,50 +242,50 @@ class changes,changes2 white
 
 1. 로컬 리포지터리에서 커밋해야 할 파일을 확인한다.
 
-    ```shell
-    git status
-    ```
+   ```shell
+   git status
+   ```
 
    출력은 다음과 비슷하다.
 
-    ```none
-    On branch <my_new_branch>
-    Your branch is up to date with 'origin/<my_new_branch>'.
+   ```none
+   On branch <my_new_branch>
+   Your branch is up to date with 'origin/<my_new_branch>'.
 
-    Changes not staged for commit:
-    (use "git add <file>..." to update what will be committed)
-    (use "git checkout -- <file>..." to discard changes in working directory)
+   Changes not staged for commit:
+   (use "git add <file>..." to update what will be committed)
+   (use "git checkout -- <file>..." to discard changes in working directory)
 
-    modified:   content/en/docs/contribute/new-content/contributing-content.md
+   modified:   content/en/docs/contribute/new-content/contributing-content.md
 
-    no changes added to commit (use "git add" and/or "git commit -a")
-    ```
+   no changes added to commit (use "git add" and/or "git commit -a")
+   ```
 
 1. **Changes not staged for commit**에 나열된 파일을 커밋에 추가한다.
 
-    ```shell
-    git add <your_file_name>
-    ```
+   ```shell
+   git add <your_file_name>
+   ```
 
    각 파일에 대해 이 작업을 반복한다.
 
-1.  모든 파일을 추가한 후, 커밋을 생성한다.
+1. 모든 파일을 추가한 후, 커밋을 생성한다.
 
-    ```shell
-    git commit -m "Your commit message"
-    ```
+   ```shell
+   git commit -m "Your commit message"
+   ```
 
-    {{< note >}}
-    커밋 메시지에 어떤 [GitHub 키워드](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
-    도 사용하지 않는다. 이 키워드들은 나중에 풀 리퀘스트 설명에
-    추가할 수 있다.
-    {{< /note >}}
+   {{< note >}}
+   커밋 메시지에 어떤 [GitHub 키워드](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+   도 사용하지 않는다. 이 키워드들은 나중에 풀 리퀘스트 설명에
+   추가할 수 있다.
+   {{< /note >}}
 
 1. 로컬 브랜치와 새로운 커밋을 원격 포크로 푸시한다.
 
-    ```shell
-    git push origin <my_new_branch>
-    ```
+   ```shell
+   git push origin <my_new_branch>
+   ```
 
 ### 로컬에서 변경 사항 미리보기 {#preview-locally}
 
@@ -399,7 +399,7 @@ class 1,2,3,4,5,6,7,8 grey
 class first,second white
 {{</ mermaid >}}
 
-그림 3. 포크한 저장소에서 [kubernetes/website](https://github.com/kubernetes/website) 로 PR을 여는 단계
+그림 3. 포크한 저장소에서 [kubernetes/website](https://github.com/kubernetes/website) 로 PR을 여는 단계.
 
 1. 웹 브라우저에서 [`kubernetes/website`](https://github.com/kubernetes/website/) 리포지터리로 이동한다.
 1. **New Pull Request** 를 선택한다.
@@ -409,14 +409,14 @@ class first,second white
 1. **Create Pull Request** 를 선택한다.
 1. 풀 리퀘스트에 대한 설명을 추가한다.
 
-  - **Title**(50자 이하): 변경 사항에 대한 의도를 요약한다.
-  - **Description**: 변경 사항을 자세히 설명한다.
+    - **Title**(50자 이하): 변경 사항에 대한 의도를 요약한다.
+    - **Description**: 변경 사항을 자세히 설명한다.
 
-    - 관련된 GitHub 이슈가 있는 경우, `Fixes #12345` 또는 `Closes #12345` 를
-      설명에 포함한다. 이렇게 하면 GitHub의 자동화 기능이 PR을 병합한 후 언급된 이슈를 닫는다.
-      다른 관련된 PR이 있는 경우, 이들 PR도 연결한다.
-    - 구체적인 내용에 대한 조언이 필요한 경우, 원하는 질문을 리뷰어가
-      생각해볼 수 있도록 설명에 포함한다.
+      - 관련된 GitHub 이슈가 있는 경우, `Fixes #12345` 또는 `Closes #12345` 를
+        설명에 포함한다. 이렇게 하면 GitHub의 자동화 기능이 PR을 병합한 후 언급된 이슈를 닫는다.
+        다른 관련된 PR이 있는 경우, 이들 PR도 연결한다.
+      - 구체적인 내용에 대한 조언이 필요한 경우, 원하는 질문을 리뷰어가
+        생각해볼 수 있도록 설명에 포함한다.
 
 1. **Create pull request** 버튼을 선택한다.
 
@@ -436,12 +436,12 @@ PR을 연 후, GitHub는 자동화된 테스트를 실행하고
 
 1. 변경한 후, 이전 커밋을 수정한다.
 
-    ```shell
-    git commit -a --amend
-    ```
+   ```shell
+   git commit -a --amend
+   ```
 
-  - `-a`: 모든 변경 사항을 커밋
-  - `--amend`: 새로운 커밋을 만들지 않고, 이전 커밋을 수정한다.
+   - `-a`: 모든 변경 사항을 커밋
+   - `--amend`: 새로운 커밋을 만들지 않고, 이전 커밋을 수정한다.
 
 1. 필요한 경우 커밋 메시지를 업데이트한다.
 
@@ -458,16 +458,16 @@ PR을 연 후, GitHub는 자동화된 테스트를 실행하고
 
 1. 원격 포크에서 커밋을 가져오고 작업 브랜치를 리베이스한다.
 
-    ```shell
-    git fetch origin
-    git rebase origin/<your-branch-name>
-    ```
+   ```shell
+   git fetch origin
+   git rebase origin/<your-branch-name>
+   ```
 
 1. 리베이스한 후, 포크에 새로운 변경 사항을 강제로 푸시한다.
 
-    ```shell
-    git push --force-with-lease origin <your-branch-name>
-    ```
+   ```shell
+   git push --force-with-lease origin <your-branch-name>
+   ```
 
 #### 충돌 병합 및 리베이스
 
@@ -482,29 +482,29 @@ PR의 모든 병합 충돌을 해결해야 한다.
 
 1. 포크를 업데이트하고 로컬 브랜치를 리베이스한다.
 
-    ```shell
-    git fetch origin
-    git rebase origin/<your-branch-name>
-    ```
+   ```shell
+   git fetch origin
+   git rebase origin/<your-branch-name>
+   ```
 
    그런 다음 포크에 변경 사항을 강제로 푸시한다.
 
-    ```shell
-    git push --force-with-lease origin <your-branch-name>
-    ```
+   ```shell
+   git push --force-with-lease origin <your-branch-name>
+   ```
 
 1. `kubernetes/website` 의 `upstream/main` 에 대한 변경 사항을 가져오고 브랜치를 리베이스한다.
 
-    ```shell
-    git fetch upstream
-    git rebase upstream/main
-    ```
+   ```shell
+   git fetch upstream
+   git rebase upstream/main
+   ```
 
 1. 리베이스의 결과를 검사한다.
 
-    ```shell
-    git status
-    ```
+   ```shell
+   git status
+   ```
 
 이 명령의 결과에 여러 파일이 충돌된 것으로 표시된다.
 
@@ -517,25 +517,25 @@ PR의 모든 병합 충돌을 해결해야 한다.
 
 1. 변경 세트에 파일을 추가한다.
 
-    ```shell
-    git add <filename>
-    ```
+   ```shell
+   git add <filename>
+   ```
 
-1.  리베이스를 계속한다.
+1. 리베이스를 계속한다.
 
-    ```shell
-    git rebase --continue
-    ```
+   ```shell
+   git rebase --continue
+   ```
 
-1.  필요에 따라 2단계에서 5단계를 반복한다.
+1. 필요에 따라 2단계에서 5단계를 반복한다.
 
-    모든 커밋을 적용한 후, `git status` 명령어는 리베이스가 완료되었음을 보여준다.
+   모든 커밋을 적용한 후, `git status` 명령어는 리베이스가 완료되었음을 보여준다.
 
 1. 브랜치를 포크에 강제로 푸시한다.
 
-    ```shell
-    git push --force-with-lease origin <your-branch-name>
-    ```
+   ```shell
+   git push --force-with-lease origin <your-branch-name>
+   ```
 
    풀 리퀘스트에 더 이상 충돌이 표시되지 않는다.
 
@@ -556,23 +556,23 @@ PR의 **Commits** 탭에서 또는 `git log` 명령을 로컬에서 실행하여
 
 1. 대화식 리베이스를 시작한다.
 
-    ```shell
-    git rebase -i HEAD~<number_of_commits_in_branch>
-    ```
+   ```shell
+   git rebase -i HEAD~<number_of_commits_in_branch>
+   ```
 
    커밋을 스쿼시하는 것은 일종의 리베이스이다. git의 `-i` 스위치는 리베이스를 대화형으로 할 수 있게 한다.
    `HEAD~<number_of_commits_in_branch>` 는 리베이스를 위해 살펴볼 커밋 수를 나타낸다.
 
    출력은 다음과 비슷하다.
 
-    ```none
-    pick d875112ca Original commit
-    pick 4fa167b80 Address feedback 1
-    pick 7d54e15ee Address feedback 2
+   ```none
+   pick d875112ca Original commit
+   pick 4fa167b80 Address feedback 1
+   pick 7d54e15ee Address feedback 2
 
-    # 3d18sf680..7d54e15ee 를 3d183f680 으로 리베이스한다 (3개 명령)
+   # 3d18sf680..7d54e15ee 를 3d183f680 으로 리베이스한다 (3개 명령)
 
-    ...
+   ...
 
     # 이 행들은 재정렬할 수 있으며, 위에서 아래로 순차적으로 실행된다.
     ```
@@ -591,19 +591,19 @@ PR의 **Commits** 탭에서 또는 `git log` 명령을 로컬에서 실행하여
 
    다음의 원본 텍스트를 변경한다.
 
-    ```none
-    pick d875112ca Original commit
-    pick 4fa167b80 Address feedback 1
-    pick 7d54e15ee Address feedback 2
-    ```
+   ```none
+   pick d875112ca Original commit
+   pick 4fa167b80 Address feedback 1
+   pick 7d54e15ee Address feedback 2
+   ```
 
    아래와 같이 변경한다.
 
-    ```none
-    pick d875112ca Original commit
-    squash 4fa167b80 Address feedback 1
-    squash 7d54e15ee Address feedback 2
-    ```
+   ```none
+   pick d875112ca Original commit
+   squash 4fa167b80 Address feedback 1
+   squash 7d54e15ee Address feedback 2
+   ```
 
    이것은 커밋 `4fa167b80 Address feedback 1` 과 `7d54e15ee Address feedback 2` 를 `d875112ca Original commit` 으로 스쿼시한다.
    타임라인의 일부로 `d875112ca Original commit` 만 남긴다.
@@ -612,9 +612,9 @@ PR의 **Commits** 탭에서 또는 `git log` 명령을 로컬에서 실행하여
 
 1. 스쿼시된 커밋을 푸시한다.
 
-    ```bash
-    git push --force-with-lease origin <branch_name>
-    ```
+   ```bash
+   git push --force-with-lease origin <branch_name>
+   ```
 
 ## 다른 리포지터리에 기여하기
 
