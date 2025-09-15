@@ -383,9 +383,9 @@ After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
 
-## Revision History for StatefulSets
+## Revision history
 
-ControllerRevisions are Kubernetes objects used by controllers, such as the StatefulSets controller, to track historical configuration changes. 
+ControllerRevision is a Kubernetes API resource used by controllers, such as the StatefulSet controller, to track historical configuration changes. 
 
 StatefulSets use ControllerRevisions to maintain a revision history, enabling rollbacks and version tracking.
 
@@ -400,7 +400,7 @@ When you update a StatefulSet's Pod template (`spec.template`), the StatefulSet 
 
 #### Key Properties
 
-ControllerREvision key properties and other details can be checked [here](docs/reference/kubernetes-api/workload-resources/controller-revision-v1/) 
+ControllerRevision key properties and other details can be checked [here](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/) 
 
 ---
 
@@ -469,9 +469,9 @@ kubectl get controllerrevision/webapp-3 -o yaml
 
 ##### Avoid
 
-- Manual edits to ControllerRevision objects  
-- Using revisions as a backup mechanism (use actual backup tools)  
-- Setting `revisionHistoryLimit: 0` (disables rollback capability)
+- Manual edits to ControllerRevision objects.  
+- Using revisions as a backup mechanism (use actual backup tools).
+- Setting `revisionHistoryLimit: 0` (disables rollback capability).
 
 ## PersistentVolumeClaim retention
 
