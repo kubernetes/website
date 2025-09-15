@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: 'Announcing Changed Block Tracking API support (alpha)'
-date: 2025-05-14T18:30:00+05:30
-draft: true
+date: 2025-09-25T05:00:00-08:00
 slug: csi-changed-block-tracking
 author: >
    [Prasad Ghangal](https://github.com/PrasadG193) (Veeam Kasten)
