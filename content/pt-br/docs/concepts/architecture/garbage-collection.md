@@ -190,7 +190,7 @@ Adicionalmente, containers pertencentes a pods que foram excluídos são removid
 que são mais antigos que `MinAge`.
 
 {{<note>}}
-O kubelet só coleta lixo dos containers que gerencia.
+O coletor de lixo do kubelet só remove contêineres que gerencia.
 {{</note>}}
 
 ## Configurando coleta de lixo {#configuring-gc}
