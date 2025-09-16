@@ -46,10 +46,10 @@ Se não existir, a referência de proprietário é tratada como ausente, e o dep
 está sujeito à exclusão uma vez que todos os proprietários são verificados como ausentes.
 
 Dependentes com escopo de cluster só podem especificar proprietários com escopo de cluster.
-Na v1.20+, se um dependente com escopo de cluster especificar um tipo com namespace como proprietário,
+Nas versões 1.20 e superiores, se um dependente com escopo de cluster especificar um tipo com namespace como proprietário,
 ele é tratado como tendo uma referência de proprietário não resolvível, e não pode ser coletado como lixo.
 
-Na v1.20+, se o coletor de lixo detectar uma `ownerReference` inválida entre namespaces,
+Nas versões v1.20 e superiores, se o coletor de lixo detectar uma `ownerReference` inválida entre namespaces,
 ou um dependente com escopo de cluster com uma `ownerReference` referenciando um tipo com namespace, um Event de aviso
 com um motivo de `OwnerRefInvalidNamespace` e um `involvedObject` do dependente inválido é reportado.
 Você pode verificar esse tipo de Event executando
