@@ -25,7 +25,7 @@ weight: 5
 
 {{% code_sample file="application/basic-daemonset.yaml" %}}
 
-1. (YAML) 매니페스트를 기반으로 데몬셋을 생성한다:
+1. (YAML) 매니페스트를 기반으로 데몬셋을 생성한다.
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/basic-daemonset.yaml
@@ -37,7 +37,7 @@ weight: 5
    kubectl get pods -o wide
    ```
 
-   출력은 다음과 같이 노드별로 하나의 파드를 보여줄 것이다:
+   출력은 다음과 같이 노드별로 하나의 파드를 보여줄 것이다.
 
    ```
    NAME                                READY   STATUS    RESTARTS   AGE    IP       NODE
@@ -46,7 +46,7 @@ weight: 5
    ```
 
 1. 호스트에서 마운트한 로그 디렉터리를 확인하여 로그에 기록된 `/etc/machine-id`
-   파일의 내용을 볼 수 있다:
+   파일의 내용을 볼 수 있다.
 
    ```shell
    kubectl exec <pod-name> -- cat /var/log/machine-id.log
@@ -56,17 +56,17 @@ weight: 5
 
 ## {{% heading "cleanup" %}}
 
-데몬셋을 삭제하려면 다음 명령어를 실행한다.
+데몬셋을 삭제하려면, 다음 명령어를 실행한다.
 
 ```shell
 kubectl delete --cascade=foreground --ignore-not-found --now daemonsets/example-daemonset
 ```
 
-이 간단한 데몬셋 예제는 초기화 컨테이너와 호스트 패스 볼륨 같은 핵심 컴포넌트를 소개하며, 
+이 간단한 데몬셋 예제는 초기화 컨테이너와 호스트 패스(host path) 볼륨 같은 핵심 컴포넌트를 소개하며, 
 더 고급 사용 사례로 확장할 수 있다. 더 자세한 내용은
 [데몬셋](/ko/docs/concepts/workloads/controllers/daemonset/)을 참고하자.
 
 ## {{% heading "whatsnext" %}}
 
-* [데몬셋에서 롤링 업데이트 수행](/ko/docs/tasks/manage-daemon/update-daemon-set/)을 참고한다.
+* [데몬셋(DaemonSet)에서 롤링 업데이트 수행](/ko/docs/tasks/manage-daemon/update-daemon-set/)을 참고한다.
 * [기존 데몬셋 파드를 인계받기 위한 데몬셋 생성](/ko/docs/concepts/workloads/controllers/daemonset/)을 참고한다.
