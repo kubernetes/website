@@ -59,7 +59,7 @@ Você pode verificar esse tipo de Event executando
 ## Exclusão em cascata {#cascading-deletion}
 
 O Kubernetes verifica e exclui objetos que não têm mais referências de proprietário,
-como os pods deixados para trás quando você exclui um ReplicaSet. Quando você
+como os Pods deixados para trás quando você exclui um ReplicaSet. Quando você
 exclui um objeto, pode controlar se o Kubernetes exclui os dependentes do objeto
 automaticamente, em um processo chamado _exclusão em cascata_. Existem
 dois tipos de exclusão em cascata, como segue:
@@ -186,11 +186,11 @@ em situações onde manter o número máximo de containers por Pod
 (`MaxContainers`). Nesta situação, o kubelet ajusta
 `MaxPerPodContainer` para resolver o conflito. Um cenário de pior caso seria
 rebaixar `MaxPerPodContainer` para `1` e despejar os containers mais antigos.
-Adicionalmente, containers pertencentes a pods que foram excluídos são removidos uma vez
+Adicionalmente, containers pertencentes a Pods que foram excluídos são removidos uma vez
 que são mais antigos que `MinAge`.
 
 {{<note>}}
-O coletor de lixo do kubelet só remove contêineres que gerencia.
+O coletor de lixo do kubelet só remove containers que gerencia.
 {{</note>}}
 
 ## Configurando coleta de lixo {#configuring-gc}
