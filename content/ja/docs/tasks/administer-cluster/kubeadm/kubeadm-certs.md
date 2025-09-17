@@ -35,7 +35,7 @@ kubeadmコマンドに対して、[kubeadmの設定](/docs/reference/config-api/
 そのためには、`--cert-dir`フラグまたはkubeadmの`ClusterConfiguration`の`certificatesDir`フィールドで指定された任意のディレクトリに配置する必要があります。
 デフォルトは`/etc/kubernetes/pki`です。
 
-`kubeadm init` を実行する前に既存の証明書と秘密鍵のペアが存在する場合、kubeadmはそれらを上書きしません。
+`kubeadm init`を実行する前に既存の証明書と秘密鍵のペアが存在する場合、kubeadmはそれらを上書きしません。
 つまり、例えば既存のCAを`/etc/kubernetes/pki/ca.crt`と`/etc/kubernetes/pki/ca.key`にコピーすれば、kubeadmは残りの証明書に署名する際、このCAを使用できます。
 
 ## 暗号化アルゴリズムの選択 {#choosing-encryption-algorithm}
