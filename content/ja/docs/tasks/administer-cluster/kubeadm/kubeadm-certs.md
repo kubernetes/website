@@ -53,7 +53,7 @@ encryptionAlgorithm: <ALGORITHM>
 
 ## 証明書の有効期間の選択 {#choosing-cert-validity-period}
 
-kubeadmでは、CAまたはリーフ証明書の有効期限を選択可能です。
+kubeadmでは、CAおよびリーフ証明書の有効期間を選択可能です。
 設定するには、kubeadmの設定ファイルにて、`certificateValidityPeriod`、`caCertificateValidityPeriod`フィールドを使用します。
 
 ```yaml
