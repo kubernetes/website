@@ -440,7 +440,7 @@ sudo kubeadm init phase certs sa
 sudo kubeadm certs generate-csr
 ```
 
-外部etcdを使用する場合は、　kubeadmとetcdノードに必要なCSRファイルについて理解するために、[kubeadmを使用した外部etcd](/docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)のガイドを参照してください。
+外部etcdを使用する場合は、kubeadmとetcdノードに必要なCSRファイルについて理解するために、[kubeadmを使用した外部etcd](/docs/setup/production-environment/tools/kubeadm/high-availability/#external-etcd-nodes)のガイドを参照してください。
 `/etc/kubernetes/pki/etcd`配下にある他の`.csr`および`.key`ファイルは削除して構いません。
 
 [kubelet.confに対する考慮事項](#considerations-kubelet-conf)の説明に基づいて、`kubelet.conf`および`kubelet.conf.csr`ファイルを保持するか削除します。
