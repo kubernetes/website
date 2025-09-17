@@ -105,7 +105,7 @@ kubeadmは、`openssl`のようなツールと外部CAを使用して手動で�
 全てのノードにて資格情報を準備した後、これらのノードをクラスターに参加させるために`kubeadm init`および`kubeadm join`を実行します。
 kubeadmは`/etc/kubernetes/`および`pki`サブディレクトリ配下に存在するkubeconfigと証明書を使用します。
 
-## 証明書の有効期限の確認 {#check-certificate-expiration}
+## 証明書の有効期限と管理 {#check-certificate-expiration}
 
 {{< note >}}
 `kubeadm`は、外部CAによって署名された証明書を管理することができません。
