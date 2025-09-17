@@ -68,7 +68,7 @@ caCertificateValidityPeriod: 87600h # デフォルト: 365日 × 24時間 * 10 =
 ## 外部CAモード {#external-ca-mode}
 
 また、`ca.crt`ファイルのみを提供し、`ca.key`ファイルを提供しないことも可能です(これはルートCAファイルのみに有効で、他の証明書ペアには有効ではありません)。
-他の証明書とkubeconfigファイルがすべて揃っている場合、kubeadmはこの状態を認識し、外部CAモードを有効にします。
+他の証明書とkubeconfigファイルがすべて揃っている場合、kubeadmはこの状態を認識し、「外部CA」モードを有効にします。
 kubeadmはディスク上のCAキーがなくても処理を進めます。
 
 代わりに、`--controllers=csrsigner`を使用してController-managerをスタンドアロンで実行し、CA証明書と鍵を指定します。
