@@ -100,8 +100,7 @@ kubeadmは、`openssl`のようなツールと外部CAを使用して手動で�
 - `kubeadm join`を実行するノードでは、`/etc/kubernetes/kubelet.conf`も削除します。
 このファイルは`kubeadm init`が実行される最初のノードでのみ必要とされます。
 - `pki/sa.*`、`pki/front-proxy-ca.*`、`pki/etc/ca.*`等のファイルは、コントロールプレーンノード間で共有されます。
-`kubeadm join`を実行するノードに[手動で証明書を配布する](/docs/setup/production-environment/tools/kubeadm/high-availability/#manual-certs)
-か、`kubeadm init`の[`--upload-certs`](/docs/setup/production-environment/tools/kubeadm/high-availability/#stacked-control-plane-and-etcd-nodes)オプションおよび`kubeadm join`の`--certificate-key`オプションを使用することでこれらを自動配布します。
+`kubeadm join`を実行するノードに[手動で証明書を配布する](/docs/setup/production-environment/tools/kubeadm/high-availability/#manual-certs)か、`kubeadm init`の[`--upload-certs`](/docs/setup/production-environment/tools/kubeadm/high-availability/#stacked-control-plane-and-etcd-nodes)オプションおよび`kubeadm join`の`--certificate-key`オプションを使用することでこれらを自動配布します。
 
 全てのノードにて資格情報を準備した後、これらのノードをクラスターに参加させるために`kubeadm init`および`kubeadm join`を実行します。
 kubeadmは`/etc/kubernetes/`および`pki`サブディレクトリ配下に存在するkubeconfigと証明書を使用します。
