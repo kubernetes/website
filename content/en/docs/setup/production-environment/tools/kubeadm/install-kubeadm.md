@@ -309,11 +309,11 @@ exist by default, and it should be created before the curl command.
 
 3. Install kubelet, kubeadm and kubectl:
 
-For systems with DNF:
+   For systems with DNF:
    ```shell
    sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
    ```
-For systems with DNF5:
+   For systems with DNF5:
    ```shell
    sudo yum install -y kubelet kubeadm kubectl --setopt=disable_excludes=kubernetes
    ```
