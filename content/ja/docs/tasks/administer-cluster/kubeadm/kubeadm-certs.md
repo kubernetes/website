@@ -142,7 +142,7 @@ front-proxy-ca          Dec 28, 2029 23:36 UTC   9y              no
 
 また、証明書が外部管理されている場合、kubeadmはユーザーに通知します。この場合、ユーザーは証明書の更新を手動または他のツールを使用して管理する必要があります。
 
-kubeadmは`/var/lib/kubelet/pki`以下にある更新可能な証明書でkubeletの[証明書の自動更新](/docs/tasks/tls/certificate-rotation/)を構成するので`kubelet.conf`は上記のリストに含まれません。
+kubeadmは`/var/lib/kubelet/pki`配下にあるローテーション可能な証明書でkubeletの[証明書の自動更新](/docs/tasks/tls/certificate-rotation/)を構成するため、`kubelet.conf`は上記のリストに含まれません。
 期限切れのkubeletクライアント証明書を修復するには、[Kubelet クライアント証明書のローテーションに失敗しました](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#kubelet-client-cert)を参照ください。
 
 {{< note >}}
