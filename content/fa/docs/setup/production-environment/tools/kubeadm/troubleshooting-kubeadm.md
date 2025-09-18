@@ -76,7 +76,7 @@ subjects:
 - برای کاربران اوبونتو/دبیان، دستور `apt install ebtables ethtool` را اجرا کنید.
 - برای کاربران CentOS/Fedora، دستور `yum install ebtables ethtool` را اجرا کنید.
 
-## گروه های kubeadm در هنگام نصب در انتظار control plane هستند
+## kubeadm در هنگام نصب در انتظار control plane می‌ماند
 
 اگر متوجه شدید که `kubeadm init` پس از چاپ خط زیر هنگ می‌کند:
 
@@ -115,9 +115,9 @@ sudo kubeadm reset
 - اگر پادها درست بعد از `kubeadm init` در یکی از این حالت‌ها هستند، لطفاً یک مشکل را در مخزن kubeadm باز کنید. `coredns` (یا `kube-dns`) باید تا زمانی که افزونه شبکه را مستقر نکرده‌اید، در حالت `Pending` باشد.
 - اگر پس از نصب افزونه شبکه، Pods را در حالت‌های `RunContainerError`، `CrashLoopBackOff` یا `Error` مشاهده کردید و هیچ اتفاقی برای `coredns` (یا `kube-dns`) نیفتاد، به احتمال زیاد افزونه Pod Network که نصب کرده‌اید به نحوی خراب است. ممکن است مجبور شوید امتیازات RBAC بیشتری به آن اعطا کنید یا از نسخه جدیدتری استفاده کنید. لطفاً مشکل را در ردیاب مشکلات ارائه دهندگان Pod Network ثبت کنید و مشکل را در آنجا بررسی کنید.
 
-## «coredns» در حالت «در انتظار» گیر کرده است
+## «coredns» در حالت `Pending` گیر کرده است
 
-این **انتظار** می‌رود و بخشی از طراحی است. kubeadm مستقل از ارائه‌دهنده شبکه است، بنابراین مدیر باید افزونه شبکه pod را نصب کند (/docs/concepts/cluster-administration/addons/). شما باید قبل از اینکه CoreDNS به طور کامل مستقر شود، یک افزونه Pod Networ  نصب کنید. از این رو، قبل از راه‌اندازی شبکه، در حالت «در انتظار» قرار دارد.
+این **انتظار** می‌رود و بخشی از طراحی است. kubeadm مستقل از ارائه‌دهنده شبکه است، بنابراین مدیر باید [افزونه شبکه](/docs/concepts/cluster-administration/addons/) pod را نصب کند. شما باید قبل از اینکه CoreDNS به طور کامل مستقر شود، یک افزونه Pod Network نصب کنید. از این رو، قبل از راه‌اندازی شبکه، در حالت «در انتظار» قرار دارد.
 
 ## سرویس‌های HostPort کار نمی‌کنند
 
@@ -125,7 +125,7 @@ sudo kubeadm reset
 
 ارائه دهندگان CNI مربوط به Calico، Canal و Flannel تأیید شده‌اند که از HostPort پشتیبانی می‌کنند.
 
-برای اطلاعات بیشتر، به [مستندات نقشه پورت CNI] (https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md) مراجعه کنید.
+برای اطلاعات بیشتر، به [مستندات نقشه پورت CNI](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md) مراجعه کنید.
 
 اگر ارائه دهنده شبکه شما از افزونه portmap CNI پشتیبانی نمی‌کند، ممکن است لازم باشد از [ویژگی NodePort سرویس‌ها](/docs/concepts/services-networking/service/#type-nodeport) استفاده کنید یا از `HostNetwork=true` استفاده کنید.
 
@@ -167,7 +167,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
   ```
 
-## عدم موفقیت در چرخش گواهی کلاینت Kubelet {#-گواهی-مشتری kubelet}
+## عدم موفقیت در چرخش گواهی کلاینت Kubelet {#kubelet-client-cert}
 
 به طور پیش‌فرض، kubeadm با استفاده از پیوند نمادین `/var/lib/kubelet/pki/kubelet-client-current.pem` که در `/etc/kubernetes/kubelet.conf` مشخص شده است، یک kubelet با چرخش خودکار گواهینامه‌های کلاینت پیکربندی می‌کند.
 اگر این فرآیند چرخش با شکست مواجه شود، ممکن است خطاهایی مانند `x509: certificate has expired or is not yet valid` در لاگ‌های kube-apiserver مشاهده کنید. برای رفع مشکل، باید این مراحل را دنبال کنید:
@@ -201,7 +201,7 @@ Error from server (NotFound): the server could not find the requested resource
   این ممکن است منجر به مشکلاتی در flannel شود، که به طور پیش‌فرض روی اولین رابط روی یک میزبان قرار می‌گیرد.
 
   این امر باعث می‌شود همه میزبان‌ها فکر کنند که نشانی IP عمومی یکسانی دارند. برای جلوگیری از این،
-  پرچم "--face eth1" را به flannel ارسال کنید تا رابط دوم انتخاب شود.
+  پرچم `--face eth1` را به flannel ارسال کنید تا رابط دوم انتخاب شود.
 
 ## IP غیر عمومی مورد استفاده برای کانتینرها
 
@@ -396,7 +396,7 @@ x509: certificate is valid for IP-foo not IP-bar
 
 برای درک نحوه پیکربندی kubeletها در یک خوشه(cluster) kubeadm برای داشتن گواهی‌های سرویس‌دهی امضا شده، به [فعال‌سازی گواهی‌های سرویس‌دهی امضا شده kubelet](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs) مراجعه کنید.
 
-همچنین به [نحوه اجرای امن سرور metrics] (https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely) مراجعه کنید.
+همچنین به [نحوه اجرای امن سرور metrics](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely) مراجعه کنید.
 
 ## به دلیل تغییر نکردن هش etcd، ارتقا با شکست مواجه می‌شود
 

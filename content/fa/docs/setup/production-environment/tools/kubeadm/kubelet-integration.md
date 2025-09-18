@@ -16,7 +16,7 @@ weight: 80
 
 از آنجایی که kubelet یک سرویس (daemon) است، باید توسط نوعی سیستم init یا مدیر سرویس نگهداری شود. وقتی kubelet با استفاده از DEBها یا RPMها نصب می‌شود، systemd برای مدیریت kubelet پیکربندی می‌شود. می‌توانید به جای آن از یک مدیر سرویس متفاوت استفاده کنید، اما باید آن را به صورت دستی پیکربندی کنید.
 
-برخی از جزئیات پیکربندی kubelet باید در تمام kubelet های موجود در خوشه(cluster) یکسان باشد، در حالی که سایر جنبه‌های پیکربندی باید بر اساس هر kubelet تنظیم شوند تا با ویژگی‌های مختلف یک ماشین خاص (مانند سیستم عامل، فضای ذخیره‌سازی و شبکه) سازگار شوند. شما می‌توانید پیکربندی kubelet های خود را به صورت دستی مدیریت کنید، اما kubeadm اکنون یک نوع API از نوع `KubeletConfiguration` را برای [مدیریت پیکربندی‌های kubelet خود به صورت مرکزی](#configure-kubelets-using-kubeadm) ارائه می‌دهد.
+برخی از جزئیات پیکربندی kubelet باید در تمام kubelet های موجود در خوشه(cluster) یکسان باشد، در حالی که سایر جنبه‌های پیکربندی باید بر اساس هر kubelet تنظیم شوند تا با ویژگی‌های مختلف یک ماشین خاص (مانند سیستم عامل، فضای ذخیره‌سازی و شبکه) سازگار شوند. شما می‌توانید پیکربندی kubelet های خود را به صورت دستی مدیریت کنید، اما kubeadm اکنون یک نوع API از نوع `KubeletConfiguration` را برای [مدیریت پیکربندی‌های kubelet خود به صورت مرکزی](#پیکربندی-kubelets-با-استفاده-از-kubeadm) ارائه می‌دهد.
 
 <!-- body -->
 
@@ -24,7 +24,7 @@ weight: 80
 
 بخش‌های زیر الگوهایی را برای پیکربندی kubelet شرح می‌دهند که با استفاده از kubeadm ساده شده‌اند، نه اینکه پیکربندی kubelet را برای هر گره(node) به صورت دستی مدیریت کنند.
 
-### انتشار پیکربندی سطح خوشه(cluster) به هر kubelet
+### انتشار پیکربندی سطح خوشه به هر kubelet
 
 شما می‌توانید مقادیر پیش‌فرض را برای استفاده توسط دستورات `kubeadm init` و `kubeadm join` به kubelet ارائه دهید. مثال‌های جالب شامل استفاده از یک مجری کانتینر متفاوت یا تنظیم زیرشبکه پیش‌فرض مورد استفاده توسط سرویس‌ها است.
 
@@ -34,7 +34,7 @@ weight: 80
 kubeadm init --service-cidr 10.96.0.0/12
 ```
 
-اکنون IPهای مجازی برای سرویس‌ها از این زیرشبکه اختصاص داده می‌شوند. همچنین باید نشانی(آدرس) DNS مورد استفاده توسط kubelet را با استفاده از پرچم `--cluster-dns` تنظیم کنید. این تنظیم باید برای هر kubelet روی هر مدیر و گره(node) در خوشه(cluster) یکسان باشد. kubelet یک شیء API نسخه‌بندی شده و ساختار یافته ارائه می‌دهد که می‌تواند اکثر پارامترها را در kubelet پیکربندی کند و این پیکربندی را به هر kubelet در حال اجرا در خوشه(cluster) ارسال کند. این شیء `[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/) نامیده می‌شود. `KubeletConfiguration` به کاربر اجازه می‌دهد پرچم‌هایی مانند نشانی‌(آدرس)های IP DNS خوشه(cluster) را که به صورت لیستی از مقادیر با کلید camelCased بیان می‌شوند، مشخص کند، که با مثال زیر نشان داده شده است:
+اکنون IPهای مجازی برای سرویس‌ها از این زیرشبکه اختصاص داده می‌شوند. همچنین باید نشانی(آدرس) DNS مورد استفاده توسط kubelet را با استفاده از پرچم `--cluster-dns` تنظیم کنید. این تنظیم باید برای هر kubelet روی هر مدیر و گره(node) در خوشه(cluster) یکسان باشد. kubelet یک شیء API نسخه‌بندی شده و ساختار یافته ارائه می‌دهد که می‌تواند اکثر پارامترها را در kubelet پیکربندی کند و این پیکربندی را به هر kubelet در حال اجرا در خوشه(cluster) ارسال کند. این شیء [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/) نامیده می‌شود. `KubeletConfiguration` به کاربر اجازه می‌دهد پرچم‌هایی مانند نشانی‌(آدرس)های IP DNS خوشه(cluster) را که به صورت لیستی از مقادیر با کلید camelCased بیان می‌شوند، مشخص کند، که با مثال زیر نشان داده شده است:
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -43,7 +43,7 @@ clusterDNS:
 - 10.96.0.10
 ```
 
-برای جزئیات بیشتر در مورد `KubeletConfiguration`، به [این بخش](#تنظیم kubelet با استفاده از kubeadm) نگاهی بیندازید.
+برای جزئیات بیشتر در مورد `KubeletConfiguration`، به [این بخش](#پیکربندی-kubelets-با-استفاده-از-kubeadm) نگاهی بیندازید.
 
 ### ارائه جزئیات پیکربندی مختص به هر نمونه
 
@@ -69,9 +69,9 @@ clusterDNS:
 
 ### گردش کار هنگام استفاده از `kubeadm init`
 
-وقتی `kubeadm init` را فراخوانی می‌کنید، پیکربندی kubelet در مسیر `/var/lib/kubelet/config.yaml` روی دیسک ذخیره می‌شود و همچنین در یک نقشه پیکربندی `kubelet-config` در فضای نام `kube-system` خوشه(cluster) آپلود می‌شود. یک پرونده(فایل) پیکربندی kubelet همچنین در مسیر `/etc/kubernetes/kubelet.conf` با پیکربندی پایه در سطح خوشه(cluster) برای همه kubelet های خوشه(cluster) نوشته می‌شود. این پرونده(فایل) پیکربندی به گواهی‌های کلاینت اشاره می‌کند که به kubelet اجازه می‌دهد با سرور API ارتباط برقرار کند. این امر نیاز به `[انتشار پیکربندی سطح خوشه(cluster) به هر kubelet](#انتشار-پیکربندی-سطح-خوشه(cluster)-به-هر-kubelet)` را برطرف می‌کند.
+وقتی `kubeadm init` را فراخوانی می‌کنید، پیکربندی kubelet در مسیر `/var/lib/kubelet/config.yaml` روی دیسک ذخیره می‌شود و همچنین در یک نقشه پیکربندی `kubelet-config` در فضای نام `kube-system` خوشه(cluster) آپلود می‌شود. یک پرونده(فایل) پیکربندی kubelet همچنین در مسیر `/etc/kubernetes/kubelet.conf` با پیکربندی پایه در سطح خوشه(cluster) برای همه kubelet های خوشه(cluster) نوشته می‌شود. این پرونده(فایل) پیکربندی به گواهی‌های کلاینت اشاره می‌کند که به kubelet اجازه می‌دهد با سرور API ارتباط برقرار کند. این امر نیاز به [انتشار پیکربندی سطح خوشه(cluster) به هر kubelet](#انتشار-پیکربندی-سطح-خوشه-به-هر-kubelet) را برطرف می‌کند.
 
-برای پرداختن به الگوی دومِ [ارائه جزئیات پیکربندی مختص به نمونه](#ارائه-جزئیات-پیکربندی-مختص-به-نمونه)، kubeadm یک پرونده(فایل) محیطی را در `/var/lib/kubelet/kubeadm-flags.env` می‌نویسد که شامل فهرستی از پرچم‌هایی است که باید هنگام شروع به kubelet منتقل شوند. پرچم‌ها در پرونده(فایل) به این شکل ارائه می‌شوند:
+برای پرداختن به الگوی دومِ [ارائه جزئیات پیکربندی مختص به نمونه](#ارائه-جزئیات-پیکربندی-مختص-به-هر-نمونه)، kubeadm یک پرونده(فایل) محیطی را در `/var/lib/kubelet/kubeadm-flags.env` می‌نویسد که شامل فهرستی از پرچم‌هایی است که باید هنگام شروع به kubelet منتقل شوند. پرچم‌ها در پرونده(فایل) به این شکل ارائه می‌شوند:
 
 ```bash
 KUBELET_KUBEADM_ARGS="--flag1=value1 --flag2=value2 ..."
@@ -102,12 +102,12 @@ systemctl daemon-reload && systemctl restart kubelet
 
 وقتی پرونده(فایل) `/etc/kubernetes/kubelet.conf` نوشته می‌شود، kubelet اجرای TLS راه انداز را به پایان رسانده است. Kubeadm پس از تکمیل TLS  راه انداز ، پرونده(فایل) `/etc/kubernetes/bootstrap-kubelet.conf` را حذف می‌کند.
 
-##  پرونده(فایل) افزایش قابلیت kubelet برای systemd
+##  پرونده نصبی kubelet برای systemd
 
 `kubeadm` به همراه پیکربندی نحوه‌ی اجرای kubelet توسط systemd ارائه می‌شود.
 توجه داشته باشید که دستور kubeadm CLI (فایل)هرگز به این پرونده drop-in دست نمی‌زند.
 
-این پرونده(فایل) پیکربندی که توسط بسته `kubeadm` (https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf) نصب شده است، در مسیر `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf` نوشته شده و توسط systemd استفاده می‌شود. این پرونده، بسته اصلی `kubelet.service` (https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service) را تکمیل می‌کند.
+این پرونده پیکربندی که توسط [بسته kubeadm](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf) نصب شده است، در مسیر `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf` نوشته شده و توسط systemd استفاده می‌شود. این پرونده، بسته اصلی [`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service) را تکمیل می‌کند.
 
 اگر می‌خواهید این مورد را بیشتر تغییر دهید، می‌توانید یک پوشه به نشانی(آدرس) `/etc/systemd/system/kubelet.service.d/` (نه `/usr/lib/systemd/system/kubelet.service.d/`) ایجاد کنید و تنظیمات شخصی‌سازی خود را در یک پرونده(فایل) در آنجا قرار دهید. برای مثال، می‌توانید یک پرونده(فایل) محلی جدید به نشانی(آدرس) `/etc/systemd/system/kubelet.service.d/local-overrides.conf` اضافه کنید تا تنظیمات واحد پیکربندی شده توسط `kubeadm` را تغییر دهید.
 
@@ -148,8 +148,8 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELE
 
 | Package name | Description |
 |--------------|-------------|
-| `kubeadm`    | ابزار خط فرمان `/usr/bin/kubeadm` (فایل)و پرونده [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) را برای kubelet نصب می‌کند. |
+| `kubeadm`    | ابزار خط فرمان `/usr/bin/kubeadm` و [پرونده نصبی kubelet](#پرونده-نصبی-kubelet-برای-systemd) را برای kubelet نصب می‌کند. |
 | `kubelet`    | (باینری)پرونده(فایل) دودویی `/usr/bin/kubelet` را نصب می‌کند. |
 | `kubectl`    | (باینری)پرونده(فایل) دودویی `/usr/bin/kubectl` را نصب می‌کند. |
-| `cri-tools`   | (باینری)پرونده(فایل) دودویی `/usr/bin/crictl` را از مخزن گیت [cri-tools] (https://github.com/kubernetes-sigs/cri-tools) نصب می‌کند. |
+| `cri-tools`   | (باینری)پرونده(فایل) دودویی `/usr/bin/crictl` را از مخزن گیت [cri-tools](https://github.com/kubernetes-sigs/cri-tools) نصب می‌کند. |
 | `kubernetes-cni` | (باینری)پرونده‌(فایل)های دودویی `/opt/cni/bin` را از مخزن [plugins git](https://github.com/containernetworking/plugins) نصب می‌کند. |
