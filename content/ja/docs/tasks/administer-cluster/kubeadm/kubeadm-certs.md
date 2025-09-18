@@ -480,7 +480,7 @@ DAYS=365
 find ./ -name "*.csr" | grep -v "pki/etcd" | grep -v "front-proxy" | while read -r FILE;
 do
     echo "* Processing ${FILE} ..."
-    FILE=${FILE%.*} # 拡張子を切り取る
+    FILE=${FILE%.*} # 拡張子を取り除く
     if [ -f "./pki/ca.srl" ]; then
         SERIAL_FLAG="-CAserial ./pki/ca.srl"
     else
