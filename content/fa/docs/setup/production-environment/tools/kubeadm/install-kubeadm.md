@@ -12,7 +12,7 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 این صفحه نحوه نصب جعبه ابزار `kubeadm` را نشان می‌دهد.
-برای کسب اطلاعات در مورد نحوه ایجاد یک خوشه(cluster) با kubeadm پس از انجام این فرآیند نصب، به صفحه [ایجاد یک خوشه(cluster) با kubeadm]( /docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/ ) مراجعه کنید.
+برای کسب اطلاعات در مورد نحوه ایجاد یک خوشه(cluster) با kubeadm پس از انجام این فرآیند نصب، به صفحه [ایجاد یک خوشه با kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) مراجعه کنید.
 
 {{< doc-versions-list "راهنمای نصب" >}}
 
