@@ -271,7 +271,8 @@ serverTLSBootstrap: true
 すでにクラスターを作成している場合は、以下の手順で適応させる必要があります。
 
 - `kube-system` namespace中の`kubelet-config` ConfigMapを探して編集します。
-このConfigMapでは、`kubelet`キーに対して、[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)ドキュメントの値を指定します。KubeletConfigurationの項目を編集し、`serverTLSBootstrap: true`を設定します。
+このConfigMap内には、`kubelet`キーの値として、[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)に関する記述が存在します。
+KubeletConfigurationの内容を編集し、`serverTLSBootstrap: true`を設定します。
 - 各ノードで、`/var/lib/kubelet/config.yaml`に`serverTLSBootstrap: true`フィールドを追加し、`systemctl restart kubelet`でkubeletを再起動します。
 
 `serverTLSBootstrap: true`フィールドは、`certificates.k8s.io` APIからkubeletのサーバー証明書をリクエストすることで、kubeletサーバー証明書のブートストラップを有効にします。
