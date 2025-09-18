@@ -250,7 +250,7 @@ kubeadmによって生成されたCSRの署名についての詳細は、[kubead
 
 kubeadmは、CA証明書のローテーションや置換を標準ではサポートしていません。
 
-CAの手動更新や置換についての詳細は、[CA証明書の手動更新](/docs/tasks/tls/manual-rotation-of-ca-certificates/)を参照してください。
+CAの手動ローテーションや置換についての詳細は、[CA証明書の手動ローテーション](/docs/tasks/tls/manual-rotation-of-ca-certificates/)を参照してください。
 
 ## 署名付きkubeletサーバー証明書の有効化 {#kubelet-serving-certs}
 
