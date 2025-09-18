@@ -457,8 +457,7 @@ sudo kubeadm certs generate-csr
 
 {{< note >}}
 外部CAを使用し、`openssl`用のCAのシリアル番号ファイル(`.srl`)が既に存在する場合は、これらのファイルをCSRを署名するkubeadmノードにコピーできます。
-コピーする`.srl`ファイルは、`/etc/kubernetes/pki/ca.srl`、
-`/etc/kubernetes/pki/front-proxy-ca.srl`および`/etc/kubernetes/pki/etcd/ca.srl`です。
+コピーする`.srl`ファイルは、`/etc/kubernetes/pki/ca.srl`、`/etc/kubernetes/pki/front-proxy-ca.srl`および`/etc/kubernetes/pki/etcd/ca.srl`です。
 その後、これらのファイルをCSRファイルに署名する新たなノードに移動できます。
 
 ノード上のCAに対して`.srl`ファイルが存在しない場合、以下のスクリプトはランダムな開始シリアル番号を持つ新規のSRLファイルを生成します。
