@@ -298,8 +298,8 @@ kubectl certificate approve <CSR-name>
 
 デフォルトでは、これらのサーバー証明書は1年後に失効します。
 kubeadmは`KubeletConfiguration`フィールドの`rotateCertificates`を`true`に設定します。
-これは有効期限が切れる間際に、サーバー証明書のための新しいCSRセットを作成し、更新を完了するために承認する必要があることを意味します。
-詳しくは[証明書の更新](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation)を参照してください。
+これは有効期限が切れる間際に、サーバー証明書のための新しいCSRセットを作成し、ローテーションを完了するために承認する必要があることを意味します。
+詳しくは[証明書のローテーション](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation)を参照してください。
 
 これらのCSRを自動的に承認するためのソリューションをお探しの場合は、クラウドプロバイダーに連絡し、ノードの識別をアウトオブバンドのメカニズムで行うCSRの署名者がいるかどうか確認することをお勧めします。
 
