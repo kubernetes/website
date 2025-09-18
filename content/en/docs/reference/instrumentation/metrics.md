@@ -86,7 +86,7 @@ Stable metrics observe strict API contracts and no labels can be added or remove
 	<ul>
 	<li><label class="metric_detail">Stability Level:</label><span class="metric_stability_level">STABLE</span></li>
 	<li data-type="gauge"><label class="metric_detail">Type:</label> <span class="metric_type">Gauge</span></li>
-	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">resource</span></li></ul>
+	<li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">resource</span></li><li class="metric_deprecated_version"><label class="metric_detail">Deprecated Versions:</label><span>1.34.0</span></li></ul>
 	</div><div class="metric" data-stability="stable">
 	<div class="metric_name">apiserver_storage_size_bytes</div>
 	<div class="metric_help">Size of the storage database file physically allocated in bytes.</div>
