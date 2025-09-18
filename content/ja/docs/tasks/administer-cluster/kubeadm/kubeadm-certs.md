@@ -334,7 +334,7 @@ RBAC(kubeadmのデフォルト)をクラスターに使用している場合、`
 # example.yaml
 apiVersion: kubeadm.k8s.io/v1beta4
 kind: ClusterConfiguration
-# kubeconfig内にて、ターゲットの"cluster"として使用します。
+# kubeconfig内にて、対象の"cluster"として使用します。
 clusterName: "kubernetes"
 # kubeconfig内にて、このクラスターの"server"(IPもしくはDNS名)として使用します。
 controlPlaneEndpoint: "some-dns-address:6443"
