@@ -248,7 +248,7 @@ kubeadmによって生成されたCSRの署名についての詳細は、[kubead
 
 ## 認証局(CA)のローテーション {#certificate-authority-rotation}
 
-Kubeadmは、CA証明書の更新や置換を標準ではサポートしていません。。
+kubeadmは、CA証明書のローテーションや置換を標準ではサポートしていません。
 
 CAの手動更新や置換についての詳細は、[CA証明書の手動更新](/docs/tasks/tls/manual-rotation-of-ca-certificates/)を参照してください。
 
