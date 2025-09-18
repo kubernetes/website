@@ -315,7 +315,7 @@ kubeadmは`KubeletConfiguration`フィールドの`rotateCertificates`を`true`�
 
 クラスターの構築中、`kubeadm init`は`super-admin.conf`内の証明書に署名し、`Subject: O = system:masters, CN = kubernetes-super-admin`を設定します。
 [`system:masters`](/docs/reference/access-authn-authz/rbac/#user-facing-roles)は認可のレイヤーをバイパスする(例: [RBAC](/docs/reference/access-authn-authz/rbac/))、緊急用のスーパーユーザーグループです。
-`admin.conf`ファイルもkubeadmによってコントロールプレーン上にされ、`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`と設定された証明書が含まれています。
+`admin.conf`ファイルもkubeadmによってコントロールプレーン上に作成され、`Subject: O = kubeadm:cluster-admins, CN = kubernetes-admin`と設定された証明書が含まれています。
 `kubeadm:cluster-admins`はkubeadmが属している論理的なグループです。
 RBAC(kubeadmのデフォルト)をクラスターに使用している場合、`kubeadm:cluster-admins`グループを[`cluster-admin`](/docs/reference/access-authn-authz/rbac/#user-facing-roles) ClusterRoleにバインドされます。
 
