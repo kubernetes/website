@@ -403,8 +403,7 @@ sudo kubeadm init phase certs sa
 {{< /note >}}
 
 2番目以降のコントロールプレーンノード(`kubeadm join --control-plane`を実行します)では、上記のコマンドを実行する必要はありません。
-[高可用性](/docs/setup/production-environment/tools/kubeadm/high-availability)
-クラスターの構築方法に応じて、最初のコントロールプレーンノードから同じファイルを手動でコピーするか、`kubeadm init`の自動化された`--upload-certs`機能を使用する必要があります。
+[高可用性](/docs/setup/production-environment/tools/kubeadm/high-availability)クラスターの構築方法に応じて、最初のコントロールプレーンノードから同じファイルを手動でコピーするか、`kubeadm init`の自動化された`--upload-certs`機能を使用する必要があります。
 
 ### CSRの生成
 
