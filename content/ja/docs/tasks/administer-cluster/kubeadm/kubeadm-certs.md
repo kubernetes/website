@@ -274,7 +274,7 @@ serverTLSBootstrap: true
 このConfigMapでは、`kubelet`キーに対して、[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)ドキュメントの値を指定します。KubeletConfigurationの項目を編集し、`serverTLSBootstrap: true`を設定します。
 - 各ノードで、`/var/lib/kubelet/config.yaml`に`serverTLSBootstrap: true`フィールドを追加し、`systemctl restart kubelet`でkubeletを再起動します。
 
-`serverTLSBootstrap: true`フィールドは、`certificates.k8s.io`APIからkubeletのサーバー証明書をリクエストすることで、kubeletサーバー証明書のブートストラップを有効にします。
+`serverTLSBootstrap: true`フィールドは、`certificates.k8s.io` APIからkubeletのサーバー証明書をリクエストすることで、kubeletサーバー証明書のブートストラップを有効にします。
 
 既知の制限事項の1つとして、これらのCSR(証明書署名要求)はkube-controller-managerのデフォルトの署名者によって自動的に承認されないことが挙げられます。
 [`kubernetes.io/kubelet-serving`](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)を参照してください。
