@@ -373,8 +373,7 @@ kubeadmは全ての証明書とCSRに対し、[明確に定義された仕様](/
 
 `kubeadm certs generate-csr`にカスタムオプションを渡すには、`--config`フラグを使用します。
 このフラグは、`kubeadm init`と同様に、[kubeadmの設定](/docs/reference/config-api/kubeadm-config.v1beta4/)ファイルを受け入れます。
-追加のSANやカスタムIPアドレスなどの仕様については、関連の全てのkubeadmコマンドに使用するために、
-全て同じ設定ファイルに保存し、`--config`として渡す必要があります。
+追加のSANやカスタムIPアドレスなどの指定については、関連の全てのkubeadmコマンドに使用するために、全て同じ設定ファイルに保存し、`--config`として渡す必要があります。
 
 {{< note >}}
 このガイドでは、Kubernetesのデフォルトのディレクトリである`/etc/kubernetes`を使用しています。このディレクトリにはスーパーユーザー権限が必要です。
