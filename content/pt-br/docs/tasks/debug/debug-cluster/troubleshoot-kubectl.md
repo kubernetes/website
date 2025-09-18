@@ -54,8 +54,8 @@ de que você tem um arquivo `kubeconfig` válido. Se você não tiver um arquivo
 obtê-lo do seu administrador do Kubernetes, ou pode copiá-lo do diretório `/etc/kubernetes/admin.conf`
 da camada de gerenciamento do seu Kubernetes. Se você implantou seu
 cluster Kubernetes em uma plataforma de nuvem e perdeu seu arquivo `kubeconfig`, você pode
-regenerá-lo usando as ferramentas do seu provedor de nuvem. Consulte a
-documentação do provedor de nuvem para regenerar um arquivo `kubeconfig`.
+recriá-lo usando as ferramentas do seu provedor de nuvem. Consulte a
+documentação do provedor de nuvem para recriar um arquivo `kubeconfig`.
 
 Verifique se a variável de ambiente `$KUBECONFIG` está configurada corretamente. Você pode definir
 a variável de ambiente `$KUBECONFIG` ou usar o parâmetro `--kubeconfig` com o kubectl
