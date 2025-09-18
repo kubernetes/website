@@ -321,7 +321,7 @@ RBAC(kubeadmのデフォルト)をクラスターに使用している場合、`
 
 {{< warning >}}
 `super-admin.conf`および`admin.conf`ファイルを共有しないでください。
-代わりに、管理者として働くユーザーに対しても最小限の権限アクセスを作成し、緊急アクセス以外の場合にはその最小限の権限の代替手段を使用します。
+代わりに、管理者として従事するユーザーに対しても最小限のアクセス権限を作成し、緊急アクセス以外の場合にはその最小限の権限の代替手段を使用します。
 {{< /warning >}}
 
 [`kubeadm kubeconfig user`](/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig)コマンドを使用することで、追加ユーザー用のkubeconfigファイルを生成できます。
