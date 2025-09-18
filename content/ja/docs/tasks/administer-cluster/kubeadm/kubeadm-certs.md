@@ -244,7 +244,7 @@ kubeadmでは、通常ディスク上のCAによって署名される証明書�
 
 ### 証明書署名要求(CSR)による証明書の更新
 証明書の更新は、新たなCSRを作成し外部CAで署名することで実施できます。
-kubeadmによって生成されたCSRの署名についての詳細については、[kubeadmによって生成された証明書署名要求(CSR)の署名](#signing-csr)セクションを参照してください。
+kubeadmによって生成されたCSRの署名についての詳細は、[kubeadmによって生成された証明書署名要求(CSR)の署名](#signing-csr)セクションを参照してください。
 
 ## 認証局(CA)の更新 {#certificate-authority-rotation}
 
