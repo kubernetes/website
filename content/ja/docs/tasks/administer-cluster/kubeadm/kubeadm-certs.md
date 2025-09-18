@@ -417,8 +417,7 @@ sudo kubeadm init phase certs sa
 `ca.key`ファイルをコントロールプレーンから削除している場合([外部CAモード](#external-ca-mode))、クラスターで実行中のkube-controller-managerはkubeletクライアント証明書への署名ができなくなります。
 構成内にこれらの証明書へ署名するための外部の方法([外部署名者](#set-up-a-signer)など)が存在しない場合は、このガイドで説明されているように、`kubelet.conf.csr`に手動で署名できます。
 
-なお、これにより、自動による[kubeletクライアント証明書のローテーション](/docs/tasks/tls/certificate-rotation/#enabling-client-certificate-rotation)
-が無効になることに注意してください。
+なお、これにより、自動による[kubeletクライアント証明書のローテーション](/docs/tasks/tls/certificate-rotation/#enabling-client-certificate-rotation)が無効になることに注意してください。
 その場合は、証明書の有効期限が近づいたら、新しい`kubelet.conf.csr`を生成し、証明書に署名して`kubelet.conf`に埋め込み、kubeletを再起動する必要があります。
 
 `ca.key`ファイルがコントロールプレーンノード上に存在する場合、2番目以降のコントロールプレーンノードおよびワーカーノード(`kubeadm join ...`を実行する全てのノード)では、`kubelet.conf.csr`の処理をスキップできます。
