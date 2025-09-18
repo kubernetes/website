@@ -138,7 +138,7 @@ etcd-ca                 Dec 28, 2029 23:36 UTC   9y              no
 front-proxy-ca          Dec 28, 2029 23:36 UTC   9y              no
 ```
 
-このコマンドは、`/etc/kubernetes/pki`フォルダ内のクライアント証明書と、kubeadmが使用するKUBECONFIGファイル(`admin.conf`,`controller-manager.conf`,`scheduler.conf`)に埋め込まれたクライアント証明書の有効期限/残余時間を表示します。
+このコマンドは、`/etc/kubernetes/pki`フォルダ内のクライアント証明書と、kubeadmが使用するkubeconfigファイル(`admin.conf`、`controller-manager.conf`、`scheduler.conf`)に埋め込まれたクライアント証明書の有効期限/残余時間を表示します。
 
 また、証明書が外部管理されている場合、kubeadmはユーザーに通知します。この場合、ユーザーは証明書の更新を手動または他のツールを使用して管理する必要があります。
 
