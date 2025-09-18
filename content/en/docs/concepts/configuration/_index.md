@@ -51,10 +51,10 @@ A Secret is an object that contains an amount of confidential data,
 such as a password, a token, or a key.
 
 Secrets are similar to {{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
-but are specifically intended to hold confidential data. Read the page about Secrets
+but are specifically intended to hold confidential data. Read the page about [Secrets](/docs/concepts/configuration/secret/)
 to learn about the benefits (and limitations) around information security and Secrets.
 
-## Configuration via helper containers {#config-helper-overview}
+## Configuration via sidecar containers or init containers {#config-helper-overview}
 
 You can also use an 
 {{< glossary_tooltip text="init container" term_id="init-container" >}} or a
