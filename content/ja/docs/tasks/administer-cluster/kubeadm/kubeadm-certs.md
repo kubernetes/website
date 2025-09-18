@@ -175,7 +175,7 @@ kubeadmはコントロールプレーンの[アップグレード](/docs/tasks/a
 それでも、Kubernetesプロジェクトでは、混乱のリスクを避けるために証明書とConfigMap内の関連した値を同期したままにしておくことを推奨しています。
 
 コマンド実行後、コントロールプレーンのPodを再起動する必要があります。
-これは、現在は動的な証明書のリロードがサポートされていないため、すべてのコンポーネントと証明書に対して必要な作業です。
+これは、現在は動的な証明書のリロードが、すべてのコンポーネントと証明書でサポートされているわけではないため、必要な作業です。
 [static Pod](/docs/tasks/configure-pod-container/static-pod/)はローカルkubeletによって管理され、APIサーバーによって管理されないため、kubectlで削除および再起動することはできません。
 スタティックPodを再起動するには、一時的に`/etc/kubernetes/manifests/`からマニフェストファイルを削除して20秒間待ちます([KubeletConfiguration構造体](/docs/reference/config-api/kubelet-config.v1beta1/)の`fileCheckFrequency`値を参照してください)。
 マニフェストディレクトリにてマニフェストファイルが存在しなくなると、kubeletはPodを終了します。
