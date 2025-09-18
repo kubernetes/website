@@ -495,7 +495,7 @@ done
 find ./pki/etcd -name "*.csr" | while read -r FILE;
 do
     echo "* Processing ${FILE} ..."
-    FILE=${FILE%.*} # Trim the extension
+    FILE=${FILE%.*} # 拡張子を取り除く
     if [ -f "./pki/etcd/ca.srl" ]; then
         SERIAL_FLAG=-CAserial ./pki/etcd/ca.srl
     else
