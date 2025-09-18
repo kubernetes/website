@@ -8,7 +8,6 @@ spec:
     image: nginx
     # 상태 확인(health check) 정의
     livenessProbe:
-      # an http probe
       # http 프로브
       httpGet:
         path: /_status/healthz

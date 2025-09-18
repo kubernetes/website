@@ -9,7 +9,6 @@ spec:
     # 상태 확인(health check) 정의
     livenessProbe:
       # TCP 소켓 프로브
-      # a TCP socket probe
       tcpSocket:
         port: 6379
       # 파드 시작 후 상태 확인을 적용하기 전까지
