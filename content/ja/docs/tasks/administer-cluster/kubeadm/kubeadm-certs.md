@@ -297,7 +297,7 @@ kubectl certificate approve <CSR-name>
 ```
 
 デフォルトでは、これらのサーバー証明書は1年後に失効します。
-kubeadmは`KubeletConfiguration`フィールド`rotateCertificates`を`true`に設定します。
+kubeadmは`KubeletConfiguration`フィールドの`rotateCertificates`を`true`に設定します。
 これは有効期限が切れる間際に、サーバー証明書のための新しいCSRセットを作成し、更新を完了するために承認する必要があることを意味します。
 詳しくは[証明書の更新](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation)を参照してください。
 
