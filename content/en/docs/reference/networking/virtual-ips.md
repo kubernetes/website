@@ -338,7 +338,7 @@ differently the `nftables` mode:
   Service via localhost/loopback.
 
 - **NodePort interaction with firewalls**: The `iptables` mode of
-  kube-proxy tries to be compatible with overly-agressive firewalls;
+  kube-proxy tries to be compatible with overly-aggressive firewalls;
   for each `type: NodePort` service, it will add rules to accept inbound
   traffic on that port, in case that traffic would otherwise be
   blocked by a firewall. This approach will not work with firewalls
