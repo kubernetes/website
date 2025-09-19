@@ -296,21 +296,41 @@ footer {
   }
 }
 
-
 @media (max-width: 799px) {
-  footer ul.footer-icons {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    align-items: flex-start;
-    row-gap: 0.5em;
-  }
-  footer div.order-1 ul.footer-icons {
-    margin-left: auto;
-  }
-  footer div.order-3 ul.footer-icons {
-    margin-right: auto;
-  }
+footer ul.footer-icons {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  row-gap: 0.5em;
+}
+
+footer div.order-1 ul.footer-icons {
+  align-items: flex-start;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+footer div.order-3 ul.footer-icons {
+  align-items: flex-end;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+// These character icons are bigger than the others and creates an offset, this restores centeredness
+.fa-laptop-code {
+  font-size: 1.1rem;
+}
+.fa-youtube {
+  font-size: 1.3rem;
+}
+.fa-envelope {
+  font-size: 1.3rem;
+}
+
+// Makes the text column wider on mobile while leaving the inline bootstrap code for desktop
+footer .row > .order-1 { flex: 0 0 16.6667%; max-width: 16.6667%; }
+footer .row > .order-2 { flex: 0 0 66.6667%; max-width: 66.6667%; }
+footer .row > .order-3 { flex: 0 0 16.6667%; max-width: 16.6667%; }
 }
 
 /* SIDE-DRAWER MENU */
