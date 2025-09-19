@@ -200,8 +200,12 @@ aliases:
     - stormqueen1990
   sig-docs-vi-owners: # Admins for Vietnamese content
     - truongnh1992
+    - khanhtc1202
+    - ntheanh201
   sig-docs-vi-reviews: # PR reviews for Vietnamese content
     - truongnh1992
+    - khanhtc1202
+    - ntheanh201
   sig-docs-ru-owners: # Admins for Russian content
     - Arhell
     - kirkonru
