@@ -61,8 +61,12 @@ with the request:
   Common values might be `system:masters` or `devops-team`.
 * Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
 
+{{< note >}}
 All values are opaque to the authentication system and only hold significance
 when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
+{{< /note >}}
+
+## Authentication methods
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
 
@@ -133,9 +137,10 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 
 You must enable the Bootstrap Token Authenticator with the
 `--enable-bootstrap-token-auth` flag on the API Server. You must enable
-the TokenCleaner controller via the `--controllers` flag on the Controller
-Manager. This is done with something like `--controllers=*,tokencleaner`.
-`kubeadm` will do this for you if you are using it to bootstrap a cluster.
+the TokenCleaner controller via the `--controllers` command line argument
+for kube-controller-manager.
+This is done with something like `--controllers=*,tokencleaner`.
+The `kubeadm` tool will do this for you if you are using it to bootstrap a cluster.
 
 The authenticator authenticates as `system:bootstrap:<Token ID>`. It is
 included in the `system:bootstrappers` group. The naming and groups are
@@ -202,7 +207,7 @@ kubectl create serviceaccount jenkins
 serviceaccount/jenkins created
 ```
 
-Create an associated token:
+You can manually create an associated token:
 
 ```bash
 kubectl create token jenkins
@@ -314,9 +319,9 @@ very scalable solution for authentication. It does offer a few challenges:
 
 #### Configuring the API Server
 
-##### Using flags
+##### Using command line arguments
 
-To enable the plugin, configure the following flags on the API server:
+To enable the plugin, configure the following command line arguments for the API server:
 
 | Parameter | Description | Example | Required |
 | --------- | ----------- | ------- | ------- |
@@ -1249,8 +1254,8 @@ Impersonate-Extra-scopes: development
 Impersonate-Uid: 06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b
 ```
 
-When using `kubectl` set the `--as` flag to configure the `Impersonate-User`
-header, set the `--as-group` flag to configure the `Impersonate-Group` header.
+When using `kubectl` set the `--as` command line argument to configure the `Impersonate-User`
+header, you can also set the `--as-group` flag to configure the `Impersonate-Group` header.
 
 ```bash
 kubectl drain mynode
@@ -1276,7 +1281,7 @@ node/mynode drained
 {{< /note >}}
 
 To impersonate a user, group, user identifier (UID) or extra fields, the impersonating user must
-have the ability to perform the "impersonate" verb on the kind of attribute
+have the ability to perform the **impersonate** verb on the kind of attribute
 being impersonated ("user", "group", "uid", etc.). For clusters that enable the RBAC
 authorization plugin, the following ClusterRole encompasses the rules needed to
 set user and group impersonation headers:
@@ -1294,7 +1299,7 @@ rules:
 
 For impersonation, extra fields and impersonated UIDs are both under the "authentication.k8s.io" `apiGroup`.
 Extra fields are evaluated as sub-resources of the resource "userextras". To
-allow a user to use impersonation headers for the extra field "scopes" and
+allow a user to use impersonation headers for the extra field `scopes` and
 for UIDs, a user should be granted the following role:
 
 ```yaml
@@ -1347,8 +1352,8 @@ rules:
 Impersonating a user or group allows you to perform any action as if you were that user or group;
 for that reason, impersonation is not namespace scoped.
 If you want to allow impersonation using Kubernetes RBAC,
-this requires using a `ClusterRole` and a `ClusterRoleBinding`,
-not a `Role` and `RoleBinding`.
+this requires using a ClusterRole and a ClusterRoleBinding,
+not a Role and RoleBinding.
 {{< /note >}}
 
 ## client-go credential plugins
@@ -1734,15 +1739,15 @@ The following `ExecCredential` manifest describes a cluster information sample.
 
 {{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
-If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out
+If your cluster has the API enabled, you can use the SelfSubjectReview API to find out
 how your Kubernetes cluster maps your authentication information to identify you as a client.
 This works whether you are authenticating as a user (typically representing
 a real person) or as a ServiceAccount.
 
-`SelfSubjectReview` objects do not have any configurable fields. On receiving a request,
+SelfSubjectReview objects do not have any configurable fields. On receiving a request,
 the Kubernetes API server fills the status with the user attributes and returns it to the user.
 
-Request example (the body would be a `SelfSubjectReview`):
+Request example (the body would be a SelfSubjectReview):
 
 ```http
 POST /apis/authentication.k8s.io/v1/selfsubjectreviews
