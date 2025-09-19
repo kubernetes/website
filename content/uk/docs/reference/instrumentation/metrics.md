@@ -1,6 +1,6 @@
 ---
 title: Довідник Метрик Kubernetes
-content_Тип: reference
+content_type: reference
 auto_generated: false
 description: >-
   Деталі щодо метрик, які експортують компоненти Kubernetes.
@@ -8,7 +8,7 @@ description: >-
 
 ## Метрики (v1.34) {#metrics-v1-34}
 
-<!-- (auto-generated 2025 May 01) -->
+<!-- (auto-generated 2025 Sep 12) -->
 <!-- (auto-generated v1.34) -->
 
 Ця сторінка містить деталі метрик, які експортують різні компоненти Kubernetes. Ви можете запитувати точки доступу метрик для цих компонентів за допомогою HTTP-запиту та отримувати поточні дані метрик у форматі Prometheus.
@@ -67,8 +67,8 @@ description: >-
         <div class="metric_name">apiserver_request_duration_seconds</div>
         <div class="metric_help">Розподіл затримки відповіді в секундах для кожного дієслова, значення dry run, групи, версії, ресурсу, субресурсу, області застосування та компонента.</div>
         <ul>
-            <li><label class="metric_detail"Рівень стабільності:</label><span class="metric_stability_level">STABLE</span></li>
-            <li data-type="histogram"><label class="metric_detail">Тип</label> <span class="metric_type">Histogram</span></li>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">STABLE</span></li>
+            <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
             <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">component</span><span class="metric_label">dry_run</span><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">scope</span><span class="metric_label">subresource</span><span class="metric_label">verb</span><span class="metric_label">version</span></li>
         </ul>
 	</div>
@@ -76,8 +76,8 @@ description: >-
         <div class="metric_name">apiserver_request_total</div>
         <div class="metric_help">Лічильник запитів apiserver з розбивкою по кожному дієслову, dry run, групі, версії, ресурсу, області застосування, компоненту і коду HTTP-відповіді.</div>
         <ul>
-            <li><label class="metric_detail"Рівень стабільності:</label><span class="metric_stability_level">STABLE</span></li>
-            <li data-type="counter"><label class="metric_detail">Тип</label> <span class="metric_type">Counter</span></li>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">STABLE</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
             <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span><span class="metric_label">component</span><span class="metric_label">dry_run</span><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">scope</span><span class="metric_label">subresource</span><span class="metric_label">verb</span><span class="metric_label">version</span></li>
         </ul>
 	</div>
@@ -101,11 +101,12 @@ description: >-
     </div>
     <div class="metric" data-stability="stable">
         <div class="metric_name">apiserver_storage_objects</div>
-        <div class="metric_help">Кількість збережених обʼєктів на момент останньої перевірки з розподілом за типом. У разі помилки вибірки значення буде -1.</div>
+        <div class="metric_help">[ЗАСТАРІЛО, розгляньте можливість використання apiserver_resource_objects замість цього]Кількість збережених обʼєктів на момент останньої перевірки з розподілом за типом. У разі помилки вибірки значення буде -1.</div>
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">STABLE</span></li>
             <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
             <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_deprecated_version"><label class="metric_detail">Застаріло у версіях:</label><span>1.34.0</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="stable">
@@ -352,12 +353,48 @@ description: >-
 
 <div class="metrics">
     <div class="metric" data-stability="beta">
+        <div class="metric_name">apiserver_authentication_config_controller_automatic_reload_last_timestamp_seconds</div>
+        <div class="metric_help">Мітка часу останнього автоматичного перезавантаження конфігурації автентифікації, розділена за статусом та ідентифікатором apiserver.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">BETA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li>
+        </ul>
+        </div>
+    <div class="metric" data-stability="beta">
+        <div class="metric_name">apiserver_authentication_config_controller_automatic_reloads_total</div>
+        <div class="metric_help">Загальна кількість автоматичних перезавантажень конфігурації автентифікації, розподілених за статусом та ідентифікацією apiserver.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">BETA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li>
+        </ul>
+        </div>
+    <div class="metric" data-stability="beta">
+        <div class="metric_name">apiserver_authorization_config_controller_automatic_reload_last_timestamp_seconds</div>
+        <div class="metric_help">Мітка часу останнього автоматичного перезавантаження конфігурації авторизації, розділена за статусом та ідентифікатором apiserver.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">BETA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li>
+        </ul>
+        </div>
+    <div class="metric" data-stability="beta">
+        <div class="metric_name">apiserver_authorization_config_controller_automatic_reloads_total</div>
+        <div class="metric_help">Загальна кількість автоматичних перезавантажень конфігурації авторизації, розподілених за статусом та ідентифікатором apiserver.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">BETA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="beta">
         <div class="metric_name">apiserver_cel_compilation_duration_seconds</div>
         <div class="metric_help">Час компіляції CEL у секундах.</div>
-            <ul>
-                <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">BETA</span></li>
-                <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
-            </ul>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">BETA</span></li>
+            <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
+        </ul>
     </div>
     <div class="metric" data-stability="beta">
         <div class="metric_name">apiserver_cel_evaluation_duration_seconds</div>
@@ -691,32 +728,32 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
-        <div class="metric_name">apiserver_authentication_config_controller_automatic_reload_last_timestamp_seconds</div>
-        <div class="metric_help">Мітка часу останнього автоматичного перезавантаження конфігурації автентифікації з розподілом за статусом та ідентифікатором apiserver.</div>
+        <div class="metric_name">apiserver_authentication_config_controller_last_config_info</div>
+        <div class="metric_help">Інформація про останню застосовану конфігурацію автентифікації з хешем як міткою, розділена за ідентифікатором apiserver.</div>
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li>
-        </ul>
-    </div>
-    <div class="metric" data-stability="alpha">
-        <div class="metric_name">apiserver_authentication_config_controller_automatic_reloads_total</div>
-        <div class="metric_help">Загальна кількість автоматичних перезавантажень конфігурації автентифікації з розподілом за статусом та ідентифікацією apiserver.</div>
-        <ul>
-            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li>
+	        <li data-type="custom"><label class="metric_detail">Тип:</label> <span class="metric_type">Custom</span></li>
+	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">hash</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
         <div class="metric_name">apiserver_authentication_jwt_authenticator_latency_seconds</div>
-        <div class="metric_help">Латентність операцій автентифікації jwt у секундах. Це час, витрачений на автентифікацію токена лише у випадку пропуску в кеші (тобто коли токен не знайдено в кеші).</div>
+        <div class="metric_help">Затримка операцій автентифікації jwt у секундах. Це час, витрачений на автентифікацію токена лише у випадку пропуску в кеші (тобто коли токен не знайдено в кеші).</div>
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
             <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">jwt_issuer_hash</span><span class="metric_label">result</span></li>
         </ul>
     </div>
+    <div class="metric" data-stability="alpha">
+	    <div class="metric_name">apiserver_authorization_config_controller_last_config_info</div>
+        <div class="metric_help">Інформація про останню застосовану конфігурацію авторизації з хешем як міткою, розділена за ідентифікатором apiserver.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="custom"><label class="metric_detail">Тип:</label> <span class="metric_type">Custom</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">hash</span></li>
+        </ul>
+	</div>
     <div class="metric" data-stability="alpha">
         <div class="metric_name">apiserver_authorization_decisions_total</div>
         <div class="metric_help">Загальна кількість кінцевих рішень, прийнятих авторизатором, з розбивкою за типом авторизатора, імʼям та рішенням.</div>
@@ -786,7 +823,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">index</span><span class="metric_label">resource_prefix</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">index</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -795,7 +832,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource_prefix</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -804,7 +841,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">index</span><span class="metric_label">resource_prefix</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">index</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -950,23 +987,32 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
-        <div class="metric_name">apiserver_encryption_config_controller_automatic_reload_failures_total</div>
-        <div class="metric_help">Загальна кількість невдалих автоматичних перезавантажень конфігурації шифрування з розподілом за ідентичністю apiserver.</div>
-        <ul>
-            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span></li><li class="metric_deprecated_version"><label class="metric_detail">Застаріло у версіях:</label><span>1.30.0</span></li>
+	    <div class="metric_name">apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds</div>
+	    <div class="metric_help">Мітка часу останнього успішного або невдалого автоматичного перезавантаження конфігурації шифрування, розділена за ідентифікатором apiserver.</div>
+	    <ul>
+	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+	        <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
-        <div class="metric_name">apiserver_encryption_config_controller_automatic_reload_success_total</div>
-        <div class="metric_help">Загальна кількість успішних автоматичних перезавантажень конфігурації шифрування з розподілом за ідентичністю apiserver.</div>
+        <div class="metric_name">apiserver_encryption_config_controller_automatic_reloads_total</div>
+        <div class="metric_help">Загальна кількість успішних і невдалих перезавантажень конфігурації шифрування, розподілених за ідентифікаторами apiserver.</div>
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span></li><li class="metric_deprecated_version"><label class="metric_detail">Застаріло у версіях:</label><span>1.30.0</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">status</span></li>
         </ul>
     </div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">apiserver_encryption_config_controller_last_config_info</div>
+        <div class="metric_help">Інформація про останню застосовану конфігурацію шифрування з хешем як міткою, розділена за ідентифікатором apiserver.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="custom"><label class="metric_detail">Тип:</label> <span class="metric_type">Custom</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">apiserver_id_hash</span><span class="metric_label">hash</span></li>
+        </ul>
+	</div>
     <div class="metric" data-stability="alpha">
         <div class="metric_name">apiserver_envelope_encryption_dek_cache_fill_percent</div>
         <div class="metric_help">Відсоток слотів кешу, які наразі зайняті кешованими DEK.</div>
@@ -1052,8 +1098,9 @@ description: >-
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
 	        <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span></li></ul>
-	    </div>
+	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span></li>
+        </ul>
+	</div>
     <div class="metric" data-stability="alpha">
 	    <div class="metric_name">apiserver_externaljwt_fetch_keys_success_timestamp</div>
 	    <div class="metric_help">Unix Timestamp у секундах останнього успішного запиту FetchKeys</div>
@@ -1068,7 +1115,8 @@ description: >-
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
 	        <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
-	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span><span class="metric_label">method</span></li></ul>
+	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span><span class="metric_label">method</span></li>
+        </ul>
 	</div>
     <div class="metric" data-stability="alpha">
 	    <div class="metric_name">apiserver_externaljwt_sign_request_total</div>
@@ -1076,7 +1124,8 @@ description: >-
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
 	        <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span></li></ul>
+	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span></li>
+        </ul>
 	</div>
     <div class="metric" data-stability="alpha">
         <div class="metric_name">apiserver_flowcontrol_current_inqueue_seats</div>
@@ -1326,7 +1375,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1346,6 +1395,24 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
+        <div class="metric_name">apiserver_mutating_admission_policy_check_duration_seconds</div>
+        <div class="metric_help">Затримка допуску мутації для окремих проявів мутації в секундах, позначена політикою та звʼязком.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">error_type</span><span class="metric_label">policy</span><span class="metric_label">policy_binding</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">apiserver_mutating_admission_policy_check_total</div>
+        <div class="metric_help">Перевірка загальної політики допуску мутацій, позначена політикою та додатково ідентифікована звʼязком.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">error_type</span><span class="metric_label">policy</span><span class="metric_label">policy_binding</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
         <div class="metric_name">apiserver_nodeport_repair_port_errors_total</div>
         <div class="metric_help">Кількість помилок, виявлених на портах циклом виправлення, з розбивкою за типом помилки: leak, repair, full, outOfRange, duplicate, unknown</div>
         <ul>
@@ -1354,6 +1421,14 @@ description: >-
             <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">type</span></li>
         </ul>
     </div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">apiserver_nodeport_repair_reconcile_errors_total</div>
+        <div class="metric_help">Кількість невдалих спроб узгодження в циклі узгодження відновлення nodeport</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності::</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+        </ul>
+	</div>
     <div class="metric" data-stability="alpha">
         <div class="metric_name">apiserver_request_aborts_total</div>
         <div class="metric_help">Кількість запитів, які apiserver перервав, можливо, через таймаут, для кожної групи, версії, дієслова, ресурсу, субресурсу та області дії</div>
@@ -1369,7 +1444,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span><span class="metric_label">verb</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">verb</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1436,14 +1511,41 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
+        <div class="metric_name">apiserver_resource_objects</div>
+        <div class="metric_help">Кількість збережених обʼєктів на момент останньої перевірки, розділених за видами. У разі помилки під час вилучення значення буде -1.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">apiserver_resource_size_estimate_bytes</div>
+        <div class="metric_help">Орієнтовний розмір обʼєктів, що зберігаються в базі даних. Орієнтовний розмір базується на сумі останніх спостережуваних розмірів серіалізованих обʼєктів. У разі помилки під час вилучення значення буде -1.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
         <div class="metric_name">apiserver_selfrequest_total</div>
         <div class="metric_help">Лічильник самозвернень apiserver, розбитий для кожного дієслова, ресурсу API та субресурсу.</div>
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span><span class="metric_label">subresource</span><span class="metric_label">verb</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">subresource</span><span class="metric_label">verb</span></li>
         </ul>
     </div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">apiserver_storage_consistency_checks_total</div>
+        <div class="metric_help">Лічильник стану перевірок узгодженості між etcd та кешем спостереження</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">status</span></li>
+        </ul>
+	</div>
     <div class="metric" data-stability="alpha">
         <div class="metric_name">apiserver_storage_data_key_generation_duration_seconds</div>
         <div class="metric_help">Затримки в секундах операцій генерації ключів шифрування даних (DEK).</div>
@@ -1475,7 +1577,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1492,7 +1594,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1501,7 +1603,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1510,7 +1612,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1519,7 +1621,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1528,7 +1630,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1573,7 +1675,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1590,7 +1692,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">fallback</span><span class="metric_label">resource</span><span class="metric_label">success</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">fallback</span><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">success</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1599,7 +1701,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1608,7 +1710,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1617,7 +1719,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1626,16 +1728,16 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
 	</div>
     <div class="metric" data-stability="alpha">
 	    <div class="metric_name">apiserver_watch_cache_resource_version</div>
-	    <div class="metric_help">Поточна версія ресурсу кешу годинника з розбивкою за типом ресурсу.</div>
+	    <div class="metric_help">Поточна версія ресурсу кешу спостереження з розбивкою за типом ресурсу.</div>
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
 	        <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1644,7 +1746,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">kind</span><span class="metric_label">version</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">version</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1653,7 +1755,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">kind</span><span class="metric_label">version</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span><span class="metric_label">version</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -1803,7 +1905,7 @@ description: >-
 	    <div class="metric_help">Час, необхідний для синхронізації кластерного пакета довіри.</div>
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-	        <li data-type="histogram"><label class="metric_detail">Ттип:</label> <span class="metric_type">Histogram</span></li>
+	        <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
 	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span></li>
         </ul>
 	</div>
@@ -1812,8 +1914,17 @@ description: >-
 	    <div class="metric_help">Кількість синхронізацій, що відбулися у видавцеві кластерних пакетів довіри.</div>
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-	        <li data-type="counter"><label class="metric_detail">Ттип:</label> <span class="metric_type">Counter</span></li>
+	        <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
 	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">code</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">container_swap_limit_bytes</div>
+        <div class="metric_help">Поточний обсяг ліміту свопу контейнера в байтах. Повідомляється тільки на системах, що не є Windows.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="custom"><label class="metric_detail">Тип:</label> <span class="metric_type">Custom</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">container</span><span class="metric_label">pod</span><span class="metric_label">namespace</span></li>
         </ul>
 	</div>
     <div class="metric" data-stability="alpha">
@@ -1866,6 +1977,15 @@ description: >-
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
 	    <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
 	    <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">is_error</span><span class="metric_label">operation_name</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">dra_resource_claims_in_use</div>
+        <div class="metric_help">Кількість ResourceClaims, які наразі використовуються на вузлі, за назвою драйвера (значення мітки driver_name) та для всіх драйверів (спеціальне значення &lt;any&gt; для driver_name). Зверніть увагу, що сума всіх підрахунків за драйверами не є загальною кількістю використовуваних ResourceClaims, оскільки один і той самий ResourceClaim може використовувати пристрої з різних драйверів. Замість цього використовуйте підрахунок для &lt;any&gt; driver_name.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="custom"><label class="metric_detail">Тип:</label> <span class="metric_type">Custom</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">driver_name</span></li>
         </ul>
 	</div>
     <div class="metric" data-stability="alpha">
@@ -2039,7 +2159,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -2056,7 +2176,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">operation</span><span class="metric_label">type</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">operation</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -2065,7 +2185,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">operation</span><span class="metric_label">type</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">operation</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -2074,7 +2194,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">operation</span><span class="metric_label">type</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">operation</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -2254,6 +2374,24 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
+        <div class="metric_name">kube_apiserver_nodeport_allocator_allocation_errors_total</div>
+        <div class="metric_help">Кількість помилок при спробі надання NodePort</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">scope</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">kube_apiserver_nodeport_allocator_allocation_total</div>
+        <div class="metric_help">Кількість виділених NodePorts</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">scope</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
         <div class="metric_name">kube_apiserver_nodeport_allocator_available_ports</div>
         <div class="metric_help">Вимірювання кількості доступних NodePorts для Services</div>
         <ul>
@@ -2391,6 +2529,15 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_container_requested_resizes_total</div>
+        <div class="metric_help">Кількість запитів на зміну розміру, підрахована на рівні контейнера. Різні ресурси в одному контейнері підраховуються окремо. Мітка 'requirement' (вимога) відноситься до 'memory' (пам'ять) або 'limits' (обмеження); мітка 'operation' (операція) може бути 'add' (додати), 'remove' (видалити), 'increase' (збільшити) або 'decrease' (зменшити).</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">operation</span><span class="metric_label">requirement</span><span class="metric_label">resource</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
         <div class="metric_name">kubelet_containers_per_pod_count</div>
         <div class="metric_help">Кількість контейнерів на один Pod.</div>
         <ul>
@@ -2440,6 +2587,15 @@ description: >-
 	    </ul>
 	</div>
     <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_credential_provider_config_info</div>
+        <div class="metric_help">Інформація про останню застосовану конфігурацію постачальника облікових даних із хешем як міткою</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="custom"><label class="metric_detail">Тип:</label> <span class="metric_type">Custom</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">hash</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
         <div class="metric_name">kubelet_credential_provider_plugin_duration</div>
         <div class="metric_help">Тривалість виконання в секундах для втулка постачальника облікових даних</div>
         <ul>
@@ -2449,7 +2605,7 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
-        <div class="metric_name">kubelet_credential_provider_plugin_errors</div>
+        <div class="metric_name">kubelet_credential_provider_plugin_errors_total</div>
         <div class="metric_help">Кількість помилок від втулка постачальника облікових даних</div>
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
@@ -2457,6 +2613,15 @@ description: >-
             <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">plugin_name</span></li>
         </ul>
     </div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_cri_losing_support</div>
+        <div class="metric_help">версія Kubernetes, у якій поточна реалізація CRI втратить підтримку, якщо не буде оновлена.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">version</span></li>
+        </ul>
+	</div>
     <div class="metric" data-stability="alpha">
         <div class="metric_name">kubelet_desired_pods</div>
         <div class="metric_help">Кількість Podʼів, які kubelet має запустити. static має значення true, якщо pod не від apiserverʼа.</div>
@@ -2757,6 +2922,50 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_pod_deferred_accepted_resizes_total</div>
+        <div class="metric_help">Кумулятивна кількість змін розміру, які були прийняті після відстрочки.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">retry_trigger</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_pod_in_progress_resizes</div>
+        <div class="metric_help">Кількість поточних змін розміру для podʼів.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_pod_infeasible_resizes_total</div>
+        <div class="metric_help">Кількість неможливих змін розміру для podʼів.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">reason_detail</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_pod_pending_resizes</div>
+        <div class="metric_help">Кількість очікуючих змін розміру для podʼів.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">reason</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_pod_resize_duration_milliseconds</div>
+        <div class="metric_help">Тривалість у мілісекундах для активації зміни розміру podʼа</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">success</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
         <div class="metric_name">kubelet_pod_resources_endpoint_errors_get</div>
         <div class="metric_help">Кількість запитів до точки доступу PodResource Get, які повернули помилку. Розбито за версіями API сервера.</div>
         <ul>
@@ -3015,6 +3224,22 @@ description: >-
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
         </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_started_user_namespaced_pods_errors_total</div>
+        <div class="metric_help">Кумулятивна кількість помилок під час запуску podʼів з іменами просторів користувачів. Цей показник збирається тільки в Linux.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">kubelet_started_user_namespaced_pods_total</div>
+        <div class="metric_help">CКумулятивна кількість запущених podʼів з іменами просторів користувачів. Цей показник збирається тільки в Linux.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+        </ul>
     </div>
     <div class="metric" data-stability="alpha">
         <div class="metric_name">kubelet_topology_manager_admission_duration_ms</div>
@@ -3127,7 +3352,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -3136,7 +3361,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -3231,7 +3456,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span><span class="metric_label">table</span></li></ul>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span><span class="metric_label">table</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -3240,7 +3465,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span></li><
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -3258,7 +3483,6 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">table</span></li>
             <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span><span class="metric_label">table</span></li>
         </ul>
     </div>
@@ -3286,7 +3510,7 @@ description: >-
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
 	        <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Labels:</label><span class="metric_label">ip_family</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span></li>
 	    </ul>
 	</div>
     <div class="metric" data-stability="alpha">
@@ -3295,7 +3519,7 @@ description: >-
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
 	        <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span></li></ul>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span></li>
 	    </ul>
 	</div>
     <div class="metric" data-stability="alpha">
@@ -3304,8 +3528,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">traffic_policy</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span><span class="metric_label">traffic_policy</span></li></ul>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">ip_family</span><span class="metric_label">traffic_policy</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -3614,35 +3837,21 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
-	    <div class="metric_name">resourceclaim_controller_allocated_resource_claims</div>
-	    <div class="metric_help">Кількість розподілених ResourceClaims</div>
+	    <div class="metric_name">resourceclaim_controller_creates_total</div>
+	    <div class="metric_help">Кількість запитів на створення ResourceClaims, класифікованих за статусом створення та доступом адміністратора</div>
 	    <ul>
-	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-	        <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
-	    </ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">admin_access</span><span class="metric_label">status</span></li>
+        </ul>
 	</div>
     <div class="metric" data-stability="alpha">
-        <div class="metric_name">resourceclaim_controller_create_attempts_total</div>
-        <div class="metric_help">Кількість запитів на створення ResourceClaims</div>
-        <ul>
-            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-        </ul>
-    </div>
-    <div class="metric" data-stability="alpha">
-        <div class="metric_name">resourceclaim_controller_create_failures_total</div>
-        <div class="metric_help">Кількість невдалих запитів на створення ResourceClaims</div>
-        <ul>
-            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-        </ul>
-    </div>
-    <div class="metric" data-stability="alpha">
 	    <div class="metric_name">resourceclaim_controller_resource_claims</div>
-	    <div class="metric_help">Кількість ResourceClaims</div>
+	    <div class="metric_help">Кількість ResourceClaims, класифікованих за статусом розподілу та доступом адміністратора</div>
 	    <ul>
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
-	        <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+	        <li data-type="custom"><label class="metric_detail">Тип:</label> <span class="metric_type">Custom</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">allocated</span><span class="metric_label">admin_access</span></li>
 	    </ul>
 	</div>
     <div class="metric" data-stability="alpha">
@@ -3794,6 +4003,24 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
+        <div class="metric_name">scheduler_async_api_call_execution_duration_seconds</div>
+        <div class="metric_help">Тривалість у секундах виконання виклику API в async-диспетчері.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="histogram"><label class="metric_detail">Тип:</label> <span class="metric_type">Histogram</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">call_type</span><span class="metric_label">result</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">scheduler_async_api_call_execution_total</div>
+        <div class="metric_help">Загальна кількість викликів API, виконаних async-диспетчером.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">call_type</span><span class="metric_label">result</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
         <div class="metric_name">scheduler_cache_size</div>
         <div class="metric_help">Кількість вузлів, Podʼів та передбачуваних (звʼязаних) Podʼів у кеші планувальника.</div>
         <ul>
@@ -3827,6 +4054,15 @@ description: >-
 	        <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
 	        <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
 	        <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">event</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
+        <div class="metric_name">scheduler_pending_async_api_calls</div>
+        <div class="metric_help">Кількість викликів API, які наразі очікують у черзі async.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">call_type</span></li>
         </ul>
 	</div>
     <div class="metric" data-stability="alpha">
@@ -4059,6 +4295,15 @@ description: >-
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
+        <div class="metric_name">version_info</div>
+        <div class="metric_help">Надає інформацію про сумісність версії компонента. Мітка компонента — це назва компонента, зазвичай kube, але вона має значення для aggregated-apiservers.</div>
+        <ul>
+            <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
+            <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">binary</span><span class="metric_label">component</span><span class="metric_label">emulation</span><span class="metric_label">min_compat</span></li>
+        </ul>
+	</div>
+    <div class="metric" data-stability="alpha">
         <div class="metric_name">volume_manager_selinux_container_errors_total</div>
         <div class="metric_help">Кількість помилок, коли kubelet не може обчислити контекст SELinux для контейнера. Kubelet не зможе запустити такий Pod і спробує ще раз, тому значення цієї метрики може не відповідати дійсній кількості контейнерів.</div>
         <ul>
@@ -4154,7 +4399,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="gauge"><label class="metric_detail">Тип:</label> <span class="metric_type">Gauge</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -4163,7 +4408,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">
@@ -4172,7 +4417,7 @@ description: >-
         <ul>
             <li><label class="metric_detail">Рівень стабільності:</label><span class="metric_stability_level">ALPHA</span></li>
             <li data-type="counter"><label class="metric_detail">Тип:</label> <span class="metric_type">Counter</span></li>
-            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">resource</span></li>
+            <li class="metric_labels_varying"><label class="metric_detail">Мітки:</label><span class="metric_label">group</span><span class="metric_label">resource</span></li>
         </ul>
     </div>
     <div class="metric" data-stability="alpha">

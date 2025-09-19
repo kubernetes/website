@@ -52,6 +52,7 @@ weight: 60
 
 ## Керування кластером {#cluster-management}
 
+* [Налаштування своп-памʼяті на вузлах Kubernetes](/docs/tutorials/cluster-management/provision-swap-memory/)
 * [Запуск автономного Kublet](/docs/tutorials/cluster-management/kubelet-standalone/)
 * [Встановлення драйверів та виділення пристроїв за допомогою DRA](/docs/tutorials/cluster-management/install-use-dra/)
 

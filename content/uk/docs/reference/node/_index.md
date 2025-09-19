@@ -15,6 +15,8 @@ no_list: true
 
 * [Інформація про `.status` вузла](/docs/reference/node/node-status/)
 
+* [Поведінка свопу на вузлах Linux](/docs/reference/node/swap-behavior/)
+
 * [Інформація Seccomp](/docs/reference/node/seccomp/)
 
 Ви також можете ознайомитись з довідкою про вузли в інших розділах документації Kubernetes, зокрема:

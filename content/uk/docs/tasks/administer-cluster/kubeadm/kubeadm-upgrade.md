@@ -74,10 +74,20 @@ sudo apt-cache madison kubeadm
 {{% /tab %}}
 {{% tab name="CentOS, RHEL або Fedora" %}}
 
+Для систем з DNF:
+
 ```shell
 # Знайдіть останню версію {{< skew currentVersion >}} у списку.
 # Вона має виглядати як {{< skew currentVersion >}}.x-*, де x — останній патч.
 sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
+```
+
+Для систем з DNF5:
+
+```shell
+# Знайдіть останню версію {{< skew currentVersion >}} у списку.
+# Вона має виглядати як {{< skew currentVersion >}}.x-*, де x — останній патч.
+sudo yum list --showduplicates kubeadm --setopt=disable_excludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -110,9 +120,18 @@ Here's the translation:
    {{% /tab %}}
    {{% tab name="CentOS, RHEL або Fedora" %}}
 
+   Для систем з DNF:
+
    ```shell
-   # замініть x на останню версію патча
+   # замініть x в {{< skew currentVersion >}}.x-* на останню версію патча
    sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
+
+   Для систем з DNF5:
+
+   ```shell
+   # замініть x в {{< skew currentVersion >}}.x-* на останню версію патча
+   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -205,9 +224,18 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% /tab %}}
    {{% tab name="CentOS, RHEL або Fedora" %}}
 
+   Для систем з DNF:
+
    ```shell
    # замініть x у {{< skew currentVersion >}}.x-* на останню патч-версію
    sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
+
+   Для систем з DNF:
+
+   ```shell
+   # замініть x у {{< skew currentVersion >}}.x-* на останню патч-версію
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}

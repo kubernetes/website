@@ -258,6 +258,95 @@ StatefulSet дозволяє зменшити його гарантії посл
 
 Після повернення до шаблону вам також слід видалити будь-які Podʼи, які StatefulSet вже намагався запустити з поганою конфігурацією. Після цього StatefulSet почне перестворювати Podʼи, використовуючи відновлений шаблон.
 
+## Історія змін {#revision-history}
+
+ControllerRevision — це ресурс API Kubernetes, який використовується контролерами, такими як контролер StatefulSet, для відстеження історичних змін конфігурації.
+
+StatefulSets використовують ControllerRevisions для ведення історії змін, що дозволяє здійснювати відкат і відстежувати версії.
+
+### Як StatefulSets відстежують зміни за допомогою ControllerRevisions {#how-statefulsets-track-changes-using-controllerrevisions}
+
+Коли ви оновлюєте шаблон Pod StatefulSet (`spec.template`), контролер StatefulSet:
+
+1. Готує новий обʼєкт ControllerRevision
+2. Зберігає знімок шаблону Pod і метаданих
+3. Присвоює інкрементний номер ревізії
+
+#### Ключові властивості {#key-properties}
+
+Ключові властивості ControllerRevision та інші деталі можна перевірити [тут](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/).
+
+---
+
+### Управління історією змін {#managing-revision-history}
+
+Керуйте збереженими змінами за допомогою `.spec.revisionHistoryLimit`:
+
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: webapp
+spec:
+  revisionHistoryLimit: 5  # Зберігати останні 5 версій
+  # ... інші поля spec ...
+```
+
+* **Default**: 10 версій зберігаються, якщо не вказано інше
+* **Cleanup**: Найстаріші версії видаляються, коли перевищують обмеження
+
+#### Виконання відкату {#performing-rollbacks}
+
+Ви можете повернутися до попередньої конфігурації за допомогою:
+
+```bash
+# Переглянути історію змін
+kubectl rollout history statefulset/webapp
+
+# Повернення до певної версії
+kubectl rollout undo statefulset/webapp --to-revision=3
+```
+
+Це дозволить:
+
+* Застосувати шаблон Pod з ревізії 3
+* Створити нову ревізію контролера з оновленим номером ревізії
+
+#### Перевірка ControllerRevisions {#inspecting-ControllerRevisions}
+
+Щоб переглянути повʼязані ControllerRevisions:
+
+```bash
+# Перелічити всі зміни для StatefulSet
+kubectl get controllerrevisions -l app.kubernetes.io/name=webapp
+
+# Переглянути детальну конфігурацію конкретної версії
+kubectl get controllerrevision/webapp-3 -o yaml
+```
+
+#### Поради {#best-practices}
+
+##### Політика зберігання {#retention-policy}
+
+* Встановіть `revisionHistoryLimit` в діапазоні **5–10** для більшості робочих навантажень
+* Збільшуйте значення тільки в разі потреби в **глибокій історії відкату**
+
+##### Моніторинг {#monitoring}
+
+* Регулярно перевіряйте зміни за допомогою:
+
+  ```bash
+  kubectl get controllerrevisions
+  ```
+
+* Повідомляйте про **швидке зростання кількості ревізій**
+
+##### Уникайте {#avoid}
+
+* Ручного редагування обʼєктів ControllerRevision.
+* Використання ревізій як механізму резервного копіювання (використовуйте спеціальні інструменти для резервного копіювання).
+* Встановлення `revisionHistoryLimit: 0` (відключає можливість відкату).
+
 ## Збереження PersistentVolumeClaim {#persistentvolumeclaim-retention}
 
 {{< feature-state feature_gate_name="StatefulSetAutoDeletePVC" >}}

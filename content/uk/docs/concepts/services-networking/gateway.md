@@ -29,13 +29,15 @@ weight: 55
 
 ## Модель ресурсів {#resource-model}
 
-Gateway API має три стабільні види API:
+Gateway API має чотири стабільні види API:
 
 - __GatewayClass:__ Визначає набір шлюзів зі спільною конфігурацією та керується контролером, який реалізує цей клас.
 
 - __Gateway:__ Визначає екземпляр інфраструктури обробки трафіку, такої як хмарний балансувальник.
 
 - __HTTPRoute:__ Визначає правила, специфічні для HTTP, для передачі трафіку з Gateway listener на мережеві точки доступу бекенду. Ці точки доступу часто представлені як {{<glossary_tooltip text="Service" term_id="service">}}.
+
+- __GRPCRoute:__ Визначає правила, специфічні для gRPC, для зіставлення трафіку від прослуховувача шлюзу з представленням точок доступу мережі бекенду. Ці точки доступу часто представлені як {{<glossary_tooltip text="Service" term_id="service">}}.
 
 Gateway API організовано за різними видами API, які мають взаємозалежні відносини для підтримки організаційно орієнтованої природи організацій. Обʼєкт Gateway повʼязаний із саме одним GatewayClass; GatewayClass описує контролер шлюзу, відповідального за керування шлюзами цього класу. Один чи кілька видів маршрутів, таких як HTTPRoute, потім повʼязуються з Gateways. Gateway може фільтрувати маршрути, які можуть бути прикріплені до його `слухачів`, утворюючи двоспрямовану довірчу модель з маршрутами.
 
@@ -128,6 +130,58 @@ spec:
 У цьому прикладі HTTP-трафік від Gateway `example-gateway` із заголовком Host: `www.example.com` та вказаним шляхом запиту `/login` буде направлений до Service `example-svc` на порт `8080`.
 
 Дивіться [специфікацію HTTPRoute](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.HTTPRoute) для повного визначення цього виду API.
+
+### GRPCRoute {#api-kind-grpcroute}
+
+Тип GRPCRoute визначає поведінку маршрутизації запитів gRPC від прослуховувача шлюзу до точок доступу мережі бекенду. Для бекенду Service реалізація може представляти точку доступу мережі бекенду як IP-адресу Service або EndpointSlices, що підтримують Service. GRPCRoute представляє конфігурацію, яка застосовується до базової реалізації шлюзу. Наприклад, визначення нового GRPCRoute може призвести до конфігурації додаткових маршрутів трафіку в хмарному балансувальнику навантаження або проксі-сервері в кластері.
+
+Шлюзи, що підтримують GRPCRoute, повинні підтримувати HTTP/2 без початкового оновлення з HTTP/1, щоб гарантувати належний потік трафіку gRPC.
+
+Мінімальний приклад GRPCRoute:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: example-grpcroute
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "svc.example.com"
+  rules:
+  - backendRefs:
+    - name: example-svc
+      port: 50051
+```
+
+У цьому прикладі трафік gRPC від шлюзу `example-gateway` з хостом, встановленим на `svc.example.com`, буде спрямований до сервісу `example-svc` на порту `50051` з того самого простору імен.
+
+GRPCRoute дозволяє зіставляти конкретні сервіси gRPC, як показано в наступному прикладі:
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: example-grpcroute
+spec:
+  parentRefs:
+  - name: example-gateway
+  hostnames:
+  - "svc.example.com"
+  rules:
+  - matches:
+    - method:
+        service: com.example
+        method: Login
+    backendRefs:
+    - name: foo-svc
+      port: 50051
+```
+
+У цьому випадку GRPCRoute буде відповідати будь-якому трафіку для svc.example.com і застосовувати свої правила маршрутизації для переадресації трафіку до правильного бекенду. Оскільки вказано тільки одне співпадіння, будуть переадресовані тільки запити для методу com.example.User.Login до svc.example.com. RPC будь-якого іншого методу не будуть відповідати цьому маршруту.
+
+Повне визначення цього типу API див. у довідці [GRPCRoute](https://gateway-api.sigs.k8s.io/reference/spec/#grpcroute).
 
 ## Потік запитів {#request-flow}
 

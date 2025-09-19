@@ -41,9 +41,18 @@ sudo apt-mark hold kubeadm
 {{% /tab %}}
 {{% tab name="CentOS, RHEL або Fedora" %}}
 
+Для систем з DNF:
+
 ```shell
 # замініть x у {{< skew currentVersion >}}.x-* на останню версію патча
 sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+```
+
+Для систем з DNF5:
+
+```shell
+# замініть x у {{< skew currentVersion >}}.x-* на останню версію патча
+sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -84,9 +93,18 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% /tab %}}
    {{% tab name="CentOS, RHEL або Fedora" %}}
 
+   Для сисетм з DNF:
+
    ```shell
    # замініть x у {{< skew currentVersion >}}.x-* на останню версію патча
    sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
+
+   Для сисетм з DNF5:
+
+   ```shell
+   # замініть x у {{< skew currentVersion >}}.x-* на останню версію патча
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}
