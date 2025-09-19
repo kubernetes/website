@@ -117,9 +117,9 @@ Kubelet шукає сокет-файли, створені втулками пр
 
 [Належне вимкнення вузлів](/docs/concepts/cluster-administration/node-shutdown/#graceful-node-shutdown) зберігає стан локально за адресою `/var/lib/kubelet/graceful_node_shutdown_state`.
 
-### Записи отримання образів {#image-pull-records} {{
+### Записи отримання образів {#image-pull-records}
 
-< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
+{{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
 Kubelet зберігає записи про спроби та успішні отримання образів і використовує їх для перевірки того, що образ вже було успішно отримано з тими самими обліковими даними.
 
