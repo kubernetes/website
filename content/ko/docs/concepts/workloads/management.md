@@ -8,16 +8,16 @@ weight: 40
 
 <!-- overview -->
 
-애플리케이션을 배포하고 서비스를 통해 노출했다. 이제 무엇을 해야 할까요? 쿠버네티스는 
+애플리케이션을 배포하고 서비스를 통해 노출하였다. 이제 무엇을 해야 할까? 쿠버네티스는 
 스케일링과 업데이트를 포함하여 애플리케이션 배포 관리에 도움을 주는 여러 도구를 제공한다.
 
 <!-- body -->
 
 ## 리소스 구성 정리하기
 
-많은 애플리케이션은 디플로이먼트(Deployment)와 서비스 같은 여러 리소스를 함께 생성해야 한다.
-여러 리소스를 하나의 파일에 함께 모아둠으로써 간단하게 관리할 수 있다
-(YAML에서 `---` 으로 구분한다). 예를 들어,
+많은 애플리케이션은 디플로이먼트(Deployment)및 서비스와 같은 여러 리소스를 함께 생성해야 한다.
+여러 리소스를 하나의 파일에 함께 모아둠으로써 간단하게 관리할 수 있다.
+(YAML에서 `---` 으로 구분한다) 예를 들어,
 
 {{% code_sample file="application/nginx-app.yaml" %}}
 
@@ -46,7 +46,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml \
 
 동일한 마이크로서비스 또는 애플리케이션 계층과 관련된 리소스를 
 하나의 파일 내에 배치하고, 애플리케이션과 관련된 모든 파일은 동일한 
-디렉토리에 그룹화하는 것이 권장된다. 애플리케이션의 계층이 DNS를 사용하여 서로 바인딩되면, 스택의 모든 
+디렉터리에 그룹화하는 것이 권장된다. 애플리케이션의 계층이 DNS를 사용하여 서로 바인딩되면, 스택의 모든 
 구성 요소를 함께 배포할 수 있다.
 
 또한, URL을 구성 소스로 지정하는 것도 가능하고, 이는 소스 제어 시스템의 매니페스트를 
@@ -66,7 +66,7 @@ deployment.apps/my-nginx created
 
 이 섹션에서는 쿠버네티스에서 워크로드를 관리하는 데 사용되는 가장 일반적인 도구만 나열한다. 더 많은 목록을 보려면, 
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} 의 [애플리케이션 정의 및 이미지 빌드](https://landscape.cncf.io/guide#app-definition-and-development--application-definition-image-build)
-을 확인한다.
+를 확인한다.
 
 #### 헬름(Helm) {#external-tool-helm}
 
@@ -144,7 +144,7 @@ my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 
 예를 들어, 개발 환경에 필요한 모든 
 {{< glossary_tooltip text="manifests" term_id="manifest" >}} 가 
-리소스 유형별로 정의되어 있는 `project/k8s/development` 디렉토리가 있다고 가정한다.
+리소스 유형별로 정의되어 있는 `project/k8s/development` 디렉터리가 있다고 가정한다.
 
 ```none
 project/k8s/development
@@ -157,8 +157,8 @@ project/k8s/development
 ```
 
 기본적으로, `project/k8s/development`에서 대량 작업을 수행하면 디렉터리의 첫번째 수준에서 
-중단되고, 하위 디렉토리는 처리하지 않는다. 다음 명령어를 사용하여 
-이 디렉토리에서 리소스를 생성하려고 했다면 오류가 발생했을 것이다.
+중단되고, 하위 디렉터리는 처리하지 않는다. 다음 명령어를 사용하여 
+이 디렉터리에서 리소스를 생성하려고 했다면 오류가 발생했을 것이다.
 
 ```shell
 kubectl apply -f project/k8s/development
