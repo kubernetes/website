@@ -1827,13 +1827,28 @@ The following `ExecCredential` manifest describes a cluster information sample.
 
 {{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
-If your cluster has the API enabled, you can use the SelfSubjectReview API to find out
+You can use the SelfSubjectReview API to find out
 how your Kubernetes cluster maps your authentication information to identify you as a client.
 This works whether you are authenticating as a user (typically representing
 a real person) or as a ServiceAccount.
 
-SelfSubjectReview objects do not have any configurable fields. On receiving a request,
-the Kubernetes API server fills the status with the user attributes and returns it to the user.
+In a typical Kubernetes cluster, all authenticated users can create SelfSubjectReviews.
+Access to do this is allowed by the built-in `system:basic-user`
+[ClusterRole](/docs/reference/access-authn-authz/rbac/#role-and-clusterrole).
+
+The ability for a client to learn its own identity is extremely useful when troubleshooting a complicated authentication flow that is used in a Kubernetes cluster;
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
+or an [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+
+If you want to query this on the command line, see
+[CLI access to authentication information](#self-subject-review-cli).
+
+### HTTP access to authentication information {#self-subject-review-http-api}
+
+SelfSubjectReviews do not have any configurable fields. On receiving a request, the Kubernetes
+API server fills the status with the user attributes and returns it to the user.
+This does **not** persist a named resource into your cluster: you cannot fetch the
+SelfSubjectReview, and it is discarded once your `POST` request has completed.
 
 Request example (the body would be a SelfSubjectReview):
 
@@ -1856,47 +1871,89 @@ Response example:
   "kind": "SelfSubjectReview",
   "status": {
     "userInfo": {
-      "name": "jane.doe",
-      "uid": "b6c7cfd4-f166-11ec-8ea0-0242ac120002",
+      "username": "janedoe@example.com",
+      "groups": [
+        "viewers",
+        "editors",
+        "system:authenticated"
+      ]
+    }
+  }
+}
+```
+
+
+{{< note >}}
+The Kubernetes API server fills `userInfo` after all authentication mechanisms are applied,
+including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
+If you, or an authentication proxy, make a SelfSubjectReview using impersonation,
+you see the user details and properties for the user that was impersonated.
+{{< /note >}}
+
+This example response did not show all the available fields; not all
+authentication mechanisms fill in every available field.
+See the [SelfSubjectReview API reference](/docs/reference/kubernetes-api/authentication-resources/self-subject-review-v1/)
+to see which fields are available.
+
+Here is another example that also includes the `uid` and `extra` fields:
+
+<!-- YAML highlighting intentional; JSON is valid YAML -->
+```yaml
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "username": "janedoe@example.com",
       "groups": [
         "viewers",
         "editors",
         "system:authenticated"
       ],
+      "uid": "000042",
       "extra": {
-        "provider_id": ["token.company.example"]
+        "firstName": [
+          "Jane"
+        ],
+        "familyName": [
+          "Doe"
+        ],
+        "projectAssignments": [
+          "web-frontend",
+          "ai-training-proof-of-concept"
+        ],
       }
     }
   }
 }
 ```
 
-For convenience, the `kubectl auth whoami` command is present. Executing this command will
-produce the following output (yet different user attributes will be shown):
+The data in these optional fields come from your authentication
+integration or from the user database that it uses. The username,
+UID, extra information, and all groups with names that don't start
+`system:` are all sourced from outside of Kubernetes.
 
-* Simple output example
 
-  ```
-  ATTRIBUTE         VALUE
-  Username          jane.doe
-  Groups            [system:authenticated]
-  ```
-
-* Complex example including extra attributes
-
-  ```
-  ATTRIBUTE         VALUE
-  Username          jane.doe
-  UID               b79dbf30-0c6a-11ed-861d-0242ac120002
-  Groups            [students teachers system:authenticated]
-  Extra: skills     [reading learning]
-  Extra: subjects   [math sports]
-  ```
-
-By providing the output flag, it is also possible to print the JSON or YAML representation of the result:
+When querying the Kubernetes API via HTTP, you can request a response in either JSON or YAML
+using the `Accept:` HTTP header; for example:
 
 {{< tabs name="self_subject_attributes_review_Example_1" >}}
 {{% tab name="JSON" %}}
+```http
+POST /apis/authentication.k8s.io/v1/selfsubjectreviews HTTP/1.1
+Accept: application/json;q=1.0
+Content-Type: application/json
+…other request headers
+
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "SelfSubjectReview"
+}
+
+```
+
+---
+
 ```json
 {
   "apiVersion": "authentication.k8s.io/v1",
@@ -1927,6 +1984,21 @@ By providing the output flag, it is also possible to print the JSON or YAML repr
 {{% /tab %}}
 
 {{% tab name="YAML" %}}
+```http
+POST /apis/authentication.k8s.io/v1/selfsubjectreviews HTTP/1.1
+Accept: application/yaml;q=1.0
+Content-Type: application/json
+…other request headers
+
+{
+  "apiVersion": "authentication.k8s.io/v1",
+  "kind": "SelfSubjectReview"
+}
+
+```
+
+---
+
 ```yaml
 apiVersion: authentication.k8s.io/v1
 kind: SelfSubjectReview
@@ -1949,32 +2021,23 @@ status:
 {{% /tab %}}
 {{< /tabs >}}
 
-This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster,
-for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
-or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+### CLI access to authentication information {#self-subject-review-cli}
 
-{{< note >}}
-The Kubernetes API server fills the `userInfo` after all authentication mechanisms are applied,
-including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
-If you, or an authentication proxy, make a SelfSubjectReview using impersonation,
-you see the user details and properties for the user that was impersonated.
-{{< /note >}}
+For convenience, the `kubectl auth whoami` subcommand is also available:
+```shell
+kubectl auth whoami
+```
 
-By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview`
-feature is enabled. It is allowed by the `system:basic-user` cluster role.
+The output is similar to:
+```console
+  ATTRIBUTE         VALUE
+  Username          george.boole
+  Groups            [system:authenticated]
+```
 
-{{< note >}}
-You can only make `SelfSubjectReview` requests if:
+See [`kubectl auth whoami`](/docs/reference/kubectl/generated/kubectl_auth/kubectl_auth_whoami/)
+for more details.
 
-* the `APISelfSubjectReview`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled for your cluster (not needed for Kubernetes {{< skew currentVersion >}}, but older
-  Kubernetes versions might not offer this feature gate, or might default it to be off)
-* (if you are running a version of Kubernetes older than v1.28) the API server for your
-  cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
-  {{< glossary_tooltip term_id="api-group" text="API group" >}}
-  enabled.
-{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
