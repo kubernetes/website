@@ -37,7 +37,8 @@ users, such as:
 If you have a way to manage users, external to Kubernetes, then you use that external
 means to add normal users.
 
-In contrast, _service accounts_ are machine identities and are managed by the Kubernetes API.
+In contrast, {{< glossary_tooltip text="ServiceAccounts" term_id="service-account" >}}
+are machine identities and are managed through the Kubernetes API.
 They are either created automatically by the API server or manually through API calls; either
 way, each ServiceAccount exists within a specific Kubernetes
 {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
@@ -311,22 +312,22 @@ how to manage these tokens with `kubeadm`.
 
 ### Service account tokens
 
-A service account is an automatically enabled authenticator that uses signed
-bearer tokens to verify requests. The plugin takes two optional flags:
-
-* `--service-account-key-file` File containing PEM-encoded x509 RSA or ECDSA
-  private or public keys, used to verify ServiceAccount tokens. The specified file
-  can contain multiple keys, and the flag can be specified multiple times with
-  different files. If unspecified, --tls-private-key-file is used.
-* `--service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
-
 [ServiceAccounts](/docs/concepts/security/service-accounts/)
-are usually created automatically by the API server and are
-associated with pods running in the cluster through the `ServiceAccount`
+authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
+and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
+
+The service account authentication plugin is automatically enabled and uses signed
+bearer tokens to verify requests.
+Read [service account configuration](#api-server-authn-config-cli-sa) to learn about the
+associated command line options for the API server.
+
+ServiceAccounts are commonly created automatically by the API server (you can also define them
+yourself), and are associated with pods running in the cluster through the `ServiceAccount`
 [Admission Controller](/docs/reference/access-authn-authz/admission-controllers/).
-Bearer tokens are mounted into pods at well-known locations, and allow in-cluster clients to
-authenticate to the API server. ServiceAccounts may be explicitly associated with Pods using
-the `serviceAccountName` field within the `spec` of a Pod.
+Bearer tokens are mounted into pods at well-known locations, and these tokens allow in-cluster
+clients to authenticate to the API server. You can explicitly associated a ServiceAccount with a
+Pod using the `.spec.serviceAccountName` field when you define that Pod (or its
+[template](/docs/concepts/workloads/pods/#pod-templates).
 
 {{< note >}}
 `serviceAccountName` is usually omitted because this is done automatically.
@@ -354,19 +355,10 @@ spec:
 
 Service account bearer tokens are perfectly valid to use outside the cluster and
 can be used to create identities for long standing jobs that wish to talk to the
-Kubernetes API. To manually create a service account, use the `kubectl create
-serviceaccount (NAME)` command. This creates a service account in the current
-namespace.
+Kubernetes API. Read [how to use ServiceAccounts](/docs/concepts/security/service-accounts/#how-to-use)
+to learn more.
 
-```bash
-kubectl create serviceaccount jenkins
-```
-
-```none
-serviceaccount/jenkins created
-```
-
-You can manually create an associated token:
+If you have a ServiceAccount, you can manually create an associated token:
 
 ```bash
 kubectl create token jenkins
@@ -383,14 +375,19 @@ account. See [above](#putting-a-bearer-token-in-a-request) for how the token is 
 in a request. Normally these tokens are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 
-Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
-and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
+You can also request _bound tokens_ that automatically expire when the object they are
+bound to is deleted; read
+[manually create an API token for a ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount) to learn more.
+
 
 {{< warning >}}
 Because service account tokens can also be stored in Secret API objects, any user with
 write access to Secrets can request a token, and any user with read access to those
-Secrets can authenticate as the service account. Be cautious when granting permissions
-to service accounts and read or write capabilities for Secrets.
+Secrets can authenticate as the ServiceAccount. Be cautious when granting permissions
+to ServiceAccounts, as well as granting either read or write capabilities for Secrets.
+
+If you want to restrict this, you can use policy mechanisms to control setting or amending
+the `kubernetes.io/service-account.name` annotation on Secrets.
 {{< /warning >}}
 
 
@@ -2076,5 +2073,6 @@ for more details.
 ## {{% heading "whatsnext" %}}
 
 * To learn about issuing certificates for users, read [Issue a Certificate for a Kubernetes API Client Using A CertificateSigningRequest](/docs/tasks/tls/certificate-issue-client-csr/)
+* Read [Managing ServiceAccounts](/docs/reference/access-authn-authz/service-accounts-admin/)
 * Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
