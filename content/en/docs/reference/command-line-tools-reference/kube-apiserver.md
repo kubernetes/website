@@ -17,9 +17,7 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-
 ## {{% heading "synopsis" %}}
-
 
 The Kubernetes API server validates and configures data
 for the api objects which include pods, services, replicationcontrollers, and
@@ -750,7 +748,7 @@ kube-apiserver [flags]
 <td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Sets the log format. Permitted formats: &quot;text&quot;.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Sets the log format. Permitted formats: &quot;text&quot; or &quot;json&quot;.</p></td>
 </tr>
 
 <tr>
@@ -1182,6 +1180,3 @@ kube-apiserver [flags]
 
 </tbody>
 </table>
-
-
-
