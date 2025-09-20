@@ -182,8 +182,8 @@ completion or failed for some reason. When you use `kubectl` to query a Pod with
 a container that is `Terminated`, you see a reason, an exit code, and the start and
 finish time for that container's period of execution.
 
-If a container has a `preStop` hook configured, this hook runs before the container enters
-the `Terminated` state.
+If a container has a `preStop` hook configured, this hook runs after the container enters
+the `Terminated` state, and pod will be remove from Subsets.addresses list of endponts.
 
 ## How Pods handle problems with containers {#container-restarts}
 
