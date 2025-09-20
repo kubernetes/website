@@ -1179,6 +1179,137 @@ For other circumstances, and especially where very prompt token rotation is
 important, the Kubernetes project recommends using a
 [webhook token authenticator](#webhook-token-authentication) instead of this mechanism.
 
+## Authentication configuration {#api-server-authn-config}
+
+You can configure Kubernetes authentication either using
+[command line arguments](#api-server-authn-config-cli), or using a
+[configuration file](#api-server-authn-config-file).
+
+Typically, you use a mix of these approaches.
+
+### Configuration via command line arguments {#api-server-authn-config-cli}
+
+You can use the following command line arguments to configure how your cluster's control plane authenticates clients.
+
+The [command line reference](/docs/reference/command-line-tools-reference/kube-apiserver/) for the API server
+describes all of the relevant command line arguments in more detail.
+
+#### General configuration {#api-server-authn-config-cli-general}
+
+`--anonymous-auth`
+: Controls whether clients who have not authenticated can make request via the API server's secure port. Anonymous requests have a username of `system:anonymous`, and a group name of `system:unauthenticated`. Also see [anonymous requests](#anonymous-requests).
+
+`--authentication-config`
+: This special command line argument specifies that you want to [configure authentication using a configuration file](#api-server-authn-config-file).
+
+#### Static token configuration {#api-server-authn-config-cli-bearer}
+
+`--token-auth-file`
+: Path to the configuration file for [static bearer tokens](#static-token-file).
+
+#### Bootstrap token configuration {#api-server-authn-config-cli-bootstrap}
+
+`--enable-bootstrap-token-auth`
+: When this flag is set, you can use [bootstrap tokens](#bootstrap-tokens) to authenticate.
+
+#### ServiceAccount configuration {#api-server-authn-config-cli-sa}
+
+`--api-audiences`
+: Defines the authentication audience for service account tokens.
+
+`--service-account-extend-token-expiration`
+: This flag turns on projected service account expiration extension during token generation, which helps safe transition from legacy tokens to bound service account token feature. See [authenticating service account credentials](/docs/concepts/security/service-accounts/#authenticating-credentials).
+
+`--service-account-issuer`
+: Identifier of the service account token issuer. The issuer asserts this identifier in `iss` claim of each issued token. The Kubernetes project recommends using a URL here, with the scheme set to `https`.
+
+`--service-account-jwks-uri`
+: Overrides the URI for the [JSON Web Key Set](https://www.rfc-editor.org/rfc/rfc7517) in the discovery document that is served at `/.well-known/openid-configuration`
+
+`--service-account-key-file`
+: Path to containing PEM-encoded X.509 public or private keys (RSA or ECDSA), used to verify ServiceAccount tokens. The specified file can contain multiple keys, and you can specify the argument can be specified multiple times with different paths.
+
+`--service-account-lookup`
+: If true, the API server validates that ServiceAccount tokens exist in etcd as part of authentication.
+
+`--service-account-max-token-expiration`
+: The maximum validity duration of a token created by the service account token issuer, as a Kubernetes duration string.
+
+`--service-account-signing-endpoint`
+: Path to socket where an external JWT signer is listening. You can use this to integrate with an external token signer.
+
+`--service-account-signing-key-file`
+: Path to the file that contains the current private key of the service account token issuer.
+
+#### OIDC configuration {#api-server-authn-config-cli-oidc}
+
+`--oidc-ca-file`
+: The path to the trust anchor for validating client identity, when clients use OIDC.
+
+`--oidc-client-id`
+: The client ID for the OpenID Connect client.
+
+`--oidc-username-claim`
+: The name of a JWT claim for specifying the username.  claim to use as the user name. Default claim name is `sub`, as this should be a unique identifier of the end user. You can choose other claims, such as `email` or `name`. For claims other than `sub` or `email`, the kube-apiserver adds a prefix to the group name (to prevent naming clashes).
+
+`--oidc-username-prefix`
+: Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this argument isn't provided and `--oidc-username-claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `--oidc-issuer-url`. You can specify the prefix value as `-` to disable username prefixing.
+
+`--oidc-groups-claim`
+: The name of a custom OpenID Connect claim for specifying user groups. The claim in the token must be an array of strings. No default.
+
+`--oidc-groups-prefix`
+:  Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. The default prefix is `oidc:`
+
+`--oidc-issuer-url`
+: The URL of the OpenID issuer. The URL scheme **must** be `https`. If the issuer's OIDC discovery URL is `https://accounts.provider.example/.well-known/openid-configuration`, the value should be `https://accounts.provider.example`.
+
+`--oidc-required-claim`
+: A claim that must be present in a token before Kubernetes authenticates a client. Format is `key=value`. You can specify this argument more than once.
+
+`--oidc-signing-algs`
+: The signing algorithms accepted. Allowed values are: RS256, RS384, RS512, ES256, ES384, ES512, PS256, PS384, PS512. Values are defined by [RFC 7518](https://tools.ietf.org/html/rfc7518#section-3.1).  Default is `RS512`.
+
+#### Webhook authentication configuration {#api-server-authn-config-cli-webhook}
+
+`--authentication-token-webhook-cache-ttl`
+: How long (as a Kubernetes duration specification) the API server should cache the outcome of HTTP callouts to validate tokens.
+
+`--authentication-token-webhook-config-file`
+: The path to a kubeconfig format client configuration, that specifies how the API server authenticates when making HTTP callouts.
+
+`--authentication-token-webhook-version`
+: The API version of TokenReview to use when making HTTP callouts to check tokens.
+
+#### X.509 authentication configuration {#api-server-authn-config-cli-x-509}
+
+`--client-ca-file`
+: The path to the trust anchor for validating client identity, when clients use X.509 certificate authentication.
+
+### Configuration via configuration file {#api-server-authn-config-file}
+
+{{< feature-state feature_gate_name="StructuredAuthenticationConfiguration" >}}
+
+When you specify the `--authentication-config` command line argument to the kube-apiserver, the API server
+loads a file at the path you specify, and uses the contents of that file to configure authentication.
+it to configure authentication.
+
+#### Example {#api-server-authn-config-file-example}
+
+Here is an example of a Kubernetes (structured) authentication configuration file:
+
+{{< highlight yaml "linenos=false,hl_lines=2-5" >}}
+---
+#
+# CAUTION: this is an example configuration.
+#          Check and amend this before you use it in your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: false
+{{< /highlight >}}
+
 ## User impersonation
 
 A user can act as another user through impersonation headers. These let requests
