@@ -1912,6 +1912,10 @@ how your Kubernetes cluster maps your authentication information to identify you
 This works whether you are authenticating as a user (typically representing
 a real person) or as a ServiceAccount.
 
+In a typical Kubernetes cluster, all authenticated users can create SelfSubjectReview objects.
+Access to do this is allowed by the built-in `system:basic-user`
+[ClusterRole](/docs/reference/access-authn-authz/rbac/#role-and-clusterrole).
+
 SelfSubjectReview objects do not have any configurable fields. On receiving a request,
 the Kubernetes API server fills the status with the user attributes and returns it to the user.
 
@@ -1937,7 +1941,6 @@ Response example:
   "status": {
     "userInfo": {
       "name": "jane.doe",
-      "uid": "b6c7cfd4-f166-11ec-8ea0-0242ac120002",
       "groups": [
         "viewers",
         "editors",
@@ -1951,29 +1954,11 @@ Response example:
 }
 ```
 
-For convenience, the `kubectl auth whoami` command is present. Executing this command will
-produce the following output (yet different user attributes will be shown):
+This example response does not include a `uid` field; not all authentication mechanisms
+make a `uid` available to the API server.
 
-* Simple output example
 
-  ```
-  ATTRIBUTE         VALUE
-  Username          jane.doe
-  Groups            [system:authenticated]
-  ```
-
-* Complex example including extra attributes
-
-  ```
-  ATTRIBUTE         VALUE
-  Username          jane.doe
-  UID               b79dbf30-0c6a-11ed-861d-0242ac120002
-  Groups            [students teachers system:authenticated]
-  Extra: skills     [reading learning]
-  Extra: subjects   [math sports]
-  ```
-
-By providing the output flag, it is also possible to print the JSON or YAML representation of the result:
+Using the `Accept:` HTTP header, you can request a response in either JSON or YAML; for example:
 
 {{< tabs name="self_subject_attributes_review_Example_1" >}}
 {{% tab name="JSON" %}}
@@ -2029,10 +2014,6 @@ status:
 {{% /tab %}}
 {{< /tabs >}}
 
-This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster,
-for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
-or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
-
 {{< note >}}
 The Kubernetes API server fills the `userInfo` after all authentication mechanisms are applied,
 including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
@@ -2040,21 +2021,13 @@ If you, or an authentication proxy, make a SelfSubjectReview using impersonation
 you see the user details and properties for the user that was impersonated.
 {{< /note >}}
 
-By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview`
-feature is enabled. It is allowed by the `system:basic-user` cluster role.
+For convenience, the `kubectl auth whoami` subcommand is available.
+See [`kubectl auth whoami`](/docs/reference/kubectl/generated/kubectl_auth/kubectl_auth_whoami/)
+for more details.
 
-{{< note >}}
-You can only make `SelfSubjectReview` requests if:
-
-* the `APISelfSubjectReview`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled for your cluster (not needed for Kubernetes {{< skew currentVersion >}}, but older
-  Kubernetes versions might not offer this feature gate, or might default it to be off)
-* (if you are running a version of Kubernetes older than v1.28) the API server for your
-  cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
-  {{< glossary_tooltip term_id="api-group" text="API group" >}}
-  enabled.
-{{< /note >}}
+The ability for a client to learn its own identity is extremely useful when troubleshooting a complicated authentication flow that is used in a Kubernetes cluster;
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)
+or an [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
 
 ## {{% heading "whatsnext" %}}
 
