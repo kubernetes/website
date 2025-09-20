@@ -715,33 +715,6 @@ The _egressSelectorType_ field in the JWT issuer configuration allows you to spe
 should be used for sending all traffic related to the issuer (discovery, JWKS, distributed claims, etc).
 This feature requires the `StructuredAuthenticationConfigurationEgressSelector` feature gate to be enabled.
 
-##### Limitations {#oidc-limitations}
-
-1. Distributed claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
-
-Kubernetes does not provide an OpenID Connect Identity Provider.
-You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
-that supports the OpenID Connect protocol.
-
-For an identity provider to work with Kubernetes it must:
-
-1. Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html)
-
-   The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
-   If you're using the authentication configuration file, the identity provider doesn't need to publicly expose the discovery endpoint.
-   You can host the discovery endpoint at a different location than the issuer (such as locally in the cluster) and specify the
-   `issuer.discoveryURL` in the configuration file.
-
-1. Run in TLS with non-obsolete ciphers
-1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
-
-A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
-identity provider you MUST have your identity provider's web server certificate signed by a
-certificate with the `CA` flag set to `TRUE`, even if it is self signed. This is due to GoLang's
-TLS client implementation being very strict to the standards around certificate validation. If you
-don't have a CA handy, you can create a simple CA and a signed certificate and key pair using
-standard certificate generation tools.
-
 #### Using kubectl
 
 ##### Option 1 - OIDC authenticator
@@ -1887,6 +1860,40 @@ You can only make `SelfSubjectReview` requests if:
   {{< glossary_tooltip term_id="api-group" text="API group" >}}
   enabled.
 {{< /note >}}
+
+## Authentication limitations {#shortcomings}
+
+### Certificate revocation {#limitation-cert-revocation}
+
+Kubernetes {{< skew currentVersion >}} does not check whether X.509 certificates have been revoked.
+
+### Distributed OIDC claims and CEL {#oidc-limitations}
+
+Distributed OIDC claims do not work via [CEL](/docs/reference/using-api/cel/) expressions.
+
+Kubernetes does not provide an OpenID Connect Identity Provider.
+You can use an existing public OpenID Connect Identity Provider or run your own Identity Provider
+that supports the OpenID Connect protocol.
+
+For an identity provider to work with Kubernetes it must:
+
+1. Support [OpenID connect discovery](https://openid.net/specs/openid-connect-discovery-1_0.html)
+
+   The public key to verify the signature is discovered from the issuer's public endpoint using OIDC discovery.
+   If you're using the authentication configuration file, the identity provider doesn't need to publicly expose the discovery endpoint.
+   You can host the discovery endpoint at a different location than the issuer (such as locally in the cluster) and specify the
+   `issuer.discoveryURL` in the configuration file.
+
+1. Run in TLS with non-obsolete ciphers
+1. Have a CA signed certificate (even if the CA is not a commercial CA or is self signed)
+
+A note about requirement #3 above, requiring a CA signed certificate. If you deploy your own
+identity provider you MUST have your identity provider's web server certificate signed by a
+certificate with the `CA` flag set to `TRUE`, even if it is self signed. This is due to GoLang's
+TLS client implementation being very strict to the standards around certificate validation. If you
+don't have a CA handy, you can create a simple CA and a signed certificate and key pair using
+standard certificate generation tools.
+
 
 ## {{% heading "whatsnext" %}}
 
