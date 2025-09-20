@@ -138,23 +138,55 @@ are available; for example using an [authenticating proxy](#authenticating-proxy
 
 ### X.509 client certificates {#x509-client-certificates}
 
-Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
-option to API server. The referenced file must contain one or more certificate authorities
-to use to validate client certificates presented to the API server. If a client certificate
-is presented and verified, the common name of the subject is used as the user name for the
-request. As of Kubernetes 1.4, client certificates can also indicate a user's group memberships
-using the certificate's organization fields. To include multiple group memberships for a user,
-include multiple organization fields in the certificate.
+Any Kubernetes client that presents a valid client certificate signed by the cluster's
+_client trust_ certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines
+the username from the `commonName` field in the _subject_ of the certificate
+(for example, `commonName=bob` represents a user with username "bob").
+From there, Kubernetes [authorization](/docs/reference/access-authn-authz/authorization)
+mechanisms determine whether the user is allowed to perform a specific operation on a resource.
 
-For example, using the `openssl` command line tool to generate a certificate signing request:
+Client certificate authentication is enabled by passing the `--client-ca-file=<SOMEFILE>`
+option to the API server. The referenced file must contain one or more certificate authorities
+to use to validate client certificates presented to the API server.
+If a client certificate is presented and verified, the common name of the subject is used as the user name for the request. Client certificates can also indicate a user's group memberships using the certificate's organization fields. To include multiple group memberships for a user, include multiple organization fields in the certificate.
+
+See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert, or read the brief [example](#x509-client-certificates-example) later in this page.
+
+#### Kubernetes-compatible client certificates {#x509-client-certificates-k8s}
+
+Kubernetes expects the to find a client certificate with a common name field.
+The API server maps the _common name_ (OID `2.5.4.3`) field to the client's username.
+For example, if you have a certificate with the common name set to "Ada Lovelace"
+and the certificate also has a _uid_ attribute, (OID `0.9.2342.19200300.100.1.1`)
+with uid set to "aaking1815", Kubernetes considers that the client's username is "Ada Lovelace".
+
+You can map a user into groups by statically including group information into
+the certificate. For each group that the user is a member of, add the group
+name as an organization (OID `2.5.6.4`).
+To include multiple group memberships for a user, include multiple organization fields in the certificate (the order does not matter).
+For the example user, the distinguished name might be CN=Ada Lovelace,O=Users,O=Staff,O=Programmers, which would place her into the groups "Programmers", "Staff", "system:authenticated", and "Users".
+
+Kubernetes can use the same approach for server identities. For example: a node with the domain name "server-1a-antartica42.cluster.example" and using node name "server-1a-antartica42" could use a certificate issued to "CN=system:node:server-1a-antartica42,O=system:nodes". The node's username is then "system:node:server-1a-antartica42", and the node is a member of "system:authenticated" and "system:nodes".
+
+{{< note >}}
+Machine identities for nodes are not the same as
+{{< glossary_tooltip text="ServiceAccounts" term_id="service-account" >}}.
+{{< /note >}}
+
+The API server also checks that a client is valid based on the normal X.509 notBefore and notAfter attributes.
+
+
+#### Example {#x509-client-certificates-example}
+
+You could use the `openssl` command line tool to generate a certificate signing request:
 
 ```bash
-openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
+# This example assumes that you already have a private key alovelace.pem
+openssl req -new -key alovelace.pem -out alovelace-csr.pem -subj "/CN=alovelace/O=app1/O=app2"
 ```
 
-This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
-
-See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert.
+This would create a signing request for the username "alovelace", belonging to two groups, "app1" and "app2". You could then use that signing request to obtain
+a certificate.
 
 #### Putting a bearer token in a request
 
