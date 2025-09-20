@@ -248,7 +248,7 @@ Read [X.509 client certificates](#x509-client-certificates) to learn about how t
 certificate.
 
 If you do issue certificates to clients, it is up to you (as a cloud platform administrator)
-to make sure that the certicate validity period, and other design choices you make, provide a
+to make sure that the certificate validity period, and other design choices you make, provide a
 suitable level of security.
 
 ### OpenID Connect tokens
