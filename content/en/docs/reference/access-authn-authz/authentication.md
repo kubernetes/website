@@ -304,23 +304,9 @@ bootstrapping. The user names and group can be used (and are used by `kubeadm`)
 to craft the appropriate authorization policies to support bootstrapping a
 cluster.
 
-Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
-documentation on the Bootstrap Token authenticator and controllers along with
+See [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
+documentation on the Bootstrap Token authenticator and controllers, along with an outline of
 how to manage these tokens with `kubeadm`.
-
-#### Putting a bearer token in a request
-
-When using bearer token authentication from an HTTP client, the API
-server expects an `Authorization` header with a value of `Bearer
-<token>`. The bearer token must be a character sequence that can be
-put in an HTTP header value using no more than the encoding and
-quoting facilities of HTTP. For example: if the bearer token is
-`31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
-header as shown below.
-
-```http
-Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
-```
 
 
 ### Service account tokens
@@ -1294,10 +1280,22 @@ For other circumstances, and especially where very prompt token rotation is
 important, the Kubernetes project recommends using a
 [webhook token authenticator](#webhook-token-authentication) instead of this mechanism.
 
+#### Putting a bearer token in a request
+
+When using bearer token authentication from an HTTP client, the API server expects an `Authorization`
+header with a value of `Bearer <token>`. The bearer token must be a character sequence that can be
+put in an HTTP header value using no more than the encoding and quoting facilities of HTTP.
+For example: if the bearer token is `b87b5cee6a31` then it would appear in an HTTP header as shown below.
+
+```http
+Authorization: Bearer b87b5cee6a31
+```
+
 ## User impersonation
 
 [User impersonation](/docs/reference/access-authn-authz/user-impersonation/) provides
 a method that a user can act as another user through impersonation headers
+
 
 ## Authentication configuration {#api-server-authn-config}
 
