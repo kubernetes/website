@@ -2,6 +2,7 @@
 <html lang="{{ .Site.Language.Lang }}" class="no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
   <head>
     {{ partial "head.html" . }}
+    <link rel="stylesheet" href="{{ "css/bottom-bar.css" | relURL }}">
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
@@ -28,7 +29,6 @@
               {{ block "outdated_content" . }}
                 {{ partial "docs/outdated_content.html" . }}
               {{ end }}
-
               {{ block "main" . }}{{ end }}
               {{- if .HasShortcode "thirdparty-content" -}}
                 {{ block "thirdparty-disclaimer" . }}
@@ -57,6 +57,8 @@
       </div>
     </div>
     {{ partial "footer.html" . }}
+    {{ partial "bottom-bar.html" . }}
     {{ partial "scripts.html" . }}
+    <script src="{{ "js/bottom-bar.js" | relURL }}"></script>
   </body>
 </html>
