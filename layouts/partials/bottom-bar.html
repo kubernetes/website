@@ -49,21 +49,33 @@
   <div class="bottom-bar__drawer">
     <!-- ToC Content -->
     <div class="bottom-bar__content bottom-bar__content--toc">
-      <div class="toc-placeholder">
-        <h3>Table of Contents</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-        <!-- ToC will be dynamically populated here -->
+      <div class="bottom-bar-toc-wrapper">
+        <h3 class="bottom-bar-toc-title">Table of Contents</h3>
+        {{ partial "toc-list.html" . }}
       </div>
     </div>
     
     <!-- Search Content -->
     <div class="bottom-bar__content bottom-bar__content--search">
-      <div class="search-placeholder">
-        <button class="search-placeholder-btn">Search functionality will be added here</button>
+      <div class="bottom-bar-search-container">
+        {{ $lang := .Site.Language.Lang }}
+        {{ $searchFile := printf "content/%s/search.md" $lang }}
+        <div class="bottom-bar-search">
+          <i class="search-icon fa-solid fa-search"></i>
+          <input
+            type="search"
+            name="q"
+            {{ if fileExists $searchFile }}
+            data-search-page="{{ "search/" | relLangURL  }}"
+            {{ else }}
+            data-search-page="{{ "search/" | relURL }}"
+            {{ end }}
+            class="bottom-bar-search-input td-search-input"
+            placeholder="{{ T "ui_search" }}"
+            aria-label="{{ T "ui_search" }}"
+            autocomplete="off"
+          >
+        </div>
       </div>
     </div>
   </div>
