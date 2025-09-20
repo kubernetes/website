@@ -66,6 +66,59 @@ All values are opaque to the authentication system and only hold significance
 when interpreted by an [authorizer](/docs/reference/access-authn-authz/authorization/).
 {{< /note >}}
 
+## Anonymous requests
+
+When enabled, requests that are not rejected by other configured authentication methods are
+treated as anonymous requests, and given a username of `system:anonymous` and a group of
+`system:unauthenticated`.
+
+For example, on a server with token authentication configured, and anonymous access enabled,
+a request providing an invalid bearer token would receive a `401 Unauthorized` error.
+A request providing no bearer token would be treated as an anonymous request.
+
+Anonymous access is enabled by default if an
+[authorization mode](/docs/reference/access-authn-authz/authorization/#authorization-modules)
+other than `AlwaysAllow` is used; you can disable it by passing the `--anonymous-auth=false`
+command line option to the API server.
+The built-in ABAC and RBAC authorizers require explicit authorization of the
+`system:anonymous` user or the `system:unauthenticated` group; if you have legacy policy rules
+(from Kubernetes version 1.5 or earlier), those legacy rules
+that grant access to the `*` user or `*` group do not automatically allow access to anonymous users.
+
+### Anonymous authenticator configuration
+
+{{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
+
+The `AuthenticationConfiguration` can be used to configure the anonymous
+authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
+file then you cannot set the `--anonymous-auth` command line option.
+
+The main advantage of configuring anonymous authenticator using the authentication
+configuration file is that in addition to enabling and disabling anonymous authentication
+you can also configure which endpoints support anonymous authentication.
+
+A sample authentication configuration file is below:
+
+{{< highlight yaml "linenos=false,hl_lines=2-5" >}}
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this as-is for your own cluster!
+#
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthenticationConfiguration
+anonymous:
+  enabled: true
+  conditions:
+  - path: /livez
+  - path: /readyz
+  - path: /healthz
+{{< /highlight >}}
+
+In the configuration above, only the `/livez`, `/readyz` and `/healthz` endpoints
+are reachable by anonymous requests. Any other endpoints will not be reachable
+anonymously, even if your authorization configuration would allow it.
+
 ## Authentication methods
 
 You can enable multiple authentication methods at once. You should usually use at least two methods:
@@ -1139,59 +1192,6 @@ a restart of each API server.
 For other circumstances, and especially where very prompt token rotation is
 important, the Kubernetes project recommends using a
 [webhook token authenticator](#webhook-token-authentication) instead of this mechanism.
-
-## Anonymous requests
-
-When enabled, requests that are not rejected by other configured authentication methods are
-treated as anonymous requests, and given a username of `system:anonymous` and a group of
-`system:unauthenticated`.
-
-For example, on a server with token authentication configured, and anonymous access enabled,
-a request providing an invalid bearer token would receive a `401 Unauthorized` error.
-A request providing no bearer token would be treated as an anonymous request.
-
-In 1.5.1-1.5.x, anonymous access is disabled by default, and can be enabled by
-passing the `--anonymous-auth=true` option to the API server.
-
-In 1.6+, anonymous access is enabled by default if an authorization mode other than `AlwaysAllow`
-is used, and can be disabled by passing the `--anonymous-auth=false` option to the API server.
-Starting in 1.6, the ABAC and RBAC authorizers require explicit authorization of the
-`system:anonymous` user or the `system:unauthenticated` group, so legacy policy rules
-that grant access to the `*` user or `*` group do not include anonymous users.
-
-### Anonymous Authenticator Configuration
-
-{{< feature-state feature_gate_name="AnonymousAuthConfigurableEndpoints" >}}
-
-The `AuthenticationConfiguration` can be used to configure the anonymous
-authenticator. If you set the anonymous field in the `AuthenticationConfiguration`
-file then you cannot set the `--anonymous-auth` flag.
-
-The main advantage of configuring anonymous authenticator using the authentication
-configuration file is that in addition to enabling and disabling anonymous authentication
-you can also configure which endpoints support anonymous authentication.
-
-A sample authentication configuration file is below:
-
-```yaml
----
-#
-# CAUTION: this is an example configuration.
-#          Do not use this for your own cluster!
-#
-apiVersion: apiserver.config.k8s.io/v1
-kind: AuthenticationConfiguration
-anonymous:
-  enabled: true
-  conditions:
-  - path: /livez
-  - path: /readyz
-  - path: /healthz
-```
-
-In the configuration above only the `/livez`, `/readyz` and `/healthz` endpoints
-are reachable by anonymous requests. Any other endpoints will not be reachable
-even if it is allowed by RBAC configuration.
 
 ## User impersonation
 
