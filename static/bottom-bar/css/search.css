@@ -1,0 +1,60 @@
+/* Bottom Bar Component - Search Styles */
+
+/* Search content container */
+.bottom-bar-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.bottom-bar-search {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.bottom-bar-search .search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2F6BE3;
+  pointer-events: none;
+}
+
+/* Search input */
+.bottom-bar-search-input {
+  width: 100%;
+  padding: 12px 20px 12px 45px;
+  border: 1px solid #2F6BE3;
+  border-radius: 200px;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+  outline: none;
+  transition: all 0.3s ease;
+  background: white;
+  color: #333;
+}
+
+.bottom-bar-search-input:focus {
+  border-color: #2F6BE3;
+  box-shadow: 0 0 0 3px rgba(47, 107, 227, 0.1);
+}
+
+.bottom-bar-search-input::placeholder {
+  color: #999;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .bottom-bar-search-container {
+    padding: 15px;
+  }
+  
+  /* When input is focused, ensure it's visible */
+  .bottom-bar-search-input:focus {
+    position: relative;
+  }
+}

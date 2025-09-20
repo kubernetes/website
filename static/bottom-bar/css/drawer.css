@@ -1,0 +1,65 @@
+/* Bottom Bar Component - Drawer Styles */
+
+/* Drawer container */
+.bottom-bar__drawer {
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  overflow: hidden;
+  height: 0;
+  transition: height 0.3s ease-in-out;
+}
+
+/* Drawer height states - Mobile Small */
+@media (max-width: 575px) {
+  .bottom-bar__drawer.state-toc {
+    height: 70vh;
+  }
+  
+  .bottom-bar__drawer.state-search {
+    height: 120px;
+  }
+}
+
+/* Drawer height states - Mobile Medium */
+@media (min-width: 576px) and (max-width: 767px) {
+  .bottom-bar__drawer.state-toc {
+    height: 60vh;
+  }
+  
+  .bottom-bar__drawer.state-search {
+    height: 120px;
+  }
+}
+
+/* Drawer height states - Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+  .bottom-bar__drawer.state-toc {
+    height: 50vh;
+  }
+  
+  .bottom-bar__drawer.state-search {
+    height: 120px;
+  }
+}
+
+/* Drawer height states - Desktop Small */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .bottom-bar__drawer.state-toc {
+    height: 40vh;
+  }
+  
+  .bottom-bar__drawer.state-search {
+    height: 120px;
+  }
+}
+
+/* Drawer height states - Desktop Large */
+@media (min-width: 1200px) {
+  .bottom-bar__drawer.state-toc {
+    height: 35vh;
+  }
+  
+  .bottom-bar__drawer.state-search {
+    height: 120px;
+  }
+}

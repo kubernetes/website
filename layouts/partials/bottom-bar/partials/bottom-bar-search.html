@@ -1,0 +1,21 @@
+<!-- Bottom Bar Search Content -->
+<div class="bottom-bar-search-container">
+  {{ $lang := .Site.Language.Lang }}
+  {{ $searchFile := printf "content/%s/search.md" $lang }}
+  <div class="bottom-bar-search">
+    <i class="search-icon fa-solid fa-search"></i>
+    <input
+      type="search"
+      name="q"
+      {{ if fileExists $searchFile }}
+      data-search-page="{{ "search/" | relLangURL  }}"
+      {{ else }}
+      data-search-page="{{ "search/" | relURL }}"
+      {{ end }}
+      class="bottom-bar-search-input td-search-input"
+      placeholder="{{ T "ui_search" }}"
+      aria-label="{{ T "ui_search" }}"
+      autocomplete="off"
+    >
+  </div>
+</div>

@@ -1,0 +1,74 @@
+/* Bottom Bar Component - Animations & Transitions */
+
+/* Smooth transitions for drawer state changes */
+.bottom-bar {
+  transition: transform 0.3s ease-in-out;
+}
+
+.bottom-bar__drawer {
+  transition: height 0.3s ease-in-out;
+}
+
+.bottom-bar__content {
+  transition: opacity 0.2s ease;
+}
+
+/* Button hover transitions */
+.bottom-bar__scroll-top,
+.bottom-bar__search-btn,
+.bottom-bar__exit-btn,
+.bottom-bar__toc-btn {
+  transition: all 1s ease;
+}
+
+/* Icon animations */
+.bottom-bar__scroll-top .circle-bg,
+.bottom-bar__search-btn .circle-bg {
+  transition: opacity 1s ease;
+}
+
+.bottom-bar__scroll-top .arrow-icon {
+  transition: fill 1s ease;
+}
+
+.bottom-bar__search-btn .search-icon,
+.bottom-bar__search-btn .search-icon circle,
+.bottom-bar__search-btn .search-icon line {
+  transition: stroke 1s ease;
+}
+
+.bottom-bar__toc-btn .toc-icon {
+  transition: stroke 1s ease;
+}
+
+/* TOC animations */
+.bottom-bar-toc__toggle {
+  transition: transform 0.2s ease;
+}
+
+.bottom-bar-toc__toggle .chevron {
+  transition: transform 0.2s ease;
+}
+
+.bottom-bar-toc__link {
+  transition: all 0.2s ease;
+}
+
+.bottom-bar-toc__children {
+  transition: max-height 0.3s ease;
+}
+
+/* Exit button fade */
+.bottom-bar__exit-btn {
+  transition: opacity 0.3s ease;
+}
+
+/* Scroll top button visibility */
+.bottom-bar__scroll-top {
+  transition: opacity 0.3s ease;
+}
+
+/* Search input focus animation */
+.bottom-bar-search-input {
+  transition: all 0.3s ease;
+}

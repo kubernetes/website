@@ -1,0 +1,129 @@
+/* Bottom Bar Component - Button Styles */
+
+/* Common button styles */
+.bottom-bar__scroll-top,
+.bottom-bar__search-btn,
+.bottom-bar__exit-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s ease;
+  position: relative;
+}
+
+/* Scroll to top button */
+.bottom-bar__scroll-top {
+  position: absolute;
+  left: 20px;
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 0.3s ease;
+}
+
+.bottom-bar__scroll-top.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bottom-bar__scroll-top .circle-bg {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.bottom-bar__scroll-top .arrow-icon {
+  transition: fill 1s ease;
+}
+
+.bottom-bar__scroll-top:hover .circle-bg,
+.bottom-bar__scroll-top.is-active .circle-bg {
+  opacity: 1;
+}
+
+.bottom-bar__scroll-top:hover .arrow-icon,
+.bottom-bar__scroll-top.is-active .arrow-icon {
+  fill: white;
+}
+
+/* ToC Button */
+.bottom-bar__toc-btn {
+  background: transparent;
+  border: 1px solid #2F6BE3;
+  border-radius: 200px;
+  color: #2F6BE3;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 1s ease;
+}
+
+.bottom-bar__toc-btn .toc-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: stroke 1s ease;
+}
+
+.bottom-bar__toc-btn:hover,
+.bottom-bar__toc-btn.is-active {
+  background: #2F6BE3;
+  color: white;
+}
+
+.bottom-bar__toc-btn:hover .toc-icon,
+.bottom-bar__toc-btn.is-active .toc-icon {
+  stroke: white;
+}
+
+/* Search Button */
+.bottom-bar__search-btn {
+  position: absolute;
+  right: 80px;
+}
+
+.bottom-bar__search-btn .circle-bg {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.bottom-bar__search-btn .search-icon {
+  transition: all 1s ease;
+}
+
+.bottom-bar__search-btn .search-icon circle,
+.bottom-bar__search-btn .search-icon line {
+  transition: stroke 1s ease;
+}
+
+.bottom-bar__search-btn:hover .circle-bg,
+.bottom-bar__search-btn.is-active .circle-bg {
+  opacity: 1;
+}
+
+.bottom-bar__search-btn:hover .search-icon circle,
+.bottom-bar__search-btn:hover .search-icon line,
+.bottom-bar__search-btn.is-active .search-icon circle,
+.bottom-bar__search-btn.is-active .search-icon line {
+  stroke: white;
+}
+
+/* Exit Button */
+.bottom-bar__exit-btn {
+  position: absolute;
+  right: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.bottom-bar__exit-btn.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}

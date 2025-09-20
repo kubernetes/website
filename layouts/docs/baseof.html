@@ -2,7 +2,7 @@
 <html lang="{{ .Site.Language.Lang }}" class="no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
   <head>
     {{ partial "head.html" . }}
-    <link rel="stylesheet" href="{{ "css/bottom-bar.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "bottom-bar/css/bottom-bar.css" | relURL }}">
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
@@ -57,8 +57,7 @@
       </div>
     </div>
     {{ partial "footer.html" . }}
-    {{ partial "bottom-bar.html" . }}
+    {{ partial "bottom-bar/partials/bottom-bar.html" . }}
     {{ partial "scripts.html" . }}
-    <script src="{{ "js/bottom-bar.js" | relURL }}"></script>
   </body>
 </html>

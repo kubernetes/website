@@ -1,0 +1,30 @@
+<!-- Bottom Bar Component -->
+<div id="bottom-bar" class="bottom-bar">
+  <!-- Top Bar -->
+  <div class="bottom-bar__top">
+    {{ partial "bottom-bar/partials/bottom-bar-buttons.html" . }}
+  </div>
+  
+  <!-- Drawer Content -->
+  <div class="bottom-bar__drawer">
+    <!-- ToC Content -->
+    <div class="bottom-bar__content bottom-bar__content--toc">
+      {{ partial "bottom-bar/partials/bottom-bar-toc.html" . }}
+    </div>
+    
+    <!-- Search Content -->
+    <div class="bottom-bar__content bottom-bar__content--search">
+      {{ partial "bottom-bar/partials/bottom-bar-search.html" . }}
+    </div>
+  </div>
+</div>
+
+<!-- Load Bottom Bar Scripts -->
+<script src="{{ "bottom-bar/js/utils.js" | relURL }}"></script>
+<script src="{{ "bottom-bar/js/state-manager.js" | relURL }}"></script>
+<script src="{{ "bottom-bar/js/drawer-controller.js" | relURL }}"></script>
+<script src="{{ "bottom-bar/js/toc-handler.js" | relURL }}"></script>
+<script src="{{ "bottom-bar/js/search-handler.js" | relURL }}"></script>
+<script src="{{ "bottom-bar/js/scroll-handler.js" | relURL }}"></script>
+<script src="{{ "bottom-bar/js/mobile-handler.js" | relURL }}"></script>
+<script src="{{ "bottom-bar/js/bottom-bar.js" | relURL }}"></script>
