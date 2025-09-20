@@ -138,37 +138,79 @@ are available; for example using an [authenticating proxy](#authenticating-proxy
 
 ### X.509 client certificates {#x509-client-certificates}
 
-Client certificate authentication is enabled by passing the `--client-ca-file=SOMEFILE`
-option to API server. The referenced file must contain one or more certificate authorities
-to use to validate client certificates presented to the API server. If a client certificate
-is presented and verified, the common name of the subject is used as the user name for the
-request. As of Kubernetes 1.4, client certificates can also indicate a user's group memberships
+Any Kubernetes client that presents a valid client certificate signed by the cluster's
+_client trust_ certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines
+the username from the `commonName` field in the _subject_ of the certificate
+(for example, `commonName=bob` represents a user with username "bob").
+From there, Kubernetes [authorization](/docs/reference/access-authn-authz/authorization)
+mechanisms determine whether the user is allowed to perform a specific operation on a resource.
+
+Client certificate authentication is enabled by passing the `--client-ca-file=<SOMEFILE>`
+option to the API server.
+This option configures the cluster's _client trust_ certificate authority.
+The referenced file must contain one or more certificate authorities that
+the API server can use, when it needs to validate client certificates.
+If a client certificate is presented and verified, the common name of the subject is used as
+the user name for the request. Client certificates can also indicate a user's group memberships
 using the certificate's organization fields. To include multiple group memberships for a user,
 include multiple organization fields in the certificate.
 
-For example, using the `openssl` command line tool to generate a certificate signing request:
+See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert, or read the brief [example](#x509-client-certificates-example) later in this page.
+
+#### Kubernetes-compatible client certificates {#x509-client-certificates-k8s}
+
+You can present a valid certificate, issued by a CA in a trust chain that the API server accepts
+for client certificates, and use that to authenticate to Kubernetes.
+The certificate must be valid; the API server checks that based on the X.509 `notBefore` and `notAfter` attributes.
+
+{{< note >}}
+Kubernetes {{< skew currentVersion >}} does not support certificate _revocation_.
+Any certificate that is issued remains valid until it expires.
+{{< /note >}}
+
+##### Username mapping {#x509-client-certificates-k8s-username}
+
+Kubernetes expects a client certificates with a subject that contains a `commonName` attribute,
+and does not use any other certificate attributes to identity the subject.
+The API server maps the `commonName` (OID `2.5.4.3`) field to the client's username.
+
+Here is an example to explain what that means. If you have a certificate with the common name
+set to "Ada Lovelace" and the certificate also had a `uid` attribute, (OID `0.9.2342.19200300.100.1.1`)
+with uid set to "aaking1815", Kubernetes considers that the client's username is "Ada Lovelace";
+Kubernetes ignores the `uid` attribute.
+
+##### Group mapping {#x509-client-certificates-k8s-group}
+
+You can map a user into groups by statically including group information into
+the certificate. For each group that the user is a member of, add the group
+name as an organization (OID `2.5.6.4`) in your certificate's subject.
+To include multiple group memberships for a user, include multiple organizations in the certificate subject
+(the order does not matter).
+For the example user, the distinguished name for a certificate might be
+CN=Ada&nbsp;Lovelace,O=Users,O=Staff,O=Programmers, which would place her into the groups
+"Programmers", "Staff", "system:authenticated", and "Users".
+
+##### Node client certificates {#x509-client-certificates-nodes}
+
+Kubernetes can use the same approach for node identity; nodes are clients of the Kubernetes API server
+(also, although less relevant here, the API server is usually also a client of each node).
+For example: a Node "server-1a-antartica42", with the domain name "server-1a-antartica42.cluster.example", could use a certificate issued to "CN=system:node:server-1a-antartica42,O=system:nodes". The node's username is then "system:node:server-1a-antartica42", and the node is a member of "system:authenticated" and "system:nodes".
+
+{{< note >}}
+Machine identities for nodes are not the same as
+{{< glossary_tooltip text="ServiceAccounts" term_id="service-account" >}}.
+{{< /note >}}
+
+#### Example {#x509-client-certificates-example}
+
+You could use the `openssl` command line tool to generate a certificate signing request:
 
 ```bash
-openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app2"
+# This example assumes that you already have a private key alovelace.pem
+openssl req -new -key alovelace.pem -out alovelace-csr.pem -subj "/CN=alovelace/O=app1/O=app2"
 ```
 
-This would create a CSR for the username "jbeda", belonging to two groups, "app1" and "app2".
-
-See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for how to generate a client cert.
-
-#### Putting a bearer token in a request
-
-When using bearer token authentication from an http client, the API
-server expects an `Authorization` header with a value of `Bearer
-<token>`. The bearer token must be a character sequence that can be
-put in an HTTP header value using no more than the encoding and
-quoting facilities of HTTP. For example: if the bearer token is
-`31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
-header as shown below.
-
-```http
-Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
-```
+This would create a signing request for the username "alovelace", belonging to two groups, "app1" and "app2". You could then have that signing request be signed by your cluster's client trust certificate authority to obtain a certificate you can use for client authentication to your cluster.
 
 ### Bootstrap tokens
 
@@ -205,6 +247,21 @@ cluster.
 Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
+
+#### Putting a bearer token in a request
+
+When using bearer token authentication from an http client, the API
+server expects an `Authorization` header with a value of `Bearer
+<token>`. The bearer token must be a character sequence that can be
+put in an HTTP header value using no more than the encoding and
+quoting facilities of HTTP. For example: if the bearer token is
+`31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
+header as shown below.
+
+```http
+Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
+```
+
 
 ### Service account tokens
 
