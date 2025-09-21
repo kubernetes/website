@@ -76,7 +76,7 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 : コンテナのメトリクスを収集・保存するために使われます。
 
 [Cluster-level Logging](/docs/concepts/architecture/#cluster-level-logging)
-: コンテナーのログを中央のログストアに保存するために使われます。
+: コンテナのログを中央ログストアに保存するために使われます。
 
 ## アーキテクチャの柔軟性
 
