@@ -1,6 +1,6 @@
 <!-- Bottom Bar Buttons -->
 <!-- Scroll to Top Arrow -->
-<button type="button" class="bottom-bar__scroll-top is-hidden" aria-label="Scroll to top">
+<button type="button" class="bottom-bar__scroll-top is-hidden" aria-label="{{ i18n "scroll_to_top_button" | default "Scroll to top" }}">
   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <!-- Outer ring thinner to match search icon -->
     <circle cx="12" cy="12" r="11" stroke="#2F6BE3" stroke-width="0.65" fill="transparent" class="circle-border"/>
@@ -23,7 +23,7 @@
 </button>
 
 <!-- Search Button -->
-<button type="button" class="bottom-bar__search-btn" aria-label="Search">
+<button type="button" class="bottom-bar__search-btn" aria-label="{{ i18n "search_button" | default "Search" }}">
   <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <circle cx="12" cy="12" r="11" stroke="#2F6BE3" stroke-width="0.65" fill="transparent" class="circle-border"/>
     <circle cx="12" cy="12" r="11" fill="#2F6BE3" class="circle-bg"/>
@@ -35,7 +35,7 @@
 </button>
 
 <!-- Exit Button -->
-<button type="button" class="bottom-bar__exit-btn" aria-label="Close drawer">
+<button type="button" class="bottom-bar__exit-btn" aria-label="{{ i18n "bottom_bar_drawer_exit" | default "Close drawer" }}">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <path d="M18 6L6 18" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M6 6L18 18" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

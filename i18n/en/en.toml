@@ -18,6 +18,9 @@ other = "Hide this notice"
 [blog_post_show_more]
 other = "Show More Posts..."
 
+[bottom_bar_drawer_exit]
+other = "Close drawer"
+
 [browser_clipboard_support_warning]
 other = "Sorry, your browser doesn't support copying this example to your clipboard."
 
@@ -615,11 +618,20 @@ other = "Target Date"
 [release_changelog]
 other = "Changelog"
 
+[scroll_to_top_button]
+other = "Scroll to top"
+
+[search_button]
+other = "Search"
+
 [seealso_heading]
 other = "See Also"
 
 [sidebar_toggle_nav]
 other = "Toggle section navigation"
+
+[submit_search_button]
+other = "Submit search"
 
 [subscribe_button]
 other = "Subscribe"
