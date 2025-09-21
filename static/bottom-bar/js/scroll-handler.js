@@ -12,12 +12,56 @@
   // Tracks whether the scroll-top button was hidden on the last visibility check.
   // Used to detect a "reappear" transition and reset its visual state.
   let wasHidden = true;
+
+  // NEW: page-bottom occlusion
+  const BOTTOM_TOLERANCE_PX = 2; // tiny fudge for fractional pixels
+  let rafQueued = false;
+
+  function isAtPageBottom() {
+    const doc = document.documentElement;
+    // account for rounding issues on some mobile browsers
+    const viewportBottom = Math.ceil(window.scrollY + window.innerHeight);
+    return viewportBottom >= (doc.scrollHeight - BOTTOM_TOLERANCE_PX);
+  }
+
+  function updateOcclusionBottom() {
+    const bar = elements && elements.bottomBar ? elements.bottomBar : null;
+    if (!bar) return;
+
+    // Respect CSS visibility (e.g., min-width:768px => display:none)
+    const displayStyle = getComputedStyle(bar).display;
+    const cssHidden = displayStyle === 'none';
+    if (cssHidden) {
+      // ensure we don't leave the class stuck when resizing across breakpoints
+      bar.classList.remove('is-occluded-bottom');
+      return;
+    }
+
+    if (isAtPageBottom()) {
+      bar.classList.add('is-occluded-bottom');
+    } else {
+      bar.classList.remove('is-occluded-bottom');
+    }
+  }
+
+  // rAF coalescer so we do both updates in one paint
+  function queueRafUpdate() {
+    if (rafQueued) return;
+    rafQueued = true;
+    window.requestAnimationFrame(() => {
+      rafQueued = false;
+      BottomBar.ScrollHandler.updateScrollTopVisibility();
+      updateOcclusionBottom();
+      isScrolling = false;
+    });
+  }
   
   window.BottomBar.ScrollHandler = {
     init(els) {
       elements = els;
       this.setupScrollHandling();
       this.updateScrollTopVisibility();
+      updateOcclusionBottom(); // initial pass
       return this;
     },
     
@@ -29,9 +73,15 @@
       scrollTopBtn.classList.remove('is-active', 'is-hover');
       wasHidden = true;
       
-      // Throttled scroll handler
+      // Throttled scroll handler -> coalesced with rAF
       window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
-      
+      window.addEventListener('resize', () => {
+        queueRafUpdate();
+      }, { passive: true });
+      window.addEventListener('orientationchange', () => {
+        setTimeout(() => queueRafUpdate(), 0);
+      });
+
       // Scroll top button click
       scrollTopBtn.addEventListener('click', this.scrollToTop.bind(this));
 
@@ -50,10 +100,7 @@
     
     handleScroll() {
       if (!isScrolling) {
-        window.requestAnimationFrame(() => {
-          this.updateScrollTopVisibility();
-          isScrolling = false;
-        });
+        queueRafUpdate();
         isScrolling = true;
       }
       
@@ -128,6 +175,8 @@
     onScrollEnd() {
       // Can be used for any scroll-end specific logic
       isScrolling = false;
+      // Make one last pass to avoid edge jitter when momentum scrolling stops
+      queueRafUpdate();
     },
     
     getScrollPosition() {

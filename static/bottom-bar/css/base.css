@@ -8,8 +8,11 @@
   right: 0;
   z-index: 1050;
   background: white;
-  transition: transform 0.3s ease-in-out;
-  will-change: transform, bottom; /* hint that bottom may change */
+
+  /* Explicit base opacity + long fade; keep drawer slide snappy */
+  opacity: 1;
+  transition: opacity 1s ease, transform 0.3s ease-in-out;
+  will-change: transform, bottom, opacity; /* hint that bottom and opacity may change */
   transform: translateY(0);
 }
 
@@ -71,5 +74,19 @@
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .bottom-bar {
     padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Fade the whole bar when user is at the page bottom */
+.bottom-bar.is-occluded-bottom {
+  opacity: 0;
+  pointer-events: none;
+}
+  #bottom-bar {
+    transition: opacity .5s ease, transform 0.3s ease-in-out;
+  }
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar {
+    transition: none;
   }
 }
