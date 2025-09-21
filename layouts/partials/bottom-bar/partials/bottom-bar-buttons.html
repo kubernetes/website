@@ -1,7 +1,7 @@
 <!-- Bottom Bar Buttons -->
 <!-- Scroll to Top Arrow -->
-<button class="bottom-bar__scroll-top is-hidden" aria-label="Scroll to top">
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<button type="button" class="bottom-bar__scroll-top is-hidden" aria-label="Scroll to top">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <!-- Outer ring thinner to match search icon -->
     <circle cx="12" cy="12" r="11" stroke="#2F6BE3" stroke-width="0.65" fill="transparent" class="circle-border"/>
     <circle cx="12" cy="12" r="11" fill="#2F6BE3" class="circle-bg"/>
@@ -10,8 +10,8 @@
 </button>
 
 <!-- ToC Button (centered) -->
-<button class="bottom-bar__toc-btn" aria-label="{{ i18n "toc" | default "Table of Contents" }}">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toc-icon">
+<button type="button" class="bottom-bar__toc-btn" aria-label="{{ i18n "toc" | default "Table of Contents" }}">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toc-icon" aria-hidden="true" focusable="false">
     <line x1="8" y1="6" x2="21" y2="6" />
     <line x1="8" y1="12" x2="21" y2="12" />
     <line x1="8" y1="18" x2="21" y2="18" />
@@ -23,8 +23,8 @@
 </button>
 
 <!-- Search Button -->
-<button class="bottom-bar__search-btn" aria-label="Search">
-  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<button type="button" class="bottom-bar__search-btn" aria-label="Search">
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <circle cx="12" cy="12" r="11" stroke="#2F6BE3" stroke-width="0.65" fill="transparent" class="circle-border"/>
     <circle cx="12" cy="12" r="11" fill="#2F6BE3" class="circle-bg"/>
     <g class="search-icon">
@@ -35,8 +35,8 @@
 </button>
 
 <!-- Exit Button -->
-<button class="bottom-bar__exit-btn" aria-label="Close drawer">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<button type="button" class="bottom-bar__exit-btn" aria-label="Close drawer">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <path d="M18 6L6 18" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M6 6L18 18" stroke="#2F6BE3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>

@@ -15,7 +15,7 @@
 
 /* TOC List Styles */
 .bottom-bar-toc {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .bottom-bar-toc__list {
@@ -135,17 +135,6 @@
 /* Items without children don't need toggle button space */
 .bottom-bar-toc__item.without-child > .bottom-bar-toc__item-wrapper {
   padding-left: 28px;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .bottom-bar-toc {
-    font-size: 13px;
-  }
-  
-  .bottom-bar-toc__link {
-    padding: 6px 10px;
-  }
 }
 
 /* --- No hover effects on the circle toggle --- */

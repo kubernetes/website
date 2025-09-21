@@ -18,10 +18,6 @@
     position: relative;
   }
   
-  .bottom-bar-toc {
-    font-size: 13px;
-  }
-  
   .bottom-bar-toc__link {
     padding: 6px 10px;
   }

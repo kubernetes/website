@@ -9,6 +9,18 @@
   window.BottomBar.DrawerController = {
     init(els) {
       elements = els;
+
+      // Ensure ARIA wiring for controller buttons (no dialog semantics)
+      const { tocBtn, searchBtn } = elements;
+      if (tocBtn) {
+        tocBtn.setAttribute('aria-controls', 'bb-drawer');
+        tocBtn.setAttribute('aria-expanded', 'false');
+      }
+      if (searchBtn) {
+        searchBtn.setAttribute('aria-controls', 'bb-drawer');
+        searchBtn.setAttribute('aria-expanded', 'false');
+      }
+
       return this;
     },
     
@@ -72,6 +84,10 @@
           window.BottomBar.SearchHandler.onDrawerOpen();
         }, 300);
       }
+
+      // Sync ARIA expanded state
+      if (tocBtn) tocBtn.setAttribute('aria-expanded', mode === StateManager.DrawerStates.TOC ? 'true' : 'false');
+      if (searchBtn) searchBtn.setAttribute('aria-expanded', mode === StateManager.DrawerStates.SEARCH ? 'true' : 'false');
     },
     
     close() {
@@ -100,6 +116,10 @@
         searchContent.classList.remove('is-active');
         drawer.className = 'bottom-bar__drawer';
       }, 300);
+
+      // Reset ARIA expanded state when closed
+      if (tocBtn) tocBtn.setAttribute('aria-expanded', 'false');
+      if (searchBtn) searchBtn.setAttribute('aria-expanded', 'false');
     },
     
     switchMode(newMode) {
@@ -161,6 +181,10 @@
       }, 200);
       
       StateManager.setActiveMode(newMode);
+
+      // Sync ARIA expanded state after mode switch
+      if (tocBtn) tocBtn.setAttribute('aria-expanded', newMode === StateManager.DrawerStates.TOC ? 'true' : 'false');
+      if (searchBtn) searchBtn.setAttribute('aria-expanded', newMode === StateManager.DrawerStates.SEARCH ? 'true' : 'false');
     }
   };
 })();

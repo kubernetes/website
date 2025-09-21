@@ -42,7 +42,7 @@
 <li class="bottom-bar-toc__item{{ if $withChild }} with-child{{ else }} without-child{{ end }}{{ if $activePath }} active-path{{ end }}{{ if $active }} active{{ end }}" id="{{ $mid }}-li" data-level="{{ $ulNr }}">
   <div class="bottom-bar-toc__item-wrapper">
     {{ if $withChild -}}
-    <button class="bottom-bar-toc__toggle" aria-expanded="{{ if $activePath }}true{{ else }}false{{ end }}" aria-controls="{{ $mid }}-children">
+    <button type="button" class="bottom-bar-toc__toggle" aria-expanded="{{ if $activePath }}true{{ else }}false{{ end }}" aria-controls="{{ $mid }}-children">
       <svg width="12" height="12" viewBox="0 0 12 12" class="chevron">
         <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
