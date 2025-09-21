@@ -31,7 +31,7 @@ spec:
 このmanifestで作成されたPodは、hostnameとfully qualified domain name (FQDN)が`busybox-1`に設定されます。
 
 ## Podのhostnameとsubdomainフィールド
-Podのspecには、オプションの`hostname`があります。
+Podのspecには、オプションの`hostname`フィールドがあります。
 この値が設定されると、Podの`metadata.name`よりも優先され、(Pod内部から見えるもの)hostnameとして使われます。
 例えば、spec.hostnameが`my-host`に設定されているPodは、hostnameが`my-host`です。
 
