@@ -63,7 +63,8 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 
 ## アドオン
 
-アドオンはKubernetesの機能を拡張します。いくつかの重要な例は次のとおりです:
+アドオンはKubernetesの機能を拡張します。
+いくつかの重要な例は次のとおりです:
 
 [DNS](/docs/concepts/architecture/#dns)
 : クラスター全体のDNS解決のために使われます。
