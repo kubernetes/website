@@ -6,6 +6,7 @@
   
   let elements = null;
   let searchInput = null;
+  let searchButton = null;
   
   window.BottomBar.SearchHandler = {
     init(els) {
@@ -17,14 +18,24 @@
     setupSearch() {
       const { bottomBar } = elements;
       searchInput = bottomBar.querySelector('.bottom-bar-search-input');
+      searchButton = bottomBar.querySelector('.bottom-bar-search-submit');
       
       if (searchInput) {
         // Setup search input event listeners
         searchInput.addEventListener('keydown', this.handleSearchKeydown.bind(this));
+        searchInput.addEventListener('input', this.handleSearchInput.bind(this));
         
         // Setup focus/blur for mobile keyboard handling
         searchInput.addEventListener('focus', this.handleSearchFocus.bind(this));
         searchInput.addEventListener('blur', this.handleSearchBlur.bind(this));
+      }
+      
+      if (searchButton) {
+        // Setup search button click listener
+        searchButton.addEventListener('click', this.handleSearchButtonClick.bind(this));
+        
+        // Set initial disabled state
+        this.updateSearchButtonState();
       }
     },
     
@@ -36,6 +47,23 @@
       } else if (e.key === 'Enter') {
         // Handle search submission
         this.submitSearch();
+      }
+    },
+    
+    handleSearchInput(e) {
+      // Update button state when input changes
+      this.updateSearchButtonState();
+    },
+    
+    handleSearchButtonClick(e) {
+      e.preventDefault();
+      this.submitSearch();
+    },
+    
+    updateSearchButtonState() {
+      if (searchButton && searchInput) {
+        const hasText = searchInput.value.trim().length > 0;
+        searchButton.disabled = !hasText;
       }
     },
     
@@ -58,6 +86,8 @@
       if (searchInput) {
         searchInput.focus();
         searchInput.select();
+        // Update button state when drawer opens
+        this.updateSearchButtonState();
         // Force an immediate refresh of --kb right after focus (helps on first-frame)
         if (window.BottomBar.MobileHandler && typeof window.BottomBar.MobileHandler.handleSearchInputFocus === 'function') {
           requestAnimationFrame(() => window.BottomBar.MobileHandler.handleSearchInputFocus());
@@ -83,6 +113,7 @@
       if (searchInput) {
         searchInput.value = '';
         searchInput.focus();
+        this.updateSearchButtonState();
       }
     },
     
@@ -93,6 +124,7 @@
     setSearchQuery(query) {
       if (searchInput) {
         searchInput.value = query;
+        this.updateSearchButtonState();
       }
     }
   };

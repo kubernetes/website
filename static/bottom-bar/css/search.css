@@ -15,13 +15,43 @@
   max-width: 600px;
 }
 
-.bottom-bar-search .search-icon {
+/* Search submit button */
+.bottom-bar-search-submit {
   position: absolute;
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #999; /* Grey by default */
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+}
+
+/* When button is disabled (no text) */
+.bottom-bar-search-submit:disabled {
+  cursor: default;
+  color: #999;
+}
+
+/* When button is enabled (has text) */
+.bottom-bar-search-submit:not(:disabled) {
   color: #2F6BE3;
-  pointer-events: none;
+}
+
+.bottom-bar-search-submit:not(:disabled):hover {
+  opacity: 0.8;
+}
+
+.bottom-bar-search-submit:not(:disabled):active {
+  opacity: 0.6;
 }
 
 /* Search input */
