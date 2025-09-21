@@ -92,7 +92,7 @@ spec:
 `hostnameOverride`が`hostname`や`subdomain`フィールドと同時に設定されている場合:
 * Pod内のhostnameは`hostnameOverride`の値に上書きされます。
 
-* クラスターのDNSサーバーにおけるPodのA and/or AAAAレコードは、`hostname`と``subdomainフィールドに基づいて引き続き生成されます。
+* クラスターのDNSサーバーにおけるPodのA/AAAAレコードは、`hostname`と`subdomain`フィールドに基づいて引き続き生成されます。
 
 Note: `hostnameOverride`が設定されている場合、`hostNetwork`と`setHostnameAsFQDN`フィールドを同時に設定することはできません。
 APIサーバーは、この組み合わせで作成要求が行われた場合、明示的に拒否します。
