@@ -11,7 +11,7 @@ weight: 85
 <!-- body -->
 
 ## デフォルトのPod hostname
-Podが作されると、そのhostname(Pod内部から見えるもの)は、Podのmetadata.nameの値から導き出されます。
+Podが作成されると、(Pod内部から観測される)そのhostnameは、Podのmetadata.nameの値から導き出されます。
 hostnameと、それに対応するfully qualified domain name (FQDN)の両方が(Podの視点からは)metadata.nameの値に設定されます。
 
 ```yaml
