@@ -651,6 +651,9 @@ other="Failed to copy to clipboard: "
 [toast_success_copycode]
 other = "Copied to clipboard: "
 
+[toc]
+other = "Table of Contents"
+
 [translated_by]
 other = "Translated By"
 
