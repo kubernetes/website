@@ -58,8 +58,8 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 
 {{% thirdparty-content single="true" %}}
 
-クラスターによっては、各Nodeに追加のソフトウェアが必要になる場合があります。
-例えば、Linux Node上で [systemd](https://systemd.io/)を実行してローカルコンポーネントを監督することもあります。
+クラスターによっては、各ノードに追加のソフトウェアが必要になる場合があります。
+例えば、Linuxノード上で[systemd](https://systemd.io/)を実行してローカルコンポーネントを監督することもあります。
 
 ## アドオン
 
