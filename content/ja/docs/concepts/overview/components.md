@@ -34,7 +34,7 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 : APIサーバーのすべてのデータに対応する、一貫性と高可用性を兼ね備えたキーバリューストアです。
 
 [kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
-: まだNodeにバインドされていないPodを検出し、それぞれのPodを適切なNodeに割り当てます。
+: まだノードにバインドされていないPodを検出し、それぞれのPodを適切なノードに割り当てます。
 
 [kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
 : {{< glossary_tooltip text="コントローラー" term_id="controller" >}} を実行して、Kubernetes APIの動作を実装します。
