@@ -5,6 +5,11 @@
   window.BottomBar = window.BottomBar || {};
   
   let elements = null;
+
+  // We only want the "start at bottom" behavior on the very first open.
+  let firstOpenHandled = false;
+  // Used to skip the post-open scroll-on-active on that first open.
+  let skipNextOnDrawerOpen = false;
   
   window.BottomBar.TocHandler = {
     init(els) {
@@ -28,6 +33,30 @@
       tocLinks.forEach(link => {
         link.addEventListener('click', this.handleLinkClick.bind(this));
       });
+    },
+
+    /**
+     * Prepare TOC before the drawer becomes visible/painted.
+     * On the very first open, force the TOC scroll position to the bottom
+     * (even while the drawer's height is still animating from 0).
+     * This runs synchronously so the user never sees a jump.
+     */
+    prepareForOpen() {
+      if (firstOpenHandled) return false;
+
+      const { tocContent } = elements;
+      if (!tocContent) {
+        firstOpenHandled = true;
+        return false;
+      }
+
+      // Put the scroll position at the bottom up-front.
+      // Doing this before the first paint ensures no visible jump.
+      tocContent.scrollTop = tocContent.scrollHeight;
+
+      firstOpenHandled = true;
+      skipNextOnDrawerOpen = true; // don't override this with the "scroll to active" pass
+      return true;
     },
     
     handleToggleClick(e) {
@@ -67,6 +96,11 @@
     },
     
     onDrawerOpen() {
+      // Skip the "scroll-to-active" once if we just pre-scrolled to bottom.
+      if (skipNextOnDrawerOpen) {
+        skipNextOnDrawerOpen = false;
+        return;
+      }
       this.scrollToActiveItem();
     },
     

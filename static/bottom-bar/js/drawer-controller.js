@@ -45,9 +45,14 @@
         tocBtn.classList.remove('is-hover');
         searchBtn.classList.remove('is-hover');
 
+        // IMPORTANT: pre-position TOC before first paint so there's no visible jump.
+        if (window.BottomBar.TocHandler && window.BottomBar.TocHandler.prepareForOpen) {
+          window.BottomBar.TocHandler.prepareForOpen();
+        }
+
         drawer.scrollTop = 0;
         
-        // Let TOC handler know drawer opened
+        // Let TOC handler do any post-open work (e.g., scroll-to-active on subsequent opens)
         setTimeout(() => {
           window.BottomBar.TocHandler.onDrawerOpen();
         }, 300);
@@ -126,11 +131,18 @@
       setTimeout(() => {
         oldContent.classList.remove('is-active');
         newContent.classList.add('is-active');
+
+        // If we are switching into TOC for the first time, pre-position to bottom before paint.
+        if (newMode === StateManager.DrawerStates.TOC) {
+          if (window.BottomBar.TocHandler && window.BottomBar.TocHandler.prepareForOpen) {
+            window.BottomBar.TocHandler.prepareForOpen();
+          }
+        }
         
         // Reset opacity
         newContent.style.opacity = '';
         
-        // Reset scroll position
+        // Reset scroll position on the drawer element itself (content has its own scroll)
         drawer.scrollTop = 0;
         
         // Fade in new content
