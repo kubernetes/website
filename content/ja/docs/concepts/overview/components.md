@@ -69,7 +69,7 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 [DNS](/docs/concepts/architecture/#dns)
 : クラスター全体のDNS解決のために使われます。
 
-[Web UI](/docs/concepts/architecture/#web-ui-dashboard) (ダッシュボード)
+[Web UI](/docs/concepts/architecture/#web-ui-dashboard)(ダッシュボード)
 : ウェブインターフェースを通してクラスターを管理するために使われます。
 
 [Container Resource Monitoring](/docs/concepts/architecture/#container-resource-monitoring)
