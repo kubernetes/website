@@ -132,7 +132,7 @@ field.
 
 ### Relaxed naming requirements for Service objects
 
-{{< feature-state for_k8s_version="v1.34" state="alpha" >}}
+{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
 
 The `RelaxedServiceNameValidation` feature gate allows Service object names to start with a digit. When this feature gate is enabled, Service object names must be valid [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 
