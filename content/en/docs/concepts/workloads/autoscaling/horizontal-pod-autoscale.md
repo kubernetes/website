@@ -133,7 +133,7 @@ value:
 
 ```math
 \begin{equation*}
-desiredReplicas = ceil\left\lceil currentReplicas \times \frac{currentMetricValue}{desiredMetricValue} \right\rceil
+\text{desiredReplicas} = \mathrm{ceil}\left\lceil \text{currentReplicas} \times \frac{\text{currentMetricValue}}{\text{desiredMetricValue}} \right\rceil
 \end{equation*}
 ```
 
@@ -176,8 +176,9 @@ since it started. This value is configured with the
 `--horizontal-pod-autoscaler-cpu-initialization-period` command line option,
 and its default is 5 minutes.
 
-The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
-calculated, using the remaining pods not set aside or discarded from above.
+The \\( \text{currentMetricValue} \over \text{desiredMetricValue} \\) base scale
+ratio is then calculated, using the remaining pods not set aside or discarded
+from above.
 
 If there were any missing metrics, the control plane recomputes the average more
 conservatively, assuming those pods were consuming 100% of the desired
