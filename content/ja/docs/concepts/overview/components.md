@@ -12,7 +12,7 @@ card:
 
 <!-- overview -->
 
-このページでは、Kubernetesクラスターを構成する必須コンポーネントのハイレベルな概要を説明します。
+このページでは、Kubernetesクラスターを構成する必須コンポーネントの概略を説明します。
 
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetesのコンポーネント" caption="Kubernetesクラスターのコンポーネント" class="diagram-large" clicktozoom="true" >}}
 
