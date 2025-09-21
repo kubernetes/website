@@ -138,3 +138,23 @@
   width: 32px;
   height: 32px;
 }
+/* Perfect vertical centering for the TOC button */
+.bottom-bar__toc-btn {
+  display: inline-flex;      
+  align-items: center;       
+  gap: 8px;                  
+  height: 40px;              
+  padding: 0 10px;
+  line-height: 1;            
+}
+
+/* Inline SVGs baseline-align by default; make it a block so flex can truly center it */
+.bottom-bar__toc-btn .toc-icon {
+  display: block;
+}
+
+/* Make the text box-tight so baseline quirks don't push it */
+.bottom-bar__toc-btn > span {
+  display: block;
+  line-height: 1;
+}
