@@ -66,7 +66,7 @@ Podがこの機能を有効にし、そのFQDNが64文字を超える場合、�
 ## PodのhostnameOverride
 {{< feature-state feature_gate_name="HostnameOverride" >}}
 
-Podのspecで`hostnameOverride`に値を設定すると、kubeletは無条件にその値をPodのhostnameとFQDN（フル クオリファイド ドメイン ネーム）両方に設定します。
+Podのspecで`hostnameOverride`に値を設定すると、kubeletは無条件にその値をPodのhostnameとFQDN両方に設定します。
 
 `hostnameOverride`フィールドには64文字の長さ制限があり、[RFC 1123](https://datatracker.ietf.org/doc/html/rfc1123)で設定されているDNSのsubdomain名の基準に従う必要があります。
 
