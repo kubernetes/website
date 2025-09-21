@@ -127,3 +127,12 @@
   opacity: 1;
   pointer-events: all;
 }
+
+.bottom-bar__search-btn svg {
+  width: 40px;     
+  height: 40px;
+}
+.bottom-bar__scroll-top svg {
+  width: 32px;
+  height: 32px;
+}
