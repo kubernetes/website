@@ -11,6 +11,6 @@ spec:
         allocationMode: All
         selectors:
         - cel:
-          expression: |-
+            expression: |-
               device.attributes["driver.example.com"].type == "gpu" &&
               device.capacity["driver.example.com"].memory == quantity("64Gi")
