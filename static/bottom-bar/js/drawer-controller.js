@@ -19,11 +19,8 @@
       // Update state
       StateManager.setDrawerOpen(true, mode);
       
-      // Show bottom bar with appropriate transform
+      // Show bottom bar (CSS handles transform via .is-open)
       bottomBar.classList.add('is-open');
-      
-      // Handle mobile keyboard positioning
-      this.adjustForKeyboard();
       
       // Show exit button
       exitBtn.classList.add('is-visible');
@@ -81,12 +78,11 @@
       tocBtn.classList.remove('is-active');
       searchBtn.classList.remove('is-active');
       
-      // Reset transform to show only the top bar
-      bottomBar.style.transform = 'translateY(calc(100% - 60px))';
+      // Return to closed visual state immediately; content will be cleaned after animation
+      bottomBar.classList.remove('is-open');
       
       // After animation completes, hide content
       setTimeout(() => {
-        bottomBar.classList.remove('is-open');
         tocContent.classList.remove('is-active');
         searchContent.classList.remove('is-active');
         drawer.className = 'bottom-bar__drawer';
@@ -115,9 +111,6 @@
       
       // Remove any inline height style
       drawer.style.height = '';
-      
-      // Maintain keyboard adjustment
-      this.adjustForKeyboard();
       
       // Fade out old content
       oldContent.style.opacity = '0';
@@ -148,29 +141,6 @@
       }, 200);
       
       StateManager.setActiveMode(newMode);
-    },
-    
-    adjustForKeyboard() {
-      const { bottomBar } = elements;
-      const state = window.BottomBar.StateManager.getState();
-      
-      if (window.innerWidth <= 768 && window.visualViewport) {
-        const keyboardHeight = window.innerHeight - window.visualViewport.height;
-        if (keyboardHeight > 50) {
-          // Keyboard is open, shift up by keyboard height
-          bottomBar.style.transform = `translateY(-${keyboardHeight}px)`;
-        } else {
-          // No keyboard, show drawer normally
-          if (state.isOpen) {
-            bottomBar.style.transform = 'translateY(0)';
-          }
-        }
-      } else {
-        // Desktop or no visual viewport API
-        if (state.isOpen) {
-          bottomBar.style.transform = 'translateY(0)';
-        }
-      }
     }
   };
 })();

@@ -58,6 +58,10 @@
       if (searchInput) {
         searchInput.focus();
         searchInput.select();
+        // Force an immediate refresh of --kb right after focus (helps on first-frame)
+        if (window.BottomBar.MobileHandler && typeof window.BottomBar.MobileHandler.handleSearchInputFocus === 'function') {
+          requestAnimationFrame(() => window.BottomBar.MobileHandler.handleSearchInputFocus());
+        }
       }
     },
     

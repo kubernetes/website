@@ -3,15 +3,21 @@
 /* Main container */
 .bottom-bar {
   position: fixed;
-  bottom: 0;
+  bottom: var(--kb, 0px); /* --kb is now scoped on the element itself */
   left: 0;
   right: 0;
   z-index: 1050;
   background: white;
-  transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
-  will-change: transform;
-  transform: translateY(calc(100% - 60px));
+  will-change: transform, bottom; /* hint that bottom may change */
+  transform: translateY(0);
+}
+
+/* When closed, slide so only the top bar (60px) peeks above the bottom edge */
+.bottom-bar:not(.is-open) {
+  /* use the element-scoped variable with a fallback of 60px */
+  --bar-top-height: 60px;
+  transform: translateY(calc(100% - var(--bar-top-height)));
 }
 
 /* Top Bar */
