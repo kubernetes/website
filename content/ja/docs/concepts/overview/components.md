@@ -39,7 +39,7 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 [kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
 : {{< glossary_tooltip text="コントローラー" term_id="controller" >}}を実行して、Kubernetes APIの動作を実装します。
 
-[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (オプション)
+[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager)(オプション)
 : 基盤となるクラウドプロバイダーと統合します。
 
 ### ノードコンポーネント
