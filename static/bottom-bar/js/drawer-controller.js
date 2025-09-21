@@ -41,6 +41,10 @@
         searchContent.classList.remove('is-active');
         tocBtn.classList.add('is-active');
         searchBtn.classList.remove('is-active');
+        // Opening shouldn't force hover; ensure default unless pointer enters later
+        tocBtn.classList.remove('is-hover');
+        searchBtn.classList.remove('is-hover');
+
         drawer.scrollTop = 0;
         
         // Let TOC handler know drawer opened
@@ -52,6 +56,10 @@
         tocContent.classList.remove('is-active');
         searchBtn.classList.add('is-active');
         tocBtn.classList.remove('is-active');
+        // Opening shouldn't force hover
+        tocBtn.classList.remove('is-hover');
+        searchBtn.classList.remove('is-hover');
+
         drawer.scrollTop = 0;
         
         // Let search handler know drawer opened
@@ -74,9 +82,9 @@
       // Hide exit button
       exitBtn.classList.remove('is-visible');
       
-      // Remove active states from buttons
-      tocBtn.classList.remove('is-active');
-      searchBtn.classList.remove('is-active');
+      // Remove active & hover states from buttons so they snap to default even under the cursor
+      tocBtn.classList.remove('is-active', 'is-hover');
+      searchBtn.classList.remove('is-active', 'is-hover');
       
       // Return to closed visual state immediately; content will be cleaned after animation
       bottomBar.classList.remove('is-open');
@@ -100,10 +108,10 @@
       // Update button states
       if (newMode === StateManager.DrawerStates.TOC) {
         tocBtn.classList.add('is-active');
-        searchBtn.classList.remove('is-active');
+        searchBtn.classList.remove('is-active', 'is-hover'); // ensure search resets when switching away
       } else {
         searchBtn.classList.add('is-active');
-        tocBtn.classList.remove('is-active');
+        tocBtn.classList.remove('is-active', 'is-hover'); // ensure toc resets when switching away
       }
       
       // Update drawer height for new mode

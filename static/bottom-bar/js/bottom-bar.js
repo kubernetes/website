@@ -2,9 +2,6 @@
 (function() {
   'use strict';
   
-  // Import modules (in a real setup, use ES6 modules or a bundler)
-  // For now, assuming all scripts are loaded in order
-  
   // Initialize component
   function init() {
     // Get main container
@@ -45,6 +42,10 @@
   function setupEventListeners(elements) {
     const { tocBtn, searchBtn, exitBtn, scrollTopBtn } = elements;
     
+    // Wire JS-driven hover (replaces :hover visuals)
+    wireHoverClass(tocBtn);
+    wireHoverClass(searchBtn);
+
     // Button clicks
     tocBtn.addEventListener('click', handleTocClick);
     searchBtn.addEventListener('click', handleSearchClick);
@@ -56,12 +57,21 @@
     // Click outside to close
     document.addEventListener('click', handleClickOutside);
   }
+
+  function wireHoverClass(btn) {
+    // Clear any accidental hover on init
+    btn.classList.remove('is-hover');
+    btn.addEventListener('pointerenter', () => btn.classList.add('is-hover'));
+    btn.addEventListener('pointerleave', () => btn.classList.remove('is-hover'));
+    btn.addEventListener('pointercancel', () => btn.classList.remove('is-hover'));
+  }
   
   function handleTocClick() {
     const state = window.BottomBar.StateManager.getState();
     const DrawerStates = window.BottomBar.StateManager.DrawerStates;
     
     if (state.isOpen && state.activeMode === DrawerStates.TOC) {
+      // Clicking active button closes the drawer; reset visual state to default
       window.BottomBar.DrawerController.close();
     } else if (state.isOpen && state.activeMode !== DrawerStates.TOC) {
       window.BottomBar.DrawerController.switchMode(DrawerStates.TOC);
@@ -75,6 +85,7 @@
     const DrawerStates = window.BottomBar.StateManager.DrawerStates;
     
     if (state.isOpen && state.activeMode === DrawerStates.SEARCH) {
+      // Clicking active button closes the drawer; reset visual state to default
       window.BottomBar.DrawerController.close();
     } else if (state.isOpen && state.activeMode !== DrawerStates.SEARCH) {
       window.BottomBar.DrawerController.switchMode(DrawerStates.SEARCH);

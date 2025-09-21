@@ -38,12 +38,13 @@
   transition: fill 1s ease;
 }
 
-.bottom-bar__scroll-top:hover .circle-bg,
+/* JS-driven hover/active (no :hover) */
+.bottom-bar__scroll-top.is-hover .circle-bg,
 .bottom-bar__scroll-top.is-active .circle-bg {
   opacity: 1;
 }
 
-.bottom-bar__scroll-top:hover .arrow-icon,
+.bottom-bar__scroll-top.is-hover .arrow-icon,
 .bottom-bar__scroll-top.is-active .arrow-icon {
   fill: white;
 }
@@ -71,13 +72,14 @@
   transition: stroke 1s ease;
 }
 
-.bottom-bar__toc-btn:hover,
+/* JS-driven hover/active (no :hover) */
+.bottom-bar__toc-btn.is-hover,
 .bottom-bar__toc-btn.is-active {
   background: #2F6BE3;
   color: white;
 }
 
-.bottom-bar__toc-btn:hover .toc-icon,
+.bottom-bar__toc-btn.is-hover .toc-icon,
 .bottom-bar__toc-btn.is-active .toc-icon {
   stroke: white;
 }
@@ -102,13 +104,14 @@
   transition: stroke 1s ease;
 }
 
-.bottom-bar__search-btn:hover .circle-bg,
+/* JS-driven hover/active (no :hover) */
+.bottom-bar__search-btn.is-hover .circle-bg,
 .bottom-bar__search-btn.is-active .circle-bg {
   opacity: 1;
 }
 
-.bottom-bar__search-btn:hover .search-icon circle,
-.bottom-bar__search-btn:hover .search-icon line,
+.bottom-bar__search-btn.is-hover .search-icon circle,
+.bottom-bar__search-btn.is-hover .search-icon line,
 .bottom-bar__search-btn.is-active .search-icon circle,
 .bottom-bar__search-btn.is-active .search-icon line {
   stroke: white;
