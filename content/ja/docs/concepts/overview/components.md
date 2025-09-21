@@ -49,8 +49,8 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 [kubelet](/docs/concepts/architecture/#kubelet)
 : コンテナを含むPodが稼働していることを保証します。
 
-[kube-proxy](/docs/concepts/architecture/#kube-proxy) (オプション)
-: Node上のネットワークルールを維持し、{{< glossary_tooltip text="Service" term_id="service" >}}を実装します。
+[kube-proxy](/docs/concepts/architecture/#kube-proxy)(オプション)
+: ノード上のネットワークルールを維持し、{{< glossary_tooltip text="Service" term_id="service" >}}を実装します。
 
 [コンテナランタイム](/docs/concepts/architecture/#container-runtime)
 : コンテナを実行する役割を持つソフトウェアです。
