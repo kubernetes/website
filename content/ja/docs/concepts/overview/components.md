@@ -44,7 +44,7 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 
 ### ノードコンポーネント
 
-すべてのNodeで実行され、実行中のPodを維持し、Kubernetesランタイム環境を提供します。
+すべてのノードで実行され、実行中のPodを維持し、Kubernetesランタイム環境を提供します。
 
 [kubelet](/docs/concepts/architecture/#kubelet)
 : コンテナを含むPodが稼働していることを保証します。
