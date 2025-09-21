@@ -37,7 +37,7 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 : まだノードにバインドされていないPodを検出し、それぞれのPodを適切なノードに割り当てます。
 
 [kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
-: {{< glossary_tooltip text="コントローラー" term_id="controller" >}} を実行して、Kubernetes APIの動作を実装します。
+: {{< glossary_tooltip text="コントローラー" term_id="controller" >}}を実行して、Kubernetes APIの動作を実装します。
 
 [cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager) (オプション)
 : 基盤となるクラウドプロバイダーと統合します。
