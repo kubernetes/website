@@ -40,11 +40,7 @@
     },
     
     handleSearchKeydown(e) {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        searchInput.blur();
-        window.BottomBar.DrawerController.close();
-      } else if (e.key === 'Enter') {
+      if (e.key === 'Enter') {
         // Handle search submission
         this.submitSearch();
       }

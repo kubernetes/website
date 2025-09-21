@@ -56,6 +56,16 @@
     
     // Click outside to close
     document.addEventListener('click', handleClickOutside);
+
+    // Global Escape -> trigger the Exit (X) button when drawer is open.
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (e.defaultPrevented) return;
+      const state = window.BottomBar.StateManager.getState();
+      if (!state.isOpen) return;
+      const btn = window.BottomBar.elements && window.BottomBar.elements.exitBtn;
+      if (btn) btn.click();
+    });
   }
 
   function wireHoverClass(btn) {
