@@ -46,7 +46,7 @@ hostnameとsubdomainの両方が設定されていると、クラスターのDNS
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 Podがfully qualified domain name (FQDN)を持つように設定されている場合、そのhostnameは短いhostnameです。
-例えば、Podのfully　qualified domain nameが`busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`の場合、デフォルトではそのPod内で`hostname`コマンドを実行すると`busybox-1`が返り、`hostname --fqdn`コマンドを実行するとFQDNが返ります。
+例えば、Podのfully qualified domain nameが`busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`の場合、デフォルトではそのPod内で`hostname`コマンドを実行すると`busybox-1`が返り、`hostname --fqdn`コマンドを実行するとFQDNが返ります。
 
 `setHostnameAsFQDN: true`とsubdomainフィールドがPodのspecに設定されている場合、kubeletはそのPodのNamespaceに対してFQDNをhostnameとして書き込みます。
 この場合、`hostname`と`hostname --fqdn`の両方がPodのFQDNを返します。
