@@ -394,7 +394,7 @@ sudo kubeadm init phase certs front-proxy-ca
 sudo kubeadm init phase certs sa
 ```
 
-これにより、コントロールプレーンノードでkubeadmが必要とする、全ての自己署名CAファイル(証明書と鍵)とサービスアカウント(公開鍵と秘密鍵)が`/etc/kubernetes/pki`および`/etc/kubernetes/pki/etcd`フォルダに作成されます。
+これにより、コントロールプレーンノードでkubeadmが必要とする、全ての自己署名CAファイル(証明書と鍵)とサービスアカウント(公開鍵と秘密鍵)が`/etc/kubernetes/pki`および`/etc/kubernetes/pki/etcd`フォルダーに作成されます。
 
 {{< note >}}
 外部CAを使用する場合、同じファイルをアウトオブバンドで作成し、最初のコントロールプレーンノードの`/etc/kubernetes`へ手動でコピーする必要があります。
