@@ -54,7 +54,7 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 
 [コンテナランタイム](/docs/concepts/architecture/#container-runtime)
 : コンテナを実行する役割を持つソフトウェアです。
-  詳細は[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)を参照してください。
+  詳細は[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)を参照してください。
 
 {{% thirdparty-content single="true" %}}
 
