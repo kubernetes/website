@@ -138,12 +138,11 @@ value:
 ```
 
 For example, if the current metric value is `200m`, and the desired value
-is `100m`, the number of replicas will be doubled, since
-\\( { 200.0 \div 100.0 } = 2.0 \\).  
-If the current value is instead `50m`, you'll halve the number of
-replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The control plane skips any scaling
-action if the ratio is sufficiently close to 1.0 (within a
-[configurable tolerance](#tolerance), 0.1 by default).
+is `100m`, the number of replicas will be doubled, since \\( { 200.0 \div
+100.0 } = 2.0 \\). If the current value is instead `50m`, you'll halve
+the number of replicas, since \\( { 50.0 \div 100.0 } = 0.5 \\). The
+control plane skips any scaling action if the ratio is sufficiently close
+to 1.0 (within a [configurable tolerance](#tolerance), 0.1 by default).
 
 When a `targetAverageValue` or `targetAverageUtilization` is specified,
 the `currentMetricValue` is computed by taking the average of the given
