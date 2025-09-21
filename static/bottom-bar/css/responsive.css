@@ -9,19 +9,15 @@
   }
 }
 
-/* Mobile-specific adjustments */
-@media (max-width: 768px) {
-  /* Search container adjustments */
+@media (max-width: 767px) {
   .bottom-bar-search-container {
     padding: 15px;
   }
   
-  /* Ensure input is visible when focused */
   .bottom-bar-search-input:focus {
     position: relative;
   }
   
-  /* Smaller font size for TOC on mobile */
   .bottom-bar-toc {
     font-size: 13px;
   }
@@ -30,18 +26,15 @@
     padding: 6px 10px;
   }
 }
+@media (max-width: 430px) {
+  /* Pull search closer to the edge so it fits within the reserved gutter on smaller screens*/
+  .bottom-bar__search-btn { right: 45px; }
 
-/* Tablet adjustments */
-@media (min-width: 769px) and (max-width: 991px) {
-  /* Any tablet-specific styles */
+ 
 }
-
-/* Desktop adjustments */
-@media (min-width: 992px) {
-  /* Any desktop-specific styles */
-}
-
-/* Large desktop */
-@media (min-width: 1400px) {
-  /* Can be used to hide/show bottom bar on very large screens if needed */
+/* Hide bottom-bar at this breakpoint and higher*/
+@media (min-width: 768px) {
+  #bottom-bar {
+    display: none;
+  }
 }
