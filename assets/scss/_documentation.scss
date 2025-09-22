@@ -431,7 +431,11 @@ body.glossary {
       grid-template-columns: 1fr;
       .launch-card {
         width: 100%;
+        padding: 0;
       }
+      .launch-card .card-content {
+    width: 100%;
+  }
     }
   }
 }
