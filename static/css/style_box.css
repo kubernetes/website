@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color:#ffffff;
+  background-color:var(--white);
 }
 
 p {
@@ -35,7 +35,7 @@ h1 {
 
 .banner1 {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-top:12%;
   padding-bottom:0.5%;
   padding-left:9.9%;
@@ -47,7 +47,7 @@ h1 {
 
 .banner2 {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-top:3%;
   padding-bottom:3%;
   font-size:21px;
@@ -60,7 +60,7 @@ h1 {
 
 .banner3 {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-top:5%;
   padding-bottom:5%;
   font-size:21px;
@@ -72,7 +72,7 @@ h1 {
 
 .banner4 {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-top:5%;
   padding-bottom:5%;
   font-size:21px;
@@ -84,7 +84,7 @@ h1 {
 
 .banner5 {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-top:3%;
   padding-bottom:3%;
   font-size:21px;
@@ -97,7 +97,7 @@ h1 {
 
 .banner2text {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   width:60%;
   text-align:center;
   margin:0 auto;
@@ -105,7 +105,7 @@ h1 {
 
 .banner3text {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   width:55%;
   text-align:center;
   margin:0 auto;
@@ -113,7 +113,7 @@ h1 {
 
 .banner4text {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   width:55%;
   text-align:center;
   margin:0 auto;
@@ -121,7 +121,7 @@ h1 {
 
 .banner5text {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   width:60%;
   text-align:center;
   margin:0 auto;
@@ -262,7 +262,7 @@ h4 {
 
   .banner1 {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     padding-top:15%;
     padding-bottom:2%;
     padding-left:10%;
@@ -273,7 +273,7 @@ h4 {
 
   .banner2 {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     padding-top:4%;
     padding-bottom:4%;
     padding-left:0%;
@@ -288,7 +288,7 @@ h4 {
 
   .banner3 {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     padding-top:5%;
     padding-bottom:5%;
     font-size:18px;
@@ -301,7 +301,7 @@ h4 {
 
   .banner4 {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     padding-top:5%;
     padding-bottom:5%;
     font-size:18px;
@@ -314,7 +314,7 @@ h4 {
 
   .banner5 {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     padding-top:4%;
     padding-bottom:4%;
     padding-left:0%;
@@ -329,17 +329,17 @@ h4 {
 
   .banner2text {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     width:80%;
     padding-left:10%;
     float:left;
     text-align:center;
-    color:#ffffff;
+    color:var(--white);
   }
 
   .banner4text {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     width:80%;
     padding-left:10%;
     text-align:center;
@@ -347,7 +347,7 @@ h4 {
 
   .banner3text {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     width:80%;
     padding-left:10%;
     text-align:center;
@@ -355,12 +355,12 @@ h4 {
 
   .banner5text {
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     width:80%;
     padding-left:10%;
     float:left;
     text-align:center;
-    color:#ffffff;
+    color:var(--white);
   }
 
   .fullcol {

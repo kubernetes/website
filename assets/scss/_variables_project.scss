@@ -41,3 +41,47 @@ $dark-bg-color-1: #303030;
 $dark-bg-color-2: #4f4f4f;
 $dark-text-color-1: #ffffff;
 $dark-text-color-2: #3371e3;
+
+/* CSS Custom Properties generated from SCSS variables */
+:root {
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  
+  --light-grey: #{$light-grey};
+  --medium-light-grey: #{$medium-light-grey};
+  --medium-grey: #{$medium-grey};
+  --dark-grey: #{$dark-grey};
+  --white: #{$white};
+  
+  // feature gate colors
+  --feature: #{$feature};
+  --feature-inset: #{$feature-inset};
+  
+  // metrics reference colors
+  --metric-labels-varying: #{$metric-labels-varying};
+  --metric-labels-varying-border: #{$metric-labels-varying-border};
+  
+  --td-sidebar-bg-color: #{$td-sidebar-bg-color};
+  
+  --link-color: #{$link-color};
+  
+  --link-hover-decoration: #{$link-hover-decoration};
+  
+  // tooltip
+  --tooltip-bg: #{$tooltip-bg};
+  --tooltip-arrow-color: #{$tooltip-arrow-color};
+  --tooltip-arrow-width: #{$tooltip-arrow-width};
+  --tooltip-opacity: #{$tooltip-opacity};
+  --tooltip-color: #{$tooltip-color};
+  --tooltip-max-width: #{$tooltip-max-width};
+  --tooltip-font-size: #{$tooltip-font-size};
+  --tooltip-padding: #{$tooltip-padding};
+  --tooltip-border-radius: #{$tooltip-border-radius};
+  --tooltip-font-weight: #{$tooltip-font-weight};
+  
+  // light / dark mode support
+  --dark-bg-color-1: #{$dark-bg-color-1};
+  --dark-bg-color-2: #{$dark-bg-color-2};
+  --dark-text-color-1: #{$dark-text-color-1};
+  --dark-text-color-2: #{$dark-text-color-2};
+}

@@ -11,8 +11,8 @@ body.cid-training body.cid-training .section {
 }
 
 body.cid-training section.call-to-action {
-  color: #ffffff;
-  background-color: #326ce5;
+  color: var(--white);
+  background-color: var(--primary);
 }
 
 body.cid-training section.call-to-action .main-section {
@@ -83,7 +83,7 @@ body.cid-training .col-nav {
   display: flex;
   flex-grow: 1;
   width: 18%;
-  background-color: #f9f9f9;
+  background-color: var(--light-grey);
   padding: 20px;
   border: 5px solid white;
 }
@@ -214,9 +214,9 @@ body.cid-training .button {
   border-radius: 6px;
   padding: 0 20px;
   line-height: 40px;
-  color: #ffffff;
+  color: var(--white);
   font-size: 16px;
-  background-color: #326ce5;
+  background-color: var(--primary);
   text-decoration: none;
   text-align: center;
 }
@@ -244,7 +244,7 @@ body.cid-training .padded {
 }
 
 body.cid-training .blue-bg {
-  background-color: #326ce5;
+  background-color: var(--primary);
 }
 
 body.cid-training .lighter-gray-bg {

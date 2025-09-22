@@ -58,12 +58,12 @@ code {
 
 .fa {
   font-size: 25px;
-  color: #FFFFFF;
+  color: var(--white);
 }
 
 .panel-title {
   font-size: 25px;
-  color: #FFFFFF;
+  color: var(--white);
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -133,7 +133,7 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 400;
-  color: #303030;
+  color: var(--dark-grey);
   font-size: 14px;
   margin-top: 1%;
   margin-bottom: 4%;
@@ -146,7 +146,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #303030;
+  color: var(--dark-grey);
 }
 
 
@@ -283,7 +283,7 @@ a {
   width: 100%;
   padding-top: 5%;
   padding-bottom: 5%;
-  background-color: #eeeeee;
+  background-color: var(--feature-inset);
 
 }
 
@@ -646,7 +646,7 @@ h2:after {
   .events {
     float: left;
     width: 100%;
-    background-color: #eeeeee;
+    background-color: var(--feature-inset);
     margin-top: 3%;
     padding-bottom: 5%;
 
@@ -713,7 +713,7 @@ h2:after {
     width: 100%;
     padding-top: 5%;
     padding-bottom: 5%;
-    background-color: #eeeeee;
+    background-color: var(--feature-inset);
 
   }
 

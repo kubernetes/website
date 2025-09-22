@@ -16,7 +16,7 @@
 	display: block;
 	float:left;
 	margin: 1% 0 1% 1.6%;
-	background-color: #f9f9f9;
+	background-color: var(--light-grey);
 }
 .col:first-child { margin-left: 0; }
 
@@ -37,17 +37,17 @@
 /*  GRID OF THREE  */
 .span_3_of_3 {
 	width: 35%;
-	background-color: #f9f9f9;
+	background-color: var(--light-grey);
 	padding: 20px;
 }
 .span_2_of_3 {
 	width: 35%;
-	background-color: #f9f9f9;
+	background-color: var(--light-grey);
 	padding: 20px;
 }
 .span_1_of_3 {
 	width: 35%;
-	background-color: #f9f9f9;
+	background-color: var(--light-grey);
 	padding: 20px;
 }
 
@@ -60,7 +60,7 @@
 .col-nav {
     display: table-cell; /* Make elements inside the container behave like table cells */
 		width: 18%;
-		background-color: #f9f9f9;
+		background-color: var(--light-grey);
 		padding: 20px;
 		border: 5px solid white;
 }
@@ -89,7 +89,7 @@
 	line-height: 40px;
 	color: #ffffff;
 	font-size: 16px;
-	background-color: #3371e3;
+	background-color: var(--dark-text-color-2);
 	text-decoration: none;
  }
 
@@ -101,7 +101,7 @@ h5 {
 
 #usersGrid a {
 	display: inline-block;
-	background-color: #f9f9f9;
+	background-color: var(--light-grey);
 }
 
 #ktpContainer, #distContainer, #kcspContainer, #isvContainer, #servContainer {
@@ -142,7 +142,7 @@ h5 {
 }
 
 .partner-box img {
-	background-color: #f9f9f9;
+	background-color: var(--light-grey);
 }
 
 .partner-box > div {
