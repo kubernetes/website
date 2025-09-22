@@ -11,7 +11,7 @@ tags:
 - architecture
 ---
 
-Hạ tầng bất biến là cách thiết kế hạ tầng máy tính (máy ảo, container, thiết bị mạng) không thay đổi sau khi đã triển khai.
+Hạ tầng bất biến là kiểu hạ tầng máy tính (máy ảo, container, thiết bị mạng) không thay đổi sau khi đã triển khai.
 
 <!--more-->
 
