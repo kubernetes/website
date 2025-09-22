@@ -12,7 +12,7 @@ tags:
 - operation
 ---
 
-Một tài nguyên API tự động điều chỉnh số lượng bản sao (replica) của {{< glossary_tooltip term_id="pod" >}} dựa vào mức sử dụng CPU mong muốn hoặc các ngưỡng chỉ số tùy chỉnh.
+Một tài nguyên API tự động điều chỉnh số lượng replica của {{< glossary_tooltip term_id="pod" >}} dựa vào mức sử dụng CPU mong muốn hoặc các ngưỡng chỉ số tùy chỉnh.
 
 <!--more--> 
 
