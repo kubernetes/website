@@ -1,17 +1,16 @@
 ---
 title: 파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기
 content_type: tutorial
-weight: 10
+weight: 20
 ---
 
 {{% alert title="Note" %}}
 이 튜토리얼은 새로운 클러스터에만 적용할 수 있다.
 {{% /alert %}}
 
-파드 시큐리티 어드미션(PSA, Pod Security Admission)은 
-[베타로 변경](/blog/2021/12/09/pod-security-admission-beta/)되어 v1.23 이상에서 기본적으로 활성화되어 있다. 
 파드 시큐리티 어드미션은 파드가 생성될 때 
-[파드 시큐리티 스탠다드(Pod Security Standards)](/ko/docs/concepts/security/pod-security-standards/)를 적용하는 어드미션 컨트롤러이다. 
+[파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)를 적용하는 
+어드미션 컨트롤러이다. v1.25에서 정식 출시되었다.
 이 튜토리얼에서는, 
 각 네임스페이스별로 `baseline` 파드 시큐리티 스탠다드를 강제(enforce)할 것이다.
 
@@ -31,7 +30,7 @@ weight: 10
 1. 다음과 같이 `KinD` 클러스터를 생성한다.
 
    ```shell
-   kind create cluster --name psa-ns-level --image kindest/node:v1.23.0
+   kind create cluster --name psa-ns-level
    ```
 
    다음과 비슷하게 출력될 것이다.
@@ -95,7 +94,8 @@ namespace/example created
 2. 어떠한 네임스페이스에도 복수 개의 파드 시큐리티 스탠다드를 활성화할 수 있으며, 
    이는 레이블을 이용하여 가능하다. 
    다음 명령어는 최신 버전(기본값)에 따라, `baseline(기준)` 파드 시큐리티 스탠다드는 `enforce(강제)`하지만 
-   `restricted(제한된)` 파드 시큐리티 스탠다드에 대해서는 `warn(경고)` 및 `audit(감사)`하도록 설정한다.
+   `restricted(제한된)` 파드 시큐리티 스탠다드에 대해서는 `warn(경고)` 및 `audit(감사)`
+   하도록 설정한다.
 
    ```shell
    kubectl label --overwrite ns example \
@@ -108,23 +108,6 @@ namespace/example created
    ```
 
 ## 파드 시큐리티 스탠다드 검증하기
-
-1. `example` 네임스페이스에 최소한의 파드를 생성한다.
-
-   ```shell
-   cat <<EOF > /tmp/pss/nginx-pod.yaml
-   apiVersion: v1
-   kind: Pod
-   metadata:
-     name: nginx
-   spec:
-     containers:
-       - image: nginx
-         name: nginx
-         ports:
-           - containerPort: 80
-   EOF
-   ```
 
 1. 클러스터의 `example` 네임스페이스에 해당 파드 스펙을 적용한다.
 
@@ -155,7 +138,11 @@ namespace/example created
 
 ## 정리하기
 
-`kind delete cluster --name psa-ns-level` 명령을 실행하여 생성했던 클러스터를 삭제한다.
+위에서 생성한 클러스터들을 다음 명령어를 실행하여 삭제한다.
+
+```shell
+kind delete cluster --name psa-ns-level
+```
 
 ## {{% heading "whatsnext" %}}
 
@@ -163,11 +150,11 @@ namespace/example created
   [셸 스크립트](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)를 
   실행한다.
 
-  1. KinD 클러스터를 생성
-  2. 새로운 네임스페이스를 생성
+  1. kind 클러스터를 생성한다
+  2. 새로운 네임스페이스를 생성한다
   3. `baseline` 파드 시큐리티 스탠다드는 `enforce` 모드로 적용하고 
-     `restricted` 파드 시큐리티 스탠다드는 `warn` 및 `audit` 모드로 적용
-  4. 해당 파드 시큐리티 스탠다드가 적용된 상태에서 새로운 파드를 생성
+     `restricted` 파드 시큐리티 스탠다드는 `warn` 및 `audit` 모드로 적용한다.
+  4. 해당 파드 시큐리티 스탠다드가 적용된 상태에서 새로운 파드를 생성한다
 
 - [파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)
 - [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)
