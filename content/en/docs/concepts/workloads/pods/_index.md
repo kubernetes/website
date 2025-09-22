@@ -299,7 +299,7 @@ section.
 
 To set security constraints on Pods and containers, you use the
 `securityContext` field in the Pod specification. This field gives you
-granular control over what a Pod or individual containers can do.
+granular control over what a Pod or individual containers can do. See [Advanced Pod Configuration](/docs/concepts/workloads/pods/advanced-pod-config/) for more details.
 
 For basic security configuration, you should meet the Baseline Pod security standard and run containers as non-root. You can set simple security contexts:
 

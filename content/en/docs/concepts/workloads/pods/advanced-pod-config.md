@@ -89,7 +89,14 @@ For more information, see the [RuntimeClass](/docs/concepts/containers/runtime-c
 
 The `Security context` field in the Pod specification provides granular control over security settings for Pods and containers.
 
-### Example Pod {#pod-level-security-context}
+### Pod-wide `securityContext` {#pod-level-security-context}
+
+Some aspects of security apply to the whole Pod; for other aspects,
+you might want to set a default, without any container-level overrides.
+
+Here's an example of using `securityContext` at the Pod level:
+
+#### Example Pod {#pod-level-security-context-example}
 
 {{< highlight yaml "hl_lines=5-9" >}}
 apiVersion: v1
@@ -107,7 +114,12 @@ spec:
     command: ["sh", "-c", "sleep 1h"]
 {{< /highlight >}}
 
-### Example Pod {#container-level-security-context}
+### Container-level security context {#container-level-security-context}
+
+You can specify the security context just for a specific container.
+Here's an example:
+
+#### Example Pod {#container-level-security-context-example}
 
 {{< highlight yaml "hl_lines=9-17" >}}
 apiVersion: v1
@@ -284,5 +296,5 @@ spec:
 * Read about [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * Read about [RuntimeClasses](/docs/concepts/containers/runtime-class/)
 * Explore [Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
-* [Assign Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+* Learn how Kubernetes [assigns Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
 * [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
