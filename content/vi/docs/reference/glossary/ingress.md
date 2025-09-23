@@ -17,4 +17,4 @@ Một đối tượng API quản lý quyền truy cập từ bên ngoài vào c�
 
 <!--more-->
 
-Ingress có thể cung cấp khả năng cân bằng tải (load balancing), chấm dứt SSL (SSL termination) và lưu trữ ảo dựa trên tên miền (name-based virtual hosting).
+Ingress có thể cung cấp khả năng cân bằng tải (load balancing), SSL termination và lưu trữ ảo dựa trên tên miền (name-based virtual hosting).
