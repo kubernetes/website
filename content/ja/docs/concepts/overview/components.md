@@ -31,7 +31,7 @@ Kubernetesクラスターは、コントロールプレーンと1つ以上のワ
 : Kubernetes HTTP APIを公開するコアコンポーネントサーバーです。
 
 [etcd](/docs/concepts/architecture/#etcd)
-: APIサーバーのすべてのデータに対応する、一貫性と高可用性を兼ね備えたキーバリューストアです。
+: APIサーバーのすべてのデータを保存する、一貫性と高可用性を兼ね備えたキーバリューストアです。
 
 [kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
 : まだノードにバインドされていないPodを検出し、それぞれのPodを適切なノードに割り当てます。
