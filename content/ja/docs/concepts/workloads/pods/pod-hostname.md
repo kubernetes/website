@@ -97,4 +97,4 @@ spec:
 Note: `hostnameOverride`が設定されている場合、`hostNetwork`と`setHostnameAsFQDN`フィールドを同時に設定することはできません。
 APIサーバーは、この組み合わせで作成要求が行われた場合、明示的に拒否します。
 
-`hostnameOverride`が他のフィールド(hostname、subdomain、setHostnameAsFQDN、hostNetwork)と組み合わされた時の動作の詳細については、[KEP-4762 設計詳細](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/4762-allow-arbitrary-fqdn-as-pod-hostname/README.md#design-details )内の表を参照してください。
+`hostnameOverride`が他のフィールド(hostname、subdomain、setHostnameAsFQDN、hostNetwork)と組み合わされた時の動作の詳細については、[KEP-4762の設計詳細](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/4762-allow-arbitrary-fqdn-as-pod-hostname/README.md#design-details)の表を参照してください。
