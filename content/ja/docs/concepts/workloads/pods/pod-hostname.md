@@ -51,7 +51,7 @@ Podがfully qualified domain name (FQDN)を持つように設定されている�
 `setHostnameAsFQDN: true`とsubdomainフィールドがPodのspecに設定されている場合、kubeletはそのPodのNamespaceに対してFQDNをhostnameとして書き込みます。
 この場合、`hostname`と`hostname --fqdn`の両方がPodのFQDNを返します。
 
-PodのFDQNは前述と同じ方法で構築されます。
+PodのFQDNは前述と同じ方法で構築されます。
 つまり、Podの`spec.hostname`(設定されている場合)または`metadata.name`フィールド、`spec.subdomain`、`namespace`名、そしてクラスタードメインサフィックスで構成されます。
 
 {{< note >}}
