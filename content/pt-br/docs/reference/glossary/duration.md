@@ -16,7 +16,7 @@ O formato de uma duração (no Kubernetes) é baseado no tipo
 [`time.Duration`](https://pkg.go.dev/time#Duration) da linguagem de programação Go.
 
 Nas APIs do Kubernetes que usam durações, o valor é expresso como uma série de inteiros
-não-negativos combinados com um sufixo de unidade de tempo. É possível ter mais de uma
+não negativos combinados com um sufixo de unidade de tempo. É possível ter mais de uma
 quantidade de tempo, e a duração total é a soma dessas quantidades.  
 As unidades de tempo válidas são: "ns", "µs" (ou "us"), "ms", "s", "m" e "h".
 
