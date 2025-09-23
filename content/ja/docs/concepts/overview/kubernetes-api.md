@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Kubernetes API
 content_type: concept
 weight: 40
