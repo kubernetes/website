@@ -11,9 +11,7 @@ tags:
 - core-object
 - storage
 ---
-Một đối tượng API đại diện cho một phần lưu trữ trong cụm. Biểu diễn như một {{< glossary_tooltip text="resource" term_id="infrastructure-resource" >}} tài nguyên lưu trữ
-chung, có thể tích hợp thêm, và có khả năng tồn tại lâu hơn vòng đời của bất kỳ
-{{< glossary_tooltip text="Pod" term_id="pod" >}} riêng lẻ nào.
+Một đối tượng API đại diện cho một phần lưu trữ trong cụm. Biểu diễn như một {{< glossary_tooltip text="tài nguyên" term_id="infrastructure-resource" >}} lưu trữ chung, có thể tích hợp thêm, và có khả năng tồn tại lâu hơn vòng đời của bất kỳ {{< glossary_tooltip text="Pod" term_id="pod" >}} riêng lẻ nào.
 
 <!--more--> 
 
