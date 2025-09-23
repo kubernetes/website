@@ -287,7 +287,7 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 feature_gate_name="ContainerRestartRules" >}}
 
 If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify 
-`restartPolicy` and `restartPolicyRules` on _inidividual containers_ to override the Pod
+`restartPolicy` and `restartPolicyRules` on _individual containers_ to override the Pod
 restart policy. Container restart policy and rules applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
 in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
 
@@ -331,7 +331,7 @@ spec:
 ```
 
 A Pod with Always restart policy with an init container that only execute once. If the init
-container fails, the Pod fails. This alllows the Pod to fail if the initialiaztion failed,
+container fails, the Pod fails. This allows the Pod to fail if the initialiaztion failed,
 but also keep running once the initialization succeeds:
 
 ```yaml
