@@ -30,7 +30,7 @@ Antes de iniciar um tutorial, é interessante que você salve a página do
 
 ## Configuração
 
-* [Configurando o Redis usando um ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [Configurando o Redis usando um ConfigMap](/pt-br/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 ## Aplicações sem estado (_stateless_)
 

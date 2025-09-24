@@ -591,7 +591,7 @@ control-plane node to the cluster.</p>
 </td>
 <td>
    <p><code>caCertPath</code> is the path to the SSL certificate authority used to secure
-comunications between a node and the control-plane.
+communications between a node and the control-plane.
 Defaults to &quot;/etc/kubernetes/pki/ca.crt&quot;.</p>
 </td>
 </tr>

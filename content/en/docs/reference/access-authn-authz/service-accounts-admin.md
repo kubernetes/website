@@ -580,6 +580,8 @@ time. Please refer to [auto-generated legacy ServiceAccount token clean up](#aut
 
 ## Delete/invalidate a ServiceAccount token {#delete-token}
 
+### Delete/invalidate a long-lived/legacy ServiceAccount token {#delete-legacy-token}
+
 If you know the name of the Secret that contains the token you want to remove:
 
 ```shell
@@ -617,6 +619,17 @@ Then, delete the Secret you now know the name of:
 ```shell
 kubectl -n examplens delete secret/example-automated-thing-token-zyxwv
 ```
+
+### Delete/invalidate a short-lived ServiceAccount token {#delete-short-lived}
+
+Short lived ServiceAccount tokens automatically expire after the time-limit 
+specified during their creation. There is no central record of tokens issued,
+so there is no way to revoke individual tokens.
+
+If you have to revoke a short-lived token before its expiration, you
+can delete and re-create the ServiceAccount it is associated to. This will
+change its UID and hence invalidate **all** ServiceAccount tokens that were
+created for it.
 
 ## External ServiceAccount token signing and key management
 

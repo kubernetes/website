@@ -276,6 +276,7 @@ Cluster | 클러스터 |
 ClusterRole | 클러스터롤(ClusterRole) | API 오브젝트인 경우
 ClusterRoleBinding | 클러스터롤바인딩(ClusterRoleBinding) | API 오브젝트인 경우
 Command Line Tool | 커맨드라인 툴 |
+Component | 컴포넌트 |
 ComponentStatus | 컴포넌트스테이터스(ComponentStatus) | API 오브젝트인 경우
 ConfigMap | 컨피그맵(ConfigMap) | API 오브젝트인 경우
 configuration | 구성, 설정 |
@@ -404,6 +405,7 @@ prefix | 접두사 |
 PriorityClass | 프라이어리티클래스(PriorityClass) | API 오브젝트인 경우
 Privileged | 특권을 가진(privileged) |
 Prometheus | 프로메테우스 |
+proxy | 프록시 |
 proof of concept | 개념 증명 |
 Pull Request | 풀 리퀘스트 |
 Pull Secret Credentials | 풀(Pull) 시크릿 자격증명 |

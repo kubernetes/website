@@ -1,6 +1,5 @@
 ---
 title: ユーザー名前空間
-reviewers:
 content_type: concept
 weight: 160
 min-kubernetes-server-version: v1.25

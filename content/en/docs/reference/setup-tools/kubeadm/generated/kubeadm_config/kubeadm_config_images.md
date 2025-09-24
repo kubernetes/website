@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Interact with container images used by kubeadm
-
 ### Synopsis
 
 

@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Generate all kubeconfig files necessary to establish the control plane and the admin kubeconfig file
-
 ### Synopsis
 
 
