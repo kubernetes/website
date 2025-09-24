@@ -37,37 +37,47 @@
 
 /* Toggle button for expandable items */
 .bottom-bar-toc__toggle {
-  background: transparent;
-  border: none;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  margin-right: 4px;
-  cursor: pointer;
-  display: flex;
+  /* keep the circle look */
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 50%;
+  border: 1px solid #d6d6d6;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  color: #666;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease;
+  margin-right: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* strip hover visuals entirely */
+.bottom-bar-toc__toggle:hover { 
+  border-color: #d6d6d6;
+  background: #fff;
   color: #666;
 }
 
-.bottom-bar-toc__toggle:hover {
-  color: #2F6BE3;
-}
-
-.bottom-bar-toc__toggle .chevron {
+/* keep the rotate change on expand/collapse */
+.bottom-bar-toc__toggle .chevron { 
+  width: 14px;
+  height: 14px;
   transform: rotate(-90deg);
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
-.bottom-bar-toc__toggle[aria-expanded="true"] .chevron {
+.bottom-bar-toc__toggle[aria-expanded="true"] .chevron { 
   transform: rotate(0);
 }
 
 /* TOC Links */
 .bottom-bar-toc__link {
   display: block;
-  padding: 8px 12px;
+  padding: 8px 10px;
   color: #333;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -100,13 +110,14 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  /* Remove CSS transitions - handled by JS now */
+  /* Initial state handled by JS */
 }
 
+/* When expanded class is added (JS will handle actual animation) */
 .bottom-bar-toc__children.expanded {
-  max-height: none;
+  /* JS will set height and opacity */
 }
 
 /* Indent nested levels */
@@ -132,52 +143,14 @@
   font-weight: 500;
 }
 
-/* Items without children don't need toggle button space */
-.bottom-bar-toc__item.without-child > .bottom-bar-toc__item-wrapper {
-  padding-left: 28px;
-}
-
-/* --- No hover effects on the circle toggle --- */
-.bottom-bar-toc__toggle {
-  /* keep the circle look */
-  width: 28px;
-  height: 28px;
-  min-width: 28px;
-  min-height: 28px;
-  border-radius: 50%;
-  border: 1px solid #d6d6d6;
-  background: #fff;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
-  color: #666;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform .2s ease; /* only rotate animation */
-  margin-right: 0;
-  padding: 0;
-}
-
-/* strip hover visuals entirely */
-.bottom-bar-toc__toggle:hover { 
-  border-color: #d6d6d6;
-  background: #fff;
-  color: #666;
-}
-
-/* keep the rotate change on expand/collapse */
-.bottom-bar-toc__toggle .chevron { 
-  width: 14px;
-  height: 14px;
-  transform: rotate(-90deg);
-  transition: transform .2s ease;
-}
-.bottom-bar-toc__toggle[aria-expanded="true"] .chevron { transform: rotate(0); }
-
 /* No placeholder circles for leaf items */
 .bottom-bar-toc__item.without-child > .bottom-bar-toc__item-wrapper {
   padding-left: 34px;
 }
-.bottom-bar-toc__item.without-child > .bottom-bar-toc__item-wrapper::before { content: none; }
+
+.bottom-bar-toc__item.without-child > .bottom-bar-toc__item-wrapper::before { 
+  content: none; 
+}
 
 /* keep active-path circle border a bit stronger (no hover involved) */
 .bottom-bar-toc__item.active-path > .bottom-bar-toc__item-wrapper > .bottom-bar-toc__toggle,
@@ -185,5 +158,13 @@
   border-color: #2F6BE3;
 }
 
-/* slightly tighter row */
-.bottom-bar-toc__link { padding: 8px 10px; }
+/* Prevent layout shift during animations */
+.bottom-bar-toc__children * {
+  will-change: opacity;
+}
+
+/* Ensure smooth text rendering during opacity animations */
+.bottom-bar-toc__children {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

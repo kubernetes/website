@@ -41,22 +41,22 @@
   transition: stroke 1s ease;
 }
 
-/* TOC animations */
+/* TOC toggle button rotation animation (kept for chevron) */
 .bottom-bar-toc__toggle {
   transition: transform 0.2s ease;
 }
 
 .bottom-bar-toc__toggle .chevron {
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
+/* TOC link hover animation */
 .bottom-bar-toc__link {
   transition: all 0.2s ease;
 }
 
-.bottom-bar-toc__children {
-  transition: max-height 0.3s ease;
-}
+/* TOC children animations handled by JavaScript */
+/* Removed .bottom-bar-toc__children transition to prevent conflicts */
 
 /* Exit button fade */
 .bottom-bar__exit-btn {
@@ -71,4 +71,19 @@
 /* Search input focus animation */
 .bottom-bar-search-input {
   transition: all 0.3s ease;
+}
+
+/* Ensure smooth rendering during animations */
+@media (prefers-reduced-motion: no-preference) {
+  .bottom-bar-toc__children {
+    will-change: height, opacity;
+  }
+}
+
+/* For users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar-toc__children {
+    /* JS will check for this and skip animations */
+    will-change: auto;
+  }
 }

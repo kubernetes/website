@@ -11,6 +11,9 @@
   // Used to skip the post-open scroll-on-active on that first open.
   let skipNextOnDrawerOpen = false;
   
+  // Track animations in progress to prevent conflicts
+  const animationsInProgress = new Map();
+  
   window.BottomBar.TocHandler = {
     init(els) {
       elements = els;
@@ -32,6 +35,22 @@
       const tocLinks = tocContent.querySelectorAll('.bottom-bar-toc__link');
       tocLinks.forEach(link => {
         link.addEventListener('click', this.handleLinkClick.bind(this));
+      });
+      
+      // Initialize collapsed sections (ensure they start with height: 0)
+      const allChildren = tocContent.querySelectorAll('.bottom-bar-toc__children:not(.expanded)');
+      allChildren.forEach(childList => {
+        childList.style.height = '0px';
+        childList.style.opacity = '0';
+        childList.style.overflow = 'hidden';
+      });
+      
+      // Initialize expanded sections with their natural height
+      const expandedChildren = tocContent.querySelectorAll('.bottom-bar-toc__children.expanded');
+      expandedChildren.forEach(childList => {
+        childList.style.height = 'auto';
+        childList.style.opacity = '1';
+        childList.style.overflow = 'hidden';
       });
     },
 
@@ -68,24 +87,109 @@
       const childrenList = listItem.querySelector('.bottom-bar-toc__children');
       
       if (childrenList) {
+        // Check if animation is already in progress for this element
+        const elementId = childrenList.id || this.generateId(childrenList);
+        if (animationsInProgress.has(elementId)) {
+          return; // Don't start new animation if one is in progress
+        }
+        
         const isExpanded = childrenList.classList.contains('expanded');
         
         if (isExpanded) {
-          this.collapseSection(childrenList, button);
+          this.animateCollapse(childrenList, button);
         } else {
-          this.expandSection(childrenList, button);
+          this.animateExpand(childrenList, button);
         }
       }
     },
     
-    expandSection(childrenList, button) {
+    animateExpand(childrenList, button) {
+      const elementId = childrenList.id || this.generateId(childrenList);
+      animationsInProgress.set(elementId, true);
+      
+      // First, get the target height by temporarily showing the element
+      childrenList.style.display = 'block';
+      childrenList.style.height = 'auto';
+      childrenList.style.opacity = '0';
+      const targetHeight = childrenList.scrollHeight;
+      
+      // Reset to collapsed state for animation
+      childrenList.style.height = '0px';
+      childrenList.style.overflow = 'hidden';
+      
+      // Add expanded class immediately
       childrenList.classList.add('expanded');
+      button.setAttribute('aria-expanded', 'true');
+      
+      // Force reflow
+      void childrenList.offsetHeight;
+      
+      // Start the animation
+      childrenList.style.transition = 'height 0.3s ease, opacity 0.3s ease';
+      childrenList.style.height = targetHeight + 'px';
+      childrenList.style.opacity = '1';
+      
+      // After animation completes, set height to auto for content flexibility
+      setTimeout(() => {
+        childrenList.style.height = 'auto';
+        childrenList.style.transition = '';
+        animationsInProgress.delete(elementId);
+      }, 300);
+    },
+    
+    animateCollapse(childrenList, button) {
+      const elementId = childrenList.id || this.generateId(childrenList);
+      animationsInProgress.set(elementId, true);
+      
+      // Get current height
+      const currentHeight = childrenList.scrollHeight;
+      
+      // Set explicit height to start animation from
+      childrenList.style.height = currentHeight + 'px';
+      childrenList.style.overflow = 'hidden';
+      
+      // Force reflow
+      void childrenList.offsetHeight;
+      
+      // Start the animation
+      childrenList.style.transition = 'height 0.3s ease, opacity 0.3s ease';
+      childrenList.style.height = '0px';
+      childrenList.style.opacity = '0';
+      
+      // Remove expanded class after animation starts
+      setTimeout(() => {
+        childrenList.classList.remove('expanded');
+        button.setAttribute('aria-expanded', 'false');
+      }, 10);
+      
+      // Clean up after animation
+      setTimeout(() => {
+        childrenList.style.transition = '';
+        animationsInProgress.delete(elementId);
+      }, 300);
+    },
+    
+    expandSection(childrenList, button) {
+      // This method is now used for immediate expansion (no animation)
+      // Used when expanding parent items to show active item
+      childrenList.classList.add('expanded');
+      childrenList.style.height = 'auto';
+      childrenList.style.opacity = '1';
       button.setAttribute('aria-expanded', 'true');
     },
     
     collapseSection(childrenList, button) {
+      // This method is now used for immediate collapse (no animation)
       childrenList.classList.remove('expanded');
+      childrenList.style.height = '0px';
+      childrenList.style.opacity = '0';
       button.setAttribute('aria-expanded', 'false');
+    },
+    
+    generateId(element) {
+      const id = 'toc-children-' + Math.random().toString(36).substr(2, 9);
+      element.id = id;
+      return id;
     },
     
     handleLinkClick(e) {
@@ -109,7 +213,7 @@
       const activeItem = tocContent.querySelector('.bottom-bar-toc__item.active');
       if (!activeItem) return;
       
-      // Ensure parent items are expanded
+      // Ensure parent items are expanded (without animation for immediate visibility)
       this.expandParentItems(activeItem);
       
       // Scroll the active item into view
@@ -138,7 +242,10 @@
       
       while (parent && parent !== tocContent) {
         if (parent.classList.contains('bottom-bar-toc__children')) {
+          // Use immediate expansion for parent items
           parent.classList.add('expanded');
+          parent.style.height = 'auto';
+          parent.style.opacity = '1';
           
           // Update toggle button state
           const listItem = parent.closest('.bottom-bar-toc__item');
