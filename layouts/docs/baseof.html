@@ -3,6 +3,7 @@
   <head>
     {{ partial "head.html" . }}
     <link rel="stylesheet" href="{{ "css/bottom-bar/bottom-bar.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "css/mobile-search.css" | relURL }}">
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
@@ -19,6 +20,8 @@
           <div id="sidebarnav" class="split td-sidebar d-print-none d-none d-md-block">
             {{ partial "sidebar.html" . }}
           </div>
+          <!-- Mobile Search Component - appears only on mobile when sidebar is hidden -->
+          {{ partial "bottom-bar-mobile-search.html" . }}
           <div id="maindoc" class="split pl-md-5 row">
           <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
           <main role="main" class="col-xl-8" {{ if ne .Params.cid "docsHome" }}data-pagefind-body{{ end }}{{ if (and .IsPage .Params.description ) }} data-pagefind-meta="description:{{ .Params.description }}"{{ end }}>
@@ -59,5 +62,7 @@
     {{ partial "footer.html" . }}
     {{ partial "bottom-bar/partials/bottom-bar.html" . }}
     {{ partial "scripts.html" . }}
+    <!-- Mobile Search Script (separate from bottom bar) -->
+    <script src="{{ "js/mobile-search.js" | relURL }}"></script>
   </body>
 </html>
