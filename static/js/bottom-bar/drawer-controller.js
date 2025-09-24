@@ -43,9 +43,14 @@
       // Remove inline height style that might be set from closing
       drawer.style.height = '';
       
-      // Reset opacity for both contents
-      tocContent.style.opacity = '';
-      searchContent.style.opacity = '';
+      // Reset opacity for both contents - start hidden for TOC
+      if (mode === StateManager.DrawerStates.TOC) {
+        tocContent.style.opacity = '0';  // Start hidden for TOC
+        searchContent.style.opacity = '';
+      } else {
+        tocContent.style.opacity = '';
+        searchContent.style.opacity = '';  // Search can show immediately
+      }
       
       // Show appropriate content
       if (mode === StateManager.DrawerStates.TOC) {
@@ -64,10 +69,19 @@
 
         drawer.scrollTop = 0;
         
-        // Let TOC handler do any post-open work (e.g., scroll-to-active on subsequent opens)
-        setTimeout(() => {
+        // Let TOC handler position content, then we'll fade it in
+        requestAnimationFrame(() => {
           window.BottomBar.TocHandler.onDrawerOpen();
-        }, 300);
+          // Fade in content after positioning is done
+          setTimeout(() => {
+            tocContent.style.transition = 'opacity 0.2s ease';
+            tocContent.style.opacity = '1';
+            // Clean up transition after fade
+            setTimeout(() => {
+              tocContent.style.transition = '';
+            }, 200);
+          }, 20);
+        });
       } else if (mode === StateManager.DrawerStates.SEARCH) {
         searchContent.classList.add('is-active');
         tocContent.classList.remove('is-active');
@@ -78,6 +92,9 @@
         searchBtn.classList.remove('is-hover');
 
         drawer.scrollTop = 0;
+        
+        // Search shows immediately
+        searchContent.style.opacity = '1';
         
         // Let search handler know drawer opened
         setTimeout(() => {
@@ -152,32 +169,40 @@
         oldContent.classList.remove('is-active');
         newContent.classList.add('is-active');
 
-        // If we are switching into TOC for the first time, pre-position to bottom before paint.
+        // If we are switching into TOC, hide it initially
         if (newMode === StateManager.DrawerStates.TOC) {
+          newContent.style.opacity = '0';
           if (window.BottomBar.TocHandler && window.BottomBar.TocHandler.prepareForOpen) {
             window.BottomBar.TocHandler.prepareForOpen();
           }
+        } else {
+          // Search can show immediately
+          newContent.style.opacity = '';
         }
         
-        // Reset opacity
-        newContent.style.opacity = '';
-        
-        // Reset scroll position on the drawer element itself (content has its own scroll)
+        // Reset scroll position on the drawer element itself
         drawer.scrollTop = 0;
         
-        // Fade in new content
-        setTimeout(() => {
-          newContent.style.opacity = '1';
-          
-          // Handle mode-specific actions
-          if (newMode === StateManager.DrawerStates.TOC) {
+        // Handle mode-specific actions
+        if (newMode === StateManager.DrawerStates.TOC) {
+          requestAnimationFrame(() => {
+            window.BottomBar.TocHandler.onDrawerOpen();
+            // Fade in TOC content after positioning
             setTimeout(() => {
-              window.BottomBar.TocHandler.onDrawerOpen();
-            }, 100);
-          } else if (newMode === StateManager.DrawerStates.SEARCH) {
+              newContent.style.transition = 'opacity 0.2s ease';
+              newContent.style.opacity = '1';
+              setTimeout(() => {
+                newContent.style.transition = '';
+              }, 200);
+            }, 20);
+          });
+        } else if (newMode === StateManager.DrawerStates.SEARCH) {
+          // Fade in search content
+          setTimeout(() => {
+            newContent.style.opacity = '1';
             window.BottomBar.SearchHandler.onDrawerOpen();
-          }
-        }, 10);
+          }, 10);
+        }
       }, 200);
       
       StateManager.setActiveMode(newMode);

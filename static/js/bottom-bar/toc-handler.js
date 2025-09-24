@@ -5,11 +5,9 @@
   window.BottomBar = window.BottomBar || {};
   
   let elements = null;
-
-  // We only want the "start at bottom" behavior on the very first open.
-  let firstOpenHandled = false;
-  // Used to skip the post-open scroll-on-active on that first open.
-  let skipNextOnDrawerOpen = false;
+  
+  // Track if we should use instant vs smooth scrolling
+  let useInstantScroll = true;
   
   // Track animations in progress to prevent conflicts
   const animationsInProgress = new Map();
@@ -56,25 +54,21 @@
 
     /**
      * Prepare TOC before the drawer becomes visible/painted.
-     * On the very first open, force the TOC scroll position to the bottom
-     * (even while the drawer's height is still animating from 0).
-     * This runs synchronously so the user never sees a jump.
+     * Pre-expands parent items so they're ready when drawer opens.
      */
     prepareForOpen() {
-      if (firstOpenHandled) return false;
-
       const { tocContent } = elements;
-      if (!tocContent) {
-        firstOpenHandled = true;
-        return false;
-      }
+      if (!tocContent) return false;
 
-      // Put the scroll position at the bottom up-front.
-      // Doing this before the first paint ensures no visible jump.
-      tocContent.scrollTop = tocContent.scrollHeight;
+      const activeItem = tocContent.querySelector('.bottom-bar-toc__item.active');
+      if (!activeItem) return false;
 
-      firstOpenHandled = true;
-      skipNextOnDrawerOpen = true; // don't override this with the "scroll to active" pass
+      // Ensure parent items are expanded (without animation for immediate visibility)
+      this.expandParentItems(activeItem);
+      
+      // Mark that next scroll should be instant (no animation)
+      useInstantScroll = true;
+      
       return true;
     },
     
@@ -200,40 +194,54 @@
     },
     
     onDrawerOpen() {
-      // Skip the "scroll-to-active" once if we just pre-scrolled to bottom.
-      if (skipNextOnDrawerOpen) {
-        skipNextOnDrawerOpen = false;
-        return;
-      }
+      // Always scroll to active item when drawer opens
       this.scrollToActiveItem();
     },
     
     scrollToActiveItem() {
-      const { tocContent, drawer } = elements;
+      const { tocContent } = elements;
       const activeItem = tocContent.querySelector('.bottom-bar-toc__item.active');
       if (!activeItem) return;
       
-      // Ensure parent items are expanded (without animation for immediate visibility)
+      // Ensure parent items are expanded
       this.expandParentItems(activeItem);
       
-      // Scroll the active item into view
-      setTimeout(() => {
-        const drawerRect = drawer.getBoundingClientRect();
-        const itemRect = activeItem.getBoundingClientRect();
+      // Get the active link element (what the user actually sees)
+      const activeLink = activeItem.querySelector('.bottom-bar-toc__link');
+      if (!activeLink) return;
+      
+      // Function to do the actual scrolling
+      const performScroll = () => {
+        // Get positions relative to the scrollable container (tocContent)
+        const contentRect = tocContent.getBoundingClientRect();
+        const linkRect = activeLink.getBoundingClientRect();
         
-        // Calculate position to center the active item
-        const scrollTop = drawer.scrollTop;
-        const itemTop = itemRect.top - drawerRect.top + scrollTop;
-        const drawerHeight = drawerRect.height;
+        // Calculate the link's position relative to the content container
+        const scrollTop = tocContent.scrollTop;
+        const linkTop = linkRect.top - contentRect.top + scrollTop;
+        const contentHeight = contentRect.height;
+        const linkHeight = linkRect.height;
         
-        // Scroll to position the item at 1/3 from the top of the drawer
-        const targetScroll = itemTop - (drawerHeight / 3);
+        // Try to center the item in the viewport
+        const idealScroll = linkTop - (contentHeight / 2) + (linkHeight / 2);
+        const maxScroll = tocContent.scrollHeight - contentHeight;
+        const targetScroll = Math.min(Math.max(0, idealScroll), maxScroll);
         
-        drawer.scrollTo({
-          top: Math.max(0, targetScroll),
-          behavior: 'smooth'
-        });
-      }, 100);
+        // Always use instant scroll on first open
+        if (useInstantScroll) {
+          tocContent.scrollTop = targetScroll;
+          useInstantScroll = false; // Next time use smooth scrolling
+        } else {
+          tocContent.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+          });
+        }
+      };
+      
+      // Use requestAnimationFrame to ensure layout is ready
+      // This happens so fast the user won't see it
+      performScroll();
     },
     
     expandParentItems(activeItem) {
