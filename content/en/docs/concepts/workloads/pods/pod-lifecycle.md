@@ -331,7 +331,7 @@ spec:
 ```
 
 A Pod with Always restart policy with an init container that only execute once. If the init
-container fails, the Pod fails. This allows the Pod to fail if the initialiaztion failed,
+container fails, the Pod fails. This allows the Pod to fail if the initialization failed,
 but also keep running once the initialization succeeds:
 
 ```yaml
@@ -485,7 +485,7 @@ spec:
     - conditionType: "www.example.com/feature-1"
 status:
   conditions:
-    - type: Ready                              # a built in PodCondition
+    - type: Ready                              # a built-in PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
