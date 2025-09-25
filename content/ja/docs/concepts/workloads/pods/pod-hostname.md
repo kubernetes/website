@@ -28,7 +28,7 @@ spec:
     name: busybox
 ```
 
-このmanifestで作成されたPodは、hostnameとfully qualified domain name (FQDN)が`busybox-1`に設定されます。
+このmanifestで作成されたPodは、hostnameと完全修飾ドメイン名(FQDN)が`busybox-1`に設定されます。
 
 ## Podのhostnameとsubdomainフィールド
 Podのspecには、オプションの`hostname`フィールドがあります。
