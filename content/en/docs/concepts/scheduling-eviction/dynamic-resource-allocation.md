@@ -291,7 +291,7 @@ spec:
       size:
         string: "large"
       cat:
-        boolean: true
+        bool: true
 ```
 This ResourceSlice is managed by the `resource-driver.example.com` driver in the
 `black-cat-pool` pool. The `allNodes: true` field indicates that any node in the
