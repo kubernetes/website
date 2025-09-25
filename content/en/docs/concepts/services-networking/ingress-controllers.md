@@ -57,7 +57,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Kusk Gateway](https://kusk.kubeshop.io/) is an OpenAPI-driven ingress controller based on [Envoy](https://www.envoyproxy.io).
 * The [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
   works with the [NGINX](https://www.nginx.com/resources/glossary/nginx/) webserver (as a proxy).
-* The [ngrok Kubernetes Operator]([https://github.com/ngrok/kubernetes-ingress-controller](https://github.com/ngrok/ngrok-operator)) This repo contains both ngrok's open source Kubernetes Ingress Controller and the Kubernetes Gateway API. 
+* The [ngrok Kubernetes Operator](https://github.com/ngrok/ngrok-operator) This repo contains both ngrok's open source Kubernetes Ingress Controller and the Kubernetes Gateway API. 
 * The [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme) is an Ingress controller for Oracle Cloud Infrastructure which allows you to manage the [OCI Load Balancer](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm).
 * [OpenNJet Ingress Controller](https://gitee.com/njet-rd/open-njet-kic) is a [OpenNJet](https://njet.org.cn/)-based ingress controller.
 * The [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) is based on [Pomerium](https://pomerium.com/), which offers context-aware access policy.
