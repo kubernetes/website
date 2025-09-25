@@ -35,7 +35,7 @@ Podのspecには、オプションの`hostname`フィールドがあります。
 この値が設定されると、Podの`metadata.name`よりも優先され、(Pod内部から観測される)hostnameとして使われます。
 例えば、spec.hostnameが`my-host`に設定されているPodは、hostnameが`my-host`です。
 
-また、Podのspecにはオプションの`subdomain`フィールドもあり、Podが自分のNamespace内のsubdomainに属していることを示します。
+また、Podのspecにはオプションの`subdomain`フィールドもあり、Podが自分のNamespace内のサブドメインに属していることを示します。
 もしPodの`spec.hostname`が"foo"、spec.subdomainが"bar"に設定され、さらにNamespaceが`my-namespace`の場合、hostnameは`foo`で、fully qualified domain name (FQDN)は(Podの内部から見える)`foo.bar.my-namespace.svc.cluster-domain.example`です。
 
 hostnameとsubdomainの両方が設定されていると、クラスターのDNSサーバーはこれらのフィールドに基づいてA/AAAAレコードを作成します。
