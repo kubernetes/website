@@ -39,7 +39,7 @@ Podのspecには、オプションの`hostname`フィールドがあります。
 もしPodの`spec.hostname`が"foo"、spec.subdomainが"bar"に設定され、さらにNamespaceが`my-namespace`の場合、hostnameは`foo`で、完全修飾ドメイン名(FQDN)は(Podの内部から観測される)`foo.bar.my-namespace.svc.cluster-domain.example`です。
 
 hostnameとsubdomainの両方が設定されていると、クラスターのDNSサーバーはこれらのフィールドに基づいてA/AAAAレコードを作成します。
-参照: [Podのhostnameとsubdomainフィールド](/ja/docs/concepts/services-networking/dns-pod-service/#podのhostnameとsubdomainフィールド).
+[Podのhostnameとsubdomainフィールド](/ja/docs/concepts/services-networking/dns-pod-service/#podのhostnameとsubdomainフィールド)を参照してください。
 
 ## PodのsetHostnameAsFQDNフィールド
 
