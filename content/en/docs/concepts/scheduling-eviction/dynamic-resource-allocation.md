@@ -825,7 +825,12 @@ metadata:
 spec:
   driver: dra.example.com
   nodeSelector:
-    accelerator-type: high-performance
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: accelerator-type
+        operator: In
+        values:
+        - "high-performance"
   pool:
     name: gpu-pool
     generation: 1
