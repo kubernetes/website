@@ -49,7 +49,7 @@ card:
 모든 노드에서 실행되며, 실행 중인 파드를 유지하고 쿠버네티스 런타임 환경을 제공한다.
 
 [kubelet](/docs/concepts/architecture/#kubelet)
-: 파드와 그 안의 컨트롤러가 실행 중임을 보장한다.
+: 파드와 그 안의 컨테이너가 실행 중임을 보장한다.
 
 [kube-proxy](/docs/concepts/architecture/#kube-proxy) (선택 사항)
 : 노드에서 네트워크 규칙을 유지하여 {{< glossary_tooltip text="서비스" term_id="service" >}}를 구현한다.
