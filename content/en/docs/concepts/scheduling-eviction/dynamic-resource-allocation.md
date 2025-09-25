@@ -653,7 +653,7 @@ spec:
       requests:
       - name: req-0
         exactly:
-        - deviceClassName: resource.example.com
+          deviceClassName: resource.example.com
           capacity:
             requests:
               bandwidth: 1G
