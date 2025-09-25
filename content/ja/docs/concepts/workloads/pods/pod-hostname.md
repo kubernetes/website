@@ -32,7 +32,7 @@ spec:
 
 ## Podのhostnameとsubdomainフィールド
 Podのspecには、オプションの`hostname`フィールドがあります。
-この値が設定されると、Podの`metadata.name`よりも優先され、(Pod内部から見えるもの)hostnameとして使われます。
+この値が設定されると、Podの`metadata.name`よりも優先され、(Pod内部から観測される)hostnameとして使われます。
 例えば、spec.hostnameが`my-host`に設定されているPodは、hostnameが`my-host`です。
 
 また、Podのspecにはオプションの`subdomain`フィールドもあり、Podが自分のNamespace内のsubdomainに属していることを示します。
