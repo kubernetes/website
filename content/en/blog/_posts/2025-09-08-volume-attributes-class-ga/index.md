@@ -27,9 +27,9 @@ This means you can now:
 
 There are two major enhancements from beta.
 
-### Cancel support from infeasible errors
+### Cancellation support when errors occur
 
-To improve resilience and user experience, the GA release introduces explicit cancel support when a requested volume modification becomes infeasible. If the underlying storage system or CSI driver indicates that the requested changes cannot be applied (e.g., due to invalid arguments), users can cancel the operation and revert the volume to its previous stable configuration, preventing the volume from being left in an inconsistent state.
+To improve resilience and user experience, the GA release introduces explicit cancel support when a requested volume modification encounters an error. If the underlying storage system or CSI driver indicates that the requested changes cannot be applied (e.g., due to invalid arguments), users can cancel the operation and revert the volume to its previous stable configuration, preventing the volume from being left in an inconsistent state.
 
 
 ### Quota support based on scope

@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: クラウドネイティブセキュリティの概要
 content_type: concept
 weight: 1

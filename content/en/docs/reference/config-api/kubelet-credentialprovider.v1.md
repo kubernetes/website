@@ -83,7 +83,7 @@ This response should be set to the same apiVersion as CredentialProviderRequest.
 <a href="#credentialprovider-kubelet-k8s-io-v1-PluginCacheKeyType"><code>PluginCacheKeyType</code></a>
 </td>
 <td>
-   <p>cacheKeyType indiciates the type of caching key to use based on the image provided
+   <p>cacheKeyType indicates the type of caching key to use based on the image provided
 in the request. There are three valid values for the cache key type: Image, Registry, and
 Global. If an invalid value is specified, the response will NOT be used by the kubelet.</p>
 </td>

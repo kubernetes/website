@@ -1,6 +1,4 @@
 ---
-reviewers:
--
 title: リソースの管理
 content_type: concept
 weight: 40

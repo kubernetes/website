@@ -93,7 +93,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/)は、コンテナの管理�
 
     ```shell
     # Webサーバーを含むテストコンテナイメージを実行する
-    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. Deploymentを確認します:

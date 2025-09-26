@@ -242,7 +242,7 @@ on this cluster:
     ```
 
 
-1.  The initial reponsibility of each node's local DRA driver is to update the
+1.  The initial responsibility of each node's local DRA driver is to update the
 cluster with what devices are available to Pods on that node, by publishing its
 metadata to the ResourceSlices API. You can check that API to see that each node
 with a driver is advertising the device class it represents. 

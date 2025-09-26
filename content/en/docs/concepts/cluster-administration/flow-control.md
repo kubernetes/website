@@ -95,7 +95,7 @@ way to do that is with the objects that configure classification and
 handling, discussed below. Another way is to disable Priority and
 Fairness on server B entirely, using the techniques discussed above. A
 third way, which is the simplest to use when server B is not
-`kube-apisever`, is to build server B with Priority and Fairness
+`kube-apiserver`, is to build server B with Priority and Fairness
 disabled in the code.
 
 ## Concepts

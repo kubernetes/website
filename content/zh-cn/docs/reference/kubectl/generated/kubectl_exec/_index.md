@@ -20,7 +20,7 @@ Execute a command in a container.
 -->
 在容器中执行命令。
 
-```
+```shell
 kubectl exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]
 ```
 
@@ -28,53 +28,53 @@ kubectl exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]
 
 <!--
 ```
-  # Get output from running the 'date' command from pod mypod, using the first container by default
-  kubectl exec mypod -- date
-  
-  # Get output from running the 'date' command in ruby-container from pod mypod
-  kubectl exec mypod -c ruby-container -- date
-  
-  # Switch to raw terminal mode; sends stdin to 'bash' in ruby-container from pod mypod
-  # and sends stdout/stderr from 'bash' back to the client
-  kubectl exec mypod -c ruby-container -i -t -- bash -il
-  
-  # List contents of /usr from the first container of pod mypod and sort by modification time
-  # If the command you want to execute in the pod has any flags in common (e.g. -i),
-  # you must use two dashes (--) to separate your command's flags/arguments
-  # Also note, do not surround your command and its flags/arguments with quotes
-  # unless that is how you would execute it normally (i.e., do ls -t /usr, not "ls -t /usr")
-  kubectl exec mypod -i -t -- ls -t /usr
-  
-  # Get output from running 'date' command from the first pod of the deployment mydeployment, using the first container by default
-  kubectl exec deploy/mydeployment -- date
-  
-  # Get output from running 'date' command from the first pod of the service myservice, using the first container by default
-  kubectl exec svc/myservice -- date
+# Get output from running the 'date' command from pod mypod, using the first container by default
+kubectl exec mypod -- date
+
+# Get output from running the 'date' command in ruby-container from pod mypod
+kubectl exec mypod -c ruby-container -- date
+
+# Switch to raw terminal mode; sends stdin to 'bash' in ruby-container from pod mypod
+# and sends stdout/stderr from 'bash' back to the client
+kubectl exec mypod -c ruby-container -i -t -- bash -il
+
+# List contents of /usr from the first container of pod mypod and sort by modification time
+# If the command you want to execute in the pod has any flags in common (e.g. -i),
+# you must use two dashes (--) to separate your command's flags/arguments
+# Also note, do not surround your command and its flags/arguments with quotes
+# unless that is how you would execute it normally (i.e., do ls -t /usr, not "ls -t /usr")
+kubectl exec mypod -i -t -- ls -t /usr
+
+# Get output from running 'date' command from the first pod of the deployment mydeployment, using the first container by default
+kubectl exec deploy/mydeployment -- date
+
+# Get output from running 'date' command from the first pod of the service myservice, using the first container by default
+kubectl exec svc/myservice -- date
 ```
 -->
-```
-  # 在 Pod mypod 中执行 'date' 命令获取输出，默认在第一个容器中执行
-  kubectl exec mypod -- date
-  
-  # 在 Pod mypod 的 ruby-container 容器中执行 'date' 命令并获取输出
-  kubectl exec mypod -c ruby-container -- date
-  
-  # 切换到原始终端模式；从 Pod mypod 将 stdin 发送到 ruby-container 中的 'bash'，
-  # 并将 stdout/stderr 从 'bash' 发送回客户端
-  kubectl exec mypod -c ruby-container -i -t -- bash -il
-  
-  # 在 Pod mypod 的第一个容器中列出 /usr 的内容，并按修改时间排序
-  # 如果你要在 Pod 中执行的命令具有任何与 kubectl 本身重叠的标志（例如 -i），
-  # 则必须使用两个破折号（--）来分隔命令的标志/参数
-  # 另请注意，不要用引号括住你的命令及其标志/参数，
-  # 除非这是你正常执行它的方式（即执行 ls -t /usr，而不是 "ls -t /usr"）
-  kubectl exec mypod -i -t -- ls -t /usr
-  
-  # 在 Deployment mydeployment 中的第一个 Pod 运行 'date' 命令并获取输出，默认使用 Pod 的第一个容器
-  kubectl exec deploy/mydeployment -- date
-  
-  # 在 Service myservice 的第一个 Pod 运行 'date' 命令并获取输出，默认使用 Pod 的第一个容器
-  kubectl exec svc/myservice -- date
+```shell
+# 在 Pod mypod 中执行 'date' 命令获取输出，默认在第一个容器中执行
+kubectl exec mypod -- date
+
+# 在 Pod mypod 的 ruby-container 容器中执行 'date' 命令并获取输出
+kubectl exec mypod -c ruby-container -- date
+
+# 切换到原始终端模式；从 Pod mypod 将 stdin 发送到 ruby-container 中的 'bash'，
+# 并将 stdout/stderr 从 'bash' 发送回客户端
+kubectl exec mypod -c ruby-container -i -t -- bash -il
+
+# 在 Pod mypod 的第一个容器中列出 /usr 的内容，并按修改时间排序
+# 如果你要在 Pod 中执行的命令具有任何与 kubectl 本身重叠的标志（例如 -i），
+# 则必须使用两个破折号（--）来分隔命令的标志/参数
+# 另请注意，不要用引号括住你的命令及其标志/参数，
+# 除非这是你正常执行它的方式（即执行 ls -t /usr，而不是 "ls -t /usr"）
+kubectl exec mypod -i -t -- ls -t /usr
+
+# 在 Deployment mydeployment 中的第一个 Pod 运行 'date' 命令并获取输出，默认使用 Pod 的第一个容器
+kubectl exec deploy/mydeployment -- date
+
+# 在 Service myservice 的第一个 Pod 运行 'date' 命令并获取输出，默认使用 Pod 的第一个容器
+kubectl exec svc/myservice -- date
 ```
 
 ## {{% heading "options" %}}
@@ -303,30 +303,6 @@ The name of the kubeconfig context to use
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -360,6 +336,21 @@ Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
 </p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>

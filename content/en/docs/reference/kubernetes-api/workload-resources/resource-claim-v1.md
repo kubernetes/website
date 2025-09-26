@@ -349,7 +349,7 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
 
         - **devices.requests.exactly.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
 
         - **devices.requests.exactly.tolerations.value** (string)
 
@@ -508,7 +508,7 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
 
         - **devices.requests.firstAvailable.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
 
         - **devices.requests.firstAvailable.tolerations.value** (string)
 
@@ -723,7 +723,7 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
 
         - **allocation.devices.results.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
 
         - **allocation.devices.results.tolerations.value** (string)
 
