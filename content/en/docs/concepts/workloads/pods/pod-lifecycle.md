@@ -183,7 +183,7 @@ a container that is `Terminated`, you see a reason, an exit code, and the start 
 finish time for that container's period of execution.
 
 If a container has a `preStop` hook configured, this hook runs after the container enters
-the `Terminated` state, and pod will be remove from Subsets.addresses list of endponts.
+the `Terminated` state, and the pod will be remove from Subsets.addresses list of endponts.
 
 ## How Pods handle problems with containers {#container-restarts}
 
