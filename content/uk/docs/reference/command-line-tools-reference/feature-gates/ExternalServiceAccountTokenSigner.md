@@ -15,4 +15,4 @@ stages:
     fromVersion: "1.34"
 ---
 
-Увімкніть параметр `--service-account-signing-endpoint', щоб kube-apiserver використовував [зовнішнього підписувача](/docs/reference/access-authn-authz/service-account-admin#external-serviceaccount-token-signing-and-key-management) для підписання токенів та керування ключами для перевірки токенів.
+Увімкніть параметр `--service-account-signing-endpoint`, щоб kube-apiserver використовував [зовнішнього підписувача](/docs/reference/access-authn-authz/service-accounts-admin#external-serviceaccount-token-signing-and-key-management) для підписання токенів та керування ключами для перевірки токенів.

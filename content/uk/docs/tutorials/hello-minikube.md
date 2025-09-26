@@ -285,6 +285,12 @@ minikube dashboard --url
 
 1. Вимкніть `metrics-server`:
 
+   ```shell
+   minikube addons disable metrics-server
+   ```
+
+   Вивід має бути схожим на:
+
    ```output
    metrics-server was successfully disabled
    ```

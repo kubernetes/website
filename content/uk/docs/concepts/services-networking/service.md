@@ -77,6 +77,12 @@ Kubernetes призначає цьому Сервісу IP-адресу (так 
 Сервіс може повʼязувати _будь-який_ вхідний `port` з `targetPort`. Типово та для зручності, `targetPort` встановлено на те ж саме значення, що й поле `port`.
 {{< /note >}}
 
+### Послаблені вимоги до іменування обʼєктів Service {#relaxed-naming-requirements-for-service-objects}
+
+{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
+
+The `RelaxedServiceNameValidation` feature gate allows Service object names to start with a digit. When this feature gate is enabled, Service object names must be valid [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+
 ### Визначення портів {#field-spec-ports}
 
 Визначення портів в Podʼах мають назви, і ви можете посилатися на ці назви в атрибуті `targetPort` Сервісу. Наприклад, ми можемо привʼязати `targetPort` Сервісу до порту Podʼа таким чином:

@@ -471,9 +471,9 @@ Kubeadm встановлює внутрішній DNS-сервер і компо
 - Автоматичне затвердження CSR управляється контролером csrapprover відповідно до конфігурації, присутньої в процесі `kubeadm init`
 {{< /note >}}
 
-## Внутрішній дизайн робочого процесу kubeadm upgrade {#kubeadm-upgrade-phases-internal-design}
+## Внутрішній дизайн робочого процесу kubeadm upgrade {#kubeadm-upgrade-workflow-internal-design}
 
-Команда `kubeadm upgrade` має підкоманди для керування оновленням кластера Kubernets, створеного за допомогою kubeadm. Вам слід виконати `kubeadm upgrade apply` на одному з вузлів панелі управління (ви можете вибрати, на якому саме); це запустить процес оновлення. Потім виконайте `kubeadm upgrade node` на всіх інших вузлах (як на робочих вузлах, так і на вузлах панелі управління).
+Команда `kubeadm upgrade` має підкоманди для керування оновленням кластера Kubernetes, створеного за допомогою kubeadm. Вам слід виконати `kubeadm upgrade apply` на одному з вузлів панелі управління (ви можете вибрати, на якому саме); це запустить процес оновлення. Потім виконайте `kubeadm upgrade node` на всіх інших вузлах (як на робочих вузлах, так і на вузлах панелі управління).
 
 І `kubeadm upgrade apply`, і `kubeadm upgrade node` мають підкоманду `phase`, яка надає доступ до внутрішніх фаз процесу оновлення. Докладніші відомості наведено у статті [`kubeadm upgrade phase`](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade-phase/).
 
