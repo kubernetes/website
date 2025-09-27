@@ -25,10 +25,10 @@ description: >
 
 پروژه کوبرنتیز شاخه‌های انتشار (انتشار برنچ ها) مربوط به سه نسخه فرعی (minor) اخیر را نگهداری می‌کند
 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
-نسخه‌های 1.19 به بعد از[تقریباً ۱ سال پشتیبانی پچ](/releases/patch-releases/#support-period).کوبرنتیز حدوداً ۱ سال پشتیبانی (patch)وصلهدریافت می‌کنند.
-نسخه‌های 1.18 و قبل‌تر تقریباً ۹ ماه پشتیبانی (patch)وصلهدریافت می‌کردند.
+نسخه‌های 1.19 به بعد از[تقریباً ۱ سال پشتیبانی پچ](/releases/patch-releases/#support-period).کوبرنتیز حدوداً ۱ سال پشتیبانی (patch)وصله دریافت می‌کنند.
+نسخه‌های 1.18 و قبل‌تر تقریباً ۹ ماه پشتیبانی (patch)وصله دریافت می‌کردند.
 
-اصلاحات قابل اعمال، از جمله اصلاحات امنیتی، ممکن است بسته به شدت (severity) و امکان‌پذیری (feasibility) به آن سه شاخه انتشار بازگردانده شوند (backport). نسخه‌های (patch)وصلهاز این شاخه‌ها در یک [آهنگ منظم](/releases/patch-releases/#cadence) منتشر می‌شوند، به‌علاوه انتشارهای اضطراری اضافی در صورت نیاز.
+اصلاحات قابل اعمال، از جمله اصلاحات امنیتی، ممکن است بسته به شدت (severity) و امکان‌پذیری (feasibility) به آن سه شاخه انتشار بازگردانده شوند (backport). نسخه‌های (patch)وصله از این شاخه‌ها در یک [آهنگ منظم](/releases/patch-releases/#cadence) منتشر می‌شوند، به‌علاوه انتشارهای اضطراری اضافی در صورت نیاز.
 
 
 گروه [مدیریت انتشار](/releases/release-managers/) مالک این تصمیم است.
@@ -96,7 +96,7 @@ description: >
 مثال:
 
 * `kube-apiserver` در **{{< skew currentVersion >}}**
-* `kube-controller-manager`, `kube-scheduler`, و `cloud-controller-manager` در اینجاپشتیبانی میشود  **{{< skew currentVersion >}}** و **{{< skew currentVersionAddMinor -1 >}}**
+* `kube-controller-manager`, `kube-scheduler`, و `cloud-controller-manager` در اینجا پشتیبانی میشود  **{{< skew currentVersion >}}** و **{{< skew currentVersionAddMinor -1 >}}**
 
 {{< note >}}
 اگر اختلاف نسخه (version skew) بین نمونه‌های `kube-apiserver` در یک HA cluster وجود داشته باشد و این اجزا بتوانند با هر نمونه kube-apiserver در خوشه ارتباط برقرار کنند (مثلاً از طریق یک load balancer)، این موضوع دامنه نسخه‌های مجاز این اجزا را محدود می‌کند.
@@ -147,7 +147,7 @@ description: >
 
 پیش‌نیازها:
 
-* در یک خوشه تک‌ن نمونه ای  (single-instance)، نمونه‌ی موجود `kube-apiserver` دارای نسخه **{{< skew currentVersionAddMinor -1 >}}** است.
+* در یک خوشه تک‌ نمونه ای  (single-instance)، نمونه‌ی موجود `kube-apiserver` دارای نسخه **{{< skew currentVersionAddMinor -1 >}}** است.
 *در یک خوشه HA، تمام نمونه‌های kube-apiserver دارای نسخه **{{< skew currentVersionAddMinor -1 >}}** یا
 **{{< skew currentVersion >}}** هستند (این موضوع اطمینان می‌دهد که اختلاف نسخه بین قدیمی‌ترین و جدیدترین نمونه‌ی `kube-apiserver` حداکثر یک نسخه‌ی جزئی است).
 *نمونه‌های `kube-controller-manager`، `kube-scheduler` و `cloud-controller-manager` که با این سرور ارتباط دارند، در نسخه **{{< skew currentVersionAddMinor -1 >}}** قرار دارند
@@ -175,7 +175,7 @@ description: >
 نیازمندی ها:
 
 * نمونه‌های kube-apiserver که این مولفه (component) با آن‌ها ارتباط برقرار می‌کنند در نسخه {{< skew currentVersion >}} قرار دارند
-در خوشه های HA که این مولفه (component)ی control plane می‌توانند با هر نمونه ای  از kube-apiserver در خوشه ارتباط برقرار کنند،
+در خوشه های HA که این مولفه control plane می‌توانند با هر نمونه ای  از kube-apiserver در خوشه ارتباط برقرار کنند،
 تمام نمونه‌های kube-apiserver باید قبل از ارتقاء این مولفه (component) به‌روزرسانی شوند).
 
 با ارتقا دادن `kube-controller-manager`, `kube-scheduler`, و
