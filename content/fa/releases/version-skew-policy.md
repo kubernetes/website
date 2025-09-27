@@ -32,7 +32,7 @@ description: >
 
 
 گروه [مدیریت انتشار](/releases/release-managers/) مالک این تصمیم است.
-برای اطلاعات بیشتر، به صفحه [انتشار پچ](/releases/patch-releases/) در کوبرنتیز مراجعه کنید.
+برای اطلاعات بیشتر، به صفحه [انتشار patch](/releases/patch-releases/) در کوبرنتیز مراجعه کنید.
 ## نسخه پشتیبانی شده skew
 
 ### kube-apiserver
@@ -162,7 +162,7 @@ description: >
 و همچنین هر فیلد جدیدی که به نسخه‌های موجود در **{{< skew currentVersion >}}** اضافه شده باشد را مدیریت نمایند.
 
 
-`kube-apiserver`   اپدیت کنید **{{< skew currentVersion >}}**  به نسخه 
+`kube-apiserver`   به‌روزرسانی کنید **{{< skew currentVersion >}}**  به نسخه 
 {{< note >}}
 قوانین پروژه برای  [API منسوخ شدن](/docs/reference/using-api/deprecation-policy/) و
 [API دستور العمل های تغیرات در ](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
@@ -192,7 +192,7 @@ description: >
 (یا می‌توان آن‌ها را در نسخه‌های **{{< skew currentVersionAddMinor -1 >}}**، **{{< skew currentVersionAddMinor -2 >}}**، یا **{{< skew currentVersionAddMinor -3 >}}** باقی گذاشت).
 
 {{< note >}}
-قبل از انجام ارتقاء نسخه minor `kubelet`، پادهای آن (node)گرهرا خالی کنید [drain](/docs/tasks/administer-cluster/safely-drain-node/).
+قبل از انجام ارتقاء نسخه minor `kubelet`، پادهای آن (node)گره را خالی کنید [drain](/docs/tasks/administer-cluster/safely-drain-node/).
 ارتقاء نسخه minor `kubelet` به صورت  (in-place) پشتیبانی نمی‌شود.
 
 {{</ note >}}
