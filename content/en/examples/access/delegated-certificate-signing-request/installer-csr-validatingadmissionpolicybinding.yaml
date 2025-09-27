@@ -1,0 +1,11 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: "installer-csr-policy-binding"
+spec:
+  policyName: "installer-csr-policy"
+  validationActions: [Deny]
+  paramRef:
+    name: "admission-policies-installer-csr-config"
+    namespace: "csr-signer-installer"
+    parameterNotFoundAction: "Deny"
