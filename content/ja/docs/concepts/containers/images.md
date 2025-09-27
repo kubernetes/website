@@ -12,7 +12,7 @@ hide_summary: true
 
 通常、アプリケーションのコンテナイメージを作成してレジストリにプッシュし、その後、{{< glossary_tooltip text="Pod" term_id="pod" >}}から参照します。
 
-このページでは、コンテナイメージの概要を説明します。
+このページでは、コンテナイメージの概要について説明します。
 
 {{< note >}}
 Kubernetesのリリース(たとえばv{{< skew latestVersion >}}のような最新のマイナーリリース)に対応するコンテナイメージを探している場合は、[Kubernetesのダウンロード](https://kubernetes.io/releases/download/)を参照してください。
@@ -49,29 +49,29 @@ Kubernetesで使用可能なイメージ名の例は次のとおりです:
 - `registry.k8s.io/pause:latest` &mdash; カスタムレジストリとlatestタグを指定したイメージ名。
 - `registry.k8s.io/pause:3.5` &mdash; カスタムレジストリと非latestタグを指定したイメージ名。
 - `registry.k8s.io/pause@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` &mdash; ダイジェストを含むイメージ名。
-- `registry.k8s.io/pause:3.5@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` &mdash; タグとダイジェストの両方を含むイメージ名。プル時にはダイジェストのみが使用されます。
+- `registry.k8s.io/pause:3.5@sha256:1ff6c18fbef2045af6b9c16bf034cc421a29027b800e4f9b68ae9b1cb3e9ae07` &mdash; タグとダイジェストの両方を含むイメージ名。取得時にはダイジェストのみが使用されます。
 
 ## イメージの更新
 
 PodTemplateを含む{{< glossary_tooltip text="Deployment" term_id="deployment" >}}、{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}、Pod、またはその他のオブジェクトを初めて作成する際に、プルポリシーが明示的に指定されていない場合、デフォルトでそのPod内のすべてのコンテナのプルポリシーは`IfNotPresent`に設定されます。
-このポリシーでは、対象のイメージがすでに存在する場合、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}はそのイメージのプルをスキップします。
+このポリシーでは、対象のイメージがすでに存在する場合、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}はそのイメージの取得をスキップします。
 
 ### イメージプルポリシー
 
-コンテナの`imagePullPolicy`とイメージのタグの両方が、[kubelet](/docs/reference/command-line-tools-reference/kubelet/)が指定されたイメージのプル(ダウンロード)を試みる _タイミング_ に影響します。
+コンテナの`imagePullPolicy`とイメージのタグの両方が、[kubelet](/docs/reference/command-line-tools-reference/kubelet/)が指定されたイメージの取得(ダウンロード)を試みる _タイミング_ に影響します。
 
 以下は、`imagePullPolicy`に設定できる値とその効果の一覧です。
 
 `IfNotPresent`
-: イメージがローカルにまだ存在しない場合にのみプルされます。
+: イメージがローカルにまだ存在しない場合にのみ取得されます。
 
 `Always`
 : kubeletがコンテナを起動するたびに、コンテナイメージレジストリに問い合わせ、イメージ名をイメージ[ダイジェスト](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)に解決します。
-  kubeletがそのダイジェストに完全一致するイメージをローカルにキャッシュしている場合は、そのキャッシュされたイメージを使用します。存在しない場合は、kubeletは解決されたダイジェストのイメージをプルし、そのイメージを使ってコンテナを起動します。
+  kubeletがそのダイジェストに完全一致するイメージをローカルにキャッシュしている場合は、そのキャッシュされたイメージを使用します。存在しない場合は、kubeletは解決されたダイジェストのイメージを取得し、そのイメージを使ってコンテナを起動します。
 
 `Never`
 : kubeletは、イメージを取得しようとしません。何らかの理由でローカルにイメージがすでに存在する場合、kubeletはコンテナを起動しようとします。それ以外の場合、起動に失敗します。
-  詳細は、[事前にプルされたイメージ](#pre-pulled-images)を参照してください。
+  詳細は、[事前に取得されたイメージ](#pre-pulled-images)を参照してください。
 
 レジストリに確実にアクセスできるのであれば、基盤となるイメージプロバイダーのキャッシュセマンティクスにより`imagePullPolicy: Always`でも効率的です。
 コンテナランタイムは、イメージレイヤーがすでにノード上に存在することを認識できるので、再度ダウンロードする必要がありません。
@@ -107,9 +107,9 @@ Podがいつも同じバージョンのコンテナイメージを使用する�
 たとえば、タグが`:latest` _でない_ イメージを使ってDeploymentを作成した場合、後でDeploymentのイメージを`:latest`タグに変更しても、`imagePullPolicy`は`Always`に更新 _されません_。初回作成後にプルポリシーを変更したい場合は、手動で更新しなければいけません。
 {{< /note >}}
 
-#### イメージプルを強制する
+#### イメージ取得を強制する
 
-常に強制的にプルしたい場合は、以下のいずれかを実行できます:
+常に強制的に取得したい場合は、以下のいずれかを実行できます:
 
 - コンテナの`imagePullPolicy`に`Always`を設定する。
 - `imagePullPolicy`を省略し、使用するイメージのタグに`:latest`を指定する(KubernetesはPodを送信する際にポリシーを`Always`に設定します)。
@@ -120,46 +120,46 @@ Podがいつも同じバージョンのコンテナイメージを使用する�
 
 kubeletがコンテナランタイムを使ってPodのコンテナの作成を開始するとき、`ImagePullBackOff`のためにコンテナが[Waiting](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)状態になる可能性があります。
 
-`ImagePullBackOff`状態は、Kubernetesがコンテナイメージをプルできず、コンテナを開始できないことを意味します(イメージ名が無効である、`imagePullSecret`無しでプライベートレジストリからプルしたなどの理由のため)。`BackOff`は、バックオフの遅延を増加させながらKubernetesがイメージをプルしようとし続けることを示します。
+`ImagePullBackOff`状態は、Kubernetesがコンテナイメージを取得できず、コンテナを開始できないことを意味します(イメージ名が無効である、`imagePullSecret`無しでプライベートレジストリから取得したなどの理由のため)。`BackOff`は、バックオフの遅延を増加させながらKubernetesがイメージを取得しようとし続けることを示します。
 
 Kubernetesは、組み込まれた制限である300秒(5分)に達するまで、試行するごとに遅延を増加させます。
 
-### ランタイムクラスごとのイメージプル
+### ランタイムクラスごとのイメージ取得
 
 {{< feature-state feature_gate_name="RuntimeClassInImageCriApi" >}}
-Kubernetesには、PodのRuntimeClassに基づいてイメージをプルするアルファ機能のサポートが含まれています。
+Kubernetesには、PodのRuntimeClassに基づいてイメージを取得するアルファ機能のサポートが含まれています。
 
 `RuntimeClassInImageCriApi`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、kubeletはイメージ名やダイジェストだけでなく、イメージ名とランタイムハンドラーのタプルでコンテナイメージを参照するようになります。
 {{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}
 は、選択されたランタイムハンドラーに基づいて動作を変更する可能性があります。
-ランタイムクラスに応じたイメージプルを行う機能は、Windows Hyper-VコンテナのようなVMベースのコンテナにおいて有用です。
+ランタイムクラスに応じたイメージ取得を行う機能は、Windows Hyper-VコンテナのようなVMベースのコンテナにおいて有用です。
 
-### 直列・並列イメージプル
+### 直列・並列イメージ取得
 
-デフォルトでは、kubeletはイメージを直列にプルします。
-言い換えれば、kubeletはイメージサービスに対して一度に1つのイメージプル要求しか送信しません。
-他のイメージプル要求は、処理中の要求が完了するまで待機する必要があります。
+デフォルトでは、kubeletはイメージを直列に取得します。
+言い換えれば、kubeletはイメージサービスに対して一度に1つのイメージ取得の要求しか送信しません。
+他のイメージ取得の要求は、処理中の要求が完了するまで待機する必要があります。
 
-ノードは、イメージのプルを他のノードと独立して判断します。そのため、イメージプルを直列で実行していても、異なるノード上では同じイメージを並列でプルすることが可能です。
+ノードは、イメージの取得を他のノードと独立して判断します。そのため、イメージ取得を直列で実行していても、異なるノード上では同じイメージを並列で取得することが可能です。
 
-並列イメージプルを有効にしたい場合は、[kubeletの設定](/docs/reference/config-api/kubelet-config.v1beta1/)で`serializeImagePulls`フィールドをfalseに設定します。
-`serializeImagePulls`をfalseにすると、イメージプル要求は即座にイメージサービスへ送信され、複数のイメージが同時にプルされるようになります。
+並列イメージ取得を有効にしたい場合は、[kubeletの設定](/docs/reference/config-api/kubelet-config.v1beta1/)で`serializeImagePulls`フィールドをfalseに設定します。
+`serializeImagePulls`をfalseにすると、イメージ取得の要求は即座にイメージサービスへ送信され、複数のイメージが同時に取得されるようになります。
 
-並列イメージプルを有効にする場合は、使用しているコンテナランタイムのイメージサービスが並列プルに対応していることを確認してください。
+並列イメージ取得を有効にする場合は、使用しているコンテナランタイムのイメージサービスが並列取得に対応していることを確認してください。
 
-なお、kubeletは1つのPodに対して複数のイメージを並列でプルすることはありません。
-たとえば、1つのPodがinitコンテナとアプリケーションコンテナを持つ場合、その二つのコンテナのイメージプルは並列化されません。
-しかし、異なるPodがそれぞれ異なるイメージを使用しており、並列イメージプル機能が有効になっている場合、kubeletはその2つの異なるPodのためにイメージを並列でプルします。
+なお、kubeletは1つのPodに対して複数のイメージを並列で取得することはありません。
+たとえば、1つのPodがinitコンテナとアプリケーションコンテナを持つ場合、その二つのコンテナのイメージ取得は並列化されません。
+しかし、異なるPodがそれぞれ異なるイメージを使用しており、並列イメージ取得機能が有効になっている場合、kubeletはその2つの異なるPodのためにイメージを並列で取得します。
 
-### 最大並行イメージプル数
+### 最大並行イメージ取得数
 
 {{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
-`serializeImagePulls`がfalseに設定されている場合、kubeletはデフォルトで同時にプルできるイメージ数に制限を設けません。
-並行でプルできるイメージ数を制限したい場合は、kubeletの設定で`maxParallelImagePulls`フィールドを指定します。
-`maxParallelImagePulls`に _n_ を設定すると、同時にプルできるイメージは最大で _n_ 件となり、_n_ 件を超えるイメージプルは、少なくとも1件のイメージプルが完了するまで待機する必要があります。
+`serializeImagePulls`がfalseに設定されている場合、kubeletはデフォルトで同時に取得できるイメージ数に制限を設けません。
+並行で取得できるイメージ数を制限したい場合は、kubeletの設定で`maxParallelImagePulls`フィールドを指定します。
+`maxParallelImagePulls`に _n_ を設定すると、同時に取得できるイメージは最大で _n_ 件となり、_n_ 件を超えるイメージ取得は、少なくとも1件のイメージ取得が完了するまで待機する必要があります。
 
-並列イメージプルを有効にしている場合、同時プル数を制限することで、イメージのプルによるネットワーク帯域やディスクI/Oの過剰な消費を防ぐことができます。
+並列イメージ取得を有効にしている場合、同時取得数を制限することで、イメージの取得によるネットワーク帯域やディスクI/Oの過剰な消費を防ぐことができます。
 
 `maxParallelImagePulls`には1以上の正の整数を指定できます。
 `maxParallelImagePulls`を2以上に設定する場合は、`serializeImagePulls`をfalseに設定する必要があります。
@@ -177,7 +177,7 @@ Kubernetesプロジェクトでは、通常、リリースごとに`-$(ARCH)`と
 
 ## プライベートレジストリの使用
 
-プライベートレジストリでは、イメージの検索やプルを行うために認証が必要となる場合があります。
+プライベートレジストリでは、イメージの検索や取得を行うために認証が必要となる場合があります。
 認証情報は、以下のいくつかの方法で提供できます:
 
 - [Podの定義時に`imagePullSecrets`を指定する](#specifying-imagepullsecrets-on-a-pod)
@@ -191,7 +191,7 @@ Kubernetesプロジェクトでは、通常、リリースごとに`-$(ARCH)`と
 
   kubeletは、それぞれのプライベートレジストリに対してcredential provider execプラグインを使用するよう構成できます。
 
-- [事前にプルされたイメージ](#pre-pulled-images)
+- [事前に取得されたイメージ](#pre-pulled-images)
   - すべてのPodがノードにキャッシュされたイメージを使用できます。
   - すべてのノードに対してrootアクセスによるセットアップが必要です。
 - ベンダー固有またはローカルの拡張機能
@@ -218,7 +218,7 @@ Kubernetesは、Podに対してコンテナイメージレジストリ用のキ�
 プライベートコンテナイメージレジストリの構成例については、[イメージをプライベートレジストリから取得する](/ja/docs/tasks/configure-pod-container/pull-image-private-registry)を参照してください。
 この例では、Docker Hubのプライベートレジストリを使用しています。
 
-### kubelet credential providerによる認証付きイメージプル {#kubelet-credential-provider}
+### kubelet credential providerによる認証付きイメージ取得 {#kubelet-credential-provider}
 
 kubeletを構成して、プラグインバイナリを呼び出し、コンテナイメージのレジストリ認証情報を動的に取得させることができます。
 これは、プライベートレジストリ用の認証情報を取得するための最も堅牢かつ柔軟な方法ですが、有効化するにはkubeletレベルでの設定が必要です。
@@ -253,7 +253,7 @@ Dockerでは、`auths`キーにはルートURLしか指定できませんが、K
 }
 ```
 
-イメージプル操作では、すべての有効なパターンに対して、認証情報がCRIコンテナランタイムに渡されます。
+イメージ取得操作では、すべての有効なパターンに対して、認証情報がCRIコンテナランタイムに渡されます。
 たとえば、次のようなコンテナイメージ名は正常にマッチします。
 
 - `my-registry.example/images`
@@ -266,7 +266,7 @@ Dockerでは、`auths`キーにはルートURLしか指定できませんが、K
 - `a.sub.my-registry.example/images/my-image`
 - `a.b.sub.my-registry.example/images/my-image`
 
-kubeletは、見つかった各認証情報に対してイメージプルを順番に実行します。
+kubeletは、見つかった各認証情報に対してイメージ取得を順番に実行します。
 つまり、`config.json`内に異なるパスに対する複数のエントリを含めることも可能です。
 
 ```json
@@ -282,51 +282,51 @@ kubeletは、見つかった各認証情報に対してイメージプルを順�
 }
 ```
 
-このとき、コンテナが`my-registry.example/images/subpath/my-image`というイメージをプルするよう指定している場合、kubeletは、いずれかの認証元で失敗した場合でも、両方の認証情報を使ってイメージのダウンロードを試みます。
+このとき、コンテナが`my-registry.example/images/subpath/my-image`というイメージを取得するよう指定している場合、kubeletは、いずれかの認証元で失敗した場合でも、両方の認証情報を使ってイメージのダウンロードを試みます。
 
-### 事前にプルされたイメージ {#pre-pulled-images}
+### 事前に取得されたイメージ {#pre-pulled-images}
 
 {{< note >}}
 この方法は、ノードの構成を自分で制御できる場合に適しています。
 クラウドプロバイダーがノードを管理し、自動的に置き換えるような環境では、信頼性のある動作は期待できません。
 {{< /note >}}
 
-デフォルトでは、kubeletは指定されたレジストリからそれぞれのイメージをプルしようとします。
+デフォルトでは、kubeletは指定されたレジストリからそれぞれのイメージを取得しようとします。
 ただし、コンテナの`imagePullPolicy`プロパティが`IfNotPresent`または`Never`に設定されている場合は、ローカルのイメージが(それぞれ優先的に、あるいは専用で)使用されます。
 
-レジストリ認証の代替として事前にプルされたイメージを利用したい場合、クラスターのすべてのノードが同じ事前にプルされたイメージを持っていることを確認する必要があります。
+レジストリ認証の代替として事前に取得されたイメージを利用したい場合、クラスターのすべてのノードが同じ事前に取得されたイメージを持っていることを確認する必要があります。
 
 これは、特定のイメージをあらかじめロードしておくことで高速化したり、プライベートレジストリへの認証の代替手段として利用したりすることができます。
 
 [kubelet credential provider](#kubelet-credential-provider)の利用と同様に、
-事前にプルされたイメージは、プライベートレジストリにホストされたイメージに依存する{{< glossary_tooltip text="Static Pod" term_id="static-pod" >}}を起動する場合にも適しています。
+事前に取得されたイメージは、プライベートレジストリにホストされたイメージに依存する{{< glossary_tooltip text="Static Pod" term_id="static-pod" >}}を起動する場合にも適しています。
 
 {{< note >}}
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
-事前にプルされたイメージへのアクセスは、[イメージプルの認証情報の検証](#ensureimagepullcredentialverification)に基づいて許可される場合があります。
+事前に取得されたイメージへのアクセスは、[イメージ取得の認証情報の検証](#ensureimagepullcredentialverification)に基づいて許可される場合があります。
 {{< /note >}}
 
-### イメージプルの認証情報の検証を保証する {#ensureimagepullcredentialverification}
+### イメージ取得の認証情報の検証を保証する {#ensureimagepullcredentialverification}
 
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
-クラスターで`KubeletEnsureSecretPulledImages`フィーチャーゲートが有効になっている場合、Kubernetesは、プルに認証が必要なすべてのイメージに対して、たとえそのイメージがノード上にすでに存在していても、認証情報を検証します。
-この検証により、Podが要求するイメージのうち、指定された認証情報で正常にプルされなかったものは、レジストリから再度プルする必要があることが保証されます。
-さらに、以前に成功したイメージプルと同じ認証情報を使用する場合には、再プルは不要で、レジストリにアクセスせずローカルで検証が行われます(該当のイメージがローカルに存在する場合)。
+クラスターで`KubeletEnsureSecretPulledImages`フィーチャーゲートが有効になっている場合、Kubernetesは、取得に認証が必要なすべてのイメージに対して、たとえそのイメージがノード上にすでに存在していても、認証情報を検証します。
+この検証により、Podが要求するイメージのうち、指定された認証情報で正常に取得されなかったものは、レジストリから再度取得する必要があることが保証されます。
+さらに、以前に成功したイメージ取得と同じ認証情報を使用する場合には、再取得は不要で、レジストリにアクセスせずローカルで検証が行われます(該当のイメージがローカルに存在する場合)。
 この動作は、[kubeletの設定](/docs/reference/config-api/kubelet-config.v1beta1#ImagePullCredentialsVerificationPolicy)における`imagePullCredentialsVerificationPolicy`フィールドによって制御されます。
 
-この設定は、イメージがすでにノード上に存在する場合に、イメージプルの認証情報を検証する必要があるかどうかの挙動を制御します:
+この設定は、イメージがすでにノード上に存在する場合に、イメージ取得の認証情報を検証する必要があるかどうかの挙動を制御します:
 
- * `NeverVerify`: このフィーチャーゲートが無効な場合と同じ動作を模倣します。イメージがローカルに存在する場合、イメージプルの認証情報は検証されません。
- * `NeverVerifyPreloadedImages`: kubeletの外部でプルされたイメージは検証されませんが、それ以外のすべてのイメージについては認証情報が検証されます。これがデフォルトの動作です。
- * `NeverVerifyAllowListedImages`: kubeletの外部でプルされたイメージと、kubelet設定内で指定された`preloadedImagesVerificationAllowlist`に記載されたイメージは検証されません。
+ * `NeverVerify`: このフィーチャーゲートが無効な場合と同じ動作を模倣します。イメージがローカルに存在する場合、イメージ取得の認証情報は検証されません。
+ * `NeverVerifyPreloadedImages`: kubeletの外部で取得されたイメージは検証されませんが、それ以外のすべてのイメージについては認証情報が検証されます。これがデフォルトの動作です。
+ * `NeverVerifyAllowListedImages`: kubeletの外部で取得されたイメージと、kubelet設定内で指定された`preloadedImagesVerificationAllowlist`に記載されたイメージは検証されません。
  * `AlwaysVerify`: すべてのイメージは、使用前に認証情報の検証が行われます。
 
-この検証は、[事前にプルされたイメージ](#pre-pulled-images)、ノード全体のSecretを使用してプルされたイメージ、PodレベルのSecretを使用してプルされたイメージに適用されます。
+この検証は、[事前に取得されたイメージ](#pre-pulled-images)、ノード全体のSecretを使用して取得されたイメージ、PodレベルのSecretを使用して取得されたイメージに適用されます。
 
 {{< note >}}
-認証情報がローテーションされた場合でも、以前にイメージのプルに使用された認証情報は、レジストリへアクセスすることなく検証に成功し続けます。
-一方、新しい認証情報やローテーション後の認証情報を使用する場合には、イメージを再度レジストリからプルする必要があります。
+認証情報がローテーションされた場合でも、以前にイメージの取得に使用された認証情報は、レジストリへアクセスすることなく検証に成功し続けます。
+一方、新しい認証情報やローテーション後の認証情報を使用する場合には、イメージを再度レジストリから取得する必要があります。
 {{< /note >}}
 
 #### Docker設定を用いたSecretの作成
@@ -349,7 +349,7 @@ kubectl create secret docker-registry <name> \
 `kubectl create secret docker-registry`で作成されるSecretは、単一のプライベートレジストリにしか対応していないためです。
 
 {{< note >}}
-Podは自身のNamespace内にあるイメージプル用のSecretしか参照できないため、この手順はNamespaceごとに1回ずつ実行する必要があります。
+Podは自身のNamespace内にあるイメージ取得用のSecretしか参照できないため、この手順はNamespaceごとに1回ずつ実行する必要があります。
 {{< /note >}}
 
 #### Podで`imagePullSecrets`を参照する
@@ -396,7 +396,7 @@ EOF
 1. 非専有(たとえば、オープンソースの)イメージだけを実行し、イメージを非公開にする必要がないクラスターの場合
    - パブリックレジストリのパブリックイメージを利用する。
      - 設定は必要ない。
-     - 一部のクラウドプロバイダーは、パブリックイメージを自動的にキャッシュまたはミラーリングすることで、可用性を向上させ、イメージのプルにかかる時間を短縮する。
+     - 一部のクラウドプロバイダーは、パブリックイメージを自動的にキャッシュまたはミラーリングすることで、可用性を向上させ、イメージの取得にかかる時間を短縮する。
 
 1. 社外には非公開にすべきだが、クラスターユーザー全員には見える必要がある専有イメージを実行しているクラスターの場合
    - ホスティング型のプライペートレジストリを使用する。
@@ -428,7 +428,7 @@ EOF
 
 Kubernetesバージョン1.26以降では、このレガシーな仕組みは削除されたため、以下のいずれかの対応が必要です:
 - 各ノードにkubelet image credential providerを構成する
-- `imagePullSecrets`と少なくとも1つのSecretを使用して、イメージプルの認証情報を指定する
+- `imagePullSecrets`と少なくとも1つのSecretを使用して、イメージ取得の認証情報を指定する
 
 ## {{% heading "whatsnext" %}}
 
