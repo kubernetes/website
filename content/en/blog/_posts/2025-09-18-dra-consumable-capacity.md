@@ -140,7 +140,7 @@ spec:
     requests: # for devices
     - name: req0
       exactly:
-      - deviceClassName: resource.example.com
+        deviceClassName: resource.example.com
         capacity:
           requests: # for resources which must be provided by those devices
             memory: 10Gi
