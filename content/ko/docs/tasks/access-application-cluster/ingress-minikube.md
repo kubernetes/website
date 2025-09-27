@@ -436,7 +436,7 @@ AMD64 아키텍처를 에뮬레이션할 수 있는 드라이버를 사용하는
    ```
 
    {{< note >}}
-   선택 사항으로 `/etc/hosts`를 수정했다면, 브라우저에서 `hello-world.example` 과 
+   옵션으로 `/etc/hosts`를 수정했다면, 브라우저에서 `hello-world.example` 과 
    `hello-world.example/v2` 에도 접속할 수 있다.
    {{< /note >}}
 
