@@ -12,7 +12,7 @@ API 객체이다.
 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers/)는
 인그레스에 설정된 규칙을 이행한다.
 
-이 페이지에서는 HTTP URI에 따라 요청을 Service web 또는 web2로 라우팅하는
+이 페이지에서는 HTTP URI에 따라 요청을 Service 'web' 또는 'web2' 로 라우팅하는
 간단한 인그레스를 설정하는 방법을 보여준다.
 
 ## {{% heading "prerequisites" %}}
