@@ -11,36 +11,37 @@ aliases:
 
 <!-- overview -->
 
-이 문서는 API 서버와 쿠버네티스 클러스터 사이에 대한 통신 경로의 목록을 작성한다. 
+이 문서는 {{< glossary_tooltip term_id="kube-apiserver" text="API 서버" >}}와 
+쿠버네티스 {{< glossary_tooltip text="클러스터" term_id="cluster" length="all" >}} 사이에 대한 통신 경로의 목록을 작성한다. 
 이는 사용자가 신뢰할 수 없는 네트워크(또는 클라우드 공급자의 완전한 퍼블릭 IP)에서 
-클러스터를 실행할 수 있도록 네트워크 구성을 강화하기 위한 맞춤 설치를 할 수 있도록 한다.
-
+클러스터를 실행할 수 있도록 네트워크 구성을 강화하기 위한 맞춤 설치를 할 수 있도록 
+한다.
 
 <!-- body -->
 
 ## 노드에서 컨트롤 플레인으로의 통신
 
-쿠버네티스에는 "허브 앤 스포크(hub-and-spoke)" API 패턴을 가지고 있다. 노드(또는 노드에서 실행되는 파드들)의
+쿠버네티스는 "허브 앤 스포크(hub-and-spoke)" API 패턴을 가지고 있다. 노드(또는 노드에서 실행되는 파드들)의
 모든 API 사용은 API 서버에서 종료된다. 다른 컨트롤 플레인 컴포넌트 중 어느 것도 원격 서비스를 노출하도록 
 설계되지 않았다. API 서버는 하나 이상의 클라이언트 
 [인증](/docs/reference/access-authn-authz/authentication/) 형식이 활성화된
 보안 HTTPS 포트(일반적으로 443)에서 원격 연결을 수신하도록 구성된다.
 특히 [익명의 요청](/docs/reference/access-authn-authz/authentication/#anonymous-requests) 
-또는[서비스 어카운트 토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)이 허용되는 경우,
+또는 [서비스 어카운트 토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)이 허용되는 경우,
 하나 이상의 [권한 부여](/ko/docs/reference/access-authn-authz/authorization/) 형식을 
 사용해야 한다.
 
 노드는 유효한 클라이언트 자격 증명과 함께 API 서버에 안전하게 연결할 수 있도록 
-클러스터에 대한 공개 루트 인증서(root certificate)로 프로비전해야 한다. 클라이언트 인증서(client certificate) 형식으로 
+클러스터에 대한 공개 루트 {{< glossary_tooltip text="인증서" term_id="certificate" >}}(root certificate)로 프로비전해야 한다. 클라이언트 인증서(client certificate) 형식으로 
 kubelet의 클라이언트 자격 증명을 사용하는 것은 좋은 방법이다.
 kubelet 클라이언트 인증서(client certificate)의 자동 프로비저닝은
 [kubelet TLS 부트스트랩](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)을 참고한다.
 
-API 서버에 연결하려는 파드는 서비스 어카운트를 활용하여 안전하게
+API 서버에 연결하려는 {{< glossary_tooltip text="파드" term_id="pod" >}}는 서비스 어카운트를 활용하여 안전하게
 쿠버네티스가 공개 루트 인증서(root certificate)와 유효한 베어러 토큰(bearer token)을 파드가 인스턴스화될 때 
 파드에 자동으로 주입할 수 있다.
 `kubernetes` 서비스(`default` 네임스페이스의)는 API 서버의 HTTPS 엔드포인트로 리디렉션되는
-가상 IP 주소(kube-proxy를 통해)로 구성되어 있다.
+가상 IP 주소(`{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}`를 통해)로 구성되어 있다.
 
 컨트롤 플레인 컴포넌트는 보안 포트를 통해 클러스터 API 서버와도 통신한다.
 
@@ -51,7 +52,7 @@ API 서버에 연결하려는 파드는 서비스 어카운트를 활용하여 �
 ## 컨트롤 플레인에서 노드로의 통신
 
 컨트롤 플레인(API 서버)에서 노드로는 두 가지 기본 통신 경로가 있다. 
-첫 번째는 API 서버에서 클러스터의 각 노드에서 실행되는 kubelet 프로세스이다.
+첫 번째는 API 서버에서 클러스터의 각 노드에서 실행되는 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 프로세스이다.
 두 번째는 API 서버의 _프록시_ 기능을 통해 API 서버에서 모든 노드, 파드 또는 서비스에 
 이르는 것이다.
 
@@ -114,5 +115,15 @@ Konnectivity 에이전트는 Konnectivity 서버에 대한 연결을 시작하�
 Konnectivity 서비스를 활성화한 후, 모든 컨트롤 플레인에서 노드로의 트래픽은 
 이 연결을 통과한다.
 
-[Konnectivity 서비스 태스크](/ko/docs/tasks/extend-kubernetes/setup-konnectivity/)에 따라 
+[Konnectivity 서비스 태스크](/ko/docs/tasks/extend-kubernetes/setup-konnectivity/)을 따라 
 클러스터에서 Konnectivity 서비스를 설정한다.
+
+## {{% heading "whatsnext" %}}
+
+* [쿠버네티스 컨트롤 플레인 컴포넌트](/ko/docs/concepts/architecture/#control-plane-components)에 대해 읽어보자
+* [Hubs와 Spoke model](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)에 대해 더 배워보자
+* [클러스터 보안](/docs/tasks/administer-cluster/securing-a-cluster/) 방법에 대해 배워보자
+* [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)에 대해 더 알아보자
+* [Konnectivity 서비스 설정하기](/ko/docs/tasks/extend-kubernetes/setup-konnectivity/)
+* [포트 포워딩을 사용해서 클러스터 내 애플리케이션에 접근하기](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* [파드 로그 확인하기](/ko/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [kubectl port-forward 사용하기](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)에 대해 알아보자
