@@ -24,7 +24,7 @@ type: docs
 - [نصب kubectl  بر روی سیستم عامل مک](/docs/tasks/tools/install-kubectl-macos)
 - [نصب kubectl  بر روی سیستم عامل ویندوز](/docs/tasks/tools/install-kubectl-windows)
 
-## image های  کانتینری
+## image های کانتینری
 
 تمام image های کانتینری کوبرنتیز در رجیستری image کانتینری `registry.k8s.io` منتشر می‌شوند.
 
