@@ -27,7 +27,7 @@ Voir __Étape 1__ dans [minikube start](https://minikube.sigs.k8s.io/docs/start/
 Exécutez uniquement les instructions de l'__Étape 1, Installation__. Le reste est couvert sur cette page. 
 {{< /note >}}
 
-Vous devez également installer `kubectl`.  
+Vous devez également installer `kubectl`. 
 Voir [Installer les outils](/docs/tasks/tools/#kubectl) pour les instructions d'installation.
 
 
