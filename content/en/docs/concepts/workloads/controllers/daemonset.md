@@ -220,7 +220,7 @@ You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/)
 ### Init scripts
 
 It is certainly possible to run daemon processes by directly starting them on a node (e.g. using
-`init`, `upstartd`, or `systemd`).  This is perfectly fine.  However, there are several advantages to
+`init`, `Upstart`, or `systemd`).  This is perfectly fine.  However, there are several advantages to
 running such processes via a DaemonSet:
 
 - Ability to monitor and manage logs for daemons in the same way as applications.
