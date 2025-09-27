@@ -1,9 +1,4 @@
 ---
-reviewers:
-- jayunit100
-- jsturtevant
-- marosset
-- perithompson
 title: Windowsノードのセキュリティ
 content_type: concept
 weight: 40
@@ -15,11 +10,11 @@ weight: 40
 
 <!-- body -->
 
-Windowsでは、Secretデータがノードのローカルストレージに平文で書き込まれます(Linuxのtmpfs/インメモリファイルシステムとは異なります)。
+Windowsでは、Secretデータがノードのローカルストレージに平文で書き込まれます(Linuxのtmpfs、インメモリファイルシステムとは異なります)。
 クラスターオペレーターは、次の両方の追加対策を講じる必要があります:
 
 1. ファイルACLを使用して、Secretのファイル配置場所を保護する。
-1. [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)を使用して、ボリュームレベルの暗号化を適用する。
+2. [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)を使用して、ボリュームレベルの暗号化を適用する。
 
 ## コンテナユーザー
 
@@ -27,7 +22,7 @@ Windowsでは、Secretデータがノードのローカルストレージに平�
 これは、おおよそ[RunAsUser](/docs/concepts/security/pod-security-policy/#users-and-groups)と同等です。
 
 Windowsコンテナには、ContainerUserとContainerAdministratorという2つのデフォルトのユーザーアカウントが用意されています。
-これら2つのユーザーアカウントの違いについては、Microsoftの _Secure Windows containers_ ドキュメント内の[ContainerAdminとContainerUserのユーザーアカウントを使うタイミング](https://docs.microsoft.com/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)に記載されています。
+これら2つのユーザーアカウントの違いについては、Microsoftの _Secure Windows containers_ ドキュメント内の[ContainerAdminとContainerUserのユーザーアカウントを使うタイミング](https://docs.microsoft.com/ja-jp/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)に記載されています。
 
 ローカルユーザーは、コンテナのビルドプロセス中にコンテナイメージに追加できます。
 
@@ -38,7 +33,7 @@ Windowsコンテナには、ContainerUserとContainerAdministratorという2つ�
 
 {{< /note >}}
 
-Windowsコンテナは、[グループ管理サービスアカウント](/ja/docs/tasks/configure-pod-container/configure-gmsa/)を利用することで、Active DirectoryのIDとして実行することもできます。
+Windowsコンテナは、[グループ管理サービスアカウント](/ja/docs/tasks/configure-pod-container/configure-gmsa/)を利用することで、Active DirectoryのIDとして実行することもできます
 
 ## Podレベルのセキュリティ分離
 
