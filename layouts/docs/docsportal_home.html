@@ -1,11 +1,8 @@
 {{ define "main" }}
-    {{ template "docs-portal-content" . }}
-{{ end }}
-
-{{ define "content-id" }}content{{ end }}
-
-{{ define "docs-portal-content" }}
-  <section id="mainContent">
+  <div class="td-content">
+  {{- if not .Params.notitle -}}
+    <h1>{{ .Title }}</h1>
+  {{- end -}}
   <div class="launch-content">
     <p>{{ .Params.overview | safeHTML }}</p>
     <br>
@@ -15,10 +12,5 @@
       {{ $page }}
     </div>
   </div>
-</section>
-{{ end }}
-{{ define "hero" }}
-    <section class="header-hero text-white pb-4 light-text ">
-    <h1>{{ .Title }}</h1>
-    </section>
+  </div>
 {{ end }}
