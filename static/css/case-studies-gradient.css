@@ -1,5 +1,5 @@
 .flip-nav ul.global-nav li a, .open-nav ul.global-nav li a {
-  color:#303030 !important;
+  color:var(--dark-grey) !important;
 }
 
 
@@ -10,7 +10,7 @@
   vertical-align: top;
   position: relative;
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-top:10%;
   padding-bottom:0.5%;
   padding-left:10%;
@@ -106,7 +106,7 @@ h1 {
 
 .banner1 {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-top:12%;
   padding-bottom:0.5%;
   padding-left:10%;
@@ -116,7 +116,7 @@ h1 {
 
 .greybanner {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-left:5%;
   padding-right:5%;
   padding-top:4%;
@@ -130,7 +130,7 @@ h1 {
 
 .quotetext {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   padding-top:0%;
   margin-top:0;
   padding-bottom:3%;
@@ -145,7 +145,7 @@ h1 {
 
 .greyquotetext {
   font-weight:300;
-  color:#ffffff;
+  color:var(--white);
   width:75%;
   text-align:center;
   margin:0 auto;
@@ -343,7 +343,7 @@ hr {
     vertical-align: top;
     position: relative;
     font-weight:300;
-    color:#ffffff;
+    color:var(--white);
     padding-top:20%;
     padding-bottom:0.5%;
     padding-left:10%;
