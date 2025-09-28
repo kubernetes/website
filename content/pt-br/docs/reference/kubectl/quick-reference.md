@@ -9,7 +9,7 @@ card:
 
 <!-- overview -->
 
-Esta página contém uma lista de comandos e sinalizadores do `kubectl` comumente utilizados.
+Esta página contém uma lista de comandos e flags do `kubectl` comumente utilizados.
 
 {{< note >}}
 Essas instruções são para o Kubernetes v{{< skew currentVersion >}}. Para verificar a versão, use o comando `kubectl version`.
@@ -57,7 +57,9 @@ Adicionar `--all-namespaces` acontece com frequência suficiente para que você 
 
 ## Contexto e configuração do kubectl
 
-Define com qual cluster Kubernetes o `kubectl` se comunica e modifica as informações de configuração. Consulte a documentação [Autenticando entre Clusters com kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) para informações detalhadas sobre o arquivo de configuração.
+Define com qual cluster Kubernetes o `kubectl` se comunica e modifica as informações de configuração.
+Consulte a documentação [Autenticando entre Clusters com kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+para informações detalhadas sobre o arquivo de configuração.
 
 ```bash
 kubectl config view # Mostra as configurações mescladas do kubeconfig.
@@ -76,7 +78,7 @@ kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 # obtém o certificado para o usuário e2e
 kubectl config view --raw -o jsonpath='{.users[?(.name == "e2e")].user.client-certificate-data}' | base64 -d
 
-kubectl config view -o jsonpath='{.users[].name}'    # obtém o certificado para o usuário e2e
+kubectl config view -o jsonpath='{.users[].name}'    # exibe o primeiro usuário
 kubectl config view -o jsonpath='{.users[*].name}'   # obtém uma lista de usuários
 kubectl config get-contexts                          # exibe a lista de contextos
 kubectl config get-contexts -o name                  # obtém todos os nomes de contexto
@@ -107,11 +109,14 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 
 ## Kubectl apply
 
-O `apply` gerencia aplicações por meio de arquivos que definem recursos do Kubernetes. Ele cria e atualiza recursos em um cluster executando `kubectl apply`. Esta é a forma recomendada de gerenciar aplicações Kubernetes em produção. Consulte [Kubectl Book](https://kubectl.docs.kubernetes.io).
+O `apply` gerencia aplicações por meio de arquivos que definem recursos do Kubernetes.
+Ele cria e atualiza recursos em um cluster executando `kubectl apply`. Esta é a forma
+recomendada de gerenciar aplicações Kubernetes em produção. Consulte [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
 ## Criando objetos
 
-Os manifestos do Kubernetes podem ser definidos em YAML ou JSON. As extensões de arquivo `.yaml`, `.yml` e `.json` podem ser utilizadas.
+Os manifestos do Kubernetes podem ser definidos em YAML ou JSON.
+As extensões de arquivo `.yaml`, `.yml` e `.json` podem ser utilizadas.
 
 ```bash
 kubectl apply -f ./my-manifest.yaml                 # cria recurso(s)
@@ -201,7 +206,7 @@ kubectl get pods --selector=app=cassandra -o \
 kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
-# Recupera um valor codificado em base64 com hífens em vez de sublinhados.
+# Recupera um valor codificado em base64 com hífens em vez de sublinhados (underscores).
 kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
 
 # Obtém todos os nós de processamento (usa um seletor para excluir resultados que têm um rótulo
@@ -259,7 +264,7 @@ kubectl get pods -o json | jq -c 'paths|join(".")'
 # Útil ao executar qualquer comando suportado em todos os pods, não apenas `env`
 for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod -- env; done
 
-# Obtém o subrecurso de status de um deployment
+# Obtém o subrecurso status de um deployment
 kubectl get deployment nginx-deployment --subresource=status
 ```
 
@@ -276,10 +281,10 @@ kubectl rollout restart deployment/frontend                       # Reinicializa
 
 cat pod.json | kubectl replace -f -                               # Substitui um pod baseado no JSON passado para o stdin
 
-# Substitui forçadamente, exclui e então recria o recurso. Causará uma interrupção do service.
+# Substitui forçadamente, exclui e então recria o recurso. Causará uma interrupção do serviço.
 kubectl replace --force -f ./pod.json
 
-# Cria um service para um nginx replicado, que serve na porta 80 e conecta aos contêineres na porta 8000
+# Cria um Service para um nginx replicado, que serve na porta 80 e conecta aos contêineres na porta 8000
 kubectl expose rc nginx --port=80 --target-port=8000
 
 # Atualiza a versão da imagem (tag) de um pod de contêiner único para v4
@@ -320,7 +325,7 @@ kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -
 Edita qualquer recurso da API no seu editor preferido.
 
 ```bash
-kubectl edit svc/docker-registry                      # Edita o service chamado docker-registry
+kubectl edit svc/docker-registry                      # Edita o Service chamado docker-registry
 KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Usa um editor alternativo
 ```
 
@@ -424,7 +429,10 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### Tipos de recurso
 
-Lista todos os tipos de recurso suportados junto com seus nomes abreviados, [grupo de API](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), se eles são [namespaced](/docs/concepts/overview/working-with-objects/namespaces), e [kind](/docs/concepts/overview/working-with-objects/):
+Lista todos os tipos de recurso suportados junto com seus nomes abreviados,
+[grupo de API](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning),
+se eles são [namespaced](/docs/concepts/overview/working-with-objects/namespaces),
+e [kind](/docs/concepts/overview/working-with-objects/):
 
 ```bash
 kubectl api-resources
@@ -443,7 +451,8 @@ kubectl api-resources --api-group=extensions # Todos os recursos no grupo de API
 
 ### Formatando saída
 
-Para exibir detalhes na janela do seu terminal em um formato específico, adicione a flag `-o` (ou `--output`) a um comando `kubectl` compatível.
+Para exibir detalhes na janela do seu terminal em um formato específico,
+adicione a flag `-o` (ou `--output`) a um comando `kubectl` compatível.
 
 Formato de saída | Descrição
 --------------| -----------
@@ -479,7 +488,9 @@ Mais exemplos na [documentação de referência](/docs/reference/kubectl/#custom
 
 ### Verbosidade de saída e depuração do kubectl
 
-A verbosidade do kubectl é controlada com as flags `-v` ou `--v` seguidas por um inteiro representando o nível de log. As convenções gerais de logging do Kubernetes e os níveis de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+A verbosidade do kubectl é controlada com as flags `-v` ou `--v` seguidas por um inteiro
+representando o nível de log. As convenções gerais de logging do Kubernetes e os níveis
+de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 Verbosidade | Descrição
 --------------| -----------
@@ -504,4 +515,4 @@ Verbosidade | Descrição
 
 * Leia também as [Convenções de Uso do kubectl](/docs/reference/kubectl/conventions/) para entender como usar o kubectl em scripts reutilizáveis.
 
-* Veja mais [folhas de referência do kubectl](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) da comunidade.
+* Veja mais [folhas de dicas do kubectl](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) da comunidade.
