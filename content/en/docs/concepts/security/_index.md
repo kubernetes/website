@@ -86,7 +86,7 @@ Amazon Web Services | https://aws.amazon.com/security |
 Google Cloud Platform | https://cloud.google.com/security |
 Huawei Cloud | https://www.huaweicloud.com/intl/en-us/securecenter/overallsafety |
 IBM Cloud | https://www.ibm.com/cloud/security |
-Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
+Microsoft Azure | https://learn.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security |
 Tencent Cloud | https://www.tencentcloud.com/solutions/data-security-and-information-protection |
 VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
