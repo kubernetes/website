@@ -65,7 +65,7 @@ apiserver-1dfef752bcb36637d2763d1868        apiserver-1dfef752bcb36637d2763d1868
 The SHA256 hash used in the lease name is based on the OS hostname as seen by that API server. Each kube-apiserver should be
 configured to use a hostname that is unique within the cluster. New instances of kube-apiserver that use the same hostname
 will take over existing Leases using a new holder identity, as opposed to instantiating new Lease objects. You can check the
-hostname used by kube-apisever by checking the value of the `kubernetes.io/hostname` label:
+hostname used by kube-apiserver by checking the value of the `kubernetes.io/hostname` label:
 
 ```shell
 kubectl -n kube-system get lease apiserver-07a5ea9b9b072c4a5f3d1c3702 -o yaml

@@ -211,21 +211,24 @@ resource requests/limits of that type for each container in the Pod.
 {{< feature-state feature_gate_name="PodLevelResources" >}}
 
 <!--
-Starting in Kubernetes 1.32, you can also specify resource requests and limits at
+Provided your cluster has the `PodLevelResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled,
+you can specify resource requests and limits at
 the Pod level. At Pod level, Kubernetes {{< skew currentVersion >}}
 only supports resource requests or limits for specific resource types: `cpu` and /
-or `memory`. This feature is currently in alpha and with the feature enabled,
-Kubernetes allows you to declare an overall resource budget for the Pod, which is
-especially helpful when dealing with a large number of containers where it can be
-difficult to accurately gauge individual resource needs. Additionally, it enables
-containers within a Pod to share idle resources with each other, improving resource
-utilization.
+or `memory` and / or `hugepages`. With this feature, Kubernetes allows you to declare an overall resource
+budget for the Pod, which is especially helpful when dealing with a large number of
+containers where it can be difficult to accurately gauge individual resource needs.
+Additionally, it enables containers within a Pod to share idle resources with each
+other, improving resource utilization.
 -->
-从 Kubernetes 1.32 开始，你还可以在 Pod 级别指定资源请求和限制。
+如果你的集群启用了 `PodLevelResources`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+你可以在 Pod 级别指定资源请求和限制。
 在 Pod 级别，Kubernetes {{< skew currentVersion >}} 仅支持为特定资源类型设置资源请求或限制：
-`cpu` 和/或 `memory`。此特性目前处于 Alpha 阶段。在启用该特性后，Kubernetes
-允许你声明 Pod 的总体资源预算，这在处理大量容器时特别有用，
-因为在这种情况下准确评估单个容器的资源需求可能会很困难。
+`cpu` 和/或 `memory` 和/或 `hugepages`。
+通过此特性，Kubernetes 允许你为 Pod 申领一个资源总预算，
+这在处理大量容器时特别有用，因为在这种情况下很难准确评估各个容器的资源需求。
 此外，它还允许 Pod 内的容器之间共享空闲资源，从而提高资源利用率。
 
 <!--
@@ -235,8 +238,10 @@ For a Pod, you can specify resource limits and requests for CPU and memory by in
 
 * `spec.resources.limits.cpu`
 * `spec.resources.limits.memory`
+* `spec.resources.limits.hugepages-<size>`
 * `spec.resources.requests.cpu`
 * `spec.resources.requests.memory`
+* `spec.resources.requests.hugepages-<size>`
 
 <!--
 ## Resource units in Kubernetes
@@ -1279,6 +1284,21 @@ extender.
 ```
 
 <!--
+#### Extended resources allocation by DRA
+
+Extended resources allocation by DRA allows cluster administrators to specify an `extendedResourceName`
+in DeviceClass, then the devices matching the DeviceClass can be requested from a pod's extended
+resource requests. Read more about
+[Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource).
+-->
+#### DRA 扩展资源分配
+
+DRA 扩展资源分配允许集群管理员在 DeviceClass 中指定一个
+`extendedResourceName`，然后与所指定 DeviceClass 匹配的设备可以使用
+Pod 的扩展资源请求来获取。
+进一步阅读关于[使用 DRA 进行扩展资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)的内容。
+
+<!--
 ### Consuming extended resources
 
 Users can consume extended resources in Pod specs like CPU and memory.
@@ -1606,6 +1626,7 @@ memory limit (and possibly request) for that container.
 * Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
+* Read more about [Extended Resource allocation by DRA](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 -->
 * 获取[分配内存资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
 * 获取[分配 CPU 资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
@@ -1614,3 +1635,4 @@ memory limit (and possibly request) for that container.
 * 阅读 XFS 中[项目配额](https://www.linux.org/docs/man8/xfs_quota.html)的文档
 * 进一步阅读 [kube-scheduler 配置参考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 * 进一步阅读 [Pod 的服务质量等级](/zh-cn/docs/concepts/workloads/pods/pod-qos/)
+* 进一步阅读[使用 DRA 进行扩展资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

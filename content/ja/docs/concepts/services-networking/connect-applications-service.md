@@ -238,7 +238,7 @@ Address 1: 10.0.162.149
 * 証明書を使用するように構成されたnginxサーバー
 * Podが証明書にアクセスできるようにする[Secret](/ja/docs/concepts/configuration/secret/)
 
-これらはすべて[nginx httpsの例](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)から取得できます。
+これらはすべて[nginx httpsの例](https://github.com/kubernetes/examples/tree/master/_archived/https-nginx/)から取得できます。
 これにはツールをインストールする必要があります。
 これらをインストールしたくない場合は、後で手動の手順に従ってください。つまり:
 
@@ -314,7 +314,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 nginx-secure-appマニフェストに関する注目すべき点:
 
 - 同じファイルにDeploymentとServiceの両方が含まれています。
-- [nginxサーバー](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)はポート80のHTTPトラフィックと443のHTTPSトラフィックを処理し、nginx Serviceは両方のポートを公開します。
+- [nginxサーバー](https://github.com/kubernetes/examples/blob/master/_archived/https-nginx/default.conf)はポート80のHTTPトラフィックと443のHTTPSトラフィックを処理し、nginx Serviceは両方のポートを公開します。
 - 各コンテナは`/etc/nginx/ssl`にマウントされたボリュームを介してキーにアクセスできます。
   これは、nginxサーバーが起動する*前に*セットアップされます。
 

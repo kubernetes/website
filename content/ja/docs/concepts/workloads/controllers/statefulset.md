@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: StatefulSet
 content_type: concept
 weight: 30

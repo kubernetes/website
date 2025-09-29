@@ -8,6 +8,10 @@ auto_generated: true
 <p>Package v1beta4 defines the v1beta4 version of the kubeadm configuration file format.
 This version improves on the v1beta3 format by fixing some minor issues and adding a few new fields.</p>
 <p>A list of changes since v1beta3:</p>
+<p>v1.34:</p>
+<ul>
+<li>Add &quot;ECDSA-P384&quot; to the allowed encryption algorithm options for <code>ClusterConfiguration.encryptionAlgorithm</code>.</li>
+</ul>
 <p>v1.33:</p>
 <ul>
 <li>Add an <code>EtcdUpgrade</code> field to <code>UpgradeConfiguration.plan</code> that can be used to
@@ -393,7 +397,7 @@ for, so other administrators can know its purpose.</p>
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
@@ -581,7 +585,8 @@ and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the 
 </td>
 <td>
    <p><code>encryptionAlgorithm</code> holds the type of asymmetric encryption algorithm used for keys and
-certificates. Can be one of <code>&quot;RSA-2048&quot;</code> (default), <code>&quot;RSA-3072&quot;</code>, <code>&quot;RSA-4096&quot;</code> or <code>&quot;ECDSA-P256&quot;</code>.</p>
+certificates. Can be one of <code>&quot;RSA-2048&quot;</code> (default), <code>&quot;RSA-3072&quot;</code>, <code>&quot;RSA-4096&quot;</code>, <code>&quot;ECDSA-P256&quot;</code>
+or <code>&quot;ECDSA-P384&quot;</code>.</p>
 </td>
 </tr>
 <tr><td><code>certificateValidityPeriod</code><br/>
@@ -945,7 +950,7 @@ directories during &quot;reset&quot;. This flag can be one of: <code>&quot;MNT_F
 <code>string</code>
 </td>
 <td>
-   <p><code>advertiseAddress</code> sets the IP address for the API server to advertise.</p>
+   <p><code>dvertiseAddress</code> sets the IP address for the API server to advertise.</p>
 </td>
 </tr>
 <tr><td><code>bindPort</code><br/>
@@ -1243,7 +1248,7 @@ does not contain any other authentication information.</p>
     
   
 <tr><td><code>EnvVar</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#envvar-v1-core"><code>core/v1.EnvVar</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#envvar-v1-core"><code>core/v1.EnvVar</code></a>
 </td>
 <td>(Members of <code>EnvVar</code> are embedded into this type.)
    <span class="text-muted">No description provided.</span></td>
@@ -1410,7 +1415,7 @@ file from which to load cluster information.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <p><code>pathType</code> is the type of the <code>hostPath</code>.</p>
@@ -1645,7 +1650,7 @@ This information will be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
@@ -1678,7 +1683,7 @@ Value 'all' ignores errors from all checks.</p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during kubeadm <code>init</code> and
@@ -1955,7 +1960,7 @@ NOTE: This field is currently ignored for <code>kubeadm upgrade apply</code>, bu
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during <code>kubeadm upgrade apply</code> operations.
@@ -2070,7 +2075,7 @@ The list of phases can be obtained with the <code>kubeadm upgrade node phase --h
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during <code>kubeadm upgrade node</code> operations.

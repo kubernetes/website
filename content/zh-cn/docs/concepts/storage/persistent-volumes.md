@@ -41,7 +41,7 @@ This document describes _persistent volumes_ in Kubernetes. Familiarity with
 and [VolumeAttributesClasses](/docs/concepts/storage/volume-attributes-classes/) is suggested.
 -->
 本文描述 Kubernetes 中的**持久卷（Persistent Volumes）**。
-建议先熟悉[卷（volume）](/zh-cn/docs/concepts/storage/volumes/)、
+建议先熟悉[卷（Volume）](/zh-cn/docs/concepts/storage/volumes/)、
 [存储类（StorageClass）](/zh-cn/docs/concepts/storage/storage-classes/)和
 [卷属性类（VolumeAttributesClass）](/zh-cn/docs/concepts/storage/volume-attributes-classes/)。
 
@@ -565,7 +565,7 @@ in the cluster. However, if you want a PVC to bind to a specific PV, you need to
 -->
 ### 预留 PersistentVolume  {#reserving-a-persistentvolume}
 
-控制平面可以在集群中[将 PersistentVolumeClaims 绑定到匹配的 PersistentVolumes](#binding)。
+控制平面可以在集群中[将 PersistentVolumeClaim 绑定到匹配的 PersistentVolume](#binding)。
 但是，如果你希望 PVC 绑定到特定 PV，则需要预先绑定它们。
 
 <!--
@@ -642,7 +642,7 @@ This is useful if you want to consume PersistentVolumes that have their `persist
 to `Retain`, including cases where you are reusing an existing PV.
 -->
 如果你想要使用 `persistentVolumeReclaimPolicy` 属性设置为 `Retain` 的 PersistentVolume 卷时，
-包括你希望复用现有的 PV 卷时，这点是很有用的
+包括你希望复用现有的 PV 卷时，这点是很有用的。
 
 <!--
 ### Expanding Persistent Volumes Claims
@@ -670,7 +670,7 @@ volme types)
 <!--
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
 -->
-只有当 PVC 的存储类中将 `allowVolumeExpansion` 设置为 true 时，你才可以扩充该 PVC 申领。
+只有当 PVC 的存储类中将 `allowVolumeExpansion` 设置为 true 时，你才可以扩充该 PVC。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -797,7 +797,14 @@ Kubernetes provides following methods of recovering from such failures.
 直到用户或集群管理员采取一些措施。这种情况是不希望发生的，因此 Kubernetes
 提供了以下从此类故障中恢复的方法。
 
-{{< tabs name="recovery_methods" >}}
+<!--
+tabs name="recovery_methods"
+-->
+{{< tabs name="恢复方法" >}}
+
+<!--
+tab name="Manually with Cluster Administrator access"
+-->
 {{% tab name="集群管理员手动处理" %}}
 
 <!--
@@ -830,24 +837,14 @@ administrator intervention.
 5. 不要忘记恢复 PV 卷上设置的回收策略。
 
 {{% /tab %}}
-{{% tab name="通过请求扩展为更小尺寸" %}}
-{{< feature-state feature_gate_name="RecoverVolumeExpansionFailure" >}}
 
-{{< note >}}
 <!--
-Recovery from failing PVC expansion by users (`RecoverVolumeExpansionFailure`) is available as an beta feature
-since Kubernetes 1.32 and should be enabled by default. Refer to the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-documentation for more information.
+tab name="By requesting expansion to smaller size"
 -->
-Kubernetes 从 1.32 版本开始将允许用户恢复失败的 PVC 扩展（`RecoverVolumeExpansionFailure`），
-这一特性目前为 Beta 阶段。
-可参考[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-文档了解更多信息。
-{{< /note >}}
+{{% tab name="通过请求扩展为更小尺寸" %}}
 
 <!--
-When using `RecoverVolumeExpansionFailure` feature, if expansion has failed for a PVC, you can retry expansion with a
+If expansion has failed for a PVC, you can retry expansion with a
 smaller size than the previously requested value. To request a new expansion attempt with a
 smaller proposed size, edit `.spec.resources` for that PVC and choose a value that is less than the
 value you previously tried.
@@ -856,8 +853,7 @@ If that has happened, or you suspect that it might have, you can retry expansion
 size that is within the capacity limits of underlying storage provider. You can monitor status of
 resize operation by watching `.status.allocatedResourceStatuses` and events on the PVC.
 -->
-使用 `RecoverVolumeExpansionFailure` 特性时，如果 PVC 扩展失败，
-你可以使用比先前请求的值更小的尺寸来重试扩展。
+如果 PVC 扩展失败，你可以使用比先前请求值更小的值来重试扩展。
 要使用一个更小的尺寸尝试请求新的扩展，请编辑该 PVC 的 `.spec.resources`
 并选择一个比你之前所尝试的值更小的值。
 如果由于容量限制而无法成功扩展至更高的值，这将很有用。
@@ -871,9 +867,8 @@ although you can specify a lower amount of storage than what was requested previ
 the new value must still be higher than `.status.capacity`.
 Kubernetes does not support shrinking a PVC to less than its current size.
 -->
-请注意，
-尽管你可以指定比之前的请求更低的存储量，新值必须仍然高于 `.status.capacity`。
-Kubernetes 不支持将 PVC 缩小到小于其当前的尺寸。
+请注意，尽管你可以指定比之前的请求更低的存储量，新值必须仍然高于
+`.status.capacity`。Kubernetes 不支持将 PVC 缩容到小于其当前值。
 
 {{% /tab %}}
 {{% /tabs %}}
@@ -1158,10 +1153,6 @@ The `ReadWriteOncePod` access mode is only supported for
 1.22+. To use this feature you will need to update the following
 [CSI sidecars](https://kubernetes-csi.github.io/docs/sidecar-containers.html)
 to these versions or greater:
-
-* [csi-provisioner:v3.0.0+](https://github.com/kubernetes-csi/external-provisioner/releases/tag/v3.0.0)
-* [csi-attacher:v3.3.0+](https://github.com/kubernetes-csi/external-attacher/releases/tag/v3.3.0)
-* [csi-resizer:v1.3.0+](https://github.com/kubernetes-csi/external-resizer/releases/tag/v1.3.0)
 -->
 `ReadWriteOncePod` 访问模式仅适用于 {{< glossary_tooltip text="CSI" term_id="csi" >}}
 卷和 Kubernetes v1.22+。要使用此特性，你需要将以下
@@ -1174,11 +1165,6 @@ to these versions or greater:
 
 <!--
 In the CLI, the access modes are abbreviated to:
-
-* RWO - ReadWriteOnce
-* ROX - ReadOnlyMany
-* RWX - ReadWriteMany
-* RWOP - ReadWriteOncePod
 -->
 在命令行接口（CLI）中，访问模式也使用以下缩写形式：
 
@@ -1257,7 +1243,7 @@ to PVCs that request no particular class.
 每个 PV 可以属于某个类（Class），通过将其 `storageClassName` 属性设置为某个
 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes/) 的名称来指定。
 特定类的 PV 卷只能绑定到请求该类存储卷的 PVC 申领。
-未设置 `storageClassName` 的 PV 卷没有类设定，只能绑定到那些没有指定特定存储类的 PVC 申领。
+未设置 `storageClassName` 的 PV 卷没有类设定，只能绑定到那些没有指定特定存储类的 PVC 上。
 
 <!--
 In the past, the annotation `volume.beta.kubernetes.io/storage-class` was used instead
@@ -1419,7 +1405,7 @@ the current time.
 该字段保存的是卷上次转换阶段的时间戳。
 对于新创建的卷，阶段被设置为 `Pending`，`lastPhaseTransitionTime` 被设置为当前时间。
 
-## PersistentVolumeClaims
+## PersistentVolumeClaim
 
 <!--
 Each PVC contains a spec and status, which is the specification and status of the claim.
