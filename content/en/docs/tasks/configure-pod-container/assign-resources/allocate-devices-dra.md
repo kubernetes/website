@@ -1,7 +1,7 @@
 ---
 title: Allocate Devices to Workloads with DRA
 content_type: task
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 weight: 20
 ---
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
@@ -156,6 +156,20 @@ claims in different containers.
    ```shell
    kubectl apply -f https://k8s.io/examples/dra/dra-example-job.yaml
    ```
+
+Try the following troubleshooting steps:
+
+1. When the workload does not start as expected, drill down from Job
+   to Pods to ResourceClaims and check the objects
+   at each level with `kubectl describe` to see whether there are any
+   status fields or events which might explain why the workload is
+   not starting.
+1. When creating a Pod fails with `must specify one of: resourceClaimName,
+   resourceClaimTemplateName`, check that all entries in `pod.spec.resourceClaims`
+   have exactly one of those fields set. If they do, then it is possible
+   that the cluster has a mutating Pod webhook installed which was built
+   against APIs from Kubernetes < 1.32. Work with your cluster administrator
+   to check this.
 
 ## Clean up {#clean-up}
 

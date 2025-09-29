@@ -118,21 +118,6 @@ $vendor-strip-font-size: 16px;
     }
   }
 
-  #video {
-    display: block;
-
-    & > .light-text {
-      display: block;
-      float: right;
-      text-align: left;
-      margin: 0 5% 15px 0;
-    }
-
-    &:dir(rtl) > .light-text {
-      text-align: right;
-    }
-  }
-
   #mobileShowVideoButton {
     display: none;
   }

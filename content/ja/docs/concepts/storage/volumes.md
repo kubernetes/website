@@ -294,8 +294,6 @@ spec:
 Kubernetesホストがアクセスできるように、事前にこれらのLUN(ボリューム)をターゲットWWNに割り当ててマスクするようにFCSANゾーニングを構成する必要があります。
 {{< /note >}}
 
-詳細については[fibre channelの例](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)を参照してください。
-
 ### flocker (非推奨) {#flocker}
 
 [Flocker](https://github.com/ClusterHQ/flocker)はオープンソースのクラスター化されたコンテナデータボリュームマネージャーです。
@@ -571,8 +569,6 @@ iSCSIの特徴として、複数のコンシューマーから同時に読み取
 残念ながら、iSCSIボリュームは1つのコンシューマによってのみ読み書きモードでマウントすることができます。
 同時に書き込みを行うことはできません。
 
-詳細については[iSCSIの例](https://github.com/kubernetes/examples/tree/master/volumes/iscsi)を参照してください。
-
 ### local
 
 `local`ボリュームは、ディスク、パーティション、ディレクトリなど、マウントされたローカルストレージデバイスを表します。
@@ -640,8 +636,6 @@ NFSは複数のライターによって同時にマウントすることがで�
 使用する前に、共有をエクスポートしてNFSサーバーを実行する必要があります。
 {{< /note >}}
 
-詳細については[NFSの例](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)を参照してください。
-
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 `PersistentVolumeClaim`ボリュームは[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)をPodにマウントするために使用されます。
@@ -682,8 +676,6 @@ spec:
 {{< note >}}
 Podで使用する前に、`pxvol`という名前の既存のPortworxVolumeがあることを確認してください。
 {{< /note >}}
-
-詳細については[Portworxボリューム](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md)の例を参照してください。
 
 ### 投影
 

@@ -238,7 +238,7 @@ Dalam rangka mengawasi sumber daya yang disediakan _plugin_ perangkat, agen moni
 menemukan kumpulan perangkat yang terpakai dalam node dan mengambil metadata untuk mendeskripsikan
 pada kontainer mana metrik harus diasosiasikan. Metrik [prometheus](https://prometheus.io/)
 diekspos oleh agen pengawas perangkat harus mengikuti
-[Petunjuk Instrumentasi Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/instrumentation.md),
+[Petunjuk Instrumentasi Kubernetes](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/metric-instrumentation.md),
 mengidentifikasi kontainer dengan label prometheus `pod`, `namespace`, dan `container`.
 
 kubelet menyediakan servis gRPC untuk menyalakan pencarian perangkat yang terpakai, dan untuk menyediakan metadata

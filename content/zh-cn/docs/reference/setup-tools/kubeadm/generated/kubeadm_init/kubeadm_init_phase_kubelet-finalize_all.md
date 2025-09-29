@@ -1,9 +1,4 @@
 <!--
-Run all kubelet-finalize phases
--->
-运行 kubelet-finalize 的所有阶段
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -13,7 +8,7 @@ Run all kubelet-finalize phases
 -->
 运行 kubelet-finalize 的所有阶段
 
-```
+```shell
 kubeadm init phase kubelet-finalize all [flags]
 ```
 

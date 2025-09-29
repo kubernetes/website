@@ -177,7 +177,7 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
 
    ```shell
    # 运行包含 Web 服务器的测试容器镜像
-   kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
+   kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
    ```
 
 <!--

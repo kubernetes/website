@@ -91,7 +91,7 @@ image represented by this record is being requested.</p>
     
   
 <tr><td><code>lastUpdatedTime</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <p>LastUpdatedTime is the time of the last update to this record</p>
@@ -276,6 +276,14 @@ credential plugin.</p>
 secrets that were used to pull the image.</p>
 </td>
 </tr>
+<tr><td><code>kubernetesServiceAccounts</code><br/>
+<a href="#kubelet-config-k8s-io-v1alpha1-ImagePullServiceAccount"><code>[]ImagePullServiceAccount</code></a>
+</td>
+<td>
+   <p>KubernetesServiceAccounts is an index of coordinates of all the kubernetes
+service accounts that were used to pull the image.</p>
+</td>
+</tr>
 <tr><td><code>nodePodsAccessible</code><br/>
 <code>bool</code>
 </td>
@@ -330,6 +338,44 @@ with a credential hash of the pull secret credentials this object contains.</p>
    <p>CredentialHash is a SHA-256 retrieved by hashing the image pull credentials
 content of the secret specified by the UID/Namespace/Name coordinates.</p>
 </td>
+</tr>
+</tbody>
+</table>
+
+## `ImagePullServiceAccount`     {#kubelet-config-k8s-io-v1alpha1-ImagePullServiceAccount}
+    
+
+**Appears in:**
+
+- [ImagePullCredentials](#kubelet-config-k8s-io-v1alpha1-ImagePullCredentials)
+
+
+<p>ImagePullServiceAccount is a representation of a Kubernetes service account object coordinates
+for which the kubelet sent service account token to the credential provider plugin for image pull credentials.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>uid</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>namespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>name</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
 </tr>
 </tbody>
 </table>

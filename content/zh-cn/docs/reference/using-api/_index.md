@@ -259,6 +259,8 @@ Kubernetes 通过 API 资源来将序列化的状态写到 {{< glossary_tooltip 
 - Learn more about [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
 - Read the design documentation for
   [aggregator](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)
+- Learn about [Declarative API Validation](/docs/reference/using-api/declarative-validation/).
 -->
 - 进一步了解 [API 惯例](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)
 - 阅读[聚合器](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)
+- 详细了解[声明式 API 校验](/zh-cn/docs/reference/using-api/declarative-validation/)。

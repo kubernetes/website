@@ -158,6 +158,17 @@ providers:
       # serviceAccountTokenAudience is the intended audience for the projected service account token.
       # +required
       serviceAccountTokenAudience: "<audience for the token>"
+      # cacheType indicates the type of cache key use for caching the credentials returned by the plugin
+      # when the service account token is used.
+      # The most conservative option is to set this to "Token", which means the kubelet will cache
+      # returned credentials on a per-token basis. This should be set if the returned credential's
+      # lifetime is limited to the service account token's lifetime.
+      # If the plugin's credential retrieval logic depends only on the service account and not on
+      # pod-specific claims, then the plugin can set this to "ServiceAccount". In this case, the
+      # kubelet will cache returned credentials on a per-serviceaccount basis. Use this when the
+      # returned credential is valid for all pods using the same service account.
+      # +required
+      cacheType: "<Token or ServiceAccount>"
       # requireServiceAccount indicates whether the plugin requires the pod to have a service account.
       # If set to true, kubelet will only invoke the plugin if the pod has a service account.
       # If set to false, kubelet will invoke the plugin even if the pod does not have a service account
@@ -165,12 +176,12 @@ providers:
       # that are used to pull images for pods without service accounts (e.g., static pods).
       # +required
       requireServiceAccount: true
-      # requiredServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in 
+      # requiredServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in
       # and that are required to be present in the service account.
-      # The keys defined in this list will be extracted from the corresponding service account and passed 
-      # to the plugin as part of the CredentialProviderRequest. If any of the keys defined in this list 
-      # are not present in the service account, kubelet will not invoke the plugin and will return an error. 
-      # This field is optional and may be empty. Plugins may use this field to extract additional information 
+      # The keys defined in this list will be extracted from the corresponding service account and passed
+      # to the plugin as part of the CredentialProviderRequest. If any of the keys defined in this list
+      # are not present in the service account, kubelet will not invoke the plugin and will return an error.
+      # This field is optional and may be empty. Plugins may use this field to extract additional information
       # required to fetch credentials or allow workloads to opt in to using service account tokens for image pull.
       # If non-empty, requireServiceAccount must be set to true.
       # The keys defined in this list must be unique and not overlap with the keys defined in the
@@ -179,11 +190,11 @@ providers:
       requiredServiceAccountAnnotationKeys:
       - "example.com/required-annotation-key-1"
       - "example.com/required-annotation-key-2"
-      # optionalServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in 
+      # optionalServiceAccountAnnotationKeys is the list of annotation keys that the plugin is interested in
       # and that are optional to be present in the service account.
-      # The keys defined in this list will be extracted from the corresponding service account and passed 
-      # to the plugin as part of the CredentialProviderRequest. The plugin is responsible for validating the 
-      # existence of annotations and their values. This field is optional and may be empty. 
+      # The keys defined in this list will be extracted from the corresponding service account and passed
+      # to the plugin as part of the CredentialProviderRequest. The plugin is responsible for validating the
+      # existence of annotations and their values. This field is optional and may be empty.
       # Plugins may use this field to extract additional information required to fetch credentials.
       # The keys defined in this list must be unique and not overlap with the keys defined in the
       # requiredServiceAccountAnnotationKeys list.
@@ -214,6 +225,20 @@ the following fields are required:
 * `serviceAccountTokenAudience`:
   the intended audience for the projected service account token.
   This cannot be the empty string.
+* `cacheType`:
+  the type of cache key used for caching the credentials returned by the plugin
+  when the service account token is used.
+  The most conservative option is to set this to `Token`,
+  which means the kubelet will cache returned credentials
+  on a per-token basis.
+  This should be set if the returned credential's lifetime
+  is limited to the service account token's lifetime.
+  If the plugin's credential retrieval logic depends only on the service account
+  and not on pod-specific claims,
+  then the plugin can set this to `ServiceAccount`.
+  In this case, the kubelet will cache returned credentials
+  on a per-service account basis.
+  Use this when the returned credential is valid for all pods using the same service account.
 * `requireServiceAccount`:
   whether the plugin requires the pod to have a service account.
   * If set to `true`, kubelet will only invoke the plugin
@@ -253,4 +278,3 @@ Some example values of `matchImages` patterns are:
 * Read the details about `CredentialProviderConfig` in the
   [kubelet configuration API (v1) reference](/docs/reference/config-api/kubelet-config.v1/).
 * Read the [kubelet credential provider API reference (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/).
-

@@ -78,7 +78,7 @@ with `--tracing-config-file=<path-to-config>`. This is an example config that re
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: TracingConfiguration
 # default value
 #endpoint: localhost:4317
@@ -86,7 +86,7 @@ samplingRatePerMillion: 100
 ```
 
 For more information about the `TracingConfiguration` struct, see
-[API server config API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
+[API server config API (v1)](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration).
 
 ### kubelet traces
 
@@ -106,8 +106,6 @@ This is an example snippet of a kubelet config that records spans for 1 in 10000
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-featureGates:
-  KubeletTracing: true
 tracing:
   # default value
   #endpoint: localhost:4317

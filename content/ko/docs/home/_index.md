@@ -13,9 +13,7 @@ hide_feedback: true
 menu:
   main:
     title: "문서"
-    weight: 20
-    post: >
-      <p>개념, 튜토리얼 및 참조 문서와 함께 쿠버네티스 사용하는 방법을 익힐 수 있다. 또한, <a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>문서에 기여하는 것도 도움을 줄 수 있다</a>!</p>
+    weight: 10
 description: >
   쿠버네티스는 컨테이너화된 애플리케이션의 배포, 확장 및 관리를 자동화하기 위한 오픈소스 컨테이너 오케스트레이션 엔진이다. 오픈소스 프로젝트는 Cloud Native Computing Foundation에서 주관한다.
 overview: >

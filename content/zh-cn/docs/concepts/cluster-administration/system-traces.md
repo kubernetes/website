@@ -157,7 +157,7 @@ with `--tracing-config-file=<path-to-config>`. This is an example config that re
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: TracingConfiguration
 # default value
 #endpoint: localhost:4317
@@ -169,7 +169,7 @@ kube-apiserver 提供追踪配置文件。下面是一个示例配置，它为�
 span，并使用了默认的 OpenTelemetry 端点。
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1beta1
+apiVersion: apiserver.config.k8s.io/v1
 kind: TracingConfiguration
 # 默认值
 #endpoint: localhost:4317
@@ -178,10 +178,10 @@ samplingRatePerMillion: 100
 
 <!-- 
 For more information about the `TracingConfiguration` struct, see
-[API server config API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
+[API server config API (v1)](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration).
 -->
 有关 TracingConfiguration 结构体的更多信息，请参阅
-[API 服务器配置 API (v1beta1)](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration)。
+[API 服务器配置 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration)。
 
 <!--
 ### kubelet traces
@@ -213,8 +213,6 @@ This is an example snippet of a kubelet config that records spans for 1 in 10000
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-featureGates:
-  KubeletTracing: true
 tracing:
   # default value
   #endpoint: localhost:4317
@@ -230,8 +228,6 @@ span，并使用默认的 OpenTelemetry 端点：
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
-featureGates:
-  KubeletTracing: true
 tracing:
   # 默认值
   #endpoint: localhost:4317
@@ -242,7 +238,8 @@ tracing:
 If the `samplingRatePerMillion` is set to one million (`1000000`), then every
 span will be sent to the exporter.
 -->
-如果 `samplingRatePerMillion` 被设置为一百万 (`1000000`)，则所有 span 都将被发送到导出器。
+如果 `samplingRatePerMillion` 被设置为一百万（`1000000`），
+则所有 span 都将被发送到导出器。
 
 <!--
 The kubelet in Kubernetes v{{< skew currentVersion >}} collects spans from

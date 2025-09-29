@@ -1,7 +1,7 @@
 ---
 title: "Set Up DRA in a Cluster"
 content_type: task
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 weight: 10
 ---
 {{< feature-state feature_gate_name="DynamicResourceAllocation" >}}
@@ -37,30 +37,20 @@ For details, see
 
 <!-- steps -->
 
-## Enable the DRA API groups {#enable-dra}
+## Optional: enable legacy DRA API groups {#enable-dra}
 
-To let Kubernetes allocate resources to your Pods with DRA, complete the
-following configuration steps:
+DRA graduated to stable in Kubernetes 1.34 and is enabled by default.
+Some older DRA drivers or workloads might still need the
+v1beta1 API from Kubernetes 1.30 or v1beta2 from Kubernetes 1.32.
+If and only if support for those is desired, then enable the following
+{{< glossary_tooltip text="API groups" term_id="api-group" >}}:
 
-1.  Enable the `DynamicResourceAllocation`
-    [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-    on all of the following components:
-   
-    * `kube-apiserver`
-    * `kube-controller-manager`
-    * `kube-scheduler`
-    * `kubelet`
+    * `resource.k8s.io/v1beta1`
+    * `resource.k8s.io/v1beta2`
 
-1.  Enable the following
-    {{< glossary_tooltip text="API groups" term_id="api-group" >}}:
+For more information, see
+[Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
 
-    * `resource.k8s.io/v1beta1`: required for DRA to function.
-    * `resource.k8s.io/v1beta2`: optional, recommended improvements to the user
-      experience.
-     
-    For more information, see
-    [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
-   
 ## Verify that DRA is enabled {#verify}
 
 To verify that the cluster is configured correctly, try to list DeviceClasses:
@@ -81,15 +71,15 @@ similar to the following:
 ```
 error: the server doesn't have a resource type "deviceclasses"
 ```
+
 Try the following troubleshooting steps:
 
-1. Ensure that the `kube-scheduler` component has the `DynamicResourceAllocation`
-   feature gate enabled *and* uses the
-   [v1 configuration API](/docs/reference/config-api/kube-scheduler-config.v1/).
-   If you use a custom configuration, you might need to perform additional steps
-   to enable the `DynamicResource` plugin.
-1. Restart the `kube-apiserver` component and the `kube-controller-manager`
-   component to propagate the API group changes.
+1. Reconfigure and restart the `kube-apiserver` component.
+
+1. If the complete `.spec.resourceClaims` field gets removed from Pods, or if
+   Pods get scheduled without considering the ResourceClaims, then verify
+   that the `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is not turned off
+   for kube-apiserver, kube-controller-manager, kube-scheduler or the kubelet.
 
 ## Install device drivers {#install-drivers}
 
@@ -111,6 +101,12 @@ NAME                                                  NODE                DRIVER
 cluster-1-device-pool-1-driver.example.com-lqx8x      cluster-1-node-1    driver.example.com   cluster-1-device-pool-1-r1gc     7s
 cluster-1-device-pool-2-driver.example.com-29t7b      cluster-1-node-2    driver.example.com   cluster-1-device-pool-2-446z     8s
 ```
+
+Try the following troubleshooting steps:
+
+1. Check the health of the DRA driver and look for error messages about
+   publishing ResourceSlices in its log output. The vendor of the driver
+   may have further instructions about installation and troubleshooting.
 
 ## Create DeviceClasses {#create-deviceclasses}
 
@@ -135,27 +131,25 @@ operators.
     The output is similar to the following:
 
     ```yaml
-    apiVersion: resource.k8s.io/v1beta1
+    apiVersion: resource.k8s.io/v1
     kind: ResourceSlice
     # lines omitted for clarity
     spec:
       devices:
-      - basic:
-          attributes:
-            type:
-              string: gpu
-          capacity:
-            memory:
-              value: 64Gi
-          name: gpu-0
-      - basic:
-          attributes:
-            type:
-              string: gpu
-          capacity:
-            memory:
-              value: 64Gi
-          name: gpu-1
+      - attributes:
+          type:
+            string: gpu
+        capacity:
+          memory:
+            value: 64Gi
+        name: gpu-0
+      - attributes:
+          type:
+            string: gpu
+        capacity:
+          memory:
+            value: 64Gi
+        name: gpu-1
       driver: driver.example.com
       nodeName: cluster-1-node-1
     # lines omitted for clarity

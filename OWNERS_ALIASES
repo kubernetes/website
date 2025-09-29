@@ -21,6 +21,7 @@ aliases:
     - nate-double-u
     - reylejano
     - salaxander
+    - SayakMukhopadhyay
     - tengqm
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
@@ -64,6 +65,7 @@ aliases:
     - nate-double-u
     - reylejano
     - salaxander
+    - SayakMukhopadhyay
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
@@ -75,6 +77,7 @@ aliases:
     - nate-double-u
     - reylejano
     - salaxander
+    - SayakMukhopadhyay
     - shannonxtreme
     - tengqm
     - windsonsea
@@ -197,8 +200,12 @@ aliases:
     - stormqueen1990
   sig-docs-vi-owners: # Admins for Vietnamese content
     - truongnh1992
+    - khanhtc1202
+    - ntheanh201
   sig-docs-vi-reviews: # PR reviews for Vietnamese content
     - truongnh1992
+    - khanhtc1202
+    - ntheanh201
   sig-docs-ru-owners: # Admins for Russian content
     - Arhell
     - kirkonru
