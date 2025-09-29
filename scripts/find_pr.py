@@ -74,7 +74,7 @@ def main(tags, token, path, last_n_pr):
                     print("%s (%s)" % (pr["node"]["title"], pr["node"]["state"]))
                     print(pr["node"]["url"])
                     print("----------------")
-
+   
     except requests.exceptions.HTTPError as err:
         gh_err_response = json.loads(err.response.text)
         print("HTTP Error: %d %s" % (err.response.status_code, gh_err_response['message']))
