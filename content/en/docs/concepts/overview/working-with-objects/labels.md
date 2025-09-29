@@ -307,7 +307,7 @@ best practice. There are many scenarios where multiple labels should be used to
 distinguish resource sets from one another.
 
 For instance, different applications would use different values for the `app` label, but a
-multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/),
+multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/web/guestbook/),
 would additionally need to distinguish each tier. The frontend could carry the following labels:
 
 ```yaml
