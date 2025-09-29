@@ -207,7 +207,7 @@ _暗黙的にマージされる_ 補助グループはボリュームアクセ�
 
 {{< feature-state feature_gate_name="SupplementalGroupsPolicy" >}}
 
-この機能はkubeletとkube-apiseverに`SupplementalGroupsPolicy`
+この機能はkubeletとkube-apiserverに`SupplementalGroupsPolicy`
 [フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を設定し、Podの`.spec.securityContext.supplementalGroupsPolicy`フィールドを指定することで利用できます。
 
 `supplementalGroupsPolicy`フィールドは、Pod内のコンテナプロセスに付与される補助グループを、どのように決定するかを定義します。有効な値は次の2つです。
