@@ -132,9 +132,9 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.34"
+latest = "v1.35"
 
-version = "v1.34"
+version = "v1.35"
 githubbranch = "main"
 docsbranch = "main"
 # Should be changed to Docsy provided `archived_version` in the future.
@@ -175,8 +175,8 @@ js = [
 ]
 
 [[params.versions]]
-version = "v1.34"
-githubbranch = "v1.34.0"
+version = "v1.35"
+githubbranch = "v1.35.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
