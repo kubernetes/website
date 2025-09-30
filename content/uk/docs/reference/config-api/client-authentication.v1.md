@@ -154,7 +154,7 @@ Token і ClientKeyData є конфіденційними полями. Ці да
     <tbody>
         <tr>
             <td><code>expirationTimestamp</code><br/>
-                <a href="/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
+                <a href="/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
             </td>
             <td><p>ExpirationTimestamp вказує час, коли надані облікові дані закінчуються.</p></td>
         </tr>

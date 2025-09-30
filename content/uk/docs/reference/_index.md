@@ -60,15 +60,13 @@ no_list: true
 Цей розділ містить документацію для "неопублікованих" API, які використовуються для налаштування компонентів або інструментів Kubernetes. Більшість з цих API не експонуються через API-сервер у стилі REST, хоча вони є важливими для користувача чи оператора для використання або управління кластером.
 
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
-* [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/)
+* [kuberc (v1alpha1)](/docs/reference/config-api/kuberc.v1alpha1/) та [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
-* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) та
-* [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) та
+* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) та [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) та
   [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) та
-  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-  [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
+  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/) та [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
 * [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
 * [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)

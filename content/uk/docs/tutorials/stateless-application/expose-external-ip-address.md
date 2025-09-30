@@ -69,7 +69,7 @@ weight: 10
 
    {{< note >}}
 
-   Сервіс типу `type=LoadBalancer` підтримується зовнішніми хмарними провайдерами, що не розглядається в цьому прикладі, будь ласка, зверніться до [цієї сторінки](/docs/concepts/services-networking/service/#loadbalancer) для деталей.
+   Сервіс типу `type=LoadBalancer` підтримується зовнішніми хмарними провайдерами, що не розглядається в цьому прикладі, будь ласка, зверніться до [встановлення `type: LoadBalancer` для вашого Service](/docs/concepts/services-networking/service/#loadbalancer) для деталей.
 
    {{< /note >}}
 
@@ -132,7 +132,7 @@ weight: 10
 
    Відповідь на успішний запит — привітальне повідомлення:
 
-   ```shell
+   ```console
    Hello, world!
    Version: 2.0.0
    Hostname: 0bd46b45f32f

@@ -368,6 +368,13 @@ kubectl [flags]
             <td></td><td style="line-height: 130%; word-wrap: break-word;">Коли встановлено true, файл kuberc береться до уваги для визначення налаштувань користувача.
             </td>
         </tr>
+        <tr>
+            <td colspan="2">KUBECTL_KYAML</td>
+        </tr>
+        <tr>
+            <td></td><td style="line-height: 130%; word-wrap: break-word;">Якщо встановлено значення true, kubectl може створювати вихідний формат YAML, що є специфічним для Kubernetes.
+            </td>
+        </tr>
     </tbody>
 </table>
 
