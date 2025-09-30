@@ -1,19 +1,19 @@
 ---
-title: ListFromCacheSnapshot
+title: InOrderInformers
 content_type: feature_gate
+
 _build:
   list: never
   render: false
 
 stages:
   - stage: alpha 
-    defaultValue: false
+    defaultValue: true
     fromVersion: "1.33"
     toVersion: "1.33"
   - stage: beta
     defaultValue: true
     fromVersion: "1.34"
-
---- 
-Enables the API server to generate snapshots for the watch cache store and using them to serve LIST requests.
+---
+Force the informers to deliver watch stream events in order instead of out of order.
 
