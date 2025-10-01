@@ -7,28 +7,28 @@ weight: 20
 <!-- overview -->
 
 다른 프로그램과 마찬가지로, kubeadm을 설치하거나 실행하는 중에 오류가 발생할 수 있다.
-이 페이지에는 일반적인 실패 시나리오와 문제를 이해하고 해결하는 데 도움이 되는 단계가 나열되어 있다.
+이 페이지에는 일반적인 실패 시나리오를 나열하고 문제를 이해하고 해결하는 데 도움을 줄 수 있는 단계를 제공한다.
 
-아래에 문제가 나열되지 않은 경우, 다음 단계를 따르도록 한다.
+아래에 문제가 나와있지 않다면 다음 단계를 따르도록 한다.
 
 - 문제가 kubeadm의 버그라고 생각되는 경우:
   - [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues)으로 이동하여 기존 이슈를 검색한다.
   - 이슈가 없으면 [새로운 이슈를 열고](https://github.com/kubernetes/kubeadm/issues/new) 이슈 템플릿을 따른다.
 
-- kubeadm 작동 방식이 확실하지 않은 경우, [Slack](https://slack.k8s.io/)의 `#kubeadm`에서 질문하거나,
-  [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes)에 질문을 올릴 수 있다. 사람들이 도움을 줄 수 
+- kubeadm 작동 방식이 확실하지 않은 경우, [슬랙](https://slack.k8s.io/)의 `#kubeadm`에서 질문하거나,
+  [스택오버플로우](https://stackoverflow.com/questions/tagged/kubernetes)에 질문을 올릴 수 있다. 사람들이 도움을 줄 수 
   있도록 `#kubernetes` 및 `#kubeadm`과 같은 관련 태그를 포함한다.
 
 <!-- body -->
 
-## 누락된 RBAC로 인해 v1.18 노드를 v1.17 클러스터에 참여할 수 없음
+## RBAC 누락으로 인해 v1.18 노드를 v1.17 클러스터에 참여할 수 없음
 
 v1.18 kubeadm은 같은 이름의 노드가 이미 존재하는 경우 클러스터에 노드가 참여하는 것을 방지하는 기능을 추가했다.
 이를 위해 bootstrap-token 사용자가 노드 객체를 GET할 수 있도록 RBAC를 추가해야 했다.
 
 그러나 이로 인해 v1.18의 `kubeadm join`이 kubeadm 1.17로 생성된 클러스터에 참여할 수 없는 문제가 발생한다.
 
-이 문제를 해결하려면 두 가지 옵션이 있다.
+이 문제를 해결하기 위한 두 가지 옵션이 있다.
 
 kubeadm v1.18을 사용하여 컨트롤 플레인 노드에서 `kubeadm init phase bootstrap-token`을 실행한다. 
 이렇게 하면 나머지 bootstrap-token 권한도 활성화된다는 점에 유의한다.
@@ -66,7 +66,7 @@ subjects:
 
 ## 설치 중 `ebtables` 또는 유사한 실행 파일을 찾을 수 없음
 
-`kubeadm init`을 실행하는 동안 다음 경고가 표시되는 경우
+`kubeadm init`을 실행하는 동안 다음 경고가 표시된다면
 
 ```console
 [preflight] WARNING: ebtables not found in system path
@@ -79,7 +79,7 @@ subjects:
 - Ubuntu/Debian 사용자의 경우, `apt install ebtables ethtool`을 실행한다.
 - CentOS/Fedora 사용자의 경우, `yum install ebtables ethtool`을 실행한다.
 
-## 설치 중 kubeadm이 컨트롤 플레인을 기다리며 차단됨
+## 설치 중 kubeadm이 컨트롤 플레인을 기다리다가 진행되지 않음 (block)
 
 `kubeadm init`이 다음 줄을 출력한 후 중단되는 경우
 
@@ -96,7 +96,7 @@ subjects:
   `docker logs`를 실행하여 각 컨테이너를 조사할 수 있다. 다른 컨테이너 런타임의 경우 
   [crictl로 쿠버네티스 노드 디버깅하기](/ko/docs/tasks/debug/debug-cluster/crictl/)를 참조한다.
 
-## 관리되는 컨테이너를 제거할 때 kubeadm이 차단됨
+## 관리되는 컨테이너를 제거할 때 kubeadm이 멈춤
 
 컨테이너 런타임이 중단되고 쿠버네티스가 관리하는 컨테이너를 제거하지 않으면 
 다음과 같은 일이 발생할 수 있다. 
@@ -113,18 +113,18 @@ sudo kubeadm reset
 (block)
 ```
 
-가능한 해결책은 컨테이너 런타임을 재시작한 다음 `kubeadm reset`을 다시 실행하는 것이다.
-`crictl`을 사용하여 컨테이너 런타임의 상태를 디버그할 수도 있다. 
+가능한 해결 방안은 컨테이너 런타임을 재시작한 뒤 `kubeadm reset`을 다시 실행하는 것이다.
+또한 `crictl`을 사용하여 컨테이너 런타임의 상태를 디버그할 수도 있다. 
 [crictl로 쿠버네티스 노드 디버깅하기](/ko/docs/tasks/debug/debug-cluster/crictl/)를 참조한다.
 
 ## `RunContainerError`, `CrashLoopBackOff` 또는 `Error` 상태의 파드
 
 `kubeadm init` 직후에는 이러한 상태의 파드가 없어야 한다.
 
-- `kubeadm init` _직후_ 이러한 상태의 파드가 있다면 
-  kubeadm 저장소에 이슈를 열어 주자. `coredns`(또는 `kube-dns`)는 
-  네트워크 애드온을 배포할 때까지 `Pending` 상태여야 한다.
-- 네트워크 애드온을 배포한 후 `RunContainerError`, `CrashLoopBackOff` 또는 `Error` 상태의 
+- `kubeadm init` _직후_ 에 이러한 상태의 파드가 있다면 
+  kubeadm 저장소에 이슈를 열자. `coredns`(또는 `kube-dns`)는 
+  네트워크 애드온을 배포하기 전까지는 `Pending` 상태여야 한다.
+- 네트워크 애드온을 배포한 이후에도 `RunContainerError`, `CrashLoopBackOff` 또는 `Error` 상태의 
   파드가 보이고 `coredns`(또는 `kube-dns`)에 아무 일도 일어나지 않는다면, 
   설치한 파드 네트워크 애드온이 어떤 식으로든 손상되었을 가능성이 높다. 
   더 많은 RBAC 권한을 부여하거나 최신 버전을 사용해야 할 수 있다. 파드 
@@ -139,8 +139,8 @@ sudo kubeadm reset
 
 ## `HostPort` 서비스가 동작하지 않음 
 
-`HostPort` 및 `HostIP` 기능은 파드 네트워크 공급자에 따라 사용 가능 여부가 
-다르다. `HostPort` 및 `HostIP` 기능을 사용할 수 있는지 알아보려면 파드 네트워크 애드온 
+`HostPort`와 `HostIP` 기능의 지원 여부는 파드 네트워크 공급자에 따라
+달라진다. `HostPort` 및 `HostIP` 기능을 사용할 수 있는지 알아보려면 파드 네트워크 애드온 
 작성자에게 문의한다.
 
 Calico, Canal 및 Flannel CNI 공급자는 HostPort를 지원하는 것으로 확인되었다.
@@ -204,7 +204,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 ## Kubelet 클라이언트 인증서 갱신 실패 {#kubelet-client-cert}
 
 기본적으로 kubeadm은 `/etc/kubernetes/kubelet.conf`에 지정된 `/var/lib/kubelet/pki/kubelet-client-current.pem` 
-심볼릭 링크를 사용하여 클라이언트 인증서의 자동 갱신으로 kubelet을 구성한다. 
+심볼릭 링크를 사용하여 kubelet 클라이언트 인증서가 자동 갱신되도록 구성한다. 
 이 갱신 프로세스가 실패하면 kube-apiserver 로그에 `x509: certificate has expired or is not yet valid`와 
 같은 오류가 표시될 수 있다. 이 문제를 해결하려면 다음 단계를 따라야 한다.
 
@@ -227,9 +227,9 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
    ```
 
 1. kubelet을 재시작한다.
-1. 노드가 `Ready`가 되는지 확인한다.
+1. 노드가 `Ready`가 되었는지 확인한다.
 
-## Vagrant에서 파드 네트워크로 flannel을 사용할 때 기본 NIC
+## Vagrant에서 flannel을 파드 네트워크로 사용할 때 기본 NIC
 
 다음 오류는 파드 네트워크에 문제가 있음을 나타낼 수 있다.
 
@@ -241,13 +241,13 @@ Error from server (NotFound): the server could not find the requested resource
   기본 인터페이스 이름을 지정해야 한다. 
   
   Vagrant는 일반적으로 모든 VM에 두 개의 인터페이스를 할당한다. 첫 번째는 모든 호스트에 
-  `10.0.2.15` IP 주소가 할당되며, NAT되는 외부 트래픽용이다. 
+  `10.0.2.15` IP 주소가 할당되며, NAT 처리되는 외부 트래픽을 위한 것이다.
   
   이는 호스트의 첫 번째 인터페이스를 기본값으로 하는 flannel에 문제를 일으킬 수 있다. 
   이로 인해 모든 호스트가 동일한 공용 IP 주소를 가지고 있다고 생각하게 된다. 이를 방지하려면 
-  flannel에 `--iface eth1` 플래그를 전달하여 두 번째 인터페이스를 선택하도록 한다.
+  flannel에 `--iface eth1` 플래그를 전달하여 두 번째 인터페이스가 선택하도록 한다.
 
-## 컨테이너에 사용되는 공용이 아닌 IP
+## 컨테이너에 공용이 아닌 IP가 사용됨
 
 정상적으로 작동하는 클러스터에서 `kubectl logs` 및 `kubectl run` 명령이 
 다음 오류와 함께 반환될 수 있다.
@@ -368,7 +368,7 @@ server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
 proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 ```
 
-알려진 해결책은 kube-proxy DaemonSet을 패치하여 조건에 관계없이 컨트롤 플레인 노드에 
+알려진 해결 방법은 kube-proxy DaemonSet을 패치하여 조건에 관계없이 컨트롤 플레인 노드에 
 스케줄할 수 있도록 하고, 초기 보호 조건이 완화될 때까지 다른 노드에서 
 제외하는 것이다.
 
@@ -474,7 +474,7 @@ x509: certificate signed by unknown authority
 x509: certificate is valid for IP-foo not IP-bar
 ```
 
-kubeadm 클러스터에서 kubelet이 적절하게 서명된 서빙 인증서를 갖도록 구성하는 방법을 이해하려면 
+kubeadm 클러스터에서 kubelet이 올바르게 서명된 서빙 인증서를 갖도록 구성하는 방법을 이해하려면 
 [서명된 kubelet 서빙 인증서 활성화](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)를 참조한다.
 
 또는 [metrics-server를 안전하게 실행하는 방법](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely)을 참조한다.
