@@ -15,4 +15,4 @@ tags:
 
 <!--more--> 
 
-می‌توانید از kubeadm برای نصب اجزای کنترل پلین و همچنین اجزای {{< glossary_tooltip text="نود ورکر" term_id="node" >}} استفاده کنید.
+می‌توانید از kubeadm برای نصب اجزای کنترل پلین و همچنین اجزای {{< glossary_tooltip text="گره ورکر" term_id="node" >}} استفاده کنید.

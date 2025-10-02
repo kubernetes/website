@@ -4,7 +4,7 @@ id: kube-proxy
 date: 2018-04-12
 full_link: /docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
-  `kube-proxy` یک پروکسی شبکه است که روی هر نود (node) در کلاستر اجرا می‌شود.
+  `kube-proxy` یک پروکسی شبکه است که روی هر گره (node) در کلاستر اجرا می‌شود.
 
 aka:
 tags:
@@ -12,7 +12,7 @@ tags:
 - networking
 ---
 kube-proxy یک پروکسی شبکه است که روی هر
-{{< glossary_tooltip text="نود (node)" term_id="node" >}} در کلاستر شما اجرا می‌شود
+{{< glossary_tooltip text="گره (node)" term_id="node" >}} در کلاستر شما اجرا می‌شود
 و بخشی از مفهوم {{< glossary_tooltip text="سرویس (Service)" term_id="service">}} در کوبرنتیز را پیاده‌سازی می‌کند.
 
 <!--more-->
