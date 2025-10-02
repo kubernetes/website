@@ -185,7 +185,7 @@ spec:
       size:
         string: "large"
       cat:
-        boolean: true
+        bool: true
 ```
 
 Цим ResourceSlice керує драйвер `resource-driver.example.com` у пулі `black-cat-pool`. Поле `allNodes: true` вказує на те, що будь-який вузол кластера може отримати доступ до пристроїв. У ResourceSlice є один пристрій на імʼя `large-black-cat` з наступними атрибутами:
@@ -442,7 +442,7 @@ spec:
       requests:
       - name: req-0
         exactly:
-        - deviceClassName: resource.example.com
+          deviceClassName: resource.example.com
           capacity:
             requests:
               bandwidth: 1G
@@ -545,7 +545,12 @@ metadata:
 spec:
   driver: dra.example.com
   nodeSelector:
-    accelerator-type: high-performance
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: accelerator-type
+        operator: In
+        values:
+        - "high-performance"
   pool:
     name: gpu-pool
     generation: 1

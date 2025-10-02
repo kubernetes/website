@@ -15,8 +15,9 @@ stages:
     fromVersion: "1.30"
     toVersion: "1.33"
   - stage: stable
+    locked: true
     defaultValue: true
     fromVersion: "1.34"
 ---
 
-Вмикає дію `sleep` в хуках життєвого циклу контейнера.
+Вмикає дію `sleep` в хуках життєвого циклу контейнера (`preStop` та `postStart`).

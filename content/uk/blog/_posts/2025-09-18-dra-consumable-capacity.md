@@ -125,7 +125,7 @@ spec:
     requests: # для пристроїв
     - name: req0
       exactly:
-      - deviceClassName: resource.example.com
+        deviceClassName: resource.example.com
         capacity:
           requests: # для ресурсів, які повинні бути надані цими пристроями
             memory: 10Gi

@@ -15,9 +15,10 @@ stages:
     fromVersion: "1.20"
     toVersion: "1.33"
   - stage: stable
+    locked: true
     defaultValue: true
     fromVersion: "1.34"
-    locked: true
+
 ---
 
 Дозволяє `kube-proxy` працювати в режимі оверлею для Windows.

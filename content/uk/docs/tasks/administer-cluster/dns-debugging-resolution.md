@@ -177,7 +177,7 @@ kube-dns     ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP        1h
 Ви можете перевірити, чи викриті точки доступу DNS, використовуючи команду `kubectl get endpointslice`.
 
 ```shell
-kubectl get endpointslices -l k8s.io/service-name=kube-dns --namespace=kube-system
+kubectl get endpointslice -l k8s.io/service-name=kube-dns --namespace=kube-system
 ```
 
 ```none

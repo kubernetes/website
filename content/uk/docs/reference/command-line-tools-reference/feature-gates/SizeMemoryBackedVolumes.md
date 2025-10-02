@@ -17,6 +17,10 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.32"
+    toVersion: "1.33"
+
+removed: true
+
 ---
 
 Дозволяє kubelet визначати обмеження розміру для памʼяті, яка використовується для томів (головним чином для томів `emptyDir`).
