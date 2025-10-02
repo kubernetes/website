@@ -4,8 +4,8 @@ weight: 30
 no_list: true
 ---
 
-자체 프로덕션 쿠버네티스 클러스터를 설정하는 방법과 도구는 다양하다.
-예시:
+자체 프로덕션 쿠버네티스 클러스터를 설정하는 데는 다양한 방법과 도구가 있다.
+예를 들면 다음과 같다.
 
 - [kubeadm](/ko/docs/setup/production-environment/tools/kubeadm/)
 
@@ -23,6 +23,4 @@ no_list: true
   플레이북, [인벤토리](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible/inventory.md), 
   프로비저닝 도구 및 도메인 지식의 
   조합이다. [#kubespray](https://kubernetes.slack.com/messages/kubespray/) 
-  Slack 채널에서 커뮤니티에 참여할 수 있다.
-
-  
+  슬랙 채널에서 커뮤니티에 참여할 수 있다.
