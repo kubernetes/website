@@ -14,7 +14,7 @@ card:
 
 <!-- overview -->
 
-이 페이지는 쿠버네티스 오브젝트가 쿠버네티스 API에서 표현되는 방식과, 
+이 페이지는 쿠버네티스 오브젝트가 쿠버네티스 API에서 어떻게 표현되는지와 
 이를 `.yaml` 형식으로 작성하는 방법을 설명한다.
 
 <!-- body -->
@@ -73,7 +73,7 @@ card:
 사용하여 오브젝트를 생성할 때 (직접 또는 `kubectl`을 통해), 해당 API 요청은 
 요청 본문에 해당 정보를 JSON 형식으로 포함해야 한다.
 대부분의 경우, `kubectl`에 _매니페스트_ 라는 파일로 정보를 제공한다.
-관례상으로, 매니페스트는 YAML 형식이다 (JSON 형식을 사용할 수도 있다).
+관례적으로, 매니페스트는 YAML 형식이다 (JSON 형식을 사용할 수도 있다).
 `kubectl`과 같은 도구는 HTTP를 통해 API 요청을 할 때 매니페스트의 정보를
 JSON이나 다른 지원되는 직렬화 형식으로 변환한다.
 
@@ -90,7 +90,7 @@ JSON이나 다른 지원되는 직렬화 형식으로 변환한다.
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
-출력은 다음과 비슷하다.
+출력은 다음과 유사하다.
 
 ```
 deployment.apps/nginx-deployment created
