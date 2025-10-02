@@ -107,7 +107,7 @@ nginx-deployment-7768647bf9-rkxlw   1/1     Running       0             8s
 새로운 파드가 스케줄되었음을 확인할 수 있다.
 
 새 파드의 엔드포인트가 생성되는 동안, 기존 엔드포인트는
-여전히 terminating 상태로 남아 있다.
+여전히 종료 중 상태로 남아 있다.
 
 ```shell
 kubectl get endpointslice -o json nginx-service-6tjbr
@@ -159,12 +159,12 @@ kubectl get endpointslice -o json nginx-service-6tjbr
 
 이 동작을 통해 애플리케이션은 종료 전 상태를 전달할 수 있으며,
 클라이언트(로드밸런서 같은)는 연결 드레이닝 기능을 구현할 수 있다.
-이러한 클라이언트는 terminating 상태의 엔드포인트를 감지하고 그에 대한 특별한 처리를 적용할 수 있다.
+이러한 클라이언트는 종료 중 상태의 엔드포인트를 감지하고 그에 대한 특별한 처리를 적용할 수 있다.
 
-쿠버네티스에서는, terminating 중인 엔드포인트가 항상 `ready` 상태를 `false`로 설정한다.
+쿠버네티스에서는, 종료 중인 엔드포인트가 항상 `ready` 상태를 `false`로 설정한다.
 이는 기존 로드밸런서들이 일반 트래픽에 해당 엔드포인트를 사용하지 않도록 하기 위한 
 하위 호환성(backward compatibility) 때문이다.
-만약 terminating 중인 파드에서 트래픽 드레이닝이 필요하다면, 실제 준비 상태는 
+만약 종료 중인 파드에서 트래픽 드레이닝이 필요하다면, 실제 준비 상태는 
 `serving` 조건을 통해 확인할 수 있다.
 
 파드가 삭제되면, 기존 엔드포인트도 함께 삭제된다.
