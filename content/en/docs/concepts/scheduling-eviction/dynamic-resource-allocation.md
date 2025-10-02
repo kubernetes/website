@@ -291,7 +291,7 @@ spec:
       size:
         string: "large"
       cat:
-        boolean: true
+        bool: true
 ```
 This ResourceSlice is managed by the `resource-driver.example.com` driver in the
 `black-cat-pool` pool. The `allNodes: true` field indicates that any node in the
@@ -653,7 +653,7 @@ spec:
       requests:
       - name: req-0
         exactly:
-        - deviceClassName: resource.example.com
+          deviceClassName: resource.example.com
           capacity:
             requests:
               bandwidth: 1G
@@ -825,7 +825,12 @@ metadata:
 spec:
   driver: dra.example.com
   nodeSelector:
-    accelerator-type: high-performance
+    nodeSelectorTerms:
+    - matchExpressions:
+      - key: accelerator-type
+        operator: In
+        values:
+        - "high-performance"
   pool:
     name: gpu-pool
     generation: 1
