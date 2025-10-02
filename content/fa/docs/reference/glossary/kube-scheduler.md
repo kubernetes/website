@@ -10,7 +10,7 @@ aka:
 tags:
 - architecture
 ---
- جزء کنترل پلین که {{< glossary_tooltip term_id="pod" text="پادها" >}}ی تازه‌ساخته‌شده‌ی بدون {{< glossary_tooltip term_id="node" text="نود">}} اختصاص شده را رصد می‌کند
+ جزء کنترل پلین که {{< glossary_tooltip term_id="pod" text="پادها" >}}ی تازه‌ساخته‌شده‌ی بدون {{< glossary_tooltip term_id="node" text="گره">}} اختصاص شده را رصد می‌کند
 و یک گره را برای اجرای آن‌ها اتخاب می‌کند.
 
 <!--more-->
