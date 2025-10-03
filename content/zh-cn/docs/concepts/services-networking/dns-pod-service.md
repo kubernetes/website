@@ -237,12 +237,12 @@ is an endpoint of a Service named `barista`, and the domain name for your cluste
 ```
 
 <!--
-### Pod's hostname and subdomain fields
+### Pod's hostname and subdomain fields {#pod-hostname-and-subdomain-field}
 
 Currently when a Pod is created, its hostname (as observed from within the Pod)
 is the Pod's `metadata.name` value.
 -->
-### Pod 的 hostname 和 subdomain 字段 {#pod-s-hostname-and-subdomain-fields}
+### Pod 的 hostname 和 subdomain 字段     {#pod-hostname-and-subdomain-field}
 
 当前，创建 Pod 时其主机名（从 Pod 内部观察）取自 Pod 的 `metadata.name` 值。
 

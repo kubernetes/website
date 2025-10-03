@@ -28,12 +28,10 @@ either **graceful** or **non-graceful**.
 -->
 ## 节点体面关闭 {#graceful-node-shutdown}
 
-{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
-
 <!-- 
 The kubelet attempts to detect node system shutdown and terminates pods running on the node.
 
-kubelet ensures that pods follow the normal
+Kubelet ensures that pods follow the normal
 [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 during the node shutdown. During node shutdown, the kubelet does not accept new
 Pods (even if those Pods are already bound to the node).
@@ -44,7 +42,26 @@ kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的所
 [Pod 终止流程](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
 且不接受新的 Pod（即使这些 Pod 已经绑定到该节点）。
 
-<!-- 
+<!--
+### Enabling graceful node shutdown
+-->
+## 启用节点体面关闭 {#enabling-graceful-node-shutdown}
+
+{{< tabs name="graceful_shutdown_os" >}}
+{{% tab name="Linux" %}}
+{{< feature-state feature_gate_name="GracefulNodeShutdown" >}}
+
+<!--
+On Linux, the graceful node shutdown feature is controlled with the `GracefulNodeShutdown`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) which is
+enabled by default in 1.21.
+-->
+在 Linux 上，节点体面关闭特性受 `GracefulNodeShutdown`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)控制，
+此特性在 1.21 版本中默认启用。
+
+{{< note >}}
+<!--
 The graceful node shutdown feature depends on systemd since it takes advantage of
 [systemd inhibitor locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit/) to
 delay the node shutdown with a given duration.
@@ -52,35 +69,77 @@ delay the node shutdown with a given duration.
 节点体面关闭特性依赖于 systemd，因为它要利用
 [systemd 抑制器锁](https://www.freedesktop.org/wiki/Software/systemd/inhibit/)机制，
 在给定的期限内延迟节点关闭。
+{{</ note >}}
+{{% /tab %}}
+
+{{% tab name="Windows" %}}
+{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
 
 <!--
-Graceful node shutdown is controlled with the `GracefulNodeShutdown`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) which is
-enabled by default in 1.21.
+On Windows, the graceful node shutdown feature is controlled with the `WindowsGracefulNodeShutdown`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+which is introduced in 1.32 as an alpha feature. In Kubernetes 1.34 the feature is Beta
+and is enabled by default.
 -->
-节点体面关闭特性受 `GracefulNodeShutdown`
+在 Windows 上，节点体面关闭特性受 `WindowsGracefulNodeShutdown`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)控制，
-在 1.21 版本中是默认启用的。
+此特性在 1.32 版本中作为 Alpha 特性引入，在 1.34 版本中变为 Beta 并且默认启用。
 
 <!--
+The Windows graceful node shutdown feature depends on kubelet running as a Windows service,
+it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
+to delay the preshutdown event with a given duration.
+-->
+此服务会使用一个注册的[服务控制处理程序函数](https://learn.microsoft.com/zh-cn/windows/win32/services/service-control-handler-function)将
+preshutdown 事件延迟一段时间。
+
+<!--
+Windows graceful node shutdown can not be cancelled.
+
+If kubelet is not running as a Windows service, it will not be able to set and monitor
+the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
+the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
+-->
+Windows 节点体面关闭无法被取消。
+
+如果 kubelet 不是作为 Windows 服务运行，它将不能设置和监控
+[Preshutdown](https://learn.microsoft.com/zh-cn/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info)
+事件，对应节点将不得不跑完上述[节点非体面关闭](#non-graceful-node-shutdown)的流程。
+
+<!--
+In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not
+running as a Windows service, the kubelet will continue running instead of failing. However,
+it will log an error indicating that it needs to be run as a Windows service.
+-->
+在启用 Windows 节点体面关闭特性但 kubelet 未作为 Windows 服务运行的情况下，kubelet 将继续运行而不会失败。
+但是，kubelet 将在日志中记录一个错误，表明它需要作为一个 Windows 服务来运行。
+{{% /tab %}}
+
+{{< /tabs >}}
+
+<!--
+### Configuring graceful node shutdown
+
 Note that by default, both configuration options described below,
 `shutdownGracePeriod` and `shutdownGracePeriodCriticalPods`, are set to zero,
 thus not activating the graceful node shutdown functionality.
 To activate the feature, both options should be configured appropriately and
 set to non-zero values.
 -->
+## 配置节点体面关闭
+
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
 `shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭特性。
 要激活此功能特性，这两个选项要适当配置，并设置为非零值。
 
 <!--
-Once systemd detects or is notified of a node shutdown, the kubelet sets a `NotReady` condition on
+Once the kubelet is notified of a node shutdown, it sets a `NotReady` condition on
 the Node, with the `reason` set to `"node is shutting down"`. The kube-scheduler honors this condition
 and does not schedule any Pods onto the affected node; other third-party schedulers are
 expected to follow the same logic. This means that new Pods won't be scheduled onto that node
 and therefore none will start.
 -->
-一旦 systemd 检测到或收到节点关闭的通知，kubelet 就会在节点上设置一个
+一旦 kubelet 收到节点关闭的通知，就会在节点上设置一个
 `NotReady` 状况，并将 `reason` 设置为 `"node is shutting down"`。
 kube-scheduler 会重视此状况，不将 Pod 调度到受影响的节点上；
 其他第三方调度程序也应当遵循相同的逻辑。这意味着新的 Pod 不会被调度到该节点上，
@@ -477,7 +536,7 @@ Kubernetes 将强制解除挂接正在被卸载的卷。
 The forced storage detach behaviour is optional; users might opt to use the "Non-graceful
 node shutdown" feature instead.
 -->
-强制存储解除挂接行为是可选的；用户可以选择使用"非体面节点关闭"特性。
+强制存储解除挂接行为是可选的；用户可以选择使用"节点非体面关闭"特性。
 
 <!--
 Force storage detach on timeout can be disabled by setting the `disable-force-detach-on-timeout`
@@ -496,60 +555,16 @@ deleted.
 After this setting has been applied, unhealthy pods still attached to volumes must be recovered
 via the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
 -->
-应用此设置后，仍然关联卷到不健康 Pod 必须通过上述[非体面节点关闭](#non-graceful-node-shutdown)过程进行恢复。
+应用此设置后，仍然关联卷到不健康 Pod 必须通过上述[节点非体面关闭](#non-graceful-node-shutdown)过程进行恢复。
 
 {{< note >}}
 <!--
 - Caution must be taken while using the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure.
 - Deviation from the steps documented above can result in data corruption.
 -->
-- 使用[非体面节点关闭](#non-graceful-node-shutdown)过程时必须小心。
+- 使用[节点非体面关闭](#non-graceful-node-shutdown)过程时必须小心。
 - 偏离上述步骤可能会导致数据损坏。
 {{< /note >}}
-
-<!--
-## Windows Graceful node shutdown {#windows-graceful-node-shutdown}
--->
-## Windows 体面节点关闭   {#windows-graceful-node-shutdown}
-
-{{< feature-state feature_gate_name="WindowsGracefulNodeShutdown" >}}
-
-<!--
-The Windows graceful node shutdown feature depends on kubelet running as a Windows service,
-it will then have a registered [service control handler](https://learn.microsoft.com/en-us/windows/win32/services/service-control-handler-function)
-to delay the preshutdown event with a given duration.
--->
-此服务会使用一个注册的[服务控制处理程序函数](https://learn.microsoft.com/zh-cn/windows/win32/services/service-control-handler-function)将
-preshutdown 事件延迟一段时间。
-
-<!--
-Windows graceful node shutdown is controlled with the `WindowsGracefulNodeShutdown`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-which is introduced in 1.32 as an alpha feature.
-
-Windows graceful node shutdown can not be cancelled.
--->
-Windows 体面节点关闭是通过 1.32 中作为 Alpha 特性所引入的 `WindowsGracefulNodeShutdown`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)进行控制的。
-
-Windows 体面节点关闭无法被取消。
-
-<!--
-If kubelet is not running as a Windows service, it will not be able to set and monitor
-the [Preshutdown](https://learn.microsoft.com/en-us/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info) event,
-the node will have to go through the [Non-Graceful Node Shutdown](#non-graceful-node-shutdown) procedure mentioned above.
--->
-如果 kubelet 不是作为 Windows 服务运行，它将不能设置和监控
-[Preshutdown](https://learn.microsoft.com/zh-cn/windows/win32/api/winsvc/ns-winsvc-service_preshutdown_info)
-事件，对应节点将不得不跑完上述[非体面节点关闭](#non-graceful-node-shutdown)的流程。
-
-<!--
-In the case where the Windows graceful node shutdown feature is enabled, but the kubelet is not
-running as a Windows service, the kubelet will continue running instead of failing. However,
-it will log an error indicating that it needs to be run as a Windows service.
--->
-在启用 Windows 体面节点关闭特性但 kubelet 未作为 Windows 服务运行的情况下，kubelet 将继续运行而不会失败。
-但是，kubelet 将在日志中记录一个错误，表明它需要作为一个 Windows 服务来运行。
 
 ## {{% heading "whatsnext" %}}
 
@@ -561,5 +576,5 @@ Learn more about the following:
 -->
 了解更多以下信息：
 
-- 博客：[非体面节点关闭](/zh-cn/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/)。
+- 博客：[节点非体面关闭](/zh-cn/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/)。
 - 集群架构：[节点](/zh-cn/docs/concepts/architecture/nodes/)。

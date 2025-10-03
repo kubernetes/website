@@ -459,7 +459,44 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
    在本地或开发环境中运行此容器镜像有助于诊断应用程序的特定问题。
 
 <!--
-### Container restart policy {#restart-policy}
+### Container restarts {#restart-policy}
+
+When a container in your Pod stops, or experiences failure, Kubernetes can restart it.
+A restart isn't always appropriate; for example,
+{{< glossary_tooltip text="init containers" term_id="init-container" >}} run only once,
+during Pod startup.
+-->
+### 容器重启   {#restart-policy}
+
+当 Pod 中的某个容器停止或发生故障时，Kubernetes 可以重新启动此容器。但重启并不总是合适的；例如，
+{{< glossary_tooltip text="Init 容器" term_id="init-container" >}}只在 Pod 启动期间运行一次。
+<!-- TODO reword when ContainerRestartRules graduates -->
+<!--
+You can configure restarts as a policy that applies to all Pods, or using container-level configuration (for example: when you define a 
+{{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}).
+-->
+你可以将重启配置为适用于所有 Pod 的策略，或者使用容器级别的配置（例如：
+在你定义{{< glossary_tooltip text="边车容器" term_id="sidecar-container" >}}时）。
+
+<!--
+#### Container restarts and resilience {#container-restart-resilience}
+
+The Kubernetes project recommends following cloud-native principles, including resilient
+design that accounts for unannounced or arbitrary restarts. You can achieve this either
+by failing the Pod and relying on automatic
+[replacement](/docs/concepts/workloads/controllers/), or you can design for container-level resilience.
+Either approach helps to ensure that your overall workload remains available despite
+partial failure.
+-->
+#### 容器重启与弹性   {#container-restart-resilience}
+
+Kubernetes 项目建议遵循云原生原则，包括能够应对未预告或随意重启的弹性设计。
+你可以通过让 Pod 失败并依赖自动[替换](/zh-cn/docs/concepts/workloads/controllers/)，
+或者通过容器级别的弹性设计来实现。
+无论哪种方式，都有助于确保即使在部分故障的情况下，你的整体工作负载依然保持可用。
+
+<!--
+#### Pod-level container restart policy
 
 The `spec` of a Pod has a `restartPolicy` field with possible values Always, OnFailure,
 and Never. The default value is Always.
@@ -476,7 +513,7 @@ the Pod level `restartPolicy` is either `OnFailure` or `Always`.
 * `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
 * `Never`: Does not automatically restart the terminated container.
 -->
-### 容器重启策略 {#restart-policy}
+### Pod 级别容器重启策略
 
 Pod 的 `spec` 中包含一个 `restartPolicy` 字段，其可能取值包括
 Always、OnFailure 和 Never。默认值是 Always。
@@ -511,6 +548,160 @@ explains the behaviour of `init containers` when specify `restartpolicy` field o
 kubelet 就会重置该容器的重启延迟计时器。
 [Sidecar 容器和 Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)中解释了
 `init containers` 在指定 `restartpolicy` 字段时的行为。
+
+<!--
+#### Individual container restart policy and rules {#container-restart-rules}
+-->
+#### 单个容器的重启策略与规则   {#container-restart-rules}
+
+{{< feature-state feature_gate_name="ContainerRestartRules" >}}
+
+<!--
+If your cluster has the feature gate `ContainerRestartRules` enabled, you can specify 
+`restartPolicy` and `restartPolicyRules` on _inidividual containers_ to override the Pod
+restart policy. Container restart policy and rules applies to {{< glossary_tooltip text="app containers" term_id="app-container" >}}
+in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
+
+A Kubernetes-native [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
+has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`.
+-->
+如果你的集群启用了 `ContainerRestartRules` 特性门控，你可以针对**单个容器**指定
+`restartPolicy` 和 `restartPolicyRules` 来覆盖 Pod 重启策略。容器重启策略和规则适用于 Pod
+中的{{< glossary_tooltip text="应用容器" term_id="app-container" >}}以及常规的
+[Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
+
+Kubernetes 原生的[边车容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)将其容器级别的
+`restartPolicy` 设置为 `Always`，并且不支持 `restartPolicyRules`。
+
+<!--
+The container restarts will follow the same exponential backoff as pod restart policy described above. 
+Supported container restart policies:
+
+* `Always`: Automatically restarts the container after any termination.
+* `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
+* `Never`: Does not automatically restart the terminated container.
+-->
+容器重启会遵循与前文所述的 Pod 重启策略相同的指数回退机制。支持的容器重启策略有：
+
+* `Always`：在任何原因的容器终止后都会自动重启容器。
+* `OnFailure`：仅当容器因错误退出（非零退出状态）时才重启。
+* `Never`：不自动重启已终止的容器。
+
+<!--
+Additionally, _individual containers_ can specify `restartPolicyRules`. If the `restartPolicyRules`
+field is specified, then container `restartPolicy` **must** also be specified. The `restartPolicyRules`
+define a list of rules to apply on container exit. Each rule will consist of a condition
+and an action. The supported condition is `exitCodes`, which compares the exit code of the container
+with a list of given values. The supported action is `Restart`, which means the container will be
+restarted. The rules will be evaluated in order. On the first match, the action will be applied.
+If none of the rules’ conditions matched, Kubernetes fallback to container’s configured
+`restartPolicy`.
+-->
+此外，**单个容器**可以指定 `restartPolicyRules`。如果指定了 `restartPolicyRules` 字段，
+则**必须**同时指定容器的 `restartPolicy`。`restartPolicyRules` 定义了一系列在容器退出时应用的规则。
+每条规则由条件和动作组成。支持的条件是 `exitCodes`，用于将容器的退出码与给定值列表进行比较。
+支持的动作是 `Restart`，表示容器将被重启。这些规则会按顺序进行评估。一旦匹配成功，立即执行相应动作。
+如果没有任何规则的状况被匹配，Kubernetes 回退到容器配置的 `restartPolicy`。
+
+<!--
+For example, a Pod with OnFailure restart policy that have a `try-once` container. This allows
+Pod to only restart certain containers:
+-->
+例如，重启策略为 OnFailure 的某个 Pod 包含一个 `try-once` 容器。
+这样可以让 Pod 仅重启某些容器：
+
+<!--
+# This container will run only once because the restartPolicy is Never.
+# This container will be restarted on failure.
+-->
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: on-failure-pod
+spec:
+  restartPolicy: OnFailure
+  containers:
+  - name: try-once-container    # 此容器只运行一次，因为 restartPolicy 设置为 Never。
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Only running once" && sleep 10 && exit 1']
+    restartPolicy: Never     
+  - name: on-failure-container  # 此容器将在失败时重启。
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Keep restarting" && sleep 1800 && exit 1']
+```
+
+<!--
+A Pod with Always restart policy with an init container that only execute once. If the init
+container fails, the Pod fails. This alllows the Pod to fail if the initialiaztion failed,
+but also keep running once the initialization succeeds:
+-->
+下面是一个重启策略为 Always 的 Pod，其中包含一个只执行一次的 Init 容器。
+如果 Init 容器失败，则 Pod 也会失败。
+这样可以在初始化失败时让 Pod 失败，但在初始化成功后保持 Pod 运行：
+
+<!--
+# This init container will only try once. If it fails, the pod will fail.
+# This container will always be restarted once initialization succeeds.
+-->
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fail-pod-if-init-fails
+spec:
+  restartPolicy: Always
+  initContainers:
+  - name: init-once      # 这个 Init 容器只尝试一次。如果失败，Pod 将失败。
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'echo "Failing initialization" && sleep 10 && exit 1']
+    restartPolicy: Never
+  containers:
+  - name: main-container # 一旦初始化成功，此容器会始终被重启。
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'sleep 1800 && exit 0']
+```
+
+<!--
+A Pod with Never restart policy with a container that ignores and restarts on specific exit codes.
+This is useful to differentiate between restartable errors and non-restartable errors:
+-->
+下面是一个重启策略为 Never 的 Pod，其中包含的容器会在遇到特定的退出码时忽略之并重启。
+这种配置有助于区分可重启错误和不可重启错误：
+
+<!--
+# Container restart policy must be specified if rules are specified
+# Only restart the container if it exits with code 42
+-->
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restart-on-exit-codes
+spec:
+  restartPolicy: Never
+  containers:
+  - name: restart-on-exit-codes
+    image: docker.io/library/busybox:1.28
+    command: ['sh', '-c', 'sleep 60 && exit 0']
+    restartPolicy: Never     # 如果指定了规则，必须同时指定容器重启策略
+    restartPolicyRules:      # 仅当退出码为 42 时才重启容器
+    - action: Restart
+      exitCodes:
+        operator: In
+        values: [42]
+```
+
+<!--
+Restart rules can be used for many more advanced lifecycle management scenarios. Note, restart rules
+are affected by the same inconsistencies as the regular restart policy. Kubelet restarts, container
+runtime garbage collection, intermitted connectivity issues with the control plane may cause the state
+loss and containers may be re-run even when you expect a container not to be restarted.
+-->
+重启规则可用于许多其他高级的生命周期管理场景。
+需要注意的是，重启规则会受到不一致性影响，这一点上与常规的重启策略相同。
+kubelet 重启、容器运行时垃圾收集、与控制平面的间歇性连接问题都可能导致状态丢失，
+容器可能会在你预期不应被重启的情况下被再次运行。
 
 <!--
 ### Reduced container restart delay

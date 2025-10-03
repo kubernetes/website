@@ -54,11 +54,11 @@ to others, please don't hesitate to file an issue or submit a PR.
 <!--
 - Group related objects into a single file whenever it makes sense. One file is often easier to
   manage than several. See the
-  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml)
+  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml)
   file as an example of this syntax.
 -->
 - 只要有意义，就将相关对象分组到一个文件中。一个文件通常比几个文件更容易管理。
-  请参阅 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml)
+  请参阅 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml)
   文件作为此语法的示例。
 
 <!--

@@ -88,7 +88,7 @@ Un [*Pod*](/docs/concepts/workloads/pods/) Kubernetes est un groupe de un ou plu
 
     ```shell
     # Exécutez une image de conteneur de test qui inclut un serveur web
-    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. Afficher le Deployment:

@@ -638,7 +638,7 @@ is deleted.
 
 ## kubeadm upgrade workflow internal design
 
-`kubeadm upgrade` has sub-commands for handling the upgrade of the Kubernets cluster created by kubeadm.
+`kubeadm upgrade` has sub-commands for handling the upgrade of the Kubernetes cluster created by kubeadm.
 You must run `kubeadm upgrade apply` on a control plane node (you can choose which one);
 this starts the upgrade process. You then run `kubeadm upgrade node` on all remaining
 nodes (both worker nodes and control plane nodes).
