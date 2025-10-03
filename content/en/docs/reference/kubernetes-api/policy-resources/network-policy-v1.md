@@ -136,6 +136,11 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     - **ingress.ports.protocol** (string)
 
       protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+      
+      Possible enum values:
+       - `"SCTP"` is the SCTP protocol.
+       - `"TCP"` is the TCP protocol.
+       - `"UDP"` is the UDP protocol.
 
 - **egress** ([]NetworkPolicyEgressRule)
 
@@ -207,6 +212,11 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
     - **egress.ports.protocol** (string)
 
       protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+      
+      Possible enum values:
+       - `"SCTP"` is the SCTP protocol.
+       - `"TCP"` is the TCP protocol.
+       - `"UDP"` is the UDP protocol.
 
 
 
