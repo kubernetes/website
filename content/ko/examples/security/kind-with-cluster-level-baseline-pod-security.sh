@@ -51,11 +51,12 @@ nodes:
     # default None
     propagation: None
 EOF
-kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.23.0 --config /tmp/pss/cluster-config.yaml
+kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
 kubectl cluster-info --context kind-psa-with-cluster-pss
+
 # (임의의) 서비스 어카운트 어드미션 컨트롤러가 사용 가능할 때까지 15초 간 대기
 sleep 15
-cat <<EOF > /tmp/pss/nginx-pod.yaml
+cat <<EOF |
 apiVersion: v1
 kind: Pod
 metadata:
@@ -67,4 +68,17 @@ spec:
       ports:
         - containerPort: 80
 EOF
-kubectl apply -f /tmp/pss/nginx-pod.yaml
+kubectl apply -f -
+
+# 입력 대기
+sleep 1
+( bash -c 'true' 2>/dev/null && bash -c 'read -p "Press any key to continue... " -n1 -s' ) || \
+    ( printf "Press Enter to continue... " && read ) 1>&2
+
+# 정리
+printf "\n\nCleaning up:\n" 1>&2
+set -e
+kubectl delete pod --all -n example --now
+kubectl delete ns example
+kind delete cluster --name psa-with-cluster-pss
+rm -f /tmp/pss/cluster-config.yaml
