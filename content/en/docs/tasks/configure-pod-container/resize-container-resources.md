@@ -185,7 +185,7 @@ kubectl patch pod resize-demo --subresource resize --patch \
 
 # Alternative methods:
 # kubectl -n qos-example edit pod resize-demo --subresource resize
-# kubectl -n qos-example apply -f <updated-manifest> --subresource resize
+# kubectl -n qos-example apply -f <updated-manifest> --subresource resize --server-side
 ```
 
 {{< note >}}

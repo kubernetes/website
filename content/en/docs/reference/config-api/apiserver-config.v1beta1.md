@@ -331,7 +331,7 @@ The claim's value must be a singular string.
 Same as the --oidc-username-claim and --oidc-username-prefix flags.
 If username.expression is set, the expression must produce a string value.
 If username.expression uses 'claims.email', then 'claims.email_verified' must be used in
-username.expression or extra[&ast;].valueExpression or claimValidationRules[&ast;].expression.
+username.expression or extra[<em>].valueExpression or claimValidationRules[</em>].expression.
 An example claim validation rule expression that matches the validation automatically
 applied when username.claim is set to 'email' is 'claims.?email_verified.orValue(true) == true'. By explicitly comparing
 the value to true, we let type-checking see the result will be a boolean, and to make sure a non-boolean email_verified
@@ -577,6 +577,20 @@ The &quot;master&quot; egress selector is deprecated in favor of &quot;controlpl
 </tbody>
 </table>
 
+## `EgressSelectorType`     {#apiserver-k8s-io-v1beta1-EgressSelectorType}
+    
+(Alias of `string`)
+
+**Appears in:**
+
+- [Issuer](#apiserver-k8s-io-v1beta1-Issuer)
+
+
+<p>EgressSelectorType is an indicator of which egress selection should be used for sending traffic.</p>
+
+
+
+
 ## `ExtraMapping`     {#apiserver-k8s-io-v1beta1-ExtraMapping}
     
 
@@ -721,6 +735,24 @@ For example, if &quot;audiences&quot; is [&quot;foo&quot;, &quot;bar&quot;], the
 </ul>
 <p>For more nuanced audience validation, use claimValidationRules.
 example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])' to require an exact match.</p>
+</td>
+</tr>
+<tr><td><code>egressSelectorType</code><br/>
+<a href="#apiserver-k8s-io-v1beta1-EgressSelectorType"><code>EgressSelectorType</code></a>
+</td>
+<td>
+   <p>egressSelectorType is an indicator of which egress selection should be used for sending all traffic related
+to this issuer (discovery, JWKS, distributed claims, etc).  If unspecified, no custom dialer is used.
+When specified, the valid choices are &quot;controlplane&quot; and &quot;cluster&quot;.  These correspond to the associated
+values in the --egress-selector-config-file.</p>
+<ul>
+<li>
+<p>controlplane: for traffic intended to go to the control plane.</p>
+</li>
+<li>
+<p>cluster: for traffic intended to go to the system being managed by Kubernetes.</p>
+</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -1051,6 +1083,16 @@ Same as setting <code>--authorization-webhook-cache-authorized-ttl</code> flag
 Default: 5m0s</p>
 </td>
 </tr>
+<tr><td><code>cacheAuthorizedRequests</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>CacheAuthorizedRequests specifies whether authorized requests should be cached.
+If set to true, the TTL for cached decisions can be configured via the
+AuthorizedTTL field.
+Default: true</p>
+</td>
+</tr>
 <tr><td><code>unauthorizedTTL</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1059,6 +1101,16 @@ Default: 5m0s</p>
 authorizer.
 Same as setting <code>--authorization-webhook-cache-unauthorized-ttl</code> flag
 Default: 30s</p>
+</td>
+</tr>
+<tr><td><code>cacheUnauthorizedRequests</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>CacheUnauthorizedRequests specifies whether unauthorized requests should be cached.
+If set to true, the TTL for cached decisions can be configured via the
+UnauthorizedTTL field.
+Default: true</p>
 </td>
 </tr>
 <tr><td><code>timeout</code> <B>[Required]</B><br/>

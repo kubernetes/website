@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: クラスター管理の概要
 content_type: concept
 weight: 10

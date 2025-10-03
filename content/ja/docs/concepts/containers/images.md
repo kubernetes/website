@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: イメージ
 content_type: concept
 weight: 10

@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: オブジェクトの名前とID
 content_type: concept
 weight: 30

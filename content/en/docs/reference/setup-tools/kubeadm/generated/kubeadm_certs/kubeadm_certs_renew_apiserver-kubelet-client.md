@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Renew the certificate for the API server to connect to kubelet
-
 ### Synopsis
 
 

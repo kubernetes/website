@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Generate the self-signed CA to provision identities for front proxy
-
 ### Synopsis
 
 

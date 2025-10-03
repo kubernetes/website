@@ -1,13 +1,13 @@
 ---
 title: 使用 DRA 为工作负载分配设备
 content_type: task
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 weight: 20
 ---
 <!--
 title: Allocate Devices to Workloads with DRA
 content_type: task
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 weight: 20
 -->
 
@@ -25,10 +25,10 @@ with DRA terminology like
 For more information, see
 [Dynamic Resource Allocation (DRA)](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/).
 -->
-本文介绍如何使用**动态资源分配（DRA）**为 Pod 分配设备。
+本文介绍如何使用**动态资源分配（DRA）** 为 Pod 分配设备。
 这些指示说明面向工作负载运维人员。在阅读本文之前，请先了解 DRA 的工作原理以及相关术语，例如
-{{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}} 和
-{{< glossary_tooltip text="ResourceClaimTemplates" term_id="resourceclaimtemplate" >}}。
+{{< glossary_tooltip text="ResourceClaim" term_id="resourceclaim" >}} 和
+{{< glossary_tooltip text="ResourceClaimTemplate" term_id="resourceclaimtemplate" >}}。
 更多信息参阅[动态资源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
 
 <!-- body -->
@@ -113,7 +113,7 @@ create a ResourceClaim, do one of the following:
 ## 申领资源 {#claim-resources}
 
 你可以通过
-{{< glossary_tooltip text="ResourceClaims" term_id="resourceclaim" >}}
+{{< glossary_tooltip text="ResourceClaim" term_id="resourceclaim" >}}
 请求某个 DeviceClass 的资源。要创建 ResourceClaim，可以采用以下方式之一：
 
 <!--
@@ -269,6 +269,31 @@ claims in different containers.
    ```shell
    kubectl apply -f https://k8s.io/examples/dra/dra-example-job.yaml
    ```
+
+<!--
+Try the following troubleshooting steps:
+
+1. When the workload does not start as expected, drill down from Job
+   to Pods to ResourceClaims and check the objects
+   at each level with `kubectl describe` to see whether there are any
+   status fields or events which might explain why the workload is
+   not starting.
+1. When creating a Pod fails with `must specify one of: resourceClaimName,
+   resourceClaimTemplateName`, check that all entries in `pod.spec.resourceClaims`
+   have exactly one of those fields set. If they do, then it is possible
+   that the cluster has a mutating Pod webhook installed which was built
+   against APIs from Kubernetes < 1.32. Work with your cluster administrator
+   to check this.
+-->
+尝试以下故障排查步骤：
+
+1. 当工作负载未如预期启动时，从 Job 到 Pod 再到 ResourceClaim 逐步深入检查，
+   并使用 `kubectl describe` 检查每个层级的对象，
+   查看是否有状态字段或事件可以解释工作负载为何没有启动。
+2. 当创建 Pod 失败并显示 `must specify one of：resourceClaimName, resourceClaimTemplateName` 时，
+   检查 `pod.spec.resourceClaims` 中的所有条目是否正好设置了这些字段之一。如果是这样，
+   那么可能是集群安装了一个针对 Kubernetes < 1.32 的 API 构建的 Pod 变更 Webhook。
+   请与你的集群管理员合作检查这个问题。
 
 <!--
 ## Clean up {#clean-up}

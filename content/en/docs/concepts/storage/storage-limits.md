@@ -35,19 +35,6 @@ that can be attached to a Node:
   <tr><td><a href="https://azure.microsoft.com/en-us/services/storage/main-disks/">Microsoft Azure Disk Storage</a></td><td>16</td></tr>
 </table>
 
-## Custom limits
-
-You can change these limits by setting the value of the
-`KUBE_MAX_PD_VOLS` environment variable, and then starting the scheduler.
-CSI drivers might have a different procedure, see their documentation
-on how to customize their limits.
-
-Use caution if you set a limit that is higher than the default limit. Consult
-the cloud provider's documentation to make sure that Nodes can actually support
-the limit you set.
-
-The limit applies to the entire cluster, so it affects all Nodes.
-
 ## Dynamic volume limits
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}

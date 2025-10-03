@@ -32,37 +32,12 @@ A VolumeAttributesClass provides a way for administrators to describe the mutabl
 "classes" of storage they offer. Different classes might map to different quality-of-service levels.
 Kubernetes itself is un-opinionated about what these classes represent.
 
-This is a beta feature and disabled by default.
-
-If you want to test the feature whilst it's beta, you need to enable the `VolumeAttributesClass`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the kube-controller-manager, kube-scheduler,
-and the kube-apiserver. You use the `--feature-gates` command line argument:
+This feature is generally available (GA) as of version 1.34, and users have the option to disable it.
 -->
 卷属性类（VolumeAttributesClass）为管理员提供了一种描述可变更的存储“类”的方法。
 不同的类可以映射到不同的服务质量级别。Kubernetes 本身不关注这些类代表什么。
 
-这是一个 Beta 特性，默认被禁用。
-
-如果你想测试这一处于 Beta 阶段的特性，你需要为 kube-controller-manager、kube-scheduler 和 kube-apiserver 启用
-`VolumeAttributesClass` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-你可以使用 `--feature-gates` 命令行参数：
-
-```shell
---feature-gates="...,VolumeAttributesClass=true"
-```
-
-<!--
-You will also have to enable the `storage.k8s.io/v1beta1` API group through the
-`kube-apiserver` [runtime-config](https://kubernetes.io/docs/tasks/administer-cluster/enable-disable-api/).
-You use the following command line argument:
--->
-你还必须通过 `kube-apiserver`
-[运行时配置](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)启用
-`storage.k8s.io/v1beta1` API 组：
-
-```shell
---runtime-config=storage.k8s.io/v1beta1=true
-```
+此特性从 Kubernetes 1.34 版本开始一般可用（GA），用户可以选择禁用它。
 
 <!--
 You can also only use VolumeAttributesClasses with storage backed by
@@ -94,7 +69,7 @@ VolumeAttributesClass 对象的名称比较重要，用户用对象名称来请�
 但现有类中的参数是不可变的。
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: silver
@@ -131,6 +106,13 @@ the provisioner is shipped, how it needs to be run, what volume plugin it uses, 
 你并非必须指定 [kubernetes-csi/external-provisioner](https://github.com/kubernetes-csi/external-provisioner)。
 你也可以运行并指定外部制备器，它们是遵循 Kubernetes 所定义的规范的独立程序。
 外部制备器的作者可以完全自行决定他们的代码放在哪儿、如何交付制备器、以何种方式运行、使用什么卷插件等。
+
+<!--
+To understand how the provisioner works with VolumeAttributesClass, refer to 
+the [CSI external-provisioner documentation](https://kubernetes-csi.github.io/docs/external-provisioner.html).
+-->
+要了解制备组件如何使用 VolumeAttributesClass，请参阅 
+[CSI 外部制备器文档](https://kubernetes-csi.github.io/docs/external-provisioner.html)。
 
 <!--
 ### Resizer
@@ -170,7 +152,7 @@ A new VolumeAttributesClass gold is available in the cluster:
 集群中有一个新的名为 gold 的 VolumeAttributesClass：
 
 ```yaml
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 kind: VolumeAttributesClass
 metadata:
   name: gold
@@ -195,6 +177,13 @@ spec:
   volumeAttributesClassName: gold
   …
 ```
+
+<!--
+To understand how the resizer works with VolumeAttributesClass, refer to 
+the [CSI external-resizer documentation](https://kubernetes-csi.github.io/docs/external-resizer.html).
+-->
+要了解扩缩容组件如何使用 VolumeAttributesClass，请参阅 
+[CSI 外部扩缩容组件文档](https://kubernetes-csi.github.io/docs/external-resizer.html)。
 
 <!--
 ## Parameters

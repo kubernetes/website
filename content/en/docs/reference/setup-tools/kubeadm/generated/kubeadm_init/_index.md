@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Run this command in order to set up the Kubernetes control plane
-
 ### Synopsis
 
 
@@ -45,6 +43,7 @@ control-plane                 Generate all static Pod manifest files necessary t
   /controller-manager           Generates the kube-controller-manager static Pod manifest
   /scheduler                    Generates the kube-scheduler static Pod manifest
 kubelet-start                 Write kubelet settings and (re)start the kubelet
+wait-control-plane            Wait for the control plane to start
 upload-config                 Upload the kubeadm and kubelet configuration to a ConfigMap
   /kubeadm                      Upload the kubeadm ClusterConfiguration to a ConfigMap
   /kubelet                      Upload the kubelet component config to a ConfigMap
@@ -140,7 +139,7 @@ kubeadm init [flags]
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>WaitForAllControlPlaneComponents=true|false (BETA - default=true)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>NodeLocalCRISocket=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>WaitForAllControlPlaneComponents=true|false (default=true)</p></td>
 </tr>
 
 <tr>

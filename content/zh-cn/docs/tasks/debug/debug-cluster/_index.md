@@ -81,7 +81,7 @@ the events that show the node is NotReady, and also notice that the pods are no 
 或者找出为什么 Pod 不会调度到节点上。与 Pod 一样，你可以使用 `kubectl describe node`
 和 `kubectl get node -o yaml` 来检索有关节点的详细信息。
 例如，如果节点关闭（与网络断开连接，或者 kubelet 进程挂起并且不会重新启动等），
-你将看到以下内容。请注意显示节点为 NotReady 的事件，并注意 Pod 不再运行（它们在 NotReady 状态五分钟后被驱逐）。
+你将看到以下内容。请注意显示节点为 `NotReady` 的事件，并注意 Pod 不再运行（它们在 `NotReady` 状态五分钟后被驱逐）。
 
 ```shell
 kubectl get nodes
@@ -107,7 +107,6 @@ Labels:             beta.kubernetes.io/arch=amd64
                     kubernetes.io/arch=amd64
                     kubernetes.io/hostname=kube-worker-1
                     kubernetes.io/os=linux
-Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
                     node.alpha.kubernetes.io/ttl: 0
                     volumes.kubernetes.io/controller-managed-attach-detach: true
 CreationTimestamp:  Thu, 17 Feb 2022 16:46:30 -0500
@@ -180,7 +179,6 @@ apiVersion: v1
 kind: Node
 metadata:
   annotations:
-    kubeadm.alpha.kubernetes.io/cri-socket: /run/containerd/containerd.sock
     node.alpha.kubernetes.io/ttl: "0"
     volumes.kubernetes.io/controller-managed-attach-detach: "true"
   creationTimestamp: "2022-02-17T21:46:30Z"

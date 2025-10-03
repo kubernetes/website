@@ -267,8 +267,6 @@ Um tipo de volume `fc` permite que um volume de armazenamento de fibre channel e
 
 {{< note >}} Para que os hosts Kubernetes possam acessá-los, é necessário configurar o zoneamento FC SAN para alocar e mascarar essas LUNs (volumes) para os WWNs de destino. {{< /note >}}
 
-Consulte [o exemplo de fibre channel](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) para obter mais detalhes.
-
 ### flocker (descontinuado) {#flocker}
 
 [Flocker](https://github.com/ClusterHQ/flocker) é um gerenciador de volumes de dados de contêineres em cluster de código aberto. O Flocker oferece gerenciamento e orquestração de volumes de dados suportados por uma variedade de backends de armazenamento.
@@ -507,8 +505,6 @@ Um volume `iscsi` permite que um volume iSCSI (SCSI sobre IP) existente seja mon
 
 Uma característica do iSCSI é que ele pode ser montado como somente leitura por vários consumidores simultaneamente. Isto significa que um volume pode ser previamente populado com seu conjunto de dados e, em seguida, ser disponibilizado em paralelo para tantos Pods quanto necessitar. Infelizmente, os volumes iSCSI só podem ser montados por um único consumidor no modo de leitura-escrita. Não são permitidos gravadores simultâneos.
 
-Consulte o [exemplo iSCSI](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) para obter mais detalhes.
-
 ### local
 
 Um volume `local` representa um dispositivo de armazenamento local montado, como um disco, partição ou diretório.
@@ -585,8 +581,6 @@ spec:
 Note também que você não pode especificar opções de montagem NFS em uma especificação de pod. Você pode definir as opções de montagem do lado do servidor ou usar [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html). Você também pode montar volumes NFS por meio de PersistentVolumes, que permitem definir opções de montagem.
 {{< /note >}}
 
-Consulte o [exemplo NFS](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) para obter mais detalhes.
-
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 Um volume `persistentVolumeClaim` é usado para montar um [PersistentVolume](/pt-br/docs/concepts/storage/persistent-volumes/) em um Pod. PersistentVolumeClaims são uma forma de os usuários "solicitarem" armazenamento durável (como um GCE PersistentDisk ou um volume iSCSI) sem conhecerem os detalhes do ambiente de nuvem em particular.
@@ -620,8 +614,6 @@ spec:
 ```
 
 {{< note >}} Certifique-se de ter um PortworxVolume com o nome `pxvol` antes de usá-lo no Pod. {{< /note >}}
-
-Para obter mais detalhes, consulte os exemplos de [volume Portworx](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) .
 
 ### projetado
 

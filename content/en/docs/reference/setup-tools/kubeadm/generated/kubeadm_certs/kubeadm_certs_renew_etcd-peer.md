@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Renew the certificate for etcd nodes to communicate with each other
-
 ### Synopsis
 
 

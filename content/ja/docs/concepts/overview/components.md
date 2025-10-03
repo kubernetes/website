@@ -2,117 +2,85 @@
 title: Kubernetesのコンポーネント
 content_type: concept
 description: >
-  Kubernetesクラスターはコントロールプレーンのコンポーネントとノードと呼ばれるマシン群で構成されています。
-weight: 30
-card: 
+  Kubernetesクラスターを構成するキーコンポーネントの概要。
+weight: 10
+card:
+  title: クラスターのコンポーネント
   name: concepts
   weight: 20
 ---
 
 <!-- overview -->
-Kubernetesをデプロイすると、クラスターが展開されます。
-{{< glossary_definition term_id="cluster" length="all" prepend="Kubernetesクラスターは、">}}
 
-このドキュメントでは、Kubernetesクラスターが機能するために必要となるさまざまなコンポーネントの概要を説明します。
+このページでは、Kubernetesクラスターを構成する必須コンポーネントの概略を説明します。
 
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetesのコンポーネント" caption="Kubernetesクラスターを構成するコンポーネント" class="diagram-large" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetesのコンポーネント" caption="Kubernetesクラスターのコンポーネント" class="diagram-large" clicktozoom="true" >}}
 
 <!-- body -->
 
-## コントロールプレーンコンポーネント
+## コアコンポーネント
 
-コントロールプレーンコンポーネントは、クラスターに関する全体的な決定(スケジューリングなど)を行います。また、クラスターイベントの検出および応答を行います(たとえば、deploymentの`replicas`フィールドが満たされていない場合に、新しい {{< glossary_tooltip text="Pod" term_id="pod">}} を起動する等)。
+Kubernetesクラスターは、コントロールプレーンと1つ以上のワーカーノードで構成されています。
+以下に主要なコンポーネントの概要を簡単に説明します。
 
-コントロールプレーンコンポーネントはクラスター内のどのマシンでも実行できますが、シンプルにするため、セットアップスクリプトは通常、すべてのコントロールプレーンコンポーネントを同じマシンで起動し、そのマシンではユーザーコンテナを実行しません。
-複数のマシンにまたがって実行されるコントロールプレーンのセットアップ例については、[kubeadmを使用した高可用性クラスターの構築](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/) を参照してください。
+### コントロールプレーンコンポーネント
 
-### kube-apiserver
+クラスター全体の状態を管理します:
 
-{{< glossary_definition term_id="kube-apiserver" length="all" >}}
+[kube-apiserver](/docs/concepts/architecture/#kube-apiserver)
+: Kubernetes HTTP APIを公開するコアコンポーネントサーバーです。
 
-### etcd
+[etcd](/docs/concepts/architecture/#etcd)
+: APIサーバーのすべてのデータを保存する、一貫性と高可用性を兼ね備えたキーバリューストアです。
 
-{{< glossary_definition term_id="etcd" length="all" >}}
+[kube-scheduler](/docs/concepts/architecture/#kube-scheduler)
+: まだノードにバインドされていないPodを検出し、それぞれのPodを適切なノードに割り当てます。
 
-### kube-scheduler
+[kube-controller-manager](/docs/concepts/architecture/#kube-controller-manager)
+: {{< glossary_tooltip text="コントローラー" term_id="controller" >}}を実行して、Kubernetes APIの動作を実装します。
 
-{{< glossary_definition term_id="kube-scheduler" length="all" >}}
+[cloud-controller-manager](/docs/concepts/architecture/#cloud-controller-manager)(オプション)
+: 基盤となるクラウドプロバイダーと統合します。
 
-### kube-controller-manager
+### ノードコンポーネント
 
-{{< glossary_definition term_id="kube-controller-manager" length="all" >}}
+すべてのノードで実行され、実行中のPodを維持し、Kubernetesランタイム環境を提供します。
 
-コントローラーには以下が含まれます。
+[kubelet](/docs/concepts/architecture/#kubelet)
+: コンテナを含むPodが稼働していることを保証します。
 
-  * ノードコントローラー：ノードがダウンした場合の通知と対応を担当します。
-  * Jobコントローラー：単発タスクを表すJobオブジェクトを監視し、そのタスクを実行して完了させるためのPodを作成します。
-  * EndpointSliceコントローラー：EndpointSliceオブジェクトを作成します(つまり、ServiceとPodを紐付けます)。
-  * ServiceAccountコントローラー：新規の名前空間に対して、デフォルトのServiceAccountを作成します。
+[kube-proxy](/docs/concepts/architecture/#kube-proxy)(オプション)
+: ノード上のネットワークルールを維持し、{{< glossary_tooltip text="Service" term_id="service" >}}を実装します。
 
-### cloud-controller-manager
+[コンテナランタイム](/docs/concepts/architecture/#container-runtime)
+: コンテナを実行する役割を持つソフトウェアです。
+  詳細は[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)を参照してください。
 
-{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
+{{% thirdparty-content single="true" %}}
 
-cloud-controller-managerは、クラウドプロバイダー固有のコントローラーのみを実行します。
-Kubernetesをオンプレミスあるいは個人のPC内での学習環境で動かす際には、クラスターにcloud controller managerはありません。
-
-kube-controller-managerと同様に、cloud-controller-managerは複数の論理的に独立したコントロールループをシングルバイナリにまとめ、一つのプロセスとして動作します。パフォーマンスを向上させるあるいは障害に耐えるために水平方向にスケールする(一つ以上のコピーを動かす)ことができます。
-
-次の各コントローラーは、それぞれ以下に示すような目的のためにクラウドプロバイダーへの依存関係を持つことができるようになっています。
-
-  * Nodeコントローラー: ノードが応答を停止した後、クラウドで当該ノードが削除されたかどうかを判断するため
-  * Route コントローラー: 基盤となるクラウドインフラのルートを設定するため
-  * Service コントローラー: クラウドプロバイダーのロードバランサーの作成、更新、削除を行うため
-
-## ノードコンポーネント {#node-components}
-
-ノードコンポーネントはすべてのノードで実行され、稼働中のPodの管理やKubernetesの実行環境を提供します。
-
-### kubelet
-
-{{< glossary_definition term_id="kubelet" length="all" >}}
-
-### kube-proxy
-
-{{< glossary_definition term_id="kube-proxy" length="all" >}}
-
-### コンテナランタイム {#container-runtime}
-
-{{< glossary_definition term_id="container-runtime" length="all" >}}
+クラスターによっては、各ノードに追加のソフトウェアが必要になる場合があります。
+例えば、Linuxノード上で[systemd](https://systemd.io/)を実行してローカルコンポーネントを監督することもあります。
 
 ## アドオン
 
-アドオンはクラスター機能を実装するためにKubernetesリソース({{< glossary_tooltip term_id="daemonset" >}}、{{< glossary_tooltip term_id="deployment" >}}など)を使用します。
-アドオンはクラスターレベルの機能を提供しているため、アドオンのリソースで名前空間が必要なものは`kube-system`名前空間に属します。
+アドオンはKubernetesの機能を拡張します。
+いくつかの重要な例は次のとおりです:
 
-いくつかのアドオンについて以下で説明します。より多くの利用可能なアドオンのリストは、[アドオン](/ja/docs/concepts/cluster-administration/addons/) をご覧ください。
+[DNS](/docs/concepts/architecture/#dns)
+: クラスター全体のDNS解決のために使われます。
 
-### DNS
+[Web UI](/docs/concepts/architecture/#web-ui-dashboard)(ダッシュボード)
+: ウェブインターフェースを通してクラスターを管理するために使われます。
 
-クラスターDNS以外のアドオンは必須ではありませんが、すべてのKubernetesクラスターは[クラスターDNS](/ja/docs/concepts/services-networking/dns-pod-service/)を持つべきです。多くの使用例がクラスターDNSを前提としています。
+[Container Resource Monitoring](/docs/concepts/architecture/#container-resource-monitoring)
+: コンテナのメトリクスを収集・保存するために使われます。
 
-クラスターDNSは、環境内の他のDNSサーバーに加えて、KubernetesサービスのDNSレコードを提供するDNSサーバーです。
+[Cluster-level Logging](/docs/concepts/architecture/#cluster-level-logging)
+: コンテナのログを中央ログストアに保存するために使われます。
 
-Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサーバーを自動的に含めます。
+## アーキテクチャの柔軟性
 
+Kubernetesは、これらのコンポーネントのデプロイと管理方法に柔軟性を持たせることができます。
+Kubernetesのアーキテクチャは、小規模な開発環境から大規模な本番環境への展開まで、様々なニーズに適応できます。
 
-### Web UI (ダッシュボード)
-
-[ダッシュボード](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、Kubernetesクラスター用の汎用WebベースUIです。これによりユーザーはクラスターおよびクラスター内で実行されているアプリケーションについて、管理およびトラブルシューティングを行うことができます。
-
-### コンテナリソース監視
-
-[コンテナリソース監視](/ja/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)は、コンテナに関する一般的な時系列メトリックを中央データベースに記録します。また、そのデータを閲覧するためのUIを提供します。
-
-### クラスターレベルのロギング
-
-[クラスターレベルのロギング](/ja/docs/concepts/cluster-administration/logging/)メカニズムは、コンテナのログを、検索／参照インターフェースを備えた中央ログストアに保存します。
-
-
-## {{% heading "whatsnext" %}}
-
-* [ノード](/ja/docs/concepts/architecture/nodes/)について学ぶ
-* [コントローラー](/ja/docs/concepts/architecture/controller/)について学ぶ
-* [kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
-* etcdの公式 [ドキュメント](https://etcd.io/docs/)を読む
-
+各コンポーネントの詳細情報や、クラスターのアーキテクチャを設定する様々な方法については、[クラスターのアーキテクチャ](/docs/concepts/architecture/)のページをご覧ください。

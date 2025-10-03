@@ -166,39 +166,22 @@ Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtim
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`。
 
 <!--
-Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socket for each host as
-an annotation in the Node object for that host. To change it you can execute the following command
-on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
+Users using kubeadm should be aware that the kubeadm tool stores the host's CRI socket in the
+`/var/lib/kubelet/instance-config.yaml` file on each node. You can create this `/var/lib/kubelet/instance-config.yaml` file on the node.
+
+The `/var/lib/kubelet/instance-config.yaml` file allows setting the `containerRuntimeEndpoint` parameter.
+
+You can set this parameter's value to the path of your chosen CRI socket (for example `unix:///run/containerd/containerd.sock`).
 -->
-使用 `kubeadm` 的用户应该知道，`kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的
-Node 对象的注解中。
-要更改这一注解信息，你可以在一台包含 kubeadm `/etc/kubernetes/admin.conf` 文件的机器上执行以下命令：
+使用 kubeadm 的用户应注意，kubeadm 工具在每个节点的
+`/var/lib/kubelet/instance-config.yaml` 文件中存储主机的
+CRI 套接字。你可以在节点上创建这个 `/var/lib/kubelet/instance-config.yaml` 文件。
 
-```shell
-kubectl edit no <node-name>
-```
+`/var/lib/kubelet/instance-config.yaml` 文件允许设置
+`containerRuntimeEndpoint` 参数。
 
-<!--
-This will start a text editor where you can edit the Node object.
-To choose a text editor you can set the `KUBE_EDITOR` environment variable.
-
-- Change the value of `kubeadm.alpha.kubernetes.io/cri-socket` from `/var/run/dockershim.sock`
-  to the CRI socket path of your choice (for example `unix:///run/containerd/containerd.sock`).
-   
-  Note that new CRI socket paths must be prefixed with `unix://` ideally.
-
-- Save the changes in the text editor, which will update the Node object.
--->
-这一命令会打开一个文本编辑器，供你在其中编辑 Node 对象。
-要选择不同的文本编辑器，你可以设置 `KUBE_EDITOR` 环境变量。
-
-- 更改 `kubeadm.alpha.kubernetes.io/cri-socket` 值，将其从
-  `/var/run/dockershim.sock` 改为你所选择的 CRI 套接字路径
-  （例如：`unix:///run/containerd/containerd.sock`）。
-
-  注意新的 CRI 套接字路径必须带有 `unix://` 前缀。
-
-- 保存文本编辑器中所作的修改，这会更新 Node 对象。
+你可以将此参数的值设置为你所选择的 CRI
+套接字的路径（例如 `unix:///run/containerd/containerd.sock`）。
 
 <!--
 ## Restart the kubelet

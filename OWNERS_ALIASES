@@ -67,6 +67,7 @@ aliases:
     - salaxander
     - SayakMukhopadhyay
     - tengqm
+    - Urvashi0109 # RT 1.35 Doc Lead
   sig-docs-en-reviews: # PR reviews for English content
     - dipesh-rawat
     - divya-mohan0209
@@ -200,8 +201,12 @@ aliases:
     - stormqueen1990
   sig-docs-vi-owners: # Admins for Vietnamese content
     - truongnh1992
+    - khanhtc1202
+    - ntheanh201
   sig-docs-vi-reviews: # PR reviews for Vietnamese content
     - truongnh1992
+    - khanhtc1202
+    - ntheanh201
   sig-docs-ru-owners: # Admins for Russian content
     - Arhell
     - kirkonru

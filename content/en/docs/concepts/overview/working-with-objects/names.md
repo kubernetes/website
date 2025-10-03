@@ -59,8 +59,13 @@ This means the name must:
 
 - contain at most 63 characters
 - contain only lowercase alphanumeric characters or '-'
-- start with an alphanumeric character
+- start with an alphabetic character
 - end with an alphanumeric character
+
+{{< note >}}
+When the `RelaxedServiceNameValidation` feature gate is enabled,
+Service object names are allowed to start with a digit.
+{{< /note >}}
 
 ### RFC 1035 Label Names
 
@@ -74,10 +79,10 @@ This means the name must:
 - end with an alphanumeric character
 
 {{< note >}}
-The only difference between the RFC 1035 and RFC 1123
-label standards is that RFC 1123 labels are allowed to
-start with a digit, whereas RFC 1035 labels can start
-with a lowercase alphabetic character only.
+While RFC 1123 technically allows labels to start with digits, the current
+Kubernetes implementation requires both RFC 1035 and RFC 1123 labels to start
+with an alphabetic character. The exception is when the `RelaxedServiceNameValidation`
+feature gate is enabled for Service objects, which allows Service names to start with digits.
 {{< /note >}}
 
 ### Path Segment Names

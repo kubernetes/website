@@ -20,5 +20,6 @@ proces, w ramach którego Pody na węzłach są zakończone dobrowolnie lub mimo
 <!--more--> 
 
 Dobrowolne zakłócenia są inicjowane celowo przez właścicieli aplikacji lub
-administratorów klastra. Mimowolne zakłócenia są niezamierzone i mogą być spowodowane
-nieuniknionymi problemami, takimi jak wyczerpanie zasobów na węzłach, lub przypadkowymi usunięciami. 
+administratorów klastra. Mimowolne zakłócenia są niezamierzone i mogą być spowodowane nieuniknionymi
+problemami, takimi jak wyczerpanie
+{{< glossary_tooltip text="zasobów" term_id="infrastructure-resource" >}} na węzłach, lub przypadkowymi usunięciami.

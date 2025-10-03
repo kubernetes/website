@@ -13,6 +13,11 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.31"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
+
 ---
 Enhance Kubernetes API server performance by serving consistent **list** requests
 directly from its watch cache, improving scalability and response times.

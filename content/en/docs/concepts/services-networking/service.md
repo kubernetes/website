@@ -130,6 +130,12 @@ for convenience, the `targetPort` is set to the same value as the `port`
 field.
 {{< /note >}}
 
+### Relaxed naming requirements for Service objects
+
+{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
+
+The `RelaxedServiceNameValidation` feature gate allows Service object names to start with a digit. When this feature gate is enabled, Service object names must be valid [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+
 ### Port definitions {#field-spec-ports}
 
 Port definitions in Pods have names, and you can reference these names in the
