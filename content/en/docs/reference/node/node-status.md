@@ -137,3 +137,19 @@ and for updating their related Leases.
   (the default update interval). Lease updates occur independently from
   updates to the Node's `.status`. If the Lease update fails, the kubelet retries,
   using exponential backoff that starts at 200 milliseconds and capped at 7 seconds.
+
+## Kubelet /statusz Endpoints
+
+The kubelet exposes several health endpoints under `/statusz` to indicate its current state.
+
+**Paths:**
+- `/livez` - Liveness endpoint
+- `/readyz` - Readiness endpoint
+- `/healthz` - Health endpoint (deprecated but remains supported)
+- `/metrics` - Metrics endpoint
+
+The following examples will show how you can interact with the health API endpoints.
+
+For all endpoints, you can use the `verbose` parameter to print out the checks and their status.  
+This can be useful for a human operator to debug the current status of the API server;  
+it is not intended to be consumed by a machine.
