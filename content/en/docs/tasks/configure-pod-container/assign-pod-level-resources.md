@@ -229,7 +229,7 @@ kubectl get pod-resources-demo --namespace=pod-resources-example
 View detailed information about the Pod:
 
 ```shell
-kubectl get pod memory-demo --output=yaml --namespace=pod-resources-example
+kubectl get pod pod-resources-demo --output=yaml --namespace=pod-resources-example
 ```
 
 The output shows that one container in the Pod has a memory request of 50 MiB and a
