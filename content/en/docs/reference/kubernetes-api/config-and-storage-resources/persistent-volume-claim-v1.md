@@ -96,6 +96,10 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 - **volumeMode** (string)
 
   volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+  
+  Possible enum values:
+   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
+   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
 
 
 
@@ -269,6 +273,11 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
       Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
     	  resolve the error, a valid VolumeAttributesClass needs to be specified.
     Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+    
+    Possible enum values:
+     - `"InProgress"` InProgress indicates that the volume is being modified
+     - `"Infeasible"` Infeasible indicates that the request has been rejected as invalid by the CSI driver. To resolve the error, a valid VolumeAttributesClass needs to be specified
+     - `"Pending"` Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as the specified VolumeAttributesClass not existing
 
   - **modifyVolumeStatus.targetVolumeAttributesClassName** (string)
 
@@ -277,6 +286,11 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **phase** (string)
 
   phase represents the current phase of PersistentVolumeClaim.
+  
+  Possible enum values:
+   - `"Bound"` used for PersistentVolumeClaims that are bound
+   - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+   - `"Pending"` used for PersistentVolumeClaims that are not yet bound
 
 
 
