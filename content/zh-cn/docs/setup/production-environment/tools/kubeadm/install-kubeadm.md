@@ -568,10 +568,17 @@ exist by default, and it should be created before the curl command.
 <!--
 3. Install kubelet, kubeadm and kubectl, and enable kubelet to ensure it's automatically started on startup:
 -->
-3. 安装 kubelet、kubeadm 和 kubectl，并启用 kubelet 以确保它在启动时自动启动:
-
+3. 安装 kubelet、kubeadm 和 kubectl:
+  对于使用 DNF 的系统：
    ```shell
    sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   ```
+  对于使用 DNF5 的系统：
+  ```shell
+   sudo yum install -y kubelet kubeadm kubectl --setopt=disable_excludes=kubernetes
+   ```
+4. （可选）在运行 kubeadm 之前启用 kubelet 服务：
+  ```shell
    sudo systemctl enable --now kubelet
    ```
 
