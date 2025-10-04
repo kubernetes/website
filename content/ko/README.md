@@ -91,7 +91,7 @@ make container-serve segments=en,ko
   make serve segments=en,ko
   ```
 
-  **💡 Tip:** Hugo Segment는 `hugo.toml`에 정의되어 있으며, 특정 언어만 렌더링하여 빌드를 빠르게 할 수 있습니다.
+  **💡 팁:** Hugo Segment는 `hugo.toml`에 정의되어 있으며, 특정 언어만 렌더링하여 빌드를 빠르게 할 수 있습니다.
 
 - Windows (PowerShell)
 
