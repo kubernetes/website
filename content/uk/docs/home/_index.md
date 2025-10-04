@@ -60,4 +60,6 @@ cards:
 - name: about
   title: Про цю документацію
   description: Цей вебсайт містить документацію для поточної та чоторьої попередніх версій Kubernetes.
+  button: "Доступні версії"
+  button_path: "/docs/home/supported-doc-versions"
 ---
