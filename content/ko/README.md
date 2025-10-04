@@ -216,7 +216,7 @@ sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 | -------------------------- | -------------------------- | -------------------------- |
 | Sreeram Venkitesh               | @sreeram.venkitesh                      | @sreeram-venkitesh              |
 
-# READMEs 문서 현지화
+# README 문서 현지화
 
 ## 한국어
 
