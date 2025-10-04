@@ -30,7 +30,10 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-쿠버네티스 웹사이트는 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 사용하며, npm으로 설치할 수 있습니다. Hugo와 Docsy가 포함된 사전 구성 개발 컨테이너 이미지를 다운로드해 사용할 수도 있습니다. 또한, 레퍼런스 문서를 생성하는 도구에는 Git 서브모듈을 사용합니다.
+쿠버네티스 웹사이트는 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 사용하며, 
+npm으로 설치할 수 있습니다. Hugo와 Docsy가 포함된 사전 구성 개발 컨테이너 이미지를 
+다운로드해 사용할 수도 있습니다. 또한, 
+레퍼런스 문서를 생성하는 도구에는 Git 서브모듈을 사용합니다.
 
 ### Windows
 
