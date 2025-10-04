@@ -18,7 +18,7 @@
 - [npm](https://www.npmjs.com/)
 - [Go](https://golang.org/)
 - [Hugo(확장 버전)](https://gohugo.io/)
-- [Docker](https://www.docker.com/)와 같은 컨테이너 런타임
+- [도커](https://www.docker.com/)와 같은 컨테이너 런타임.
 
 > 참고
 > [`netlify.toml`](../../netlify.toml#L11)에 파일에 있는 `HUGO_VERSION` 환경 변수와 동일한 Hugo 확장 버전을 설치하세요.
