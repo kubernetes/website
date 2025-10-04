@@ -1,0 +1,25 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "installer-csr-policy"
+spec:
+  failurePolicy: Fail
+  paramKind:
+    apiVersion: v1
+    kind: ConfigMap
+  matchConditions:
+    - name: "userIsController"
+      expression: "request.userInfo.username == 'system:serviceaccount:'+params.data.controllerNamespace+':'+params.data.controllerServiceAccountName"
+  matchConstraints:
+    resourceRules:
+      - apiGroups:   ["certificates.k8s.io"]
+        apiVersions: ["v1"]
+        operations:  ["UPDATE"]
+        resources:   ["certificatesigningrequests"]
+  variables:
+    - name: signerNameInDomain
+      expression: "oldObject.spec.signerName.startsWith(params.data.domain + '/')"
+  validations:
+    - expression: "variables.signerNameInDomain == true" # if the expression evaluates to false, the validation check is enforced according to the failurePolicy
+      messageExpression: "string(params.data.controllerServiceAccountName)  + ' has failed to delegate ' +  string(request.operation) + ' ' + string(request.name) + ' certificate signing request in the ' + string(request.namespace) + ' namespace. Check the configuration.'"
+      reason: "Forbidden"
