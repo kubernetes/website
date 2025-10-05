@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "7 Common Kubernetes Pitfalls (and How I Learned to Avoid Them)"
-date: 2024-12-27
-draft: true
+date: 2025-10-20T08:30:00-07:00
 slug: seven-kubernetes-pitfalls-and-how-to-avoid
 author: >
   Abdelkoddous Lhajouji
