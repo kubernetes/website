@@ -254,7 +254,7 @@ disks, files you write count against the memory limit of the container that wrot
 
 A size limit can be specified for the default medium, which limits the capacity
 of the `emptyDir` volume. The storage is allocated from
-[node ephemeral storage](/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage).
+[node ephemeral storage](/docs/concepts/storage/ephemeral-storage/#setting-requests-and-limits-for-local-ephemeral-storage).
 If that is filled up from another source (for example, log files or image overlays),
 the `emptyDir` may run out of capacity before this limit.
 If no size is specified, memory-backed volumes are sized to node allocatable memory.
