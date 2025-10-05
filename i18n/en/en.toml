@@ -179,6 +179,12 @@ other = "(enabled by default)"
 [feature_gate_disabled]
 other = "(disabled by default)"
 
+[feature_gate_stable_graduated]
+other = "This is a stable feature in Kubernetes, and has been since version {{ .stableVersion }}. It was first available in the v{{ .firstReleaseWithThisFeature }} release."
+
+[feature_gate_stable_locked]
+other = "This is a stable feature in Kubernetes, and has been since version {{ .stableVersion }}. It was first available in the v{{ .firstReleaseWithThisFeature }} release. You can no longer disable or opt out of this server."
+
 [feature_gate_stage_alpha]
 other = "Alpha"
 
