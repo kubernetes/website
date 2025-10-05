@@ -180,15 +180,16 @@ following methods:
   rotates the token before it expires.
 * [Service Account Token Secrets](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)
   (not recommended): You can mount service account tokens as Kubernetes
-  Secrets in Pods. These tokens don't expire and don't rotate. In versions prior to v1.24, a permanent token was automatically created for each service account.
+  Secrets in Pods. These tokens don't expire and don't rotate.
+  In versions prior to v1.24, a permanent token was automatically created for each service account.
   This method is not recommended anymore, especially at scale, because of the risks associated
-  with static, long-lived credentials. The [LegacyServiceAccountTokenNoAutoGeneration feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed)
-  (which was enabled by default from Kubernetes v1.24 to v1.26),  prevented Kubernetes from automatically creating these tokens for
-  ServiceAccounts. The feature gate is removed in v1.27, because it was elevated to GA status; you can still create indefinite service account tokens manually, but should take into account the security implications.
+  with static, long-lived credentials. You can still create indefinite service account tokens manually,
+  but should take into account the security implications.
 
 {{< note >}}
 For applications running outside your Kubernetes cluster, you might be considering
-creating a long-lived ServiceAccount token that is stored in a Secret. This allows authentication, but the Kubernetes project recommends you avoid this approach.
+creating a long-lived ServiceAccount token that is stored in a Secret.
+This allows authentication, but the Kubernetes project recommends you avoid this approach.
 Long-lived bearer tokens represent a security risk as, once disclosed, the token
 can be misused. Instead, consider using an alternative. For example, your external
 application can authenticate using a well-protected private key `and` a certificate,
@@ -202,7 +203,8 @@ You can also use TokenRequest to obtain short-lived tokens for your external app
 {{< feature-state for_k8s_version="v1.32" state="deprecated" >}}
 
 {{< note >}}
-`kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32. Use separate namespaces to isolate access to mounted secrets.
+`kubernetes.io/enforce-mountable-secrets` is deprecated since Kubernetes v1.32.
+Use separate namespaces to isolate access to mounted secrets.
 {{< /note >}}
 
 Kubernetes provides an annotation called `kubernetes.io/enforce-mountable-secrets`
@@ -231,7 +233,8 @@ the Secrets from this ServiceAccount are subject to certain mounting restriction
 1. The name of each Secret referenced using `imagePullSecrets` in a Pod must also appear in the `secrets`
    field of the Pod's ServiceAccount.
 
-By understanding and enforcing these restrictions, cluster administrators can maintain a tighter security profile and ensure that secrets are accessed only by the appropriate resources.
+By understanding and enforcing these restrictions, cluster administrators can maintain
+a tighter security profile and ensure that secrets are accessed only by the appropriate resources.
 
 ## Authenticating service account credentials {#authenticating-credentials}
 

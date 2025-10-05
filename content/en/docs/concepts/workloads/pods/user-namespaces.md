@@ -7,7 +7,7 @@ min-kubernetes-server-version: v1.25
 ---
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.30" state="beta" >}}
+{{< feature-state feature_gate_name="UserNamespacesSupport" >}}
 
 This page explains how user namespaces are used in Kubernetes pods. A user
 namespace isolates the user running inside the container from the one
@@ -243,12 +243,12 @@ In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 
 ## Integration with Pod security admission checks
 
-{{< feature-state state="alpha" for_k8s_version="v1.29" >}}
+{{< feature-state feature_gate_name="UserNamespacesPodSecurityStandards" >}}
 
 For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
 [Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
-This behavior can be controlled by the [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/)
+This behavior can be controlled by the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `UserNamespacesPodSecurityStandards`, which allows an early opt-in for end
 users. Admins have to ensure that user namespaces are enabled by all nodes
 within the cluster if using the feature gate.

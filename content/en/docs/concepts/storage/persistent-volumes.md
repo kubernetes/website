@@ -634,8 +634,7 @@ The access modes are:
 : the volume can be mounted as read-write by many nodes.
 
  `ReadWriteOncePod`
-: {{< feature-state for_k8s_version="v1.29" state="stable" >}}
-  the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
+: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
   access mode if you want to ensure that only one pod across the whole cluster can
   read that PVC or write to it.
 
@@ -763,11 +762,9 @@ You can see the name of the PVC bound to the PV using `kubectl describe persiste
 
 #### Phase transition timestamp
 
-{{< feature-state feature_gate_name="PersistentVolumeLastPhaseTransitionTime" >}}
-
-The `.status` field for a PersistentVolume can include an alpha `lastPhaseTransitionTime` field. This field records
-the timestamp of when the volume last transitioned its phase. For newly created
-volumes the phase is set to `Pending` and `lastPhaseTransitionTime` is set to
+The `.status` field for a PersistentVolume can include a `lastPhaseTransitionTime` field.
+This field records the timestamp of when the volume last transitioned its phase.
+For newly created volumes the phase is set to `Pending` and `lastPhaseTransitionTime` is set to
 the current time.
 
 ## PersistentVolumeClaims
@@ -893,8 +890,6 @@ of `storageClassName` attribute. This annotation is still working; however,
 it won't be supported in a future Kubernetes release.
 
 #### Retroactive default StorageClass assignment
-
-{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 You can create a PersistentVolumeClaim without specifying a `storageClassName`
 for the new PVC, and you can do so even when no default StorageClass exists

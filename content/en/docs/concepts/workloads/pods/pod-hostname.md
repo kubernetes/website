@@ -52,8 +52,6 @@ Refer to: [Pod's hostname and subdomain fields](/docs/concepts/services-networki
 
 ## Hostname with pod's setHostnameAsFQDN fields
 
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
-
 When a Pod is configured to have fully qualified domain name (FQDN), its
 hostname is the short hostname. For example, if you have a Pod with the fully
 qualified domain name `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`,
@@ -72,7 +70,7 @@ the `spec.subdomain`, the `namespace` name, and the cluster domain suffix.
 {{< note >}}
 In Linux, the hostname field of the kernel (the `nodename` field of `struct utsname`) is limited to 64 characters.
 
-If a Pod enables this feature and its FQDN is longer than 64 character, it will fail to start.
+If a Pod's FQDN is longer than 64 character, it will fail to start.
 The Pod will remain in `Pending` status (`ContainerCreating` as seen by `kubectl`) generating
 error events, such as "Failed to construct FQDN from Pod hostname and cluster domain".
 
@@ -82,6 +80,7 @@ and `spec.subdomain` fields results in an FQDN that does not exceed 64 character
 {{< /note >}}
 
 ## Hostname with pod's hostnameOverride
+
 {{< feature-state feature_gate_name="HostnameOverride" >}}
 
 Setting a value for `hostnameOverride` in the Pod spec causes the kubelet 

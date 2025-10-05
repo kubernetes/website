@@ -10,8 +10,6 @@ weight: 30
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
-
 When you run a Pod on a Node, the Pod itself takes an amount of system resources. These
 resources are additional to the resources needed to run the container(s) inside the Pod.
 In Kubernetes, _Pod Overhead_ is a way to account for the resources consumed by the Pod

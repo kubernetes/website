@@ -297,8 +297,6 @@ selectors and uses DNS names instead. For more information, see the
 
 ### EndpointSlices
 
-{{< feature-state for_k8s_version="v1.21" state="stable" >}}
-
 [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) are objects that
 represent a subset (a _slice_) of the backing network endpoints for a Service.
 
@@ -350,8 +348,6 @@ legacy Endpoints API only sends traffic to at most 1000 of the available backing
 The same API limit means that you cannot manually update an Endpoints to have more than 1000 endpoints.
 
 ### Application protocol
-
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 The `appProtocol` field provides a way to specify an application protocol for
 each Service port. This is used as a hint for implementations to offer
@@ -636,14 +632,11 @@ balancer health checks are extensively used within the context of supporting the
 
 #### Load balancers with mixed protocol types
 
-{{< feature-state feature_gate_name="MixedProtocolLBService" >}}
-
 By default, for LoadBalancer type of Services, when there is more than one port defined, all
 ports must have the same protocol, and the protocol must be one which is supported
 by the cloud provider.
-
-The feature gate `MixedProtocolLBService` (enabled by default for the kube-apiserver as of v1.24) allows the use of
-different protocols for LoadBalancer type of Services, when there is more than one port defined.
+However, Kubernetes allows the use of different protocols for LoadBalancer type of Services,
+when there is more than one port defined.
 
 {{< note >}}
 The set of protocols that can be used for load balanced Services is defined by your
@@ -651,8 +644,6 @@ cloud provider; they may impose restrictions beyond what the Kubernetes API enfo
 {{< /note >}}
 
 #### Disabling load balancer NodePort allocation {#load-balancer-nodeport-allocation}
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 You can optionally disable node port allocation for a Service of `type: LoadBalancer`, by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
@@ -662,8 +653,6 @@ is set to `false` on an existing Service with allocated node ports, those node p
 You must explicitly remove the `nodePorts` entry in every Service port to de-allocate those node ports.
 
 #### Specifying class of load balancer implementation {#load-balancer-class}
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 For a Service with `type` set to `LoadBalancer`, the `.spec.loadBalancerClass` field
 enables you to use a load balancer implementation other than the cloud provider default.

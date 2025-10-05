@@ -7,8 +7,6 @@ min-kubernetes-server-version: v1.21
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="stable" >}}
-
 This page shows how to limit the number of concurrent disruptions
 that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
@@ -240,8 +238,6 @@ item with `type="Ready"` and `status="True"`.
 These pods are tracked via `.status.currentHealthy` field in the PDB status.
 
 ## Unhealthy Pod Eviction Policy
-
-{{< feature-state feature_gate_name="PDBUnhealthyPodEvictionPolicy" >}}
 
 PodDisruptionBudget guarding an application ensures that `.status.currentHealthy` number of pods
 does not fall below the number specified in `.status.desiredHealthy` by disallowing eviction of healthy pods.

@@ -11,8 +11,6 @@ min-kubernetes-server-version: v1.22
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.19" state="stable" >}}
-
 Seccomp stands for secure computing mode and has been a feature of the Linux
 kernel since version 2.6.12. It can be used to sandbox the privileges of a
 process, restricting the calls it is able to make from userspace into the
@@ -423,8 +421,6 @@ kubectl delete pod fine-pod --wait --now
 ```
 
 ## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
-
-{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
 To use seccomp profile defaulting, you must run the kubelet with the
 `--seccomp-default`
