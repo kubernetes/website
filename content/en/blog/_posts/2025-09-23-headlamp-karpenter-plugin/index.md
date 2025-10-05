@@ -5,7 +5,7 @@ date: draft
 slug: introducing-headlamp-plugin-for-karpenter
 Author: >
   [René Dudfield](https://github.com/illume) (Microsoft),
-  [Anirban Singha](https://github.com/SinghaAnirban005) (Independent)
+  [Anirban Singha](https://github.com/SinghaAnirban005) (independent)
 ---
 
 
