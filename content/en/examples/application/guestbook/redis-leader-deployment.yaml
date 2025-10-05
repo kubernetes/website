@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: leader
-        image: "docker.io/redis:6.0.5"
+        image: "registry.k8s.io/redis:v1.7.9"
         resources:
           requests:
             cpu: 100m
