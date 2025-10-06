@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Upgrade your cluster smoothly to a newer version with this command
-
 ### Synopsis
 
 

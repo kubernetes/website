@@ -104,10 +104,17 @@ sudo apt-cache madison kubeadm
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 
+For systems with DNF:
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
 sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
+```
+For systems with DNF5:
+```shell
+# Find the latest {{< skew currentVersion >}} version in the list.
+# It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
+sudo yum list --showduplicates kubeadm --setopt=disable_excludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -139,9 +146,15 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
 
+   For systems with DNF:
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
    sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
+   For systems with DNF5:
+   ```shell
+   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -243,9 +256,15 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
 
+   For systems with DNF:   
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
    sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   ```
+   For systems with DNF5:   
+   ```shell
+   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
    ```
 
    {{% /tab %}}

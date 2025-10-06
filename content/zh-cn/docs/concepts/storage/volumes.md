@@ -550,12 +550,6 @@ Kubernetes 主机才可以访问它们。
 {{< /note >}}
 
 <!--
-See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
-for more details.
--->
-更多详情请参考 [FC 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)。
-
-<!--
 ### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
 In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `gcePersistentDisk` type
@@ -1183,22 +1177,15 @@ iSCSI 的一个特点是它可以同时被多个用户以只读方式挂载。
 这意味着你可以用数据集预先填充卷，然后根据需要在尽可能多的 Pod 上使用它。
 不幸的是，iSCSI 卷只能由单个使用者以读写模式挂载。不允许同时写入。
 
-<!--
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) for more details.
--->
-更多详情请参考 [iSCSI 示例](https://github.com/kubernetes/examples/tree/master/volumes/iscsi)。
-
-<!--
 ### local
 
+<!--
 A `local` volume represents a mounted local storage device such as a disk,
 partition or directory.
 
 Local volumes can only be used as a statically created PersistentVolume. Dynamic
 provisioning is not supported.
 -->
-### local
-
 `local` 卷所代表的是某个被挂载的本地存储设备，例如磁盘、分区或者目录。
 
 `local` 卷只能用作静态创建的持久卷。不支持动态配置。
@@ -1354,12 +1341,6 @@ You can also mount NFS volumes via PersistentVolumes which do allow you to set m
 此外，还可以通过允许设置挂载可选项的持久卷挂载 NFS 卷。
 {{< /note >}}
 
-<!--
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
-for an example of mounting NFS volumes with PersistentVolumes.
--->
-如需了解用持久卷挂载 NFS 卷的示例，请参考 [NFS 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)。
-
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 <!--
@@ -1451,12 +1432,6 @@ before using it in the Pod.
 -->
 在 Pod 中使用 portworxVolume 之前，你要确保有一个名为 `pxvol` 的 PortworxVolume 存在。
 {{< /note >}}
-
-<!--
-For more details, see the
-[Portworx volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) examples.
--->
-更多详情可以参考 [Portworx 卷](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md)。
 
 <!--
 #### Portworx CSI migration

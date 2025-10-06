@@ -508,6 +508,32 @@ allowed to set any of:
 * `hostIPC: true`
 * `hostPID: true`
 
+<!--
+No container can use `volumeDevices` (raw block volumes, like /dev/sda) either.
+This includes all the container arrays in the pod spec:
+ * `containers`
+ * `initContainers`
+ * `ephemeralContainers`
+-->
+任何容器都不能使用 `volumeDevices`（原始块设备卷，例如 /dev/sda）。
+这包括 Pod 规约中的所有容器数组：
+ * `containers`
+ * `initContainers`
+ * `ephemeralContainers`
+
+<!--
+## Metrics and observability
+
+The kubelet exports two prometheus metrics specific to user-namespaces:
+* `started_user_namespaced_pods_total`: a counter that tracks the number of user namespaced pods that are attempted to be created.
+* `started_user_namespaced_pods_errors_total`: a counter that tracks the number of errors creating user namespaced pods.
+-->
+## 指标与可观测性
+
+kubelet 会导出两项与用户命名空间相关的 Prometheus 指标：
+ * `started_user_namespaced_pods_total`：这个计数器跟踪尝试创建的、作用域为用户命名空间的 Pod 数量。
+ * `started_user_namespaced_pods_errors_total`：这个计数器跟踪创建作用域为用户命名空间的 Pod 时发生的错误次数。
+
 ## {{% heading "whatsnext" %}}
 
 <!--

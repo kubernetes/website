@@ -1,13 +1,13 @@
 ---
 title: "在集群中设置 DRA"
 content_type: task
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 weight: 10
 ---
 <!--
 title: "Set Up DRA in a Cluster"
 content_type: task
-min-kubernetes-server-version: v1.32
+min-kubernetes-server-version: v1.34
 weight: 10
 -->
 
@@ -62,44 +62,30 @@ For details, see
 <!-- steps -->
 
 <!--
-## Enable the DRA API groups {#enable-dra}
+## Optional: enable legacy DRA API groups {#enable-dra}
 
-To let Kubernetes allocate resources to your Pods with DRA, complete the
-following configuration steps:
+DRA graduated to stable in Kubernetes 1.34 and is enabled by default.
+Some older DRA drivers or workloads might still need the
+v1beta1 API from Kubernetes 1.30 or v1beta2 from Kubernetes 1.32.
+If and only if support for those is desired, then enable the following
+{{< glossary_tooltip text="API groups" term_id="api-group" >}}:
 
-1.  Enable the `DynamicResourceAllocation`
-    [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-    on all of the following components:
+    * `resource.k8s.io/v1beta1`
+    * `resource.k8s.io/v1beta2`
+
+For more information, see
+[Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
 -->
-## 启用 DRA API 组 {#enable-dra}
+DRA 在 Kubernetes 1.34 中进阶至 Stable 并默认启用。
+一些较旧的 DRA 驱动或工作负载可能仍需要 Kubernetes 1.30 的 v1beta1 API
+或 Kubernetes 1.32 的 v1beta2 API。
+当且仅当需要支持这些时，才启用以下
+{{< glossary_tooltip text="API 组" term_id="api-group" >}}：
 
-若要让 Kubernetes 能够使用 DRA 为你的 Pod 分配资源，需完成以下配置步骤：
+   * `resource.k8s.io/v1beta1`
+   * `resource.k8s.io/v1beta2`
 
-1. 在所有以下组件中启用 `DynamicResourceAllocation`
-   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)：
-
-   * `kube-apiserver`
-   * `kube-controller-manager`
-   * `kube-scheduler`
-   * `kubelet`
-
-<!--
-1.  Enable the following
-    {{< glossary_tooltip text="API groups" term_id="api-group" >}}:
-
-    * `resource.k8s.io/v1beta1`: required for DRA to function.
-    * `resource.k8s.io/v1beta2`: optional, recommended improvements to the user
-      experience.
-     
-    For more information, see
-    [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
--->
-2. 启用以下 {{< glossary_tooltip text="API 组" term_id="api-group" >}}：
-
-   * `resource.k8s.io/v1beta1`：DRA 所必需。
-   * `resource.k8s.io/v1beta2`：可选，推荐启用以提升用户体验。
-
-   更多信息请参阅[启用或禁用 API 组](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
+更多信息请参阅[启用或禁用 API 组](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
 
 <!--
 ## Verify that DRA is enabled {#verify}
@@ -137,21 +123,22 @@ error: the server doesn't have a resource type "deviceclasses"
 <!--
 Try the following troubleshooting steps:
 
-1. Ensure that the `kube-scheduler` component has the `DynamicResourceAllocation`
-   feature gate enabled *and* uses the
-   [v1 configuration API](/docs/reference/config-api/kube-scheduler-config.v1/).
-   If you use a custom configuration, you might need to perform additional steps
-   to enable the `DynamicResource` plugin.
-1. Restart the `kube-apiserver` component and the `kube-controller-manager`
-   component to propagate the API group changes.
+1. Reconfigure and restart the `kube-apiserver` component.
+
+1. If the complete `.spec.resourceClaims` field gets removed from Pods, or if
+   Pods get scheduled without considering the ResourceClaims, then verify
+   that the `DynamicResourceAllocation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is not turned off
+   for kube-apiserver, kube-controller-manager, kube-scheduler or the kubelet.
 -->
 你可以尝试以下排查步骤：
 
-1. 确保 `kube-scheduler` 组件已启用 `DynamicResourceAllocation` 特性门控，并且使用的是
-   [v1 配置 API](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
-   如果你使用自定义配置，你可能还需额外启用 `DynamicResource` 插件。
+1. 重新配置并重启 `kube-apiserver` 组件。
 
-2. 重启 `kube-apiserver` 和 `kube-controller-manager` 组件，以传播 API 组变更。
+2. 如果从 Pod 中完全删除了 `.spec.resourceClaims` 字段，
+   或者 Pod 在不考虑 ResourceClaim 的情况下被调度，
+   那么请验证 `DynamicResourceAllocation` **特性门控**在
+   kube-apiserver、kube-controller-manager、kube-schedule
+   或 kubelet 组件中是否被关闭。
 
 <!--
 ## Install device drivers {#install-drivers}
@@ -185,6 +172,19 @@ NAME                                                  NODE                DRIVER
 cluster-1-device-pool-1-driver.example.com-lqx8x      cluster-1-node-1    driver.example.com   cluster-1-device-pool-1-r1gc     7s
 cluster-1-device-pool-2-driver.example.com-29t7b      cluster-1-node-2    driver.example.com   cluster-1-device-pool-2-446z     8s
 ```
+
+<!--
+Try the following troubleshooting steps:
+
+1. Check the health of the DRA driver and look for error messages about
+   publishing ResourceSlices in its log output. The vendor of the driver
+   may have further instructions about installation and troubleshooting.
+-->
+尝试以下故障排查步骤：
+
+1. 检查 DRA 驱动的健康状况，并在其日志输出中查找关于发布 ResourceSlice
+   的错误消息。驱动的供应商可能有关于安装和故障排除的进一步指示。
+
 
 <!--
 ## Create DeviceClasses {#create-deviceclasses}
@@ -233,27 +233,25 @@ operators.
    -->
 
    ```yaml
-   apiVersion: resource.k8s.io/v1beta1
+   apiVersion: resource.k8s.io/v1
    kind: ResourceSlice
    # 为简洁省略部分内容
    spec:
      devices:
-     - basic:
-         attributes:
-           type:
-             string: gpu
-         capacity:
-           memory:
-             value: 64Gi
-         name: gpu-0
-     - basic:
-         attributes:
-           type:
-             string: gpu
-         capacity:
-           memory:
-             value: 64Gi
-         name: gpu-1
+      - attributes:
+          type:
+            string: gpu
+        capacity:
+          memory:
+            value: 64Gi
+        name: gpu-0
+      - attributes:
+          type:
+            string: gpu
+        capacity:
+          memory:
+            value: 64Gi
+        name: gpu-1
      driver: driver.example.com
      nodeName: cluster-1-node-1
    # 为简洁省略部分内容

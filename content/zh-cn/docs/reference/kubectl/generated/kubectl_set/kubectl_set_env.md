@@ -45,19 +45,40 @@ kubectl set env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N
 ## {{% heading "examples" %}}
 
 <!--
-```
+```shell
 # Update deployment 'registry' with a new environment variable
+kubectl set env deployment/registry STORAGE_DIR=/local
+  
 # List the environment variables defined on a deployments 'sample-build'
+kubectl set env deployment/sample-build --list
+  
 # List the environment variables defined on all pods
+kubectl set env pods --all --list
+  
 # Output modified deployment in YAML, and does not alter the object on the server
+kubectl set env deployment/sample-build STORAGE_DIR=/data -o yaml
+  
 # Update all containers in all replication controllers in the project to have ENV=prod
+kubectl set env rc --all ENV=prod
+  
 # Import environment from a secret
+kubectl set env --from=secret/mysecret deployment/myapp
+  
 # Import environment from a config map with a prefix
+kubectl set env --from=configmap/myconfigmap --prefix=MYSQL_ deployment/myapp
+  
 # Import specific keys from a config map
+kubectl set env --keys=my-example-key --from=configmap/myconfigmap deployment/myapp
+  
 # Remove the environment variable ENV from container 'c1' in all deployment configs
+kubectl set env deployments --all --containers="c1" ENV-
+  
 # Remove the environment variable ENV from a deployment definition on disk and
 # update the deployment config on the server
+kubectl set env -f deploy.json ENV-
+  
 # Set some of the local shell environment into a deployment config on the server
+env | grep RAILS_ | kubectl set env -e - deployment/registry
 ```
 -->
 ```shell
@@ -97,7 +118,7 @@ env | grep RAILS_ | kubectl set env -e - deployment/registry
 
 ## {{% heading "options" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -367,7 +388,7 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 
 ## {{% heading "parentoptions" %}}
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -383,7 +404,8 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
 操作所用的伪装用户名。用户可以是常规用户或命名空间中的服务账号。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -395,7 +417,8 @@ Username to impersonate for the operation. User could be a regular user or a ser
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
 操作所用的伪装用户组，此标志可以被重复设置以指定多个组。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -407,7 +430,8 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 UID to impersonate for the operation.
 -->
 操作所用的伪装 UID。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -419,7 +443,8 @@ UID to impersonate for the operation.
 Default cache directory
 -->
 默认缓存目录。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -431,7 +456,8 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -443,7 +469,8 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -455,7 +482,8 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -467,7 +495,8 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中集群的名称。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -479,31 +508,8 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -515,7 +521,8 @@ Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -527,7 +534,8 @@ If true, opt-out of response compression for all requests to the server
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
 如果为 true，则不检查服务器证书的有效性。这将使你的 HTTPS 连接不安全。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -539,7 +547,23 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p></td>
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>

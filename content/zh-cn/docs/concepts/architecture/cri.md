@@ -26,9 +26,6 @@ CRI 是一个插件接口，它使 kubelet 能够使用各种容器运行时，�
 这样 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 能启动
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 及其容器。
 
-<!--
-{{< glossary_definition prepend="The Container Runtime Interface (CRI) is" term_id="cri" length="all" >}}
--->
 {{< glossary_definition prepend="容器运行时接口（CRI）是" term_id="cri" length="all" >}}
 
 <!-- body -->

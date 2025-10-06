@@ -4,6 +4,9 @@
 # - mikedanese
 # - thockin
 title: 네임스페이스
+api_metadata:
+- apiVersion: "v1"
+  kind: "Namespace"
 content_type: concept
 weight: 45
 ---
@@ -58,7 +61,7 @@ weight: 45
 [네임스페이스 관리자 가이드 문서](/ko/docs/tasks/administer-cluster/namespaces/)에 기술되어 있다.
 
 {{< note >}}
-    `kube-` 접두사로 시작하는 네임스페이스는 쿠버네티스 시스템용으로 예약되어 있으므로, 사용자는 이러한 네임스페이스를 생성하지 않는다.
+`kube-` 접두사로 시작하는 네임스페이스는 쿠버네티스 시스템용으로 예약되어 있으므로, 사용자는 이러한 네임스페이스를 생성하지 않는다.
 {{< /note >}}
 
 ### 네임스페이스 조회
@@ -75,6 +78,7 @@ kube-node-lease   Active   1d
 kube-public       Active   1d
 kube-system       Active   1d
 ```
+
 
 ### 요청에 네임스페이스 설정하기
 
@@ -146,10 +150,9 @@ kubectl api-resources --namespaced=false
 
 ## 자동 레이블링
 
-{{< feature-state state="beta" for_k8s_version="1.21" >}}
+{{< feature-state for_k8s_version="1.22" state="stable" >}}
 
-쿠버네티스 컨트롤 플레인은 `NamespaceDefaultLabelName` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
-활성화된 경우 모든 네임스페이스에 변경할 수 없는(immutable) {{< glossary_tooltip text="레이블" term_id="label" >}}
+쿠버네티스 컨트롤 플레인은 `NamespaceDefaultLabelName` 모든 네임스페이스에 변경할 수 없는(immutable) {{< glossary_tooltip text="레이블" term_id="label" >}}
 `kubernetes.io / metadata.name` 을 설정한다.
 레이블 값은 네임스페이스 이름이다.
 
@@ -158,3 +161,4 @@ kubectl api-resources --namespaced=false
 
 * [신규 네임스페이스 생성](/ko/docs/tasks/administer-cluster/namespaces/#새-네임스페이스-생성하기)에 대해 더 배우기.
 * [네임스페이스 삭제](/ko/docs/tasks/administer-cluster/namespaces/#네임스페이스-삭제하기)에 대해 더 배우기.
+
