@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Introducing Headlamp Plugin for Karpenter - Scaling and Visibility"
-date: draft
+date: 2025-10-06
 slug: introducing-headlamp-plugin-for-karpenter
 Author: >
   [René Dudfield](https://github.com/illume) (Microsoft),
