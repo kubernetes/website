@@ -37,13 +37,13 @@ spec:
         - name: log
           mountPath: /log
           readOnly: true
-        - name: config # Sobrescrever o diretório config/ com o volume ConfigMap
+        - name: config # Sobrescreve o diretório config/ com o volume ConfigMap
           mountPath: /config
           readOnly: true
       volumes:
       - name: log
         hostPath:
           path: /var/log/
-      - name: config # Definir volume ConfigMap
+      - name: config # Define o volume ConfigMap
         configMap:
           name: node-problem-detector-config
