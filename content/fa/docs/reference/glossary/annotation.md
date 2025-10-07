@@ -4,7 +4,7 @@ id: annotation
 date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/annotations
 short_description: >
-  یک جفت کلید-مقدار که برای الصاق فراداده‌های دلخواه و غیرشناسایی به اشیاء استفاده می‌شود.
+  یک جفت کلید-مقدار که برای الصاق فراداده‌های(metadata) دلخواه و غیرشناسایی به اشیاء استفاده می‌شود.
 
 aka: 
 tags:
