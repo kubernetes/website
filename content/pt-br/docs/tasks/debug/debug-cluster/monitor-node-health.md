@@ -56,6 +56,7 @@ para detectar problemas personalizados do nó. Por exemplo:
 Se você está usando uma solução personalizada de autoinicialização de cluster e não precisa
 sobrescrever a configuração padrão, você pode aproveitar o pod de complemento para
 automatizar ainda mais a implantação.
+
 Crie `node-problem-detector.yaml` e salve a configuração no diretório do pod de complemento
 `/etc/kubernetes/addons/node-problem-detector` em um nó da camada de gerenciamento.
 
