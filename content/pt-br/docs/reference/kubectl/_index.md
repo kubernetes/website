@@ -131,7 +131,7 @@ A seguinte tabela inclui descrições curtas e a sintaxe geral para todas as ope
 
 Operação       | Sintaxe    |       Descrição
 -------------------- | -------------------- | --------------------
-`alpha`    | `kubectl alpha SUBCOMMAND [flags]` | Lista os comandos disponíveis que correspondem às funcionalidades alpha, que não são habilitadas por padrão nos clusters Kubernetes.
+`alpha`    | `kubectl alpha SUBCOMMAND [flags]` | Lista os comandos disponíveis que correspondem às funcionalidades alfa, que não são habilitadas por padrão nos clusters Kubernetes.
 `annotate`    | <code>kubectl annotate (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | Adiciona ou atualiza as anotações de um ou mais recursos.
 `api-resources`    | `kubectl api-resources [flags]` | Lista os recursos de API que estão disponíveis.
 `api-versions`    | `kubectl api-versions [flags]` | Lista as versões de API que estão disponíveis.
