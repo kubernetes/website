@@ -84,7 +84,7 @@ Se você precisar de ajuda, execute `kubectl help` da janela do terminal.
 
 ## Autenticação dentro do cluster e sobrescritas de namespace
 
-Por padrão, `kubectl` primeiro determinará se está sendo executado dentro de um pod, e assim em um cluster.
+Por padrão, `kubectl` primeiro determinará se está sendo executado dentro de um pod, ou seja, em um cluster.
 Ele começa verificando as variáveis de ambiente `KUBERNETES_SERVICE_HOST` e `KUBERNETES_SERVICE_PORT`
 e a existência de um arquivo de token de conta de serviço em `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 Se todos os três forem encontrados, a autenticação dentro do cluster é assumida.
