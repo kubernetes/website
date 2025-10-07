@@ -1,5 +1,5 @@
 ---
-title: حذف (یا بیرون کردن) پاد که توسط API آغاز شده است.
+title: اخراج آغاز شده با API.
 id: api-eviction
 date: 2021-04-27
 full_link: /docs/concepts/scheduling-eviction/api-eviction/
