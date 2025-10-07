@@ -4,7 +4,7 @@ id: api-resource
 date: 2025-02-09
 full_link: /docs/reference/using-api/api-concepts/#standard-api-terminology
 short_description: >
-  یک موجودیت کوبرنتیز، که نشان‌دهنده‌ی یک نقطه‌ی پایانی روی سرور Kubernetes API است.
+  یک موجودیت کوبرنتیز، که نشان‌دهنده‌ی یک endpoint روی سرور API کوبرنتیز است.
 
 aka:
  - Resource
