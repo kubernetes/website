@@ -529,7 +529,7 @@ The following kubectl-compatible plugins are available:
 ```
 
 `kubectl plugin list` também avisa sobre plugins que não são
-executáveis, ou que são "sombreados" por outros plugins; por exemplo:
+executáveis, ou que são sombreados por outros plugins; por exemplo:
 
 ```shell
 sudo chmod -x /usr/local/bin/kubectl-foo # remove permissão de execução
