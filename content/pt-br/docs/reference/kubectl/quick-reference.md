@@ -125,7 +125,7 @@ kubectl apply -f ./dir                              # cria recurso(s) em todos o
 kubectl apply -f https://example.com/manifest.yaml  # cria recurso(s) a partir de url (Nota: este é um domínio de exemplo e não contém um manifesto válido)
 kubectl create deployment nginx --image=nginx       # inicia uma única instância do nginx
 
-# cria uma tarefa que imprime "Hello World"
+# cria um Job que imprime "Hello World"
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
 
 # cria uma CronJob que imprime "Hello World" a cada minuto
@@ -458,12 +458,12 @@ Formato de saída | Descrição
 --------------| -----------
 `-o=custom-columns=<spec>` | Imprime uma tabela usando uma lista separada por vírgulas de colunas personalizadas
 `-o=custom-columns-file=<filename>` | Imprime uma tabela usando o modelo de colunas personalizadas no arquivo `<filename>`
-`-o=go-template=<template>` | Imprime os campos definidos em um [modelo golang](https://pkg.go.dev/text/template)
-`-o=go-template-file=<filename>` | Imprime os campos definidos pelo [modelo golang](https://pkg.go.dev/text/template) no arquivo `<filename>`
+`-o=go-template=<template>` | Imprime os campos definidos em um [template golang](https://pkg.go.dev/text/template)
+`-o=go-template-file=<filename>` | Imprime os campos definidos pelo [template golang](https://pkg.go.dev/text/template) no arquivo `<filename>`
 `-o=json` | Exibe um objeto de API formatado em JSON
 `-o=jsonpath=<template>` | Imprime os campos definidos em uma expressão [jsonpath](/docs/reference/kubectl/jsonpath)
 `-o=jsonpath-file=<filename>` | Imprime os campos definidos pela expressão [jsonpath](/docs/reference/kubectl/jsonpath) no arquivo `<filename>`
-`-o=kyaml` | Exibe um objeto de API formatado em KYAML (alpha, requer a variável de ambiente `KUBECTL_KYAML="true"`). KYAML é um dialeto experimental específico do Kubernetes em YAML, e pode ser interpretado como YAML.
+`-o=kyaml` | Exibe um objeto de API formatado em KYAML (alfa, requer a variável de ambiente `KUBECTL_KYAML="true"`). KYAML é um dialeto experimental específico do Kubernetes em YAML, e pode ser interpretado como YAML.
 `-o=name` | Imprime apenas o nome do recurso e nada mais
 `-o=wide` | Exibe no formato de texto simples com qualquer informação adicional, e para pods, o nome do nó é incluído
 `-o=yaml` | Exibe um objeto de API formatado em YAML
