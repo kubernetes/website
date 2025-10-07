@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-وقتی {{< glossary_tooltip text="Kubernetes API Server" term_id="kube-apiserver" >}} را روی [support additional APIs](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) پیکربندی کردید، می‌توانید اشیاء `APIService` را برای "claim" یک مسیر نشانی وب در API کوبرنتیز اضافه کنید.
+وقتی {{< glossary_tooltip text="API سرور کوبرنتیز" term_id="kube-apiserver" >}} را برای [پشتیبانی از API های اضافی](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) پیکربندی کردید، می‌توانید اشیاء `APIService` را برای "claim" یک مسیر نشانی وب در API کوبرنتیز اضافه کنید.
