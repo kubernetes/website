@@ -140,7 +140,7 @@ Operação       | Sintaxe    |       Descrição
 `auth`    | `kubectl auth [flags] [options]` | Inspeciona autorização.
 `autoscale`    | <code>kubectl autoscale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code> | Escalona automaticamente o conjunto de pods que são gerenciados por um controlador de replicação.
 `certificate`    | `kubectl certificate SUBCOMMAND [options]` | Modifica recursos de certificado.
-`cluster-info`    | `kubectl cluster-info [flags]` | Exibe informações de endpoint sobre o principal e serviços no cluster.
+`cluster-info`    | `kubectl cluster-info [flags]` | Exibe informações de endpoint sobre o nó principal e serviços no cluster.
 `completion`    | `kubectl completion SHELL [options]` | Gera código de completar automaticamente para o shell especificado (bash ou zsh).
 `config`        | `kubectl config SUBCOMMAND [flags]` | Modifica arquivos kubeconfig. Consulte os subcomandos individuais para detalhes.
 `convert`    | `kubectl convert -f FILENAME [options]` | Converte arquivos de configuração entre diferentes versões de API. Ambos os formatos YAML e JSON são aceitos. Nota - requer que o plugin `kubectl-convert` esteja instalado.
