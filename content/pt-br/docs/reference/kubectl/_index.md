@@ -587,4 +587,4 @@ Current user: plugins-user
 * Aprenda sobre [convenções de uso do `kubectl`](/docs/reference/kubectl/conventions/)
 * Leia sobre [suporte ao JSONPath](/docs/reference/kubectl/jsonpath/) no kubectl
 * Leia sobre como [estender kubectl com plugins](/docs/tasks/extend-kubectl/kubectl-plugins)
-  * Para descobrir mais sobre plugins, dê uma olhada no [plugin CLI de exemplo](https://github.com/kubernetes/sample-cli-plugin).
+  * Para descobrir mais sobre plugins, veja [plugin CLI de exemplo](https://github.com/kubernetes/sample-cli-plugin).
