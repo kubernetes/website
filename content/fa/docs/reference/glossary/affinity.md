@@ -4,7 +4,7 @@ id: affinity
 date: 2019-01-11
 full_link: /docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
 short_description: >
-     قوانینی که توسط زمانبند (scheduler) برای تعیین محل قرارگیری پادها استفاده می‌شود
+     قوانینی که توسط scheduler برای تعیین محل قرارگیری پادها استفاده می‌شود
 aka:
 tags:
 - fundamental
