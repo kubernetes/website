@@ -49,7 +49,7 @@ Kubernetes démarre avec quatre namespaces initiaux :
 La création et la suppression des namespaces sont décrites dans la documentation du guide d'administration pour les namespaces.
 
 {{< note >}}
-  Évitez de créer des namespaces avec le préfixe `kube-`, car il est réservé aux namespaces système de Kubernetes.
+Évitez de créer des namespaces avec le préfixe `kube-`, car il est réservé aux namespaces système de Kubernetes.
 {{< /note >}}
 
 ### Affichage des namespaces
