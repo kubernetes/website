@@ -11,7 +11,7 @@ aka:
 tags:
 - architecture
 ---
-یک موجودیت در سیستم تایپ کوبرنتیز، مربوط به یک نقطه پایانی در {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}.
+یک موجودیت در سیستم تایپ کوبرنتیز، مربوط به یک endpoint در {{< glossary_tooltip text="API کوبرنتیز" term_id="kubernetes-api" >}}.
 یک منبع معمولاً نشان‌دهنده‌ی {{< glossary_tooltip text="object" term_id="object" >}} است.
 برخی منابع، عملیاتی را روی اشیاء دیگر نشان می‌دهند، مانند بررسی مجوز.
 <!--more-->
