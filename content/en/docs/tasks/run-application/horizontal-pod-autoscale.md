@@ -418,7 +418,7 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 If you use the `v2` HorizontalPodAutoscaler API, you can use the `behavior` field
 (see the [API reference](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/#HorizontalPodAutoscalerSpec))
 to configure separate scale-up and scale-down behaviors.
-You specify these behaviours by setting `scaleUp` and / or `scaleDown`
+You specify these behaviors by setting `scaleUp` and / or `scaleDown`
 under the `behavior` field.
 
 Scaling policies let you control the rate of change of replicas while scaling.
