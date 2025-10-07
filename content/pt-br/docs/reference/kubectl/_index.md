@@ -20,7 +20,7 @@ definindo a variável de ambiente `KUBECONFIG` ou configurando a
 flag [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 
 Esta visão geral abrange a sintaxe do `kubectl`, descreve as operações de comando e fornece exemplos comuns.
-Para detalhes sobre cada comando, incluindo todas as flags e subcomandos suportados, consulte a
+Para detalhes sobre cada comando, incluindo todas as opções e subcomandos suportados, consulte a
 documentação de referência do [kubectl](/docs/reference/kubectl/generated/kubectl/).
 
 Para instruções de instalação, consulte [Instalando kubectl](/docs/tasks/tools/#kubectl);
