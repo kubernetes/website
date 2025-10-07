@@ -17,14 +17,14 @@ a identificar e resolver a causa provável.
 ## {{% heading "prerequisites" %}}
 
 * Você precisa ter um cluster Kubernetes.
-* Você também precisa ter o `kubectl` instalado - veja [instalar ferramentas](/docs/tasks/tools/#kubectl)
+* Você também precisa ter o `kubectl` instalado - veja [instale as ferramentas](/docs/tasks/tools/#kubectl)
 
 ## Verificar a configuração do kubectl
 
 Certifique-se de que você instalou e configurou o `kubectl` corretamente em sua máquina local.
 Verifique a versão do `kubectl` para garantir que esteja atualizada e compatível com seu cluster.
 
-Verificar a versão do kubectl:
+Verifique a versão do kubectl:
 
 ```shell
 kubectl version
@@ -108,7 +108,7 @@ conectividade de rede e firewall do cluster. Se você estiver usando um provedor
 o cluster, verifique o status de verificação de saúde do seu provedor de nuvem para o
 servidor de API do cluster.
 
-Verifique o status do balanceador de carga (se usado) para garantir que esteja saudável e encaminhando
+Verifique o status do balanceador de carga (se usado) para garantir que esteja íntegro e encaminhando
 tráfego para o servidor de API.
 
 ## Problemas de TLS
@@ -143,10 +143,10 @@ notBefore=Feb 13 05:57:47 2024 GMT
 notAfter=Feb 12 06:02:50 2025 GMT
 ```
 
-## Verificar auxiliares do kubectl
+## Verificar ferramentas auxiliares do kubectl
 
-Alguns auxiliares de autenticação do kubectl fornecem acesso fácil aos clusters Kubernetes. Se você
-usou tais auxiliares e está enfrentando problemas de conectividade, certifique-se de que as configurações
+Algumas ferramentas auxiliares de autenticação do kubectl fornecem acesso fácil aos clusters Kubernetes. Se você
+usou tais ferramentas auxiliares e está enfrentando problemas de conectividade, certifique-se de que as configurações
 necessárias ainda estão presentes.
 
 Verificar configuração do kubectl para detalhes de autenticação:
