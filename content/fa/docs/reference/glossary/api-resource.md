@@ -12,7 +12,7 @@ tags:
 - architecture
 ---
 یک موجودیت در سیستم تایپ کوبرنتیز، مربوط به یک endpoint در {{< glossary_tooltip text="API کوبرنتیز" term_id="kubernetes-api" >}}.
-یک منبع معمولاً نشان‌دهنده‌ی {{< glossary_tooltip text="object" term_id="object" >}} است.
+یک منبع معمولاً نشان‌دهنده‌ی {{< glossary_tooltip text="شیء" term_id="object" >}} است.
 برخی منابع، عملیاتی را روی اشیاء دیگر نشان می‌دهند، مانند بررسی مجوز.
 <!--more-->
 هر منبع، یک نقطه پایانی HTTP (URI) را در سرور API Kubernetes نشان می‌دهد که طرحواره اشیاء یا عملیات روی آن منبع را تعریف می‌کند.
