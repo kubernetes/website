@@ -17,4 +17,4 @@ tags:
 * [affinity گره (node)](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
 * [pod-to-pod affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)
 
-این قوانین با استفاده از کوبرنتیز {{< glossary_tooltip term_id="label" text="labels">}} و {{< glossary_tooltip term_id="selector" text="selectors">}} که در {{< glossary_tooltip term_id="pod" text="pods" >}} مشخص شده‌اند، تعریف می‌شوند و بسته به اینکه می‌خواهید زمانبند (scheduler) چقدر آنها را سختگیرانه اجرا کند، می‌توانند الزامی یا ترجیحی باشند.
+این قوانین با استفاده از {{< glossary_tooltip term_id="label" text="برچسب">}} و {{< glossary_tooltip term_id="selector" text="انتخابگرها">}} کوبرنتیز که در {{< glossary_tooltip term_id="pod" text="پادها" >}} مشخص شده‌اند، تعریف می‌شوند و بسته به اینکه می‌خواهید scheduler چقدر آنها را سختگیرانه اجرا کند، می‌توانند الزامی یا ترجیحی باشند.
