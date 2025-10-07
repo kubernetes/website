@@ -270,7 +270,7 @@ Formato de saída | Descrição
 `-o json` | Gera um objeto de API formatado em JSON.
 `-o jsonpath=<template>` | Imprime os campos definidos em uma expressão [jsonpath](/docs/reference/kubectl/jsonpath/).
 `-o jsonpath-file=<filename>` | Imprime os campos definidos pela expressão [jsonpath](/docs/reference/kubectl/jsonpath/) no arquivo `<filename>`.
-`-o kyaml` | Gera um objeto de API formatado em KYAML (alpha, requer variável de ambiente `KUBECTL_KYAML="true"`).
+`-o kyaml` | Gera um objeto de API formatado em KYAML (alfa, requer variável de ambiente `KUBECTL_KYAML="true"`).
 `-o name` | Imprime apenas o nome do recurso e nada mais.
 `-o wide` | Saída no formato de texto simples com qualquer informação adicional. Para pods, o nome do nó é incluído.
 `-o yaml` | Gera um objeto de API formatado em YAML. KYAML é um dialeto experimental específico do Kubernetes do YAML, e pode ser interpretado como YAML.
