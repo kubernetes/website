@@ -95,7 +95,7 @@ token da conta de serviço. Quaisquer manifestos ou ferramentas que dependam do 
 
 **Variável de ambiente `POD_NAMESPACE`**
 
-Se a variável de ambiente `POD_NAMESPACE` for definida, operações de CLI em recursos com namespace
+Se a variável de ambiente `POD_NAMESPACE` for definida, operações de linha de comando em recursos com namespace
 usarão por padrão o valor da variável. Por exemplo, se a variável for definida como `seattle`,
 `kubectl get pods` retornaria pods no namespace `seattle`. Isso ocorre porque pods são
 um recurso com namespace, e nenhum namespace foi fornecido no comando. Revise a saída
