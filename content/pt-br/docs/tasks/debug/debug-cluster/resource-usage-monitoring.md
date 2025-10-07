@@ -53,7 +53,7 @@ Um pipeline de métricas completas oferece acesso a métricas mais ricas. O Kube
 responder a essas métricas automaticamente escalonando ou adaptando o cluster
 baseado no seu estado atual, usando mecanismos como o Horizontal Pod
 Autoscaler. O pipeline de monitoramento busca métricas do kubelet e
-então as expõe ao Kubernetes via um adaptador implementando a API
+então as expõe ao Kubernetes através de um adaptador que implemente a API
 `custom.metrics.k8s.io` ou `external.metrics.k8s.io`.
 
 
