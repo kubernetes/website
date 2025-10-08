@@ -57,24 +57,24 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 ### kube-proxy
 
 * `kube-proxy`は`kube-apiserver`よりも新しいものであってはなりません
-* `kube-proxy`は`kube-apiserver`よりも最大で3バージョン古くても構いません（`kube-proxy` < 1.25の場合は2バージョンまで）
-* `kube-proxy`は同一ノードで動作している`kubelet`より3バージョン古くても新しくても構いません（`kube-proxy` < 1.25の場合は2バージョンまで）
+* `kube-proxy`は`kube-apiserver`よりも最大で3バージョン古くても構いません (`kube-proxy` < 1.25の場合は2バージョンまで)
+* `kube-proxy`は同一ノードで動作している`kubelet`より3バージョン古くても新しくても構いません (`kube-proxy` < 1.25の場合は2バージョンまで)
 
 例:
 
 * `kube-apiserver`のバージョンが**{{< skew oldestMinorVersion >}}**であるとします
-* `kube-proxy` は**{{< skew currentVersion >}}**、**{{< skew currentVersionAddMinor -1 >}}**、
+* `kube-proxy`は**{{< skew currentVersion >}}**、**{{< skew currentVersionAddMinor -1 >}}**、
   **{{< skew currentVersionAddMinor -2 >}}**および**{{< skew currentVersionAddMinor -3 >}}**がサポートされます
 
 {{< note >}}
 HAクラスター内の`kube-apiserver`間にバージョンの差異がある場合、有効な`kubelet`のバージョンは少なくなります。
 {{</ note >}}
 
-Example:
+例:
 
 * `kube-apiserver`インスタンスが**{{< skew currentVersion >}}**および**{{< skew currentVersionAddMinor -1 >}}**であるとします
 * `kube-proxy`は**{{< skew currentVersionAddMinor -1 >}}**、**{{< skew currentVersionAddMinor -2 >}}**、
-  **{{< skew currentVersionAddMinor -3 >}}**がサポートされます（**{{< skew currentVersion >}}**は、`kube-apiserver`よりも新しいためサポートされません）
+  **{{< skew currentVersionAddMinor -3 >}}**がサポートされます (**{{< skew currentVersion >}}**は、`kube-apiserver`よりも新しいためサポートされません)
 
 ### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
 
