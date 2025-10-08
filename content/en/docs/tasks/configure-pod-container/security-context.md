@@ -751,9 +751,7 @@ only one of such pods is able to run on a node, the other one gets ContainerCrea
 To make it easier to identify Pods that are affected by the change in SELinux volume relabeling,
 a new controller called `SELinuxWarningController` has been introduced in kube-controller-manager.
 It is disabled by default and can be enabled by either setting the `--controllers=*,selinux-warning-controller`
-[command line flag](/docs/reference/command-line-tools-reference/kube-controller-manager/),
-or by setting `genericControllerManagerConfiguration.controllers`
-[field in KubeControllerManagerConfiguration](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration).
+[command line flag](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 This controller requires `SELinuxChangePolicy` feature gate to be enabled.
 
 When enabled, the controller observes running Pods and when it detects that two Pods use the same volume
