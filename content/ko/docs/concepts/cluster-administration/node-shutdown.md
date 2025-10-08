@@ -8,7 +8,7 @@ weight: 10
 
 쿠버네티스 클러스터에서 {{< glossary_tooltip text="노드" term_id="node" >}} 는 계획된 우아한 종료(graceful shutdown) 방식으로 종료될 수도 있고, 정전이나 기타 외부 요인과 같은 이유로 예기치 않게 종료될 수도 있다.
 노드가 종료되기 전에 드레인 되지 않으면 워크로드가 실패할 수 있다.
-노드 종료는 우아한 종료(graceful) 또는 비정상 종료(non-graceful) 두 가지로 나뉜다.
+노드 셧다운은 그레이스풀(graceful) 또는 논 그레이스풀(non-graceful) 두 가지로 나뉜다.
 
 <!-- body -->
 
