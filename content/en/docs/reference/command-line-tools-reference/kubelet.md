@@ -303,7 +303,7 @@ kubelet [flags]
 <td colspan="2">--eviction-max-pod-grace-period int32</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"> Maximum allowed grace period (in seconds) to use when terminating pods in response to a soft eviction threshold being met. Negative values are not supported and do not defer to the Pod’s terminationGracePeriodSeconds; they may result in immediate termination. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Maximum allowed grace period (in seconds) to use when terminating pods in response to a soft eviction threshold being met. The pod's effective grace period is calculated as min(evictionMaxPodGracePeriod, pod.terminationGracePeriodSeconds). A negative value will cause pods to be terminated immediately, as if the value was 0. (DEPRECATED: This parameter should be set via the config file specified by the kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</p></td>
 </tr>
 
 <tr>
