@@ -73,3 +73,36 @@
     display: none;
   }
 }
+
+// Make the entire TOC area sticky and maximize space until footer
+.td-toc {
+  @include media-breakpoint-up(md) {
+    @supports (position: sticky) {
+      position: sticky;
+      top: 8.5rem;
+      align-self: flex-start;
+      height: fit-content;
+      // min-height: 200px;
+      // max-height: calc(100vh - 10rem); // REQUIRED for sticky to work
+      overflow: visible;
+      z-index: 10;
+      padding: 0;
+      padding-bottom: 1rem;
+      margin: 0;
+
+      @media only screen and (min-width: 1075px) {
+        top: 6.5rem;
+        // max-height: calc(100vh - 8rem); // REQUIRED for sticky to work
+      }
+
+      // Make the TableOfContents scrollable within the sticky container
+      #TableOfContents {
+        height: auto;
+        max-height: calc(100vh - 20rem); // Allows scrolling if content is too long
+        overflow-y: auto;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
