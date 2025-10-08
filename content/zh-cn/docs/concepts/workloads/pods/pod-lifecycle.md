@@ -633,7 +633,7 @@ spec:
 
 <!--
 A Pod with Always restart policy with an init container that only execute once. If the init
-container fails, the Pod fails. This alllows the Pod to fail if the initialiaztion failed,
+container fails, the Pod fails. This alllows the Pod to fail if the initialization failed,
 but also keep running once the initialization succeeds:
 -->
 下面是一个重启策略为 Always 的 Pod，其中包含一个只执行一次的 Init 容器。
