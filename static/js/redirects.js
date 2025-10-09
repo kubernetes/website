@@ -15,7 +15,7 @@ $( document ).ready(function() {
      */
     var forwardingRules = [];
 
-    var getMatcharyByRule = (rule) => {
+    var getMatchArrayByRule = (rule) => {
       var re = new RegExp(rule.pattern, 'g');
       return re.exec(forwardingURL);
     };
@@ -24,7 +24,7 @@ $( document ).ready(function() {
         if (forwardingURL.indexOf(rule.from) > -1) {
             var newURL = rule.to;
             var matchary;
-            if (rule.postfix && (matchary = getMatcharyByRule(rule))) {
+            if (rule.postfix && (matchary = getMatchArrayByRule(rule))) {
                 newURL += rule.postfix.replace("<token>", matchary[1]);
             }
             notHere = true;
