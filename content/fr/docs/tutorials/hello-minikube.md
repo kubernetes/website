@@ -18,16 +18,16 @@ Le tutoriel fournit une image de conteneur qui utilise NGINX pour renvoyer toute
 * Exécuter l'application.
 * Afficher les journaux de l'application.
 
-## {{% heading "prérequis²" %}}
+## {{% heading "prérequis" %}}
 
+Ce tutoriel suppose que vous avez déjà configuré `minikube`.  
+Voir __Étape 1__ dans [minikube start](https://minikube.sigs.k8s.io/docs/start/) pour les instructions d'installation.  
 
-Ce tutoriel suppose que vous avez déjà configuré `minikube`.
-Voir __Étape 1__ dans [minikube start](https://minikube.pour les instructions d'installation installation instructions.
 {{< note >}}
 Exécutez uniquement les instructions de l'__Étape 1, Installation__. Le reste est couvert sur cette page. 
 {{< /note >}}
 
-Vous devez également installer `kubectl`.
+Vous devez également installer `kubectl`. 
 Voir [Installer les outils](/docs/tasks/tools/#kubectl) pour les instructions d'installation.
 
 
@@ -88,7 +88,7 @@ Un [*Pod*](/docs/concepts/workloads/pods/) Kubernetes est un groupe de un ou plu
 
     ```shell
     # Exécutez une image de conteneur de test qui inclut un serveur web
-    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. Afficher le Deployment:

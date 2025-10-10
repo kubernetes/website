@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: ""
 title: "Common Parameters"
-weight: 10
+weight: 11
 auto_generated: true
 ---
 
@@ -101,6 +101,16 @@ Force is going to "force" Apply requests. It means user will re-acquire conflict
 ## gracePeriodSeconds {#gracePeriodSeconds}
 
 The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
+
+<hr>
+
+
+
+
+
+## ignoreStoreReadErrorWithClusterBreakingPotential {#ignoreStoreReadErrorWithClusterBreakingPotential}
+
+if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
 
 <hr>
 

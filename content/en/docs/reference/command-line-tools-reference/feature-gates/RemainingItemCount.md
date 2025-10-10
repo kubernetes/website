@@ -17,6 +17,9 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.29"   
+    toVersion: "1.32"
+
+removed: true
 ---
 Allow the API servers to show a count of remaining
 items in the response to a

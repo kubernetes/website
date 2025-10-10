@@ -42,11 +42,6 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
-* Swap configuration. The default behavior of a kubelet was to fail to start if swap memory was detected on a node.
-  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
-  * You **MUST** disable swap if the kubelet is not properly configured to use swap. For example, `sudo swapoff -a`
-    will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in
-    config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
 -->
 * 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
   发行版以及一些不提供包管理器的发行版提供通用的指令。
@@ -55,13 +50,6 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * 集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
-* 交换分区的配置。kubelet 的默认行为是在节点上检测到交换内存时无法启动。
-  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
-  * 如果 kubelet 未被正确配置使用交换分区，则你**必须**禁用交换分区。
-    例如，`sudo swapoff -a` 将暂时禁用交换分区。要使此更改在重启后保持不变，请确保在如
-    `/etc/fstab`、`systemd.swap` 等配置文件中禁用交换分区，具体取决于你的系统如何配置。
-
-<!-- steps -->
 
 {{< note >}}
 <!--
@@ -78,6 +66,71 @@ that provides the expected symbols.
 预期的情况是，发行版要么包含 `glibc`，
 要么提供了一个[兼容层](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)以提供所需的符号。
 {{< /note >}}
+
+<!-- steps -->
+
+<!--
+## Check your OS version
+-->
+## 检查你的操作系统版本   {#check-your-os-version}
+
+{{% thirdparty-content %}}
+
+{{< tabs name="operating_system_version_check" >}}
+{{% tab name="Linux" %}}
+
+<!--
+* The kubeadm project supports LTS kernels. See [List of LTS kernels](https://www.kernel.org/category/releases.html).
+* You can get the kernel version using the command `uname -r`
+
+For more information, see [Linux Kernel Requirements](/docs/reference/node/kernel-version-requirements/).
+-->
+* kubeadm 项目支持 LTS 内核。参阅 [LTS 内核列表](https://www.kernel.org/category/releases.html)。
+* 你可以使用命令 `uname -r` 获取内核版本。
+
+欲了解更多信息，参阅 [Linux 内核要求](/zh-cn/docs/reference/node/kernel-version-requirements/)。
+
+{{% /tab %}}
+
+{{% tab name="Windows" %}}
+
+<!--
+* The kubeadm project supports recent kernel versions. For a list of recent kernels, see [Windows Server Release Information](https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info).
+* You can get the kernel version (also called the OS version) using the command `systeminfo`
+
+For more information, see [Windows OS version compatibility](/docs/concepts/windows/intro/#windows-os-version-support).
+-->
+* kubeadm 项目支持最近的内核版本。有关最新内核的列表，参阅
+  [Windows Server 版本信息](https://learn.microsoft.com/zh-cn/windows/release-health/windows-server-release-info)。
+* 你可以使用命令 `systeminfo` 获取内核版本（也称为操作系统版本）。
+
+欲了解更多信息，参阅 [Windows 操作系统版本兼容性](/zh-cn/docs/concepts/windows/intro/#windows-os-version-support)。
+
+{{% /tab %}}
+{{< /tabs >}}
+
+<!--
+A Kubernetes cluster created by kubeadm depends on software that use kernel features.
+This software includes, but is not limited to the
+{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}},
+the {{< glossary_tooltip term_id="kubelet" text="kubelet">}}, and a {{< glossary_tooltip text="Container Network Interface" term_id="cni" >}} plugin.
+-->
+由 kubeadm 创建的 Kubernetes 集群依赖于使用内核特性的相关软件。  
+这些软件包括但不限于{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}、  
+{{< glossary_tooltip term_id="kubelet" text="kubelet">}}
+和{{< glossary_tooltip text="容器网络接口（CNI）" term_id="cni" >}}插件。
+
+<!--
+To help you avoid unexpected errors as a result of an unsupported kernel version, kubeadm runs the `SystemVerification`
+pre-flight check. This check fails if the kernel version is not supported.
+
+You may choose to skip the check, if you know that your kernel
+provides the required features, even though kubeadm does not support its version.
+-->
+为帮助你避免因内核版本不受支持而引发的意外错误，kubeadm 运行 `SystemVerification` 执行预检。  
+如果内核版本不受支持，预检将失败。
+
+如果你确认你的内核具备所需特性，尽管其版本不在 kubeadm 支持范围内，你也可以选择跳过此检查。
 
 <!--
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
@@ -144,7 +197,7 @@ This means that swap should either be disabled or tolerated by kubelet.
   Note: even if `failSwapOn: false` is provided, workloads wouldn't have swap access by default.
   This can be changed by setting a `swapBehavior`, again in the kubelet configuration file. To use swap,
   set a `swapBehavior` other than the default `NoSwap` setting.
-  See [Swap memory management](/docs/concepts/architecture/nodes/#swap-memory) for more details.
+  See [Swap memory management](/docs/concepts/cluster-administration/swap-memory-management) for more details.
 * To disable swap, `sudo swapoff -a` can be used to disable swapping temporarily.
   To make this change persistent across reboots, make sure swap is disabled in
   config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
@@ -158,7 +211,7 @@ kubelet 的默认行为是在节点上检测到交换内存时无法启动。
   注意：即使设置了 `failSwapOn: false`，工作负载默认情况下仍无法访问交换空间。
   可以通过在 kubelet 配置文件中设置 `swapBehavior` 来修改此设置。若要使用交换空间，
   请设置 `swapBehavior` 的值，这个值不能是默认的 `NoSwap`。
-  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
+  更多细节参阅[交换内存管理](/zh-cn/docs/concepts/cluster-administration/swap-memory-management)。
 * 要禁用交换分区（swap），可以使用命令 `sudo swapoff -a` 暂时关闭交换分区功能。
   要使此更改在重启后仍然生效，请确保在系统的配置文件（如 `/etc/fstab` 或 `systemd.swap`）中禁用交换功能，
   具体取决于你的系统配置方式。
@@ -171,8 +224,8 @@ To run containers in Pods, Kubernetes uses a
 -->
 ## 安装容器运行时   {#installing-runtime}
 
-为了在 Pod 中运行容器，Kubernetes 使用
-{{< glossary_tooltip term_id="container-runtime" text="容器运行时（Container Runtime）" >}}。
+为了在 Pod 中运行容器，Kubernetes
+使用{{< glossary_tooltip term_id="container-runtime" text="容器运行时（Container Runtime）" >}}。
 
 <!--
 By default, Kubernetes uses the
@@ -182,8 +235,8 @@ to interface with your chosen container runtime.
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
 container runtime by scanning through a list of known endpoints.
 -->
-默认情况下，Kubernetes 使用
-{{< glossary_tooltip term_id="cri" text="容器运行时接口（Container Runtime Interface，CRI）" >}}
+默认情况下，Kubernetes
+使用{{< glossary_tooltip term_id="cri" text="容器运行时接口（Container Runtime Interface，CRI）" >}}
 来与你所选择的容器运行时交互。
 
 如果你不指定运行时，kubeadm 会自动尝试通过扫描已知的端点列表来检测已安装的容器运行时。
@@ -197,20 +250,19 @@ for more information.
 -->
 如果检测到有多个或者没有容器运行时，kubeadm 将抛出一个错误并要求你指定一个想要使用的运行时。
 
-参阅[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
-以了解更多信息。
+参阅[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)以了解更多信息。
 
 {{< note >}}
 <!--
 Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
 which is a requirement for a container runtime to work with Kubernetes.
-For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+For that reason, an additional service [cri-dockerd](https://mirantis.github.io/cri-dockerd/)
 has to be installed. cri-dockerd is a project based on the legacy built-in
 Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
 -->
 Docker Engine 没有实现 [CRI](/zh-cn/docs/concepts/architecture/cri/)，
 而这是容器运行时在 Kubernetes 中工作所需要的。
-为此，必须安装一个额外的服务 [cri-dockerd](https://github.com/Mirantis/cri-dockerd)。
+为此，必须安装一个额外的服务 [cri-dockerd](https://mirantis.github.io/cri-dockerd/)。
 cri-dockerd 是一个基于传统的内置 Docker 引擎支持的项目，
 它在 1.24 版本从 kubelet 中[移除](/zh-cn/dockershim)。
 {{< /note >}}
@@ -343,6 +395,12 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 
 <!--
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+
+   ```shell
+   sudo apt-get update
+   # apt-transport-https may be a dummy package; if so, you can skip that package
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+   ```
 -->
 1. 更新 `apt` 包索引并安装使用 Kubernetes `apt` 仓库所需要的包：
 
@@ -355,13 +413,15 @@ These instructions are for Kubernetes {{< skew currentVersion >}}.
 <!--
 2. Download the public signing key for the Kubernetes package repositories.
    The same signing key is used for all repositories so you can disregard the version in the URL:
+
+   ```shell
+   # If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   ```
 -->
 2. 下载用于 Kubernetes 软件包仓库的公共签名密钥。所有仓库都使用相同的签名密钥，因此你可以忽略URL中的版本：
 
-   <!--
-   # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
-   # sudo mkdir -p -m 755 /etc/apt/keyrings 
-   -->
    ```shell
    # 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。
    # sudo mkdir -p -m 755 /etc/apt/keyrings
@@ -409,6 +469,19 @@ exist by default, and it should be created before the curl command.
    sudo apt-get update
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
+<!--
+5. (Optional) Enable the kubelet service before running kubeadm:
+
+   ```shell
+   sudo systemctl enable --now kubelet
+   ```
+-->
+5. （可选）先启用 kubelet 服务，再运行 kubeadm：
+
+   ```shell
+   sudo systemctl enable --now kubelet
    ```
 
 {{% /tab %}}
@@ -461,6 +534,19 @@ exist by default, and it should be created before the curl command.
    in the URL to match your desired minor version (you should also check that
    you are reading the documentation for the version of Kubernetes that you
    plan to install).
+
+   ```shell
+   # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
 -->
 2. 添加 Kubernetes 的 `yum` 仓库。在仓库定义中的 `exclude` 参数确保了与
    Kubernetes 相关的软件包在运行 `yum update` 时不会升级，因为升级

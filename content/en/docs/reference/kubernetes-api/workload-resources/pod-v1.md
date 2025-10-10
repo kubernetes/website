@@ -79,7 +79,7 @@ PodSpec is a description of a pod.
   
   *Map: unique values on key name will be kept during a merge*
   
-  List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+  List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 
 - **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
 
@@ -107,7 +107,7 @@ PodSpec is a description of a pod.
   
   If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
   
-  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
+  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
 
   <a name="PodOS"></a>
   *PodOS defines the OS parameters of a pod.*
@@ -254,13 +254,13 @@ PodSpec is a description of a pod.
 
     NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
     
-    If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+    If this value is nil, the behavior is equivalent to the Honor policy.
 
   - **topologySpreadConstraints.nodeTaintsPolicy** (string)
 
     NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
     
-    If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+    If this value is nil, the behavior is equivalent to the Ignore policy.
 
 - **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
@@ -301,9 +301,15 @@ PodSpec is a description of a pod.
 
   Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
 
+- **hostnameOverride** (string)
+
+  HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+  
+  This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+
 - **setHostnameAsFQDN** (boolean)
 
-  If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+  If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
 
 - **subdomain** (string)
 
@@ -354,10 +360,11 @@ PodSpec is a description of a pod.
 
     - **dnsConfig.options.name** (string)
 
-      Required.
+      Name is this DNS resolver option's name. Required.
 
     - **dnsConfig.options.value** (string)
 
+      Value is this DNS resolver option's value.
 
   - **dnsConfig.searches** ([]string)
 
@@ -374,7 +381,7 @@ PodSpec is a description of a pod.
 
 - **hostNetwork** (boolean)
 
-  Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+  Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
 
 - **hostPID** (boolean)
 
@@ -468,6 +475,20 @@ PodSpec is a description of a pod.
 
       localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must be set if type is "Localhost". Must NOT be set for any other type.
 
+  - **securityContext.seLinuxChangePolicy** (string)
+
+    seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+    
+    "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+    
+    "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+    
+    If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+    
+    This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+    
+    All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+
   - **securityContext.seLinuxOptions** (SELinuxOptions)
 
     The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
@@ -547,6 +568,46 @@ PodSpec is a description of a pod.
 - **hostUsers** (boolean)
 
   Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+
+- **resources** (ResourceRequirements)
+
+  Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
+  
+  This field enables fine-grained control over resource allocation for the entire pod, allowing resource sharing among containers in a pod.
+  
+  This is an alpha field and requires enabling the PodLevelResources feature gate.
+
+  <a name="ResourceRequirements"></a>
+  *ResourceRequirements describes the compute resource requirements.*
+
+  - **resources.claims** ([]ResourceClaim)
+
+    *Map: unique values on key name will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+    
+    This field depends on the DynamicResourceAllocation feature gate.
+    
+    This field is immutable. It can only be set for containers.
+
+    <a name="ResourceClaim"></a>
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
+    - **resources.claims.request** (string)
+
+      Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+
+  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
 - **resourceClaims** ([]PodResourceClaim)
 
@@ -703,7 +764,7 @@ A single application container that you want to run within a pod.
 
   - **env.name** (string), required
 
-    Name of the environment variable. Must be a C_IDENTIFIER.
+    Name of the environment variable. May consist of any printable ASCII characters except '='.
 
   - **env.value** (string)
 
@@ -739,6 +800,31 @@ A single application container that you want to run within a pod.
 
       Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['\<KEY>']`, `metadata.annotations['\<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
 
+    - **env.valueFrom.fileKeyRef** (FileKeySelector)
+
+      FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+
+      <a name="FileKeySelector"></a>
+      *FileKeySelector selects a key of the env file.*
+
+      - **env.valueFrom.fileKeyRef.key** (string), required
+
+        The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+
+      - **env.valueFrom.fileKeyRef.path** (string), required
+
+        The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+
+      - **env.valueFrom.fileKeyRef.volumeName** (string), required
+
+        The name of the volume mount containing the env file.
+
+      - **env.valueFrom.fileKeyRef.optional** (boolean)
+
+        Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+        
+        If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+
     - **env.valueFrom.resourceFieldRef** (<a href="{{< ref "../common-definitions/resource-field-selector#ResourceFieldSelector" >}}">ResourceFieldSelector</a>)
 
       Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -766,10 +852,10 @@ A single application container that you want to run within a pod.
 
   *Atomic: will be replaced during a merge*
   
-  List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+  List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
 
   <a name="EnvFromSource"></a>
-  *EnvFromSource represents the source of a set of ConfigMaps*
+  *EnvFromSource represents the source of a set of ConfigMaps or Secrets*
 
   - **envFrom.configMapRef** (ConfigMapEnvSource)
 
@@ -790,7 +876,7 @@ A single application container that you want to run within a pod.
 
   - **envFrom.prefix** (string)
 
-    An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+    Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
 
   - **envFrom.secretRef** (SecretEnvSource)
 
@@ -894,7 +980,7 @@ A single application container that you want to run within a pod.
     
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
     
-    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    This field depends on the DynamicResourceAllocation feature gate.
     
     This field is immutable. It can only be set for containers.
 
@@ -952,6 +1038,10 @@ A single application container that you want to run within a pod.
 
     PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 
+  - **lifecycle.stopSignal** (string)
+
+    StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+
 - **terminationMessagePath** (string)
 
   Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
@@ -974,7 +1064,40 @@ A single application container that you want to run within a pod.
 
 - **restartPolicy** (string)
 
-  RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is "Always". For non-init containers or when this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+  RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+
+- **restartPolicyRules** ([]ContainerRestartRule)
+
+  *Atomic: will be replaced during a merge*
+  
+  Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
+
+  <a name="ContainerRestartRule"></a>
+  *ContainerRestartRule describes how a container exit is handled.*
+
+  - **restartPolicyRules.action** (string), required
+
+    Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+
+  - **restartPolicyRules.exitCodes** (ContainerRestartRuleOnExitCodes)
+
+    Represents the exit codes to check on container exits.
+
+    <a name="ContainerRestartRuleOnExitCodes"></a>
+    *ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.*
+
+    - **restartPolicyRules.exitCodes.operator** (string), required
+
+      Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+        set of specified values.
+      - NotIn: the requirement is satisfied if the container exit code is
+        not in the set of specified values.
+
+    - **restartPolicyRules.exitCodes.values** ([]int32)
+
+      *Set: unique values will be kept during a merge*
+      
+      Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
 
 ### Security Context
 
@@ -1197,7 +1320,7 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
   - **env.name** (string), required
 
-    Name of the environment variable. Must be a C_IDENTIFIER.
+    Name of the environment variable. May consist of any printable ASCII characters except '='.
 
   - **env.value** (string)
 
@@ -1233,6 +1356,31 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
       Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['\<KEY>']`, `metadata.annotations['\<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
 
+    - **env.valueFrom.fileKeyRef** (FileKeySelector)
+
+      FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
+
+      <a name="FileKeySelector"></a>
+      *FileKeySelector selects a key of the env file.*
+
+      - **env.valueFrom.fileKeyRef.key** (string), required
+
+        The key within the env file. An invalid key will prevent the pod from starting. The keys defined within a source may consist of any printable ASCII characters except '='. During Alpha stage of the EnvFiles feature gate, the key size is limited to 128 characters.
+
+      - **env.valueFrom.fileKeyRef.path** (string), required
+
+        The path within the volume from which to select the file. Must be relative and may not contain the '..' path or start with '..'.
+
+      - **env.valueFrom.fileKeyRef.volumeName** (string), required
+
+        The name of the volume mount containing the env file.
+
+      - **env.valueFrom.fileKeyRef.optional** (boolean)
+
+        Specify whether the file or its key must be defined. If the file or key does not exist, then the env var is not published. If optional is set to true and the specified key does not exist, the environment variable will not be set in the Pod's containers.
+        
+        If optional is set to false and the specified key does not exist, an error will be returned during Pod creation.
+
     - **env.valueFrom.resourceFieldRef** (<a href="{{< ref "../common-definitions/resource-field-selector#ResourceFieldSelector" >}}">ResourceFieldSelector</a>)
 
       Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
@@ -1260,10 +1408,10 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
   *Atomic: will be replaced during a merge*
   
-  List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+  List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
 
   <a name="EnvFromSource"></a>
-  *EnvFromSource represents the source of a set of ConfigMaps*
+  *EnvFromSource represents the source of a set of ConfigMaps or Secrets*
 
   - **envFrom.configMapRef** (ConfigMapEnvSource)
 
@@ -1284,7 +1432,7 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
   - **envFrom.prefix** (string)
 
-    An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+    Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
 
   - **envFrom.secretRef** (SecretEnvSource)
 
@@ -1405,7 +1553,40 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
 - **restartPolicy** (string)
 
-  Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+  Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
+
+- **restartPolicyRules** ([]ContainerRestartRule)
+
+  *Atomic: will be replaced during a merge*
+  
+  Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+
+  <a name="ContainerRestartRule"></a>
+  *ContainerRestartRule describes how a container exit is handled.*
+
+  - **restartPolicyRules.action** (string), required
+
+    Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
+
+  - **restartPolicyRules.exitCodes** (ContainerRestartRuleOnExitCodes)
+
+    Represents the exit codes to check on container exits.
+
+    <a name="ContainerRestartRuleOnExitCodes"></a>
+    *ContainerRestartRuleOnExitCodes describes the condition for handling an exited container based on its exit codes.*
+
+    - **restartPolicyRules.exitCodes.operator** (string), required
+
+      Represents the relationship between the container exit code(s) and the specified values. Possible values are: - In: the requirement is satisfied if the container exit code is in the
+        set of specified values.
+      - NotIn: the requirement is satisfied if the container exit code is
+        not in the set of specified values.
+
+    - **restartPolicyRules.exitCodes.values** ([]int32)
+
+      *Set: unique values will be kept during a merge*
+      
+      Specifies the set of values to check for container exit codes. At most 255 elements are allowed.
 
 ### Debugging
 
@@ -1607,7 +1788,7 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
     
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
     
-    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    This field depends on the DynamicResourceAllocation feature gate.
     
     This field is immutable. It can only be set for containers.
 
@@ -1645,6 +1826,10 @@ To add an ephemeral container, use the ephemeralcontainers subresource of an exi
 
     PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
 
+  - **lifecycle.stopSignal** (string)
+
+    StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+
 - **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 
   Probes are not allowed for ephemeral containers.
@@ -1667,7 +1852,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
 
 - **exec** (ExecAction)
 
-  Exec specifies the action to take.
+  Exec specifies a command to execute in the container.
 
   <a name="ExecAction"></a>
   *ExecAction describes a "run in container" action.*
@@ -1680,7 +1865,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
 
 - **httpGet** (HTTPGetAction)
 
-  HTTPGet specifies the http request to perform.
+  HTTPGet specifies an HTTP GET request to perform.
 
   <a name="HTTPGetAction"></a>
   *HTTPGetAction describes an action based on HTTP Get requests.*
@@ -1723,7 +1908,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
 
 - **sleep** (SleepAction)
 
-  Sleep represents the duration that the container should sleep before being terminated.
+  Sleep represents a duration that the container should sleep.
 
   <a name="SleepAction"></a>
   *SleepAction describes a "sleep" action.*
@@ -1734,7 +1919,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
 
 - **tcpSocket** (TCPSocketAction)
 
-  Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+  Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
 
   <a name="TCPSocketAction"></a>
   *TCPSocketAction describes an action based on opening a socket*
@@ -1858,13 +2043,13 @@ Pod affinity is a group of inter pod affinity scheduling rules.
 
       *Atomic: will be replaced during a merge*
       
-      MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+      MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.mismatchLabelKeys** ([]string)
 
       *Atomic: will be replaced during a merge*
       
-      MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+      MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -1901,13 +2086,13 @@ Pod affinity is a group of inter pod affinity scheduling rules.
 
     *Atomic: will be replaced during a merge*
     
-    MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+    MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 
   - **requiredDuringSchedulingIgnoredDuringExecution.mismatchLabelKeys** ([]string)
 
     *Atomic: will be replaced during a merge*
     
-    MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+    MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 
   - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -1933,7 +2118,7 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
   *Atomic: will be replaced during a merge*
   
-  The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+  The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
 
   <a name="WeightedPodAffinityTerm"></a>
   *The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)*
@@ -1957,13 +2142,13 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
       *Atomic: will be replaced during a merge*
       
-      MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+      MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.mismatchLabelKeys** ([]string)
 
       *Atomic: will be replaced during a merge*
       
-      MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+      MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -2000,13 +2185,13 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
     *Atomic: will be replaced during a merge*
     
-    MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+    MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
 
   - **requiredDuringSchedulingIgnoredDuringExecution.mismatchLabelKeys** ([]string)
 
     *Atomic: will be replaced during a merge*
     
-    MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).
+    MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
 
   - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -2030,7 +2215,7 @@ Probe describes a health check to be performed against a container to determine 
 
 - **exec** (ExecAction)
 
-  Exec specifies the action to take.
+  Exec specifies a command to execute in the container.
 
   <a name="ExecAction"></a>
   *ExecAction describes a "run in container" action.*
@@ -2043,7 +2228,7 @@ Probe describes a health check to be performed against a container to determine 
 
 - **httpGet** (HTTPGetAction)
 
-  HTTPGet specifies the http request to perform.
+  HTTPGet specifies an HTTP GET request to perform.
 
   <a name="HTTPGetAction"></a>
   *HTTPGetAction describes an action based on HTTP Get requests.*
@@ -2086,7 +2271,7 @@ Probe describes a health check to be performed against a container to determine 
 
 - **tcpSocket** (TCPSocketAction)
 
-  TCPSocket specifies an action involving a TCP port.
+  TCPSocket specifies a connection to a TCP port.
 
   <a name="TCPSocketAction"></a>
   *TCPSocketAction describes an action based on opening a socket*
@@ -2128,10 +2313,10 @@ Probe describes a health check to be performed against a container to determine 
 
 - **grpc** (GRPCAction)
 
-  GRPC specifies an action involving a GRPC port.
+  GRPC specifies a GRPC HealthCheckRequest.
 
   <a name="GRPCAction"></a>
-  **
+  *GRPCAction specifies an action involving a GRPC service.*
 
   - **grpc.port** (int32), required
 
@@ -2255,6 +2440,10 @@ PodStatus represents information about the status of a pod. Status may trail the
 
     Human-readable message indicating details about last transition.
 
+  - **conditions.observedGeneration** (int64)
+
+    If set, this represents the .metadata.generation that the pod condition was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
+
   - **conditions.reason** (string)
 
     Unique, one-word, CamelCase reason for the condition's last transition.
@@ -2267,7 +2456,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   *Atomic: will be replaced during a merge*
   
-  The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+  Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
@@ -2285,20 +2474,20 @@ PodStatus represents information about the status of a pod. Status may trail the
     AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
 
     <a name="ResourceStatus"></a>
-    **
+    *ResourceStatus represents the status of a single resource allocated to a Pod.*
 
     - **initContainerStatuses.allocatedResourcesStatus.name** (string), required
 
-      Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+      Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:\<claim_name>/\<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 
     - **initContainerStatuses.allocatedResourcesStatus.resources** ([]ResourceHealth)
 
       *Map: unique values on key resourceID will be kept during a merge*
       
-      List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+      List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 
       <a name="ResourceHealth"></a>
-      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.*
+      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.*
 
       - **initContainerStatuses.allocatedResourcesStatus.resources.resourceID** (string), required
 
@@ -2428,7 +2617,7 @@ PodStatus represents information about the status of a pod. Status may trail the
       
       Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
       
-      This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+      This field depends on the DynamicResourceAllocation feature gate.
       
       This field is immutable. It can only be set for containers.
 
@@ -2536,6 +2725,10 @@ PodStatus represents information about the status of a pod. Status may trail the
 
         (brief) reason the container is not yet running.
 
+  - **initContainerStatuses.stopSignal** (string)
+
+    StopSignal reports the effective stop signal for this container
+
   - **initContainerStatuses.user** (ContainerUser)
 
     User represents user identity information initially attached to the first process of the container
@@ -2595,7 +2788,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   *Atomic: will be replaced during a merge*
   
-  The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+  Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
@@ -2613,20 +2806,20 @@ PodStatus represents information about the status of a pod. Status may trail the
     AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
 
     <a name="ResourceStatus"></a>
-    **
+    *ResourceStatus represents the status of a single resource allocated to a Pod.*
 
     - **containerStatuses.allocatedResourcesStatus.name** (string), required
 
-      Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+      Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:\<claim_name>/\<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 
     - **containerStatuses.allocatedResourcesStatus.resources** ([]ResourceHealth)
 
       *Map: unique values on key resourceID will be kept during a merge*
       
-      List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+      List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 
       <a name="ResourceHealth"></a>
-      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.*
+      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.*
 
       - **containerStatuses.allocatedResourcesStatus.resources.resourceID** (string), required
 
@@ -2756,7 +2949,7 @@ PodStatus represents information about the status of a pod. Status may trail the
       
       Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
       
-      This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+      This field depends on the DynamicResourceAllocation feature gate.
       
       This field is immutable. It can only be set for containers.
 
@@ -2864,6 +3057,10 @@ PodStatus represents information about the status of a pod. Status may trail the
 
         (brief) reason the container is not yet running.
 
+  - **containerStatuses.stopSignal** (string)
+
+    StopSignal reports the effective stop signal for this container
+
   - **containerStatuses.user** (ContainerUser)
 
     User represents user identity information initially attached to the first process of the container
@@ -2923,7 +3120,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   *Atomic: will be replaced during a merge*
   
-  Status for any ephemeral containers that have run in this pod.
+  Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
@@ -2941,20 +3138,20 @@ PodStatus represents information about the status of a pod. Status may trail the
     AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
 
     <a name="ResourceStatus"></a>
-    **
+    *ResourceStatus represents the status of a single resource allocated to a Pod.*
 
     - **ephemeralContainerStatuses.allocatedResourcesStatus.name** (string), required
 
-      Name of the resource. Must be unique within the pod and match one of the resources from the pod spec.
+      Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:\<claim_name>/\<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 
     - **ephemeralContainerStatuses.allocatedResourcesStatus.resources** ([]ResourceHealth)
 
       *Map: unique values on key resourceID will be kept during a merge*
       
-      List of unique Resources health. Each element in the list contains an unique resource ID and resource health. At a minimum, ResourceID must uniquely identify the Resource allocated to the Pod on the Node for the lifetime of a Pod. See ResourceID type for it's definition.
+      List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 
       <a name="ResourceHealth"></a>
-      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680 and historical health changes are planned to be added in future iterations of a KEP.*
+      *ResourceHealth represents the health of a resource. It has the latest device health information. This is a part of KEP https://kep.k8s.io/4680.*
 
       - **ephemeralContainerStatuses.allocatedResourcesStatus.resources.resourceID** (string), required
 
@@ -3084,7 +3281,7 @@ PodStatus represents information about the status of a pod. Status may trail the
       
       Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
       
-      This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+      This field depends on the DynamicResourceAllocation feature gate.
       
       This field is immutable. It can only be set for containers.
 
@@ -3192,6 +3389,10 @@ PodStatus represents information about the status of a pod. Status may trail the
 
         (brief) reason the container is not yet running.
 
+  - **ephemeralContainerStatuses.stopSignal** (string)
+
+    StopSignal reports the effective stop signal for this container
+
   - **ephemeralContainerStatuses.user** (ContainerUser)
 
     User represents user identity information initially attached to the first process of the container
@@ -3266,9 +3467,45 @@ PodStatus represents information about the status of a pod. Status may trail the
 
     ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
 
+- **extendedResourceClaimStatus** (PodExtendedResourceClaimStatus)
+
+  Status of extended resource claim backed by DRA.
+
+  <a name="PodExtendedResourceClaimStatus"></a>
+  *PodExtendedResourceClaimStatus is stored in the PodStatus for the extended resource requests backed by DRA. It stores the generated name for the corresponding special ResourceClaim created by the scheduler.*
+
+  - **extendedResourceClaimStatus.requestMappings** ([]ContainerExtendedResourceRequest), required
+
+    *Atomic: will be replaced during a merge*
+    
+    RequestMappings identifies the mapping of \<container, extended resource backed by DRA> to  device request in the generated ResourceClaim.
+
+    <a name="ContainerExtendedResourceRequest"></a>
+    *ContainerExtendedResourceRequest has the mapping of container name, extended resource name to the device request name.*
+
+    - **extendedResourceClaimStatus.requestMappings.containerName** (string), required
+
+      The name of the container requesting resources.
+
+    - **extendedResourceClaimStatus.requestMappings.requestName** (string), required
+
+      The name of the request in the special ResourceClaim which corresponds to the extended resource.
+
+    - **extendedResourceClaimStatus.requestMappings.resourceName** (string), required
+
+      The name of the extended resource in that container which gets backed by DRA.
+
+  - **extendedResourceClaimStatus.resourceClaimName** (string), required
+
+    ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+
 - **resize** (string)
 
-  Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+  Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
+
+- **observedGeneration** (int64)
+
+  If set, this represents the .metadata.generation that the pod status was set based upon. This is an alpha field. Enable PodObservedGenerationTracking to be able to use this field.
 
 
 
@@ -3431,9 +3668,14 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/log
   A relative time in seconds before the current time from which to show logs. If this value precedes the time a pod was started, only logs since the pod start will be returned. If this value is in the future, no logs will be returned. Only one of sinceSeconds or sinceTime may be specified.
 
 
+- **stream** (*in query*): string
+
+  Specify which container log stream to return to the client. Acceptable values are "All", "Stdout" and "Stderr". If not specified, "All" is used, and both stdout and stderr are returned interleaved. Note that when "TailLines" is specified, "Stream" can only be set to nil or "All".
+
+
 - **tailLines** (*in query*): integer
 
-  If set, the number of lines from the end of the logs to show. If not specified, logs are shown from the creation of the container or sinceSeconds or sinceTime
+  If set, the number of lines from the end of the logs to show. If not specified, logs are shown from the creation of the container or sinceSeconds or sinceTime. Note that when "TailLines" is specified, "Stream" can only be set to nil or "All".
 
 
 - **timestamps** (*in query*): boolean
@@ -3446,6 +3688,39 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/log
 
 
 200 (string): OK
+
+401: Unauthorized
+
+
+### `get` read resize of the specified Pod
+
+#### HTTP Request
+
+GET /api/v1/namespaces/{namespace}/pods/{name}/resize
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the Pod
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
 
 401: Unauthorized
 
@@ -3796,6 +4071,61 @@ PUT /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
 401: Unauthorized
 
 
+### `update` replace resize of the specified Pod
+
+#### HTTP Request
+
+PUT /api/v1/namespaces/{namespace}/pods/{name}/resize
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the Pod
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): Created
+
+401: Unauthorized
+
+
 ### `update` replace status of the specified Pod
 
 #### HTTP Request
@@ -3971,6 +4301,66 @@ PATCH /api/v1/namespaces/{namespace}/pods/{name}/ephemeralcontainers
 401: Unauthorized
 
 
+### `patch` partially update resize of the specified Pod
+
+#### HTTP Request
+
+PATCH /api/v1/namespaces/{namespace}/pods/{name}/resize
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the Pod
+
+
+- **namespace** (*in path*): string, required
+
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/pod-v1#Pod" >}}">Pod</a>): Created
+
+401: Unauthorized
+
+
 ### `patch` partially update status of the specified Pod
 
 #### HTTP Request
@@ -4065,6 +4455,11 @@ DELETE /api/v1/namespaces/{namespace}/pods/{name}
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -4123,6 +4518,11 @@ DELETE /api/v1/namespaces/{namespace}/pods
 - **gracePeriodSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 
 - **labelSelector** (*in query*): string

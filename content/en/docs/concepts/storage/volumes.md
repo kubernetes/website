@@ -317,9 +317,6 @@ You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to th
 beforehand so that Kubernetes hosts can access them.
 {{< /note >}}
 
-See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
-for more details.
-
 ### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
 In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `gcePersistentDisk` type
@@ -335,7 +332,7 @@ third party storage driver instead.
 ### gitRepo (deprecated) {#gitrepo}
 
 {{< warning >}}
-The `gitRepo` volume type is deprecated.
+The `gitRepo` volume plugin is deprecated and is disabled by default.
 
 To provision a Pod that has a Git repository mounted, you can mount an
 [`emptyDir`](#emptydir) volume into an [init container](/docs/concepts/workloads/pods/init-containers/)
@@ -354,6 +351,10 @@ part of a policy to reject use of `gitRepo` volumes:
 ```
 
 {{< /warning >}}
+
+You can use this deprecated storage plugin in your cluster if you explicitly
+enable the `GitRepoVolumeDriver`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 A `gitRepo` volume is an example of a volume plugin. This plugin
 mounts an empty directory and clones a git repository into this directory
@@ -611,8 +612,10 @@ volume with file execution blocked (`noexec`).
 
 Besides that:
 
-- Sub path mounts for containers are not supported
-  (`spec.containers[*].volumeMounts.subpath`).
+- [`subPath`](/docs/concepts/storage/volumes/#using-subpath) or
+  [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
+  mounts for containers (`spec.containers[*].volumeMounts.[subPath,subPathExpr]`)
+  are only supported from Kubernetes v1.33.
 - The field `spec.securityContext.fsGroupChangePolicy` has no effect on this
   volume type.
 - The [`AlwaysPullImages` Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
@@ -656,8 +659,6 @@ simultaneously. This means that you can pre-populate a volume with your dataset
 and then serve it in parallel from as many Pods as you need. Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode.
 Simultaneous writers are not allowed.
-
-See the [iSCSI example](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) for more details.
 
 ### local
 
@@ -768,9 +769,6 @@ use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.h
 You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 {{< /note >}}
 
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
-for an example of mounting NFS volumes with PersistentVolumes.
-
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 A `persistentVolumeClaim` volume is used to mount a
@@ -819,23 +817,13 @@ Make sure you have an existing PortworxVolume with name `pxvol`
 before using it in the Pod.
 {{< /note >}}
 
-For more details, see the
-[Portworx volume](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md) examples.
 
 #### Portworx CSI migration
+{{< feature-state feature_gate_name="CSIMigrationPortworx" >}}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
-
-By default, Kubernetes {{% skew currentVersion %}} attempts to migrate legacy
-Portworx volumes to use CSI. (CSI migration for Portworx has been available since
-Kubernetes v1.23, but was only turned on by default since the v1.31 release).
-If you want to disable automatic migration, you can set the `CSIMigrationPortworx`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to `false`; you need to make that change for the kube-controller-manager **and** on
-every relevant kubelet.
-
-It redirects all plugin operations from the existing in-tree plugin to the
-`pxd.portworx.com` Container Storage Interface (CSI) Driver.
+In Kubernetes {{% skew currentVersion %}}, all operations for the in-tree
+Portworx volumes are redirected to the `pxd.portworx.com` 
+Container Storage Interface (CSI) Driver by default.  
 [Portworx CSI Driver](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)
 must be installed on the cluster.
 
@@ -977,7 +965,7 @@ spec:
 
 ## Resources
 
-The storage media (such as Disk or SSD) of an `emptyDir` volume is determined by the
+The storage medium (such as Disk or SSD) of an `emptyDir` volume is determined by the
 medium of the filesystem holding the kubelet root dir (typically
 `/var/lib/kubelet`). There is no limit on how much space an `emptyDir` or
 `hostPath` volume can consume, and no isolation between containers or

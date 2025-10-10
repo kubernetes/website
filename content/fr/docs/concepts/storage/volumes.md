@@ -315,8 +315,6 @@ Si plusieurs WWNs sont spécifiés, targetWWNs s'attend à ce que ces WWNs provi
 Vous devez configurer un zonage FC SAN pour allouer et masquer au préalable ces LUNs (volumes) aux cibles WWNs afin que les hôtes Kubernetes puissent y accéder.
 {{< /caution >}}
 
-Voir [l'exemple FC](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) pour plus de détails.
-
 ### flocker {#flocker}
 
 [Flocker](https://github.com/ClusterHQ/flocker) est un gestionnaire de volumes de données en cluster open-source. Il assure la gestion et l'orchestration de volumes de données supportés par divers serveurs de stockage.
@@ -537,8 +535,6 @@ Une fonctionnalité de iSCSI est qu'il peut être monté en lecture seule par pl
 Cela signifie que vous pouvez préremplir un volume avec votre jeu de données et l'exposer en parallèle à partir d'autant de Pods que nécessaire.
 Malheureusement, les volumes iSCSI peuvent seulement être montés par un seul consommateur en mode lecture-écriture - les écritures simultanées ne sont pas autorisées.
 
-Voir [l'exemple iSCSI](https://github.com/kubernetes/examples/tree/master/volumes/iscsi) pour plus de détails.
-
 ### local {#local}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
@@ -604,8 +600,6 @@ Cela signifie qu'un volume NFS peut être prérempli avec des données et que le
 {{< caution >}}
 Vous devez exécuter votre propre serveur NFS avec le partage exporté avant de pouvoir l'utiliser.
 {{< /caution >}}
-
-Voir [l'exemple NFS](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) pour plus de détails.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -775,8 +769,6 @@ spec:
 {{< caution >}}
 Il faut s'assurer d'avoir un PortworxVolume existant avec le nom `pxvol` avant de l'utiliser dans le Pod.
 {{< /caution >}}
-
-Plus de détails et d'exemples peuvent être trouvé [ici](https://github.com/kubernetes/examples/tree/master/staging/volumes/portworx/README.md).
 
 ### quobyte {#quobyte}
 

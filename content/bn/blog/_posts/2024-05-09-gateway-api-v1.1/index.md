@@ -136,20 +136,20 @@ metadata:
 spec:
   gatewayClassName: acme-lb
   listeners:
-    name: foo-https
+  - name: foo-https
     protocol: HTTPS
     port: 443
     hostname: foo.example.com
-  tls:
-    certificateRefs:
-      kind: Secret
-      group: ""
-      name: foo-example-com-cert
-    frontendValidation:
-      caCertificateRefs:
-        kind: ConfigMap
+    tls:
+      certificateRefs:
+      - kind: Secret
         group: ""
-        name: foo-example-com-ca-cert
+        name: foo-example-com-cert
+      frontendValidation:
+        caCertificateRefs:
+        - kind: ConfigMap
+          group: ""
+          name: foo-example-com-ca-cert
 ```
 
 #### [সেশন পার্সিস্টেন্স এবং BackendLBPolicy (Session Persistence and BackendLBPolicy)](https://gateway-api.sigs.k8s.io/geps/gep-1619/)

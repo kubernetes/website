@@ -33,7 +33,7 @@ TokenReview attempts to authenticate a token to a known user. Note: TokenReview 
 ## TokenReview {#TokenReview}
 
 TokenReview 尝试通过验证令牌来确认已知用户。
-注意：TokenReview 请求可能会被 kube-apiserver 中的 webhook 令牌验证器插件缓存。
+注意：TokenReview 请求可能会被 kube-apiserver 中的 Webhook 令牌验证器插件缓存。
 
 <hr>
 
@@ -63,7 +63,6 @@ TokenReview 尝试通过验证令牌来确认已知用户。
   Status is filled in by the server and indicates whether the request can be authenticated.
   -->
   status 由服务器填写，指示请求是否可以通过身份验证。
-
 
 ## TokenReviewSpec {#TokenReviewSpec}
 
@@ -151,7 +150,7 @@ TokenReviewStatus 是令牌认证请求的结果。
     <!--
     Any additional information provided by the authenticator.
     -->
-   验证者提供的任何附加信息。
+    验证者提供的任何附加信息。
 
   - **user.groups** ([]string)
 
@@ -171,14 +170,14 @@ TokenReviewStatus 是令牌认证请求的结果。
     <!--
     A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
     -->
-   跨时间标识此用户的唯一值。如果删除此用户并添加另一个同名用户，他们将拥有不同的 UID。
+    跨时间标识此用户的唯一值。如果删除此用户并添加另一个同名用户，他们将拥有不同的 UID。
 
   - **user.username** (string)
 
     <!--
     The name that uniquely identifies this user among all active users.
     -->
-   在所有活跃用户中唯一标识此用户的名称。
+    在所有活跃用户中唯一标识此用户的名称。
 
 <!--
 ## Operations {#Operations}
@@ -234,4 +233,3 @@ POST /apis/authentication.k8s.io/v1/tokenreviews
 202 (<a href="{{< ref "../authentication-resources/token-review-v1#TokenReview" >}}">TokenReview</a>): Accepted
 
 401: Unauthorized
-

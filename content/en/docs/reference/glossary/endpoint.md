@@ -4,14 +4,19 @@ id: endpoints
 date: 2020-04-23
 full_link: 
 short_description: >
-  Endpoints track the IP addresses of Pods with matching Service selectors.
+  An endpoint of a Service is one of the Pods (or external servers) that implements the Service.
 
 aka:
 tags:
 - networking
 ---
- Endpoints track the IP addresses of Pods with matching  {{< glossary_tooltip text="selectors" term_id="selector" >}}.
+ An endpoint of a {{< glossary_tooltip text="Service" term_id="service" >}} is one of the {{< glossary_tooltip text="Pods" term_id="pod" >}} (or external servers) that implements the Service.
 
 <!--more-->
-Endpoints can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
-The {{< glossary_tooltip text="EndpointSlice" term_id="endpoint-slice" >}} resource provides a scalable and extensible alternative to Endpoints.
+For Services with {{< glossary_tooltip text="selectors" term_id="selector" >}},
+the EndpointSlice controller will automatically create one or more {{<
+glossary_tooltip text="EndpointSlices" term_id="endpoint-slice" >}} giving the
+IP addresses of the selected endpoint Pods.
+
+EndpointSlices can also be created manually to indicate the endpoints of
+Services that have no selector specified.

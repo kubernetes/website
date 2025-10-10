@@ -132,13 +132,14 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.32"
+latest = "v1.34"
 
-version = "v1.32"
+version = "v1.34"
 githubbranch = "main"
 docsbranch = "main"
+# Should be changed to Docsy provided `archived_version` in the future.
 deprecated = false
-currentUrl = "https://kubernetes.io/docs/home/"
+url_latest_version = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 
 # See code_sample shortcode
@@ -174,34 +175,34 @@ js = [
 ]
 
 [[params.versions]]
-version = "v1.32"
-githubbranch = "v1.32.0"
+version = "v1.34"
+githubbranch = "v1.34.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
+version = "v1.33"
+githubbranch = "v1.33.4"
+docsbranch = "release-1.33"
+url = "https://v1-33.docs.kubernetes.io"
+
+[[params.versions]]
+version = "v1.32"
+githubbranch = "v1.32.8"
+docsbranch = "release-1.32"
+url = "https://v1-32.docs.kubernetes.io"
+
+[[params.versions]]
 version = "v1.31"
-githubbranch = "v1.31.0"
+githubbranch = "v1.31.12"
 docsbranch = "release-1.31"
 url = "https://v1-31.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.30"
-githubbranch = "v1.30.3"
+githubbranch = "v1.30.14"
 docsbranch = "release-1.30"
 url = "https://v1-30.docs.kubernetes.io"
-
-[[params.versions]]
-version = "v1.29"
-githubbranch = "v1.29.7"
-docsbranch = "release-1.29"
-url = "https://v1-29.docs.kubernetes.io"
-
-[[params.versions]]
-version = "v1.28"
-githubbranch = "v1.28.12"
-docsbranch = "release-1.28"
-url = "https://v1-28.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
@@ -254,11 +255,15 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
   url = "https://www.linkedin.com/company/kubernetes/"
   icon = "fa-brands fa-linkedin"
 
-#[[params.links.user]]
-#	name_key = "community_x_name"
-#	url = "https://twitter.com/kubernetesio"
-#	icon = "fa-brands fa-twitter"
-# Replace with fa-x-twitter once available
+[[params.links.user]]
+	name_key = "community_bluesky_name"
+	url = "https://bsky.app/profile/kubernetes.io"
+	icon = "fa-brands fa-bluesky"
+
+[[params.links.user]]
+	name_key = "community_x_name"
+	url = "https://x.com/kubernetesio"
+	icon = "fa-brands fa-x-twitter"
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
@@ -497,6 +502,7 @@ languagedirection = "ltr"
 [languages.vi.params]
 languageNameLatinScript = "Tiếng Việt"
 description = "Giải pháp điều phối container trong môi trường production"
+language_alternatives = ["en"]
 
 # Ensure that the correct file names are in the correct directory. For e.g. i18n/en should contain en.toml and never de.toml
 [[module.mounts]]
@@ -562,3 +568,56 @@ target = "i18n"
 [[module.mounts]]
 source = "i18n/zh-cn"
 target = "i18n"
+
+[segments]
+  [segments.all]
+    [[segments.all.includes]]
+      path = '{/**}'
+  [segments.en]
+    [[segments.en.includes]]
+      lang = 'en'
+  [segments.bn]
+    [[segments.bn.includes]]
+      lang = 'bn'
+  [segments.zh-cn]
+    [[segments.zh-cn.includes]]
+      lang = 'zh-cn'
+  [segments.fr]
+    [[segments.fr.includes]]
+      lang = 'fr'
+  [segments.de]
+    [[segments.de.includes]]
+      lang = 'de'
+  [segments.hi]
+    [[segments.hi.includes]]
+      lang = 'hi'
+  [segments.id]
+    [[segments.id.includes]]
+      lang = 'id'
+  [segments.it]
+    [[segments.it.includes]]
+      lang = 'it'
+  [segments.ja]
+    [[segments.ja.includes]]
+      lang = 'ja'
+  [segments.ko]
+    [[segments.ko.includes]]
+      lang = 'ko'
+  [segments.pl]
+    [[segments.pl.includes]]
+      lang = 'pl'
+  [segments.pt-br]
+    [[segments.pt-br.includes]]
+      lang = 'pt-br'
+  [segments.ru]
+    [[segments.ru.includes]]
+      lang = 'ru'
+  [segments.es]
+    [[segments.es.includes]]
+      lang = 'es'
+  [segments.uk]
+    [[segments.uk.includes]]
+      lang = 'uk'
+  [segments.vi]
+    [[segments.vi.includes]]
+      lang = 'vi'

@@ -34,9 +34,9 @@ In cases when objects represent a physical entity, like a Node representing a ph
 
 The server may generate a name when `generateName` is provided instead of `name` in a resource create request.
 When `generateName` is used, the provided value is used as a name prefix, which server appends a generated suffix
-to. Even though the name is generated, it may conflict with existing names resulting in a HTTP 409 response. This
-became far less likely to happen in Kubernetes v1.31 and later, since the server will make up to 8 attempt to generate a
-unique name before returning a HTTP 409 response.
+to. Even though the name is generated, it may conflict with existing names resulting in an HTTP 409 response. This
+became far less likely to happen in Kubernetes v1.31 and later, since the server will make up to 8 attempts to generate a
+unique name before returning an HTTP 409 response.
 
 Below are four types of commonly used name constraints for resources.
 
@@ -59,8 +59,13 @@ This means the name must:
 
 - contain at most 63 characters
 - contain only lowercase alphanumeric characters or '-'
-- start with an alphanumeric character
+- start with an alphabetic character
 - end with an alphanumeric character
+
+{{< note >}}
+When the `RelaxedServiceNameValidation` feature gate is enabled,
+Service object names are allowed to start with a digit.
+{{< /note >}}
 
 ### RFC 1035 Label Names
 
@@ -74,10 +79,10 @@ This means the name must:
 - end with an alphanumeric character
 
 {{< note >}}
-The only difference between the RFC 1035 and RFC 1123
-label standards is that RFC 1123 labels are allowed to
-start with a digit, whereas RFC 1035 labels can start
-with a lowercase alphabetic character only.
+While RFC 1123 technically allows labels to start with digits, the current
+Kubernetes implementation requires both RFC 1035 and RFC 1123 labels to start
+with an alphabetic character. The exception is when the `RelaxedServiceNameValidation`
+feature gate is enabled for Service objects, which allows Service names to start with digits.
 {{< /note >}}
 
 ### Path Segment Names

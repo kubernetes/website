@@ -127,7 +127,7 @@ virtual resource type would be used if that becomes necessary.
 
 ## HTTP media types {#alternate-representations-of-resources}
 
-Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
+Over HTTP, Kubernetes supports JSON, YAML, CBOR and Protobuf wire encodings.
 
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
 `application/json` media type. Although JSON is the default, clients may request a response in
@@ -143,6 +143,13 @@ If you request an available media type, the API server returns a response with a
 `Content-Type`; if none of the media types you request are supported, the API server returns
 a `406 Not acceptable` error message.
 All built-in resource types support the `application/json` media type.
+
+#### Chunked encoding of collections
+
+For JSON and Protobuf encoding, Kubernetes implements custom encoders that write item, by item.
+The feature doesn't change the output, but allows API server to avoid loading whole LIST response into memory.
+Using other types of encoding (including pretty representation of JSON)
+should be avoided for large collections of resources (>100MB) as it can have negative performance impact.
 
 ### JSON resource encoding {#json-encoding}
 
@@ -183,6 +190,9 @@ For example:
      …
    }
    ```
+
+You can also request [table](#table-fetches) and [metadata-only](#metadata-only-fetches)
+representations of this encoding.
 
 ### YAML resource encoding {#yaml-encoding}
 
@@ -226,6 +236,9 @@ For example:
      …
    ```
 
+You can also request [table](#table-fetches) and [metadata-only](#metadata-only-fetches)
+representations of this encoding.
+
 ### Kubernetes Protobuf encoding {#protobuf-encoding}
 
 Kubernetes uses an envelope wrapper to encode [Protobuf](https://protobuf.dev/) responses.
@@ -248,7 +261,7 @@ For example:
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
-   … JSON encoded collection of Pods (PodList object)
+   … binary encoded collection of Pods (PodList object)
    ```
 
 1. Create a pod by sending Protobuf encoded data to the server, but request a response
@@ -315,6 +328,9 @@ to alter the serialization format in an incompatible way and will do so by chang
 the prefix.
 {{< /note >}}
 
+You can also request [table](#table-fetches) and [metadata-only](#metadata-only-fetches)
+representations of this encoding.
+
 #### Compatibility with Kubernetes Protobuf {#protobuf-encoding-compatibility}
 
 Not all API resource types support Kubernetes' Protobuf encoding; specifically, Protobuf isn't
@@ -359,6 +375,9 @@ In addition to the existing `application/apply-patch+yaml` media type for YAML-e
 `application/apply-patch+cbor` media type for CBOR-encoded server-side apply configurations. There
 is no supported CBOR equivalent for `application/json-patch+json` or `application/merge-patch+json`,
 or `application/strategic-merge-patch+json`.
+
+You can also request [table](#table-fetches) and [metadata-only](#metadata-only-fetches)
+representations of this encoding.
 
 ## Efficient detection of changes
 
@@ -758,7 +777,7 @@ collections that might be of different kinds of object. Avoid depending on
 `kind: List` in automation or other code.
 {{< /note >}}
 
-## Receiving resources as Tables
+## Table fetches
 
 When you run `kubectl get`, the default output format is a simple tabular
 representation of one or more instances of a particular resource type. In the past,
@@ -837,6 +856,102 @@ extensions, you should make requests that specify multiple content types in the
 ```
 Accept: application/json;as=Table;g=meta.k8s.io;v=v1, application/json
 ```
+
+If the client indicates it only accepts `...;as=Table;g=meta.k8s.io;v=v1`, servers
+that don't support table responses will return a 406 error code.
+
+If falling back to full objects in that case is desired, clients can add `,application/json`
+(or any other supported encoding) to their Accept header, and handle either
+table or full objects in the response:
+
+```http
+Accept: application/json;as=Table;g=meta.k8s.io;v=v1,application/json`
+```
+
+For more information on content type negotiation, see the
+[MDN Content Negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation).
+
+## Metadata-only fetches
+
+To request partial object metadata, you can request metadata only responses in the `Accept`
+header. The Kubernetes API implements a variation on HTTP content type negotiation.
+As a client, you can provide an `Accept` header with the desired media type,
+along with parameters that indicate you want only metadata.
+For example: `Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`
+for JSON.
+
+For example, to list all of the pods in a cluster, across all namespaces, but returning only the metadata for each pod:
+
+```http
+GET /api/v1/pods
+Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1
+---
+200 OK
+Content-Type: application/json
+
+{
+    "kind": "PartialObjectMetadataList",
+    "apiVersion": "meta.k8s.io/v1",
+    "metadata": {
+        "resourceVersion": "...",
+    },
+    "items": [
+        {
+            "apiVersion": "meta.k8s.io/v1",
+            "kind": "PartialObjectMetadata",
+            "metadata": {
+                "name": "pod-1",
+                ...
+            }
+        },
+        {
+            "apiVersion": "meta.k8s.io/v1",
+            "kind": "PartialObjectMetadata",
+            "metadata": {
+                "name": "pod-2",
+                ...
+            }
+        }
+    ]
+}
+```
+
+For a request for a collection, the API server returns a PartialObjectMetadataList.
+For a request for a single object, the API server returns a PartialObjectMetadata
+representation of the
+object. In both cases, the returned objects only contain the `metadata` field.
+The `spec` and `status` fields are omitted.
+
+This feature is useful for clients that only need to check for the existence of
+an object, or that only need to read its metadata. It can significantly reduce
+the size of the response from the API server.
+
+You can request a metadata-only fetch for all available media types (JSON, YAML, CBOR and Kubernetes Protobuf).
+For Protobuf, the
+`Accept` header would be
+`application/vnd.kubernetes.protobuf;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`.
+
+The Kubernetes API server supports partial fetching for nearly all of its built-in APIs.
+However, you can use Kubernetes to access other API servers via the
+{{< glossary_tooltip text="aggregation layer" term_id="aggregation-layer" >}}, and those
+APIs may not support partial fetches.
+
+If a client uses the `Accept` header to **only** request a response `...;as=PartialObjectMetadata;g=meta.k8s.io;v=v1`,
+and accesses an API that doesn't support partial responses, Kubernetes responds
+with a 406 HTTP error.
+
+
+If falling back to full objects in that case is desired, clients can add `,application/json`
+(or any other supported encoding) to their Accept header, and handle either
+PartialObjectMetadata or full objects in the response. It's a good idea to specify
+that a partial response is preferred, using the `q` (_quality_) parameter. For example:
+
+```http
+Accept: application/json;as=PartialObjectMetadata;g=meta.k8s.io;v=v1, application/json;q=0.9
+```
+
+For more information on content type negotiation, see the
+[MDN Content Negotiation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation).
 
 ## Resource deletion
 
@@ -1010,6 +1125,11 @@ Prior to Kubernetes 1.25, `kubectl --validate` was used to toggle client-side va
 a boolean flag.
 
 {{< /note >}}
+
+Starting from v1.33, Kubernetes (including v{{< skew currentVersion>}}) offers a way to define field validations using _declarative tags_.
+This is useful for people contributing to Kubernetes itself, and it's also relevant if you're
+writing your own API using Kubernetes libraries.
+To learn more, see [Declarative API Validation](/docs/reference/using-api/declarative-validation/).
 
 ## Dry-run
 
@@ -1307,15 +1427,15 @@ This table explains the behavior of **list** requests with various combinations 
 
 {{< table caption="resourceVersionMatch and paging parameters for list" >}}
 
-| resourceVersionMatch param | paging params | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
-|----------------------------|---------------|-------------------------|---------------------|----------------------------------------|
-| _unset_ | _limit unset_ | Most Recent | Any | Not older than |
-| _unset_ | limit=\<n\>, _continue unset_ | Most Recent | Any | Exact |
-| _unset_ | limit=\<n\>, continue=\<token\>| Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request` |
-| `resourceVersionMatch=Exact` | _limit unset_ | Invalid | Invalid | Exact |
-| `resourceVersionMatch=Exact` | limit=\<n\>, _continue unset_ | Invalid | Invalid | Exact |
-| `resourceVersionMatch=NotOlderThan` | _limit unset_ | Invalid | Any | Not older than |
-| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_ | Invalid | Any | Not older than |
+| resourceVersionMatch param          | paging params                  | resourceVersion not set | resourceVersion="0" | resourceVersion="{value other than 0}" |
+|-------------------------------------|--------------------------------|-------------------------|---------------------|----------------------------------------|
+| _unset_                             | _limit unset_                  | Most Recent             | Any                 | Not older than                         |
+| _unset_                             | limit=\<n\>, _continue unset_  | Most Recent             | Any                 | Exact                                  |
+| _unset_                             | limit=\<n\>, continue=\<token\>| Continuation            | Continuation        | Invalid, HTTP `400 Bad Request`        |
+| `resourceVersionMatch=Exact`        | _limit unset_                  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=Exact`        | limit=\<n\>, _continue unset_  | Invalid                 | Invalid             | Exact                                  |
+| `resourceVersionMatch=NotOlderThan` | _limit unset_                  | Invalid                 | Any                 | Not older than                         |
+| `resourceVersionMatch=NotOlderThan` | limit=\<n\>, _continue unset_  | Invalid                 | Any                 | Not older than                         |
 
 {{< /table >}}
 
@@ -1332,6 +1452,7 @@ Any
   for the request to return data at a much older resource version that the client has previously
   observed, particularly in high availability configurations, due to partitions or stale
   caches. Clients that cannot tolerate this should not use this semantic.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 
 Most recent
 : Return data at the most recent resource version. The returned data must be
@@ -1349,6 +1470,7 @@ Not older than
   guarantees that the collection's `.metadata.resourceVersion` is not older than the requested
   `resourceVersion`, but does not make any guarantee about the `.metadata.resourceVersion` of any
   of the items in that collection.
+  Always served from _watch cache_, improving performance and reducing etcd load.
 
 Exact
 : Return data at the exact resource version provided. If the provided `resourceVersion` is
@@ -1356,11 +1478,21 @@ Exact
   `resourceVersionMatch` parameter, this guarantees that the collection's `.metadata.resourceVersion`
   is the same as the `resourceVersion` you requested in the query string. That guarantee does
   not apply to the `.metadata.resourceVersion` of any items within that collection.
+  With the `ListFromCacheSnapshot` feature gate enabled by default,
+  API server will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested.
+  This improves performance and reduces etcd load. API server starts with no snapshots,
+  creates a new snapshot on every watch event and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds.
+  If the provided `resourceVersion` is unavailable, the server will fallback to etcd.
 
-Continue Token, Exact
-: Return data at the resource version of the initial paginated **list** call. The returned _continue
-  tokens_ are responsible for keeping track of the initially provided resource version for all paginated
-  **list** calls after the initial paginated **list**.
+Continuation
+: Return the next page of data for a paginated list request, ensuring consistency with the exact `resourceVersion` established by the initial request in the sequence.
+  Response to **list** requests with limit include _continue token_, that encodes the  `resourceVersion` and last observed position from which to resume the list.
+  If the `resourceVersion` in the provided _continue token_ is unavailable, the server responds with HTTP `410 Gone`.
+  With the `ListFromCacheSnapshot` feature gate enabled by default,
+  API server will attempt to serve the response from snapshots if one is available with `resourceVersion` older than requested.
+  This improves performance and reduces etcd load. API server starts with no snapshots,
+  creates a new snapshot on every watch event and keeps them until it detects etcd is compacted or if cache is full with events older than 75 seconds.
+  If the `resourceVersion` in provided _continue token_ is unavailable, the server will fallback to etcd.
 
 {{< note >}}
 When you **list** resources and receive a collection response, the response includes the

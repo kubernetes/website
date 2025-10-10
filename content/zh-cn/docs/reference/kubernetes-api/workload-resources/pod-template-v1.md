@@ -8,7 +8,6 @@ description: "PodTemplate 描述一种模板，用来为预定义的 Pod 生成�
 title: "PodTemplate"
 weight: 3
 ---
-
 <!--
 api_metadata:
   apiVersion: "v1"
@@ -142,7 +141,7 @@ GET /api/v1/namespaces/{namespace}/podtemplates/{name}
 -->
 - **name** （**路径参数**）：string，必需
 
-  PodTemplate 的名称
+  PodTemplate 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -474,7 +473,7 @@ PUT /api/v1/namespaces/{namespace}/podtemplates/{name}
 -->
 - **name** （**路径参数**）：string，必需
 
-  PodTemplate 的名称
+  PodTemplate 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -550,7 +549,7 @@ PATCH /api/v1/namespaces/{namespace}/podtemplates/{name}
 -->
 - **name** （**路径参数**）：string，必需
 
-  PodTemplate 的名称
+  PodTemplate 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -633,7 +632,7 @@ DELETE /api/v1/namespaces/{namespace}/podtemplates/{name}
 -->
 - **name** （**路径参数**）：string，必需
 
-  PodTemplate 的名称
+  PodTemplate 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -641,7 +640,6 @@ DELETE /api/v1/namespaces/{namespace}/podtemplates/{name}
 - **namespace** （**路径参数**）：string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
@@ -658,6 +656,15 @@ DELETE /api/v1/namespaces/{namespace}/podtemplates/{name}
 - **gracePeriodSeconds** （**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+<!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 <!--
 - **pretty** (*in query*): string
@@ -738,6 +745,15 @@ DELETE /api/v1/namespaces/{namespace}/podtemplates
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+-->
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
+
+<!--
 - **labelSelector** (*in query*): string
 -->
 - **labelSelector** （**查询参数**）：string
@@ -803,4 +819,3 @@ DELETE /api/v1/namespaces/{namespace}/podtemplates
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

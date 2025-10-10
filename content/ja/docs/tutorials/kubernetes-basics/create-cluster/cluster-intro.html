@@ -1,6 +1,10 @@
 ---
 title: Minikubeを使ったクラスターの作成
 weight: 10
+description: |-
+  Kubernetesクラスターとは何かを学ぶ。
+  Minikubeとは何かを学ぶ。
+  Kubernetesクラスターを起動する。
 ---
 
 <!DOCTYPE html>
@@ -20,7 +24,7 @@ weight: 10
                 <ul>
                     <li>Kubernetesクラスターとは何かを学ぶ</li>
                     <li>Minikubeとは何かを学ぶ</li>
-                    <li>Kubernetesクラスターを、オンラインのターミナルを使って動かす</li>
+                    <li>Kubernetesクラスターをローカルで動かす</li>
                 </ul>
             </div>
 
@@ -31,7 +35,7 @@ weight: 10
                 </p>
                 <p>Kubernetesクラスターは以下の2種類のリソースで構成されています:
                     <ul>
-                        <li><b>マスター</b>がクラスターを管理する</li>
+                        <li><b>コントロールプレーン</b>がクラスターを管理する</li>
                         <li><b>ノード</b>がアプリケーションを動かすワーカーとなる</li>
                     </ul>
                 </p>
@@ -69,32 +73,25 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p><b>マスターはクラスターの管理を担当します。</b>マスターは、アプリケーションのスケジューリング、望ましい状態の維持、アプリケーションのスケーリング、新しい更新のロールアウトなど、クラスター内のすべての動作をまとめあげます。</p>
-                <p><b>ノードは、Kubernetesクラスターのワーカーマシンとして機能するVMまたは物理マシンです。</b>各ノードにはKubeletがあり、これはノードを管理し、Kubernetesマスターと通信するためのエージェントです。ノードにはDockerやrktなどのコンテナ操作を処理するためのツールもあるはずです。プロダクションのトラフィックを処理するKubernetesクラスターには、最低3つのノードが必要です。</p>
+                <p><b>コントロールプレーンはクラスターの管理を担当します。</b>コントロールプレーンは、アプリケーションのスケジューリング、望ましい状態の維持、アプリケーションのスケーリング、新しい更新のロールアウトなど、クラスター内のすべての動作をまとめあげます。</p>
+                <p><b>ノードは、Kubernetesクラスターのワーカーマシンとして機能するVMまたは物理マシンです。</b>各ノードにはKubeletがあり、これはノードを管理し、Kubernetesコントロールプレーンと通信するためのエージェントです。ノードには{{< glossary_tooltip text="containerd" term_id="containerd" >}} や {{< glossary_tooltip term_id="cri-o" >}} などのコンテナ操作を処理するためのツールもあるはずです。プロダクションのトラフィックを処理するKubernetesクラスターには、最低3つのノードが必要です。これは、1ノードがダウンすると、<a href="/ja/docs/concepts/architecture/#etcd">etcd</a> メンバーとコントロールプレーンのインスタンスの両方を同時に失うリスクがあり、冗長性が損なわれてしまうからです。このリスクを軽減するには、コントロールプレーンノードを複数構成することで対応できます。</p>
             </div>
 
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i>マスターは実行中のアプリケーションをホストするために使用されるノードとクラスターを管理します。</i></p>
+                    <p><i>コントロールプレーンは実行中のアプリケーションをホストするために使用されるノードとクラスターを管理します。</i></p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-                <p>Kubernetesにアプリケーションをデプロイするときは、マスターにアプリケーションコンテナを起動するように指示します。マスターはコンテナがクラスターのノードで実行されるようにスケジュールします。<b>ノードは、マスターが公開している<a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a>を使用してマスターと通信します。</b>エンドユーザーは、Kubernetes APIを直接使用して対話することもできます。</p>
+                <p>Kubernetesにアプリケーションをデプロイするときは、コントロールプレーンにアプリケーションコンテナを起動するように指示します。コントロールプレーンはコンテナがクラスターのノードで実行されるようにスケジュールします。<b>ノードは、コントロールプレーンが公開している<a href="/ja/docs/concepts/overview/kubernetes-api/">Kubernetes API</a>を使用してコントロールプレーンと通信します。</b>エンドユーザーは、Kubernetes APIを直接使用して対話することもできます。</p>
 
-                <p>Kubernetesクラスターは、物理マシンまたは仮想マシンのどちらにも配置できます。Kubernetes開発を始めるためにMinikubeを使うことができます。Minikubeは、ローカルマシン上にVMを作成し、1つのノードのみを含む単純なクラスターをデプロイする軽量なKubernetes実装です。Minikubeは、Linux、macOS、およびWindowsシステムで利用可能です。Minikube CLIは、起動、停止、ステータス、削除など、クラスターを操作するための基本的なブートストラップ操作を提供します。ただし、このチュートリアルでは、Minikubeがプリインストールされた状態で提供されているオンラインのターミナルを使用します。</p>
+                <p>Kubernetesクラスターは、物理マシンまたは仮想マシンのどちらにも配置できます。Kubernetes開発を始めるためにMinikubeを使うことができます。Minikubeは、ローカルマシン上にVMを作成し、1つのノードのみを含む単純なクラスターをデプロイする軽量なKubernetes実装です。Minikubeは、Linux、macOS、およびWindowsシステムで利用可能です。Minikube CLIは、起動、停止、ステータス、削除など、クラスターを操作するための基本的なブートストラップ操作を提供します。</p>
 
-                <p>Kubernetesが何であるかがわかったので、オンラインチュートリアルに行き、最初のクラスターを動かしましょう！</p>
+                <p>Kubernetesが何であるかがわかったので、<a href="/ja/docs/tutorials/hello-minikube/">Hello Minikube</a> に行き、最初のクラスターを動かしましょう！</p>
 
-            </div>
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/ja/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">対話型のチュートリアルを始める <span class="btn__next">›</span></a>
             </div>
         </div>
 

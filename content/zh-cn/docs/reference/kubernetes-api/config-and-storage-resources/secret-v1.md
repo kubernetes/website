@@ -38,15 +38,16 @@ data 字段值的总字节必须小于 MaxSecretSize 字节。
 
 <!--
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **data** (map[string][]byte)
+
   Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的对象元数据。
-  更多信息：
+  标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **data** (map[string][]byte)
@@ -58,12 +59,15 @@ data 字段值的总字节必须小于 MaxSecretSize 字节。
 
 <!--
 - **immutable** (boolean)
+
   Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
 
 - **stringData** (map[string]string)
+
   stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
 
 - **type** (string)
+
   Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
 -->
 - **immutable** (boolean)
@@ -81,8 +85,7 @@ data 字段值的总字节必须小于 MaxSecretSize 字节。
 
 - **type** (string)
 
-  用于满足程序化方式处理秘密数据。
-  更多信息：
+  用于满足程序化方式处理秘密数据。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/#secret-types
 
 ## SecretList {#SecretList}
@@ -109,14 +112,12 @@ SecretList 是 Secret 的列表。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  标准的列表元数据。
-  更多信息：
+  标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/secret-v1#Secret" >}}">Secret</a>)，必需
 
-  items 是 Secret 对象的列表。
-  更多信息：
+  items 是 Secret 对象的列表。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
 
 <!--
@@ -149,7 +150,7 @@ GET /api/v1/namespaces/{namespace}/secrets/{name}
 
 - **name** (**路径参数**): string，必需
 
-  Secret 的名称
+  Secret 的名称。
 
 - **namespace** (**路径参数**): string，必需
 
@@ -173,7 +174,7 @@ GET /api/v1/namespaces/{namespace}/secrets/{name}
 
 #### HTTP Request
 -->
-### `list` 列出或观测类别为 Secret 的对象
+### `list` 列举或观测类别为 Secret 的对象
 
 #### HTTP 请求
 
@@ -257,7 +258,7 @@ GET /api/v1/namespaces/{namespace}/secrets
 
 #### HTTP Request
 -->
-### `list` 列出或观测类别为 Secret 的对象
+### `list` 列举或观测类别为 Secret 的对象
 
 #### HTTP 请求
 
@@ -414,7 +415,7 @@ PUT /api/v1/namespaces/{namespace}/secrets/{name}
 
 - **name** (**路径参数**): string，必需
   
-  Secret 的名称
+  Secret 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -476,7 +477,7 @@ PATCH /api/v1/namespaces/{namespace}/secrets/{name}
 
 - **name** (**路径参数**): string，必需
   
-  Secret 的名称
+  Secret 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -534,6 +535,7 @@ DELETE /api/v1/namespaces/{namespace}/secrets/{name}
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 - **dryRun** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **pretty** (*in query*): string
 - **propagationPolicy** (*in query*): string
 -->
@@ -541,7 +543,7 @@ DELETE /api/v1/namespaces/{namespace}/secrets/{name}
 
 - **name** (**路径参数**): string，必需
   
-  Secret 的名称
+  Secret 的名称。
 
 - **namespace** (**路径参数**): string，必需
   
@@ -556,6 +558,10 @@ DELETE /api/v1/namespaces/{namespace}/secrets/{name}
 - **gracePeriodSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **pretty** (**查询参数**): string
   
@@ -595,6 +601,7 @@ DELETE /api/v1/namespaces/{namespace}/secrets
 - **dryRun** (*in query*): string
 - **fieldSelector** (*in query*): string
 - **gracePeriodSeconds** (*in query*): integer
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (*in query*): boolean
 - **labelSelector** (*in query*): string
 - **limit** (*in query*): integer
 - **pretty** (*in query*): string
@@ -626,6 +633,10 @@ DELETE /api/v1/namespaces/{namespace}/secrets
 - **gracePeriodSeconds** (**查询参数**): integer
   
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **ignoreStoreReadErrorWithClusterBreakingPotential** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#ignoreStoreReadErrorWithClusterBreakingPotential" >}}">ignoreStoreReadErrorWithClusterBreakingPotential</a>
 
 - **labelSelector** (**查询参数**): string
   

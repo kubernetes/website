@@ -76,6 +76,11 @@ and where it can be deployed to.
 You can enforce measures from the _distribute_ phase, such as verifying the
 cryptographic identity of container image artifacts.
 
+You can deploy different applications and cluster components into different
+{{< glossary_tooltip text="namespaces" term_id="namespace" >}}. Containers
+themselves, and namespaces, both provide isolation mechanisms that are
+relevant to information security.
+
 When you deploy Kubernetes, you also set the foundation for your
 applications' runtime environment: a Kubernetes cluster (or
 multiple clusters).

@@ -10,6 +10,7 @@ auto_generated: true
 
 
 - [DefaultPreemptionArgs](#kubescheduler-config-k8s-io-v1-DefaultPreemptionArgs)
+- [DynamicResourcesArgs](#kubescheduler-config-k8s-io-v1-DynamicResourcesArgs)
 - [InterPodAffinityArgs](#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 - [NodeAffinityArgs](#kubescheduler-config-k8s-io-v1-NodeAffinityArgs)
@@ -238,6 +239,54 @@ that play a role in the number of candidates shortlisted. Must be at least
 </tbody>
 </table>
 
+## `DynamicResourcesArgs`     {#kubescheduler-config-k8s-io-v1-DynamicResourcesArgs}
+    
+
+
+<p>DynamicResourcesArgs holds arguments used to configure the DynamicResources plugin.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>kubescheduler.config.k8s.io/v1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>DynamicResourcesArgs</code></td></tr>
+    
+  
+<tr><td><code>filterTimeout</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>FilterTimeout limits the amount of time that the filter operation may
+take per node to search for devices that can be allocated to scheduler
+a pod to that node.</p>
+<p>In typical scenarios, this operation should complete in 10 to 200
+milliseconds, but could also be longer depending on the number of
+requests per ResourceClaim, number of ResourceClaims, number of
+published devices in ResourceSlices, and the complexity of the
+requests. Other checks besides CEL evaluation also take time (usage
+checks, match attributes, etc.).</p>
+<p>Therefore the scheduler plugin applies this timeout. If the timeout
+is reached, the Pod is considered unschedulable for the node.
+If filtering succeeds for some other node(s), those are picked instead.
+If filtering fails for all of them, the Pod is placed in the
+unschedulable queue. It will get checked again if changes in
+e.g. ResourceSlices or ResourceClaims indicate that
+another scheduling attempt might succeed. If this fails repeatedly,
+exponential backoff slows down future attempts.</p>
+<p>The default is 10 seconds.
+This is sufficient to prevent worst-case scenarios while not impacting normal
+usage of DRA. However, slow filtering can slow down Pod scheduling
+also for Pods not using DRA. Administators can reduce the timeout
+after checking the
+<code>scheduler_framework_extension_point_duration_seconds</code> metrics.</p>
+<p>Setting it to zero completely disables the timeout.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `InterPodAffinityArgs`     {#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs}
     
 
@@ -396,7 +445,7 @@ Defaults to false.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -495,7 +544,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -552,16 +601,16 @@ If this value is nil, the default value (600) will be used.</p>
 </td>
 <td>
    <p>Shape specifies the points defining the score function shape, which is
-used to score nodes based on the utilization of statically provisioned
-PVs. The utilization is calculated by dividing the total requested
+used to score nodes based on the utilization of provisioned PVs.
+The utilization is calculated by dividing the total requested
 storage of the pod by the total capacity of feasible PVs on each node.
 Each point contains utilization (ranges from 0 to 100) and its
 associated score (ranges from 0 to 10). You can turn the priority by
 specifying different scores for different utilization numbers.
 The default shape points are:</p>
 <ol>
-<li>0 for 0 utilization</li>
-<li>10 for 100 utilization
+<li>10 for 0 utilization</li>
+<li>0 for 100 utilization
 All points must be sorted in increasing order by utilization.</li>
 </ol>
 </td>
