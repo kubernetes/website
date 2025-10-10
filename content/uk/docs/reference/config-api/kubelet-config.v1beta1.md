@@ -875,7 +875,7 @@ imagefs.available: &quot;15%&quot;</pre></p>
 <code>int32</code>
 </td>
 <td>
-   <p>evictionMaxPodGracePeriod - це максимально дозволений пільговий період (у секундах), який можна використовувати при завершенні роботи pods у відповідь на досягнення порогу мʼякого виселення. Це значення фактично обмежує значення terminationGracePeriodSeconds під час мʼякого виселення.  Стандартно: 0</p>
+   <p>evictionMaxPodGracePeriod - це максимально дозволений пільговий період (у секундах), який можна використовувати при завершенні роботи pods у відповідь на досягнення порогу мʼякого виселення. Це значення фактично обмежує значення terminationGracePeriodSeconds під час мʼякого виселення. Ефективний пільговий період для pod розраховується як: min(evictionMaxPodGracePeriod, pod.terminationGracePeriodSeconds). Примітка: відʼємне значення призведе до негайного припинення роботи pod, як якщо б значення було 0. Стандартно: 0</p>
 </td>
 </tr>
 <tr><td><code>evictionMinimumReclaim</code><br/>

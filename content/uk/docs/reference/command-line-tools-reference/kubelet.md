@@ -278,7 +278,7 @@ kubelet [flags]
         </tr>
         <tr>
             <td></td>
-            <td style="line-height: 130%; word-wrap: break-word;"><p>Максимальний допустимий період завершення (в секундах) для використання при завершенні Podʼів у відповідь на досягнення мʼякого порогу виселення. Якщо значення відʼємне, використовувати значення, вказане у Podʼі. (ЗАСТАРІЛО: Цей параметр слід налаштовувати через файл конфігурації, вказаний прапорцем kubelet <code>--config</code>. Дивіться <a href="/uk/docs/tasks/administer-cluster/kubelet-config-file/">https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/</a> для отримання додаткової інформації.)</p></td>
+            <td style="line-height: 130%; word-wrap: break-word;"><p>Максимальний допустимий період завершення (в секундах) для використання при завершенні Podʼів у відповідь на досягнення мʼякого порогу виселення. Ефективний пільговий період для pod розраховується як min(evictionMaxPodGracePeriod, pod.terminationGracePeriodSeconds). Негативне значення призведе до негайного припинення роботи pod, як якщо б значення було 0. (ЗАСТАРІЛО: Цей параметр слід налаштовувати через файл конфігурації, вказаний прапорцем kubelet <code>--config</code>. Дивіться <a href="/uk/docs/tasks/administer-cluster/kubelet-config-file/">https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/</a> для отримання додаткової інформації.)</p></td>
         </tr>
         <tr>
             <td colspan="2">--eviction-minimum-reclaim &lt;пари 'key=value', розділені комами&gt;</td>

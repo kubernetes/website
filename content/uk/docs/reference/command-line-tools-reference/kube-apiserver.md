@@ -47,7 +47,7 @@ kube-apiserver [flags]
       </tr>
       <tr>
          <td></td>
-         <td style="line-height: 130%; word-wrap: break-word;"><p>Зіставляє метрику-мітку зі списком дозволених значень цієї мітки. Формат ключа — &lt;MetricName&gt;,&lt;LabelName&gt;. Формат значення — &lt; allowed_value&gt;, &lt;allowed_value&gt;...наприклад, metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3' metric2,label1='v1,v2,v3'.</p></td>
+         <td style="line-height: 130%; word-wrap: break-word;"><p>Зіставляє метрику-мітку зі списком дозволених значень цієї мітки. Формат ключа — &lt;MetricName&gt;,&lt;LabelName&gt;. Формат значення — &lt;allowed_value&gt;, &lt;allowed_value&gt;... наприклад, metric1,label1='v1,v2,v3', metric1,label2='v1,v2,v3' metric2,label1='v1,v2,v3'.</p></td>
       </tr>
       <tr>
          <td colspan="2">--allow-metric-labels-manifest string</td>
@@ -475,7 +475,7 @@ kube-apiserver [flags]
          Якщо компонент не вказано, стандартно використовується &quot;kube&quot;</p></td>
       </tr>
       <tr>
-      <  td colspan="2">--emulation-forward-compatible</td>
+         <td colspan="2">--emulation-forward-compatible</td>
       </tr>
       <tr>
          <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Якщо встановлено значення true, для будь-яких бета+ API, стандартно увімкнених або за допомогою --runtime-config у версії емуляції, їхні майбутні версії з вищим пріоритетом/стабільністю будуть автоматично ввімкнені, навіть якщо вони були випущені після версії емуляції. Можна встановити значення true, лише якщо версія емуляції нижча за бінарну версію.</p></td>

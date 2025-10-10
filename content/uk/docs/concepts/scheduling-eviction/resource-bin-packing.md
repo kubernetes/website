@@ -156,7 +156,7 @@ Used:
 
 ```none
 intel.com/foo  = resourceScoringFunction((2+1),4)
-               = (100 - ((4-3)*100/4)
+               = (100 - ((4-3)*100/4))
                = (100 - 25)
                = 75                       # запитано + використано = 75% * доступно
                = rawScoringFunction(75)
