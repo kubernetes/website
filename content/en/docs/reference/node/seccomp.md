@@ -22,7 +22,7 @@ There are four ways to specify a seccomp profile for a
 - for the whole Pod using [`spec.securityContext.seccompProfile`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 - for a single container using [`spec.containers[*].securityContext.seccompProfile`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
 - for an (restartable / sidecar) init container using [`spec.initContainers[*].securityContext.seccompProfile`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
-- for an [ephermal container](/docs/concepts/workloads/pods/ephemeral-containers) using [`spec.ephemeralContainers[*].securityContext.seccompProfile`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-2)
+- for an [ephemeral container](/docs/concepts/workloads/pods/ephemeral-containers) using [`spec.ephemeralContainers[*].securityContext.seccompProfile`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-2)
 
 {{% code_sample file="pods/security/seccomp/fields.yaml" %}}
 

@@ -204,10 +204,26 @@ create rules to redirect traffic from Service IPs to endpoint IPs.
 The IPVS proxy mode is based on netfilter hook function that is similar to
 iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
-That means kube-proxy in IPVS mode redirects traffic with lower latency than
-kube-proxy in iptables mode, with much better performance when synchronizing
-proxy rules. Compared to the iptables proxy mode, IPVS mode also supports a
-higher throughput of network traffic.
+
+{{< note >}}
+The `ipvs` proxy mode was an experiment in providing a Linux
+kube-proxy backend with better rule-synchronizing performance and
+higher network-traffic throughput than the `iptables` mode. While it
+succeeded in those goals, the kernel IPVS API turned out to be a bad
+match for the Kubernetes Services API, and the `ipvs` backend was
+never able to implement all of the edge cases of Kubernetes Service
+functionality correctly. At some point in the future, it is expected
+to be formally deprecated as a feature.
+
+The `nftables` proxy mode (described below) is essentially a
+replacement for both the `iptables` and `ipvs` modes, with better
+performance than either of them, and is recommended as a replacement
+for `ipvs`. If you are deploying onto Linux systems that are too old
+to run the `nftables` proxy mode, you should also consider trying the
+`iptables` mode rather than `ipvs`, since the performance of
+`iptables` mode has improved greatly since the `ipvs` mode was first
+introduced.
+{{< /note >}}
 
 IPVS provides more options for balancing traffic to backend Pods;
 these are:
@@ -322,7 +338,7 @@ differently the `nftables` mode:
   Service via localhost/loopback.
 
 - **NodePort interaction with firewalls**: The `iptables` mode of
-  kube-proxy tries to be compatible with overly-agressive firewalls;
+  kube-proxy tries to be compatible with overly-aggressive firewalls;
   for each `type: NodePort` service, it will add rules to accept inbound
   traffic on that port, in case that traffic would otherwise be
   blocked by a firewall. This approach will not work with firewalls
@@ -362,7 +378,7 @@ IP address and not the specific backend Pod.
 
 #### Direct server return for `kernelspace` mode {#windows-direct-server-return}
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state feature_gate_name="WinDSR" >}}
 
 As an alternative to the basic operation, a node that hosts the backend Pod for a Service can
 apply the packet rewriting directly, rather than placing this burden on the node where the client
@@ -701,9 +717,10 @@ express preferences for how traffic should be routed to Service endpoints.
 
 {{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
 
-Two additional values are available when the `PreferSameTrafficDistribution`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled:
+In Kubernetes {{< skew currentVersion >}}, two additional values are
+available (unless the `PreferSameTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+disabled):
 
 `PreferSameZone`
 : This means the same thing as `PreferClose`, but is more explicit. (Originally,

@@ -174,14 +174,11 @@ as a CLI argument passed to the `env-print-demo` container.
 然后再传递给容器 `env-print-demo` 的 CLI 参数中使用。
 
 <!--
-Environment variable names consist of letters, numbers, underscores,
-dots, or hyphens, but the first character cannot be a digit.
-If the `RelaxedEnvironmentVariableValidation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
-all [printable ASCII characters](https://www.ascii-code.com/characters/printable-characters) except "=" may be used for environment variable names.
+Environment variable names may consist of any [printable ASCII characters](https://www.ascii-code.com/characters/printable-characters) except '='.
 -->
-环境变量名由字母、数字、下划线、点或连字符组成，但第一个字符不能是数字。
-如果启用了 `RelaxedEnvironmentVariableValidation` 特性门控，
-则所有可打印的 ASCII 字符（"=" 除外）都可以用于环境变量名。
+环境变量名称可以由除了 '='
+外的任何[可打印的 ASCII](https://www.ascii-code.com/characters/printable-characters)
+字符组成。
 
 ```yaml
 apiVersion: v1
@@ -218,4 +215,3 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 * 进一步了解[环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * 进一步了解[通过环境变量来使用 Secret](/zh-cn/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)
 * 关于 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 资源的信息。
-

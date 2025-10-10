@@ -30,11 +30,6 @@ Update the labels on a resource.
 * 如果 --overwrite 为 true，则现有标签可以被覆盖，否则尝试覆盖标签将导致错误。
 * 如果指定了 --resource-version，则更新将使用此资源版本，否则将使用现有的资源版本。
 
-<!--
-```
-kubectl label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]
-```
--->
 ```shell
 kubectl label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]
 ```
@@ -43,45 +38,45 @@ kubectl label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_
 
 <!--
 ```
-  # Update pod 'foo' with the label 'unhealthy' and the value 'true'
-  kubectl label pods foo unhealthy=true
-  
-  # Update pod 'foo' with the label 'status' and the value 'unhealthy', overwriting any existing value
-  kubectl label --overwrite pods foo status=unhealthy
-  
-  # Update all pods in the namespace
-  kubectl label pods --all status=unhealthy
-  
-  # Update a pod identified by the type and name in "pod.json"
-  kubectl label -f pod.json status=unhealthy
-  
-  # Update pod 'foo' only if the resource is unchanged from version 1
-  kubectl label pods foo status=unhealthy --resource-version=1
-  
-  # Update pod 'foo' by removing a label named 'bar' if it exists
-  # Does not require the --overwrite flag
-  kubectl label pods foo bar-
+# Update pod 'foo' with the label 'unhealthy' and the value 'true'
+kubectl label pods foo unhealthy=true
+
+# Update pod 'foo' with the label 'status' and the value 'unhealthy', overwriting any existing value
+kubectl label --overwrite pods foo status=unhealthy
+
+# Update all pods in the namespace
+kubectl label pods --all status=unhealthy
+
+# Update a pod identified by the type and name in "pod.json"
+kubectl label -f pod.json status=unhealthy
+
+# Update pod 'foo' only if the resource is unchanged from version 1
+kubectl label pods foo status=unhealthy --resource-version=1
+
+# Update pod 'foo' by removing a label named 'bar' if it exists
+# Does not require the --overwrite flag
+kubectl label pods foo bar-
 ```
 -->
 ```shell
-  # 使用标签 'unhealthy' 和值 'true' 更新 Pod 'foo'
-  kubectl label pods foo unhealthy=true
-  
-  # 使用标签 'status' 和值 'unhealthy' 更新 Pod 'foo'，覆盖所有现有值
-  kubectl label --overwrite pods foo status=unhealthy
-  
-  # 更新命名空间中的所有 Pod
-  kubectl label pods --all status=unhealthy
-  
-  # 更新由 "pod.json" 中的 type 和 name 标识的 Pod
-  kubectl label -f pod.json status=unhealthy
-  
-  # 仅在资源版本为 1 且未更改时更新 Pod 'foo'
-  kubectl label pods foo status=unhealthy --resource-version=1
-  
-  # 如果存在名为 'bar' 的标签，则通过移除此标签来更新 Pod 'foo'
-  # 不需要 --overwrite 标志
-  kubectl label pods foo bar-
+# 使用标签 'unhealthy' 和值 'true' 更新 Pod 'foo'
+kubectl label pods foo unhealthy=true
+
+# 使用标签 'status' 和值 'unhealthy' 更新 Pod 'foo'，覆盖所有现有值
+kubectl label --overwrite pods foo status=unhealthy
+
+# 更新命名空间中的所有 Pod
+kubectl label pods --all status=unhealthy
+
+# 更新由 "pod.json" 中的 type 和 name 标识的 Pod
+kubectl label -f pod.json status=unhealthy
+
+# 仅在资源版本为 1 且未更改时更新 Pod 'foo'
+kubectl label pods foo status=unhealthy --resource-version=1
+
+# 如果存在名为 'bar' 的标签，则通过移除此标签来更新 Pod 'foo'
+# 不需要 --overwrite 标志
+kubectl label pods foo bar-
 ```
 
 ## {{% heading "options" %}}
@@ -436,30 +431,6 @@ The name of the kubeconfig context to use
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -493,6 +464,21 @@ Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
 </p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>

@@ -179,11 +179,11 @@ flag to expose these alpha stability metrics.
 
 ### kubelet Pressure Stall Information (PSI) metrics
 
-{{< feature-state for_k8s_version="v1.33" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
-As an alpha feature, Kubernetes lets you configure kubelet to collect Linux kernel
+As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
 [Pressure Stall Information](https://docs.kernel.org/accounting/psi.html)
-(PSI) for CPU, memory and IO usage.
+(PSI) for CPU, memory and I/O usage.
 The information is collected at node, pod and container level.
 The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
 
@@ -196,9 +196,10 @@ container_pressure_io_stalled_seconds_total
 container_pressure_io_waiting_seconds_total
 ```
 
-You must enable the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to use this feature. The information is also exposed in the
+This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in the
 [Summary API](/docs/reference/instrumentation/node-metrics#psi).
+
+You can learn how to interpret the PSI metrics in [Understand PSI Metrics](/docs/reference/instrumentation/understand-psi-metrics/).
 
 #### Requirements
 
@@ -250,7 +251,7 @@ is encountered that is not allowed with respect to the allow-list constraints.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
+* Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format)
   for metrics
 * See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

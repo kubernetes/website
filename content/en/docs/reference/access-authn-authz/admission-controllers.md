@@ -776,11 +776,11 @@ The labels available as a result of this controller are the
 [topology.kubernetes.io/region](docs/reference/labels-annotations-taints/#topologykubernetesioregion) and
 [topology.kuberentes.io/zone](docs/reference/labels-annotations-taints/#topologykubernetesiozone) labels.
 
-{{ <note> }}
+{{<note>}}
 If any mutating admission webhook adds or modifies labels of the `pods/binding` subresource,
 these changes will propagate to pod labels as a result of this controller,
 overwriting labels with conflicting keys.
-{{ </note> }}
+{{</note>}}
 
 This admission controller is enabled when the `PodTopologyLabelsAdmission` feature gate is enabled.
 

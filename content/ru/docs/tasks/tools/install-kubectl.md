@@ -59,20 +59,23 @@ card:
 ### Установка с помощью встроенного пакетного менеджера
 
 {{< tabs name="kubectl_install" >}}
-{{< tab name="Ubuntu, Debian или HypriotOS" codelang="bash" >}}sudo apt-get update && sudo apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+{{< tab name="Ubuntu, Debian или HypriotOS" codelang="bash" >}}
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+sudo mkdir -p -m 755 /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubectl
 {{< /tab >}}
-{{< tab name="CentOS, RHEL или Fedora" codelang="bash" >}}sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+{{< tab name="CentOS, RHEL или Fedora" codelang="bash" >}}cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/repodata/repomd.xml.key
 EOF
 sudo yum install -y kubectl
 {{< /tab >}}
@@ -391,7 +394,7 @@ source /usr/share/bash-completion/bash_completion
 Однако скрипт дополнения ввода kubectl зависит от пакета [**bash-completion**](https://github.com/scop/bash-completion), который первым делом нужно установить.
 
 {{< warning>}}
-Есть две версии bash-completion: первая (v1) и вторая (v2). Первая предназначена для Bash 3.2 (который используется по умолчанию в macOS), а вторая — для Bash 4.1+. Скрипт дополнения ввода kubectl **не работает** корректно с bash-completion v1 и Bash 3.2. Требуется **bash-completion v2** и **Bash 4.1+**. Таким образом, чтобы правильно использовать дополнение kubectl в macOS, вам нужно установить и использовать Bash 4.1+ ([*инструкции по обновлению*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Последующие шаги предполагают, что вы используете Bash 4.1+ (то есть любую версию Bash 4.1 или более новую).
+Есть две версии bash-completion: первая (v1) и вторая (v2). Первая предназначена для Bash 3.2 (который используется по умолчанию в macOS), а вторая — для Bash 4.1+. Скрипт дополнения ввода kubectl **не работает** корректно с bash-completion v1 и Bash 3.2. Требуется **bash-completion v2** и **Bash 4.1+**. Таким образом, чтобы правильно использовать дополнение kubectl в macOS, вам нужно установить и использовать Bash 4.1+ ([*инструкции по обновлению*](https://apple.stackexchange.com/a/292760)). Последующие шаги предполагают, что вы используете Bash 4.1+ (то есть любую версию Bash 4.1 или более новую).
 {{< /warning >}}
 
 

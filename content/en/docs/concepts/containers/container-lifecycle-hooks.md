@@ -64,13 +64,6 @@ There are three types of hook handlers that can be implemented for Containers:
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
 * Sleep - Pauses the container for a specified duration. 
-  This is a beta-level feature default enabled by the `PodLifecycleSleepAction`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). 
-
-{{< note >}}
-The beta level `PodLifecycleSleepActionAllowZero` feature gate which is enabled by default from v1.33.
-It allows you to set a sleep duration of zero seconds (effectively a no-op) for your Sleep lifecycle hooks.
-{{< /note >}}
 
 ### Hook handler execution
 

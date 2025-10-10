@@ -68,7 +68,7 @@ service/php-apache created
 このアルゴリズムについての詳細は[こちら](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)をご覧ください。
 
 ```shell
-kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment php-apache --cpu=50% --min=1 --max=10
 ```
 
 ```

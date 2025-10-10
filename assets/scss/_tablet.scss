@@ -18,6 +18,15 @@ $vendor-strip-font-size: 16px;
     display: none;
   }
 
+  body:dir(rtl) {
+    overflow-x: hidden;
+  }
+
+  table:dir(rtl) {
+    text-align: right;
+    direction: rtl;
+  }
+
   .td-home {
     #viewDocs,
     #tryKubernetes {
@@ -106,17 +115,6 @@ $vendor-strip-font-size: 16px;
       img {
         width: 100%;
       }
-    }
-  }
-
-  #video {
-    display: block;
-
-    & > .light-text {
-      display: block;
-      float: right;
-      text-align: left;
-      margin: 0 5% 15px 0;
     }
   }
 

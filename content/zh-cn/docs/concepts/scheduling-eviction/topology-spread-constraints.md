@@ -127,9 +127,9 @@ spec:
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
-      matchLabelKeys: <list> # 可选；自从 v1.27 开始成为 Beta
-      nodeAffinityPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
-      nodeTaintsPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
+      matchLabelKeys: <list> # 可选；从 v1.27 开始成为 Beta
+      nodeAffinityPolicy: [Honor|Ignore] # 可选；从 v1.26 开始成为 Beta
+      nodeTaintsPolicy: [Honor|Ignore] # 可选；从 v1.26 开始成为 Beta
   ### 其他 Pod 字段置于此处
 ```
 
@@ -248,32 +248,48 @@ your cluster. Those fields are:
   有关详细信息，请参考[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
 
 <!--
-- **matchLabelKeys** is a list of pod label keys to select the pods over which
-  spreading will be calculated. The keys are used to lookup values from the pod labels,
-  those key-value labels are ANDed with `labelSelector` to select the group of existing
-  pods over which spreading will be calculated for the incoming pod. The same key is
-  forbidden to exist in both `matchLabelKeys` and `labelSelector`. `matchLabelKeys` cannot
-  be set when `labelSelector` isn't set. Keys that don't exist in the pod labels will be
-  ignored. A null or empty list means only match against the `labelSelector`.
+- **matchLabelKeys** is a list of pod label keys to select the group of pods over which 
+  the spreading skew will be calculated. At a pod creation, 
+  the kube-apiserver uses those keys to lookup values from the incoming pod labels,
+  and those key-value labels will be merged with any existing `labelSelector`.
+  The same key is forbidden to exist in both `matchLabelKeys` and `labelSelector`. 
+  `matchLabelKeys` cannot be set when `labelSelector` isn't set. 
+  Keys that don't exist in the pod labels will be ignored. 
+  A null or empty list means only match against the `labelSelector`.
+-->
+- - **matchLabelKeys** 是一个 Pod 标签键的列表，用于选择计算分布偏差的 Pod 组。在创建 Pod 时，
+  kube-apiserver 使用这些键从传入的 Pod 标签中查找值，并将这些键值标签与现有的 `labelSelector` 合并。
+  相同的键不允许同时出现在 `matchLabelKeys` 和 `labelSelector` 中。
+  当 `labelSelector` 未设置时，不能设置 `matchLabelKeys`。
+  如果键在 Pod 标签中不存在，则会被忽略。
+  一个空或 `null` 的列表意味着仅与 `labelSelector` 匹配。
 
+  {{< caution >}}
+  <!--
+  It's not recommended to use `matchLabelKeys` with labels that might be updated directly on pods.
+  Even if you edit the pod's label that is specified at `matchLabelKeys` **directly**,
+  (that is, you edit the Pod and not a Deployment),
+  kube-apiserver doesn't reflect the label update onto the merged `labelSelector`.
+  -->
+  不建议将 `matchLabelKeys` 与可能直接在 Pod 上更新的标签一起使用。
+  即使你**直接**编辑了位于 `matchLabelKeys` 中指定的 Pod 标签，
+  （也就是说，你编辑的是 Pod 而不是 Deployment），
+  kube-apiserver 不会将标签更新反映到合并的 `labelSelector` 上。
+  {{< /caution >}}
+
+
+<!--
   With `matchLabelKeys`, you don't need to update the `pod.spec` between different revisions.
   The controller/operator just needs to set different values to the same label key for different
-  revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For
-  example, if you are configuring a Deployment, you can use the label keyed with
+  revisions. For example, if you are configuring a Deployment, you can use the label keyed with
   [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label), which
   is added automatically by the Deployment controller, to distinguish between different revisions
   in a single Deployment.
 -->
-- **matchLabelKeys** 是一个 Pod 标签键的列表，用于选择需要计算分布方式的 Pod 集合。
-  这些键用于从 Pod 标签中查找值，这些键值标签与 `labelSelector` 进行逻辑与运算，以选择一组已有的 Pod，
-  通过这些 Pod 计算新来 Pod 的分布方式。`matchLabelKeys` 和 `labelSelector` 中禁止存在相同的键。
-  未设置 `labelSelector` 时无法设置 `matchLabelKeys`。Pod 标签中不存在的键将被忽略。
-  null 或空列表意味着仅与 `labelSelector` 匹配。
-
   借助 `matchLabelKeys`，你无需在变更 Pod 修订版本时更新 `pod.spec`。
   控制器或 Operator 只需要将不同修订版的标签键设为不同的值。
-  调度器将根据 `matchLabelKeys` 自动确定取值。例如，如果你正在配置一个 Deployment，
-  则你可以使用由 Deployment 控制器自动添加的、以
+  例如，如果你正在配置一个 Deployment，则可以使用由 Deployment
+  控制器自动添加的、以
   [pod-template-hash](/zh-cn/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)
   为键的标签来区分同一个 Deployment 的不同修订版。
 
@@ -297,6 +313,17 @@ your cluster. Those fields are:
   `matchLabelKeys` 字段是 1.27 中默认启用的一个 Beta 级别字段。
   你可以通过禁用 `MatchLabelKeysInPodTopologySpread`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
+
+  <!--
+  Before v1.34, `matchLabelKeys` was handled implicitly.
+  Since v1.34, key-value labels corresponding to `matchLabelKeys` are explicitly merged into `labelSelector`.
+  You can disable it and revert to the previous behavior by disabling the `MatchLabelKeysInPodTopologySpreadSelectorMerge` 
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) of kube-apiserver.
+  -->
+  在 v1.34 之前，`matchLabelKeys` 是隐式处理的。
+  从 v1.34 开始，与 `matchLabelKeys` 对应的键值标签会被明确地合并到 `labelSelector` 中。
+  你可以通过禁用 kube-apiserver 的 `MatchLabelKeysInPodTopologySpreadSelectorMerge`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此行为并恢复到之前的行为。
   {{< /note >}}
 
 <!--

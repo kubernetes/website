@@ -142,5 +142,5 @@ be used for production.
 {{< /alert >}}
 -->
 {{< alert color="warning" title="Porcelain 仅限开发使用" >}}
-Porcelain 命令在开发集群中进行工作负载实验时可以节省时间，但不应用于生产。
+Porcelain 命令可以节省在开发集群中进行工作负载实验的时间，但不应当用于生产环境。
 {{< /alert >}}

@@ -263,6 +263,22 @@ and ignores the `cgroupDriver` setting within the kubelet configuration.
 `RuntimeConfig` CRI RPC 的容器运行时，kubelet 会自动从运行时检测适当的 Cgroup
 驱动程序，并忽略 kubelet 配置中的 `cgroupDriver` 设置。
 
+<!--
+However, older versions of container runtimes (specifically,
+containerd 1.y and below) do not support the `RuntimeConfig` CRI RPC, and
+may not respond correctly to this query, and thus the Kubelet falls back to using the
+value in its own `--cgroup-driver` flag.
+
+In Kubernetes 1.36, this fallback behavior will be dropped, and older versions
+of containerd will fail with newer kubelets.
+-->
+然而，较旧版本的容器运行时（特别是 containerd 1.y 及以下版本）
+不支持 `RuntimeConfig` CRI RPC，可能无法正确响应此查询。
+因此，kubelet 会回退到使用其自身的 `--cgroup-driver` 标志中的值。
+
+在 Kubernetes 1.36 中，这种回退行为将被移除，旧版本的 containerd
+将无法与新版本的 kubelet 一起工作。
+
 {{< caution >}}
 <!--
 Changing the cgroup driver of a Node that has joined a cluster is a sensitive operation. 
@@ -363,11 +379,17 @@ On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 <!--
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
-To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
+To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
+set the following config based on your Containerd version
+
+Containerd versions 1.x:
 -->
 #### 配置 `systemd` cgroup 驱动 {#containerd-systemd}
 
-结合 `runc` 使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置：
+要在 `/etc/containerd/config.toml` 中将 `runc` 配置为使用 `systemd` cgroup 驱动，
+请根据你使用的 Containerd 版本设置以下配置：
+
+Containerd 1.x 版本：
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
@@ -375,6 +397,19 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+
+<!--
+Containerd versions 2.x:
+-->
+Containerd versions 2.x 版本：
+
+```
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
+  ...
+  [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
+
 
 <!--
 The `systemd` cgroup driver is recommended if you use [cgroup v2](/docs/concepts/architecture/cgroups).
@@ -565,7 +600,7 @@ For `cri-dockerd`, the CRI socket is `/run/cri-dockerd.sock` by default.
 <!-- 
 ### Mirantis Container Runtime {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) is a commercially
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR) is a commercially
 available container runtime that was formerly known as Docker Enterprise Edition.
 
 You can use Mirantis Container Runtime with Kubernetes using the open source
@@ -573,17 +608,17 @@ You can use Mirantis Container Runtime with Kubernetes using the open source
 -->
 ### Mirantis 容器运行时 {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/25.0/overview.html) (MCR)
 是一种商用容器运行时，以前称为 Docker 企业版。
 你可以使用 MCR 中包含的开源 [`cri-dockerd`](https://mirantis.github.io/cri-dockerd/)
 组件将 Mirantis Container Runtime 与 Kubernetes 一起使用。
 
 <!--
 To learn more about how to install Mirantis Container Runtime,
-visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html). 
+visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/25.0/install.html). 
 -->
 要了解有关如何安装 Mirantis Container Runtime 的更多信息，
-请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/20.10/install.html)。
+请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/25.0/install.html)。
 
 <!-- 
 Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
