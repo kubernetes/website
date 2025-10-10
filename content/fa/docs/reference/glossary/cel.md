@@ -1,5 +1,5 @@
 ---
-title: زبان مشترک بیان عبارات
+title: زبان عبارات مشترک (CEL)
 id: cel
 date: 2025-06-04
 full_link: https://cel.dev
