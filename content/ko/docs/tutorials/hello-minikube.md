@@ -98,7 +98,7 @@ minikube dashboard --url
 
     ```shell
     # 테스트용 웹 서버 컨테이너 이미지를 실행한다.
-    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
+    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
     ```
 
 2. 디플로이먼트 보기
