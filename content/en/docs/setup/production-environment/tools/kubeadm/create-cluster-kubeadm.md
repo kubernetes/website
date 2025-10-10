@@ -568,7 +568,12 @@ data and may need to be recreated from scratch.
 Workarounds:
 
 * Regularly [back up etcd](https://etcd.io/docs/v3.5/op-guide/recovery/). The
-  etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
+  etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node. A popular choice for etcd backups is to use [etcd-backup-restore](https://github.com/gardener/etcd-backup-restore).
+  According to the project, Etcd-backup-restore provides automated, reliable backups and recovery for etcd clusters, keeping your Kubernetes data safe and resilient.
+
+  {{< note >}}
+  The project has not released a major version yet. Kindly go through the project to learn more prior to using it in production.
+  {{< /note >}}
 
 * Use multiple control-plane nodes. You can read
   [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) to pick a cluster
