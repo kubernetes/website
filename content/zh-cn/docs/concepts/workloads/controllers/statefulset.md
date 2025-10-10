@@ -748,6 +748,192 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 
 <!--
+## Revision history
+
+ControllerRevision is a Kubernetes API resource used by controllers, such as the StatefulSet controller, to track historical configuration changes. 
+
+StatefulSets use ControllerRevisions to maintain a revision history, enabling rollbacks and version tracking.
+-->
+## 修订版本历史  {#revision-history}
+
+ControllerRevision 是 Kubernetes 的一种 API 资源，由控制器（例如 StatefulSet 控制器）使用，用于跟踪配置变更历史。
+
+StatefulSet 使用 ControllerRevision 来维护修订版本历史，从而支持回滚和版本跟踪。
+
+<!--
+### How StatefulSets track changes using ControllerRevisions
+
+When you update a StatefulSet's Pod template (`spec.template`), the StatefulSet controller:
+
+1. Prepares a new ControllerRevision object
+2. Stores a snapshot of the Pod template and metadata
+3. Assigns an incremental revision number
+-->
+### StatefulSet 如何通过 ControllerRevision 跟踪变更
+
+当你更新 StatefulSet 的 Pod 模板 (`spec.template`) 时，StatefulSet 控制器：
+
+1. 准备新的 ControllerRevision 对象
+2. 存储 Pod 模板和元数据的快照
+3. 分配一个递增的修订版本号
+
+<!--
+#### Key Properties
+
+ControllerRevision key properties and other details can be checked [here](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/)
+-->
+#### 关键属性
+
+ControllerRevision 的关键属性和其他细节，
+请查阅[这里](/zh-cn/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/)。
+
+---
+
+<!--
+### Managing Revision History
+
+Control retained revisions with `.spec.revisionHistoryLimit`:
+-->
+### 管理修订版本历史
+
+通过 `.spec.revisionHistoryLimit` 控制保留的修订版本：
+
+<!--
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: webapp
+spec:
+  revisionHistoryLimit: 5  # Keep last 5 revisions
+  # ... other spec fields ...
+```
+-->
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: webapp
+spec:
+  revisionHistoryLimit: 5  # 保留最近 5 个修订版本
+  # ... 其他 spec 字段 ...
+```
+
+<!--
+- **Default**: 10 revisions retained if unspecified
+- **Cleanup**: Oldest revisions are garbage-collected when exceeding the limit
+
+#### Performing Rollbacks
+
+You can revert to a previous configuration using:
+-->
+- **默认**：如果未指定，保留 10 个修订版本
+- **清理**：超过限制时，最早的修订版本会被垃圾回收
+
+#### 执行回滚
+
+你可以通过以下方式恢复到前一个配置：
+
+<!--
+```bash
+# View revision history
+kubectl rollout history statefulset/webapp
+
+# Rollback to a specific revision
+kubectl rollout undo statefulset/webapp --to-revision=3
+```
+-->
+```bash
+# 查看修订版本历史
+kubectl rollout history statefulset/webapp
+
+# 回滚到特定的修订版本
+kubectl rollout undo statefulset/webapp --to-revision=3
+```
+
+<!--
+This will:
+
+- Apply the Pod template from revision 3
+- Create a new ControllerRevision with an updated revision number
+
+#### Inspecting ControllerRevisions
+
+To view associated ControllerRevisions:
+-->
+这将会：
+
+- 应用来自修订版本 3 的 Pod 模板
+- 使用更新的修订版本号创建新的 ControllerRevision
+
+#### 检查 ControllerRevision
+
+查看关联的 ControllerRevision：
+
+<!--
+```bash
+# List all revisions for the StatefulSet
+kubectl get controllerrevisions -l app.kubernetes.io/name=webapp
+
+# View detailed configuration of a specific revision
+kubectl get controllerrevision/webapp-3 -o yaml
+```
+-->
+```bash
+# 列出 StatefulSet 的所有修订版本
+kubectl get controllerrevisions -l app.kubernetes.io/name=webapp
+
+# 查看特定修订版本的详细配置
+kubectl get controllerrevision/webapp-3 -o yaml
+```
+
+<!--
+#### Best Practices
+
+##### Retention Policy
+
+- Set `revisionHistoryLimit` between **5–10** for most workloads
+- Increase only if **deep rollback history** is required
+-->
+#### 最佳实践
+
+##### 保留策略
+
+- 对大多数工作负载，将 `revisionHistoryLimit` 设置为 **5–10**
+
+- 仅在需要**深度回滚历史**时才增加
+
+<!--
+##### Monitoring
+
+- Regularly check revisions with:
+-->
+##### 监控
+
+- 定期检查修订版本：
+
+  ```bash
+  kubectl get controllerrevisions
+  ```
+
+<!--
+- Alert on **rapid revision count growth**
+
+##### Avoid
+
+- Manual edits to ControllerRevision objects.
+- Using revisions as a backup mechanism (use actual backup tools).
+- Setting `revisionHistoryLimit: 0` (disables rollback capability).
+-->
+- 针对**修订版本数量快速增长**发出告警
+
+##### 避免
+
+- 手动编辑 ControllerRevision 对象。
+- 将修订版本用作备份机制（使用实际的备份工具）。
+- 设置 revisionHistoryLimit: 0（禁用回滚功能）。
+
+<!--
 ## PersistentVolumeClaim retention
 -->
 ## PersistentVolumeClaim 保留  {#persistentvolumeclaim-retention}
