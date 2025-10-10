@@ -103,52 +103,52 @@ kubectl completion SHELL
   kubectl completion powershell >> $PROFILE
 ```
 -->
-```
-  # 使用 homebrew 在 macOS 上安装 bash-completion
-  ## 如果运行 macOS 附带的 Bash 3.2
-  brew install bash-completion
-  ## 或者，如果运行的是 Bash 4.1+
-  brew install bash-completion@2
-  ## 如果通过 homebrew 安装了 kubectl，Shell 补全应该能够立即起作用
-  ## 如果你通过其他方式安装，则可能需要将新的补全数据添加到补全目录中
-  kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
-  
-  
-  # 在 Linux 上安装 bash 补全
-  ## 如果 Linux 上未安装 bash-completion，请通过发行版的包管理器安装 "bash-completion" 包。
-  ## 将 bash 的 kubectl 补全代码加载到当前 shell 中
-  source <(kubectl completion bash)
-  ## 将 bash 补全代码写入文件并从 .bash_profile 中引用之
-  kubectl completion bash > ~/.kube/completion.bash.inc
-  printf "
-  # kubectl shell completion
-  source '$HOME/.kube/completion.bash.inc'
-  " >> $HOME/.bash_profile
-  source $HOME/.bash_profile
-  
-  # 将 zsh[1] 的 kubectl 补全代码加载到当前 shell 中
-  source <(kubectl completion zsh)
-  # 将 zsh[1] 的 kubectl 补全代码设置为在启动时自动加载
-  kubectl completion zsh > "${fpath[1]}/_kubectl"
-  
-  
-  # 将 fish[2] 的 kubectl 补全代码加载到当前 shell 中
-  kubectl completion fish | source
-  # 要为每个会话都加载补全代码，请执行一次如下命令：
-  kubectl completion fish > ~/.config/fish/completions/kubectl.fish
-  
-  # 将 powershell 的 kubectl 补全代码加载到当前 shell 中
-  kubectl completion powershell | Out-String | Invoke-Expression
-  # 设置 powershell 的 kubectl 补全代码在启动时运行
-  ## 将补全代码保存到脚本并在配置文件中执行
-  kubectl completion powershell > $HOME\.kube\completion.ps1
-  Add-Content $PROFILE "$HOME\.kube\completion.ps1"
-  ## 执行配置文件中的补全代码
-  Add-Content $PROFILE "if (Get-Command kubectl -ErrorAction SilentlyContinue) {
-  kubectl completion powershell | Out-String | Invoke-Expression
-  }"
-  ## 直接将补全代码添加到 $PROFILE 脚本
-  kubectl completion powershell >> $PROFILE
+```shell
+# 使用 homebrew 在 macOS 上安装 bash-completion
+## 如果运行 macOS 附带的 Bash 3.2
+brew install bash-completion
+## 或者，如果运行的是 Bash 4.1+
+brew install bash-completion@2
+## 如果通过 homebrew 安装了 kubectl，Shell 补全应该能够立即起作用
+## 如果你通过其他方式安装，则可能需要将新的补全数据添加到补全目录中
+kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
+
+
+# 在 Linux 上安装 bash 补全
+## 如果 Linux 上未安装 bash-completion，请通过发行版的包管理器安装 "bash-completion" 包。
+## 将 bash 的 kubectl 补全代码加载到当前 shell 中
+source <(kubectl completion bash)
+## 将 bash 补全代码写入文件并从 .bash_profile 中引用之
+kubectl completion bash > ~/.kube/completion.bash.inc
+printf "
+# kubectl shell completion
+source '$HOME/.kube/completion.bash.inc'
+" >> $HOME/.bash_profile
+source $HOME/.bash_profile
+
+# 将 zsh[1] 的 kubectl 补全代码加载到当前 shell 中
+source <(kubectl completion zsh)
+# 将 zsh[1] 的 kubectl 补全代码设置为在启动时自动加载
+kubectl completion zsh > "${fpath[1]}/_kubectl"
+
+
+# 将 fish[2] 的 kubectl 补全代码加载到当前 shell 中
+kubectl completion fish | source
+# 要为每个会话都加载补全代码，请执行一次如下命令：
+kubectl completion fish > ~/.config/fish/completions/kubectl.fish
+
+# 将 powershell 的 kubectl 补全代码加载到当前 shell 中
+kubectl completion powershell | Out-String | Invoke-Expression
+# 设置 powershell 的 kubectl 补全代码在启动时运行
+## 将补全代码保存到脚本并在配置文件中执行
+kubectl completion powershell > $HOME\.kube\completion.ps1
+Add-Content $PROFILE "$HOME\.kube\completion.ps1"
+## 执行配置文件中的补全代码
+Add-Content $PROFILE "if (Get-Command kubectl -ErrorAction SilentlyContinue) {
+kubectl completion powershell | Out-String | Invoke-Expression
+}"
+## 直接将补全代码添加到 $PROFILE 脚本
+kubectl completion powershell >> $PROFILE
 ```
 
 ## {{% heading "options" %}}
@@ -297,30 +297,6 @@ The name of the kubeconfig context to use
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -354,6 +330,21 @@ Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
 </p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
+</p>
+</td>
 </tr>
 
 <tr>

@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Install all the addons
-
 ### Synopsis
 
 
@@ -69,7 +67,7 @@ kubeadm init phase addon all [flags]
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>WaitForAllControlPlaneComponents=true|false (BETA - default=true)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>NodeLocalCRISocket=true|false (BETA - default=true)<br/>PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>WaitForAllControlPlaneComponents=true|false (default=true)</p></td>
 </tr>
 
 <tr>

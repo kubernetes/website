@@ -25,13 +25,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.4298725"
-     inkscape:cx="1025.8856"
-     inkscape:cy="865.37288"
+     inkscape:cx="1024.7224"
+     inkscape:cy="679.27118"
      inkscape:window-width="1920"
-     inkscape:window-height="1027"
+     inkscape:window-height="967"
      inkscape:window-x="0"
      inkscape:window-y="25"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      inkscape:current-layer="graph-div" />
   <desc
      id="chart-desc-graph-div">Sequence diagram for kube-apiserver handling requests during the admission phase showing mutation webhooks, followed by validatingadmissionpolicies and finally validating webhooks. &#10;It shows that the continue until the first rejection, or being accepted by all of them. &#10;It also shows that mutations by mutating webhooks cause all previously called webhooks to be called again.</desc>
@@ -55,7 +55,8 @@
        x="1499.5"
        id="text1"><tspan
          x="1499.5"
-         id="tspan1">准入控制被调用</tspan></text>
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">准入控制被调用</tspan></text>
     <text
        class="text"
        alignment-baseline="central"
@@ -65,7 +66,8 @@
        x="1498.3369"
        id="text2"><tspan
          x="1498.3369"
-         id="tspan2">直到第一次被拒绝</tspan></text>
+         id="tspan2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">直到第一次被拒绝</tspan></text>
   </g>
   <g
      id="g3">
@@ -90,7 +92,9 @@
        x="1812"
        id="text3"><tspan
          x="1812"
-         id="tspan3">验证性 Webhook</tspan></text>
+         id="tspan3"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+   id="tspan34">验证性</tspan>Webhook</tspan></text>
   </g>
   <g
      id="g4">
@@ -115,7 +119,8 @@
        x="1495"
        id="text4"><tspan
          x="1495"
-         id="tspan4">验证准入策略</tspan></text>
+         id="tspan4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">验证准入策略</tspan></text>
   </g>
   <g
      id="g5">
@@ -140,7 +145,9 @@
        x="1182.5"
        id="text5"><tspan
          x="1182.5"
-         id="tspan5">变更性 Webhook</tspan></text>
+         id="tspan5"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+   id="tspan33">变更性</tspan> Webhook</tspan></text>
   </g>
   <g
      id="g6">
@@ -165,7 +172,8 @@
        x="782.5"
        id="text6"><tspan
          x="782.5"
-         id="tspan6">身份认证+鉴权</tspan></text>
+         id="tspan6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">身份认证 + 鉴权</tspan></text>
   </g>
   <g
      id="g7">
@@ -191,7 +199,7 @@
        id="text7"><tspan
          dy="0"
          x="459"
-         id="tspan7">Kubernetes API服务器</tspan></text>
+         id="tspan7">Kubernetes API 服务器</tspan></text>
   </g>
   <g
      id="g8">
@@ -216,7 +224,8 @@
        x="75"
        id="text8"><tspan
          x="75"
-         id="tspan8">用户</tspan></text>
+         id="tspan8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">用户</tspan></text>
   </g>
   <g
      id="g9">
@@ -253,7 +262,9 @@
          x="1812"
          id="text9"><tspan
            x="1812"
-           id="tspan9">验证性 Webhook</tspan></text>
+           id="tspan9"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+   id="tspan30">验证性</tspan>Webhook</tspan></text>
     </g>
   </g>
   <g
@@ -291,7 +302,8 @@
          x="1495"
          id="text10"><tspan
            x="1495"
-           id="tspan10">验证准入策略</tspan></text>
+           id="tspan10"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">验证准入策略</tspan></text>
     </g>
   </g>
   <g
@@ -329,7 +341,9 @@
          x="1182.5"
          id="text11"><tspan
            x="1182.5"
-           id="tspan11">变更性 Webhook</tspan></text>
+           id="tspan11"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+   id="tspan29">变更性</tspan> Webhook</tspan></text>
     </g>
   </g>
   <g
@@ -367,7 +381,8 @@
          x="782.5"
          id="text12"><tspan
            x="782.5"
-           id="tspan12">身份认证+鉴权</tspan></text>
+           id="tspan12"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">身份认证 + 鉴权</tspan></text>
     </g>
   </g>
   <g
@@ -406,7 +421,9 @@
          id="text13"><tspan
            dy="0"
            x="459"
-           id="tspan13">Kubernetes API服务器</tspan></text>
+           id="tspan13">Kubernetes API <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+   id="tspan19">服务器</tspan></tspan></text>
     </g>
   </g>
   <g
@@ -444,7 +461,8 @@
          x="75"
          id="text14"><tspan
            x="75"
-           id="tspan14">用户</tspan></text>
+           id="tspan14"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">用户</tspan></text>
     </g>
   </g>
   <style
@@ -601,7 +619,9 @@
        x="1007.5"
        id="text25"><tspan
          x="1007.5"
-         id="tspan24">[对于所有变更性 Webhook]</tspan></text>
+         id="tspan24"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+   id="tspan26">[对于所有变更性</tspan>Webhook]</tspan></text>
   </g>
   <g
      id="g29">
@@ -654,7 +674,8 @@
        x="1163.75"
        id="text29"><tspan
          x="1163.75"
-         id="tspan28">[对于所有验证策略]</tspan></text>
+         id="tspan28"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'">[对于所有验证策略]</tspan></text>
   </g>
   <g
      id="g33">
@@ -707,7 +728,9 @@
        x="1322.25"
        id="text33"><tspan
          x="1322.25"
-         id="tspan32">[对于并行的所有验证性 Webhook]</tspan></text>
+         id="tspan32"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+   id="tspan31">[对于并行的所有验证性</tspan> Webhook]</tspan></text>
   </g>
   <text
      class="messageText"
@@ -717,7 +740,9 @@
      text-anchor="middle"
      y="163.19174"
      x="254.95021"
-     id="text34">请求（例如创建Pod）</text>
+     id="text34"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan16">请求（例如创建 Pod）</tspan></text>
   <line
      marker-end="url(#arrowhead)"
      style="fill: none;"
@@ -737,7 +762,9 @@
      text-anchor="middle"
      y="208"
      x="619"
-     id="text35">用户身份认证</text>
+     id="text35"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan22">用户身份认证</tspan></text>
   <text
      class="messageText"
      style="font-weight:400;font-size:22px"
@@ -746,7 +773,9 @@
      text-anchor="middle"
      y="234"
      x="619"
-     id="text36">检查用户权限</text>
+     id="text36"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan23">检查用户权限</tspan></text>
   <line
      marker-end="url(#arrowhead)"
      style="fill: none;"
@@ -766,7 +795,9 @@
      text-anchor="middle"
      y="351"
      x="981"
-     id="text37">调用变更性 Webhook</text>
+     id="text37"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+   id="tspan27">调用变更性</tspan>Webhook</text>
   <line
      marker-end="url(#arrowhead)"
      style="fill: none;"
@@ -786,7 +817,9 @@
      text-anchor="middle"
      y="415"
      x="984"
-     id="text38">修改或拒绝对象（如果需要）</text>
+     id="text38"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan17">修改或拒绝对象（如果需要）</tspan></text>
   <line
      marker-end="url(#arrowhead)"
      style="fill: none;"
@@ -806,7 +839,9 @@
      text-anchor="middle"
      y="541"
      x="1137"
-     id="text39">调用验证策略</text>
+     id="text39"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan25">调用验证策略</tspan></text>
   <line
      marker-end="url(#arrowhead)"
      style="fill: none;"
@@ -826,7 +861,9 @@
      text-anchor="middle"
      y="605"
      x="1140"
-     id="text40">拒绝对象（如果需要）</text>
+     id="text40"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan20">拒绝对象（如果需要）</tspan></text>
   <line
      marker-end="url(#arrowhead)"
      style="fill: none;"
@@ -866,7 +903,9 @@
      text-anchor="middle"
      y="795"
      x="1140"
-     id="text42">拒绝对象（如果需要）</text>
+     id="text42"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan18">拒绝对象（如果需要）</tspan></text>
   <line
      marker-end="url(#arrowhead)"
      style="fill: none;"
@@ -886,7 +925,9 @@
      text-anchor="middle"
      y="869"
      x="622"
-     id="text43">允许或拒绝请求</text>
+     id="text43"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan21">允许或拒绝请求</tspan></text>
   <line
      marker-end="url(#arrowhead)"
      style="fill: none;"
@@ -906,7 +947,9 @@
      text-anchor="middle"
      y="933"
      x="269"
-     id="text44">响应（例如成功或报错）</text>
+     id="text44"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'.PingFang SC';-inkscape-font-specification:'.PingFang SC'"
+       id="tspan15">响应（例如成功或报错）</tspan></text>
   <line
      marker-end="url(#arrowhead)"
      stroke="none"

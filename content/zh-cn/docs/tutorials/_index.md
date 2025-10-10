@@ -117,10 +117,12 @@ Kubernetes 文档的这一部分包含教程。
 ## Cluster Management
 
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
+* [Install Drivers and Allocate Devices with DRA](/docs/tutorials/cluster-management/install-use-dra/)
 -->
 ## 集群管理
 
 * [以独立模式运行 kubelet](/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/)
+* [安装驱动程序并使用 DRA 来分配设备](/zh-cn/docs/tutorials/cluster-management/install-use-dra/)
 
 ## {{% heading "whatsnext" %}}
 

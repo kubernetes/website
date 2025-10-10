@@ -131,7 +131,7 @@ NodeSpec describes the attributes that a node is created with.
 
   - **taints.timeAdded** (Time)
 
-    TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+    TimeAdded represents the time at which the taint was added.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*

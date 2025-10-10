@@ -4,7 +4,7 @@ Override variables from the theme here. */
 $primary: #326ce5;
 $secondary: #495057;
 
-$light-grey: #f7f7f7;
+$light-grey: #f9f9f9;
 $medium-light-grey: #6f6f6f;
 $medium-grey: #4c4c4c;
 $dark-grey: #303030;
@@ -14,8 +14,15 @@ $white: #ffffff;
 $feature: #daeaf9;
 $feature-inset: #eeeeee;
 
+// metrics reference colors
 $metric-labels-varying: #efefef;
 $metric-labels-varying-border: #e2e2e2;
+
+$td-sidebar-bg-color: rgba($secondary, 0.05);
+
+$link-color: $primary;
+
+$link-hover-decoration: underline;
 
 // tooltip
 $tooltip-bg: #555;

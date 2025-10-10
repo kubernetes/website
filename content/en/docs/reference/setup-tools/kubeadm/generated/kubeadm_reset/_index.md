@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
-
 ### Synopsis
 
 

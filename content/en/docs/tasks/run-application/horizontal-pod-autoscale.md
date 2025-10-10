@@ -242,12 +242,13 @@ The HorizontalPodAutoscaler (HPA) controller includes two flags that influence h
 - If a Pod rapidly toggles between `Ready` and `Unready`, metrics are ignored until it’s considered stably `Ready`.
 
 #### Best Practice:
-If your Pod has a startup phase with high CPU usage, configure both:
-- `--horizontal-pod-autoscaler-cpu-initialization-period` to **cover the startup duration**.
-- Ensure your **readinessProbe** only reports `Ready` **after the CPU spike subsides**, using `initialDelaySeconds`.
 
-This avoids scaling based on temporary spikes that do not reflect long-term workload needs.
+If your Pod has a startup phase with high CPU usage:
 
+- Configure a `startupProbe` that doesn't pass until the high CPU usage has passed, or
+- Ensure your `readinessProbe` only reports `Ready` **after** the CPU spike subsides, using `initialDelaySeconds`.
+
+And ideally also set `--horizontal-pod-autoscaler-cpu-initialization-period` to **cover the startup duration**.
 
 ## API Object
 
@@ -417,7 +418,7 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 If you use the `v2` HorizontalPodAutoscaler API, you can use the `behavior` field
 (see the [API reference](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/#HorizontalPodAutoscalerSpec))
 to configure separate scale-up and scale-down behaviors.
-You specify these behaviours by setting `scaleUp` and / or `scaleDown`
+You specify these behaviors by setting `scaleUp` and / or `scaleDown`
 under the `behavior` field.
 
 Scaling policies let you control the rate of change of replicas while scaling.

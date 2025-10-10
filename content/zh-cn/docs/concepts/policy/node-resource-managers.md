@@ -331,17 +331,17 @@ listed in alphabetical order:
 : Prevent all the pods regardless of their Quality of Service class to run on reserved CPUs
   (available since Kubernetes v1.32)
 
-`prefer-align-cpus-by-uncorecache` (alpha, hidden by default)
+`prefer-align-cpus-by-uncorecache` (beta, visible by default)
 : Align CPUs by uncore (Last-Level) cache boundary on a best-effort way
   (available since Kubernetes v1.32)
 -->
-`full-pcpus-only`（GA，默认可见）：
+`full-pcpus-only`（GA，默认可见）
 : 始终分配完整的物理核心（自 Kubernetes v1.22 起可用，自 Kubernetes v1.33 起进阶到 GA）
 
-`strict-cpu-reservation`（Beta，默认可见）：
+`strict-cpu-reservation`（Beta，默认可见）
 : 阻止所有 Pod（无论其服务质量类别如何）在预留的 CPU 上运行（自 Kubernetes v1.32 起可用）
 
-`prefer-align-cpus-by-uncorecache`（Alpha，默认隐藏）：
+`prefer-align-cpus-by-uncorecache`（Beta，默认可见）
 : 尽可能通过非核心（最后一级）高速缓存边界对齐 CPU（自 Kubernetes v1.32 起可用）
 
 <!--
