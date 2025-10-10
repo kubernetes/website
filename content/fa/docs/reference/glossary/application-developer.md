@@ -1,5 +1,5 @@
 ---
-title: توسعه دهنده برنامه
+title: توسعه دهنده‌ی برنامه (Application Developer)
 id: application-developer
 date: 2018-04-12
 full_link: 
