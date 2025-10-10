@@ -227,8 +227,6 @@ For more information on JWTs and their structure, see the [JSON Web Token RFC](h
 
 ## Bound service account token volume mechanism {#bound-service-account-token-volume}
 
-{{< feature-state feature_gate_name="BoundServiceAccountTokenVolume" >}}
-
 By default, the Kubernetes control plane (specifically, the
 [ServiceAccount admission controller](#serviceaccount-admission-controller))
 adds a [projected volume](/docs/concepts/storage/projected-volumes/) to Pods,
@@ -422,8 +420,6 @@ it does the following when a Pod is created:
 
 ### Legacy ServiceAccount token tracking controller
 
-{{< feature-state feature_gate_name="LegacyServiceAccountTokenTracking" >}}
-
 This controller generates a ConfigMap called
 `kube-system/kube-apiserver-legacy-service-account-token-tracking` in the
 `kube-system` namespace. The ConfigMap records the timestamp when legacy service
@@ -431,17 +427,14 @@ account tokens began to be monitored by the system.
 
 ### Legacy ServiceAccount token cleaner
 
-{{< feature-state feature_gate_name="LegacyServiceAccountTokenCleanUp" >}}
-
 The legacy ServiceAccount token cleaner runs as part of the
 `kube-controller-manager` and checks every 24 hours to see if any auto-generated
 legacy ServiceAccount token has not been used in a *specified amount of time*.
 If so, the cleaner marks those tokens as invalid.
 
-The cleaner works by first checking the ConfigMap created by the control plane
-(provided that `LegacyServiceAccountTokenTracking` is enabled). If the current
-time is a *specified amount of time* after the date in the ConfigMap, the
-cleaner then loops through the list of Secrets in the cluster and evaluates each
+The cleaner works by first checking the ConfigMap created by the control plane.
+If the current time is a *specified amount of time* after the date in the ConfigMap,
+the cleaner then loops through the list of Secrets in the cluster and evaluates each
 Secret that has the type `kubernetes.io/service-account-token`.
 
 If a Secret meets all of the following conditions, the cleaner marks it as
@@ -466,8 +459,6 @@ administrator can configure this value through the
 {{< /note >}}
 
 ### TokenRequest API
-
-{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 You use the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
 subresource of a ServiceAccount to obtain a time-bound token for that ServiceAccount.
