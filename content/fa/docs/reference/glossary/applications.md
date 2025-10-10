@@ -1,5 +1,5 @@
 ---
-title: برنامه ها
+title: اپلیکیشن‌ها (Applications)
 id: applications
 date: 2019-05-12
 full_link:
