@@ -10,7 +10,7 @@ aka:
 tags:
 - community
 ---
- شرایطی که تحت آنها یک {{< glossary_tooltip text="contributor" term_id="contributor" >}} به یک پروژه متن‌باز برای مشارکت‌های خود مجوز اعطا می‌کند.
+ شرایطی که تحت آن یک {{< glossary_tooltip text="مشارکت‌کننده" term_id="contributor" >}} به یک پروژه متن‌باز برای مشارکت‌های خود مجوز اعطا می‌کند.
 
 <!--more--> 
 
