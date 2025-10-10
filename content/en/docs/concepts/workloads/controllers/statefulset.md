@@ -363,6 +363,18 @@ that are running with the `MaxUnavailableStatefulSet`
 enabled.
 {{< /note >}}
 
+#### PodManagementPolicy
+
+You can determine the order at which the pods are deleted by specifying the `.spec.PodManagementPolicy`
+field. There are two policies that you can configure for each StatefulSet: 
+
+`parallel`
+: When updating, there will always be maxUnavailable number of pods terminating except the last batch
+
+`orderedReady`
+: When updating, the number of pods terminating won't always be maxUnavailable, but sometimes less than 
+  that. This implementation avoids out of order Terminations of pods.
+
 ### Forced rollback
 
 When using [Rolling Updates](#rolling-updates) with the default
