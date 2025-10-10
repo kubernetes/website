@@ -4,7 +4,7 @@ id: cel
 date: 2025-06-04
 full_link: https://cel.dev
 short_description: >
-  یک زبان بیان که برای اجرای ایمن کد کاربر طراحی شده است.
+  یک زبان عبارات که برای اجرای ایمن کد کاربر طراحی شده است.
 tags:
 - extension
 - fundamental
