@@ -1,5 +1,5 @@
 ---
-title: تأییدکننده
+title: تأییدکننده (Approver)
 id: approver
 date: 2018-04-12
 full_link: 
