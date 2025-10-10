@@ -15,7 +15,7 @@ Kubernetes {{< skew currentVersion >}} includes optional _declarative validation
 code (`validation.go` files) to ensure that requests against the API are valid.
 Kubernetes developers, and people [extending the Kubernetes API](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/),
 can define validation rules directly alongside the API type definitions (`types.go` files). Code authors define
-pecial comment tags (e.g., `+k8s:minimum=0`). A code generator (`validation-gen`) then uses these tags to produce
+special comment tags (e.g., `+k8s:minimum=0`). A code generator (`validation-gen`) then uses these tags to produce
 optimized Go code for API validation.
 
 While primarily a feature impacting Kubernetes contributors and potentially developers of [extension API servers](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/), cluster administrators should understand its behavior, especially during its rollout phases.
