@@ -1,5 +1,5 @@
 ---
-title: CLA (توافقنامه مجوز مشارکت‌کننده)
+title: CLA (توافق نامه مجوز مشارکت‌کننده - Contributor License Agreement)
 id: cla
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/CLA.md
