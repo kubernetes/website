@@ -58,23 +58,23 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 
 * `kube-proxy`は`kube-apiserver`よりも新しいものであってはなりません
 * `kube-proxy`は`kube-apiserver`よりも最大で3バージョン古くても構いません (`kube-proxy` < 1.25の場合は2バージョンまで)
-* `kube-proxy`は同一ノードで動作している`kubelet`より3バージョン古くても新しくても構いません (`kube-proxy` < 1.25の場合は2バージョンまで)
+* `kube-proxy`は同一ノードで動作している`kubelet`より最大3バージョン古くても新しくても構いません (`kube-proxy` < 1.25の場合は2バージョンまで)
 
 例:
 
-* `kube-apiserver`のバージョンが**{{< skew oldestMinorVersion >}}**であるとします
+* `kube-apiserver`のバージョンが**{{< skew currentVersion >}}**であるとします
 * `kube-proxy`は**{{< skew currentVersion >}}**、**{{< skew currentVersionAddMinor -1 >}}**、
   **{{< skew currentVersionAddMinor -2 >}}**および**{{< skew currentVersionAddMinor -3 >}}**がサポートされます
 
 {{< note >}}
-HAクラスター内の`kube-apiserver`間にバージョンの差異がある場合、有効な`kubelet`のバージョンは少なくなります。
+HAクラスター内の`kube-apiserver`間にバージョンの差異がある場合、有効な`kube-proxy`のバージョンは少なくなります。
 {{</ note >}}
 
 例:
 
 * `kube-apiserver`インスタンスが**{{< skew currentVersion >}}**および**{{< skew currentVersionAddMinor -1 >}}**であるとします
 * `kube-proxy`は**{{< skew currentVersionAddMinor -1 >}}**、**{{< skew currentVersionAddMinor -2 >}}**、
-  **{{< skew currentVersionAddMinor -3 >}}**がサポートされます (**{{< skew currentVersion >}}**は、`kube-apiserver`よりも新しいためサポートされません)
+  **{{< skew currentVersionAddMinor -3 >}}**がサポートされます (**{{< skew currentVersion >}}**は、**{{< skew currentVersionAddMinor -1 >}}**の`kube-apiserver`インスタンスよりも新しいためサポートされません)
 
 ### kube-controller-manager、kube-scheduler、およびcloud-controller-manager
 
@@ -161,9 +161,9 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 
 前提条件：
 
-* `kube-proxy`と通信する`kube-apiserver`が**{{< skew latestVersion >}}** であること
+* `kube-proxy`と通信する`kube-apiserver`インスタンスが**{{< skew currentVersion >}}** であること
 
-必要に応じて、`kube-proxy`インスタンスを**{{< skew latestVersion >}}** にアップグレードしてください(**{{< skew prevMinorVersion >}}**や**{{< skew oldestMinorVersion >}}** のままにすることもできます)。
+必要に応じて、`kube-proxy`インスタンスを**{{< skew currentVersion >}}** にアップグレードしてください(**{{< skew currentVersionAddMinor -1 >}}**や**{{< skew currentVersionAddMinor -2 >}}**、**{{< skew currentVersionAddMinor -3 >}}**のままにすることもできます)。
 
 {{< warning >}}
 `kube-apiserver`より3つ前のマイナーバージョンで動作している`kube-proxy`インスタンスは、コントロールプレーンをアップグレードする前にアップグレードしなければなりません。
