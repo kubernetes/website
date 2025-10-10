@@ -633,7 +633,7 @@ spec:
 
 <!--
 A Pod with Always restart policy with an init container that only execute once. If the init
-container fails, the Pod fails. This alllows the Pod to fail if the initialiaztion failed,
+container fails, the Pod fails. This alllows the Pod to fail if the initialization failed,
 but also keep running once the initialization succeeds:
 -->
 下面是一个重启策略为 Always 的 Pod，其中包含一个只执行一次的 Init 容器。
@@ -1269,7 +1269,7 @@ processing its startup data, you might prefer a readiness probe.
 <!--
 If you want to be able to drain requests when the Pod is deleted, you do not
 necessarily need a readiness probe; when the Pod is deleted, the corresponding endpoint
-in the `EndppointSlice` will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions):
+in the `EndpointSlice` will update its [conditions](/docs/concepts/services-networking/endpoint-slices/#conditions):
 the endpoint `ready` condition will be set to `false`, so load balancers
 will not use the Pod for regular traffic. See [Pod termination](#pod-termination)
 for more information about how the kubelet handles Pod deletion.

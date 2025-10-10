@@ -37,12 +37,12 @@ that system resource specifically for that container to use.
 时可以选择性地为每个{{< glossary_tooltip text="容器" term_id="container" >}}设定所需要的资源数量。
 最常见的可设定资源是 CPU 和内存（RAM）大小；此外还有其他类型的资源。
 
-当你为 Pod 中的 Container 指定了资源 **request（请求）** 时，
+当你为 Pod 中的 Container 指定了资源 **requests（请求）** 时，
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-就利用该信息决定将 Pod 调度到哪个节点上。
-当你为 Container 指定了资源 **limit（限制）** 时，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
-就可以确保运行的容器不会使用超出所设限制的资源。
-kubelet 还会为容器预留所 **request（请求）** 数量的系统资源，供其使用。
+会利用该信息决定将 Pod 调度到哪个节点上。
+当你为 Container 指定了资源 **limits（限制）** 时，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+可以确保运行的容器不会使用超出所设限制的资源。
+kubelet 还会为容器预留 **requests（请求）** 所指定数量的系统资源，供其使用。
 
 <!-- body -->
 
@@ -59,11 +59,11 @@ more RAM.
 ## 请求和限制  {#requests-and-limits}
 
 如果 Pod 运行所在的节点具有足够的可用资源，容器可能（且可以）使用超出对应资源
-`request` 属性所设置的资源量。
+`requests` 属性所设置的资源量。
 
 例如，如果你将容器的 `memory` 的请求量设置为 256 MiB，而该容器所处的 Pod
-被调度到一个具有 8 GiB 内存的节点上，并且该节点上没有其他 Pod
-运行，那么该容器就可以尝试使用更多的内存。
+被调度到一个具有 8 GiB 内存的节点上，并且该节点上没有其他 Pod 运行，
+那么该容器就可以尝试使用更多的内存。
 
 <!--
 Limits are a different story. Both `cpu` and `memory` limits are applied by the kubelet (and
@@ -74,7 +74,7 @@ enforces limits with
 The behavior of `cpu` and `memory` limit enforcement is slightly different.
 -->
 限制是另一个话题。`cpu` 限制和 `memory` 限制都由 kubelet
-（以及 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}）来应用，
+（以及 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}）来实施，
 最终由内核强制执行。在 Linux 节点上，Linux 内核通过
 {{< glossary_tooltip text="CGroup" term_id="cgroup" >}} 来强制执行限制。
 `cpu` 限制和 `memory` 限制的执行行为略有不同。
@@ -85,7 +85,7 @@ its `cpu` limit, the kernel will restrict access to the CPU corresponding to the
 container's limit. Thus, a `cpu` limit is a hard limit the kernel enforces.
 Containers may not use more CPU than is specified in their `cpu` limit.
 -->
-`cpu` 限制通过 CPU 节流机制来强制执行。
+`cpu` 限制通过 CPU 节流机制（CPU Throttling）来强制执行。
 当某容器接近其 `cpu` 限制值时，内核会基于容器的限制值来限制其对 CPU 的访问。
 因此，`cpu` 限制是内核强制执行的一个硬性限制。容器不得使用超出其 `cpu` 限制所指定的 CPU 核数。
 
@@ -97,12 +97,12 @@ container that over allocates memory may not be immediately killed. This means
 `memory` limits are enforced reactively. A container may use more memory than
 its `memory` limit, but if it does, it may get killed.
 -->
-`memory` 限制由内核使用 OOM（内存溢出）终止机制来强制执行。
+`memory` 限制由内核使用 OOM（内存不足）杀死机制来强制执行。
 当某容器使用的内存超过其 `memory` 限制时，内核可以终止此容器。
-然而，终止只会在内核检测到内存压力时才会发生。
-因此，超配内存的容器可能不会被立即终止。
+然而，终止操作只会在内核检测到内存压力时才会发生。
+因此，内存分配过量的容器可能不会被立即终止。
 这意味着 `memory` 限制是被动执行的。
-某容器可以使用超过其 `memory` 限制的内存，但如果这样做，此容器可能会被终止。
+某容器可以使用超过其 `memory` 限制的内存，但如果这样做了，它可能会被终止。
 
 {{< note >}}
 <!--
@@ -114,7 +114,7 @@ due to a potential livelock situation a memory hungry can cause.
 -->
 你可以使用一个 Alpha 特性 `MemoryQoS` 来尝试为内存添加执行更多的抢占限制
 （这与 OOM Killer 的被动执行相反）。然而，由于可能会因内存饥饿造成活锁情形，
-所以这种尝试操作会被[卡滞](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)。
+所以这一特性现在处于[停滞状态](https://github.com/kubernetes/enhancements/tree/a47155b340/keps/sig-node/2570-memory-qos#latest-update-stalled)。
 {{< /note >}}
 
 {{< note >}}
@@ -123,9 +123,9 @@ If you specify a limit for a resource, but do not specify any request, and no ad
 mechanism has applied a default request for that resource, then Kubernetes copies the limit
 you specified and uses it as the requested value for the resource.
 -->
-如果你为某个资源指定了限制，但不指定请求，
-并且没有应用准入时机制为该资源设置默认请求，
-然后 Kubernetes 复制你所指定的限制值，将其用作资源的请求值。
+如果你为某个资源指定了限制值，但不指定请求值，
+并且没有应用某种准入时机制为该资源设置默认请求值，
+那么 Kubernetes 会复制你所指定的限制值，将其用作资源的请求值。
 {{< /note >}}
 
 <!--
@@ -147,7 +147,7 @@ total of 80 MiB), that allocation fails.
 **CPU** 和**内存**都是**资源类型**。每种资源类型具有其基本单位。
 CPU 表达的是计算处理能力，其单位是 [Kubernetes CPU](#meaning-of-cpu)。
 内存的单位是字节。
-对于 Linux 负载，则可以指定巨页（Huge Page）资源。
+对于 Linux 负载，你可以设置巨页（Huge Page）资源。
 巨页是 Linux 特有的功能，节点内核在其中分配的内存块比默认页大小大得多。
 
 例如，在默认页面大小为 4KiB 的系统上，你可以指定限制 `hugepages-2Mi: 80Mi`。
@@ -201,7 +201,7 @@ For a particular resource, a *Pod resource request/limit* is the sum of the
 resource requests/limits of that type for each container in the Pod.
 -->
 尽管你只能逐个容器地指定请求和限制值，但考虑 Pod 的总体资源请求和限制也是有用的。
-对特定资源而言，**Pod 的资源请求/限制**是 Pod 中各容器对该类型资源的请求/限制的总和。
+对特定资源而言，**Pod 的资源请求/限制值**是 Pod 中各容器对该类型资源的请求/限制值的总和。
 
 <!--
 ## Pod-level resource specification
@@ -224,12 +224,12 @@ other, improving resource utilization.
 -->
 如果你的集群启用了 `PodLevelResources`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你可以在 Pod 级别指定资源请求和限制。
-在 Pod 级别，Kubernetes {{< skew currentVersion >}} 仅支持为特定资源类型设置资源请求或限制：
-`cpu` 和/或 `memory` 和/或 `hugepages`。
-通过此特性，Kubernetes 允许你为 Pod 申领一个资源总预算，
+你可以在 Pod 级别指定资源请求和限制值。
+在 Pod 级别，Kubernetes {{< skew currentVersion >}} 仅支持为特定资源类型设置资源请求或限制值，
+具体包括 `cpu` 和/或 `memory` 和/或 `hugepages`。
+启用此特性时，Kubernetes 允许你为 Pod 声明一个资源总预算，
 这在处理大量容器时特别有用，因为在这种情况下很难准确评估各个容器的资源需求。
-此外，它还允许 Pod 内的容器之间共享空闲资源，从而提高资源利用率。
+此外，这一特性还允许 Pod 内的容器之间共享空闲资源，从而提高资源利用率。
 
 <!--
 For a Pod, you can specify resource limits and requests for CPU and memory by including the following:
@@ -395,8 +395,8 @@ set.
 -->
 此特性可以通过设置 `PodLevelResources`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates)来启用。
-以下 Pod 明确请求了 1 个 CPU 和 100 MiB 的内存，并设置了明确的限制为 1 个 CPU 和 200 MiB 的内存。
-`pod-resources-demo-ctr-1` 容器设置了明确的资源请求和限制。然而，`pod-resources-demo-ctr-2`
+以下 Pod 明确请求了 1 个 CPU 和 100 MiB 的内存，并设置了明确的限制值为 1 个 CPU 和 200 MiB 的内存。
+`pod-resources-demo-ctr-1` 容器设置了明确的资源请求和限制值。不过 `pod-resources-demo-ctr-2`
 容器没有设置明确的资源请求和限制，因此它将共享 Pod 资源边界内的可用资源。
 
 {{% code_sample file="pods/resource/pod-level-resources.yaml" %}}
@@ -421,7 +421,7 @@ daily peak in request rate.
 每个节点对每种资源类型都有一个容量上限：可为 Pod 提供的 CPU 和内存量。
 调度程序确保对于每种资源类型，所调度的容器的资源请求的总和小于节点的容量。
 请注意，尽管节点上的实际内存或 CPU 资源使用量非常低，如果容量检查失败，
-调度程序仍会拒绝在该节点上放置 Pod。
+调度程序仍会拒绝将 Pod 放置在该节点上。
 当稍后节点上资源用量增加，例如到达请求率的每日峰值区间时，节点上也不会出现资源不足的问题。
 
 <!--
@@ -434,9 +434,9 @@ On Linux, the container runtime typically configures
 kernel {{< glossary_tooltip text="cgroups" term_id="cgroup" >}} that apply and enforce the
 limits you defined.
 -->
-## Kubernetes 应用资源请求与限制的方式 {#how-pods-with-resource-limits-are-run}
+## Kubernetes 处理资源请求与限制的方式 {#how-pods-with-resource-limits-are-run}
 
-当 kubelet 将容器作为 Pod 的一部分启动时，它会将容器的 CPU 和内存请求与限制信息传递给容器运行时。
+当 kubelet 将容器作为 Pod 的一部分启动时，它会将容器的 CPU 和内存请求与限制值信息传递给容器运行时。
 
 在 Linux 系统上，容器运行时通常会配置内核
 {{< glossary_tooltip text="CGroup" term_id="cgroup" >}}，负责应用并实施所定义的请求。
@@ -448,7 +448,7 @@ limits you defined.
 -->
 - CPU 限制定义的是容器可使用的 CPU 时间的硬性上限。
   在每个调度周期（时间片）期间，Linux 内核检查是否已经超出该限制；
-  内核会在允许该 CGroup 恢复执行之前会等待。
+  内核在允许该 CGroup 恢复执行之前会等待。
 <!--
 - The CPU request typically defines a weighting. If several different containers (cgroups)
   want to run on a contended system, workloads with larger CPU requests are allocated more
@@ -471,7 +471,7 @@ limits you defined.
   as restartable, Kubernetes restarts the container.
 -->
 - 内存限制定义的是 CGroup 的内存限制。如果容器尝试分配的内存量超出限制，
-  则 Linux 内核的内存不足处理子系统会被激活，并停止尝试分配内存的容器中的某个进程。
+  则 Linux 内核的 out-of-memory （内存不足）子系统会被激活，并停止尝试分配内存的容器中的某个进程。
   如果该进程在容器中 PID 为 1，而容器被标记为可重新启动，则 Kubernetes
   会重新启动该容器。
 <!--
@@ -480,7 +480,7 @@ limits you defined.
   memory use, rather than as local ephemeral storage.　When using memory backed `emptyDir`,
   be sure to check the notes [below](#memory-backed-emptydir).
 -->
-- Pod 或容器的内存限制也适用于通过内存作为介质的卷，例如 `emptyDir` 卷。
+- Pod 或容器的内存限制也适用于以内存为介质的卷，例如 `emptyDir` 卷。
   kubelet 会跟踪 `tmpfs` 形式的 emptyDir 卷用量，将其作为容器的内存用量，
   而不是临时存储用量。当使用内存作为介质的 `emptyDir` 时，
   请务必查看[下面](#memory-backed-emptydir)的注意事项。
@@ -499,11 +499,10 @@ see the [Troubleshooting](#troubleshooting) section.
 如果某容器内存用量超过其内存请求值并且所在节点内存不足时，容器所处的 Pod
 可能被{{< glossary_tooltip text="逐出" term_id="eviction" >}}。
 
-每个容器可能被允许也可能不被允许使用超过其 CPU 限制的处理时间。
+每个容器可能被允许也可能不被允许使用超过其 CPU 限制值的处理时间。
 但是，容器运行时不会由于 CPU 使用率过高而杀死 Pod 或容器。
 
-要确定某容器是否会由于资源限制而无法调度或被杀死，请参阅[疑难解答](#troubleshooting)节。
-
+要确定某容器是否会由于资源限制而无法调度或被杀死，请参阅[问题诊断](#troubleshooting)节。
 <!--
 ### Monitoring compute & memory resource usage
 
@@ -548,7 +547,7 @@ more likely.
 如果你没有设置内存限制，Pod 的内存消耗将没有上限，并且可能会用掉节点上的所有可用内存。
 Kubernetes 基于资源请求（`Pod.spec.containers[].resources.requests`）调度 Pod，
 并且在决定另一个 Pod 是否适合调度到某个给定的节点上时，不会考虑超出请求的内存用量。
-这可能导致拒绝服务，并使操作系统出现需要处理内存不足（OOM）的情况。
+这可能导致拒绝服务，并使得操作系统需要处理内存不足（OOM）的情况。
 用户可以创建任意数量的 `emptyDir`，可能会消耗节点上的所有可用内存，使得 OOM 更有可能发生。
 {{< /caution >}}
 
@@ -786,7 +785,8 @@ kubelet 会将 `tmpfs` emptyDir 卷的用量当作容器内存用量，而不是
 The kubelet will only track the root filesystem for ephemeral storage. OS layouts that mount a separate disk to `/var/lib/kubelet` or `/var/lib/containers` will not report ephemeral storage correctly.
 -->
 kubelet 将仅跟踪临时存储的根文件系统。
-挂载一个单独磁盘到 `/var/lib/kubelet` 或 `/var/lib/containers` 的操作系统布局将不会正确地报告临时存储。
+如果你挂载另一个磁盘到 `/var/lib/kubelet` 或 `/var/lib/containers` 目录下，
+形成新的操作系统层面布局，kubelet 将无法正确报告临时存储用量。
 {{< /note >}}
 
 <!--
@@ -916,8 +916,8 @@ sets an eviction signal that triggers Pod eviction.
 - 保存节点层面日志的目录
 - 可写入的容器镜像层
 
-如果某 Pod 的临时存储用量超出了你所允许的范围，kubelet
-会向其发出逐出（eviction）信号，触发该 Pod 被逐出所在节点。
+如果某 Pod 的临时存储用量超出了你所允许的范围，
+kubelet 会向其发出逐出（eviction）信号，触发该 Pod 被逐出所在节点。
 
 <!--
 For container-level isolation, if a container's writable layer and log
@@ -932,8 +932,8 @@ for eviction.
 就容器层面的隔离而言，如果某容器的可写入镜像层和日志用量超出其存储限制，
 kubelet 也会将所在的 Pod 标记为逐出候选。
 
-就 Pod 层面的隔离而言，kubelet 会将 Pod 中所有容器的限制相加，得到 Pod
-存储限制的总值。如果所有容器的本地临时性存储用量总和加上 Pod 的 `emptyDir`
+就 Pod 层面的隔离而言，kubelet 会将 Pod 中所有容器的限制相加，得到 Pod 存储限制的总值。
+如果所有容器的本地临时性存储用量总和加上 Pod 的 `emptyDir`
 卷的用量超出 Pod 存储限制，kubelet 也会将该 Pod 标记为逐出候选。
 
 {{< caution >}}
@@ -1399,7 +1399,7 @@ unscheduled until a place can be found. An
 each time the scheduler fails to find a place for the Pod. You can use `kubectl`
 to view the events for a Pod; for example:
 -->
-## 疑难解答  {#troubleshooting}
+## 问题诊断  {#troubleshooting}
 
 ### 我的 Pod 处于悬决状态且事件信息显示 `FailedScheduling`  {#my-pods-are-pending-with-event-message-failedscheduling}
 

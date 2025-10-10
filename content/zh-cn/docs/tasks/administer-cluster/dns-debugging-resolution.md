@@ -298,7 +298,7 @@ command.
 你可以使用 `kubectl get endpointslice` 命令来验证 DNS 的端点是否公开了。
 
 ```shell
-kubectl get endpointslices -l k8s.io/service-name=kube-dns --namespace=kube-system
+kubectl get endpointslice -l k8s.io/service-name=kube-dns --namespace=kube-system
 ```
 
 ```

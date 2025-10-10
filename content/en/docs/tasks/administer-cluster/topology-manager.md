@@ -58,6 +58,10 @@ the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
 
+The flow can be seen in the following diagram.
+
+![topology_manager_flow](/images/docs/topology-manager-flow.png)
+
 ## Windows Support
 
 {{< feature-state feature_gate_name="WindowsCPUAndMemoryAffinity" >}}
