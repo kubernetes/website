@@ -1,5 +1,5 @@
 ---
-title: گواهینامه
+title: گواهی (Certificate)
 id: certificate
 date: 2018-04-12
 full_link: /docs/tasks/tls/managing-tls-in-a-cluster/
