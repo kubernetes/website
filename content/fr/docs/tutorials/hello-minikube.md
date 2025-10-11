@@ -18,16 +18,16 @@ Le tutoriel fournit une image de conteneur qui utilise NGINX pour renvoyer toute
 * Exécuter l'application.
 * Afficher les journaux de l'application.
 
-## {{% heading "prérequis²" %}}
+## {{% heading "prérequis" %}}
 
+Ce tutoriel suppose que vous avez déjà configuré `minikube`.  
+Voir __Étape 1__ dans [minikube start](https://minikube.sigs.k8s.io/docs/start/) pour les instructions d'installation.  
 
-Ce tutoriel suppose que vous avez déjà configuré `minikube`.
-Voir __Étape 1__ dans [minikube start](https://minikube.pour les instructions d'installation installation instructions.
 {{< note >}}
 Exécutez uniquement les instructions de l'__Étape 1, Installation__. Le reste est couvert sur cette page. 
 {{< /note >}}
 
-Vous devez également installer `kubectl`.
+Vous devez également installer `kubectl`. 
 Voir [Installer les outils](/docs/tasks/tools/#kubectl) pour les instructions d'installation.
 
 
