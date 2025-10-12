@@ -116,7 +116,7 @@ for a comprehensive list.
   MyApp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the
   appropriate Pods for other resources; for example, a Service that selects all `tier: frontend`
   Pods, or all `phase: test` components of `app.kubernetes.io/name: MyApp`.
-  See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app
+  See the [guestbook](https://github.com/kubernetes/examples/tree/master/web/guestbook/) app
   for examples of this approach.
 
   A Service can be made to span multiple Deployments by omitting release-specific labels from its
