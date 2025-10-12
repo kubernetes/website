@@ -10,13 +10,12 @@ notoc: true
 پروژه کوبرنتیز شاخه‌های انتشار (release branches) را برای سه نسخه جزئی (minor) اخیر نگهداری می‌کند.
 ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
 کوبرنتیز 1.19 و نسخه های جدید تر ان
-[تقریباً ۱ سال پشتیبانی دارند](/releases/patch-releases/#support-period).
+[تقریباً ۱ سال پشتیبانی patch دارند](/releases/patch-releases/#support-period).
 نسخه‌های 1.18 و قدیمی‌تر کوبرنتیز تقریباً به‌مدت ۹ ماه پشتیبانی اصلاحی (patch support) دریافت می‌کردند.
 
 نسخه‌های کوبرنتیز به‌صورت زیر بیان می‌شوند: **x.y.z**,
 که در آن **x** نسخه اصلی (major version)، **y** نسخه فرعی (minor version)، و **z** نسخه اصلاحی (patch version) است.
-مطابق با اصطلاحات نسخه‌بندی معنایی [Semantic Versioning](https://semver.org/).
-
+که از اصطلاحات [نسخه‌بندی معنایی](https://semver.org/) پیروی می‌کند.
 [سیاست ناسازگاری نسخه‌ها](/releases/version-skew-policy/) اطلاعات بیشتر در سند سیاست ناسازگاری نسخه‌ها موجود است.
 <!-- body -->
 
