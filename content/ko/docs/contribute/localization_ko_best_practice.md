@@ -188,7 +188,7 @@ content_type: concept
 #### 설명
 - 앵커 링크는 **정확한 이름**으로 지정한다.
 - 헤더에 별도의 앵커가 없는 경우, `Minimum required content`  →  `minimum-required-content`와 같은 패턴으로 자동 할당된다.
-- 한글로 헤더가 변경되었다면, **영문 앵커 링크도 한글로 변경**되어야 한다.
+- 한글로 헤더가 변경되었다면, **영문 앵커 링크도 한글로 변경**한다.
   - ex. `(#minimum-required-content)` → `(#최소-요구-콘텐츠)`
 - `GitHub에 현지화 팀 추가하기 {#Add-your-localization-team-in-GitHub}`와 같이 기존 원문에 이미 특별히 영문 앵커가 지정되어 있는 경우가 있다.
   - 이 경우, 해당 앵커는 한글 문서에서도 그대로 영문으로 준용한다.
