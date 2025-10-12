@@ -86,7 +86,7 @@ DeviceTaintRuleSpec specifies the selector and one taint.
 
 - **deviceSelector** (DeviceTaintSelector)
 
-  DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+  DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
 
   <a name="DeviceTaintSelector"></a>
   *DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.*

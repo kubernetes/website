@@ -11,6 +11,7 @@ stages:
     fromVersion: "1.29"
     toVersion: "1.33"
   - stage: stable
+    locked: true
     defaultValue: true
     fromVersion: "1.34"
 ---
