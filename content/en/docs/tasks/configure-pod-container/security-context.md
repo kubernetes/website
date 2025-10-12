@@ -191,7 +191,7 @@ kubectl exec -it security-context-demo -- sh
 Check the process identity:
 
 ```shell
-$ id
+id
 ```
 
 The output is similar to this:
@@ -207,7 +207,7 @@ inside the container image.
 Check the `/etc/group` in the container image:
 
 ```shell
-$ cat /etc/group
+cat /etc/group
 ```
 
 You can see that uid `1000` belongs to group `50000`.
