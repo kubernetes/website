@@ -3,7 +3,7 @@
 title: API-сервер
 id: kube-apiserver
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-apiserver/
+full_link: /docs/concepts/architecture/#kube-apiserver
 # short_description: >
 #  Control plane component that serves the Kubernetes API.
 short_description: >
