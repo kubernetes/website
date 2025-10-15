@@ -30,7 +30,9 @@ serve the following endpoints (when enabled):
 
 - [z-pages](#z-pages)
   - [statusz](#statusz)
+    - [structured response](#structured-response)
   - [flagz](#flagz)
+    - [structured response](#structured-response-1)
 
 ### statusz
 
@@ -49,6 +51,8 @@ Go version: go1.23.2
 Binary version: 1.32.0-alpha.0.1484&#43;5eeac4f21a491b-dirty
 Emulation version: 1.32.0-alpha.0.1484
 ```
+
+#### structured response
 
 ### flagz
 
@@ -70,3 +74,4 @@ authorization-webhook-cache-unauthorized-ttl=30s
 authorization-webhook-version=v1beta1
 default-watch-cache-size=100
 ```
+#### structured response
