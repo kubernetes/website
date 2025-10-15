@@ -138,7 +138,8 @@ content_type: concept
 > ... cpu 혹은 메모리와 같은 자원의 요청(request)과 상한(limit)을 설정하기 위함이다.
 
 #### 설명
-- 먼저, [한글화 용어집](https://kubernetes.io/ko/docs/contribute/localization_ko/#%ED%95%9C%EA%B8%80%ED%99%94-%EC%9A%A9%EC%96%B4%EC%A7%91)에 해당 단어가 등록되어 있는지 확인한다.
+- 먼저, [한글화 용어집](/ko/docs/docs/contribute/localization_ko/#한글화-용어집)에
+해당 단어가 등록되어 있는지 확인한다.
 - 한글화 용어집에 있는 경우 이를 따르고, 없는 경우 번역 대상이 쿠버네티스 오브젝트나 필드 명칭이면 영문 병기를 통해 구분한다.
 
 #### 참고 링크
