@@ -643,7 +643,7 @@ section of the enhancement proposal about Pod topology spread constraints.
 
   Always verify that node labels exactly match the `topologyKey` specified in your
   spread constraints.
-- **Pods that don't match their own labelSelector create "ghost pods".** If a pod's
+- Pods that don't match their own labelSelector create "ghost pods". If a pod's
   labels don't match the `labelSelector` in its topology spread constraint, the pod
   won't count itself in spread calculations. This means:
   - Multiple such pods can accumulate on the same node without triggering the constraint
