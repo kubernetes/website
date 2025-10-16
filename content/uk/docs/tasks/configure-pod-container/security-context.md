@@ -157,7 +157,7 @@ kubectl exec -it security-context-demo -- sh
 Перевірте ідентичність процесу:
 
 ```shell
-$ id
+id
 ```
 
 Вивід буде схожий на:
@@ -171,7 +171,7 @@ uid=1000 gid=3000 groups=3000,4000,50000
 Перевірте `/etc/group` в контейнерному образі:
 
 ```shell
-$ cat /etc/group
+cat /etc/group
 ```
 
 Ви побачите, що `uid 1000` належить до групи `50000`.

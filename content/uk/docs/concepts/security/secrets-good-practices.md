@@ -51,7 +51,7 @@ weight: 70
 
 {{% thirdparty-content %}}
 
-Ви можете використовувати сторонніх постачальників систем збереження Secret, щоб зберігати вашу конфіденційну інформацію поза кластером, а потім налаштувати Podʼі для доступу до цієї інформації. [Драйвер Kubernetes Secrets Store CSI](https://secrets-store-csi-driver.sigs.k8s.io/) — це DaemonSet, який дозволяє kubelet отримувати Secrets з зовнішніх сховищ та монтувати Secretʼи як томи у певні Podʼи, які ви авторизуєте для доступу до даних.
+Ви можете використовувати сторонніх постачальників систем збереження Secret, щоб зберігати вашу конфіденційну інформацію поза кластером, а потім налаштувати Podʼи для доступу до цієї інформації. [Драйвер Kubernetes Secrets Store CSI](https://secrets-store-csi-driver.sigs.k8s.io/) — це DaemonSet, який дозволяє kubelet отримувати Secrets з зовнішніх сховищ та монтувати Secretʼи як томи у певні Podʼи, які ви авторизуєте для доступу до даних.
 
 Для списку підтримуваних постачальників дивіться [Постачальники для драйвера сховища Secret Store CSI](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
 

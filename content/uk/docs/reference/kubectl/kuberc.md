@@ -40,7 +40,7 @@ aliases:
 
 З цим аліасом виконання `kubectl getn pods` стандартно виведе JSON. Однак, якщо ви виконаєте `kubectl getn pods -oyaml`, вивід буде у форматі YAML.
 
-Повний опис схеми `kuberc` доступний [тут](/docs/reference/config-api/kubelet-config.v1beta1/).
+Повний опис схеми `kuberc` доступний [тут](docs/reference/config-api/kuberc.v1beta1/).
 
 ### prependArgs
 

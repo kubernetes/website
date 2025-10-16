@@ -8,11 +8,7 @@ weight: 40
 
 Ця сторінка охоплює способи налаштування компонентів, які розгортаються за допомогою kubeadm. Для компонентів панелі управління можна використовувати прапорці у структурі `ClusterConfiguration` або патчі на рівні вузла. Для kubelet і kube-proxy ви можете використовувати `KubeletConfiguration` та `KubeProxyConfiguration`, відповідно.
 
-Всі ці опції можливі за допомогою конфігураційного API kubeadm. Докладніше про кожне поле в конфігурації ви можете дізнатися на наших [довідкових сторінках API](/docs/reference/config-api/kubeadm-config.v1beta3/).
-
-{{< note >}}
-На жаль, наразі не підтримується налаштування розгортання CoreDNS за допомогою kubeadm. Вам слід вручну патчити {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} `kube-system/coredns` та перестворити {{< glossary_tooltip text="Pods" term_id="pod" >}} CoreDNS після цього. Альтернативно, ви можете пропустити типове розгортання CoreDNS та розгорнути свій варіант. Докладніше про це читайте у [Використання фаз ініціалізації з kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases).
-{{< /note >}}
+Всі ці опції можливі за допомогою конфігураційного API kubeadm. Докладніше про кожне поле в конфігурації ви можете дізнатися на наших [довідкових сторінках API](/docs/reference/config-api/kubeadm-config.v1beta4/).
 
 {{< note >}}
 Щоб переконфігурувати кластер, який вже був створений, дивіться [Переконфігурація кластера з kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
@@ -149,10 +145,10 @@ patches:
   directory: /home/user/somedir
 ```
 
-Тека має містити файли з назвами `target[suffix][+patchtype].extension`.
-Наприклад, `kube-apiserver0+merge.yaml` або просто `etcd.json`.
+Тека має містити файли з назвами `target[suffix][+patchtype].extension`. Наприклад, `kube-apiserver0+merge.yaml` або просто `etcd.json`.
 
-- `target` може бути одним із `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd` та `kubeletconfiguration`.
+- `target` може бути одним із `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `etcd`,
+`kubeletconfiguration` та `corednsdeployment`.
 - `suffix` — це необовʼязковий рядок, який можна використовувати для визначення порядку застосування патчів за алфавітною послідовністю.
 - `patchtype` може бути одним із `strategic`, `merge` або `json` і вони повинні відповідати форматам патчів, [підтримуваним kubectl](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch). Типово `patchtype` — `strategic`.
 - `extension` повинен бути або `json`, або `yaml`.
@@ -181,3 +177,24 @@ patches:
 {{< note >}}
 kubeadm розгортає kube-proxy як {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}, що означає, що `KubeProxyConfiguration` буде застосовуватися до всіх екземплярів kube-proxy в кластері.
 {{< /note >}}
+
+## Customizing CoreDNS {#customizing-coredns}
+
+kubeadm дозволяє налаштувати Deployment CoreDNS за допомогою патчів для [`corednsdeployment` patch target](#patches).
+
+Патчі для інших обʼєктів API, повʼязаних з CoreDNS, таких як `kube-system/coredns` {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}, наразі не підтримуються. Ви повинні вручну виправити будь-який з цих обʼєктів за допомогою kubectl, а потім перестворити {{< glossary_tooltip text="Podʼи" term_id="pod" >}} CoreDNS.
+
+Як альтернативу, ви можете вимкнути розгортання kubeadm CoreDNS, включивши наступну опцію у ваш `ClusterConfiguration`:
+
+```yaml
+dns:
+  disabled: true
+```
+
+Також, виконавши наступну команду:
+
+```shell
+kubeadm init phase addon coredns --print-manifest --config my-config.yaml`
+```
+
+ви можете отримати файл маніфесту, який kubeadm створить для CoreDNS у вашій конфігурації.

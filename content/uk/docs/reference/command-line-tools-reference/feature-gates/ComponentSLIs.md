@@ -13,14 +13,10 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.27"
-    toVersion: "1.28"
+    toVersion: "1.31"
   - stage: stable
     defaultValue: true
     locked: true
-    fromVersion: "1.29"
-    toVersion: "1.31"
-
-removed: true
-
+    fromVersion: "1.32"
 ---
 Вмикає точку доступу `/metrics/slis` на таких компонентах Kubernetes як kubelet, kube-scheduler, kube-proxy, kube-controller-manager, cloud-controller-manager що дозволяє вам отримувати метрики перевірки працездатності.
