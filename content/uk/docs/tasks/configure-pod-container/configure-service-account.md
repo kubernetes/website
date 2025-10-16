@@ -113,7 +113,7 @@ metadata:
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
 ```
 
-Ви можете використовувати розширення дозволів для [встановлення дозволів на облікові записи служб](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
+Ви можете використовувати розширення дозволів для [встановлення дозволів на службові облікові записи](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
 Щоб використовувати не-стандартний обліковий запис, встановіть поле `spec.serviceAccountName` Podʼа на імʼя ServiceAccount, який ви хочете використовувати.
 
@@ -183,7 +183,7 @@ kubectl get secret/build-robot-secret -o yaml
 
 ви побачите, що тепер Secret містить API-токен для ServiceAccount "build-robot".
 
-Через анотацію, яку ви встановили, панель управління автоматично генерує токен для цього службового облікового запису і зберігає їх у відповідному Secret. Крім того, панель управління також очищає токени для видалених облікових записів служб.
+Через анотацію, яку ви встановили, панель управління автоматично генерує токен для цього службового облікового запису і зберігає їх у відповідному Secret. Крім того, панель управління також очищає токени для видалених службових облікових записів.
 
 ```shell
 kubectl describe secrets/build-robot-secret
@@ -250,7 +250,7 @@ token:          ...
 
 ### Додайте imagePullSecret до ServiceAccount {#add-image-pull-secret-to-service-account}
 
-Далі, змініть типовий обліковий запис служби для цього простору імен так, щоб він використовував цей Secret як imagePullSecret.
+Далі, змініть типовий службовий обліковий запис для цього простору імен так, щоб він використовував цей Secret як imagePullSecret.
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'

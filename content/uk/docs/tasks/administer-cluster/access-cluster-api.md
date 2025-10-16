@@ -87,7 +87,7 @@ export CLUSTER_NAME="some_server_name"
 # Вкажіть сервер API, посилаючись на імʼя кластера
 APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$CLUSTER_NAME\")].cluster.server}")
 
-# Створіть секрет для зберігання токена для облікового запису служби
+# Створіть секрет для зберігання токена для службовоого облікового запису
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret

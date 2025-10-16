@@ -10,7 +10,7 @@ weight: 50
 
 <!-- body -->
 
-Користувачі отримують доступ до [API Kubernetes](/docs/concepts/overview/kubernetes-api/) за допомогою `kubectl`, клієнтських бібліотек або за допомогою запитів REST. Як користувачі-люди, так і [облікові записи служб Kubernetes](/docs/tasks/configure-pod-container/configure-service-account/) можуть бути авторизовані для доступу до API. Коли запит досягає API, він проходить кілька етапів, які ілюструються на  наступній діаграмі:
+Користувачі отримують доступ до [API Kubernetes](/docs/concepts/overview/kubernetes-api/) за допомогою `kubectl`, клієнтських бібліотек або за допомогою запитів REST. Як користувачі-люди, так і [службові облікові записи Kubernetes](/docs/tasks/configure-pod-container/configure-service-account/) можуть бути авторизовані для доступу до API. Коли запит досягає API, він проходить кілька етапів, які ілюструються на наступній діаграмі:
 
 ![Діаграма етапів обробки запиту до API Kubernetes](/images/docs/admin/access-control-overview.svg)
 

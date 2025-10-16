@@ -232,7 +232,7 @@ authorizers:
       * expression: has(request.resourceAttributes)
       # лише перехоплювати запити до kube-system
       * expression: request.resourceAttributes.namespace == 'kube-system'
-      # не перехоплювати запити від облікових записів служб kube-system
+      # не перехоплювати запити від службових облікових записів kube-system
       * expression: "!('system:serviceaccounts:kube-system' in request.user.groups)"
   * type: Node
     name: node

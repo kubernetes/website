@@ -113,5 +113,5 @@ ContainerAdministrator
 ## {{% heading "whatsnext" %}}
 
 - [Посібник з планування контейнерів Windows в Kubernetes](/docs/concepts/windows/user-guide/)
-- [Управління ідентифікацією робочого навантаження за допомогою групових керованих облікових записів служб (GMSA)](/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
+- [Управління ідентифікацією робочого навантаження за допомогою групових керованих службових облікових записів (GMSA)](/docs/concepts/windows/user-guide/#managing-workload-identity-with-group-managed-service-accounts)
 - [Налаштування GMSA для Podʼів та контейнерів Windows](/docs/tasks/configure-pod-container/configure-gmsa/)

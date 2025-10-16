@@ -305,7 +305,7 @@ MutatingAdmissionPolicy описує визначення модифікацій
       - `'object'` — обʼєкт з вхідного запиту. Значення є null для запитів DELETE.
       - `'oldObject'` — існуючий обʼєкт. Значення є null для запитів CREATE.
       - `'request'` — атрибути запиту на допуск ([ref](/pkg/apis/admission/types.go#AdmissionRequest)).
-      - `'authorizer'` — CEL Authorizer. Може бути використаний для виконання перевірок авторизації для принципала (користувача або облікового запису служби) запиту. Див. https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz.
+      - `'authorizer'` — CEL Authorizer. Може бути використаний для виконання перевірок авторизації для принципала (користувача або службового облікового запису) запиту. Див. https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz.
       - `'authorizer.requestResource'` — CEL ResourceCheck, створений з `authorizer` і налаштований з ресурсом запиту.
 
       Документація про CEL: [https://kubernetes.io/docs/reference/using-api/cel/](/docs/reference/using-api/cel/)
