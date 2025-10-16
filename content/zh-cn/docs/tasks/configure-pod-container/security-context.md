@@ -313,7 +313,7 @@ Check the process identity:
 检查进程身份：
 
 ```shell
-$ id
+id
 ```
 
 <!--
@@ -338,7 +338,7 @@ Check the `/etc/group` in the container image:
 检查容器镜像中的 `/etc/group`：
 
 ```shell
-$ cat /etc/group
+cat /etc/group
 ```
 
 <!--

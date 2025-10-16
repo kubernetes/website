@@ -24,11 +24,11 @@ _(운영 수준이 아닌)_ 멀티 티어 웹 애플리케이션을 빌드하고
 
 ## {{% heading "objectives" %}}
 
-* Redis 리더를 실행
-* 2개의 Redis 팔로워를 실행
-* 방명록 프론트엔드를 실행
-* 프론트엔드 서비스를 노출하고 확인
-* 정리하기
+* Redis 리더를 실행한다.
+* 2개의 Redis 팔로워를 실행한다.
+* 방명록 프론트엔드를 실행한다.
+* 프론트엔드 서비스를 노출하고 확인한다.
+* 정리한다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -46,7 +46,7 @@ _(운영 수준이 아닌)_ 멀티 티어 웹 애플리케이션을 빌드하고
 
 아래의 매니페스트 파일은 단일 복제본 Redis 파드를 실행하는 디플로이먼트 컨트롤러에 대한 명세를 담고 있다.
 
-{{< codenew file="application/guestbook/redis-leader-deployment.yaml" >}}
+{{% code_sample file="application/guestbook/redis-leader-deployment.yaml" %}}
 
 1. 매니페스트 파일을 다운로드한 디렉터리에서 터미널 창을 시작한다.
 1. `redis-leader-deployment.yaml` 파일을 이용하여 Redis 디플로이먼트를 생성한다.
@@ -86,7 +86,7 @@ Redis 파드로 트래픽을 프록시하려면 [서비스](/ko/docs/concepts/se
 서비스는 파드에 접근하기 위한 정책을
 정의한다.
 
-{{< codenew file="application/guestbook/redis-leader-service.yaml" >}}
+{{% code_sample file="application/guestbook/redis-leader-service.yaml" %}}
 
 1. `redis-leader-service.yaml` 파일을 이용하여 Redis 서비스를 실행한다.
 
@@ -124,7 +124,7 @@ Redis 파드로 라우팅한다.
 Redis 리더는 단일 파드이지만, 몇 개의 Redis 팔로워 또는 복제본을 추가하여
 가용성을 높이고 트래픽 요구를 충족할 수 있다.
 
-{{< codenew file="application/guestbook/redis-follower-deployment.yaml" >}}
+{{% code_sample file="application/guestbook/redis-follower-deployment.yaml" %}}
 
 1. `redis-follower-deployment.yaml` 파일을 이용하여 Redis 서비스를 실행한다.
 
@@ -158,7 +158,7 @@ Redis 리더는 단일 파드이지만, 몇 개의 Redis 팔로워 또는 복제
 Redis 팔로워를 발견 가능(discoverable)하게 만드려면, 새로운
 [서비스](/ko/docs/concepts/services-networking/service/)를 구성해야 한다.
 
-{{< codenew file="application/guestbook/redis-follower-service.yaml" >}}
+{{% code_sample file="application/guestbook/redis-follower-service.yaml" %}}
 
 1. `redis-follower-service.yaml` 파일을 이용하여 Redis 서비스를 실행한다.
 
@@ -205,7 +205,7 @@ jQuery-Ajax 기반 UX를 제공한다.
 
 ### 방명록 프론트엔드의 디플로이먼트 생성하기
 
-{{< codenew file="application/guestbook/frontend-deployment.yaml" >}}
+{{% code_sample file="application/guestbook/frontend-deployment.yaml" %}}
 
 1. `frontend-deployment.yaml` 파일을 이용하여 프론트엔드 디플로이먼트를 생성한다.
 
@@ -253,7 +253,7 @@ Google Compute Engine 또는 Google Kubernetes Engine
 밸런서를 지원하고 이를 사용하려면 `type : LoadBalancer`의 주석을 제거해야 한다.
 {{< /note >}}
 
-{{< codenew file="application/guestbook/frontend-service.yaml" >}}
+{{% code_sample file="application/guestbook/frontend-service.yaml" %}}
 
 1. `frontend-service.yaml` 파일을 이용하여 프론트엔드 서비스를 실행한다.
 

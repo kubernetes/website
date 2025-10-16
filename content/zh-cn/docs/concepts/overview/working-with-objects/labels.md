@@ -513,11 +513,11 @@ scenarios where multiple labels should be used to distinguish sets from one anot
 
 <!--
 For instance, different applications would use different values for the `app` label, but a
-multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/guestbook/),
+multi-tier application, such as the [guestbook example](https://github.com/kubernetes/examples/tree/master/web/guestbook/),
 would additionally need to distinguish each tier. The frontend could carry the following labels:
 -->
 例如，不同的应用可能会为 `app` 标签设置不同的值。
-但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/master/guestbook/)
+但是，类似 [guestbook 示例](https://github.com/kubernetes/examples/tree/master/web/guestbook/)
 这样的多层应用，还需要区分每一层。前端可能会带有以下标签：
 
 ```yaml

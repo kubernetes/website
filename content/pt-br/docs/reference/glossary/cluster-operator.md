@@ -17,5 +17,5 @@ tags:
 Sua principal responsabilidade é manter um cluster funcionando, o que pode envolver atividades periódicas de manutenção ou atualizações.<br>
 
 {{< note >}}
-Os operadores de cluster são diferentes do [padrão Operador](https://www.redhat.com/pt-br/technologies/cloud-computing/openshift/what-are-openshift-operators) que estende a API Kubernetes.
+Os operadores de cluster são diferentes do [padrão Operador](/docs/concepts/extend-kubernetes/operator/) que estende a API Kubernetes.
 {{< /note >}}
