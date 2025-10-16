@@ -132,7 +132,11 @@ and for updating their related Leases.
 - The kubelet updates the node's `.status` either when there is change in status
   or if there has been no update for a configured interval. The default interval
   for `.status` updates to Nodes is 5 minutes, which is much longer than the 40
-  second default timeout for unreachable nodes.
+  second default timeout for unreachable nodes. The update interval is controlled by the
+  `nodeStatusUpdateFrequency` field in the [Kubelet configuration file](/docs/tasks/administer-cluster/reconfigure-kubelet/),
+  and the timeout is controlled by the
+  [`--node-monitor-grace-period`](/docs/reference/command-line-tools-reference/kube-controller-manager/#options) flag
+  in the kube-controller-manager.
 - The kubelet creates and then updates its Lease object every 10 seconds
   (the default update interval). Lease updates occur independently from
   updates to the Node's `.status`. If the Lease update fails, the kubelet retries,
