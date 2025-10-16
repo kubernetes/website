@@ -124,6 +124,11 @@ For cgroup v2, the output is `cgroup2fs`.
 
 For cgroup v1, the output is `tmpfs.`
 
+## Deprecation of cgroup v1
+
+Starting in Kubernetes 1.35, cgroup v1 will be deprecated.
+Removal will follow normal deprecation process.
+
 ## {{% heading "whatsnext" %}}
 
 - Learn more about [cgroups](https://man7.org/linux/man-pages/man7/cgroups.7.html)
