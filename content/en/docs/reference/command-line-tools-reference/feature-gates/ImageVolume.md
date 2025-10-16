@@ -11,7 +11,7 @@ stages:
     fromVersion: "1.31"
     toVersion: "1.32"
   - stage: beta
-    defaultValue: false
+    defaultValue: true
     fromVersion: "1.33"
 ---
 Allow using the [`image`](/docs/concepts/storage/volumes/) volume source in a Pod.
