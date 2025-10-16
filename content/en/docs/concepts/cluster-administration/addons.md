@@ -99,6 +99,8 @@ installation instructions. The list does not try to be exhaustive.
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   is a dashboard web interface for Kubernetes.
+* [Headlamp](https://headlamp.dev/) is an extensible Kubernetes UI that can be
+  deployed in-cluster or used as a desktop application.
 
 ## Infrastructure
 
