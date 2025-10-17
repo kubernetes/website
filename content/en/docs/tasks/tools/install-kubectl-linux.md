@@ -123,6 +123,7 @@ The following methods exist for installing kubectl on Linux:
 ### Install using native package management
 
 {{< tabs name="kubectl_install" >}}
+
 {{% tab name="Debian-based distributions" %}}
 
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
@@ -260,6 +261,17 @@ before running `zypper update`. This procedure is described in more detail in
    ```
 
 {{% /tab %}}
+
+{{% tab name="Ubuntu-based distributions" %}}
+
+Use Ubuntu's `snap` to get kubectl on your system:
+
+   ```shell
+   snap install --classic kubectl
+   ```
+
+{{% /tab %}}
+
 {{< /tabs >}}
 
 ### Install using other package management
