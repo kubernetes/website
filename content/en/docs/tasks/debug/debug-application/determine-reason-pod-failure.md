@@ -116,9 +116,9 @@ spec:
 ```
 
 Moreover, users can set the `terminationMessagePolicy` field of a Container for
-further customization. This field defaults to "`File`" which means the termination
+further customization. This field defaults to `File` which means the termination
 messages are retrieved only from the termination message file. By setting the
-`terminationMessagePolicy` to "`FallbackToLogsOnError`", you can tell Kubernetes
+`terminationMessagePolicy` to `FallbackToLogsOnError`, you can tell Kubernetes
 to use the last chunk of container log output if the termination message file
 is empty and the container exited with an error. The log output is limited to
 2048 bytes or 80 lines, whichever is smaller.
