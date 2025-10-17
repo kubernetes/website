@@ -89,6 +89,10 @@ JobSpec describes how the job execution will look like.
   `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
   
   More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
+  
+  Possible enum values:
+   - `"Indexed"` is a Job completion mode. In this mode, the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1). The Job is considered complete when a Pod completes for each completion index.
+   - `"NonIndexed"` is a Job completion mode. In this mode, the Job is considered complete when there have been .spec.completions successfully completed Pods. Pod completions are homologous to each other.
 
 - **backoffLimit** (int32)
 
@@ -149,6 +153,12 @@ JobSpec describes how the job execution will look like.
       - Count: indicates that the pod is handled in the default way - the
         counter towards the .backoffLimit is incremented.
       Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+      
+      Possible enum values:
+       - `"Count"` This is an action which might be taken on a pod failure - the pod failure is handled in the default way - the counter towards .backoffLimit, represented by the job's .status.failed field, is incremented.
+       - `"FailIndex"` This is an action which might be taken on a pod failure - mark the Job's index as failed to avoid restarts within this index. This action can only be used when backoffLimitPerIndex is set.
+       - `"FailJob"` This is an action which might be taken on a pod failure - mark the pod's job as Failed and terminate all running pods.
+       - `"Ignore"` This is an action which might be taken on a pod failure - the counter towards .backoffLimit, represented by the job's .status.failed field, is not incremented and a replacement pod is created.
 
     - **podFailurePolicy.rules.onExitCodes** (PodFailurePolicyOnExitCodesRequirement)
 
@@ -168,6 +178,10 @@ JobSpec describes how the job execution will look like.
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is not in the set of specified values.
         Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        
+        Possible enum values:
+         - `"In"`
+         - `"NotIn"`
 
       - **podFailurePolicy.rules.onExitCodes.values** ([]int32), required
 
@@ -245,6 +259,10 @@ JobSpec describes how the job execution will look like.
     Failed or Succeeded) before creating a replacement Pod.
   
   When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
+  
+  Possible enum values:
+   - `"Failed"` means to wait until a previously created Pod is fully terminated (has phase Failed or Succeeded) before creating a replacement Pod.
+   - `"TerminatingOrFailed"` means that we recreate pods when they are terminating (has a metadata.deletionTimestamp) or failed.
 
 
 

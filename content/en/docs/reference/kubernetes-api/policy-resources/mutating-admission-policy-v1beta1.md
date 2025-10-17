@@ -262,6 +262,11 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     - **spec.mutations.patchType** (string), required
 
       patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+      
+      
+      Possible enum values:
+       - `"ApplyConfiguration"` ApplyConfiguration indicates that the mutation is using apply configuration to mutate the object.
+       - `"JSONPatch"` JSONPatch indicates that the object is mutated through JSON Patch.
 
     - **spec.mutations.applyConfiguration** (ApplyConfiguration)
 
