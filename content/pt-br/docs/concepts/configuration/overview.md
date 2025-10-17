@@ -70,7 +70,7 @@ combinação de <`hostIP`, `hostPort`, `protocol`> deve ser única. Se você nã
 ## Usando Labels
 
 - Defina e use [labels](/docs/concepts/overview/working-with-objects/labels/) que identifiquem _atributos semânticos_ da sua aplicação ou Deployment, como `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Você pode usar essas labels para selecionar os Pods apropriados para outros recursos; por exemplo, um Service que seleciona todos os Pods `tier: frontend`, ou todos
-os componentes de `app: myapp`. Veja o app [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) para exemplos dessa abordagem.
+os componentes de `app: myapp`. Veja o app [guestbook](https://github.com/kubernetes/examples/tree/master/web/guestbook/) para exemplos dessa abordagem.
 
 Um Service pode ser feito para abranger vários Deployments, omitindo labels específicas de lançamento de seu seletor. Quando você
 precisar atualizar um serviço em execução sem _downtime_, use um [Deployment](/docs/concepts/workloads/controllers/deployment/).
