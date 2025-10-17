@@ -357,7 +357,8 @@ and want to avoid having it evicted under resource pressure, set the
 `priorityClassName` field for that Pod directly. 
 
 {{< note >}}
->The kubelet considers all static pods as critical regardless of their `.spec.priorityClassName`.
+The kubelet considers all static pods as critical. This happens regardless of the static Pod's `.spec.priority` or
+`.spec.priorityClassName`.
 >Static pods also pass kubelet admission even if a node does not have enough resources; the kubelet may
 >instead evict another Pod (potentially even evicting a different Pod at a higher priority, if there is no better match).
 
