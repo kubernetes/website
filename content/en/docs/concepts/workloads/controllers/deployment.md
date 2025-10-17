@@ -72,6 +72,10 @@ In this example:
     the Pods run one container, `nginx`, which runs the `nginx`
     [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
   * Create one container and name it `nginx` using the `.spec.containers[0].name` field.
+  * The container port `80` is specified in `containerPort` field. Note that this field is purely informational. 
+    Not specifying a port here does NOT prevent that port from being exposed. Any port which is listening on the default 
+    "0.0.0.0" address inside a container will be accessible from the network. For creating a Service that directs 
+    traffic to this port, you can use this value.
 
 Before you begin, make sure your Kubernetes cluster is up and running.
 Follow the steps given below to create the above Deployment:
