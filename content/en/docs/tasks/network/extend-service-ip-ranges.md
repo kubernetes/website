@@ -27,8 +27,8 @@ While you can use this feature with an earlier version, the feature is only GA a
 
 ## Extend Service IP Ranges
 
-The control plane ensures that there is a special ServiceCIDR object, that is associated with
-the well-known name `kubernetes`, and that specifies an IP address range
+The control plane ensures that there is a special ServiceCIDR object, with
+the well-known name `kubernetes`, that specifies an IP address range
 based on the value of the `--service-cluster-ip-range` command line argument to kube-apiserver.
 
 ```sh
