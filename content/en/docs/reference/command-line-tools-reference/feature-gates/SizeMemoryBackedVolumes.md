@@ -16,11 +16,8 @@ stages:
     toVersion: "1.31"
   - stage: stable
     defaultValue: true
+    locked: true
     fromVersion: "1.32"
-    toVersion: "1.33"
-
-removed: true
-
 ---
 Enable kubelets to determine the size limit for
 memory-backed volumes (mainly `emptyDir` volumes).
