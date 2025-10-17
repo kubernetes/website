@@ -11,7 +11,7 @@ weight: 10
 
 This guide is to help users debug applications that are deployed into Kubernetes
 and not behaving correctly. This is *not* a guide for people who want to debug their cluster.
-For that you should check out [this guide](/docs/tasks/debug/debug-cluster).
+For that you should check out [Troubleshooting Clusters](/docs/tasks/debug/debug-cluster).
 
 <!-- body -->
 
@@ -137,7 +137,7 @@ version, then this may indicate a problem with your pod spec.
 
 Replication controllers are fairly straightforward. They can either create Pods or they can't.
 If they can't create pods, then please refer to the
-[instructions above](#debugging-pods) to debug your pods.
+[Debugging Pods](#debugging-pods) section.
 
 You can also use `kubectl describe rc ${CONTROLLER_NAME}` to introspect events
 related to the replication controller.
@@ -180,7 +180,7 @@ kubectl get pods --selector=name=nginx,type=frontend
 ```
 
 to list pods that match this selector. Verify that the list matches the Pods that you expect to provide your Service.
-Verify that the pod's `containerPort` matches up with the Service's `targetPort`
+Verify that the pod's `containerPort` matches up with the Service's `targetPort`.
 
 #### Network traffic is not forwarded
 
@@ -190,7 +190,7 @@ Please see [debugging service](/docs/tasks/debug/debug-application/debug-service
 
 If none of the above solves your problem, follow the instructions in
 [Debugging Service document](/docs/tasks/debug/debug-application/debug-service/)
-to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are
+to make sure that your `Service` is running, has `EndpointSlice`, and your `Pods` are
 actually serving; you have DNS working, iptables rules installed, and kube-proxy
 does not seem to be misbehaving.
 
