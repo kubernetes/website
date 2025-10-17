@@ -819,6 +819,7 @@ before using it in the Pod.
 
 
 #### Portworx CSI migration
+
 {{< feature-state feature_gate_name="CSIMigrationPortworx" >}}
 
 In Kubernetes {{% skew currentVersion %}}, all operations for the in-tree
@@ -923,8 +924,6 @@ spec:
 ```
 
 ### Using subPath with expanded environment variables {#using-subpath-expanded-environment}
-
-{{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 Use the `subPathExpr` field to construct `subPath` directory names from
 downward API environment variables.
@@ -1069,11 +1068,7 @@ persistent volume:
   call to the CSI driver. All supported versions of Kubernetes offer the
   `nodeExpandSecretRef` field, and have it available by default. Kubernetes releases
   prior to v1.25 did not include this support.
-* Enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
-  named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
-  node. Since Kubernetes version 1.27, this feature has been enabled by default
-  and no explicit enablement of the feature gate is required.
-  You must also be using a CSI driver that supports or requires secret data during
+* You must use a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
 * `nodePublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
@@ -1088,8 +1083,6 @@ persistent volume:
 
 #### CSI raw block volume support
 
-{{< feature-state for_k8s_version="v1.18" state="stable" >}}
-
 Vendors with external CSI drivers can implement raw block volume support
 in Kubernetes workloads.
 
@@ -1098,8 +1091,6 @@ You can set up your
 as usual, without any CSI-specific changes.
 
 #### CSI ephemeral volumes
-
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 You can directly configure CSI volumes within the Pod
 specification. Volumes specified in this way are ephemeral and do not
@@ -1126,10 +1117,8 @@ For more details, refer to the deployment guide of the CSI plugin you wish to de
 
 #### Migrating to CSI drivers from in-tree plugins
 
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
-
-The `CSIMigration` feature directs operations against existing in-tree
-plugins to corresponding CSI plugins (which are expected to be installed and configured).
+The operations against existing in-tree plugins are redirected to
+the corresponding CSI plugins (which are expected to be installed and configured).
 As a result, operators do not have to make any
 configuration changes to existing Storage Classes, PersistentVolumes or PersistentVolumeClaims
 (referring to in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
@@ -1158,8 +1147,6 @@ In-tree plugins that support `CSIMigration` and have a corresponding CSI driver 
 are listed in [Types of Volumes](#volume-types).
 
 ### flexVolume (deprecated)   {#flexvolume}
-
-{{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
 FlexVolume is an out-of-tree plugin interface that uses an exec-based model to interface
 with storage drivers. The FlexVolume driver binaries must be installed in a pre-defined

@@ -380,8 +380,6 @@ myregistrykey
 
 ## ServiceAccount token volume projection
 
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
-
 {{< note >}}
 To enable and use token request projection, you must specify each of the following
 command line arguments to `kube-apiserver`:
@@ -483,11 +481,7 @@ often good enough for the application to load the token on a schedule
 
 ### Service account issuer discovery
 
-{{< feature-state for_k8s_version="v1.21" state="stable" >}}
-
-If you have enabled [token projection](#serviceaccount-token-volume-projection)
-for ServiceAccounts in your cluster, then you can also make use of the discovery
-feature. Kubernetes provides a way for clients to federate as an _identity provider_,
+Kubernetes provides a way for clients to federate as an _identity provider_,
 so that one or more external systems can act as a _relying party_.
 
 {{< note >}}
