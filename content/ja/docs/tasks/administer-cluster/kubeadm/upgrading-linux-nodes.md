@@ -84,6 +84,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    ```
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
+   DNFを搭載したシステムの場合:
    ```shell
    #「{{< skew currentVersion >}}.x-*」の「x」は最新のパッチバージョンに置き換えてください。
    sudo yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
