@@ -11,7 +11,7 @@ weight: 40
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs-node-upgrade.md" >}} {{< version-check >}}
-* [kubeadmクラスターのアップグレード方法](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)をよく理解しておいてください。
+* [残りのkubeadmクラスターのアップグレード手順](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)をよく理解しておいてください。
   Linuxワーカーノードをアップグレードする前に、コントロールプレーンノードのアップグレードをする必要があります。
 
 <!-- steps -->
