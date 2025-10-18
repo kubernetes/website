@@ -92,11 +92,11 @@ You can also access the Init Container statuses programmatically by reading the
 
 
 ```shell
-kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
+kubectl get pod <pod-name> --template '{{.status.initContainerStatuses}}'
 ```
 
 
-This command will return the same information as above in raw JSON.
+This command will return the same information as above, formatted using a [Go template](https://pkg.go.dev/text/template).
 
 ## Accessing logs from Init Containers
 
