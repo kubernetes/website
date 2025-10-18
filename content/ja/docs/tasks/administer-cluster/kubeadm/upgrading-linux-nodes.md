@@ -60,7 +60,7 @@ sudo kubeadm upgrade node
 
 ```shell
 # このコマンドはコントロールプレーンノードで実行してください。
-# <node-to-drain>は、drainを実施するノード名に置き換えてください。
+# <node-to-drain>は、ドレインするノード名に置き換えてください。
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
