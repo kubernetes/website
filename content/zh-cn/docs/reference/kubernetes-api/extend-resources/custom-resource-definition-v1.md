@@ -117,7 +117,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     -->
 
     **原子：将在合并期间被替换**
-    
+
     <!--
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
     -->
@@ -145,7 +145,8 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
     -->
 
-    shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如 `kubectl get <shortname>`。必须全部小写。
+    shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如
+    `kubectl get <shortname>`。必须全部小写。
 
   - **names.singular** (string)
 
@@ -162,7 +163,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 -->
 
 - **scope** (string)，必需
-  
+
   scope 表示自定义资源是集群作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
 
 <!--
@@ -234,7 +235,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     additionalPrinterColumns 表示在表输出中返回的附加列。
     有关详细信息，请参阅 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#receiving-resources-as-tables。
     如果没有指定列，则显示自定义资源存活时间（AGE）列。
-  
+
     <a name="CustomResourceColumnDefinition"></a>
     <!--
     *CustomResourceColumnDefinition specifies a column for server side printing.*
@@ -328,7 +329,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
     *CustomResourceValidation is a list of validation methods for CustomResources.*
     -->
 
-    **CustomResourceValidation 是 CustomResources 的验证方法列表。**  
+    **CustomResourceValidation 是 CustomResources 的验证方法列表。**
 
     - **versions.schema.openAPIV3Schema** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
@@ -364,9 +365,9 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
   - **versions.selectableFields.jsonPath** (string), required
 
     <!--
-    jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+    jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metadata fields. Required.
     -->
-  
+
     jsonPath 是一个简单的 JSON 路径，它会根据每个自定义资源进行求值以生成字段选择器值。
     只允许使用不带数组符号的 JSON 路径。必须指向字符串、布尔值或整数类型的字段。
     允许使用枚举值类型和带格式的字符串。如果 jsonPath 引用资源中不存在的字段，则 jsonPath
@@ -672,7 +673,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   *JSONSchemaPropsOrBool represents JSONSchemaProps or a boolean value. Defaults to true for the boolean property.*
   -->
-  **JSONSchemaPropsOrBool 表示 JSONSchemaProps 或布尔值。布尔属性默认为 true。**  
+  **JSONSchemaPropsOrBool 表示 JSONSchemaProps 或布尔值。布尔属性默认为 true。**
 
 - **allOf** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#JSONSchemaProps" >}}">JSONSchemaProps</a>)
 
@@ -798,7 +799,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
   <!--
   *JSONSchemaPropsOrArray represents a value that can either be a JSONSchemaProps or an array of JSONSchemaProps. Mainly here for serialization purposes.*
   -->
-  **JSONSchemaPropsOrArray 表示可以是 JSONSchemaProps 或 JSONSchemaProps 数组的值。这里目的主要用于序列化。**  
+  **JSONSchemaPropsOrArray 表示可以是 JSONSchemaProps 或 JSONSchemaProps 数组的值。这里目的主要用于序列化。**
 
 - **maxItems** (int64)
 
@@ -891,9 +892,9 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
   <!--
   x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
-  
+
   This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-  
+
   The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
   -->
   X-kubernetes-list-map-keys 通过指定用作 map 索引的键来使用 x-kubernetes-list-type `map` 注解数组。
@@ -970,9 +971,9 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
   <!--
   *Patch strategy: merge on key `rule`*
-  
+
   *Map: unique values on key rule will be kept during a merge*
-  
+
   x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
   -->
 
@@ -1054,7 +1055,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
       - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
     -->
 
-    只有名称符合正则表达式 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*`  的属性才可被访问。
+    只有名称符合正则表达式 `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` 的属性才可被访问。
     在表达式中访问属性时，可访问的属性名称根据以下规则进行转义：
 
     - '__' 转义为 '__underscores__'
@@ -1088,18 +1089,18 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
     <!--
     If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
-  
+
     By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
      variable whose value() is the same type as `self`.
     See the documentation for the `optionalOldSelf` field for details.
-   
+
     Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
     -->
 
     如果 `rule` 使用 `oldSelf` 变量，则隐式地将其视为一个 `转换规则（transition rule）`。
 
     默认情况下，`oldSelf` 变量与 `self` 类型相同。当 `optionalOldSelf` 为 `true` 时，`oldSelf`
-    变量是 CEL 可选变量，其 `value()` 与 `self` 类型相同。  
+    变量是 CEL 可选变量，其 `value()` 与 `self` 类型相同。
     有关详细信息，请参阅 `optionalOldSelf` 字段的文档。
 
     默认情况下，转换规则仅适用于 UPDATE 请求，如果找不到旧值，则会跳过转换规则。
@@ -1167,16 +1168,16 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
 
     <!--
     optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
-   
+
     When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
 
     You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
-   
+
     May not be set unless `oldSelf` is used in `rule`.
     -->
-  
+
     即使在对象首次创建时，或者旧对象无值时，也可以使用 `optionalOldSelf` 来使用转换规则求值。
-    
+
     当启用了 `optionalOldSelf` 时，`oldSelf` 将是 CEL 可选项，如果没有旧值或最初创建对象时，其值将为 `None`。
 
     你可以使用 `oldSelf.hasValue()` 检查 oldSelf 是否存在，并在检查后使用 `oldSelf.value()` 将其解包。
@@ -1249,12 +1250,12 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
     <!--
     *Atomic: will be replaced during a merge*
-    
+
     categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
     -->
 
     **原子：将在合并期间被替换**
-  
+
     categories 是此自定义资源所属的分组资源列表（例如 'all'）。
     它在 API 发现文档中发布，并被客户端用于支持像 `kubectl get all` 这样的调用。
 
@@ -1270,12 +1271,12 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
     <!--
     *Atomic: will be replaced during a merge*
-    
+
     shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \<shortname>`. It must be all lowercase.
     -->
 
     **原子：将在合并期间被替换**
-  
+
     shortNames 是资源的短名称，在 API 发现文档中公开，并支持客户端调用，如 `kubectl get <shortname>`。必须全部小写。
 
   - **acceptedNames.singular** (string)
@@ -1290,7 +1291,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   <!--
   *Map: unique values on key type will be kept during a merge*
-  
+
   conditions indicate state for particular aspects of a CustomResourceDefinition
   -->
 
@@ -1358,7 +1359,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   <!--
   *Atomic: will be replaced during a merge*
-  
+
   storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
   -->
 
@@ -1393,7 +1394,7 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 对象的列表。
   -->
 
   apiVersion 定义对象表示的版本化模式。服务器应将已识别的模式转换为最新的内部值，并可能拒绝未识别的值。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
 
