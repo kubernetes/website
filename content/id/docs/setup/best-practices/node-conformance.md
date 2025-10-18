@@ -1,35 +1,35 @@
 ---
 reviewers:
 - Random-Liu
-title: Validasi pengaturan Node
+title: Validasi Pengaturan Node
 weight: 30
 ---
 
 ## Tes Kesesuaian *Node*
 
-*Tes kesesuaian Node* adalah kerangka kerja tes berbasis kontainer yang menyediakan sistem verifikasi dan tes untuk *Node*. Tes memvalidasi apakah *Node* memenuhi syarat minimum untuk Kubernetes; *Node* yang lolos tes dianggap lolos untuk bergabung dengan klaster Kubernetes.
+*Node conformance test* atau tes kesesuaian *Node* adalah kerangka kerja tes berbasis kontainer yang menyediakan sistem verifikasi dan tes untuk *Node*. Tes memvalidasi apakah *Node* memenuhi syarat minimum untuk Kubernetes; *Node* yang lolos tes dianggap lolos untuk bergabung dengan klaster Kubernetes.
 
 ## Prasyarat Node
 
-Untuk menjalankan tes kesesuaian *Node*, sebuah *Node* harus memenuhi prasyarat yang sama dengan *Node* Kubernetes standar. Sekurang - kurangnya, daemon dibawah ini harus terpasang di *Node*:
+Untuk menjalankan tes kesesuaian *Node*, sebuah *Node* harus memenuhi prasyarat yang sama dengan *Node* Kubernetes standar. Sekurang - kurangnya, *daemon* dibawah ini harus terpasang di *Node*:
 
 * *runtime* kontainer yang kompatibel dengan CRI seperti Docker, containerd dan CRI-O
 * kubelet
 
 ## Menjalankan Tes Kesesuaian Node
 
-Untuk menjalankan tes kesesuaian *Node*, lakukanlah langkah - langkah  berikut ini:
+Untuk menjalankan tes kesesuaian *Node*, lakukanlah langkah-langkah  berikut ini:
 
 1. Sesuaikan nilai opsi dari `--kubeconfig` untuk kubelet; sebagai contoh: 
     `--kubeconfig=/var/lib/kubelet/config.yaml`.
     Karena kerangka kerja tes akan menjalankan panel kontrol lokal untuk menguji kubelet,
     menggunakan `http://localhost:8080` sebagai URL dari API Server.
-    Terdapat beberapa parameter *command line* untuk kubelet yang mungkin kamu gunakan:
+    Terdapat beberapa parameter *command line* untuk kubelet yang mungkin bisa kamu gunakan:
 
     * `--cloud-provider`: Jika kamu menggunakan `--cloud-provider=gce`, maka kamu harus
       menghapus *flag* untuk menjalankan tes
 
-2. Jalankan tes kesesuaian Node dengan perintah:
+2. Jalankan tes kesesuaian *Node* dengan perintah:
 
    ```shell
    # $CONFIG_DIR adalah path dari manifest untuk kubelet kamu
@@ -41,7 +41,7 @@ Untuk menjalankan tes kesesuaian *Node*, lakukanlah langkah - langkah  berikut i
 
 ## Menjalankan Tes Kesesuaian Node untuk Arsitektur lainnya
 
-Kubernetes juga menyediakan *image* tes kesesuaian Node untuk arsitektur lainnya:
+Kubernetes juga menyediakan *image* tes kesesuaian *Node* untuk arsitektur lainnya:
 
 |  Arch  |       Image       |
 |--------|:-----------------:|
@@ -51,7 +51,7 @@ Kubernetes juga menyediakan *image* tes kesesuaian Node untuk arsitektur lainnya
 
 ## Menjalankan Tes Tertentu
 
-Untuk menjalankan tes - tes tertentu, ganti nilai *environment variable* `FOCUS` dengan ekspresi reguler dari tes - tes yang ingin kamu jalankan.
+Untuk menjalankan tes-tes tertentu, ganti nilai *environment variable* `FOCUS` dengan ekspresi reguler dari tes-tes yang ingin kamu jalankan.
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
@@ -60,7 +60,7 @@ sudo docker run -it --rm --privileged --net=host \
   registry.k8s.io/node-test:0.2
 ```
 
-Untuk melewat tes - tes tertentu, ganti nilai *environment variable* `SKIP` dengan ekspresi reguler dari tes - tes yang ingin kamu lewati.
+Untuk melewat tes-tes tertentu, ganti nilai *environment variable* `SKIP` dengan ekspresi reguler dari tes-tes yang ingin kamu lewati.
 
 ```shell
 sudo docker run -it --rm --privileged --net=host \
@@ -75,6 +75,6 @@ Secara teori, kamu dapat menjalankan tes node-e2e manapun jika kamu mengkonfigur
 
 ## Kekurangan
 
-* Tes ini meninggalkan sisa - sisa *image* Docker di dalam *Node*, termasuk *image* dari tes kesesuaian *Node* dan *image* kontainer yang digunakan untuk tes fungsionalitas.
-* Tes ini meninggalkan kontainer mati di dalam dalam *Node*. Kontainer - kontainer ini dibuat selama tes fungsionalitas.
+* Tes ini meninggalkan sisa-sisa *image* Docker di dalam *Node*, termasuk *image* dari tes kesesuaian *Node* dan *image* kontainer yang digunakan untuk tes fungsionalitas.
+* Tes ini meninggalkan kontainer mati di dalam *Node*. Kontainer-kontainer ini dibuat selama tes fungsionalitas.
   
