@@ -54,7 +54,7 @@ sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=
 sudo kubeadm upgrade node
 ```
 
-### ノードのDrain実行
+### ノードのドレイン
 
 ノードをスケジュール不可としてマークし、ワークロードを削除することで、ノードのメンテナンスの準備をします。
 
