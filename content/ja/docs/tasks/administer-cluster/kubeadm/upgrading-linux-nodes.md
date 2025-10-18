@@ -39,6 +39,7 @@ sudo apt-mark hold kubeadm
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
+DNFを搭載したシステムの場合:
 ```shell
 #「{{< skew currentVersion >}}.x-*」の「x」は最新のパッチバージョンに置き換えてください。
 sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
