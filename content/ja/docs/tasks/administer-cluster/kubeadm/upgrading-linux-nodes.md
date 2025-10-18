@@ -92,7 +92,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    sudo systemctl restart kubelet
    ```
 
-### ノードのオンライン化
+### ノードの隔離解除
 
 ノードをスケジュール可能としてマークすることで、ノードをオンラインに戻します。
 
