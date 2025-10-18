@@ -44,6 +44,11 @@ DNFを搭載したシステムの場合:
 #「{{< skew currentVersion >}}.x-*」の「x」は最新のパッチバージョンに置き換えてください。
 sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
+DNF5を搭載したシステムの場合:
+```shell
+#「{{< skew currentVersion >}}.x-*」の「x」は最新のパッチバージョンに置き換えてください。
+sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_excludes=kubernetes
+```
 {{% /tab %}}
 {{< /tabs >}}
 
