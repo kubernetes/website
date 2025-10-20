@@ -11,7 +11,7 @@ weight: 50
 
 <!-- overview -->
 [_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
+is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that _attracts_ them to
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 
@@ -39,6 +39,7 @@ places a taint on node `node1`. The taint has key `key1`, value `value1`, and ta
 This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
 
 To remove the taint added by the command above, you can run:
+
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule-
 ```
@@ -81,6 +82,24 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
 * the `operator` is `Equal` and the values should be equal.
 
+{{< feature-state feature_gate_name="TaintTolerationComparisonOperators" >}}
+
+You can also use numeric comparison operators for threshold-based matching:
+
+* the `operator` is `Gt` (greater than) and the toleration value is greater than the taint value, or
+* the `operator` is `Lt` (less than) and the toleration value is less than the taint value.
+
+For numeric operators, both the toleration and taint values must be valid integers.
+If either value cannot be parsed as an integer, the toleration does not match.
+
+{{< note >}}
+When you create a Pod that uses `Gt` or `Lt` tolerations operators, the API server
+validates that the toleration values are valid integers. Taint values on nodes are not
+validated at node registration time. If a node has a non-numeric taint value
+(for example, `node.kubernetes.io/sla=high:NoSchedule`), pods with numeric comparison
+operators will not match that taint and cannot schedule on that node.
+{{< /note >}}
+
 {{< note >}}
 
 There are two special cases:
@@ -93,15 +112,15 @@ An empty `effect` matches all effects with key `key1`.
 
 The above example used the `effect` of `NoSchedule`. Alternatively, you can use the `effect` of `PreferNoSchedule`.
 
-
 The allowed values for the `effect` field are:
 
 `NoExecute`
 : This affects pods that are already running on the node as follows:
-  * Pods that do not tolerate the taint are evicted immediately
-  * Pods that tolerate the taint without specifying `tolerationSeconds` in
+
+* Pods that do not tolerate the taint are evicted immediately
+* Pods that tolerate the taint without specifying `tolerationSeconds` in
     their toleration specification remain bound forever
-  * Pods that tolerate the taint with a specified `tolerationSeconds` remain
+* Pods that tolerate the taint with a specified `tolerationSeconds` remain
     bound for the specified amount of time. After that time elapses, the node
     lifecycle controller evicts the Pods from the node.
 
@@ -111,7 +130,7 @@ The allowed values for the `effect` field are:
 
 `PreferNoSchedule`
 : `PreferNoSchedule` is a "preference" or "soft" version of `NoSchedule`.
-  The control plane will *try* to avoid placing a Pod that does not tolerate
+  The control plane will _try_ to avoid placing a Pod that does not tolerate
   the taint on the node, but it is not guaranteed.
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
@@ -122,7 +141,7 @@ remaining un-ignored taints have the indicated effects on the pod. In particular
 * if there is at least one un-ignored taint with effect `NoSchedule` then Kubernetes will not schedule
 the pod onto that node
 * if there is no un-ignored taint with effect `NoSchedule` but there is at least one un-ignored taint with
-effect `PreferNoSchedule` then Kubernetes will *try* to not schedule the pod onto the node
+effect `PreferNoSchedule` then Kubernetes will _try_ to not schedule the pod onto the node
 * if there is at least one un-ignored taint with effect `NoExecute` then the pod will be evicted from
 the node (if it is already running on the node), and will not be
 scheduled onto the node (if it is not yet running on the node).
@@ -173,9 +192,62 @@ means that if this pod is running and a matching taint is added to the node, the
 the pod will stay bound to the node for 3600 seconds, and then be evicted. If the
 taint is removed before that time, the pod will not be evicted.
 
+## Numeric comparison operators {#numeric-comparison-operators}
+
+{{< feature-state feature_gate_name="TaintTolerationComparisonOperators" >}}
+
+In addition to the `Equal` and `Exists` operators, you can use numeric comparison
+operators (`Gt` and `Lt`) to match taints with integer values. This is useful for
+threshold-based scheduling scenarios, such as matching nodes based on reliability
+levels or SLA requirements.
+
+For example, if nodes are tainted with an SLA value:
+
+```shell
+kubectl taint nodes node1 node.kubernetes.io/sla=950:NoSchedule
+```
+
+A pod can tolerate nodes with SLA greater than 900:
+
+{{% code_sample file="pods/pod-with-numeric-toleration.yaml" %}}
+
+This toleration matches the taint on `node1` because `900 < 950` (the toleration
+value is less than the taint value for the `Gt` operator).
+
+Similarly, you can use the `Lt` operator to match taints where the toleration value
+is greater than the taint value:
+
+```yaml
+tolerations:
+- key: "node.kubernetes.io/sla"
+  operator: "Lt"
+  value: "1000"
+  effect: "NoSchedule"
+```
+
+{{< note >}}
+When using numeric comparison operators:
+
+* Both the toleration and taint values must be valid integers (signed 64-bit).
+* If a value cannot be parsed as an integer, the toleration does not match.
+* Numeric operators work with all taint effects: `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.
+{{< /note >}}
+
+{{< warning >}}
+
+Before disabling the `TaintTolerationComparisonOperators` feature gate, you should identify
+all workloads using the `Gt` or `Lt` operators to avoid controller hot-loops.
+
+Before disabling the feature gate:
+
+* Update all workload controller templates to use `Equal` or `Exists` operators instead
+* Delete any pending pods that use `Gt` or `Lt` operators
+* Monitor the `apiserver_request_total` metric for spikes in validation errors
+{{< /warning >}}
+
 ## Example Use Cases
 
-Taints and tolerations are a flexible way to steer pods *away* from nodes or evict
+Taints and tolerations are a flexible way to steer pods _away_ from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 
 * **Dedicated Nodes**: If you want to dedicate a set of nodes for exclusive use by
@@ -184,8 +256,8 @@ a particular set of users, you can add a taint to those nodes (say,
 toleration to their pods (this would be done most easily by writing a custom
 [admission controller](/docs/reference/access-authn-authz/admission-controllers/)).
 The pods with the tolerations will then be allowed to use the tainted (dedicated) nodes as
-well as any other nodes in the cluster. If you want to dedicate the nodes to them *and*
-ensure they *only* use the dedicated nodes, then you should additionally add a label similar
+well as any other nodes in the cluster. If you want to dedicate the nodes to them _and_
+ensure they _only_ use the dedicated nodes, then you should additionally add a label similar
 to the taint to the same set of nodes (e.g. `dedicated=groupName`), and the admission
 controller should additionally add a node affinity to require that the pods can only schedule
 onto nodes labeled with `dedicated=groupName`.
@@ -215,25 +287,28 @@ manually add tolerations to your pods.
 * **Taint based Evictions**: A per-pod-configurable eviction behavior
 when there are node problems, which is described in the next section.
 
+* **SLA-based Scheduling**: In clusters with mixed node types (i.e. spot instances),
+* you can taint nodes with numeric SLA or reliability values. Pods can then
+use numeric comparison operators to opt-in to nodes meeting specific reliability thresholds,
+while the cluster's default policy keeps most workloads away from lower-SLA nodes.
+
 ## Taint based Evictions
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-
-
 The node controller automatically taints a Node when certain conditions
 are true. The following taints are built in:
 
- * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
+* `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
    the NodeCondition `Ready` being "`False`".
- * `node.kubernetes.io/unreachable`: Node is unreachable from the node
+* `node.kubernetes.io/unreachable`: Node is unreachable from the node
    controller. This corresponds to the NodeCondition `Ready` being "`Unknown`".
- * `node.kubernetes.io/memory-pressure`: Node has memory pressure.
- * `node.kubernetes.io/disk-pressure`: Node has disk pressure.
- * `node.kubernetes.io/pid-pressure`: Node has PID pressure.
- * `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
- * `node.kubernetes.io/unschedulable`: Node is unschedulable.
- * `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
+* `node.kubernetes.io/memory-pressure`: Node has memory pressure.
+* `node.kubernetes.io/disk-pressure`: Node has disk pressure.
+* `node.kubernetes.io/pid-pressure`: Node has PID pressure.
+* `node.kubernetes.io/network-unavailable`: Node's network is unavailable.
+* `node.kubernetes.io/unschedulable`: Node is unschedulable.
+* `node.cloudprovider.kubernetes.io/uninitialized`: When the kubelet is started
     with an "external" cloud provider, this taint is set on a node to mark it
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
@@ -284,8 +359,8 @@ Nodes for 5 minutes after one of these problems is detected.
 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pods are created with
 `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
 
-  * `node.kubernetes.io/unreachable`
-  * `node.kubernetes.io/not-ready`
+* `node.kubernetes.io/unreachable`
+* `node.kubernetes.io/not-ready`
 
 This ensures that DaemonSet pods are never evicted due to these problems.
 
@@ -320,11 +395,11 @@ onto the affected node.
 The DaemonSet controller automatically adds the following `NoSchedule`
 tolerations to all daemons, to prevent DaemonSets from breaking.
 
-  * `node.kubernetes.io/memory-pressure`
-  * `node.kubernetes.io/disk-pressure`
-  * `node.kubernetes.io/pid-pressure` (1.14 or later)
-  * `node.kubernetes.io/unschedulable` (1.10 or later)
-  * `node.kubernetes.io/network-unavailable` (*host network only*)
+* `node.kubernetes.io/memory-pressure`
+* `node.kubernetes.io/disk-pressure`
+* `node.kubernetes.io/pid-pressure` (1.14 or later)
+* `node.kubernetes.io/unschedulable` (1.10 or later)
+* `node.kubernetes.io/network-unavailable` (_host network only_)
 
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
@@ -343,4 +418,3 @@ devices. Like taints they apply to all pods which share the same allocated devic
   and how you can configure it
 * Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 * Read about [device taints and tolerations](/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)
-
