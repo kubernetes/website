@@ -286,8 +286,9 @@ cat pod.json | kubectl replace -f -                              # Replace a pod
 # Force replace, delete and then re-create the resource. Will cause a service outage.
 kubectl replace --force -f ./pod.json
 
-# Create a service for a replicated nginx, which serves on port 80 and connects to the containers on port 8000
-kubectl expose rc nginx --port=80 --target-port=8000
+# Expose a deployment as a service which listens on port 80 and connects to the containers on port 8000
+kubectl expose deployment nginx --port=80 --target-port=8000
+
 
 # Update a single-container pod's image version (tag) to v4
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
