@@ -9,6 +9,9 @@ stages:
   - stage: alpha
     defaultValue: false
     fromVersion: "1.32"
+  - stage: beat
+    defaultValue: true
+    fromVersion: "1.35"
 ---
 Enables support for configurable per-node backoff maximums for restarting
 containers in the `CrashLoopBackOff` state.
