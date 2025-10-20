@@ -344,7 +344,7 @@ update, roll out a canary, or perform a phased roll out.
 
 ### Maximum unavailable Pods
 
-{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.35" state="beta" >}}
 
 You can control the maximum number of Pods that can be unavailable during an update
 by specifying the `.spec.updateStrategy.rollingUpdate.maxUnavailable` field.
@@ -357,11 +357,7 @@ unavailable Pod in the range `0` to `replicas - 1`, it will be counted towards
 `maxUnavailable`.
 
 {{< note >}}
-The `maxUnavailable` field is in Alpha stage and it is honored only by API servers
-that are running with the `MaxUnavailableStatefulSet`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled.
-{{< /note >}}
+The `maxUnavailable` field is in Beta stage and it is enabled by default.
 
 ### Forced rollback
 
