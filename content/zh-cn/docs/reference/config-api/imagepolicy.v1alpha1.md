@@ -28,7 +28,7 @@ ImageReview 检查某个 Pod 中是否可以使用某些镜像。
 <tr><td><code>kind</code><br/>string</td><td><code>ImageReview</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
 <p>
