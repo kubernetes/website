@@ -13,9 +13,9 @@ description: >
 
 ## サポートされるバージョン {#supported-versions}
 
-Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指します。これは[セマンティック バージョニング](https://semver.org/)に従っています。詳細は、[Kubernetesのリリースバージョニング](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)を参照してください。
+Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指します。これは[セマンティックバージョニング](https://semver.org/)に従っています。詳細は、[Kubernetesのリリースバージョニング](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning)を参照してください。
 
-Kubernetesプロジェクトでは、最新の3つのマイナーリリースについてリリースブランチを管理しています ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}})。
+Kubernetesプロジェクトでは、最新の3つのマイナーリリースについてリリースブランチを管理しています ({{< skew latestVersion >}}、{{< skew prevMinorVersion >}}、{{< skew oldestMinorVersion >}})。
 Kubernetes 1.19 以降では、パッチリリースに対して[約1年間のサポート](/releases/patch-releases/#support-period)が提供されます。Kubernetes 1.18 以前のバージョンは約9ヶ月間のパッチサポートを受け付けていました。
 
 セキュリティフィックスを含む適用可能な修正は、重大度や実行可能性によってはこれら3つのリリースブランチにバックポートされることもあります。パッチリリースは、これらのブランチから [定期的に](/releases/patch-releases/#cadence) 切り出され、必要に応じて追加の緊急リリースも行われます。
@@ -29,7 +29,7 @@ Kubernetes 1.19 以降では、パッチリリースに対して[約1年間の�
 
 ### kube-apiserver
 
-[高可用性 (HA) クラスター](/ja/docs/setup/production-environment/tools/independent/high-availability/)では、最新および最古の`kube-apiserver`インスタンスがそれぞれ1つのマイナーバージョン内でなければなりません。
+[高可用性(HA)クラスター](/ja/docs/setup/production-environment/tools/independent/high-availability/)では、最新および最古の`kube-apiserver`インスタンスがそれぞれ1つのマイナーバージョン内でなければなりません。
 
 例:
 
@@ -159,7 +159,7 @@ HAクラスター内の`kube-apiserver`間にバージョンの差異がある�
 
 ### kube-proxy
 
-前提条件：
+前提条件:
 
 * `kube-proxy`と通信する`kube-apiserver`インスタンスが**{{< skew currentVersion >}}** であること
 
