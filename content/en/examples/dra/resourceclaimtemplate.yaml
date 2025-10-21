@@ -10,7 +10,7 @@ spec:
         exactly:
           deviceClassName: example-device-class
           selectors:
-          - cel:
-              expression: |-
-                device.attributes["driver.example.com"].type == "gpu" &&
-                device.capacity["driver.example.com"].memory == quantity("64Gi")
+            - cel:
+                expression: |-
+                  device.attributes["driver.example.com"].type == "gpu" &&
+                  device.capacity["driver.example.com"].memory == quantity("64Gi")
