@@ -1,9 +1,4 @@
 <!--
-Upgrade the default kubeadm addons
--->
-升级默认的 kubeadm 插件
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -62,7 +57,8 @@ addon 操作的帮助命令。
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->
