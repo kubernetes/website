@@ -11,5 +11,5 @@ stages:
     fromVersion: "1.34"
     toVersion: "1.34"
 ---
-
+TODO: Update stage and feature doc
 Enable clearing `.status.nominatedNodeName` whenever Pods are bound to nodes.
