@@ -74,7 +74,9 @@ In this example:
   * Create one container and name it `nginx` using the `.spec.containers[0].name` field.
   * The container port `80` is specified in `containerPort` field. Note that this field is purely informational. 
     Not specifying a port here does NOT prevent that port from being exposed. Any port which is listening on the default 
-    "0.0.0.0" address inside a container will be accessible from the network. For creating a Service that directs 
+    address (for example, "0.0.0.0" for IPv4) ca  be accessible from the Pod the network, and therefore be exposed by someone with the right access.
+    If a container is directly listening on the Pod's assigned IP address, the same applies.
+    For creating a Service that directs
     traffic to this port, you can use this value.
 
 Before you begin, make sure your Kubernetes cluster is up and running.
