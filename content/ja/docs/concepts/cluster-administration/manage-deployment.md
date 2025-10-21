@@ -161,7 +161,7 @@ persistentvolumeclaim/my-pvc created
 
 これまで取り上げた例では、リソースに対して最大1つのラベルを適用してきました。リソースのセットを他のセットと区別するために、複数のラベルが必要な状況があります。
 
-例えば、異なるアプリケーション間では、異なる`app`ラベルを使用したり、[ゲストブックの例](https://github.com/kubernetes/examples/tree/master/guestbook/)のようなマルチティアーのアプリケーションでは、各ティアーを区別する必要があります。frontendというティアーでは下記のラベルを持ちます。:
+例えば、異なるアプリケーション間では、異なる`app`ラベルを使用したり、[ゲストブックの例](https://github.com/kubernetes/examples/tree/master/web/guestbook/)のようなマルチティアーのアプリケーションでは、各ティアーを区別する必要があります。frontendというティアーでは下記のラベルを持ちます。:
 
 ```yaml
      labels:
