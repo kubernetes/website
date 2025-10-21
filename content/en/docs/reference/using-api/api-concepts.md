@@ -1367,9 +1367,12 @@ changed, or to express data consistency requirements when getting, listing and
 watching resources. Resource versions must be treated as opaque by clients and passed
 unmodified back to the server.
 
-You must not assume resource versions are numeric or collatable. API clients may
-only compare two resource versions for equality (this means that you must not compare
-resource versions for greater-than or less-than relationships).
+Starting with K8s 1.35, it can be assumed that resource versions of all Kubernetes 
+resources and CRDs are comparable. Resource versions are considered monotonically
+increasing integers and can be compared as such. Clients can not make assumptions
+on the size of the resource version and comparisons must be only between a single
+resource. See [KEP-5504](https://github.com/kubernetes/enhancements/issues/5504)
+for more details on how to use this.
 
 ### `resourceVersion` fields in metadata {#resourceversion-in-metadata}
 
