@@ -1120,12 +1120,6 @@ status:
 
 {{< feature-state feature_gate_name="JobManagedBy" >}}
 
-{{< note >}}
-You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(enabled by default).
-{{< /note >}}
-
 This feature allows you to disable the built-in Job controller, for a specific
 Job, and delegate reconciliation of the Job to an external controller.
 
