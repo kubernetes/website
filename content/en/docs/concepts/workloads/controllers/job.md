@@ -1120,12 +1120,6 @@ status:
 
 {{< feature-state feature_gate_name="JobManagedBy" >}}
 
-{{< note >}}
-You can only set the `managedBy` field on Jobs if you enable the `JobManagedBy`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(enabled by default).
-{{< /note >}}
-
 This feature allows you to disable the built-in Job controller, for a specific
 Job, and delegate reconciliation of the Job to an external controller.
 
@@ -1150,15 +1144,6 @@ verify your implementation.
 Finally, when developing an external Job controller make sure it does not use the
 `batch.kubernetes.io/job-tracking` finalizer, reserved for the built-in controller.
 {{< /note >}}
-
-{{< warning >}}
-If you are considering to disable the `JobManagedBy` feature gate, or to
-downgrade the cluster to a version without the feature gate enabled, check if
-there are jobs with a custom value of the `spec.managedBy` field. If there
-are such jobs, there is a risk that they might be reconciled by two controllers
-after the operation: the built-in Job controller and the external controller
-indicated by the field value.
-{{< /warning >}}
 
 ## Alternatives
 
