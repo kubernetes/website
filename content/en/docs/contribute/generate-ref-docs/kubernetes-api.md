@@ -157,7 +157,8 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll
 The generated API reference files (HTML version) are copied to `<web-base>/static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/`. This directory contains the standalone HTML API documentation. 
 
 {{< note >}}
-Note: The Markdown version of the API reference located at `<web-base>/content/en/docs/reference/kubernetes-api/` is generated separately using the [gen-resourcesdocs](https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs) generator.
+The Markdown version of the API reference located at `<web-base>/content/en/docs/reference/kubernetes-api/`
+is generated separately using the [gen-resourcesdocs](https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs) generator.
 {{< /note >}}
 
 ## Locally test the API reference
