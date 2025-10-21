@@ -73,7 +73,7 @@ In this example:
     [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
   * Create one container and name it `nginx` using the `.spec.containers[0].name` field.
   * The container port `80` is specified in `containerPort` field. Note that this field is purely informational. 
-    Not specifying a port here does NOT prevent that port from being exposed. Any port which is listening on the default 
+    Whether or not you specify a port here does **not"* prevent users from exposing a port that isn't listed. Any port which is listening on the default
     address (for example, "0.0.0.0" for IPv4) ca  be accessible from the Pod the network, and therefore be exposed by someone with the right access.
     If a container is directly listening on the Pod's assigned IP address, the same applies.
     For creating a Service that directs
