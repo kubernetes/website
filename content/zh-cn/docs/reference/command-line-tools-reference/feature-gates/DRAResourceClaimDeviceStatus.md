@@ -13,6 +13,9 @@ stages:
   - stage: beta 
     defaultValue: true
     fromVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.35"
 ---
 
 <!--
