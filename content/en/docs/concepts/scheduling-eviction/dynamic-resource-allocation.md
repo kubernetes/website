@@ -812,10 +812,10 @@ from the `status.conditions` field of the ResourceClaim.
 External controllers are responsible for updating these conditions using standard Kubernetes
 condition semantics (`type`, `status`, `reason`, `message`, `lastTransitionTime`).
 
-The scheduler waits up to **600 seconds** for all `bindingConditions` to become `True`.
+The scheduler waits up to **600 seconds** (default) for all `bindingConditions` to become `True`.
 If the timeout is reached or any `bindingFailureConditions` are `True`, the scheduler
 clears the allocation and reschedules the Pod.
-
+This timeout duration is configurable by the user through `KubeSchedulerConfiguration`.
 
 ```yaml
 apiVersion: resource.k8s.io/v1
@@ -857,9 +857,24 @@ the `status.allocation.nodeSelector` field in the ResourceClaim to that node nam
 - The `dra.example.com/is-prepared` binding condition indicates that the device `gpu-1`
 must be prepared (the `is-prepared` condition has a status of `True`) before binding. 
 - If the `gpu-1` device preparation fails (the `preparing-failed` condition has a status of `True`), the scheduler aborts binding.
-- The scheduler waits up to 600 seconds for the device to become ready.
+- The scheduler waits up to 600 seconds (default) for the device to become ready.
 - External controllers can use the node selector in the ResourceClaim to perform
 node-specific setup on the selected node.
+
+An example of configuring this timeout in `KubeSchedulerConfiguration` is given below:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+profiles:
+- schedulerName: default-scheduler
+  pluginConfig:
+  - name: DynamicResources
+    args:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: DynamicResourcesArgs
+      bindingTimeout: 60s
+```
 
 ## {{% heading "whatsnext" %}}
 
