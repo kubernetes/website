@@ -555,6 +555,20 @@ a namespace prior to its usage.
 This admission controller checks all requests on namespaced resources other than `Namespace` itself.
 If the namespace referenced from a request doesn't exist, the request is rejected.
 
+### NodeDeclaredFeatureValidator {#nodedeclaredfeaturevalidator}
+
+{{< feature-state feature_gate_name="NodeDeclaredFeatures" >}}
+
+**Type**: Validating.
+
+This admission controller intercepts Pod `UPDATE` requests to ensure that the changes are
+compatible with the features declared by the node where the Pod is currently running. It uses the
+`node.status.declaredFeatures` field of the Node object to determine the set of enabled features. If a
+Pod update requires a feature that is not listed in the features of its current node, the admission
+controller will reject the update request. This prevents runtime failures due to feature mismatch
+after a Pod has been scheduled. This admission controller is enabled when the `NodeDeclaredFeatures`
+feature gate is enabled.
+
 ### NamespaceLifecycle {#namespacelifecycle}
 
 **Type**: Validating.
