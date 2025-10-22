@@ -10,7 +10,7 @@ spec:
       image: nginx
       imagePullPolicy: IfNotPresent
   tolerations:
-    - key: "node.kubernetes.io/sla"
+    - key: "servicelevel.organization.example/agreed-service-level"
       operator: "Gt"
       value: "900"
       effect: "NoSchedule"

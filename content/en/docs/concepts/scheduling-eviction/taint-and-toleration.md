@@ -96,7 +96,7 @@ If either value cannot be parsed as an integer, the toleration does not match.
 When you create a Pod that uses `Gt` or `Lt` tolerations operators, the API server
 validates that the toleration values are valid integers. Taint values on nodes are not
 validated at node registration time. If a node has a non-numeric taint value
-(for example, `node.kubernetes.io/sla=high:NoSchedule`), pods with numeric comparison
+(for example, `servicelevel.organization.example/agreed-service-level=high:NoSchedule`), pods with numeric comparison
 operators will not match that taint and cannot schedule on that node.
 {{< /note >}}
 
@@ -201,10 +201,10 @@ operators (`Gt` and `Lt`) to match taints with integer values. This is useful fo
 threshold-based scheduling scenarios, such as matching nodes based on reliability
 levels or SLA requirements.
 
-For example, if nodes are tainted with an SLA value:
+For example, if nodes are tainted with a value representing a service level agreement (SLA):
 
 ```shell
-kubectl taint nodes node1 node.kubernetes.io/sla=950:NoSchedule
+kubectl taint nodes node1 servicelevel.organization.example/agreed-service-level=950:NoSchedule
 ```
 
 A pod can tolerate nodes with SLA greater than 900:
@@ -219,7 +219,7 @@ is greater than the taint value:
 
 ```yaml
 tolerations:
-- key: "node.kubernetes.io/sla"
+- key: "servicelevel.organization.example/agreed-service-level"
   operator: "Lt"
   value: "1000"
   effect: "NoSchedule"
@@ -286,11 +286,6 @@ manually add tolerations to your pods.
 
 * **Taint based Evictions**: A per-pod-configurable eviction behavior
 when there are node problems, which is described in the next section.
-
-* **SLA-based Scheduling**: In clusters with mixed node types (i.e. spot instances),
-* you can taint nodes with numeric SLA or reliability values. Pods can then
-use numeric comparison operators to opt-in to nodes meeting specific reliability thresholds,
-while the cluster's default policy keeps most workloads away from lower-SLA nodes.
 
 ## Taint based Evictions
 
