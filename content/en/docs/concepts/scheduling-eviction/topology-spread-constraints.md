@@ -646,7 +646,7 @@ section of the enhancement proposal about Pod topology spread constraints.
 - Pods that don't match their own labelSelector create "ghost pods". If a pod's
   labels don't match the `labelSelector` in its topology spread constraint, the pod
   won't count itself in spread calculations. This means:
-  - Multiple such pods can accumulate on the same node without triggering the constraint
+  - Multiple such pods can just accumulate on the same topology (until matching pods are newly created/deleted) because those pod's schedule don't change a spreading calculation result.
   - The spreading constraint becomes ineffective
 
   Ensure your pod's labels match the `labelSelector` in your spread constraints.
