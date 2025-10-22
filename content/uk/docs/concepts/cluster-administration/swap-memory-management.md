@@ -248,6 +248,6 @@ Kubernetes {{< skew currentVersion >}} не підтримує розподіл 
 
 ## {{% heading "whatsnext" %}}
 
-- Щоб дізнатися про управління свопом на вузлах Linux, прочитайте [Налаштування своп-памʼяті на вузлах Kubernetes](/docs/tutorials/configuration/provision-swap-memory/).
+- Щоб дізнатися про управління свопом на вузлах Linux, прочитайте [Налаштування своп-памʼяті на вузлах Kubernetes](/docs/tutorials/cluster-management/provision-swap-memory/).
 - Ви можете переглянути [допис у блозі про Kubernetes та swap](/blog/2025/03/25/swap-linux-improvements/)
 - Для отримання додаткової інформації, будь ласка, перегляньте оригінальний KEP, [KEP-2400](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2400-node-swap), та його [дизайн](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).

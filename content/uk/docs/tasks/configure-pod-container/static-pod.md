@@ -154,7 +154,7 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 kubectl get pods
 ```
 
-```none
+```console
 NAME                  READY   STATUS    RESTARTS        AGE
 static-web-my-node1   1/1     Running   0               2m
 ```
@@ -171,7 +171,7 @@ static-web-my-node1   1/1     Running   0               2m
 kubectl delete pod static-web-my-node1
 ```
 
-```none
+```console
 pod "static-web-my-node1" deleted
 ```
 
@@ -181,7 +181,7 @@ pod "static-web-my-node1" deleted
 kubectl get pods
 ```
 
-```none
+```console
 NAME                  READY   STATUS    RESTARTS   AGE
 static-web-my-node1   1/1     Running   0          4s
 ```
@@ -242,6 +242,6 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 * [Створення статичних файлів маніфестів Podʼів для компонентів панелі управління](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [Створення статичного файлу маніфесту Podʼа для локального etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [Налагодження вузлів Kubernetes за допомогою `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
-* [Дізнайтеся більше про `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Зіставлення команд `docker` CLI з `crictl`](/docs/reference/tools/map-crictl-dockercli/).
+* [Дізнайтеся більше про `crictl`](https://github.com/kubernetes-sigs/cri-tools)
+* [Зіставлення команд `docker` CLI з `crictl`](/docs/reference/tools/map-crictl-dockercli/)
 * [Налаштування екземплярів etcd як статичних Podʼів, керованих kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)

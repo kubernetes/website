@@ -110,7 +110,7 @@ NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-Використовуючи вище наведенні команди, спочатку ви створюєте ресурси в `examples/application/nginx/` і виводите створені ресурси у форматі виводу `-o name` (виводите кожен ресурс як resource/name). Потім ви виконуєте `grep` для вибору Service, а потім виводите його за допомогою [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
+Використовуючи вище наведенні команди, спочатку ви створюєте ресурси в `docs/concepts/cluster-administration/nginx/` і виводите створені ресурси у форматі виводу `-o name` (виводите кожен ресурс як resource/name). Потім ви виконуєте `grep` для вибору Service, а потім виводите його за допомогою [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
 
 ### Рекурсивні операції з локальними файлами {#recursive-operations-on-local-files}
 
@@ -320,7 +320,7 @@ deployment.apps/my-nginx scaled
 Тепер у вас буде тільки один pod, яким управляє deployment.
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none

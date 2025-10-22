@@ -32,7 +32,7 @@ In цьому прикладі ви запустите Job Kubernetes, яке в
 
 ## Запуск Redis {#starting-redis}
 
-У цьому прикладі, для спрощення, ви запустите один екземпляр Redis. Дивіться [Приклад Redis](https://github.com/kubernetes/examples/tree/master/guestbook) для прикладу розгортання Redis масштабовано та надійно.
+У цьому прикладі, для спрощення, ви запустите один екземпляр Redis. Дивіться [Приклад Redis](https://github.com/kubernetes/examples/tree/master/web/guestbook/) для прикладу розгортання Redis масштабовано та надійно.
 
 Ви також можете завантажити наступні файли безпосередньо:
 

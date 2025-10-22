@@ -75,10 +75,10 @@ Init Containers:
 Ви також можете отримувати доступ до статусів контейнерів ініціалізації програмно, читаючи поле `status.initContainerStatuses` у Pod Spec:
 
 ```shell
-kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
+kubectl get pod <pod-name> --template '{{.status.initContainerStatuses}}'
 ```
 
-Ця команда поверне ту саму інформацію, що і вище у форматі JSON.
+Ця команда поверне ту саму інформацію, що й вище, відформатовану за допомогою [Go template](https://pkg.go.dev/text/template).
 
 ## Отримання логів з контейнерів ініціалізації {#accessing-logs-from-init-containers}
 

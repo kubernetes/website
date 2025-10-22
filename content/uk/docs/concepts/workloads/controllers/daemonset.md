@@ -172,10 +172,10 @@ DaemonSet схожий на [Розгортання (Deployments)](/docs/concept
 
 ## {{% heading "whatsnext" %}}
 
-- Дізнайтеся більше про [Podʼи](/docs/concepts/workloads/pods).
-  - Дізнайтеся про [статичні Podʼи](#static-pods), які корисні для запуску компонентів {{< glossary_tooltip text="панелі управління" term_id="control-plane" >}} Kubernetes.
-- Дізнайтеся, як використовувати DaemonSets
-  - [Виконати поетапне оновлення DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+- Дізнайтеся більше про [Podʼи](/docs/concepts/workloads/pods):
+  - Дізнайтеся про [статичні Podʼи](/docs/tasks/configure-pod-container/static-pod/), які корисні для запуску компонентів {{< glossary_tooltip text="панелі управління" term_id="control-plane" >}} Kubernetes.
+- Дізнайтеся, як використовувати DaemonSets:
+  - [Виконати поетапне оновлення DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
   - [Виконати відкат DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/) (наприклад, якщо розгортання не працює так, як ви очікували).
 - Дізнайтесь [як Kubernetes призначає Podʼи вузлам](/docs/concepts/scheduling-eviction/assign-pod-node/).
 - Дізнайтеся про [втулки пристроїв](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) та [надбудови](/docs/concepts/cluster-administration/addons/), які часто працюють як DaemonSets.

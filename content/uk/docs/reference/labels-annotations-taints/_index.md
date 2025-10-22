@@ -1548,7 +1548,7 @@ Kubelet перевіряє D-значення розміру `/proc/sys/kernel/p
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-name}
 
-Приклад: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: example`
+Приклад: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: example`
 
 Використовується для: Service
 
@@ -1556,7 +1556,7 @@ Kubelet перевіряє D-значення розміру `/proc/sys/kernel/p
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-prefix}
 
-Приклад: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "/example"`
+Приклад: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "/example"`
 
 Використовується для: Service
 
