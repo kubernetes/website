@@ -247,13 +247,8 @@ In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 
 For Linux Pods that enable user namespaces, Kubernetes relaxes the application of
 [Pod Security Standards](/docs/concepts/security/pod-security-standards) in a controlled way.
-This behavior can be controlled by the [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`UserNamespacesPodSecurityStandards`, which allows an early opt-in for end
-users. Admins have to ensure that user namespaces are enabled by all nodes
-within the cluster if using the feature gate.
 
-If you enable the associated feature gate and create a Pod that uses user
+If you create a Pod that uses user
 namespaces, the following fields won't be constrained even in contexts that enforce the
 _Baseline_ or _Restricted_ pod security standard. This behavior does not
 present a security concern because `root` inside a Pod with user namespaces
@@ -269,6 +264,17 @@ circumstances:
 - `spec.containers[*].securityContext.runAsUser`
 - `spec.initContainers[*].securityContext.runAsUser`
 - `spec.ephemeralContainers[*].securityContext.runAsUser`
+
+Further, if the pod is in a context with the _Baseline_ pod security standard,
+validation for the following fields will similarly be relaxed:
+
+- `spec.containers[*].securityContext.procMount`
+- `spec.initContainers[*].securityContext.procMount`
+- `spec.ephemeralContainers[*].securityContext.procMount`
+
+with the _Restricted_ pod security standard, a pod still must only use the
+default or empty ProcMount.
+
 
 ## Limitations
 
