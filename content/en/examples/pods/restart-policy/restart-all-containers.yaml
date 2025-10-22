@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ml-worker
+spec:
+  restartPolicy: Never # The pod itself should not restart unless explicitly told to.
+  initContainers:
+  - name: setup-environment
+    image: registry.k8s.io/busybox:1.27.2
+    command: ['sh', '-c', 'echo "Setting up environment"']
+    # This init container runs once to prepare the environment.
+    # It will run again after a RestartAllContainers action.
+  - name: watcher-sidecar
+    image: registry.k8s.io/busybox:1.27.2
+    # In a real-world scenario, this would be a dedicated watcher image.
+    # This command simulates the watcher exiting with a special code.
+    command: ['sh', '-c', 'sleep 60; exit 88']
+    restartPolicy: Always
+    restartPolicyRules:
+    - action: RestartAllContainers
+      onExit:
+        exitCodes:
+          # Exit code 88 triggers a full pod restart.
+          operator: In
+          values: [88]
+  containers:
+  - name: main-application
+    image: registry.k8s.io/busybox:1.27.2
+    command: ['sh', '-c', 'echo "Application is running"; sleep 3600']
