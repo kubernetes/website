@@ -291,7 +291,7 @@ restart policy. Container restart policy and rules applies to {{< glossary_toolt
 in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-containers/).
 
 A Kubernetes-native [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
-has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`.
+has its container-level `restartPolicy` set to `Always`.
 
 The container restarts will follow the same exponential backoff as pod restart policy described above. 
 Supported container restart policies:
@@ -321,11 +321,11 @@ spec:
   restartPolicy: OnFailure
   containers:
   - name: try-once-container    # This container will run only once because the restartPolicy is Never.
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Only running once" && sleep 10 && exit 1']
     restartPolicy: Never     
   - name: on-failure-container  # This container will be restarted on failure.
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Keep restarting" && sleep 1800 && exit 1']
 ```
 
@@ -342,12 +342,12 @@ spec:
   restartPolicy: Always
   initContainers:
   - name: init-once      # This init container will only try once. If it fails, the pod will fail.
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'echo "Failing initialization" && sleep 10 && exit 1']
     restartPolicy: Never
   containers:
   - name: main-container # This container will always be restarted once initialization succeeds.
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'sleep 1800 && exit 0']
 ```
 
@@ -363,7 +363,7 @@ spec:
   restartPolicy: Never
   containers:
   - name: restart-on-exit-codes
-    image: docker.io/library/busybox:1.28
+    image: registry.k8s.io/busybox:1.27.2
     command: ['sh', '-c', 'sleep 60 && exit 0']
     restartPolicy: Never     # Container restart policy must be specified if rules are specified
     restartPolicyRules:      # Only restart the container if it exits with code 42
@@ -377,6 +377,59 @@ Restart rules can be used for many more advanced lifecycle management scenarios.
 are affected by the same inconsistencies as the regular restart policy. Kubelet restarts, container
 runtime garbage collection, intermitted connectivity issues with the control plane may cause the state
 loss and containers may be re-run even when you expect a container not to be restarted.
+
+#### Restart All Containers {#restart-all-containers}
+
+{{< feature-state feature_gate_name="RestartAllContainersOnContainerExits" >}}
+
+If your cluster has the feature gate `RestartAllContainersOnContainerExits` enabled, you can specify
+`RestartAllContainers` as an action in `restartPolicyRules` at container level. When a container's exit
+matches a rule with this action, the entire Pod is terminated and restarted in-place.
+
+This "in-place" restart offers a more efficient way to reset a Pod's state compared to full deletion
+and recreation. This is especially valuable for workloads where rescheduling is costly, such as
+batch jobs or AI/ML training tasks.
+
+##### How in-place Pod restarts work
+
+When a `RestartAllContainers` action is triggered, the kubelet performs the following steps:
+
+1. **Fast Termination**: All running containers in the Pod are terminated. 
+The configured `terminationGracePeriodSeconds` is not respected, and any configured `preStop` hooks
+are not executed. This ensures a swift shutdown.
+1. **Preservation of Pod Resources**: The Pod's essential resources are preserved:
+    * Pod UID, IP address, and network namespace
+    * Pod sandbox and any attached devices
+    * All volumes, including `emptyDir` and mounted volumes
+1. **Pod Status Update**: The Pod's status is updated with a `PodRestartInPlace` condition set to `True`.
+This makes the restart process observable.
+1. **Full Restart Sequence**: Once all containers are terminated, the `PodRestartInPlace` condition
+is set to `False`, and the Pod begins the standard startup process:
+    * **Init containers are re-run** in order.
+    * Sidecar and regular containers are started.
+
+A key aspect of this feature is that **all** containers are restarted, including those that
+previously completed successfully or failed. The `RestartAllContainers` action overrides
+any configured container-level or Pod-level `restartPolicy`.
+
+This mechanism is useful in scenarios where a clean slate for all containers is necessary, such as:
+- When an `init` container sets up an environment that can become corrupted, this feature ensures
+the setup process is re-executed.
+- A sidecar container can monitor the health of a main application and trigger a full Pod restart
+if the application enters an unrecoverable state.
+
+Consider a workload where a watcher sidecar is responsible for restarting the main application
+from a known-good state if it encounters an error. The watcher can exit with a specific code
+to trigger a full, in-place restart of the worker Pod.
+
+{{% code_sample file="pods/restart-policy/restart-all-containers.yaml" %}}
+
+In this example:
+- The Pod's overall `restartPolicy` is `Never`.
+- The `watcher-sidecar` runs a command and then exits with code `88`.
+- The exit code matches the rule, triggering the `RestartAllContainers` action.
+- The entire Pod, including the `setup-environment` init container and the `main-application` container,
+is then restarted in-place. The pod keeps its UID, sandbox, IP, and volumes.
 
 ### Reduced container restart delay
 
