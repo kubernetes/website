@@ -2,16 +2,13 @@
 Output a kubeconfig file for an additional user
 
 ### Synopsis
-
-Output a kubeconfig file for an additional user.
 -->
-为其他用户输出一个 kubeconfig 文件。
 
 ### 概要
 
 为其他用户输出一个 kubeconfig 文件。
 
-```
+```shell
 kubeadm kubeconfig user [flags]
 ```
 
@@ -19,11 +16,11 @@ kubeadm kubeconfig user [flags]
 ### Examples
 
 ```
-  # Output a kubeconfig file for an additional user named foo
-  kubeadm kubeconfig user --client-name=foo
-  
-  # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
-  kubeadm kubeconfig user --client-name=foo --config=bar
+# Output a kubeconfig file for an additional user named foo
+kubeadm kubeconfig user --client-name=foo
+
+# Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
+kubeadm kubeconfig user --client-name=foo --config=bar
 ```
 -->
 ### 示例
@@ -120,7 +117,7 @@ The token that should be used as the authentication mechanism for this kubeconfi
 </tr>
 
 <tr>
-<td colspan="2">--validity-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 8760h0m0s</td>
+<td colspan="2">--validity-period duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 8760h0m0s-->默认值：8760h0m0s</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -129,7 +126,8 @@ The token that should be used as the authentication mechanism for this kubeconfi
 The validity period of the client certificate. It is an offset from the current time.
 -->
 客户证书的合法期限。所设置值为相对当前时间的偏移。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>

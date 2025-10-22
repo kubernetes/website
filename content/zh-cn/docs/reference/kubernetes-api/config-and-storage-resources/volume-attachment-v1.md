@@ -167,14 +167,14 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
 
     errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
     
-    This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+    This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
   -->
 
   - **attachError.errorCode** (int32)
 
     errorCode 是一个 gRPC 错误码，代表在 Attach 或 Detach 操作期间遇到的错误。
 
-    这是一个可选的、Alpha 阶段的字段，要求启用了 MutableCSINodeAllocatableCount
+    这是一个可选的、Beta 阶段的字段，要求启用了 MutableCSINodeAllocatableCount
     特性门控才能设置。
 
   <!--
@@ -236,14 +236,14 @@ VolumeAttachmentStatus 是 VolumeAttachment 请求的状态。
 
     errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
     
-    This is an optional, alpha field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+    This is an optional, beta field that requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
   -->
 
   - **attachError.errorCode** (int32)
 
     errorCode 是一个 gRPC 错误码，代表在 Attach 或 Detach 操作期间遇到的错误。
 
-    这是一个可选的、Alpha 阶段的字段，要求启用了 MutableCSINodeAllocatableCount
+    这是一个可选的、Beta 阶段的字段，要求启用了 MutableCSINodeAllocatableCount
     特性门控才能设置。
 
   <!--

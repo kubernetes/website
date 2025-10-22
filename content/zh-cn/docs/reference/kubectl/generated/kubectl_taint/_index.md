@@ -26,12 +26,12 @@ Update the taints on one or more nodes.
 -->
 更新一个或多个节点上的污点。
 
-  * 污点由键、值和效果组成。作为此命令的参数，污点表示为 key=value:effect。
-  * 键必须以字母或数字开头，可以包含字母、数字、连字符、点和下划线，最多 253 个字符。
-  * 可选地，键可以以 DNS 子域前缀加上一个 "/" 开头，例如 example.com/my-app。
-  * 值是可选的。如果给定，则必须以字母或数字开头，可以包含字母、数字、连字符、点和下划线，最多 63 个字符。
-  * 效果必须是 NoSchedule、PreferNoSchedule 或 NoExecute。
-  * 目前污点只能应用于节点。
+* 污点由键、值和效果组成。作为此命令的参数，污点表示为 key=value:effect。
+* 键必须以字母或数字开头，可以包含字母、数字、连字符、点和下划线，最多 253 个字符。
+* 可选地，键可以以 DNS 子域前缀加上一个 "/" 开头，例如 example.com/my-app。
+* 值是可选的。如果给定，则必须以字母或数字开头，可以包含字母、数字、连字符、点和下划线，最多 63 个字符。
+* 效果必须是 NoSchedule、PreferNoSchedule 或 NoExecute。
+* 目前污点只能应用于节点。
 
 ```shell
 kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N
@@ -89,7 +89,8 @@ kubectl taint nodes foo bar:NoSchedule
 <td colspan="2">--all</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Select all nodes in the cluster
 -->
@@ -372,7 +373,8 @@ TLS 客户端密钥文件的路径。
 </tr>
 <tr>
 <td>
-</td><td style="line-height: 130%; word-wrap: break-word;"><p>
+</td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig cluster to use
 -->
@@ -391,34 +393,6 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
 </p>
 </td>
 </tr>
@@ -461,6 +435,21 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
 </p>
 </td>
 </tr>

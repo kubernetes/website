@@ -388,7 +388,7 @@ Containers configured in this manner will not have access to swap memory.
 ## {{% heading "whatsnext" %}}
 
 - To learn about managing swap on Linux nodes, read
-  [configuring swap memory on Kubernetes nodes](/docs/tutorials/configuration/provision-swap-memory/).
+  [configuring swap memory on Kubernetes nodes](/docs/tutorials/cluster-management/provision-swap-memory/).
 - You can check out a [blog post about Kubernetes and swap](/blog/2025/03/25/swap-linux-improvements/)
 - For background information, please see the original KEP, [KEP-2400](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2400-node-swap),
 and its [design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
