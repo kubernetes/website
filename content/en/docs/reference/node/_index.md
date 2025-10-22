@@ -7,6 +7,7 @@ no_list: true
 This section contains the following reference topics about nodes:
 
 * the kubelet's [checkpoint API](/docs/reference/node/kubelet-checkpoint-api/)
+* the kubelet's [Pod Info gRPC API](/docs/reference/node/kubelet-pod-info-grpc-api/)
 * a list of [Articles on dockershim Removal and on Using CRI-compatible Runtimes](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
 
 * [Kubelet Device Manager API Versions](/docs/reference/node/device-plugin-api-versions)
