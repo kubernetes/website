@@ -154,7 +154,7 @@ extension points:
   might have.
   Extension points: `filter`.
 - `NodeVolumeLimits`: Checks that CSI volume limits can be satisfied for the
-  node.
+  node. Also configured cluster-autoscaler to calculate limits accurately.
   Extension points: `filter`.
 - `EBSLimits`: Checks that AWS EBS volume limits can be satisfied for the node.
   Extension points: `filter`.
