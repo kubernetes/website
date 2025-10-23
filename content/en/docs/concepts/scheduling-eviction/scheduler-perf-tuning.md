@@ -159,6 +159,27 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 After going over all the Nodes, it goes back to Node 1.
 
+## Enabling Opportunistic Batching
+
+{{< feature-state for_k8s_version="v1.35" state="beta" >}}
+
+When scheduling large workloads, pod definitions are typically identical and require scheduler
+to perform the same operations over and over again. The [Opportunistic Batching](/docs/reference/command-line-tools-reference/feature-gates/OpportunisticBatching.md)
+feature allows scheduler to reuse the intermediate data between scheduling cycles which
+greatly speeds up the scheduling process.
+
+The benefits come with certain limitations:
+1. Pods need to have equivalent definitions
+1. Pods need to be scheduled at the same time (cache expires afer 0.5s)
+1. Pods cannot use inter pod affinity/anti-affinity
+1. Pods cannot use topology spread constraints
+1. Pods cannot use neither DRA nor [DRAExtendedResource](/docs/reference/command-line-tools-reference/feature-gates/DRAExtendedResource.md) feature.
+1. Scheduling profile needs to disable [default topology spread](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)
+1. `IgnorePreferredTermsOfExistingPods` of [InterPodAffinityArgs](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-InterPodAffinityArgs)
+needs to be set to `true`
+1. Whenever exisiting pods use pod affinity constraints that match any of the scheduled pods' labels, the feature may bring no benefit
+1. Whenever a custom plugin is used, it needs to implement the Signature extension point
+
 ## {{% heading "whatsnext" %}}
 
 * Check the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
