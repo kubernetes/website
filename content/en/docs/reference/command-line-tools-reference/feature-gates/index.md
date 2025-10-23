@@ -13,7 +13,6 @@ can specify on different Kubernetes components.
 
 See [feature stages](#feature-stages) for an explanation of the stages for a feature.
 
-
 <!-- body -->
 ## Overview
 
@@ -21,15 +20,29 @@ Feature gates are a set of key=value pairs that describe Kubernetes features.
 You can turn these features on or off using the `--feature-gates` command line flag
 on each Kubernetes component.
 
-Each Kubernetes component lets you enable or disable a set of feature gates that
-are relevant to that component.
-Use `-h` flag to see a full set of feature gates for all components.
-To set feature gates for a component, such as kubelet, use the `--feature-gates`
-flag assigned to a list of feature pairs:
+## How to enable Feature Gates
+
+To enable or disable a feature gate for a particular Kubernetes component, use the `--feature-gates` flag. This flag accepts a comma-separated list of key=value pairs, where each key is a feature gate name and each value is either `true` (enable) or `false` (disable).
+
+**Example usage:**
 
 ```shell
---feature-gates=...,GracefulNodeShutdown=true
+kube-apiserver --feature-gates=SomeFeature=true,OtherFeature=false
+kubelet --feature-gates=GracefulNodeShutdown=true
 ```
+
+- Each component (such as kube-apiserver, kubelet, kube-controller-manager, kube-scheduler, kube-proxy) supports only the feature gates relevant to its functions. Refer to the component's documentation or use `<component> -h` to list available feature gates.
+- Apply feature gates with care; test changes in non-production clusters, and restart the component where the flag is set.
+
+**Component-specific guidance:**
+- [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+- [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+- [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+- [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
+- [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
+
+**Further reading:**  
+See [Configure Feature Gates](/docs/tasks/configure-feature-gates/) for troubleshooting and best practices.
 
 The following tables are a summary of the feature gates that you can set on
 different Kubernetes components.
