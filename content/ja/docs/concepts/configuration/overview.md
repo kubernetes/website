@@ -58,7 +58,7 @@ weight: 10
 
 ## ラベルの使用
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの __セマンティック属性__ を識別する[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なPodを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/master/guestbook/)アプリも合わせてご覧ください。
+- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの __セマンティック属性__ を識別する[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なPodを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/master/web/guestbook/)アプリも合わせてご覧ください。
 
 セレクターからリリース固有のラベルを省略することで、Serviceを複数のDeploymentにまたがるように作成できます。 [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)により、ダウンタイムなしで実行中のサービスを簡単に更新できます。
 
