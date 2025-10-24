@@ -132,7 +132,7 @@ NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-With the above commands, first you create resources under `examples/application/nginx/` and print
+With the above commands, first you create resources under `docs/concepts/cluster-administration/nginx/` and print
 the resources created with `-o name` output format (print each resource as resource/name).
 Then you `grep` only the Service, and then print it with [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
 
@@ -379,7 +379,7 @@ deployment.apps/my-nginx scaled
 Now you only have one pod managed by the deployment.
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none

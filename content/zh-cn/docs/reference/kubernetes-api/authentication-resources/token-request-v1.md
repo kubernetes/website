@@ -74,7 +74,7 @@ TokenRequestSpec 包含客户端提供的令牌请求参数。
 
   *Atomic: will be replaced during a merge*
 
-  Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+  Audiences are the intended audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 -->
 - **audiences** ([]string)，必需
 
@@ -85,7 +85,7 @@ TokenRequestSpec 包含客户端提供的令牌请求参数。
   为多个受众签发的令牌可用于认证所列举的任意受众的身份，但这意味着目标受众彼此之间的信任程度较高。
 
 - **boundObjectRef** (BoundObjectReference)
-  
+
   <!--
   BoundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
 

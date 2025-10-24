@@ -1957,7 +1957,7 @@ if you set the annotation to "true".
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-name}
 
-Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: example`
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: example`
 
 Used on: Service
 
@@ -1967,7 +1967,7 @@ writes logs to an S3 bucket with the name you specify.
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-prefix}
 
-Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "/example"`
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "/example"`
 
 Used on: Service
 
