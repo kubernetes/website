@@ -58,8 +58,8 @@ Pods, and place the Pods on nodes that can access those devices.
   drivers. For more information, see
   [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster).
 -->
-* 请确保集群管理员已设置好 DRA，挂接了设备并安装了驱动程序。
-  详情请参见[在集群中设置 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)。
+* 请确保集群管理员已安装好 DRA，挂接了设备并安装了驱动程序。
+  详情请参见[在集群中安装 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)。
 
 <!-- steps -->
 
