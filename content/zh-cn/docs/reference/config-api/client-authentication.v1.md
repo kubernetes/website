@@ -178,8 +178,10 @@ Cluster 中包含允许 exec 插件与 Kubernetes 集群进行通信身份认证
    </p>
    此字段包含一些额外的、特定于 exec 插件和所连接的集群的数据。
    <p>
+   <!--
    This data is sourced from the clientcmd Cluster object's
    extensions[client.authentication.k8s.io/exec] field:
+   -->
    此字段来自于 clientcmd 集群对象的 <code>extensions[client.authentication.k8s.io/exec]</code>
    字段：
    </p>
@@ -297,7 +299,7 @@ itself should at least be protected via file permissions.
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 <tr><td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--

@@ -1,9 +1,4 @@
 <!--
-Renew certificates for a Kubernetes cluster
--->
-为 Kubernetes 集群更新证书
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -13,7 +8,7 @@ Renew certificates for a Kubernetes cluster
 -->
 为 Kubernetes 集群更新证书
 
-```
+```shell
 kubeadm certs renew [flags]
 ```
 

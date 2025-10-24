@@ -496,7 +496,7 @@ for, so other administrators can know its purpose.
 </td>
 </tr>
 <tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--
@@ -512,23 +512,27 @@ dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <
 <code>[]string</code>
 </td>
 <td>
+   <p>
    <!--
    <code>usages</code> describes the ways in which this token can be used. Can by default be used
 for establishing bidirectional trust, but that can be changed here.
    -->
-   <p><code>usages</code> 描述此令牌的可能使用方式。默认情况下，
-   令牌可用于建立双向的信任关系；不过这里可以改变默认用途。</p>
+   <code>usages</code> 描述此令牌的可能使用方式。默认情况下，
+   令牌可用于建立双向的信任关系；不过这里可以改变默认用途。
+   </p>
 </td>
 </tr>
 <tr><td><code>groups</code><br/>
 <code>[]string</code>
 </td>
 <td>
+   <p>
    <!--
    <code>groups</code> specifies the extra groups that this token will authenticate as when/if
 used for authentication
    -->
-   <p><code>groups</code> 设定此令牌被用于身份认证时对应的附加用户组。</p>
+   <code>groups</code> 设定此令牌被用于身份认证时对应的附加用户组。
+   </p>
 </td>
 </tr>
 </tbody>
@@ -543,16 +547,18 @@ used for authentication
 
 - [BootstrapToken](#BootstrapToken)
 
+<p>
 <!--
 BootstrapTokenString is a token of the format <code>abcdef.abcdef0123456789</code> that is used
 for both validation of the practically of the API server from a joining node's point
 of view and as an authentication method for the node in the bootstrap phase of
 &quot;kubeadm join&quot;. This token is and should be short-lived.
 -->
-<p>BootstrapTokenString 形式为 <code>abcdef.abcdef0123456789</code> 的一个令牌，
+BootstrapTokenString 形式为 <code>abcdef.abcdef0123456789</code> 的一个令牌，
 用来从加入集群的节点角度验证 API 服务器的身份，或者 &quot;kubeadm join&quot;
 在节点启动引导时作为一种身份认证方法。
-此令牌的生命期是短暂的，并且应该如此。</p>
+此令牌的生命期是短暂的，并且应该如此。
+</p>
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
@@ -578,10 +584,12 @@ of view and as an authentication method for the node in the bootstrap phase of
 
 ## `ClusterConfiguration`     {#kubeadm-k8s-io-v1beta3-ClusterConfiguration}
 
+<p>
 <!--
-<p>ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster.</p>
+ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster.
 -->
-<p>ClusterConfiguration 包含一个 kubeadm 集群的集群范围配置信息。</p>
+ClusterConfiguration 包含一个 kubeadm 集群的集群范围配置信息。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -594,51 +602,63 @@ of view and as an authentication method for the node in the bootstrap phase of
 <a href="#kubeadm-k8s-io-v1beta3-Etcd"><code>Etcd</code></a>
 </td>
 <td>
-   <!--
-   <p><code>etcd</code> holds the configuration for etcd.</p>
-   -->
-   <p><code>etcd</code> 中包含 etcd 服务的配置。</p>
+<p>
+<!--
+<code>etcd</code> holds the configuration for etcd.
+-->
+<code>etcd</code> 中包含 etcd 服务的配置。
+</p>
 </td>
 </tr>
 <tr><td><code>networking</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-Networking"><code>Networking</code></a>
 </td>
 <td>
-   <!--
-   <p><code>networking</code> holds configuration for the networking topology of the cluster.</p>
-   -->
-   <p><code>networking</code> 字段包含集群的网络拓扑配置。</p>
+<p>
+<!--
+<code>networking</code> holds configuration for the networking topology of the cluster.
+-->
+<code>networking</code> 字段包含集群的网络拓扑配置。
+</p>
 </td>
 </tr>
 <tr><td><code>kubernetesVersion</code><br/>
 <code>string</code>
 </td>
 <td>
-   <!--
-   <p><code>kubernetesVersion</code> is the target version of the control plane.</p>
-   -->
-   <p><code>kubernetesVersion</code> 设置控制面的目标版本。</p>
+<p>
+<!--
+<code>kubernetesVersion</code> is the target version of the control plane.
+-->
+<code>kubernetesVersion</code> 设置控制面的目标版本。
+</p>
 </td>
 </tr>
 <tr><td><code>controlPlaneEndpoint</code><br/>
 <code>string</code>
 </td>
 <td>
-   <!--
-   <p><code>controlPlaneEndpoint</code> sets a stable IP address or DNS name for the control plane.
+<p>
+<!--
+<code>controlPlaneEndpoint</code> sets a stable IP address or DNS name for the control plane.
 It can be a valid IP address or a RFC-1123 DNS subdomain, both with optional TCP port.
 In case the <code>controlPlaneEndpoint</code> is not specified, the <code>advertiseAddress</code> + <code>bindPort</code>
 are used; in case the <code>controlPlaneEndpoint</code> is specified but without a TCP port,
 the <code>bindPort</code> is used.
-Possible usages are:</p>
-   -->
-   <p><code>controlPlaneEndpoint</code> 为控制面设置一个稳定的 IP 地址或 DNS 名称。
+-->
+<code>controlPlaneEndpoint</code> 为控制面设置一个稳定的 IP 地址或 DNS 名称。
 取值可以是一个合法的 IP 地址或者 RFC-1123 形式的 DNS 子域名，二者均可以带一个可选的 TCP 端口号。
 如果 <code>controlPlaneEndpoint</code> 未设置，则使用 <code>advertiseAddress<code>
-+ <code>bindPort</code>。
+<code>bindPort</code>。
 如果设置了 <code>controlPlaneEndpoint</code>，但未指定 TCP 端口号，则使用
-<code>bindPort</code>。</p>
-<p>可能的用法有：</p>
+<code>bindPort</code>。
+</p>
+<p>
+<!--
+Possible usages are:
+-->
+可能的用法有：
+</p>
 <!--
 <ul>
 <li>In a cluster with more than one control plane instances, this field should be
@@ -658,50 +678,60 @@ be used for assigning a stable DNS to the control plane.</li>
 <a href="#kubeadm-k8s-io-v1beta3-APIServer"><code>APIServer</code></a>
 </td>
 <td>
-   <!--
-   <p><code>apiServer</code> contains extra settings for the API server.</p>
-   -->
-   <p><code>apiServer</code> 包含 API 服务器的一些额外配置。</p>
+<p>
+<!--
+<code>apiServer</code> contains extra settings for the API server.
+-->
+<code>apiServer</code> 包含 API 服务器的一些额外配置。
+</p>
 </td>
 </tr>
 <tr><td><code>controllerManager</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-ControlPlaneComponent"><code>ControlPlaneComponent</code></a>
 </td>
 <td>
-   <!--
-   <p><code>controllerManager</code> contains extra settings for the controller manager.</p>
-   -->
-   <p><code>controllerManager</code> 中包含控制器管理器的额外配置。</p>
+<p>
+<!--
+<code>controllerManager</code> contains extra settings for the controller manager.
+-->
+<p><code>controllerManager</code> 中包含控制器管理器的额外配置。
+</p>
 </td>
 </tr>
 <tr><td><code>scheduler</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-ControlPlaneComponent"><code>ControlPlaneComponent</code></a>
 </td>
 <td>
-   <!--
-   <p><code>scheduler</code> contains extra settings for the scheduler.</p>
-   -->
-   <p><code>scheduler</code> 包含调度器的额外配置。</p>
+<p>
+<!--
+<code>scheduler</code> contains extra settings for the scheduler.
+-->
+<code>scheduler</code> 包含调度器的额外配置。
+</p>
 </td>
 </tr>
 <tr><td><code>dns</code><br/>
 <a href="#kubeadm-k8s-io-v1beta3-DNS"><code>DNS</code></a>
 </td>
 <td>
-   <!--
-   <p><code>dns</code> defines the options for the DNS add-on installed in the cluster.</p>
-   -->
-   <p><code>dns</code> 定义在集群中安装的 DNS 插件的选项。</p>
+<p>
+<!--
+<code>dns</code> defines the options for the DNS add-on installed in the cluster.
+-->
+<code>dns</code> 定义在集群中安装的 DNS 插件的选项。
+</p>
 </td>
 </tr>
 <tr><td><code>certificatesDir</code><br/>
 <code>string</code>
 </td>
 <td>
-   <!--
-   <p><code>certificatesDir</code> specifies where to store or look for all required certificates.</p>
-   -->
-   <p><code>certificatesDir</code> 设置在何处存放或者查找所需证书。</p>
+<p>
+<!--
+<code>certificatesDir</code> specifies where to store or look for all required certificates.
+-->
+<code>certificatesDir</code> 设置在何处存放或者查找所需证书。
+</p>
 </td>
 </tr>
 <tr><td><code>imageRepository</code><br/>
@@ -891,7 +921,7 @@ control-plane node to the cluster.
 <p>
    <!--
    <code>caCertPath</code> is the path to the SSL certificate authority used to secure
-comunications between a node and the control-plane.
+communications between a node and the control-plane.
 Defaults to &quot;/etc/kubernetes/pki/ca.crt&quot;.
    -->
    <code>caCertPath</code> 是指向 SSL 证书机构的路径，该证书包用来加密节点与控制面之间的通信。
@@ -1531,7 +1561,7 @@ HostPathMount contains elements describing volumes that are mounted from the hos
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--
@@ -1827,7 +1857,7 @@ This information will be annotated to the Node API object, for later re-use.
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--
@@ -1880,7 +1910,7 @@ the current node is registered, e.g.
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--

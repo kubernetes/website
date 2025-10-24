@@ -1,8 +1,3 @@
-<!--
-Upload certificates to kubeadm-certs
--->
-将证书上传到 kubeadm-certs。
-
 <!-- 
 ### Synopsis
 -->
@@ -13,7 +8,7 @@ Upload control plane certificates to the kubeadm-certs Secret
 -->
 将控制平面证书上传到 kubeadm-certs Secret。
 
-```
+```shell
 kubeadm init phase upload-certs [flags]
 ```
 
@@ -22,7 +17,7 @@ kubeadm init phase upload-certs [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -34,11 +29,11 @@ kubeadm init phase upload-certs [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Key used to encrypt the control-plane certificates in the kubeadm-certs Secret.
 The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 -->
-<p>
 用于加密 kubeadm-certs Secret 中的控制平面证书的密钥。
 证书密钥是十六进制编码的字符串，是大小为 32 字节的 AES 密钥。
 </p>
@@ -50,10 +45,10 @@ The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -64,10 +59,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -78,10 +73,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for upload-certs
 -->
-<p>
 upload-certs 操作的帮助命令。
 </p>
 </td>
@@ -92,9 +87,12 @@ upload-certs 操作的帮助命令。
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<!-- td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
+<!--
+The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
+-->
 用来与集群通信的 kubeconfig 文件。
 如果此标志未设置，则可以在一组标准的位置搜索现有的 kubeconfig 文件。
 </p>
@@ -106,10 +104,10 @@ upload-certs 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't print the key used to encrypt the control-plane certificates.
 -->
-<p>
 不要打印输出用于加密控制平面证书的密钥。
 </p>
 </td>
@@ -120,10 +118,10 @@ Don't print the key used to encrypt the control-plane certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Upload control-plane certificates to the kubeadm-certs Secret.
 -->
-<p>
 将控制平面证书上传到 kubeadm-certs Secret。
 </p>
 </td>
@@ -137,7 +135,7 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -149,10 +147,10 @@ Upload control-plane certificates to the kubeadm-certs Secret.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>
 [实验] 到 '真实' 主机根文件系统的路径。
 </p>
 </td>

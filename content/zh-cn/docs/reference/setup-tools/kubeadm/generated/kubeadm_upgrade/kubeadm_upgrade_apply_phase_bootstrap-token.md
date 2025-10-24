@@ -1,9 +1,4 @@
 <!--
-Configures bootstrap token and cluster-info RBAC rules
--->
-配置启动引导令牌和 cluster-info 的 RBAC 规则
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -31,10 +26,10 @@ kubeadm upgrade apply phase bootstrap-token [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>

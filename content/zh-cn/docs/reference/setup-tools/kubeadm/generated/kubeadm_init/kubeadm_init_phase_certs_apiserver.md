@@ -1,8 +1,3 @@
-<!-- 
-Generate the certificate for serving the Kubernetes API 
--->
-生成用于服务 Kubernetes API 的证书。
-
 <!--
 ### Synopsis
 -->
@@ -11,14 +6,15 @@ Generate the certificate for serving the Kubernetes API
 <!--
 Generate the certificate for serving the Kubernetes API, and save them into apiserver.crt and apiserver.key files.
 -->
-生成用于服务 Kubernetes API 的证书，并将其保存到 apiserver.crt 和 apiserver.key 文件中。
+生成用于服务 Kubernetes API 的证书，并将其保存到 `apiserver.crt` 和
+`apiserver.key` 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
 如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
 
-```
+```shell
 kubeadm init phase certs apiserver [flags]
 ```
 
@@ -27,7 +23,7 @@ kubeadm init phase certs apiserver [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -39,10 +35,12 @@ kubeadm init phase certs apiserver [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
+The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-<p>API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认的网络接口。</p>
+API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认的网络接口。
+</p>
 </td>
 </tr>
 
@@ -51,10 +49,13 @@ kubeadm init phase certs apiserver [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Optional extra Subject Alternative Names (SANs) to use for the API Server serving certificate. Can be both IP addresses and DNS names.</p>
+Optional extra Subject Alternative Names (SANs) to use for the API Server serving certificate. Can be both IP addresses and DNS names.
 -->
-<p>用于 API Server 服务证书的可选附加主体备用名称（SAN）。可以是 IP 地址和 DNS 名称。</p>
+用于 API Server 服务证书的可选附加主体备用名称（SAN）。可以是 IP
+地址和 DNS 名称。
+</p>
 </td>
 </tr>
 
@@ -68,10 +69,12 @@ kubeadm init phase certs apiserver [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>The path where to save and store the certificates.</p>
+The path where to save and store the certificates.
 -->
-<p>证书的存储路径。</p>
+证书的存储路径。
+</p>
 </td>
 </tr>
 
@@ -80,10 +83,12 @@ kubeadm init phase certs apiserver [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Path to a kubeadm configuration file.</p>
+Path to a kubeadm configuration file.
 -->
-<p>kubeadm 配置文件的路径。</p>
+kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -92,10 +97,12 @@ kubeadm init phase certs apiserver [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Specify a stable IP address or DNS name for the control plane.</p>
+Specify a stable IP address or DNS name for the control plane.
 -->
-<p>为控制平面指定一个稳定的 IP 地址或 DNS 名称。</p>
+为控制平面指定一个稳定的 IP 地址或 DNS 名称。
+</p>
 </td>
 </tr>
 
@@ -104,10 +111,10 @@ kubeadm init phase certs apiserver [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -118,10 +125,11 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>help for apiserver</p>
+help for apiserver
 -->
-<p>apiserver 操作的帮助命令。</p>
+apiserver 操作的帮助命令。
 </td>
 </tr>
 
@@ -134,11 +142,14 @@ Don't apply any changes; just output what would be done.
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Choose a specific Kubernetes version for the control plane.</p>
+Choose a specific Kubernetes version for the control plane.
 -->
-<p>为控制平面指定特定的 Kubernetes 版本。</p>
+为控制平面指定特定的 Kubernetes 版本。
+</p>
 </td>
 </tr>
 
@@ -152,10 +163,12 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Use alternative range of IP address for service VIPs.</p>
+Use alternative range of IP address for service VIPs.
 -->
-<p>指定服务 VIP 可使用的其他 IP 地址段。</p>
+指定服务 VIP 可使用的其他 IP 地址段。
+</p>
 </td>
 </tr>
 
@@ -169,10 +182,12 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Use alternative domain for services, e.g. "myorg.internal".</p>
+Use alternative domain for services, e.g. "myorg.internal".
 -->
-<p>为服务使用其他域名，例如 "myorg.internal"。</p>
+为服务使用其他域名，例如 "myorg.internal"。
+</p>
 </td>
 </tr>
 
@@ -184,7 +199,7 @@ Don't apply any changes; just output what would be done.
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -196,10 +211,12 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
+[实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

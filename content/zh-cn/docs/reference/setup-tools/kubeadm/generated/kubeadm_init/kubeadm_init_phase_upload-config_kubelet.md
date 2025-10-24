@@ -1,9 +1,4 @@
 <!--
-Upload the kubelet component config to a ConfigMap
--->
-将 kubelet 组件配置上传到 ConfigMap。
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -14,7 +9,7 @@ Upload the kubelet configuration extracted from the kubeadm InitConfiguration ob
 将从 kubeadm InitConfiguration 对象提取的 kubelet 配置上传到集群中的
 `kubelet-config` ConfigMap。
 
-```
+```shell
 kubeadm init phase upload-config kubelet [flags]
 ```
 
@@ -25,11 +20,11 @@ kubeadm init phase upload-config kubelet [flags]
 
 <!--
 ```
-  # Upload the kubelet configuration from the kubeadm Config file to a ConfigMap in the cluster.
-  kubeadm init phase upload-config kubelet --config kubeadm.yaml
+# Upload the kubelet configuration from the kubeadm Config file to a ConfigMap in the cluster.
+kubeadm init phase upload-config kubelet --config kubeadm.yaml
 ```
 -->
-```
+```shell
 # 将 kubelet 配置从 kubeadm 配置文件上传到集群中的 ConfigMap。
 kubeadm init phase upload-config kubelet --config kubeadm.yaml
 ```
@@ -51,10 +46,10 @@ kubeadm init phase upload-config kubelet --config kubeadm.yaml
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 到 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -80,10 +75,10 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
-<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -94,10 +89,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for kubelet
 -->
-<p>
 kubelet 操作的帮助命令。
 </p>
 </td>
@@ -108,10 +103,10 @@ kubelet 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-<p>
 与集群通信时使用的 kubeconfig 文件。如果未设置该标签，
 则可以通过一组标准路径来寻找已有的 kubeconfig 文件。
 </p>
@@ -138,10 +133,12 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
+[实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

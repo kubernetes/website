@@ -307,7 +307,7 @@ zawsze jest to najlepsza praktyka. Istnieje wiele scenariuszy, w których
 należy użyć wielu etykiet, aby odróżnić zestawy zasobów od siebie nawzajem.
 
 Na przykład różne aplikacje mogą używać różnych wartości dla etykiety `app`, ale aplikacja
-wielowarstwowa, taka jak [przykład książki gości](https://github.com/kubernetes/examples/tree/master/guestbook/),
+wielowarstwowa, taka jak [przykład książki gości](https://github.com/kubernetes/examples/tree/master/web/guestbook/),
 będzie dodatkowo musiała rozróżniać każdą warstwę. Frontend mógłby nosić następujące etykiety:
 
 ```yaml

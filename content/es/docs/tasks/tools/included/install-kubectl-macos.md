@@ -18,9 +18,9 @@ El uso de la última versión de kubectl ayuda a evitar problemas imprevistos.
 
 Existen los siguientes métodos para instalar kubectl en macOS:
 
-- [Instalar el binario de kubectl con curl en macOS](#install-kubectl-binary-with-curl-on-macos)
-- [Instalar con Homebrew en macOS](#install-with-homebrew-on-macos)
-- [Instalar con Macports en macOS](#install-with-macports-on-macos)
+- [Instalar el binario de kubectl con curl en macOS](#instalar-el-binario-de-kubectl-con-curl-en-macos)
+- [Instalar con Homebrew en macOS](#instalar-con-homebrew-en-macos)
+- [Instalar con Macports en macOS](#instalar-con-macports-en-macos)
 
 ### Instalar el binario de kubectl con curl en macOS
 
