@@ -196,6 +196,8 @@ and is likely to hurt functionality more than it improves performance.
 
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
+{{< feature-state for_k8s_version="v1.35" state="deprecated" >}}
+
 _This proxy mode is only available on Linux nodes._
 
 In `ipvs` mode, kube-proxy uses the kernel IPVS and iptables APIs to
