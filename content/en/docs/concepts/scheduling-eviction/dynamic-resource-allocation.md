@@ -812,6 +812,7 @@ from the `status.conditions` field of the ResourceClaim.
 External controllers are responsible for updating these conditions using standard Kubernetes
 condition semantics (`type`, `status`, `reason`, `message`, `lastTransitionTime`).
 
+<!-- TODO: Planning to document here that the timeout becomes configurable from the release v1.35. -->
 The scheduler waits up to **600 seconds** for all `bindingConditions` to become `True`.
 If the timeout is reached or any `bindingFailureConditions` are `True`, the scheduler
 clears the allocation and reschedules the Pod.
