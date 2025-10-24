@@ -1,0 +1,7 @@
+{{ $input := .Get "years" }}
+{{- if (findRE `[a-zA-Z]+` $input) -}}
+  {{errorf "%v is not a valid input. Specify a number, like \"3\". The default value is 5." $input }}
+{{- else -}}
+  {{ $year_count := default 5 ($input | int) }}
+  {{- time.Now.AddDate $year_count 0 0 | time.Format "2006-01-02T15:04:05Z" -}}
+{{- end -}}
