@@ -37,9 +37,11 @@ For details, see
 
 <!-- steps -->
 
-## Optional: enable legacy DRA API groups {#enable-dra}
+## Optional: enable additional DRA API groups {#enable-dra}
 
 DRA graduated to stable in Kubernetes 1.34 and is enabled by default.
+It is locked to enabled since 1.35.
+
 Some older DRA drivers or workloads might still need the
 v1beta1 API from Kubernetes 1.30 or v1beta2 from Kubernetes 1.32.
 If and only if support for those is desired, then enable the following
@@ -47,6 +49,10 @@ If and only if support for those is desired, then enable the following
 
     * `resource.k8s.io/v1beta1`
     * `resource.k8s.io/v1beta2`
+
+Alpha features with separate API types need:
+
+   * `resource.k8s.io/v1alpha3`
 
 For more information, see
 [Enabling or disabling API groups](/docs/reference/using-api/#enabling-or-disabling).
@@ -71,6 +77,10 @@ similar to the following:
 ```
 error: the server doesn't have a resource type "deviceclasses"
 ```
+
+Since Kubernetes v1.35 this should no longer be possible for DeviceClass, It
+can occur with previous releases. A similar check remains relevant for alpha or
+beta quality top-level types.
 
 Try the following troubleshooting steps:
 
