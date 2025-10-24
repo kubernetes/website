@@ -1,9 +1,4 @@
 <!--
-Pull images used by kubeadm
--->
-拉取 kubeadm 使用的镜像。
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -66,17 +61,17 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <!--
 A set of key=value pairs that describe feature gates for various features. Options are:<br/>
 ControlPlaneKubeletLocalMode=true|false (BETA - default=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - default=false)<br/>
+NodeLocalCRISocket=true|false (BETA - default=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - default=false)<br/>
 RootlessControlPlane=true|false (ALPHA - default=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - default=true)
+WaitForAllControlPlaneComponents=true|false (default=true)
 -->
 一系列键值对（key=value），用于描述各种特性。可选项是：<br/>
 ControlPlaneKubeletLocalMode=true|false (BETA - 默认值=true)<br/>
-NodeLocalCRISocket=true|false (ALPHA - 默认值=false)<br/>
+NodeLocalCRISocket=true|false (BETA - 默认值=true)<br/>
 PublicKeysECDSA=true|false (DEPRECATED - 默认值=false)<br/>
 RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
-WaitForAllControlPlaneComponents=true|false (BETA - 默认值=true)
+WaitForAllControlPlaneComponents=true|false (默认值=true)
 </p>
 </td>
 </tr>

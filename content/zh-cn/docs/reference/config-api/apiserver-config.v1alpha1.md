@@ -968,6 +968,25 @@ EgressSelection 为某个出站选择客户端提供配置信息。
 </tbody>
 </table>
 
+## `EgressSelectorType`     {#apiserver-k8s-io-v1beta1-EgressSelectorType}
+
+<!--  
+(Alias of `string`)
+**Appears in:**
+-->
+（`string` 的别名）
+
+**出现在：**
+
+- [Issuer](#apiserver-k8s-io-v1beta1-Issuer)
+
+<p>
+<!--
+EgressSelectorType is an indicator of which egress selection should be used for sending traffic.
+-->
+EgressSelectorType 是一个指示符，表明应使用哪种出口选择器来发送流量。
+</p>
+
 ## `ExtraMapping`     {#apiserver-k8s-io-v1alpha1-ExtraMapping}
 
 <!--
@@ -1237,6 +1256,43 @@ example: claimValidationRule[].expression: 'sets.equivalent(claims.aud, [&quot;b
 'sets.equivalent(claims.aud, [&quot;bar&quot;, &quot;foo&quot;, &quot;baz&quot;])'
 以要求精确匹配。
 </p>
+</td>
+</tr>
+<tr><td><code>egressSelectorType</code><br/>
+<a href="#apiserver-k8s-io-v1beta1-EgressSelectorType"><code>EgressSelectorType</code></a>
+</td>
+<td>
+<p>
+<!--
+egressSelectorType is an indicator of which egress selection should be used for sending all traffic related
+to this issuer (discovery, JWKS, distributed claims, etc).  If unspecified, no custom dialer is used.
+When specified, the valid choices are &quot;controlplane&quot; and &quot;cluster&quot;.  These correspond to the associated
+values in the --egress-selector-config-file.
+-->
+<code>egressSelectorType</code> 是一个指示符，
+表明应使用哪种出口选择器来发送与此颁发者相关的所有流量（发现、JWKS、分布式声明等）。
+如果未指定，则不使用自定义拨号器。当指定时，有效选项是 &quot;controlplane&quot;
+和 &quot;cluster&quot;。
+这些对应于 <code>--egress-selector-config-file</code> 中的关联值。
+</p>
+<ul>
+<li>
+<p>
+<!--
+controlplane: for traffic intended to go to the control plane.
+-->
+controlplane: 用于前往控制平面的流量。
+</p>
+</li>
+<li>
+<p>
+<!--
+cluster: for traffic intended to go to the system being managed by Kubernetes.
+-->
+cluster：用于指向由 Kubernetes 管理的系统的流量。
+</p>
+</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -1603,7 +1659,6 @@ UDSTransport 设置通过 UDS 连接 konnectivity 服务器时需要的信息。
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
-
 <tr><td><code>udsName</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>
@@ -1717,6 +1772,23 @@ Default: 5m0s</p>
    默认值：5m0s。</p>
 </td>
 </tr>
+<tr><td><code>cacheAuthorizedRequests</code><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+CacheAuthorizedRequests specifies whether authorized requests should be cached.
+If set to true, the TTL for cached decisions can be configured via the
+AuthorizedTTL field.
+Default: true
+-->
+<code>cacheAuthorizedRequests</code> 指定是否应当缓存已授权的请求。
+如果设置为 true，缓存决策的 TTL 可以通过 <code>authorizedTTL</code> 字段配置。
+默认值：true
+</p>
+</td>
+</tr>
 <tr><td><code>unauthorizedTTL</code> <B>[Required]</B><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1730,6 +1802,24 @@ Default: 30s</p>
    <p>对来自 Webhook 鉴权组件的 “unauthorized” 响应的缓存时长。
 与设置 <code>--authorization-webhook-cache-unauthorized-ttl</code> 标志相同。
 默认值：30s</p>
+
+</td>
+</tr>
+<tr><td><code>cacheUnauthorizedRequests</code><br/>
+<code>bool</code>
+</td>
+<td>
+<p>
+<!--
+CacheUnauthorizedRequests specifies whether unauthorized requests should be cached.
+If set to true, the TTL for cached decisions can be configured via the
+UnauthorizedTTL field.
+Default: true
+-->
+<code>cacheUnauthorizedRequests</code> 指定是否应当缓存未授权的请求。
+如果设置为 true，缓存决策的 TTL 可以通过 <code>unauthorizedTTL</code> 字段配置。
+默认值：true
+</p>
 
 </td>
 </tr>
@@ -1775,7 +1865,7 @@ version the CEL expressions are evaluated against
 Valid values: v1
 Required, no default value
    -->
-   matchConditionSubjectAccessReviewVersion 指定对 CEL 表达式求值时使用的 SubjectAccessReview 版本。
+   <code>matchConditionSubjectAccessReviewVersion</code> 指定对 CEL 表达式求值时使用的 SubjectAccessReview 版本。
    有效值：v1。必需，无默认值。
    </p>
 </td>
@@ -1815,7 +1905,7 @@ Required, with no default.</li>
    <!--
    ConnectionInfo defines how we talk to the webhook
    -->
-   connectionInfo 定义 Webhook 如何与服务器通信。
+   <code>connectionInfo</code> 定义 Webhook 如何与服务器通信。
    </p>
 </td>
 </tr>
@@ -1829,8 +1919,8 @@ webhook. An empty list of matchConditions matches all requests.
 There are a maximum of 64 match conditions allowed.</p>
 <p>The exact matching logic is (in order):</p>
 -->
-   <p>matchConditions 是将请求发送到此 Webhook 必须满足的条件列表。matchConditions 为空列表表示匹配所有请求。
-   最多允许 64 个匹配条件。</p>
+   <p><code>matchConditions</code> 是将请求发送到此 Webhook 必须满足的条件列表。
+   <code>matchConditions</code> 为空列表表示匹配所有请求。最多允许 64 个匹配条件。</p>
 <p>精确匹配逻辑如下（按顺序）：</p>
 <ol>
 <!--
@@ -1900,7 +1990,7 @@ SubjectAccessReview API，kube-apiserver 不允许使用此模式。</li>
 Required, if connectionInfo.Type is KubeConfig
    -->
    包含连接信息的 KubeConfig 文件的路径。
-   如果 connectionInfo.type 是 KubeConfig，则为必需项。
+   如果 <code>connectionInfo.type</code> 是 KubeConfig，则为必需项。
    </p>
 </td>
 </tr>

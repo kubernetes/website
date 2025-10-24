@@ -1,9 +1,4 @@
 <!--
-Run preflight checks before upgrade
--->
-执行升级前的预检
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -11,7 +6,7 @@ Run preflight checks before upgrade
 <!--
 Run preflight checks before upgrade
 -->
-执行升级前的预检
+执行升级前的预检。
 
 ```shell
 kubeadm upgrade apply phase preflight [flags]
@@ -38,7 +33,8 @@ kubeadm upgrade apply phase preflight [flags]
 <!--
 Show unstable versions of Kubernetes as an upgrade alternative and allow upgrading to an alpha/beta/release candidate versions of Kubernetes.
 -->
-显示 Kubernetes 的不稳定版本作为升级替代方案，并允许升级到 Kubernetes 的 Alpha、Beta 或 RC 版本。
+显示 Kubernetes 的不稳定版本作为升级替代方案，并允许升级到 Kubernetes
+的 Alpha、Beta 或 RC 版本。
 </p>
 </td>
 </tr>
@@ -48,10 +44,10 @@ Show unstable versions of Kubernetes as an upgrade alternative and allow upgradi
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Show release candidate versions of Kubernetes as an upgrade alternative and allow upgrading to a release candidate versions of Kubernetes.
 -->
-<p>
 显示 Kubernetes 的发行候选版本作为升级选择，并允许升级到 Kubernetes 的 RC 版本。
 </p>
 </td>
@@ -62,15 +58,14 @@ Show release candidate versions of Kubernetes as an upgrade alternative and allo
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Path to a kubeadm configuration file.
 -->
-<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
 </tr>
-
 
 <tr>
 <td colspan="2">--dry-run</td>
@@ -105,10 +100,10 @@ Force upgrading although some requirements might not be met. This also implies n
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 help for preflight
 -->
-<p>
 preflight 操作的帮助命令。
 </p>
 </td>
@@ -119,10 +114,10 @@ preflight 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
-<p>
 其错误将显示为警告的检查列表。例如：'IsPrivilegedUser,Swap'。值 'all' 忽略所有检查错误。
 </p>
 </td>
@@ -142,7 +137,8 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm 将会搜索一个已经存在于标准路径的 KubeConfig 文件。
+用于和集群通信的 KubeConfig 文件。如果它没有被设置，那么 kubeadm
+将会搜索一个已经存在于标准路径的 KubeConfig 文件。
 </p>
 </td>
 </tr>
@@ -164,12 +160,10 @@ Perform the upgrade and do not prompt for confirmation (non-interactive mode).
 </tbody>
 </table>
 
-
 <!--
 ### Options inherited from parent commands
 -->
 ### 从父命令继承的选项
-
 
 <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -182,7 +176,8 @@ Perform the upgrade and do not prompt for confirmation (non-interactive mode).
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.
 -->

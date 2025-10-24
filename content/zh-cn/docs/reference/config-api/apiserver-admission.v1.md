@@ -218,7 +218,7 @@ requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
 </td>
 </tr>
 <tr><td><code>userInfo</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <!--
@@ -231,31 +231,37 @@ requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
 </td>
 <td>
-   <!--
-   <p>Object is the object from the incoming request.</p>
-   -->
-   <p><code>object</code> 是来自传入请求的对象。</p>
+<p>
+<!--
+Object is the object from the incoming request.
+-->
+<code>object</code> 是来自传入请求的对象。
+</p>
 </td>
 </tr>
 <tr><td><code>oldObject</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
 </td>
 <td>
-   <!--
-   <p>OldObject is the existing object. Only populated for DELETE and UPDATE requests.</p>
-   -->
-   <p><code>oldObject</code> 是现有的对象。只有 DELETE 和 UPDATE 请求中此字段会有值。</p>
+<p>
+<!--
+OldObject is the existing object. Only populated for DELETE and UPDATE requests.
+-->
+<code>oldObject</code> 是现有的对象。只有 DELETE 和 UPDATE 请求中此字段会有值。
+</p>
 </td>
 </tr>
 <tr><td><code>dryRun</code><br/>
 <code>bool</code>
 </td>
 <td>
-   <!--
-   <p>DryRun indicates that modifications will definitely not be persisted for this request.
-Defaults to false.</p>
-   -->
-   <p><code>dryRun</code> 表示此请求的修改绝对不会被持久化。默认为 false。</p>
+<p>
+<!--
+DryRun indicates that modifications will definitely not be persisted for this request.
+Defaults to false.
+-->
+<code>dryRun</code> 表示此请求的修改绝对不会被持久化。默认为 false。
+</p>
 </td>
 </tr>
 <tr><td><code>options</code><br/>
@@ -287,10 +293,12 @@ Operation might be a CREATE, in which case the Options will a
 
 - [AdmissionReview](#admission-k8s-io-v1-AdmissionReview)
 
+<p>
 <!--
-<p>AdmissionResponse describes an admission response.</p>
+AdmissionResponse describes an admission response.
 -->
-<p><code>AdmissionResponse</code> 描述准入响应。</p>
+<code>AdmissionResponse</code> 描述准入响应。
+</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -301,12 +309,14 @@ Operation might be a CREATE, in which case the Options will a
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/types#UID"><code>k8s.io/apimachinery/pkg/types.UID</code></a>
 </td>
 <td>
-   <!--
-   <p>UID is an identifier for the individual request/response.
-This must be copied over from the corresponding AdmissionRequest.</p>
-   -->
-   <p><code>uid</code> 是标识单独请求/响应的标识符。
-它必须从相应的 AdmissionRequest 复制过来。</p>
+<p>
+<!--
+UID is an identifier for the individual request/response.
+This must be copied over from the corresponding AdmissionRequest.
+-->
+<code>uid</code> 是标识单独请求/响应的标识符。
+它必须从相应的 AdmissionRequest 复制过来。
+</p>
 </td>
 </tr>
 <tr><td><code>allowed</code> <B><!--[Required]-->[必需]</B><br/>
@@ -320,15 +330,17 @@ This must be copied over from the corresponding AdmissionRequest.</p>
 </td>
 </tr>
 <tr><td><code>status</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
-   <!--
-   <p>Result contains extra details into why an admission request was denied.
-This field IS NOT consulted in any way if &quot;Allowed&quot; is &quot;true&quot;.</p>
-   -->
-   <p><code>status</code> 包含为什么准入请求被拒绝的额外细节。
-如果 &quot;Allowed&quot; 的值为 &quot;true&quot;，则不会以任何方式使用此字段。</p>
+<p>
+<!--
+Result contains extra details into why an admission request was denied.
+This field IS NOT consulted in any way if &quot;Allowed&quot; is &quot;true&quot;.
+-->
+<code>status</code> 包含为什么准入请求被拒绝的额外细节。
+如果 &quot;allowed&quot; 的值为 &quot;true&quot;，则不会以任何方式使用此字段。
+</p>
 
 </td>
 </tr>
@@ -336,36 +348,42 @@ This field IS NOT consulted in any way if &quot;Allowed&quot; is &quot;true&quot
 <code>[]byte</code>
 </td>
 <td>
-   <!--
-   <p>The patch body. Currently we only support &quot;JSONPatch&quot; which implements RFC 6902.</p>
-   -->
-   <p><code>patch</code> 操作的主体。目前 Kubernetes 仅支持实现了 RFC 6902 的 &quot;JSONPatch&quot;。</p>
+<p>
+<!--
+The patch body. Currently we only support &quot;JSONPatch&quot; which implements RFC 6902.
+-->
+<code>patch</code> 操作的主体。目前 Kubernetes 仅支持实现了 RFC 6902 的 &quot;JSONPatch&quot;。
+</p>
 </td>
 </tr>
 <tr><td><code>patchType</code><br/>
 <a href="#admission-k8s-io-v1-PatchType"><code>PatchType</code></a>
 </td>
 <td>
-   <!--
-   <p>The type of Patch. Currently we only allow &quot;JSONPatch&quot;.</p>
-   -->
-   <p><code>patch</code> 的类型。目前 Kubernetes 仅允许 &quot;JSONPatch&quot;。</p>
+<p>
+<!--
+The type of Patch. Currently we only allow &quot;JSONPatch&quot;.
+-->
+<code>patch</code> 的类型。目前 Kubernetes 仅允许 &quot;JSONPatch&quot;。
+</p>
 </td>
 </tr>
 <tr><td><code>auditAnnotations</code><br/>
 <code>map[string]string</code>
 </td>
 <td>
-   <!--
-   <p>AuditAnnotations is an unstructured key value map set by remote admission controller (e.g. error=image-blacklisted).
+<p>
+<!--
+AuditAnnotations is an unstructured key value map set by remote admission controller (e.g. error=image-blacklisted).
 MutatingAdmissionWebhook and ValidatingAdmissionWebhook admission controller will prefix the keys with
 admission webhook name (e.g. imagepolicy.example.com/error=image-blacklisted). AuditAnnotations will be provided by
-the admission webhook to add additional context to the audit log for this request.</p>
-   -->
-   <p><code>auditAnnotations</code> 是由远程准入控制器设置的非结构化键值映射（例如 error=image-blacklisted）。
+the admission webhook to add additional context to the audit log for this request.
+-->
+<code>auditAnnotations</code> 是由远程准入控制器设置的非结构化键值映射（例如 error=image-blacklisted）。
 MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook 准入控制器将在键前缀中使用准入 Webhook 名称
 （例如 imagepolicy.example.com/error=image-blacklisted）。<code>auditAnnotations</code> 将由准入
-Webhook 提供，向此请求的审计日志添加额外的上下文。</p>
+Webhook 提供，向此请求的审计日志添加额外的上下文。
+/p>
 
 </td>
 </tr>
@@ -373,16 +391,18 @@ Webhook 提供，向此请求的审计日志添加额外的上下文。</p>
 <code>[]string</code>
 </td>
 <td>
-   <!--
-   <p>warnings is a list of warning messages to return to the requesting API client.
+<p>
+<!--
+warnings is a list of warning messages to return to the requesting API client.
 Warning messages describe a problem the client making the API request should correct or be aware of.
 Limit warnings to 120 characters if possible.
-Warnings over 256 characters and large numbers of warnings may be truncated.</p>
-   -->
-   <p><code>warnings</code> 是警告消息的列表，返回给发出请求的 API 客户端。
+Warnings over 256 characters and large numbers of warnings may be truncated.<
+-->
+<code>warnings</code> 是警告消息的列表，返回给发出请求的 API 客户端。
 这些警告消息描述客户端在进行 API 请求时应该纠正或注意的问题。
 如果可能的话，将 <code>warnings</code> 限制在 120 个字符以内。
-如果 <code>warnings</code> 中的消息超过 256 个字符，或 <code>warnings</code> 数量过多，可能会被截断。</p>
+如果 <code>warnings</code> 中的消息超过 256 个字符，或 <code>warnings</code> 数量过多，可能会被截断。
+</p>
 
 </td>
 </tr>

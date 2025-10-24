@@ -48,7 +48,7 @@ NetworkPolicy 描述针对一组 Pod 所允许的网络流量。
   <!--
   spec represents the specification of the desired behavior for this NetworkPolicy.
   -->
-  spec 表示 NetworkPolicy 预期行为的规约。
+  `spec` 表示 NetworkPolicy 预期行为的规约。
 
 ## NetworkPolicySpec {#NetworkPolicySpec}
 
@@ -60,16 +60,16 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 <hr>
 
 <!--
-- **podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), required
+- **podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
   podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 -->
-- **podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
+- **podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-  podSelector 选择此网络策略所适用的一组 Pod。一组 Ingress 入口策略将应用于此字段选择的所有 Pod。
-  多个网络策略可以选择同一组 Pod。
-  在这种情况下，这些列表条目的 Ingress 规则效果会被叠加。此字段不是可选的，并且遵循标准标签选择算符语义。
-  空值的 podSelector 匹配此命名空间中的所有 Pod。
+  `podSelector` 选择此 NetworkPolicy 对象适用的一组 Pod。此字段选择的任何 Pod 都会应用规则数组。
+  一个空的选择器匹配策略命名空间中的所有 Pod。多个 NetworkPolicy 可以选择相同的 Pod 集合。
+  在这种情况下，每个策略的入口规则会被叠加应用。
+  此字段是可选的。如果未指定，则默认为一个空选择器。
 
 <!--
 - **policyTypes** ([]string)
@@ -82,7 +82,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
   **原子：将在合并期间被替换**
 
-  policyTypes 是 NetworkPolicy 相关的规则类型列表。有效选项为 `[“Ingress”]`、`[“Egress”]` 或 `[“Ingress”， “Egress”]`。
+  `policyTypes` 是 NetworkPolicy 相关的规则类型列表。有效选项为 `[“Ingress”]`、`[“Egress”]` 或 `[“Ingress”， “Egress”]`。
   如果不指定此字段，则默认值取决是否存在 Ingress 或 Egress 规则；规则里包含 Egress 部分的策略将会影响出站流量，
   并且所有策略（无论它们是否包含 Ingress 部分）都将会影响 入站流量。
   如果要仅定义出站流量策略，则必须明确指定 `[ "Egress" ]`。
@@ -109,8 +109,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   （这种设置用来确保它所选择的 Pod 在默认情况下是被隔离的）。
 
   <a name="NetworkPolicyIngressRule"></a>
-  **NetworkPolicyIngressRule 定义 NetworkPolicySpec 的 podSelector 所选 Pod 的入站规则的白名单列表，
-  流量必须同时匹配 ports 和 from。**
+  **NetworkPolicyIngressRule 定义 NetworkPolicySpec 的 podSelector 所选
+  Pod 的入站规则的白名单列表，流量必须同时匹配 ports 和 from。**
 
   <!--
   - **ingress.from** ([]NetworkPolicyPeer)
@@ -127,9 +127,10 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     **原子：将在合并期间被替换**
 
-    from 是流量来源列表，列表中的来源可以访问被此规则选中的 Pod。此列表中的流量来源使用逻辑或操作进行组合。
+    `from` 是流量来源列表，列表中的来源可以访问被此规则选中的 Pod。此列表中的流量来源使用逻辑或操作进行组合。
     如果此字段为空值或缺失（未设置），
-    则此规则匹配所有流量来源（也即允许所有入站流量）。如果此字段存在并且至少包含一项来源，则仅当流量与来自列表中的至少一项匹配时，
+    则此规则匹配所有流量来源（也即允许所有入站流量）。如果此字段存在并且至少包含一项来源，
+    则仅当流量与来自列表中的至少一项匹配时，
     此规则才允许流量访问被选中的 Pod 集合。
 
     <a name="NetworkPolicyPeer"></a>
@@ -146,7 +147,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.from.ipBlock** (IPBlock)
 
-      ipBlock 针对特定 IPBlock 定义策略。如果设置了此字段，则不可以设置其他字段。
+      `ipBlock` 针对特定 IPBlock 定义策略。如果设置了此字段，则不可以设置其他字段。
 
       <a name="IPBlock"></a>
       **IPBlock 定义一个特定的 CIDR 范围（例如 `192.168.1.0/24`、`2001:db8::/64`），
@@ -167,15 +168,15 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
       - **ingress.from.ipBlock.cidr** (string)，必需
 
-        cidr 是表示 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
+        `cidr` 是表示 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
 
       - **ingress.from.ipBlock.except** ([]string)
 
         **原子：将在合并期间被替换**
 
-        except 是一个由 CIDR 范围组成的列表，其中指定的 CIDR 都应排除在此 IP 区块范围之外。
+        `except` 是一个由 CIDR 范围组成的列表，其中指定的 CIDR 都应排除在此 IP 区块范围之外。
         例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
-        如果 except 字段的值超出 ipBlock.cidr 的范围则被视为无效策略。
+        如果 `except` 字段的值超出 `ipBlock.cidr` 的范围则被视为无效策略。
 
     <!--
     - **ingress.from.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -187,12 +188,12 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.from.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      namespaceSelector 使用集群范围标签来选择特定的 Namespace。此字段遵循标准标签选择算符语义；
-      如果此字段存在但为空值，则会选择所有名字空间。
+      `namespaceSelector` 使用集群范围标签来选择特定的 Namespace。
+      此字段遵循标准标签选择算符语义；如果此字段存在但为空值，则会选择所有名字空间。
 
-      如果 podSelector 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector
-      所选名字空间下和 podSelector 规则匹配的 Pod。
-      反之选择 namespaceSelector 所选名字空间下所有的 Pod。
+      如果 `podSelector` 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 `namespaceSelector`
+      所选名字空间下和 `podSelector` 规则匹配的 Pod。
+      反之选择 `namespaceSelector` 所选名字空间下所有的 Pod。
 
     <!--
     - **ingress.from.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -204,11 +205,12 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.from.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      podSelector 是负责选择 Pod 的标签选择算符。该字段遵循标准标签选择算符语义；如果字段存在但为空值，则选择所有 Pod。
+      `podSelector` 是负责选择 Pod 的标签选择算符。该字段遵循标准标签选择算符语义；
+      如果字段存在但为空值，则选择所有 Pod。
 
-      如果 namespaceSelector 也被定义，那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector
-      定义的名字空间下和 podSelector 规则匹配的 Pod。
-      反之会在策略所在的名字空间中选择与 podSelector 匹配的 Pod。
+      如果 `namespaceSelector` 也被定义，那么 NetworkPolicyPeer 将选择那些同时满足
+     `namespaceSelector` 定义的名字空间下和 `podSelector` 规则匹配的 Pod。
+      反之会在策略所在的名字空间中选择与 `podSelector` 匹配的 Pod。
 
   <!--
   - **ingress.ports** ([]NetworkPolicyPort)
@@ -225,8 +227,8 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     **原子：将在合并期间被替换**
 
-    ports 是在此规则选中的 Pod 上应可访问的端口列表。此列表中的个项目使用逻辑或操作组合。如果此字段为空或缺失，
-    则此规则匹配所有端口（进入流量可访问任何端口）。
+    `ports` 是在此规则选中的 Pod 上应可访问的端口列表。此列表中的个项目使用逻辑或操作组合。
+    如果此字段为空或缺失，则此规则匹配所有端口（进入流量可访问任何端口）。
     如果此字段存在并且包含至少一个有效值，则此规则仅在流量至少匹配列表中的一个端口时才允许访问。
 
     <a name="NetworkPolicyPort"></a>
@@ -243,12 +245,12 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.ports.port** (IntOrString)
 
-      port 表示符合给定协议的端口。字段值可以是 Pod 上的数字或命名端口。如果未提供此字段，则匹配所有端口名和端口号。
-      如果定义了，则仅允许对给定的协议和端口的入口流量。
+      `port` 表示符合给定协议的端口。字段值可以是 Pod 上的数字或命名端口。如果未提供此字段，
+      则匹配所有端口名和端口号。如果定义了，则仅允许对给定的协议和端口的入口流量。
 
       <a name="IntOrString"></a>
-      **IntOrString 是一种可以包含 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，它会生成或使用内部类型。
-      例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。**
+      **IntOrString 是一种可以包含 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，
+      它会生成或使用内部类型。例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。**
 
     <!--
     - **ingress.ports.endPort** (int32)
@@ -262,13 +264,13 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.ports.endPort** (int32)
 
-      endPort 表示如果设置了此字段，则策略应该允许 port 与 endPort 之间（包含二者）的所有端口。
-      如果未定义 port 或将 port 字段值为命名端口（字符串），则不可以使用 endPort。
-      endPort 必须等于或大于 port 值。
+      `endPort` 表示如果设置了此字段，则策略应该允许 `port` 与 `endPort` 之间（包含二者）的所有端口。
+      如果未定义 `port` 或将 `port` 字段值为命名端口（字符串），则不可以使用 `endPort`。
+      `endPort` 必须等于或大于 `port` 值。
 
     - **ingress.ports.protocol** (string)
 
-      protocol 表示流量必须匹配的网络协议（TCP、UDP 或 SCTP）。如果未指定，此字段默认为 TCP。
+      `protocol` 表示流量必须匹配的网络协议（TCP、UDP 或 SCTP）。如果未指定，此字段默认为 TCP。
 
 <!--
 - **egress** ([]NetworkPolicyEgressRule)
@@ -284,15 +286,15 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
   **原子：将在合并期间被替换**
 
-  egress 是应用到所选 Pod 的出站规则的列表。如果没有 NetworkPolicy 选中指定 Pod（并且其他集群策略也允许出口流量），
-  或者在所有通过 podSelector 选中了某 Pod 的 NetworkPolicy 中，至少有一条出站规则与出站流量匹配，
+  `egress` 是应用到所选 Pod 的出站规则的列表。如果没有 NetworkPolicy 选中指定 Pod（并且其他集群策略也允许出口流量），
+  或者在所有通过 `podSelector` 选中了某 Pod 的 NetworkPolicy 中，至少有一条出站规则与出站流量匹配，
   则该 Pod 的出站流量是被允许的。
   如果此字段为空，则此 NetworkPolicy 拒绝所有出站流量（这策略可以确保它所选中的 Pod 在默认情况下是被隔离的）。
   egress 字段在 1.8 中为 Beta 级别。
 
   <a name="NetworkPolicyEgressRule"></a>
   **NetworkPolicyEgressRule 针对被 NetworkPolicySpec 的 podSelector 所选中 Pod，描述其被允许的出站流量。
-  流量必须同时匹配 ports 和 to 设置。此类型在 1.8 中为 Beta 级别。**
+  流量必须同时匹配 `ports` 和 `to` 设置。此类型在 1.8 中为 Beta 级别。**
 
   <!--
   - **egress.to** ([]NetworkPolicyPeer)
@@ -309,7 +311,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     **原子：将在合并期间被替换**
 
-    to 是针对此规则所选择的 Pod 的出口流量的目的地列表。此列表中的目的地使用逻辑或操作进行组合。如果此字段为空或缺失，
+    `to` 是针对此规则所选择的 Pod 的出口流量的目的地列表。此列表中的目的地使用逻辑或操作进行组合。如果此字段为空或缺失，
     则此规则匹配所有目的地（流量不受目的地限制）。如果此字段存在且至少包含一项目的地，则仅当流量与目标列表中的至少一个匹配时，
     此规则才允许出口流量。
 
@@ -327,7 +329,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **egress.to.ipBlock** (IPBlock)
 
-      ipBlock 针对特定的 IP 区块定义策略。如果设置了此字段，则其他不可以设置其他字段。
+      `ipBlock` 针对特定的 IP 区块定义策略。如果设置了此字段，则其他不可以设置其他字段。
 
       <a name="IPBlock"></a>
       **IPBlock 描述一个特定的 CIDR 范围（例如 `192.168.1.0/24`、`2001:db8::/64`），
@@ -348,14 +350,14 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
       - **egress.to.ipBlock.cidr** (string)，必需
 
-        cidr 是用来表达 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
+        `cidr` 是用来表达 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
 
       - **egress.to.ipBlock.except** ([]string)
       
         **原子：将在合并期间被替换**
 
-        except 定义不应包含在 ipBlock 内的 CIDR 范围列表。例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
-        如果 except 的值超出 ipBlock.cidr 的范围则被拒绝。
+        `except` 定义不应包含在 ipBlock 内的 CIDR 范围列表。例如 `"192.168.1.0/24"` 或
+        `"2001:db8::/64"`。如果 `except` 的值超出 `ipBlock.cidr` 的范围则被拒绝。
 
     <!--
     - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -367,12 +369,12 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      namespaceSelector 使用集群范围标签来选择特定的名字空间。该字段遵循标准标签选择算符语义；
+      `namespaceSelector` 使用集群范围标签来选择特定的名字空间。该字段遵循标准标签选择算符语义；
       如果字段存在但为空值，那会选择所有名字空间。
 
-      如果 podSelector 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector
-      指定的名字空间下和 podSelector 规则匹配的 Pod。
-      反之选择 namespaceSelector 指定的名字空间下所有的 Pod。
+      如果 `podSelector` 也被定义了, 那么 `NetworkPolicyPeer` 将选择那些同时满足 `namespaceSelector`
+      指定的名字空间下和 `podSelector` 规则匹配的 Pod。
+      反之选择 `namespaceSelector` 指定的名字空间下所有的 Pod。
 
     <!--
     - **egress.to.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -384,12 +386,12 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     - **egress.to.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      podSelector 是负责选择一组 Pod 的标签选择算符。该字段遵循标准标签选择算符语义；
+      `podSelector` 是负责选择一组 Pod 的标签选择算符。该字段遵循标准标签选择算符语义；
       如果字段存在但为空值，则选择所有 Pod。
 
-      如果 egress.to.namespaceSelector 也被定义，则 NetworkPolicyPeer 将选择 namespaceSelector
-      所指定的名字空间下和 podSelector 规则匹配的 Pod。
-      反之会在策略所属的名字空间中选择与 podSelector 匹配的 Pod。
+      如果 `egress.to.namespaceSelector` 也被定义，则 NetworkPolicyPeer 将选择 `namespaceSelector`
+      所指定的名字空间下和 `podSelector` 规则匹配的 Pod。
+      反之会在策略所属的名字空间中选择与 `podSelector` 匹配的 Pod。
 
   <!--
   - **egress.ports** ([]NetworkPolicyPort)
