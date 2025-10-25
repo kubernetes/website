@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="{{.Params.class}} no-js" dir="{{ or .Site.Language.LanguageDirection `ltr` }}">
-{{- if eq hugo.Environment "preview" -}}
-  <!-- deploy preview -->
-{{- end -}}
-  <head{{- if hugo.IsProduction}} class="live-site"{{- end -}}>
+<html lang="{{ .Site.Language.Lang }}" class="no-js {{ .Params.class }}" id="{{ .Params.cid}}" >
+  <head>
     {{ partial "head.html" . }}
+    {{- with resources.Get "scss/case_studies.scss" | toCSS | minify | fingerprint -}}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    {{- end -}}
   </head>
   <body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
     <header>
@@ -14,9 +14,6 @@
       {{- end -}}
     </header>
     <div class="container-fluid td-default td-outer">
-      {{ block "deprecation_warning" . }}
-        {{ partial "version-banner.html" . }}
-      {{ end }}
       <main role="main" class="td-main">
         {{ block "main" . }}{{ end }}
       </main>
