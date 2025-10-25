@@ -96,14 +96,6 @@ your cluster. Those fields are:
   A domain is a particular instance of a topology. An eligible domain is a domain whose
   nodes match the node selector.
 
-  <!-- OK to remove this note once v1.29 Kubernetes is out of support -->
-  {{< note >}}
-  Before Kubernetes v1.30, the `minDomains` field was only available if the
-  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates-removed/)
-  was enabled (default since v1.28). In older Kubernetes clusters it might be explicitly
-  disabled or the field might not be available.
-  {{< /note >}}
-
   - The value of `minDomains` must be greater than 0, when specified.
     You can only specify `minDomains` in conjunction with `whenUnsatisfiable: DoNotSchedule`.
   - When the number of eligible domains with match topology keys is less than `minDomains`,

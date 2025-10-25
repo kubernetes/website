@@ -14,9 +14,7 @@ stages:
     defaultValue: false
     fromVersion: "1.31"
 ---
-When `LocalStorageCapacityIsolation` 
-is enabled for 
-[local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/), 
-the backing filesystem for [emptyDir volumes](/docs/concepts/storage/volumes/#emptydir) supports project quotas,
-and `UserNamespacesSupport` is enabled, 
-project quotas are used to monitor `emptyDir` volume storage consumption rather than using filesystem walk, ensuring better performance and accuracy.
+When the backing filesystem for an [emptyDir](/docs/concepts/storage/volumes/#emptydir)
+volume supports project quotas, and the `UserNamespacesSupport` feature is enabled, 
+project quotas are used to monitor `emptyDir` volume storage consumption rather than
+using filesystem walking, ensuring better performance and accuracy.

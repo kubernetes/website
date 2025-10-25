@@ -573,8 +573,6 @@ The `content-encoding` header indicates that the response is compressed with `gz
 
 ## Retrieving large results sets in chunks
 
-{{< feature-state feature_gate_name="APIListChunking" >}}
-
 On large clusters, retrieving the collection of some resource types may result in
 very large responses that can impact the server and client. For instance, a cluster
 may have tens of thousands of Pods, each of which is equivalent to roughly 2 KiB of
@@ -1132,8 +1130,6 @@ writing your own API using Kubernetes libraries.
 To learn more, see [Declarative API Validation](/docs/reference/using-api/declarative-validation/).
 
 ## Dry-run
-
-{{< feature-state feature_gate_name="DryRun" >}}
 
 When you use HTTP verbs that can modify resources (`POST`, `PUT`, `PATCH`, and
 `DELETE`), you can submit your request in a _dry run_ mode. Dry run mode helps to

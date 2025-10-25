@@ -10,8 +10,6 @@ hide_summary: true # Listed separately in section index
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
-
 This page describes the RuntimeClass resource and runtime selection mechanism.
 
 RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
@@ -135,8 +133,6 @@ See CRI-O's [config documentation](https://github.com/cri-o/cri-o/blob/master/do
 
 ## Scheduling
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
-
 By specifying the `scheduling` field for a RuntimeClass, you can set constraints to
 ensure that Pods running with this RuntimeClass are scheduled to nodes that support it.
 If `scheduling` is not set, this RuntimeClass is assumed to be supported by all nodes.
@@ -156,8 +152,6 @@ To learn more about configuring the node selector and tolerations, see
 [Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 ### Pod Overhead
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
 the cluster (including the scheduler) to account for it when making decisions about Pods and resources.

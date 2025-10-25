@@ -71,8 +71,6 @@ separate endpoint for each group version.
 
 ### Aggregated discovery
 
-{{< feature-state feature_gate_name="AggregatedDiscoveryEndpoint" >}}
-
 Kubernetes offers stable support for _aggregated discovery_, publishing
 all resources supported by a cluster through two endpoints (`/api` and
 `/apis`). Requesting this
@@ -200,8 +198,6 @@ checks).
 {{< /warning >}}
 
 ### OpenAPI V3
-
-{{< feature-state feature_gate_name="OpenAPIV3" >}}
 
 Kubernetes supports publishing a description of its APIs as OpenAPI v3.
 

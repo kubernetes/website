@@ -337,9 +337,6 @@ As an alternative, a cluster administrator can enforce size limits for
 
 ## Local ephemeral storage
 
-<!-- feature gate LocalStorageCapacityIsolation -->
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
-
 Nodes have local ephemeral storage, backed by
 locally-attached writeable devices or, sometimes, by RAM.
 "Ephemeral" means that there is no long-term guarantee about durability.
