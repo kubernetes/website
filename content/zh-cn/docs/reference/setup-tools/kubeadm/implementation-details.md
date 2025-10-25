@@ -103,7 +103,8 @@ Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，
 - `/etc/kubernetes/manifests` as the path where the kubelet should look for static Pod manifests.
   Names of static Pod manifests are:
 -->
-- `/etc/kubernetes/manifests` 作为 kubelet 查找静态 Pod 清单的路径。静态 Pod 清单的名称为：
+- `/etc/kubernetes/manifests` 作为 kubelet 查找静态 Pod 清单的路径。
+  静态 Pod 清单的名称为：
 
   - `etcd.yaml`
   - `kube-apiserver.yaml`
@@ -120,7 +121,8 @@ Kubernetes 目录 `/etc/kubernetes` 在应用程序中是一个常量，
   - `admin.conf` for the cluster admin and kubeadm itself
   - `super-admin.conf` for the cluster super-admin that can bypass RBAC
 -->
-- `/etc/kubernetes/` 作为带有控制平面组件身份标识的 kubeconfig 文件的路径。kubeconfig 文件的名称为：
+- `/etc/kubernetes/` 作为带有控制平面组件身份标识的 kubeconfig 文件的路径。
+  kubeconfig 文件的名称为：
 
   - `kubelet.conf`（在 TLS 引导时名称为 `bootstrap-kubelet.conf`）
   - `controller-manager.conf`
@@ -1357,7 +1359,7 @@ kubelet 加入集群，同时删除 `bootstrap-kubelet.conf`。
 <!--
 ## kubeadm upgrade workflow internal design
 
-`kubeadm upgrade` has sub-commands for handling the upgrade of the Kubernets cluster created by kubeadm.
+`kubeadm upgrade` has sub-commands for handling the upgrade of the Kubernetes cluster created by kubeadm.
 You must run `kubeadm upgrade apply` on a control plane node (you can choose which one);
 this starts the upgrade process. You then run `kubeadm upgrade node` on all remaining
 nodes (both worker nodes and control plane nodes).

@@ -355,6 +355,11 @@ ResourceSliceSpec contains the information published by the driver in one Resour
     - **devices.taints.effect** (string), required
 
       The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+      
+      
+      Possible enum values:
+       - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+       - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
 
     - **devices.taints.key** (string), required
 

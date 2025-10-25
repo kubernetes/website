@@ -68,6 +68,11 @@ DeviceTaintRuleSpec specifies the selector and one taint.
   - **taint.effect** (string), required
 
     The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
+    
+    
+    Possible enum values:
+     - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+     - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
 
   - **taint.key** (string), required
 
@@ -86,7 +91,7 @@ DeviceTaintRuleSpec specifies the selector and one taint.
 
 - **deviceSelector** (DeviceTaintSelector)
 
-  DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+  DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
 
   <a name="DeviceTaintSelector"></a>
   *DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.*

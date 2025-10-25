@@ -118,6 +118,10 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
       
       Defaults to "Equivalent"
+      
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the admission webhook or admission policy if they modify a resource listed in rules via an equivalent API group or version. For example, `autoscaling/v1` and `autoscaling/v2` HorizontalPodAutoscalers are equivalent: the same set of resources appear via both APIs.
+       - `"Exact"` means requests should only be sent to the admission webhook or admission policy if they exactly match a given rule.
 
     - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -234,6 +238,10 @@ Adding/removing policies, bindings, or params can not affect whether a given (po
       `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
       
       Allowed values are `Allow` or `Deny` Default to `Deny`
+      
+      Possible enum values:
+       - `"Allow"` Ignore means that an error finding params for a binding is ignored
+       - `"Deny"` Fail means that an error finding params for a binding is ignored
 
     - **spec.paramRef.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -285,6 +293,10 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     failurePolicy does not define how validations that evaluate to false are handled.
     
     Allowed values are Ignore or Fail. Defaults to Fail.
+    
+    Possible enum values:
+     - `"Fail"` means that an error calling the admission webhook or admission policy causes resource admission to fail.
+     - `"Ignore"` means that an error calling the admission webhook or admission policy is ignored.
 
   - **spec.matchConditions** ([]MatchCondition)
 
@@ -389,6 +401,10 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, the admission policy **does** consider requests made to apps/v1beta1 or extensions/v1beta1 API groups. The API server translates the request to a matched resource API if necessary.
       
       Defaults to "Equivalent"
+      
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the admission webhook or admission policy if they modify a resource listed in rules via an equivalent API group or version. For example, `autoscaling/v1` and `autoscaling/v2` HorizontalPodAutoscalers are equivalent: the same set of resources appear via both APIs.
+       - `"Exact"` means requests should only be sent to the admission webhook or admission policy if they exactly match a given rule.
 
     - **spec.matchConstraints.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -489,6 +505,11 @@ MutatingAdmissionPolicy describes the definition of an admission mutation policy
     - **spec.mutations.patchType** (string), required
 
       patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
+      
+      
+      Possible enum values:
+       - `"ApplyConfiguration"` ApplyConfiguration indicates that the mutation is using apply configuration to mutate the object.
+       - `"JSONPatch"` JSONPatch indicates that the object is mutated through JSON Patch.
 
     - **spec.mutations.applyConfiguration** (ApplyConfiguration)
 
