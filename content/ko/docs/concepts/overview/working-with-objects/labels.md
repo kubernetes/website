@@ -307,7 +307,7 @@ In, NotIn, Exists 및 DoNotExist가 포함된다. In 및 NotIn은
 사용해야 하는 경우가 많다. 
 
 예를 들어, 애플리케이션 마다 `app` 레이블에 다른 값을 사용하지만, 
-[guestbook 예시](https://github.com/kubernetes/examples/tree/master/guestbook/)와 같은 다중 계층 애플리케이션은
+[guestbook 예시](https://github.com/kubernetes/examples/tree/master/web/guestbook/)와 같은 다중 계층 애플리케이션은
 각 계층을 별도로 구분해야 한다. 프론트앤드는 다음과 같은 레이블을 사용할 수 있다.
 
 ```yaml
