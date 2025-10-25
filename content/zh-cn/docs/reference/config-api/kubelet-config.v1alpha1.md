@@ -45,7 +45,7 @@ from all providers will be returned to the kubelet. If multiple providers are ca
 for a single image, the results are combined. If providers return overlapping
 auth keys, the value from the provider earlier in this list is attempted first.
 -->
-  <code>providers</code> 是一组凭据提供者插件，这些插件会被 kubelet 启用。
+<code>providers</code> 是一组凭据提供者插件，这些插件会被 kubelet 启用。
 多个提供者可以匹配到同一镜像上，这时，来自所有提供者的凭据信息都会返回给 kubelet。
 如果针对同一镜像调用了多个提供者，则结果会被组合起来。如果提供者返回的认证主键有重复，
 列表中先出现的提供者所返回的值将第一个被尝试使用。
@@ -60,7 +60,7 @@ auth keys, the value from the provider earlier in this list is attempted first.
 <!--
 ImagePullIntent is a record of the kubelet attempting to pull an image.
 -->
-ImagePullIntent 是 kubelet 尝试拉取镜像的记录。
+<code>ImagePullIntent</code> 是 kubelet 尝试拉取镜像的记录。
 </p>
 
 <table class="table">
@@ -80,7 +80,7 @@ Image is the image spec from a Container's <code>image</code> field.
 The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
 characters like ':' and '/'.
 -->
-image 是容器 <code>image</code> 字段中的镜像规约。
+<code>image</code> 是容器 <code>image</code> 字段中的镜像规约。
 文件名是此值的 SHA-256 哈希，这样做是为了避免文件名中不安全的字符，如 ':' 和 '/'。
 </p>
 </td>
@@ -94,7 +94,7 @@ image 是容器 <code>image</code> 字段中的镜像规约。
 <!--
 ImagePullRecord is a record of an image that was pulled by the kubelet.
 -->
-ImagePullRecord 是 kubelet 拉取的镜像的记录。
+<code>ImagePullRecord</code> 是 kubelet 拉取的镜像的记录。
 </p>
 <p>
 <!--
@@ -114,14 +114,14 @@ image represented by this record is being requested.
 <tr><td><code>kind</code><br/>string</td><td><code>ImagePulledRecord</code></td></tr>
 
 <tr><td><code>lastUpdatedTime</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
 <p>
 <!--
 LastUpdatedTime is the time of the last update to this record
 -->
-lastUpdatedTime 是此记录上次更新的时间
+<code>lastUpdatedTime</code> 是此记录上次更新的时间。
 </p>
 </td>
 </tr>
@@ -136,7 +136,7 @@ from the CRI.
 The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
 characters like ':' and '/'.
 -->
-imageRef 是从 CRI 接收到的此文件所代表的镜像的引用。
+<code>imageRef</code> 是从 CRI 接收到的此文件所代表的镜像的引用。
 文件名是此值的 SHA-256 哈希。这是为了避免文件名中不安全的字符，如 ':' 和 '/'。
 </p>
 </td>
@@ -152,7 +152,7 @@ previously pulled with.
 <code>image</code> in this case is the content of a pod's container <code>image</code> field that's
 got its tag/digest removed.
 -->
-credentialMapping 将 <code>image</code> 映射到之前拉取它时使用的凭据集。
+<code>credentialMapping</code> 将 <code>image</code> 映射到之前拉取它时使用的凭据集。
 这里的 <code>image</code> 是 Pod 的容器中 <code>image</code> 字段的内容，
 已去除其标签/摘要。
 </p>
@@ -273,11 +273,11 @@ Example values of matchImages:
 </ul>
 <p><code>matchImages</code> 的一些示例如下：</p>
 <ul>
-<li><code>123456789.dkr.ecr.us-east-1.amazonaws.com</code></li>
-<li><code>*.azurecr.io</code></li>
-<li><code>gcr.io</code></li>
-<li><code>*.*.registry.io</code></li>
-<li><code>registry.io:8080/path</code></li>
+  <li><code>123456789.dkr.ecr.us-east-1.amazonaws.com</code></li>
+  <li><code>*.azurecr.io</code></li>
+  <li><code>gcr.io</code></li>
+  <li><code>*.*.registry.io</code></li>
+  <li><code>registry.io:8080/path</code></li>
 </ul>
 </td>
 </tr>
@@ -329,12 +329,12 @@ Arguments to pass to the command when executing it.
 <a href="#kubelet-config-k8s-io-v1alpha1-ExecEnvVar"><code>[]ExecEnvVar</code></a>
 </td>
 <td>
-   <!--
-   Env defines additional environment variables to expose to the process. These
+<!--
+Env defines additional environment variables to expose to the process. These
 are unioned with the host's environment, as well as variables client-go uses
 to pass argument to the plugin.
-   -->
-   <code>env</code> 定义要提供给插件进程的额外的环境变量。
+-->
+<code>env</code> 定义要提供给插件进程的额外的环境变量。
 这些环境变量会与主机上的其他环境变量以及 client-go 所使用的环境变量组合起来，
 一起传递给插件。
 </td>
@@ -394,7 +394,7 @@ ExecEnvVar 用来在执行基于 exec 的凭据插件时设置环境变量。
 <!--
 ImagePullCredentials describe credentials that can be used to pull an image.
 -->
-ImagePullCredentials 描述了可以用于拉取镜像的凭据。
+<code>ImagePullCredentials</code> 描述可以用于拉取镜像的凭据。
 </p>
 
 <table class="table">
@@ -410,8 +410,22 @@ ImagePullCredentials 描述了可以用于拉取镜像的凭据。
 KuberneteSecretCoordinates is an index of coordinates of all the kubernetes
 secrets that were used to pull the image.
 -->
-kuberneteSecretCoordinates 是用于拉取镜像的所有 Kubernetes
+<code>kuberneteSecretCoordinates</code> 是用于拉取镜像的所有 Kubernetes
 Secret 的坐标索引。
+</p>
+</td>
+</tr>
+<tr><td><code>kubernetesServiceAccounts</code><br/>
+<a href="#kubelet-config-k8s-io-v1alpha1-ImagePullServiceAccount"><code>[]ImagePullServiceAccount</code></a>
+</td>
+<td>
+<p>
+<!--
+KubernetesServiceAccounts is an index of coordinates of all the kubernetes
+service accounts that were used to pull the image.
+-->
+<code>kubernetesServiceAccounts</code> 是用于拉取镜像的所有 Kubernetes
+服务账号的坐标索引。
 </p>
 </td>
 </tr>
@@ -424,7 +438,7 @@ Secret 的坐标索引。
 NodePodsAccessible is a flag denoting the pull credentials are accessible
 by all the pods on the node, or that no credentials are needed for the pull.
 -->
-nodePodsAccessible 是一个标志，表示节点上的所有 Pod 都可以访问拉取凭据，
+<code>nodePodsAccessible</code> 是一个标志，表示节点上的所有 Pod 都可以访问拉取凭据，
 或者拉取不需要凭据。
 </p>
 <p>
@@ -452,7 +466,7 @@ If true, it is mutually exclusive with the <code>kubernetesSecrets</code> field.
 ImagePullSecret is a representation of a Kubernetes secret object coordinates along
 with a credential hash of the pull secret credentials this object contains.
 -->
-ImagePullSecret 是 Kubernetes Secret 对象坐标的表示，
+<code>ImagePullSecret</code> 是 Kubernetes Secret 对象坐标的表示，
 以及此对象包含的拉取 Secret 凭据的哈希值。
 </p>
 
@@ -487,10 +501,54 @@ ImagePullSecret 是 Kubernetes Secret 对象坐标的表示，
 CredentialHash is a SHA-256 retrieved by hashing the image pull credentials
 content of the secret specified by the UID/Namespace/Name coordinates.
 -->
-credentialHash 是通过对镜像拉取凭据的内容进行哈希计算获得的 SHA-256 值，
+<code>credentialHash</code> 是通过对镜像拉取凭据的内容进行哈希计算获得的 SHA-256 值，
 这些凭据由 UID/命名空间/名称坐标指定的 Secret 提供。
 </p>
 </td>
+</tr>
+</tbody>
+</table>
+
+## `ImagePullServiceAccount`     {#kubelet-config-k8s-io-v1alpha1-ImagePullServiceAccount}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [ImagePullCredentials](#kubelet-config-k8s-io-v1alpha1-ImagePullCredentials)
+
+<p>
+<!--
+ImagePullServiceAccount is a representation of a Kubernetes service account object coordinates
+for which the kubelet sent service account token to the credential provider plugin for image pull credentials.
+-->
+ImagePullServiceAccount 是 Kubernetes 服务账号对象坐标的表示，
+kubelet 将服务账号令牌发送给凭据提供程序以用于拉取镜像的凭据。
+</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>uid</code> <B><!--[Required]-->必需</B><br/>
+<code>string</code>
+</td>
+<td>
+ <span class="text-muted"><!--No description provided.-->资源对象的唯一标识（UID）。</span></td>
+</tr>
+<tr><td><code>namespace</code> <B><!--[Required]-->必需</B><br/>
+<code>string</code>
+</td>
+<td>
+ <span class="text-muted"><!--No description provided.-->资源对象所在名字空间。</span></td>
+</tr>
+<tr><td><code>name</code> <B><!--[Required]-->必需</B><br/>
+<code>string</code>
+</td>
+<td>
+ <span class="text-muted"><!--No description provided.-->资源对象的名称。</span></td>
 </tr>
 </tbody>
 </table>
