@@ -2,9 +2,10 @@
 title: সাইডকার কন্টেইনার (Sidecar Container)
 id: sidecar-container
 date: 2018-04-12
-full_link: /bn/docs/concepts/workloads/pods/sidecar-containers/
+full_link: 
 short_description: >
   একটি সহায়ক কন্টেইনার যা একটি পডের জীবনচক্র জুড়ে চলতে থাকে।
+full_link: /bn/docs/concepts/workloads/pods/sidecar-containers/
 tags:
 - fundamental
 ---
