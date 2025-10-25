@@ -3,19 +3,44 @@ title: Ingress Controllers
 description: >-
   In order for an [Ingress](/docs/concepts/services-networking/ingress/) to work in your cluster,
   there must be an _ingress controller_ running.
-  You need to select at least one ingress controller and make sure it is set up in your cluster.  
+  You need to select at least one ingress controller and make sure it is set up in your cluster.
   This page lists common ingress controllers that you can deploy.
 content_type: concept
 weight: 50
 ---
 
+{{< warning >}}
+The Ingress API has been frozen.
+{{< /warning >}}
+
+<!-- body -->
+
 <!-- overview -->
 
-In order for the Ingress resource to work, the cluster must have an ingress controller running. 
+## Consider using Gateway API
+[Gateway API](/docs/concepts/services-networking/gateway/) is GA and includes
+many more features (and controllers). The following table highlights some of the
+differences between the APIs:
 
-Unlike other types of controllers which run as part of the `kube-controller-manager` binary, Ingress controllers 
-are not started automatically with a cluster. Use this page to choose the ingress controller implementation 
-that best fits your cluster.
+| | Ingress | Gateway API |
+| - | - | - |
+| GA | ✅ Yes | ✅ Yes |
+| Basic HTTP path matching | ✅ Yes | ✅ Yes |
+| Traffic Splitting | ❌ No | ✅ Yes |
+| More Protocols (gRPC, TLS) | ❌ No | ✅ Yes |
+| More Matchers (Headers, Query Params, Methods) | ❌ No | ✅ Yes |
+| Redirects | ❌ No | ✅ Yes |
+| Rewrites | ❌ No | ✅ Yes |
+| TLS Validation | ❌ No | ✅ Yes |
+| Cross-Namespace References | ❌ No | ✅ Yes |
+| AI Extensions | ❌ No | ✅ [Yes](https://gateway-api-inference-extension.sigs.k8s.io/) |
+| Service Mesh Support | ❌ No | ✅ Yes |
+| More Features in Development | ❌ No | ✅ Yes |
+| Conformance Tests | 🟡 Some | ✅ Thorough |
+| # of Implementations | ✅ [33](/docs/concepts/services-networking/ingress-controllers) | ✅ [34](https://gateway-api.sigs.k8s.io/implementations/) |
+
+
+## Ingress Controllers
 
 Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme), and
   [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) ingress controllers.
@@ -23,7 +48,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 
 <!-- body -->
 
-## Additional controllers
+## Additional Controllers
 
 {{% thirdparty-content %}}
 
