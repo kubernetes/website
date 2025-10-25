@@ -38,8 +38,10 @@ export GOPATH=$HOME/<workspace>
 Get a local clone of the following repositories:
 
 ```shell
-go get -u github.com/kubernetes-sigs/reference-docs
-
+git clone github.com/kubernetes-sigs/reference-docs
+```
+Move into the `gen-apidocs` directory of the `reference-docs` repository and install the required Go packages:
+```shell
 go get -u github.com/go-openapi/loads
 go get -u github.com/go-openapi/spec
 ```
@@ -47,28 +49,28 @@ go get -u github.com/go-openapi/spec
 If you don't already have the kubernetes/website repository, get it now:
 
 ```shell
-git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
+git clone https://github.com/<your-username>/website 
 ```
 
-Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes:
+Get a clone of the kubernetes/kubernetes repository:
 
 ```shell
-git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
+git clone https://github.com/kubernetes/kubernetes 
 ```
 
 * The base directory of your clone of the
   [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
-  `$GOPATH/src/k8s.io/kubernetes.`
+  `<your-path-to>/kubernetes/kubernetes.`
   The remaining steps refer to your base directory as `<k8s-base>`.
 
 * The base directory of your clone of the
   [kubernetes/website](https://github.com/kubernetes/website) repository is
-  `$GOPATH/src/github.com/<your username>/website`.
+  `<your-path-to>/website`.
   The remaining steps refer to your base directory as `<web-base>`.
 
 * The base directory of your clone of the
   [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
-  repository is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`.
+  repository is `<your-path-to>/reference-docs`.
   The remaining steps refer to your base directory as `<rdocs-base>`.
 
 ## Generate the API reference docs
@@ -86,8 +88,8 @@ This section shows how to generate the
 For example:
 
 ```shell
-export K8S_WEBROOT=${GOPATH}/src/github.com/<your-username>/website
-export K8S_ROOT=${GOPATH}/src/k8s.io/kubernetes
+export K8S_WEBROOT=<your-path-to>/website
+export K8S_ROOT=<your-path-to>/kubernetes
 export K8S_RELEASE=1.17.0
 ```
 
@@ -150,26 +152,14 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/navDat
 static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll.js
 ```
 
-## Update the API reference index pages
+## API reference location and versioning
 
-When generating reference documentation for a new release, update the file,
-`<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` with the new
-version number.
+The generated API reference files (HTML version) are copied to `<web-base>/static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/`. This directory contains the standalone HTML API documentation. 
 
-* Open `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` for editing,
-  and update the API reference version number. For example:
-
-  ```
-  ---
-  title: v1.17
-  ---
-
-  [Kubernetes API v1.17](/docs/reference/generated/kubernetes-api/v1.17/)
-  ```
-
-* Open `<web-base>/content/en/docs/reference/_index.md` for editing, and add a
-  new link for the latest API reference. Remove the oldest API reference version.
-  There should be five links to the most recent API references.
+{{< note >}}
+The Markdown version of the API reference located at `<web-base>/content/en/docs/reference/kubernetes-api/`
+is generated separately using the [gen-resourcesdocs](https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs) generator.
+{{< /note >}}
 
 ## Locally test the API reference
 
