@@ -47,6 +47,13 @@ through the [Kubernetes API](/docs/concepts/overview/kubernetes-api/),
 using an [APIService](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) to add
 new kinds of resource that represent metric readings.
 
+{{< note >}}
+The image `registry.k8s.io/hpa-example` used in this walkthrough is only available for **AMD64** nodes.  
+If you're running on **ARM (aarch64)** architecture (for example, Raspberry Pi or Apple Silicon),  
+the container will fail to start with an “exec format error.”  
+To run this tutorial on ARM, build a compatible image manually using the example source.
+{{< /note >}}
+
 To learn how to deploy the Metrics Server, see the
 [metrics-server documentation](https://github.com/kubernetes-sigs/metrics-server#deployment).
 
