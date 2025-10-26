@@ -24,6 +24,14 @@ auto_generated: false
 
   operator представляє стосунок ключа до набору значень. Допустимі оператори: In, NotIn, Exists, DoesNotExist, Gt та Lt.
 
+  Можливі значення переліку (enum):
+  - `"DoesNotExist"`
+  - `"Exists"`
+  - `"Gt"`
+  - `"In"`
+  - `"Lt"`
+  - `"NotIn"`
+
 - **values** ([]string)
 
   *Atomic: буде замінено під час злиття*

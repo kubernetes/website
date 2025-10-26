@@ -326,8 +326,7 @@ Role та RoleBinding більше не обслуговується з верс
 * Усі наявні обʼєкти, які зберігаються, доступні через новий API.
 * Помітні зміни:
   * `spec.selector` тепер є обовʼязковим і незмінним після створення; використовуйте наявні мітки шаблону як селектор для безшовного оновлення.
-  * `spec.updateStrategy.type` тепер за замовчуванням встановлено на `RollingUpdate`
-    (стандартно в `apps/v1beta1` було `OnDelete`).
+  * `spec.updateStrategy.type` тепер стандартно встановлено на `RollingUpdate` (в `apps/v1beta1` було `OnDelete`).
 
 #### ReplicaSet {#replicaset-v116}
 

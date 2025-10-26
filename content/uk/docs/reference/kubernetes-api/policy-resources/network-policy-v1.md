@@ -119,6 +119,11 @@ NetworkPolicySpec надає специфікацію NetworkPolicy
 
       protocol представляє протокол (TCP, UDP або SCTP), якому повинен відповідати трафік. Якщо не вказано, це поле стандартно встановлюється у TCP.
 
+      Можливі значення переліку (enum):
+      - `"SCTP"` є протоколом SCTP.
+      - `"TCP"` є протоколом TCP.
+      - `"UDP"` є протоколом UDP.
+
 - **egress** ([]NetworkPolicyEgressRule)
 
   *Atomic: буде замінено під час злиття*
@@ -189,6 +194,11 @@ NetworkPolicySpec надає специфікацію NetworkPolicy
     - **egress.ports.protocol** (string)
 
       protocol представляє протокол (TCP, UDP або SCTP), якому повинен відповідати трафік. Якщо не вказано, це поле стандартно встановлюється у TCP.
+
+      Можливі значення переліку (enum):
+      - `"SCTP"` є протоколом SCTP.
+      - `"TCP"` є протоколом TCP.
+      - `"UDP"` є протоколом UDP.
 
 ## NetworkPolicyList {#NetworkPolicyList}
 

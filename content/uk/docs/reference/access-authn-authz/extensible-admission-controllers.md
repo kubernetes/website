@@ -618,7 +618,7 @@ webhooks:
     scope: "Namespaced"
 ```
 
-`matchPolicy` для вебхуків допуску за замовчуванням дорівнює `Equivalent`.
+`matchPolicy` для вебхуків допуску стандартно дорівнює `Equivalent`.
 
 ### Відповідність запитам: `matchConditions` {#matching-requests-matchconditions}
 

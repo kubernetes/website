@@ -71,6 +71,10 @@ DeploymentSpec є специфікацією бажаної поведінки D
 
     Тип розгортання. Може бути "Recreate" або "RollingUpdate". Стандартне значення — RollingUpdate.
 
+    Можливі значення переліку (enum):
+    - `"Recreate"` Видаляє всі наявні Podʼи перед створенням нових Podʼів.
+    - `"RollingUpdate"` Замінює старі ReplicaSets новими за допомогою послідовного оновлення, тобто поступово зменшуючи старі ReplicaSets і збільшуючи нові.
+
   - **strategy.rollingUpdate** (RollingUpdateDeployment)
 
     Параметри конфігурації постійного оновлення. Присутні лише, якщо DeploymentStrategyType = RollingUpdate.

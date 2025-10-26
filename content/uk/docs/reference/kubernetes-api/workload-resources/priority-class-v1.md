@@ -44,6 +44,10 @@ auto_generated: true
 
   Політика для випередження Podʼів з нижчим пріоритетом. Один із варіантів: Never, PreemptLowerPriority. Стандартно використовується PreemptLowerPriority, якщо не встановлено жодного значення.
 
+  Можливі значення переліку (enum):
+  - `"Never"` означає, що цей pod ніколи не витісняє інші podʼи з нижчим пріоритетом.
+  - `"PreemptLowerPriority"` означає, що цей pod може витісняти інші podʼи з нижчим пріоритетом.
+
 ## PriorityClassList {#PriorityClassList}
 
 ---

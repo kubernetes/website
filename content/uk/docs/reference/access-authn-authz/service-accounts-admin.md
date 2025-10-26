@@ -488,7 +488,7 @@ message MetadataResponse {
   // 2. `--service-account-extend-token-expiration`
   //
   // * Якщо `--service-account-max-token-expiration` більше ніж `max_token_expiration_seconds`, kube-apiserver вважає це неправильним налаштуванням і завершує роботу.
-  // * Якщо `--service-account-max-token-expiration` не встановлено явно, kube-apiserver за замовчуванням використовує `max_token_expiration_seconds`.
+  // * Якщо `--service-account-max-token-expiration` не встановлено явно, kube-apiserver стандартно використовує `max_token_expiration_seconds`.
   // * Якщо `--service-account-extend-token-expiration` істинне, розширений термін дії становить `min(1 year, max_token_expiration_seconds)`.
   //
   // `max_token_expiration_seconds` повинен бути не менше 600s.

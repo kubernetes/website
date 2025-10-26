@@ -86,7 +86,7 @@ curl -L -O https://k8s.io/examples/pods/security/seccomp/kind.yaml
 Ви можете встановити конкретну версію Kubernetes, встановивши образ контейнера вузла. Дивіться [Вузли](https://kind.sigs.k8s.io/docs/user/configuration/#nodes) в документації kind щодо конфігурації для отримання більш детальної інформації з цього питання. Цей посібник передбачає, що ви використовуєте Kubernetes {{< param "version" >}}.
 
 Як бета-функція, ви можете налаштувати Kubernetes на використання профілю, який обирає стандартне {{< glossary_tooltip text="середовище виконання контейнерів" term_id="container-runtime" >}}, замість того, щоб використовувати `Unconfined`. Якщо ви хочете спробувати це, дивіться
-[увімкнення використання `RuntimeDefault` як типового профілю за замовчуванням для всіх завдань](#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads) перш ніж продовжувати.
+[увімкнення використання `RuntimeDefault` як типового стандартного профілю для всіх завдань](#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads) перш ніж продовжувати.
 
 Як тільки у вас буде конфігурація kind, створіть кластер kind з цією конфігурацією:
 
