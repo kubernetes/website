@@ -43,6 +43,8 @@ kubelet --feature-gates=GracefulNodeShutdown=true
 **For detailed instructions:**  
 See [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/) for step-by-step guidance on enabling feature gates across different cluster configurations.
 
+## Feature gates in Kubernetes {{< skew current version >}} {#list-of-gates}
+
 The following tables are a summary of the feature gates that you can set on
 different Kubernetes components.
 
