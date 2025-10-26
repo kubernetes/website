@@ -129,4 +129,8 @@ Each feature gate is designed for enabling/disabling a specific feature.
   For example, to enable a particular resource like
   `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`.
   See [API Versioning](/docs/reference/using-api/#api-versioning) for more details on the command line flags.
-  
+
+## {{< heading "whatsnext" >}}
+
+- See [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/)
+  for step-by-step guidance on enabling feature gates.
