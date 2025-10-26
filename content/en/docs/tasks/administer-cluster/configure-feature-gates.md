@@ -1,5 +1,5 @@
 ---
-title: Feature Gates
+title: Enable Or Disable Feature Gates
 weight: 10
 content_type: concept
 card:
