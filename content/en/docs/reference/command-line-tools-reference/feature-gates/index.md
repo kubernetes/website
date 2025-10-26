@@ -40,7 +40,6 @@ kubelet --feature-gates=GracefulNodeShutdown=true
 - [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
 - [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 
-**For detailed instructions:**  
 See [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/) for step-by-step guidance on enabling feature gates across different cluster configurations.
 
 ## Feature gates in Kubernetes {{< skew current version >}} {#list-of-gates}
