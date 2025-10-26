@@ -1,7 +1,7 @@
 ---
 title: Enable Or Disable Feature Gates
 weight: 10
-content_type: concept
+content_type: task
 card:
   name: reference
   weight: 60
