@@ -10,6 +10,20 @@ This page shows how to enable or disable feature gates to control specific Kuber
 features in your cluster. Enabling feature gates allows you to test and use Alpha or 
 Beta features before they become generally available.
 
+{{< note >}}
+For some stable (GA) gates, you can also disable them, usually for one minor release 
+after GA; however if you do that, your cluster may not be conformant as Kubernetes.
+{{< /note >}}
+
+<!--
+Changes from original PR proposal:
+- Added note about conformance implications when disabling stable gates
+- Corrected --help behavior: all components show all gates due to shared definitions
+- Clarified that not all components support configuration files (e.g., kube-controller-manager)
+- Specified that verification methods apply to kubeadm static pod deployments
+- Added context about kubeadm's distributed configuration approach
+-->
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -20,36 +34,32 @@ You also need:
 * Knowledge of which feature gate you want to enable (see the [Feature Gates reference](/docs/reference/command-line-tools-reference/feature-gates/))
 
 {{< note >}}
-GA (stable) features are always enabled. You only configure gates for Alpha or Beta features.
+GA (stable) features are always enabled by default. You typically configure gates for 
+Alpha or Beta features.
 {{< /note >}}
 
 <!-- steps -->
 
+## Understand feature gate maturity
+
+Before enabling a feature gate, check the [Feature Gates reference](/docs/reference/command-line-tools-reference/feature-gates/) 
+for the feature's maturity level:
+
+- **Alpha**: Disabled by default, may be buggy. Use only in test clusters.
+- **Beta**: Usually enabled by default, well-tested.
+- **GA**: Always enabled by default; can sometimes be disabled for one release after GA.
+
 ## Identify which components need the feature gate
 
-Different feature gates apply to different Kubernetes components. Before enabling a feature gate:
+Different feature gates affect different Kubernetes components:
 
-1. Check the [Feature Gates reference](/docs/reference/command-line-tools-reference/feature-gates/) 
-   to find the feature's maturity level:
-   - **Alpha**: Disabled by default, may be buggy. Use only in test clusters.
-   - **Beta**: Usually enabled by default, well-tested.
-   - **GA**: Always enabled, cannot be disabled.
+- Some features require enabling the gate on **multiple components** (e.g., API server and controller manager)
+- Other features only need the gate on a **single component** (e.g., only kubelet)
 
-2. Determine which components need the feature gate enabled:
-   - Some features require enabling the gate on **multiple components** (e.g., API server and controller manager)
-   - Other features only need the gate on a **single component** (e.g., only kubelet)
-
-3. Use the component's help flag to verify it supports the feature gate:
-
-   ```shell
-   kube-apiserver -h | grep feature-gates
-   kubelet -h | grep feature-gates
-   ```
-
-{{< note >}}
-Each Kubernetes component only accepts feature gates relevant to its functionality. 
-The Feature Gates reference page typically indicates which components are affected by each gate.
-{{< /note >}}
+The [Feature Gates reference](/docs/reference/command-line-tools-reference/feature-gates/) 
+typically indicates which components are affected by each gate. All Kubernetes components 
+share the same feature gate definitions, so all gates appear in help output, but only 
+relevant gates affect each component's behavior.
 
 ## Configure for kubeadm clusters
 
@@ -83,6 +93,9 @@ kubeadm init --config kubeadm-config.yaml
 ```
 
 ### On an existing cluster
+
+For kubeadm clusters, feature gate configuration can be set in several locations 
+including manifest files, configuration files, and kubeadm configuration.
 
 Edit control plane component manifests in `/etc/kubernetes/manifests/`:
 
@@ -135,13 +148,13 @@ Edit control plane component manifests in `/etc/kubernetes/manifests/`:
 
 ## Configure multiple feature gates
 
-Use comma-separated lists for the command-line flag:
+Use comma-separated lists for command-line flags:
 
 ```shell
 --feature-gates=FeatureA=true,FeatureB=false,FeatureC=true
 ```
 
-Or in YAML configuration files:
+For components that support configuration files (kubelet, kube-proxy):
 
 ```yaml
 featureGates:
@@ -150,11 +163,17 @@ featureGates:
   FeatureC: true
 ```
 
+{{< note >}}
+Not all components accept configuration files. Components like kube-apiserver, 
+kube-controller-manager, and kube-scheduler are configured via command-line flags only.
+{{< /note >}}
+
 <!-- discussion -->
 
 ## Verify feature gate configuration
 
-After configuring, verify the feature gates are active.
+After configuring, verify the feature gates are active. The following methods apply 
+to kubeadm clusters where control plane components run as static pods.
 
 For control plane components:
 
@@ -175,21 +194,26 @@ Or check the configuration file directly on the node:
 cat /var/lib/kubelet/config.yaml | grep -A 10 featureGates
 ```
 
+{{< note >}}
+In kubeadm clusters, verify all relevant locations where feature gates might be 
+configured, as the configuration is distributed across multiple files and locations.
+{{< /note >}}
+
 ## Understanding component-specific requirements
 
 Some examples of component-specific feature gates:
 
-- **API server only**: Features like `StructuredAuthenticationConfiguration` affect only kube-apiserver
-- **Kubelet only**: Features like `GracefulNodeShutdown` affect only kubelet
-- **Multiple components**: Features like `TTLAfterFinished` require both kube-apiserver and kube-controller-manager
+- **API server-focused**: Features like `StructuredAuthenticationConfiguration` primarily affect kube-apiserver
+- **Kubelet-focused**: Features like `GracefulNodeShutdown` primarily affect kubelet
+- **Multiple components**: Some features require coordination between components
 
 {{< caution >}}
-When a feature requires multiple components, you must enable the gate on **all relevant components**. 
-Enabling it on only some components may result in unexpected behavior or errors.
+When a feature requires multiple components, you must enable the gate on all relevant 
+components. Enabling it on only some components may result in unexpected behavior or errors.
 {{< /caution >}}
 
-Always test feature gates in non-production environments first. Alpha features may be removed 
-without notice.
+Always test feature gates in non-production environments first. Alpha features may be 
+removed without notice.
 
 ## {{% heading "whatsnext" %}}
 
