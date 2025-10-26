@@ -1,120 +1,198 @@
 ---
 title: Enable Or Disable Feature Gates
-weight: 10
 content_type: task
-card:
-  name: reference
-  weight: 60
+weight: 60
 ---
 
 <!-- overview -->
-This page contains an overview of the various feature gates an administrator
-can specify on different Kubernetes components.
 
-See [feature stages](#feature-stages) for an explanation of the stages for a feature.
+This page shows how to enable or disable feature gates to control specific Kubernetes 
+features in your cluster. Enabling feature gates allows you to test and use Alpha or 
+Beta features before they become generally available.
 
-<!-- body -->
-## Overview
+## {{% heading "prerequisites" %}}
 
-Feature gates are a set of key=value pairs that describe Kubernetes features.
-You can turn these features on or off using the `--feature-gates` command line flag
-on each Kubernetes component.
+{{< include "task-tutorial-prereqs.md" >}}
 
-Each Kubernetes component supports only the feature gates relevant to its functions.
-Use `-h` flag to see a full set of feature gates for all components.
-To set feature gates for a component, such as kubelet, use the `--feature-gates`
-flag assigned to a list of feature pairs:
+You also need:
 
-```shell
---feature-gates=FeatureName1=true,FeatureName2=false
+* Administrative access to your cluster
+* Knowledge of which feature gate you want to enable (see the [Feature Gates reference](/docs/reference/command-line-tools-reference/feature-gates/))
+
+{{< note >}}
+GA (stable) features are always enabled. You only configure gates for Alpha or Beta features.
+{{< /note >}}
+
+<!-- steps -->
+
+## Identify which components need the feature gate
+
+Different feature gates apply to different Kubernetes components. Before enabling a feature gate:
+
+1. Check the [Feature Gates reference](/docs/reference/command-line-tools-reference/feature-gates/) 
+   to find the feature's maturity level:
+   - **Alpha**: Disabled by default, may be buggy. Use only in test clusters.
+   - **Beta**: Usually enabled by default, well-tested.
+   - **GA**: Always enabled, cannot be disabled.
+
+2. Determine which components need the feature gate enabled:
+   - Some features require enabling the gate on **multiple components** (e.g., API server and controller manager)
+   - Other features only need the gate on a **single component** (e.g., only kubelet)
+
+3. Use the component's help flag to verify it supports the feature gate:
+
+   ```shell
+   kube-apiserver -h | grep feature-gates
+   kubelet -h | grep feature-gates
+   ```
+
+{{< note >}}
+Each Kubernetes component only accepts feature gates relevant to its functionality. 
+The Feature Gates reference page typically indicates which components are affected by each gate.
+{{< /note >}}
+
+## Configure for kubeadm clusters
+
+### During cluster initialization
+
+Create a configuration file to enable feature gates across relevant components:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+kind: ClusterConfiguration
+apiServer:
+  extraArgs:
+    feature-gates: "FeatureName=true"
+controllerManager:
+  extraArgs:
+    feature-gates: "FeatureName=true"
+scheduler:
+  extraArgs:
+    feature-gates: "FeatureName=true"
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  FeatureName: true
 ```
 
-For detailed instructions on configuring feature gates in your cluster, see
-[Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/).
+Initialize the cluster:
 
-The following tables are a summary of the feature gates that you can set on
-different Kubernetes components.
+```shell
+kubeadm init --config kubeadm-config.yaml
+```
 
-- The "Since" column contains the Kubernetes release when a feature is introduced
-  or its release stage is changed.
-- The "Until" column, if not empty, contains the last Kubernetes release in which
-  you can still use a feature gate.
-- If a feature is in the Alpha or Beta state, you can find the feature listed
-  in the [Alpha/Beta feature gate table](#feature-gates-for-alpha-or-beta-features).
-- If a feature is stable you can find all stages for that feature listed in the
-  [Graduated/Deprecated feature gate table](#feature-gates-for-graduated-or-deprecated-features).
-- The [Graduated/Deprecated feature gate table](#feature-gates-for-graduated-or-deprecated-features)
-  also lists deprecated and withdrawn features.
+### On an existing cluster
 
-{{< note >}}
-For a reference to old feature gates that are removed, please refer to
-[feature gates removed](/docs/reference/command-line-tools-reference/feature-gates-removed/).
-{{< /note >}}
+Edit control plane component manifests in `/etc/kubernetes/manifests/`:
 
-<!-- Want to edit this table? See https://k8s.io/docs/contribute/new-content/new-features/#ready-for-review-feature-gates -->
-### Feature gates for Alpha or Beta features
+1. For kube-apiserver, kube-controller-manager, or kube-scheduler, add the flag to the command:
 
-{{< feature-gate-table include="alpha,beta" caption="Feature gates for features in Alpha or Beta states" >}}
+   ```yaml
+   spec:
+     containers:
+     - command:
+       - kube-apiserver
+       - --feature-gates=FeatureName=true
+       # ... other flags
+   ```
 
-<!-- Want to edit this table? See https://k8s.io/docs/contribute/new-content/new-features/#ready-for-review-feature-gates -->
-### Feature gates for graduated or deprecated features
+   Save the file. The pod restarts automatically.
 
-{{< feature-gate-table include="ga,deprecated" caption="Feature Gates for Graduated or Deprecated Features" >}}
+2. For kubelet, edit `/var/lib/kubelet/config.yaml`:
 
-## Using a feature
+   ```yaml
+   apiVersion: kubelet.config.k8s.io/v1beta1
+   kind: KubeletConfiguration
+   featureGates:
+     FeatureName: true
+   ```
 
-### Feature stages
+   Restart kubelet:
 
-A feature can be in *Alpha*, *Beta* or *GA* stage.
-An *Alpha* feature means:
+   ```shell
+   sudo systemctl restart kubelet
+   ```
 
-* Disabled by default.
-* Might be buggy. Enabling the feature may expose bugs.
-* Support for feature may be dropped at any time without notice.
-* The API may change in incompatible ways in a later software release without notice.
-* Recommended for use only in short-lived testing clusters, due to increased
-  risk of bugs and lack of long-term support.
+3. For kube-proxy, edit the ConfigMap:
 
-A *Beta* feature means:
+   ```shell
+   kubectl -n kube-system edit configmap kube-proxy
+   ```
 
-* Usually enabled by default. Beta API groups are
-  [disabled by default](https://github.com/kubernetes/enhancements/tree/master/keps/sig-architecture/3136-beta-apis-off-by-default).
-* The feature is well tested. Enabling the feature is considered safe.
-* Support for the overall feature will not be dropped, though details may change.
-* The schema and/or semantics of objects may change in incompatible ways in a
-  subsequent beta or stable release. When this happens, we will provide instructions
-  for migrating to the next version. This may require deleting, editing, and
-  re-creating API objects. The editing process may require some thought.
-  This may require downtime for applications that rely on the feature.
-* Recommended for only non-business-critical uses because of potential for
-  incompatible changes in subsequent releases. If you have multiple clusters
-  that can be upgraded independently, you may be able to relax this restriction.
+   Add feature gates to the configuration:
 
-{{< note >}}
-Please do try *Beta* features and give feedback on them!
-After they exit beta, it may not be practical for us to make more changes.
-{{< /note >}}
+   ```yaml
+   featureGates:
+     FeatureName: true
+   ```
 
-A *General Availability* (GA) feature is also referred to as a *stable* feature. It means:
+   Restart the DaemonSet:
 
-* The feature is always enabled; you cannot disable it.
-* The corresponding feature gate is no longer needed.
-* Stable versions of features will appear in released software for many subsequent versions.
+   ```shell
+   kubectl -n kube-system rollout restart daemonset kube-proxy
+   ```
 
-## List of feature gates {#feature-gates}
+## Configure multiple feature gates
 
-Each feature gate is designed for enabling/disabling a specific feature.
+Use comma-separated lists for the command-line flag:
 
-<!-- Want to edit this list? See https://k8s.io/docs/contribute/new-content/new-features/#ready-for-review-feature-gates -->
-{{< feature-gate-list include="alpha,beta,ga,deprecated" >}}
+```shell
+--feature-gates=FeatureA=true,FeatureB=false,FeatureC=true
+```
+
+Or in YAML configuration files:
+
+```yaml
+featureGates:
+  FeatureA: true
+  FeatureB: false
+  FeatureC: true
+```
+
+<!-- discussion -->
+
+## Verify feature gate configuration
+
+After configuring, verify the feature gates are active.
+
+For control plane components:
+
+```shell
+kubectl -n kube-system get pod kube-apiserver-<node-name> -o yaml | grep feature-gates
+```
+
+For kubelet:
+
+```shell
+kubectl proxy --port=8001 &
+curl -sSL "http://localhost:8001/api/v1/nodes/<node-name>/proxy/configz" | grep featureGates -A 5
+```
+
+Or check the configuration file directly on the node:
+
+```shell
+cat /var/lib/kubelet/config.yaml | grep -A 10 featureGates
+```
+
+## Understanding component-specific requirements
+
+Some examples of component-specific feature gates:
+
+- **API server only**: Features like `StructuredAuthenticationConfiguration` affect only kube-apiserver
+- **Kubelet only**: Features like `GracefulNodeShutdown` affect only kubelet
+- **Multiple components**: Features like `TTLAfterFinished` require both kube-apiserver and kube-controller-manager
+
+{{< caution >}}
+When a feature requires multiple components, you must enable the gate on **all relevant components**. 
+Enabling it on only some components may result in unexpected behavior or errors.
+{{< /caution >}}
+
+Always test feature gates in non-production environments first. Alpha features may be removed 
+without notice.
 
 ## {{% heading "whatsnext" %}}
 
-* The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
-  the project's approach to removing features and components.
-* Since Kubernetes 1.24, new beta APIs are not enabled by default.  When enabling a beta
-  feature, you will also need to enable any associated API resources.
-  For example, to enable a particular resource like
-  `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`.
-  See [API Versioning](/docs/reference/using-api/#api-versioning) for more details on the command line flags.
-* Learn how to [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/) in your cluster.
+* Read the [Feature Gates reference](/docs/reference/command-line-tools-reference/feature-gates/)
+* Learn about [Feature Stages](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages)
+* Review [kubeadm configuration](/docs/reference/config-api/kubeadm-config.v1beta4/)

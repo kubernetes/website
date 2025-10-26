@@ -22,25 +22,24 @@ on each Kubernetes component.
 
 ## How to enable Feature Gates
 
-To enable or disable a feature gate for a particular Kubernetes component, use the `--feature-gates` flag. This flag accepts a comma-separated list of key=value pairs, where each key is a feature gate name and each value is either `true` (enable) or `false` (disable).
+To enable or disable a feature gate for a particular Kubernetes component, use the 
+`--feature-gates` flag.
+
+This flag accepts a comma-separated list of key=value pairs, where each key is a 
+feature gate name and each value is either `true` (enable) or `false` (disable).
 
 **Example usage:**
+
 ```shell
-kube-apiserver --feature-gates=SomeFeature=true,OtherFeature=false
+kube-apiserver --feature-gates=FeatureName1=true,FeatureName2=false
 kubelet --feature-gates=GracefulNodeShutdown=true
 ```
 
-- Each component (such as kube-apiserver, kubelet, kube-controller-manager, kube-scheduler, kube-proxy) supports only the feature gates relevant to its functions. Refer to the component's documentation or use `<component> -h` to list available feature gates.
-- Apply feature gates with care; test changes in non-production clusters, and restart the component where the flag is set.
+Each Kubernetes component supports only the feature gates relevant to its functions.
+Use `<component> -h` to list available feature gates for a specific component.
 
-**Component-specific guidance:**
-- [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
-- [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
-- [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-- [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
-- [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
-
-See [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/) for step-by-step guidance on enabling feature gates across different cluster configurations.
+For detailed instructions on configuring feature gates in your cluster, see
+[Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/).
 
 ## Feature gates in Kubernetes {{< skew current version >}} {#list-of-gates}
 
@@ -129,8 +128,6 @@ Each feature gate is designed for enabling/disabling a specific feature.
   For example, to enable a particular resource like
   `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`.
   See [API Versioning](/docs/reference/using-api/#api-versioning) for more details on the command line flags.
-
-## {{< heading "whatsnext" >}}
-
-- See [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/)
+* See [Configure Feature Gates](/docs/tasks/administer-cluster/configure-feature-gates/)
   for step-by-step guidance on enabling feature gates.
+  
