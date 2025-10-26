@@ -24,7 +24,7 @@ Kubernetes também irão beneficiar-se deste guia como uma introdução aos pont
 extensão e padrões existentes, e suas contrapartidas e limitações.
 
 As abordagens de personalização podem ser divididas nos grandes grupos de
-[configuração](#configuration), que envolve somente a modifição de argumentos de
+[configuração](#configuration), que envolve somente a modificação de argumentos de
 linha de comando, arquivos locais de configuração, ou recursos da API; e [extensões](#extensions),
 que envolve executar programas adicionais, serviços de rede adicionais, ou ambos.
 Este documento cobre primariamente as _extensões_.
@@ -269,7 +269,7 @@ Além das etapas embutidas, há várias extensões:
 
 ### Plugins de dispositivo {#device-plugins}
 
-_Plugins de dispositivo_ permitem a um nó descrobrir novos recursos Node (além
+_Plugins de dispositivo_ permitem a um nó descobrir novos recursos Node (além
 dos preexistentes, como cpu e memória) através de um
 [Plugin de Dispositivo](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/).
 
@@ -350,7 +350,7 @@ da integração de webhook.
 * Aprenda mais sobre as extensões de infraestrutura
   * [Plugins de Dispositivo](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   * [Plugins de Rede](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-  * [Plugins de armazenamento](https://kubernetes-csi.github.io/docs/) CSI
+  * [Plugins de armazenamento CSI](https://kubernetes-csi.github.io/docs/)
 * Aprenda sobre [plugins do kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Aprenda mais sobre [Recursos Personalizados](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Aprenda mais sobre [Servidores de API de extensão](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
