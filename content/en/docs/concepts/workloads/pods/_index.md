@@ -424,7 +424,14 @@ acts as a web server for files in a shared volume, and a separate
 [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
 that updates those files from a remote source, as in the following diagram:
 
-{{< figure src="/images/docs/pod.svg" alt="Pod creation diagram" class="diagram-medium" >}}
+{{< figure
+   src="/images/docs/multi-container-pod.svg"
+   alt="Diagram of a multi-container Pod in Kubernetes, showing multiple containers sharing the same network namespace and storage volumes."
+   caption="Figure – A multi-container Pod runs multiple tightly coupled containers that share networking and storage."
+   class="diagram-medium"
+>}}
+
+
 
 Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}}
 as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
