@@ -272,6 +272,73 @@ the Pod level `restartPolicy` is either `OnFailure` or `Always`:
 * `OnFailure`: Only restarts the container if it exits with an error (non-zero exit status).
 * `Never`: Does not automatically restart the terminated container.
 
+##### Restart behavior comparison
+
+The following table shows how containers behave under different restart policies and exit codes:
+
+| Exit Code | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` |
+|-----------|-------------------------|---------------------------|------------------------|
+| 0 (Success) | Restarts | Does not restart | Does not restart |
+| Non-zero (Failure) | Restarts | Restarts | Does not restart |
+
+{{< note >}}
+The restart behavior is particularly important when choosing between Deployments and Jobs:
+- **Deployments** typically use `restartPolicy: Always` (the only allowed value) to keep applications running continuously
+- **Jobs** commonly use `restartPolicy: OnFailure` or `restartPolicy: Never` to handle batch processing tasks appropriately
+{{< /note >}}
+
+##### Example scenarios
+
+Here are concrete examples demonstrating the different restart behaviors:
+
+**Example 1: Web server with `restartPolicy: Always` (typical for Deployments)**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-server
+spec:
+  restartPolicy: Always  # Container restarts regardless of exit code
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    # If this container crashes or exits for any reason, it will be restarted
+```
+
+**Example 2: Batch job with `restartPolicy: OnFailure`**
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: data-processor
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure  # Only restart on non-zero exit codes
+      containers:
+      - name: processor
+        image: busybox:1.28
+        command: ['sh', '-c', 'echo "Processing data..."; exit 0']
+        # Exit code 0: Job completes successfully, no restart
+        # Exit code 1+: Container restarts to retry the task
+```
+
+**Example 3: One-time task with `restartPolicy: Never`**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: migration-task
+spec:
+  restartPolicy: Never  # Never restart, regardless of exit code
+  containers:
+  - name: migrate
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "Running migration..."; exit 1']
+    # Even with exit code 1 (failure), the container will not restart
+    # The Pod will remain in Failed state
+```
+
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
 same Pod and running on the same node. After containers in a Pod exit, the kubelet
