@@ -3,7 +3,6 @@ title: 'Kubernetes Application Survey 2018 Results'
 author: mattfarina
 date: 2018-04-24
 slug: kubernetes-application-survey-results-2018
-date: 2018-04-24
 ---
 
 Understanding how people use or want to use Kubernetes can help us shape everything from what we build to how we do it. To help us understand how application developers, application operators, and ecosystem tool developers are using and want to use Kubernetes, the Application Definition Working Group recently performed a survey. The survey focused in on these types of user roles and the features and sub-projects owned by the Kubernetes organization. That included kubectl, Dashboard, Minikube, Helm, the Workloads API, etc.

@@ -1,9 +1,4 @@
 <!--
-Output shell completion code for the specified shell (bash or zsh)
--->
-为指定的 Shell（Bash 或 Zsh）输出 Shell 补全代码。
-
-<!--
 ### Synopsis
 -->
 ### 概要
@@ -36,8 +31,8 @@ following line to the .bash_profile
 brew install bash-completion
 ```
 
-安装后，必须激活 bash_completion。
-这可以通过在 .bash_profile 文件中添加下面的命令行来完成：
+安装后，必须激活 `bash_completion`。
+这可以通过在 `.bash_profile` 文件中添加下面的命令行来完成：
 
 ```bash
 source $(brew --prefix)/etc/bash_completion
@@ -54,7 +49,7 @@ Note for zsh users: [1] zsh completions are only supported in versions of zsh &g
 -->
 Zsh 用户注意事项：[1] Zsh 自动补全仅在 v5.2 及以上版本中支持。
 
-```
+```shell
 kubeadm completion SHELL [flags]
 ```
 

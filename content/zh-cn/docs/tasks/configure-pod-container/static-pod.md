@@ -313,7 +313,7 @@ You can see the mirror Pod on the API server:
 kubectl get pods
 ```
 
-```
+```console
 NAME                  READY   STATUS    RESTARTS        AGE
 static-web-my-node1   1/1     Running   0               2m
 ```
@@ -344,7 +344,7 @@ the kubelet _doesn't_ remove the static Pod:
 kubectl delete pod static-web-my-node1
 ```
 
-```
+```console
 pod "static-web-my-node1" deleted
 ```
 
@@ -357,7 +357,7 @@ You can see that the Pod is still running:
 kubectl get pods
 ```
 
-```
+```console
 NAME                  READY   STATUS    RESTARTS   AGE
 static-web-my-node1   1/1     Running   0          4s
 ```
@@ -467,8 +467,8 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 * [Generate static Pod manifests for control plane components](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
-* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
-* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
+* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools)
+* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/)
 * [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 -->
 * [为控制面组件生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)

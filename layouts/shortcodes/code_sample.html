@@ -11,12 +11,13 @@
 {{/* Read the file relative to the content root. */}}
 {{ with readFile ($.Scratch.Get "filename")}}
 {{ $.Scratch.Set "content" . }}
-{{ end }}
+{{ else }}
 {{/* If not found, try the default language */}}
 {{ $defaultLang := (index (sort site.Languages "Weight") 0).Lang }}
 {{ with readFile (printf "/content/%s/examples/%s" $defaultLang $file) }}
 {{ $.Scratch.Set "content" . }}
 {{ $.Scratch.Set "filename" (printf "/content/%s/examples/%s" $defaultLang $file) }}
+{{ end }}
 {{ end }}
 {{ if not ($.Scratch.Get "content") }}
 {{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}

@@ -41,7 +41,7 @@ weight: 30
 
 이 문서의 예시에서는, 단순함을 위해, Redis의 단일 인스턴스를 시작한다.
 Redis를 확장 가능하고 중복적으로 배포하는 예에 대해서는
-[Redis 예시](https://github.com/kubernetes/examples/tree/master/guestbook)를 참고한다.
+[Redis 예시](https://github.com/kubernetes/examples/tree/master/web/guestbook/)를 참고한다.
 
 다음 파일을 직접 다운로드할 수도 있다.
 

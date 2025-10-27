@@ -140,7 +140,7 @@ Se sei interessato a saperne di più su `kubectl`, vai avanti e leggi [Panoramic
 
 Gli esempi che abbiamo utilizzato fino ad ora si applicano al massimo una singola etichetta a qualsiasi risorsa. Esistono molti scenari in cui è necessario utilizzare più etichette per distinguere i set l'uno dall'altro.
 
-Ad esempio, diverse applicazioni utilizzerebbero valori diversi per l'etichetta `app`, ma un'applicazione multilivello, come l'esempio [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/), avrebbe inoltre bisogno di distinguere ogni livello. Il frontend potrebbe contenere le seguenti etichette:
+Ad esempio, diverse applicazioni utilizzerebbero valori diversi per l'etichetta `app`, ma un'applicazione multilivello, come l'esempio [guestbook](https://github.com/kubernetes/examples/tree/master/web/guestbook/), avrebbe inoltre bisogno di distinguere ogni livello. Il frontend potrebbe contenere le seguenti etichette:
 
 ```yaml
      labels:
