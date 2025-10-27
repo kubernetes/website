@@ -635,14 +635,6 @@ section of the enhancement proposal about Pod topology spread constraints.
   You can work around this by using a Node autoscaler that is aware of
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
-- Node label typos can cause unexpected scheduling behavior. If a node has a typo
-  in its topology label (for example, `zon` instead of `zone`), the scheduler treats
-  that node as not having the topology key at all. This can result in:
-  - Pods failing to schedule with `UnschedulableAndUnresolvable` errors
-  - Uneven pod distribution that appears to violate spread constraints
-
-  Always verify that node labels exactly match the `topologyKey` specified in your
-  spread constraints.
 - Pods that don't match their own labelSelector create "ghost pods". If a pod's
   labels don't match the `labelSelector` in its topology spread constraint, the pod
   won't count itself in spread calculations. This means:
