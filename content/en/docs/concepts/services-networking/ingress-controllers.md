@@ -9,26 +9,34 @@ content_type: concept
 weight: 50
 ---
 
-{{< warning >}}
+{{< note >}}
 The Ingress API has been frozen.
-{{< /warning >}}
+
+This means that:
+* The Ingress API will not be removed.
+* The Ingress API is no longer being developed, and will have no further changes
+  or updates made to it.
+{{< /note >}}
 
 <!-- body -->
 
 <!-- overview -->
 
 ## Consider using Gateway API
-[Gateway API](/docs/concepts/services-networking/gateway/) is GA and includes
-many more features (and controllers). The following table highlights some of the
-differences between the APIs:
+[Gateway API](/docs/concepts/services-networking/gateway/) is stable and
+includes many more features (and controllers). The following table highlights
+some of the differences between the APIs. Note that many implementations extend
+these APIs with implementation-specific features, this table focuses on portable
+features that are included directly within each Kubernetes API:
 
-| | Ingress | Gateway API |
+{{< table caption = "Comparing Ingress API and Gateway API" >}}
+| | Ingress API | Gateway API |
 | - | - | - |
-| GA | ✅ Yes | ✅ Yes |
+| Stable (v1) | ✅ Yes | ✅ Yes |
 | Basic HTTP path matching | ✅ Yes | ✅ Yes |
 | Traffic Splitting | ❌ No | ✅ Yes |
-| More Protocols (gRPC, TLS) | ❌ No | ✅ Yes |
-| More Matchers (Headers, Query Params, Methods) | ❌ No | ✅ Yes |
+| Protocols | 🟡 HTTP(S) | ✅ HTTP(S), gRPC, TLS |
+| Advanced Matchers (Headers, Query Params, Methods) | ❌ No | ✅ Yes |
 | Redirects | ❌ No | ✅ Yes |
 | Rewrites | ❌ No | ✅ Yes |
 | TLS Validation | ❌ No | ✅ Yes |
@@ -37,18 +45,17 @@ differences between the APIs:
 | Service Mesh Support | ❌ No | ✅ Yes |
 | More Features in Development | ❌ No | ✅ Yes |
 | Conformance Tests | 🟡 Some | ✅ Thorough |
-| # of Implementations | ✅ [33](/docs/concepts/services-networking/ingress-controllers) | ✅ [34](https://gateway-api.sigs.k8s.io/implementations/) |
+| # of Implementations | ✅ [30+](/docs/concepts/services-networking/ingress-controllers) | ✅ [30+](https://gateway-api.sigs.k8s.io/implementations/) |
+{{</ table >}}
 
+## Ingress controllers
 
-## Ingress Controllers
-
-Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme), and
-  [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) ingress controllers.
+Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), and [GCE](https://git.k8s.io/ingress-gce/README.md#readme) ingress controllers.
 
 
 <!-- body -->
 
-## Additional Controllers
+## Additional controllers
 
 {{% thirdparty-content %}}
 
