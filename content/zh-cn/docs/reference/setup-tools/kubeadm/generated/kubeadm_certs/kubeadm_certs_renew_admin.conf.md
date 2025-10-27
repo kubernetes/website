@@ -1,8 +1,3 @@
-<!-- 
-Renew the certificate embedded in the kubeconfig file for the admin to use and for kubeadm itself 
--->
-续订 kubeconfig 文件中嵌入的证书，供管理员和 kubeadm 自身使用。
-
 <!--
 ### Synopsis
 -->
@@ -16,20 +11,23 @@ Renew the certificate embedded in the kubeconfig file for the admin to use and f
 <!--
 Renewals run unconditionally, regardless of certificate expiration date; extra attributes such as SANs will be based on the existing file/certificates, there is no need to resupply them.
 -->
-无论证书的到期日期如何，续订都是无条件进行的；SAN 等额外属性将基于现有文件/证书，因此无需重新提供它们。
+无论证书的到期日期如何，续订都是无条件进行的；SAN
+等额外属性将基于现有文件/证书，因此无需重新提供它们。
 
 <!--
 Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
 -->
-默认情况下，续订会尝试使用由 kubeadm 管理的本地 PKI 中的证书机构；作为替代方案，
-也可以使用 K8s 证书 API 进行证书续订，或者（作为最后一种选择）生成 CSR 请求。
+默认情况下，续订会尝试使用由 kubeadm 管理的本地 PKI 中的证书机构；
+作为替代方案，也可以使用 K8s 证书 API 进行证书续订，
+或者（作为最后一种选择）生成 CSR 请求。
 
 <!--
 After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 -->
-续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，以防证书文件在其他地方使用。
+续订后，为了使更改生效，需要重新启动控制平面组件，并最终重新分发更新的证书，
+以防证书文件在其他地方使用。
 
-```
+```shell
 kubeadm certs renew admin.conf [flags]
 ```
 
@@ -38,7 +36,7 @@ kubeadm certs renew admin.conf [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -55,10 +53,12 @@ kubeadm certs renew admin.conf [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>The path where to save the certificates</p>
+The path where to save the certificates
 -->
-<p>保存证书的路径。</p>
+保存证书的路径。
+</p>
 </td>
 </tr>
 
@@ -67,10 +67,12 @@ kubeadm certs renew admin.conf [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>Path to a kubeadm configuration file.</p>
+Path to a kubeadm configuration file.
 -->
-<p>到 kubeadm 配置文件的路径。</p>
+到 kubeadm 配置文件的路径。
+</p>
 </td>
 </tr>
 
@@ -79,10 +81,12 @@ kubeadm certs renew admin.conf [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>help for admin.conf</p>
+help for admin.conf
 -->
-<p>admin.conf 操作的帮助命令。</p>
+admin.conf 操作的帮助命令。
+</p>
 </td>
 </tr>
 
@@ -106,10 +110,12 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Use the Kubernetes certificate API to renew certificates
 -->
 使用 Kubernetes 证书 API 续订证书。
+</p>
 </td>
 </tr>
 
@@ -121,7 +127,7 @@ Use the Kubernetes certificate API to renew certificates
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -133,10 +139,12 @@ Use the Kubernetes certificate API to renew certificates
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
+[实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 
