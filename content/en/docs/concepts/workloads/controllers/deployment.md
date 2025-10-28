@@ -335,7 +335,7 @@ until the `terminationGracePeriodSeconds` of the terminating Pods expires.
 
 Each time a new Deployment is observed by the Deployment controller, a ReplicaSet is created to bring up
 the desired Pods. If the Deployment is updated, the existing ReplicaSet that controls Pods whose labels
-match `.spec.selector` but whose template does not match `.spec.template` are scaled down. Eventually, the new
+match `.spec.selector` but whose template does not match `.spec.template` is scaled down. Eventually, the new
 ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 
 If you update a Deployment while an existing rollout is in progress, the Deployment creates a new ReplicaSet
