@@ -208,13 +208,13 @@ my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
 <!--
-With the above commands, first you create resources under `examples/application/nginx/` and print
+With the above commands, first you create resources under `docs/concepts/cluster-administration/nginx/` and print
 the resources created with `-o name` output format (print each resource as resource/name).
 Then you `grep` only the Service, and then print it with [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
 -->
-使用上面的命令，首先会创建 `examples/application/nginx/` 目录下的资源，
+使用上面的命令，首先会创建 `docs/concepts/cluster-administration/nginx/` 目录下的资源，
 然后使用 `-o name` 输出格式打印创建的资源（以 resource/name 格式打印）。
-然后 `grep` 筛选出 Service，再用 [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/) 打印。
+然后 `grep` 筛选出 Service，再用 [`kubectl get`](/zh-cn/docs/reference/kubectl/generated/kubectl_get/) 打印。
 
 <!--
 ### Recursive operations on local files
@@ -601,7 +601,7 @@ Now you only have one pod managed by the deployment.
 现在，你的 Deployment 只管理一个 Pod。
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none
