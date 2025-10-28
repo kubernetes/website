@@ -466,3 +466,4 @@
 /blog/2025/09/23/introducing-headlamp-plugin-for-karpenter/ /blog/2025/10/06/introducing-headlamp-plugin-for-karpenter/ 301
 
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302
+/docs/concepts/architecture/cri/   /docs/concepts/containers/cri/   301
