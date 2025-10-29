@@ -30,7 +30,7 @@ weight: 40
 kubeadmをアップグレードします。
 
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{% tab name="Ubuntu、Debian、またはHypriotOS" %}}
 ```shell
 #「{{< skew currentVersion >}}.x-*」の「x」は最新のパッチバージョンに置き換えてください。
 sudo apt-mark unhold kubeadm && \
