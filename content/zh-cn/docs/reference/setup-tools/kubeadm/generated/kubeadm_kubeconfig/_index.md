@@ -1,14 +1,10 @@
 <!--
-Kubeconfig file utilities
-
 ### Synopsis
 
 Kubeconfig file utilities.
 
 ### Options
 -->
-kubeconfig 文件工具。
-
 ### 概要
 
 kubeconfig 文件工具。
