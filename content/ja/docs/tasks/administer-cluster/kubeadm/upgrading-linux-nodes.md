@@ -38,7 +38,7 @@ sudo apt-get update && sudo apt-get install -y kubeadm='{{< skew currentVersion 
 sudo apt-mark hold kubeadm
 ```
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="CentOS、RHEL、またはFedora" %}}
 DNFを搭載したシステムの場合:
 ```shell
 #「{{< skew currentVersion >}}.x-*」の「x」は最新のパッチバージョンに置き換えてください。
