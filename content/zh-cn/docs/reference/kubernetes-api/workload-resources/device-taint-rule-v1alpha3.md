@@ -55,9 +55,9 @@ DeviceTaintRule 添加一个污点到与选择算符匹配的所有设备上。
 
 - **spec** (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRuleSpec" >}}">DeviceTaintRuleSpec</a>)，必需
 
-  spec 指定选择算符和一个污点。
+  `spec` 指定选择算符和一个污点。
 
-  自动更改 spec 会让 metadata.generation 数值加一。
+  自动更改 `spec` 会让 `metadata.generation` 数值加一。
 
 ## DeviceTaintRuleSpec {#DeviceTaintRuleSpec}
 
@@ -87,10 +87,6 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
   - **taint.effect** (string), required
 
     The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them. Valid effects are NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here.
-
-  - **taint.key** (string), required
-
-    The taint key to be applied to a device. Must be a label name.
   -->
 
   - **taint.effect** (string)，必需
@@ -98,6 +94,25 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
     对不容忍此污点的申领及使用此申领的 Pod 所产生的影响。
     有效值包括 `NoSchedule` 和 `NoExecute`。
     节点上常用的 `PreferNoSchedule` 在此无效。
+
+    <!--
+    Possible enum values:
+     - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+     - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
+    -->
+  
+    可能的枚举值：
+  
+      - `"NoExecute"` 驱逐所有已经运行且不容忍设备污点的 Pod。
+      - `"NoSchedule"` 不允许调度新的、使用存在污点设备的 Pod，除非它们能容忍该污点，
+        但允许所有直接提交给 kubelet 而不通过调度器的 Pod 启动，
+        并允许所有已经在运行的 Pod 继续运行。
+
+  <!--
+  - **taint.key** (string), required
+
+    The taint key to be applied to a device. Must be a label name.
+  -->
 
   - **taint.key** (string)，必需
 
@@ -118,11 +133,11 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
   - **taint.timeAdded** (Time)
 
-    timeAdded 表示添加污点的时间。如果未设置，意味着在创建或更新期间自动添加。
+    `timeAdded` 表示添加污点的时间。如果未设置，意味着在创建或更新期间自动添加。
 
     <a name="Time"></a>
-    **Time 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
-    time 包的许多工厂方法提供了包装器。**
+    **`Time` 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
+    `time` 包的许多工厂方法提供了包装器。**
 
   - **taint.value** (string)
 
@@ -131,19 +146,19 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 <!--
 - **deviceSelector** (DeviceTaintSelector)
 
-  DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+  DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
 
   <a name="DeviceTaintSelector"></a>
   *DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.*
 -->
 - **deviceSelector** (DeviceTaintSelector)
 
-  deviceSelector 定义污点应用到哪些设备上。
+  `deviceSelector` 定义污点应用到哪些设备上。
   对于要匹配的设备，必须满足所有选择算符条件。
   空选择算符匹配所有设备。如果没有选择算符，则不匹配任何设备。
 
   <a name="DeviceTaintSelector"></a>
-  **DeviceTaintSelector 定义 DeviceTaintRule 应用到哪些设备。
+  **`DeviceTaintSelector` 定义 `DeviceTaintRule` 应用到哪些设备。
   空选择算符匹配所有设备。如果没有选择算符，则不匹配任何设备。**
 
   <!--
@@ -160,14 +175,14 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
   - **deviceSelector.device** (string)
 
-    如果设置了 device，则仅选择具有该名称的设备。
+    如果设置了 `device`，则仅选择具有该名称的设备。
     此字段对应 `slice.spec.devices[].name`。
     
-    为避免歧义，也可以设置 driver 和 pool，但不是必需的。
+    为避免歧义，也可以设置 `driver` 和 `pool`，但不是必需的。
 
   - **deviceSelector.deviceClassName** (string)
 
-    如果设置了 deviceClassName，则设备必须满足其中定义的选择算符条件才会被选中。
+    如果设置了 `deviceClassName`，则设备必须满足其中定义的选择算符条件才会被选中。
     此字段对应 `class.metadata.name`。
 
   <!--
@@ -184,14 +199,14 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
   - **deviceSelector.driver** (string)
 
-    如果设置了 driver，则仅选择来自该驱动的设备。此字段对应于 `slice.spec.driver`。
+    如果设置了 `driver`，则仅选择来自该驱动的设备。此字段对应于 `slice.spec.driver`。
 
   - **deviceSelector.pool** (string)
 
-    如果设置了 pool，则仅选择属于该资源池的设备。
+    如果设置了 `pool`，则仅选择属于该资源池的设备。
   
-    同时设置 driver 名称可能有助于避免不同驱动使用相同的池名称所带来的歧义，但这不是必需的。
-    因为从不同驱动中选择池也是有意义的，例如当使用节点本地设备的驱动以节点名称作为 pool 名称时。
+    同时设置 `driver` 名称可能有助于避免不同驱动使用相同的池名称所带来的歧义，但这不是必需的。
+    因为从不同驱动中选择池也是有意义的，例如当使用节点本地设备的驱动以节点名称作为 `pool` 名称时。
 
   <!--
   - **deviceSelector.selectors** ([]DeviceSelector)
@@ -208,11 +223,11 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
     **原子性：将在合并期间被替换**
 
-    selectors 包含与 ResourceClaim 相同的选择条件。目前支持 CEL 表达式。
-    必须满足所有这些选择算符。
+    `selectors` 包含与 ResourceClaim 相同的选择条件。
+    目前支持 CEL 表达式。必须满足所有这些选择算符。
 
     <a name="DeviceSelector"></a>
-    **DeviceSelector 必须有且仅有一个字段被设置。**
+    **`DeviceSelector` 必须有且仅有一个字段被设置。**
 
     <!--
     - **deviceSelector.selectors.cel** (CELDeviceSelector)
@@ -225,10 +240,10 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
     - **deviceSelector.selectors.cel** (CELDeviceSelector)
 
-      cel 包含一个用于选择设备的 CEL 表达式。
+      `cel` 包含一个用于选择设备的 CEL 表达式。
 
       <a name="CELDeviceSelector"></a>
-      **CELDeviceSelector 包含一个用于选择设备的 CEL 表达式。**
+      **`CELDeviceSelector` 包含一个用于选择设备的 CEL 表达式。**
 
       <!--
       - **deviceSelector.selectors.cel.expression** (string), required
@@ -238,9 +253,9 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
       - **deviceSelector.selectors.cel.expression** (string)，必需
 
-        expression 是一个 CEL 表达式，用于评估单个设备。
-        当被考虑的设备满足所需条件时，表达式的求值结果必须为 true；当不满足时，结果应为 false。
-        任何其他结果都是错误，会导致设备分配中止。
+        `expression` 是一个 CEL 表达式，用于评估单个设备。
+        当被考虑的设备满足所需条件时，表达式的求值结果必须为 `true`；当不满足时，
+        结果应为 `false`。任何其他结果都是错误，会导致设备分配中止。
 
         <!--
         The expression's input is an object named "device", which carries the following properties:
@@ -253,17 +268,19 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
         表达式的输入是一个名为 "device" 的对象，具有以下属性：
 
-        - driver (string)：定义此设备的驱动的名称。
-        - attributes (map[string]object)：设备的属性，按前缀分组
-          （例如，device.attributes["dra.example.com"] 评估为一个对象，包含所有以 "dra.example.com" 为前缀的属性。）
-        - capacity (map[string]object)：设备的容量，按前缀分组。
+        - `driver` (string)：定义此设备的驱动的名称。
+        - `attributes` (map[string]object)：设备的属性，按前缀分组
+          （例如，`device.attributes["dra.example.com"]` 评估为一个对象，包含所有以
+          "dra.example.com" 为前缀的属性。）
+        - `capacity` (map[string]object)：设备的容量，按前缀分组。
         
         <!--
         Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
         -->
 
         示例：考虑一个驱动为 "dra.example.com" 的设备，它暴露两个名为 "model" 和
-        "ext.example.com/family" 的属性，并且暴露一个名为 "modules" 的容量。此表达式的输入将具有以下字段：
+        "ext.example.com/family" 的属性，并且暴露一个名为 "modules" 的容量。
+        此表达式的输入将具有以下字段：
 
         ```
         device.driver
@@ -281,8 +298,8 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
         `device.driver` 字段可用于检查特定驱动，既可以作为高层次的前提条件（即你只想考虑来自此驱动的设备），
         也可以作为考虑来自不同驱动的设备的多子句表达式的一部分。
 
-        attribute 中每个元素的值类型由设备定义，编写这些表达式的用户必须查阅其特定驱动的文档。
-        capacity 中元素的值类型为 Quantity。
+        `attribute` 中每个元素的值类型由设备定义，编写这些表达式的用户必须查阅其特定驱动的文档。
+        `capacity` 中元素的值类型为 Quantity。
 
         <!--
         If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
@@ -297,7 +314,8 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
         一个健壮的表达式应在引用属性之前检查其是否存在。
 
-        为了方便使用，`cel.bind()` 函数被启用，此函数可用于简化访问同一域的多个属性的表达式。例如：
+        为了方便使用，`cel.bind()` 函数被启用，此函数可用于简化访问同一域的多个属性的表达式。
+        例如：
 
         ```
         cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
@@ -337,7 +355,7 @@ DeviceTaintRuleList 是 DeviceTaintRules 的集合。
 
 - **items** ([]<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRule" >}}">DeviceTaintRule</a>)，必需
 
-  items 是 DeviceTaintRules 的列表。
+  `items` 是 DeviceTaintRules 的列表。
 
 <!--
 ## Operations {#Operations}
