@@ -75,7 +75,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 1. kubeletとkubectlをアップグレードします。
 
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
-   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+   {{% tab name="Ubuntu、Debian、またはHypriotOS" %}}
    ```shell
    #「{{< skew currentVersion >}}.x-*」の「x」は最新のパッチバージョンに置き換えてください。
    sudo apt-mark unhold kubelet kubectl && \
