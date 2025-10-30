@@ -120,6 +120,15 @@ The output is similar to this:
 ```
 
 <!--
+To print a kubeadm join command while also generating a new token you can use:
+-->
+可以使用以下命令打印 kubeadm join 命令，并生成新的令牌：
+
+```bash
+sudo kubeadm token create --print-join-command
+```
+
+<!--
 If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
 following commands on the control plane node:
 -->

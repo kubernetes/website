@@ -61,7 +61,10 @@ In runc document, Kernel older than 5.2 is not recommended due to lack of freeze
 
 ## Pressure Stall Information (PSI) {#requirements-psi}
 
-[Pressure Stall Information](/docs/reference/instrumentation/node-metrics#psi) is supported in Linux kernel versions 4.20 and up.
+[Pressure Stall Information](/docs/reference/instrumentation/understand-psi-metrics/) is supported in Linux kernel versions 4.20 and up, but requires the following configuration:
+
+- The kernel must be compiled with the `CONFIG_PSI=y` option. Most modern distributions enable this by default. You can check your kernel's configuration by running `zgrep CONFIG_PSI /proc/config.gz`.
+- Some Linux distributions may compile PSI into the kernel but disable it by default. If so, you need to enable it at boot time by adding the `psi=1` parameter to the kernel command line.
 
 ## Other kernel requirements {#requirements-other}
 

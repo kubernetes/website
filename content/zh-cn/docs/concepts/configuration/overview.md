@@ -54,11 +54,11 @@ to others, please don't hesitate to file an issue or submit a PR.
 <!--
 - Group related objects into a single file whenever it makes sense. One file is often easier to
   manage than several. See the
-  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml)
+  [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml)
   file as an example of this syntax.
 -->
 - 只要有意义，就将相关对象分组到一个文件中。一个文件通常比几个文件更容易管理。
-  请参阅 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml)
+  请参阅 [guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml)
   文件作为此语法的示例。
 
 <!--
@@ -232,7 +232,7 @@ for a comprehensive list.
   MyApp, tier: frontend, phase: test, deployment: v3 }`. You can use these labels to select the
   appropriate Pods for other resources; for example, a Service that selects all `tier: frontend`
   Pods, or all `phase: test` components of `app.kubernetes.io/name: MyApp`.
-  See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app
+  See the [guestbook](https://github.com/kubernetes/examples/tree/master/web/guestbook/) app
   for examples of this approach.
 
   A Service can be made to span multiple Deployments by omitting release-specific labels from its
@@ -247,7 +247,7 @@ for a comprehensive list.
   或 Deployment 的**语义属性**，例如 `{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`。
   你可以使用这些标签为其他资源选择合适的 Pod；
   例如，一个选择所有 `tier: frontend` Pod 的服务，或者 `app.kubernetes.io/name: MyApp` 的所有 `phase: test` 组件。
-  有关此方法的示例，请参阅 [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) 。
+  有关此方法的示例，请参阅 [guestbook](https://github.com/kubernetes/examples/tree/master/web/guestbook/) 。
 
   通过从选择器中省略特定发行版的标签，可以使服务跨越多个 Deployment。
   当你需要不停机的情况下更新正在运行的服务，可以使用 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)。

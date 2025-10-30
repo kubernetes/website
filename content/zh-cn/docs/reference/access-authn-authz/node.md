@@ -55,15 +55,9 @@ Read operations:
 {{< feature-state feature_gate_name="AuthorizeNodeWithSelectors" >}}
 
 <!--
-When the `AuthorizeNodeWithSelectors` feature is enabled
-(along with the pre-requisite `AuthorizeWithSelectors` feature),
-kubelets are only allowed to read their own Node objects,
-and are only allowed to read pods bound to their node.
+Kubelets are limited to reading their own Node objects, and only reading pods bound to their node.
 -->
-当启用 `AuthorizeNodeWithSelectors` 特性
-（以及作为先决条件的 `AuthorizeWithSelectors` 特性）时，
-kubelet 只允许读取它们自己的 Node 对象，
-并且只允许读取绑定到其节点的 Pod。
+kubelet 仅限于读取自己的节点对象，以及与节点绑定的 Pod。
 
 <!--
 Write operations:

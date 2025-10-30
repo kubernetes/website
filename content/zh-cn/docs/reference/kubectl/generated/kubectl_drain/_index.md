@@ -48,18 +48,20 @@ kubectl drain NODE
 
 <!--
 ```
-  # Drain node "foo", even if there are pods not managed by a replication controller, replica set, job, daemon set, or stateful set on it
-  kubectl drain foo --force
-  
-  # As above, but abort if there are pods not managed by a replication controller, replica set, job, daemon set, or stateful set, and use a grace period of 15 minutes
-  kubectl drain foo --grace-period=900
+# Drain node "foo", even if there are pods not managed by a replication controller, replica set, job, daemon set, or stateful set on it
+kubectl drain foo --force
+
+# As above, but abort if there are pods not managed by a replication controller, replica set, job, daemon set, or stateful set, and use a grace period of 15 minutes
+kubectl drain foo --grace-period=900
 ```
 -->
 ```shell
-# 腾空节点 "foo"，即使上面有不受 ReplicationController、ReplicaSet、Job、DaemonSet 或 StatefulSet 管理的 Pod
+# 腾空节点 "foo"，即使上面有不受 ReplicationController、ReplicaSet、Job、DaemonSet
+# 或 StatefulSet 管理的 Pod
 kubectl drain foo --force
-  
-# 与上条命令类似，但如果存在不受 ReplicationController、ReplicaSet、Job、DaemonSet 或 StatefulSet 管理的 Pod，则中止，并使用 15 分钟的宽限期
+
+# 与上条命令类似，但如果存在不受 ReplicationController、ReplicaSet、Job、DaemonSet
+# 或 StatefulSet 管理的 Pod，则中止，并使用 15 分钟的宽限期
 kubectl drain foo --grace-period=900
 ```
 
@@ -76,13 +78,15 @@ kubectl drain foo --grace-period=900
 <td colspan="2">--chunk-size int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：500</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Return large lists in chunks rather than all at once. Pass 0 to disable. This flag is beta and may change in the future.
 -->
 以块的形式返回大的列表，而不是一次性全部返回。设为 0 表示禁用。
 此标志处于 Beta 阶段，未来可能会有变更。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -95,7 +99,8 @@ Return large lists in chunks rather than all at once. Pass 0 to disable. This fl
 Continue even if there are pods using emptyDir (local data that will be deleted when the node is drained).
 -->
 即使存在使用 emptyDir（腾空节点时将被删除的本地数据）的 Pod，也要继续。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -109,20 +114,23 @@ Force drain to use delete, even if eviction is supported. This will bypass check
 -->
 强制使用删除操作来进行节点腾空，即使系统支持驱逐操作。
 这种设置将绕过检查 PodDisruptionBudget 约束，请谨慎使用。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -135,7 +143,8 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Continue even if there are pods that do not declare a controller.
 -->
 即使存在未声明控制器的 Pod，也要继续。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -148,7 +157,8 @@ Continue even if there are pods that do not declare a controller.
 Period of time in seconds given to each pod to terminate gracefully. If negative, the default value specified in the pod will be used.
 -->
 给予每个 Pod 体面终止的时间段长度（以秒为单位）。如果为负，则将使用 Pod 中指定的默认值。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -161,7 +171,8 @@ Period of time in seconds given to each pod to terminate gracefully. If negative
 help for drain
 -->
 关于 drain 的帮助信息。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -174,7 +185,8 @@ help for drain
 Ignore DaemonSet-managed pods.
 -->
 忽略 DaemonSet 所控制的 Pod。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -187,21 +199,24 @@ Ignore DaemonSet-managed pods.
 Label selector to filter pods on the node
 -->
 用于过滤节点上 Pod 的标签选择器。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-l, --selector string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the specified label constraints.
 -->
 过滤所用的选择算符（标签查询），支持 '='、'=='、'!='、'in' 和 'notin'。
 （例如 <code>-l key1=value1,key2=value2,key3 in (value3)</code>）。
 匹配的对象必须满足所有指定的标签约束。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -215,7 +230,8 @@ If pod DeletionTimestamp older than N seconds, skip waiting for the pod.  Second
 -->
 如果 Pod 的 DeletionTimestamp 比当前时间早 N 秒，那么跳过等待该 Pod 的过程。
 秒数必须大于 0 才能跳过等待。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
@@ -228,7 +244,8 @@ If pod DeletionTimestamp older than N seconds, skip waiting for the pod.  Second
 The length of time to wait before giving up, zero means infinite
 -->
 在放弃之前等待的时间长度，为 0 表示无限等待。
-</p></td>
+</p>
+</td>
 </tr>
 
 </tbody>
@@ -346,7 +363,8 @@ TLS 客户端密钥文件的路径。
 </tr>
 <tr>
 <td>
-</td><td style="line-height: 130%; word-wrap: break-word;"><p>
+</td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
 The name of the kubeconfig cluster to use
 -->
@@ -365,34 +383,6 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
-</p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
--->
-设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
 </p>
 </td>
 </tr>
@@ -435,6 +425,21 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
+-->
+用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
+特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
 </p>
 </td>
 </tr>

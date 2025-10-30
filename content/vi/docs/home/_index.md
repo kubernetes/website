@@ -10,10 +10,8 @@ weight: 10
 hide_feedback: true
 menu:
   main:
-    title: "Tài liệu tham khảo"
-    weight: 20
-    post: >
-      <p>Tìm hiểu cách sử dụng Kubernetes với mức khái niệm, các hướng dẫn và tài liệu tham khảo. Bạn thậm chí có thể <a href="/editdocs/" data-auto-burger-exclude>đóng góp cho các tài liệu</a>!</p>
+    title: "Tài liệu"
+    weight: 10
 overview: >
   Kubernetes là một công cụ điều phối container mã nguồn mở giúp tự động hóa triển khai, nhân rộng và quản lý các ứng dụng containerization. Dự án mã nguồn mở được host bởi Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:

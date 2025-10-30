@@ -145,6 +145,11 @@ Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
     - **subsets.ports.protocol** (string)
 
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+      
+      Possible enum values:
+       - `"SCTP"` is the SCTP protocol.
+       - `"TCP"` is the TCP protocol.
+       - `"UDP"` is the UDP protocol.
 
     - **subsets.ports.name** (string)
 

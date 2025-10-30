@@ -79,7 +79,7 @@ external IP address.
 
    {{< note >}}
 
-   The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
+   The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example. Please refer to [setting `type: LoadBalancer` for your Service](/docs/concepts/services-networking/service/#loadbalancer) for the details.
 
    {{< /note >}}
 
@@ -153,7 +153,7 @@ external IP address.
 
    The response to a successful request is a hello message:
 
-   ```shell
+   ```console
    Hello, world!
    Version: 2.0.0
    Hostname: 0bd46b45f32f

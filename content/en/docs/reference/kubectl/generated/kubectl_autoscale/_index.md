@@ -27,7 +27,7 @@ Creates an autoscaler that automatically chooses and sets the number of pods tha
  Looks up a deployment, replica set, stateful set, or replication controller by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.
 
 ```
-kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]
+kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu=CPU] [--memory=MEMORY]
 ```
 
 ## {{% heading "examples" %}}
@@ -37,7 +37,13 @@ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MA
   kubectl autoscale deployment foo --min=2 --max=10
   
   # Auto scale a replication controller "foo", with the number of pods between 1 and 5, target CPU utilization at 80%
-  kubectl autoscale rc foo --max=5 --cpu-percent=80
+  kubectl autoscale rc foo --max=5 --cpu=80%
+  
+  # Auto scale a deployment "bar", with the number of pods between 3 and 6, target average CPU of 500m and memory of 200Mi
+  kubectl autoscale deployment bar --min=3 --max=6 --cpu=500m --memory=200Mi
+  
+  # Auto scale a deployment "bar", with the number of pods between 2 and 8, target CPU utilization 60% and memory utilization 70%
+  kubectl autoscale deployment bar --min=3 --max=6 --cpu=60% --memory=70%
 ```
 
 ## {{% heading "options" %}}
@@ -57,10 +63,10 @@ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MA
 </tr>
 
 <tr>
-<td colspan="2">--cpu-percent int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: -1</td>
+<td colspan="2">--cpu string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The target average CPU utilization (represented as a percent of requested CPU) over all the pods. If it's not specified or negative, a default autoscaling policy will be used.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Target CPU utilization over all the pods. When specified as a percentage (e.g.&quot;70%&quot; for 70% of requested CPU) it will target average utilization. When specified as quantity (e.g.&quot;500m&quot; for 500 milliCPU) it will target average value. Value without units is treated as a quantity with miliCPU being the unit (e.g.&quot;500&quot; is &quot;500m&quot;).</p></td>
 </tr>
 
 <tr>
@@ -103,6 +109,13 @@ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MA
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The upper limit for the number of pods that can be set by the autoscaler. Required.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--memory string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Target memory utilization over all the pods. When specified  as a percentage (e.g.&quot;60%&quot; for 60% of requested memory) it will target average utilization. When specified as quantity (e.g.&quot;200Mi&quot; for 200 MiB, &quot;1Gi&quot; for 1 GiB) it will target average value. Value without units is treated as a quantity with mebibytes being the unit (e.g.&quot;200&quot; is &quot;200Mi&quot;).</p></td>
 </tr>
 
 <tr>
@@ -232,20 +245,6 @@ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MA
 </tr>
 
 <tr>
-<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 300</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.</p></td>
-</tr>
-
-<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
@@ -264,6 +263,13 @@ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MA
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kubeconfig file to use for CLI requests.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--kuberc string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.</p></td>
 </tr>
 
 <tr>
