@@ -512,6 +512,11 @@ Follow the steps given below to check the rollout history:
 
    * Annotating the Deployment with `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
    * Manually editing the manifest of the resource.
+   * Using tooling that sets the annotation automatically.
+
+   {{< note >}}
+   In older versions of Kubernetes, you could use the `--record` flag with kubectl commands to automatically populate the `CHANGE-CAUSE` field. This flag is deprecated and will be removed in a future release.
+   {{< /note >}}
 
 2. To see the details of each revision, run:
    ```shell
