@@ -322,7 +322,7 @@ kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 Або ви можете використовувати команду `kubectl autoscale` для досягнення того ж самого (і це простіше!)
 
 ```shell
-kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 ```
 
 ## Альтернативи ReplicaSet {#alternatives-to-replicaset}

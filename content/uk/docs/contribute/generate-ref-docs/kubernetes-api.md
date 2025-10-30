@@ -33,8 +33,12 @@ export GOPATH=$HOME/<workspace>
 Отримайте локальну копію наступних репозиторіїв:
 
 ```shell
-go get -u github.com/kubernetes-sigs/reference-docs
+git clone github.com/kubernetes-sigs/reference-docs
+```
 
+Перейдіть до теки `gen-apidocs` репозиторію `reference-docs` та встановіть необхідні пакунки Go:
+
+```shell
 go get -u github.com/go-openapi/loads
 go get -u github.com/go-openapi/spec
 ```
@@ -42,20 +46,20 @@ go get -u github.com/go-openapi/spec
 Якщо у вас ще немає репозиторію kubernetes/website, отримайте його зараз:
 
 ```shell
-git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
+git clone https://github.com/<your-username>/website
 ```
 
-Отримайте копію репозиторію kubernetes/kubernetes як k8s.io/kubernetes:
+Отримайте копію репозиторію kubernetes/kubernetes:
 
 ```shell
-git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
+git clone https://github.com/kubernetes/kubernetes
 ```
 
-* Основна тека вашої копії [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) репозиторію є `$GOPATH/src/k8s.io/kubernetes`. Подальші кроки використовують цю основну директорію як `<k8s-base>`.
+* Основна тека вашої копії [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) репозиторію є `<your-path-to>/kubernetes/kubernetes`. Подальші кроки використовують цю основну директорію як `<k8s-base>`.
 
-* Основна тека вашої копії [kubernetes/website](https://github.com/kubernetes/website) репозиторію є `$GOPATH/src/github.com/<your username>/website`. Подальші кроки використовують цю основну директорію як `<web-base>`.
+* Основна тека вашої копії [kubernetes/website](https://github.com/kubernetes/website) репозиторію є `<your-path-to>/website`. Подальші кроки використовують цю основну директорію як `<web-base>`.
 
-* Основна тека вашої копії [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) репозиторію є `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`. Подальші кроки використовують цю основну директорію як `<rdocs-base>`.
+* Основна тека вашої копії [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) репозиторію є `<your-path-to>/reference-docs`. Подальші кроки використовують цю основну директорію як `<rdocs-base>`.
 
 ## Генерація документації API {#generate-the-api-reference-docs}
 
@@ -70,8 +74,8 @@ git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
 Наприклад:
 
 ```shell
-export K8S_WEBROOT=${GOPATH}/src/github.com/<your-username>/website
-export K8S_ROOT=${GOPATH}/src/k8s.io/kubernetes
+export K8S_WEBROOT=<your-path-to>/website
+export K8S_ROOT=<your-path-to>/kubernetes
 export K8S_RELEASE=1.17.0
 ```
 
@@ -127,21 +131,13 @@ static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/navDat
 static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll.js
 ```
 
-## Оновлення індексних сторінок документації API {#update-the-api-reference-index-pages}
+## Розташування та версії довідки API {#api-reference-location-and-versioning}
 
-При генерації документації для нового релізу, оновіть файл `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` з новим номером версії.
+Створені файли довідки API (версія HTML) копіюються в `<web-base>/static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/`. Ця тека містить автономну документацію API у форматі HTML.
 
-* Відкрийте `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` для редагування, і оновіть номер версії документації API. Наприклад:
-
-  ```md
-  ---
-  title: v1.17
-  ---
-
-  [Kubernetes API v1.17](/docs/reference/generated/kubernetes-api/v1.17/)
-  ```
-
-* Відкрийте `<web-base>/content/en/docs/reference/_index.md` для редагування, і додайте нове посилання на найновішу документацію API. Видаліть найстаріше посилання на версію документації API. Має бути пʼять посилань на найновіші версії документації API.
+{{< note >}}
+Markdown-версія довідки API, розташована в `<web-base>/content/en/docs/reference/kubernetes-api/`, генерується окремо за допомогою генератора [gen-resourcesdocs](https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs).
+{{< /note >}}
 
 ## Локальне тестування документації API {#locally-test-the-api-reference}
 

@@ -375,7 +375,7 @@ kube-controller-manager [flags]
       </tr>
       <tr>
          <td></td>
-         <td style="line-height: 130%; word-wrap: break-word;"><p>Перелік контролерів для ввімкнення. '*' вмикає всі типово визначені контролери, 'foo' вмикає контролер з назвою 'foo', '-foo' вимикає контролер з назвою 'foo'.<br/>Всі контролери: bootstrap-signer-controller, certificatesigningrequest-approving-controller, certificatesigningrequest-cleaner-controller, certificatesigningrequest-signing-controller, cloud-node-lifecycle-controller, clusterrole-aggregation-controller, cronjob-controller, daemonset-controller, deployment-controller, device-taint-eviction-controller, disruption-controller, endpoints-controller, endpointslice-controller, endpointslice-mirroring-controller, ephemeral-volume-controller, garbage-collector-controller, horizontal-pod-autoscaler-controller, job-controller, kube-apiserver-serving-clustertrustbundle-publisher-controller, legacy-serviceaccount-token-cleaner-controller, namespace-controller, node-ipam-controller, node-lifecycle-controller, node-route-controller, persistentvolume-attach-detach-controller, persistentvolume-binder-controller, persistentvolume-expander-controller, persistentvolume-protection-controller, persistentvolumeclaim-protection-controller, pod-garbage-collector-controller, replicaset-controller, replicationcontroller-controller, resourceclaim-controller, resourcequota-controller, root-ca-certificate-publisher-controller, selinux-warning-controller, service-cidr-controller, service-lb-controller, serviceaccount-controller, serviceaccount-token-controller, statefulset-controller, storage-version-migrator-controller, storageversion-garbage-collector-controller, taint-eviction-controller, token-cleaner-controller, ttl-after-finished-controller, ttl-controller, validatingadmissionpolicy-status-controller, volumeattributesclass-protection-controller<br/>Стандартно вимкнені контролери: bootstrap-signer-controller, token-cleaner-controller</p></td>
+         <td style="line-height: 130%; word-wrap: break-word;"><p>Перелік контролерів для ввімкнення. '*' вмикає всі типово визначені контролери, 'foo' вмикає контролер з назвою 'foo', '-foo' вимикає контролер з назвою 'foo'.<br/>Всі контролери: bootstrap-signer-controller, certificatesigningrequest-approving-controller, certificatesigningrequest-cleaner-controller, certificatesigningrequest-signing-controller, cloud-node-lifecycle-controller, clusterrole-aggregation-controller, cronjob-controller, daemonset-controller, deployment-controller, device-taint-eviction-controller, disruption-controller, endpoints-controller, endpointslice-controller, endpointslice-mirroring-controller, ephemeral-volume-controller, garbage-collector-controller, horizontal-pod-autoscaler-controller, job-controller, kube-apiserver-serving-clustertrustbundle-publisher-controller, legacy-serviceaccount-token-cleaner-controller, namespace-controller, node-ipam-controller, node-lifecycle-controller, node-route-controller, persistentvolume-attach-detach-controller, persistentvolume-binder-controller, persistentvolume-expander-controller, persistentvolume-protection-controller, persistentvolumeclaim-protection-controller, pod-garbage-collector-controller, podcertificaterequest-cleaner-controller, replicaset-controller, replicationcontroller-controller, resourceclaim-controller, resourcequota-controller, root-ca-certificate-publisher-controller, selinux-warning-controller, service-cidr-controller, service-lb-controller, serviceaccount-controller, serviceaccount-token-controller, statefulset-controller, storage-version-migrator-controller, storageversion-garbage-collector-controller, taint-eviction-controller, token-cleaner-controller, ttl-after-finished-controller, ttl-controller, validatingadmissionpolicy-status-controller, volumeattributesclass-protection-controller<br/>Стандартно вимкнені контролери: bootstrap-signer-controller, token-cleaner-controller</p></td>
       </tr>
       <tr>
          <td colspan="2">--disable-attach-detach-reconcile-sync</td>
@@ -414,7 +414,7 @@ kube-controller-manager [flags]
          Якщо встановлено, компонент буде емулювати поведінку цієї версії замість базової двійкової версії.<br/>
          Формат версії може бути лише major.minor, наприклад: '--emulated-version=wardle=1.2,kube=1.31'.<br/>
          Можливі варіанти:<br/>
-         kube=1.31..1.33 (default=1.33) Якщо компонент не вказано, стандартно використовується &quot;kube&quot;</p></td>
+         kube=1.31..1.34 (default=1.34) Якщо компонент не вказано, стандартно використовується &quot;kube&quot;</p></td>
       </tr>
       <tr>
          <td colspan="2">--enable-dynamic-provisioning&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: true</td>
@@ -474,19 +474,16 @@ kube-controller-manager [flags]
          Якщо компонент не вказано, стандартно використовується &quot;kube&quot;. Цей прапорець можна викликати багаторазово. Наприклад: --feature-gates 'wardle:featureA=true,wardle:featureB=false' --feature-gates 'kube:featureC=true'. Можливі варіанти:<br/>
          kube:APIResponseCompression=true|false (BETA - default=true)<br/>
          kube:APIServerIdentity=true|false (BETA - default=true)<br/>
-         kube:APIServerTracing=true|false (BETA - default=true)<br/>
          kube:APIServingWithRoutine=true|false (ALPHA - default=false)<br/>
          kube:AllAlpha=true|false (ALPHA - default=false)<br/>
          kube:AllBeta=true|false (BETA - default=false)<br/>
          kube:AllowParsingUserUIDFromCertAuth=true|false (BETA - default=true)<br/>
          kube:AllowUnsafeMalformedObjectDeletion=true|false (ALPHA - default=false)<br/>
-         kube:AnonymousAuthConfigurableEndpoints=true|false (BETA - default=true)<br/>
-         kube:AuthorizeNodeWithSelectors=true|false (BETA - default=true)<br/>
-         kube:AuthorizeWithSelectors=true|false (BETA - default=true)<br/>
          kube:CBORServingAndStorage=true|false (ALPHA - default=false)<br/>
          kube:CPUManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
          kube:CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
          kube:CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
+         kube:ClearingNominatedNodeNameAfterBinding=true|false (ALPHA - default=false)<br/>
          kube:ClientsAllowCBOR=true|false (ALPHA - default=false)<br/>
          kube:ClientsPreferCBOR=true|false (ALPHA - default=false)<br/>
          kube:CloudControllerManagerWebhook=true|false (ALPHA - default=false)<br/>
@@ -495,104 +492,103 @@ kube-controller-manager [flags]
          kube:ComponentFlagz=true|false (ALPHA - default=false)<br/>
          kube:ComponentStatusz=true|false (ALPHA - default=false)<br/>
          kube:ConcurrentWatchObjectDecode=true|false (BETA - default=false)<br/>
-         kube:ConsistentListFromCache=true|false (BETA - default=true)<br/>
          kube:ContainerCheckpoint=true|false (BETA - default=true)<br/>
+         kube:ContainerRestartRules=true|false (ALPHA - default=false)<br/>
          kube:ContainerStopSignals=true|false (ALPHA - default=false)<br/>
          kube:ContextualLogging=true|false (BETA - default=true)<br/>
          kube:CoordinatedLeaderElection=true|false (BETA - default=false)<br/>
          kube:CrossNamespaceVolumeDataSource=true|false (ALPHA - default=false)<br/>
          kube:CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
-         kube:DRAAdminAccess=true|false (ALPHA - default=false)<br/>
+         kube:DRAAdminAccess=true|false (BETA - default=true)<br/>
+         kube:DRAConsumableCapacity=true|false (ALPHA - default=false)<br/>
+         kube:DRADeviceBindingConditions=true|false (ALPHA - default=false)<br/>
          kube:DRADeviceTaints=true|false (ALPHA - default=false)<br/>
+         kube:DRAExtendedResource=true|false (ALPHA - default=false)<br/>
          kube:DRAPartitionableDevices=true|false (ALPHA - default=false)<br/>
-         kube:DRAPrioritizedList=true|false (ALPHA - default=false)<br/>
+         kube:DRAPrioritizedList=true|false (BETA - default=true)<br/>
          kube:DRAResourceClaimDeviceStatus=true|false (BETA - default=true)<br/>
+         kube:DRASchedulerFilterTimeout=true|false (BETA - default=true)<br/>
          kube:DeclarativeValidation=true|false (BETA - default=true)<br/>
          kube:DeclarativeValidationTakeover=true|false (BETA - default=false)<br/>
          kube:DeploymentReplicaSetTerminatingReplicas=true|false (ALPHA - default=false)<br/>
-         kube:DisableAllocatorDualWrite=true|false (BETA - default=false)<br/>
+         kube:DetectCacheInconsistency=true|false (BETA - default=true)<br/>
          kube:DisableCPUQuotaWithExclusiveCPUs=true|false (BETA - default=true)<br/>
-         kube:DynamicResourceAllocation=true|false (BETA - default=false)<br/>
+         kube:EnvFiles=true|false (ALPHA - default=false)<br/>
          kube:EventedPLEG=true|false (ALPHA - default=false)<br/>
-         kube:ExternalServiceAccountTokenSigner=true|false (ALPHA - default=false)<br/>
+         kube:ExternalServiceAccountTokenSigner=true|false (BETA - default=true)<br/>
          kube:GracefulNodeShutdown=true|false (BETA - default=true)<br/>
          kube:GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - default=true)<br/>
          kube:HPAConfigurableTolerance=true|false (ALPHA - default=false)<br/>
          kube:HPAScaleToZero=true|false (ALPHA - default=false)<br/>
+         kube:HostnameOverride=true|false (ALPHA - default=false)<br/>
          kube:ImageMaximumGCAge=true|false (BETA - default=true)<br/>
          kube:ImageVolume=true|false (BETA - default=false)<br/>
          kube:InOrderInformers=true|false (BETA - default=true)<br/>
          kube:InPlacePodVerticalScaling=true|false (BETA - default=true)<br/>
          kube:InPlacePodVerticalScalingExclusiveCPUs=true|false (ALPHA - default=false)<br/>
+         kube:InPlacePodVerticalScalingExclusiveMemory=true|false (ALPHA - default=false)<br/>
          kube:InTreePluginPortworxUnregister=true|false (ALPHA - default=false)<br/>
          kube:InformerResourceVersion=true|false (ALPHA - default=false)<br/>
          kube:JobManagedBy=true|false (BETA - default=true)<br/>
-         kube:JobPodReplacementPolicy=true|false (BETA - default=true)<br/>
-         kube:KubeletCgroupDriverFromCRI=true|false (BETA - default=true)<br/>
          kube:KubeletCrashLoopBackOffMax=true|false (ALPHA - default=false)<br/>
          kube:KubeletEnsureSecretPulledImages=true|false (ALPHA - default=false)<br/>
          kube:KubeletFineGrainedAuthz=true|false (BETA - default=true)<br/>
          kube:KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
-         kube:KubeletPSI=true|false (ALPHA - default=false)<br/>
-         kube:KubeletPodResourcesDynamicResources=true|false (ALPHA - default=false)<br/>
-         kube:KubeletPodResourcesGet=true|false (ALPHA - default=false)<br/>
+         kube:KubeletPSI=true|false (BETA - default=true)<br/>
+         kube:KubeletPodResourcesDynamicResources=true|false (BETA - default=true)<br/>
+         kube:KubeletPodResourcesGet=true|false (BETA - default=true)<br/>
          kube:KubeletSeparateDiskGC=true|false (BETA - default=true)<br/>
-         kube:KubeletServiceAccountTokenForCredentialProviders=true|false (ALPHA - default=false)<br/>
-         kube:KubeletTracing=true|false (BETA - default=true)<br/>
-         kube:ListFromCacheSnapshot=true|false (ALPHA - default=false)<br/>
+         kube:KubeletServiceAccountTokenForCredentialProviders=true|false (BETA - default=true)<br/>
+         kube:ListFromCacheSnapshot=true|false (BETA - default=true)<br/>
          kube:LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - default=false)<br/>
          kube:LoggingAlphaOptions=true|false (ALPHA - default=false)<br/>
          kube:LoggingBetaOptions=true|false (BETA - default=true)<br/>
          kube:MatchLabelKeysInPodTopologySpread=true|false (BETA - default=true)<br/>
+         kube:MatchLabelKeysInPodTopologySpreadSelectorMerge=true|false (BETA - default=true)<br/>
          kube:MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
          kube:MemoryQoS=true|false (ALPHA - default=false)<br/>
-         kube:MutableCSINodeAllocatableCount=true|false (ALPHA - default=false)<br/>
-         kube:MutatingAdmissionPolicy=true|false (ALPHA - default=false)<br/>
+         kube:MutableCSINodeAllocatableCount=true|false (BETA - default=false)<br/>
+         kube:MutatingAdmissionPolicy=true|false (BETA - default=false)<br/>
          kube:NodeLogQuery=true|false (BETA - default=false)<br/>
-         kube:NodeSwap=true|false (BETA - default=true)<br/>
+         kube:NominatedNodeNameForExpectation=true|false (ALPHA - default=false)<br/>
          kube:OpenAPIEnums=true|false (BETA - default=true)<br/>
-         kube:OrderedNamespaceDeletion=true|false (BETA - default=true)<br/>
          kube:PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
+         kube:PodCertificateRequest=true|false (ALPHA - default=false)<br/>
          kube:PodDeletionCost=true|false (BETA - default=true)<br/>
-         kube:PodLevelResources=true|false (ALPHA - default=false)<br/>
-         kube:PodLifecycleSleepAction=true|false (BETA - default=true)<br/>
-         kube:PodLifecycleSleepActionAllowZero=true|false (BETA - default=true)<br/>
+         kube:PodLevelResources=true|false (BETA - default=true)<br/>
          kube:PodLogsQuerySplitStreams=true|false (ALPHA - default=false)<br/>
-         kube:PodObservedGenerationTracking=true|false (ALPHA - default=false)<br/>
+         kube:PodObservedGenerationTracking=true|false (BETA - default=true)<br/>
          kube:PodReadyToStartContainersCondition=true|false (BETA - default=true)<br/>
          kube:PodTopologyLabelsAdmission=true|false (ALPHA - default=false)<br/>
          kube:PortForwardWebsockets=true|false (BETA - default=true)<br/>
-         kube:PreferSameTrafficDistribution=true|false (ALPHA - default=false)<br/>
+         kube:PreferSameTrafficDistribution=true|false (BETA - default=true)<br/>
+         kube:PreventStaticPodAPIReferences=true|false (BETA - default=true)<br/>
          kube:ProcMountType=true|false (BETA - default=true)<br/>
          kube:QOSReserved=true|false (ALPHA - default=false)<br/>
-         kube:RecoverVolumeExpansionFailure=true|false (BETA - default=true)<br/>
          kube:ReduceDefaultCrashLoopBackOffDecay=true|false (ALPHA - default=false)<br/>
-         kube:RelaxedDNSSearchValidation=true|false (BETA - default=true)<br/>
-         kube:RelaxedEnvironmentVariableValidation=true|false (BETA - default=true)<br/>
+         kube:RelaxedServiceNameValidation=true|false (ALPHA - default=false)<br/>
          kube:ReloadKubeletServerCertificateFile=true|false (BETA - default=true)<br/>
          kube:RemoteRequestHeaderUID=true|false (BETA - default=true)<br/>
-         kube:ResilientWatchCacheInitialization=true|false (BETA - default=true)<br/>
          kube:ResourceHealthStatus=true|false (ALPHA - default=false)<br/>
          kube:RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
          kube:RuntimeClassInImageCriApi=true|false (ALPHA - default=false)<br/>
          kube:SELinuxChangePolicy=true|false (BETA - default=true)<br/>
          kube:SELinuxMount=true|false (BETA - default=false)<br/>
          kube:SELinuxMountReadWriteOncePod=true|false (BETA - default=true)<br/>
+         kube:SchedulerAsyncAPICalls=true|false (BETA - default=true)<br/>
          kube:SchedulerAsyncPreemption=true|false (BETA - default=true)<br/>
          kube:SchedulerPopFromBackoffQ=true|false (BETA - default=true)<br/>
-         kube:SchedulerQueueingHints=true|false (BETA - default=true)<br/>
-         kube:SeparateTaintEvictionController=true|false (BETA - default=true)<br/>
          kube:ServiceAccountNodeAudienceRestriction=true|false (BETA - default=true)<br/>
+         kube:SizeBasedListCostEstimate=true|false (BETA - default=true)<br/>
          kube:StorageCapacityScoring=true|false (ALPHA - default=false)<br/>
          kube:StorageVersionAPI=true|false (ALPHA - default=false)<br/>
          kube:StorageVersionHash=true|false (BETA - default=true)<br/>
          kube:StorageVersionMigrator=true|false (ALPHA - default=false)<br/>
-         kube:StreamingCollectionEncodingToJSON=true|false (BETA - default=true)<br/>
-         kube:StreamingCollectionEncodingToProtobuf=true|false (BETA - default=true)<br/>
          kube:StrictIPCIDRValidation=true|false (ALPHA - default=false)<br/>
-         kube:StructuredAuthenticationConfiguration=true|false (BETA - default=true)<br/>
+         kube:StructuredAuthenticationConfigurationEgressSelector=true|false (BETA - default=true)<br/>
          kube:SupplementalGroupsPolicy=true|false (BETA - default=true)<br/>
          kube:SystemdWatchdog=true|false (BETA - default=true)<br/>
+         kube:TokenRequestServiceAccountUIDValidation=true|false (BETA - default=true)<br/>
          kube:TopologyManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
          kube:TopologyManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
          kube:TranslateStreamCloseWebsocketRequests=true|false (BETA - default=true)<br/>
@@ -600,14 +596,11 @@ kube-controller-manager [flags]
          kube:UnknownVersionInteroperabilityProxy=true|false (ALPHA - default=false)<br/>
          kube:UserNamespacesPodSecurityStandards=true|false (ALPHA - default=false)<br/>
          kube:UserNamespacesSupport=true|false (BETA - default=true)<br/>
-         kube:VolumeAttributesClass=true|false (BETA - default=false)<br/>
          kube:WatchCacheInitializationPostStartHook=true|false (BETA - default=false)<br/>
-         kube:WatchList=true|false (BETA - default=false)<br/>
-         kube:WatchListClient=true|false (BETA - default=false)<br/>
-         kube:WinDSR=true|false (BETA - default=true)<br/>
-         kube:WinOverlay=true|false (BETA - default=true)<br/>
+         kube:WatchList=true|false (BETA - default=true)<br/>
+         kube:WatchListClient=true|false (BETA - default=true)<br/>
          kube:WindowsCPUAndMemoryAffinity=true|false (ALPHA - default=false)<br/>
-         kube:WindowsGracefulNodeShutdown=true|false (ALPHA - default=false)</p></td>
+         kube:WindowsGracefulNodeShutdown=true|false (BETA - default=true)</p></td>
       </tr>
       <tr>
          <td colspan="2">--flex-volume-plugin-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Типово: "/usr/libexec/kubernetes/kubelet-plugins/volume/exec/"</td>
