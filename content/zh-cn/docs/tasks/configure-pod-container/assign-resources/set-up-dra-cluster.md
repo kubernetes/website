@@ -1,5 +1,5 @@
 ---
-title: "在集群中设置 DRA"
+title: "在集群中安装 DRA"
 content_type: task
 min-kubernetes-server-version: v1.34
 weight: 10
