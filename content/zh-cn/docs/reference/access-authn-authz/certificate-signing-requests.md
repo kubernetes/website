@@ -129,17 +129,18 @@ The signers can instead deny certificate signing if the approval conditions are 
 In order to reduce the number of old CertificateSigningRequest resources left in a cluster, a garbage collection
 controller runs periodically. The garbage collection removes CertificateSigningRequests that have not changed
 state for some duration:
+-->
+为了减少集群中遗留的过时的 CertificateSigningRequest 资源的数量，
+一个垃圾收集控制器将会周期性地运行。
+此垃圾收集器会清除在一段时间内没有改变过状态的 CertificateSigningRequest：
 
+<!--
 * Approved requests: automatically deleted after 1 hour
 * Denied requests: automatically deleted after 1 hour
 * Failed requests: automatically deleted after 1 hour
 * Pending requests: automatically deleted after 24 hours
 * All requests: automatically deleted after the issued certificate has expired
 -->
-为了减少集群中遗留的过时的 CertificateSigningRequest 资源的数量，
-一个垃圾收集控制器将会周期性地运行。
-此垃圾收集器会清除在一段时间内没有改变过状态的 CertificateSigningRequest：
-
 * 已批准的请求：1 小时后自动删除
 * 已拒绝的请求：1 小时后自动删除
 * 已失败的请求：1 小时后自动删除
@@ -187,7 +188,7 @@ For example:
 * verbs（动词）：`approve`，
   group（组）：`certificates.k8s.io`，
   resource（资源）：`signers`，
-  resourceName：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
+  resourceName（资源名称）：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
 
 例如：
 
@@ -211,7 +212,7 @@ To allow signing a CertificateSigningRequest:
 * verbs（动词）：`sign`，
   group（组）：`certificates.k8s.io`，
   resource（资源）：`signers`，
-  resourceName：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
+  resourceName（资源名称）：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
 
 {{< code_sample file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
 
@@ -222,7 +223,7 @@ Signers abstractly represent the entity or entities that might sign, or have
 signed, a security certificate.
 
 Any signer that is made available for outside a particular cluster should provide information
-about how the signer works, so that consumers can understand what that means for CertifcateSigningRequests
+about how the signer works, so that consumers can understand what that means for CertificateSigningRequests
 and (if enabled) [ClusterTrustBundles](#cluster-trust-bundles).
 This includes:
 -->
@@ -231,7 +232,7 @@ This includes:
 签名者抽象地代表可能签署或已签署安全证书的一个或多个实体。
 
 任何要在特定集群以外提供的签名者都应该提供关于签名者工作方式的信息，
-以便消费者可以理解这对于 CertifcateSigningRequest 和（如果启用的）
+以便消费者可以理解这对于 CertificateSigningRequest 和（如果启用的）
 [ClusterTrustBundle](#cluster-trust-bundles) 的意义。此类信息包括：
 
 <!--
@@ -251,8 +252,9 @@ This includes:
    Email subjectAltNames、URI subjectAltNames 等，请求一个受限制的扩展项时的应对手段。
 1. **许可的密钥用途/扩展的密钥用途**：当用途和签名者在 CSR 中指定的用途不同时，
    相应的限制和应对手段。
-1. **过期时间/证书有效期**：过期时间由签名者确定、由管理员配置、还是由 CSR `spec.expirationSeconds` 字段指定等，
-   以及签名者决定的过期时间与 CSR `spec.expirationSeconds` 字段不同时的应对手段。
+1. **过期时间/证书有效期**：过期时间由签名者确定、由管理员配置、还是由 CSR
+   `spec.expirationSeconds` 字段指定等，以及签名者决定的过期时间与 CSR
+   `spec.expirationSeconds` 字段不同时的应对手段。
 1. **允许/不允许 CA 位**：当 CSR 包含一个签名者并不允许的 CA 证书的请求时，相应的应对手段。
 
 <!--
@@ -299,7 +301,8 @@ PKCS#10 签名请求格式并没有一种标准的方法去设置证书的过期
 The `spec.expirationSeconds` field was added in Kubernetes v1.22. Earlier versions of Kubernetes do not honor this field.
 Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
 -->
-`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的。早期的 Kubernetes 版本并不认识该字段。
+`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的。
+早期的 Kubernetes 版本并不认识该字段。
 v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
 {{< /note >}}
 
@@ -359,12 +362,13 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    {{< glossary_tooltip term_id="kube-controller-manager" >}} 可以自动批准它。
 
    1. 信任分发：签名的证书将被 API 服务器视为客户端证书，CA 证书包不通过任何其他方式分发。
-   1. 许可的主体：组织名必须是 `["system:nodes"]`，通用名称为 "`system:node:${NODE_NAME}`" 开头
+   1. 许可的主体：组织名必须是 `["system:nodes"]`，通用名称为 "`system:node:${NODE_NAME}`" 开头。
    1. 许可的 x509 扩展：允许 key usage 扩展，禁用 subjectAltName 扩展，并删除其他扩展。
    1. 许可的密钥用途：`["key encipherment", "digital signature", "client auth"]`
       或 `["digital signature", "client auth"]`。
    1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
-      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
+      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds`
+      字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
 
 <!--
@@ -391,7 +395,8 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. 许可的密钥用途：`["key encipherment", "digital signature", "server auth"]`
       或 `["digital signature", "server auth"]`。
    1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
-      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
+      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds`
+      字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
 
 <!--
@@ -416,7 +421,8 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. 许可的 x509 扩展：允许 subjectAltName 和 key usage 等扩展，并弃用其他扩展。
    1. 许可的密钥用途：全部。
    1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
-      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
+      设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds`
+      字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位 - 不允许。
 
 <!--
@@ -638,7 +644,18 @@ REST API 的用户可以通过向待批准的 CSR 的 `approval` 子资源提交
 批准（`Approved`）的 CSR：
 
 <!--
-You can set this to any string
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  conditions:
+  - lastUpdateTime: "2020-02-08T11:37:35Z"
+    lastTransitionTime: "2020-02-08T11:37:35Z"
+    message: Approved by my custom approver controller
+    reason: ApprovedByMyPolicy # You can set this to any string
+    type: Approved
+```
 -->
 ```yaml
 apiVersion: certificates.k8s.io/v1
@@ -659,7 +676,18 @@ For `Denied` CSRs:
 驳回（`Denied`）的 CSR：
 
 <!--
-You can set this to any string
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  conditions:
+  - lastUpdateTime: "2020-02-08T11:37:35Z"
+    lastTransitionTime: "2020-02-08T11:37:35Z"
+    message: Denied by my custom approver controller
+    reason: DeniedByMyPolicy # You can set this to any string
+    type: Denied
+```
 -->
 ```yaml
 apiVersion: certificates.k8s.io/v1
@@ -781,9 +809,13 @@ the signer name:
 
 要执行这些操作之一，签名控制器需要具有针对给定 PodCertificateRequest 类型以及签名者的适当权限：
 
-* 动词：**update**，组：`certificates.k8s.io`，资源：`podcertificaterequests/status`
-* 动词：**sign**，组：`certificates.k8s.io`，资源：`signers`，
-  资源名称：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
+* verbs（动词）：**update**，
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`podcertificaterequests/status`
+* verbs（动词）：**sign**，
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`signers`，
+  resourceName（资源名称）：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
 
 <!--
 The signing controller is free to consider other information beyond what's
@@ -865,8 +897,9 @@ _and_ the `certificates.k8s.io/v1alpha1`
 this API.
 -->
 在 Kubernetes {{< skew currentVersion >}} 中，如果想要使用此 API，
-必须同时启用 `ClusterTrustBundle` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-**以及** `certificates.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组" term_id="api-group" >}}。
+必须同时启用 `ClusterTrustBundle`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)**以及**
+`certificates.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组" term_id="api-group" >}}。
 {{< /note >}}
 
 <!--
@@ -996,7 +1029,15 @@ Signer-unlinked ClusterTrustBundles have an empty `spec.signerName` field, like 
 签名者未关联的 ClusterTrustBundle 具有空白的 `spec.signerName` 字段，例如：
 
 <!--
-no signerName specified, so the field is blank
+```yaml
+apiVersion: certificates.k8s.io/v1alpha1
+kind: ClusterTrustBundle
+metadata:
+  name: foo
+spec:
+  # no signerName specified, so the field is blank
+  trustBundle: "<... PEM data ...>"
+```
 -->
 ```yaml
 apiVersion: certificates.k8s.io/v1alpha1

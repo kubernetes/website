@@ -519,11 +519,11 @@ DaemonSet 运行的组件。这个 DaemonSet 组件确保它所在的节点的�
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about [Pods](/docs/concepts/workloads/pods).
-  * Learn about [static Pods](#static-pods), which are useful for running Kubernetes
+* Learn about [Pods](/docs/concepts/workloads/pods):
+  * Learn about [static Pods](/docs/tasks/configure-pod-container/static-pod/), which are useful for running Kubernetes
     {{< glossary_tooltip text="control plane" term_id="control-plane" >}} components.
-* Find out how to use DaemonSets
-  * [Perform a rolling update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+* Find out how to use DaemonSets:
+  * [Perform a rolling update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
   * [Perform a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
     (for example, if a roll out didn't work how you expected).
 * Understand [how Kubernetes assigns Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
@@ -533,11 +533,11 @@ DaemonSet 运行的组件。这个 DaemonSet 组件确保它所在的节点的�
   Read the {{< api-reference page="workload-resources/daemon-set-v1" >}}
   object definition to understand the API for daemon sets.
 -->
-* 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
-  * 了解[静态 Pod](#static-pods)，这对运行 Kubernetes
+* 了解 [Pod](/zh-cn/docs/concepts/workloads/pods):
+  * 了解[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)，这对运行 Kubernetes
     {{< glossary_tooltip text="控制面" term_id="control-plane" >}}组件有帮助。
-* 了解如何使用 DaemonSet
-  * [对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)
+* 了解如何使用 DaemonSet:
+  * [对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
   * [对 DaemonSet 执行回滚](/zh-cn/docs/tasks/manage-daemon/rollback-daemon-set/)（例如：新的版本没有达到你的预期）
 * 理解 [Kubernetes 如何将 Pod 分配给节点](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
 * 了解[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)和

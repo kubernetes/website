@@ -141,6 +141,17 @@ DaemonSetSpec 是守护进程集的规约。
 
     守护进程集更新的类型。可以是 "RollingUpdate" 或 "OnDelete"。默认为 RollingUpdate。
 
+    <!--
+    Possible enum values:
+     - `"OnDelete"` Replace the old daemons only when it's killed
+     - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
+    -->
+    
+    可能的枚举值：
+
+     - `"OnDelete"` 仅当旧的守护进程被杀死时才替换它
+     - `"RollingUpdate"` 使用滚动更新替换旧的守护进程，即在每个节点上一个接一个地替换它们。
+  
   <!--
   - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
 

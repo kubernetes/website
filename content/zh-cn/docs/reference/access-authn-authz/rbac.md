@@ -1621,12 +1621,14 @@ Allows access to the resources required by most <a href="/docs/concepts/storage/
 Allows read access to control-plane monitoring endpoints
 (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints
 (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints
-(<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  and <tt>/metrics</tt>).
+(<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>), <tt>/metrics</tt>),
+, and causes the kube-apiserver to respect the traceparent header provided with requests for tracing.
  Note that individual health check endpoints and the metric endpoint may expose sensitive information.
 -->
 允许对控制平面监控端点的读取访问（例如：{{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 存活和就绪端点（<tt>/healthz</tt>、<tt>/livez</tt>、<tt>/readyz</tt>），
-各个健康检查端点（<tt>/healthz/*</tt>、<tt>/livez/*</tt>、<tt>/readyz/*</tt>）和 <tt>/metrics</tt>）。
+各个健康检查端点（<tt>/healthz/*</tt>、<tt>/livez/*</tt>、<tt>/readyz/*</tt>、<tt>/metrics</tt>），
+以及导致 kube-apiserver 尊重跟踪请求中提供的 traceparent 标头。
 请注意，各个运行状况检查端点和度量标准端点可能会公开敏感信息。
 </td>
 </tr>

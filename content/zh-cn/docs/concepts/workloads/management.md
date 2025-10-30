@@ -19,6 +19,7 @@ number of tools to help you manage your application deployment, including scalin
 -->
 你已经部署了你的应用并且通过 Service 将其暴露出来。现在要做什么？
 Kubernetes 提供了一系列的工具帮助你管理应用的部署，包括扩缩和更新。
+
 <!-- body -->
 
 <!--
@@ -79,7 +80,6 @@ the components of your stack together.
 并将与应用相关的所有文件归类到同一目录中。
 如果应用各层使用 DNS 相互绑定，你可以同时部署工作栈中的所有组件。
 
-
 <!--
 A URL can also be specified as a configuration source, which is handy for deploying directly from
 manifests in your source control system:
@@ -121,7 +121,8 @@ in the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} Landscape.
 [Helm](https://helm.sh/) is a tool for managing packages of pre-configured
 Kubernetes resources. These packages are known as _Helm charts_.
 -->
-[Helm](https://helm.sh/) 是一种管理预配置 Kubernetes 资源包的工具。这些资源包被称为 _Helm charts_。
+[Helm](https://helm.sh/) 是一种管理预配置 Kubernetes 资源包的工具。
+这些资源包被称为 **Helm chart**。
 
 #### Kustomize {#external-tool-kustomize}
 
@@ -131,7 +132,8 @@ It is available both as a standalone binary and as a [native feature](/docs/task
 of kubectl.
 -->
 [Kustomize](https://kustomize.io/) 遍历 Kubernetes 清单以添加、删除或更新配置选项。
-它既可以作为独立的二级制文件使用，也可以作为 kubectl 的[原生功能](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/) 使用。
+它既可以作为独立的二级制文件使用，也可以作为 kubectl
+的[原生功能](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/) 使用。
 
 <!--
 ## Bulk operations in kubectl
@@ -159,7 +161,7 @@ service "my-nginx-svc" deleted
 In the case of two resources, you can specify both resources on the command line using the
 resource/name syntax:
 -->
-如果有两个资源，你可以使用 resource/name 语法在命令行中指定这两个资源：
+如果有两个资源，你可以使用 `resource/name` 语法在命令行中指定这两个资源：
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -208,13 +210,13 @@ my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
 <!--
-With the above commands, first you create resources under `examples/application/nginx/` and print
+With the above commands, first you create resources under `docs/concepts/cluster-administration/nginx/` and print
 the resources created with `-o name` output format (print each resource as resource/name).
 Then you `grep` only the Service, and then print it with [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/).
 -->
-使用上面的命令，首先会创建 `examples/application/nginx/` 目录下的资源，
+使用上面的命令，首先会创建 `docs/concepts/cluster-administration/nginx/` 目录下的资源，
 然后使用 `-o name` 输出格式打印创建的资源（以 resource/name 格式打印）。
-然后 `grep` 筛选出 Service，再用 [`kubectl get`](/docs/reference/kubectl/generated/kubectl_get/) 打印。
+然后 `grep` 筛选出 Service，再用 [`kubectl get`](/zh-cn/docs/reference/kubectl/generated/kubectl_get/) 打印。
 
 <!--
 ### Recursive operations on local files
@@ -227,7 +229,8 @@ directory, you can recursively perform the operations on the subdirectories also
 `--recursive` or `-R` alongside the `--filename`/`-f` argument.
 -->
 如果你碰巧在一个特定目录下跨多个子目录中组织资源，
-你也可以通过在指定 `--filename`/`-f` 的同时指定 `--recursive` 或 `-R` 参数对子目录执行递归操作。
+你也可以通过在指定 `--filename`/`-f` 的同时指定 `--recursive` 或
+`-R` 参数对子目录执行递归操作。
 
 <!--
 For instance, assume there is a directory `project/k8s/development` that holds all of the
@@ -410,7 +413,8 @@ You can use rollouts with DaemonSets, Deployments, or StatefulSets.
 You can use [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) to manage a
 progressive update of an existing application.
 -->
-你可以使用 [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/) 管理现有应用的逐步更新。
+你可以使用 [`kubectl rollout`](/docs/reference/kubectl/generated/kubectl_rollout/)
+管理现有应用的逐步更新。
 
 <!--
 For example:
@@ -472,7 +476,7 @@ previous release so that the new release can receive live production traffic bef
 it out.
 -->
 另一种需要使用多个标签的情况是区分部署的是同一组件的不同版本或不同配置。
-通常的做法是将新应用版本的 **金丝雀**（在 Pod 模板中的镜像标签中指定）与之前发布的版本并排部署，
+通常的做法是将新应用版本的**金丝雀**（在 Pod 模板中的镜像标签中指定）与之前发布的版本并排部署，
 这样新发布的版本可以在完全上线前接收实时生产流量。
 
 
@@ -601,7 +605,7 @@ Now you only have one pod managed by the deployment.
 现在，你的 Deployment 只管理一个 Pod。
 
 ```shell
-kubectl get pods -l app=nginx
+kubectl get pods -l app=my-nginx
 ```
 
 ```none
