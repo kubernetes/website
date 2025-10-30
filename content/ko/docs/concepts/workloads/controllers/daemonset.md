@@ -18,7 +18,7 @@ hide_summary: true # Listed separately in section index
 
 <!-- overview -->
 
-_데몬셋_ 은 모든(또는 일부) 노드가 파드의 사본을 실행하도록 한다. 노드가 클러스터에 추가되면
+_데몬셋_ 은 모든(또는 일부) 노드가 파드의 사본을 실행하도록 보장한다. 노드가 클러스터에 추가되면
 파드도 추가된다. 노드가 클러스터에서 제거되면 해당 파드는 가비지(garbage)로
 수집된다. 데몬셋을 삭제하면 데몬셋이 생성한 파드들이 정리된다.
 
@@ -152,17 +152,17 @@ nodeAffinity:
 ### 테인트(taints)와 톨러레이션(tolerations)
 
 데몬셋 컨트롤러는 데몬셋 파드에 
-{{< glossary_tooltip text="톨러레이션" term_id="toleration" >}} 세트를 추가한다.
+{{< glossary_tooltip text="톨러레이션" term_id="toleration" >}} 세트를 자동으로 추가한다.
 
 {{< table caption="데몬셋 파드를 위한 톨러레이션" >}}
 
 | 톨러레이션 키                                                                                                            | 영향       | 설명                                                                                                                                       |
 | --------------------------------------------------------------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`node.kubernetes.io/not-ready`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-not-ready)             | `NoExecute`  | 네트워크 파티션과 같은 노드 문제가 발생해도 데몬셋 파드는 축출되지 않는다. |
+| [`node.kubernetes.io/not-ready`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-not-ready)             | `NoExecute`  | 데몬셋 파드는 상태가 좋지 않거나 파드를 수용할 준비가 되지 않은 노드에 스케줄링 될 수 있다. 이러한 노드에서 실행중인 데몬셋 파드는 제거되지 않는다. |
 | [`node.kubernetes.io/unreachable`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-unreachable)         | `NoExecute`  | 데몬셋 파드는 노드 컨트롤러에서 접근할 수 없는 노드에 예약될 수 있다. 이러한 노드에서 실행 중인 데몬셋 파드는 제거되지 않는다.  |
 | [`node.kubernetes.io/disk-pressure`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-disk-pressure)     | `NoSchedule` | 데몬셋 파드는 디스크 압박 문제가 있는 노드에 예약될 수 있다.                                                                         |
 | [`node.kubernetes.io/memory-pressure`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-memory-pressure) | `NoSchedule` | 데몬셋 파드는 메모리 부족 문제가 있는 노드에 예약될 수 있다.                                                                        |
-| [`node.kubernetes.io/pid-pressure`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-pid-pressure) | `NoSchedule` | 데몬셋 파드는 프로세스 압력 문제가 있는 노드에 예약될 수 있다.                                                                        |
+| [`node.kubernetes.io/pid-pressure`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-pid-pressure) | `NoSchedule` | 데몬셋 파드는 프로세스 부족 문제가 있는 노드에 예약될 수 있다.                                                                        |
 | [`node.kubernetes.io/unschedulable`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-unschedulable)   | `NoSchedule` | 데몬셋 파드는 예약할 수 없는 노드에 예약될 수 있다.                                                                             |
 | [`node.kubernetes.io/network-unavailable`](/ko/docs/reference/labels-annotations-taints/#node-kubernetes-io-network-unavailable) | `NoSchedule` | **호스트 네트워킹을 요청하는 데몬셋 파드에만 추가되었다**, 즉, `spec.hostNetwork: true`를 가진 파드이다. 이러한 데몬셋 파드는 네트워크를 사용할 수 없는 노드에 예약될 수 있다.|
 
@@ -191,7 +191,7 @@ nodeAffinity:
   구성되어 있다. 그들은 클라이언트들을 가지지 않는다.
 - **노드IP와 알려진 포트**: 데몬셋의 파드는 `호스트 포트`를 사용할 수 있으며, 
   노드IP를 통해 파드에 접근할 수 있다. 
-  클라이언트는 노드IP를 어떻게든지 알고 있으며, 관례에 따라 포트를 알고 있다.
+  클라이언트는 노드IP 목록을 어떻게든지 알고 있으며, 관례에 따라 포트를 알고 있다.
 - **DNS**: 동일한 파드 셀렉터로 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)를 만들고,
   그 다음에 `엔드포인트` 리소스를 사용해서 데몬셋을 찾거나 
   DNS에서 여러 A레코드를 검색한다.
@@ -221,35 +221,35 @@ nodeAffinity:
 
 데몬 프로세스를 직접 노드에서 시작해서 실행하는 것도 당연히 가능하다.
 (예: `init`, `upstartd` 또는 `systemd` 를 사용). 이 방법도 문제는 전혀 없다. 그러나 데몬셋을 통해 데몬
-프로세스를 실행하면 몇 가지 이점 있다.
+프로세스를 실행하면 몇 가지 장점이 있다.
 
-- 애플리케이션과 동일한 방법으로 데몬을 모니터링하고 로그 관리를 할 수 있다.
+- 애플리케이션과 동일한 방법으로 데몬 로그를 모니터링하고 관리할 수 있다.
 - 데몬 및 애플리케이션과 동일한 구성 언어와 도구(예: 파드 템플릿, `kubectl`).
-- 리소스 제한이 있는 컨테이너에서 데몬을 실행하면 앱 컨테이너에서
-  데몬간의 격리를 증가시킨다.  그러나 이것은 파드가 아닌 컨테이너에서 데몬을 실행해서 이루어진다.
+- 리소스 제한이 있는 컨테이너에서 데몬을 실행하면 애플리케이션 컨테이너와 
+  데몬간의 격리가 강화된다.  그러나 데몬을 파드가 아닌 컨테이너에서 실행하여 이를 달성할 수도 있다.
 
 ### 베어(Bare) 파드
 
 직접적으로 파드를 실행할 특정한 노드를 명시해서 파드를 생성할 수 있다. 그러나
 데몬셋은 노드 장애 또는 커널 업그레이드와 같이 변경사항이 많은 노드 유지보수의 경우를 비롯하여
 어떠한 이유로든 삭제되거나 종료된 파드를 교체한다. 따라서 개별 파드를
-생성하는 것보다는 데몬 셋을 사용해야 한다.
+생성하는 것보다는 데몬셋을 사용해야 한다.
 
 ### 스태틱(static) 파드 {#static-pods}
 
-Kubelet이 감시하는 특정 디렉터리에 파일을 작성하는 파드를 생성할 수 있다. 이것을
-[스태틱 파드](/ko/docs/tasks/configure-pod-container/static-pod/)라고 부른다.
+Kubelet이 감시하는 특정 디렉터리에 파일을 작성하여 파드를 생성할 수 있다. 이것을
+[스태틱 파드](/ko/docs/tasks/configure-pod-container/static-pod/)라고 한다.
 데몬셋과는 다르게 스태틱 파드는 kubectl
 또는 다른 쿠버네티스 API 클라이언트로 관리할 수 없다.  스태틱 파드는 API 서버에 의존하지
-않기 때문에 클러스터 부트스트랩(bootstraping)하는 경우에 유용하다.  또한 스태틱 파드는 향후에 사용 중단될 수 있다.
+않기 때문에 클러스터를 초기 구동(bootstraping)하는 경우에 유용하다.  또한 스태틱 파드는 향후에 사용 중단될 수 있다.
 
 ### 디플로이먼트
 
-데몬셋은 파드를 생성한다는 점에서 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)와 유사하고,
-해당 파드에서는 프로세스가 종료되지 않을 것으로
-예상한다(예: 웹 서버, 스토리지 서버).
+데몬셋은 파드를 생성하고 해당 파드에서는 프로세스가 종료되지 않을 것으로
+예상한다(예: 웹 서버, 스토리지 서버)는 점에서
+[디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)와 유사하다.
 
-파드가 실행되는 호스트를 정확하게 제어하는 것보다 레플리카의 수를 스케일링 업 및 다운 하고,
+파드가 실행되는 호스트를 정확하게 제어하는 것보다 레플리카의 수를 스케일링 업 및 다운하고,
 업데이트 롤아웃이 더 중요한 프런트 엔드와 같은 것은 스테이트리스 서비스의
 디플로이먼트를 사용한다. 데몬셋이 특정 노드에서 다른 파드가 올바르게 실행되도록 하는 노드 수준 기능을 제공한다면, 
 파드 사본이 항상 모든 호스트 또는 특정 호스트에서 실행되는 것이 중요한 경우에 데몬셋을 사용한다.
@@ -269,6 +269,6 @@ Kubelet이 감시하는 특정 디렉터리에 파일을 작성하는 파드를 
 * [쿠버네티스가 파드를 노드에 할당하는 방법](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)을 이해한다.
 * 데몬셋으로 구동되곤 하는, [디바이스 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)과
   [애드온](/ko/docs/concepts/cluster-administration/addons/)에 대해 배운다.
-* `DaemonSet`은 쿠버네티스 REST API에서 상위-수준 리소스이다.
+* `DaemonSet`은 쿠버네티스 REST API에서 상위 수준 리소스이다.
   데몬셋 API에 대해 이해하기 위해 
   {{< api-reference page="workload-resources/daemon-set-v1" >}} 오브젝트 정의를 읽는다.
