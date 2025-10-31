@@ -1,0 +1,98 @@
+{{ with .Site.Title -}}
+    # {{ . }}
+{{- end }}
+
+{{ with .Site.Params.Description -}}
+> {{ . }}
+{{- end }}
+
+{{ range (sort ((.Site.GetPage "/").Pages) "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+    - [{{ .Title }}]({{ .Permalink }})
+{{ end -}}
+
+{{/* Sections */}}
+{{ range (sort ((.Site.GetPage "/").Sections) "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+{{ with .Title -}}
+    ## {{ . }}
+{{- end }}
+
+{{ with .Description -}}
+    > {{ . }}
+{{- end }}
+
+{{ range (sort .Pages "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+    {{ if .Title -}}
+        - [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+    {{- end }}
+{{ end -}}
+
+{{/* Sections-L1 */}}
+{{ range (sort .Sections "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+{{ with .Title -}}
+    ### {{ . }}
+{{- end }}
+
+{{ with .Description -}}
+    > {{ . }}
+{{- end }}
+
+{{ range (sort .Pages "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+    {{ if .Title -}}
+        - [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+    {{- end }}
+{{ end }}
+
+{{/* Sections-L2 */}}
+{{ range (sort .Sections "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+{{ with .Title -}}
+    #### {{ . }}
+{{- end }}
+
+{{ with .Description -}}
+    > {{ . }}
+{{- end }}
+
+{{ range (sort .Pages "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+    {{ if .Title -}}
+        - [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+    {{- end }}
+{{ end }}
+
+{{/* Sections-L3 */}}
+{{ range (sort .Sections "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+{{ with .Title -}}
+    ##### {{ . }}
+{{- end }}
+
+{{ with .Description -}}
+    > {{ . }}
+{{- end }}
+
+{{ range (sort .Pages "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+    {{ if .Title -}}
+        - [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+    {{- end }}
+{{ end }}
+
+{{/* Sections-L4 */}}
+{{ range (sort .Sections "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+{{ with .Title -}}
+    ###### {{ . }}
+{{- end }}
+
+{{ with .Description -}}
+    > {{ . }}
+{{- end }}
+
+{{ range (sort .Pages "Weight" "asc" "Date" "desc" "Lastmod" "desc") -}}
+    {{ if .Title -}}
+        - [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+    {{- end }}
+{{ end }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+
+
