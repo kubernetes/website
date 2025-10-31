@@ -2,9 +2,8 @@
 layout: blog
 title: "Spotlight on Policy Working Group"
 slug: wg-policy-spotlight-2025
-draft: true
-date: 2025-05-22
-author: "Arujjwal Negi"
+date: 2025-10-18
+author: Arujjwal Negi
 ---  
 
 *(Note: The Policy Working Group has completed its mission and is no longer active. This article reflects its work, accomplishments, and insights into how a working group operates.)*
@@ -18,7 +17,7 @@ Through collaborative methods, this working group strove to bring clarity and co
 This blog post dives deeper into the work of the Policy Working Group, guided by insights from its former co-chairs:
 
 -   [Jim Bugwadia](https://twitter.com/JimBugwadia)
--   [Poonam Lamba](https://twitter.com/poonam-lamba)
+-   [Poonam Lamba](https://twitter.com/poonam_lamba)
 -   [Andy Suderman](https://twitter.com/sudermanjr)
 
 _Interviewed by [Arujjwal Negi](https://twitter.com/arujjval)._
@@ -71,7 +70,7 @@ We worked on several Kubernetes policy-related projects. Our initiatives include
 
 The charter of the Policy WG was to help standardize policy management for Kubernetes and educate the community on best practices.
 
-To accomplish this we updated the Kubernetes documentation ([Policies | Kubernetes](https://kubernetes.io/docs/concepts/policy)), produced several whitepapers ([Kubernetes Policy Management](https://github.com/kubernetes/sig-security/blob/main/sig-security-docs/papers/policy/CNCF_Kubernetes_Policy_Management_WhitePaper_v1.pdf), [Kubernetes GRC](https://github.com/kubernetes/sig-security/blob/main/sig-security-docs/papers/policy_grc/Kubernetes_Policy_WG_Paper_v1_101123.pdf)), and created the Policy Reports API ([API reference](https://htmlpreview.github.io/?https://github.com/kubernetes-sigs/wg-policy-prototypes/blob/master/policy-report/docs/index.html)) which standardizes reporting across various tools. Several popular tools such as Falco, Trivy, Kyverno, kube-bench, and others support the Policy Report API. A major milestone for the Policy WG was promoting the Policy Reports API to a SIG-level API or finding it a stable home.
+To accomplish this we updated the Kubernetes documentation ([Policies | Kubernetes](https://kubernetes.io/docs/concepts/policy)), produced several whitepapers ([Kubernetes Policy Management](https://github.com/kubernetes/sig-security/blob/main/sig-security-docs/papers/policy/CNCF_Kubernetes_Policy_Management_WhitePaper_v1.pdf), [Kubernetes GRC](https://github.com/kubernetes/sig-security/blob/main/sig-security-docs/papers/policy_grc/Kubernetes_Policy_WG_Paper_v1_101123.pdf)), and created the Policy Reports API ([API reference](https://github.com/kubernetes-retired/wg-policy-prototypes/blob/master/policy-report/docs/api-docs.md)) which standardizes reporting across various tools. Several popular tools such as Falco, Trivy, Kyverno, kube-bench, and others support the Policy Report API. A major milestone for the Policy WG was promoting the Policy Reports API to a SIG-level API or finding it a stable home.
 
 Beyond that, as [ValidatingAdmissionPolicy](https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/) and [MutatingAdmissionPolicy](https://kubernetes.io/docs/reference/access-authn-authz/mutating-admission-policy/) approached GA in Kubernetes, a key goal of the WG was to guide and educate the community on the tradeoffs and appropriate usage patterns for these built-in API objects and other CNCF policy management solutions like OPA/Gatekeeper and Kyverno.
 

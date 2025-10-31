@@ -223,7 +223,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
 - **volumeAttributesClassName** (string)
 
-  Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
+  Name of VolumeAttributesClass to which this persistent volume belongs. Empty value is not allowed. When this field is not set, it indicates that this volume does not belong to any VolumeAttributesClass. This field is mutable and can be changed by the CSI driver after a volume has been updated successfully to a new class. For an unbound PersistentVolume, the volumeAttributesClassName will be matched with unbound PersistentVolumeClaims during the binding process.
 -->
 - **storageClassName** (string)
 
@@ -236,7 +236,6 @@ PersistentVolumeSpec 是持久卷的规约。
   当此字段未设置时，表示此卷不属于任何 VolumeAttributesClass。
   此字段是可变更的，在某个卷已被成功更新为新类后可以由 CSI 驱动更改此字段。对于未绑定的 PersistentVolume，
   volumeAttributesClassName 将在绑定过程中与未绑定的 PersistentVolumeClaim 进行匹配。
-  这是一个 Beta 字段，需要启用 VolumeAttributesClass 特性（默认关闭）。
 
 <!--
 - **volumeMode** (string)

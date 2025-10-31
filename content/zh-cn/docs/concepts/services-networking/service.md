@@ -240,6 +240,21 @@ Service 能够将**任意**入站 `port` 映射到某个 `targetPort`。
 {{< /note >}}
 
 <!--
+### Relaxed naming requirements for Service objects
+
+{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
+
+The `RelaxedServiceNameValidation` feature gate allows Service object names to start with a digit. When this feature gate is enabled, Service object names must be valid [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+-->
+### 对 Service 对象放宽命名限制
+
+{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
+
+`RelaxedServiceNameValidation` 特性开关允许 Service 对象的名称以数字开头。
+启用该特性后，Service 对象的名称必须符合
+[RFC 1123 标签名称](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-label-names)的规范。
+
+<!--
 ### Port definitions {#field-spec-ports}
 
 Port definitions in Pods have names, and you can reference these names in the
@@ -1303,7 +1318,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
 ```
 
 {{% /tab %}}

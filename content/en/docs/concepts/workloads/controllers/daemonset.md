@@ -259,11 +259,11 @@ For example, [network plugins](/docs/concepts/extend-kubernetes/compute-storage-
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods).
-  * Learn about [static Pods](#static-pods), which are useful for running Kubernetes
+* Learn about [Pods](/docs/concepts/workloads/pods):
+  * Learn about [static Pods](/docs/tasks/configure-pod-container/static-pod/), which are useful for running Kubernetes
     {{< glossary_tooltip text="control plane" term_id="control-plane" >}} components.
-* Find out how to use DaemonSets
-  * [Perform a rolling update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/)
+* Find out how to use DaemonSets:
+  * [Perform a rolling update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
   * [Perform a rollback on a DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
     (for example, if a roll out didn't work how you expected).
 * Understand [how Kubernetes assigns Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).

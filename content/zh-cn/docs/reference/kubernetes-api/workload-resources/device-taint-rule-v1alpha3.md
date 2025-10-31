@@ -46,7 +46,7 @@ DeviceTaintRule 添加一个污点到与选择算符匹配的所有设备上。
 - **spec** (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRuleSpec" >}}">DeviceTaintRuleSpec</a>)，必需
 
   Spec specifies the selector and one taint.
-  
+
   Changing the spec automatically increments the metadata.generation number.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
@@ -56,7 +56,7 @@ DeviceTaintRule 添加一个污点到与选择算符匹配的所有设备上。
 - **spec** (<a href="{{< ref "../workload-resources/device-taint-rule-v1alpha3#DeviceTaintRuleSpec" >}}">DeviceTaintRuleSpec</a>)，必需
 
   spec 指定选择算符和一个污点。
-  
+
   自动更改 spec 会让 metadata.generation 数值加一。
 
 ## DeviceTaintRuleSpec {#DeviceTaintRuleSpec}
@@ -80,7 +80,7 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
   应用到匹配设备的污点。
 
-  <a name="DeviceTaint"></a>  
+  <a name="DeviceTaint"></a>
   **挂接了此污点的设备会对任何不容忍此污点的申领产生“影响”，并通过此申领影响使用申领的 Pod。**
 
   <!--
@@ -121,7 +121,7 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
     timeAdded 表示添加污点的时间。如果未设置，意味着在创建或更新期间自动添加。
 
     <a name="Time"></a>
-    **Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
+    **Time 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。
     time 包的许多工厂方法提供了包装器。**
 
   - **taint.value** (string)
@@ -131,7 +131,7 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 <!--
 - **deviceSelector** (DeviceTaintSelector)
 
-  DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satified for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+  DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
 
   <a name="DeviceTaintSelector"></a>
   *DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.*
@@ -142,7 +142,7 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
   对于要匹配的设备，必须满足所有选择算符条件。
   空选择算符匹配所有设备。如果没有选择算符，则不匹配任何设备。
 
-  <a name="DeviceTaintSelector"></a>  
+  <a name="DeviceTaintSelector"></a>
   **DeviceTaintSelector 定义 DeviceTaintRule 应用到哪些设备。
   空选择算符匹配所有设备。如果没有选择算符，则不匹配任何设备。**
 
@@ -161,7 +161,7 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
   - **deviceSelector.device** (string)
 
     如果设置了 device，则仅选择具有该名称的设备。
-    此字段对应 `slice.spec.devices[].name`。  
+    此字段对应 `slice.spec.devices[].name`。
     
     为避免歧义，也可以设置 driver 和 pool，但不是必需的。
 
@@ -264,45 +264,45 @@ DeviceTaintRuleSpec 指定选择算符和一个污点。
 
         示例：考虑一个驱动为 "dra.example.com" 的设备，它暴露两个名为 "model" 和
         "ext.example.com/family" 的属性，并且暴露一个名为 "modules" 的容量。此表达式的输入将具有以下字段：
-        
+
         ```
         device.driver
         device.attributes["dra.example.com"].model
         device.attributes["ext.example.com"].family
         device.capacity["dra.example.com"].modules
         ```
-        
+
         <!--
         The device.driver field can be used to check for a specific driver, either as a high-level precondition (i.e. you only want to consider devices from this driver) or as part of a multi-clause expression that is meant to consider devices from different drivers.
         
         The value type of each attribute is defined by the device definition, and users who write these expressions must consult the documentation for their specific drivers. The value type of each capacity is Quantity.
         -->
 
-        device.driver 字段可用于检查特定驱动，既可以作为高层次的前提条件（即你只想考虑来自此驱动的设备），
+        `device.driver` 字段可用于检查特定驱动，既可以作为高层次的前提条件（即你只想考虑来自此驱动的设备），
         也可以作为考虑来自不同驱动的设备的多子句表达式的一部分。
-          
+
         attribute 中每个元素的值类型由设备定义，编写这些表达式的用户必须查阅其特定驱动的文档。
         capacity 中元素的值类型为 Quantity。
-        
+
         <!--
         If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
-        
+
         A robust expression should check for the existence of attributes before referencing them.
-        
+
         For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
         -->
-        
-        如果在 device.attributes 或 device.capacity 中使用未知前缀进行查找，
+
+        如果在 `device.attributes` 或 `device.capacity` 中使用未知前缀进行查找，
         将返回一个空映射。对未知字段的任何引用将导致评估错误和分配中止。
 
         一个健壮的表达式应在引用属性之前检查其是否存在。
-          
-        为了方便使用，cel.bind() 函数被启用，此函数可用于简化访问同一域的多个属性的表达式。例如：
+
+        为了方便使用，`cel.bind()` 函数被启用，此函数可用于简化访问同一域的多个属性的表达式。例如：
 
         ```
         cel.bind(dra, device.attributes["dra.example.com"], dra.someBool && dra.anotherBool)
         ```
-        
+
         <!--
         The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps.
         -->
@@ -341,17 +341,16 @@ DeviceTaintRuleList 是 DeviceTaintRules 的集合。
 
 <!--
 ## Operations {#Operations}
-
-<hr>
-
-### `get` read the specified DeviceTaintRule
-
-#### HTTP Request
 -->
 ## 操作 {#Operations}
 
 <hr>
 
+<!--
+### `get` read the specified DeviceTaintRule
+
+#### HTTP Request
+-->
 ### `get` 读取指定的 DeviceTaintRule
 
 #### HTTP 请求

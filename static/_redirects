@@ -463,4 +463,6 @@
 /docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301
 /docs/tasks/administer-cluster/namespaces-walkthrough/   /docs/tutorials/cluster-management/namespaces-walkthrough/ 301
 
+/blog/2025/09/23/introducing-headlamp-plugin-for-karpenter/ /blog/2025/10/06/introducing-headlamp-plugin-for-karpenter/ 301
+
 /kubertenes     /blog/2024/06/06/10-years-of-kubernetes/ 302

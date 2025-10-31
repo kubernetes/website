@@ -101,6 +101,15 @@ resource allocation decisions.
 之后，建议会被存储在拓扑管理器中，供**建议提供者**在作资源分配决策时使用。
 
 <!--
+The flow can be seen in the following diagram.
+
+![topology_manager_flow](/images/docs/topology-manager-flow.png)
+-->
+该流程可见于下图。
+
+![topology_manager_flow](/images/docs/topology-manager-flow.png)
+
+<!--
 ## Windows Support
 -->
 ## Windows 支持
