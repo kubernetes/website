@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Run pre-flight checks
+
 ### Synopsis
 
 

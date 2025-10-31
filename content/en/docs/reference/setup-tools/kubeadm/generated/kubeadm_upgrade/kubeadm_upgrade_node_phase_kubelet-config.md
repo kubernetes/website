@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Upgrade the kubelet configuration for this node
+
 ### Synopsis
 
 

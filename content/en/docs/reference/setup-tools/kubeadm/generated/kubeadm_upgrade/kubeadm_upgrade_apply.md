@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Upgrade your Kubernetes cluster to the specified version
+
 ### Synopsis
 
 

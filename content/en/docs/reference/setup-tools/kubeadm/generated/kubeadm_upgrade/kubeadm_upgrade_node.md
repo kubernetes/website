@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Upgrade commands for a node in the cluster
+
 ### Synopsis
 
 

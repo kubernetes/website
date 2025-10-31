@@ -1,6 +1,7 @@
 ---
 title: 'Announcing Kubeflow 0.1'
 date: 2018-05-04
+author: aronchick
 slug: announcing-kubeflow-0.1
 author: >
   Jeremy Lewi (Google),

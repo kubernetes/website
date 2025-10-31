@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Renew the certificate embedded in the kubeconfig file for the super-admin
+
 ### Synopsis
 
 

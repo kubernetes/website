@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Configures bootstrap token and cluster-info RBAC rules
+
 ### Synopsis
 
 

@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Upload the kubeadm ClusterConfiguration to a ConfigMap
+
 ### Synopsis
 
 

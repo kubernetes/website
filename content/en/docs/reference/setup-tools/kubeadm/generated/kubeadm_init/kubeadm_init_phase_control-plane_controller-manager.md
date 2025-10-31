@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Generates the kube-controller-manager static Pod manifest
+
 ### Synopsis
 
 

@@ -13,7 +13,9 @@ hide_feedback: true
 menu:
   main:
     title: "Документация"
-    weight: 10
+    weight: 20
+    post: >
+      <p>Научитесь использовать Kubernetes и узнайте основные понятия, изучите примеры и справочную информацию. Также вы можете <a href="/editdocs/" data-auto-burger-exclude>помочь в создании документации</a>!</p>
 overview: >
   Kubernetes - это открытое программное обеспечение для автоматизации развёртывания, масштабирования и управления контейнеризированными приложениями. Проект с открытым исходным кодом размещён на серверах Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).
 cards:

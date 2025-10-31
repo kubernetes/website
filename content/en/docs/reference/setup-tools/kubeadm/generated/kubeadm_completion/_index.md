@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Output shell completion code for the specified shell (bash or zsh)
+
 ### Synopsis
 
 

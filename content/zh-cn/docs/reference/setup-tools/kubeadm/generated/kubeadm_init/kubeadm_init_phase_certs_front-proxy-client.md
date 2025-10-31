@@ -1,3 +1,8 @@
+<!-- 
+Generate the certificate for the front proxy client 
+-->
+为前端代理客户端生成证书。
+
 <!--
 ### Synopsis
 -->
@@ -8,12 +13,11 @@ Generate the certificate for the front proxy client, and save them into front-pr
 
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
-为前端代理客户端生成证书，并将其保存到 `front-proxy-client.crt` 和
-`front-proxy-client.key` 文件中。
+为前端代理客户端生成证书，并将其保存到 front-proxy-client.crt 和 front-proxy-client.key 文件中。
 
 如果两个文件都已存在，kubeadm 将跳过生成步骤并将使用现有文件。
 
-```shell
+```
 kubeadm init phase certs front-proxy-client [flags]
 ```
 
@@ -22,7 +26,7 @@ kubeadm init phase certs front-proxy-client [flags]
 -->
 ### 选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -38,12 +42,10 @@ kubeadm init phase certs front-proxy-client [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-存储证书的路径。
-</p>
+<p>存储证书的路径。</p>
 </td>
 </tr>
 
@@ -52,12 +54,10 @@ The path where to save and store the certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
-</p>
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -66,12 +66,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Don't apply any changes; just output what would be done.
+<p>Don't apply any changes; just output what would be done.</p>
 -->
-不做任何更改；只输出将要执行的操作。
-</p>
+<p>不做任何更改；只输出将要执行的操作。</p>
 </td>
 </tr>
 
@@ -80,12 +78,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-help for front-proxy-client
+<p>help for front-proxy-client</p>
 -->
-front-proxy-client 操作的帮助命令。
-</p>
+<p>front-proxy-client 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -99,12 +95,10 @@ front-proxy-client 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
-</p>
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -116,7 +110,7 @@ Choose a specific Kubernetes version for the control plane.
 -->
 ### 从父命令继承的选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -127,14 +121,11 @@ Choose a specific Kubernetes version for the control plane.
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td>
-</td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
-</p>
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Download certificates shared among control-plane nodes from the kubeadm-certs Secret
+
 ### Synopsis
 
 

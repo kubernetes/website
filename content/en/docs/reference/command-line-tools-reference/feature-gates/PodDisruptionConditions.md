@@ -17,8 +17,5 @@ stages:
   - stage: stable
     defaultValue: true
     fromVersion: "1.31"
-    toVersion: "1.33"
-
-removed: true
 ---
-Enabled support for appending a dedicated pod condition indicating that the pod is being deleted due to a disruption.
+Enables support for appending a dedicated pod condition indicating that the pod is being deleted due to a disruption.

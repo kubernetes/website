@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Run all kubelet-finalize phases
+
 ### Synopsis
 
 

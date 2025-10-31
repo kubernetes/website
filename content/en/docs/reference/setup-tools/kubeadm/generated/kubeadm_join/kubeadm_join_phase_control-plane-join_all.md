@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Join a machine as a control plane instance
+
 ### Synopsis
 
 

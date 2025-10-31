@@ -14,21 +14,10 @@ content_type: concept
 
 ## 팀 마일스톤 관리
 
-쿠버네티스 문서 한글화팀은 [쿠버네티스 릴리스](/releases/release)에 따라 팀 마일스톤을 관리한다.
-본 섹션은 한글화팀의 팀 마일스톤 관리에 특화된 내용을 다룬다.
-
-{{< note >}}
-과거에는 [현지화 가이드의 브랜치 전략](/docs/contribute/localization/#branching-strategy)에 따라 한글화를
-위한 팀 마일스톤과 별도의 전용 개발 브랜치를 운영했으나, 현재는 이 정책을 더 이상 사용하지 않는다.
-
-지금은 메인테이너와 컨트리뷰터 모두 [`main`](https://github.com/kubernetes/website/tree/main) 브랜치를 기준으로 한글화 작업을 진행한다.
-
-즉, 한글화 대상 영문 문서는 k8s.io 에 바로 동기화되는 [`main`](https://github.com/kubernetes/website/tree/main) 브랜치의 문서이며,
-한글화 기여 PR의 목적(target) 브랜치도 동일하게  [`main`](https://github.com/kubernetes/website/tree/main)으로 지정해야 함을 의미한다.
-{{< /note >}}
-
-{{< note >}}
-참고 및 기록을 위해 예전 팀 마일스톤 관리 정책을 남긴다.
+쿠버네티스 문서 한글화팀은 커뮤니티의
+[현지화 가이드](/docs/contribute/localization/#branching-strategy)에 따라 한글화를
+위한 팀 마일스톤과 개발 브랜치를 관리한다. 본 섹션은 한글화팀의 팀 마일스톤 관리에 특화된
+내용을 다룬다.
 
 한글화팀은 `main` 브랜치에서 분기한 개발 브랜치를 사용한다. 개발 브랜치 이름은 다음과 같은
 구조를 갖는다.
@@ -40,7 +29,6 @@ content_type: concept
 
 업스트림(upstream)의 릴리스 주기(약 3개월)에 따라 다음 버전으로 마일스톤을 변경하는 시점에는
 일시적으로 `release-<소스 버전>` 브랜치를 원 브랜치로 사용하는 개발 브랜치를 추가로 운영한다.
-{{< /note >}}
 
 [한글화팀의 정기 화상 회의 일정](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)과
 팀 마일스톤 주기는 대체로 일치하며, 정기 회의를 통해 팀 마일스톤마다 PR 랭글러(wrangler)를
@@ -233,12 +221,14 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 
 한글화 용어집의 개선(추가, 수정, 삭제 등)을 위한 과정은 다음과 같다.
 
-1. 컨트리뷰터가 개선이 필요한 용어를 파악하였다면 ISSUE를 생성하여 개선 필요성을 공유하거나, `main` 브랜치에
+1. 컨트리뷰터가 개선이 필요한 용어을 파악하면, ISSUE를 생성하여 개선 필요성을 공유하거나 `main` 브랜치에
 PR을 생성하여 개선된 용어를 제안한다.
 
 1. 개선 제안에 대한 논의는 ISSUE 및 PR을 통해서 이루어지며, 한글화팀 회의를 통해 확정한다.
 
-1. 한글화팀 회의를 통해 제안이 확정되면, 리뷰어 및 승인자는 해당 PR을 승인한다.
+1. 리뷰어 및 승인자는 작업 중인 한글화 작업 브랜치(예: dev-1.17-ko.3)에 영향을 최소화 하기 위해서,
+신규 한글화 작업 브랜치(예: dev-1.17-ko.4) 생성 시점에 맞춰 확정된 PR을 승인한다.
+개선된 한글화 용어집은 신규 한글화 작업 브랜치부터 적용한다.
 
 1. 개선된 한글화 용어집에 따라 기존의 한글 문서에 대한 업데이트가 필요하며,
 컨트리뷰션을 통해서 업데이트를 진행한다.
@@ -286,7 +276,6 @@ Cluster | 클러스터 |
 ClusterRole | 클러스터롤(ClusterRole) | API 오브젝트인 경우
 ClusterRoleBinding | 클러스터롤바인딩(ClusterRoleBinding) | API 오브젝트인 경우
 Command Line Tool | 커맨드라인 툴 |
-Component | 컴포넌트 |
 ComponentStatus | 컴포넌트스테이터스(ComponentStatus) | API 오브젝트인 경우
 ConfigMap | 컨피그맵(ConfigMap) | API 오브젝트인 경우
 configuration | 구성, 설정 |
@@ -415,7 +404,6 @@ prefix | 접두사 |
 PriorityClass | 프라이어리티클래스(PriorityClass) | API 오브젝트인 경우
 Privileged | 특권을 가진(privileged) |
 Prometheus | 프로메테우스 |
-proxy | 프록시 |
 proof of concept | 개념 증명 |
 Pull Request | 풀 리퀘스트 |
 Pull Secret Credentials | 풀(Pull) 시크릿 자격증명 |

@@ -1,6 +1,6 @@
 ---
 title: Workload
-id: workload
+id: workloads
 date: 2019-02-13
 full_link: /fr/docs/concepts/workloads/
 short_description: >

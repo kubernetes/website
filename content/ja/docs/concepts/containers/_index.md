@@ -2,6 +2,7 @@
 title: コンテナ
 weight: 40
 description: アプリケーションとランタイムの依存関係を一緒にパッケージ化するための技術
+reviewers:
 content_type: concept
 no_list: true
 ---

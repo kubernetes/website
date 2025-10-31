@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Upload all the configurations to ConfigMaps
+
 ### Synopsis
 
 

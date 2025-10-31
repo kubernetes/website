@@ -1,4 +1,5 @@
 ---
+reviewers:
 title: ServiceとPodに対するDNS
 content_type: concept
 weight: 80

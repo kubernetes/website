@@ -1,3 +1,8 @@
+<!-- 
+Generate the manifests for the new control plane components 
+-->
+为新的控制平面组件生成清单。
+
 <!--
 ### Synopsis
 -->
@@ -8,7 +13,7 @@ Generate the manifests for the new control plane components
 -->
 为新的控制平面组件生成清单（manifest）。
 
-```shell
+```
 kubeadm join phase control-plane-prepare control-plane [flags]
 ```
 
@@ -17,7 +22,7 @@ kubeadm join phase control-plane-prepare control-plane [flags]
 -->
 ### 选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -29,12 +34,10 @@ kubeadm join phase control-plane-prepare control-plane [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+<p>If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
 -->
-对于将要托管新的控制平面实例的节点，指定 API 服务器将公布的其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
-</p>
+<p>对于将要托管新的控制平面实例的节点，指定 API 服务器将公布的其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。</p>
 </td>
 </tr>
 
@@ -48,12 +51,10 @@ If the node should host a new control plane instance, the IP address the API Ser
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-If the node should host a new control plane instance, the port for the API Server to bind to.
+<p>If the node should host a new control plane instance, the port for the API Server to bind to.</p>
 -->
-针对将要托管新的控制平面实例的节点，设置 API 服务器要绑定的端口。
-</p>
+<p>针对将要托管新的控制平面实例的节点，设置 API 服务器要绑定的端口。</p>
 </td>
 </tr>
 
@@ -62,12 +63,10 @@ If the node should host a new control plane instance, the port for the API Serve
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
-</p>
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 

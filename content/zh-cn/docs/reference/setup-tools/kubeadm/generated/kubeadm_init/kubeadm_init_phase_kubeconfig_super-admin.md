@@ -1,4 +1,9 @@
 <!--
+Generate a kubeconfig file for the super-admin
+-->
+为 super-admin 生成一个 kubeconfig 文件。
+
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -6,10 +11,9 @@
 <!--
 Generate a kubeconfig file for the super-admin, and save it to super-admin.conf file.
 -->
-为 super-admin 生成一个 kubeconfig 文件，并将其保存到
-`super-admin.conf` 文件中。
+为 super-admin 生成一个 kubeconfig 文件，并将其保存到 super-admin.conf 文件中。
 
-```shell
+```
 kubeadm init phase kubeconfig super-admin [flags]
 ```
 
@@ -18,7 +22,7 @@ kubeadm init phase kubeconfig super-admin [flags]
 -->
 ### 选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -29,15 +33,11 @@ kubeadm init phase kubeconfig super-admin [flags]
 <td colspan="2">--apiserver-advertise-address string</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 服务器所公布其监听的 IP 地址。如果未设置，则使用默认的网络接口。
-</p>
-</td>
+<p>API 服务器所公布其监听的 IP 地址。如果未设置，则使用默认的网络接口。</p></td>
 </tr>
 
 <tr>
@@ -47,15 +47,11 @@ API 服务器所公布其监听的 IP 地址。如果未设置，则使用默认
 <td colspan="2">--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值：6443</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Port for the API Server to bind to.
 -->
-API 服务器绑定的端口。
-</p>
-</td>
+<p>API 服务器绑定的端口。</p></td>
 </tr>
 
 <tr>
@@ -65,75 +61,55 @@ API 服务器绑定的端口。
 <td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 The path where to save and store the certificates.
 -->
-保存和存储证书的路径。
-</p>
-</td>
+<p>保存和存储证书的路径。</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路径。
-</p>
-</td>
+<p>kubeadm 配置文件的路径。</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--control-plane-endpoint string</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Specify a stable IP address or DNS name for the control plane.
 -->
-为控制平面指定一个稳定的 IP 地址或 DNS 名称。
-</p>
-</td>
+<p>为控制平面指定一个稳定的 IP 地址或 DNS 名称。</p></td>
 </tr>
 
 <tr>
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Don't apply any changes; just output what would be done.
 -->
-不做任何更改；只输出将要执行的操作。
-</p>
-</td>
+<p>不做任何更改；只输出将要执行的操作。</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 help for super-admin
 -->
-super-admin 的帮助信息。
-</p>
-</td>
+<p>super-admin 的帮助信息。</p></td>
 </tr>
 
 <tr>
@@ -144,13 +120,10 @@ super-admin 的帮助信息。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 The path where to save the kubeconfig file.
 -->
-保存 kubeconfig 文件的路径。
-</p>
-</td>
+<p>保存 kubeconfig 文件的路径。</p></td>
 </tr>
 
 <tr>
@@ -161,13 +134,10 @@ The path where to save the kubeconfig file.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 Choose a specific Kubernetes version for the control plane.
 -->
-为控制平面指定一个特定的 Kubernetes 版本。
-</p>
-</td>
+<p>为控制平面指定一个特定的 Kubernetes 版本。</p></td>
 </tr>
 
 </tbody>
@@ -178,7 +148,7 @@ Choose a specific Kubernetes version for the control plane.
 -->
 ### 从父命令继承的选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -190,13 +160,10 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-[实验性功能] 指向‘真实’宿主根文件系统的路径。
-</p>
-</td>
+<p>[实验性功能] 指向‘真实’宿主根文件系统的路径。</p></td>
 </tr>
 
 </tbody>

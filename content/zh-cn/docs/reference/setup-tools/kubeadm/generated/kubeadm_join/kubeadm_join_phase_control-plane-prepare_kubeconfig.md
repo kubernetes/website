@@ -1,3 +1,8 @@
+<!-- 
+Generate the kubeconfig for the new control plane components 
+-->
+为新的控制平面组件生成 kubeconfig。
+
 <!--
 ### Synopsis
 -->
@@ -9,7 +14,7 @@ Generate the kubeconfig for the new control plane components
 
 为新的控制平面组件生成 kubeconfig。
 
-```shell
+```
 kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags]
 ```
 
@@ -18,7 +23,7 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 -->
 ### 选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -45,12 +50,10 @@ Use this key to decrypt the certificate secrets uploaded by init. The certificat
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
-</p>
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -59,12 +62,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Create a new control plane instance on this node
+<p>Create a new control plane instance on this node</p>
 -->
-在此节点上创建一个新的控制平面实例。
-</p>
+<p>在此节点上创建一个新的控制平面实例。</p>
 </td>
 </tr>
 
@@ -73,12 +74,10 @@ Create a new control plane instance on this node
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-For file-based discovery, a file or URL from which to load cluster information.
+<p>For file-based discovery, a file or URL from which to load cluster information.</p>
 -->
-对于基于文件的发现，给出用于加载集群信息的文件或者 URL。
-</p>
+<p>对于基于文件的发现，给出用于加载集群信息的文件或者 URL。</p>
 </td>
 </tr>
 
@@ -87,12 +86,10 @@ For file-based discovery, a file or URL from which to load cluster information.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-For token-based discovery, the token used to validate cluster information fetched from the API server.
+<p>For token-based discovery, the token used to validate cluster information fetched from the API server.</p>
 -->
-对于基于令牌的发现，该令牌用于验证从 API 服务器获取的集群信息。
-</p>
+<p>对于基于令牌的发现，该令牌用于验证从 API 服务器获取的集群信息。</p>
 </td>
 </tr>
 
@@ -101,12 +98,10 @@ For token-based discovery, the token used to validate cluster information fetche
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").
+<p>For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").</p>
 -->
-对于基于令牌的发现，请验证根 CA 公钥是否匹配此哈希值（格式："&lt;type&gt;:&lt;value&gt;"）。
-</p>
+<p>对于基于令牌的发现，请验证根 CA 公钥是否匹配此哈希值（格式："&lt;type&gt;:&lt;value&gt;"）。</p>
 </td>
 </tr>
 
@@ -115,12 +110,10 @@ For token-based discovery, validate that the root CA public key matches this has
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
+<p>For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.</p>
 -->
-对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。
-</p>
+<p>对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。</p>
 </td>
 </tr>
 
@@ -129,12 +122,10 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Don't apply any changes; just output what would be done.
+<p>Don't apply any changes; just output what would be done.</p>
 -->
-不做任何更改；只输出将要执行的操作。
-</p>
+<p>不做任何更改；只输出将要执行的操作。</p>
 </td>
 </tr>
 
@@ -143,12 +134,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-help for kubeconfig
+<p>help for kubeconfig</p>
 -->
-kubeconfig 操作的帮助命令。
-</p>
+<p>kubeconfig 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -157,12 +146,10 @@ kubeconfig 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.
+<p>Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.</p>
 -->
-指定在加入节点时用于临时通过 Kubernetes 控制平面进行身份验证的令牌。
-</p>
+<p>指定在加入节点时用于临时通过 Kubernetes 控制平面进行身份验证的令牌。</p>
 </td>
 </tr>
 
@@ -171,12 +158,10 @@ Specify the token used to temporarily authenticate with the Kubernetes Control P
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
+<p>Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.</p>
 -->
-如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。
-</p>
+<p>如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。</p>
 </td>
 </tr>
 
@@ -188,7 +173,7 @@ Use this token for both discovery-token and tls-bootstrap-token when those value
 -->
 ### 从父命令中继承的选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -200,12 +185,10 @@ Use this token for both discovery-token and tls-bootstrap-token when those value
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 指向 '真实' 宿主机根文件系统的路径。
-</p>
+<p>[实验] 指向 '真实' 宿主机根文件系统的路径。</p>
 </td>
 </tr>
 

@@ -11,8 +11,7 @@ tags:
 - workload
 - core-object
 ---
-A workload management {{< glossary_tooltip text="object" term_id="object" >}}
-that manages a replicated application, ensuring that
+ A workload resource that manages a replicated application, ensuring that
 a specific number of instances of a {{< glossary_tooltip text="Pod" term_id="pod" >}} are running.
 
 <!--more-->

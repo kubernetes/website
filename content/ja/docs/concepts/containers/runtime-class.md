@@ -1,4 +1,5 @@
 ---
+reviewers:
 title: ランタイムクラス(Runtime Class)
 content_type: concept
 weight: 30

@@ -1,3 +1,8 @@
+<!-- 
+Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components 
+-->
+生成自签名的 Kubernetes CA 以便为其他 Kubernetes 组件提供身份标识。
+
 <!--
 ### Synopsis
 -->
@@ -6,15 +11,14 @@
 <!--
 Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components, and save them into ca.crt and ca.key files.
 -->
-生成自签名的 Kubernetes CA 以便为其他 Kubernetes 组件提供身份标识，
-并将其保存到 `ca.crt` 和 `ca.key` 文件中。
+生成自签名的 Kubernetes CA 以便为其他 Kubernetes 组件提供身份标识，并将其保存到 ca.crt 和 ca.key 文件中。
 
 <!--
 If both files already exist, kubeadm skips the generation step and existing files will be used.
 -->
 如果两个文件都已存在，则 kubeadm 将跳过生成步骤，使用现有文件。
 
-```shell
+```
 kubeadm init phase certs ca [flags]
 ```
 
@@ -23,7 +27,7 @@ kubeadm init phase certs ca [flags]
 -->
 ### 选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -40,12 +44,10 @@ kubeadm init phase certs ca [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-证书的存储路径。
-</p>
+<p>证书的存储路径。</p>
 </td>
 </tr>
 
@@ -54,12 +56,10 @@ The path where to save and store the certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
-</p>
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -68,10 +68,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
+<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -82,12 +82,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-help for ca
+<p>help for ca</p>
 -->
-ca 操作的帮助命令。
-</p>
+<p>ca 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -101,12 +99,10 @@ ca 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
-</p>
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -130,12 +126,11 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
-</p>
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
+</td>
 </td>
 </tr>
 

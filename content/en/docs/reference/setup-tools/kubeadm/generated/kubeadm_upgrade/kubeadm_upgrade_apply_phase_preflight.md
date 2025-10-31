@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Run preflight checks before upgrade
+
 ### Synopsis
 
 

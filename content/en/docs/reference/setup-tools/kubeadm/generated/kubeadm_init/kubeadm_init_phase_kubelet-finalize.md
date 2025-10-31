@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Updates settings relevant to the kubelet after TLS bootstrap
+
 ### Synopsis
 
 

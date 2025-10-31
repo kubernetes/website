@@ -1,4 +1,9 @@
 <!--
+Run cleanup node.
+-->
+执行 cleanup node（清理节点）操作。
+
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -8,7 +13,7 @@ Run cleanup node.
 -->
 执行 cleanup node（清理节点）操作。
 
-```shell
+```
 kubeadm reset phase cleanup-node [flags]
 ```
 

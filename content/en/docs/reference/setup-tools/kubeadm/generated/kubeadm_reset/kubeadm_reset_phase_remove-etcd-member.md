@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Remove a local etcd member.
+
 ### Synopsis
 
 

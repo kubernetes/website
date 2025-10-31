@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components
+
 ### Synopsis
 
 

@@ -1,6 +1,7 @@
 ---
 title: 'Gardener - The Kubernetes Botanist'
 date: 2018-05-17
+author: rfranzke
 slug: gardener
 author: >
   [Rafael Franzke](mailto:rafael.franzke@sap.com) (SAP),

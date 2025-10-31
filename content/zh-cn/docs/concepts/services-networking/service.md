@@ -240,21 +240,6 @@ Service 能够将**任意**入站 `port` 映射到某个 `targetPort`。
 {{< /note >}}
 
 <!--
-### Relaxed naming requirements for Service objects
-
-{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
-
-The `RelaxedServiceNameValidation` feature gate allows Service object names to start with a digit. When this feature gate is enabled, Service object names must be valid [RFC 1123 label names](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
--->
-### 对 Service 对象放宽命名限制
-
-{{< feature-state feature_gate_name="RelaxedServiceNameValidation" >}}
-
-`RelaxedServiceNameValidation` 特性开关允许 Service 对象的名称以数字开头。
-启用该特性后，Service 对象的名称必须符合
-[RFC 1123 标签名称](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-label-names)的规范。
-
-<!--
 ### Port definitions {#field-spec-ports}
 
 Port definitions in Pods have names, and you can reference these names in the
@@ -1318,7 +1303,7 @@ metadata:
 metadata:
   name: my-service
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-scheme: "internal"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 ```
 
 {{% /tab %}}
@@ -1747,10 +1732,9 @@ Kubernetes {{< skew currentVersion >}} 支持以下字段值：
 {{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
 
 <!--
-In Kubernetes {{< skew currentVersion >}}, two additional values are
-available (unless the `PreferSameTrafficDistribution` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-disabled):
+Two additional values are available when the `PreferSameTrafficDistribution`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+enabled:
 
 `PreferSameZone`
 : This is an alias for `PreferClose` that is clearer about the intended semantics.
@@ -1759,9 +1743,8 @@ disabled):
 : Indicates a preference for routing traffic to endpoints that are on the same
   node as the client.
 -->
-在 Kubernetes {{< skew currentVersion >}} 中，
-另外提供了两个可选值（除非禁用了 `PreferSameTrafficDistribution` 
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) ）：
+当 `PreferSameTrafficDistribution`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用时，还可以使用两个附加的取值：
 
 `PreferSameZone`  
 : 这是 `PreferClose` 的别名，但它更清晰地表达了预期的语义。

@@ -639,7 +639,7 @@ can be used without reverifying pull credentials</li>
    <p>preloadedImagesVerificationAllowlist specifies a list of images that are
 exempted from credential reverification for the &quot;NeverVerifyAllowlistedImages&quot;
 <code>imagePullCredentialsVerificationPolicy</code>.
-The list accepts a full path segment wildcard suffix &quot;/*&quot;.
+The list accepts a full path segment wildcard suffix &quot;/&ast;&quot;.
 Only use image specs without an image tag or digest.</p>
 </td>
 </tr>
@@ -733,7 +733,6 @@ Default: nil</p>
 <td>
    <p>streamingConnectionIdleTimeout is the maximum time a streaming connection
 can be idle before the connection is automatically closed.
-Deprecated: no longer has any effect.
 Default: &quot;4h&quot;</p>
 </td>
 </tr>
@@ -1179,10 +1178,7 @@ Default: &quot;5m&quot;</p>
 <td>
    <p>evictionMaxPodGracePeriod is the maximum allowed grace period (in seconds) to use
 when terminating pods in response to a soft eviction threshold being met. This value
-effectively caps the Pod's terminationGracePeriodSeconds value during soft evictions. 
-The pod's effective grace period is calculated as:
-min(evictionMaxPodGracePeriod, pod.terminationGracePeriodSeconds).
-Note: A negative value will cause pods to be terminated immediately, as if the value was 0.
+effectively caps the Pod's terminationGracePeriodSeconds value during soft evictions.
 Default: 0</p>
 </td>
 </tr>
@@ -1628,7 +1624,7 @@ Default: 0.9</p>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints are an array of taints to add to a node object when
@@ -1726,7 +1722,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
     
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source is the source that we are serializing.</p>
@@ -1799,9 +1795,9 @@ to provide credentials. Images are expected to contain the registry domain
 and URL path.</p>
 <p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
-Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so *.io does not match *.k8s.io.</p>
+as subdomains like '&ast;.k8s.io' or 'k8s.&ast;.io', and top-level-domains such as 'k8s.&ast;'.
+Matching partial subdomains like 'app&ast;.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so '&ast;.io' does not match '&ast;.k8s.io'.</p>
 <p>A match exists between an image and a matchImage when all of the below are true:</p>
 <ul>
 <li>Both contain the same number of domain parts and each part matches.</li>
@@ -1811,9 +1807,9 @@ a single subdomain segment, so *.io does not match *.k8s.io.</p>
 <p>Example values of matchImages:</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>*.azurecr.io</li>
+<li>&ast;.azurecr.io</li>
 <li>gcr.io</li>
-<li><em>.</em>.registry.io</li>
+<li>&ast;.&ast;.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
@@ -2129,7 +2125,7 @@ and groups corresponding to the Organization in the client certificate.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.34/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>

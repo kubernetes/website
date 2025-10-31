@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Upload the kubeadm and kubelet configuration to a ConfigMap
+
 ### Synopsis
 
 

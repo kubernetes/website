@@ -9,7 +9,7 @@
 <!-- Sort Feature gate pages list -->
 {{- $sortedFeatureGates := sort ($featureDataFiles.Resources.ByType "page") -}}
 
-<dl class="feature-gate-list">
+<ul class="feature-gate-list">
   {{- range $featureGateFile := $sortedFeatureGates -}}
 
     <!-- Extract the feature gate name from the "Title" parameter in file -->
@@ -48,14 +48,13 @@
 
     {{- if $shouldDisplayThisFeatureGate -}}
       {{- with $featureGateFile.Content -}}
-      <dt id="{{ $featureGateName }}"><code class="feature-gate-name">{{ $featureGateName }}</code></dt>
-      <dd>
+      <li>
         {{- $hasParagraphWrapper := (hasPrefix ( . | markdownify ) "<p>") -}}
         {{- if not $hasParagraphWrapper }}<p>{{ end -}}
-           {{ . | markdownify -}}
+          <code class="feature-gate-name">{{ $featureGateName }}</code>: {{ . | markdownify -}}
         {{- if not $hasParagraphWrapper }}</p>{{ end -}}
-      </dd>
+      </li>
       {{- end -}}
     {{- end -}}
   {{- end -}}
-</dl>
+</ul>

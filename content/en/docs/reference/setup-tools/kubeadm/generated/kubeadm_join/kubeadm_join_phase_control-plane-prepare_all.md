@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Prepare the machine for serving a control plane
+
 ### Synopsis
 
 

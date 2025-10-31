@@ -1,4 +1,5 @@
 ---
+reviewers:
 title: VolumeSnapshotClass
 content_type: concept
 weight: 61 # just after volume snapshots

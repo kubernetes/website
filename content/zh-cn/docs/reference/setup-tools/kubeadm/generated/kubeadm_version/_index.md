@@ -1,4 +1,9 @@
 <!--
+Print the version of kubeadm
+-->
+打印 kubeadm 的版本。
+
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -8,7 +13,7 @@ Print the version of kubeadm
 -->
 打印 kubeadm 的版本。
 
-```shell
+```
 kubeadm version [flags]
 ```
 

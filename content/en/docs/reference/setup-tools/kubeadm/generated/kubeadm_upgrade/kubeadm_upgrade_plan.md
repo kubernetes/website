@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Check which versions are available to upgrade to and validate whether your current cluster is upgradeable.
+
 ### Synopsis
 
 

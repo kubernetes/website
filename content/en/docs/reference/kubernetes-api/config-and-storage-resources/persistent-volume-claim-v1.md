@@ -96,10 +96,6 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 - **volumeMode** (string)
 
   volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
-  
-  Possible enum values:
-   - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
-   - `"Filesystem"` means the volume will be or is formatted with a filesystem.
 
 
 
@@ -142,7 +138,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
 - **volumeAttributesClassName** (string)
 
-  volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
+  volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).
 
 
 
@@ -252,11 +248,11 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 
 - **currentVolumeAttributesClassName** (string)
 
-  currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
+  currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
 
 - **modifyVolumeStatus** (ModifyVolumeStatus)
 
-  ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
+  ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted. This is a beta field and requires enabling VolumeAttributesClass feature (off by default).
 
   <a name="ModifyVolumeStatus"></a>
   *ModifyVolumeStatus represents the status object of ControllerModifyVolume operation*
@@ -273,11 +269,6 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
       Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
     	  resolve the error, a valid VolumeAttributesClass needs to be specified.
     Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
-    
-    Possible enum values:
-     - `"InProgress"` InProgress indicates that the volume is being modified
-     - `"Infeasible"` Infeasible indicates that the request has been rejected as invalid by the CSI driver. To resolve the error, a valid VolumeAttributesClass needs to be specified
-     - `"Pending"` Pending indicates that the PersistentVolumeClaim cannot be modified due to unmet requirements, such as the specified VolumeAttributesClass not existing
 
   - **modifyVolumeStatus.targetVolumeAttributesClassName** (string)
 
@@ -286,11 +277,6 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **phase** (string)
 
   phase represents the current phase of PersistentVolumeClaim.
-  
-  Possible enum values:
-   - `"Bound"` used for PersistentVolumeClaims that are bound
-   - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
-   - `"Pending"` used for PersistentVolumeClaims that are not yet bound
 
 
 

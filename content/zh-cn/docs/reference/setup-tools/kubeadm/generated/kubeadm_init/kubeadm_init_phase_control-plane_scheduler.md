@@ -1,4 +1,9 @@
 <!-- 
+Generates the kube-scheduler static Pod manifest
+-->
+生成 kube-scheduler 静态 Pod 清单。
+
+<!-- 
 ### Synopsis
 -->
 ### 概要
@@ -8,7 +13,7 @@ Generates the kube-scheduler static Pod manifest
 -->
 生成 kube-scheduler 静态 Pod 清单。
 
-```shell
+```
 kubeadm init phase control-plane scheduler [flags]
 ```
 
@@ -17,7 +22,7 @@ kubeadm init phase control-plane scheduler [flags]
 -->
 ### 选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -34,12 +39,10 @@ kubeadm init phase control-plane scheduler [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-The path where to save and store the certificates.
+<p>The path where to save and store the certificates.</p>
 -->
-存储证书的路径。
-</p>
+<p>存储证书的路径。</p>
 </td>
 </tr>
 
@@ -48,12 +51,10 @@ The path where to save and store the certificates.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Path to a kubeadm configuration file.
+<p>Path to a kubeadm configuration file.</p>
 -->
-kubeadm 配置文件的路径。
-</p>
+<p>kubeadm 配置文件的路径。</p>
 </td>
 </tr>
 
@@ -62,12 +63,10 @@ kubeadm 配置文件的路径。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Don't apply any changes; just output what would be done.
+<p>Don't apply any changes; just output what would be done.</p>
 -->
-不做任何更改；只输出将要执行的操作。
-</p>
+<p>不做任何更改；只输出将要执行的操作。</p>
 </td>
 </tr>
 
@@ -76,12 +75,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-help for scheduler
+<p>help for scheduler</p>
 -->
-scheduler 操作的帮助命令。
-</p>
+<p>scheduler 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -95,12 +92,10 @@ scheduler 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Choose a container registry to pull control plane images from
+<p>Choose a container registry to pull control plane images from</p>
 -->
-选择要从中拉取控制平面镜像的容器仓库。
-</p>
+<p>选择要从中拉取控制平面镜像的容器仓库。</p>
 </td>
 </tr>
 
@@ -114,12 +109,10 @@ Choose a container registry to pull control plane images from
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-Choose a specific Kubernetes version for the control plane.
+<p>Choose a specific Kubernetes version for the control plane.</p>
 -->
-为控制平面选择特定的 Kubernetes 版本。
-</p>
+<p>为控制平面选择特定的 Kubernetes 版本。</p>
 </td>
 </tr>
 
@@ -128,10 +121,7 @@ Choose a specific Kubernetes version for the control plane.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "target" can be one of "kube-apiserver", "kube-controller-manager", "kube-scheduler", "etcd", "kubeletconfiguration". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
--->
+<!--Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "target" can be one of "kube-apiserver", "kube-controller-manager", "kube-scheduler", "etcd", "kubeletconfiguration". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.-->
 包含名为 "target[suffix][+patchtype].extension" 的文件的目录。
 例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
 "target" 可以是 "kube-apiserver"、"kube-controller-manager"、"kube-scheduler"、"etcd"、"kubeletconfiguration" 之一。
@@ -139,7 +129,6 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
 "extension" 必须是 "json" 或 "yaml"。
 "suffix" 是一个可选的字符串，用来确定按字母顺序排序时首先应用哪些 patch。
-</p>
 </td>
 </tr>
 
@@ -153,12 +142,10 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
+<p>A set of extra flags to pass to the Scheduler or override default ones in form of &lt;flagname&gt;=&lt;value&gt;</p>
 -->
-一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器或者覆盖其默认参数配置。
-</p>
+<p>一组 &lt;flagname&gt;=&lt;value&gt; 形式的额外参数，用来传递给调度器或者覆盖其默认参数配置。</p>
 </td>
 </tr>
 
@@ -170,7 +157,7 @@ A set of extra flags to pass to the Scheduler or override default ones in form o
 -->
 ### 继承于父命令的选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -182,12 +169,10 @@ A set of extra flags to pass to the Scheduler or override default ones in form o
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
+<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
 -->
-[实验] 到 '真实' 主机根文件系统的路径。
-</p>
+<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
 </td>
 </tr>
 

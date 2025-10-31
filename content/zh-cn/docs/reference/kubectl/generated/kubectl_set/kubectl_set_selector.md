@@ -32,9 +32,9 @@ kubectl set selector (-f FILENAME | TYPE NAME) EXPRESSIONS [--resource-version=v
 
 <!--
 ```
-# Set the labels and selector before creating a deployment/service pair
-kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=client | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
-kubectl create deployment my-dep -o yaml --dry-run=client | kubectl label --local -f - environment=qa -o yaml | kubectl create -f -
+  # Set the labels and selector before creating a deployment/service pair
+  kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=client | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
+  kubectl create deployment my-dep -o yaml --dry-run=client | kubectl label --local -f - environment=qa -o yaml | kubectl create -f -
 ```
 -->
 ```shell
@@ -45,7 +45,7 @@ kubectl create deployment my-dep -o yaml --dry-run=client | kubectl label --loca
 
 ## {{% heading "options" %}}
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -61,8 +61,7 @@ kubectl create deployment my-dep -o yaml --dry-run=client | kubectl label --loca
 Select all resources in the namespace of the specified resource types
 -->
 选择指定资源类型的命名空间中的所有资源。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -75,8 +74,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 -->
 如果为 true，在模板中字段或映射键缺失时忽略模板中的错误。
 仅适用于 golang 和 jsonpath 输出格式。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -89,8 +87,7 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 -->
 必须是 "none"、"server" 或 "client"。如果是 client 策略，仅打印将要发送的对象，而不实际发送。
 如果是 server 策略，提交服务器端请求而不持久化资源。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -102,8 +99,7 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 Name of the manager used to track field ownership.
 -->
 用于跟踪字段属主关系的管理器的名称。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -115,8 +111,7 @@ Name of the manager used to track field ownership.
 identifying the resource.
 -->
 使用文件名来区分不同的资源。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -128,8 +123,7 @@ identifying the resource.
 help for selector
 -->
 selector 操作的帮助命令。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -141,8 +135,7 @@ selector 操作的帮助命令。
 If true, annotation will NOT contact api-server but run locally.
 -->
 如果为 true，则注解不会与 api-server 通信，而是在本地运行。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -155,8 +148,7 @@ Output format. One of: (json, yaml, name, go-template, go-template-file, templat
 -->
 输出格式。可选值为：
 json、yaml、name、go-template、go-template-file、template、templatefile、jsonpath、jsonpath-as-json、jsonpath-file。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -168,8 +160,7 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory.
 -->
 递归处理在 -f、--filename 中给出的目录。当你想要管理位于同一目录中的相关清单时很有用。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -181,8 +172,7 @@ Process the directory used in -f, --filename recursively. Useful when you want t
 If non-empty, the selectors update will only succeed if this is the current resource-version for the object. Only valid when specifying a single resource.
 -->
 如果非空，则只有在所给值是对象的当前资源版本时，选择算符更新才会成功。仅在指定单个资源时有效。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -194,8 +184,7 @@ If non-empty, the selectors update will only succeed if this is the current reso
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
 如果为 true，在以 JSON 或 YAML 格式打印对象时保留 managedFields。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -208,8 +197,7 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 -->
 当 -o=go-template、-o=go-template-file 时使用的模板字符串或模板文件路径。
 模板格式为 golang 模板 [http://golang.org/pkg/text/template/#pkg-overview]。
-</p>
-</td>
+</p></td>
 </tr>
 
 </tbody>
@@ -217,7 +205,7 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 
 ## {{% heading "parentoptions" %}}
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -281,8 +269,7 @@ Default cache directory
 Path to a cert file for the certificate authority
 -->
 证书机构的证书文件的路径。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -294,8 +281,7 @@ Path to a cert file for the certificate authority
 Path to a client certificate file for TLS
 -->
 TLS 客户端证书文件的路径。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -307,8 +293,7 @@ TLS 客户端证书文件的路径。
 Path to a client key file for TLS
 -->
 TLS 客户端密钥文件的路径。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -320,8 +305,7 @@ TLS 客户端密钥文件的路径。
 The name of the kubeconfig cluster to use
 -->
 要使用的 kubeconfig 中集群的名称。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -333,8 +317,31 @@ The name of the kubeconfig cluster to use
 The name of the kubeconfig context to use
 -->
 要使用的 kubeconfig 上下文的名称。
-</p>
-</td>
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
+-->
+设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: 300-->默认值：300</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
+-->
+设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
+</p></td>
 </tr>
 
 <tr>
@@ -346,8 +353,7 @@ The name of the kubeconfig context to use
 If true, opt-out of response compression for all requests to the server
 -->
 如果为 true，则对服务器所有请求的响应不再压缩。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>
@@ -371,23 +377,7 @@ If true, the server's certificate will not be checked for validity. This will ma
 Path to the kubeconfig file to use for CLI requests.
 -->
 CLI 请求要使用的 kubeconfig 文件的路径。
-</p>
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--kuberc string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
--->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性来禁用此功能。
-</p>
-</td>
+</p></td>
 </tr>
 
 <tr>

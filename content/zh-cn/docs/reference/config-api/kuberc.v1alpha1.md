@@ -23,7 +23,7 @@ auto_generated: true
 <!--
 Preference stores elements of KubeRC configuration file
 -->
-<code>Preference</code> 存储 KubeRC 配置文件的元素
+Preference 存储 KubeRC 配置文件的元素
 </p>
 
 <table class="table">
@@ -32,6 +32,7 @@ Preference stores elements of KubeRC configuration file
 
 <tr><td><code>apiVersion</code><br/>string</td><td><code>kubectl.config.k8s.io/v1alpha1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>Preference</code></td></tr>
+
 
 <tr><td><code>overrides</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubectl-config-k8s-io-v1alpha1-CommandOverride"><code>[]CommandOverride</code></a>
@@ -43,7 +44,7 @@ overrides allows changing default flag values of commands.
 This is especially useful, when user doesn't want to explicitly
 set flags each time.
 -->
-<code>overrides</code> 允许更改命令的默认标志值。
+overrides 允许更改命令的默认标志值。
 这对于用户不想每次明确设置标志时特别有用。
 </p>
 </td>
@@ -54,7 +55,7 @@ set flags each time.
 <td>
 <p>
 <!--
-aliases allow defining command aliases for existing kubectl commands, with optional default flag values.
+aliases allows defining command aliases for existing kubectl commands, with optional default flag values.
 If the alias name collides with a built-in command, built-in command always takes precedence.
 Flag overrides defined in the overrides section do NOT apply to aliases for the same command.
 kubectl [ALIAS NAME] [USER_FLAGS] [USER_EXPLICIT_ARGS] expands to
@@ -66,10 +67,10 @@ kubectl [COMMAND] # built-in command alias points to
 [KUBERC_APPEND_ARGS]
 e.g.
 -->
-<code>aliases</code> 允许为现有的 kubectl 命令定义命令别名，并可选择设置默认标志值。
+aliases 允许为现有的 kubectl 命令定义命令别名，并可选择设置默认标志值。
 如果别名与内置命令冲突，内置命令始终优先。
-在 <code>overrides</code> 部分定义的标志覆盖不适用于同一命令的别名。
-<code>kubectl [ALIAS NAME] [USER_FLAGS] [USER_EXPLICIT_ARGS]</code> 展开为：
+在 overrides 部分定义的标志覆盖不适用于同一命令的别名。
+<code>kubectl [ALIAS NAME] [USER_FLAGS] [USER_EXPLICIT_ARGS]</code> 展开为
 
 ```bash
 kubectl [COMMAND] # 别名指向的内置命令
@@ -93,14 +94,12 @@ kubectl [COMMAND] # 别名指向的内置命令
    - --
    - custom-arg1
  ```
-
 <!--
 For example, if user invokes &quot;kubectl runx test-pod&quot; command,
 this will be expanded to &quot;kubectl run --image=nginx test-pod -- custom-arg1&quot;
 -->
 例如，如果用户调用 <code>&quot;kubectl runx test-pod&quot;</code> 命令，
 这将被展开为 <code>&quot;kubectl run --image=nginx test-pod -- custom-arg1&quot;</code>
-
  ```yaml
  - name: getn
    command: get
@@ -110,7 +109,6 @@ this will be expanded to &quot;kubectl run --image=nginx test-pod -- custom-arg1
    prependArgs:
    - node
  ```
-
 <!--
 &quot;kubectl getn control-plane-1&quot; expands to &quot;kubectl get node control-plane-1 --output=wide&quot;
 &quot;kubectl getn control-plane-1 --output=json&quot; expands to &quot;kubectl get node --output=json control-plane-1&quot;
@@ -121,7 +119,6 @@ this will be expanded to &quot;kubectl run --image=nginx test-pod -- custom-arg1
 </tr>
 </tbody>
 </table>
-
 ## `AliasOverride`     {#kubectl-config-k8s-io-v1alpha1-AliasOverride}
 
 <!--
@@ -135,12 +132,14 @@ this will be expanded to &quot;kubectl run --image=nginx test-pod -- custom-arg1
 <!--
 AliasOverride stores the alias definitions.
 -->
-<code>AliasOverride</code> 存储别名定义。
+AliasOverride 存储别名定义。
 </p>
+
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
+
 
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
@@ -148,11 +147,11 @@ AliasOverride stores the alias definitions.
 <td>
 <p>
 <!--
-name is the name of alias that can only include alphabetical characters
+Name is the name of alias that can only include alphabetical characters
 If the alias name conflicts with the built-in command,
 built-in command will be used.
 -->
-<code>name</code> 是别名的名称，只能包含字母字符。如果别名与内置命令冲突，
+name 是别名的名称，只能包含字母字符。如果别名与内置命令冲突，
 将使用内置命令。
 </p>
 </td>
@@ -163,9 +162,9 @@ built-in command will be used.
 <td>
 <p>
 <!--
-command is the single or set of commands to execute, such as &quot;set env&quot; or &quot;create&quot;
+Command is the single or set of commands to execute, such as &quot;set env&quot; or &quot;create&quot;
 -->
-<code>command</code> 是要执行的单个或一组命令，例如 &quot;set env&quot; 或 &quot;create&quot;
+command 是要执行的单个或一组命令，例如 &quot;set env&quot; 或 &quot;create&quot;
 </p>
 </td>
 </tr>
@@ -175,10 +174,10 @@ command is the single or set of commands to execute, such as &quot;set env&quot;
 <td>
 <p>
 <!--
-prependArgs stores the arguments such as resource names, etc.
+PrependArgs stores the arguments such as resource names, etc.
 These arguments are inserted after the alias name.
 -->
-<code>prependArgs</code> 存储如资源名称等参数。
+prependArgs 存储如资源名称等参数。
 这些参数插入到别名名称之后。
 </p>
 </td>
@@ -189,33 +188,33 @@ These arguments are inserted after the alias name.
 <td>
 <p>
 <!--
-appendArgs stores the arguments such as resource names, etc.
+AppendArgs stores the arguments such as resource names, etc.
 These arguments are appended to the USER_ARGS.
 -->
-<code>appendArgs</code> 存储如资源名称等参数。
+appendArgs 存储如资源名称等参数。
 这些参数附加到 USER_ARGS 中。
 </p>
 </td>
 </tr>
 <tr><td><code>flags</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#kubectl-config-k8s-io-v1alpha1-CommandOptionDefault"><code>[]CommandOptionDefault</code></a>
+<a href="#kubectl-config-k8s-io-v1alpha1-CommandOverrideFlag"><code>[]CommandOverrideFlag</code></a>
 </td>
 <td>
 <p>
 <!--
-flag is allocated to store the flag definitions of alias.
-flags only modifies the default value of the flag and if
+Flag is allocated to store the flag definitions of alias.
+Flag only modifies the default value of the flag and if
 user explicitly passes a value, explicit one is used.
 -->
-<code>flags</code> 用于存储别名的标志定义。
-<code>flags</code> 只修改标志的默认值，如果用户显式传递一个值，则使用显式值。
+flags 用于存储别名的标志定义。
+flags 只修改标志的默认值，如果用户显式传递一个值，则使用显式值。
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 
-## `CommandDefaults`     {#kubectl-config-k8s-io-v1alpha1-CommandDefaults}
+## `CommandOverride`     {#kubectl-config-k8s-io-v1alpha1-CommandOverride}
 
 <!--
 **Appears in:**
@@ -226,15 +225,17 @@ user explicitly passes a value, explicit one is used.
 
 <p>
 <!--
-CommandDefaults stores the commands and their associated option's
+CommandOverride stores the commands and their associated flag's
 default values.
 -->
-<code>CommandDefaults</code> 存储命令及其关联参数的默认值。
+CommandOverride 存储命令及其关联标志的默认值。
 </p>
+
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
+
 
 <tr><td><code>command</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
@@ -242,28 +243,28 @@ default values.
 <td>
 <p>
 <!--
-command refers to a command whose flag's default value is changed.
+Command refers to a command whose flag's default value is changed.
 -->
-<code>command</code> 指向一个命令，其标志的默认值已更改。
+command 指向一个命令，其标志的默认值已更改。
 </p>
 </td>
 </tr>
 <tr><td><code>flags</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#kubectl-config-k8s-io-v1alpha1-CommandDefaults"><code>[]CommandDefaults</code></a>
+<a href="#kubectl-config-k8s-io-v1alpha1-CommandOverrideFlag"><code>[]CommandOverrideFlag</code></a>
 </td>
 <td>
 <p>
 <!--
-flags is a list of flags storing different default values.
+Flags is a list of flags storing different default values.
 -->
-<code>flags</code> 是一个列表，存储不同的默认值。
+flags 是一个列表，存储不同的默认值。
 </p>
 </td>
 </tr>
 </tbody>
 </table>
 
-## `CommandOptionDefault`     {#kubectl-config-k8s-io-v1alpha1-CommandOptionDefault}
+## `CommandOverrideFlag`     {#kubectl-config-k8s-io-v1alpha1-CommandOverrideFlag}
 
 <!--
 **Appears in:**
@@ -272,19 +273,22 @@ flags is a list of flags storing different default values.
 
 - [AliasOverride](#kubectl-config-k8s-io-v1alpha1-AliasOverride)
 
-- [CommandDefaults](#kubectl-config-k8s-io-v1alpha1-CommandDefaults)
+- [CommandOverride](#kubectl-config-k8s-io-v1alpha1-CommandOverride)
+
 
 <p>
 <!--
-CommandOptionDefault stores the name and the specified default
-value of an option.
+CommandOverrideFlag stores the name and the specified default
+value of the flag.
 -->
-<code>CommandOptionDefault</code> 存储参数的名称和指定的默认值。
+CommandOverrideFlag 存储标志的名称和指定的默认值。
 </p>
+
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
+
 
 <tr><td><code>name</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
@@ -294,7 +298,7 @@ value of an option.
 <!--
 Flag name (long form, without dashes).
 -->
-<code>flag</code> 名称（长形式，不带破折号）。
+Flag 名称（长形式，不带破折号）。
 </p>
 </td>
 </tr>

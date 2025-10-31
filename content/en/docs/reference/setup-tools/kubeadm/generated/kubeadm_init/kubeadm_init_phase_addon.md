@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Install required addons for passing conformance tests
+
 ### Synopsis
 
 

@@ -1,17 +1,18 @@
 ---
-title: Selector
+title: Bộ chọn (Selector)
 id: selector
-date: 2018-04-12
+date: 2019-11-29
 full_link: /docs/concepts/overview/working-with-objects/labels/
 short_description: >
-  Cho phép người dùng lọc ra một danh sách tài nguyên dựa trên label.
+  Bộ chọn cho phép người dùng lọc ra một danh sách tài nguyên dựa trên labels (nhãn).
 
 aka:
 tags:
-- fundamental
+  - fundamental
 ---
- Cho phép người dùng lọc ra một danh sách tài nguyên dựa trên  {{< glossary_tooltip text="label" term_id="label" >}}.
+
+Cho phép người dùng lọc ra một danh sách tài nguyên dựa trên labels (nhãn).
 
 <!--more-->
 
-Selector được áp dụng khi truy vấn những danh sách tài nguyên để lọc dựa trên label.
+Selectors được áp dụng khi truy vấn những danh sách tài nguyên để lọc dựa trên {{< glossary_tooltip text="labels" term_id="label" >}} chúng được đánh.

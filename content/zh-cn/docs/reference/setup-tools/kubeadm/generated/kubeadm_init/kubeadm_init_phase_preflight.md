@@ -1,3 +1,8 @@
+<!--
+Run pre-flight checks
+-->
+运行预检。
+
 <!-- 
 ### Synopsis
 -->
@@ -8,7 +13,7 @@ Run pre-flight checks for kubeadm init.
 -->
 运行 kubeadm init 前的预检。
 
-```shell
+```
 kubeadm init phase preflight [flags]
 ```
 
@@ -19,8 +24,8 @@ kubeadm init phase preflight [flags]
 
 <!--
 ```
-# Run pre-flight checks for kubeadm init using a config file.
-kubeadm init phase preflight --config kubeadm-config.yaml
+  # Run pre-flight checks for kubeadm init using a config file.
+  kubeadm init phase preflight --config kubeadm-config.yaml
 ```
 -->
 ```
@@ -33,7 +38,7 @@ kubeadm init phase preflight --config kubeadm-config.yaml
 -->
 ### 选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -45,10 +50,10 @@ kubeadm init phase preflight --config kubeadm-config.yaml
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 Path to a kubeadm configuration file.
 -->
+<p>
 kubeadm 配置文件的路径。
 </p>
 </td>
@@ -74,10 +79,10 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 Don't apply any changes; just output what would be done.
 -->
+<p>
 不做任何更改；只输出将要执行的操作。
 </p>
 </td>
@@ -88,10 +93,10 @@ Don't apply any changes; just output what would be done.
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 help for preflight
 -->
+<p>
 preflight 操作的帮助命令。
 </p>
 </td>
@@ -102,10 +107,10 @@ preflight 操作的帮助命令。
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
+<p>
 错误将显示为警告的检查列表。例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
 </p>
 </td>
@@ -138,7 +143,7 @@ Choose a container registry to pull control plane images from
 -->
 ### 继承于父命令的选项
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -150,10 +155,10 @@ Choose a container registry to pull control plane images from
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
+<p>
 [实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>

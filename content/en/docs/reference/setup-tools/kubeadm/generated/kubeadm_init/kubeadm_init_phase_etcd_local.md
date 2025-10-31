@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Generate the static Pod manifest file for a local, single-node local etcd instance
+
 ### Synopsis
 
 

@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Mark a node as a control-plane
+
 ### Synopsis
 
 

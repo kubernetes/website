@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Upgrade the control plane instance deployed on this node, if any
+
 ### Synopsis
 
 

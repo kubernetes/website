@@ -27,28 +27,21 @@ card:
 <!-- overview -->
 
 <!--
-Sometimes things go wrong. This guide helps you gather the relevant information and resolve issues. It has four sections:
+Sometimes things go wrong. This guide is aimed at making them right. It has
+two sections:
 -->
-有时候事情会出错。本指南可帮助你收集相关信息并解决这些问题。它包含两个部分：
+有时候事情会出错。本指南旨在解决这些问题。它包含两个部分：
 
 <!--
 * [Debugging your application](/docs/tasks/debug/debug-application/) - Useful
   for users who are deploying code into Kubernetes and wondering why it is not working.
 * [Debugging your cluster](/docs/tasks/debug/debug-cluster/) - Useful
-  for cluster administrators and operators troubleshooting issues with the Kubernetes cluster itself.
-* [Logging in Kubernetes](/docs/tasks/debug/logging/) - Useful
-  for cluster administrators who want to set up and manage logging in Kubernetes.
-* [Monitoring in Kubernetes](/docs/tasks/debug/monitoring/) - Useful
-  for cluster administrators who want to enable monitoring in a Kubernetes cluster.
+  for cluster administrators and people whose Kubernetes cluster is unhappy.
 -->
 * [应用排错](/zh-cn/docs/tasks/debug/debug-application/) -
   针对部署代码到 Kubernetes 并想知道代码为什么不能正常运行的用户。
 * [集群排错](/zh-cn/docs/tasks/debug/debug-cluster/) -
-  供集群管理员和操作员解决 Kubernetes 集群本身的问题。
-* [日志记录](/zh-cn/docs/tasks/debug/logging/) -
-  针对想要在 Kubernetes 中设置和管理日志记录的集群管理员。
-* [监控](/zh-cn/docs/tasks/debug/monitoring/) -
-  针对想要在 Kubernetes 集群中启用监控的集群管理员。
+  针对集群管理员以及 Kubernetes 集群表现异常的用户。
 
 <!--
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
@@ -206,13 +199,13 @@ Turkey | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-ev
 -->
 国家   | 频道
 :------|:------------
-中国   | [`#cn-users`](https://kubernetes.slack.com/messages/cn-users)、[`#cn-events`](https://kubernetes.slack.com/messages/cn-events)
+中国   | [`#cn-users`](https://kubernetes.slack.com/messages/cn-users), [`#cn-events`](https://kubernetes.slack.com/messages/cn-events)
 芬兰   | [`#fi-users`](https://kubernetes.slack.com/messages/fi-users)
-法国   | [`#fr-users`](https://kubernetes.slack.com/messages/fr-users)、[`#fr-events`](https://kubernetes.slack.com/messages/fr-events)
-德国   | [`#de-users`](https://kubernetes.slack.com/messages/de-users)、[`#de-events`](https://kubernetes.slack.com/messages/de-events)
-印度   | [`#in-users`](https://kubernetes.slack.com/messages/in-users)、[`#in-events`](https://kubernetes.slack.com/messages/in-events)
-意大利 | [`#it-users`](https://kubernetes.slack.com/messages/it-users)、[`#it-events`](https://kubernetes.slack.com/messages/it-events)
-日本   | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users)、[`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
+法国   | [`#fr-users`](https://kubernetes.slack.com/messages/fr-users), [`#fr-events`](https://kubernetes.slack.com/messages/fr-events)
+德国   | [`#de-users`](https://kubernetes.slack.com/messages/de-users), [`#de-events`](https://kubernetes.slack.com/messages/de-events)
+印度   | [`#in-users`](https://kubernetes.slack.com/messages/in-users), [`#in-events`](https://kubernetes.slack.com/messages/in-events)
+意大利 | [`#it-users`](https://kubernetes.slack.com/messages/it-users), [`#it-events`](https://kubernetes.slack.com/messages/it-events)
+日本   | [`#jp-users`](https://kubernetes.slack.com/messages/jp-users), [`#jp-events`](https://kubernetes.slack.com/messages/jp-events)
 韩国   | [`#kr-users`](https://kubernetes.slack.com/messages/kr-users)
 荷兰   | [`#nl-users`](https://kubernetes.slack.com/messages/nl-users)
 挪威   | [`#norw-users`](https://kubernetes.slack.com/messages/norw-users)
@@ -220,7 +213,7 @@ Turkey | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-ev
 俄罗斯 | [`#ru-users`](https://kubernetes.slack.com/messages/ru-users)
 西班牙 | [`#es-users`](https://kubernetes.slack.com/messages/es-users)
 瑞典   | [`#se-users`](https://kubernetes.slack.com/messages/se-users)
-土耳其 | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users)、[`#tr-events`](https://kubernetes.slack.com/messages/tr-events)
+土耳其 | [`#tr-users`](https://kubernetes.slack.com/messages/tr-users), [`#tr-events`](https://kubernetes.slack.com/messages/tr-events)
 
 {{< /table >}}
 

@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Generate the certificate for liveness probes to healthcheck etcd
+
 ### Synopsis
 
 

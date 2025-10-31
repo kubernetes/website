@@ -10,10 +10,12 @@ guide. You can file document formatting bugs against the
 -->
 
 
+EXPERIMENTAL: Wait for the control plane to start
+
 ### Synopsis
 
 
-Wait for the control plane to start
+EXPERIMENTAL: Wait for the control plane to start
 
 ```
 kubeadm join phase wait-control-plane [flags]

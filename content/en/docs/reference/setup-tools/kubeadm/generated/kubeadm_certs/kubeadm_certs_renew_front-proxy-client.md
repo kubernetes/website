@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Renew the certificate for the front proxy client
+
 ### Synopsis
 
 

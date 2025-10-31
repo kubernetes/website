@@ -1,4 +1,9 @@
 <!--
+Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join'
+-->
+尽最大努力还原通过 'kubeadm init' 或者 'kubeadm join' 操作对主机所作的更改。
+
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -20,13 +25,13 @@ remove-etcd-member     Remove a local etcd member.
 cleanup-node           Run cleanup node.
 ```
 -->
-```shell
+```
 preflight              重置预检
 remove-etcd-member     移除本地 etcd 成员
 cleanup-node           清理节点
 ```
 
-```shell
+```
 kubeadm reset [flags]
 ```
 
@@ -51,8 +56,7 @@ kubeadm reset [flags]
 </td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The path to the directory where the certificates are stored. If specified, clean this directory.
@@ -82,8 +86,7 @@ Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -97,8 +100,7 @@ kubeadm 配置文件的路径。
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
@@ -112,8 +114,7 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Don't apply any changes; just output what would be done.
@@ -127,8 +128,7 @@ Don't apply any changes; just output what would be done.
 <td colspan="2">-f, --force</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Reset the node without prompting for confirmation.
@@ -142,8 +142,7 @@ Reset the node without prompting for confirmation.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for reset
@@ -157,14 +156,12 @@ reset 操作的帮助命令。
 <td colspan="2">--ignore-preflight-errors strings</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
 -->
-错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。
-取值为 'all' 时将忽略检查中的所有错误。
+错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
 </p>
 </td>
 </tr>
@@ -180,14 +177,12 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 </td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-与集群通信时使用的 kubeconfig 文件。如果未设置该标志，
-则可以在一组标准位置中搜索现有的 kubeconfig 文件。
+与集群通信时使用的 kubeconfig 文件。如果未设置该标志，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -196,8 +191,7 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <td colspan="2">--skip-phases strings</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 List of phases to be skipped
@@ -226,8 +220,7 @@ List of phases to be skipped
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td>
-<td style="line-height: 130%; word-wrap: break-word;">
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The path to the 'real' host root filesystem. This will cause kubeadm to chroot into the provided path.

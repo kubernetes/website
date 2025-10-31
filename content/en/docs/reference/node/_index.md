@@ -17,8 +17,6 @@ This section contains the following reference topics about nodes:
 
 * [Node `.status` information](/docs/reference/node/node-status/)
 
-* [Linux Node Swap Behaviors](/docs/reference/node/swap-behavior/)
-
 * [Seccomp information](/docs/reference/node/seccomp/)
 
 You can also read node reference details from elsewhere in the
@@ -27,5 +25,3 @@ Kubernetes documentation, including:
 * [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
 
 * [CRI Pod & Container Metrics](/docs/reference/instrumentation/cri-pod-container-metrics).
-
-* [Understand Pressure Stall Information (PSI) Metrics](/docs/reference/instrumentation/understand-psi-metrics).

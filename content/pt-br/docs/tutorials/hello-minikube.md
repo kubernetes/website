@@ -23,10 +23,8 @@ as requisições.
 ## {{% heading "prerequisites" %}}
 
 Este tutorial assume que você já tem uma instância do `minikube` configurada.
-Veja a __Etapa 1__ em [minikube start](https://minikube.sigs.k8s.io/docs/start/) para instruções de como instalar.
-{{< note >}}
-Execute apenas as instruções na __Etapa 1, Instalação__. O restante é coberto nesta página.  
-{{< /note >}}
+Veja [minikube start](https://minikube.sigs.k8s.io/docs/start/) para instruções
+de como instalar.
 
 Você também irá precisar instalar o `kubectl`.
 Veja [instalando ferramentas](/pt-br/docs/tasks/tools/#kubectl) para instruções de como
@@ -60,7 +58,8 @@ O comando `dashboard` habilita o complemento do painel e abre o proxy no navegad
 padrão. Você pode criar recursos do Kubernetes no painel, como Deployment e
 Service.
 
-Para descobrir como evitar invocar diretamente o navegador do terminal e obter uma URL para o painel web, consulte a aba "Copiar e colar URL".
+Se você estiver executando num ambiente com o usuário _root_, veja
+[Abrir o Painel com URL](#open-dashboard-with-url).
 
 Por padrão, o painel só é acessível pela rede virtual interna do Kubernetes. O
 comando `dashboard` cria um proxy temporário para tornar o painel acessível por
@@ -76,7 +75,7 @@ acessar o painel.
 {{% tab name="Copie e cole a URL" %}}
 
 Se você não deseja que o minikube abra um navegador para você, rode o comando
-`dashboard` com a opção de linha de comando `--url`. O `minikube` irá imprimir
+`dashboard` com a opção de linha de comando `--url`. O minikube irá imprimir
 uma URL que você poderá abrir no navegador de sua preferência.
 
 Abra um **novo** terminal e rode o comando:
@@ -100,12 +99,11 @@ verifica a integridade do seu Pod e reinicia o contêiner do Pod caso este seja
 finalizado. Deployments são a maneira recomendada de gerenciar a criação e
 escalonamento dos Pods.
 
-1. Use o comando `kubectl create` para criar um Deployment que gerencia um Pod.
+1. Usando o comando `kubectl create` para criar um Deployment que gerencia um Pod.
    O Pod executa um contêiner baseado na imagem do Docker disponibilizada.
 
     ```shell
-    # Execute uma imagem de contêiner de teste que inclui um servidor web
-    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 1. Visualize o Deployment:
@@ -120,8 +118,6 @@ escalonamento dos Pods.
     NAME         READY   UP-TO-DATE   AVAILABLE   AGE
     hello-node   1/1     1            1           1m
     ```
-
-    (Pode levar algum tempo para que o pod fique disponível. Se você ver "0/1", tente novamente em alguns segundos.)
 
 1. Visualize o Pod:
 
@@ -148,40 +144,17 @@ escalonamento dos Pods.
     kubectl config view
     ```
 
-1. Visualize os logs da aplicação para um contêiner em um pod (substitua o nome do pod pelo que você obteve de `kubectl get pods`).
-   
-   {{< note >}}
-   Substitua `hello-node-5f76cf6ccf-br9b5` no comando `kubectl logs` pelo nome do pod da saída do comando `kubectl get pods`.
-   {{< /note >}}
-   
-   ```shell
-   kubectl logs hello-node-5f76cf6ccf-br9b5
-   ```
-
-   A saída será semelhante a:
-
-   ```
-   I0911 09:19:26.677397       1 log.go:195] Started HTTP server on port 8080
-   I0911 09:19:26.677586       1 log.go:195] Started UDP server on port  8081
-   ```
-
 {{< note >}}
 Para mais informações sobre o comando `kubectl`, consulte
 [visão geral do kubectl](/docs/reference/kubectl/).
 {{< /note >}}
 
-## Criando um Service
+## Criando um Serviço
 
 Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no cluster
 Kubernetes. Para dispobiblilizar o contêiner `hello-node` fora da rede virtual do
 Kubernetes, você deve expor o Pod como um
 [*Service*](/docs/concepts/services-networking/service/) do Kubernetes.
-
-{{< warning >}}
-O contêiner agnhost possui um endpoint `/shell`, que é útil para
-depuração, mas perigoso de expor à internet pública. Não execute isso em um
-cluster voltado para a internet ou em um cluster de produção.
-{{< /warning >}}
 
 1. Exponha o Pod usando o comando `kubectl expose`:
 
@@ -196,7 +169,7 @@ cluster voltado para a internet ou em um cluster de produção.
     você usou `kubectl expose` para expor uma porta diferente, os clientes não
     conseguirão se conectar a essa outra porta.
 
-1. Visualize o Service que você acabou de criar:
+1. Visualize o serviço que você acabou de criar:
 
     ```shell
     kubectl get services
@@ -257,7 +230,7 @@ que podem ser habilitados, desabilitados e executados no ambiente Kubernetes loc
     storage-provisioner-gluster: disabled
     ```
 
-1. Habilite um complemento, por exemplo, `metrics-server`:
+2. Habilite um complemento, por exemplo, `metrics-server`:
 
     ```shell
     minikube addons enable metrics-server
@@ -269,7 +242,7 @@ que podem ser habilitados, desabilitados e executados no ambiente Kubernetes loc
     The 'metrics-server' addon is enabled
     ```
 
-1. Visualize o Pod e o Service que você acabou de criar:
+3. Visualize o Pod e o Service que você acabou de criar:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -298,26 +271,7 @@ que podem ser habilitados, desabilitados e executados no ambiente Kubernetes loc
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-1. Verifique a saída do `metrics-server`:
-
-    ```shell
-    kubectl top pods
-    ```
-
-    A saída será semelhante a:
-
-    ```
-    NAME                         CPU(cores)   MEMORY(bytes)   
-    hello-node-ccf4b9788-4jn97   1m           6Mi             
-    ```
-
-    Se você ver a mensagem a seguir, aguarde e tente novamente:
-
-    ```
-    error: Metrics API not available
-    ```
-
-1. Desabilite o complemento `metrics-server`:
+4. Desabilite o complemento `metrics-server`:
 
     ```shell
     minikube addons disable metrics-server
@@ -344,7 +298,7 @@ Encerre o cluster do minikube:
 minikube stop
 ```
 
-Opcionalmente, apague a máquina virtual (VM) do minikube:
+(Opcional) Apague a máquina virtual (VM) do minikube:
 
 ```shell
 # Opcional
@@ -354,14 +308,8 @@ minikube delete
 Se você desejar utilizar o minikube novamente para aprender mais sobre o Kubernetes,
 você não precisa apagar a VM.
 
-## Conclusão
-
-Esta página cobriu os aspectos básicos para colocar um cluster minikube em funcionamento. Agora você está pronto para implantar aplicações.
-
 ## {{% heading "whatsnext" %}}
 
-
-* Tutorial para _[implantar seu primeiro aplicativo no Kubernetes com kubectl](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
 * Aprenda mais sobre [objetos Deployment](/docs/concepts/workloads/controllers/deployment/).
 * Aprenda mais sobre [implantar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Aprenda mais sobre [objetos Service](/docs/concepts/services-networking/service/).

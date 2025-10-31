@@ -3,8 +3,9 @@ approvers:
 - chenopis
 title: Kubernetes Documentation
 noedit: true
+cid: docsHome
 layout: docsportal_home
-body_class: docs-portal
+class: gridPage gridPageHome
 linkTitle: "Documentation"
 main_menu: true
 weight: 10

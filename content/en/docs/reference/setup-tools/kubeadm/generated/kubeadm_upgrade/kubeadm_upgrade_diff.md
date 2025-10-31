@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Show what differences would be applied to existing static pod manifests. See also: kubeadm upgrade apply --dry-run
+
 ### Synopsis
 
 

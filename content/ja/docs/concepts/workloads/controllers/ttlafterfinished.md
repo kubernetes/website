@@ -1,4 +1,5 @@
 ---
+reviewers:
 title: 終了したリソースのためのTTLコントローラー(TTL Controller for Finished Resources)
 content_type: concept
 weight: 70

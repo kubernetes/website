@@ -1,4 +1,9 @@
 <!--
+Commands related to handling Kubernetes certificates
+-->
+处理 Kubernetes 证书的相关命令。
+
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -8,7 +13,7 @@ Commands related to handling Kubernetes certificates
 -->
 处理 Kubernetes 证书相关的命令。
 
-```shell
+```
 kubeadm certs [flags]
 ```
 
@@ -28,13 +33,12 @@ kubeadm certs [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
+<!-- td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for certs</p></td -->
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
 <!--
 help for certs
 -->
-certs 操作的帮助命令。
-</p>
+<p>certs 操作的帮助命令。</p>
 </td>
 </tr>
 
@@ -57,13 +61,8 @@ certs 操作的帮助命令。
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-[EXPERIMENTAL] The path to the 'real' host root filesystem.
--->
-[实验] 到'真实'主机根文件系统的路径。
-</p></td>
+<!-- td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p></td -->
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>[实验] 到'真实'主机根文件系统的路径。</p></td>
 </tr>
 
 </tbody>

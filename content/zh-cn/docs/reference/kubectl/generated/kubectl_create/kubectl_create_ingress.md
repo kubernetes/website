@@ -26,39 +26,14 @@ kubectl create ingress NAME --rule=host/path=service:port[,tls[=secret]]
 <!--
 # Create a single ingress called 'simple' that directs requests to foo.com/bar to svc
 # svc1:8080 with a TLS secret "my-cert"
-kubectl create ingress simple --rule="foo.com/bar=svc1:8080,tls=my-cert"
-
-# Create a catch all ingress of "/path" pointing to service svc:port and Ingress Class as "otheringress"
-kubectl create ingress catch-all --class=otheringress --rule="/path=svc:port"
-
-# Create an ingress with two annotations: ingress.annotation1 and ingress.annotations2
-kubectl create ingress annotated --class=default --rule="foo.com/bar=svc:port" \
-  --annotation ingress.annotation1=foo \
-  --annotation ingress.annotation2=bla
-
-# Create an ingress with the same host and multiple paths
-kubectl create ingress multipath --class=default \
-  --rule="foo.com/=svc:port" \
-  --rule="foo.com/admin/=svcadmin:portadmin"
   
+# Create a catch all ingress of "/path" pointing to service svc:port and Ingress Class as "otheringress"
+# Create an ingress with two annotations: ingress.annotation1 and ingress.annotations2
+# Create an ingress with the same host and multiple paths
 # Create an ingress with multiple hosts and the pathType as Prefix
-kubectl create ingress ingress1 --class=default \
-  --rule="foo.com/path*=svc:8080" \
-  --rule="bar.com/admin*=svc2:http"
-
 # Create an ingress with TLS enabled using the default ingress certificate and different path types
-kubectl create ingress ingtls --class=default \
-  --rule="foo.com/=svc:https,tls" \
-  --rule="foo.com/path/subpath*=othersvc:8080"
-
 # Create an ingress with TLS enabled using a specific secret and pathType as Prefix
-kubectl create ingress ingsecret --class=default \
-  --rule="foo.com/*=svc:8080,tls=secret1"
-
 # Create an ingress with a default backend
-kubectl create ingress ingdefault --class=default \
-  --default-backend=defaultsvc:http \
-  --rule="foo.com/*=svc:8080,tls=secret1"
 -->
 ```shell
 # 创建一个名为 'simple' 的 Ingress，使用 TLS 类别 Secret "my-cert"
@@ -100,7 +75,7 @@ kubectl create ingress ingdefault --class=default \
 
 ## {{% heading "options" %}}
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -111,8 +86,7 @@ kubectl create ingress ingdefault --class=default \
 <td colspan="2">--allow-missing-template-keys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats.
 -->
@@ -125,8 +99,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <td colspan="2">--annotation strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Annotation to insert in the ingress object, in the format annotation=value
 -->
@@ -138,8 +111,7 @@ Annotation to insert in the ingress object, in the format annotation=value
 <td colspan="2">--class string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Ingress Class to be used
 -->
@@ -151,8 +123,7 @@ Ingress Class to be used
 <td colspan="2">--default-backend string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Default service for backend, in format of svcname:port
 -->
@@ -164,8 +135,7 @@ Default service for backend, in format of svcname:port
 <td colspan="2">--dry-run string[="unchanged"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："none"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
@@ -178,8 +148,7 @@ Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client s
 <td colspan="2">--field-manager string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："kubectl-create"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Name of the manager used to track field ownership.
 -->
@@ -191,8 +160,7 @@ Name of the manager used to track field ownership.
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 help for ingress
 -->
@@ -204,8 +172,7 @@ ingress 操作的帮助命令。
 <td colspan="2">-o, --output string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
 -->
@@ -218,8 +185,7 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 <td colspan="2">--rule strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Rule in format host/path=service:port[,tls=secretname]. Paths containing the leading character '*' are considered pathType=Prefix. tls argument is optional.
 -->
@@ -232,8 +198,7 @@ tls 参数是可选的。
 <td colspan="2">--save-config</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
 -->
@@ -246,8 +211,7 @@ If true, the configuration of current object will be saved in its annotation. Ot
 <td colspan="2">--show-managed-fields</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 If true, keep the managedFields when printing objects in JSON or YAML format.
 -->
@@ -259,8 +223,7 @@ If true, keep the managedFields when printing objects in JSON or YAML format.
 <td colspan="2">--template string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
 -->
@@ -273,8 +236,7 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 <td colspan="2">--validate string[="strict"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："strict"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &quot;strict&quot; will use a schema to validate the input and fail the request if invalid. It will perform server side validation if ServerSideFieldValidation is enabled on the api-server, but will fall back to less reliable client-side validation if not. &quot;warn&quot; will warn about unknown or duplicate fields without blocking the request if server-side field validation is enabled on the API server, and behave as &quot;ignore&quot; otherwise. &quot;false&quot; or &quot;ignore&quot; will not perform any schema validation, silently dropping any unknown or duplicate fields.
 -->
@@ -293,7 +255,7 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 
 ## {{% heading "parentoptions" %}}
 
-<table style="width: 100%; table-layout: fixed;">
+   <table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -304,8 +266,7 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 <td colspan="2">--as string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
@@ -317,8 +278,7 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <td colspan="2">--as-group strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
@@ -330,8 +290,7 @@ Group to impersonate for the operation, this flag can be repeated to specify mul
 <td colspan="2">--as-uid string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 UID to impersonate for the operation.
 -->
@@ -343,8 +302,7 @@ UID to impersonate for the operation.
 <td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Default cache directory
 -->
@@ -356,8 +314,7 @@ Default cache directory
 <td colspan="2">--certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Path to a cert file for the certificate authority
 -->
@@ -369,8 +326,7 @@ Path to a cert file for the certificate authority
 <td colspan="2">--client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Path to a client certificate file for TLS
 -->
@@ -382,8 +338,7 @@ TLS 客户端证书文件的路径。
 <td colspan="2">--client-key string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Path to a client key file for TLS
 -->
@@ -395,8 +350,7 @@ TLS 客户端密钥文件的路径。
 <td colspan="2">--cluster string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 The name of the kubeconfig cluster to use
 -->
@@ -408,8 +362,7 @@ The name of the kubeconfig cluster to use
 <td colspan="2">--context string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 The name of the kubeconfig context to use
 -->
@@ -418,11 +371,34 @@ The name of the kubeconfig context to use
 </tr>
 
 <tr>
+<td colspan="2">--default-not-ready-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Indicates the tolerationSeconds of the toleration for notReady:NoExecute that is added by default to every pod that does not already have such a toleration.
+-->
+设置针对 notReady:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
+</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--default-unreachable-toleration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：300</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Indicates the tolerationSeconds of the toleration for unreachable:NoExecute that is added by default to every pod that does not already have such a toleration.
+-->
+设置针对 unreachable:NoExecute 的容忍度的 tolerationSeconds，默认添加到所有尚未设置此容忍度的 Pod。
+</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--disable-compression</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
@@ -434,8 +410,7 @@ If true, opt-out of response compression for all requests to the server
 <td colspan="2">--insecure-skip-tls-verify</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
@@ -447,8 +422,7 @@ If true, the server's certificate will not be checked for validity. This will ma
 <td colspan="2">--kubeconfig string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Path to the kubeconfig file to use for CLI requests.
 -->
@@ -457,26 +431,10 @@ CLI 请求要使用的 kubeconfig 文件的路径。
 </tr>
 
 <tr>
-<td colspan="2">--kuberc string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
-<!--
-Path to the kuberc file to use for preferences. This can be disabled by exporting KUBECTL_KUBERC=false feature gate or turning off the feature KUBERC=off.
--->
-用于偏好设置的 kuberc 文件的路径。可以通过导出 KUBECTL_KUBERC=false
-特性门控或关闭 KUBERC=off 特性门控来禁用此功能。
-</p>
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--match-server-version</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<p>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!--
 Require server version to match client version
 -->

@@ -10,6 +10,8 @@ guide. You can file document formatting bugs against the
 -->
 
 
+Generate all static Pod manifest files necessary to establish the control plane
+
 ### Synopsis
 
 
