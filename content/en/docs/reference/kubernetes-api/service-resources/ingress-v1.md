@@ -120,6 +120,11 @@ IngressSpec describes the Ingress the user wishes to exist.
           the IngressClass. Implementations can treat this as a separate PathType
           or treat it identically to Prefix or Exact path types.
         Implementations are required to support all path types.
+        
+        Possible enum values:
+         - `"Exact"` matches the URL path exactly and with case sensitivity.
+         - `"ImplementationSpecific"` matching is up to the IngressClass. Implementations can treat this as a separate PathType or treat it identically to Prefix or Exact path types.
+         - `"Prefix"` matches based on a URL path prefix split by '/'. Matching is case sensitive and done on a path element by element basis. A path element refers to the list of labels in the path split by the '/' separator. A request is a match for path p if every p is an element-wise prefix of p of the request path. Note that if the last element of the path is a substring of the last element in request path, it is not a match (e.g. /foo/bar matches /foo/bar/baz, but does not match /foo/barbaz). If multiple matching paths exist in an Ingress spec, the longest matching path is given priority. Examples: - /foo/bar does not match requests to /foo/barbaz - /foo/bar matches request to /foo/bar and /foo/bar/baz - /foo and /foo/ both match requests to /foo and /foo/. If both paths are present in an Ingress spec, the longest matching path (/foo/) is given priority.
 
       - **rules.http.paths.path** (string)
 
@@ -234,6 +239,11 @@ IngressStatus describe the current state of the Ingress.
       - **loadBalancer.ingress.ports.protocol** (string), required
 
         protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+        
+        Possible enum values:
+         - `"SCTP"` is the SCTP protocol.
+         - `"TCP"` is the TCP protocol.
+         - `"UDP"` is the UDP protocol.
 
       - **loadBalancer.ingress.ports.error** (string)
 

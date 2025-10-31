@@ -338,6 +338,11 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.exactly.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+          
+          
+          Possible enum values:
+           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
 
         - **devices.requests.exactly.tolerations.key** (string)
 
@@ -346,10 +351,15 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.exactly.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+          
+          
+          Possible enum values:
+           - `"Equal"`
+           - `"Exists"`
 
         - **devices.requests.exactly.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
 
         - **devices.requests.exactly.tolerations.value** (string)
 
@@ -497,6 +507,11 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.firstAvailable.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+          
+          
+          Possible enum values:
+           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
 
         - **devices.requests.firstAvailable.tolerations.key** (string)
 
@@ -505,10 +520,15 @@ ResourceClaimSpec defines what is being requested in a ResourceClaim and how to 
         - **devices.requests.firstAvailable.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+          
+          
+          Possible enum values:
+           - `"Equal"`
+           - `"Exists"`
 
         - **devices.requests.firstAvailable.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
 
         - **devices.requests.firstAvailable.tolerations.value** (string)
 
@@ -712,6 +732,11 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         - **allocation.devices.results.tolerations.effect** (string)
 
           Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule and NoExecute.
+          
+          
+          Possible enum values:
+           - `"NoExecute"` Evict any already-running pods that do not tolerate the device taint.
+           - `"NoSchedule"` Do not allow new pods to schedule which use a tainted device unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running.
 
         - **allocation.devices.results.tolerations.key** (string)
 
@@ -720,10 +745,15 @@ ResourceClaimStatus tracks whether the resource has been allocated and what the 
         - **allocation.devices.results.tolerations.operator** (string)
 
           Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a ResourceClaim can tolerate all taints of a particular category.
+          
+          
+          Possible enum values:
+           - `"Equal"`
+           - `"Exists"`
 
         - **allocation.devices.results.tolerations.tolerationSeconds** (int64)
 
-          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was added> + \<toleration seconds>.
+          TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. If larger than zero, the time when the pod needs to be evicted is calculated as \<time when taint was adedd> + \<toleration seconds>.
 
         - **allocation.devices.results.tolerations.value** (string)
 
