@@ -31,7 +31,7 @@ auto_generated: true
 StatefulSet represents a set of pods with consistent identities. Identities are defined as:
  - Network: A single stable DNS and hostname.
  - Storage: As many VolumeClaims as requested.
-  
+
 The StatefulSet guarantees that a given network identity will always map to the same storage identity. 
 -->
 StatefulSet 表示一组具有一致身份的 Pod。身份定义为：
@@ -51,21 +51,22 @@ StatefulSet 保证给定的网络身份将始终映射到相同的存储身份�
   <!-- 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata 
   -->
-  标准的对象元数据。更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
+  标准的对象元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata。
 
 - **spec** (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSetSpec" >}}">StatefulSetSpec</a>)
 
   <!-- 
   Spec defines the desired identities of pods in this set. 
   -->
-  spec 定义集合中 Pod 的预期身份。
+  `spec` 定义集合中 Pod 的预期身份。
 
 - **status** (<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSetStatus" >}}">StatefulSetStatus</a>)
 
   <!-- 
   Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time. 
   -->
-  status 是 StatefulSet 中 Pod 的当前状态，此数据可能会在某个时间窗口内过时。
+  `status` 是 StatefulSet 中 Pod 的当前状态，此数据可能会在某个时间窗口内过时。
 
 ## StatefulSetSpec {#StatefulSetSpec}
 
@@ -83,7 +84,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 -->
 - **serviceName** (string)
 
-  serviceName 是管理此 StatefulSet 服务的名称。
+  `serviceName` 是管理此 StatefulSet 服务的名称。
   该服务必须在 StatefulSet 之前即已存在，并负责该集合的网络标识。
   Pod 会获得符合以下模式的 DNS/主机名：pod-specific-string.serviceName.default.svc.cluster.local。
   其中 “pod-specific-string” 由 StatefulSet 控制器管理。
@@ -95,9 +96,9 @@ StatefulSetSpec 是 StatefulSet 的规约。
 -->
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
 
-  selector 是对 Pod 的标签查询，查询结果应该匹配副本个数。
-  此选择算符必须与 Pod 模板中的 label 匹配。
-  更多信息： https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  `selector` 是对 Pod 的标签查询，查询结果应该匹配副本个数。
+  此选择算符必须与 Pod 模板中的 label 匹配。更多信息：
+  https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
 <!-- 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
@@ -106,7 +107,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 -->
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>)，必需
 
-  template 是用来描述 Pod 的对象，检测到副本不足时将创建所描述的 Pod。
+  `template` 是用来描述 Pod 的对象，检测到副本不足时将创建所描述的 Pod。
   经由 StatefulSet 创建的每个 Pod 都将满足这个模板，但与 StatefulSet 的其余 Pod 相比，每个 Pod 具有唯一的标识。
   每个 Pod 将以 \<statefulsetname>-\<podindex> 格式命名。
   例如，名为 "web" 且索引号为 "3" 的 StatefulSet 中的 Pod 将被命名为 "web-3"。
@@ -116,11 +117,11 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **replicas** (int32)
 
   replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. 
-  If unspecified, defaults to 1.  
+  If unspecified, defaults to 1.
 -->
 - **replicas** (int32)
 
-  replicas 是给定模板的所需的副本数。之所以称作副本，是因为它们是相同模板的实例，
+  `replicas` 是给定模板的所需的副本数。之所以称作副本，是因为它们是相同模板的实例，
   不过各个副本也具有一致的身份。如果未指定，则默认为 1。
 
 <!-- 
@@ -130,7 +131,8 @@ StatefulSetSpec 是 StatefulSet 的规约。
 -->
 - **updateStrategy** (StatefulSetUpdateStrategy)
 
-  updateStrategy 是一个 StatefulSetUpdateStrategy，表示当对 template 进行修订时，用何种策略更新 StatefulSet 中的 Pod 集合。
+  `updateStrategy` 是一个 StatefulSetUpdateStrategy，表示当对
+  `template` 进行修订时，用何种策略更新 StatefulSet 中的 Pod 集合。
 
   <!-- 
   <a name="StatefulSetUpdateStrategy"></a>
@@ -142,10 +144,26 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
   - **updateStrategy.type** (string)
 
-  <!--
-  Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
-  -->
-  type 表示 StatefulSetUpdateStrategy 的类型，默认为 RollingUpdate。
+    <!--
+    Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+    -->
+
+    `type` 表示 StatefulSetUpdateStrategy 的类型，默认为 RollingUpdate。
+
+    <!--
+    Possible enum values:
+     - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
+     - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
+    -->
+
+    可能的枚举值：
+
+      - `"OnDelete"` 触发传统行为。版本跟踪和有序滚动重启被禁用。
+        当 Pod 被手动删除时，它们会根据 StatefulSetSpec 重新创建。
+        使用此策略执行扩缩操作时，将依据 StatefulSet 的 currentRevision 指示的版本。
+      - `"RollingUpdate"` 表示更新将应用于 StatefulSet 中的所有 Pod，
+        并遵循 StatefulSet 的排序约束。使用此策略执行扩缩操作时，新 Pod
+        将根据 StatefulSet 的 updateRevision 指示的版本创建。
 
   - **updateStrategy.rollingUpdate** (RollingUpdateStatefulSetStrategy)
 
@@ -181,7 +199,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
       -->
 
       <a name="IntOrString"></a>
-      **IntOrString 是一种可以包含 int32 或字符串数值的类型。在 JSON 或 YAML 编组和解组时，**
+      **`IntOrString` 是一种可以包含 int32 或字符串数值的类型。在 JSON 或 YAML 编组和解组时，**
       **会生成或使用内部类型。例如，此类型允许你定义一个可以接受名称或数字的 JSON 字段。**
 
     - **updateStrategy.rollingUpdate.partition** (int32)
@@ -190,7 +208,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
       Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
       -->
 
-      partition 表示 StatefulSet 应该被分区进行更新时的序数。
+      `partition` 表示 StatefulSet 应该被分区进行更新时的序数。
       在滚动更新期间，序数在 replicas-1 和 partition 之间的所有 Pod 都会被更新。
       序数在 partition-1 和 0 之间的所有 Pod 保持不变。
       这一属性有助于进行金丝雀部署。默认值为 0。
@@ -201,7 +219,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once. 
   -->
 
-  podManagementPolicy 控制在初始规模扩展期间、替换节点上的 Pod 或缩减集合规模时如何创建 Pod。
+  `podManagementPolicy` 控制在初始规模扩展期间、替换节点上的 Pod 或缩减集合规模时如何创建 Pod。
   默认策略是 “OrderedReady”，各个 Pod 按升序创建的（pod-0，然后是pod-1 等），
   控制器将等到每个 Pod 都准备就绪后再继续。缩小集合规模时，Pod 会以相反的顺序移除。
   另一种策略是 “Parallel”，意味着并行创建 Pod 以达到预期的规模而无需等待，并且在缩小规模时将立即删除所有 Pod。
@@ -214,7 +232,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   *Atomic: will be replaced during a merge*
   -->
 
-  revisionHistoryLimit 是在 StatefulSet 的修订历史中维护的修订个数上限。
+  `revisionHistoryLimit` 是在 StatefulSet 的修订历史中维护的修订个数上限。
   修订历史中包含并非由当前所应用的 StatefulSetSpec 版本未表示的所有修订版本。默认值为 10。
 
 - **volumeClaimTemplates** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaim" >}}">PersistentVolumeClaim</a>)
@@ -225,9 +243,9 @@ StatefulSetSpec 是 StatefulSet 的规约。
   volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
   -->
 
-  volumeClaimTemplates 是允许 Pod 引用的申领列表。
+  `volumeClaimTemplates` 是允许 Pod 引用的申领列表。
   StatefulSet controller 负责以维持 Pod 身份不变的方式将网络身份映射到申领之上。
-  此列表中的每个申领至少必须在模板的某个容器中存在匹配的（按 name 匹配）volumeMount。
+  此列表中的每个申领至少必须在模板的某个容器中存在匹配的（按 `name` 匹配）volumeMount。
   此列表中的申领优先于模板中具有相同名称的所有卷。
 
 - **minReadySeconds** (int32)
@@ -245,7 +263,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is beta.
   -->
 
-  persistentVolumeClaimRetentionPolicy 描述从 VolumeClaimTemplates 创建的持久卷申领的生命周期。
+  `persistentVolumeClaimRetentionPolicy` 描述从 VolumeClaimTemplates 创建的持久卷申领的生命周期。
   默认情况下，所有持久卷申领都根据需要创建并被保留到手动删除。
   此策略允许更改申领的生命周期，例如在 StatefulSet 被删除或其中 Pod 集合被缩容时删除持久卷申领。
   此属性需要启用 StatefulSetAutoDeletePVC 特性门控。特性处于 Beta 阶段。
@@ -264,7 +282,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
     WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted. 
     -->
 
-    whenDeleted 指定当 StatefulSet 被删除时，基于 StatefulSet VolumeClaimTemplates 所创建的 PVC 会发生什么。
+    `whenDeleted` 指定当 StatefulSet 被删除时，基于 StatefulSet VolumeClaimTemplates 所创建的 PVC 会发生什么。
     默认策略 `Retain` 使 PVC 不受 StatefulSet 被删除的影响。`Delete` 策略会导致这些 PVC 也被删除。
 
   - **persistentVolumeClaimRetentionPolicy.whenScaled** (string)
@@ -273,7 +291,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
     WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted. 
     -->
 
-    whenScaled 指定当 StatefulSet 缩容时，基于 StatefulSet volumeClaimTemplates 创建的 PVC 会发生什么。
+    `whenScaled` 指定当 StatefulSet 缩容时，基于 StatefulSet volumeClaimTemplates 创建的 PVC 会发生什么。
     默认策略 `Retain` 使 PVC 不受缩容影响。 `Delete` 策略会导致超出副本个数的所有的多余 Pod 所关联的 PVC 被删除。
 
 - **ordinals** (StatefulSetOrdinals)
@@ -281,7 +299,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   <!--
   ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
   -->
-  ordinals 控制 StatefulSet 中副本索引的编号。
+  `ordinals` 控制 StatefulSet 中副本索引的编号。
   默认序数行为是将索引 "0" 设置给第一个副本，对于每个额外请求的副本，该索引加一。
 
   <!--
@@ -289,7 +307,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   *StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.*
   -->
   <a name="StatefulSetOrdinals"></a>
-  **StatefulSetOrdinals 描述此 StatefulSet 中用于副本序数赋值的策略。**
+  **`StatefulSetOrdinals` 描述此 StatefulSet 中用于副本序数赋值的策略。**
 
   - **ordinals.start** (int32)
 
@@ -300,7 +318,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
       [0, .spec.replicas).
     -->
   
-    start 是代表第一个副本索引的数字。它可用于从替代索引（例如：从 1 开始索引）而非默认的从 0 索引来为副本设置编号，
+    `start` 是代表第一个副本索引的数字。它可用于从替代索引（例如：从 1 开始索引）而非默认的从 0 索引来为副本设置编号，
     还可用于编排从一个 StatefulSet 到另一个 StatefulSet 的渐进式副本迁移动作。如果设置了此值，副本索引范围为
     [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas)。如果不设置，则默认为 0。
     副本索引范围为 [0, .spec.replicas)。
@@ -321,43 +339,43 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
 -->
 - **replicas** (int32)，必需
 
-  replicas 是 StatefulSet 控制器创建的 Pod 个数。
+  `replicas` 是 StatefulSet 控制器创建的 Pod 个数。
 
 - **readyReplicas** (int32)
 
   <!-- 
   readyReplicas is the number of pods created for this StatefulSet with a Ready Condition. 
   -->
-  readyReplicas 是为此 StatefulSet 创建的、状况为 Ready 的 Pod 个数。
+  `readyReplicas` 是为此 StatefulSet 创建的、状况为 Ready 的 Pod 个数。
 
 - **currentReplicas** (int32)
 
   <!-- 
   currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision. 
   -->
-  currentReplicas 是 StatefulSet 控制器根据 currentReplicas 所指的 StatefulSet 版本创建的 Pod 个数。
+  `currentReplicas` 是 StatefulSet 控制器根据 `currentReplicas` 所指的 StatefulSet 版本创建的 Pod 个数。
 
 - **updatedReplicas** (int32)
 
   <!-- 
   updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
   -->
-  updatedReplicas 是 StatefulSet 控制器根据 updateRevision 所指的 StatefulSet 版本创建的 Pod 个数。
+  `updatedReplicas` 是 StatefulSet 控制器根据 `updateRevision` 所指的 StatefulSet 版本创建的 Pod 个数。
 
 - **availableReplicas** (int32)
 
   <!-- 
   Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
   -->
-  此 StatefulSet 所对应的可用 Pod 总数（就绪时长至少为 minReadySeconds）。
+  此 StatefulSet 所对应的可用 Pod 总数（就绪时长至少为 `minReadySeconds`）。
 
 - **collisionCount** (int32)
 
   <!-- 
   collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision. 
   -->
-  collisionCount 是 StatefulSet 的哈希冲突计数。
-  StatefulSet controller 在需要为最新的 controllerRevision 创建名称时使用此字段作为避免冲突的机制。
+  `collisionCount` 是 StatefulSet 的哈希冲突计数。
+  StatefulSet controller 在需要为最新的 `controllerRevision` 创建名称时使用此字段作为避免冲突的机制。
 
 - **conditions** ([]StatefulSetCondition)
 
@@ -417,8 +435,8 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
     -->
 
     <a name="Time"></a>
-    **Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。**
-    **time 包的许多工厂方法提供了包装器。**
+    **`Time` 是 `time.Time` 的包装器，它支持对 YAML 和 JSON 的正确编组。**
+    **`time` 包的许多工厂方法提供了包装器。**
 
   - **conditions.message** (string)
 
@@ -442,7 +460,7 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
   currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas). 
   -->
 
-  currentRevision，如果不为空，表示用于在序列 [0,currentReplicas) 之间生成 Pod 的 StatefulSet 的版本。
+  `currentRevision`，如果不为空，表示用于在序列 [0,currentReplicas) 之间生成 Pod 的 StatefulSet 的版本。
 
 - **updateRevision** (string)
 
@@ -450,7 +468,8 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
   updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas) 
   -->
 
-  updateRevision，如果不为空，表示用于在序列 [replicas-updatedReplicas,replicas) 之间生成 Pod 的 StatefulSet 的版本。
+  `updateRevision`，如果不为空，表示用于在序列 [replicas-updatedReplicas,replicas)
+  之间生成 Pod 的 StatefulSet 的版本。
 
 - **observedGeneration** (int64)
 
@@ -458,7 +477,8 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
   observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server. 
   -->
 
-  observedGeneration 是 StatefulSet 的最新一代。它对应于 StatefulSet 的代数，由 API 服务器在变更时更新。
+  `observedGeneration` 是 StatefulSet 的最新一代。它对应于 StatefulSet
+  的代数，由 API 服务器在变更时更新。
 
 ## StatefulSetList {#StatefulSetList}
 
@@ -491,7 +511,7 @@ StatefulSetList 是 StatefulSet 的集合。
 
 - **items** ([]<a href="{{< ref "../workload-resources/stateful-set-v1#StatefulSet" >}}">StatefulSet</a>)，必需
 
-  items 是 StatefulSet 的列表。
+  `items` 是 StatefulSet 的列表。
 
 <!-- 
 ## Operations {#Operations} 
@@ -518,7 +538,7 @@ GET /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 <!-- 
 - **name** (*in path*): string, required
 
-  name of the StatefulSet  
+  name of the StatefulSet
 -->
 - **name** (**路径参数**): string，必需
 
@@ -569,7 +589,7 @@ GET /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
 <!-- 
 - **name** (*in path*): string, required
 
-  name of the StatefulSet  
+  name of the StatefulSet
 -->
 - **name** (**路径参数**): string，必需
 
@@ -1122,7 +1142,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}
 <!-- 
 - **name** (*in path*): string, required
 
-  name of the StatefulSet  
+  name of the StatefulSet
 -->
 - **name** (**路径参数**): string，必需
 
@@ -1216,7 +1236,7 @@ PATCH /apis/apps/v1/namespaces/{namespace}/statefulsets/{name}/status
 <!-- 
 - **name** (*in path*): string, required
  
-  name of the StatefulSet  
+  name of the StatefulSet
 -->
 - **name** (**路径参数**): string，必需
 

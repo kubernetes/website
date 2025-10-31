@@ -89,6 +89,11 @@ ServiceSpec describes the attributes that a user creates on a service.
   - **ports.protocol** (string)
 
     The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
+    
+    Possible enum values:
+     - `"SCTP"` is the SCTP protocol.
+     - `"TCP"` is the TCP protocol.
+     - `"UDP"` is the UDP protocol.
 
   - **ports.name** (string)
 
@@ -114,6 +119,12 @@ ServiceSpec describes the attributes that a user creates on a service.
 - **type** (string)
 
   type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  
+  Possible enum values:
+   - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
+   - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
+   - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
+   - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 
 - **ipFamilies** ([]string)
 
@@ -126,6 +137,11 @@ ServiceSpec describes the attributes that a user creates on a service.
 - **ipFamilyPolicy** (string)
 
   IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
+  
+  Possible enum values:
+   - `"PreferDualStack"` indicates that this service prefers dual-stack when the cluster is configured for dual-stack. If the cluster is not configured for dual-stack the service will be assigned a single IPFamily. If the IPFamily is not set in service.spec.ipFamilies then the service will be assigned the default IPFamily configured on the cluster
+   - `"RequireDualStack"` indicates that this service requires dual-stack. Using IPFamilyPolicyRequireDualStack on a single stack cluster will result in validation errors. The IPFamilies (and their order) assigned to this service is based on service.spec.ipFamilies. If service.spec.ipFamilies was not provided then it will be assigned according to how they are configured on the cluster. If service.spec.ipFamilies has only one entry then the alternative IPFamily will be added by apiserver
+   - `"SingleStack"` indicates that this service is required to have a single IPFamily. The IPFamily assigned is based on the default IPFamily used by the cluster or as identified by service.spec.ipFamilies field
 
 - **clusterIP** (string)
 
@@ -148,6 +164,10 @@ ServiceSpec describes the attributes that a user creates on a service.
 - **sessionAffinity** (string)
 
   Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+  
+  Possible enum values:
+   - `"ClientIP"` is the Client IP based.
+   - `"None"` - no session affinity.
 
 - **loadBalancerIP** (string)
 
@@ -170,10 +190,18 @@ ServiceSpec describes the attributes that a user creates on a service.
 - **externalTrafficPolicy** (string)
 
   externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
+  
+  Possible enum values:
+   - `"Cluster"` routes traffic to all endpoints.
+   - `"Local"` preserves the source IP of the traffic by routing only to endpoints on the same node as the traffic was received on (dropping the traffic if there are no local endpoints).
 
 - **internalTrafficPolicy** (string)
 
   InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
+  
+  Possible enum values:
+   - `"Cluster"` routes traffic to all endpoints.
+   - `"Local"` routes traffic only to endpoints on the same node as the client pod (dropping the traffic if there are no local endpoints).
 
 - **healthCheckNodePort** (int32)
 
@@ -301,6 +329,11 @@ ServiceStatus represents the current status of a service.
       - **loadBalancer.ingress.ports.protocol** (string), required
 
         Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        
+        Possible enum values:
+         - `"SCTP"` is the SCTP protocol.
+         - `"TCP"` is the TCP protocol.
+         - `"UDP"` is the UDP protocol.
 
       - **loadBalancer.ingress.ports.error** (string)
 
