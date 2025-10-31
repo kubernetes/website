@@ -276,15 +276,16 @@ the Pod level `restartPolicy` is either `OnFailure` or `Always`:
 
 The following table shows how containers behave under different restart policies and exit codes:
 
-| Exit Code | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` |
-|-----------|-------------------------|---------------------------|------------------------|
-| 0 (Success) | Restarts | Does not restart | Does not restart |
-| Non-zero (Failure) | Restarts | Restarts | Does not restart |
+| Exit Code | `restartPolicy: Always` | `restartPolicy: OnFailure` | `restartPolicy: Never` | Sidecar Containers |
+|-----------|-------------------------|---------------------------|------------------------|-------------------|
+| 0 (Success) | Restarts | Does not restart | Does not restart | Always restarts |
+| Non-zero (Failure) | Restarts | Restarts | Does not restart | Always restarts |
 
 {{< note >}}
 The restart behavior is particularly important when choosing between Deployments and Jobs:
 - **Deployments** typically use `restartPolicy: Always` (the only allowed value) to keep applications running continuously
 - **Jobs** commonly use `restartPolicy: OnFailure` or `restartPolicy: Never` to handle batch processing tasks appropriately
+- **Sidecar containers** always restart regardless of the Pod's `restartPolicy` because they have their own container-level `restartPolicy: Always`
 {{< /note >}}
 
 ##### Example scenarios
@@ -338,6 +339,37 @@ spec:
     # Even with exit code 1 (failure), the container will not restart
     # The Pod will remain in Failed state
 ```
+
+##### Sidecar containers and restart policies
+
+[Sidecar containers](/docs/concepts/workloads/pods/sidecar-containers/) have special restart behavior that differs from regular app containers:
+
+- **Sidecar containers ignore Pod-level `restartPolicy`**: They use their own container-level `restartPolicy` field, which is always set to `Always`
+- **Independent lifecycle**: Sidecar containers can restart independently of the main application container
+- **Persistent operation**: Sidecar containers remain running throughout the Pod's lifetime to provide supporting services
+
+**Example: Pod with sidecar container**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-sidecar
+spec:
+  restartPolicy: OnFailure  # Applies to main container only
+  initContainers:
+  - name: logging-sidecar    # This is a sidecar container
+    image: fluent/fluent-bit:1.8
+    restartPolicy: Always    # Sidecar always restarts regardless of exit code
+    # Provides logging services throughout Pod lifetime
+  containers:
+  - name: main-app          # This follows Pod-level restartPolicy
+    image: nginx:1.14.2
+    # Will only restart on failure (non-zero exit) due to Pod's OnFailure policy
+```
+
+{{< note >}}
+While the main application container follows the Pod's `restartPolicy: OnFailure`, the sidecar container will restart regardless of its exit code because sidecar containers always have `restartPolicy: Always` at the container level.
+{{< /note >}}
 
 When the kubelet is handling container restarts according to the configured restart
 policy, that only applies to restarts that make replacement containers inside the
