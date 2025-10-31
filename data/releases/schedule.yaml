@@ -7,9 +7,10 @@ schedules:
 - endOfLifeDate: "2026-10-27"
   maintenanceModeStartDate: "2026-08-27"
   next:
-    cherryPickDeadline: "2025-10-10"
+    cherryPickDeadline: "2025-11-07"
+    note: "October 2025 patches consolidated with November"
     release: 1.34.2
-    targetDate: "2025-10-14"
+    targetDate: "2025-11-11"
   previousPatches:
   - cherryPickDeadline: "2025-09-05"
     release: 1.34.1
@@ -21,9 +22,10 @@ schedules:
 - endOfLifeDate: "2026-06-28"
   maintenanceModeStartDate: "2026-04-28"
   next:
-    cherryPickDeadline: "2025-10-10"
+    cherryPickDeadline: "2025-11-07"
+    note: "October 2025 patches consolidated with November"
     release: 1.33.6
-    targetDate: "2025-10-14"
+    targetDate: "2025-11-11"
   previousPatches:
   - cherryPickDeadline: "2025-09-05"
     release: 1.33.5
@@ -45,9 +47,10 @@ schedules:
 - endOfLifeDate: "2026-02-28"
   maintenanceModeStartDate: "2025-12-28"
   next:
-    cherryPickDeadline: "2025-10-10"
+    cherryPickDeadline: "2025-11-07"
+    note: "October 2025 patches consolidated with November"
     release: 1.32.10
-    targetDate: "2025-10-14"
+    targetDate: "2025-11-11"
   previousPatches:
   - cherryPickDeadline: "2025-09-05"
     release: 1.32.9
@@ -83,9 +86,10 @@ schedules:
 - endOfLifeDate: "2025-10-28"
   maintenanceModeStartDate: "2025-08-28"
   next:
-    cherryPickDeadline: "2025-10-10"
+    cherryPickDeadline: "2025-11-07"
+    note: "Final patch release to honor EOL. October 2025 patches consolidated with November"
     release: 1.31.14
-    targetDate: "2025-10-14"
+    targetDate: "2025-11-11"
   previousPatches:
   - cherryPickDeadline: "2025-09-05"
     release: 1.31.13
@@ -131,8 +135,6 @@ schedules:
   release: "1.31"
   releaseDate: "2024-08-13"
 upcoming_releases:
-- cherryPickDeadline: "2025-10-10"
-  targetDate: "2025-10-14"
 - cherryPickDeadline: "2025-11-07"
   targetDate: "2025-11-11"
 - cherryPickDeadline: "2025-12-05"
