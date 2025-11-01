@@ -81,7 +81,7 @@ blog = "/:section/:year/:month/:day/:slug/"
 
 # Be explicit about the output formats. We (currently) only want an RSS feed for the home page.
 [outputs]
-home = [ "HTML", "RSS", "HEADERS" ]
+home = [ "HTML", "RSS", "HEADERS", "REDIRECTS"]
 page = [ "HTML"]
 section = [ "HTML", "print" ]
 
@@ -98,6 +98,13 @@ baseName = "feed"
 [outputFormats.HEADERS]
 mediatype = "text/netlify"
 baseName = "_headers"
+isPlainText = true
+notAlternative = true
+
+# _redirects file output (uses the template at layouts/index.redirects)
+[outputFormats.REDIRECTS]
+mediatype = "text/netlify"
+baseName = "_redirects"
 isPlainText = true
 notAlternative = true
 
