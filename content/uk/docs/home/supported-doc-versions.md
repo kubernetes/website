@@ -2,7 +2,7 @@
 title: Доступні версії документації
 content_type: custom
 layout: supported-versions
-wheght: 10
+weight: 10
 ---
 
 Цей вебсайт містить документацію для поточної версії Kubernetes та чотирьох попередніх версій Kubernetes.
