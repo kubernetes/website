@@ -474,7 +474,8 @@ To try out the API, follow the [Getting Started Guide](https://gateway-api.sigs.
 As of this writing, *N* implementations are already conformant with Gateway API
 v1.4.0. In alphabetical order:
 
-- #TODO
+- [Airlock Microgateway](https://github.com/airlock/microgateway/releases/tag/4.8.0-alpha1)
+- [kgateway](https://github.com/kgateway-dev/kgateway/releases/tag/v2.1.0)
 - ...
 
 ## Get involved
