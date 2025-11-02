@@ -228,7 +228,7 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 | [Hindi](./content/hi/README.md)      | [Spanish](./content/es/README.md)    |
 | [Indonesian](./content/id/README.md) | [Ukrainian](./content/uk/README.md) |
 | [Italian](./content/it/README.md)    | [Vietnamese](./content/vi/README.md) |
-| [Japanese](./content/ja/README.md)   | |
+| [Japanese](./content/ja/README.md)   | [Chinese(Traditional)](./content/zh-tw/README.md)|
 
 ## Code of conduct
 
