@@ -5,7 +5,7 @@ date: 2025-11-06T09:00:00-08:00 # suggested
 draft: true
 slug: gateway-api-v1-4
 author: >
-    [Beka Modebadze (Google)](https://github.com/bexxmodd),
+    [Beka Modebadze](https://github.com/bexxmodd) (Google),
     [Gateway API Contributors](contributors.md)
 ---
 
@@ -28,7 +28,7 @@ and introduces three new experimental features:
 
 ## Graduations to Standard Channel
 
-### Backend TLS Policy
+### Backend TLS policy
 
 Leads: [Candace Holman](https://github.com/candita), [Norwin Schnyder](https://github.com/snorwin), [Katarzyna Łach](https://github.com/kl52752)
 
@@ -172,7 +172,7 @@ may impose additional, indirect constraints.
 
 ## Experimental channel changes
 
-### Enabling External Auth for HTTPRoute
+### Enabling external Auth for HTTPRoute
 
 Giving Gateway API the ability to enforce authentication and maybe authorization as well at the Gateway or HTTPRoute level has been a highly requested feature for a long time. (See the [GEP-1494 issue](https://github.com/kubernetes-sigs/gateway-api/issues/1494) for some background.)
 
@@ -224,7 +224,7 @@ When a request is allowed, the external Auth service will respond with a 200 HTT
 
 Since the Authorization header is used in many authentication methods, this method can be used to do Basic, Oauth, JWT, and other common authentication and authorization methods.
 
-### Mesh Resource
+### Mesh resource
 
 Lead(s): [Flynn](https://github.com/kflynn)
 
@@ -271,7 +271,7 @@ GEP-3793: [Allowing Gateways to program some routes by default](https://github.c
 
 For application developers, one common piece of feedback has been the need to explicitly name a parent Gateway for every single north-south Route. While this explicitness prevents ambiguity, it adds friction, especially for developers who just want to expose their application to the outside world without worrying about the underlying infrastructure's naming scheme. To address this, we have introduce the concept of **Default Gateways**.
 
-#### For Application Developers: Just "Use the Default"
+#### For application developers: Just "use the default"
 
 As an application developer, you often don't care about the specific Gateway your traffic flows through, you just want it to work. With this enhancement, you can now create a Route and simply ask it to use a default Gateway.
 
@@ -292,7 +292,7 @@ spec:
 ```
 That's it! No more need to hunt down the correct Gateway name for your environment. Your Route is now a "defaulted Route."
 
-#### For Cluster Operators: You're Still in Control
+#### For cluster operators: You're still in control
 
 This feature doesn't take control away from cluster operators ("Chihiro"). In fact, they have explicit control over which Gateways can act as a default. A Gateway will only accept these "defaulted Routes" if it is configured to do so.
 
@@ -310,7 +310,7 @@ spec:
 ```
 Operators can choose to have no default Gateways, or even multiple.
 
-#### How It Works and Key Details
+#### How it works and key details
 
 *   To maintain a clean, GitOps-friendly workflow, a default Gateway does *not* modify the `spec.parentRefs` of your Route. Instead, the binding is reflected in the Route's `status` field. You can always inspect the `status.parents` stanza of your Route to see exactly which Gateway or Gateways have accepted it. This preserves your original intent and avoids conflicts with CD tools.
 
