@@ -36,8 +36,8 @@ GEP-1897: [BackendTLSPolicy](https://github.com/kubernetes-sigs/gateway-api/issu
 
 [BackendTLSPolicy](https://gateway-api.sigs.k8s.io/api-types/backendtlspolicy) is a new Gateway API type for specifying the TLS configuration
 of the connection from the Gateway to backend pod(s).
-This is also known as _backend TLS termination_, and provides information to the Gateway on how to connect
-to a backend pod that has its own certificate.  Prior to the introduction of BackendTLSPolicy, there was no API specification
+This is used to configure a secure, encrypted connection from the Gateway to backend pods. It's important to note that the TLS termination is handled by the backend itself. This policy provides the Gateway information on how to connect securely to that service.
+.  Prior to the introduction of BackendTLSPolicy, there was no API specification
 that allowed encrypted traffic on the hop from Gateway to backend.
 
 The BackendTLSPolicy `validation` configuration requires either a `hostname` or one or more `subjectAltNames` (SAN).
