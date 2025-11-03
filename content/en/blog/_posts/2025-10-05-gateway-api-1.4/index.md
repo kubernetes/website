@@ -6,7 +6,7 @@ draft: true
 slug: gateway-api-v1-4
 author: >
     [Beka Modebadze](https://github.com/bexxmodd) (Google),
-    [Gateway API Contributors](contributors.md)
+    [Gateway API Contributors](com/kubernetes-sigs/gateway-api/blob/main/CHANGELOG/1.4-TEAM.md)
 ---
 
 ![Gateway API logo](gateway-api-logo.svg)
