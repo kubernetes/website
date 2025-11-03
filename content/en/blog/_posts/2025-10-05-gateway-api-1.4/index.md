@@ -36,15 +36,16 @@ GEP-1897: [BackendTLSPolicy](https://github.com/kubernetes-sigs/gateway-api/issu
 
 [BackendTLSPolicy](https://gateway-api.sigs.k8s.io/api-types/backendtlspolicy) is a new Gateway API type for specifying the TLS configuration
 of the connection from the Gateway to backend pod(s).
-This is used to configure a secure, encrypted connection from the Gateway to backend pods. It's important to note that the TLS termination is handled by the backend itself. This policy provides the Gateway information on how to connect securely to that service.
 .  Prior to the introduction of BackendTLSPolicy, there was no API specification
 that allowed encrypted traffic on the hop from Gateway to backend.
 
-The BackendTLSPolicy `validation` configuration requires either a `hostname` or one or more `subjectAltNames` (SAN).
-Specifying a value for `hostname` refers to the Server Name Indication (SNI) that the Gateway should use to connect to the backend, and must match
-the certificate served by the backend pod unless `subjectAltNames` is specified instead. When you specify `subjectAltNames`,
-the certificate served from the backend must have at least one matching SAN.
-See the Gateway documentation for cases where a hostname must appear in the SAN list.
+The `BackendTLSPolicy` `validation` configuration requires a `hostname`. This `hostname` serves two purposes:
+
+1.  It MUST be used as the SNI header to connect to the backend.
+1.  It MUST be used for authentication and must match the certificate served by the backend, *unless* `subjectAltNames` is specified.
+
+If `subjectAltNames` (SANs) are specified, the `hostname` is only used for SNI, and authentication is performed against the SANs instead. If you still need to authenticate against the hostname value in this case, you MUST add it to the `subjectAltNames` list.
+
 
 BackendTLSPolicy `validation` configuration also requires either `caCertificateRefs` or `wellKnownCACertificates`.
 `caCertificateRefs` refer to one or more (up to 8) PEM-encoded TLS certificate bundles. If there are no specific certificates to use,
