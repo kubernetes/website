@@ -481,7 +481,7 @@ v1.4.0. In alphabetical order:
 
 - [Airlock Microgateway](https://github.com/airlock/microgateway/releases/tag/4.8.0-alpha1)
 - [kgateway](https://github.com/kgateway-dev/kgateway/releases/tag/v2.1.0)
-- ...
+- [GKE Gateway](https://github.com/GoogleCloudPlatform/gke-gateway-api/releases/tag/v1.4.0)
 
 ## Get involved
 
