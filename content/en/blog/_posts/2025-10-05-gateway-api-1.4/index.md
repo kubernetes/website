@@ -47,9 +47,9 @@ the certificate served from the backend must have at least one matching SAN.
 See the Gateway documentation for cases where a hostname must appear in the SAN list.
 
 BackendTLSPolicy `validation` configuration also requires either `caCertificateRefs` or `wellKnownCACertificates`.
-`caCertificateRefs` refer to one or more (up to 8) PEM-encoded TLS certificates. If there are no specific certificates to use,
+`caCertificateRefs` refer to one or more (up to 8) PEM-encoded TLS certificate bundles. If there are no specific certificates to use,
 then depending on your implementation, you may use `wellKnownCACertificates`,
-set to "System" to tell the Gateway to use a set of trusted CA Certificates.
+set to "System" to tell the Gateway to use an implementation-specific set of trusted CA Certificates.
 
 In this example, the BackendTLSPolicy is configured to use certificates defined in the auth-cert ConfigMap
 to connect with a TLS-encrypted upstream connection where pods backing the auth service are expected to serve a
@@ -65,7 +65,7 @@ spec:
   - kind: Service
     name: auth
     group: ""
-    sectionName: "btls"
+    sectionName: "https"
   validation:
     caCertificateRefs:
     - group: "" # core API group
@@ -76,7 +76,7 @@ spec:
       hostname: "auth.example.com"
 ```
     
-In this example, the BackendTLSPolicy is configured to use system certificates to connect with a TLS-encrypted upstream connection where Pods backing the dev Service are expected to serve a valid certificate for `dev.example.com`.
+In this example, the BackendTLSPolicy is configured to use system certificates to connect with a TLS-encrypted backend connection where Pods backing the dev Service are expected to serve a valid certificate for `dev.example.com`.
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -236,9 +236,10 @@ The Mesh resource is cluster-scoped and, as an experimental feature, is named `X
 
 One of the goals of this GEP is to avoid making it more difficult for users to adopt a mesh. To simplify adoption, mesh implementations are expected to create a default Mesh resource upon startup if one with a matching `controllerName` doesn't already exist. This avoids the need for manual creation of the resource to begin using a mesh.
 
-The XMesh resource, introduced in the gateway.networking.x-k8s.io/v1alpha1 API group, provides a central point for mesh configuration and feature discovery ( source).
+The new XMesh API kind, within the gateway.networking.x-k8s.io/v1alpha1 API group,
+provides a central point for mesh configuration and feature discovery (source).
 
-A minimal XMesh resource specifies the controllerName:
+A minimal XMesh object specifies the `controllerName`:
 
 ```yaml
 apiVersion: gateway.networking.x-k8s.io/v1alpha1
@@ -294,9 +295,13 @@ That's it! No more need to hunt down the correct Gateway name for your environme
 
 #### For cluster operators: You're still in control
 
-This feature doesn't take control away from cluster operators ("Chihiro"). In fact, they have explicit control over which Gateways can act as a default. A Gateway will only accept these "defaulted Routes" if it is configured to do so.
+This feature doesn't take control away from cluster operators ("Chihiro").
+In fact, they have explicit control over which Gateways can act as a default. A Gateway will only accept these _defaulted Routes_ if it is configured to do so.
 
-Operators can designate a Gateway as a default by setting the new `defaultScope` field in the Gateway's `spec`:
+You can also use a ValidatingAdmissionPolicy to either require or even forbid for Routes to rely on a default Gateway.
+
+As a cluster operator, you can designate a Gateway as a default
+by setting the (new) `.spec.defaultScope` field:
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
