@@ -264,7 +264,7 @@ status:
 ```
 
 
-### Introducing Default Gateways
+### Introducing default Gateways
 
 Lead(s): [Flynn](https://github.com/kflynn)
 
