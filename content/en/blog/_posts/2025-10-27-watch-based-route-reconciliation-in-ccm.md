@@ -28,9 +28,9 @@ added, deleted, or the fields `Spec.PodCIDRs` or `Status.Addresses` are updated.
 An additional reconcile is performed in a random interval between 12h and 24h,
 which is choosen at the controllers start time.
 
-The logic inside the reconciliation loop is not changed by this feature gate.
-For this reason, users of a ccm implementation are not expected to see any route
-changes.
+This feature gate does not modify the logic within the reconciliation loop.
+Therefore, users of a ccm implementation should not experience significant
+changes to their existing route configurations.
 
 ## How can I learn more?
 
