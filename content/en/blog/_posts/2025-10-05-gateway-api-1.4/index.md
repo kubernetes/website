@@ -321,7 +321,7 @@ Operators can choose to have no default Gateways, or even multiple.
 
 *   The design explicitly supports having multiple Gateways designated as defaults within a cluster. When this happens, a defaulted Route will bind to *all* of them. This enables cluster operators to perform zero-downtime migrations and testing of new default Gateways.
 
-*   You can create a single Route that handles both north-south traffic (via a default Gateway) and east-west/mesh traffic (by explicitly referencing a Service in `parentRefs`).
+* You can create a single Route that handles both north-south traffic (traffic entering or leaving the cluster, via a default Gateway) and east-west/mesh traffic (traffic between services within the cluster), by explicitly referencing a Service in `parentRefs`.
 
 Default Gateways represent a significant step forward in making the Gateway API simpler and more intuitive for everyday use cases, bridging the gap between the flexibility needed by operators and the simplicity desired by developers.
 
