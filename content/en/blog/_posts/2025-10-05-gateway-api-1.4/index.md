@@ -1,8 +1,7 @@
 ---
 layout: blog
 title: "Gateway API 1.4: New Features"
-date: 2025-11-06T09:00:00-08:00 # suggested
-draft: true
+date: 2025-11-06T09:00:00-08:00
 slug: gateway-api-v1-4
 author: >
     [Beka Modebadze](https://github.com/bexxmodd) (Google),
