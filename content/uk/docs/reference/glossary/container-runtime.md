@@ -17,5 +17,4 @@ tags:
 
 <!--more-->
 
-Kubernetes підтримує середовища виконання контейнерів, такі як
-{{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}}, та будь-яку іншу реалізацію [Kubernetes CRI (інтерфейс виконання контейнерів)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
+Kubernetes підтримує середовища виконання контейнерів, такі як {{< glossary_tooltip term_id="containerd" >}}, {{< glossary_tooltip term_id="cri-o" >}}, та будь-яку іншу реалізацію [Kubernetes CRI (інтерфейс виконання контейнерів)](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).

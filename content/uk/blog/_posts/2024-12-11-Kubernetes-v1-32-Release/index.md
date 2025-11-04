@@ -217,7 +217,7 @@ Windows](https://github.com/kubernetes/community/tree/master/sig-windows).
 
 #### Вилічення API {#api-removals}
 
-У [Kubernetes v1.32] (/docs/reference/using-api/deprecation-guide/#v1-32) вилучено один API:
+У [Kubernetes v1.32](/docs/reference/using-api/deprecation-guide/#v1-32) вилучено один API:
 
 * Видалено версію `flowcontrol.apiserver.k8s.io/v1beta3` API FlowSchema та PriorityLevelConfiguration. Щоб підготуватися до цього, ви можете відредагувати наявні маніфести та переписати клієнтське програмне забезпечення для використання версії `flowcontrol.apiserver.k8s.io/v1 API`, доступної починаючи з v1.29. Всі існуючі збережені обʼєкти доступні через новий API. Серед помітних змін у flowcontrol.apiserver.k8s.io/v1beta3 - поле PriorityLevelConfiguration `spec.limited.nominalConcurrencyShares` стає типово рівним 30, якщо його не вказано, а явне значення 0 не змінюється на 30.
 
@@ -302,7 +302,7 @@ CNCF K8s [проєкт DevStats](https://k8s.devstats.cncf.io/d/11/companies-con
 
 ## Долучайтеся {#get-involved}
 
-Найпростіший спосіб долучитися до Kubernetes - приєднатися до однієї з багатьох [ Special Interest Groups] (https://www.kubernetes.dev/community/community-groups/#special-interest-groups) (SIG), які відповідають вашим інтересам. Маєте щось, про що хотіли б розповісти спільноті Kubernetes? Поділіться своєю думкою на нашій щотижневій [зустрічі спільноти](https://github.com/kubernetes/community/tree/master/communication), а також за допомогою каналів нижче. Дякуємо за ваші постійні відгуки та підтримку.
+Найпростіший спосіб долучитися до Kubernetes - приєднатися до однієї з багатьох [Special Interest Groups](https://www.kubernetes.dev/community/community-groups/#special-interest-groups) (SIG), які відповідають вашим інтересам. Маєте щось, про що хотіли б розповісти спільноті Kubernetes? Поділіться своєю думкою на нашій щотижневій [зустрічі спільноти](https://github.com/kubernetes/community/tree/master/communication), а також за допомогою каналів нижче. Дякуємо за ваші постійні відгуки та підтримку.
 
 - Слідкуйте за нами у Bluesky [@Kubernetes.io](https://bsky.app/profile/did:plc:kyg4uikmq7lzpb76ugvxa6ul) для отримання останніх оновлень
 - Приєднуйтесь до обговорення спільноти на [Discuss](https://discuss.kubernetes.io/)

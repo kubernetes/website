@@ -67,7 +67,7 @@ weight: 42
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-Якщо на вузлі увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/)  `InPlacePodVerticalScaling`, kubelet зберігає локальний запис про _виділені_ та _активовані_ ресурси Pod. Докладніше про використання цих записів див. у статті [Зміна розміру ресурсів CPU та памʼяті, призначених контейнерам] (/docs/tasks/configure-pod-container/resize-container-resources/).
+Якщо на вузлі увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/)  `InPlacePodVerticalScaling`, kubelet зберігає локальний запис про _виділені_ та _активовані_ ресурси Pod. Докладніше про використання цих записів див. у статті [Зміна розміру ресурсів CPU та памʼяті, призначених контейнерам](/docs/tasks/configure-pod-container/resize-container-resources/).
 
 Назви файлів:
 

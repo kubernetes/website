@@ -280,7 +280,7 @@ type: kubernetes.io/service-account-token
 
 {{< feature-state feature_gate_name="ExternalServiceAccountTokenSigner" >}}
 
-Альтернативою встановленню прапорців `--service-account-private-key-file` та `--service-account-key-file` є налаштування зовнішнього підписувача JWT для [зовнішнього підписувача токенів ServiceAccount та керування ключами] (#external-serviceaccount-token-signing-and-key-management). Зверніть увагу, що ці налаштування є взаємовиключними і не можуть бути налаштовані разом.
+Альтернативою встановленню прапорців `--service-account-private-key-file` та `--service-account-key-file` є налаштування зовнішнього підписувача JWT для [зовнішнього підписувача токенів ServiceAccount та керування ключами](#external-serviceaccount-token-signing-and-key-management). Зверніть увагу, що ці налаштування є взаємовиключними і не можуть бути налаштовані разом.
 
 ### Контролер допуску ServiceAccount {#serviceaccount-admission-controller}
 

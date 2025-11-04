@@ -277,7 +277,7 @@ Accept: application/vnd.kubernetes.protobuf, application/json
 
 Якщо сервер API кодує свою відповідь на [watch request](#efficient-detection-of-changes) за допомогою CBOR, тіло відповіді буде [CBOR Sequence](https://www.rfc-editor.org/rfc/rfc8742), а в заголовку `Content-Type` HTTP-відповіді буде використано медіа-тип IANA `application/cbor-seq`. Кожен елемент послідовності (якщо такий є) є окремою подією спостереження, закодованою CBOR.
 
-На додаток до існуючого типу даних `application/apply-patch+yaml` для YAML-кодованих [конфігурацій додатків на стороні сервера] (#patch-and-apply), сервери API, які підтримують CBOR, прийматимуть тип даних `application/apply-patch+cbor` для конфігурацій додатків на стороні сервера, закодованих CBOR. Для `application/json-patch+json` або `application/merge-patch+json`, або `application/strategic-merge-patch+json` не підтримується еквівалент CBOR.
+На додаток до існуючого типу даних `application/apply-patch+yaml` для YAML-кодованих [конфігурацій додатків на стороні сервера](#patch-and-apply), сервери API, які підтримують CBOR, прийматимуть тип даних `application/apply-patch+cbor` для конфігурацій додатків на стороні сервера, закодованих CBOR. Для `application/json-patch+json` або `application/merge-patch+json`, або `application/strategic-merge-patch+json` не підтримується еквівалент CBOR.
 
 Ви також можете запросити представлення цього кодування у вигляді [таблиці](#table-fetches) та [тільки метаданих](#metadata-only-fetches).
 

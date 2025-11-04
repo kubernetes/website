@@ -12,8 +12,8 @@ weight: 30
 ## {{% heading "prerequisites" %}}
 
 * Підтримка постачальника для мереж з підтримкою подвійного стека (постачальник хмарних послуг або інший постачальник повинен забезпечити вузлам Kubernetes мережеві інтерфейси з маршрутними IPv4/IPv6)
-* [Втулок мережі] (/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/), який підтримує dual-stack мережу.
-* [Увімкнений подвійний стек] (/docs/concepts/services-networking/dual-stack/) кластер
+* [Втулок мережі](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/), який підтримує dual-stack мережу.
+* [Увімкнений подвійний стек](/docs/concepts/services-networking/dual-stack/) кластер
 
 {{< version-check >}}
 

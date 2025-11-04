@@ -48,6 +48,10 @@ spec:
   ### інші поля Pod тут
 ```
 
+{{< note >}}
+Для заданого значення `topologyKey` та `whenUnsatisfiable` може бути лише одне значення `topologySpreadConstraint`. Наприклад, якщо ви визначили `topologySpreadConstraint`, що використовує `topologyKey` "kubernetes.io/hostname" і значення `whenUnsatisfiable` "DoNotSchedule", ви можете додати інший `topologySpreadConstraint` для `topologyKey` "kubernetes.io/hostname" лише в тому випадку, якщо ви використовуєте інше значення `whenUnsatisfiable`.
+{{< /note >}}
+
 Додаткову інформацію про це поле можна отримати, запустивши команду `kubectl explain Pod.spec.topologySpreadConstraints` або звернувшись до розділу [планування](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling) довідки API для Pod.
 
 ### Визначення обмежень поширення топології {#spread-constraints-definition}
