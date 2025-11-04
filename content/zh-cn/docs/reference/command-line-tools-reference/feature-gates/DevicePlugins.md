@@ -6,7 +6,7 @@ _build:
   render: false
 
 stages:
-  - stage: alpha
+  - stage: alpha 
     defaultValue: false
     fromVersion: "1.8"
     toVersion: "1.9"
@@ -19,8 +19,9 @@ stages:
     fromVersion: "1.26"
     toVersion: "1.27"    
 
-removed: true
+removed: true  
 ---
+
 <!--
 Enable the [device-plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 based resource provisioning on nodes.

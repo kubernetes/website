@@ -245,7 +245,7 @@ have some limitations:
 The above update rules apply to regular pod updates, but other pod fields can be updated through _subresources_.
 
 - **Resize:** The `resize` subresource allows container resources (`spec.containers[*].resources`) to be updated.
-  See [Resize Container Resources](#resize-container-resources) for more details.
+  See [Resize Container Resources](/docs/tasks/configure-pod-container/resize-container-resources/) for more details.
 - **Ephemeral Containers:** The `ephemeralContainers` subresource allows
   {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
   to be added to a Pod.

@@ -13,9 +13,14 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.33"
+    toVersion: "1.33"
+  - stage: stable
+    locked: true
+    defaultValue: true
+    fromVersion: "1.34"
 ---
 
 <!--
-Enables the pods being deleted before the rest of resources while namespace deletion.
+While deleting namespace, the pods resources is going to be deleted before the rest of resources.
 -->
-允许在删除命名空间时，先删除 Pod，再删除其他资源。
+在删除命名空间时，先删除 Pod，再删除其他资源。
