@@ -477,12 +477,14 @@ of Gateway API.
 
 To try out the API, follow the [Getting Started Guide](https://gateway-api.sigs.k8s.io/guides/).
 
-As of this writing, *N* implementations are already conformant with Gateway API
-v1.4.0. In alphabetical order:
+As of this writing, six implementations are already conformant with Gateway API v1.4.0. In alphabetical order:
 
+- [Agent Gateway (with kgateway)](https://github.com/kgateway-dev/kgateway/releases/tag/v2.2.0-alpha.1)
 - [Airlock Microgateway](https://github.com/airlock/microgateway/releases/tag/4.8.0-alpha1)
+- [Envoy Gateway](https://github.com/envoyproxy/gateway/releases/tag/v1.6.0-rc.1)
+- [GKE Gateway](https://github.com/GoogleCloudPlatform/gke-gateway-api/releases/tag/v1.4.0)
+- [Istio](https://github.com/istio/istio/releases/tag/1.28.0-rc.1)
 - [kgateway](https://github.com/kgateway-dev/kgateway/releases/tag/v2.1.0)
-- [GKE GatewaT](https://github.com/GoogleCloudPlatform/gke-gateway-api/releases/tag/v1.4.0)
 
 ## Get involved
 
