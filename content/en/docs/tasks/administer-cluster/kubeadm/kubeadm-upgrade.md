@@ -241,6 +241,16 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
 ### Upgrade kubelet and kubectl
 
+{{< note >}}
+FailCgroupV1 is a kubelet configuration option that is set to 'true' by default.
+If you are using cgroups v1, kubelet will fail to start if the FailCgroupV1 is not set.
+The cgroups v1 support is deprecated and will be removed in a future release.
+If you are using cgroups v1, you should migrate to cgroups v2.
+To explicitly enable cgroups v1 support for kubelet v1.35 or newer,
+you must set the kubelet configuration option 'FailCgroupV1' to 'false'. You must also explicitly skip this validation.
+For more information, see https://git.k8s.io/enhancements/keps/sig-node/5573-remove-cgroup-v1.
+{{</ note >}}
+
 1. Upgrade the kubelet and kubectl:
 
    {{< tabs name="k8s_install_kubelet" >}}
