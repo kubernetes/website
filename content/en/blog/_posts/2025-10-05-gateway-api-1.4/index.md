@@ -39,10 +39,10 @@ of the connection from the Gateway to backend pod(s).
 .  Prior to the introduction of BackendTLSPolicy, there was no API specification
 that allowed encrypted traffic on the hop from Gateway to backend.
 
-The `BackendTLSPolicy` `validation` configuration requires a `hostname`. This `hostname` serves two purposes:
-
-1.  It MUST be used as the SNI header to connect to the backend.
-1.  It MUST be used for authentication and must match the certificate served by the backend, *unless* `subjectAltNames` is specified.
+The `BackendTLSPolicy` `validation` configuration requires a hostname. This `hostname` 
+serves two purposes. It is used as the SNI header when connecting to the backend and
+for authentication, the certificate presented by the backend must match this hostname,
+*unless* `subjectAltNames` is explicitly specified.
 
 If `subjectAltNames` (SANs) are specified, the `hostname` is only used for SNI, and authentication is performed against the SANs instead. If you still need to authenticate against the hostname value in this case, you MUST add it to the `subjectAltNames` list.
 
