@@ -30,7 +30,7 @@ StatefulSet is the workload API object used to manage stateful applications.
 ## Using StatefulSets
 
 StatefulSets are valuable for applications that require one or more of the
-following.
+following:
 
 * Stable, unique network identifiers.
 * Stable, persistent storage.
@@ -47,7 +47,7 @@ that provides a set of stateless replicas.
 ## Limitations
 
 * The storage for a given Pod must either be provisioned by a
-  [PersistentVolume Provisioner](/docs/concepts/storage/dynamic-provisioning/) ([examples here](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md))
+  [PersistentVolume Provisioner](/docs/concepts/storage/dynamic-provisioning/)
   based on the requested _storage class_, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the
   StatefulSet. This is done to ensure data safety, which is generally more valuable than an
@@ -145,11 +145,11 @@ validation error during StatefulSet creation.
 ### Volume Claim Templates
 
 You can set the `.spec.volumeClaimTemplates` field to create a
-[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/). 
-This will provide stable storage to the StatefulSet if either
+[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims). 
+This will provide stable storage to the StatefulSet if either:
 
 * The StorageClass specified for the volume claim is set up to use [dynamic
-  provisioning](/docs/concepts/storage/dynamic-provisioning/), or
+  provisioning](/docs/concepts/storage/dynamic-provisioning/).
 * The cluster already contains a PersistentVolume with the correct StorageClass
   and sufficient available storage space.
 
@@ -291,7 +291,7 @@ preserving its uniqueness and identity guarantees via its `.spec.podManagementPo
 #### OrderedReady Pod Management
 
 `OrderedReady` pod management is the default for StatefulSets. It implements the behavior
-described [above](#deployment-and-scaling-guarantees).
+described in [Deployment and Scaling Guarantees](#deployment-and-scaling-guarantees).
 
 #### Parallel Pod Management
 
@@ -400,7 +400,7 @@ When you update a StatefulSet's Pod template (`spec.template`), the StatefulSet 
 
 #### Key Properties
 
-ControllerRevision key properties and other details can be checked [here](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/) 
+See [ControllerRevision](/docs/reference/kubernetes-api/workload-resources/controller-revision-v1/) to learn more about key properties and other details. 
 
 ---
 
@@ -454,8 +454,8 @@ kubectl get controllerrevision/webapp-3 -o yaml
 
 ##### Retention Policy
 
-- Set `revisionHistoryLimit` between **5–10** for most workloads  
-- Increase only if **deep rollback history** is required  
+- Set `revisionHistoryLimit` between **5–10** for most workloads.  
+- Increase only if **deep rollback history** is required.
 
 ##### Monitoring
 
@@ -465,7 +465,7 @@ kubectl get controllerrevision/webapp-3 -o yaml
   kubectl get controllerrevisions
   ```
 
-- Alert on **rapid revision count growth**
+- Alert on **rapid revision count growth**.
 
 ##### Avoid
 
@@ -484,10 +484,10 @@ on the API server and the controller manager to use this field.
 Once enabled, there are two policies you can configure for each StatefulSet:
 
 `whenDeleted`
-: configures the volume retention behavior that applies when the StatefulSet is deleted
+: Configures the volume retention behavior that applies when the StatefulSet is deleted.
 
 `whenScaled`
-: configures the volume retention behavior that applies when the replica count of
+: Configures the volume retention behavior that applies when the replica count of
   the StatefulSet   is reduced; for example, when scaling down the set.
   
 For each policy that you can configure, you can set the value to either `Delete` or `Retain`.
@@ -511,7 +511,7 @@ the node where the new Pod is about to launch.
   
 The default for policies is `Retain`, matching the StatefulSet behavior before this new feature.
 
-Here is an example policy.
+Here is an example policy:
 
 ```yaml
 apiVersion: apps/v1
