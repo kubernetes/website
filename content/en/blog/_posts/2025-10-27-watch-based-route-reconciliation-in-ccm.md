@@ -16,20 +16,20 @@ behavior in the route controller.
 ## What's new?
 
 The feature gate `CloudControllerManagerWatchBasedRoutesReconciliation` has been
-introduced in alpha stage by [sig-cloud-provider](https://github.com/kubernetes/community/blob/master/sig-cloud-provider/README.md).
+introduced in alpha stage by [SIG Cloud Provider](https://github.com/kubernetes/community/blob/master/sig-cloud-provider/README.md).
 To enable this feature you can use `--feature-gate=CloudControllerManagerWatchBasedRoutesReconciliation=true`
-in the ccm implementation you are using.
+in the CCM implementation you are using.
 
 ## About the feature gate
 
 This feature gate will trigger the route reconciliation loop whenever a node is
-added, deleted, or the fields `Spec.PodCIDRs` or `Status.Addresses` are updated.
+added, deleted, or the fields `.spec.podCIDRs` or `.status.addresses` are updated.
 
 An additional reconcile is performed in a random interval between 12h and 24h,
 which is choosen at the controllers start time.
 
 This feature gate does not modify the logic within the reconciliation loop.
-Therefore, users of a ccm implementation should not experience significant
+Therefore, users of a CCM implementation should not experience significant
 changes to their existing route configurations.
 
 ## How can I learn more?
