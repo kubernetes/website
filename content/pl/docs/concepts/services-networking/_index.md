@@ -72,7 +72,7 @@ Kubernetes definiuje API, ale odpowiadającą funkcjonalność
 zapewniają zewnętrzne komponenty, z których niektóre są opcjonalne:
 
 * Konfiguracja przestrzeni nazw sieci poda jest obsługiwana przez oprogramowanie systemowe implementujące
-  [Interfejs Uruchomieniowy Kontenera (ang. Container Runtime Interface)](/docs/concepts/architecture/cri.md).
+  [Interfejs Uruchomieniowy Kontenera (ang. Container Runtime Interface)](/docs/concepts/containers/cri/).
 
 * Sama sieć podów jest zarządzana przez
   [implementację sieci podów](/docs/concepts/cluster-administration/addons/#networking-and-network-policy).
