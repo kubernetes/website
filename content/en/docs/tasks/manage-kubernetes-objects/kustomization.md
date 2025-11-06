@@ -1029,7 +1029,7 @@ deployment.apps "dev-my-nginx" deleted
 | crds | []string | Each entry in this list should resolve to an OpenAPI definition file for Kubernetes types |
 | generatorOptions | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/generatoroptions.go#L7) | Modify behaviors of all ConfigMap and Secret generator |
 | images | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8) | Each entry is to modify the name, tags and/or digest for one image without creating patches |
-| labels | map[string]string | Add labels without automically injecting corresponding selectors |
+| labels | map[string]string | Add labels without automatically injecting corresponding selectors |
 | namePrefix | string | value of this field is prepended to the names of all resources |
 | nameSuffix | string | value of this field is appended to the names of all resources |
 | patchesJson6902 | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10) | Each entry in this list should resolve to a Kubernetes object and a Json Patch |

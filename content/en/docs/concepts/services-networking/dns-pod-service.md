@@ -129,7 +129,7 @@ is an endpoint of a Service named `barista`, and the domain name for your cluste
 172-17-0-3.barista.cafe.svc.cluster.local
 ```
 
-### Pod's hostname and subdomain fields
+### Pod's hostname and subdomain fields {#pod-hostname-and-subdomain-field}
 
 Currently when a Pod is created, its hostname (as observed from within the Pod)
 is the Pod's `metadata.name` value.

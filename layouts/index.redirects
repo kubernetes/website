@@ -1,0 +1,15 @@
+{{- $latest := or .Site.Params.latest (errorf "missing .Site.Params.latest") -}}
+
+###############################################
+# set server-side redirects in this file      #
+# see https://www.netlify.com/docs/redirects/ #
+# test at https://play.netlify.com/redirects  #
+###############################################
+
+# Dynamic latest API redirect - automatically points to current latest version
+/docs/reference/generated/kubernetes-api/latest/     /docs/reference/generated/kubernetes-api/{{ $latest }}/ 307
+/docs/reference/generated/kubernetes-api/latest/*   /docs/reference/generated/kubernetes-api/{{ $latest }}/:splat 307
+
+# Include all existing static redirects
+{{- $staticRedirects := readFile "static/_redirects.base" -}}
+{{ $staticRedirects }}

@@ -10,10 +10,10 @@ weight: 60
 <!-- overview -->
 
 애플리케이션 로그는 애플리케이션 내부에서 발생하는 상황을 이해하는 데 도움이 된다.
-로그는 문제를 디버깅하고 클러스터 활동을 모니터링하는 데 특히 유용하다.
-대부분의 최신 애플리케이션에는 일종의 로깅 메커니즘이 있다.
-마찬가지로, 컨테이너 엔진들도 로깅을 지원하도록 설계되었다.
-컨테이너화된 애플리케이션에 가장 쉽고 가장 널리 사용되는 로깅 방법은 표준 출력과 표준 에러 스트림에 작성하는 것이다.
+로그는 문제를 디버깅하고 클러스터 활동을 모니터링하는 데 특히 유용하다. 대부분의 
+최신 애플리케이션에는 일종의 로깅 메커니즘이 있다. 마찬가지로, 컨테이너 엔진들도 
+로깅을 지원하도록 설계되었다. 컨테이너화된 애플리케이션에 가장 쉽고 가장 널리 사용되는 로깅 방법은 
+표준 출력과 표준 오류 스트림에 작성하는 것이다.
 
 그러나, 일반적으로 컨테이너 엔진이나 런타임에서 제공하는 기본 기능은
 완전한 로깅 솔루션으로 충분하지 않다.
@@ -25,10 +25,10 @@ weight: 60
 별도의 스토리지와 라이프사이클을 가져야 한다.
 이 개념을 [클러스터-레벨 로깅](#cluster-level-logging-architectures)이라고 한다.  
 
-클러스터-레벨 로깅은 로그를 저장, 분석, 쿼리하기 위해서는 별도의 백엔드가 필요하다.
-쿠버네티스가 로그 데이터를 위한 네이티브 스토리지 솔루션을 제공하지는 않지만,
-쿠버네티스에 통합될 수 있는 기존의 로깅 솔루션이 많이 있다.
-아래 내용은 로그를 어떻게 처리하고 관리하는지 설명한다.
+클러스터-레벨 로깅 아키텍처는 로그를 저장, 분석, 쿼리하기 위해서는 
+별도의 백엔드가 필요하다. 쿠버네티스가 로그 데이터를 위한 네이티브 스토리지 솔루션을 제공하지는 않지만,
+쿠버네티스에 통합될 수 있는 기존의 로깅 솔루션이 많이 있다. 아래 내용은 
+노드에서 로그를 어떻게 처리하고 관리하는지 설명한다.
 
 <!-- body -->
 
@@ -39,7 +39,7 @@ weight: 60
 아래 예시는, 초당 한 번씩 표준 출력에 텍스트를 기록하는
 컨테이너를 포함하는 `파드` 매니페스트를 사용한다.
 
-{{< codenew file="debug/counter-pod.yaml" >}}
+{{% code_sample file="debug/counter-pod.yaml" %}}
 
 이 파드를 실행하려면, 다음의 명령을 사용한다.
 
@@ -68,52 +68,92 @@ kubectl logs counter
 ```
 
 `kubectl logs --previous` 를 사용해서 컨테이너의 이전 인스턴스에 대한 로그를 검색할 수 있다. 
-파드에 여러 컨테이너가 있는 경우, 
-다음과 같이 명령에 `-c` 플래그와 컨테이너 이름을 추가하여 접근하려는 컨테이너 로그를 지정해야 한다. 
+파드에 여러 컨테이너가 있는 경우, 다음과 같이 명령에 `-c` 플래그와 컨테이너 이름을 추가하여 
+접근하려는 컨테이너 로그를 지정해야 한다. 
 
-```console
-kubectl logs counter -c count
+```shell
+kubectl logs counter -c countS
 ```
 
-자세한 내용은 [`kubectl logs` 문서](/docs/reference/generated/kubectl/kubectl-commands#logs)를 참조한다.
+
+### 컨테이너 로그 스트림
+
+{{< feature-state feature_gate_name="PodLogsQuerySplitStreams" >}}
+
+알파 기능으로, kubelet은 컨테이너에서 생성된 두 개의 표준 스트림 로그를 
+분리할 수 있다. [표준 출력](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout))
+과 [표준 오류](https://en.wikipedia.org/wiki/Standard_streams#Standard_error_(stderr)).
+이 기능을 사용하려면, `PodLogsQuerySplitStreams`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+이 기능 게이트가 활성화 되면, 쿠버네티스 {{< skew currentVersion >}} 는 파드 API를 통해 
+이러한 로그 스트림에 직접 액세스할 수 있도록 허용한다. `stream` 쿼리 문자열으로 스트림 이름 (`Stdout` 또는 `Stderr`)을 
+지정하여 특정 스트림을 가져올 수 있다. 해당 파드의 `log` 하위 리소스를 읽을 수 있는 권한이 있어야 한다.
+
+이 기능을 시연하려면, 표준 출력과 오류 스트림에 주기적으로 텍스트를 쓰는 파드를 만들 수 있다. 
+
+{{% code_sample file="debug/counter-pod-err.yaml" %}}
+
+이 파드를 실행하기 위해서, 아래 명령어를 사용한다.
+
+```shell
+kubectl apply -f https://k8s.io/examples/debug/counter-pod-err.yaml
+```
+
+표준 오류 로그 스트림만 가져오려면 다음을 실행한다.
+
+```shell
+kubectl get --raw "/api/v1/namespaces/default/pods/counter-err/log?stream=Stderr"
+```
+
+
+자세한 내용은 [`kubectl logs` 문서](/docs/reference/generated/kubectl/kubectl-commands#logs)
+을 확인한다.
 
 ### 노드가 컨테이너 로그를 처리하는 방법
 
 ![노드 레벨 로깅](/images/docs/user-guide/logging/logging-node-level.png)
 
-컨테이너화된 애플리케이션의 `stdout(표준 출력)` 및 `stderr(표준 에러)` 스트림에 의해 생성된 모든 출력은 컨테이너 런타임이 처리하고 리디렉션 시킨다.
-다양한 컨테이너 런타임들은 이를 각자 다른 방법으로 구현하였지만,
-kubelet과의 호환성은 _CRI 로깅 포맷_ 으로 표준화되어 있다.
+컨테이너화된 애플리케이션의 `표준 출력(stdout)` 및 `표준 오류(stderr)` 스트림에 의해 
+생성된 모든 출력은 컨테이너 런타임이 처리하고 리디렉션 시킨다.
+다양한 컨테이너 런타임들은 이를 각자 다른 방법으로 구현하였지만, kubelet과의 
+호환성은 _CRI 로깅 포맷_ 으로 표준화되어 있다.
 
 기본적으로 컨테이너가 재시작하는 경우, kubelet은 종료된 컨테이너 하나를 로그와 함께 유지한다.
 파드가 노드에서 축출되면, 해당하는 모든 컨테이너와 로그가 함께 축출된다.
 
-kubelet은 쿠버네티스의 특정 API를 통해 사용자들에게 로그를 공개하며,
-일반적으로 `kubectl logs`를 통해 접근할 수 있다.
+kubelet은 쿠버네티스의 특정 API를 통해 사용자들에게 로그를 제공한다.
+일반적으로 이 기능에 `kubectl logs`를 통해 접근할 수 있다.
 
 ### 로그 로테이션
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-kubelet이 로그를 자동으로 로테이트하도록 설정할 수 있다.
-
-로테이션을 구성해놓으면, kubelet은 컨테이너 로그를 로테이트하고 로깅 경로 구조를 관리한다.
-kubelet은 이 정보를 컨테이너 런타임에 전송하고(CRI를 사용),
+kubelet은 컨테이너 로그를 로테이트하고 로깅 디렉터리 구조를 
+관리하는 역할을 수행한다. 
+kubelet은 이 정보를 컨테이너 런타임으로 전송하고 (CRI를 사용),
 런타임은 지정된 위치에 컨테이너 로그를 기록한다.
 
-[kubelet 설정 파일](/docs/tasks/administer-cluster/kubelet-config-file/)을 사용하여
-두 개의 kubelet 파라미터
-[`containerLogMaxSize` 및 `containerLogMaxFiles`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)를 설정 가능하다.
-이러한 설정을 통해 각 로그 파일의 최대 크기와 각 컨테이너에 허용되는 최대 파일 수를 각각 구성할 수 있다.
+[kubelet 설정 파일](/ko/docs/tasks/administer-cluster/kubelet-config-file/)을 사용하여
+두 개의 kubelet 파라미터 
+`containerLogMaxSize`(기본값 10Mi)와 `containerLogMaxFiles`(기본값 5)를 구성할 수 있다. 
+이러한 설정을 통해 각 로그 파일의 최대 크기와 
+각 컨테이너에 허용되는 최대 파일 수를 각각 구성할 수 있다.
 
-기본 로깅 예제에서와 같이 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)를
-실행하면, 노드의 kubelet이 요청을 처리하고 로그 파일에서 직접 읽는다.
-kubelet은 로그 파일의 내용을 반환한다.
+워크로드로 인해 생성되는 로그 볼륨이 큰 클러스터에서 효율적인 로그 로테이션을 수행하기 위해 
+kubelet은 동시에 수행할 수 있는 로그 로테이션 수와 필요에 따라 
+로그를 모니터링하고 로테이션하는 간격을 고려하여 
+로그 로테이션 방식을 조정하는 메커니즘도 제공한다.
+[kubelet 구성 파일](/ko/docs/tasks/administer-cluster/kubelet-config-file/)을 사용하여 
+두 가지 kubelet [구성 설정](/docs/reference/config-api/kubelet-config.v1beta1/)
+`containerLogMaxWorkers`와 `containerLogMonitorInterval`을 구성할 수 있다.
 
+
+로깅 기본 예제에서와 같이 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)를
+실행하면, 노드의 kubelet이 요청을 처리하고 
+로그 파일에서 직접 읽는다. kubelet은 로그 파일의 내용을 반환한다.
 
 {{< note >}}
-`kubectl logs`를 통해서는
-최신 로그만 확인할 수 있다.
+`kubectl logs`를 통해서는 최신 로그만 확인할 수 있다.
 
 예를 들어, 파드가 40MiB 크기의 로그를 기록했고 kubelet이 10MiB 마다 로그를 로테이트하는 경우
 `kubectl logs`는 최근의 10MiB 데이터만 반환한다.
@@ -121,8 +161,8 @@ kubelet은 로그 파일의 내용을 반환한다.
 
 ## 시스템 컴포넌트 로그
 
-시스템 컴포넌트에는 두 가지 유형이 있는데, 컨테이너에서 실행되는 것과 실행 중인 컨테이너와 관련된 것이다.
-예를 들면 다음과 같다.
+시스템 컴포넌트에는 두 가지 유형이 있는데, 컨테이너에서 실행되는 것과 
+실행 중인 컨테이너와 관련된 것이다. 예를 들면,
 
 * kubelet과 컨테이너 런타임은 컨테이너에서 실행되지 않는다.
   kubelet이 컨테이너({{< glossary_tooltip text="파드" term_id="pod" >}}와 그룹화된)를 실행시킨다.
@@ -139,17 +179,16 @@ kubelet과 컨테이너 런타임이 로그를 기록하는 방법은,
 {{< tabs name="log_location_node_tabs" >}}
 {{% tab name="리눅스" %}}
 
-systemd를 사용하는 시스템에서는 kubelet과 컨테이너 런타임은 기본적으로 로그를 journald에 작성한다.
-`journalctl`을 사용하여 이를 확인할 수 있다.
-예를 들어 `journalctl -u kubelet`.
+systemd를 사용하는 리눅스 노드에서는 kubelet과 컨테이너 런타임은 기본적으로 로그를 journald에 작성한다.
+`journalctl`을 사용하여 systemd 저널을 확인할 수 있다. 예를 들어,
+`journalctl -u kubelet`.
 
-systemd를 사용하지 않는 시스템에서, kubelet과 컨테이너 런타임은 로그를 `/var/log` 디렉터리의 `.log` 파일에 작성한다.
-다른 경로에 로그를 기록하고 싶은 경우에는, `kube-log-runner`를 통해
-간접적으로 kubelet을 실행하여
+systemd를 사용하지 않는 시스템에서, kubelet과 컨테이너 런타임은 로그를 `/var/log` 디렉터리의 
+`.log` 파일에 작성한다. 다른 경로에 로그를 기록하려면 `kube-log-runner`라는 도우미 도구를 통해
+간접적으로 kubelet을 실행하고, 해당 도구를 사용하여 
 kubelet의 로그를 지정한 디렉토리로 리디렉션할 수 있다.
 
-kubelet을 실행할 때 `--log-dir` 인자를 통해 로그가 저장될 디렉토리를 지정할 수 있다.
-그러나 해당 인자는 더 이상 지원되지 않으며(deprecated), kubelet은 항상 컨테이너 런타임으로 하여금
+기본적으로, kubelet은 항상 컨테이너 런타임으로 하여금
 `/var/log/pods` 아래에 로그를 기록하도록 지시한다.
 
 `kube-log-runner`에 대한 자세한 정보는 [시스템 로그](/ko/docs/concepts/cluster-administration/system-logs/#klog)를 확인한다.
@@ -176,32 +215,49 @@ kubelet의 로그를 지정한 디렉토리로 리디렉션할 수 있다.
 
 <br /><!-- work around rendering nit -->
 
-파드로 실행되는 쿠버네티스 컴포넌트의 경우,
-기본 로깅 메커니즘을 따르지 않고 `/var/log` 아래에 로그를 기록한다
-(즉, 해당 컴포넌트들은 systemd의 journal에 로그를 기록하지 않는다).
-쿠버네티스의 저장 메커니즘을 사용하여, 컴포넌트를 실행하는 컨테이너에 영구적으로 사용 가능한 저장 공간을 연결할 수 있다.
+파드에서 실행되는 쿠버네티스 컴포넌트의 경우, 기본 로깅 메커니즘을 따르지 않고 
+`/var/log` 아래에 로그를 기록한다 (해당 컴포넌트들은 
+systemd의 journal에 로그를 기록하지 않는다). 쿠버네티스의 저장 메커니즘을 사용하여, 
+컴포넌트를 실행하는 컨테이너에 영구적으로 사용 가능한 저장 공간을 연결할 수 있다.
+
+Kubelet 파드 로그 디렉터리를 기본 `/var/log/pods`에서 사용자 지정 경로로 
+변경할 수 있도록 한다. kubelet 설정 파일에서 `podLogsDir` 매개변수를 설정하여 
+이러한 조정을 수행할 수 있다.
+
+{{< caution >}}
+기본 위치인 `/var/log/pods`은 오랫동안 사용되어 왔으며
+특정 프로세스가 이 경로를 암묵적으로 의존하고 있을 수 있다는 점은 유의해야 한다.
+따라서, 이 매개변수를 변경할 때는 신중하게 접근해야 하며, 모든 책임은 사용자에게 있다.
+
+또 다른 주의 사항은 kubelet이 `/var`와 동일한 디스크에 있는 위치를 
+지원한다는 것이다. 그렇지 않으면, 로그가 `/var`와 다른 파일 시스템에 있는 경우,
+kubelet이 해당 파일 시스템의 사용량을 추적하지 않아 파일 시스템이 가득차면 
+문제가 발생할 수 있다.
+
+{{< /caution >}}
 
 etcd와 etcd의 로그를 기록하는 방식에 대한 자세한 정보는 [etcd 공식 문서](https://etcd.io/docs/)를 확인한다.
 다시 언급하자면, 쿠버네티스의 저장 메커니즘을 사용하여
 컴포넌트를 실행하는 컨테이너에 영구적으로 사용 가능한 저장 공간을 연결할 수 있다.
 
 {{< note >}}
-스케줄러와 같은 쿠버네티스 클러스터의 컴포넌트를 배포하여 상위 노드에서 공유된 볼륨에 로그를 기록하는 경우,
-해당 로그들이 로테이트되는지 확인하고 관리해야 한다.
-**쿠버네티스는 로그 로테이션을 관리하지 않는다**.
+쿠버네티스 클러스터 컴포넌트(예: 스케줄러)를 배포하여 
+상위 노드에서 공유된 볼륨에 로그를 기록하는 경우, 해당 로그들이 로테이트되는지 
+확인하고 관리해야 한다. **쿠버네티스는 로그 로테이션을 관리하지 않는다**.
 
-몇몇 로그 로테이션은 운영체제가 자동적으로 구현할 수도 있다.
-예를 들어, 컴포넌트를 실행하는 스태틱 파드에 `/var/log` 디렉토리를 공유하여 로그를 기록하면,
-노드-레벨 로그 로테이션은 해당 경로의 파일을
-쿠버네티스 외부의 다른 컴포넌트들이 기록한 파일과 동일하게 취급한다.
+운영체제에서 일부 로그 로테이션을 자동으로 구현할 수 있다. 예를 들어, 
+컴포넌트를 실행하는 스태틱 파드에 `/var/log` 디렉토리를 공유하는 경우 노드-레벨의
+로그 로테이션은 해당 디렉터리의 파일을 쿠버네티스 외부의 
+다른 컴포넌트들이 기록한 파일과 동일하게 취급한다.
 
-몇몇 배포 도구들은 로그 로테이션을 자동화하지만,
-나머지 도구들은 이를 사용자의 책임으로 둔다.
+몇몇 배포 도구는 로그 로테이션을 고려하여 자동화하지만, 나머지 도구들은 이를 
+사용자의 책임으로 둔다.
 {{< /note >}}
 
 ## 클러스터-레벨 로깅 아키텍처 {#cluster-level-logging-architectures}
 
-쿠버네티스는 클러스터-레벨 로깅을 위한 네이티브 솔루션을 제공하지 않지만, 고려해야 할 몇 가지 일반적인 접근 방법을 고려할 수 있다. 여기 몇 가지 옵션이 있다.
+쿠버네티스는 클러스터-레벨 로깅을 위한 네이티브 솔루션을 제공하지 않지만, 
+몇 가지 일반적인 접근 방법을 고려할 수 있다. 다음에 몇 가지 옵션이 있다.
 
 * 모든 노드에서 실행되는 노드-레벨 로깅 에이전트를 사용한다.
 * 애플리케이션 파드에 로깅을 위한 전용 사이드카 컨테이너를 포함한다.
@@ -211,21 +267,27 @@ etcd와 etcd의 로그를 기록하는 방식에 대한 자세한 정보는 [etc
 
 ![노드 레벨 로깅 에이전트 사용](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
-각 노드에 _노드-레벨 로깅 에이전트_ 를 포함시켜 클러스터-레벨 로깅을 구현할 수 있다. 로깅 에이전트는 로그를 노출하거나 로그를 백엔드로 푸시하는 전용 도구이다. 일반적으로, 로깅 에이전트는 해당 노드의 모든 애플리케이션 컨테이너에서 로그 파일이 있는 디렉터리에 접근할 수 있는 컨테이너이다.
+각 노드에 _노드-레벨 로깅 에이전트_ 를 포함시켜 클러스터-레벨 로깅을 구현할 수 있다. 
+로깅 에이전트는 로그를 노출하거나 로그를 백엔드로 푸시하는 전용 도구이다. 
+일반적으로, 로깅 에이전트는 해당 노드의 모든 애플리케이션 컨테이너에서 로그 파일이 있는 디렉터리에 
+접근할 수 있는 컨테이너이다.
 
 로깅 에이전트는 모든 노드에서 실행되어야 하므로, 에이전트를
-`DaemonSet` 으로 동작시키는 것을 추천한다.
+`DaemonSet(데몬셋)` 으로 실행하는 것이 좋다.
 
-노드-레벨 로깅은 노드별 하나의 에이전트만 생성하며, 노드에서 실행되는 애플리케이션에 대한 변경은 필요로 하지 않는다.
+노드-레벨 로깅은 노드별 하나의 에이전트만 생성하며, 노드에서 실행되는 애플리케이션에 대한 
+변경은 필요로 하지 않는다.
 
-컨테이너는 로그를 stdout과 stderr로 출력하며, 합의된 형식은 없다. 노드-레벨 에이전트는 이러한 로그를 수집하고 취합을 위해 전달한다.
+컨테이너는 로그를 표준 출력과 표준 오류로 출력하며, 합의된 형식은 없다. 노드-레벨 에이전트는 
+이러한 로그를 수집하고 취합을 위해 전달한다.
 
 ### 로깅 에이전트와 함께 사이드카 컨테이너 사용 {#sidecar-container-with-logging-agent}
 
 다음 중 한 가지 방법으로 사이드카 컨테이너를 사용할 수 있다.
 
 * 사이드카 컨테이너는 애플리케이션 로그를 자체 `stdout` 으로 스트리밍한다.
-* 사이드카 컨테이너는 로깅 에이전트를 실행하며, 애플리케이션 컨테이너에서 로그를 가져오도록 구성된다.
+* 사이드카 컨테이너는 로깅 에이전트를 실행하며, 애플리케이션 컨테이너에서 
+로그를 가져오도록 구성한다.
 
 #### 사이드카 컨테이너 스트리밍
 
@@ -237,27 +299,27 @@ etcd와 etcd의 로그를 기록하는 방식에 대한 자세한 정보는 [etc
 각 사이드카 컨테이너는 자체 `stdout` 또는 `stderr` 스트림에 로그를 출력한다.
 
 이 방법을 사용하면 애플리케이션의 다른 부분에서 여러 로그 스트림을
-분리할 수 있고, 이 중 일부는 `stdout` 또는 `stderr` 에
-작성하기 위한 지원이 부족할 수 있다. 로그를 리디렉션하는 로직은
+분리할 수 있고, 이 중 일부는 `stdout` 또는 `stderr` 으로 로그를 남기는 기능을 
+지원하지 않을 수 있다. 로그 리디렉션 로직은
 최소화되어 있기 때문에, 심각한 오버헤드가 아니다. 또한,
 `stdout` 및 `stderr` 가 kubelet에서 처리되므로, `kubectl logs` 와 같은
 빌트인 도구를 사용할 수 있다.
 
-예를 들어, 파드는 단일 컨테이너를 실행하고, 컨테이너는
+예를 들어, 파드는 단일 컨테이너를 실행하고 컨테이너가
 서로 다른 두 가지 형식을 사용하여 서로 다른 두 개의 로그 파일에 기록한다.
 다음은 파드에 대한 매니페스트이다.
 
-{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
+{{% code_sample file="admin/logging/two-files-counter-pod.yaml" %}}
 
 두 컴포넌트를 컨테이너의 `stdout` 스트림으로 리디렉션한 경우에도, 동일한 로그
 스트림에 서로 다른 형식의 로그 항목을 작성하는 것은
 추천하지 않는다. 대신, 두 개의 사이드카 컨테이너를 생성할 수 있다. 각 사이드카
-컨테이너는 공유 볼륨에서 특정 로그 파일을 테일(tail)한 다음 로그를
+컨테이너는 공유 볼륨에서 특정 로그 파일을 테일(tail)한 다음 해당 로그를
 자체 `stdout` 스트림으로 리디렉션할 수 있다.
 
 다음은 사이드카 컨테이너가 두 개인 파드에 대한 매니페스트이다.
 
-{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
+{{% code_sample file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 이제 이 파드를 실행하면, 다음의 명령을 실행하여 각 로그 스트림에
 개별적으로 접근할 수 있다.
@@ -315,8 +377,8 @@ CPU 및 메모리 사용량이 낮은(몇 밀리코어 수준의 CPU와 몇 메�
 
 {{< note >}}
 사이드카 컨테이너에서 로깅 에이전트를 사용하면
-상당한 리소스 소비로 이어질 수 있다. 게다가, kubelet에 의해
-제어되지 않기 때문에, `kubectl logs` 를 사용하여 해당 로그에
+상당한 리소스가 소모될 수 있다. 게다가, 이러한 로그는 
+kubelet에 의해 제어되지 않기 때문에 `kubectl logs` 를 사용하여 해당 로그에
 접근할 수 없다.
 {{< /note >}}
 
@@ -324,7 +386,7 @@ CPU 및 메모리 사용량이 낮은(몇 밀리코어 수준의 CPU와 몇 메�
 첫 번째 매니페스트는 fluentd를 구성하는
 [`컨피그맵(ConfigMap)`](/docs/tasks/configure-pod-container/configure-pod-configmap/)이 포함되어 있다.
 
-{{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
+{{% code_sample file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 예제 매니페스트에서, 꼭 fluentd가 아니더라도,
@@ -334,16 +396,19 @@ CPU 및 메모리 사용량이 낮은(몇 밀리코어 수준의 CPU와 몇 메�
 두 번째 매니페스트는 fluentd가 실행되는 사이드카 컨테이너가 있는 파드를 설명한다.
 파드는 fluentd가 구성 데이터를 가져올 수 있는 볼륨을 마운트한다.
 
-{{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
+{{% code_sample file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 ### 애플리케이션에서 직접 로그 노출
 
 ![애플리케이션에서 직접 로그 노출](/images/docs/user-guide/logging/logging-from-application.png)
 
-애플리케이션에서 직접 로그를 노출하거나 푸시하는 클러스터-로깅은 쿠버네티스의 범위를 벗어난다.
+애플리케이션에서 직접 로그를 노출하거나 푸시하는 클러스터-로깅은 
+쿠버네티스의 범위를 벗어난다.
 
 ## {{% heading "whatsnext" %}}
 
 * [쿠버네티스 시스템 로그](/ko/docs/concepts/cluster-administration/system-logs/) 살펴보기.
-* [쿠버네티스 시스템 컴포넌트에 대한 추적(trace)](/docs/concepts/cluster-administration/system-traces/) 살펴보기.
-* 파드가 실패했을 때 쿠버네티스가 어떻게 로그를 남기는지에 대해, [종료 메시지를 사용자가 정의하는 방법](/ko/docs/tasks/debug/debug-application/determine-reason-pod-failure/#종료-메시지-사용자-정의하기) 살펴보기.
+* [쿠버네티스 시스템 컴포넌트에 대한 추적(trace)](/ko/docs/concepts/cluster-administration/system-traces/) 살펴보기.
+* 파드가 실패했을 때 쿠버네티스가 어떻게 로그를 남기는지에 대해, 
+[종료 메시지를 사용자가 정의하는 방법](/ko/docs/tasks/debug/debug-application/determine-reason-pod-failure/#종료-메시지-사용자-정의하기) 살펴보기.
+

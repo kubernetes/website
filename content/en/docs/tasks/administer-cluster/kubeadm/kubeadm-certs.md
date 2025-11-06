@@ -226,7 +226,7 @@ dynamic certificate reload is currently not supported for all components and cer
 [Static Pods](/docs/tasks/configure-pod-container/static-pod/) are managed by the local kubelet
 and not by the API Server, thus kubectl cannot be used to delete and restart them.
 To restart a static Pod you can temporarily remove its manifest file from `/etc/kubernetes/manifests/`
-and wait for 20 seconds (see the `fileCheckFrequency` value in [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
+and wait for 20 seconds (see the `fileCheckFrequency` value in [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/)).
 The kubelet will terminate the Pod if it's no longer in the manifest directory.
 You can then move the file back and after another `fileCheckFrequency` period, the kubelet will recreate
 the Pod and the certificate renewal for the component can complete.
@@ -332,7 +332,7 @@ serverTLSBootstrap: true
 ```
 
 If you have already created the cluster you must adapt it by doing the following:
- - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
+ - Find and edit the `kubelet-config` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
@@ -468,7 +468,7 @@ file and used for all relevant kubeadm commands by passing it as `--config`.
 This guide uses the default Kubernetes directory `/etc/kubernetes`, which requires
 a super user. If you are following this guide and are using directories that you can
 write to (typically, this means running `kubeadm` with `--cert-dir` and `--kubeconfig-dir`)
-then you can omit the `sudo` command).
+then you can omit the `sudo` command.
 
 You must then copy the files that you produced over to within the `/etc/kubernetes`
 directory so that `kubeadm init` or `kubeadm join` will find them.
@@ -518,7 +518,7 @@ If you have deleted the `ca.key` file from control plane nodes
 ([External CA mode](#external-ca-mode)), the active kube-controller-manager in
 this cluster will not be able to sign kubelet client certificates. If no external
 method for signing these certificates exists in your setup (such as an
-[external signer](#set-up-a-signer), you could manually sign the `kubelet.conf.csr`
+[external signer](#set-up-a-signer)), you could manually sign the `kubelet.conf.csr`
 as explained in this guide.
 
 Note that this also means that the automatic

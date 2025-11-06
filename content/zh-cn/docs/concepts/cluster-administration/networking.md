@@ -24,7 +24,7 @@ problems to address:
 3. Pod-to-Service communications: this is covered by [Services](/docs/concepts/services-networking/service/).
 4. External-to-Service communications: this is also covered by Services.
 -->
-集群网络系统是 Kubernetes 的核心部分，但是想要准确了解它的工作原理可是个不小的挑战。
+集群网络系统是 Kubernetes 的核心部分，但是想要准确理解它的工作原理可是个不小的挑战。
 下面列出的是网络系统的的四个主要问题：
 
 1. 高度耦合的容器间通信：这个已经被 {{< glossary_tooltip text="Pod" term_id="pod" >}}
@@ -43,7 +43,7 @@ do at scale and exposes users to cluster-level issues outside of their control.
 -->
 Kubernetes 的宗旨就是在应用之间共享机器。
 通常来说，共享机器需要两个应用之间不能使用相同的端口，但是在多个应用开发者之间
-去大规模地协调端口是件很困难的事情，尤其是还要让用户暴露在他们控制范围之外的集群级别的问题上。
+去大规模地协调端口是件很困难的事情，而且容易引入开发者无法控制的集群层面的问题。
 
 <!--
 Dynamic port allocation brings a lot of complications to the system - every
@@ -75,9 +75,9 @@ Kubernetes 集群需要从以下组件中配置的可用地址范围中为 Pod�
 - The kube-apiserver is configured to assign IP addresses to Services.
 - The kubelet or the cloud-controller-manager is configured to assign IP addresses to Nodes.
 -->
-- 网络插件配置为向 Pod 分配 IP 地址。
-- kube-apiserver 配置为向 Service 分配 IP 地址。
-- kubelet 或 cloud-controller-manager 配置为向 Node 分配 IP 地址。
+- 配置网络插件并向 Pod 分配 IP 地址。
+- 配置 kube-apiserver 并向 Service 分配 IP 地址。
+- 配置 kubelet 或 cloud-controller-manager 并向 Node 分配 IP 地址。
 
 <!--
 {{< figure src="/docs/images/kubernetes-cluster-network.svg" alt="A figure illustrating the different network ranges in a kubernetes cluster" class="diagram-medium" >}}
@@ -102,12 +102,12 @@ Kubernetes clusters, attending to the IP families configured, can be categorized
   - The kubelet or cloud-controller-manager is configured to assign IPv4 and IPv6 address.
   - All components must agree on the configured primary IP family.
 -->
-- 仅 IPv4：网络插件、kube-apiserver 和 kubelet/cloud-controller-manager 配置为仅分配 IPv4 地址。
-- 仅 IPv6：网络插件、kube-apiserver 和 kubelet/cloud-controller-manager 配置为仅分配 IPv6 地址。
+- 仅 IPv4：配置网络插件、kube-apiserver 和 kubelet/cloud-controller-manager 来仅分配 IPv4 地址。
+- 仅 IPv6：配置网络插件、kube-apiserver 和 kubelet/cloud-controller-manager 来仅分配 IPv6 地址。
 - IPv4/IPv6 或 IPv6/IPv4 [双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/)：
-  - 网络插件配置为分配 IPv4 和 IPv6 地址。
-  - kube-apiserver 配置为分配 IPv4 和 IPv6 地址。
-  - kubelet 或 cloud-controller-manager 配置为分配 IPv4 和 IPv6 地址。
+  - 配置网络插件来分配 IPv4 和 IPv6 地址。
+  - 配置kube-apiserver 来分配 IPv4 和 IPv6 地址。
+  - 配置kubelet 或 cloud-controller-manager 来分配 IPv4 和 IPv6 地址。
   - 所有组件必须就配置的主要 IP 协议族达成一致。
 
 <!--

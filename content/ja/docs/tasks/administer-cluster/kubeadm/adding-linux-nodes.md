@@ -65,6 +65,12 @@ sudo kubeadm token create
 5didvk.d09sbcov8ph2amjw
 ```
 
+新たなトークンを生成しながらkubeadm joinコマンドを出力するには、次のコマンドを使用します。
+
+```bash
+sudo kubeadm token create --print-join-command
+```
+
 `--discovery-token-ca-cert-hash`の値が不明な場合は、コントロールプレーンノード上で次のコマンドを実行することで取得できます。
 
 ```bash

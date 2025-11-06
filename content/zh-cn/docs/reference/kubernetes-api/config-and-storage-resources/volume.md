@@ -474,6 +474,155 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
         items 是 DownwardAPIVolume 文件的列表。
 
+    - **projected.sources.podCertificate** (PodCertificateProjection)
+
+      <!--
+      Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
+      
+      Kubelet generates a private key and uses it to send a PodCertificateRequest to the named signer.  Once the signer approves the request and issues a certificate chain, Kubelet writes the key and certificate chain to the pod filesystem.  The pod does not start until certificates have been issued for each podCertificate projected volume source in its spec.
+      
+      Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
+      -->
+      
+      将一个自动轮换的凭据包（私钥和证书链）投射到 Pod 中，Pod 可以将其用作 TLS 客户端或服务器。
+
+      kubelet 生成一个私钥，并使用它发送 PodCertificateRequest 到指定的签名者。一旦签名者批准请求并颁发证书链，
+      kubelet 将密钥和证书链写入 Pod 文件系统。在其规约中的每个 podCertificate
+      投射卷源都已被颁发证书之前，Pod 不会启动。
+
+      kubelet 将在签名者通过 `PodCertificateRequest.Status.BeginRefreshAt`
+      时间戳所给出的时间点开始尝试轮换证书。
+  
+      <!--
+      Kubelet can write a single file, indicated by the credentialBundlePath field, or separate files, indicated by the keyPath and certificateChainPath fields.
+      
+      The credential bundle is a single file in PEM format.  The first PEM entry is the private key (in PKCS#8 format), and the remaining PEM entries are the certificate chain issued by the signer (typically, signers will return their certificate chain in leaf-to-root order).
+      -->
+
+      kubelet 可以写入单个文件（由 `credentialBundlePath` 字段指示），
+      或者由 `keyPath` 和 `certificateChainPath` 字段所给出的两个独立的文件。
+
+      凭据包是单个 PEM 格式的文件。第一个 PEM 条目是私钥（以 PKCS#8 格式），剩余的 PEM 条目是由签名者颁发的证书链
+     （通常，签名者会按照从叶到根的顺序返回其证书链）。
+
+      <!--
+      Prefer using the credential bundle format, since your application code can read it atomically.  If you use keyPath and certificateChainPath, your application must make two separate file reads. If these coincide with a certificate rotation, it is possible that the private key and leaf certificate you read may not correspond to each other.  Your application will need to check for this condition, and re-read until they are consistent.
+      
+      The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
+      -->
+
+      建议使用凭据包格式，因为你的应用程序代码可以原子性地读取它。如果你使用 `keyPath` 和 `certificateChainPath`，
+      你的应用程序必须进行两次单独的文件读取。如果这些恰好与证书轮换同时发生，则读取的私钥和叶子证书可能不对应。
+      你的应用程序需要检查这种情况，并重新读取直到它们一致。
+
+      指定的签名者控制其颁发证书的格式；查阅签名者实现的文档以了解如何使用它所颁发的证书。
+    
+      <a name="PodCertificateProjection"></a>
+      <!--
+      *PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.*
+      -->
+ 
+      **PodCertificateProjection 在 Pod 文件系统中提供私钥和 X.509 证书。**
+
+      <!--
+      - **projected.sources.podCertificate.keyType** (string), required
+
+        The type of keypair Kubelet will generate for the pod.
+        
+        Valid values are "RSA3072", "RSA4096", "ECDSAP256", "ECDSAP384", "ECDSAP521", and "ED25519".
+      -->
+      - **projected.sources.podCertificate.keyType** (string)，必需
+
+        kubelet 将为 Pod 生成的密钥对类型。
+
+        有效值包括 "RSA3072"、"RSA4096"、"ECDSAP256"、"ECDSAP384"、"ECDSAP521" 和 "ED25519"。
+
+      <!--
+      - **projected.sources.podCertificate.signerName** (string), required
+
+        Kubelet's generated CSRs will be addressed to this signer.
+
+      - **projected.sources.podCertificate.certificateChainPath** (string)
+
+        Write the certificate chain at this path in the projected volume.
+        
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+      -->
+
+      - **projected.sources.podCertificate.signerName** (string)，必需
+
+        kubelet 生成的 CSR 将提交给此签名者。
+
+      - **projected.sources.podCertificate.certificateChainPath** (string)
+
+        在投射卷中的此路径下写入证书链。
+
+        大多数应用程序应使用 `credentialBundlePath`。当使用 `keyPath` 和 `certificateChainPath`
+        时，你的应用程序需要检查密钥和叶子证书是否一致，因为有可能在轮换过程中读取这些文件。
+
+      <!--
+      - **projected.sources.podCertificate.credentialBundlePath** (string)
+
+        Write the credential bundle at this path in the projected volume.
+        
+        The credential bundle is a single file that contains multiple PEM blocks. The first PEM block is a PRIVATE KEY block, containing a PKCS#8 private key.
+        
+        The remaining blocks are CERTIFICATE blocks, containing the issued certificate chain from the signer (leaf and any intermediates).
+        
+        Using credentialBundlePath lets your Pod's application code make a single atomic read that retrieves a consistent key and certificate chain.  If you project them to separate files, your application code will need to additionally check that the leaf certificate was issued to the key.
+      -->
+
+      - **projected.sources.podCertificate.credentialBundlePath** (string)
+  
+        在投射卷中的此路径下写入凭证包。
+          
+        凭证包是一个包含多个 PEM 块的单一文件。第一个 PEM 块是 PRIVATE KEY 块，包含了 PKCS#8 私钥。
+          
+        其余的块是 CERTIFICATE 块，包含了由签发者提供的证书链（叶子证书及任何中间证书）。
+          
+        使用 `credentialBundlePath` 可让 Pod 中的应用代码进行一次原子读取，获取一致的密钥和证书链。
+        如果你将它们投影到单独的文件中，你的应用程序代码还需要额外检查叶子证书是否由该密钥签发。
+
+      <!--
+      - **projected.sources.podCertificate.keyPath** (string)
+
+        Write the key at this path in the projected volume.
+        
+        Most applications should use credentialBundlePath.  When using keyPath and certificateChainPath, your application needs to check that the key and leaf certificate are consistent, because it is possible to read the files mid-rotation.
+      -->
+
+      - **projected.sources.podCertificate.keyPath** (string)
+
+        在投射卷中的此路径下写入密钥。
+
+        大多数应用程序应当使用 `credentialBundlePath`。当使用 `keyPath` 和 `certificateChainPath`
+        时，你的应用程序需要检查密钥和叶子证书是否一致，因为有可能在文件轮换过程中读取这些文件。
+
+      <!--
+      - **projected.sources.podCertificate.maxExpirationSeconds** (int32)
+
+        maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+        
+        Kubelet copies this value verbatim into the PodCertificateRequests it generates for this projection.
+        
+        If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+        
+        The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+      -->
+
+      - **projected.sources.podCertificate.maxExpirationSeconds** (int32)
+      
+        `maxExpirationSeconds` 是证书允许的最大生命周期。
+        
+        kubelet 将此值直接复制到为此投射生成的 PodCertificateRequests 中。
+        
+        如果省略，kube-apiserver 会将其设置为 86400（24 小时）。kube-apiserver 会拒绝短于
+        3600 秒（1 小时）的值。允许的最大值是 7862400（91 天）。
+        
+        签名者实现可以自由签发任何生命周期**短于** `maxExpirationSeconds` 但不少于
+        3600 秒（1 小时）的证书。
+        此约束由 kube-apiserver 强制执行。`kubernetes.io` 签名者永远不会签发生命周期超过
+
     <!--
     - **projected.sources.secret** (SecretProjection)
 
@@ -1377,7 +1526,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **glusterfs** (GlusterfsVolumeSource)
 
-  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
 
   <a name="GlusterfsVolumeSource"></a>
   *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
@@ -1387,8 +1536,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   glusterfs 表示关联到主机并暴露给 Pod 的 Glusterfs 卷。由管理员配置。
   已弃用：glusterfs 已被弃用，且树内 glusterfs 类型不再受支持。
-  更多信息：
-  https://examples.k8s.io/volumes/glusterfs/README.md
 
   <a name="GlusterfsVolumeSource"></a>
   **表示在 Pod 生命周期内一直存在的 Glusterfs 挂载卷。Glusterfs 卷不支持属主管理或 SELinux 重标记。**
@@ -1396,7 +1543,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   <!--
   - **glusterfs.endpoints** (string), required
 
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    endpoints is the endpoint name that details Glusterfs topology.
 
   - **glusterfs.path** (string), required
 
@@ -1409,8 +1556,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **glusterfs.endpoints** (string)，必需
 
-    endpoints 是详细给出 Glusterfs 拓扑结构的端点的名称。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+    endpoints 是详细给出 Glusterfs 拓扑结构的端点的名称。
 
   - **glusterfs.path** (string)，必需
 
@@ -1426,15 +1572,14 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **iscsi** (ISCSIVolumeSource)
 
-  iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+  iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod.
 
   <a name="ISCSIVolumeSource"></a>
   *Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.*
 -->
 - **iscsi** (ISCSIVolumeSource)
 
-  iscsi 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 ISCSI Disk 资源。更多信息：
-  https://examples.k8s.io/volumes/iscsi/README.md
+  iscsi 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 ISCSI Disk 资源。
 
   <a name="ISCSIVolumeSource"></a>
   **表示一个 ISCSI 磁盘。ISCSI 卷只能以读/写一次进行挂载。ISCSI 卷支持所有权管理和 SELinux 重新打标签。**
@@ -1805,7 +1950,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 <!--
 - **rbd** (RBDVolumeSource)
 
-  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
+  rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
 
   <a name="RBDVolumeSource"></a>
   *Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.*
@@ -1819,8 +1964,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   rbd 表示在共享 Pod 生命周期的主机上挂载的 Rados Block Device。
   已弃用：RBD 已被弃用，且树内 rbd 类型不再受支持。
-  更多信息：
-  https://examples.k8s.io/volumes/rbd/README.md
 
   <a name="RBDVolumeSource"></a>
   **表示在 Pod 的生命周期内持续的 Rados Block Device 挂载。RBD 卷支持所有权管理和 SELinux 重新打标签。**

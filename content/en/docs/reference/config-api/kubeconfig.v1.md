@@ -44,32 +44,33 @@ TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
 TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
 </td>
 </tr>
-<tr><td><code>preferences</code> <B>[Required]</B><br/>
+<tr><td><code>preferences,omitzero</code> <B>[Required]</B><br/>
 <a href="#Preferences"><code>Preferences</code></a>
 </td>
 <td>
-   <p>Preferences holds general information to be use for cli interactions</p>
+   <p>Preferences holds general information to be use for cli interactions
+Deprecated: this field is deprecated in v1.34. It is not used by any of the Kubernetes components.</p>
 </td>
 </tr>
 <tr><td><code>clusters</code> <B>[Required]</B><br/>
 <a href="#NamedCluster"><code>[]NamedCluster</code></a>
 </td>
 <td>
-   <p>Clusters is a map of referencable names to cluster configs</p>
+   <p>Clusters is a map of referenceable names to cluster configs</p>
 </td>
 </tr>
 <tr><td><code>users</code> <B>[Required]</B><br/>
 <a href="#NamedAuthInfo"><code>[]NamedAuthInfo</code></a>
 </td>
 <td>
-   <p>AuthInfos is a map of referencable names to user configs</p>
+   <p>AuthInfos is a map of referenceable names to user configs</p>
 </td>
 </tr>
 <tr><td><code>contexts</code> <B>[Required]</B><br/>
 <a href="#NamedContext"><code>[]NamedContext</code></a>
 </td>
 <td>
-   <p>Contexts is a map of referencable names to context configs</p>
+   <p>Contexts is a map of referenceable names to context configs</p>
 </td>
 </tr>
 <tr><td><code>current-context</code> <B>[Required]</B><br/>
@@ -144,7 +145,8 @@ TODO(jlowdermilk): remove this after eliminating downstream dependencies.</p>
 <code>string</code>
 </td>
 <td>
-   <p>TokenFile is a pointer to a file that contains a bearer token (as described above).  If both Token and TokenFile are present, Token takes precedence.</p>
+   <p>TokenFile is a pointer to a file that contains a bearer token (as described above).  If both Token and TokenFile are present,
+the TokenFile will be periodically read and the last successfully read value takes precedence over Token.</p>
 </td>
 </tr>
 <tr><td><code>as</code><br/>
@@ -655,6 +657,8 @@ credential plugin.</p>
 
 - [Config](#Config)
 
+
+<p>Deprecated: this structure is deprecated in v1.34. It is not used by any of the Kubernetes components.</p>
 
 
 <table class="table">

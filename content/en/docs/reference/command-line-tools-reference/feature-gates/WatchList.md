@@ -17,5 +17,9 @@ stages:
   - stage: beta
     defaultValue: false
     fromVersion: "1.33"
+    toVersion: "1.33"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.34"
 ---
 Enable support for [streaming initial state of objects in watch requests](/docs/reference/using-api/api-concepts/#streaming-lists).

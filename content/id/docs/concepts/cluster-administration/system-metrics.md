@@ -162,5 +162,5 @@ pada penjadwal. Kamu harus menggunakan opsi `--show-hidden-metrics-for-version=1
 
 ## {{% heading "whatsnext" %}}
 
-* Baca tentang [format teks Prometheus](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) untuk berbagai metrik
+* Baca tentang [format teks Prometheus](https://github.com/prometheus/docs/blob/main/docs/instrumenting/exposition_formats.md#text-based-format) untuk berbagai metrik
 * Baca tentang [kebijakan _deprecation_ Kubernetes](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

@@ -540,7 +540,7 @@ resources:
 images:
 - name: nginx
   newName: my.image.registry/nginx
-  newTag: 1.4.0
+  newTag: "1.4.0"
 EOF
 ```
 
