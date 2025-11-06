@@ -5,7 +5,7 @@ date: 2025-10-27T08:30:00-07:00
 draft: true
 slug: watch-based-route-reconciliation-in-ccm
 author: >
-  [Lukas Metzner](https://github.com/lukasmetzner) (Hetzner Cloud)
+  [Lukas Metzner](https://github.com/lukasmetzner) (Hetzner)
 ---
 
 Up to and including Kubernetes v1.34, the route controller in Cloud Controller Manager (CCM)
