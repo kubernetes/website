@@ -38,7 +38,7 @@ description: >
 
 Тільки кілька частин цієї моделі реалізовані безпосередньо Kubernetes. Для решти Kubernetes визначає API, але відповідна функціональність надається зовнішніми компонентами, деякі з яких є опціональними:
 
-* Налаштування простору імен мережі pod виконується системним програмним забезпеченням, яке реалізує [Container Runtime Interface](/docs/concepts/architecture/cri/).
+* Налаштування простору імен мережі pod виконується системним програмним забезпеченням, яке реалізує [Container Runtime Interface](/docs/concepts/containers/cri/).
 
 * Мережею pod керує [реалізація мережі pod](/docs/concepts/cluster-administration/addons/#networking-and-network-policy). На Linux більшість середовищ виконання контейнерів використовують {{< glossary_tooltip text="Container Networking Interface (CNI)" term_id="cni" >}}, щоб взаємодіяти з реалізацією мережі pod, тому ці реалізації часто називаються _CNI втулками_.
 

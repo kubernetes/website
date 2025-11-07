@@ -6,8 +6,9 @@ slug: introducing-headlamp-plugin-for-karpenter
 Author: >
   [René Dudfield](https://github.com/illume) (Microsoft),
   [Anirban Singha](https://github.com/SinghaAnirban005) (independent)
+translator: >
+  [Андрій Головін](https://github.com/Andygol)
 ---
-
 
 Headlamp — це відкритий, розширюваний проєкт Kubernetes SIG UI, призначений для того, щоб ви могли досліджувати, керувати та налагоджувати ресурси кластера.
 

@@ -14,7 +14,7 @@ description: >-
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-EndpointSlice API Kubernetes надає можливість відстежувати мережеві точки доступу в межах кластера Kubernetes.
+{{< glossary_definition term_id="endpoint-slice" length="short" >}}
 
 <!-- body -->
 

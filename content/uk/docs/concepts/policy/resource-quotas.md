@@ -183,490 +183,9 @@ ResourceQuota.
 
 Ви можете знайти більше прикладів у розділі [Перегляд і налаштування квот](#viewing-and-setting-quotas).
 
-## Області дії квоти {#quota-scopes}
+## Перегляд та встановлення квот {#viewing-and-setting-quotas}
 
-Кожна квота може мати повʼязаний набір `scopes`. Квота вимірюватиме використання ресурсу лише в тому випадку, якщо вона відповідає перетину перерахованих областей.
-
-Коли до квоти додається область, вона обмежує кількість ресурсів, які вона підтримує, тими, які стосуються цієї області. Ресурси, вказані у квоті поза дозволеним набором, призводять до помилки перевірки.
-
-| Область | Опис |
-| ----- | ----------- |
-| `Terminating` | Відповідає Podʼам, де `.spec.activeDeadlineSeconds` >= `0` |
-| `NotTerminating` | Відповідає Podʼам, де `.spec.activeDeadlineSeconds` є `nil` |
-| `BestEffort` | Відповідає Podʼам, які мають найкращий рівень якості обслуговування. |
-| `NotBestEffort` | Відповідає Podʼам, які не мають найкращого рівня якості обслуговування. |
-| `PriorityClass` | Відповідає Podʼам, які посилаються на вказаний [клас пріоритету](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
-| `CrossNamespacePodAffinity` | Відповідає Podʼам, які мають міжпросторові [(anti)affinity](/docs/concepts/scheduling-eviction/assign-pod-node). |
-| `VolumeAttributesClass` | Відповідає persistentvolumeclaims, які посилаються на вказані [класи атрибутів тому](/docs/concepts/storage/volume-attributes-classes). |
-
-Область `BestEffort` обмежує квоту відстеження наступним ресурсом:
-
-- `pods`
-
-Області `Terminating`, `NotTerminating`, `NotBestEffort` та `PriorityClass` обмежують квоту відстеження наступними ресурсами:
-
-- `pods`
-- `cpu`
-- `memory`
-- `requests.cpu`
-- `requests.memory`
-- `limits.cpu`
-- `limits.memory`
-
-Зверніть увагу, що ви не можете вказати як `Terminating`, так і `NotTerminating` області в одній й тій же квоті, і ви також не можете вказати як `BestEffort`, так і `NotBestEffort` області в одній й тій же квоті.
-
-Селектор області підтримує наступні значення у полі `operator`:
-
-- `In`
-- `NotIn`
-- `Exists`
-- `DoesNotExist`
-
-При використанні одного з наступних значень як `scopeName` при визначенні `scopeSelector`, оператор повинен бути `Exists`.
-
-- `Terminating`
-- `NotTerminating`
-- `BestEffort`
-- `NotBestEffort`
-
-Якщо оператором є `In` або `NotIn`, поле `values` повинно мати щонайменше одне значення. Наприклад:
-
-```yaml
-  scopeSelector:
-    matchExpressions:
-      - scopeName: PriorityClass
-        operator: In
-        values:
-          - middle
-```
-
-Якщо оператором є `Exists` або `DoesNotExist`, поле `values` *НЕ* повинно бути
-вказане.
-
-### Квота ресурсів за PriorityClass {#resource-quota-per-priorityclass}
-
-{{< feature-state for_k8s_version="v1.17" state="stable" >}}
-
-Podʼи можуть бути створені з певним [пріоритетом](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority). Ви можете контролювати використання ресурсів системи для Podʼів з урахуванням їх пріоритету, використовуючи поле `scopeSelector` у специфікації квоти.
-
-Квота має збіг та використовується лише якщо `scopeSelector` у специфікації квоти вибирає Pod.
-
-Коли квота обмежена класом пріоритету за допомогою поля `scopeSelector`, обʼєкт квоти обмежується відстеженням лише наступних ресурсів:
-
-- `pods`
-- `cpu`
-- `memory`
-- `ephemeral-storage`
-- `limits.cpu`
-- `limits.memory`
-- `limits.ephemeral-storage`
-- `requests.cpu`
-- `requests.memory`
-- `requests.ephemeral-storage`
-
-У цьому прикладі створюється обʼєкт квоти та відповідною до нього підходить до Podʼів з певними пріоритетами. Приклад працює наступним чином:
-
-- Podʼи в кластері мають один з трьох класів пріоритету: "низький", "середній", "високий".
-- Для кожного пріоритету створюється один обʼєкт квоти.
-
-Збережіть наступний YAML у файл `quota.yaml`.
-
-{{% code_sample file="policy/quota.yaml" %}}
-
-Застосуйте YAML за допомогою `kubectl create`.
-
-```shell
-kubectl create -f ./quota.yaml
-```
-
-```none
-resourcequota/pods-high created
-resourcequota/pods-medium created
-resourcequota/pods-low created
-```
-
-Перевірте, що значення `Used` квоти дорівнює `0` за допомогою `kubectl describe quota`.
-
-```shell
-kubectl describe quota
-```
-
-```n
-Name:       pods-high
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     1k
-memory      0     200Gi
-pods        0     10
-
-
-Name:       pods-low
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     5
-memory      0     10Gi
-pods        0     10
-
-
-Name:       pods-medium
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     10
-memory      0     20Gi
-pods        0     10
-```
-
-Створіть Pod із пріоритетом "high". Збережіть наступний YAML у файл `high-priority-pod.yaml`.
-
-{{% code_sample file="policy/high-priority-pod.yaml" %}}
-
-Застосуйте його за допомогою `kubectl create`.
-
-```shell
-kubectl create -f ./high-priority-pod.yaml
-```
-
-Перевірте, що статистика "Used" для квоти пріоритету "high", `pods-high`, змінилася і що для інших двох квот стан не змінився.
-
-```shell
-kubectl describe quota
-```
-
-```none
-Name:       pods-high
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         500m  1k
-memory      10Gi  200Gi
-pods        1     10
-
-
-Name:       pods-low
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     5
-memory      0     10Gi
-pods        0     10
-
-
-Name:       pods-medium
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     10
-memory      0     20Gi
-pods        0     10
-```
-
-### Квота Pod Affinity між просторами імен {#cross-namespace-pod-affinity-quota}
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
-
-Оператори можуть використовувати область квоти `CrossNamespacePodAffinity`, щоб обмежити, які простори імен можуть мати Podʼи з термінами спорідненості, які перетинають простори імен. Зокрема, вона контролює, яким Podʼам дозволено встановлювати поля `namespaces` або `namespaceSelector` у термінах спорідненості (Pod Affinity).
-
-Бажано уникати використання термінів спорідненості, які перетинають простори імен, оскільки Pod з обмеженнями анти-спорідненості може заблокувати Podʼи з усіх інших просторів імен від планування в області відмов.
-
-За допомогою цієї області оператори можуть запобігти певним просторам імен (наприклад, `foo-ns` у наведеному нижче прикладі) використання Podʼів, які використовують спорідненість між просторами імен, створивши обʼєкт квоти ресурсів в цьому просторі імен з областю `CrossNamespacePodAffinity` та жорстким обмеженням 0:
-
-```yaml
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: disable-cross-namespace-affinity
-  namespace: foo-ns
-spec:
-  hard:
-    pods: "0"
-  scopeSelector:
-    matchExpressions:
-    - scopeName: CrossNamespacePodAffinity
-      operator: Exists
-```
-
-Якщо оператори хочуть заборонити стандартне використання `namespaces` та `namespaceSelector`, і дозволити це лише для певних просторів імен, вони можуть налаштувати `CrossNamespacePodAffinity` як обмежений ресурс, встановивши прапорець kube-apiserver --admission-control-config-file на шлях до наступного конфігураційного файлу:
-
-```yaml
-apiVersion: apiserver.config.k8s.io/v1
-kind: AdmissionConfiguration
-plugins:
-- name: "ResourceQuota"
-  configuration:
-    apiVersion: apiserver.config.k8s.io/v1
-    kind: ResourceQuotaConfiguration
-    limitedResources:
-    - resource: pods
-      matchScopes:
-      - scopeName: CrossNamespacePodAffinity
-        operator: Exists
-```
-
-За такої конфігурації Podʼи можуть використовувати `namespaces` та `namespaceSelector` у термінах спорідненості тільки якщо простір імен, в якому вони створені, має обʼєкт квоти ресурсів з областю `CrossNamespacePodAffinity` та жорстким обмеженням, більшим або рівним кількості Podʼів, що використовують ці поля.
-
-### Квота ресурсів на VolumeAttributesClass {#resource-quota-per-volumeattributesclass}
-
-{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
-
-PersistentVolumeClaims можна створити за допомогою певного [класу атрибутів тома](/docs/concepts/storage/volume-attributes-classes/), і їх можна змінювати після створення. Ви можете керувати споживанням PVC ресурсів сховища на основі асоційованих класів атрибутів тома за допомогою поля `scopeSelector` у специфікації квот.
-
-PVC посилається на асоційований клас атрибутів тома за допомогою наступних полів:
-
-- `spec.volumeAttributesClassName`
-- `status.currentVolumeAttributesClassName`
-- `status.modifyVolumeStatus.targetVolumeAttributesClassName`
-
-Квота зіставляється і споживається тільки якщо `scopeSelector` в специфікації квоти вибирає PVC.
-
-Коли квота обмежується для класу атрибутів тому за допомогою поля `scopeSelector`, обʼєкт квоти обмежується для відстеження лише наступних ресурсів:
-
-- `persistentvolumeclaims`
-- `requests.storage`.
-
-Цей приклад створює обʼєкт квоти і зіставляє його з PVC за певними класами атрибутів тома. Приклад працює наступним чином:
-
-- PVC у кластері мають принаймні один з трьох класів атрибутів обсягу: "gold", "silver", "copper".
-- Для кожного класу атрибутів тому створюється один обʼєкт квоти.
-
-Збережіть наступний YAML-файл у файлі `quota-vac.yaml`.
-
-{{% code_sample file="policy/quota-vac.yaml" %}}
-
-Застосуйте YAML за допомогою `kubectl create`.
-
-```shell
-kubectl create -f ./quota-vac.yaml
-```
-
-```console
-resourcequota/pvcs-gold created
-resourcequota/pvcs-silver created
-resourcequota/pvcs-copper created
-```
-
-Переконайтесь, що Використана (`Used`) квота є `0` за допомогою `kubectl describe quota`.
-
-```shell
-kubectl describe quota
-```
-
-```none
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     30Gi
-```
-
-Створіть PVC з отрибутами класу тому "gold". Збережіть наступний YAML у файл `gold-vac-pvc.yaml`.
-
-{{% code_sample file="policy/gold-vac-pvc.yaml" %}}
-
-Застосуйте його командою `kubectl create`.
-
-```shell
-kubectl create -f ./gold-vac-pvc.yaml
-```
-
-Перевірте, що в "Used" вказано квоту отрибуту класу тому "gold", `pvcs-gold` змінився, а інші квоти залишились без змін.
-
-```shell
-kubectl describe quota
-```
-
-```none
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     30Gi
-```
-
-Після того, як PVC привʼязано, можна змінювати бажаний клас атрибутів тому. Давайте змінимо його на "silver" за допомогою kubectl patch.
-
-```shell
-kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"silver"}}'
-```
-
-Переконайтеся, що значення "Used" для "silver" атрибутів класу тома квоти, `pvcs-silver` змінилося, `pvcs-copper` не змінилося, а `pvcs-gold` може залишитися незмінним або бути вивільненим, що залежить від статусу PVC.
-
-```shell
-kubectl describe quota
-```
-
-```none
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     30Gi
-```
-
-Змінимо її на "copper" за допомогою kubectl patch.
-
-```shell
-kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"copper"}}'
-```
-
-Перевіримо, що значення "Used" для "copper" атрибутів класу тома квоти, `pvcs-copper` змінилося, `pvcs-silver` та `pvcs-gold` можуть залишитися незмінним або бути вивільненими, що залежить від статусу PVC.
-
-```shell
-kubectl describe quota
-```
-
-```none
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   30Gi
-```
-
-Виведіть маніфест PVC за допомогою наступної команди:
-
-```shell
-kubectl get pvc gold-vac-pvc -o yaml
-```
-
-Результат може бути наступним:
-
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: gold-vac-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
-  storageClassName: default
-  volumeAttributesClassName: copper
-status:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 2Gi
-  currentVolumeAttributesClassName: gold
-  phase: Bound
-  modifyVolumeStatus:
-    status: InProgress
-    targetVolumeAttributesClassName: silver
-  storageClassName: default
-```
-
-Зачекайте, поки зміни тому завершаться, а потім перевірте квоту ще раз.
-
-```shell
-kubectl describe quota
-```
-
-```none
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   30Gi
-```
-
-## Запити у порівнянні з лімітами {#requests-vs-limits}
-
-При розподілі обчислювальних ресурсів кожен контейнер може вказати значення запиту та ліміту для CPU або памʼяті. Квоту можна налаштувати для обмеження будь-якого значення.
-
-Якщо для квоти вказано значення для `requests.cpu` або `requests.memory`, то це вимагає, щоб кожен вхідний контейнер явно вказував запити для цих ресурсів. Якщо для квоти вказано значення для `limits.cpu` або `limits.memory`, то це вимагає, щоб кожен вхідний контейнер вказував явний ліміт для цих ресурсів.
-
-## Перегляд і налаштування квот {#viewing-and-setting-quotas}
-
-Kubectl підтримує створення, оновлення та перегляд квот:
+kubectl підтримує створення, оновлення та перегляд квот:
 
 ```shell
 kubectl create namespace myspace
@@ -758,7 +277,7 @@ services                0       10
 services.loadbalancers  0       2
 ```
 
-Kubectl також підтримує квоту на кількість обʼєктів для всіх стандартних обʼєктів в просторі імен за допомогою синтаксису `count/<resource>.<group>`:
+kubectl також підтримує квоту кількості обʼєктів для всіх стандартних ресурсів з простором імен, використовуючи синтаксис `count/<resource>.<group>`:
 
 ```shell
 kubectl create namespace myspace
@@ -787,21 +306,282 @@ count/replicasets.apps        1     4
 count/secrets                 1     4
 ```
 
-## Квоти та місткість кластера {#quotas-and-cluster-capacity}
+## Квота та ємність кластера {#quota-and-cluster-capacity}
 
-ResourceQuotas є незалежними від місткості кластера. Вони виражені в абсолютних одиницях. Таким чином, якщо ви додаєте вузли до свого кластера, це автоматично *не* надає кожному простору імен можливість використовувати більше ресурсів.
+ResourceQuotas не залежать від ємності кластера. Вони виражаються в абсолютних одиницях. Отже, якщо ви додаєте вузли до свого кластера, це *не* означає, що кожен простір імен автоматично отримує можливість споживати більше ресурсів.
 
-Іноді бажані складніші політики, такі як:
+Іноді можуть знадобитися більш складні політики, такі як:
 
-- Пропорційне розподілення спільних ресурсів кластера серед кількох команд.
-- Дозвіл кожному орендареві збільшувати використання ресурсів за потреби, але мати щедру квоту, щоб уникнути випадкового вичерпання ресурсів.
-- Виявлення попиту з одного простору імен, додавання вузли та збільшення квоти.
+- Пропорційний розподіл загальних ресурсів кластера між кількома командами.
+- Дозволити кожному орендарю зростати в споживанні ресурсів за потреби, але мати щедрий ліміт, щоб запобігти випадковому вичерпанню ресурсів.
+- Виявлення попиту з одного простору імен, додавання вузлів і збільшення квоти.
 
-Такі політики можна реалізувати, використовуючи `ResourceQuotas` як будівельні блоки, написавши "контролер", який спостерігає за використанням квоти та налаштовує межі квоти кожного простору імен згідно з іншими сигналами.
+Такі політики можуть бути реалізовані за допомогою `ResourceQuotas` як будівельних блоків, шляхом написання "контролера", який спостерігає за використанням квот і коригує жорсткі ліміти кожного простору імен відповідно до інших сигналів.
 
-Зверніть увагу, що квота ресурсів розподіляє загальні ресурси кластера, але не створює обмежень щодо вузлів: Podʼи з кількох просторів імен можуть працювати на одному вузлі.
+Зверніть увагу, що квота ресурсів ділить загальні ресурси кластера, але не створює обмежень навколо вузлів: Podʼи з кількох просторів імен можуть працювати на одному й тому ж вузлі.
 
-## Типове обмеження споживання Priority Class {#limmit-priority-class-consumption-by-default}
+## Області дії квоти {#quota-scopes}
+
+Кожна квота може мати повʼязаний набір `scopes`. Квота вимірюватиме використання ресурсу лише в тому випадку, якщо вона відповідає перетину перерахованих областей.
+
+Коли до квоти додається область, вона обмежує кількість ресурсів, які вона підтримує, тими, які стосуються цієї області. Ресурси, вказані у квоті поза дозволеним набором, призводять до помилки перевірки.
+
+Kubernetes {{< skew currentVersion >}} підтримує наступні області дії квоти:
+
+| Область | Опис |
+| ----- | ----------- |
+| [`BestEffort`](#quota-scope-best-effort) | Відповідає podʼам, які мають найкращу якість обслуговування. |
+| [`CrossNamespacePodAffinity`](#cross-namespace-pod-affinity-scope) | Відповідає podʼам, які мають перехресні терміни спорідненості між просторами імен [(anti)affinity](/docs/concepts/scheduling-eviction/assign-pod-node). |
+| [`NotBestEffort`](#quota-scope-non-best-effort) | Відповідає podʼам, які не мають найкращого рівня якості обслуговування. |
+| [`NotTerminating`](#quota-scope-non-terminating) | Відповідає podʼам, де `.spec.activeDeadlineSeconds` є `nil`. |
+| [`PriorityClass`](#resource-quota-per-priorityclass) | Відповідає podʼам, які посилаються на вказаний [клас пріоритету](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
+| [`Terminating`](#quota-scope-terminating) | Відповідає podʼам, де `.spec.activeDeadlineSeconds` >= `0`. |
+| [`VolumeAttributesClass`](#quota-scope-volume-attributes-class) | Відповідає PersistentVolumeClaims, які посилаються на вказані [класи атрибутів тому](/docs/concepts/storage/volume-attributes-classes). |
+
+ResourceQuotas з набором областей дії також можуть мати опціональне поле `scopeSelector`. Ви визначаєте один або декілька _виразів відповідності_, які вказують `operators` і, якщо це доречно, набір `values` для відповідності. Наприклад:
+
+```yaml
+  scopeSelector:
+    matchExpressions:
+      - scopeName: BestEffort # Відповідає podʼам, які мають найкращу якість обслуговування
+        operator: Exists # опціонально; "Exists" мається на увазі для області BestEffort
+```
+
+`scopeSelector` підтримує наступні значення у полі `operator`:
+
+- `In`
+- `NotIn`
+- `Exists`
+- `DoesNotExist`
+
+Якщо оператором є `In` або `NotIn`, поле `values` повинно мати щонайменше одне значення. Наприклад:
+
+```yaml
+  scopeSelector:
+    matchExpressions:
+      - scopeName: PriorityClass
+        operator: In
+        values:
+          - middle
+```
+
+Якщо оператором є `Exists` або `DoesNotExist`, поле `values` *НЕ* повинно бути вказане.
+
+### Область дії для Podʼів Best effort {#quota-scope-best-effort}
+
+Ця область дії відстежує лише квоту, спожиту Podʼами. Вона відповідає лише Podʼам, які мають [QoS клас](/docs/concepts/workloads/pods/pod-qos/) [Best effort](/docs/concepts/workloads/pods/pod-qos/#besteffort).
+
+`operator` для `scopeSelector` повинен бути `Exists`.
+
+### Область дії для Podʼів Not-best-effort {#quota-scope-non-best-effort}
+
+Ця область дії відстежує лише квоту, спожиту Podʼами. Вона відповідає лише Podʼам, які мають [QoS клас](/docs/concepts/workloads/pods/pod-qos/) [Guaranteed](/docs/concepts/workloads/pods/pod-qos/#guaranteed) або [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable).
+
+`operator` для `scopeSelector` повинен бути `Exists`.
+
+### Область дії для Podʼів Non-terminating {#quota-scope-non-terminating}
+
+Ця область дії відстежує лише квоту, спожиту Podʼами, які не завершуються. `operator` для `scopeSelector` повинен бути `Exists`.
+
+Pod не вважається завершеним, якщо поле `.spec.activeDeadlineSeconds` не встановлено.
+
+Ви можете використовувати ResourceQuota з цією областю дії для управління наступними ресурсами:
+
+* `count.pods`
+* `pods`
+* `cpu`
+* `memory`
+* `requests.cpu`
+* `requests.memory`
+* `limits.cpu`
+* `limits.memory`
+
+### Область дії Podʼів Terminating {#quota-scope-terminating}
+
+Ця область дії відстежує лише квоту, спожиту Podʼами, які завершуються. `operator` для `scopeSelector` повинен бути `Exists`.
+
+Pod вважається _завершеним_, якщо поле `.spec.activeDeadlineSeconds` встановлено на будь-яке число.
+
+Ви можете використовувати ResourceQuota з цією областю дії для управління наступними ресурсами:
+
+* `count.pods`
+* `pods`
+* `cpu`
+* `memory`
+* `requests.cpu`
+* `requests.memory`
+* `limits.cpu`
+* `limits.memory`
+
+### Область дії перехресних термінів спорідненості між просторами імен {#cross-namespace-pod-affinity-scope}
+
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
+Ви можете використовувати [область дії квоти](#quota-scopes)  `CrossNamespacePodAffinity`, щоб обмежити, які простори імен можуть мати Podʼи з термінами спорідненості, які перетинають простори імен. Зокрема, вона контролює, яким Podʼам дозволено встановлювати поля `namespaces` або `namespaceSelector` у термінах спорідненості ([(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node)).
+
+Бажано уникати використання термінів спорідненості, які перетинають простори імен, оскільки Pod з обмеженнями анти-спорідненості може заблокувати Podʼи з усіх інших просторів імен від планування в області відмов.
+
+За допомогою цієї області ви (як адміністратор кластера) можете запобігти певним просторам імен (наприклад, `foo-ns` у наведеному нижче прикладі) використання Podʼів, які використовують спорідненість між просторами імен. Ви можете налаштувати це, створивши обʼєкт ResourceQuota в цьому просторі імен з областю `CrossNamespacePodAffinity` та жорстким обмеженням 0:
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: disable-cross-namespace-affinity
+  namespace: foo-ns
+spec:
+  hard:
+    pods: "0"
+  scopeSelector:
+    matchExpressions:
+    - scopeName: CrossNamespacePodAffinity
+      operator: Exists
+```
+
+Якщо ви хочете заборонити стандартне використання `namespaces` та `namespaceSelector`, і дозволити це лише для певних просторів імен, ви можете налаштувати `CrossNamespacePodAffinity` як обмежений ресурс, встановивши прапорець kube-apiserver `--admission-control-config-file` на шлях до наступного конфігураційного файлу:
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: "ResourceQuota"
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: ResourceQuotaConfiguration
+    limitedResources:
+    - resource: pods
+      matchScopes:
+      - scopeName: CrossNamespacePodAffinity
+        operator: Exists
+```
+
+За такої конфігурації Podʼи можуть використовувати `namespaces` та `namespaceSelector` у термінах спорідненості тільки якщо простір імен, в якому вони створені, має обʼєкт квоти ресурсів з областю `CrossNamespacePodAffinity` та жорстким обмеженням, більшим або рівним кількості Podʼів, що використовують ці поля.
+
+### Область дії PriorityClass {#resource-quota-per-priorityclass}
+
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
+
+ResourceQuota з областю дії PriorityClass відповідає тільки тим Podʼам, які мають певний [клас пріоритету](/docs/concepts/scheduling-eviction/pod-priority-preemption), і тільки в тому випадку, якщо будь-який `scopeSelector` у специфікації квоти вибирає певний Pod.
+
+Поди можуть бути створені з певним [пріоритетом](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority). Ви можете контролювати споживання системних ресурсів подом на основі його пріоритету, використовуючи поле `scopeSelector` у специфікації квоти.
+
+Коли квота обмежена для PriorityClass за допомогою поля `scopeSelector`, ResourceQuota може відстежувати (і обмежувати) тільки такі ресурси:
+
+* `pods`
+* `cpu`
+* `memory`
+* `ephemeral-storage`
+* `limits.cpu`
+* `limits.memory`
+* `limits.ephemeral-storage`
+* `requests.cpu`
+* `requests.memory`
+* `requests.ephemeral-storage`
+
+#### Приклад {#quota-scope-priorityclass-example}
+
+Цей приклад створює ResourceQuota, яка відповідає Podʼам з певними пріоритетами. Приклад працює наступним чином:
+
+- Поди в кластері мають один з трьох [класів пріоритету](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass), "low", "medium", "high".
+  - Якщо ви хочете спробувати це, використовуйте тестовий кластер і налаштуйте ці три класи пріоритету перед продовженням.
+- Один обʼєкт квоти створюється для кожного пріоритету.
+
+Перегляньте цей набір ResourceQuotas:
+
+{{% code_sample file="policy/quota.yaml" %}}
+
+Застосуйте YAML за допомогою `kubectl create`.
+
+```shell
+kubectl create -f https://k8s.io/examples/policy/quota.yaml
+```
+
+```none
+resourcequota/pods-high created
+resourcequota/pods-medium created
+resourcequota/pods-low created
+```
+
+Перевірте, що квота `Used` дорівнює `0` , за допомогою команди `kubectl describe quota`.
+
+```shell
+kubectl describe quota
+```
+
+```none
+Name:       pods-high
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     1k
+memory      0     200Gi
+pods        0     10
+
+
+Name:       pods-low
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     5
+memory      0     10Gi
+pods        0     10
+
+
+Name:       pods-medium
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     10
+memory      0     20Gi
+pods        0     10
+```
+
+Створіть под з пріоритетом "high".
+
+{{% code_sample file="policy/high-priority-pod.yaml" %}}
+
+Створіть Pod:
+
+```shell
+kubectl create -f https://k8s.io/examples/policy/high-priority-pod.yaml
+
+```
+
+Перевірте чи змінився статус "Used" для квоти "high" пріоритету, `pods-high`, і чи залишилися інші дві квоти незмінними.
+
+```shell
+kubectl describe quota
+```
+
+```none
+Name:       pods-high
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         500m  1k
+memory      10Gi  200Gi
+pods        1     10
+
+
+Name:       pods-low
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     5
+memory      0     10Gi
+pods        0     10
+
+
+Name:       pods-medium
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     10
+memory      0     20Gi
+pods        0     10
+```
+
+## Типове обмеження споживання PriorityClass {#limmit-priority-class-consumption-by-default}
 
 Може бути бажаним, щоб Podʼи з певного пріоритету, наприклад, "cluster-services", дозволялися в просторі імен, лише якщо існує відповідний обʼєкт квоти.
 
@@ -844,6 +624,29 @@ resourcequota/pods-cluster-services created
 1. Параметр `priorityClassName` Podʼа встановлено на `cluster-services`, він має бути створений в просторі імен `kube-system` і пройти перевірку обмеження ресурсів.
 
 Запит на створення Podʼа буде відхилено, якщо його `priorityClassName` встановлено на `cluster-services` і він має бути створений в просторі імен, відмінному від `kube-system`.
+
+### Область дії VolumeAttributesClass  {#quota-scope-volume-attributes-class}
+
+{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
+
+Ця область діє лише на квоти, спожиті PersistentVolumeClaims.
+
+PersistentVolumeClaims можуть бути створені з конкретним [VolumeAttributesClass](/docs/concepts/storage/volume-attributes-classes/), і можуть бути змінені після створення. Ви можете контролювати споживання PVC ресурсів на основі асоційованих VolumeAttributesClasses, використовуючи поле `scopeSelector` у специфікації квоти.
+
+PVC посилається на асоційований VolumeAttributesClass за наступними полями:
+
+* `spec.volumeAttributesClassName`
+* `status.currentVolumeAttributesClassName`
+* `status.modifyVolumeStatus.targetVolumeAttributesClassName`
+
+Відповідна ResourceQuota підбирається і використовується тільки в тому випадку, якщо ResourceQuota має `scopeSelector`, який вибирає PVC.
+
+Коли квота обмежена для класу атрибутів томів за допомогою поля `scopeSelector`, обʼєкт квоти обмежується лише відстеженням наступних ресурсів:
+
+* `persistentvolumeclaims`
+* `requests.storage`
+
+Детальніше про це читайте в розділі [Обмеження використання сховища](/docs/tasks/administer-cluster/limit-storage-consumption/).
 
 ## {{% heading "whatsnext" %}}
 

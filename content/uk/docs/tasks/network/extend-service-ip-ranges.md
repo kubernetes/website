@@ -25,7 +25,7 @@ weight: 20
 
 ## Розширені діапазони Service IP {#extend-service-ip-ranges}
 
-Кластери Kubernetes з kube-apiservers, у яких увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `MultiCIDRServiceAllocator` та API група `networking.k8s.io/v1beta1`, створюватимуть обʼєкт ServiceCIDR, який має відоме імʼя `kubernetes`, та визначатимуть діапазон IP-адрес, заснований на значенні аргументу командного рядка `--service-cluster-ip-range` для kube-apiserver.
+Кластери Kubernetes з kube-apiservers, у яких увімкнено [функціональну можливість](/docs/reference/command-line-tools-reference/feature-gates/) `MultiCIDRServiceAllocator` та API група `networking.k8s.io/v1`, створюватимуть обʼєкт ServiceCIDR, який має відоме імʼя `kubernetes`, та визначатимуть діапазон IP-адрес, заснований на значенні аргументу командного рядка `--service-cluster-ip-range` для kube-apiserver.
 
 ```shell
 kubectl get servicecidr
@@ -92,7 +92,7 @@ error: failed to create ClusterIP service: Internal error occurred: failed to al
 
 ```shell
 cat <EOF | kubectl apply -f -
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   name: newcidr1
@@ -138,7 +138,7 @@ kubectl get servicecidr newcidr1 -o yaml
 ```
 
 ```yaml
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: ServiceCIDR
 metadata:
   creationTimestamp: "2023-10-12T15:11:07Z"
@@ -219,7 +219,7 @@ spec:
   matchConstraints:
     resourceRules:
     - apiGroups:   ["networking.k8s.io"]
-      apiVersions: ["v1","v1beta1"]
+      apiVersions: ["v1"]
       operations:  ["CREATE", "UPDATE"]
       resources:   ["servicecidrs"]
   matchConditions:
@@ -259,7 +259,7 @@ spec:
   matchConstraints:
     resourceRules:
     - apiGroups:   ["networking.k8s.io"]
-      apiVersions: ["v1","v1beta1"]
+      apiVersions: ["v1"]
       operations:  ["CREATE", "UPDATE"]
       resources:   ["servicecidrs"]
   validations:
