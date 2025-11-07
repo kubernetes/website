@@ -1,8 +1,3 @@
-<!-- 
-Use this command to invoke single phase of the "init" workflow
--->
-使用此命令可以调用 "init" 工作流程的单个阶段。
-
 <!--
 ### Synopsis
 -->
@@ -22,7 +17,7 @@ kubeadm init phase [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -33,11 +28,14 @@ kubeadm init phase [flags]
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!-- 
-<p>help for phase</p>
+help for phase</p>
 -->
-<p>phase 操作的帮助命令。</p>
+phase 操作的帮助命令。
+</p>
 </td>
 </tr>
 
@@ -49,7 +47,7 @@ kubeadm init phase [flags]
 -->
 ### 继承于父命令的选择项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -60,11 +58,14 @@ kubeadm init phase [flags]
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<p>
 <!--
-<p>[EXPERIMENTAL] The path to the 'real' host root filesystem.</p>
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
-<p>[实验] 到 '真实' 主机根文件系统的路径。</p>
+[实验] 到 '真实' 主机根文件系统的路径。
+</p>
 </td>
 </tr>
 

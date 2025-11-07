@@ -516,6 +516,21 @@ Events:
 If the kubelet receives a redirect where the hostname is different from the request, the outcome of the probe is treated as successful and kubelet creates an event to report the redirect failure.
 {{< /note >}}
 
+{{< caution >}}
+When processing an **httpGet** probe, the kubelet stops reading the response body after 10KiB.
+The probe's success is determined solely by the response status code, which is found in the response headers.
+
+If you probe an endpoint that returns a response body larger than **10KiB**,
+the kubelet will still mark the probe as successful based on the status code,
+but it will close the connection after reaching the 10KiB limit.
+This abrupt closure can cause **connection reset by peer** or **broken pipe errors** to appear in your application's logs,
+which can be difficult to distinguish from legitimate network issues.
+
+For reliable `httpGet` probes, it is strongly recommended to use dedicated health check endpoints
+that return a minimal response body. If you must use an existing endpoint with a large payload,
+consider using an `exec` probe to perform a HEAD request instead.
+{{< /caution >}}
+
 ### TCP probes
 
 For a TCP probe, the kubelet makes the probe connection at the node, not in the Pod, which

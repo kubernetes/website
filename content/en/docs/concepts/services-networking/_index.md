@@ -72,7 +72,7 @@ corresponding functionality is provided by external components, some
 of which are optional:
 
 * Pod network namespace setup is handled by system-level software implementing the
-  [Container Runtime Interface](/docs/concepts/architecture/cri.md).
+  [Container Runtime Interface](/docs/concepts/containers/cri/).
 
 * The pod network itself is managed by a
   [pod network implementation](/docs/concepts/cluster-administration/addons/#networking-and-network-policy).

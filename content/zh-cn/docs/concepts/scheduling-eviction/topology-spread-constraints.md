@@ -133,6 +133,17 @@ spec:
   ### 其他 Pod 字段置于此处
 ```
 
+{{< note >}}
+<!--
+There can only be one `topologySpreadConstraint` for a given `topologyKey` and `whenUnsatisfiable` value. For example, if you have defined a `topologySpreadConstraint` that uses the `topologyKey` "kubernetes.io/hostname" and `whenUnsatisfiable` value "DoNotSchedule", you can only add another `topologySpreadConstraint` for the `topologyKey` "kubernetes.io/hostname" if you use a different `whenUnsatisfiable` value.
+-->
+对于特定的 `topologyKey` 和 `whenUnsatisfiable` 值，只能有一个 `topologySpreadConstraint`。
+例如，如果你已经定义了一个 `topologySpreadConstraint`，其 `topologyKey`
+为 "kubernetes.io/hostname"，`whenUnsatisfiable` 值为 "DoNotSchedule"，
+那么你在添加另一个 `topologyKey` 为 "kubernetes.io/hostname" 的 `topologySpreadConstraint`
+时，`whenUnsatisfiable` 需要使用不同的值。
+{{< /note >}}
+
 <!--
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or
 refer to [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling) section of the API reference for Pod.
@@ -1024,6 +1035,26 @@ section of the enhancement proposal about Pod topology spread constraints.
   因为在这种情况下，调度器不会考虑这些拓扑域，直至这些拓扑域中至少包含有一个节点。
 
   你可以通过使用感知 Pod 拓扑分布约束并感知整个拓扑域集的节点自动扩缩工具来解决此问题。
+
+<!--
+- Pods that don't match their own labelSelector create "ghost pods". If a pod's
+  labels don't match the `labelSelector` in its topology spread constraint, the pod
+  won't count itself in spread calculations. This means:
+  - Multiple such pods can just accumulate on the same topology (until matching pods are newly created/deleted) because those pod's schedule don't change a spreading calculation result.
+  - The spreading constraint works in an unintended way, most likely not matching your expectations
+
+  Ensure your pod's labels match the `labelSelector` in your spread constraints.
+  Typically, a pod should match its own topology spread constraint selector.
+-->
+- 与自身的 labelSelector 不匹配的 Pod 会产生“幽灵 Pod”。
+  如果某个 Pod 的标签与其拓扑分布约束中的 `labelSelector` 不匹配，
+  那么该 Pod 无法参与拓扑分布的计算。这意味着：
+  - 这类 Pod 可能会持续堆积在同一个拓扑域上（直到新创建或删除了选择算符相匹配的 Pod），
+    因为这些 Pod 的调度不会改变分布计算结果。
+  - 分布约束会以非预期的方式工作，很可能与你的期望不一致。
+  
+  请确保 Pod 的标签与分布约束中的 `labelSelector` 相匹配。
+  通常，Pod 应当能够匹配到它自己定义的拓扑分布约束选择算符。
 
 ## {{% heading "whatsnext" %}}
 

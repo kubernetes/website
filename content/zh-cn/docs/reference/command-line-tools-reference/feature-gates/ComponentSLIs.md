@@ -13,7 +13,13 @@ stages:
   - stage: beta
     defaultValue: true
     fromVersion: "1.27"
+    toVersion: "1.31"
+  - stage: stable
+    defaultValue: true
+    locked: true
+    fromVersion: "1.32"
 ---
+
 <!--
 Enable the `/metrics/slis` endpoint on Kubernetes components like
 kubelet, kube-scheduler, kube-proxy, kube-controller-manager, cloud-controller-manager
