@@ -80,14 +80,14 @@ The cloud controller manager can implement:
 
 #### Watch-Based Route Controller Reconciliation
 
-Starting with Kubernetes v1.35, a new feature gate `CloudControllerManagerWatchBasedRoutesReconciliation` has been introduced to the cloud-controller-manager. This feature, currently in **alpha*, transitions the route controller from a fixed-interval reconciliation model to a watch-based approach using node informers.
+Beginning with Kubernetes v1.35, the cloud-controller-manager introduces a new **alpha** stage feature gate named `CloudControllerManagerWatchBasedRoutesReconciliation`. This feature transitions the route controller from a fixed-interval reconciliation model to a watch-based approach using node informers.
 
 When this feature is enabled, the route controller triggers a reconciliation loop whenever a node is added, deleted, or when the following fields are updated:
 
 * `spec.PodCIDRs`
 * `status.addresses`
 
-Enabling this feature reduces unnecessary API calls to the cloud provider by reconciling only when relevant node updates occur.
+Enabling this feature reduces unnecessary API calls to the cloud APIs by reconciling only when relevant node updates occur.
 
 ## Examples
 
