@@ -61,7 +61,7 @@ typically indicates which components are affected by each gate. All Kubernetes c
 share the same feature gate definitions, so all gates appear in help output, but only 
 relevant gates affect each component's behavior.
 
-## Configure for kubeadm clusters
+## Configuration
 
 ### During cluster initialization
 
@@ -164,9 +164,12 @@ featureGates:
 ```
 
 {{< note >}}
-Not all components accept configuration files. Components like kube-apiserver, 
-kube-controller-manager, and kube-scheduler are configured via command-line flags only.
+In kubeadm clusters, control plane components (kube-apiserver, kube-controller-manager, 
+and kube-scheduler) are typically configured via command-line flags in their static pod 
+manifests located at `/etc/kubernetes/manifests/`. While these components support 
+configuration files via the `--config` flag, kubeadm primarily uses command-line flags.
 {{< /note >}}
+
 
 <!-- discussion -->
 
@@ -175,24 +178,41 @@ kube-controller-manager, and kube-scheduler are configured via command-line flag
 After configuring, verify the feature gates are active. The following methods apply 
 to kubeadm clusters where control plane components run as static pods.
 
-For control plane components:
+### Check control plane component manifests
 
+View the feature gates configured in the static pod manifest:
 ```shell
 kubectl -n kube-system get pod kube-apiserver-<node-name> -o yaml | grep feature-gates
 ```
 
-For kubelet:
+### Check kubelet configuration
 
+Use the kubelet's configz endpoint:
 ```shell
 kubectl proxy --port=8001 &
 curl -sSL "http://localhost:8001/api/v1/nodes/<node-name>/proxy/configz" | grep featureGates -A 5
 ```
 
 Or check the configuration file directly on the node:
-
 ```shell
 cat /var/lib/kubelet/config.yaml | grep -A 10 featureGates
 ```
+
+### Check via metrics endpoint
+
+Feature gate status is exposed in Prometheus-style metrics by Kubernetes components 
+(available in Kubernetes 1.26+). Query the metrics endpoint to verify which feature 
+gates are enabled:
+```shell
+kubectl get --raw /metrics | grep kubernetes_feature_enabled
+```
+
+To check a specific feature gate:
+```shell
+kubectl get --raw /metrics | grep kubernetes_feature_enabled | grep FeatureName
+```
+
+The metric shows `1` for enabled gates and `0` for disabled gates.
 
 {{< note >}}
 In kubeadm clusters, verify all relevant locations where feature gates might be 
