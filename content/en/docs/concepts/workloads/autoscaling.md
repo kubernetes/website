@@ -114,7 +114,7 @@ For more details, see the [Per-VPA Component Configuration enhancement proposal]
 
 #### CPU startup boost
 
-{{< feature-state state="developing" >}}
+{{< feature-state state="alpha" >}}
 
 Some workloads—particularly those written in Java or other runtime-heavy environments—experience long startup times due to CPU-intensive initialization.
 This can delay readiness and degrade performance, especially during scaling events.
