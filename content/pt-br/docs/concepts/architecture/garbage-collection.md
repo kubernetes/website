@@ -12,7 +12,7 @@ permite a limpeza de recursos como os seguintes:
 - [Pods terminados](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
 - [Jobs completados](/docs/concepts/workloads/controllers/ttlafterfinished/)
 - [Objetos sem referências de proprietário](#owners-dependents)
-- [Containers e imagens de container não utilizados](#containers-images)
+- [Contêineres e imagens de contêiner não utilizados](#containers-images)
 - [PersistentVolumes provisionados dinamicamente com uma política de recuperação de StorageClass de Delete](/docs/concepts/storage/persistent-volumes/#delete)
 - [CertificateSigningRequests (CSRs) obsoletos ou expirados](/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
 - {{<glossary_tooltip text="Nodes" term_id="node">}} excluídos nos seguintes cenários:
@@ -114,19 +114,19 @@ Quando o Kubernetes exclui um objeto proprietário, os dependentes deixados para
 de objetos _órfãos_. Por padrão, o Kubernetes exclui objetos dependentes. Para aprender como
 sobrescrever este comportamento, veja [Excluir objetos proprietários e tornar órfãos os dependentes](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy).
 
-## Coleta de lixo de containers e imagens não utilizados {#containers-images}
+## Coleta de lixo de contêineres e imagens não utilizados {#containers-images}
 
 O {{<glossary_tooltip text="kubelet" term_id="kubelet">}} executa coleta de lixo
-em imagens não utilizadas a cada cinco minutos e em containers não utilizados a cada
+em imagens não utilizadas a cada cinco minutos e em contêineres não utilizados a cada
 minuto. Você deve evitar usar ferramentas externas de coleta de lixo, pois estas podem
-quebrar o comportamento do kubelet e remover containers que deveriam existir.
+quebrar o comportamento do kubelet e remover contêineres que deveriam existir.
 
-Para configurar opções para coleta de lixo de containers e imagens não utilizados, ajuste o
+Para configurar opções para coleta de lixo de contêineres e imagens não utilizados, ajuste o
 kubelet usando um [arquivo de configuração](/docs/tasks/administer-cluster/kubelet-config-file/)
 e altere os parâmetros relacionados à coleta de lixo usando o
 tipo de recurso [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/).
 
-### Ciclo de vida da imagem de container
+### Ciclo de vida da imagem de contêiner
 
 O Kubernetes gerencia o ciclo de vida de todas as imagens através do seu _gerenciador de imagens_,
 que é parte do kubelet, com a cooperação do
@@ -141,7 +141,7 @@ que exclui imagens em ordem baseada na última vez que foram usadas,
 começando com a mais antiga primeiro. O kubelet exclui imagens
 até que o uso de disco atinja o valor `LowThresholdPercent`.
 
-#### Coleta de lixo para imagens de container não utilizadas {#image-maximum-age-gc}
+#### Coleta de lixo para imagens de contêiner não utilizadas {#image-maximum-age-gc}
 
 {{< feature-state feature_gate_name="ImageMaximumGCAge" >}}
 
@@ -165,32 +165,32 @@ duração `imageMaximumGCAge` antes de qualificar imagens para coleta de lixo
 baseada na idade da imagem.
 {{< /note>}}
 
-### Coleta de lixo de containers {#container-image-garbage-collection}
+### Coleta de lixo de contêineres {#container-image-garbage-collection}
 
-O kubelet coleta lixo de containers não utilizados baseado nas seguintes variáveis,
+O kubelet coleta lixo de contêineres não utilizados baseado nas seguintes variáveis,
 que você pode definir:
 
 - `MinAge`: a idade mínima na qual o kubelet pode coletar lixo de um
-  container. Desabilite definindo como `0`.
-- `MaxPerPodContainer`: o número máximo de containers mortos que cada Pod
+  contêiner. Desabilite definindo como `0`.
+- `MaxPerPodContainer`: o número máximo de contêineres mortos que cada Pod
   pode ter. Desabilite definindo como menor que `0`.
-- `MaxContainers`: o número máximo de containers mortos que o cluster pode ter.
+- `MaxContainers`: o número máximo de contêineres mortos que o cluster pode ter.
   Desabilite definindo como menor que `0`.
 
 Além dessas variáveis, o kubelet coleta lixo de containers não identificados e
 excluídos, tipicamente começando com o mais antigo primeiro.
 
 `MaxPerPodContainer` e `MaxContainers` podem potencialmente entrar em conflito um com o outro
-em situações onde manter o número máximo de containers por Pod
-(`MaxPerPodContainer`) iria além do total permitido de containers mortos globais
+em situações onde manter o número máximo de contêineres por Pod
+(`MaxPerPodContainer`) iria além do total permitido de contêineres mortos globais
 (`MaxContainers`). Nesta situação, o kubelet ajusta
 `MaxPerPodContainer` para resolver o conflito. Um cenário de pior caso seria
 rebaixar `MaxPerPodContainer` para `1` e despejar os containers mais antigos.
-Adicionalmente, containers pertencentes a Pods que foram excluídos são removidos uma vez
+Adicionalmente, contêineres pertencentes a Pods que foram excluídos são removidos uma vez
 que são mais antigos que `MinAge`.
 
 {{<note>}}
-O coletor de lixo do kubelet só remove containers que gerencia.
+O coletor de lixo do kubelet só remove contêineres que gerencia.
 {{</note>}}
 
 ## Configurando coleta de lixo {#configuring-gc}
