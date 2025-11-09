@@ -3,7 +3,7 @@ title: Downward API
 content_type: concept
 weight: 170
 description: >
-  Podやコンテナのフィールドを実行中のコンテナに公開する方法には2つあります:
+  Podやコンテナのフィールドを実行中のコンテナに公開する方法には2つあります。
   1つは環境変数で、もう1つは特殊なボリュームタイプによってファイルとして公開する方法です。
   これら2つの方法をまとめてDownward APIと呼びます。
 ---
@@ -29,7 +29,7 @@ Kubernetesでは、実行中のコンテナにPodおよびコンテナフィー�
 ## 利用可能なフィールド
 
 Kubernetes APIフィールドのうち、downward APIを通じて利用可能なものは一部のみです。
-この章では、利用可能なフィールドを列挙します。
+このセクションでは、利用可能なフィールドを列挙します。
 
 利用可能なPodレベルのフィールドからの情報は、`fieldRef`を使用して渡すことができます。
 APIレベルでは、Podの`spec`は常に少なくとも1つの[Container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)を定義します。
