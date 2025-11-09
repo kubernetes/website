@@ -71,19 +71,59 @@ At the moment, the VPA can operate in four different modes:
 {{< table caption="Different modes of the VPA" >}}
 Mode | Description
 :----|:-----------
-`Auto` | Currently `Recreate`. This might change to in-place updates in the future.
 `Recreate` | The VPA assigns resource requests on pod creation as well as updates them on existing pods by evicting them when the requested resources differ significantly from the new recommendation
 `Initial` | The VPA only assigns resource requests on pod creation and never changes them later.
 `Off` | The VPA does not automatically change the resource requirements of the pods. The recommendations are calculated and can be inspected in the VPA object.
+`InPlaceOrRecreate` | The VPA first attempts to apply updates in-place, leveraging Kubernetes’ in-place update capabilities to modify container resources without recreating pods. If an in-place update fails, the VPA falls back to recreating the affected pods.
 {{< /table >}}
+
+{{< warning >}}
+The VPA mode `Auto` is deprecated.
+Use `Recreate` or `InPlaceOrRecreate` instead for automatic updates.
+{{< /warning >}}
 
 #### In-place pod vertical scaling
 
 {{< feature-state feature_gate_name="InPlacePodVerticalScaling" >}}
 
-As of Kubernetes {{< skew currentVersion >}}, VPA does not support resizing pods in-place,
-but this integration is being worked on.
+VPA now supports in-place updates to reduce disruption when applying resource recommendations.
+This feature leverages Kubernetes’ in-place update capability to modify container resources without recreating pods.
+To enable this behavior, set your VPA’s updateMode to `InPlaceOrRecreate`.
+In this mode, VPA will first attempt to update pods in-place; if an in-place update is not possible, it will fall back to recreating the pods.
+For more details, see the [In Place Updates Support proposal](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler/enhancements/4016-in-place-updates-support)
+
 For manually resizing pods in-place, see [Resize Container Resources In-Place](/docs/tasks/configure-pod-container/resize-container-resources/).
+
+### Experimental and upcoming VPA features
+
+The VerticalPodAutoscaler (VPA) project continues to evolve, and several enhancements are under active development.
+These features are currently in alpha or proposal stage and are not enabled by default.
+Refer to the VPA enhancements directory on GitHub for the latest implementation status.
+
+#### Per-VPA component configuration
+
+{{< feature-state state="alpha" >}}
+
+Currently, VPA components (Recommender, Updater, and Admission Controller) are configured through global flags shared across the cluster.
+This design makes it difficult to tailor resource optimization strategies for workloads with different characteristics.
+
+This enhancement introduces the ability to specify configuration parameters at the individual VPA object level, allowing for workload-specific optimization.
+The goal is not to add new tuning options, but to expose existing internal parameters for fine-grained control on a per-VPA basis.
+
+For more details, see the [Per-VPA Component Configuration enhancement proposal](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler/enhancements/8026-per-vpa-component-configuration).
+
+#### CPU startup boost
+
+{{< feature-state state="developing" >}}
+
+Some workloads—particularly those written in Java or other runtime-heavy environments—experience long startup times due to CPU-intensive initialization.
+This can delay readiness and degrade performance, especially during scaling events.
+
+The CPU startup boost feature proposes allowing the VPA to temporarily increase CPU requests and limits for containers during startup.
+Once the pod becomes Ready, or after a defined period, the VPA scales CPU resources back down to their recommended steady-state values.
+This mechanism leverages Kubernetes’ in-place pod resize functionality to adjust CPU resources without recreating pods.
+
+For more details, see the [CPU Startup Boost enhancement proposal](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler/enhancements/7862-cpu-startup-boost).
 
 ### Autoscaling based on cluster size
 
