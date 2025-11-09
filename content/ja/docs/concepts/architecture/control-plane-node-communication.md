@@ -75,7 +75,7 @@ Konnectivityサービスを有効にすると、コントロールプレーン�
 
 ## {{% heading "whatsnext" %}}
 
-* [Kubernetesコントロールプレーンコンポーネント](/ja/docs/concepts/overview/components/#control-plane-components)について読む。
+* [Kubernetesコントロールプレーンコンポーネント](/ja/docs/concepts/architecture/#control-plane-components)について読む。
 * [HubsとSpokeモデル](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)について学習する。
 * [クラスターのセキュリティ](/ja/docs/tasks/administer-cluster/securing-a-cluster/)について学習する。
 * [Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)について学習する。
