@@ -28,7 +28,7 @@ Windowsコンテナには、ContainerUserとContainerAdministratorという2つ�
 
 {{< note >}}
 
-* [Nano Server](https://hub.docker.com/_/microsoft-windows-nanoserver)ベースのイメージは、デフォルトで`ContainerUser`として実行されます。
+* [Nano Server](https://hub.docker.com/_/microsoft-windows-nanoserver)ベースのイメージは、デフォルトで`ContainerUser`として実行されます
 * [Server Core](https://hub.docker.com/_/microsoft-windows-servercore)ベースのイメージは、デフォルトで`ContainerAdministrator`として実行されます
 
 {{< /note >}}
