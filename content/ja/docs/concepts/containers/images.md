@@ -7,10 +7,10 @@ hide_summary: true
 
 <!-- overview -->
 
-コンテナイメージは、アプリケーションおよびそのすべてのソフトウェア依存関係を含むバイナリデータを表します。
+コンテナイメージは、アプリケーションおよびそのすべてのソフトウェア依存関係をカプセル化したバイナリデータを表します。
 コンテナイメージは、スタンドアロンで実行可能なソフトウェアバンドルで、動作するためのランタイム環境が明確に規定されているのが特徴です。
 
-通常、アプリケーションのコンテナイメージを作成してレジストリにプッシュし、その後、{{< glossary_tooltip text="Pod" term_id="pod" >}}から参照します。
+通常、アプリケーションのコンテナイメージを作成してレジストリに格納し、その後、{{< glossary_tooltip text="Pod" term_id="pod" >}}から参照します。
 
 このページでは、コンテナイメージの概要について説明します。
 
@@ -26,11 +26,12 @@ Kubernetesのリリース(たとえばv{{< skew latestVersion >}}のような最
 イメージには、レジストリのホスト名を含めることもできます。たとえば、`fictional.registry.example/imagename`のようになります。また、同じようにポート番号を含めることもでき、その場合は`fictional.registry.example:10443/imagename`のようになります。
 
 レジストリのホスト名を指定しない場合、Kubernetesは[Dockerパブリックレジストリ](https://hub.docker.com/)を意味しているものと見なします。
-この挙動は、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)の設定でデフォルトのイメージレジストリを指定することで変更できます。
+この挙動は、[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)の設定でデフォルトのイメージレジストリを指定することで変更できます。
 
 イメージ名の後には、_タグ_ や _ダイジェスト_ を追加できます(これは`docker`や`podman`などのコマンドを使う場合と同様です)。
 タグは、同じ系列のイメージの異なるバージョンを識別するために使用します。
-ダイジェストは、イメージの特定のバージョンに対する一意の識別子であり、イメージの内容に基づくハッシュで構成され、変更不可能です。
+ダイジェストは、イメージの特定のバージョンに対する一意の識別子です。
+また、ダイジェストはイメージの内容に基づくハッシュで構成され、変更不可能です。
 タグは異なるイメージを指すように移動が可能ですが、ダイジェストは固定です。
 
 イメージタグには、小文字および大文字のアルファベット、数字、アンダースコア(`_`)、ピリオド(`.`)、ハイフン(`-`)を使用できます。
@@ -74,7 +75,7 @@ PodTemplateを含む{{< glossary_tooltip text="Deployment" term_id="deployment" 
   詳細は、[事前に取得されたイメージ](#pre-pulled-images)を参照してください。
 
 レジストリに確実にアクセスできるのであれば、基盤となるイメージプロバイダーのキャッシュセマンティクスにより`imagePullPolicy: Always`でも効率的です。
-コンテナランタイムは、イメージレイヤーがすでにノード上に存在することを認識できるので、再度ダウンロードする必要がありません。
+コンテナランタイムは、イメージレイヤーがすでにノード上に存在することを認識できるため、再度ダウンロードする必要がありません。
 
 {{< note >}}
 本番環境でコンテナをデプロイする場合は、`:latest`タグの使用を避けるべきです。
@@ -83,13 +84,13 @@ PodTemplateを含む{{< glossary_tooltip text="Deployment" term_id="deployment" 
 代わりに、`v1.42.0`のような意味のあるタグやダイジェストを指定してください。
 {{< /note >}}
 
-Podがいつも同じバージョンのコンテナイメージを使用するようにするためには、イメージのダイジェストを指定します。`<image-name>:<tag>`を`<image-name>@<digest>`に置き換えてください(たとえば、`image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`)。
+Podが常に同じバージョンのコンテナイメージを使用するようにするためには、イメージのダイジェストを指定します。`<image-name>:<tag>`を`<image-name>@<digest>`に置き換えてください(たとえば、`image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`)。
 
 イメージタグを使用している場合、レジストリ側でそのタグが指すコードが変更されると、古いコードと新しいコードを実行するPodが混在する可能性があります。
 イメージダイジェストは特定のバージョンのイメージを一意に識別するため、Kubernetesは特定のイメージ名とダイジェストが指定されたコンテナを起動するたびに同じコードを実行します。
 イメージをダイジェストで指定することで、実行するコードのバージョンが固定され、レジストリ側の変更によってバージョンが混在する事態を防ぐことができます。
 
-サードパーティー製の[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)の中には、Pod(およびPodTemplate)の作成時にそれらを変更し、実行されるワークロードがタグではなくイメージのダイジェストに基づいて定義されるようにするものがあります。
+サードパーティ製の[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/)の中には、Pod(およびPodTemplate)の作成時にそれらを変更し、実行されるワークロードがタグではなくイメージのダイジェストに基づいて定義されるようにするものがあります。
 レジストリでどのようなタグの変更があっても、すべてのワークロードが必ず同じコードを実行するようにしたい場合に有用かもしれません。
 
 #### デフォルトのイメージプルポリシー {#imagepullpolicy-defaulting}
@@ -118,7 +119,7 @@ Podがいつも同じバージョンのコンテナイメージを使用する�
 
 ### ImagePullBackOff
 
-kubeletがコンテナランタイムを使ってPodのコンテナの作成を開始するとき、`ImagePullBackOff`のためにコンテナが[Waiting](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)状態になる可能性があります。
+kubeletがコンテナランタイムを使ってPodのコンテナの作成を開始するとき、`ImagePullBackOff`のためにコンテナが[Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)状態になる可能性があります。
 
 `ImagePullBackOff`状態は、Kubernetesがコンテナイメージを取得できず、コンテナを開始できないことを意味します(イメージ名が無効である、`imagePullSecret`無しでプライベートレジストリから取得したなどの理由のため)。`BackOff`は、バックオフの遅延を増加させながらKubernetesがイメージを取得しようとし続けることを示します。
 
@@ -129,9 +130,8 @@ Kubernetesは、組み込まれた制限である300秒(5分)に達するまで�
 {{< feature-state feature_gate_name="RuntimeClassInImageCriApi" >}}
 Kubernetesには、PodのRuntimeClassに基づいてイメージを取得するアルファ機能のサポートが含まれています。
 
-`RuntimeClassInImageCriApi`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、kubeletはイメージ名やダイジェストだけでなく、イメージ名とランタイムハンドラーのタプルでコンテナイメージを参照するようになります。
-{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}
-は、選択されたランタイムハンドラーに基づいて動作を変更する可能性があります。
+`RuntimeClassInImageCriApi`[フィーチャーゲート](/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、kubeletは単にイメージ名やダイジェストではなく、イメージ名とランタイムハンドラーのタプルでコンテナイメージを参照するようになります。
+{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}は、選択されたランタイムハンドラーに基づいて動作を変更する可能性があります。
 ランタイムクラスに応じたイメージ取得を行う機能は、Windows Hyper-VコンテナのようなVMベースのコンテナにおいて有用です。
 
 ### 直列・並列イメージ取得
@@ -148,15 +148,15 @@ Kubernetesには、PodのRuntimeClassに基づいてイメージを取得する�
 並列イメージ取得を有効にする場合は、使用しているコンテナランタイムのイメージサービスが並列取得に対応していることを確認してください。
 
 なお、kubeletは1つのPodに対して複数のイメージを並列で取得することはありません。
-たとえば、1つのPodがinitコンテナとアプリケーションコンテナを持つ場合、その二つのコンテナのイメージ取得は並列化されません。
+たとえば、1つのPodがinitコンテナとアプリケーションコンテナを持つ場合、その2つのコンテナのイメージ取得は並列化されません。
 しかし、異なるPodがそれぞれ異なるイメージを使用しており、並列イメージ取得機能が有効になっている場合、kubeletはその2つの異なるPodのためにイメージを並列で取得します。
 
-### 最大並行イメージ取得数
+### 最大並列イメージ取得数
 
 {{< feature-state for_k8s_version="v1.32" state="beta" >}}
 
 `serializeImagePulls`がfalseに設定されている場合、kubeletはデフォルトで同時に取得できるイメージ数に制限を設けません。
-並行で取得できるイメージ数を制限したい場合は、kubeletの設定で`maxParallelImagePulls`フィールドを指定します。
+並列で取得できるイメージ数を制限したい場合は、kubeletの設定で`maxParallelImagePulls`フィールドを指定します。
 `maxParallelImagePulls`に _n_ を設定すると、同時に取得できるイメージは最大で _n_ 件となり、_n_ 件を超えるイメージ取得は、少なくとも1件のイメージ取得が完了するまで待機する必要があります。
 
 並列イメージ取得を有効にしている場合、同時取得数を制限することで、イメージの取得によるネットワーク帯域やディスクI/Oの過剰な消費を防ぐことができます。
@@ -215,7 +215,7 @@ Kubernetesは、Podに対してコンテナイメージレジストリ用のキ�
 認証情報の具体的な設定手順は、使用するコンテナランタイムやレジストリによって異なります。
 最も正確な情報については、使用しているソリューションのドキュメントを参照してください。
 
-プライベートコンテナイメージレジストリの構成例については、[イメージをプライベートレジストリから取得する](/ja/docs/tasks/configure-pod-container/pull-image-private-registry)を参照してください。
+プライベートコンテナイメージレジストリの構成例については、[イメージをプライベートレジストリから取得する](/docs/tasks/configure-pod-container/pull-image-private-registry)を参照してください。
 この例では、Docker Hubのプライベートレジストリを使用しています。
 
 ### kubelet credential providerによる認証付きイメージ取得 {#kubelet-credential-provider}
@@ -224,7 +224,7 @@ kubeletを構成して、プラグインバイナリを呼び出し、コンテ�
 これは、プライベートレジストリ用の認証情報を取得するための最も堅牢かつ柔軟な方法ですが、有効化するにはkubeletレベルでの設定が必要です。
 
 この手法は、プライベートレジストリにホストされたコンテナイメージを必要とする{{< glossary_tooltip term_id="static-pod" text="Static Pod" >}}を実行する際に特に有用です。
-{{< glossary_tooltip term_id="service-account" >}}や{{< glossary_tooltip term_id="secret" >}}を使ってプライベートレジストリの認証情報を提供することは、Static Podの仕様で不可能です。
+{{< glossary_tooltip term_id="service-account" >}}や{{< glossary_tooltip term_id="secret" >}}を使ってプライベートレジストリの認証情報を提供することは、Static Podの仕様では不可能です。
 Static Podは、その仕様として他のAPIリソースへの参照を含めることが _できない_ ためです。
 
 詳細については、[kubelet image credential providerを設定する](/docs/tasks/administer-cluster/kubelet-credential-provider/)を参照してください。
@@ -232,7 +232,7 @@ Static Podは、その仕様として他のAPIリソースへの参照を含め�
 ### config.jsonの解釈 {#config-json}
 
 `config.json`の解釈は、元のDockerの実装とKubernetesにおける解釈で異なります。
-Dockerでは、`auths`キーにはルートURLしか指定できませんが、Kubernetesではワイルドカード形式のURLや接頭辞一致のパスも許容されます。
+Dockerでは、`auths`キーにはルートURLしか指定できませんが、Kubernetesではワイルドカード形式のURLや、プレフィックスが一致するパスも許容されます。
 唯一の制約は、ワイルドカード(`*`)を使用する場合、各サブドメインに対して`.`を含める必要があるという点です。
 一致するサブドメインの数は、指定されたワイルドカードパターンの数(`*.`)と一致している必要があります。
 例:
@@ -298,8 +298,7 @@ kubeletは、見つかった各認証情報に対してイメージ取得を順�
 
 これは、特定のイメージをあらかじめロードしておくことで高速化したり、プライベートレジストリへの認証の代替手段として利用したりすることができます。
 
-[kubelet credential provider](#kubelet-credential-provider)の利用と同様に、
-事前に取得されたイメージは、プライベートレジストリにホストされたイメージに依存する{{< glossary_tooltip text="Static Pod" term_id="static-pod" >}}を起動する場合にも適しています。
+[kubelet credential provider](#kubelet-credential-provider)の利用と同様に、事前に取得されたイメージは、プライベートレジストリにホストされたイメージに依存する{{< glossary_tooltip text="Static Pod" term_id="static-pod" >}}を起動する場合にも適しています。
 
 {{< note >}}
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
@@ -349,7 +348,7 @@ kubectl create secret docker-registry <name> \
 `kubectl create secret docker-registry`で作成されるSecretは、単一のプライベートレジストリにしか対応していないためです。
 
 {{< note >}}
-Podは自身のNamespace内にあるイメージ取得用のSecretしか参照できないため、この手順はNamespaceごとに1回ずつ実行する必要があります。
+Podは自身のNamespace内にあるイメージプルシークレットしか参照できないため、この手順はNamespaceごとに1回ずつ実行する必要があります。
 {{< /note >}}
 
 #### Podで`imagePullSecrets`を参照する
@@ -380,7 +379,7 @@ resources:
 EOF
 ```
 
-この作業は、プライベートレジストリを使用する各Podごとに実施する必要があります。
+この作業は、プライベートレジストリを使用する各Podに対して実施する必要があります。
 
 ただし、[ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)リソースの中で`imagePullSecrets`セクションを指定することで、この手順を自動化することが可能です。
 詳細な手順については、[ServiceAccountにImagePullSecretsを追加する](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)を参照してください。
@@ -411,13 +410,13 @@ EOF
    - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化されていることを確認する。これが無効な場合、すべてのPodがすべてのイメージにアクセスできてしまう可能性がある。
    - 機密データはイメージ内に含める代わりに、Secretリソースに移行する。
 
-2. それぞれのテナントが独自のプライベートレジストリを必要とするマルチテナントのクラスターである場合
+1. それぞれのテナントが独自のプライベートレジストリを必要とするマルチテナントのクラスターである場合
    - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化されていることを確認する。これが無効な場合、すべてのPodがすべてのイメージにアクセスできてしまう可能性がある。
    - 認証が必要なプライベートレジストリを運用する。
-   - 各テナントごとにレジストリの認証情報を生成し、それをSecretに保存して、各テナントのNamespaceへ配布する。
+   - テナントごとにレジストリの認証情報を生成し、それをSecretに保存して、各テナントのNamespaceへ配布する。
    - テナントは、そのSecretを各Namespaceの`imagePullSecrets`に追加する。
 
-複数のレジストリへのアクセスが必要な場合、レジストリごとに1つのSecretを作成する事ができます。
+複数のレジストリへのアクセスが必要な場合、レジストリごとに1つのSecretを作成することができます。
 
 ## レガシーな組み込みkubelet credential provider
 
@@ -433,5 +432,5 @@ Kubernetesバージョン1.26以降では、このレガシーな仕組みは削
 ## {{% heading "whatsnext" %}}
 
 * [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)を読む
-* [コンテナイメージのガベージコレクション](/ja/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)について学ぶ
-* [イメージをプライベートレジストリから取得する](/ja/docs/tasks/configure-pod-container/pull-image-private-registry)について学ぶ
+* [コンテナイメージのガベージコレクション](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection)について学ぶ
+* [イメージをプライベートレジストリから取得する](/docs/tasks/configure-pod-container/pull-image-private-registry)について学ぶ
