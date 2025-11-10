@@ -27,7 +27,7 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 
 {{% thirdparty-content %}}
 
-* [AKS Application Gateway For Containers ALB Controller ](https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/quickstart-deploy-application-gateway-for-containers-alb-controller?tabs=install-helm-windows) is an ingress controller that configures the [Azure Application Gateway For Containers](https://learn.microsoft.com/en-us/azure/application-gateway/for-containers/overview).
+* [AKS Application Gateway For Containers ALB Controller ](https://learn.microsoft.com/azure/application-gateway/for-containers/quickstart-deploy-application-gateway-for-containers-alb-controller?tabs=install-helm-windows) is an ingress controller that configures the [Azure Application Gateway For Containers](https://learn.microsoft.com/azure/application-gateway/for-containers/overview).
 * [Alibaba Cloud MSE Ingress](https://www.alibabacloud.com/help/en/mse/user-guide/overview-of-mse-ingress-gateways) is an ingress controller that configures the [Alibaba Cloud Native Gateway](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is), which is also the commercial version of [Higress](https://github.com/alibaba/higress).
 * [Apache APISIX ingress controller](https://github.com/apache/apisix-ingress-controller) is an [Apache APISIX](https://github.com/apache/apisix)-based ingress controller.
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
