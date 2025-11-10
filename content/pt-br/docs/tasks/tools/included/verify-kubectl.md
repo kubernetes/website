@@ -53,4 +53,5 @@ veja as seguintes documentações de cada provedor:
 * Azure AKS: [plugin kubelogin](https://azure.github.io/kubelogin/)
 * Google Kubernetes Engine: [gke-gcloud-auth-plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin)
 
-(Também podem haver outras razões para que a mesma mensagem de erro ocorra, não relacionadas a esta mudança).
+Também podem haver outras razões para que a mesma mensagem de erro ocorra, não
+relacionadas a esta mudança.
