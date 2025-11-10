@@ -235,9 +235,9 @@ aliases:
   committee-steering: # provide PR approvals for announcements
     - aojea
     - BenTheElder
-    - justaugustus
+    - katcosgrove
     - pacoxu
-    - pohly
+    - ritazh
     - saschagrunert
     - soltysh
   # authoritative source: https://git.k8s.io/sig-release/OWNERS_ALIASES
