@@ -414,6 +414,7 @@ postfix | 접미사 |
 prefix | 접두사 |
 PriorityClass | 프라이어리티클래스(PriorityClass) | API 오브젝트인 경우
 Privileged | 특권을 가진(privileged) |
+probe | 프로브(probe) |
 Prometheus | 프로메테우스 |
 proxy | 프록시 |
 proof of concept | 개념 증명 |
