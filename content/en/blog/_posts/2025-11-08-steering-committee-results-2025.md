@@ -2,8 +2,8 @@
 layout: blog
 title: "Announcing the 2025 Steering Committee Election Results"
 slug: steering-committee-results-2025
-canonicalUrl: https://www.kubernetes.dev/blog/2025/11/08/steering-committee-results-2025
-date: 2025-11-08T15:10:00-05:00
+canonicalUrl: https://www.kubernetes.dev/blog/2025/11/09/steering-committee-results-2025
+date: 2025-11-09T15:10:00-05:00
 author: >
   Arujjwal Negi
 ---
