@@ -90,10 +90,22 @@ rules:
 <!--
 ## Metric lifecycle
 
-Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
+Alpha metric → Beta metric → Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
 
 Alpha metrics have no stability guarantees. These metrics can be modified or deleted at any time.
 
+Beta metrics observe a looser API contract than its stable counterparts. No labels can be removed from beta metrics during their lifetime, however, labels can be added while the metric is in the beta stage.
+-->
+## 指标生命周期  {#metric-lifecycle}
+
+Alpha 指标 → Beta 指标 → 稳定的指标 → 弃用的指标 → 隐藏的指标 → 删除的指标
+
+Alpha 指标没有稳定性保证。这些指标可以随时被修改或者删除。
+
+Beta 指标相比其稳定版本，所遵循的 API 协议更宽松。
+在指标的 Beta 阶段生命周期内，其现有的标签不能被移除，但可以新增标签。
+
+<!--
 Stable metrics are guaranteed to not change. This means:
 
 * A stable metric without a deprecated signature will not be deleted or renamed
@@ -102,19 +114,13 @@ Stable metrics are guaranteed to not change. This means:
 Deprecated metrics are slated for deletion, but are still available for use.
 These metrics include an annotation about the version in which they became deprecated.
 -->
-## 指标生命周期  {#metric-lifecycle}
-
-Alpha 指标 →  稳定的指标 →  弃用的指标 →  隐藏的指标 → 删除的指标
-
-Alpha 指标没有稳定性保证。这些指标可以随时被修改或者删除。
-
 稳定的指标可以保证不会改变。这意味着：
 
-* 稳定的、不包含已弃用（deprecated）签名的指标不会被删除（或重命名）
+* 稳定的、不包含已弃用（deprecated）签名的指标不会被删除或重命名
 * 稳定的指标的类型不会被更改
 
 已弃用的指标最终将被删除，不过仍然可用。
-这类指标包含注解，标明其被废弃的版本。
+这类指标包含注解，标明其是在哪个版本被弃用的。
 
 <!--
 For example:
@@ -143,13 +149,26 @@ For example:
   ```
 
 <!--
-Hidden metrics are no longer published for scraping, but are still available for use. To use a
-hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section.
+Hidden metrics are no longer published for scraping, but are still available for use.
+A deprecated metric becomes a hidden metric after a period of time, based on its stability level:
+* **STABLE** metrics become hidden after a minimum of 3 releases or 9 months, whichever is longer.
+* **BETA** metrics become hidden after a minimum of 1 release or 4 months, whichever is longer.
+* **ALPHA** metrics can be hidden or removed in the same release in which they are deprecated.
+
+To use a hidden metric, you must enable it. For more details, refer to the
+[Show hidden metrics](#show-hidden-metrics) section. 
 
 Deleted metrics are no longer published and cannot be used.
 -->
 隐藏的指标不会再被发布以供抓取，但仍然可用。
-要使用隐藏指标，请参阅[显式隐藏指标](#show-hidden-metrics)节。
+弃用的指标会根据其稳定性级别在一段时间后成为隐藏的指标。
+
+* **STABLE** 指标在弃用后至少 3 个发行版或 9 个月（以较长者为准）后变为隐藏。
+* **BETA** 指标在弃用后至少 1 个发行版或 4 个月（以较长者为准）后变为隐藏。
+* **ALPHA** 指标可以在其被弃用的同一发行版内就被隐藏或移除。
+
+要使用某个隐藏的指标，你必须先启用此指标。
+更多细节请参阅[显示隐藏指标](#show-hidden-metrics)一节。
 
 删除的指标不再被发布，亦无法使用。
 
@@ -176,34 +195,34 @@ patch release, the reason for that is the metrics deprecation policy runs agains
 即使指标可能会在补丁程序发行版中弃用，原因是指标弃用策略规定仅针对次要版本。
 
 <!--
-The flag can only take the previous minor version as it's value. All metrics hidden in previous
-will be emitted if admins set the previous version to `show-hidden-metrics-for-version`. The too
-old version is not allowed because this violates the metrics deprecated policy.
+The flag can only take the previous minor version as its value.
+If you want to show all metrics hidden in the previous release,
+you can set the `show-hidden-metrics-for-version` flag to the previous version.
+Using a version that is too old is not allowed because it violates the metrics deprecation policy.
 
-Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. According to metrics
-deprecated policy, we can reach the following conclusion:
+For example, let's assume metric `A` is deprecated in `1.29`.
+The version in which metric `A` becomes hidden depends on its stability level:
 -->
-此参数的取值只能使用前一个次要版本。如果管理员将前一个版本设置为 `show-hidden-metrics-for-version`，
-则前一个版本中隐藏的度量值会再度生成。不允许使用过旧的版本，因为那样会违反指标弃用策略。
+此参数的取值只能使用前一个次要版本。如果你想显示前一发行版中隐藏的所有指标，你可以将
+`show-hidden-metrics-for-version` 参数设置为前一个版本。
+不允许使用过旧的版本，因为那样会违反指标弃用策略。
 
-以指标 `A` 为例，此处假设 `A` 在 `1.n` 中已弃用。根据指标弃用策略，我们可以得出以下结论：
+例如，假设指标 `A` 在 `1.29` 中被弃用。指标 `A` 在哪个版本变为隐藏取决于其稳定性级别：
 
 <!--
-* In release `1.n`, the metric is deprecated, and it can be emitted by default.
-* In release `1.n+1`, the metric is hidden by default and it can be emitted by command line
-  `show-hidden-metrics-for-version=1.n`.
-* In release `1.n+2`, the metric should be removed from the codebase. No escape hatch anymore.
-
-If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in
-`1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember
-to remove this metric dependency before upgrading to `1.14`
+* If metric `A` is **ALPHA**, it could be hidden in `1.29`.
+* If metric `A` is **BETA**, it will be hidden in `1.30` at the earliest.
+  If you are upgrading to `1.30` and still need `A`, you must use the
+  command-line flag `--show-hidden-metrics-for-version=1.29`.
+* If metric `A` is **STABLE**, it will be hidden in `1.32` at the earliest.
+  If you are upgrading to `1.32` and still need `A`, you must use the
+  command-line flag `--show-hidden-metrics-for-version=1.31`.
 -->
-* 在版本 `1.n` 中，这个指标已经弃用，且默认情况下可以生成。
-* 在版本 `1.n+1` 中，这个指标默认隐藏，可以通过命令行参数 `show-hidden-metrics-for-version=1.n` 来再度生成。
-* 在版本 `1.n+2` 中，这个指标就将被从代码中移除，不会再有任何逃生窗口。
-
-如果你要从版本 `1.12` 升级到 `1.13`，但仍依赖于 `1.12` 中弃用的指标 `A`，则应通过命令行设置隐藏指标：
-`--show-hidden-metrics=1.12`，并记住在升级到 `1.14` 版本之前移除此指标依赖项。
+* 如果指标 `A` 是 **ALPHA** 指标，它可能会在 `1.29` 中被隐藏。
+* 如果指标 `A` 是 **BETA** 指标，它最早会在 `1.30` 中被隐藏。如果你要升级到 `1.30`
+  且仍然需要 `A`，你必须使用命令行参数 `--show-hidden-metrics-for-version=1.29`。
+* 如果指标 `A` 是 **STABLE（稳定）**版本，它最早会在 `1.32` 中被隐藏。如果你要升级到 `1.32`
+  且仍然需要 `A`，你必须使用命令行参数 `--show-hidden-metrics-for-version=1.31`。
 
 <!--
 ## Component metrics
@@ -257,8 +276,8 @@ of all running pods. These metrics can be used to build capacity planning dashbo
 current or historical scheduling limits, quickly identify workloads that cannot schedule due to
 lack of resources, and compare actual usage to the pod's request.
 -->
-调度器会暴露一些可选的指标，报告所有运行中 Pod 所请求的资源和期望的约束值。
-这些指标可用来构造容量规划监控面板、访问调度约束的当前或历史数据、
+调度器会暴露一些可选的指标，报告所有运行中 Pod 所请求的资源和期望的限制值。
+这些指标可用来构造容量规划监控面板、访问当前或历史的调度限制值、
 快速发现因为缺少资源而无法被调度的负载，或者将 Pod 的实际资源用量与其请求值进行比较。
 
 <!--
@@ -274,10 +293,10 @@ metrics timeseries. The time series is labelled by:
 - the name of the resource (for example, `cpu`)
 - the unit of the resource if known (for example, `cores`)
 -->
-kube-scheduler 组件能够辩识各个 Pod 所配置的资源
-[请求和约束](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
-在 Pod 的资源请求值或者约束值非零时，kube-scheduler 会以度量值时间序列的形式
-生成报告。该时间序列值包含以下标签：
+kube-scheduler 组件能够辩识各个 Pod
+所配置的资源[请求和限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
+在 Pod 的资源请求值或者限制值非零时，kube-scheduler 会以度量值时间序列的形式生成报告。
+该时间序列值包含以下标签：
 
 - 名字空间
 - Pod 名称
@@ -315,7 +334,7 @@ flag to expose these alpha stability metrics.
 <!--
 ### kubelet Pressure Stall Information (PSI) metrics
 -->
-### kubelet 压力阻塞信息（PSI）指标
+### kubelet 压力阻塞信息（PSI）指标  {#kubelet-pressure-stall-information-psi-metrics}
 
 {{< feature-state for_k8s_version="v1.34" state="beta" >}}
 
@@ -444,7 +463,8 @@ count of unexpected categorizations during cardinality enforcement, that is, whe
 is encountered that is not allowed with respect to the allow-list constraints.
 -->
 此外，`cardinality_enforcement_unexpected_categorizations_total`
-元指标记录基数执行期间意外分类的计数，即每当遇到允许列表约束不允许的标签值时。
+元指标记录基数执行期间意外分类的计数，
+即每当遇到不在允许列表约束中的标签值时进行计数。
 
 ## {{% heading "whatsnext" %}}
 
