@@ -257,21 +257,26 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
      {{< tabs name="hosts" >}}
      {{% tab name="Linux" %}}
-   Look up the external IP address as reported by minikube
+   Look up the external IP address as reported by minikube:
    ```none
      minikube ip 
    ``` 
    <br>
 
+   The output is similar to:
+
+   ```none
+     172.17.0.15
+   ```
+   Add the following line to your `/etc/hosts` file.  
+   Make sure to replace the IP address with the output from `minikube ip`:
    ```none
      172.17.0.15 hello-world.example
    ```
-   
-   {{< note >}}
-   Change the IP address to match the output from `minikube ip`.
-   {{< /note >}}
    {{% /tab %}}
      {{% tab name="MacOS" %}} 
+
+   Add the following line to the `/etc/hosts` file:
    ```none
    127.0.0.1 hello-world.example
    ```
