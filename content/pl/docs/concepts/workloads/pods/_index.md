@@ -245,7 +245,7 @@ mają pewne ograniczenia:
 Powyższe zasady aktualizacji dotyczą standardowych zmian w Podach, jednak niektóre pola Poda mogą być aktualizowane za pomocą _podzasobów_.
 
 - **Zmiana rozmiaru:** Podzasób `resize` umożliwia aktualizację zasobów kontenera (`spec.containers
-  [*].resources`). Szczegółowe informacje znajdują się w sekcji [Zmiana rozmiaru zasobów kontenera](#resize-container-resources).
+  [*].resources`). Szczegółowe informacje znajdują się w sekcji [Zmiana rozmiaru zasobów kontenera](/docs/tasks/configure-pod-container/resize-container-resources/).
 - **Kontenery efemeryczne:** Podzasób `ephemeralContainers` umożliwia
   dodanie do Poda {{< glossary_tooltip text="kontenera efemerycznego" term_id="ephemeral-container" >}}.
   Aby uzyskać więcej szczegółów zobacz

@@ -708,7 +708,7 @@ Alternatively, you can use the `kubectl autoscale` command to accomplish the sam
 或者，可以使用 `kubectl autoscale` 命令完成相同的操作（而且它更简单！）
 
 ```shell
-kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
+kubectl autoscale rs frontend --max=10 --min=3 --cpu=50%
 ```
 
 <!--
