@@ -249,514 +249,6 @@ exhausts the cluster's supply of Pod IPs.
 
 You can find more examples on [Viewing and Setting Quotas](#viewing-and-setting-quotas).
 
-## Quota Scopes
-
-Each quota can have an associated set of `scopes`. A quota will only measure usage for a resource if it matches
-the intersection of enumerated scopes.
-
-When a scope is added to the quota, it limits the number of resources it supports to those that pertain to the scope.
-Resources specified on the quota outside of the allowed set results in a validation error.
-
-| Scope | Description |
-| ----- | ----------- |
-| `Terminating` | Match pods where `.spec.activeDeadlineSeconds` >= `0` |
-| `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds` is `nil` |
-| `BestEffort` | Match pods that have best effort quality of service. |
-| `NotBestEffort` | Match pods that do not have best effort quality of service. |
-| `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
-| `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
-| `VolumeAttributesClass` | Match persistentvolumeclaims that references the specified [volume attributes class](/docs/concepts/storage/volume-attributes-classes). |
-
-The `BestEffort` scope restricts a quota to tracking the following resource:
-
-* `pods`
-
-The `Terminating`, `NotTerminating`, `NotBestEffort` and `PriorityClass`
-scopes restrict a quota to tracking the following resources:
-
-* `pods`
-* `cpu`
-* `memory`
-* `requests.cpu`
-* `requests.memory`
-* `limits.cpu`
-* `limits.memory`
-
-Note that you cannot specify both the `Terminating` and the `NotTerminating`
-scopes in the same quota, and you cannot specify both the `BestEffort` and
-`NotBestEffort` scopes in the same quota either.
-
-The `scopeSelector` supports the following values in the `operator` field:
-
-* `In`
-* `NotIn`
-* `Exists`
-* `DoesNotExist`
-
-When using one of the following values as the `scopeName` when defining the
-`scopeSelector`, the `operator` must be `Exists`.
-
-* `Terminating`
-* `NotTerminating`
-* `BestEffort`
-* `NotBestEffort`
-
-If the `operator` is `In` or `NotIn`, the `values` field must have at least
-one value. For example:
-
-```yaml
-  scopeSelector:
-    matchExpressions:
-      - scopeName: PriorityClass
-        operator: In
-        values:
-          - middle
-```
-
-If the `operator` is `Exists` or `DoesNotExist`, the `values` field must *NOT* be
-specified.
-
-### Resource Quota Per PriorityClass
-
-{{< feature-state for_k8s_version="v1.17" state="stable" >}}
-
-Pods can be created at a specific [priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority).
-You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
-field in the quota spec.
-
-A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
-
-When quota is scoped for priority class using `scopeSelector` field, quota object
-is restricted to track only following resources:
-
-* `pods`
-* `cpu`
-* `memory`
-* `ephemeral-storage`
-* `limits.cpu`
-* `limits.memory`
-* `limits.ephemeral-storage`
-* `requests.cpu`
-* `requests.memory`
-* `requests.ephemeral-storage`
-
-This example creates a quota object and matches it with pods at specific priorities. The example
-works as follows:
-
-- Pods in the cluster have one of the three priority classes, "low", "medium", "high".
-- One quota object is created for each priority.
-
-Save the following YAML to a file `quota.yaml`.
-
-{{% code_sample file="policy/quota.yaml" %}}
-
-Apply the YAML using `kubectl create`.
-
-```shell
-kubectl create -f ./quota.yaml
-```
-
-```
-resourcequota/pods-high created
-resourcequota/pods-medium created
-resourcequota/pods-low created
-```
-
-Verify that `Used` quota is `0` using `kubectl describe quota`.
-
-```shell
-kubectl describe quota
-```
-
-```
-Name:       pods-high
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     1k
-memory      0     200Gi
-pods        0     10
-
-
-Name:       pods-low
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     5
-memory      0     10Gi
-pods        0     10
-
-
-Name:       pods-medium
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     10
-memory      0     20Gi
-pods        0     10
-```
-
-Create a pod with priority "high". Save the following YAML to a
-file `high-priority-pod.yaml`.
-
-{{% code_sample file="policy/high-priority-pod.yaml" %}}
-
-Apply it with `kubectl create`.
-
-```shell
-kubectl create -f ./high-priority-pod.yaml
-```
-
-Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
-the other two quotas are unchanged.
-
-```shell
-kubectl describe quota
-```
-
-```
-Name:       pods-high
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         500m  1k
-memory      10Gi  200Gi
-pods        1     10
-
-
-Name:       pods-low
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     5
-memory      0     10Gi
-pods        0     10
-
-
-Name:       pods-medium
-Namespace:  default
-Resource    Used  Hard
---------    ----  ----
-cpu         0     10
-memory      0     20Gi
-pods        0     10
-```
-
-### Cross-namespace Pod Affinity Quota
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
-
-Operators can use `CrossNamespacePodAffinity` quota scope to limit which namespaces are allowed to
-have pods with affinity terms that cross namespaces. Specifically, it controls which pods are allowed
-to set `namespaces` or `namespaceSelector` fields in pod affinity terms.
-
-Preventing users from using cross-namespace affinity terms might be desired since a pod
-with anti-affinity constraints can block pods from all other namespaces
-from getting scheduled in a failure domain.
-
-Using this scope operators can prevent certain namespaces (`foo-ns` in the example below)
-from having pods that use cross-namespace pod affinity by creating a resource quota object in
-that namespace with `CrossNamespacePodAffinity` scope and hard limit of 0:
-
-```yaml
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: disable-cross-namespace-affinity
-  namespace: foo-ns
-spec:
-  hard:
-    pods: "0"
-  scopeSelector:
-    matchExpressions:
-    - scopeName: CrossNamespacePodAffinity
-      operator: Exists
-```
-
-If operators want to disallow using `namespaces` and `namespaceSelector` by default, and
-only allow it for specific namespaces, they could configure `CrossNamespacePodAffinity`
-as a limited resource by setting the kube-apiserver flag `--admission-control-config-file`
-to the path of the following configuration file:
-
-```yaml
-apiVersion: apiserver.config.k8s.io/v1
-kind: AdmissionConfiguration
-plugins:
-- name: "ResourceQuota"
-  configuration:
-    apiVersion: apiserver.config.k8s.io/v1
-    kind: ResourceQuotaConfiguration
-    limitedResources:
-    - resource: pods
-      matchScopes:
-      - scopeName: CrossNamespacePodAffinity
-        operator: Exists
-```
-
-With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
-if the namespace where they are created have a resource quota object with
-`CrossNamespacePodAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
-
-### Resource Quota Per VolumeAttributesClass
-
-{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
-
-PersistentVolumeClaims can be created with a specific [volume attributes class](/docs/concepts/storage/volume-attributes-classes/), and might be modified after creation. You can control a PVC's consumption of storage resources based on the associated volume attributes classes, by using the `scopeSelector` field in the quota spec.
-
-The PVC references the associated volume attributes class by the following fields:
-
-* `spec.volumeAttributesClassName`
-* `status.currentVolumeAttributesClassName`
-* `status.modifyVolumeStatus.targetVolumeAttributesClassName`
-
-A quota is matched and consumed only if `scopeSelector` in the quota spec selects the PVC.
-
-When the quota is scoped for the volume attributes class using the `scopeSelector` field, the quota object is restricted to track only the following resources:
-
-* `persistentvolumeclaims`
-* `requests.storage`
-
-This example creates a quota object and matches it with PVC at specific volume attributes classes. The example works as follows:
-
-- PVCs in the cluster have at least one of the three volume attributes classes, "gold", "silver", "copper".
-- One quota object is created for each volume attributes class.
-
-Save the following YAML to a file `quota-vac.yaml`.
-
-{{% code_sample file="policy/quota-vac.yaml" %}}
-
-Apply the YAML using `kubectl create`.
-
-```shell
-kubectl create -f ./quota-vac.yaml
-```
-
-```
-resourcequota/pvcs-gold created
-resourcequota/pvcs-silver created
-resourcequota/pvcs-copper created
-```
-
-Verify that `Used` quota is `0` using `kubectl describe quota`.
-
-```shell
-kubectl describe quota
-```
-
-```
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     30Gi
-```
-
-Create a pvc with volume attributes class "gold". Save the following YAML to a file `gold-vac-pvc.yaml`.
-
-{{% code_sample file="policy/gold-vac-pvc.yaml" %}}
-
-Apply it with `kubectl create`.
-
-```shell
-kubectl create -f ./gold-vac-pvc.yaml
-```
-
-Verify that "Used" stats for "gold" volume attributes class quota, `pvcs-gold` has changed and that the other two quotas are unchanged.
-
-```shell
-kubectl describe quota
-```
-
-```
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     30Gi
-```
-
-Once the PVC is bound, it is allowed to modify the desired volume attributes class. Let's change it to "silver" with kubectl patch.
-
-```shell
-kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"silver"}}'
-```
-
-Verify that "Used" stats for "silver" volume attributes class quota, `pvcs-silver` has changed, `pvcs-copper` is unchanged, and `pvcs-gold` might be unchanged or released, which depends on the PVC's status.
-
-```shell
-kubectl describe quota
-```
-
-```
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     30Gi
-```
-
-Let's change it to "copper" with kubectl patch. 
-
-```shell
-kubectl patch pvc gold-vac-pvc --type='merge' -p '{"spec":{"volumeAttributesClassName":"copper"}}'
-```
-
-Verify that "Used" stats for "copper" volume attributes class quota, `pvcs-copper` has changed, `pvcs-silver` and `pvcs-gold` might be unchanged or released, which depends on the PVC's status. 
-
-```shell
-kubectl describe quota
-```
-
-```
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   30Gi
-```
-
-Print the manifest of the PVC using the following command:
-
-```shell
-kubectl get pvc gold-vac-pvc -o yaml
-```
-
-It might show the following output:
-
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: gold-vac-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
-  storageClassName: default
-  volumeAttributesClassName: copper
-status:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 2Gi
-  currentVolumeAttributesClassName: gold
-  phase: Bound
-  modifyVolumeStatus:
-    status: InProgress
-    targetVolumeAttributesClassName: silver
-  storageClassName: default
-```
-
-Wait a moment for the volume modification to complete, then verify the quota again.
-
-```shell
-kubectl describe quota
-```
-
-```
-Name:                   pvcs-gold
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     10Gi
-
-
-Name:                   pvcs-silver
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  0     10
-requests.storage        0     20Gi
-
-
-Name:                   pvcs-copper
-Namespace:              default
-Resource                Used  Hard
---------                ----  ----
-persistentvolumeclaims  1     10
-requests.storage        2Gi   30Gi
-```
-
-## Requests compared to Limits {#requests-vs-limits}
-
-When allocating compute resources, each container may specify a request and a limit value for either CPU or memory.
-The quota can be configured to quota either value.
-
-If the quota has a value specified for `requests.cpu` or `requests.memory`, then it requires that every incoming
-container makes an explicit request for those resources. If the quota has a value specified for `limits.cpu` or `limits.memory`,
-then it requires that every incoming container specifies an explicit limit for those resources.
-
 ## Viewing and Setting Quotas
 
 kubectl supports creating, updating, and viewing quotas:
@@ -901,7 +393,299 @@ hard limits of each namespace according to other signals.
 Note that resource quota divides up aggregate cluster resources, but it creates no
 restrictions around nodes: pods from several namespaces may run on the same node.
 
-## Limit Priority Class consumption by default
+## Quota scopes
+
+Each quota can have an associated set of `scopes`. A quota will only measure usage for a resource if it matches
+the intersection of enumerated scopes.
+
+When a scope is added to the quota, it limits the number of resources it supports to those that pertain to the scope.
+Resources specified on the quota outside of the allowed set results in a validation error.
+
+Kubernetes {{< skew currentVersion >}} supports the following scopes:
+
+| Scope | Description |
+| ----- | ----------- |
+| [`BestEffort`](#quota-scope-best-effort) | Match pods that have best effort quality of service. |
+| [`CrossNamespacePodAffinity`](#cross-namespace-pod-affinity-scope) | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
+| [`NotBestEffort`](#quota-scope-non-best-effort) | Match pods that do not have best effort quality of service. |
+| [`NotTerminating`](#quota-scope-non-terminating) | Match pods where `.spec.activeDeadlineSeconds`]() is `nil`]() |
+| [`PriorityClass`](#resource-quota-per-priorityclass) | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
+| [`Terminating`](#quota-scope-terminating) | Match pods where `.spec.activeDeadlineSeconds`]() >= `0`]() |
+| [`VolumeAttributesClass`](#quota-scope-volume-attributes-class) | Match PersistentVolumeClaims that reference the specified [volume attributes class](/docs/concepts/storage/volume-attributes-classes). |
+
+ResourceQuotas with a scope set can also have a optional `scopeSelector` field. You define one or more _match expressions_
+that specify an `operators` and, if relevant, a set of `values` to match. For example:
+
+```yaml
+  scopeSelector:
+    matchExpressions:
+      - scopeName: BestEffort # Match pods that have best effort quality of service
+        operator: Exists # optional; "Exists" is implied for BestEffort scope
+```
+
+The `scopeSelector` supports the following values in the `operator` field:
+
+* `In`
+* `NotIn`
+* `Exists`
+* `DoesNotExist`
+
+If the `operator` is `In` or `NotIn`, the `values` field must have at least
+one value. For example:
+
+```yaml
+  scopeSelector:
+    matchExpressions:
+      - scopeName: PriorityClass
+        operator: In
+        values:
+          - middle
+```
+
+If the `operator` is `Exists` or `DoesNotExist`, the `values` field must *NOT* be
+specified.
+
+### Best effort Pods scope {#quota-scope-best-effort}
+
+This scope only tracks quota consumed by Pods.
+It only matches pods that have the [best effort](/docs/concepts/workloads/pods/pod-qos/#besteffort)
+[QoS class](/docs/concepts/workloads/pods/pod-qos/).
+
+The `operator` for a `scopeSelector` must be `Exists`.
+
+### Not-best-effort Pods scope {#quota-scope-non-best-effort}
+
+This scope only tracks quota consumed by Pods.
+It only matches pods that have the [Guaranteed](/docs/concepts/workloads/pods/pod-qos/#guaranteed)
+or [Burstable](/docs/concepts/workloads/pods/pod-qos/#burstable)
+[QoS class](/docs/concepts/workloads/pods/pod-qos/).
+
+The `operator` for a `scopeSelector` must be `Exists`.
+
+### Non-terminating Pods scope {#quota-scope-non-terminating}
+
+This scope only tracks quota consumed by Pods that are not terminating. The `operator` for a `scopeSelector`
+must be `Exists`.
+
+A Pod is not terminating if the `.spec.activeDeadlineSeconds` field is unset.
+
+You can use a ResourceQuota with this scope to manage the following resources:
+
+* `count.pods`
+* `pods`
+* `cpu`
+* `memory`
+* `requests.cpu`
+* `requests.memory`
+* `limits.cpu`
+* `limits.memory`
+
+### Terminating Pods scope {#quota-scope-terminating}
+
+This scope only tracks quota consumed by Pods that are terminating. The `operator` for a `scopeSelector`
+must be `Exists`.
+
+A Pod is considered as _terminating_ if the `.spec.activeDeadlineSeconds` field is set to any number.
+
+You can use a ResourceQuota with this scope to manage the following resources:
+
+* `count.pods`
+* `pods`
+* `cpu`
+* `memory`
+* `requests.cpu`
+* `requests.memory`
+* `limits.cpu`
+* `limits.memory`
+
+### Cross-namespace pod affinity scope
+ 
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
+You can use `CrossNamespacePodAffinity` [quota scope](#quota-scopes) to limit which namespaces are allowed to
+have pods with affinity terms that cross namespaces. Specifically, it controls which pods are allowed
+to set `namespaces` or `namespaceSelector` fields in pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node).
+
+Preventing users from using cross-namespace affinity terms might be desired since a pod
+with anti-affinity constraints can block pods from all other namespaces
+from getting scheduled in a failure domain.
+
+Using this scope, you (as a cluster administrator) can prevent certain namespaces - such as `foo-ns` in the example below -
+from having pods that use cross-namespace pod affinity. You configure this creating a ResourceQuota object in
+that namespace with `CrossNamespacePodAffinity` scope and hard limit of 0:
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: disable-cross-namespace-affinity
+  namespace: foo-ns
+spec:
+  hard:
+    pods: "0"
+  scopeSelector:
+    matchExpressions:
+    - scopeName: CrossNamespacePodAffinity
+      operator: Exists
+```
+
+If you want to disallow using `namespaces` and `namespaceSelector` by default, and
+only allow it for specific namespaces, you could configure `CrossNamespacePodAffinity`
+as a limited resource by setting the kube-apiserver flag `--admission-control-config-file`
+to the path of the following configuration file:
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: "ResourceQuota"
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: ResourceQuotaConfiguration
+    limitedResources:
+    - resource: pods
+      matchScopes:
+      - scopeName: CrossNamespacePodAffinity
+        operator: Exists
+```
+
+With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
+if the namespace where they are created have a resource quota object with
+`CrossNamespacePodAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
+
+### PriorityClass scope {#resource-quota-per-priorityclass}
+
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
+
+A ResourceQuota with a PriorityClass scope only matches Pods that have a particular
+[priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption), and only
+if any `scopeSelector` in the quota spec selects a particular Pod.
+
+Pods can be created at a specific [priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority).
+You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
+field in the quota spec.
+
+
+When quota is scoped for PriorityClass using the `scopeSelector` field, the ResourceQuota
+can only track (and limit) the following resources:
+
+* `pods`
+* `cpu`
+* `memory`
+* `ephemeral-storage`
+* `limits.cpu`
+* `limits.memory`
+* `limits.ephemeral-storage`
+* `requests.cpu`
+* `requests.memory`
+* `requests.ephemeral-storage`
+
+#### Example {#quota-scope-priorityclass-example}
+
+This example creates a ResourceQuota matches it with pods at specific priorities. The example
+works as follows:
+
+- Pods in the cluster have one of the three [PriorityClasses](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass), "low", "medium", "high".
+  - If you want to try this out, use a testing cluster and set up those three PriorityClasses before you continue.
+- One quota object is created for each priority.
+
+Inspect this set of ResourceQuotas:
+
+{{% code_sample file="policy/quota.yaml" %}}
+
+Apply the YAML using `kubectl create`.
+
+```shell
+kubectl create -f https://k8s.io/examples/policy/quota.yaml
+```
+
+```
+resourcequota/pods-high created
+resourcequota/pods-medium created
+resourcequota/pods-low created
+```
+
+Verify that `Used` quota is `0` using `kubectl describe quota`.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:       pods-high
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     1k
+memory      0     200Gi
+pods        0     10
+
+
+Name:       pods-low
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     5
+memory      0     10Gi
+pods        0     10
+
+
+Name:       pods-medium
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     10
+memory      0     20Gi
+pods        0     10
+```
+
+Create a pod with priority "high".
+
+{{% code_sample file="policy/high-priority-pod.yaml" %}}
+
+To create the Pod:
+
+```shell
+kubectl create -f https://k8s.io/examples/policy/high-priority-pod.yaml
+
+```
+
+Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
+the other two quotas are unchanged.
+
+```shell
+kubectl describe quota
+```
+
+```
+Name:       pods-high
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         500m  1k
+memory      10Gi  200Gi
+pods        1     10
+
+
+Name:       pods-low
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     5
+memory      0     10Gi
+pods        0     10
+
+
+Name:       pods-medium
+Namespace:  default
+Resource    Used  Hard
+--------    ----  ----
+cpu         0     10
+memory      0     20Gi
+pods        0     10
+```
+
+#### Limiting PriorityClass consumption by default
 
 It may be desired that pods at a particular priority, such as "cluster-services",
 should be allowed in a namespace, if and only if, a matching quota object exists.
@@ -950,6 +734,33 @@ In this case, a pod creation will be allowed if:
 
 A Pod creation request is rejected if its `priorityClassName` is set to `cluster-services`
 and it is to be created in a namespace other than `kube-system`.
+
+### VolumeAttributesClass scope {#quota-scope-volume-attributes-class}
+
+{{< feature-state feature_gate_name="VolumeAttributesClass" >}}
+
+This scope only tracks quota consumed by PersistentVolumeClaims.
+
+PersistentVolumeClaims can be created with a specific
+[VolumeAttributesClass](/docs/concepts/storage/volume-attributes-classes/), and might be modified after creation.
+You can control a PVC's consumption of storage resources based on the associated
+VolumeAttributesClasses, by using the `scopeSelector` field in the quota spec.
+
+The PVC references the associated VolumeAttributesClass by the following fields:
+
+* `spec.volumeAttributesClassName`
+* `status.currentVolumeAttributesClassName`
+* `status.modifyVolumeStatus.targetVolumeAttributesClassName`
+
+A relevant ResourceQuota is matched and consumed only if the ResourceQuota has a `scopeSelector` that selects the PVC.
+
+When the quota is scoped for the volume attributes class using the `scopeSelector` field, the quota object is restricted to track only the following resources:
+
+* `persistentvolumeclaims`
+* `requests.storage`
+
+Read [Limit Storage Consumption](/docs/tasks/administer-cluster/limit-storage-consumption/) to learn more about this.
+
 
 ## {{% heading "whatsnext" %}}
 

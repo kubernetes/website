@@ -57,9 +57,11 @@ rules:
 
 ## Metric lifecycle
 
-Alpha metric →  Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
+Alpha metric → Beta metric → Stable metric →  Deprecated metric →  Hidden metric → Deleted metric
 
 Alpha metrics have no stability guarantees. These metrics can be modified or deleted at any time.
+
+Beta metrics observe a looser API contract than its stable counterparts. No labels can be removed from beta metrics during their lifetime, however, labels can be added while the metric is in the beta stage.
 
 Stable metrics are guaranteed to not change. This means:
 
@@ -87,8 +89,13 @@ For example:
   some_counter 0
   ```
 
-Hidden metrics are no longer published for scraping, but are still available for use. To use a
-hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section. 
+Hidden metrics are no longer published for scraping, but are still available for use.
+A deprecated metric becomes a hidden metric after a period of time, based on its stability level:
+* **STABLE** metrics become hidden after a minimum of 3 releases or 9 months, whichever is longer.
+* **BETA** metrics become hidden after a minimum of 1 release or 4 months, whichever is longer.
+* **ALPHA** metrics can be hidden or removed in the same release in which they are deprecated.
+
+To use a hidden metric, you must enable it. For more details, refer to the [Show hidden metrics](#show-hidden-metrics) section. 
 
 Deleted metrics are no longer published and cannot be used.
 
@@ -103,21 +110,12 @@ deprecated in that release. The version is expressed as x.y, where x is the majo
 the minor version. The patch version is not needed even though a metrics can be deprecated in a
 patch release, the reason for that is the metrics deprecation policy runs against the minor release.
 
-The flag can only take the previous minor version as it's value. All metrics hidden in previous
-will be emitted if admins set the previous version to `show-hidden-metrics-for-version`. The too
-old version is not allowed because this violates the metrics deprecated policy.
+The flag can only take the previous minor version as its value. If you want to show all metrics hidden in the previous release, you can set the `show-hidden-metrics-for-version` flag to the previous version. Using a version that is too old is not allowed because it violates the metrics deprecation policy.
 
-Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. According to metrics
-deprecated policy, we can reach the following conclusion:
-
-* In release `1.n`, the metric is deprecated, and it can be emitted by default.
-* In release `1.n+1`, the metric is hidden by default and it can be emitted by command line
-  `show-hidden-metrics-for-version=1.n`.
-* In release `1.n+2`, the metric should be removed from the codebase. No escape hatch anymore.
-
-If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in
-`1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember
-to remove this metric dependency before upgrading to `1.14`
+For example, let's assume metric `A` is deprecated in `1.29`. The version in which metric `A` becomes hidden depends on its stability level:
+* If metric `A` is **ALPHA**, it could be hidden in `1.29`.
+* If metric `A` is **BETA**, it will be hidden in `1.30` at the earliest. If you are upgrading to `1.30` and still need `A`, you must use the command-line flag `--show-hidden-metrics-for-version=1.29`.
+* If metric `A` is **STABLE**, it will be hidden in `1.32` at the earliest. If you are upgrading to `1.32` and still need `A`, you must use the command-line flag `--show-hidden-metrics-for-version=1.31`.
 
 ## Component metrics
 
