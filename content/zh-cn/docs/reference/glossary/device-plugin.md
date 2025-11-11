@@ -26,13 +26,15 @@ tags:
 <!-- 
  Device plugins run on worker
 {{< glossary_tooltip term_id="node" text="Nodes">}} and provide
-{{< glossary_tooltip term_id="pod" text="Pods">}} with access to resources,
+{{< glossary_tooltip term_id="pod" text="Pods">}} with access to
+infrastructure {{< glossary_tooltip text="resources" term_id="infrastructure-resource" >}},
 such as local hardware, that require vendor-specific initialization or setup
 steps.
 -->
 设备插件在工作{{<glossary_tooltip term_id="node" text="节点">}}上运行并为
-{{<glossary_tooltip term_id="pod" text="Pod">}} 提供访问资源的能力，
-例如：本地硬件这类资源需要特定于供应商的初始化或安装步骤。
+{{<glossary_tooltip term_id="pod" text="Pod">}}
+提供访问基础设施{{< glossary_tooltip text="资源" term_id="infrastructure-resource" >}}的能力，
+例如本地硬件这类资源需要特定于供应商的初始化或安装步骤。
 
 <!--more-->
 
@@ -50,7 +52,6 @@ Pod 访问 Pod 运行所在节点上的硬件功能特性。
 
 <!-- 
 See
-	 
 [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 for more information.
 -->
