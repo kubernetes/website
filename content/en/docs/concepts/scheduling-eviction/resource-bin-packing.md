@@ -98,6 +98,8 @@ scheduler.
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 
+The scheduler calculates a score for each resource based on its utilization, and then combines these scores using their respective weights to determine the final node score.
+
 ### How weights influence bin packing
 
 When you enable bin packing for specific resources, resource weights play a crucial role in determining final node scores. Resources with higher weights have a stronger influence on scheduling decisions. For example, if you set `intel.com/foo` to weight 3 while CPU has weight 1, the scheduler will prioritize packing based on `intel.com/foo` utilization more heavily. This is especially useful when you want to optimize for scarce or expensive resources—you simply increase their weight, and the scheduler automatically favors nodes where those resources are most densely packed.
