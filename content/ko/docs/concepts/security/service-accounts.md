@@ -255,7 +255,7 @@ metadata:
 `TokenRequest` API는 서비스어카운트(ServiceAccount)에 대해 _바운드 토큰_ 을 생성한다. 이 바인딩은
 해당 서비스어카운트(ServiceAccount)로 동작하는 파드와 같이 클라이언트의 수명과
 연결된다. 바운드 파드 서비스 어카운트 토큰의 JWT 스키마와 페이로드 예시는
-[Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)을 참고한다.
+[토큰 볼륨 프로젝션](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)을 참고한다.
 
 `TokenRequest` API로 발급된 토큰의 경우, API 서버는 해당 서비스어카운트(ServiceAccount)를
 사용 중인 특정 오브젝트 참조가 여전히 존재하는지도 확인하며,
