@@ -304,7 +304,7 @@ API 오브젝트에 바인딩된 토큰이 해당 오브젝트가 삭제될 때 
     클러스터에 인증한다.
   * [CertificateSigningRequest API를 클라이언트 인증서와 함께 사용](/ko/docs/tasks/tls/managing-tls-in-a-cluster/).
 * [kubelet이 이미지 레지스트리에서 자격 증명을 가져오도록 구성](/ko/docs/tasks/administer-cluster/kubelet-credential-provider/).
-* 가상 플랫폼 모듈 (TPM)에 접근하기 위해 디바이스 플러그인 사용하고,
+* 가상 플랫폼 모듈(TPM)에 접근하기 위해 디바이스 플러그인을 사용하고,
   이를 통해 개인키를 사용한 인증을 허용한다.
 
 ## {{% heading "whatsnext" %}}
