@@ -58,16 +58,17 @@ YAMl files are not just for machines, they are for humans too. Use annotations t
 
 Most of us started our Kubernetes journey by creating Pods directly. 
 While Pods are the building blocks of Kubernetes, using them directly is like driving without a seatbelt, it works until something crashes.
-"Naked Pods" (Pods not managed by a controller, [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) or a [ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)) are fine for testing, but in real setups, they are risky. 
+_Naked Pods_ (Pods not managed by a controller, such as [Deployment](/docs/concepts/workloads/controllers/deployment/) or a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)) are fine for testing, but in real setups, they are risky.
+
 Why?
 Because if the node hosting that Pod dies, the Pod dies with it and Kubernetes won't bring it back automatically. 
 
 ### Use Deployments for apps that should always be running
-A Deployment, which both creates a ReplicaSet to ensure that the desired number of Pods is always available, and specifies a strategy to replace Pods (such as [RollingUpdate](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), is almost always preferable to creating Pods directly. 
+A Deployment, which both creates a ReplicaSet to ensure that the desired number of Pods is always available, and specifies a strategy to replace Pods (such as [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), is almost always preferable to creating Pods directly.
 You can roll out a new version, and if something breaks, roll back instantly.
 
 ### Use Jobs for tasks that should finish
-A [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) is perfect when you need something to run once and then stop like database migration or batch processing task. 
+A [Job](/docs/concepts/workloads/controllers/job/) is perfect when you need something to run once and then stop like database migration or batch processing task.
 It will retry if the pods fails and report success when it's done. 
 
 ## Service Configuration and Networking
@@ -76,7 +77,9 @@ Services are how your workloads talk to each other inside (and sometimes outside
 
 ### Create Services before workloads that use them
 When Kubernetes starts a Pod, it automatically injects environment variables for existing Services.
- So, if a Pod depends on a Service. Create a [Service](https://kubernetes.io/docs/concepts/services-networking/service/) before its corresponding backend workloads (Deployments or ReplicaSets), and before any workloads that need to access it.  For example, if a Service named foo exists, all containers will get the following variables in their initial environment:
+So, if a Pod depends on a Service, create a [Service](/docs/concepts/services-networking/service/) **before** its corresponding backend workloads (Deployments or StatefulSets), and before any workloads that need to access it.
+
+For example, if a Service named foo exists, all containers will get the following variables in their initial environment:
 ```
 FOO_SERVICE_HOST=<the host the Service runs on>
 FOO_SERVICE_PORT=<the port the Service runs on>
@@ -84,7 +87,7 @@ FOO_SERVICE_PORT=<the port the Service runs on>
 DNS based discovery doesn't have this problem, but it's a good habit to follow anyway.
 
 ### Use DNS for service discovery
-If your cluster has the DNS [add-on](https://kubernetes.io/docs/concepts/cluster-administration/addons/) (most do), every Service automatically gets a DNS entry. That means you can access it by name instead of IP:
+If your cluster has the DNS [add-on](/docs/concepts/cluster-administration/addons/) (most do), every Service automatically gets a DNS entry. That means you can access it by name instead of IP:
 ```bash
 curl http://my-service.default.svc.cluster.local
 ``` 
@@ -99,14 +102,17 @@ hostNetwork: true
 But here's the thing:
 They tie your Pods to specific nodes, making them harder to schedule and scale. Because each <`hostIP`, `hostPort`, `protocol`> combination must be unique. If you don't specify the `hostIP` and `protocol` explicitly, Kubernetes will use `0.0.0.0` as the default `hostIP` and `TCP` as the default `protocol`.
 Unless you're debugging or building something like a network plugin, avoid them. 
-If you just need local access for testing, try [`kubectl port-forward`](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) :
+
+If you just need local access for testing, try [`kubectl port-forward`](/docs/reference/kubectl/generated/kubectl_port-forward/):
+
 ```bash
 kubectl port-forward deployment/web 8080:80
 ```
-Or if you really need external access, use a [NodePort Service](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport). That's the safer, Kubernetes-native way. 
+See [Use Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) to learn more.
+Or if you really need external access, use a [`type: NodePort` Service](/docs/concepts/services-networking/service/#type-nodeport). That's the safer, Kubernetes-native way. 
 
 ### Use headless Services for internal discovery 
-Sometimes, you don't want Kubernetes to load balance traffic. You want to talk directly to each Pod. That's where [headless Services](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services) come in. 
+Sometimes, you don't want Kubernetes to load balance traffic. You want to talk directly to each Pod. That's where [headless Services](/docs/concepts/services-networking/service/#headless-services) come in.
 
 You create one by setting `clusterIP: None`.
 Instead of a single IP, DNS gives you a list of all Pods IPs, perfect for apps that manage connections themselves. 
@@ -114,13 +120,13 @@ Instead of a single IP, DNS gives you a list of all Pods IPs, perfect for apps t
 
 ## Working with Labels Effectively 
 
-Labels are key/value pairs that are attached to objects such as Pods. 
+[Labels](/docs/concepts/overview/working-with-objects/labels/) are key/value pairs that are attached to objects such as Pods.
 Labels help you organize, query and group your resources.
 They don't do anything by themselves, but they make everything else from Services to Deployments work together smoothly. 
 
 ### Use semantics labels
 Good labels help you understand what's what, even after months later. 
-Define and use [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/) that identify semantic attributes of your application or Deployment. 
+Define and use [labels](/docs/concepts/overview/working-with-objects/labels/) that identify semantic attributes of your application or Deployment.
 For example;
 ```yaml
 labels:
@@ -143,8 +149,9 @@ Basically you are not manually listing Pod names; you are just describing what y
 See the [guestbook](https://github.com/kubernetes/examples/tree/master/web/guestbook/) app for examples of this approach.
 
 ### Use common Kubernetes labels
-Kubernetes actually recommends a set of ["common labels"](https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/). It's a standarized way to name things across projects. 
-Following this convention makes your YAMLs cleaner, and tools like [dashboards](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/) or monitoring systems can automatically understand what's running. 
+Kubernetes actually recommends a set of [common labels](/docs/concepts/overview/working-with-objects/common-labels/). It's a standarized way to name things across your different workloads or projects.
+Following this convention makes your manifests cleaner, and it means that tools such as [Headlamp](https://headlamp.dev/), [dashboard](https://github.com/kubernetes/dashboard#introduction), or third-party monitoring systems can all
+automatically understand what's running.
 
 ###	Manipulate labels for debugging 
 Since controllers (like ReplicaSets or Deployments) use labels to manage Pods, you can remove a label to “detach” a Pod temporarily.
@@ -155,7 +162,7 @@ kubectl label pod mypod app-
 ```
 The `app-` part removes the label key `app`.
 Once that happens, the controller won’t manage that Pod anymore.
-It’s like isolating it for inspection, a “quarantine mode” for debugging. To interactively remove or add labels, use [`kubectl label`](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#label).
+It’s like isolating it for inspection, a “quarantine mode” for debugging. To interactively remove or add labels, use [`kubectl label`](/docs/reference/kubectl/generated/kubectl_label/).
 
 You can then check logs, exec into it and once done, delete it manually.
 
@@ -174,7 +181,8 @@ This command looks for `.yaml`, `.yml` and `.json` files in that folder and appl
 It's faster, cleaner and helps keep things grouped by app. 
 
 ### Use label selectors to get or delete resources
-You don't always need to type object names. Instead, use [selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors) to act on entire groups at once:
+You don't always need to type out resource names one by one.
+Instead, use [selectors]/docs/concepts/overview/working-with-objects/labels/#label-selectors) to act on entire groups at once:
 
 ```bash
 kubectl get pods -l app=myapp
@@ -194,7 +202,7 @@ Then expose it as a Service:
 kubectl expose deployment webapp --port=80
 ```
 This is great when you just want to test something before writing full manifests. 
-Also, see [Use a Service to Access an Application in a cluster](https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example. 
+Also, see [Use a Service to Access an Application in a cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
 
 ## Conclusion
 
