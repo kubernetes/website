@@ -5,7 +5,7 @@ date: 2025-11-11
 slug: kubernetes-configuration-best-practices
 evergreen: true
 author: Kirti Goyal
-draft: false
+draft: true
 ---
 
 
