@@ -1,7 +1,6 @@
 ---
 title: 'Docs are Migrating from Jekyll to Hugo'
 date: 2018-05-05
-author: zcorleissen
 slug: hugo-migration
 author: >
   [Zach Corleissen](https://www.cncf.io/people/staff/) (CNCF) 

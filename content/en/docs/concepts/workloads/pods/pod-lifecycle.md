@@ -631,9 +631,9 @@ containers:
 
 `readinessProbe`
 : Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the EndpointSlice controller removes the Pod's IP
-  address from the EndpointSlices of all Services that match the Pod. The default
-  state of readiness before the initial delay is `Failure`. If a container does
+  If the readiness probe fails, the {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
+  controller removes the Pod's IP address from the EndpointSlices of all Services that match the Pod.
+  The default state of readiness before the initial delay is `Failure`. If a container does
   not provide a readiness probe, the default state is `Success`.
 
 `startupProbe`

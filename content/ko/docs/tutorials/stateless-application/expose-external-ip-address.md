@@ -31,7 +31,7 @@ weight: 10
 
 1. 클러스터에서 Hello World 애플리케이션을 실행한다.
 
-   {{< codenew file="service/load-balancer-example.yaml" >}}
+   {{% code_sample file="service/load-balancer-example.yaml" %}}
 
    ```shell
    kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
@@ -154,8 +154,10 @@ weight: 10
     성공적인 요청에 대한 응답으로 hello 메세지가 나타난다.
 
     ```shell
-    Hello Kubernetes!
-    ```
+   Hello, world!
+   Version: 2.0.0
+   Hostname: 0bd46b45f32f
+   ```
 
 ## {{% heading "cleanup" %}}
 

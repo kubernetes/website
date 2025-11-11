@@ -646,7 +646,7 @@ considered failed.
 
 {{< note >}}
 <!--
-If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
+If your Job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the job
 will be terminated once the job backoff limit has been reached. This can make debugging
 the Job's executable more difficult. We suggest setting
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
@@ -892,7 +892,8 @@ failure policy, and the Job is running multiple Pods, Kubernetes terminates all
 the Pods in that Job that are still Pending or Running.
 -->
 如果根据 Pod 失效策略或 Pod 回退失效策略判定 Pod 已经失效，
-并且 Job 正在运行多个 Pod，Kubernetes 将终止该 Job 中仍处于 Pending 或 Running 的所有 Pod。
+并且 Job 正在运行多个 Pod，Kubernetes 将终止该 Job 中仍处于 Pending 或
+Running 的所有 Pod。
 {{< /note >}}
 
 <!--
@@ -2081,7 +2082,6 @@ manages Pods that are expected to terminate (e.g. batch tasks).
 
 As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `Job` is *only* appropriate
 for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
-(Note: If `RestartPolicy` is not set, the default value is `Always`.)
 -->
 ### 副本控制器    {#replication-controller}
 
@@ -2091,7 +2091,13 @@ Job 管理的是那些希望被终止的 Pod（例如，批处理作业）。
 
 正如在 [Pod 生命期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/) 中讨论的，
 `Job` 仅适合于 `restartPolicy` 设置为 `OnFailure` 或 `Never` 的 Pod。
-注意：如果 `restartPolicy` 未设置，其默认值是 `Always`。
+
+{{< note >}}
+<!--
+If `RestartPolicy` is not set, the default value is `Always`.
+-->
+如果未设置 `restartPolicy`，默认值为 `Always`。
+{{< /note >}}
 
 <!--
 ### Single Job starts controller Pod
@@ -2108,17 +2114,9 @@ complicated to get started with and offers less integration with Kubernetes.
 并且与 Kubernetes 的集成度很低。
 
 <!--
-One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)),
-runs a spark driver, and then cleans up.
-
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but maintains complete control over what Pods are created and how work is assigned to them.
 -->
-这种模式的实例之一是用 Job 来启动一个运行脚本的 Pod，脚本负责启动 Spark
-主控制器（参见 [Spark 示例](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)），
-运行 Spark 驱动，之后完成清理工作。
-
 这种方法的优点之一是整个过程得到了 Job 对象的完成保障，
 同时维持了对创建哪些 Pod、如何向其分派工作的完全控制能力，
 

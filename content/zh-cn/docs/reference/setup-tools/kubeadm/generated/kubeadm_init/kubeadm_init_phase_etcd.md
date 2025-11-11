@@ -1,8 +1,3 @@
-<!-- 
-Generate static Pod manifest file for local etcd 
--->
-为本地 etcd 生成静态 Pod 的清单文件。
-
 <!--
 ### Synopsis
 -->
@@ -13,7 +8,7 @@ Generate static Pod manifest file for local etcd
 -->
 为本地 etcd 创建静态 Pod 清单。
 
-```
+```shell
 kubeadm init phase etcd [flags]
 ```
 
@@ -22,7 +17,7 @@ kubeadm init phase etcd [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -51,7 +46,7 @@ etcd 操作的帮助命令。
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />

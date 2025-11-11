@@ -931,6 +931,7 @@ Output format | Description
 `-o=json`     | Output a JSON formatted API object
 `-o=jsonpath=<template>` | Print the fields defined in a [jsonpath](/docs/reference/kubectl/jsonpath) expression
 `-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath) expression in the `<filename>` file
+`-o=kyaml`    | Output a KYAML formatted API object (alpha, requires environment variable `KUBECTL_KYAML="true"`). KYAML is an experimental Kubernetes-specific dialect of YAML, and can be parsed as YAML.
 `-o=name`     | Print only the resource name and nothing else
 `-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
 `-o=yaml`     | Output a YAML formatted API object
@@ -944,6 +945,7 @@ Output format | Description
 `-o=json`                           | 输出 JSON 格式的 API 对象
 `-o=jsonpath=<template>`            | 打印 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表达式中定义的字段
 `-o=jsonpath-file=<filename>`       | 打印在 `<filename>` 文件中定义的 [jsonpath](/zh-cn/docs/reference/kubectl/jsonpath) 表达式所指定的字段
+`-o=kyaml`                          | 输出 KYAML 格式的 API 对象（Alpha，需要环境变量 `KUBECTL_KYAML="true"`）。KYAML 是一种实验性的、特定于 Kubernetes 的 YAML 方言，可以作为 YAML 解析。
 `-o=name`                           | 仅打印资源名称而不打印其他内容
 `-o=wide`                           | 以纯文本格式输出额外信息，对于 Pod 来说，输出中包含了节点名称
 `-o=yaml`                           | 输出 YAML 格式的 API 对象

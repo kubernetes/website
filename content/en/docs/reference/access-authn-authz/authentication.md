@@ -365,11 +365,7 @@ You must specify the path to the authentication configuration using the `--authe
 continue to work as-is. To access the new capabilities like configuring multiple authenticators,
 setting multiple audiences for an issuer, switch to using the configuration file.
 
-For Kubernetes v{{< skew currentVersion >}}, the structured authentication configuration file format
-is beta-level, and the mechanism for using that configuration is also beta. Provided you didn't specifically
-disable the `StructuredAuthenticationConfiguration`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for your cluster,
-you can turn on structured authentication by specifying the `--authentication-config` command line
+To use structured authentication, specify the `--authentication-config` command line
 argument to the kube-apiserver. An example of the structured authentication configuration file is shown below.
 
 {{< note >}}
