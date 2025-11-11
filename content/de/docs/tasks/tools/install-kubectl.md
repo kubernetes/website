@@ -29,22 +29,23 @@ Nachfolgend finden Sie einige Methoden zur Installation von kubectl.
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian oder HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmour -o /usr/share/keyrings/kubernetes.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/kubernetes.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubectl
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+sudo mkdir -p -m 755 /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo chmod 644 /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update && sudo apt-get install -y kubectl
 {{< /tab >}}
-{{< tab name="CentOS, RHEL oder Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+{{< tab name="CentOS, RHEL oder Fedora" codelang="bash" >}}cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.33/rpm/repodata/repomd.xml.key
 EOF
-yum install -y kubectl
+sudo yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -345,7 +346,7 @@ Beide Ansätze sind gleichwertig. Nach dem erneuten Laden der Shell sollte kubec
 {{% tab name="Bash auf macOS" %}}
 
 {{< warning>}}
-macOS beinhaltet standardmäßig Bash 3.2. Das kubectl-Vervollständigunsskript erfordert Bash 4.1+ und funktioniert nicht mit Bash 3.2. Um dies zu umgehen, können Sie eine neuere Version von Bash unter macOS installieren (folgen Sie den Anweisungen [hier](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Die folgenden Anweisungen funktionieren nur, wenn Sie Bash 4.1 oder höher verwenden.
+macOS beinhaltet standardmäßig Bash 3.2. Das kubectl-Vervollständigunsskript erfordert Bash 4.1+ und funktioniert nicht mit Bash 3.2. Um dies zu umgehen, können Sie eine neuere Version von Bash unter macOS installieren (folgen Sie den Anweisungen [hier](https://apple.stackexchange.com/a/292760)). Die folgenden Anweisungen funktionieren nur, wenn Sie Bash 4.1 oder höher verwenden.
 {{< /warning >}}
 
 ### Einführung

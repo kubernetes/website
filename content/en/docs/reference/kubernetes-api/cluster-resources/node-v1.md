@@ -124,6 +124,11 @@ NodeSpec describes the attributes that a node is created with.
   - **taints.effect** (string), required
 
     Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+    
+    Possible enum values:
+     - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+     - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+     - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 
   - **taints.key** (string), required
 
@@ -131,7 +136,7 @@ NodeSpec describes the attributes that a node is created with.
 
   - **taints.timeAdded** (Time)
 
-    TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+    TimeAdded represents the time at which the taint was added.
 
     <a name="Time"></a>
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
@@ -444,6 +449,11 @@ NodeStatus is information about the current status of a node.
 - **phase** (string)
 
   NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+  
+  Possible enum values:
+   - `"Pending"` means the node has been created/added by the system, but not configured.
+   - `"Running"` means the node has been configured and has Kubernetes components running.
+   - `"Terminated"` means the node has been removed from the cluster.
 
 - **runtimeHandlers** ([]NodeRuntimeHandler)
 

@@ -10,6 +10,7 @@ weight: 50
 -->
 
 <!-- overview -->
+
 <!--
 Every {{< glossary_tooltip term_id="node" text="node" >}} in a Kubernetes
 {{< glossary_tooltip term_id="cluster" text="cluster" >}} runs a
@@ -29,7 +30,7 @@ of `type` other than
 -->
 `kube-proxy` 组件负责除 `type` 为
 [`ExternalName`](/zh-cn/docs/concepts/services-networking/service/#externalname)
-以外的{{< glossary_tooltip term_id="service" text="服务">}}，实现**虚拟 IP** 机制。
+以外的 {{< glossary_tooltip term_id="service" text="Service">}} 实现**虚拟 IP** 机制。
 
 <!--
 Each instance of kube-proxy watches the Kubernetes
@@ -45,11 +46,11 @@ the Service and EndpointSlice state as indicated by the API server.
 
 {{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 -->
-kube-proxy 的每个实例都会监视 Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}} 中
-Service 和 EndpointSlice {{< glossary_tooltip text="对象" term_id="object" >}} 的添加和删除。对于每个
+kube-proxy 的每个实例都会监视 Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}中
+Service 和 EndpointSlice {{< glossary_tooltip text="对象" term_id="object" >}}的添加和删除。对于每个
 Service，kube-proxy 调用适当的 API（取决于 kube-proxy 模式）来配置节点，以捕获流向 Service 的 `clusterIP` 和 `port`
-的流量，并将这些流量重定向到 Service 的某个端点（通常是 Pod，但也可能是用户提供的任意 IP 地址）。一个控制回路确保每个节点上的规则与
-API 服务器指示的 Service 和 EndpointSlice 状态可靠同步。
+的流量，并将这些流量重定向到 Service 的某个端点（通常是 Pod，但也可能是用户提供的任意 IP 地址）。
+一个控制回路确保每个节点上的规则与 API 服务器指示的 Service 和 EndpointSlice 状态可靠同步。
 
 {{< figure src="/zh-cn/docs/images/services-iptables-overview.svg" title="iptables 模式下 Service 的虚拟 IP 机制" class="diagram-medium" >}}
 
@@ -215,7 +216,8 @@ A backend is chosen (either based on session affinity or randomly) and packets a
 redirected to the backend without rewriting the client IP address.
 -->
 当客户端连接到 Service 的虚拟 IP 地址时，iptables 规则会生效。
-会选择一个后端（基于会话亲和性或随机选择），并将数据包重定向到后端，无需重写客户端 IP 地址。
+会选择一个后端（基于会话亲和性或随机选择），并将数据包重定向到后端，
+无需重写客户端 IP 地址。
 
 <!--
 This same basic flow executes when traffic comes in through a `type: NodePort` Service, or
@@ -244,7 +246,8 @@ IP 地址创建一些 iptables 规则。在拥有数万个 Pod 和 Service 的�
 iptables 规则，当 Service（或其 EndpointSlice）发生变化时，kube-proxy
 在更新内核中的规则时可能要用很长时间。你可以通过（`kube-proxy --config <path>` 指定的）
 kube-proxy [配置文件](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)的
-[`iptables` 章节](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)中的选项来调整 kube-proxy 的同步行为：
+[`iptables` 章节](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)中的选项来调整
+kube-proxy 的同步行为：
 
 ```yaml
 ...
@@ -383,16 +386,42 @@ create rules to redirect traffic from Service IPs to endpoint IPs.
 The IPVS proxy mode is based on netfilter hook function that is similar to
 iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
-That means kube-proxy in IPVS mode redirects traffic with lower latency than
-kube-proxy in iptables mode, with much better performance when synchronizing
-proxy rules. Compared to the iptables proxy mode, IPVS mode also supports a
-higher throughput of network traffic.
 -->
 IPVS 代理模式基于 netfilter 回调函数，类似于 iptables 模式，
 但它使用哈希表作为底层数据结构，在内核空间中生效。
-这意味着 IPVS 模式下的 kube-proxy 比 iptables 模式下的 kube-proxy
-重定向流量的延迟更低，同步代理规则时性能也更好。
-与 iptables 代理模式相比，IPVS 模式还支持更高的网络流量吞吐量。
+
+{{< note >}}
+<!--
+The `ipvs` proxy mode was an experiment in providing a Linux
+kube-proxy backend with better rule-synchronizing performance and
+higher network-traffic throughput than the `iptables` mode. While it
+succeeded in those goals, the kernel IPVS API turned out to be a bad
+match for the Kubernetes Services API, and the `ipvs` backend was
+never able to implement all of the edge cases of Kubernetes Service
+functionality correctly. At some point in the future, it is expected
+to be formally deprecated as a feature.
+-->
+作为 Linux kube-proxy 的一种实验性功能，`ipvs` 代理模式提供了比 `iptables`
+模式更优的规则同步性能和更高的网络流量处理能力。
+虽然它在这些目标上取得了成功，但内核 IPVS API 被证明不适合实现 Kubernetes Service API，
+`ipvs` 后端从未能够正确实现所有 Kubernetes Service 功能的边缘情况。
+预计在未来某个时刻，此特性将被正式弃用。
+
+<!--
+The `nftables` proxy mode (described below) is essentially a
+replacement for both the `iptables` and `ipvs` modes, with better
+performance than either of them, and is recommended as a replacement
+for `ipvs`. If you are deploying onto Linux systems that are too old
+to run the `nftables` proxy mode, you should also consider trying the
+`iptables` mode rather than `ipvs`, since the performance of
+`iptables` mode has improved greatly since the `ipvs` mode was first
+introduced.
+-->
+下面描述的 `nftables` 代理模式实质上是 `iptables` 和 `ipvs` 模式的替代品，
+性能优于两者，建议作为 `ipvs` 的替代。如果你要部署到过于陈旧而无法运行 `nftables`
+代理模式的 Linux 系统上，你也应该考虑尝试 `iptables` 模式而不是 `ipvs`，
+因为自从首次引入 `ipvs` 模式以来，`iptables` 模式的性能已经有了很大提升。
+{{< /note >}}
 
 <!--
 IPVS provides more options for balancing traffic to backend Pods;
@@ -476,10 +505,6 @@ IPVS 为将流量均衡到后端 Pod 提供了更多选择：
   the hash computation. When using `mh`, kube-proxy always sets the `mh-port` flag and does not
   enable the `mh-fallback` flag.
   In proxy-mode=ipvs `mh` will work as source-hashing (`sh`), but with ports.
-
-These scheduling algorithms are configured through the
-[`ipvs.scheduler`](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
-field in the kube-proxy configuration.
 -->
 * `mh`（Maglev Hashing）：基于 [Google 的 Maglev 哈希算法](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf)
   来分配接收的任务。此调度器有两个标志：
@@ -488,6 +513,11 @@ field in the kube-proxy configuration.
   在使用 `mh` 时，`kube-proxy` 始终会设置 `mh-port` 标志，但不会启用 `mh-fallback` 标志。
   在代理模式为 ipvs 时，`mh` 的工作方式与源哈希（`sh`）类似，但会包含端口信息。
 
+<!--
+These scheduling algorithms are configured through the
+[`ipvs.scheduler`](/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
+field in the kube-proxy configuration.
+-->
 这些调度算法是通过 kube-proxy 配置中的
 [ipvs.scheduler](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPVSConfiguration)
 字段进行配置的。
@@ -545,8 +575,8 @@ to more efficiently process packets in the kernel (though this only
 becomes noticeable in clusters with tens of thousands of services).
 -->
 nftables API 是 iptables API 的后继，旨在提供比 iptables 更好的性能和可扩展性。
-`nftables` 代理模式能够比 `iptables` 模式更快、更高效地处理服务端点的变化，
-并且在内核中处理数据包的效率也更高（尽管这只有在拥有数万个服务的集群中才会比较明显）。
+`nftables` 代理模式能够比 `iptables` 模式更快、更高效地处理 Service 端点的变化，
+并且在内核中处理数据包的效率也更高（尽管这只有在拥有数万个 Service 的集群中才会比较明显）。
 
 <!--
 As of Kubernetes {{< skew currentVersion >}}, the `nftables` mode is
@@ -581,7 +611,7 @@ differently the `nftables` mode:
   IPv4 IPs.
 -->
 - **NodePort 接口**：在 `iptables` 模式下，默认情况下，
-  [NodePort 服务](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)可以在所有本地
+  [NodePort Service](/zh-cn/docs/concepts/services-networking/service/#type-nodeport) 可以在所有本地
   IP 地址上访问。这通常不是用户想要的，因此 `nftables` 模式默认使用 `--nodeport-addresses primary`，这意味着
   `type: NodePort` Service 只能通过节点上的主 IPv4 和/或 IPv6 地址进行访问。
   你可以通过为该选项指定一个明确的值来覆盖此设置：例如，使用
@@ -608,7 +638,7 @@ differently the `nftables` mode:
 
 <!--
 - **NodePort interaction with firewalls**: The `iptables` mode of
-  kube-proxy tries to be compatible with overly-agressive firewalls;
+  kube-proxy tries to be compatible with overly-aggressive firewalls;
   for each `type: NodePort` service, it will add rules to accept inbound
   traffic on that port, in case that traffic would otherwise be
   blocked by a firewall. This approach will not work with firewalls
@@ -635,8 +665,8 @@ differently the `nftables` mode:
   kube-proxy with the option `--conntrack-tcp-be-liberal` to work
   around the problem in `nftables` mode.
 -->
-- **Conntrack 错误规避**：6.1 之前的 Linux 内核存在一个错误，可能导致与服务 IP 的长时间
-   TCP 连接被关闭，并出现“Connection reset by peer（对方重置连接）”的错误。kube-proxy 的 `iptables`
+- **Conntrack BUG 规避**：6.1 之前的 Linux 内核存在一个 BUG，可能导致与 Service IP 的长时间
+   TCP 连接被关闭，并出现 “Connection reset by peer（对方重置连接）”的错误。kube-proxy 的 `iptables`
   模式为此错误配备了一个修复程序，但后来发现该修复程序在某些集群中会导致其他问题。
   `nftables` 模式默认不安装任何修复程序，但你可以检查 kube-proxy 的
   `iptables_ct_state_invalid_dropped_packets_total`
@@ -660,7 +690,7 @@ is correct for getting the packet routed to the correct destination.
 The Windows VFP is analogous to tools such as Linux `nftables` or `iptables`. The Windows VFP extends
 the _Hyper-V Switch_, which was initially implemented to support virtual machine networking.
 -->
-kube-proxy 在 Windows **虚拟过滤平台** (VFP)（Windows vSwitch 的扩展）中配置数据包过滤规则。
+kube-proxy 在 Windows **虚拟过滤平台**（VFP）（Windows vSwitch 的扩展）中配置数据包过滤规则。
 这些规则处理节点级虚拟网络中的封装数据包，并重写数据包，使目标 IP 地址（和第 2 层信息）正确，
 以便将数据包路由到正确的目的地。Windows VFP 类似于 Linux `nftables` 或 `iptables` 等工具。
 Windows VFP 是最初为支持虚拟机网络而实现的 **Hyper-V Switch** 的扩展。
@@ -682,7 +712,7 @@ Windows 主机网络服务（HSN）会配置数据包重写规则，确保返回
 -->
 #### `kernelspace` 模式的 Direct Server Return（DSR）    {#windows-direct-server-return}
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state feature_gate_name="WinDSR" >}}
 
 <!--
 As an alternative to the basic operation, a node that hosts the backend Pod for a Service can
@@ -827,7 +857,7 @@ Kubernetes 还使用控制器来检查无效的分配（例如，因管理员干
 <!--
 #### IP address allocation tracking using the Kubernetes API {#ip-address-objects}
 -->
-#### 使用 Kubernetes API 跟踪IP 地址分配 {#ip-address-objects}
+#### 使用 Kubernetes API 跟踪 IP 地址分配 {#ip-address-objects}
 
 {{< feature-state feature_gate_name="MultiCIDRServiceAllocator" >}}
 
@@ -898,9 +928,9 @@ Kubernetes also allow users to dynamically define the available IP ranges for Se
 ServiceCIDR objects. During bootstrap, a default ServiceCIDR object named `kubernetes` is created
 from the value of the `--service-cluster-ip-range` command line argument to kube-apiserver:
 -->
-Kubernetes 还允许用户使用 ServiceCIDR 对象动态定义 Service 的可用 IP 范围。在引导过程中，集群会根据
-kube-apiserver 的 `--service-cluster-ip-range` 命令行参数的值创建一个名为
-`kubernetes` 的默认 ServiceCIDR 对象：
+Kubernetes 还允许用户使用 ServiceCIDR 对象动态定义 Service 的可用 IP 范围。
+在引导过程中，集群会根据 kube-apiserver 的 `--service-cluster-ip-range`
+命令行参数的值创建一个名为 `kubernetes` 的默认 ServiceCIDR 对象：
 
 ```shell
 kubectl get servicecidrs
@@ -1260,12 +1290,17 @@ Kubernetes Service 中的 `spec.trafficDistribution` 字段允许你表达对流
 {{< feature-state feature_gate_name="PreferSameTrafficDistribution" >}}
 
 <!--
-Two additional values are available when the `PreferSameTrafficDistribution`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled:
+In Kubernetes {{< skew currentVersion >}}, two additional values are
+available (unless the `PreferSameTrafficDistribution` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) is
+disabled):
 -->
 当启用 `PreferSameTrafficDistribution`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时，还可以使用两个额外的取值：
+
+在 Kubernetes {{< skew currentVersion >}} 中，除非禁用了
+`PreferSameTrafficDistribution` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+否则将提供另外两个值：
 
 <!--
 `PreferSameZone`
@@ -1394,7 +1429,7 @@ interacts with them:
   （分别为外部或内部）的路由行为。这意味着 kube-proxy 将尝试将流量路由到与客户端位于同一区域的端点。
 
 <!--
-### Considerations for using traffic distribution control  
+### Considerations for using traffic distribution control
 
 A Service using `trafficDistribution` will attempt to route traffic to (healthy)
 endpoints within the appropriate topology, even if this means that some

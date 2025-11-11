@@ -4,6 +4,7 @@ cluster, you can create one by using
 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)
 or you can use one of these Kubernetes playgrounds:
 
+* [iximiuz Labs](https://labs.iximiuz.com/playgrounds?category=kubernetes&filter=all)
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
 * [KodeKloud](https://kodekloud.com/public-playgrounds)
 * [Play with Kubernetes](https://labs.play-with-k8s.com/)

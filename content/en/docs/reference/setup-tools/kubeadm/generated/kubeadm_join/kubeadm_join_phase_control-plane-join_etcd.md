@@ -10,8 +10,6 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Add a new local etcd member
-
 ### Synopsis
 
 

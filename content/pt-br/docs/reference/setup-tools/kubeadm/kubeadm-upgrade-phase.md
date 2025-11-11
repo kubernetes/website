@@ -10,7 +10,7 @@ Na versão v1.15.0, o kubeadm introduziu suporte preliminar para as fases `kubea
 
 Usando essa fase, você pode optar por executar as etapas separadas da atualização de nós, sejam eles nós secundários da camada de gerenciamento ou nós de execução de cargas de trabalho. Observe que `kubeadm upgrade apply` ainda precisa ser chamado em um nó principal da camada de gerenciamento.
 
-{{< tabs name="tab-phase" >}}
+{{< tabs name="tab-apply-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_upgrade_node_phase.md" />}}
 {{< tab name="preflight" include="generated/kubeadm_upgrade_node_phase_preflight.md" />}}
 {{< tab name="control-plane" include="generated/kubeadm_upgrade_node_phase_control-plane.md" />}}

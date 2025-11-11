@@ -7,21 +7,19 @@ weight: 10
 {{% alert title="Note" %}}
 이 튜토리얼은 새로운 클러스터에만 적용할 수 있다.
 {{% /alert %}}
-
-파드 시큐리티 어드미션(PSA, Pod Security Admission)은 
-[베타로 변경](/blog/2021/12/09/pod-security-admission-beta/)되어 v1.23 이상에서 기본적으로 활성화되어 있다. 
+ 
 파드 시큐리티 어드미션은 파드가 생성될 때 
 [파드 시큐리티 스탠다드(Pod Security Standards)](/ko/docs/concepts/security/pod-security-standards/)를 
-적용하는 어드미션 컨트롤러이다. 
-이 튜토리얼은 
-`baseline` 파드 시큐리티 스탠다드를 클러스터 수준(level)에 적용하여 
-표준 구성을 클러스터의 모든 네임스페이스에 적용하는 방법을 보여 준다.
+적용하는 어드미션 컨트롤러이다. v1.25에서 정식 출시되었다.
+이 튜토리얼은 `baseline` 파드 시큐리티 
+스탠다드를 클러스터 수준(level)에 적용하여 표준 구성을 클러스터의 모든 네임스페이스에 
+적용하는 방법을 보여 준다.
 
 파드 시큐리티 스탠다드를 특정 네임스페이스에 적용하려면, 
 [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)를 참고한다.
 
 만약 쿠버네티스 버전이 v{{< skew currentVersion >}}이 아니라면,
-해당 버전의 문서를 확인하자.
+해당 버전의 문서를 확인한다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -29,6 +27,11 @@ weight: 10
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/ko/docs/tasks/tools/)
+
+이 튜토리얼은 완전히 제어 가능한 쿠버네티스 클러스터에서 무엇을 
+설정할 수 있는지 보여준다. 컨트롤 플레인을 구성할 수 없는 관리형 클러스터에서 
+파드 시큐리티 어드미션을 설정하는 방법을 배우려면, [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss)를 
+읽어 본다.
 
 ## 적용할 알맞은 파드 시큐리티 스탠다드 선택하기
 
@@ -59,7 +62,6 @@ weight: 10
     kubectl cluster-info --context kind-psa-wo-cluster-pss
     
     Thanks for using kind! 😊
-    
     ```
 
 1. kubectl context를 새로 생성한 클러스터로 설정한다.
@@ -100,6 +102,7 @@ weight: 10
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
+
      다음과 비슷하게 출력될 것이다.
       ```      
       namespace/default labeled
@@ -113,6 +116,7 @@ weight: 10
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
+
      다음과 비슷하게 출력될 것이다.
       ```   
       namespace/default labeled
@@ -131,6 +135,7 @@ weight: 10
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=restricted
       ```
+
      다음과 비슷하게 출력될 것이다.
       ```   
       namespace/default labeled
@@ -286,50 +291,43 @@ weight: 10
   
      To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
     ```
-1. 기본 네임스페이스에 생성할 최소한의 구성에 대한 파드 명세를 다음과 같이 생성한다.
+    
+1. 기본 네임스페이스에 파드를 생성한다.
 
-    ```
-    cat <<EOF > /tmp/pss/nginx-pod.yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: nginx
-    spec:
-      containers:
-        - image: nginx
-          name: nginx
-          ports:
-            - containerPort: 80
-    EOF
-    ```
-1. 클러스터에 해당 파드를 생성한다.
+    {{% code_sample file="security/example-baseline-pod.yaml" %}}
 
    ```shell
-    kubectl apply -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-   다음과 비슷하게 출력될 것이다.
+
+  파드는 정상적으로 시작되었지만, 출력 결과에 경고가 포함되어 있다.
    ```
-    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
-    pod/nginx created
+   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+   pod/nginx created
    ```
 
 ## 정리하기
 
-`kind delete cluster --name psa-with-cluster-pss` 및
-`kind delete cluster --name psa-wo-cluster-pss` 명령을 실행하여 
-생성했던 클러스터를 삭제한다.
+위에서 생성한 클러스터들을 다음 명령어를 실행하여 삭제한다.
+
+```shell
+kind delete cluster --name psa-with-cluster-pss
+```
+```shell
+kind delete cluster --name psa-wo-cluster-pss
+```
 
 ## {{% heading "whatsnext" %}}
 
 - 다음의 모든 단계를 한 번에 수행하려면 
   [셸 스크립트](/examples/security/kind-with-cluster-level-baseline-pod-security.sh)를 
   실행한다.
-  1. 파드 시큐리티 스탠다드 기반의 클러스터 수준 구성(configuration)을 생성
-  2. API 서버가 이 구성을 사용할 수 있도록 파일을 생성
-  3. 이 구성을 사용하는 API 서버를 포함하는 클러스터를 생성
-  4. kubectl context를 새로 생성한 클러스터에 설정
-  5. 최소한의 파드 구성을 위한 yaml 파일을 생성
-  6. 해당 파일을 적용하여 새 클러스터에 파드를 생성
+  1. 파드 시큐리티 스탠다드 기반의 클러스터 수준 구성(configuration)을 생성한다
+  2. API 서버가 이 구성을 사용할 수 있도록 파일을 생성한다
+  3. 이 구성을 사용하는 API 서버를 포함하는 클러스터를 생성한다
+  4. kubectl context를 새로 생성한 클러스터에 설정한다
+  5. 최소한의 파드 구성을 위한 yaml 파일을 생성한다
+  6. 해당 파일을 적용하여 새 클러스터에 파드를 생성한다
 - [파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)
 - [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)
 - [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)

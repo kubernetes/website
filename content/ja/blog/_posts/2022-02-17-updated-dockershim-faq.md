@@ -5,7 +5,6 @@ linkTitle: "dockershimの削除に関するFAQ"
 date: 2022-02-17
 slug: dockershim-faq
 aliases: [ '/ja/dockershim' ]
-evergreen: true
 ---
 
 **この記事は2020年の後半に投稿されたオリジナルの記事[Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/)の更新版です。

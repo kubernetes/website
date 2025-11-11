@@ -1014,7 +1014,7 @@ kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 <!--
 ## API implementation
 
-The `PATCH` verb for a resource that supports Server-Side Apply can accepts the
+The `PATCH` verb (for a resource that supports Server-Side Apply) accepts the
 unofficial `application/apply-patch+yaml` content type. Users of Server-Side
 Apply can send partially specified objects as YAML as the body of a `PATCH` request
 to the URI of a resource.  When applying a configuration, you should always include all the
@@ -1025,7 +1025,7 @@ In either case, use the media type `application/apply-patch+yaml` for the HTTP r
 -->
 ## API 实现 {#api-implementation}
 
-支持服务器端应用的资源的 `PATCH` 动词可以接受非官方的 `application/apply-patch+yaml` 内容类型。
+`PATCH` 动词（支持服务器端应用的资源）接受非官方的 `application/apply-patch+yaml` 内容类型。
 服务器端应用的用户可以将部分指定的对象以 YAML 格式作为 `PATCH` 请求的主体发送到资源的 URI。
 应用配置时，你应该始终包含对要定义的结果（如所需状态）重要的所有字段。
 

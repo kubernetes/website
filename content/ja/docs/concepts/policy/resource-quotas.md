@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: リソースクォータ
 content_type: concept
 weight: 20

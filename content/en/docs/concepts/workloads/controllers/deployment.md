@@ -34,7 +34,7 @@ Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in th
 The following are typical use cases for Deployments:
 
 * [Create a Deployment to rollout a ReplicaSet](#creating-a-deployment). The ReplicaSet creates Pods in the background. Check the status of the rollout to see if it succeeds or not.
-* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
+* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created, and the Deployment gradually scales it up while scaling down the old ReplicaSet, ensuring Pods are replaced at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
 * [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
 * [Scale up the Deployment to facilitate more load](#scaling-a-deployment).
 * [Pause the rollout of a Deployment](#pausing-and-resuming-a-deployment) to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
@@ -335,7 +335,7 @@ until the `terminationGracePeriodSeconds` of the terminating Pods expires.
 
 Each time a new Deployment is observed by the Deployment controller, a ReplicaSet is created to bring up
 the desired Pods. If the Deployment is updated, the existing ReplicaSet that controls Pods whose labels
-match `.spec.selector` but whose template does not match `.spec.template` are scaled down. Eventually, the new
+match `.spec.selector` but whose template does not match `.spec.template` is scaled down. Eventually, the new
 ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 
 If you update a Deployment while an existing rollout is in progress, the Deployment creates a new ReplicaSet
@@ -503,15 +503,20 @@ Follow the steps given below to check the rollout history:
    ```
    deployments "nginx-deployment"
    REVISION    CHANGE-CAUSE
-   1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml
-   2           kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
-   3           kubectl set image deployment/nginx-deployment nginx=nginx:1.161
+   1           <none>
+   2           <none>
+   3           <none>
    ```
 
    `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
 
    * Annotating the Deployment with `kubectl annotate deployment/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
    * Manually editing the manifest of the resource.
+   * Using tooling that sets the annotation automatically.
+
+   {{< note >}}
+   In older versions of Kubernetes, you could use the `--record` flag with kubectl commands to automatically populate the `CHANGE-CAUSE` field. This flag is deprecated and will be removed in a future release.
+   {{< /note >}}
 
 2. To see the details of each revision, run:
    ```shell
@@ -523,7 +528,6 @@ Follow the steps given below to check the rollout history:
    deployments "nginx-deployment" revision 2
      Labels:       app=nginx
              pod-template-hash=1159050644
-     Annotations:  kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
      Containers:
       nginx:
        Image:      nginx:1.16.1
@@ -584,7 +588,6 @@ Follow the steps given below to rollback the Deployment from the current version
    CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
    Labels:                 app=nginx
    Annotations:            deployment.kubernetes.io/revision=4
-                           kubernetes.io/change-cause=kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
    Selector:               app=nginx
    Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
    StrategyType:           RollingUpdate
@@ -1183,7 +1186,7 @@ replacement will be created immediately (even if the old Pod is still in a Termi
 #### Rolling Update Deployment
 
 The Deployment updates Pods in a rolling update
-fashion when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
+fashion (gradually scale down the old ReplicaSets and scale up the new one) when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
 
 ##### Max Unavailable

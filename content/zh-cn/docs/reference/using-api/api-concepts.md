@@ -66,6 +66,7 @@ API concepts:
 ## Kubernetes API 术语  {#standard-api-terminology}
 
 Kubernetes 通常使用常见的 RESTful 术语来描述 API 概念：
+
 * **资源类型（Resource Type）** 是 URL 中使用的名称（`pods`、`namespaces`、`services`）
 * 所有资源类型都有一个具体的表示（它们的对象模式），称为 **类别（Kind）**
 * 资源类型的实例的列表称为 **集合（Collection）**
@@ -103,12 +104,10 @@ of a given kind can have a given name at a time. However, if you delete the obje
 you can make a new object with the same name. Some objects are not namespaced (for
 example: Nodes), and so their names must be unique across the whole cluster.
 -->
-
 ### 对象名字 {#object-names}
 
 你可以通过 API 创建的所有对象都有一个唯一的{{< glossary_tooltip text="名字" term_id="name" >}}，
-以允许幂等创建和检索，
-但如果虚拟资源类型不可检索或不依赖幂等性，则它们可能没有唯一名称。
+以允许幂等创建和检索，但如果虚拟资源类型不可检索或不依赖幂等性，则它们可能没有唯一名称。
 在{{< glossary_tooltip text="名字空间" term_id="namespace" >}}内，
 同一时刻只能有一个给定类别的对象具有给定名称。
 但是，如果你删除该对象，你可以创建一个具有相同名称的新对象。
@@ -164,7 +163,7 @@ Examples:
 名字空间作用域的资源类型会在其名字空间被删除时也被删除，
 并且对该资源类型的访问是由定义在名字空间域中的授权检查来控制的。
 
-注意： 核心资源使用 `/api` 而不是 `/apis`，并且不包含 GROUP 路径段。
+注意：核心资源使用 `/api` 而不是 `/apis`，并且不包含 GROUP 路径段。
 
 例如：
 
@@ -301,6 +300,7 @@ Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 
    … JSON encoded collection of Pods (PodList object)
    ```
    -->
+
    ```
    200 OK
    Content-Type: application/json
@@ -321,6 +321,7 @@ Kubernetes API 默认使用 [JSON](https://www.json.org/json-en.html) 来编码 
    … JSON encoded Pod object
    ```
    -->
+
    ```http
    POST /api/v1/namespaces/test/pods
    Content-Type: application/json
@@ -364,7 +365,7 @@ Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512
    GET /api/v1/pods
    Accept: application/yaml
    ```
-   
+
    <!--
    ```
    200 OK
@@ -373,6 +374,7 @@ Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512
    … YAML encoded collection of Pods (PodList object)
    ```
    -->
+
    ```
    200 OK
    Content-Type: application/yaml
@@ -393,6 +395,7 @@ Kubernetes 还支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512
    … YAML encoded Pod object
    ```
    -->
+
    ```http
    POST /api/v1/namespaces/test/pods
    Content-Type: application/yaml
@@ -449,14 +452,15 @@ For example:
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
-   … JSON encoded collection of Pods (PodList object)
+   … binary encoded collection of Pods (PodList object)
    ```
    -->
+
    ```
    200 OK
    Content-Type: application/vnd.kubernetes.protobuf
 
-   … JSON 编码的 Pod 集合（PodList 对象）
+   … 二进制编码的 Pod 集合（PodList 对象）
    ```
 
 <!--
@@ -473,6 +477,7 @@ For example:
    … binary encoded Pod object
    ```
    -->
+
    ```http
    POST /api/v1/namespaces/test/pods
    Content-Type: application/vnd.kubernetes.protobuf
@@ -995,8 +1000,7 @@ resources in the result and include a `continue` value if there are more resourc
 in the collection.
 -->
 你可以请求 API 服务器通过使用页（Kubernetes 将其称为“块（Chunk）”）的方式来处理 **list**，
-完成单个集合的响应。
-要以块的形式检索单个集合，针对集合的请求支持两个查询参数 `limit` 和 `continue`，
+完成单个集合的响应。要以块的形式检索单个集合，针对集合的请求支持两个查询参数 `limit` 和 `continue`，
 并且从集合元 `metadata` 字段中的所有 **list** 操作返回响应字段 `continue`。
 客户端应该指定他们希望在每个带有 `limit` 的块中接收的条目数上限，如果集合中有更多资源，
 服务器将在结果中返回 `limit` 资源并包含一个 `continue` 值。
@@ -1146,7 +1150,7 @@ each item in that collection represents a single Service. For example:
 -->
 ## 集合 {#collections}
 
-在 Kubernetes 术语中，你从 **list** 中获得的响应是一个“集合（Collections）”。
+在 Kubernetes 术语中，你从 **list** 中获得的响应是一个“集合（Collection）”。
 然而，Kubernetes 为不同类型资源的集合定义了具体类型。
 集合的类别名是针对资源类别的，并附加了 `List`。
 
@@ -1200,6 +1204,7 @@ Kubernetes API 中定义了数十种集合类型（如 `PodList`、`ServiceList`
 ```shell
 kubectl get services -A -o yaml
 ```
+
 ```yaml
 apiVersion: v1
 kind: List
@@ -1368,7 +1373,7 @@ When you **delete** a resource this takes place in two phases.
 
 当你 **delete** 资源时，操作将分两个阶段进行。
 
-1. 终结（finalization）
+1. **终结（finalization）**
 2. 移除
 
 ```yaml
