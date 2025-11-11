@@ -55,7 +55,7 @@ In this example, the following settings were used:
 With this alias, running `kubectl getn pods` will default JSON output. However,
 if you execute `kubectl getn pods -oyaml`, the output will be in YAML format.
 
-Full `kuberc` schema is available [here](/docs/reference/config-api/kubelet-config.v1beta1/).
+Full `kuberc` schema is available [here](/docs/reference/config-api/kuberc.v1beta1/).
 
 ### prependArgs
 

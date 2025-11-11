@@ -70,12 +70,13 @@ The following are typical use cases for Deployments:
 
 <!--
 * [Create a Deployment to rollout a ReplicaSet](#creating-a-deployment). The ReplicaSet creates Pods in the background. Check the status of the rollout to see if it succeeds or not.
-* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
+* [Declare the new state of the Pods](#updating-a-deployment) by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created, and the Deployment gradually scales it up while scaling down the old ReplicaSet, ensuring Pods are replaced at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
 -->
 * [创建 Deployment 以将 ReplicaSet 上线](#creating-a-deployment)。ReplicaSet 在后台创建 Pod。
   检查 ReplicaSet 的上线状态，查看其是否成功。
 * 通过更新 Deployment 的 PodTemplateSpec，[声明 Pod 的新状态](#updating-a-deployment)。
-  新的 ReplicaSet 会被创建，Deployment 以受控速率将 Pod 从旧 ReplicaSet 迁移到新 ReplicaSet。
+  新的 ReplicaSet 会被创建，同时 Deployment 会逐渐增加它的规模，
+  而减少旧的 ReplicaSet 的规模，确保以受控速率替换 Pod。
   每个新的 ReplicaSet 都会更新 Deployment 的修订版本。
 <!--
 * [Rollback to an earlier Deployment revision](#rolling-back-a-deployment) if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.

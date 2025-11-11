@@ -15,8 +15,8 @@ aliases:
 
 ## ノードからコントロールプレーンへの通信 {#node-to-control-plane}
 
-Kubernetesには「ハブアンドスポーク」というAPIパターンがあります。ノード(またはノードが実行するPod)からのすべてのAPIの使用は、APIサーバーで終了します。他のコントロールプレーンコンポーネントは、どれもリモートサービスを公開するようには設計されていません。APIサーバーは、1つ以上の形式のクライアント[認証](/ja/docs/reference/access-authn-authz/authentication/)が有効になっている状態で、セキュアなHTTPSポート(通常は443)でリモート接続をリッスンするように設定されています。
-特に[匿名リクエスト](/ja/docs/reference/access-authn-authz/authentication/#anonymous-requests)や[サービスアカウントトークン](/ja/docs/reference/access-authn-authz/authentication/#service-account-token)が許可されている場合は、1つ以上の[認可](/docs/reference/access-authn-authz/authorization/)形式を有効にする必要があります。
+Kubernetesには「ハブアンドスポーク」というAPIパターンがあります。ノード(またはノードが実行するPod)からのすべてのAPIの使用は、APIサーバーで終了します。他のコントロールプレーンコンポーネントは、どれもリモートサービスを公開するようには設計されていません。APIサーバーは、1つ以上の形式のクライアント[認証](/docs/reference/access-authn-authz/authentication/)が有効になっている状態で、セキュアなHTTPSポート(通常は443)でリモート接続をリッスンするように設定されています。
+特に[匿名リクエスト](/docs/reference/access-authn-authz/authentication/#anonymous-requests)や[サービスアカウントトークン](/docs/reference/access-authn-authz/authentication/#service-account-token)が許可されている場合は、1つ以上の[認可](/docs/reference/access-authn-authz/authorization/)形式を有効にする必要があります。
 
 ノードは、有効なクライアント認証情報とともに、APIサーバーに安全に接続できるように、クラスターのパブリックルート{{< glossary_tooltip text="証明書" term_id="certificate" >}}でプロビジョニングされる必要があります。適切なやり方は、kubeletに提供されるクライアント認証情報が、クライアント証明書の形式であることです。kubeletクライアント証明書の自動プロビジョニングについては、[kubelet TLSブートストラップ](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)を参照してください。
 
@@ -75,10 +75,10 @@ Konnectivityサービスを有効にすると、コントロールプレーン�
 
 ## {{% heading "whatsnext" %}}
 
-* [Kubernetesコントロールプレーンコンポーネント](/ja/docs/concepts/overview/components/#control-plane-components)について読む。
+* [Kubernetesコントロールプレーンコンポーネント](/docs/concepts/architecture/#control-plane-components)について読む。
 * [HubsとSpokeモデル](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)について学習する。
-* [クラスターのセキュリティ](/ja/docs/tasks/administer-cluster/securing-a-cluster/)について学習する。
-* [Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)について学習する。
+* [クラスターのセキュリティ](/docs/tasks/administer-cluster/securing-a-cluster/)について学習する。
+* [Kubernetes API](/docs/concepts/overview/kubernetes-api/)について学習する。
 * [Konnectivityサービスを設定する](/docs/tasks/extend-kubernetes/setup-konnectivity/)
 * [Port Forwardingを使用してクラスター内のアプリケーションにアクセスする](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* [Podログを調べます](/ja/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs)と[kubectl port-forwardを使用します](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)について学習する。
+* [Podログを調べます](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs)と[kubectl port-forwardを使用します](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)について学習する。

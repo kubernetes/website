@@ -1541,12 +1541,6 @@ body.td-documentation {
   text-decoration: none !important;
 }
 
-@media print {
-  /* Do not print announcements */
-  #announcement {
-    display: none;
-  }
-}
 
 /* Announcements */
 
@@ -1660,6 +1654,17 @@ html.no-js body div#announcement {
 
 @media (min-width: 768px) {
   #announcement + .header-hero {
+    display: none;
+  }
+}
+
+@media print {
+  /* Do not print announcements */
+  #announcement {
+    display: none;
+  }
+
+  #announcement.display-announcement {
     display: none;
   }
 }
