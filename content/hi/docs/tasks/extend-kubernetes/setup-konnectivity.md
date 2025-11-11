@@ -14,7 +14,7 @@ Konnectivity सेवा कंट्रोल प्लेन से क्ल
 
 <!-- steps -->
 
-## Konnectivity सेवा कॉन्फ़िगर करें
+## Konnectivity सेवा कॉन्फ़िगर करें {#configure-the-konnectivity-service}
 
 निम्नलिखित चरणों के लिए एक egress कॉन्फ़िगरेशन की आवश्यकता है, उदाहरण के लिए:
 
@@ -28,6 +28,7 @@ Konnectivity सेवा कंट्रोल प्लेन से क्ल
 1. `admin/konnectivity/egress-selector-configuration.yaml` जैसी एक egress कॉन्फ़िगरेशन फ़ाइल बनाएं।
 1. API सर्वर के `--egress-selector-config-file` फ़्लैग को आपकी API सर्वर egress कॉन्फ़िगरेशन फ़ाइल के पथ पर सेट करें।
 1. यदि आप UDS कनेक्शन का उपयोग करते हैं, तो kube-apiserver में volumes कॉन्फ़िगरेशन जोड़ें:
+
    ```yaml
    spec:
      containers:
@@ -80,4 +81,4 @@ term_id="static-pod" >}} के रूप में डिप्लॉय कि
 ## {{% heading "whatsnext" %}}
 
 * [HTTP प्रॉक्सी का उपयोग करके कुबेरनेटेस API तक पहुंचें](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
-* [SOCKS5 प्रॉक्सी का उपयोग करके कुबेरनेटेस API तक पहुंचें](/docs/tasks/extend-kubernetes/socks5-proxy-access-api/) 
+* [SOCKS5 प्रॉक्सी का उपयोग करके कुबेरनेटेस API तक पहुंचें](/docs/tasks/extend-kubernetes/socks5-proxy-access-api/)
