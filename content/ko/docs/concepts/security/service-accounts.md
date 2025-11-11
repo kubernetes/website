@@ -236,11 +236,11 @@ metadata:
 ## 서비스 어카운트 자격 증명 인증 {#authenticating-credentials}
 
 서비스어카운트(ServiceAccount)는 서명된 
-{{<glossary_tooltip term_id="jwt" text="JSON Web Tokens">}}  (JWTs)을
+{{<glossary_tooltip term_id="jwt" text="JWT">}}들을
 사용해 쿠버네티스 API 서버와, 신뢰 관계가 설정된
-다른 시스템에 인증한다. 토큰이 발급된 방식
-(`TokenRequest`를 통한 기간 제한 방식이든 시크릿을 통한
-레거시 매커니즘이든)에 따라 서비스어카운트(ServiceAccount) 토큰에는 만료 시간, 오디언스(audience),
+다른 시스템에 인증한다. 어떻게 토큰이 발급되었는지
+(`TokenRequest`를 통해 기간 제한을 두었는지 혹은 시크릿을 사용하는 
+레거시 방식을 사용했는지)에 따라, 서비스어카운트(ServiceAccount) 토큰에는 만료 시간, 오디언스(audience),
 그리고 토큰이 유효하기 *시작하는* 시간이 포함될 수 있다. 서비스어카운트(ServiceAccount)로
 동작하는 클라이언트가 쿠버네티스 API 서버와 통신하려고 할 때,
 해당 클라이언트는 HTTP 요청에 `Authorization: Bearer <token>` 헤더를
