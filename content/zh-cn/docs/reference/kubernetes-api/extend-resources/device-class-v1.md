@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta2"
-  import: "k8s.io/api/resource/v1beta2"
+  apiVersion: "resource.k8s.io/v1"
+  import: "k8s.io/api/resource/v1"
   kind: "DeviceClass"
 content_type: "api_reference"
 description: "DeviceClass 是由供应商或管理员提供的资源，包含设备配置和选择算符。"
-title: "DeviceClass v1beta2"
+title: "DeviceClass"
 weight: 2
 ---
 <!--
 api_metadata:
-  apiVersion: "resource.k8s.io/v1beta2"
-  import: "k8s.io/api/resource/v1beta2"
+  apiVersion: "resource.k8s.io/v1"
+  import: "k8s.io/api/resource/v1"
   kind: "DeviceClass"
 content_type: "api_reference"
 description: "DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors."
-title: "DeviceClass v1beta2"
+title: "DeviceClass"
 weight: 2
 auto_generated: true
 -->
 
-`apiVersion: resource.k8s.io/v1beta2`
+`apiVersion: resource.k8s.io/v1`
 
-`import "k8s.io/api/resource/v1beta2"`
+`import "k8s.io/api/resource/v1"`
 
 ## DeviceClass {#DeviceClass}
 
@@ -38,7 +38,7 @@ DeviceClass 是由供应商或管理员提供的资源，包含设备配置和�
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 - **kind**: DeviceClass
 
@@ -52,7 +52,7 @@ DeviceClass 是由供应商或管理员提供的资源，包含设备配置和�
   标准的对象元数据。
 
 <!--
-- **spec** (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
+- **spec** (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClassSpec" >}}">DeviceClassSpec</a>), required
 
   Spec defines what can be allocated and how to configure it.
   
@@ -60,7 +60,7 @@ DeviceClass 是由供应商或管理员提供的资源，包含设备配置和�
   
   Changing the spec automatically increments the metadata.generation number.
 -->
-- **spec** (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassSpec" >}}">DeviceClassSpec</a>)，必需
+- **spec** (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClassSpec" >}}">DeviceClassSpec</a>)，必需
 
   spec 定义可被分配的资源以及如何配置这类资源。
   
@@ -218,6 +218,21 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       （TODO：如果对象是未知类型，将创建并存储一个 `runtime.Unknown` 对象。）
 
 <!--
+- **extendedResourceName** (string)
+
+  ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
+  
+  This is an alpha field.
+-->
+- **extendedResourceName** (string)
+
+  extendedResourceName 是此类设备的扩展资源名称。此类中的设备可用于满足 Pod 的扩展资源请求。其格式与 Pod 扩展资源的名称相同。
+  在一个集群中，它应当是唯一的。如果两个设备类具有相同的名称，则后创建的设备类将用于满足 Pod 的扩展资源请求。
+  如果两个类被同时创建，则选择名称按字母排序后位于前面的类。
+
+  这是 Alpha 字段。
+
+<!--
 - **selectors** ([]DeviceSelector)
 
   *Atomic: will be replaced during a merge*
@@ -271,6 +286,8 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
          (e.g. device.attributes["dra.example.com"] evaluates to an object with all
          of the attributes which were prefixed by "dra.example.com".
        - capacity (map[string]object): the device's capacities, grouped by prefix.
+       - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
+         (v1.34+ with the DRAConsumableCapacity feature enabled).
       
       Example: Consider a device with driver="dra.example.com", which exposes two attributes named "model" and "ext.example.com/family" and which exposes one capacity named "modules". This input to this expression would have the following fields:
       -->
@@ -281,6 +298,8 @@ DeviceClassSpec 在 DeviceClass 中用于定义可被分配的资源以及如何
       - attributes (map[string]object)：设备的属性，按前缀分组
         （例如，device.attributes["dra.example.com"] 评估为一个对象，包含所有以 "dra.example.com" 为前缀的属性。）
       - capacity (map[string]object)：设备的容量，按前缀分组。
+      - allowMultipleAllocations (bool)：设备的 allowMultipleAllocations 属性
+        （在 v1.34+ 中随 DRAConsumableCapacity 特性启用）。
       
       示例：考虑一个驱动为 "dra.example.com" 的设备，它暴露两个名为 "model" 和 "ext.example.com/family" 的属性，
       并且暴露一个名为 "modules" 的容量。此表达式的输入将具有以下字段：
@@ -338,7 +357,7 @@ DeviceClassList 是类的集合。
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1beta2
+- **apiVersion**: resource.k8s.io/v1
 
 - **kind**: DeviceClassList
 
@@ -347,7 +366,7 @@ DeviceClassList 是类的集合。
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>), required
+- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>), required
 
   Items is the list of resource classes.
 -->
@@ -355,7 +374,7 @@ DeviceClassList 是类的集合。
 
   标准的列表元数据。
 
-- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>)，必需
+- **items** ([]<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>)，必需
 
   items 是资源类的列表。
 
@@ -376,7 +395,7 @@ DeviceClassList 是类的集合。
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+GET /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 <!--
 #### Parameters
@@ -404,7 +423,7 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
 401: Unauthorized
 
@@ -413,7 +432,7 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1beta2/deviceclasses
+GET /apis/resource.k8s.io/v1/deviceclasses
 
 #### Parameters
 -->
@@ -421,7 +440,7 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### HTTP 请求
 
-GET /apis/resource.k8s.io/v1beta2/deviceclasses
+GET /apis/resource.k8s.io/v1/deviceclasses
 
 #### 参数
 
@@ -519,7 +538,7 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses
 -->
 #### 响应
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassList" >}}">DeviceClassList</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClassList" >}}">DeviceClassList</a>): OK
 
 401: Unauthorized
 
@@ -528,7 +547,7 @@ GET /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1beta2/deviceclasses
+POST /apis/resource.k8s.io/v1/deviceclasses
 
 #### Parameters
 -->
@@ -536,12 +555,12 @@ POST /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### HTTP 请求
 
-POST /apis/resource.k8s.io/v1beta2/deviceclasses
+POST /apis/resource.k8s.io/v1/deviceclasses
 
 #### 参数
 
 <!--
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>, required
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -559,7 +578,7 @@ POST /apis/resource.k8s.io/v1beta2/deviceclasses
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>，必需
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -582,11 +601,11 @@ POST /apis/resource.k8s.io/v1beta2/deviceclasses
 -->
 #### 响应
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Created
 
-202 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Accepted
 
 401: Unauthorized
 
@@ -595,7 +614,7 @@ POST /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+PUT /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### Parameters
 -->
@@ -603,7 +622,7 @@ PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP 请求
 
-PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+PUT /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### 参数
 
@@ -612,7 +631,7 @@ PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
   name of the DeviceClass
 
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>, required
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -634,7 +653,7 @@ PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
   DeviceClass 的名称。
 
-- **body**: <a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>，必需
+- **body**: <a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -657,9 +676,9 @@ PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Created
 
 401: Unauthorized
 
@@ -668,7 +687,7 @@ PUT /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+PATCH /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### Parameters
 -->
@@ -676,7 +695,7 @@ PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP 请求
 
-PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+PATCH /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### 参数
 
@@ -738,9 +757,9 @@ PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Created
+201 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Created
 
 401: Unauthorized
 
@@ -749,7 +768,7 @@ PATCH /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+DELETE /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### Parameters
 -->
@@ -757,7 +776,7 @@ DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP 请求
 
-DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
+DELETE /apis/resource.k8s.io/v1/deviceclasses/{name}
 
 #### 参数
 
@@ -819,9 +838,9 @@ DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): OK
+200 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): OK
 
-202 (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClass" >}}">DeviceClass</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/device-class-v1#DeviceClass" >}}">DeviceClass</a>): Accepted
 
 401: Unauthorized
 
@@ -830,7 +849,7 @@ DELETE /apis/resource.k8s.io/v1beta2/deviceclasses/{name}
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1beta2/deviceclasses
+DELETE /apis/resource.k8s.io/v1/deviceclasses
 
 #### Parameters
 -->
@@ -838,7 +857,7 @@ DELETE /apis/resource.k8s.io/v1beta2/deviceclasses
 
 #### HTTP 请求
 
-DELETE /apis/resource.k8s.io/v1beta2/deviceclasses
+DELETE /apis/resource.k8s.io/v1/deviceclasses
 
 #### 参数
 
