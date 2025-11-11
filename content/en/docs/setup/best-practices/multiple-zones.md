@@ -1,8 +1,8 @@
 ---
 reviewers:
-- jlowdermilk
-- justinsb
-- quinton-hoole
+  - jlowdermilk
+  - justinsb
+  - quinton-hoole
 title: Running in multiple zones
 weight: 20
 content_type: concept
@@ -95,14 +95,18 @@ such as Deployment, StatefulSet, or Job.
 
 ## Storage access for zones
 
-When persistent volumes are created, Kubernetes automatically adds zone labels 
+When persistent volumes are created, Kubernetes automatically adds zone labels
 to any PersistentVolumes that are linked to a specific zone.
 The {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} then ensures,
 through its `NoVolumeZoneConflict` predicate, that pods which claim a given PersistentVolume
 are only placed into the same zone as that volume.
 
-Please note that the method of adding zone labels can depend on your 
-cloud provider and the storage provisioner you’re using. Always refer to the specific 
+{{< note >}}
+`NoVolumeZoneConflict` is a scheduler rule (predicate) that ensures Pods using a PersistentVolume are only scheduled onto nodes in the same zone as that volume. Many cloud providers make PersistentVolumes zonal resources, which means they exist in a single zone and cannot be attached across zones. This rule prevents scheduling Pods in zones where their storage is not available.
+{{< /note >}}
+
+The method of adding zone labels can depend on your
+cloud provider and the storage provisioner you’re using. Always refer to the specific
 documentation for your environment to ensure correct configuration.
 
 You can specify a {{< glossary_tooltip text="StorageClass" term_id="storage-class" >}}
