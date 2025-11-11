@@ -1,8 +1,3 @@
-<!-- 
-Generates the kube-controller-manager static Pod manifest 
--->
-生成 kube-controller-manager 静态 Pod 清单。
-
 <!--
 ### Synopsis
 -->
@@ -22,7 +17,7 @@ kubeadm init phase control-plane controller-manager [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -30,11 +25,11 @@ kubeadm init phase control-plane controller-manager [flags]
 <tbody>
 
 <tr>
-<!-- td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/pki"</td -->
-<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："/etc/kubernetes/pki"</td>
+<td colspan="2">--cert-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: "/etc/kubernetes/pki"-->默认值："/etc/kubernetes/pki"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 The path where to save and store the certificates.
@@ -48,7 +43,8 @@ The path where to save and store the certificates.
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a kubeadm configuration file.
@@ -62,7 +58,8 @@ kubeadm 配置文件的路径。
 <td colspan="2">--controller-manager-extra-args &lt;comma-separated 'key=value' pairs&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
@@ -77,19 +74,22 @@ A set of extra flags to pass to the Controller Manager or override default ones 
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;"><p>
 <!-- 
 Don't apply any changes; just output what would be done. 
 -->
 不做任何更改；只输出将要执行的操作。
-</p></td>
+</p>
+</td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 help for controller-manager</p>
@@ -108,7 +108,8 @@ controller-manager 操作的帮助命令。
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a container registry to pull control plane images from
@@ -127,7 +128,8 @@ Choose a container registry to pull control plane images from
 </td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Choose a specific Kubernetes version for the control plane.
@@ -141,7 +143,8 @@ Choose a specific Kubernetes version for the control plane.
 <td colspan="2">--patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "target" can be one of "kube-apiserver", "kube-controller-manager", "kube-scheduler", "etcd", "kubeletconfiguration". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.
@@ -161,7 +164,8 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 <td colspan="2">--pod-network-cidr string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
@@ -179,7 +183,7 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 -->
 ### 从父命令继承的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -190,7 +194,8 @@ Specify range of IP addresses for the pod network. If set, the control plane wil
 <td colspan="2">--rootfs string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td></td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <p>
 <!--
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
