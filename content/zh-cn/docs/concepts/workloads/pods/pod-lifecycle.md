@@ -1163,9 +1163,9 @@ containers:
 
 `readinessProbe`
 : Indicates whether the container is ready to respond to requests.
-  If the readiness probe fails, the EndpointSlice controller removes the Pod's IP
-  address from the EndpointSlices of all Services that match the Pod. The default
-  state of readiness before the initial delay is `Failure`. If a container does
+  If the readiness probe fails, the {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}}
+  controller removes the Pod's IP address from the EndpointSlices of all Services that match the Pod.
+  The default state of readiness before the initial delay is `Failure`. If a container does
   not provide a readiness probe, the default state is `Success`.
 
 `startupProbe`
@@ -1183,7 +1183,8 @@ containers:
 
 `readinessProbe`
 : 指示容器是否准备好为请求提供服务。如果就绪态探测失败，
-  EndpointSlice 控制器将从与该 Pod 匹配的所有 Service 的 EndpointSlice 中删除该 Pod 的 IP 地址。
+  {{< glossary_tooltip term_id="endpoint-slice" text="EndpointSlice" >}} 
+  控制器将从与该 Pod 匹配的所有 Service 的 EndpointSlice 中删除该 Pod 的 IP 地址。
   初始延迟之前的就绪态的状态值默认为 `Failure`。
   如果容器不提供就绪态探针，则默认状态为 `Success`。
 
