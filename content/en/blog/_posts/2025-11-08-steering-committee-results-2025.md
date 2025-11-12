@@ -48,10 +48,12 @@ And thank you to all the candidates who came forward to run for election.
 
 ## Get involved with the Steering Committee
 
-This governing body, like all of Kubernetes, is open to all. You can follow along with Steering Committee [meeting notes](https://bit.ly/k8s-steering-wd) and weigh in by filing an issue or creating a PR against their [repo](https://github.com/kubernetes/steering). They have an open meeting on [the first Monday at 8am PT of every month](https://github.com/kubernetes/steering). They can also be contacted at their public mailing list steering@kubernetes.io.
+This governing body, like all of Kubernetes, is open to all. You can follow along with Steering Committee [meeting notes](https://bit.ly/k8s-steering-wd) and weigh in by filing an issue or creating a PR against their [repo](https://github.com/kubernetes/steering). They have an open meeting on [the first Wednesday at 8am PT of every month](https://github.com/kubernetes/steering). They can also be contacted at their public mailing list steering@kubernetes.io.
 
 You can see what the Steering Committee meetings are all about by watching past meetings on the [YouTube Playlist](https://www.youtube.com/playlist?list=PL69nYSiGNLP1yP1B_nd9-drjoxp0Q14qM).
 
 ---
 
 _This post was adapted from one written by the [Contributor Comms Subproject](https://github.com/kubernetes/community/tree/master/communication/contributor-comms). If you want to write stories about the Kubernetes community, learn more about us._
+
+_This article was revised in November 2025 to update the information about when the steering committee meets._
