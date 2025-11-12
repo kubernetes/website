@@ -1,18 +1,15 @@
 ---
 layout: blog
-title: "Kubernetes Configuration Best Practices"
+title: "Kubernetes Configuration Good Practices"
 date: 2025-11-11
-slug: kubernetes-configuration-best-practices
+slug: kubernetes-configuration-good-practices
 evergreen: true
 author: Kirti Goyal
 draft: true
 ---
 
-
-## Introduction 
-
 Configuration is one of those things in Kubernetes that seems small until it's not. Configuration is at the heart of every Kubernetes workload.
-A missing quote, a wrong API version or a YAML indent can ruin your entire deploy. 
+A missing quote, a wrong API version or a misplaced YAML indent can ruin your entire deploy. 
 
 This blog brings together tried-and-tested configuration best practices. The small habits that make your Kubernetes setup clean, consistent and easier to manage. 
 Whether you are just starting out or already deploying apps daily, these are the little things that keep your cluster stable and your future self sane. 
@@ -52,7 +49,9 @@ kubectl apply -f configs/
 One command and boom everything in that folder gets deployed. 
 
 ###	Add helpful annotations
-YAMl files are not just for machines, they are for humans too. Use annotations to describe why something exists or what it does. A quick one-liner can save hours when debugging later and also allows better collaboration.  
+YAML files are not just for machines, they are for humans too. Use annotations to describe why something exists or what it does. A quick one-liner can save hours when debugging later and also allows better collaboration.  
+
+The most helpful annotation to set is `kubernetes.io/description`. It's like using comment, except that it gets copied into the API so that everyone else can see it even after you deploy.
 
 ## Managing Workloads: Pods, Deployments, and Jobs
 
@@ -73,7 +72,7 @@ It will retry if the pods fails and report success when it's done.
 
 ## Service Configuration and Networking
 
-Services are how your workloads talk to each other inside (and sometimes outside) your cluster. Without them, your pods exist but can't reach anyone. Let's make sure that doesn't happen
+Services are how your workloads talk to each other inside (and sometimes outside) your cluster. Without them, your pods exist but can't reach anyone. Let's make sure that doesn't happen.
 
 ### Create Services before workloads that use them
 When Kubernetes starts a Pod, it automatically injects environment variables for existing Services.
@@ -86,7 +85,7 @@ FOO_SERVICE_PORT=<the port the Service runs on>
 ```
 DNS based discovery doesn't have this problem, but it's a good habit to follow anyway.
 
-### Use DNS for service discovery
+### Use DNS for Service discovery
 If your cluster has the DNS [add-on](/docs/concepts/cluster-administration/addons/) (most do), every Service automatically gets a DNS entry. That means you can access it by name instead of IP:
 ```bash
 curl http://my-service.default.svc.cluster.local
@@ -94,7 +93,7 @@ curl http://my-service.default.svc.cluster.local
 It's one of those features that makes Kubernetes networking feel magical. 
 
 ### Avoid `hostPort` and `hostNetwork` unless absolutely necessary
-You'll see these options in YAMLs sometimes:
+You'll sometimes see these options in manifests:
 ```yaml
 hostPort: 8080
 hostNetwork: true
@@ -108,7 +107,7 @@ If you just need local access for testing, try [`kubectl port-forward`](/docs/re
 ```bash
 kubectl port-forward deployment/web 8080:80
 ```
-See [Use Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) to learn more.
+See [Use Port Forwarding to access applications in a cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) to learn more.
 Or if you really need external access, use a [`type: NodePort` Service](/docs/concepts/services-networking/service/#type-nodeport). That's the safer, Kubernetes-native way. 
 
 ### Use headless Services for internal discovery 
@@ -118,7 +117,7 @@ You create one by setting `clusterIP: None`.
 Instead of a single IP, DNS gives you a list of all Pods IPs, perfect for apps that manage connections themselves. 
 
 
-## Working with Labels Effectively 
+## Working with labels effectively 
 
 [Labels](/docs/concepts/overview/working-with-objects/labels/) are key/value pairs that are attached to objects such as Pods.
 Labels help you organize, query and group your resources.
@@ -149,7 +148,7 @@ Basically you are not manually listing Pod names; you are just describing what y
 See the [guestbook](https://github.com/kubernetes/examples/tree/master/web/guestbook/) app for examples of this approach.
 
 ### Use common Kubernetes labels
-Kubernetes actually recommends a set of [common labels](/docs/concepts/overview/working-with-objects/common-labels/). It's a standarized way to name things across your different workloads or projects.
+Kubernetes actually recommends a set of [common labels](/docs/concepts/overview/working-with-objects/common-labels/). It's a standardized way to name things across your different workloads or projects.
 Following this convention makes your manifests cleaner, and it means that tools such as [Headlamp](https://headlamp.dev/), [dashboard](https://github.com/kubernetes/dashboard#introduction), or third-party monitoring systems can all
 automatically understand what's running.
 
@@ -165,24 +164,25 @@ Once that happens, the controller won’t manage that Pod anymore.
 It’s like isolating it for inspection, a “quarantine mode” for debugging. To interactively remove or add labels, use [`kubectl label`](/docs/reference/kubectl/generated/kubectl_label/).
 
 You can then check logs, exec into it and once done, delete it manually.
-
 That’s a super underrated trick every Kubernetes engineer should know.
 
-## Handy kubectl Tips for Managing Configs
+## Handy kubectl tips 
 
 These small tips make life much easier when you are working with multiple YAMLs or clusters.
 
 ### Apply entire directories
 Instead of applying one file at a time, apply the whole folder:
+
 ```bash
-kubectl apply -f configs/
+# Using server-side apply is also a good practice
+kubectl apply -f configs/ --server-side
 ```
 This command looks for `.yaml`, `.yml` and `.json` files in that folder and applies them all together.
 It's faster, cleaner and helps keep things grouped by app. 
 
 ### Use label selectors to get or delete resources
 You don't always need to type out resource names one by one.
-Instead, use [selectors]/docs/concepts/overview/working-with-objects/labels/#label-selectors) to act on entire groups at once:
+Instead, use [selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) to act on entire groups at once:
 
 ```bash
 kubectl get pods -l app=myapp
@@ -190,8 +190,8 @@ kubectl delete pod -l phase=test
 ```
 It's especially useful in CI/CD pipelines, where you want to clean up test resources dynamically. 
 
-### Quickly create deployments and services
-For quick experiments, you don't always need to write YAMLs. You can spin up a deployment right from the CLI:
+### Quickly create Deployments and Services
+For quick experiments, you don't always need to write a manifest. You can spin up a Deployment right from the CLI:
 
 ```bash
 kubectl create deployment webapp --image=nginx
@@ -206,8 +206,10 @@ Also, see [Use a Service to Access an Application in a cluster](/docs/tasks/acce
 
 ## Conclusion
 
-Clean configuration leads to calm clusters. If you stick to a few simple habits: version-control everything, use consistent labels, prefer YAML over JSON and avoid naked Pods you'll save yourself hours of debugging down the road.
+Cleaner configuration leads to calmer cluster administrators. 
+If you stick to a few simple habits: keep configuration simple and minimal, version-control everything,
+use consistent labels, and avoid relying on naked Pods, you'll save yourself hours of debugging down the road.
 
 The best part? 
-Good configurations age well. Even months later, you (or others) will be able to read your manifests and understand exactly what's happening without confusion or chaos. 
+Clean configurations stay readable. Even after months, you or anyone on your team can glance at them and know exactly what’s happening.
 
