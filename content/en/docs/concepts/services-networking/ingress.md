@@ -650,4 +650,4 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 
 * Learn about the [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
 * Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
+

@@ -28,12 +28,7 @@ description: >-
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-<!--
-Kubernetes' _EndpointSlice_ API provides a way to track network endpoints
-within a Kubernetes cluster.
--->
-Kubernetes 的 _EndpointSlice_ API 提供了一种简单的方法来跟踪
-Kubernetes 集群中的网络端点（network endpoints）。
+{{< glossary_definition term_id="endpoint-slice" length="short" >}}
 
 <!-- body -->
 

@@ -206,10 +206,10 @@ IngressClass。
 
 理想情况下，所有 Ingress 控制器都应满足此规范，但各种 Ingress 控制器的操作略有不同。
 
+{{< note >}}
 <!--
 Make sure you review your ingress controller's documentation to understand the caveats of choosing it.
 -->
-{{< note >}}
 确保你查看了 ingress 控制器的文档，以了解选择它的注意事项。
 {{< /note >}}
 
@@ -217,8 +217,5 @@ Make sure you review your ingress controller's documentation to understand the c
 
 <!--
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 -->
 * 进一步了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)。
-* [在 Minikube 上使用 NGINX 控制器安装 Ingress](/zh-cn/docs/tasks/access-application-cluster/ingress-minikube)。
-
