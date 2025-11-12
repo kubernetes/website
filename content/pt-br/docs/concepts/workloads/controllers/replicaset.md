@@ -331,7 +331,7 @@ Por isso, é recomendado o uso de Deployments quando você deseja ReplicaSets.
 
 ### Bare Pods
 
-Diferente do caso onde um usuário cria Pods diretamente, um ReplicaSet substitui Pods que forem deletados ou terminados por qualquer motivo, como em caso de falha de nó ou manutenção disruptiva de nó, como uma atualização de kernel. Por esse motivo, nós recomendamos que você use um ReplicaSet mesmo que sua aplicação necessite apenas de um único Pod. Pense na semelhança com um supervisor de processos, apenas que ele supervisione vários Pods em múltiplos nós ao invés de apenas um Pod. Um ReplicaSet delega reinicializações de um container local para algum agente do nó (Kubelet ou Docker, por exemplo).
+Diferente do caso onde um usuário cria Pods diretamente, um ReplicaSet substitui Pods que forem deletados ou terminados por qualquer motivo, como em caso de falha de nó ou manutenção disruptiva de nó, como uma atualização de kernel. Por esse motivo, nós recomendamos que você use um ReplicaSet mesmo que sua aplicação necessite apenas de um único Pod. Pense na semelhança com um supervisor de processos, apenas que ele supervisione vários Pods em múltiplos nós ao invés de apenas um Pod. Um ReplicaSet delega reinicializações de um contêiner local para algum agente do nó (Kubelet ou Docker, por exemplo).
 
 ### Job
 
