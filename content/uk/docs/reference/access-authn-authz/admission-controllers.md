@@ -576,7 +576,7 @@ metadata:
 
 ### PodTopologyLabels {#podtopologylabels}
 
-{{< feature-state feature_gate="PodTopologyLabelsAdmission" >}}
+{{< feature-state feature_gate_name="PodTopologyLabelsAdmission" >}}
 
 **Тип**: Модифікуючий
 

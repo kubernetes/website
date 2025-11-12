@@ -68,4 +68,3 @@ weight: 50
 ## {{% heading "whatsnext" %}}
 
 * Дізнайтеся більше про [Ingress](/docs/concepts/services-networking/ingress/).
-* [Налаштуйте Ingress на Minikube з контролером NGINX](/docs/tasks/access-application-cluster/ingress-minikube).

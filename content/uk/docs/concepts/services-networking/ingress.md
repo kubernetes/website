@@ -543,4 +543,3 @@ Events:
 
 * Дізнайтеся про [API Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/)
 * Дізнайтеся про [контролери Ingress](/docs/concepts/services-networking/ingress-controllers/)
-* [Налаштуйте Ingress на Minikube з контролером NGINX](/docs/tasks/access-application-cluster/ingress-minikube/)

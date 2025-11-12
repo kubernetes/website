@@ -27,7 +27,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 Наприклад, якщо ви плануєте запустити кластер Kubernetes на своєму ноутбуці (локально), вам спочатку потрібно встановити інструмент, такий як [Minikube](https://minikube.sigs.k8s.io/docs/start/), а потім повторно виконати вказані вище команди.
 
-Якщо `kubectl cluster-info` повертає у відповідь URL, але ви не можете отримати доступ до свого кластера, щоб перевірити, чи він налаштований належним чином, використовуйте:
+Якщо `kubectl cluster-info` повертає у відповідь URL, але ви не можете отримати доступ до свого кластера, щоб перевірити, чи він налаштований належним чином, скористайтесь наступною командою:
 
 ```shell
 kubectl cluster-info dump
@@ -40,4 +40,4 @@ kubectl cluster-info dump
 * Azure AKS: [kubelogin plugin](https://azure.github.io/kubelogin/)
 * Google Kubernetes Engine: [gke-gcloud-auth-plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin)
 
-(Також можуть бути інші причини для показу цього повідомлення про помилку, не повʼязані з цією зміною.)
+Також можуть бути інші причини для показу цього повідомлення про помилку, не повʼязані з цією зміною.
