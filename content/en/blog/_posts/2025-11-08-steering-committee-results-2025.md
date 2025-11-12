@@ -55,3 +55,5 @@ You can see what the Steering Committee meetings are all about by watching past 
 ---
 
 _This post was adapted from one written by the [Contributor Comms Subproject](https://github.com/kubernetes/community/tree/master/communication/contributor-comms). If you want to write stories about the Kubernetes community, learn more about us._
+
+_This article was revised in November 2025 to update the information about when the steering committee meets._
