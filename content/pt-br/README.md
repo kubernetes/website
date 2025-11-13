@@ -15,7 +15,7 @@ Para usar este repositório, você precisa instalar:
 - [npm](https://www.npmjs.com/)
 - [Go](https://go.dev/)
 - [Hugo (versão Extended)](https://gohugo.io/)
-- Um container runtime, por exemplo [Docker](https://www.docker.com/).
+- Um agente de execução de contêiner, como por exemplo o [Docker](https://www.docker.com/).
 
 Antes de você iniciar, instale as dependências, clone o repositório e navegue até o diretório:
 
@@ -40,7 +40,7 @@ git submodule update --init --recursive --depth 1
 make module-init
 ```
 
-## Executando o website usando um container
+## Executando o website usando um contêiner
 
 Para executar o build do website em um contêiner, execute o comando abaixo:
 
@@ -93,7 +93,7 @@ curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi
 make api-reference
 ```
 
-Você pode validar o resultado localmente gerando e disponibilizando o site a partir da imagem do container:
+Você pode validar o resultado localmente gerando e disponibilizando o site a partir da imagem do contêiner:
 
 ```
 make container-image

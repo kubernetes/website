@@ -6,7 +6,7 @@ description: >
 ---
 
 Um cluster Kubernetes consiste em um control plane mais um conjunto de máquinas trabalhadoras, chamadas de nodes,
-que executam aplicações containerizadas. Todo cluster precisa de pelo menos um worker node para executar Pods.
+que executam aplicações conteinerizadas. Todo cluster precisa de pelo menos um worker node para executar Pods.
 
 Os worker nodes hospedam os Pods que são os componentes da carga de trabalho da aplicação.
 O control plane gerencia os worker nodes e os Pods no cluster. Em ambientes de produção,
@@ -37,7 +37,7 @@ bem como detectam e respondem a eventos do cluster (por exemplo, iniciar um novo
 `{{< glossary_tooltip text="replicas" term_id="replica" >}}` de um Deployment não está satisfeito).
 
 Os componentes do control plane podem ser executados em qualquer máquina do cluster. No entanto, para simplicidade, scripts de
-configuração normalmente iniciam todos os componentes do control plane na mesma máquina, e não executam containers de usuário nesta máquina.
+configuração normalmente iniciam todos os componentes do control plane na mesma máquina, e não executam contêineres de usuário nesta máquina.
 Consulte [Criando clusters altamente disponíveis com kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 para um exemplo de configuração do control plane que executa em múltiplas máquinas.
 
@@ -102,7 +102,7 @@ Se você usar um [plugin de rede](#network-plugins) que implementa encaminhament
 por si só, e fornece comportamento equivalente ao kube-proxy, então você não precisa executar
 kube-proxy nos nodes do seu cluster.
 
-### Container runtime {#container-runtime}
+### Agente de execução de contêiner {#container-runtime}
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
@@ -124,7 +124,7 @@ Embora os outros addons não sejam estritamente necessários, todos os clusters 
 DNS do cluster é um servidor DNS, além do(s) outro(s) servidor(es) DNS em seu ambiente,
 que serve registros DNS para services do Kubernetes.
 
-Containers iniciados pelo Kubernetes automaticamente incluem este servidor DNS em suas buscas DNS.
+Contêineres iniciados pelo Kubernetes automaticamente incluem este servidor DNS em suas buscas DNS.
 
 ### Web UI (Dashboard) {#web-ui-dashboard}
 
@@ -132,20 +132,20 @@ Containers iniciados pelo Kubernetes automaticamente incluem este servidor DNS e
 para clusters Kubernetes. Ela permite aos usuários gerenciar e solucionar problemas de aplicações
 executando no cluster, bem como o próprio cluster.
 
-### Monitoramento de recursos de container {#container-resource-monitoring}
+### Monitoramento de recursos de contêiner {#container-resource-monitoring}
 
-[Monitoramento de Recursos de Container](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
-grava métricas genéricas de séries temporais sobre containers em um banco de dados central, e fornece uma UI para navegar nesses dados.
+[Monitoramento de Recursos de Contêiner](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
+grava métricas genéricas de séries temporais sobre contêineres em um banco de dados central, e fornece uma UI para navegar nesses dados.
 
 ### Logging no nível do cluster {#cluster-level-logging}
 
 Um mecanismo de [logging no nível do cluster](/docs/concepts/cluster-administration/logging/) é responsável
-por salvar logs de containers em um armazenamento central de logs com uma interface de busca/navegação.
+por salvar logs de contêineres em um armazenamento central de logs com uma interface de busca/navegação.
 
 ### Plugins de rede {#network-plugins}
 
 [Plugins de rede](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)
-são componentes de software que implementam a especificação da interface de rede de containers (CNI).
+são componentes de software que implementam a especificação da interface de rede de contêineres (CNI).
 Eles são responsáveis por alocar endereços IP para pods e permitir que eles se comuniquem
 uns com os outros dentro do cluster.
 
@@ -212,6 +212,6 @@ Saiba mais sobre o seguinte:
 - [Controllers](/docs/concepts/architecture/controller/) do Kubernetes.
 - [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) que é o scheduler padrão para o Kubernetes.
 - [Documentação](https://etcd.io/docs/) oficial do Etcd.
-- Vários [container runtimes](/docs/setup/production-environment/container-runtimes/) no Kubernetes.
+- Vários [agentes de execução de contêiner](/docs/setup/production-environment/container-runtimes/) no Kubernetes.
 - Integrando com provedores de nuvem usando [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
 - Comandos [kubectl](/docs/reference/generated/kubectl/kubectl-commands).
