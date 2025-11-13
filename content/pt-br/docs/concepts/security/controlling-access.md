@@ -23,9 +23,9 @@ O servidor de API apresenta um certificado. Este certificado pode ser assinado u
 uma autoridade privada de certificados (CA), ou baseado em uma infraestrutura de chave pública ligada
 a uma autoridade de certificados reconhecida publicamente.
 
-Se o seu cluster utiliza uma autoridade privada de certificados, voce precisa de uma cópia do certificado
+Se o seu cluster utiliza uma autoridade privada de certificados, você precisa de uma cópia do certificado
 da autoridade de certificados (CA) dentro do arquivo de configuração `~/.kube/config`, no lado do cliente, para que
-voce possa confiar na conexão e tenha a garantia de que não há interceptação de tráfego.
+você possa confiar na conexão e tenha a garantia de que não há interceptação de tráfego.
 
 O seu cliente pode apresentar o certificado de cliente TLS neste estágio.
 
