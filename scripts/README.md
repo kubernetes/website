@@ -1,4 +1,4 @@
-# Development scripts for Kubernetes documentation
+# Development scripts for Kubernetes Documentation
 
 | Script                  | Description                                                                                                                           |
 |-------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
