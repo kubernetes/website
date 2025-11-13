@@ -1,7 +1,7 @@
 ---
 title: LocalStorageCapacityIsolationFSQuotaMonitoring
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -10,17 +10,17 @@ stages:
     defaultValue: false
     fromVersion: "1.15"
     toVersion: "1.30"
-  - stage: beta 
+  - stage: beta
     defaultValue: false
     fromVersion: "1.31"
 ---
 
 <!--
-When `LocalStorageCapacityIsolation` 
-is enabled for 
-[local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/), 
+When `LocalStorageCapacityIsolation`
+is enabled for
+[local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/),
 the backing filesystem for [emptyDir volumes](/docs/concepts/storage/volumes/#emptydir) supports project quotas,
-and `UserNamespacesSupport` is enabled, 
+and `UserNamespacesSupport` is enabled,
 project quotas are used to monitor `emptyDir` volume storage consumption rather than using filesystem walk, ensuring better performance and accuracy.
 -->
 如果[本地临时存储](/zh-cn/docs/concepts/configuration/manage-resources-containers/)启用了

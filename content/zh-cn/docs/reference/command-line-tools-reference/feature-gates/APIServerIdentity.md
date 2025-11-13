@@ -1,7 +1,7 @@
 ---
 title: APIServerIdentity
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -12,7 +12,7 @@ stages:
     toVersion: "1.25"
   - stage: beta
     defaultValue: true
-    fromVersion: "1.26"  
+    fromVersion: "1.26"
 ---
 
 <!--

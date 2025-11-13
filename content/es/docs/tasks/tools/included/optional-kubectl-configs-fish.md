@@ -2,7 +2,7 @@
 title: "Autocompletado con Fish"
 description: "Configuración opcional para habilitar el autocompletado de la shell Fish"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

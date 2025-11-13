@@ -3,12 +3,12 @@
 title: CSIMigrationvSphereComplete
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: beta 
+  - stage: beta
     defaultValue: false
     fromVersion: "1.19"
     toVersion: "1.21"
@@ -16,7 +16,7 @@ stages:
     fromVersion: "1.22"
     toVersion: "1.22"
 
-removed: true  
+removed: true
 ---
 Stops registering the vSphere in-tree plugin in kubelet
 and volume controllers and enables shims and translation logic to route volume operations

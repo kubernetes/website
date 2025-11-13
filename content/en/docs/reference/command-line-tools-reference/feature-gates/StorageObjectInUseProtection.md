@@ -3,21 +3,21 @@
 title: StorageObjectInUseProtection
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.10"
     toVersion: "1.10"
   - stage: stable
     defaultValue: true
     fromVersion: "1.11"
-    toVersion: "1.24"    
+    toVersion: "1.24"
 
-removed: true   
+removed: true
 ---
 Postpone the deletion of PersistentVolume or
 PersistentVolumeClaim objects if they are still being used.
