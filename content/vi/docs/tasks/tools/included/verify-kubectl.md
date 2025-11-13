@@ -2,13 +2,13 @@
 title: "xác minh cài đặt lệnh kubectl"
 description: "Cách kiểm tra lệnh kubectl đã được cài thành công"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false
 ---
 <!-- TODO: update kubeconfig link when it's translated -->
-Để kubectl có thể tìm kiếm và truy cập vào Kubernetes cluster, nó cần một [tệp kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), được tạo tự động khi chúng ta tạo một cluster bằng [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) hoặc khi triển khai thành công cluster Minikube.  
+Để kubectl có thể tìm kiếm và truy cập vào Kubernetes cluster, nó cần một [tệp kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), được tạo tự động khi chúng ta tạo một cluster bằng [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) hoặc khi triển khai thành công cluster Minikube.
 Mặc định, thông tin cấu hình của kubectl được định nghĩa trong `~/.kube/config`.
 
 Chúng ta có thể kiểm tra xem kubectl đã được cấu hình đúng chưa bằng cách kiểm tra thông tin của cluster:

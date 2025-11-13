@@ -1,12 +1,12 @@
 ---
 title: WindowsHostNetwork
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: true
     fromVersion: "1.26"
     toVersion: "1.32"

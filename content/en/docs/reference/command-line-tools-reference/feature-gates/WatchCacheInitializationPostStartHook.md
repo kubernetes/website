@@ -2,12 +2,12 @@
 title: WatchCacheInitializationPostStartHook
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: beta 
+  - stage: beta
     defaultValue: false
     fromVersion: "1.31"
 

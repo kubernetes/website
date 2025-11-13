@@ -1,12 +1,12 @@
 ---
 title: RecoverVolumeExpansionFailure
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.23"
     toVersion: "1.31"
@@ -17,7 +17,7 @@ stages:
   - stage: stable
     locked: true
     defaultValue: true
-    fromVersion: "1.34" 
+    fromVersion: "1.34"
 ---
 
 <!--

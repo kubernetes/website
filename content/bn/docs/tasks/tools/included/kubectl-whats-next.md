@@ -2,7 +2,7 @@
 title: "এরপর কি?"
 description: "kubectl ইন্সটল করার পর যা হবে"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

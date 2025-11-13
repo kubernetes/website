@@ -2,7 +2,7 @@
 title: "bash auto-completion on Linux"
 description: "Some optional configuration for bash auto-completion on Linux."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

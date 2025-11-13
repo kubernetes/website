@@ -1,14 +1,14 @@
 ---
 title: KMSv2KDF
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
   - stage: beta
     defaultValue: false
-    fromVersion: "1.28"  
+    fromVersion: "1.28"
     toVersion: "1.28"
   - stage: stable
     defaultValue: true

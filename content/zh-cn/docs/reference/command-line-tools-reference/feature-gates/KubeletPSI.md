@@ -1,7 +1,7 @@
 ---
 title: KubeletPSI
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
@@ -10,7 +10,7 @@ stages:
     defaultValue: false
     fromVersion: "1.33"
     toVersion: "1.33"
-  - stage: beta 
+  - stage: beta
     defaultValue: true
     fromVersion: "1.34"
 ---

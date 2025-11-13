@@ -3,7 +3,7 @@
 title: EnableAggregatedDiscoveryTimeout
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
@@ -13,7 +13,7 @@ stages:
     fromVersion: "1.16"
     toVersion: "1.17"
 
-removed: true  
+removed: true
 
 ---
 Enable the five second
