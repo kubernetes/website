@@ -77,36 +77,45 @@ DB_ADDRESS=address
 
 ## Env File Syntax {#env-file-syntax}
 
-The format of Kubernetes env files originates from `.env` files.
+The env file format used by Kubernetes is a strict, well-defined subset of the POSIX shell env-file semantics. Any env file supported by Kubernetes will yield the same environment variables as if it were interpreted by bash, but bash supports additional forms that Kubernetes does not accept.
 
-In a shell environment, `.env` files are typically loaded using the `source .env` command.
+Example:
 
-For Kubernetes, the defined env file format adheres to stricter syntax rules:
+```
+MY_VAR='my-literal-value'
+```
 
-* Blank Lines: Blank lines are ignored.
+Rules
 
-* Leading Spaces: Leading spaces on all lines are ignored.
+* Variable declaration: Use the form `VAR='value'`. Spaces surrounding `=` are ignored; leading spaces on a line are ignored; blank lines are ignored.
+* Quoted values: Values must be enclosed in single quotes (`'`).
+  * The content inside single quotes is preserved literally. No escape-sequence processing, whitespace folding, or character interpretation is applied.
+  * Newlines inside single quotes are preserved (multi-line values are supported).
+* Comments: Lines that begin with `#` are treated as comments and ignored. A `#` character inside a single-quoted value is not a comment.
+* Line continuation: Not used for quoted values. If multi-line content is required, include the newline inside the single-quoted value.
 
-* Variable Declaration: Variables must be declared as `VAR=VAL`. Spaces surrounding `=` and trailing spaces are ignored.
-    ```
-    VAR=VAL → VAL
-    ```
+Examples:
 
-* Comments: Lines beginning with # are treated as comments and ignored.
-    ```
-    # comment
-    VAR=VAL → VAL
+```
+# comment
+DB_ADDRESS='address'
 
-    VAR=VAL # not a comment → VAL # not a comment
-    ```
+MULTI='line1
+line2'
+```
 
-* Line Continuation: A backslash (`\`) at the end of a variable declaration line indicates the value continues on the next line. The lines are joined with a single space.
-    ```
-    VAR=VAL \
-    VAL2
-    → VAL VAL2
-    ```
+Unsupported forms
 
+* Unquoted values are prohibited:
+  * `VAR=value` — not supported.
+* Double-quoted values are prohibited:
+  * `VAR="value"` — not supported.
+* Multiple adjacent quoted strings are not supported:
+  * `VAR='val1''val2'` — not supported.
+* Any form of interpolation, expansion, or concatenation is not supported:
+  * `VAR='a'$OTHER` or `VAR=${OTHER}` — not supported.
+
+The strict single-quote requirement ensures the value is taken literally by the kubelet when loading environment variables from files.
 
 
 ## {{% heading "whatsnext" %}}

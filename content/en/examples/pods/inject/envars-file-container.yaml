@@ -6,7 +6,7 @@ spec:
   initContainers:
     - name: setup-envfile
       image:  nginx
-      command: ['sh', '-c', 'echo "DB_ADDRESS=address\nREST_ENDPOINT=endpoint" > /data/config.env']
+      command: ['sh', '-c', "echo \"DB_ADDRESS=\'address\'\nREST_ENDPOINT=\'endpoint\'\" > /data/config.env"]
       volumeMounts:
         - name: config
           mountPath: /data
