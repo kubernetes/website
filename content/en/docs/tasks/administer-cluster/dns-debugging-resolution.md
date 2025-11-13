@@ -196,10 +196,6 @@ kube-dns-zxoja   IPv4          53      10.180.3.17,10.180.3.17    1h
 If you do not see the endpoints, see the endpoints section in the
 [debugging Services](/docs/tasks/debug/debug-application/debug-service/) documentation.
 
-For additional Kubernetes DNS examples, see the
-[cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
-in the Kubernetes GitHub repository.
-
 ### Are DNS queries being received/processed?
 
 You can verify if queries are being received by CoreDNS by adding the `log` plugin to the CoreDNS configuration (aka Corefile).
