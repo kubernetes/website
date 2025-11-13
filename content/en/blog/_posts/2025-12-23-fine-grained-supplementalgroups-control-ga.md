@@ -104,7 +104,7 @@ The result of `id` command in the `example-container` container should be simila
 uid=1000 gid=3000 groups=3000,4000
 ```
 
-You can see `Strict` policy can exclude group `50000` from `groups`! 
+You can see `Strict` policy can exclude group `50000` from `groups`!
 
 Thus, ensuring `supplementalGroupsPolicy: Strict` (enforced by some policy mechanism) helps prevent the implicit supplementary groups in a Pod.
 
