@@ -101,7 +101,7 @@ solução de redes que suporte políticas de rede.
 __Campos obrigatórios__: Assim como todas as outras configurações do Kubernetes, uma `NetworkPolicy`
 necessita dos campos `apiVersion`, `kind` e `metadata`. Para maiores informações sobre 
 trabalhar com arquivos de configuração, veja 
-[Configurando containeres usando ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[Configurando contêineres usando ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 e [Gerenciamento de objetos](/docs/concepts/overview/working-with-objects/object-management).
 
 __spec__: A [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) contém todas as informações necessárias

@@ -17,6 +17,6 @@ tags:
 
 <!--more-->
 
-Como o {{< glossary_tooltip term_id="deployment" >}}, um StatefulSet gerencia Pods que são baseados em uma especificação de container idêntica. Diferente do Deployment, um StatefulSet mantém uma identidade fixa para cada um de seus Pods. Esses pods são criados da mesma especificação, mas não são intercambiáveis: cada um tem uma identificação persistente que se mantém em qualquer reagendamento.
+Como o {{< glossary_tooltip term_id="deployment" >}}, um StatefulSet gerencia Pods que são baseados em uma especificação de contêiner idêntica. Diferente do Deployment, um StatefulSet mantém uma identidade fixa para cada um de seus Pods. Esses pods são criados da mesma especificação, mas não são intercambiáveis: cada um tem uma identificação persistente que se mantém em qualquer reagendamento.
 
 Se você quiser usar volumes de armazenamento para fornecer persistência para sua carga de trabalho, você pode usar um StatefulSet como parte da sua solução. Embora os Pods individuais em um StatefulSet sejam suscetíveis a falhas, os identificadores de pods persistentes facilitam a correspondência de volumes existentes com os novos pods que substituem qualquer um que tenha falhado.

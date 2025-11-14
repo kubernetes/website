@@ -5,7 +5,7 @@ date: 2020-08-03
 full_link: 
 short_description: >
   Um conjunto de servidores de processamento, também chamados de nós, que
-  executam aplicações containerizadas. Todo cluster possui ao menos um servidor
+  executam aplicações conteinerizadas. Todo cluster possui ao menos um servidor
   de processamento (worker node).
 
 aka: 
@@ -15,7 +15,7 @@ tags:
 ---
 Um conjunto de servidores de processamento, chamados
 {{< glossary_tooltip text="nós" term_id="node" >}}, que executam aplicações
-containerizadas. Todo cluster possui ao menos um servidor de processamento
+conteinerizadas. Todo cluster possui ao menos um servidor de processamento
 (_worker node_).
 
 <!--more-->

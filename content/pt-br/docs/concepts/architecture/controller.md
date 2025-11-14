@@ -55,7 +55,7 @@ estado desejado para um kubelet).
 Quando o controlador Job vê uma nova tarefa, ele garante que, em algum lugar
 no seu cluster, os kubelets em um conjunto de Nodes estão executando o número
 correto de Pods para realizar o trabalho.
-O controlador Job não executa nenhum Pod ou container
+O controlador Job não executa nenhum Pod ou contêiner
 ele próprio. Em vez disso, o controlador Job informa o servidor de API para criar ou remover
 Pods.
 Outros componentes no

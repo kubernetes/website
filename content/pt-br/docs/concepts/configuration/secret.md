@@ -181,7 +181,7 @@ muitos Secrets. Escolha a opção que for mais conveniente para o caso de uso.
 
 Secrets podem ser montados como volumes de dados ou expostos como
 {{< glossary_tooltip text="variáveis de ambiente" term_id="container-env-variables" >}}
-para serem utilizados num container de um Pod. Secrets também podem ser
+para serem utilizados num contêiner de um Pod. Secrets também podem ser
 utilizados por outras partes do sistema, sem serem diretamente expostos ao Pod.
 Por exemplo, Secrets podem conter credenciais que outras partes do sistema devem
 utilizar para interagir com sistemas externos no lugar do usuário.

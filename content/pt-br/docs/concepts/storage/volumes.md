@@ -668,11 +668,11 @@ Um volume `storageos` permite que um volume [StorageOS](https://www.storageos.co
 
 O StorageOS funciona como um contêiner dentro de seu ambiente Kubernetes, tornando o armazenamento local ou anexado acessível a partir de qualquer nó dentro do cluster Kubernetes. Os dados podem ser replicados para a proteção contra falhas do nó. O provisionamento e a compressão podem melhorar a utilização e reduzir os custos.
 
-Em sua essência, o StorageOS fornece armazenamento em bloco para containers, acessível a partir de um sistema de arquivo.
+Em sua essência, o StorageOS fornece armazenamento em bloco para contêineres, acessível a partir de um sistema de arquivo.
 
 O Conteiner StorageOS requer Linux de 64 bits e não possui dependências adicionais. Uma licença para desenvolvedores está disponível gratuitamente.
 
-{{< caution >}} Você deve executar o container StorageOS em cada nó que deseja acessar os volumes do StorageOS ou que contribuirá com a capacidade de armazenamento para o pool. Para obter instruções de instalação, consulte a [documentação do StorageOS](https://docs.storageos.com). {{< /caution >}}
+{{< caution >}} Você deve executar o contêiner StorageOS em cada nó que deseja acessar os volumes do StorageOS ou que contribuirá com a capacidade de armazenamento para o pool. Para obter instruções de instalação, consulte a [documentação do StorageOS](https://docs.storageos.com). {{< /caution >}}
 
 O exemplo a seguir é uma configuração do Pod com StorageOS:
 
@@ -972,7 +972,7 @@ A propagação de montagem de um volume é controlada pelo campo `mountPropagati
 
 * `HostToContainer` - Este volume de montagem receberá todas as montagens posteriores que forem montadas para este volume ou qualquer um de seus subdiretórios.
   
-  Em outras palavras, se o host montar qualquer coisa dentro do volume de montagem, o container o visualizará montado ali.
+  Em outras palavras, se o host montar qualquer coisa dentro do volume de montagem, o contêiner o visualizará montado ali.
   
   Da mesma forma, se qualquer Pod com propagação de montagem `Bidirectional` para o mesmo volume montar qualquer coisa lá, o contêiner com propagação de montagem `HostToContainer` o reconhecerá.
   

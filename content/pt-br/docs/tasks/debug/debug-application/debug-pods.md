@@ -30,7 +30,7 @@ do Pod e eventos recentes com o seguinte comando:
 kubectl describe pods ${POD_NAME}
 ```
 
-Observe o estado dos containers no pod. Todos estão em `Running`?
+Observe o estado dos contêineres no pod. Todos estão em `Running`?
 Houve reinicializações recentes?
 
 Continue a depuração dependendo do estado dos pods.
@@ -148,7 +148,7 @@ kubectl get endpoints ${SERVICE_NAME}
 ```
 
 Certifique-se de que os endpoints correspondem ao número de pods que você espera que sejam membros do seu service.
-Por exemplo, se seu Service estiver associado a um container Nginx com 3 réplicas,
+Por exemplo, se seu Service estiver associado a um contêiner Nginx com 3 réplicas,
 você deve esperar ver três endereços IP diferentes nos endpoints do Service.
 
 #### Meu Service não possui endpoints
