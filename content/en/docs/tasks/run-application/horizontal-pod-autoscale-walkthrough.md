@@ -51,7 +51,7 @@ new kinds of resource that represent metric readings.
 The image `registry.k8s.io/hpa-example` used in this walkthrough is only available for **AMD64** nodes.  
 If you're running on **ARM (aarch64)** architecture (for example, Raspberry Pi or Apple Silicon),  
 the container will fail to start with an “exec format error.”  
-To complete this tutorial on ARM, you'll need to build a compatible image manually using the example source code.
+To complete this tutorial on ARM, you'll need to build a compatible ARM64 image.
 {{< /note >}}
 
 To learn how to deploy the Metrics Server, see the
