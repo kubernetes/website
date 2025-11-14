@@ -10,21 +10,21 @@ type: docs
 - [تماس بگیرید](#contact)
   - [سیاست تحریم امنیتی](#security-embargo-policy)
 - [کتاب های راهنما](#handbooks)
-- [مدیریت تغییرات](#release-managers)
-  - [یک تغییر دهنده شوید ](#becoming-a-release-manager)
-- [همکاری جهت میدیریت تغییرات ](#release-manager-associates)
+- [مدیران انتشار](#release-managers)
+  - [تبدیل شدن به یک مدیر انتشار ](#becoming-a-release-manager)
+- [همکاران مدیر انتشار ](#release-manager-associates)
   - [تبدیل شدن به یک همکار مدیر انتشار](#becoming-a-release-manager-associate)
 - [سرنخ‌های انتشار SIG](#sig-release-leads)
   - [صندلی](#chairs)
-  - [سرنخ های فنی](#technical-leads)
+  - [سرپرستان فنی](#technical-leads)
 
 ## تماس بگیرید
 
 | لیست پستی | Slack | دید | کاربرد | عضویت |
 | --- | --- | --- | --- | --- |
-| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | عمومی | بحث عمومی برای انتشارManagers | Aهمه مدیران انتشار (شامل همکاران و روسای SIG) |
+| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io) | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y) (channel) / @release-managers (user group) | عمومی | بحث عمومی برای مدیران اتشار | همه مدیران انتشار (شامل همکاران و روسای SIG) |
 | [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) | N/A | خصوصی | خصوصی بحث برای مدیران انتشار ممتاز | مدیران انتشار، رهبری انتشار SIG |
-| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG) (channel) / @security-rel-team (user group) | خصوصی | Sهماهنگی انتشار اطلاعات امنیتی با کمیته واکنش امنیتی | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
+| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io) | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG) (channel) / @security-rel-team (user group) | خصوصی | هماهنگی انتشار اطلاعات امنیتی با کمیته واکنش امنیتی | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
 
 ### سیاست تحریم امنیتی
 
@@ -134,7 +134,7 @@ type: docs
 - کار روی آیتم‌های k/release که تعاملات ما با Testgrid را بهبود می‌بخشند، پاکسازی کتابخانه‌ها و غیره.
   - این تلاش‌ها نیازمند تعامل و همکاری با مدیران انتشار و همکاران است
 
-## سرنخ‌های انتشار SIG
+## سرپرستان SIG انتشار
 
 روسای انتشار SIG و سرپرستان فنی مسئول موارد زیر هستند:
 
@@ -146,13 +146,13 @@ type: docs
 
 تیم گیت‌هاب: [@kubernetes/sig-release-leads](https://github.com/orgs/kubernetes/teams/sig-release-leads)
 
-### صندلی
+### رهبران
 
 - Jeremy Rickard  ([@jeremyrickard](https://github.com/jeremyrickard))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
 - Stephen Augustus  ([@justaugustus](https://github.com/justaugustus))
 
-### سرنخ های فنی
+### سرپرستان فنی
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
@@ -172,5 +172,5 @@ type: docs
 [وصله(patch) ها ]: /releases/patch-releases/
 [منابع]: https://git.k8s.io/community/committee-security-response/README.md
 [تیم توسعه]: https://git.k8s.io/sig-release/release-team/README.md
-[فرآیند آزادسازی امنیت]: https://git.k8s.io/security/security-release-process.md
+[فرآیند انتشار امنیتی]: https://git.k8s.io/security/security-release-process.md
 
