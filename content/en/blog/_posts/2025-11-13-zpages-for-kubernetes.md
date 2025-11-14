@@ -5,19 +5,22 @@ draft: true
 slug: kubernetes-1-35-structured-zpages
 author: >
   [Richa Banker](https://github.com/richabanker),
-  [Han Kang](https://github.com/logicalhan)
+  [Han Kang](https://github.com/cncf/memorials/blob/main/han-kang.md)
 ---
 
 Debugging Kubernetes control plane components can be challenging, especially when you need to quickly understand the runtime state of a component or verify its configuration. With Kubernetes 1.35, we're enhancing the z-pages debugging endpoints with structured, machine-parseable responses that make it easier to build tooling and automate troubleshooting workflows.
 
 ## What are z-pages?
 
-z-pages are special debugging endpoints exposed by Kubernetes control plane components. Introduced as an alpha feature in Kubernetes 1.32, these endpoints provide runtime diagnostics for components like kube-apiserver, kube-controller-manager, kube-scheduler, kubelet and kube-proxy. The name "z-pages" comes from the convention of using `/z*` paths for debugging endpoints.
+z-pages are special debugging endpoints exposed by Kubernetes control plane components. Introduced as an alpha feature in Kubernetes 1.32, these endpoints provide runtime diagnostics for components like `kube-apiserver`, `kube-controller-manager`, `kube-scheduler`, `kubelet` and `kube-proxy`. The name "z-pages" comes from the convention of using `/*z` paths for debugging endpoints.
 
 Currently, Kubernetes supports two primary z-page endpoints:
 
-- **`/statusz`**: Displays high-level component information including version information, start time, uptime, and available debug paths
-- **`/flagz`**: Shows all command-line flags and their values used to start the component (with confidential values redacted for security)
+`/statusz`
+: Displays high-level component information including version information, start time, uptime, and available debug paths
+
+`/flagz`
+: Shows all command-line arguments and their values used to start the component (with confidential values redacted for security)
 
 These endpoints are valuable for human operators who need to quickly inspect component state, but until now, they only returned plain text output that was difficult to parse programmatically.
 
@@ -30,8 +33,9 @@ Kubernetes 1.35 introduces structured, versioned responses for both `/statusz` a
 The new structured responses are opt-in. Without specifying an `Accept` header, the endpoints continue to return the familiar plain text format:
 
 ```
-$ curl -k --cert /etc/kubernetes/pki/apiserver-kubelet-client.crt \
+$ curl --cert /etc/kubernetes/pki/apiserver-kubelet-client.crt \
   --key /etc/kubernetes/pki/apiserver-kubelet-client.key \
+  --cacert /etc/kubernetes/pki/ca.crt \
   https://localhost:6443/statusz
 
 kube-apiserver statusz
@@ -65,7 +69,7 @@ This returns a versioned JSON response:
   "startTime": "2025-10-29T00:30:01Z",
   "uptimeSeconds": 856,
   "goVersion": "go1.23.2",
-  "binaryVersion": "1.35.0-alpha.0.1595+b288caa2c26536-dirty",
+  "binaryVersion": "1.35.0",
   "emulationVersion": "1.35",
   "paths": [
     "/healthz",
@@ -113,7 +117,7 @@ Instead of parsing plain text, monitoring tools can now easily extract specific 
 
 ### 2. **Better debugging tools**
 
-Developers can build sophisticated debugging tools that compare configurations across multiple components or track configuration drift over time. The structured format makes it trivial to diff configurations or validate that components are running with expected settings.
+Developers can build sophisticated debugging tools that compare configurations across multiple components or track configuration drift over time. The structured format makes it trivial to `diff` configurations or validate that components are running with expected settings.
 
 ### 3. **API versioning and stability**
 
@@ -130,23 +134,31 @@ Both endpoints require feature gates to be enabled:
 
 ### Example: Getting structured responses
 
-Here's an example using `curl` to retrieve structured JSON responses:
+Here's an example using `curl` to retrieve structured JSON responses from the kube-apiserver:
 
 ```bash
 # Get structured statusz response
-curl -k \
+curl \
   --cert /etc/kubernetes/pki/apiserver-kubelet-client.crt \
   --key /etc/kubernetes/pki/apiserver-kubelet-client.key \
+  --cacert /etc/kubernetes/pki/ca.crt \
   -H "Accept: application/json;v=v1alpha1;g=config.k8s.io;as=Statusz" \
   https://localhost:6443/statusz | jq .
 
 # Get structured flagz response
-curl -k \
+curl \
   --cert /etc/kubernetes/pki/apiserver-kubelet-client.crt \
   --key /etc/kubernetes/pki/apiserver-kubelet-client.key \
+  --cacert /etc/kubernetes/pki/ca.crt \
   -H "Accept: application/json;v=v1alpha1;g=config.k8s.io;as=Flagz" \
   https://localhost:6443/flagz | jq .
 ```
+
+{{< note >}}
+The examples above use client certificate authentication and verify the server's certificate using `--cacert`. 
+If you need to bypass certificate verification in a test environment, you can use `--insecure` (or `-k`), 
+but this should never be done in production as it makes you vulnerable to man-in-the-middle attacks.
+{{< /note >}}
 
 ## Important considerations
 
@@ -162,20 +174,20 @@ The structured z-page responses are an **alpha** feature in Kubernetes 1.35. Thi
 
 z-pages expose internal component information and require proper access controls. Here are the key security considerations:
 
-**RBAC authorization**: Access to z-page endpoints is restricted to members of the `system:monitoring` group, which follows the same authorization model as other debugging endpoints like `/healthz`, `/livez`, and `/readyz`. This ensures that only authorized users and service accounts can access debugging information.
+**Authorization**: Access to z-page endpoints is restricted to members of the `system:monitoring` group, which follows the same authorization model as other debugging endpoints like `/healthz`, `/livez`, and `/readyz`. This ensures that only authorized users and service accounts can access debugging information. If your cluster uses RBAC, you can manage access by granting appropriate permissions to this group.
 
-**Authentication**: As shown in the examples, you need to use appropriate authentication mechanisms (such as client certificates) to access these endpoints. The endpoints are not publicly accessible and require valid credentials.
+**Authentication**: The authentication requirements for these endpoints depend on your cluster's configuration. Unless anonymous authentication is enabled for your cluster, you typically need to use authentication mechanisms (such as client certificates) to access these endpoints.
 
 **Information disclosure**: These endpoints reveal configuration details about your cluster components, including:
 - Component versions and build information
-- All command-line flags and their values (with confidential values redacted)
+- All command-line arguments and their values (with confidential values redacted)
 - Available debug endpoints
 
 Only grant access to trusted operators and debugging tools. Avoid exposing these endpoints to unauthorized users or automated systems that don't require this level of access.
 
 ### Future evolution
 
-As the feature matures, we expect to:
+As the feature matures, we (Kubernetes SIG Instrumentation) expect to:
 
 - Introduce `v1beta1` and eventually `v1` versions of the API
 - Gather community feedback on the response schema
