@@ -187,8 +187,6 @@ kube-dns-zxoja   IPv4          53      10.180.3.17,10.180.3.17    1h
 
 Якщо ви не бачите точки доступу, дивіться розділ про точки доступу у документації [налагодження Service](/docs/tasks/debug/debug-application/debug-service/).
 
-Для додаткових прикладів DNS Kubernetes дивіться [приклади dns в кластері](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns) у репозиторії Kubernetes GitHub.
-
 ### Чи надходять/обробляються DNS-запити? {#are-dns-queries-being-received-processed}
 
 Ви можете перевірити, чи надходять запити до CoreDNS, додавши втулок `log` до конфігурації CoreDNS (тобто файлу Corefile). Файл CoreDNS Corefile зберігається у {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} з назвою `coredns`. Щоб редагувати його, використовуйте команду:

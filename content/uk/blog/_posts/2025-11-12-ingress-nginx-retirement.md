@@ -3,7 +3,7 @@ layout: blog
 title: "Закінчення підтримки Ingress NGINX: що потрібно знати"
 slug: ingress-nginx-retirement
 canonicalUrl: https://www.kubernetes.dev/blog/2025/11/12/ingress-nginx-retirement
-date: 2025-11-12T10:30:00-08:00
+date: 2025-11-11T10:30:00-08:00
 author: >
   Tabitha Sable (Kubernetes SRC)
 ---

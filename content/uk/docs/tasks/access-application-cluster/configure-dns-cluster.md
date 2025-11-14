@@ -10,4 +10,6 @@ Kubernetes пропонує надбудову DNS для кластера, як
 
 <!-- body -->
 
-Для отримання додаткової інформації про налаштування CoreDNS для кластера Kubernetes дивіться [Налаштування DNS-сервісу](/docs/tasks/administer-cluster/dns-custom-nameservers/). Приклад, який демонструє, як використовувати Kubernetes DNS з kube-dns, дивіться у [прикладі втулка Kubernetes DNS](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns).
+Для отримання додаткової інформації про налаштування CoreDNS для кластера Kubernetes дивіться [Налаштування DNS-сервісу](/docs/tasks/administer-cluster/dns-custom-nameservers/).
+
+Докладнішу інформацію про налаштування CoreDNS для кластера Kubernetes див. у розділі [Налаштування служби DNS](/docs/tasks/administer-cluster/dns-custom-nameservers/).

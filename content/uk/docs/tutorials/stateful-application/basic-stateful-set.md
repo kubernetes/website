@@ -15,7 +15,6 @@ weight: 10
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 * Інструмент командного рядка [kubectl](/docs/reference/kubectl/kubectl/)
 
 {{% include "task-tutorial-prereqs.md" %}}

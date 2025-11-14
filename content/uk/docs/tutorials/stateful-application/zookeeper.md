@@ -16,7 +16,6 @@ weight: 40
 - [DNS кластера](/docs/concepts/services-networking/dns-pod-service/)
 - [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 - [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-- [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 - [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
 - [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)

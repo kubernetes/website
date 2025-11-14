@@ -251,8 +251,6 @@ Kubernetes не включає внутрішній NFS-провайдер. Ва
 
      Детальнішу інформацію щодо використання політик сховища для управління постійними томами можна переглянути в [Керуванні політикою на основі зберігання для динамічного виділення томів](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md).
 
-Є кілька [прикладів для vSphere](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere), які можна спробувати для керування постійним томом в Kubernetes для vSphere.
-
 ### Ceph RBD (застарілий) {#ceph-rbd}
 
 {{< note >}}
