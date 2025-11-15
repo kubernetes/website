@@ -906,6 +906,19 @@ phase. Also, PodGC adds a Pod disruption condition when cleaning up an orphan Po
 See [Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)
 for more details.
 
+### Pod status during kubelet restart {#kubelet-restart-pod-status}
+
+{{< feature-state feature_gate_name="ChangeContainerStatusOnKubeletRestart" >}}
+
+If the Node's status remains unchanged between the kubelet stopping and starting, it is considered a kubelet restart.
+
+When the kubelet restarts, the container statuses are managed differently based on the feature gate setting:
+
+   * With the `ChangeContainerStatusOnKubeletRestart` feature gate disabled (the default), 
+  the kubelet does not change container statuses after a restart. Containers that were in a Ready state remain Ready.
+
+   * With the feature gate enabled, and containers within the pod have a readiness probe, the kubelet will modify the container's Ready status after restart.
+
 ## {{% heading "whatsnext" %}}
 
 * Get hands-on experience
