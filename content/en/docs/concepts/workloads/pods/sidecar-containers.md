@@ -131,15 +131,15 @@ This section is also present in the [init containers](/docs/concepts/workloads/p
 If you're editing this section, change both places.
 {{< /comment >}}
 
-Given the order of execution for init, sidecar and app containers, the following rules
+Given the order of execution for regular init containers, sidecar and app containers, the following rules
 for resource usage apply:
 
-* The highest of any particular resource request or limit defined on all init
+* The highest of any particular resource request or limit defined on all regular init
   containers is the *effective init request/limit*. If any resource has no
   resource limit specified this is considered as the highest limit.
 * The Pod's *effective request/limit* for a resource is the sum of
 [pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/) and the higher of:
-  * the sum of all non-init containers(app and sidecar containers) request/limit for a
+  * the sum of all app and sidecar containers request/limit for a
   resource
   * the effective init request/limit for a resource
 * Scheduling is done based on effective requests/limits, which means
