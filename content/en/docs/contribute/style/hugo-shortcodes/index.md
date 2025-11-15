@@ -304,6 +304,41 @@ Renders to:
 {{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
+## Time offset {#time-offset}
+
+You can use the `{{%/* time_offset */%}}` shortcode to render a timestamp that's
+offset from the current time by a specific number of years. Use this shortcode
+to create evergreen timestamps for items like `expiration` fields in code
+samples. 
+
+This shortcode takes a single optional parameter, `years`, which specifies the
+number of years to offset the timestamp by. If you omit this parameter, the
+default value is `5`. The output is an absolute UTC timestamp, as described in
+[RFC3339](https://datatracker.ietf.org/doc/html/rfc3339#section-5.8).
+
+The following examples demonstrate this shortcode:
+
+* Default five-year offset:
+
+  ```none
+  {{%/* time_offset */%}}
+  ```
+  The output is `{{% time_offset %}}`.
+
+* Three-year offset:
+
+  ```none
+  {{%/* time_offset years="3" */%}}
+  ```
+  The output is `{{% time_offset years="3" %}}`.
+
+* Negative two-year offset:
+
+  ```none
+  {{%/* time_offset years="-2" */%}}
+  ```
+  The output is `{{% time_offset years="-2" %}}`.
+
 ## Source code files
 
 You can use the `{{%/* code_sample */%}}` shortcode to embed the contents of file in a code block to allow users to download or copy its content to their clipboard. This shortcode is used when the contents of the sample file is generic and reusable, and you want the users to try it out themselves.
