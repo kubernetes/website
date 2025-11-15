@@ -26,12 +26,12 @@ Install [`kubectl`](/docs/tasks/tools/#kubectl).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Ensure that your cluster has the `StorageVersionMigrator` and `InformerResourceVersion`
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+Ensure that your cluster has the `StorageVersionMigrator`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled. You will need control plane administrator access to make that change.
 
 Enable storage version migration REST api by setting runtime config
-`storagemigration.k8s.io/v1alpha1` to `true` for the API server. For more information on
+`storagemigration.k8s.io/v1beta1` to `true` for the API server. For more information on
 how to do that,
 read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-disable-api/).
 
@@ -93,13 +93,12 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1beta1
   metadata:
     name: secrets-migration
   spec:
     resource:
       group: ""
-      version: v1
       resource: secrets
   ```
 
@@ -121,7 +120,7 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1beta1
   metadata:
     name: secrets-migration
     uid: 628f6922-a9cb-4514-b076-12d3c178967c
@@ -130,7 +129,6 @@ read [enable or disable a Kubernetes API](/docs/tasks/administer-cluster/enable-
   spec:
     resource:
       group: ""
-      version: v1
       resource: secrets
   status:
     conditions:
@@ -307,13 +305,12 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1beta1
   metadata:
     name: crdsvm
   spec:
     resource:
       group: stable.example.com
-      version: v1
       resource: SelfieRequest
   ```
 
@@ -335,7 +332,7 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
 
   ```yaml
   kind: StorageVersionMigration
-  apiVersion: storagemigration.k8s.io/v1alpha1
+  apiVersion: storagemigration.k8s.io/v1beta1
   metadata:
     name: crdsvm
     uid: 13062fe4-32d7-47cc-9528-5067fa0c6ac8
@@ -344,7 +341,6 @@ This migration can be achieved through _Storage Version Migration_ to migrate al
   spec:
     resource:
       group: stable.example.com
-      version: v1
       resource: testcrds
   status:
     conditions:
