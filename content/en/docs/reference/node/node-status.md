@@ -17,6 +17,7 @@ A Node's status contains the following information:
 * [Conditions](#condition)
 * [Capacity and Allocatable](#capacity)
 * [Info](#info)
+* [Declared Features](#declaredfeatures)
 
 You can use `kubectl` to view a Node's status and other details:
 
@@ -108,6 +109,17 @@ version (kubelet and kube-proxy version), container runtime details, and which
 operating system the node uses.
 The kubelet gathers this information from the node and publishes it into
 the Kubernetes API.
+
+## Declared Features {#declaredfeatures}
+
+{{< feature-state feature-gate-name="NodeDeclaredFeatures" >}}
+
+Describes the set of specific, control-plane relevant Kubernetes features that
+are supported and enabled on the node through feature gates. The features are
+reported by the kubelet as a list of strings. This is primarily to manage
+version skew and mixed cluster environments. This field is used to prevent
+scheduling pods onto nodes lacking required features and to validate pod
+updates against the features available on the node where the pod is running.
 
 ## Heartbeats
 
