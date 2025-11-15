@@ -397,7 +397,7 @@ different maximum delays.
 
 {{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
 
-With the alpha feature gate `KubeletCrashLoopBackOffMax` enabled, you can
+With the feature gate `KubeletCrashLoopBackOffMax` enabled, you can
 reconfigure the maximum delay between container start retries from the default
 of 300s (5 minutes). This configuration is set per node using kubelet
 configuration. In your [kubelet
