@@ -1352,6 +1352,13 @@ this requires using a ClusterRole and a ClusterRoleBinding,
 not a Role and RoleBinding.
 {{< /note >}}
 
+### Constrained Impersonation
+
+{{< feature-state for_k8s_version="v1.35" state="alpha" >}}
+
+[Constrained impersonation](/docs/reference/access-authn-authz/constrained-impersonation/) provides
+additional access control over the existing impersonation
+
 ## client-go credential plugins
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
