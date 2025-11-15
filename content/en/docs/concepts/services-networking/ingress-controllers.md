@@ -3,27 +3,42 @@ title: Ingress Controllers
 description: >-
   In order for an [Ingress](/docs/concepts/services-networking/ingress/) to work in your cluster,
   there must be an _ingress controller_ running.
-  You need to select at least one ingress controller and make sure it is set up in your cluster.  
+  You need to select at least one ingress controller and make sure it is set up in your cluster.
   This page lists common ingress controllers that you can deploy.
 content_type: concept
 weight: 50
 ---
 
+{{< note >}}
+The Ingress API has been frozen.
+
+This means that:
+* The Ingress API will not be removed.
+* The Ingress API is no longer being developed, and will have no further changes
+  or updates made to it.
+{{< /note >}}
+
+<!-- body -->
+
 <!-- overview -->
 
-In order for the Ingress resource to work, the cluster must have an ingress controller running. 
+## Preferred Option: Gateway API
 
-Unlike other types of controllers which run as part of the `kube-controller-manager` binary, Ingress controllers 
-are not started automatically with a cluster. Use this page to choose the ingress controller implementation 
-that best fits your cluster.
+[Gateway API](/docs/concepts/services-networking/gateway/) is stable and
+includes many more features (and implementations). Instead of relying on an
+assortment of implementation-specific annotations, Gateway API allows you to
+use a broad set of Core APIs with a wide variety of implementations. Unlike
+Ingress, Gateway API is still under active development and continues to gain
+new capabilities with each release.
 
-Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme), and
-  [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) ingress controllers.
+## Ingress controllers
+
+Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), and [GCE](https://git.k8s.io/ingress-gce/README.md#readme) ingress controllers.
 
 
 <!-- body -->
 
-## Additional controllers
+## Controllers
 
 {{% thirdparty-content %}}
 
