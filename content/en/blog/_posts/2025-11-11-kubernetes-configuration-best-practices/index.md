@@ -25,22 +25,24 @@ kubectl api-resources
 This simple step saves you from future compatibility issues. 
   
 ### Store configuration in version control 
-Never apply YAML files directly from your desktop. Always keep them in a version control system like Git, it's your safety net. 
+Never apply manifest files directly from your desktop. Always keep them in a version control system like Git, it's your safety net. 
 If something breaks, you can instantly roll back to a previous commit, compare changes or recreate your cluster setup without panic.
 
 ### Write configs in YAML not JSON
 Write your configuration files using YAML rather than JSON. Both work technically, but YAML is just easier for humans. It's cleaner to read and less noisy and widely used in the community. 
 
-> Note: YAML has some sneaky gotchas with booleans. 
+YAML has some sneaky gotchas with boolean values: 
 Use only `true` or `false`. 
 Don't write `yes`, `no`, `on` or  `off`.
 They might work in one version of YAML but break in another. To be safe, quote anything that looks like a Boolean (for example `"yes"`).
 
 ###	Keep configuration simple and minimal
-Avoid setting default values that are already handled by Kubernetes. Minimal YAMLs are easier to debug, cleaner to review and less likely to break things later. 
+Avoid setting default values that are already handled by Kubernetes. Minimal manifests are easier to debug, cleaner to review and less likely to break things later. 
 
 ###	Group related objects together
-If your Deployment, Service and ConfigMap all belong to one app, put them in a single YAML file.  It's easier to track changes and apply them as a unit. See the [Guestbook all-in-one.yaml](https://github.com/kubernetes/examples/blob/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml) file as an example of this syntax.
+If your Deployment, Service and ConfigMap all belong to one app, put them in a single manifest file.  
+It's easier to track changes and apply them as a unit. 
+See the [Guestbook all-in-one.yaml](https://github.com/kubernetes/examples/blob/master/web/guestbook/all-in-one/guestbook-all-in-one.yaml) file for an example of this syntax.
 
 You can even apply entire directories with:
 ```bash
@@ -49,14 +51,14 @@ kubectl apply -f configs/
 One command and boom everything in that folder gets deployed. 
 
 ###	Add helpful annotations
-YAML files are not just for machines, they are for humans too. Use annotations to describe why something exists or what it does. A quick one-liner can save hours when debugging later and also allows better collaboration.  
+Manifest files are not just for machines, they are for humans too. Use annotations to describe why something exists or what it does. A quick one-liner can save hours when debugging later and also allows better collaboration.  
 
 The most helpful annotation to set is `kubernetes.io/description`. It's like using comment, except that it gets copied into the API so that everyone else can see it even after you deploy.
 
 ## Managing Workloads: Pods, Deployments, and Jobs
 
-Most of us started our Kubernetes journey by creating Pods directly. 
-While Pods are the building blocks of Kubernetes, using them directly is like driving without a seatbelt, it works until something crashes.
+A common early mistake in Kubernetes is creating Pods directly. Pods work, but they don't reschedule themselves if something goes wrong.
+
 _Naked Pods_ (Pods not managed by a controller, such as [Deployment](/docs/concepts/workloads/controllers/deployment/) or a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)) are fine for testing, but in real setups, they are risky.
 
 Why?
@@ -168,7 +170,7 @@ That’s a super underrated trick every Kubernetes engineer should know.
 
 ## Handy kubectl tips 
 
-These small tips make life much easier when you are working with multiple YAMLs or clusters.
+These small tips make life much easier when you are working with multiple manifest files or clusters.
 
 ### Apply entire directories
 Instead of applying one file at a time, apply the whole folder:
