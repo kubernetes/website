@@ -65,8 +65,8 @@ kubectl create namespace cpu-example
 
 ## Specify a CPU request and a CPU limit
 
-To specify a CPU request for a container, include the `resources:requests` field
-in the Container resource manifest. To specify a CPU limit, include `resources:limits`.
+To specify a CPU request for a container, include the `resources.requests.cpu` field
+in the container’s resource manifest. To specify a CPU limit, include `resources.limits.cpu`.
 
 In this exercise, you create a Pod that has one container. The container has a request
 of 0.5 CPU and a limit of 1 CPU. Here is the configuration file for the Pod:
