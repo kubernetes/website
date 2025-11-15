@@ -376,24 +376,38 @@ body.glossary {
   background: #f8f9cb;
 }
 
-#mainContent .launch-content {
+// Docs landing page styles
+body.docs-portal {
+  .td-content > h1:first-child {
+    text-align: center;
+    color: $primary;
+    padding-top: 0;
+  }
 
   .launch-cards {
     padding: 0;
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
-    row-gap: 1em;
+
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
+
     .launch-card {
+      border-radius: 0.75rem;
+      padding: 0.25rem 0.75rem;
       display: flex;
-      padding: 0 30px 0 0;
-      .card-content{
-        width: fit-content;
+
+      .card-content {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
         margin: 0;
+
         row-gap: 1em;
+
         h2 {
-          font-size: 1.75em;
+          font-size: 1.5em;
           padding: 0.5em 0;
           margin: 0;
           a {
@@ -405,37 +419,91 @@ body.glossary {
           margin: 0;
         }
 
-        ul {
+        > ul {
           list-style: none;
           height: fit-content;
           line-height: 1.6;
           padding: 0;
+          padding-left: 1rem;
           margin-block-end: auto;
-        }
 
-        br {
-          display: none;
+          > li:last-child {
+            margin-bottom: 1rem;
+          }
         }
 
         button {
+          min-width: 75%;
+          align-self: center;
+          background: $primary;
+          color: $white;
+          border: 0;
+          font-weight: bold;
+          border-radius: 0.5rem;
           height: min-content;
           width: auto;
           padding: .5em 1em;
           cursor: pointer;
           box-sizing: border-box;
+          margin-bottom: 0.25rem;
         }
       }
     }
 
-    @media only screen and (max-width: 1000px) {
-      grid-template-columns: 1fr;
-      .launch-card {
-        width: 100%;
+    .launch-card:has(button) {
+      background: rgba(210, 210, 210, 0.2);
+      color: $black;
+    }
+
+    .launch-card:hover {
+      background: rgba(210, 210, 210, 0.4);
+    }
+
+    .launch-card:has(button:hover) {
+      outline: 0.2rem solid $primary;
+      button, button:hover {
+        background: $primary;
+        color: $white;
       }
+    }
+
+    .launch-card button:hover {
+      outline: 0.2rem solid white;
+    }
+
+    grid-template-columns: repeat(1, 1fr);
+
+    @include media-breakpoint-up(xl) {
+      margin-left: auto;
+      margin-right: auto;
+      row-gap: 1rem;
+      column-gap: 1rem;
+      .launch-card {
+        .card-content {
+          width: fit-content;
+          flex-grow: initial;
+        }
+        max-width: calc(min(80vw, 40em));
+        padding: 0.75rem;
+        > .card-content button {
+          align-self: flex-end;
+        }
+      }
+    }
+    @media (max-width: 60rem) {
+      row-gap: 0.75rem;
+      .launch-card {
+        border-radius: 0.333rem;
+      }
+    }
+    @media (min-width: 60rem) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 120rem) {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 }
-
 
 /* SCSS related to the list of metrics in Kubernetes */
 main {
