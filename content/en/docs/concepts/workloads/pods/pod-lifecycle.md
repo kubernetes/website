@@ -379,6 +379,10 @@ are affected by the same inconsistencies as the regular restart policy. Kubelet 
 runtime garbage collection, intermitted connectivity issues with the control plane may cause the state
 loss and containers may be re-run even when you expect a container not to be restarted.
 
+#### Restart All Containers {#restart-all-containers}
+
+TBD
+
 ### Reduced container restart delay
 
 {{< feature-state
