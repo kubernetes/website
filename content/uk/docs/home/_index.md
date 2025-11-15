@@ -1,9 +1,8 @@
 ---
 title: Документація Kubernetes
 noedit: true
-cid: docsHome
 layout: docsportal_home
-class: gridPage gridPageHome
+body_class: docs-portal
 linkTitle: Документація
 main_menu: true
 weight: 10
@@ -41,12 +40,12 @@ cards:
   title: Довідкова інформація
   description: Ознайомтеся з термінологією, синтаксисом командного рядка, типами ресурсів API і документацією з налаштування інструментів.
   button: Довідкова інформація
-  button_path: /docs/reference
+  button_path: "/docs/reference"
 - name: contribute
   title: Сопособи участі
   description: Дізнайтесь як допомогти зробити Kubernetes кращим.
   button: Дізнайтесь як допомогти
-  button_path: /docs/contribute
+  button_path: "/docs/contribute"
 - name: training
   title: Навчання та сертифікація
   description: "Отримайте сертифікат Kubernetes і зробіть свої хмарні проєкти успішними!"
@@ -56,8 +55,10 @@ cards:
   title: Отримання Kubernetes
   description: Встановіть чи оновіть Kubernetes до останньої версії.
   button: Завантажити
-  button_path: /releases/download
+  button_path: "/releases/download"
 - name: about
   title: Про цю документацію
   description: Цей вебсайт містить документацію для поточної та чоторьої попередніх версій Kubernetes.
+  button: "Доступні версії"
+  button_path: "/docs/home/supported-doc-versions"
 ---
