@@ -253,9 +253,9 @@ You can enable this option by adding `prefer-closest-numa-nodes=true` to the Top
 By default (without this option), the Topology Manager aligns resources on either a single NUMA node or,
 in the case where more than one NUMA node is required, using the minimum number of NUMA nodes.
 
-### `max-allowable-numa-nodes` (beta) {#policy-option-max-allowable-numa-nodes}
+### `max-allowable-numa-nodes` {#policy-option-max-allowable-numa-nodes}
 
-The `max-allowable-numa-nodes` option is beta since Kubernetes 1.31. In Kubernetes {{< skew currentVersion >}},
+The `max-allowable-numa-nodes` option is GA since Kubernetes 1.35. In Kubernetes {{< skew currentVersion >}},
 this policy option is visible by default provided that the `TopologyManagerPolicyOptions` and
 `TopologyManagerPolicyBetaOptions` [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
 are enabled.
