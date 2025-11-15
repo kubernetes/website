@@ -16,3 +16,4 @@ tags:
 <!--more--> 
 
 Usado para instalar serviços (daemons) do sistema como coletores de log e agentes de monitoramento que normalmente devem ser executados em todos os {{< glossary_tooltip text="nós" term_id="node" >}}.
+#
