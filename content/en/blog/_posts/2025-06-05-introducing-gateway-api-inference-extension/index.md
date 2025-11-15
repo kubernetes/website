@@ -59,7 +59,7 @@ operators manage where and how it’s served.
 
 The flow of a request builds on the Gateway API model (Gateways and HTTPRoutes) with one or more extra inference-aware
 steps (extensions) in the middle. Here’s a high-level example of the request flow with the
-[Endpoint Selection Extension (ESE)](https://gateway-api-inference-extension.sigs.k8s.io/#endpoint-selection-extension):
+[Inference Gateway (IGW))](https://gateway-api-inference-extension.sigs.k8s.io/#concepts-and-definitions):
 
 {{< figure src="inference-extension-request-flow.png" alt="Request Flow" class="diagram-large" clicktozoom="true" >}}
 
@@ -97,13 +97,13 @@ dataset served as the workload, and traffic was ramped from 100 Queries per Seco
 
 {{< figure src="inference-extension-benchmark.png" alt="Endpoint Extension Scheduling" class="diagram-large" clicktozoom="true" >}}
 
-- **Comparable Throughput**: Throughout the tested QPS range, the ESE delivered throughput roughly on par with a standard
+- **Comparable Throughput**: Throughout the tested QPS range, the Inference Gateway delivered throughput roughly on par with a standard
   Kubernetes Service.
 
 - **Lower Latency**:
-  - **Per‐Output‐Token Latency**: The ​ESE showed significantly lower p90 latency at higher QPS (500+), indicating that
+  - **Per‐Output‐Token Latency**: The ​Inference Gateway showed significantly lower p90 latency at higher QPS (500+), indicating that
   its model-aware routing decisions reduce queueing and resource contention as GPU memory approaches saturation.
-  - **Overall p90 Latency**: Similar trends emerged, with the ​ESE reducing end‐to‐end tail latencies compared to the
+  - **Overall p90 Latency**: Similar trends emerged, with the ​Inference Gateway reducing end‐to‐end tail latencies compared to the
   baseline, particularly as traffic increased beyond 400–500 QPS.
 
 These results suggest that this extension's model‐aware routing significantly reduced latency for GPU‐backed LLM
