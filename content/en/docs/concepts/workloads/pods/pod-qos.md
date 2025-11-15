@@ -50,6 +50,13 @@ For a Pod to be given a QoS class of `Guaranteed`:
 * Every Container in the Pod must have a CPU limit and a CPU request.
 * For every Container in the Pod, the CPU limit must equal the CPU request.
 
+If instead the Pod uses [Pod-level resources](/docs/concepts/configuration/manage-resources-containers/#pod-level-resource-specification):
+
+{{< feature-state feature_gate_name="PodLevelResources" >}}
+
+* The Pod must have a Pod-level memory limit and memory request, and their values must be equal.
+* The Pod must have a Pod-level CPU limit and CPU request, and their values must be equal.
+
 ### Burstable
 
 Pods that are `Burstable` have some lower-bound resource guarantees based on the request, but
@@ -65,7 +72,8 @@ that is `Burstable` can try to use any amount of node resources.
 A Pod is given a QoS class of `Burstable` if:
 
 * The Pod does not meet the criteria for QoS class `Guaranteed`.
-* At least one Container in the Pod has a memory or CPU request or limit.
+* At least one Container in the Pod has a memory or CPU request or limit,
+  or the Pod has a Pod-level memory or CPU request or limit.
 
 ### BestEffort
 
@@ -81,7 +89,7 @@ The kubelet prefers to evict `BestEffort` Pods if the node comes under resource 
 A Pod has a QoS class of `BestEffort` if it doesn't meet the criteria for either `Guaranteed`
 or `Burstable`. In other words, a Pod is `BestEffort` only if none of the Containers in the Pod have a
 memory limit or a memory request, and none of the Containers in the Pod have a
-CPU limit or a CPU request.
+CPU limit or a CPU request, and the Pod does not have any Pod-level memory or CPU limits or requests.
 Containers in a Pod can request other resources (not CPU or memory) and still be classified as
 `BestEffort`.
 
