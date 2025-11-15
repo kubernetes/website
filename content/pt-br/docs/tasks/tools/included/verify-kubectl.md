@@ -2,7 +2,7 @@
 title: "Verifique a instalação do kubectl"
 description: "Como verificar a instalação do kubectl."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

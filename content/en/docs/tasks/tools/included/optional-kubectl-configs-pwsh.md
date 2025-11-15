@@ -2,7 +2,7 @@
 title: "PowerShell auto-completion"
 description: "Some optional configuration for powershell auto-completion."
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

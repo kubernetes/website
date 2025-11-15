@@ -1,19 +1,19 @@
 ---
 title: KMSv1
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
   - stage: deprecated
     defaultValue: true
-    fromVersion: "1.28"  
+    fromVersion: "1.28"
     toVersion: "1.28"
   - stage: deprecated
     defaultValue: false
-    fromVersion: "1.29"  
-    
+    fromVersion: "1.29"
+
 ---
 
 <!--

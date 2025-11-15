@@ -2,7 +2,7 @@
 title: "kubectlの設定を検証する"
 description: "kubectlを検証する方法。"
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

@@ -3,7 +3,7 @@ title: "kubectl-convertの概要"
 description: >-
   Kubernetes APIのあるバージョンから別のバージョンにマニフェストを変換することができるkubectlプラグイン。
 headless: true
-_build:
+build:
   list: never
   render: never
   publishResources: false

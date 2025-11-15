@@ -1,12 +1,12 @@
 ---
 title: PodLifecycleSleepActionAllowZero
 content_type: feature_gate
-_build:
+build:
   list: never
   render: false
 
 stages:
-  - stage: alpha 
+  - stage: alpha
     defaultValue: false
     fromVersion: "1.32"
     toVersion: "1.32"

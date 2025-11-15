@@ -2,7 +2,7 @@
 title: AllowInsecureKubeletCertificateSigningRequests
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
@@ -11,7 +11,7 @@ stages:
     defaultValue: false
     fromVersion: "1.31"
 ---
-  
+
 <!--
 Disable node admission validation of
 [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/#certificate-signing-requests)

@@ -3,7 +3,7 @@
 title: ExternalPolicyForExternalIP
 content_type: feature_gate
 
-_build:
+build:
   list: never
   render: false
 
@@ -13,7 +13,7 @@ stages:
     fromVersion: "1.18"
     toVersion: "1.22"
 
-removed: true  
+removed: true
 ---
 Fix a bug where ExternalTrafficPolicy is not
 applied to Service ExternalIPs.
