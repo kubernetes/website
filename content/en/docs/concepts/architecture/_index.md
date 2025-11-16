@@ -199,9 +199,6 @@ Kubernetes architecture allows for significant customization:
 - API servers can be extended with CustomResourceDefinitions and API Aggregation.
 - Cloud providers can integrate deeply with Kubernetes using the cloud-controller-manager.
 
-The flexibility of Kubernetes architecture allows organizations to tailor their clusters to specific needs,
-balancing factors such as operational complexity, performance, and management overhead.
-
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
