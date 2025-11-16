@@ -147,7 +147,7 @@ Tanpa menggunakan namespace pengguna, kontainer yang berjalan sebagai _root_, da
 _breakout_ kontainer, memiliki hak akses _root_ pada node tersebut. Dan jika beberapa kemampuan diberikan kepada kontainer, kemampuan tersebut juga valid pada _host_. Semua hal ini
 tidak berlaku ketika kita menggunakan namespace pengguna.
 
-Jika Anda ingin mengetahui detail lebih lanjut tentang perubahan apa saja yang terjadi ketika namespace pengguna digunakan, lihat `man 7 user_namespaces`.
+Jika kamu ingin mengetahui detail lebih lanjut tentang perubahan apa saja yang terjadi ketika namespace pengguna digunakan, lihat `man 7 user_namespaces`.
 
 ## Siapkan node untuk mendukung namespace pengguna
 
