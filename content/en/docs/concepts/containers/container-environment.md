@@ -42,7 +42,7 @@ as are any environment variables specified statically in the container image.
 A list of all services that were running when a Container was created is available to that Container as environment variables.
 This list is limited to services within the same namespace as the new Container's Pod and Kubernetes control plane services.
 
-For a service named *foo* that maps to a Container named *bar*,
+For a service named *foo* that exposes a Pod running a Container named *bar*,
 the following variables are defined:
 
 ```shell
