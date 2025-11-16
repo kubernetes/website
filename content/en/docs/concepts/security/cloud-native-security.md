@@ -7,17 +7,17 @@ weight: 10
 hide_summary: true
 
 description: >
-  Concepts for keeping your cloud-native workload secure.
+  Concepts for keeping your cloud native workload secure.
 ---
 
-Kubernetes is based on a cloud-native architecture and draws on advice from the
+Kubernetes is based on a cloud native architecture and draws on advice from the
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} about good practices for
-cloud-native information security.
+cloud native information security.
 
 Read on for an overview of how Kubernetes is designed to help you deploy a
-secure cloud-native platform.
+secure cloud native platform.
 
-## Cloud-native information security
+## Cloud native information security
 
 {{< comment >}}
 There are localized versions available of this whitepaper; if you can link to one of those
@@ -25,7 +25,7 @@ when localizing, that's even better.
 {{< /comment >}}
 
 The CNCF [white paper](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)
-on cloud-native security defines security controls and practices that are
+on cloud native security defines security controls and practices that are
 appropriate to different _lifecycle phases_.
 
 ## _Develop_ lifecycle phase {#lifecycle-phase-develop}
@@ -52,7 +52,7 @@ To achieve this, you can:
 - Ensure the security of the supply chain for container images you execute.
 - Ensure the security of the supply chain for the cluster and other components
   that execute your application. For example, this might include an external
-  database that your cloud-native application uses for persistence.
+  database that your cloud native application uses for persistence.
 
 To achieve this, you can:
 
@@ -206,10 +206,10 @@ logs are both tamper-proof and confidential.
 
 ## {{% heading "whatsnext" %}}
 
-### Cloud-native security {#further-reading-cloud-native}
+### Cloud native security {#further-reading-cloud-native}
 
 * CNCF [white paper](https://github.com/cncf/tag-security/blob/main/community/resources/security-whitepaper/v2/CNCF_cloud-native-security-whitepaper-May2022-v2.pdf)
-  on cloud-native security.
+  on cloud native security.
 * CNCF [white paper](https://github.com/cncf/tag-security/blob/f80844baaea22a358f5b20dca52cd6f72a32b066/supply-chain-security/supply-chain-security-paper/CNCF_SSCP_v1.pdf)
   on good practices for securing a software supply chain.
 * [Fixing the Kubernetes clusterf\*\*k: Understanding security from the kernel up](https://archive.fosdem.org/2020/schedule/event/kubernetes/) (FOSDEM 2020)
