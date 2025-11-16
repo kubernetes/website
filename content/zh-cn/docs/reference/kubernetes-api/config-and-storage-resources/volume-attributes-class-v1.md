@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "storage.k8s.io/v1beta1"
-  import: "k8s.io/api/storage/v1beta1"
+  apiVersion: "storage.k8s.io/v1"
+  import: "k8s.io/api/storage/v1"
   kind: "VolumeAttributesClass"
 content_type: "api_reference"
 description: "VolumeAttributesClass 表示由 CSI 驱动所定义的可变更卷属性的规约。"
-title: "VolumeAttributesClass v1beta1"
+title: "VolumeAttributesClass"
 weight: 12
 ---
 <!--
 api_metadata:
-  apiVersion: "storage.k8s.io/v1beta1"
-  import: "k8s.io/api/storage/v1beta1"
+  apiVersion: "storage.k8s.io/v1"
+  import: "k8s.io/api/storage/v1"
   kind: "VolumeAttributesClass"
 content_type: "api_reference"
 description: "VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver."
-title: "VolumeAttributesClass v1beta1"
+title: "VolumeAttributesClass"
 weight: 12
 auto_generated: true
 -->
 
-`apiVersion: storage.k8s.io/v1beta1`
+`apiVersion: storage.k8s.io/v1`
 
-`import "k8s.io/api/storage/v1beta1"`
+`import "k8s.io/api/storage/v1"`
 
 ## VolumeAttributesClass {#VolumeAttributesClass}
 
@@ -35,7 +35,7 @@ VolumeAttributesClass 表示由 CSI 驱动所定义的可变更卷属性的规�
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1beta1
+- **apiVersion**: storage.k8s.io/v1
 
 - **kind**: VolumeAttributesClass
 
@@ -84,7 +84,7 @@ VolumeAttributesClassList 是 VolumeAttributesClass 对象的集合。
 
 <hr>
 
-- **apiVersion**: storage.k8s.io/v1beta1
+- **apiVersion**: storage.k8s.io/v1
 
 - **kind**: VolumeAttributesClassList
 
@@ -93,7 +93,7 @@ VolumeAttributesClassList 是 VolumeAttributesClass 对象的集合。
 
   Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>), required
+- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>), required
 
   items is the list of VolumeAttributesClass objects.
 -->
@@ -102,7 +102,7 @@ VolumeAttributesClassList 是 VolumeAttributesClass 对象的集合。
   标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>)，必需
+- **items** ([]<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>)，必需
 
   items 是 VolumeAttributesClass 对象的列表。
 
@@ -123,7 +123,7 @@ VolumeAttributesClassList 是 VolumeAttributesClass 对象的集合。
 
 #### HTTP 请求
 
-GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+GET /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 <!--
 #### Parameters
@@ -151,7 +151,7 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
 401: Unauthorized
 
@@ -164,7 +164,7 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### HTTP 请求
 
-GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+GET /apis/storage.k8s.io/v1/volumeattributesclasses
 
 <!--
 #### Parameters
@@ -264,7 +264,7 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 -->
 #### 响应
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClassList" >}}">VolumeAttributesClassList</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClassList" >}}">VolumeAttributesClassList</a>): OK
 
 401: Unauthorized
 
@@ -277,12 +277,12 @@ GET /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 
 #### HTTP 请求
 
-POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+POST /apis/storage.k8s.io/v1/volumeattributesclasses
 
 <!--
 #### Parameters
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -302,7 +302,7 @@ POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>，必需
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -325,11 +325,11 @@ POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 -->
 #### 响应
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
-202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
 
 401: Unauthorized
 
@@ -342,7 +342,7 @@ POST /apis/storage.k8s.io/v1beta1/volumeattributesclasses
 
 #### HTTP 请求
 
-PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+PUT /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 <!--
 #### Parameters
@@ -351,7 +351,7 @@ PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
   name of the VolumeAttributesClass
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, required
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>, required
 
 - **dryRun** (*in query*): string
 
@@ -375,7 +375,7 @@ PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
   VolumeAttributesClass 的名称。
 
-- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>，必需
+- **body**: <a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -398,9 +398,9 @@ PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
 401: Unauthorized
 
@@ -413,7 +413,7 @@ PUT /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### HTTP 请求
 
-PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+PATCH /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 <!--
 #### Parameters
@@ -477,9 +477,9 @@ PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
+201 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Created
 
 401: Unauthorized
 
@@ -492,7 +492,7 @@ PATCH /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### HTTP 请求
 
-DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
+DELETE /apis/storage.k8s.io/v1/volumeattributesclasses/{name}
 
 <!--
 #### Parameters
@@ -556,9 +556,9 @@ DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
+200 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): OK
 
-202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1beta1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
+202 (<a href="{{< ref "../config-and-storage-resources/volume-attributes-class-v1#VolumeAttributesClass" >}}">VolumeAttributesClass</a>): Accepted
 
 401: Unauthorized
 
@@ -571,7 +571,7 @@ DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses/{name}
 
 #### HTTP 请求
 
-DELETE /apis/storage.k8s.io/v1beta1/volumeattributesclasses
+DELETE /apis/storage.k8s.io/v1/volumeattributesclasses
 
 <!--
 #### Parameters
