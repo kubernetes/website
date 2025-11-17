@@ -39,7 +39,6 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Emissary-Ingress](https://www.getambassador.io/products/api-gateway) API Gateway is an [Envoy](https://www.envoyproxy.io)-based ingress
   controller.
 * [EnRoute](https://getenroute.io/) is an [Envoy](https://www.envoyproxy.io) based API gateway that can run as an ingress controller.
-* [Easegress IngressController](https://megaease.com/docs/easegress/04.cloud-native/4.1.kubernetes-ingress-controller/) is an [Easegress](https://megaease.com/easegress/) based API gateway that can run as an ingress controller.
 * F5 BIG-IP [Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)
   lets you use an Ingress to configure F5 BIG-IP virtual servers.
 * [FortiADC Ingress Controller](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview) support the Kubernetes Ingress resources and allows you to manage FortiADC objects from Kubernetes
@@ -57,7 +56,6 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Kusk Gateway](https://kusk.kubeshop.io/) is an OpenAPI-driven ingress controller based on [Envoy](https://www.envoyproxy.io).
 * The [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
   works with the [NGINX](https://www.nginx.com/resources/glossary/nginx/) webserver (as a proxy).
-* The [ngrok Kubernetes Ingress Controller](https://github.com/ngrok/kubernetes-ingress-controller) is an open source controller for adding secure public access to your K8s services using the [ngrok platform](https://ngrok.com).
 * The [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme) is an Ingress controller for Oracle Cloud Infrastructure which allows you to manage the [OCI Load Balancer](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm).
 * [OpenNJet Ingress Controller](https://gitee.com/njet-rd/open-njet-kic) is a [OpenNJet](https://njet.org.cn/)-based ingress controller.
 * The [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) is based on [Pomerium](https://pomerium.com/), which offers context-aware access policy.
