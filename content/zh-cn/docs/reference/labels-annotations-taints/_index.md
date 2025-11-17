@@ -3878,7 +3878,7 @@ if you set the annotation to "true".
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-name}
 
 <!--
-Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: example`
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: example`
 
 Used on: Service
 
@@ -3886,7 +3886,7 @@ The cloud controller manager integration with AWS elastic load balancing configu
 the load balancer for a Service based on this annotation. The load balancer
 writes logs to an S3 bucket with the name you specify.
 -->
-示例：`service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: example`
+示例：`service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: example`
 
 用于：Service
 
@@ -3896,7 +3896,7 @@ writes logs to an S3 bucket with the name you specify.
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-prefix}
 
 <!--
-Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "/example"`
+Example: `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "/example"`
 
 Used on: Service
 
@@ -3904,7 +3904,7 @@ The cloud controller manager integration with AWS elastic load balancing configu
 the load balancer for a Service based on this annotation. The load balancer
 writes log objects with the prefix that you specify.
 -->
-示例：`service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "/example"`
+示例：`service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "/example"`
 
 用于：Service
 
