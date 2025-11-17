@@ -264,7 +264,7 @@ The above update rules apply to regular pod updates, but other pod fields can be
 {{< feature-state feature_gate_name="PodObservedGenerationTracking" >}}
 
 - `observedGeneration` is a field that is captured in the `status` section of the Pod
-  object. If the feature gate `PodObservedGenerationTracking` is set, the Kubelet will set `status.observedGeneration`
+  object. The Kubelet will set `status.observedGeneration`
   to track the pod state to the current pod status. The pod's `status.observedGeneration` will reflect the
   `metadata.generation` of the pod at the point that the pod status is being reported.
 
