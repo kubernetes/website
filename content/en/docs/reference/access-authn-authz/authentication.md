@@ -1354,7 +1354,7 @@ not a Role and RoleBinding.
 
 ### Constrained Impersonation
 
-{{< feature-state for_k8s_version="v1.35" state="alpha" >}}
+{{< feature-state feature_gate_name="ConstrainedImpersonation" >}}
 
 [Constrained impersonation](/docs/reference/access-authn-authz/constrained-impersonation/) provides
 additional access control over the existing impersonation

@@ -6,7 +6,7 @@ weight: 50
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.35" state="alpha" >}}
+{{< feature-state feature_gate_name="ConstrainedImpersonation" >}}
 
 Constrained impersonation provides additional access control over the existing
 [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation) mechanism.
@@ -15,7 +15,7 @@ specific actions on specific resources, rather than being able to perform all ac
 impersonated user can perform.
 
 This feature is enabled by setting the `ConstrainedImpersonation`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/#ConstrainedImpersonation).
 
 <!-- body -->
 
