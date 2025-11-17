@@ -2,6 +2,7 @@
 layout: blog
 title: 'Kubernetes v1.35: Sneak peek'
 date: 2025-XX-XX
+draft: true
 slug: kubernetes-v1-35-sneak-peek
 author: >
   Graziano Casto,
