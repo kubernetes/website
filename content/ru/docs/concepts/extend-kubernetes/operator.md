@@ -10,7 +10,7 @@ weight: 30
 которые  используют [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
 чтобы управлять приложениями (или их компонентами).
 Операторы следуют принципам Kubernetes,
-в особенности, принципу [цикла управления](/docs/concepts/architecture/controller).
+в особенности, принципу [цикла управления](/ru/docs/concepts/architecture/controller).
 
 <!-- body -->
 
