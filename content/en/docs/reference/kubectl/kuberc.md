@@ -16,12 +16,14 @@ To provide kubectl with a path to a custom kuberc file, use the `--kuberc` comma
 or set the `KUBERC` environment variable.
 
 A `kuberc` using the `kubectl.config.k8s.io/v1beta1` format allows you to define
-two types of user preferences:
+three types of user preferences:
 
 1. [Aliases](#aliases) - allow you to create shorter versions of your favorite
    commands, optionally setting options and arguments.
 2. [Defaults](#defaults) - allow you to configure default option values for your
    favorite commands.
+3. [Credential Plugin Policy](#credential-plugin-policy) - allow you to configure
+   a policy for exec credential plugins.
 
 ## aliases
 
@@ -147,6 +149,92 @@ In this example, the following settings were used:
 With this setting, running `kubectl delete pod/test-pod` will default to prompting for confirmation.
 However, `kubectl delete pod/test-pod --interactive=false` will bypass the confirmation.
 
+## Credential Plugin Policy
+
+Editors of a `kubeconfig` can specify an executable plugin that will be used to
+acquire credentials to authenticate the client to the cluster. Within a `kuberc`
+confguration, you can set the execution policy for such plugins by the use of
+two top-level fields. Both fields are optional.
+
+### credentialPluginPolicy
+
+The policy is configured using the `credentialPluginPolicy` field. There are
+three valid values for this field:
+
+1. `"AllowAll"`
+1. `"DenyAll"`
+1. `"Allowlist"`
+
+**NOTE**: In order to maintain backward compatibility, an unspecified or empty
+`credentialPluginPolicy` is identical to explicitly setting the policy to
+`"AllowAll"`.
+
+#### AllowAll
+
+When the policy is set to `"AllowAll"`, there will be no restrictions on which
+plugins may run. This behavior is identical to that of kubernetes versions prior
+to 1.35.
+
+
+#### DenyAll
+
+When the policy is set to `"DenyAll"`, no exec plugins will be permitted to run.
+This is the recommended default.
+
+#### Allowlist
+
+When the policy is set to `"Allowlist"`, the user can selectively allow
+execution of credential plugins. When the policy is `"Allowlist"`, the user MUST
+also provide the `credentialPluginAllowlist` field (also in the top-level). That
+field is described below.
+
+### credentialPluginAllowlist
+
+The `credentialPluginAllowlist` field specifies a list of criteria-sets
+(henceforth called **requirements**) for permission to execute credential
+plugins. Each set of requirements will be attempted in turn; once the plugin
+meets all requirement in at least one set, the plugin will be permitted to
+execute. That is, the result overall result of an application of the allowlist
+to plugin `my-binary-plugin` is the logical `OR` of the decisions rendered by
+each item in the list.
+
+*Within* each set of requirements, all specified/nonempty requirements must be
+met in order for the item to render an "allow" decision for the plugin. Put
+another way, the decision rendered by an allowlist item is the logical `AND` of
+the decisions rendered by all nonempty fields on the item. At present, the only
+specifiable requirement is the `name` field (documented below).
+
+Note that for a set of requirements to be valid it MUST have at least one field
+that is nonempty and explicitly specified. If all fields are empty or
+unspecified, it is considered a configuration error and the plugin will not be
+allowed to execute. Likewise if the `credentialPluginAllowlist` field is
+unspecified, or if it is specified explicitly as the empty list. This is in
+order to prevent scenarios where the user misspells the
+`credentialPluginAllowlist` key -- thinking they have specified an allowlist
+when they actually haven't.
+
+##### name
+
+`name` names a credential plugin which may be executed. It can be specified as
+either the basename of the desired plugin, or the full path. If specified as a
+basename, the decision rendered by this field is equivalent to the expression
+`name == plugin || exec.LookPath(name) == exec.LookPath(plugin)`. If specified
+as a full path, the decision rendered is be equivalent to the expression
+`fullPath == plugin || fullPath == exec.LookPath(plugin)`.
+
+### Example
+
+The following example shows an `"Allowlist"` policy with its allowlist:
+
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: my-trusted-binary
+  - name: /usr/local/bin/my-other-trusted-binary
+```
+
 ## Suggested defaults
 
 The kubectl maintainers encourage you to adopt kuberc with the following defaults:
@@ -166,13 +254,14 @@ defaults:
     options:
       - name: interactive
         default: "true"
+credentialPluginPolicy: DenyAll
 ```
 
 In this example, the following settings are enforced:
 1. Defaults to using [Server-Side Apply](/docs/reference/using-api/server-side-apply/).
 1. Defaults to interactive removal whenever invoking `kubectl delete` to prevent
    accidental removal of resources from the cluster.
-
+1. No executable credential plugins will be permitted to execute.
 
 ## Disable kuberc
 
