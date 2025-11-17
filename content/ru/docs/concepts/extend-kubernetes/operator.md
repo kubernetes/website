@@ -37,7 +37,7 @@ Kubernetes создан для автоматизации:
 {{< glossary_tooltip text="Паттерн \"Оператор\"" term_id="operator-pattern" >}} позволяет расширить возможности кластера,
 не меняя код Kubernetes;
 достаточно привязать {{< glossary_tooltip text="контроллеры" term_id="controller" >}} к вашим  ресурсам.
-Операторы -- это клиенты Kubernetes API,
+Операторы — это клиенты Kubernetes API,
 которые выполняют роль контроллеров для [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 ## Пример оператора {#example}
