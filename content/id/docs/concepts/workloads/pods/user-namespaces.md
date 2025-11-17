@@ -20,7 +20,7 @@ Namespace.
 
 Kamu dapat menggunakan fitur ini untuk mengurangi kerusakan yang dapat ditimbulkan oleh kontainer yang disusupi terhadap
 _host_ atau pod lain dalam node yang sama. Terdapat [beberapa kerentanan
-keamanan][KEP-vulns] yang dinilai **TINGGI** atau **KRITIS** yang tidak
+keamanan][KEP-vulns] yang dinilai **HIGH** atau **CRITICAL** yang tidak
 dapat dieksploitasi saat Namespace pengguna aktif. Namespace pengguna diharapkan juga akan
 memitigasi beberapa kerentanan di masa mendatang.
 
