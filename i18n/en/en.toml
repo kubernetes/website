@@ -174,7 +174,10 @@ other = "Error"
 other = "Examples"
 
 [feature_gate_enabled]
-other = "(enabled by default: {{ .enabled }})"
+other = "(enabled by default)"
+
+[feature_gate_disabled]
+other = "(disabled by default)"
 
 [feature_gate_stage_alpha]
 other = "Alpha"
