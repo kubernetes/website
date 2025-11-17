@@ -240,15 +240,15 @@ https://github.com/kubernetes/kubernetes 에서
 문서에 대한 이슈인 경우 이 이슈를 다시 여십시오.
 ```
 
-### 스쿼싱
+### 스쿼시
 
 승인자로서 풀 리퀘스트(PR)를 검토할 때 
 다음과 같은 다양한 경우가 있다.
 
-- 기여자에게 커밋을 스쿼싱하도록 안내한다.
-- 기여자를 대신하여 커밋을 스쿼싱한다.
-- 기여자에게 아직 스쿼싱하지 않도록 안내한다.
-- 스쿼싱을 방지한다.
+- 기여자에게 커밋을 스쿼시하도록 안내한다.
+- 기여자를 대신하여 커밋을 스쿼시한다.
+- 기여자에게 아직 스쿼시하지 않도록 안내한다.
+- 스쿼시을 방지한다.
 
 **기여자의 스쿼시 권고**: 신규 기여자는 
 풀 리퀘스트(PR)에서 커밋을 스쿼시해야 한다는 사실을 모를 수 있다. 만약 그렇다면, 스쿼시를 
@@ -256,18 +256,18 @@ https://github.com/kubernetes/kubernetes 에서
 제안한다. 유용한 링크는 다음과 같다.
 
 - 문서 기여자를 위한 
-  [풀 리퀘스트 열기 및 커밋 스쿼싱하기](/ko/docs/contribute/new-content/open-a-pr#squashing-commits).
+  [풀 리퀘스트 열기 및 커밋 스쿼시하기](/ko/docs/contribute/new-content/open-a-pr#squashing-commits).
 - 개발자를 위한 다이어그램을 포함한 [GitHub 워크플로](https://www.k8s.dev/docs/guide/github-workflow/).
 
-**기여자를 위한 커밋 스쿼싱**: 기여자가 커밋 스쿼싱에 어려움을 겪거나
+**기여자를 위한 커밋 스쿼시**: 기여자가 커밋 스쿼시에 어려움을 겪거나
  PR을 병합할 시간적 압박이 있는 경우, 기여자를 대신하여 
- 스쿼싱을 수행할 수 있습니다.
+ 스쿼시을 수행할 수 있습니다.
 
 - kubernetes/website 저장소는 
-  [풀 리퀘스트 병합을 위한 스쿼싱을 허용하도록 구성되어 있다](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests).
-  *커밋 스쿼싱* 버튼을 선택하기만 하면 된다.
+  [풀 리퀘스트 병합을 위한 스쿼시을 허용하도록 구성되어 있다](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests).
+  *커밋 스쿼시* 버튼을 선택하기만 하면 된다.
 - PR에서 기여자가 유지 관리자가 PR을 관리할 수 있도록 허용하는 경우, 
-  기여자의 커밋을 스쿼싱하고 해당 포크를 결과로 업데이트할 수 있다. 스쿼싱하기 전에 
+  기여자의 커밋을 스쿼시하고 해당 포크를 결과로 업데이트할 수 있다. 스쿼시하기 전에 
   기여자에게 최신 변경 사항을 저장하고 PR에 푸시하도록 안내한다. 스쿼시한 후에는
   스쿼시된 커밋을 로컬 복제본으로 가져오도록 안내한다.
 - GitHub에서 커밋을 스쿼시하도록 하려면 레이블을 사용하여 Tide / GitHub에서
