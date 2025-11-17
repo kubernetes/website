@@ -37,7 +37,7 @@ The complete list of admission controllers with their descriptions can be found 
 
 Admission controllers serve multiple purposes in Kubernetes, mainly around **Security**, **Governance**, and **Configuration management**.
 
-### 🔒 Security
+### Security
 
 Admission controllers can increase security by mandating a reasonable security baseline across an entire namespace or cluster. The built-in `PodSecurityPolicy` admission controller is perhaps the most prominent example; it can be used for disallowing containers from running as root or making sure the container’s root filesystem is always mounted read-only, for example. Further use cases that can be realized by custom, webhook-based admission controllers include:
   -	Allow pulling images only from specific registries known to the enterprise, while denying unknown image registries.
@@ -45,14 +45,14 @@ Admission controllers can increase security by mandating a reasonable security b
 
 ---
 
-### 🧭 Governance
+### Governance
 
 Admission controllers allow you to enforce the adherence to certain practices such as having good labels, annotations, resource limits, or other settings. Some of the common scenarios include:
   -	Enforce label validation on different objects to ensure proper labels are being used for various objects, such as every object being assigned to a team or project, or every deployment specifying an app label.
   -	Automatically add annotations to objects, such as attributing the correct cost center for a “dev” deployment resource.
 ---
 
-### ⚙️ Configuration Management
+### Configuration Management
 
 Admission controllers allow you to validate the configuration of the objects running in the cluster and prevent any obvious misconfigurations from hitting your cluster. Admission controllers can be useful in detecting and fixing images deployed without semantic tags, such as by:
   -	automatically adding resource limits or validating resource limits,
