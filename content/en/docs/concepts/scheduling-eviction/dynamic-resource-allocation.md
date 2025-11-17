@@ -229,6 +229,12 @@ spec:
           count: 2
 ```
 
+If the pod is eligible for multiple nodes in the cluster, the scheduler will use the
+index of chosen subrequests from any prioritized lists as one of the inputs when it
+scores each node. So nodes that can allocate devices requested in a higher ranked
+subrequest are more likely to be chosen than nodes that can only allocate devices for
+lower ranked subrequests.
+
 The decision is made on a per-Pod basis, so if the Pod is a member of a ReplicaSet or
 similar grouping, you cannot rely on all the members of the group having the same subrequest
 chosen. Your workload must be able to accommodate this.
