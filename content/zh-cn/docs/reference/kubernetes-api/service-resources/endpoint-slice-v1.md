@@ -63,6 +63,19 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
   * （已弃用）EndpointSlice 控制器仅生成地址类型为 "IPv4" 和 "IPv6" 的切片，
     且 kube-proxy 也仅处理这些类型的切片。对于 "FQDN" 类型，未定义其语义。
 
+  <!--
+  Possible enum values:
+   - `"FQDN"` represents a FQDN.
+   - `"IPv4"` represents an IPv4 Address.
+   - `"IPv6"` represents an IPv6 Address.
+  -->
+
+  可能的枚举值：
+  
+  - `"FQDN"` 表示完全限定域名（FQDN）。
+  - `"IPv4"` 表示 IPv4 地址。
+  - `"IPv6"` 表示 IPv6 地址。
+
 - **endpoints** ([]Endpoint), <!--required-->必需
 
   <!--
@@ -73,7 +86,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
   <!--
   endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
   -->
-  endpoints 是当前 EndpointSlice 中一组唯一的端点。每个 EndpointSlice 最多可以包含 1000 个端点。
+  `endpoints` 是当前 EndpointSlice 中一组唯一的端点。每个 EndpointSlice 最多可以包含 1000 个端点。
 
   <a name="Endpoint"></a>
 
@@ -106,7 +119,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     conditions contains information about the current status of the endpoint.
     -->
     
-    conditions 包含和本端点当前状态有关的信息。
+    `conditions` 包含和本端点当前状态有关的信息。
 
     <a name="EndpointConditions"></a>
 
@@ -122,7 +135,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
       ready indicates that this endpoint is ready to receive traffic, according to whatever system is managing the endpoint. A nil value should be interpreted as "true". In general, an endpoint should be marked ready if it is serving and not terminating, though this can be overridden in some cases, such as when the associated Service has set the publishNotReadyAddresses flag.
       -->
 
-      ready 说明此端点已经准备好根据相关的系统映射接收流量。nil 值应解释为 "true"。
+      `ready` 说明此端点已经准备好根据相关的系统映射接收流量。nil 值应解释为 "true"。
       通常，如果 endpoint 正在服务且未终止，则应将其标记为 ready，
       尽管在某些情况下可以覆盖此设置，例如当关联的 Service 设置了
       publishNotReadyAddresses 标志时。
@@ -133,8 +146,8 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
       serving indicates that this endpoint is able to receive traffic, according to whatever system is managing the endpoint. For endpoints backed by pods, the EndpointSlice controller will mark the endpoint as serving if the pod's Ready condition is True. A nil value should be interpreted as "true".
       -->
       
-      serving 表示此端点能够接收流量，根据管理端点的系统。对于由 Pod 支持的端点，
-      如果 Pod 的 Ready 条件为 True，EndpointSlice 控制器会将端点标记为 serving。
+      `serving` 表示此端点能够接收流量，根据管理端点的系统。对于由 Pod 支持的端点，
+      如果 Pod 的 Ready 条件为 True，EndpointSlice 控制器会将端点标记为 `serving`。
       nil 值应解释为 "true"。
 
     - **endpoints.conditions.terminating** (boolean)
@@ -152,7 +165,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
     -->
     
-    deprecatedTopology 包含 v1beta1 API 的拓扑信息部分。目前已经弃用了此字段，
+    `deprecatedTopology` 包含 v1beta1 API 的拓扑信息部分。目前已经弃用了此字段，
     移除 v1beta1 API 时（不早于 Kubernetes v1.24）会一起移除此字段。
     此字段目前仍然可以存储值，但是不能通过 v1 API 写入数据。
     向此字段写入数据的任何尝试都会被忽略，并且不会通知用户。
@@ -164,7 +177,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     hints contains information associated with how an endpoint should be consumed.
     -->
     
-    hints 是关于应该如何使用某端点的提示信息。
+    `hints` 是关于应该如何使用某端点的提示信息。
 
     <a name="EndpointHints"></a>
 
@@ -186,7 +199,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
       forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries. This is an Alpha feature and is only used when the PreferSameTrafficDistribution feature gate is enabled.
       -->
 
-      forNodes 表示在使用拓扑感知路由时，此端点应由哪个（些）节点消费。
+      `forNodes` 表示在使用拓扑感知路由时，此端点应由哪个（些）节点消费。
       最多可能包含 8 个条目。这是一个 Alpha 级别特性，仅在启用了 PreferSameTrafficDistribution
       特性门控时使用。
 
@@ -204,7 +217,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
 
       - **endpoints.hints.forNodes.name** (string)，必需
 
-        name 表示节点的名称。
+        `name` 表示节点的名称。
 
     - **endpoints.hints.forZones** ([]ForZone)
 
@@ -218,7 +231,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
       forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
       -->
       
-      forZones 表示在使用拓扑感知路由时，该端点应由哪个（些）区域消费。
+      `forZones` 表示在使用拓扑感知路由时，该端点应由哪个（些）区域消费。
       最多可能包含 8 个条目。
 
       <a name="ForZone"></a>
@@ -235,7 +248,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
         name represents the name of the zone.
         -->
         
-        name 代表可用区的名称。
+        `name` 代表可用区的名称。
 
   - **endpoints.hostname** (string)
 
@@ -253,7 +266,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
     -->
     
-    nodeName 是托管此端点的 Node 的名称，使用 nodeName 可以决定 Node 本地有哪些端点。
+    `nodeName` 是托管此端点的 Node 的名称，使用 nodeName 可以决定 Node 本地有哪些端点。
 
   - **endpoints.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
@@ -261,7 +274,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     targetRef is a reference to a Kubernetes object that represents this endpoint.
     -->
     
-    targetRef 是对代表此端点的 Kubernetes 对象的引用。
+    `targetRef` 是对代表此端点的 Kubernetes 对象的引用。
 
   - **endpoints.zone** (string)
 
@@ -269,7 +282,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     zone is the name of the Zone this endpoint exists in.
     -->
     
-    zone 是此端点所在的可用区（Zone）的名称。
+    `zone` 是此端点所在的可用区（Zone）的名称。
 
 - **ports** ([]EndpointPort)
 
@@ -284,7 +297,7 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
   -->
 
   
-  ports 列出了当前 EndpointSlice 中各个端点所暴露的网络端口。每个端口的名称不得重复。
+  `ports` 列出了当前 EndpointSlice 中各个端点所暴露的网络端口。每个端口的名称不得重复。
   每个切片最多可能包含 100 个端口。Service 总是至少有 1 个端口，因此由 EndpointSlice
   控制器生成的 EndpointSlices 同样总是至少有 1 个端口。用于其他目的的 EndpointSlices
   可能有一个空的 ports 列表。
@@ -303,16 +316,26 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service's target port. EndpointSlices used for other purposes may have a nil port.
     -->
     
-    port 表示端点的端口号。如果 EndpointSlice 是从 Kubernetes 服务派生的，
+    `port` 表示端点的端口号。如果 EndpointSlice 是从 Kubernetes 服务派生的，
     这必须设置为服务的目标端口。用于其他目的的 EndpointSlices 可能有一个 nil 端口。
 
   - **ports.protocol** (string)
 
     <!--
     protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+
+    Possible enum values:
+     - `"SCTP"` is the SCTP protocol.
+     - `"TCP"` is the TCP protocol.
+     - `"UDP"` is the UDP protocol.
     -->
     
-    protocol 表示此端口的 IP 协议。必须为 UDP、TCP 或 SCTP。默认为 TCP。
+    `protocol` 表示此端口的 IP 协议。必须为 UDP、TCP 或 SCTP。默认为 TCP。
+  
+    可能的枚举值：
+    - `"SCTP"` 是 SCTP 协议
+    - `"TCP"` 是 TCP 协议
+    - `"UDP"` 是 UDP 协议
 
   - **ports.name** (string)
 
@@ -320,9 +343,9 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is derived from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
     -->
     
-    name 表示此端口的名称。EndpointSlice 中所有端口的名称都不得重复。
+    `name` 表示此端口的名称。EndpointSlice 中所有端口的名称都不得重复。
     如果 EndpointSlice 是基于 Kubernetes Service 创建的，
-    那么此端口的名称和 Service.ports[].name 字段的值一致。默认为空字符串。
+    那么此端口的名称和 `Service.ports[].name` 字段的值一致。默认为空字符串。
     名称必须是空字符串，或者必须通过 DNS_LABEL 验证：
     
     * 最多包含 63 个字符。
@@ -347,10 +370,12 @@ EndpointSlice 对象，这些对象必须被组合在一起以产生完整的端
     此端口的应用层协议。字段值被用作提示，允许协议实现为其所理解的协议提供更丰富的行为。
     此字段遵循标准的 Kubernetes 标签句法。有效的取值是：
 
-    * 不带前缀的协议名 - 是 IANA 标准服务的保留名称（参见 RFC-6335 和 https://www.iana.org/assignments/service-names）。
+    * 不带前缀的协议名 - 是 IANA 标准服务的保留名称（参见 RFC-6335 和
+      https://www.iana.org/assignments/service-names）。
 
     * Kubernetes 定义的前缀名称：
-      * 'kubernetes.io/h2c' - HTTP/2 通过明文预先了解知识，如 https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior- 中所述。
+      * 'kubernetes.io/h2c' - HTTP/2 通过明文预先了解知识，如
+        https://www.rfc-editor.org/rfc/rfc9113.html#name-starting-http-2-with-prior- 中所述。
       * 'kubernetes.io/ws' - 通过明文传输的 WebSocket，详见 https://www.rfc-editor.org/rfc/rfc6455
       * 'kubernetes.io/wss' - 通过 TLS 传输的 WebSocket，详见 https://www.rfc-editor.org/rfc/rfc6455
 
@@ -374,14 +399,16 @@ EndpointSliceList 是 EndpointSlice 的列表。
   <!--
   Standard list metadata.
   -->
-  标准的列表元数据
+  
+  标准的列表元数据。
 
 - **items** ([]<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>), <!--required-->必需
 
   <!--
   items is the list of endpoint slices
   -->
-  items 是 EndpointSlice 列表
+  
+  `items` 是 EndpointSlice 列表
 
 <!--
 ## Operations {#Operations}
@@ -392,12 +419,11 @@ EndpointSliceList 是 EndpointSlice 的列表。
 
 <!--
 ### `get` read the specified EndpointSlice
+
+#### HTTP Request
 -->
 ### `get` 读取指定的 EndpointSlice
 
-<!--
-#### HTTP Request
--->
 #### HTTP 请求
 
 GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
@@ -415,7 +441,8 @@ GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
   <!--
   name of the EndpointSlice
   -->
-  EndpointSlice 的名称
+  
+  EndpointSlice 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
@@ -442,12 +469,11 @@ GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 
 <!--
 ### `list` list or watch objects of kind EndpointSlice
+
+#### HTTP Request
 -->
 ### `list` 列举或监测 EndpointSlice 类别的对象
 
-<!--
-#### HTTP Request
--->
 #### HTTP 请求
 
 GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
@@ -549,12 +575,11 @@ GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 
 <!--
 ### `list` list or watch objects of kind EndpointSlice
+
+#### HTTP Request
 -->
 ### `list` 列举或监测 EndpointSlice 类别的对象
 
-<!--
-#### HTTP Request
--->
 #### HTTP 请求
 
 GET /apis/discovery.k8s.io/v1/endpointslices
@@ -714,12 +739,11 @@ POST /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 
 <!--
 ### `update` replace the specified EndpointSlice
+
+#### HTTP Request
 -->
 ### `update` 替换指定的 EndpointSlice
 
-<!--
-#### HTTP Request
--->
 #### HTTP 请求
 
 PUT /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
@@ -765,7 +789,7 @@ PUT /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 <!--
 - **fieldValidation** (*in query*): string
 -->
-- **fieldValidation** (**查询参数**)：string-
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
@@ -892,7 +916,7 @@ DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
   <!--
   name of the EndpointSlice
   -->
-  EndpointSlice 的名称
+  EndpointSlice 的名称。
 
 <!--
 - **namespace** (*in path*): string, required
