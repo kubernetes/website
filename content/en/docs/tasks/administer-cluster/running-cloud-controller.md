@@ -78,9 +78,12 @@ The cloud controller manager can implement:
 * Route controller - responsible for setting up network routes on your cloud
 * any other features you would like to implement if you are running an out-of-tree provider.
 
-#### Watch-Based Route Controller Reconciliation
+#### Watch-based route controller reconciliation
 
-Beginning with Kubernetes v1.35, the cloud-controller-manager introduces a new **alpha** stage feature gate named `CloudControllerManagerWatchBasedRoutesReconciliation`. This feature transitions the route controller from a fixed-interval reconciliation model to a watch-based approach using node informers.
+Since v1.35 of the cloud-controller-manager library, that library lets you configure event triggered reconciliation for node changes that might update routes.
+The default in the v1.35 library is to use the older behavior with reconciliation on a fixed schedule.
+This is controlled by the `CloudControllerManagerWatchBasedRoutesReconciliation` feature gate.
+For more information, consult your cloud provider's documentation.
 
 When this feature is enabled, the route controller triggers a reconciliation loop whenever a node is added, deleted, or when the following fields are updated:
 

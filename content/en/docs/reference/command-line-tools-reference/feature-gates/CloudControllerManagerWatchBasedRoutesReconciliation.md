@@ -10,4 +10,5 @@ stages:
     defaultValue: false
     fromVersion: "1.35"
 ---
-Enables a watch-based route reconciliation mechanism in the cloud-controller-manager that reacts to node changes instead of using a static reconciliation interval.
+Enables a watch-based route reconciliation mechanism (rather than reconciling at a fixed interval)
+within the cloud-controller-manager library.
