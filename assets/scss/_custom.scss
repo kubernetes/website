@@ -1879,6 +1879,15 @@ div.alert > em.javascript-required {
   color: #ffffff !important;
 }
 
+body.td-home section#upcoming-events {
+  color: $white;
+  background: $secondary;
+
+  > .col {
+    background: transparent;
+  }
+}
+
 body.td-home section#upcoming-events > .col > .row {
   color: $white;
   background: $secondary;
