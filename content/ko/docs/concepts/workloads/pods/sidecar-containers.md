@@ -65,8 +65,8 @@ weight: 50
 이는 파드에서 `.spec.initContainers` 안에 두 개 이상의 항목이 있을 때 중요하다. 
 사이드카 스타일의 초기화 컨테이너가 실행 중이면(kubelet이 해당 초기화 컨테이너의 `started` 상태를 true로 설정함), 
 kubelet은 정렬된 `.spec.initContainers` 목록에서 다음 초기화 컨테이너를 시작한다.
-이 상태는 컨테이너에 실행 중인 프로세스가 있고 시작(Startup) 프로브가 정의되지 않았거나,
-`startupProbe`가 성공한 결과로 true가 된다.
+이 상태는 컨테이너에 실행 중인 프로세스가 있고 시작(Startup) 프로브가 정의되지 않았을 때나,
+혹은 `startupProbe`가 성공했을 때 true가 된다.
 
 파드 [종료](/ko/docs/concepts/workloads/pods/pod-lifecycle/#termination-with-sidecars) 시, 
 kubelet은 메인 애플리케이션 컨테이너가 완전히 중지될 때까지 사이드카 컨테이너 종료를 연기한다.
