@@ -149,7 +149,9 @@ In this example, the following settings were used:
 With this setting, running `kubectl delete pod/test-pod` will default to prompting for confirmation.
 However, `kubectl delete pod/test-pod --interactive=false` will bypass the confirmation.
 
-## Credential Plugin Policy
+## Credential plugin policy
+
+{{< feature-state for_k8s_version="v1.35" state="beta" >}}
 
 Editors of a `kubeconfig` can specify an executable plugin that will be used to
 acquire credentials to authenticate the client to the cluster. Within a `kuberc`
@@ -158,7 +160,8 @@ two top-level fields. Both fields are optional.
 
 ### credentialPluginPolicy
 
-The policy is configured using the `credentialPluginPolicy` field. There are
+You can configure a policy for credentials plugins, using the optional `credentialPluginPolicy` field.
+There are
 three valid values for this field:
 
 1. `"AllowAll"`
@@ -169,39 +172,41 @@ three valid values for this field:
 `credentialPluginPolicy` is identical to explicitly setting the policy to
 `"AllowAll"`.
 
-#### AllowAll
+#### AllowAll {#credentialPluginPolicy-AllowAll}
 
 When the policy is set to `"AllowAll"`, there will be no restrictions on which
 plugins may run. This behavior is identical to that of kubernetes versions prior
 to 1.35.
 
 
-#### DenyAll
+#### DenyAll {#credentialPluginPolicy-DenyAll}
 
 When the policy is set to `"DenyAll"`, no exec plugins will be permitted to run.
-This is the recommended default.
+If you don't use credential plugins, the Kubernetes project recommendations that you set the DenyAll policy.
 
-#### Allowlist
+#### Allowlist {#credentialPluginPolicy-Allowlist}
 
 When the policy is set to `"Allowlist"`, the user can selectively allow
-execution of credential plugins. When the policy is `"Allowlist"`, the user MUST
+execution of credential plugins. When the policy is `"Allowlist"`,
+you **must**
 also provide the `credentialPluginAllowlist` field (also in the top-level). That
 field is described below.
 
 ### credentialPluginAllowlist
 
 The `credentialPluginAllowlist` field specifies a list of criteria-sets
-(henceforth called **requirements**) for permission to execute credential
+(sets of *requirements*) for permission to execute credential
 plugins. Each set of requirements will be attempted in turn; once the plugin
 meets all requirement in at least one set, the plugin will be permitted to
 execute. That is, the result overall result of an application of the allowlist
-to plugin `my-binary-plugin` is the logical `OR` of the decisions rendered by
+to plugin `my-binary-plugin` is the _logical OR_ of the decisions rendered by
 each item in the list.
 
-*Within* each set of requirements, all specified/nonempty requirements must be
+Within each set of requirements, **all*** specified (non-empty) requirements must be
 met in order for the item to render an "allow" decision for the plugin. Put
-another way, the decision rendered by an allowlist item is the logical `AND` of
-the decisions rendered by all nonempty fields on the item. At present, the only
+another way, the decision rendered by an allowlist item is the _logical AND_ of
+the decisions rendered by all nonempty fields on the item.
+For Kubernetes {{< skew currentVersion >}}, the only
 specifiable requirement is the `name` field (documented below).
 
 Note that for a set of requirements to be valid it MUST have at least one field
@@ -222,7 +227,7 @@ basename, the decision rendered by this field is equivalent to the expression
 as a full path, the decision rendered is be equivalent to the expression
 `fullPath == plugin || fullPath == exec.LookPath(plugin)`.
 
-### Example
+### Example {#credential-plugin-policy-example}
 
 The following example shows an `"Allowlist"` policy with its allowlist:
 
