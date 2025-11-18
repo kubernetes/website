@@ -41,12 +41,12 @@ minikube start
 
 ## Check the status of minikube cluster
 
-Verify the status of minikube cluster to ensure all the components are in running state.
+Verify the status of the minikube cluster to ensure all the components are in a running state.
 
 ```shell
 minikube status
 ```
-The output is similar to:
+The output from the above command should show all components Running or Configured, as shown in the example output below:
 
 ```
 minikube
