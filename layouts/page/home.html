@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="col-sm-6 col-md-6 col-lg-6 mx-auto py-3">
+  {{partial "search-input" .}}
+</div>
+{{ .Content }}
+<section id="cncf">
+    {{ partial "cncf.html" . }}
+</section>
+{{- end -}}
+
+{{ define "hero-more" }}
+{{ with site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
+<a href="{{ .RelPermalink }}"><button id="quickstartButton" class="button">{{ .LinkTitle }}</button></a>
+{{ end }}
+{{ end }}
