@@ -446,6 +446,22 @@ will continue to verify without the need to access the registry. New or rotated 
 will require the image to be re-pulled from the registry.
 {{< /note >}}
 
+#### Enabling `KubeletEnsureSecretPulledImages` for the first time
+
+When the `KubeletEnsureSecretPulledImages` gets enabled for the first time, either
+by a kubelet upgrade or by explicitly enabling the feature, if a kubelet is able to
+access any images at that time, these will all be considered pre-pulled. This happens
+because in this case the kubelet has no records about the images being pulled.
+The kubelet will only be able to start making image pull records as any image gets
+pulled for the first time.
+
+If this is a concern, it is advised to clean up nodes of all images that should not
+be considered pre-pulled before enabling the feature.
+
+Note that removing the directory holding the image pulled records will have the same
+effect on kubelet restart, particularly the images currently cached in the nodes by
+the container runtime will all be considered pre-pulled.
+
 ### Creating a Secret with a Docker config
 
 You need to know the username, registry password and client email address for authenticating
