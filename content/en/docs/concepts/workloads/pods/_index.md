@@ -155,6 +155,18 @@ Here are some examples of workload resources that manage one or more Pods:
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
+### Specifying a Workload reference
+
+{{< feature-state feature_gate_name="GenericWorkload" >}}
+
+By default, Kubernetes schedules every Pod individually. However, some tightly-coupled applications
+need a group of Pods to be scheduled simultaneously to function correctly.
+
+You can link a Pod to a [Workload](/docs/concepts/workloads/workload-api/) object
+using a [Workload reference](/docs/concepts/workloads/pods/workload-reference/).
+This tells the `kube-scheduler` that the Pod is part of a specific group,
+enabling it to make coordinated placement decisions for the entire group at once.
+
 ### Pod templates
 
 Controllers for {{< glossary_tooltip text="workload" term_id="workload" >}} resources create Pods
