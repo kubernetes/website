@@ -89,14 +89,10 @@ You can also use numeric comparison operators for threshold-based matching:
 * the `operator` is `Gt` (greater than) and the toleration value is greater than the taint value, or
 * the `operator` is `Lt` (less than) and the toleration value is less than the taint value.
 
-For numeric operators, both the toleration and taint values must be valid integers.
-If either value cannot be parsed as an integer, the toleration does not match.
+For numeric operators, both the toleration and taint values must be valid integers. If either value cannot be parsed as an integer, the toleration does not match.
 
 {{< note >}}
-When you create a Pod that uses `Gt` or `Lt` tolerations operators, the API server
-validates that the toleration values are valid integers. Taint values on nodes are not
-validated at node registration time. If a node has a non-numeric taint value
-(for example, `servicelevel.organization.example/agreed-service-level=high:NoSchedule`), pods with numeric comparison
+When you create a Pod that uses `Gt` or `Lt` tolerations operators, the API server validates that the toleration values are valid integers. Taint values on nodes are not validated at node registration time. If a node has a non-numeric taint value (for example, `servicelevel.organization.example/agreed-service-level=high:NoSchedule`), pods with numeric comparison
 operators will not match that taint and cannot schedule on that node.
 {{< /note >}}
 
@@ -196,10 +192,7 @@ taint is removed before that time, the pod will not be evicted.
 
 {{< feature-state feature_gate_name="TaintTolerationComparisonOperators" >}}
 
-In addition to the `Equal` and `Exists` operators, you can use numeric comparison
-operators (`Gt` and `Lt`) to match taints with integer values. This is useful for
-threshold-based scheduling scenarios, such as matching nodes based on reliability
-levels or SLA requirements.
+In addition to the `Equal` and `Exists` operators, you can use numeric comparison operators (`Gt` and `Lt`) to match taints with integer values. This is useful for threshold-based scheduling scenarios, such as matching nodes based on reliability levels or SLA requirements.
 
 For example, if nodes are tainted with a value representing a service level agreement (SLA):
 
@@ -211,11 +204,9 @@ A pod can tolerate nodes with SLA greater than 900:
 
 {{% code_sample file="pods/pod-with-numeric-toleration.yaml" %}}
 
-This toleration matches the taint on `node1` because `900 < 950` (the toleration
-value is less than the taint value for the `Gt` operator).
+This toleration matches the taint on `node1` because `900 < 950` (the toleration value is less than the taint value for the `Gt` operator).
 
-Similarly, you can use the `Lt` operator to match taints where the toleration value
-is greater than the taint value:
+Similarly, you can use the `Lt` operator to match taints where the toleration value is greater than the taint value:
 
 ```yaml
 tolerations:
@@ -228,18 +219,16 @@ tolerations:
 {{< note >}}
 When using numeric comparison operators:
 
-* Both the toleration and taint values must be valid integers (signed 64-bit).
+* Both the toleration and taint values must be valid signed 64-bit integers (zero leading numbers (e.g., "0550") are not allowed).
 * If a value cannot be parsed as an integer, the toleration does not match.
 * Numeric operators work with all taint effects: `NoSchedule`, `PreferNoSchedule`, and `NoExecute`.
 {{< /note >}}
 
 {{< warning >}}
 
-Before disabling the `TaintTolerationComparisonOperators` feature gate, you should identify
-all workloads using the `Gt` or `Lt` operators to avoid controller hot-loops.
+Before disabling the `TaintTolerationComparisonOperators` feature gate:
 
-Before disabling the feature gate:
-
+* You should identify all workloads using the `Gt` or `Lt` operators to avoid controller hot-loops.
 * Update all workload controller templates to use `Equal` or `Exists` operators instead
 * Delete any pending pods that use `Gt` or `Lt` operators
 * Monitor the `apiserver_request_total` metric for spikes in validation errors
