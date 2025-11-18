@@ -7,7 +7,7 @@ weight: 30
 <!-- overview -->
 
 Операторы — это программные расширения для Kubernetes,
-которые  используют [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
+которые  используют [Custom Resources](/ru/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
 чтобы управлять приложениями (или их компонентами).
 Операторы следуют принципам Kubernetes,
 в особенности, принципу [цикла управления](/ru/docs/concepts/architecture/controller).
@@ -38,7 +38,7 @@ Kubernetes создан для автоматизации:
 не меняя код Kubernetes;
 достаточно привязать {{< glossary_tooltip text="контроллеры" term_id="controller" >}} к вашим  ресурсам.
 Операторы — это клиенты Kubernetes API,
-которые выполняют роль контроллеров для [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+которые выполняют роль контроллеров для [Custom Resources](/ru/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 ## Пример оператора {#example}
 
@@ -106,7 +106,7 @@ kubectl edit SampleDB/example-database # вручную изменим ее на
 вы можете написать свой собственный.
 
 Вы можете реализовать оператор (контроллер, если быть точнее) на любом языке или в любой среде,
-которые могут быть [клиентами Kubernetes API](/docs/reference/using-api/client-libraries/).
+которые могут быть [клиентами Kubernetes API](/ru/docs/reference/using-api/client-libraries/).
 
 Вы можете использовать библиотеки и инструменты ниже, чтобы написать свой Cloud Native-оператор.
 
@@ -129,7 +129,7 @@ kubectl edit SampleDB/example-database # вручную изменим ее на
 * Прочтите статью
   [Operator White Paper](https://github.com/cncf/tag-app-delivery/blob/163962c4b1cd70d085107fc579e3e04c2e14d59c/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md)
   от {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
-* Узнайте больше про [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* Узнайте больше про [Custom Resources](/ru/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Поищите готовые операторы, которые подходят вашим задачам, на [OperatorHub.io](https://operatorhub.io/)
 * [Поделитесь](https://operatorhub.io/) вашим оператором с другими
 * Прочтите [статью](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html),
