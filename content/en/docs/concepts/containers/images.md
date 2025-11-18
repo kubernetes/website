@@ -409,7 +409,7 @@ on images hosted in a private registry.
 Access to pre-pulled images may be authorized according to [image pull credential verification](#ensureimagepullcredentialverification).
 {{< /note >}}
 
-#### Ensure image pull credential verification {#ensureimagepullcredentialverification}
+### Ensure image pull credential verification {#ensureimagepullcredentialverification}
 
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
@@ -446,7 +446,7 @@ will continue to verify without the need to access the registry. New or rotated 
 will require the image to be re-pulled from the registry.
 {{< /note >}}
 
-#### Creating a Secret with a Docker config
+### Creating a Secret with a Docker config
 
 You need to know the username, registry password and client email address for authenticating
 to the registry, as well as its hostname.
@@ -514,7 +514,7 @@ for detailed instructions.
 You can use this in conjunction with a per-node `.docker/config.json`. The credentials
 will be merged.
 
-## Use cases
+### Use cases
 
 There are a number of solutions for configuring private registries.  Here are some
 common use cases and suggested solutions.
