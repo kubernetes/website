@@ -168,14 +168,16 @@ three valid values for this field:
 1. `"DenyAll"`
 1. `"Allowlist"`
 
-**NOTE**: In order to maintain backward compatibility, an unspecified or empty
+{{ <note> }}
+In order to maintain backward compatibility, an unspecified or empty
 `credentialPluginPolicy` is identical to explicitly setting the policy to
 `"AllowAll"`.
+{{ </note> }}
 
 #### AllowAll {#credentialPluginPolicy-AllowAll}
 
 When the policy is set to `"AllowAll"`, there will be no restrictions on which
-plugins may run. This behavior is identical to that of kubernetes versions prior
+plugins may run. This behavior is identical to that of Kubernetes versions prior
 to 1.35.
 
 
@@ -202,43 +204,64 @@ execute. That is, the result overall result of an application of the allowlist
 to plugin `my-binary-plugin` is the _logical OR_ of the decisions rendered by
 each item in the list.
 
-Within each set of requirements, **all*** specified (non-empty) requirements must be
+Within each set of requirements, **all** specified (non-empty) requirements must be
 met in order for the item to render an "allow" decision for the plugin. Put
 another way, the decision rendered by an allowlist item is the _logical AND_ of
 the decisions rendered by all nonempty fields on the item.
 For Kubernetes {{< skew currentVersion >}}, the only
 specifiable requirement is the `name` field (documented below).
 
-Note that for a set of requirements to be valid it MUST have at least one field
-that is nonempty and explicitly specified. If all fields are empty or
-unspecified, it is considered a configuration error and the plugin will not be
-allowed to execute. Likewise if the `credentialPluginAllowlist` field is
-unspecified, or if it is specified explicitly as the empty list. This is in
-order to prevent scenarios where the user misspells the
-`credentialPluginAllowlist` key -- thinking they have specified an allowlist
-when they actually haven't.
+{{ <note> }}
+For a set of requirements to be valid it MUST have at least one field that is
+nonempty and explicitly specified. If all fields are empty or unspecified, it is
+considered a configuration error and the plugin will not be allowed to execute.
+Likewise if the `credentialPluginAllowlist` field is unspecified, or if it is
+specified explicitly as the empty list. This is in order to prevent scenarios
+where the user misspells the `credentialPluginAllowlist` key -- thinking they
+have specified an allowlist when they actually haven't.
+{{ </note> }}
 
 ##### name
 
 `name` names a credential plugin which may be executed. It can be specified as
 either the basename of the desired plugin, or the full path. If specified as a
-basename, the decision rendered by this field is equivalent to the expression
-`name == plugin || exec.LookPath(name) == exec.LookPath(plugin)`. If specified
-as a full path, the decision rendered is be equivalent to the expression
-`fullPath == plugin || fullPath == exec.LookPath(plugin)`.
+basename, the decision rendered by this field is "allow" if one of the following
+two conditions is met:
+
+1. The `name` field is exactly equal to the plugin's `command` field.
+1. Full path resolution is performed on both the `name` and the `command`, and
+   the results are equal.
+
+If specified as a full path, the decision rendered by this field is "allow" if
+one of the following conditions is met:
+
+1. The `name` field is exactly equal to the plugin's `command` field (i.e. the
+   `command` is also a full path).
+1. Full path resolution is performed on the `command` the `name` field is an
+   exact match.
 
 ### Example {#credential-plugin-policy-example}
 
 The following example shows an `"Allowlist"` policy with its allowlist:
 
-```yaml
+{{< tabs name="tab_with_code" >}}
+{{< tab name="POSIX" codelang="yaml" >}}
 apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
   - name: my-trusted-binary
   - name: /usr/local/bin/my-other-trusted-binary
-```
+{{< /tab >}}
+{{< tab name="Windows" codelang="yaml" >}}
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: my-trusted-binary
+  - name: C:\my-other-trusted-binary
+{{< /tab >}}
+{{< /tabs >}}
 
 ## Suggested defaults
 
