@@ -16,7 +16,7 @@ weight: 40
 
 <!-- steps -->
 
-## パッケージリポジトリの変更
+## パッケージリポジトリの変更 {#changing-the-package-repository}
 
 コミュニティ所有のパッケージリポジトリ(`pkgs.k8s.io`)を使用している場合、必要なKubernetesのマイナーリリースのパッケージリポジトリを有効化する必要があります。
 これは、[Kubernetesパッケージリポジトリの変更](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)ドキュメントにて説明されています。
