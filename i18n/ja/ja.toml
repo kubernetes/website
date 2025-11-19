@@ -245,6 +245,12 @@ other = "Thanks for the feedback. If you have a specific, answerable question ab
 [layouts_docs_search_fetching]
 other = "結果を取得しています..."
 
+[legacy_repos_message]
+other = """古いパッケージリポジトリ(`apt.kubernetes.io`および`yum.kubernetes.io`)は[2023年9月13日以降、非推奨となり凍結されています](/blog/2023/08/31/legacy-package-repository-deprecation/)。
+**[`pkgs.k8s.io`にてホストされている新しいリポジトリ](/blog/2023/08/15/pkgs-k8s-io-introduction/)の使用が強く推奨されており、2023年9月13日以降にリリースされたKubernetesのバージョンをインストールするには必須となっています。**
+非推奨の古いリポジトリとその内容は、将来事前予告なく削除される可能性があります。
+新しいパッケージリポジトリでは、v1.24.0以降のKubernetesバージョンのダウンロードを提供しています。"""
+
 [main_by]
 other = "by"
 
