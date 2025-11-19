@@ -496,12 +496,9 @@ SIG Docs 的當前新貢獻者大使：
 
 ## 中文本地化
 
-可以通過以下方式聯繫中文本地化的維護人員：
+可以通過以下方式聯繫繁体中文本地化的維護人員：
 
-* Qiming Teng ([GitHub - @tengqm](https://github.com/tengqm))
-* Rui Chen ([GitHub - @chenrui333](https://github.com/chenrui333))
-* Michael Yao ([GitHub - @windsonsea](https://github.com/windsonsea))
-* [Slack 頻道](https://kubernetes.slack.com/messages/kubernetes-docs-zh)
+* Roger Pan ([GitHub - @RogerPan1203](https://github.com/RogerPan1203))
 
 <!--
 ## Code of conduct
