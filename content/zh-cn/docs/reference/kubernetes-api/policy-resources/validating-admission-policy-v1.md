@@ -156,6 +156,16 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
     
     允许的值有 Ignore 或 Fail。默认为 Fail。
 
+    <!--
+    Possible enum values:
+     - `"Fail"` means that an error calling the webhook causes the admission to fail.
+     - `"Ignore"` means that an error calling the webhook is ignored.
+    -->
+  
+    可能的枚举值：
+      - `"Fail"` 表示调用 Webhook 发生错误时，准入失败。
+      - `"Ignore"` 表示调用 Webhook 发生的错误将被忽略。
+  
   <!--
   - **spec.matchConditions** ([]MatchCondition)
 
@@ -391,6 +401,10 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
       
       Defaults to "Equivalent"
+  
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
+       - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
     -->
 
     - **spec.matchConstraints.matchPolicy** (string)
@@ -408,6 +422,11 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
         则对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求将被转换为 `apps/v1` 并发送到 ValidatingAdmissionPolicy。
 
       默认为 "Equivalent"
+  
+      可能的枚举值：
+        - `"Equivalent"` 表示如果请求通过另一个 API 组或版本修改规则中列出的资源，
+          则应将请求发送到 Webhook。
+        - `"Exact"` 表示仅当请求与给定规则完全匹配时，才应将请求发送到 Webhook。
 
     <!--
     - **spec.matchConstraints.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -796,8 +815,8 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
     **映射：在合并期间，基于 name 键的唯一值将被保留**
     
     变量包含可用于其他表达式组合的变量定义。每个变量都被定义为一个命名的 CEL 表达式。
-    这里定义的变量将在策略的其他表达式中的 `variables` 下可用，除了 matchConditions，
-    因为 matchConditions 会在策略其余部分之前进行计算。
+    这里定义的变量将在策略的其他表达式中的 `variables` 下可用，除了 `matchConditions`，
+    因为 `matchConditions` 会在策略其余部分之前进行计算。
     
     变量的表达式可以引用列表中先前定义的其他变量，但不能引用后续定义的变量。
     因此，variables 必须按照首次出现的顺序排序并且不可存在循环的。
@@ -819,7 +838,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
     
     - **spec.variables.expression** (string)，必需
     
-      expression 是将被计算为变量值的表达式。CEL 表达式可以访问与 validation 中的 CEL 表达式相同的标识符。
+      `expression` 是将被计算为变量值的表达式。CEL 表达式可以访问与 validation 中的 CEL 表达式相同的标识符。
     
     - **spec.variables.name** (string)，必需
     
@@ -878,7 +897,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
 - **status.conditions.lastTransitionTime** (Time)，必填
 
-  lastTransitionTime 是条件从一个状态转换到另一个状态的最后时间。这应该是底层条件改变的时间。
+  `lastTransitionTime` 是条件从一个状态转换到另一个状态的最后时间。这应该是底层条件改变的时间。
   如果不知道该时间，使用 API 字段更改的时间是可以接受的。
 
   <a name="Time"></a>
@@ -886,11 +905,11 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
   - **status.conditions.message** (string)，必填
 
-    message 是一个人类可读的消息，指示有关过渡的详细信息。这可以是一个空字符串。
+    `message` 是一个人类可读的消息，指示有关过渡的详细信息。这可以是一个空字符串。
 
   - **status.conditions.reason** (string)，必填
 
-    reason 包含一个编程标识符，指示条件上次转换的原因。特定条件类型的提供者可以为此字段定义预期值和含义，
+    `reason` 包含一个编程标识符，指示条件上次转换的原因。特定条件类型的提供者可以为此字段定义预期值和含义，
     以及这些值是否被视为保证的 API。值应当是 CamelCase 格式的字符串。此字段不能为空。
 
     <!--
@@ -909,16 +928,16 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
     - **status.conditions.status** (string)，必需
     
-      condition 的状态，可能是 True、False、Unknown 中的一个。
+      `condition` 的状态，可能是 True、False、Unknown 中的一个。
     
     - **status.conditions.type** (string)，必需
     
-      condition 的类型，采用 CamelCase 或 foo.example.com/CamelCase 格式。
+      `condition` 的类型，采用 CamelCase 或 `foo.example.com/CamelCase` 格式。
     
     - **status.conditions.observedGeneration** (int64)
     
-      observedGeneration 表示设置条件时依据的 .metadata.generation。例如，如果当前
-      .metadata.generation 是 12，而 .status.conditions[x].observedGeneration 是 9，
+      `observedGeneration` 表示设置条件时依据的 `.metadata.generation`。例如，如果当前
+      `.metadata.generation` 是 12，而 `.status.conditions[x].observedGeneration` 是 9，
       则说明该条件相对于实例的当前状态已过期。
 
   <!--
@@ -936,14 +955,14 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
 
   - **status.observedGeneration** (int64)
   
-    控制器观察到的 generation。
+    控制器观察到的 `generation`。
   
   - **status.typeChecking** (TypeChecking)
   
     每个表达式的类型检查结果。此字段的存在表明类型检查已完成。
   
     <a name="TypeChecking"></a>
-    **TypeChecking 包含了对 ValidatingAdmissionPolicy 中表达式进行类型检查的结果**
+    **`TypeChecking` 包含了对 ValidatingAdmissionPolicy 中表达式进行类型检查的结果**
 
     <!--
     - **status.typeChecking.expressionWarnings** ([]ExpressionWarning)
@@ -971,7 +990,7 @@ ValidatingAdmissionPolicy 描述了一种准入验证策略的定义，
       每个表达式的类型检查警告。
 
       <a name="ExpressionWarning"></a>
-      **ExpressionWarning 是针对特定表达式的警告信息。**
+      **`ExpressionWarning` 是针对特定表达式的警告信息。**
 
       - **status.typeChecking.expressionWarnings.fieldRef** (string)，必需
 
@@ -1005,7 +1024,7 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 
 - **apiVersion** (string)
 
-  apiVersion 定义了对象表示的版本化模式。服务器应该将识别的模式转换为最新的内部值，并可能拒绝未识别的值。
+  `apiVersion` 定义了对象表示的版本化模式。服务器应该将识别的模式转换为最新的内部值，并可能拒绝未识别的值。
   更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
@@ -1020,7 +1039,7 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 -->
 - **kind** (string)
 
-  kind 是一个字符串值，表示此对象代表的 REST 资源。服务器可能从客户端提交请求的端点推断出该值。
+  `kind` 是一个字符串值，表示此对象代表的 REST 资源。服务器可能从客户端提交请求的端点推断出该值。
   不能更新。采用驼峰命名法。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -1061,13 +1080,13 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 -->
 - **apiVersion** (string)
 
-  apiVersion 定义了对象此表示形式的版本化模式。服务器应将识别的模式转换为最新的内部值，
+  `apiVersion` 定义了对象此表示形式的版本化模式。服务器应将识别的模式转换为最新的内部值，
   并可能拒绝未识别的值。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
 
-  kind 是一个字符串值，代表此对象表示的 REST 资源。服务器可从客户端提交请求的端点推断出该值。
+  `kind` 是一个字符串值，代表此对象表示的 REST 资源。服务器可从客户端提交请求的端点推断出该值。
   不能更新。采用驼峰式命名法。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -1114,7 +1133,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   -->
   - **spec.matchResources** (MatchResources)
   
-    matchResources 声明了哪些资源匹配此绑定并会由此进行验证。注意，这与策略的 matchConstraints 相交，
+    `matchResources` 声明了哪些资源匹配此绑定并会由此进行验证。注意，这与策略的 matchConstraints 相交，
     因此只有被策略匹配的请求才能由此选择。如果此字段未设置，则由策略匹配的所有资源都将由此绑定验证。
     当 resourceRules 未设置时，它不限制资源匹配。如果资源符合此对象的其他字段，它将被验证。
     注意，这与 ValidatingAdmissionPolicy matchConstraints 不同，在那里 resourceRules 是必需的。
@@ -1127,7 +1146,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
   
     **原子性：将在合并期间被替换**
   
-    excludeResourceRules 描述了 ValidatingAdmissionPolicy 应忽略的操作和资源/子资源。
+    `excludeResourceRules` 描述了 ValidatingAdmissionPolicy 应忽略的操作和资源/子资源。
     排除规则优先于包含规则（如果一个资源同时匹配两者，则该资源被排除）
   
     <a name="NamedRuleWithOperations"></a>
@@ -1151,14 +1170,14 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       
        **原子性：将在合并期间被替换**
      
-        apiGroups 是资源所属的 API 组。`*` 表示所有组。
+        `apiGroups` 是资源所属的 API 组。`*` 表示所有组。
         如果存在 `*`，则切片的长度必须为一。必需。
         
         - **spec.matchResources.excludeResourceRules.apiVersions** ([]string)
         
         **原子性：将在合并期间被替换**
         
-        apiVersions 是资源所属的 API 版本。`*` 表示所有版本。
+        `apiVersions` 是资源所属的 API 版本。`*` 表示所有版本。
         如果存在 `*`，则切片的长度必须为一。必需。
 
       <!--
@@ -1179,7 +1198,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       
         **原子性：将在合并期间被替换**
       
-        operations 是 admission hook 关心的操作 - CREATE、UPDATE、DELETE、CONNECT 或者
+        `operations` 是 admission hook 关心的操作 - CREATE、UPDATE、DELETE、CONNECT 或者
         `*` 表示所有这些操作以及将来可能添加的任何 admission 操作。
         如果存在 `*`，则切片的长度必须为一。必需。
       
@@ -1187,7 +1206,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       
         **原子性：将在合并期间被替换**
       
-        resourceNames 是规则适用的名字白名单。空集表示允许所有。
+        `resourceNames` 是规则适用的名字白名单。空集表示允许所有。
   
       <!--
       - **spec.matchResources.excludeResourceRules.resources** ([]string)
@@ -1207,10 +1226,10 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       
         **原子性：将在合并期间被替换**
       
-        resources 是此规则适用的资源列表。
+        `resources` 是此规则适用的资源列表。
       
-        例如：`pods` 表示 pods。`pods/log` 表示 pods 的日志子资源。`*` 表示所有资源，
-        但不包括子资源。`pods/*` 表示 pods 的所有子资源。`*/scale` 表示所有 scale 子资源。
+        例如：`pods` 表示 Pod。`pods/log` 表示 Pod 的日志子资源。`*` 表示所有资源，
+        但不包括子资源。`pods/*` 表示 Pod 的所有子资源。`*/scale` 表示所有 scale 子资源。
         `*/*` 表示所有资源及其子资源。
       
         如果存在通配符，验证规则将确保资源不会相互重叠。
@@ -1225,7 +1244,7 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 
       - **spec.matchResources.excludeResourceRules.scope** (string)
       
-        scope 指定此规则的范围。有效值为 "`Cluster`"、"`Namespaced`" 和 "`*`"。"`Cluster`"
+        `scope` 指定此规则的范围。有效值为 "`Cluster`"、"`Namespaced`" 和 "`*`"。"`Cluster`"
         表示只有集群范围的资源将匹配此规则。Namespace API 对象是集群范围的。"`Namespaced`"
         表示只有命名空间范围的资源将匹配此规则。"`*`" 表示没有范围限制。子资源匹配其父资源的范围。默认是 "`*`"。
   
@@ -1239,23 +1258,32 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
       - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
       
       Defaults to "Equivalent"
+  
+      Possible enum values:
+       - `"Equivalent"` means requests should be sent to the webhook if they modify a resource listed in rules via another API group or version.
+       - `"Exact"` means requests should only be sent to the webhook if they exactly match a given rule.
     -->
 
     - **spec.matchResources.matchPolicy** (string)
     
-      matchPolicy 定义了如何使用 "MatchResources" 列表来匹配传入的请求。允许的值为 "Exact" 或 "Equivalent"。
+      `matchPolicy` 定义了如何使用 "MatchResources" 列表来匹配传入的请求。允许的值为 "Exact" 或 "Equivalent"。
     
-      - Exact：仅当请求完全匹配指定规则时才匹配请求。例如，如果 deployments 可以通过
-        apps/v1、apps/v1beta1 和 extensions/v1beta1 修改，但 "rules" 仅包含
+      - `Exact`：仅当请求完全匹配指定规则时才匹配请求。例如，如果 deployments 可以通过
+        `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改，但 "rules" 仅包含
         `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`，
-        则对 apps/v1beta1 或 extensions/v1beta1 的请求不会发送到 ValidatingAdmissionPolicy。
+        则对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求不会发送到 ValidatingAdmissionPolicy。
     
-      - Equivalent：如果请求修改了规则中列出的资源，即使通过另一个 API 组或版本，也会匹配请求。
-        例如，如果 deployments 可以通过 apps/v1、apps/v1beta1 和 extensions/v1beta1 修改，
+      - `Equivalent`：如果请求修改了规则中列出的资源，即使通过另一个 API 组或版本，也会匹配请求。
+        例如，如果 Deployment 可以通过 `apps/v1`、`apps/v1beta1` 和 `extensions/v1beta1` 修改，
         并且 "rules" 仅包含 `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`，
-        则对 apps/v1beta1 或 extensions/v1beta1 的请求将被转换为 apps/v1 并发送到 ValidatingAdmissionPolicy。
+        则对 `apps/v1beta1` 或 `extensions/v1beta1` 的请求将被转换为 `apps/v1` 并发送到 ValidatingAdmissionPolicy。
     
-      默认为 "Equivalent"
+      默认为 `"Equivalent"`
+
+      可能的枚举值：
+        - `"Equivalent"` 表示如果请求通过另一个 API 组或版本修改规则中列出的资源，
+          则应将请求发送到 Webhook。
+        - `"Exact"` 表示仅当请求与给定规则完全匹配时，才应将请求发送到 Webhook。
 
     <!--
     - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
@@ -1267,8 +1295,8 @@ CEL 成本预算。添加/移除策略、绑定或参数不会影响特定（策
 
     - **spec.matchResources.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
     
-      namespaceSelector 决定了是否基于对象的命名空间是否匹配选择器来对对象运行准入控制策略。
-      如果对象本身是一个命名空间，则匹配是在 object.metadata.labels 上执行的。
+      `namespaceSelector` 决定了是否基于对象的命名空间是否匹配选择器来对对象运行准入控制策略。
+      如果对象本身是一个命名空间，则匹配是在 `object.metadata.labels` 上执行的。
       如果对象是另一个集群范围的资源，则永远不会跳过该策略。
     
       例如，要对任何命名空间未关联 "runlevel" 为 "0" 或 "1" 的对象运行 Webhook，你可以将选择器设置如下：
