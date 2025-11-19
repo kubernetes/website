@@ -70,7 +70,7 @@ sudo kubeadm upgrade node
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
-### kubeletとkubectlのアップグレード
+### kubeletとkubectlのアップグレード {#upgrade-kubelet-and-kubectl}
 
 1. kubeletとkubectlをアップグレードします。
 
