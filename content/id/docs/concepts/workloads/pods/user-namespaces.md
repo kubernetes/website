@@ -40,26 +40,26 @@ direktori khusus yang kamu konfigurasikan untuk ini, memerlukan dukungan pemasan
 
 Dalam praktiknya, ini berarti kamu memerlukan setidaknya Linux 6.3, karena tmpfs mulai mendukung
 pemasangan idmap pada versi tersebut. Ini biasanya diperlukan karena beberapa fitur Kubernetes
-menggunakan tmpfs (token akun layanan yang dipasang secara default menggunakan
+menggunakan tmpfs (token akun layanan yang dipasang secara _default_ menggunakan
 tmpfs, Secrets menggunakan tmpfs, dll.)
 
 Beberapa sistem berkas populer yang mendukung pemasangan idmap di Linux 6.3 adalah: btrfs,
 ext4, xfs, fat, tmpfs, overlayfs.
 
-Selain itu, runtime kontainer dan runtime OCI yang mendasarinya harus mendukung
-namespace pengguna. Runtime OCI berikut menawarkan dukungan:
+Selain itu, _runtime_ kontainer dan _runtime_ OCI yang mendasarinya harus mendukung
+namespace pengguna. _Runtime_ OCI berikut menawarkan dukungan:
 
 * [crun](https://github.com/containers/crun) versi 1.9 atau lebih tinggi (disarankan versi 1.13+).
 * [runc](https://github.com/opencontainers/runc) versi 1.2 atau lebih tinggi.
 
 {{< note >}}
-Beberapa runtime OCI tidak menyertakan dukungan yang diperlukan untuk menggunakan namespace pengguna di
+Beberapa _runtime_ OCI tidak menyertakan dukungan yang diperlukan untuk menggunakan namespace pengguna di
 pod Linux. Jika kamu menggunakan Kubernetes terkelola, atau telah mengunduhnya dari paket
-dan mengaturnya sendiri, ada kemungkinan node di klaster kamu menggunakan runtime yang tidak
+dan mengaturnya sendiri, ada kemungkinan node di klaster kamu menggunakan _runtime_ yang tidak
 menyertakan dukungan ini. {{< /note >}}
 
 Untuk menggunakan namespace pengguna dengan Kubernetes, kamu juga perlu menggunakan CRI
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
+_{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}_
 untuk menggunakan fitur ini dengan pod Kubernetes:
 
 * containerd: versi 2.0 (dan yang lebih baru) mendukung namespace pengguna untuk kontainer.
@@ -95,7 +95,7 @@ pengguna hanya dengan mengatur pengguna yang sesuai di dalam kontainer
 (`RunAsUser`, `RunAsGroup`, `fsGroup`, dll.). Ini berlaku untuk semua volume yang dapat dipasang oleh pod,
 termasuk `hostPath` (jika pod diizinkan untuk memasang volume `hostPath`).
 
-Secara default, UID/GID yang valid saat fitur ini diaktifkan adalah rentang 0-65535. Hal ini berlaku untuk berkas dan proses (`runAsUser`, `runAsGroup`, dll.).
+Secara _default_, UID/GID yang valid saat fitur ini diaktifkan adalah rentang 0-65535. Hal ini berlaku untuk berkas dan proses (`runAsUser`, `runAsGroup`, dll.).
 
 Berkas yang menggunakan UID/GID di luar rentang ini akan dianggap sebagai milik
 ID overflow, biasanya 65534 (dikonfigurasi dalam `/proc/sys/kernel/overflowuid` dan
@@ -111,10 +111,10 @@ jika namespace pengguna diaktifkan.
 
 ## Memahami namespace pengguna untuk pod {#pods-and-userns}
 
-Beberapa runtime kontainer dengan konfigurasi _default_-nya (seperti Docker Engine,
+Beberapa _runtime_ kontainer dengan konfigurasi _default_-nya (seperti Docker Engine,
 containerd, CRI-O) menggunakan namespace Linux untuk isolasi. Teknologi lain juga tersedia
-dan dapat digunakan dengan runtime tersebut (misalnya, Kata Containers menggunakan VM, bukan namespace
-Linux). Halaman ini berlaku untuk runtime kontainer yang menggunakan namespace Linux
+dan dapat digunakan dengan _runtime_ tersebut (misalnya, Kata Containers menggunakan VM, bukan namespace
+Linux). Halaman ini berlaku untuk _runtime_ kontainer yang menggunakan namespace Linux
 untuk isolasi.
 
 Saat membuat pod, secara _default_, beberapa namespace baru digunakan untuk isolasi:
@@ -206,7 +206,7 @@ entri berikut untuk pengguna `kubelet`:
 # di mana
 # - firstID adalah 65536 (nilai minimum yang dimungkinkan)
 # - count of IDs adalah 110 * 65536
-# (110 adalah batas default untuk jumlah pod pada node)
+# (110 adalah batas _default_ untuk jumlah pod pada node)
 
 kubelet:65536:7208960
 ```
