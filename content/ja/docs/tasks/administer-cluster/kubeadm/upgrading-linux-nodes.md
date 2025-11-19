@@ -25,7 +25,7 @@ weight: 40
 
 ## ワーカーノードのアップグレード {#upgrading-worker-nodes}
 
-### kubeadmのアップグレード
+### kubeadmのアップグレード {#upgrade-kubeadm}
 
 kubeadmをアップグレードします。
 
