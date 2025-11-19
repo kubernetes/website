@@ -52,14 +52,14 @@ There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-aut
 
 ### Scaling workloads vertically
 
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
+{{< feature-state for_k8s_version="v1.33" state="stable" >}}
 
 You can automatically scale a workload vertically using a _VerticalPodAutoscaler_ (VPA).
 Unlike the HPA, the VPA doesn't come with Kubernetes by default, but is a separate project
-that can be found [on GitHub](https://github.com/kubernetes/autoscaler/tree/9f87b78df0f1d6e142234bb32e8acbd71295585a/vertical-pod-autoscaler).
+that can be found [on GitHub](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler).
 
-Once installed, it allows you to create {{< glossary_tooltip text="CustomResourceDefinitions" term_id="customresourcedefinition" >}}
-(CRDs) for your workloads which define _how_ and _when_ to scale the resources of the managed replicas.
+Once installed, it allows you to create {{< glossary_tooltip text="CustomResource" term_id="customresource" >}}
+(CRD) for your workloads which define _how_ and _when_ to scale the resources of the managed replicas.
 
 {{< note >}}
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
