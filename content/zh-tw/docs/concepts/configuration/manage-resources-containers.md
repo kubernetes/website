@@ -174,7 +174,7 @@ CPU 和內存統稱爲**計算資源**，或簡稱爲**資源**。
 計算資源的數量是可測量的，可以被請求、被分配、被消耗。
 它們與 [API 資源](/zh-cn/docs/concepts/overview/kubernetes-api/)不同。
 API 資源（如 Pod 和 [Service](/zh-cn/docs/concepts/services-networking/service/)）是可通過
-Kubernetes API 服務器讀取和修改的對象。
+Kubernetes API 伺服器讀取和修改的對象。
 
 <!--
 ## Resource requests and limits of Pod and container
@@ -222,7 +222,7 @@ containers where it can be difficult to accurately gauge individual resource nee
 Additionally, it enables containers within a Pod to share idle resources with each
 other, improving resource utilization.
 -->
-如果你的集羣啓用了 `PodLevelResources`
+如果你的叢集啓用了 `PodLevelResources`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你可以在 Pod 級別指定資源請求和限制值。
 在 Pod 級別，Kubernetes {{< skew currentVersion >}} 僅支持爲特定資源類型設置資源請求或限制值，
@@ -438,7 +438,7 @@ limits you defined.
 
 當 kubelet 將容器作爲 Pod 的一部分啓動時，它會將容器的 CPU 和內存請求與限制值信息傳遞給容器運行時。
 
-在 Linux 系統上，容器運行時通常會配置內核
+在 Linux 系統上，容器運行時通常會設定內核
 {{< glossary_tooltip text="CGroup" term_id="cgroup" >}}，負責應用並實施所定義的請求。
 
 <!--
@@ -520,7 +520,7 @@ kubelet 會將 Pod 的資源使用情況作爲 Pod
 [`status`](/zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 的一部分來報告的。
 
-如果爲集羣配置了可選的[監控工具](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)，
+如果爲叢集設定了可選的[監控工具](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)，
 則可以直接從[指標 API](/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)
 或者監控工具獲得 Pod 的資源使用情況。
 
@@ -548,7 +548,7 @@ more likely.
 Kubernetes 基於資源請求（`Pod.spec.containers[].resources.requests`）調度 Pod，
 並且在決定另一個 Pod 是否適合調度到某個給定的節點上時，不會考慮超出請求的內存用量。
 這可能導致拒絕服務，並使得操作系統需要處理內存不足（OOM）的情況。
-用戶可以創建任意數量的 `emptyDir`，可能會消耗節點上的所有可用內存，使得 OOM 更有可能發生。
+使用者可以創建任意數量的 `emptyDir`，可能會消耗節點上的所有可用內存，使得 OOM 更有可能發生。
 {{< /caution >}}
 
 <!--
@@ -574,7 +574,7 @@ there are additional points below that you should be careful of:
   volumes may affect the normal operation of your pod or of the whole node,
   so should be used carefully.
 -->
-* 存儲在內存爲介質的捲上的文件幾乎完全由用戶應用所管理。
+* 存儲在內存爲介質的捲上的文件幾乎完全由使用者應用所管理。
   與用作進程工作區的用法不同，你無法依賴語言級別垃圾回收這類機制。
 * 將文件寫入某個卷的目的是保存數據或在應用之間傳遞數據。
   Kubernetes 或操作系統都不會自動從卷中刪除文件，
@@ -590,7 +590,7 @@ for additional enforcement.
 If you specify a `spec.containers[].resources.limits.memory` for each Pod,
 then the maximum size of an `emptyDir` volume will be the pod's memory limit.
 -->
-如果你在管理集羣或命名空間，還可以設置限制內存使用的
+如果你在管理叢集或命名空間，還可以設置限制內存使用的
 [ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)；
 你可能還希望定義一個 [LimitRange](/zh-cn/docs/concepts/policy/limit-range/)
 以施加額外的限制。如果爲每個 Pod 指定 `spec.containers[].resources.limits.memory`，
@@ -601,7 +601,7 @@ As an alternative, a cluster administrator can enforce size limits for
 `emptyDir` volumes in new Pods using a policy mechanism such as
 [ValidationAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy).
 -->
-作爲一種替代方案，集羣管理員可以使用諸如
+作爲一種替代方案，叢集管理員可以使用諸如
 [ValidationAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy)
 之類的策略機制來強制對新 Pod 的 `emptyDir` 捲進行大小限制。
 
@@ -636,7 +636,7 @@ The kubelet also uses this kind of storage to hold
 container images, and the writable layers of running containers.
 -->
 kubelet 也使用此類存儲來保存[節點層面的容器日誌](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)、
-容器鏡像文件以及運行中容器的可寫入層。
+容器映像檔文件以及運行中容器的可寫入層。
 
 {{< caution >}}
 <!--
@@ -661,9 +661,9 @@ the resource quota is not enforced on ephemeral-storage.
 爲了使臨時性存儲的資源配額生效，需要完成以下兩個步驟：
 
 * 管理員在命名空間中設置臨時性存儲的資源配額。
-* 用戶需要在 Pod 規約中指定臨時性存儲資源的限制。
+* 使用者需要在 Pod 規約中指定臨時性存儲資源的限制。
 
-如果用戶在 Pod 規約中未指定臨時性存儲資源的限制，
+如果使用者在 Pod 規約中未指定臨時性存儲資源的限制，
 則臨時性存儲的資源配額不會生效。
 {{< /note >}}
 
@@ -688,15 +688,15 @@ The kubelet also writes
 [node-level container logs](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 and treats these similarly to ephemeral local storage.
 -->
-### 本地臨時性存儲的配置  {##configurations-for-local-ephemeral-storage}
+### 本地臨時性存儲的設定  {##configurations-for-local-ephemeral-storage}
 
-Kubernetes 有兩種方式支持節點上配置本地臨時性存儲：
+Kubernetes 有兩種方式支持節點上設定本地臨時性存儲：
 
 {{< tabs name="local_storage_configurations" >}}
 {{% tab name="單一文件系統" %}}
-採用這種配置時，你會把所有類型的臨時性本地數據（包括 `emptyDir`
-卷、可寫入容器層、容器鏡像、日誌等）放到同一個文件系統中。
-作爲最有效的 kubelet 配置方式，這意味着該文件系統是專門提供給 Kubernetes
+採用這種設定時，你會把所有類型的臨時性本地數據（包括 `emptyDir`
+卷、可寫入容器層、容器映像檔、日誌等）放到同一個文件系統中。
+作爲最有效的 kubelet 設定方式，這意味着該文件系統是專門提供給 Kubernetes
 （kubelet）來保存數據的。
 
 kubelet 也會生成[節點層面的容器日誌](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)，
@@ -713,13 +713,13 @@ and the kubelet is designed with that layout in mind.
 Your node can have as many other filesystems, not used for Kubernetes,
 as you like.
 -->
-kubelet 會將日誌寫入到所配置的日誌目錄（默認爲 `/var/log`）下的文件中；
+kubelet 會將日誌寫入到所設定的日誌目錄（默認爲 `/var/log`）下的文件中；
 還會針對其他本地存儲的數據使用同一個基礎目錄（默認爲 `/var/lib/kubelet`）。
 
 通常，`/var/lib/kubelet` 和 `/var/log` 都是在系統的根文件系統中。kubelet
 的設計也考慮到這一點。
 
-你的集羣節點當然可以包含其他的、並非用於 Kubernetes 的很多文件系統。
+你的叢集節點當然可以包含其他的、並非用於 Kubernetes 的很多文件系統。
 {{% /tab %}}
 
 {{% tab name="雙文件系統" %}}
@@ -750,12 +750,12 @@ The first filesystem does not hold any image layers or writeable layers.
 Your node can have as many other filesystems, not used for Kubernetes,
 as you like.
 -->
-同時你使用另一個由不同邏輯存儲設備支持的文件系統。在這種配置下，你會告訴
-kubelet 將容器鏡像層和可寫層保存到這第二個文件系統上的某個目錄中。
+同時你使用另一個由不同邏輯存儲設備支持的文件系統。在這種設定下，你會告訴
+kubelet 將容器映像檔層和可寫層保存到這第二個文件系統上的某個目錄中。
 
-第一個文件系統中不包含任何鏡像層和可寫層數據。
+第一個文件系統中不包含任何映像檔層和可寫層數據。
 
-當然，你的集羣節點上還可以有很多其他與 Kubernetes 沒有關聯的文件系統。
+當然，你的叢集節點上還可以有很多其他與 Kubernetes 沒有關聯的文件系統。
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -768,9 +768,9 @@ If you have a different configuration, then the kubelet does not apply resource
 limits for ephemeral local storage.
 -->
 kubelet 能夠度量其本地存儲的用量。
-實現度量機制的前提是你已使用本地臨時存儲所支持的配置之一對節點進行配置。
+實現度量機制的前提是你已使用本地臨時存儲所支持的設定之一對節點進行設定。
 
-如果你的節點配置不同於以上預期，kubelet 就無法對臨時性本地存儲實施資源限制。
+如果你的節點設定不同於以上預期，kubelet 就無法對臨時性本地存儲實施資源限制。
 
 {{< note >}}
 <!--
@@ -914,7 +914,7 @@ sets an eviction signal that triggers Pod eviction.
 
 - `emptyDir` 卷，除了 **tmpfs** `emptyDir` 卷
 - 保存節點層面日誌的目錄
-- 可寫入的容器鏡像層
+- 可寫入的容器映像檔層
 
 如果某 Pod 的臨時存儲用量超出了你所允許的範圍，
 kubelet 會向其發出逐出（eviction）信號，觸發該 Pod 被逐出所在節點。
@@ -929,7 +929,7 @@ the local ephemeral storage usage from all containers and also the Pod's `emptyD
 volumes exceeds the overall Pod storage limit, then the kubelet also marks the Pod
 for eviction.
 -->
-就容器層面的隔離而言，如果某容器的可寫入鏡像層和日誌用量超出其存儲限制，
+就容器層面的隔離而言，如果某容器的可寫入映像檔層和日誌用量超出其存儲限制，
 kubelet 也會將所在的 Pod 標記爲逐出候選。
 
 就 Pod 層面的隔離而言，kubelet 會將 Pod 中所有容器的限制相加，得到 Pod 存儲限制的總值。
@@ -953,11 +953,11 @@ for ephemeral local storage.
 如果 kubelet 沒有度量本地臨時性存儲的用量，即使 Pod
 的本地存儲用量超出其限制也不會被逐出。
 
-不過，如果用於可寫入容器鏡像層、節點層面日誌或者 `emptyDir` 卷的文件系統中可用空間太少，
+不過，如果用於可寫入容器映像檔層、節點層面日誌或者 `emptyDir` 卷的文件系統中可用空間太少，
 節點會爲自身設置本地存儲不足的{{< glossary_tooltip text="污點" term_id="taint" >}}標籤。
 這一污點會觸發對那些無法容忍該污點的 Pod 的逐出操作。
 
-關於臨時性本地存儲的配置信息，請參考[這裏](#configurations-for-local-ephemeral-storage)。
+關於臨時性本地存儲的設定信息，請參考[這裏](#configurations-for-local-ephemeral-storage)。
 {{< /caution >}}
 
 <!--
@@ -974,7 +974,7 @@ The kubelet performs regular, scheduled checks that scan each
 
 The scan measures how much space is used.
 -->
-kubelet 按預定週期執行掃描操作，檢查 `emptyDir` 卷、容器日誌目錄以及可寫入容器鏡像層。
+kubelet 按預定週期執行掃描操作，檢查 `emptyDir` 卷、容器日誌目錄以及可寫入容器映像檔層。
 
 這一掃描會度量存儲空間用量。
 
@@ -1053,8 +1053,8 @@ a user namespace. Within user namespaces, the kernel restricts changes
 to projectIDs on the filesystem, ensuring the reliability of storage 
 metrics calculated by quotas.
 -->
-要使用配額來跟蹤 Pod 的資源使用情況，Pod 必須位於用戶命名空間中。
-在用戶命名空間內，內核限制對文件系統上 projectID 的更改，從而確保按配額計算的存儲指標的可靠性。
+要使用配額來跟蹤 Pod 的資源使用情況，Pod 必須位於使用者命名空間中。
+在使用者命名空間內，內核限制對文件系統上 projectID 的更改，從而確保按配額計算的存儲指標的可靠性。
 
 <!--
 If you want to use project quotas, you should:
@@ -1066,7 +1066,7 @@ If you want to use project quotas, you should:
 -->
 如果你希望使用項目配額，你需要：
 
-* 在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中使用
+* 在 [kubelet 設定](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中使用
   `featureGates` 字段啓用
   `LocalStorageCapacityIsolationFSQuotaMonitoring=true` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
@@ -1076,7 +1076,7 @@ If you want to use project quotas, you should:
   is enabled, and that the kernel, CRI implementation and OCI runtime support user namespaces.
 -->
 * 確保 `UserNamespacesSupport` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)已啓用，
-  並且內核、CRI 實現和 OCI 運行時支持用戶命名空間。
+  並且內核、CRI 實現和 OCI 運行時支持使用者命名空間。
 
 <!--
 * Ensure that the root filesystem (or optional runtime filesystem)
@@ -1116,7 +1116,7 @@ If you don't want to use project quotas, you should:
 -->
 如果不想使用項目配額，你應該：
 
-* 使用 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
+* 使用 [kubelet 設定](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
   `featureGates` 字段禁用 `LocalStorageCapacityIsolationFSQuotaMonitoring`
   [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
@@ -1137,10 +1137,10 @@ Extended Resource in Pods.
 ## 擴展資源（Extended Resources）   {#extended-resources}
 
 擴展資源是 `kubernetes.io` 域名之外的標準資源名稱。
-它們使得集羣管理員能夠頒佈非 Kubernetes 內置資源，而用戶可以使用他們。
+它們使得叢集管理員能夠頒佈非 Kubernetes 內置資源，而使用者可以使用他們。
 
-使用擴展資源需要兩個步驟。首先，集羣管理員必須頒佈擴展資源。
-其次，用戶必須在 Pod 中請求擴展資源。
+使用擴展資源需要兩個步驟。首先，叢集管理員必須頒佈擴展資源。
+其次，使用者必須在 Pod 中請求擴展資源。
 
 <!--
 ### Managing extended resources
@@ -1178,8 +1178,8 @@ asynchronously by the kubelet.
 -->
 ##### 其他資源   {#other-resources}
 
-爲了頒佈新的節點級擴展資源，集羣操作員可以向 API 服務器提交 `PATCH` HTTP 請求，
-以在集羣中節點的 `status.capacity` 中爲其配置可用數量。
+爲了頒佈新的節點級擴展資源，叢集操作員可以向 API 伺服器提交 `PATCH` HTTP 請求，
+以在叢集中節點的 `status.capacity` 中爲其設定可用數量。
 完成此操作後，節點的 `status.capacity` 字段中將包含新資源。
 kubelet 會異步地對 `status.allocatable` 字段執行自動更新操作，使之包含新資源。
 
@@ -1236,12 +1236,12 @@ by scheduler extenders, which handle the resource consumption and resource quota
 You can specify the extended resources that are handled by scheduler extenders
 in [scheduler configuration](/docs/reference/config-api/kube-scheduler-config.v1/)
 -->
-#### 集羣層面的擴展資源   {#cluster-level-extended-resources}
+#### 叢集層面的擴展資源   {#cluster-level-extended-resources}
 
-集羣層面的擴展資源並不綁定到具體節點。
+叢集層面的擴展資源並不綁定到具體節點。
 它們通常由調度器擴展程序（Scheduler Extenders）管理，這些程序處理資源消耗和資源配額。
 
-你可以在[調度器配置](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
+你可以在[調度器設定](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 中指定由調度器擴展程序處理的擴展資源。
 
 <!--
@@ -1258,7 +1258,7 @@ extender.
 -->
 **示例：**
 
-下面的調度器策略配置標明集羣層擴展資源 "example.com/foo" 由調度器擴展程序處理。
+下面的調度器策略設定標明叢集層擴展資源 "example.com/foo" 由調度器擴展程序處理。
 
 - 僅當 Pod 請求 "example.com/foo" 時，調度器纔會將 Pod 發送到調度器擴展程序。
 - `ignoredByScheduler` 字段指定調度器不要在其 `PodFitsResources` 斷言中檢查
@@ -1293,7 +1293,7 @@ resource requests. Read more about
 -->
 #### DRA 擴展資源分配
 
-DRA 擴展資源分配允許集羣管理員在 DeviceClass 中指定一個
+DRA 擴展資源分配允許叢集管理員在 DeviceClass 中指定一個
 `extendedResourceName`，然後與所指定 DeviceClass 匹配的設備可以使用
 Pod 的擴展資源請求來獲取。
 進一步閱讀關於[使用 DRA 進行擴展資源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)的內容。
@@ -1307,7 +1307,7 @@ available amount is simultaneously allocated to Pods.
 -->
 ### 使用擴展資源  {#consuming-extended-resources}
 
-就像 CPU 和內存一樣，用戶可以在 Pod 的規約中使用擴展資源。
+就像 CPU 和內存一樣，使用者可以在 Pod 的規約中使用擴展資源。
 調度器負責資源的核算，確保同時分配給 Pod 的資源總量不會超過可用數量。
 
 <!--
@@ -1315,7 +1315,7 @@ The API server restricts quantities of extended resources to whole numbers.
 Examples of _valid_ quantities are `3`, `3000m` and `3Ki`. Examples of
 _invalid_ quantities are `0.5` and `1500m` (because `1500m` would result in `1.5`).
 -->
-API 服務器將擴展資源的數量限制爲整數。
+API 伺服器將擴展資源的數量限制爲整數。
 **有效**數量的示例是 `3`、`3000m` 和 `3Ki`。
 **無效**數量的示例是 `0.5` 和 `1500m`（因爲 `1500m` 結果等同於 `1.5`）。
 
@@ -1325,7 +1325,7 @@ Extended resources replace Opaque Integer Resources.
 Users can use any domain name prefix other than `kubernetes.io` which is reserved.
 -->
 擴展資源取代了非透明整數資源（Opaque Integer Resources，OIR）。
-用戶可以使用 `kubernetes.io`（保留）以外的任何域名前綴。
+使用者可以使用 `kubernetes.io`（保留）以外的任何域名前綴。
 {{< /note >}}
 
 <!--
@@ -1385,7 +1385,7 @@ to limit the number of PIDs that a given Pod can consume. See
 -->
 ## PID 限制   {#pid-limiting}
 
-進程 ID（PID）限制允許對 kubelet 進行配置，以限制給定 Pod 可以消耗的 PID 數量。
+進程 ID（PID）限制允許對 kubelet 進行設定，以限制給定 Pod 可以消耗的 PID 數量。
 有關信息，請參見 [PID 限制](/zh-cn/docs/concepts/policy/pid-limiting/)。
 
 <!--
@@ -1441,11 +1441,11 @@ You can check node capacities and amounts allocated with the
 由於內存不足（PodExceedsFreeMemory）而導致失敗時，也有類似的錯誤消息。
 一般來說，如果 Pod 處於懸決狀態且有這種類型的消息時，你可以嘗試如下幾件事情：
 
-- 向集羣添加更多節點。
+- 向叢集添加更多節點。
 - 終止不需要的 Pod，爲懸決的 Pod 騰出空間。
 - 檢查 Pod 所需的資源是否超出所有節點的資源容量。例如，如果所有節點的容量都是 `cpu：1`，
   那麼一個請求爲 `cpu: 1.1` 的 Pod 永遠不會被調度。
-- 檢查節點上的污點設置。如果集羣中節點上存在污點，而新的 Pod 不能容忍污點，
+- 檢查節點上的污點設置。如果叢集中節點上存在污點，而新的 Pod 不能容忍污點，
   調度器只會考慮將 Pod 調度到不帶有該污點的節點上。
 
 你可以使用 `kubectl describe nodes` 命令檢查節點容量和已分配的資源數量。例如：
@@ -1529,14 +1529,14 @@ You should also consider what access you grant to that namespace:
 **full** write access to a namespace allows someone with that access to remove any
 resource, including a configured ResourceQuota.
 -->
-你可以配置[資源配額](/zh-cn/docs/concepts/policy/resource-quotas/)功能特性以限制每個名字空間可以使用的資源總量。
+你可以設定[資源配額](/zh-cn/docs/concepts/policy/resource-quotas/)功能特性以限制每個名字空間可以使用的資源總量。
 當某名字空間中存在 ResourceQuota 時，Kubernetes 會在該名字空間中的對象強制實施配額。
 例如，如果你爲不同的團隊分配名字空間，你可以爲這些名字空間添加 ResourceQuota。
 設置資源配額有助於防止一個團隊佔用太多資源，以至於這種佔用會影響其他團隊。
 
 你還需要考慮爲這些名字空間設置授權訪問：
 爲名字空間提供**全部**的寫權限時，具有合適權限的人可能刪除所有資源，
-包括所配置的 ResourceQuota。
+包括所設定的 ResourceQuota。
 
 <!--
 ### My container is terminated
@@ -1633,6 +1633,6 @@ memory limit (and possibly request) for that container.
 * 閱讀 API 參考如何定義[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   及其[資源請求](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)。
 * 閱讀 XFS 中[項目配額](https://www.linux.org/docs/man8/xfs_quota.html)的文檔
-* 進一步閱讀 [kube-scheduler 配置參考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
+* 進一步閱讀 [kube-scheduler 設定參考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
 * 進一步閱讀 [Pod 的服務質量等級](/zh-cn/docs/concepts/workloads/pods/pod-qos/)
 * 進一步閱讀[使用 DRA 進行擴展資源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

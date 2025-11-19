@@ -32,11 +32,11 @@ involved. To offload some of the CPU intensive work away from the CPU, OpenSSL b
 servers can take the benefit of OpenSSL Engine API and dedicated crypto hardware. This frees
 CPU cycles for other things and improves the overall throughput of the proxy server.
 -->
-Kubernetes Ingress 是在集羣服務與集羣外部世界建立連接的一種方法。爲了正確地將流量路由到服務後端，集羣需要一個
-Ingress 控制器。Ingress 控制器負責根據 Ingress API 對象的信息設置目標到正確的後端。實際流量通過代理服務器路由，
-代理服務器負責諸如負載均衡和 SSL/TLS （稍後的“SSL”指 SSL 或 TLS）終止等任務。由於涉及加密操作，SSL 終止是一個
-CPU 密集型操作。爲了從 CPU 中分載一些 CPU 密集型工作，基於 OpenSSL 的代理服務器可以利用 OpenSSL Engine API 和專用加密硬件的優勢。
-這將爲其他事情釋放 CPU 週期，並提高代理服務器的總體吞吐量。
+Kubernetes Ingress 是在叢集服務與叢集外部世界建立連接的一種方法。爲了正確地將流量路由到服務後端，叢集需要一個
+Ingress 控制器。Ingress 控制器負責根據 Ingress API 對象的信息設置目標到正確的後端。實際流量通過代理伺服器路由，
+代理伺服器負責諸如負載均衡和 SSL/TLS （稍後的“SSL”指 SSL 或 TLS）終止等任務。由於涉及加密操作，SSL 終止是一個
+CPU 密集型操作。爲了從 CPU 中分載一些 CPU 密集型工作，基於 OpenSSL 的代理伺服器可以利用 OpenSSL Engine API 和專用加密硬件的優勢。
+這將爲其他事情釋放 CPU 週期，並提高代理伺服器的總體吞吐量。
 
 <!--
 In this blog post, we will show how easy it is to make hardware accelerated crypto available
@@ -58,7 +58,7 @@ The proxy server plays a vital role in a Kubernetes Ingress Controller function.
 the traffic to the backends per Ingress objects routes. Under heavy traffic load, the performance
 becomes critical especially if the proxying involves CPU intensive operations like SSL crypto.
 -->
-代理服務器在 Kubernetes Ingress 控制器功能中起着至關重要的作用。它將流量代理到每個 Ingress 對象路由的後端。
+代理伺服器在 Kubernetes Ingress 控制器功能中起着至關重要的作用。它將流量代理到每個 Ingress 對象路由的後端。
 在高流量負載下，性能變得至關重要，特別是當代理涉及到諸如 SSL 加密之類的 CPU 密集型操作時。
 
 <!--
@@ -67,7 +67,7 @@ the commonly known proxy servers used by Kubernetes Ingress controllers, Nginx a
 OpenSSL. The CNCF graduated Envoy proxy uses BoringSSL but there seems to be [community interest
 in having OpenSSL as the alternative](https://github.com/envoyproxy/envoy/pull/5161#issuecomment-446374130) for it too.
 -->
-OpenSSL 項目爲實現 SSL 協議提供了廣泛採用的庫。Kubernetes Ingress 控制器使用的常用代理服務器中，Nginx 和 HAproxy 使用 OpenSSL。
+OpenSSL 項目爲實現 SSL 協議提供了廣泛採用的庫。Kubernetes Ingress 控制器使用的常用代理伺服器中，Nginx 和 HAproxy 使用 OpenSSL。
 CNCF 畢業項目 Envoy 使用 BoringSSL，但是 [Envoy 社區似乎也有興趣使用 OpenSSL 作爲替代](https://github.com/envoyproxy/envoy/pull/5161#issuecomment-446374130)。
 
 <!--
@@ -114,7 +114,7 @@ could be managed, e.g., using ConfigMaps.
 對於雲部署，理想的場景是將這些模塊作爲容器工作負載的一部分交付。工作負載將在提供模塊需要訪問的底層硬件的節點上調度。
 另一方面，不管加密加速硬件是否可用，工作負載都應該以相同的方式運行，並且不需要修改代碼。OpenSSL 動態引擎支持這一點。
 下面圖 1 以一個典型的 Ingress 控制器容器爲例說明了這兩個場景。紅色的框表示啓用了加密硬件引擎的容器與“標準”容器之間的區別。
-值得指出的是，所顯示的配置更改並不一定需要容器的另一個版本，因爲配置可以被管理，例如使用 ConfigMap。
+值得指出的是，所顯示的設定更改並不一定需要容器的另一個版本，因爲設定可以被管理，例如使用 ConfigMap。
 
 <!--
 {{<figure width="600"  src="/images/blog/2019-04-23-hardware-accelerated-tls-termination/k8s-blog-fig1.png" caption="Figure 1. Examples of Ingress controller containers">}}
@@ -133,7 +133,7 @@ and configurability mechanisms. Let’s take a closer look into Kubernetes the [
 (beta in 1.14) and [RuntimeClass](https://kubernetes.io/docs/concepts/containers/runtime-class/) (beta in 1.14) and learn how they can be leveraged to expose crypto
 hardware to workloads.
 -->
-爲了能夠部署具有硬件依賴關係的工作負載，Kubernetes 提供了優秀的擴展和可配置機制。
+爲了能夠部署具有硬件依賴關係的工作負載，Kubernetes 提供了優秀的擴展和可設定機制。
 讓我們進一步研究 Kubernetes [設備插件框架](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)（beta 1.14）
 和 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)（beta 1.14），
 並瞭解如何利用它們向工作負載暴露加密硬件。
@@ -173,13 +173,13 @@ underlying host devices.
 （假設加密卡不與其他設備共享 **IOMMU 組**）。如果PCIe設備支持單根 I/O 虛擬化（SR-IOV）規範，則可以進一步增加隔離資源的數量。
 SR-IOV 允許將 PCIe 設備將 **物理功能項（Physical Functions，PF）** 設備進一步拆分爲
 **虛擬功能項（Virtual Functions, VF）**，並且每個設備都屬於自己的 IOMMU 組。
-要將這些藉助 IOMMU 完成隔離的設備功能項暴露給用戶空間和容器，主機內核應該將它們綁定到特定的設備驅動程序。
+要將這些藉助 IOMMU 完成隔離的設備功能項暴露給使用者空間和容器，主機內核應該將它們綁定到特定的設備驅動程序。
 在 Linux 中，這個驅動程序是 vfio-pci，
-它通過字符設備將設備提供給用戶空間。內核 vfio-pci 驅動程序使用一種稱爲
+它通過字符設備將設備提供給使用者空間。內核 vfio-pci 驅動程序使用一種稱爲
 **PCI 透傳（PCI Passthrough）** 的機制，
-爲用戶空間應用程序提供了對 PCIe 設備與功能項的直接的、IOMMU 支持的訪問。
-用戶空間框架，如數據平面開發工具包（Data Plane Development Kit，DPDK）可以利用該接口。
-此外，虛擬機（VM）管理程序可以向 VM 提供這些用戶空間設備節點，並將它們作爲 PCI 設備暴露給寄宿內核。
+爲使用者空間應用程序提供了對 PCIe 設備與功能項的直接的、IOMMU 支持的訪問。
+使用者空間框架，如數據平面開發工具包（Data Plane Development Kit，DPDK）可以利用該接口。
+此外，虛擬機（VM）管理程序可以向 VM 提供這些使用者空間設備節點，並將它們作爲 PCI 設備暴露給寄宿內核。
 在寄宿內核的支持下，VM 將接近於直接訪問底層主機設備的本機性能。
 
 <!--
@@ -209,9 +209,9 @@ over a variety of *runtimes* (an earlier [blog post](https://kubernetes.io/blog/
 status and roadmap for it) that are available in the cluster. In essence, the RuntimeClass
 provides cluster users better tools to pick and use the runtime that best suits for the pod use case.
 -->
-創建 Kubernetes RuntimeClass 是爲了對集羣中可用的各種**運行時**提供更好的控制和可配置性
+創建 Kubernetes RuntimeClass 是爲了對叢集中可用的各種**運行時**提供更好的控制和可設定性
 （前面的一篇[博客文章](https://kubernetes.io/blog/2018/10/10/kubernetes-v1.12-introducing-runtimeclass/)詳細介紹了它的需求、狀態和路線圖）。
-本質上，RuntimeClass 爲集羣用戶提供了更好的工具來選擇和使用最適合 Pod 用例的運行時。
+本質上，RuntimeClass 爲叢集使用者提供了更好的工具來選擇和使用最適合 Pod 用例的運行時。
 
 <!--
 The OCI compatible [Kata Containers runtime](https://katacontainers.io/) provides workloads with a hardware virtualized
@@ -236,8 +236,8 @@ Figure 2 shows the overall setup using the Container A illustrated earlier.
 -->
 這就是爲容器工作負載啓用硬件加速加密所需要的全部。總結：
 
-  1. 集羣需要在提供硬件的節點上運行一個設備插件
-  2. 設備插件使用 VFIO 驅動程序向用戶空間暴露硬件
+  1. 叢集需要在提供硬件的節點上運行一個設備插件
+  2. 設備插件使用 VFIO 驅動程序向使用者空間暴露硬件
   3. Pod 在 PodSpec 中請求設備資源並指定 Kata Containers 作爲 RuntimeClass
   4. 容器中具有硬件適配庫和 OpenSSL 引擎模塊
 
@@ -270,16 +270,16 @@ Intel&reg; QuickAssist 技術（QAT） PCIe 設備。
   * Kubernetes 1.14 (`RuntimeClass` and `DevicePlugin` feature gates enabled (both are `true` in 1.14)
   * RuntimeClass ready runtime and Kata Containers configured
 -->
-### 集羣配置：
+### 叢集設定：
   * Kubernetes 1.14（`RuntimeClass` 和 `DevicePlugin` 特性門控已啓用（兩者在 1.14 中都是 `true`）
-  * 配置了 RuntimeClass 就緒運行時和 Kata Containers
+  * 設定了 RuntimeClass 就緒運行時和 Kata Containers
 
 <!--
 ### Host configuration:
   * Intel&reg; QAT driver release with the kernel drivers installed for both host kernel and Kata Containers kernel (or on a rootfs as loadable modules)
   * [QAT device plugin](https://github.com/intel/intel-device-plugins-for-kubernetes/tree/master/cmd/qat_plugin) DaemonSet deployed
 -->
-### 主機配置：
+### 主機設定：
   * Intel&reg; QAT 驅動程序發行版，內核驅動程序同時安裝在主機內核和 Kata Containers 內核（或在 rootfs 上作爲可加載模塊）
   * 已部署 [QAT 設備插件](https://github.com/intel/intel-device-plugins-for-kubernetes/tree/master/cmd/qat_plugin) DaemonSet
 
@@ -296,17 +296,17 @@ Intel&reg; QuickAssist 技術（QAT） PCIe 設備。
      * Request `runtimeClassName: kata-containers` (name value depends on cluster config)
   * (QAT device config file for each requested device resource with OpenSSL engine configured available in the container)
 -->
-### Ingress 控制器配置和部署：
+### Ingress 控制器設定和部署：
   * 一個修改後的 [HAproxy-ingress](https://github.com/jcmoraisjr/haproxy-ingress) Ingress 控制器的容器
-     * QAT HW HAL 用戶空間庫（Intel&reg; QAT SW 發行版的一部分）
+     * QAT HW HAL 使用者空間庫（Intel&reg; QAT SW 發行版的一部分）
      * 內置 [OpenSSL QAT 引擎](https://github.com/intel/QAT_Engine/)
   * 使用 Haproxy-ingress ConfigMap 啓用 QAT 引擎
      * `ssl-engine=”qat”`
      * `ssl-mode-async=true`
   * Haproxy-ingress Deployment `.yaml`
      * 請求 `qat.intel.com: n` 資源
-     * 請求 `runtimeClassName: kata-containers` (名稱值取決於集羣配置)
-  * (容器中配置了可用的 OpenSSL 引擎的 QAT 設備配置文件)
+     * 請求 `runtimeClassName: kata-containers` (名稱值取決於叢集設定)
+  * (容器中設定了可用的 OpenSSL 引擎的 QAT 設備設定文件)
 
 <!--
 Once the building blocks are available, the hardware accelerated SSL/TLS can be tested by following the [TLS termination
@@ -324,8 +324,8 @@ Haproxy-ingress and HAproxy are used because HAproxy can be directly configured 
 Moreover, HAproxy can offload configured algorithms using asynchronous calls (with `ssl-mode-async`) to further improve performance.
 -->
 使用 HAproxy-ingress 和 HAproxy，是因爲可以使用 `ssl-engine <name> [algo ALGOs]`
-配置標誌直接配置 HAproxy 來使用 OpenSSL 引擎，
-而無需修改全局 OpenSSL 配置文件。此外，HAproxy 可以使用異步調用（使用`ssl-mode-async`）卸載已配置的算法，以進一步提高性能。
+設定標誌直接設定 HAproxy 來使用 OpenSSL 引擎，
+而無需修改全局 OpenSSL 設定文件。此外，HAproxy 可以使用異步調用（使用`ssl-mode-async`）卸載已設定的算法，以進一步提高性能。
 
 <!--
 ## Call to Action

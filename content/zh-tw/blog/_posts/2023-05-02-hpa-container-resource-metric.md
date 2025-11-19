@@ -41,7 +41,7 @@ to know how the desired replica number is calculated exactly)
 -->
 ## 什麼是 ContainerResource 類型指標
 
-ContainerResource 類型指標允許我們根據各個容器的資源使用量來配置自動擴縮。
+ContainerResource 類型指標允許我們根據各個容器的資源使用量來設定自動擴縮。
 
 在下面的示例中，HPA 控制器擴縮目標，以便所有 Pod 的應用程序容器的 CPU 平均利用率約爲 60％
 （請參見[算法詳情](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)以瞭解預期副本數的確切計算方式）。
@@ -175,7 +175,7 @@ All metrics are useful for general monitoring of HPA controller,
 you can get deeper insight into which part has a problem, where it takes time, how much scaling tends to happen at which time on your cluster etc.
 -->
 所有指標都可用於 HPA 控制器的常規監控，你可以深入洞察哪部分存在問題，在哪裏耗時，
-集羣在哪個時間傾向於發生多少次擴縮等問題。
+叢集在哪個時間傾向於發生多少次擴縮等問題。
 
 <!--
 Another minor stuff, we've changed the `SuccessfulRescale` event's messages

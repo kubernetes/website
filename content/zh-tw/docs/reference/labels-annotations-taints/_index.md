@@ -62,9 +62,9 @@ For more details, read  [Maintenance of the Mandatory and Suggested Configuratio
 用於：[`FlowSchema` 和 `PriorityLevelConfiguration` 對象](/zh-cn/docs/concepts/cluster-administration/flow-control/#defaults)
 
 如果在 FlowSchema 或 PriorityLevelConfiguration 上將此註解設置爲 true，
-那麼該對象的 `spec` 將由 kube-apiserver 進行管理。如果 API 服務器不識別 APF 對象，
-並且你對其添加了自動更新的註解，則 API 服務器將刪除整個對象。否則，API 服務器不管理對象規約。
-更多細節參閱[維護強制性和建議的配置對象](/zh-cn/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)
+那麼該對象的 `spec` 將由 kube-apiserver 進行管理。如果 API 伺服器不識別 APF 對象，
+並且你對其添加了自動更新的註解，則 API 伺服器將刪除整個對象。否則，API 伺服器不管理對象規約。
+更多細節參閱[維護強制性和建議的設定對象](/zh-cn/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)
 
 <!--
 ### app.kubernetes.io/component
@@ -110,7 +110,7 @@ The controller/user who created this resource.
 
 用於：所有對象（通常用於[工作負載資源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
-創建此資源的控制器/用戶。
+創建此資源的控制器/使用者。
 
 {{< note >}}
 <!--
@@ -619,9 +619,9 @@ If this annotation is not set then the cluster autoscaler follows its Pod-level 
 
 用於：Pod
 
-當這個註解設置爲 `"true"` 時，即使其他規則通常會阻止驅逐操作，也會允許該集羣自動擴縮器驅逐一個 Pod。
-集羣自動擴縮器從不驅逐將此註解顯式設置爲 `"false"` 的 Pod；你可以針對要保持運行的重要 Pod 設置此註解。
-如果未設置此註解，則集羣自動擴縮器將遵循其 Pod 級別的行爲。
+當這個註解設置爲 `"true"` 時，即使其他規則通常會阻止驅逐操作，也會允許該叢集自動擴縮器驅逐一個 Pod。
+叢集自動擴縮器從不驅逐將此註解顯式設置爲 `"false"` 的 Pod；你可以針對要保持運行的重要 Pod 設置此註解。
+如果未設置此註解，則叢集自動擴縮器將遵循其 Pod 級別的行爲。
 
 <!--
 ### config.kubernetes.io/local-config
@@ -643,7 +643,7 @@ should not be submitted to the Kubernetes API.
 
 用於：所有對象
 
-該註解用於清單中的對象，表示某對象是本地配置，不應提交到 Kubernetes API。
+該註解用於清單中的對象，表示某對象是本地設定，不應提交到 Kubernetes API。
 
 <!--
 A value of `"true"` for this annotation declares that the object is only consumed by
@@ -656,9 +656,9 @@ This annotation is part of the Kubernetes Resource Model (KRM) Functions Specifi
 which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 -->
-對於這個註解，當值爲 `"true"` 時，表示該對象僅被客戶端工具使用，不應提交到 API 服務器。
+對於這個註解，當值爲 `"true"` 時，表示該對象僅被客戶端工具使用，不應提交到 API 伺服器。
 
-當值爲 `"false"` 時，可以用來聲明該對象應提交到 API 服務器，即使它是本地對象。
+當值爲 `"false"` 時，可以用來聲明該對象應提交到 API 伺服器，即使它是本地對象。
 
 該註解是 Kubernetes 資源模型（KRM）函數規範的一部分，被 Kustomize 和其他類似的第三方工具使用。
 例如，Kustomize 會從其最終構建輸出中移除帶有此註解的對象。
@@ -689,12 +689,12 @@ adhere to. This helps enforce security policies and isolation for your container
 
 用於：Pod
 
-此註解允許你爲 Kubernetes Pod 中的容器指定 AppArmor 安全配置文件。
+此註解允許你爲 Kubernetes Pod 中的容器指定 AppArmor 安全設定文件。
 從 Kubernetes v1.30 開始，此註解應該通過 `appArmorProfile` 字段進行設置。
 更多細節參閱 [AppArmor](/zh-cn/docs/tutorials/security/apparmor/) 教程。
 該教程演示瞭如何使用 AppArmor 限制容器的權能和訪問權限。
 
-所指定的配置文件定義了容器進程必須遵守的規則集和限制集。這有助於針對容器實施安全策略和隔離措施。
+所指定的設定文件定義了容器進程必須遵守的規則集和限制集。這有助於針對容器實施安全策略和隔離措施。
 
 <!--
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
@@ -1187,7 +1187,7 @@ mixing operating systems in your cluster (for example: mixing Linux and Windows 
 用於：Node，Pod
 
 對於節點，kubelet 會根據 Go 定義的 `runtime.GOOS` 填充這個值。
-你可以很方便地在集羣中混合使用操作系統（例如：混合使用 Linux 和 Windows 節點）。
+你可以很方便地在叢集中混合使用操作系統（例如：混合使用 Linux 和 Windows 節點）。
 
 <!--
 You can also set this label on a Pod. Kubernetes allows you to set any value for this label;
@@ -1233,7 +1233,7 @@ This is useful if you want to target a specific namespace with a label
 
 用於：Namespace
 
-Kubernetes API 服務器（{{<glossary_tooltip text="控制平面" term_id="control-plane" >}} 的一部分）在所有
+Kubernetes API 伺服器（{{<glossary_tooltip text="控制平面" term_id="control-plane" >}} 的一部分）在所有
 Namespace 上設置此標籤。標籤值被設置 Namespace 的名稱。你無法更改此標籤的值。
 
 如果你想使用標籤{{<glossary_tooltip text="選擇算符" term_id="selector" >}}定位特定 Namespace，這很有用。
@@ -1320,8 +1320,8 @@ When updating a Pod with this annotation set, the annotation cannot be changed o
 If a Pod doesn't have this annotation, it cannot be added during a Pod update.
 -->
 對於 kubelet 在節點上創建的靜態 Pod，
-系統會在 API 服務器上創建{{< glossary_tooltip text="鏡像 Pod" term_id="mirror-pod" >}}。
-kubelet 添加一個註解以指示此 Pod 實際上是鏡像 Pod。
+系統會在 API 伺服器上創建{{< glossary_tooltip text="映像檔 Pod" term_id="mirror-pod" >}}。
+kubelet 添加一個註解以指示此 Pod 實際上是映像檔 Pod。
 註解的值是從 [`kubernetes.io/config.hash`](#kubernetes-io-config-hash) 註解複製過來的，即 Pod 的 UID。
 
 在更新設置了此註解的 Pod 時，註解不能被更改或移除。
@@ -1350,7 +1350,7 @@ scheduled to the current node, the annotation value is `api`.
 -->
 此註解由 kubelet 添加，以指示 Pod 的來源。
 對於靜態 Pod，註解的值可以是 `file` 或 `http` 之一，具體取決於 Pod 清單所在的位置。
-對於在 API 服務器上創建並調度到當前節點的 Pod，註解的值是 `api`。
+對於在 API 伺服器上創建並調度到當前節點的 Pod，註解的值是 `api`。
 
 ### kubernetes.io/config.seen
 
@@ -1408,7 +1408,7 @@ This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore
 
 For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 -->
-- `Reconcile`：插件資源將定期與預期狀態協調。如果有任何差異，插件管理器將根據需要重新創建、重新配置或刪除資源。
+- `Reconcile`：插件資源將定期與預期狀態協調。如果有任何差異，插件管理器將根據需要重新創建、重新設定或刪除資源。
   如果沒有指定標籤，此值是默認值。
 - `EnsureExists`：插件資源將僅檢查是否存在，但在創建後不會修改。當沒有具有該名稱的資源實例時，
   外接程序管理器將創建或重新創建資源。
@@ -1463,7 +1463,7 @@ APIService. You should not add, modify, or remove this label by yourself.
 
 用於：APIService
 
-`kube-apiserver` 會在由 API 服務器自動創建的所有 APIService 對象上設置這個標籤。
+`kube-apiserver` 會在由 API 伺服器自動創建的所有 APIService 對象上設置這個標籤。
 該標籤標記了控制平面應如何管理該 APIService。你不應自行添加、修改或移除此標籤。
 
 {{< note >}}
@@ -1483,8 +1483,8 @@ There are two possible values:
 -->
 有兩個可能的值：
 
-- `onstart`：API 服務器應在啓動時協調 APIService，但在其他時間不會進行協調。
-- `true`：API 服務器應持續協調此 APIService。
+- `onstart`：API 伺服器應在啓動時協調 APIService，但在其他時間不會進行協調。
+- `true`：API 伺服器應持續協調此 APIService。
 
 <!--
 ### service.alpha.kubernetes.io/tolerate-unready-endpoints (deprecated)
@@ -1507,7 +1507,7 @@ the API server.
 
 Service 上的這個註解表示 Endpoints 控制器是否應該繼續爲未準備好的 Pod 創建 Endpoints。
 這些 Service 的 Endpoints 保留其 DNS 記錄，並從 kubelet 啓動 Pod 中的所有容器並將其標記爲
-**Running** 的那一刻起繼續接收 Service 的流量，直到 kubelet 停止所有容器並從 API 服務器刪除 Pod 爲止。
+**Running** 的那一刻起繼續接收 Service 的流量，直到 kubelet 停止所有容器並從 API 伺服器刪除 Pod 爲止。
 
 <!--
 ### autoscaling.alpha.kubernetes.io/behavior (deprecated) {#autoscaling-alpha-kubernetes-io-behavior}
@@ -1526,7 +1526,7 @@ Setting this annotation has no effect in any supported release of Kubernetes.
 
 用於：HorizontalPodAutoscaler
 
-此註解曾在早期的 Kubernetes 版本中用於配置 HorizontalPodAutoscaler（HPA）的擴縮容行爲。
+此註解曾在早期的 Kubernetes 版本中用於設定 HorizontalPodAutoscaler（HPA）的擴縮容行爲。
 它允許你指定 HPA 應如何擴容或縮容 Pod，包括設置穩定窗口和擴縮容策略。
 在所有受支持的 Kubernetes 版本中，設置此註解沒有任何效果。
 
@@ -1653,7 +1653,7 @@ Pods running as this ServiceAccount:
    如果 Pod 中的任一容器引用了未在 ServiceAccount 的 `secrets` 字段中列出的 Secret（即使該引用被標記爲 `optional`），
    則 Pod 將啓動失敗，並報錯表示不合規的 Secret 引用。
 3. 在 Pod 的 `imagePullSecrets` 中引用的 Secret 必須出現在 ServiceAccount 的 `imagePullSecrets` 字段中，
-   否則 Pod 將啓動失敗，並報錯表示不合規的鏡像拉取 Secret 引用。
+   否則 Pod 將啓動失敗，並報錯表示不合規的映像檔拉取 Secret 引用。
 
 <!--
 When you create or update a Pod, these rules are checked. If a Pod doesn't follow them, it won't start and you'll see an error message.
@@ -1687,8 +1687,8 @@ backend set:
 
 用於：Node
 
-你可以向特定的 Worker 節點添加標籤，以將這些節點從外部負載均衡器使用的後端服務器列表中去除。
-以下命令可用於從後端集的後端服務器列表中排除一個 Worker 節點：
+你可以向特定的 Worker 節點添加標籤，以將這些節點從外部負載均衡器使用的後端伺服器列表中去除。
+以下命令可用於從後端集的後端伺服器列表中排除一個 Worker 節點：
 
 <!--
 ```shell
@@ -1721,7 +1721,7 @@ The annotation value parses into an `int32` type.
 用於：Pod
 
 該註解用於設置
-[Pod 刪除成本](/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)允許用戶影響
+[Pod 刪除成本](/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)允許使用者影響
 ReplicaSet 縮減順序。註解解析爲 `int32` 類型。
 
 <!--
@@ -1754,7 +1754,7 @@ If this annotation is not set, then the ClusterAutoscaler follows its overall be
 該註解需要在 DaemonSet 清單中的 DaemonSet Pod 上指定。
 當該註解設爲 `"true"` 時，即使其他規則通常會阻止驅逐，也將允許 ClusterAutoscaler 驅逐 DaemonSet Pod。
 要取消允許 ClusterAutoscaler 驅逐 DaemonSet Pod，你可以爲重要的 DaemonSet Pod 將該註解設爲 `"false"`。
-如果未設置該註解，則 Cluster Autoscaler 將遵循其整體行爲（即根據其配置驅逐 DaemonSet）。
+如果未設置該註解，則 Cluster Autoscaler 將遵循其整體行爲（即根據其設定驅逐 DaemonSet）。
 
 {{< note >}}
 <!--
@@ -1803,7 +1803,7 @@ configuration file (default `/etc/cni/net.d`) and ensure that the binary is incl
 bin dir (default `/opt/cni/bin`).
 -->
 入站流量控制註解是一項實驗性功能。
-如果要啓用流量控制支持，必須將 `bandwidth` 插件添加到 CNI 配置文件（默認爲 `/etc/cni/net.d`）
+如果要啓用流量控制支持，必須將 `bandwidth` 插件添加到 CNI 設定文件（默認爲 `/etc/cni/net.d`）
 並確保二進制文件包含在你的 CNI bin 目錄中（默認爲 `/opt/cni/bin`）。
 {{< /note >}}
 
@@ -1831,7 +1831,7 @@ For example, `10M` means 10 megabits per second.
 
 用於：Pod
 
-出站流量（來自 pod）由策略控制，策略只是丟棄超過配置速率的數據包。
+出站流量（來自 pod）由策略控制，策略只是丟棄超過設定速率的數據包。
 你爲一個 Pod 所設置的限制不會影響其他 Pod 的帶寬。
 要限制 Pod 的帶寬，請編寫對象定義 JSON 文件並使用 `kubernetes.io/egress-bandwidth` 註解指定數據流量速度。
 用於指定出站的速率單位是每秒比特數，
@@ -1846,7 +1846,7 @@ configuration file (default `/etc/cni/net.d`) and ensure that the binary is incl
 bin dir (default `/opt/cni/bin`).
 -->
 出站流量控制註解是一項實驗性功能。
-如果要啓用流量控制支持，必須將 `bandwidth` 插件添加到 CNI 配置文件（默認爲 `/etc/cni/net.d`）
+如果要啓用流量控制支持，必須將 `bandwidth` 插件添加到 CNI 設定文件（默認爲 `/etc/cni/net.d`）
 並確保二進制文件包含在你的 CNI bin 目錄中（默認爲 `/opt/cni/bin`）。
 {{< /note >}}
 
@@ -1977,7 +1977,7 @@ The value of this annotation does not matter.
 
 如果此註解設置在 PersistentVolume 或 PersistentVolumeClaim 上，則表示存儲綁定
 （PersistentVolume → PersistentVolumeClaim，或 PersistentVolumeClaim → PersistentVolume）
-已由{{< glossary_tooltip text="控制器" term_id="controller" >}}配置完畢。
+已由{{< glossary_tooltip text="控制器" term_id="controller" >}}設定完畢。
 如果未設置此註解，且存在存儲綁定，則缺少該註解意味着綁定是手動完成的。此註解的值無關緊要。
 
 ### pv.kubernetes.io/provisioned-by {#pv-kubernetesiodynamically-provisioned}
@@ -2000,7 +2000,7 @@ comes from) and Kubernetes (to recognize dynamically provisioned PVs in its deci
 用於：PersistentVolume
 
 此註解被添加到已由 Kubernetes 動態製備的 PersistentVolume (PV)。
-它的值是創建卷的卷插件的名稱。它同時服務於用戶（顯示 PV 的來源）和 Kubernetes（識別其決策中動態製備的 PV）。
+它的值是創建卷的卷插件的名稱。它同時服務於使用者（顯示 PV 的來源）和 Kubernetes（識別其決策中動態製備的 PV）。
 
 ### pv.kubernetes.io/migrated-to {#pv-kubernetesio-migratedto}
 
@@ -2125,7 +2125,7 @@ node affinity constraints on a `PersistentVolume`.
 僅當你使用 `cloudprovider` 時纔會設置此項。
 但是，如果它在你的拓撲中有意義，你應該考慮在 Node 上設置它。
 
-**在 PersistentVolume 上**：拓撲感知卷配置器將自動在 `PersistentVolume` 上設置 Node 親和性約束。
+**在 PersistentVolume 上**：拓撲感知卷設定器將自動在 `PersistentVolume` 上設置 Node 親和性約束。
 
 <!--
 A zone represents a logical failure domain. It is common for Kubernetes clusters to
@@ -2144,14 +2144,14 @@ non-zero cost for network traffic between them, and failure independence from ot
 For example, nodes within a region might share power infrastructure (e.g. a UPS or generator),
 but nodes in different regions typically would not.
 -->
-一個 Zone 代表一個邏輯故障域。Kubernetes 集羣通常跨越多個 Zone 以提高可用性。
-雖然 Zone 的確切定義留給基礎設施實現，但 Zone 的常見屬性包括 Zone 內非常低的網絡延遲、Zone
-內的免費網絡流量以及與其他 Zone 的故障獨立性。例如，一個 Zone 內的 Node 可能共享一個網絡交換機，
+一個 Zone 代表一個邏輯故障域。Kubernetes 叢集通常跨越多個 Zone 以提高可用性。
+雖然 Zone 的確切定義留給基礎設施實現，但 Zone 的常見屬性包括 Zone 內非常低的網路延遲、Zone
+內的免費網路流量以及與其他 Zone 的故障獨立性。例如，一個 Zone 內的 Node 可能共享一個網路交換機，
 但不同 Zone 中的 Node 無法共享交換機。
 
-一個 Region 代表一個更大的域，由一個或多個 Zone 組成。Kubernetes 集羣跨多個 Region 並不常見，
+一個 Region 代表一個更大的域，由一個或多個 Zone 組成。Kubernetes 叢集跨多個 Region 並不常見，
 雖然 Zone 或 Region 的確切定義留給基礎設施實現，
-但 Region 的共同屬性包括它們之間的網絡延遲比它們內部更高，它們之間的網絡流量成本非零，
+但 Region 的共同屬性包括它們之間的網路延遲比它們內部更高，它們之間的網路流量成本非零，
 以及與其他 Zone 或 Region 的故障獨立性。例如，一個 Region 內的 Node 可能共享電力基礎設施
 （例如 UPS 或發電機），但不同 Region 的 Node 通常不會共享電力基礎設施。
 
@@ -2176,7 +2176,7 @@ Even though labels are strictly mutable, consumers of them can assume that a giv
 is not going to be moved between zones without being destroyed and recreated.
 -->
 你可以大膽假設拓撲標籤不會改變。儘管嚴格地講標籤是可變的，
-但節點的用戶可以假設給定節點只能通過銷燬和重新創建才能完成 Zone 間移動。
+但節點的使用者可以假設給定節點只能通過銷燬和重新創建才能完成 Zone 間移動。
 
 <!--
 Kubernetes can use this information in various ways.
@@ -2187,8 +2187,8 @@ With multiple-zone clusters, this spreading behavior also applies to zones (to r
 This is achieved via _SelectorSpreadPriority_.
 -->
 Kubernetes 可以通過多種方式使用這些信息。例如，調度程序會自動嘗試將 ReplicaSet 中的 Pod
-分佈在單 Zone 集羣中的多個節點上（以便減少節點故障的影響，請參閱 [kubernetes.io/hostname](#kubernetesiohostname)）。
-對於多 Zone 集羣，這種分佈行爲也適用於 Zone（以減少 Zone 故障的影響）。
+分佈在單 Zone 叢集中的多個節點上（以便減少節點故障的影響，請參閱 [kubernetes.io/hostname](#kubernetesiohostname)）。
+對於多 Zone 叢集，這種分佈行爲也適用於 Zone（以減少 Zone 故障的影響）。
 Zone 級別的 Pod 分佈是通過 **SelectorSpreadPriority** 實現的。
 
 <!--
@@ -2198,7 +2198,7 @@ resource requirements), this placement might prevent equal spreading of your Pod
 If desired, you can use homogeneous zones (same number and types of nodes) to reduce the probability
 of unequal spreading.
 -->
-**SelectorSpreadPriority** 是一個盡力而爲的放置機制。如果集羣中的 Zone 是異構的
+**SelectorSpreadPriority** 是一個盡力而爲的放置機制。如果叢集中的 Zone 是異構的
 （例如：節點數量不同、節點類型不同或 Pod 資源需求有別等），這種放置機制可能會讓你的
 Pod 無法實現跨 Zone 均勻分佈。
 如果需要，你可以使用同質 Zone（節點數量和類型均相同）來減少不均勻分佈的可能性。
@@ -2418,7 +2418,7 @@ For example, if the in-tree cloud provider storage type is `CSIMigrationvSphere`
 用於：CSINode（一個擴展 API）
 
 系統會自動爲映射到安裝 CSIDriver 的節點的 CSINode 對象添加此註解。
-此註解顯示已遷移插件的樹內插件名稱，其值取決於集羣的樹內雲驅動存儲類型。
+此註解顯示已遷移插件的樹內插件名稱，其值取決於叢集的樹內雲驅動存儲類型。
 
 例如，如果樹內雲驅動存儲類型爲 `CSIMigrationvSphere`，則此節點的 CSINode 實例應更新爲：
 `storage.alpha.kubernetes.io/migerated-plugins: "kubernetes.io/vsphere-volume"`
@@ -2477,7 +2477,7 @@ for a Service, don't add this annotation.
 此註解曾用於在 Service 中啓用**拓撲感知提示（topology aware hints）**。
 然而，拓撲感知提示已經做了更名操作，
 此概念現在名爲[拓撲感知路由（topology aware routing）](/zh-cn/docs/concepts/services-networking/topology-aware-routing/)。
-在 Service 上將該註解設置爲 `Auto` 會配置 Kubernetes 控制平面，
+在 Service 上將該註解設置爲 `Auto` 會設定 Kubernetes 控制平面，
 以將拓撲提示添加到該 Service 關聯的 EndpointSlice 上。你也可以顯式地將該註解設置爲 `Disabled`。
 
 如果你使用的是早於 {{< skew currentVersion >}} 的 Kubernetes 版本，
@@ -2508,9 +2508,9 @@ for more details.
 
 用於：Service
 
-此註解提供了一種定義 Service 如何處理網絡拓撲的方式；
-例如，你可以配置 Service，以便 Kubernetes 更傾向於將客戶端和服務器之間的流量保持在同一拓撲區域內。
-在某些情況下，這有助於降低成本或提高網絡性能。
+此註解提供了一種定義 Service 如何處理網路拓撲的方式；
+例如，你可以設定 Service，以便 Kubernetes 更傾向於將客戶端和伺服器之間的流量保持在同一拓撲區域內。
+在某些情況下，這有助於降低成本或提高網路性能。
 
 更多細節參閱[拓撲感知路由](/zh-cn/docs/concepts/services-networking/topology-aware-routing/)。
 
@@ -2622,7 +2622,7 @@ then the label isn't set.
 該標籤的值記錄着控制面最近一次接到客戶端使用服務賬號令牌進行身份驗證請求的日期（ISO 8601
 格式，UTC 時區）
 
-如果上一次使用老的令牌的時間在集羣獲得此特性（添加於 Kubernetes v1.26）之前，則不會設置此標籤。
+如果上一次使用老的令牌的時間在叢集獲得此特性（添加於 Kubernetes v1.26）之前，則不會設置此標籤。
 
 ### kubernetes.io/legacy-token-invalid-since
 
@@ -2673,7 +2673,7 @@ Kubernetes (as opposed to Endpoints created by users or external controllers).
 用於：Endpoints
 
 此標籤用於在內部標記由 Kubernetes 創建的 Endpoints
-對象（與用戶或外部控制器所創建的 Endpoints 相對）。
+對象（與使用者或外部控制器所創建的 Endpoints 相對）。
 
 {{< note >}}
 <!--
@@ -2710,7 +2710,7 @@ EndpointSlice object that was created automatically by Kubernetes for a Service 
 用於：EndpointSlice
 
 用於標示管理 EndpointSlice 的控制器或實體。該標籤旨在使不同的 EndpointSlice
-對象能夠由同一集羣內的不同控制器或實體管理。取值 `endpointslice-controller.k8s.io`
+對象能夠由同一叢集內的不同控制器或實體管理。取值 `endpointslice-controller.k8s.io`
 表示某個 EndpointSlice 對象是由 Kubernetes
 自動爲具有{{< glossary_tooltip text="選擇算符" term_id="selector" >}}的 Service 所創建的。
 
@@ -2735,7 +2735,7 @@ EndpointSliceMirroring controller should not mirror this resource with EndpointS
 用於：Endpoints
 
 可以在 Endpoints 資源上將此標籤設置爲 `"true"`，以指示 EndpointSliceMirroring
-控制器不應使用 EndpointSlice 鏡像此 Endpoints 資源。
+控制器不應使用 EndpointSlice 映像檔此 Endpoints 資源。
 
 <!--
 ### service.kubernetes.io/service-proxy-name {#servicekubernetesioservice-proxy-name}
@@ -2762,7 +2762,7 @@ could be active simultaneously using this field, e.g. by having a value unique t
 alternative proxy implementation to be responsible for their respective services.
 -->
 爲這個標籤設置一個值會告訴 kube-proxy 在執行代理操作時忽略此 Service。
-這一標籤使得用戶能夠爲此 Service 使用替代的代理實現（例如，運行管理 nftables 的 DaemonSet）。
+這一標籤使得使用者能夠爲此 Service 使用替代的代理實現（例如，運行管理 nftables 的 DaemonSet）。
 通過此字段，可以同時激活多個替代代理實現，例如，爲每個替代代理實現設置唯一值，
 以負責各自的 Service。
 
@@ -2845,9 +2845,9 @@ limited permissions being able to retrieve all Secrets in the cluster.
 用於：Ingress
 
 你可以使用此註解在使用 [NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx/)
-的 Ingress 上設置額外配置。自 Ingress 控制器 1.9.0 版本以來，`configuration-snippet` 註解默認會被忽略。
+的 Ingress 上設置額外設定。自 Ingress 控制器 1.9.0 版本以來，`configuration-snippet` 註解默認會被忽略。
 要使用此註解，必須顯式啓用 NGINX Ingress 控制器的 `allow-snippet-annotations` 設置。
-在多租戶集羣中啓用該註解可能是危險的，因爲這可能導致權限受限的用戶能夠獲取集羣中的所有 Secret。
+在多租戶叢集中啓用該註解可能是危險的，因爲這可能導致權限受限的使用者能夠獲取叢集中的所有 Secret。
 
 <!--
 ### kubernetes.io/ingress.class (deprecated)
@@ -2892,7 +2892,7 @@ When you run `kubectl cluster-info`, the tool queries for Services with this lab
 
 However, setting this label on any Service is deprecated.
 -->
-此標籤表示當值設置爲 `true` 時，Service 向集羣提供服務。
+此標籤表示當值設置爲 `true` 時，Service 向叢集提供服務。
 當你運行 `kubectl cluster-info` 時，該工具會查詢具有此標籤且值爲 `true` 的 Service。
 
 然而，在此任何 Service 上設置此標籤已棄用。
@@ -2944,10 +2944,10 @@ by the cloud-controller-manager.
 
 用於：Node
 
-kubelet 可以在 Node 上設置此註解來表示其配置的 IPv4 與/或 IPv6 地址。
+kubelet 可以在 Node 上設置此註解來表示其設定的 IPv4 與/或 IPv6 地址。
 
 如果 kubelet 被啓動時 `--cloud-provider` 標誌設置爲任一雲驅動（包括外部雲驅動和傳統樹內雲驅動）
-kubelet 會在 Node 上設置此註解以表示從命令行標誌（`--node-ip`）設置的 IP 地址。
+kubelet 會在 Node 上設置此註解以表示從命令列標誌（`--node-ip`）設置的 IP 地址。
 雲控制器管理器通過雲驅動驗證此 IP 是否有效。
 
 <!--
@@ -3082,8 +3082,8 @@ to track changes. That mechanism has been superseded by
 -->
 用於：所有對象
 
-kubectl 命令行工具使用此註解作爲一種舊的機制來跟蹤變更。
-該機制已被[服務器端應用](/zh-cn/docs/reference/using-api/server-side-apply/)取代。
+kubectl 命令列工具使用此註解作爲一種舊的機制來跟蹤變更。
+該機制已被[伺服器端應用](/zh-cn/docs/reference/using-api/server-side-apply/)取代。
 
 ### kubectl.kubernetes.io/restartedAt {#kubectl-k8s-io-restart-at}
 
@@ -3322,7 +3322,7 @@ get Pods corresponding to the Job.
 
 用於：由 Job 控制的 Job 和 Pod
 
-這個標籤被用作一種用戶友好的方式來獲得與某個 Job 相對應的 Pod。
+這個標籤被用作一種使用者友好的方式來獲得與某個 Job 相對應的 Pod。
 `job-name` 來自 Job 的 `name` 並且允許以一種簡單的方式獲得與 Job 對應的 Pod。
 
 <!--
@@ -3403,7 +3403,7 @@ The pod is admitted only if the check succeeds.
 此註解只有在啓用（Alpha）
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
 控制器時才生效。註解值是一個 JSON 文檔，它爲它所註解的命名空間定義了一個允許容忍的列表。
-當你創建一個 Pod 或修改其容忍度時，API 服務器將檢查容忍度，以查看它們是否在允許列表中。
+當你創建一個 Pod 或修改其容忍度時，API 伺服器將檢查容忍度，以查看它們是否在允許列表中。
 只有在檢查成功的情況下，Pod 才被允操作。
 
 <!--
@@ -3564,8 +3564,8 @@ taint be removed by the cloud provider.
 
 用於：Node
 
-當使用的雲驅動指示需要額外的網絡配置時，此註解最初由 kubelet 設置。
-只有雲上的路由被正確地配置了，此污點纔會被雲驅動移除。
+當使用的雲驅動指示需要額外的網路設定時，此註解最初由 kubelet 設置。
+只有雲上的路由被正確地設定了，此污點纔會被雲驅動移除。
 
 <!--
 ### node.kubernetes.io/pid-pressure
@@ -3614,7 +3614,7 @@ This allows the Pods on the out-of-service node to recover quickly on a differen
 
 用於：Node
 
-用戶可以手動將污點添加到節點，標記其爲停止服務。
+使用者可以手動將污點添加到節點，標記其爲停止服務。
 如果一個節點被這個污點標記爲停止服務，則該節點上的 Pod 將會在沒有匹配的容忍時被強制刪除，
 並且針對在此節點上終止的 Pod 的卷分離操作將立即發生。
 這允許停止服務的節點上的 Pod 快速在不同節點上恢復。
@@ -3854,7 +3854,7 @@ to 5, the log writes occur 5 seconds apart.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解爲 Service 配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解爲 Service 設定負載均衡器。
 此註解值決定負載均衡器寫入日誌條目的頻率。例如，如果你將該值設置爲 5，則日誌的寫入間隔爲 5 秒。
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-enabled (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-enabled}
@@ -3872,7 +3872,7 @@ if you set the annotation to "true".
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解爲 Service 配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解爲 Service 設定負載均衡器。
 如果你將此註解設置爲 "true"，則訪問日誌將被啓用。
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-name}
@@ -3890,7 +3890,7 @@ writes logs to an S3 bucket with the name you specify.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解爲 Service 配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解爲 Service 設定負載均衡器。
 負載均衡器將日誌寫入到一個你指定名稱的 S3 桶。
 
 ### service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix (beta) {#service-beta-kubernetes-io-aws-load-balancer-access-log-s3-bucket-prefix}
@@ -3908,7 +3908,7 @@ writes log objects with the prefix that you specify.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解爲 Service 配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解爲 Service 設定負載均衡器。
 負載均衡器用你指定的前綴寫入日誌對象。
 
 ### service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags (beta) {#service-beta-kubernetes-io-aws-load-balancer-additional-resource-tags}
@@ -3926,7 +3926,7 @@ pairs in the value of this annotation.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解取值中逗號分隔的鍵/值對爲負載均衡器配置標記（這是 AWS 的一個概念）。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解取值中逗號分隔的鍵/值對爲負載均衡器設定標記（這是 AWS 的一個概念）。
 
 ### service.beta.kubernetes.io/aws-load-balancer-alpn-policy (beta) {#service-beta-kubernetes-io-aws-load-balancer-alpn-policy}
 
@@ -3980,7 +3980,7 @@ the load balancer listener based on the value of this annotation.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解取值配置負載均衡器的監聽器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解取值設定負載均衡器的監聽器。
 
 ### service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled (beta) {#service-beta-kubernetes-io-aws-load-balancer-connection-draining-enabled}
 
@@ -3997,7 +3997,7 @@ setting depends on the value you set.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解取值配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解取值設定負載均衡器。
 負載均衡器的連接排空設置取決於你所設置的值。
 
 ### service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout (beta) {#service-beta-kubernetes-io-aws-load-balancer-connection-draining-timeout}
@@ -4016,8 +4016,8 @@ timeout in seconds.
 
 用於：Service
 
-如果你爲 `type: LoadBalancer` 的 Service 配置[連接排空](#service-beta-kubernetes-io-aws-load-balancer-connection-draining-enabled)，
-且你使用 AWS 雲服務，則集成機制將根據此註解來配置排空期。
+如果你爲 `type: LoadBalancer` 的 Service 設定[連接排空](#service-beta-kubernetes-io-aws-load-balancer-connection-draining-enabled)，
+且你使用 AWS 雲服務，則集成機制將根據此註解來設定排空期。
 你所設置的值決定了排空超時秒數。
 
 ### service.beta.kubernetes.io/aws-load-balancer-ip-address-type (beta) {#service-beta-kubernetes-io-aws-load-balancer-ip-address-type}
@@ -4056,8 +4056,8 @@ closes the connection.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
-負載均衡器配置了一個空閒超時時間（以秒爲單位）應用到其連接。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
+負載均衡器設定了一個空閒超時時間（以秒爲單位）應用到其連接。
 如果在空閒超時時間到期之前沒有發送或接收任何數據，負載均衡器將關閉連接。
 
 ### service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled (beta) {#service-beta-kubernetes-io-aws-load-balancer-cross-zone-load-balancing-enabled}
@@ -4078,7 +4078,7 @@ evenly across the registered targets in its availability zone only.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。如果你將此註解設置爲 "true"，
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。如果你將此註解設置爲 "true"，
 每個負載均衡器節點將在所有啓用的[可用區](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones)中的註冊目標上均勻地分發請求。
 如果你禁用跨區負載均衡，則每個負載均衡器節點僅在其可用區中跨註冊目標均勻地分發請求。
 
@@ -4100,7 +4100,7 @@ the load balancer is an AWS Network Load Balancer.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 取值是逗號分隔的彈性 IP 地址分配 ID 列表。
 
 此註解僅與 `type: LoadBalancer` 的 Service 相關，其中負載均衡器是 AWS Network Load Balancer。
@@ -4120,8 +4120,8 @@ list of extra AWS VPC security groups to configure for the load balancer.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
-此註解值是一個逗號分隔的附加 AWS VPC 安全組列表，用於配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
+此註解值是一個逗號分隔的附加 AWS VPC 安全組列表，用於設定負載均衡器。
 
 ### service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-healthy-threshold}
 
@@ -4139,7 +4139,7 @@ for traffic.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 此註解值指定後端需要連續成功多少次健康檢查才能被視爲流量健康。
 
 ### service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-interval}
@@ -4157,7 +4157,7 @@ in seconds, between health check probes made by the load balancer.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 此註解值指定負載均衡器進行健康檢查探測之間的間隔秒數。
 
 ### service.beta.kubernetes.io/aws-load-balancer-healthcheck-path (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-papth}
@@ -4175,7 +4175,7 @@ path part of the URL that is used for HTTP health checks.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 此註解值決定了 HTTP 健康檢查所用的 URL 的路徑部分。
 
 ### service.beta.kubernetes.io/aws-load-balancer-healthcheck-port (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-port}
@@ -4193,7 +4193,7 @@ port the load balancer connects to when performing health checks.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 此註解值決定了負載均衡器執行健康檢查時連接到哪個端口。
 
 ### service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-protocol}
@@ -4211,7 +4211,7 @@ load balancer checks the health of backend targets.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 此註解值決定了負載均衡器如何檢查後端目標的健康。
 
 ### service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-timeout}
@@ -4230,7 +4230,7 @@ having failed.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 此註解值指定探測還未成功之前將自動視爲已失敗的秒數。
 
 ### service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold (beta) {#service-beta-kubernetes-io-aws-load-balancer-healthcheck-unhealthy-threshold}
@@ -4249,7 +4249,7 @@ for traffic.
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
 此註解值指定後端需要連續多少次失敗的健康檢查才被視爲流量不健康。
 
 ### service.beta.kubernetes.io/aws-load-balancer-internal (beta) {#service-beta-kubernetes-io-aws-load-balancer-internal}
@@ -4270,8 +4270,8 @@ see [`service.beta.kubernetes.io/aws-load-balancer-scheme`](#service-beta-kubern
 
 用於：Service
 
-與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解配置負載均衡器。
-當你將此註解設置爲 "true" 時，此集成機制將配置一個內部負載均衡器。
+與 AWS 彈性負載均衡集成的雲控制器管理器會根據此註解設定負載均衡器。
+當你將此註解設置爲 "true" 時，此集成機制將設定一個內部負載均衡器。
 
 如果你使用 [AWS 負載均衡器控制器](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)，
 參見 [`service.beta.kubernetes.io/aws-load-balancer-scheme`](#service-beta-kubernetes-io-aws-load-balancer-scheme)。
@@ -4316,7 +4316,7 @@ in the AWS load balancer controller documentation.
 用於：Service
 
 如果你對 Service 上設置了這個註解，並且還使用 `service.beta.kubernetes.io/aws-load-balancer-type: "external"`
-爲該 Service 添加了註解，並在集羣中使用了
+爲該 Service 添加了註解，並在叢集中使用了
 [AWS 負載均衡器控制器](https://kubernetes-sigs.github.io/aws-load-balancer-controller/)，那麼
 AWS 負載均衡器控制器將該負載均衡器的名稱設置爲針對這個註解設置的值。
 
@@ -4376,7 +4376,7 @@ Pod with the PROXY protocol.
 
 用於：Service
 
-官方的 Kubernetes 與 AWS 彈性負載均衡集成會根據此註解配置負載均衡器。
+官方的 Kubernetes 與 AWS 彈性負載均衡集成會根據此註解設定負載均衡器。
 唯一允許的值是 `"*"`，表示負載均衡器應該使用 PROXY 協議將 TCP 連接封裝到後端 Pod 中。
 
 ### service.beta.kubernetes.io/aws-load-balancer-scheme (beta) {#service-beta-kubernetes-io-aws-load-balancer-scheme}
@@ -4472,7 +4472,7 @@ use.
 
 用於：Service
 
-官方與 AWS 彈性負載均衡的集成會根據此註解爲 `type: LoadBalancer` 的服務配置 TLS。
+官方與 AWS 彈性負載均衡的集成會根據此註解爲 `type: LoadBalancer` 的服務設定 TLS。
 該註解的值是負載均衡器的監聽器應該使用的 X.509 證書的 AWS 資源名稱（ARN）。
 
 （TLS 協議基於一種更老的、簡稱爲 SSL 的技術）。
@@ -4488,7 +4488,7 @@ of an AWS policy for negotiating TLS with a client peer.
 -->
 示例：`service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-2-2017-01`
 
-官方與 AWS 彈性負載均衡的集成會根據此註解爲 `type: LoadBalancer` 的服務配置 TLS。
+官方與 AWS 彈性負載均衡的集成會根據此註解爲 `type: LoadBalancer` 的服務設定 TLS。
 該註解的值是與客戶端對等方進行 TLS 協商的 AWS 策略的名稱。
 
 ### service.beta.kubernetes.io/aws-load-balancer-ssl-ports (beta) {#service-beta-kubernetes-io-aws-load-balancer-ssl-ports}
@@ -4503,7 +4503,7 @@ list of port numbers.
 -->
 示例：`service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "*"`
 
-官方與 AWS 彈性負載均衡的集成會根據此註解爲 `type: LoadBalancer` 的服務配置 TLS。
+官方與 AWS 彈性負載均衡的集成會根據此註解爲 `type: LoadBalancer` 的服務設定 TLS。
 此註解的值可以是 `"*"`（這意味着所有負載均衡器的端口應使用 TLS）或逗號分隔的端口號列表。
 
 ### service.beta.kubernetes.io/aws-load-balancer-subnets (beta) {#service-beta-kubernetes-io-aws-load-balancer-subnets}
@@ -4518,7 +4518,7 @@ comma separated list of subnet IDs.
 -->
 示例：`service.beta.kubernetes.io/aws-load-balancer-subnets: "private-a,private-b"`
 
-Kubernetes 官方與 AWS 的集成使用此註解來配置負載均衡器，並決定在哪些 AWS 可用區部署託管的負載均衡服務。
+Kubernetes 官方與 AWS 的集成使用此註解來設定負載均衡器，並決定在哪些 AWS 可用區部署託管的負載均衡服務。
 該值可以是逗號分隔的子網名稱列表或逗號分隔的子網 ID 列表。
 
 ### service.beta.kubernetes.io/aws-load-balancer-target-group-attributes (beta) {#service-beta-kubernetes-io-aws-load-balancer-target-group-attributes}
@@ -4550,7 +4550,7 @@ nodes in your cluster should be considered as valid targets for the load balance
 -->
 示例：`service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "kubernetes.io/os=Linux,topology.kubernetes.io/region=us-east-2"`
 
-Kubernetes 官方與 AWS 的集成使用此註解來確定集羣中的哪些節點應被視爲負載均衡器的有效目標。
+Kubernetes 官方與 AWS 的集成使用此註解來確定叢集中的哪些節點應被視爲負載均衡器的有效目標。
 
 ### service.beta.kubernetes.io/aws-load-balancer-type (beta) {#service-beta-kubernetes-io-aws-load-balancer-type}
 
@@ -4577,10 +4577,10 @@ Kubernetes 官方與 AWS 的集成使用此註解來決定 AWS 雲提供商是�
 : the cloud controller manager does not configure any load balancer
 -->
 `nlb`
-: 雲控制器管理器配置 Network Load Balancer
+: 雲控制器管理器設定 Network Load Balancer
 
 `external`
-: 雲控制器管理器不配置任何負載均衡器
+: 雲控制器管理器不設定任何負載均衡器
 
 <!--
 If you deploy a Service of `type: LoadBalancer` on AWS, and you don't set any
@@ -4598,7 +4598,7 @@ on the Service specification.
 這種行爲是不帶註解的默認行爲，除非你另有指定。
 
 當你針對 `type: LoadBalancer` 的服務將此註解設置爲 `external`，
-並且你的集羣中已經成功部署了 AWS 負載均衡器控制器時，
+並且你的叢集中已經成功部署了 AWS 負載均衡器控制器時，
 AWS 負載均衡器控制器將嘗試根據服務規約部署一個負載均衡器。
 
 {{< caution >}}
@@ -4805,7 +4805,7 @@ for more information.
 
 值**必須**是與 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards)級別相對應的
 `privileged`、`baseline` 或 `restricted` 之一。特別地，
-`warn` 標籤不會阻止在帶標籤的 Namespace 中創建不符合指示級別概述要求的 Pod，但會在這樣做後向用戶返回警告。
+`warn` 標籤不會阻止在帶標籤的 Namespace 中創建不符合指示級別概述要求的 Pod，但會在這樣做後向使用者返回警告。
 請注意，在創建或更新包含 Pod 模板的對象時也會顯示警告，例如 Deployment、Job、StatefulSet 等。
 
 請參閱[在名字空間級別實施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)瞭解更多信息。
@@ -4869,7 +4869,7 @@ If you create your own RBAC objects and set this annotation to `"false"`, `kubec
 respects this annotation and does not automatically add missing permissions and subjects.
 -->
 當在 kube-apiserver 創建的默認 RBAC 對象上將此註解設置爲 `"true"` 時，
-這些對象會在服務器啓動時自動更新以添加缺少的權限和主體（額外的權限和主體留在原處）。
+這些對象會在伺服器啓動時自動更新以添加缺少的權限和主體（額外的權限和主體留在原處）。
 要防止自動更新特定的 Role 或 RoleBinding，請將此註解設置爲 `"false"`。
 如果你創建自己的 RBAC 對象並將此註解設置爲 `"false"`，則 `kubectl auth reconcile`
 （允許協調在{{< glossary_tooltip text="清單" term_id="manifest" >}}中給出的任意 RBAC 對象）
@@ -4924,7 +4924,7 @@ learn the supported way to specify seccomp restrictions for a Pod.
 
 用於：Pod
 
-v1.25 之前的 Kubernetes 允許你使用此註解配置 seccomp 行爲。
+v1.25 之前的 Kubernetes 允許你使用此註解設定 seccomp 行爲。
 請參考[使用 seccomp 限制容器的系統調用](/zh-cn/docs/tutorials/security/seccomp/)，
 瞭解爲 Pod 指定 seccomp 限制的受支持方法。
 
@@ -4945,7 +4945,7 @@ learn the supported way to specify seccomp restrictions for a Pod.
 
 用於：Pod
 
-v1.25 之前的 Kubernetes 允許你使用此註解配置 seccomp 行爲。
+v1.25 之前的 Kubernetes 允許你使用此註解設定 seccomp 行爲。
 請參考[使用 seccomp 限制容器的系統調用](/zh-cn/docs/tutorials/security/seccomp/)
 瞭解爲 Pod 指定 seccomp 限制的受支持方法。
 
@@ -4974,7 +4974,7 @@ and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.i
 for more information.
 -->
 值可以是 `true` 或者 `false`。取值決定了當從 VolumeSnapshot 創建 PersistentVolumeClaim 時，
-用戶是否可以修改源卷的模式。
+使用者是否可以修改源卷的模式。
 
 更多信息請參閱[轉換快照的卷模式](/zh-cn/docs/concepts/storage/volume-snapshots/#convert-volume-mode)和
 [Kubernetes CSI 開發者文檔](https://kubernetes-csi.github.io/docs/)。
@@ -5030,7 +5030,7 @@ This label/annotation is used to store the name of the JobSet that a Job or Pod 
 用於：Job、Pod
 
 此標籤/註解用於存儲 Job 或 Pod 所屬的 JobSet 的名稱。
-[JobSet](https://jobset.sigs.k8s.io) 是一個你可以部署到 Kubernetes 集羣中的擴展 API。
+[JobSet](https://jobset.sigs.k8s.io) 是一個你可以部署到 Kubernetes 叢集中的擴展 API。
 
 ### jobset.sigs.k8s.io/replicatedjob-replicas
 
@@ -5173,7 +5173,7 @@ This label is either set manually or automatically (for example, a cluster autos
 
 用於：Node
 
-此標籤可以被自動或手動設置到節點上（例如，集羣自動擴縮器）。
+此標籤可以被自動或手動設置到節點上（例如，叢集自動擴縮器）。
 當 `alpha.jobset.sigs.k8s.io/node-selector` 被設置爲 `"true"` 時，
 JobSet 控制器會向此節點標籤添加 nodeSelector
 （以及下一節討論的針對 `alpha.jobset.sigs.k8s.io/no-schedule` 污點的容忍度）。
@@ -5195,7 +5195,7 @@ This taint is either set manually or automatically (for example, a cluster autos
 
 用於：Node
 
-此污點可以被自動或手動設置在節點上（例如，集羣自動擴縮器）。
+此污點可以被自動或手動設置在節點上（例如，叢集自動擴縮器）。
 當 `alpha.jobset.sigs.k8s.io/node-selector` 設置爲 `"true"` 時，
 JobSet 控制器會向此節點污點添加容忍度
 （以及上一節討論的針對 `alpha.jobset.sigs.k8s.io/namespaced-job` 標籤的節點選擇算符）。
@@ -5218,7 +5218,7 @@ pod can be reached if the [JobSet](https://jobset.sigs.k8s.io) spec defines the 
 
 用於：Job、Pod
 
-此註解/標籤在 Job 和 Pod 上用於存儲一個穩定的網絡端點，
+此註解/標籤在 Job 和 Pod 上用於存儲一個穩定的網路端點，
 以便在 [JobSet](https://jobset.sigs.k8s.io) 規約定義了 .spec.coordinator 字段時，
 可以訪問 `coordinator` Pod。
 
@@ -5299,7 +5299,7 @@ a list of URLs where etcd clients should connect to.
 This is used mainly for etcd cluster health check purposes.
 -->
 kubeadm 爲本地管理的 etcd Pod 設置的註解，用來跟蹤 etcd 客戶端應連接到的 URL 列表。
-這主要用於 etcd 集羣健康檢查目的。
+這主要用於 etcd 叢集健康檢查目的。
 
 ### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint {#kube-apiserver-advertise-address-endpoint}
 
@@ -5320,7 +5320,7 @@ Used on: Pod
 Annotation that kubeadm places on locally managed `kube-apiserver` Pods to keep track
 of the exposed advertise address/port endpoint for that API server instance.
 -->
-kubeadm 爲本地管理的 `kube-apiserver` Pod 設置的註解，用以跟蹤該 API 服務器實例的公開宣告地址/端口端點。
+kubeadm 爲本地管理的 `kube-apiserver` Pod 設置的註解，用以跟蹤該 API 伺服器實例的公開宣告地址/端口端點。
 
 ### kubeadm.kubernetes.io/component-config.hash {#component-config-hash}
 
@@ -5342,8 +5342,8 @@ Annotation that kubeadm places on ConfigMaps that it manages for configuring com
 It contains a hash (SHA-256) used to determine if the user has applied settings different
 from the kubeadm defaults for a particular component.
 -->
-kubeadm 爲它所管理的 ConfigMaps 設置的註解，用於配置組件。它包含一個哈希（SHA-256）值，
-用於確定用戶是否應用了不同於特定組件的 kubeadm 默認設置的設置。
+kubeadm 爲它所管理的 ConfigMaps 設置的註解，用於設定組件。它包含一個哈希（SHA-256）值，
+用於確定使用者是否應用了不同於特定組件的 kubeadm 默認設置的設置。
 
 <!--
 ### node-role.kubernetes.io/control-plane
@@ -5368,7 +5368,7 @@ ignores that node while calculating Topology Aware Hints.
 用於：節點
 
 用來指示該節點用於運行控制平面組件的標記標籤。Kubeadm 工具將此標籤應用於其管理的控制平面節點。
-其他集羣管理工具通常也會設置此污點。
+其他叢集管理工具通常也會設置此污點。
 
 你可以使用此標籤來標記控制平面節點，以便更容易地將 Pod 僅安排到這些節點上，
 或者避免在控制平面上運行 Pod。如果設置了此標籤，

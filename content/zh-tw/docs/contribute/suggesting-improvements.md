@@ -113,7 +113,7 @@ fellow contributors. For example, "The docs are terrible" is not
 在記錄問題時，請注意以下事項：
 
 - 提供問題的清晰描述，描述具體缺失的內容、過期的內容、錯誤的內容或者需要改進的文字。
-- 解釋該問題對用戶的特定影響。
+- 解釋該問題對使用者的特定影響。
 - 將給定問題的範圍限定在一個工作單位範圍內。如果問題牽涉的領域較大，可以將其分解爲多個小一點的問題。
   例如："Fix the security docs" 是一個過於寬泛的問題，而
   "Add details to the 'Restricting network access' topic"

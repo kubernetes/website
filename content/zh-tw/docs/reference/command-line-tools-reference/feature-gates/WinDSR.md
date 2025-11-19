@@ -23,4 +23,4 @@ stages:
 <!--
 Allows kube-proxy to create DSR loadbalancers for Windows.
 -->
-允許 kube-proxy 爲 Windows 創建 DSR（Direct Server Return，直接服務器返回）負載均衡器。
+允許 kube-proxy 爲 Windows 創建 DSR（Direct Server Return，直接伺服器返回）負載均衡器。

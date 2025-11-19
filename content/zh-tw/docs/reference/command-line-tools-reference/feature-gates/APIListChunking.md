@@ -26,4 +26,4 @@ removed: true
 Enable the API clients to retrieve (`LIST` or `GET`)
 resources from API server in chunks.
 -->
-允許 API 客戶端以塊的形式從 API 服務器檢索（`LIST` 或 `GET`）資源。
+允許 API 客戶端以塊的形式從 API 伺服器檢索（`LIST` 或 `GET`）資源。

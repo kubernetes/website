@@ -36,7 +36,7 @@ sees.  The simplest way to do this is to run an interactive busybox Pod:
 -->
 ## 在 Pod 中運行命令
 
-對於這裏的許多步驟，你可能希望知道運行在集羣中的 Pod 看起來是什麼樣的。
+對於這裏的許多步驟，你可能希望知道運行在叢集中的 Pod 看起來是什麼樣的。
 最簡單的方法是運行一個交互式的 busybox Pod：
 
 ```none
@@ -310,7 +310,7 @@ In order to highlight the full range of configuration, the Service you created
 here uses a different port number than the Pods.  For many real-world
 Services, these values might be the same.
 -->
-爲了突出配置範圍的完整性，你在此處創建的 Service 使用的端口號與 Pods 不同。
+爲了突出設定範圍的完整性，你在此處創建的 Service 使用的端口號與 Pods 不同。
 對於許多真實的 Service，這些值可以是相同的。
 
 <!--
@@ -321,12 +321,12 @@ traffic to `hostnames-*` Pods, these need to be reviewed.
 
 Please refer to [Network Policies](/docs/concepts/services-networking/network-policies/) for more details.
 -->
-## 是否存在影響目標 Pod 的網絡策略入站規則？
+## 是否存在影響目標 Pod 的網路策略入站規則？
 
-如果你部署了任何可能影響到 `hostnames-*` Pod 的傳入流量的網絡策略入站規則，
+如果你部署了任何可能影響到 `hostnames-*` Pod 的傳入流量的網路策略入站規則，
 則需要對其進行檢查。
 
-詳細信息，請參閱[網絡策略](/zh-cn/docs/concepts/services-networking/network-policies/)。
+詳細信息，請參閱[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)。
 
 <!--
 ## Does the Service work by DNS name?
@@ -400,15 +400,15 @@ You can also try this from a Node in the cluster:
 
 -->
 注意這裏的後綴："default.svc.cluster.local"。"default" 是我們正在操作的命名空間。
-"svc" 表示這是一個 Service。"cluster.local" 是你的集羣域，在你自己的集羣中可能會有所不同。
+"svc" 表示這是一個 Service。"cluster.local" 是你的叢集域，在你自己的叢集中可能會有所不同。
 
-你也可以在集羣中的節點上嘗試此操作：
+你也可以在叢集中的節點上嘗試此操作：
 
 {{< note >}}
 <!--
 10.0.0.10 is the cluster's DNS Service IP, yours might be different.
 -->
-10.0.0.10 是集羣的 DNS 服務 IP，你的可能有所不同。
+10.0.0.10 是叢集的 DNS 服務 IP，你的可能有所不同。
 {{< /note >}}
 
 ```shell
@@ -450,7 +450,7 @@ options ndots:5
 The `nameserver` line must indicate your cluster's DNS Service. This is
 passed into `kubelet` with the `--cluster-dns` flag.
 -->
-`nameserver` 行必須指示你的集羣的 DNS Service，
+`nameserver` 行必須指示你的叢集的 DNS Service，
 它是通過 `--cluster-dns` 標誌傳遞到 kubelet 的。
 
 <!--
@@ -467,11 +467,11 @@ commands.
 -->
 `search` 行必須包含一個適當的後綴，以便查找 Service 名稱。
 在本例中，它查找本地命名空間（`default.svc.cluster.local`）中的服務和所有命名空間
-（`svc.cluster.local`）中的服務，最後在集羣（`cluster.local`）中查找服務的名稱。
+（`svc.cluster.local`）中的服務，最後在叢集（`cluster.local`）中查找服務的名稱。
 根據你自己的安裝情況，可能會有額外的記錄（最多 6 條）。
-集羣后綴是通過 `--cluster-domain` 標誌傳遞給 `kubelet` 的。 
+叢集后綴是通過 `--cluster-domain` 標誌傳遞給 `kubelet` 的。 
 本文中，我們假定後綴是 “cluster.local”。
-你的集羣配置可能不同，這種情況下，你應該在上面的所有命令中更改它。
+你的叢集設定可能不同，這種情況下，你應該在上面的所有命令中更改它。
 
 <!--
 The `options` line must set `ndots` high enough that your DNS client library
@@ -523,7 +523,7 @@ Service's IP (from `kubectl get` above).
 ### Service 能夠通過 IP 訪問麼？   {#does-the-service-work-by-ip}
 
 假設你已經確認 DNS 工作正常，那麼接下來要測試的是你的 Service 能否通過它的 IP 正常訪問。
-從集羣中的一個 Pod，嘗試訪問 Service 的 IP（從上面的 `kubectl get` 命令獲取）。
+從叢集中的一個 Pod，嘗試訪問 Service 的 IP（從上面的 `kubectl get` 命令獲取）。
 
 ```shell
 for i in $(seq 1 3); do 
@@ -556,10 +556,10 @@ It might sound silly, but you should really double and triple check that your
 Service is correct and matches your Pod's port.  Read back your Service
 and verify it:
 -->
-## Service 的配置是否正確？   {#is-the-service-defined-correctly}
+## Service 的設定是否正確？   {#is-the-service-defined-correctly}
 
-這聽起來可能很愚蠢，但你應該兩次甚至三次檢查你的 Service 配置是否正確，並且與你的 Pod 匹配。
-查看你的 Service 配置並驗證它：
+這聽起來可能很愚蠢，但你應該兩次甚至三次檢查你的 Service 設定是否正確，並且與你的 Pod 匹配。
+查看你的 Service 設定並驗證它：
 
 ```shell
 kubectl get service hostnames -o json
@@ -648,7 +648,7 @@ The `-l app=hostnames` argument is a label selector configured on the Service.
 The "AGE" column says that these Pods are about an hour old, which implies that
 they are running fine and not crashing.
 -->
-`-l app=hostnames` 參數是在 Service 上配置的標籤選擇器。
+`-l app=hostnames` 參數是在 Service 上設定的標籤選擇器。
 
 “AGE” 列表明這些 Pod 已經啓動一個小時了，這意味着它們運行良好，而未崩潰。
 
@@ -762,9 +762,9 @@ will have to investigate whatever implementation of Services you are using.
 如果你到達這裏，則說明你的 Service 正在運行，擁有 EndpointSlices，Pod 真正在提供服務。
 此時，整個 Service 代理機制是可疑的。讓我們一步一步地確認它沒問題。
 
-Service 的默認實現（在大多數集羣上應用的）是 kube-proxy。
-這是一個在每個節點上運行的程序，負責配置用於提供 Service 抽象的機制之一。
-如果你的集羣不使用 kube-proxy，則以下各節將不適用，你將必須檢查你正在使用的 Service 的實現方式。
+Service 的默認實現（在大多數叢集上應用的）是 kube-proxy。
+這是一個在每個節點上運行的程序，負責設定用於提供 Service 抽象的機制之一。
+如果你的叢集不使用 kube-proxy，則以下各節將不適用，你將必須檢查你正在使用的 Service 的實現方式。
 
 <!--
 ### Is kube-proxy running?
@@ -812,7 +812,7 @@ I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/ku
 If you see error messages about not being able to contact the master, you
 should double-check your Node configuration and installation steps.
 -->
-如果你看到有關無法連接主節點的錯誤消息，則應再次檢查節點配置和安裝步驟。
+如果你看到有關無法連接主節點的錯誤消息，則應再次檢查節點設定和安裝步驟。
 
 <!--
 Kube-proxy can run in one of a few modes.  In the log listed above, the
@@ -859,7 +859,7 @@ config (including node-ports and load-balancers).
 對於每個 Service 的每個端口，應有 1 條 `KUBE-SERVICES` 規則、一個 `KUBE-SVC-<hash>` 鏈。
 對於每個 Pod 末端，在那個 `KUBE-SVC-<hash>` 鏈中應該有一些規則與之對應，還應該
 有一個 `KUBE-SEP-<hash>` 鏈與之對應，其中包含爲數不多的幾條規則。
-實際的規則數量可能會根據你實際的配置（包括 NodePort 和 LoadBalancer 服務）有所不同。
+實際的規則數量可能會根據你實際的設定（包括 NodePort 和 LoadBalancer 服務）有所不同。
 
 <!--
 #### IPVS mode
@@ -893,8 +893,8 @@ hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`,
 `10.244.0.6:9376`, `10.244.0.7:9376`).
 -->
 對於每個 Service 的每個端口，還有 NodePort，External IP 和 LoadBalancer 類型服務
-的 IP，kube-proxy 將創建一個虛擬服務器。
-對於每個 Pod 末端，它將創建相應的真實服務器。
+的 IP，kube-proxy 將創建一個虛擬伺服器。
+對於每個 Pod 末端，它將創建相應的真實伺服器。
 在此示例中，服務主機名（`10.0.1.175:80`）擁有 3 個末端（`10.244.0.5:9376`、
 `10.244.0.6:9376` 和 `10.244.0.7:9376`）。
 
@@ -948,8 +948,8 @@ back to themselves if they try to access their own Service VIP. The
 
 這聽起來似乎不太可能，但是確實可能發生，並且應該可以工作。
 
-如果網絡沒有爲“髮夾模式（Hairpin）”流量生成正確配置，
-通常當 `kube-proxy` 以 `iptables` 模式運行，並且 Pod 與橋接網絡連接時，就會發生這種情況。
+如果網路沒有爲“髮夾模式（Hairpin）”流量生成正確設定，
+通常當 `kube-proxy` 以 `iptables` 模式運行，並且 Pod 與橋接網路連接時，就會發生這種情況。
 `kubelet` 提供了 `hairpin-mode`
 [標誌](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)。
 如果 Service 的末端嘗試訪問自己的 Service VIP，則該端點可以把流量負載均衡回來到它們自身。

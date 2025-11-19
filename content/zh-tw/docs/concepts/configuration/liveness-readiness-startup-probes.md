@@ -57,7 +57,7 @@ Readiness probes determine when a container is ready to accept traffic. This is 
 
 就緒探針決定容器何時準備好接受流量。
 這種探針在等待應用執行耗時的初始任務時非常有用；
-例如：建立網絡連接、加載文件和預熱緩存。在容器的生命週期後期，
+例如：建立網路連接、加載文件和預熱緩存。在容器的生命週期後期，
 就緒探針也很有用，例如，從臨時故障或過載中恢復時。
 
 <!--
@@ -82,7 +82,7 @@ A startup probe verifies whether the application within a container is started. 
 <!--
 If such a probe is configured, it disables liveness and readiness checks until it succeeds.
 -->
-如果配置了這類探針，它會禁用存活檢測和就緒檢測，直到啓動探針成功爲止。
+如果設定了這類探針，它會禁用存活檢測和就緒檢測，直到啓動探針成功爲止。
 
 <!--
 This type of probe is only executed at startup, unlike liveness and readiness probes, which are run periodically.
@@ -91,4 +91,4 @@ This type of probe is only executed at startup, unlike liveness and readiness pr
 -->
 這類探針僅在啓動時執行，不像存活探針和就緒探針那樣週期性地運行。
 
-* 更多細節參閱[配置存活、就緒和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes)。
+* 更多細節參閱[設定存活、就緒和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes)。

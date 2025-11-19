@@ -1,7 +1,7 @@
 ---
 title: "概述"
 description: >
-  Kubernetes 是一個可移植、可擴展的開源平臺，用於管理容器化的工作負載和服務，方便進行聲明式配置和自動化。Kubernetes 擁有一個龐大且快速增長的生態系統，其服務、支持和工具的使用範圍廣泛。
+  Kubernetes 是一個可移植、可擴展的開源平臺，用於管理容器化的工作負載和服務，方便進行聲明式設定和自動化。Kubernetes 擁有一個龐大且快速增長的生態系統，其服務、支持和工具的使用範圍廣泛。
 content_type: concept
 weight: 20
 card:
@@ -92,7 +92,7 @@ Kubernetes 爲你提供：
 
   Kubernetes 可以使用 DNS 名稱或自己的 IP 地址來暴露容器。
   如果進入容器的流量很大，
-  Kubernetes 可以負載均衡並分配網絡流量，從而使部署穩定。
+  Kubernetes 可以負載均衡並分配網路流量，從而使部署穩定。
 
 <!--
 * **Storage orchestration**
@@ -125,7 +125,7 @@ Kubernetes 爲你提供：
 -->
 * **自動完成裝箱計算**
 
-  你爲 Kubernetes 提供許多節點組成的集羣，在這個集羣上運行容器化的任務。
+  你爲 Kubernetes 提供許多節點組成的叢集，在這個叢集上運行容器化的任務。
   你告訴 Kubernetes 每個容器需要多少 CPU 和內存 (RAM)。
   Kubernetes 可以將這些容器按實際情況調度到你的節點上，以最佳方式利用你的資源。
 
@@ -137,7 +137,7 @@ Kubernetes 爲你提供：
 -->
 * **自我修復**
 
-  Kubernetes 將重新啓動失敗的容器、替換容器、殺死不響應用戶定義的運行狀況檢查的容器，
+  Kubernetes 將重新啓動失敗的容器、替換容器、殺死不響應使用者定義的運行狀況檢查的容器，
   並且在準備好服務之前不將其通告給客戶端。
 
 <!--
@@ -146,10 +146,10 @@ Kubernetes 爲你提供：
   and SSH keys. You can deploy and update secrets and application configuration without
   rebuilding your container images, and without exposing secrets in your stack configuration.
 -->
-* **密鑰與配置管理**
+* **密鑰與設定管理**
 
   Kubernetes 允許你存儲和管理敏感信息，例如密碼、OAuth 令牌和 SSH 密鑰。
-  你可以在不重建容器鏡像的情況下部署和更新密鑰和應用程序配置，也無需在堆棧配置中暴露密鑰。
+  你可以在不重建容器映像檔的情況下部署和更新密鑰和應用程序設定，也無需在堆棧設定中暴露密鑰。
 
 <!--
 * **Batch execution**
@@ -164,11 +164,11 @@ Kubernetes 爲你提供：
 * **批處理執行**
   除了服務外，Kubernetes 還可以管理你的批處理和 CI（持續集成）工作負載，如有需要，可以替換失敗的容器。
 * **水平擴縮**
-  使用簡單的命令、用戶界面或根據 CPU 使用率自動對你的應用進行擴縮。
+  使用簡單的命令、使用者界面或根據 CPU 使用率自動對你的應用進行擴縮。
 * **IPv4/IPv6 雙棧**
   爲 Pod（容器組）和 Service（服務）分配 IPv4 和 IPv6 地址。
 * **爲可擴展性設計**
-  在不改變上游源代碼的情況下爲你的 Kubernetes 集羣添加功能。
+  在不改變上游源代碼的情況下爲你的 Kubernetes 叢集添加功能。
 
 <!--
 ## What Kubernetes is not
@@ -186,9 +186,9 @@ platforms, but preserves user choice and flexibility where it is important.
 -->
 Kubernetes 不是傳統的、包羅萬象的 PaaS（平臺即服務）系統。
 由於 Kubernetes 是在容器級別運行，而非在硬件級別，它提供了 PaaS 產品共有的一些普遍適用的功能，
-例如部署、擴展、負載均衡，允許用戶集成他們的日誌記錄、監控和警報方案。
+例如部署、擴展、負載均衡，允許使用者集成他們的日誌記錄、監控和警報方案。
 但是，Kubernetes 不是單體式（monolithic）系統，那些默認解決方案都是可選、可插拔的。
-Kubernetes 爲構建開發人員平臺提供了基礎，但是在重要的地方保留了用戶選擇權，能有更高的靈活性。
+Kubernetes 爲構建開發人員平臺提供了基礎，但是在重要的地方保留了使用者選擇權，能有更高的靈活性。
 
 <!--
 Kubernetes:
@@ -214,7 +214,7 @@ Kubernetes：
 * 不部署源代碼，也不構建你的應用程序。
   持續集成（CI）、交付和部署（CI/CD）工作流取決於組織的文化和偏好以及技術要求。
 * 不提供應用程序級別的服務作爲內置服務，例如中間件（例如消息中間件）、
-  數據處理框架（例如 Spark）、數據庫（例如 MySQL）、緩存、集羣存儲系統
+  數據處理框架（例如 Spark）、數據庫（例如 MySQL）、緩存、叢集存儲系統
   （例如 Ceph）。這樣的組件可以在 Kubernetes 上運行，並且/或者可以由運行在
   Kubernetes 上的應用程序通過可移植機制（例如[開放服務代理](https://openservicebrokerapi.org/)）來訪問。
 <!--
@@ -233,9 +233,9 @@ Kubernetes：
 -->
 * 不是日誌記錄、監視或警報的解決方案。
   它集成了一些功能作爲概念證明，並提供了收集和導出指標的機制。
-* 不提供也不要求配置用的語言、系統（例如 jsonnet），它提供了聲明性 API，
+* 不提供也不要求設定用的語言、系統（例如 jsonnet），它提供了聲明性 API，
   該聲明性 API 可以由任意形式的聲明性規範所構成。
-* 不提供也不採用任何全面的機器配置、維護、管理或自我修復系統。
+* 不提供也不採用任何全面的機器設定、維護、管理或自我修復系統。
 * 此外，Kubernetes 不僅僅是一個編排系統，實際上它消除了編排的需要。
   編排的技術定義是執行已定義的工作流程：首先執行 A，然後執行 B，再執行 C。
   而 Kubernetes 包含了一組獨立可組合的控制過程，可以持續地將當前狀態驅動到所提供的預期狀態。
@@ -269,13 +269,13 @@ was expensive for organizations to maintain many physical servers.
 -->
 **傳統部署時代：**
 
-早期，各個組織是在物理服務器上運行應用程序。
-由於無法限制在物理服務器中運行的應用程序資源使用，因此會導致資源分配問題。
-例如，如果在同一臺物理服務器上運行多個應用程序，
+早期，各個組織是在物理伺服器上運行應用程序。
+由於無法限制在物理伺服器中運行的應用程序資源使用，因此會導致資源分配問題。
+例如，如果在同一臺物理伺服器上運行多個應用程序，
 則可能會出現一個應用程序佔用大部分資源的情況，而導致其他應用程序的性能下降。
-一種解決方案是將每個應用程序都運行在不同的物理服務器上，
+一種解決方案是將每個應用程序都運行在不同的物理伺服器上，
 但是當某個應用程序資源利用率不高時，剩餘資源無法被分配給其他應用程序，
-而且維護許多物理服務器的成本很高。
+而且維護許多物理伺服器的成本很高。
 
 <!--
 **Virtualized deployment era:**
@@ -287,7 +287,7 @@ information of one application cannot be freely accessed by another application.
 -->
 **虛擬化部署時代：**
 
-因此，虛擬化技術被引入了。虛擬化技術允許你在單個物理服務器的 CPU 上運行多臺虛擬機（VM）。
+因此，虛擬化技術被引入了。虛擬化技術允許你在單個物理伺服器的 CPU 上運行多臺虛擬機（VM）。
 虛擬化能使應用程序在不同 VM 之間被彼此隔離，且能提供一定程度的安全性，
 因爲一個應用程序的信息不能被另一應用程序隨意訪問。
 
@@ -300,9 +300,9 @@ resources as a cluster of disposable virtual machines.
 Each VM is a full machine running all the components, including its own operating
 system, on top of the virtualized hardware.
 -->
-虛擬化技術能夠更好地利用物理服務器的資源，並且因爲可輕鬆地添加或更新應用程序，
+虛擬化技術能夠更好地利用物理伺服器的資源，並且因爲可輕鬆地添加或更新應用程序，
 而因此可以具有更高的可擴縮性，以及降低硬件成本等等的好處。
-通過虛擬化，你可以將一組物理資源呈現爲可丟棄的虛擬機集羣。
+通過虛擬化，你可以將一組物理資源呈現爲可丟棄的虛擬機叢集。
 
 每個 VM 是一臺完整的計算機，在虛擬化硬件之上運行所有組件，包括其自己的操作系統。
 
@@ -339,10 +339,10 @@ Containers have become popular because they provide extra benefits, such as:
 * Observability: not only surfaces OS-level information and metrics, but also
   application health and other signals.
 -->
-* 敏捷應用程序的創建和部署：與使用 VM 鏡像相比，提高了容器鏡像創建的簡便性和效率。
-* 持續開發、集成和部署：通過快速簡單的回滾（由於鏡像不可變性），
-  提供可靠且頻繁的容器鏡像構建和部署。
-* 關注開發與運維的分離：在構建、發佈時創建應用程序容器鏡像，而不是在部署時，
+* 敏捷應用程序的創建和部署：與使用 VM 映像檔相比，提高了容器映像檔創建的簡便性和效率。
+* 持續開發、集成和部署：通過快速簡單的回滾（由於映像檔不可變性），
+  提供可靠且頻繁的容器映像檔構建和部署。
+* 關注開發與運維的分離：在構建、發佈時創建應用程序容器映像檔，而不是在部署時，
   從而將應用程序與基礎架構分離。
 * 可觀察性：不僅可以顯示 OS 級別的信息和指標，還可以顯示應用程序的運行狀況和其他指標信號。
 <!--

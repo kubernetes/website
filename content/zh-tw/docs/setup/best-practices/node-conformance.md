@@ -23,13 +23,13 @@ node meets the minimum requirements for Kubernetes; a node that passes the test
 is qualified to join a Kubernetes cluster.
 -->
 **節點一致性測試**是一個容器化的測試框架，提供了針對節點的系統驗證和功能測試。
-測試驗證節點是否滿足 Kubernetes 的最低要求；通過測試的節點有資格加入 Kubernetes 集羣。
+測試驗證節點是否滿足 Kubernetes 的最低要求；通過測試的節點有資格加入 Kubernetes 叢集。
 
 <!--
 The test validates whether the node meets the minimum requirements for Kubernetes;
 a node that passes the testis qualified to join a Kubernetes cluster.
 -->
-該測試主要檢測節點是否滿足 Kubernetes 的最低要求，通過檢測的節點有資格加入 Kubernetes 集羣。
+該測試主要檢測節點是否滿足 Kubernetes 的最低要求，通過檢測的節點有資格加入 Kubernetes 叢集。
 
 <!--
 ## Node Prerequisite
@@ -72,8 +72,8 @@ To run the node conformance test, perform the following steps:
 -->
 1. 得出 kubelet 的 `--kubeconfig` 的值；例如：`--kubeconfig=/var/lib/kubelet/config.yaml`。
    由於測試框架啓動了本地控制平面來測試 kubelet，因此使用 `http://localhost:8080`
-   作爲API 服務器的 URL。
-   一些其他的 kubelet 命令行參數可能會被用到：
+   作爲API 伺服器的 URL。
+   一些其他的 kubelet 命令列參數可能會被用到：
    * `--cloud-provider`：如果使用 `--cloud-provider=gce`，需要移除這個參數來運行測試。
 
 <!--
@@ -175,8 +175,8 @@ Theoretically, you can run any node e2e test if you configure the container and
 mount required volumes properly. But **it is strongly recommended to only run conformance
 test**, because it requires much more complex configuration to run non-conformance test.
 -->
-理論上，只要合理地配置容器和掛載所需的卷，就可以運行任何的節點端到端測試用例。
-但是這裏**強烈建議只運行一致性測試**，因爲運行非一致性測試需要很多複雜的配置。
+理論上，只要合理地設定容器和掛載所需的卷，就可以運行任何的節點端到端測試用例。
+但是這裏**強烈建議只運行一致性測試**，因爲運行非一致性測試需要很多複雜的設定。
 
 <!--
 ## Caveats
@@ -190,5 +190,5 @@ test**, because it requires much more complex configuration to run non-conforman
 * The test leaves dead containers on the node. These containers are created
   during the functionality test.
 -->
-* 測試會在節點上遺留一些 Docker 鏡像，包括節點一致性測試本身的鏡像和功能測試相關的鏡像。
+* 測試會在節點上遺留一些 Docker 映像檔，包括節點一致性測試本身的映像檔和功能測試相關的映像檔。
 * 測試會在節點上遺留一些死的容器。這些容器是在功能測試的過程中創建的。

@@ -18,7 +18,7 @@ _今天的來賓帖子由 Rancher Labs（用於管理容器的開源軟件平臺
 Over the last year, we’ve seen a tremendous increase in the number of companies looking to leverage containers in their software development and IT organizations. To achieve this, organizations have been looking at how to build a centralized container management capability that will make it simple for users to get access to containers, while centralizing visibility and control with the IT organization. In 2014 we started the open-source Rancher project to address this by building a management platform for containers.  
 -->
 在過去的一年中，我們看到希望在其軟件開發和IT組織中利用容器的公司數量激增。
-爲了實現這一目標，組織一直在研究如何構建集中式的容器管理功能，該功能將使用戶可以輕鬆訪問容器，同時集中管理IT組織的可見性和控制力。
+爲了實現這一目標，組織一直在研究如何構建集中式的容器管理功能，該功能將使使用者可以輕鬆訪問容器，同時集中管理IT組織的可見性和控制力。
 2014年，我們啓動了開源 Rancher 項目，通過構建容器管理平臺來解決此問題。
 
 <!--
@@ -26,7 +26,7 @@ Recently we shipped Rancher v1.0. With this latest release, [Rancher](http://www
 -->
 最近，我們發佈了 Rancher v1.0。
 在此最新版本中，用於管理容器的開源軟件平臺 [Rancher](http://www.rancher.com/) 現在在創建環境時支持 Kubernetes 作爲容器編排框架。
-現在，使用 Rancher 啓動 Kubernetes 環境是完全自動化的，只需 5 至 10 分鐘即可交付運行正常的集羣。
+現在，使用 Rancher 啓動 Kubernetes 環境是完全自動化的，只需 5 至 10 分鐘即可交付運行正常的叢集。
 
 <!--
 We created Rancher to provide organizations with a complete management platform for containers. As part of that, we’ve always supported deploying Docker environments natively using the Docker API and Docker Compose. Since its inception, we’ve been impressed with the operational maturity of Kubernetes, and with this release, we’re making it possible to deploy a variety of container orchestration and scheduling frameworks within the same management platform.&nbsp;  
@@ -38,7 +38,7 @@ We created Rancher to provide organizations with a complete management platform 
 <!--
 Adding Kubernetes gives users access to one of the fastest growing platforms for deploying and managing containers in production. We’ll provide first-class Kubernetes support in Rancher going forward and continue to support native Docker deployments.&nbsp;  
 -->
-添加 Kubernetes 使用戶可以訪問增長最快的平臺之一，用於在生產中部署和管理容器。
+添加 Kubernetes 使使用者可以訪問增長最快的平臺之一，用於在生產中部署和管理容器。
 我們將在 Rancher 中提供一流的 Kubernetes 支持，並將繼續支持本機 Docker 部署。
 
 <!--
@@ -54,7 +54,7 @@ Our platform was already extensible for a variety of different packaging formats
 我們的平臺已經可以擴展爲各種不同的包裝格式，因此我們對擁抱 Kubernetes 感到樂觀。
 沒錯，作爲開發人員，與 Kubernetes 項目一起工作是一次很棒的經歷。
 該項目的設計使這一操作變得異常簡單，並且我們能夠利用插件和擴展來構建 Kubernetes 發行版，從而利用我們的基礎架構和應用程序服務。
-例如，我們能夠將 Rancher 的軟件定義的網絡，存儲管理，負載平衡，DNS 和基礎結構管理功能直接插入 Kubernetes，而無需更改代碼庫。
+例如，我們能夠將 Rancher 的軟件定義的網路，存儲管理，負載平衡，DNS 和基礎結構管理功能直接插入 Kubernetes，而無需更改代碼庫。
 
 
 <!--
@@ -63,9 +63,9 @@ Even better, we have been able to add a number of services around the core Kuber
 更好的是，我們已經能夠圍繞 Kubernetes 核心功能添加許多服務。
 例如，我們在 Kubernetes 上實現了常用的 [應用程序目錄](https://github.com/rancher/community-catalog/tree/master/kubernetes-templates) 。
 過去，我們曾使用 Docker Compose 定義應用程序模板，但是在此版本中，我們現在支持 Kubernetes 服務、副本控制器和和 Pod 來部署應用程序。
-使用目錄，用戶可以連接到 git 倉庫並自動部署和升級作爲 Kubernetes 服務部署的應用。
-然後，用戶只需單擊一下按鈕，即可配置和部署複雜的多節點企業應用程序。
-升級也是完全自動化的，並集中向用戶推出。
+使用目錄，使用者可以連接到 git 倉庫並自動部署和升級作爲 Kubernetes 服務部署的應用。
+然後，使用者只需單擊一下按鈕，即可設定和部署複雜的多節點企業應用程序。
+升級也是完全自動化的，並集中向使用者推出。
 
 
 <!--

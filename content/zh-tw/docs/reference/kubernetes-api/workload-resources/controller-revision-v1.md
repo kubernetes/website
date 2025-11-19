@@ -41,7 +41,7 @@ It is primarily for internal use by controllers.
 ControllerRevision 實現了狀態數據的不可變快照。
 客戶端負責序列化和反序列化對象，包含對象內部狀態。
 成功創建 ControllerRevision 後，將無法對其進行更新。
-API 服務器將無法成功驗證所有嘗試改變 data 字段的請求。
+API 伺服器將無法成功驗證所有嘗試改變 data 字段的請求。
 但是，可以刪除 ControllerRevisions。
 請注意，由於 DaemonSet 和 StatefulSet 控制器都使用它來進行更新和回滾，所以這個對象是 Beta 版。
 但是，它可能會在未來版本中更改名稱和表示形式，客戶不應依賴其穩定性。
@@ -134,7 +134,7 @@ API 服務器將無法成功驗證所有嘗試改變 data 字段的請求。
   // On the wire, the JSON will look something like this:
   -->
 
-  // 在網絡上，JSON 看起來像這樣：
+  // 在網路上，JSON 看起來像這樣：
 
     ```json
     {  

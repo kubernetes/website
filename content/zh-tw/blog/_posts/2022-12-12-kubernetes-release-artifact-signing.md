@@ -34,7 +34,7 @@ artifacts. The overall goal of out past work was to define the used tooling for
 signing all Kubernetes related artifacts as well as providing a standard signing
 process for related projects (for example for those in [kubernetes-sigs][k-sigs]).
 -->
-簽名工件爲終端用戶提供了驗證下載資源完整性的機會。
+簽名工件爲終端使用者提供了驗證下載資源完整性的機會。
 它可以直接在客戶端減輕中間人攻擊，從而確保遠程服務工件的可信度。
 過去工作的總體目標是定義用於對所有 Kubernetes 相關工件進行簽名的工具，
 以及爲相關項目（例如 [kubernetes-sigs][k-sigs] 中的項目）提供標準簽名流程。
@@ -51,10 +51,10 @@ provenance][provenance] will be signed using [cosign][cosign]. Technically
 speaking, we now ship additional `*.sig` (signature) and `*.cert` (certificate)
 files side by side to the artifacts for verifying their integrity.
 -->
-我們已經對所有官方發佈的容器鏡像進行了簽名（從 Kubernetes v1.24 開始）。
-在 v1.24 版本和 v1.25 版本中，鏡像簽名是 alpha 版本。
+我們已經對所有官方發佈的容器映像檔進行了簽名（從 Kubernetes v1.24 開始）。
+在 v1.24 版本和 v1.25 版本中，映像檔簽名是 alpha 版本。
 在 v1.26 版本中，我們將所有的 **二進制工件** 也加入到了簽名過程中！
-這意味着現在所有的[客戶端、服務器和源碼壓縮包][tarballs]、[二進制工件][binaries]、[軟件材料清單（SBOM）][sboms]
+這意味着現在所有的[客戶端、伺服器和源碼壓縮包][tarballs]、[二進制工件][binaries]、[軟件材料清單（SBOM）][sboms]
 以及[構建源][provenance]都將使用 [cosign][cosign] 進行簽名！
 從技術上講，我們現在將額外的 `*.sig`（簽名）和 `*.cert`（證書）文件與工件一起發佈以用於驗證其完整性。
 
@@ -156,7 +156,7 @@ Kubernetes artifacts are signed. Beside that, we are considering using Kubernete
 owned infrastructure for the signing (root trust) and verification (transparency
 log) process.
 -->
-有關如何[驗證已簽名的 Kubernetes 工件][docs]的官方文檔中概述了所有提到的步驟以及如何驗證容器鏡像。
+有關如何[驗證已簽名的 Kubernetes 工件][docs]的官方文檔中概述了所有提到的步驟以及如何驗證容器映像檔。
 在下一個即將發佈的 Kubernetes 版本中，我們將通過確保真正對所有 Kubernetes 工件進行簽名來使之在全球更加成熟。
 除此之外，我們正在考慮使用 Kubernetes 自有的基礎設施來進行簽名（根信任）和驗證（透明日誌）過程。
 

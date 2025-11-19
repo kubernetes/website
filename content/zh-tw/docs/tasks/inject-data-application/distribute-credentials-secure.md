@@ -30,8 +30,8 @@ Suppose you want to have two pieces of secret data: a username `my-app` and a pa
 -->
 ### 將 Secret 數據轉換爲 base-64 形式   {#convert-your-secret-data-to-a-base64-representation}
 
-假設用戶想要有兩條 Secret 數據：用戶名 `my-app` 和密碼 `39528$vdg7Jb`。
-首先使用 [Base64 編碼](https://www.base64encode.org/)將用戶名和密碼轉化爲 base-64 形式。
+假設使用者想要有兩條 Secret 數據：使用者名 `my-app` 和密碼 `39528$vdg7Jb`。
+首先使用 [Base64 編碼](https://www.base64encode.org/)將使用者名和密碼轉化爲 base-64 形式。
 下面是一個使用常用的 base64 程序的示例：
 
 ```shell
@@ -43,7 +43,7 @@ echo -n '39528$vdg7Jb' | base64
 The output shows that the base-64 representation of your username is `bXktYXBw`,
 and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
 -->
-結果顯示 base-64 形式的用戶名爲 `bXktYXBw`，
+結果顯示 base-64 形式的使用者名爲 `bXktYXBw`，
 base-64 形式的密碼爲 `Mzk1MjgkdmRnN0pi`。
 
 {{< caution >}}
@@ -63,7 +63,7 @@ username and password:
 -->
 ## 創建 Secret   {#create-a-secret}
 
-這裏是一個配置文件，可以用來創建存有用戶名和密碼的 Secret：
+這裏是一個設定文件，可以用來創建存有使用者名和密碼的 Secret：
 
 {{% code_sample file="pods/inject/secret.yaml" %}}
 
@@ -152,7 +152,7 @@ Here is a configuration file you can use to create a Pod:
 -->
 ## 創建一個可以通過卷訪問 Secret 數據的 Pod   {#create-a-pod-that-has-access-to-the-secret-data-through-a-volume}
 
-這裏是一個可以用來創建 Pod 的配置文件：
+這裏是一個可以用來創建 Pod 的設定文件：
 
 {{% code_sample file="pods/inject/secret-pod.yaml" %}}
 
@@ -222,7 +222,7 @@ Here is a configuration file you can use to create a Pod:
    <!--
    The output is your username and password:
    -->
-   輸出爲用戶名和密碼：
+   輸出爲使用者名和密碼：
 
    ```
    my-app
@@ -233,7 +233,7 @@ Modify your image or command line so that the program looks for files in the
 `mountPath` directory. Each key in the Secret `data` map becomes a file name
 in this directory.
 -->
-修改你的鏡像或命令行，使程序在 `mountPath` 目錄下查找文件。
+修改你的映像檔或命令列，使程序在 `mountPath` 目錄下查找文件。
 Secret `data` 映射中的每個鍵都成爲該目錄中的文件名。
 
 <!--
@@ -665,7 +665,7 @@ another Pod which consumes a secret with test environment credentials.
 <!--
 1. Apply all those objects on the API server by running:
 -->
-4. 通過運行以下命令將所有這些對象應用到 API 服務器：
+4. 通過運行以下命令將所有這些對象應用到 API 伺服器：
 
    ```shell
    kubectl create -f pod.yaml

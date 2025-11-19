@@ -1,5 +1,5 @@
 ---
-title: 以非 root 用戶身份運行 Kubernetes 節點組件
+title: 以非 root 使用者身份運行 Kubernetes 節點組件
 content_type: task
 min-kubernetes-server-version: 1.22
 weight: 300
@@ -29,13 +29,13 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 {{< /note >}}
 -->
 
-這個文檔描述了怎樣不使用 root 特權，而是通過使用 {{< glossary_tooltip text="用戶命名空間" term_id="userns" >}}
+這個文檔描述了怎樣不使用 root 特權，而是通過使用 {{< glossary_tooltip text="使用者命名空間" term_id="userns" >}}
 去運行 Kubernetes 節點組件（例如 kubelet、CRI、OCI、CNI）。
 
 這種技術也叫做 **rootless 模式（Rootless mode）**。
 
 {{< note >}}
-這個文檔描述了怎麼以非 root 用戶身份運行 Kubernetes 節點組件以及 Pod。
+這個文檔描述了怎麼以非 root 使用者身份運行 Kubernetes 節點組件以及 Pod。
 如果你只是想了解如何以非 root 身份運行 Pod，請參閱 [SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 {{< /note >}}
 
@@ -57,8 +57,8 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 
 * [啓用 cgroup v2](https://rootlesscontaine.rs/getting-started/common/cgroup2/)
 * [在 systemd 中啓用 user session](https://rootlesscontaine.rs/getting-started/common/login/)
-* [根據不同的 Linux 發行版，配置 sysctl 的值](https://rootlesscontaine.rs/getting-started/common/sysctl/)
-* [確保你的非特權用戶被列在 `/etc/subuid` 和 `/etc/subgid` 文件中](https://rootlesscontaine.rs/getting-started/common/subuid/)
+* [根據不同的 Linux 發行版，設定 sysctl 的值](https://rootlesscontaine.rs/getting-started/common/sysctl/)
+* [確保你的非特權使用者被列在 `/etc/subuid` 和 `/etc/subgid` 文件中](https://rootlesscontaine.rs/getting-started/common/subuid/)
 * 啓用 `KubeletInUserNamespace` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 
 <!-- steps -->
@@ -122,7 +122,7 @@ namespace.
 -->
 
 [Sysbox](https://github.com/nestybox/sysbox) 是一個開源容器運行時
-(類似於 “runc”），支持在 Linux 用戶命名空間隔離的非特權容器內運行系統級工作負載，
+(類似於 “runc”），支持在 Linux 使用者命名空間隔離的非特權容器內運行系統級工作負載，
 比如 Docker 和 Kubernetes。
 
 <!--
@@ -180,7 +180,7 @@ See [the Usernetes repo](https://github.com/rootless-containers/usernetes) for t
 它可以在不使用 root 特權的情況下安裝在 `$HOME` 目錄下。
 
 Usernetes 支持使用 containerd 和 CRI-O 作爲 CRI 運行時。
-Usernetes 支持配置了 Flannel (VXLAN)的多節點集羣。
+Usernetes 支持設定了 Flannel (VXLAN)的多節點叢集。
 
 關於用法，請參閱 [Usernetes 倉庫](https://github.com/rootless-containers/usernetes)。
 
@@ -194,12 +194,12 @@ This section is intended to be read by developers of Kubernetes distributions, n
 {{< /note >}}
 -->
 
-## 手動部署一個在用戶命名空間運行 kubelet 的節點{#userns-the-hard-way}
+## 手動部署一個在使用者命名空間運行 kubelet 的節點{#userns-the-hard-way}
 
-本節提供在用戶命名空間手動運行 Kubernetes 的注意事項。
+本節提供在使用者命名空間手動運行 Kubernetes 的注意事項。
 
 {{< note >}}
-本節是面向 Kubernetes 發行版的開發者，而不是最終用戶。
+本節是面向 Kubernetes 發行版的開發者，而不是最終使用者。
 {{< /note >}}
 
 <!--
@@ -234,16 +234,16 @@ At least, the following directories need to be writable *in* the namespace (not 
 - `/var/lib/containers` (for CRI-O)
 -->
 
-### 創建用戶命名空間
+### 創建使用者命名空間
 
-第一步是創建一個 {{< glossary_tooltip text="用戶命名空間" term_id="userns" >}}。
+第一步是創建一個 {{< glossary_tooltip text="使用者命名空間" term_id="userns" >}}。
 
-如果你正在嘗試使用用戶命名空間的容器（例如 Rootless 模式的 Docker/Podman 或 LXC/LXD）
+如果你正在嘗試使用使用者命名空間的容器（例如 Rootless 模式的 Docker/Podman 或 LXC/LXD）
 運行 Kubernetes，那麼你已經準備就緒，可以直接跳到下一小節。
 
 否則你需要通過傳遞參數 `CLONE_NEWUSER` 調用 `unshare(2)`，自己創建一個命名空間。
 
-用戶命名空間也可以通過如下所示的命令行工具取消共享：
+使用者命名空間也可以通過如下所示的命令列工具取消共享：
 
 - [`unshare(1)`](https://man7.org/linux/man-pages/man1/unshare.1.html)
 - [RootlessKit](https://github.com/rootless-containers/rootlesskit)
@@ -285,19 +285,19 @@ Containers documentation.
 
 ### 創建委派 cgroup 樹
 
-除了用戶命名空間，你也需要有一個版本爲 cgroup v2 的可寫 cgroup 樹。
+除了使用者命名空間，你也需要有一個版本爲 cgroup v2 的可寫 cgroup 樹。
 
 {{< note >}}
-Kubernetes 需要 cgroup v2 才支持在用戶命名空間運行節點組件。
+Kubernetes 需要 cgroup v2 才支持在使用者命名空間運行節點組件。
 cgroup v1 是不支持的。
 {{< /note >}}
 
-如果你在一個採用 systemd 機制的主機上使用用戶命名空間的容器（例如 Rootless 模式的 Docker/Podman
+如果你在一個採用 systemd 機制的主機上使用使用者命名空間的容器（例如 Rootless 模式的 Docker/Podman
 或 LXC/LXD）來運行 Kubernetes，那麼你已經準備就緒。
 
 否則你必須創建一個具有 `Delegate=yes` 屬性的 systemd 單元，來委派一個具有可寫權限的 cgroup 樹。
 
-在你的節點上，systemd 必須已經配置爲允許委派。更多細節請參閱 Rootless 容器文檔的
+在你的節點上，systemd 必須已經設定爲允許委派。更多細節請參閱 Rootless 容器文檔的
 [cgroup v2](https://rootlesscontaine.rs/getting-started/common/cgroup2/) 部分。
 
 <!--
@@ -328,30 +328,30 @@ The kubelet relies on a container runtime. You should deploy a container runtime
 containerd or CRI-O and ensure that it is running within the user namespace before the kubelet starts.
 -->
 
-### 配置網絡
+### 設定網路
 
 {{% thirdparty-content %}}
 
-節點組件的網絡命名空間必須有一個非本地迴路的網卡。它可以使用
+節點組件的網路命名空間必須有一個非本地迴路的網卡。它可以使用
 [slirp4netns](https://github.com/rootless-containers/slirp4netns)、
 [VPNKit](https://github.com/moby/vpnkit)、
 [lxc-user-nic(1)](https://www.man7.org/linux/man-pages/man1/lxc-user-nic.1.html)
-等工具進行配置。
+等工具進行設定。
 
-Pod 的網絡命名空間可以使用常規的 CNI 插件配置。對於多節點的網絡，已知 Flannel (VXLAN、8472/UDP) 可以正常工作。
+Pod 的網路命名空間可以使用常規的 CNI 插件設定。對於多節點的網路，已知 Flannel (VXLAN、8472/UDP) 可以正常工作。
 
 諸如 kubelet 端口（10250/TCP）和 `NodePort` 服務端口之類的端口必須通過外部端口轉發器
 （例如 RootlessKit、slirp4netns 或
-[socat(1)](https://linux.die.net/man/1/socat)) 從節點網絡命名空間暴露給主機。
+[socat(1)](https://linux.die.net/man/1/socat)) 從節點網路命名空間暴露給主機。
 
 你可以使用 K3s 的端口轉發器。更多細節請參閱
 [在 Rootless 模式下運行 K3s](https://rancher.com/docs/k3s/latest/en/advanced/#known-issues-with-rootless-mode)。
 該實現可以在 k3s 的 [`pkg/rootlessports` 包](https://github.com/k3s-io/k3s/blob/v1.22.3+k3s1/pkg/rootlessports/controller.go)中找到。
 
-### 配置 CRI
+### 設定 CRI
 
 kubelet 依賴於容器運行時。你需要部署一個容器運行時（例如 containerd 或 CRI-O），
-並確保它在 kubelet 啓動之前已經在用戶命名空間內運行。
+並確保它在 kubelet 啓動之前已經在使用者命名空間內運行。
 
 <!--
 {{< tabs name="cri" >}}
@@ -416,9 +416,9 @@ The path can be specified with `crio --config /path/to/crio/crio.conf`.
 {{< tabs name="cri" >}}
 {{% tab name="containerd" %}}
 
-containerd 1.4 開始支持在用戶命名空間運行 containerd 的 CRI 插件。
+containerd 1.4 開始支持在使用者命名空間運行 containerd 的 CRI 插件。
 
-在用戶命名空間運行 containerd 必須進行如下配置：
+在使用者命名空間運行 containerd 必須進行如下設定：
 
 ```toml
 version = 2
@@ -440,17 +440,17 @@ version = 2
 # (除非你在命名空間內運行了另一個 systemd)
   SystemdCgroup = false
 ```
-配置文件的默認路徑是 `/etc/containerd/config.toml`。
+設定文件的默認路徑是 `/etc/containerd/config.toml`。
 可以用 `containerd -c /path/to/containerd/config.toml` 來指定該路徑。
 {{% /tab %}}
 
 {{% tab name="CRI-O" %}}
 
-CRI-O 1.22 開始支持在用戶命名空間運行 CRI-O。
+CRI-O 1.22 開始支持在使用者命名空間運行 CRI-O。
 
-CRI-O 必須配置一個環境變量 `_CRIO_ROOTLESS=1`。
+CRI-O 必須設定一個環境變量 `_CRIO_ROOTLESS=1`。
 
-也推薦使用以下配置：
+也推薦使用以下設定：
 
 ```toml
 [crio]
@@ -463,7 +463,7 @@ CRI-O 必須配置一個環境變量 `_CRIO_ROOTLESS=1`。
 # (除非你在命名空間內運行了另一個 systemd)
   cgroup_manager = "cgroupfs"
 ```
-配置文件的默認路徑是 `/etc/containerd/config.toml`。
+設定文件的默認路徑是 `/etc/containerd/config.toml`。
 可以用 `containerd -c /path/to/containerd/config.toml` 來指定該路徑。
 {{% /tab %}}
 {{< /tabs >}}
@@ -502,9 +502,9 @@ Running kubelet in a user namespace without using this feature gate is also poss
 by mounting a specially crafted proc filesystem (as done by [Sysbox](https://github.com/nestybox/sysbox)), but not officially supported.
 -->
 
-### 配置 kubelet
+### 設定 kubelet
 
-在用戶命名空間運行 kubelet 必須進行如下配置：
+在使用者命名空間運行 kubelet 必須進行如下設定：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -516,7 +516,7 @@ featureGates:
 cgroupDriver: "cgroupfs"
 ```
 
-當 `KubeletInUserNamespace` 特性門控被啓用時， kubelet 會忽略節點內由於配置如下幾個 sysctl
+當 `KubeletInUserNamespace` 特性門控被啓用時， kubelet 會忽略節點內由於設定如下幾個 sysctl
 參數值而可能產生的錯誤。
 
 - `vm.overcommit_memory`
@@ -526,13 +526,13 @@ cgroupDriver: "cgroupfs"
 - `kernel.keys.root_maxkeys`
 - `kernel.keys.root_maxbytes`.
 
-在用戶命名空間內， kubelet 也會忽略任何由於打開 `/dev/kmsg` 而產生的錯誤。
-這個特性門控也允許 kube-proxy 忽略由於配置 `RLIMIT_NOFILE` 而產生的一個錯誤。
+在使用者命名空間內， kubelet 也會忽略任何由於打開 `/dev/kmsg` 而產生的錯誤。
+這個特性門控也允許 kube-proxy 忽略由於設定 `RLIMIT_NOFILE` 而產生的一個錯誤。
 
 `KubeletInUserNamespace` 特性門控從 Kubernetes v1.22 被引入， 標記爲 "alpha" 狀態。
 
 通過掛載特製的 proc 文件系統 （比如 [Sysbox](https://github.com/nestybox/sysbox)），
-也可以在不使用這個特性門控的情況下在用戶命名空間運行 kubelet，但這不受官方支持。
+也可以在不使用這個特性門控的情況下在使用者命名空間運行 kubelet，但這不受官方支持。
 
 <!--
 ### Configuring kube-proxy
@@ -553,9 +553,9 @@ conntrack:
 ```
 -->
 
-### 配置 kube-proxy
+### 設定 kube-proxy
 
-在用戶命名空間運行 kube-proxy 需要進行以下配置：
+在使用者命名空間運行 kube-proxy 需要進行以下設定：
 
 ```yaml
 apiVersion: kubeproxy.config.k8s.io/v1alpha1

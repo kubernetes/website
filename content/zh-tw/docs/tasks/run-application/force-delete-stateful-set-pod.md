@@ -51,7 +51,7 @@ there is at most one Pod with a given identity running in a cluster. This is ref
 在正常操作 StatefulSet 時，**永遠不**需要強制刪除 StatefulSet 管理的 Pod。
 [StatefulSet 控制器](/zh-cn/docs/concepts/workloads/controllers/statefulset/)負責創建、
 擴縮和刪除 StatefulSet 管理的 Pod。此控制器盡力確保指定數量的從序數 0 到 N-1 的 Pod
-處於活躍狀態並準備就緒。StatefulSet 確保在任何時候，集羣中最多隻有一個具有給定標識的 Pod。
+處於活躍狀態並準備就緒。StatefulSet 確保在任何時候，叢集中最多隻有一個具有給定標識的 Pod。
 這就是所謂的由 StatefulSet 提供的**最多一個（At Most One）** Pod 的語義。
 
 <!--
@@ -63,8 +63,8 @@ members with fixed identities. Having multiple members with the same identity ca
 and may lead to data loss (e.g. split brain scenario in quorum-based systems).
 -->
 應謹慎進行手動強制刪除操作，因爲它可能會違反 StatefulSet 固有的至多一個的語義。
-StatefulSet 可用於運行分佈式和集羣級的應用，這些應用需要穩定的網絡標識和可靠的存儲。
-這些應用通常配置爲具有固定標識固定數量的成員集合。
+StatefulSet 可用於運行分佈式和叢集級的應用，這些應用需要穩定的網路標識和可靠的存儲。
+這些應用通常設定爲具有固定標識固定數量的成員集合。
 具有相同身份的多個成員可能是災難性的，並且可能導致數據丟失 (例如票選系統中的腦裂場景)。
 
 <!--
@@ -90,7 +90,7 @@ before the kubelet deletes the name from the apiserver.
 -->
 爲了讓上面操作能夠體面地終止 Pod，Pod **一定不能**設置 `pod.Spec.TerminationGracePeriodSeconds` 爲 0。
 將 `pod.Spec.TerminationGracePeriodSeconds` 設置爲 0 秒的做法是不安全的，強烈建議 StatefulSet 類型的
-Pod 不要使用。體面刪除是安全的，並且會在 kubelet 從 API 服務器中刪除資源名稱之前確保
+Pod 不要使用。體面刪除是安全的，並且會在 kubelet 從 API 伺服器中刪除資源名稱之前確保
 [體面地結束 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 
 <!--
@@ -104,8 +104,8 @@ The only ways in which a Pod in such a state can be removed from the apiserver a
 當某個節點不可達時，不會引發自動刪除 Pod。在無法訪問的節點上運行的 Pod
 在[超時](/zh-cn/docs/concepts/architecture/nodes/#condition)後會進入
 “Terminating” 或者 “Unknown” 狀態。
-當用戶嘗試體面地刪除無法訪問的節點上的 Pod 時 Pod 也可能會進入這些狀態。
-從 API 服務器上刪除處於這些狀態 Pod 的僅有可行方法如下：
+當使用者嘗試體面地刪除無法訪問的節點上的 Pod 時 Pod 也可能會進入這些狀態。
+從 API 伺服器上刪除處於這些狀態 Pod 的僅有可行方法如下：
 
 <!--
 - The Node object is deleted (either by you, or by the
@@ -116,8 +116,8 @@ The only ways in which a Pod in such a state can be removed from the apiserver a
 -->
 - 刪除 Node 對象（要麼你來刪除, 要麼[節點控制器](/zh-cn/docs/concepts/architecture/nodes/#node-controller)
   來刪除）
-- 無響應節點上的 kubelet 開始響應，殺死 Pod 並從 API 服務器上移除 Pod 對象
-- 用戶強制刪除 Pod
+- 無響應節點上的 kubelet 開始響應，殺死 Pod 並從 API 伺服器上移除 Pod 對象
+- 使用者強制刪除 Pod
 
 <!--
 The recommended best practice is to use the first or second approach. If a Node is confirmed
@@ -127,10 +127,10 @@ or wait for it to resolve. When the partition heals, the kubelet will complete t
 of the Pod and free up its name in the apiserver.
 -->
 推薦使用第一種或者第二種方法。
-如果確認節點已經不可用了（比如，永久斷開網絡、斷電等），
+如果確認節點已經不可用了（比如，永久斷開網路、斷電等），
 則應刪除 Node 對象。
 如果節點遇到網裂問題，請嘗試解決該問題或者等待其解決。
-當網裂癒合時，kubelet 將完成 Pod 的刪除並從 API 服務器上釋放其名字。
+當網裂癒合時，kubelet 將完成 Pod 的刪除並從 API 伺服器上釋放其名字。
 
 <!--
 Normally, the system completes the deletion once the Pod is no longer running on a Node, or
@@ -152,7 +152,7 @@ will violate the at most one semantics that StatefulSet is designed to guarantee
 ### 強制刪除    {#force-deletion}
 
 強制刪除**不會**等待來自 kubelet 對 Pod 已終止的確認消息。
-無論強制刪除是否成功殺死了 Pod，它都會立即從 API 服務器中釋放該名字。
+無論強制刪除是否成功殺死了 Pod，它都會立即從 API 伺服器中釋放該名字。
 這將讓 StatefulSet 控制器創建一個具有相同標識的替身 Pod；因而可能導致正在運行 Pod 的重複，
 並且如果所述 Pod 仍然可以與 StatefulSet 的成員通信，則將違反 StatefulSet
 所要保證的最多一個的語義。
@@ -187,7 +187,7 @@ kubectl delete pods <pod> --grace-period=0
 If even after these commands the pod is stuck on `Unknown` state, use the following command to
 remove the pod from the cluster:
 -->
-如果在執行這些命令後 Pod 仍處於 `Unknown` 狀態，請使用以下命令從集羣中刪除 Pod：
+如果在執行這些命令後 Pod 仍處於 `Unknown` 狀態，請使用以下命令從叢集中刪除 Pod：
 
 ```shell
 kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'

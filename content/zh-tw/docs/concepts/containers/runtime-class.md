@@ -26,7 +26,7 @@ configuration is used to run a Pod's containers.
 -->
 本頁面描述了 RuntimeClass 資源和運行時的選擇機制。
 
-RuntimeClass 是一個用於選擇容器運行時配置的特性，容器運行時配置用於運行 Pod 中的容器。
+RuntimeClass 是一個用於選擇容器運行時設定的特性，容器運行時設定用於運行 Pod 中的容器。
 
 <!-- body -->
 
@@ -63,21 +63,21 @@ but with different settings.
 1. Configure the CRI implementation on nodes (runtime dependent)
 2. Create the corresponding RuntimeClass resources
 -->
-1. 在節點上配置 CRI 的實現（取決於所選用的運行時）
+1. 在節點上設定 CRI 的實現（取決於所選用的運行時）
 2. 創建相應的 RuntimeClass 資源
 
 <!--
 ### 1. Configure the CRI implementation on nodes
 -->
-### 1. 在節點上配置 CRI 實現
+### 1. 在節點上設定 CRI 實現
 
 <!--
 The configurations available through RuntimeClass are Container Runtime Interface (CRI)
 implementation dependent. See the corresponding documentation ([below](#cri-configuration)) for your
 CRI implementation for how to configure.
 -->
-RuntimeClass 的配置依賴於運行時接口（CRI）的實現。
-根據你使用的 CRI 實現，查閱相關的文檔（[下方](#cri-configuration)）來了解如何配置。
+RuntimeClass 的設定依賴於運行時接口（CRI）的實現。
+根據你使用的 CRI 實現，查閱相關的文檔（[下方](#cri-configuration)）來了解如何設定。
 
 {{< note >}}
 <!--
@@ -85,15 +85,15 @@ RuntimeClass assumes a homogeneous node configuration across the cluster by defa
 that all nodes are configured the same way with respect to container runtimes). To support
 heterogeneous node configurations, see [Scheduling](#scheduling) below.
 -->
-RuntimeClass 假設集羣中的節點配置是同構的（換言之，所有的節點在容器運行時方面的配置是相同的）。
-如果需要支持異構節點，配置方法請參閱下面的[調度](#scheduling)。
+RuntimeClass 假設叢集中的節點設定是同構的（換言之，所有的節點在容器運行時方面的設定是相同的）。
+如果需要支持異構節點，設定方法請參閱下面的[調度](#scheduling)。
 {{< /note >}}
 
 <!--
 The configurations have a corresponding `handler` name, referenced by the RuntimeClass. The
 handler must be a valid [DNS label name](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 -->
-所有這些配置都具有相應的 `handler` 名，並被 RuntimeClass 引用。
+所有這些設定都具有相應的 `handler` 名，並被 RuntimeClass 引用。
 handler 必須是有效的 [DNS 標籤名](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-label-names)。
 
 <!--
@@ -104,7 +104,7 @@ the configuration. For each handler, create a corresponding RuntimeClass object.
 -->
 ### 2. 創建相應的 RuntimeClass 資源
 
-在上面步驟 1 中，每個配置都需要有一個用於標識配置的 `handler`。
+在上面步驟 1 中，每個設定都需要有一個用於標識設定的 `handler`。
 針對每個 handler 需要創建一個 RuntimeClass 對象。
 
 <!--
@@ -139,8 +139,8 @@ It is recommended that RuntimeClass write operations (create/update/patch/delete
 restricted to the cluster administrator. This is typically the default. See
 [Authorization Overview](/docs/reference/access-authn-authz/authorization/) for more details.
 -->
-建議將 RuntimeClass 寫操作（create、update、patch 和 delete）限定於集羣管理員使用。
-通常這是默認配置。參閱[授權概述](/zh-cn/docs/reference/access-authn-authz/authorization/)瞭解更多信息。
+建議將 RuntimeClass 寫操作（create、update、patch 和 delete）限定於叢集管理員使用。
+通常這是默認設定。參閱[授權概述](/zh-cn/docs/reference/access-authn-authz/authorization/)瞭解更多信息。
 {{< /note >}}
 
 <!--
@@ -151,7 +151,7 @@ Once RuntimeClasses are configured for the cluster, you can specify a
 -->
 ## 使用說明  {#usage}
 
-一旦完成集羣中 RuntimeClasses 的配置，
+一旦完成叢集中 RuntimeClasses 的設定，
 你可以在 Pod spec 中指定 `runtimeClassName` 來使用它。例如:
 
 ```yaml
@@ -188,7 +188,7 @@ to the behavior when the RuntimeClass feature is disabled.
 
 For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/production-environment/container-runtimes/).
 -->
-### CRI 配置   {#cri-configuration}
+### CRI 設定   {#cri-configuration}
 
 關於如何安裝 CRI 運行時，請查閱
 [CRI 安裝](/zh-cn/docs/setup/production-environment/container-runtimes/)。
@@ -199,8 +199,8 @@ For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/
 Runtime handlers are configured through containerd's configuration at
 `/etc/containerd/config.toml`. Valid handlers are configured under the runtimes section:
 -->
-通過 containerd 的 `/etc/containerd/config.toml` 配置文件來配置運行時 handler。
-handler 需要配置在 runtimes 塊中：
+通過 containerd 的 `/etc/containerd/config.toml` 設定文件來設定運行時 handler。
+handler 需要設定在 runtimes 塊中：
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
@@ -210,7 +210,7 @@ handler 需要配置在 runtimes 塊中：
 See containerd's [config documentation](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 for more details:
 -->
-更詳細信息，請查閱 containerd 的[配置指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
+更詳細信息，請查閱 containerd 的[設定指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
@@ -219,8 +219,8 @@ Runtime handlers are configured through CRI-O's configuration at `/etc/crio/crio
 handlers are configured under the
 [crio.runtime table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
 -->
-通過 CRI-O 的 `/etc/crio/crio.conf` 配置文件來配置運行時 handler。
-handler 需要配置在
+通過 CRI-O 的 `/etc/crio/crio.conf` 設定文件來設定運行時 handler。
+handler 需要設定在
 [crio.runtime 表](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table)之下：
 
 ```
@@ -231,7 +231,7 @@ handler 需要配置在
 <!--
 See CRI-O's [config documentation](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md) for more details.
 -->
-更詳細信息，請查閱 CRI-O [配置文檔](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)。
+更詳細信息，請查閱 CRI-O [設定文檔](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)。
 
 <!--
 ## Scheduling
@@ -273,7 +273,7 @@ by each.
 To learn more about configuring the node selector and tolerations, see
 [Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 -->
-更多有關 node selector 和 tolerations 的配置信息，請查閱
+更多有關 node selector 和 tolerations 的設定信息，請查閱
 [將 Pod 分派到節點](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)。
 
 <!--
@@ -287,7 +287,7 @@ To learn more about configuring the node selector and tolerations, see
 You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
 the cluster (including the scheduler) to account for it when making decisions about Pods and resources.
 -->
-你可以指定與運行 Pod 相關的**開銷**資源。聲明開銷即允許集羣（包括調度器）在決策 Pod 和資源時將其考慮在內。
+你可以指定與運行 Pod 相關的**開銷**資源。聲明開銷即允許叢集（包括調度器）在決策 Pod 和資源時將其考慮在內。
 
 <!--
 Pod overhead is defined in RuntimeClass through the `overhead` field. Through the use of this field,

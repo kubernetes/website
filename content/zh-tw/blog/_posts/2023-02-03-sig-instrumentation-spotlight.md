@@ -25,7 +25,7 @@ Observability requires the right data at the right time for the right consumer
 having best practices for cluster observability across all Kubernetes components is crucial.
 -->
 可觀測性需要在合適的時間提供合適的數據，以便合適的消費者（人員或軟件）做出正確的決策。
-在 Kubernetes 的環境中，擁有跨所有 Kubernetes 組件的集羣可觀測性最佳實踐是至關重要的。
+在 Kubernetes 的環境中，擁有跨所有 Kubernetes 組件的叢集可觀測性最佳實踐是至關重要的。
 
 <!--
 SIG Instrumentation helps to address this issue by providing best practices and tools
@@ -33,7 +33,7 @@ that all other SIGs use to instrument Kubernetes components-like the *API server
 *scheduler*, *kubelet* and *kube-controller-manager*.
 -->
 SIG Instrumentation 通過提供最佳實踐和工具來解決這個問題， 所有其他 SIG 都可以使用它們來對如
-**API 服務器**、**kubelet** 和 **kube-controller-manager** 這類 Kubernetes 組件進行插樁。
+**API 伺服器**、**kubelet** 和 **kube-controller-manager** 這類 Kubernetes 組件進行插樁。
 
 <!--
 In this SIG Instrumentation spotlight, [Imran Noor Mohamed](https://www.linkedin.com/in/imrannoormohamed/),
@@ -77,7 +77,7 @@ improvements to kube-state-metrics and ultimately coauthored a KEP for overhauli
 metrics in the 1.14 release to improve usability.
 -->
 **Elana (EH)**: 我也是在 2018 年加入了 SIG Instrumentation，並與 Han 同時成爲主席。
-當時我是一名負責裸金屬 Kubernetes 集羣的站點可靠性工程師（site reliability engineer，SRE），
+當時我是一名負責裸金屬 Kubernetes 叢集的站點可靠性工程師（site reliability engineer，SRE），
 致力於構建我們的可觀測性堆棧。我在標籤關聯方面遇到了一些問題，具體來說是 Kubernetes 的指標與
 kube-state-metrics（[KSM](https://github.com/kubernetes/kube-state-metrics)）不匹配，
 因此我開始參加 SIG 會議以改進這些方面。我幫助測試了 kube-state-metrics 的性能改進，
@@ -194,7 +194,7 @@ should make it easy for people to create availability SLOs for *control-plane* c
 -->
 **Han (HK)**: 現在我們可以爲 Kubernetes 的 main 代碼庫中的所有監控指標生成[文檔](https://kubernetes.io/docs/reference/instrumentation/metrics/)！
 我們有一個相當不錯的靜態分析流水線，使這一功能成爲可能。
-我們還添加了 feature 指標，這樣你可以查看這個指標來確定在給定時間內集羣中啓用了哪些特性。
+我們還添加了 feature 指標，這樣你可以查看這個指標來確定在給定時間內叢集中啓用了哪些特性。
 最後，我們添加了一個 component-sli 端點，它應該使人們爲**控制平面（control-plane）**
 組件制定可用性 SLOs 變得容易。
 
@@ -203,7 +203,7 @@ should make it easy for people to create availability SLOs for *control-plane* c
 and *kubelet*, though neither graduated in 1.26. I’m also really excited about the
 work Han is doing with WG Reliability to extend and improve our metrics stability framework.
 -->
-**Elana (EH)**: 我們還在做關於 **API 服務器** 和 **kubelet** 的 tracing 方面的 KEPs 工作，
+**Elana (EH)**: 我們還在做關於 **API 伺服器** 和 **kubelet** 的 tracing 方面的 KEPs 工作，
 儘管它們都沒有在 1.26 版本中畢業。我對於 Han 與可靠性工作組合作，來擴展和改進我們的指標穩定性框架的工作也感到非常興奮。
 
 <!--

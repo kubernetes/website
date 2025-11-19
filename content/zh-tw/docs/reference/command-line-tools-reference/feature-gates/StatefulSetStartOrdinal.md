@@ -25,5 +25,5 @@ StatefulSet. See
 [Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal)
 for more details.
 -->
-允許在 StatefulSet 中配置起始序號。
+允許在 StatefulSet 中設定起始序號。
 詳情參見[起始序號](/zh-cn/docs/concepts/workloads/controllers/statefulset/#start-ordinal)。

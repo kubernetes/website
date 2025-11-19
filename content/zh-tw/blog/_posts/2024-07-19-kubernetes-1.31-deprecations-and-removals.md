@@ -86,8 +86,8 @@ If you have relied on SHA-1 based certificates, you must explicitly opt back int
 在 [go1.18](https://go.dev/doc/go1.18#sha1)（2022 年 3 月發佈）中，crypto/x509
 庫開始拒絕使用 SHA-1 哈希函數簽名的證書。
 雖然 SHA-1 被確定爲不安全，並且公衆信任的證書頒發機構自 2015 年以來就沒有頒發過 SHA-1 證書，
-但在 Kubernetes 環境中，仍可能存在用戶提供的證書通過私人頒發機構使用 SHA-1 哈希函數簽名的情況，
-這些證書用於聚合 API 服務器或 Webhook。
+但在 Kubernetes 環境中，仍可能存在使用者提供的證書通過私人頒發機構使用 SHA-1 哈希函數簽名的情況，
+這些證書用於聚合 API 伺服器或 Webhook。
 如果你依賴基於 SHA-1 的證書，則必須通過在環境中設置 `GODEBUG=x509sha1=1` 以明確選擇重新支持這種證書。
 
 <!--
@@ -162,7 +162,7 @@ The latter blog also contains useful information for users who need to migrate t
 有關樹內代碼刪除的更多背景信息，請閱讀
 （[v1.29 棄用博客](/blog/2023/11/16/kubernetes-1-29-upcoming-changes/#removal-of-in-tree-integrations-with-cloud-providers-kep-2395-https-kep-k8s-io-2395)）。
 
-後一個博客還包含對需要遷移到 v1.29 及更高版本的用戶有用的信息。
+後一個博客還包含對需要遷移到 v1.29 及更高版本的使用者有用的信息。
 
 <!--
 ### Removal of kubelet `--keep-terminated-pod-volumes` command line flag
@@ -172,7 +172,7 @@ part of the v1.31 release.
 
 You can find more details in the pull request [#122082](https://github.com/kubernetes/kubernetes/pull/122082).
 -->
-### 刪除 kubelet `--keep-terminated-pod-volumes` 命令行標誌
+### 刪除 kubelet `--keep-terminated-pod-volumes` 命令列標誌
 
 kubelet 標誌 `--keep-terminated-pod-volumes` 已於 2017 年棄用，將在 v1.31 版本中被刪除。
 
@@ -194,7 +194,7 @@ CephFS volume plugin was formally marked as deprecated in v1.28.
 並且 `cephfs` 卷類型已無法使用。
 
 建議你改用 [CephFS CSI 驅動程序](https://github.com/ceph/ceph-csi/) 作爲第三方存儲驅動程序。
-如果你在將集羣版本升級到 v1.31 之前在使用 CephFS 卷插件，則必須重新部署應用才能使用新驅動。
+如果你在將叢集版本升級到 v1.31 之前在使用 CephFS 卷插件，則必須重新部署應用才能使用新驅動。
 
 CephFS 卷插件在 v1.28 中正式標記爲已棄用。
 
@@ -213,8 +213,8 @@ The Ceph RBD volume plugin was formally marked as deprecated in v1.28.
 v1.31 版本將刪除 [Ceph RBD 卷插件](/zh-cn/docs/concepts/storage/volumes/#rbd)及其 CSI 遷移支持，
 `rbd` 卷類型將無法繼續使用。
 
-建議你在集羣中使用 [RBD CSI 驅動](https://github.com/ceph/ceph-csi/)。
-如果你在將集羣版本升級到 v1.31 之前在使用 Ceph RBD 卷插件，則必須重新部署應用以使用新驅動。
+建議你在叢集中使用 [RBD CSI 驅動](https://github.com/ceph/ceph-csi/)。
+如果你在將叢集版本升級到 v1.31 之前在使用 Ceph RBD 卷插件，則必須重新部署應用以使用新驅動。
 
 Ceph RBD 卷插件在 v1.28 中正式標記爲已棄用。
 
@@ -242,7 +242,7 @@ The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins wi
 These plugins will be removed from the default scheduler plugins list as they have been deprecated since Kubernetes v1.14.
 -->
 建議你改用 `NodeVolumeLimits` 插件，因爲它可以處理與已刪除插件相同的功能，因爲這些卷類型已遷移到 CSI。
-如果你在[調度器配置](/zh-cn/docs/reference/scheduling/config/)中顯式使用已棄用的插件，
+如果你在[調度器設定](/zh-cn/docs/reference/scheduling/config/)中顯式使用已棄用的插件，
 請用 `NodeVolumeLimits` 插件替換它們。
 `AzureDiskLimits`、`CinderLimits`、`EBSLimits` 和 `GCEPDLimits` 插件將在未來的版本中被刪除。
 
@@ -264,7 +264,7 @@ For more information, please refer to the [API deprecation guide](/docs/referenc
 
 * 將刪除 `flowcontrol.apiserver.k8s.io/v1beta3` API 版本的 FlowSchema 和 PriorityLevelConfiguration。
   爲了做好準備，你可以編輯現有清單並重寫客戶端軟件以使用自 v1.29 起可用的 `flowcontrol.apiserver.k8s.io/v1 API` 版本。
-  所有現有的持久化對象都可以通過新 API 訪問。`flowcontrol.apiserver.k8s.io/v1beta3` 中需要注意的變化包括優先級配置
+  所有現有的持久化對象都可以通過新 API 訪問。`flowcontrol.apiserver.k8s.io/v1beta3` 中需要注意的變化包括優先級設定
   `spec.limited.nominalConcurrencyShares` 字段僅在未指定時默認爲 30，並且顯式設置爲 0 的話不會被更改爲 30。
 
 有關更多信息，請參閱 [API 棄用指南](/docs/reference/using-api/deprecation-guide/#v1-32)。

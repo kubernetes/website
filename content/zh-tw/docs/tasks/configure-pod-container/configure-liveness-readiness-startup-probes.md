@@ -1,5 +1,5 @@
 ---
-title: 配置存活、就緒和啓動探針
+title: 設定存活、就緒和啓動探針
 content_type: task
 weight: 140
 ---
@@ -21,7 +21,7 @@ probes could catch a deadlock, where an application is running, but unable to
 make progress. Restarting a container in such a state can help to make the
 application more available despite bugs.
 -->
-這篇文章介紹如何給容器配置存活（Liveness）、就緒（Readiness）和啓動（Startup）探針。
+這篇文章介紹如何給容器設定存活（Liveness）、就緒（Readiness）和啓動（Startup）探針。
 
 有關探針的更多信息，
 請參閱[存活、就緒和啓動探針](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes)。
@@ -62,7 +62,7 @@ true 時，Pod 被認爲是就緒的。若 Pod 未就緒，會被從 Service 的
 時，或者當 Pod 中有任何一個容器未就緒時，Pod 的 `Ready` 狀況爲 false。
 
 kubelet 使用啓動探針來了解應用容器何時啓動。
-如果配置了這類探針，存活探針和就緒探針在啓動探針成功之前不會啓動，從而確保存活探針或就緒探針不會影響應用的啓動。
+如果設定了這類探針，存活探針和就緒探針在啓動探針成功之前不會啓動，從而確保存活探針或就緒探針不會影響應用的啓動。
 啓動探針可以用於對慢啓動容器進行存活性檢測，避免它們在啓動運行之前就被殺掉。
 
 {{< caution >}}
@@ -72,7 +72,7 @@ they should be used with caution. Liveness probes must be configured carefully
 to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
 -->
 存活探針是一種從應用故障中恢復的強勁方式，但應謹慎使用。
-你必須仔細配置存活探針，確保它能真正標示出不可恢復的應用故障，例如死鎖。
+你必須仔細設定存活探針，確保它能真正標示出不可恢復的應用故障，例如死鎖。
 {{< /caution >}}
 
 {{< note >}}
@@ -85,7 +85,7 @@ Understand the difference between readiness and liveness probes and when to appl
 錯誤的存活探針可能會導致級聯故障。
 這會導致在高負載下容器重啓；例如由於應用無法擴展，導致客戶端請求失敗；以及由於某些
 Pod 失敗而導致剩餘 Pod 的工作負載增加。瞭解就緒探針和存活探針之間的區別，
-以及何時爲應用配置使用它們非常重要。
+以及何時爲應用設定使用它們非常重要。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -109,8 +109,8 @@ In this exercise, you create a Pod that runs a container based on the
 許多長時間運行的應用最終會進入損壞狀態，除非重新啓動，否則無法被恢復。
 Kubernetes 提供了存活探針來發現並處理這種情況。
 
-在本練習中，你會創建一個 Pod，其中運行一個基於 `registry.k8s.io/busybox:1.27.2` 鏡像的容器。
-下面是這個 Pod 的配置文件。
+在本練習中，你會創建一個 Pod，其中運行一個基於 `registry.k8s.io/busybox:1.27.2` 映像檔的容器。
+下面是這個 Pod 的設定文件。
 
 {{% code_sample file="pods/probe/exec-liveness.yaml" %}}
 
@@ -126,7 +126,7 @@ and restarts it.
 
 When the container starts, it executes this command:
 -->
-在這個配置文件中，可以看到 Pod 中只有一個 `Container`。
+在這個設定文件中，可以看到 Pod 中只有一個 `Container`。
 `periodSeconds` 字段指定了 kubelet 應該每 5 秒執行一次存活探測。
 `initialDelaySeconds` 字段告訴 kubelet 在執行第一次探測前應該等待 5 秒。
 kubelet 在容器內執行命令 `cat /tmp/healthy` 來進行探測。
@@ -237,7 +237,7 @@ file for a Pod that runs a container based on the `registry.k8s.io/e2e-test-imag
 ## 定義一個存活態 HTTP 請求接口 {#define-a-liveness-HTTP-request}
 
 另外一種類型的存活探測方式是使用 HTTP GET 請求。
-下面是一個 Pod 的配置文件，其中運行一個基於 `registry.k8s.io/e2e-test-images/agnhost` 鏡像的容器。
+下面是一個 Pod 的設定文件，其中運行一個基於 `registry.k8s.io/e2e-test-images/agnhost` 映像檔的容器。
 
 {{% code_sample file="pods/probe/http-liveness.yaml" %}}
 
@@ -252,11 +252,11 @@ returns a success code, the kubelet considers the container to be alive and
 healthy. If the handler returns a failure code, the kubelet kills the container
 and restarts it.
 -->
-在這個配置文件中，你可以看到 Pod 也只有一個容器。
+在這個設定文件中，你可以看到 Pod 也只有一個容器。
 `periodSeconds` 字段指定了 kubelet 每隔 3 秒執行一次存活探測。
 `initialDelaySeconds` 字段告訴 kubelet 在執行第一次探測前應該等待 3 秒。
 kubelet 會向容器內運行的服務（服務在監聽 8080 端口）發送一個 HTTP GET 請求來執行探測。
-如果服務器上 `/healthz` 路徑下的處理程序返回成功代碼，則 kubelet 認爲容器是健康存活的。
+如果伺服器上 `/healthz` 路徑下的處理程序返回成功代碼，則 kubelet 認爲容器是健康存活的。
 如果處理程序返回失敗代碼，則 kubelet 會殺死這個容器並將其重啓。
 
 <!--
@@ -332,7 +332,7 @@ can't it is considered a failure.
 ## 定義 TCP 的存活探測 {#define-a-TCP-liveness-probe}
 
 第三種類型的存活探測是使用 TCP 套接字。
-使用這種配置時，kubelet 會嘗試在指定端口和容器建立套接字鏈接。
+使用這種設定時，kubelet 會嘗試在指定端口和容器建立套接字鏈接。
 如果能建立連接，這個容器就被看作是健康的，如果不能則這個容器就被看作是有問題的。
 
 {{% code_sample file="pods/probe/tcp-liveness-readiness.yaml" %}}
@@ -345,7 +345,7 @@ connect to the `goproxy` container on port 8080. If the liveness probe fails,
 the container will be restarted. The kubelet will continue to run this check
 every 10 seconds.
 -->
-如你所見，TCP 檢測的配置和 HTTP 檢測非常相似。
+如你所見，TCP 檢測的設定和 HTTP 檢測非常相似。
 下面這個例子同時使用就緒探針和存活探針。kubelet 會在容器啓動 15 秒後運行第一次存活探測。
 此探測會嘗試連接 `goproxy` 容器的 8080 端口。
 如果此存活探測失敗，容器將被重啓。kubelet 將繼續每隔 10 秒運行一次這種探測。
@@ -361,7 +361,7 @@ services.
 
 To try the TCP liveness check, create a Pod:
 -->
-除了存活探針，這個配置還包括一個就緒探針。
+除了存活探針，這個設定還包括一個就緒探針。
 kubelet 會在容器啓動 15 秒後運行第一次就緒探測。
 與存活探測類似，就緒探測會嘗試連接 `goproxy` 容器的 8080 端口。
 如果就緒探測失敗，Pod 將被標記爲未就緒，且不會接收來自任何服務的流量。
@@ -398,8 +398,8 @@ Here is an example manifest:
 -->
 如果你的應用實現了
 [gRPC 健康檢查協議](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
-這個例子展示瞭如何配置 Kubernetes 以將其用於應用的存活性檢查。
-類似地，你可以配置就緒探針和啓動探針。
+這個例子展示瞭如何設定 Kubernetes 以將其用於應用的存活性檢查。
+類似地，你可以設定就緒探針和啓動探針。
 
 下面是一個示例清單：
 
@@ -416,7 +416,7 @@ If you want to specify your own custom service name and also specify a probe typ
 the Kubernetes project recommends that you use a name that concatenates
 those. For example: `myservice-liveness` (using `-` as a separator).
 -->
-要使用 gRPC 探針，必須配置 `port` 屬性。
+要使用 gRPC 探針，必須設定 `port` 屬性。
 如果要區分不同類型的探針和不同功能的探針，可以使用 `service` 字段。
 你可以將 `service` 設置爲 `liveness`，並使你的 gRPC
 健康檢查端點對該請求的響應與將 `service` 設置爲 `readiness` 時不同。
@@ -441,7 +441,7 @@ are considered a probe failure, similar to HTTP and TCP probes.
 To try the gRPC liveness check, create a Pod using the command below.
 In the example below, the etcd pod is configured to use gRPC liveness probe.
 -->
-配置問題（例如：錯誤的 `port` 或 `service`、未實現健康檢查協議）
+設定問題（例如：錯誤的 `port` 或 `service`、未實現健康檢查協議）
 都被認作是探測失敗，這一點與 HTTP 和 TCP 探針類似。
 
 ```shell
@@ -470,7 +470,7 @@ When using a gRPC probe, there are some technical details to be aware of:
 當使用 gRPC 探針時，需要注意以下一些技術細節：
 
 - 這些探針運行時針對的是 Pod 的 IP 地址或其主機名。
-  請一定配置你的 gRPC 端點使之監聽於 Pod 的 IP 地址之上。
+  請一定設定你的 gRPC 端點使之監聽於 Pod 的 IP 地址之上。
 - 這些探針不支持任何身份認證參數（例如 `-tls`）。
 - 對於內置的探針而言，不存在錯誤代碼。所有錯誤都被視作探測失敗。
 - 如果 `ExecProbeTimeout` 特性門控被設置爲 `false`，則 `grpc-health-probe`
@@ -572,7 +572,7 @@ Services.
 ## 定義就緒探針 {#define-readiness-probes}
 
 有時候，應用會暫時性地無法爲請求提供服務。
-例如，應用在啓動時可能需要加載大量的數據或配置文件，或是啓動後要依賴等待外部服務。
+例如，應用在啓動時可能需要加載大量的數據或設定文件，或是啓動後要依賴等待外部服務。
 在這種情況下，既不想殺死應用，也不想給它發送請求。
 Kubernetes 提供了就緒探針來發現並緩解這些情況。
 容器所在 Pod 上報還未就緒的信息，並且不接受通過 Kubernetes Service 的流量。
@@ -598,7 +598,7 @@ If you want to wait before executing a readiness probe, you should use
 Readiness probes are configured similarly to liveness probes. The only difference
 is that you use the `readinessProbe` field instead of the `livenessProbe` field.
 -->
-就緒探針的配置和存活探針的配置相似。
+就緒探針的設定和存活探針的設定相似。
 唯一區別就是要使用 `readinessProbe` 字段，而不是 `livenessProbe` 字段。
 
 ```yaml
@@ -619,7 +619,7 @@ Readiness and liveness probes can be used in parallel for the same container.
 Using both can ensure that traffic does not reach a container that is not ready
 for it, and that containers are restarted when they fail.
 -->
-HTTP 和 TCP 的就緒探針配置也和存活探針的配置完全相同。
+HTTP 和 TCP 的就緒探針設定也和存活探針的設定完全相同。
 
 就緒和存活探測可以在同一個容器上並行使用。
 兩者共同使用，可以確保流量不會發給還未就緒的容器，當這些探測失敗時容器會被重新啓動。
@@ -627,7 +627,7 @@ HTTP 和 TCP 的就緒探針配置也和存活探針的配置完全相同。
 <!--
 ## Configure Probes
 -->
-## 配置探針 {#configure-probes}
+## 設定探針 {#configure-probes}
 
 <!--Eventually, some of this section could be moved to a concept topic.-->
 
@@ -637,7 +637,7 @@ have a number of fields that you can use to more precisely control the behavior 
 liveness and readiness checks:
 -->
 [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-有很多配置字段，可以使用這些字段精確地控制啓動、存活和就緒檢測的行爲：
+有很多設定字段，可以使用這些字段精確地控制啓動、存活和就緒檢測的行爲：
 
 <!--
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
@@ -660,7 +660,7 @@ liveness and readiness checks:
   如果 `periodSeconds` 的值大於 `initialDelaySeconds`，則 `initialDelaySeconds`
   將被忽略。默認是 0 秒，最小值是 0。
 * `periodSeconds`：執行探測的時間間隔（單位是秒）。默認是 10 秒。最小值是 1。
-  當容器未就緒時，`ReadinessProbe` 可能會在除配置的 `periodSeconds`
+  當容器未就緒時，`ReadinessProbe` 可能會在除設定的 `periodSeconds`
   間隔以外的時間執行。這是爲了讓 Pod 更快地達到可用狀態。
 * `timeoutSeconds`：探測的超時後等待多少秒。默認值是 1 秒。最小值是 1。
 * `successThreshold`：探針在失敗後，被視爲成功的最小連續成功數。默認值是 1。
@@ -697,7 +697,7 @@ liveness and readiness checks:
   for more detail.
 -->
 * `terminationGracePeriodSeconds`：爲 kubelet
-  配置從爲失敗的容器觸發終止操作到強制容器運行時停止該容器之前等待的寬限時長。
+  設定從爲失敗的容器觸發終止操作到強制容器運行時停止該容器之前等待的寬限時長。
   默認值是繼承 Pod 級別的 `terminationGracePeriodSeconds` 值（如果不設置則爲 30 秒），最小值爲 1。
   更多細節請參見[探針級別 `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)。
 
@@ -727,7 +727,7 @@ have additional fields that can be set on `httpGet`:
 ### HTTP 探測  {#http-probes}
 
 [HTTP Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
-允許針對 `httpGet` 配置額外的字段：
+允許針對 `httpGet` 設定額外的字段：
 
 * `host`：連接使用的主機名，默認是 Pod 的 IP。也可以在 HTTP 頭中設置 "Host" 來代替。
 * `scheme`：用於設置連接主機的方式（HTTP 還是 HTTPS）。默認是 "HTTP"。
@@ -843,7 +843,7 @@ to resolve it.
 ### TCP 探測  {#tcp-probes}
 
 對於 TCP 探測而言，kubelet 在節點上（不是在 Pod 裏面）發起探測連接，
-這意味着你不能在 `host` 參數上配置服務名稱，因爲 kubelet 不能解析服務名稱。
+這意味着你不能在 `host` 參數上設定服務名稱，因爲 kubelet 不能解析服務名稱。
 
 <!--
 ### Probe-level `terminationGracePeriodSeconds`
@@ -857,7 +857,7 @@ In 1.25 and above, users can specify a probe-level `terminationGracePeriodSecond
 as part of the probe specification. When both a pod- and probe-level
 `terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 -->
-在 1.25 及以上版本中，用戶可以指定一個探針層面的 `terminationGracePeriodSeconds`
+在 1.25 及以上版本中，使用者可以指定一個探針層面的 `terminationGracePeriodSeconds`
 作爲探針規約的一部分。
 當 Pod 層面和探針層面的 `terminationGracePeriodSeconds`
 都已設置，kubelet 將使用探針層面設置的值。
@@ -934,7 +934,7 @@ Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
 It will be rejected by the API server.
 -->
 探針層面的 `terminationGracePeriodSeconds` 不能用於就緒態探針。
-這一設置將被 API 服務器拒絕。
+這一設置將被 API 伺服器拒絕。
 
 ## {{% heading "whatsnext" %}}
 

@@ -47,7 +47,7 @@ the container.
 
 在 Kubernetes 中，某些以 HTTP 或 RESTful 接口公開的某些端點會被升級爲流式連接，因而需要使用流式協議。
 與 HTTP 這種請求-響應協議不同，流式協議提供了一種持久的雙向連接，具有低延遲的特點，並允許實時交互。
-流式協議支持在客戶端與服務器之間通過同一個連接進行雙向的數據讀寫。
+流式協議支持在客戶端與伺服器之間通過同一個連接進行雙向的數據讀寫。
 這種類型的連接非常有用，例如，當你從本地工作站在某個運行中的容器內創建 shell 並在該容器中運行命令時。
 
 <!--
@@ -64,7 +64,7 @@ stop working when you try to access your cluster through a proxy or gateway.
 
 在 v1.31 版本發佈之前，Kubernetes 默認使用 SPDY/3.1 協議來升級流式連接。
 但是 SPDY/3.1 已經被廢棄了八年之久，並且從未被標準化，許多現代代理、網關和負載均衡器已經不再支持該協議。
-因此，當你嘗試通過代理或網關訪問集羣時，可能會發現像 `kubectl cp`、`kubectl attach`、`kubectl exec`
+因此，當你嘗試通過代理或網關訪問叢集時，可能會發現像 `kubectl cp`、`kubectl attach`、`kubectl exec`
 和 `kubectl port-forward` 這樣的命令無法正常工作。
 
 <!--
@@ -94,7 +94,7 @@ a cluster is similar to the following:
 ## 流式 API 的工作原理
 
 Kubernetes 通過在原始的 HTTP 請求中添加特定的升級頭字段來將 HTTP 連接升級爲流式連接。
-例如，在集羣內的 `nginx` 容器上運行 `date` 命令的 HTTP 升級請求類似於以下內容：
+例如，在叢集內的 `nginx` 容器上運行 `date` 命令的 HTTP 升級請求類似於以下內容：
 
 ```console
 $ kubectl exec -v=8 nginx -- date
@@ -113,7 +113,7 @@ with a successful `101 Switching Protocols` status, along with the negotiated
 subprotocol version:
 -->
 如果容器運行時支持 WebSocket 流式協議及其至少一個子協議版本（例如 `v5.channel.k8s.io`），
-服務器會以代表成功的 `101 Switching Protocols` 狀態碼進行響應，並附帶協商後的子協議版本：
+伺服器會以代表成功的 `101 Switching Protocols` 狀態碼進行響應，並附帶協商後的子協議版本：
 
 ```console
 Response Status: 101 Switching Protocols in 3 milliseconds
@@ -145,7 +145,7 @@ default:
 -->
 ## 如何使用新的 WebSocket 流式協議
 
-如果你的集羣和 kubectl 版本爲 1.29 及以上版本，有兩個控制面特性門控以及兩個
+如果你的叢集和 kubectl 版本爲 1.29 及以上版本，有兩個控制面特性門控以及兩個
 kubectl 環境變量用來控制啓用 WebSocket 而不是 SPDY 作爲流式協議。
 在 Kubernetes 1.31 中，以下所有特性門控均處於 Beta 階段，並且默認被啓用：
 
@@ -186,10 +186,10 @@ v1.30) to try this new behavior. Version 1.31 of `kubectl` can automatically use
 the new behavior, but you do need to connect to a cluster where the server-side
 features are explicitly enabled.
 -->
-如果你正在使用一個較舊的集羣但可以管理其特性門控設置，
+如果你正在使用一個較舊的叢集但可以管理其特性門控設置，
 那麼可以通過開啓 `TranslateStreamCloseWebsocketRequests`（在 Kubernetes v1.29 中添加）
 和 `PortForwardWebsockets`（在 Kubernetes v1.30 中添加）來嘗試啓用 Websocket 作爲流式傳輸協議。
-版本爲 1.31 的 kubectl 可以自動使用新的行爲，但你需要連接到明確啓用了服務器端特性的集羣。
+版本爲 1.31 的 kubectl 可以自動使用新的行爲，但你需要連接到明確啓用了伺服器端特性的叢集。
 
 <!--
 ## Learn more about streaming APIs

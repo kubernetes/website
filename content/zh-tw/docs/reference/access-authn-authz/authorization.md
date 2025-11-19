@@ -51,8 +51,8 @@ request.
 -->
 ## 鑑權裁定   {#determine-whether-a-request-is-allowed-or-denied}
 
-Kubernetes 對 API 請求的鑑權在 API 服務器內進行。
-API 服務器根據所有策略評估所有請求屬性，可能還會諮詢外部服務，然後允許或拒絕該請求。
+Kubernetes 對 API 請求的鑑權在 API 伺服器內進行。
+API 伺服器根據所有策略評估所有請求屬性，可能還會諮詢外部服務，然後允許或拒絕該請求。
 
 <!--
 All parts of an API request must be allowed by some authorization
@@ -84,10 +84,10 @@ on the request, then the request is denied. An overall deny verdict means that
 the API server rejects the request and responds with an HTTP 403 (Forbidden)
 status.
 -->
-當系統配置了多個[鑑權模塊](#authorization-modules)時，Kubernetes 將按順序使用每個模塊。
+當系統設定了多個[鑑權模塊](#authorization-modules)時，Kubernetes 將按順序使用每個模塊。
 如果任何鑑權模塊**批准**或**拒絕**請求，則立即返回該決定，並且不會與其他鑑權模塊協商。
 如果所有模塊對請求**沒有意見**，則拒絕該請求。
-總體拒絕裁決意味着 API 服務器拒絕請求並以 HTTP 403（禁止）狀態進行響應。
+總體拒絕裁決意味着 API 伺服器拒絕請求並以 HTTP 403（禁止）狀態進行響應。
 
 <!--
 ## Request attributes used in authorization
@@ -110,8 +110,8 @@ Kubernetes reviews only the following API request attributes:
 
 Kubernetes 僅審查以下 API 請求屬性：
 
-* **用戶** —— 身份驗證期間提供的 `user` 字符串。
-* **組** —— 經過身份驗證的用戶所屬的組名列表。
+* **使用者** —— 身份驗證期間提供的 `user` 字符串。
+* **組** —— 經過身份驗證的使用者所屬的組名列表。
 * **額外信息** —— 由身份驗證層提供的任意字符串鍵到字符串值的映射。
 * **API** —— 指示請求是否針對 API 資源。
 * **請求路徑** —— 各種非資源端點的路徑，如 `/api` 或 `/healthz`。
@@ -240,8 +240,8 @@ Kubernetes 需要 REST API 請求所共有的屬性，
 : 此模式阻止所有請求。此鑑權模式僅適用於測試。
 
 `ABAC`（[基於屬性的訪問控制](/zh-cn/docs/reference/access-authn-authz/abac/)）
-: Kubernetes ABAC 模式定義了一種訪問控制範例，通過使用將屬性組合在一起的策略向用戶授予訪問權限，
-  策略可以使用任何類型的屬性（用戶屬性、資源屬性、對象、環境屬性等）。
+: Kubernetes ABAC 模式定義了一種訪問控制範例，通過使用將屬性組合在一起的策略向使用者授予訪問權限，
+  策略可以使用任何類型的屬性（使用者屬性、資源屬性、對象、環境屬性等）。
 
 <!--
 `RBAC` ([role-based access control](/docs/reference/access-authn-authz/rbac/))
@@ -255,10 +255,10 @@ Kubernetes 需要 REST API 請求所共有的屬性，
 : Kubernetes [webhook mode](/docs/reference/access-authn-authz/webhook/) for authorization makes a synchronous HTTP callout, blocking the request until the remote HTTP service responds to the query.You can write your own software to handle the callout, or use solutions from the ecosystem.
 -->
 `RBAC`（[基於角色的訪問控制](/zh-cn/docs/reference/access-authn-authz/rbac/)）
-: Kubernetes RBAC 是一種根據企業內各個用戶的角色來管理其對計算機或網絡資源的訪問權限的方法。
-  在此上下文中，訪問權限是單個用戶執行特定任務（例如查看、創建或修改文件）的能力。
+: Kubernetes RBAC 是一種根據企業內各個使用者的角色來管理其對計算機或網路資源的訪問權限的方法。
+  在此上下文中，訪問權限是單個使用者執行特定任務（例如查看、創建或修改文件）的能力。
   在這種模式下，Kubernetes 使用 `rbac.authorization.k8s.io` API 組來驅動鑑權決策，
-  允許你通過 Kubernetes API 動態配置權限策略。
+  允許你通過 Kubernetes API 動態設定權限策略。
 
 `Node`
 : 一種特殊用途的鑑權模式，根據 kubelet 計劃運行的 Pod 向其授予權限。
@@ -286,7 +286,7 @@ You should not use the `AlwaysAllow` mode on a Kubernetes cluster where the API 
 is reachable from the public internet.
 -->
 啓用 `AlwaysAllow` 模式會繞過鑑權；請勿在你不信任**所有**潛在 API
-客戶端（包括你運行的工作負載）的集羣上使用該模式。
+客戶端（包括你運行的工作負載）的叢集上使用該模式。
 
 鑑權機制通常返回“拒絕”或“無意見”的結果；
 有關更多信息，請參閱[鑑權裁決](#determine-whether-a-request-is-allowed-or-denied)。
@@ -294,7 +294,7 @@ is reachable from the public internet.
 例如，`--authorization-mode=AlwaysAllow,RBAC` 與 `--authorization-mode=AlwaysAllow`
 具有相同的效果，因爲 Kubernetes RBAC 不提供否定（拒絕）訪問規則。
 
-你不應在可從公共互聯網訪問 API 服務器的 Kubernetes 集羣上使用 `AlwaysAllow` 模式。
+你不應在可從公共互聯網訪問 API 伺服器的 Kubernetes 叢集上使用 `AlwaysAllow` 模式。
 {{< /warning >}}
 
 <!--
@@ -310,10 +310,10 @@ to the built-in `cluster-admin` ClusterRole.
 -->
 ### `system:masters` 組
 
-`system:masters` 組是 Kubernetes 內置的一個組，授予其成員對 API 服務器的無限制訪問權限。
-任何被分配到此組的用戶都具有完全的集羣管理員權限，可以繞過由 RBAC 或 Webhook 機制施加的任何鑑權限制。
-請[避免將用戶添加到此組](/zh-cn/docs/concepts/security/rbac-good-practices/#least-privilege)。
-如果你確實需要授予某個用戶集羣管理員權限，可以通過創建一個
+`system:masters` 組是 Kubernetes 內置的一個組，授予其成員對 API 伺服器的無限制訪問權限。
+任何被分配到此組的使用者都具有完全的叢集管理員權限，可以繞過由 RBAC 或 Webhook 機制施加的任何鑑權限制。
+請[避免將使用者添加到此組](/zh-cn/docs/concepts/security/rbac-good-practices/#least-privilege)。
+如果你確實需要授予某個使用者叢集管理員權限，可以通過創建一個
 [ClusterRoleBinding](/zh-cn/docs/reference/access-authn-authz/rbac/#user-facing-roles)
 將其綁定到內置的 `cluster-admin` ClusterRole。
 
@@ -329,15 +329,15 @@ path and configuring an authorization webhook using the `--authorization-mode` a
 `--authorization-webhook-*` command line arguments is not allowed.
 If you try this, the API server reports an error message during startup, then exits immediately.
 -->
-### 鑑權模式配置 {#choice-of-authz-config}
+### 鑑權模式設定 {#choice-of-authz-config}
 
-你可以僅使用[配置文件](#using-configuration-file-for-authorization)，
-或使用[命令行參數](#using-flags-for-your-authorization-module)來配置
-Kubernetes API 服務器的鑑權鏈。
+你可以僅使用[設定文件](#using-configuration-file-for-authorization)，
+或使用[命令列參數](#using-flags-for-your-authorization-module)來設定
+Kubernetes API 伺服器的鑑權鏈。
 
-你必須選擇兩種配置方法之一；不允許同時設置 `--authorization-config` 路徑並使用
-`--authorization-mode` 和 `--authorization-webhook-*` 命令行參數配置鑑權 Webhook。
-如果你嘗試這樣做，API 服務器會在啓動期間報告錯誤消息，然後立即退出。
+你必須選擇兩種設定方法之一；不允許同時設置 `--authorization-config` 路徑並使用
+`--authorization-mode` 和 `--authorization-webhook-*` 命令列參數設定鑑權 Webhook。
+如果你嘗試這樣做，API 伺服器會在啓動期間報告錯誤消息，然後立即退出。
 
 <!-- keep legacy hyperlinks working -->
 <a id="configuring-the-api-server-using-an-authorization-config-file" />
@@ -345,7 +345,7 @@ Kubernetes API 服務器的鑑權鏈。
 <!--
 ### Configuring the API Server using an authorization config file {#using-configuration-file-for-authorization}
 -->
-### 使用鑑權配置文件配置 API 服務器 {#using-configuration-file-for-authorization}
+### 使用鑑權設定文件設定 API 伺服器 {#using-configuration-file-for-authorization}
 
 {{< feature-state feature_gate_name="StructuredAuthorizationConfiguration" >}}
 
@@ -359,13 +359,13 @@ The configuration file approach even allows you to specify
 to webhooks, helping you to prevent unnecessary invocations. The API server also automatically
 reloads the authorizer chain when the configuration file is modified.
 -->
-Kubernetes 允許你配置可包含多個 Webhook 的鑑權鏈。
+Kubernetes 允許你設定可包含多個 Webhook 的鑑權鏈。
 該鏈中的鑑權項可以具有明確定義的參數，這些參數可以按特定順序檢查請求，
 從而爲你提供細粒度的控制，例如在失敗時明確拒絕。
 
-配置文件方法甚至允許你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)規則，
+設定文件方法甚至允許你指定 [CEL](/zh-cn/docs/reference/using-api/cel/)規則，
 在將請求發送到 Webhook 之前對其進行預過濾，從而幫助你防止不必要的調用。
-修改配置文件時，API 服務器還會自動重新加載鑑權鏈。
+修改設定文件時，API 伺服器還會自動重新加載鑑權鏈。
 
 <!--
 You specify the path to the authorization configuration using the
@@ -375,15 +375,15 @@ If you want to use command line arguments instead of a configuration file, that'
 Some authorization capabilities (for example: multiple webhooks, webhook failure policy, and pre-filter rules)
 are only available if you use an authorization configuration file.
 -->
-你可以使用 `--authorization-config` 命令行參數指定鑑權配置的路徑。
+你可以使用 `--authorization-config` 命令列參數指定鑑權設定的路徑。
 
-如果你想使用命令行參數而不是配置文件，這也是一種有效且受支持的方法。
-某些鑑權功能（例如：多個 Webhook、Webhook 失敗策略和預過濾規則）僅在使用鑑權配置文件時可用。
+如果你想使用命令列參數而不是設定文件，這也是一種有效且受支持的方法。
+某些鑑權功能（例如：多個 Webhook、Webhook 失敗策略和預過濾規則）僅在使用鑑權設定文件時可用。
 
 <!--
 #### Example configuration {#authz-config-example}
 -->
-#### 示例配置   {#authz-config-example}
+#### 示例設定   {#authz-config-example}
 
 <!--
 ---
@@ -489,7 +489,7 @@ authorizers:
 {{< highlight yaml "linenos=false,hl_lines=2-4" >}}
 ---
 #
-# 請勿按原樣使用配置，這只是一個示例。
+# 請勿按原樣使用設定，這只是一個示例。
 #
 apiVersion: apiserver.config.k8s.io/v1
 kind: AuthorizationConfiguration
@@ -530,10 +530,10 @@ authorizers:
       # 必填，沒有默認值。
       failurePolicy: Deny
       connectionInfo:
-        # 控制 Webhook 如何與服務器通信。
+        # 控制 Webhook 如何與伺服器通信。
         # 有效值：
-        # - KubeConfigFile：使用 kubeConfigFile 中指定的文件來定位服務器。
-        # - InClusterConfig：使用集羣內配置來調用由 kube-apiserver 託管的 SubjectAccessReview API，kube-apiserver 不允許使用此模式。
+        # - KubeConfigFile：使用 kubeConfigFile 中指定的文件來定位伺服器。
+        # - InClusterConfig：使用叢集內設定來調用由 kube-apiserver 託管的 SubjectAccessReview API，kube-apiserver 不允許使用此模式。
         type: KubeConfigFile
         # 連接信息的 KubeConfig 文件的路徑
         # 如果 connectionInfo.Type 是 KubeConfig，則爲必填項
@@ -587,11 +587,11 @@ you would need to make sure the config file is in a format that Kubernetes {{< s
 can understand, before you upgrade the cluster. If you downgrade to {{< skew currentVersionAddMinor -1 >}},
 you would need to set the configuration appropriately.
 -->
-使用配置文件配置鑑權鏈時，請確保所有控制平面節點具有相同的文件內容。升級/降級集羣時，請記下 API 服務器配置。
+使用設定文件設定鑑權鏈時，請確保所有控制平面節點具有相同的文件內容。升級/降級叢集時，請記下 API 伺服器設定。
 例如，如果從 Kubernetes {{< skew currentVersionAddMinor -1 >}}
-升級到 Kubernetes {{< skew currentVersion >}}，則需要確保配置文件的格式是
-Kubernetes {{< skew currentVersion >}} 可以理解的，然後再升級集羣。
-如果降級到 {{< skew currentVersionAddMinor -1 >}}，則需要適當設置配置。
+升級到 Kubernetes {{< skew currentVersion >}}，則需要確保設定文件的格式是
+Kubernetes {{< skew currentVersion >}} 可以理解的，然後再升級叢集。
+如果降級到 {{< skew currentVersionAddMinor -1 >}}，則需要適當設置設定。
 
 <!--
 #### Authorization configuration and reloads
@@ -599,9 +599,9 @@ Kubernetes {{< skew currentVersion >}} 可以理解的，然後再升級集羣�
 Kubernetes reloads the authorization configuration file when the API server observes a change
 to the file, and also on a 60 second schedule if no change events were observed.
 -->
-#### 鑑權配置和重新加載
+#### 鑑權設定和重新加載
 
-當 API 服務器觀察到文件的更改時，Kubernetes 會重新加載鑑權配置文件，
+當 API 伺服器觀察到文件的更改時，Kubernetes 會重新加載鑑權設定文件，
 如果沒有觀察到更改事件，則也會按照 60 秒的計劃重新加載。
 
 {{< note >}}
@@ -619,7 +619,7 @@ but cannot be added or removed).
 <!--
 ### Command line authorization mode configuration {#using-flags-for-your-authorization-module}
 -->
-### 命令行鑑權模式配置  {#using-flags-for-your-authorization-module}
+### 命令列鑑權模式設定  {#using-flags-for-your-authorization-module}
 
 <!--
 You can use the following modes:
@@ -654,17 +654,17 @@ You cannot combine the `--authorization-mode` command line argument with the
 `--authorization-config` command line argument used for
 [configuring authorization using a local file](#using-configuration-file-for-authorization-mode).
 -->
-Kubernetes 根據你在 API 服務器的命令行上指定鑑權模塊的順序來檢查鑑權模塊，
+Kubernetes 根據你在 API 伺服器的命令列上指定鑑權模塊的順序來檢查鑑權模塊，
 因此較早的模塊具有更高的優先級來允許或拒絕請求。
 
-你不能將 `--authorization-mode` 命令行參數與用於[使用本地文件配置鑑權](#using-configuration-file-for-authorization-mode)的
-`--authorization-config` 命令行參數結合使用。
+你不能將 `--authorization-mode` 命令列參數與用於[使用本地文件設定鑑權](#using-configuration-file-for-authorization-mode)的
+`--authorization-config` 命令列參數結合使用。
 
 <!--
 For more information on command line arguments to the API server, read the
 [`kube-apiserver` reference](/docs/reference/command-line-tools-reference/kube-apiserver/).
 -->
-有關 API 服務器命令行參數的更多信息，請閱讀
+有關 API 伺服器命令列參數的更多信息，請閱讀
 [`kube-apiserver` 參考](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)。
 
 <!--
@@ -679,7 +679,7 @@ and their associated {{< glossary_tooltip term_id="controller" text="controllers
 ## 通過創建或編輯工作負載來提升權限  {#privilege-escalation-via-pod-creation}
 
 能夠直接或通過啓用間接[工作負載管理](/zh-cn/docs/concepts/architecture/controller/)的對象在命名空間中創建/編輯
-Pod 的用戶可能能夠在該命名空間中提升其權限。
+Pod 的使用者可能能夠在該命名空間中提升其權限。
 權限提升的潛在途徑包括 Kubernetes
 [API 擴展](/zh-cn/docs/concepts/extend-kubernetes/#api-extensions)及其相關的
 {{< glossary_tooltip term_id="controller" text="控制器" >}}。
@@ -690,7 +690,7 @@ As a cluster administrator, use caution when granting access to create or edit w
 Some details of how these can be misused are documented in
 [escalation paths](/docs/reference/access-authn-authz/authorization/#escalation-paths).
 -->
-作爲集羣管理員，授予創建或編輯工作負載的訪問權限時請務必小心謹慎。
+作爲叢集管理員，授予創建或編輯工作負載的訪問權限時請務必小心謹慎。
 [權限提升路徑](/zh-cn/docs/reference/access-authn-authz/authorization/#escalation-paths)中記錄了有關濫用這些內容的一些細節。
 {{< /caution >}}
 
@@ -702,7 +702,7 @@ privilege within a namespace, if you allow them to run arbitrary Pods in that na
 -->
 ### 權限提升路徑  {#escalation-paths}
 
-如果你允許攻擊者或不值得信任的用戶在該命名空間中運行任意 Pod，
+如果你允許攻擊者或不值得信任的使用者在該命名空間中運行任意 Pod，
 則他們可以通過不同的方式在命名空間內獲得額外的權限：
 
 <!--
@@ -734,8 +734,8 @@ As a system administrator, you should be cautious when deploying CustomResourceD
 that let users make changes to the above areas. These may open privilege escalations paths.
 Consider the consequences of this kind of change when deciding on your authorization controls.
 -->
-作爲系統管理員，在部署允許用戶更改上述區域的 CustomResourceDefinitions 時應謹慎行事，這些可能會打開特權升級路徑。
-在配置你的鑑權控制時，請考慮這種變化的後果。
+作爲系統管理員，在部署允許使用者更改上述區域的 CustomResourceDefinitions 時應謹慎行事，這些可能會打開特權升級路徑。
+在設定你的鑑權控制時，請考慮這種變化的後果。
 {{< /caution >}}
 
 <!--
@@ -748,7 +748,7 @@ a given action, and works regardless of the authorization mode used.
 #### 檢查 API 訪問   {#checking-api-access}
 
 `kubectl` 提供 `auth can-i` 子命令，用於快速查詢 API 鑑權。
-該命令使用 `SelfSubjectAccessReview` API 來確定當前用戶是否可以執行給定操作，
+該命令使用 `SelfSubjectAccessReview` API 來確定當前使用者是否可以執行給定操作，
 無論使用何種鑑權模式該命令都可以工作。
 
 ```shell
@@ -781,8 +781,8 @@ no
 Administrators can combine this with [user impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation)
 to determine what action other users can perform.
 -->
-管理員可以將此與[用戶扮演（User Impersonation）](/zh-cn/docs/reference/access-authn-authz/authentication/#user-impersonation)
-結合使用，以確定其他用戶可以執行的操作。
+管理員可以將此與[使用者扮演（User Impersonation）](/zh-cn/docs/reference/access-authn-authz/authentication/#user-impersonation)
+結合使用，以確定其他使用者可以執行的操作。
 
 ```bash
 kubectl auth can-i list secrets --namespace dev --as dave
@@ -836,19 +836,19 @@ These APIs can be queried by creating normal Kubernetes resources, where the res
 field of the returned object is the result of the query. For example:
 -->
 SelfSubjectAccessReview 是 `authorization.k8s.io` API 組的一部分，它將 API
-服務器鑑權公開給外部服務。該組中的其他資源包括：
+伺服器鑑權公開給外部服務。該組中的其他資源包括：
 
 * `SubjectAccessReview`
-: 對任意用戶的訪問進行評估，而不僅僅是當前用戶。
-  當鑑權決策被委派給 API 服務器時很有用。例如，kubelet 和擴展 API
-  服務器使用它來確定用戶對自己的 API 的訪問權限。
+: 對任意使用者的訪問進行評估，而不僅僅是當前使用者。
+  當鑑權決策被委派給 API 伺服器時很有用。例如，kubelet 和擴展 API
+  伺服器使用它來確定使用者對自己的 API 的訪問權限。
 
 * `LocalSubjectAccessReview`
 : 與 `SubjectAccessReview` 類似，但僅限於特定的名字空間。
 
 * `SelfSubjectRulesReview`
-: 返回用戶可在名字空間內執行的操作集的審閱。
-  用戶可以快速彙總自己的訪問權限，或者用於 UI 中的隱藏/顯示動作。
+: 返回使用者可在名字空間內執行的操作集的審閱。
+  使用者可以快速彙總自己的訪問權限，或者用於 UI 中的隱藏/顯示動作。
 
 可以通過創建普通的 Kubernetes 資源來查詢這些 API，其中返回對象的響應 `status`
 字段是查詢的結果，例如：

@@ -25,7 +25,7 @@ This page explains how to upgrade a Linux Worker Nodes created with kubeadm.
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Linux Worker nodes.
 -->
-* 你自己要熟悉[升級剩餘 kubeadm 集羣的過程](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)。
+* 你自己要熟悉[升級剩餘 kubeadm 叢集的過程](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)。
   你需要先升級控制面節點，再升級 Linux 工作節點。
 
 <!-- steps -->
@@ -112,7 +112,7 @@ For worker nodes this upgrades the local kubelet configuration:
 -->
 ### 執行 "kubeadm upgrade"    {#call-kubeadm-upgrade}
 
-對於工作節點，下面的命令會升級本地的 kubelet 配置：
+對於工作節點，下面的命令會升級本地的 kubelet 設定：
 
 ```shell
 sudo kubeadm upgrade node

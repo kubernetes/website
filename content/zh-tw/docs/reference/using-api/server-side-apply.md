@@ -1,5 +1,5 @@
 ---
-title: 服務器端應用（Server-Side Apply）
+title: 伺服器端應用（Server-Side Apply）
 content_type: concept
 weight: 25
 ---
@@ -27,8 +27,8 @@ changes to an object's fields. At the level of a specific resource, Server-Side
 Apply records and tracks information about control over the fields of that object.
 -->
 Kubernetes 支持多個應用程序協作管理一個[對象](/zh-cn/docs/concepts/overview/working-with-objects/)的字段。
-服務器端應用爲集羣的控制平面提供了一種可選機制，用於跟蹤對對象字段的更改。
-在特定資源級別，服務器端應用記錄並跟蹤有關控制該對象字段的信息。
+伺服器端應用爲叢集的控制平面提供了一種可選機制，用於跟蹤對對象字段的更改。
+在特定資源級別，伺服器端應用記錄並跟蹤有關控制該對象字段的信息。
 
 <!--
 Server-Side Apply helps users and {{< glossary_tooltip text="controllers" term_id="controller" >}}
@@ -36,7 +36,7 @@ manage their resources through declarative configuration. Clients can create and
 {{< glossary_tooltip text="objects" term_id="object" >}}
 declaratively by submitting their _fully specified intent_.
 -->
-服務器端應用協助用戶和{{< glossary_tooltip text="控制器" term_id="controller" >}}通過聲明式配置的方式管理他們的資源。
+伺服器端應用協助使用者和{{< glossary_tooltip text="控制器" term_id="controller" >}}通過聲明式設定的方式管理他們的資源。
 客戶提交他們**完整描述的意圖**，聲明式地創建和修改{{< glossary_tooltip text="對象" term_id="object" >}}。
 
 <!--
@@ -49,11 +49,11 @@ object (using default values for unspecified fields), or is
 how Server-Side Apply differs from the original, client-side `kubectl apply`
 implementation.
 -->
-一個完整描述的意圖並不是一個完整的對象，僅包括能體現用戶意圖的字段和值。
+一個完整描述的意圖並不是一個完整的對象，僅包括能體現使用者意圖的字段和值。
 該意圖可以用來創建一個新對象（未指定的字段使用默認值），
-也可以通過 API 服務器來實現與現有對象的[合併](#merge-strategy)。
+也可以通過 API 伺服器來實現與現有對象的[合併](#merge-strategy)。
 
-[與客戶端應用對比](#comparison-with-client-side-apply)小節解釋了服務器端應用與最初的客戶端
+[與客戶端應用對比](#comparison-with-client-side-apply)小節解釋了伺服器端應用與最初的客戶端
 `kubectl apply` 實現的區別。
 
 <!-- body -->
@@ -71,7 +71,7 @@ conflicted field will be overridden, and the ownership will be transferred.
 -->
 ## 字段管理 {#field-management}
 
-Kubernetes API 服務器跟蹤所有新建對象的**受控字段（Managed Fields）**。
+Kubernetes API 伺服器跟蹤所有新建對象的**受控字段（Managed Fields）**。
 
 當嘗試應用對象時，由另一個[管理器](#managers)擁有的字段且具有不同值，將導致[衝突](#conflicts)。
 這樣做是爲了表明操作可能會撤消另一個合作者的更改。
@@ -89,7 +89,7 @@ The same rule applies to fields that are lists, associative lists, or maps.
 -->
 每當字段的值確實發生變化時，所有權就會從其當前管理器轉移到進行更改的管理器。
 
-服務器端應用會檢查是否存在其他字段管理器也擁有該字段。
+伺服器端應用會檢查是否存在其他字段管理器也擁有該字段。
 如果該字段不屬於任何其他字段管理器，則該字段將被設置爲其默認值（如果有），或者以其他方式從對象中刪除。
 同樣的規則也適用於作爲列表（list）、關聯列表或鍵值對（map）的字段。
 
@@ -102,11 +102,11 @@ details explicitly using HTTP `POST` (**create**), `PUT` (**update**), or non-ap
 `PATCH` (**patch**). You can also declare and record a field manager
 by including a value for that field in a Server-Side Apply operation.
 -->
-用戶管理字段這件事，在服務器端應用的場景中，意味着用戶依賴並期望字段的值不要改變。
-最後一次對字段值做出斷言的用戶將被記錄到當前字段管理器。
+使用者管理字段這件事，在伺服器端應用的場景中，意味着使用者依賴並期望字段的值不要改變。
+最後一次對字段值做出斷言的使用者將被記錄到當前字段管理器。
 這可以通過發送 `POST`（**create**）、`PUT`（**update**）、或非應用的 `PATCH`（**patch**）
 顯式更改字段管理器詳細信息來實現。
-你還可以通過在服務器端應用操作中包含字段的值來聲明和記錄字段管理器。
+你還可以通過在伺服器端應用操作中包含字段的值來聲明和記錄字段管理器。
 
 <!--
 A Server-Side Apply **patch** request requires the client to provide its identity
@@ -115,8 +115,8 @@ field that is controlled by a different manager results in a rejected
 request unless the client forces an override.
 For details of overrides, see [Conflicts](#conflicts).
 -->
-服務器端應用場景中的 **patch** 請求要求客戶端提供自身的標識作爲[字段管理器（Field Manager）](#managers)。
-使用服務器端應用時，如果嘗試變更由別的管理器來控制的字段，會導致請求被拒絕，除非客戶端強制要求進行覆蓋。
+伺服器端應用場景中的 **patch** 請求要求客戶端提供自身的標識作爲[字段管理器（Field Manager）](#managers)。
+使用伺服器端應用時，如果嘗試變更由別的管理器來控制的字段，會導致請求被拒絕，除非客戶端強制要求進行覆蓋。
 關於覆蓋操作的細節，可參閱[衝突](#conflicts)節。
 
 <!--
@@ -131,7 +131,7 @@ object's [`metadata`](/docs/reference/kubernetes-api/common-definitions/object-m
 -->
 如果兩個或以上的應用者均把同一個字段設置爲相同值，他們將共享此字段的所有權。
 後續任何改變共享字段值的嘗試，不管由那個應用者發起，都會導致衝突。
-共享字段的所有者可以放棄字段的所有權，這隻需發出不包含該字段的服務器端應用 **patch** 請求即可。
+共享字段的所有者可以放棄字段的所有權，這隻需發出不包含該字段的伺服器端應用 **patch** 請求即可。
 
 字段管理的信息存儲在 `managedFields` 字段中，該字段是對象的
 [`metadata`](/zh-cn/docs/reference/kubernetes-api/common-definitions/object-meta/)
@@ -144,8 +144,8 @@ If the field is not owned by any other field managers, it is either deleted
 from the live object or reset to its default value, if it has one.
 The same rule applies to associative list or map items.
 -->
-如果從清單中刪除某個字段並應用該清單，則服務器端應用會檢查是否有其他字段管理器也擁有該字段。
-如果該字段不屬於任何其他字段管理器，則服務器會將其從活動對象中刪除，或者重置爲其默認值（如果有）。
+如果從清單中刪除某個字段並應用該清單，則伺服器端應用會檢查是否有其他字段管理器也擁有該字段。
+如果該字段不屬於任何其他字段管理器，則伺服器會將其從活動對象中刪除，或者重置爲其默認值（如果有）。
 同樣的規則也適用於關聯列表（list）或鍵值對（map）。
 
 <!--
@@ -159,9 +159,9 @@ becomes available.
 -->
 與（舊版）由 `kubectl` 所管理的註解
 [`kubectl.kubernetes.io/last-applied configuration`](/zh-cn/docs/reference/labels-annotations-taints/#kubectl-kubernetes-io-last-applied-configuration)
-相比，服務器端應用使用了一種更具聲明式的方法，
-它跟蹤用戶（或客戶端）的字段管理，而不是用戶上次應用的狀態。
-作爲服務器端應用的副作用，哪個字段管理器管理的對象的哪個字段的相關信息也會變得可用。
+相比，伺服器端應用使用了一種更具聲明式的方法，
+它跟蹤使用者（或客戶端）的字段管理，而不是使用者上次應用的狀態。
+作爲伺服器端應用的副作用，哪個字段管理器管理的對象的哪個字段的相關信息也會變得可用。
 
 <!--
 ### Example {#ssa-example-configmap}
@@ -170,7 +170,7 @@ A simple example of an object created using Server-Side Apply could look like th
 -->
 ### 示例 {#ssa-example-configmap}
 
-服務器端應用創建對象的簡單示例如下：
+伺服器端應用創建對象的簡單示例如下：
 
 {{< note >}}
 <!--
@@ -242,7 +242,7 @@ otherwise, it is `Update`.
 -->
 示例的 ConfigMap 對象在 `.metadata.managedFields` 中包含字段管理記錄。
 字段管理記錄包括關於管理實體本身的基本信息，以及關於被管理的字段和相關操作（`Apply` 或 `Update`）的詳細信息。
-如果最後更改該字段的請求是服務器端應用的 **patch** 操作，則 `operation` 的值爲 `Apply`；否則爲 `Update`。
+如果最後更改該字段的請求是伺服器端應用的 **patch** 操作，則 `operation` 的值爲 `Apply`；否則爲 `Update`。
 
 <!--
 There is another possible outcome. A client could submit an invalid request
@@ -258,7 +258,7 @@ for example, the `.metadata.managedFields` get into an inconsistent state
 還有另一種可能的結果。客戶端會提交無效的請求體。
 如果完整描述的意圖沒有構造出有效的對象，則請求失敗。
 
-但是，可以通過 **update** 或不使用服務器端應用的 **patch** 操作去更新 `.metadata.managedFields`。
+但是，可以通過 **update** 或不使用伺服器端應用的 **patch** 操作去更新 `.metadata.managedFields`。
 強烈不鼓勵這麼做，但當發生如下情況時，
 比如 `managedFields` 進入不一致的狀態（顯然不應該發生這種情況），
 這麼做也是一個合理的嘗試。
@@ -274,7 +274,7 @@ in the Kubernetes API reference.
 The `.metadata.managedFields` field is managed by the API server.
 You should avoid updating it manually.
 -->
-`.metadata.managedFields` 字段由 API 服務器管理。
+`.metadata.managedFields` 字段由 API 伺服器管理。
 你不應該手動更新它。
 {{< /caution >}}
 
@@ -289,8 +289,8 @@ this occurs, the applier has 3 options to resolve the conflicts:
 ## 衝突 {#conflicts}
 
 **衝突**是一種特定的錯誤狀態，
-發生在執行 `Apply` 改變一個字段，而恰巧該字段被其他用戶聲明過主權時。
-這可以防止一個應用者不小心覆蓋掉其他用戶設置的值。
+發生在執行 `Apply` 改變一個字段，而恰巧該字段被其他使用者聲明過主權時。
+這可以防止一個應用者不小心覆蓋掉其他使用者設置的值。
 衝突發生時，應用者有三種辦法來解決它：
 
 <!--
@@ -302,7 +302,7 @@ this occurs, the applier has 3 options to resolve the conflicts:
   and removes the field from all other managers' entries in `managedFields`.
 -->
 * **覆蓋前值，成爲唯一的管理器：** 如果打算覆蓋該值（或應用者是一個自動化部件，比如控制器），
-  應用者應該設置查詢參數 `force` 爲 true（對 `kubectl apply` 來說，你可以使用命令行參數
+  應用者應該設置查詢參數 `force` 爲 true（對 `kubectl apply` 來說，你可以使用命令列參數
   `--force-conflicts`），然後再發送一次請求。
   這將強制操作成功，改變字段的值，從所有其他管理器的 `managedFields` 條目中刪除指定字段。
 
@@ -327,7 +327,7 @@ this occurs, the applier has 3 options to resolve the conflicts:
   other field managers that already claimed to manage it.
 -->
 * **不覆蓋前值，成爲共享的管理器：** 如果應用者仍然關注字段值，並不想覆蓋它，
-  他們可以更改資源的本地模型中該字段的值，以便與服務器上對象的值相匹配，
+  他們可以更改資源的本地模型中該字段的值，以便與伺服器上對象的值相匹配，
   然後基於本地更新發出新請求。這樣做會保持值不變，
   並使得該字段的管理由應用者與已經聲稱管理該字段的所有其他字段管理者共享。
 
@@ -352,9 +352,9 @@ sets the manager identity to `"kubectl"` by default.
 [`fieldManager`](/zh-cn/docs/reference/kubernetes-api/common-parameters/common-parameters/#fieldManager)
 查詢參數來指定。
 當你 Apply 某個資源時，需要指定 `fieldManager` 參數。
-對於其他更新，API 服務器使用 “User-Agent:” HTTP 頭（如果存在）推斷字段管理器標識。
+對於其他更新，API 伺服器使用 “User-Agent:” HTTP 頭（如果存在）推斷字段管理器標識。
 
-當你使用 `kubectl` 工具執行服務器端應用操作時，`kubectl` 默認情況下會將管理器標識設置爲 `“kubectl”`。
+當你使用 `kubectl` 工具執行伺服器端應用操作時，`kubectl` 默認情況下會將管理器標識設置爲 `“kubectl”`。
 
 <!--
 ## Serialization
@@ -364,7 +364,7 @@ as [YAML](https://yaml.org/), with the media type `application/apply-patch+yaml`
 -->
 ## 序列化 {#serialization}
 
-在協議層面，Kubernetes 用 [YAML](https://yaml.org/) 來表示服務器端應用的消息體，
+在協議層面，Kubernetes 用 [YAML](https://yaml.org/) 來表示伺服器端應用的消息體，
 媒體類型爲 `application/apply-patch+yaml`。
 
 {{< note >}}
@@ -392,7 +392,7 @@ Here's an example of a Server-Side Apply message body (fully specified intent):
 -->
 序列化與 Kubernetes 對象相同，只是客戶端不需要發送完整的對象。
 
-以下是服務器端應用消息正文的示例（完整描述的意圖）：
+以下是伺服器端應用消息正文的示例（完整描述的意圖）：
 
 ```yaml
 {
@@ -421,7 +421,7 @@ The Kubernetes API operations where field management is considered are:
 
 考慮字段管理的 Kubernetes API 操作包括：
 
-1. 服務器端應用（HTTP `PATCH`，內容類型爲 `application/apply-patch+yaml`）
+1. 伺服器端應用（HTTP `PATCH`，內容類型爲 `application/apply-patch+yaml`）
 2. 替換現有對象（對 Kubernetes 而言是 **update**；HTTP 層面表現爲 `PUT`）
 
 <!--
@@ -444,7 +444,7 @@ the body of the request that you submit.
 
 An example object with multiple managers could look like this:
 -->
-所有服務器端應用的 **patch** 請求都必須提供 `fieldManager` 查詢參數來標識自己，
+所有伺服器端應用的 **patch** 請求都必須提供 `fieldManager` 查詢參數來標識自己，
 而此參數對於 **update** 操作是可選的。
 最後，使用 `Apply` 操作時，不能在提交的請求主體中設置 `managedFields`。
 
@@ -491,7 +491,7 @@ would have failed due to conflicting ownership.
 更新操作執行成功，並更改了 data 字段中的一個值，
 並使得該字段的管理器被改爲 `kube-controller-manager`。
 
-如果嘗試把更新操作改爲服務器端應用，那麼這一嘗試會因爲所有權衝突的原因，導致操作失敗。
+如果嘗試把更新操作改爲伺服器端應用，那麼這一嘗試會因爲所有權衝突的原因，導致操作失敗。
 
 <!--
 ## Merge strategy
@@ -503,8 +503,8 @@ multiple actors can update the same object without causing unexpected interferen
 -->
 ## 合併策略 {#merge-strategy}
 
-由服務器端應用實現的合併策略，提供了一個總體更穩定的對象生命週期。
-服務器端應用試圖依據負責管理它們的主體來合併字段，而不是根據值來否決。
+由伺服器端應用實現的合併策略，提供了一個總體更穩定的對象生命週期。
+伺服器端應用試圖依據負責管理它們的主體來合併字段，而不是根據值來否決。
 這麼做是爲了多個主體可以更新同一個對象，且不會引起意外的相互干擾。
 
 <!--
@@ -517,9 +517,9 @@ more information about how an object's schema is used to make decisions when
 merging, see
 [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 -->
-當用戶發送一個**完整描述的意圖**對象到服務器端應用的服務端點時，
-服務器會將它和當前對象做一次合併，如果兩者中有重複定義的值，那就以請求體中的爲準。
-如果請求體中條目的集合不是此用戶上一次操作條目的超集，
+當使用者發送一個**完整描述的意圖**對象到伺服器端應用的服務端點時，
+伺服器會將它和當前對象做一次合併，如果兩者中有重複定義的值，那就以請求體中的爲準。
+如果請求體中條目的集合不是此使用者上一次操作條目的超集，
 所有缺失的、沒有其他應用者管理的條目會被刪除。
 關於合併時用來做決策的對象規格的更多信息，參見
 [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
@@ -547,7 +547,7 @@ Kubernetes 1.16 和 1.17 中添加了一些標記，
 -->
 | Golang 標記 | OpenAPI 擴展 | 可接受的值 | 描述 |
 |---|---|---|---|
-| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | 適用於 list。`set` 適用於僅包含標量元素的列表。其中的元素不可重複。`map` 僅適用於嵌套了其他類型的列表。列表中的鍵（參見 `listMapKey`）不可以重複。`atomic` 適用於所有類型的列表。如果配置爲 `atomic`，則合併時整個列表會被替換掉。任何時候，只有一個管理器負責管理指定列表。如果配置爲 `set` 或 `map`，不同的管理器也可以分開管理不同條目。 |
+| `//+listType` | `x-kubernetes-list-type` | `atomic`/`set`/`map` | 適用於 list。`set` 適用於僅包含標量元素的列表。其中的元素不可重複。`map` 僅適用於嵌套了其他類型的列表。列表中的鍵（參見 `listMapKey`）不可以重複。`atomic` 適用於所有類型的列表。如果設定爲 `atomic`，則合併時整個列表會被替換掉。任何時候，只有一個管理器負責管理指定列表。如果設定爲 `set` 或 `map`，不同的管理器也可以分開管理不同條目。 |
 | `//+listMapKey` | `x-kubernetes-list-map-keys` | 字段名稱的列表，例如，`["port", "protocol"]` | 僅當 `+listType=map` 時適用。取值爲字段名稱的列表，這些字段值的組合能夠唯一標識列表中的條目。儘管可以存在多個鍵，`listMapKey` 是單數的，這是因爲鍵名需要在 Go 類型中各自獨立指定。鍵字段必須是標量。 |
 | `//+mapType` | `x-kubernetes-map-type` | `atomic`/`granular` | 適用於 map。 `atomic` 表示 map 只能被某個管理器整體替換。 `granular` 表示 map 支持多個管理器各自更新自己的字段。 |
 | `//+structType` | `x-kubernetes-map-type` | `atomic`/`granular` | 適用於 structs；此外，起用法和 OpenAPI 註釋與 `//+mapType` 相同。|
@@ -562,7 +562,7 @@ The `atomic` list type is recursive.
 (In the [Go](https://go.dev/) code for Kubernetes, these markers are specified as
 comments and code authors need not repeat them as field tags).
 -->
-若未指定 `listType`，API 服務器將 `patchStrategy=merge` 標記解釋爲
+若未指定 `listType`，API 伺服器將 `patchStrategy=merge` 標記解釋爲
 `listType=map` 並且視對應的 `patchMergeKey` 標記爲 `listMapKey` 取值。
 
 `atomic` 列表類型是遞歸的。
@@ -576,9 +576,9 @@ comments and code authors need not repeat them as field tags).
 By default, Server-Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
 -->
-### 自定義資源和服務器端應用  {#custom-resources-and-server-side-apply}
+### 自定義資源和伺服器端應用  {#custom-resources-and-server-side-apply}
 
-默認情況下，服務器端應用將自定義資源視爲無結構的數據。
+默認情況下，伺服器端應用將自定義資源視爲無結構的數據。
 所有鍵被視爲 struct 數據類型的字段，所有列表都被視爲 atomic 形式。
 
 <!--
@@ -606,8 +606,8 @@ updating existing objects. There are two categories of changes: when a field goe
 ### 拓撲變化時的兼容性  {#compatibility-across-toplogy-changes}
 
 在極少的情況下，CustomResourceDefinition（CRD）的作者或者內置類型可能希望更改其資源中的某個字段的
-拓撲配置，同時又不提升版本號。
-通過升級集羣或者更新 CRD 來更改類型的拓撲信息，與更新現有對象的結果不同。
+拓撲設定，同時又不提升版本號。
+通過升級叢集或者更新 CRD 來更改類型的拓撲信息，與更新現有對象的結果不同。
 變更的類型有兩種：一種是將字段從 `map`/`set`/`granular` 更改爲 `atomic`，
 另一種是做逆向改變。
 
@@ -632,7 +632,7 @@ recommended to change a type from `atomic` to `map`/`set`/`granular`.
 Take for example, the custom resource:
 -->
 當某 `listType`、`mapType` 或 `structType` 從 `atomic` 改爲 `map`/`set`/`granular` 之一時，
-API 服務器無法推導這些字段的新的屬主。因此，當對象的這些字段
+API 伺服器無法推導這些字段的新的屬主。因此，當對象的這些字段
 再次被更新時不會引發衝突。出於這一原因，不建議將某類型從 `atomic` 改爲
 `map`/`set`/`granular`。
 
@@ -690,9 +690,9 @@ read-modify-write and/or patch are the following:
 It is strongly recommended for controllers to always force conflicts on objects that
 they own and manage, since they might not be able to resolve or act on these conflicts.
 -->
-## 在控制器中使用服務器端應用 {#using-server-side-apply-in-controller}
+## 在控制器中使用伺服器端應用 {#using-server-side-apply-in-controller}
 
-控制器的開發人員可以把服務器端應用作爲簡化控制器的更新邏輯的方式。
+控制器的開發人員可以把伺服器端應用作爲簡化控制器的更新邏輯的方式。
 讀-改-寫 和/或 patch 的主要區別如下所示：
 
 * 應用的對象必須包含控制器關注的所有字段。
@@ -719,21 +719,21 @@ Say a user has defined Deployment with `replicas` set to the desired value:
 ## 轉移所有權 {#transferring-ownership}
 
 除了通過[衝突解決方案](#conflicts)提供的併發控制，
-服務器端應用提供了一些協作方式來將字段所有權從用戶轉移到控制器。
+伺服器端應用提供了一些協作方式來將字段所有權從使用者轉移到控制器。
 
 最好通過例子來說明這一點。
 讓我們來看看，在使用 Horizo​​ntalPodAutoscaler 資源和與之配套的控制器，
 且開啓了 Deployment 的自動水平擴展功能之後，
-怎麼安全的將 `replicas` 字段的所有權從用戶轉移到控制器。
+怎麼安全的將 `replicas` 字段的所有權從使用者轉移到控制器。
 
-假設用戶定義了 Deployment，且 `replicas` 字段已經設置爲期望的值：
+假設使用者定義了 Deployment，且 `replicas` 字段已經設置爲期望的值：
 
 {{% code_sample file="application/ssa/nginx-deployment.yaml" %}}
 
 <!--
 And the user has created the Deployment using Server-Side Apply, like so:
 -->
-並且，用戶使用服務器端應用，像這樣創建 Deployment：
+並且，使用者使用伺服器端應用，像這樣創建 Deployment：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment.yaml --server-side
@@ -758,11 +758,11 @@ to the field and becomes its owner, then the API server would set `.spec.replica
 This is not what the user wants to happen, even temporarily - it might well degrade
 a running workload.
 -->
-現在，用戶希望從他們的配置中刪除 `replicas`，從而避免與 HorizontalPodAutoscaler（HPA）及其控制器發生衝突。
+現在，使用者希望從他們的設定中刪除 `replicas`，從而避免與 HorizontalPodAutoscaler（HPA）及其控制器發生衝突。
 然而，這裏存在一個競態：在 HPA 需要調整 `.spec.replicas` 之前會有一個時間窗口，
-如果在 HPA 寫入字段併成爲新的屬主之前，用戶刪除了 `.spec.replicas`，
-那 API 服務器就會把 `.spec.replicas` 的值設爲 1（Deployment 的默認副本數）。
-這不是用戶希望發生的事情，即使是暫時的——它很可能會導致正在運行的工作負載降級。
+如果在 HPA 寫入字段併成爲新的屬主之前，使用者刪除了 `.spec.replicas`，
+那 API 伺服器就會把 `.spec.replicas` 的值設爲 1（Deployment 的默認副本數）。
+這不是使用者希望發生的事情，即使是暫時的——它很可能會導致正在運行的工作負載降級。
 
 <!--
 There are two solutions:
@@ -780,12 +780,12 @@ First, the user defines a new manifest containing only the `replicas` field:
 -->
 這裏有兩個解決方案：
 
-- （基本操作）把 `replicas` 留在配置文件中；當 HPA 最終寫入那個字段，
-  系統基於此事件告訴用戶：衝突發生了。在這個時間點，可以安全的刪除配置文件。
-- （高級操作）然而，如果用戶不想等待，比如他們想爲合作伙伴保持集羣清晰，
-  那他們就可以執行以下步驟，安全的從配置文件中刪除 `replicas`。
+- （基本操作）把 `replicas` 留在設定文件中；當 HPA 最終寫入那個字段，
+  系統基於此事件告訴使用者：衝突發生了。在這個時間點，可以安全的刪除設定文件。
+- （高級操作）然而，如果使用者不想等待，比如他們想爲合作伙伴保持叢集清晰，
+  那他們就可以執行以下步驟，安全的從設定文件中刪除 `replicas`。
 
-首先，用戶新定義一個只包含 `replicas` 字段的新清單：
+首先，使用者新定義一個只包含 `replicas` 字段的新清單：
 
 <!--
 ```yaml
@@ -822,7 +822,7 @@ want to modify the `spec.replicas` field using SSA.
 The user applies that manifest using a private field manager name. In this example,
 the user picked `handover-to-hpa`:
 -->
-用戶使用私有字段管理器名稱應用該清單。在本例中，用戶選擇了 `handover-to-hpa`：
+使用者使用私有字段管理器名稱應用該清單。在本例中，使用者選擇了 `handover-to-hpa`：
 
 ```shell
 kubectl apply -f nginx-deployment-replicas-only.yaml \
@@ -840,7 +840,7 @@ At this point the user may remove the `replicas` field from their manifest:
 如果應用操作和 HPA 控制器產生衝突，那什麼都不做。
 衝突表明控制器在更早的流程中已經對字段聲明過所有權。
 
-在此時間點，用戶可以從清單中刪除 `replicas` 。
+在此時間點，使用者可以從清單中刪除 `replicas` 。
 
 {{% code_sample file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
 
@@ -864,9 +864,9 @@ complete the transfer to the other field manager.
 -->
 ### 在管理器之間轉移所有權 {#transferring-ownership-between-managers}
 
-通過在配置文件中把一個字段設置爲相同的值，多個字段管理器可以在彼此之間轉移字段的所有權，
+通過在設定文件中把一個字段設置爲相同的值，多個字段管理器可以在彼此之間轉移字段的所有權，
 從而實現字段所有權的共享。
-當某管理器共享了字段的所有權，管理器中任何一個成員都可以從其應用的配置中刪除該字段，
+當某管理器共享了字段的所有權，管理器中任何一個成員都可以從其應用的設定中刪除該字段，
 從而放棄所有權，並完成了所有權向其他字段管理器的轉移。
 
 <!--
@@ -885,12 +885,12 @@ field in an object also becomes available.
 -->
 ## 與客戶端應用的對比 {#comparison-with-client-side-apply}
 
-服務器端應用意味着既可以替代原來 `kubectl apply` 子命令的客戶端實現，
+伺服器端應用意味着既可以替代原來 `kubectl apply` 子命令的客戶端實現，
 也可供{{< glossary_tooltip term_id="controller" text="控制器" >}}作爲實施變更的簡單有效機制。
 
 與 `kubectl` 管理的 `last-applied` 註解相比，
-服務器端應用使用一種更具聲明性的方法來跟蹤對象的字段管理，而不是記錄用戶最後一次應用的狀態。
-這意味着，使用服務器端應用的副作用，就是字段管理器所管理的對象的每個字段的相關信息也會變得可用。
+伺服器端應用使用一種更具聲明性的方法來跟蹤對象的字段管理，而不是記錄使用者最後一次應用的狀態。
+這意味着，使用伺服器端應用的副作用，就是字段管理器所管理的對象的每個字段的相關信息也會變得可用。
 
 <!--
 A consequence of the conflict detection and resolution implemented by Server-Side
@@ -909,17 +909,17 @@ Another difference is that an applier using Client-Side Apply is unable to
 change the API version they are using, but Server-Side Apply supports this use
 case.
 -->
-由服務器端應用實現的衝突檢測和解決方案的一個結果就是，
+由伺服器端應用實現的衝突檢測和解決方案的一個結果就是，
 應用者總是可以在本地狀態中得到最新的字段值。
 如果得不到最新值，下次執行應用操作時就會發生衝突。
-解決衝突三個選項的任意一個都會保證：此應用過的配置文件是服務器上對象字段的最新子集。
+解決衝突三個選項的任意一個都會保證：此應用過的設定文件是伺服器上對象字段的最新子集。
 
-這和客戶端應用（Client-Side Apply）不同，如果有其他用戶覆蓋了此值，
-過期的值被留在了應用者本地的配置文件中。
-除非用戶更新了特定字段，此字段纔會準確，
-應用者沒有途徑去了解下一次應用操作是否會覆蓋其他用戶的修改。
+這和客戶端應用（Client-Side Apply）不同，如果有其他使用者覆蓋了此值，
+過期的值被留在了應用者本地的設定文件中。
+除非使用者更新了特定字段，此字段纔會準確，
+應用者沒有途徑去了解下一次應用操作是否會覆蓋其他使用者的修改。
 
-另一個區別是使用客戶端應用的應用者不能改變他們正在使用的 API 版本，但服務器端應用支持這個場景。
+另一個區別是使用客戶端應用的應用者不能改變他們正在使用的 API 版本，但伺服器端應用支持這個場景。
 
 <!--
 ## Migration between client-side and server-side apply
@@ -929,12 +929,12 @@ case.
 Client-side apply users who manage a resource with `kubectl apply` can start
 using server-side apply with the following flag.
 -->
-## 客戶端應用和服務器端應用的遷移 {#migration-between-client-side-and-server-side-apply}
+## 客戶端應用和伺服器端應用的遷移 {#migration-between-client-side-and-server-side-apply}
 
-### 從客戶端應用升級到服務器端應用 {#upgrading-from-client-side-apply-to-server-side-apply}
+### 從客戶端應用升級到伺服器端應用 {#upgrading-from-client-side-apply-to-server-side-apply}
 
-客戶端應用方式時，用戶使用 `kubectl apply` 管理資源，
-可以通過使用下面標記切換爲使用服務器端應用。
+客戶端應用方式時，使用者使用 `kubectl apply` 管理資源，
+可以通過使用下面標記切換爲使用伺服器端應用。
 
 ```shell
 kubectl apply --server-side [--dry-run=server]
@@ -944,7 +944,7 @@ kubectl apply --server-side [--dry-run=server]
 By default, field management of the object transfers from client-side apply to
 kubectl server-side apply, without encountering conflicts.
 -->
-默認情況下，對象的字段管理從客戶端應用方式遷移到 kubectl 觸發的服務器端應用時，不會發生衝突。
+默認情況下，對象的字段管理從客戶端應用方式遷移到 kubectl 觸發的伺服器端應用時，不會發生衝突。
 
 {{< caution >}}
 <!--
@@ -972,9 +972,9 @@ As an exception, you can opt-out of this behavior by specifying a different,
 non-default field manager, as seen in the following example. The default field
 manager for kubectl server-side apply is `kubectl`.
 -->
-此操作以 `kubectl` 作爲字段管理器來應用到服務器端應用。
+此操作以 `kubectl` 作爲字段管理器來應用到伺服器端應用。
 作爲例外，可以指定一個不同的、非默認字段管理器停止的這種行爲，如下面的例子所示。
-對於 kubectl 觸發的服務器端應用，默認的字段管理器是 `kubectl`。
+對於 kubectl 觸發的伺服器端應用，默認的字段管理器是 `kubectl`。
 
 ```shell
 kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
@@ -995,7 +995,7 @@ As an exception, you can opt-out of this behavior by specifying a different,
 non-default field manager, as seen in the following example. The default field
 manager for kubectl server-side apply is `kubectl`.
 -->
-### 從服務器端應用降級到客戶端應用 {#downgrading-from-server-side-apply-to-client-side-apply}
+### 從伺服器端應用降級到客戶端應用 {#downgrading-from-server-side-apply-to-client-side-apply}
 
 如果你用 `kubectl apply --server-side` 管理一個資源，
 可以直接用 `kubectl apply` 命令將其降級爲客戶端應用。
@@ -1003,9 +1003,9 @@ manager for kubectl server-side apply is `kubectl`.
 降級之所以可行，這是因爲 `kubectl server-side apply`
 會保存最新的 `last-applied-configuration` 註解。
 
-此操作以 `kubectl` 作爲字段管理器應用到服務器端應用。
+此操作以 `kubectl` 作爲字段管理器應用到伺服器端應用。
 作爲例外，可以指定一個不同的、非默認字段管理器停止這種行爲，如下面的例子所示。
-對於 kubectl 觸發的服務器端應用，默認的字段管理器是 `kubectl`。
+對於 kubectl 觸發的伺服器端應用，默認的字段管理器是 `kubectl`。
 
 ```shell
 kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
@@ -1025,9 +1025,9 @@ In either case, use the media type `application/apply-patch+yaml` for the HTTP r
 -->
 ## API 實現 {#api-implementation}
 
-`PATCH` 動詞（支持服務器端應用的資源）接受非官方的 `application/apply-patch+yaml` 內容類型。
-服務器端應用的用戶可以將部分指定的對象以 YAML 格式作爲 `PATCH` 請求的主體發送到資源的 URI。
-應用配置時，你應該始終包含對要定義的結果（如所需狀態）重要的所有字段。
+`PATCH` 動詞（支持伺服器端應用的資源）接受非官方的 `application/apply-patch+yaml` 內容類型。
+伺服器端應用的使用者可以將部分指定的對象以 YAML 格式作爲 `PATCH` 請求的主體發送到資源的 URI。
+應用設定時，你應該始終包含對要定義的結果（如所需狀態）重要的所有字段。
 
 所有 JSON 消息都是有效的 YAML。因此，除了可以爲 Server-Side Apply 請求使用
 YAML 請求體外，你也可以使用 JSON 請求體，因爲它們同樣是有效的 YAML。
@@ -1045,7 +1045,7 @@ new resources with Server-Side Apply.
 
 由於服務端應用是一種 `PATCH` 類型的操作，
 所以一個主體（例如 Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}} 的 Role）需要
-**patch** 權限才能編輯存量資源，還需要 **create** 權限才能使用服務器端應用創建新資源。
+**patch** 權限才能編輯存量資源，還需要 **create** 權限才能使用伺服器端應用創建新資源。
 
 <!--
 ## Clearing `managedFields`
@@ -1114,8 +1114,8 @@ sub-resources that don't receive the resource object type. If you are
 using Server-Side Apply with such a sub-resource, the changed fields
 may not be tracked.
 -->
-對於無法接收資源對象類型的子資源，服務器端應用無法正確跟蹤其所有權。
-如果你將針對此類子資源使用服務器端應用，則可能無法跟蹤被變更的字段。
+對於無法接收資源對象類型的子資源，伺服器端應用無法正確跟蹤其所有權。
+如果你將針對此類子資源使用伺服器端應用，則可能無法跟蹤被變更的字段。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}

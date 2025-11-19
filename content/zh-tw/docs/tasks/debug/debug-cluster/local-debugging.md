@@ -19,7 +19,7 @@ on a remote Kubernetes cluster can be cumbersome, requiring you to
 in order to run debugging tools.
 -->
 Kubernetes 應用程序通常由多個獨立的服務組成，每個服務都在自己的容器中運行。
-在遠端的 Kubernetes 集羣上開發和調試這些服務可能很麻煩，
+在遠端的 Kubernetes 叢集上開發和調試這些服務可能很麻煩，
 需要[在運行的容器上打開 Shell](/zh-cn/docs/tasks/debug/debug-application/get-shell-running-container/)，
 以運行調試工具。
 
@@ -30,15 +30,15 @@ Using `telepresence` allows you to use custom tools, such as a debugger and
 IDE, for a local service and provides the service full access to ConfigMap,
 secrets, and the services running on the remote cluster.
 -->
-`telepresence` 是一個工具，用於簡化本地開發和調試服務的過程，同時可以將服務代理到遠程 Kubernetes 集羣。
+`telepresence` 是一個工具，用於簡化本地開發和調試服務的過程，同時可以將服務代理到遠程 Kubernetes 叢集。
 `telepresence` 允許你使用自定義工具（例如調試器和 IDE）調試本地服務，
-並能夠讓此服務完全訪問 ConfigMap、Secret 和遠程集羣上運行的服務。
+並能夠讓此服務完全訪問 ConfigMap、Secret 和遠程叢集上運行的服務。
 
 <!--
 This document describes using `telepresence` to develop and debug services
 running on a remote cluster locally.
 -->
-本文檔描述如何在本地使用 `telepresence` 開發和調試遠程集羣上運行的服務。
+本文檔描述如何在本地使用 `telepresence` 開發和調試遠程叢集上運行的服務。
 
 ## {{% heading "prerequisites" %}}
 
@@ -47,8 +47,8 @@ running on a remote cluster locally.
 * `kubectl` is configured to communicate with the cluster
 * [Telepresence](https://www.telepresence.io/docs/latest/quick-start/) is installed
 -->
-* Kubernetes 集羣安裝完畢
-* 配置好 `kubectl` 與集羣交互
+* Kubernetes 叢集安裝完畢
+* 設定好 `kubectl` 與叢集交互
 * [Telepresence](https://www.telepresence.io/docs/latest/quick-start/) 安裝完畢
 
 <!-- steps -->
@@ -59,10 +59,10 @@ running on a remote cluster locally.
 After installing `telepresence`, run `telepresence connect` to launch
 its Daemon and connect your local workstation to the cluster.
 -->
-## 從本機連接到遠程 Kubernetes 集羣  {#connecting-your-local-machine-to-a-remote-cluster}
+## 從本機連接到遠程 Kubernetes 叢集  {#connecting-your-local-machine-to-a-remote-cluster}
 
 安裝 `telepresence` 後，運行 `telepresence connect` 來啓動它的守護進程並將本地工作站連接到遠程
-Kubernetes 集羣。
+Kubernetes 叢集。
 
 ```
 $ telepresence connect
@@ -109,7 +109,7 @@ Where:
 
 - `$SERVICE_NAME` 是本地服務名稱
 - `$LOCAL_PORT` 是服務在本地工作站上運行的端口
-- `$REMOTE_PORT` 是服務在集羣中偵聽的端口
+- `$REMOTE_PORT` 是服務在叢集中偵聽的端口
 
 <!--
 Running this command tells Telepresence to send remote traffic to your
@@ -118,7 +118,7 @@ Make edits to your service source code locally, save, and see the corresponding
 changes when accessing your remote application take effect immediately.
 You can also run your local service using a debugger or any other local development tool.
 -->
-運行此命令會告訴 Telepresence 將遠程流量發送到本地服務，而不是遠程 Kubernetes 集羣中的服務中。
+運行此命令會告訴 Telepresence 將遠程流量發送到本地服務，而不是遠程 Kubernetes 叢集中的服務中。
 在本地編輯保存服務源代碼，並在訪問遠程應用時查看相應變更會立即生效。
 還可以使用調試器或任何其他本地開發工具運行本地服務。
 
@@ -136,8 +136,8 @@ to your local development environment.
 -->
 ## Telepresence 是如何工作的？  {#how-does-telepresence-work}
 
-Telepresence 會在遠程集羣中運行的現有應用程序容器旁邊安裝流量代理 Sidecar。
-當它捕獲進入 Pod 的所有流量請求時，不是將其轉發到遠程集羣中的應用程序，
+Telepresence 會在遠程叢集中運行的現有應用程序容器旁邊安裝流量代理 Sidecar。
+當它捕獲進入 Pod 的所有流量請求時，不是將其轉發到遠程叢集中的應用程序，
 而是路由所有流量（當創建[全局攔截器](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#global-intercept)時）
 或流量的一個子集（當創建[自定義攔截器](https://www.getambassador.io/docs/telepresence/latest/concepts/intercepts/#personal-intercept)時）
 到本地開發環境。

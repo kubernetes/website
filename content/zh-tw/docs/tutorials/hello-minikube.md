@@ -22,7 +22,7 @@ This tutorial shows you how to run a sample app on Kubernetes using minikube.
 The tutorial provides a container image that uses NGINX to echo back all the requests.
 -->
 本教程向你展示如何使用 Minikube 在 Kubernetes 上運行一個應用示例。
-教程提供了容器鏡像，使用 NGINX 來對所有請求做出回應。
+教程提供了容器映像檔，使用 NGINX 來對所有請求做出回應。
 
 ## {{% heading "objectives" %}}
 
@@ -63,7 +63,7 @@ See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 <!--
 ## Create a minikube cluster
 -->
-## 創建 Minikube 集羣  {#create-a-minikube-cluster}
+## 創建 Minikube 叢集  {#create-a-minikube-cluster}
 
 ```shell
 minikube start
@@ -115,11 +115,11 @@ You can run the `dashboard` command again to create another proxy to access the 
 要了解如何避免從終端直接調用瀏覽器並獲取 Web 儀表板的 URL，請參閱
 "URL 複製和粘貼"選項卡。
 
-默認情況下，儀表板只能從內部 Kubernetes 虛擬網絡中訪問。
-`dashboard` 命令創建一個臨時代理，使儀表板可以從 Kubernetes 虛擬網絡外部訪問。
+默認情況下，儀表板只能從內部 Kubernetes 虛擬網路中訪問。
+`dashboard` 命令創建一個臨時代理，使儀表板可以從 Kubernetes 虛擬網路外部訪問。
 
 要停止代理，請運行 `Ctrl+C` 退出該進程。儀表板仍在運行中。
-命令退出後，儀表板仍然在 Kubernetes 集羣中運行。
+命令退出後，儀表板仍然在 Kubernetes 叢集中運行。
 你可以再次運行 `dashboard` 命令創建另一個代理來訪問儀表板。
 {{< /note >}}
 
@@ -173,10 +173,10 @@ Deployment 是管理 Pod 創建和擴展的推薦方法。
    Pod runs a Container based on the provided Docker image.
 -->
 1. 使用 `kubectl create` 命令創建管理 Pod 的 Deployment。該 Pod 根據提供的 Docker
-   鏡像運行容器。
+   映像檔運行容器。
 
    ```shell
-   # 運行包含 Web 服務器的測試容器鏡像
+   # 運行包含 Web 伺服器的測試容器鏡像
    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.53 -- /agnhost netexec --http-port=8080
    ```
 
@@ -228,7 +228,7 @@ Deployment 是管理 Pod 創建和擴展的推薦方法。
 <!--
 1. View cluster events:
 -->
-4. 查看集羣事件：
+4. 查看叢集事件：
 
    ```shell
    kubectl get events
@@ -237,7 +237,7 @@ Deployment 是管理 Pod 創建和擴展的推薦方法。
 <!--
 1. View the `kubectl` configuration:
 -->
-5. 查看 `kubectl` 配置：
+5. 查看 `kubectl` 設定：
 
    ```shell
    kubectl config view
@@ -286,8 +286,8 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 -->
 ## 創建 Service  {#create-a-service}
 
-默認情況下，Pod 只能通過 Kubernetes 集羣中的內部 IP 地址訪問。
-要使得 `hello-node` 容器可以從 Kubernetes 虛擬網絡的外部訪問，你必須將 Pod
+默認情況下，Pod 只能通過 Kubernetes 叢集中的內部 IP 地址訪問。
+要使得 `hello-node` 容器可以從 Kubernetes 虛擬網路的外部訪問，你必須將 Pod
 通過 Kubernetes [**Service**](/zh-cn/docs/concepts/services-networking/service/) 公開出來。
 
 {{< warning >}}
@@ -297,7 +297,7 @@ debugging, but dangerous to expose to the public internet. Do not run this on an
 internet-facing cluster, or a production cluster.
 -->
 agnhost 容器有一個 `/shell` 端點，對於調試很有幫助，但暴露給公共互聯網很危險。
-請勿在面向互聯網的集羣或生產集羣上運行它。
+請勿在面向互聯網的叢集或生產叢集上運行它。
 {{< /warning >}}
 
 <!--
@@ -317,9 +317,9 @@ agnhost 容器有一個 `/shell` 端點，對於調試很有幫助，但暴露�
    `kubectl expose` to expose a different port, clients could not connect to that other port.
    -->
 
-   這裏的 `--type=LoadBalancer` 參數表明你希望將你的 Service 暴露到集羣外部。
+   這裏的 `--type=LoadBalancer` 參數表明你希望將你的 Service 暴露到叢集外部。
 
-   測試鏡像中的應用程序代碼僅監聽 TCP 8080 端口。
+   測試映像檔中的應用程序代碼僅監聽 TCP 8080 端口。
    如果你用 `kubectl expose` 暴露了其它的端口，客戶端將不能訪問其它端口。
 
 <!--
@@ -520,7 +520,7 @@ Now you can clean up the resources you created in your cluster:
 -->
 ## 清理  {#clean-up}
 
-現在可以清理你在集羣中創建的資源：
+現在可以清理你在叢集中創建的資源：
 
 ```shell
 kubectl delete service hello-node
@@ -530,7 +530,7 @@ kubectl delete deployment hello-node
 <!--
 Stop the Minikube cluster
 -->
-停止 Minikube 集羣：
+停止 Minikube 叢集：
 
 ```shell
 minikube stop
@@ -558,7 +558,7 @@ This page covered the basic aspects to get a minikube cluster up and running. Yo
 -->
 ## 結論
 
-本頁介紹了啓動和運行 minikube 集羣的基本知識，現在部署應用的準備工作已經完成。
+本頁介紹了啓動和運行 minikube 叢集的基本知識，現在部署應用的準備工作已經完成。
 
 ## {{% heading "whatsnext" %}}
 

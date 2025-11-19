@@ -1,5 +1,5 @@
 ---
-title: 使用 kubeadm 配置集羣中的每個 kubelet
+title: 使用 kubeadm 設定叢集中的每個 kubelet
 content_type: concept
 weight: 80
 ---
@@ -35,35 +35,35 @@ of your kubelets manually, but kubeadm now provides a `KubeletConfiguration` API
 [managing your kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 -->
 kubeadm CLI 工具的生命週期與 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet)
-解耦；kubelet 是一個守護程序，在 Kubernetes 集羣中的每個節點上運行。
-當 Kubernetes 初始化或升級時，kubeadm CLI 工具由用戶執行，而 kubelet 始終在後臺運行。
+解耦；kubelet 是一個守護程序，在 Kubernetes 叢集中的每個節點上運行。
+當 Kubernetes 初始化或升級時，kubeadm CLI 工具由使用者執行，而 kubelet 始終在後臺運行。
 
 由於kubelet是守護程序，因此需要通過某種初始化系統或服務管理器進行維護。
-當使用 DEB 或 RPM 安裝 kubelet 時，配置系統去管理 kubelet。
-你可以改用其他服務管理器，但需要手動地配置。
+當使用 DEB 或 RPM 安裝 kubelet 時，設定系統去管理 kubelet。
+你可以改用其他服務管理器，但需要手動地設定。
 
-集羣中涉及的所有 kubelet 的一些配置細節都必須相同，
-而其他配置方面則需要基於每個 kubelet 進行設置，以適應給定機器的不同特性（例如操作系統、存儲和網絡）。
-你可以手動地管理 kubelet 的配置，但是 kubeadm 現在提供一種 `KubeletConfiguration` API
-類型用於[集中管理 kubelet 的配置](#configure-kubelets-using-kubeadm)。
+叢集中涉及的所有 kubelet 的一些設定細節都必須相同，
+而其他設定方面則需要基於每個 kubelet 進行設置，以適應給定機器的不同特性（例如操作系統、存儲和網路）。
+你可以手動地管理 kubelet 的設定，但是 kubeadm 現在提供一種 `KubeletConfiguration` API
+類型用於[集中管理 kubelet 的設定](#configure-kubelets-using-kubeadm)。
 
 <!-- body -->
 
 <!--
 ## Kubelet configuration patterns
 -->
-## Kubelet 配置模式    {#kubelet-configuration-patterns}
+## Kubelet 設定模式    {#kubelet-configuration-patterns}
 
 <!--
 The following sections describe patterns to kubelet configuration that are simplified by
 using kubeadm, rather than managing the kubelet configuration for each Node manually.
 -->
-以下各節講述了通過使用 kubeadm 簡化 kubelet 配置模式，而不是在每個節點上手動地管理 kubelet 配置。
+以下各節講述了通過使用 kubeadm 簡化 kubelet 設定模式，而不是在每個節點上手動地管理 kubelet 設定。
 
 <!--
 ### Propagating cluster-level configuration to each kubelet
 -->
-### 將集羣級配置傳播到每個 kubelet 中    {#propagating-cluster-level-configuration-to-each-kubelet}
+### 將叢集級設定傳播到每個 kubelet 中    {#propagating-cluster-level-configuration-to-each-kubelet}
 
 <!--
 You can provide the kubelet with default values to be used by `kubeadm init` and `kubeadm join`
@@ -74,7 +74,7 @@ If you want your services to use the subnet `10.96.0.0/12` as the default for se
 the `--service-cidr` parameter to kubeadm:
 -->
 你可以通過 `kubeadm init` 和 `kubeadm join` 命令爲 kubelet 提供默認值。
-有趣的示例包括使用其他容器運行時或通過服務器設置不同的默認子網。
+有趣的示例包括使用其他容器運行時或通過伺服器設置不同的默認子網。
 
 如果你想使用子網 `10.96.0.0/12` 作爲服務的默認網段，你可以給 kubeadm 傳遞 `--service-cidr` 參數：
 
@@ -94,11 +94,11 @@ a list of values to a camelCased key, illustrated by the following example:
 -->
 現在，可以從該子網分配服務的虛擬 IP。
 你還需要通過 kubelet 使用 `--cluster-dns` 標誌設置 DNS 地址。
-在集羣中的每個管理器和節點上的 kubelet 的設置需要相同。
-kubelet 提供了一個版本化的結構化 API 對象，該對象可以配置 kubelet
-中的大多數參數，並將此配置推送到集羣中正在運行的每個 kubelet 上。
+在叢集中的每個管理器和節點上的 kubelet 的設置需要相同。
+kubelet 提供了一個版本化的結構化 API 對象，該對象可以設定 kubelet
+中的大多數參數，並將此設定推送到叢集中正在運行的每個 kubelet 上。
 此對象被稱爲 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)。
-`KubeletConfiguration` 允許用戶指定標誌，例如用駱峯值代表集羣的 DNS IP 地址，如下所示：
+`KubeletConfiguration` 允許使用者指定標誌，例如用駱峯值代表叢集的 DNS IP 地址，如下所示：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -118,9 +118,9 @@ For more details on the `KubeletConfiguration` have a look at [this section](#co
 Some hosts require specific kubelet configurations due to differences in hardware, operating system,
 networking, or other host-specific parameters. The following list provides a few examples.
 -->
-### 提供特定於某實例的配置細節    {#providing-instance-specific-configuration-details}
+### 提供特定於某實例的設定細節    {#providing-instance-specific-configuration-details}
 
-由於硬件、操作系統、網絡或者其他主機特定參數的差異。某些主機需要特定的 kubelet 配置。
+由於硬件、操作系統、網路或者其他主機特定參數的差異。某些主機需要特定的 kubelet 設定。
 以下列表提供了一些示例。
 
 <!--
@@ -143,9 +143,9 @@ networking, or other host-specific parameters. The following list provides a few
 The recommended way of applying such instance-specific configuration is by using
 [`KubeletConfiguration` patches](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches).
 -->
-- 由 kubelet 配置標誌 `--resolv-conf` 指定的 DNS 解析文件的路徑在操作系統之間可能有所不同，
+- 由 kubelet 設定標誌 `--resolv-conf` 指定的 DNS 解析文件的路徑在操作系統之間可能有所不同，
   它取決於你是否使用 `systemd-resolved`。
-  如果此路徑錯誤，則在其 kubelet 配置錯誤的節點上 DNS 解析也將失敗。
+  如果此路徑錯誤，則在其 kubelet 設定錯誤的節點上 DNS 解析也將失敗。
 
 - 除非你使用雲驅動，否則默認情況下 Node API 對象的 `.metadata.name` 會被設置爲計算機的主機名。
   如果你需要指定一個與機器的主機名不同的節點名稱，你可以使用 `--hostname-override` 標誌覆蓋默認值。
@@ -155,7 +155,7 @@ The recommended way of applying such instance-specific configuration is by using
 
 - 要指定容器運行時，你必須用 `--container-runtime-endpoint=<path>` 標誌來指定端點。
 
-應用此類特定於實例的配置的推薦方法是使用
+應用此類特定於實例的設定的推薦方法是使用
 [`KubeletConfiguration` 補丁](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches)。
 
 <!--
@@ -172,9 +172,9 @@ It is also possible to apply instance-specific patches over the base `KubeletCon
 Have a look at [Customizing the kubelet](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet)
 for more details.
 -->
-## 使用 kubeadm 配置 kubelet    {#configure-kubelets-using-kubeadm}
+## 使用 kubeadm 設定 kubelet    {#configure-kubelets-using-kubeadm}
 
-如果自定義的 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) API 對象使用像 `kubeadm ... --config some-config-file.yaml` 這樣的配置文件進行傳遞，則可以配置 kubeadm 啓動的 kubelet。
+如果自定義的 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) API 對象使用像 `kubeadm ... --config some-config-file.yaml` 這樣的設定文件進行傳遞，則可以設定 kubeadm 啓動的 kubelet。
 
 通過調用 `kubeadm config print init-defaults --component-configs KubeletConfiguration`，
 你可以看到此結構中的所有默認值。
@@ -200,13 +200,13 @@ points to the client certificates that allow the kubelet to communicate with the
 addresses the need to
 [propagate cluster-level configuration to each kubelet](#propagating-cluster-level-configuration-to-each-kubelet).
 -->
-當調用 `kubeadm init` 時，kubelet 的配置會被寫入磁盤 `/var/lib/kubelet/config.yaml`，
-並上傳到集羣 `kube-system` 命名空間的 `kubelet-config` ConfigMap。
+當調用 `kubeadm init` 時，kubelet 的設定會被寫入磁盤 `/var/lib/kubelet/config.yaml`，
+並上傳到叢集 `kube-system` 命名空間的 `kubelet-config` ConfigMap。
 此外，kubeadm 工具會在節點上檢測 CRI 套接字，
-並將其詳細信息（包括套接字路徑）寫入本地配置文件 `/var/lib/kubelet/instance-config.yaml`。
-kubelet 配置信息也被寫入 `/etc/kubernetes/kubelet.conf`，其中包含集羣內所有 kubelet 的基線配置。
-此配置文件指向允許 kubelet 與 API 服務器通信的客戶端證書。
-這解決了[將集羣級配置傳播到每個 kubelet](#propagating-cluster-level-configuration-to-each-kubelet) 的需求。
+並將其詳細信息（包括套接字路徑）寫入本地設定文件 `/var/lib/kubelet/instance-config.yaml`。
+kubelet 設定信息也被寫入 `/etc/kubernetes/kubelet.conf`，其中包含叢集內所有 kubelet 的基線設定。
+此設定文件指向允許 kubelet 與 API 伺服器通信的客戶端證書。
+這解決了[將叢集級設定傳播到每個 kubelet](#propagating-cluster-level-configuration-to-each-kubelet) 的需求。
 
 <!--
 To address the second pattern of
@@ -214,7 +214,7 @@ To address the second pattern of
 kubeadm writes an environment file to `/var/lib/kubelet/kubeadm-flags.env`, which contains a list of
 flags to pass to the kubelet when it starts. The flags are presented in the file like this:
 -->
-針對[爲特定實例提供配置細節](#providing-instance-specific-configuration-details)的第二種模式，
+針對[爲特定實例提供設定細節](#providing-instance-specific-configuration-details)的第二種模式，
 kubeadm 的解決方法是將環境文件寫入 `/var/lib/kubelet/kubeadm-flags.env`，其中包含了一個標誌列表，
 當 kubelet 啓動時，該標誌列表會傳遞給 kubelet 標誌在文件中的顯示方式如下：
 
@@ -258,13 +258,13 @@ The dynamic environment file is generated in exactly the same way as `kubeadm in
 當運行 `kubeadm join` 時，kubeadm 使用 Bootstrap Token 證書執行 TLS 引導，該引導會獲取一份證書，
 該證書需要下載 `kubelet-config` ConfigMap 並把它寫入 `/var/lib/kubelet/config.yaml` 中。
 此外，kubeadm 會在節點上自動檢測 CRI 套接字，
-並將其詳細信息（包括套接字路徑）寫入本地配置文件 `/var/lib/kubelet/instance-config.yaml`。
+並將其詳細信息（包括套接字路徑）寫入本地設定文件 `/var/lib/kubelet/instance-config.yaml`。
 動態環境文件的生成方式恰好與 `kubeadm init` 完全相同。
 
 <!--
 Next, `kubeadm` runs the following two commands to load the new configuration into the kubelet:
 -->
-接下來，`kubeadm` 運行以下兩個命令將新配置加載到 kubelet 中：
+接下來，`kubeadm` 運行以下兩個命令將新設定加載到 kubelet 中：
 
 ```bash
 systemctl daemon-reload && systemctl restart kubelet
@@ -276,7 +276,7 @@ After the kubelet loads the new configuration, kubeadm writes the
 Token. These are used by the kubelet to perform the TLS Bootstrap and obtain a unique
 credential, which is stored in `/etc/kubernetes/kubelet.conf`.
 -->
-在 kubelet 加載新配置後，kubeadm 將寫入 `/etc/kubernetes/bootstrap-kubelet.conf` KubeConfig 文件中，
+在 kubelet 加載新設定後，kubeadm 將寫入 `/etc/kubernetes/bootstrap-kubelet.conf` KubeConfig 文件中，
 該文件包含 CA 證書和引導程序令牌。
 kubelet 使用這些證書執行 TLS 引導程序並獲取唯一的憑據，該憑據被存儲在 `/etc/kubernetes/kubelet.conf` 中。
 
@@ -296,7 +296,7 @@ kubeadm 在完成 TLS 引導過程後將刪除 `/etc/kubernetes/bootstrap-kubele
 `kubeadm` ships with configuration for how systemd should run the kubelet.
 Note that the kubeadm CLI command never touches this drop-in file.
 -->
-`kubeadm` 中附帶了有關係統如何運行 kubelet 的 systemd 配置文件。
+`kubeadm` 中附帶了有關係統如何運行 kubelet 的 systemd 設定文件。
 請注意 kubeadm CLI 命令不會修改此文件。
 
 <!--
@@ -307,7 +307,7 @@ It augments the basic
 [`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service).
 -->
 通過 `kubeadm` [包](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf) 
-安裝的配置文件被寫入 `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`
+安裝的設定文件被寫入 `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`
 並由 systemd 使用。它對原來的
 [`kubelet.service`](https://github.com/kubernetes/release/blob/cd53840/cmd/krel/templates/latest/kubelet/kubelet.service) 作了增強。
 
@@ -320,10 +320,10 @@ to override the unit settings configured by `kubeadm`.
 Here is what you are likely to find in `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`:
 -->
 如果你想進一步覆蓋它，可以創建一個目錄`/etc/systemd/system/kubelet.service.d/`
-（而不是`/usr/lib/systemd/kubelet.service.d/`），並將你自己的自定義配置寫入到該目錄下的一個文件中。
+（而不是`/usr/lib/systemd/kubelet.service.d/`），並將你自己的自定義設定寫入到該目錄下的一個文件中。
 
 例如，您可以添加一個新的本地文件`/etc/systemd/system/kubelet.service.d/local-overrides.conf`
-以覆蓋“kubeadm”配置的單元設置。
+以覆蓋“kubeadm”設定的單元設置。
 
 以下是你可能在“/usr/lib/systemd/kubelet.service.d/10 kubeadm.conf”中找到的內容：
 
@@ -387,9 +387,9 @@ This file specifies the default locations for all of the files managed by kubead
 - 用於 TLS 引導程序的 KubeConfig 文件爲 `/etc/kubernetes/bootstrap-kubelet.conf`，
   但僅當 `/etc/kubernetes/kubelet.conf` 不存在時才能使用。
 - 具有唯一 kubelet 標識的 KubeConfig 文件爲 `/etc/kubernetes/kubelet.conf`。
-- 包含 kubelet 的組件配置的文件爲 `/var/lib/kubelet/config.yaml`。
+- 包含 kubelet 的組件設定的文件爲 `/var/lib/kubelet/config.yaml`。
 - 包含的動態環境的文件 `KUBELET_KUBEADM_ARGS` 是來源於 `/var/lib/kubelet/kubeadm-flags.env`。
-- 包含用戶指定標誌替代的文件 `KUBELET_EXTRA_ARGS` 是來源於
+- 包含使用者指定標誌替代的文件 `KUBELET_EXTRA_ARGS` 是來源於
   `/etc/default/kubelet`（對於 DEB），或者 `/etc/sysconfig/kubelet`（對於 RPM）。
   `KUBELET_EXTRA_ARGS` 在標誌鏈中排在最後，並且在設置衝突時具有最高優先級。
 

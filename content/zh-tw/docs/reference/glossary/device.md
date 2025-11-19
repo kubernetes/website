@@ -3,7 +3,7 @@ title: 設備
 id: device
 date: 2025-05-13
 short_description: >
-  直接或間接掛接到集羣節點上的所有資源，例如 GPU 或電路板。
+  直接或間接掛接到叢集節點上的所有資源，例如 GPU 或電路板。
 
 tags:
 - extension

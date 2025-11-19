@@ -24,4 +24,4 @@ stages:
 Enable [structured authentication configuration](/docs/reference/access-authn-authz/authentication/#configuring-the-api-server)
 for the API server.
 -->
-爲 API 服務器啓用[結構化身份驗證配置](/zh-cn/docs/reference/access-authn-authz/authentication/#configuring-the-api-server)。
+爲 API 伺服器啓用[結構化身份驗證設定](/zh-cn/docs/reference/access-authn-authz/authentication/#configuring-the-api-server)。

@@ -27,7 +27,7 @@ The process of safely evicting {{< glossary_tooltip text="Pods" term_id="pod" >}
 -->
 從 {{< glossary_tooltip text="Node" term_id="node" >}} 中安全驅逐
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 的過程，
-爲維護或從{{< glossary_tooltip text="集羣" term_id="cluster" >}}中移除節點做好準備。
+爲維護或從{{< glossary_tooltip text="叢集" term_id="cluster" >}}中移除節點做好準備。
 
 <!--more-->
 
@@ -40,4 +40,4 @@ If an eviction request is temporarily rejected, `kubectl drain` retries until al
 執行此命令時，它會從 {{< glossary_tooltip text="Node" term_id="node" >}} 驅逐所有
 {{< glossary_tooltip text="Pod" term_id="pod" >}}。 
 如果驅逐請求臨時被拒絕，`kubectl drain` 會重試，直到所有
-{{< glossary_tooltip text="Pod" term_id="pod" >}} 被終止或達到可配置的超時時限。
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 被終止或達到可設定的超時時限。

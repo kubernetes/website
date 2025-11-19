@@ -32,7 +32,7 @@ generalization of the persistent volumes API for generic resources, making it po
 
 - 在不同的 pod 和容器中訪問相同的資源實例，
 - 將任意約束附加到資源請求以獲取你正在尋找的確切資源，
-- 通過用戶提供的參數初始化資源。
+- 通過使用者提供的參數初始化資源。
 
 <!-- 
 Third-party resource drivers are responsible for interpreting these parameters
@@ -64,8 +64,8 @@ The default configuration of kube-scheduler enables the `DynamicResources`
 plugin if and only if the feature gate is enabled. Custom configurations may
 have to be modified to include it.
 -->
-kube-scheduler 的默認配置僅在啓用特性門控時才啓用 `DynamicResources` 插件。
-自定義配置可能需要被修改才能啓用它。
+kube-scheduler 的默認設定僅在啓用特性門控時才啓用 `DynamicResources` 插件。
+自定義設定可能需要被修改才能啓用它。
 
 <!-- 
 Once dynamic resource allocation is enabled, resource drivers can be installed
@@ -105,11 +105,11 @@ ResourceClaim
 -->
 ResourceClass
 : 定義由哪個資源驅動程序處理哪種資源，併爲其提供通用參數。
-  在安裝資源驅動程序時，由集羣管理員創建 ResourceClass。
+  在安裝資源驅動程序時，由叢集管理員創建 ResourceClass。
 
 ResourceClaim
 : 定義工作負載所需的特定資源實例。
-  由用戶創建（手動管理生命週期，可以在不同的 Pod 之間共享），
+  由使用者創建（手動管理生命週期，可以在不同的 Pod 之間共享），
   或者由控制平面基於 ResourceClaimTemplate 爲特定 Pod 創建
   （自動管理生命週期，通常僅由一個 Pod 使用）。
 
@@ -125,7 +125,7 @@ PodScheduling
 -->
 ResourceClaimTemplate
 : 定義用於創建 ResourceClaim 的 spec 和一些元數據。
-  部署工作負載時由用戶創建。
+  部署工作負載時由使用者創建。
 
 PodScheduling
 : 供控制平面和資源驅動程序內部使用，
@@ -190,7 +190,7 @@ driverName: resource-driver.example.com
 An end-user could then allocate two specific resources of type
 `resource.example.com` as follows:
 -->
-這樣，終端用戶可以按如下方式分配兩個類型爲
+這樣，終端使用者可以按如下方式分配兩個類型爲
 `resource.example.com` 的特定資源：
 ```yaml
 ---
@@ -257,11 +257,11 @@ for it are reserved. This also then tells the scheduler where in the cluster a
 claimed resource is actually available.
 -->
 與原生資源（CPU、RAM）和[擴展資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)
-（由設備插件管理，並由 kubelet 公佈）不同，調度器不知道集羣中有哪些動態資源，
+（由設備插件管理，並由 kubelet 公佈）不同，調度器不知道叢集中有哪些動態資源，
 也不知道如何將它們拆分以滿足特定 ResourceClaim 的要求。
 資源驅動程序負責這些任務。
 資源驅動程序在爲 ResourceClaim 保留資源後將其標記爲**已分配（Allocated）**。
-然後告訴調度器集羣中可用的 ResourceClaim 的位置。
+然後告訴調度器叢集中可用的 ResourceClaim 的位置。
 
 <!--
 ResourceClaims can get resources allocated as soon as the ResourceClaim
@@ -380,7 +380,7 @@ API. For drivers written in Go, the following package is recommended:
 - [k8s.io/dynamic-resource-allocation/kubeletplugin](https://github.com/kubernetes/dynamic-resource-allocation/tree/release-1.26/kubeletplugin)
 -->
 同樣，樣板代碼可用於向 kubelet 註冊節點本地插件，
-也可以啓動 gRPC 服務器來實現 kubelet 插件 API。
+也可以啓動 gRPC 伺服器來實現 kubelet 插件 API。
 對於用 Go 編寫的驅動程序，推薦使用以下軟件包：
 - [k8s.io/dynamic-resource-allocation/kubeletplugin](https://github.com/kubernetes/dynamic-resource-allocation/tree/release-1.26/kubeletplugin)
 
@@ -416,8 +416,8 @@ runtime that supports the
 Once containerd v1.7.0 is released, we expect that you can run that or any later version.
 In the example below, we use CRI-O.
 -->
-下面的步驟直接使用 Kubernetes 源代碼啓一個本地單節點集羣。
-前提是，你的集羣必須具有支持[容器設備接口](https://github.com/container-orchestrated-devices/container-device-interface)
+下面的步驟直接使用 Kubernetes 源代碼啓一個本地單節點叢集。
+前提是，你的叢集必須具有支持[容器設備接口](https://github.com/container-orchestrated-devices/container-device-interface)
 （CDI）的容器運行時。
 例如，你可以運行 CRI-O [v1.23.2](https://github.com/cri-o/cri-o/releases/tag/v1.23.2)
 或更高版本。containerd v1.7.0 發佈後，我們期望你可以運行該版本或更高版本。
@@ -463,7 +463,7 @@ $ sudo mkdir -p /var/run/cdi && \
 $ go run ./test/e2e/dra/test-driver --feature-gates ContextualLogging=true -v=6 kubelet-plugin
 ```
 -->
-集羣啓動後，在另一個終端運行測試驅動程序控制器。
+叢集啓動後，在另一個終端運行測試驅動程序控制器。
 必須爲以下所有命令設置 `KUBECONFIG`。
 ```console
 $ go run ./test/e2e/dra/test-driver --feature-gates ContextualLogging=true -v=5 controller
@@ -485,12 +485,12 @@ and run that as root.
 
 Now the cluster is ready to create objects:
 -->
-更改目錄的權限，這樣可以以普通用戶身份運行和（使用 delve）調試 kubelet 插件，
+更改目錄的權限，這樣可以以普通使用者身份運行和（使用 delve）調試 kubelet 插件，
 這很方便，因爲它使用已填充的 Go 緩存。
 完成後，記得使用 `sudo chmod go-w` 還原權限。
 或者，你也可以構建二進制文件並以 root 身份運行該二進制文件。
 
-現在集羣已準備好創建對象：
+現在叢集已準備好創建對象：
 ```console
 $ kubectl create -f test/e2e/dra/test-driver/deploy/example/resourceclass.yaml
 resourceclass.resource.k8s.io/example created
@@ -549,4 +549,4 @@ user_a='b'
 - 你可以查看或評論動態資源分配的[項目看板](https://github.com/orgs/kubernetes/projects/95/views/1)。
 - 爲了將該功能向 beta 版本推進，我們需要來自硬件供應商的反饋，
   因此，有一個行動號召：嘗試這個功能，
-  考慮它如何有助於解決你的用戶遇到的問題，並編寫資源驅動程序…
+  考慮它如何有助於解決你的使用者遇到的問題，並編寫資源驅動程序…

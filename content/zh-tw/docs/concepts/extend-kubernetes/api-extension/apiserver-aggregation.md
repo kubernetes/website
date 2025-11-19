@@ -22,7 +22,7 @@ offered by the core Kubernetes APIs.
 The additional APIs can either be ready-made solutions such as a
 [metrics server](https://github.com/kubernetes-sigs/metrics-server), or APIs that you develop yourself.
 -->
-使用聚合層（Aggregation Layer），用戶可以通過附加的 API 擴展 Kubernetes，
+使用聚合層（Aggregation Layer），使用者可以通過附加的 API 擴展 Kubernetes，
 而不侷限於 Kubernetes 核心 API 提供的功能。
 這裏的附加 API 可以是現成的解決方案，比如
 [metrics server](https://github.com/kubernetes-sigs/metrics-server)，
@@ -64,10 +64,10 @@ the extension API server (also written as "extension-apiserver") is typically pa
 more {{< glossary_tooltip text="controllers" term_id="controller" >}}. The apiserver-builder
 library provides a skeleton for both extension API servers and the associated controller(s).
 -->
-APIService 的最常見實現方式是在集羣中某 Pod 內運行**擴展 API 服務器（Extension API Server）**。
-如果你在使用擴展 API 服務器來管理集羣中的資源，該擴展 API 服務器（也被寫成 "extension-apiserver"）
+APIService 的最常見實現方式是在叢集中某 Pod 內運行**擴展 API 伺服器（Extension API Server）**。
+如果你在使用擴展 API 伺服器來管理叢集中的資源，該擴展 API 伺服器（也被寫成 "extension-apiserver"）
 一般需要和一個或多個{{< glossary_tooltip text="控制器" term_id="controller" >}}一起使用。
-apiserver-builder 庫同時提供構造擴展 API 服務器和控制器框架代碼。
+apiserver-builder 庫同時提供構造擴展 API 伺服器和控制器框架代碼。
 
 <!--
 ### Response latency
@@ -80,10 +80,10 @@ let you meet it.
 -->
 ### 響應延遲  {#response-latency}
 
-擴展 API 服務器（Extension API Server）與 kube-apiserver 之間需要存在低延遲的網絡連接。
+擴展 API 伺服器（Extension API Server）與 kube-apiserver 之間需要存在低延遲的網路連接。
 發現請求需要在五秒鐘或更短的時間內完成到 kube-apiserver 的往返。
 
-如果你的擴展 API 服務器無法滿足這一延遲要求，應考慮如何更改配置以滿足需要。
+如果你的擴展 API 伺服器無法滿足這一延遲要求，應考慮如何更改設定以滿足需要。
 
 ## {{% heading "whatsnext" %}}
 
@@ -96,9 +96,9 @@ let you meet it.
 Alternatively: learn how to
 [extend the Kubernetes API using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
 -->
-* 閱讀[配置聚合層](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)文檔，
+* 閱讀[設定聚合層](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)文檔，
   瞭解如何在自己的環境中啓用聚合器。
-* 接下來，瞭解[安裝擴展 API 服務器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)，
+* 接下來，瞭解[安裝擴展 API 伺服器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)，
   開始使用聚合層。
 * 從 API 參考資料中研究關於 [APIService](/zh-cn/docs/reference/kubernetes-api/cluster-resources/api-service-v1/) 的內容。
 * 瞭解 [聲明式校驗概念](/zh-cn/docs/reference/using-api/declarative-validation)，

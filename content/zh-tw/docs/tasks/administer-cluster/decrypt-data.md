@@ -21,7 +21,7 @@ kube-apiserver.
 -->
 Kubernetes 中允許允許你寫入持久性 API 資源數據的所有 API 都支持靜態加密。
 例如，你可以爲 {{< glossary_tooltip text="Secret" term_id="secret" >}} 啓用靜態加密。
-此靜態加密是對 etcd 集羣或運行 kube-apiserver 的主機上的文件系統的所有系統級加密的補充。
+此靜態加密是對 etcd 叢集或運行 kube-apiserver 的主機上的文件系統的所有系統級加密的補充。
 
 <!--
 This page shows how to switch from encryption of API data at rest, so that API data
@@ -66,17 +66,17 @@ need to either:
 
 * Your cluster's control plane **must** use etcd v3.x (major version 3, any minor version).
 -->
-* 此任務假設你將 Kubernetes API 服務器組件以{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}
+* 此任務假設你將 Kubernetes API 伺服器組件以{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}
   方式運行在每個控制平面節點上。
 
-* 集羣的控制平面**必須**使用 etcd v3.x（主版本 3，任何次要版本）。
+* 叢集的控制平面**必須**使用 etcd v3.x（主版本 3，任何次要版本）。
 
 <!--
 * To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
 
 * You should have some API data that are already encrypted.
 -->
-* 要加密自定義資源，你的集羣必須運行 Kubernetes v1.26 或更高版本。
+* 要加密自定義資源，你的叢集必須運行 Kubernetes v1.26 或更高版本。
 
 * 你應該有一些已加密的 API 數據。
 
@@ -93,7 +93,7 @@ of resources.
 -->
 ## 確定靜態加密是否已被啓用   {#determine-whether-encryption-at-rest-is-already-enabled}
 
-默認情況下，API 服務器使用一個名爲 `identity` 的提供程序來存儲資源的明文表示。
+默認情況下，API 伺服器使用一個名爲 `identity` 的提供程序來存儲資源的明文表示。
 **默認的 `identity` 提供程序不提供任何機密性保護。**
 
 <!--
@@ -107,13 +107,13 @@ The format of that configuration file is YAML, representing a configuration API 
 You can see an example configuration
 in [Encryption at rest configuration](/docs/tasks/administer-cluster/encrypt-data/#understanding-the-encryption-at-rest-configuration).
 -->
-`kube-apiserver` 進程接受參數 `--encryption-provider-config`，該參數指定了配置文件的路徑。
+`kube-apiserver` 進程接受參數 `--encryption-provider-config`，該參數指定了設定文件的路徑。
 如果你指定了一個路徑，那麼該文件的內容將控制 Kubernetes API 數據在 etcd 中的加密方式。
 如果未指定，則表示你未啓用靜態加密。
 
-該配置文件的格式是 YAML，表示名爲
-[`EncryptionConfiguration`](/zh-cn/docs/reference/config-api/apiserver-config.v1/) 的配置 API 類別。
-你可以在[靜態加密配置](/zh-cn/docs/tasks/administer-cluster/encrypt-data/#understanding-the-encryption-at-rest-configuration)中查看示例配置。
+該設定文件的格式是 YAML，表示名爲
+[`EncryptionConfiguration`](/zh-cn/docs/reference/config-api/apiserver-config.v1/) 的設定 API 類別。
+你可以在[靜態加密設定](/zh-cn/docs/tasks/administer-cluster/encrypt-data/#understanding-the-encryption-at-rest-configuration)中查看示例設定。
 
 <!--
 If `--encryption-provider-config` is set, check which resources (such as `secrets`) are
@@ -126,10 +126,10 @@ which means that any new information written to resources of that type will be e
 configured. If you do see `identity` as the first-listed provider for any resource, this
 means that those resources are being written out to etcd without encryption.
 -->
-如果設置了 `--encryption-provider-config`，檢查哪些資源（如 `secrets`）已配置爲進行加密，
+如果設置了 `--encryption-provider-config`，檢查哪些資源（如 `secrets`）已設定爲進行加密，
 並查看所適用的是哪個提供程序。確保該資源類型首選的提供程序 **不是** `identity`；
 只有在想要禁用靜態加密時，纔可將 `identity`（**無加密**）設置爲默認值。
-驗證資源首選的提供程序是否不是 `identity`，這意味着寫入該類型資源的任何新信息都將按照配置被加密。
+驗證資源首選的提供程序是否不是 `identity`，這意味着寫入該類型資源的任何新信息都將按照設定被加密。
 如果在任何資源的首選提供程序中看到 `identity`，這意味着這些資源將以非加密的方式寫入 etcd 中。
 
 <!--
@@ -151,10 +151,10 @@ You are likely to find that this file is mounted into the static Pod using a
 [`hostPath`](/docs/concepts/storage/volumes/#hostpath) volume mount. Once you locate the volume
 you can find the file on the node filesystem and inspect it.
 -->
-### 找到加密配置文件   {#locate-encryption-configuration-file}
+### 找到加密設定文件   {#locate-encryption-configuration-file}
 
-首先，找到 API 服務器的配置文件。在每個控制平面節點上，kube-apiserver 的靜態 Pod
-清單指定了一個命令行參數 `--encryption-provider-config`。你很可能會發現此文件通過
+首先，找到 API 伺服器的設定文件。在每個控制平面節點上，kube-apiserver 的靜態 Pod
+清單指定了一個命令列參數 `--encryption-provider-config`。你很可能會發現此文件通過
 [`hostPath`](/zh-cn/docs/concepts/storage/volumes/#hostpath) 卷掛載到靜態 Pod 中。
 一旦你找到到此卷，就可以在節點文件系統中找到此文件並對其進行檢查。
 
@@ -166,9 +166,9 @@ entry in your encryption configuration file.
 
 For example, if your existing EncryptionConfiguration file reads:
 -->
-### 配置 API 服務器以解密對象   {#configure-api-server-to-decrypt-objects}
+### 設定 API 伺服器以解密對象   {#configure-api-server-to-decrypt-objects}
 
-要禁用靜態加密，將 `identity` 提供程序設置爲加密配置文件中的第一個條目。
+要禁用靜態加密，將 `identity` 提供程序設置爲加密設定文件中的第一個條目。
 
 例如，如果你現有的 EncryptionConfiguration 文件內容如下：
 
@@ -224,11 +224,11 @@ Make sure that you use the same encryption configuration on each control plane h
 -->
 並重啓此節點上的 kube-apiserver Pod。
 
-### 重新配置其他控制平面主機 {#api-server-config-update-more-1}
+### 重新設定其他控制平面主機 {#api-server-config-update-more-1}
 
-如果你的集羣中有多個 API 服務器，應輪流對每個 API 服務器部署這些更改。
+如果你的叢集中有多個 API 伺服器，應輪流對每個 API 伺服器部署這些更改。
 
-確保在每個控制平面主機上使用相同的加密配置。
+確保在每個控制平面主機上使用相同的加密設定。
 
 <!--
 ### Force decryption
@@ -256,7 +256,7 @@ The command line options to remove are:
 -->
 一旦你用未加密的後臺數據替換了**所有**現有的已加密資源，即可從 `kube-apiserver` 中刪除這些加密設置。
 
-要移除的命令行選項爲：
+要移除的命令列選項爲：
 
 - `--encryption-provider-config`
 - `--encryption-provider-config-automatic-reload`
@@ -270,13 +270,13 @@ If you have multiple API servers in your cluster, you should again deploy the ch
 
 Make sure that you use the same encryption configuration on each control plane host.
 -->
-再次重啓 kube-apiserver Pod 以應用新的配置。
+再次重啓 kube-apiserver Pod 以應用新的設定。
 
-### 重新配置其他控制平面主機   {#api-server-config-update-more-2}
+### 重新設定其他控制平面主機   {#api-server-config-update-more-2}
 
-如果你的集羣中有多個 API 服務器，應再次輪流對每個 API 服務器部署這些更改。
+如果你的叢集中有多個 API 伺服器，應再次輪流對每個 API 伺服器部署這些更改。
 
-確保在每個控制平面主機上使用相同的加密配置。
+確保在每個控制平面主機上使用相同的加密設定。
 
 ## {{% heading "whatsnext" %}}
 

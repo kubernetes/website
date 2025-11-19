@@ -22,5 +22,5 @@ Allow [priority & fairness](/docs/concepts/cluster-administration/flow-control/)
 in the API server to use a zero value for the `nominalConcurrencyShares` field of
 the `limited` section of a priority level.
 -->
-允許 API 服務器中的[優先級和公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)使用
+允許 API 伺服器中的[優先級和公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)使用
 `limited` 部分的 `nominalConcurrencyShares` 字段的零值作爲優先級。

@@ -32,8 +32,8 @@ spec:
       - name: fluentd-gcp
         image: registry.k8s.io/fluentd-gcp:2.0.2
         # 如果 fluentd 消耗它自己的日誌，則可能出現以下情形：
-        # fluentd 將一個塊發送到服務器時失敗 => 將其寫入到日誌 =>
-        # 嘗試將此消息發送到該服務器 => 發送一個塊時失敗等等。
+        # fluentd 將一個塊發送到伺服器時失敗 => 將其寫入到日誌 =>
+        # 嘗試將此消息發送到該伺服器 => 發送一個塊時失敗等等。
         # 寫入一個未導出到後端的文件，可以避免發生這類事情。
         # 它還默認允許增加 fluentd 的詳細程度。
         command:
@@ -64,7 +64,7 @@ spec:
         # 這種情況通常只能手動重啓。這個探針的思路是：
         # 如果 fluentd 有 5 分鐘未執行隊列操作或未清洗數據分塊，
         # 那麼肯定出現了什麼問題。
-        # 如果你要更改 fluentd 配置以減少 fluentd 收集的日誌量，
+        # 如果你要更改 fluentd 設定以減少 fluentd 收集的日誌量，
         # 請考慮更改閾值或徹底關閉存活探針。
         livenessProbe:
           initialDelaySeconds: 600

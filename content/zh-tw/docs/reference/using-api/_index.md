@@ -39,7 +39,7 @@ platform is treated as an API object and has a corresponding entry in the
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 -->
 REST API 是 Kubernetes 的基本結構。
-所有操作和組件之間的通信及外部用戶命令都是調用 API 服務器處理的 REST API。
+所有操作和組件之間的通信及外部使用者命令都是調用 API 伺服器處理的 REST API。
 因此，Kubernetes 平臺視一切皆爲 API 對象，
 且它們在 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 中有相應的定義。
 
@@ -59,7 +59,7 @@ requests are authorized.
 -->
 如需瞭解一般背景信息，請查閱 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
 [Kubernetes API 控制訪問](/zh-cn/docs/concepts/security/controlling-access/)描述了客戶端如何向
-Kubernetes API 服務器進行身份認證以及他們的請求如何被鑑權。
+Kubernetes API 伺服器進行身份認證以及他們的請求如何被鑑權。
 
 <!--
 ## API versioning
@@ -108,11 +108,11 @@ Here's a summary of each level:
 -->
 - Alpha：
   - 版本名稱包含 `alpha`（例如：`v1alpha1`）。
-  - 內置的 Alpha API 版本默認被禁用且必須在 `kube-apiserver` 配置中顯式啓用才能使用。
+  - 內置的 Alpha API 版本默認被禁用且必須在 `kube-apiserver` 設定中顯式啓用才能使用。
   - 軟件可能會有 Bug。啓用某個特性可能會暴露出 Bug。
   - 對某個 Alpha API 特性的支持可能會隨時被刪除，恕不另行通知。
   - API 可能在以後的軟件版本中以不兼容的方式更改，恕不另行通知。
-  - 由於缺陷風險增加和缺乏長期支持，建議該軟件僅用於短期測試集羣。
+  - 由於缺陷風險增加和缺乏長期支持，建議該軟件僅用於短期測試叢集。
 
 <!--
 - Beta:
@@ -126,7 +126,7 @@ Here's a summary of each level:
 -->
 - Beta：
   - 版本名稱包含 `beta`（例如：`v2beta3`）。
-  - 內置的 Beta API 版本默認被禁用且必須在 `kube-apiserver` 配置中顯式啓用才能使用
+  - 內置的 Beta API 版本默認被禁用且必須在 `kube-apiserver` 設定中顯式啓用才能使用
     （例外情況是 Kubernetes 1.22 之前引入的 Beta 版本的 API，這些 API 默認被啓用）。
   - 內置 Beta API 版本從引入到棄用的最長生命週期爲 9 個月或 3 個次要版本（以較長者爲準），
     從棄用到移除的最長生命週期爲 9 個月或 3 個次要版本（以較長者爲準）。
@@ -151,7 +151,7 @@ Here's a summary of each level:
   - 該版本的軟件不建議生產使用。
     後續發佈版本可能會有不兼容的變動。
     一旦 Beta API 版本被棄用且不再提供服務，
-    則使用 Beta API 版本的用戶需要轉爲使用後續的 Beta 或 Stable API 版本。
+    則使用 Beta API 版本的使用者需要轉爲使用後續的 Beta 或 Stable API 版本。
 
   {{< note >}}
   <!--
@@ -223,9 +223,9 @@ part is omitted, it is treated as if `=true` is specified. For example:
 ## 啓用或禁用 API 組   {#enabling-or-disabling}
 
 資源和 API 組是在默認情況下被啓用的。
-你可以通過在 API 服務器上設置 `--runtime-config` 參數來啓用或禁用它們。
+你可以通過在 API 伺服器上設置 `--runtime-config` 參數來啓用或禁用它們。
 `--runtime-config` 參數接受逗號分隔的 `<key>[=<value>]` 對，
-來描述 API 服務器的運行時配置。如果省略了 `=<value>` 部分，那麼視其指定爲 `=true`。
+來描述 API 伺服器的運行時設定。如果省略了 `=<value>` 部分，那麼視其指定爲 `=true`。
 例如：
 
 - 禁用 `batch/v1`，對應參數設置 `--runtime-config=batch/v1=false`
@@ -239,7 +239,7 @@ When you enable or disable groups or resources, you need to restart the API
 server and controller manager to pick up the `--runtime-config` changes.
 -->
 啓用或禁用組或資源時，
-你需要重啓 API 服務器和控制器管理器來使 `--runtime-config` 生效。
+你需要重啓 API 伺服器和控制器管理器來使 `--runtime-config` 生效。
 {{< /note >}}
 
 <!--

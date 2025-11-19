@@ -26,8 +26,8 @@ auto_generated: true
 allowWatchBookmarks requests watch events with type "BOOKMARK". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored.
 -->
 allowWatchBookmarks 字段請求類型爲 BOOKMARK 的監視事件。
-沒有實現書籤的服務器可能會忽略這個標誌，並根據服務器的判斷髮送書籤。
-客戶端不應該假設書籤會在任何特定的時間間隔返回，也不應該假設服務器會在會話期間發送任何書籤事件。
+沒有實現書籤的伺服器可能會忽略這個標誌，並根據伺服器的判斷髮送書籤。
+客戶端不應該假設書籤會在任何特定的時間間隔返回，也不應該假設伺服器會在會話期間發送任何書籤事件。
 如果當前請求不是 watch 請求，則忽略該字段。
 
 <hr>
@@ -37,20 +37,20 @@ allowWatchBookmarks 字段請求類型爲 BOOKMARK 的監視事件。
 <!--
 The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
 -->
-當需要從服務器檢索更多結果時，應該設置 continue 選項。由於這個值是服務器定義的，
+當需要從伺服器檢索更多結果時，應該設置 continue 選項。由於這個值是伺服器定義的，
 客戶端只能使用先前查詢結果中具有相同查詢參數的 continue 值（continue 值除外），
-服務器可能拒絕它識別不到的 continue 值。
+伺服器可能拒絕它識別不到的 continue 值。
 如果指定的 continue 值不再有效，無論是由於過期（通常是 5 到 15 分鐘）
-還是服務器上的配置更改，服務器將響應 "410 ResourceExpired" 錯誤和一個 continue 令牌。
+還是伺服器上的設定更改，伺服器將響應 "410 ResourceExpired" 錯誤和一個 continue 令牌。
 如果客戶端需要一個一致的列表，它必須在沒有 continue 字段的情況下重新發起 list 請求。
-否則，客戶端可能會發送另一個帶有 410 錯誤令牌的 list 請求，服務器將響應從下一個鍵開始的列表，
+否則，客戶端可能會發送另一個帶有 410 錯誤令牌的 list 請求，伺服器將響應從下一個鍵開始的列表，
 但列表數據來自最新的快照，這與之前的列表結果不一致。
 第一個列表請求之後被創建、修改或刪除的對象將被包含在響應中，只要它們的鍵是在“下一個鍵”之後。
 
 <!--
 This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
 -->
-當 watch 字段爲 true 時，不支持此字段。客戶端可以從服務器返回的最後一個
+當 watch 字段爲 true 時，不支持此字段。客戶端可以從伺服器返回的最後一個
 resourceVersion 值開始監視，就不會錯過任何修改。
 
 <hr>
@@ -61,7 +61,7 @@ resourceVersion 值開始監視，就不會錯過任何修改。
 When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
 -->
 表示不應該持久化所請求的修改。無效或無法識別的 dryRun 指令將導致錯誤響應，
-並且服務器不再對請求進行進一步處理。有效值爲:
+並且伺服器不再對請求進行進一步處理。有效值爲:
 
 - All：將處理所有的演練階段
 
@@ -91,7 +91,7 @@ A selector to restrict the list of returned objects by their fields. Defaults to
 <!--
 fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
 -->
-fieldValidation 指示服務器如何處理請求（POST/PUT/PATCH）中包含未知或重複字段的對象。
+fieldValidation 指示伺服器如何處理請求（POST/PUT/PATCH）中包含未知或重複字段的對象。
 有效值爲：
 
 - Ignore：這將忽略從對象中默默刪除的所有未知字段，並將忽略除解碼器遇到的最後一個重複字段之外的所有字段。
@@ -101,7 +101,7 @@ fieldValidation 指示服務器如何處理請求（POST/PUT/PATCH）中包含�
   這是 v1.23+ 版本中的默認設置。
 - Strict：如果從對象中刪除任何未知字段，或者存在任何重複字段，將使請求失敗並返回 BadRequest 錯誤。
 
-從服務器返回的錯誤將包含所有遇到的未知和重複的字段。
+從伺服器返回的錯誤將包含所有遇到的未知和重複的字段。
 
 <hr>
 
@@ -110,7 +110,7 @@ fieldValidation 指示服務器如何處理請求（POST/PUT/PATCH）中包含�
 <!--
 Force is going to "force" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
 -->
-Force 將“強制”應用請求。這意味着用戶將重新獲得他人擁有的衝突領域。
+Force 將“強制”應用請求。這意味着使用者將重新獲得他人擁有的衝突領域。
 對於非應用補丁請求，Force 標誌必須不設置。
 
 <hr>
@@ -152,9 +152,9 @@ and the user must opt in to enable it
 注意：不安全刪除忽略終結器約束，跳過前提條件檢查，並從存儲中移除對象。
 
 警告：如果與正在被不安全刪除的資源相關聯的工作負載依賴於正常刪除流程，
-這可能會破壞集羣。僅在你真正知道自己在做什麼的情況下使用。
+這可能會破壞叢集。僅在你真正知道自己在做什麼的情況下使用。
 
-默認值是 false，用戶必須主動選擇啓用。
+默認值是 false，使用者必須主動選擇啓用。
 
 <hr>
 
@@ -172,18 +172,18 @@ A selector to restrict the list of returned objects by their labels. Defaults to
 <!--
 limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.
 -->
-limit 是一個列表調用返回的最大響應數。如果有更多的條目，服務器會將列表元數據上的
+limit 是一個列表調用返回的最大響應數。如果有更多的條目，伺服器會將列表元數據上的
 'continue' 字段設置爲一個值，該值可以用於相同的初始查詢來檢索下一組結果。
 設置 limit 可能會在所有請求的對象被過濾掉的情況下返回少於請求的條目數量（下限爲零），
 並且客戶端應該只根據 continue 字段是否存在來確定是否有更多的結果可用。
-服務器可能選擇不支持 limit 參數，並將返回所有可用的結果。
+伺服器可能選擇不支持 limit 參數，並將返回所有可用的結果。
 如果指定了 limit 並且 continue 字段爲空，客戶端可能會認爲沒有更多的結果可用。
 如果 watch 爲 true，則不支持此字段。
 
 <!--
 The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
 -->
-服務器保證在使用 continue 時返回的對象將與不帶 limit 的列表調用相同，
+伺服器保證在使用 continue 時返回的對象將與不帶 limit 的列表調用相同，
 也就是說，在發出第一個請求後所創建、修改或刪除的對象將不包含在任何後續的繼續請求中。
 這有時被稱爲一致性快照，確保使用 limit 的客戶端在分塊接收非常大的結果的客戶端能夠看到所有可能的對象。
 如果對象在分塊列表期間被更新，則返回計算第一個列表結果時存在的對象版本。
@@ -205,7 +205,7 @@ object name and auth scope, such as for teams and projects
 If 'true', then the output is pretty printed. Defaults to 'false' unless the user-agent indicates a browser or command-line HTTP tool (curl and wget).
 -->
 如果設置爲 'true'，那麼輸出是規範的打印。
-默認情況下爲 'false'，除非用戶代理聲明是瀏覽器或命令行 HTTP 工具
+默認情況下爲 'false'，除非使用者代理聲明是瀏覽器或命令列 HTTP 工具
 （如 curl 和 wget）。
 
 <hr>

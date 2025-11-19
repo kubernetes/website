@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.33：鏡像捲進階至 Beta！"
+title: "Kubernetes v1.33：映像檔捲進階至 Beta！"
 date: 2025-04-29T10:30:00-08:00
 slug: kubernetes-v1-33-image-volume-beta
 author: Sascha Grunert (Red Hat)
@@ -19,7 +19,7 @@ author: Sascha Grunert (Red Hat)
 introduced as an Alpha feature with the Kubernetes v1.31 release as part of
 [KEP-4639](https://github.com/kubernetes/enhancements/issues/4639). In Kubernetes v1.33, this feature graduates to **beta**.
 -->
-[鏡像卷](/zh-cn/blog/2024/08/16/kubernetes-1-31-image-volume-source)作爲
+[映像檔卷](/zh-cn/blog/2024/08/16/kubernetes-1-31-image-volume-source)作爲
 Alpha 特性首次引入 Kubernetes v1.31 版本，並作爲
 [KEP-4639](https://github.com/kubernetes/enhancements/issues/4639)
 的一部分發布。在 Kubernetes v1.33 中，此特性進階至 **Beta**。
@@ -35,7 +35,7 @@ beta support as part of [PR #11578](https://github.com/containerd/containerd/pul
 -->
 請注意，此特性目前仍默認**禁用**，
 因爲並非所有的[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes)都完全支持此特性。
-[CRI-O](https://cri-o.io) 自 v1.31 起就支持此初始特性，並將在 v1.33 中添加對鏡像卷的 Beta 支持。
+[CRI-O](https://cri-o.io) 自 v1.31 起就支持此初始特性，並將在 v1.33 中添加對映像檔卷的 Beta 支持。
 [containerd 已合併](https://github.com/containerd/containerd/pull/10579)對 Alpha 特性的支持，
 此特性將包含在 containerd v2.1.0 版本中，並正通過
 [PR #11578](https://github.com/containerd/containerd/pull/11578) 實現對 Beta 的支持。
@@ -59,14 +59,14 @@ events.
 -->
 ### 新增內容   {#whats-new}
 
-鏡像捲進階爲 Beta 的主要變化是支持通過 `spec.containers[*].volumeMounts.[subPath,subPathExpr]`
-配置容器的 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 和
+映像檔捲進階爲 Beta 的主要變化是支持通過 `spec.containers[*].volumeMounts.[subPath,subPathExpr]`
+設定容器的 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath) 和
 [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment) 掛載。
-這允許最終用戶在保持只讀（`noexec`）方式掛載的同時可以掛載某鏡像卷中的某個子目錄。
+這允許最終使用者在保持只讀（`noexec`）方式掛載的同時可以掛載某映像檔卷中的某個子目錄。
 這意味着默認情況下無法掛載不存在的子目錄。與其他 `subPath` 和 `subPathExpr` 取值一樣，
 Kubernetes 將確保所指定的子路徑中不包含絕對路徑或相對路徑成分。
 出於安全考慮，容器運行時也需要再次驗證這些要求。如果指定的子目錄在卷中不存在，
-則運行時應在創建容器時失敗，並通過現有的 kubelet 事件向用戶提供反饋。
+則運行時應在創建容器時失敗，並通過現有的 kubelet 事件向使用者提供反饋。
 
 <!--
 Besides that, there are also three new kubelet metrics available for image volumes:
@@ -75,11 +75,11 @@ Besides that, there are also three new kubelet metrics available for image volum
 - `kubelet_image_volume_mounted_succeed_total`: Counts the number of successful image volume mounts.
 - `kubelet_image_volume_mounted_errors_total`: Accounts the number of failed image volume mounts.
 -->
-除此之外，還爲鏡像卷新增三個 kubelet 指標：
+除此之外，還爲映像檔卷新增三個 kubelet 指標：
 
-- `kubelet_image_volume_requested_total`：統計請求鏡像卷的數量。
-- `kubelet_image_volume_mounted_succeed_total`：統計鏡像捲成功掛載的數量。
-- `kubelet_image_volume_mounted_errors_total`：統計鏡像卷掛載失敗的數量。
+- `kubelet_image_volume_requested_total`：統計請求映像檔卷的數量。
+- `kubelet_image_volume_mounted_succeed_total`：統計映像檔捲成功掛載的數量。
+- `kubelet_image_volume_mounted_errors_total`：統計映像檔卷掛載失敗的數量。
 
 <!--
 To use an existing subdirectory for a specific image volume, just use it as
@@ -87,7 +87,7 @@ To use an existing subdirectory for a specific image volume, just use it as
 [`subPathExpr`](/docs/concepts/storage/volumes/#using-subpath-expanded-environment))
 value of the containers `volumeMounts`:
 -->
-若要爲特定鏡像卷使用已有的子目錄，只需將其用作容器 `volumeMounts` 的
+若要爲特定映像檔卷使用已有的子目錄，只需將其用作容器 `volumeMounts` 的
 [`subPath`](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
 或 [`subPathExpr`](/zh-cn/docs/concepts/storage/volumes/#using-subpath-expanded-environment)
 取值：
@@ -116,7 +116,7 @@ spec:
 <!--
 Then, create the pod on your cluster:
 -->
-然後，在集羣中創建 Pod：
+然後，在叢集中創建 Pod：
 
 ```shell
 kubectl apply -f image-volumes-subpath.yaml
@@ -177,5 +177,5 @@ channel or the [SIG Node mailing list](https://groups.google.com/g/kubernetes-si
 -->
 ## 進一步閱讀   {#further-reading}
 
-- [Pod 使用鏡像卷](/zh-cn/docs/tasks/configure-pod-container/image-volumes)
+- [Pod 使用映像檔卷](/zh-cn/docs/tasks/configure-pod-container/image-volumes)
 - [`image` 卷概覽](/zh-cn/docs/concepts/storage/volumes/#image)

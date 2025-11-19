@@ -48,7 +48,7 @@ Use this key to decrypt the certificate secrets uploaded by init. The certificat
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -76,7 +76,7 @@ Create a new control plane instance on this node
 <!--
 For file-based discovery, a file or URL from which to load cluster information.
 -->
-對於基於文件的發現，給出用於加載集羣信息的文件或者 URL。
+對於基於文件的發現，給出用於加載叢集信息的文件或者 URL。
 </p>
 </td>
 </tr>
@@ -90,7 +90,7 @@ For file-based discovery, a file or URL from which to load cluster information.
 <!--
 For token-based discovery, the token used to validate cluster information fetched from the API server.
 -->
-對於基於令牌的發現，該令牌用於驗證從 API 服務器獲取的集羣信息。
+對於基於令牌的發現，該令牌用於驗證從 API 伺服器獲取的叢集信息。
 </p>
 </td>
 </tr>

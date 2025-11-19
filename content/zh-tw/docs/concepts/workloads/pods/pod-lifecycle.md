@@ -116,7 +116,7 @@ node then fails, the Pod is treated as unhealthy and Kubernetes eventually delet
 A Pod won't survive an {{< glossary_tooltip text="eviction" term_id="eviction" >}} due to
 a lack of resources or Node maintenance.
 -->
-然而，Pod 也可能以集羣無法恢復的方式失敗，在這種情況下，Kubernetes 不會進一步嘗試修復 Pod；
+然而，Pod 也可能以叢集無法恢復的方式失敗，在這種情況下，Kubernetes 不會進一步嘗試修復 Pod；
 相反，Kubernetes 會刪除 Pod 並依賴其他組件提供自動修復。
 
 如果 Pod 被調度到某個{{< glossary_tooltip text="節點" term_id="node" >}}而該節點之後失效，
@@ -167,7 +167,7 @@ created anew.
 <!--
 {{< figure src="/images/docs/pod.svg" title="Figure 1." class="diagram-medium" caption="A multi-container Pod that contains a file puller [sidecar](/docs/concepts/workloads/pods/sidecar-containers/) and a web server. The Pod uses an [ephemeral `emptyDir` volume](/docs/concepts/storage/volumes/#emptydir) for shared storage between the containers." >}}
 -->
-{{< figure src="/images/docs/pod.svg" title="圖 1" class="diagram-medium" caption="一個包含文件拉取程序 [Sidecar（邊車）](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/) 和 Web 服務器的多容器 Pod。此 Pod 使用[臨時 `emptyDir` 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)作爲容器之間的共享存儲。" >}}
+{{< figure src="/images/docs/pod.svg" title="圖 1" class="diagram-medium" caption="一個包含文件拉取程序 [Sidecar（邊車）](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/) 和 Web 伺服器的多容器 Pod。此 Pod 使用[臨時 `emptyDir` 卷](/zh-cn/docs/concepts/storage/volumes/#emptydir)作爲容器之間的共享存儲。" >}}
 
 
 <!--
@@ -213,7 +213,7 @@ Value       | Description
 -->
 取值 | 描述
 :-----|:-----------
-`Pending`（懸決）| Pod 已被 Kubernetes 系統接受，但有一個或者多個容器尚未創建亦未運行。此階段包括等待 Pod 被調度的時間和通過網絡下載鏡像的時間。
+`Pending`（懸決）| Pod 已被 Kubernetes 系統接受，但有一個或者多個容器尚未創建亦未運行。此階段包括等待 Pod 被調度的時間和通過網路下載映像檔的時間。
 `Running`（運行中） | Pod 已經綁定到了某個節點，Pod 中所有的容器都已被創建。至少有一個容器仍在運行，或者正處於啓動或重啓狀態。
 `Succeeded`（成功） | Pod 中的所有容器都已成功結束，並且不會再重啓。
 `Failed`（失敗） | Pod 中的所有容器都已終止，並且至少有一個容器是因爲失敗終止。也就是說，容器以非 0 狀態退出或者被系統終止，且未被設置爲自動重啓。
@@ -231,7 +231,7 @@ Pod phase is an explicit part of the Kubernetes data model and of the
 當 Pod 反覆啓動失敗時，某些 kubectl 命令的 `Status` 字段中可能會出現 `CrashLoopBackOff`。
 同樣，當 Pod 被刪除時，某些 kubectl 命令的 `Status` 字段中可能會出現 `Terminating`。
 
-確保不要將 **Status**（kubectl 用於用戶直覺的顯示字段）與 Pod 的 `phase` 混淆。
+確保不要將 **Status**（kubectl 用於使用者直覺的顯示字段）與 Pod 的 `phase` 混淆。
 Pod 階段（phase）是 Kubernetes 數據模型和
 [Pod API](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/)
 的一個明確的部分。
@@ -261,13 +261,13 @@ the exit statuses of the pod containers) before their deletion from the API serv
 從 Kubernetes 1.27 開始，除了[靜態 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)
 和沒有 Finalizer 的[強制終止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
 之外，`kubelet` 會將已刪除的 Pod 轉換到終止階段
-（`Failed` 或 `Succeeded` 具體取決於 Pod 容器的退出狀態），然後再從 API 服務器中刪除。
+（`Failed` 或 `Succeeded` 具體取決於 Pod 容器的退出狀態），然後再從 API 伺服器中刪除。
 
 <!--
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
 -->
-如果某節點死掉或者與集羣中其他節點失聯，Kubernetes
+如果某節點死掉或者與叢集中其他節點失聯，Kubernetes
 會實施一種策略，將失去的節點上運行的所有 Pod 的 `phase` 設置爲 `Failed`。
 
 <!--
@@ -322,7 +322,7 @@ a Reason field to summarize why the container is in that state.
 
 如果容器並不處在 `Running` 或 `Terminated` 狀態之一，它就處在 `Waiting` 狀態。
 處於 `Waiting` 狀態的容器仍在運行它完成啓動所需要的操作：例如，
-從某個容器鏡像倉庫拉取容器鏡像，或者向容器應用 {{< glossary_tooltip text="Secret" term_id="secret" >}}
+從某個容器映像檔倉庫拉取容器映像檔，或者向容器應用 {{< glossary_tooltip text="Secret" term_id="secret" >}}
 數據等等。
 當你使用 `kubectl` 來查詢包含 `Waiting` 狀態的容器的 Pod 時，你也會看到一個
 Reason 字段，其中給出了容器處於等待狀態的原因。
@@ -338,7 +338,7 @@ about when the container entered the `Running` state.
 ### `Running`（運行中）     {#container-state-running}
 
 `Running` 狀態表明容器正在執行狀態並且沒有問題發生。
-如果配置了 `postStart` 回調，那麼該回調已經執行且已完成。
+如果設定了 `postStart` 回調，那麼該回調已經執行且已完成。
 如果你使用 `kubectl` 來查詢包含 `Running` 狀態的容器的 Pod 時，
 你也會看到關於容器進入 `Running` 狀態的信息。
 
@@ -359,7 +359,7 @@ the `Terminated` state.
 如果你使用 `kubectl` 來查詢包含 `Terminated` 狀態的容器的 Pod 時，
 你會看到容器進入此狀態的原因、退出代碼以及容器執行期間的起止時間。
 
-如果容器配置了 `preStop` 回調，則該回調會在容器進入 `Terminated`
+如果容器設定了 `preStop` 回調，則該回調會在容器進入 `Terminated`
 狀態之前執行。
 
 <!--
@@ -425,7 +425,7 @@ The `CrashLoopBackOff` can be caused by issues like the following:
 下列問題可以導致 `CrashLoopBackOff`：
 
 * 應用程序錯誤導致的容器退出。
-* 配置錯誤，如環境變量不正確或配置文件丟失。
+* 設定錯誤，如環境變量不正確或設定文件丟失。
 * 資源限制，容器可能沒有足夠的內存或 CPU 正常啓動。
 * 如果應用程序沒有在預期時間內啓動服務，健康檢查就會失敗。
 * 容器的存活探針或者啓動探針返回 `失敗` 結果，如[探針部分](#container-probes)所述。
@@ -447,16 +447,16 @@ To investigate the root cause of a `CrashLoopBackOff` issue, a user can:
    application code. Running this container image locally or in a development
    environment can help diagnose application specific issues.
 -->
-要調查 `CrashLoopBackOff` 問題的根本原因，用戶可以：
+要調查 `CrashLoopBackOff` 問題的根本原因，使用者可以：
 
 1. **檢查日誌**：使用 `kubectl logs <pod名稱>` 檢查容器的日誌。
    這通常是診斷導致崩潰的問題的最直接方法。
 1. **檢查事件**：使用 `kubectl describe pod <pod名稱>` 查看 Pod 的事件，
-   這可以提供有關配置或資源問題的提示。
-1. **審查配置**：確保 Pod 配置正確無誤，包括環境變量和掛載卷，並且所有必需的外部資源都可用。
+   這可以提供有關設定或資源問題的提示。
+1. **審查設定**：確保 Pod 設定正確無誤，包括環境變量和掛載卷，並且所有必需的外部資源都可用。
 1. **檢查資源限制**： 確保容器被分配了足夠的 CPU 和內存。有時，增加 Pod 定義中的資源可以解決問題。
-1. **調試應用程序**：應用程序代碼中可能存在錯誤或配置不當。
-   在本地或開發環境中運行此容器鏡像有助於診斷應用程序的特定問題。
+1. **調試應用程序**：應用程序代碼中可能存在錯誤或設定不當。
+   在本地或開發環境中運行此容器映像檔有助於診斷應用程序的特定問題。
 
 <!--
 ### Container restarts {#restart-policy}
@@ -475,7 +475,7 @@ during Pod startup.
 You can configure restarts as a policy that applies to all Pods, or using container-level configuration (for example: when you define a 
 {{< glossary_tooltip text="sidecar container" term_id="sidecar-container" >}}).
 -->
-你可以將重啓配置爲適用於所有 Pod 的策略，或者使用容器級別的配置（例如：
+你可以將重啓設定爲適用於所有 Pod 的策略，或者使用容器級別的設定（例如：
 在你定義{{< glossary_tooltip text="邊車容器" term_id="sidecar-container" >}}時）。
 
 <!--
@@ -541,7 +541,7 @@ problems, the kubelet resets the restart backoff timer for that container.
 [Sidecar containers and Pod lifecycle](/docs/concepts/workloads/pods/sidecar-containers/#sidecar-containers-and-pod-lifecycle)
 explains the behaviour of `init containers` when specify `restartpolicy` field on it.
 -->
-當 kubelet 根據配置的重啓策略處理容器重啓時，僅適用於同一 Pod
+當 kubelet 根據設定的重啓策略處理容器重啓時，僅適用於同一 Pod
 內替換容器並在同一節點上運行的重啓。當 Pod 中的容器退出時，`kubelet`
 會以指數級回退延遲機制（10 秒、20 秒、40 秒......）重啓容器，
 上限爲 300 秒（5 分鐘）。一旦容器順利執行了 10 分鐘，
@@ -565,7 +565,7 @@ in the Pod and to regular [init containers](/docs/concepts/workloads/pods/init-c
 A Kubernetes-native [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
 has its container-level `restartPolicy` set to `Always`, and does not support `restartPolicyRules`.
 -->
-如果你的集羣啓用了 `ContainerRestartRules` 特性門控，你可以針對**單個容器**指定
+如果你的叢集啓用了 `ContainerRestartRules` 特性門控，你可以針對**單個容器**指定
 `restartPolicy` 和 `restartPolicyRules` 來覆蓋 Pod 重啓策略。容器重啓策略和規則適用於 Pod
 中的{{< glossary_tooltip text="應用容器" term_id="app-container" >}}以及常規的
 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
@@ -601,7 +601,7 @@ If none of the rules’ conditions matched, Kubernetes fallback to container’s
 則**必須**同時指定容器的 `restartPolicy`。`restartPolicyRules` 定義了一系列在容器退出時應用的規則。
 每條規則由條件和動作組成。支持的條件是 `exitCodes`，用於將容器的退出碼與給定值列表進行比較。
 支持的動作是 `Restart`，表示容器將被重啓。這些規則會按順序進行評估。一旦匹配成功，立即執行相應動作。
-如果沒有任何規則的狀況被匹配，Kubernetes 回退到容器配置的 `restartPolicy`。
+如果沒有任何規則的狀況被匹配，Kubernetes 回退到容器設定的 `restartPolicy`。
 
 <!--
 For example, a Pod with OnFailure restart policy that have a `try-once` container. This allows
@@ -667,7 +667,7 @@ A Pod with Never restart policy with a container that ignores and restarts on sp
 This is useful to differentiate between restartable errors and non-restartable errors:
 -->
 下面是一個重啓策略爲 Never 的 Pod，其中包含的容器會在遇到特定的退出碼時忽略之並重啓。
-這種配置有助於區分可重啓錯誤和不可重啓錯誤：
+這種設定有助於區分可重啓錯誤和不可重啓錯誤：
 
 <!--
 # Container restart policy must be specified if rules are specified
@@ -723,7 +723,7 @@ different maximum delays.
 {{< feature-state feature_gate_name="ReduceDefaultCrashLoopBackOffDecay" >}}
 
 啓用 Alpha 特性開關 `ReduceDefaultCrashLoopBackOffDecay` 後，
-集羣中容器啓動重試的初始延遲將從 10 秒減少到 1 秒，
+叢集中容器啓動重試的初始延遲將從 10 秒減少到 1 秒，
 之後每次重啓延遲時間按 2 倍指數增長，直到達到最大延遲 60 秒（之前爲 300 秒，即 5 分鐘）。
 
 如果你同時使用了下面介紹的 Alpha 特性 `KubeletCrashLoopBackOffMax`，
@@ -732,7 +732,7 @@ different maximum delays.
 <!--
 ### Configurable container restart delay
 -->
-### 可配置的容器重啓延遲   {#configurable-container-restart-delay}
+### 可設定的容器重啓延遲   {#configurable-container-restart-delay}
 
 {{< feature-state feature_gate_name="KubeletCrashLoopBackOffMax" >}}
 
@@ -750,13 +750,13 @@ than the default initial value of 10s, the initial delay will instead be set to
 the configured maximum.
 -->
 啓用 Alpha 特性門控 `KubeletCrashLoopBackOffMax` 後，
-你可以重新配置容器啓動重試之間的最大延遲，默認值爲 300 秒（5 分鐘）。
-此配置是針對每個節點使用 kubelet 配置進行設置的。
-在你的 [kubelet 配置](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中，
+你可以重新設定容器啓動重試之間的最大延遲，默認值爲 300 秒（5 分鐘）。
+此設定是針對每個節點使用 kubelet 設定進行設置的。
+在你的 [kubelet 設定](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中，
 在 `crashLoopBackOff` 下設置 `maxContainerRestartPeriod` 字段，取值範圍在 `"1s"` 到 `"300s"` 之間。
 如上文[容器重啓策略](#restart-policy)所述，該節點上的延遲仍將從 10 秒開始，並在每次重啓後以指數方式增加
-2 倍，但現在其上限將被限制爲你所配置的最大值。如果你配置的 `maxContainerRestartPeriod` 小於默認初始值 10 秒，
-則初始延遲將被設置爲配置的最大值。
+2 倍，但現在其上限將被限制爲你所設定的最大值。如果你設定的 `maxContainerRestartPeriod` 小於默認初始值 10 秒，
+則初始延遲將被設置爲設定的最大值。
 
 <!--
 See the following kubelet configuration examples:
@@ -769,7 +769,7 @@ crashLoopBackOff:
     maxContainerRestartPeriod: "100s"
 ```
 -->
-參見以下 kubelet 配置示例：
+參見以下 kubelet 設定示例：
 
 ```yaml
 # 容器重啓延遲將從 10 秒開始，每次重啓增加 2 倍
@@ -803,9 +803,9 @@ and 60s. Per node configuration takes precedence over the defaults set by
 a longer maximum backoff than other nodes in the cluster.
 -->
 如果你將此特性與上文提到的 Alpha 特性 `ReduceDefaultCrashLoopBackOffDecay` 一起使用，
-那麼集羣的初始退避時間和最大退避時間默認值將不再是 10 秒和 300 秒，而是 1 秒和 60 秒。
-每個節點上的配置優先於 `ReduceDefaultCrashLoopBackOffDecay` 所設置的默認值，
-即使這會導致某些節點的最大退避時間比集羣中的其他節點更長。
+那麼叢集的初始退避時間和最大退避時間默認值將不再是 10 秒和 300 秒，而是 1 秒和 60 秒。
+每個節點上的設定優先於 `ReduceDefaultCrashLoopBackOffDecay` 所設置的默認值，
+即使這會導致某些節點的最大退避時間比叢集中的其他節點更長。
 
 <!--
 ## Pod conditions
@@ -839,7 +839,7 @@ Kubelet 管理以下 PodCondition：
   See [Pod resize status](/docs/tasks/configure-pod-container/resize-container-resources#pod-resize-status).
 -->
 * `PodScheduled`：Pod 已經被調度到某節點；
-* `PodReadyToStartContainers`：Pod 沙箱被成功創建並且配置了網絡（Beta 特性，[默認](#pod-has-network)啓用）；
+* `PodReadyToStartContainers`：Pod 沙箱被成功創建並且設定了網路（Beta 特性，[默認](#pod-has-network)啓用）；
 * `ContainersReady`：Pod 中所有容器都已就緒；
 * `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)都已成功完成；
 * `Ready`：Pod 可以爲請求提供服務，並且應該被添加到對應服務的負載均衡池中。
@@ -966,7 +966,7 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 <!--
 ### Pod network readiness {#pod-has-network}
 -->
-### Pod 網絡就緒 {#pod-has-network}
+### Pod 網路就緒 {#pod-has-network}
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
@@ -990,7 +990,7 @@ runtime sandbox and configure networking for the Pod. If the
 -->
 在 Pod 被調度到某節點後，它需要被 kubelet 接受並且掛載所需的存儲卷。
 一旦這些階段完成，Kubelet 將與容器運行時（使用{{< glossary_tooltip term_id="cri" >}}）
-一起爲 Pod 生成運行時沙箱並配置網絡。如果啓用了 `PodReadyToStartContainersCondition` 
+一起爲 Pod 生成運行時沙箱並設定網路。如果啓用了 `PodReadyToStartContainersCondition` 
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 （Kubernetes {{< skew currentVersion >}} 版本中默認啓用），
 `PodReadyToStartContainers` 狀況會被添加到 Pod 的 `status.conditions` 字段中。
@@ -1000,7 +1000,7 @@ The `PodReadyToStartContainers` condition is set to `False` by the Kubelet when 
 Pod does not have a runtime sandbox with networking configured. This occurs in
 the following scenarios:
 -->
-當 kubelet 檢測到 Pod 不具備配置了網絡的運行時沙箱時，`PodReadyToStartContainers`
+當 kubelet 檢測到 Pod 不具備設定了網路的運行時沙箱時，`PodReadyToStartContainers`
 狀況將被設置爲 `False`。以下場景中將會發生這種狀況：
 
 <!--
@@ -1015,7 +1015,7 @@ the following scenarios:
 * 在 Pod 生命週期的早期階段，kubelet 還沒有開始使用容器運行時爲 Pod 設置沙箱時。
 * 在 Pod 生命週期的末期階段，Pod 的沙箱由於以下原因被銷燬時：
   * 節點重啓時 Pod 沒有被驅逐
-  * 對於使用虛擬機進行隔離的容器運行時，Pod 沙箱虛擬機重啓時，需要創建一個新的沙箱和全新的容器網絡配置。
+  * 對於使用虛擬機進行隔離的容器運行時，Pod 沙箱虛擬機重啓時，需要創建一個新的沙箱和全新的容器網路設定。
 
 <!--
 The `PodReadyToStartContainers` condition is set to `True` by the kubelet after the
@@ -1023,10 +1023,10 @@ successful completion of sandbox creation and network configuration for the Pod
 by the runtime plugin. The kubelet can start pulling container images and create
 containers after `PodReadyToStartContainers` condition has been set to `True`.
 -->
-在運行時插件成功完成 Pod 的沙箱創建和網絡配置後，
+在運行時插件成功完成 Pod 的沙箱創建和網路設定後，
 kubelet 會將 `PodReadyToStartContainers` 狀況設置爲 `True`。
 當 `PodReadyToStartContainers` 狀況設置爲 `True` 後，
-Kubelet 可以開始拉取容器鏡像和創建容器。
+Kubelet 可以開始拉取容器映像檔和創建容器。
 
 <!--
 For a Pod with init containers, the kubelet sets the `Initialized` condition to
@@ -1036,8 +1036,8 @@ plugin). For a Pod without init containers, the kubelet sets the `Initialized`
 condition to `True` before sandbox creation and network configuration starts.
 -->
 對於帶有 Init 容器的 Pod，kubelet 會在 Init 容器成功完成後將 `Initialized` 狀況設置爲 `True`
-（這發生在運行時成功創建沙箱和配置網絡之後），
-對於沒有 Init 容器的 Pod，kubelet 會在創建沙箱和網絡配置開始之前將
+（這發生在運行時成功創建沙箱和設定網路之後），
+對於沒有 Init 容器的 Pod，kubelet 會在創建沙箱和網路設定開始之前將
 `Initialized` 狀況設置爲 `True`。
 
 <!--
@@ -1050,7 +1050,7 @@ or makes a network request.
 ## 容器探針    {#container-probes}
 
 **probe** 是由 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 對容器執行的定期診斷。
-要執行診斷，kubelet 既可以在容器內執行代碼，也可以發出一個網絡請求。
+要執行診斷，kubelet 既可以在容器內執行代碼，也可以發出一個網路請求。
 
 <!--
 ### Check mechanisms {#probe-check-methods}
@@ -1111,8 +1111,8 @@ In such scenarios, consider using the alternative probe mechanisms to avoid the 
 -->
 {{< caution >}}
 和其他機制不同，`exec` 探針的實現涉及每次執行時創建/複製多個進程。
-因此，在集羣中具有較高 pod 密度、較低的 `initialDelaySeconds` 和 `periodSeconds` 時長的時候，
-配置任何使用 exec 機制的探針可能會增加節點的 CPU 負載。
+因此，在叢集中具有較高 pod 密度、較低的 `initialDelaySeconds` 和 `periodSeconds` 時長的時候，
+設定任何使用 exec 機制的探針可能會增加節點的 CPU 負載。
 這種場景下，請考慮使用其他探針機制以避免額外的開銷。
 {{< /caution >}}
 
@@ -1199,7 +1199,7 @@ For more information about how to set up a liveness, readiness, or startup probe
 see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 -->
 如欲瞭解如何設置存活態、就緒態和啓動探針的進一步細節，
-可以參閱[配置存活態、就緒態和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
+可以參閱[設定存活態、就緒態和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
 
 <!--
 #### When should you use a liveness probe?
@@ -1262,7 +1262,7 @@ processing its startup data, you might prefer a readiness probe.
 當應用程序本身是健康的，存活態探針檢測通過後，就緒態探針會額外檢查每個所需的後端服務是否可用。
 這可以幫助你避免將流量導向只能返回錯誤信息的 Pod。
 
-如果你的容器需要在啓動期間加載大型數據、配置文件或執行遷移，
+如果你的容器需要在啓動期間加載大型數據、設定文件或執行遷移，
 你可以使用[啓動探針](#when-should-you-use-a-startup-probe)。
 然而，如果你想區分已經失敗的應用和仍在處理其啓動數據的應用，你可能更傾向於使用就緒探針。
 
@@ -1293,7 +1293,7 @@ a separate configuration for probing the container as it starts up, allowing
 a time longer than the liveness interval would allow.
 -->
 對於所包含的容器需要較長時間才能啓動就緒的 Pod 而言，啓動探針是有用的。
-你不再需要配置一個較長的存活態探測時間間隔，只需要設置另一個獨立的配置選定，
+你不再需要設定一個較長的存活態探測時間間隔，只需要設置另一個獨立的設定選定，
 對啓動期間的容器執行探測，從而允許使用遠遠超出存活態時間間隔所允許的時長。
 
 <!-- ensure front matter contains math: true -->
@@ -1321,7 +1321,7 @@ than being abruptly stopped with a `KILL` signal and having no chance to clean u
 -->
 ## Pod 的終止    {#pod-termination}
 
-由於 Pod 所代表的是在集羣中節點上運行的進程，當不再需要這些進程時允許其體面地終止是很重要的。
+由於 Pod 所代表的是在叢集中節點上運行的進程，當不再需要這些進程時允許其體面地終止是很重要的。
 一般不應武斷地使用 `KILL` 信號終止它們，導致這些進程沒有機會完成清理操作。
 
 <!--
@@ -1333,7 +1333,7 @@ place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts gr
 shutdown.
 -->
 設計的目標是令你能夠請求刪除進程，並且知道進程何時被終止，同時也能夠確保刪除操作終將完成。
-當你請求刪除某個 Pod 時，集羣會記錄並跟蹤 Pod 的體面終止週期，
+當你請求刪除某個 Pod 時，叢集會記錄並跟蹤 Pod 的體面終止週期，
 而不是直接強制地殺死 Pod。在存在強制關閉設施的前提下，
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 會嘗試體面地終止
 Pod。
@@ -1355,12 +1355,12 @@ cluster retries from the start including the full original grace period.
 通常 Pod 體面終止的過程爲：kubelet 先發送一個帶有體面超時限期的 TERM（又名 SIGTERM）
 信號到每個容器中的主進程，將請求發送到容器運行時來嘗試停止 Pod 中的容器。
 停止容器的這些請求由容器運行時以異步方式處理。
-這些請求的處理順序無法被保證。許多容器運行時遵循容器鏡像內定義的 `STOPSIGNAL` 值，
-如果不同，則發送容器鏡像中配置的 STOPSIGNAL，而不是 TERM 信號。
+這些請求的處理順序無法被保證。許多容器運行時遵循容器映像檔內定義的 `STOPSIGNAL` 值，
+如果不同，則發送容器映像檔中設定的 STOPSIGNAL，而不是 TERM 信號。
 一旦超出了體面終止限期，容器運行時會向所有剩餘進程發送 KILL 信號，之後
-Pod 就會被從 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}上移除。
+Pod 就會被從 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}上移除。
 如果 `kubelet` 或者容器運行時的管理服務在等待進程終止期間被重啓，
-集羣會從頭開始重試，賦予 Pod 完整的體面終止限期。
+叢集會從頭開始重試，賦予 Pod 完整的體面終止限期。
 
 <!--
 ### Stop Signals {#pod-termination-stop-signals}
@@ -1371,8 +1371,8 @@ If no stop signal is defined in the image, the default signal of the container r
 -->
 ### 停止信號 {#pod-termination-stop-signals}
 
-用於終止容器的停止信號可以通過容器鏡像中的 `STOPSIGNAL` 指令進行定義。
-如果鏡像中未定義停止信號，容器運行時（containerd 和 CRI-O 都是 SIGTERM）
+用於終止容器的停止信號可以通過容器映像檔中的 `STOPSIGNAL` 指令進行定義。
+如果映像檔中未定義停止信號，容器運行時（containerd 和 CRI-O 都是 SIGTERM）
 會使用默認的停止信號來終止容器。
 
 <!--
@@ -1407,7 +1407,7 @@ If no stop signal is defined in the container spec, the container would fall bac
 {{< feature-state feature_gate_name="ContainerStopSignals" >}}
 
 如果啓用了 `ContainerStopSignals` 特性門控（feature gate），
-你可以通過容器的生命週期（Lifecycle）配置自定義的停止信號。
+你可以通過容器的生命週期（Lifecycle）設定自定義的停止信號。
 在容器生命週期中定義停止信號時，Pod 的 `spec.os.name` 字段必須存在。
 可用的信號列表取決於 Pod 調度到的操作系統。
 對於調度到 Windows 節點的 Pod，僅支持 SIGTERM 和 SIGKILL 信號。
@@ -1446,7 +1446,7 @@ Pod 終止流程，如下例所示：
 
 1. 你使用 `kubectl` 工具手動刪除某個特定的 Pod，而該 Pod 的體面終止限期是默認值（30 秒）。
 
-2. API 服務器中的 Pod 對象被更新，記錄涵蓋體面終止限期在內 Pod
+2. API 伺服器中的 Pod 對象被更新，記錄涵蓋體面終止限期在內 Pod
    的最終死期，超出所計算時間點則認爲 Pod 已死（dead）。
    如果你使用 `kubectl describe` 來查驗你正在刪除的 Pod，該 Pod 會顯示爲
    "Terminating" （正在終止）。
@@ -1567,9 +1567,9 @@ Pod 終止流程，如下例所示：
 
    1. `kubelet` 將 Pod 轉換到終止階段（`Failed` 或 `Succeeded`，具體取決於其容器的結束狀態）。
 
-   1. kubelet 通過將寬限期設置爲 0（立即刪除），觸發從 API 服務器強制移除 Pod 對象的操作。
+   1. kubelet 通過將寬限期設置爲 0（立即刪除），觸發從 API 伺服器強制移除 Pod 對象的操作。
 
-   1. API 服務器刪除 Pod 的 API 對象，從任何客戶端都無法再看到該對象。
+   1. API 伺服器刪除 Pod 的 API 對象，從任何客戶端都無法再看到該對象。
 
 <!--
 ### Forced Pod termination {#pod-termination-forced}
@@ -1597,7 +1597,7 @@ Setting the grace period to `0` forcibly and immediately deletes the Pod from th
 server. If the Pod was still running on a node, that forcible deletion triggers the kubelet to
 begin immediate cleanup.
 -->
-將寬限期限強制設置爲 `0` 意味着立即從 API 服務器刪除 Pod。
+將寬限期限強制設置爲 `0` 意味着立即從 API 伺服器刪除 Pod。
 如果 Pod 仍然運行於某節點上，強制刪除操作會觸發 `kubelet` 立即執行清理操作。
 
 <!--
@@ -1613,9 +1613,9 @@ removes the Pod in the API immediately so a new Pod can be created with the same
 name. On the node, Pods that are set to terminate immediately will still be given
 a small grace period before being force killed.
 -->
-執行強制刪除操作時，API 服務器不再等待來自 `kubelet` 的、關於 Pod
+執行強制刪除操作時，API 伺服器不再等待來自 `kubelet` 的、關於 Pod
 已經在原來運行的節點上終止執行的確認消息。
-API 服務器直接刪除 Pod 對象，這樣新的與之同名的 Pod 即可以被創建。
+API 伺服器直接刪除 Pod 對象，這樣新的與之同名的 Pod 即可以被創建。
 在節點側，被設置爲立即終止的 Pod 仍然會在被強行殺死之前獲得一點點的寬限時間。
 
 {{< caution >}}
@@ -1623,7 +1623,7 @@ API 服務器直接刪除 Pod 對象，這樣新的與之同名的 Pod 即可以
 Immediate deletion does not wait for confirmation that the running resource has been terminated.
 The resource may continue to run on the cluster indefinitely.
 -->
-馬上刪除時不等待確認正在運行的資源已被終止。這些資源可能會無限期地繼續在集羣上運行。
+馬上刪除時不等待確認正在運行的資源已被終止。這些資源可能會無限期地繼續在叢集上運行。
 {{< /caution >}}
 
 <!--
@@ -1684,10 +1684,10 @@ This avoids a resource leak as Pods are created and terminated over time.
 -->
 ### Pod 的垃圾收集    {#pod-garbage-collection}
 
-對於已失敗的 Pod 而言，對應的 API 對象仍然會保留在集羣的 API 服務器上，
-直到用戶或者{{< glossary_tooltip term_id="controller" text="控制器" >}}進程顯式地將其刪除。
+對於已失敗的 Pod 而言，對應的 API 對象仍然會保留在叢集的 API 伺服器上，
+直到使用者或者{{< glossary_tooltip term_id="controller" text="控制器" >}}進程顯式地將其刪除。
 
-Pod 的垃圾收集器（PodGC）是控制平面的控制器，它會在 Pod 個數超出所配置的閾值
+Pod 的垃圾收集器（PodGC）是控制平面的控制器，它會在 Pod 個數超出所設定的閾值
 （根據 `kube-controller-manager` 的 `terminated-pod-gc-threshold` 設置）時刪除已終止的
 Pod（階段值爲 `Succeeded` 或 `Failed`）。
 這一行爲會避免隨着時間演進不斷創建和終止 Pod 而引起的資源泄露問題。
@@ -1735,7 +1735,7 @@ for more details.
   [`status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) for Pod.
 -->
 * 動手實踐[爲容器生命週期時間關聯處理程序](/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
-* 動手實踐[配置存活態、就緒態和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
+* 動手實踐[設定存活態、就緒態和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
 * 進一步瞭解[容器生命週期回調](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)。
 * 進一步瞭解 [Sidecar 容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)。
 * 關於 API 中定義的有關 Pod 和容器狀態的詳細規範信息，

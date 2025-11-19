@@ -1,5 +1,5 @@
 ---
-title: 配置 API 對象配額
+title: 設定 API 對象配額
 content_type: task
 weight: 130
 ---
@@ -20,7 +20,7 @@ You specify quotas in a
 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
 object.
 -->
-本文討論如何爲 API 對象配置配額，包括 PersistentVolumeClaim 和 Service。
+本文討論如何爲 API 對象設定配額，包括 PersistentVolumeClaim 和 Service。
 配額限制了可以在命名空間中創建的特定類型對象的數量。
 你可以在 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
 對象中指定配額。
@@ -39,7 +39,7 @@ isolated from the rest of your cluster.
 -->
 ## 創建命名空間    {#create-a-namespace}
 
-創建一個命名空間以便本例中創建的資源和集羣中的其餘部分相隔離。
+創建一個命名空間以便本例中創建的資源和叢集中的其餘部分相隔離。
 
 ```shell
 kubectl create namespace quota-object-example
@@ -52,7 +52,7 @@ Here is the configuration file for a ResourceQuota object:
 -->
 ## 創建 ResourceQuota    {#create-a-resourcequota}
 
-下面是一個 ResourceQuota 對象的配置文件：
+下面是一個 ResourceQuota 對象的設定文件：
 
 {{% code_sample file="admin/resource/quota-objects.yaml" %}}
 
@@ -101,7 +101,7 @@ Here is the configuration file for a PersistentVolumeClaim object:
 -->
 ## 創建 PersistentVolumeClaim    {#create-a-persistentvolumeclaim}
 
-下面是一個 PersistentVolumeClaim 對象的配置文件：
+下面是一個 PersistentVolumeClaim 對象的設定文件：
 
 {{% code_sample file="admin/resource/quota-objects-pvc.yaml" %}}
 
@@ -140,7 +140,7 @@ Here is the configuration file for a second PersistentVolumeClaim:
 -->
 ## 嘗試創建第二個 PersistentVolumeClaim    {#attempt-to-create-a-second-persistentvolumeclaim}
 
-下面是第二個 PersistentVolumeClaim 的配置文件：
+下面是第二個 PersistentVolumeClaim 的設定文件：
 
 {{% code_sample file="admin/resource/quota-objects-pvc-2.yaml" %}}
 
@@ -228,14 +228,14 @@ kubectl delete namespace quota-object-example
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 -->
 
-### 集羣管理員參考    {#for-cluster-administrators}
+### 叢集管理員參考    {#for-cluster-administrators}
 
-* [爲命名空間配置默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間配置默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [爲命名空間配置內存的最小和最大限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [爲命名空間配置 CPU 的最小和最大限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [爲命名空間配置 CPU 和內存配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-* [爲命名空間配置 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [爲命名空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲命名空間設定內存的最小和最大限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [爲命名空間設定 CPU 的最小和最大限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲命名空間設定 CPU 和內存配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [爲命名空間設定 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 <!--
 ### For app developers
@@ -254,4 +254,4 @@ kubectl delete namespace quota-object-example
 * [爲容器和 Pod 分配內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [爲容器和 Pod 分配 CPU 資源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [分配 Pod 級別的 CPU 和內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-pod-level-resources/)
-* [爲 Pod 配置服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
+* [爲 Pod 設定服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)

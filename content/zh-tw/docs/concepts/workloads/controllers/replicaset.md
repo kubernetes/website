@@ -116,7 +116,7 @@ Deployment，並在 spec 部分定義你的應用。
 Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster will
 create the defined ReplicaSet and the Pods that it manages.
 -->
-將此清單保存到 `frontend.yaml` 中，並將其提交到 Kubernetes 集羣，
+將此清單保存到 `frontend.yaml` 中，並將其提交到 Kubernetes 叢集，
 就能創建 yaml 文件所定義的 ReplicaSet 及其管理的 Pod。
 
 ```shell
@@ -430,7 +430,7 @@ matchLabels:
 ```
 
 在 ReplicaSet 中，`.spec.template.metadata.labels` 的值必須與 `spec.selector`
-值相匹配，否則該配置會被 API 拒絕。
+值相匹配，否則該設定會被 API 拒絕。
 
 {{< note >}}
 <!--
@@ -548,7 +548,7 @@ additional resources during that period. As a result, the total number of all po
 
 {{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
 
-你可以通過在 [API 服務器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
+你可以通過在 [API 伺服器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
 和 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
 上啓用 `DeploymentReplicaSetTerminatingReplicas`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來開啓此功能。
@@ -618,7 +618,7 @@ Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-
 annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
 -->
 通過使用 [`controller.kubernetes.io/pod-deletion-cost`](/zh-cn/docs/reference/labels-annotations-taints/#pod-deletion-cost)
-註解，用戶可以對 ReplicaSet 縮容時要先刪除哪些 Pod 設置偏好。
+註解，使用者可以對 ReplicaSet 縮容時要先刪除哪些 Pod 設置偏好。
 
 <!--
 The annotation should be set on the pod, the range is [-2147483648, 2147483647]. It represents the cost of
@@ -634,7 +634,7 @@ The implicit value for this annotation for pods that don't set it is 0; negative
 Invalid values will be rejected by the API server.
 -->
 Pod 如果未設置此註解，則隱含的設置值爲 0。負值也是可接受的。
-如果註解值非法，API 服務器會拒絕對應的 Pod。
+如果註解值非法，API 伺服器會拒絕對應的 Pod。
 
 <!--
 This feature is beta and enabled by default. You can disable it using the
@@ -652,8 +652,8 @@ kube-controller-manager 設置[特性門控](/zh-cn/docs/reference/command-line-
   because doing so will generate a significant number of pod updates on the apiserver.
 -->
 - 此機制實施時僅是盡力而爲，並不能對 Pod 的刪除順序作出任何保證；
-- 用戶應避免頻繁更新註解值，例如根據某觀測度量值來更新此註解值是應該避免的。
-  這樣做會在 API 服務器上產生大量的 Pod 更新操作。
+- 使用者應避免頻繁更新註解值，例如根據某觀測度量值來更新此註解值是應該避免的。
+  這樣做會在 API 伺服器上產生大量的 Pod 更新操作。
 {{< /note >}}
 
 <!--
@@ -694,7 +694,7 @@ Saving this manifest into `hpa-rs.yaml` and submitting it to a Kubernetes cluste
 create the defined HPA that autoscales the target ReplicaSet depending on the CPU usage
 of the replicated Pods.
 -->
-將這個列表保存到 `hpa-rs.yaml` 並提交到 Kubernetes 集羣，就能創建它所定義的
+將這個列表保存到 `hpa-rs.yaml` 並提交到 Kubernetes 叢集，就能創建它所定義的
 HPA，進而就能根據複製的 Pod 的 CPU 利用率對目標 ReplicaSet 進行自動擴縮。
 
 ```shell
@@ -728,7 +728,7 @@ As such, it is recommended to use Deployments when you want ReplicaSets.
 ### Deployment（推薦）    {#deployment-recommended}
 
 [`Deployment`](/zh-cn/docs/concepts/workloads/controllers/deployment/) 是一個可以擁有
-ReplicaSet 並使用聲明式方式在服務器端完成對 Pod 滾動更新的對象。
+ReplicaSet 並使用聲明式方式在伺服器端完成對 Pod 滾動更新的對象。
 儘管 ReplicaSet 可以獨立使用，目前它們的主要用途是提供給 Deployment 作爲編排
 Pod 創建、刪除和更新的一種機制。當使用 Deployment 時，你不必關心如何管理它所創建的
 ReplicaSet，Deployment 擁有並管理其 ReplicaSet。
@@ -746,7 +746,7 @@ ReplicaSet delegates local container restarts to some agent on the node such as 
 -->
 ### 裸 Pod    {#bare-pods}
 
-與用戶直接創建 Pod 的情況不同，ReplicaSet 會替換那些由於某些原因被刪除或被終止的
+與使用者直接創建 Pod 的情況不同，ReplicaSet 會替換那些由於某些原因被刪除或被終止的
 Pod，例如在節點故障或破壞性的節點維護（如內核升級）的情況下。
 因爲這個原因，我們建議你使用 ReplicaSet，即使應用程序只需要一個 Pod。
 想像一下，ReplicaSet 類似於進程監視器，只不過它在多個節點上監視多個 Pod，
@@ -790,7 +790,7 @@ As such, ReplicaSets are preferred over ReplicationControllers
 -->
 ReplicaSet 是 [ReplicationController](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/)
 的後繼者。二者目的相同且行爲類似，只是 ReplicationController 不支持
-[標籤用戶指南](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+[標籤使用者指南](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 中討論的基於集合的選擇算符需求。
 因此，相比於 ReplicationController，應優先考慮 ReplicaSet。
 

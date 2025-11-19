@@ -32,7 +32,7 @@ Ingress is a collection of rules that allow inbound connections to reach the end
 ## Ingress {#Ingress}
 
 Ingress 是允許入站連接到達後端定義的端點的規則集合。
-Ingress 可以配置爲向服務提供外部可訪問的 URL、負載均衡流量、終止 SSL、提供基於名稱的虛擬主機等。
+Ingress 可以設定爲向服務提供外部可訪問的 URL、負載均衡流量、終止 SSL、提供基於名稱的虛擬主機等。
 
 <hr>
 
@@ -71,7 +71,7 @@ Ingress 可以配置爲向服務提供外部可訪問的 URL、負載均衡流�
 <!--
 IngressSpec describes the Ingress the user wishes to exist.
 -->
-IngressSpec 描述用戶希望存在的 Ingress。
+IngressSpec 描述使用者希望存在的 Ingress。
 
 <hr>
 
@@ -90,7 +90,7 @@ IngressSpec 描述用戶希望存在的 Ingress。
   <!--
   ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
   -->
-  ingressClassName 是 IngressClass 集羣資源的名稱。
+  ingressClassName 是 IngressClass 叢集資源的名稱。
   Ingress 控制器實現使用此字段來了解它們是否應該通過傳遞連接（控制器 -> IngressClass -> Ingress 資源）爲該
   Ingress 資源提供服務。儘管 `kubernetes.io/ingress.class` 註解（簡單的常量名稱）從未正式定義，
   但它被 Ingress 控制器廣泛支持，以在 Ingress 控制器和 Ingress 資源之間創建直接綁定。
@@ -107,7 +107,7 @@ IngressSpec 描述用戶希望存在的 Ingress。
 
   **Atomic: 將在合併期間被替換**
 
-  rules 是用於配置 Ingress 的主機規則列表。如果未指定或沒有規則匹配，則所有流量都將發送到默認後端。
+  rules 是用於設定 Ingress 的主機規則列表。如果未指定或沒有規則匹配，則所有流量都將發送到默認後端。
 
   <!--
   <a name="IngressRule"></a>
@@ -129,7 +129,7 @@ IngressSpec 描述用戶希望存在的 Ingress。
     Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
     -->
 
-    host 是 RFC 3986 定義的網絡主機的完全限定域名。請注意以下與 RFC 3986 中定義的 URI 的 “host” 部分的偏差：
+    host 是 RFC 3986 定義的網路主機的完全限定域名。請注意以下與 RFC 3986 中定義的 URI 的 “host” 部分的偏差：
 
     1. 不允許 IP。當前 IngressRuleValue 只能應用於父 Ingress Spec 中的 IP。
     2. 由於不允許使用端口，因此不理會 “:” 分隔符。
@@ -145,7 +145,7 @@ IngressSpec 描述用戶希望存在的 Ingress。
     host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
     -->
 
-    host 可以是 “精確“ 的，設置爲一個不含終止句點的網絡主機域名（例如 “foo.bar.com” ），
+    host 可以是 “精確“ 的，設置爲一個不含終止句點的網路主機域名（例如 “foo.bar.com” ），
     也可以是一個 “通配符”，設置爲以單個通配符標籤爲前綴的域名（例如 “*.foo.com”）。
     通配符 “*” 必須單獨顯示爲第一個 DNS 標籤，並且僅與單個標籤匹配。
     你不能單獨使用通配符作爲標籤（例如，Host=“*”）。請求將按以下方式與主機字段匹配：
@@ -250,7 +250,7 @@ IngressSpec 描述用戶希望存在的 Ingress。
   -->
   **Atomic: 將在合併期間被替換**
 
-  tls 表示 TLS 配置。目前，Ingress 僅支持一個 TLS 端口 443。
+  tls 表示 TLS 設定。目前，Ingress 僅支持一個 TLS 端口 443。
   如果此列表的多個成員指定了不同的主機，如果實現 Ingress 的 Ingress 控制器支持 SNI，
   則它們將根據通過 SNI TLS 擴展指定的主機名在同一端口上多路複用。
 
@@ -519,7 +519,7 @@ IngressList 是 Ingress 的集合。
 - **apiVersion** (string)
 
   apiVersion 定義對象表示的版本化模式。
-  服務器應將已識別的架構轉換爲最新的內部值，並且可能會拒絕未識別的值。更多信息：
+  伺服器應將已識別的架構轉換爲最新的內部值，並且可能會拒絕未識別的值。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
@@ -529,7 +529,7 @@ IngressList 是 Ingress 的集合。
   -->
 
   kind 是一個字符串值，表示此對象所表示的 REST 資源。
-  服務器可以從客戶端向其提交請求的端點推斷出這一點。不能被更新。採用駝峯編碼。更多信息：
+  伺服器可以從客戶端向其提交請求的端點推斷出這一點。不能被更新。採用駝峯編碼。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)

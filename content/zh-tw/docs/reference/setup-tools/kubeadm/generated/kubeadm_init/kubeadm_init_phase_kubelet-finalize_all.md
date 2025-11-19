@@ -54,7 +54,7 @@ kubeadm init phase kubelet-finalize all --config
 </tr>
 <tr>
 <!-- <td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a kubeadm configuration file.</td> -->
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>kubeadm 配置文件的路徑。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>kubeadm 設定文件的路徑。</p></td>
 </tr>
 
 <tr>

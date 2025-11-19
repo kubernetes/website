@@ -48,15 +48,15 @@ debug the exact same code locally if needed.
 -->
 ## 動機   {#motivation}
 
-使用 ConfigMap 來將你的配置數據和應用程序代碼分開。
+使用 ConfigMap 來將你的設定數據和應用程序代碼分開。
 
 比如，假設你正在開發一個應用，它可以在你自己的電腦上（用於開發）和在雲上
 （用於實際流量）運行。
 你的代碼裏有一段是用於查看環境變量 `DATABASE_HOST`，在本地運行時，
-你將這個變量設置爲 `localhost`，在雲上，你將其設置爲引用 Kubernetes 集羣中的
+你將這個變量設置爲 `localhost`，在雲上，你將其設置爲引用 Kubernetes 叢集中的
 公開數據庫組件的 {{< glossary_tooltip text="服務" term_id="service" >}}。
 
-這讓你可以獲取在雲中運行的容器鏡像，並且如果有需要的話，在本地調試完全相同的代碼。
+這讓你可以獲取在雲中運行的容器映像檔，並且如果有需要的話，在本地調試完全相同的代碼。
 
 {{< note >}}
 <!--
@@ -85,7 +85,7 @@ The name of a ConfigMap must be a valid
 -->
 ## ConfigMap 對象
 
-ConfigMap 是一個讓你可以存儲其他對象所需要使用的配置的 {{< glossary_tooltip text="API 對象" term_id="object" >}}。
+ConfigMap 是一個讓你可以存儲其他對象所需要使用的設定的 {{< glossary_tooltip text="API 對象" term_id="object" >}}。
 和其他 Kubernetes 對象都有一個 `spec` 不同的是，ConfigMap 使用 `data` 和
 `binaryData` 字段。這些字段能夠接收鍵-值對作爲其取值。`data` 和 `binaryData`
 字段都是可選的。`data` 字段設計用來保存 UTF-8 字符串，而 `binaryData`
@@ -119,7 +119,7 @@ the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 ## ConfigMap 和 Pod   {#configmaps-and-pods}
 
 你可以寫一個引用 ConfigMap 的 Pod 的 `spec`，並根據 ConfigMap 中的數據在該
-Pod 中配置容器。這個 Pod 和 ConfigMap 必須要在同一個
+Pod 中設定容器。這個 Pod 和 ConfigMap 必須要在同一個
 {{< glossary_tooltip text="名字空間" term_id="namespace" >}} 中。
 
 {{< note >}}
@@ -137,7 +137,7 @@ and other keys where the value looks like a fragment of a configuration
 format.
 -->
 這是一個 ConfigMap 的示例，它的一些鍵只有一個值，其他鍵的值看起來像是
-配置的片段格式。
+設定的片段格式。
 
 ```yaml
 apiVersion: v1
@@ -174,7 +174,7 @@ For the first three methods, the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} uses the data from
 the ConfigMap when it launches container(s) for a Pod.
 -->
-你可以使用四種方式來使用 ConfigMap 配置 Pod 中的容器：
+你可以使用四種方式來使用 ConfigMap 設定 Pod 中的容器：
 
 1. 在容器命令和參數內
 1. 容器的環境變量
@@ -199,7 +199,7 @@ Here's an example Pod that uses values from `game-demo` to configure a Pod:
 你的應用就能夠通過訂閱來獲取更新，並且在這樣的情況發生的時候做出反應。
 通過直接進入 Kubernetes API，這個技術也可以讓你能夠獲取到不同的名字空間裏的 ConfigMap。
 
-下面是一個 Pod 的示例，它通過使用 `game-demo` 中的值來配置一個 Pod：
+下面是一個 Pod 的示例，它通過使用 `game-demo` 中的值來設定一個 Pod：
 
 {{% code_sample file="configmap/configure-pod.yaml" %}}
 
@@ -237,7 +237,7 @@ ConfigMaps can hold data that other parts of the system should use for configura
 ## 使用 ConfigMap   {#using-configmaps}
 
 ConfigMap 可以作爲數據卷掛載。ConfigMap 也可被系統的其他組件使用，
-而不一定直接暴露給 Pod。例如，ConfigMap 可以保存系統中其他組件要使用的配置數據。
+而不一定直接暴露給 Pod。例如，ConfigMap 可以保存系統中其他組件要使用的設定數據。
 
 <!--
 The most common way to use ConfigMaps is to configure settings for
@@ -249,7 +249,7 @@ might encounter {{< glossary_tooltip text="addons" term_id="addons" >}}
 or {{< glossary_tooltip text="operators" term_id="operator-pattern" >}} that
 adjust their behavior based on a ConfigMap.
 -->
-ConfigMap 最常見的用法是爲同一命名空間裏某 Pod 中運行的容器執行配置。
+ConfigMap 最常見的用法是爲同一命名空間裏某 Pod 中運行的容器執行設定。
 你也可以單獨使用 ConfigMap。
 
 比如，你可能會遇到基於 ConfigMap 來調整其行爲的
@@ -288,7 +288,7 @@ To consume a ConfigMap in a volume in a Pod:
    設置 `.spec.containers[].volumeMounts[].readOnly=true` 並將
    `.spec.containers[].volumeMounts[].mountPath` 設置爲一個未使用的目錄名，
    ConfigMap 的內容將出現在該目錄中。
-1. 更改你的鏡像或者命令行，以便程序能夠從該目錄中查找文件。ConfigMap 中的每個
+1. 更改你的映像檔或者命令列，以便程序能夠從該目錄中查找文件。ConfigMap 中的每個
    `data` 鍵會變成 `mountPath` 下面的一個文件名。
 
 <!--
@@ -342,7 +342,7 @@ kubelet 組件會在每次週期性同步時檢查所掛載的 ConfigMap 是否�
 不過，kubelet 使用的是其本地的高速緩存來獲得 ConfigMap 的當前值。
 高速緩存的類型可以通過
 [KubeletConfiguration 結構](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/).
-的 `configMapAndSecretChangeDetectionStrategy` 字段來配置。
+的 `configMapAndSecretChangeDetectionStrategy` 字段來設定。
 
 <!--
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
@@ -353,7 +353,7 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 -->
 ConfigMap 既可以通過 watch 操作實現內容傳播（默認形式），也可實現基於 TTL
-的緩存，還可以直接經過所有請求重定向到 API 服務器。
+的緩存，還可以直接經過所有請求重定向到 API 伺服器。
 因此，從 ConfigMap 被更新的那一刻算起，到新的主鍵被投射到 Pod 中去，
 這一時間跨度可能與 kubelet 的同步週期加上高速緩存的傳播延遲相等。
 這裏的傳播延遲取決於所選的高速緩存類型
@@ -392,7 +392,7 @@ in a Pod:
 -->
 1. 對於 Pod 規約中的每個容器，爲要使用的每個 ConfigMap 鍵添加一個環境變量到
    `env[].valueFrom.configMapKeyRef` 字段。
-2. 修改你的鏡像和/或命令行，以便程序查找指定環境變量中的值。
+2. 修改你的映像檔和/或命令列，以便程序查找指定環境變量中的值。
 
 <!--
 This is an example of defining a ConfigMap as a pod environment variable:
@@ -437,7 +437,7 @@ This should confirm that the two key-value pairs from the ConfigMap have been se
 -->
 `envFrom` 字段指示 Kubernetes 使用其中嵌套的源創建環境變量。
 內部的 `configMapRef` 通過 ConfigMap 的名稱引用之，並選擇其所有鍵值對。
-將 Pod 添加到你的集羣中，然後檢索其日誌以查看 printenv 命令的輸出。
+將 Pod 添加到你的叢集中，然後檢索其日誌以查看 printenv 命令的輸出。
 此操作可確認來自 ConfigMap 的兩個鍵值對已被設置爲環境變量：
 
 ```shell
@@ -520,7 +520,7 @@ individual Secrets and ConfigMaps as immutable. For clusters that extensively us
 data has the following advantages:
 -->
 Kubernetes 特性 **Immutable Secret 和 ConfigMap** 提供了一種將各個
-Secret 和 ConfigMap 設置爲不可變更的選項。對於大量使用 ConfigMap 的集羣
+Secret 和 ConfigMap 設置爲不可變更的選項。對於大量使用 ConfigMap 的叢集
 （至少有數萬個各不相同的 ConfigMap 給 Pod 掛載）而言，禁止更改
 ConfigMap 的數據有以下好處：
 
@@ -530,7 +530,7 @@ ConfigMap 的數據有以下好處：
   closing watches for ConfigMaps marked as immutable.
 -->
 - 保護應用，使之免受意外（不想要的）更新所帶來的負面影響。
-- 通過大幅降低對 kube-apiserver 的壓力提升集羣性能，
+- 通過大幅降低對 kube-apiserver 的壓力提升叢集性能，
   這是因爲系統會關閉對已標記爲不可變更的 ConfigMap 的監視操作。
 
 <!--
@@ -570,6 +570,6 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
   separating code from configuration.
 -->
 * 閱讀 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
-* 閱讀[配置 Pod 使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 閱讀[設定 Pod 使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 * 閱讀[修改 ConfigMap（或任何其他 Kubernetes 對象）](/zh-cn/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)。
-* 閱讀 [Twelve-Factor 應用](https://12factor.net/zh_cn/)來了解將代碼和配置分開的動機。
+* 閱讀 [Twelve-Factor 應用](https://12factor.net/zh_cn/)來了解將代碼和設定分開的動機。

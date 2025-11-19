@@ -31,7 +31,7 @@ but specified `20TiB`? This seemingly innocuous problem was kinda hard to fix - 
 <!--
 While it was always possible to recover from failing volume expansions manually, it usually required cluster-admin access and was tedious to do (See aformentioned link for more information).
 -->
-雖然手動從失敗的卷擴展中恢復總是可能的，但這通常需要集羣管理員權限，而且操作繁瑣（更多信息請參見上述鏈接）。
+雖然手動從失敗的卷擴展中恢復總是可能的，但這通常需要叢集管理員權限，而且操作繁瑣（更多信息請參見上述鏈接）。
 
 <!--
 What if you make a mistake and then realize immediately?
@@ -59,7 +59,7 @@ I'll walk through an example of how all of this works.
 Imagine that you are running out of disk space for one of your database servers, and you want to expand the PVC from previously
 specified `10TB` to `100TB` - but you make a typo and specify `1000TB`.
 -->
-想象一下，你的某個數據庫服務器磁盤空間不足，
+想象一下，你的某個數據庫伺服器磁盤空間不足，
 你想將 PVC 從之前指定的 `10TB` 擴展到 `100TB`——但你犯了一個拼寫錯誤，指定了 `1000TB`。
 
 ```yaml

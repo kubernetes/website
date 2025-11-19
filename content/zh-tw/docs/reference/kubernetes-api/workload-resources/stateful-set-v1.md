@@ -36,10 +36,10 @@ The StatefulSet guarantees that a given network identity will always map to the 
 -->
 StatefulSet 表示一組具有一致身份的 Pod。身份定義爲：
 
-- 網絡：一個穩定的 DNS 和主機名。
+- 網路：一個穩定的 DNS 和主機名。
 - 存儲：根據要求提供儘可能多的 VolumeClaim。
 
-StatefulSet 保證給定的網絡身份將始終映射到相同的存儲身份。
+StatefulSet 保證給定的網路身份將始終映射到相同的存儲身份。
 <hr>
 
 - **apiVersion**: apps/v1
@@ -85,7 +85,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
 - **serviceName** (string)
 
   `serviceName` 是管理此 StatefulSet 服務的名稱。
-  該服務必須在 StatefulSet 之前即已存在，並負責該集合的網絡標識。
+  該服務必須在 StatefulSet 之前即已存在，並負責該集合的網路標識。
   Pod 會獲得符合以下模式的 DNS/主機名：pod-specific-string.serviceName.default.svc.cluster.local。
   其中 “pod-specific-string” 由 StatefulSet 控制器管理。
 
@@ -189,7 +189,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
 
       更新期間不可用的 Pod 個數上限。取值可以是絕對數量（例如：5）或所需 Pod 的百分比（例如：10%）。
       絕對數是通過四捨五入的百分比計算得出的。不能爲 0，默認爲 1。
-      此字段爲 Alpha 級別，僅被啓用 MaxUnavailableStatefulSet 特性的服務器支持。
+      此字段爲 Alpha 級別，僅被啓用 MaxUnavailableStatefulSet 特性的伺服器支持。
       此字段適用於 0 到 replicas-1 範圍內的所有 Pod。這意味着如果在 0 到 replicas-1 範圍內有任何不可用的 Pod，
       這些 Pod 將被計入 maxUnavailable 中。
 
@@ -244,7 +244,7 @@ StatefulSetSpec 是 StatefulSet 的規約。
   -->
 
   `volumeClaimTemplates` 是允許 Pod 引用的申領列表。
-  StatefulSet controller 負責以維持 Pod 身份不變的方式將網絡身份映射到申領之上。
+  StatefulSet controller 負責以維持 Pod 身份不變的方式將網路身份映射到申領之上。
   此列表中的每個申領至少必須在模板的某個容器中存在匹配的（按 `name` 匹配）volumeMount。
   此列表中的申領優先於模板中具有相同名稱的所有卷。
 
@@ -478,7 +478,7 @@ StatefulSetStatus 表示 StatefulSet 的當前狀態。
   -->
 
   `observedGeneration` 是 StatefulSet 的最新一代。它對應於 StatefulSet
-  的代數，由 API 服務器在變更時更新。
+  的代數，由 API 伺服器在變更時更新。
 
 ## StatefulSetList {#StatefulSetList}
 

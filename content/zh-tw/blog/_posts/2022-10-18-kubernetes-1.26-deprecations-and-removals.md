@@ -109,7 +109,7 @@ The `flowcontrol.apiserver.k8s.io/v1beta1` API version of FlowSchema and Priorit
 
 FlowSchema 和 PriorityLevelConfiguration 的 `flowcontrol.apiserver.k8s.io/v1beta1` API
 版本[將不再在 v1.26 中提供](/zh-cn/docs/reference/using-api/deprecation-guide/#flowcontrol-resources-v126)。
-用戶應遷移清單和 API 客戶端才能使用自 v1.23 起可用的 `flowcontrol.apiserver.k8s.io/v1beta2` API 版本。
+使用者應遷移清單和 API 客戶端才能使用自 v1.23 起可用的 `flowcontrol.apiserver.k8s.io/v1beta2` API 版本。
 
 <!--
 ### Removal of the `v2beta2` HorizontalPodAutoscaler API
@@ -120,7 +120,7 @@ The `autoscaling/v2beta2` API version of HorizontalPodAutoscaler [will no longer
 
 HorizontalPodAutoscaler 的 `autoscaling/v2beta2` API
 版本[將不再在 v1.26 中提供](/zh-cn/docs/reference/using-api/deprecation-guide/#horizontalpodautoscaler-v126)。
-用戶應遷移清單和 API 客戶端以使用自 v1.23 起可用的 `autoscaling/v2` API 版本。
+使用者應遷移清單和 API 客戶端以使用自 v1.23 起可用的 `autoscaling/v2` API 版本。
 
 <!--
 ### Removal of in-tree credential management code
@@ -157,7 +157,7 @@ The `userspace` proxy mode, deprecated for over a year, is [no longer supported 
 ### 移除 `kube-proxy` userspace 模式   {#removal-of-kube-proxy-userspace-modes}
 
 已棄用一年多的 `userspace` 代理模式[不再受 Linux 或 Windows 支持](https://github.com/kubernetes/kubernetes/pull/112133)，
-並將在 v1.26 中被移除。Linux 用戶應使用 `iptables` 或 `ipvs`，Windows 用戶應使用 `kernelspace`：
+並將在 v1.26 中被移除。Linux 使用者應使用 `iptables` 或 `ipvs`，Windows 使用者應使用 `kernelspace`：
 現在使用 `--mode userspace` 會失敗。
 
 <!--
@@ -198,7 +198,7 @@ Users that use this flag are strongly advised to make the necessary changes prio
 
 作爲[包容性命名倡議（Inclusive Naming Initiative）](https://www.cncf.io/announcements/2021/10/13/inclusive-naming-initiative-announces-new-community-resources-for-a-more-inclusive-future/)的實現工作的一部分，
 `--prune-whitelist` 標誌將被[棄用](https://github.com/kubernetes/kubernetes/pull/113116)，並替換爲 `--prune-allowlist`。
-強烈建議使用此標誌的用戶在未來某個版本中最終移除該標誌之前進行必要的變更。
+強烈建議使用此標誌的使用者在未來某個版本中最終移除該標誌之前進行必要的變更。
 
 <!--
 ### Removal of dynamic kubelet configuration
@@ -209,13 +209,13 @@ that contained the configuration data that the kubelet should use.
 Dynamic kubelet configuration was removed from the kubelet in v1.24, and will be
 [removed from the API server](https://github.com/kubernetes/kubernetes/pull/112643) in the v1.26 release.
 -->
-### 移除動態 kubelet 配置   {#removal-of-dynamic-kubelet-config}
+### 移除動態 kubelet 設定   {#removal-of-dynamic-kubelet-config}
 
-**動態 kubelet 配置**
-允許[通過 Kubernetes API 推出新的 kubelet 配置](https://github.com/kubernetes/enhancements/tree/2cd758cc6ab617a93f578b40e97728261ab886ed/keps/sig-node/281-dynamic-kubelet-configuration)，
-甚至能在運作中集羣上完成此操作。集羣操作員可以通過指定包含 kubelet 應使用的配置數據的 ConfigMap
-來重新配置節點上的 kubelet。動態 kubelet 配置已在 v1.24 中從 kubelet 中移除，並將在 v1.26
-版本中[從 API 服務器中移除](https://github.com/kubernetes/kubernetes/pull/112643)。
+**動態 kubelet 設定**
+允許[通過 Kubernetes API 推出新的 kubelet 設定](https://github.com/kubernetes/enhancements/tree/2cd758cc6ab617a93f578b40e97728261ab886ed/keps/sig-node/281-dynamic-kubelet-configuration)，
+甚至能在運作中叢集上完成此操作。叢集操作員可以通過指定包含 kubelet 應使用的設定數據的 ConfigMap
+來重新設定節點上的 kubelet。動態 kubelet 設定已在 v1.24 中從 kubelet 中移除，並將在 v1.26
+版本中[從 API 伺服器中移除](https://github.com/kubernetes/kubernetes/pull/112643)。
 
 <!--
 ### Deprecations for `kube-apiserver` command line arguments
@@ -226,11 +226,11 @@ That command line argument will be formally marked as deprecated in v1.26, prepa
 removal in a future release.
 The Kubernetes project does not expect any impact from this deprecation and removal.
 -->
-### 棄用 `kube-apiserver` 命令行參數   {#deprecations-for-kube-apiserver-command-line-arg}
+### 棄用 `kube-apiserver` 命令列參數   {#deprecations-for-kube-apiserver-command-line-arg}
 
-`--master-service-namespace` 命令行參數對 kube-apiserver 沒有任何效果，
+`--master-service-namespace` 命令列參數對 kube-apiserver 沒有任何效果，
 並且已經被非正式地[被棄用](https://github.com/kubernetes/kubernetes/pull/38186)。
-該命令行參數將在 v1.26 中正式標記爲棄用，準備在未來某個版本中移除。
+該命令列參數將在 v1.26 中正式標記爲棄用，準備在未來某個版本中移除。
 Kubernetes 項目預期不會因此項棄用和移除受到任何影響。
 
 <!--
@@ -238,7 +238,7 @@ Kubernetes 項目預期不會因此項棄用和移除受到任何影響。
 
 Several unused option arguments for the `kubectl run` subcommand will be [marked as deprecated](https://github.com/kubernetes/kubernetes/pull/112261), including:
 -->
-### 棄用 `kubectl run` 命令行參數   {#deprecations-for-kubectl-run-command-line-arg}
+### 棄用 `kubectl run` 命令列參數   {#deprecations-for-kubectl-run-command-line-arg}
 
 針對 `kubectl run`
 子命令若干未使用的選項參數將[被標記爲棄用](https://github.com/kubernetes/kubernetes/pull/112261)，這包括：
@@ -265,10 +265,10 @@ command line arguments relating to logging. These command line arguments were
 already deprecated.
 For more information, see [Deprecate klog specific flags in Kubernetes Components](https://github.com/kubernetes/enhancements/tree/3cb66bd0a1ef973ebcc974f935f0ac5cba9db4b2/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components).
 -->
-### 移除與日誌相關的原有命令行參數   {#removal-of-legacy-command-line-arg-relating-to-logging}
+### 移除與日誌相關的原有命令列參數   {#removal-of-legacy-command-line-arg-relating-to-logging}
 
-Kubernetes v1.26 將[移除](https://github.com/kubernetes/kubernetes/pull/112120)一些與日誌相關的命令行參數。
-這些命令行參數之前已被棄用。有關詳細信息，
+Kubernetes v1.26 將[移除](https://github.com/kubernetes/kubernetes/pull/112120)一些與日誌相關的命令列參數。
+這些命令列參數之前已被棄用。有關詳細信息，
 請參閱[棄用 Kubernetes 組件中的 klog 特定標誌](https://github.com/kubernetes/enhancements/tree/3cb66bd0a1ef973ebcc974f935f0ac5cba9db4b2/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)。
 
 <!--

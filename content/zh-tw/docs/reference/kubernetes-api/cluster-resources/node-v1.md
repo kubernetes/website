@@ -82,13 +82,13 @@ NodeSpec 描述了創建節點時使用的屬性。
   <!-- 
   Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
   -->
-  已棄用：以前用於爲 DynamicKubeletConfig 功能指定節點配置的來源。此功能已刪除。
+  已棄用：以前用於爲 DynamicKubeletConfig 功能指定節點設定的來源。此功能已刪除。
 
   <a name="NodeConfigSource"></a>
   <!-- 
   *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22* 
   -->
-  **NodeConfigSource 指定節點配置的來源。指定一個子字段（不包括元數據）必須爲非空。
+  **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元數據）必須爲非空。
   此 API 自 1.22的版本起已被棄用**
 
   - **configSource.configMap** (ConfigMapNodeConfigSource)
@@ -104,7 +104,7 @@ NodeSpec 描述了創建節點時使用的屬性。
     *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
     -->
 
-    ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點配置源的信息。
+    ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的信息。
     此 API 自 1.22 版本起已被棄用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 
     <!--
@@ -450,13 +450,13 @@ NodeStatus 是有關節點當前狀態的信息。
   Status of the config assigned to the node via the dynamic Kubelet config feature. 
   -->
   
-  通過動態 kubelet 配置功能分配給節點的配置狀態。
+  通過動態 kubelet 設定功能分配給節點的設定狀態。
 
   <a name="NodeConfigStatus"></a>
   <!-- 
   *NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.* 
   -->
-  **NodeConfigStatus 描述了由 Node.spec.configSource 分配的配置的狀態。**
+  **NodeConfigStatus 描述了由 Node.spec.configSource 分配的設定的狀態。**
 
   - **config.active** (NodeConfigSource)
 
@@ -464,15 +464,15 @@ NodeStatus 是有關節點當前狀態的信息。
     Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
     -->
 
-    active 報告節點正在使用的檢查點配置。
-    active 將代表已分配配置的當前版本或當前 LastKnownGood 配置，具體取決於嘗試使用已分配配置是否會導致錯誤。
+    active 報告節點正在使用的檢查點設定。
+    active 將代表已分配設定的當前版本或當前 LastKnownGood 設定，具體取決於嘗試使用已分配設定是否會導致錯誤。
 
     <a name="NodeConfigSource"></a>
     <!--
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定節點配置的來源。指定一個子字段（不包括元數據）必須爲非空。此 API 自 1.22 版本起已棄用**
+    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元數據）必須爲非空。此 API 自 1.22 版本起已棄用**
 
     - **config.active.configMap** (ConfigMapNodeConfigSource)
 
@@ -487,7 +487,7 @@ NodeStatus 是有關節點當前狀態的信息。
       *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
       -->
 
-      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點配置源的信息。
+      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的信息。
       此 API 自 1.22 版本起已被棄用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration**
 
       <!--
@@ -546,18 +546,18 @@ NodeStatus 是有關節點當前狀態的信息。
     Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
     -->
 
-    `assigned` 字段報告節點將嘗試使用的檢查點配置。
-    當 `Node.spec.configSource` 被更新時，節點將所關聯的配置負載及指示預期配置的記錄通過檢查點操作加載到本地磁盤。
-    節點參考這條記錄來選擇它的配置檢查點，並在 assigned 中報告這條記錄。
+    `assigned` 字段報告節點將嘗試使用的檢查點設定。
+    當 `Node.spec.configSource` 被更新時，節點將所關聯的設定負載及指示預期設定的記錄通過檢查點操作加載到本地磁盤。
+    節點參考這條記錄來選擇它的設定檢查點，並在 assigned 中報告這條記錄。
     僅在記錄被保存到磁盤後纔會更新 `status` 中的 assigned。
-    當 kubelet 重新啓動時，它會嘗試通過加載和驗證由 assigned 標識的檢查點有效負載來使 `assigned` 配置成爲 `active` 配置。
+    當 kubelet 重新啓動時，它會嘗試通過加載和驗證由 assigned 標識的檢查點有效負載來使 `assigned` 設定成爲 `active` 設定。
 
     <a name="NodeConfigSource"></a>
     <!--
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定節點配置的來源。指定一個子字段（不包括元數據）必須爲非空。
+    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元數據）必須爲非空。
     此 API 自 1.22 版本起已棄用**
 
     - **config.assigned.configMap** (ConfigMapNodeConfigSource)
@@ -573,7 +573,7 @@ NodeStatus 是有關節點當前狀態的信息。
       *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
       -->
 
-      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 爲節點配置源的信息。
+      **ConfigMapNodeConfigSource 包含引用某 ConfigMap 爲節點設定源的信息。
       此 API 自 1.22 版本起已被棄用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration**
 
       <!--
@@ -632,13 +632,13 @@ NodeStatus 是有關節點當前狀態的信息。
     Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.
     -->
 
-    `error` 描述了在 `spec.configSource` 與活動配置間協調時發生的所有問題。
+    `error` 描述了在 `spec.configSource` 與活動設定間協調時發生的所有問題。
     可能會發生的情況，例如，嘗試將 `spec.configSource` 通過檢查點操作複製到到本地 assigned 記錄時，
-    嘗試對與 `spec.configSource` 關聯的有效負載執行檢查點操作，嘗試加​​載或驗證 assigned 的配置時。
-    同步配置時可能會在不同位置發生錯誤，較早的錯誤（例如下載或檢查點錯誤）不會導致回滾到 `LastKnownGood`，
+    嘗試對與 `spec.configSource` 關聯的有效負載執行檢查點操作，嘗試加​​載或驗證 assigned 的設定時。
+    同步設定時可能會在不同位置發生錯誤，較早的錯誤（例如下載或檢查點錯誤）不會導致回滾到 `LastKnownGood`，
     並且可能會在 kubelet 重試後解決。
-    後期發生的錯誤（例如加載或驗證檢查點配置）將導致回滾到 `LastKnownGood`。
-    在後一種情況下，通常可以通過修復 `spec.sonfigSource` 中 assigned 配置來解決錯誤。
+    後期發生的錯誤（例如加載或驗證檢查點設定）將導致回滾到 `LastKnownGood`。
+    在後一種情況下，通常可以通過修復 `spec.sonfigSource` 中 assigned 設定來解決錯誤。
     你可以通過在 kubelet 日誌中搜索錯誤消息來找到更多的調試信息。
     error 是錯誤狀態的人類可讀描述；機器可以檢查 error 是否爲空，但不應依賴跨 kubelet 版本的 error 文本的穩定性。
 
@@ -648,20 +648,20 @@ NodeStatus 是有關節點當前狀態的信息。
     LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.
     -->
 
-    `lastKnownGood` 報告節點在嘗試使用 `assigned` 配置時遇到錯誤時將回退到的檢查點配置。
-    當節點確定 `assigned` 配置穩定且正確時，`assigned` 配置會成爲 `lastKnownGood` 配置。
-    這當前實施爲從更新分配配置的本地記錄開始的 10 分鐘浸泡期。
-    如果在此期間結束時分配的配置依舊處於活動狀態，則它將成爲 `lastKnownGood`。
+    `lastKnownGood` 報告節點在嘗試使用 `assigned` 設定時遇到錯誤時將回退到的檢查點設定。
+    當節點確定 `assigned` 設定穩定且正確時，`assigned` 設定會成爲 `lastKnownGood` 設定。
+    這當前實施爲從更新分配設定的本地記錄開始的 10 分鐘浸泡期。
+    如果在此期間結束時分配的設定依舊處於活動狀態，則它將成爲 `lastKnownGood`。
     請注意，如果 `spec.configSource` 重置爲 nil（使用本地默認值），
-    `lastKnownGood` 也會立即重置爲 nil，因爲始終假定本地默認配置是好的。
-    你不應該對節點確定配置穩定性和正確性的方法做出假設，因爲這可能會在將來發生變化或變得可配置。
+    `lastKnownGood` 也會立即重置爲 nil，因爲始終假定本地默認設定是好的。
+    你不應該對節點確定設定穩定性和正確性的方法做出假設，因爲這可能會在將來發生變化或變得可設定。
 
     <a name="NodeConfigSource"></a>
     <!--
     *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
     -->
 
-    **NodeConfigSource 指定節點配置的來源。指定一個子字段（不包括元數據）必須爲非空。
+    **NodeConfigSource 指定節點設定的來源。指定一個子字段（不包括元數據）必須爲非空。
     此 API 自 1.22 版本起已棄用**
 
     - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
@@ -677,7 +677,7 @@ NodeStatus 是有關節點當前狀態的信息。
       *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
       -->
 
-      ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點配置源的信息。
+      ConfigMapNodeConfigSource 包含引用某 ConfigMap 作爲節點設定源的信息。
       此 API 自 1.22 版本起已被棄用：https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 
       <!--
@@ -803,13 +803,13 @@ NodeStatus 是有關節點當前狀態的信息。
 
   **原子：將在合併期間被替換**
 
-  該節點上的容器鏡像列表。
+  該節點上的容器映像檔列表。
 
   <a name="ContainerImage"></a>
   <!--
   *Describe a container image* 
   -->
-  **描述一個容器鏡像**
+  **描述一個容器映像檔**
 
   - **images.names** ([]string)
 
@@ -821,7 +821,7 @@ NodeStatus 是有關節點當前狀態的信息。
 
     **原子：將在合併期間被替換**
 
-    已知此鏡像的名稱。
+    已知此映像檔的名稱。
     例如 ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
 
   - **images.sizeBytes** (int64)
@@ -830,7 +830,7 @@ NodeStatus 是有關節點當前狀態的信息。
     The size of the image in bytes.
     -->
 
-    鏡像的大小（以字節爲單位）。
+    映像檔的大小（以字節爲單位）。
 
 - **nodeInfo** (NodeSystemInfo)
 
@@ -915,7 +915,7 @@ NodeStatus 是有關節點當前狀態的信息。
   - **nodeInfo.machineID** (string)，必需
 
     節點上報的 `machineID`。
-    對於集羣中的唯一機器標識，此字段是首選。
+    對於叢集中的唯一機器標識，此字段是首選。
     從 man(5) machine-id 瞭解更多信息：http://man7.org/linux/man-pages/man5/machine-id.5.html
 
   <!--
@@ -990,9 +990,9 @@ NodeStatus 是有關節點當前狀態的信息。
   該字段從未填充，現在已被棄用。
 
   可能的枚舉值：
-    - `"Pending"` 表示節點已被系統創建/添加，但尚未配置。
-    - `"Running"` 表示節點已配置並且 Kubernetes 組件正在運行。
-    - `"Terminated"` 表示節點已從集羣中移除。
+    - `"Pending"` 表示節點已被系統創建/添加，但尚未設定。
+    - `"Running"` 表示節點已設定並且 Kubernetes 組件正在運行。
+    - `"Terminated"` 表示節點已從叢集中移除。
 
 <!--
 - **runtimeHandlers** ([]NodeRuntimeHandler)

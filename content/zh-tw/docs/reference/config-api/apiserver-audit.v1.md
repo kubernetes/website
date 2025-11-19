@@ -1,5 +1,5 @@
 ---
-title: kube-apiserver Audit 配置（v1）
+title: kube-apiserver Audit 設定（v1）
 content_type: tool-reference
 package: audit.k8s.io/v1
 ---
@@ -90,7 +90,7 @@ Event 結構包含可出現在 API 審計日誌中的所有信息。
    <!--
    RequestURI is the request URI as sent by the client to a server.
    -->
-   requestURI 是客戶端發送到服務器端的請求 URI。
+   requestURI 是客戶端發送到伺服器端的請求 URI。
    </p>
 </td>
 </tr>
@@ -118,7 +118,7 @@ Event 結構包含可出現在 API 審計日誌中的所有信息。
    <!--
    Authenticated user information.
    -->
-   關於認證用戶的信息。
+   關於認證使用者的信息。
    </p>
 </td>
 </tr>
@@ -131,7 +131,7 @@ Event 結構包含可出現在 API 審計日誌中的所有信息。
    <!--
    Impersonated user information.
    -->
-   關於所僞裝（<code>impersonatedUser</code>）的用戶的信息。
+   關於所僞裝（<code>impersonatedUser</code>）的使用者的信息。
    </p>
 </td>
 </tr>
@@ -183,7 +183,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    UserAgent records the user agent string reported by the client.
    Note that the UserAgent is provided by the client, and must not be trusted.
    -->
-   userAgent 中記錄客戶端所報告的用戶代理（User Agent）字符串。
+   userAgent 中記錄客戶端所報告的使用者代理（User Agent）字符串。
    注意 userAgent 信息是由客戶端提供的，一定不要信任。
    </p>
 </td>
@@ -232,7 +232,7 @@ Note: All but the last IP can be arbitrarily set by the client.
     Omitted for non-resource requests.  Only logged at Request Level and higher.
    -->
    來自請求的 API 對象，以 JSON 格式呈現。<code>requestObject</code> 在請求中按原樣記錄
-   （可能會採用 JSON 重新編碼），之後會進入版本轉換、默認值填充、准入控制以及配置信息合併等階段。
+   （可能會採用 JSON 重新編碼），之後會進入版本轉換、默認值填充、准入控制以及設定信息合併等階段。
    此對象爲外部版本化的對象類型，甚至其自身可能並不是一個合法的對象。對於非資源請求，此字段被忽略。
    只有當審計級別爲 Request 或更高的時候纔會記錄。
    </p>  
@@ -264,7 +264,7 @@ Note: All but the last IP can be arbitrarily set by the client.
    <!--
    Time the request reached the apiserver.
    -->
-   請求到達 API 服務器時的時間。
+   請求到達 API 伺服器時的時間。
    </p>
 </td>
 </tr>
@@ -357,7 +357,7 @@ EventList 是審計事件（Event）的列表。
 Policy defines the configuration of audit logging, and the rules for how different request
 categories are logged.
 -->
-Policy 定義的是審計日誌的配置以及不同類型請求的日誌記錄規則。
+Policy 定義的是審計日誌的設定以及不同類型請求的日誌記錄規則。
 </p>
 
 <table class="table">
@@ -728,8 +728,8 @@ PolicyRule 包含一個映射，基於元數據將請求映射到某審計級別
    The users (by authenticated user name) this rule applies to.
    An empty list implies every user.
    -->
-   根據身份認證所確定的用戶名的列表，給出此規則所適用的用戶。
-   空列表意味着適用於所有用戶。
+   根據身份認證所確定的使用者名的列表，給出此規則所適用的使用者。
+   空列表意味着適用於所有使用者。
    </p>
 </td>
 </tr>
@@ -744,8 +744,8 @@ PolicyRule 包含一個映射，基於元數據將請求映射到某審計級別
    if it is a member of any of the UserGroups.
    An empty list implies every user group.
    -->
-   此規則所適用的用戶組的列表。如果用戶是所列用戶組中任一用戶組的成員，則視爲匹配。
-   空列表意味着適用於所有用戶組。
+   此規則所適用的使用者組的列表。如果使用者是所列使用者組中任一使用者組的成員，則視爲匹配。
+   空列表意味着適用於所有使用者組。
    </p>
 </td>
 </tr>
@@ -815,7 +815,7 @@ PolicyRule 包含一個映射，基於元數據將請求映射到某審計級別
    例如：
    </p>
    <ul>
-     <li>&quot;/metrics&quot; - 記錄對 API 服務器度量值（metrics）的所有請求；</li>
+     <li>&quot;/metrics&quot; - 記錄對 API 伺服器度量值（metrics）的所有請求；</li>
      <li>&quot;/healthz&ast;&quot; - 記錄所有健康檢查。</li>
    </ul>
 </td>
@@ -831,8 +831,8 @@ PolicyRule 包含一個映射，基於元數據將請求映射到某審計級別
    be specified policy wide in which case the union of both are omitted.
    An empty list means no restrictions will apply.
    -->
-   字段 <code>omitStages</code> 是一個階段（Stage）列表，針對所列的階段服務器不會生成審計事件。
-   注意這一選項也可以在策略（Policy）級別指定。服務器審計組件會忽略
+   字段 <code>omitStages</code> 是一個階段（Stage）列表，針對所列的階段伺服器不會生成審計事件。
+   注意這一選項也可以在策略（Policy）級別指定。伺服器審計組件會忽略
    <code>omitStages</code> 中給出的階段，也會忽略策略中給出的階段。
    空列表意味着不對階段作任何限制。
    </p>

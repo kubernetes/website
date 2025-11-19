@@ -23,5 +23,5 @@ removed: true
 Enables managing request concurrency with prioritization and fairness
 at each API server. Deprecated by `APIPriorityAndFairness` since 1.17.
 -->
-允許在每個 API 服務器上通過優先級和公平性來管理請求併發性。
+允許在每個 API 伺服器上通過優先級和公平性來管理請求併發性。
 自 1.17 以來已被 `APIPriorityAndFairness` 替代。

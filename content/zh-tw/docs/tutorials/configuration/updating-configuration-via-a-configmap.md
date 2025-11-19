@@ -1,5 +1,5 @@
 ---
-title: 通過 ConfigMap 更新配置
+title: 通過 ConfigMap 更新設定
 content_type: tutorial
 weight: 20
 ---
@@ -16,10 +16,10 @@ and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-p
 At the end of this tutorial, you will understand how to change the configuration for a running application.
 This tutorial uses the `alpine` and `nginx` images as examples.
 -->
-本頁提供了通過 ConfigMap 更新 Pod 中配置信息的分步示例，
-本教程的前置任務是[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
-在本教程結束時，你將瞭解如何變更運行中應用的配置。
-本教程以 `alpine` 和 `nginx` 鏡像爲例。
+本頁提供了通過 ConfigMap 更新 Pod 中設定信息的分步示例，
+本教程的前置任務是[設定 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+在本教程結束時，你將瞭解如何變更運行中應用的設定。
+本教程以 `alpine` 和 `nginx` 映像檔爲例。
 
 ## {{% heading "prerequisites" %}}
 
@@ -30,7 +30,7 @@ You need to have the [curl](https://curl.se/) command-line tool for making HTTP 
 the terminal or command prompt. If you do not have `curl` available, you can install it. Check the
 documentation for your local operating system.
 -->
-你需要有 [curl](https://curl.se/) 命令行工具，用於從終端或命令行界面發出 HTTP 請求。
+你需要有 [curl](https://curl.se/) 命令列工具，用於從終端或命令列界面發出 HTTP 請求。
 如果你沒有 `curl`，可以安裝此工具。請查閱你本地操作系統的文檔。
 
 ## {{% heading "objectives" %}}
@@ -41,10 +41,10 @@ documentation for your local operating system.
 * Update configuration via a ConfigMap in a multi-container Pod
 * Update configuration via a ConfigMap in a Pod possessing a Sidecar Container
 -->
-* 通過作爲卷掛載的 ConfigMap 更新配置
+* 通過作爲卷掛載的 ConfigMap 更新設定
 * 通過 ConfigMap 更新 Pod 的環境變量
-* 在多容器 Pod 中通過 ConfigMap 更新配置
-* 在包含邊車容器的 Pod 中通過 ConfigMap 更新配置
+* 在多容器 Pod 中通過 ConfigMap 更新設定
+* 在包含邊車容器的 Pod 中通過 ConfigMap 更新設定
 
 <!-- lessoncontent -->
 
@@ -54,7 +54,7 @@ documentation for your local operating system.
 Use the `kubectl create configmap` command to create a ConfigMap from
 [literal values](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
 -->
-## 通過作爲卷掛載的 ConfigMap 更新配置   {#rollout-configmap-volume}
+## 通過作爲卷掛載的 ConfigMap 更新設定   {#rollout-configmap-volume}
 
 使用 `kubectl create configmap`
 命令基於[字面值](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values)創建一個
@@ -235,7 +235,7 @@ An application that loads its configuration once at startup will not notice a ch
 當你有一個 ConfigMap 通過 `configMap` 卷或 `projected` 卷映射到運行中的 Pod，
 並且你更新了該 ConfigMap 時，運行中的 Pod 幾乎會立即更新。
 但是，你的應用只有在編寫爲輪詢變更或監視文件更新時才能看到變更。
-啓動時一次性加載其配置的應用將不會注意到變更。
+啓動時一次性加載其設定的應用將不會注意到變更。
 
 {{< note >}}
 <!--
@@ -266,7 +266,7 @@ kubectl create configmap fruits --from-literal=fruits=apples
 <!--
 Below is an example of a Deployment manifest with an environment variable configured via the ConfigMap `fruits`.
 -->
-下面是一個 Deployment 清單的示例，包含一個通過 ConfigMap `fruits` 配置的環境變量。
+下面是一個 Deployment 清單的示例，包含一個通過 ConfigMap `fruits` 設定的環境變量。
 
 {{% code_sample file="deployments/deployment-with-configmap-as-envvar.yaml" %}}
 
@@ -305,7 +305,7 @@ configmap-env-var-59cfc64f7d-dpr98   1/1     Running   0          46s
 The key-value pair in the ConfigMap is configured as an environment variable in the container of the Pod.
 Check this by viewing the logs of one Pod that belongs to the Deployment.
 -->
-ConfigMap 中的鍵值對被配置爲 Pod 容器中的環境變量。
+ConfigMap 中的鍵值對被設定爲 Pod 容器中的環境變量。
 通過查看屬於該 Deployment 的某個 Pod 的日誌來檢查這一點。
 
 ```shell
@@ -528,7 +528,7 @@ app is running with a mix of old and new environment variable values.
 -->
 這個場景演示了在 Pod 中如何更新從 ConfigMap 派生的環境變量。ConfigMap
 值的變更在隨後的上線操作期間被應用到 Pod。如果 Pod 由於其他原因（例如 Deployment 擴容）被創建，
-那麼新 Pod 也會使用最新的配置值；
+那麼新 Pod 也會使用最新的設定值；
 如果你不觸發上線操作，你可能會發現你的應用在運行過程中混用了新舊環境變量值。
 
 <!--
@@ -537,7 +537,7 @@ app is running with a mix of old and new environment variable values.
 Use the `kubectl create configmap` command to create a ConfigMap from
 [literal values](/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values):
 -->
-## 在多容器 Pod 中通過 ConfigMap 更新配置   {#rollout-configmap-multiple-containers}
+## 在多容器 Pod 中通過 ConfigMap 更新設定   {#rollout-configmap-multiple-containers}
 
 使用 `kubectl create configmap`
 命令基於[字面值](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#create-configmaps-from-literal-values)創建一個
@@ -556,10 +556,10 @@ and for this container the `emptyDir` volume is mounted at `/pod-data`. The help
 a file in HTML that has its content based on a ConfigMap. The web server container serves the HTML via HTTP.
 -->
 下面是一個 Deployment 清單的示例，該 Deployment 管理一組 Pod，每個 Pod 有兩個容器。
-這兩個容器共享一個 `emptyDir` 卷並使用此捲進行通信。第一個容器運行 Web 服務器（`nginx`）。
-在 Web 服務器容器中共享卷的掛載路徑是 `/usr/share/nginx/html`。
+這兩個容器共享一個 `emptyDir` 卷並使用此捲進行通信。第一個容器運行 Web 伺服器（`nginx`）。
+在 Web 伺服器容器中共享卷的掛載路徑是 `/usr/share/nginx/html`。
 第二個輔助容器基於 `alpine`，對於這個容器，`emptyDir` 卷被掛載在 `/pod-data`。
-輔助容器生成一個 HTML 文件，其內容基於 ConfigMap。Web 服務器容器通過 HTTP 提供此 HTML 文件。
+輔助容器生成一個 HTML 文件，其內容基於 ConfigMap。Web 伺服器容器通過 HTTP 提供此 HTML 文件。
 
 {{% code_sample file="deployments/deployment-with-configmap-two-containers.yaml" %}}
 
@@ -724,11 +724,11 @@ as a helper container to write the HTML file.
 As a Sidecar Container is conceptually an Init Container, it is guaranteed to start before the main web server container.
 This ensures that the HTML file is always available when the web server is ready to serve it.
 -->
-## 在包含邊車容器的 Pod 中通過 ConfigMap 更新配置    {#rollout-configmap-sidecar}
+## 在包含邊車容器的 Pod 中通過 ConfigMap 更新設定    {#rollout-configmap-sidecar}
 
 要重現上述場景，可以使用[邊車容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)作爲輔助容器來寫入
-HTML 文件。由於邊車容器在概念上是一個 Init 容器，因此保證會在主要 Web 服務器容器啓動之前啓動。
-這確保了當 Web 服務器準備好提供服務時，HTML 文件始終可用。
+HTML 文件。由於邊車容器在概念上是一個 Init 容器，因此保證會在主要 Web 伺服器容器啓動之前啓動。
+這確保了當 Web 伺服器準備好提供服務時，HTML 文件始終可用。
 
 <!--
 If you are continuing from the previous scenario, you can reuse the ConfigMap named `color` for this scenario.
@@ -753,10 +753,10 @@ a helper container. For this container the `emptyDir` volume is mounted at `/pod
 writes a file in HTML that has its content based on a ConfigMap. The web server container serves the HTML via HTTP.
 -->
 以下是一個 Deployment 清單示例，該 Deployment 管理一組 Pod，每個 Pod 有一個主容器和一個邊車容器。
-這兩個容器共享一個 `emptyDir` 卷並使用此捲來通信。主容器運行 Web 服務器（NGINX）。
-在 Web 服務器容器中共享卷的掛載路徑是 `/usr/share/nginx/html`。
+這兩個容器共享一個 `emptyDir` 卷並使用此捲來通信。主容器運行 Web 伺服器（NGINX）。
+在 Web 伺服器容器中共享卷的掛載路徑是 `/usr/share/nginx/html`。
 第二個容器是基於 Alpine Linux 作爲輔助容器的邊車容器。對於這個輔助容器，`emptyDir` 卷被掛載在 `/pod-data`。
-邊車容器寫入一個 HTML 文件，其內容基於 ConfigMap。Web 服務器容器通過 HTTP 提供此 HTML 文件。
+邊車容器寫入一個 HTML 文件，其內容基於 ConfigMap。Web 伺服器容器通過 HTTP 提供此 HTML 文件。
 
 {{% code_sample file="deployments/deployment-with-configmap-and-sidecar-container.yaml" %}}
 
@@ -916,7 +916,7 @@ Sat Feb 17 13:13:35 UTC 2024 My preferred color is green
 <!--
 ## Update configuration via an immutable ConfigMap that is mounted as a volume {#rollout-configmap-immutable-volume}
 -->
-## 通過作爲卷掛載的不可變 ConfigMap 更新配置   {#rollout-configmap-immutable-volume}
+## 通過作爲卷掛載的不可變 ConfigMap 更新設定   {#rollout-configmap-immutable-volume}
 
 {{< note >}}
 <!--
@@ -929,13 +929,13 @@ If you do need to make a change, you should plan to either:
 - replace all the nodes in your cluster that have previously run a Pod that used the old value
 - restart the kubelet on any node where the kubelet previously loaded the old ConfigMap
 -->
-不可變 ConfigMap 專門用於恆定且預期**不會**隨時間變化的配置。
+不可變 ConfigMap 專門用於恆定且預期**不會**隨時間變化的設定。
 將 ConfigMap 標記爲不可變可以提高性能，因爲 kubelet 不會監視變更。
 
 如果你確實需要進行變更，你應計劃：
 
 - 變更 ConfigMap 的名稱，並轉而運行引用新名稱的 Pod
-- 替換集羣中之前運行使用舊值的 Pod 的所有節點
+- 替換叢集中之前運行使用舊值的 Pod 的所有節點
 - 在任何之前加載過舊 ConfigMap 的節點上重新啓動 kubelet
 {{< /note >}}
 
@@ -1032,7 +1032,7 @@ you will create a new immutable ConfigMap and edit the Deployment
 to define a slightly different pod template, referencing the new ConfigMap.
 -->
 一旦 ConfigMap 被標記爲不可變，就無法撤銷此變更，也無法修改 `data` 或 `binaryData` 字段的內容。
-爲了修改使用此配置的 Pod 的行爲，你需要創建一個新的不可變 ConfigMap，並編輯 Deployment
+爲了修改使用此設定的 Pod 的行爲，你需要創建一個新的不可變 ConfigMap，並編輯 Deployment
 以定義一個稍有不同的 Pod 模板，引用新的 ConfigMap。
 {{< /note >}}
 
@@ -1200,7 +1200,7 @@ Changes to a ConfigMap that configures environment variables for a Pod are avail
 
 在 Pod 上作爲卷掛載的 ConfigMap 所發生的變更將在後續的 kubelet 同步後無縫生效。
 
-配置爲 Pod 環境變量的 ConfigMap 所發生變更將在後續的 Pod 上線操作後生效。
+設定爲 Pod 環境變量的 ConfigMap 所發生變更將在後續的 Pod 上線操作後生效。
 
 <!--
 Once a ConfigMap is marked as immutable, it is not possible to revert this change

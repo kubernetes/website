@@ -3,7 +3,7 @@ kubeadm: easily bootstrap a secure Kubernetes cluster
 
 ### Synopsis 
 -->
-kubeadm：輕鬆創建一個安全的 Kubernetes 集羣
+kubeadm：輕鬆創建一個安全的 Kubernetes 叢集
 
 ### 摘要
 
@@ -36,7 +36,7 @@ Example usage:
     (which controls the cluster), and one worker node
     (where your workloads, like Pods and Deployments run).
 -->
-創建一個有兩臺機器的集羣，包含一個控制平面節點（用來控制集羣）
+創建一個有兩臺機器的叢集，包含一個控制平面節點（用來控制叢集）
 和一個工作節點（運行你的 Pod 和 Deployment 等工作負載）。
 
 <!--
@@ -68,7 +68,7 @@ Example usage:
 └──────────────────────────────────────────────────────────┘
 ```
 
-你可以重複第二步，向集羣添加更多機器。
+你可以重複第二步，向叢集添加更多機器。
 
 <!-- 
 ### Options 

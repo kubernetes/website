@@ -78,10 +78,10 @@ Here are some examples of information that could be recorded in annotations:
 * Pointers to logging, monitoring, analytics, or audit repositories.
 -->
 
-* 由聲明性配置所管理的字段。
+* 由聲明性設定所管理的字段。
   將這些字段附加爲註解，能夠將它們與客戶端或服務端設置的默認值、
   自動生成的字段以及通過自動調整大小或自動伸縮系統設置的字段區分開來。
-* 構建、發佈或鏡像信息（如時間戳、發佈 ID、Git 分支、PR 數量、鏡像哈希、倉庫地址）。
+* 構建、發佈或映像檔信息（如時間戳、發佈 ID、Git 分支、PR 數量、映像檔哈希、倉庫地址）。
 * 指向日誌記錄、監控、分析或審計倉庫的指針。
 
 
@@ -102,13 +102,13 @@ Here are some examples of information that could be recorded in annotations:
 -->
 * 可用於調試目的的客戶端庫或工具信息：例如，名稱、版本和構建信息。
 
-* 用戶或者工具/系統的來源信息，例如來自其他生態系統組件的相關對象的 URL。
+* 使用者或者工具/系統的來源信息，例如來自其他生態系統組件的相關對象的 URL。
 
-* 輕量級上線工具的元數據信息：例如，配置或檢查點。
+* 輕量級上線工具的元數據信息：例如，設定或檢查點。
 
 * 負責人員的電話或呼機號碼，或指定在何處可以找到該信息的目錄條目，如團隊網站。
 
-* 從用戶到最終運行的指令，以修改行爲或使用非標準功能。
+* 從使用者到最終運行的指令，以修改行爲或使用非標準功能。
 
 <!--
 Instead of using annotations, you could store this type of information in an
@@ -134,9 +134,9 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 並允許使用破折號（`-`），下劃線（`_`），點（`.`）和字母數字。 
 前綴是可選的。如果指定，則前綴必須是 DNS 子域：一系列由點（`.`）分隔的 DNS 標籤，
 總計不超過 253 個字符，後跟斜槓（`/`）。
-如果省略前綴，則假定註解鍵對用戶是私有的。 由系統組件添加的註解
+如果省略前綴，則假定註解鍵對使用者是私有的。 由系統組件添加的註解
 （例如，`kube-scheduler`，`kube-controller-manager`，`kube-apiserver`，`kubectl`
-或其他第三方組件），必須爲終端用戶添加註解前綴。
+或其他第三方組件），必須爲終端使用者添加註解前綴。
 
 <!--
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.

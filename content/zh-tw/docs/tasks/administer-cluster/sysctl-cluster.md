@@ -1,5 +1,5 @@
 ---
-title: 在 Kubernetes 集羣中使用 sysctl
+title: 在 Kubernetes 叢集中使用 sysctl
 content_type: task
 weight: 400
 ---
@@ -21,7 +21,7 @@ Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
 interface.
 -->
 本文檔介紹如何通過 {{< glossary_tooltip term_id="sysctl" >}}
-接口在 Kubernetes 集羣中配置和使用內核參數。
+接口在 Kubernetes 叢集中設定和使用內核參數。
 
 {{< note >}}
 <!--
@@ -49,7 +49,7 @@ the Linux man-pages project.
 `sysctl` is a Linux-specific command-line tool used to configure various kernel parameters
 and it is not available on non-Linux operating systems.
 -->
-`sysctl` 是一個 Linux 特有的命令行工具，用於配置各種內核參數，
+`sysctl` 是一個 Linux 特有的命令列工具，用於設定各種內核參數，
 它在非 Linux 操作系統上無法使用。
 {{< /note >}}
 
@@ -59,7 +59,7 @@ and it is not available on non-Linux operating systems.
 For some steps, you also need to be able to reconfigure the command line
 options for the kubelets running on your cluster.
 -->
-對一些步驟，你需要能夠重新配置在你的集羣裏運行的 kubelet 命令行的選項。
+對一些步驟，你需要能夠重新設定在你的叢集裏運行的 kubelet 命令列的選項。
 
 <!-- steps -->
 
@@ -84,7 +84,7 @@ process file system. The parameters cover various subsystems such as:
 - More subsystems are described in [Kernel docs](https://www.kernel.org/doc/Documentation/sysctl/README).
 -->
 - 內核子系統（通常前綴爲: `kernel.`）
-- 網絡子系統（通常前綴爲: `net.`）
+- 網路子系統（通常前綴爲: `net.`）
 - 虛擬內存子系統（通常前綴爲: `vm.`）
 - MDADM 子系統（通常前綴爲: `dev.`）
 - 更多子系統請參見[內核文檔](https://www.kernel.org/doc/Documentation/sysctl/README)。
@@ -164,7 +164,7 @@ There are some exceptions to the set of safe sysctls:
 -->
 安全 sysctl 參數有一些例外：
 
-- `net.*` sysctl 參數不允許在啓用主機網絡的情況下使用。
+- `net.*` sysctl 參數不允許在啓用主機網路的情況下使用。
 - `net.ipv4.tcp_syncookies` sysctl 參數在 Linux 內核 4.5 或更低的版本中是無命名空間的。
 {{< /note >}}
 
@@ -189,7 +189,7 @@ All _unsafe_ sysctls are disabled by default and must be allowed manually by the
 cluster admin on a per-node basis. Pods with disabled unsafe sysctls will be
 scheduled, but will fail to launch.
 -->
-所有 **非安全的** sysctl 參數都默認禁用，且必須由集羣管理員在每個節點上手動開啓。
+所有 **非安全的** sysctl 參數都默認禁用，且必須由叢集管理員在每個節點上手動開啓。
 那些設置了不安全 sysctl 參數的 Pod 仍會被調度，但無法正常啓動。
 
 <!--
@@ -198,9 +198,9 @@ sysctls for very special situations such as high-performance or real-time
 application tuning. _Unsafe_ sysctls are enabled on a node-by-node basis with a
 flag of the kubelet; for example:
 -->
-參考上述警告，集羣管理員只有在一些非常特殊的情況下（如：高可用或實時應用調整），
+參考上述警告，叢集管理員只有在一些非常特殊的情況下（如：高可用或實時應用調整），
 纔可以啓用特定的 **非安全的** sysctl 參數。
-如需啓用 **非安全的** sysctl 參數，請你在每個節點上分別設置 kubelet 命令行參數，例如：
+如需啓用 **非安全的** sysctl 參數，請你在每個節點上分別設置 kubelet 命令列參數，例如：
 
 ```shell
 kubelet --allowed-unsafe-sysctls \
@@ -210,7 +210,7 @@ kubelet --allowed-unsafe-sysctls \
 <!--
 For {{< glossary_tooltip term_id="minikube" >}}, this can be done via the `extra-config` flag:
 -->
-如果你使用 {{< glossary_tooltip term_id="minikube" >}}，可以通過 `extra-config` 參數來配置：
+如果你使用 {{< glossary_tooltip term_id="minikube" >}}，可以通過 `extra-config` 參數來設定：
 
 ```shell
 minikube start --extra-config="kubelet.allowed-unsafe-sysctls=kernel.msg*,net.core.somaxconn"...
@@ -231,7 +231,7 @@ are configurable via the pod securityContext within Kubernetes.
 
 目前，在 Linux 內核中，有許多的 sysctl 參數都是 **有命名空間的**。
 這就意味着可以爲節點上的每個 Pod 分別去設置它們的 sysctl 參數。
-在 Kubernetes 中，只有那些有命名空間的 sysctl 參數可以通過 Pod 的 securityContext 對其進行配置。
+在 Kubernetes 中，只有那些有命名空間的 sysctl 參數可以通過 Pod 的 securityContext 對其進行設定。
 
 <!--
 The following sysctls are known to be namespaced. This list could change
@@ -249,9 +249,9 @@ in future versions of the Linux kernel.
   `net.netfilter.nf_conntrack_expect_max` can be set in container networking
   namespace but are unnamespaced before Linux 5.12.2).
 -->
-- 那些可以在容器網絡命名空間中設置的 `net.*`。但是，也有例外（例如
+- 那些可以在容器網路命名空間中設置的 `net.*`。但是，也有例外（例如
   `net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
-  可以在容器網絡命名空間中設置，但在 Linux 5.12.2 之前它們是無命名空間的）。
+  可以在容器網路命名空間中設置，但在 Linux 5.12.2 之前它們是無命名空間的）。
 
 <!--
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set
@@ -259,14 +259,14 @@ them, you must manually configure them on each node's operating system, or by
 using a DaemonSet with privileged containers.
 -->
 沒有命名空間的 sysctl 參數稱爲 **節點級別的** sysctl 參數。
-如果需要對其進行設置，則必須在每個節點的操作系統上手動地去配置它們，
-或者通過在 DaemonSet 中運行特權模式容器來配置。
+如果需要對其進行設置，則必須在每個節點的操作系統上手動地去設定它們，
+或者通過在 DaemonSet 中運行特權模式容器來設定。
 
 <!--
 Use the pod securityContext to configure namespaced sysctls. The securityContext
 applies to all containers in the same pod.
 -->
-可使用 Pod 的 securityContext 來配置有命名空間的 sysctl 參數，
+可使用 Pod 的 securityContext 來設定有命名空間的 sysctl 參數，
 securityContext 應用於同一個 Pod 中的所有容器。
 
 <!--
@@ -314,7 +314,7 @@ is at-your-own-risk and can lead to severe problems like wrong behavior of
 containers, resource shortage or complete breakage of a node.
 -->
 由於 **非安全的** sysctl 參數其本身具有不穩定性，在使用 **非安全的** sysctl 參數時可能會導致一些嚴重問題，
-如容器的錯誤行爲、機器資源不足或節點被完全破壞，用戶需自行承擔風險。
+如容器的錯誤行爲、機器資源不足或節點被完全破壞，使用者需自行承擔風險。
 {{< /warning >}}
 
 <!--
@@ -323,7 +323,7 @@ _tainted_ within a cluster, and only schedule pods onto them which need those
 sysctl settings. It is suggested to use the Kubernetes [_taints and toleration_
 feature](/docs/reference/generated/kubectl/kubectl-commands/#taint) to implement this.
 -->
-最佳實踐方案是將集羣中具有特殊 sysctl 設置的節點視爲 **有污點的**，並且只調度需要使用到特殊
+最佳實踐方案是將叢集中具有特殊 sysctl 設置的節點視爲 **有污點的**，並且只調度需要使用到特殊
 sysctl 設置的 Pod 到這些節點上。建議使用 Kubernetes
 的[污點和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint) 來實現它。
 
@@ -335,8 +335,8 @@ is recommended to use
 [taints on nodes](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 to schedule those pods onto the right nodes.
 -->
-設置了 **非安全的** sysctl 參數的 Pod 在禁用了這兩種 **非安全的** sysctl 參數配置的節點上啓動都會失敗。
+設置了 **非安全的** sysctl 參數的 Pod 在禁用了這兩種 **非安全的** sysctl 參數設定的節點上啓動都會失敗。
 與 **節點級別的** sysctl 一樣，
 建議開啓[污點和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint)或
-[爲節點配置污點](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)以便將
+[爲節點設定污點](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)以便將
 Pod 調度到正確的節點之上。

@@ -1,4 +1,4 @@
-# 這是一個如何將 cloud-controller-manager 安裝爲集羣中的 Daemonset 的示例。
+# 這是一個如何將 cloud-controller-manager 安裝爲叢集中的 Daemonset 的示例。
 # 本例假定你的主控節點可以運行 pod 並具有角色 node-role.kubernetes.io/master
 # 請注意，這裏的 Daemonset 不能直接在你的雲上工作，此例只是一個指導。
 
@@ -42,7 +42,7 @@ spec:
       containers:
       - name: cloud-controller-manager
         # 對於樹內驅動，我們使用 registry.k8s.io/cloud-controller-manager，
-        # 鏡像可以替換爲其他樹外驅動的鏡像
+        # 映像檔可以替換爲其他樹外驅動的映像檔
         image: registry.k8s.io/cloud-controller-manager:v1.8.0
         command:
         - /usr/local/bin/cloud-controller-manager
@@ -67,6 +67,6 @@ spec:
         operator: Exists
         effect: NoSchedule
       # 這是爲了限制 CCM 僅在主節點上運行
-      # 節點選擇器可能因你的集羣設置而異
+      # 節點選擇器可能因你的叢集設置而異
       nodeSelector:
         node-role.kubernetes.io/master: ""

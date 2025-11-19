@@ -16,7 +16,7 @@ as on-premises datacenter with physical network firewalls or Virtual
 Networks in Public Cloud, it is useful to be aware of the ports and protocols 
 used by Kubernetes components
 -->
-當你在一個有嚴格網絡邊界的環境裏運行 Kubernetes，例如擁有物理網絡防火牆或者擁有公有云中虛擬網絡的自有數據中心，
+當你在一個有嚴格網路邊界的環境裏運行 Kubernetes，例如擁有物理網路防火牆或者擁有公有云中虛擬網路的自有數據中心，
 瞭解 Kubernetes 組件使用了哪些端口和協議是非常有用的。
 
 <!--
@@ -37,13 +37,13 @@ etcd cluster externally or on custom ports.
 
 | 協議     | 方向      | 端口範圍     | 目的                     | 使用者                     |
 |----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | 入站       | 6443       | Kubernetes API 服務器    | 所有                       |
-| TCP      | 入站       | 2379-2380  | etcd 服務器客戶端 API     | kube-apiserver、etcd      |
+| TCP      | 入站       | 6443       | Kubernetes API 伺服器    | 所有                       |
+| TCP      | 入站       | 2379-2380  | etcd 伺服器客戶端 API     | kube-apiserver、etcd      |
 | TCP      | 入站       | 10250      | kubelet API             | 自身、控制面                |
 | TCP      | 入站       | 10259      | kube-scheduler          | 自身                       |
 | TCP      | 入站       | 10257      | kube-controller-manager | 自身                       |
 
-儘管 etcd 的端口也列舉在控制面的部分，但你也可以在外部自己託管 etcd 集羣或者自定義端口。
+儘管 etcd 的端口也列舉在控制面的部分，但你也可以在外部自己託管 etcd 叢集或者自定義端口。
 
 <!--
 ## Worker node(s) {#node}
@@ -76,7 +76,7 @@ on the default port.
 
 † [NodePort Service](/zh-cn/docs/concepts/services-networking/service/) 的默認端口範圍。
 
-所有默認端口都可以重新配置。當使用自定義的端口時，你需要打開這些端口來代替這裏提到的默認端口。
+所有默認端口都可以重新設定。當使用自定義的端口時，你需要打開這些端口來代替這裏提到的默認端口。
 
-一個常見的例子是 API 服務器的端口有時會配置爲 443。或者你也可以使用默認端口，
-把 API 服務器放到一個監聽 443 端口的負載均衡器後面，並且路由所有請求到 API 服務器的默認端口。
+一個常見的例子是 API 伺服器的端口有時會設定爲 443。或者你也可以使用默認端口，
+把 API 伺服器放到一個監聽 443 端口的負載均衡器後面，並且路由所有請求到 API 伺服器的默認端口。

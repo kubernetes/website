@@ -86,14 +86,14 @@ IngressClassSpec 提供有關 Ingress 類的信息。
   parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
   -->
   
-  parameters 是指向控制器中包含額外配置的自定義資源的鏈接。
+  parameters 是指向控制器中包含額外設定的自定義資源的鏈接。
   如果控制器不需要額外的屬性，這是可選的。
 
   <a name="IngressClassParametersReference"></a>
   <!--
   *IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.*
   -->
-  **IngressClassParametersReference 標識一個 API 對象。這可以用來指定一個集羣或者命名空間範圍的資源**
+  **IngressClassParametersReference 標識一個 API 對象。這可以用來指定一個叢集或者命名空間範圍的資源**
 
   <!--
   - **parameters.kind** (string), required
@@ -138,8 +138,8 @@ IngressClassSpec 提供有關 Ingress 類的信息。
     scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
     -->
 
-    scope 表示是否引用集羣或者命名空間範圍的資源。
-    這可以設置爲“集羣”（默認）或者“命名空間”。
+    scope 表示是否引用叢集或者命名空間範圍的資源。
+    這可以設置爲“叢集”（默認）或者“命名空間”。
 
 ## IngressClassList {#IngressClassList}
 

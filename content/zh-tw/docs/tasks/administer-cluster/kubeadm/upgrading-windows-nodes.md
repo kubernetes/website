@@ -29,7 +29,7 @@ This page explains how to upgrade a Windows node created with kubeadm.
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Windows nodes.
 -->
-* 熟悉[更新 kubeadm 集羣中的其餘組件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)。
+* 熟悉[更新 kubeadm 叢集中的其餘組件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)。
   在升級你的 Windows 節點之前你會想要升級控制面節點。
 
 <!-- steps -->
@@ -101,9 +101,9 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     kubeadm upgrade node
     ```
 -->
-### 升級 kubelet 配置   {#upgrade-the-kubelet-configuration}
+### 升級 kubelet 設定   {#upgrade-the-kubelet-configuration}
 
-1. 在 Windows 節點上，執行下面的命令來同步新的 kubelet 配置：
+1. 在 Windows 節點上，執行下面的命令來同步新的 kubelet 設定：
 
    ```powershell
    kubeadm upgrade node

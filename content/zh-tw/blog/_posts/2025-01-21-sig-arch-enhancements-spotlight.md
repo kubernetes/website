@@ -155,7 +155,7 @@ expectations. And as we’ve thought about those things the template has grown m
 addition of the Production Readiness Review was major as well as the enhanced testing requirements
 (varying at different stages of a KEP’s lifecycle).
 -->
-隨着 Kubernetes 的發展和成熟，我們需要考慮的不僅僅是如何合併單個特性，還需要關注穩定性、性能、設置和用戶期望等問題。
+隨着 Kubernetes 的發展和成熟，我們需要考慮的不僅僅是如何合併單個特性，還需要關注穩定性、性能、設置和使用者期望等問題。
 因此隨着我們的思考深入，KEP 模板變得更詳細。例如增加了 Production Readiness Review 機制，同時對測試要求進行了強化
 （這些要求會隨着 KEP 生命週期的不同階段動態調整）。
 

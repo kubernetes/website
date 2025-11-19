@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/authorization/v1"
   kind: "SelfSubjectRulesReview"
 content_type: "api_reference"
-description: "SelfSubjectRulesReview 枚舉當前用戶可以在某命名空間內執行的操作集合。"
+description: "SelfSubjectRulesReview 枚舉當前使用者可以在某命名空間內執行的操作集合。"
 title: "SelfSubjectRulesReview"
 weight: 3
 ---
@@ -26,12 +26,12 @@ weight: 3
 <!--
 SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
 -->
-SelfSubjectRulesReview 枚舉當前用戶可以在某命名空間內執行的操作集合。
-返回的操作列表可能不完整，具體取決於服務器的鑑權模式以及評估過程中遇到的任何錯誤。
-SelfSubjectRulesReview 應由 UI 用於顯示/隱藏操作，或讓最終用戶儘快理解自己的權限。
+SelfSubjectRulesReview 枚舉當前使用者可以在某命名空間內執行的操作集合。
+返回的操作列表可能不完整，具體取決於伺服器的鑑權模式以及評估過程中遇到的任何錯誤。
+SelfSubjectRulesReview 應由 UI 用於顯示/隱藏操作，或讓最終使用者儘快理解自己的權限。
 SelfSubjectRulesReview 不得被外部系統使用以驅動鑑權決策，
 因爲這會引起混淆代理人（Confused deputy）、緩存有效期/吊銷（Cache lifetime/revocation）和正確性問題。
-SubjectAccessReview 和 LocalAccessReview 是遵從 API 服務器所做鑑權決策的正確方式。
+SubjectAccessReview 和 LocalAccessReview 是遵從 API 伺服器所做鑑權決策的正確方式。
 
 <hr>
 
@@ -63,11 +63,11 @@ SubjectAccessReview 和 LocalAccessReview 是遵從 API 服務器所做鑑權決
 -->
 - **status** (SubjectRulesReviewStatus)
   
-  status 由服務器填寫，表示用戶可以執行的操作的集合。
+  status 由伺服器填寫，表示使用者可以執行的操作的集合。
   
   <a name="SubjectRulesReviewStatus"></a>
   **SubjectRulesReviewStatus 包含規則檢查的結果。
-  此檢查可能不完整，具體取決於服務器配置的 Authorizer 的集合以及評估期間遇到的任何錯誤。
+  此檢查可能不完整，具體取決於伺服器設定的 Authorizer 的集合以及評估期間遇到的任何錯誤。
   由於鑑權規則是疊加的，所以如果某個規則出現在列表中，即使該列表不完整，也可以安全地假定該主體擁有該權限。**
 
   <!--
@@ -114,7 +114,7 @@ SubjectAccessReview 和 LocalAccessReview 是遵從 API 服務器所做鑑權決
     
     - **status.nonResourceRules.nonResourceURLs** ([]string)
       
-      nonResourceURLs 是用戶應有權訪問的一組部分 URL。
+      nonResourceURLs 是使用者應有權訪問的一組部分 URL。
       允許使用 `*`，但僅能作爲路徑中最後一段且必須用於完整的一段。
       `*` 表示全部。
       

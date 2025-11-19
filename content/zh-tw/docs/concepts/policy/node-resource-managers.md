@@ -132,7 +132,7 @@ exclusive CPUs.
 -->
 靜態策略可實現更精細的 CPU 管理和獨佔性的 CPU 分配。
 此策略管理一個共享 CPU 池，該池最初包含節點中的所有 CPU。
-可獨佔分配的 CPU 數量等於節點中的 CPU 總數減去 kubelet 配置所設置的所有預留 CPU。
+可獨佔分配的 CPU 數量等於節點中的 CPU 總數減去 kubelet 設定所設置的所有預留 CPU。
 kubelet 選項所預留的 CPU 以整數數量按物理核心 ID 的升序從初始共享池中取用。
 此共享池是供 `BestEffort` 和 `Burstable` Pod 中的所有容器運行使用的 CPU 集。
 CPU `requests` 爲小數值的 `Guaranteed` Pod 中的容器也在共享池中的 CPU 上運行。
@@ -360,12 +360,12 @@ kubelet configuration file.
 * `CPUManagerPolicyBetaOptions`（默認啓用）。禁用以隱藏 Beta 級選項。
 * `CPUManagerPolicyAlphaOptions`（默認禁用）。啓用以顯示 Alpha 級選項。
 
-你仍然必須使用 kubelet 配置文件中的 cpuManagerPolicyOptions 字段啓用每個選項。
+你仍然必須使用 kubelet 設定文件中的 cpuManagerPolicyOptions 字段啓用每個選項。
 
 <!--
 For more detail about the individual options you can configure, read on.
 -->
-有關可以配置的各個選項的更多詳細信息，請繼續閱讀。
+有關可以設定的各個選項的更多詳細信息，請繼續閱讀。
 
 ##### `full-pcpus-only`
 
@@ -474,7 +474,7 @@ If the `strict-cpu-reservation` policy option is enabled, the static policy will
 any workload to use the CPU cores specified in `reservedSystemCPUs`.
 -->
 KubeletConfiguration 中的 `reservedSystemCPUs` 參數
-或已棄用的 kubelet 命令行選項 `--reserved-cpus` 定義顯式的 CPU 集合，
+或已棄用的 kubelet 命令列選項 `--reserved-cpus` 定義顯式的 CPU 集合，
 用來運行操作系統系統守護進程和 Kubernetes 系統守護進程。
 有關此參數的更多詳細信息，
 請參見[顯式預留 CPU 列表](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#explicitly-reserved-cpu-list)頁面。
@@ -554,6 +554,6 @@ The configuration of individual managers is elaborated in dedicated documents:
 
 - [Device Manager](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)
 -->
-各個管理器的配置方式會在專項文檔中詳細闡述：
+各個管理器的設定方式會在專項文檔中詳細闡述：
 
 - [Device Manager](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager)

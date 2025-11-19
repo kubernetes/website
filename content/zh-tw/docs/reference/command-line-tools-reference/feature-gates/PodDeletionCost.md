@@ -20,4 +20,4 @@ Enable the [Pod Deletion Cost](/docs/concepts/workloads/controllers/replicaset/#
 feature which allows users to influence ReplicaSet downscaling order.
 -->
 啓用 [Pod 刪除開銷](/zh-cn/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)特性，
-允許用戶影響 ReplicaSet 的縮容順序。
+允許使用者影響 ReplicaSet 的縮容順序。

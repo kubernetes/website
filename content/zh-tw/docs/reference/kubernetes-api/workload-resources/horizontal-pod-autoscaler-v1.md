@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/autoscaling/v1"
   kind: "HorizontalPodAutoscaler"
 content_type: "api_reference"
-description: "水平 Pod 自動縮放器的配置。"
+description: "水平 Pod 自動縮放器的設定。"
 title: "HorizontalPodAutoscaler"
 weight: 12
 ---
@@ -32,7 +32,7 @@ configuration of a horizontal pod autoscaler.
 -->
 ## HorizontalPodAutoscaler {#HorizontalPodAutoscaler}
 
-水平 Pod 自動縮放器的配置。
+水平 Pod 自動縮放器的設定。
 
 <hr>
 
@@ -153,7 +153,7 @@ specification of a horizontal pod autoscaler.
 
   minReplicas 是自動縮放器可以縮減的副本數的下限。
   它默認爲 1 個 Pod。
-  如果啓用了 alpha 特性門禁 HPAScaleToZero 並且配置了至少一個 Object 或 External 度量標準，
+  如果啓用了 alpha 特性門禁 HPAScaleToZero 並且設定了至少一個 Object 或 External 度量標準，
   則 minReplicas 允許爲 0。
   只要至少有一個度量值可用，縮放就處於活動狀態。
 

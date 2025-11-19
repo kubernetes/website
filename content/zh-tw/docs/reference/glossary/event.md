@@ -4,7 +4,7 @@ id: event
 date: 2022-01-16
 full_link: /zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
-  描述集羣中某些狀態變化的 Kubernetes 對象。
+  描述叢集中某些狀態變化的 Kubernetes 對象。
 aka: 
 tags:
 - core-object
@@ -28,7 +28,7 @@ A Kubernetes {{< glossary_tooltip text="object" term_id="object" >}} that descri
 or notable occurrences in the cluster.
 -->
 一個 Kubernetes {{< glossary_tooltip text="對象" term_id="object" >}}，
-描述集羣中的狀態狀態變化或需要注意的事件。
+描述叢集中的狀態狀態變化或需要注意的事件。
 <!--more-->
 
 <!--
@@ -37,7 +37,7 @@ Event consumers should not rely on the timing of an event with a given reason re
 or the continued existence of events with that reason.
 -->
 事件的保留時間有限，隨着時間推進，其觸發方式和消息都可能發生變化。
-事件用戶不應該對帶有給定原因（反映下層觸發源）的時間特徵有任何依賴，
+事件使用者不應該對帶有給定原因（反映下層觸發源）的時間特徵有任何依賴，
 也不要寄希望於該原因所造成的事件會一直存在。
 
 <!--

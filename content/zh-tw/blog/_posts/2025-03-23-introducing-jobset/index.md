@@ -62,7 +62,7 @@ resources is an area where it shines.
 all-gather 和 all-reduce 等通信集合原語來進行分佈式計算以及在主機之間同步梯度。
 
 這些工作負載的特性使得 Kubernetes 非常適合此類任務，
-因爲高效地調度和管理跨計算資源集羣的容器化應用生命週期是 Kubernetes 的強項。
+因爲高效地調度和管理跨計算資源叢集的容器化應用生命週期是 Kubernetes 的強項。
 
 <!--
 It is also very extensible, allowing developers to define their own Kubernetes APIs, objects, and
@@ -123,9 +123,9 @@ Inter-Pod communication : Create and manage the resources (e.g. [headless
 Services](/docs/concepts/services-networking/service/#headless-services)) necessary to establish
 communication between the Pods of a job.
 -->
-- 任務組：大規模訓練工作負載跨越多個網絡拓撲，例如在多個機架之間運行。
-  這類工作負載對網絡延遲非常敏感，目標是將通信本地化並儘量減少跨越高延遲網絡鏈路的流量。
-  爲此，需要將工作負載拆分爲 Pod 組，每組分配到一個網絡拓撲。
+- 任務組：大規模訓練工作負載跨越多個網路拓撲，例如在多個機架之間運行。
+  這類工作負載對網路延遲非常敏感，目標是將通信本地化並儘量減少跨越高延遲網路鏈路的流量。
+  爲此，需要將工作負載拆分爲 Pod 組，每組分配到一個網路拓撲。
 
 - Pod 間通信：創建和管理建立作業中 Pod 之間通信所需的資源
   （例如[無頭服務](/zh-cn/docs/concepts/services-networking/service/#headless-services)）。
@@ -159,11 +159,11 @@ different names.
 ## JobSet 的工作原理   {#how-jobset-works}
 
 JobSet 將分佈式批處理工作負載建模爲一組 Kubernetes Job。
-這使得用戶可以輕鬆爲不同的 Pod 組（例如領導者 Pod、工作節點 Pod、參數服務器 Pod 等）
+這使得使用者可以輕鬆爲不同的 Pod 組（例如領導者 Pod、工作節點 Pod、參數伺服器 Pod 等）
 指定不同的 Pod 模板。
 
 它通過抽象概念 ReplicatedJob 來管理子 Job，其中 ReplicatedJob 本質上是一個帶有指定副本數量的
-Job 模板。這種方式提供了一種聲明式的手段，能夠輕鬆創建相同的子 Job，使其在不同的加速器集羣上運行，
+Job 模板。這種方式提供了一種聲明式的手段，能夠輕鬆創建相同的子 Job，使其在不同的加速器叢集上運行，
 而無需藉助腳本或 Helm Chart 來生成具有不同名稱的多個相同任務版本。
 
 <!--
@@ -187,12 +187,12 @@ over DCN (data center network, which is lower bandwidth than ICI) to a bare mini
 解決上述問題的其他一些關鍵 JobSet 特性包括：
 
 - **任務副本（Replicated Jobs）**：在現代數據中心中，硬件加速器（如 GPU 和 TPU）通常以同質加速器島的形式分配，
-  並通過專用的高帶寬網絡鏈路連接。例如，用戶可能會配置包含一組主機的節點，這些主機位於同一機架內，
+  並通過專用的高帶寬網路鏈路連接。例如，使用者可能會設定包含一組主機的節點，這些主機位於同一機架內，
   每個主機都配備了 H100 GPU，主機內的 GPU 芯片通過 NVLink 連接，並通過 NVLink 交換機連接多個 NVLink。
   TPU Pod 是另一個例子：TPU ViperLitePods 包含 64 個主機，每個主機連接了 4 個 TPU v5e 芯片，
   所有芯片通過 ICI 網格連接。在跨多個這樣的加速器島運行分佈式訓練任務時，我們通常希望將工作負載劃分爲一組較小的相同任務，
   每個島一個任務，其中每個 Pod 主要與同一島內的其他 Pod 通信以完成分佈式計算的部分段，
-  並將梯度同步通過數據中心網絡（DCN，其帶寬低於 ICI）降到最低。
+  並將梯度同步通過數據中心網路（DCN，其帶寬低於 ICI）降到最低。
 
 <!--
 Automatic headless service creation, configuration, and lifecycle management : Pod-to-pod
@@ -204,11 +204,11 @@ ReplicatedJobs, with operators to target “Any” or “All” of their child j
 configure the JobSet to be marked complete if and only if all pods that are part of the “worker”
 ReplicatedJob are completed.
 -->
-- **自動創建、配置無頭服務並管理其生命週期**：默認情況下，啓用通過 Pod 主機名來完成
-  Pod 到 Pod 的通信，並通過無頭服務的自動配置和生命週期管理來支持這一功能。
+- **自動創建、設定無頭服務並管理其生命週期**：默認情況下，啓用通過 Pod 主機名來完成
+  Pod 到 Pod 的通信，並通過無頭服務的自動設定和生命週期管理來支持這一功能。
 
-- **可配置的成功策略**：JobSet 提供了可配置的成功策略，這些策略針對特定的 ReplicatedJob，
-  並可通過操作符指定 "Any" 或 "All" 子任務。例如，你可以將 JobSet 配置爲僅在屬於 "worker"
+- **可設定的成功策略**：JobSet 提供了可設定的成功策略，這些策略針對特定的 ReplicatedJob，
+  並可通過操作符指定 "Any" 或 "All" 子任務。例如，你可以將 JobSet 設定爲僅在屬於 "worker"
   ReplicatedJob 的所有 Pod 完成時才標記爲完成。
 
 <!--
@@ -217,7 +217,7 @@ specify a maximum number of times the JobSet should be restarted in the event of
 job is marked failed, the entire JobSet will be recreated, allowing the workload to resume from the
 last checkpoint. When no failure policy is specified, if any job fails, the JobSet simply fails. 
 -->
-- **可配置的失效策略**：JobSet 提供了可配置的失效策略，允許用戶指定在發生故障時
+- **可設定的失效策略**：JobSet 提供了可設定的失效策略，允許使用者指定在發生故障時
   JobSet 應重啓的最大次數。如果任何任務被標記爲失敗，整個 JobSet 將會被重新創建，
   從而使工作負載可以從最後一個檢查點恢復。當未指定失效策略時，如果任何任務失敗，
   JobSet 會直接標記爲失敗。
@@ -234,21 +234,21 @@ themselves occur within a single model replica occurs over the high bandwidth in
 the accelerators chips within the island, and only the gradient synchronization between model
 replicas occurs across accelerator islands over the lower bandwidth data center network.
 -->
-- **按拓撲域的獨佔放置**：JobSet 允許用戶指定子任務與拓撲域（通常是加速器島，例如機架）
+- **按拓撲域的獨佔放置**：JobSet 允許使用者指定子任務與拓撲域（通常是加速器島，例如機架）
   之間的一對一獨佔分配關係。例如，如果 JobSet 創建了兩個子任務，
   此功能將確保每個子任務的 Pod 位於同一個加速器島內，並且每個島只允許調度一個子任務。
   這在我們希望使用分佈式數據並行（DDP）訓練策略的情況下非常有用，
   例如利用多個計算資源島（GPU 機架或 TPU 切片）訓練模型，在每個加速器島內運行一個模型副本，
   確保前向和反向傳播過程通過島內加速器芯片之間的高帶寬互聯完成，
-  而模型副本之間的梯度同步則通過低帶寬的數據中心網絡在加速器島之間進行。
+  而模型副本之間的梯度同步則通過低帶寬的數據中心網路在加速器島之間進行。
 
 <!--
 Integration with Kueue : Users can submit JobSets via [Kueue](https://kueue.sigs.k8s.io/) to
 oversubscribe their clusters, queue workloads to run as capacity becomes available, prevent partial
 scheduling and deadlocks, enable multi-tenancy, and more.
 -->
-- **與 Kueue 集成**：用戶可以通過 [Kueue](https://kueue.sigs.k8s.io/)
-  提交 JobSet，以實現集羣的超額訂閱、將工作負載排隊等待容量可用時運行、
+- **與 Kueue 集成**：使用者可以通過 [Kueue](https://kueue.sigs.k8s.io/)
+  提交 JobSet，以實現叢集的超額訂閱、將工作負載排隊等待容量可用時運行、
   防止部分調度和死鎖、支持多租戶等更多功能。
 
 <!--
@@ -286,7 +286,7 @@ configuration required by the user.
 在 TPUs 上進行機器學習訓練。
 
 此示例利用了 JobSet 的多個功能（無論是顯式還是隱式），以開箱即用地支持 TPU
-多切片訓練的獨特調度需求，而用戶需要的配置非常少。
+多切片訓練的獨特調度需求，而使用者需要的設定非常少。
 
 <!--
 ```yaml

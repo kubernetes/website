@@ -25,7 +25,7 @@ This blog post focuses on methods to speed up pod start-up from the kubelet side
 involve the creation time of pods by controller-manager through kube-apiserver, nor does it
 include scheduling time for pods or webhooks executed on it.
 -->
-如何在大型集羣中加快節點上的 Pod 啓動？這是集羣管理員可能面臨的常見問題。
+如何在大型叢集中加快節點上的 Pod 啓動？這是叢集管理員可能面臨的常見問題。
 
 本篇博文重點介紹了從 kubelet 一側加快 Pod 啓動的方法。它不涉及通過
 kube-apiserver 由 controller-manager 創建 Pod 所用的時間，
@@ -46,19 +46,19 @@ Pulling images always takes some time and what's worse is that image pulls are d
 default. In other words, kubelet will send only one image pull request to the image service at
 a time. Other image pull requests have to wait until the one being processed is complete.
 -->
-## 並行容器鏡像拉取
+## 並行容器映像檔拉取
 
-拉取鏡像總是需要一些時間的，更糟糕的是，鏡像拉取默認是串行作業。
-換句話說，kubelet 一次只會向鏡像服務發送一個鏡像拉取請求。
-其他的鏡像拉取請求必須等到正在處理的拉取請求完成。
+拉取映像檔總是需要一些時間的，更糟糕的是，映像檔拉取默認是串行作業。
+換句話說，kubelet 一次只會向映像檔服務發送一個映像檔拉取請求。
+其他的映像檔拉取請求必須等到正在處理的拉取請求完成。
 
 <!--
 To enable parallel image pulls, set the `serializeImagePulls` field to false in the kubelet
 configuration. When `serializeImagePulls` is disabled, requests for image pulls are immediately
 sent to the image service and multiple images can be pulled concurrently.
 -->
-要啓用並行鏡像拉取，請在 kubelet 配置中將 `serializeImagePulls` 字段設置爲 false。
-當 `serializeImagePulls` 被禁用時，將立即向鏡像服務發送鏡像拉取請求，並可以並行拉取多個鏡像。
+要啓用並行映像檔拉取，請在 kubelet 設定中將 `serializeImagePulls` 字段設置爲 false。
+當 `serializeImagePulls` 被禁用時，將立即向映像檔服務發送映像檔拉取請求，並可以並行拉取多個映像檔。
 
 <!--
 ### Maximum parallel image pulls will help secure your node from overloading on image pulling
@@ -69,12 +69,12 @@ simultaneously. If there is an image pull request beyond this limit, it will be 
 one of the ongoing image pulls finishes. Before enabling this feature, please ensure that your
 container runtime's image service can handle parallel image pulls effectively.
 -->
-### 設定並行鏡像拉取最大值有助於防止節點因鏡像拉取而過載
+### 設定並行映像檔拉取最大值有助於防止節點因映像檔拉取而過載
 
-我們在 kubelet 中引入了一個新特性，可以在節點級別設置並行鏡像拉取的限值。
-此限值限制了可以同時拉取的最大鏡像數量。如果有個鏡像拉取請求超過了這個限值，
-該請求將被阻止，直到其中一個正在進行的鏡像拉取完成爲止。
-在啓用此特性之前，請確保容器運行時的鏡像服務可以有效處理並行鏡像拉取。
+我們在 kubelet 中引入了一個新特性，可以在節點級別設置並行映像檔拉取的限值。
+此限值限制了可以同時拉取的最大映像檔數量。如果有個映像檔拉取請求超過了這個限值，
+該請求將被阻止，直到其中一個正在進行的映像檔拉取完成爲止。
+在啓用此特性之前，請確保容器運行時的映像檔服務可以有效處理並行映像檔拉取。
 
 <!--
 To limit the number of simultaneous image pulls, you can configure the `maxParallelImagePulls`
@@ -85,12 +85,12 @@ one ongoing pull is complete.
 You can find more details in the associated KEP: [Kubelet limit of Parallel Image Pulls](https://kep.k8s.io/3673)
  (KEP-3673).
  -->
-要限制並行鏡像拉取的數量，你可以在 kubelet 中配置 `maxParallelImagePulls` 字段。
-將 `maxParallelImagePulls` 的值設置爲 **n** 後，並行拉取的鏡像數將不能超過 **n** 個。
-超過此限值的任何其他鏡像拉取請求都需要等到至少一個正在進行的拉取被完成爲止。
+要限制並行映像檔拉取的數量，你可以在 kubelet 中設定 `maxParallelImagePulls` 字段。
+將 `maxParallelImagePulls` 的值設置爲 **n** 後，並行拉取的映像檔數將不能超過 **n** 個。
+超過此限值的任何其他映像檔拉取請求都需要等到至少一個正在進行的拉取被完成爲止。
 
 你可以在關聯的 KEP 中找到更多細節：
-[Kubelet 並行鏡像拉取數限值](https://kep.k8s.io/3673) (KEP-3673)。
+[Kubelet 並行映像檔拉取數限值](https://kep.k8s.io/3673) (KEP-3673)。
 
 <!--
 ## Raised default API query-per-second limits for kubelet
@@ -120,7 +120,7 @@ limits for Kubelet.
 3. They have a dedicated PriorityLevel and FlowSchema that we can easily control
 -->
 1. 現在的情況是 API 請求可能會被過度限制（默認 QPS = 5）
-2. 在大型集羣中，API 請求仍然可能產生相當大的負載，因爲數量很多
+2. 在大型叢集中，API 請求仍然可能產生相當大的負載，因爲數量很多
 3. 我們現在可以輕鬆控制一個專門爲此設計的 PriorityLevel 和 FlowSchema
 
 <!--
@@ -131,7 +131,7 @@ during pod start up. We suggest that cluster operators bump `kubeAPIQPS` to 20 a
 More detials can be found in the KEP <https://kep.k8s.io/1040> and the pull request [#116121](https://github.com/kubernetes/kubernetes/pull/116121).
 -->
 以前在具有 50 個以上 Pod 的節點中，我們經常在 Pod 啓動期間在 kubelet 上遇到 `volume mount timeout`。
-特別是在使用裸金屬節點時，我們建議集羣操作員將 `kubeAPIQPS` 提高到 20，`kubeAPIBurst` 提高到 40。
+特別是在使用裸金屬節點時，我們建議叢集操作員將 `kubeAPIQPS` 提高到 20，`kubeAPIBurst` 提高到 40。
 
 更多細節請參閱 KEP <https://kep.k8s.io/1040> 和
 [PR#116121](https://github.com/kubernetes/kubernetes/pull/116121)。
@@ -198,7 +198,7 @@ impact of this feature on pod startup speed.
 
 Further details can be found in the KEP <https://kep.k8s.io/2570>.
 -->
-Kubelet 配置現在包括 `memoryThrottlingFactor`。該因子乘以內存限制或節點可分配內存，
+Kubelet 設定現在包括 `memoryThrottlingFactor`。該因子乘以內存限制或節點可分配內存，
 可以設置 cgroupv2  `memory.high` 值來執行 MemoryQoS。
 減小該因子將爲容器 cgroup 設置較低的上限，同時增加了回收壓力。
 提高此因子將減少回收壓力。默認值最初爲 0.8，並將在 Kubernetes v1.27 中更改爲 0.9。
@@ -240,4 +240,4 @@ SELinux 掛載選項重標記功能在 v1.27 中升至 Beta 版本。
 SIG Node is responsible for ensuring fast Pod startup times, while addressing issues in large
 clusters falls under the purview of SIG Scalability as well.
 -->
-SIG Node 負責確保 Pod 快速啓動，而解決大型集羣中的問題則屬於 SIG Scalability 的範疇。
+SIG Node 負責確保 Pod 快速啓動，而解決大型叢集中的問題則屬於 SIG Scalability 的範疇。

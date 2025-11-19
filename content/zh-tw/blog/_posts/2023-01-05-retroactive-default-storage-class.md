@@ -47,7 +47,7 @@ to **new** PVCs at the time of creation. This is currently handled by the
 -->
 ## 爲什麼 StorageClass 賦值需要改進  {#why-did-sc-assignment-need-improvements}
 
-用戶可能已經熟悉在創建時將默認 StorageClasses 分配給**新** PVC 的這一類似特性。
+使用者可能已經熟悉在創建時將默認 StorageClasses 分配給**新** PVC 的這一類似特性。
 這個目前由[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)處理。
 
 <!--
@@ -58,7 +58,7 @@ Generally, two main scenarios could result in "stuck" PVCs and cause problems la
 Let's take a closer look at each of them.
 -->
 但是，如果在創建 PVC 時沒有定義默認 StorageClass 會怎樣？
-那用戶最終將得到一個永遠不會被賦予存儲類的 PVC。結果是沒有存儲會被製備，而 PVC 有時也會“卡在”這裏。
+那使用者最終將得到一個永遠不會被賦予存儲類的 PVC。結果是沒有存儲會被製備，而 PVC 有時也會“卡在”這裏。
 一般而言，兩個主要場景可能導致 PVC “卡住”，並在後續造成更多問題。讓我們仔細看看這兩個場景。
 
 <!--
@@ -78,7 +78,7 @@ With the alpha feature enabled, there were two options admins had when they want
    chosen and assigned to this PVC.
 -->
 1. 在移除與 PVC 關聯的舊 StorageClass 之前，創建一個新的 StorageClass 作爲默認值。
-   這將導致在短時間內出現兩個默認值。此時，如果用戶要創建一個 PersistentVolumeClaim，
+   這將導致在短時間內出現兩個默認值。此時，如果使用者要創建一個 PersistentVolumeClaim，
    並將 storageClassName 設置爲 <code>null</code>（指代默認 StorageClass），
    則最新的默認 StorageClass 將被選中並指定給這個 PVC。
 
@@ -91,9 +91,9 @@ With the alpha feature enabled, there were two options admins had when they want
    the PVC and recreating it once the default StorageClass was available.
 -->
 2. 先移除舊的默認值再創建一個新的默認 StorageClass。這將導致短時間內沒有默認值。
-   接下來如果用戶創建一個 PersistentVolumeClaim，並將 storageClassName 設置爲 <code>null</code>
+   接下來如果使用者創建一個 PersistentVolumeClaim，並將 storageClassName 設置爲 <code>null</code>
    （指代默認 StorageClass），則 PVC 將永遠處於 <code>Pending</code> 狀態。
-   一旦默認 StorageClass 可用，用戶就不得不通過刪除並重新創建 PVC 來修復這個問題。
+   一旦默認 StorageClass 可用，使用者就不得不通過刪除並重新創建 PVC 來修復這個問題。
 
 <!--
 ### Resource ordering during cluster installation
@@ -103,9 +103,9 @@ for example, an image registry, it was difficult to get the ordering right.
 This is because any Pods that required storage would rely on the presence of
 a default StorageClass and would fail to be created if it wasn't defined.
 -->
-### 集羣安裝期間的資源順序  {#resource-ordering-during-cluster-installation}
+### 叢集安裝期間的資源順序  {#resource-ordering-during-cluster-installation}
 
-如果集羣安裝工具需要創建鏡像倉庫這種有存儲要求的資源，很難進行合適地排序。
+如果叢集安裝工具需要創建映像檔倉庫這種有存儲要求的資源，很難進行合適地排序。
 這是因爲任何有存儲要求的 Pod 都將依賴於默認 StorageClass 的存在與否。
 如果默認 StorageClass 未被定義，Pod 創建將失敗。
 
@@ -121,7 +121,7 @@ the change of values from an unset value to an actual StorageClass name.
 
 我們更改了 PersistentVolume (PV) 控制器，以便將默認 StorageClass 指定給
 storageClassName 設置爲 `null` 且未被綁定的所有 PersistentVolumeClaim。
-我們還修改了 API 服務器中的 PersistentVolumeClaim 准入機制，允許將取值從未設置值更改爲實際的 StorageClass 名稱。
+我們還修改了 API 伺服器中的 PersistentVolumeClaim 准入機制，允許將取值從未設置值更改爲實際的 StorageClass 名稱。
 
 <!--
 ### Null `storageClassName` versus `storageClassName: ""` - does it matter? { #null-vs-empty-string }
@@ -206,7 +206,7 @@ Use the `--feature-gates` command line argument:
 ## 如何使用  {#how-to-use-it}
 
 如果你想測試這個 Alpha 特性，你需要在 kube-controller-manager 和 kube-apiserver 中啓用相關特性門控。
-你可以使用 `--feature-gates` 命令行參數：
+你可以使用 `--feature-gates` 命令列參數：
 
 ```
 --feature-gates="...,RetroactiveDefaultStorageClass=true"
@@ -219,7 +219,7 @@ If you would like to see the feature in action and verify it works fine in your 
 -->
 ### 測試演練  {#test-drive}
 
-如果你想看到此特性發揮作用並驗證它在集羣中是否正常工作，你可以嘗試以下步驟：
+如果你想看到此特性發揮作用並驗證它在叢集中是否正常工作，你可以嘗試以下步驟：
 
 <!--
 1. Define a basic PersistentVolumeClaim:
@@ -263,7 +263,7 @@ If you would like to see the feature in action and verify it works fine in your 
 <!--
 3. Configure one StorageClass as default.
 -->
-3. 將某個 StorageClass 配置爲默認值。
+3. 將某個 StorageClass 設定爲默認值。
 
    ```shell
    kubectl patch sc -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'

@@ -48,9 +48,9 @@ Kubernetes 文檔的這一部分包含教程。
 
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 -->
-## 配置  {#configuration}
+## 設定  {#configuration}
 
-* [使用 ConfigMap 配置 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
+* [使用 ConfigMap 設定 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
 
 <!--
 ## Authoring Pods
@@ -69,7 +69,7 @@ Kubernetes 文檔的這一部分包含教程。
 -->
 ## 無狀態應用程序  {#stateless-applications}
 
-* [公開外部 IP 地址訪問集羣中的應用程序](/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [公開外部 IP 地址訪問叢集中的應用程序](/zh-cn/docs/tutorials/stateless-application/expose-external-ip-address/)
 * [示例：使用 Redis 部署 PHP 留言板應用程序](/zh-cn/docs/tutorials/stateless-application/guestbook/)
 
 <!--
@@ -108,7 +108,7 @@ Kubernetes 文檔的這一部分包含教程。
 -->
 ## 安全  {#security}
 
-* [在集羣級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/cluster-level-pss/)
+* [在叢集級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/cluster-level-pss/)
 * [在名字空間級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/ns-level-pss/)
 * [使用 AppArmor 限制容器對資源的訪問](/zh-cn/docs/tutorials/security/apparmor/)
 * [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)
@@ -119,7 +119,7 @@ Kubernetes 文檔的這一部分包含教程。
 * [Running Kubelet in Standalone Mode](/docs/tutorials/cluster-management/kubelet-standalone/)
 * [Install Drivers and Allocate Devices with DRA](/docs/tutorials/cluster-management/install-use-dra/)
 -->
-## 集羣管理
+## 叢集管理
 
 * [以獨立模式運行 kubelet](/zh-cn/docs/tutorials/cluster-management/kubelet-standalone/)
 * [安裝驅動程序並使用 DRA 來分配設備](/zh-cn/docs/tutorials/cluster-management/install-use-dra/)

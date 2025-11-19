@@ -4,7 +4,7 @@ content_type: concept
 weight: 30
 description: >
   Kubernetes 對象是 Kubernetes 系統中的持久性實體。
-  Kubernetes 使用這些實體表示你的集羣狀態。
+  Kubernetes 使用這些實體表示你的叢集狀態。
   瞭解 Kubernetes 對象模型以及如何使用這些對象。
 simple_list: true
 card:
@@ -49,7 +49,7 @@ entities to represent the state of your cluster. Specifically, they can describe
 ## 理解 Kubernetes 對象    {#kubernetes-objects}
 
 在 Kubernetes 系統中，**Kubernetes 對象**是持久化的實體。
-Kubernetes 使用這些實體去表示整個集羣的狀態。
+Kubernetes 使用這些實體去表示整個叢集的狀態。
 具體而言，它們描述瞭如下信息：
 
 * 哪些容器化應用正在運行（以及在哪些節點上運行）
@@ -64,8 +64,8 @@ cluster's *desired state*.
 -->
 Kubernetes 對象是一種“意向表達（Record of Intent）”。一旦創建該對象，
 Kubernetes 系統將不斷工作以確保該對象存在。通過創建對象，你本質上是在告知
-Kubernetes 系統，你想要的集羣工作負載狀態看起來應是什麼樣子的，
-這就是 Kubernetes 集羣所謂的**期望狀態（Desired State）**。
+Kubernetes 系統，你想要的叢集工作負載狀態看起來應是什麼樣子的，
+這就是 Kubernetes 叢集所謂的**期望狀態（Desired State）**。
 
 <!--
 To work with Kubernetes objects—whether to create, modify, or delete them—you'll need to use the
@@ -76,7 +76,7 @@ the Kubernetes API directly in your own programs using one of the
 -->
 操作 Kubernetes 對象 —— 無論是創建、修改或者刪除 —— 需要使用
 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api)。
-比如，當使用 `kubectl` 命令行接口（CLI）時，CLI 會調用必要的 Kubernetes API；
+比如，當使用 `kubectl` 命令列接口（CLI）時，CLI 會調用必要的 Kubernetes API；
 也可以在程序中使用[客戶端庫](/zh-cn/docs/reference/using-api/client-libraries/)，
 來直接調用 Kubernetes API。
 
@@ -91,7 +91,7 @@ its _desired state_.
 -->
 ### 對象規約（Spec）與狀態（Status）    {#object-spec-and-status}
 
-幾乎每個 Kubernetes 對象包含兩個嵌套的對象字段，它們負責管理對象的配置：
+幾乎每個 Kubernetes 對象包含兩個嵌套的對象字段，它們負責管理對象的設定：
 對象 **`spec`（規約）** 和對象 **`status`（狀態）**。
 對於具有 `spec` 的對象，你必須在創建對象時設置其內容，描述你希望對象所具有的特徵：
 **期望狀態（Desired State）**。
@@ -119,7 +119,7 @@ the status to match your spec. If any of those instances should fail
 between spec and status by making a correction--in this case, starting
 a replacement instance.
 -->
-例如，Kubernetes 中的 Deployment 對象能夠表示運行在集羣中的應用。
+例如，Kubernetes 中的 Deployment 對象能夠表示運行在叢集中的應用。
 當創建 Deployment 時，你可能會設置 Deployment 的 `spec`，指定該應用要有 3 個副本運行。
 Kubernetes 系統讀取 Deployment 的 `spec`，
 並啓動我們所期望的應用的 3 個實例 —— 更新狀態以與規約相匹配。
@@ -168,7 +168,7 @@ One way to create a Deployment using a manifest file like the one above is to us
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) command
 in the `kubectl` command-line interface, passing the `.yaml` file as an argument. Here's an example:
 -->
-與上面使用清單文件來創建 Deployment 類似，另一種方式是使用 `kubectl` 命令行接口（CLI）的
+與上面使用清單文件來創建 Deployment 類似，另一種方式是使用 `kubectl` 命令列接口（CLI）的
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 命令，
 將 `.yaml` 文件作爲參數。下面是一個示例：
 
@@ -198,7 +198,7 @@ the following fields:
 -->
 ### 必需字段    {#required-fields}
 
-在想要創建的 Kubernetes 對象所對應的清單（YAML 或 JSON 文件）中，需要配置的字段如下：
+在想要創建的 Kubernetes 對象所對應的清單（YAML 或 JSON 文件）中，需要設定的字段如下：
 
 * `apiVersion` - 創建該對象所使用的 Kubernetes API 的版本
 * `kind` - 想要創建的對象的類別
@@ -231,7 +231,7 @@ detail the structure of that `.status` field, and its content for each different
 -->
 例如，參閱 Pod API 參考文檔中
 [`spec` 字段](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)。
-對於每個 Pod，其 `.spec` 字段設置了 Pod 及其期望狀態（例如 Pod 中每個容器的容器鏡像名稱）。
+對於每個 Pod，其 `.spec` 字段設置了 Pod 及其期望狀態（例如 Pod 中每個容器的容器映像檔名稱）。
 另一個對象規約的例子是 StatefulSet API 中的
 [`spec` 字段](/zh-cn/docs/reference/kubernetes-api/workload-resources/stateful-set-v1/#StatefulSetSpec)。
 對於 StatefulSet 而言，其 `.spec` 字段設置了 StatefulSet 及其期望狀態。
@@ -245,7 +245,7 @@ detail the structure of that `.status` field, and its content for each different
 See [Configuration Best Practices](/docs/concepts/configuration/overview/) for additional
 information on writing YAML configuration files.
 -->
-請查看[配置最佳實踐](/zh-cn/docs/concepts/configuration/overview/)來獲取有關編寫 YAML 配置文件的更多信息。
+請查看[設定最佳實踐](/zh-cn/docs/concepts/configuration/overview/)來獲取有關編寫 YAML 設定文件的更多信息。
 {{< /note >}}
 
 <!--
@@ -256,11 +256,11 @@ Starting with Kubernetes v1.25, the API server offers server side
 that detects unrecognized or duplicate fields in an object. It provides all the functionality
 of `kubectl --validate` on the server side.
 -->
-## 服務器端字段驗證   {#server-side-field-validation}
+## 伺服器端字段驗證   {#server-side-field-validation}
 
 從 Kubernetes v1.25 開始，API
-服務器提供了服務器端[字段驗證](/zh-cn/docs/reference/using-api/api-concepts/#field-validation)，
-可以檢測對象中未被識別或重複的字段。它在服務器端提供了 `kubectl --validate` 的所有功能。
+伺服器提供了伺服器端[字段驗證](/zh-cn/docs/reference/using-api/api-concepts/#field-validation)，
+可以檢測對象中未被識別或重複的字段。它在伺服器端提供了 `kubectl --validate` 的所有功能。
 
 <!--
 The `kubectl` tool uses the `--validate` flag to set the level of field validation. It accepts the
@@ -288,7 +288,7 @@ and `false` (equivalent to `ignore`). The default validation setting for `kubect
 : 執行字段驗證，但錯誤會以警告形式提供而不是拒絕請求
 
 `Ignore`
-: 不執行服務器端字段驗證
+: 不執行伺服器端字段驗證
 
 <!--
 When `kubectl` cannot connect to an API server that supports field validation it will fall back
@@ -296,9 +296,9 @@ to using client-side validation. Kubernetes 1.27 and later versions always offer
 older Kubernetes releases might not. If your cluster is older than v1.27, check the documentation
 for your version of Kubernetes.
 -->
-當 `kubectl` 無法連接到支持字段驗證的 API 服務器時，它將回退爲使用客戶端驗證。
+當 `kubectl` 無法連接到支持字段驗證的 API 伺服器時，它將回退爲使用客戶端驗證。
 Kubernetes 1.27 及更高版本始終提供字段驗證；較早的 Kubernetes 版本可能沒有此功能。
-如果你的集羣版本低於 v1.27，可以查閱適用於你的 Kubernetes 版本的文檔。
+如果你的叢集版本低於 v1.27，可以查閱適用於你的 Kubernetes 版本的文檔。
 
 ## {{% heading "whatsnext" %}}
 

@@ -1,7 +1,7 @@
 <!-- 
 Generates bootstrap tokens used to join a node to a cluster 
 -->
-生成用於將節點加入集羣的引導令牌
+生成用於將節點加入叢集的引導令牌
 
 <!--
 ### Synopsis
@@ -11,12 +11,12 @@ Generates bootstrap tokens used to join a node to a cluster
 <!--
 Bootstrap tokens are used for establishing bidirectional trust between a node joining the cluster and a control-plane node.
 -->
-啓動引導令牌（bootstrap token）用於在即將加入集羣的節點和控制平面節點之間建立雙向信任。
+啓動引導令牌（bootstrap token）用於在即將加入叢集的節點和控制平面節點之間建立雙向信任。
 
 <!--
 This command makes all the configurations required to make bootstrap tokens works and then creates an initial token.
 -->
-該命令使啓動引導令牌（bootstrap token）所需的所有配置生效，然後創建初始令牌。
+該命令使啓動引導令牌（bootstrap token）所需的所有設定生效，然後創建初始令牌。
 
 ```
 kubeadm init phase bootstrap-token [flags]
@@ -55,7 +55,7 @@ kubeadm init phase bootstrap-token
 <!--
 <p>Path to a kubeadm configuration file.</p>
 -->
-<p>kubeadm 配置文件的路徑。</p>
+<p>kubeadm 設定文件的路徑。</p>
 </td>
 </tr>
 
@@ -98,7 +98,7 @@ Don't apply any changes; just output what would be done.
 <!--
 <p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-<p>用於和集羣通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。</p>
+<p>用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。</p>
 </td>
 </tr>
 

@@ -4,7 +4,7 @@ id: deviceclass
 date: 2025-05-26
 full_link: /docs/concepts/scheduling-eviction/dynamic-resource-allocation/#deviceclass
 short_description: >
-  集羣中設備的一種分類。使用戶可以申領 DeviceClass 中的特定設備。
+  叢集中設備的一種分類。使使用者可以申領 DeviceClass 中的特定設備。
 tags:
 - extension
 ---
@@ -24,7 +24,7 @@ tags:
 A category of {{< glossary_tooltip text="devices" term_id="device" >}} in the
  cluster that can be used with dynamic resource allocation (DRA).
 -->
-集羣中可用於動態資源分配（DRA）
+叢集中可用於動態資源分配（DRA）
 的一類{{< glossary_tooltip text="設備" term_id="device" >}}。
 
 <!--more-->

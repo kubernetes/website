@@ -1,8 +1,8 @@
 ---
-title: 使用配置文件管理 Secret
+title: 使用設定文件管理 Secret
 content_type: task
 weight: 20
-description: 使用資源配置文件創建 Secret 對象。
+description: 使用資源設定文件創建 Secret 對象。
 ---
 <!--  
 title: Managing Secrets using Configuration File
@@ -63,8 +63,8 @@ The following example stores two strings in a Secret using the `data` field.
    -->
    Secret 數據的 JSON 和 YAML 序列化結果是以 base64 編碼的。
    換行符在這些字符串中無效，必須省略。
-   在 Darwin/macOS 上使用 `base64` 工具時，用戶不應該使用 `-b` 選項分割長行。
-   相反地，Linux 用戶**應該**在 `base64` 地命令中添加 `-w 0` 選項，
+   在 Darwin/macOS 上使用 `base64` 工具時，使用者不應該使用 `-b` 選項分割長行。
+   相反地，Linux 使用者**應該**在 `base64` 地命令中添加 `-w 0` 選項，
    或者在 `-w` 選項不可用的情況下，輸入 `base64 | tr -d '\n'`。
    {{< /note >}}
 
@@ -141,13 +141,13 @@ A practical example of this might be where you are deploying an application
 that uses a Secret to store a configuration file, and you want to populate
 parts of that configuration file during your deployment process.
 -->
-上述用例的實際場景可能是這樣：當你部署應用時，使用 Secret 存儲配置文件，
-你希望在部署過程中，填入部分內容到該配置文件。
+上述用例的實際場景可能是這樣：當你部署應用時，使用 Secret 存儲設定文件，
+你希望在部署過程中，填入部分內容到該設定文件。
 
 <!--
 For example, if your application uses the following configuration file:
 -->
-例如，如果你的應用程序使用以下配置文件：
+例如，如果你的應用程序使用以下設定文件：
 
 ```yaml
 apiUrl: "https://my.api.com/api/v1"
@@ -177,7 +177,7 @@ stringData:
 <!--
 The `stringData` field for a Secret does not work well with server-side apply.
 -->
-Secret 的 `stringData` 字段不能很好地與服務器端應用配合使用。
+Secret 的 `stringData` 字段不能很好地與伺服器端應用配合使用。
 {{< /note >}}
 
 <!-- 
@@ -242,7 +242,7 @@ stringData:
 <!--
 The `stringData` field for a Secret does not work well with server-side apply.
 -->
-Secret 的 `stringData` 字段不能很好地與服務器端應用配合使用。
+Secret 的 `stringData` 字段不能很好地與伺服器端應用配合使用。
 {{< /note >}}
 
 <!--
@@ -284,7 +284,7 @@ For example, if you want to change the password from the previous example to
 -->
 ## 編輯 Secret {#edit-secret}
 
-要編輯使用清單創建的 Secret 中的數據，請修改清單中的 `data` 或 `stringData` 字段並將此清單文件應用到集羣。
+要編輯使用清單創建的 Secret 中的數據，請修改清單中的 `data` 或 `stringData` 字段並將此清單文件應用到叢集。
 你可以編輯現有的 `Secret` 對象，除非它是[不可變的](/zh-cn/docs/concepts/configuration/secret/#secret-immutable)。
 
 例如，如果你想將上一個示例中的密碼更改爲 `birdsarentreal`，請執行以下操作：
@@ -323,7 +323,7 @@ For example, if you want to change the password from the previous example to
 <!--
 1. Apply the manifest to your cluster:
 -->
-3. 將清單應用到你的集羣：
+3. 將清單應用到你的叢集：
 
    ```shell
    kubectl apply -f ./secret.yaml
@@ -348,10 +348,10 @@ If you specified `kubectl apply --server-side` instead, `kubectl` uses
 [Server Side Apply](/docs/reference/using-api/server-side-apply/) instead.
 -->
 Kubernetes 更新現有的 `Secret` 對象。具體而言，`kubectl` 工具發現存在一個同名的現有 `Secret` 對象。
-`kubectl` 獲取現有對象，計劃對其進行更改，並將更改後的 `Secret` 對象提交到你的集羣控制平面。
+`kubectl` 獲取現有對象，計劃對其進行更改，並將更改後的 `Secret` 對象提交到你的叢集控制平面。
 
 如果你指定了 `kubectl apply --server-side`，則 `kubectl`
-使用[服務器端應用（Server-Side Apply）](/zh-cn/docs/reference/using-api/server-side-apply/)。
+使用[伺服器端應用（Server-Side Apply）](/zh-cn/docs/reference/using-api/server-side-apply/)。
 
 <!--
 ## Clean Up

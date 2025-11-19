@@ -49,7 +49,7 @@ The certificate key is a hex encoded string that is an AES key of size 32 bytes.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -93,7 +93,7 @@ upload-certs 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用來與集羣通信的 kubeconfig 文件。
+用來與叢集通信的 kubeconfig 文件。
 如果此標誌未設置，則可以在一組標準的位置搜索現有的 kubeconfig 文件。
 </p>
 </td>

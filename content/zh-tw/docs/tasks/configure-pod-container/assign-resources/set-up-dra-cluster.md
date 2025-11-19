@@ -1,5 +1,5 @@
 ---
-title: "在集羣中安裝 DRA"
+title: "在叢集中安裝 DRA"
 content_type: task
 min-kubernetes-server-version: v1.34
 weight: 10
@@ -20,8 +20,8 @@ This page shows you how to configure _dynamic resource allocation (DRA)_ in a
 Kubernetes cluster by enabling API groups and configuring classes of devices.
 These instructions are for cluster administrators.
 -->
-本文介紹如何在 Kubernetes 集羣中通過啓用 API 組並配置設備類別來設置**動態資源分配（DRA）**。
-這些指示說明適用於集羣管理員。
+本文介紹如何在 Kubernetes 叢集中通過啓用 API 組並設定設備類別來設置**動態資源分配（DRA）**。
+這些指示說明適用於叢集管理員。
 
 <!-- body -->
 
@@ -57,7 +57,7 @@ For details, see
   issues with drivers, wait until you set up the DRA feature for your
   cluster before you install drivers.
 -->
-* 將設備直接或間接掛接到你的集羣中。爲避免驅動相關的問題，請在安裝驅動之前先完成 DRA 特性的配置。
+* 將設備直接或間接掛接到你的叢集中。爲避免驅動相關的問題，請在安裝驅動之前先完成 DRA 特性的設定。
 
 <!-- steps -->
 
@@ -94,7 +94,7 @@ To verify that the cluster is configured correctly, try to list DeviceClasses:
 -->
 ## 驗證是否啓用了 DRA {#verify}
 
-若要驗證集羣是否配置正確，可嘗試列出 DeviceClass：
+若要驗證叢集是否設定正確，可嘗試列出 DeviceClass：
 
 ```shell
 kubectl get deviceclasses
@@ -104,7 +104,7 @@ kubectl get deviceclasses
 If the component configuration was correct, the output is similar to the
 following:
 -->
-如果組件配置正確，輸出類似如下：
+如果組件設定正確，輸出類似如下：
 
 ```
 No resources found
@@ -114,7 +114,7 @@ No resources found
 If DRA isn't correctly configured, the output of the preceding command is
 similar to the following:
 -->
-如果 DRA 未正確配置，則上述命令的輸出可能如下：
+如果 DRA 未正確設定，則上述命令的輸出可能如下：
 
 ```
 error: the server doesn't have a resource type "deviceclasses"
@@ -132,7 +132,7 @@ Try the following troubleshooting steps:
 -->
 你可以嘗試以下排查步驟：
 
-1. 重新配置並重啓 `kube-apiserver` 組件。
+1. 重新設定並重啓 `kube-apiserver` 組件。
 
 2. 如果從 Pod 中完全刪除了 `.spec.resourceClaims` 字段，
    或者 Pod 在不考慮 ResourceClaim 的情況下被調度，
@@ -153,10 +153,10 @@ ResourceSlices in your cluster:
 -->
 ## 安裝設備驅動 {#install-drivers}
 
-你啓用集羣的 DRA 特性後，你可以安裝所掛接設備的驅動。
+你啓用叢集的 DRA 特性後，你可以安裝所掛接設備的驅動。
 安裝方式請參見設備所有者或驅動維護方提供的文檔。你安裝的驅動必須與 DRA 兼容。
 
-若要驗證驅動是否正常工作，可列出集羣中的 ResourceSlice：
+若要驗證驅動是否正常工作，可列出叢集中的 ResourceSlice：
 
 ```shell
 kubectl get resourceslices
@@ -275,7 +275,7 @@ operators.
 <!--
 1.  Create the DeviceClass in your cluster:
 -->
-3. 在集羣中創建 DeviceClass：
+3. 在叢集中創建 DeviceClass：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/dra/deviceclass.yaml

@@ -20,7 +20,7 @@ with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0
 and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
-kubectl 版本和集羣版本之間的差異必須在一個小版本號內。
+kubectl 版本和叢集版本之間的差異必須在一個小版本號內。
 例如：v{{< skew currentVersion >}} 版本的客戶端能與 v{{< skew currentVersionAddMinor -1 >}}、
 v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制面通信。
 用最新兼容版的 kubectl 有助於避免不可預見的問題。
@@ -103,7 +103,7 @@ The following methods exist for installing kubectl on Windows:
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
    -->
 
-   - 在命令行環境中，手工對比 `CertUtil` 命令的輸出與校驗和文件：
+   - 在命令列環境中，手工對比 `CertUtil` 命令的輸出與校驗和文件：
 
      ```cmd
      CertUtil -hashfile kubectl.exe SHA256
@@ -167,7 +167,7 @@ installer or remove the Docker Desktop's `kubectl`.
    [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) package manager.
 -->
 1. 要在 Windows 上安裝 kubectl，你可以使用包管理器 [Chocolatey](https://chocolatey.org)、
-   命令行安裝器 [Scoop](https://scoop.sh) 或包管理器 [winget](https://learn.microsoft.com/zh-cn/windows/package-manager/winget/)。
+   命令列安裝器 [Scoop](https://scoop.sh) 或包管理器 [winget](https://learn.microsoft.com/zh-cn/windows/package-manager/winget/)。
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -227,7 +227,7 @@ installer or remove the Docker Desktop's `kubectl`.
 <!--
 1. Configure kubectl to use a remote Kubernetes cluster:
  -->
-6. 配置 kubectl，以接入遠程的 Kubernetes 集羣：
+6. 設定 kubectl，以接入遠程的 Kubernetes 叢集：
 
    ```powershell
    New-Item config -type file
@@ -237,13 +237,13 @@ installer or remove the Docker Desktop's `kubectl`.
 <!--
 Edit the config file with a text editor of your choice, such as Notepad.
 -->
-編輯配置文件，你需要先選擇一個文本編輯器，比如 Notepad。
+編輯設定文件，你需要先選擇一個文本編輯器，比如 Notepad。
 {{< /note >}}
 
 <!--
 ## Verify kubectl configuration
 -->
-## 驗證 kubectl 配置 {#verify-kubectl-configration}
+## 驗證 kubectl 設定 {#verify-kubectl-configration}
 
 {{< include "included/verify-kubectl.md" >}}
 
@@ -252,7 +252,7 @@ Edit the config file with a text editor of your choice, such as Notepad.
 
 ### Enable shell autocompletion
 -->
-## kubectl 可選配置和插件 {#optional-kubectl-configurations}
+## kubectl 可選設定和插件 {#optional-kubectl-configurations}
 
 ### 啓用 shell 自動補全功能 {#enable-shell-autocompletion}
 
@@ -273,7 +273,7 @@ kubectl 爲 Bash、Zsh、Fish 和 PowerShell 提供自動補全功能，可以�
 
 See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 -->
-### 配置 kuberc  {#configure-kuberc}
+### 設定 kuberc  {#configure-kuberc}
 
 更多信息請參見 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
 

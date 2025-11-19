@@ -34,7 +34,7 @@ However, the scheduler cannot distinguish between old and new versions based on 
 -->
 ## `matchLabelKeys` - 爲多樣化滾動更新增強了調度
 
-在工作負載（例如 Deployment）的滾動更新期間，集羣中可能同時存在多個版本的 Pod。  
+在工作負載（例如 Deployment）的滾動更新期間，叢集中可能同時存在多個版本的 Pod。  
 然而，調度器無法基於 `podAffinity` 或 `podAntiAffinity` 中指定的 `labelSelector` 區分新舊版本。
 結果，調度器將並置或分散調度 Pod，不會考慮這些 Pod 的版本。
 
@@ -144,11 +144,11 @@ the cluster admin can ensure that the Pods from the same tenant will land on the
 meaning Pods from other tenants won't land on the same domain.
 -->
 儘管在組合每個工作負載的清單時，`tenant` 標籤的值是未知的，  
-但集羣管理員希望實現租戶與域之間形成排他性的 1:1 對應關係，以便隔離租戶。
+但叢集管理員希望實現租戶與域之間形成排他性的 1:1 對應關係，以便隔離租戶。
 
 `mismatchLabelKeys` 適用於這一使用場景；  
 通過使用變更性質的 Webhook 在全局應用以下親和性，
-集羣管理員可以確保來自同一租戶的 Pod 將以獨佔方式落到同一域上，  
+叢集管理員可以確保來自同一租戶的 Pod 將以獨佔方式落到同一域上，  
 這意味着來自其他租戶的 Pod 不會落到同一域上。
 
 <!--

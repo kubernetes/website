@@ -6,7 +6,7 @@
 <!--
 Pull images used by kubeadm.
 -->
-拉取 kubeadm 使用的鏡像。
+拉取 kubeadm 使用的映像檔。
 
 ```shell
 kubeadm config images pull [flags]
@@ -33,7 +33,7 @@ kubeadm config images pull [flags]
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -104,7 +104,7 @@ pull 操作的幫助命令。
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇用於拉取控制平面鏡像的容器倉庫。
+選擇用於拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>
@@ -157,7 +157,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和集羣通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm
+用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm
 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
 </p>
 </td>

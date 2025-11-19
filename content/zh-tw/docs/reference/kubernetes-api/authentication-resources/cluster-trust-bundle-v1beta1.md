@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/certificates/v1beta1"
   kind: "ClusterTrustBundle"
 content_type: "api_reference"
-description: "ClusterTrustBundle 是一個集羣範圍的容器，用於存放 X.509 信任錨（根證書）。"
+description: "ClusterTrustBundle 是一個叢集範圍的容器，用於存放 X.509 信任錨（根證書）。"
 title: "ClusterTrustBundle v1beta1"
 weight: 5
 ---
@@ -31,12 +31,12 @@ ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root c
 
 ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
 -->
-ClusterTrustBundle 是一個集羣範圍的容器，用於存放 X.509 信任錨（根證書）。
+ClusterTrustBundle 是一個叢集範圍的容器，用於存放 X.509 信任錨（根證書）。
 
-ClusterTrustBundle 對象被視爲可被集羣中的任何已通過身份驗證的用戶讀取，
+ClusterTrustBundle 對象被視爲可被叢集中的任何已通過身份驗證的使用者讀取，
 因爲此對象可以由使用 `clusterTrustBundle` 投射的 Pod 掛載。
 所有服務賬號默認都有對 ClusterTrustBundle 的讀取權限。
-對於僅對集羣具有命名空間級訪問權限的用戶，可以通過僞裝他們可以訪問的服務賬號來讀取 ClusterTrustBundle。
+對於僅對叢集具有命名空間級訪問權限的使用者，可以通過僞裝他們可以訪問的服務賬號來讀取 ClusterTrustBundle。
 
 <!--
 It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
@@ -44,7 +44,7 @@ It can be optionally associated with a particular assigner, in which case it con
 ClusterTrustBundle 可以選擇與特定的簽名程序相關聯，此時它包含該簽名程序的一組有效信任錨。
 簽名程序可以有多個關聯的 ClusterTrustBundle；
 對於該簽名程序而言每個 ClusterTrustBundle 都是獨立的一組信任錨。
-准入控制用於確保只有對簽名程序有訪問權限的用戶才能創建或修改相應的捆綁包。
+准入控制用於確保只有對簽名程序有訪問權限的使用者才能創建或修改相應的捆綁包。
 
 <hr>
 
@@ -94,7 +94,7 @@ ClusterTrustBundleSpec 包含簽名程序和信任錨。
   -->
   數據必須僅由可解析爲有效 X.509 證書的 PEM 證書塊組成。
   每個證書必須包含設置了 CA 標誌的基本約束擴展。
-  API 服務器將拒絕包含重複證書或使用 PEM 塊頭的對象。
+  API 伺服器將拒絕包含重複證書或使用 PEM 塊頭的對象。
   
   ClusterTrustBundles 的使用者（包括 kubelet）可以根據自己的邏輯對此文件中的證書塊進行重新排序和去重，
   也可以刪除 PEM 塊頭和塊間數據。
@@ -110,7 +110,7 @@ ClusterTrustBundleSpec 包含簽名程序和信任錨。
 
   signerName 表示關聯的簽名程序（如果有）。
   
-  要創建或更新設置了 signerName 屬性的 ClusterTrustBundle，你必須具備以下集羣範圍的權限：
+  要創建或更新設置了 signerName 屬性的 ClusterTrustBundle，你必須具備以下叢集範圍的權限：
 
   <code>
   group=certificates.k8s.io

@@ -71,7 +71,7 @@ development container image that includes Hugo and Docsy. Additionally, a Git
 submodule is used for tools that generate the reference documentation.
 -->
 Kubernetes 網站使用的是 [Docsy Hugo 主題](https://github.com/google/docsy#readme)，
-可以通過 npm 安裝。你也可以下載一個預配置的開發容器鏡像，其中包含 Hugo 和 Docsy。
+可以通過 npm 安裝。你也可以下載一個預設定的開發容器映像檔，其中包含 Hugo 和 Docsy。
 此外，Kubernetes 網站還使用了 Git 子模塊來管理生成參考文檔的工具。
 
 <!-- 
@@ -218,7 +218,7 @@ To install dependencies, deploy and test the site locally, run:
 <!--
 This will start the local Hugo server on port 1313. Open up your browser to <http://localhost:1313> to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 -->
-上述命令會在端口 1313 上啓動本地 Hugo 服務器。
+上述命令會在端口 1313 上啓動本地 Hugo 伺服器。
 啓動瀏覽器，打開 <http://localhost:1313> 來查看網站。
 當你對源文件作出修改時，Hugo 會更新網站並強制瀏覽器執行刷新操作。
 
@@ -273,7 +273,7 @@ To update the reference pages for a new Kubernetes release follow these steps:
    <!--
    You can test the results locally by making and serving the site from a container image:
    -->
-   你可以通過從容器鏡像創建和提供站點來在本地測試結果：
+   你可以通過從容器映像檔創建和提供站點來在本地測試結果：
 
    ```bash
    make container-image
@@ -288,7 +288,7 @@ To update the reference pages for a new Kubernetes release follow these steps:
 <!--
 5. When all changes of the new contract are reflected into the configuration files `toc.yaml` and `fields.yaml`, create a Pull Request with the newly generated API reference pages.
 -->
-5. 當所有新的更改都反映到配置文件 `toc.yaml` 和 `fields.yaml` 中時，使用新生成的 API
+5. 當所有新的更改都反映到設定文件 `toc.yaml` 和 `fields.yaml` 中時，使用新生成的 API
    參考頁面創建一個 Pull Request。
 
 <!--
@@ -377,7 +377,7 @@ The command '/bin/sh -c mkdir $HOME/src &&     cd $HOME/src &&     curl -L https
 make: *** [Makefile:69：container-image] error 1
 ```
 
-請修改 `Dockerfile` 文件，爲其添加網絡代理。修改內容如下：
+請修改 `Dockerfile` 文件，爲其添加網路代理。修改內容如下：
 
 ```dockerfile
 ...

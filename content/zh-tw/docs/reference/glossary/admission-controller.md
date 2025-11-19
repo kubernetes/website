@@ -4,7 +4,7 @@ id: admission-controller
 date: 2019-06-28
 full_link: /zh-cn/docs/reference/access-authn-authz/admission-controllers/
 short_description: >
- 在對象持久化之前攔截 Kubernetes API 服務器請求的一段代碼。
+ 在對象持久化之前攔截 Kubernetes API 伺服器請求的一段代碼。
 aka:
 tags:
 - extension
@@ -27,7 +27,7 @@ tags:
 <!--
 A piece of code that intercepts requests to the Kubernetes API server prior to persistence of the object.
 -->
-在對象持久化之前攔截 Kubernetes API 服務器請求的一段代碼。
+在對象持久化之前攔截 Kubernetes API 伺服器請求的一段代碼。
 
 <!--more-->
 
@@ -38,7 +38,7 @@ validating controllers may not.
 
 * [Admission controllers in the Kubernetes documentation](/docs/reference/access-authn-authz/admission-controllers/)
 -->
-准入控制器可針對 Kubernetes API 服務器進行配置，可以執行“驗證（validating）”、“變更（mutating）”或兩者都執行。
+准入控制器可針對 Kubernetes API 伺服器進行設定，可以執行“驗證（validating）”、“變更（mutating）”或兩者都執行。
 任何准入控制器都可以拒絕訪問請求。
 變更控制器可以修改其允許的對象，驗證控制器則不可以。
 

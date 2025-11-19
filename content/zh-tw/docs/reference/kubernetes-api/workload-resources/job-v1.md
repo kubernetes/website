@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/batch/v1"
   kind: "Job"
 content_type: "api_reference"
-description: "Job 表示單個任務的配置。"
+description: "Job 表示單個任務的設定。"
 title: "Job"
 weight: 10
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 Job represents the configuration of a single job.
 -->
-Job 表示單個任務的配置。
+Job 表示單個任務的設定。
 
 <hr>
 
@@ -185,7 +185,7 @@ JobSpec 描述了任務執行的情況。
 
   suspend 指定 Job 控制器是否應該創建 Pod。如果創建 Job 時將 suspend 設置爲 true，則 Job 控制器不會創建任何 Pod。
   如果 Job 在創建後被掛起（即標誌從 false 變爲 true），則 Job 控制器將刪除與該 Job 關聯的所有活動 Pod。
-  用戶必須設計他們的工作負載來優雅地處理這個問題。暫停 Job 將重置 Job 的 startTime 字段，
+  使用者必須設計他們的工作負載來優雅地處理這個問題。暫停 Job 將重置 Job 的 startTime 字段，
   也會重置 ActiveDeadlineSeconds 計時器。默認爲 false。
 
 ### Selector
@@ -208,7 +208,7 @@ JobSpec 描述了任務執行的情況。
 
   manualSelector 控制 Pod 標籤和 Pod 選擇器的生成。除非你確定你在做什麼，否則不要設置 `manualSelector`。
   當此字段爲 false 或未設置時，系統會選擇此 Pod 唯一的標籤並將這些標籤附加到 Pod 模板。
-  當此字段爲 true 時，用戶負責選擇唯一標籤並指定選擇器。
+  當此字段爲 true 時，使用者負責選擇唯一標籤並指定選擇器。
   未能選擇唯一標籤可能會導致此任務和其他任務無法正常運行。但是，你可能會在使用舊的 `extensions/v1beta1` API
   創建的任務中看到 `manualSelector=true`。更多信息：
   https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector

@@ -51,7 +51,7 @@ ExecCredential 由基於 exec 的插件使用，與 HTTP 傳輸組件溝通憑�
    Status is filled in by the plugin and holds the credentials that the transport
    should use to contact the API.
    -->
-   字段 status 由插件填充，包含傳輸組件與 API 服務器連接時需要提供的憑據。
+   字段 status 由插件填充，包含傳輸組件與 API 伺服器連接時需要提供的憑據。
 </td>
 </tr>
 </tbody>
@@ -75,10 +75,10 @@ with a kubernetes cluster (just like they would via a kubeconfig), the fields
 should shadow "k8s.io/client-go/tools/clientcmd/api/v1".Cluster, with the exception
 of CertificateAuthority, since CA data will always be passed to the plugin as bytes.
 -->
-Cluster 中包含允許 exec 插件與 Kubernetes 集羣進行通信身份認證時所需
+Cluster 中包含允許 exec 插件與 Kubernetes 叢集進行通信身份認證時所需
 的信息。
 
-爲了確保該結構體包含需要與 Kubernetes 集羣進行通信的所有內容（就像通過 Kubeconfig 一樣），
+爲了確保該結構體包含需要與 Kubernetes 叢集進行通信的所有內容（就像通過 Kubeconfig 一樣），
 除了證書授權之外，該字段應該映射到 "k8s.io/client-go/tools/clientcmd/api/v1".cluster，
 由於 CA 數據將始終以字節形式傳遞給插件。
 
@@ -93,7 +93,7 @@ Cluster 中包含允許 exec 插件與 Kubernetes 集羣進行通信身份認證
    <!--
    Server is the address of the kubernetes cluster (https://hostname:port).
    -->
-   字段 server 是 Kubernetes 集羣的地址（https://hostname:port）。
+   字段 server 是 Kubernetes 叢集的地址（https://hostname:port）。
 </td>
 </tr>
 
@@ -106,8 +106,8 @@ Cluster 中包含允許 exec 插件與 Kubernetes 集羣進行通信身份認證
    check server certificates against. If ServerName is empty, the hostname
    used to contact the server is used.
    -->
-   tls-server-name 是用來提供給服務器用作 SNI 解析的，客戶端以此檢查服務器的證書。
-   如此字段爲空，則使用鏈接服務器時使用的主機名。
+   tls-server-name 是用來提供給伺服器用作 SNI 解析的，客戶端以此檢查伺服器的證書。
+   如此字段爲空，則使用鏈接伺服器時使用的主機名。
 </td>
 </tr>
 
@@ -119,7 +119,7 @@ Cluster 中包含允許 exec 插件與 Kubernetes 集羣進行通信身份認證
    InsecureSkipTLSVerify skips the validity check for the server's certificate.
    This will make your HTTPS connections insecure.
    -->
-   設置此字段之後，會令客戶端跳過對服務器端證書的合法性檢查。
+   設置此字段之後，會令客戶端跳過對伺服器端證書的合法性檢查。
    這會使得你的 HTTPS 鏈接不再安全。
 </td>
 </tr>
@@ -145,7 +145,7 @@ Cluster 中包含允許 exec 插件與 Kubernetes 集羣進行通信身份認證
    ProxyURL is the URL to the proxy to be used for all requests to this
    cluster.
    -->
-   此字段用來設置向集羣發送所有請求時要使用的代理服務器。
+   此字段用來設置向叢集發送所有請求時要使用的代理伺服器。
 </td>
 </tr>
 
@@ -159,8 +159,8 @@ Cluster 中包含允許 exec 插件與 Kubernetes 集羣進行通信身份認證
    to speed up requests (specifically lists) when client-server network bandwidth is ample, by saving time on
    compression (server-side) and decompression (client-side): https://github.com/kubernetes/kubernetes/issues/112296.
    -->
-   disable-compression 允許客戶端針對到服務器的所有請求選擇取消響應壓縮。
-   當客戶端服務器網絡帶寬充足時，這有助於通過節省壓縮（服務器端）和解壓縮（客戶端）時間來加快請求（特別是列表）的速度：
+   disable-compression 允許客戶端針對到伺服器的所有請求選擇取消響應壓縮。
+   當客戶端伺服器網路帶寬充足時，這有助於通過節省壓縮（伺服器端）和解壓縮（客戶端）時間來加快請求（特別是列表）的速度：
    https://github.com/kubernetes/kubernetes/issues/112296。
    </p>
 </td>
@@ -176,13 +176,13 @@ Cluster 中包含允許 exec 插件與 Kubernetes 集羣進行通信身份認證
    plugin with regards to the cluster being authenticated to.
    -->
    </p>
-   此字段包含一些額外的、特定於 exec 插件和所連接的集羣的數據。
+   此字段包含一些額外的、特定於 exec 插件和所連接的叢集的數據。
    <p>
    <!--
    This data is sourced from the clientcmd Cluster object's
    extensions[client.authentication.k8s.io/exec] field:
    -->
-   此字段來自於 clientcmd 集羣對象的 <code>extensions[client.authentication.k8s.io/exec]</code>
+   此字段來自於 clientcmd 叢集對象的 <code>extensions[client.authentication.k8s.io/exec]</code>
    字段：
    </p>
 <pre>
@@ -201,9 +201,9 @@ clusters:
   cluster:
     ...
     extensions:
-    - name: client.authentication.k8s.io/exec  # 針對每個集羣 exec 配置所預留的擴展名稱
+    - name: client.authentication.k8s.io/exec  # 針對每個叢集 exec 設定所預留的擴展名稱
       extension:
-        audience: 06e3fbd18de8  # 任意配置信息
+        audience: 06e3fbd18de8  # 任意設定信息
 </pre>
 
    <p>
@@ -215,9 +215,9 @@ clusters:
    recommended as one of the prime benefits of exec plugins is that no secrets need
    to be stored directly in the kubeconfig.
    -->
-   在某些環境中，用戶配置可能對很多集羣而言都完全一樣（即調用同一個 exec 插件），
-   只是針對不同集羣會有一些細節上的差異，例如 audience。
-   此字段使得特定於集羣的配置可以直接使用集羣信息來設置。
+   在某些環境中，使用者設定可能對很多叢集而言都完全一樣（即調用同一個 exec 插件），
+   只是針對不同叢集會有一些細節上的差異，例如 audience。
+   此字段使得特定於叢集的設定可以直接使用叢集信息來設置。
    不建議使用此字段來保存 Secret 數據，因爲 exec 插件的主要優勢之一是不需要在
    kubeconfig 中保存 Secret 數據。
    </p>
@@ -255,8 +255,8 @@ ExecCredentialSpec 保存傳輸組件所提供的特定於請求和運行時的�
    when provideClusterInfo is set to true in the exec provider config (i.e.,
    ExecConfig.ProvideClusterInfo).
    -->
-   此字段中包含的信息使得 exec 插件能夠與要訪問的 Kubernetes 集羣通信。
-   注意，cluster 字段只有在 exec 驅動的配置中 provideClusterInfo
+   此字段中包含的信息使得 exec 插件能夠與要訪問的 Kubernetes 叢集通信。
+   注意，cluster 字段只有在 exec 驅動的設定中 provideClusterInfo
   （即：ExecConfig.ProvideClusterInfo）被設置爲 true 時纔不能爲空。
 </td>
 </tr>

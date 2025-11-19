@@ -25,7 +25,7 @@ pecial comment tags (e.g., `+k8s:minimum=0`). A code generator (`validation-gen`
 optimized Go code for API validation.
 -->
 Kubernetes {{< skew currentVersion >}} 包含可選用於 API的**聲明式驗證**特性。
-當啓用時，Kubernetes API 服務器可以使用此機制而不是依賴手寫的
+當啓用時，Kubernetes API 伺服器可以使用此機制而不是依賴手寫的
 Go 代碼（`validation.go` 文件）來確保針對 API 的請求是有效的。
 Kubernetes 開發者和[擴展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 的人員可以直接在 API 類型定義（`types.go` 文件）旁邊定義驗證規則。
@@ -36,8 +36,8 @@ Kubernetes 開發者和[擴展 Kubernetes API](/zh-cn/docs/concepts/extend-kuber
 While primarily a feature impacting Kubernetes contributors and potentially developers of [extension API servers](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/), cluster administrators should understand its behavior, especially during its rollout phases.
 -->
 雖然這個特性主要影響 Kubernetes
-貢獻者和潛在的[擴展 API 服務器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)開發者，
-但集羣管理員應瞭解其行爲，特別是在其推出階段。
+貢獻者和潛在的[擴展 API 伺服器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)開發者，
+但叢集管理員應瞭解其行爲，特別是在其推出階段。
 
 <!--
 Declarative validation is being rolled out gradually.
@@ -64,7 +64,7 @@ Future Kubernetes releases may roll this out to more APIs.
 *   `DeclarativeValidationTakeover`: (Beta, Default: `false`) This gate determines which validation result is *authoritative* (i.e., returned to the user and used for admission decisions).
 -->
 * `DeclarativeValidation：（Beta， 默認值：`true`）當啓用時，
-   API 服務器對遷移的類型/字段同時運行新的聲明式驗證和舊的手寫驗證。結果在內部進行比較。
+   API 伺服器對遷移的類型/字段同時運行新的聲明式驗證和舊的手寫驗證。結果在內部進行比較。
 * `DeclarativeValidationTakeover`**：（Beta， 默認值：`false`）
    此開關決定哪個驗證結果是**權威的**（即返回給用戶並用於准入決策）。
 
@@ -80,7 +80,7 @@ Future Kubernetes releases may roll this out to more APIs.
 
 * 當 `DeclarativeValidation=true` 和 `DeclarativeValidationTakeover=false` （開關的默認值），兩種驗證系統都會運行。
 * **使用手寫驗證的結果。**聲明式驗證以不匹配模式運行進行比較。
-* 兩種驗證系統之間的不匹配將由 API 服務器記錄，並增加
+* 兩種驗證系統之間的不匹配將由 API 伺服器記錄，並增加
   `declarative_validation_mismatch_total` 指標。這有助於開發人員在
   Beta 階段識別並修復不一致之處。
 * 關於此特性的**集羣升級應該是安全的**，默認情況下權威的驗證邏輯不會改變。

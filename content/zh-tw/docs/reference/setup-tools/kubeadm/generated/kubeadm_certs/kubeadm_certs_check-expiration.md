@@ -1,7 +1,7 @@
 <!-- 
 Check certificates expiration for a Kubernetes cluster 
 -->
-爲一個 Kubernetes 集羣檢查證書的到期時間。
+爲一個 Kubernetes 叢集檢查證書的到期時間。
 
 <!--
 ### Synopsis
@@ -71,7 +71,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <!-- 
 <p>Path to a kubeadm configuration file.</p> 
 -->
-<p>到 kubeadm 配置文件的路徑。</p>
+<p>到 kubeadm 設定文件的路徑。</p>
 </td>
 </tr>
 
@@ -121,7 +121,7 @@ text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonp
 <!-- 
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file. 
 -->
-在和集羣連接時使用該 kubeconfig 文件。
+在和叢集連接時使用該 kubeconfig 文件。
 如果此標誌未被設置，那麼將會在一些標準的位置去搜索存在的 kubeconfig 文件。
 </p>
 </td>

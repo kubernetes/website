@@ -27,7 +27,7 @@ replication.
 -->
 本頁展示如何使用 {{< glossary_tooltip term_id="statefulset" >}}
 控制器運行一個有狀態的應用程序。此例是多副本的 MySQL 數據庫。
-示例應用的拓撲結構有一個主服務器和多個副本，使用異步的基於行（Row-Based）
+示例應用的拓撲結構有一個主伺服器和多個副本，使用異步的基於行（Row-Based）
 的數據複製。
 
 {{< note >}}
@@ -35,7 +35,7 @@ replication.
 **This is not a production configuration**. MySQL settings remain on insecure defaults to keep the focus
 on general patterns for running stateful applications in Kubernetes.
 -->
-**這一配置不適合生產環境。**
+**這一設定不適合生產環境。**
 MySQL 設置都使用的是不安全的默認值，這是因爲我們想把重點放在 Kubernetes
 中運行有狀態應用程序的一般模式上。
 {{< /note >}}
@@ -98,7 +98,7 @@ Create the ConfigMap from the following YAML configuration file:
 -->
 ### 創建一個 ConfigMap   {#configmap}
 
-使用以下的 YAML 配置文件創建 ConfigMap ：
+使用以下的 YAML 設定文件創建 ConfigMap ：
 
 {{% code_sample file="application/mysql/mysql-configmap.yaml" %}}
 
@@ -112,9 +112,9 @@ configuration on the primary MySQL server and its replicas.
 In this case, you want the primary server to be able to serve replication logs to replicas
 and you want replicas to reject any writes that don't come via replication.
 -->
-這個 ConfigMap 提供 `my.cnf` 覆蓋設置，使你可以獨立控制 MySQL 主服務器和副本服務器的配置。
-在這裏，你希望主服務器能夠將複製日誌提供給副本服務器，
-並且希望副本服務器拒絕任何不是通過複製進行的寫操作。
+這個 ConfigMap 提供 `my.cnf` 覆蓋設置，使你可以獨立控制 MySQL 主伺服器和副本伺服器的設定。
+在這裏，你希望主伺服器能夠將複製日誌提供給副本伺服器，
+並且希望副本伺服器拒絕任何不是通過複製進行的寫操作。
 
 <!--
 There's nothing special about the ConfigMap itself that causes different
@@ -132,7 +132,7 @@ Create the Services from the following YAML configuration file:
 -->
 ### 創建 Service  {#services}
 
-使用以下 YAML 配置文件創建服務：
+使用以下 YAML 設定文件創建服務：
 
 {{% code_sample file="application/mysql/mysql-services.yaml" %}}
 
@@ -150,7 +150,7 @@ cluster and namespace.
 -->
 這個無頭 Service 給 StatefulSet {{< glossary_tooltip text="控制器" term_id="controller" >}}
 爲集合中每個 Pod 創建的 DNS 條目提供了一個宿主。
-因爲無頭服務名爲 `mysql`，所以可以通過在同一 Kubernetes 集羣和命名空間中的任何其他 Pod
+因爲無頭服務名爲 `mysql`，所以可以通過在同一 Kubernetes 叢集和命名空間中的任何其他 Pod
 內解析 `<Pod 名稱>.mysql` 來訪問 Pod。
 
 <!--
@@ -159,8 +159,8 @@ cluster IP that distributes connections across all MySQL Pods that report
 being Ready. The set of potential endpoints includes the primary MySQL server and all
 replicas.
 -->
-客戶端 Service 稱爲 `mysql-read`，是一種常規 Service，具有其自己的集羣 IP。
-該集羣 IP 在報告就緒的所有 MySQL Pod 之間分配連接。
+客戶端 Service 稱爲 `mysql-read`，是一種常規 Service，具有其自己的叢集 IP。
+該叢集 IP 在報告就緒的所有 MySQL Pod 之間分配連接。
 可能的端點集合包括 MySQL 主節點和所有副本節點。
 
 <!--
@@ -170,7 +170,7 @@ primary MySQL Pod (through its DNS entry within the headless Service) to execute
 writes.
 -->
 請注意，只有讀查詢才能使用負載平衡的客戶端 Service。
-因爲只有一個 MySQL 主服務器，所以客戶端應直接連接到 MySQL 主服務器 Pod
+因爲只有一個 MySQL 主伺服器，所以客戶端應直接連接到 MySQL 主伺服器 Pod
 （通過其在無頭 Service 中的 DNS 條目）以執行寫入操作。
 
 <!--
@@ -180,7 +180,7 @@ Finally, create the StatefulSet from the following YAML configuration file:
 -->
 ### 創建 StatefulSet {#statefulset}
 
-最後，使用以下 YAML 配置文件創建 StatefulSet：
+最後，使用以下 YAML 設定文件創建 StatefulSet：
 
 {{% code_sample file="application/mysql/mysql-statefulset.yaml" %}}
 
@@ -264,7 +264,7 @@ Before starting any of the containers in the Pod spec, the Pod first runs any
 [init Containers](/docs/concepts/workloads/pods/init-containers/)
 in the order defined. 
 -->
-### 生成配置   {#generating-config}
+### 生成設定   {#generating-config}
 
 在啓動 Pod 規約中的任何容器之前，Pod 首先按順序運行所有的
 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)。
@@ -273,7 +273,7 @@ in the order defined.
 The first init container, named `init-mysql`, generates special MySQL config
 files based on the ordinal index. 
 -->
-第一個名爲 `init-mysql` 的 Init 容器根據序號索引生成特殊的 MySQL 配置文件。
+第一個名爲 `init-mysql` 的 Init 容器根據序號索引生成特殊的 MySQL 設定文件。
 
 <!--
 The script determines its own ordinal index by extracting it from the end of
@@ -285,7 +285,7 @@ into the domain of MySQL server IDs, which require the same properties.
 -->
 該腳本通過從 Pod 名稱的末尾提取索引來確定自己的序號索引，而 Pod 名稱由 `hostname` 命令返回。
 然後將序數（帶有數字偏移量以避免保留值）保存到 MySQL `conf.d` 目錄中的文件 `server-id.cnf`。
-這一操作將 StatefulSet 所提供的唯一、穩定的標識轉換爲 MySQL 服務器 ID，
+這一操作將 StatefulSet 所提供的唯一、穩定的標識轉換爲 MySQL 伺服器 ID，
 而這些 ID 也是需要唯一性、穩定性保證的。
 
 <!--
@@ -307,7 +307,7 @@ replicating.
 
 與 StatefulSet
 控制器的[部署順序保證](/zh-cn/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)相結合，
-可以確保 MySQL 主服務器在創建副本服務器之前已準備就緒，以便它們可以開始複製。
+可以確保 MySQL 主伺服器在創建副本伺服器之前已準備就緒，以便它們可以開始複製。
 
 <!--
 ### Cloning existing data 
@@ -336,7 +336,7 @@ so its local state is consistent enough to begin replicating from the primary se
 第二個名爲 `clone-mysql` 的 Init 容器，第一次在帶有空 PersistentVolume 的副本 Pod
 上啓動時，會在從屬 Pod 上執行克隆操作。
 這意味着它將從另一個運行中的 Pod 複製所有現有數據，使此其本地狀態足夠一致，
-從而可以開始從主服務器複製。
+從而可以開始從主伺服器複製。
 
 <!--
 MySQL itself does not provide a mechanism to do this, so the example uses a
@@ -348,8 +348,8 @@ This works because the StatefulSet controller always ensures Pod `N` is
 Ready before starting Pod `N+1`. 
 -->
 MySQL 本身不提供執行此操作的機制，因此本示例使用了一種流行的開源工具 Percona XtraBackup。
-在克隆期間，源 MySQL 服務器性能可能會受到影響。
-爲了最大程度地減少對 MySQL 主服務器的影響，該腳本指示每個 Pod 從序號較低的 Pod 中克隆。
+在克隆期間，源 MySQL 伺服器性能可能會受到影響。
+爲了最大程度地減少對 MySQL 主伺服器的影響，該腳本指示每個 Pod 從序號較低的 Pod 中克隆。
 可以這樣做的原因是 StatefulSet 控制器始終確保在啓動 Pod `N+1` 之前 Pod `N` 已準備就緒。
 
 <!--
@@ -373,7 +373,7 @@ If so, it waits for `mysqld` to be ready and then executes the
 `CHANGE MASTER TO` and `START SLAVE` commands with replication parameters
 extracted from the XtraBackup clone files. 
 -->
-`xtrabackup` sidecar 容器查看克隆的數據文件，並確定是否有必要在副本服務器上初始化 MySQL 複製。
+`xtrabackup` sidecar 容器查看克隆的數據文件，並確定是否有必要在副本伺服器上初始化 MySQL 複製。
 如果是這樣，它將等待 `mysqld` 準備就緒，然後使用從 XtraBackup 克隆文件中提取的複製參數執行
 `CHANGE MASTER TO` 和 `START SLAVE` 命令。
 
@@ -384,9 +384,9 @@ Also, because replicas look for the primary server at its stable DNS name
 (`mysql-0.mysql`), they automatically find the primary server even if it gets a new
 Pod IP due to being rescheduled. 
 -->
-一旦副本服務器開始複製後，它會記住其 MySQL 主服務器，並且如果服務器重新啓動或連接中斷也會自動重新連接。
-另外，因爲副本服務器會以其穩定的 DNS 名稱查找主服務器（`mysql-0.mysql`），
-即使由於重新調度而獲得新的 Pod IP，它們也會自動找到主服務器。
+一旦副本伺服器開始複製後，它會記住其 MySQL 主伺服器，並且如果伺服器重新啓動或連接中斷也會自動重新連接。
+另外，因爲副本伺服器會以其穩定的 DNS 名稱查找主伺服器（`mysql-0.mysql`），
+即使由於重新調度而獲得新的 Pod IP，它們也會自動找到主伺服器。
 
 <!--
 Lastly, after starting replication, the `xtrabackup` container listens for
@@ -396,7 +396,7 @@ case the next Pod loses its PersistentVolumeClaim and needs to redo the clone.
 -->
 最後，開始複製後，`xtrabackup` 容器監聽來自其他 Pod 的連接，處理其數據克隆請求。
 如果 StatefulSet 擴大規模，或者下一個 Pod 失去其 PersistentVolumeClaim 並需要重新克隆，
-則此服務器將無限期保持運行。
+則此伺服器將無限期保持運行。
 
 <!--
 ## Sending client traffic 
@@ -407,8 +407,8 @@ by running a temporary container with the `mysql:5.7` image and running the
 -->
 ## 發送客戶端請求   {#sending-client-traffic}
 
-你可以通過運行帶有 `mysql:5.7` 鏡像的臨時容器並運行 `mysql` 客戶端二進制文件，
-將測試查詢發送到 MySQL 主服務器（主機名 `mysql-0.mysql`）。
+你可以通過運行帶有 `mysql:5.7` 映像檔的臨時容器並運行 `mysql` 客戶端二進制文件，
+將測試查詢發送到 MySQL 主伺服器（主機名 `mysql-0.mysql`）。
 
 ```shell
 kubectl run mysql-client --image=mysql:5.7 -i --rm --restart=Never --\
@@ -423,7 +423,7 @@ EOF
 Use the hostname `mysql-read` to send test queries to any server that reports
 being Ready: 
 -->
-使用主機名 `mysql-read` 將測試查詢發送到任何報告爲就緒的服務器：
+使用主機名 `mysql-read` 將測試查詢發送到任何報告爲就緒的伺服器：
 
 ```shell
 kubectl run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\
@@ -449,7 +449,7 @@ pod "mysql-client" deleted
 To demonstrate that the `mysql-read` Service distributes connections across
 servers, you can run `SELECT @@server_id` in a loop: 
 -->
-爲了演示 `mysql-read` 服務在服務器之間分配連接，你可以在循環中運行 `SELECT @@server_id`：
+爲了演示 `mysql-read` 服務在伺服器之間分配連接，你可以在循環中運行 `SELECT @@server_id`：
 
 ```shell
 kubectl run mysql-client-loop --image=mysql:5.7 -i -t --rm --restart=Never --\
@@ -496,7 +496,7 @@ running while you force a Pod out of the Ready state.
 -->
 ## 模擬 Pod 和 Node 失效   {#simulate-pod-and-node-downtime}
 
-爲了證明從副本節點緩存而不是單個服務器讀取數據的可用性提高，請在使 Pod 退出 Ready
+爲了證明從副本節點緩存而不是單個伺服器讀取數據的可用性提高，請在使 Pod 退出 Ready
 狀態時，保持上述 `SELECT @@server_id` 循環一直運行。
 
 <!--
@@ -509,7 +509,7 @@ to make sure the server is up and able to execute queries.
 ### 破壞就緒態探測   {#break-readiness-probe}
 
 `mysql` 容器的[就緒態探測](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)
-運行命令 `mysql -h 127.0.0.1 -e 'SELECT 1'`，以確保服務器已啓動並能夠執行查詢。
+運行命令 `mysql -h 127.0.0.1 -e 'SELECT 1'`，以確保伺服器已啓動並能夠執行查詢。
 
 <!--
 One way to force this readiness probe to fail is to break that command: 
@@ -551,7 +551,7 @@ so server ID `102` corresponds to Pod `mysql-2`.
 -->
 此時，你應該會看到 `SELECT @@server_id` 循環繼續運行，儘管它不再報告 `102`。
 回想一下，`init-mysql` 腳本將 `server-id` 定義爲 `100 + $ordinal`，
-因此服務器 ID `102` 對應於 Pod `mysql-2`。
+因此伺服器 ID `102` 對應於 Pod `mysql-2`。
 
 <!--
 Now repair the Pod and it should reappear in the loop output
@@ -586,7 +586,7 @@ and then return on its own.
 -->
 StatefulSet 控制器注意到不再存在 `mysql-2` Pod，於是創建一個具有相同名稱並鏈接到相同
 PersistentVolumeClaim 的新 Pod。
-你應該看到服務器 ID `102` 從循環輸出中消失了一段時間，然後又自行出現。
+你應該看到伺服器 ID `102` 從循環輸出中消失了一段時間，然後又自行出現。
 
 <!--
 ### Drain a Node 
@@ -597,7 +597,7 @@ If your Kubernetes cluster has multiple Nodes, you can simulate Node downtime
 -->
 ### 騰空節點   {#drain-a-node}
 
-如果你的 Kubernetes 集羣具有多個節點，則可以通過發出以下
+如果你的 Kubernetes 叢集具有多個節點，則可以通過發出以下
 [drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)
 命令來模擬節點停機（就好像節點在被升級）。
 
@@ -635,7 +635,7 @@ running on the same node. Only perform the following step in a test
 cluster.
 -->
 騰空一個 Node 可能影響到在該節點上運行的其他負載和應用。
-只應在測試集羣上執行下列步驟。
+只應在測試叢集上執行下列步驟。
 {{< /caution >}}
 
 <!--
@@ -680,7 +680,7 @@ mysql-2   2/2     Running         0          30s       10.244.5.32   kubernetes-
 And again, you should see server ID `102` disappear from the
 `SELECT @@server_id` loop output for a while and then return. 
 -->
-再次，你應該看到服務器 ID `102` 從 `SELECT @@server_id`
+再次，你應該看到伺服器 ID `102` 從 `SELECT @@server_id`
 循環輸出中消失一段時間，然後再次出現。
 
 <!--
@@ -728,10 +728,10 @@ the `SELECT @@server_id` loop output.
 You can also verify that these new servers have the data you added before they
 existed: 
 -->
-一旦 Pod 啓動，你應該看到服務器 ID `103` 和 `104` 開始出現在 `SELECT @@server_id`
+一旦 Pod 啓動，你應該看到伺服器 ID `103` 和 `104` 開始出現在 `SELECT @@server_id`
 循環輸出中。
 
-你還可以驗證這些新服務器在存在之前已添加了數據：
+你還可以驗證這些新伺服器在存在之前已添加了數據：
 
 ```shell
 kubectl run mysql-client --image=mysql:5.7 -i -t --rm --restart=Never --\

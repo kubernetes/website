@@ -91,7 +91,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
 必須是 "none"、"server" 或 "client"。如果是 client 策略，僅打印將要發送的對象，而不實際發送。
-如果是 server 策略，提交服務器端請求而不持久化資源。
+如果是 server 策略，提交伺服器端請求而不持久化資源。
 </p></td>
 </tr>
 
@@ -130,7 +130,7 @@ deployment 操作的幫助命令。
 <!--
 Image names to run. A deployment can have multiple images set for multi-container pod.
 -->
-要運行的鏡像名稱。Deployment 可以爲多容器 Pod 設置多個鏡像。
+要運行的映像檔名稱。Deployment 可以爲多容器 Pod 設置多個映像檔。
 </p></td>
 </tr>
 
@@ -180,7 +180,7 @@ Number of replicas to create. Default is 1.
 <!--
 If true, the configuration of current object will be saved in its annotation. Otherwise, the annotation will be unchanged. This flag is useful when you want to perform kubectl apply on this object in the future.
 -->
-如果爲 true，當前對象的配置將被保存在其註解中。否則，註解將保持不變。
+如果爲 true，當前對象的設定將被保存在其註解中。否則，註解將保持不變。
 當你希望後續對此對象執行 `kubectl apply` 操作時，此標誌很有用。
 </p></td>
 </tr>
@@ -220,9 +220,9 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 -->
 必須是以下選項之一：strict（或 true）、warn、ignore（或 false）。
 "true" 或 "strict" 將使用模式定義來驗證輸入，如果無效，則請求失敗。
-如果在 API 服務器上啓用了 ServerSideFieldValidation，則執行服務器端驗證，
+如果在 API 伺服器上啓用了 ServerSideFieldValidation，則執行伺服器端驗證，
 但如果未啓用，它將回退到可靠性較低的客戶端驗證。
-如果在 API 服務器上啓用了服務器端字段驗證，"warn" 將警告未知或重複的字段而不阻止請求，
+如果在 API 伺服器上啓用了伺服器端字段驗證，"warn" 將警告未知或重複的字段而不阻止請求，
 否則操作與 "ignore" 的表現相同。
 "false" 或 "ignore" 將不會執行任何模式定義檢查，而是靜默刪除所有未知或重複的字段。
 </p></td>
@@ -248,7 +248,7 @@ Must be one of: strict (or true), warn, ignore (or false). &quot;true&quot; or &
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
-操作所用的僞裝用戶名。用戶可以是常規用戶或命名空間中的服務賬號。
+操作所用的僞裝使用者名。使用者可以是常規使用者或命名空間中的服務賬號。
 </p></td>
 </tr>
 
@@ -260,7 +260,7 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
-操作所用的僞裝用戶組，此標誌可以被重複設置以指定多個組。
+操作所用的僞裝使用者組，此標誌可以被重複設置以指定多個組。
 </p></td>
 </tr>
 
@@ -333,7 +333,7 @@ TLS 客戶端密鑰文件的路徑。
 <!--
 The name of the kubeconfig cluster to use
 -->
-要使用的 kubeconfig 中集羣的名稱。
+要使用的 kubeconfig 中叢集的名稱。
 </p></td>
 </tr>
 
@@ -359,7 +359,7 @@ The name of the kubeconfig context to use
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
-如果爲 true，則對服務器所有請求的響應不再壓縮。
+如果爲 true，則對伺服器所有請求的響應不再壓縮。
 </p></td>
 </tr>
 
@@ -371,7 +371,7 @@ If true, opt-out of response compression for all requests to the server
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
-如果爲 true，則不檢查服務器證書的有效性。這將使你的 HTTPS 連接不安全。
+如果爲 true，則不檢查伺服器證書的有效性。這將使你的 HTTPS 連接不安全。
 </p></td>
 </tr>
 
@@ -412,7 +412,7 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <!--
 Require server version to match client version
 -->
-要求服務器版本與客戶端版本匹配。
+要求伺服器版本與客戶端版本匹配。
 </p></td>
 </tr>
 
@@ -438,7 +438,7 @@ If present, the namespace scope for this CLI request
 <!--
 Password for basic authentication to the API server
 -->
-對 API 服務器進行基本身份驗證所用的密碼。
+對 API 伺服器進行基本身份驗證所用的密碼。
 </p></td>
 </tr>
 
@@ -477,7 +477,7 @@ Name of the file to write the profile to
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
-在放棄某個服務器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
+在放棄某個伺服器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
 值爲零表示請求不會超時。
 </p></td>
 </tr>
@@ -491,7 +491,7 @@ The length of time to wait before giving up on a single server request. Non-zero
 <!--
 The address and port of the Kubernetes API server
 -->
-Kubernetes API 服務器的地址和端口。
+Kubernetes API 伺服器的地址和端口。
 </p></td>
 </tr>
 
@@ -580,7 +580,7 @@ table name
 <!--
 database username
 -->
-數據庫用戶名。
+數據庫使用者名。
 </p></td>
 </tr>
 
@@ -592,7 +592,7 @@ database username
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
-服務器證書驗證所用的服務器名稱。如果未提供，則使用與服務器通信所用的主機名。
+伺服器證書驗證所用的伺服器名稱。如果未提供，則使用與伺服器通信所用的主機名。
 </p></td>
 </tr>
 
@@ -604,7 +604,7 @@ Server name to use for server certificate validation. If it is not provided, the
 <!--
 Bearer token for authentication to the API server
 -->
-向 API 服務器進行身份驗證的持有者令牌。
+向 API 伺服器進行身份驗證的持有者令牌。
 </p></td>
 </tr>
 
@@ -616,7 +616,7 @@ Bearer token for authentication to the API server
 <!--
 The name of the kubeconfig user to use
 -->
-要使用的 kubeconfig 用戶的名稱。
+要使用的 kubeconfig 使用者的名稱。
 </p></td>
 </tr>
 
@@ -628,7 +628,7 @@ The name of the kubeconfig user to use
 <!--
 Username for basic authentication to the API server
 -->
-對 API 服務器進行基本身份驗證時所用的用戶名。
+對 API 伺服器進行基本身份驗證時所用的使用者名。
 </p></td>
 </tr>
 
@@ -652,7 +652,7 @@ Username for basic authentication to the API server
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
-將從服務器收到的警告視爲錯誤，並以非零退出碼退出。
+將從伺服器收到的警告視爲錯誤，並以非零退出碼退出。
 </p></td>
 </tr>
 

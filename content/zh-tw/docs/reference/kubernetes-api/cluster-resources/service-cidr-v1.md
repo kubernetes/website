@@ -71,7 +71,7 @@ ServiceCIDR 使用 CIDR 格式定義 IP 地址的範圍（例如 192.168.0.0/24 
 <!--
 ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
 -->
-ServiceCIDRSpec 定義用戶想要爲 Service 分配 ClusterIP 所用的 CIDR。
+ServiceCIDRSpec 定義使用者想要爲 Service 分配 ClusterIP 所用的 CIDR。
 
 <hr>
 
@@ -87,7 +87,7 @@ ServiceCIDRSpec 定義用戶想要爲 Service 分配 ClusterIP 所用的 CIDR。
   **原子：將在合併期間被替換**
   
   cidrs 以 CIDR 表示法定義 IP 塊（例如 "192.168.0.0/24" 或 "2001:db8::/64"），
-  從此 IP 塊中爲 Service 分配集羣 IP。允許最多兩個 CIDR，每個 IP 簇一個 CIDR。此字段是不可變更的。
+  從此 IP 塊中爲 Service 分配叢集 IP。允許最多兩個 CIDR，每個 IP 簇一個 CIDR。此字段是不可變更的。
 
 ## ServiceCIDRStatus {#ServiceCIDRStatus}
 

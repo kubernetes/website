@@ -58,8 +58,8 @@ make this task much harder. Any eviction request will fail due to violation of a
 when all pods of an application are unhealthy. Draining of a node cannot make any progress
 in that case.
 -->
-不幸的是，對於想要騰空節點但又不進行任何手動干預的集羣管理員而言，這種機制是有問題的。
-若一些應用因 Pod 處於 `CrashLoopBackOff` 狀態（由於漏洞或配置錯誤）或 Pod 無法進入就緒狀態而行爲異常，
+不幸的是，對於想要騰空節點但又不進行任何手動干預的叢集管理員而言，這種機制是有問題的。
+若一些應用因 Pod 處於 `CrashLoopBackOff` 狀態（由於漏洞或設定錯誤）或 Pod 無法進入就緒狀態而行爲異常，
 會使這項任務變得更加困難。當某應用的所有 Pod 均不健康時，所有驅逐請求都會因違反 PDB 而失敗。
 在這種情況下，騰空節點不會有任何作用。
 
@@ -68,7 +68,7 @@ On the other hand there are users that depend on the existing behavior, in order
 - prevent data-loss that would be caused by deleting pods that are guarding an underlying resource or storage
 - achieve the best availability possible for their application
 -->
-另一方面，有些用戶依賴於現有行爲，以便：
+另一方面，有些使用者依賴於現有行爲，以便：
 
 - 防止因刪除守護基礎資源或存儲的 Pod 而造成數據丟失
 - 讓應用達到最佳可用性
@@ -92,8 +92,8 @@ to ensure that a sufficient number of pods is always running in the cluster.
 ## 工作原理   {#how-does-it-work}
 
 API 發起的驅逐是觸發 Pod 優雅終止的一個進程。
-這個進程可以通過直接調用 API 發起，也能使用 `kubectl drain` 或集羣中的其他主體來發起。
-在這個過程中，移除每個 Pod 時將與對應的 PDB 協商，確保始終有足夠數量的 Pod 在集羣中運行。
+這個進程可以通過直接調用 API 發起，也能使用 `kubectl drain` 或叢集中的其他主體來發起。
+在這個過程中，移除每個 Pod 時將與對應的 PDB 協商，確保始終有足夠數量的 Pod 在叢集中運行。
 
 <!--
 The following policies allow PDB authors to have a greater control how the process deals with unhealthy pods.
@@ -123,7 +123,7 @@ eviction.
 -->
 通過將 PDB 的 `spec.unhealthyPodEvictionPolicy` 字段設置爲 `AlwaysAllow`，
 可以表示儘可能爲應用選擇最佳的可用性。採用此策略時，始終能夠驅逐不健康的 Pod。
-這可以簡化集羣的維護和升級。
+這可以簡化叢集的維護和升級。
 
 我們認爲 `AlwaysAllow` 通常是一個更好的選擇，但是對於某些關鍵工作負載，
 你可能仍然傾向於防止不健康的 Pod 被從節點上騰空或其他形式的 API 發起的驅逐。
@@ -138,7 +138,7 @@ to the kube-apiserver.
 -->
 ## 如何使用？  {#how-do-i-use-it}
 
-這是一個 Alpha 特性，意味着你必須使用命令行參數 `--feature-gates=PDBUnhealthyPodEvictionPolicy=true`
+這是一個 Alpha 特性，意味着你必須使用命令列參數 `--feature-gates=PDBUnhealthyPodEvictionPolicy=true`
 爲 kube-apiserver 啓用 `PDBUnhealthyPodEvictionPolicy`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
@@ -152,10 +152,10 @@ You decide to allow evictions even if those webserver pods are unhealthy.
 You create a PDB to guard this application, with the `AlwaysAllow` policy for evicting
 unhealthy pods:
 -->
-以下是一個例子。假設你已在集羣中啓用了此特性門控且你已定義了運行普通 Web 服務器的 Deployment。
+以下是一個例子。假設你已在叢集中啓用了此特性門控且你已定義了運行普通 Web 伺服器的 Deployment。
 你已爲 Deployment 的 Pod 打了標籤 `app: nginx`。
 你想要限制可避免的干擾，你知道對於此應用而言盡力而爲的可用性也是足夠的。
-你決定即使這些 Web 服務器 Pod 不健康也允許驅逐。
+你決定即使這些 Web 伺服器 Pod 不健康也允許驅逐。
 你創建 PDB 守護此應用，使用 `AlwaysAllow` 策略驅逐不健康的 Pod：
 
 ```yaml

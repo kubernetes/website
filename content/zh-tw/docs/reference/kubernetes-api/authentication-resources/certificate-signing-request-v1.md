@@ -80,7 +80,7 @@ or to obtain certificates from custom non-Kubernetes signers.
 
   spec 包含證書請求，並且在創建後是不可變的。
   只有 request、signerName、expirationSeconds 和 usages 字段可以在創建時設置。
-  其他字段由 Kubernetes 派生，用戶無法修改。
+  其他字段由 Kubernetes 派生，使用者無法修改。
   
 <!--
 - **status** (<a href="{{< ref "../authentication-resources/certificate-signing-request-v1#CertificateSigningRequestStatus" >}}">
@@ -180,7 +180,7 @@ CertificateSigningRequestSpec 包含證書請求。
   3. 請求中必需、許可或禁止的 x509 擴展（包括是否允許 subjectAltNames、哪些類型、對允許值的限制）
      以及請求不允許的擴展時的行爲。
   4. 必需、許可或禁止的密鑰用途/擴展密鑰用途。
-  5. 過期/證書生命週期：是否由簽名者確定，管理員可配置。
+  5. 過期/證書生命週期：是否由簽名者確定，管理員可設定。
   6. 是否允許申請 CA 證書。
 
 <!--
@@ -219,8 +219,8 @@ CertificateSigningRequestSpec 包含證書請求。
   由於各種原因，證書籤名者可能忽略此字段：
 
   1. 不認識此字段的舊簽名者(如 v1.22 版本之前的實現)
-  2. 配置的最大持續時間小於請求持續時間的簽名者
-  3. 配置的最小持續時間大於請求持續時間的簽名者
+  2. 設定的最大持續時間小於請求持續時間的簽名者
+  3. 設定的最小持續時間大於請求持續時間的簽名者
 
   expirationSeconds 的最小有效值爲 600，即 10 分鐘。
 
@@ -232,8 +232,8 @@ CertificateSigningRequestSpec 包含證書請求。
 -->
 - **extra** (map[string][]string)
 
-  extra 包含創建 CertificateSigningRequest 的用戶的額外屬性。
-  在創建時由 API 服務器填充，且不可變。
+  extra 包含創建 CertificateSigningRequest 的使用者的額外屬性。
+  在創建時由 API 伺服器填充，且不可變。
 
 <!-- 
 - **groups** ([]string)
@@ -247,8 +247,8 @@ CertificateSigningRequestSpec 包含證書請求。
 
   **Atomic：將在合併過程中被替換**
 
-  groups 包含創建 CertificateSigningRequest 的用戶的組成員關係。
-  在創建時由 API 服務器填充，且不可變。
+  groups 包含創建 CertificateSigningRequest 的使用者的組成員關係。
+  在創建時由 API 伺服器填充，且不可變。
 
 <!-- 
 - **uid** (string)
@@ -258,8 +258,8 @@ CertificateSigningRequestSpec 包含證書請求。
 -->
 - **uid** (string)
 
-  uid 包含創建 CertificateSigningRequest 的用戶的 uid 。
-  在創建時由 API 服務器填充，且不可變。
+  uid 包含創建 CertificateSigningRequest 的使用者的 uid 。
+  在創建時由 API 伺服器填充，且不可變。
 
 <!-- 
 - **usages** ([]string)
@@ -309,8 +309,8 @@ CertificateSigningRequestSpec 包含證書請求。
 -->
 - **username** (string)
   
-  username 包含創建 CertificateSigningRequest 的用戶名。
-  在創建時由 API 服務器填充，且不可變。
+  username 包含創建 CertificateSigningRequest 的使用者名。
+  在創建時由 API 伺服器填充，且不可變。
 
 <!-- 
 ## CertificateSigningRequestStatus {#CertificateSigningRequestStatus}
@@ -461,7 +461,7 @@ CertificateSigningRequestStatus 包含用於指示請求的批准/拒絕/失敗�
   - **conditions.lastTransitionTime** (Time)
   
     lastTransitionTime 是狀況上一次從一種狀態轉換到另一種狀態的時間。
-    如果未設置，當添加新狀況類型或更改現有狀況的狀態時，服務器默認爲當前時間。
+    如果未設置，當添加新狀況類型或更改現有狀況的狀態時，伺服器默認爲當前時間。
   
     <a name="Time"></a>
     **Time 是 time.Time 的包裝器，支持正確編碼爲 YAML 和 JSON。爲 time 包提供的許多工廠方法提供了包裝器。**

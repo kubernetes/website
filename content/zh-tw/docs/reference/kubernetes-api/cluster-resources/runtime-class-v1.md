@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/node/v1"
   kind: "RuntimeClass"
 content_type: "api_reference"
-description: "RuntimeClass 定義集羣中支持的容器運行時類。"
+description: "RuntimeClass 定義叢集中支持的容器運行時類。"
 title: "RuntimeClass"
 weight: 9
 ---
@@ -29,9 +29,9 @@ auto_generated: true
 <!--
 RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/
 -->
-RuntimeClass 定義集羣中支持的容器運行時類。
+RuntimeClass 定義叢集中支持的容器運行時類。
 RuntimeClass 用於確定哪個容器運行時用於運行某 Pod 中的所有容器。
-RuntimeClass 由用戶或集羣製備程序手動定義，並在 PodSpec 中引用。
+RuntimeClass 由使用者或叢集製備程序手動定義，並在 PodSpec 中引用。
 kubelet 負責在運行 Pod 之前解析 RuntimeClassName 引用。
 有關更多詳細信息，請參閱
 https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
@@ -56,8 +56,8 @@ https://kubernetes.io/zh-cn/docs/concepts/containers/runtime-class/
 
 - **handler** (string)，必需
 
-  `handler` 指定底層運行時和配置，在 CRI 實現過程中將使用這些運行時和配置來處理這個類的 Pod。
-  可能的值特定於節點和 CRI 配置。
+  `handler` 指定底層運行時和設定，在 CRI 實現過程中將使用這些運行時和設定來處理這個類的 Pod。
+  可能的值特定於節點和 CRI 設定。
   假定所有 handler 可用於每個節點上，且同一名稱的 handler 在所有節點上是等效的。
   例如，一個名爲 "runc" 的 handler 可能指定 runc OCI 運行時將（使用原生 Linux 容器）
   用於運行 Pod 中的容器。該 handler 必須採用小寫，遵從 DNS Label (RFC 1123) 要求，且是不可變更的。

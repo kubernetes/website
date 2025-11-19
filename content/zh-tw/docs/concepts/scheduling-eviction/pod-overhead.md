@@ -55,7 +55,7 @@ and when carrying out Pod eviction ranking.
 <!--
 ## Configuring Pod overhead {#set-up}
 -->
-## 配置 Pod 開銷 {#set-up}
+## 設定 Pod 開銷 {#set-up}
 
 <!--
 You need to make sure a `RuntimeClass` is utilized which defines the `overhead` field.
@@ -272,9 +272,9 @@ cgroups directly on the node.
 First, on the particular node, determine the Pod identifier:
 -->
 在工作負載所運行的節點上檢查 Pod 的內存 cgroups。在接下來的例子中，
-將在該節點上使用具備 CRI 兼容的容器運行時命令行工具
+將在該節點上使用具備 CRI 兼容的容器運行時命令列工具
 [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)。
-這是一個顯示 Pod 開銷行爲的高級示例， 預計用戶不需要直接在節點上檢查 cgroups。
+這是一個顯示 Pod 開銷行爲的高級示例， 預計使用者不需要直接在節點上檢查 cgroups。
 首先在特定的節點上確定該 Pod 的標識符：
 
 <!--
@@ -350,7 +350,7 @@ running with a defined overhead.
 `kube_pod_overhead_*` 指標來協助確定何時使用 Pod 開銷，
 以及協助觀察以一個既定開銷運行的工作負載的穩定性。
 該特性在 kube-state-metrics 的 1.9 發行版本中不可用，不過預計將在後續版本中發佈。
-在此之前，用戶需要從源代碼構建 kube-state-metrics。
+在此之前，使用者需要從源代碼構建 kube-state-metrics。
 
 ## {{% heading "whatsnext" %}}
 

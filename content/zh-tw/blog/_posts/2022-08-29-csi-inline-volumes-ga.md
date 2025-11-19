@@ -42,7 +42,7 @@ There are a couple of new bug fixes related to this feature in 1.25, and the [CS
 1.25 版本修復了幾個與 CSI 內聯存儲卷相關的漏洞，
 並且 [CSIInlineVolume 特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 已正式發佈，鎖定爲 `True`。
-因爲沒有新的 API 變化，所以除了這些錯誤修復外，使用該功能 Beta 版本的用戶應該不會注意到任何重大變化。
+因爲沒有新的 API 變化，所以除了這些錯誤修復外，使用該功能 Beta 版本的使用者應該不會注意到任何重大變化。
 
 - [#89290 - CSI inline volumes should support fsGroup](https://github.com/kubernetes/kubernetes/issues/89290)
 - [#79980 - CSI volume reconstruction does not work for ephemeral volumes](https://github.com/kubernetes/kubernetes/issues/79980)
@@ -60,7 +60,7 @@ A CSI driver is not suitable for inline use when:
 ## 何時使用此功能
 
 CSI 內聯存儲卷是爲簡單的本地卷準備的，這種本地卷應該跟隨 Pod 的生命週期。
-它們對於使用 CSI 驅動爲 Pod 提供 Secret、配置數據或其他特殊用途的存儲可能很有用。
+它們對於使用 CSI 驅動爲 Pod 提供 Secret、設定數據或其他特殊用途的存儲可能很有用。
 
 在以下情況下，CSI 驅動不適合內聯使用：
 - 卷需要持續的時間超過 Pod 的生命週期
@@ -143,7 +143,7 @@ The [Cert-Manager CSI Driver](https://github.com/cert-manager/csi-driver) works 
 支持 `Ephemeral` 卷生命週期模式的兩個現有 CSI 驅動是 Secrets Store CSI 驅動和 Cert-Manager CSI 驅動。
 
 [Secrets Store CSI Driver](https://github.com/kubernetes-sigs/secrets-store-csi-driver)
-允許用戶將 Secret 作爲內聯卷從外部掛載到一個 Pod 中。
+允許使用者將 Secret 作爲內聯卷從外部掛載到一個 Pod 中。
 當密鑰存儲在外部管理服務或 Vault 實例中時，這可能很有用。
 
 [Cert-Manager CSI Driver](https://github.com/cert-manager/csi-driver) 與 [cert-manager](https://cert-manager.io/) 協同工作，
@@ -160,10 +160,10 @@ Cluster administrators may choose to omit (or remove) `Ephemeral` from `volumeLi
 ## 安全考慮因素
 
 應特別考慮哪些 CSI 驅動可作爲內聯卷使用。
-`volumeAttributes` 通常通過 `StorageClass` 控制，並可能包含應限制給集羣管理員的屬性。
-允許 CSI 驅動用於內聯臨時卷意味着任何有權限創建 Pod 的用戶也可以通過 Pod 規約向驅動提供 `volumeAttributes` 字段。
+`volumeAttributes` 通常通過 `StorageClass` 控制，並可能包含應限制給叢集管理員的屬性。
+允許 CSI 驅動用於內聯臨時卷意味着任何有權限創建 Pod 的使用者也可以通過 Pod 規約向驅動提供 `volumeAttributes` 字段。
 
-集羣管理員可以選擇從 CSIDriver 規約中的 `volumeLifecycleModes` 中省略（或刪除） `Ephemeral`，
+叢集管理員可以選擇從 CSIDriver 規約中的 `volumeLifecycleModes` 中省略（或刪除） `Ephemeral`，
 以防止驅動被用作內聯臨時卷，或者使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/) 來限制驅動的使用。
 
 <!--

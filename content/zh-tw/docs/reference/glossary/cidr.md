@@ -4,7 +4,7 @@ id: cidr
 date: 2019-11-12
 full_link: 
 short_description: >
-  CIDR 是一種描述 IP 地址塊的符號，被廣泛使用於各種網絡配置中。
+  CIDR 是一種描述 IP 地址塊的符號，被廣泛使用於各種網路設定中。
 
 aka:
 tags:
@@ -27,7 +27,7 @@ tags:
 CIDR (Classless Inter-Domain Routing) is a notation for describing blocks of IP addresses and is used heavily in various networking configurations.
 -->
 CIDR（無類域間路由，Classless Inter-Domain Routing）是一種描述
-IP 地址塊的符號，被廣泛使用於各種網絡配置中。
+IP 地址塊的符號，被廣泛使用於各種網路設定中。
 
 <!--more-->
 

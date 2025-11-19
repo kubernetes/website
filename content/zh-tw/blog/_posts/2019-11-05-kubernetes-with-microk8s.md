@@ -16,11 +16,11 @@ date: 2019-11-26
 <!--
 This article, the second in a [series](/blog/2019/03/28/running-kubernetes-locally-on-linux-with-minikube-now-with-kubernetes-1.14-support/) about local deployment options on Linux, and covers [MicroK8s](https://microk8s.io/). Microk8s is the click-and-run solution for deploying a Kubernetes cluster locally, originally developed by Canonical, the publisher of Ubuntu.
 -->
-本文是關於 Linux 上的本地部署選項[系列](https://twitter.com/idvoretskyi)的第二篇，涵蓋了 [MicroK8s](https://microk8s.io/)。Microk8s 是本地部署 Kubernetes 集羣的 'click-and-run' 方案，最初由 Ubuntu 的發佈者 Canonical 開發。
+本文是關於 Linux 上的本地部署選項[系列](https://twitter.com/idvoretskyi)的第二篇，涵蓋了 [MicroK8s](https://microk8s.io/)。Microk8s 是本地部署 Kubernetes 叢集的 'click-and-run' 方案，最初由 Ubuntu 的發佈者 Canonical 開發。
 <!--
 While Minikube usually spins up a local virtual machine (VM) for the Kubernetes cluster, MicroK8s doesn’t require a VM. It uses [snap](https://snapcraft.io/) packages, an application packaging and isolation technology.
 -->
-雖然 Minikube 通常爲 Kubernetes 集羣創建一個本地虛擬機（VM），但是 MicroK8s 不需要 VM。它使用[snap](https://snapcraft.io/) 包，這是一種應用程序打包和隔離技術。
+雖然 Minikube 通常爲 Kubernetes 叢集創建一個本地虛擬機（VM），但是 MicroK8s 不需要 VM。它使用[snap](https://snapcraft.io/) 包，這是一種應用程序打包和隔離技術。
 <!--
 This difference has its pros and cons. Here we’ll discuss a few of the interesting differences, and comparing the benefits of a VM based approach with the benefits of a non-VM approach. One of the first factors is cross-platform portability. While a Minikube VM is portable across operating systems - it supports not only Linux, but Windows, macOS, and even FreeBSD - Microk8s requires Linux, and only on those distributions [that support snaps](https://snapcraft.io/docs/installing-snapd). Most popular Linux distributions are supported. 
 -->
@@ -36,7 +36,7 @@ Finally, the projects appear to follow a different release cadence and strategy.
 <!--
 But wait, there’s more! Minikube and MicroK8s both started as single-node clusters. Essentially, they allow you to create a Kubernetes cluster with a single worker node. That is about to change - there’s an early alpha release of MicroK8s that includes clustering. With this capability, you can create Kubernetes clusters with as many worker nodes as you wish. This is effectively an un-opinionated option for creating a cluster - the developer must create the network connectivity between the nodes, as well as integrate with other infrastructure that may be required, like an external load-balancer. In summary, MicroK8s offers a quick and easy way to turn a handful of computers or VMs into a multi-node Kubernetes cluster. We’ll write more about this kind of architecture in a future article.
 -->
-但是等等，還有更多！Minikube 和 Microk8s 都是作爲單節點集羣啓動的。本質上來說，它們允許你用單個工作節點創建 Kubernetes 集羣。這種情況即將改變 - MicroK8s 早期的 alpha 版本包括集羣。有了這個能力，你可以創建正如你希望多的工作節點的 KUbernetes 集羣。對於創建集羣來說，這是一個沒有主見的選項 - 開發者在節點之間創建網絡連接和集成了其他所需要的基礎設施，比如一個外部的負載均衡。總的來說，MicroK8s 提供了一種快速簡易的方法，使得少量的計算機和虛擬機變成一個多節點的 Kubernetes 集羣。以後我們將撰寫更多這種體系結構的文章。
+但是等等，還有更多！Minikube 和 Microk8s 都是作爲單節點叢集啓動的。本質上來說，它們允許你用單個工作節點創建 Kubernetes 叢集。這種情況即將改變 - MicroK8s 早期的 alpha 版本包括叢集。有了這個能力，你可以創建正如你希望多的工作節點的 KUbernetes 叢集。對於創建叢集來說，這是一個沒有主見的選項 - 開發者在節點之間創建網路連接和集成了其他所需要的基礎設施，比如一個外部的負載均衡。總的來說，MicroK8s 提供了一種快速簡易的方法，使得少量的計算機和虛擬機變成一個多節點的 Kubernetes 叢集。以後我們將撰寫更多這種體系結構的文章。
 <!--
 ## Disclaimer
 
@@ -72,7 +72,7 @@ The command above installs a local single-node Kubernetes cluster in seconds. On
 
 You may verify the MicroK8s status with the following command:
 -->
-以上的命令將會在幾秒內安裝一個本地單節點的 Kubernetes 集羣。一旦命令執行結束，你的 Kubernetes 集羣將會啓動並運行。
+以上的命令將會在幾秒內安裝一個本地單節點的 Kubernetes 叢集。一旦命令執行結束，你的 Kubernetes 叢集將會啓動並運行。
 ```shell
 sudo microk8s.status
 ```
@@ -119,7 +119,7 @@ One of the biggest benefits of using Microk8s is the fact that it also supports 
 The full list of extensions can be checked by running the `microk8s.status` command:
 -->
 ## MicroK8s 插件
-使用 MicroK8s 其中最大的好處之一事實上是也支持各種各樣的插件和擴展。更重要的是它們是開箱即用的，用戶僅僅需要啓動它們。通過運行 `microk8s.status` 命令檢查出擴展的完整列表。
+使用 MicroK8s 其中最大的好處之一事實上是也支持各種各樣的插件和擴展。更重要的是它們是開箱即用的，使用者僅僅需要啓動它們。通過運行 `microk8s.status` 命令檢查出擴展的完整列表。
 ```
 sudo microk8s.status
 ```
@@ -153,7 +153,7 @@ It will be installed as a Kubernetes deployment:
 -->
 ## 安裝簡單的應用 
 
-在這篇指南中我將會用 NGINX 作爲一個示例應用程序（[官方 Docker Hub 鏡像](https://hub.docker.com/_/nginx)）。
+在這篇指南中我將會用 NGINX 作爲一個示例應用程序（[官方 Docker Hub 映像檔](https://hub.docker.com/_/nginx)）。
 
 ```shell
 kubectl create deployment nginx --image=nginx
@@ -175,7 +175,7 @@ kubectl get pods
 <!--
 Also, we can retrieve the full output of all available objects within our Kubernetes cluster:
 -->
-我們也可以檢索出 Kubernetes 集羣中所有可用對象的完整輸出。
+我們也可以檢索出 Kubernetes 叢集中所有可用對象的完整輸出。
 ```shell
 kubectl get all --all-namespaces
 ```
@@ -189,7 +189,7 @@ Uninstalling your microk8s cluster is so easy as uninstalling the snap:
 -->
 ## 卸載 MircroK8s
 
-卸載您的 microk8s 集羣與卸載 Snap 同樣便捷。
+卸載您的 microk8s 叢集與卸載 Snap 同樣便捷。
 ```shell
 sudo snap remove microk8s
 ```

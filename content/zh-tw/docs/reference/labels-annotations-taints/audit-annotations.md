@@ -25,7 +25,7 @@ The annotations apply to audit events. Audit events are different from objects i
 [Event API](/docs/reference/kubernetes-api/cluster-resources/event-v1/) (API group
 `events.k8s.io`).
 -->
-Kubernetes API 中不使用以下註解。當你在集羣中[啓用審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)時，
+Kubernetes API 中不使用以下註解。當你在叢集中[啓用審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)時，
 審計事件數據將使用 API 組 `audit.k8s.io` 中的 `Event` 寫入。此註解適用於審計事件。
 審計事件不同於 [Event API](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
 （API 組 `events.k8s.io`）中的對象。
@@ -179,7 +179,7 @@ for more information about this mechanism.
 
 例子：`apiserver.latency.k8s.io/apf-queue-wait: "100ns"`
 
-此註解記錄由於 API 服務器優先級機制，請求在隊列中等待的時間。
+此註解記錄由於 API 伺服器優先級機制，請求在隊列中等待的時間。
 
 有關此機制的更多信息，參見
 [API 優先級與公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)（APF）。
@@ -237,7 +237,7 @@ is using an invalid certificate that is missing `subjectAltNames`.
 Support for these certificates was disabled by default in Kubernetes 1.19,
 and removed in Kubernetes 1.23.
 -->
-此註解表示 Webhook 或聚合 API 服務器正在使用缺少 `subjectAltNames` 的無效證書。
+此註解表示 Webhook 或聚合 API 伺服器正在使用缺少 `subjectAltNames` 的無效證書。
 Kubernetes 1.19 已經默認禁用，且 Kubernetes 1.23 已經移除對這些證書的支持。
 
 <!--
@@ -272,7 +272,7 @@ is using an insecure certificate signed with a SHA-1 hash.
 Support for these insecure certificates is disabled by default in Kubernetes 1.24,
 and will be removed in a future release.
 -->
-此註解表示 Webhook 或聚合 API 服務器所使用的是使用 SHA-1 簽名的不安全證書。
+此註解表示 Webhook 或聚合 API 伺服器所使用的是使用 SHA-1 簽名的不安全證書。
 Kubernetes 1.24 已經默認禁用，並將在未來的版本中刪除對這些證書的支持。
 
 <!--
@@ -305,7 +305,7 @@ was configured with `failurePolicy: Fail`.
 由 Kubernetes v1.27 及更高版本使用。
 
 此註解表示 API 請求的准入策略驗證評估爲 false，
-或者當策略配置爲 `failurePolicy: Fail` 時驗證報錯。
+或者當策略設定爲 `failurePolicy: Fail` 時驗證報錯。
 
 <!--
 The value of the annotation is a JSON object. The `message` in the JSON

@@ -57,7 +57,7 @@ automatically manage the relationships.
 {{<glossary_tooltip text="UID" term_id="uid">}}。
 Kubernetes 自動爲一些對象的附屬資源設置屬主引用的值，
 這些對象包含 ReplicaSet、DaemonSet、Deployment、Job、CronJob、ReplicationController 等。
-你也可以通過改變這個字段的值，來手動配置這些關係。
+你也可以通過改變這個字段的值，來手動設定這些關係。
 然而，通常不需要這麼做，你可以讓 Kubernetes 自動管理附屬關係。
 
 <!--
@@ -81,8 +81,8 @@ prevents unauthorized users from delaying owner object deletion.
 `blockOwnerDeletion` 的值爲 `true`。
 你也可以手動設置 `blockOwnerDeletion` 字段的值，以控制哪些附屬對象會阻止垃圾收集。
 
-Kubernetes 准入控制器根據屬主的刪除權限控制用戶訪問，以便爲附屬資源更改此字段。
-這種控制機制可防止未經授權的用戶延遲屬主對象的刪除。
+Kubernetes 准入控制器根據屬主的刪除權限控制使用者訪問，以便爲附屬資源更改此字段。
+這種控制機制可防止未經授權的使用者延遲屬主對象的刪除。
 
 {{< note >}}
 <!--
@@ -103,17 +103,17 @@ You can check for that kind of Event by running
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`.
 -->
 根據設計，kubernetes 不允許跨名字空間指定屬主。
-名字空間範圍的附屬可以指定集羣範圍的或者名字空間範圍的屬主。
+名字空間範圍的附屬可以指定叢集範圍的或者名字空間範圍的屬主。
 名字空間範圍的屬主**必須**和該附屬處於相同的名字空間。
 如果名字空間範圍的屬主和附屬不在相同的名字空間，那麼該屬主引用就會被認爲是缺失的，
 並且當附屬的所有屬主引用都被確認不再存在之後，該附屬就會被刪除。
 
-集羣範圍的附屬只能指定集羣範圍的屬主。
-在 v1.20+ 版本，如果一個集羣範圍的附屬指定了一個名字空間範圍類型的屬主，
+叢集範圍的附屬只能指定叢集範圍的屬主。
+在 v1.20+ 版本，如果一個叢集範圍的附屬指定了一個名字空間範圍類型的屬主，
 那麼該附屬就會被認爲是擁有一個不可解析的屬主引用，並且它不能夠被垃圾回收。
 
 在 v1.20+ 版本，如果垃圾收集器檢測到無效的跨名字空間的屬主引用，
-或者一個集羣範圍的附屬指定了一個名字空間範圍類型的屬主，
+或者一個叢集範圍的附屬指定了一個名字空間範圍類型的屬主，
 那麼它就會報告一個警告事件。該事件的原因是 `OwnerRefInvalidNamespace`，
 `involvedObject` 屬性中包含無效的附屬。
 你可以運行 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`
@@ -136,10 +136,10 @@ bound to a Pod.
 -->
 ## 屬主關係與 Finalizer   {#ownership-and-finalizers}
 
-當你告訴 Kubernetes 刪除一個資源，API 服務器允許管理控制器處理該資源的任何
+當你告訴 Kubernetes 刪除一個資源，API 伺服器允許管理控制器處理該資源的任何
 [Finalizer 規則](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
 {{<glossary_tooltip text="Finalizer" term_id="finalizer">}}
-防止意外刪除你的集羣所依賴的、用於正常運作的資源。
+防止意外刪除你的叢集所依賴的、用於正常運作的資源。
 例如，如果你試圖刪除一個仍被 Pod 使用的 `PersistentVolume`，該資源不會被立即刪除，
 因爲 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/) 有
 `kubernetes.io/pv-protection` Finalizer。

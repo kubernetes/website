@@ -1,5 +1,5 @@
 ---
-title: 使用端口轉發來訪問集羣中的應用
+title: 使用端口轉發來訪問叢集中的應用
 content_type: task
 weight: 40
 min-kubernetes-server-version: v1.10
@@ -18,7 +18,7 @@ This page shows how to use `kubectl port-forward` to connect to a MongoDB
 server running in a Kubernetes cluster. This type of connection can be useful
 for database debugging.
 -->
-本文展示如何使用 `kubectl port-forward` 連接到在 Kubernetes 集羣中運行的 MongoDB 服務。
+本文展示如何使用 `kubectl port-forward` 連接到在 Kubernetes 叢集中運行的 MongoDB 服務。
 這種類型的連接對數據庫調試很有用。
 
 ## {{% heading "prerequisites" %}}
@@ -114,7 +114,7 @@ for database debugging.
 <!--
 2. Create a Service to expose MongoDB on the network:
 -->
-2. 創建一個在網絡上公開的 MongoDB 服務：
+2. 創建一個在網路上公開的 MongoDB 服務：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-service.yaml
@@ -250,7 +250,7 @@ for database debugging.
 <!--
 2. Start the MongoDB command line interface:
 -->
-2. 啓動 MongoDB 命令行接口：
+2. 啓動 MongoDB 命令列接口：
 
    ```shell
    mongosh --port 28015
@@ -259,7 +259,7 @@ for database debugging.
 <!--
 3. At the MongoDB command line prompt, enter the `ping` command:
 -->
-3. 在 MongoDB 命令行提示符下，輸入 `ping` 命令：
+3. 在 MongoDB 命令列提示符下，輸入 `ping` 命令：
 
    ```
    db.runCommand( { ping: 1 } )
@@ -314,7 +314,7 @@ local workstation to debug the database that is running in the Pod.
 -->
 ## 討論  {#discussion}
 
-與本地 28015 端口建立的連接將被轉發到運行 MongoDB 服務器的 Pod 的 27017 端口。
+與本地 28015 端口建立的連接將被轉發到運行 MongoDB 伺服器的 Pod 的 27017 端口。
 通過此連接，你可以使用本地工作站來調試在 Pod 中運行的數據庫。
 
 {{< note >}}

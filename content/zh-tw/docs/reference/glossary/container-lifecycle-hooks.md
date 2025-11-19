@@ -4,7 +4,7 @@ id: container-lifecycle-hooks
 date: 2018-10-08
 full_link: /zh-cn/docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
-  生命週期鉤子暴露容器管理生命週期中的事件，允許用戶在事件發生時運行代碼。
+  生命週期鉤子暴露容器管理生命週期中的事件，允許使用者在事件發生時運行代碼。
 
 aka: 
 tags:
@@ -27,7 +27,7 @@ tags:
   The lifecycle hooks expose events in the {{< glossary_tooltip text="Container" term_id="container" >}} management lifecycle and let the user run code when the events occur.
   -->
   生命週期鉤子（Lifecycle Hooks）暴露{{< glossary_tooltip text="容器" term_id="container" >}}管理生命週期中的事件，
-  允許用戶在事件發生時運行代碼。
+  允許使用者在事件發生時運行代碼。
 
 <!--more--> 
 

@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ComponentStatus"
 content_type: "api_reference"
-description: "ComponentStatus（和 ComponentStatusList）保存集羣檢驗信息。"
+description: "ComponentStatus（和 ComponentStatusList）保存叢集檢驗信息。"
 title: "ComponentStatus"
 weight: 2
 ---
@@ -28,7 +28,7 @@ auto_generated: true
 <!--
 ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
 -->
-ComponentStatus（和 ComponentStatusList）保存集羣檢驗信息。
+ComponentStatus（和 ComponentStatusList）保存叢集檢驗信息。
 已廢棄：該 API 在 v1.19 及更高版本中廢棄。
 
 <hr>

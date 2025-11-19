@@ -23,7 +23,7 @@ application is MySQL.
 -->
 * 在你的環境中創建一個引用磁盤的 PersistentVolume。
 * 創建一個 MySQL Deployment。
-* 在集羣內以一個已知的 DNS 名稱將 MySQL 暴露給其他 Pod。
+* 在叢集內以一個已知的 DNS 名稱將 MySQL 暴露給其他 Pod。
 
 ## {{% heading "prerequisites" %}}
 
@@ -55,7 +55,7 @@ Note: The password is defined in the config yaml, and this is insecure. See
 [Kubernetes Secrets](/docs/concepts/configuration/secret/)
 for a secure solution.
 -->
-注意：在配置的 YAML 文件中定義密碼的做法是不安全的。具體安全解決方案請參考
+注意：在設定的 YAML 文件中定義密碼的做法是不安全的。具體安全解決方案請參考
 [Kubernetes Secrets](/zh-cn/docs/concepts/configuration/secret/)。
 
 {{% code_sample file="application/mysql/mysql-deployment.yaml" %}}
@@ -191,11 +191,11 @@ Run a MySQL client to connect to the server:
 -->
 ## 訪問 MySQL 實例   {#accessing-the-mysql-instance}
 
-前面 YAML 文件中創建了一個允許集羣內其他 Pod 訪問的數據庫 Service。該 Service 中選項
+前面 YAML 文件中創建了一個允許叢集內其他 Pod 訪問的數據庫 Service。該 Service 中選項
 `clusterIP: None` 讓 Service 的 DNS 名稱直接解析爲 Pod 的 IP 地址。
 當在一個 Service 下只有一個 Pod 並且不打算增加 Pod 的數量這是最好的。
 
-運行 MySQL 客戶端以連接到服務器：
+運行 MySQL 客戶端以連接到伺服器：
 
 ```shell
 kubectl run -it --rm --image=mysql:9 --restart=Never mysql-client -- mysql -h mysql -ppassword
@@ -206,7 +206,7 @@ This command creates a new Pod in the cluster running a MySQL client
 and connects it to the server through the Service. If it connects, you
 know your stateful MySQL database is up and running.
 -->
-此命令在集羣內創建一個新的 Pod 並運行 MySQL 客戶端，並通過 Service 連接到服務器。
+此命令在叢集內創建一個新的 Pod 並運行 MySQL 客戶端，並通過 Service 連接到伺服器。
 如果連接成功，你就知道有狀態的 MySQL 數據庫正處於運行狀態。
 
 ```
@@ -225,7 +225,7 @@ specific to stateful apps:
 -->
 ## 更新   {#updating}
 
-Deployment 中鏡像或其他部分同往常一樣可以通過 `kubectl apply` 命令更新。
+Deployment 中映像檔或其他部分同往常一樣可以通過 `kubectl apply` 命令更新。
 以下是特定於有狀態應用的一些注意事項：
 
 <!--
@@ -240,11 +240,11 @@ Deployment 中鏡像或其他部分同往常一樣可以通過 `kubectl apply` �
   first pod before creating a new one with the updated configuration.
 -->
 * 不要對應用進行規模擴縮。這裏的設置僅適用於單實例應用。下層的 PersistentVolume
-  僅只能掛載到一個 Pod 上。對於集羣級有狀態應用，請參考
+  僅只能掛載到一個 Pod 上。對於叢集級有狀態應用，請參考
   [StatefulSet 文檔](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 * 在 Deployment 的 YAML 文件中使用 `strategy:` `type: Recreate`。
   該選項指示 Kubernetes **不**使用滾動升級。滾動升級無法工作，因爲這裏一次不能運行多個
-  Pod。在使用更新的配置文件創建新的 Pod 前，`Recreate` 策略將保證先停止第一個 Pod。
+  Pod。在使用更新的設定文件創建新的 Pod 前，`Recreate` 策略將保證先停止第一個 Pod。
 
 <!--
 ## Deleting a deployment

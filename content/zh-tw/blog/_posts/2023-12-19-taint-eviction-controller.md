@@ -93,13 +93,13 @@ Please refer to the [feature gate document](/docs/reference/command-line-tools-r
 When this feature is enabled, users can optionally disable taint-based eviction by setting `--controllers=-taint-eviction-controller`
 in kube-controller-manager. 
 -->
-當這項特性啓用時，用戶可以通過在 `kube-controller-manager` 通過手動設置
+當這項特性啓用時，使用者可以通過在 `kube-controller-manager` 通過手動設置
 `--controllers=-taint-eviction-controller` 的方式來禁用基於污點的驅逐功能。
 
 <!-- 
 To disable the new feature and use the old taint-manager within node-lifecylecycle-controller , users can set the feature gate `SeparateTaintEvictionController=false`. 
 -->
-如果想禁用該特性並在節點生命週期中使用舊版本污點管理器，用戶可以通過設置 `SeparateTaintEvictionController=false` 來禁用。
+如果想禁用該特性並在節點生命週期中使用舊版本污點管理器，使用者可以通過設置 `SeparateTaintEvictionController=false` 來禁用。
 
 <!-- 
 ## Use cases 
@@ -112,7 +112,7 @@ taint-eviction-controller and even replace the default taint-eviction-controller
 custom implementation to meet different needs. An example is to better support
 stateful workloads that use PersistentVolume on local disks. 
 -->
-該特性將允許集羣管理員擴展、增強默認的污點驅逐控制器，並且可以使用自定義的實現方式替換默認的污點驅逐控制器以滿足不同的需要。
+該特性將允許叢集管理員擴展、增強默認的污點驅逐控制器，並且可以使用自定義的實現方式替換默認的污點驅逐控制器以滿足不同的需要。
 例如：更好地支持在本地磁盤的持久卷中的有狀態工作負載。
 
 <!-- 

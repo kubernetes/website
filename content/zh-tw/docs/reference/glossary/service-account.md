@@ -39,7 +39,7 @@ tags:
 <!--
 When processes inside Pods access the cluster, they are authenticated by the API server as a particular service account, for example, `default`. When you create a Pod, if you do not specify a service account, it is automatically assigned the default service account in the same {{< glossary_tooltip text="Namespace" term_id="namespace" >}}.
 -->
-當 Pod 中的進程訪問集羣時，API 服務器將它們作爲特定的服務帳戶進行身份驗證，
+當 Pod 中的進程訪問叢集時，API 伺服器將它們作爲特定的服務帳戶進行身份驗證，
 例如  `default` ，創建 Pod 時，如果你沒有指定服務帳戶，它將自動被賦予同一個
 {{< glossary_tooltip text="名字空間" term_id="namespace" >}}中的 default 服務賬戶。
 

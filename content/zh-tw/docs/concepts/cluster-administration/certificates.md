@@ -14,5 +14,5 @@ weight: 20
 <!--
 To learn how to generate certificates for your cluster, see [Certificates](/docs/tasks/administer-cluster/certificates/).
 -->
-要了解如何爲集羣生成證書，參閱[證書](/zh-cn/docs/tasks/administer-cluster/certificates/)。
+要了解如何爲叢集生成證書，參閱[證書](/zh-cn/docs/tasks/administer-cluster/certificates/)。
 

@@ -35,7 +35,7 @@ Check [Bound Service Account Tokens](https://github.com/kubernetes/enhancements/
 for more details.
 -->
 將 ServiceAccount 卷遷移到使用由
-ServiceAccountTokenVolumeProjection 組成的投射卷。集羣管理員可以使用
+ServiceAccountTokenVolumeProjection 組成的投射卷。叢集管理員可以使用
 `serviceaccount_stale_tokens_total` 指標來監控依賴於擴展令牌的工作負載。
 如果沒有這樣的工作負載，你可以在啓動 `kube-apiserver` 時添加
 `--service-account-extend-token-expiration=false` 標誌來關閉擴展令牌。

@@ -30,7 +30,7 @@ Kubernetes 已被廣泛使用，許多組織將其用作事實上的編排引擎
 <!--
 Therefore, proper scheduling of the pods is key to ensuring that application pods are up and running within the Kubernetes cluster without any issues. This article delves into the use cases around resource management by leveraging the [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) object to protect mission-critical or high-priority pods from getting evicted and making sure that the application pods are up, running, and serving traffic.
 -->
-因此，是否能對 Pod 進行合適的調度是確保應用 Pod 在 Kubernetes 集羣中正常啓動並運行的關鍵。
+因此，是否能對 Pod 進行合適的調度是確保應用 Pod 在 Kubernetes 叢集中正常啓動並運行的關鍵。
 本文深入探討圍繞資源管理的使用場景，利用 [PriorityClass](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
 對象來保護關鍵或高優先級 Pod 免遭驅逐並確保應用 Pod 正常啓動、運行以及提供流量服務。
 
@@ -103,16 +103,16 @@ Below are some real-life scenarios where control over the scheduling and evictio
 3. A third example could be a microservice backed by a queuing application or a database running into a resource crunch and the queue or database getting evicted. In such a case, all the other services would be rendered useless until the database can serve traffic again.
 -->
 1. 假設你計劃部署的 Pod 很關鍵，並且你有一些資源限制。比如 Grafana Loki 等基礎設施組件的 DaemonSet。
-   Loki Pod 必須先於每個節點上的其他 Pod 運行。在這種情況下，你可以通過手動識別並刪除不需要的 Pod 或向集羣添加新節點來確保資源可用性。
+   Loki Pod 必須先於每個節點上的其他 Pod 運行。在這種情況下，你可以通過手動識別並刪除不需要的 Pod 或向叢集添加新節點來確保資源可用性。
    但是這兩種方法都不合適，因爲前者執行起來很乏味，而後者可能需要花費時間和金錢。
 
-2. 另一個使用場景是包含若干 Pod 的單個集羣，其中對於以下環境有着不同的優先級 ：
+2. 另一個使用場景是包含若干 Pod 的單個叢集，其中對於以下環境有着不同的優先級 ：
    - 生產環境（`prod`）：最高優先級
    - 預生產環境（`preprod`）：中等優先級
    - 開發環境（`dev`）：最低優先級
 
-   當集羣資源消耗較高時，節點上會出現 CPU 和內存資源的競爭。雖然集羣自動縮放可能會添加更多節點，但這需要時間。
-   在此期間，如果沒有更多節點來擴展集羣，某些 Pod 可能會保持 Pending 狀態，或者服務可能會因爭奪資源而被降級。
+   當叢集資源消耗較高時，節點上會出現 CPU 和內存資源的競爭。雖然叢集自動縮放可能會添加更多節點，但這需要時間。
+   在此期間，如果沒有更多節點來擴展叢集，某些 Pod 可能會保持 Pending 狀態，或者服務可能會因爭奪資源而被降級。
    如果 kubelet 決定從節點中驅逐一個 Pod，那麼該驅逐將是隨機的，因爲 kubelet 不具有關於要驅逐哪些 Pod 以及要保留哪些 Pod 的任何特殊信息。
 
 3. 第三個示例是後端存在隊列或數據庫的微服務，當遇到資源緊縮並且隊列或數據庫被驅逐。
@@ -131,21 +131,21 @@ There can also be other scenarios where you want to control the order of schedul
 <!--
 PriorityClass is a cluster-wide API object in Kubernetes and part of the `scheduling.k8s.io/v1` API group. It contains a mapping of the PriorityClass name (defined in `.metadata.name`) and an integer value (defined in `.value`). This represents the value that the scheduler uses to determine Pod's relative priority.
 -->
-PriorityClass 是 Kubernetes 中集羣範圍的 API 對象，也是 `scheduling.k8s.io/v1` API 組的一部分。
+PriorityClass 是 Kubernetes 中叢集範圍的 API 對象，也是 `scheduling.k8s.io/v1` API 組的一部分。
 它包含 PriorityClass 名稱（在 `.metadata.name` 中定義）和一個整數值（在 `.value` 中定義）之間的映射。
 整數值表示調度程序用來確定 Pod 相對優先級的值。
 
 <!--
 Additionally, when you create a cluster using kubeadm or a managed Kubernetes service (for example, Azure Kubernetes Service), Kubernetes uses PriorityClasses to safeguard the pods that are hosted on the control plane nodes. This ensures that critical cluster components such as CoreDNS and kube-proxy can run even if resources are constrained.
 -->
-此外，當你使用 kubeadm 或託管 Kubernetes 服務（例如 Azure Kubernetes Service）創建集羣時，
+此外，當你使用 kubeadm 或託管 Kubernetes 服務（例如 Azure Kubernetes Service）創建叢集時，
 Kubernetes 使用 PriorityClass 來保護控制平面節點上託管的 Pod。這種設置可以確保即使資源有限，
-CoreDNS 和 kube-proxy 等關鍵集羣組件仍然可以運行。
+CoreDNS 和 kube-proxy 等關鍵叢集組件仍然可以運行。
 
 <!--
 This availability of pods is achieved through the use of a special PriorityClass that ensures the pods are up and running and that the overall cluster is not affected.
 -->
-Pod 的這種可用性是通過使用特殊的 PriorityClass 來實現的，該 PriorityClass 可確保 Pod 正常運行並且整個集羣不受影響。
+Pod 的這種可用性是通過使用特殊的 PriorityClass 來實現的，該 PriorityClass 可確保 Pod 正常運行並且整個叢集不受影響。
 
 ```console
 $ kubectl get priorityclass
@@ -173,15 +173,15 @@ The diagram below shows exactly how it works with the help of an example, which 
 [Pod preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption) is a Kubernetes feature that allows the cluster to preempt pods (removing an existing Pod in favor of a new Pod) on the basis of priority. [Pod priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority) indicates the importance of a pod relative to other pods while scheduling. If there aren't enough resources to run all the current pods, the scheduler tries to evict lower-priority pods over high-priority ones.
 -->
 [Pod 搶佔](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)是 Kubernetes 的一項功能，
-允許集羣基於優先級搶佔 Pod（刪除現有 Pod 以支持新 Pod）。
+允許叢集基於優先級搶佔 Pod（刪除現有 Pod 以支持新 Pod）。
 [Pod 優先級](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)表示調度時 Pod 相對於其他 Pod 的重要性。
 如果沒有足夠的資源來運行當前所有 Pod，調度程序會嘗試驅逐優先級較低的 Pod，而不是優先級高的 Pod。
 
 <!--
 Also, when a healthy cluster experiences a node failure, typically, lower-priority pods get preempted to create room for higher-priority pods on the available node. This happens even if the cluster can bring up a new node automatically since pod creation is usually much faster than bringing up a new node.
 -->
-此外，當健康集羣遇到節點故障時，通常情況下，較低優先級的 Pod 會被搶佔，以便在可用節點上爲較高優先級的 Pod 騰出空間。
-即使集羣可以自動創建新節點，也會發生這種情況，因爲 Pod 創建通常比創建新節點快得多。
+此外，當健康叢集遇到節點故障時，通常情況下，較低優先級的 Pod 會被搶佔，以便在可用節點上爲較高優先級的 Pod 騰出空間。
+即使叢集可以自動創建新節點，也會發生這種情況，因爲 Pod 創建通常比創建新節點快得多。
 
 <!--
 ### PriorityClass requirements
@@ -191,7 +191,7 @@ Also, when a healthy cluster experiences a node failure, typically, lower-priori
 <!--
 Before you set up PriorityClasses, there are a few things to consider.
 -->
-在配置 PriorityClass 之前，需要考慮一些事項。
+在設定 PriorityClass 之前，需要考慮一些事項。
 
 <!--
 1. Decide which PriorityClasses are needed. For instance, based on environment, type of pods, type of applications, etc.
@@ -200,7 +200,7 @@ Before you set up PriorityClasses, there are a few things to consider.
 4. Make sure that the pods for your workloads are running with the right PriorityClass.
 -->
 1. 決定哪些 PriorityClass 是需要的。例如，基於環境、Pod 類型、應用類型等。
-2. 集羣中默認的 PriorityClass 資源。當 Pod 沒有設置 `priorityClassName` 時，優先級將被視爲 0。
+2. 叢集中默認的 PriorityClass 資源。當 Pod 沒有設置 `priorityClassName` 時，優先級將被視爲 0。
 3. 對所有 PriorityClass 使用一致的命名約定。
 4. 確保工作負載的 Pod 正在使用正確的 PriorityClass。
 
@@ -374,11 +374,11 @@ Below are some prerequisites for PriorityClasses:
 - 當你創建自己的 PriorityClass 時，名稱不應以 `system-` 開頭，因爲這類名稱是被 Kubernetes
   本身保留的（例如，它們被用於兩個內置的 PriorityClass）。
 - 其絕對值應在 -1000000000 到 1000000000（10 億）之間。
-- 較大的數值由 PriorityClass 保留，例如 `system-cluster-critical`（此 Pod 對集羣至關重要）以及 `system-node-critical`（節點嚴重依賴此 Pod）。
-  `system-node-critical` 的優先級高於 `system-cluster-critical`，因爲集羣級別關鍵 Pod 只有在其運行的節點滿足其所有節點級別關鍵要求時才能正常工作。
+- 較大的數值由 PriorityClass 保留，例如 `system-cluster-critical`（此 Pod 對叢集至關重要）以及 `system-node-critical`（節點嚴重依賴此 Pod）。
+  `system-node-critical` 的優先級高於 `system-cluster-critical`，因爲叢集級別關鍵 Pod 只有在其運行的節點滿足其所有節點級別關鍵要求時才能正常工作。
 - 額外兩個可選字段：
   - `globalDefault`：當爲 true 時，此 PriorityClass 用於未設置 `priorityClassName` 的 Pod。
-    集羣中只能存在一個 `globalDefault` 設置爲 true 的 PriorityClass。
+    叢集中只能存在一個 `globalDefault` 設置爲 true 的 PriorityClass。
     如果沒有 PriorityClass 的 globalDefault 設置爲 true，則所有未定義 priorityClassName 的 Pod 都將被視爲 0 優先級（即最低優先級）。
   - `description`：具備有意義值的字符串，以便人們知道何時使用此 PriorityClass。
 
@@ -499,7 +499,7 @@ First update the previous production pod manifest file to have a PriorityClass a
 <!--
 In my cluster, when I tried this, here's what happened. First, that change seems successful; the status of pods has been updated:
 -->
-在我的集羣中，當我嘗試此操作時，發生了以下情況。首先，這種改變似乎是成功的；Pod 的狀態已被更新：
+在我的叢集中，當我嘗試此操作時，發生了以下情況。首先，這種改變似乎是成功的；Pod 的狀態已被更新：
 
 ```console
 $ kubectl get pods --show-labels
@@ -533,8 +533,8 @@ Normal    Started            pod/prod-nginx    Started container prod-nginx
 <!--
 When you set up PriorityClasses, they exist just how you defined them. However, people (and tools) that make changes to your cluster are free to set any PriorityClass, or to not set any PriorityClass at all. However, you can use other Kubernetes features to make sure that the priorities you wanted are actually applied.
 -->
-配置 PriorityClass 時，它們會按照你所定義的方式存在。
-但是，對集羣進行變更的人員（和工具）可以自由設置任意 PriorityClass，
+設定 PriorityClass 時，它們會按照你所定義的方式存在。
+但是，對叢集進行變更的人員（和工具）可以自由設置任意 PriorityClass，
 或者根本不設置任何 PriorityClass。然而，你可以使用其他 Kubernetes 功能來確保你想要的優先級被實際應用起來。
 
 <!--
@@ -543,13 +543,13 @@ As an alpha feature, you can define a [ValidatingAdmissionPolicy](/blog/2022/12/
 作爲一項 Alpha 級別功能，你可以定義一個 [ValidatingAdmissionPolicy](/blog/2022/12/20/validating-admission-policies-alpha/)
 和一個 ValidatingAdmissionPolicyBinding，例如，進入 `prod` 命名空間的 Pod 必須使用 `prod-pc` PriorityClass。
 通過另一個 ValidatingAdmissionPolicyBinding，你可以確保 `preprod` 命名空間使用 `preprod-pc` PriorityClass，依此類推。
-在*任何*集羣中，你可以使用外部項目，例如 [Kyverno](https://kyverno.io/) 或 [Gatekeeper](https://open-policy-agent.github.io/gatekeeper/) 通過驗證准入 Webhook 實施類似的控制。
+在*任何*叢集中，你可以使用外部項目，例如 [Kyverno](https://kyverno.io/) 或 [Gatekeeper](https://open-policy-agent.github.io/gatekeeper/) 通過驗證准入 Webhook 實施類似的控制。
 
 <!--
 However you do it, Kubernetes gives you options to make sure that the PriorityClasses are used how you wanted them to be, or perhaps just to [warn](https://open-policy-agent.github.io/gatekeeper/website/docs/violations/#warn-enforcement-action) users when they pick an unsuitable option.
 -->
 無論你如何操作，Kubernetes 都會爲你提供選項，確保 PriorityClass 的用法如你所願，
-或者只是當用戶選擇不合適的選項時做出[警告](https://open-policy-agent.github.io/gatekeeper/website/docs/violations/#warn-enforcement-action)。
+或者只是當使用者選擇不合適的選項時做出[警告](https://open-policy-agent.github.io/gatekeeper/website/docs/violations/#warn-enforcement-action)。
 
 <!--
 ## Summary
@@ -560,13 +560,13 @@ However you do it, Kubernetes gives you options to make sure that the PriorityCl
 The above example and its events show you what this feature of Kubernetes brings to the table, along with several scenarios where you can use this feature. To reiterate, this helps ensure that mission-critical pods are up and available to serve the traffic and, in the case of a resource crunch, determines cluster behavior.
 -->
 上面的示例及其事件向你展示了 Kubernetes 此功能帶來的好處，以及可以使用此功能的幾種場景。
-重申一下，這一機制有助於確保關鍵任務 Pod 啓動並可用於提供流量，並在資源緊張的情況下確定集羣行爲。
+重申一下，這一機制有助於確保關鍵任務 Pod 啓動並可用於提供流量，並在資源緊張的情況下確定叢集行爲。
 
 <!--
 It gives you some power to decide the order of scheduling and order of [preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption) for Pods. Therefore, you need to define the PriorityClasses sensibly. For example, if you have a cluster autoscaler to add nodes on demand, make sure to run it with the `system-cluster-critical` PriorityClass. You don't want to get in a situation where the autoscaler has been preempted and there are no new nodes coming online.
 -->
 它賦予你一定的權力來決定 Pod 的調度順序和[搶佔](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)順序。
-因此，你需要明智地定義 PriorityClass。例如，如果你有一個集羣自動縮放程序來按需添加節點，
+因此，你需要明智地定義 PriorityClass。例如，如果你有一個叢集自動縮放程序來按需添加節點，
 請確保使用 `system-cluster-critical` PriorityClass 運行它。你不希望遇到自動縮放器 Pod 被搶佔導致沒有新節點上線的情況。
 
 <!--

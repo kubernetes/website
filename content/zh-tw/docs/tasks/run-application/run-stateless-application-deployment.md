@@ -40,7 +40,7 @@ a Deployment that runs the nginx:1.14.2 Docker image:
 
 你可以通過創建一個 Kubernetes Deployment 對象來運行一個應用, 且你可以在一個
 YAML 文件中描述 Deployment。例如，下面這個 YAML 文件描述了一個運行 nginx:1.14.2
-Docker 鏡像的 Deployment：
+Docker 映像檔的 Deployment：
 
 {{% code_sample file="application/deployment.yaml" %}}
 
@@ -140,7 +140,7 @@ specifies that the deployment should be updated to use nginx 1.16.1.
 ## 更新 Deployment
 
 你可以通過應用一個新的 YAML 文件來更新 Deployment。下面的 YAML 文件指定該
-Deployment 鏡像更新爲 nginx 1.16.1。
+Deployment 映像檔更新爲 nginx 1.16.1。
 
 {{% code_sample file="application/deployment-update.yaml" %}}
 
@@ -233,7 +233,7 @@ added to Kubernetes, replicated applications were configured using a
 創建一個多副本應用首選方法是使用 Deployment，該 Deployment 內部將輪流使用 ReplicaSet。
 在 Deployment 和 ReplicaSet 被引入到 Kubernetes 之前，多副本應用通過
 [ReplicationController](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/)
-來配置。
+來設定。
 
 ## {{% heading "whatsnext" %}}
 

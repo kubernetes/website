@@ -54,7 +54,7 @@ https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeSpec" >}}">PersistentVolumeSpec</a>)
 
-  spec 定義了集羣所擁有的持久卷的規約。由管理員進行製備。更多信息：
+  spec 定義了叢集所擁有的持久卷的規約。由管理員進行製備。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistent-volumes
 
 <!--
@@ -268,7 +268,7 @@ PersistentVolumeSpec 是持久卷的規約。
 - **hostPath** (HostPathVolumeSource)
 
   hostPath 表示主機上的目錄，由開發或測試人員進行製備。hostPath 僅對單節點開發和測試有用！
-  不會以任何方式支持主機存儲（On-host storage），並且**不能用於**多節點集羣中。
+  不會以任何方式支持主機存儲（On-host storage），並且**不能用於**多節點叢集中。
   更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#hostpath
 
   <a name="HostPathVolumeSource"></a>
@@ -592,7 +592,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **cephfs.secretRef** (SecretReference)
 
-    secretRef 是可選的。secretRef 是針對用戶到身份認證 Secret 的引用，默認爲空。更多信息：
+    secretRef 是可選的。secretRef 是針對使用者到身份認證 Secret 的引用，默認爲空。更多信息：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
     <a name="SecretReference"></a>
@@ -608,7 +608,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **cephfs.user** (string)
 
-    user 是可選的。user 是 rados 用戶名，默認爲 admin。更多信息：
+    user 是可選的。user 是 rados 使用者名，默認爲 admin。更多信息：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
 <!--
@@ -1185,7 +1185,7 @@ PersistentVolumeSpec 是持久卷的規約。
 -->
 - **glusterfs** （GlusterfsPersistentVolumeSource）
 
-  glusterfs 表示關聯到主機並暴露給 Pod 的 Glusterfs 卷。由管理員配置。
+  glusterfs 表示關聯到主機並暴露給 Pod 的 Glusterfs 卷。由管理員設定。
   已棄用：glusterfs 已被棄用，且樹內 glusterfs 類型不再受支持。
   更多信息：https://examples.k8s.io/volumes/glusterfs/README.md
 
@@ -1405,12 +1405,12 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **nfs.path** (string)，必需
 
-    path 是由 NFS 服務器導出的路徑。更多信息：
+    path 是由 NFS 伺服器導出的路徑。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   - **nfs.server** (string)，必需
 
-    server 是 NFS 服務器的主機名或 IP 地址。更多信息：
+    server 是 NFS 伺服器的主機名或 IP 地址。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   - **nfs.readOnly** (boolean)
@@ -1558,7 +1558,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **quobyte.user** (string)
 
-    user 是將卷訪問映射到的用戶。默認爲 serivceaccount 用戶。
+    user 是將卷訪問映射到的使用者。默認爲 serivceaccount 使用者。
 
 <!--
 - **rbd** (RBDPersistentVolumeSource)
@@ -1591,7 +1591,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **rbd.image** (string)，必需
 
-    image 是 rados 鏡像名稱。更多信息：
+    image 是 rados 映像檔名稱。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   - **rbd.monitors** ([]string)，必需
@@ -1619,7 +1619,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **rbd.keyring** (string)
 
-    keyring 是給定用戶的密鑰環的路徑。默認爲 /etc/ceph/keyring。更多信息：
+    keyring 是給定使用者的密鑰環的路徑。默認爲 /etc/ceph/keyring。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
   
   <!--
@@ -1681,7 +1681,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **rbd.user** (string)
 
-    user 是 rados 用戶名。默認爲 admin。更多信息：
+    user 是 rados 使用者名。默認爲 admin。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
 <!--
@@ -1728,7 +1728,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **scaleIO.secretRef** (SecretReference)，必需
 
-    secretRef 引用包含 ScaleIO 用戶和其他敏感信息的 Secret。如果未提供此項，則 Login 操作將失敗。
+    secretRef 引用包含 ScaleIO 使用者和其他敏感信息的 Secret。如果未提供此項，則 Login 操作將失敗。
 
     <a name="SecretReference"></a>
     **SecretReference 表示對某 Secret 的引用，其中包含足夠的信息來訪問任何名字空間中的 Secret。**
@@ -1761,7 +1761,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **scaleIO.system** (string)，必需
 
-    system 是 ScaleIO 中所配置的存儲系統的名稱。
+    system 是 ScaleIO 中所設定的存儲系統的名稱。
 
   - **scaleIO.fsType** (string)
 
@@ -1770,7 +1770,7 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **scaleIO.protectionDomain** (string)
 
-    protectionDomain 是 ScaleIO 保護域（ScaleIO Protection Domain）的名稱，用於已配置的存儲。
+    protectionDomain 是 ScaleIO 保護域（ScaleIO Protection Domain）的名稱，用於已設定的存儲。
 
   - **scaleIO.readOnly** (boolean)
 
@@ -1920,11 +1920,11 @@ PersistentVolumeSpec 是持久卷的規約。
 
   - **vsphereVolume.storagePolicyID** (string)
 
-    storagePolicyID 是與 StoragePolicyName 關聯的基於存儲策略的管理（SPBM）配置文件 ID。
+    storagePolicyID 是與 StoragePolicyName 關聯的基於存儲策略的管理（SPBM）設定文件 ID。
 
   - **vsphereVolume.storagePolicyName** (string)
 
-    storagePolicyName 是基於存儲策略的管理（SPBM）配置文件名稱。
+    storagePolicyName 是基於存儲策略的管理（SPBM）設定文件名稱。
 
 ## PersistentVolumeStatus {#PersistentVolumeStatus}
 

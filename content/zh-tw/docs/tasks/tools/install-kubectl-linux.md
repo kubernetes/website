@@ -20,7 +20,7 @@ with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0
 and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
-kubectl 版本和集羣版本之間的差異必須在一個小版本號內。
+kubectl 版本和叢集版本之間的差異必須在一個小版本號內。
 例如：v{{< skew currentVersion >}} 版本的客戶端能與 v{{< skew currentVersionAddMinor -1 >}}、
 v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制面通信。
 用最新兼容版的 kubectl 有助於避免不可預見的問題。
@@ -473,7 +473,7 @@ kubectl version --client
 <!--
 ## Verify kubectl configuration
 -->
-## 驗證 kubectl 配置 {#verify-kubectl-configuration}
+## 驗證 kubectl 設定 {#verify-kubectl-configuration}
 
 {{< include "included/verify-kubectl.md" >}}
 
@@ -482,7 +482,7 @@ kubectl version --client
 
 ### Enable shell autocompletion
 -->
-## kubectl 的可選配置和插件 {#optional-kubectl-configurations}
+## kubectl 的可選設定和插件 {#optional-kubectl-configurations}
 
 ### 啓用 shell 自動補全功能 {#enable-shell-autocompletion}
 
@@ -507,7 +507,7 @@ kubectl 爲 Bash、Zsh、Fish 和 PowerShell 提供自動補全功能，可以�
 
 See [kuberc](/docs/reference/kubectl/kuberc) for more information.
 -->
-### 配置 kuberc  {#configure-kuberc}
+### 設定 kuberc  {#configure-kuberc}
 
 更多信息請參見 [kuberc](/zh-cn/docs/reference/kubectl/kuberc)。
 

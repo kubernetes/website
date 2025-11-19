@@ -6,7 +6,7 @@
 <!-- 
 Upload the kubeadm and kubelet configuration to a ConfigMap
 -->
-上傳 kubeadm 和 kubelet 配置到 ConfigMap 中。
+上傳 kubeadm 和 kubelet 設定到 ConfigMap 中。
 
 ```shell
 kubeadm init phase upload-config [flags]

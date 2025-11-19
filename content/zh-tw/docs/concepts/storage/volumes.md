@@ -39,7 +39,7 @@ Kubernetes **卷**爲 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 - durably storing data so that it stays available even if the Pod restarts or is replaced
 -->
 - 基於 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 或
-  {{< glossary_tooltip text="Secret" term_id="secret" >}} 填充配置文件
+  {{< glossary_tooltip text="Secret" term_id="secret" >}} 填充設定文件
 - 爲 Pod 提供一些臨時的塗銷空間
 - 在同一個 Pod 中的兩個不同容器之間共享文件系統
 - 在兩個不同的 Pod 之間共享文件系統（即使這些 Pod 運行在不同的節點上）
@@ -51,9 +51,9 @@ Kubernetes **卷**爲 {{< glossary_tooltip text="Pod" term_id="pod" >}}
   what namespace the Pod is running in)
 - providing read-only access to data in a different container image
 -->
-- 基於容器所在 Pod 的詳細信息，將配置信息傳遞給運行在容器中的應用
+- 基於容器所在 Pod 的詳細信息，將設定信息傳遞給運行在容器中的應用
   （例如告訴{{< glossary_tooltip text="邊車容器" term_id="sidecar-container" >}}：Pod 運行在哪個命名空間）
-- 以只讀權限訪問另一個容器鏡像中的數據
+- 以只讀權限訪問另一個容器映像檔中的數據
 
 <!--
 Data sharing can be between different local processes within a container, or between different containers,
@@ -149,12 +149,12 @@ Volumes are mounted at [specified paths](#using-subpath) within the container fi
 For each container defined within a Pod, you must independently specify where
 to mount each volume that the container uses.
 -->
-當 Pod 被啓動時，容器中的進程看到的文件系統視圖是由它們的{{< glossary_tooltip text="容器鏡像" term_id="image" >}}
+當 Pod 被啓動時，容器中的進程看到的文件系統視圖是由它們的{{< glossary_tooltip text="容器映像檔" term_id="image" >}}
 的初始內容以及掛載在容器中的卷（如果定義了的話）所組成的。
-其中根文件系統同容器鏡像的內容相吻合。
+其中根文件系統同容器映像檔的內容相吻合。
 任何在該文件系統下的寫入操作，如果被允許的話，都會影響接下來容器中進程訪問文件系統時所看到的內容。
-卷被掛載在鏡像中的[指定路徑](#using-subpath)下。
-Pod 配置中的每個容器必須獨立指定各個卷的掛載位置。
+卷被掛載在映像檔中的[指定路徑](#using-subpath)下。
+Pod 設定中的每個容器必須獨立指定各個卷的掛載位置。
 
 <!--
 Volumes cannot mount within other volumes (but see [Using subPath](#using-subpath)
@@ -307,7 +307,7 @@ The data stored in a ConfigMap can be referenced in a volume of type
 `configMap` and then consumed by containerized applications running in a pod.
 -->
 [`configMap`](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
-卷提供了向 Pod 注入配置數據的方法。
+卷提供了向 Pod 注入設定數據的方法。
 ConfigMap 對象中存儲的數據可以被 `configMap` 類型的卷引用，然後被 Pod 中運行的容器化應用使用。
 
 <!--
@@ -318,7 +318,7 @@ the `log-config` ConfigMap onto a Pod called `configmap-pod`:
 -->
 引用 configMap 對象時，你可以在卷中通過它的名稱來引用。
 你可以自定義 ConfigMap 中特定條目所要使用的路徑。
-下面的配置顯示瞭如何將名爲 `log-config` 的 ConfigMap 掛載到名爲 `configmap-pod`
+下面的設定顯示瞭如何將名爲 `log-config` 的 ConfigMap 掛載到名爲 `configmap-pod`
 的 Pod 中：
 
 ```yaml
@@ -433,7 +433,7 @@ Some uses for an `emptyDir` are:
 
 * 緩存空間，例如基於磁盤的歸併排序。
 * 爲耗時較長的計算任務提供檢查點，以便任務能方便地從崩潰前狀態恢復執行。
-* 在 Web 服務器容器服務數據時，保存內容管理器容器獲取的文件。
+* 在 Web 伺服器容器服務數據時，保存內容管理器容器獲取的文件。
 
 <!--
 The `emptyDir.medium` field controls where `emptyDir` volumes are stored. By
@@ -445,7 +445,7 @@ disks, files you write count against the memory limit of the container that wrot
 -->
 `emptyDir.medium` 字段用來控制 `emptyDir` 卷的存儲位置。
 默認情況下，`emptyDir` 卷存儲在該節點所使用的介質上；
-此處的介質可以是磁盤、SSD 或網絡存儲，這取決於你的環境。
+此處的介質可以是磁盤、SSD 或網路存儲，這取決於你的環境。
 你可以將 `emptyDir.medium` 字段設置爲 `"Memory"`，
 以告訴 Kubernetes 爲你掛載 tmpfs（基於 RAM 的文件系統）。
 雖然 tmpfs 速度非常快，但是要注意它與磁盤不同，
@@ -461,7 +461,7 @@ If no size is specified, memory-backed volumes are sized to node allocatable mem
 -->
 你可以通過爲默認介質指定大小限制，來限制 `emptyDir` 卷的存儲容量。
 此存儲是從[節點臨時存儲](/zh-cn/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage)中分配的。
-如果來自其他來源（如日誌文件或鏡像分層數據）的數據佔滿了存儲，`emptyDir`
+如果來自其他來源（如日誌文件或映像檔分層數據）的數據佔滿了存儲，`emptyDir`
 可能會在達到此限制之前發生存儲容量不足的問題。
 
 <!--
@@ -482,7 +482,7 @@ for points to note in terms of resource management when using memory-backed `emp
 <!--
 #### emptyDir configuration example
 -->
-#### emptyDir 配置示例
+#### emptyDir 設定示例
 
 ```yaml
 apiVersion: v1
@@ -505,7 +505,7 @@ spec:
 <!--
 #### emptyDir memory configuration example
 -->
-#### emptyDir 內存配置示例
+#### emptyDir 內存設定示例
 
 ```yaml
 apiVersion: v1
@@ -537,7 +537,7 @@ targetWWNs expect that those WWNs are from multi-path connections.
 ### fc（光纖通道） {#fc}
 
 `fc` 卷類型允許將現有的光纖通道塊存儲卷掛載到 Pod 中。
-可以使用卷配置中的參數 `targetWWNs` 來指定單個或多個目標 WWN（World Wide Names）。
+可以使用卷設定中的參數 `targetWWNs` 來指定單個或多個目標 WWN（World Wide Names）。
 如果指定了多個 WWN，targetWWNs 期望這些 WWN 來自多路徑連接。
 
 {{< note >}}
@@ -545,7 +545,7 @@ targetWWNs expect that those WWNs are from multi-path connections.
 You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to the target WWNs
 beforehand so that Kubernetes hosts can access them.
 -->
-你必須配置 FC SAN Zoning，以便預先向目標 WWN 分配和屏蔽這些 LUN（卷），這樣
+你必須設定 FC SAN Zoning，以便預先向目標 WWN 分配和屏蔽這些 LUN（卷），這樣
 Kubernetes 主機纔可以訪問它們。
 {{< /note >}}
 
@@ -604,7 +604,7 @@ You can use the following Common Expression Language (CEL) expression as
 part of a policy to reject use of `gitRepo` volumes:
 -->
 你可以使用 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
-這類[策略](/zh-cn/docs/concepts/policy/)來限制在你的集羣中使用 `gitRepo` 卷。
+這類[策略](/zh-cn/docs/concepts/policy/)來限制在你的叢集中使用 `gitRepo` 卷。
 你可以使用以下通用表達語言（CEL）表達式作爲策略的一部分，以拒絕使用 `gitRepo` 卷：
 
 ```cel
@@ -619,7 +619,7 @@ enable the `GitRepoVolumeDriver`
 -->
 如果你明確啓用 `GitRepoVolumeDriver`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你可以在集羣中使用這個已廢棄的存儲插件。
+你可以在叢集中使用這個已廢棄的存儲插件。
 
 <!--
 A `gitRepo` volume is an example of a volume plugin. This plugin
@@ -719,8 +719,8 @@ or as read-write, because:
   usage will lead to disk pressure on the node.
 -->
 * 訪問主機文件系統可能會暴露特權系統憑證（例如 kubelet 的憑證）或特權 API（例如容器運行時套接字），
-  這些可以被用於容器逃逸或攻擊集羣的其他部分。
-* 具有相同配置的 Pod（例如基於 PodTemplate 創建的 Pod）可能會由於節點上的文件不同而在不同節點上表現出不同的行爲。
+  這些可以被用於容器逃逸或攻擊叢集的其他部分。
+* 具有相同設定的 Pod（例如基於 PodTemplate 創建的 Pod）可能會由於節點上的文件不同而在不同節點上表現出不同的行爲。
 * `hostPath` 卷的用量不會被視爲臨時存儲用量。
   你需要自己監控磁盤使用情況，因爲過多的 `hostPath` 磁盤使用量會導致節點上的磁盤壓力。
 {{< /warning >}}
@@ -739,7 +739,7 @@ Some uses for a `hostPath` are:
 
 * 運行一個需要訪問節點級系統組件的容器
   （例如一個將系統日誌傳輸到集中位置的容器，使用只讀掛載 `/var/log` 來訪問這些日誌）
-* 讓存儲在主機系統上的配置文件可以被{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}
+* 讓存儲在主機系統上的設定文件可以被{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}
   以只讀方式訪問；與普通 Pod 不同，靜態 Pod 無法訪問 ConfigMap。
 
 <!--
@@ -799,14 +799,14 @@ accessible by root. You then either need to run your process as root in a
 [privileged container](/docs/tasks/configure-pod-container/security-context/)
 or modify the file permissions on the host to read from or write to a `hostPath` volume.
 -->
-下層主機上創建的某些文件或目錄只能由 root 用戶訪問。
+下層主機上創建的某些文件或目錄只能由 root 使用者訪問。
 此時，你需要在[特權容器](/zh-cn/docs/tasks/configure-pod-container/security-context/)中以
 root 身份運行進程，或者修改主機上的文件權限，以便能夠從 `hostPath` 卷讀取數據（或將數據寫入到 `hostPath` 卷）。
 
 <!--
 #### hostPath configuration example
 -->
-#### hostPath 配置示例
+#### hostPath 設定示例
 
 {{< tabs name="hostpath_examples" >}}
 
@@ -929,7 +929,7 @@ spec:
 <!--
 #### hostPath FileOrCreate configuration example {#hostpath-fileorcreate-example}
 -->
-#### hostPath FileOrCreate 配置示例  {#hostpath-fileorcreate-example}
+#### hostPath FileOrCreate 設定示例  {#hostpath-fileorcreate-example}
 
 <!--
 The following manifest defines a Pod that mounts `/var/local/aaa`
@@ -1023,7 +1023,7 @@ artifact) which is available on the kubelet's host machine.
 
 An example of using the `image` volume source is:
 -->
-`image` 卷源代表一個在 kubelet 主機上可用的 OCI 對象（容器鏡像或工件）。
+`image` 卷源代表一個在 kubelet 主機上可用的 OCI 對象（容器映像檔或工件）。
 
 使用 `image` 卷源的一個例子是：
 
@@ -1053,8 +1053,8 @@ provided:
   `Failed` if the reference isn't present and the pull fails.
 -->
 `Never`
-: kubelet 從不拉取此引用，僅使用本地鏡像或工件。
-  如果本地沒有任何鏡像層存在，或者該鏡像的清單未被緩存，則 Pod 會變爲 `Failed`。
+: kubelet 從不拉取此引用，僅使用本地映像檔或工件。
+  如果本地沒有任何映像檔層存在，或者該映像檔的清單未被緩存，則 Pod 會變爲 `Failed`。
 
 `IfNotPresent`
 : 如果引用在磁盤上不存在，kubelet 會進行拉取。
@@ -1068,7 +1068,7 @@ and may add significant latency. Failures will be retried using normal volume
 backoff and will be reported on the pod reason and message.
 -->
 如果 Pod 被刪除並重新創建，此卷會被重新解析，這意味着在 Pod 重新創建時將可以訪問新的遠程內容。
-在 Pod 啓動期間解析或拉取鏡像失敗將導致容器無法啓動，並可能顯著增加延遲。
+在 Pod 啓動期間解析或拉取映像檔失敗將導致容器無法啓動，並可能顯著增加延遲。
 如果失敗，將使用正常的捲回退進行重試，並輸出 Pod 失敗的原因和相關消息。
 
 <!--
@@ -1079,7 +1079,7 @@ mounted in a single directory (`spec.containers[*].volumeMounts.mountPath`)
 and will be mounted read-only. On Linux, the container runtime typically also mounts the
 volume with file execution blocked (`noexec`).
 -->
-此卷可以掛載的對象類型由主機上的容器運行時實現負責定義，至少必須包含容器鏡像字段所支持的所有有效類型。
+此卷可以掛載的對象類型由主機上的容器運行時實現負責定義，至少必須包含容器映像檔字段所支持的所有有效類型。
 OCI 對象將以只讀方式被掛載到單個目錄（`spec.containers[*].volumeMounts.mountPath`）中。
 在 Linux 上，容器運行時通常還會掛載阻止文件執行（`noexec`）的卷。
 
@@ -1102,7 +1102,7 @@ Besides that:
   掛載（`spec.containers[*].volumeMounts.[subPath,subPathExpr]`）。
 - `spec.securityContext.fsGroupChangePolicy` 字段對這種卷沒有效果。
 - [`AlwaysPullImages` 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)也適用於此卷源，
-  就像適用於容器鏡像一樣。
+  就像適用於容器映像檔一樣。
 
 <!--
 The following fields are available for the `image` type:
@@ -1123,11 +1123,11 @@ The following fields are available for the `image` type:
 -->
 `reference`
 : 要使用的工件引用。例如，你可以指定 `registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}`
-  來加載 Kubernetes 合規性測試鏡像中的文件。其行爲與 `pod.spec.containers[*].image` 相同。
-  拉取 Secret 的組裝方式與容器鏡像所用的方式相同，即通過查找節點憑據、服務賬戶鏡像拉取 Secret
-  和 Pod 規約鏡像拉取 Secret。此字段是可選的，允許更高層次的配置管理在 Deployment 和
-  StatefulSet 這類工作負載控制器中默認使用或重載容器鏡像。
-  參閱[容器鏡像更多細節](/zh-cn/docs/concepts/containers/images)。
+  來加載 Kubernetes 合規性測試映像檔中的文件。其行爲與 `pod.spec.containers[*].image` 相同。
+  拉取 Secret 的組裝方式與容器映像檔所用的方式相同，即通過查找節點憑據、服務賬戶映像檔拉取 Secret
+  和 Pod 規約映像檔拉取 Secret。此字段是可選的，允許更高層次的設定管理在 Deployment 和
+  StatefulSet 這類工作負載控制器中默認使用或重載容器映像檔。
+  參閱[容器映像檔更多細節](/zh-cn/docs/concepts/containers/images)。
 
 <!--
 `pullPolicy`
@@ -1143,7 +1143,7 @@ example for more details on how to use the volume source.
   如果指定了 `:latest` 標記，則默認爲 `Always`，否則默認爲 `IfNotPresent`。
 
 有關如何使用卷源的更多細節，
-請參見 [Pod 使用鏡像卷](/zh-cn/docs/tasks/configure-pod-container/image-volumes)示例。
+請參見 [Pod 使用映像檔卷](/zh-cn/docs/tasks/configure-pod-container/image-volumes)示例。
 
 ### iscsi
 
@@ -1163,7 +1163,7 @@ that data can be shared between pods.
 <!--
 You must have your own iSCSI server running with the volume created before you can use it.
 -->
-在使用 iSCSI 卷之前，你必須擁有自己的 iSCSI 服務器，並在上面創建卷。
+在使用 iSCSI 卷之前，你必須擁有自己的 iSCSI 伺服器，並在上面創建卷。
 {{< /note >}}
 
 <!--
@@ -1173,7 +1173,7 @@ and then serve it in parallel from as many Pods as you need. Unfortunately,
 iSCSI volumes can only be mounted by a single consumer in read-write mode.
 Simultaneous writers are not allowed.
 -->
-iSCSI 的一個特點是它可以同時被多個用戶以只讀方式掛載。
+iSCSI 的一個特點是它可以同時被多個使用者以只讀方式掛載。
 這意味着你可以用數據集預先填充卷，然後根據需要在儘可能多的 Pod 上使用它。
 不幸的是，iSCSI 卷只能由單個使用者以讀寫模式掛載。不允許同時寫入。
 
@@ -1188,7 +1188,7 @@ provisioning is not supported.
 -->
 `local` 卷所代表的是某個被掛載的本地存儲設備，例如磁盤、分區或者目錄。
 
-`local` 卷只能用作靜態創建的持久卷。不支持動態配置。
+`local` 卷只能用作靜態創建的持久卷。不支持動態設定。
 
 <!--
 Compared to `hostPath` volumes, `local` volumes are used in a durable and
@@ -1196,7 +1196,7 @@ portable manner without manually scheduling pods to nodes. The system is aware
 of the volume's node constraints by looking at the node affinity on the PersistentVolume.
 -->
 與 `hostPath` 卷相比，`local` 卷能夠以持久和可移植的方式使用，而無需手動將 Pod
-調度到節點。系統通過查看 PersistentVolume 的節點親和性配置，就能瞭解卷的節點約束。
+調度到節點。系統通過查看 PersistentVolume 的節點親和性設定，就能瞭解卷的節點約束。
 
 <!--
 However, `local` volumes are subject to the availability of the underlying
@@ -1277,9 +1277,9 @@ provisioning yet. For an example on how to run an external local provisioner, se
 [local volume provisioner user guide](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 -->
 你可以在 Kubernetes 之外單獨運行靜態驅動以改進對 local 卷的生命週期管理。
-請注意，此驅動尚不支持動態配置。
+請注意，此驅動尚不支持動態設定。
 有關如何運行外部 `local` 卷驅動，請參考
-[local 卷驅動用戶指南](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)。
+[local 卷驅動使用者指南](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)。
 
 {{< note >}}
 <!--
@@ -1287,7 +1287,7 @@ The local PersistentVolume requires manual cleanup and deletion by the
 user if the external static provisioner is not used to manage the volume
 lifecycle.
 -->
-如果不使用外部靜態驅動來管理卷的生命週期，用戶需要手動清理和刪除 local 類型的持久卷。
+如果不使用外部靜態驅動來管理卷的生命週期，使用者需要手動清理和刪除 local 類型的持久卷。
 {{< /note >}}
 
 ### nfs
@@ -1300,7 +1300,7 @@ unmounted. This means that an NFS volume can be pre-populated with data, and
 that data can be shared between pods. NFS can be mounted by multiple
 writers simultaneously.
 -->
-`nfs` 卷能將 NFS (網絡文件系統) 掛載到你的 Pod 中。
+`nfs` 卷能將 NFS (網路文件系統) 掛載到你的 Pod 中。
 不像 `emptyDir` 那樣會在刪除 Pod 的同時也會被刪除，`nfs` 卷的內容在刪除 Pod
 時會被保存，卷只是被卸載。
 這意味着 `nfs` 卷可以被預先填充數據，並且這些數據可以在 Pod 之間共享。
@@ -1350,7 +1350,7 @@ are a way for users to "claim" durable storage (such as an iSCSI volume)
 without knowing the details of the particular cloud environment.
 -->
 `persistentVolumeClaim` 卷用來將[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)（PersistentVolume）掛載到 Pod 中。
-持久卷申領（PersistentVolumeClaim）是用戶在不知道特定雲環境細節的情況下“申領”持久存儲（例如 iSCSI 卷）的一種方法。
+持久卷申領（PersistentVolumeClaim）是使用者在不知道特定雲環境細節的情況下“申領”持久存儲（例如 iSCSI 卷）的一種方法。
 
 <!--
 See the information about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) for more
@@ -1450,7 +1450,7 @@ must be installed on the cluster.
 在 Kubernetes {{% skew currentVersion %}} 中，默認情況下，
 所有針對樹內 Portworx 卷的操作都會被重定向到 
 `pxd.portworx.com` 容器存儲接口（CSI）驅動。
-[Portworx CSI 驅動程序](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)必須安裝在集羣上。
+[Portworx CSI 驅動程序](https://docs.portworx.com/portworx-enterprise/operations/operate-kubernetes/storage-operations/csi)必須安裝在叢集上。
 
 <!--
 ### projected
@@ -1492,7 +1492,7 @@ backed by tmpfs (a RAM-backed filesystem) so they are never written to
 non-volatile storage.
 -->
 `secret` 卷用來給 Pod 傳遞敏感信息，例如密碼。你可以將 Secret 存儲在 Kubernetes
-API 服務器上，然後以文件的形式掛載到 Pod 中，無需直接與 Kubernetes 耦合。
+API 伺服器上，然後以文件的形式掛載到 Pod 中，無需直接與 Kubernetes 耦合。
 `secret` 卷由 tmpfs（基於 RAM 的文件系統）提供存儲，因此它們永遠不會被寫入非易失性（持久化的）存儲器。
 
 {{< note >}}
@@ -1512,7 +1512,7 @@ API 服務器上，然後以文件的形式掛載到 Pod 中，無需直接與 K
 <!--
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
 -->
-更多詳情請參考[配置 Secret](/zh-cn/docs/concepts/configuration/secret/)。
+更多詳情請參考[設定 Secret](/zh-cn/docs/concepts/configuration/secret/)。
 
 <!--
 ### vsphereVolume (deprecated) {#vspherevolume}
@@ -1561,8 +1561,8 @@ for production use.
 The PHP application's code and assets map to the volume's `html` folder and
 the MySQL database is stored in the volume's `mysql` folder. For example:
 -->
-下面例子展示瞭如何配置某包含 LAMP 堆棧（Linux Apache MySQL PHP）的 Pod 使用同一共享卷。
-此示例中的 `subPath` 配置不建議在生產環境中使用。
+下面例子展示瞭如何設定某包含 LAMP 堆棧（Linux Apache MySQL PHP）的 Pod 使用同一共享卷。
+此示例中的 `subPath` 設定不建議在生產環境中使用。
 PHP 應用的代碼和相關數據映射到卷的 `html` 文件夾，MySQL 數據庫存儲在卷的 `mysql` 文件夾中：
 
 ```yaml
@@ -1728,7 +1728,7 @@ extensions.
 For storage vendors looking to create an out-of-tree volume plugin, please refer
 to the [volume plugin FAQ](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md).
 -->
-CSI 和 FlexVolume 都允許獨立於 Kubernetes 代碼庫開發卷插件，並作爲擴展部署（安裝）在 Kubernetes 集羣上。
+CSI 和 FlexVolume 都允許獨立於 Kubernetes 代碼庫開發卷插件，並作爲擴展部署（安裝）在 Kubernetes 叢集上。
 
 對於希望創建樹外（Out-Of-Tree）卷插件的存儲供應商，
 請參考[卷插件常見問題](https://github.com/kubernetes/community/blob/master/sig-storage/volume-plugin-faq.md)。
@@ -1779,7 +1779,7 @@ A `csi` volume can be used in a Pod in three different ways:
 * with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
   if the driver supports that
 -->
-一旦在 Kubernetes 集羣上部署了 CSI 兼容卷驅動程序，用戶就可以使用
+一旦在 Kubernetes 叢集上部署了 CSI 兼容卷驅動程序，使用者就可以使用
 `csi` 卷類型來掛接、掛載 CSI 驅動所提供的卷。
 
 `csi` 卷可以在 Pod 中以三種方式使用：
@@ -1793,7 +1793,7 @@ A `csi` volume can be used in a Pod in three different ways:
 The following fields are available to storage administrators to configure a CSI
 persistent volume:
 -->
-存儲管理員可以使用以下字段來配置 CSI 持久卷：
+存儲管理員可以使用以下字段來設定 CSI 持久卷：
 
 <!--
 * `driver`: A string value that specifies the name of the volume driver to use.
@@ -1894,7 +1894,7 @@ persistent volume:
   該信息會傳遞給 CSI 驅動以完成 CSI `NodeExpandVolume` 調用。
   此字段是可選的，如果不需要 Secret，則可能是空的。
   如果 Secret 包含多個 Secret 條目，則傳遞所有 Secret 條目。
-  當你爲節點初始化的卷擴展配置 Secret 數據時，kubelet 會通過 `NodeExpandVolume()`
+  當你爲節點初始化的卷擴展設定 Secret 數據時，kubelet 會通過 `NodeExpandVolume()`
   調用將該數據傳遞給 CSI 驅動。所有受支持的 Kubernetes 版本都提供 `nodeExpandSecretRef` 字段，
   並且默認可用。Kubernetes v1.25 之前的版本不包括此支持。
   爲每個 kube-apiserver 和每個節點上的 kubelet 啓用名爲 `CSINodeExpandSecret`
@@ -1962,7 +1962,7 @@ persist across pod restarts. See
 [Ephemeral Volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)
 for more information.
 -->
-你可以直接在 Pod 規約中配置 CSI 卷。採用這種方式配置的卷都是臨時卷，
+你可以直接在 Pod 規約中設定 CSI 卷。採用這種方式設定的卷都是臨時卷，
 無法在 Pod 重新啓動後繼續存在。
 進一步的信息可參閱[臨時卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)。
 
@@ -2013,8 +2013,8 @@ As a result, operators do not have to make any
 configuration changes to existing Storage Classes, PersistentVolumes or PersistentVolumeClaims
 (referring to in-tree plugins) when transitioning to a CSI driver that supersedes an in-tree plugin.
 -->
-`CSIMigration` 特性針對現有樹內插件的操作會被定向到相應的 CSI 插件（應已安裝和配置）。
-因此，操作員在過渡到取代樹內插件的 CSI 驅動時，無需對現有存儲類、PV 或 PVC（指樹內插件）進行任何配置更改。
+`CSIMigration` 特性針對現有樹內插件的操作會被定向到相應的 CSI 插件（應已安裝和設定）。
+因此，操作員在過渡到取代樹內插件的 CSI 驅動時，無需對現有存儲類、PV 或 PVC（指樹內插件）進行任何設定更改。
 
 {{< note >}}
 <!--
@@ -2026,9 +2026,9 @@ As part of that migration, you - or another cluster administrator - **must** hav
 the appropriate CSI driver for that storage. The core of Kubernetes does not install that software for you.
 -->
 即使你針對這種卷完成了 CSI 遷移且你升級到不再內置對這種存儲類別的支持的 Kubernetes 版本，
-現有的由樹內卷插件所創建的 PV 在未來無需進行任何配置更改就可以使用，
+現有的由樹內卷插件所創建的 PV 在未來無需進行任何設定更改就可以使用，
 
-作爲遷移的一部分，你或其他集羣管理員**必須**安裝和配置適用於該存儲的 CSI 驅動。
+作爲遷移的一部分，你或其他叢集管理員**必須**安裝和設定適用於該存儲的 CSI 驅動。
 Kubernetes 不會爲你安裝該軟件。
 
 ---
@@ -2041,7 +2041,7 @@ to work, even for brand new volumes. The actual storage management now happens t
 the CSI driver.
 -->
 在完成遷移之後，你也可以定義新的 PVC 和 PV，引用原來的、內置的集成存儲。
-只要你安裝並配置了適當的 CSI 驅動，即使是全新的卷，PV 的創建仍然可以繼續工作。
+只要你安裝並設定了適當的 CSI 驅動，即使是全新的卷，PV 的創建仍然可以繼續工作。
 實際的存儲管理現在通過 CSI 驅動來進行。
 {{< /note >}}
 
@@ -2074,7 +2074,7 @@ volume plugin path on each node and in some cases the control plane nodes as wel
 Pods interact with FlexVolume drivers through the `flexVolume` in-tree volume plugin.
 -->
 FlexVolume 是一個使用基於 exec 的模型來與驅動程序對接的樹外插件接口。
-用戶必須在每個節點上的預定義卷插件路徑中安裝 FlexVolume
+使用者必須在每個節點上的預定義卷插件路徑中安裝 FlexVolume
 驅動程序可執行文件，在某些情況下，控制平面節點中也要安裝。
 
 Pod 通過 `flexvolume` 樹內插件與 FlexVolume 驅動程序交互。
@@ -2099,8 +2099,8 @@ Users of FlexVolume should move their workloads to use the equivalent CSI Driver
 -->
 FlexVolume 已被棄用。推薦使用樹外 CSI 驅動來將外部存儲整合進 Kubernetes。
 
-FlexVolume 驅動的維護者應開發一個 CSI 驅動並幫助用戶從 FlexVolume 驅動遷移到 CSI。
-FlexVolume 用戶應遷移工作負載以使用對等的 CSI 驅動。
+FlexVolume 驅動的維護者應開發一個 CSI 驅動並幫助使用者從 FlexVolume 驅動遷移到 CSI。
+FlexVolume 使用者應遷移工作負載以使用對等的 CSI 驅動。
 {{< /note >}}
 
 <!--
@@ -2175,7 +2175,7 @@ in `containers[*].volumeMounts`. Its values are:
 
   換句話說，如果主機在此掛載卷中掛載任何內容，容器將能看到它被掛載在那裏。
 
-  類似的，配置了 `Bidirectional` 掛載傳播選項的 Pod 如果在同一捲上掛載了內容，掛載傳播設置爲
+  類似的，設定了 `Bidirectional` 掛載傳播選項的 Pod 如果在同一捲上掛載了內容，掛載傳播設置爲
   `HostToContainer` 的容器都將能看到這一變化。
 
   該模式等同於 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)中描述的

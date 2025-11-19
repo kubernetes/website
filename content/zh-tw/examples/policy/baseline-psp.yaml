@@ -3,7 +3,7 @@ kind: PodSecurityPolicy
 metadata:
   name: baseline
   annotations:
-    # 可選：允許 default AppArmor 配置，需要設置 default 配置
+    # 可選：允許 default AppArmor 設定，需要設置 default 設定
     apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
     apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
@@ -32,7 +32,7 @@ spec:
     - 'projected'
     - 'secret'
     - 'downwardAPI'
-    # 假定集羣管理員設置的臨時 CSI 驅動和 persistentVolume 可以安全使用。
+    # 假定叢集管理員設置的臨時 CSI 驅動和 persistentVolume 可以安全使用。
     - 'csi'
     - 'persistentVolumeClaim'
     - 'ephemeral'

@@ -46,7 +46,7 @@ group for emails about security and major API announcements.
 We're extremely grateful for security researchers and users that report vulnerabilities to
 the Kubernetes Open Source Community. All reports are thoroughly investigated by a set of community volunteers.
 -->
-我們非常感謝向 Kubernetes 開源社區報告漏洞的安全研究人員和用戶。
+我們非常感謝向 Kubernetes 開源社區報告漏洞的安全研究人員和使用者。
 所有的報告都由社區志願者進行徹底調查。
 
 <!--
@@ -137,7 +137,7 @@ A public disclosure date is negotiated by the Kubernetes Security Response Commi
 We prefer to fully disclose the bug as soon as possible once a user mitigation is available.
 -->
 公開披露日期由 Kubernetes 安全響應委員會和 bug 提交者協商。
-我們傾向於在能夠爲用戶提供緩解措施之後儘快完全披露該 bug。
+我們傾向於在能夠爲使用者提供緩解措施之後儘快完全披露該 bug。
 
 <!--
 It is reasonable to delay disclosure when the bug or the fix is not yet fully understood,

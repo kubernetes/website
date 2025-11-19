@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/authorization/v1"
   kind: "LocalSubjectAccessReview"
 content_type: "api_reference"
-description: "LocalSubjectAccessReview 檢查用戶或組是否可以在給定的命名空間內執行某操作。"
+description: "LocalSubjectAccessReview 檢查使用者或組是否可以在給定的命名空間內執行某操作。"
 title: "LocalSubjectAccessReview"
 weight: 1
 ---
@@ -37,7 +37,7 @@ LocalSubjectAccessReview checks whether or not a user or group can perform an ac
 
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 -->
-LocalSubjectAccessReview 檢查用戶或組是否可以在給定的命名空間內執行某操作。
+LocalSubjectAccessReview 檢查使用者或組是否可以在給定的命名空間內執行某操作。
 劃分命名空間範圍的資源簡化了命名空間範圍的策略設置，例如權限檢查。
 
 <hr>
@@ -68,7 +68,7 @@ LocalSubjectAccessReview 檢查用戶或組是否可以在給定的命名空間�
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
   
-  status 由服務器填寫，表示請求是否被允許。
+  status 由伺服器填寫，表示請求是否被允許。
 
 <!--
 ## Operations {#Operations}

@@ -40,7 +40,7 @@ for the postStart and preStop events.
 <!--
 Here is the configuration file for the Pod:
 -->
-下面是對應 Pod 的配置文件：
+下面是對應 Pod 的設定文件：
 
 {{% code_sample file="pods/lifecycle-events.yaml" %}}
 
@@ -49,7 +49,7 @@ In the configuration file, you can see that the postStart command writes a `mess
 file to the Container's `/usr/share` directory. The preStop command shuts down
 nginx gracefully. This is helpful if the Container is being terminated because of a failure.
 -->
-在上述配置文件中，你可以看到 postStart 命令在容器的 `/usr/share` 目錄下寫入文件 `message`。
+在上述設定文件中，你可以看到 postStart 命令在容器的 `/usr/share` 目錄下寫入文件 `message`。
 命令 preStop 負責優雅地終止 nginx 服務。當因爲失效而導致容器終止時，這一處理方式很有用。
 
 <!--
@@ -91,7 +91,7 @@ root@lifecycle-demo:/# cat /usr/share/message
 <!--
 The output shows the text written by the postStart handler:
 -->
-命令行輸出的是 `postStart` 處理函數所寫入的文本：
+命令列輸出的是 `postStart` 處理函數所寫入的文本：
 
 ```
 Hello from the postStart handler

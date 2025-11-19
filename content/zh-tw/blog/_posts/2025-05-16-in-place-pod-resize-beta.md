@@ -49,13 +49,13 @@ Here's the core idea:
 核心思想如下：
 
 * Pod 規約中的 `spec.containers[*].resources` 字段現在代表**期望的**資源，並且對於 CPU 和內存是可變更的。
-* `status.containerStatuses[*].resources` 字段反映當前運行容器上已配置的**實際**資源。
+* `status.containerStatuses[*].resources` 字段反映當前運行容器上已設定的**實際**資源。
 * 你可以通過新的 `resize` 子資源更新 Pod 規約中的期望資源來觸發調整大小。
 
 <!--
 You can try it out on a v1.33 Kubernetes cluster by using kubectl to edit a Pod (requires `kubectl` v1.32+):
 -->
-你可以在 v1.33 的 Kubernetes 集羣上使用 kubectl 編輯
+你可以在 v1.33 的 Kubernetes 叢集上使用 kubectl 編輯
 Pod 來嘗試（需要 v1.32+ 的 kubectl）：
 
 <!--
@@ -92,12 +92,12 @@ Pod 調整大小爲垂直擴縮解鎖了幾個關鍵優勢：
 * **減少干擾：** 有狀態應用、長時間運行的批處理作業和敏感工作負載可以在不經歷
   Pod 重啓相關的停機或狀態丟失的情況下調整資源。
 
-* **改進資源利用率：** 無需中斷即可縮小過度配置的 Pod，從而釋放集羣中的資源。
+* **改進資源利用率：** 無需中斷即可縮小過度設定的 Pod，從而釋放叢集中的資源。
   相反，在重負載下的 Pod 可以在不重啓的情況下獲得更多的資源。
 
 * **更快的擴縮：** 更快速地解決瞬時資源需求。例如，Java
   應用在啓動期間通常比在穩定狀態下需要更多的 CPU。
-  可以開始時使用更高的 CPU 配置，然後在之後調整減小。
+  可以開始時使用更高的 CPU 設定，然後在之後調整減小。
 
 <!--
 ## What's changed between Alpha and Beta?
@@ -107,7 +107,7 @@ Since the alpha release in v1.27, significant work has gone into maturing the fe
 ## 從 Alpha 到 Beta 有哪些變化？   {#whats-changed-between-alpha-and-beta}
 
 自從 v1.27 的 Alpha 版本發佈以來，爲了完善此特性、
-提高其穩定性並根據反饋和進一步開發優化用戶體驗，已經進行了大量工作。
+提高其穩定性並根據反饋和進一步開發優化使用者體驗，已經進行了大量工作。
 以下是關鍵變化：
 
 <!--
@@ -119,7 +119,7 @@ Since the alpha release in v1.27, significant work has gone into maturing the fe
     * `PodResizeInProgress`: Indicates the resize is accepted and being applied. Errors encountered during this phase are now reported in this condition's message with `reason: Error`.
 * **Sidecar Support:** Resizing {{< glossary_tooltip text="sidecar containers" term_id="sidecar-container" >}} in-place is now supported.
 -->
-### 顯著的用戶可感知的變化
+### 顯著的使用者可感知的變化
 
 * **`resize` 子資源：** 修改 Pod 資源現在必須通過 Pod 的 `resize`
   子資源進行（`kubectl patch pod <name> --subresource resize ...`）。
@@ -183,8 +183,8 @@ Graduating to Beta means the feature is ready for broader adoption, but developm
 * **[垂直 Pod 自動擴縮](/zh-cn/docs/concepts/workloads/autoscaling/#scaling-workloads-vertically)（VPA）集成：**
   此任務正在進行，爲的是使 VPA 能夠利用原地 Pod 重新調整大小。一個新的 **InPlaceOrRecreate**
   更新模式將允許它首先嚐試非干擾性的重新調整大小，或者在需要時回退到重建。
-  這將使用戶能夠受益於 VPA 的建議，並顯著減少干擾。
-* **用戶反饋：** 收集採用 Beta 版特性的用戶反饋，對於優先處理後續的增強特性以及解決發現的任何問題或錯誤至關重要。
+  這將使使用者能夠受益於 VPA 的建議，並顯著減少干擾。
+* **使用者反饋：** 收集採用 Beta 版特性的使用者反饋，對於優先處理後續的增強特性以及解決發現的任何問題或錯誤至關重要。
 
 <!--
 ## Getting started and providing feedback

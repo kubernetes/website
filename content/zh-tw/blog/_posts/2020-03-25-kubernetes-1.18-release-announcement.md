@@ -22,7 +22,7 @@ We're pleased to announce the delivery of Kubernetes 1.18, our first release of 
 Kubernetes 1.18 is a "fit and finish" release. Significant work has gone into improving beta and stable features to ensure users have a better experience. An equal effort has gone into adding new developments and exciting new features that promise to enhance the user experience even more.
 -->
 Kubernetes 1.18 是一個近乎 “完美” 的版本。爲了改善 beta 和穩定的特性，已進行了大量工作，
-以確保用戶獲得更好的體驗。我們在增強現有功能的同時也增加了令人興奮的新特性，這些有望進一步增強用戶體驗。
+以確保使用者獲得更好的體驗。我們在增強現有功能的同時也增加了令人興奮的新特性，這些有望進一步增強使用者體驗。
 
 <!--
 Having almost as many enhancements in alpha, beta, and stable is a great achievement. It shows the tremendous effort made by the community on improving the reliability of Kubernetes as well as continuing to expand its existing functionality.
@@ -76,7 +76,7 @@ In Kubernetes 1.18, there are two significant additions to Ingress: A new `pathT
 <!--
 The `IngressClass` resource is used to describe a type of Ingress within a Kubernetes cluster. Ingresses can specify the class they are associated with by using a new `ingressClassName` field on Ingresses. This new resource and field replace the deprecated `kubernetes.io/ingress.class` annotation.
 -->
-`IngressClass` 資源用於描述 Kubernetes 集羣中 Ingress 的類型。Ingress 對象可以通過在
+`IngressClass` 資源用於描述 Kubernetes 叢集中 Ingress 的類型。Ingress 對象可以通過在
 Ingress 資源類型上使用新的 `ingressClassName` 字段來指定與它們關聯的類。
 這個新的資源和字段替換了不再建議使用的 `kubernetes.io/ingress.class` 註解。
 
@@ -91,7 +91,7 @@ SIG-CLI was debating the need for a debug utility for quite some time already. W
 SIG-CLI 一直在爭論着調試工具的必要性。隨着[臨時容器](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/)的發展，
 我們如何使用基於 `kubectl exec` 的工具來支持開發人員的必要性變得越來越明顯。
 [`kubectl alpha debug` 命令](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/20190805-kubectl-debug.md)的增加，
-（由於是 alpha 階段，非常歡迎你反饋意見），使開發人員可以輕鬆地在集羣中調試 Pod。
+（由於是 alpha 階段，非常歡迎你反饋意見），使開發人員可以輕鬆地在叢集中調試 Pod。
 我們認爲這個功能的價值非常高。此命令允許創建一個臨時容器，該容器在要嘗試檢查的
 Pod 旁邊運行，並且還附加到控制檯以進行交互式故障排除。
 
@@ -136,7 +136,7 @@ Windows 中的容器執行特權存儲操作來啓用 Windows 上的 CSI 驅動�
 - [基於污點的逐出操作](https://github.com/kubernetes/enhancements/issues/166)
 - [`kubectl diff`](https://github.com/kubernetes/enhancements/issues/491)
 - [CSI 塊存儲支持](https://github.com/kubernetes/enhancements/issues/565)
-- [API 服務器 dry run](https://github.com/kubernetes/enhancements/issues/576)
+- [API 伺服器 dry run](https://github.com/kubernetes/enhancements/issues/576)
 - [在 CSI 調用中傳遞 Pod 信息](https://github.com/kubernetes/enhancements/issues/603)
 - [支持樹外 vSphere 雲驅動](https://github.com/kubernetes/enhancements/issues/670)
 - [對 Windows 負載支持 GMSA](https://github.com/kubernetes/enhancements/issues/689)
@@ -191,7 +191,7 @@ Kubernetes 1.18 is available for download on [GitHub](https://github.com/kuberne
 -->
 Kubernetes 1.18 可以在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.18.0)
 上下載。要開始使用 Kubernetes，請查看這些[交互教程](https://kubernetes.io/docs/tutorials/)或通過
-[kind](https://kind.sigs.k8s.io/) 使用 Docker 容器運行本地 kubernetes 集羣。你還可以使用
+[kind](https://kind.sigs.k8s.io/) 使用 Docker 容器運行本地 kubernetes 叢集。你還可以使用
 [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) 輕鬆安裝 1.18。
 
 <!--
@@ -211,7 +211,7 @@ This release is made possible through the efforts of hundreds of individuals who
 As the Kubernetes community has grown, our release process represents an amazing demonstration of collaboration in open source software development. Kubernetes continues to gain new users at a rapid pace. This growth creates a positive feedback cycle where more contributors commit code creating a more vibrant ecosystem. Kubernetes has had over [40,000 individual contributors](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1) to date and an active community of more than 3,000 people.
 -->
 隨着 Kubernetes 社區的發展壯大，我們的發佈過程很好地展示了開源軟件開發中的協作。
-Kubernetes 繼續快速獲取新用戶。這種增長創造了一個積極的反饋迴路，
+Kubernetes 繼續快速獲取新使用者。這種增長創造了一個積極的反饋迴路，
 其中有更多的貢獻者提交了代碼，從而創建了更加活躍的生態系統。迄今爲止，Kubernetes 已有
 [40,000 獨立貢獻者](https://k8s.devstats.cncf.io/d/24/overall-project-statistics?orgId=1)和一個超過 3000 人的活躍社區。
 
@@ -254,14 +254,14 @@ Maru Lango 是目前居住在墨西哥城的設計師。她的專長是產品設
 <!--
 ### User Highlights
 -->
-### 高光用戶
+### 高光使用者
 
 <!--
 - Ericsson is using Kubernetes and other cloud native technology to deliver a [highly demanding 5G network](https://www.cncf.io/case-study/ericsson/) that resulted in up to 90 percent CI/CD savings.
 - Zendesk is using Kubernetes to [run around 70% of its existing applications](https://www.cncf.io/case-study/zendesk/). It’s also building all new applications to also run on Kubernetes, which has brought time savings, greater flexibility, and increased velocity  to its application development.
 - LifeMiles has [reduced infrastructure spending by 50%](https://www.cncf.io/case-study/lifemiles/) because of its move to Kubernetes. It has also allowed them to double its available resource capacity.
 -->
-- 愛立信正在使用 Kubernetes 和其他雲原生技術來交付[高標準的 5G 網絡](https://www.cncf.io/case-study/ericsson/)，
+- 愛立信正在使用 Kubernetes 和其他雲原生技術來交付[高標準的 5G 網路](https://www.cncf.io/case-study/ericsson/)，
   這可以在 CI/CD 上節省多達 90％ 的支出。
 - Zendesk 正在使用 Kubernetes [運行其現有應用程序的約 70％](https://www.cncf.io/case-study/zendesk/)。
   它還正在使所構建的所有新應用都可以在 Kubernetes 上運行，從而節省時間、提高靈活性並加快其應用程序開發的速度。

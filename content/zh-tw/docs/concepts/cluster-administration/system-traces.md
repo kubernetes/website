@@ -19,7 +19,7 @@ weight: 90
 <!-- 
 System component traces record the latency of and relationships between operations in the cluster.
 -->
-系統組件追蹤功能記錄各個集羣操作的時延信息和這些操作之間的關係。
+系統組件追蹤功能記錄各個叢集操作的時延信息和這些操作之間的關係。
 
 <!-- 
 Kubernetes components emit traces using the
@@ -64,7 +64,7 @@ the following receiver configuration will collect spans and log them to standard
 默認情況下，Kubernetes 組件使用 gRPC 的 OTLP 導出器來導出追蹤信息，將信息寫到
 [IANA OpenTelemetry 端口](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=opentelemetry)。
 舉例來說，如果收集器以 Kubernetes 組件的邊車模式運行，
-以下接收器配置會收集 span 信息，並將它們寫入到標準輸出。
+以下接收器設定會收集 span 信息，並將它們寫入到標準輸出。
 
 <!-- 
 ```yaml
@@ -107,21 +107,21 @@ specify the endpoint field in the Kubernetes tracing configuration file with the
 This method negates the need for a collector and simplifies the overall structure.
 -->
 要在不使用收集器的情況下直接將追蹤信息發送到後端，請在 Kubernetes
-追蹤配置文件中指定端點字段以及所需的追蹤後端地址。
+追蹤設定文件中指定端點字段以及所需的追蹤後端地址。
 該方法不需要收集器並簡化了整體結構。
 
 <!--
 For trace backend header configuration, including authentication details, environment variables can be used with `OTEL_EXPORTER_OTLP_HEADERS`, 
 see [OTLP Exporter Configuration](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/).
 -->
-對於追蹤後端標頭配置，包括身份驗證詳細信息，環境變量可以與 `OTEL_EXPORTER_OTLP_HEADERS`
-一起使用，請參閱 [OTLP 導出器配置](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)。
+對於追蹤後端標頭設定，包括身份驗證詳細信息，環境變量可以與 `OTEL_EXPORTER_OTLP_HEADERS`
+一起使用，請參閱 [OTLP 導出器設定](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)。
 
 <!--
 Additionally, for trace resource attribute configuration such as Kubernetes cluster name, namespace, Pod name, etc., 
 environment variables can also be used with `OTEL_RESOURCE_ATTRIBUTES`, see [OTLP Kubernetes Resource](https://opentelemetry.io/docs/specs/semconv/resource/k8s/).
 -->
-另外，對於 Kubernetes 集羣名稱、命名空間、Pod 名稱等追蹤資源屬性配置，
+另外，對於 Kubernetes 叢集名稱、命名空間、Pod 名稱等追蹤資源屬性設定，
 環境變量也可以與 `OTEL_RESOURCE_ATTRIBUTES` 配合使用，請參見
 [OTLP Kubernetes 資源](https://opentelemetry.io/docs/specs/semconv/resource/k8s/)。
 
@@ -165,7 +165,7 @@ samplingRatePerMillion: 100
 ```
 -->
 要啓用追蹤特性，需要使用 `--tracing-config-file=<<配置文件路徑>` 爲
-kube-apiserver 提供追蹤配置文件。下面是一個示例配置，它爲萬分之一的請求記錄
+kube-apiserver 提供追蹤設定文件。下面是一個示例設定，它爲萬分之一的請求記錄
 span，並使用了默認的 OpenTelemetry 端點。
 
 ```yaml
@@ -181,7 +181,7 @@ For more information about the `TracingConfiguration` struct, see
 [API server config API (v1)](/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration).
 -->
 有關 TracingConfiguration 結構體的更多信息，請參閱
-[API 服務器配置 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration)。
+[API 伺服器設定 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/#apiserver-k8s-io-v1-TracingConfiguration)。
 
 <!--
 ### kubelet traces
@@ -197,11 +197,11 @@ Trace context propagation is also configured. A parent span's sampling decision 
 A provided tracing configuration sampling rate will apply to spans without a parent.
 Enabled without a configured endpoint, the default OpenTelemetry Collector receiver address of "localhost:4317" is set.
 -->
-kubelet CRI 接口和實施身份驗證的 HTTP 服務器被插樁以生成追蹤 span。
-與 API 服務器一樣，端點和採樣率是可配置的。
-追蹤上下文傳播也是可以配置的。始終優先採用父 span 的採樣決策。
-用戶所提供的追蹤配置採樣率將被應用到不帶父級的 span。
-如果在沒有配置端點的情況下啓用，將使用默認的 OpenTelemetry Collector
+kubelet CRI 接口和實施身份驗證的 HTTP 伺服器被插樁以生成追蹤 span。
+與 API 伺服器一樣，端點和採樣率是可設定的。
+追蹤上下文傳播也是可以設定的。始終優先採用父 span 的採樣決策。
+使用者所提供的追蹤設定採樣率將被應用到不帶父級的 span。
+如果在沒有設定端點的情況下啓用，將使用默認的 OpenTelemetry Collector
 接收器地址 “localhost:4317”。
 
 <!--
@@ -221,8 +221,8 @@ tracing:
 -->
 #### 在 kubelet 中啓用追蹤 {#enabling-tracing-in-the-kubelet}
 
-要啓用追蹤，需應用[追蹤配置](https://github.com/kubernetes/component-base/blob/release-1.27/tracing/api/v1/types.go)。
-以下是 kubelet 配置的示例代碼片段，每 10000 個請求中記錄一個請求的
+要啓用追蹤，需應用[追蹤設定](https://github.com/kubernetes/component-base/blob/release-1.27/tracing/api/v1/types.go)。
+以下是 kubelet 設定的示例代碼片段，每 10000 個請求中記錄一個請求的
 span，並使用默認的 OpenTelemetry 端點：
 
 ```yaml
@@ -266,9 +266,9 @@ tracing enabled, then mitigate the problem by either reducing the
 `samplingRatePerMillion` or disabling tracing completely by removing the
 configuration.
 -->
-請注意導出 span 始終會對網絡和 CPU 產生少量性能開銷，具體取決於系統的總體配置。
-如果在啓用追蹤的集羣中出現類似性能問題，可以通過降低 `samplingRatePerMillion`
-或通過移除此配置來徹底禁用追蹤來緩解問題。
+請注意導出 span 始終會對網路和 CPU 產生少量性能開銷，具體取決於系統的總體設定。
+如果在啓用追蹤的叢集中出現類似性能問題，可以通過降低 `samplingRatePerMillion`
+或通過移除此設定來徹底禁用追蹤來緩解問題。
 
 <!-- 
 ## Stability
@@ -292,4 +292,4 @@ there are no guarantees of backwards compatibility for tracing instrumentation.
 * Read about [OTLP Exporter Configuration](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)
 -->
 * 閱讀 [Getting Started with the OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/)
-* 瞭解 [OTLP 導出器配置](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)
+* 瞭解 [OTLP 導出器設定](https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/)

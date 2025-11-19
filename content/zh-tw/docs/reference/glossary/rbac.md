@@ -4,7 +4,7 @@ id: rbac
 date: 2018-04-12
 full_link: /zh-cn/docs/reference/access-authn-authz/rbac/
 short_description: >
-  管理授權決策，允許管理員通過 Kubernetes API 動態配置訪問策略。
+  管理授權決策，允許管理員通過 Kubernetes API 動態設定訪問策略。
 
 aka: 
 tags:
@@ -28,7 +28,7 @@ tags:
 <!--
  Manages authorization decisions, allowing admins to dynamically configure access policies through the {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}.
 -->
-管理授權決策，允許管理員通過 {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}} 動態配置訪問策略。
+管理授權決策，允許管理員通過 {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}} 動態設定訪問策略。
 
 <!--more-->
 
@@ -53,10 +53,10 @@ RBAC 使用四種類別的 Kubernetes 對象：
 
 - **Role**：在特定命名空間中定義權限規則。
 
-- **ClusterRole**：定義集羣範圍內的權限規則。
+- **ClusterRole**：定義叢集範圍內的權限規則。
 
-- **RoleBinding**：將角色中定義的權限授予特定命名空間中的一組用戶。
+- **RoleBinding**：將角色中定義的權限授予特定命名空間中的一組使用者。
 
-- **ClusterRoleBinding**：將角色中定義的權限授予集羣範圍內的一組用戶。
+- **ClusterRoleBinding**：將角色中定義的權限授予叢集範圍內的一組使用者。
 
 更多信息參見 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)。

@@ -1,7 +1,7 @@
 <!--
 Print default join configuration, that can be used for 'kubeadm join'
 -->
-打印默認的節點添加配置，該配置可用於 'kubeadm join' 命令。
+打印默認的節點添加設定，該設定可用於 'kubeadm join' 命令。
 
 <!--
 ### Synopsis
@@ -11,7 +11,7 @@ Print default join configuration, that can be used for 'kubeadm join'
 <!--
 This command prints objects such as the default join configuration that is used for 'kubeadm join'.
 -->
-此命令打印對象，例如用於 'kubeadm join' 的默認 join 配置對象。
+此命令打印對象，例如用於 'kubeadm join' 的默認 join 設定對象。
 
 <!--
 Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like "abcdef.0123456789abcdef" in order to pass validation but
@@ -79,7 +79,7 @@ join-defaults 操作的幫助命令。
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
 <p>
-與集羣通信時使用的 kubeconfig 文件。如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 文件。如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
 </p>
 </td>
 </tr>

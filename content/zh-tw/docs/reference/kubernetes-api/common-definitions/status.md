@@ -36,7 +36,7 @@ Status is a return value for calls that don't return other objects.
   -->
 
   apiVersion 定義對象表示的版本化模式。
-  服務器應將已識別的模式轉換爲最新的內部值，並可能拒絕無法識別的值。
+  伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕無法識別的值。
   更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **code** (int32)
@@ -65,7 +65,7 @@ Status is a return value for calls that don't return other objects.
   此字段是可選的，並且不保證返回的數據符合任何模式，除非由原因類型定義。
 
   <a name="StatusDetails"></a>
-  **StatusDetails 是一組附加屬性，可以由服務器設置以提供有關響應的附加信息。
+  **StatusDetails 是一組附加屬性，可以由伺服器設置以提供有關響應的附加信息。
   狀態對象的原因字段定義將設置哪些屬性。
   客戶端必須忽略與每個屬性的定義類型不匹配的字段，並且應該假定任何屬性可能爲空、無效或未定義。**
 
@@ -179,7 +179,7 @@ Status is a return value for calls that don't return other objects.
   -->
 
   kind 是一個字符串值，表示此對象表示的 REST 資源。
-  服務器可以從客戶端提交請求的端點推斷出這一點。
+  伺服器可以從客戶端提交請求的端點推斷出這一點。
   無法更新。駝峯式規則。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 

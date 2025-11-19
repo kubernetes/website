@@ -31,7 +31,7 @@ Kubernetes API server.
 
 Here is an example of a Summary API request for a node named `minikube`:
 -->
-你可以通過 Kubernetes API 服務器將代理的請求發送到 stats Summary API。
+你可以通過 Kubernetes API 伺服器將代理的請求發送到 stats Summary API。
 
 下面是一個名爲 `minikube` 的節點的 Summary API 請求示例：
 
@@ -78,7 +78,7 @@ the kubelet [fetches Pod- and container-level metric data using CRI](/docs/refer
 ## 概要指標 API 源  {#summary-api-source}
 
 默認情況下，Kubernetes 使用 kubelet 內運行的嵌入式 [cAdvisor](https://github.com/google/cadvisor)
-獲取節點概要指標數據。如果你在自己的集羣中啓用 `PodAndContainerStatsFromCRI`
+獲取節點概要指標數據。如果你在自己的叢集中啓用 `PodAndContainerStatsFromCRI`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 且你通過{{< glossary_tooltip term_id="cri" text="容器運行時接口">}}（CRI）使用支持統計訪問的容器運行時，
 則 kubelet [將使用 CRI 來獲取 Pod 和容器級別的指標數據](/zh-cn/docs/reference/instrumentation/cri-pod-container-metrics)，
@@ -99,7 +99,7 @@ See [Summary API](/docs/reference/config-api/kubelet-stats.v1alpha1/) for detail
 This feature is enabled by default, by setting the `KubeletPSI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/). The information is also exposed in
 [Prometheus metrics](/docs/concepts/cluster-administration/system-metrics#psi-metrics).
 -->
-作爲 Beta 級別特性，Kubernetes 允許你配置 kubelet 來收集 Linux
+作爲 Beta 級別特性，Kubernetes 允許你設定 kubelet 來收集 Linux
 內核的[壓力停滯信息](https://docs.kernel.org/accounting/psi.html)（PSI）
 的 CPU、內存和 I/O 使用情況。這些信息是在節點、Pod 和容器級別上收集的。
 詳細模式請參見 [Summary API](/zh-cn/docs/reference/config-api/kubelet-stats.v1alpha1/)。
@@ -135,4 +135,4 @@ Pressure Stall Information requires:
 The task pages for [Troubleshooting Clusters](/docs/tasks/debug/debug-cluster/) discuss
 how to use a metrics pipeline that rely on these data.
 -->
-[集羣故障排查](/zh-cn/docs/tasks/debug/debug-cluster/)任務頁面討論瞭如何使用依賴這些數據的指標管道。
+[叢集故障排查](/zh-cn/docs/tasks/debug/debug-cluster/)任務頁面討論瞭如何使用依賴這些數據的指標管道。

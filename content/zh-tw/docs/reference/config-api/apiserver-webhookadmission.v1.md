@@ -1,5 +1,5 @@
 ---
-title: WebhookAdmission 配置 (v1)
+title: WebhookAdmission 設定 (v1)
 content_type: tool-reference
 package: apiserver.config.k8s.io/v1
 auto_generated: true
@@ -32,7 +32,7 @@ Package v1 is the v1 version of the API.
 <!--
 WebhookAdmission provides configuration for the webhook admission controller.
 -->
-WebhookAdmission 爲 Webhook 准入控制器提供配置信息。
+WebhookAdmission 爲 Webhook 准入控制器提供設定信息。
 </p>
 
 <table class="table">

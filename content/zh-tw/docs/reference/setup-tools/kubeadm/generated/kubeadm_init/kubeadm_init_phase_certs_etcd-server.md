@@ -64,7 +64,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 <p>
 </td>
 </tr>

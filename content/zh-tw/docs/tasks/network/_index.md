@@ -1,5 +1,5 @@
 ---
-title: "網絡"
+title: "網路"
 weight: 140
-description: 瞭解如何爲你的集羣配置網絡。
+description: 瞭解如何爲你的叢集設定網路。
 ---

@@ -66,7 +66,7 @@ to an actual StorageClass name.
 ## 有什麼變化？   {#what-changed}
 
 PersistentVolume (PV) 控制器已修改爲：當未設置 `storageClassName` 時，自動向任何未綁定的
-PersistentVolumeClaim 分配一個默認的 StorageClass。此外，API 服務器中的 PersistentVolumeClaim
+PersistentVolumeClaim 分配一個默認的 StorageClass。此外，API 伺服器中的 PersistentVolumeClaim
 准入驗證機制也已調整爲允許將值從未設置狀態更改爲實際的 StorageClass 名稱。
 
 <!--

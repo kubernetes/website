@@ -174,7 +174,7 @@ leave a comment with their GitHub username in it.
 
 在合併 PR 之前，Kubernetes 社區成員會評閱並批准它。
 `k8s-ci-robot` 會基於頁面中最近提及的屬主來建議評閱人（reviewers）。
-如果你希望特定某人來評閱，可以留下評論，提及該用戶的 GitHub 用戶名。
+如果你希望特定某人來評閱，可以留下評論，提及該使用者的 GitHub 使用者名。
 
 <!--
 If a reviewer asks you to make changes:
@@ -218,7 +218,7 @@ Figure 2 shows the steps to follow when you work from a local fork. The details 
 如果你有 git 的使用經驗，或者你要提議的修改不僅僅幾行，請使用本地克隆副本來開展工作。
 
 首先要確保你在本地計算機上安裝了 [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)。
-你也可以使用 git 的帶用戶界面的應用。
+你也可以使用 git 的帶使用者界面的應用。
 
 圖 2 顯示了基於本地克隆副本開展工作的步驟。每個步驟的細節如下。
 
@@ -231,7 +231,7 @@ flowchart LR
 subgraph changes[你的變更]
 direction TB
 S[ ] -.-
-3[創建一個分支<br>例如：my_new_branch] --> 3a[使用文本編輯器<br>進行修改] --> 4["使用 Hugo 在本地<br>預覽你的變更<br>(localhost:1313)<br>或構建容器鏡像"]
+3[創建一個分支<br>例如：my_new_branch] --> 3a[使用文本編輯器<br>進行修改] --> 4["使用 Hugo 在本地<br>預覽你的變更<br>(localhost:1313)<br>或構建容器映像檔"]
 end
 subgraph changes2[提交 / 推送]
 direction TB
@@ -484,8 +484,8 @@ be useful for debugging.
 在推送變更或者發起 PR 之前在本地查看一下預覽是個不錯的主意。
 通過預覽你可以發現構建錯誤或者 Markdown 格式問題。
 
-你可以構建網站的容器鏡像或者在本地運行 Hugo。
-構建容器鏡像的方式比較慢，不過能夠顯示 [Hugo 短代碼（shortcodes）](/zh-cn/docs/contribute/style/hugo-shortcodes/)，
+你可以構建網站的容器映像檔或者在本地運行 Hugo。
+構建容器映像檔的方式比較慢，不過能夠顯示 [Hugo 短代碼（shortcodes）](/zh-cn/docs/contribute/style/hugo-shortcodes/)，
 因此對於調試是很有用的。
 
 {{< tabs name="tab_with_hugo" >}}
@@ -504,7 +504,7 @@ variable to override this behaviour.
 1. Build the container image locally  
    _You only need this step if you are testing a change to the Hugo tool itself_
 -->
-1. 在本地構建容器鏡像
+1. 在本地構建容器映像檔
    _如果你正在測試對 Hugo 工具本身的更改，則僅需要此步驟_
 
    ```shell
@@ -548,7 +548,7 @@ variable to override this behaviour.
 5. 要停止本地 Hugo 實例，可返回到終端並輸入 `Ctrl+C`，或者關閉終端窗口。
 
 {{% /tab %}}
-{{% tab name="在命令行執行 Hugo" %}}
+{{% tab name="在命令列執行 Hugo" %}}
 
 <!--
 Alternately, install and use the `hugo` command on your computer:
@@ -574,7 +574,7 @@ Alternately, install and use the `hugo` command on your computer:
 <!--
 1. In a terminal, go to your Kubernetes website repository and start the Hugo server:
 -->
-3. 啓動一個終端窗口，進入 Kubernetes 網站倉庫目錄，啓動 Hugo 服務器：
+3. 啓動一個終端窗口，進入 Kubernetes 網站倉庫目錄，啓動 Hugo 伺服器：
 
    ```shell
    cd <path_to_your_repo>/website
@@ -930,7 +930,7 @@ command locally.
 <!--
 This topic assumes `vim` as the command line text editor.
 -->
-本主題假定使用 `vim` 作爲命令行文本編輯器。
+本主題假定使用 `vim` 作爲命令列文本編輯器。
 {{< /note >}}
 
 <!--
@@ -1050,7 +1050,7 @@ organization. This can help you figure out where to submit your issue or PR.
 ## 貢獻到其他倉庫   {#contribute-to-other-repos}
 
 [Kubernetes 項目](https://github.com/kubernetes)包含大約 50 多個倉庫。
-這些倉庫中很多都有文檔：提供給最終用戶的幫助文本、錯誤信息、API 參考或者代碼註釋等。
+這些倉庫中很多都有文檔：提供給最終使用者的幫助文本、錯誤信息、API 參考或者代碼註釋等。
 
 如果你發現有些文本需要改進，可以使用 GitHub 來搜索 Kubernetes 組織下的所有倉庫。
 這樣有助於發現要在哪裏提交 Issue 或 PR。

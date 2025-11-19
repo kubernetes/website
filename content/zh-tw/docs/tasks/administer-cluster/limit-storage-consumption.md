@@ -40,7 +40,7 @@ and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 The cluster-admin is operating a cluster on behalf of a user population and the admin wants to control
 how much storage a single namespace can consume in order to control cost.
 -->
-集羣管理員代表用戶羣操作集羣，該管理員希望控制單個名字空間可以消耗多少存儲空間以控制成本。
+叢集管理員代表使用者羣操作叢集，該管理員希望控制單個名字空間可以消耗多少存儲空間以控制成本。
 
 <!--
 The admin would like to limit:
@@ -139,5 +139,5 @@ cluster's storage budget without risk of any one project going over their allotm
 
 限制範圍對象可以用來設置可請求的存儲量上限，而資源配額對象則可以通過申領計數和
 累計存儲容量有效地限制名字空間耗用的存儲量。
-這兩種機制使得集羣管理員能夠規劃其集羣存儲預算而不會發生任一項目超量分配的風險。
+這兩種機制使得叢集管理員能夠規劃其叢集存儲預算而不會發生任一項目超量分配的風險。
 

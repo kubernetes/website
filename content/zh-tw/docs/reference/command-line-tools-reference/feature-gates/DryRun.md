@@ -25,7 +25,7 @@ removed: true
 Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
 so that validation, merging, and mutation can be tested without committing.
 -->
-啓用在服務器端對請求進行
+啓用在伺服器端對請求進行
 [試運行（Dry Run）](/zh-cn/docs/reference/using-api/api-concepts/#dry-run)，
 以便在不提交的情況下測試驗證、合併和變更。
 

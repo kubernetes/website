@@ -35,11 +35,11 @@ A LimitRange is a policy to constrain the resource allocations (limits and reque
 each applicable object kind (such as Pod or {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}})
 in a namespace.
 -->
-默認情況下， Kubernetes 集羣上的容器運行使用的[計算資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)沒有限制。
+默認情況下， Kubernetes 叢集上的容器運行使用的[計算資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)沒有限制。
 使用 Kubernetes [資源配額](/zh-cn/docs/concepts/policy/resource-quotas/)，
-管理員（也稱爲**集羣操作者**）可以在一個指定的{{< glossary_tooltip text="命名空間" term_id="namespace" >}}內限制集羣資源的使用與創建。
+管理員（也稱爲**叢集操作者**）可以在一個指定的{{< glossary_tooltip text="命名空間" term_id="namespace" >}}內限制叢集資源的使用與創建。
 在命名空間中，一個 {{< glossary_tooltip text="Pod" term_id="Pod" >}} 最多能夠使用命名空間的資源配額所定義的 CPU 和內存用量。
-作爲集羣操作者或命名空間級的管理員，你可能也會擔心如何確保一個 Pod 不會壟斷命名空間內所有可用的資源。
+作爲叢集操作者或命名空間級的管理員，你可能也會擔心如何確保一個 Pod 不會壟斷命名空間內所有可用的資源。
 
 LimitRange 是限制命名空間內可爲每個適用的對象類別
 （例如 Pod 或 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}）
@@ -104,11 +104,11 @@ LimitRange 的名稱必須是合法的
 ## 資源限制和請求的約束   {#constraints-on-resource-limits-and-requests}
 
 - 管理員在一個命名空間內創建一個 LimitRange 對象。
-- 用戶在此命名空間內創建（或嘗試創建） Pod 和 PersistentVolumeClaim 等對象。
+- 使用者在此命名空間內創建（或嘗試創建） Pod 和 PersistentVolumeClaim 等對象。
 - 首先，LimitRange 准入控制器對所有沒有設置計算資源需求的所有 Pod（及其容器）設置默認請求值與限制值。
 - 其次，LimitRange 跟蹤其使用量以保證沒有超出命名空間中存在的任意 LimitRange 所定義的最小、最大資源使用量以及使用量比值。
 - 若嘗試創建或更新的對象（Pod 和 PersistentVolumeClaim）違反了 LimitRange 的約束，
-  向 API 服務器的請求會失敗，並返回 HTTP 狀態碼 `403 Forbidden` 以及描述哪一項約束被違反的消息。
+  向 API 伺服器的請求會失敗，並返回 HTTP 狀態碼 `403 Forbidden` 以及描述哪一項約束被違反的消息。
 - 若你在命名空間中添加 LimitRange 啓用了對 `cpu` 和 `memory` 等計算相關資源的限制，
   你必須指定這些值的請求使用量與限制使用量。否則，系統將會拒絕創建 Pod。
 - LimitRange 的驗證僅在 Pod 准入階段進行，不對正在運行的 Pod 進行驗證。
@@ -128,7 +128,7 @@ For example, you define a LimitRange with this manifest:
 ## Pod 的 LimitRange 和准入檢查     {#limitrange-and-admission-checks-for-pod}
 
 LimitRange **不**檢查所應用的默認值的一致性。
-這意味着 LimitRange 設置的 **limit** 的默認值可能小於客戶端提交給 API 服務器的規約中爲容器指定的 **request** 值。
+這意味着 LimitRange 設置的 **limit** 的默認值可能小於客戶端提交給 API 伺服器的規約中爲容器指定的 **request** 值。
 如果發生這種情況，最終 Pod 將無法調度。
 
 例如，你使用如下清單定義一個 LimitRange：
@@ -141,10 +141,10 @@ This implies that any references or operations within these examples will intera
 with elements within the default namespace of your cluster. You can override the
 operating namespace by configuring namespace in the `metadata.namespace` field.
 -->
-以下示例在集羣的 default 命名空間內運行，因爲命名空間參數未定義，並且
+以下示例在叢集的 default 命名空間內運行，因爲命名空間參數未定義，並且
 LimitRange 範圍僅限於命名空間級別。
-這意味着這些示例中的任何引用或操作都將與集羣的 default 命名空間中的元素進行交互。
-你可以通過在 `metadata.namespace` 字段中配置命名空間來覆蓋要使用的命名空間。
+這意味着這些示例中的任何引用或操作都將與叢集的 default 命名空間中的元素進行交互。
+你可以通過在 `metadata.namespace` 字段中設定命名空間來覆蓋要使用的命名空間。
 {{< /note >}}
 
 {{% code_sample file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
@@ -188,7 +188,7 @@ Examples of policies that could be created using LimitRange are:
 
 能夠使用限制範圍創建的策略示例有：
 
-- 在一個有兩個節點，8 GiB 內存與16個核的集羣中，限制一個命名空間的 Pod 申請
+- 在一個有兩個節點，8 GiB 內存與16個核的叢集中，限制一個命名空間的 Pod 申請
   100m 單位，最大 500m 單位的 CPU，以及申請 200Mi，最大 600Mi 的內存。
 - 爲 spec 中沒有 cpu 和內存需求值的 Container 定義默認 CPU 限制值與需求值
   150m，內存默認需求值 300Mi。
@@ -223,12 +223,12 @@ for context and historical information.
 -->
 關於使用限值的例子，可參閱：
 
-- [如何配置每個命名空間最小和最大的 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)。
-- [如何配置每個命名空間最小和最大的內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。
-- [如何配置每個命名空間默認的 CPU 申請值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
-- [如何配置每個命名空間默認的內存申請值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
-- [如何配置每個命名空間最小和最大存儲使用量](/zh-cn/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。
-- [配置每個命名空間的配額的詳細例子](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)。
+- [如何設定每個命名空間最小和最大的 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)。
+- [如何設定每個命名空間最小和最大的內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。
+- [如何設定每個命名空間默認的 CPU 申請值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
+- [如何設定每個命名空間默認的內存申請值和限制值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
+- [如何設定每個命名空間最小和最大存儲使用量](/zh-cn/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。
+- [設定每個命名空間的配額的詳細例子](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)。
 
 有關上下文和歷史信息，請參閱
 [LimitRanger 設計文檔](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)。

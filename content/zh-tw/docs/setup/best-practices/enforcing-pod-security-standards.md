@@ -39,7 +39,7 @@ intends to replace the deprecated PodSecurityPolicies.
 <!--
 ### Configure all cluster namespaces
 -->
-### 配置所有集羣名字空間    {#configure-all-cluster-namespaces}
+### 設定所有叢集名字空間    {#configure-all-cluster-namespaces}
 
 <!--
 Namespaces that lack any configuration at all should be considered significant gaps in your cluster
@@ -47,7 +47,7 @@ security model. We recommend taking the time to analyze the types of workloads o
 namespace, and by referencing the Pod Security Standards, decide on an appropriate level for
 each of them. Unlabeled namespaces should only indicate that they've yet to be evaluated.
 -->
-完全未經配置的名字空間應該被視爲集羣安全模型中的重大缺陷。
+完全未經設定的名字空間應該被視爲叢集安全模型中的重大缺陷。
 我們建議花一些時間來分析在每個名字空間中執行的負載的類型，
 並通過引用 Pod 安全性標準來確定每個負載的合適級別。
 未設置標籤的名字空間應該視爲尚未被評估。

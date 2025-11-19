@@ -6,7 +6,7 @@
 <!--
 Configures bootstrap token and cluster-info RBAC rules
 -->
-配置啓動引導令牌和 cluster-info 的 RBAC 規則
+設定啓動引導令牌和 cluster-info 的 RBAC 規則
 
 ```shell
 kubeadm upgrade apply phase bootstrap-token [flags]
@@ -30,7 +30,7 @@ kubeadm upgrade apply phase bootstrap-token [flags]
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -77,7 +77,7 @@ bootstrap-token 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和集羣通信的 KubeConfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 KubeConfig 文件。
+用於和叢集通信的 KubeConfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 KubeConfig 文件。
 </p>
 </td>
 </tr>

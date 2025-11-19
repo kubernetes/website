@@ -50,10 +50,10 @@ you can deploy worker nodes running either Windows or Linux.
 -->
 ## Kubernetes 中的 Windows 節點   {#windows-nodes-in-k8s}
 
-若要在 Kubernetes 中啓用對 Windows 容器的編排，可以在現有的 Linux 集羣中包含 Windows 節點。
+若要在 Kubernetes 中啓用對 Windows 容器的編排，可以在現有的 Linux 叢集中包含 Windows 節點。
 在 Kubernetes 上調度 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中的 Windows 容器與調度基於 Linux 的容器類似。
 
-爲了運行 Windows 容器，你的 Kubernetes 集羣必須包含多個操作系統。
+爲了運行 Windows 容器，你的 Kubernetes 叢集必須包含多個操作系統。
 儘管你只能在 Linux 上運行{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}，
 你可以部署運行 Windows 或 Linux 的工作節點。
 
@@ -206,7 +206,7 @@ Kubernetes 關鍵組件在 Windows 上的工作方式與在 Linux 上相同。
 
     在上述列表中，通配符（`*`）表示列表中的所有項。
     例如，`spec.containers[*].securityContext` 指代所有容器的 SecurityContext 對象。
-    如果指定了這些字段中的任意一個，則 API 服務器不會接受此 Pod。
+    如果指定了這些字段中的任意一個，則 API 伺服器不會接受此 Pod。
 
 <!--
 * [Workload resources](/docs/concepts/workloads/controllers/) including:
@@ -260,9 +260,9 @@ Pod、工作負載資源和 Service 是在 Kubernetes 上管理 Windows 工作�
 
 Some kubelet command line options behave differently on Windows, as described below:
 -->
-### kubelet 的命令行選項   {#kubelet-compatibility}
+### kubelet 的命令列選項   {#kubelet-compatibility}
 
-某些 kubelet 命令行選項在 Windows 上的行爲不同，如下所述：
+某些 kubelet 命令列選項在 Windows 上的行爲不同，如下所述：
 
 <!--
 * The `--windows-priorityclass` lets you set the scheduling priority of the kubelet process
@@ -320,7 +320,7 @@ At a high level, these OS concepts are different:
   path or command line that's interpreted inside a container, `\` may be needed.
 -->
 * 身份 - Linux 使用 userID（UID）和 groupID（GID），表示爲整數類型。
-  用戶名和組名是不規範的，它們只是 `/etc/groups` 或 `/etc/passwd` 中的別名，
+  使用者名和組名是不規範的，它們只是 `/etc/groups` 或 `/etc/passwd` 中的別名，
   作爲 UID+GID 的後備標識。
   Windows 使用更大的二進制[安全標識符](https://docs.microsoft.com/zh-cn/windows/security/identity-protection/access-control/security-identifiers)（SID），
   存放在 Windows 安全訪問管理器（Security Access Manager，SAM）數據庫中。
@@ -328,7 +328,7 @@ At a high level, these OS concepts are different:
 * 文件權限 - Windows 使用基於 SID 的訪問控制列表，
   而像 Linux 使用基於對象權限和 UID+GID 的位掩碼（POSIX 系統）以及**可選的**訪問控制列表。
 * 文件路徑 - Windows 上的約定是使用 `\` 而不是 `/`。
-  Go IO 庫通常接受兩者，能讓其正常工作，但當你設置要在容器內解讀的路徑或命令行時，
+  Go IO 庫通常接受兩者，能讓其正常工作，但當你設置要在容器內解讀的路徑或命令列時，
   可能需要用 `\`。
 
 <!--
@@ -373,7 +373,7 @@ work between Windows and Linux:
 以下列表記錄了 Pod 容器規約在 Windows 和 Linux 之間的工作方式差異：
 
 * 巨頁（Huge page）在 Windows 容器運行時中未實現，且不可用。
-  巨頁需要不可爲容器配置的[用戶特權生效](https://docs.microsoft.com/zh-cn/windows/win32/memory/large-page-support)。
+  巨頁需要不可爲容器設定的[使用者特權生效](https://docs.microsoft.com/zh-cn/windows/win32/memory/large-page-support)。
 * `requests.cpu` 和 `requests.memory` -
   從節點可用資源中減去請求，因此請求可用於避免一個節點過量供應。
   但是，請求不能用於保證已過量供應的節點中的資源。
@@ -417,7 +417,7 @@ work between Windows and Linux:
    exist on Windows by default.
 -->
 * `securityContext.runAsNonRoot` -
-  此設置將阻止以 `ContainerAdministrator` 身份運行容器，這是 Windows 上與 root 用戶最接近的身份。
+  此設置將阻止以 `ContainerAdministrator` 身份運行容器，這是 Windows 上與 root 使用者最接近的身份。
 * `securityContext.runAsUser` - 改用 [`runAsUserName`](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)。
 * `securityContext.seLinuxOptions` - 不能在 Windows 上使用，因爲 SELinux 特定於 Linux。
 * `terminationMessagePath` - 這個字段有一些限制，因爲 Windows 不支持映射單個文件。
@@ -443,13 +443,13 @@ The following list documents differences between how Pod specifications work bet
 以下列表記錄了 Pod 規約在 Windows 和 Linux 之間的工作方式差異：
 
 * `hostIPC` 和 `hostpid` - 不能在 Windows 上共享主機命名空間。
-* `hostNetwork` - 在 Windows 上不支持主機網絡模式。
+* `hostNetwork` - 在 Windows 上不支持主機網路模式。
 * `dnsPolicy` - Windows 不支持將 Pod `dnsPolicy` 設爲 `ClusterFirstWithHostNet`，
-  因爲未提供主機網絡。Pod 始終用容器網絡運行。
+  因爲未提供主機網路。Pod 始終用容器網路運行。
 * `podSecurityContext` [參見下文](#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - 這是一個 Beta 版功能特性，依賴於 Windows 上未實現的 Linux 命名空間。
   Windows 無法共享進程命名空間或容器的根文件系統（root filesystem）。
-  只能共享網絡。
+  只能共享網路。
 <!--
 * `terminationGracePeriodSeconds` - this is not fully implemented in Docker on Windows,
   see the [GitHub issue](https://github.com/moby/moby/issues/25982).
@@ -483,16 +483,16 @@ The following list documents differences between how Pod specifications work bet
 
 Kubernetes v1.26 to v1.32  included alpha support for running Windows Pods in the host's network namespace.
 -->
-#### 主機網絡訪問   {#compatibility-v1-pod-spec-containers-hostnetwork}
+#### 主機網路訪問   {#compatibility-v1-pod-spec-containers-hostnetwork}
 
-Kubernetes 從 v1.26 到 v1.32 提供了在主機網絡命名空間中運行 Windows Pod 的 Alpha 版本支持。
+Kubernetes 從 v1.26 到 v1.32 提供了在主機網路命名空間中運行 Windows Pod 的 Alpha 版本支持。
 
 <!--
 Kubernetes v{{< skew currentVersion >}} does **not** include the `WindowsHostNetwork` feature gate
 or support for running Windows Pods in the host's network namespace.
 -->
 Kubernetes v{{< skew currentVersion >}} **不**包含 `WindowsHostNetwork` 特性門控，
-也不支持在主機網絡命名空間中運行 Windows Pod。
+也不支持在主機網路命名空間中運行 Windows Pod。
 
 <!--
 #### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
@@ -534,9 +534,9 @@ crashing or restarting without losing any of the networking configuration.
 在 Kubernetes Pod 中，首先創建一個基礎容器或 “pause” 容器來承載容器。
 在 Linux 中，構成 Pod 的 cgroup 和命名空間維持持續存在需要一個進程；
 而 pause 進程就提供了這個功能。
-屬於同一 Pod 的容器（包括基礎容器和工作容器）共享一個公共網絡端點
-（相同的 IPv4 和/或 IPv6 地址，相同的網絡端口空間）。
-Kubernetes 使用 pause 容器以允許工作容器崩潰或重啓，而不會丟失任何網絡配置。
+屬於同一 Pod 的容器（包括基礎容器和工作容器）共享一個公共網路端點
+（相同的 IPv4 和/或 IPv6 地址，相同的網路端口空間）。
+Kubernetes 使用 pause 容器以允許工作容器崩潰或重啓，而不會丟失任何網路設定。
 
 <!--
 Kubernetes maintains a multi-architecture image that includes support for Windows.
@@ -552,16 +552,16 @@ The Kubernetes project recommends using the Microsoft maintained image if you ar
 deploying to a production or production-like environment that requires signed
 binaries.
 -->
-Kubernetes 維護一個多體系結構的鏡像，包括對 Windows 的支持。
-對於 Kubernetes v{{< skew currentPatchVersion >}}，推薦的 pause 鏡像爲 `registry.k8s.io/pause:3.6`。
+Kubernetes 維護一個多體系結構的映像檔，包括對 Windows 的支持。
+對於 Kubernetes v{{< skew currentPatchVersion >}}，推薦的 pause 映像檔爲 `registry.k8s.io/pause:3.6`。
 可在 GitHub 上獲得[源代碼](https://github.com/kubernetes/kubernetes/tree/master/build/pause)。
 
-Microsoft 維護一個不同的多體系結構鏡像，支持 Linux 和 Windows amd64，
-你可以找到的鏡像類似 `mcr.microsoft.com/oss/kubernetes/pause:3.6`。
-此鏡像的構建與 Kubernetes 維護的鏡像同源，但所有 Windows 可執行文件均由
+Microsoft 維護一個不同的多體系結構映像檔，支持 Linux 和 Windows amd64，
+你可以找到的映像檔類似 `mcr.microsoft.com/oss/kubernetes/pause:3.6`。
+此映像檔的構建與 Kubernetes 維護的映像檔同源，但所有 Windows 可執行文件均由
 Microsoft 進行了[驗證碼簽名](https://docs.microsoft.com/zh-cn/windows-hardware/drivers/install/authenticode)。
 如果你正部署到一個需要簽名可執行文件的生產或類生產環境，
-Kubernetes 項目建議使用 Microsoft 維護的鏡像。
+Kubernetes 項目建議使用 Microsoft 維護的映像檔。
 
 <!--
 ## Container runtimes {#container-runtime}
@@ -574,7 +574,7 @@ The following container runtimes work with Windows:
 -->
 ## 容器運行時   {#container-runtime}
 
-你需要將{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}安裝到集羣中的每個節點，
+你需要將{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}安裝到叢集中的每個節點，
 這樣 Pod 才能在這些節點上運行。
 
 以下容器運行時適用於 Windows：
@@ -603,7 +603,7 @@ when using GMSA with containerd to access Windows network shares, which requires
 kernel patch.
 -->
 將 GMSA 和 containerd 一起用於訪問 Windows
-網絡共享時存在[已知限制](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)，
+網路共享時存在[已知限制](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)，
 這需要一個內核補丁。
 {{< /note >}}
 
@@ -634,7 +634,7 @@ is as follows:
 -->
 ## Windows 操作系統版本兼容性   {#windows-os-version-support}
 
-在 Windows 節點上，如果主機操作系統版本必須與容器基礎鏡像操作系統版本匹配，
+在 Windows 節點上，如果主機操作系統版本必須與容器基礎映像檔操作系統版本匹配，
 則會應用嚴格的兼容性規則。
 僅 Windows Server 2019 作爲容器操作系統時，才能完全支持 Windows 容器。
 
@@ -705,9 +705,9 @@ the [Windows Desktop Experience](https://learn.microsoft.com/en-us/windows-serve
 installation option, as this configuration typically frees up more system 
 resources.
 -->
-爲了優化系統資源，如果圖形用戶界面不是必需的，最好選擇一個不包含
+爲了優化系統資源，如果圖形使用者界面不是必需的，最好選擇一個不包含
 [Windows 桌面體驗](https://learn.microsoft.com/zh-cn/windows-server/get-started/install-options-server-core-desktop-experience)安裝選項的
-Windows Server 操作系統安裝包，因爲這種配置通常會釋放更多的系統資源。
+Windows Server 操作系統安裝包，因爲這種設定通常會釋放更多的系統資源。
 
 <!--
 In assessing disk space for Windows worker nodes, take note that Windows container images are typically larger than
@@ -719,8 +719,8 @@ to occupy when using local storage on the host.
 See [Containers on Windows - Container Storage Documentation](https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/container-storage#storage-limits)
 for more detail.
 -->
-在估算 Windows 工作節點的磁盤空間時，需要注意 Windows 容器鏡像通常比 Linux 容器鏡像更大，
-單個鏡像的容器大小範圍從 [300MB 到超過 10GB](https://techcommunity.microsoft.com/t5/containers/nano-server-x-server-core-x-server-which-base-image-is-the-right/ba-p/2835785)。
+在估算 Windows 工作節點的磁盤空間時，需要注意 Windows 容器映像檔通常比 Linux 容器映像檔更大，
+單個映像檔的容器大小範圍從 [300MB 到超過 10GB](https://techcommunity.microsoft.com/t5/containers/nano-server-x-server-core-x-server-which-base-image-is-the-right/ba-p/2835785)。
 此外，需要注意 Windows 容器中的 `C:` 驅動器默認呈現的虛擬剩餘空間爲 20GB，
 這不是實際的佔用空間，而是使用主機上的本地存儲時單個容器可以最多佔用的磁盤大小。
 有關更多詳細信息，
@@ -742,7 +742,7 @@ SIG Windows [contributing guide on gathering logs](https://github.com/kubernetes
 -->
 ## 獲取幫助和故障排查   {#troubleshooting}
 
-對 Kubernetes 集羣進行故障排查的主要幫助來源應始於[故障排查](/zh-cn/docs/tasks/debug/)頁面。
+對 Kubernetes 叢集進行故障排查的主要幫助來源應始於[故障排查](/zh-cn/docs/tasks/debug/)頁面。
 
 本節包括了一些其他特定於 Windows 的故障排查幫助。
 日誌是解決 Kubernetes 中問題的重要元素。
@@ -780,13 +780,13 @@ It can be used to validate all the functionalities of a Windows and hybrid syste
 To set up the project on a newly created cluster, refer to the instructions in the
 [project guide](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md).
 -->
-### 驗證 Windows 集羣的操作性  {#validating-windows-cluster-operability}
+### 驗證 Windows 叢集的操作性  {#validating-windows-cluster-operability}
 
 Kubernetes 項目提供了 **Windows 操作準備**規範，配備了結構化的測試套件。
 這個套件分爲兩組測試：核心和擴展。每組測試都包含了針對特定場景的分類測試。
 它可以用來驗證 Windows 和混合系統（混合了 Linux 節點）的所有功能，實現全面覆蓋。
 
-要在新創建的集羣上搭建此項目，
+要在新創建的叢集上搭建此項目，
 請參考[項目指南](https://github.com/kubernetes-sigs/windows-operational-readiness/blob/main/README.md)中的說明。
 
 <!--
@@ -799,9 +799,9 @@ The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also prov
 -->
 ## 部署工具   {#deployment-tools}
 
-kubeadm 工具幫助你部署 Kubernetes 集羣，提供管理集羣的控制平面以及運行工作負載的節點。
+kubeadm 工具幫助你部署 Kubernetes 叢集，提供管理叢集的控制平面以及運行工作負載的節點。
 
-Kubernetes [集羣 API](https://cluster-api.sigs.k8s.io/) 項目也提供了自動部署
+Kubernetes [叢集 API](https://cluster-api.sigs.k8s.io/) 項目也提供了自動部署
 Windows 節點的方式。
 
 <!--

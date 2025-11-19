@@ -1,5 +1,5 @@
 ---
-title: 配置命名空間的最小和最大內存約束
+title: 設定命名空間的最小和最大內存約束
 content_type: task
 weight: 30
 description: >-
@@ -37,9 +37,9 @@ it cannot be created in the namespace.
 You must have access to create namespaces in your cluster.
 Each node in your cluster must have at least 1 GiB of memory available for Pods.
 -->
-在你的集羣裏你必須要有創建命名空間的權限。
+在你的叢集裏你必須要有創建命名空間的權限。
 
-集羣中的每個節點都必須至少有 1 GiB 的內存可供 Pod 使用。
+叢集中的每個節點都必須至少有 1 GiB 的內存可供 Pod 使用。
 
 <!-- steps -->
 
@@ -51,7 +51,7 @@ isolated from the rest of your cluster.
 -->
 ## 創建命名空間
 
-創建一個命名空間，以便在此練習中創建的資源與集羣的其餘資源隔離。
+創建一個命名空間，以便在此練習中創建的資源與叢集的其餘資源隔離。
 
 ```shell
 kubectl create namespace constraints-mem-example
@@ -92,7 +92,7 @@ notice that even though you didn't specify default values in the configuration
 file for the LimitRange, they were created automatically.
 -->
 輸出顯示預期的最小和最大內存約束。
-但請注意，即使你沒有在 LimitRange 的配置文件中指定默認值，默認值也會自動生成。
+但請注意，即使你沒有在 LimitRange 的設定文件中指定默認值，默認值也會自動生成。
 
 ```
   limits:
@@ -300,7 +300,7 @@ applied a
 [default memory request and limit](/docs/tasks/administer-cluster/memory-default-namespace/)
 from the LimitRange.
 -->
-因爲你的 Pod 沒有爲容器聲明任何內存請求和限制，集羣會從 LimitRange
+因爲你的 Pod 沒有爲容器聲明任何內存請求和限制，叢集會從 LimitRange
 獲取[默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
 應用於容器。
 
@@ -368,10 +368,10 @@ You want to allow production workloads to consume up to 8 GiB of memory, but
 you want development workloads to be limited to 512 MiB. You create separate namespaces
   for production and development, and you apply memory constraints to each namespace.
 -->
-作爲集羣管理員，你可能想規定 Pod 可以使用的內存總量限制。例如：
+作爲叢集管理員，你可能想規定 Pod 可以使用的內存總量限制。例如：
 
-* 集羣的每個節點有 2 GiB 內存。你不想接受任何請求超過 2 GiB 的 Pod，因爲集羣中沒有節點可以滿足。
-* 集羣由生產部門和開發部門共享。你希望允許產品部門的負載最多耗用 8 GiB 內存，
+* 叢集的每個節點有 2 GiB 內存。你不想接受任何請求超過 2 GiB 的 Pod，因爲叢集中沒有節點可以滿足。
+* 叢集由生產部門和開發部門共享。你希望允許產品部門的負載最多耗用 8 GiB 內存，
   但是開發部門的負載最多可使用 512 MiB。
   這時，你可以爲產品部門和開發部門分別創建名字空間，併爲各個名字空間設置內存約束。
 
@@ -401,14 +401,14 @@ kubectl delete namespace constraints-mem-example
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
 
-### 集羣管理員參考
+### 叢集管理員參考
 
-* [爲命名空間配置默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間配置內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [爲命名空間配置 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [爲命名空間配置內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-* [爲命名空間配置 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-* [爲 API 對象配置配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
+* [爲命名空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [爲命名空間設定 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [爲命名空間設定 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [爲 API 對象設定配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
 ### For app developers
@@ -424,4 +424,4 @@ kubectl delete namespace constraints-mem-example
 * [爲容器和 Pod 分配內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [爲容器和 Pod 分配 CPU 資源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [分配 Pod 級別的 CPU 和內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-pod-level-resources/)
-* [爲 Pod 配置服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
+* [爲 Pod 設定服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)

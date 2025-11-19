@@ -53,7 +53,7 @@ library for Python.
 
 Once you have Python set up, you can install Jinja2 by running:
 -->
-任務中的基本模板示例要求安裝命令行工具 `sed`。
+任務中的基本模板示例要求安裝命令列工具 `sed`。
 要使用較高級的模板示例，你需要安裝 [Python](https://www.python.org/)，
 並且要安裝 Jinja2 模板庫。
 
@@ -480,7 +480,7 @@ If you plan to create a large number of Job objects, you may find that:
   一種替代方案是，Kubernetes API 可能對請求施加速率限制，通過 429 返回
   狀態值臨時拒絕你的請求。
 - 你可能會受到 Job 相關的{{< glossary_tooltip text="資源配額" term_id="resource-quota" >}}
-  限制：如果你在一個批量請求中觸發了太多的任務，API 服務器會永久性地拒絕你的某些請求。
+  限制：如果你在一個批量請求中觸發了太多的任務，API 伺服器會永久性地拒絕你的某些請求。
 
 <!--
 There are other [job patterns](/docs/concepts/workloads/controllers/job/#job-patterns)

@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "dl.k8s.io 採用內容分發網絡（CDN）"
+title: "dl.k8s.io 採用內容分發網路（CDN）"
 date: 2023-06-09
 slug: dl-adopt-cdn
 ---
@@ -32,9 +32,9 @@ faster and more reliably than ever before.
 我們很高興地宣佈，官方 Kubernetes 二進制文件的主頁 dl.k8s.io 很快將由
 [Fastly](https://www.fastly.com) 提供支持。
 
-Fastly 以其高性能內容分發網絡（CDN）而聞名，
-該網絡旨在全球範圍內快速可靠地分發內容。憑藉其強大的網絡，Fastly
-將幫助我們實現比以往更快、更可靠地向用戶分發官方 Kubernetes 二進制文件。
+Fastly 以其高性能內容分發網路（CDN）而聞名，
+該網路旨在全球範圍內快速可靠地分發內容。憑藉其強大的網路，Fastly
+將幫助我們實現比以往更快、更可靠地向使用者分發官方 Kubernetes 二進制文件。
 
 <!--
 The decision to use Fastly was made after an extensive evaluation process in
@@ -45,7 +45,7 @@ experiences to some of the most known open source projects (through their [Fast
 Forward](https://www.fastly.com/fast-forward) program).
 -->
 使用 Fastly 是在經過廣泛的評估過程後做出的決定，
-在該過程中我們仔細評估了幾個潛在的內容分發網絡提供商。最終，我們選擇
+在該過程中我們仔細評估了幾個潛在的內容分發網路提供商。最終，我們選擇
 Fastly 是因爲他們對開放互聯網的承諾以及在爲一些著名的開源項目（通過他們的
 [Fast Forward](https://www.fastly.com/fast-forward)
 計劃）提供快速和安全的數字體驗方面的良好記錄。
@@ -63,7 +63,7 @@ Fastly 是因爲他們對開放互聯網的承諾以及在爲一些著名的開�
 ## 關於本次更改你需要了解的信息
 
 - 7 月 24 日星期一，與 dl.k8s.io 域名關聯的 IP 地址和後端存儲將發生變化。
-- 由於域名將保持不變，因此更改不會影響絕大多數用戶。
+- 由於域名將保持不變，因此更改不會影響絕大多數使用者。
 - 如果你限制對特定 IP 範圍的訪問，則對 dl.k8s.io 域的訪問可能會停止工作。
 
 <!--
@@ -82,7 +82,7 @@ leveraging a world-wide CDN.
 -->
 ## 我們爲什麼要進行此更改
 
-官方 Kubernetes 二進制文件網站 dl.k8s.io 被全世界成千上萬的用戶使用，
+官方 Kubernetes 二進制文件網站 dl.k8s.io 被全世界成千上萬的使用者使用，
 目前**每月提供超過 5 PB 的二進制文件服務**。本次更改將通過充分利用全球
 CDN 來改善對這些資源的訪問。
 
@@ -122,7 +122,7 @@ affected when the new IP addresses become active.
 
 No, the switch to the CDN should be transparent.
 -->
-## 如果我的公司不使用 IP 地址來限制網絡流量，我們需要做些什麼嗎？
+## 如果我的公司不使用 IP 地址來限制網路流量，我們需要做些什麼嗎？
 
 不，切換到 CDN 的過程應該是透明的。
 
@@ -137,9 +137,9 @@ the `dl.k8s.io` service.
 -->
 ## 會有雙運行期嗎？
 
-**不，這是切換。** 但是，你現在可以測試你的網絡，檢查它們是否可以從 Fastly
-路由到新的公共 IP 地址。 你應該在 7 月 24 日之前將新 IP 添加到你網絡的 `allowlist`（白名單）中。
-切換完成後，確保你的網絡使用新的 IP 地址連接到 `dl.k8s.io` 服務。
+**不，這是切換。** 但是，你現在可以測試你的網路，檢查它們是否可以從 Fastly
+路由到新的公共 IP 地址。 你應該在 7 月 24 日之前將新 IP 添加到你網路的 `allowlist`（白名單）中。
+切換完成後，確保你的網路使用新的 IP 地址連接到 `dl.k8s.io` 服務。
 
 <!--
 ## What are the new IP addresses?
@@ -175,7 +175,7 @@ After the change is made, we recommend double-checking that HTTP calls are
 accessing dl.k8s.io with the new IP addresses.
 -->
 - 將新的 IP 地址添加到你的白名單。
-- 對你的網絡/防火牆進行測試，以確保你的網絡可以路由到新的 IP 地址。
+- 對你的網路/防火牆進行測試，以確保你的網路可以路由到新的 IP 地址。
 
 進行更改後，我們建議仔細檢查 HTTP 調用是否正在使用新 IP 地址訪問 dl.k8s.io。
 

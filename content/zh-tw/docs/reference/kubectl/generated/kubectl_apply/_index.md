@@ -21,7 +21,7 @@ Apply a configuration to a resource by file name or stdin. The resource name mus
 
  Alpha Disclaimer: the --prune functionality is not yet complete. Do not use unless you are aware of what the current state is. See https://issues.k8s.io/34274.
 -->
-基於文件名或標準輸入將配置應用於資源。必須指定資源名稱。如果資源尚不存在，則資源會被創建。
+基於文件名或標準輸入將設定應用於資源。必須指定資源名稱。如果資源尚不存在，則資源會被創建。
 若要使用 `apply` 命令，最初創建資源時應始終使用 `apply` 或 `create --save-config`。
 
 支持 JSON 和 YAML 格式。
@@ -137,7 +137,7 @@ Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. S
 Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource.
 -->
 必須是 "none"、"server" 或 "client"。如果是 client 策略，僅打印將要發送的對象，而不實際發送。
-如果是 server 策略，提交服務器端請求而不持久化資源。
+如果是 server 策略，提交伺服器端請求而不持久化資源。
 </p></td>
 </tr>
 
@@ -163,7 +163,7 @@ Name of the manager used to track field ownership.
 <!--
 The files that contain the configurations to apply.
 -->
-包含了待應用的配置信息的文件。
+包含了待應用的設定信息的文件。
 </p></td>
 </tr>
 
@@ -190,7 +190,7 @@ If true, immediately remove resources from API and bypass graceful deletion. Not
 <!--
 If true, server-side apply will force the changes against conflicts.
 -->
-如果爲真，服務器端應用將在遇到衝突時實施強制更改。
+如果爲真，伺服器端應用將在遇到衝突時實施強制更改。
 </p></td>
 </tr>
 
@@ -265,7 +265,7 @@ json、yaml、name、go-template、go-template-file、template、templatefile、
 <!--
 Automatically resolve conflicts between the modified and live configuration by using values from the modified configuration
 -->
-使用修改後的配置中的值自動解決修改後的配置與實時配置之間的衝突。
+使用修改後的設定中的值自動解決修改後的設定與實時設定之間的衝突。
 </p></td>
 </tr>
 
@@ -278,7 +278,7 @@ Automatically resolve conflicts between the modified and live configuration by u
 <!--
 Automatically delete resource objects, that do not appear in the configs and are created by either apply or create --save-config. Should be used with either -l or --all.
 -->
-自動刪除未出現在配置中但由 "apply" 或 "create --save-config" 創建的資源對象。
+自動刪除未出現在設定中但由 "apply" 或 "create --save-config" 創建的資源對象。
 應與 -l 或 --all 一起使用。
 </p></td>
 </tr>
@@ -330,7 +330,7 @@ Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.
 <!--
 If true, apply runs in the server instead of the client.
 -->
-如果爲真，則 apply 將在服務器側而不是客戶端中運行。
+如果爲真，則 apply 將在伺服器側而不是客戶端中運行。
 </p></td>
 </tr>
 
@@ -407,9 +407,9 @@ silently dropping any unknown or duplicate fields.
 -->
 必須是以下選項之一：strict（或 true）、warn、ignore（或 false）。
 &quot;true&quot; 或 &quot;strict&quot; 將使用模式定義來驗證輸入，如果無效，則請求失敗。
-如果在 API 服務器上啓用了 ServerSideFieldValidation，則執行服務器端驗證，
-但如果未啓用此參數，API 服務器將回退到可靠性較低的客戶端驗證。
-如果在 API 服務器上啓用了服務器端字段驗證，&quot;warn&quot; 將警告未知或重複的字段而不阻止請求，
+如果在 API 伺服器上啓用了 ServerSideFieldValidation，則執行伺服器端驗證，
+但如果未啓用此參數，API 伺服器將回退到可靠性較低的客戶端驗證。
+如果在 API 伺服器上啓用了伺服器端字段驗證，&quot;warn&quot; 將警告未知或重複的字段而不阻止請求，
 否則操作與 &quot;ignore&quot; 的表現相同。
 &quot;false&quot; 或 &quot;ignore&quot; 將不會執行任何模式定義檢查，而是靜默刪除所有未知或重複的字段。
 </p>
@@ -451,7 +451,7 @@ If true, wait for resources to be gone before returning. This waits for finalize
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
-操作所用的僞裝用戶名。用戶可以是常規用戶或命名空間中的服務賬號。
+操作所用的僞裝使用者名。使用者可以是常規使用者或命名空間中的服務賬號。
 </p></td>
 </tr>
 
@@ -464,7 +464,7 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
-操作所用的僞裝用戶組，此標誌可以被重複設置以指定多個組。
+操作所用的僞裝使用者組，此標誌可以被重複設置以指定多個組。
 </p></td>
 </tr>
 
@@ -542,7 +542,7 @@ TLS 客戶端密鑰文件的路徑。
 <!--
 The name of the kubeconfig cluster to use
 -->
-要使用的 kubeconfig 中集羣的名稱。
+要使用的 kubeconfig 中叢集的名稱。
 </p></td>
 </tr>
 
@@ -568,7 +568,7 @@ The name of the kubeconfig context to use
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
-如果爲 true，則對服務器所有請求的響應不再壓縮。
+如果爲 true，則對伺服器所有請求的響應不再壓縮。
 </p></td>
 </tr>
 
@@ -581,7 +581,7 @@ If true, opt-out of response compression for all requests to the server
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
-如果爲 true，則不檢查服務器證書的有效性。這將使你的 HTTPS 連接不安全。
+如果爲 true，則不檢查伺服器證書的有效性。這將使你的 HTTPS 連接不安全。
 </p></td>
 </tr>
 
@@ -622,7 +622,7 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <!--
 Require server version to match client version
 -->
-要求服務器版本與客戶端版本匹配。
+要求伺服器版本與客戶端版本匹配。
 </p></td>
 </tr>
 
@@ -648,7 +648,7 @@ If present, the namespace scope for this CLI request
 <!--
 Password for basic authentication to the API server
 -->
-對 API 服務器進行基本身份驗證所用的密碼。
+對 API 伺服器進行基本身份驗證所用的密碼。
 </p></td>
 </tr>
 
@@ -687,7 +687,7 @@ Name of the file to write the profile to
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
-在放棄某個服務器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
+在放棄某個伺服器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
 值爲零表示請求不會超時。
 </p></td>
 </tr>
@@ -701,7 +701,7 @@ The length of time to wait before giving up on a single server request. Non-zero
 <!--
 The address and port of the Kubernetes API server
 -->
-Kubernetes API 服務器的地址和端口。
+Kubernetes API 伺服器的地址和端口。
 </p></td>
 </tr>
 
@@ -787,7 +787,7 @@ table name
 <!--
 database username
 -->
-數據庫用戶名。
+數據庫使用者名。
 </p></td>
 </tr>
 
@@ -800,7 +800,7 @@ database username
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
-服務器證書驗證所用的服務器名稱。如果未提供，則使用與服務器通信所用的主機名。
+伺服器證書驗證所用的伺服器名稱。如果未提供，則使用與伺服器通信所用的主機名。
 </p>
 </td>
 </tr>
@@ -813,7 +813,7 @@ Server name to use for server certificate validation. If it is not provided, the
 <!--
 Bearer token for authentication to the API server
 -->
-向 API 服務器進行身份驗證的持有者令牌。
+向 API 伺服器進行身份驗證的持有者令牌。
 </p></td>
 </tr>
 
@@ -825,7 +825,7 @@ Bearer token for authentication to the API server
 <!--
 The name of the kubeconfig user to use
 -->
-要使用的 kubeconfig 用戶的名稱。
+要使用的 kubeconfig 使用者的名稱。
 </p></td>
 </tr>
 
@@ -837,7 +837,7 @@ The name of the kubeconfig user to use
 <!--
 Username for basic authentication to the API server
 -->
-對 API 服務器進行基本身份驗證時所用的用戶名。
+對 API 伺服器進行基本身份驗證時所用的使用者名。
 </p></td>
 </tr>
 
@@ -861,7 +861,7 @@ Username for basic authentication to the API server
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
-將從服務器收到的警告視爲錯誤，並以非零退出碼退出。
+將從伺服器收到的警告視爲錯誤，並以非零退出碼退出。
 </p></td>
 </tr>
 
@@ -876,7 +876,7 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 * [kubectl apply set-last-applied](kubectl_apply_set-last-applied/)	 - Set the last-applied-configuration annotation on a live object to match the contents of a file
 * [kubectl apply view-last-applied](kubectl_apply_view-last-applied/)	 - View the latest last-applied-configuration annotations of a resource/object
 -->
-* [kubectl](../kubectl/) - kubectl 控制 Kubernetes 集羣管理器
+* [kubectl](../kubectl/) - kubectl 控制 Kubernetes 叢集管理器
 * [kubectl apply edit-last-applied](kubectl_apply_edit-last-applied/) - 編輯資源/對象的 last-applied-configuration 註解
 * [kubectl apply set-last-applied](kubectl_apply_set-last-applied/) - 設置活躍對象上的 last-applied-configuration 註解以匹配文件的內容
 * [kubectl apply view-last-applied](kubectl_apply_view-last-applied/) - 查看資源/對象的 last-applied-configuration 註解

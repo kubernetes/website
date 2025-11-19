@@ -4,7 +4,7 @@ id: pod
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/pods/
 short_description: >
-  Pod 表示你的集羣上一組正在運行的容器。
+  Pod 表示你的叢集上一組正在運行的容器。
 
 aka: 
 tags:
@@ -30,7 +30,7 @@ tags:
 -->
 
 Pod 是 Kubernetes 的原子對象。
-Pod 表示你的集羣上一組正在運行的{{< glossary_tooltip text="容器（Container）" term_id="container" >}}。
+Pod 表示你的叢集上一組正在運行的{{< glossary_tooltip text="容器（Container）" term_id="container" >}}。
 
 <!--more--> 
 

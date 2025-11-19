@@ -29,7 +29,7 @@ To learn how to install and use Node Problem Detector, see
 節點問題檢測器從各種守護進程收集節點問題，並以節點
 [Condition](/zh-cn/docs/concepts/architecture/nodes/#condition) 和
 [Event](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1)
-的形式報告給 API 服務器。
+的形式報告給 API 伺服器。
 
 要了解如何安裝和使用節點問題檢測器，請參閱
 [節點問題探測器項目文檔](https://github.com/kubernetes/node-problem-detector)。
@@ -72,7 +72,7 @@ to detect customized node problems. For example:
 ### 使用 kubectl 啓用節點問題檢測器 {#using-kubectl}
 
 `kubectl` 提供了節點問題探測器最靈活的管理。
-你可以覆蓋默認配置使其適合你的環境或檢測自定義節點問題。例如：
+你可以覆蓋默認設定使其適合你的環境或檢測自定義節點問題。例如：
 
 <!--
 1. Create a Node Problem Detector configuration similar to `node-problem-detector.yaml`:
@@ -89,7 +89,7 @@ to detect customized node problems. For example:
    kubectl apply -f https://k8s.io/examples/debug/node-problem-detector.yaml
    ```
 -->
-1. 創建類似於 `node-strought-detector.yaml` 的節點問題檢測器配置：
+1. 創建類似於 `node-strought-detector.yaml` 的節點問題檢測器設定：
    {{% code_sample file="debug/node-problem-detector.yaml" %}}
 
    {{< note >}}
@@ -114,10 +114,10 @@ directory `/etc/kubernetes/addons/node-problem-detector` on a control plane node
 -->
 ### 使用插件 Pod 啓用節點問題檢測器 {#using-addon-pod}
 
-如果你使用的是自定義集羣引導解決方案，不需要覆蓋默認配置，
+如果你使用的是自定義叢集引導解決方案，不需要覆蓋默認設定，
 可以利用插件 Pod 進一步自動化部署。
 
-創建 `node-strick-detector.yaml`，並在控制平面節點上保存配置到插件 Pod 的目錄
+創建 `node-strick-detector.yaml`，並在控制平面節點上保存設定到插件 Pod 的目錄
 `/etc/kubernetes/addons/node-problem-detector`。
 
 <!--
@@ -126,10 +126,10 @@ directory `/etc/kubernetes/addons/node-problem-detector` on a control plane node
 The [default configuration](https://github.com/kubernetes/node-problem-detector/tree/v0.8.12/config)
 is embedded when building the Docker image of Node Problem Detector.
 -->
-## 覆蓋配置文件
+## 覆蓋設定文件
 
-構建節點問題檢測器的 docker 鏡像時，會嵌入
-[默認配置](https://github.com/kubernetes/node-problem-detector/tree/v0.8.12/config)。
+構建節點問題檢測器的 docker 映像檔時，會嵌入
+[默認設定](https://github.com/kubernetes/node-problem-detector/tree/v0.8.12/config)。
 
 <!--
 However, you can use a [`ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/)
@@ -158,7 +158,7 @@ to overwrite the configuration:
    kubectl apply -f https://k8s.io/examples/debug/node-problem-detector-configmap.yaml
    ```
  -->
-1. 更改 `config/` 中的配置文件
+1. 更改 `config/` 中的設定文件
 1. 創建 `ConfigMap` `node-strick-detector-config`：
 
    ```shell
@@ -169,7 +169,7 @@ to overwrite the configuration:
 
       {{% code_sample file="debug/node-problem-detector-configmap.yaml" %}}
 
-1. 使用新的配置文件重新創建節點問題檢測器：
+1. 使用新的設定文件重新創建節點問題檢測器：
 
    ```shell
    # 如果你正在運行節點問題檢測器，請先刪除，然後再重新創建
@@ -189,7 +189,7 @@ The Addon manager does not support `ConfigMap`.
 此方法僅適用於通過 `kubectl` 啓動的節點問題檢測器。
 {{< /note >}}
 
-如果節點問題檢測器作爲集羣插件運行，則不支持覆蓋配置。
+如果節點問題檢測器作爲叢集插件運行，則不支持覆蓋設定。
 插件管理器不支持 `ConfigMap`。
 
 <!--
@@ -216,7 +216,7 @@ There are several types of supported problem daemons.
   and [systemd](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/systemd-monitor-counter.json).
 -->
 - `SystemLogMonitor` 類型的守護程序根據預定義的規則監視系統日誌並報告問題和指標。
-  你可以針對不同的日誌源自定義配置如
+  你可以針對不同的日誌源自定義設定如
 [filelog](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/kernel-monitor-filelog.json)、
 [kmsg](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/kernel-monitor.json)、
 [kernel](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/kernel-monitor-counter.json)、
@@ -230,7 +230,7 @@ There are several types of supported problem daemons.
 -->
 
 - `SystemStatsMonitor` 類型的守護程序收集各種與健康相關的系統統計數據作爲指標。
-  你可以通過更新其[配置文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/system-stats-monitor.json)來自定義其行爲。
+  你可以通過更新其[設定文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/system-stats-monitor.json)來自定義其行爲。
 
 <!--
 - A `CustomPluginMonitor` type of daemon invokes and checks various node problems by running
@@ -239,9 +239,9 @@ There are several types of supported problem daemons.
   [configuration file](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/custom-plugin-monitor.json).
 -->
 
-- `CustomPluginMonitor` 類型的守護程序通過運行用戶定義的腳本來調用和檢查各種節點問題。
+- `CustomPluginMonitor` 類型的守護程序通過運行使用者定義的腳本來調用和檢查各種節點問題。
   你可以使用不同的自定義插件監視器來監視不同的問題，並通過更新
-  [配置文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/custom-plugin-monitor.json)
+  [設定文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/custom-plugin-monitor.json)
   來定製守護程序行爲。
 
 <!--
@@ -303,14 +303,14 @@ The following exporters are supported:
 導出器（Exporter）向特定後端報告節點問題和/或指標。
 支持下列導出器：
 
-- **Kubernetes exporter**：此導出器向 Kubernetes API 服務器報告節點問題。
+- **Kubernetes exporter**：此導出器向 Kubernetes API 伺服器報告節點問題。
   臨時問題報告爲事件，永久性問題報告爲節點狀況。
 
 - **Prometheus exporter**：此導出器在本地將節點問題和指標報告爲 Prometheus（或 OpenMetrics）指標。
-  你可以使用命令行參數指定導出器的 IP 地址和端口。
+  你可以使用命令列參數指定導出器的 IP 地址和端口。
 
 - **Stackdriver exporter**：此導出器向 Stackdriver Monitoring API 報告節點問題和指標。
-  可以使用[配置文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/exporter/stackdriver-exporter.json)自定義導出行爲。
+  可以使用[設定文件](https://github.com/kubernetes/node-problem-detector/blob/v0.8.12/config/exporter/stackdriver-exporter.json)自定義導出行爲。
 
 <!-- discussion -->
 
@@ -328,7 +328,7 @@ Usually this is fine, because:
 -->
 ## 建議和限制
 
-建議在集羣中運行節點問題檢測器以監控節點運行狀況。
+建議在叢集中運行節點問題檢測器以監控節點運行狀況。
 運行節點問題檢測器時，你可以預期每個節點上的額外資源開銷。
 通常這是可接受的，因爲：
 

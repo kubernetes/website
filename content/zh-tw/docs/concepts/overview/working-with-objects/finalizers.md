@@ -43,7 +43,7 @@ and does the following:
 ## Finalizers 如何工作   {#how-finalizers-work}
 
 當你使用清單文件創建資源時，你可以在 `metadata.finalizers` 字段指定 Finalizers。
-當你試圖刪除該資源時，處理刪除請求的 API 服務器會注意到 `finalizers` 字段中的值，
+當你試圖刪除該資源時，處理刪除請求的 API 伺服器會注意到 `finalizers` 字段中的值，
 並進行以下操作：
 
 * 修改對象，將你開始執行刪除的時間添加到 `metadata.deletionTimestamp` 字段。
@@ -108,7 +108,7 @@ Kubernetes enforces this format; the API server rejects writes to objects where 
 -->
 自定義 finalizer 名稱**必須**是公開限定的 finalizer 名稱，例如 `example.com/finalizer-name`。
 Kubernetes 強制要求使用此格式；
-如果任意自定義 finalizer 在更改時未使用限定的 finalizer 名稱，API 服務器將拒絕寫入到這些對象。
+如果任意自定義 finalizer 在更改時未使用限定的 finalizer 名稱，API 伺服器將拒絕寫入到這些對象。
 {{< /note >}}
 
 {{<note>}}
@@ -118,7 +118,7 @@ Kubernetes enforces this format; the API server rejects writes to objects where 
 -->
 自定義的 finalizer 名稱**必須**是具有公共限定前綴的 finalizer 名稱，
 例如 `example.com/finalizer-name`。Kubernetes 強制要求使用這種格式；
-如果對象中的更改未使用合規的限定格式，API 服務器將拒絕寫入包含自定義 finalizer 的對象。
+如果對象中的更改未使用合規的限定格式，API 伺服器將拒絕寫入包含自定義 finalizer 的對象。
 {{</note>}}
 
 <!--
@@ -142,7 +142,7 @@ Kubernetes 中對象之間的關係，但它們作用不同。
 當一個{{<glossary_tooltip text="控制器" term_id="controller">}}管理類似於
 Pod 的對象時，它使用標籤來跟蹤相關對象組的變化。
 例如，當 {{<glossary_tooltip text="Job" term_id="job">}} 創建一個或多個 Pod 時，
-Job 控制器會給這些 Pod 應用上標籤，並跟蹤集羣中的具有相同標籤的 Pod 的變化。
+Job 控制器會給這些 Pod 應用上標籤，並跟蹤叢集中的具有相同標籤的 Pod 的變化。
 
 <!--
 The Job controller also adds *owner references* to those Pods, pointing at the
@@ -161,7 +161,7 @@ objects to troubleshoot the cause.
 -->
 Job 控制器還爲這些 Pod 添加了“屬主引用”，指向創建 Pod 的 Job。
 如果你在這些 Pod 運行的時候刪除了 Job，
-Kubernetes 會使用屬主引用（而不是標籤）來確定集羣中哪些 Pod 需要清理。
+Kubernetes 會使用屬主引用（而不是標籤）來確定叢集中哪些 Pod 需要清理。
 
 當 Kubernetes 識別到要刪除的資源上的屬主引用時，它也會處理 Finalizers。
 
@@ -179,7 +179,7 @@ understood and is accomplished in another way (for example, manually cleaning
 up some dependent object).
 -->
 在對象卡在刪除狀態的情況下，要避免手動移除 Finalizers，以允許繼續刪除操作。
-Finalizers 通常因爲特殊原因被添加到資源上，所以強行刪除它們會導致集羣出現問題。
+Finalizers 通常因爲特殊原因被添加到資源上，所以強行刪除它們會導致叢集出現問題。
 只有瞭解 finalizer 的用途時才能這樣做，並且應該通過一些其他方式來完成
 （例如，手動清除其餘的依賴對象）。
 {{< /note >}}

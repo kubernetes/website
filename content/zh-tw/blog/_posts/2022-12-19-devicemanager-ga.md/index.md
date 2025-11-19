@@ -40,7 +40,7 @@ advertisement (as extended resources) and allocation. Device Manager connects to
 the `Registration` gRPC service served by kubelet to register itself with kubelet.
 -->
 在 kubelet 中，設備管理器通過 Unix 套接字使用 gRPC 實現與設備插件的通信。
-設備管理器和設備插件都充當 gRPC 服務器和客戶端的角色，分別提供暴露的 gRPC 服務並進行連接。
+設備管理器和設備插件都充當 gRPC 伺服器和客戶端的角色，分別提供暴露的 gRPC 服務並進行連接。
 設備插件提供 gRPC 服務，kubelet 連接該服務進行設備的發現、公佈（作爲擴展資源）和分配。
 設備管理器連接到 kubelet 提供的 `Registration` gRPC 服務，以向 kubelet 註冊自身。
 
@@ -48,7 +48,7 @@ the `Registration` gRPC service served by kubelet to register itself with kubele
 Please refer to the documentation for an [example](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#example-pod) on how a pod can request a device exposed to the cluster by a device plugin.
 -->
 請查閱文檔中的[示例](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#example-pod),
-瞭解一個 Pod 如何通過設備插件請求集羣中暴露的設備。
+瞭解一個 Pod 如何通過設備插件請求叢集中暴露的設備。
 
 <!--
 Here are some example implementations of device plugins:
@@ -61,7 +61,7 @@ Here are some example implementations of device plugins:
 - [AMD GPU 設備插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 - [用於 Kubernetes 的 Intel 設備插件集合](https://github.com/intel/intel-device-plugins-for-kubernetes)
 - [用於 Kubernetes 的 NVIDIA 設備插件](https://github.com/NVIDIA/k8s-device-plugin)
-- [用於 Kubernetes 的 SRIOV 網絡設備插件](https://github.com/k8snetworkplumbingwg/sriov-network-device-plugin)
+- [用於 Kubernetes 的 SRIOV 網路設備插件](https://github.com/k8snetworkplumbingwg/sriov-network-device-plugin)
 
 <!--
 ## Noteworthy developments since Device Plugin framework introduction
@@ -118,7 +118,7 @@ Additional gRPC endpoints introduced:
 -->
 3. 在註冊階段由設備插件指示時，`PreStartContainer` 會在每次容器啓動之前被調用。
    它允許設備插件在所請求的設備上執行特定的設備操作。
-   例如，在容器啓動前對 FPGA 進行重新配置或重新編程。
+   例如，在容器啓動前對 FPGA 進行重新設定或重新編程。
 
 <!--
 Pull Requests that introduced these changes are here:
@@ -161,7 +161,7 @@ and device plugin could register itself before starting its gRPC server which is
 case. For more details, refer to [PR #109016](https://github.com/kubernetes/kubernetes/pull/109016) and [Issue #112395](https://github.com/kubernetes/kubernetes/issues/112395).
 -->
 通過這次重構工作，現在設備插件必須在向 kubelet 註冊之前開始提供其 gRPC 服務。
-之前這兩個操作是異步的，設備插件可以在啓動其 gRPC 服務器之前註冊自己，但現在不再允許。
+之前這兩個操作是異步的，設備插件可以在啓動其 gRPC 伺服器之前註冊自己，但現在不再允許。
 更多細節請參考 [PR #109016](https://github.com/kubernetes/kubernetes/pull/109016) 和
 [Issue #112395](https://github.com/kubernetes/kubernetes/issues/112395)。
 
@@ -189,7 +189,7 @@ has been introduced to cater to devices that have more sophisticated resource re
 1. 促進容器和 Pod 之間設備的動態共享。
 1. 支持自定義特定資源參數。
 1. 啓用特定資源的設置和清理操作。
-1. 實現對網絡附加資源的支持，不再侷限於節點本地資源。
+1. 實現對網路附加資源的支持，不再侷限於節點本地資源。
 
 <!--
 ## Is the Device Plugin API stable now?

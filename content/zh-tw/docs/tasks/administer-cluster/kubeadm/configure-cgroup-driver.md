@@ -1,5 +1,5 @@
 ---
-title: 配置 cgroup 驅動
+title: 設定 cgroup 驅動
 content_type: task
 weight: 50
 ---
@@ -15,7 +15,7 @@ weight: 50
 This page explains how to configure the kubelet's cgroup driver to match the container
 runtime cgroup driver for kubeadm clusters.
 -->
-本頁闡述如何配置 kubelet 的 cgroup 驅動以匹配 kubeadm 集羣中的容器運行時的 cgroup 驅動。
+本頁闡述如何設定 kubelet 的 cgroup 驅動以匹配 kubeadm 叢集中的容器運行時的 cgroup 驅動。
 
 ## {{% heading "prerequisites" %}}
 
@@ -30,7 +30,7 @@ You should be familiar with the Kubernetes
 <!-- 
 ## Configuring the container runtime cgroup driver
 -->
-## 配置容器運行時 cgroup 驅動 {#configuring-the-container-runtime-cgroup-driver}
+## 設定容器運行時 cgroup 驅動 {#configuring-the-container-runtime-cgroup-driver}
 
 <!-- 
 The [Container runtimes](/docs/setup/production-environment/container-runtimes) page
@@ -54,7 +54,7 @@ The page also provides details on how to set up a number of different container 
 <!-- 
 ## Configuring the kubelet cgroup driver
 -->
-## 配置 kubelet 的 cgroup 驅動   {#configuring-the-kubelet-cgroup-driver}
+## 設定 kubelet 的 cgroup 驅動   {#configuring-the-kubelet-cgroup-driver}
 
 <!-- 
 kubeadm allows you to pass a `KubeletConfiguration` structure during `kubeadm init`.
@@ -75,7 +75,7 @@ for more details.
 -->
 
 {{< note >}}
-在版本 1.22 及更高版本中，如果用戶沒有在 `KubeletConfiguration` 中設置 `cgroupDriver` 字段，
+在版本 1.22 及更高版本中，如果使用者沒有在 `KubeletConfiguration` 中設置 `cgroupDriver` 字段，
 `kubeadm` 會將它設置爲默認值 `systemd`。
 
 在 Kubernetes v1.28 中，你可以以 Alpha 功能啓用 cgroup 驅動的自動檢測。
@@ -85,7 +85,7 @@ for more details.
 <!-- 
 A minimal example of configuring the field explicitly:
 -->
-這是一個最小化的示例，其中顯式的配置了此字段：
+這是一個最小化的示例，其中顯式的設定了此字段：
 
 ```yaml
 # kubeadm-config.yaml
@@ -101,7 +101,7 @@ cgroupDriver: systemd
 <!-- 
 Such a configuration file can then be passed to the kubeadm command:
 -->
-這樣一個配置文件就可以傳遞給 kubeadm 命令了：
+這樣一個設定文件就可以傳遞給 kubeadm 命令了：
 
 ```shell
 kubeadm init --config kubeadm-config.yaml
@@ -117,7 +117,7 @@ writing the `KubeletConfiguration` as a file under `/var/lib/kubelet/config.yaml
 and passing it to the local node kubelet.
 -->
 {{< note >}}
-Kubeadm 對集羣所有的節點，使用相同的 `KubeletConfiguration`。
+Kubeadm 對叢集所有的節點，使用相同的 `KubeletConfiguration`。
 `KubeletConfiguration` 存放於 `kube-system` 命名空間下的某個 
 [ConfigMap](/zh-cn/docs/concepts/configuration/configmap) 對象中。
 
@@ -133,7 +133,7 @@ kubeadm patches the `containerRuntimeEndpoint` value from this instance configur
 在每個節點上，kubeadm 會檢測 CRI 套接字，並將其詳細信息存儲到
 `/var/lib/kubelet/instance-config.yaml` 文件中。
 當執行 `init`、`join` 或 `upgrade` 子命令時，
-kubeadm 會將此實例配置中的 `containerRuntimeEndpoint` 值 patch 到
+kubeadm 會將此實例設定中的 `containerRuntimeEndpoint` 值 patch 到
 `/var/lib/kubelet/config.yaml` 中。
 
 {{< /note >}}
@@ -162,7 +162,7 @@ you must refer to the documentation of the container runtime of your choice.
 -->
 參閱以下章節“[修改 kubelet 的 ConfigMap](#modify-the-kubelet-configmap) ”，瞭解顯式設置該值的方法。
 
-如果你希望配置容器運行時來使用 `cgroupfs` 驅動，
+如果你希望設定容器運行時來使用 `cgroupfs` 驅動，
 則必須參考所選容器運行時的文檔。
 
 <!-- 
@@ -175,7 +175,7 @@ To change the cgroup driver of an existing kubeadm cluster from `cgroupfs` to `s
 a similar procedure to a kubelet upgrade is required. This must include both
 steps outlined below.
 -->
-要將現有 kubeadm 集羣的 cgroup 驅動從 `cgroupfs` 就地升級爲 `systemd`，
+要將現有 kubeadm 叢集的 cgroup 驅動從 `cgroupfs` 就地升級爲 `systemd`，
 需要執行一個與 kubelet 升級類似的過程。
 該過程必須包含下面兩個步驟：
 
@@ -186,7 +186,7 @@ before joining the new nodes and ensuring the workloads can safely move to the n
 nodes before deleting the old nodes.
 -->
 {{< note >}}
-還有一種方法，可以用已配置了 `systemd` 的新節點替換掉集羣中的老節點。
+還有一種方法，可以用已設定了 `systemd` 的新節點替換掉叢集中的老節點。
 按這種方法，在加入新節點、確保工作負載可以安全遷移到新節點、及至刪除舊節點這一系列操作之前，
 只需執行以下第一個步驟。
 {{< /note >}}
@@ -228,7 +228,7 @@ For each node in the cluster:
 - Start the kubelet using `systemctl start kubelet`
 - [Uncordon the node](/docs/tasks/administer-cluster/safely-drain-node) using `kubectl uncordon <node-name>`
 -->
-對於集羣中的每一個節點：
+對於叢集中的每一個節點：
 
 - 執行命令 `kubectl drain <node-name> --ignore-daemonsets`，以
   [騰空節點](/zh-cn/docs/tasks/administer-cluster/safely-drain-node)

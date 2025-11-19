@@ -40,10 +40,10 @@ Most kubectl commands typically fall into one of a few categories:
 | 類型 | 用途 | 描述 |
 |-----|------|------|
 | 聲明式資源管理 | 部署和運維（如 GitOps）| 使用資源管理聲明式管理 Kubernetes 工作負載 |
-| 命令式資源管理 | 僅限開發環境 | 使用命令行參數和標誌來管理 Kubernetes 工作負載 |
+| 命令式資源管理 | 僅限開發環境 | 使用命令列參數和標誌來管理 Kubernetes 工作負載 |
 | 打印工作負載狀態 | 調試 | 打印有關工作負載的信息 |
 | 與容器交互 | 調試 | 執行、掛接、複製、日誌 |
-| 集羣管理 | 集羣運維 | 排空和封鎖節點 |
+| 叢集管理 | 叢集運維 | 排空和封鎖節點 |
 
 <!--
 ## Declarative Application Management
@@ -56,13 +56,13 @@ reflect the declared intent.
 ## 聲明式應用管理   {#declarative-application-management}
 
 管理資源的首選方法是配合 kubectl **Apply** 命令一起使用名爲資源的聲明式文件。
-此命令讀取本地（或遠程）文件結構，並修改集羣狀態以反映聲明的意圖。
+此命令讀取本地（或遠程）文件結構，並修改叢集狀態以反映聲明的意圖。
 
 {{< alert color="success" title="Apply" >}}
 <!--
 Apply is the preferred mechanism for managing resources in a Kubernetes cluster.
 -->
-Apply 是在 Kubernetes 集羣中管理資源的首選機制。
+Apply 是在 Kubernetes 叢集中管理資源的首選機制。
 {{< /alert >}}
 
 <!--
@@ -77,7 +77,7 @@ Users will need to view workload state.
 -->
 ## 打印工作負載狀態   {#printing-state-about-workloads}
 
-用戶需要查看工作負載狀態。
+使用者需要查看工作負載狀態。
 
 - 打印關於資源的摘要狀態和信息
 - 打印關於資源的完整狀態和信息
@@ -99,9 +99,9 @@ kubectl supports debugging by providing commands for:
 kubectl 支持通過提供以下命令進行調試：
 
 - 打印 Container 日誌
-- 打印集羣事件
+- 打印叢集事件
 - 執行或掛接到 Container
-- 將集羣中 Container 中的文件複製到用戶的文件系統
+- 將叢集中 Container 中的文件複製到使用者的文件系統
 
 <!--
 ## Cluster Management
@@ -109,9 +109,9 @@ kubectl 支持通過提供以下命令進行調試：
 On occasion, users may need to perform operations to the Nodes of cluster. kubectl supports
 commands to drain workloads from a Node so that it can be decommissioned or debugged.
 -->
-## 集羣管理   {#cluster-management}
+## 叢集管理   {#cluster-management}
 
-有時用戶可能需要對集羣的節點執行操作。
+有時使用者可能需要對叢集的節點執行操作。
 kubectl 支持使用命令將工作負載從節點中排空，以便節點可以被停用或調試。
 
 <!--
@@ -127,8 +127,8 @@ generating and modifying resources.
 -->
 ## Porcelain
 
-用戶可能會發現使用資源管理進行 **開發** 過於繁瑣，
-他們更喜歡使用類似於 Shell 的工作流以 **命令式** 與集羣交互。
+使用者可能會發現使用資源管理進行 **開發** 過於繁瑣，
+他們更喜歡使用類似於 Shell 的工作流以 **命令式** 與叢集交互。
 kubectl 提供了用於生成和修改資源的 Porcelain 命令。
 
 - 生成和創建 Deployment、StatefulSet、Service、ConfigMap 等這類資源
@@ -142,5 +142,5 @@ be used for production.
 {{< /alert >}}
 -->
 {{< alert color="warning" title="Porcelain 僅限開發使用" >}}
-Porcelain 命令可以節省在開發集羣中進行工作負載實驗的時間，但不應當用於生產環境。
+Porcelain 命令可以節省在開發叢集中進行工作負載實驗的時間，但不應當用於生產環境。
 {{< /alert >}}

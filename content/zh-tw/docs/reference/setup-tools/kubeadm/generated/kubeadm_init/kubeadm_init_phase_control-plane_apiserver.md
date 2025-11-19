@@ -34,7 +34,7 @@ kubeadm init phase control-plane apiserver [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，將使用默認網絡接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，將使用默認網路接口。
 </p>
 </td>
 </tr>
@@ -54,7 +54,7 @@ API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，將使
 <!--
 Port for the API Server to bind to.
 -->
-要綁定到 API 服務器的端口。
+要綁定到 API 伺服器的端口。
 </p>
 </td>
 </tr>
@@ -70,7 +70,7 @@ Port for the API Server to bind to.
 A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
 一組 &lt;flagname&gt;=&lt;value&gt; 形式的額外參數，用來傳遞給 API
-服務器或者覆蓋其默認參數配置。
+伺服器或者覆蓋其默認參數設定。
 </p>
 </td>
 </tr>
@@ -105,7 +105,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -194,7 +194,7 @@ apiserver 操作的幫助命令。
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇要從中拉取控制平面鏡像的容器倉庫。
+選擇要從中拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>

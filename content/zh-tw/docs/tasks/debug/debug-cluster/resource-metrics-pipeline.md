@@ -32,7 +32,7 @@ command.
 
 對於 Kubernetes，**Metrics API** 提供了一組基本的指標，以支持自動伸縮和類似的用例。
 該 API 提供有關節點和 Pod 的資源使用情況的信息，
-包括 CPU 和內存的指標。如果將 Metrics API 部署到集羣中，
+包括 CPU 和內存的指標。如果將 Metrics API 部署到叢集中，
 那麼 Kubernetes API 的客戶端就可以查詢這些信息，並且可以使用 Kubernetes 的訪問控制機制來管理權限。
 
 [HorizontalPodAutoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) 和
@@ -63,7 +63,7 @@ Figure 1 illustrates the architecture of the resource metrics pipeline.
 
 {{< mermaid >}}
 flowchart RL
-subgraph cluster[集羣]
+subgraph cluster[叢集]
 direction RL
 S[ <br><br> ]
 A[Metrics-<br>Server]
@@ -74,7 +74,7 @@ E[容器<br>運行時] --> D
 E1[容器<br>運行時] --> D
 P[Pod 數據] -.- C
 end
-L[API<br>服務器]
+L[API<br>伺服器]
 W[HPA]
 C ---->|節點層面<br>資源指標| A -->|metrics<br>API| L --> W
 end
@@ -114,10 +114,10 @@ The architecture components, from right to left in the figure, consist of the fo
 * [kubelet](/zh-cn/docs/concepts/architecture/#kubelet): 用於管理容器資源的節點代理。
   可以使用 `/metrics/resource` 和 `/stats` kubelet API 端點訪問資源指標。
 * [節點層面資源指標](/zh-cn/docs/reference/instrumentation/node-metrics): kubelet 提供的 API，用於發現和檢索可通過 `/metrics/resource` 端點獲得的每個節點的彙總統計信息。
-* [metrics-server](#metrics-server): 集羣插件組件，用於收集和聚合從每個 kubelet 中提取的資源指標。
-  API 服務器提供 Metrics API 以供 HPA、VPA 和 `kubectl top` 命令使用。Metrics Server 是 Metrics API 的參考實現。
+* [metrics-server](#metrics-server): 叢集插件組件，用於收集和聚合從每個 kubelet 中提取的資源指標。
+  API 伺服器提供 Metrics API 以供 HPA、VPA 和 `kubectl top` 命令使用。Metrics Server 是 Metrics API 的參考實現。
 * [Metrics API](#metrics-api): Kubernetes API 支持訪問用於工作負載自動縮放的 CPU 和內存。
-  要在你的集羣中進行這項工作，你需要一個提供 Metrics API 的 API 擴展服務器。
+  要在你的叢集中進行這項工作，你需要一個提供 Metrics API 的 API 擴展伺服器。
 
   <!--
   cAdvisor supports reading metrics from cgroups, which works with typical container runtimes on Linux.
@@ -149,7 +149,7 @@ reading:
 
 {{< feature-state for_k8s_version="1.8" state="beta" >}}
 
-metrics-server 實現了 Metrics API。此 API 允許你訪問集羣中節點和 Pod 的 CPU 和內存使用情況。
+metrics-server 實現了 Metrics API。此 API 允許你訪問叢集中節點和 Pod 的 CPU 和內存使用情況。
 它的主要作用是將資源使用指標提供給 K8s 自動縮放器組件。
 
 下面是一個 `minikube` 節點的 Metrics API 請求示例，通過 `jq` 管道處理以便於閱讀：
@@ -338,12 +338,12 @@ is available via the extension API that the metrics-server makes available.
 For example with an HPA query, the metrics-server needs to identify which pods fulfill the label
 selectors in the deployment.
 -->
-## Metrics 服務器    {#metrics-server}
+## Metrics 伺服器    {#metrics-server}
 
-metrics-server 從 kubelet 中獲取資源指標，並通過 Metrics API 在 Kubernetes API 服務器中公開它們，以供 HPA 和 VPA 使用。
+metrics-server 從 kubelet 中獲取資源指標，並通過 Metrics API 在 Kubernetes API 伺服器中公開它們，以供 HPA 和 VPA 使用。
 你還可以使用 `kubectl top` 命令查看這些指標。
 
-metrics-server 使用 Kubernetes API 來跟蹤集羣中的節點和 Pod。metrics-server 服務器通過 HTTP 查詢每個節點以獲取指標。
+metrics-server 使用 Kubernetes API 來跟蹤叢集中的節點和 Pod。metrics-server 伺服器通過 HTTP 查詢每個節點以獲取指標。
 metrics-server 還構建了 Pod 元數據的內部視圖，並維護 Pod 健康狀況的緩存。
 緩存的 Pod 健康信息可通過 metrics-server 提供的擴展 API 獲得。
 

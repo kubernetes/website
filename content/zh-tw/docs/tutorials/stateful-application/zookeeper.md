@@ -40,7 +40,7 @@ Kubernetes concepts.
 在開始本教程前，你應該熟悉以下 Kubernetes 概念。
 
 - [Pods](/zh-cn/docs/concepts/workloads/pods/)
-- [集羣 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
+- [叢集 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
 - [無頭服務（Headless Service）](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 - [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
 - [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
@@ -54,10 +54,10 @@ In this tutorial you will cordon and drain the cluster's nodes. **This means tha
 and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated
 cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
 -->
-你需要一個至少包含四個節點的集羣，每個節點至少 2 個 CPU 和 4 GiB 內存。
-在本教程中你將會隔離（Cordon）和騰空（Drain ）集羣的節點。
-**這意味着集羣節點上所有的 Pod 將會被終止並移除。這些節點也會暫時變爲不可調度**。
-在本教程中你應該使用一個獨佔的集羣，或者保證你造成的干擾不會影響其它租戶。
+你需要一個至少包含四個節點的叢集，每個節點至少 2 個 CPU 和 4 GiB 內存。
+在本教程中你將會隔離（Cordon）和騰空（Drain ）叢集的節點。
+**這意味着叢集節點上所有的 Pod 將會被終止並移除。這些節點也會暫時變爲不可調度**。
+在本教程中你應該使用一個獨佔的叢集，或者保證你造成的干擾不會影響其它租戶。
 
 <!--
 This tutorial assumes that you have configured your cluster to dynamically provision
@@ -65,8 +65,8 @@ PersistentVolumes. If your cluster is not configured to do so, you
 will have to manually provision three 20 GiB volumes before starting this
 tutorial.
 -->
-本教程假設你的集羣已配置爲動態製備 PersistentVolume。
-如果你的集羣沒有配置成這樣，在開始本教程前，你需要手動準備三個 20 GiB 的卷。
+本教程假設你的叢集已設定爲動態製備 PersistentVolume。
+如果你的叢集沒有設定成這樣，在開始本教程前，你需要手動準備三個 20 GiB 的卷。
 
 ## {{% heading "objectives" %}}
 
@@ -81,8 +81,8 @@ After this tutorial, you will know the following.
 在學習本教程後，你將熟悉下列內容。
 
 * 如何使用 StatefulSet 部署一個 ZooKeeper ensemble。
-* 如何一致地配置 ensemble。
-* 如何在 ensemble 中分佈 ZooKeeper 服務器的部署。
+* 如何一致地設定 ensemble。
+* 如何在 ensemble 中分佈 ZooKeeper 伺服器的部署。
 * 如何在計劃維護中使用 PodDisruptionBudget 確保服務可用性。
 
 <!-- lessoncontent -->
@@ -104,11 +104,11 @@ consensus protocol to replicate a state machine across all servers in the ensemb
 [Apache ZooKeeper](https://zookeeper.apache.org/doc/current/)
 是一個分佈式的開源協調服務，用於分佈式系統。
 ZooKeeper 允許你讀取、寫入數據和發現數據更新。
-數據按層次結構組織在文件系統中，並複製到 ensemble（一個 ZooKeeper 服務器的集合） 
-中所有的 ZooKeeper 服務器。對數據的所有操作都是原子的和順序一致的。
+數據按層次結構組織在文件系統中，並複製到 ensemble（一個 ZooKeeper 伺服器的集合） 
+中所有的 ZooKeeper 伺服器。對數據的所有操作都是原子的和順序一致的。
 ZooKeeper 通過
 [Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf)
-一致性協議在 ensemble 的所有服務器之間複製一個狀態機來確保這個特性。
+一致性協議在 ensemble 的所有伺服器之間複製一個狀態機來確保這個特性。
 
 <!--
 The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot write data until that election is complete.
@@ -121,7 +121,7 @@ Ensemble 使用 Zab 協議選舉一個領導者，在選舉出領導者前不能
 一旦選舉出了領導者，ensemble 使用 Zab 保證所有寫入被複制到一個 quorum，
 然後這些寫入操作纔會被確認並對客戶端可用。
 如果沒有遵照加權 quorums，一個 quorum 表示包含當前領導者的 ensemble 的多數成員。
-例如，如果 ensemble 有 3 個服務器，一個包含領導者的成員和另一個服務器就組成了一個
+例如，如果 ensemble 有 3 個伺服器，一個包含領導者的成員和另一個伺服器就組成了一個
 quorum。
 如果 ensemble 不能達成一個 quorum，數據將不能被寫入。
 
@@ -130,8 +130,8 @@ ZooKeeper servers keep their entire state machine in memory, and write every mut
 -->
 ZooKeeper 在內存中保存它們的整個狀態機，但是每個改變都被寫入一個在存儲介質上的持久
 WAL（Write Ahead Log）。
-當一個服務器出現故障時，它能夠通過回放 WAL 恢復之前的狀態。
-爲了防止 WAL 無限制的增長，ZooKeeper 服務器會定期的將內存狀態快照保存到存儲介質。
+當一個伺服器出現故障時，它能夠通過回放 WAL 恢復之前的狀態。
+爲了防止 WAL 無限制的增長，ZooKeeper 伺服器會定期的將內存狀態快照保存到存儲介質。
 這些快照能夠直接加載到內存中，所有在這個快照之前的 WAL 條目都可以被安全的丟棄。
 
 <!--
@@ -157,7 +157,7 @@ Open a terminal, and use the
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) command to create the
 manifest.
 -->
-打開一個命令行終端，使用命令
+打開一個命令列終端，使用命令
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
 創建這個清單。
 
@@ -234,9 +234,9 @@ of the Pods in the `zk` StatefulSet.
 -->
 ### 促成 Leader 選舉  {#facilitating-leader-election}
 
-由於在匿名網絡中沒有用於選舉 leader 的終止算法，Zab 要求顯式的進行成員關係配置，
-以執行 leader 選舉。Ensemble 中的每個服務器都需要具有一個獨一無二的標識符，
-所有的服務器均需要知道標識符的全集，並且每個標識符都需要和一個網絡地址相關聯。
+由於在匿名網路中沒有用於選舉 leader 的終止算法，Zab 要求顯式的進行成員關係設定，
+以執行 leader 選舉。Ensemble 中的每個伺服器都需要具有一個獨一無二的標識符，
+所有的伺服器均需要知道標識符的全集，並且每個標識符都需要和一個網路地址相關聯。
 
 使用命令
 [`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec)
@@ -268,10 +268,10 @@ The servers in a ZooKeeper ensemble use natural numbers as unique identifiers, a
 
 To examine the contents of the `myid` file for each server use the following command.
 -->
-ZooKeeper ensemble 中的服務器使用自然數作爲唯一標識符，
-每個服務器的標識符都保存在服務器的數據目錄中一個名爲 `myid` 的文件裏。
+ZooKeeper ensemble 中的伺服器使用自然數作爲唯一標識符，
+每個伺服器的標識符都保存在伺服器的數據目錄中一個名爲 `myid` 的文件裏。
 
-檢查每個服務器的 `myid` 文件的內容。
+檢查每個伺服器的 `myid` 文件的內容。
 
 ```shell
 for i in 0 1 2; do echo "myid zk-$i";kubectl exec zk-$i -- cat /var/lib/zookeeper/data/myid; done
@@ -324,7 +324,7 @@ ZooKeeper stores its application configuration in a file named `zoo.cfg`. Use `k
 如果 Kubernetes 重新調度這些 Pod，這個 A 記錄將會使用這些 Pod 的新 IP 地址完成更新，
 但 A 記錄的名稱不會改變。
 
-ZooKeeper 在一個名爲 `zoo.cfg` 的文件中保存它的應用配置。
+ZooKeeper 在一個名爲 `zoo.cfg` 的文件中保存它的應用設定。
 使用 `kubectl exec` 在  `zk-0` Pod 中查看 `zoo.cfg` 文件的內容。
 
 ```shell
@@ -338,7 +338,7 @@ ZooKeeper servers' `myid` files. They are set to the FQDNs for the Pods in
 the `zk` StatefulSet.
 -->
 文件底部爲 `server.1`、`server.2` 和 `server.3`，其中的 `1`、`2` 和 `3`
-分別對應 ZooKeeper 服務器的 `myid` 文件中的標識符。
+分別對應 ZooKeeper 伺服器的 `myid` 文件中的標識符。
 它們被設置爲 `zk` StatefulSet 中的 Pods 的 FQDNs。
 
 ```
@@ -372,7 +372,7 @@ the same ordinal, two ZooKeeper servers would both identify themselves as the sa
 在 Zab 協議裏任何兩個參與者都不應該聲明相同的唯一標識符。
 對於讓系統中的進程協商哪些進程已經提交了哪些數據而言，這是必須的。
 如果有兩個 Pod 使用相同的序號啓動，這兩個 ZooKeeper
-服務器會將自己識別爲相同的服務器。
+伺服器會將自己識別爲相同的伺服器。
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -404,8 +404,8 @@ endpoint will be the unique ZooKeeper server claiming the identity configured
 in its `myid` file.
 -->
 每個 Pod 的 A 記錄僅在 Pod 變成 Ready 狀態時被錄入。
-因此，ZooKeeper 服務器的 FQDN 只會解析到一個端點，
-而那個端點將是申領其 `myid` 文件中所配置標識的唯一 ZooKeeper 服務器。
+因此，ZooKeeper 伺服器的 FQDN 只會解析到一個端點，
+而那個端點將是申領其 `myid` 文件中所設定標識的唯一 ZooKeeper 伺服器。
 
 ```
 zk-0.zk-hs.default.svc.cluster.local
@@ -418,7 +418,7 @@ This ensures that the `servers` properties in the ZooKeepers' `zoo.cfg` files
 represents a correctly configured ensemble.
 -->
 
-這保證了 ZooKeeper 的 `zoo.cfg` 文件中的 `servers` 屬性代表了一個正確配置的 ensemble。
+這保證了 ZooKeeper 的 `zoo.cfg` 文件中的 `servers` 屬性代表了一個正確設定的 ensemble。
 
 ```
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
@@ -431,10 +431,10 @@ When the servers use the Zab protocol to attempt to commit a value, they will ei
 value (if leader election has succeeded and at least two of the Pods are Running and Ready), or they will fail to
 do so (if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
 -->
-當服務器使用 Zab 協議嘗試提交一個值的時候，它們會達成一致併成功提交這個值
+當伺服器使用 Zab 協議嘗試提交一個值的時候，它們會達成一致併成功提交這個值
 （如果領導者選舉成功並且至少有兩個 Pod 處於 Running 和 Ready 狀態），
 或者將會失敗（如果沒有滿足上述條件中的任意一條）。
-當一個服務器承認另一個服務器的代寫時不會有狀態產生。
+當一個伺服器承認另一個伺服器的代寫時不會有狀態產生。
 
 <!--
 ### Sanity Testing the Ensemble
@@ -446,7 +446,7 @@ The command below executes the `zkCli.sh` script to write `world` to the path `/
 -->
 ### Ensemble 健康檢查
 
-最基本的健康檢查是向一個 ZooKeeper 服務器寫入一些數據，然後從另一個服務器讀取這些數據。
+最基本的健康檢查是向一個 ZooKeeper 伺服器寫入一些數據，然後從另一個伺服器讀取這些數據。
 
 使用 `zkCli.sh` 腳本在 `zk-0` Pod 上寫入 `world` 到路徑 `/hello`。
 
@@ -473,7 +473,7 @@ kubectl exec zk-1 zkCli.sh get /hello
 The data that you created on `zk-0` is available on all the servers in the
 ensemble.
 -->
-你在 `zk-0` 上創建的數據在 ensemble 中所有的服務器上都是可用的。
+你在 `zk-0` 上創建的數據在 ensemble 中所有的伺服器上都是可用的。
 
 ```
 WATCHER::
@@ -681,7 +681,7 @@ datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       R
 The `volumeMounts` section of the `StatefulSet`'s container `template` mounts the PersistentVolumes in the ZooKeeper servers' data directories.
 -->
 StatefulSet 的容器 `template` 中的 `volumeMounts` 一節使得
-PersistentVolume 被掛載到 ZooKeeper 服務器的數據目錄。
+PersistentVolume 被掛載到 ZooKeeper 伺服器的數據目錄。
 
 ```yaml
 volumeMounts:
@@ -696,8 +696,8 @@ Even when the Pods are rescheduled, all the writes made to the ZooKeeper
 servers' WALs, and all their snapshots, remain durable.
 -->
 當 `zk` `StatefulSet` 中的一個 Pod 被（重新）調度時，它總是擁有相同的 PersistentVolume，
-掛載到 ZooKeeper 服務器的數據目錄。
-即使在 Pod 被重新調度時，所有對 ZooKeeper 服務器的 WAL 的寫入和它們的全部快照都仍然是持久的。
+掛載到 ZooKeeper 伺服器的數據目錄。
+即使在 Pod 被重新調度時，所有對 ZooKeeper 伺服器的 WAL 的寫入和它們的全部快照都仍然是持久的。
 
 <!--
 ## Ensuring consistent configuration
@@ -712,12 +712,12 @@ the manifest.
 
 Get the `zk` StatefulSet.
 -->
-## 確保一致性配置
+## 確保一致性設定
 
 如同在[促成領導者選舉](#facilitating-leader-election)和[達成一致](#achieving-consensus)
-小節中提到的，ZooKeeper ensemble 中的服務器需要一致性的配置來選舉一個領導者並形成一個
-quorum。它們還需要 Zab 協議的一致性配置來保證這個協議在網絡中正確的工作。
-在這次的示例中，我們通過直接將配置寫入代碼清單中來達到該目的。
+小節中提到的，ZooKeeper ensemble 中的伺服器需要一致性的設定來選舉一個領導者並形成一個
+quorum。它們還需要 Zab 協議的一致性設定來保證這個協議在網路中正確的工作。
+在這次的示例中，我們通過直接將設定寫入代碼清單中來達到該目的。
 
 獲取 `zk` StatefulSet。
 
@@ -754,8 +754,8 @@ kubectl get sts zk -o yaml
 The command used to start the ZooKeeper servers passed the configuration as command line parameter.
 You can also use environment variables to pass configuration to the ensemble.
 -->
-用於啓動 ZooKeeper 服務器的命令將這些配置作爲命令行參數傳給了 ensemble。
-你也可以通過環境變量來傳入這些配置。
+用於啓動 ZooKeeper 伺服器的命令將這些設定作爲命令列參數傳給了 ensemble。
+你也可以通過環境變量來傳入這些設定。
 
 <!--
 ### Configuring Logging
@@ -766,13 +766,13 @@ it uses a time and size based rolling file appender for its logging configuratio
 
 Use the command below to get the logging configuration from one of Pods in the `zk` `StatefulSet`.
 -->
-### 配置日誌   {#configuring-logging}
+### 設定日誌   {#configuring-logging}
 
 `zkGenConfig.sh` 腳本產生的一個文件控制了 ZooKeeper 的日誌行爲。
 ZooKeeper 使用了 [Log4j](https://logging.apache.org/log4j/2.x/)
-並默認使用基於文件大小和時間的滾動文件追加器作爲日誌配置。
+並默認使用基於文件大小和時間的滾動文件追加器作爲日誌設定。
 
-從 `zk` StatefulSet 的一個 Pod 中獲取日誌配置。
+從 `zk` StatefulSet 的一個 Pod 中獲取日誌設定。
 
 ```shell
 kubectl exec zk-0 cat /usr/etc/zookeeper/log4j.properties
@@ -782,7 +782,7 @@ kubectl exec zk-0 cat /usr/etc/zookeeper/log4j.properties
 The logging configuration below will cause the ZooKeeper process to write all
 of its logs to the standard output file stream.
 -->
-下面的日誌配置會使 ZooKeeper 進程將其所有的日誌寫入標誌輸出文件流中。
+下面的日誌設定會使 ZooKeeper 進程將其所有的日誌寫入標誌輸出文件流中。
 
 ```
 zookeeper.root.logger=CONSOLE
@@ -848,8 +848,8 @@ that best fits your cluster and applications. For cluster-level logging and aggr
 consider deploying a [sidecar container](/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent) to rotate and ship your logs.
 -->
 Kubernetes 支持與多種日誌方案集成。
-你可以選擇一個最適合你的集羣和應用的日誌解決方案。
-對於集羣級別的日誌輸出與整合，可以考慮部署一個
+你可以選擇一個最適合你的叢集和應用的日誌解決方案。
+對於叢集級別的日誌輸出與整合，可以考慮部署一個
 [邊車容器](/zh-cn/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent)
 來輪轉和提供日誌數據。
 
@@ -864,12 +864,12 @@ the entry point runs as.
 
 The `zk` `StatefulSet`'s Pod `template` contains a `SecurityContext`.
 -->
-### 配置非特權用戶
+### 設定非特權使用者
 
-在容器中允許應用以特權用戶運行這條最佳實踐是值得商討的。
-如果你的組織要求應用以非特權用戶運行，你可以使用
+在容器中允許應用以特權使用者運行這條最佳實踐是值得商討的。
+如果你的組織要求應用以非特權使用者運行，你可以使用
 [SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)
-控制運行容器入口點所使用的用戶。
+控制運行容器入口點所使用的使用者。
 
 `zk` StatefulSet 的 Pod 的 `template` 包含了一個 `SecurityContext`。
 
@@ -885,7 +885,7 @@ corresponds to the zookeeper group.
 
 Get the ZooKeeper process information from the `zk-0` Pod.
 -->
-在 Pod 的容器內部，UID 1000 對應用戶 zookeeper，GID 1000 對應用戶組 zookeeper。
+在 Pod 的容器內部，UID 1000 對應使用者 zookeeper，GID 1000 對應使用者組 zookeeper。
 
 從 `zk-0` Pod 獲取 ZooKeeper 進程信息。
 
@@ -898,7 +898,7 @@ As the `runAsUser` field of the `securityContext` object is set to 1000,
 instead of running as root, the ZooKeeper process runs as the zookeeper user.
 -->
 由於 `securityContext` 對象的 `runAsUser` 字段被設置爲 1000 而不是 root，
-ZooKeeper 進程將以 zookeeper 用戶運行。
+ZooKeeper 進程將以 zookeeper 使用者運行。
 
 ```
 F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
@@ -912,8 +912,8 @@ it is only accessible by the root user. This configuration prevents the ZooKeepe
 
 Use the command below to get the file permissions of the ZooKeeper data directory on the `zk-0` Pod.
 -->
-默認情況下，當 Pod 的 PersistentVolume 被掛載到 ZooKeeper 服務器的數據目錄時，
-它只能被 root 用戶訪問。這個配置將阻止 ZooKeeper 進程寫入它的 WAL 及保存快照。
+默認情況下，當 Pod 的 PersistentVolume 被掛載到 ZooKeeper 伺服器的數據目錄時，
+它只能被 root 使用者訪問。這個設定將阻止 ZooKeeper 進程寫入它的 WAL 及保存快照。
 
 在 `zk-0` Pod 上獲取 ZooKeeper 數據目錄的文件權限。
 
@@ -926,7 +926,7 @@ Because the `fsGroup` field of the `securityContext` object is set to 1000, the 
 PersistentVolumes is set to the zookeeper group, and the ZooKeeper process is able to read and write its data.
 -->
 由於 `securityContext` 對象的 `fsGroup` 字段設置爲 1000，
-Pod 的 PersistentVolume 的所有權屬於 zookeeper 用戶組，
+Pod 的 PersistentVolume 的所有權屬於 zookeeper 使用者組，
 因而 ZooKeeper 進程能夠成功地讀寫數據。
 
 ```
@@ -961,7 +961,7 @@ You can use `kubectl patch` to update the number of `cpus` allocated to the serv
 
 `zk` `StatefulSet` 的更新策略被設置爲了 `RollingUpdate`。
 
-你可以使用 `kubectl patch` 更新分配給每個服務器的 `cpus` 的數量。
+你可以使用 `kubectl patch` 更新分配給每個伺服器的 `cpus` 的數量。
 
 ```shell
 kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'
@@ -1000,10 +1000,10 @@ Use the `kubectl rollout history` command to view a history or previous configur
 
 The output is similar to this:
 -->
-這項操作會逆序地依次終止每一個 Pod，並用新的配置重新創建。
+這項操作會逆序地依次終止每一個 Pod，並用新的設定重新創建。
 這樣做確保了在滾動更新的過程中 quorum 依舊保持工作。
 
-使用 `kubectl rollout history` 命令查看歷史或先前的配置。
+使用 `kubectl rollout history` 命令查看歷史或先前的設定。
 
 ```shell
 kubectl rollout history sts/zk
@@ -1053,7 +1053,7 @@ Use the following command to examine the process tree for the ZooKeeper server r
 對於 StatefulSet 中的 Pod 來說，Always 是唯一合適的 RestartPolicy，也是默認值。
 你應該**絕不**覆蓋有狀態應用的默認策略。
 
-檢查 `zk-0` Pod 中運行的 ZooKeeper 服務器的進程樹。
+檢查 `zk-0` Pod 中運行的 ZooKeeper 伺服器的進程樹。
 
 ```shell
 kubectl exec zk-0 -- ps -ef
@@ -1129,7 +1129,7 @@ The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
 -->
 ### 存活性測試
 
-你的應用配置爲自動重啓故障進程，但這對於保持一個分佈式系統的健康來說是不夠的。
+你的應用設定爲自動重啓故障進程，但這對於保持一個分佈式系統的健康來說是不夠的。
 許多場景下，一個系統進程可以是活動狀態但不響應請求，或者是不健康狀態。
 你應該使用存活性探針來通知 Kubernetes 你的應用進程處於不健康狀態，需要被重啓。
 
@@ -1151,7 +1151,7 @@ The probe calls a bash script that uses the ZooKeeper `ruok` four letter
 word to test the server's health.
 -->
 這個探針調用一個簡單的 Bash 腳本，使用 ZooKeeper 的四字縮寫 `ruok`
-來測試服務器的健康狀態。
+來測試伺服器的健康狀態。
 
 ```
 OK=$(echo ruok | nc 127.0.0.1 $1)
@@ -1226,9 +1226,9 @@ For a ZooKeeper server, liveness implies readiness.  Therefore, the readiness
 probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
 -->
 如果你指定了一個就緒探針，Kubernetes 將保證在就緒檢查通過之前，
-你的應用不會接收到網絡流量。
+你的應用不會接收到網路流量。
 
-對於一個 ZooKeeper 服務器來說，存活即就緒。
+對於一個 ZooKeeper 伺服器來說，存活即就緒。
 因此 `zookeeper.yaml` 清單中的就緒探針和存活探針完全相同。
 
 ```yaml
@@ -1248,7 +1248,7 @@ to specify both. This ensures that only healthy servers in the ZooKeeper
 ensemble receive network traffic.
 -->
 雖然存活探針和就緒探針是相同的，但同時指定它們兩者仍然重要。
-這保證了 ZooKeeper ensemble 中只有健康的服務器能接收網絡流量。
+這保證了 ZooKeeper ensemble 中只有健康的伺服器能接收網路流量。
 
 <!--
 ## Tolerating node failure
@@ -1262,8 +1262,8 @@ application on the same machine.
 -->
 ## 容忍節點故障   {#tolerating-node-failure}
 
-ZooKeeper 需要一個 quorum 來提交數據變動。對於一個擁有 3 個服務器的 ensemble 來說，
-必須有兩個服務器是健康的，寫入才能成功。
+ZooKeeper 需要一個 quorum 來提交數據變動。對於一個擁有 3 個伺服器的 ensemble 來說，
+必須有兩個伺服器是健康的，寫入才能成功。
 在基於 quorum 的系統裏，成員被部署在多個故障域中以保證可用性。
 爲了防止由於某臺機器斷連引起服務中斷，最佳實踐是防止應用的多個實例在相同的機器上共存。
 
@@ -1273,8 +1273,8 @@ For the three server ensemble you created, if two servers are on the same node, 
 the clients of your ZooKeeper service will experience an outage until at least one of the Pods can be rescheduled.
 -->
 默認情況下，Kubernetes 可以把 `StatefulSet` 的 Pod 部署在相同節點上。
-對於你創建的 3 個服務器的 ensemble 來說，
-如果有兩個服務器並存於相同的節點上並且該節點發生故障時，ZooKeeper 服務將中斷，
+對於你創建的 3 個伺服器的 ensemble 來說，
+如果有兩個伺服器並存於相同的節點上並且該節點發生故障時，ZooKeeper 服務將中斷，
 直至至少其中一個 Pod 被重新調度。
 
 <!--
@@ -1288,7 +1288,7 @@ Use the command below to get the nodes for Pods in the `zk` `StatefulSet`.
 -->
 你應該總是提供多餘的容量以允許關鍵系統進程在節點故障時能夠被重新調度。
 如果你這樣做了，服務故障就只會持續到 Kubernetes 調度器重新調度某個
-ZooKeeper 服務器爲止。
+ZooKeeper 伺服器爲止。
 但是，如果希望你的服務在容忍節點故障時無停服時間，你應該設置 `podAntiAffinity`。
 
 使用下面的命令獲取 `zk` `StatefulSet` 中的 Pod 的節點。
@@ -1340,7 +1340,7 @@ your ensemble across physical, network, and power failure domains.
 的兩個 Pod 調度到相同的節點。`topologyKey` `kubernetes.io/hostname` 表示
 這個域是一個單獨的節點。
 使用不同的規則、標籤和選擇算符，你能夠通過這種技術把你的 ensemble 分佈
-在不同的物理、網絡和電力故障域之間。
+在不同的物理、網路和電力故障域之間。
 
 <!--
 ## Surviving maintenance
@@ -1357,12 +1357,12 @@ Use this command to get the nodes in your cluster.
 ## 節點維護期間保持應用可用
 
 **在本節中你將會隔離（Cordon）和騰空（Drain）節點。
-如果你是在一個共享的集羣裏使用本教程，請保證不會影響到其他租戶。**
+如果你是在一個共享的叢集裏使用本教程，請保證不會影響到其他租戶。**
 
 上一小節展示瞭如何在節點之間分散 Pod 以在計劃外的節點故障時保證服務存活。
 但是你也需要爲計劃內維護引起的臨時節點故障做準備。
 
-使用此命令獲取你的集羣中的節點。
+使用此命令獲取你的叢集中的節點。
 
 ```shell
 kubectl get nodes
@@ -1374,7 +1374,7 @@ cordon all but four of the nodes in your cluster.
 -->
 
 使用 [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon)
-隔離你的集羣中除 4 個節點以外的所有節點。
+隔離你的叢集中除 4 個節點以外的所有節點。
 
 ```shell
 kubectl cordon <node-name>
@@ -1454,7 +1454,7 @@ node "kubernetes-node-pb41" drained
 As there are four nodes in your cluster, `kubectl drain`, succeeds and the
 `zk-0` is rescheduled to another node.
 -->
-由於你的集羣中有 4 個節點, `kubectl drain` 執行成功，`zk-0` 被調度到其它節點。
+由於你的叢集中有 4 個節點, `kubectl drain` 執行成功，`zk-0` 被調度到其它節點。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1715,6 +1715,6 @@ You should always allocate additional capacity for critical services so that the
   Follow the necessary steps, based on your environment, storage configuration,
   and provisioning method, to ensure that all storage is reclaimed.
 -->
-* 使用 `kubectl uncordon` 解除你集羣中所有節點的隔離。
+* 使用 `kubectl uncordon` 解除你叢集中所有節點的隔離。
 * 你需要刪除在本教程中使用的 PersistentVolume 的持久存儲介質。
-  請遵循必須的步驟，基於你的環境、存儲配置和製備方法，保證回收所有的存儲。
+  請遵循必須的步驟，基於你的環境、存儲設定和製備方法，保證回收所有的存儲。

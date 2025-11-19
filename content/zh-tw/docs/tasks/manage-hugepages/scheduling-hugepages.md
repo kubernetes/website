@@ -1,7 +1,7 @@
 ---
 title: 管理巨頁（HugePage）
 content_type: task
-description: 將巨頁作爲集羣中的可調度資源來配置和管理
+description: 將巨頁作爲叢集中的可調度資源來設定和管理
 ---
 <!--
 reviewers:
@@ -19,7 +19,7 @@ description: Configure and manage huge pages as a schedulable resource in a clus
 Kubernetes supports the allocation and consumption of pre-allocated huge pages
 by applications in a Pod. This page describes how users can consume huge pages.
 --->
-Kubernetes 支持在 Pod 應用中使用預先分配的巨頁。本文描述了用戶如何使用巨頁，以及當前的限制。
+Kubernetes 支持在 Pod 應用中使用預先分配的巨頁。本文描述了使用者如何使用巨頁，以及當前的限制。
 
 ## {{% heading "prerequisites" %}}
 
@@ -94,7 +94,7 @@ memory or CPU resources must be requested as well.
 A pod may consume multiple huge page sizes in a single pod spec. In this case it
 must use `medium: HugePages-<hugepagesize>` notation for all volume mounts.
 --->
-用戶可以通過在容器級別的資源需求中使用資源名稱 `hugepages-<size>`
+使用者可以通過在容器級別的資源需求中使用資源名稱 `hugepages-<size>`
 來使用巨頁，其中的 size 是特定節點上支持的以整數值表示的最小二進制單位。
 例如，如果一個節點支持 2048KiB 和 1048576KiB 頁面大小，它將公開可調度的資源
 `hugepages-2Mi` 和 `hugepages-1Gi`。與 CPU 或內存不同，巨頁不支持過量使用（overcommit）。

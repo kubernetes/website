@@ -49,8 +49,8 @@ Pod 是 Kubernetes 抽象出來的，表示一組一個或多個應用容器（�
 以及這些容器的一些共享資源。這些資源包括：
 
 * 卷形式的共享存儲
-* 集羣內唯一的 IP 地址，用於聯網
-* 有關每個容器如何運行的信息，例如容器鏡像版本或要使用的特定端口
+* 叢集內唯一的 IP 地址，用於聯網
+* 有關每個容器如何運行的信息，例如容器映像檔版本或要使用的特定端口
 
 <!--
 A Pod models an application-specific "logical host" and can contain different application
@@ -62,7 +62,7 @@ context on the same Node.
 -->
 Pod 爲特定於應用的“邏輯主機”建模，並且可以包含相對緊耦合的不同應用容器。
 例如，Pod 可能既包含帶有 Node.js 應用的容器，也包含另一個不同的容器，
-用於提供 Node.js 網絡服務器要發佈的數據。Pod 中的容器共享 IP 地址和端口，
+用於提供 Node.js 網路伺服器要發佈的數據。Pod 中的容器共享 IP 地址和端口，
 始終位於同一位置並且共同調度，並在同一節點上的共享上下文中運行。
 
 <!--
@@ -76,7 +76,7 @@ the cluster.
 Pod 是 Kubernetes 平臺上的原子單元。當我們在 Kubernetes 上創建 Deployment 時，
 該 Deployment 會創建其中包含容器的 Pod（而不是直接創建容器）。
 每個 Pod 都與被調度所在的節點綁定，並保持在那裏直到（根據重啓策略）終止或刪除。
-如果節點發生故障，則相同的 Pod 會被調度到集羣中的其他可用節點上。
+如果節點發生故障，則相同的 Pod 會被調度到叢集中的其他可用節點上。
 
 <!--
 ### Pods overview
@@ -106,8 +106,8 @@ resources on each Node.
 ## 節點
 
 一個 Pod 總是運行在某個 **Node（節點）** 上。節點是 Kubernetes 中工作機器，
-可以是虛擬機或物理計算機，具體取決於集羣。每個 Node 都由控制面管理。
-節點可以有多個 Pod，Kubernetes 控制面會自動處理在集羣中的節點上調度 Pod。
+可以是虛擬機或物理計算機，具體取決於叢集。每個 Node 都由控制面管理。
+節點可以有多個 Pod，Kubernetes 控制面會自動處理在叢集中的節點上調度 Pod。
 控制面的自動調度考量了每個節點上的可用資源。
 
 <!--
@@ -123,7 +123,7 @@ from a registry, unpacking the container, and running the application.
 
 * kubelet，負責 Kubernetes 控制面和節點之間通信的進程；它管理機器上運行的 Pod 和容器。
 
-* 容器運行時（如 Docker）負責從鏡像倉庫中拉取容器鏡像、解壓縮容器以及運行應用。
+* 容器運行時（如 Docker）負責從映像檔倉庫中拉取容器映像檔、解壓縮容器以及運行應用。
 
 <!--
 ### Nodes overview
@@ -143,7 +143,7 @@ operations can be done with the following kubectl subcommands:
 ## 使用 kubectl 進行故障排查
 
 在[模塊 2](/zh-cn/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/) 中，
-你使用了 kubectl 命令行界面。你將繼續在第 3 個模塊中使用 kubectl
+你使用了 kubectl 命令列界面。你將繼續在第 3 個模塊中使用 kubectl
 來獲取有關已部署應用及其環境的信息。最常見的操作可以使用以下 kubectl
 子命令完成：
 
@@ -165,9 +165,9 @@ statuses are, where they are running and what their configurations are.
 Now that we know more about our cluster components and the command line, let's
 explore our application.
 -->
-你可以使用這些命令查看應用的部署時間、當前狀態、運行位置以及配置。
+你可以使用這些命令查看應用的部署時間、當前狀態、運行位置以及設定。
 
-現在我們瞭解了有關集羣組件和命令行的更多信息，讓我們來探索一下我們的應用。
+現在我們瞭解了有關叢集組件和命令列的更多信息，讓我們來探索一下我們的應用。
 
 <!--
 ### Check application configuration
@@ -175,7 +175,7 @@ explore our application.
 Let's verify that the application we deployed in the previous scenario is running.
 We'll use the `kubectl get` command and look for existing Pods:
 -->
-### 檢查應用配置
+### 檢查應用設定
 
 讓我們驗證之前場景中部署的應用是否在運行。我們將使用 `kubectl get`
 命令查看現存的 Pod：
@@ -192,7 +192,7 @@ Next, to view what containers are inside that Pod and what images are used to bu
 those containers we run the `kubectl describe pods` command:
 -->
 如果沒有 Pod 在運行，請等幾秒，讓 Pod 再次列出。一旦看到一個 Pod 在運行，就可以繼續操作。
-接下來，要查看 Pod 內有哪些容器以及使用了哪些鏡像來構建這些容器，我們運行
+接下來，要查看 Pod 內有哪些容器以及使用了哪些映像檔來構建這些容器，我們運行
 `kubectl describe pods` 命令：
 
 ```shell
@@ -233,7 +233,7 @@ in that new terminal, run:
 -->
 ### 在終端中顯示應用
 
-回想一下，Pod 運行在隔離的、私有的網絡中 —— 因此我們需要代理訪問它們，這樣才能進行調試和交互。
+回想一下，Pod 運行在隔離的、私有的網路中 —— 因此我們需要代理訪問它們，這樣才能進行調試和交互。
 爲了做到這一點，我們將使用 `kubectl proxy` 命令在**第二個終端**中運行一個代理。
 打開一個新的終端窗口，在這個新的終端中運行以下命令：
 

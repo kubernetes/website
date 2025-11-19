@@ -35,7 +35,7 @@ capacity. The kube-scheduler then uses that information to pick suitable nodes
 for a Pod when that Pod has volumes that still need to be provisioned.
 -->
 如[上一篇關於此功能的博文](/blog/2021/04/14/local-storage-features-go-beta/)中所詳細介紹的，
-存儲容量跟蹤允許 CSI 驅動程序發佈有關剩餘容量的信息。當 Pod 仍然有需要配置的卷時，
+存儲容量跟蹤允許 CSI 驅動程序發佈有關剩餘容量的信息。當 Pod 仍然有需要設定的卷時，
 kube-scheduler 使用該信息爲 Pod 選擇合適的節點。
 
 <!--
@@ -47,7 +47,7 @@ capacity left.
 -->
 如果沒有這些信息，Pod 可能會被卡住，而不會被調度到合適節點，這是因爲 kube-scheduler
 只能盲目地選擇節點。由於 CSI 驅動程序管理的下層存儲系統沒有足夠的容量，
-kube-scheduler 常常會選擇一個無法爲其配置卷的節點。
+kube-scheduler 常常會選擇一個無法爲其設定卷的節點。
 
 <!--
 Because CSI drivers publish storage capacity information that gets used at a
@@ -58,7 +58,7 @@ different node.
 -->
 因爲 CSI 驅動程序發佈的這些存儲容量信息在被使用的時候可能已經不是最新的信息了，
 所以最終選擇的節點無法正常工作的情況仍然可能會發生。
-卷配置通過通知調度程序需要在其他節點上重試來恢復。
+卷設定通過通知調度程序需要在其他節點上重試來恢復。
 
 <!--
 [Load
@@ -68,7 +68,7 @@ cluster can be consumed by Pods with storage capacity tracking whereas Pods got
 stuck without it.
 -->
 升級到 GA 版本後重新進行的[負載測試](https://github.com/kubernetes-csi/csi-driver-host-path/blob/master/docs/storage-capacity-tracking.md)證實，
-集羣中部署了存儲容量跟蹤功能的 Pod 可以使用所有的存儲，而沒有部署此功能的 Pod 就會被卡住。
+叢集中部署了存儲容量跟蹤功能的 Pod 可以使用所有的存儲，而沒有部署此功能的 Pod 就會被卡住。
 
 <!--
 ## Problems we have *not* solved
@@ -113,8 +113,8 @@ was seen as insufficient.
 另一個沒有解決的問題是 Cluster Autoscaler 對包含卷的 Pod 的支持。
 對於具有存儲容量跟蹤功能的 CSI 驅動程序，我們開發了一個原型並在此
 [PR](https://github.com/kubernetes/autoscaler/pull/3887) 中進行了討論。
-此原型旨在與任意 CSI 驅動程序協同工作，但這種靈活性使其難以配置並減慢了擴展操作：
-因爲自動擴展程序無法模擬卷製備操作，它一次只能將集羣擴展一個節點，這是此方案的不足之處。
+此原型旨在與任意 CSI 驅動程序協同工作，但這種靈活性使其難以設定並減慢了擴展操作：
+因爲自動擴展程序無法模擬卷製備操作，它一次只能將叢集擴展一個節點，這是此方案的不足之處。
 
 <!--
 Therefore that PR was not merged and a different approach with tighter coupling
@@ -126,8 +126,8 @@ or GA. So please reach out to SIG Storage if you have an interest in this
 topic.
 -->
 因此，這個 PR 沒有被合入，需要另一種不同的方法，在自動縮放器和 CSI 驅動程序之間實現更緊密的耦合。
-爲此，需要更好地瞭解哪些本地存儲 CSI 驅動程序與集羣自動縮放結合使用。如果這會引出新的 KEP，
-那麼用戶將不得不在實踐中嘗試實現，然後才能遷移到 beta 版本或 GA 版本中。
+爲此，需要更好地瞭解哪些本地存儲 CSI 驅動程序與叢集自動縮放結合使用。如果這會引出新的 KEP，
+那麼使用者將不得不在實踐中嘗試實現，然後才能遷移到 beta 版本或 GA 版本中。
 如果你對此主題感興趣，請聯繫 SIG Storage。
 
 <!--

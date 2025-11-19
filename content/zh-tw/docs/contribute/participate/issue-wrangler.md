@@ -154,7 +154,7 @@ and communicate clearly with contributors and users.
 ## 何時關閉 Issue   {#when-to-close-issues}
 
 一個開源項目想要成功，良好的 Issue 管理非常關鍵。
-但解決 Issue 也很重要，這樣才能維護代碼倉庫，並與貢獻者和用戶進行清晰明確的交流。
+但解決 Issue 也很重要，這樣才能維護代碼倉庫，並與貢獻者和使用者進行清晰明確的交流。
 
 <!--
 Close issues when:
@@ -171,10 +171,10 @@ Close issues when:
 關閉 Issue 的時機包括：
 
 - 類似的 Issue 被多次報告。你首先需要將其標記爲 `/triage duplicate`；
-  將其鏈接到主要 Issue 然後關閉它。還建議將用戶引導至最初的 Issue。
+  將其鏈接到主要 Issue 然後關閉它。還建議將使用者引導至最初的 Issue。
 - 通過所提供的信息很難理解和解決作者提出的 Issue。
-  但要鼓勵用戶提供更多細節，或者在以後可以重現 Issue 時重新打開此 Issue 。
-- 相同的功能在其他地方已實現。管理者可以關閉此 Issue 並將用戶引導至適當的位置。
+  但要鼓勵使用者提供更多細節，或者在以後可以重現 Issue 時重新打開此 Issue 。
+- 相同的功能在其他地方已實現。管理者可以關閉此 Issue 並將使用者引導至適當的位置。
 - 報告的 Issue 當前未被計劃或不符合項目的目標。
 - 如果 Issue 看起來是垃圾信息並且明顯不相關。
 - 如果 Issue 與外部限制或依賴項有關並且超出了本項目的控制範圍。

@@ -32,9 +32,9 @@ It runs using a `make` command which does the following:
   when it encounters broken internal links 
 -->
 - 構建站點並輸出 HTML 到本地 `kubernetes/website` 倉庫下的 `/public` 目錄中
-- 拉取 Docker 鏡像 `wdjp/htmltest`
+- 拉取 Docker 映像檔 `wdjp/htmltest`
 - 掛載本地 `kubernetes/website` 倉庫到 Docker 容器中
-- 掃描 `/public` 目錄下生成的文件並將遇到的失效鏈接通過命令行打印出來
+- 掃描 `/public` 目錄下生成的文件並將遇到的失效鏈接通過命令列打印出來
 
 <!--
 ## What it does and doesn't check
@@ -49,7 +49,7 @@ to determine which content to examine.
 
 The link checker scans the following:
 -->
-該鏈接檢查器掃描生成的 HTML 文件，而非原始的 Markdown。該 htmltest 工具依賴於配置文件
+該鏈接檢查器掃描生成的 HTML 文件，而非原始的 Markdown。該 htmltest 工具依賴於設定文件
 [`.htmltest.yml`](https://git.k8s.io/website/.htmltest.yml)，來決定檢查哪些內容。
 
 該鏈接檢查器掃描以下內容：

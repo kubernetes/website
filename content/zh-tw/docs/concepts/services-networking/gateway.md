@@ -2,7 +2,7 @@
 title: Gateway API
 content_type: concept
 description: >-
-  網關（Gateway）API 是一組 API 類別，可提供動態基礎設施配置和高級流量路由。
+  網關（Gateway）API 是一組 API 類別，可提供動態基礎設施設定和高級流量路由。
 weight: 55
 ---
 
@@ -24,8 +24,8 @@ containing API [kinds](https://gateway-api.sigs.k8s.io/references/spec/) that pr
 provisioning and advanced traffic routing.
 -->
 [Gateway API](https://gateway-api.sigs.k8s.io/) 通過使用可擴展的、角色導向的、
-協議感知的配置機制來提供網絡服務。它是一個{{<glossary_tooltip text="附加組件" term_id="addons">}}，
-包含可提供動態基礎設施配置和高級流量路由的
+協議感知的設定機制來提供網路服務。它是一個{{<glossary_tooltip text="附加組件" term_id="addons">}}，
+包含可提供動態基礎設施設定和高級流量路由的
 API [類別](https://gateway-api.sigs.k8s.io/references/spec/)。
 
 <!-- body -->
@@ -50,10 +50,10 @@ Gateway API 的設計和架構遵從以下原則：
     concerned with application-level configuration and [Service](/docs/concepts/services-networking/service/)
     composition.
 -->
-* **角色導向：** Gateway API 類別是基於負責管理 Kubernetes 服務網絡的組織角色建模的：
-  * **基礎設施提供者：** 管理使用多個獨立集羣爲多個租戶提供服務的基礎設施，例如，雲提供商。
-  * **集羣操作員：** 管理集羣，通常關注策略、網絡訪問、應用程序權限等。
-  * **應用程序開發人員：** 管理在集羣中運行的應用程序，通常關注應用程序級配置和 [Service](/zh-cn/docs/concepts/services-networking/service/) 組合。
+* **角色導向：** Gateway API 類別是基於負責管理 Kubernetes 服務網路的組織角色建模的：
+  * **基礎設施提供者：** 管理使用多個獨立叢集爲多個租戶提供服務的基礎設施，例如，雲提供商。
+  * **叢集操作員：** 管理叢集，通常關注策略、網路訪問、應用程序權限等。
+  * **應用程序開發人員：** 管理在叢集中運行的應用程序，通常關注應用程序級設定和 [Service](/zh-cn/docs/concepts/services-networking/service/) 組合。
 
 <!-- 
 * __Portable:__ Gateway API specifications are defined as [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources)
@@ -89,11 +89,11 @@ Gateway API 具有三種穩定的 API 類別：
   representation of backend network endpoints. These endpoints are often represented as a
   {{<glossary_tooltip text="Service" term_id="service">}}.
 -->
-* **GatewayClass：** 定義一組具有配置相同的網關，由實現該類的控制器管理。
+* **GatewayClass：** 定義一組具有設定相同的網關，由實現該類的控制器管理。
 
 * **Gateway：** 定義流量處理基礎設施（例如雲負載均衡器）的一個實例。
 
-* **HTTPRoute：** 定義特定於 HTTP 的規則，用於將流量從網關監聽器映射到後端網絡端點的表示。
+* **HTTPRoute：** 定義特定於 HTTP 的規則，用於將流量從網關監聽器映射到後端網路端點的表示。
   這些端點通常表示爲 {{<glossary_tooltip text="Service" term_id="service">}}。
 
 <!-- 
@@ -129,7 +129,7 @@ A minimal GatewayClass example:
 -->
 ### GatewayClass {#api-kind-gateway-class}
 
-Gateway 可以由不同的控制器實現，通常具有不同的配置。
+Gateway 可以由不同的控制器實現，通常具有不同的設定。
 Gateway 必須引用某 GatewayClass，而後者中包含實現該類的控制器的名稱。
 
 下面是一個最精簡的 GatewayClass 示例：
@@ -151,7 +151,7 @@ the implementation's controller.
 See the [GatewayClass](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.GatewayClass)
 reference for a full definition of this API kind.
 -->
-在此示例中，一個實現了 Gateway API 的控制器被配置爲管理某些 GatewayClass 對象，
+在此示例中，一個實現了 Gateway API 的控制器被設定爲管理某些 GatewayClass 對象，
 這些對象的控制器名爲 `example.com/gateway-controller`。
 歸屬於此類的 Gateway 對象將由此實現的控制器來管理。
 
@@ -170,9 +170,9 @@ A minimal Gateway resource example:
 -->
 ### Gateway {#api-kind-gateway}
 
-Gateway 用來描述流量處理基礎設施的一個實例。Gateway 定義了一個網絡端點，該端點可用於處理流量，
+Gateway 用來描述流量處理基礎設施的一個實例。Gateway 定義了一個網路端點，該端點可用於處理流量，
 即對 Service 等後端進行過濾、平衡、拆分等。
-例如，Gateway 可以代表某個雲負載均衡器，或配置爲接受 HTTP 流量的集羣內代理服務器。
+例如，Gateway 可以代表某個雲負載均衡器，或設定爲接受 HTTP 流量的叢集內代理伺服器。
 
 下面是一個精簡的 Gateway 資源示例：
 
@@ -200,7 +200,7 @@ reference for a full definition of this API kind.
 -->
 在此示例中，流量處理基礎設施的實例被編程爲監聽 80 端口上的 HTTP 流量。
 由於未指定 `addresses` 字段，因此對應實現的控制器負責將地址或主機名設置到 Gateway 之上。
-該地址用作網絡端點，用於處理路由中定義的後端網絡端點的流量。
+該地址用作網路端點，用於處理路由中定義的後端網路端點的流量。
 
 有關此類 API 的完整定義，請參閱 [Gateway](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1.Gateway)。
 
@@ -217,10 +217,10 @@ A minimal HTTPRoute example:
 -->
 ### HTTPRoute {#api-kind-httproute}
 
-HTTPRoute 類別指定從 Gateway 監聽器到後端網絡端點的 HTTP 請求的路由行爲。
-對於服務後端，實現可以將後端網絡端點表示爲服務 IP 或服務的支持 EndpointSlices。
-HTTPRoute 表示將被應用到下層 Gateway 實現的配置。
-例如，定義新的 HTTPRoute 可能會導致在雲負載均衡器或集羣內代理服務器中配置額外的流量路由。
+HTTPRoute 類別指定從 Gateway 監聽器到後端網路端點的 HTTP 請求的路由行爲。
+對於服務後端，實現可以將後端網路端點表示爲服務 IP 或服務的支持 EndpointSlices。
+HTTPRoute 表示將被應用到下層 Gateway 實現的設定。
+例如，定義新的 HTTPRoute 可能會導致在雲負載均衡器或叢集內代理伺服器中設定額外的流量路由。
 
 下面是一個最精簡的 HTTPRoute 示例：
 
@@ -291,7 +291,7 @@ In this example, the request flow for a Gateway implemented as a reverse proxy i
 1. 客戶端開始準備 URL 爲 `http://www.example.com` 的 HTTP 請求
 2. 客戶端的 DNS 解析器查詢目標名稱並瞭解與 Gateway 關聯的一個或多個 IP 地址的映射。
 3. 客戶端向 Gateway IP 地址發送請求；反向代理接收 HTTP 請求並使用 Host: 
-   標頭來匹配基於 Gateway 和附加的 HTTPRoute 所獲得的配置。
+   標頭來匹配基於 Gateway 和附加的 HTTPRoute 所獲得的設定。
 4. 可選的，反向代理可以根據 HTTPRoute 的匹配規則進行請求頭和（或）路徑匹配。
 5. 可選地，反向代理可以修改請求；例如，根據 HTTPRoute 的過濾規則添加或刪除標頭。
 6. 最後，反向代理將請求轉發到一個或多個後端。
@@ -345,7 +345,7 @@ you quickly start working with Gateway API.
 -->
 Gateway API 資源不是由 Kubernetes 原生實現的，
 而是被定義爲受廣泛[實現](https://gateway-api.sigs.k8s.io/implementations/)支持的[自定義資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
-用戶需要[安裝](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) Gateway API CRD
+使用者需要[安裝](https://gateway-api.sigs.k8s.io/guides/#installing-gateway-api) Gateway API CRD
 或按照所選實現的安裝說明進行操作。
 安裝完成後，使用[入門](https://gateway-api.sigs.k8s.io/guides/)指南來幫助你快速開始使用 Gateway API。
 

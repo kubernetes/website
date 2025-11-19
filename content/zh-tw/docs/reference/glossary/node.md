@@ -38,7 +38,7 @@ A worker node may be a VM or physical machine, depending on the cluster. It has 
 
 In early Kubernetes versions, Nodes were called "Minions".
 -->
-工作機器可以是虛擬機也可以是物理機，取決於集羣的配置。
+工作機器可以是虛擬機也可以是物理機，取決於叢集的設定。
 其上部署了運行 {{< glossary_tooltip text="Pods" term_id="pod" >}}
 所必需的本地守護進程或服務，並由主控組件來管理。
 節點上的守護進程包括 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、

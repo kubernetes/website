@@ -71,7 +71,7 @@ It takes around 10s to complete.
 -->
 ## 運行示例 Job     {#running-an-example-job}
 
-下面是一個 Job 配置示例。它負責計算 π 到小數點後 2000 位，並將結果打印出來。
+下面是一個 Job 設定示例。它負責計算 π 到小數點後 2000 位，並將結果打印出來。
 此計算大約需要 10 秒鐘完成。
 
 {{% code_sample file="controllers/job.yaml" %}}
@@ -269,7 +269,7 @@ A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/d
 -->
 ## 編寫 Job 規約    {#writing-a-job-spec}
 
-與 Kubernetes 中其他資源的配置類似，Job 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
+與 Kubernetes 中其他資源的設定類似，Job 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
 
 當控制面爲 Job 創建新的 Pod 時，Job 的 `.metadata.name` 是命名這些 Pod 的基礎組成部分。
 Job 的名字必須是合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)值，
@@ -277,7 +277,7 @@ Job 的名字必須是合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/wo
 [DNS 標籤](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)規則。
 即使該名字被要求遵循 DNS 子域名規則，也不得超過 63 個字符。
 
-Job 配置還需要一個 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
+Job 設定還需要一個 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
 
 <!--
 ### Job Labels
@@ -484,7 +484,7 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   - 作爲 Pod 主機名的一部分，遵循模式 `$(job-name)-$(index)`。
     當你同時使用帶索引的 Job（Indexed Job）與 {{< glossary_tooltip term_id="Service" >}}，
     Job 中的 Pod 可以通過 DNS 使用確切的主機名互相尋址。
-    有關如何配置的更多信息，請參閱[帶 Pod 間通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)。
+    有關如何設定的更多信息，請參閱[帶 Pod 間通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)。
   - 對於容器化的任務，在環境變量 `JOB_COMPLETION_INDEX` 中。
 
   <!--
@@ -617,7 +617,7 @@ exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
 ### Pod 回退失效策略    {#pod-backoff-failure-policy}
 
 在有些情形下，你可能希望 Job 在經歷若干次重試之後直接進入失敗狀態，
-因爲這很可能意味着遇到了配置錯誤。
+因爲這很可能意味着遇到了設定錯誤。
 爲了實現這點，可以將 `.spec.backoffLimit` 設置爲視 Job 爲失敗之前的重試次數。
 `.spec.backoffLimit` 的值默認爲 6，
 除非指定了[每個索引的退避限制](#backoff-limit-per-index)（僅限帶索引的 Job）。
@@ -802,7 +802,7 @@ your cluster to handle Pod failures based on the container exit codes and the
 Pod conditions.
 -->
 Pod 失效策略使用 `.spec.podFailurePolicy` 字段來定義，
-它能讓你的集羣根據容器的退出碼和 Pod 狀況來處理 Pod 失效事件。
+它能讓你的叢集根據容器的退出碼和 Pod 狀況來處理 Pod 失效事件。
 
 <!--
 In some situations, you  may want to have a better control when handling Pod
@@ -836,7 +836,7 @@ You can configure a Pod failure policy, in the `.spec.podFailurePolicy` field,
 to meet the above use cases. This policy can handle Pod failures based on the
 container exit codes and the Pod conditions.
 -->
-你可以在 `.spec.podFailurePolicy` 字段中配置 Pod 失效策略，以滿足上述使用場景。
+你可以在 `.spec.podFailurePolicy` 字段中設定 Pod 失效策略，以滿足上述使用場景。
 該策略可以根據容器退出碼和 Pod 狀況來處理 Pod 失效。
 
 <!--
@@ -1015,7 +1015,7 @@ to meet the above use cases. This policy can handle Job success based on the
 succeeded pods. After the Job meets the success policy, the job controller terminates the lingering Pods.
 A success policy is defined by rules. Each rule can take one of the following forms:
 -->
-你可以在 `.spec.successPolicy` 字段中配置成功策略，以滿足上述使用場景。
+你可以在 `.spec.successPolicy` 字段中設定成功策略，以滿足上述使用場景。
 此策略可以基於 Pod 的成功狀況處理 Job 的成功狀態。當 Job 滿足成功策略後，Job 控制器會終止剩餘的 Pod。
 成功策略由規則進行定義。每條規則可以採用以下形式中的一種：
 
@@ -1089,7 +1089,7 @@ When you delete the job using `kubectl`, all the pods it created are deleted too
 Job 完成時不會再創建新的 Pod，不過已有的 Pod [通常](#pod-backoff-failure-policy)也不會被刪除。
 保留這些 Pod 使得你可以查看已完成的 Pod 的日誌輸出，以便檢查錯誤、警告或者其它診斷性輸出。
 Job 完成時 Job 對象也一樣被保留下來，這樣你就可以查看它的狀態。
-在查看了 Job 狀態之後刪除老的 Job 的操作留給了用戶自己。
+在查看了 Job 狀態之後刪除老的 Job 的操作留給了使用者自己。
 你可以使用 `kubectl` 來刪除 Job（例如，`kubectl delete jobs/pi`
 或者 `kubectl delete -f ./job.yaml`）。
 當使用 `kubectl` 來刪除 Job 時，該 Job 所創建的 Pod 也會被刪除。
@@ -1292,7 +1292,7 @@ until all of the failed Pods are removed.
 如果在出現 `FailureTarget` 狀況時替換失敗的 Job，則替換 Job 啓動得會更早，
 但可能會導致失敗的 Job 和替換 Job 的 Pod 同時處於運行狀態，進而額外耗用計算資源。
 
-或者，如果你的集羣資源容量有限，你可以選擇等到 Job 上出現 `Failed` 狀況後再執行替換操作。
+或者，如果你的叢集資源容量有限，你可以選擇等到 Job 上出現 `Failed` 狀況後再執行替換操作。
 這樣做會延遲替換 Job 的啓動，不過通過等待所有失敗的 Pod 都被刪除，可以節省資源。
 
 <!--
@@ -1308,7 +1308,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 -->
 ## 自動清理完成的 Job   {#clean-up-finished-jobs-automatically}
 
-完成的 Job 通常不需要留存在系統中。在系統中一直保留它們會給 API 服務器帶來額外的壓力。
+完成的 Job 通常不需要留存在系統中。在系統中一直保留它們會給 API 伺服器帶來額外的壓力。
 如果 Job 由某種更高級別的控制器來管理，例如
 [CronJob](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，
 則 Job 可以被 CronJob 基於特定的根據容量裁定的清理策略清理掉。
@@ -1388,7 +1388,7 @@ cluster to go offline due to this degradation.
 的默認刪除策略是 `orphanDependents`，這會導致非託管 Job 創建的 Pod 在該 Job 被完全刪除後被保留。
 即使{{< glossary_tooltip text="控制面" term_id="control-plane" >}}最終在 Pod 失效或完成後
 對已刪除 Job 中的這些 Pod 執行[垃圾收集](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)操作，
-這些殘留的 Pod 有時可能會導致集羣性能下降，或者在最壞的情況下會導致集羣因這種性能下降而離線。
+這些殘留的 Pod 有時可能會導致叢集性能下降，或者在最壞的情況下會導致叢集因這種性能下降而離線。
 
 <!--
 You can use [LimitRanges](/docs/concepts/policy/limit-range/) and
@@ -1422,7 +1422,7 @@ There are several different patterns for parallel computation, each with strengt
 The tradeoffs are:
 -->
 在一個複雜系統中，可能存在多個不同的工作條目集合。
-這裏我們僅考慮用戶希望一起管理的工作條目集合之一：**批處理作業**。
+這裏我們僅考慮使用者希望一起管理的工作條目集合之一：**批處理作業**。
 
 並行計算的模式有好多種，每種都有自己的強項和弱點。這裏要權衡的因素有：
 
@@ -1437,7 +1437,7 @@ The tradeoffs are:
   process multiple work items is better for large numbers of items.
 -->
 - 每個工作條目對應一個 Job 或者所有工作條目對應同一 Job 對象。
-  爲每個工作條目創建一個 Job 的做法會給用戶帶來一些額外的負擔，系統需要管理大量的 Job 對象。
+  爲每個工作條目創建一個 Job 的做法會給使用者帶來一些額外的負擔，系統需要管理大量的 Job 對象。
   用一個 Job 對象來完成所有工作條目的做法更適合處理大量工作條目的場景。
 - 創建數目與工作條目相等的 Pod 或者令每個 Pod 可以處理多個工作條目。
   當 Pod 個數與工作條目數目相等時，通常不需要在 Pod 中對現有代碼和容器做較大改動；
@@ -1492,7 +1492,7 @@ Here, `W` is the number of work items.
 -->
 當你使用 `.spec.completions` 來設置完成數時，Job 控制器所創建的每個 Pod
 使用完全相同的 [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
-這意味着任務的所有 Pod 都有相同的命令行，都使用相同的鏡像和數據卷，
+這意味着任務的所有 Pod 都有相同的命令列，都使用相同的映像檔和數據卷，
 甚至連環境變量都（幾乎）相同。
 這些模式是讓每個 Pod 執行不同工作的幾種不同形式。
 
@@ -1600,7 +1600,7 @@ You can also toggle Job suspension by patching the Job using the command line.
 
 Suspend an active Job:
 -->
-你也可以使用命令行爲 Job 打補丁來切換 Job 的掛起狀態。
+你也可以使用命令列爲 Job 打補丁來切換 Job 的掛起狀態。
 
 掛起一個活躍的 Job：
 
@@ -1870,9 +1870,9 @@ creates Pods with the finalizer `batch.kubernetes.io/job-tracking`. The
 controller removes the finalizer only after the Pod has been accounted for in
 the Job status, allowing the Pod to be removed by other controllers or users.
 -->
-控制面會跟蹤屬於任何 Job 的 Pod，並通知是否有任何這樣的 Pod 被從 API 服務器中移除。
+控制面會跟蹤屬於任何 Job 的 Pod，並通知是否有任何這樣的 Pod 被從 API 伺服器中移除。
 爲了實現這一點，Job 控制器創建的 Pod 帶有 Finalizer `batch.kubernetes.io/job-tracking`。
-控制器只有在 Pod 被記入 Job 狀態後纔會移除 Finalizer，允許 Pod 可以被其他控制器或用戶移除。
+控制器只有在 Pod 被記入 Job 狀態後纔會移除 Finalizer，允許 Pod 可以被其他控制器或使用者移除。
 
 {{< note >}}
 <!--
@@ -1955,7 +1955,7 @@ spec:
 Provided your cluster has the feature gate enabled, you can inspect the `.status.terminating` field of a Job.
 The value of the field is the number of Pods owned by the Job that are currently terminating.
 -->
-如果你的集羣啓用了此特性門控，你可以檢查 Job 的 `.status.terminating` 字段。
+如果你的叢集啓用了此特性門控，你可以檢查 Job 的 `.status.terminating` 字段。
 該字段值是當前處於終止過程中的、由該 Job 擁有的 Pod 的數量。
 
 ```shell
@@ -2049,7 +2049,7 @@ are such jobs, there is a risk that they might be reconciled by two controllers
 after the operation: the built-in Job controller and the external controller
 indicated by the field value.
 -->
-如果你考慮禁用 `JobManagedBy` 特性門控，或者將集羣降級到未啓用此特性門控的版本，
+如果你考慮禁用 `JobManagedBy` 特性門控，或者將叢集降級到未啓用此特性門控的版本，
 請檢查是否有 Job 的 `spec.managedBy` 字段值帶有一個自定義值。如果存在這樣的 Job，就會有一個風險，
 即禁用或降級操作後這些 Job 可能會被兩個控制器（內置的 Job 控制器和字段值指示的外部控制器）進行協調。
 {{< /warning >}}
@@ -2086,7 +2086,7 @@ for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
 ### 副本控制器    {#replication-controller}
 
 Job 與[副本控制器](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/)是彼此互補的。
-副本控制器管理的是那些不希望被終止的 Pod （例如，Web 服務器），
+副本控制器管理的是那些不希望被終止的 Pod （例如，Web 伺服器），
 Job 管理的是那些希望被終止的 Pod（例如，批處理作業）。
 
 正如在 [Pod 生命期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/) 中討論的，
@@ -2146,10 +2146,10 @@ object, but maintains complete control over what Pods are created and how work i
   * [使用工作隊列進行精細的並行處理](/zh-cn/docs/tasks/job/fine-parallel-processing-work-queue/)
   * [使用索引作業完成靜態工作分配下的並行處理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)
   * 基於一個模板運行多個 Job：[使用展開的方式進行並行處理](/zh-cn/docs/tasks/job/parallel-processing-expansion/)
-* 跟隨[自動清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的鏈接，瞭解你的集羣如何清理完成和失敗的任務。
+* 跟隨[自動清理完成的 Job](#clean-up-finished-jobs-automatically) 文中的鏈接，瞭解你的叢集如何清理完成和失敗的任務。
 * `Job` 是 Kubernetes REST API 的一部分。閱讀 {{< api-reference page="workload-resources/job-v1" >}}
   對象定義理解關於該資源的 API。
 * 閱讀 [`CronJob`](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)，
   它允許你定義一系列定期運行的 Job，類似於 UNIX 工具 `cron`。
 * 根據循序漸進的[示例](/zh-cn/docs/tasks/job/pod-failure-policy/)，
-  練習如何使用 `podFailurePolicy` 配置處理可重試和不可重試的 Pod 失效。
+  練習如何使用 `podFailurePolicy` 設定處理可重試和不可重試的 Pod 失效。

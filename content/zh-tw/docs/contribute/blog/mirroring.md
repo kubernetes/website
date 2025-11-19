@@ -1,5 +1,5 @@
 ---
-title: 博客文章鏡像
+title: 博客文章映像檔
 slug: article-mirroring
 content_type: concept
 weight: 50
@@ -27,9 +27,9 @@ explains what you should do to ensure that an article publishes to both blogs.
 對於主要的 Kubernetes 博客，我們（Kubernetes 項目）喜歡發表具有不同視角和特別焦點的文章，
 這些文章與 Kubernetes 有一定的關聯。
 
-有些文章會同時出現在兩個博客上：一篇文章是主要版本，另一篇是另一個博客上的**鏡像文章**。
+有些文章會同時出現在兩個博客上：一篇文章是主要版本，另一篇是另一個博客上的**映像檔文章**。
 
-本文介紹了鏡像的標準、鏡像的動機，並解釋了你應該做什麼來確保文章發佈到兩個博客。
+本文介紹了映像檔的標準、映像檔的動機，並解釋了你應該做什麼來確保文章發佈到兩個博客。
 
 # {{% heading "prerequisites" %}}
 
@@ -51,9 +51,9 @@ Mirroring is nearly always from the contributor blog to the main blog. The proje
 for articles that are about the contributor community, or a part of it, but are also relevant
 to the wider set of readers for Kubernetes' main blog.
 -->
-## 爲什麼要鏡像
+## 爲什麼要映像檔
 
-鏡像幾乎總是從貢獻者博客到主博客。項目組不僅針對有關貢獻者社區或一部分文章這麼做，
+映像檔幾乎總是從貢獻者博客到主博客。項目組不僅針對有關貢獻者社區或一部分文章這麼做，
 而且和 Kubernetes 主博客更爲廣泛的讀者相關。
 
 <!--
@@ -70,7 +70,7 @@ This consideration about target audience applies to original and mirrored articl
 那麼[貢獻者博客](/zh-cn/docs/contribute/blog/#contributor-blog)可能更爲合適；  
 如果博客文章是關於開源的普遍話題，那麼它可能更適合發佈在 Kubernetes 項目之外的其他網站上。
 
-這種對目標受衆的考量同樣適用於原創文章和鏡像文章。
+這種對目標受衆的考量同樣適用於原創文章和映像檔文章。
 
 <!--
 The Kubernetes project is willing to mirror any blog article that was published to https://kubernetes.dev/blog/
@@ -85,13 +85,13 @@ The Kubernetes project is willing to mirror any blog article that was published 
     
   This is because the Kubernetes project doesn't want to add articles to people's feeds, such as RSS, except at the very end of their feed.
 -->
-Kubernetes 項目願意鏡像任何發佈在 https://kubernetes.dev/blog/ （貢獻者博客）上的文章，但前提是滿足以下所有條件：
+Kubernetes 項目願意映像檔任何發佈在 https://kubernetes.dev/blog/ （貢獻者博客）上的文章，但前提是滿足以下所有條件：
 
-- 鏡像文章的發佈日期必須與原始文章相同（發佈時間也應相同，但在特殊情況下，可以設置最多延遲 12 小時的時間戳）。
+- 映像檔文章的發佈日期必須與原始文章相同（發佈時間也應相同，但在特殊情況下，可以設置最多延遲 12 小時的時間戳）。
 
-- 對於在原始文章已合併到貢獻者博客**之後**，向主博客添加鏡像文章的 PR，請確保滿足以下所有條件：
+- 對於在原始文章已合併到貢獻者博客**之後**，向主博客添加映像檔文章的 PR，請確保滿足以下所有條件：
   - 在原始文章發佈到貢獻者博客之後，沒有文章發佈到主博客。
- - 在原始文章的發佈時間和鏡像文章的發佈時間之間，主博客沒有文章發佈計劃。
+ - 在原始文章的發佈時間和映像檔文章的發佈時間之間，主博客沒有文章發佈計劃。
 
   這是因爲 Kubernetes 項目不希望在人們的訂閱源（例如 RSS）中插入文章，除非是在訂閱源的末尾。
 
@@ -103,7 +103,7 @@ Kubernetes 項目願意鏡像任何發佈在 https://kubernetes.dev/blog/ （貢
 -->
 - 原始文章不違反任何強烈推薦的評審指南或社區規範。
 
-- 鏡像文章的 `canonicalUrl` 將在其[前言](https://gohugo.io/content-management/front-matter/)中正確設置。
+- 映像檔文章的 `canonicalUrl` 將在其[前言](https://gohugo.io/content-management/front-matter/)中正確設置。
   `canonicalUrl`。
 
 <!--
@@ -117,9 +117,9 @@ Mirroring from the main blog to the contributor blog is rare, but could feasibly
 -->
 - 原文章的讀者會認爲其相關
 
-- 文章內容與鏡像文章出現的目標博客主題一致
+- 文章內容與映像檔文章出現的目標博客主題一致
 
-從主博客到貢獻者博客的鏡像操作很少見，但理論上是可行的。
+從主博客到貢獻者博客的映像檔操作很少見，但理論上是可行的。
 
 <!--
 ## How to mirror
@@ -132,12 +132,12 @@ As the article author, you should set the canonical URL for the mirrored article
 (you can use a preview to predict the URL and fill this in ahead of actual publication). Use the `canonicalUrl`
 field in [front matter](https://gohugo.io/content-management/front-matter/) for this.
 -->
-## 如何鏡像
+## 如何映像檔
 
 你需要向另一個 Git 倉庫（通常是 [https://github.com/kubernetes/website](https://github.com/kubernetes/website)）
 提交一個 PR，以添加該文章。此操作應在文章合併**之前**完成。
 
-作爲文章的作者，你應該爲鏡像文章設置規範 URL，
+作爲文章的作者，你應該爲映像檔文章設置規範 URL，
 並將其指向原始文章的 URL（你可以使用預覽功能預測 URL，並在實際發佈前填寫此內容）。
 在[前言](https://gohugo.io/content-management/front-matter/)中使用
 `canonicalUrl` 字段來完成這一設置。

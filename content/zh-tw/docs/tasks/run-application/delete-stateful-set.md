@@ -27,7 +27,7 @@ This task shows you how to delete a {{< glossary_tooltip term_id="StatefulSet" >
 <!--
 - This task assumes you have an application running on your cluster represented by a StatefulSet.
 -->
-- 本任務假設在你的集羣上已經運行了由 StatefulSet 創建的應用。
+- 本任務假設在你的叢集上已經運行了由 StatefulSet 創建的應用。
 
 <!-- steps -->
 
@@ -153,7 +153,7 @@ This is a potentially dangerous task. Refer to
 ### 強制刪除 StatefulSet 的 Pod   {#force-deletion-of-statefulset-pods}
 
 如果你發現 StatefulSet 的某些 Pod 長時間處於 'Terminating' 或者 'Unknown' 狀態，
-則可能需要手動干預以強制從 API 服務器中刪除這些 Pod。這是一項有點危險的任務。
+則可能需要手動干預以強制從 API 伺服器中刪除這些 Pod。這是一項有點危險的任務。
 詳細信息請閱讀[強制刪除 StatefulSet 的 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
 ## {{% heading "whatsnext" %}}

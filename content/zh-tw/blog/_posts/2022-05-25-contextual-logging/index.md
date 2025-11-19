@@ -310,7 +310,7 @@ instrumenting a test case and [support for command line flags](https://pkg.go.de
 
 新的 [ktesting](https://pkg.go.dev/k8s.io/klog/v2@v2.60.1/ktesting)
 包使用 klog 的文本輸出格式通過 `testing.T` 實現日誌記錄。它有一個 [single API call](https://pkg.go.dev/k8s.io/klog/v2@v2.60.1/ktesting#NewTestContext)
-用於檢測測試用例和[支持命令行標誌](https://pkg.go.dev/k8s.io/klog/v2@v2.60.1/ktesting/init)。
+用於檢測測試用例和[支持命令列標誌](https://pkg.go.dev/k8s.io/klog/v2@v2.60.1/ktesting/init)。
 
 <!--
 ### klogr
@@ -342,7 +342,7 @@ logger that klog returns as fallback when nothing else is configured.
 -->
 相反，應該使用選擇 klog 文本格式的 [`WithFormat(FormatKlog)`](https://pkg.go.dev/k8s.io/klog/v2@v2.60.1/klogr#WithFormat)
 創建一個 klogr 實例。 一個更簡單但結果相同的構造方法是新的 [`klog.NewKlogr`](https://pkg.go.dev/k8s.io/klog/v2#NewKlogr)。 
-這是 klog 在未配置任何其他內容時作爲後備返回的記錄器。
+這是 klog 在未設定任何其他內容時作爲後備返回的記錄器。
 
 
 <!--

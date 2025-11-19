@@ -96,7 +96,7 @@ provide a standard set of security levels across clusters. However, it is less f
 PodSecurityPolicy. Notably, the following features are supported by PodSecurityPolicy but not Pod
 Security Admission:
 -->
-Pod 安全性准入被設計用來直接滿足最常見的安全性需求，並提供一組可用於多個集羣的安全性級別。
+Pod 安全性准入被設計用來直接滿足最常見的安全性需求，並提供一組可用於多個叢集的安全性級別。
 不過，這一機制比 PodSecurityPolicy 的靈活度要低。
 值得注意的是，PodSecurityPolicy 所支持的以下特性是 Pod 安全性准入所不支持的：
 
@@ -108,7 +108,7 @@ Pod 安全性准入被設計用來直接滿足最常見的安全性需求，並�
   to make those changes. See [Simplify & Standardize PodSecurityPolicies](#simplify-psps) below for more detail.
 -->
 - **設置默認的安全性約束** - Pod 安全性准入是一個非變更性質的准入控制器，
-  這就意味着它不會在對 Pod 進行合法性檢查之前更改其配置。如果你之前依賴於 PSP 的這方面能力，
+  這就意味着它不會在對 Pod 進行合法性檢查之前更改其設定。如果你之前依賴於 PSP 的這方面能力，
   你或者需要更改你的負載以滿足 Pod 安全性約束，或者需要使用一個
   [變更性質的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
   來執行相應的變更。進一步的細節可參見後文的[簡化和標準化 PodSecurityPolicy](#simplify-psps)。
@@ -133,13 +133,13 @@ Pod 安全性准入被設計用來直接滿足最常見的安全性需求，並�
   Security Admission does expose some
   [static configuration for exemptions](/docs/concepts/security/pod-security-admission/#exemptions).
 -->
-- **粒度小於名字空間的策略** - PodSecurityPolicy 允許你爲不同的服務賬戶或用戶綁定不同策略，
-  即使這些服務賬戶或用戶隸屬於同一個名字空間。這一方法有很多缺陷，不建議使用。
+- **粒度小於名字空間的策略** - PodSecurityPolicy 允許你爲不同的服務賬戶或使用者綁定不同策略，
+  即使這些服務賬戶或使用者隸屬於同一個名字空間。這一方法有很多缺陷，不建議使用。
   不過如果你的確需要這種功能，你就需要使用第三方的 Webhook。
-  唯一的例外是當你只需要完全針對某用戶或者
+  唯一的例外是當你只需要完全針對某使用者或者
   [RuntimeClasses](/zh-cn/docs/concepts/containers/runtime-class/) 賦予豁免規則時，
   Pod 安全性准入的確也爲豁免規則暴露一些
-  [靜態配置](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)。
+  [靜態設定](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)。
 
 <!--
 Even if Pod Security Admission does not meet all of your needs it was designed to be _complementary_
@@ -168,8 +168,8 @@ to place additional restrictions on setting Pod Security labels on Namespace obj
 Pod 安全性准入是通過[名字空間上的標籤](/zh-cn/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces)
 來控制的。這也就是說，任何能夠更新（或通過 patch 部分更新或創建）
 名字空間的人都可以更改該名字空間的 Pod 安全性級別，而這可能會被利用來繞過約束性更強的策略。
-在繼續執行遷移操作之前，請確保只有被信任的、有特權的用戶具有這類名字空間訪問權限。
-不建議將這類強大的訪問權限授予不應獲得權限提升的用戶，不過如果你必須這樣做，
+在繼續執行遷移操作之前，請確保只有被信任的、有特權的使用者具有這類名字空間訪問權限。
+不建議將這類強大的訪問權限授予不應獲得權限提升的使用者，不過如果你必須這樣做，
 你需要使用一個[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 來針對爲 Namespace 對象設置 Pod 安全性級別設置額外的約束。
 
@@ -241,7 +241,7 @@ Removing these could result in workloads missing required configuration, and cau
 [Rollout the updated policies](#psp-update-rollout) below for advice on how to roll these changes
 out safely.
 -->
-刪除這些字段可能導致負載缺少所需的配置信息，進而導致一些問題。
+刪除這些字段可能導致負載缺少所需的設定信息，進而導致一些問題。
 參見後文[退出更新的策略](#psp-update-rollout)以獲得如何安全地將這些變更上線的建議。
 {{< /caution >}}
 
@@ -279,7 +279,7 @@ reference with "no opinion") are:
 <!--
 You can also remove the following fields, that are related to POSIX / UNIX group controls.
 -->
-你也可以去掉以下字段，這些字段與 POSIX/UNIX 用戶組控制有關。
+你也可以去掉以下字段，這些字段與 POSIX/UNIX 使用者組控制有關。
 
 {{< caution >}}
 <!--
@@ -289,7 +289,7 @@ workloads not setting the required groups, and cause problems. See
 out safely.
 -->
 如果這些字段中存在使用 `MustRunAs` 策略的情況，則意味着對應字段是變更性質的。
-去掉相應的字段可能導致負載無法設置所需的用戶組，進而帶來一些問題。
+去掉相應的字段可能導致負載無法設置所需的使用者組，進而帶來一些問題。
 關於如何安全地將這類變更上線的相關建議，請參閱後文的[推出更新的策略](#psp-update-rollout)部分。
 {{< /caution >}}
 
@@ -312,13 +312,13 @@ need to be handled on a case-by-case basis later:
 - `.spec.allowPrivilegeEscalation` - (Only mutating if set to `false`) required for the Restricted
   profile.
 -->
-- `.spec.requiredDropCapabilities` - 需要此字段來爲 Restricted 配置去掉 `ALL` 設置。
+- `.spec.requiredDropCapabilities` - 需要此字段來爲 Restricted 設定去掉 `ALL` 設置。
 - `.spec.seLinux` - （僅針對帶有 `MustRunAs` 規則的變更性設置）需要此字段來滿足
-  Baseline 和 Restricted 配置所需要的 SELinux 需求。
+  Baseline 和 Restricted 設定所需要的 SELinux 需求。
 - `.spec.runAsUser` - （僅針對帶有 `RunAsAny` 規則的非變更性設置）需要此字段來爲
-  Restricted 配置保證 `RunAsNonRoot`。
+  Restricted 設定保證 `RunAsNonRoot`。
 - `.spec.allowPrivilegeEscalation` - （如果設置爲 `false` 則爲變更性設置）
-  需要此字段來支持 Restricted 配置。
+  需要此字段來支持 Restricted 設定。
 
 <!--
 ### 2.c. Rollout the updated PSPs {#psp-update-rollout}
@@ -331,8 +331,8 @@ removing the mutating options may result in workloads missing required configura
 
 For each updated PodSecurityPolicy:
 -->
-接下來，你可以將更新後的策略推出到你的集羣上。在繼續操作時，你要非常小心，
-因爲去掉變更性質的選項可能導致有些工作負載缺少必需的配置。
+接下來，你可以將更新後的策略推出到你的叢集上。在繼續操作時，你要非常小心，
+因爲去掉變更性質的選項可能導致有些工作負載缺少必需的設定。
 
 針對更新後的每個 PodSecurityPolicy：
 
@@ -363,7 +363,7 @@ For each updated PodSecurityPolicy:
 2. 比較運行中的 Pod 與原來的 Pod 規約，確定 PodSecurityPolicy 是否更改過這些 Pod。
    對於通過[工作負載資源](/zh-cn/docs/concepts/workloads/controllers/)所創建的 Pod，
    你可以比較 Pod 和控制器資源中的 PodTemplate。如果發現任何變更，則原來的 Pod
-   或者 PodTemplate 需要被更新以加上所希望的配置。要審查的字段包括：
+   或者 PodTemplate 需要被更新以加上所希望的設定。要審查的字段包括：
 
    - `.metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']`
      （將 `*` 替換爲每個容器的名稱）
@@ -392,9 +392,9 @@ For each updated PodSecurityPolicy:
    or ClusterRoles that grant the `use` permission on the original PSP to also grant it to the
    updated PSP.
 -->
-3. 創建新的 PodSecurityPolicy。如果存在 Role 或 ClusterRole 對象爲用戶授權了在所有 PSP
+3. 創建新的 PodSecurityPolicy。如果存在 Role 或 ClusterRole 對象爲使用者授權了在所有 PSP
    上使用 `use` 動詞的權限，則所使用的的會是新創建的 PSP 而不是其變更性的副本。
-4. 更新你的鑑權配置，爲訪問新的 PSP 授權。在 RBAC 機制下，這意味着需要更新所有爲原 PSP
+4. 更新你的鑑權設定，爲訪問新的 PSP 授權。在 RBAC 機制下，這意味着需要更新所有爲原 PSP
    授予 `use` 訪問權限的 Role 或 ClusterRole 對象，使之也對更新後的 PSP 授權。
 
 <!--
@@ -405,7 +405,7 @@ For each updated PodSecurityPolicy:
    them.
 -->
 5. 驗證：經過一段時間後，重新執行步驟 1 中所給的命令，查看是否有 Pod 仍在使用原來的 PSP。
-   注意，在新的策略被推出到集羣之後，Pod 需要被重新創建纔可以執行全面驗證。
+   注意，在新的策略被推出到叢集之後，Pod 需要被重新創建纔可以執行全面驗證。
 6. （可選）一旦你已經驗證原來的 PSP 不再被使用，你就可以刪除這些 PSP。
 
 <!--
@@ -417,7 +417,7 @@ For each updated PodSecurityPolicy:
 The following steps will need to be performed on every namespace in the cluster. Commands referenced
 in these steps use the `$NAMESPACE` variable to refer to the namespace being updated.
 -->
-下面的步驟需要在集羣中的所有名字空間上執行。所列步驟中的命令使用變量
+下面的步驟需要在叢集中的所有名字空間上執行。所列步驟中的命令使用變量
 `$NAMESPACE` 來引用所更新的名字空間。
 
 <!--
@@ -442,7 +442,7 @@ There are several ways to choose a Pod Security level for your namespace:
    to how one might approach this on a new cluster.
 -->
 1. **根據名字空間的安全性需求來確定** - 如果你熟悉某名字空間的預期訪問級別，
-   你可以根據這類需求來選擇合適的安全級別，就像大家在爲新集羣確定安全級別一樣。
+   你可以根據這類需求來選擇合適的安全級別，就像大家在爲新叢集確定安全級別一樣。
 <!--
 2. **By existing PodSecurityPolicies** - Using the
    [Mapping PodSecurityPolicies to Pod Security Standards](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
@@ -492,7 +492,7 @@ includes several tools to help test and safely roll out profiles.
 -->
 一旦你已經爲名字空間選擇了 Pod 安全性級別（或者你正在嘗試多個不同級別），
 先進行測試是個不錯的主意（如果使用 Privileged 級別，則可略過此步驟）。
-Pod 安全性包含若干工具可用來測試和安全地推出安全性配置。
+Pod 安全性包含若干工具可用來測試和安全地推出安全性設定。
 
 <!--
 First, you can dry-run the policy, which will evaluate pods currently running in the namespace
@@ -522,7 +522,7 @@ on a namespace with this command:
 第二種辦法在抓取當前未運行的負載方面表現的更好：audit 模式。
 運行於 audit 模式（而非 enforcing 模式）下時，違反策略級別的 Pod 會被記錄到審計日誌中，
 經過一段時間後可以在日誌中查看到，但這些 Pod 不會被拒絕。
-warning 模式的工作方式與此類似，不過會立即向用戶返回告警信息。
+warning 模式的工作方式與此類似，不過會立即向使用者返回告警信息。
 你可以使用下面的命令爲名字空間設置 audit 模式的級別：
 
 ```sh
@@ -609,7 +609,7 @@ appropriate Pod Security profile is applied to new namespaces.
 -->
 現在，現有的名字空間都已被更新，強制實施 Pod 安全性准入，
 你應該確保你用來管控新名字空間創建的流程與/或策略也被更新，這樣合適的 Pod
-安全性配置會被應用到新的名字空間上。
+安全性設定會被應用到新的名字空間上。
 
 <!--
 You can also statically configure the Pod Security admission controller to set a default enforce,
@@ -617,9 +617,9 @@ audit, and/or warn level for unlabeled namespaces. See
 [Configure the Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 for more information.
 -->
-你也可以靜態配置 Pod 安全性准入控制器，爲尚未打標籤的名字空間設置默認的
+你也可以靜態設定 Pod 安全性准入控制器，爲尚未打標籤的名字空間設置默認的
 enforce、audit 與/或 warn 級別。
-詳細信息可參閱[配置准入控制器](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)頁面。
+詳細信息可參閱[設定准入控制器](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)頁面。
 
 <!--
 ## 5. Disable PodSecurityPolicy {#disable-psp}
@@ -632,7 +632,7 @@ configuration of the API server:
 [How do I turn off an admission controller?](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller).
 -->
 最後，你已爲禁用 PodSecurityPolicy 做好準備。要禁用 PodSecurityPolicy，
-你需要更改 API 服務器上的准入配置：
+你需要更改 API 伺服器上的准入設定：
 [我如何關閉某個准入控制器？](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller)
 
 <!--
@@ -643,10 +643,10 @@ the API server logs. At startup, the API server outputs log lines listing the lo
 controller plugins:
 -->
 如果需要驗證 PodSecurityPolicy 准入控制器不再被啓用，你可以通過扮演某個無法訪問任何
-PodSecurityPolicy 的用戶來執行測試（參見
+PodSecurityPolicy 的使用者來執行測試（參見
 [PodSecurityPolicy 示例](/zh-cn/docs/concepts/security/pod-security-policy/#example)），
-或者通過檢查 API 服務器的日誌來進行驗證。在啓動期間，API
-服務器會輸出日誌行，列舉所掛載的准入控制器插件。
+或者通過檢查 API 伺服器的日誌來進行驗證。在啓動期間，API
+伺服器會輸出日誌行，列舉所掛載的准入控制器插件。
 
 ```
 I0218 00:59:44.903329      13 plugins.go:158] Loaded 16 mutating admission controller(s) successfully in the following order: NamespaceLifecycle,LimitRanger,ServiceAccount,NodeRestriction,TaintNodesByCondition,Priority,DefaultTolerationSeconds,ExtendedResourceToleration,PersistentVolumeLabel,DefaultStorageClass,StorageObjectInUseProtection,RuntimeClass,DefaultIngressClass,MutatingAdmissionWebhook.

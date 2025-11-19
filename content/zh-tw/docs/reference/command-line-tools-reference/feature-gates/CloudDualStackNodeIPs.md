@@ -24,4 +24,4 @@ See [Configure IPv4/IPv6 dual-stack](/docs/concepts/services-networking/dual-sta
 for more details.
 -->
 允許在外部雲驅動中通過 `kubelet --node-ip` 設置雙協議棧。
-有關更多詳細信息，請參閱[配置 IPv4/IPv6 雙棧](/zh-cn/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)。
+有關更多詳細信息，請參閱[設定 IPv4/IPv6 雙棧](/zh-cn/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)。

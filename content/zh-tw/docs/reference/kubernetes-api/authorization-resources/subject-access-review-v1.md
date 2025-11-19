@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/authorization/v1"
   kind: "SubjectAccessReview"
 content_type: "api_reference"
-description: "SubjectAccessReview 檢查用戶或組是否可以執行某操作。"
+description: "SubjectAccessReview 檢查使用者或組是否可以執行某操作。"
 title: "SubjectAccessReview"
 weight: 4
 ---
@@ -28,7 +28,7 @@ weight: 4
 <!--
 SubjectAccessReview checks whether or not a user or group can perform an action.
 -->
-SubjectAccessReview 檢查用戶或組是否可以執行某操作。
+SubjectAccessReview 檢查使用者或組是否可以執行某操作。
 
 <hr>
 
@@ -55,7 +55,7 @@ SubjectAccessReview 檢查用戶或組是否可以執行某操作。
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
 
-  status 由服務器填寫，表示請求是否被允許。
+  status 由伺服器填寫，表示請求是否被允許。
 
 ## SubjectAccessReviewSpec {#SubjectAccessReviewSpec}
 
@@ -364,7 +364,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     namespace 是正在請求的操作的命名空間。
     目前，無命名空間和所有命名空間之間沒有區別。
     對於 LocalSubjectAccessReviews，默認爲 ""（空字符串）。
-    對於集羣範圍的資源，默認爲 ""（空字符串）。
+    對於叢集範圍的資源，默認爲 ""（空字符串）。
     對於來自 SubjectAccessReview 或 SelfSubjectAccessReview 的命名空間範圍的資源，
     ""（空字符串）表示 "all"（所有資源）。
 
@@ -406,11 +406,11 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
 - **uid** (string)
 
-  有關正在請求的用戶的 UID 信息。
+  有關正在請求的使用者的 UID 信息。
 
 - **user** (string)
 
-  user 是你正在測試的用戶。
+  user 是你正在測試的使用者。
   如果你指定 “user” 而不是 “groups”，它將被解讀爲“如果 user 不是任何組的成員，將會怎樣”。
 
 ## SubjectAccessReviewStatus {#SubjectAccessReviewStatus}

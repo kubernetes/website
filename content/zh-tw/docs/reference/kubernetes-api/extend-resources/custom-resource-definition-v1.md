@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
   kind: "CustomResourceDefinition"
 content_type: "api_reference"
-description: "CustomResourceDefinition 表示應在 API 服務器上公開的資源。"
+description: "CustomResourceDefinition 表示應在 API 伺服器上公開的資源。"
 title: "CustomResourceDefinition"
 weight: 1
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \<.spec.name>.\<.spec.group>.
 -->
-CustomResourceDefinition 表示應在 API 服務器上公開的資源。其名稱必須採用 `<.spec.name>.<.spec.group>` 格式。
+CustomResourceDefinition 表示應在 API 伺服器上公開的資源。其名稱必須採用 `<.spec.name>.<.spec.group>` 格式。
 
 <hr>
 
@@ -48,7 +48,7 @@ CustomResourceDefinition 表示應在 API 服務器上公開的資源。其名�
   <!--
   spec describes how the user wants the resources to appear
   -->
-  spec 描述了用戶希望資源的呈現方式。
+  spec 描述了使用者希望資源的呈現方式。
 
 - **status** (<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinitionStatus" >}}">CustomResourceDefinitionStatus</a>)
   <!--
@@ -61,7 +61,7 @@ CustomResourceDefinition 表示應在 API 服務器上公開的資源。其名�
 <!--
 CustomResourceDefinitionSpec describes how a user wants their resource to appear
 -->
-CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
+CustomResourceDefinitionSpec 描述了使用者希望資源的呈現方式。
 
 <hr>
 
@@ -164,7 +164,7 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
 
 - **scope** (string)，必需
 
-  scope 表示自定義資源是集羣作用域還是命名空間作用域。允許的值爲 `Cluster` 和 `Namespaced`。
+  scope 表示自定義資源是叢集作用域還是命名空間作用域。允許的值爲 `Cluster` 和 `Namespaced`。
 
 <!--
 - **versions** ([]CustomResourceDefinitionVersion), required
@@ -245,7 +245,7 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
       jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
     -->
 
-    **CustomResourceColumnDefinition 指定用於服務器端打印的列。**
+    **CustomResourceColumnDefinition 指定用於伺服器端打印的列。**
 
     - **versions.additionalPrinterColumns.jsonPath** (string)，必需
 
@@ -305,7 +305,7 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
     -->
 
     deprecated 表示此版本的自定義資源 API 已棄用。設置爲 true 時，對此版本的 API
-    請求會在服務器響應頭信息中帶有警告（warning）信息。此值默認爲 false。
+    請求會在伺服器響應頭信息中帶有警告（warning）信息。此值默認爲 false。
 
   - **versions.deprecationWarning** (string)
 
@@ -458,7 +458,7 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
       狀態由 CustomResource 中的 `.status` JSON 路徑表示。設置後，
 
       * 爲自定義資源提供一個 `/status` 子資源。
-      * 向 `/status` 子資源發出的 PUT 請求時，需要提供自定義資源對象，服務器端會忽略對 status 節以外的任何內容更改。
+      * 向 `/status` 子資源發出的 PUT 請求時，需要提供自定義資源對象，伺服器端會忽略對 status 節以外的任何內容更改。
       * 對自定義資源的 PUT/POST/PATCH 請求會忽略對 status 節的更改。
 
 - **conversion** (CustomResourceConversion)
@@ -485,7 +485,7 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
     strategy 指定如何在版本之間轉換自定義資源。允許的值爲：
 
     - `"None"`：轉換器僅更改 apiVersion 並且不會觸及自定義資源中的任何其他字段。
-    - `"Webhook"`：API 服務器將調用外部 Webhook 進行轉換。此選項需要其他信息。這要求
+    - `"Webhook"`：API 伺服器將調用外部 Webhook 進行轉換。此選項需要其他信息。這要求
       spec.preserveUnknownFields 爲 false，並且設置 spec.conversion.webhook。
 
   - **conversion.webhook** (WebhookConversion)
@@ -514,8 +514,8 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
     - **conversion.webhook.conversionReviewVersions** ([]string)，必需
 
       conversionReviewVersions 是 Webhook 期望的 `ConversionReview` 版本的有序列表。
-      API 服務器將使用它支持的列表中的第一個版本。如果 API 服務器不支持此列表中指定的版本，則自定義資源的轉換將失敗。
-      如果持久化的 Webhook 配置指定了允許的版本但其中不包括 API 服務器所瞭解的任何版本，則對 Webhook 的調用將失敗。
+      API 伺服器將使用它支持的列表中的第一個版本。如果 API 伺服器不支持此列表中指定的版本，則自定義資源的轉換將失敗。
+      如果持久化的 Webhook 設定指定了允許的版本但其中不包括 API 伺服器所瞭解的任何版本，則對 Webhook 的調用將失敗。
 
     - **conversion.webhook.clientConfig** (WebhookClientConfig)
 
@@ -538,8 +538,8 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
         caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         -->
 
-        caBundle 是一個 PEM 編碼的 CA 包，用於驗證 Webhook 服務器的服務證書。
-        如果未指定，則使用 API 服務器上的系統根證書。
+        caBundle 是一個 PEM 編碼的 CA 包，用於驗證 Webhook 伺服器的服務證書。
+        如果未指定，則使用 API 伺服器上的系統根證書。
 
       - **conversion.webhook.clientConfig.service** (ServiceReference)
 
@@ -551,7 +551,7 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
 
         service 是對此 Webhook 服務的引用。必須指定 service 或 url 字段之一。
 
-        如果在集羣中運行 Webhook，那麼你應該使用 `service`。
+        如果在叢集中運行 Webhook，那麼你應該使用 `service`。
 
         <a name="ServiceReference"></a>
         <!--
@@ -607,8 +607,8 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
         The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
         -->
 
-        `host` 不應引用集羣中運行的服務；若使用集羣內服務應改爲使用 `service` 字段。
-        host 值可能會通過外部 DNS 解析（例如，`kube-apiserver` 無法解析集羣內 DNS，因爲這將違反分層規則）。
+        `host` 不應引用叢集中運行的服務；若使用叢集內服務應改爲使用 `service` 字段。
+        host 值可能會通過外部 DNS 解析（例如，`kube-apiserver` 無法解析叢集內 DNS，因爲這將違反分層規則）。
         `host` 也可能是 IP 地址。
 
         <!--
@@ -616,8 +616,8 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
         -->
 
         請注意，使用 `localhost` 或 `127.0.0.1` 作爲 `host` 是有風險的，
-        除非你非常小心地在所有運行 API 服務器的主機上運行這個 Webhook，因爲這些 API 服務器可能需要調用這個 Webhook。
-        這樣的安裝可能是不可移植的，也就是說，不容易在一個新的集羣中復現。
+        除非你非常小心地在所有運行 API 伺服器的主機上運行這個 Webhook，因爲這些 API 伺服器可能需要調用這個 Webhook。
+        這樣的安裝可能是不可移植的，也就是說，不容易在一個新的叢集中復現。
 
         <!--
         The scheme must be "https"; the URL must begin with "https://".
@@ -630,9 +630,9 @@ CustomResourceDefinitionSpec 描述了用戶希望資源的呈現方式。
         scheme 必須是 "https"；URL 必須以 "https://" 開頭。
 
         路徑（path）是可選的，如果存在，則可以是 URL 中允許的任何字符串。
-        你可以使用路徑傳遞一個任意字符串給 Webhook，例如，一個集羣標識符。
+        你可以使用路徑傳遞一個任意字符串給 Webhook，例如，一個叢集標識符。
 
-        不允許使用用戶或基本認證，例如 "user:password@"，是不允許的。片段（"#..."）和查詢參數（"?..."）也是不允許的。
+        不允許使用使用者或基本認證，例如 "user:password@"，是不允許的。片段（"#..."）和查詢參數（"?..."）也是不允許的。
 
 - **preserveUnknownFields** (boolean)
 
@@ -963,7 +963,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其規範草案第 4 版
   x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
   -->
 
-  x-kubernetes-preserve-unknown-fields 針對未在驗證模式中指定的字段，禁止 API 服務器的解碼步驟剪除這些字段。
+  x-kubernetes-preserve-unknown-fields 針對未在驗證模式中指定的字段，禁止 API 伺服器的解碼步驟剪除這些字段。
   這一設置對字段的影響是遞歸的，但在模式中指定了嵌套 properties 或 additionalProperties 時，會切換回正常的字段剪除行爲。
   該值可爲 true 或 undefined，不能爲 false。
 
@@ -1393,7 +1393,7 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 對象的列表。
   APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
   -->
 
-  apiVersion 定義對象表示的版本化模式。服務器應將已識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
+  apiVersion 定義對象表示的版本化模式。伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
   更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
@@ -1402,7 +1402,7 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 對象的列表。
   Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
 
-  kind 是一個字符串值，表示該對象所表示的 REST 資源。服務器可以從客戶端提交請求的端點推斷出 REST 資源。
+  kind 是一個字符串值，表示該對象所表示的 REST 資源。伺服器可以從客戶端提交請求的端點推斷出 REST 資源。
   不能被更新。駝峯命名。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 

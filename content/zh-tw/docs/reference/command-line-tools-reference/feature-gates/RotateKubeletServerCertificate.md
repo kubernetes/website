@@ -20,5 +20,5 @@ Enable the rotation of the server TLS certificate on the kubelet.
 See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)
 for more details.
 -->
-啓用 kubelet 上服務器 TLS 證書的輪換。
-更多細節參閱 [kubelet 配置](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
+啓用 kubelet 上伺服器 TLS 證書的輪換。
+更多細節參閱 [kubelet 設定](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。

@@ -63,8 +63,8 @@ To enable this feature, users firstly need to add `--cpu-manager-policy=static` 
 -->
 ## 啓用此特性   {#enabling-the-feature}
 
-要啓用此特性，用戶首先需要在 kubelet 配置中添加 `--cpu-manager-policy=static` kubelet 標誌或 `cpuManagerPolicy: static` 字段。
-然後用戶可以在 Kubernetes 配置中添加 `--cpu-manager-policy-options distribute-cpus-across-cores=true` 或
+要啓用此特性，使用者首先需要在 kubelet 設定中添加 `--cpu-manager-policy=static` kubelet 標誌或 `cpuManagerPolicy: static` 字段。
+然後使用者可以在 Kubernetes 設定中添加 `--cpu-manager-policy-options distribute-cpus-across-cores=true` 或
 `distribute-cpus-across-cores=true` 到自己的 CPUManager 策略選項中。此設置指示 CPUManager 採用新的分發策略。
 需要注意的是，目前此策略選項無法與 `full-pcpus-only` 或 `distribute-cpus-across-numa` 選項一起使用。
 
@@ -97,7 +97,7 @@ This draft aims to clearly explain the new feature while setting expectations fo
 
 在 Kubernetes CPUManager 中引入 `distribute-cpus-across-cores` 策略是我們持續努力改進資源管理和提升應用性能而向前邁出的一步。
 通過減少物理核上的爭用，此特性提供了更加平衡的 CPU 資源分配方法，特別有利於運行異構工作負載的環境。
-我們鼓勵 Kubernetes 用戶測試這一新特性並提供反饋，這將對其未來發展至關重要。
+我們鼓勵 Kubernetes 使用者測試這一新特性並提供反饋，這將對其未來發展至關重要。
 
 本文旨在清晰地解釋這一新特性，同時設定對其當前階段和未來改進的期望。
 

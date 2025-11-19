@@ -17,7 +17,7 @@ as a power outage or something else external. A node shutdown could lead to work
 failure if the node is not drained before the shutdown. A node shutdown can be
 either **graceful** or **non-graceful**.
 -->
-在 Kubernetes 集羣中，{{< glossary_tooltip text="節點" term_id="node" >}}可以按計劃的體面方式關閉，
+在 Kubernetes 叢集中，{{< glossary_tooltip text="節點" term_id="node" >}}可以按計劃的體面方式關閉，
 也可能因斷電或其他某些外部原因被意外關閉。如果節點在關閉之前未被排空，則節點關閉可能會導致工作負載失敗。
 節點可以**體面關閉**或**非體面關閉**。
 
@@ -126,11 +126,11 @@ thus not activating the graceful node shutdown functionality.
 To activate the feature, both options should be configured appropriately and
 set to non-zero values.
 -->
-## 配置節點體面關閉
+## 設定節點體面關閉
 
-注意，默認情況下，下面描述的兩個配置選項，`shutdownGracePeriod` 和
+注意，默認情況下，下面描述的兩個設定選項，`shutdownGracePeriod` 和
 `shutdownGracePeriodCriticalPods` 都是被設置爲 0 的，因此不會激活節點體面關閉特性。
-要激活此功能特性，這兩個選項要適當配置，並設置爲非零值。
+要激活此功能特性，這兩個選項要適當設定，並設置爲非零值。
 
 <!--
 Once the kubelet is notified of a node shutdown, it sets a `NotReady` condition on
@@ -260,8 +260,8 @@ during graceful node shutdown based on
 [priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 -->
 爲了在節點體面關閉期間提供更多的靈活性，尤其是處理關閉期間的 Pod 排序問題，
-節點體面關閉機制能夠關注 Pod 的 PriorityClass 設置，前提是你已經在集羣中啓用了此功能特性。
-此特性允許集羣管理員基於 Pod
+節點體面關閉機制能夠關注 Pod 的 PriorityClass 設置，前提是你已經在叢集中啓用了此功能特性。
+此特性允許叢集管理員基於 Pod
 的[優先級類（Priority Class）](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
 顯式地定義節點體面關閉期間 Pod 的處理順序。
 
@@ -284,7 +284,7 @@ particular priority class of pods. The kubelet can be configured with the exact
 phases and shutdown time per phase.
 -->
 當節點體面關閉能夠處理 Pod 優先級時，節點體面關閉的處理可以分爲多個階段，
-每個階段關閉特定優先級類的 Pod。可以配置 kubelet 按確切的階段處理 Pod，
+每個階段關閉特定優先級類的 Pod。可以設定 kubelet 按確切的階段處理 Pod，
 且每個階段可以獨立設置關閉時間。
 
 <!--
@@ -292,7 +292,7 @@ Assuming the following custom pod
 [priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
 in a cluster,
 -->
-假設集羣中存在以下自定義的 Pod
+假設叢集中存在以下自定義的 Pod
 [優先級類](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)。
 
 <!--
@@ -314,7 +314,7 @@ in a cluster,
 Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 the settings for `shutdownGracePeriodByPodPriority` could look like:
 -->
-在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中，
+在 [kubelet 設定](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中，
 `shutdownGracePeriodByPodPriority` 看起來可能是這樣：
 
 <!--
@@ -335,7 +335,7 @@ the settings for `shutdownGracePeriodByPodPriority` could look like:
 <!--
 The corresponding kubelet config YAML configuration would be:
 -->
-對應的 kubelet 配置 YAML 將會是：
+對應的 kubelet 設定 YAML 將會是：
 
 ```yaml
 shutdownGracePeriodByPodPriority:
@@ -363,7 +363,7 @@ example, you could instead use these settings:
 所有 `priority` 值介於 1000 和 10000 之間的 Pod 關閉期限是 120 秒，
 其他所有 Pod 關閉期限是 60 秒。
 
-用戶不需要爲所有的優先級類都設置數值。例如，你也可以使用下面這種配置：
+使用者不需要爲所有的優先級類都設置數值。例如，你也可以使用下面這種設定：
 
 <!--
 | Pod priority class value | Shutdown period |
@@ -403,12 +403,12 @@ Using this feature requires enabling the `GracefulNodeShutdownBasedOnPodPriority
 to the desired configuration containing the pod priority class values and
 their respective shutdown periods.
 -->
-如果此功能特性被啓用，但沒有提供配置數據，則不會出現排序操作。
+如果此功能特性被啓用，但沒有提供設定數據，則不會出現排序操作。
 
 使用此功能特性需要啓用 `GracefulNodeShutdownBasedOnPodPriority`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-並將 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
-`shutdownGracePeriodByPodPriority` 設置爲期望的配置，
+並將 [kubelet 設定](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
+`shutdownGracePeriodByPodPriority` 設置爲期望的設定，
 其中包含 Pod 的優先級類數值以及對應的關閉期限。
 
 {{< note >}}
@@ -443,8 +443,8 @@ ShutdownGracePeriodCriticalPods are not configured properly. Please refer to abo
 section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 -->
 節點關閉的操作可能無法被 kubelet 的節點關閉管理器檢測到，
-或是因爲該命令沒有觸發 kubelet 所使用的抑制器鎖機制，或是因爲用戶錯誤，
-即 ShutdownGracePeriod 和 ShutdownGracePeriodCriticalPod 配置不正確。
+或是因爲該命令沒有觸發 kubelet 所使用的抑制器鎖機制，或是因爲使用者錯誤，
+即 ShutdownGracePeriod 和 ShutdownGracePeriodCriticalPod 設定不正確。
 請參考以上[節點體面關閉](#graceful-node-shutdown)部分了解更多詳細信息。
 
 <!--
@@ -479,7 +479,7 @@ if there are no matching tolerations on it and volume detach operations for the 
 the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly
 on a different node.
 -->
-爲了緩解上述情況，用戶可以手動將具有 `NoExecute` 或 `NoSchedule` 效果的
+爲了緩解上述情況，使用者可以手動將具有 `NoExecute` 或 `NoSchedule` 效果的
 `node.kubernetes.io/out-of-service` 污點添加到節點上，標記其無法提供服務。
 如果 Node 被污點標記爲無法提供服務，且節點上的 Pod 沒有設置對應的容忍度，
 那麼這樣的 Pod 將被強制刪除，並且在節點上被終止的 Pod 將立即進行卷分離操作。
@@ -506,8 +506,8 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 -->
 - 在添加 `node.kubernetes.io/out-of-service` 污點之前，
   應該驗證節點已經處於關閉或斷電狀態（而不是在重新啓動中）。
-- 將 Pod 移動到新節點後，用戶需要手動移除停止服務的污點，
-  並且用戶要檢查關閉節點是否已恢復，因爲該用戶是最初添加污點的用戶。
+- 將 Pod 移動到新節點後，使用者需要手動移除停止服務的污點，
+  並且使用者要檢查關閉節點是否已恢復，因爲該使用者是最初添加污點的使用者。
 {{< /note >}}
 
 <!--
@@ -536,7 +536,7 @@ Kubernetes 將強制解除掛接正在被卸載的卷。
 The forced storage detach behaviour is optional; users might opt to use the "Non-graceful
 node shutdown" feature instead.
 -->
-強制存儲解除掛接行爲是可選的；用戶可以選擇使用"節點非體面關閉"特性。
+強制存儲解除掛接行爲是可選的；使用者可以選擇使用"節點非體面關閉"特性。
 
 <!--
 Force storage detach on timeout can be disabled by setting the `disable-force-detach-on-timeout`
@@ -547,7 +547,7 @@ its associated
 deleted.
 -->
 可以通過在 `kube-controller-manager` 中設置 `disable-force-detach-on-timeout`
-配置字段來禁用超時時存儲強制解除掛接。
+設定字段來禁用超時時存儲強制解除掛接。
 禁用超時強制解除掛接特性意味着，託管在異常超過 6 分鐘的節點上的卷將不會保留其關聯的
 [VolumeAttachment](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/volume-attachment-v1/)。
 
@@ -577,4 +577,4 @@ Learn more about the following:
 瞭解更多以下信息：
 
 - 博客：[節點非體面關閉](/zh-cn/blog/2023/08/16/kubernetes-1-28-non-graceful-node-shutdown-ga/)。
-- 集羣架構：[節點](/zh-cn/docs/concepts/architecture/nodes/)。
+- 叢集架構：[節點](/zh-cn/docs/concepts/architecture/nodes/)。

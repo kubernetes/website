@@ -34,8 +34,8 @@ kubeadm join phase control-plane-join all [flags]
 <!--
 If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-如果該節點託管一個新的控制平面實例，則 API 服務器將公佈其正在偵聽的 IP 地址。
-如果未設置，則使用默認網絡接口。
+如果該節點託管一個新的控制平面實例，則 API 伺服器將公佈其正在偵聽的 IP 地址。
+如果未設置，則使用默認網路接口。
 </p>
 </td>
 </tr>
@@ -50,7 +50,7 @@ If the node should host a new control plane instance, the IP address the API Ser
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>

@@ -53,7 +53,7 @@ any Pod in the Deployment is interchangeable and can be replaced if needed.
 -->
 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)
 （也間接包括 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)）
-是在集羣上運行應用的最常見方式。Deployment 適合在集羣上管理無狀態應用工作負載，
+是在叢集上運行應用的最常見方式。Deployment 適合在叢集上管理無狀態應用工作負載，
 其中 Deployment 中的任何 Pod 都是可互換的，可以在需要時進行替換。
 （Deployment 替代原來的 {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}} API）。
 
@@ -95,10 +95,10 @@ only install the GPU accelerator driver on nodes that have a GPU installed).
 定義了在特定{{< glossary_tooltip text="節點" term_id="node" >}}上提供本地設施的 Pod，
 例如允許該節點上的容器訪問存儲系統的驅動。當必須在合適的節點上運行某種驅動或其他節點級別的服務時，
 你可以使用 DaemonSet。DaemonSet 中的每個 Pod 執行類似於經典 Unix / POSIX
-服務器上的系統守護進程的角色。DaemonSet 可能對集羣的操作至關重要，
-例如作爲插件讓該節點訪問[集羣網絡](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)，
+伺服器上的系統守護進程的角色。DaemonSet 可能對叢集的操作至關重要，
+例如作爲插件讓該節點訪問[叢集網路](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)，
 也可能幫助你管理節點，或者提供增強正在運行的容器平臺所需的、不太重要的設施。
-你可以在集羣的每個節點上運行 DaemonSets（及其 Pod），或者僅在某個子集上運行
+你可以在叢集的每個節點上運行 DaemonSets（及其 Pod），或者僅在某個子集上運行
 （例如，只在安裝了 GPU 的節點上安裝 GPU 加速驅動）。
 
 <!--

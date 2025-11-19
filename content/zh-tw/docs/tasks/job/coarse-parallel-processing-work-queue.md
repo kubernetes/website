@@ -63,7 +63,7 @@ You will need a container image registry where you can upload images to run in y
 
 This task example also assumes that you have Docker installed locally.
 -->
-你需要一個容器鏡像倉庫，用來向其中上傳鏡像以在集羣中運行。
+你需要一個容器映像檔倉庫，用來向其中上傳映像檔以在叢集中運行。
 
 此任務示例還假設你已在本地安裝了 Docker。
 
@@ -83,7 +83,7 @@ Start RabbitMQ as follows:
 
 本例使用了 RabbitMQ，但你可以更改該示例，使用其他 AMQP 類型的消息服務。
 
-在實際工作中，在集羣中一次性部署某個消息隊列服務，之後在很多 Job 中複用，包括需要長期運行的服務。
+在實際工作中，在叢集中一次性部署某個消息隊列服務，之後在很多 Job 中複用，包括需要長期運行的服務。
 
 按下面的方法啓動 RabbitMQ：
 
@@ -151,7 +151,7 @@ Later, you will make a container image that includes these packages.
 
 Next, you will check that you can discover the Service for RabbitMQ:
 -->
-後續，你將製作一個包含這些包的容器鏡像。
+後續，你將製作一個包含這些包的容器映像檔。
 
 接着，你將要驗證可以發現 RabbitMQ 服務：
 
@@ -281,7 +281,7 @@ In a practice, the content of the messages might be:
 - 待處理的文件名
 - 程序額外的參數
 - 數據庫表的關鍵字範圍
-- 模擬任務的配置參數
+- 模擬任務的設定參數
 - 待渲染的場景的幀序列號
 
 <!--
@@ -295,10 +295,10 @@ In practice, you might write a program to fill the queue using an AMQP client li
 -->
 
 如果有大量的數據需要被 Job 的所有 Pod 讀取，典型的做法是把它們放在一個共享文件系統中，
-如 NFS（Network File System 網絡文件系統），並以只讀的方式掛載到所有 Pod，或者 Pod 中的程序從類似 HDFS
-（Hadoop Distributed File System 分佈式文件系統）的集羣文件系統中讀取。
+如 NFS（Network File System 網路文件系統），並以只讀的方式掛載到所有 Pod，或者 Pod 中的程序從類似 HDFS
+（Hadoop Distributed File System 分佈式文件系統）的叢集文件系統中讀取。
 
-例如，你將創建隊列並使用 AMQP 命令行工具向隊列中填充消息。實踐中，你可以寫個程序來利用 AMQP 客戶端庫來填充這些隊列。
+例如，你將創建隊列並使用 AMQP 命令列工具向隊列中填充消息。實踐中，你可以寫個程序來利用 AMQP 客戶端庫來填充這些隊列。
 
 <!--
 # Run this on your computer, not in the Pod
@@ -335,9 +335,9 @@ example program:
 -->
 你給隊列中填充了 8 個消息。
 
-## 創建容器鏡像   {#create-a-container-image}
+## 創建容器映像檔   {#create-a-container-image}
 
-現在你可以創建一個做爲 Job 來運行的鏡像。
+現在你可以創建一個做爲 Job 來運行的映像檔。
 
 這個 Job 將用 `amqp-consume` 實用程序從隊列中讀取消息並進行實際工作。
 這裏給出一個非常簡單的示例程序：
@@ -361,10 +361,10 @@ and [worker.py](/examples/application/job/rabbitmq/worker.py).  In either case,
 build the image with this command:
 -->
 
-現在，編譯鏡像。創建一個臨時目錄，切換到這個目錄。下載
+現在，編譯映像檔。創建一個臨時目錄，切換到這個目錄。下載
 [Dockerfile](/examples/application/job/rabbitmq/Dockerfile) 和
 [worker.py](/examples/application/job/rabbitmq/worker.py)。
-無論哪種情況，都可以用下面的命令編譯鏡像：
+無論哪種情況，都可以用下面的命令編譯映像檔：
 
 ```shell
 docker build -t job-wq-1 .
@@ -375,8 +375,8 @@ For the [Docker Hub](https://hub.docker.com/), tag your app image with
 your username and push to the Hub with the below commands. Replace
 `<username>` with your Hub username.
 -->
-對於 [Docker Hub](https://hub.docker.com/), 給你的應用鏡像打上標籤，
-標籤爲你的用戶名，然後用下面的命令推送到 Hub。用你的 Hub 用戶名替換 `<username>`。 
+對於 [Docker Hub](https://hub.docker.com/), 給你的應用映像檔打上標籤，
+標籤爲你的使用者名，然後用下面的命令推送到 Hub。用你的 Hub 使用者名替換 `<username>`。 
 
 ```shell
 docker tag job-wq-1 <username>/job-wq-1
@@ -387,7 +387,7 @@ docker push <username>/job-wq-1
 If you are using an alternative container image registry, tag the
 image and push it there instead.
 -->
-如果你使用替代的鏡像倉庫，請標記該鏡像並將其推送到那裏。
+如果你使用替代的映像檔倉庫，請標記該映像檔並將其推送到那裏。
 
 <!--
 ## Defining a Job
@@ -401,7 +401,7 @@ and edit the name of the container image to match the name you used.
 ## 定義 Job   {#defining-a-job}
 
 這裏給出一個 Job 的清單。你需要複製一份 Job 清單的副本（將其命名爲 `./job.yaml`），
-並編輯容器鏡像的名稱以匹配使用的名稱。
+並編輯容器映像檔的名稱以匹配使用的名稱。
 
 {{% code_sample file="application/job/rabbitmq/job.yaml" %}}
 
@@ -505,7 +505,7 @@ want to consider one of the other [job patterns](/docs/concepts/workloads/contro
 ## 替代方案   {#alternatives}
 
 本文所講述的處理方法的好處是你不需要修改你的 "worker" 程序使其知道工作隊列的存在。
-你可以將未修改的工作程序包含在容器鏡像中。
+你可以將未修改的工作程序包含在容器映像檔中。
 
 使用此方法需要你運行消息隊列服務。如果不方便運行消息隊列服務，
 你也許會考慮另外一種[任務模式](/zh-cn/docs/concepts/workloads/controllers/job/#job-patterns)。
@@ -560,4 +560,4 @@ Job 也會顯示爲未完成。Job 將創建 Pod 並阻塞等待消息輸入。
 
 當發生下面兩種情況時，即使隊列中所有的消息都處理完了，Job 也不會顯示爲完成狀態：
 * 在 `amqp-consume` 命令拿到消息和容器成功退出之間的時間段內，執行殺死容器操作；
-* 在 kubelet 向 API 服務器傳回 Pod 成功運行之前，發生節點崩潰。
+* 在 kubelet 向 API 伺服器傳回 Pod 成功運行之前，發生節點崩潰。

@@ -22,4 +22,4 @@ stages:
 <!--
 Controls whether the apiserver will validate a Node reference in service account tokens.
 -->
-控制 API 服務器是否會驗證服務賬號令牌中的 Node 引用。
+控制 API 伺服器是否會驗證服務賬號令牌中的 Node 引用。

@@ -1,5 +1,5 @@
 ---
-title: 集羣管理員使用動態資源分配的良好實踐
+title: 叢集管理員使用動態資源分配的良好實踐
 content_type: concept
 weight: 60
 ---
@@ -15,7 +15,7 @@ This page describes good practices when configuring a Kubernetes cluster
 utilizing Dynamic Resource Allocation (DRA). These instructions are for cluster
 administrators.
 -->
-本文介紹在利用動態資源分配（DRA）配置 Kubernetes 集羣時的良好實踐。這些指示說明適用於集羣管理員。
+本文介紹在利用動態資源分配（DRA）設定 Kubernetes 叢集時的良好實踐。這些指示說明適用於叢集管理員。
 
 <!-- body -->
 <!--
@@ -32,10 +32,10 @@ are namespace scoped.
 -->
 ## 分離 DRA 相關 API 的權限   {#separate-permissions-to-dra-related-apis}
 
-DRA 是通過多個不同的 API 進行編排的。使用鑑權工具（如 RBAC 或其他方案）根據用戶的角色來控制對相關 API 的訪問權限。
+DRA 是通過多個不同的 API 進行編排的。使用鑑權工具（如 RBAC 或其他方案）根據使用者的角色來控制對相關 API 的訪問權限。
 
 通常情況下，DeviceClass 和 ResourceSlice 應僅限管理員和 DRA 驅動訪問。
-通過申領機制來部署 Pod 的集羣運維人員將需要訪問 ResourceClaim API 和 ResourceClaimTemplate API。
+通過申領機制來部署 Pod 的叢集運維人員將需要訪問 ResourceClaim API 和 ResourceClaimTemplate API。
 這兩個 API 的作用範圍都是命名空間。
 
 <!--
@@ -49,8 +49,8 @@ selectors or similar mechanisms) in your cluster.
 -->
 ## 部署與維護 DRA 驅動  {#dra-driver-deployment-and-maintenance}
 
-DRA 驅動是運行在集羣的每個節點上的第三方應用，對接節點的硬件和 Kubernetes 原生的 DRA 組件。
-安裝方式取決於你所選的驅動，但通常會作爲 DaemonSet 部署到集羣中所有或部分節點上（可使用節點選擇算符或類似機制）。
+DRA 驅動是運行在叢集的每個節點上的第三方應用，對接節點的硬件和 Kubernetes 原生的 DRA 組件。
+安裝方式取決於你所選的驅動，但通常會作爲 DaemonSet 部署到叢集中所有或部分節點上（可使用節點選擇算符或類似機制）。
 
 <!--
 ### Use drivers with seamless upgrade if available
@@ -68,7 +68,7 @@ older versions of Kubernetes - check your driver's documentation to be sure.
 DRA 驅動實現
 [`kubeletplugin` 包接口](https://pkg.go.dev/k8s.io/dynamic-resource-allocation/kubeletplugin)。
 你的驅動可能通過實現此接口的一個屬性，支持兩個版本共存一段時間，從而實現**無縫升級**。
-該功能僅適用於 kubelet v1.33 及更高版本，對於運行舊版 Kubernetes 的節點所組成的異構集羣，
+該功能僅適用於 kubelet v1.33 及更高版本，對於運行舊版 Kubernetes 的節點所組成的異構叢集，
 可能不支持這種功能。請查閱你的驅動文檔予以確認。
 
 <!--
@@ -111,8 +111,8 @@ heal, reducing scheduling delays or troubleshooting time.
 ### 確認你的 DRA 驅動暴露了存活探針並加以利用 {#confirm-your-dra-driver-exposes-a-liveness-probe-and-utilize-it}
 
 你的 DRA 驅動可能已實現用於健康檢查的 gRPC 套接字，這是 DRA 驅動的良好實踐之一。
-最簡單的利用方式是將該 grpc 套接字配置爲部署 DRA 驅動 DaemonSet 的存活探針。
-驅動文檔或部署工具可能已包括此項配置，但如果你是自行配置或未以 Kubernetes Pod 方式運行 DRA 驅動，
+最簡單的利用方式是將該 grpc 套接字設定爲部署 DRA 驅動 DaemonSet 的存活探針。
+驅動文檔或部署工具可能已包括此項設定，但如果你是自行設定或未以 Kubernetes Pod 方式運行 DRA 驅動，
 確保你的編排工具在該 grpc 套接字健康檢查失敗時能重啓驅動。這樣可以最大程度地減少 DRA 驅動的意外停機，
 並提升其自我修復能力，從而減少調度延遲或排障時間。
 
@@ -155,10 +155,10 @@ anticipate the increased load.
 控制面組件 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 以及 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
 中的內部 ResourceClaim 控制器在調度使用 DRA 申領的 Pod 時承擔了大量任務。與不使用 DRA 的 Pod 相比，
-這些組件所需的 API 服務器調用次數、內存和 CPU 使用率都更高。此外，
+這些組件所需的 API 伺服器調用次數、內存和 CPU 使用率都更高。此外，
 節點本地組件（如 DRA 驅動和 kubelet）也在創建 Pod 沙箱時使用 DRA API 分配硬件請求資源。
-尤其在集羣節點數量衆多或大量工作負載依賴 DRA 定義的資源申領時，
-集羣管理員應當預先爲相關組件配置合理參數以應對增加的負載。
+尤其在叢集節點數量衆多或大量工作負載依賴 DRA 定義的資源申領時，
+叢集管理員應當預先爲相關組件設定合理參數以應對增加的負載。
 
 <!--
 The effects of mistuned components can have direct or snowballing affects
@@ -168,8 +168,8 @@ quickly identify a suitable node for a Pod but take longer to bind the Pod to
 that node. With DRA, during Pod scheduling, the QPS and Burst parameters in the
 client-go configuration within `kube-controller-manager` are critical.
 -->
-組件配置不當可能會直接或連鎖地影響 Pod 生命週期中的多個環節。例如，如果 `kube-scheduler`
-組件的 QPS 和 Burst 配置值過低，調度器可能能快速識別適合的節點，但綁定 Pod 到節點的過程則會變慢。
+組件設定不當可能會直接或連鎖地影響 Pod 生命週期中的多個環節。例如，如果 `kube-scheduler`
+組件的 QPS 和 Burst 設定值過低，調度器可能能快速識別適合的節點，但綁定 Pod 到節點的過程則會變慢。
 在使用 DRA 的調度流程中，`kube-controller-manager` 中 client-go 的 QPS 和 Burst 參數尤爲關鍵。
 
 <!--
@@ -190,13 +190,13 @@ your deployment by monitoring the following metrics. For more information on all
 the stable metrics in Kubernetes, see the [Kubernetes Metrics
 Reference](/docs/reference/generated/metrics/).
 -->
-集羣調優所需的具體數值取決於多個因素，如節點/Pod 數量、Pod 創建速率、變化頻率，甚至與是否使用 DRA 無關。更多信息請參考
+叢集調優所需的具體數值取決於多個因素，如節點/Pod 數量、Pod 創建速率、變化頻率，甚至與是否使用 DRA 無關。更多信息請參考
 [SIG Scalability README 中的可擴縮性閾值](https://github.com/kubernetes/community/blob/master/sig-scalability/configs-and-limits/thresholds.md)。
-在一項針對啓用了 DRA 的 100 節點集羣的規模測試中，部署了 720 個長生命週期 Pod（90% 飽和度）和 80
+在一項針對啓用了 DRA 的 100 節點叢集的規模測試中，部署了 720 個長生命週期 Pod（90% 飽和度）和 80
 個短週期 Pod（10% 流失，重複 10 次），作業創建 QPS 爲 10。將 `kube-controller-manager` 的 QPS
 設置爲 75、Burst 設置爲 150，能達到與非 DRA 部署中相同的性能指標。在這個下限設置下，
-客戶端速率限制器能有效保護 API 服務器避免突發請求，同時不影響 Pod 啓動 SLO。
-這可作爲一個良好的起點。你可以通過監控下列指標，進一步判斷對 DRA 性能影響最大的組件，從而優化其配置。
+客戶端速率限制器能有效保護 API 伺服器避免突發請求，同時不影響 Pod 啓動 SLO。
+這可作爲一個良好的起點。你可以通過監控下列指標，進一步判斷對 DRA 性能影響最大的組件，從而優化其設定。
 有關 Kubernetes 中所有穩定指標的更多信息，請參閱 [Kubernetes 指標參考](/zh-cn/docs/reference/generated/metrics/)。
 
 <!--
@@ -242,11 +242,11 @@ pod creation QPS, so the add rate to the resource claim workqueue is more
 manageable.
 -->
 如果你觀察到工作隊列添加速率低、工作隊列深度高和/或工作隊列處理時間長，
-則說明控制器性能可能不理想。你可以考慮調優 QPS、Burst 以及 CPU/內存配置。
+則說明控制器性能可能不理想。你可以考慮調優 QPS、Burst 以及 CPU/內存設定。
 
 如果你觀察到工作隊列添加速率高、工作隊列深度高，但工作隊列處理時間合理，
 則說明控制器正在有效處理任務，但併發可能不足。由於控制器併發是硬編碼的，
-所以集羣管理員可以通過降低 Pod 創建 QPS 來減緩資源申領任務隊列的壓力。
+所以叢集管理員可以通過降低 Pod 創建 QPS 來減緩資源申領任務隊列的壓力。
 
 <!--
 ### `kube-scheduler` metrics

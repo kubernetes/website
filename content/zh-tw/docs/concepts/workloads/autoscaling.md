@@ -1,7 +1,7 @@
 ---
 title: 自動擴縮工作負載
 description: >-
-  通過自動擴縮，你可以用某種方式自動更新你的工作負載。在面對資源需求變化的時候可以使你的集羣更靈活、更高效。
+  通過自動擴縮，你可以用某種方式自動更新你的工作負載。在面對資源需求變化的時候可以使你的叢集更靈活、更高效。
 content_type: concept
 weight: 40
 ---
@@ -28,7 +28,7 @@ _vertical scaling_.
 There are manual and automatic ways to scale your workloads, depending on your use case.
 -->
 在 Kubernetes 中，你可以根據當前的資源需求**擴縮**工作負載。
-這讓你的集羣可以更靈活、更高效地面對資源需求的變化。
+這讓你的叢集可以更靈活、更高效地面對資源需求的變化。
 
 當你擴縮工作負載時，你可以增加或減少工作負載所管理的副本數量，或者就地調整副本的可用資源。
 
@@ -50,7 +50,7 @@ For vertical scaling, you need to _patch_ the resource definition of your worklo
 
 See below for examples of both strategies.
 -->
-Kubernetes 支持工作負載的手動擴縮。水平擴縮可以使用 `kubectl` 命令行工具完成。
+Kubernetes 支持工作負載的手動擴縮。水平擴縮可以使用 `kubectl` 命令列工具完成。
 對於垂直擴縮，你需要**更新**工作負載的資源定義。
 
 這兩種策略的示例見下文。
@@ -102,7 +102,7 @@ in a workload to match observed resource utilization such as CPU or memory usage
 <!--
 There is a [walkthrough tutorial](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough) of configuring a HorizontalPodAutoscaler for a Deployment.
 -->
-這是一個爲 Deployment 部署配置 HorizontalPodAutoscaler 的[示例教程](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)。
+這是一個爲 Deployment 部署設定 HorizontalPodAutoscaler 的[示例教程](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough)。
 
 <!--
 ### Scaling workloads vertically
@@ -132,7 +132,7 @@ Once installed, it allows you to create {{< glossary_tooltip text="CustomResourc
 You will need to have the [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
 installed to your cluster for the VPA to work.
 -->
-你需要在集羣中安裝 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)，這樣，你的 VPA 才能正常工作。
+你需要在叢集中安裝 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)，這樣，你的 VPA 才能正常工作。
 {{< /note >}}
 
 <!--
@@ -177,7 +177,7 @@ For manually resizing pods in-place, see [Resize Container Resources In-Place](/
 <!--
 ### Autoscaling based on cluster size
 -->
-### 根據集羣規模自動擴縮   {#autoscaling-based-on-cluster-size}
+### 根據叢集規模自動擴縮   {#autoscaling-based-on-cluster-size}
 
 <!--
 For workloads that need to be scaled based on the size of the cluster (for example
@@ -186,7 +186,7 @@ For workloads that need to be scaled based on the size of the cluster (for examp
 Just like the VPA, it is not part of the Kubernetes core, but hosted as its
 own project on GitHub.
 -->
-對於需要根據集羣規模實現擴縮的工作負載（例如：`cluster-dns` 或者其他系統組件），
+對於需要根據叢集規模實現擴縮的工作負載（例如：`cluster-dns` 或者其他系統組件），
 你可以使用 [Cluster Proportional Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)。
 與 VPA 一樣，這個項目不是 Kubernetes 核心項目的一部分，它在 GitHub 上有自己的項目。 
 
@@ -194,7 +194,7 @@ own project on GitHub.
 The Cluster Proportional Autoscaler watches the number of schedulable {{< glossary_tooltip text="nodes" term_id="node" >}}
 and cores and scales the number of replicas of the target workload accordingly.
 -->
-集羣彈性伸縮器 (Cluster Proportional Autoscaler)會觀測可調度 {{< glossary_tooltip text="節點" term_id="node" >}}和處理器核數量，
+叢集彈性伸縮器 (Cluster Proportional Autoscaler)會觀測可調度 {{< glossary_tooltip text="節點" term_id="node" >}}和處理器核數量，
 並調整目標工作負載的副本數量。
 
 <!--
@@ -204,7 +204,7 @@ The project is **currently in beta** and can be found on GitHub.
 -->
 如果副本的數量需要保持一致，
 你可以使用 [Cluster Proportional Vertical Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler)
-來根據集羣規模進行垂直擴縮。
+來根據叢集規模進行垂直擴縮。
 這個項目目前處於 **beta** 階段，你可以在 GitHub 上找到它。
 
 <!--
@@ -212,8 +212,8 @@ While the Cluster Proportional Autoscaler scales the number of replicas of a wor
 the Cluster Proportional Vertical Autoscaler adjusts the resource requests for a workload
 (for example a Deployment or DaemonSet) based on the number of nodes and/or cores in the cluster.
 -->
-集羣彈性伸縮器 (Cluster Proportional Autoscaler) 通過調整工作負載副本數量實現擴縮容，
-而垂直集羣彈性伸縮器 (Cluster Proportional Vertical Autoscaler) 則根據集羣中的節點數和 / 或 CPU 核心數，
+叢集彈性伸縮器 (Cluster Proportional Autoscaler) 通過調整工作負載副本數量實現擴縮容，
+而垂直叢集彈性伸縮器 (Cluster Proportional Vertical Autoscaler) 則根據叢集中的節點數和 / 或 CPU 核心數，
 調整工作負載（例如 Deployment 或 DaemonSet）的資源請求值。
 
 <!--
@@ -259,17 +259,17 @@ The `Cron` scaler allows you to define schedules (and time zones) for scaling yo
 <!--
 ## Scaling cluster infrastructure
 -->
-## 擴縮集羣基礎設施   {#scaling-cluster-infrastructure}
+## 擴縮叢集基礎設施   {#scaling-cluster-infrastructure}
 
 <!--
 If scaling workloads isn't enough to meet your needs, you can also scale your cluster infrastructure itself.
 -->
-如果擴縮工作負載無法滿足你的需求，你也可以擴縮集羣基礎設施本身。
+如果擴縮工作負載無法滿足你的需求，你也可以擴縮叢集基礎設施本身。
 
 <!--
 Scaling the cluster infrastructure normally means adding or removing {{< glossary_tooltip text="nodes" term_id="node" >}}.
 -->
-擴縮集羣基礎設施通常是指增加或移除{{< glossary_tooltip text="節點" term_id="node" >}}。
+擴縮叢集基礎設施通常是指增加或移除{{< glossary_tooltip text="節點" term_id="node" >}}。
 
 <!--
 Read [Node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
@@ -291,5 +291,5 @@ for more information.
   - [擴縮 StatefulSet](/zh-cn/docs/tasks/run-application/scale-stateful-set/)
   - [HorizontalPodAutoscaler 演練](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 - [調整分配給容器的 CPU 和內存資源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)
-- [自動擴縮集羣 DNS 服務](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+- [自動擴縮叢集 DNS 服務](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
 - 瞭解[節點自動擴縮]((/zh-cn/docs/concepts/cluster-administration/node-autoscaling/))

@@ -100,7 +100,7 @@ The decision to change the existing approach originated from its incompatibility
 as resource availability was non-transparent, complicating decision-making for both Cluster Autoscaler and controllers. 
 The newly added Structured Parameter model substitutes the functionality.
 -->
-改變現有方法的決定源於其與集羣自動伸縮的不兼容性，因爲資源可用性是不透明的，
+改變現有方法的決定源於其與叢集自動伸縮的不兼容性，因爲資源可用性是不透明的，
 這使得 Cluster Autoscaler 和控制器的決策變得複雜。
 新增的結構化參數模型替換了原有特性。
 
@@ -165,7 +165,7 @@ KEP [#4680](https://github.com/kubernetes/enhancements/issues/4680).
 ### 更多 DRA 增強特性！
 
 在此次發佈中，就像上一次一樣，Kubernetes 項目繼續提出多項對動態資源分配（DRA）的增強。
-DRA 是 Kubernetes 資源管理系統的關鍵組件，這些增強旨在提高對需要專用硬件（如 GPU、FPGA 和網絡適配器）
+DRA 是 Kubernetes 資源管理系統的關鍵組件，這些增強旨在提高對需要專用硬件（如 GPU、FPGA 和網路適配器）
 的工作負載進行資源分配的靈活性和效率。此次發佈引入了多項改進，包括在 Pod 狀態中添加資源健康狀態，
 具體內容詳見 KEP [#4680](https://github.com/kubernetes/enhancements/issues/4680)。
 
@@ -198,10 +198,10 @@ especially during a planned maintenance or any system updates.
 ### Windows 工作繼續
 
 KEP [#4802](https://github.com/kubernetes/enhancements/issues/4802) 爲
-Kubernetes 集羣中的 Windows 節點添加了體面關機支持。
+Kubernetes 叢集中的 Windows 節點添加了體面關機支持。
 在此之前，Kubernetes 爲 Linux 節點提供了體面關機特性，但缺乏對 Windows 節點的同等支持。
 這一增強特性使 Windows 節點上的 kubelet 能夠正確處理系統關機事件，確保在 Windows 節點上運行的 Pod 能夠體面終止，
-從而允許工作負載在不受干擾的情況下重新調度。這一改進提高了包含 Windows 節點的集羣的可靠性和穩定性，
+從而允許工作負載在不受干擾的情況下重新調度。這一改進提高了包含 Windows 節點的叢集的可靠性和穩定性，
 特別是在計劃維護或系統更新期間。
 
 <!--
@@ -221,7 +221,7 @@ variables without strict constraints, enhancing flexibility for developers worki
 Kubernetes 現在允許幾乎所有的可打印 ASCII 字符（不包括 `=`）作爲環境變量名稱。
 這一變化解決了此前對變量命名的限制，通過適應各種應用需求，促進了 Kubernetes 的更廣泛採用。
 放寬的驗證將通過 `RelaxedEnvironmentVariableValidation` 特性門控默認啓用，
-確保用戶可以輕鬆使用環境變量而不受嚴格限制，增強了開發者在處理需要特殊字符配置的應用（如 .NET Core）時的靈活性。
+確保使用者可以輕鬆使用環境變量而不受嚴格限制，增強了開發者在處理需要特殊字符設定的應用（如 .NET Core）時的靈活性。
 
 <!--
 ### Make Kubernetes aware of the LoadBalancer behavior
@@ -239,7 +239,7 @@ this means that you could see an improvement in the performance of your load bal
 
 KEP [#1860](https://github.com/kubernetes/enhancements/issues/1860) 升級到 GA 階段，
 爲 `type: LoadBalancer` 類型的 Service 引入了 `ipMode` 字段，該字段可以設置爲 `"VIP"` 或 `"Proxy"`。
-這一增強旨在改善雲提供商負載均衡器與 kube-proxy 的交互方式，對最終用戶來說是透明的。
+這一增強旨在改善雲提供商負載均衡器與 kube-proxy 的交互方式，對最終使用者來說是透明的。
 使用 `"VIP"` 時，kube-proxy 會繼續處理負載均衡，保持現有的行爲。使用 `"Proxy"` 時，
 流量將直接發送到負載均衡器，提供雲提供商對依賴 kube-proxy 的更大控制權；
 這意味着對於某些雲提供商，你可能會看到負載均衡器性能的提升。
@@ -259,8 +259,8 @@ providing more resilience for large-scale workloads.
 
 這一[增強特性](https://github.com/kubernetes/enhancements/issues/4420)改進了使用
 `generateName` 字段創建 Kubernetes 資源時的名稱衝突處理。此前，如果發生名稱衝突，
-API 服務器會返回 409 HTTP 衝突錯誤，客戶端需要手動重試請求。通過此次更新，
-API 服務器在發生衝突時會自動重試生成新名稱，最多重試七次。這顯著降低了衝突的可能性，
+API 伺服器會返回 409 HTTP 衝突錯誤，客戶端需要手動重試請求。通過此次更新，
+API 伺服器在發生衝突時會自動重試生成新名稱，最多重試七次。這顯著降低了衝突的可能性，
 確保生成多達 100 萬個名稱時衝突的概率低於 0.1%，爲大規模工作負載提供了更高的彈性。
 
 <!--

@@ -33,10 +33,10 @@ repeatedly fail to come up.
 -->
 Kubernetes 1.25 引入了對 kubelet 所管理的新的 Pod 狀況 `PodHasNetwork` 的 Alpha 支持，
 該狀況位於 Pod 的 status 字段中 。對於工作節點，kubelet 將使用 `PodHasNetwork` 狀況從容器運行時
-（通常與 CNI 插件協作）創建 Pod 沙箱和網絡配置的角度準確地瞭解 Pod 的初始化狀態。
-在 `PodHasNetwork` 狀況的 status 設置爲 `"True"` 後，kubelet 開始拉取容器鏡像並啓動獨立的容器
-（包括 Init 容器）。從集羣基礎設施的角度報告 Pod 初始化延遲的指標採集服務
-（無需知道每個容器的鏡像大小或有效負載等特徵）就可以利用 `PodHasNetwork`
+（通常與 CNI 插件協作）創建 Pod 沙箱和網路設定的角度準確地瞭解 Pod 的初始化狀態。
+在 `PodHasNetwork` 狀況的 status 設置爲 `"True"` 後，kubelet 開始拉取容器映像檔並啓動獨立的容器
+（包括 Init 容器）。從叢集基礎設施的角度報告 Pod 初始化延遲的指標採集服務
+（無需知道每個容器的映像檔大小或有效負載等特徵）就可以利用 `PodHasNetwork`
 狀況來準確生成服務水平指標（Service Level Indicator，SLI）。
 某些管理底層 Pod 的 Operator 或控制器可以利用 `PodHasNetwork` 狀況來優化 Pod 反覆出現失敗時要執行的操作。
 
@@ -75,9 +75,9 @@ cluster-wide, infrastructural SLIs around pod initialization cannot depend on
 the `Initialized` condition of pods.
 -->
 如果 Pod 指定了 Init 容器，則 Pod 狀態中的 `Initialized` 狀況的 status 將不會設置爲 `"True"`，
-直到該 Pod 的所有 Init 容器都成功爲止。但是，用戶配置的 Init 容器可能會出現錯誤（有效負載崩潰、無效鏡像等），
-並且 Pod 中配置的 Init 容器數量可能因工作負載不同而異。
-因此，關於 Pod 初始化的集羣範圍基礎設施 SLI 不能依賴於 Pod 的 `Initialized` 狀況。
+直到該 Pod 的所有 Init 容器都成功爲止。但是，使用者設定的 Init 容器可能會出現錯誤（有效負載崩潰、無效映像檔等），
+並且 Pod 中設定的 Init 容器數量可能因工作負載不同而異。
+因此，關於 Pod 初始化的叢集範圍基礎設施 SLI 不能依賴於 Pod 的 `Initialized` 狀況。
 
 <!--
 If a pod does not specify init containers, the status of the `Initialized`
@@ -90,7 +90,7 @@ sandbox environment.
 -->
 如果 Pod 未指定 Init 容器，則在 Pod 生命週期的早期，
 Pod 狀態中的 `Initialized` 狀況的 status 會被設置爲 `"True"`。
-這一設置發生在 kubelet 開始創建 Pod 運行時沙箱及配置網絡之前。
+這一設置發生在 kubelet 開始創建 Pod 運行時沙箱及設定網路之前。
 因此，即使容器運行時未能成功初始化 Pod 沙箱環境，沒有 Init 容器的
 Pod 也會將 `Initialized` 狀況的 status 報告爲 `"True"`。
 
@@ -100,8 +100,8 @@ accurate data around when the pod runtime sandbox was initialized with
 networking configured so that the kubelet can proceed to launch user-configured
 containers (including init containers) in the pod.
 -->
-相對於上述任何一種情況，`PodHasNetwork` 狀況會在 Pod 運行時沙箱被初始化並配置了網絡時能夠提供更準確的數據，
-這樣 kubelet 可以繼續在 Pod 中啓動用戶配置的容器（包括 Init 容器）。
+相對於上述任何一種情況，`PodHasNetwork` 狀況會在 Pod 運行時沙箱被初始化並設定了網路時能夠提供更準確的數據，
+這樣 kubelet 可以繼續在 Pod 中啓動使用者設定的容器（包括 Init 容器）。
 
 <!--
 ### Special Cases
@@ -116,8 +116,8 @@ CRI implementation typically skips any pod sandbox network configuration when
 
 如果一個 Pod 指定 `hostNetwork` 爲 `"True"`，
 系統會根據 Pod 沙箱創建操作是否成功來決定要不要將 `PodHasNetwork` 狀況設置爲 `"True"`，
-設置此狀況時會忽略 Pod 沙箱的網絡配置狀態。這是因爲 Pod 的 `hostNetwork` 被設置爲
-`"True"` 時 CRI 實現通常會跳過所有 Pod 沙箱網絡配置。
+設置此狀況時會忽略 Pod 沙箱的網路設定狀態。這是因爲 Pod 的 `hostNetwork` 被設置爲
+`"True"` 時 CRI 實現通常會跳過所有 Pod 沙箱網路設定。
 
 <!--
 A node agent may dynamically re-configure network interface(s) for a pod by
@@ -127,9 +127,9 @@ networking configuration after the pod sandbox is initialized by Kubelet (in
 coordination with a container runtime) are not reflected by the `PodHasNetwork`
 condition.
 -->
-節點代理可以通過監視指定附加網絡配置（例如 `k8s.v1.cni.cncf.io/networks`）的 Pod 註解變化，
-來動態地爲 Pod 重新配置網絡接口。Pod 沙箱被 Kubelet 初始化（結合容器運行時）之後
-Pod 網絡配置的動態更新不反映在 `PodHasNetwork` 狀況中。
+節點代理可以通過監視指定附加網路設定（例如 `k8s.v1.cni.cncf.io/networks`）的 Pod 註解變化，
+來動態地爲 Pod 重新設定網路接口。Pod 沙箱被 Kubelet 初始化（結合容器運行時）之後
+Pod 網路設定的動態更新不反映在 `PodHasNetwork` 狀況中。
 
 <!--
 ### Try out the PodHasNetwork condition for pods
@@ -146,7 +146,7 @@ configured, the kubelet will report the `PodHasNetwork` condition with status se
 爲了讓 kubelet 在 Pod 的 status 字段中報告 `PodHasNetwork` 狀況，需在 kubelet 上啓用
 `PodHasNetworkCondition` 特性門控。
 
-對於已成功創建運行時沙箱並已配置網絡的 Pod，在 status 設置爲 `"True"` 後，
+對於已成功創建運行時沙箱並已設定網路的 Pod，在 status 設置爲 `"True"` 後，
 kubelet 將報告 `PodHasNetwork` 狀況：
 
 ```
@@ -168,7 +168,7 @@ For a pod whose runtime sandbox has not been created yet (and networking not
 configured either), the kubelet will report the `PodHasNetwork` condition with
 status set to `"False"`:
 -->
-對於尚未創建運行時沙箱（也未配置網絡）的 Pod，在 status 設置爲 `"False"` 後，
+對於尚未創建運行時沙箱（也未設定網路）的 Pod，在 status 設置爲 `"False"` 後，
 kubelet 將報告 `PodHasNetwork` 狀況：
 
 ```

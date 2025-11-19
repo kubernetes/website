@@ -24,11 +24,11 @@ kube-apiserver.
 
 This page shows how to enable and configure encryption of API data at rest.
 -->
-Kubernetes 中允許允許用戶編輯的持久 API 資源數據的所有 API 都支持靜態加密。
+Kubernetes 中允許允許使用者編輯的持久 API 資源數據的所有 API 都支持靜態加密。
 例如，你可以啓用靜態加密 {{< glossary_tooltip text="Secret" term_id="secret" >}}。
-此靜態加密是對 etcd 集羣或運行 kube-apiserver 的主機上的文件系統的任何系統級加密的補充。
+此靜態加密是對 etcd 叢集或運行 kube-apiserver 的主機上的文件系統的任何系統級加密的補充。
 
-本頁展示如何啓用和配置靜態 API 數據加密。
+本頁展示如何啓用和設定靜態 API 數據加密。
 
 {{< note >}}
 <!--
@@ -66,17 +66,17 @@ to either:
 
 * Your cluster's control plane **must** use etcd v3.x (major version 3, any minor version).
 -->
-* 此任務假設你將 Kubernetes API 服務器組件以{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}
+* 此任務假設你將 Kubernetes API 伺服器組件以{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}}
   方式運行在每個控制平面節點上。
 
-* 集羣的控制平面**必須**使用 etcd v3.x（主版本 3，任何次要版本）。
+* 叢集的控制平面**必須**使用 etcd v3.x（主版本 3，任何次要版本）。
 
 <!--
 * To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
 
 * To use a wildcard to match resources, your cluster must be running Kubernetes v1.27 or newer.
 -->
-* 要加密自定義資源，你的集羣必須運行 Kubernetes v1.26 或更高版本。
+* 要加密自定義資源，你的叢集必須運行 Kubernetes v1.26 或更高版本。
 
 * 在 Kubernetes v1.27 或更高版本中可以使用通配符匹配資源。
 
@@ -92,7 +92,7 @@ no at-rest encryption.
 -->
 ## 確定是否已啓用靜態數據加密   {#determining-whether-encryption-at-rest-is-already-enabled}
 
-默認情況下，API 服務器將資源的明文表示存儲在 etcd 中，沒有靜態加密。
+默認情況下，API 伺服器將資源的明文表示存儲在 etcd 中，沒有靜態加密。
 
 <!--
 The `kube-apiserver` process accepts an argument `--encryption-provider-config`
@@ -105,11 +105,11 @@ specifies the `identity` provider as the first encryption provider in the list, 
 do not have at-rest encryption enabled
 (**the default `identity` provider does not provide any confidentiality protection.**)
 -->
-`kube-apiserver` 進程使用 `--encryption-provider-config` 參數指定配置文件的路徑，
-所指定的配置文件的內容將控制 Kubernetes API 數據在 etcd 中的加密方式。
-如果你在運行 kube-apiserver 時沒有使用 `--encryption-provider-config` 命令行參數，
+`kube-apiserver` 進程使用 `--encryption-provider-config` 參數指定設定文件的路徑，
+所指定的設定文件的內容將控制 Kubernetes API 數據在 etcd 中的加密方式。
+如果你在運行 kube-apiserver 時沒有使用 `--encryption-provider-config` 命令列參數，
 則你未啓用靜態加密。如果你在運行 kube-apiserver 時使用了 `--encryption-provider-config`
-命令行參數，並且此參數所引用的文件指定 `identity` 提供程序作爲加密提供程序列表中的第一個，
+命令列參數，並且此參數所引用的文件指定 `identity` 提供程序作爲加密提供程序列表中的第一個，
 則你未啓用靜態加密（**默認的 `identity` 提供程序不提供任何機密性保護**）。
 
 <!--
@@ -120,7 +120,7 @@ you already have at-rest encryption enabled. However, that check does not tell y
 a previous migration to encrypted storage has succeeded. If you are not sure, see
 [ensure all relevant data are encrypted](#ensure-all-secrets-are-encrypted).
 -->
-如果你在運行 kube-apiserver 時使用了 `--encryption-provider-config` 命令行參數，
+如果你在運行 kube-apiserver 時使用了 `--encryption-provider-config` 命令列參數，
 並且此參數所引用的文件指定一個不是 `identity` 的提供程序作爲加密提供程序列表中的第一個，
 則你已啓用靜態加密。然而此項檢查並未告知你先前向加密存儲的遷移是否成功。如果你不確定，
 請參閱[確保所有相關數據都已加密](#ensure-all-secrets-are-encrypted)。
@@ -131,7 +131,7 @@ a previous migration to encrypted storage has succeeded. If you are not sure, se
 encryption configuration file must be the same! Otherwise, the `kube-apiserver` component cannot
 decrypt data stored in the etcd.
 -->
-**重要：** 對於高可用配置（有兩個或多個控制平面節點），加密配置文件必須相同！
+**重要：** 對於高可用設定（有兩個或多個控制平面節點），加密設定文件必須相同！
 否則，`kube-apiserver` 組件無法解密存儲在 etcd 中的數據。
 {{< /caution >}}
 
@@ -202,7 +202,7 @@ resources:
 {{< highlight yaml "linenos=false,hl_lines=2-5" >}}
 ---
 #
-# 注意：這是一個示例配置。請勿將其用於你自己的集羣！
+# 注意：這是一個示例設定。請勿將其用於你自己的叢集！
 #
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
@@ -212,8 +212,8 @@ resources:
       - configmaps
       - pandas.awesome.bears.example # 自定義資源 API
     providers:
-      # 此配置不提供數據機密性。
-      # 第一個配置的 provider 正在指定將資源存儲爲純文本的 "identity" 機制。
+      # 此設定不提供數據機密性。
+      # 第一個設定的 provider 正在指定將資源存儲爲純文本的 "identity" 機制。
       - identity: {} # 純文本，換言之未加密
       - aesgcm:
           keys:
@@ -266,13 +266,13 @@ The `providers` array is an ordered list of the possible encryption providers to
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
 -->
-每個 `resources` 數組項目是一個單獨的完整的配置。
+每個 `resources` 數組項目是一個單獨的完整的設定。
 `resources.resources` 字段是應加密的 Kubernetes 資源（例如 Secret、ConfigMap 或其他資源）名稱
 （`resource` 或 `resource.group`）的數組。
 
-如果自定義資源被添加到 `EncryptionConfiguration` 並且集羣版本爲 1.26 或更高版本，
+如果自定義資源被添加到 `EncryptionConfiguration` 並且叢集版本爲 1.26 或更高版本，
 則 `EncryptionConfiguration` 中提到的任何新創建的自定義資源都將被加密。
-在該版本之前存在於 etcd 中的任何自定義資源和配置不會被加密，直到它們被下一次寫入到存儲爲止。
+在該版本之前存在於 etcd 中的任何自定義資源和設定不會被加密，直到它們被下一次寫入到存儲爲止。
 這與內置資源的行爲相同。請參閱[確保所有 Secret 都已加密](#ensure-all-secrets-are-encrypted)一節。
 
 `providers` 數組是可能的加密提供程序的有序列表，用於你所列出的 API。
@@ -301,7 +301,7 @@ encrypt all resources, even custom resources that are added after API server sta
 `EncryptionConfiguration` 支持使用通配符指定應加密的資源。
 使用 “`*.<group>`” 加密 group 內的所有資源（例如以上例子中的 “`*.apps`”）或使用
 “`*.*`” 加密所有資源。“`*.`” 可用於加密核心組中的所有資源。“`*.*`”
-將加密所有資源，甚至包括 API 服務器啓動之後添加的自定義資源。
+將加密所有資源，甚至包括 API 伺服器啓動之後添加的自定義資源。
 
 {{< note >}}
 <!--
@@ -309,8 +309,8 @@ Use of wildcards that overlap within the same resource list or across multiple e
 since part of the configuration would be ineffective. The `resources` list's processing order and precedence
 are determined by the order it's listed in the configuration.
 -->
-不允許在同一資源列表或跨多個條目中使用相互重疊的通配符，因爲這樣一來配置的一部分將無法生效。
-`resources` 列表的處理順序和優先級由配置中列出的順序決定。
+不允許在同一資源列表或跨多個條目中使用相互重疊的通配符，因爲這樣一來設定的一部分將無法生效。
+`resources` 列表的處理順序和優先級由設定中列出的順序決定。
 {{< /note >}}
 
 <!--
@@ -323,7 +323,7 @@ this item to the list so that it appears earlier than the configuration where yo
 如果你有一個涵蓋資源（resource）的通配符，並且想要過濾掉靜態加密的特定類型資源，
 則可以通過添加一個單獨的 `resources` 數組項來實現此目的，
 其中包含要豁免的資源的名稱，還可以在其後跟一個 `providers` 數組項來指定 `identity` 提供商。
-你可以將此數組項添加到列表中，以便它早於你指定加密的配置（不是 `identity` 的提供商）出現。
+你可以將此數組項添加到列表中，以便它早於你指定加密的設定（不是 `identity` 的提供商）出現。
 
 <!--
 For example, if '`*.*`' is enabled and you want to opt out of encryption for Events and ConfigMaps, add a
@@ -371,7 +371,7 @@ For more detailed information about the `EncryptionConfiguration` struct, please
 [encryption configuration API](/docs/reference/config-api/apiserver-config.v1/)).
 -->
 有關 `EncryptionConfiguration` 結構體的更多詳細信息，
-請參閱[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。
+請參閱[加密設定 API](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。
 
 {{< caution >}}
 <!--
@@ -379,7 +379,7 @@ If any resource is not readable via the encryption config (because keys were cha
 the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
 read that resource will fail until it is deleted or a valid decryption key is provided.
 -->
-如果通過加密配置無法讀取資源（因爲密鑰已更改），唯一的方法是直接從底層 etcd 中刪除該密鑰。
+如果通過加密設定無法讀取資源（因爲密鑰已更改），唯一的方法是直接從底層 etcd 中刪除該密鑰。
 任何嘗試讀取資源的調用將會失敗，直到它被刪除或提供有效的解密密鑰。
 {{< /caution >}}
 
@@ -393,7 +393,7 @@ The following table describes each available provider.
 -->
 ### 可用的提供程序   {#providers}
 
-在爲集羣的 Kubernetes API 數據配置靜態加密之前，你需要選擇要使用的提供程序。
+在爲叢集的 Kubernetes API 數據設定靜態加密之前，你需要選擇要使用的提供程序。
 
 下表描述了每個可用的提供程序：
 
@@ -503,13 +503,13 @@ Kubernetes 靜態數據加密的提供程序
     KEK rotation controlled by the user.
     -->
     通過數據加密密鑰（DEK）使用 AES-GCM 加密數據；
-    DEK 根據 Key Management Service（KMS）中的配置通過密鑰加密密鑰（Key Encryption Keys，KEK）加密。
-    密鑰輪換方式簡單，每次加密都會生成一個新的 DEK，KEK 的輪換由用戶控制。
+    DEK 根據 Key Management Service（KMS）中的設定通過密鑰加密密鑰（Key Encryption Keys，KEK）加密。
+    密鑰輪換方式簡單，每次加密都會生成一個新的 DEK，KEK 的輪換由使用者控制。
     <br />
     <!--
     Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">configure the KMS V1 provider</a>.
     -->
-    閱讀如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">配置 KMS V1 提供程序</a>
+    閱讀如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">設定 KMS V1 提供程序</a>
     </td>
   </tr>
   <tr>
@@ -518,7 +518,7 @@ Kubernetes 靜態數據加密的提供程序
   <!--
   Uses envelope encryption scheme with DEK per API server.
   -->
-  針對每個 API 服務器使用不同的 DEK 來完成信封加密。
+  針對每個 API 伺服器使用不同的 DEK 來完成信封加密。
   </td>
   <td><!-- Strongest -->最強</td>
   <td><!-- Fast -->快</td>
@@ -536,7 +536,7 @@ Kubernetes 靜態數據加密的提供程序
     Available as stable from Kubernetes v1.29.
     -->
     通過數據加密密鑰（DEK）使用 AES-GCM 加密數據；
-    DEK 根據 Key Management Service（KMS）中的配置通過密鑰加密密鑰（Key Encryption Keys，KEK）加密。
+    DEK 根據 Key Management Service（KMS）中的設定通過密鑰加密密鑰（Key Encryption Keys，KEK）加密。
     Kubernetes 基於祕密的種子數爲每次加密生成一個新的 DEK。
     每當 KEK 輪換時，種子也會輪換。
     如果使用第三方工具進行密鑰管理，這是一個不錯的選擇。
@@ -545,7 +545,7 @@ Kubernetes 靜態數據加密的提供程序
     <!--
     Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">configure the KMS V2 provider</a>.
     -->
-    閱讀如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">配置 KMS V2 提供程序</a>。
+    閱讀如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">設定 KMS V2 提供程序</a>。
     </td>
   </tr>
   <tr>
@@ -605,8 +605,8 @@ and the KMS requires in-transit protection, such as TLS.
 #### 託管的（KMS）密鑰存儲   {#kms-key-storage}
 
 KMS 提供程序使用**封套加密**：Kubernetes 使用一個數據密鑰來加密資源，然後使用託管的加密服務來加密該數據密鑰。
-Kubernetes 爲每個資源生成唯一的數據密鑰。API 服務器將數據密鑰的加密版本與密文一起存儲在 etcd 中；
-API 服務器在讀取資源時，調用託管的加密服務並提供密文和（加密的）數據密鑰。
+Kubernetes 爲每個資源生成唯一的數據密鑰。API 伺服器將數據密鑰的加密版本與密文一起存儲在 etcd 中；
+API 伺服器在讀取資源時，調用託管的加密服務並提供密文和（加密的）數據密鑰。
 在託管的加密服務中，提供程序使用**密鑰加密密鑰**來解密數據密鑰，解密數據密鑰後恢復爲明文。
 在控制平面和 KMS 之間的通信需要在傳輸過程中提供 TLS 這類保護。
 
@@ -629,7 +629,7 @@ call KMS.
 ### 保護加密密鑰   {#protection-for-encryption-keys}
 
 你應該採取適當的措施來保護允許解密的機密信息，無論是本地加密密鑰還是允許
-API 服務器調用 KMS 的身份驗證令牌。
+API 伺服器調用 KMS 的身份驗證令牌。
 
 <!--
 Even when you rely on a provider to manage the use and lifecycle of the main encryption key (or keys), you are still responsible
@@ -654,7 +654,7 @@ assume that you need to generate an encryption key. If you already have an encry
 skip to [Write an encryption configuration file](#write-an-encryption-configuration-file).
 -->
 以下步驟假設你沒有使用 KMS，因此這些步驟還假設你需要生成加密密鑰。
-如果你已有加密密鑰，請跳至[編寫加密配置文件](#write-an-encryption-configuration-file)。
+如果你已有加密密鑰，請跳至[編寫加密設定文件](#write-an-encryption-configuration-file)。
 
 {{< caution >}}
 <!--
@@ -669,7 +669,7 @@ Kubernetes cluster. Implementations of `kms` can work with hardware security mod
 encryption services managed by your cloud provider.
 -->
 爲了獲得額外的保密性，請考慮使用 `kms` 提供程序，因爲這依賴於 Kubernetes
-集羣外部保存的密鑰。`kms` 的實現可以與硬件安全模塊或由雲提供商管理的加密服務配合使用。
+叢集外部保存的密鑰。`kms` 的實現可以與硬件安全模塊或由雲提供商管理的加密服務配合使用。
 
 <!--
 To learn about setting
@@ -763,7 +763,7 @@ so that you're relying on KMS encryption.
 <!--
 ## Write an encryption configuration file
 -->
-## 編輯加密配置文件   {#write-an-encryption-configuration-file}
+## 編輯加密設定文件   {#write-an-encryption-configuration-file}
 
 {{< caution >}}
 <!--
@@ -772,15 +772,15 @@ If the configuration file contains any key material, you must properly
 restrict permissions on all your control plane hosts so only the user
 who runs the kube-apiserver can read this configuration.
 -->
-加密配置文件可能包含可以解密 etcd 中內容的密鑰。
-如果此配置文件包含任何密鑰信息，你必須在所有控制平面主機上合理限制權限，
-以便只有運行 kube-apiserver 的用戶可以讀取此配置。
+加密設定文件可能包含可以解密 etcd 中內容的密鑰。
+如果此設定文件包含任何密鑰信息，你必須在所有控制平面主機上合理限制權限，
+以便只有運行 kube-apiserver 的使用者可以讀取此設定。
 {{< /caution >}}
 
 <!--
 Create a new encryption configuration file. The contents should be similar to:
 -->
-創建一個新的加密配置文件。其內容應類似於：
+創建一個新的加密設定文件。其內容應類似於：
 
 <!--
 ```yaml
@@ -830,18 +830,18 @@ To create a new encryption key (that does not use KMS), see
 <!--
 ### Use the new encryption configuration file
 -->
-### 使用新的加密配置文件
+### 使用新的加密設定文件
 
 <!--
 You will need to mount the new encryption config file to the `kube-apiserver` static pod. Here is an example on how to do that:
 -->
-你將需要把新的加密配置文件掛載到 `kube-apiserver` 靜態 Pod。以下是這個操作的示例：
+你將需要把新的加密設定文件掛載到 `kube-apiserver` 靜態 Pod。以下是這個操作的示例：
 
 <!--
 1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane node.
 1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` similarly to this:
 -->
-1. 將新的加密配置文件保存到控制平面節點上的 `/etc/kubernetes/enc/enc.yaml`。
+1. 將新的加密設定文件保存到控制平面節點上的 `/etc/kubernetes/enc/enc.yaml`。
 2. 編輯 `kube-apiserver` 靜態 Pod 的清單：`/etc/kubernetes/manifests/kube-apiserver.yaml`，
    代碼範例如下：
 
@@ -854,7 +854,7 @@ You will need to mount the new encryption config file to the `kube-apiserver` st
    ---
    #
    # 這是一個靜態 Pod 的清單片段。
-   # 檢查是否適用於你的集羣和 API 服務器。
+   # 檢查是否適用於你的集羣和 API 伺服器。
    #
    apiVersion: v1
    kind: Pod
@@ -891,15 +891,15 @@ You will need to mount the new encryption config file to the `kube-apiserver` st
 <!--
 1. Restart your API server.
 -->
-4. 重啓你的 API 服務器。
+4. 重啓你的 API 伺服器。
 
 {{< caution >}}
 <!--
 Your config file contains keys that can decrypt the contents in etcd, so you must properly restrict
 permissions on your control-plane nodes so only the user who runs the `kube-apiserver` can read it.
 -->
-你的配置文件包含可以解密 etcd 內容的密鑰，因此你必須正確限制控制平面節點的訪問權限，
-以便只有能運行 `kube-apiserver` 的用戶才能讀取它。
+你的設定文件包含可以解密 etcd 內容的密鑰，因此你必須正確限制控制平面節點的訪問權限，
+以便只有能運行 `kube-apiserver` 的使用者才能讀取它。
 {{< /caution >}}
 
 <!--
@@ -907,7 +907,7 @@ You now have encryption in place for **one** control plane host. A typical
 Kubernetes cluster has multiple control plane hosts, so there is more to do.
 -->
 你現在已經爲**一個**控制平面主機進行了加密。典型的 Kubernetes
-集羣有多個控制平面主機，因此需要做的事情更多。
+叢集有多個控制平面主機，因此需要做的事情更多。
 
 <!--
 ### Reconfigure other control plane hosts {#api-server-config-update-more}
@@ -915,9 +915,9 @@ Kubernetes cluster has multiple control plane hosts, so there is more to do.
 If you have multiple API servers in your cluster, you should deploy the
 changes in turn to each API server.
 -->
-### 重新配置其他控制平面主機   {#api-server-config-update-more}
+### 重新設定其他控制平面主機   {#api-server-config-update-more}
 
-如果你的集羣中有多個 API 服務器，應輪流將更改部署到每個 API 服務器。
+如果你的叢集中有多個 API 伺服器，應輪流將更改部署到每個 API 伺服器。
 
 {{< caution >}}
 <!--
@@ -927,9 +927,9 @@ should be identical across each control plane node.
 If there is a difference in the encryption provider configuration between control plane
 nodes, this difference may mean that the kube-apiserver can't decrypt data.
 -->
-對於具有兩個或更多控制平面節點的集羣配置，每個控制平面節點的加密配置應該是相同的。
+對於具有兩個或更多控制平面節點的叢集設定，每個控制平面節點的加密設定應該是相同的。
 
-如果控制平面節點間的加密驅動配置不一致，這種差異可能導致 kube-apiserver 無法解密數據。
+如果控制平面節點間的加密驅動設定不一致，這種差異可能導致 kube-apiserver 無法解密數據。
 {{< /caution >}}
 
 <!--
@@ -940,9 +940,9 @@ so that the API servers in your control plane can always decrypt the stored data
 Make sure that you use the **same** encryption configuration on each
 control plane host.
 -->
-你在計劃更新集羣的加密配置時，請確保控制平面中的 API 服務器在任何時候都能解密存儲的數據（即使是在更改逐步實施的過程中也是如此）。
+你在計劃更新叢集的加密設定時，請確保控制平面中的 API 伺服器在任何時候都能解密存儲的數據（即使是在更改逐步實施的過程中也是如此）。
 
-確保在每個控制平面主機上使用**相同的**加密配置。
+確保在每個控制平面主機上使用**相同的**加密設定。
 
 <!--
 ### Verify that newly written data is encrypted {#verifying-that-data-is-encrypted}
@@ -959,9 +959,9 @@ This example shows how to check this for encrypting the Secret API.
 ### 驗證數據已被加密   {#verifying-that-data-is-encryped}
 
 數據在寫入 etcd 時會被加密。重新啓動你的 `kube-apiserver` 後，任何新創建或更新的 Secret
-或在 `EncryptionConfiguration` 中配置的其他資源類別都應在存儲時被加密。
+或在 `EncryptionConfiguration` 中設定的其他資源類別都應在存儲時被加密。
 
-如果想要檢查，你可以使用 `etcdctl` 命令行程序來檢索你的 Secret 數據內容。
+如果想要檢查，你可以使用 `etcdctl` 命令列程序來檢索你的 Secret 數據內容。
 
 以下示例演示瞭如何對加密 Secret API 進行檢查。
 
@@ -977,7 +977,7 @@ This example shows how to check this for encrypting the Secret API.
 <!--
 1. Using the `etcdctl` command line tool, read that Secret out of etcd:
 -->
-2. 使用 `etcdctl` 命令行工具，從 etcd 中讀取 Secret：
+2. 使用 `etcdctl` 命令列工具，從 etcd 中讀取 Secret：
 
    ```
    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
@@ -1064,10 +1064,10 @@ You can make this change across all Secrets in your cluster:
 
 僅僅確保新對象被加密通常是不夠的：你還希望對已經存儲的對象進行加密。
 
-例如，你已經配置了集羣，使得 Secret 在寫入時進行加密。
+例如，你已經設定了叢集，使得 Secret 在寫入時進行加密。
 爲每個 Secret 執行替換操作將加密那些對象保持不變的靜態內容。
 
-你可以在集羣中的所有 Secret 上進行此項變更：
+你可以在叢集中的所有 Secret 上進行此項變更：
 
 <!--
 # Run this as an administrator that can read and write all Secrets
@@ -1094,7 +1094,7 @@ or script an update.
 如果由於衝突寫入而發生錯誤，請重試該命令。
 多次運行此命令是安全的。
 
-對於較大的集羣，你可能希望通過命名空間或更新腳本來對 Secret 進行劃分。
+對於較大的叢集，你可能希望通過命名空間或更新腳本來對 Secret 進行劃分。
 {{< /note >}}
 
 <!--
@@ -1107,7 +1107,7 @@ as plaintext.
 ## 防止純文本檢索   {#cleanup-all-secrets-encrypted}
 
 如果你想確保對特定 API 類型的唯一訪問是使用加密完成的，你可以移除
-API 服務器以明文形式讀取該 API 的支持數據的能力。
+API 伺服器以明文形式讀取該 API 的支持數據的能力。
 
 {{< warning >}}
 <!--
@@ -1119,10 +1119,10 @@ When you have configured encryption at rest for an API (for example: the API kin
 that all those resources in this cluster really are encrypted at rest. Check this before
 you carry on with the next steps.
 -->
-此更改可防止 API 服務器檢索標記爲靜態加密但實際上以明文形式存儲的資源。
+此更改可防止 API 伺服器檢索標記爲靜態加密但實際上以明文形式存儲的資源。
 
-當你爲某個 API 配置靜態加密時（例如：API 種類 `Secret`，代表核心 API 組中的 `secrets` 資源），
-你**必須**確保該集羣中的所有這些資源確實被靜態加密，
+當你爲某個 API 設定靜態加密時（例如：API 種類 `Secret`，代表核心 API 組中的 `secrets` 資源），
+你**必須**確保該叢集中的所有這些資源確實被靜態加密，
 在後續步驟開始之前請檢查此項。
 {{< /warning >}}
 
@@ -1130,7 +1130,7 @@ you carry on with the next steps.
 Once all Secrets in your cluster are encrypted, you can remove the `identity`
 part of the encryption configuration. For example:
 -->
-一旦集羣中的所有 Secret 都被加密，你就可以刪除加密配置中的 `identity` 部分。例如：
+一旦叢集中的所有 Secret 都被加密，你就可以刪除加密設定中的 `identity` 部分。例如：
 
 <!--
 {{< highlight yaml "linenos=false,hl_lines=12" >}}
@@ -1167,7 +1167,7 @@ resources:
 …and then restart each API server in turn. This change prevents the API server
 from accessing a plain-text Secret, even by accident.
 -->
-…然後依次重新啓動每個 API 服務器。此更改可防止 API 服務器訪問純文本 Secret，即使是意外訪問也是如此。
+…然後依次重新啓動每個 API 伺服器。此更改可防止 API 伺服器訪問純文本 Secret，即使是意外訪問也是如此。
 
 <!--
 ## Rotate a decryption key {#rotating-a-decryption-key}
@@ -1197,14 +1197,14 @@ are running.
 進程正在運行的高可用環境中。
 
 1. 生成一個新密鑰並將其添加爲所有控制平面節點上當前提供程序的第二個密鑰條目
-1. 重新啓動所有 `kube-apiserver` 進程以確保每臺服務器都可以使用新密鑰加密任何數據
+1. 重新啓動所有 `kube-apiserver` 進程以確保每臺伺服器都可以使用新密鑰加密任何數據
 1. 對新的加密密鑰進行安全備份。如果你丟失了此密鑰的所有副本，則需要刪除用已丟失的密鑰加密的所有資源，
    並且在靜態加密被破壞期間，工作負載可能無法按預期運行。
 1. 將新密鑰設置爲 `keys` 數組中的第一個條目，以便將其用於新編寫的靜態加密
 1. 重新啓動所有 `kube-apiserver` 進程，以確保每個控制平面主機現在使用新密鑰進行加密
-1. 作爲特權用戶，運行 `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
+1. 作爲特權使用者，運行 `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
    以用新密鑰加密所有現有的 Secret
-1. 將所有現有 Secret 更新爲使用新密鑰並對新密鑰進行安全備份後，從配置中刪除舊的解密密鑰。
+1. 將所有現有 Secret 更新爲使用新密鑰並對新密鑰進行安全備份後，從設定中刪除舊的解密密鑰。
 
 <!--
 ## Decrypt all data {#decrypting-all-data}
@@ -1219,7 +1219,7 @@ entry in your encryption configuration file:
 
 此示例演示如何停止靜態加密 Secret API。如果你所加密的是其他 API 類型，請調整對應步驟來適配。
 
-要禁用靜態加密，請將 `identity` 提供程序作爲加密配置文件中的第一個條目：
+要禁用靜態加密，請將 `identity` 提供程序作爲加密設定文件中的第一個條目：
 
 <!--
 ```yaml
@@ -1276,7 +1276,7 @@ don't use encryption, you can remove the encryption settings from the
 <!--
 ## Configure automatic reloading
 -->
-## 配置自動重新加載   {#configure-automatic-reloading}
+## 設定自動重新加載   {#configure-automatic-reloading}
 
 <!--
 You can configure automatic reloading of encryption provider configuration.
@@ -1287,11 +1287,11 @@ startup, or automatically whenever you change that file. Enabling this option
 allows you to change the keys for encryption at rest without restarting the
 API server.
 -->
-你可以配置加密提供程序配置的自動重新加載。
-該設置決定了 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}
+你可以設定加密提供程序設定的自動重新加載。
+該設置決定了 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}
 是僅在啓動時加載一次爲 `--encryption-provider-config` 指定的文件，
 還是在每次你更改該文件時都自動加載。
-啓用此選項可允許你在不重啓 API 服務器的情況下更改靜態加密所需的密鑰。
+啓用此選項可允許你在不重啓 API 伺服器的情況下更改靜態加密所需的密鑰。
 
 <!--
 To allow automatic reloading, configure the API server to run with:
@@ -1302,10 +1302,10 @@ metric identifies when the new config becomes effective. This allows
 encryption keys to be rotated without restarting the API server.
 -->
 要允許自動重新加載，
-可使用 `--encryption-provider-config-automatic-reload=true` 運行 API 服務器。
+可使用 `--encryption-provider-config-automatic-reload=true` 運行 API 伺服器。
 該功能啓用後，每分鐘會輪詢文件變化以監測修改情況。
-`apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds` 指標用於標識新配置生效的時間。
-這種設置可以在不重啓 API 服務器的情況下輪換加密密鑰。
+`apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds` 指標用於標識新設定生效的時間。
+這種設置可以在不重啓 API 伺服器的情況下輪換加密密鑰。
 
 ## {{% heading "whatsnext" %}}
 
@@ -1314,4 +1314,4 @@ encryption keys to be rotated without restarting the API server.
 * Learn more about the [EncryptionConfiguration configuration API (v1)](/docs/reference/config-api/apiserver-config.v1/).
 -->
 * 進一步學習[解密已靜態加密的數據](/zh-cn/docs/tasks/administer-cluster/decrypt-data/)。
-* 進一步學習 [EncryptionConfiguration 配置 API（v1）](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。
+* 進一步學習 [EncryptionConfiguration 設定 API（v1）](/zh-cn/docs/reference/config-api/apiserver-config.v1/)。

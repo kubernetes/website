@@ -16,7 +16,7 @@ Kubernetes objects can quickly be created, updated, and deleted directly using
 imperative commands built into the `kubectl` command-line tool. This document
 explains how those commands are organized and how to use them to manage live objects.
 -->
-使用構建在 `kubectl` 命令行工具中的指令式命令可以直接快速創建、更新和刪除
+使用構建在 `kubectl` 命令列工具中的指令式命令可以直接快速創建、更新和刪除
 Kubernetes 對象。本文檔解釋這些命令的組織方式以及如何使用它們來管理活躍對象。
 
 ## {{% heading "prerequisites" %}}
@@ -47,8 +47,8 @@ for a discussion of the advantages and disadvantage of each kind of object manag
 `kubectl` 工具能夠支持三種對象管理方式：
 
 * 指令式命令
-* 指令式對象配置
-* 聲明式對象配置
+* 指令式對象設定
+* 聲明式對象設定
 
 關於每種對象管理的優缺點的討論，可參見
 [Kubernetes 對象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)。
@@ -67,7 +67,7 @@ the Kubernetes object types.
 ## 如何創建對象  {#how-to-create-objects}
 
 `kubectl` 工具支持動詞驅動的命令，用來創建一些最常見的對象類別。
-命令的名稱設計使得不熟悉 Kubernetes 對象類型的用戶也能做出判斷。
+命令的名稱設計使得不熟悉 Kubernetes 對象類型的使用者也能做出判斷。
 
 - `run`：創建一個新的 Pod 來運行一個容器。
 - `expose`：創建一個新的 Service 對象爲若干 Pod 提供流量負載均衡。
@@ -84,7 +84,7 @@ to create.
 -->
 `kubectl` 命令也支持一些對象類型驅動的創建命令。
 這些命令可以支持更多的對象類別，並且在其動機上體現得更爲明顯，
-不過要求用戶瞭解它們所要創建的對象的類別。
+不過要求使用者瞭解它們所要創建的對象的類別。
 
 - `create <對象類別> [<子類別>] <實例名稱>`
 
@@ -136,7 +136,7 @@ that must be set:
 ## 如何更新對象  {#how-to-update-objects}
 
 `kubectl` 命令也支持一些動詞驅動的命令，用來執行一些常見的更新操作。
-這些命令的設計是爲了讓一些不瞭解 Kubernetes 對象的用戶也能執行更新操作，
+這些命令的設計是爲了讓一些不瞭解 Kubernetes 對象的使用者也能執行更新操作，
 但不需要了解哪些字段必須設置：
 
 - `scale`：對某控制器進行水平擴縮以便通過更新控制器的副本個數來添加或刪除 Pod。
@@ -171,9 +171,9 @@ For more details on patch strings, see the patch section in
 [API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#patch-operations).
 -->
 `kubectl` 工具支持以下額外的方式用來直接更新活躍對象，不過這些操作要求
-用戶對 Kubernetes 對象的模式定義有很好的瞭解：
+使用者對 Kubernetes 對象的模式定義有很好的瞭解：
 
-- `edit`：通過在編輯器中打開活躍對象的配置，直接編輯其原始配置。
+- `edit`：通過在編輯器中打開活躍對象的設定，直接編輯其原始設定。
 - `patch`：通過使用補丁字符串（Patch String）直接更改某活躍對象的特定字段。
   關於補丁字符串的更詳細信息，參見
   [API 約定](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#patch-operations)
@@ -188,7 +188,7 @@ You can use the `delete` command to delete an object from a cluster:
 -->
 ## 如何刪除對象  {#how-to-delete-objects}
 
-你可以使用 `delete` 命令從集羣中刪除一個對象：
+你可以使用 `delete` 命令從叢集中刪除一個對象：
 
 - `delete <類別>/<名稱>`
 
@@ -199,7 +199,7 @@ configuration. The difference is in the arguments passed to the command. To use
 `kubectl delete` as an imperative command, pass the object to be deleted as
 an argument. Here's an example that passes a Deployment object named nginx:
 -->
-你可以使用 `kubectl delete` 來執行指令式命令或者指令式對象配置。不同之處在於傳遞給命令的參數。
+你可以使用 `kubectl delete` 來執行指令式命令或者指令式對象設定。不同之處在於傳遞給命令的參數。
 要將 `kubectl delete` 作爲指令式命令使用，將要刪除的對象作爲參數傳遞給它。
 下面是一個刪除名爲 `nginx` 的 Deployment 對象的命令：
 {{< /note >}}
@@ -265,11 +265,11 @@ kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=cli
 1. The `kubectl set selector --local -f - -o yaml` command reads the configuration from stdin, and writes the updated configuration to stdout as YAML.
 1. The `kubectl create -f -` command creates the object using the configuration provided via stdin.
 -->
-1. 命令 `kubectl create service -o yaml --dry-run=client` 創建 Service 的配置，
-   但將其以 YAML 格式在標準輸出上打印而不是發送給 API 服務器。
-1. 命令 `kubectl set selector --local -f - -o yaml` 從標準輸入讀入配置，
-   並將更新後的配置以 YAML 格式輸出到標準輸出。
-1. 命令 `kubectl create -f -` 使用標準輸入上獲得的配置創建對象。
+1. 命令 `kubectl create service -o yaml --dry-run=client` 創建 Service 的設定，
+   但將其以 YAML 格式在標準輸出上打印而不是發送給 API 伺服器。
+1. 命令 `kubectl set selector --local -f - -o yaml` 從標準輸入讀入設定，
+   並將更新後的設定以 YAML 格式輸出到標準輸出。
+1. 命令 `kubectl create -f -` 使用標準輸入上獲得的設定創建對象。
 
 <!--
 ## Using `--edit` to modify objects before creation
@@ -291,8 +291,8 @@ kubectl create --edit -f /tmp/srv.yaml
 1. The `kubectl create service` command creates the configuration for the Service and saves it to `/tmp/srv.yaml`.
 1. The `kubectl create --edit` command opens the configuration file for editing before it creates the object.
 -->
-1. 命令 `kubectl create service` 創建 Service 的配置並將其保存到 `/tmp/srv.yaml` 文件。
-1. 命令 `kubectl create --edit` 在創建 Service 對象打開其配置文件進行編輯。
+1. 命令 `kubectl create service` 創建 Service 的設定並將其保存到 `/tmp/srv.yaml` 文件。
+1. 命令 `kubectl create --edit` 在創建 Service 對象打開其設定文件進行編輯。
 
 ## {{% heading "whatsnext" %}}
 
@@ -302,7 +302,7 @@ kubectl create --edit -f /tmp/srv.yaml
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
-* [使用配置文件對 Kubernetes 對象進行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [使用配置文件對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [使用設定文件對 Kubernetes 對象進行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用設定文件對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 命令參考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 參考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

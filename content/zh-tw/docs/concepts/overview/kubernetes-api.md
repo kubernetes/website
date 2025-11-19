@@ -4,8 +4,8 @@ content_type: concept
 weight: 40
 description: >
   Kubernetes API 使你可以查詢和操縱 Kubernetes 中對象的狀態。
-  Kubernetes 控制平面的核心是 API 服務器和它暴露的 HTTP API。
-  用戶、集羣的不同部分以及外部組件都通過 API 服務器相互通信。
+  Kubernetes 控制平面的核心是 API 伺服器和它暴露的 HTTP API。
+  使用者、叢集的不同部分以及外部組件都通過 API 伺服器相互通信。
 card:
   name: concepts
   weight: 30
@@ -36,8 +36,8 @@ The Kubernetes API lets you query and manipulate the state of API objects in Kub
 (for example: Pods, Namespaces, ConfigMaps, and Events).
 -->
 Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}的核心是
-{{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}。
-API 服務器負責提供 HTTP API，以供用戶、集羣中的不同部分和集羣外部組件相互通信。
+{{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}。
+API 伺服器負責提供 HTTP API，以供使用者、叢集中的不同部分和叢集外部組件相互通信。
 
 Kubernetes API 使你可以在 Kubernetes 中查詢和操縱 API 對象
 （例如 Pod、Namespace、ConfigMap 和 Event）的狀態。
@@ -51,8 +51,8 @@ provides a set of [client libraries](/docs/reference/using-api/client-libraries/
 for those looking to
 write applications using the Kubernetes API.
 -->
-大部分操作都可以通過 [kubectl](/zh-cn/docs/reference/kubectl/) 命令行接口或類似
-[kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 這類命令行工具來執行，
+大部分操作都可以通過 [kubectl](/zh-cn/docs/reference/kubectl/) 命令列接口或類似
+[kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 這類命令列工具來執行，
 這些工具在背後也是調用 API。不過，你也可以使用 REST 調用來訪問這些 API。
 Kubernetes 爲那些希望使用 Kubernetes API
 編寫應用的開發者提供一組[客戶端庫](/zh-cn/docs/reference/using-api/client-libraries/)。
@@ -64,9 +64,9 @@ to enable automatic interoperability. For example, the `kubectl` tool fetches an
 specification for enabling command-line completion and other features.
 The two supported mechanisms are as follows:
 -->
-每個 Kubernetes 集羣都會發布集羣所使用的 API 規範。
+每個 Kubernetes 叢集都會發布叢集所使用的 API 規範。
 Kubernetes 使用兩種機制來發布這些 API 規範；這兩種機制都有助於實現自動互操作。
-例如，`kubectl` 工具獲取並緩存 API 規範，以實現命令行補全和其他特性。所支持的兩種機制如下：
+例如，`kubectl` 工具獲取並緩存 API 規範，以實現命令列補全和其他特性。所支持的兩種機制如下：
 
 <!--
 - [The Discovery API](#discovery-api) provides information about the Kubernetes APIs:
@@ -95,7 +95,7 @@ provides
 - [Kubernetes OpenAPI 文檔](#openapi-interface-definition)爲所有 Kubernetes API 端點提供（完整的）
   [OpenAPI v2.0 和 v3.0 模式](https://www.openapis.org/)。OpenAPI v3 是訪問 OpenAPI 的首選方法，
   因爲它提供了更全面和準確的 API 視圖。其中包括所有可用的 API 路徑，以及每個端點上每個操作所接收和生成的所有資源。
-  它還包括集羣支持的所有可擴展組件。這些數據是完整的規範，比 Discovery API 提供的規範要大得多。
+  它還包括叢集支持的所有可擴展組件。這些數據是完整的規範，比 Discovery API 提供的規範要大得多。
 
 <!--
 ## Discovery API
@@ -105,7 +105,7 @@ the Discovery API. This includes the following for each resource:
 -->
 ## Discovery API
 
-Kubernetes 通過 Discovery API 發佈集羣所支持的所有組版本和資源列表。對於每個資源，包括以下內容：
+Kubernetes 通過 Discovery API 發佈叢集所支持的所有組版本和資源列表。對於每個資源，包括以下內容：
 
 <!--
 - Name
@@ -115,7 +115,7 @@ Kubernetes 通過 Discovery API 發佈集羣所支持的所有組版本和資源
 - Group, version, kind
 -->
 - 名稱
-- 集羣作用域還是名字空間作用域
+- 叢集作用域還是名字空間作用域
 - 端點 URL 和所支持的動詞
 - 別名
 - 組、版本、類別
@@ -144,8 +144,8 @@ requesting the respective endpoints with an `Accept` header indicating
 the aggregated discovery resource:
 `Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
 -->
-Kubernetes 爲**聚合的發現**提供了 Beta 支持，通過兩個端點（`/api` 和 `/apis`）發佈集羣所支持的所有資源。
-請求這個端點會大大減少從集羣獲取發現數據時發送的請求數量。你可以通過帶有
+Kubernetes 爲**聚合的發現**提供了 Beta 支持，通過兩個端點（`/api` 和 `/apis`）發佈叢集所支持的所有資源。
+請求這個端點會大大減少從叢集獲取發現數據時發送的請求數量。你可以通過帶有
 `Accept` 頭（`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`）
 的請求發送到不同端點，來指明聚合發現的資源。
 
@@ -165,7 +165,7 @@ if a Kubernetes cluster is not available to query.
 The endpoint also supports ETag and protobuf encoding.
 -->
 內置資源的[發現文檔](https://github.com/kubernetes/kubernetes/blob/release-{{< skew currentVersion >}}/api/discovery/aggregated_v2.json)可以在
-Kubernetes GitHub 代碼倉庫中找到。如果手頭沒有 Kubernetes 集羣可供查詢，
+Kubernetes GitHub 代碼倉庫中找到。如果手頭沒有 Kubernetes 叢集可供查詢，
 此 Github 文檔可用作可用資源的基礎集合的參考。端點還支持 ETag 和 protobuf 編碼。
 
 <!--
@@ -181,7 +181,7 @@ the `/api` and `/apis` endpoints. Example:
 
 在不使用聚合發現的情況下，發現 API 以不同級別發佈，同時根端點爲下游文檔發佈發現信息。
 
-集羣支持的所有組版本列表發佈在 `/api` 和 `/apis` 端點。例如：
+叢集支持的所有組版本列表發佈在 `/api` 和 `/apis` 端點。例如：
 
 ```
 {
@@ -225,9 +225,9 @@ Additional requests are needed to obtain the discovery document for each group v
 resources served under a particular group version. These endpoints are used by
 kubectl to fetch the list of resources supported by a cluster.
 -->
-用戶需要發出額外的請求才能在 `/apis/<group>/<version>`（例如 `/apis/rbac.authorization.k8s.io/v1alpha1`）
+使用者需要發出額外的請求才能在 `/apis/<group>/<version>`（例如 `/apis/rbac.authorization.k8s.io/v1alpha1`）
 獲取每個組版本的發現文檔。這些發現文檔會公佈在特定組版本下所提供的資源列表。
-kubectl 使用這些端點來獲取某集羣所支持的資源列表。
+kubectl 使用這些端點來獲取某叢集所支持的資源列表。
 
 <!-- body -->
 
@@ -261,7 +261,7 @@ request headers as follows:
 -->
 ### OpenAPI v2
 
-Kubernetes API 服務器通過 `/openapi/v2` 端點提供聚合的 OpenAPI v2 規範。
+Kubernetes API 伺服器通過 `/openapi/v2` 端點提供聚合的 OpenAPI v2 規範。
 你可以按照下表所給的請求頭部，指定響應的格式：
 
 <!--
@@ -314,7 +314,7 @@ Kubernetes API 服務器通過 `/openapi/v2` 端點提供聚合的 OpenAPI v2 �
      <tr>
         <td rowspan="3"><code>Accept</code></td>
         <td><code>application/com.github.proto-openapi.spec.v2@v1.0+protobuf</code></td>
-        <td><em>主要用於集羣內部</em></td>
+        <td><em>主要用於叢集內部</em></td>
      </tr>
      <tr>
         <td><code>application/json</code></td>
@@ -336,7 +336,7 @@ checks).
 -->
 
 作爲 OpenAPI 模式的一部分發布的校驗規則可能不完整，而且通常也確實不完整。
-在 API 服務器內部會進行額外的校驗。如果你希望進行精確且完整的驗證，
+在 API 伺服器內部會進行額外的校驗。如果你希望進行精確且完整的驗證，
 可以使用 `kubectl apply --dry-run=server`，這條命令將運行所有適用的校驗（同時也會觸發准入時檢查）。
 {{< /warning >}}
 
@@ -381,9 +381,9 @@ the future, and `Cache-Control` to `immutable`). When an obsolete URL is
 used, the API server returns a redirect to the newest URL.
 -->
 爲了改進客戶端緩存，相對的 URL 會指向不可變的 OpenAPI 描述。
-爲了此目的，API 服務器也會設置正確的 HTTP 緩存標頭
+爲了此目的，API 伺服器也會設置正確的 HTTP 緩存標頭
 （`Expires` 爲未來 1 年，和 `Cache-Control` 爲 `immutable`）。
-當一個過時的 URL 被使用時，API 服務器會返回一個指向最新 URL 的重定向。
+當一個過時的 URL 被使用時，API 伺服器會返回一個指向最新 URL 的重定向。
 
 <!-- 
 The Kubernetes API server publishes an OpenAPI v3 spec per Kubernetes
@@ -392,7 +392,7 @@ endpoint.
 
 Refer to the table below for accepted request headers.
 -->
-Kubernetes API 服務器會在端點 `/openapi/v3/apis/<group>/<version>?hash=<hash>`
+Kubernetes API 伺服器會在端點 `/openapi/v3/apis/<group>/<version>?hash=<hash>`
 發佈一個 Kubernetes 組版本的 OpenAPI v3 規範。
 
 請參閱下表瞭解可接受的請求頭部。
@@ -415,7 +415,7 @@ Kubernetes API 服務器會在端點 `/openapi/v3/apis/<group>/<version>?hash=<h
      <tr>
         <td rowspan="3"><code>Accept</code></td>
         <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
-        <td><em><!--mainly for intra-cluster use-->主要用於集羣內部使用</em></td>
+        <td><em><!--mainly for intra-cluster use-->主要用於叢集內部使用</em></td>
      </tr>
      <tr>
         <td><code>application/json</code></td>
@@ -453,7 +453,7 @@ packages that define the API objects.
 -->
 ### Protobuf 序列化   {#protobuf-serialization}
 
-Kubernetes 爲 API 實現了一種基於 Protobuf 的序列化格式，主要用於集羣內部通信。
+Kubernetes 爲 API 實現了一種基於 Protobuf 的序列化格式，主要用於叢集內部通信。
 關於此格式的詳細信息，可參考
 [Kubernetes Protobuf 序列化](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md)設計提案。
 每種模式對應的接口描述語言（IDL）位於定義 API 對象的 Go 包中。
@@ -503,8 +503,8 @@ through multiple API versions.
 這些 API 組可以被[啓用或禁用](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
 
 API 資源通過其 API 組、資源類型、名字空間（用於名字空間作用域的資源）和名稱來區分。
-API 服務器透明地處理 API 版本之間的轉換：所有不同的版本實際上都是相同持久化數據的呈現。
-API 服務器可以通過多個 API 版本提供相同的底層數據。
+API 伺服器透明地處理 API 版本之間的轉換：所有不同的版本實際上都是相同持久化數據的呈現。
+API 伺服器可以通過多個 API 版本提供相同的底層數據。
 
 <!--
 For example, suppose there are two API versions, `v1` and `v1beta1`, for the same
@@ -570,7 +570,7 @@ for Kubernetes when upgrading your cluster, in case the API did change in incomp
 ways that require deleting all existing alpha objects prior to upgrade.
 -->
 儘管 Kubernetes 也努力爲 **Alpha** API 版本維護兼容性，在有些場合兼容性是無法做到的。
-如果你使用了任何 Alpha API 版本，需要在升級集羣時查看 Kubernetes 發佈說明，
+如果你使用了任何 Alpha API 版本，需要在升級叢集時查看 Kubernetes 發佈說明，
 如果 API 確實以不兼容的方式發生變更，則需要在升級之前刪除所有現有的 Alpha 對象。
 {{< /note >}}
 
@@ -597,7 +597,7 @@ The Kubernetes API can be extended in one of two ways:
    [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 -->
 1. 你可以使用[自定義資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)來以聲明式方式定義
-   API 服務器如何提供你所選擇的資源 API。
+   API 伺服器如何提供你所選擇的資源 API。
 1. 你也可以選擇實現自己的[聚合層](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)來擴展
    Kubernetes API。
 
@@ -616,7 +616,7 @@ The Kubernetes API can be extended in one of two ways:
 - 瞭解如何通過添加你自己的
   [CustomResourceDefinition](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
   來擴展 Kubernetes API。
-- [控制 Kubernetes API 訪問](/zh-cn/docs/concepts/security/controlling-access/)頁面描述了集羣如何針對
+- [控制 Kubernetes API 訪問](/zh-cn/docs/concepts/security/controlling-access/)頁面描述了叢集如何針對
   API 訪問管理身份認證和鑑權。
 - 通過閱讀 [API 參考](/zh-cn/docs/reference/kubernetes-api/)瞭解 API 端點、資源類型以及示例。
 - 閱讀 [API 變更（英文）](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)

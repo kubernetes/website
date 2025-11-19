@@ -169,7 +169,7 @@ the advice PR owners get from automated systems about who to ask for technical
 and editorial review of their PR.
 -->
 此外，每個獨立的 Markdown 文件都可以在其前言部分列出評閱人和批准人，
-每一項可以是 GitHub 用戶名，也可以是 GitHub 組名。
+每一項可以是 GitHub 使用者名，也可以是 GitHub 組名。
 
 結合 OWNERS 文件及 Markdown 文件的前言信息，自動化系統可以給 PR 作者可以就應該
 向誰請求技術和文字評閱給出建議。

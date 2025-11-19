@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/kube-aggregator/pkg/apis/apiregistration/v1"
   kind: "APIService"
 content_type: "api_reference"
-description: "APIService 是用來表示一個特定的 GroupVersion 的服務器"
+description: "APIService 是用來表示一個特定的 GroupVersion 的伺服器"
 title: "APIService"
 weight: 1
 ---
@@ -31,7 +31,7 @@ auto_generated: true
 <!--
 APIService represents a server for a particular GroupVersion. Name must be "version.group".
 -->
-APIService 是用來表示一個特定的 GroupVersion 的服務器。名稱必須爲 "version.group"。
+APIService 是用來表示一個特定的 GroupVersion 的伺服器。名稱必須爲 "version.group"。
 
 <hr>
 
@@ -49,20 +49,20 @@ APIService 是用來表示一個特定的 GroupVersion 的服務器。名稱必�
   <!--
   Spec contains information for locating and communicating with a server
   -->
-  spec 包含用於定位和與服務器通信的信息
+  spec 包含用於定位和與伺服器通信的信息
 
 - **status** (<a href="{{< ref "../cluster-resources/api-service-v1#APIServiceStatus" >}}">APIServiceStatus</a>)
   <!--
   Status contains derived information about an API server
   -->
-  status 包含某 API 服務器的派生信息
+  status 包含某 API 伺服器的派生信息
 
 
 ## APIServiceSpec {#APIServiceSpec}
 <!--
 APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
 -->
-APIServiceSpec 包含用於定位和與服務器通信的信息。僅支持 HTTPS 協議，但是你可以禁用證書驗證。
+APIServiceSpec 包含用於定位和與伺服器通信的信息。僅支持 HTTPS 協議，但是你可以禁用證書驗證。
 
 <hr>
 
@@ -74,7 +74,7 @@ APIServiceSpec 包含用於定位和與服務器通信的信息。僅支持 HTTP
   請注意，該組的其他版本可能會指定更高的 groupPriorityMinimum 值，使得整個組獲得更高的優先級。
   主排序基於 groupPriorityMinimum 值，從高到低排序（20 在 10 之前）。
   次要排序基於對象名稱的字母順序（v1.bar 在 v1.foo 之前）。
-  我們建議這樣配置：`*.k8s.io`（擴展除外）值設置爲 18000，PaaS（OpenShift、Deis）建議值爲 2000 左右。
+  我們建議這樣設定：`*.k8s.io`（擴展除外）值設置爲 18000，PaaS（OpenShift、Deis）建議值爲 2000 左右。
 
 - **versionPriority** (int32)， <!--required-->必需
   <!--
@@ -96,27 +96,27 @@ APIServiceSpec 包含用於定位和與服務器通信的信息。僅支持 HTTP
   -->
   **原子性：將在合併期間被替換**
 
-  caBundle 是一個 PEM 編碼的 CA 包，用於驗證 API 服務器的服務證書。如果未指定，
-  則使用 API 服務器上的系統根證書。
+  caBundle 是一個 PEM 編碼的 CA 包，用於驗證 API 伺服器的服務證書。如果未指定，
+  則使用 API 伺服器上的系統根證書。
 
 - **group** (string)
   <!--
   Group is the API group name this server hosts
   -->
-  group 是此服務器主機的 API 組名稱。
+  group 是此伺服器主機的 API 組名稱。
 
 - **insecureSkipTLSVerify** (boolean)
   <!--
   InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
   -->
-  insecureSkipTLSVerify 代表在與此服務器通信時禁用 TLS 證書驗證。強烈建議不要這樣做。你應該使用 caBundle。  
+  insecureSkipTLSVerify 代表在與此伺服器通信時禁用 TLS 證書驗證。強烈建議不要這樣做。你應該使用 caBundle。  
 
 - **service** (ServiceReference)
   <!--
   Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
   -->
-  service 是對該 API 服務器的服務的引用。它只能在端口 443 上通信。如果 service 是 nil，
-  則意味着 API groupversion 的處理是在當前服務器上本地處理的。服務調用被直接委託給正常的處理程序鏈來完成。
+  service 是對該 API 伺服器的服務的引用。它只能在端口 443 上通信。如果 service 是 nil，
+  則意味着 API groupversion 的處理是在當前伺服器上本地處理的。服務調用被直接委託給正常的處理程序鏈來完成。
 
   <a name="ServiceReference"></a>
   <!--
@@ -147,14 +147,14 @@ APIServiceSpec 包含用於定位和與服務器通信的信息。僅支持 HTTP
   <!--
   Version is the API version this server hosts.  For example, "v1"
   -->
-  version 是此服務器的 API 版本。例如：“v1”。
+  version 是此伺服器的 API 版本。例如：“v1”。
 
 ## APIServiceStatus {#APIServiceStatus}
 
 <!--
 APIServiceStatus contains derived information about an API server
 -->
-APIServiceStatus 包含有關 API 服務器的派生信息
+APIServiceStatus 包含有關 API 伺服器的派生信息
 
 <hr>
 

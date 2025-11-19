@@ -24,4 +24,4 @@ removed: true
 Enable the users to skip TLS verification of
 kubelets on Pod log requests.
 -->
-允許用戶在請求 Pod 日誌時跳過 kubelet 的 TLS 驗證。
+允許使用者在請求 Pod 日誌時跳過 kubelet 的 TLS 驗證。

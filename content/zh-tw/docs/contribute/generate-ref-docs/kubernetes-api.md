@@ -48,7 +48,7 @@ Kubernetes API 參考文檔是從
 
 Create a local workspace and set your `GOPATH`:
 -->
-## 配置本地倉庫
+## 設定本地倉庫
 
 創建本地工作區並設置你的 `GOPATH`：
 
@@ -175,7 +175,7 @@ The versioned directory name follows the pattern of `v<major>_<minor>`.
 
 構建目標 `updateapispec` 負責創建版本化的構建目錄。
 目錄創建了之後，從 `<k8s-base>` 倉庫取回 OpenAPI 規範文件。
-這些步驟確保配置文件的版本和 Kubernetes OpenAPI 規範的版本與發行版本匹配。
+這些步驟確保設定文件的版本和 Kubernetes OpenAPI 規範的版本與發行版本匹配。
 版本化目錄的名稱形式爲 `v<major>_<minor>`。
 
 <!--

@@ -35,9 +35,9 @@ You can use kubectl to deploy applications, inspect and manage cluster resources
 and view logs. For more information including a complete list of kubectl operations, see the
 [`kubectl` reference documentation](/docs/reference/kubectl/).
 -->
-Kubernetes 命令行工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)，
-讓你可以對 Kubernetes 集羣運行命令。
-你可以使用 kubectl 來部署應用、監測和管理集羣資源以及查看日誌。
+Kubernetes 命令列工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)，
+讓你可以對 Kubernetes 叢集運行命令。
+你可以使用 kubectl 來部署應用、監測和管理叢集資源以及查看日誌。
 
 有關更多信息，包括 kubectl 操作的完整列表，請參見 [`kubectl` 參考文件](/zh-cn/docs/reference/kubectl/)。
 
@@ -94,7 +94,7 @@ on getting the tool installed.
 與 `kind` 類似，[`minikube`](https://minikube.sigs.k8s.io/) 是一個工具，
 能讓你在本地運行 Kubernetes。
 `minikube` 在你的個人計算機（包括 Windows、macOS 和 Linux PC）上運行一個一體化（all-in-one）
-或多節點的本地 Kubernetes 集羣，以便你來嘗試 Kubernetes 或者開展每天的開發工作。
+或多節點的本地 Kubernetes 叢集，以便你來嘗試 Kubernetes 或者開展每天的開發工作。
 
 如果你關注如何安裝此工具，可以按官方的
 [Get Started!](https://minikube.sigs.k8s.io/docs/start/)指南操作。
@@ -120,8 +120,8 @@ You can use the {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}} tool t
 It performs the actions necessary to get a minimum viable, secure cluster up and running in a user friendly way.
 -->
 你可以使用 {{< glossary_tooltip term_id="kubeadm" text="kubeadm" >}}
-工具來創建和管理 Kubernetes 集羣。
-該工具能夠執行必要的動作並用一種用戶友好的方式啓動一個可用的、安全的集羣。
+工具來創建和管理 Kubernetes 叢集。
+該工具能夠執行必要的動作並用一種使用者友好的方式啓動一個可用的、安全的叢集。
 
 <!--
 [Installing kubeadm](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) shows you how to install kubeadm.
@@ -129,7 +129,7 @@ Once installed, you can use it to [create a cluster](/docs/setup/production-envi
 -->
 [安裝 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 展示瞭如何安裝 kubeadm 的過程。一旦安裝了 kubeadm，
-你就可以使用它來[創建一個集羣](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
+你就可以使用它來[創建一個叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)。
 
 <!--
 <a class="btn btn-primary" href="/docs/setup/production-environment/tools/kubeadm/install-kubeadm/" role="button" aria-label="View kubeadm Install Guide">View kubeadm Install Guide</a>

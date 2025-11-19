@@ -33,7 +33,7 @@ Currently there are no experimental commands under `kubeadm alpha`.
 * 用來啓動引導 Kubernetes 控制平面節點的
   [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   命令
-* 用來將節點連接到集羣的
+* 用來將節點連接到叢集的
   [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 
   命令
 * 用來還原 `kubeadm init` 或 `kubeadm join` 操作對主機所做的任何更改的

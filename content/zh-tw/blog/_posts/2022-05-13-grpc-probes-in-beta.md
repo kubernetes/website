@@ -24,7 +24,7 @@ Now you can configure startup, liveness, and readiness probes for your gRPC app
 without exposing any HTTP endpoint, nor do you need an executable. Kubernetes can natively connect to your workload via gRPC and query its status.
 -->
 在 Kubernetes 1.24 中，gRPC 探針（probe）功能進入了 beta 階段，默認情況下可用。
-現在，你可以爲 gRPC 應用程序配置啓動、活躍和就緒探測，而無需公開任何 HTTP 端點，
+現在，你可以爲 gRPC 應用程序設定啓動、活躍和就緒探測，而無需公開任何 HTTP 端點，
 也不需要可執行文件。Kubernetes 可以通過 gRPC 直接連接到你的工作負載並查詢其狀態。
 
 <!--
@@ -39,7 +39,7 @@ by making an HTTP request, or by checking whether a TCP connection succeeded.
 ## 一些歷史
 
 讓管理你的工作負載的系統檢查應用程序是否健康、啓動是否正常，以及應用程序是否認爲自己可以接收流量，是很有用的。
-在添加 gRPC 探針支持之前，Kubernetes 已經允許你通過從容器鏡像內部運行可執行文件、發出 HTTP
+在添加 gRPC 探針支持之前，Kubernetes 已經允許你通過從容器映像檔內部運行可執行文件、發出 HTTP
 請求或檢查 TCP 連接是否成功來檢查健康狀況。
 
 <!--
@@ -51,7 +51,7 @@ Ahmet Alp Balkan described how you can do that — a mechanism that still works 
 -->
 對於大多數應用程序來說，這些檢查就足夠了。如果你的應用程序提供了用於運行狀況（或準備就緒）檢查的
 gRPC 端點，則很容易重新調整 `exec` 探針的用途，將其用於 gRPC 運行狀況檢查。
-在博文[在 Kubernetes 上對 gRPC 服務器進行健康檢查](/zh-cn/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/)中，
+在博文[在 Kubernetes 上對 gRPC 伺服器進行健康檢查](/zh-cn/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/)中，
 Ahmet Alp Balkan 描述瞭如何做到這一點 —— 這種機制至今仍在工作。
 
 <!--
@@ -101,7 +101,7 @@ Exec probes are generally slower than a gRPC call as they require instantiating 
 It also makes the checks less sensible for edge cases when the pod is running at maximum resources and has troubles
 instantiating new processes.
 -->
-有了原生 gRPC 支持，你不需要在鏡像中下載和攜帶 `10MB` 的額外可執行文件。
+有了原生 gRPC 支持，你不需要在映像檔中下載和攜帶 `10MB` 的額外可執行文件。
 Exec 探針通常比 gRPC 調用慢，因爲它們需要實例化一個新進程來運行可執行文件。
 當 Pod 在最大資源下運行並且在實例化新進程時遇到困難時，它還使得對邊界情況的檢查變得不那麼智能。
 
@@ -110,15 +110,15 @@ There are a few limitations though. Since configuring a client certificate for p
 services that require client authentication are not supported. The built-in probes are also
 not checking the server certificates and ignore related problems.
 -->
-不過有一些限制。由於爲探針配置客戶端證書很難，因此不支持依賴客戶端身份驗證的服務。
-內置探針也不檢查服務器證書，並忽略相關問題。
+不過有一些限制。由於爲探針設定客戶端證書很難，因此不支持依賴客戶端身份驗證的服務。
+內置探針也不檢查伺服器證書，並忽略相關問題。
 
 <!--
 Built-in checks also cannot be configured to ignore certain types of errors
 (`grpc_health_probe` returns different exit codes for different errors),
 and cannot be "chained" to run the health check on multiple services in a single probe.
 -->
-內置檢查也不能配置爲忽略某些類型的錯誤（`grpc_health_probe` 針對不同的錯誤返回不同的退出代碼），
+內置檢查也不能設定爲忽略某些類型的錯誤（`grpc_health_probe` 針對不同的錯誤返回不同的退出代碼），
 並且不能“串接”以在單個探測中對多個服務運行健康檢查。
 
 <!--
@@ -137,10 +137,10 @@ yourself with the `GRPCContainerProbe` feature gate enabled, there are many [too
 -->
 ## 自己試試
 
-### 集羣級設置
+### 叢集級設置
 
 你現在可以嘗試這個功能。要嘗試原生 gRPC 探針，你可以自己啓動一個啓用了
-`GRPCContainerProbe` 特性門控的 Kubernetes 集羣，可用的[工具](/zh-cn/docs/tasks/tools/)有很多。
+`GRPCContainerProbe` 特性門控的 Kubernetes 叢集，可用的[工具](/zh-cn/docs/tasks/tools/)有很多。
 
 <!--
 Since the feature gate `GRPCContainerProbe` is enabled by default in 1.24,
@@ -149,14 +149,14 @@ So you may just create an 1.24 cluster on platform of your choice. Some vendors
 allow to enable alpha features on 1.23 clusters.
 -->
 由於特性門控 `GRPCContainerProbe` 在 1.24 版本中是默認啓用的，因此許多供應商支持此功能開箱即用。
-因此，你可以在自己選擇的平臺上創建 1.24 版本集羣。一些供應商允許在 1.23 版本集羣上啓用 alpha 特性。
+因此，你可以在自己選擇的平臺上創建 1.24 版本叢集。一些供應商允許在 1.23 版本叢集上啓用 alpha 特性。
 
 <!--
 For example, at the moment of writing, you can spin up the test cluster on GKE for a quick test.
 Other vendors may also have similar capabilities, especially if you
 are reading this blog post long after the Kubernetes 1.24 release.
 -->
-例如，在編寫本文時，你可以在 GKE 上運行測試集羣來進行快速測試。
+例如，在編寫本文時，你可以在 GKE 上運行測試叢集來進行快速測試。
 其他供應商可能也有類似的功能，尤其是當你在 Kubernetes 1.24 版本發佈很久後才閱讀這篇博客時。
 
 <!--
@@ -176,7 +176,7 @@ gcloud container clusters create test-grpc \
 <!--
 You will also need to configure `kubectl` to access the cluster:
 -->
-你還需要配置 kubectl 來訪問集羣：
+你還需要設定 kubectl 來訪問叢集：
 
 ```shell
 gcloud container clusters get-credentials test-grpc
@@ -193,8 +193,8 @@ another - http port to react on commands `make-serving` and `make-not-serving`.
 -->
 ### 試用該功能
 
-讓我們創建 Pod 來測試 gRPC 探針是如何工作的。對於這個測試，我們將使用 `agnhost` 鏡像。
-這是一個 k8s 維護的鏡像，可用於各種工作負載測試。例如，它有一個有用的
+讓我們創建 Pod 來測試 gRPC 探針是如何工作的。對於這個測試，我們將使用 `agnhost` 映像檔。
+這是一個 k8s 維護的映像檔，可用於各種工作負載測試。例如，它有一個有用的
 [grpc-health-checking](https://github.com/kubernetes/kubernetes/blob/b2c5bd2a278288b5ef19e25bf7413ecb872577a4/test/images/agnhost/README.md#grpc-health-checking)
 模塊，該模塊暴露了兩個端口：一個是提供健康檢查服務的端口，另一個是對 `make-serving` 和
 `make-not-serving` 命令做出反應的 http 端口。
@@ -203,7 +203,7 @@ another - http port to react on commands `make-serving` and `make-not-serving`.
 Here is an example pod definition. It starts the `grpc-health-checking` module,
 exposes ports `5000` and `8080`, and configures gRPC readiness probe:
 -->
-下面是一個 Pod 定義示例。它啓用 `grpc-health-checking` 模塊，暴露 5000 和 8080 端口，並配置 gRPC 就緒探針：
+下面是一個 Pod 定義示例。它啓用 `grpc-health-checking` 模塊，暴露 5000 和 8080 端口，並設定 gRPC 就緒探針：
 
 ```yaml
 ---

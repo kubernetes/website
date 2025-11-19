@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/storage/v1"
   kind: "CSIDriver"
 content_type: "api_reference"
-description: "CSIDriver 抓取集羣上部署的容器存儲接口（CSI）卷驅動有關的信息。"
+description: "CSIDriver 抓取叢集上部署的容器存儲接口（CSI）卷驅動有關的信息。"
 title: "CSIDriver"
 weight: 3
 ---
@@ -28,7 +28,7 @@ weight: 3
 <!--
 CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 -->
-CSIDriver 抓取集羣上部署的容器存儲接口（CSI）卷驅動有關的信息。
+CSIDriver 抓取叢集上部署的容器存儲接口（CSI）卷驅動有關的信息。
 Kubernetes 掛接/解除掛接控制器使用此對象來決定是否需要掛接。
 Kubelet 使用此對象決定掛載時是否需要傳遞 Pod 信息。
 CSIDriver 對象未劃分命名空間。
@@ -170,8 +170,8 @@ CSIDriverSpec 是 CSIDriver 的規約。
   “csi.storage.k8s.io/ephemeral” 是 Kubernetes 1.16 中一個新的功能特性。
   只有同時支持 “Persistent” 和 “Ephemeral” VolumeLifecycleMode 的驅動，此字段纔是必需的。
   其他驅動可以保持禁用 Pod 信息或忽略此字段。
-  由於 Kubernetes 1.15 不支持此字段，所以在這類集羣上部署驅動時，只能支持一種模式。
-  該部署就決定了是哪種模式，例如通過驅動的命令行參數。
+  由於 Kubernetes 1.15 不支持此字段，所以在這類叢集上部署驅動時，只能支持一種模式。
+  該部署就決定了是哪種模式，例如通過驅動的命令列參數。
   
   此字段在 Kubernetes 1.29 版本之前不可變更，現在可變更。
 

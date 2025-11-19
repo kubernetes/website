@@ -342,7 +342,7 @@ Issues 通常都可以快速創建並關閉。
 標籤         | 描述
 :------------|:------------------
 `lifecycle/stale` | 過去 90 天內某 Issue 無人問津，會被自動標記爲停滯狀態。如果 Issue 沒有被 `/remove-lifecycle stale` 命令重置生命期，就會被自動關閉。
-`lifecycle/frozen` | 對應的 Issue 即使超過 90 天仍無人處理也不會進入停滯狀態。用戶手動添加此標籤給一些需要保持打開狀態超過 90 天的 Issue，例如那些帶有 `priority/important-longterm` 標籤的 Issue。
+`lifecycle/frozen` | 對應的 Issue 即使超過 90 天仍無人處理也不會進入停滯狀態。使用者手動添加此標籤給一些需要保持打開狀態超過 90 天的 Issue，例如那些帶有 `priority/important-longterm` 標籤的 Issue。
 {{< /table >}}
 
 <!--
@@ -518,7 +518,7 @@ squash for them:
   performs the squash or by clicking the *Squash commits* button when you merge the PR.
 -->
 - kubernetes/website
-  倉庫[被配置爲允許壓縮提交後合併 PR](https://docs.github.com/zh/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests)。
+  倉庫[被設定爲允許壓縮提交後合併 PR](https://docs.github.com/zh/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests)。
   你只需選擇 **Squash commits** 按鈕。
 - 在 PR 中，如果貢獻者允許 Maintainer 們管理 PR，你就可以爲他們壓縮提交併將其 fork 更新爲最新結果。
   在你執行壓縮提交之後，請建議貢獻者將壓縮後的提交拉到他們本地的克隆副本。
@@ -550,5 +550,5 @@ squash for them:
 -->
 **千萬不要壓縮提交**
 
-- 如果你爲新版本發起了一次本地化批量作業或爲新版發佈許多文檔，那你要合併到的分支將與用戶 fork 的分支不同，
+- 如果你爲新版本發起了一次本地化批量作業或爲新版發佈許多文檔，那你要合併到的分支將與使用者 fork 的分支不同，
   這種情況**千萬不要壓縮提交**。之所以不壓縮提交，是因爲你必須保持這些文件的提交歷史記錄。

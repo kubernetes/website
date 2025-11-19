@@ -47,11 +47,11 @@ update instances of your application. Once you've created a Deployment, the Kube
 control plane schedules the application instances included in that Deployment to run
 on individual Nodes in the cluster.
 -->
-一旦[運行了 Kubernetes 集羣](/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)，
+一旦[運行了 Kubernetes 叢集](/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)，
 就可以在其上部署容器化應用。爲此，你需要創建 Kubernetes **Deployment**。
 Deployment 指揮 Kubernetes 如何創建和更新應用的實例。
 創建 Deployment 後，Kubernetes 控制平面將 Deployment
-中包含的應用實例調度到集羣中的各個節點上。
+中包含的應用實例調度到叢集中的各個節點上。
 
 <!--
 Once the application instances are created, a Kubernetes Deployment controller continuously
@@ -61,7 +61,7 @@ in the cluster. **This provides a self-healing mechanism to address machine fail
 or maintenance.**
 -->
 創建應用實例後，Kubernetes Deployment 控制器會持續監視這些實例。
-如果託管實例的節點關閉或被刪除，則 Deployment 控制器會將該實例替換爲集羣中另一個節點上的實例。
+如果託管實例的節點關閉或被刪除，則 Deployment 控制器會將該實例替換爲叢集中另一個節點上的實例。
 **這提供了一種自我修復機制來解決機器故障維護問題。**
 
 <!--
@@ -101,11 +101,11 @@ information later by updating your Deployment; [Module 5](/docs/tutorials/kubern
 and [Module 6](/docs/tutorials/kubernetes-basics/update/update-intro/) of the bootcamp
 discuss how you can scale and update your Deployments.
 -->
-你可以使用 Kubernetes 命令行界面 `kubectl` 創建和管理 Deployment。
-kubectl 使用 Kubernetes API 與集羣進行交互。在本單元中，你將學習創建在 Kubernetes
-集羣上運行應用的 Deployment 所需的最常見的 kubectl 命令。
+你可以使用 Kubernetes 命令列界面 `kubectl` 創建和管理 Deployment。
+kubectl 使用 Kubernetes API 與叢集進行交互。在本單元中，你將學習創建在 Kubernetes
+叢集上運行應用的 Deployment 所需的最常見的 kubectl 命令。
 
-創建 Deployment 時，你需要指定應用的容器鏡像以及要運行的副本數。
+創建 Deployment 時，你需要指定應用的容器映像檔以及要運行的副本數。
 你可以稍後通過更新 Deployment 來更改該信息；
 [模塊 5](/zh-cn/docs/tutorials/kubernetes-basics/scale/scale-intro/)
 和[模塊 6](/zh-cn/docs/tutorials/kubernetes-basics/update/update-intro/)
@@ -160,11 +160,11 @@ To view the nodes in the cluster, run the `kubectl get nodes` command.
 You see the available nodes. Later, Kubernetes will choose where to deploy our
 application based on Node available resources.
 -->
-通過運行 `kubectl version` 命令，查看 kubectl 是否被配置爲與你的集羣通信。
+通過運行 `kubectl version` 命令，查看 kubectl 是否被設定爲與你的叢集通信。
 
-查驗 kubectl 是否已安裝，你能同時看到客戶端和服務器版本。
+查驗 kubectl 是否已安裝，你能同時看到客戶端和伺服器版本。
 
-要查看集羣中的節點，運行 `kubectl get nodes` 命令。
+要查看叢集中的節點，運行 `kubectl get nodes` 命令。
 
 你可以看到可用的節點。稍後 Kubernetes 將根據節點可用的資源選擇在哪裏部署應用。
 
@@ -178,8 +178,8 @@ repository url for images hosted outside Docker Hub).
 ### 部署一個應用
 
 讓我們使用 `kubectl create deployment` 命令在 Kubernetes 上部署第一個應用。
-我們需要提供 Deployment 命令以及應用鏡像位置（包括託管在 Docker Hub
-之外的鏡像的完整倉庫地址）。
+我們需要提供 Deployment 命令以及應用映像檔位置（包括託管在 Docker Hub
+之外的映像檔的完整倉庫地址）。
 
 ```shell
 kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
@@ -198,7 +198,7 @@ To list your deployments use the `kubectl get deployments` command:
 
 * 搜索應用實例可以運行的合適節點（我們只有一個可用的節點）
 * 調度應用在此節點上運行
-* 配置集羣在需要時將實例重新調度到新的節點上
+* 設定叢集在需要時將實例重新調度到新的節點上
 
 要列出你的 Deployment，使用 `kubectl get deployments` 命令：
 
@@ -228,8 +228,8 @@ detail here, it will be covered in later topics.
 ### 查看應用
 
 在 Kubernetes 內運行的 [Pod](/zh-cn/docs/concepts/workloads/pods/) 
-運行在一個私有的、隔離的網絡上。
-默認這些 Pod 可以從同一 Kubernetes 集羣內的其他 Pod 和服務看到，但超出這個網絡後則看不到。
+運行在一個私有的、隔離的網路上。
+默認這些 Pod 可以從同一 Kubernetes 叢集內的其他 Pod 和服務看到，但超出這個網路後則看不到。
 當我們使用 `kubectl` 時，我們通過 API 端點交互與應用進行通信。
 
 <!--
@@ -239,7 +239,7 @@ control-C and won't show any output while it's running.
 
 **You need to open a second terminal window to run the proxy.**
 -->
-`kubectl proxy` 命令可以創建一個代理，將通信轉發到集羣範圍的私有網絡。
+`kubectl proxy` 命令可以創建一個代理，將通信轉發到叢集範圍的私有網路。
 按下 Ctrl-C 此代理可以被終止，且在此代理運行期間不會顯示任何輸出。
 
 **你需要打開第二個終端窗口來運行此代理。**
@@ -255,7 +255,7 @@ The proxy enables direct access to the API from these terminals.
 You can see all those APIs hosted through the proxy endpoint. For example, we can
 query the version directly through the API using the `curl` command:
 -->
-現在我們在主機（終端）和 Kubernetes 集羣之間有一個連接。此代理能夠從這些終端直接訪問 API。
+現在我們在主機（終端）和 Kubernetes 叢集之間有一個連接。此代理能夠從這些終端直接訪問 API。
 
 你可以看到通過代理端點託管的所有 API。
 例如，我們可以使用以下 `curl` 命令直接通過 API 查詢版本：
@@ -278,7 +278,7 @@ pod name, that is also accessible through the proxy.
 
 First we need to get the Pod name, and we'll store it in the environment variable `POD_NAME`.
 -->
-API 服務器將基於也能通過代理訪問的 Pod 名稱爲每個 Pod 自動創建端點。
+API 伺服器將基於也能通過代理訪問的 Pod 名稱爲每個 Pod 自動創建端點。
 
 首先我們需要獲取 Pod 名稱，我們將存儲到環境變量 `POD_NAME` 中：
 

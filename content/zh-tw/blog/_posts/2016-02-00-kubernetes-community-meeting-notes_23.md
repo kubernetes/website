@@ -30,7 +30,7 @@ Kubernetes 貢獻社區會議大多在星期四的 10:00 召開，通過視頻�
 * 記錄員: Rob Hirschfeld
 * 示例 (10 min): [kmachine][1] [Sebastien Goasguen]
     * 開始 :01 視頻介紹
-    * 爲 Kubernetes 創建 Docker tools 的鏡像 （例如 machine,compose 等等）
+    * 爲 Kubernetes 創建 Docker tools 的映像檔 （例如 machine,compose 等等）
     * kmachine （ 它是 Docker Machine的一個分叉, 因此兩者有相同的 endpoints）
 
 

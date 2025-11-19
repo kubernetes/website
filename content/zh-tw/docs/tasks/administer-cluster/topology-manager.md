@@ -97,7 +97,7 @@ resource allocation decisions.
 如果存儲了與預期不符的建議，則該建議的優選字段將被設置爲 false。
 在當前策略中，首選是最窄的優選掩碼。
 所選建議將被存儲爲拓撲管理器的一部分。
-取決於所配置的策略，所選建議可用來決定節點接受或拒絕 Pod。
+取決於所設定的策略，所選建議可用來決定節點接受或拒絕 Pod。
 之後，建議會被存儲在拓撲管理器中，供**建議提供者**在作資源分配決策時使用。
 
 <!--
@@ -165,7 +165,7 @@ enabled and proper CPU Manager policy should be configured on a Node.
 See [Control CPU Management Policies on the Node](/docs/tasks/administer-cluster/cpu-management-policies/).
 -->
 爲了將 Pod 規約中的 CPU 資源與其他請求資源對齊，需要啓用 CPU
-管理器並在節點上配置適當的 CPU 管理器策略。
+管理器並在節點上設定適當的 CPU 管理器策略。
 參見[控制節點上的 CPU 管理策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/)。
 {{< /note >}}
 
@@ -176,7 +176,7 @@ Manager should be enabled and proper Memory Manager policy should be configured 
 [Memory Manager](/docs/tasks/administer-cluster/memory-manager/) documentation.
 -->
 爲了將 Pod 規約中的內存（和 hugepages）資源與所請求的其他資源對齊，需要啓用內存管理器，
-並且在節點配置適當的內存管理器策略。
+並且在節點設定適當的內存管理器策略。
 查看[內存管理器](/zh-cn/docs/tasks/administer-cluster/memory-manager/)文檔。
 {{< /note >}}
 
@@ -200,7 +200,7 @@ Either option can be selected at a time of the kubelet startup, by setting the
 * `pod`
 
 在 kubelet 啓動時，你可以通過在
-[kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中設置
+[kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中設置
 `topologyManagerScope` 來選擇其中任一選項。
 
 <!--
@@ -213,7 +213,7 @@ The `container` scope is used by default. You can also explicitly set the
 ### `container` 作用域 {#container-scope}
 
 默認使用的是 `container` 作用域。
-你也可以在 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中明確將
+你也可以在 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中明確將
 `topologyManagerScope` 設置爲 `container`。
 
 <!--
@@ -241,7 +241,7 @@ To select the `pod` scope, set `topologyManagerScope` in the
 -->
 ### `pod` 作用域 {#pod-scope}
 
-要選擇 `pod` 作用域，在 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中將
+要選擇 `pod` 作用域，在 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中將
 `topologyManagerScope` 設置爲 `pod`。
 
 <!--
@@ -342,7 +342,7 @@ If the Topology Manager is configured with the **pod** scope, the container, whi
 the policy, is reflecting requirements of the entire pod, and thus each container from the pod
 will result with **the same** topology alignment decision.
 -->
-如果拓撲管理器配置使用 **pod** 作用域，
+如果拓撲管理器設定使用 **pod** 作用域，
 那麼在策略評估一個容器時，該容器反映的是整個 Pod 的要求，
 所以該 Pod 裏的每個容器都會應用**相同的**拓撲對齊決策。
 {{< /note >}}
@@ -388,7 +388,7 @@ preferred, the Topology Manager will reject this pod from the node. This will re
 -->
 ### `restricted` 策略 {#policy-restricted}
 
-對於 Pod 中的每個容器，配置了 `restricted` 拓撲管理策略的 kubelet
+對於 Pod 中的每個容器，設定了 `restricted` 拓撲管理策略的 kubelet
 調用每個建議提供者以確定其資源可用性。
 使用此信息，拓撲管理器存儲該容器的首選 NUMA 節點親和性。
 如果親和性不是首選，則拓撲管理器將從節點中拒絕此 Pod。
@@ -423,7 +423,7 @@ admission failure.
 -->
 ### `single-numa-node` 策略 {#policy-single-numa-node}
 
-對於 Pod 中的每個容器，配置了 `single-numa-node` 拓撲管理策略的
+對於 Pod 中的每個容器，設定了 `single-numa-node` 拓撲管理策略的
 kubelet 調用每個建議提供者以確定其資源可用性。
 使用此信息，拓撲管理器確定是否支持單 NUMA 節點親和性。
 如果支持，則拓撲管理器將存儲此信息，然後**建議提供者**可以在做出資源分配決定時使用此信息。

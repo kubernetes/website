@@ -27,7 +27,7 @@ where bottlenecks can be removed to improve overall performance.
 要擴展應用程序並提供可靠的服務，你需要了解應用程序在部署時的行爲。
 你可以通過檢測容器、[Pod](/zh-cn/docs/concepts/workloads/pods)、
 [Service](/zh-cn/docs/concepts/services-networking/service/)
-和整個集羣的特徵來檢查 Kubernetes 集羣中應用程序的性能。
+和整個叢集的特徵來檢查 Kubernetes 叢集中應用程序的性能。
 Kubernetes 在每個級別上提供有關應用程序資源使用情況的詳細信息。
 此信息使你可以評估應用程序的性能，以及在何處可以消除瓶頸以提高整體性能。
 
@@ -38,7 +38,7 @@ In Kubernetes, application monitoring does not depend on a single monitoring sol
 On new clusters, you can use [resource metrics](#resource-metrics-pipeline) or
 [full metrics](#full-metrics-pipeline) pipelines to collect monitoring statistics.
 -->
-在 Kubernetes 中，應用程序監控不依賴單個監控解決方案。在新集羣上，
+在 Kubernetes 中，應用程序監控不依賴單個監控解決方案。在新叢集上，
 你可以使用[資源度量](#resource-metrics-pipeline)或[完整度量](#full-metrics-pipeline)管道來收集監視統計信息。
 
 <!--
@@ -54,7 +54,7 @@ are exposed via the `metrics.k8s.io` API.
 -->
 ## 資源度量管道  {#resource-metrics-pipeline}
 
-資源指標管道提供了一組與集羣組件，例如
+資源指標管道提供了一組與叢集組件，例如
 [Horizontal Pod Autoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 控制器以及 `kubectl top` 實用程序相關的有限度量。
 這些指標是由輕量級的、短期、內存存儲的
@@ -78,7 +78,7 @@ resource usage statistics through the metrics-server Resource Metrics API.
 This API is served at `/metrics/resource/v1beta1` on the kubelet's authenticated and 
 read-only ports. 
 -->
-metrics-server 發現集羣中的所有節點，並且查詢每個節點的
+metrics-server 發現叢集中的所有節點，並且查詢每個節點的
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 以獲取 CPU 和內存使用情況。
 kubelet 充當 Kubernetes 主節點與節點之間的橋樑，管理機器上運行的 Pod 和容器。
@@ -103,8 +103,8 @@ then exposes them to Kubernetes via an adapter by implementing either the
 ## 完整度量管道  {#full-metrics-pipeline}
 
 一個完整度量管道可以讓你訪問更豐富的度量。
-Kubernetes 還可以根據集羣的當前狀態，使用 Pod 水平自動擴縮器等機制，
-通過自動調用擴展或調整集羣來響應這些度量。
+Kubernetes 還可以根據叢集的當前狀態，使用 Pod 水平自動擴縮器等機制，
+通過自動調用擴展或調整叢集來響應這些度量。
 監控管道從 kubelet 獲取度量值，然後通過適配器將它們公開給 Kubernetes，
 方法是實現 `custom.metrics.k8s.io` 或 `external.metrics.k8s.io` API。
 
@@ -130,7 +130,7 @@ or tools that suit your needs. The CNCF landscape for observability and analytic
 mix of open-source software, paid-for software-as-a-service, and other commercial products.
 -->
 如果你瀏覽 [CNCF Landscape](https://landscape.cncf.io/?group=projects-and-products&view-mode=card#observability-and-analysis--monitoring)，
-你可以看到許多監控項目，它們可以用在 Kubernetes 上，**抓取**指標數據並利用這些數據來觀測你的集羣，
+你可以看到許多監控項目，它們可以用在 Kubernetes 上，**抓取**指標數據並利用這些數據來觀測你的叢集，
 選擇哪種工具或哪些工具可以滿足你的需求，這完全取決於你自己。 
 CNCF 的可觀測性和分析景觀包括了各種開源軟件、付費的軟件即服務（SaaS）以及其他混合商業產品。
 

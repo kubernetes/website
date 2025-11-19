@@ -1,5 +1,5 @@
 ---
-title: 升級集羣
+title: 升級叢集
 content_type: task
 weight: 350
 ---
@@ -23,12 +23,12 @@ and on any subsequent changes.
 
 At a high level, the steps you perform are:
 -->
-本頁概述升級 Kubernetes 集羣的步驟。
+本頁概述升級 Kubernetes 叢集的步驟。
 
 Kubernetes 項目建議及時升級到最新的補丁版本，並確保使用受支持的 Kubernetes 版本。
 遵循這一建議有助於保障安全。
 
-升級集羣的方式取決於你最初部署它的方式、以及後續更改它的方式。
+升級叢集的方式取決於你最初部署它的方式、以及後續更改它的方式。
 
 從高層規劃的角度看，要執行的步驟是：
 
@@ -40,7 +40,7 @@ Kubernetes 項目建議及時升級到最新的補丁版本，並確保使用受
   new Kubernetes version
 -->
 - 升級{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}
-- 升級集羣中的節點
+- 升級叢集中的節點
 - 升級 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 之類的客戶端
 - 根據新 Kubernetes 版本帶來的 API 變化，調整清單文件和其他資源
 
@@ -52,10 +52,10 @@ You must have an existing cluster. This page is about upgrading from Kubernetes
 is not currently running Kubernetes {{< skew currentVersionAddMinor -1 >}} then please check
 the documentation for the version of Kubernetes that you plan to upgrade to.
 -->
-你必須有一個集羣。
+你必須有一個叢集。
 本頁內容涉及從 Kubernetes {{< skew currentVersionAddMinor -1 >}}
 升級到 Kubernetes {{< skew currentVersion >}}。
-如果你的集羣未運行 Kubernetes {{< skew currentVersionAddMinor -1 >}}，
+如果你的叢集未運行 Kubernetes {{< skew currentVersionAddMinor -1 >}}，
 那請參考目標 Kubernetes 版本的文檔。
 
 <!--
@@ -73,10 +73,10 @@ for detailed information on how to upgrade the cluster.
 Once you have upgraded the cluster, remember to
 [install the latest version of `kubectl`](/docs/tasks/tools/).
 -->
-如果你的集羣是使用 `kubeadm` 安裝工具部署而來，
-那麼升級集羣的詳細信息，請參閱[升級 kubeadm 集羣](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
+如果你的叢集是使用 `kubeadm` 安裝工具部署而來，
+那麼升級叢集的詳細信息，請參閱[升級 kubeadm 叢集](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 
-升級集羣之後，要記得[安裝最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/)。
+升級叢集之後，要記得[安裝最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/)。
 
 <!--
 ### Manual deployments
@@ -88,7 +88,7 @@ Once you have upgraded the cluster, remember to
 These steps do not account for third-party extensions such as network and storage
 plugins.
 -->
-這些步驟不考慮網絡和存儲插件等第三方擴展。
+這些步驟不考慮網路和存儲插件等第三方擴展。
 {{< /caution >}}
 
 <!--
@@ -118,7 +118,7 @@ kubelet, or upgrade the kubelet on that node and bring the node back into servic
 -->
 現在，你應該[安裝最新版本的 `kubectl`](/zh-cn/docs/tasks/tools/)。
 
-對於集羣中的每個節點，
+對於叢集中的每個節點，
 首先需要[騰空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)節點，
 然後使用一個運行了 kubelet {{< skew currentVersion >}} 版本的新節點替換它；
 或者升級此節點的 kubelet，並使節點恢復服務。
@@ -144,11 +144,11 @@ up steps for maintenance.
 -->
 ### 其他部署方式 {#upgrade-other}
 
-參閱你的集羣部署工具對應的文檔，瞭解用於維護的推薦設置步驟。
+參閱你的叢集部署工具對應的文檔，瞭解用於維護的推薦設置步驟。
 
 ## 升級後的任務 {#post-upgrade-tasks}
 
-### 切換集羣的存儲 API 版本 {#switch-your-clusters-storage-api-version}
+### 切換叢集的存儲 API 版本 {#switch-your-clusters-storage-api-version}
 
 <!--
 The objects that are serialized into etcd for a cluster's internal
@@ -162,11 +162,11 @@ that are no longer decodable or usable by the Kubernetes API server.
 For each affected object, fetch it using the latest supported API and then
 write it back also using the latest supported API.
 -->
-對象序列化到 etcd，是爲了提供集羣中活動 Kubernetes 資源的內部表示法，
+對象序列化到 etcd，是爲了提供叢集中活動 Kubernetes 資源的內部表示法，
 這些對象都使用特定版本的 API 編寫。
 
 當底層的 API 更改時，這些對象可能需要用新 API 重寫。
-如果不能做到這一點，會導致再也不能用 Kubernetes API 服務器解碼、使用該對象。
+如果不能做到這一點，會導致再也不能用 Kubernetes API 伺服器解碼、使用該對象。
 
 對於每個受影響的對象，請使用最新支持的 API 讀取它，然後使用所支持的最新 API 將其寫回。
 
@@ -209,7 +209,7 @@ Refer to [API compatibility](/docs/concepts/extend-kubernetes/compute-storage-ne
 -->
 ### 設備插件   {#device-plugins}
 
-如果你的集羣正在運行設備插件（Device Plugin）並且節點需要升級到具有更新的設備插件（Device Plugin）
+如果你的叢集正在運行設備插件（Device Plugin）並且節點需要升級到具有更新的設備插件（Device Plugin）
 API 版本的 Kubernetes 版本，則必須在升級節點之前升級設備插件以同時支持這兩個插件 API 版本，
 以確保升級過程中設備分配能夠繼續成功完成。
 

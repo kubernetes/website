@@ -40,10 +40,10 @@ While many improvements have been contributed, we highlight key features in this
 -->
 
 **第一天：** [Kubernetes 1.8 的五天](https://kubernetes.io/blog/2017/10/five-days-of-kubernetes-18)
-**第二天：** [kubeadm v1.8 爲 Kubernetes 集羣引入了簡單的升級](https://kubernetes.io/blog/2017/10/kubeadm-v18-released)
+**第二天：** [kubeadm v1.8 爲 Kubernetes 叢集引入了簡單的升級](https://kubernetes.io/blog/2017/10/kubeadm-v18-released)
 **第三天：** [Kubernetes v1.8 回顧：提升一個 Kubernetes 需要一個 Village](https://kubernetes.io/blog/2017/10/it-takes-village-to-raise-kubernetes)
 **第四天：** [使用 RBAC，一般在 Kubernetes v1.8 中提供](https://kubernetes.io/blog/2017/10/using-rbac-generally-available-18)
-**第五天：** [在 Kubernetes 執行網絡策略](https://kubernetes.io/blog/2017/10/enforcing-network-policies-in-kubernetes)
+**第五天：** [在 Kubernetes 執行網路策略](https://kubernetes.io/blog/2017/10/enforcing-network-policies-in-kubernetes)
 
 <!--
 **Connect**

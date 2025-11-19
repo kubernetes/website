@@ -32,5 +32,5 @@ See [logging at node level](/docs/concepts/cluster-administration/logging/#loggi
 for more details.
 -->
 爲 CRI 容器運行時啓用容器日誌輪換。日誌文件的默認最大大小爲 10MB，
-缺省情況下，一個容器允許的最大日誌文件數爲 5。這些值可以在 kubelet 配置中配置。
+缺省情況下，一個容器允許的最大日誌文件數爲 5。這些值可以在 kubelet 設定中設定。
 更多細節請參見[日誌架構](/zh-cn/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)。

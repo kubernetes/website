@@ -52,7 +52,7 @@ who walks us through the various aspects of being a part of the SIG and shares s
 -->
 你是否有興趣瞭解 [SIG Usability](https://github.com/kubernetes/community/tree/master/sig-usability) 做什麼？
 你是否想知道如何參與？那你來對地方了。
-SIG Usability 旨在讓 Kubernetes 更易於觸達新的夥伴，其主要活動是針對社區實施用戶調研。
+SIG Usability 旨在讓 Kubernetes 更易於觸達新的夥伴，其主要活動是針對社區實施使用者調研。
 在本博客中，我們總結了與 Gaby Moreno 的對話，
 他向我們介紹了成爲 SIG 成員的各個方面，並分享了一些關於其他人如何參與的見解。
 
@@ -63,7 +63,7 @@ hybrid cloud technologies like Kubernetes, OpenShift, Terraform, and Cloud Found
 -->
 Gaby 是 SIG Usability 的聯合負責人。
 她在 IBM 擔任產品設計師，
-喜歡研究 Kubernetes、OpenShift、Terraform 和 Cloud Foundry 等開放式混合雲技術的用戶體驗。
+喜歡研究 Kubernetes、OpenShift、Terraform 和 Cloud Foundry 等開放式混合雲技術的使用者體驗。
 
 <!--
 ## A summary of our conversation
@@ -80,16 +80,16 @@ A. SIG Usability at a high level started because there was no dedicated user exp
 The extent of SIG Usability is focussed on the end-client ease of use of the Kubernetes project. 
 The main activity is user research for the community, which includes speaking to Kubernetes users.
 -->
-答：簡單而言，啓動 SIG Usability 的原因是那時 Kubernetes 沒有專門的用戶體驗團隊。
+答：簡單而言，啓動 SIG Usability 的原因是那時 Kubernetes 沒有專門的使用者體驗團隊。
 SIG Usability 的關注領域集中在爲 Kubernetes 項目最終客戶提供的易用性上。
-主要活動是社區的用戶調研，包括對 Kubernetes 用戶宣講。
+主要活動是社區的使用者調研，包括對 Kubernetes 使用者宣講。
 
 <!--
 This covers points like user experience and accessibility. 
 The objectives of the SIG are to guarantee that the Kubernetes project is maximally usable by people of a wide range of foundations and capacities,
 such as incorporating internationalization and ensuring the openness of documentation.
 -->
-所涉及的包括用戶體驗和可訪問性等方面。
+所涉及的包括使用者體驗和可訪問性等方面。
 SIG 的目標是確保 Kubernetes 項目能夠最大限度地被具有各類不同基礎和能力的人使用，
 例如引入文檔的國際化並確保其開放性。
 
@@ -105,14 +105,14 @@ A. There are plenty of territories where new contributors can begin. For example
 <!--
 - User research projects, where people can help understand the usability of the end-user experiences, including error messages, end-to-end tasks, etc.
 -->
-- 用戶研究項目可以讓人們幫助瞭解最終用戶體驗的可用性，包括錯誤消息、端到端任務等。
+- 使用者研究項目可以讓人們幫助瞭解最終使用者體驗的可用性，包括錯誤消息、端到端任務等。
 <!--
 - Accessibility guidelines for Kubernetes community artifacts, examples include: 
 internationalization of documentation, color choices for people with color blindness, ensuring compatibility with screen reader technology,
  user interface design for core components with user interfaces, and more.
 -->
 - Kubernetes 社區組件的可訪問性指南，包括：文檔的國際化、色盲人羣的顏色選擇、
-  確保與屏幕閱讀器技術的兼容性、核心 UI 組件的用戶界面設計等等。
+  確保與屏幕閱讀器技術的兼容性、核心 UI 組件的使用者界面設計等等。
 
 <!--
 ### Q. What do you do to help new contributors get started?
@@ -122,7 +122,7 @@ internationalization of documentation, color choices for people with color blind
 <!--
 A. New contributors can get started by shadowing one of the user interviews, going through user interview transcripts, analyzing them, and designing surveys.
 -->
-答：新的貢獻者們剛開始可以旁觀參與其中一個用戶訪談，瀏覽用戶訪談記錄，分析這些記錄並設計調查過程。
+答：新的貢獻者們剛開始可以旁觀參與其中一個使用者訪談，瀏覽使用者訪談記錄，分析這些記錄並設計調查過程。
 
 <!--
 SIG Usability is also open to new project ideas. 
@@ -154,7 +154,7 @@ One of our goals is to standardize the responses accordingly.
 The ultimate goal is to analyze survey responses for important user stories whose needs aren't being met.
 -->
 我們的目標之一是根據需要對反饋進行標準化。
-最終目標是分析那些需求沒有得到滿足的重要用戶故事的調查反饋。
+最終目標是分析那些需求沒有得到滿足的重要使用者故事的調查反饋。
 
 <!--
 ### Q. Are there any particular skills you’d like to recruit for? What skills are contributors to SIG Usability likely to learn?
@@ -167,7 +167,7 @@ experience with user research, qualitative research, or prior experience with ho
 Quantitative research, like survey design and screening, is also helpful and something that we expect contributors to learn.
 -->
 答：雖然爲 SIG Usability 做貢獻沒有任何先決條件，
-但用戶研究、定性研究的經驗或之前如何進行訪談的經驗將是很好的加分項。
+但使用者研究、定性研究的經驗或之前如何進行訪談的經驗將是很好的加分項。
 定量研究，如調查設計和篩選，也很有幫助，也是我們希望貢獻者學習的東西。
 
 <!--
@@ -200,7 +200,7 @@ We will work with and team up with other SIGs to facilitate engaging with end-us
 and help them integrate accessible design practices into their development practices.
 -->
 答：我們喜歡結識新的貢獻者並幫助他們研究不同的 Kubernetes 項目領域。
-我們將與其他 SIG 合作，以促進與最終用戶的互動，開展調研，並幫助他們將可訪問的設計實踐整合到他們的開發實踐中。
+我們將與其他 SIG 合作，以促進與最終使用者的互動，開展調研，並幫助他們將可訪問的設計實踐整合到他們的開發實踐中。
 
 <!--
 Here are some resources for you to get started:
@@ -229,6 +229,6 @@ what they are trying to achieve, how the project is addressing their needs, and 
 Join the SIG's update to find out about the most recent research results, 
 what the plans are for the forthcoming year, and how to get involved in the upstream usability team as a contributor!
 -->
-SIG Usability 舉辦了一個關於調研 Kubernetes 用戶體驗的 [KubeCon 演講](https://www.youtube.com/watch?v=Byn0N_ZstE0)。
-演講的重點是用戶調研項目的更新，瞭解誰在使用 Kubernetes、他們試圖實現什麼、項目如何滿足他們的需求、以及我們需要改進項目和客戶體驗的地方。
+SIG Usability 舉辦了一個關於調研 Kubernetes 使用者體驗的 [KubeCon 演講](https://www.youtube.com/watch?v=Byn0N_ZstE0)。
+演講的重點是使用者調研項目的更新，瞭解誰在使用 Kubernetes、他們試圖實現什麼、項目如何滿足他們的需求、以及我們需要改進項目和客戶體驗的地方。
 歡迎加入 SIG 的更新，瞭解最新的調研成果、來年的計劃以及如何作爲貢獻者參與上游可用性團隊！

@@ -21,5 +21,5 @@ stages:
 When enabled, the API server will replace the legacy HashMap-based _watch cache_
 with a BTree-based implementation. This replacement may bring performance improvements.
 -->
-啓用後，API 服務器將把傳統的基於 HashMap 的 **監視緩存（watch cache）** 替換爲基於 BTree 的實現。
+啓用後，API 伺服器將把傳統的基於 HashMap 的 **監視緩存（watch cache）** 替換爲基於 BTree 的實現。
 這種替換可能會帶來性能提升。

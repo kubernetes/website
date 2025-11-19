@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/apps/v1"
   kind: "DaemonSet"
 content_type: "api_reference"
-description: "DaemonSet 表示守護進程集的配置。"
+description: "DaemonSet 表示守護進程集的設定。"
 title: "DaemonSet"
 weight: 9
 ---
@@ -31,7 +31,7 @@ DaemonSet represents the configuration of a daemon set.
 -->
 ## DaemonSet {#DaemonSet}
 
-DaemonSet 表示守護進程集的配置。
+DaemonSet 表示守護進程集的設定。
 
 <hr>
 
@@ -101,7 +101,7 @@ DaemonSetSpec 是守護進程集的規約。
 
   描述將要創建的 Pod 的對象。DaemonSet 將在與模板的節點選擇器匹配的每個節點上
   （如果未指定節點選擇器，則在每個節點上）準確創建此 Pod 的副本。`template.spec.restartPolicy`
-  唯一被允許配置的值是 "Always"。更多信息：
+  唯一被允許設定的值是 "Always"。更多信息：
   https://kubernetes.io/zh-cn/concepts/workloads/controllers/replicationcontroller#pod-template
 
 <!--
@@ -160,7 +160,7 @@ DaemonSetSpec 是守護進程集的規約。
 
   - **updateStrategy.rollingUpdate** (RollingUpdateDaemonSet)
 
-    滾動更新配置參數。僅在 type 值爲 "RollingUpdate" 時出現。
+    滾動更新設定參數。僅在 type 值爲 "RollingUpdate" 時出現。
 
     <!--
     <a name="RollingUpdateDaemonSet"></a>

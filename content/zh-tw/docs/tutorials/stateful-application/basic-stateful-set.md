@@ -47,7 +47,7 @@ following Kubernetes concepts:
 * [Cluster DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/)
-* [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 命令行工具
+* [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 命令列工具
 
 {{% include "task-tutorial-prereqs.md" %}}
 <!--
@@ -59,9 +59,9 @@ that doesn't run any real workloads.
 
 It's also useful to read the concept page about [StatefulSets](/docs/concepts/workloads/controllers/statefulset/).
 -->
-你應該配置 `kubectl` 的上下文使用 `default` 命名空間。
-如果你使用的是現有集羣，請確保可以使用該集羣的 `default` 命名空間進行練習。
-理想情況下，在沒有運行任何實際工作負載的集羣中進行練習。
+你應該設定 `kubectl` 的上下文使用 `default` 命名空間。
+如果你使用的是現有叢集，請確保可以使用該叢集的 `default` 命名空間進行練習。
+理想情況下，在沒有運行任何實際工作負載的叢集中進行練習。
 
 閱讀有關 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 的概念頁面也很有用。
@@ -76,9 +76,9 @@ tutorial and
 set up your cluster so that those PersistentVolumes map to the
 PersistentVolumeClaim templates that the StatefulSet defines.
 -->
-本教程假設你的集羣被配置爲動態製備 PersistentVolume 卷，
+本教程假設你的叢集被設定爲動態製備 PersistentVolume 卷，
 且有一個[默認 StorageClass](/zh-cn/docs/concepts/storage/storage-classes/#default-storageclass)。
-如果沒有這樣配置，在開始本教程之前，你需要手動準備 2 個 1 GiB 的存儲卷，
+如果沒有這樣設定，在開始本教程之前，你需要手動準備 2 個 1 GiB 的存儲卷，
 以便這些 PersistentVolume 可以映射到 StatefulSet 定義的 PersistentVolumeClaim 模板。
 {{< /note >}}
 
@@ -176,7 +176,7 @@ statefulset.apps/web created
 The command above creates two Pods, each running an
 [NGINX](https://www.nginx.com) webserver. Get the `nginx` Service...
 -->
-上面的命令創建了兩個 Pod，每個都運行了一個 [NGINX](https://www.nginx.com) Web 服務器。
+上面的命令創建了兩個 Pod，每個都運行了一個 [NGINX](https://www.nginx.com) Web 伺服器。
 獲取 `nginx` Service：
 
 ```shell
@@ -262,7 +262,7 @@ Later in this tutorial you will practice [parallel startup](#parallel-pod-manage
 To configure the integer ordinal assigned to each Pod in a StatefulSet, see
 [Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal).
 -->
-要配置分配給 StatefulSet 中每個 Pod 的整數序號，
+要設定分配給 StatefulSet 中每個 Pod 的整數序號，
 請參閱[起始序號](/zh-cn/docs/concepts/workloads/controllers/statefulset/#start-ordinal)。
 {{< /note >}}
 
@@ -274,7 +274,7 @@ To configure the integer ordinal assigned to each Pod in a StatefulSet, see
 <!--
 Pods in a StatefulSet have a unique ordinal index and a stable network identity.
 -->
-StatefulSet 中的每個 Pod 擁有一個唯一的順序索引和穩定的網絡身份標識。
+StatefulSet 中的每個 Pod 擁有一個唯一的順序索引和穩定的網路身份標識。
 
 <!--
 ### Examining the Pod's ordinal Index
@@ -314,7 +314,7 @@ Pod 名稱的格式爲 `<statefulset 名稱>-<序號索引>`。
 <!--
 ### Using Stable network Identities
 -->
-### 使用穩定的網絡身份標識   {#using-stable-network-identities}
+### 使用穩定的網路身份標識   {#using-stable-network-identities}
 
 <!--
 Each Pod has a stable hostname based on its ordinal index. Use
@@ -341,7 +341,7 @@ addresses:
 -->
 使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run)
 運行一個提供 `nslookup` 命令的容器，該命令來自於 `dnsutils` 包。
-通過對 Pod 的主機名執行 `nslookup`，你可以檢查這些主機名在集羣內部的 DNS 地址：
+通過對 Pod 的主機名執行 `nslookup`，你可以檢查這些主機名在叢集內部的 DNS 地址：
 
 ```shell
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
@@ -456,7 +456,7 @@ web-1     1/1       Running   0         34s
 Use `kubectl exec` and `kubectl run` to view the Pods' hostnames and in-cluster
 DNS entries. First, view the Pods' hostnames:
 -->
-使用 `kubectl exec` 和 `kubectl run` 查看 Pod 的主機名和集羣內部的 DNS 表項。
+使用 `kubectl exec` 和 `kubectl run` 查看 Pod 的主機名和叢集內部的 DNS 表項。
 首先，查看 Pod 的主機名：
 
 ```shell
@@ -526,7 +526,7 @@ other applications to connect to Pods in a StatefulSet by the IP address
 of a particular Pod (it is OK to connect to Pods by resolving their hostname).
 -->
 Pod 的序號、主機名、SRV 條目和記錄名稱沒有改變，但和 Pod 相關聯的 IP 地址可能發生了改變。
-在本教程中使用的集羣中它們就改變了。這就是爲什麼不要在其他應用中使用
+在本教程中使用的叢集中它們就改變了。這就是爲什麼不要在其他應用中使用
 StatefulSet 中特定 Pod 的 IP 地址進行連接，這點很重要
 （可以通過解析 Pod 的主機名來連接到 Pod）。
 
@@ -612,7 +612,7 @@ StatefulSet 控制器創建了兩個
 As the cluster used in this tutorial is configured to dynamically provision PersistentVolumes,
 the PersistentVolumes were created and bound automatically.
 -->
-由於本教程使用的集羣配置爲動態製備
+由於本教程使用的叢集設定爲動態製備
 PersistentVolume 卷，所有的 PersistentVolume 卷都是自動創建和綁定的。
 
 <!--
@@ -621,7 +621,7 @@ The NGINX webserver, by default, serves an index file from
 StatefulSet's `spec` ensures that the `/usr/share/nginx/html` directory is
 backed by a PersistentVolume.
 -->
-NginX Web 服務器默認會加載位於 `/usr/share/nginx/html/index.html` 的 index 文件。
+NginX Web 伺服器默認會加載位於 `/usr/share/nginx/html/index.html` 的 index 文件。
 StatefulSet `spec` 中的 `volumeMounts` 字段保證了 `/usr/share/nginx/html`
 文件夾由一個 PersistentVolume 卷支持。
 
@@ -629,7 +629,7 @@ StatefulSet `spec` 中的 `volumeMounts` 字段保證了 `/usr/share/nginx/html`
 Write the Pods' hostnames to their `index.html` files and verify that the NGINX
 webservers serve the hostnames:
 -->
-將 Pod 的主機名寫入它們的 `index.html` 文件並驗證 NginX Web 服務器使用該主機名提供服務：
+將 Pod 的主機名寫入它們的 `index.html` 文件並驗證 NginX Web 伺服器使用該主機名提供服務：
 
 ```shell
 for i in 0 1; do kubectl exec "web-$i" -- sh -c 'echo "$(hostname)" > /usr/share/nginx/html/index.html'; done
@@ -722,7 +722,7 @@ web-1     1/1       Running   0         34s
 <!--
 Verify the web servers continue to serve their hostnames:
 -->
-驗證所有 Web 服務器在繼續使用它們的主機名提供服務：
+驗證所有 Web 伺服器在繼續使用它們的主機名提供服務：
 
 ```
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
@@ -983,7 +983,7 @@ StatefulSet.
 -->
 StatefulSet 控制器支持自動更新。
 更新策略由 StatefulSet API 對象的 `spec.updateStrategy` 字段決定。這個特性能夠用來更新一個
-StatefulSet 中 Pod 的容器鏡像、資源請求和限制、標籤和註解。
+StatefulSet 中 Pod 的容器映像檔、資源請求和限制、標籤和註解。
 
 <!--
 There are two valid update strategies, `RollingUpdate` (the default) and
@@ -1019,7 +1019,7 @@ First, try a simple rolling update.
 In one terminal window, patch the `web` StatefulSet to change the container
 image again:
 -->
-在一個終端窗口中對 `web` StatefulSet 執行 patch 操作來再次改變容器鏡像：
+在一個終端窗口中對 `web` StatefulSet 執行 patch 操作來再次改變容器映像檔：
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.24"}]'
@@ -1113,7 +1113,7 @@ healthy and the update consistent in the presence of intermittent failures.
 <!--
 Get the Pods to view their container images:
 -->
-獲取 Pod 來查看它們的容器鏡像：
+獲取 Pod 來查看它們的容器映像檔：
 
 ```shell
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
@@ -1127,7 +1127,7 @@ registry.k8s.io/nginx-slim:0.24
 <!--
 All the Pods in the StatefulSet are now running the previous container image.
 -->
-StatefulSet 中的所有 Pod 現在都在運行之前的容器鏡像。
+StatefulSet 中的所有 Pod 現在都在運行之前的容器映像檔。
 
 {{< note >}}
 <!--
@@ -1195,7 +1195,7 @@ statefulset.apps/web patched
 Patch the StatefulSet again to change the container image that this
 StatefulSet uses:
 -->
-再次 Patch StatefulSet 來改變此 StatefulSet 使用的容器鏡像：
+再次 Patch StatefulSet 來改變此 StatefulSet 使用的容器映像檔：
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.21"}]'
@@ -1242,7 +1242,7 @@ web-2     1/1       Running   0         18s
 <!--
 Get the Pod's container image:
 -->
-獲取 Pod 的容器鏡像：
+獲取 Pod 的容器映像檔：
 
 ```shell
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
@@ -1257,7 +1257,7 @@ restored the Pod with the original container image. This is because the
 ordinal of the Pod is less than the `partition` specified by the
 `updateStrategy`.
 -->
-請注意，雖然更新策略是 `RollingUpdate`，StatefulSet 還是會使用原始的容器鏡像恢復 Pod。
+請注意，雖然更新策略是 `RollingUpdate`，StatefulSet 還是會使用原始的容器映像檔恢復 Pod。
 這是因爲 Pod 的序號比 `updateStrategy` 指定的 `partition` 更小。
 
 <!--
@@ -1392,7 +1392,7 @@ web-1     1/1       Running   0         18s
 <!--
 Get the `web-1` Pod's container image:
 -->
-獲取 `web-1` Pod 的容器鏡像：
+獲取 `web-1` Pod 的容器映像檔：
 
 ```shell
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
@@ -1409,9 +1409,9 @@ StatefulSet's `.spec.template` is updated. If a Pod that has an ordinal less
 than the partition is deleted or otherwise terminated, it will be restored to
 its original configuration.
 -->
-`web-1` 被按照原來的配置恢復，因爲 Pod 的序號小於分區。當指定了分區時，如果更新了
+`web-1` 被按照原來的設定恢復，因爲 Pod 的序號小於分區。當指定了分區時，如果更新了
 StatefulSet 的 `.spec.template`，則所有序號大於或等於分區的 Pod 都將被更新。
-如果一個序號小於分區的 Pod 被刪除或者終止，它將被按照原來的配置恢復。
+如果一個序號小於分區的 Pod 被刪除或者終止，它將被按照原來的設定恢復。
 
 <!--
 #### Phased Roll outs
@@ -1483,7 +1483,7 @@ web-0     1/1       Running   0         3s
 <!--
 Get the container image details for the Pods in the StatefulSet:
 -->
-獲取 StatefulSet 中 Pod 的容器鏡像詳細信息：
+獲取 StatefulSet 中 Pod 的容器映像檔詳細信息：
 
 ```shell
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
@@ -1549,7 +1549,7 @@ StatefulSet 同時支持**非級聯**和**級聯**刪除。使用非級聯方式
 Read [Use Cascading Deletion in a Cluster](/docs/tasks/administer-cluster/use-cascading-deletion/)
 to learn about cascading deletion generally.
 -->
-閱讀[在集羣中使用級聯刪除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)，
+閱讀[在叢集中使用級聯刪除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)，
 以瞭解通用的級聯刪除。
 
 <!--
@@ -1724,7 +1724,7 @@ StatefulSet 會接收這個 Pod。由於你重新創建的 StatefulSet 的 `repl
 Now take another look at the contents of the `index.html` file served by the
 Pods' webservers:
 -->
-現在再看看被 Pod 的 Web 服務器加載的 `index.html` 的內容：
+現在再看看被 Pod 的 Web 伺服器加載的 `index.html` 的內容：
 
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
@@ -1976,7 +1976,7 @@ tells you its hostname (because this is a StatefulSet, the hostname for each Pod
 -->
 `Parallel` Pod 管理選項僅影響擴縮容操作的行爲。
 變更操作不受其影響；Kubernetes 仍然按順序推出變更。
-對於本教程，應用本身非常簡單：它是一個告訴你其主機名的網絡服務器（因爲這是一個
+對於本教程，應用本身非常簡單：它是一個告訴你其主機名的網路伺服器（因爲這是一個
 StatefulSet，每個 Pod 的主機名都是不同的且可預測的）。
 
 {{% code_sample file="application/web/web-parallel.yaml" %}}
@@ -2007,7 +2007,7 @@ kubectl get pod -l app=nginx --watch
 <!--
 In another terminal, reconfigure the StatefulSet for `Parallel` Pod management:
 -->
-在另一個終端中，重新配置 StatefulSet 以進行 `Parallel` Pod 管理：
+在另一個終端中，重新設定 StatefulSet 以進行 `Parallel` Pod 管理：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/web/web-parallel.yaml
@@ -2204,5 +2204,5 @@ used in this tutorial.
 Follow the necessary steps, based on your environment, storage configuration,
 and provisioning method, to ensure that all storage is reclaimed.
 -->
-基於你的環境、存儲配置和製備方式，按照必需的步驟保證回收所有的存儲。
+基於你的環境、存儲設定和製備方式，按照必需的步驟保證回收所有的存儲。
 {{< /note >}}

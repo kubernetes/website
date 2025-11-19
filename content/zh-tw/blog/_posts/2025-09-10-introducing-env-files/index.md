@@ -29,8 +29,8 @@ that requires environment variables (such as a license key or a one-time token),
 but you don’t want to hard-code them or mount volumes just to get the job done.
 -->
 Kubernetes 通常使用 ConfigMap 和 Secret 來設置環境變量，
-這會引入額外的 API 調用和複雜性。例如，你需要分別管理工作負載的 Pod 和它們的配置，
-同時還要確保配置和工作負載 Pod 的有序更新。
+這會引入額外的 API 調用和複雜性。例如，你需要分別管理工作負載的 Pod 和它們的設定，
+同時還要確保設定和工作負載 Pod 的有序更新。
 
 另外，你可能在使用一個供應商提供的、需要環境變量（例如許可證密鑰或一次性令牌）的容器，
 但你又不想對這些變量進行硬編碼，或者僅僅爲了完成工作而掛載卷。
@@ -46,7 +46,7 @@ this feature gate allows you to load environment variables directly from a file 
 without actually mounting that file into the container.
 It’s a simple yet elegant solution to some surprisingly common problems.
 -->
-如果你正面對這種情況，現在有一種新的（Alpha）方式來實現。只要你在集羣中啓用了 `EnvFiles`
+如果你正面對這種情況，現在有一種新的（Alpha）方式來實現。只要你在叢集中啓用了 `EnvFiles`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 你就可以告訴 kubelet 從一個卷中加載容器的環境變量（此卷必須是容器所屬的 Pod）。
 這個特性門控允許你直接從 `emptyDir` 卷中的文件加載環境變量，而不需要將該文件實際掛載到容器中。
@@ -135,7 +135,7 @@ against unauthorized access to prevent exposure of confidential information.
 雖然此特性支持處理密鑰或令牌等敏感數據，但需要注意它的實現依賴於掛載到 Pod 的 `emptyDir` 卷。
 具有節點文件系統訪問權限的操作人員因此可以通過 Pod 目錄路徑輕易獲取這些敏感數據。
 
-如果使用此特性存儲密鑰或令牌等敏感數據，確保你的集羣安全策略能夠有效保護節點免受未經授權的訪問，
+如果使用此特性存儲密鑰或令牌等敏感數據，確保你的叢集安全策略能夠有效保護節點免受未經授權的訪問，
 以防止機密信息泄露。
 
 <!--

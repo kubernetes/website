@@ -78,7 +78,7 @@ SIG Testing Tech Lead (for the [E2E framework](https://github.com/kubernetes-sig
 structured logging WG lead.
 -->
 **Patrick:** 你好！我在英特爾的一個團隊中擔任軟件工程師和架構師，專注於開源雲原生項目。
-當我開始學習 Kubernetes 開發存儲驅動時，我最初的問題是“如何在集羣中進行測試以及如何記錄信息？”
+當我開始學習 Kubernetes 開發存儲驅動時，我最初的問題是“如何在叢集中進行測試以及如何記錄信息？”
 這個興趣點引發了各種增強提案，直到我（重新）編寫了足夠多的代碼，也正式擔任了 SIG Testing 技術負責人
 （負責 [E2E 框架](https://github.com/kubernetes-sigs/e2e-framework)）兼結構化日誌工作組負責人。
 
@@ -118,7 +118,7 @@ and other components, then runs tests that are more like E2E tests.
 關於單元測試，意見非常多樣化：一些維護者傾向於只使用 Go 標準庫和手動檢查。
 而其他人使用 stretchr/testify 這類輔助工具包。這種多樣性是可以接受的，因爲單元測試是自包含的：
 貢獻者只需在處理許多不同領域時保持靈活。集成測試介於二者之間，它基於 Go 單元測試，
-但需要複雜的輔助工具包來啓動 API 服務器和其他組件，然後運行更像是 E2E 測試的測試。
+但需要複雜的輔助工具包來啓動 API 伺服器和其他組件，然後運行更像是 E2E 測試的測試。
 
 <!--
 ## Subprojects owned by SIG Testing
@@ -160,7 +160,7 @@ test-infra repo.
 我們的基礎設施包括：
 
 - [Prow](https://docs.prow.k8s.io/)（基於 K8s 的 CI/CD 和 chatops）
-- test-infra 倉庫中用於分類、分析、覆蓋率、Prow/TestGrid 配置生成等的其他工具和實用程序。
+- test-infra 倉庫中用於分類、分析、覆蓋率、Prow/TestGrid 設定生成等的其他工具和實用程序。
 
 <!--
 *If you are willing to learn more and get involved with any of the SIG
@@ -191,10 +191,10 @@ have moved on to other areas or no longer have the time to maintain
 them. We need to grow long-term expertise and owners in those
 subprojects.
 -->
-**Michelle:** Kubernetes 從貢獻者到代碼再到用戶等各方面看都是一個龐大的項目。
+**Michelle:** Kubernetes 從貢獻者到代碼再到使用者等各方面看都是一個龐大的項目。
 測試和基礎設施必須滿足這種規模，跟上 Kubernetes 每個倉庫的所有變化，
 同時儘可能地促進開發、改進和發佈項目，儘管當然我們並不是唯一參與其中的 SIG。
-我認爲另一個挑戰是子項目的人員配置。SIG Testing 有一些已經存在多年的子項目，
+我認爲另一個挑戰是子項目的人員設定。SIG Testing 有一些已經存在多年的子項目，
 但其中許多最初的維護者已經轉到其他領域或者沒有時間繼續維護它們。
 我們需要在這些子項目中培養長期的專業知識和 Owner。
 
@@ -324,7 +324,7 @@ them. [boskos](https://github.com/kubernetes-sigs/boskos#boskos) and
 especially stand out to me, since both are important for testing but
 lack dedicated owners.
 -->
-**Michelle:** 目前有一些子項目沒有人員配置，需要有意願瞭解更多的人蔘與進來。
+**Michelle:** 目前有一些子項目沒有人員設定，需要有意願瞭解更多的人蔘與進來。
 [boskos](https://github.com/kubernetes-sigs/boskos#boskos) 和
 [kubetest2](https://github.com/kubernetes-sigs/kubetest2#kubetest2) 對我來說尤其突出，
 因爲它們對於測試非常重要，但卻缺乏專門的負責人。
@@ -345,7 +345,7 @@ framework or tooling and can outline pain points with clear examples,
 or who can recognize a wider issue in the project and pull data to
 inform solutions for it.
 -->
-**Michelle:** 我認爲具備用戶共情、清晰反饋和識別模式的能力非常有用。
+**Michelle:** 我認爲具備使用者共情、清晰反饋和識別模式的能力非常有用。
 有人使用測試框架或工具，並能用清晰的示例概述痛點，或者能夠識別項目中的更廣泛的問題並提供數據來支持解決方案。
 
 <!--
@@ -385,4 +385,4 @@ Testing community today!
 [Slack 頻道](https://kubernetes.slack.com/messages/sig-testing)與 SIG Testing 的人員取得聯繫，
 或參加他們定期舉行的[每兩週的週二會議](https://github.com/kubernetes/community/tree/master/sig-testing#meetings)。
 如果你有興趣爲社區更輕鬆地運行測試並貢獻測試結果，確保 Kubernetes
-在各種集羣配置和雲驅動中保持穩定，請立即加入 SIG Testing 社區！
+在各種叢集設定和雲驅動中保持穩定，請立即加入 SIG Testing 社區！

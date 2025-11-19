@@ -61,7 +61,7 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
 
     * Rocket 和 docker 之間的主要區別: Rocket 是無守護進程和以 pod 爲中心。。
 
-    * Rocket 具有原生的 AppContainer 格式，但也支持 docker 鏡像格式。
+    * Rocket 具有原生的 AppContainer 格式，但也支持 docker 映像檔格式。
 
     * 可以在同一個 pod 中運行 AppContainer 和 docker 容器。
 

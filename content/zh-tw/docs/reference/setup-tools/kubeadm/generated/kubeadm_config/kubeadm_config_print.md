@@ -1,7 +1,7 @@
 <!--
 Print configuration
 -->
-打印配置
+打印設定
 
 <!--
 ### Synopsis
@@ -12,7 +12,7 @@ Print configuration
 This command prints configurations for subcommands provided.
 For details, see: https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories
 -->
-此命令打印子命令所提供的配置信息。相關細節可參閱：
+此命令打印子命令所提供的設定信息。相關細節可參閱：
 https://pkg.go.dev/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#section-directories
 
 ```
@@ -61,7 +61,7 @@ kubeadm config print [flags]
 <!--
 <p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-<p>與集羣通信時使用的 kubeconfig 文件。如此標誌未設置，將在一組標準位置中搜索現有的 kubeconfig 文件。</p>
+<p>與叢集通信時使用的 kubeconfig 文件。如此標誌未設置，將在一組標準位置中搜索現有的 kubeconfig 文件。</p>
 </td>
 </tr>
 

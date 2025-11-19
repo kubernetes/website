@@ -39,11 +39,11 @@ The [components](/docs/concepts/architecture/#node-components) on a node include
 -->
 Kubernetes 通過將容器放入在節點（Node）上運行的 Pod
 中來執行你的{{< glossary_tooltip text="工作負載" term_id="workload" >}}。
-節點可以是一個虛擬機或者物理機器，取決於所在的集羣配置。
+節點可以是一個虛擬機或者物理機器，取決於所在的叢集設定。
 每個節點包含運行 {{< glossary_tooltip text="Pod" term_id="pod" >}} 所需的服務；
 這些節點由{{< glossary_tooltip text="控制面" term_id="control-plane" >}}負責管理。
 
-通常集羣中會有若干個節點；而在一個學習所用或者資源受限的環境中，你的集羣中也可能只有一個節點。
+通常叢集中會有若干個節點；而在一個學習所用或者資源受限的環境中，你的叢集中也可能只有一個節點。
 
 節點上的[組件](/zh-cn/docs/concepts/architecture/#node-components)包括
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}、
@@ -66,7 +66,7 @@ is valid. For example, if you try to create a Node from the following JSON manif
 -->
 ## 管理  {#management}
 
-向 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}添加節點的方式主要有兩種：
+向 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}添加節點的方式主要有兩種：
 
 1. 節點上的 kubelet 向控制面執行自注冊；
 2. 你（或者別的什麼人）手動添加一個 Node 對象。
@@ -96,9 +96,9 @@ then it is eligible to run a Pod. Otherwise, that node is ignored for any cluste
 until it becomes healthy.
 -->
 Kubernetes 會在內部創建一個 Node 對象作爲節點的表示。Kubernetes 檢查 kubelet
-向 API 服務器註冊節點時使用的 `metadata.name` 字段是否匹配。
+向 API 伺服器註冊節點時使用的 `metadata.name` 字段是否匹配。
 如果節點是健康的（即所有必要的服務都在運行中），則該節點可以用來運行 Pod。
-否則，直到該節點變爲健康之前，所有的集羣活動都會忽略該節點。
+否則，直到該節點變爲健康之前，所有的叢集活動都會忽略該節點。
 
 {{< note >}}
 <!--
@@ -136,9 +136,9 @@ removed from API server first and re-added after the update.
 
 節點的[名稱](/zh-cn/docs/concepts/overview/working-with-objects/names#names)用來標識 Node 對象。
 沒有兩個 Node 可以同時使用相同的名稱。 Kubernetes 還假定名字相同的資源是同一個對象。
-就 Node 而言，隱式假定使用相同名稱的實例會具有相同的狀態（例如網絡配置、根磁盤內容）
+就 Node 而言，隱式假定使用相同名稱的實例會具有相同的狀態（例如網路設定、根磁盤內容）
 和類似節點標籤這類屬性。這可能在節點被更改但其名稱未變時導致系統狀態不一致。
-如果某個 Node 需要被替換或者大量變更，需要從 API 服務器移除現有的 Node 對象，
+如果某個 Node 需要被替換或者大量變更，需要從 API 伺服器移除現有的 Node 對象，
 之後再在更新之後重新將其加入。
 
 <!--
@@ -166,10 +166,10 @@ For self-registration, the kubelet is started with the following options:
 
   No-op if `register-node` is false.
 -->
-- `--kubeconfig` - 用於向 API 服務器執行身份認證所用的憑據的路徑。
+- `--kubeconfig` - 用於向 API 伺服器執行身份認證所用的憑據的路徑。
 - `--cloud-provider` - 與某{{< glossary_tooltip text="雲驅動" term_id="cloud-provider" >}}
   進行通信以讀取與自身相關的元數據的方式。
-- `--register-node` - 自動向 API 服務器註冊。
+- `--register-node` - 自動向 API 伺服器註冊。
 - `--register-with-taints` - 使用所給的{{< glossary_tooltip text="污點" term_id="taint" >}}列表
   （逗號分隔的 `<key>=<value>:<effect>`）註冊節點。當 `register-node` 爲 false 時無效。
 <!--
@@ -184,8 +184,8 @@ For self-registration, the kubelet is started with the following options:
   if the node has no IPv4 addresses then the kubelet uses the node's default IPv6 address.
 -->
 - `--node-ip` - 可選的以英文逗號隔開的節點 IP 地址列表。你只能爲每個地址簇指定一個地址。
-  例如在單協議棧 IPv4 集羣中，需要將此值設置爲 kubelet 應使用的節點 IPv4 地址。
-  參閱[配置 IPv4/IPv6 雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)瞭解運行雙協議棧集羣的詳情。
+  例如在單協議棧 IPv4 叢集中，需要將此值設置爲 kubelet 應使用的節點 IPv4 地址。
+  參閱[設定 IPv4/IPv6 雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)瞭解運行雙協議棧叢集的詳情。
 
   如果你未提供這個參數，kubelet 將使用節點默認的 IPv4 地址（如果有）；
   如果節點沒有 IPv4 地址，則 kubelet 使用節點的默認 IPv6 地址。
@@ -195,9 +195,9 @@ For self-registration, the kubelet is started with the following options:
   [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
 - `--node-status-update-frequency` - Specifies how often kubelet posts its node status to the API server.
 -->
-- `--node-labels` - 在集羣中註冊節點時要添加的{{< glossary_tooltip text="標籤" term_id="label" >}}。
+- `--node-labels` - 在叢集中註冊節點時要添加的{{< glossary_tooltip text="標籤" term_id="label" >}}。
   （參見 [NodeRestriction 准入控制插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)所實施的標籤限制）。
-- `--node-status-update-frequency` - 指定 kubelet 向 API 服務器發送其節點狀態的頻率。
+- `--node-status-update-frequency` - 指定 kubelet 向 API 伺服器發送其節點狀態的頻率。
 
 <!--
 When the [Node authorization mode](/docs/reference/access-authn-authz/node/) and
@@ -216,10 +216,10 @@ the node with the API server. For example, if the kubelet is being restarted wit
 a new set of `--node-labels`, but the same Node name is used, the change will
 not take effect, as labels are only set (or modified) upon Node registration with the API server.
 -->
-正如[節點名稱唯一性](#node-name-uniqueness)一節所述，當 Node 的配置需要被更新時，
-一種好的做法是重新向 API 服務器註冊該節點。例如，如果 kubelet 重啓時其 `--node-labels`
+正如[節點名稱唯一性](#node-name-uniqueness)一節所述，當 Node 的設定需要被更新時，
+一種好的做法是重新向 API 伺服器註冊該節點。例如，如果 kubelet 重啓時其 `--node-labels`
 是新的值集，但同一個 Node 名稱已經被使用，則所作變更不會起作用，
-因爲節點標籤是在 Node 註冊到 API 服務器時完成（或修改）的。
+因爲節點標籤是在 Node 註冊到 API 伺服器時完成（或修改）的。
 
 <!--
 Pods already scheduled on the Node may misbehave or cause issues if the Node
@@ -229,7 +229,7 @@ Pods, that are incompatible with that Pod will be scheduled based on this new
 label. Node re-registration ensures all Pods will be drained and properly
 re-scheduled.
 -->
-如果在 kubelet 重啓期間 Node 配置發生了變化，已經被調度到某 Node 上的 Pod
+如果在 kubelet 重啓期間 Node 設定發生了變化，已經被調度到某 Node 上的 Pod
 可能會出現行爲不正常或者出現其他問題，例如，已經運行的 Pod
 可能通過污點機制設置了與 Node 上新設置的標籤相排斥的規則，也有一些其他 Pod，
 本來與此 Pod 之間存在不兼容的問題，也會因爲新的標籤設置而被調到同一節點。
@@ -358,7 +358,7 @@ For nodes there are two forms of heartbeats:
 -->
 ## 節點心跳  {#node-heartbeats}
 
-Kubernetes 節點發送的心跳幫助你的集羣確定每個節點的可用性，並在檢測到故障時採取行動。
+Kubernetes 節點發送的心跳幫助你的叢集確定每個節點的可用性，並在檢測到故障時採取行動。
 
 對於節點，有兩種形式的心跳：
 
@@ -428,7 +428,7 @@ This period can be configured using the `--node-monitor-period` flag on the
   默認情況下，節點控制器在將節點標記爲 `Unknown` 後等待 5 分鐘提交第一個驅逐請求。
 
 默認情況下，節點控制器每 5 秒檢查一次節點狀態，可以使用 `kube-controller-manager`
-組件上的 `--node-monitor-period` 參數來配置週期。
+組件上的 `--node-monitor-period` 參數來設定週期。
 
 <!--
 ### Rate limits on eviction
@@ -462,7 +462,7 @@ the same time:
 -->
 - 如果不健康節點的比例超過 `--unhealthy-zone-threshold`（默認爲 0.55），
   驅逐速率將會降低。
-- 如果集羣較小（意即小於等於 `--large-cluster-size-threshold` 個節點 - 默認爲 50），
+- 如果叢集較小（意即小於等於 `--large-cluster-size-threshold` 個節點 - 默認爲 50），
   驅逐操作將會停止。
 - 否則驅逐速率將降爲每秒 `--secondary-node-eviction-rate` 個（默認爲 0.01）。
 
@@ -474,7 +474,7 @@ then the eviction mechanism does not take per-zone unavailability into account.
 -->
 在逐個可用區域中實施這些策略的原因是，
 當一個可用區域可能從控制面脫離時其它可用區域可能仍然保持連接。
-如果你的集羣沒有跨越雲服務商的多個可用區域，那（整個集羣）就只有一個可用區域。
+如果你的叢集沒有跨越雲服務商的多個可用區域，那（整個叢集）就只有一個可用區域。
 
 <!--
 A key reason for spreading your nodes across availability zones is so that the
@@ -491,7 +491,7 @@ evict pods from the remaining nodes that are unhealthy or unreachable).
 工作負載可以轉移到健康的可用區域。
 因此，如果一個可用區域中的所有節點都不健康時，節點控制器會以正常的速率
 `--node-eviction-rate` 進行驅逐操作。
-在所有的可用區域都不健康（也即集羣中沒有健康節點）的極端情況下，
+在所有的可用區域都不健康（也即叢集中沒有健康節點）的極端情況下，
 節點控制器將假設控制面與節點間的連接出了某些問題，它將停止所有驅逐動作
 （如果故障後部分節點重新連接，節點控制器會從剩下不健康或者不可達節點中驅逐 Pod）。
 
@@ -586,7 +586,7 @@ Learn more about the following:
   [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   的章節。
 * [節點自動擴縮](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)
-  以管理集羣中節點的數量和規模。
+  以管理叢集中節點的數量和規模。
 * [污點和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 * [節點資源管理器](/zh-cn/docs/concepts/policy/node-resource-managers/)。
 * [Windows 節點的資源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/)。

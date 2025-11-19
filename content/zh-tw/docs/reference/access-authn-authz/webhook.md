@@ -28,18 +28,18 @@ WebHook 是一種 HTTP 回調：某些條件下觸發的 HTTP POST 請求；通�
 When specified, mode `Webhook` causes Kubernetes to query an outside REST
 service when determining user privileges.
 -->
-具體來說，當在判斷用戶權限時，`Webhook` 模式會使 Kubernetes 查詢外部的 REST 服務。
+具體來說，當在判斷使用者權限時，`Webhook` 模式會使 Kubernetes 查詢外部的 REST 服務。
 
 <!--
 ## Configuration File Format
 -->
-## 配置文件格式 {#configuration-file-format}
+## 設定文件格式 {#configuration-file-format}
 
 <!--
 Mode `Webhook` requires a file for HTTP configuration, specify by the
 `--authorization-webhook-config-file=SOME_FILENAME` flag.
 -->
-`Webhook` 模式需要一個 HTTP 配置文件，通過
+`Webhook` 模式需要一個 HTTP 設定文件，通過
 `--authorization-webhook-config-file=SOME_FILENAME` 的參數聲明。
 
 <!--
@@ -47,14 +47,14 @@ The configuration file uses the [kubeconfig](/docs/tasks/access-application-clus
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 -->
-配置文件的格式使用
+設定文件的格式使用
 [kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
-在該文件中，“users” 代表着 API 服務器的 Webhook，而 “cluster” 代表着遠程服務。
+在該文件中，“users” 代表着 API 伺服器的 Webhook，而 “cluster” 代表着遠程服務。
 
 <!--
 A configuration example which uses HTTPS client auth:
 -->
-使用 HTTPS 客戶端認證的配置例子：
+使用 HTTPS 客戶端認證的設定例子：
 
 <!--
 ```yaml
@@ -101,14 +101,14 @@ clusters:
       # 遠程服務的查詢 URL。必須使用 'https'。不可以包含參數。
       server: https://authz.example.com/authorize
 
-# users 代表 API 服務器的 webhook 配置
+# users 代表 API 伺服器的 webhook 配置
 users:
   - name: name-of-api-server
     user:
       client-certificate: /path/to/cert.pem # 要使用的 webhook 插件的證書
       client-key: /path/to/key.pem          # 與證書匹配的密鑰
 
-# kubeconfig 文件必須有 context。需要提供一個給 API 服務器。
+# kubeconfig 文件必須有 context。需要提供一個給 API 伺服器。
 current-context: webhook
 contexts:
 - context:
@@ -129,8 +129,8 @@ action. This object contains fields describing the user attempting to make the
 request, and either details about the resource being accessed or requests
 attributes.
 -->
-在做認證決策時，API 服務器會 POST 一個 JSON 序列化的 `authorization.k8s.io/v1beta1` `SubjectAccessReview`
-對象來描述這個動作。這個對象包含了描述用戶請求的字段，同時也包含了需要被訪問資源或請求特徵的具體信息。
+在做認證決策時，API 伺服器會 POST 一個 JSON 序列化的 `authorization.k8s.io/v1beta1` `SubjectAccessReview`
+對象來描述這個動作。這個對象包含了描述使用者請求的字段，同時也包含了需要被訪問資源或請求特徵的具體信息。
 
 <!--
 Note that webhook API objects are subject to the same [versioning compatibility rules](/docs/concepts/overview/kubernetes-api/)
@@ -142,7 +142,7 @@ enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-confi
 需要注意的是 webhook API 對象與其他 Kubernetes API
 對象一樣都同樣都遵從[版本兼容規則](/zh-cn/docs/concepts/overview/kubernetes-api/)。
 實施人員應該瞭解 beta 對象的更寬鬆的兼容性承諾，同時確認請求的 "apiVersion" 字段能被正確地反序列化。
-此外，API 服務器還必須啓用 `authorization.k8s.io/v1beta1` API
+此外，API 伺服器還必須啓用 `authorization.k8s.io/v1beta1` API
 擴展組 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
 <!--
@@ -201,7 +201,7 @@ If there are no other authorizers, or none of them allow the request, the
 request is forbidden. The webhook would return:
 -->
 在大多數情況下，第一種方法是首選方法，它指示授權 Webhook 不允許或對請求 “無意見”。
-但是，如果配置了其他授權者，則可以給他們機會允許請求。
+但是，如果設定了其他授權者，則可以給他們機會允許請求。
 如果沒有其他授權者，或者沒有一個授權者，則該請求被禁止。Webhook 將返回：
 
 ```json
@@ -221,8 +221,8 @@ configured authorizers. This should only be used by webhooks that have
 detailed knowledge of the full authorizer configuration of the cluster.
 The webhook would return:
 -->
-第二種方法立即拒絕其他配置的授權者進行短路評估。
-僅應由對集羣的完整授權者配置有詳細瞭解的 Webhook 使用。Webhook 將返回：
+第二種方法立即拒絕其他設定的授權者進行短路評估。
+僅應由對叢集的完整授權者設定有詳細瞭解的 Webhook 使用。Webhook 將返回：
 
 ```json
 {
@@ -318,7 +318,7 @@ to the REST api.
 非資源類的路徑包括：`/api`、`/apis`、`/metrics`、`/logs`、`/debug`、
 `/healthz`、`/livez`、`/openapi/v2`、`/readyz`、和 `/version`。
 客戶端需要訪問 `/api`、`/api/*`、`/apis`、`/apis/*` 和 `/version` 以便
-能發現服務器上有什麼資源和版本。對於其他非資源類的路徑訪問在沒有 REST API 訪問限制的情況下拒絕。
+能發現伺服器上有什麼資源和版本。對於其他非資源類的路徑訪問在沒有 REST API 訪問限制的情況下拒絕。
 
 <!--
 For further information, refer to the

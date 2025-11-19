@@ -263,7 +263,7 @@ An example of a published task topic is [Using an HTTP proxy to access the Kuber
 - 在 `overview` 節中，用一個段落爲整個任務主題設定語境；
 - 在 `prerequisites` 節中，儘可能使用項目符號列表。
   額外的環境準備條件要加在 `include` 短代碼之後。
-  默認的環境準備條件是擁有一個在運行的 Kubernetes 集羣。
+  默認的環境準備條件是擁有一個在運行的 Kubernetes 叢集。
 - 在 `steps` 節中，使用編號符號列表。
 - 在 `discussion` 節中，使用正常文字內容來對 `steps` 節中內容展開敘述。
 - 在 `whatsnext` 節中，使用項目符號列表（不超過 5 項），列舉讀者可能接下來有興趣閱讀的主題。
@@ -296,7 +296,7 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 
 教程頁面描述如果完成一個比單一任務規模更大的目標。通常教程頁面會有多個小節，
 每個小節由一系列步驟組成。例如，每個教程可能提供對代碼示例的講解，
-便於用戶瞭解 Kubernetes 的某個功能特性。教程可以包含表面層面的概念解釋，
+便於使用者瞭解 Kubernetes 的某個功能特性。教程可以包含表面層面的概念解釋，
 對於更深層面的概念主題應該使用鏈接。
 
 撰寫新的教程頁面時，在 `/content/en/docs/tutorials` 目錄下面的子目錄中創建新的
@@ -346,7 +346,7 @@ An example of a published tutorial topic is
   額外的環境準備條件要加在已包含的條件之後。
 - 在 `objectives` 節中，使用項目符號列表。
 - 在 `lessoncontent` 節中，結合使用編號符號列表和敘述性文字。
-- 在 `cleanup` 節中，使用編號符號列表來描述任務結束後清理集羣狀態所需要的步驟。
+- 在 `cleanup` 節中，使用編號符號列表來描述任務結束後清理叢集狀態所需要的步驟。
 - 在 `whatsnext` 節中，使用項目符號列表（不超過 5 項），列舉讀者可能接下來有興趣閱讀的主題。
 
 已發佈的教程主題的一個例子是

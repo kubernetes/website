@@ -39,22 +39,22 @@ used to provision volumes for users and administrators, `VolumeSnapshotContent`
 and `VolumeSnapshot` API resources are provided to create volume snapshots for
 users and administrators.
 -->
-與 `PersistentVolume` 和 `PersistentVolumeClaim` 這兩個 API 資源用於給用戶和管理員製備卷類似，
-`VolumeSnapshotContent` 和 `VolumeSnapshot` 這兩個 API 資源用於給用戶和管理員創建卷快照。
+與 `PersistentVolume` 和 `PersistentVolumeClaim` 這兩個 API 資源用於給使用者和管理員製備卷類似，
+`VolumeSnapshotContent` 和 `VolumeSnapshot` 這兩個 API 資源用於給使用者和管理員創建卷快照。
 
 <!--
 A `VolumeSnapshotContent` is a snapshot taken from a volume in the cluster that
 has been provisioned by an administrator. It is a resource in the cluster just
 like a PersistentVolume is a cluster resource.
 -->
-`VolumeSnapshotContent` 是從一個卷獲取的一種快照，該卷由管理員在集羣中進行製備。
-就像持久卷（PersistentVolume）是集羣的資源一樣，它也是集羣中的資源。
+`VolumeSnapshotContent` 是從一個卷獲取的一種快照，該卷由管理員在叢集中進行製備。
+就像持久卷（PersistentVolume）是叢集的資源一樣，它也是叢集中的資源。
 
 <!--
 A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is similar
 to a PersistentVolumeClaim.
 -->
-`VolumeSnapshot` 是用戶對於卷的快照的請求。它類似於持久卷聲明（PersistentVolumeClaim）。
+`VolumeSnapshot` 是使用者對於卷的快照的請求。它類似於持久卷聲明（PersistentVolumeClaim）。
 
 <!--
 `VolumeSnapshotClass` allows you to specify different attributes belonging to a
@@ -71,13 +71,13 @@ contents at a particular point in time without creating an entirely new volume. 
 functionality enables, for example, database administrators to backup databases before
 performing edit or delete modifications.
 -->
-卷快照能力爲 Kubernetes 用戶提供了一種標準的方式來在指定時間點複製卷的內容，並且不需要創建全新的卷。
+卷快照能力爲 Kubernetes 使用者提供了一種標準的方式來在指定時間點複製卷的內容，並且不需要創建全新的卷。
 例如，這一功能使得數據庫管理員能夠在執行編輯或刪除之類的修改之前對數據庫執行備份。
 
 <!--
 Users need to be aware of the following when using this feature:
 -->
-當使用該功能時，用戶需要注意以下幾點：
+當使用該功能時，使用者需要注意以下幾點：
 
 <!--
 - API Objects `VolumeSnapshot`, `VolumeSnapshotContent`, and `VolumeSnapshotClass`
@@ -110,9 +110,9 @@ Users need to be aware of the following when using this feature:
   並且負責創建和刪除 `VolumeSnapshotContent` 對象。
   邊車 csi-snapshotter 監視 `VolumeSnapshotContent` 對象，
   並且觸發針對 CSI 端點的 `CreateSnapshot` 和 `DeleteSnapshot` 的操作。
-- 還有一個驗證性質的 Webhook 服務器，可以對快照對象進行更嚴格的驗證。
+- 還有一個驗證性質的 Webhook 伺服器，可以對快照對象進行更嚴格的驗證。
   Kubernetes 發行版應將其與快照控制器和 CRD（而非 CSI 驅動程序）一起安裝。
-  此服務器應該安裝在所有啓用了快照功能的 Kubernetes 集羣中。
+  此伺服器應該安裝在所有啓用了快照功能的 Kubernetes 叢集中。
 - CSI 驅動可能實現，也可能沒有實現卷快照功能。CSI 驅動可能會使用 csi-snapshotter
   來提供對卷快照的支持。詳見 [CSI 驅動程序文檔](https://kubernetes-csi.github.io/docs/)
 - Kubernetes 負責 CRD 和快照控制器的安裝。
@@ -133,7 +133,7 @@ follow this lifecycle:
 -->
 ## 卷快照和卷快照內容的生命週期 {#lifecycle-of-a-volume-snapshot-and-volume-snapshot-content}
 
-`VolumeSnapshotContents` 是集羣中的資源。`VolumeSnapshots` 是對於這些資源的請求。
+`VolumeSnapshotContents` 是叢集中的資源。`VolumeSnapshots` 是對於這些資源的請求。
 `VolumeSnapshotContents` 和 `VolumeSnapshots` 之間的交互遵循以下生命週期：
 
 <!--
@@ -154,7 +154,7 @@ They exist in the Kubernetes API and are available for consumption.
 -->
 #### 預製備 {#static}
 
-集羣管理員創建多個 `VolumeSnapshotContents`。它們帶有存儲系統上實際卷快照的詳細信息，可以供集羣用戶使用。
+叢集管理員創建多個 `VolumeSnapshotContents`。它們帶有存儲系統上實際卷快照的詳細信息，可以供叢集使用者使用。
 它們存在於 Kubernetes API 中，並且能夠被使用。
 
 <!--
@@ -320,7 +320,7 @@ for creating the `VolumeSnapshotContent` object as follows.
 `volumeHandle` 是存儲後端創建卷的唯一標識符，在卷創建期間由 CSI 驅動程序返回。
 動態設置快照需要此字段。它指出了快照的卷源。
 
-對於預製備快照，你（作爲集羣管理員）要按如下命令來創建 `VolumeSnapshotContent` 對象。
+對於預製備快照，你（作爲叢集管理員）要按如下命令來創建 `VolumeSnapshotContent` 對象。
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1
@@ -362,7 +362,7 @@ when the `VolumeSnapshotContent` is being created as a pre-provisioned snapshot,
 `VolumeSnapshot` referenced in `volumeSnapshotRef` might not exist yet.
 -->
 `volumeSnapshotRef` 字段是對相應的 `VolumeSnapshot` 的引用。
-請注意，當 `VolumeSnapshotContent` 被創建爲預配置快照時。
+請注意，當 `VolumeSnapshotContent` 被創建爲預設定快照時。
 `volumeSnapshotRef` 中引用的 `VolumeSnapshot` 可能還不存在。
 
 <!--
@@ -376,10 +376,10 @@ To check if your cluster has capability for this feature, run the following comm
 -->
 ## 轉換快照的卷模式 {#convert-volume-mode}
 
-如果在你的集羣上安裝的 `VolumeSnapshots` API 支持 `sourceVolumeMode`
-字段，則該 API 可以防止未經授權的用戶轉換卷的模式。
+如果在你的叢集上安裝的 `VolumeSnapshots` API 支持 `sourceVolumeMode`
+字段，則該 API 可以防止未經授權的使用者轉換卷的模式。
 
-要檢查你的集羣是否具有此特性的能力，可以運行如下命令：
+要檢查你的叢集是否具有此特性的能力，可以運行如下命令：
 
 ```shell
 kubectl get crd volumesnapshotcontent -o yaml
@@ -391,7 +391,7 @@ If you want to allow users to create a `PersistentVolumeClaim` from an existing
 `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`needs to be added to
 the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`.
 -->
-如果你希望允許用戶從現有的 `VolumeSnapshot` 創建 `PersistentVolumeClaim`，
+如果你希望允許使用者從現有的 `VolumeSnapshot` 創建 `PersistentVolumeClaim`，
 但是使用與源卷不同的卷模式，則需要添加註解
 `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 到對應 `VolumeSnapshot` 的 `VolumeSnapshotContent` 中。
@@ -402,7 +402,7 @@ by the cluster administrator.
 
 An example `VolumeSnapshotContent` resource with this feature enabled would look like:
 -->
-對於預製備的快照，`spec.sourceVolumeMode` 需要由集羣管理員填充。
+對於預製備的快照，`spec.sourceVolumeMode` 需要由叢集管理員填充。
 
 啓用此特性的 `VolumeSnapshotContent` 資源示例如下所示：
 

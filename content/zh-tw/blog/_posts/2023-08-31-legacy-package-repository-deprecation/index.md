@@ -56,7 +56,7 @@ the repositories as of **September 13, 2023**.
 Please continue reading in order to learn what does this mean for you as an user or
 distributor, and what steps you may need to take.
 -->
-請繼續閱讀以瞭解這對於作爲用戶或分發商的你意味着什麼，
+請繼續閱讀以瞭解這對於作爲使用者或分發商的你意味着什麼，
 以及你可能需要採取哪些步驟。
 
 <!--
@@ -77,9 +77,9 @@ either manually by following the official
 by **using a Kubernetes installer** that's using packages provided by the Kubernetes
 project.
 -->
-## 作爲 Kubernetes 最終用戶，這對我有何影響？ {#how-does-this-affect-me-as-a-kubernetes-end-user}
+## 作爲 Kubernetes 最終使用者，這對我有何影響？ {#how-does-this-affect-me-as-a-kubernetes-end-user}
 
-此更改影響**直接安裝 Kubernetes 的上游版本**的用戶，
+此更改影響**直接安裝 Kubernetes 的上游版本**的使用者，
 無論是按照官方手動[安裝](/zh-cn/docs/setup/生產環境/工具/kubeadm/install-kubeadm/)
 和[升級](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)說明，
 還是通過**使用 Kubernetes 安裝工具**，該安裝工具使用 Kubernetes 項目提供的軟件包。
@@ -119,7 +119,7 @@ If you're managing your clusters on your own by following the official installat
 and upgrade instructions, please follow the instructions in this blog post to migrate
 to the (new) community-owned package repositories.
 -->
-如果你按照官方的安裝和升級說明自己管理你的集羣，
+如果你按照官方的安裝和升級說明自己管理你的叢集，
 請按照本博客文章中的說明遷移到（新的）社區擁有的軟件包倉庫。
 
 <!--
@@ -152,7 +152,7 @@ possible and inform your users about this change and what steps they need to tak
 ## 這對我作爲 Kubernetes 分發商有何影響？  {#how-does-this-affect-me-as-a-kubernetes-distributor}
 
 如果你將舊倉庫用作項目的一部分（例如 Kubernetes 安裝程序工具），
-則應儘快遷移到社區擁有的倉庫，並告知用戶此更改以及他們需要採取哪些步驟。
+則應儘快遷移到社區擁有的倉庫，並告知使用者此更改以及他們需要採取哪些步驟。
 
 <!--
 ## Timeline of changes
@@ -296,11 +296,11 @@ Run these instructions on one of your nodes in the cluster.
 -->
 ## 如何檢查我是否正在使用舊倉庫？ {#check-if-affected}
 
-檢查你是否使用舊倉庫的步驟取決於你在集羣中使用的是基於
+檢查你是否使用舊倉庫的步驟取決於你在叢集中使用的是基於
 Debian 的發行版（Debian、Ubuntu 等）還是基於 RPM
 的發行版（CentOS、RHEL、Rocky Linux 等）。
 
-在集羣中的一個節點上運行以下指令。
+在叢集中的一個節點上運行以下指令。
 <!--
 ### Debian-based Linux distributions
 
@@ -430,8 +430,8 @@ challenging and we want to avoid any potential risks associated with this.
 -->
 ## 有 Kubernetes 工具可以幫助我遷移嗎？ {#is-there-a-kubernetes-tool-to-help-me-migrate}
 
-關於遷移工具方面，我們目前沒有任何公告。作爲 Kubernetes 用戶，
-你必須手動修改配置才能使用新倉庫。自動從舊倉庫遷移到社區擁有的倉庫在技術上具有挑戰性，
+關於遷移工具方面，我們目前沒有任何公告。作爲 Kubernetes 使用者，
+你必須手動修改設定才能使用新倉庫。自動從舊倉庫遷移到社區擁有的倉庫在技術上具有挑戰性，
 我們希望避免與此相關的任何潛在風險。
 
 <!--

@@ -25,9 +25,9 @@ nodes,
 _provided your cluster runs in a supported environment and is configured with
 the correct cloud load balancer provider package_.
 -->
-創建{{< glossary_tooltip text="服務" term_id="service" >}}時，你可以選擇自動創建雲網絡負載均衡器。
-負載均衡器提供外部可訪問的 IP 地址，可將流量發送到集羣節點上的正確端口上
-（**假設集羣在支持的環境中運行，並配置了正確的雲負載均衡器驅動包**）。
+創建{{< glossary_tooltip text="服務" term_id="service" >}}時，你可以選擇自動創建雲網路負載均衡器。
+負載均衡器提供外部可訪問的 IP 地址，可將流量發送到叢集節點上的正確端口上
+（**假設叢集在支持的環境中運行，並設定了正確的雲負載均衡器驅動包**）。
 
 <!--
 You can also use an {{< glossary_tooltip term_id="ingress" >}} in place of Service.
@@ -45,7 +45,7 @@ documentation.
 Your cluster must be running in a cloud or other environment that already has support
 for configuring external load balancers.
 -->
-你的集羣必須在已經支持配置外部負載均衡器的雲或其他環境中運行。
+你的叢集必須在已經支持設定外部負載均衡器的雲或其他環境中運行。
 
 <!-- steps -->
 
@@ -181,7 +181,7 @@ fields can be configured in the `.spec` of the Service:
 ## 保留客戶端源 IP   {#preserving-the-client-source-ip}
 
 默認情況下，目標容器中看到的源 IP 將**不是客戶端的原始源 IP**。
-要啓用保留客戶端 IP，可以在服務的 `.spec` 中配置以下字段：
+要啓用保留客戶端 IP，可以在服務的 `.spec` 中設定以下字段：
 
 <!--
 * `.spec.externalTrafficPolicy` - denotes if this Service desires to route
@@ -192,7 +192,7 @@ fields can be configured in the `.spec` of the Service:
   for LoadBalancer and NodePort type Services, but risks potentially imbalanced
   traffic spreading.
 -->
-* `.spec.externalTrafficPolicy` - 表示此 Service 是否希望將外部流量路由到節點本地或集羣範圍的端點。
+* `.spec.externalTrafficPolicy` - 表示此 Service 是否希望將外部流量路由到節點本地或叢集範圍的端點。
   有兩個可用選項：`Cluster`（默認）和 `Local`。
   `Cluster` 隱藏了客戶端源 IP，可能導致第二跳到另一個節點，但具有良好的整體負載分佈。
   `Local` 保留客戶端源 IP 並避免 LoadBalancer 和 NodePort 類型服務的第二跳，
@@ -210,10 +210,10 @@ fields can be configured in the `.spec` of the Service:
   to `Local`.
 -->
 * `.spec.healthCheckNodePort` - 指定服務的 healthcheck nodePort（數字端口號）。
-  如果你未指定 `healthCheckNodePort`，服務控制器從集羣的 NodePort 範圍內分配一個端口。
-  你可以通過設置 API 服務器的命令行選項 `--service-node-port-range` 來配置上述範圍。
+  如果你未指定 `healthCheckNodePort`，服務控制器從叢集的 NodePort 範圍內分配一個端口。
+  你可以通過設置 API 伺服器的命令列選項 `--service-node-port-range` 來設定上述範圍。
   在服務 `type` 設置爲 LoadBalancer 並且 `externalTrafficPolicy` 設置爲 `Local` 時，
-  Service 將會使用用戶指定的 `healthCheckNodePort` 值（如果你指定了它）。
+  Service 將會使用使用者指定的 `healthCheckNodePort` 值（如果你指定了它）。
 
 <!--
 Setting `externalTrafficPolicy` to Local in the Service manifest
@@ -247,7 +247,7 @@ is unaware of the number of Pods on each node that are used as a target.
 -->
 ### 保留源 IP 時的注意事項和限制   {#caveats-and-limitations-when-preserving-source-ips}
 
-一些雲服務供應商的負載均衡服務不允許你爲每個目標配置不同的權重。
+一些雲服務供應商的負載均衡服務不允許你爲每個目標設定不同的權重。
 
 由於每個目標在向節點發送流量方面的權重相同，因此外部流量不會在不同 Pod 之間平均負載。
 外部負載均衡器不知道每個節點上用作目標的 Pod 數量。
@@ -302,7 +302,7 @@ It is important to note that the datapath for this functionality is provided by 
 -->
 ## 外部負載均衡器供應商   {#external-load-balancer-providers}
 
-請務必注意，此功能的數據路徑由 Kubernetes 集羣外部的負載均衡器提供。
+請務必注意，此功能的數據路徑由 Kubernetes 叢集外部的負載均衡器提供。
 
 <!--
 When the Service `type` is set to LoadBalancer, Kubernetes provides functionality equivalent to `type` equals ClusterIP to pods
@@ -311,7 +311,7 @@ hosting the relevant Kubernetes pods. The Kubernetes control plane automates the
 health checks (if needed), and packet filtering rules (if needed). Once the cloud provider allocates an IP address for the load
 balancer, the control plane looks up that external IP address and populates it into the Service object.
 -->
-當服務 `type` 設置爲 LoadBalancer 時，Kubernetes 向集羣中的 Pod 提供的功能等同於
+當服務 `type` 設置爲 LoadBalancer 時，Kubernetes 向叢集中的 Pod 提供的功能等同於
 `type` 設置爲 ClusterIP，並通過使用託管了相關 Kubernetes Pod 的節點作爲條目對負載均衡器
 （從外部到 Kubernetes）進行編程來擴展它。
 Kubernetes 控制平面自動創建外部負載均衡器、健康檢查（如果需要）和包過濾規則（如果需要）。

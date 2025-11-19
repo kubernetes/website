@@ -40,4 +40,4 @@ to ensure that the configured number of {{< glossary_tooltip term_id="pod" text=
 running in your cluster, based on the spec of that ReplicaSet.
 -->
 像 {{< glossary_tooltip term_id="deployment" >}} 這類工作負載對象利用 ReplicaSet
-基於其規約來確保集羣中運行的 {{< glossary_tooltip term_id="pod" text="Pod" >}} 數量符合配置要求。
+基於其規約來確保叢集中運行的 {{< glossary_tooltip term_id="pod" text="Pod" >}} 數量符合設定要求。

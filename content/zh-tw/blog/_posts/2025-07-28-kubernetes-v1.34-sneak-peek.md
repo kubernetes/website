@@ -60,7 +60,7 @@ request, and use devices like GPUs or custom hardware in your Kubernetes cluster
 ### DRA 核心功能趨向穩定
 
 [動態資源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)（DRA）
-提供了一種靈活的方式來分類、請求和使用集羣中的 GPU 或定製硬件等設備。
+提供了一種靈活的方式來分類、請求和使用叢集中的 GPU 或定製硬件等設備。
 
 <!--
 Since the v1.30 release, DRA has been based around claiming devices using _structured parameters_ that are opaque to the core of Kubernetes.
@@ -84,7 +84,7 @@ This framework provides flexible device filtering using CEL, centralized device 
 
 Once this feature has graduated, the `resource.k8s.io/v1` APIs will be available by default.
 -->
-藉助 DRA，設備驅動和集羣管理員定義可用的設備類。
+藉助 DRA，設備驅動和叢集管理員定義可用的設備類。
 工作負載可以在設備請求中從設備類申領設備。
 Kubernetes 爲每個申領分配匹配的設備，並將相關 Pod 安排到可訪問所分配設備的節點上。
 這種框架提供了使用 CEL 的靈活設備篩選、集中式設備分類和簡化的 Pod 請求等優點。
@@ -99,10 +99,10 @@ This allows the `kubelet` to use these tokens when pulling container images from
 
 That support already exists as alpha, and is tracked as part of [KEP-4412](https://kep.k8s.io/4412).
 -->
-### 使用 ServiceAccount 令牌進行鏡像拉取身份認證
+### 使用 ServiceAccount 令牌進行映像檔拉取身份認證
 
 ServiceAccount 令牌與 kubelet 憑據提供程序集成的特性預計將在 Kubernetes v1.34 中進入 Beta 階段並默認啓用。
-這將允許 kubelet 在從需要身份認證的鏡像倉庫中拉取容器鏡像時使用這些令牌。
+這將允許 kubelet 在從需要身份認證的映像檔倉庫中拉取容器映像檔時使用這些令牌。
 
 此特性已作爲 Alpha 存在，並由 [KEP-4412](https://kep.k8s.io/4412) 跟蹤。
 
@@ -114,11 +114,11 @@ Adopting this new approach reduces security risks, supports workload-level ident
 It brings image pull authentication closer to modern, identity-aware good practice.
 -->
 現有的 Alpha 集成允許 kubelet 使用生命期短、自動輪換的 ServiceAccount 令牌
-（符合 OIDC 標準）來向容器鏡像倉庫進行身份認證。
-每個令牌與一個 Pod 相關聯；整個機制可替代長期存在的鏡像拉取 Secret。
+（符合 OIDC 標準）來向容器映像檔倉庫進行身份認證。
+每個令牌與一個 Pod 相關聯；整個機制可替代長期存在的映像檔拉取 Secret。
 
 採用這一新方式可以降低安全風險、支持工作負載級身份，並減少運維負擔。
-它讓鏡像拉取認證更加貼合現代、具備身份感知的最佳實踐。
+它讓映像檔拉取認證更加貼合現代、具備身份感知的最佳實踐。
 
 <!--
 ### Pod replacement policy for Deployments
@@ -135,7 +135,7 @@ If your cluster has the feature enabled, you'll be able to select one of two pol
 作爲 [KEP-3973](https://kep.k8s.io/3973) 的一部分，`.spec.podReplacementPolicy`
 字段將以 Alpha 形式引入到 Deployment 中。
 
-如果你的集羣啓用了此特性，你可以選擇以下兩種策略之一：
+如果你的叢集啓用了此特性，你可以選擇以下兩種策略之一：
 
 <!--
 `TerminationStarted`
@@ -157,9 +157,9 @@ It's beneficial when working in clusters with tight resource constraints or with
 It's expected to be available as an alpha feature and can be enabled using the `DeploymentPodReplacementPolicy` and `DeploymentReplicaSetTerminatingReplicas` feature gates in the API server and kube-controller-manager.
 -->
 此特性通過讓你選擇更新或擴縮容期間何時創建新 Pod，從而使 Deployment 行爲更可控。
-在資源受限的集羣或終止時間較長的工作負載中尤爲有用。
+在資源受限的叢集或終止時間較長的工作負載中尤爲有用。
 
-預計此特性將作爲 Alpha 特性推出，並可通過在 API 服務器和 kube-controller-manager 中啓用
+預計此特性將作爲 Alpha 特性推出，並可通過在 API 伺服器和 kube-controller-manager 中啓用
 `DeploymentPodReplacementPolicy` 和 `DeploymentReplicaSetTerminatingReplicas` 特性門控啓用。
 
 <!--
@@ -168,7 +168,7 @@ It's expected to be available as an alpha feature and can be enabled using the `
 To address the longstanding challenge of debugging node-level issues by correlating disconnected logs, 
 [KEP-2831](https://kep.k8s.io/2831) provides deep, contextual insights into the `kubelet`.
 -->
-### kubelet 和 API 服務器的生產級追蹤特性
+### kubelet 和 API 伺服器的生產級追蹤特性
 
 爲了解決通過日誌關聯進行節點級調試的長期難題，
 [KEP-2831](https://kep.k8s.io/2831) 爲 kubelet 提供了深度上下文可視化能力。
@@ -191,14 +191,14 @@ Both enhancements were promoted to beta together in the v1.27 release.
 Looking forward, Kubelet Tracing ([KEP-2831](https://kep.k8s.io/2831)) and API Server Tracing ([KEP-647](https://kep.k8s.io/647)) are now targeting graduation to stable in the upcoming v1.34 release.
 -->
 這一工作得到了另一個增強提案 [KEP-647](https://kep.k8s.io/647) 的配合，
-後者爲 Kubernetes API 服務器引入了相同的鏈路追蹤能力。
+後者爲 Kubernetes API 伺服器引入了相同的鏈路追蹤能力。
 兩者結合提供了從控制面到節點的端到端事件視圖，極大簡化了定位延遲和錯誤的過程。
 這些特性已在 Kubernetes 正式版本發佈流程中逐漸成熟：  
 [KEP-2831](https://kep.k8s.io/2831) 在 v1.25 中以 Alpha 發佈，
 [KEP-647](https://kep.k8s.io/647) 在 v1.22 中首次作爲 Alpha 發佈，
 這兩個特性在 v1.27 中一起進階至 Beta。
 展望未來，kubelet 追蹤（[KEP-2831](https://kep.k8s.io/2831)）和
-API 服務器追蹤（[KEP-647](https://kep.k8s.io/647)）計劃在 v1.34 中進入穩定階段。
+API 伺服器追蹤（[KEP-647](https://kep.k8s.io/647)）計劃在 v1.34 中進入穩定階段。
 
 <!--
 ### `PreferSameZone` and `PreferSameNode` traffic distribution for Services
@@ -208,7 +208,7 @@ The `spec.trafficDistribution` field within a Kubernetes [Service](/docs/concept
 ### Service 的 `PreferSameZone` 和 `PreferSameNode` 流量分發
 
 Kubernetes [Service](/zh-cn/docs/concepts/services-networking/service/) 的
-`spec.trafficDistribution` 字段允許用戶表達服務端點的流量路由偏好。
+`spec.trafficDistribution` 字段允許使用者表達服務端點的流量路由偏好。
 
 <!--
 [KEP-3015](https://kep.k8s.io/3015) deprecates `PreferClose` and introduces two additional values: `PreferSameZone` and `PreferSameNode`. 
@@ -305,10 +305,10 @@ The enhancement adds an optional `tolerance` field to the HPA's `spec.behavior.s
 enabling different tolerance values for scale-up and scale-down operations, 
 which is particularly valuable since scale-up responsiveness is typically more critical than scale-down speed for handling traffic surges.
 -->
-### HPA 支持精細化自動擴縮控制容忍度配置
+### HPA 支持精細化自動擴縮控制容忍度設定
 
-[KEP-4951](https://kep.k8s.io/4951) 引入了一項新特性，允許用戶在每個 HPA 上配置擴縮容忍度，
-以覆蓋默認的集羣級 10% 容忍度設置，這一默認值對多樣化的工作負載來說往往過於粗略。
+[KEP-4951](https://kep.k8s.io/4951) 引入了一項新特性，允許使用者在每個 HPA 上設定擴縮容忍度，
+以覆蓋默認的叢集級 10% 容忍度設置，這一默認值對多樣化的工作負載來說往往過於粗略。
 本次增強爲 HPA 的 `spec.behavior.scaleUp` 和 `spec.behavior.scaleDown` 部分新增了可選的 `tolerance` 字段，
 使得擴容和縮容操作可以採用不同的容忍值。
 這非常有用，因爲在應對突發流量時，擴容響應通常比縮容速度更爲關鍵。
@@ -323,7 +323,7 @@ responsive and conservative scaling behaviors.
 此特性作爲 Alpha 特性，在 Kubernetes v1.33 中引入，並受 `HPAConfigurableTolerance` 特性門控控制。
 預計將在 v1.34 中進階爲 Beta。
 這項改進有助於解決大規模部署中的擴縮容難題，例如在縮容時，10% 的容忍度可能意味着會保留數百個不必要的 Pod。
-通過這一更靈活的配置方式，用戶可以針對不同工作負載優化擴縮容行爲的響應性和保守性。
+通過這一更靈活的設定方式，使用者可以針對不同工作負載優化擴縮容行爲的響應性和保守性。
 
 <!--
 ## Want to know more?

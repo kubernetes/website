@@ -64,7 +64,7 @@ certs                        生成證書
   /front-proxy-ca              生成前端代理自簽名 CA（擴展apiserver）
   /front-proxy-client          生成前端代理客戶端的證書（擴展 apiserver）
   /etcd-ca                     生成 etcd 自簽名 CA
-  /etcd-server                 生成 etcd 服務器證書
+  /etcd-server                 生成 etcd 伺服器證書
   /etcd-peer                   生成 etcd 節點相互通信的證書
   /etcd-healthcheck-client     生成 etcd 健康檢查的證書
   /apiserver-etcd-client       生成 apiserver 訪問 etcd 的證書
@@ -121,7 +121,7 @@ kubeadm init [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認網絡接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認網路接口。
 </p>
 </td>
 </tr>
@@ -140,7 +140,7 @@ API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，則使
 <!--
 Port for the API Server to bind to.
 -->
-API 服務器綁定的端口。
+API 伺服器綁定的端口。
 </p>
 </td>
 </tr>
@@ -203,7 +203,7 @@ Key used to encrypt the control-plane certificates in the kubeadm-certs Secret. 
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -320,7 +320,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇用於拉取控制平面鏡像的容器倉庫。
+選擇用於拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>
@@ -391,7 +391,7 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
-指明 Pod 網絡可以使用的 IP 地址段。如果設置了這個參數，
+指明 Pod 網路可以使用的 IP 地址段。如果設置了這個參數，
 控制平面將會爲每一個節點自動分配 CIDR。
 </p>
 </td>

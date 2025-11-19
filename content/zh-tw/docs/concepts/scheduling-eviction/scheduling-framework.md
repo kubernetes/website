@@ -62,7 +62,7 @@ The scheduling cycle selects a node for the Pod, and the binding cycle applies
 that decision to the cluster. Together, a scheduling cycle and binding cycle are
 referred to as a "scheduling context".
 -->
-調度週期爲 Pod 選擇一個節點，綁定週期將該決策應用於集羣。
+調度週期爲 Pod 選擇一個節點，綁定週期將該決策應用於叢集。
 調度週期和綁定週期一起被稱爲“調度上下文”。
 
 <!--
@@ -99,7 +99,7 @@ stateful tasks.
 Some interfaces match the scheduler extension points which can be configured through
 [Scheduler Configuration](/docs/reference/scheduling/config/#extension-points).
 -->
-某些接口與可以通過[調度器配置](/zh-cn/docs/reference/scheduling/config/#extension-points)來設置的調度器擴展點匹配。
+某些接口與可以通過[調度器設定](/zh-cn/docs/reference/scheduling/config/#extension-points)來設置的調度器擴展點匹配。
 
 <!--
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" class="diagram-large">}}
@@ -136,7 +136,7 @@ EnqueueExtension is the interface where the plugin can control
 whether to retry scheduling of Pods rejected by this plugin, based on changes in the cluster.
 Plugins that implement PreEnqueue, PreFilter, Filter, Reserve or Permit should implement this interface.
 -->
-EnqueueExtension 作爲一個接口，插件可以在此接口之上根據集羣中的變化來控制是否重新嘗試調度被此插件拒絕的
+EnqueueExtension 作爲一個接口，插件可以在此接口之上根據叢集中的變化來控制是否重新嘗試調度被此插件拒絕的
 Pod。實現 PreEnqueue、PreFilter、Filter、Reserve 或 Permit 的插件應實現此接口。
 
 ### QueueingHint
@@ -151,7 +151,7 @@ the Pod is put into the active queue or the backoff queue
 so that the scheduler will retry the scheduling of the Pod.
 -->
 QueueingHint 作爲一個回調函數，用於決定是否將 Pod 重新排隊到活躍隊列或回退隊列。
-每當集羣中發生某種事件或變化時，此函數就會被執行。
+每當叢集中發生某種事件或變化時，此函數就會被執行。
 當 QueueingHint 發現事件可能使 Pod 可調度時，Pod 將被放入活躍隊列或回退隊列，
 以便調度器可以重新嘗試調度 Pod。
 
@@ -179,7 +179,7 @@ These plugins are used to pre-process info about the Pod, or to check certain
 conditions that the cluster or the Pod must meet. If a PreFilter plugin returns
 an error, the scheduling cycle is aborted.
 -->
-這些插件用於預處理 Pod 的相關信息，或者檢查集羣或 Pod 必須滿足的某些條件。
+這些插件用於預處理 Pod 的相關信息，或者檢查叢集或 Pod 必須滿足的某些條件。
 如果 PreFilter 插件返回錯誤，則調度週期將終止。
 
 <!--
@@ -194,7 +194,7 @@ filter plugin marks the node as infeasible, the remaining plugins will not be
 called for that node. Nodes may be evaluated concurrently.
 -->
 這些插件用於過濾出不能運行該 Pod 的節點。對於每個節點，
-調度器將按照其配置順序調用這些過濾插件。如果任何過濾插件將節點標記爲不可行，
+調度器將按照其設定順序調用這些過濾插件。如果任何過濾插件將節點標記爲不可行，
 則不會爲該節點調用剩下的過濾插件。節點可以被同時進行評估。
 
 <!--
@@ -210,7 +210,7 @@ will not be called. A typical PostFilter implementation is preemption, which
 tries to make the pod schedulable by preempting other Pods.
 -->
 這些插件在 Filter 階段後調用，但僅在該 Pod 沒有可行的節點時調用。
-插件按其配置的順序調用。如果任何 PostFilter 插件標記節點爲 "Schedulable"，
+插件按其設定的順序調用。如果任何 PostFilter 插件標記節點爲 "Schedulable"，
 則其餘的插件不會調用。典型的 PostFilter 實現是搶佔，試圖通過搶佔其他 Pod
 的資源使該 Pod 可以調度。
 
@@ -242,7 +242,7 @@ scores from all plugins according to the configured plugin weights.
 這些插件用於對通過過濾階段的節點進行排序。調度器將爲每個節點調用每個評分插件。
 將有一個定義明確的整數範圍，代表最小和最大分數。
 在[標準化評分](#normalize-scoring)階段之後，
-調度器將根據配置的插件權重合並所有插件的節點分數。
+調度器將根據設定的插件權重合並所有插件的節點分數。
 
 <!--
 #### Capacity scoring {#scoring-capacity}
@@ -455,7 +455,7 @@ example, a pre-bind plugin may provision a network volume and mount it on the
 target node before allowing the Pod to run there.
 -->
 這些插件用於執行 Pod 綁定前所需的所有工作。
-例如，一個 PreBind 插件可能需要製備網絡卷並且在允許 Pod
+例如，一個 PreBind 插件可能需要製備網路卷並且在允許 Pod
 運行在該節點之前將其掛載到目標節點上。
 
 <!--
@@ -477,7 +477,7 @@ Pod. If a bind plugin chooses to handle a Pod, **the remaining bind plugins are
 skipped**.
 -->
 Bind 插件用於將 Pod 綁定到節點上。直到所有的 PreBind 插件都完成，Bind 插件纔會被調用。
-各 Bind 插件按照配置順序被調用。Bind 插件可以選擇是否處理指定的 Pod。
+各 Bind 插件按照設定順序被調用。Bind 插件可以選擇是否處理指定的 Pod。
 如果某 Bind 插件選擇處理某 Pod，**剩餘的 Bind 插件將被跳過**。
 
 <!--
@@ -503,7 +503,7 @@ There are two steps to the plugin API. First, plugins must register and get
 configured, then they use the extension point interfaces. Extension point
 interfaces have the following form.
 -->
-插件 API 分爲兩個步驟。首先，插件必須完成註冊並配置，然後才能使用擴展點接口。
+插件 API 分爲兩個步驟。首先，插件必須完成註冊並設定，然後才能使用擴展點接口。
 擴展點接口具有以下形式。
 
 ```go
@@ -527,7 +527,7 @@ type PreFilterPlugin interface {
 <!--
 ## Plugin configuration
 -->
-## 插件配置   {#plugin-configuration}
+## 插件設定   {#plugin-configuration}
 
 <!--
 You can enable or disable plugins in the scheduler configuration. If you are using
@@ -535,7 +535,7 @@ Kubernetes v1.18 or later, most scheduling
 [plugins](/docs/reference/scheduling/config/#scheduling-plugins) are in use and
 enabled by default.
 -->
-你可以在調度器配置中啓用或禁用插件。
+你可以在調度器設定中啓用或禁用插件。
 如果你在使用 Kubernetes v1.18 或更高版本，
 大部分調度[插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)都在使用中且默認啓用。
 
@@ -544,7 +544,7 @@ In addition to default plugins, you can also implement your own scheduling
 plugins and get them configured along with default plugins. You can visit
 [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins) for more details.
 -->
-除了默認的插件，你還可以實現自己的調度插件並且將它們與默認插件一起配置。
+除了默認的插件，你還可以實現自己的調度插件並且將它們與默認插件一起設定。
 你可以訪問 [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins)
 瞭解更多信息。
 
@@ -553,6 +553,6 @@ If you are using Kubernetes v1.18 or later, you can configure a set of plugins a
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
 Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-profiles).
 -->
-如果你正在使用 Kubernetes v1.18 或更高版本，你可以將一組插件設置爲一個調度器配置文件，
-然後定義不同的配置文件來滿足各類工作負載。
-瞭解更多關於[多配置文件](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)。
+如果你正在使用 Kubernetes v1.18 或更高版本，你可以將一組插件設置爲一個調度器設定文件，
+然後定義不同的設定文件來滿足各類工作負載。
+瞭解更多關於[多設定文件](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)。

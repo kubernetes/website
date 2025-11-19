@@ -15,7 +15,7 @@ spec:
     app: mysql
 ---
 # 用於連接到任一 MySQL 實例執行讀操作的客戶端服務
-# 對於寫操作，你必須連接到主服務器：mysql-0.mysql
+# 對於寫操作，你必須連接到主伺服器：mysql-0.mysql
 apiVersion: v1
 kind: Service
 metadata:

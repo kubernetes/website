@@ -64,7 +64,7 @@ Kubernetes 爲自動化而生。無需任何修改，你即可以從 Kubernetes 
 
 Kubernetes 的 {{< glossary_tooltip text="Operator 模式" term_id="operator-pattern" >}}概念允許你在不修改
 Kubernetes 自身代碼的情況下，
-通過爲一個或多個自定義資源關聯{{< glossary_tooltip text="控制器" term_id="controller" >}}來擴展集羣的能力。
+通過爲一個或多個自定義資源關聯{{< glossary_tooltip text="控制器" term_id="controller" >}}來擴展叢集的能力。
 Operator 是 Kubernetes API 的客戶端，
 充當[自定義資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)的控制器。
 
@@ -89,9 +89,9 @@ Some of the things that you can use an operator to automate include:
 
 * 按需部署應用
 * 獲取/還原應用狀態的備份
-* 處理應用代碼的升級以及相關改動。例如數據庫 Schema 或額外的配置設置
+* 處理應用代碼的升級以及相關改動。例如數據庫 Schema 或額外的設定設置
 * 發佈一個 Service，要求不支持 Kubernetes API 的應用也能發現它
-* 模擬整個或部分集羣中的故障以測試其穩定性
+* 模擬整個或部分叢集中的故障以測試其穩定性
 * 在沒有內部成員選舉程序的情況下，爲分佈式應用選擇首領角色
 
 <!--
@@ -121,13 +121,13 @@ What might an operator look like in more detail? Here's an example:
 -->
 想要更詳細的瞭解 Operator？下面是一個示例：
 
-1. 有一個名爲 SampleDB 的自定義資源，你可以將其配置到集羣中。
+1. 有一個名爲 SampleDB 的自定義資源，你可以將其設定到叢集中。
 2. 一個包含 Operator 控制器部分的 Deployment，用來確保 Pod 處於運行狀態。
-3. Operator 代碼的容器鏡像。
-4. 控制器代碼，負責查詢控制平面以找出已配置的 SampleDB 資源。
-5. Operator 的核心是告訴 API 服務器，如何使現實與代碼裏配置的資源匹配。
+3. Operator 代碼的容器映像檔。
+4. 控制器代碼，負責查詢控制平面以找出已設定的 SampleDB 資源。
+5. Operator 的核心是告訴 API 伺服器，如何使現實與代碼裏設定的資源匹配。
    * 如果添加新的 SampleDB，Operator 將設置 PersistentVolumeClaims 以提供持久化的數據庫存儲，
-     設置 StatefulSet 以運行 SampleDB，並設置 Job 來處理初始配置。
+     設置 StatefulSet 以運行 SampleDB，並設置 Job 來處理初始設定。
    * 如果你刪除它，Operator 將建立快照，然後確保 StatefulSet 和 Volume 已被刪除。
 6. Operator 也可以管理常規數據庫的備份。對於每個 SampleDB 資源，Operator
    會確定何時創建（可以連接到數據庫並進行備份的）Pod。這些 Pod 將依賴於
@@ -148,9 +148,9 @@ For example, you can run the controller in your cluster as a Deployment.
 -->
 ## 部署 Operator {#deploying-operators}
 
-部署 Operator 最常見的方法是將自定義資源及其關聯的控制器添加到你的集羣中。
+部署 Operator 最常見的方法是將自定義資源及其關聯的控制器添加到你的叢集中。
 跟運行容器化應用一樣，控制器通常會運行在{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}之外。
-例如，你可以在集羣中將控制器作爲 Deployment 運行。
+例如，你可以在叢集中將控制器作爲 Deployment 運行。
 
 <!--
 ## Using an operator {#using-operators}

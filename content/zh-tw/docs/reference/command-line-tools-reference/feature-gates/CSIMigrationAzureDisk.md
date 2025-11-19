@@ -37,7 +37,7 @@ operations, for those the CSI plugin must be installed and configured.
 Requires CSIMigration feature flag enabled.
 -->
 啓用封裝和轉換邏輯，將卷操作從 AzureDisk 內嵌插件路由到 Azure 磁盤 CSI 插件。
-對於禁用了此特性的節點或者沒有安裝並配置 AzureDisk CSI 插件的節點，
+對於禁用了此特性的節點或者沒有安裝並設定 AzureDisk CSI 插件的節點，
 支持回退到內嵌（in-tree）AzureDisk 插件來執行磁盤掛載操作。
-不支持回退到內嵌插件來執行磁盤製備操作，因爲對應的 CSI 插件必須已安裝且正確配置。
+不支持回退到內嵌插件來執行磁盤製備操作，因爲對應的 CSI 插件必須已安裝且正確設定。
 此特性需要啓用 CSIMigration 特性標誌。

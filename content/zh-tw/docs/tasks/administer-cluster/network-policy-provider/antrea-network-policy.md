@@ -25,7 +25,7 @@ For background on Project Antrea, read the [Introduction to Antrea](https://antr
 You need to have a Kubernetes cluster. Follow the
 [kubeadm getting started guide](/docs/reference/setup-tools/kubeadm/) to bootstrap one.
 -->
-你需要擁有一個 kuernetes 集羣。
+你需要擁有一個 kuernetes 叢集。
 遵循 [kubeadm 入門指南](/zh-cn/docs/reference/setup-tools/kubeadm/)自行創建一個。
 
 <!-- steps -->
@@ -44,6 +44,6 @@ Follow [Getting Started](https://github.com/vmware-tanzu/antrea/blob/main/docs/g
 <!--
 Once your cluster is running, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 -->
-一旦你的集羣已經運行，你可以遵循 
-[聲明網絡策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
+一旦你的叢集已經運行，你可以遵循 
+[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
 來嘗試 Kubernetes NetworkPolicy。

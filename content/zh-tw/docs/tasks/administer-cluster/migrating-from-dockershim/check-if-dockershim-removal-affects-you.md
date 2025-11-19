@@ -28,7 +28,7 @@ This page explains how your cluster could be using Docker as a container runtime
 provides details on the role that `dockershim` plays when in use, and shows steps
 you can take to check whether any workloads could be affected by `dockershim` removal.
 -->
-本頁講解你的集羣把 Docker 用作容器運行時的運作機制，
+本頁講解你的叢集把 Docker 用作容器運行時的運作機制，
 並提供使用 `dockershim` 時，它所扮演角色的詳細信息，
 繼而展示了一組操作，可用來檢查移除 `dockershim` 對你的工作負載是否有影響。
 
@@ -67,10 +67,10 @@ dependency on Docker:
    - Monitoring and security agents installed on nodes directly.
 -->
 1. 確認沒有特權 Pod 執行 Docker 命令（如 `docker ps`）、重新啓動 Docker
-   服務（如 `systemctl restart docker.service`）或修改 Docker 配置文件
+   服務（如 `systemctl restart docker.service`）或修改 Docker 設定文件
    `/etc/docker/daemon.json`。
-2. 檢查 Docker 配置文件（如 `/etc/docker/daemon.json`）中容器鏡像倉庫的鏡像（mirror）站點設置。
-   這些配置通常需要針對不同容器運行時來重新設置。
+2. 檢查 Docker 設定文件（如 `/etc/docker/daemon.json`）中容器映像檔倉庫的映像檔（mirror）站點設置。
+   這些設定通常需要針對不同容器運行時來重新設置。
 3. 檢查確保在 Kubernetes 基礎設施之外的節點上運行的腳本和應用程序沒有執行 Docker 命令。
    可能的情況有：
    - SSH 到節點排查故障；
@@ -90,9 +90,9 @@ dependency on Docker:
 4. 檢查執行上述特權操作的第三方工具。
    詳細操作請參考[從 dockershim 遷移遙測和安全代理](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)。
 5. 確認沒有對 dockershim 行爲的間接依賴。這是一種極端情況，不太可能影響你的應用。
-   一些工具很可能被配置爲使用了 Docker 特性，比如，基於特定指標發警報，
+   一些工具很可能被設定爲使用了 Docker 特性，比如，基於特定指標發警報，
    或者在故障排查指令的一個環節中搜索特定的日誌信息。
-   如果你有此類配置的工具，需要在遷移之前，在測試集羣上測試這類行爲。
+   如果你有此類設定的工具，需要在遷移之前，在測試叢集上測試這類行爲。
 
 <!--
 ## Dependency on Docker explained {#role-of-dockershim}
@@ -120,7 +120,7 @@ adapter component, `dockershim`. The dockershim adapter allows the kubelet to in
 if Docker were a CRI compatible runtime.
 -->
 在早期版本中，Kubernetes 提供的兼容性支持一個容器運行時：Docker。
-在 Kubernetes 後來的發展歷史中，集羣運營人員希望採用別的容器運行時。
+在 Kubernetes 後來的發展歷史中，叢集運營人員希望採用別的容器運行時。
 於是 CRI 被設計出來滿足這類靈活性需求 - 而 kubelet 亦開始支持 CRI。
 然而，因爲 Docker 在 CRI 規範創建之前就已經存在，Kubernetes 就創建了一個適配器組件 `dockershim`。
 dockershim 適配器允許 kubelet 與 Docker 交互，就好像 Docker 是一個 CRI 兼容的運行時一樣。
@@ -172,9 +172,9 @@ built or pulled by Docker would not be visible to container runtime and
 Kubernetes. They needed to be pushed to some registry to allow them to be used
 by Kubernetes.
  -->
-你仍然可以下載鏡像，或者用 `docker build` 命令創建它們。
-但用 Docker 創建、下載的鏡像，對於容器運行時和 Kubernetes，均不可見。
-爲了在 Kubernetes 中使用，需要把鏡像推送（push）到某鏡像倉庫。
+你仍然可以下載映像檔，或者用 `docker build` 命令創建它們。
+但用 Docker 創建、下載的映像檔，對於容器運行時和 Kubernetes，均不可見。
+爲了在 Kubernetes 中使用，需要把映像檔推送（push）到某映像檔倉庫。
 
 <!--
 ## Known issues

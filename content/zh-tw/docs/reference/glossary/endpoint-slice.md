@@ -34,5 +34,5 @@ Pod 的 IP 地址。
 <!--
 EndpointSlices can be configured manually for {{< glossary_tooltip text="Services" term_id="service" >}} without selectors specified.
 -->
-EndpointSlices 可以手動配置給沒有指定選擇算符的
+EndpointSlices 可以手動設定給沒有指定選擇算符的
 {{< glossary_tooltip text="Service" term_id="service" >}}。

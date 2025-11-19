@@ -41,7 +41,7 @@ If your organization has been operating Kubernetes, you probably have been looki
 --->
 ## 出發點 
 
-如果您所在的組織一直在使用 Kubernetes，您可能一直在尋找如何控制終端用戶在集羣上的行爲，以及如何確保集羣符合公司政策。這些策略可能需要滿足管理和法律要求，或者符合最佳執行方法和組織慣例。使用 Kubernetes，如何在不犧牲開發敏捷性和運營獨立性的前提下確保合規性？
+如果您所在的組織一直在使用 Kubernetes，您可能一直在尋找如何控制終端使用者在叢集上的行爲，以及如何確保叢集符合公司政策。這些策略可能需要滿足管理和法律要求，或者符合最佳執行方法和組織慣例。使用 Kubernetes，如何在不犧牲開發敏捷性和運營獨立性的前提下確保合規性？
 
 <!--
 For example, you can enforce policies like:
@@ -53,7 +53,7 @@ For example, you can enforce policies like:
 --->
 例如，您可以執行以下策略：
 
-* 所有鏡像必須來自獲得批准的存儲庫
+* 所有映像檔必須來自獲得批准的存儲庫
 * 所有入口主機名必須是全局唯一的
 * 所有 Pod 必須有資源限制
 * 所有命名空間都必須具有列出聯繫的標籤
@@ -61,7 +61,7 @@ For example, you can enforce policies like:
 <!--
 Kubernetes allows decoupling policy decisions from the API server by means of [admission controller webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) to intercept admission requests before they are persisted as objects in Kubernetes. [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) was created to enable users to customize admission control via configuration, not code and to bring awareness of the cluster’s state, not just the single object under evaluation at admission time. Gatekeeper is a customizable admission webhook for Kubernetes that enforces policies executed by the [Open Policy Agent (OPA)](https://www.openpolicyagent.org), a policy engine for Cloud Native environments hosted by CNCF.
 --->
-在接收請求被持久化爲 Kubernetes 中的對象之前，Kubernetes 允許通過 [admission controller webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) 將策略決策與 API 服務器分離，從而攔截這些請求。[Gatekeeper](https://github.com/open-policy-agent/gatekeeper) 創建的目的是使用戶能夠通過配置（而不是代碼）自定義控制許可，並使用戶瞭解集羣的狀態，而不僅僅是針對評估狀態的單個對象，在這些對象准許加入的時候。Gatekeeper 是 Kubernetes 的一個可定製的許可 webhook ，它由 [Open Policy Agent (OPA)](https://www.openpolicyagent.org) 強制執行， OPA 是 Cloud Native 環境下的策略引擎，由 CNCF 主辦。
+在接收請求被持久化爲 Kubernetes 中的對象之前，Kubernetes 允許通過 [admission controller webhooks](https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/) 將策略決策與 API 伺服器分離，從而攔截這些請求。[Gatekeeper](https://github.com/open-policy-agent/gatekeeper) 創建的目的是使使用者能夠通過設定（而不是代碼）自定義控制許可，並使使用者瞭解叢集的狀態，而不僅僅是針對評估狀態的單個對象，在這些對象准許加入的時候。Gatekeeper 是 Kubernetes 的一個可定製的許可 webhook ，它由 [Open Policy Agent (OPA)](https://www.openpolicyagent.org) 強制執行， OPA 是 Cloud Native 環境下的策略引擎，由 CNCF 主辦。
 
 <!--
 ## Evolution 
@@ -79,7 +79,7 @@ Before we dive into the current state of Gatekeeper, let’s take a look at how 
 --->
 * Gatekeeper v1.0 - 使用 OPA 作爲帶有 kube-mgmt sidecar 的許可控制器，用來強制執行基於 configmap 的策略。這種方法實現了驗證和轉換許可控制。貢獻方：Styra
 * Gatekeeper v2.0 - 使用 Kubernetes 策略控制器作爲許可控制器，OPA 和 kube-mgmt sidecar 實施基於 configmap 的策略。這種方法實現了驗證和轉換准入控制和審覈功能。貢獻方：Microsoft
- * Gatekeeper v3.0 - 准入控制器與 [OPA Constraint Framework](https://github.com/open-policy-agent/frameworks/tree/master/constraint) 集成在一起，用來實施基於 CRD 的策略，並可以可靠地共享已完成聲明配置的策略。使用 kubebuilder 進行構建，實現了驗證以及最終轉換（待完成）爲許可控制和審覈功能。這樣就可以爲 [Rego](https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/) 策略創建策略模板，將策略創建爲 CRD 並存儲審覈結果到策略 CRD 上。該項目是 Google，Microsoft，Red Hat 和 Styra 合作完成的。
+ * Gatekeeper v3.0 - 准入控制器與 [OPA Constraint Framework](https://github.com/open-policy-agent/frameworks/tree/master/constraint) 集成在一起，用來實施基於 CRD 的策略，並可以可靠地共享已完成聲明設定的策略。使用 kubebuilder 進行構建，實現了驗證以及最終轉換（待完成）爲許可控制和審覈功能。這樣就可以爲 [Rego](https://www.openpolicyagent.org/docs/latest/how-do-i-write-policies/) 策略創建策略模板，將策略創建爲 CRD 並存儲審覈結果到策略 CRD 上。該項目是 Google，Microsoft，Red Hat 和 Styra 合作完成的。
 
 ![](/images/blog/2019-08-06-opa-gatekeeper/v3.png)
  
@@ -90,7 +90,7 @@ Now let’s take a closer look at the current state of Gatekeeper and how you ca
 --->
 ## Gatekeeper v3.0 的功能 
 
-現在我們詳細看一下 Gatekeeper 當前的狀態，以及如何利用所有最新的功能。假設一個組織希望確保集羣中的所有對象都有 department 信息，這些信息是對象標籤的一部分。如何利用 Gatekeeper 完成這項需求？
+現在我們詳細看一下 Gatekeeper 當前的狀態，以及如何利用所有最新的功能。假設一個組織希望確保叢集中的所有對象都有 department 信息，這些信息是對象標籤的一部分。如何利用 Gatekeeper 完成這項需求？
 
 <!--
 ### Validating Admission Control 
@@ -101,9 +101,9 @@ During the validation process, Gatekeeper acts as a bridge between the API serve
 --->
 ### 驗證許可控制 
 
-在集羣中所有 Gatekeeper 組件都 [安裝](https://github.com/open-policy-agent/gatekeeper) 完成之後，只要集羣中的資源進行創建、更新或刪除，API 服務器將觸發 Gatekeeper 准入 webhook 來處理准入請求。
+在叢集中所有 Gatekeeper 組件都 [安裝](https://github.com/open-policy-agent/gatekeeper) 完成之後，只要叢集中的資源進行創建、更新或刪除，API 伺服器將觸發 Gatekeeper 准入 webhook 來處理准入請求。
 
-在驗證過程中，Gatekeeper 充當 API 服務器和 OPA 之間的橋樑。API 服務器將強制實施 OPA 執行的所有策略。
+在驗證過程中，Gatekeeper 充當 API 伺服器和 OPA 之間的橋樑。API 伺服器將強制實施 OPA 執行的所有策略。
 
 <!--
 ### Policies and Constraints 
@@ -160,7 +160,7 @@ spec:
 <!--
 Once a Constraint template has been deployed in the cluster, an admin can now create individual Constraint CRDs as defined by the Constraint template. For example, here is a Constraint CRD that requires the label `hr` to be present on all namespaces. 
 --->
-在集羣中部署了 Constraint 模板後，管理員現在可以創建由 Constraint 模板定義的單個 Constraint CRD。例如，這裏以下是一個 Constraint CRD，要求標籤 `hr` 出現在所有命名空間上。
+在叢集中部署了 Constraint 模板後，管理員現在可以創建由 Constraint 模板定義的單個 Constraint CRD。例如，這裏以下是一個 Constraint CRD，要求標籤 `hr` 出現在所有命名空間上。
 
 ```yaml
 apiVersion: constraints.gatekeeper.sh/v1beta1
@@ -198,7 +198,7 @@ spec:
 <!--
 As you can see, with the Constraint framework, we can reliably share Regos via the Constraint templates, define the scope of enforcement with the match field, and provide user-defined parameters to the Constraints to create customized behavior for each Constraint. 
 --->
-如您所見，使用 Constraint framework，我們可以通過 Constraint 模板可靠地共享 rego，使用匹配字段定義執行範圍，併爲 Constraint 提供用戶定義的參數，從而爲每個 Constraint 創建自定義行爲。
+如您所見，使用 Constraint framework，我們可以通過 Constraint 模板可靠地共享 rego，使用匹配字段定義執行範圍，併爲 Constraint 提供使用者定義的參數，從而爲每個 Constraint 創建自定義行爲。
 
 <!--
 ### Audit 
@@ -206,7 +206,7 @@ As you can see, with the Constraint framework, we can reliably share Regos via t
 The audit functionality enables periodic evaluations of replicated resources against the Constraints enforced in the cluster to detect pre-existing misconfigurations. Gatekeeper stores audit results as `violations` listed in the `status` field of the relevant Constraint.  --->
 ### 審覈 
 
-根據集羣中強制執行的 Constraint，審覈功能可定期評估複製的資源，並檢測先前存在的錯誤配置。Gatekeeper 將審覈結果存儲爲 `violations`，在相關 Constraint 的 `status` 字段中列出。
+根據叢集中強制執行的 Constraint，審覈功能可定期評估複製的資源，並檢測先前存在的錯誤設定。Gatekeeper 將審覈結果存儲爲 `violations`，在相關 Constraint 的 `status` 字段中列出。
 
 ```yaml
 apiVersion: constraints.gatekeeper.sh/v1beta1
@@ -251,12 +251,12 @@ Audit requires replication of Kubernetes resources into OPA before they can be e
 --->
 ### 數據複製 
 
-審覈要求將 Kubernetes 複製到 OPA 中，然後才能根據強制的 Constraint 對其進行評估。數據複製同樣也需要 Constraint，這些 Constraint 需要訪問集羣中除評估對象之外的對象。例如，一個 Constraint 要強制確定入口主機名的唯一性，就必須有權訪問集羣中的所有其他入口。
+審覈要求將 Kubernetes 複製到 OPA 中，然後才能根據強制的 Constraint 對其進行評估。數據複製同樣也需要 Constraint，這些 Constraint 需要訪問叢集中除評估對象之外的對象。例如，一個 Constraint 要強制確定入口主機名的唯一性，就必須有權訪問叢集中的所有其他入口。
 
 <!--
 To configure Kubernetes data to be replicated, create a sync config resource with the resources to be replicated into OPA. For example, the below configuration replicates all namespace and pod resources to OPA. 
 --->
-對 Kubernetes 數據進行復制，請使用複製到 OPA 中的資源創建 sync config 資源。例如，下面的配置將所有命名空間和 Pod 資源複製到 OPA。
+對 Kubernetes 數據進行復制，請使用複製到 OPA 中的資源創建 sync config 資源。例如，下面的設定將所有命名空間和 Pod 資源複製到 OPA。
 
 ```yaml
 apiVersion: config.gatekeeper.sh/v1alpha1
@@ -282,7 +282,7 @@ The community behind the Gatekeeper project will be focusing on providing mutati
 --->
 ## 未來計劃 
 
-Gatekeeper 項目背後的社區將專注於提供轉換許可控制，可以用來支持轉換方案（例如：在創建新資源時使用 department 信息自動註釋對象），支持外部數據以將集羣外部環境加入到許可決策中，支持試運行以便在執行策略之前瞭解策略對集羣中現有資源的影響，還有更多的審覈功能。
+Gatekeeper 項目背後的社區將專注於提供轉換許可控制，可以用來支持轉換方案（例如：在創建新資源時使用 department 信息自動註釋對象），支持外部數據以將叢集外部環境加入到許可決策中，支持試運行以便在執行策略之前瞭解策略對叢集中現有資源的影響，還有更多的審覈功能。
 
 <!--
 If you are interested in learning more about the project, check out the [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) repo. If you are interested in helping define the direction of Gatekeeper, join the [#kubernetes-policy](https://openpolicyagent.slack.com/messages/CDTN970AX) channel on OPA Slack, and join our [weekly meetings](https://docs.google.com/document/d/1A1-Q-1OMw3QODs1wT6eqfLTagcGmgzAJAjJihiO3T48/edit) to discuss development, issues, use cases, etc.  

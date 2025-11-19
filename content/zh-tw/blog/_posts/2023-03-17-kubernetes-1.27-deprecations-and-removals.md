@@ -40,7 +40,7 @@ k8s.gcr.io registry will eventually be phased out.
 -->
 ## k8s.gcr.io 重定向到 registry.k8s.io 相關說明   {#note-about-redirect}
 
-Kubernetes 項目爲了託管其容器鏡像，使用社區擁有的一個名爲 registry.k8s.io. 的鏡像倉庫。
+Kubernetes 項目爲了託管其容器映像檔，使用社區擁有的一個名爲 registry.k8s.io. 的映像檔倉庫。
 **從 3 月 20 日起，所有來自過期 [k8s.gcr.io](https://cloud.google.com/container-registry/)
 倉庫的流量將被重定向到 [registry.k8s.io](https://github.com/kubernetes/registry.k8s.io)**。
 已棄用的 k8s.gcr.io 倉庫最終將被淘汰。
@@ -213,10 +213,10 @@ The kube-apiserver accepts a deprecated command line argument, `--master-service
 that specified where to create the Service named `kubernetes` to represent the API server.
 Kubernetes v1.27 will remove that argument, which has been deprecated since the v1.26 release.
 -->
-### 移除 `--master-service-namespace` 命令行參數
+### 移除 `--master-service-namespace` 命令列參數
 
-kube-apiserver 接受一個已棄用的命令行參數 `--master-service-namespace`，
-該參數指定在何處創建名爲 `kubernetes` 的 Service 來表示 API 服務器。
+kube-apiserver 接受一個已棄用的命令列參數 `--master-service-namespace`，
+該參數指定在何處創建名爲 `kubernetes` 的 Service 來表示 API 伺服器。
 Kubernetes v1.27 將移除自 v1.26 版本已被棄用的該參數。
 
 <!--
@@ -230,7 +230,7 @@ resource lock between the two components while upgrading the replicated control 
 ### 移除 `ControllerManagerLeaderMigration` 特性門控
 
 [Leader Migration](https://github.com/kubernetes/enhancements/issues/2436)
-提供了一種機制，讓 HA 集羣在升級多副本的控制平面時通過在 `kube-controller-manager` 和
+提供了一種機制，讓 HA 叢集在升級多副本的控制平面時通過在 `kube-controller-manager` 和
 `cloud-controller-manager` 這兩個組件之間共享的資源鎖，安全地遷移“特定於雲平臺”的控制器。
 
 <!--
@@ -241,7 +241,7 @@ arguments or configuration files.
 -->
 `ControllerManagerLeaderMigration` 特性自 v1.24 正式發佈，被無條件啓用，
 在 v1.27 版本中此特性門控選項將被移除。
-如果你顯式設置此特性門控，你將需要從命令行參數或配置文件中將其移除。
+如果你顯式設置此特性門控，你將需要從命令列參數或設定文件中將其移除。
 
 <!--
 ### Removal of `--enable-taint-manager` command line argument
@@ -251,9 +251,9 @@ deprecated, and will be removed in Kubernetes v1.27. The feature that it support
 [taint based eviction](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions),
 is already enabled by default and will continue to be implicitly enabled when the flag is removed.
 -->
-### 移除 `--enable-taint-manager` 命令行參數
+### 移除 `--enable-taint-manager` 命令列參數
 
-kube-controller-manager 命令行參數 `--enable-taint-manager` 已被棄用，
+kube-controller-manager 命令列參數 `--enable-taint-manager` 已被棄用，
 將在 Kubernetes v1.27 中被移除。
 該參數支持的特性[基於污點的驅逐](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions)已被默認啓用，
 且在標誌被移除時也將繼續被隱式啓用。
@@ -265,9 +265,9 @@ The deprecated command line argument `--pod-eviction-timeout` will be removed fr
 kube-controller-manager.
 
 -->
-### 移除 `--pod-eviction-timeout` 命令行參數
+### 移除 `--pod-eviction-timeout` 命令列參數
 
-棄用的命令行參數 `--pod-eviction-timeout` 將被從 kube-controller-manager 中移除。
+棄用的命令列參數 `--pod-eviction-timeout` 將被從 kube-controller-manager 中移除。
 
 <!--
 ### Removal of the `CSI Migration` feature gate
@@ -297,7 +297,7 @@ Hence, the feature gate `CSIInlineVolume` will be removed in the v1.27 release.
 
 [CSI Ephemeral Volume](https://github.com/kubernetes/kubernetes/pull/111258)
 特性允許在 Pod 規約中直接指定 CSI 卷作爲臨時使用場景。這些 CSI 卷可用於使用掛載的卷直接在
-Pod 內注入任意狀態，例如配置、Secret、身份、變量或類似信息。
+Pod 內注入任意狀態，例如設定、Secret、身份、變量或類似信息。
 此特性在 v1.25 中進階至正式發佈。因此，此特性門控 `CSIInlineVolume` 將在 v1.27 版本中移除。
 
 <!--
@@ -315,7 +315,7 @@ API support for ephemeral containers is unconditionally enabled; the
 
 [臨時容器](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/)在 v1.25 中進階至正式發佈。
 這些是具有臨時持續週期的容器，在現有 Pod 的命名空間內執行。
-臨時容器通常由用戶發起，以觀察其他 Pod 和容器的狀態進行故障排查和調試。
+臨時容器通常由使用者發起，以觀察其他 Pod 和容器的狀態進行故障排查和調試。
 對於 Kubernetes v1.27，對臨時容器的 API 支持被無條件啓用；`EphemeralContainers` 特性門控將被移除。
 
 <!--
@@ -332,7 +332,7 @@ The feature gate, `LocalStorageCapacityIsolation`, will be removed in the v1.27 
 
 [Local Ephemeral Storage Capacity Isolation](https://github.com/kubernetes/kubernetes/pull/111513)
 特性在 v1.25 中進階至正式發佈。此特性支持 `emptyDir` 卷這類 Pod 之間本地臨時存儲的容量隔離，
-因此可以硬性限制 Pod 對共享資源的消耗。如果本地臨時存儲的消耗超過了配置的限制，kubelet 將驅逐 Pod。
+因此可以硬性限制 Pod 對共享資源的消耗。如果本地臨時存儲的消耗超過了設定的限制，kubelet 將驅逐 Pod。
 特性門控 `LocalStorageCapacityIsolation` 將在 v1.27 版本中被移除。
 
 <!--
@@ -405,14 +405,14 @@ Kubernetes v1.25 版本還穩定了對 DaemonSet Pod 的浪湧支持，
 <!--
 ### Removal of `--container-runtime` command line argument
 -->
-### 移除 `--container-runtime` 命令行參數
+### 移除 `--container-runtime` 命令列參數
 
 <!--
 The kubelet accepts a deprecated command line argument, `--container-runtime`, and the only
 valid value would be `remote` after dockershim code is removed. Kubernetes v1.27 will remove
 that argument, which has been deprecated since the v1.24 release.
 -->
-kubelet 接受一個已棄用的命令行參數 `--container-runtime`，
+kubelet 接受一個已棄用的命令列參數 `--container-runtime`，
 並且在移除 dockershim 代碼後，唯一有效的值將是 `remote`。
 Kubernetes v1.27 將移除該參數，該參數自 v1.24 版本以來已被棄用。
 

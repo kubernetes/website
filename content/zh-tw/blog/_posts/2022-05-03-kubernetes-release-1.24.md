@@ -47,7 +47,7 @@ see [this guide](/blog/2022/03/31/ready-for-dockershim-removal/).
 從 v1.24 開始，如果你依賴 Docker Engine 作爲容器運行時，
 則需要使用其他[受支持的運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)之一
 （如 containerd 或 CRI-O）或使用 CRI dockerd。
-有關確保集羣已準備好進行此刪除的更多信息，請參閱[本指南](/zh-cn/blog/2022/03/31/ready-for-dockershim-removal/)。
+有關確保叢集已準備好進行此刪除的更多信息，請參閱[本指南](/zh-cn/blog/2022/03/31/ready-for-dockershim-removal/)。
 
 <!--
 ### Beta APIs Off by Default
@@ -57,7 +57,7 @@ Existing beta APIs and new versions of existing beta APIs will continue to be en
 -->
 ### 默認情況下關閉 Beta API
 
-[新的 beta API 默認不會在集羣中啓用](https://github.com/kubernetes/enhancements/issues/3136)。
+[新的 beta API 默認不會在叢集中啓用](https://github.com/kubernetes/enhancements/issues/3136)。
 默認情況下，現有 Beta API 和及其更新版本將繼續被啓用。
 
 <!--
@@ -139,7 +139,7 @@ using an extra executable.
 
 在 Kubernetes 1.24 中，[gRPC 探測功能](https://github.com/kubernetes/enhancements/issues/2727)
 已進入測試版，默認可用。現在，你可以在 Kubernetes 中爲你的 gRPC
-應用程序原生地[配置啓動、存活和就緒性探測](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)，
+應用程序原生地[設定啓動、存活和就緒性探測](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)，
 而無需暴露 HTTP 端點或使用額外的可執行文件。
 
 <!--
@@ -153,8 +153,8 @@ using exec plugins rather than storing credentials on the node's filesystem.
 -->
 ### Kubelet 憑證提供者畢業至 Beta
 
-kubelet 最初在 Kubernetes 1.20 中作爲 Alpha 發佈，現在它對[鏡像憑證提供者](/zh-cn/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/)
-的支持已升級到 Beta。這允許 kubelet 使用 exec 插件動態檢索容器鏡像倉庫的憑據，而不是將憑據存儲在節點的文件系統上。
+kubelet 最初在 Kubernetes 1.20 中作爲 Alpha 發佈，現在它對[映像檔憑證提供者](/zh-cn/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/)
+的支持已升級到 Beta。這允許 kubelet 使用 exec 插件動態檢索容器映像檔倉庫的憑據，而不是將憑據存儲在節點的文件系統上。
 
 <!--
 ### Contextual Logging in Alpha
@@ -180,7 +180,7 @@ the pool of  Service IP addresses, thereby reducing the risk of collision.
 
 Kubernetes 1.24 引入了一項新的選擇加入功能，
 允許你[爲服務的靜態 IP 地址分配軟保留範圍](/zh-cn/docs/concepts/services-networking/service/#service-ip-static-sub-range)。
-通過手動啓用此功能，集羣將更喜歡從服務 IP 地址池中自動分配，從而降低衝突風險。
+通過手動啓用此功能，叢集將更喜歡從服務 IP 地址池中自動分配，從而降低衝突風險。
 
 <!--
 A Service `ClusterIP` can be assigned:
@@ -192,8 +192,8 @@ Service `ClusterIP` are unique; hence, trying to create a Service with a `Cluste
 -->
 服務的 `ClusterIP` 可以按照以下兩種方式分配：
 
-* 動態，這意味着集羣將自動在配置的服務 IP 範圍內選擇一個空閒 IP。
-* 靜態，這意味着用戶將在配置的服務 IP 範圍內設置一個 IP。
+* 動態，這意味着叢集將自動在設定的服務 IP 範圍內選擇一個空閒 IP。
+* 靜態，這意味着使用者將在設定的服務 IP 範圍內設置一個 IP。
 
 服務 `ClusterIP` 是唯一的；因此，嘗試使用已分配的 `ClusterIP` 創建服務將返回錯誤。
 
@@ -202,10 +202,10 @@ Service `ClusterIP` are unique; hence, trying to create a Service with a `Cluste
 
 After being deprecated in Kubernetes 1.22, Dynamic Kubelet Configuration has been removed from the kubelet. The feature will be removed from the API server in Kubernetes 1.26.
 -->
-### 從 Kubelet 中移除動態 Kubelet 配置
+### 從 Kubelet 中移除動態 Kubelet 設定
 
-在 Kubernetes 1.22 中被棄用後，動態 Kubelet 配置已從 kubelet 中移除。
-該功能將從 Kubernetes 1.26 的 API 服務器中移除。
+在 Kubernetes 1.22 中被棄用後，動態 Kubelet 設定已從 kubelet 中移除。
+該功能將從 Kubernetes 1.26 的 API 伺服器中移除。
 
 <!--
 ## CNI Version-Related Breaking Change
@@ -236,10 +236,10 @@ With containerd v1.6.0–v1.6.3, if you do not upgrade the CNI plugins and/or
 declare the CNI config version, you might encounter the following "Incompatible
 CNI versions" or "Failed to destroy network for sandbox" error conditions.
 -->
-當 CNI 插件尚未升級和/或 CNI 配置版本未在 CNI 配置文件中聲明時，在 containerd v1.6.0–v1.6.3
-中存在 Pod CNI 網絡設置和拆除的服務問題。containerd 團隊報告說，“這些問題在 containerd v1.6.4 中得到解決。”
+當 CNI 插件尚未升級和/或 CNI 設定版本未在 CNI 設定文件中聲明時，在 containerd v1.6.0–v1.6.3
+中存在 Pod CNI 網路設置和拆除的服務問題。containerd 團隊報告說，“這些問題在 containerd v1.6.4 中得到解決。”
 
-在 containerd v1.6.0-v1.6.3 版本中，如果你不升級 CNI 插件和/或聲明 CNI 配置版本，
+在 containerd v1.6.0-v1.6.3 版本中，如果你不升級 CNI 插件和/或聲明 CNI 設定版本，
 你可能會遇到以下 “Incompatible CNI versions” 或 “Failed to destroy network for sandbox” 的錯誤情況。
 
 <!--
@@ -298,7 +298,7 @@ This release saw fourteen enhancements promoted to stable:
   kube-apiserver 重新啓動後，可以高效地恢復監視。
 * [Service Type=LoadBalancer 類字段](https://github.com/kubernetes/enhancements/issues/1959)：
   引入新的服務註解 `service.kubernetes.io/load-balancer-class`，
-  允許在同一個集羣中提供 `type: LoadBalancer` 服務的多個實現。
+  允許在同一個叢集中提供 `type: LoadBalancer` 服務的多個實現。
 * [帶索引的 Job](https://github.com/kubernetes/enhancements/issues/2214)：爲帶有固定完成計數的 Job 的 Pod 添加完成索引。
 * [在 Job API 中增加 suspend 字段](https://github.com/kubernetes/enhancements/issues/2232)：
   在 Job API 中增加一個 suspend 字段，允許協調者在創建作業時對 Pod 的創建進行更多控制。
@@ -345,7 +345,7 @@ You can also easily install 1.24 using [kubeadm](/docs/setup/independent/create-
 
 Kubernetes 1.24 可在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.24.0) 上下載。
 要開始使用 Kubernetes，請查看這些[交互式教程](/zh-cn/docs/tutorials/)或在本地運行。
-使用 [kind](https://kind.sigs.k8s.io/)，可以將容器作爲 Kubernetes 集羣的 “節點”。
+使用 [kind](https://kind.sigs.k8s.io/)，可以將容器作爲 Kubernetes 叢集的 “節點”。
 你還可以使用 [kubeadm](/zh-cn/docs/setup/independent/create-cluster-kubeadm/) 輕鬆安裝 1.24。
 
 <!--
@@ -397,7 +397,7 @@ applications that serve millions. Every one is a star in our sky, helping us cha
 是這些星辰啓發了我們，點燃了我們的想象力，引導我們在艱難的海上度過了漫長的夜晚。
 
 通過此版本，我們向上凝視，當我們的社區聚集在一起時可能發生的事情。
-Kubernetes 是全球數百名貢獻者和數千名最終用戶支持的成果，
+Kubernetes 是全球數百名貢獻者和數千名最終使用者支持的成果，
 是一款爲數百萬人服務的應用程序。每個人都是我們天空中的一顆星星，幫助我們規劃路線。
 <!--
 The release logo is made by [Britnee Laverack](https://www.instagram.com/artsyfie/), and depicts a telescope set upon starry skies and the
@@ -423,7 +423,7 @@ all the stargazers out there. ✨
 * Using Kubernetes, the Dutch organization [Stichting Open Nederland](http://www.stichtingopennederland.nl/) created a testing portal in just one-and-a-half months to help safely reopen events in the Netherlands. The [Testing for Entry (Testen voor Toegang)](https://www.testenvoortoegang.org/) platform [leveraged the performance and scalability of Kubernetes to help individuals book over 400,000 COVID-19 testing appointments per day. ](https://www.cncf.io/case-studies/true/)
 * Working alongside SparkFabrik and utilizing Backstage, [Santagostino created the developer platform Samaritan to centralize services and documentation, manage the entire lifecycle of services, and simplify the work of Santagostino developers](https://www.cncf.io/case-studies/santagostino/).
 -->
-### 用戶亮點
+### 使用者亮點
 
 * 瞭解領先的零售電子商務公司
   [La Redoute 如何使用 Kubernetes 以及其他 CNCF 項目來轉變和簡化](https://www.cncf.io/case-studies/la-redoute/)
@@ -486,7 +486,7 @@ the major features of this release, as well as deprecations and removals to help
 For more information and registration, visit the [event page](https://community.cncf.io/e/mck3kd/)
 on the CNCF Online Programs site.
 -->
-## 即將發佈的網絡研討會
+## 即將發佈的網路研討會
 
 在太平洋時間 2022 年 5 月 24 日星期二上午 9:45 至上午 11 點加入 Kubernetes 1.24 發佈團隊的成員，
 瞭解此版本的主要功能以及棄用和刪除，以幫助規劃升級。有關更多信息和註冊，

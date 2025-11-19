@@ -26,7 +26,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 <!-- 
 **easyrsa** can manually generate certificates for your cluster.
 -->
-**easyrsa** 支持以手工方式爲你的集羣生成證書。
+**easyrsa** 支持以手工方式爲你的叢集生成證書。
 
 <!-- 
 1. Download, unpack, and initialize the patched version of `easyrsa3`.
@@ -62,10 +62,10 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
    The sample below also assumes that you are using `cluster.local` as the default
    DNS domain name.
 -->
-3. 生成服務器證書和祕鑰。
+3. 生成伺服器證書和祕鑰。
 
-   參數 `--subject-alt-name` 設置 API 服務器的 IP 和 DNS 名稱。
-   `MASTER_CLUSTER_IP` 用於 API 服務器和控制器管理器，通常取 CIDR 的第一個 IP，
+   參數 `--subject-alt-name` 設置 API 伺服器的 IP 和 DNS 名稱。
+   `MASTER_CLUSTER_IP` 用於 API 伺服器和控制器管理器，通常取 CIDR 的第一個 IP，
    由 `--service-cluster-ip-range` 的參數提供。
    參數 `--days` 用於設置證書的過期時間。
    下面的示例假定你的默認 DNS 域名爲 `cluster.local`。
@@ -90,7 +90,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 <!--
 1. Fill in and add the following parameters into the API server start parameters:
 -->
-5. 在 API 服務器的啓動參數中添加以下參數：
+5. 在 API 伺服器的啓動參數中添加以下參數：
 
    ```shell
    --client-ca-file=/yourdirectory/ca.crt
@@ -103,7 +103,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 <!-- 
 **openssl** can manually generate certificates for your cluster.
 -->
-**openssl** 支持以手工方式爲你的集羣生成證書。
+**openssl** 支持以手工方式爲你的叢集生成證書。
 
 <!-- 
 1. Generate a ca.key with 2048bit:
@@ -142,9 +142,9 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
    The sample below also assumes that you are using `cluster.local` as the default
    DNS domain name.
 -->
-4. 創建一個用於生成證書籤名請求（CSR）的配置文件。
+4. 創建一個用於生成證書籤名請求（CSR）的設定文件。
    保存文件（例如：`csr.conf`）前，記得用真實值替換掉尖括號中的值（例如：`<MASTER_IP>`）。
-   注意：`MASTER_CLUSTER_IP` 就像前一小節所述，它的值是 API 服務器的服務集羣 IP。
+   注意：`MASTER_CLUSTER_IP` 就像前一小節所述，它的值是 API 伺服器的服務叢集 IP。
    下面的例子假定你的默認 DNS 域名爲 `cluster.local`。
 
    ```ini
@@ -186,7 +186,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 <!-- 
 1. Generate the certificate signing request based on the config file:
 -->
-5. 基於上面的配置文件生成證書籤名請求：
+5. 基於上面的設定文件生成證書籤名請求：
 
    ```shell
    openssl req -new -key server.key -out server.csr -config csr.conf
@@ -224,7 +224,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 <!-- 
 Finally, add the same parameters into the API server start parameters.
 -->
-最後，爲 API 服務器添加相同的啓動參數。
+最後，爲 API 伺服器添加相同的啓動參數。
 
 ### cfssl
 
@@ -239,7 +239,7 @@ Finally, add the same parameters into the API server start parameters.
    Note that you may need to adapt the sample commands based on the hardware
    architecture and cfssl version you are using.
 -->
-1. 下載、解壓並準備如下所示的命令行工具。
+1. 下載、解壓並準備如下所示的命令列工具。
 
    注意：你可能需要根據所用的硬件體系架構和 cfssl 版本調整示例命令。
 
@@ -267,7 +267,7 @@ Finally, add the same parameters into the API server start parameters.
 <!-- 
 1. Create a JSON config file for generating the CA file, for example, `ca-config.json`:
 -->
-3. 創建一個 JSON 配置文件來生成 CA 文件，例如：`ca-config.json`：
+3. 創建一個 JSON 設定文件來生成 CA 文件，例如：`ca-config.json`：
 
    ```json
    {
@@ -295,7 +295,7 @@ Finally, add the same parameters into the API server start parameters.
    `ca-csr.json`. Be sure to replace the values marked with angle brackets with
    real values you want to use.
 -->
-4. 創建一個 JSON 配置文件，用於 CA 證書籤名請求（CSR），例如：`ca-csr.json`。
+4. 創建一個 JSON 設定文件，用於 CA 證書籤名請求（CSR），例如：`ca-csr.json`。
    確認用你需要的值替換掉尖括號中的值。
 
    ```json
@@ -332,8 +332,8 @@ Finally, add the same parameters into the API server start parameters.
    The sample below also assumes that you are using `cluster.local` as the default
    DNS domain name.
 -->
-6. 創建一個 JSON 配置文件，用來爲 API 服務器生成祕鑰和證書，例如：`server-csr.json`。
-   確認用你需要的值替換掉尖括號中的值。`MASTER_CLUSTER_IP` 是爲 API 服務器 指定的服務集羣 IP，就像前面小節描述的那樣。
+6. 創建一個 JSON 設定文件，用來爲 API 伺服器生成祕鑰和證書，例如：`server-csr.json`。
+   確認用你需要的值替換掉尖括號中的值。`MASTER_CLUSTER_IP` 是爲 API 伺服器 指定的服務叢集 IP，就像前面小節描述的那樣。
    以下示例假定你的默認 DNS 域名爲`cluster.local`。
 
    ```json
@@ -367,7 +367,7 @@ Finally, add the same parameters into the API server start parameters.
 1. Generate the key and certificate for the API server, which are by default
    saved into file `server-key.pem` and `server.pem` respectively:
 -->
-7. 爲 API 服務器生成祕鑰和證書，默認會分別存儲爲`server-key.pem` 和 `server.pem` 兩個文件。
+7. 爲 API 伺服器生成祕鑰和證書，默認會分別存儲爲`server-key.pem` 和 `server.pem` 兩個文件。
 
    ```shell
    ../cfssl gencert -ca=ca.pem -ca-key=ca-key.pem \
@@ -417,5 +417,5 @@ in the [Managing TLS in a cluster](/docs/tasks/tls/managing-tls-in-a-cluster)
 task page.
 -->
 你可以通過 `certificates.k8s.io` API 提供 x509 證書，用來做身份驗證，
-如[管理集羣中的 TLS 認證](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster)文檔所述。
+如[管理叢集中的 TLS 認證](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster)文檔所述。
 

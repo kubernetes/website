@@ -1,16 +1,16 @@
 ---
-title: 集羣管理
+title: 叢集管理
 weight: 100
 content_type: concept
 description: >
-  關於創建和管理 Kubernetes 集羣的底層細節。
+  關於創建和管理 Kubernetes 叢集的底層細節。
 no_list: true
 card:
   name: setup
   weight: 60
   anchors:
   - anchor: "#securing-a-cluster"
-    title: 加固集羣
+    title: 加固叢集
 ---
 <!--
 title: Cluster Administration
@@ -35,7 +35,7 @@ card:
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
 It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 -->
-集羣管理概述面向任何創建和管理 Kubernetes 集羣的讀者人羣。
+叢集管理概述面向任何創建和管理 Kubernetes 叢集的讀者人羣。
 我們假設你大概瞭解一些核心的 Kubernetes [概念](/zh-cn/docs/concepts/)。
 
 
@@ -46,10 +46,10 @@ It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 See the guides in [Setup](/docs/setup/) for examples of how to plan, set up, and configure
 Kubernetes clusters. The solutions listed in this article are called *distros*.
 -->
-## 規劃集羣   {#planning-a-cluster}
+## 規劃叢集   {#planning-a-cluster}
 
-查閱[安裝](/zh-cn/docs/setup/)中的指導，獲取如何規劃、建立以及配置 Kubernetes
-集羣的示例。本文所列的文章稱爲**發行版**。
+查閱[安裝](/zh-cn/docs/setup/)中的指導，獲取如何規劃、建立以及設定 Kubernetes
+叢集的示例。本文所列的文章稱爲**發行版**。
 
 {{< note >}}
 <!--
@@ -80,19 +80,19 @@ Before choosing a guide, here are some considerations:
   offer a greater variety of choices.
 - Familiarize yourself with the [components](/docs/concepts/overview/components/) needed to run a cluster.
 -->
-- 你是打算在你的計算機上嘗試 Kubernetes，還是要構建一個高可用的多節點集羣？
+- 你是打算在你的計算機上嘗試 Kubernetes，還是要構建一個高可用的多節點叢集？
   請選擇最適合你需求的發行版。
 - 你正在使用類似 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/)
-  這樣的**被託管的 Kubernetes 集羣**, 還是**管理你自己的集羣**？
-- 你的集羣是在**本地**還是**雲（IaaS）** 上？Kubernetes 不能直接支持混合集羣。
-  作爲代替，你可以建立多個集羣。
-- **如果你在本地配置 Kubernetes**，
-  需要考慮哪種[網絡模型](/zh-cn/docs/concepts/cluster-administration/networking/)最適合。
+  這樣的**被託管的 Kubernetes 叢集**, 還是**管理你自己的叢集**？
+- 你的叢集是在**本地**還是**雲（IaaS）** 上？Kubernetes 不能直接支持混合叢集。
+  作爲代替，你可以建立多個叢集。
+- **如果你在本地設定 Kubernetes**，
+  需要考慮哪種[網路模型](/zh-cn/docs/concepts/cluster-administration/networking/)最適合。
 - 你的 Kubernetes 在**裸機**上還是**虛擬機（VM）** 上運行？
-- 你是想**運行一個集羣**，還是打算**參與開發 Kubernetes 項目代碼**？
+- 你是想**運行一個叢集**，還是打算**參與開發 Kubernetes 項目代碼**？
   如果是後者，請選擇一個處於開發狀態的發行版。
   某些發行版只提供二進制發佈版，但提供更多的選擇。
-- 讓你自己熟悉運行一個集羣所需的[組件](/zh-cn/docs/concepts/overview/components/)。
+- 讓你自己熟悉運行一個叢集所需的[組件](/zh-cn/docs/concepts/overview/components/)。
 
 <!--
 ## Managing a cluster
@@ -102,12 +102,12 @@ Before choosing a guide, here are some considerations:
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 -->
-## 管理集羣   {#managing-a-cluster}
+## 管理叢集   {#managing-a-cluster}
 
 * 學習如何[管理節點](/zh-cn/docs/concepts/architecture/nodes/)。
   * 閱讀[節點自動擴縮](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)。
 
-* 學習如何設定和管理集羣共享的[資源配額](/zh-cn/docs/concepts/policy/resource-quotas/)。
+* 學習如何設定和管理叢集共享的[資源配額](/zh-cn/docs/concepts/policy/resource-quotas/)。
 
 <!--
 ## Securing a cluster
@@ -132,7 +132,7 @@ Before choosing a guide, here are some considerations:
 * [Auditing](/docs/tasks/debug/debug-cluster/audit/) describes how to interact with Kubernetes'
   audit logs.
 -->
-## 加固集羣  {#securing-a-cluster}
+## 加固叢集  {#securing-a-cluster}
 
 * [生成證書](/zh-cn/docs/tasks/administer-cluster/certificates/)描述了使用不同的工具鏈生成證書的步驟。
 * [Kubernetes 容器環境](/zh-cn/docs/concepts/containers/container-environment/)描述了
@@ -146,8 +146,8 @@ Before choosing a guide, here are some considerations:
   Kubernetes API 服務的請求的插件。
 * [准入 Webhook 的最佳實踐](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/)
   提供了設計變更型准入 Webhook 和驗證型准入 Webhook 時的最佳實踐和注意事項。
-* [在 Kubernetes 集羣中使用 sysctl](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/)
-  描述了管理員如何使用 `sysctl` 命令行工具來設置內核參數。
+* [在 Kubernetes 叢集中使用 sysctl](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/)
+  描述了管理員如何使用 `sysctl` 命令列工具來設置內核參數。
 * [審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)描述瞭如何與 Kubernetes 的審計日誌交互。
 
 <!--
@@ -171,9 +171,9 @@ Before choosing a guide, here are some considerations:
 * [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/)
   explains how logging in Kubernetes works and how to implement it.
 -->
-## 可選集羣服務   {#optional-cluster-services}
+## 可選叢集服務   {#optional-cluster-services}
 
 * [DNS 集成](/zh-cn/docs/concepts/services-networking/dns-pod-service/)描述瞭如何將一個 DNS
   名解析到一個 Kubernetes service。
-* [記錄和監控集羣活動](/zh-cn/docs/concepts/cluster-administration/logging/)闡述了 Kubernetes
+* [記錄和監控叢集活動](/zh-cn/docs/concepts/cluster-administration/logging/)闡述了 Kubernetes
   的日誌如何工作以及怎樣實現。

@@ -47,12 +47,12 @@ and token and certificate renewal.
 -->
 ## 什麼是 kubeadm？（簡要回顧）
 
-kubeadm 專注於在現有基礎設施上啓動引導 Kubernetes 集羣並執行一組重要的維護任務。
+kubeadm 專注於在現有基礎設施上啓動引導 Kubernetes 叢集並執行一組重要的維護任務。
 kubeadm 接口的核心非常簡單：通過運行
 [`kubeadm init`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
 創建新的控制平面節點，通過運行
 [`kubeadm join`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
-將工作節點加入控制平面。此外還有用於管理已啓動引導的集羣的實用程序，例如控制平面升級、令牌和證書續訂等。
+將工作節點加入控制平面。此外還有用於管理已啓動引導的叢集的實用程序，例如控制平面升級、令牌和證書續訂等。
 
 <!--
 To keep kubeadm lean, focused, and vendor/infrastructure agnostic, the following tasks are out of its scope:
@@ -78,9 +78,9 @@ The user may install their preferred networking solution and other add-ons on to
 -->
 例如，基礎設施製備留給 SIG Cluster Lifecycle 等其他項目來處理，
 比如 [Cluster API](https://cluster-api.sigs.k8s.io/)。
-kubeadm 僅涵蓋每個 Kubernetes 集羣中的共同要素：
+kubeadm 僅涵蓋每個 Kubernetes 叢集中的共同要素：
 [控制平面](/zh-cn/docs/concepts/overview/components/#control-plane-components)。
-用戶可以在集羣創建後安裝其偏好的聯網方案和其他插件。
+使用者可以在叢集創建後安裝其偏好的聯網方案和其他插件。
 
 <!--
 Behind the scenes, kubeadm does a lot. The tool makes sure you have all the key components:
@@ -88,9 +88,9 @@ etcd, the API server, the scheduler, the controller manager. You can join more c
 for improving resiliency or join worker nodes for running your workloads. You get cluster DNS
 and kube-proxy set up for you. TLS between components is enabled and used for encryption in transit.
 -->
-kubeadm 在幕後做了大量工作。它確保你擁有所有關鍵組件：etcd、API 服務器、調度器、控制器管理器。
+kubeadm 在幕後做了大量工作。它確保你擁有所有關鍵組件：etcd、API 伺服器、調度器、控制器管理器。
 你可以加入更多的控制平面節點以提高容錯性，或者加入工作節點以運行你的工作負載。
-kubeadm 還爲你設置好了集羣 DNS 和 kube-proxy；在各組件之間啓用 TLS 用於傳輸加密。
+kubeadm 還爲你設置好了叢集 DNS 和 kube-proxy；在各組件之間啓用 TLS 用於傳輸加密。
 
 <!--
 ## Let's celebrate! Past, present and future of kubeadm
@@ -103,7 +103,7 @@ Therefore celebrating kubeadm is first of all celebrating this community, a set 
 
 總之，kubeadm 的故事與 Kubernetes 深度耦合，也離不開這個令人驚歎的社區。
 
-因此慶祝 kubeadm 首先是慶祝這個社區，一羣人共同努力尋找一個共同點，一個最小可行工具，用於啓動引導 Kubernetes 集羣。
+因此慶祝 kubeadm 首先是慶祝這個社區，一羣人共同努力尋找一個共同點，一個最小可行工具，用於啓動引導 Kubernetes 叢集。
 
 <!--
 This tool, was instrumental to the Kubernetes success back in time as well as it is today, and the silver line of kubeadm's value proposition can be summarized in two points
@@ -114,18 +114,18 @@ This tool, was instrumental to the Kubernetes success back in time as well as it
 -->
 kubeadm 這個工具對 Kubernetes 的成功起到了關鍵作用，其價值主張可以概括爲兩點：
 
-- 極致的簡單：只需兩個命令 kubeadm init 和 kubeadm join 即可完成初始化和接入集羣的操作！讓大多數用戶輕鬆上手。
+- 極致的簡單：只需兩個命令 kubeadm init 和 kubeadm join 即可完成初始化和接入叢集的操作！讓大多數使用者輕鬆上手。
 
-- 明確定義的問題範圍：專注於在現有基礎設施上啓動引導 Kubernetes 集羣。正如我們的口號所說：**保持簡單，保持可擴展！**
+- 明確定義的問題範圍：專注於在現有基礎設施上啓動引導 Kubernetes 叢集。正如我們的口號所說：**保持簡單，保持可擴展！**
 
 <!--
 This silver line, this clear contract, is the foundation the entire kubeadm user base relies on, and this post is a celebration for kubeadm's users as well.
 
 We are deeply thankful for any feedback from our users, for the enthusiasm that they are continuously showing for this tool via Slack, GitHub, social media, blogs, in person at every KubeCon or at the various meet ups around the world. Keep going!
 -->
-這個明確的約定是整個 kubeadm 用戶羣體所依賴的基石，同時本文也是爲了與 kubeadm 的使用者們共同歡慶。
+這個明確的約定是整個 kubeadm 使用者羣體所依賴的基石，同時本文也是爲了與 kubeadm 的使用者們共同歡慶。
 
-我們由衷感謝用戶給予的反饋，感謝他們通過 Slack、GitHub、社交媒體、博客、每次 KubeCon
+我們由衷感謝使用者給予的反饋，感謝他們通過 Slack、GitHub、社交媒體、博客、每次 KubeCon
 會面以及各種聚會上持續展現的熱情。來看看後續的發展！
 
 <!--
@@ -147,7 +147,7 @@ What continues to amaze me after all those years is the great things people are 
 <!--
 This community, the kubeadm’s users, the projects building on top of kubeadm are the highlights of kubeadm’s 7th birthday celebration and the foundation for what will come next!
 -->
-這個社區、kubeadm 的用戶以及基於 kubeadm 構建的項目，是 kubeadm 七週年慶典的亮點，也是未來怎麼發展的基礎！
+這個社區、kubeadm 的使用者以及基於 kubeadm 構建的項目，是 kubeadm 七週年慶典的亮點，也是未來怎麼發展的基礎！
 
 <!--
 Stay tuned, and feel free to reach out to us!

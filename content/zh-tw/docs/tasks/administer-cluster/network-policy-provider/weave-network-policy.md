@@ -25,7 +25,7 @@ This page shows how to use Weave Net for NetworkPolicy.
 You need to have a Kubernetes cluster. Follow the
 [kubeadm getting started guide](/docs/reference/setup-tools/kubeadm/) to bootstrap one.
  -->
-你需要擁有一個 Kubernetes 集羣。按照
+你需要擁有一個 Kubernetes 叢集。按照
 [kubeadm 入門指南](/zh-cn/docs/reference/setup-tools/kubeadm/)
 來啓動一個。
 
@@ -48,9 +48,9 @@ namespaces and configures `iptables` rules to allow or block traffic as directed
 指南執行安裝。
 
 Kubernetes 的 Weave Net 插件帶有
-[網絡策略控制器](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#network-policy)，
+[網路策略控制器](https://github.com/weaveworks/weave/blob/master/site/kubernetes/kube-addon.md#network-policy)，
 可自動監控 Kubernetes 所有名字空間的 NetworkPolicy 註釋，
-配置 `iptables` 規則以允許或阻止策略指示的流量。
+設定 `iptables` 規則以允許或阻止策略指示的流量。
 
 <!--
 ## Test the installation
@@ -97,8 +97,8 @@ to try out Kubernetes NetworkPolicy. If you have any question, contact us at
 [#weave-community on Slack or Weave User Group](https://github.com/weaveworks/weave#getting-help).
  -->
 安裝 Weave Net 插件後，你可以參考
-[聲明網絡策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
+[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
 來試用 Kubernetes NetworkPolicy。
 如果你有任何疑問，請通過
-[Slack 上的 #weave-community 頻道或者 Weave 用戶組](https://github.com/weaveworks/weave#getting-help)
+[Slack 上的 #weave-community 頻道或者 Weave 使用者組](https://github.com/weaveworks/weave#getting-help)
 聯繫我們。

@@ -1,6 +1,6 @@
 ---
-title: 集羣故障排查
-description: 調試常見的集羣問題。
+title: 叢集故障排查
+description: 調試常見的叢集問題。
 weight: 20
 no_list: true
 ---
@@ -21,7 +21,7 @@ problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug/debug-application/) for tips on application debugging.
 You may also visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 -->
-本篇文檔是介紹集羣故障排查的；我們假設對於你碰到的問題，你已經排除了是由應用程序造成的。
+本篇文檔是介紹叢集故障排查的；我們假設對於你碰到的問題，你已經排除了是由應用程序造成的。
 對於應用的調試，請參閱[應用故障排查指南](/zh-cn/docs/tasks/debug/debug-application/)。
 你也可以訪問[故障排查](/zh-cn/docs/tasks/debug/)來獲取更多的信息。
 
@@ -41,7 +41,7 @@ The first thing to debug in your cluster is if your nodes are all registered cor
 
 Run the following command:
 -->
-## 列舉集羣節點 {#listing-your-cluster}
+## 列舉叢集節點 {#listing-your-cluster}
 
 調試的第一步是查看所有的節點是否都已正確註冊。
 
@@ -58,7 +58,7 @@ To get detailed information about the overall health of your cluster, you can ru
 -->
 驗證你所希望看見的所有節點都能夠顯示出來，並且都處於 `Ready` 狀態。
 
-爲了瞭解你的集羣的總體健康狀況詳情，你可以運行：
+爲了瞭解你的叢集的總體健康狀況詳情，你可以運行：
 
 ```shell
 kubectl cluster-info dump
@@ -80,7 +80,7 @@ the events that show the node is NotReady, and also notice that the pods are no 
 有時在調試時查看節點的狀態很有用 —— 例如，因爲你注意到在節點上運行的 Pod 的奇怪行爲，
 或者找出爲什麼 Pod 不會調度到節點上。與 Pod 一樣，你可以使用 `kubectl describe node`
 和 `kubectl get node -o yaml` 來檢索有關節點的詳細信息。
-例如，如果節點關閉（與網絡斷開連接，或者 kubelet 進程掛起並且不會重新啓動等），
+例如，如果節點關閉（與網路斷開連接，或者 kubelet 進程掛起並且不會重新啓動等），
 你將看到以下內容。請注意顯示節點爲 `NotReady` 的事件，並注意 Pod 不再運行（它們在 `NotReady` 狀態五分鐘後被驅逐）。
 
 ```shell
@@ -265,7 +265,7 @@ of the relevant log files.  On systemd-based systems, you may need to use `journ
 -->
 ## 查看日誌 {#looking-at-logs}
 
-目前，深入挖掘集羣需要登錄相關機器。以下是相關日誌文件的位置。
+目前，深入挖掘叢集需要登錄相關機器。以下是相關日誌文件的位置。
 在基於 systemd 的系統上，你可能需要使用 `journalctl` 而不是檢查日誌文件。
 
 <!--
@@ -279,7 +279,7 @@ of the relevant log files.  On systemd-based systems, you may need to use `journ
 -->
 ### 控制平面節點 {#control-plane-nodes}
 
-* `/var/log/kube-apiserver.log` —— API 服務器，負責提供 API 服務
+* `/var/log/kube-apiserver.log` —— API 伺服器，負責提供 API 服務
 * `/var/log/kube-scheduler.log` —— 調度器，負責制定調度決策
 * `/var/log/kube-controller-manager.log` —— 運行大多數 Kubernetes
   內置{{<glossary_tooltip text="控制器" term_id="controller">}}的組件，除了調度（kube-scheduler 處理調度）。
@@ -300,9 +300,9 @@ of the relevant log files.  On systemd-based systems, you may need to use `journ
 
 This is an incomplete list of things that could go wrong, and how to adjust your cluster setup to mitigate the problems.
 -->
-## 集羣故障模式 {#cluster-failure-modes}
+## 叢集故障模式 {#cluster-failure-modes}
 
-這是可能出錯的事情的不完整列表，以及如何調整集羣設置以緩解問題。
+這是可能出錯的事情的不完整列表，以及如何調整叢集設置以緩解問題。
 
 <!-- 
 ### Contributing causes
@@ -316,10 +316,10 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 ### 故障原因 {#contributing-causes}
 
 - 虛擬機關閉
-- 集羣內或集羣與用戶之間的網絡分區
+- 叢集內或叢集與使用者之間的網路分區
 - Kubernetes 軟件崩潰
 - 持久存儲（例如 GCE PD 或 AWS EBS 卷）的數據丟失或不可用
-- 操作員錯誤，例如配置錯誤的 Kubernetes 軟件或應用程序軟件
+- 操作員錯誤，例如設定錯誤的 Kubernetes 軟件或應用程序軟件
 
 <!--
 ### Specific scenarios
@@ -336,15 +336,15 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 -->
 ### 具體情況 {#specific-scenarios}
 
-- API 服務器所在的 VM 關機或者 API 服務器崩潰
+- API 伺服器所在的 VM 關機或者 API 伺服器崩潰
   - 結果
     - 不能停止、更新或者啓動新的 Pod、服務或副本控制器
     - 現有的 Pod 和服務在不依賴 Kubernetes API 的情況下應該能繼續正常工作
-- API 服務器的後端存儲丟失
+- API 伺服器的後端存儲丟失
   - 結果
     - kube-apiserver 組件未能成功啓動並變健康
-    - kubelet 將不能訪問 API 服務器，但是能夠繼續運行之前的 Pod 和提供相同的服務代理
-    - 在 API 服務器重啓之前，需要手動恢復或者重建 API 服務器的狀態
+    - kubelet 將不能訪問 API 伺服器，但是能夠繼續運行之前的 Pod 和提供相同的服務代理
+    - 在 API 伺服器重啓之前，需要手動恢復或者重建 API 伺服器的狀態
 <!--
 - Supporting services (node controller, replication controller manager, scheduler, etc) VM shutdown or crashes
   - currently those are colocated with the apiserver, and their unavailability has similar consequences as apiserver
@@ -359,15 +359,15 @@ This is an incomplete list of things that could go wrong, and how to adjust your
       (Assuming the master VM ends up in partition A.)
 -->
 - Kubernetes 服務組件（節點控制器、副本控制器管理器、調度器等）所在的 VM 關機或者崩潰
-  - 當前，這些控制器是和 API 服務器在一起運行的，它們不可用的現象是與 API 服務器類似的
+  - 當前，這些控制器是和 API 伺服器在一起運行的，它們不可用的現象是與 API 伺服器類似的
   - 將來，這些控制器也會複製爲多份，並且可能不在運行於同一節點上
   - 它們沒有自己的持久狀態
 - 單個節點（VM 或者物理機）關機
   - 結果
     - 此節點上的所有 Pod 都停止運行
-- 網絡分裂
+- 網路分裂
   - 結果
-    - 分區 A 認爲分區 B 中所有的節點都已宕機；分區 B 認爲 API 服務器宕機
+    - 分區 A 認爲分區 B 中所有的節點都已宕機；分區 B 認爲 API 伺服器宕機
       （假定主控節點所在的 VM 位於分區 A 內）。
 <!--
 - Kubelet software fault
@@ -389,11 +389,11 @@ This is an incomplete list of things that could go wrong, and how to adjust your
     - kubelet 可能刪掉 Pod 或者不刪
     - 節點被標識爲非健康態
     - 副本控制器會在其它的節點上啓動新的 Pod
-- 集羣操作錯誤
+- 叢集操作錯誤
   - 結果
     - 丟失 Pod 或服務等等
-    - 丟失 API 服務器的後端存儲
-    - 用戶無法讀取 API
+    - 丟失 API 伺服器的後端存儲
+    - 使用者無法讀取 API
     - 等等
 
 <!--
@@ -415,17 +415,17 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 ### 緩解措施 {#mitigations}
 
 - 措施：對於 IaaS 上的 VM，使用 IaaS 的自動 VM 重啓功能
-  - 緩解：API 服務器 VM 關機或 API 服務器崩潰
+  - 緩解：API 伺服器 VM 關機或 API 伺服器崩潰
   - 緩解：Kubernetes 服務組件所在的 VM 關機或崩潰
 
-- 措施: 對於運行 API 服務器和 etcd 的 VM，使用 IaaS 提供的可靠的存儲（例如 GCE PD 或者 AWS EBS 卷）
-  - 緩解：API 服務器後端存儲的丟失
+- 措施: 對於運行 API 伺服器和 etcd 的 VM，使用 IaaS 提供的可靠的存儲（例如 GCE PD 或者 AWS EBS 卷）
+  - 緩解：API 伺服器後端存儲的丟失
 
-- 措施：使用[高可用性](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)的配置
-  - 緩解：主控節點 VM 關機或者主控節點組件（調度器、API 服務器、控制器管理器）崩潰
+- 措施：使用[高可用性](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)的設定
+  - 緩解：主控節點 VM 關機或者主控節點組件（調度器、API 伺服器、控制器管理器）崩潰
     - 將容許一個或多個節點或組件同時出現故障
-  - 緩解：API 服務器後端存儲（例如 etcd 的數據目錄）丟失
-    - 假定你使用了高可用的 etcd 配置
+  - 緩解：API 伺服器後端存儲（例如 etcd 的數據目錄）丟失
+    - 假定你使用了高可用的 etcd 設定
 
 <!--
 - Action: Snapshot apiserver PDs/EBS-volumes periodically
@@ -441,8 +441,8 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 -->
-- 措施：定期對 API 服務器的 PD 或 EBS 卷執行快照操作
-  - 緩解：API 服務器後端存儲丟失
+- 措施：定期對 API 伺服器的 PD 或 EBS 卷執行快照操作
+  - 緩解：API 伺服器後端存儲丟失
   - 緩解：一些操作錯誤的場景
   - 緩解：一些 Kubernetes 軟件本身故障的場景
 

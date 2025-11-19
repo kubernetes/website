@@ -24,7 +24,7 @@ There are several different proxies you may encounter when using Kubernetes:
 -->
 ## 代理  {#proxies}
 
-用戶在使用 Kubernetes 的過程中可能遇到幾種不同的代理（proxy）：
+使用者在使用 Kubernetes 的過程中可能遇到幾種不同的代理（proxy）：
 
 <!--
 1.  The [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
@@ -38,7 +38,7 @@ There are several different proxies you may encounter when using Kubernetes:
 -->
 1. [kubectl proxy](/zh-cn/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api)：
 
-    - 運行在用戶的桌面或 pod 中
+    - 運行在使用者的桌面或 pod 中
     - 從本機地址到 Kubernetes apiserver 的代理
     - 客戶端到代理使用 HTTP 協議
     - 代理到 apiserver 使用 HTTPS 協議
@@ -59,9 +59,9 @@ There are several different proxies you may encounter when using Kubernetes:
 2. [apiserver proxy](/zh-cn/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services)：
 
     - 是一個建立在 apiserver 內部的“堡壘”
-    - 將集羣外部的用戶與集羣 IP 相連接，這些 IP 是無法通過其他方式訪問的
+    - 將叢集外部的使用者與叢集 IP 相連接，這些 IP 是無法通過其他方式訪問的
     - 運行在 apiserver 進程內
-    - 客戶端到代理使用 HTTPS 協議 (如果配置 apiserver 使用 HTTP 協議，則使用 HTTP 協議)
+    - 客戶端到代理使用 HTTPS 協議 (如果設定 apiserver 使用 HTTP 協議，則使用 HTTP 協議)
     - 通過可用信息進行選擇，代理到目的地可能使用 HTTP 或 HTTPS 協議
     - 可以用來訪問 Node、 Pod 或 Service
     - 當用來訪問 Service 時，會進行負載均衡
@@ -92,9 +92,9 @@ There are several different proxies you may encounter when using Kubernetes:
 -->
 4. apiserver 之前的代理/負載均衡器：
 
-    - 在不同集羣中的存在形式和實現不同 (如 nginx)
-    - 位於所有客戶端和一個或多個 API 服務器之間
-    - 存在多個 API 服務器時，扮演負載均衡器的角色
+    - 在不同叢集中的存在形式和實現不同 (如 nginx)
+    - 位於所有客戶端和一個或多個 API 伺服器之間
+    - 存在多個 API 伺服器時，扮演負載均衡器的角色
 
 <!--
 1.  Cloud Load Balancers on external services:
@@ -118,7 +118,7 @@ Kubernetes users will typically not need to worry about anything other than the 
 will typically ensure that the latter types are set up correctly.
 -->
 
-Kubernetes 用戶通常只需要關心前兩種類型的代理，集羣管理員通常需要確保後面幾種類型的代理設置正確。
+Kubernetes 使用者通常只需要關心前兩種類型的代理，叢集管理員通常需要確保後面幾種類型的代理設置正確。
 
 <!--
 ## Requesting redirects

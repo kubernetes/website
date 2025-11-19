@@ -7,7 +7,7 @@ To skip the internet check, pass in the optional [version] parameter.
 -->
 ### 概述
 
-檢查可升級到哪些版本，並驗證你當前的集羣是否可升級。
+檢查可升級到哪些版本，並驗證你當前的叢集是否可升級。
 該命令只能在存在 kubeconfig 文件 `admin.conf` 的控制平面節點上運行。
 要跳過互聯網檢查，請傳入可選參數 [version]。
 
@@ -84,7 +84,7 @@ Show release candidate versions of Kubernetes as an upgrade alternative and allo
 <!--
 Path to a kubeadm configuration file.
 -->
-配置文件的路徑。
+設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -192,7 +192,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與集羣通信時使用的 kubeconfig 文件。如果標誌爲未設置，
+與叢集通信時使用的 kubeconfig 文件。如果標誌爲未設置，
 則可以在一組標準位置中搜索現有的 kubeconfig 文件。
 </p>
 </td>
@@ -217,7 +217,7 @@ Default: "text"
 <!--
 Specifies whether the configuration file that will be used in the upgrade should be printed or not.
 -->
-指定是否打印將在升級中使用的配置文件。
+指定是否打印將在升級中使用的設定文件。
 </p>
 </td>
 </tr>

@@ -28,8 +28,8 @@ authorized for API access.
 When a request reaches the API, it goes through several stages, illustrated in the
 following diagram:
 -->
-用戶使用 `kubectl`、客戶端庫或構造 REST 請求來訪問 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
-人類用戶和 [Kubernetes 服務賬號](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)都可以被鑑權訪問 API。
+使用者使用 `kubectl`、客戶端庫或構造 REST 請求來訪問 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
+人類使用者和 [Kubernetes 服務賬號](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)都可以被鑑權訪問 API。
 當請求到達 API 時，它會經歷多個階段，如下圖所示：
 
 ![Kubernetes API 請求處理步驟示意圖](/zh-cn/docs/images/access-control-overview.svg)
@@ -50,11 +50,11 @@ a private certificate authority (CA), or based on a public key infrastructure li
 to a generally recognized CA. The certificate and corresponding private key can be set
 by using the `--tls-cert-file` and `--tls-private-key-file` flags.
 -->
-默認情況下，Kubernetes API 服務器在第一個非 localhost 網絡接口的 6443 端口上進行監聽，
-受 TLS 保護。在一個典型的 Kubernetes 生產集羣中，API 使用 443 端口。
+默認情況下，Kubernetes API 伺服器在第一個非 localhost 網路接口的 6443 端口上進行監聽，
+受 TLS 保護。在一個典型的 Kubernetes 生產叢集中，API 使用 443 端口。
 該端口可以通過 `--secure-port` 進行變更，監聽 IP 地址可以通過 `--bind-address` 標誌進行變更。
 
-API 服務器出示證書。該證書可以使用私有證書頒發機構（CA）簽名，也可以基於鏈接到公認的 CA 的公鑰基礎架構簽名。
+API 伺服器出示證書。該證書可以使用私有證書頒發機構（CA）簽名，也可以基於鏈接到公認的 CA 的公鑰基礎架構簽名。
 該證書和相應的私鑰可以通過使用 `--tls-cert-file` 和 `--tls-private-key-file` 標誌進行設置。
 
 <!--
@@ -64,7 +64,7 @@ trust the connection and be confident it was not intercepted.
 
 Your client can present a TLS client certificate at this stage.
 -->
-如果你的集羣使用私有證書頒發機構，你需要在客戶端的 `~/.kube/config` 文件中提供該 CA 證書的副本，
+如果你的叢集使用私有證書頒發機構，你需要在客戶端的 `~/.kube/config` 文件中提供該 CA 證書的副本，
 以便你可以信任該連接並確認該連接沒有被攔截。
 
 你的客戶端可以在此階段出示 TLS 客戶端證書。
@@ -82,7 +82,7 @@ Authenticators are described in more detail in
 ## 認證 {#authentication}
 
 如上圖步驟 **1** 所示，建立 TLS 後， HTTP 請求將進入認證（Authentication）步驟。
-集羣創建腳本或者集羣管理員配置 API 服務器，使之運行一個或多個身份認證組件。
+叢集創建腳本或者叢集管理員設定 API 伺服器，使之運行一個或多個身份認證組件。
 身份認證組件在[認證](/zh-cn/docs/reference/access-authn-authz/authentication/)節中有更詳細的描述。
 
 <!--
@@ -99,7 +99,7 @@ until one of them succeeds.
 
 認證模塊包含客戶端證書、密碼、普通令牌、引導令牌和 JSON Web 令牌（JWT，用於服務賬號）。
 
-可以指定多個認證模塊，在這種情況下，服務器依次嘗試每個驗證模塊，直到其中一個成功。
+可以指定多個認證模塊，在這種情況下，伺服器依次嘗試每個驗證模塊，直到其中一個成功。
 
 <!--
 If the request cannot be authenticated, it is rejected with HTTP status code 401.
@@ -112,9 +112,9 @@ While Kubernetes uses usernames for access control decisions and in request logg
 it does not have a `User` object nor does it store usernames or other information about
 users in its API.
 -->
-如果請求認證不通過，服務器將以 HTTP 狀態碼 401 拒絕該請求。
-反之，該用戶被認證爲特定的 `username`，並且該用戶名可用於後續步驟以在其決策中使用。
-部分驗證器還提供用戶的組成員身份，其他則不提供。
+如果請求認證不通過，伺服器將以 HTTP 狀態碼 401 拒絕該請求。
+反之，該使用者被認證爲特定的 `username`，並且該使用者名可用於後續步驟以在其決策中使用。
+部分驗證器還提供使用者的組成員身份，其他則不提供。
 
 <!--
 ## Authorization
@@ -130,10 +130,10 @@ For example, if Bob has the policy below, then he can read pods only in the name
 -->
 ## 鑑權 {#authorization}
 
-如上圖的步驟 **2** 所示，將請求驗證爲來自特定的用戶後，請求必須被鑑權。
+如上圖的步驟 **2** 所示，將請求驗證爲來自特定的使用者後，請求必須被鑑權。
 
-請求必須包含請求者的用戶名、請求的行爲以及受該操作影響的對象。
-如果現有策略聲明用戶有權完成請求的操作，那麼該請求被鑑權通過。
+請求必須包含請求者的使用者名、請求的行爲以及受該操作影響的對象。
+如果現有策略聲明使用者有權完成請求的操作，那麼該請求被鑑權通過。
 
 例如，如果 Bob 有以下策略，那麼他只能在 `projectCaribou` 名稱空間中讀取 Pod。
 
@@ -197,8 +197,8 @@ To learn more about Kubernetes authorization, including details about creating
 policies using the supported authorization modules, see [Authorization](/docs/reference/access-authn-authz/authorization/).
 -->
 Kubernetes 支持多種鑑權模塊，例如 ABAC 模式、RBAC 模式和 Webhook 模式等。
-管理員創建集羣時，他們配置應在 API 服務器中使用的鑑權模塊。
-如果配置了多個鑑權模塊，則 Kubernetes 會檢查每個模塊，任意一個模塊鑑權該請求，請求即可繼續；
+管理員創建叢集時，他們設定應在 API 伺服器中使用的鑑權模塊。
+如果設定了多個鑑權模塊，則 Kubernetes 會檢查每個模塊，任意一個模塊鑑權該請求，請求即可繼續；
 如果所有模塊拒絕了該請求，請求將會被拒絕（HTTP 狀態碼 403）。
 
 要了解更多有關 Kubernetes 鑑權的更多信息，包括有關使用支持鑑權模塊創建策略的詳細信息，
@@ -222,7 +222,7 @@ When multiple admission controllers are configured, they are called in order.
 
 准入控制器對創建、修改、刪除或（通過代理）連接對象的請求進行操作。
 准入控制器不會對僅讀取對象的請求起作用。
-有多個准入控制器被配置時，服務器將依次調用它們。
+有多個准入控制器被設定時，伺服器將依次調用它們。
 
 <!--
 This is shown as step **3** in the diagram.
@@ -258,8 +258,8 @@ For more information, see [Auditing](/docs/tasks/debug/debug-cluster/audit/).
 -->
 ## 審計 {#auditing}
 
-Kubernetes 審計提供了一套與安全相關的、按時間順序排列的記錄，其中記錄了集羣中的操作序列。
-集羣對用戶、使用 Kubernetes API 的應用程序以及控制平面本身產生的活動進行審計。
+Kubernetes 審計提供了一套與安全相關的、按時間順序排列的記錄，其中記錄了叢集中的操作序列。
+叢集對使用者、使用 Kubernetes API 的應用程序以及控制平面本身產生的活動進行審計。
 
 更多信息請參考[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 

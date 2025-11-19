@@ -45,7 +45,7 @@ Release 說明：
 * apiserver 現在限制了它處理的併發請求的數量 ([#6207][11])
 * 添加速度限制刪除 pod ([#6355][12])
 * 將平衡資源分配算法作爲優先級函數實現在調度程序包中 ([#6150][13])
-* 從主服務器啓用日誌收集功能 ([#6396][14])
+* 從主伺服器啓用日誌收集功能 ([#6396][14])
 * 添加了一個 api 端口來從 Pod 中提取日誌 ([#6497][15])
 * 爲調度程序添加了延遲指標 ([#6368][16])
 * 爲 REST 客戶端添加了延遲指標 ([#6409][17])
@@ -76,10 +76,10 @@ Release 說明：
 
 * etcd 現在在 master 上的一個 pod 中運行 ([#6221][18])
 * nginx 現在在 master上的容器中運行 ([#6334][19])
-* 開始爲主組件構建 Docker 鏡像 ([#6326][20])
+* 開始爲主組件構建 Docker 映像檔 ([#6326][20])
 * 更新了 GCE 程序以使用 gcloud 0.9.54 ([#6270][21])
 * 更新了 AWS 程序來修復區域與區域語義 ([#6011][22])
-* 記錄鏡像 GC 失敗時的事件 ([#6091][23])
+* 記錄映像檔 GC 失敗時的事件 ([#6091][23])
 * 爲 kubernetes 客戶端添加 QPS 限制器 ([#6203][24])
 * 減少運行 make release 所需的時間 ([#6196][25])
 * 新卷的支持
@@ -129,19 +129,19 @@ To download, please visit https://github.com/GoogleCloudPlatform/kubernetes/rele
 [5]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6237 "示例 ansible 設置倉庫"
 [6]: https://github.com/GoogleCloudPlatform/kubernetes/pull/5270 "控制器框架"
 [7]: https://github.com/GoogleCloudPlatform/kubernetes/pull/5473 "添加 DeltaFIFO（控制器框架塊）"
-[8]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6380 "將 kubelet 配置爲使用 HTTPS (獲得 2)"
-[9]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6338 "返回用於配置驗證的類型化錯誤，並簡化錯誤"
+[8]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6380 "將 kubelet 設定爲使用 HTTPS (獲得 2)"
+[9]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6338 "返回用於設定驗證的類型化錯誤，並簡化錯誤"
 [10]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6190 "添加客戶端證書認證"
-[11]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6207 "爲服務器處理的正在運行的請求數量添加一個限制。"
+[11]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6207 "爲伺服器處理的正在運行的請求數量添加一個限制。"
 [12]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6355 "添加速度限制刪除 pod"
 [13]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6150 "將均衡資源分配算法作爲優先級函數實現在調度程序包中。"
-[14]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6396 "啓用主服務器收集日誌。"
+[14]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6396 "啓用主伺服器收集日誌。"
 [15]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6497 "pod 子日誌資源"
 [16]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6368 "將基本延遲指標添加到調度程序。"
 [17]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6409 "向 REST 客戶端添加延遲指標"
 [18]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6221 "在 pod 中運行 etcd 2.0.5"
-[19]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6334 "添加一個 nginx docker 鏡像用於主程序。"
-[20]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6326 "爲主組件創建 Docker 鏡像"
+[19]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6334 "添加一個 nginx docker 映像檔用於主程序。"
+[20]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6326 "爲主組件創建 Docker 映像檔"
 [21]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6270 "gcloud 0.9.54 的更新"
 
 <!--
@@ -160,14 +160,14 @@ To download, please visit https://github.com/GoogleCloudPlatform/kubernetes/rele
 [34]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6727 "pkg/proxy: panic if run out of fd"
 -->
 [22]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6011 "修復 AWS 區域 與 zone"
-[23]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6091 "記錄鏡像 GC 失敗時的事件。"
+[23]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6091 "記錄映像檔 GC 失敗時的事件。"
 [24]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6203 "向 kubernetes 客戶端添加 QPS 限制器。"
 [25]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6196 "在 `make release` 的構建和打包階段並行化架構"
 [26]: https://github.com/GoogleCloudPlatform/kubernetes/pull/5506 "添加 iscsi 卷插件"
 [27]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6174 "實現 glusterfs 卷插件"
 [28]: https://github.com/GoogleCloudPlatform/kubernetes/pull/5138 "AWS EBS 卷支持"
 [29]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6331 "將 heapster 版本更新到 v0.10.0"
-[30]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6544 "構建 etcd 鏡像(版本 2.0.9)，並將 kubernetes 集羣升級到新版本"
+[30]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6544 "構建 etcd 映像檔(版本 2.0.9)，並將 kubernetes 叢集升級到新版本"
 [31]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6426 "更新 Kibana 到 v1.2，它對 Elasticsearch 的位置進行了參數化"
 [32]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6123 "修復了 kube-proxy 中的一個錯誤，如果一個服務的公共 ip 發生變化，它不會更新 iptables 規則"
 [33]: https://github.com/GoogleCloudPlatform/kubernetes/pull/6200 "如果 kube-addons 創建失敗，請重試 kube-addons 創建。"

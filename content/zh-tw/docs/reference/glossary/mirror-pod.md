@@ -1,9 +1,9 @@
 ---
-title: 鏡像 Pod（Mirror Pod）
+title: 映像檔 Pod（Mirror Pod）
 id: 靜態-pod
 date: 2019-08-06
 short_description: >
-  API 服務器中的一個對象，用於跟蹤 kubelet 上的靜態 pod。
+  API 伺服器中的一個對象，用於跟蹤 kubelet 上的靜態 pod。
 
 aka:
 tags:
@@ -27,7 +27,7 @@ tags:
  A {{< glossary_tooltip text="pod" term_id="pod" >}} object that a kubelet uses
  to represent a {{< glossary_tooltip text="static pod" term_id="static-pod" >}}
 -->
-鏡像 Pod（Mirror Pod）是被 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+映像檔 Pod（Mirror Pod）是被 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
 用來代表{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}} 的
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 對象。
 
@@ -40,8 +40,8 @@ will be visible on the API server, but cannot be controlled from there.
 
 (For example, removing a mirror pod will not stop the kubelet daemon from running it).
 -->
-當 kubelet 在其配置中發現一個靜態容器時，
-它會自動地嘗試在 Kubernetes API 服務器上爲它創建 Pod 對象。
-這意味着 pod 在 API 服務器上將是可見的，但不能在其上進行控制。
+當 kubelet 在其設定中發現一個靜態容器時，
+它會自動地嘗試在 Kubernetes API 伺服器上爲它創建 Pod 對象。
+這意味着 pod 在 API 伺服器上將是可見的，但不能在其上進行控制。
 
-（例如，刪除鏡像 Pod 也不會阻止 kubelet 守護進程繼續運行它）。
+（例如，刪除映像檔 Pod 也不會阻止 kubelet 守護進程繼續運行它）。

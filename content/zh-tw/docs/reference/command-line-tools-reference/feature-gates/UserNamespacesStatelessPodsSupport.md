@@ -18,4 +18,4 @@ removed: true
 Enable user namespace support for stateless Pods. This feature gate was superseded
 by the `UserNamespacesSupport` feature gate in the Kubernetes v1.28 release.
 -->
-爲無狀態 Pod 啓用用戶命名空間支持。此特性在 Kubernetes v1.28 版本中被 `UserNamespacesSupport` 特性取代。
+爲無狀態 Pod 啓用使用者命名空間支持。此特性在 Kubernetes v1.28 版本中被 `UserNamespacesSupport` 特性取代。

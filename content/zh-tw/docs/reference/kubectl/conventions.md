@@ -83,15 +83,15 @@ For `kubectl run` to satisfy infrastructure as code:
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
 -->
 
-* 使用特定版本的標籤標記鏡像，不要將該標籤改爲新版本。例如使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，
-  而不是 `:latest`（有關詳細信息，請參閱[配置的最佳實踐](/zh-cn/docs/concepts/configuration/overview/#container-images))。
-* 使用基於版本控制的腳本來運行包含大量參數的鏡像。
-* 對於無法通過 `kubectl run` 參數來表示的功能特性，使用基於源碼控制的配置文件，以記錄要使用的功能特性。
+* 使用特定版本的標籤標記映像檔，不要將該標籤改爲新版本。例如使用 `:v1234`、`v1.2.3`、`r03062016-1-4`，
+  而不是 `:latest`（有關詳細信息，請參閱[設定的最佳實踐](/zh-cn/docs/concepts/configuration/overview/#container-images))。
+* 使用基於版本控制的腳本來運行包含大量參數的映像檔。
+* 對於無法通過 `kubectl run` 參數來表示的功能特性，使用基於源碼控制的設定文件，以記錄要使用的功能特性。
 
 <!--
 You can use the `--dry-run=client` flag to preview the object that would be sent to your cluster, without really submitting it.
 -->
-你可以使用 `--dry-run=client` 參數來預覽而不真正提交即將下發到集羣的對象實例：
+你可以使用 `--dry-run=client` 參數來預覽而不真正提交即將下發到叢集的對象實例：
 
 ### `kubectl apply`
 

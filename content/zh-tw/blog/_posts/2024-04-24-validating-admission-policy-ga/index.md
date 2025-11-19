@@ -378,7 +378,7 @@ To find the 95th percentile execution duration of the policy shown above.
 ## 設置監控
 
 與 Webhook 不同，策略不是一個可以公開其自身指標的專用進程。
-相反，你可以使用源自 API 服務器的指標來代替。
+相反，你可以使用源自 API 伺服器的指標來代替。
 
 以下是使用 Prometheus 查詢語言執行一些常見監控任務的示例。
 

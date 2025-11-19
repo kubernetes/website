@@ -38,7 +38,7 @@ do all proper sanitization before turning the configuration into an `nginx.conf`
 disclosure risks.
 -->
 Ingress-NGINX 一直是安全評估的重頭戲，這類評估會發現我們有着很大的問題：
-在將配置轉換爲 `nginx.conf` 文件之前，我們沒有進行所有適當的清理，這可能會導致信息泄露風險。
+在將設定轉換爲 `nginx.conf` 文件之前，我們沒有進行所有適當的清理，這可能會導致信息泄露風險。
 
 <!--
 While we understand this risk and the real need to fix this, it's not an easy process to do, so we took another approach to reduce (but not remove!) this risk in the current (v1.2.0) release.
@@ -55,13 +55,13 @@ While we understand this risk and the real need to fix this, it's not an easy pr
 One of the main challenges is that Ingress-NGINX runs the web proxy server (NGINX) alongside the Ingress
 controller (the component that has access to Kubernetes API that and that creates the `nginx.conf` file).
 -->
-主要挑戰之一是 Ingress-NGINX 運行着 Web 代理服務器（NGINX），並與 Ingress 控制器一起運行
+主要挑戰之一是 Ingress-NGINX 運行着 Web 代理伺服器（NGINX），並與 Ingress 控制器一起運行
 （後者是一個可以訪問 Kubernetes API 並創建 `nginx.conf` 的組件）。
 
 <!--
 So, NGINX does have the same access to the filesystem of the controller (and Kubernetes service account token, and other configurations from the container). While splitting those components is our end goal, the project needed a fast response; that lead us to the idea of using `chroot()`.
 -->
-因此，NGINX 對控制器的文件系統（和 Kubernetes 服務帳戶令牌，以及容器中的其他配置）具有相同的訪問權限。 
+因此，NGINX 對控制器的文件系統（和 Kubernetes 服務帳戶令牌，以及容器中的其他設定）具有相同的訪問權限。 
 雖然拆分這些組件是我們的最終目標，但該項目需要快速響應；這讓我們想到了使用 `chroot()`。
 
 <!--
@@ -123,7 +123,7 @@ There are two required changes in your deployments to use this feature:
 * In your Pod template for the Ingress controller, find where you add the capability `NET_BIND_SERVICE` and add the capability `SYS_CHROOT`. After you edit the manifest, you'll see a snippet like:
 -->
 要使用這個功能，在你的部署中有兩個必要的改變：
-* 將後綴 "-chroot" 添加到容器鏡像名稱中。例如：`gcr.io/k8s-staging-ingress-nginx/controller-chroot:v1.2.0`
+* 將後綴 "-chroot" 添加到容器映像檔名稱中。例如：`gcr.io/k8s-staging-ingress-nginx/controller-chroot:v1.2.0`
 * 在你的 Ingress 控制器的 Pod 模板中，找到添加 `NET_BIND_SERVICE` 權能的位置並添加 `SYS_CHROOT` 權能。
   編輯清單後，你將看到如下代碼段：
 
@@ -151,9 +151,9 @@ Ingress controllers are normally set up cluster-wide (the IngressClass API is cl
 Ingress-NGINX controller but you're not the overall cluster operator, then check with your cluster admin about
 whether you can use the `SYS_CHROOT` capability, **before** you enable it in your deployment.
 -->
-Ingress 控制器通常部署在集羣作用域（IngressClass API 是集羣作用域的）。
-如果你管理 Ingress-NGINX 控制器但你不是整個集羣的操作員，
-請在部署中啓用它**之前**與集羣管理員確認你是否可以使用 `SYS_CHROOT` 功能。
+Ingress 控制器通常部署在叢集作用域（IngressClass API 是叢集作用域的）。
+如果你管理 Ingress-NGINX 控制器但你不是整個叢集的操作員，
+請在部署中啓用它**之前**與叢集管理員確認你是否可以使用 `SYS_CHROOT` 功能。
 
 <!--
 ## OK, but how does this increase the security of my Ingress controller?
@@ -162,7 +162,7 @@ Take the following configuration snippet and imagine, for some reason it was add
 -->
 ## 好吧，但這如何能提高我的 Ingress 控制器的安全性呢？
 
-以下面的配置片段爲例，想象一下，由於某種原因，它被添加到你的 `nginx.conf` 中：
+以下面的設定片段爲例，想象一下，由於某種原因，它被添加到你的 `nginx.conf` 中：
 
 ```
 location /randomthing/ {
@@ -175,7 +175,7 @@ If you deploy this configuration, someone can call `http://website.example/rando
 
 Now, can you spot the difference between chrooted and non chrooted Nginx on the listings below?
 -->
-如果你部署了這種配置，有人可以調用 `http://website.example/randomthing` 並獲取對 Ingress 控制器的整個文件系統的一些列表（和訪問權限）。
+如果你部署了這種設定，有人可以調用 `http://website.example/randomthing` 並獲取對 Ingress 控制器的整個文件系統的一些列表（和訪問權限）。
 
 現在，你能在下面的列表中發現 chroot 處理過和未經 chroot 處理過的 Nginx 之間的區別嗎？
 
@@ -246,7 +246,7 @@ You can take a look into the existing rules in [https://github.com/kubernetes/in
 Due to the nature of inspecting and matching all strings within relevant Ingress objects, this new feature may consume a bit more CPU. You can disable it by running the ingress controller with the command line argument `--deep-inspect=false`.
 -->
 由於檢查和匹配相關 Ingress 對象中的所有字符串的性質，此新功能可能會消耗更多 CPU。
-你可以通過使用命令行參數 `--deep-inspect=false` 運行 Ingress 控制器來禁用它。
+你可以通過使用命令列參數 `--deep-inspect=false` 運行 Ingress 控制器來禁用它。
 
 <!--
 ## What's next?

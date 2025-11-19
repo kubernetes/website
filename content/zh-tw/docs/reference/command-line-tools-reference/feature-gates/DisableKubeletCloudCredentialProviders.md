@@ -28,4 +28,4 @@ kubelet, that allowed the kubelet to to authenticate to a cloud provider contain
 for container image pulls.
 -->
 啓用此特性門控將停用 kubelet 中舊版的樹內功能，
-該功能原本允許 kubelet 對雲提供商的容器倉庫進行身份驗證以拉取容器鏡像。
+該功能原本允許 kubelet 對雲提供商的容器倉庫進行身份驗證以拉取容器映像檔。

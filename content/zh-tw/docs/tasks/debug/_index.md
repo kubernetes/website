@@ -1,6 +1,6 @@
 ---
 title: 監控、日誌和調試
-description: 設置監控和日誌記錄以對集羣進行故障排除或調試容器化應用程序。
+description: 設置監控和日誌記錄以對叢集進行故障排除或調試容器化應用程序。
 weight: 40
 content_type: concept
 no_list: true
@@ -42,13 +42,13 @@ Sometimes things go wrong. This guide helps you gather the relevant information 
   for cluster administrators who want to enable monitoring in a Kubernetes cluster.
 -->
 * [應用排錯](/zh-cn/docs/tasks/debug/debug-application/) -
-  針對部署代碼到 Kubernetes 並想知道代碼爲什麼不能正常運行的用戶。
-* [集羣排錯](/zh-cn/docs/tasks/debug/debug-cluster/) -
-  供集羣管理員和操作員解決 Kubernetes 集羣本身的問題。
+  針對部署代碼到 Kubernetes 並想知道代碼爲什麼不能正常運行的使用者。
+* [叢集排錯](/zh-cn/docs/tasks/debug/debug-cluster/) -
+  供叢集管理員和操作員解決 Kubernetes 叢集本身的問題。
 * [日誌記錄](/zh-cn/docs/tasks/debug/logging/) -
-  針對想要在 Kubernetes 中設置和管理日誌記錄的集羣管理員。
+  針對想要在 Kubernetes 中設置和管理日誌記錄的叢集管理員。
 * [監控](/zh-cn/docs/tasks/debug/monitoring/) -
-  針對想要在 Kubernetes 集羣中啓用監控的集羣管理員。
+  針對想要在 Kubernetes 叢集中啓用監控的叢集管理員。
 
 <!--
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
@@ -90,7 +90,7 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 [教程](/zh-cn/docs/tutorials/)部分則提供對現實世界、特定行業或端到端開發場景的更全面的演練。
 [參考](/zh-cn/docs/reference/)部分提供了詳細的
 [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) 文檔
-和命令行 (CLI) 接口的文檔，例如[`kubectl`](/zh-cn/docs/reference/kubectl/)。
+和命令列 (CLI) 接口的文檔，例如[`kubectl`](/zh-cn/docs/reference/kubectl/)。
 
 <!--
 ## Help! My question isn't covered!  I need help now!
@@ -112,7 +112,7 @@ you can ask those on
 若你對容器化應用有**軟件開發**相關的疑問，你可以在
 [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes) 上詢問。
 
-若你有**集羣管理**或**配置**相關的疑問，你可以在
+若你有**叢集管理**或**設定**相關的疑問，你可以在
 [Server Fault](https://serverfault.com/questions/tagged/kubernetes) 上詢問。
 
 <!--
@@ -262,5 +262,5 @@ problem, such as:
 * Steps to reproduce the problem
 -->
 * Kubernetes 版本：`kubectl version`
-* 雲平臺、OS 發行版、網絡配置和 Docker 版本
+* 雲平臺、OS 發行版、網路設定和 Docker 版本
 * 重現問題的步驟

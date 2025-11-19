@@ -130,7 +130,7 @@ dates for simplicity (every month has it).
 
 - CVE（在安全響應委員會的建議下）
 - 已分配 CVE ID 的[漏洞](/zh-cn/docs/reference/issues-security/official-cve-feed/)（在安全響應委員會的建議下）
-- 依賴問題（包括基礎鏡像更新）
+- 依賴問題（包括基礎映像檔更新）
 - 關鍵核心組件問題
 
 在兩個月的維護模式期結束時，補丁發佈系列將被視爲 EOL（生命週期結束），相關分支的 Cherry Pick 將很快關閉。

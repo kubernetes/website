@@ -24,7 +24,7 @@ This page shows how to manually rotate the certificate authority (CA) certificat
 - For more information about best practices for CA certificates, see
   [Single root CA](/docs/setup/best-practices/certificates/#single-root-ca).
 -->
-- 要了解 Kubernetes 中用戶認證的更多信息，參閱
+- 要了解 Kubernetes 中使用者認證的更多信息，參閱
   [認證](/zh-cn/docs/reference/access-authn-authz/authentication)；
 - 要了解與 CA 證書最佳實踐有關的更多信息，
   參閱[單根 CA](/zh-cn/docs/setup/best-practices/certificates/#single-root-ca)。
@@ -45,13 +45,13 @@ Graceful termination of the API server is also assumed so clients can cleanly di
 
 Configurations with a single API server will experience unavailability while the API server is being restarted.
 -->
-確保備份你的證書目錄、配置文件以及其他必要文件。
+確保備份你的證書目錄、設定文件以及其他必要文件。
 
-這裏的方法假定 Kubernetes 的控制面通過運行多個 API 服務器以高可用配置模式運行。
-另一假定是 API 服務器可體面地終止，因而客戶端可以徹底地與一個 API 服務器斷開
-連接並連接到另一個 API 服務器。
+這裏的方法假定 Kubernetes 的控制面通過運行多個 API 伺服器以高可用設定模式運行。
+另一假定是 API 伺服器可體面地終止，因而客戶端可以徹底地與一個 API 伺服器斷開
+連接並連接到另一個 API 伺服器。
 
-如果集羣中只有一個 API 服務器，則在 API 服務器重啓期間會經歷服務中斷期。
+如果叢集中只有一個 API 伺服器，則在 API 伺服器重啓期間會經歷服務中斷期。
 {{< /caution >}}
 
 <!--
@@ -105,7 +105,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 -->
 3. 等待該控制器管理器更新服務賬號 Secret 中的 `ca.crt`，使之同時包含老的和新的 CA 證書。
 
-   如果在 API 服務器使用新的 CA 之前啓動了新的 Pod，這些新的 Pod
+   如果在 API 伺服器使用新的 CA 之前啓動了新的 Pod，這些新的 Pod
    也會獲得此更新並且同時信任老的和新的 CA 證書。
 
 <!--
@@ -119,15 +119,15 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 
 1. Append the both old and new CA to the file against `--client-ca-file` flag in the `kube-scheduler` configuration.
 -->
-4. 重啓所有使用集羣內配置的 Pod（例如：kube-proxy、CoreDNS 等），以便這些 Pod
+4. 重啓所有使用叢集內設定的 Pod（例如：kube-proxy、CoreDNS 等），以便這些 Pod
    能夠使用與 ServiceAccount 相關聯的 Secret 中的、已更新的證書機構數據。
 
-   * 確保 CoreDNS、kube-proxy 和其他使用集羣內配置的 Pod 都正按預期方式工作。
+   * 確保 CoreDNS、kube-proxy 和其他使用叢集內設定的 Pod 都正按預期方式工作。
 
-5. 將老的和新的 CA 都追加到 `kube-apiserver` 配置的 `--client-ca-file` 和
+5. 將老的和新的 CA 都追加到 `kube-apiserver` 設定的 `--client-ca-file` 和
    `--kubelet-certificate-authority` 標誌所指的文件。
 
-6. 將老的和新的 CA 都追加到 `kube-scheduler` 配置的 `--client-ca-file` 標誌所指的文件。
+6. 將老的和新的 CA 都追加到 `kube-scheduler` 設定的 `--client-ca-file` 標誌所指的文件。
 
 <!--
 1. Update certificates for user accounts by replacing the content of `client-certificate-data` and `client-key-data` respectively.
@@ -138,10 +138,10 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
    Additionally, update the `certificate-authority-data` section in the kubeconfig files,
    respectively with Base64-encoded old and new certificate authority data
 -->
-7. 通過替換 `client-certificate-data` 和 `client-key-data` 中的內容，更新用戶賬號的證書。
+7. 通過替換 `client-certificate-data` 和 `client-key-data` 中的內容，更新使用者賬號的證書。
 
-   有關爲獨立用戶賬號創建證書的更多信息，可參閱
-   [爲用戶帳號配置證書](/zh-cn/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts)。
+   有關爲獨立使用者賬號創建證書的更多信息，可參閱
+   [爲使用者帳號設定證書](/zh-cn/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts)。
 
    另外，還要更新 kubeconfig 文件中的 `certificate-authority-data` 節，
    使之包含 Base64 編碼的老的和新的證書機構數據。
@@ -157,7 +157,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
    <!--
    If your cluster does not have a cloud-controller-manager, you can skip this step.
    -->
-   如果你的集羣中不包含 cloud-controller-manager，你可以略過這一步。
+   如果你的叢集中不包含 cloud-controller-manager，你可以略過這一步。
    {{< /note >}}
 
 <!--
@@ -176,10 +176,10 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 -->
 9. 遵循下列步驟執行滾動更新
 
-   1. 重新啓動所有其他[被聚合的 API 服務器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+   1. 重新啓動所有其他[被聚合的 API 伺服器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
       或者 Webhook 處理程序，使之信任新的 CA 證書。
 
-   2. 在所有節點上更新 kubelet 配置中的 `clientCAFile` 所指文件以及 `kubelet.conf` 中的
+   2. 在所有節點上更新 kubelet 設定中的 `clientCAFile` 所指文件以及 `kubelet.conf` 中的
       `certificate-authority-data` 並重啓 kubelet 以同時使用老的和新的 CA 證書。
 
       如果你的 kubelet 並未使用客戶端證書輪換，則在所有節點上更新 `kubelet.conf` 中
@@ -194,7 +194,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
    -->
    3. 使用用新的 CA 簽名的證書
        （`apiserver.crt`、`apiserver-kubelet-client.crt` 和 `front-proxy-client.crt`）
-      來重啓 API 服務器。
+      來重啓 API 伺服器。
       你可以使用現有的私鑰，也可以使用新的私鑰。
       如果你改變了私鑰，則要將更新的私鑰也放到 Kubernetes 證書目錄下。
 
@@ -203,8 +203,8 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
       after which pods' Kubernetes clients reconnect to the new API server.
       The new API server uses a certificate signed by the new CA.
       -->
-      由於集羣中的 Pod 既信任老的 CA 也信任新的 CA，Pod 中的客戶端會經歷短暫的連接斷開狀態，
-      之後再使用新的 CA 所簽名的證書連接到新的 API 服務器。
+      由於叢集中的 Pod 既信任老的 CA 也信任新的 CA，Pod 中的客戶端會經歷短暫的連接斷開狀態，
+      之後再使用新的 CA 所簽名的證書連接到新的 API 伺服器。
 
       <!--
       * Restart the {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}} to use and
@@ -221,7 +221,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
       see [Certificates (`openssl`)](/docs/tasks/administer-cluster/certificates/#openssl).
       You can also use [`cfssl`](/docs/tasks/administer-cluster/certificates/#cfssl).
       -->
-      要使用 `openssl` 命令行爲集羣生成新的證書和私鑰，可參閱
+      要使用 `openssl` 命令列爲叢集生成新的證書和私鑰，可參閱
       [證書（`openssl`）](/zh-cn/docs/tasks/administer-cluster/certificates/#openssl)。
       你也可以使用[`cfssl`](/zh-cn/docs/tasks/administer-cluster/certificates/#cfssl).
       {{< /note >}}
@@ -248,7 +248,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
       see [configure pod disruption budget](/docs/tasks/run-application/configure-pdb/).
       -->
       要限制應用可能受到的併發干擾數量，
-      可以參閱[配置 Pod 干擾預算](/zh-cn/docs/tasks/run-application/configure-pdb/)。
+      可以參閱[設定 Pod 干擾預算](/zh-cn/docs/tasks/run-application/configure-pdb/)。
       {{< /note >}}
 
       <!--
@@ -260,7 +260,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 1. If your cluster is using bootstrap tokens to join nodes, update the ConfigMap `cluster-info` in the `kube-public`
    namespace with new CA.
 -->
-10. 如果你的集羣使用啓動引導令牌來添加節點，則需要更新 `kube-public` 名字空間下的
+10. 如果你的叢集使用啓動引導令牌來添加節點，則需要更新 `kube-public` 名字空間下的
     ConfigMap `cluster-info`，使之包含新的 CA 證書。
 
     ```shell
@@ -279,12 +279,12 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 
    1. Validate logs from any aggregated api servers and pods using in-cluster config.
 -->
-11. 驗證集羣的功能正常。
+11. 驗證叢集的功能正常。
 
     1. 檢查控制面組件以及 `kubelet` 和 `kube-proxy` 的日誌，確保其中沒有拋出 TLS 錯誤，
        參閱[查看日誌](/zh-cn/docs/tasks/debug/debug-cluster/#looking-at-logs)。
 
-    2. 驗證被聚合的 API 服務器的日誌，以及所有使用集羣內配置的 Pod 的日誌。
+    2. 驗證被聚合的 API 伺服器的日誌，以及所有使用叢集內設定的 Pod 的日誌。
 
 <!--
 1. Once the cluster functionality is successfully verified:
@@ -302,12 +302,12 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
       If your cluster lets you make this change, you can also roll it out by replacing nodes rather than
       reconfiguring them.
 -->
-12. 完成集羣功能的檢查之後：
+12. 完成叢集功能的檢查之後：
 
     1. 更新所有的服務賬號令牌，使之僅包含新的 CA 證書。
 
-       * 使用集羣內 kubeconfig 的 Pod 最終也需要被重啓，以獲得新的服務賬號 Secret
-         數據，這樣就不會有 Pod 再依賴老的集羣 CA。
+       * 使用叢集內 kubeconfig 的 Pod 最終也需要被重啓，以獲得新的服務賬號 Secret
+         數據，這樣就不會有 Pod 再依賴老的叢集 CA。
 
     1. 從 kubeconfig 文件和 `--client-ca-file` 以及 `--root-ca-file` 標誌所指向的文件
        中去除老的 CA 數據，之後重啓控制面組件。
@@ -316,6 +316,6 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
        kubelet kubeconfig 文件中去掉老的 CA，重啓 kubelet。
        你應該用滾動更新的方式來執行這一步驟的操作。
 
-       如果你的集羣允許你執行這一變更，你也可以通過替換節點而不是重新配置節點的方式來將其上線。
+       如果你的叢集允許你執行這一變更，你也可以通過替換節點而不是重新設定節點的方式來將其上線。
 
 

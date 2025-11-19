@@ -26,11 +26,11 @@ Have you ever wondered how to set up a cluster of thousands of nodes just in sec
 
 If you answered "yes" to any of these questions, then you might be interested in KWOK, a toolkit that enables you to create a cluster of thousands of nodes in seconds.
 -->
-你是否曾想過在幾秒鐘內搭建一個由數千個節點構成的集羣，如何用少量資源模擬真實的節點，
+你是否曾想過在幾秒鐘內搭建一個由數千個節點構成的叢集，如何用少量資源模擬真實的節點，
 如何不耗費太多基礎設施就能大規模地測試你的 Kubernetes 控制器？
 
 如果你曾有過這些想法，那你可能會對 KWOK 有興趣。
-KWOK 是一個工具包，能讓你在幾秒鐘內創建數千個節點構成的集羣。
+KWOK 是一個工具包，能讓你在幾秒鐘內創建數千個節點構成的叢集。
 
 <!--
 ## What is KWOK?
@@ -53,7 +53,7 @@ KWOK 是 Kubernetes WithOut Kubelet 的縮寫，即沒有 Kubelet 的 Kubernetes
 : `kwok` 是這個項目的基石，負責模擬僞節點、Pod 和其他 Kubernetes API 資源的生命週期。
 
 `kwokctl`
-: `kwokctl` 是一個 CLI 工具，設計用於簡化創建和管理由 `kwok` 模擬節點組成的集羣。
+: `kwokctl` 是一個 CLI 工具，設計用於簡化創建和管理由 `kwok` 模擬節點組成的叢集。
 
 <!--
 ## Why use KWOK?
@@ -71,11 +71,11 @@ KWOK 具有下面幾點優勢：
 - **Flexibility**: You can configure different node types, labels, taints, capacities, conditions, etc., and you can configure different pod behaviors, status, etc. to test different scenarios and edge cases.
 - **Performance**: You can simulate thousands of nodes on your laptop without significant consumption of CPU or memory resources.
 -->
-- **速度**：你幾乎可以實時創建和刪除集羣及節點，無需等待引導或製備過程。
+- **速度**：你幾乎可以實時創建和刪除叢集及節點，無需等待引導或製備過程。
 - **兼容性**：KWOK 能夠與兼容 Kubernetes API 的所有工具或客戶端（例如 kubectl、helm、kui）協同作業。
-- **可移植性**：KWOK 沒有特殊的軟硬件要求。一旦安裝了 Docker 或 Nerdctl，你就可以使用預先構建的鏡像來運行 KWOK。
+- **可移植性**：KWOK 沒有特殊的軟硬件要求。一旦安裝了 Docker 或 Nerdctl，你就可以使用預先構建的映像檔來運行 KWOK。
   另外，二進制文件包適用於所有平臺，安裝簡單。
-- **靈活**：你可以配置不同類型的節點、標籤、污點、容量、狀況等，還可以配置不同的 Pod
+- **靈活**：你可以設定不同類型的節點、標籤、污點、容量、狀況等，還可以設定不同的 Pod
   行爲和狀態來測試不同的場景和邊緣用例。
 - **性能**：你在自己的筆記本電腦上就能模擬數千個節點，無需大量消耗 CPU 或內存資源。
 
@@ -98,11 +98,11 @@ KWOK 可用於各種用途：
   - You can test how your controller interacts with other components or features of Kubernetes by enabling different feature gates or API versions.
 -->
 - **學習**：你可以使用 KWOK 學習 Kubernetes 概念和特性，無需顧慮資源浪費或其他後果。
-- **開發**：你可以使用 KWOK 爲 Kubernetes 開發新特性或新工具，無需接入真實的集羣，也不需要其他組件。
+- **開發**：你可以使用 KWOK 爲 Kubernetes 開發新特性或新工具，無需接入真實的叢集，也不需要其他組件。
 - **測試**：
   - 你可以衡量自己的應用程序或控制器在使用不同數量節點和 Pod 時的擴縮表現如何。
-  - 你可以用不同的資源請求或限制創建大量 Pod 或服務，在集羣上營造高負載的環境。
-  - 你可以通過更改節點狀況或隨機刪除節點來模擬節點故障或網絡分區。
+  - 你可以用不同的資源請求或限制創建大量 Pod 或服務，在叢集上營造高負載的環境。
+  - 你可以通過更改節點狀況或隨機刪除節點來模擬節點故障或網路分區。
   - 你可以通過啓用不同的特性門控或 API 版本來測試控制器如何與其他組件交互。
 
 <!--
@@ -138,7 +138,7 @@ If you are interested in trying out KWOK, please check its [documents] for more 
 <!--
 {{< figure src="/blog/2023/03/01/introducing-kwok/manage-clusters.svg" alt="Animation of a terminal showing kwokctl in use" caption="Using kwokctl to manage simulated clusters" >}}
 -->
-{{< figure src="/blog/2023/03/01/introducing-kwok/manage-clusters.svg" alt="在終端上使用 kwokctl 的動圖" caption="使用 kwokctl 管理模擬的集羣" >}}
+{{< figure src="/blog/2023/03/01/introducing-kwok/manage-clusters.svg" alt="在終端上使用 kwokctl 的動圖" caption="使用 kwokctl 管理模擬的叢集" >}}
 
 <!--
 ## Getting Involved

@@ -19,4 +19,4 @@ stages:
 Enables populating "enum" fields of OpenAPI schemas in the
 spec returned from the API server.
 -->
-允許在從 API 服務器返回的 spec 中填充 OpenAPI 模式的 "enum" 字段。
+允許在從 API 伺服器返回的 spec 中填充 OpenAPI 模式的 "enum" 字段。

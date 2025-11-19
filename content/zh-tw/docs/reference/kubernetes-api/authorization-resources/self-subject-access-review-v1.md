@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/authorization/v1"
   kind: "SelfSubjectAccessReview"
 content_type: "api_reference"
-description: "SelfSubjectAccessReview 檢查當前用戶是否可以執行某操作。"
+description: "SelfSubjectAccessReview 檢查當前使用者是否可以執行某操作。"
 title: "SelfSubjectAccessReview"
 weight: 2
 ---
@@ -28,9 +28,9 @@ weight: 2
 <!--
 SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
 -->
-SelfSubjectAccessReview 檢查當前用戶是否可以執行某操作。
+SelfSubjectAccessReview 檢查當前使用者是否可以執行某操作。
 不填寫 `spec.namespace` 表示“在所有命名空間中”。
-Self 是一個特殊情況，因爲用戶應始終能夠檢查自己是否可以執行某操作。
+Self 是一個特殊情況，因爲使用者應始終能夠檢查自己是否可以執行某操作。
 
 <hr>
 
@@ -57,7 +57,7 @@ Self 是一個特殊情況，因爲用戶應始終能夠檢查自己是否可以
 
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
 
-  status 由服務器填寫，表示請求是否被允許。
+  status 由伺服器填寫，表示請求是否被允許。
 
 ## SelfSubjectAccessReviewSpec {#SelfSubjectAccessReviewSpec}
 
@@ -336,7 +336,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes
     namespace 是正在請求的操作的命名空間。
     目前，無命名空間和所有命名空間之間沒有區別。
     對於 LocalSubjectAccessReviews，默認爲 ""（空字符串）。
-    對於集羣範圍的資源，默認爲 ""（空字符串）。
+    對於叢集範圍的資源，默認爲 ""（空字符串）。
     對於來自 SubjectAccessReview 或 SelfSubjectAccessReview 的命名空間範圍的資源，
     ""（空字符串）表示 "all"（所有資源）。
 

@@ -75,7 +75,7 @@ He has mostly been involved with SIG Node as a reviewer. His major contributions
 
 Some of his major PRs are [fixing watchForLockfileContention memory leak](https://github.com/kubernetes/kubernetes/pull/100326), [fixing startupProbe behaviour](https://github.com/kubernetes/kubernetes/pull/101093), [adding Field status.hostIPs for Pod](https://github.com/kubernetes/enhancements/pull/2661).
 -->
-Shiming Zhang 是一名軟件工程師，供職於中國上海道客網絡科技。
+Shiming Zhang 是一名軟件工程師，供職於中國上海道客網路科技。
 
 他主要以 Reviewer 的身份參與 SIG Node。他的主要貢獻集中在當下的
 [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2712-pod-priority-based-graceful-node-shutdown)
@@ -93,7 +93,7 @@ Paco Xu works at DaoCloud, a Shanghai-based cloud-native firm. He works with the
 
 He started with Kubernetes in early 2017 and his first contribution was in March 2018. He started with a bug that he found, but his solution was not that graceful, hence wasn't accepted. He then started with some good first issues, which helped him to a great extent. In addition to this, from 2016 to 2017, he made some minor contributions to Docker.
 -->
-Paco Xu 就職於上海的一家雲原生公司：道客網絡科技。
+Paco Xu 就職於上海的一家雲原生公司：道客網路科技。
 他與基礎設施和開源團隊合作，專注於基於 Kubernetes 的企業雲原生平臺。
 
 他在 2017 年初開始使用 Kubernetes，他的第一個貢獻是在 2018 年 3 月。

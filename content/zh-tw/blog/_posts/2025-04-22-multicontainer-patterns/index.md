@@ -32,7 +32,7 @@ With the rise of microservices, the sidecar pattern became more clearly defined,
 ## 邊車模式的起源   {#the-origins-of-the-sidecar-pattern}
 
 想象一下邊車就像一個可靠的伴侶摩托車附件。歷史上，IT 基礎設施總是使用輔助服務來處理關鍵任務。
-在容器出現之前，我們依賴後臺進程和輔助守護程序來管理日誌記錄、監控和網絡。
+在容器出現之前，我們依賴後臺進程和輔助守護程序來管理日誌記錄、監控和網路。
 微服務革命改變了這種方法，使邊車成爲一種結構化且有意圖的架構選擇。
 隨着微服務的興起，邊車模式變得更加明確，允許開發者從主服務中卸載特定職責而不改變其代碼。
 諸如 Istio 和 Linkerd 之類的服務網格普及了邊車代理，
@@ -88,7 +88,7 @@ While the sidecar pattern can be useful in many cases, it is generally not the p
 
 雖然邊車模式在許多情況下非常有用，但除非使用場景證明其合理性，
 否則通常不推薦優先採用這種方法。添加邊車會增加複雜性、
-資源消耗以及可能的網絡延遲。因此，應首先考慮更簡單的替代方案，
+資源消耗以及可能的網路延遲。因此，應首先考慮更簡單的替代方案，
 例如內置庫或共享基礎設施。
 
 <!--
@@ -103,7 +103,7 @@ While the sidecar pattern can be useful in many cases, it is generally not the p
 
 1. 你需要擴展應用功能，而無需修改原始代碼
 1. 實現日誌記錄、監控或安全等跨領域關注點
-1. 處理需要現代網絡功能的遺留應用
+1. 處理需要現代網路功能的遺留應用
 1. 設計需要獨立擴展和更新的微服務
 
 <!--
@@ -117,7 +117,7 @@ While the sidecar pattern can be useful in many cases, it is generally not the p
 **謹慎行事，如果：**
 
 1. 資源效率是你的首要考慮
-1. 最小網絡延遲至關重要
+1. 最小網路延遲至關重要
 1. 存在更簡單的替代方案
 1. 你希望最小化故障排查的複雜性
 
@@ -147,7 +147,7 @@ The init container ensures your application starts in a predictable, controlled 
 -->
 **適合於：**
 
-1. 準備配置
+1. 準備設定
 1. 加載密鑰
 1. 驗證依賴項的可用性
 1. 運行數據庫遷移
@@ -162,8 +162,8 @@ take care of challenges such as service discovery, peer identity verification, o
 -->
 ### Ambassador 模式   {#ambassador-pattern}
 
-一個大使（Ambassador）容器提供了 Pod 本地的輔助服務，這些服務暴露了一種訪問網絡服務的簡單方式。
-通常，Ambassador 容器代表應用容器發送網絡請求，並處理諸如服務發現、對等身份驗證或傳輸中加密等挑戰。
+一個大使（Ambassador）容器提供了 Pod 本地的輔助服務，這些服務暴露了一種訪問網路服務的簡單方式。
+通常，Ambassador 容器代表應用容器發送網路請求，並處理諸如服務發現、對等身份驗證或傳輸中加密等挑戰。
 
 <!--
 **Perfect when you need to:**
@@ -176,7 +176,7 @@ take care of challenges such as service discovery, peer identity verification, o
 **能夠完美地處理以下需求：**
 
 1. 卸載客戶端連接問題
-1. 實現語言無關的網絡功能
+1. 實現語言無關的網路功能
 1. 添加如 TLS 的安全層
 1. 創建強大的斷路器和重試機制
 
@@ -186,11 +186,11 @@ take care of challenges such as service discovery, peer identity verification, o
 A _configuration helper_ sidecar provides configuration updates to an application dynamically, ensuring it always has access to the latest settings without disrupting the service. Often the helper needs to provide an initial
 configuration before the application would be able to start successfully.
 -->
-### 配置助手   {#configuration-helper}
+### 設定助手   {#configuration-helper}
 
-一個**配置助手**邊車容器動態地嚮應用提供配置更新，
+一個**設定助手**邊車容器動態地嚮應用提供設定更新，
 確保它始終可以訪問最新的設置而不會中斷服務。
-通常，助手需要在應用能夠成功啓動之前提供初始配置。
+通常，助手需要在應用能夠成功啓動之前提供初始設定。
 
 <!--
 **Use cases:**
@@ -202,8 +202,8 @@ configuration before the application would be able to start successfully.
 **使用場景：**
 
 1. 獲取環境變量和密鑰
-1. 輪詢配置更改
-1. 將配置管理與應用邏輯解耦
+1. 輪詢設定更改
+1. 將設定管理與應用邏輯解耦
 
 <!--
 ### Adapter pattern
@@ -240,5 +240,5 @@ Choose wisely, implement carefully, and let your sidecars elevate your container
 儘管邊車模式提供了巨大的靈活性，但它不是萬能的。所添加的每個邊車容器都會引入複雜性、
 消耗資源，並可能增加操作負擔。始終首先評估更簡單的替代方案。
 關鍵在於戰略性實施：將邊車用作解決特定架構挑戰的精準工具，而不是默認選擇。
-正確使用時，它們可以提升容器化環境中的安全性、網絡和配置管理。
+正確使用時，它們可以提升容器化環境中的安全性、網路和設定管理。
 明智地選擇，謹慎地實施，讓你的邊車提升你的容器生態系統。

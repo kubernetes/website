@@ -7,7 +7,7 @@
 Write a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)start kubelet.
 -->
 生成一個包含 KubeletConfiguration 的文件和一個包含特定於節點的 kubelet
-配置的環境文件，然後（重新）啓動 kubelet。
+設定的環境文件，然後（重新）啓動 kubelet。
 
 ```shell
 kubeadm join phase kubelet-start [api-server-endpoint] [flags]
@@ -34,7 +34,7 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -63,7 +63,7 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <!--
 For file-based discovery, a file or URL from which to load cluster information.
 -->
-對於基於文件的發現，給出用於加載集羣信息的文件或者 URL。
+對於基於文件的發現，給出用於加載叢集信息的文件或者 URL。
 </p>
 </td>
 </tr>
@@ -77,7 +77,7 @@ For file-based discovery, a file or URL from which to load cluster information.
 <!--
 For token-based discovery, the token used to validate cluster information fetched from the API server.
 -->
-對於基於令牌的發現，該令牌用於驗證從 API 服務器獲取的集羣信息。
+對於基於令牌的發現，該令牌用於驗證從 API 伺服器獲取的叢集信息。
 </p>
 </td>
 </tr>

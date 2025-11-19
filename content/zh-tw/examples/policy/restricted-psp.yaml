@@ -3,7 +3,7 @@ kind: PodSecurityPolicy
 metadata:
   name: restricted
   annotations:
-    # docker/default 標識 seccomp 的配置文件，但它與 Docker 運行時沒有特別關聯
+    # docker/default 標識 seccomp 的設定文件，但它與 Docker 運行時沒有特別關聯
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
     apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
     apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
@@ -20,7 +20,7 @@ spec:
     - 'projected'
     - 'secret'
     - 'downwardAPI'
-    # 假設集羣管理員設置的臨時 CSI 驅動程序和持久卷可以安全使用
+    # 假設叢集管理員設置的臨時 CSI 驅動程序和持久卷可以安全使用
     - 'csi'
     - 'persistentVolumeClaim'
     - 'ephemeral'

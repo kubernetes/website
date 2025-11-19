@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/admissionregistration/v1"
   kind: "ValidatingWebhookConfiguration"
 content_type: "api_reference"
-description: "ValidatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可在不更改對象的情況下接受或拒絕對象請求"
+description: "ValidatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可在不更改對象的情況下接受或拒絕對象請求"
 title: "ValidatingWebhookConfiguration"
 weight: 4
 ---
@@ -29,7 +29,7 @@ weight: 4
 <!-- 
 ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
 -->
-ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
+ValidatingWebhookConfiguration 描述准入 Webhook 的設定，此 Webhook
 可在不更改對象的情況下接受或拒絕對象請求。
 
 <hr>
@@ -85,8 +85,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     **Atomic：將在合併期間被替換**
 
     admissionReviewVersions 是 Webhook 期望的首選 `AdmissionReview` 版本的有序列表。 
-    API 服務器將嘗試使用它支持的列表中的第一個版本。如果 API 服務器不支持此列表中指定的版本，則此對象將驗證失敗。 
-    如果持久化的 Webhook 配置指定了允許的版本，並且不包括 API 服務器已知的任何版本，則對 Webhook 的調用將失敗並受失敗策略的約束。
+    API 伺服器將嘗試使用它支持的列表中的第一個版本。如果 API 伺服器不支持此列表中指定的版本，則此對象將驗證失敗。 
+    如果持久化的 Webhook 設定指定了允許的版本，並且不包括 API 伺服器已知的任何版本，則對 Webhook 的調用將失敗並受失敗策略的約束。
 
   <!-- 
   - **webhooks.clientConfig** (WebhookClientConfig), required
@@ -129,7 +129,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
       `service` 是對此 Webhook 服務的引用。必須指定 `service` 或 `url`。
       
-       如果 Webhook 在集羣中運行，那麼你應該使用 `service`。
+       如果 Webhook 在叢集中運行，那麼你應該使用 `service`。
 
       <a name="ServiceReference"></a>
       **ServiceReference 持有對 Service.legacy.k8s.io 的引用**
@@ -194,17 +194,17 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
 
       `url` 以標準 URL 形式（`scheme://host:port/path`）給出了 Webhook 的位置。必須指定 `url` 或 `service` 中的一個。
       
-      `host` 不應指代在集羣中運行的服務；請改用 `service` 字段。在某些 apiserver 中，可能會通過外部 DNS 解析 `host`。
-      （例如，`kube-apiserver` 無法解析集羣內 DNS，因爲這會違反分層原理）。`host` 也可以是 IP 地址。
+      `host` 不應指代在叢集中運行的服務；請改用 `service` 字段。在某些 apiserver 中，可能會通過外部 DNS 解析 `host`。
+      （例如，`kube-apiserver` 無法解析叢集內 DNS，因爲這會違反分層原理）。`host` 也可以是 IP 地址。
       
       請注意，使用 `localhost` 或 `127.0.0.1` 作爲 `host` 是有風險的，除非你非常小心地在運行 apiserver 的所有主機上運行此 Webhook，
-      而這些 API 服務器可能需要調用此 Webhook。此類部署可能是不可移植的，即不容易在新集羣中重複安裝。
+      而這些 API 伺服器可能需要調用此 Webhook。此類部署可能是不可移植的，即不容易在新叢集中重複安裝。
       
       該方案必須是 “https”；URL 必須以 “https://” 開頭。
       
-      路徑是可選的，如果存在，可以是 URL 中允許的任何字符串。你可以使用路徑將任意字符串傳遞給 Webhook，例如集羣標識符。
+      路徑是可選的，如果存在，可以是 URL 中允許的任何字符串。你可以使用路徑將任意字符串傳遞給 Webhook，例如叢集標識符。
       
-      不允許使用用戶或基本身份驗證，例如不允許使用 “user:password@”。
+      不允許使用使用者或基本身份驗證，例如不允許使用 “user:password@”。
       不允許使用片段（“#...”）和查詢參數（“?...”）。
 
   <!-- 
@@ -297,7 +297,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
   - 'object' - 來自傳入請求的對象。對於 DELETE 請求，該值爲 null。
   - 'oldObject' - 現有對象。對於 CREATE 請求，該值爲 null。
   - 'request' - 准入請求的屬性(/pkg/apis/admission/types.go#AdmissionRequest)。
-  - 'authorizer' - CEL 授權者。可用於對請求的主體（用戶或服務帳戶）執行授權檢查。
+  - 'authorizer' - CEL 授權者。可用於對請求的主體（使用者或服務帳戶）執行授權檢查。
 
     <!--
     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -312,7 +312,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
   
   Required.
   -->
-  - 'authorizer.requestResource' - CEL ResourceCheck 從"授權方"構建並配置請求資源。
+  - 'authorizer.requestResource' - CEL ResourceCheck 從"授權方"構建並設定請求資源。
   
   CEL 文檔：https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
   
@@ -373,7 +373,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     -->
     namespaceSelector 根據對象的命名空間是否與 selector 匹配來決定是否在該對象上運行 Webhook。 
     如果對象本身是命名空間，則在 object.metadata.labels 上執行匹配。
-    如果對象是另一個集羣範圍的資源，則永遠不會跳過 Webhook 執行匹配。
+    如果對象是另一個叢集範圍的資源，則永遠不會跳過 Webhook 執行匹配。
     
     例如，在命名空間與 “0” 或 “1” 的 “runlevel” 不關聯的任何對象上運行 Webhook；
     你可以按如下方式設置 selector : 
@@ -432,7 +432,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     objectSelector 針對將被髮送到 Webhook 的 oldObject 和 newObject 進行評估，如果任一對象與選擇器匹配，則視爲匹配。 
     空對象（create 時爲 oldObject，delete 時爲 newObject）或不能有標籤的對象（如 DeploymentRollback 或 PodProxyOptions 對象）
     認爲是不匹配的。 
-    僅當 Webhook 支持時才能使用對象選擇器，因爲最終用戶可以通過設置標籤來跳過准入 webhook。
+    僅當 Webhook 支持時才能使用對象選擇器，因爲最終使用者可以通過設置標籤來跳過准入 webhook。
     默認爲空的 LabelSelector，匹配所有內容。
 
   <!-- 
@@ -451,7 +451,7 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     **Atomic：將在合併期間被替換**
 
     rules 描述了 Webhook 關心的資源/子資源上有哪些操作。Webhook 關心操作是否匹配**任何**rules。
-    但是，爲了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 將集羣置於只能完全禁用插件才能恢復的狀態，
+    但是，爲了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 將叢集置於只能完全禁用插件才能恢復的狀態，
     ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 永遠不會在處理 ValidatingWebhookConfiguration 
     和 MutatingWebhookConfiguration 對象的准入請求被調用。
 
@@ -542,8 +542,8 @@ ValidatingWebhookConfiguration 描述准入 Webhook 的配置，此 Webhook
     - **webhooks.rules.scope** (string)
 
       scope 指定此規則的範圍。有效值爲 "Cluster", "Namespaced" 和 "*"。
-      "Cluster" 表示只有集羣範圍的資源纔會匹配此規則。 
-      Namespace API 對象是集羣範圍的。
+      "Cluster" 表示只有叢集範圍的資源纔會匹配此規則。 
+      Namespace API 對象是叢集範圍的。
       "Namespaced" 意味着只有命名空間作用域的資源會匹配此規則。
       "*" 表示沒有範圍限制。 
       子資源與其父資源的作用域相同。默認爲 "*"。
@@ -584,7 +584,7 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
   APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 -->
 
-  apiVersion 定義對象表示的版本化模式。服務器應將已識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
+  apiVersion 定義對象表示的版本化模式。伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
   更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
@@ -594,7 +594,7 @@ ValidatingWebhookConfigurationList 是 ValidatingWebhookConfiguration 的列表�
 -->
 - **kind**（string）
 
-  kind 是一個字符串值，表示此對象表示的 REST 資源。服務器可以從客戶端提交請求的端點推斷出資源類別。
+  kind 是一個字符串值，表示此對象表示的 REST 資源。伺服器可以從客戶端提交請求的端點推斷出資源類別。
   無法更新。採用駝峯式命名。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 

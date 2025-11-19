@@ -24,7 +24,7 @@ This document describes the maximum version skew supported between various Kuber
 Specific cluster deployment tools may place additional restrictions on version skew.
 -->
 本文檔描述了 Kubernetes 各個組件之間所支持的最大版本偏差。
-特定的集羣部署工具可能會對版本偏差添加額外的限制。
+特定的叢集部署工具可能會對版本偏差添加額外的限制。
 
 <!-- body -->
 
@@ -85,7 +85,7 @@ Example:
 
 ### kube-apiserver  {#kube-apiserver}
 
-在[高可用性（HA）集羣](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)中，
+在[高可用性（HA）叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)中，
 最新版和最老版的 `kube-apiserver` 實例版本偏差最多爲一個次要版本。
 
 例如：
@@ -119,7 +119,7 @@ Example:
 <!--
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kubelet` versions.
 -->
-如果 HA 集羣中的 `kube-apiserver` 實例之間存在版本偏差，這會縮小允許的 `kubelet` 版本範圍。
+如果 HA 叢集中的 `kube-apiserver` 實例之間存在版本偏差，這會縮小允許的 `kubelet` 版本範圍。
 {{</ note >}}
 
 <!-- 
@@ -171,7 +171,7 @@ Example:
 <!--
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kube-proxy` versions.
 -->
-如果在 HA 集羣中的 `kube-apiserver` 實例之間存在版本偏差，
+如果在 HA 叢集中的 `kube-apiserver` 實例之間存在版本偏差，
 所允許的 `kube-proxy` 版本範圍會被縮小。
 {{</ note >}}
 
@@ -220,8 +220,8 @@ If version skew exists between `kube-apiserver` instances in an HA cluster, and 
 can communicate with any `kube-apiserver` instance in the cluster (for example, via a load balancer),
 this narrows the allowed versions of these components.
 -->
-如果 HA 集羣中的 `kube-apiserver` 實例之間存在版本偏差，
-並且這些組件可以與集羣中的任何 `kube-apiserver`
+如果 HA 叢集中的 `kube-apiserver` 實例之間存在版本偏差，
+並且這些組件可以與叢集中的任何 `kube-apiserver`
 實例通信（例如，通過負載均衡器），這會縮小這些組件所允許的版本範圍。
 {{< /note >}}
 
@@ -270,7 +270,7 @@ Example:
 <!--
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the supported `kubectl` versions.
 -->
-如果 HA 集羣中的 `kube-apiserver` 實例之間存在版本偏差，這會縮小支持的 `kubectl` 版本範圍。
+如果 HA 叢集中的 `kube-apiserver` 實例之間存在版本偏差，這會縮小支持的 `kubectl` 版本範圍。
 {{< /note >}}
 
 <!-- 
@@ -298,7 +298,7 @@ which components must be upgraded to transition an existing cluster from version
 ## 支持的組件升級順序  {#supported-component-upgrade-order}
 
 組件之間支持的版本偏差會影響必須升級組件的順序。
-本節介紹了將現有集羣從 **{{< skew currentVersionAddMinor -1 >}}**
+本節介紹了將現有叢集從 **{{< skew currentVersionAddMinor -1 >}}**
 版本轉換到 **{{< skew currentVersion >}}** 版本時必須升級組件的順序。
 
 <!--
@@ -349,16 +349,16 @@ Pre-requisites:
 
 先決條件：
 
-* 在單實例集羣中，現有的 `kube-apiserver` 實例處於 **{{< skew currentVersionAddMinor -1 >}}** 版本
-* 在 HA 集羣中，所有 `kube-apiserver` 實例都處於
+* 在單實例叢集中，現有的 `kube-apiserver` 實例處於 **{{< skew currentVersionAddMinor -1 >}}** 版本
+* 在 HA 叢集中，所有 `kube-apiserver` 實例都處於
   **{{< skew currentVersionAddMinor -1 >}}** 或 **{{< skew currentVersion >}}** 版本
   （這確保了最老和最新的 `kube-apiserver` 實例之間的 1 個次要版本的最大偏差）
-* 與此服務器通信的 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
+* 與此伺服器通信的 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
   實例的版本爲 **{{< skew currentVersionAddMinor -1 >}}**
-  （這確保它們是不比現有 API 服務器版本還要新，並且在新 API 服務器版本的 1 個次要版本內）
+  （這確保它們是不比現有 API 伺服器版本還要新，並且在新 API 伺服器版本的 1 個次要版本內）
 * 所有節點上的 `kubelet` 實例都是
   **{{< skew currentVersionAddMinor -1 >}}** 或 **{{< skew currentVersionAddMinor -2 >}}**
-  版本（這確保它們不比現有 API 服務器版本新，並且在新 API 服務器版本的 2 個次要版本內）
+  版本（這確保它們不比現有 API 伺服器版本新，並且在新 API 伺服器版本的 2 個次要版本內）
 * 已註冊的 admission webhook 能夠處理新的 `kube-apiserver` 實例將發送給他們的數據：
   * `ValidatingWebhookConfiguration` 和 `MutatingWebhookConfiguration`
     對象已更新以包含 **{{< skew currentVersion >}}** 中添加的任何新版本的 REST 資源
@@ -379,7 +379,7 @@ require `kube-apiserver` to not skip minor versions when upgrading, even in sing
 -->
 [API 棄用](/zh-cn/docs/reference/using-api/deprecation-policy/)和
 [API 變更指南](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api_changes.md)
-的項目策略要求 `kube-apiserver` 在升級時不跳過次要版本，即使在單實例集羣中也是如此。
+的項目策略要求 `kube-apiserver` 在升級時不跳過次要版本，即使在單實例叢集中也是如此。
 {{< /note >}}
 
 <!-- 
@@ -402,7 +402,7 @@ even simultaneously.
 先決條件：
 
 * 與這些組件通信的 `kube-apiserver` 實例處於 **{{< skew currentVersion >}}** 版本
-  （在 HA 集羣中，這些控制平面組件可以與集羣中的任何 `kube-apiserver` 實例通信，
+  （在 HA 叢集中，這些控制平面組件可以與叢集中的任何 `kube-apiserver` 實例通信，
   所有 `kube-apiserver` 實例必須在升級這些組件之前升級）
 
 將 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager`
@@ -443,7 +443,7 @@ In-place minor version `kubelet` upgrades are not supported.
 Running a cluster with `kubelet` instances that are persistently two minor versions behind
 `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
 -->
-在一個集羣中運行持續比 `kube-apiserver` 落後兩個次版本的 `kubelet` 實例意味着在升級控制平面之前必須先升級它們。
+在一個叢集中運行持續比 `kube-apiserver` 落後兩個次版本的 `kubelet` 實例意味着在升級控制平面之前必須先升級它們。
 {{</ warning >}}
 
 <!-- 
@@ -470,5 +470,5 @@ or **{{< skew currentVersionAddMinor -2 >}}**)
 Running a cluster with `kube-proxy` instances that are persistently three minor versions behind
 `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
 -->
-在一個集羣中運行持續比 `kube-apiserver` 落後三個次版本的 `kube-proxy` 實例意味着在升級控制平面之前必須先升級它們。
+在一個叢集中運行持續比 `kube-apiserver` 落後三個次版本的 `kube-proxy` 實例意味着在升級控制平面之前必須先升級它們。
 {{</ warning >}}

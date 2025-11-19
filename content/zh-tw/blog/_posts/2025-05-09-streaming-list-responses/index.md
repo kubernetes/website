@@ -24,9 +24,9 @@ Managing Kubernetes cluster stability becomes increasingly critical as your infr
 
 Today, the Kubernetes community is excited to announce a significant architectural improvement: streaming encoding for List responses.
 -->
-隨着基礎設施的增長，管理 Kubernetes 集羣的穩定性變得愈發重要。
-在大規模集羣的運維中，最具挑戰性的操作之一就是處理獲取大量數據集的 List 請求。
-List 請求是一種常見的操作，卻可能意外影響集羣的穩定性。
+隨着基礎設施的增長，管理 Kubernetes 叢集的穩定性變得愈發重要。
+在大規模叢集的運維中，最具挑戰性的操作之一就是處理獲取大量數據集的 List 請求。
+List 請求是一種常見的操作，卻可能意外影響叢集的穩定性。
 
 今天，Kubernetes 社區非常高興地宣佈一項重大的架構改進：對 List 響應啓用流式編碼。
 
@@ -40,18 +40,18 @@ Current API response encoders just serialize an entire response into a single co
 當前的 API 響應編碼器會將整個響應序列化爲一個連續的內存塊，並通過一次
 [ResponseWriter.Write](https://pkg.go.dev/net/http#ResponseWriter.Write)
 調用將數據發送給客戶端。儘管 HTTP/2 能夠將響應拆分爲較小的幀進行傳輸，
-但底層的 HTTP 服務器仍然會將完整的響應數據保存在一個單一緩衝區中。
+但底層的 HTTP 伺服器仍然會將完整的響應數據保存在一個單一緩衝區中。
 即使這些幀被逐步傳輸到客戶端，與這些幀關聯的內存也無法被逐步釋放。
 
 <!--
 When cluster size grows, the single response body can be substantial - like hundreds of megabytes in size. At large scale, the current approach becomes particularly inefficient, as it prevents incremental memory release during transmission. Imagining that when network congestion occurs, that large response body’s memory block stays active for tens of seconds or even minutes. This limitation leads to unnecessarily high and prolonged memory consumption in the kube-apiserver process. If multiple large List requests occur simultaneously, the cumulative memory consumption can escalate rapidly, potentially leading to an Out-of-Memory (OOM) situation that compromises cluster stability.
 -->
-隨着集羣規模的擴大，單個響應體可能非常龐大，可能達到幾百兆字節。
+隨着叢集規模的擴大，單個響應體可能非常龐大，可能達到幾百兆字節。
 在大規模環境下，當前的方式顯得特別低效，因爲它使得系統無法在傳輸過程中逐步釋放內存。
-想象一下，如果網絡發生擁堵，那麼大型響應體的內存塊會持續佔用數十秒甚至幾分鐘。
+想象一下，如果網路發生擁堵，那麼大型響應體的內存塊會持續佔用數十秒甚至幾分鐘。
 這一侷限性導致 kube-apiserver 進程出現不必要的高內存佔用，持續時間也很長。
 如果多個大型 List 請求同時發生，累計的內存消耗可能迅速飆升，最終可能觸發
-OOM（內存溢出）事件，從而危及集羣穩定性。
+OOM（內存溢出）事件，從而危及叢集穩定性。
 
 <!--
 The encoding/json package uses sync.Pool to reuse memory buffers during serialization. While efficient for consistent workloads, this mechanism creates challenges with sporadic large List responses. When processing these large responses, memory pools expand significantly. But due to sync.Pool's design, these oversized buffers remain reserved after use. Subsequent small List requests continue utilizing these large memory allocations, preventing garbage collection and maintaining persistently high memory consumption in the kube-apiserver even after the initial large responses complete.
@@ -88,14 +88,14 @@ The streaming encoding mechanism is specifically designed for List responses, le
 流式編碼機制是專門爲 List 響應設計的，它利用了這類響應通用且定義良好的集合結構。
 核心思想是聚焦於集合結構中的 **Items** 字段，此字段在大型響應中佔用了大部分內存。
 新的流式編碼器不再將整個 **Items** 數組編碼爲一個連續的內存塊，而是逐個處理並傳輸每個 Item，
-從而在傳輸每個幀或數據塊後可以逐步釋放內存。逐項編碼顯著減少了 API 服務器所需的內存佔用。
+從而在傳輸每個幀或數據塊後可以逐步釋放內存。逐項編碼顯著減少了 API 伺服器所需的內存佔用。
 
 <!--
 With Kubernetes objects typically limited to 1.5 MiB (from ETCD), streaming encoding keeps memory consumption predictable and manageable regardless of how many objects are in a List response. The result is significantly improved API server stability, reduced memory spikes, and better overall cluster performance - especially in environments where multiple large List operations might occur simultaneously.
 -->
 考慮到 Kubernetes 對象通常限制在 1.5 MiB（由 ETCD 限制），流式編碼可使內存佔用更加可預測和易於管理，
-無論 List 響應中包含多少個對象。其結果是大幅提升了 API 服務器的穩定性，減少了內存峯值，
-並改善了整體集羣性能，尤其是在同時發生多個大型 List 操作的環境下更是如此。
+無論 List 響應中包含多少個對象。其結果是大幅提升了 API 伺服器的穩定性，減少了內存峯值，
+並改善了整體叢集性能，尤其是在同時發生多個大型 List 操作的環境下更是如此。
 
 <!--
 To ensure perfect backward compatibility, the streaming encoder validates Go struct tags rigorously before activation, guaranteeing byte-for-byte consistency with the original encoder. Standard encoding mechanisms process all fields except **Items**, maintaining identical output formatting throughout. This approach seamlessly supports all Kubernetes List types—from built-in **\*List** objects to Custom Resource **UnstructuredList** objects - requiring zero client-side modifications or awareness that the underlying encoding method has changed.
@@ -116,8 +116,8 @@ To ensure perfect backward compatibility, the streaming encoder validates Go str
 -->
 ## 肉眼可見的性能提升
 
-* **內存消耗降低：** 當處理大型 **list** 請求，尤其是涉及**大型資源**時，API 服務器的內存佔用大幅下降。
-* **可擴展性提升：** 允許 API 服務器處理更多併發請求和更大數據集，而不會耗盡內存。
+* **內存消耗降低：** 當處理大型 **list** 請求，尤其是涉及**大型資源**時，API 伺服器的內存佔用大幅下降。
+* **可擴展性提升：** 允許 API 伺服器處理更多併發請求和更大數據集，而不會耗盡內存。
 * **穩定性增強：** 降低 OOM 被殺和服務中斷的風險。
 * **資源利用率提升：** 優化內存使用率，提高整體資源效率。
 

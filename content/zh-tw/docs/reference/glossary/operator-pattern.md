@@ -41,7 +41,7 @@ against a custom resource that's defined in the control plane, that's an example
 the Operator pattern.
 -->
 除了使用作爲 Kubernetes 自身一部分的內置控制器之外，你還可以通過
-將控制器添加到集羣中來擴展 Kubernetes。
+將控制器添加到叢集中來擴展 Kubernetes。
 
 如果正在運行的應用程序能夠充當控制器並通過 API 訪問的方式來執行任務操控
 那些在控制平面中定義的自定義資源，這就是一個 operator 模式的示例。

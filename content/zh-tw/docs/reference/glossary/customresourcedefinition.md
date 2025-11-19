@@ -4,7 +4,7 @@ id: CustomResourceDefinition
 date: 2018-04-12
 full_link: /zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
 short_description: >
-  通過定製化的代碼給你的 Kubernetes API 服務器增加資源對象，而無需編譯完整的定製 API 服務器。
+  通過定製化的代碼給你的 Kubernetes API 伺服器增加資源對象，而無需編譯完整的定製 API 伺服器。
 
 aka: 
 tags:
@@ -30,7 +30,7 @@ tags:
 <!--
  Custom code that defines a resource to add to your Kubernetes API server without building a complete custom server.
 -->
- 通過定製化的代碼給你的 Kubernetes API 服務器增加資源對象，而無需編譯完整的定製 API 服務器。
+ 通過定製化的代碼給你的 Kubernetes API 伺服器增加資源對象，而無需編譯完整的定製 API 伺服器。
 
 <!--more--> 
 

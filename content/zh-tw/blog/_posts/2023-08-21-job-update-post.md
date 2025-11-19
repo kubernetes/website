@@ -24,7 +24,7 @@ This blog discusses two new features in Kubernetes 1.28 to improve Jobs for batc
 users: [Pod replacement policy](/docs/concepts/workloads/controllers/job/#pod-replacement-policy)
 and [Backoff limit per index](/docs/concepts/workloads/controllers/job/#backoff-limit-per-index).
 -->
-本博客討論 Kubernetes 1.28 中的兩個新特性，用於爲批處理用戶改進 Job：
+本博客討論 Kubernetes 1.28 中的兩個新特性，用於爲批處理使用者改進 Job：
 [Pod 更換策略](/zh-cn/docs/concepts/workloads/controllers/job/#pod-replacement-policy)
 和[基於索引的回退限制](/zh-cn/docs/concepts/workloads/controllers/job/#backoff-limit-per-index)。
 
@@ -79,11 +79,11 @@ cause problems in clusters with scarce resources or with tight budgets, such as:
 -->
 可參考[問題報告](https://github.com/kubernetes/kubernetes/issues/115844)進一步瞭解細節。
 
-在前一個 Pod 完全終止之前創建替換的 Pod 也可能會導致資源或預算緊張的集羣出現問題，例如：
+在前一個 Pod 完全終止之前創建替換的 Pod 也可能會導致資源或預算緊張的叢集出現問題，例如：
 
-* 對於待調度的 Pod 來說，很難分配到集羣資源，導致 Kubernetes 需要很長時間才能找到可用節點，
+* 對於待調度的 Pod 來說，很難分配到叢集資源，導致 Kubernetes 需要很長時間才能找到可用節點，
   直到現有 Pod 完全終止。
-* 如果啓用了集羣自動擴縮器（Cluster Autoscaler），可能會產生不必要的集羣規模擴增。
+* 如果啓用了叢集自動擴縮器（Cluster Autoscaler），可能會產生不必要的叢集規模擴增。
 
 <!--
 ### How can you use it? {#pod-replacement-policy-how-to-use}
@@ -97,7 +97,7 @@ Once the feature is enabled in your cluster, you can use it by creating a new Jo
 -->
 ### 如何使用？  {#pod-replacement-policy-how-to-use}
 
-這是一項 Alpha 級別特性，你可以通過在集羣中啓用 `JobPodReplacementPolicy`
+這是一項 Alpha 級別特性，你可以通過在叢集中啓用 `JobPodReplacementPolicy`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 來啓用該特性。
 
@@ -199,10 +199,10 @@ Once the feature is enabled in your cluster, you can create an Indexed Job with 
 -->
 ### 可以如何使用它？  {#backoff-limit-per-index-how-to-use}
 
-這是一個 Alpha 特性，你可以通過啓用集羣的 `JobBackoffLimitPerIndex`
+這是一個 Alpha 特性，你可以通過啓用叢集的 `JobBackoffLimitPerIndex`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來啓用此特性。
 
-在集羣中啓用該特性後，你可以在創建帶索引的 Job（Indexed Job）時指定 `.spec.backoffLimitPerIndex` 字段。
+在叢集中啓用該特性後，你可以在創建帶索引的 Job（Indexed Job）時指定 `.spec.backoffLimitPerIndex` 字段。
 
 <!--
 #### Example
@@ -215,7 +215,7 @@ manually deleted by the user), and the number of failures is controlled per inde
 #### 示例
 
 下面的示例演示如何使用此功能來確保 Job 執行所有索引值的 Pod（前提是沒有其他原因導致 Job 提前終止，
-例如達到 `activeDeadlineSeconds` 超時，或者被用戶手動刪除），以及按索引控制失敗次數。
+例如達到 `activeDeadlineSeconds` 超時，或者被使用者手動刪除），以及按索引控制失敗次數。
 
 ```yaml
 apiVersion: batch/v1
@@ -324,7 +324,7 @@ indexes are started.
 -->
 ## 如何進一步瞭解 {#how-can-you-learn-more}
 
-- 閱讀面向用戶的 [Pod 替換策略](/zh-cn/docs/concepts/workloads/controllers/job/#pod-replacement-policy)文檔、
+- 閱讀面向使用者的 [Pod 替換策略](/zh-cn/docs/concepts/workloads/controllers/job/#pod-replacement-policy)文檔、
   [逐索引的回退限制](/zh-cn/docs/concepts/workloads/controllers/job/#backoff-limit-per-index)和
   [Pod 失效策略](/zh-cn/docs/concepts/workloads/controllers/job/#pod-failure-policy)
 - 閱讀 [Pod 替換策略](https://github.com/kubernetes/enhancements/tree/master/keps/sig-apps/3939-allow-replacement-when-fully-terminated))、
@@ -349,8 +349,8 @@ group either by subscriping to our
 
 這些功能由 [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) 贊助。
 社區正在爲[批處理工作組](https://github.com/kubernetes/community/tree/master/wg-batch)中的
-Kubernetes 用戶積極改進批處理場景。
-工作組是相對短暫的舉措，專注於特定目標。WG Batch 的目標是改善批處理工作負載的用戶體驗、
+Kubernetes 使用者積極改進批處理場景。
+工作組是相對短暫的舉措，專注於特定目標。WG Batch 的目標是改善批處理工作負載的使用者體驗、
 提供對批處理場景的支持並增強常見場景下的 Job API。
 如果你對此感興趣，請通過訂閱我們的[郵件列表](https://groups.google.com/a/kubernetes.io/g/wg-batch)或通過
 [Slack](https://kubernetes.slack.com/messages/wg-batch) 加入進來。

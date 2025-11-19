@@ -167,7 +167,7 @@ The default value of `recursiveReadOnly` will still remain `Disabled`, for backw
 ## 接下來
 
 Kubernetes SIG Node 希望並期望該特性將在 Kubernetes
-的未來版本中升級爲 Beta 版本並最終穩定可用（GA），以便用戶不再需要手動啓用此特性門控。
+的未來版本中升級爲 Beta 版本並最終穩定可用（GA），以便使用者不再需要手動啓用此特性門控。
 
 爲了向後兼容，`recursive ReadOnly` 的默認值仍將保持 `Disabled`。
 

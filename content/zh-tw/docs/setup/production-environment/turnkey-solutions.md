@@ -18,7 +18,7 @@ provider page, you can learn how to install and setup production
 ready clusters.
 -->
 本頁列示 Kubernetes 認證解決方案供應商。
-在每一個供應商分頁，你可以學習如何安裝和設置生產就緒的集羣。
+在每一個供應商分頁，你可以學習如何安裝和設置生產就緒的叢集。
 
 <!-- body -->
 

@@ -30,7 +30,7 @@ Author: >
 -->
 ~Kubernetes Slack 將在 6 月 20 日失去原有的專屬支持，並轉變爲標準免費版 Slack~~。
 今年晚些時候，我們的社區可能會遷移到新平臺。
-如果你是頻道或私有頻道的負責人，又或是用戶組的成員，你需要儘快採取一些行動。
+如果你是頻道或私有頻道的負責人，又或是使用者組的成員，你需要儘快採取一些行動。
 
 <!--
 For the last decade, Slack has supported our project with a free customized enterprise account. They have let us know that they can no longer do so, particularly since our Slack is one of the largest and more active ones on the platform. As such, they will be downgrading it to a standard free Slack while we decide on, and implement, other options.
@@ -49,7 +49,7 @@ Slack 管理團隊將盡最大努力管理這些限制。
 <!--
 Responsible channel owners, members of private channels, and members of User Groups should [take some actions](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon) to prepare for the upgrade and preserve information as soon as possible.
 -->
-負責的頻道所有者、私有頻道成員和用戶組成員應該[採取一些行動](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon)，
+負責的頻道所有者、私有頻道成員和使用者組成員應該[採取一些行動](https://github.com/kubernetes/community/blob/master/communication/slack-migration-faq.md#what-actions-do-channel-owners-and-user-group-members-need-to-take-soon)，
 以儘快爲升級做準備並保存信息。
 
 <!--

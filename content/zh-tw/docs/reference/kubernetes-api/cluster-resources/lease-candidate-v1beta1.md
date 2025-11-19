@@ -93,7 +93,7 @@ LeaseCandidateSpec 是 Lease 的規約。
 
   strategy 是協調式領導者選舉中用於選擇領導者的策略。
   如果多個候選者針對同一個 Lease 返回了不同的策略，則將採用 binaryVersion 最新的候選者所提供的策略。
-  如果仍存在衝突，則視爲用戶錯誤，協調式領導者選舉將不會繼續操作此 Lease，直到衝突被解決。
+  如果仍存在衝突，則視爲使用者錯誤，協調式領導者選舉將不會繼續操作此 Lease，直到衝突被解決。
 
 <!--
 - **emulationVersion** (string)
@@ -114,7 +114,7 @@ LeaseCandidateSpec 是 Lease 的規約。
   <a name="MicroTime"></a>
   *MicroTime is version of Time with microsecond level precision.*
 -->
-  pingTime 是服務器最近一次請求 LeaseCandidate 續訂的時間。
+  pingTime 是伺服器最近一次請求 LeaseCandidate 續訂的時間。
   此操作僅在領導者選舉期間進行，用以檢查是否有 LeaseCandidates 變得不合格。
   當 pingTime 更新時，LeaseCandidate 會通過更新 renewTime 來響應。
 

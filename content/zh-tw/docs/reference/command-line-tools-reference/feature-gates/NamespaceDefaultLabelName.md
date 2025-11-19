@@ -25,5 +25,5 @@ Configure the API Server to set an immutable
 {{< glossary_tooltip text="label" term_id="label" >}} `kubernetes.io/metadata.name`
 on all namespaces, containing the namespace name.
 -->
-配置 API 服務器以在所有名字空間上設置一個不可變的{{< glossary_tooltip text="標籤" term_id="label" >}}
+設定 API 伺服器以在所有名字空間上設置一個不可變的{{< glossary_tooltip text="標籤" term_id="label" >}}
 `kubernetes.io/metadata.name`，取值爲名字空間的名稱。

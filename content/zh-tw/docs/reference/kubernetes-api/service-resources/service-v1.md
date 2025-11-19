@@ -70,7 +70,7 @@ Service 是軟件服務（例如 mysql）的命名抽象，包含代理要偵聽
 <!--
 ServiceSpec describes the attributes that a user creates on a service. 
 -->
-ServiceSpec 描述用戶在服務上創建的屬性。
+ServiceSpec 描述使用者在服務上創建的屬性。
 
 <hr>
 
@@ -214,7 +214,7 @@ ServiceSpec 描述用戶在服務上創建的屬性。
 
   type 確定 Service 的公開方式。默認爲 ClusterIP。
   有效選項爲 ExternalName、ClusterIP、NodePort 和 LoadBalancer。
-  `ClusterIP` 爲端點分配一個集羣內部 IP 地址用於負載均衡。
+  `ClusterIP` 爲端點分配一個叢集內部 IP 地址用於負載均衡。
   Endpoints 由 selector 確定，如果未設置 selector，則需要通過手動構造 Endpoints 或 EndpointSlice 的對象來確定。
   如果 clusterIP 爲 `None`，則不分配虛擬 IP，並且 Endpoints 作爲一組端點而不是虛擬 IP 發佈。
   `NodePort` 建立在 ClusterIP 之上，並在每個節點上分配一個端口，該端口路由到與 clusterIP 相同的 Endpoints。
@@ -235,8 +235,8 @@ ServiceSpec 描述用戶在服務上創建的屬性。
   -->
 
   iPFamilies 是分配給此服務的 IP 協議（例如 IPv4、IPv6）的列表。
-  該字段通常根據集羣配置和 ipFamilyPolicy 字段自動設置。
-  如果手動指定該字段，且請求的協議在集羣中可用，且 ipFamilyPolicy 允許，則使用；否則服務創建將失敗。
+  該字段通常根據叢集設定和 ipFamilyPolicy 字段自動設置。
+  如果手動指定該字段，且請求的協議在叢集中可用，且 ipFamilyPolicy 允許，則使用；否則服務創建將失敗。
   該字段修改是有條件的：它允許添加或刪除輔助 IP 協議，但不允許更改服務的主要 IP 協議。
   有效值爲 “IPv4” 和 “IPv6”。
   該字段僅適用於 ClusterIP、NodePort 和 LoadBalancer 類型的服務，並且確實可用於“無頭”服務。
@@ -259,8 +259,8 @@ ServiceSpec 描述用戶在服務上創建的屬性。
   iPFamilyPolicy 表示此服務請求或要求的雙棧特性。
   如果沒有提供值，則此字段將被設置爲 SingleStack。
   服務可以是 “SingleStack”（單個 IP 協議）、
-  “PreferDualStack”（雙棧配置集羣上的兩個 IP 協議或單棧集羣上的單個 IP 協議）
-  或 “RequireDualStack”（雙棧上的兩個 IP 協議配置的集羣，否則失敗）。
+  “PreferDualStack”（雙棧設定叢集上的兩個 IP 協議或單棧叢集上的單個 IP 協議）
+  或 “RequireDualStack”（雙棧上的兩個 IP 協議設定的叢集，否則失敗）。
   ipFamilies 和 clusterIPs 字段取決於此字段的值。
   更新服務設置類型爲 ExternalName 時，此字段將被擦除。
 
@@ -271,7 +271,7 @@ ServiceSpec 描述用戶在服務上創建的屬性。
   -->
 
   clusterIP 是服務的 IP 地址，通常是隨機分配的。
-  如果地址是手動指定的，在範圍內（根據系統配置），且沒有被使用，它將被分配給服務，否則創建服務將失敗。
+  如果地址是手動指定的，在範圍內（根據系統設定），且沒有被使用，它將被分配給服務，否則創建服務將失敗。
   clusterIP 一般不會被更改，除非 type 被更改爲 ExternalName
   （ExternalName 需要 clusterIP 爲空）或 type 已經是 ExternalName 時，可以更改 clusterIP（在這種情況下，可以選擇指定此字段）。
   可選值 “None”、空字符串 (“”) 或有效的 IP 地址。
@@ -294,7 +294,7 @@ ServiceSpec 描述用戶在服務上創建的屬性。
   -->
 
   clusterIPs 是分配給該 Service 的 IP 地址列表，通常是隨機分配的。
-  如果地址是手動指定的，在範圍內（根據系統配置），且沒有被使用，它將被分配給 Service；否則創建 Service 失敗。
+  如果地址是手動指定的，在範圍內（根據系統設定），且沒有被使用，它將被分配給 Service；否則創建 Service 失敗。
   clusterIP 一般不會被更改，除非 type 被更改爲 ExternalName
   （ExternalName 需要 clusterIPs 爲空）或 type 已經是 ExternalName 時，可以更改 clusterIPs（在這種情況下，可以選擇指定此字段）。
   可選值 “None”、空字符串 (“”) 或有效的 IP 地址。
@@ -323,8 +323,8 @@ ServiceSpec 描述用戶在服務上創建的屬性。
 
   **原子：將在合併期間被替換**
 
-  externalIPs 是一個 IP 列表，集羣中的節點會爲此 Service 接收針對這些 IP 地址的流量。
-  這些 IP 不被 Kubernetes 管理。用戶需要確保流量可以到達具有此 IP 的節點。
+  externalIPs 是一個 IP 列表，叢集中的節點會爲此 Service 接收針對這些 IP 地址的流量。
+  這些 IP 不被 Kubernetes 管理。使用者需要確保流量可以到達具有此 IP 的節點。
   一個常見的例子是不屬於 Kubernetes 系統的外部負載均衡器。
 
 - **sessionAffinity** (string)
@@ -346,7 +346,7 @@ ServiceSpec 描述用戶在服務上創建的屬性。
   僅適用於服務類型：LoadBalancer。此功能取決於底層雲提供商是否支持負載均衡器。
   如果雲提供商不支持該功能，該字段將被忽略。
   已棄用：該字段信息不足，且其含義因實現而異。此字段是不可移植的，並且可能不支持雙棧。。
-  我們鼓勵用戶在可用時使用特定於實現的註解。
+  我們鼓勵使用者在可用時使用特定於實現的註解。
 
 - **loadBalancerSourceRanges** ([]string)
 
@@ -370,7 +370,7 @@ ServiceSpec 描述用戶在服務上創建的屬性。
 
   loadBalancerClass 是此 Service 所屬的負載均衡器實現的類。
   如果設置了此字段，則字段值必須是標籤風格的標識符，帶有可選前綴，例如 ”internal-vip” 或 “example.com/internal-vip”。
-  無前綴名稱是爲最終用戶保留的。該字段只能在 Service 類型爲 “LoadBalancer” 時設置。
+  無前綴名稱是爲最終使用者保留的。該字段只能在 Service 類型爲 “LoadBalancer” 時設置。
   如果未設置此字段，則使用默認負載均衡器實現。默認負載均衡器現在通常通過雲提供商集成完成，但應適用於任何默認實現。
   如果設置了此字段，則假定負載均衡器實現正在監測具有對應負載均衡器類的 Service。
   任何默認負載均衡器實現（例如雲提供商）都應忽略設置此字段的 Service。
@@ -399,8 +399,8 @@ ServiceSpec 描述用戶在服務上創建的屬性。
   因此每個節點將僅向服務的節點本地端點傳遞流量，而不會僞裝客戶端源 IP。
  （將丟棄錯誤發送到沒有端點的節點的流量。）
   “Cluster” 默認值使用負載均衡路由到所有端點的策略（可能會根據拓撲和其他特性進行修改）。
-  請注意，從集羣內部發送到 External IP 或 LoadBalancer IP 的流量始終具有 “Cluster” 語義，
-  但是從集羣內部發送到 NodePort 的客戶端需要在選擇節點時考慮流量路由策略。
+  請注意，從叢集內部發送到 External IP 或 LoadBalancer IP 的流量始終具有 “Cluster” 語義，
+  但是從叢集內部發送到 NodePort 的客戶端需要在選擇節點時考慮流量路由策略。
 
 - **internalTrafficPolicy** (string)
 
@@ -448,10 +448,10 @@ ServiceSpec 描述用戶在服務上創建的屬性。
   *SessionAffinityConfig represents the configurations of session affinity.*
   -->
 
-  sessionAffinityConfig 包含會話親和性的配置。
+  sessionAffinityConfig 包含會話親和性的設定。
 
   <a name="SessionAffinityConfig"></a>
-  **SessionAffinityConfig 表示會話親和性的配置。**
+  **SessionAffinityConfig 表示會話親和性的設定。**
 
   - **sessionAffinityConfig.clientIP** (ClientIPConfig)
 
@@ -462,10 +462,10 @@ ServiceSpec 描述用戶在服務上創建的屬性。
     *ClientIPConfig represents the configurations of Client IP based session affinity.*
     -->
     
-    clientIP 包含基於客戶端 IP 的會話親和性的配置。
+    clientIP 包含基於客戶端 IP 的會話親和性的設定。
 
     <a name="ClientIPConfig"></a>
-    **ClientIPConfig 表示基於客戶端 IP 的會話親和性的配置。**
+    **ClientIPConfig 表示基於客戶端 IP 的會話親和性的設定。**
 
     - **sessionAffinityConfig.clientIP.timeoutSeconds** (int32)
 
@@ -483,7 +483,7 @@ ServiceSpec 描述用戶在服務上創建的屬性。
   -->
 
   allocateLoadBalancerNodePorts 定義了是否會自動爲 LoadBalancer 類型的 Service 分配 NodePort。默認爲 true。
-  如果集羣負載均衡器不依賴 NodePort，則可以設置此字段爲 false。
+  如果叢集負載均衡器不依賴 NodePort，則可以設置此字段爲 false。
   如果調用者（通過指定一個值）請求特定的 NodePort，則無論此字段如何，都會接受這些請求。
   該字段只能設置在 type 爲 LoadBalancer 的 Service 上，如果 type 更改爲任何其他類型，該字段將被移除。
 

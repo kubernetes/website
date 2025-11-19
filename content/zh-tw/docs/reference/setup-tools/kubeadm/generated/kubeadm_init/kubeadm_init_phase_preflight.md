@@ -49,7 +49,7 @@ kubeadm init phase preflight --config kubeadm-config.yaml
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -125,7 +125,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇拉取控制平面鏡像的容器倉庫。
+選擇拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>

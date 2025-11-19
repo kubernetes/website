@@ -1,5 +1,5 @@
 ---
-title: 爲 Pod 配置服務賬號
+title: 爲 Pod 設定服務賬號
 content_type: task
 weight: 120
 ---
@@ -22,9 +22,9 @@ cluster, or that otherwise have a relationship to your cluster's
 to authenticate to the
 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}.
 -->
-Kubernetes 提供兩種完全不同的方式來爲客戶端提供支持，這些客戶端可能運行在你的集羣中，
-也可能與你的集羣的{{< glossary_tooltip text="控制面" term_id="control-plane" >}}相關，
-需要向 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}完成身份認證。
+Kubernetes 提供兩種完全不同的方式來爲客戶端提供支持，這些客戶端可能運行在你的叢集中，
+也可能與你的叢集的{{< glossary_tooltip text="控制面" term_id="control-plane" >}}相關，
+需要向 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}完成身份認證。
 
 <!--
 A _service account_ provides an identity for processes that run in a Pod,
@@ -34,8 +34,8 @@ the concept of a user, however, Kubernetes itself does **not** have a User
 API.
 -->
 **服務賬號（Service Account）** 爲 Pod 中運行的進程提供身份標識，
-並映射到 ServiceAccount 對象。當你向 API 服務器執行身份認證時，
-你會將自己標識爲某個**用戶（User）**。Kubernetes 能夠識別用戶的概念，
+並映射到 ServiceAccount 對象。當你向 API 伺服器執行身份認證時，
+你會將自己標識爲某個**使用者（User）**。Kubernetes 能夠識別使用者的概念，
 但是 Kubernetes 自身**並不**提供 User API。
 
 <!--
@@ -43,7 +43,7 @@ This task guide is about ServiceAccounts, which do exist in the Kubernetes
 API. The guide shows you some ways to configure ServiceAccounts for Pods.
 -->
 本服務是關於 ServiceAccount 的，而 ServiceAccount 則確實存在於 Kubernetes 的 API 中。
-本指南爲你展示爲 Pod 配置 ServiceAccount 的一些方法。
+本指南爲你展示爲 Pod 設定 ServiceAccount 的一些方法。
 
 ## {{% heading "prerequisites" %}}
 
@@ -65,9 +65,9 @@ automatically assigns the ServiceAccount named `default` in that namespace.
 
 You can fetch the details for a Pod you have created. For example:
 -->
-## 使用默認的服務賬號訪問 API 服務器   {#use-the-default-service-account-to-access-the-api-server}
+## 使用默認的服務賬號訪問 API 伺服器   {#use-the-default-service-account-to-access-the-api-server}
 
-當 Pod 與 API 服務器聯繫時，Pod 會被認證爲某個特定的 ServiceAccount（例如：`default`）。
+當 Pod 與 API 伺服器聯繫時，Pod 會被認證爲某個特定的 ServiceAccount（例如：`default`）。
 在每個{{< glossary_tooltip text="名字空間" term_id="namespace" >}}中，至少存在一個
 ServiceAccount。
 
@@ -94,7 +94,7 @@ See [accessing the Cluster](/docs/tasks/access-application-cluster/access-cluste
 Kubernetes 自動爲 Pod 設置這一屬性的取值。
 
 Pod 中運行的應用可以使用這一自動掛載的服務賬號憑據來訪問 Kubernetes API。
-參閱[訪問集羣](/zh-cn/docs/tasks/access-application-cluster/access-cluster/)以進一步瞭解。
+參閱[訪問叢集](/zh-cn/docs/tasks/access-application-cluster/access-cluster/)以進一步瞭解。
 
 <!--
 When a Pod authenticates as a ServiceAccount, its level of access depends on the
@@ -483,7 +483,7 @@ Next, verify it has been created. For example:
   [Specifying ImagePullSecrets on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 -->
 - 按[爲 Pod 設置 imagePullSecret](/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
-  所描述的，生成一個鏡像拉取 Secret：
+  所描述的，生成一個映像檔拉取 Secret：
 
   ```shell
   kubectl create secret docker-registry myregistrykey --docker-server=<registry name> \
@@ -515,7 +515,7 @@ Next, verify it has been created. For example:
 
 Next, modify the default service account for the namespace to use this Secret as an imagePullSecret.
 -->
-### 將鏡像拉取 Secret 添加到服務賬號   {#add-image-pull-secret-to-service-account}
+### 將映像檔拉取 Secret 添加到服務賬號   {#add-image-pull-secret-to-service-account}
 
 接下來更改名字空間的默認服務賬號，將該 Secret 用作 imagePullSecret。
 
@@ -540,7 +540,7 @@ The output of the `sa.yaml` file is similar to this:
 <!--
 Your selected text editor will open with a configuration looking something like this:
 -->
-你所選擇的文本編輯器會被打開，展示如下所示的配置：
+你所選擇的文本編輯器會被打開，展示如下所示的設定：
 
 ```yaml
 apiVersion: v1
@@ -613,7 +613,7 @@ myregistrykey
 To enable and use token request projection, you must specify each of the following
 command line arguments to `kube-apiserver`:
 -->
-爲了啓用令牌請求投射，你必須爲 `kube-apiserver` 設置以下命令行參數：
+爲了啓用令牌請求投射，你必須爲 `kube-apiserver` 設置以下命令列參數：
 
 <!--
 `--service-account-issuer`
@@ -629,7 +629,7 @@ command line arguments to `kube-apiserver`:
   `--service-account-issuer` 參數，對於需要變更發放者而又不想帶來業務中斷的場景，
   這樣做是有用的。如果這個參數被多次指定，其第一個參數值會被用來生成令牌，
   而所有參數值都會被用來確定哪些發放者是可接受的。你所運行的 Kubernetes
-  集羣必須是 v1.22 或更高版本才能多次指定 `--service-account-issuer`。
+  叢集必須是 v1.22 或更高版本才能多次指定 `--service-account-issuer`。
 
 <!--
 `--service-account-key-file`
@@ -642,7 +642,7 @@ command line arguments to `kube-apiserver`:
 `--service-account-key-file`
 : 給出某文件的路徑，其中包含 PEM 編碼的 x509 RSA 或 ECDSA 私鑰或公鑰，用來檢查 ServiceAccount
   的令牌。所指定的文件中可以包含多個祕鑰，並且你可以多次使用此參數，每個參數值爲不同的文件。
-  多次使用此參數時，由所給的祕鑰之一簽名的令牌會被 Kubernetes API 服務器認爲是合法令牌。
+  多次使用此參數時，由所給的祕鑰之一簽名的令牌會被 Kubernetes API 伺服器認爲是合法令牌。
 
 <!--
 `--service-account-signing-key-file`
@@ -667,7 +667,7 @@ command line arguments to `kube-apiserver`:
   服務賬號令牌身份檢查組件會檢查針對 API 訪問所使用的令牌，
   確認令牌至少是被綁定到這裏所給的受衆之一。
   如果 `api-audiences` 被多次指定，則針對所給的多個受衆中任何目標的令牌都會被
-  Kubernetes API 服務器當做合法的令牌。如果你指定了 `--service-account-issuer`
+  Kubernetes API 伺服器當做合法的令牌。如果你指定了 `--service-account-issuer`
   參數，但沒有設置 `--api-audiences`，則控制面認爲此參數的默認值爲一個只有一個元素的列表，
   且該元素爲令牌發放者的 URL。
 
@@ -681,7 +681,7 @@ token. The token will also become invalid against the API when either the Pod
 or the ServiceAccount is deleted.
 -->
 kubelet 還可以將 ServiceAccount 令牌投射到 Pod 中。你可以指定令牌的期望屬性，
-例如受衆和有效期限。這些屬性在 default ServiceAccount 令牌上**無法**配置。
+例如受衆和有效期限。這些屬性在 default ServiceAccount 令牌上**無法**設定。
 當 Pod 或 ServiceAccount 被刪除時，該令牌也將對 API 無效。
 
 <!--
@@ -690,7 +690,7 @@ You can configure this behavior for the `spec` of a Pod using a
 `ServiceAccountToken`.
 -->
 你可以使用類型爲 `ServiceAccountToken` 的[投射卷](/zh-cn/docs/concepts/storage/volumes/#projected)來爲
-Pod 的 `spec` 配置此行爲。
+Pod 的 `spec` 設定此行爲。
 
 <!--
 The token from this projected volume is a {{<glossary_tooltip term_id="jwt" text="JSON Web Token">}}  (JWT).
@@ -732,7 +732,7 @@ The JSON payload of this token follows a well defined schema - an example payloa
 -->
 ```yaml
 {
-  "aud": [  # 匹配請求的受衆，或當沒有明確請求時匹配 API 服務器的默認受衆
+  "aud": [  # 匹配請求的受衆，或當沒有明確請求時匹配 API 伺服器的默認受衆
     "https://kubernetes.default.svc"
   ],
   "exp": 1731613413,
@@ -789,7 +789,7 @@ the token as it approaches expiration. The kubelet proactively requests rotation
 for the token if it is older than 80% of its total time-to-live (TTL),
 or if the token is older than 24 hours.
 -->
-kubelet 組件會替 Pod 請求令牌並將其保存起來；通過將令牌存儲到一個可配置的路徑以使之在
+kubelet 組件會替 Pod 請求令牌並將其保存起來；通過將令牌存儲到一個可設定的路徑以使之在
 Pod 內可用；在令牌快要到期的時候刷新它。kubelet 會在令牌存在期達到其 TTL 的 80%
 的時候或者令牌生命期超過 24 小時的時候主動請求將其輪換掉。
 
@@ -814,7 +814,7 @@ for ServiceAccounts in your cluster, then you can also make use of the discovery
 feature. Kubernetes provides a way for clients to federate as an _identity provider_,
 so that one or more external systems can act as a _relying party_.
 -->
-如果你在你的集羣中已經爲 ServiceAccount 啓用了[令牌投射](#serviceaccount-token-volume-projection)，
+如果你在你的叢集中已經爲 ServiceAccount 啓用了[令牌投射](#serviceaccount-token-volume-projection)，
 那麼你也可以利用其發現能力。Kubernetes 提供一種方式來讓客戶端將一個或多個外部系統進行聯邦，
 作爲**標識提供者（Identity Provider）**，而這些外部系統的角色是**依賴方（Relying Party）**。
 
@@ -832,7 +832,7 @@ registered or accessible.
 [OIDC 發現規範](https://openid.net/specs/openid-connect-discovery-1_0.html)。
 實現上，這意味着 URL 必須使用 `https` 模式，並且必須在路徑
 `{service-account-issuer}/.well-known/openid-configuration`
-處給出 OpenID 提供者（Provider）的配置信息。
+處給出 OpenID 提供者（Provider）的設定信息。
 
 如果 URL 沒有遵從這一規範，ServiceAccount 分發者發現末端末端就不會被註冊也無法訪問。
 {{< /note >}}
@@ -845,11 +845,11 @@ The OpenID Provider Configuration is sometimes referred to as the _discovery doc
 The Kubernetes API server publishes the related
 JSON Web Key Set (JWKS), also via HTTP, at `/openid/v1/jwks`.
 -->
-當此特性被啓用時，Kubernetes API 服務器會通過 HTTP 發佈一個 OpenID 提供者配置文檔。
-該配置文檔發佈在 `/.well-known/openid-configuration` 路徑。
-這裏的 OpenID 提供者配置（OpenID Provider Configuration）有時候也被稱作
+當此特性被啓用時，Kubernetes API 伺服器會通過 HTTP 發佈一個 OpenID 提供者設定文檔。
+該設定文檔發佈在 `/.well-known/openid-configuration` 路徑。
+這裏的 OpenID 提供者設定（OpenID Provider Configuration）有時候也被稱作
 “發現文檔（Discovery Document）”。
-Kubernetes API 服務器也通過 HTTP 在 `/openid/v1/jwks` 處發佈相關的
+Kubernetes API 伺服器也通過 HTTP 在 `/openid/v1/jwks` 處發佈相關的
 JSON Web Key Set（JWKS）。
 
 {{< note >}}
@@ -874,10 +874,10 @@ via their mounted service account token. Administrators may, additionally, choos
 bind the role to `system:authenticated` or `system:unauthenticated` depending on their
 security requirements and which external systems they intend to federate with.
 -->
-使用 {{< glossary_tooltip text="RBAC" term_id="rbac">}} 的集羣都包含一個的默認
+使用 {{< glossary_tooltip text="RBAC" term_id="rbac">}} 的叢集都包含一個的默認
 RBAC ClusterRole, 名爲 `system:service-account-issuer-discovery`。
 默認的 RBAC ClusterRoleBinding 將此角色分配給 `system:serviceaccounts` 組，
-所有 ServiceAccount 隱式屬於該組。這使得集羣上運行的 Pod
+所有 ServiceAccount 隱式屬於該組。這使得叢集上運行的 Pod
 能夠通過它們所掛載的服務賬號令牌訪問服務賬號發現文檔。
 此外，管理員可以根據其安全性需要以及期望集成的外部系統，選擇是否將該角色綁定到
 `system:authenticated` 或 `system:unauthenticated`。
@@ -889,7 +889,7 @@ OpenID Provider Configuration, and use the `jwks_uri` field in the response to
 find the JWKS.
 -->
 JWKS 響應包含依賴方可以用來驗證 Kubernetes 服務賬號令牌的公鑰數據。
-依賴方先會查詢 OpenID 提供者配置，之後使用返回響應中的 `jwks_uri` 來查找 JWKS。
+依賴方先會查詢 OpenID 提供者設定，之後使用返回響應中的 `jwks_uri` 來查找 JWKS。
 
 <!--
 In many cases, Kubernetes API servers are not available on the public internet,
@@ -900,11 +900,11 @@ to the public endpoint, rather than the API server's address, by passing the
 `--service-account-jwks-uri` flag to the API server. Like the issuer URL, the
 JWKS URI is required to use the `https` scheme.
 -->
-在很多場合，Kubernetes API 服務器都不會暴露在公網上，不過對於緩存並向外提供 API
-服務器響應數據的公開末端而言，用戶或者服務提供商可以選擇將其暴露在公網上。
-在這種環境中，可能會重載 OpenID 提供者配置中的
-`jwks_uri`，使之指向公網上可用的末端地址，而不是 API 服務器的地址。
-這時需要向 API 服務器傳遞 `--service-account-jwks-uri` 參數。
+在很多場合，Kubernetes API 伺服器都不會暴露在公網上，不過對於緩存並向外提供 API
+伺服器響應數據的公開末端而言，使用者或者服務提供商可以選擇將其暴露在公網上。
+在這種環境中，可能會重載 OpenID 提供者設定中的
+`jwks_uri`，使之指向公網上可用的末端地址，而不是 API 伺服器的地址。
+這時需要向 API 伺服器傳遞 `--service-account-jwks-uri` 參數。
 與分發者 URL 類似，此 JWKS URI 也需要使用 `https` 模式。
 
 ## {{% heading "whatsnext" %}}
@@ -922,7 +922,7 @@ See also:
 -->
 另請參見：
 
-- 閱讀[爲集羣管理員提供的服務賬號指南](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
+- 閱讀[爲叢集管理員提供的服務賬號指南](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
 - 閱讀 [Kubernetes中的鑑權](/zh-cn/docs/reference/access-authn-authz/authorization/)
 - 閱讀 [Secret](/zh-cn/docs/concepts/configuration/secret/) 的概念
   - 或者學習[使用 Secret 來安全地分發憑據](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/)

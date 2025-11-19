@@ -1,7 +1,7 @@
 <!-- 
 Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster 
 -->
-管理持久化在 ConfigMap 中的 kubeadm 集羣的配置。
+管理持久化在 ConfigMap 中的 kubeadm 叢集的設定。
 
 <!--
 ### Synopsis
@@ -16,10 +16,10 @@ initialized your cluster using kubeadm v1.7.x or lower, you must use the 'config
 command to create this ConfigMap. This is required so that 'kubeadm upgrade' can configure
 your upgraded cluster correctly.
 -->
-kube-system 命名空間裏有一個名爲 "kubeadm-config" 的 ConfigMap，kubeadm 用它來存儲有關集羣的內部配置。
-kubeadm CLI v1.8.0+ 通過一個配置自動創建該 ConfigMap，這個配置是和 'kubeadm init' 共用的。
-但是你如果使用 kubeadm v1.7.x 或更低的版本初始化集羣，那麼必須使用 'config upload' 命令創建此 ConfigMap。
-這是必要的操作，目的是使 'kubeadm upgrade' 能夠正確地配置升級後的集羣。
+kube-system 命名空間裏有一個名爲 "kubeadm-config" 的 ConfigMap，kubeadm 用它來存儲有關叢集的內部設定。
+kubeadm CLI v1.8.0+ 通過一個設定自動創建該 ConfigMap，這個設定是和 'kubeadm init' 共用的。
+但是你如果使用 kubeadm v1.7.x 或更低的版本初始化叢集，那麼必須使用 'config upload' 命令創建此 ConfigMap。
+這是必要的操作，目的是使 'kubeadm upgrade' 能夠正確地設定升級後的叢集。
 
 ```
 kubeadm config [flags]
@@ -63,7 +63,7 @@ kubeadm config [flags]
 <p>The kubeconfig file to use when talking to the cluster.
 If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-<p>用於和集羣通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。</p>
+<p>用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。</p>
 </td>
 </tr>
 

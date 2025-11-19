@@ -23,7 +23,7 @@ auto_generated: true
 <!--
 Preference stores elements of KubeRC configuration file
 -->
-<code>Preference</code> 存儲 KubeRC 配置文件的元素
+<code>Preference</code> 存儲 KubeRC 設定文件的元素
 </p>
 
 <table class="table">
@@ -44,7 +44,7 @@ This is especially useful, when user doesn't want to explicitly
 set flags each time.
 -->
 <code>overrides</code> 允許更改命令的默認標誌值。
-這對於用戶不想每次明確設置標誌時特別有用。
+這對於使用者不想每次明確設置標誌時特別有用。
 </p>
 </td>
 </tr>
@@ -98,7 +98,7 @@ kubectl [COMMAND] # 別名指向的內置命令
 For example, if user invokes &quot;kubectl runx test-pod&quot; command,
 this will be expanded to &quot;kubectl run --image=nginx test-pod -- custom-arg1&quot;
 -->
-例如，如果用戶調用 <code>&quot;kubectl runx test-pod&quot;</code> 命令，
+例如，如果使用者調用 <code>&quot;kubectl runx test-pod&quot;</code> 命令，
 這將被展開爲 <code>&quot;kubectl run --image=nginx test-pod -- custom-arg1&quot;</code>
 
  ```yaml
@@ -208,7 +208,7 @@ flags only modifies the default value of the flag and if
 user explicitly passes a value, explicit one is used.
 -->
 <code>flags</code> 用於存儲別名的標誌定義。
-<code>flags</code> 只修改標誌的默認值，如果用戶顯式傳遞一個值，則使用顯式值。
+<code>flags</code> 只修改標誌的默認值，如果使用者顯式傳遞一個值，則使用顯式值。
 </p>
 </td>
 </tr>

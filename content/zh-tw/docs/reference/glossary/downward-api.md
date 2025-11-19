@@ -40,7 +40,7 @@ or their context in a Kubernetes cluster. Applications in containers can have
 access to that information, without the application needing to act as a client of
 the Kubernetes API.
 -->
-Kubernetes Downward API 允許容器使用它們自己或它們在 Kubernetes 集羣中所處環境的信息。
+Kubernetes Downward API 允許容器使用它們自己或它們在 Kubernetes 叢集中所處環境的信息。
 容器中的應用程序可以訪問該信息，而不需要以 Kubernetes API 客戶端的形式執行操作。
 
 <!--

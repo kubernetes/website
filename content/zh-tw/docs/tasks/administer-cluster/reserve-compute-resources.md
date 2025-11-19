@@ -32,7 +32,7 @@ Kubernetes 的節點可以按照 `Capacity` 調度。默認情況下 pod 能夠�
 除非爲這些系統守護進程留出資源，否則它們將與 Pod 爭奪資源並導致節點資源短缺問題。
 
 `kubelet` 公開了一個名爲 'Node Allocatable' 的特性，有助於爲系統守護進程預留計算資源。
-Kubernetes 推薦集羣管理員按照每個節點上的工作負載密度配置 'Node Allocatable'。
+Kubernetes 推薦叢集管理員按照每個節點上的工作負載密度設定 'Node Allocatable'。
 
 ## {{% heading "prerequisites" %}}
 
@@ -42,7 +42,7 @@ Kubernetes 推薦集羣管理員按照每個節點上的工作負載密度配置
 You can configure below kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/)
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 -->
-你可以使用 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)來配置以下
+你可以使用 [kubelet 設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)來設定以下
 kubelet [設置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)。
 
 <!-- steps -->
@@ -86,7 +86,7 @@ under a cgroup hierarchy managed by the `kubelet`.
 
 爲了恰當地在節點範圍實施節點可分配約束，你必須通過 `cgroupsPerQOS`
 設置啓用新的 cgroup 層次結構。這個設置是默認啓用的。
-啓用後，`kubelet` 將在其管理的 cgroup 層次結構中創建所有終端用戶的 Pod。
+啓用後，`kubelet` 將在其管理的 cgroup 層次結構中創建所有終端使用者的 Pod。
 
 <!--
 ### Configuring a cgroup driver
@@ -107,10 +107,10 @@ proper system behavior. For example, if operators use the `systemd`
 cgroup driver provided by the `containerd` runtime, the `kubelet` must
 be configured to use the `systemd` cgroup driver.
 -->
-### 配置 cgroup 驅動  {#configuring-a-cgroup-driver}
+### 設定 cgroup 驅動  {#configuring-a-cgroup-driver}
 
 `kubelet` 支持在主機上使用 cgroup 驅動操作 cgroup 層次結構。
-該驅動通過 `cgroupDriver` 設置進行配置。
+該驅動通過 `cgroupDriver` 設置進行設定。
 
 支持的參數值如下：
 
@@ -119,9 +119,9 @@ be configured to use the `systemd` cgroup driver.
 * `systemd` 是可選的驅動，使用 init 系統支持的資源的瞬時切片管理
   cgroup 沙箱。
 
-取決於相關容器運行時的配置，操作員可能需要選擇一個特定的 cgroup 驅動來保證系統正常運行。
+取決於相關容器運行時的設定，操作員可能需要選擇一個特定的 cgroup 驅動來保證系統正常運行。
 例如，如果操作員使用 `containerd` 運行時提供的 `systemd` cgroup 驅動時，
-必須配置 `kubelet` 使用 `systemd` cgroup 驅動。
+必須設定 `kubelet` 使用 `systemd` cgroup 驅動。
 
 <!--
 ### Kube Reserved
@@ -146,7 +146,7 @@ kubernetes system daemons.
 
 `kubeReserved` 用來給諸如 `kubelet`、容器運行時等
 Kubernetes 系統守護進程記述其資源預留值。
-該配置並非用來給以 Pod 形式運行的系統守護進程預留資源。`kubeReserved`
+該設定並非用來給以 Pod 形式運行的系統守護進程預留資源。`kubeReserved`
 通常是節點上 `Pod 密度` 的函數。
 
 除了 `cpu`、`內存` 和 `ephemeral-storage` 之外，`pid` 可用來指定爲
@@ -210,7 +210,7 @@ daemons.
 `systemReserved` 用於爲諸如 `sshd`、`udev` 等系統守護進程記述其資源預留值。
 `systemReserved` 也應該爲 `kernel` 預留 `內存`，因爲目前 `kernel`
 使用的內存並不記在 Kubernetes 的 Pod 上。
-同時還推薦爲用戶登錄會話預留資源（systemd 體系中的 `user.slice`）。
+同時還推薦爲使用者登錄會話預留資源（systemd 體系中的 `user.slice`）。
 
 除了 `cpu`、`內存` 和 `ephemeral-storage` 之外，`pid` 可用來指定爲
 Kubernetes 系統守護進程預留指定數量的進程 ID。
@@ -387,7 +387,7 @@ ability to recover if any process in that group is oom-killed.
 -->
 在執行 `systemReserved` 預留策略時請加倍小心，因爲它可能導致節點上的關鍵系統服務出現 CPU 資源短缺、
 因爲內存不足而被終止或者無法在節點上創建進程。
-建議只有當用戶詳盡地描述了他們的節點以得出精確的估計值，
+建議只有當使用者詳盡地描述了他們的節點以得出精確的估計值，
 並且對該組中進程因內存不足而被殺死時，有足夠的信心將其恢復時，
 纔可以強制執行 `systemReserved` 策略。
 

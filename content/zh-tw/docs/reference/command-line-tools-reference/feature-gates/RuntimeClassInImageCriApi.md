@@ -15,4 +15,4 @@ stages:
 Enables images to be pulled based on the [runtime class](/docs/concepts/containers/runtime-class/)
 of the pods that reference them.
 -->
-允許基於 Pod 所引用的[運行時類](/zh-cn/docs/concepts/containers/runtime-class/)來拉取鏡像。
+允許基於 Pod 所引用的[運行時類](/zh-cn/docs/concepts/containers/runtime-class/)來拉取映像檔。

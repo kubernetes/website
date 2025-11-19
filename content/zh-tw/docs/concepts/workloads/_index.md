@@ -29,7 +29,7 @@ In Kubernetes, a Pod represents a set of running
 -->
 在 Kubernetes 中，無論你的負載是由單個組件還是由多個一同工作的組件構成，
 你都可以在一組 [**Pod**](/zh-cn/docs/concepts/workloads/pods) 中運行它。
-在 Kubernetes 中，Pod 代表的是集羣上處於運行狀態的一組
+在 Kubernetes 中，Pod 代表的是叢集上處於運行狀態的一組
 {{< glossary_tooltip text="容器" term_id="container" >}}的集合。
 
 <!--
@@ -40,7 +40,7 @@ all the pods on that node fail. Kubernetes treats that level of failure as final
 would need to create a new Pod to recover, even if the node later becomes healthy.
 -->
 Kubernetes Pod 遵循[預定義的生命週期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
-例如，當在你的集羣中運行了某個 Pod，但是 Pod 所在的
+例如，當在你的叢集中運行了某個 Pod，但是 Pod 所在的
 {{< glossary_tooltip text="節點" term_id="node" >}} 出現致命錯誤時，
 所有該節點上的 Pod 的狀態都會變成失敗。Kubernetes 將這類失敗視爲最終狀態：
 即使該節點後來恢復正常運行，你也需要創建新的 Pod 以恢復應用。
@@ -54,10 +54,10 @@ you specified.
 
 Kubernetes provides several built-in workload resources:
 -->
-不過，爲了減輕用戶的使用負擔，通常不需要用戶直接管理每個 `Pod`。
-而是使用**負載資源**來替用戶管理一組 Pod。
-這些負載資源通過配置 {{< glossary_tooltip term_id="controller" text="控制器" >}}
-來確保正確類型的、處於運行狀態的 Pod 個數是正確的，與用戶所指定的狀態相一致。
+不過，爲了減輕使用者的使用負擔，通常不需要使用者直接管理每個 `Pod`。
+而是使用**負載資源**來替使用者管理一組 Pod。
+這些負載資源通過設定 {{< glossary_tooltip term_id="controller" text="控制器" >}}
+來確保正確類型的、處於運行狀態的 Pod 個數是正確的，與使用者所指定的狀態相一致。
 
 Kubernetes 提供若干種內置的工作負載資源：
 
@@ -77,7 +77,7 @@ Kubernetes 提供若干種內置的工作負載資源：
 * [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 和
   [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
   （替換原來的資源 {{< glossary_tooltip text="ReplicationController" term_id="replication-controller" >}}）。
-  Deployment 很適合用來管理你的集羣上的無狀態應用，Deployment 中的所有
+  Deployment 很適合用來管理你的叢集上的無狀態應用，Deployment 中的所有
   Pod 都是相互等價的，並且在需要的時候被替換。
 * [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
   讓你能夠運行一個或者多個以某種方式跟蹤應用狀態的 Pod。
@@ -101,10 +101,10 @@ Kubernetes 提供若干種內置的工作負載資源：
   the same Job multiple times according a schedule.
 -->
 * [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/)
-  定義提供節點本地支撐設施的 Pod。這些 Pod 可能對於你的集羣的運維是
-  非常重要的，例如作爲網絡鏈接的輔助工具或者作爲網絡
+  定義提供節點本地支撐設施的 Pod。這些 Pod 可能對於你的叢集的運維是
+  非常重要的，例如作爲網路鏈接的輔助工具或者作爲網路
   {{< glossary_tooltip text="插件" term_id="addons" >}}
-  的一部分等等。每次你向集羣中添加一個新節點時，如果該節點與某 `DaemonSet`
+  的一部分等等。每次你向叢集中添加一個新節點時，如果該節點與某 `DaemonSet`
   的規約匹配，則控制平面會爲該 DaemonSet 調度一個 Pod 到該新節點上運行。
 * [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 和
   [CronJob](/zh-cn/docs/concepts/workloads/controllers/cron-jobs/)。
@@ -128,7 +128,7 @@ then you can implement or install an extension that does provide that feature.
 你可以添加第三方工作負載資源，以完成原本不是 Kubernetes 核心功能的工作。
 例如，如果你希望運行一組 Pod，但要求**所有** Pod 都可用時才執行操作
 （比如針對某種高吞吐量的分佈式任務），你可以基於定製資源實現一個能夠滿足這一需求的擴展，
-並將其安裝到集羣中運行。
+並將其安裝到叢集中運行。
 
 ## {{% heading "whatsnext" %}}
 
@@ -151,7 +151,7 @@ As well as reading about each resource, you can learn about specific tasks that 
 To learn about Kubernetes' mechanisms for separating code from configuration,
 visit [Configuration](/docs/concepts/configuration/).
 -->
-要了解 Kubernetes 將代碼與配置分離的實現機制，可參閱[配置](/zh-cn/docs/concepts/configuration/)節。
+要了解 Kubernetes 將代碼與設定分離的實現機制，可參閱[設定](/zh-cn/docs/concepts/configuration/)節。
 
 <!--
 There are two supporting concepts that provide backgrounds about how Kubernetes manages pods
@@ -164,7 +164,7 @@ for applications:
 關於 Kubernetes 如何爲應用管理 Pod，還有兩個支撐概念能夠提供相關背景信息：
 
 * [垃圾收集](/zh-cn/docs/concepts/architecture/garbage-collection/)機制負責在
-  對象的**屬主資源**被刪除時在集羣中清理這些對象。
+  對象的**屬主資源**被刪除時在叢集中清理這些對象。
 * [**Time-to-Live** 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)會在 Job
   結束之後的指定時間間隔之後刪除它們。
 

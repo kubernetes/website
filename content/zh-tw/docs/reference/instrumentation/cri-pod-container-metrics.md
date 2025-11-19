@@ -28,7 +28,7 @@ use the CRI based collection mechanism.
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 通過
 [cAdvisor](https://github.com/google/cadvisor) 收集 Pod 和容器指標。作爲一個 Alpha 特性，
 Kubernetes 允許你通過{{< glossary_tooltip term_id="cri" text="容器運行時接口">}}（CRI）
-配置收集 Pod 和容器指標。要使用基於 CRI 的收集機制，你必須啓用 `PodAndContainerStatsFromCRI`
+設定收集 Pod 和容器指標。要使用基於 CRI 的收集機制，你必須啓用 `PodAndContainerStatsFromCRI`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 並使用兼容的 CRI 實現（containerd >= 1.6.0, CRI-O >= 1.23.0）。
 

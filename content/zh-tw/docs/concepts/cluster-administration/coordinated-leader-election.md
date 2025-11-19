@@ -26,7 +26,7 @@ version, followed by creation timestamp.
 -->
 Kubernetes {{< skew currentVersion >}} 包含一個 Beta 特性，
 允許{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}組件通過**協調領導者選舉**確定性地選擇一個領導者。
-這對於在集羣升級期間滿足 Kubernetes 版本偏差約束非常有用。
+這對於在叢集升級期間滿足 Kubernetes 版本偏差約束非常有用。
 目前，唯一內置的選擇策略是 `OldestEmulationVersion`，
 此策略會優先選擇最低仿真版本作爲領導者，其次按二進制版本選擇領導者，最後會按創建時間戳選擇領導者。
 
@@ -41,7 +41,7 @@ enabled.
 -->
 ## 啓用協調領導者選舉   {#enabling-coordinated-leader-election}
 
-確保你在啓動 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}時
+確保你在啓動 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}時
 `CoordinatedLeaderElection` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被啓用，
 並且 `coordination.k8s.io/v1beta1` API 組被啓用。
 
@@ -60,7 +60,7 @@ have the `coordination.k8s.io/v1beta1` API group enabled, compatible control pla
 components automatically use the LeaseCandidate and Lease APIs to elect a leader  
 as needed.
 -->
-## 組件配置   {#component-configuration}
+## 組件設定   {#component-configuration}
 
 前提是你已啓用 `CoordinatedLeaderElection` 特性門控**並且**
 啓用了 `coordination.k8s.io/v1beta1` API 組，

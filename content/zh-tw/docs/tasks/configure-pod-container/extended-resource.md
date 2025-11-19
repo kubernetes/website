@@ -30,7 +30,7 @@ That will configure one of your Nodes to advertise a dongle resource.
 -->
 在你開始此練習前，請先練習
 [爲節點廣播擴展資源](/zh-cn/docs/tasks/administer-cluster/extended-resource-node/)。
-在那個練習中將配置你的一個節點來廣播 dongle 資源。
+在那個練習中將設定你的一個節點來廣播 dongle 資源。
 
 <!-- steps -->
 
@@ -52,7 +52,7 @@ Here is the configuration file for a Pod that has one Container:
 有效的擴展資源名的格式爲 `example.com/foo`，其中 `example.com` 應被替換爲
 你的組織的域名，而 `foo` 則是描述性的資源名稱。
 
-下面是包含一個容器的 Pod 配置文件：
+下面是包含一個容器的 Pod 設定文件：
 
 {{% code_sample file="pods/resource/extended-resource-pod.yaml" %}}
 
@@ -61,7 +61,7 @@ In the configuration file, you can see that the Container requests 3 dongles.
 
 Create a Pod:
 -->
-在配置文件中，你可以看到容器請求了 3 個 dongles。
+在設定文件中，你可以看到容器請求了 3 個 dongles。
 
 創建 Pod：
 
@@ -107,7 +107,7 @@ two dongles.
 -->
 ## 嘗試創建第二個 Pod
 
-下面是包含一個容器的 Pod 配置文件，容器請求了 2 個 dongles。
+下面是包含一個容器的 Pod 設定文件，容器請求了 2 個 dongles。
 
 {{% code_sample file="pods/resource/extended-resource-pod-2.yaml" %}}
 
@@ -203,7 +203,7 @@ kubectl delete pod extended-resource-demo-2
 
 * [Advertise Extended Resources for a Node](/docs/tasks/administer-cluster/extended-resource-node/)
 -->
-### 集羣管理員參考
+### 叢集管理員參考
 
 * [爲節點廣播擴展資源](/zh-cn/docs/tasks/administer-cluster/extended-resource-node/)
 

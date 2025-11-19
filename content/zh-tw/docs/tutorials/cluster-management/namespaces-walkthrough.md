@@ -18,7 +18,7 @@ Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}}
 help different projects, teams, or customers to share a Kubernetes cluster.
 -->
 Kubernetes {{< glossary_tooltip text="名字空間" term_id="namespace" >}}有助於不同的項目、團隊或客戶去共享
-Kubernetes 集羣。
+Kubernetes 叢集。
 
 <!--
 It does this by providing the following:
@@ -29,7 +29,7 @@ It does this by providing the following:
 名字空間通過以下方式實現這點：
 
 1. 爲[名字](/zh-cn/docs/concepts/overview/working-with-objects/names/)設置作用域.
-2. 爲集羣中的部分資源關聯鑑權和策略的機制。
+2. 爲叢集中的部分資源關聯鑑權和策略的機制。
 
 <!--
 Use of multiple namespaces is optional.
@@ -38,7 +38,7 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 -->
 使用多個名字空間是可選的。
 
-此示例演示瞭如何使用 Kubernetes 名字空間細分集羣。
+此示例演示瞭如何使用 Kubernetes 名字空間細分叢集。
 
 ## {{% heading "prerequisites" %}}
 
@@ -59,7 +59,7 @@ This example assumes the following:
 
 此示例作如下假設：
 
-1. 你已擁有一個[配置好的 Kubernetes 集羣](/zh-cn/docs/setup/)。
+1. 你已擁有一個[設定好的 Kubernetes 叢集](/zh-cn/docs/setup/)。
 2. 你已對 Kubernetes 的 {{< glossary_tooltip text="Pod" term_id="pod" >}}、
    {{< glossary_tooltip text="服務" term_id="service" >}} 和
    {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
@@ -73,13 +73,13 @@ Services, and Deployments used by the cluster.
 -->
 ## 理解默認名字空間   {#understand-the-default-namespace}
 
-默認情況下，Kubernetes 集羣會在配置集羣時實例化一個默認名字空間，用以存放集羣所使用的默認
+默認情況下，Kubernetes 叢集會在設定叢集時實例化一個默認名字空間，用以存放叢集所使用的默認
 Pod、Service 和 Deployment 集合。
 
 <!--
 Assuming you have a fresh cluster, you can inspect the available namespaces by doing the following:
 -->
-假設你有一個新的集羣，你可以通過執行以下操作來檢查可用的名字空間：
+假設你有一個新的叢集，你可以通過執行以下操作來檢查可用的名字空間：
 
 ```shell
 kubectl get namespaces
@@ -102,14 +102,14 @@ For this exercise, we will create two additional Kubernetes namespaces to hold o
 <!--
 Let's imagine a scenario where an organization is using a shared Kubernetes cluster for development and production use cases.
 -->
-我們假設一個場景，某組織正在使用共享的 Kubernetes 集羣來支持開發和生產：
+我們假設一個場景，某組織正在使用共享的 Kubernetes 叢集來支持開發和生產：
 
 <!--
 The development team would like to maintain a space in the cluster where they can get a view on the list of Pods, Services, and Deployments
 they use to build and run their application.  In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify resources
 are relaxed to enable agile development.
 -->
-開發團隊希望在集羣中維護一個空間，以便他們可以查看用於構建和運行其應用程序的 Pod、Service
+開發團隊希望在叢集中維護一個空間，以便他們可以查看用於構建和運行其應用程序的 Pod、Service
 和 Deployment 列表。在這個空間裏，Kubernetes 資源被自由地加入或移除，
 對誰能夠或不能修改資源的限制被放寬，以實現敏捷開發。
 
@@ -117,13 +117,13 @@ are relaxed to enable agile development.
 The operations team would like to maintain a space in the cluster where they can enforce strict procedures on who can or cannot manipulate the set of
 Pods, Services, and Deployments that run the production site.
 -->
-運維團隊希望在集羣中維護一個空間，以便他們可以強制實施一些嚴格的規程，
+運維團隊希望在叢集中維護一個空間，以便他們可以強制實施一些嚴格的規程，
 對誰可以或誰不可以操作運行生產站點的 Pod、Service 和 Deployment 集合進行控制。
 
 <!--
 One pattern this organization could follow is to partition the Kubernetes cluster into two namespaces: `development` and `production`.
 -->
-該組織可以遵循的一種模式是將 Kubernetes 集羣劃分爲兩個名字空間：`development` 和 `production`。
+該組織可以遵循的一種模式是將 Kubernetes 叢集劃分爲兩個名字空間：`development` 和 `production`。
 
 <!--
 Let's create two new namespaces to hold our work.
@@ -166,7 +166,7 @@ kubectl create -f https://k8s.io/examples/admin/namespace-prod.yaml
 <!--
 To be sure things are right, let's list all of the namespaces in our cluster.
 -->
-爲了確保一切正常，我們列出集羣中的所有名字空間。
+爲了確保一切正常，我們列出叢集中的所有名字空間。
 
 ```shell
 kubectl get namespaces --show-labels
@@ -190,9 +190,9 @@ To demonstrate this, let's spin up a simple Deployment and Pods in the `developm
 -->
 ## 在每個名字空間中創建 Pod   {#create-pods-in-each-namespace}
 
-Kubernetes 名字空間爲集羣中的 Pod、Service 和 Deployment 提供了作用域。
+Kubernetes 名字空間爲叢集中的 Pod、Service 和 Deployment 提供了作用域。
 
-與一個名字空間交互的用戶不會看到另一個名字空間中的內容。
+與一個名字空間交互的使用者不會看到另一個名字空間中的內容。
 
 爲了演示這一點，讓我們在 `development` 名字空間中啓動一個簡單的 Deployment 和 Pod。
 
@@ -336,7 +336,7 @@ dev
 <!--
 At this point, all requests we make to the Kubernetes cluster from the command line are scoped to the `development` namespace.
 -->
-此時，我們從命令行向 Kubernetes 集羣發出的所有請求都限定在 `development` 名字空間中。
+此時，我們從命令列向 Kubernetes 叢集發出的所有請求都限定在 `development` 名字空間中。
 
 <!--
 Let's create some contents.
@@ -436,7 +436,7 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 <!--
 At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace.
 -->
-此時，應該很清楚地展示了用戶在一個名字空間中創建的資源對另一個名字空間是不可見的。
+此時，應該很清楚地展示了使用者在一個名字空間中創建的資源對另一個名字空間是不可見的。
 
 <!--
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different

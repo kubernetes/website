@@ -86,7 +86,7 @@ that allows a cluster administrator to control security-sensitive aspects of the
 -->
 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
 是一個內置的[准入控制器](/blog/2019/03/21/a-guide-to-kubernetes-admission-controllers/)，
-允許集羣管理員控制 Pod 規約中涉及安全的敏感內容。
+允許叢集管理員控制 Pod 規約中涉及安全的敏感內容。
 
 <!--
 First, one or more PodSecurityPolicy resources are created in a cluster to define the requirements Pods must meet.
@@ -95,11 +95,11 @@ If a pod meets the requirements of its PSP, it will be admitted to the cluster a
 In some cases, PSP can also modify Pod fields, effectively creating new defaults for those fields.
 If a Pod does not meet the PSP requirements, it is rejected, and cannot run.
 -->
-首先，在集羣中創建一個或多個 PodSecurityPolicy 資源來定義 Pod 必須滿足的要求。
+首先，在叢集中創建一個或多個 PodSecurityPolicy 資源來定義 Pod 必須滿足的要求。
 然後，創建 RBAC 規則來決定爲特定的 Pod 應用哪個 PodSecurityPolicy。
-如果 Pod 滿足其 PSP 的要求，則照常被允許進入集羣。
+如果 Pod 滿足其 PSP 的要求，則照常被允許進入叢集。
 在某些情況下，PSP 還可以修改 Pod 字段，有效地爲這些字段創建新的默認值。
-如果 Pod 不符合 PSP 要求，則被拒絕進入集羣，並且無法運行。
+如果 Pod 不符合 PSP 要求，則被拒絕進入叢集，並且無法運行。
 
 <!--
 One more important thing to know about PodSecurityPolicy: it’s not the same as
@@ -136,8 +136,8 @@ a Kubernetes cluster react to these resources, creating further Kubernetes resou
 configuring some software or hardware to accomplish our goals.
 -->
 在 Kubernetes 中，我們定義了 Deployment、StatefulSet 和 Service 等資源。
-這些資源代表軟件應用程序的構建塊。Kubernetes 集羣中的各種控制器根據這些資源做出反應，
-創建更多的 Kubernetes 資源或配置一些軟件或硬件來實現我們的目標。
+這些資源代表軟件應用程序的構建塊。Kubernetes 叢集中的各種控制器根據這些資源做出反應，
+創建更多的 Kubernetes 資源或設定一些軟件或硬件來實現我們的目標。
 
 <!--
 In most Kubernetes clusters, 
@@ -149,10 +149,10 @@ For example, a Pod can be almost anything from a simple webserver to
 a privileged command prompt offering full access to the underlying server node and all the data.
 It’s all the same to RBAC: a Pod is a Pod is a Pod.
 -->
-在大多數 Kubernetes 集羣中，由 RBAC（基於角色的訪問控制）[規則](/zh-cn/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)
+在大多數 Kubernetes 叢集中，由 RBAC（基於角色的訪問控制）[規則](/zh-cn/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)
 控制對這些資源的訪問。 `list`、`get`、`create`、`edit` 和 `delete` 是 RBAC 關心的 API 操作類型，
 但 **RBAC 不考慮其所控制的資源中加入了哪些設置**。例如，
-Pod 幾乎可以是任何東西，例如簡單的網絡服務器，或者是特權命令提示（提供對底層服務器節點和所有數據的完全訪問權限）。
+Pod 幾乎可以是任何東西，例如簡單的網路伺服器，或者是特權命令提示（提供對底層伺服器節點和所有數據的完全訪問權限）。
 這對 RBAC 來說都是一樣的：Pod 就是 Pod 而已。
 
 <!--
@@ -162,9 +162,9 @@ PodSecurityPolicy has been the built-in way to do that for security-related Pod 
 Using PodSecurityPolicy, you can prevent “create Pod” from automatically meaning “root on every cluster node,”
 without needing to deploy additional external admission controllers.
 -->
-要控制集羣中定義的資源允許哪些類型的設置，除了 RBAC 之外，還需要准入控制。
+要控制叢集中定義的資源允許哪些類型的設置，除了 RBAC 之外，還需要准入控制。
 從 Kubernetes 1.3 開始，內置 PodSecurityPolicy 一直被作爲 Pod 安全相關字段的准入控制機制。
-使用 PodSecurityPolicy，可以防止“創建 Pod”這個能力自動變成“每個集羣節點上的 root 用戶”，
+使用 PodSecurityPolicy，可以防止“創建 Pod”這個能力自動變成“每個叢集節點上的 root 使用者”，
 並且無需部署額外的外部准入控制器。
 
 <!--
@@ -190,7 +190,7 @@ and it’s impossible for PSP to ever be enabled by default.
 實踐證明，PSP 應用於 Pod 的方式讓幾乎所有嘗試使用它們的人都感到困惑。
 很容易意外授予比預期更廣泛的權限，並且難以查看某種特定情況下應用了哪些 PSP。
 “更改 Pod 默認值”功能很方便，但僅支持某些 Pod 設置，而且無法明確知道它們何時會或不會應用於的 Pod。
-如果沒有“試運行”或審計模式，將 PSP 安全地改造並應用到現有集羣是不切實際的，並且永遠都不可能默認啓用 PSP。
+如果沒有“試運行”或審計模式，將 PSP 安全地改造並應用到現有叢集是不切實際的，並且永遠都不可能默認啓用 PSP。
 
 <!--
 For more information about these and other PSP difficulties, check out
@@ -207,7 +207,7 @@ provide a better user experience. [K-Rail](https://github.com/cruise-automation/
 [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper/) are all well-known, and each has its fans.
 -->
 如今，你不再侷限於部署 PSP 或編寫自己的自定義准入控制器。
-有幾個外部准入控制器可用，它們結合了從 PSP 中吸取的經驗教訓以提供更好的用戶體驗。
+有幾個外部准入控制器可用，它們結合了從 PSP 中吸取的經驗教訓以提供更好的使用者體驗。
 [K-Rail](https://github.com/cruise-automation/k-rail)、
 [Kyverno](https://github.com/kyverno/kyverno/)、
 [OPA/Gatekeeper](https://github.com/open-policy-agent/gatekeeper/) 都家喻戶曉，各有粉絲。
@@ -217,7 +217,7 @@ Although there are other good options available now, we believe there is still v
 having a built-in admission controller available as a choice for users. With this in mind,
 we turn toward building what’s next, inspired by the lessons learned from PSP.
 -->
-儘管現在還有其他不錯的選擇，但我們認爲，提供一個內置的准入控制器供用戶選擇，仍然是有價值的事情。
+儘管現在還有其他不錯的選擇，但我們認爲，提供一個內置的准入控制器供使用者選擇，仍然是有價值的事情。
 考慮到這一點，以及受 PSP 經驗的啓發，我們轉向下一步。
 
 <!--
@@ -256,7 +256,7 @@ and is configurable enough that it can eventually be active by default.
 It can be deactivated partially or entirely, to coexist with external admission controllers for advanced use cases.
 -->
 PSP 替代策略旨在儘可能簡單，同時提供足夠的靈活性以支撐大規模生產場景。
-它具有柔性上線能力，以便於將其改裝到現有集羣，並且新的策略是可配置的，可以設置爲默認啓用。
+它具有柔性上線能力，以便於將其改裝到現有叢集，並且新的策略是可設定的，可以設置爲默認啓用。
 PSP 替代策略可以被部分或全部禁用，以便在高級使用場景中與外部准入控制器共存。
 
 <!--
@@ -309,7 +309,7 @@ one of the more fully-featured external admission controllers mentioned above.
 -->
 如果剛剛開始 PSP 之旅，你可以通過保持簡單來節省時間和精力。
 你可以使用 Pod 安全標準的 PSP 來獲得和目前 PSP 替代策略相似的功能。
-如果你將基線策略或限制策略綁定到 `system:serviceaccounts` 組來設置集羣默認值，
+如果你將基線策略或限制策略綁定到 `system:serviceaccounts` 組來設置叢集默認值，
 然後[使用 ServiceAccount 綁定](/zh-cn/docs/concepts/policy/pod-security-policy/#run-another-pod)
 在某些命名空間下根據需要制定更寬鬆的策略，就可以避免許多 PSP 陷阱並輕鬆遷移到 PSP 替代策略。
 如果你的需求比這複雜得多，那麼建議將精力花在採用比上面提到的功能更全的某個外部准入控制器。

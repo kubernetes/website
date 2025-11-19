@@ -67,10 +67,10 @@ the authors succinctly captured the change's impact and encouraged users to rema
 > will continue to work in your cluster with all runtimes, as they always have.
 -->
 在文章[別慌: Kubernetes 和 Docker](/zh-cn/blog/2020/12/02/dont-panic-kubernetes-and-docker/) 中，
-作者簡潔地記述了變化的影響，並鼓勵用戶保持冷靜：
+作者簡潔地記述了變化的影響，並鼓勵使用者保持冷靜：
 > 棄用 Docker 這個底層運行時，轉而支持符合爲 Kubernetes 創建的容器運行接口
 > Container Runtime Interface (CRI) 的運行時。
-> Docker 構建的鏡像，將在你的集羣的所有運行時中繼續工作，一如既往。
+> Docker 構建的映像檔，將在你的叢集的所有運行時中繼續工作，一如既往。
 
 <!--
 Several guides have been created with helpful information about migrating from dockershim
@@ -93,8 +93,8 @@ Take a look at the [Is Your Cluster Ready for v1.24?](/blog/2022/03/31/ready-for
 請參見：[Kubernetes 即將移除 Dockershim](/zh-cn/blog/2022/01/07/kubernetes-is-moving-on-from-dockershim/)
 和[最新的棄用 Dockershim 的常見問題](/zh-cn/blog/2022/02/17/dockershim-faq/)。
 
-查看[你的集羣準備好使用 v1.24 版本了嗎？](/zh-cn/blog/2022/03/31/ready-for-dockershim-removal/)一文，
-瞭解如何確保你的集羣在從 1.23 版本升級到 1.24 版本後繼續工作。
+查看[你的叢集準備好使用 v1.24 版本了嗎？](/zh-cn/blog/2022/03/31/ready-for-dockershim-removal/)一文，
+瞭解如何確保你的叢集在從 1.23 版本升級到 1.24 版本後繼續工作。
 
 <!--
 ## The Kubernetes API removal and deprecation process
@@ -112,7 +112,7 @@ same API is available and that APIs have a minimum lifetime as indicated by the 
 ## Kubernetes API 移除和棄用流程  {#the-Kubernetes-api-removal-and-deprecation-process}
 
 Kubernetes 包含大量隨時間演變的組件。在某些情況下，這種演變會導致 API、標誌或整個特性被移除。
-爲了防止用戶面對重大變化，Kubernetes 貢獻者採用了一項特性[棄用策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
+爲了防止使用者面對重大變化，Kubernetes 貢獻者採用了一項特性[棄用策略](/zh-cn/docs/reference/using-api/deprecation-policy/)。
 此策略確保僅當同一 API 的較新穩定版本可用並且
 API 具有以下穩定性級別所指示的最短生命週期時，纔可能棄用穩定版本 API：
 
@@ -145,10 +145,10 @@ been deprecated. These removals have been superseded by newer, stable/generally 
 -->
 ## Kubernetes 1.24 的 API 移除、棄用和其他更改  {#api-removals-deprecations-and-other-changes-for-kubernetes-1.24}
 
-* [動態 kubelet 配置](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig`
-  用於啓用 kubelet 的動態配置。Kubernetes 1.22 中棄用 `DynamicKubeletConfig` 標誌。
+* [動態 kubelet 設定](https://github.com/kubernetes/enhancements/issues/281): `DynamicKubeletConfig`
+  用於啓用 kubelet 的動態設定。Kubernetes 1.22 中棄用 `DynamicKubeletConfig` 標誌。
   在 1.24 版本中，此特性門控將從 kubelet 中移除。
-  更多詳細信息，請參閱[“移除動態 kubelet 配置” 的 KEP](https://github.com/kubernetes/enhancements/issues/281)。
+  更多詳細信息，請參閱[“移除動態 kubelet 設定” 的 KEP](https://github.com/kubernetes/enhancements/issues/281)。
 <!--
 * [Dynamic log sanitization](https://github.com/kubernetes/kubernetes/pull/107207): The experimental dynamic log sanitization feature is deprecated and will be removed in v1.24. This feature introduced a logging filter that could be applied to all Kubernetes system components logs to prevent various types of sensitive information from leaking via logs. Refer to [KEP-1753: Kubernetes system components logs sanitization](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#deprecation) for more information and an [alternative approach](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/1753-logs-sanitization#alternatives=).
 -->
@@ -174,7 +174,7 @@ been deprecated. These removals have been superseded by newer, stable/generally 
 * [The `master` label is no longer present on kubeadm control plane nodes](https://github.com/kubernetes/kubernetes/pull/107533). For new clusters, the label 'node-role.kubernetes.io/master' will no longer be added to control plane nodes, only the label 'node-role.kubernetes.io/control-plane' will be added. For more information, refer to [KEP-2067: Rename the kubeadm "master" label and taint](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/kubeadm/2067-rename-master-label-taint).
 -->
 * [kubeadm 控制面節點上不再存在 `master` 標籤](https://github.com/kubernetes/kubernetes/pull/107533)。
-  對於新集羣，控制平面節點將不再添加 'node-role.kubernetes.io/master' 標籤，
+  對於新叢集，控制平面節點將不再添加 'node-role.kubernetes.io/master' 標籤，
   只會添加 'node-role.kubernetes.io/control-plane' 標籤。更多信息請參考
   [KEP-2067：重命名 kubeadm “master” 標籤和污點](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/kubeadm/2067-rename-master-label-taint)。
 <!--
@@ -208,7 +208,7 @@ Docker Engine dependencies. Before upgrading to v1.24, you decide to either rema
 如前所述，有一些關於從 [dockershim 遷移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)的指南。
 你可以[從查明節點上所使用的容器運行時](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)開始。
 如果你的節點使用 dockershim，則還有其他可能的 Docker Engine 依賴項，
-例如 Pod 或執行 Docker 命令的第三方工具或 Docker 配置文件中的私有鏡像庫。
+例如 Pod 或執行 Docker 命令的第三方工具或 Docker 設定文件中的私有映像檔庫。
 你可以按照[檢查移除 Dockershim 是否對你有影響](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
 的指南來查看可能的 Docker 引擎依賴項。在升級到 1.24 版本之前，你決定要麼繼續使用 Docker Engine 並
 [將 Docker Engine 節點從 dockershim 遷移到 cri-dockerd](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)，

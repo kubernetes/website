@@ -26,4 +26,4 @@ removed: true
 Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
 feature on the API Server.
 -->
-在 API 服務器上啓用[服務器端應用（SSA）](/zh-cn/docs/reference/using-api/server-side-apply/)。
+在 API 伺服器上啓用[伺服器端應用（SSA）](/zh-cn/docs/reference/using-api/server-side-apply/)。

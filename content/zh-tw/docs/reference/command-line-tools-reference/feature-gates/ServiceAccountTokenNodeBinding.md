@@ -23,4 +23,4 @@ stages:
 <!--
 Controls whether the API server allows binding service account tokens to Node objects.
 -->
-控制 API 服務器是否允許將服務賬號令牌綁定到 Node 對象。
+控制 API 伺服器是否允許將服務賬號令牌綁定到 Node 對象。

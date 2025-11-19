@@ -22,9 +22,9 @@ weight: 70
 is the Kubernetes default scheduler. It is responsible for placement of Pods
 on Nodes in a cluster.
 -->
-作爲 kubernetes 集羣的默認調度器，
+作爲 kubernetes 叢集的默認調度器，
 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
-主要負責將 Pod 調度到集羣的 Node 上。
+主要負責將 Pod 調度到叢集的 Node 上。
 
 <!--
 Nodes in a cluster that meet the scheduling requirements of a Pod are
@@ -34,8 +34,8 @@ picking a Node with the highest score among the feasible ones to run
 the Pod. The scheduler then notifies the API server about this decision
 in a process called _Binding_.
 -->
-在一個集羣中，滿足一個 Pod 調度請求的所有 Node 稱之爲**可調度** Node。
-調度器先在集羣中找到一個 Pod 的可調度 Node，然後根據一系列函數對這些可調度 Node 打分，
+在一個叢集中，滿足一個 Pod 調度請求的所有 Node 稱之爲**可調度** Node。
+調度器先在叢集中找到一個 Pod 的可調度 Node，然後根據一系列函數對這些可調度 Node 打分，
 之後選出其中得分最高的 Node 來運行 Pod。
 最後，調度器將這個調度決定告知 kube-apiserver，這個過程叫做**綁定（Binding）**。
 
@@ -43,7 +43,7 @@ in a process called _Binding_.
 This page explains performance tuning optimizations that are relevant for
 large Kubernetes clusters.
 -->
-這篇文章將會介紹一些在大規模 Kubernetes 集羣下調度器性能優化的方式。
+這篇文章將會介紹一些在大規模 Kubernetes 叢集下調度器性能優化的方式。
 
 <!-- body -->
 
@@ -56,11 +56,11 @@ You configure this tuning setting via kube-scheduler setting
 `percentageOfNodesToScore`. This KubeSchedulerConfiguration setting determines
 a threshold for scheduling nodes in your cluster.
 -->
-在大規模集羣中，你可以調節調度器的表現來平衡調度的延遲（新 Pod 快速就位）
+在大規模叢集中，你可以調節調度器的表現來平衡調度的延遲（新 Pod 快速就位）
 和精度（調度器很少做出糟糕的放置決策）。
 
-你可以通過設置 kube-scheduler 的 `percentageOfNodesToScore` 來配置這個調優設置。
-這個 KubeSchedulerConfiguration 設置決定了調度集羣中節點的閾值。
+你可以通過設置 kube-scheduler 的 `percentageOfNodesToScore` 來設定這個調優設置。
+這個 KubeSchedulerConfiguration 設置決定了調度叢集中節點的閾值。
 
 <!--
 ### Setting the threshold
@@ -86,8 +86,8 @@ and then restart the scheduler.
 In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`.
 -->
 要修改這個值，先編輯
-[kube-scheduler 的配置文件](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)然後重啓調度器。
-大多數情況下，這個配置文件是 `/etc/kubernetes/config/kube-scheduler.yaml`。
+[kube-scheduler 的設定文件](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)然後重啓調度器。
+大多數情況下，這個設定文件是 `/etc/kubernetes/config/kube-scheduler.yaml`。
 
 <!--
 After you have made this change, you can run
@@ -114,7 +114,7 @@ feasible nodes once it has found enough of them. In large clusters, this saves
 time compared to a naive approach that would consider every node.
 -->
 要提升調度性能，kube-scheduler 可以在找到足夠的可調度節點之後停止查找。
-在大規模集羣中，比起考慮每個節點的簡單方法相比可以節省時間。
+在大規模叢集中，比起考慮每個節點的簡單方法相比可以節省時間。
 
 <!--
 You specify a threshold for how many nodes are enough, as a whole number percentage
@@ -124,9 +124,9 @@ enough feasible nodes to exceed the configured percentage, the kube-scheduler
 stops searching for more feasible nodes and moves on to the
 [scoring phase](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
 -->
-你可以使用整個集羣節點總數的百分比作爲閾值來指定需要多少節點就足夠。
+你可以使用整個叢集節點總數的百分比作爲閾值來指定需要多少節點就足夠。
 kube-scheduler 會將它轉換爲節點數的整數值。在調度期間，如果
-kube-scheduler 已確認的可調度節點數足以超過了配置的百分比數量，
+kube-scheduler 已確認的可調度節點數足以超過了設定的百分比數量，
 kube-scheduler 將停止繼續查找可調度節點並繼續進行
 [打分階段](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)。
 
@@ -146,21 +146,21 @@ If you don't specify a threshold, Kubernetes calculates a figure using a
 linear formula that yields 50% for a 100-node cluster and yields 10%
 for a 5000-node cluster. The lower bound for the automatic value is 5%.
 -->
-如果你不指定閾值，Kubernetes 使用線性公式計算出一個比例，在 100-節點集羣
-下取 50%，在 5000-節點的集羣下取 10%。這個自動設置的參數的最低值是 5%。
+如果你不指定閾值，Kubernetes 使用線性公式計算出一個比例，在 100-節點叢集
+下取 50%，在 5000-節點的叢集下取 10%。這個自動設置的參數的最低值是 5%。
 
 <!--
 This means that the kube-scheduler always scores at least 5% of your cluster no
 matter how large the cluster is, unless you have explicitly set
 `percentageOfNodesToScore` to be smaller than 5.
 -->
-這意味着，調度器至少會對集羣中 5% 的節點進行打分，除非用戶將該參數設置的低於 5。
+這意味着，調度器至少會對叢集中 5% 的節點進行打分，除非使用者將該參數設置的低於 5。
 
 <!--
 If you want the scheduler to score all nodes in your cluster, set
 `percentageOfNodesToScore` to 100.
 -->
-如果你想讓調度器對集羣內所有節點進行打分，則將 `percentageOfNodesToScore` 設置爲 100。
+如果你想讓調度器對叢集內所有節點進行打分，則將 `percentageOfNodesToScore` 設置爲 100。
 
 <!--
 ## Example
@@ -193,7 +193,7 @@ percentageOfNodesToScore: 50
 value being calculated based on the cluster size. There is also a hardcoded
 minimum value of 100 nodes.
 -->
-`percentageOfNodesToScore` 的值必須在 1 到 100 之間，而且其默認值是通過集羣的規模計算得來的。
+`percentageOfNodesToScore` 的值必須在 1 到 100 之間，而且其默認值是通過叢集的規模計算得來的。
 另外，還有一個 100 個 Node 的最小值是硬編碼在程序中。
 
 <!--
@@ -210,13 +210,13 @@ scheduler's performance significantly.
 {{< /note >}}
 -->
 {{< note >}}
-當集羣中的可調度節點少於 100 個時，調度器仍然會去檢查所有的 Node，
+當叢集中的可調度節點少於 100 個時，調度器仍然會去檢查所有的 Node，
 因爲可調度節點太少，不足以停止調度器最初的過濾選擇。
 
-同理，在小規模集羣中，如果你將 `percentageOfNodesToScore`
+同理，在小規模叢集中，如果你將 `percentageOfNodesToScore`
 設置爲一個較低的值，則沒有或者只有很小的效果。
 
-如果集羣只有幾百個節點或者更少，請保持這個配置的默認值。
+如果叢集只有幾百個節點或者更少，請保持這個設定的默認值。
 改變基本不會對調度器的性能有明顯的提升。
 {{< /note >}}
 
@@ -233,7 +233,7 @@ percentage to anything below 10%, unless the scheduler's throughput is critical
 for your application and the score of nodes is not important. In other words, you
 prefer to run the Pod on any Node as long as it is feasible.
 -->
-值得注意的是，該參數設置後可能會導致只有集羣中少數節點被選爲可調度節點，
+值得注意的是，該參數設置後可能會導致只有叢集中少數節點被選爲可調度節點，
 很多節點都沒有進入到打分階段。這樣就會造成一種後果，
 一個本來可以在打分階段得分很高的節點甚至都不能進入打分階段。
 
@@ -263,7 +263,7 @@ Nodes as specified by `percentageOfNodesToScore`. For the next Pod, the
 scheduler continues from the point in the Node array that it stopped at when
 checking feasibility of Nodes for the previous Pod.
 -->
-在將 Pod 調度到節點上時，爲了讓集羣中所有節點都有公平的機會去運行這些 Pod，
+在將 Pod 調度到節點上時，爲了讓叢集中所有節點都有公平的機會去運行這些 Pod，
 調度器將會以輪詢的方式覆蓋全部的 Node。
 你可以將 Node 列表想象成一個數組。調度器從數組的頭部開始篩選可調度節點，
 依次向後直到可調度節點的數量達到 `percentageOfNodesToScore` 參數的要求。
@@ -275,7 +275,7 @@ If Nodes are in multiple zones, the scheduler iterates over Nodes in various
 zones to ensure that Nodes from different zones are considered in the
 feasibility checks. As an example, consider six nodes in two zones:
 -->
-如果集羣中的 Node 在多個區域，那麼調度器將從不同的區域中輪詢 Node，
+如果叢集中的 Node 在多個區域，那麼調度器將從不同的區域中輪詢 Node，
 來確保不同區域的 Node 接受可調度性檢查。如下例，考慮兩個區域中的六個節點：
 
 ```
@@ -302,4 +302,4 @@ After going over all the Nodes, it goes back to Node 1.
 <!--
 * Check the [kube-scheduler configuration reference (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 -->
-* 參見 [kube-scheduler 配置參考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
+* 參見 [kube-scheduler 設定參考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)

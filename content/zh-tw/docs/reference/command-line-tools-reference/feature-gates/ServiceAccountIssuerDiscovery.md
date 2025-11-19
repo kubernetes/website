@@ -30,5 +30,5 @@ service account issuer in the API server. See
 [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)
 for more details.
 -->
-在 API 服務器中爲服務賬號頒發者啓用 OIDC 發現端點（頒發者和 JWKS URL）。
-詳情參見[爲 Pod 配置服務賬號](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)。
+在 API 伺服器中爲服務賬號頒發者啓用 OIDC 發現端點（頒發者和 JWKS URL）。
+詳情參見[爲 Pod 設定服務賬號](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)。

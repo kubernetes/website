@@ -14,7 +14,7 @@ weight: 10
 <!--
 This page explains how to add Linux worker nodes to a kubeadm cluster.
 -->
-本頁介紹如何將 Linux 工作節點添加到 kubeadm 集羣。
+本頁介紹如何將 Linux 工作節點添加到 kubeadm 叢集。
 
 ## {{% heading "prerequisites" %}}
 
@@ -30,10 +30,10 @@ in the document [Creating a cluster with kubeadm](/docs/setup/production-environ
   [安裝 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
   中所需的組件，例如 kubeadm、kubelet 和
   {{< glossary_tooltip term_id="container-runtime" text="容器運行時" >}}。
-* 一個正在運行的、由 `kubeadm init` 命令所創建的 kubeadm 集羣，且該集羣的創建遵循
-  [使用 kubeadm 創建集羣](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* 一個正在運行的、由 `kubeadm init` 命令所創建的 kubeadm 叢集，且該叢集的創建遵循
+  [使用 kubeadm 創建叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
   文檔中所給的步驟。
-* 你需要對節點擁有超級用戶權限。
+* 你需要對節點擁有超級使用者權限。
 
 <!-- steps -->
 
@@ -49,7 +49,7 @@ To add new Linux worker nodes to your cluster do the following for each machine:
 -->
 ## 添加 Linux 工作節點   {#additional-information-for-kubeadm-join}
 
-要將新的 Linux 工作節點添加到集羣中，請對每臺機器執行以下步驟：
+要將新的 Linux 工作節點添加到叢集中，請對每臺機器執行以下步驟：
 
 1. 通過 SSH 或其他方式連接到該機器。
 1. 運行 `kubeadm init` 所輸出的命令。例如：
@@ -99,7 +99,7 @@ By default, node join tokens expire after 24 hours. If you are joining a node to
 current token has expired, you can create a new token by running the following command on the
 control plane node:
 -->
-默認情況下，節點加入令牌會在 24 小時後過期。當前令牌過期後，如果想把節點加入集羣，
+默認情況下，節點加入令牌會在 24 小時後過期。當前令牌過期後，如果想把節點加入叢集，
 可以在控制平面節點上運行以下命令來創建新令牌：
 
 <!--
@@ -183,7 +183,7 @@ As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are 
 on the first control plane node. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 -->
-集羣節點通常是按順序初始化的，因此 CoreDNS Pods 可能會全部運行在第一個控制平面節點上。
+叢集節點通常是按順序初始化的，因此 CoreDNS Pods 可能會全部運行在第一個控制平面節點上。
 爲了保證高可用，請在至少一個新節點加入後，使用
 `kubectl -n kube-system rollout restart deployment coredns` 命令重新平衡 CoreDNS Pods。
 {{< /note >}}

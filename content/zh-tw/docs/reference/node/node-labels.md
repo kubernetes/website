@@ -19,7 +19,7 @@ using the Kubernetes API.
 Kubernetes {{< glossary_tooltip text="節點" term_id="node" >}}預先填充了一組標準
 {{< glossary_tooltip text="標籤" term_id="label" >}}。
 
-你還可以通過 kubelet 配置或使用 Kubernetes API 在節點上設置自己的標籤。
+你還可以通過 kubelet 設定或使用 Kubernetes API 在節點上設置自己的標籤。
 
 <!--
 ## Preset labels

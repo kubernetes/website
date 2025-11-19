@@ -19,7 +19,7 @@ other, and the outside world, through the Service abstraction. This document
 explains what happens to the source IP of packets sent to different types
 of Services, and how you can toggle this behavior according to your needs.
 -->
-運行在 Kubernetes 集羣中的應用程序通過 Service 抽象發現彼此並相互通信，它們也用 Service 與外部世界通信。
+運行在 Kubernetes 叢集中的應用程序通過 Service 抽象發現彼此並相互通信，它們也用 Service 與外部世界通信。
 本文解釋了發送到不同類型 Service 的數據包的源 IP 會發生什麼情況，以及如何根據需要切換此行爲。
 
 ## {{% heading "prerequisites" %}}
@@ -58,7 +58,7 @@ the target localization.
 : A network daemon that orchestrates Service VIP management on every node
 -->
 [NAT](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2)
-: 網絡地址轉換
+: 網路地址轉換
 
 [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT)
 : 替換數據包上的源 IP；在本頁面中，這通常意味着替換爲節點的 IP 地址
@@ -70,7 +70,7 @@ the target localization.
 : 一個虛擬 IP 地址，例如分配給 Kubernetes 中每個 {{<glossary_tooltip text="Service" term_id="service" >}} 的 IP 地址
 
 [Kube-proxy](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)
-: 一個網絡守護程序，在每個節點上協調 Service VIP 管理
+: 一個網路守護程序，在每個節點上協調 Service VIP 管理
 
 <!-- 
 ### Prerequisites
@@ -83,7 +83,7 @@ the target localization.
 The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 -->
-示例使用一個小型 nginx Web 服務器，服務器通過 HTTP 標頭返回它接收到的請求的源 IP。
+示例使用一個小型 nginx Web 伺服器，伺服器通過 HTTP 標頭返回它接收到的請求的源 IP。
 你可以按如下方式創建它：
 
 ```shell
@@ -125,7 +125,7 @@ you're running kube-proxy in
 `http://localhost:10249/proxyMode` on the node where kube-proxy is running.
 -->
 如果你在 [iptables 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-iptables)（默認）下運行
-kube-proxy，則從集羣內發送到 ClusterIP 的數據包永遠不會進行源 NAT。
+kube-proxy，則從叢集內發送到 ClusterIP 的數據包永遠不會進行源 NAT。
 你可以通過在運行 kube-proxy 的節點上獲取 `http://localhost:10249/proxyMode` 來查詢 kube-proxy 模式。
 
 ```console
@@ -199,7 +199,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 <!-- 
 And hitting the `ClusterIP` from a pod in the same cluster:
 -->
-並從同一集羣中的 Pod 中訪問 `ClusterIP`：
+並從同一叢集中的 Pod 中訪問 `ClusterIP`：
 
 ```shell
 kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
@@ -244,7 +244,7 @@ ip addr
 <!--
 …then use `wget` to query the local webserver
 -->
-然後使用 `wget` 查詢本地 Web 服務器：
+然後使用 `wget` 查詢本地 Web 伺服器：
 
 <!--
 # Replace "10.0.170.92" with the IPv4 address of the Service named "clusterip"
@@ -264,7 +264,7 @@ command=GET
 <!-- 
 The `client_address` is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 -->
-不管客戶端 Pod 和服務器 Pod 位於同一節點還是不同節點，`client_address` 始終是客戶端 Pod 的 IP 地址。
+不管客戶端 Pod 和伺服器 Pod 位於同一節點還是不同節點，`client_address` 始終是客戶端 Pod 的 IP 地址。
 
 <!-- 
 ## Source IP for Services with `Type=NodePort`
@@ -302,7 +302,7 @@ Now you can try reaching the Service from outside the cluster through the node
 port allocated above.
 -->
 如果你在雲供應商上運行，你可能需要爲上面報告的 `nodes:nodeport` 打開防火牆規則。
-現在你可以嘗試通過上面分配的節點端口從集羣外部訪問 Service。
+現在你可以嘗試通過上面分配的節點端口從叢集外部訪問 Service。
 
 ```shell
 for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
@@ -333,7 +333,7 @@ Visually:
 
 {{< figure src="/docs/images/tutor-service-nodePort-fig01.svg" alt="source IP nodeport figure 01" class="diagram-large" caption="Figure. Source IP Type=NodePort using SNAT" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
 -->
-請注意，這些並不是正確的客戶端 IP，它們是集羣的內部 IP。這是所發生的事情：
+請注意，這些並不是正確的客戶端 IP，它們是叢集的內部 IP。這是所發生的事情：
 
 * 客戶端發送數據包到 `node2:nodePort`
 * `node2` 使用它自己的 IP 地址替換數據包的源 IP 地址（SNAT）

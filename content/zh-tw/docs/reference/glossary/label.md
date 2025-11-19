@@ -4,7 +4,7 @@ id: label
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/labels/
 short_description: >
-  用來爲對象設置可標識的屬性標記；這些標記對用戶而言是有意義且重要的。
+  用來爲對象設置可標識的屬性標記；這些標記對使用者而言是有意義且重要的。
 
 aka: 
 tags:
@@ -28,7 +28,7 @@ tags:
  Tags objects with identifying attributes that are meaningful and relevant to users.
 -->
 
-用來爲對象設置可標識的屬性標記；這些標記對用戶而言是有意義且重要的。
+用來爲對象設置可標識的屬性標記；這些標記對使用者而言是有意義且重要的。
 
 <!--more--> 
 

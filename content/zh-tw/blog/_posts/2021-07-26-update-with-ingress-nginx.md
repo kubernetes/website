@@ -24,7 +24,7 @@ that are relevant to networking:
 -->
 對於所有 Kubernetes API，一旦它們被正式發佈（GA），就有一個創建、維護和最終棄用它們的過程。
 networking.k8s.io API 組也不例外。
-即將發佈的 Kubernetes 1.22 版本將移除幾個與網絡相關的已棄用 API：
+即將發佈的 Kubernetes 1.22 版本將移除幾個與網路相關的已棄用 API：
 
 <!--
 - the `networking.k8s.io/v1beta1` API version of [IngressClass](/docs/concepts/services-networking/ingress/#ingress-class)
@@ -37,7 +37,7 @@ networking.k8s.io API 組也不例外。
 On a v1.22 Kubernetes cluster, you'll be able to access Ingress and IngressClass
 objects through the stable (v1) APIs, but access via their beta APIs won't be possible.
 -->
-在 v1.22 Kubernetes 集羣上，你能夠通過穩定版本（v1）的 API 訪問 Ingress 和 IngressClass 對象，
+在 v1.22 Kubernetes 叢集上，你能夠通過穩定版本（v1）的 API 訪問 Ingress 和 IngressClass 對象，
 但無法通過其 Beta API 訪問。 
 <!--
 This change has been in
@@ -60,7 +60,7 @@ Support for Ingress-NGINX will continue for six months after Kubernetes 1.22
 is released. Any additional bug fixes and CVEs for Ingress-NGINX will be 
 addressed on a need-by-need basis.
 -->
-在社區會議中，網絡特別興趣小組決定繼續支持帶有 0.47.0 版本 Ingress-NGINX 的早於 1.22 版本的 Kubernetes。
+在社區會議中，網路特別興趣小組決定繼續支持帶有 0.47.0 版本 Ingress-NGINX 的早於 1.22 版本的 Kubernetes。
 在 Kubernetes 1.22 發佈後，對 Ingress-NGINX 的支持將持續六個月。
 團隊會根據需要解決 Ingress-NGINX 的額外錯誤修復和 CVE 問題。
 
@@ -135,7 +135,7 @@ In the meantime to ensure no compatibility issues:
 * Test Ingress-NGINX version v1.0.0-alpha.2 with Cluster versions >= 1.19 
   and report any issues to the projects Github page. 
 -->
-* 使用集羣版本 >= 1.19 測試 Ingress-NGINX 版本 v1.0.0-alpha.2，並將任何問題報告給項目 GitHub 頁面。
+* 使用叢集版本 >= 1.19 測試 Ingress-NGINX 版本 v1.0.0-alpha.2，並將任何問題報告給項目 GitHub 頁面。
 
 <!--
 The community’s feedback and support in this effort is welcome. The

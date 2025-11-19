@@ -89,7 +89,7 @@ Spec of the storage version migration.
 - **continueToken** (string)
 
   在 list 操作中用來獲取下一批要遷移的對象時所用的令牌。
-  當 `.status.conditions` 指示遷移處於 “Running” 狀態時，用戶可以使用此令牌檢查遷移的進度。
+  當 `.status.conditions` 指示遷移處於 “Running” 狀態時，使用者可以使用此令牌檢查遷移的進度。
 
 - **resource** (GroupVersionResource)，必需
 

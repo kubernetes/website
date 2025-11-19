@@ -28,7 +28,7 @@ spec:
           args: [
                   "--logtostderr=true",
                   "--ca-cert=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt",
-                  # 由於 konnectivity 服務器以 hostNetwork=true 運行，
+                  # 由於 konnectivity 伺服器以 hostNetwork=true 運行，
                   # 所以這是控制面節點的 IP 地址。
                   "--proxy-server-host=35.225.206.7",
                   "--proxy-server-port=8132",

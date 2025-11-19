@@ -44,7 +44,7 @@ SIG Docs 的目標是讓 Kubernetes 更容易爲儘可能多的人使用。
 ## 整合的工作流程
 
 <!-- Localization is now consolidated in the [kubernetes/website](https://github.com/kubernetes/website) repository. We've configured the Kubernetes CI/CD system, [Prow](https://github.com/kubernetes/test-infra/tree/master/prow), to handle automatic language label assignment as well as team-level PR review and approval. -->
-現在，本地化已整合到 [kubernetes/website](https://github.com/kubernetes/website) 存儲庫。我們已經配置了 Kubernetes CI/CD 系統，[Prow](https://github.com/kubernetes/test-infra/tree/master/prow) 來處理自動語言標籤分配以及團隊級 PR 審查和批准。
+現在，本地化已整合到 [kubernetes/website](https://github.com/kubernetes/website) 存儲庫。我們已經設定了 Kubernetes CI/CD 系統，[Prow](https://github.com/kubernetes/test-infra/tree/master/prow) 來處理自動語言標籤分配以及團隊級 PR 審查和批准。
 
 <!-- ### Language labels  -->
 ### 語言標籤

@@ -1,5 +1,5 @@
 ---
-title: 在 Kubernetes 節點上配置交換內存
+title: 在 Kubernetes 節點上設定交換內存
 content_type: tutorial
 weight: 35
 min-kubernetes-server-version: "1.33"
@@ -30,7 +30,7 @@ This page provides an example of how to provision and configure swap memory on a
 * Learn to enable swap on boot.
 -->
 * 使用 kubeadm 在 Kubernetes 節點上製備交換內存。
-* 學習配置加密和未加密的交換內存。
+* 學習設定加密和未加密的交換內存。
 * 學習如何在系統啓動時啓用交換內存。
 
 ## {{% heading "prerequisites" %}}
@@ -42,7 +42,7 @@ You need at least one worker node in your cluster which needs to run a Linux ope
 It is required for this demo that the kubeadm tool be installed, following the steps outlined in the
 [kubeadm installation guide](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm).
 -->
-你需要在集羣中至少有一個運行 Linux 操作系統的工作節點。
+你需要在叢集中至少有一個運行 Linux 操作系統的工作節點。
 本次演示需要先安裝 kubeadm 工具，安裝步驟請參考
 [kubeadm 安裝指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm)。
 
@@ -55,7 +55,7 @@ On each worker node where you will configure swap use, you need:
 * For encrypted swap space (recommended), you also need:
 * `cryptsetup`
 -->
-在每個需要配置交換內存的工作節點上，你需要以下工具：
+在每個需要設定交換內存的工作節點上，你需要以下工具：
 
 * `fallocate`
 * `mkswap`
@@ -75,7 +75,7 @@ On each worker node where you will configure swap use, you need:
 If swap is not enabled, there's a need to provision swap on the node. 
 The following sections demonstrate creating 4GiB of swap, both in the encrypted and unencrypted case.
 -->
-## 使用 kubeadm 安裝支持交換內存的集羣
+## 使用 kubeadm 安裝支持交換內存的叢集
 
 ### 創建交換文件並啓用交換內存
 
@@ -150,7 +150,7 @@ mkswap /swapfile
 swapon /swapfile
 ```
 -->
-未加密的交換文件可以按以下方式配置：
+未加密的交換文件可以按以下方式設定：
 
 ```bash
 # 分配存儲空間並限制訪問權限
@@ -216,7 +216,7 @@ In a similar way, using systemd allows your server to leave swap active until ku
 `/etc/fstab` 文件中添加類似於 `/swapfile swap swap defaults 0 0` 的行。
 
 使用 systemd 激活交換內存，可以確保在交換內存可用之前延遲啓動 kubelet（如果你有這個需求）。
-同樣，使用 systemd 還可以讓服務器在 kubelet（以及通常的容器運行時）關閉之前保持交換內存處於啓用狀態。
+同樣，使用 systemd 還可以讓伺服器在 kubelet（以及通常的容器運行時）關閉之前保持交換內存處於啓用狀態。
 
 <!--
 ### Set up kubelet configuration
@@ -232,9 +232,9 @@ After enabling swap on the node, kubelet needs to be configured in the following
 
 In order for these configurations to take effect, kubelet needs to be restarted.
 -->
-### 配置 kubelet  {#set-up-kubelet-configuration}
+### 設定 kubelet  {#set-up-kubelet-configuration}
 
-在節點上啓用交換內存後，需要按如下方式配置 kubelet：
+在節點上啓用交換內存後，需要按如下方式設定 kubelet：
 
 ```yaml
 # 此代碼片段應添加到 kubelet 的配置文件中
@@ -243,4 +243,4 @@ memorySwap:
     swapBehavior: LimitedSwap
 ```
 
-爲了使這些配置生效，需重啓 kubelet。
+爲了使這些設定生效，需重啓 kubelet。

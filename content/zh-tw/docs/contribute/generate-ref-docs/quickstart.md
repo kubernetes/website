@@ -21,7 +21,7 @@ the Kubernetes reference documentation. The script automates
 the build setup and generates the reference documentation for a release.
 -->
 本頁討論如何使用 `update-imported-docs.py` 腳本來生成 Kubernetes 參考文檔。
-此腳本將構建的配置過程自動化，併爲某個發行版本生成參考文檔。
+此腳本將構建的設定過程自動化，併爲某個發行版本生成參考文檔。
 
 ## {{% heading "prerequisites" %}}
 
@@ -131,10 +131,10 @@ determines the version of the release.
 -->
 腳本需要兩個參數才能成功運行：
 
-* 一個 YAML 配置文件（`reference.yml`）
+* 一個 YAML 設定文件（`reference.yml`）
 * 一個發行版本字符串，例如：`1.17`
 
-配置文件中包含 `generate-command` 字段，其中定義了一系列來自於
+設定文件中包含 `generate-command` 字段，其中定義了一系列來自於
 `kubernetes-sigs/reference-docs/Makefile` 的構建指令。
 變量 `K8S_RELEASE` 用來確定所針對的發行版本。
 
@@ -153,11 +153,11 @@ The `update-imported-docs.py` script performs the following steps:
 -->
 腳本 `update-imported-docs.py` 執行以下步驟：
 
-1. 克隆配置文件中所指定的相關倉庫。就生成參考文檔這一目的而言，要克隆的倉庫默認爲
+1. 克隆設定文件中所指定的相關倉庫。就生成參考文檔這一目的而言，要克隆的倉庫默認爲
    `kubernetes-sigs/reference-docs`。
 1. 在所克隆的倉庫下運行命令，準備文檔生成器，之後生成 HTML 和 Markdown 文件。
 1. 將所生成的 HTML 和 Markdown 文件複製到 `<web-base>` 本地克隆副本中，
-   放在配置文件中所指定的目錄下。
+   放在設定文件中所指定的目錄下。
 1. 更新 `kubectl.md` 文件中對 `kubectl` 命令文檔的鏈接，使之指向 `kubectl`
    命令參考中對應的節區。
 
@@ -177,11 +177,11 @@ necessary, you can customize the configuration file by manually editing it. You
 may create new config files for importing other groups of documents.
 The following is an example of the YAML configuration file:
 -->
-## 配置文件格式 {#configuration-file-format}
+## 設定文件格式 {#configuration-file-format}
 
-每個配置文件可以包含多個被導入的倉庫。當必要時，你可以通過手工編輯此文件進行定製。
-你也可以通過創建新的配置文件來導入其他文檔集合。
-下面是 YAML 配置文件的一個例子：
+每個設定文件可以包含多個被導入的倉庫。當必要時，你可以通過手工編輯此文件進行定製。
+你也可以通過創建新的設定文件來導入其他文檔集合。
+下面是 YAML 設定文件的一個例子：
 
 ```yaml
 repos:
@@ -220,7 +220,7 @@ If you encounter build issues, contact the SIG-Docs team on the
 打開 `<web-base>/update-imported-docs/reference.yml` 文件進行編輯。
 在不瞭解參考文檔構造命令的情況下，不要更改 `generate-command` 字段的內容。
 你一般不需要更新 `reference.yml` 文件。不過也有時候上游的源代碼發生變化，
-導致需要對配置文件進行更改（例如：Golang 版本依賴或者第三方庫發生變化）。
+導致需要對設定文件進行更改（例如：Golang 版本依賴或者第三方庫發生變化）。
 如果你遇到類似問題，請在 [Kubernetes Slack 的 #sig-docs 頻道](https://kubernetes.slack.com)
 聯繫 SIG-Docs 團隊。
 
@@ -301,7 +301,7 @@ property to `true`. You can find an example of this in
 -->
 ## 修復鏈接   {#fixing-links}
 
-配置文件 `release.yml` 中包含用來修復相對鏈接的指令。
+設定文件 `release.yml` 中包含用來修復相對鏈接的指令。
 若要修復導入文件中的相對鏈接，將 `gen-absolute-links` 屬性設置爲 `true`。你可以在
 [`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml)
 文件中找到示例。

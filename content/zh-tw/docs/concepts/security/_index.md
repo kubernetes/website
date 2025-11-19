@@ -23,7 +23,7 @@ Kubernetes is based on a cloud-native architecture, and draws on advice from the
 cloud native information security.
 -->
 Kubernetes 文檔的這一部分內容的旨在引導你學習如何更安全地運行工作負載，
-以及維護 Kubernetes 集羣的基本安全性。
+以及維護 Kubernetes 叢集的基本安全性。
 
 Kubernetes 基於雲原生架構，並借鑑了
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} 有關雲原生信息安全良好實踐的建議。
@@ -34,7 +34,7 @@ for the broader context about how to secure your cluster and the applications th
 you're running on it.
 -->
 請閱讀[雲原生安全和 Kubernetes](/zh-cn/docs/concepts/security/cloud-native-security/)，
-瞭解有關如何保護集羣及其上運行的應用程序的更廣泛背景信息。
+瞭解有關如何保護叢集及其上運行的應用程序的更廣泛背景信息。
 
 <!--
 ## Kubernetes security mechanisms {#security-mechanisms}
@@ -55,7 +55,7 @@ A key security mechanism for any Kubernetes cluster is to
 -->
 ### 控制平面保護
 
-任何 Kubernetes 集羣的一個關鍵安全機制是[控制對 Kubernetes API 的訪問](/zh-cn/docs/concepts/security/controlling-access)。
+任何 Kubernetes 叢集的一個關鍵安全機制是[控制對 Kubernetes API 的訪問](/zh-cn/docs/concepts/security/controlling-access)。
 
 <!--
 Kubernetes expects you to configure and use TLS to provide
@@ -65,7 +65,7 @@ You can also enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-
 for the data stored within Kubernetes control plane; this is separate from using
 encryption at rest for your own workloads' data, which might also be a good idea.
 -->
-Kubernetes 希望你配置並使用 TLS，
+Kubernetes 希望你設定並使用 TLS，
 以便在控制平面內以及控制平面與其客戶端之間提供[傳輸中的數據加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)。
 你還可以爲 Kubernetes 控制平面中存儲的數據啓用靜態加密；
 這與對你自己的工作負載數據使用靜態加密不同，後者可能也是一個好主意。
@@ -79,7 +79,7 @@ configuration values that require confidentiality.
 ### Secret
 
 [Secret](/zh-cn/docs/concepts/configuration/secret/) API
-爲需要保密的配置值提供基本保護。
+爲需要保密的設定值提供基本保護。
 
 <!--
 ### Workload protection
@@ -93,7 +93,7 @@ if you need it.
 
 實施 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)以確保
 Pod 及其容器得到適當隔離。如果需要，你還可以使用
-[RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class) 來配置自定義隔離。
+[RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class) 來設定自定義隔離。
 
 <!--
 [Network policies](/docs/concepts/services-networking/network-policies/) let you control
@@ -102,8 +102,8 @@ network traffic between Pods, or between Pods and the network outside your clust
 You can deploy security controls from the wider ecosystem to implement preventative
 or detective controls around Pods, their containers, and the images that run in them.
 -->
-[網絡策略（NetworkPolicy)](/zh-cn/docs/concepts/services-networking/network-policies/)
-可讓控制 Pod 之間或 Pod 與集羣外部網絡之間的網絡流量。
+[網路策略（NetworkPolicy)](/zh-cn/docs/concepts/services-networking/network-policies/)
+可讓控制 Pod 之間或 Pod 與叢集外部網路之間的網路流量。
 
 <!--
 ### Admission control {#admission-control}
@@ -134,8 +134,8 @@ that use the Kubernetes API, and by the control plane itself.
 ### 審計
 
 Kubernetes [審計日誌記錄](/zh-cn/docs/tasks/debug/debug-cluster/audit/)提供了一組與安全相關、
-按時間順序排列的記錄，記錄了集羣中的操作序列。
-集羣審計用戶、使用 Kubernetes API 的應用程序以及控制平面本身生成的活動。
+按時間順序排列的記錄，記錄了叢集中的操作序列。
+叢集審計使用者、使用 Kubernetes API 的應用程序以及控制平面本身生成的活動。
 
 <!--
 ## Cloud provider security
@@ -150,7 +150,7 @@ Here are links to some of the popular cloud providers' security documentation:
 
 {{% thirdparty-content vendor="true" %}}
 
-如果你在自己的硬件或不同的雲平臺上運行 Kubernetes 集羣，請參閱對應雲平臺的文檔以瞭解安全最佳實踐。
+如果你在自己的硬件或不同的雲平臺上運行 Kubernetes 叢集，請參閱對應雲平臺的文檔以瞭解安全最佳實踐。
 以下是一些流行雲提供商的安全文檔的鏈接：
 
 <!--
@@ -175,7 +175,7 @@ VMware vSphere | https://www.vmware.com/solutions/security/hardening-guides |
 IaaS 提供商        | 鏈接 |
 -------------------- | ------------ |
 阿里雲 | https://www.alibabacloud.com/trust-center |
-亞馬遜網絡服務 | https://aws.amazon.com/security |
+亞馬遜網路服務 | https://aws.amazon.com/security |
 谷歌雲平臺 | https://cloud.google.com/security |
 華爲雲 | https://www.huaweicloud.com/intl/en-us/securecenter/overallsafety |
 IBM 雲 | https://www.ibm.com/cloud/security |
@@ -198,7 +198,7 @@ someone can make using the Kubernetes API).
 ## 策略
 
 你可以使用 Kubernetes 原生機制定義安全策略，例如
-[NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/)（對網絡數據包過濾的聲明式控制）
+[NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/)（對網路數據包過濾的聲明式控制）
 或 [ValidatingAdmissionPolicy](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
 （對某人可以使用 Kubernetes API 進行哪些更改的聲明性限制）。
 
@@ -211,7 +211,7 @@ networking, and more.
 -->
 你還可以依賴 Kubernetes 周邊更廣泛的生態系統的策略實現。
 Kubernetes 提供了擴展機制，讓這些生態系統項目在源代碼審查、
-容器鏡像審批、API 訪問控制、網絡等方面實施自己的策略控制。
+容器映像檔審批、API 訪問控制、網路等方面實施自己的策略控制。
 
 <!--
 For more information about policy mechanisms and Kubernetes,
@@ -237,12 +237,12 @@ Learn about related Kubernetes security topics:
 -->
 瞭解相關的 Kubernetes 安全主題：
 
-* [保護集羣](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
+* [保護叢集](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
 * Kubernetes 中的[已知漏洞](/zh-cn/docs/reference/issues-security/official-cve-feed/)（以及更多信息的鏈接）
 * [傳輸中的數據加密](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)（針對控制平面）
 * [靜態數據加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)
 * [控制對 Kubernetes API 的訪問](/zh-cn/docs/concepts/security/controlling-access)
-* Pod 的 [網絡策略](/zh-cn/docs/concepts/services-networking/network-policies/)
+* Pod 的 [網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)
 * [Kubernetes 中的 Secret](/zh-cn/docs/concepts/configuration/secret/)
 * [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)
 * [運行時類](/zh-cn/docs/concepts/containers/runtime-class)

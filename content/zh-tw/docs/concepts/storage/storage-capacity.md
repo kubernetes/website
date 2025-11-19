@@ -22,7 +22,7 @@ which a pod runs: network-attached storage might not be accessible by
 all nodes, or storage is local to a node to begin with.
 -->
 存儲容量是有限的，並且會因爲運行 Pod 的節點不同而變化：
-網絡存儲可能並非所有節點都能夠訪問，或者對於某個節點存儲是本地的。
+網路存儲可能並非所有節點都能夠訪問，或者對於某個節點存儲是本地的。
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
@@ -48,7 +48,7 @@ you use to find out whether this support is available and, if so, how to use
 it. If you are not running Kubernetes v{{< skew currentVersion >}}, check the
 documentation for that version of Kubernetes.
 -->
-Kubernetes v{{< skew currentVersion >}} 包含了對存儲容量跟蹤的集羣級 API 支持。
+Kubernetes v{{< skew currentVersion >}} 包含了對存儲容量跟蹤的叢集級 API 支持。
 要使用它，你還必須使用支持容量跟蹤的 CSI 驅動程序。請查閱你使用的 CSI 驅動程序的文檔，
 以瞭解此支持是否可用，如果可用，該如何使用它。如果你運行的不是
 Kubernetes v{{< skew currentVersion >}}，請查看對應版本的 Kubernetes 文檔。

@@ -44,7 +44,7 @@ environments.
 ## 理解 cgroup   {#understanding-cgroups}
 
 [控制組（Control Group）](https://man7.org/linux/man-pages/man7/cgroups.7.html)也稱爲 cgroup，
-是 Linux 內核的一項特性，允許在進程之間分配、劃分優先級、拒絕和管理系統資源（如 CPU、內存、磁盤 I/O 和網絡帶寬）。
+是 Linux 內核的一項特性，允許在進程之間分配、劃分優先級、拒絕和管理系統資源（如 CPU、內存、磁盤 I/O 和網路帶寬）。
 這一功能對於維護系統性能至關重要，確保沒有單個進程能夠壟斷系統資源，這在多租戶環境中尤其重要。
 
 <!--
@@ -131,7 +131,7 @@ disrupting existing workloads and to provide a smooth migration path for users.
 When cgroup v1 is placed into maintenance mode in Kubernetes, it means that:
 -->
 鑑於這些優勢，Kubernetes 也正在更全面地轉向 cgroup v2。然而，
-這一過渡需要謹慎處理，以避免干擾現有的工作負載，併爲用戶提供平滑的遷移路徑。
+這一過渡需要謹慎處理，以避免干擾現有的工作負載，併爲使用者提供平滑的遷移路徑。
 
 ## 對 cgroup v1 的支持轉入維護模式   {#moving-cgroup-v1-support-into-maintenance-mode}
 
@@ -177,9 +177,9 @@ container runtimes support cgroup v2.
 2. **Testing Workloads**: Verifying that workloads and applications function
 correctly with cgroup v2.
 -->
-## 這對集羣管理員意味着什麼   {#what-this-means-for-cluster-administrators}
+## 這對叢集管理員意味着什麼   {#what-this-means-for-cluster-administrators}
 
-目前強烈鼓勵那些依賴 cgroup v1 的用戶做好向 cgroup v2 過渡的計劃。這一過渡涉及：
+目前強烈鼓勵那些依賴 cgroup v1 的使用者做好向 cgroup v2 過渡的計劃。這一過渡涉及：
 
 1. **升級系統**：確保底層操作系統和容器運行時支持 cgroup v2。
 2. **測試工作負載**：驗證工作負載和應用程序在 cgroup v2 下正常工作。

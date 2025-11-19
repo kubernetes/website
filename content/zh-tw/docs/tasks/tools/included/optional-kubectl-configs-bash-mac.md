@@ -1,6 +1,6 @@
 ---
 title: "macOS 系統上的 bash 自動補全"
-description: "在 macOS 上實現 Bash 自動補全的一些可選配置。"
+description: "在 macOS 上實現 Bash 自動補全的一些可選設定。"
 headless: true
 _build:
   list: never

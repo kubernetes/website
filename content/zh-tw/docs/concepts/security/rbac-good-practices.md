@@ -1,7 +1,7 @@
 ---
 title: 基於角色的訪問控制良好實踐
 description: >
-  爲集羣操作人員提供的良好的 RBAC 設計原則和實踐。
+  爲叢集操作人員提供的良好的 RBAC 設計原則和實踐。
 content_type: concept
 weight: 60
 ---
@@ -29,8 +29,8 @@ The good practices laid out here should be read in conjunction with the general
 -->
 
 Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}}
-是一項重要的安全控制措施，用於保證集羣用戶和工作負載只能訪問履行自身角色所需的資源。
-在爲集羣用戶設計權限時，請務必確保集羣管理員知道可能發生特權提級的地方，
+是一項重要的安全控制措施，用於保證叢集使用者和工作負載只能訪問履行自身角色所需的資源。
+在爲叢集使用者設計權限時，請務必確保叢集管理員知道可能發生特權提級的地方，
 降低因過多權限而導致安全事件的風險。
 
 此文檔的良好實踐應該與通用
@@ -52,8 +52,8 @@ Ideally, minimal RBAC rights should be assigned to users and service accounts. O
 explicitly required for their operation should be used. While each cluster will be different,
 some general rules that can be applied are :
 -->
-理想情況下，分配給用戶和服務帳戶的 RBAC 權限應該是最小的。
-僅應使用操作明確需要的權限，雖然每個集羣會有所不同，但可以應用的一些常規規則：
+理想情況下，分配給使用者和服務帳戶的 RBAC 權限應該是最小的。
+僅應使用操作明確需要的權限，雖然每個叢集會有所不同，但可以應用的一些常規規則：
 
 <!--
  - Assign permissions at the namespace level where possible. Use RoleBindings as opposed to
@@ -72,18 +72,18 @@ some general rules that can be applied are :
    using an authorization webhook, membership of this group also bypasses that webhook (requests
    from users who are members of that group are never sent to the webhook)
 -->
-- 儘可能在命名空間級別分配權限。授予用戶在特定命名空間中的權限時使用 RoleBinding
+- 儘可能在命名空間級別分配權限。授予使用者在特定命名空間中的權限時使用 RoleBinding
   而不是 ClusterRoleBinding。
 - 儘可能避免通過通配符設置權限，尤其是對所有資源的權限。
-  由於 Kubernetes 是一個可擴展的系統，因此通過通配符來授予訪問權限不僅會授予集羣中當前的所有對象類型，
+  由於 Kubernetes 是一個可擴展的系統，因此通過通配符來授予訪問權限不僅會授予叢集中當前的所有對象類型，
   還包含所有未來被創建的所有對象類型。
 - 管理員不應使用 `cluster-admin` 賬號，除非特別需要。爲低特權帳戶提供
   [僞裝權限](/zh-cn/docs/reference/access-authn-authz/authentication/#user-impersonation)
-  可以避免意外修改集羣資源。
-- 避免將用戶添加到 `system:masters` 組。任何屬於此組成員的用戶都會繞過所有 RBAC 權限檢查，
-  始終具有不受限制的超級用戶訪問權限，並且不能通過刪除 `RoleBinding` 或 `ClusterRoleBinding`
-  來取消其權限。順便說一句，如果集羣使用 Webhook 鑑權，此組的成員身份也會繞過該
-  Webhook（來自屬於該組成員的用戶的請求永遠不會發送到 Webhook）。
+  可以避免意外修改叢集資源。
+- 避免將使用者添加到 `system:masters` 組。任何屬於此組成員的使用者都會繞過所有 RBAC 權限檢查，
+  始終具有不受限制的超級使用者訪問權限，並且不能通過刪除 `RoleBinding` 或 `ClusterRoleBinding`
+  來取消其權限。順便說一句，如果叢集使用 Webhook 鑑權，此組的成員身份也會繞過該
+  Webhook（來自屬於該組成員的使用者的請求永遠不會發送到 Webhook）。
 
 <!--
 ### Minimize distribution of privileged tokens
@@ -126,9 +126,9 @@ to harden cluster rights exist:
 -->
 ### 加固 {#hardening}
 
-Kubernetes 默認提供訪問權限並非是每個集羣都需要的。
+Kubernetes 默認提供訪問權限並非是每個叢集都需要的。
 審查默認提供的 RBAC 權限爲安全加固提供了機會。
-一般來說，不應該更改 `system:` 帳戶的某些權限，有一些方式來強化現有集羣的權限：
+一般來說，不應該更改 `system:` 帳戶的某些權限，有一些方式來強化現有叢集的權限：
 
 <!--
 - Review bindings for the `system:unauthenticated` group and remove them where possible, as this gives 
@@ -140,7 +140,7 @@ Kubernetes 默認提供訪問權限並非是每個集羣都需要的。
   which require service account tokens can still mount them.
 -->
 - 審查 `system:unauthenticated` 組的綁定，並在可能的情況下將其刪除，
-  因爲這會給所有能夠訪問 API 服務器的人以網絡級別的權限。
+  因爲這會給所有能夠訪問 API 伺服器的人以網路級別的權限。
 - 通過設置 `automountServiceAccountToken: false` 來避免服務賬號令牌的默認自動掛載，
   有關更多詳細信息，請參閱[使用默認服務賬號令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)。
   此參數可覆蓋 Pod 服務賬號設置，而需要服務賬號令牌的工作負載仍可以掛載。
@@ -157,8 +157,8 @@ rights assigned to that user.
 ### 定期檢查  {#periodic-review}
 
 定期檢查 Kubernetes RBAC 設置是否有冗餘條目和提權可能性是至關重要的。
-如果攻擊者能夠創建與已刪除用戶同名的用戶賬號，
-他們可以自動繼承被刪除用戶的所有權限，尤其是分配給該用戶的權限。
+如果攻擊者能夠創建與已刪除使用者同名的使用者賬號，
+他們可以自動繼承被刪除使用者的所有權限，尤其是分配給該使用者的權限。
 
 <!--
 ## Kubernetes RBAC - privilege escalation risks {#privilege-escalation-risks}
@@ -172,10 +172,10 @@ should take care, to ensure that they do not inadvertently allow for more access
 ## Kubernetes RBAC - 權限提權的風險 {#privilege-escalation-risks}
 
 在 Kubernetes RBAC 中有許多特權，如果被授予，
-用戶或服務帳戶可以提升其在集羣中的權限並可能影響集羣外的系統。
+使用者或服務帳戶可以提升其在叢集中的權限並可能影響叢集外的系統。
 
-本節旨在提醒集羣操作員需要注意的不同領域，
-以確保他們不會無意中授予超出預期的集羣訪問權限。
+本節旨在提醒叢集操作員需要注意的不同領域，
+以確保他們不會無意中授予超出預期的叢集訪問權限。
 
 <!--
 ### Listing secrets
@@ -187,8 +187,8 @@ includes the contents of all Secrets.
 -->
 ### 列舉 Secret {#listing-secrets}
 
-大家都很清楚，若允許對 Secrets 執行 `get` 訪問，用戶就獲得了訪問 Secret 內容的能力。
-同樣需要注意的是：`list` 和 `watch` 訪問也會授權用戶獲取 Secret 的內容。
+大家都很清楚，若允許對 Secrets 執行 `get` 訪問，使用者就獲得了訪問 Secret 內容的能力。
+同樣需要注意的是：`list` 和 `watch` 訪問也會授權使用者獲取 Secret 的內容。
 例如，當返回 List 響應時（例如，通過
 `kubectl get secrets -A -o yaml`），響應包含所有 Secret 的內容。
 
@@ -219,8 +219,8 @@ with the ability to create suitably secure and isolated Pods, you should enforce
 You can use [Pod Security admission](/docs/concepts/security/pod-security-admission/)
 or other (third party) mechanisms to implement that enforcement.
 -->
-可以運行特權 Pod 的用戶可以利用該訪問權限獲得節點訪問權限，
-並可能進一步提升他們的特權。如果你不完全信任某用戶或其他主體，
+可以運行特權 Pod 的使用者可以利用該訪問權限獲得節點訪問權限，
+並可能進一步提升他們的特權。如果你不完全信任某使用者或其他主體，
 不相信他們能夠創建比較安全且相互隔離的 Pod，你應該強制實施 **Baseline**
 或 **Restricted** Pod 安全標準。你可以使用
 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)或其他（第三方）
@@ -265,15 +265,15 @@ You should only allow access to create PersistentVolume objects for:
   that are configured for automatic provisioning.
   This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
 -->
-- 需要此訪問權限才能工作的用戶（集羣操作員）以及你信任的人，
-- Kubernetes 控制平面組件，這些組件基於已配置爲自動製備的 PersistentVolumeClaim 創建 PersistentVolume。
+- 需要此訪問權限才能工作的使用者（叢集操作員）以及你信任的人，
+- Kubernetes 控制平面組件，這些組件基於已設定爲自動製備的 PersistentVolumeClaim 創建 PersistentVolume。
   這通常由 Kubernetes 提供商或操作員在安裝 CSI 驅動程序時進行設置。
 
 <!--
 Where access to persistent storage is required trusted administrators should create
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
 -->
-在需要訪問持久存儲的地方，受信任的管理員應創建 PersistentVolume，而受約束的用戶應使用
+在需要訪問持久存儲的地方，受信任的管理員應創建 PersistentVolume，而受約束的使用者應使用
 PersistentVolumeClaim 來訪問該存儲。
 
 <!--
@@ -286,7 +286,7 @@ granting rights to this resource.
 -->
 ### 訪問 Node 的 `proxy` 子資源  {#access-to-proxy-subresource-of-nodes}
 
-有權訪問 Node 對象的 proxy 子資源的用戶有權訪問 kubelet API，
+有權訪問 Node 對象的 proxy 子資源的使用者有權訪問 kubelet API，
 這允許在他們有權訪問的節點上的所有 Pod 上執行命令。
 此訪問繞過審計日誌記錄和准入控制，因此在授予對此資源的權限前應小心。
 
@@ -299,10 +299,10 @@ users with this right can effectively escalate their privileges.
 -->
 ### esclate 動詞 {#escalate-verb}
 
-通常，RBAC 系統會阻止用戶創建比他所擁有的更多權限的 `ClusterRole`。
+通常，RBAC 系統會阻止使用者創建比他所擁有的更多權限的 `ClusterRole`。
 而 `escalate` 動詞是個例外。如
 [RBAC 文檔](/zh-cn/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)
-中所述，擁有此權限的用戶可以有效地提升他們的權限。
+中所述，擁有此權限的使用者可以有效地提升他們的權限。
 
 <!--
 ### Bind verb
@@ -313,8 +313,8 @@ roles with rights they do not already have.
 -->
 ### bind 動詞  {#bind-verb}
 
-與 `escalate` 動作類似，授予此權限的用戶可以繞過 Kubernetes
-對權限提升的內置保護，用戶可以創建並綁定尚不具有的權限的角色。
+與 `escalate` 動作類似，授予此權限的使用者可以繞過 Kubernetes
+對權限提升的內置保護，使用者可以創建並綁定尚不具有的權限的角色。
 
 <!--
 ### Impersonate verb
@@ -325,7 +325,7 @@ via one of the impersonated accounts.
 -->
 ### impersonate 動詞 {#impersonate-verb}
 
-此動詞允許用戶僞裝並獲得集羣中其他用戶的權限。
+此動詞允許使用者僞裝並獲得叢集中其他使用者的權限。
 授予它時應小心，以確保通過其中一個僞裝賬號不會獲得過多的權限。
 
 <!--
@@ -338,10 +338,10 @@ names including duplicates of Kubernetes system components. This will effectivel
 -->
 ### CSR 和證書頒發 {#csrs-and-certificate-issuing}
 
-CSR API 允許用戶擁有 `create` CSR 的權限和 `update`
+CSR API 允許使用者擁有 `create` CSR 的權限和 `update`
 `certificatesigningrequests/approval` 的權限，
 其中籤名者是 `kubernetes.io/kube-apiserver-client`，
-通過此簽名創建的客戶端證書允許用戶向集羣進行身份驗證。
+通過此簽名創建的客戶端證書允許使用者向叢集進行身份驗證。
 這些客戶端證書可以包含任意的名稱，包括 Kubernetes 系統組件的副本。
 這將有利於特權提級。
 
@@ -353,7 +353,7 @@ tokens for existing service accounts.
 -->
 ### 令牌請求 {#token-request}
 
-擁有 `serviceaccounts/token` 的 `create` 權限的用戶可以創建
+擁有 `serviceaccounts/token` 的 `create` 權限的使用者可以創建
 TokenRequest 來發布現有服務帳戶的令牌。
 
 <!--
@@ -366,7 +366,7 @@ mutating webhooks, also mutate admitted objects.
 ### 控制准入 Webhook {#control-admission-webhooks}
 
 可以控制 `validatingwebhookconfigurations` 或 `mutatingwebhookconfigurations`
-的用戶可以控制能讀取任何允許進入集羣的對象的 webhook，
+的使用者可以控制能讀取任何允許進入叢集的對象的 webhook，
 並且在有變更 webhook 的情況下，還可以變更准入的對象。
 
 <!--
@@ -379,9 +379,9 @@ For clusters where NetworkPolicy is used, users may be set labels that indirectl
 access to services that an administrator did not intend to allow.
 -->
 ### 命名空間修改 {#namespace-modification}
-可以對命名空間對象執行 **patch** 操作的用戶（通過命名空間內的 RoleBinding 關聯到具有該權限的 Role），
-可以修改該命名空間的標籤。在使用 Pod 安全准入的集羣中，這可能允許用戶將命名空間配置爲比管理員預期更寬鬆的策略。
-對於使用 NetworkPolicy 的集羣，用戶所設置的標籤可能間接導致對某些本不應被允許訪問的服務的訪問權限被開放。
+可以對命名空間對象執行 **patch** 操作的使用者（通過命名空間內的 RoleBinding 關聯到具有該權限的 Role），
+可以修改該命名空間的標籤。在使用 Pod 安全准入的叢集中，這可能允許使用者將命名空間設定爲比管理員預期更寬鬆的策略。
+對於使用 NetworkPolicy 的叢集，使用者所設置的標籤可能間接導致對某些本不應被允許訪問的服務的訪問權限被開放。
 
 <!--
 ## Kubernetes RBAC - denial of service risks {#denial-of-service-risks}
@@ -402,9 +402,9 @@ to limit the quantity of objects which can be created.
 
 ### 對象創建拒絕服務 {#object-creation-dos}
 
-有權在集羣中創建對象的用戶根據創建對象的大小和數量可能會創建足夠大的對象，
+有權在叢集中創建對象的使用者根據創建對象的大小和數量可能會創建足夠大的對象，
 產生拒絕服務狀況，如 [Kubernetes 使用的 etcd 容易受到 OOM 攻擊](https://github.com/kubernetes/kubernetes/issues/107325)中的討論。
-允許太不受信任或者不受信任的用戶對系統進行有限的訪問在多租戶集羣中是特別重要的。
+允許太不受信任或者不受信任的使用者對系統進行有限的訪問在多租戶叢集中是特別重要的。
 
 緩解此問題的一種選擇是使用[資源配額](/zh-cn/docs/concepts/policy/resource-quotas/#object-count-quota)以限制可以創建的對象數量。
 

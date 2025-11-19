@@ -27,7 +27,7 @@ the new generation of the `cgroup` API.
 
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 和底層容器運行時都需要對接 cgroup
 來強制執行[爲 Pod 和容器管理資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)，
-這包括爲容器化工作負載配置 CPU/內存請求和限制。
+這包括爲容器化工作負載設定 CPU/內存請求和限制。
 
 Linux 中有兩個 cgroup 版本：cgroup v1 和 cgroup v2。cgroup v2 是新一代的 `cgroup` API。
 
@@ -64,7 +64,7 @@ cgroup v2 對 cgroup v1 進行了多項改進，例如：
 - 更新的功能特性，
   例如[壓力阻塞信息（Pressure Stall Information，PSI）](https://www.kernel.org/doc/html/latest/accounting/psi.html)
 - 跨多個資源的增強資源分配管理和隔離
-  - 統一覈算不同類型的內存分配（網絡內存、內核內存等）
+  - 統一覈算不同類型的內存分配（網路內存、內核內存等）
   - 考慮非即時資源變化，例如頁面緩存回寫
 
 <!--
@@ -111,7 +111,7 @@ cgroup v2 具有以下要求：
 * 容器運行時支持 cgroup v2。例如：
   * [containerd](https://containerd.io/) v1.4 和更高版本
   * [cri-o](https://cri-o.io/) v1.20 和更高版本
-* kubelet 和容器運行時被配置爲使用
+* kubelet 和容器運行時被設定爲使用
   [systemd cgroup 驅動](/zh-cn/docs/setup/production-environment/container-runtimes#systemd-cgroup-driver)
 
 <!--
@@ -172,7 +172,7 @@ performs accordingly with no additional configuration required.
 
 要遷移到 cgroup v2，需確保滿足[要求](#requirements)，然後升級到一個默認啓用 cgroup v2 的內核版本。
 
-kubelet 能夠自動檢測操作系統是否運行在 cgroup v2 上並相應調整其操作，無需額外配置。
+kubelet 能夠自動檢測操作系統是否運行在 cgroup v2 上並相應調整其操作，無需額外設定。
 
 <!--
 There should not be any noticeable difference in the user experience when
@@ -183,7 +183,7 @@ cgroup v2 uses a different API than cgroup v1, so if there are any
 applications that directly access the cgroup file system, they need to be
 updated to newer versions that support cgroup v2. For example:
 -->
-切換到 cgroup v2 時，用戶體驗應沒有任何明顯差異，除非用戶直接在節點上或從容器內訪問 cgroup 文件系統。
+切換到 cgroup v2 時，使用者體驗應沒有任何明顯差異，除非使用者直接在節點上或從容器內訪問 cgroup 文件系統。
 
 cgroup v2 使用一個與 cgroup v1 不同的 API，因此如果有任何應用直接訪問 cgroup 文件系統，
 則需要將這些應用更新爲支持 cgroup v2 的版本。例如：
@@ -220,7 +220,7 @@ the node:
 -->
 ## 識別 Linux 節點上的 cgroup 版本 {#check-cgroup-version}
 
-cgroup 版本取決於正在使用的 Linux 發行版和操作系統上配置的默認 cgroup 版本。
+cgroup 版本取決於正在使用的 Linux 發行版和操作系統上設定的默認 cgroup 版本。
 要檢查你的發行版使用的是哪個 cgroup 版本，請在該節點上運行 `stat -fc %T /sys/fs/cgroup/` 命令：
 
 ```shell

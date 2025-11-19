@@ -13,14 +13,14 @@ weight: 80
 This page provides an overview of available configuration options and best practices for cluster
 multi-tenancy.
 -->
-此頁面概述了集羣多租戶的可用配置選項和最佳實踐。
+此頁面概述了叢集多租戶的可用設定選項和最佳實踐。
 
 <!--
 Sharing clusters saves costs and simplifies administration. However, sharing clusters also
 presents challenges such as security, fairness, and managing _noisy neighbors_.
 -->
-共享集羣可以節省成本並簡化管理。
-然而，共享集羣也帶來了諸如安全性、公平性和管理**嘈雜鄰居**等挑戰。
+共享叢集可以節省成本並簡化管理。
+然而，共享叢集也帶來了諸如安全性、公平性和管理**嘈雜鄰居**等挑戰。
 
 <!--
 Clusters can be shared in many ways. In some cases, different applications may run in the same
@@ -28,15 +28,15 @@ cluster. In other cases, multiple instances of the same application may run in t
 one for each end user. All these types of sharing are frequently described using the umbrella term
 _multi-tenancy_.
 -->
-集羣可以通過多種方式共享。在某些情況下，不同的應用可能會在同一個集羣中運行。
-在其他情況下，同一應用的多個實例可能在同一個集羣中運行，每個實例對應一個最終用戶。
+叢集可以通過多種方式共享。在某些情況下，不同的應用可能會在同一個叢集中運行。
+在其他情況下，同一應用的多個實例可能在同一個叢集中運行，每個實例對應一個最終使用者。
 所有這些類型的共享經常使用一個總括術語 **多租戶（Multi-Tenancy）** 來表述。
 
 <!--
 While Kubernetes does not have first-class concepts of end users or tenants, it provides several
 features to help manage different tenancy requirements. These are discussed below.
 -->
-雖然 Kubernetes 沒有最終用戶或租戶的一階概念，
+雖然 Kubernetes 沒有最終使用者或租戶的一階概念，
 它還是提供了幾個特性來幫助管理不同的租戶需求。下面將對此進行討論。
 
 <!--
@@ -49,8 +49,8 @@ The first step to determining how to share your cluster is understanding your us
 evaluate the patterns and tools available. In general, multi-tenancy in Kubernetes clusters falls
 into two broad categories, though many variations and hybrids are also possible.
 -->
-確定如何共享集羣的第一步是理解用例，以便你可以評估可用的模式和工具。
-一般來說，Kubernetes 集羣中的多租戶分爲兩大類，但也可以有許多變體和混合。
+確定如何共享叢集的第一步是理解用例，以便你可以評估可用的模式和工具。
+一般來說，Kubernetes 叢集中的多租戶分爲兩大類，但也可以有許多變體和混合。
 
 <!--
 ### Multiple teams
@@ -62,8 +62,8 @@ A common form of multi-tenancy is to share a cluster between multiple teams with
 organization, each of whom may operate one or more workloads. These workloads frequently need to
 communicate with each other, and with other workloads located on the same or different clusters.
 -->
-多租戶的一種常見形式是在組織內的多個團隊之間共享一個集羣，每個團隊可以操作一個或多個工作負載。
-這些工作負載經常需要相互通信，並與位於相同或不同集羣上的其他工作負載進行通信。
+多租戶的一種常見形式是在組織內的多個團隊之間共享一個叢集，每個團隊可以操作一個或多個工作負載。
+這些工作負載經常需要相互通信，並與位於相同或不同叢集上的其他工作負載進行通信。
 
 <!--
 In this scenario, members of the teams often have direct access to Kubernetes resources via tools
@@ -75,7 +75,7 @@ share clusters.
 在這一場景中，團隊成員通常可以通過類似 `kubectl` 等工具直接訪問 Kubernetes 資源，
 或者通過 GitOps 控制器或其他類型的自動化發佈工具間接訪問 Kubernetes 資源。
 不同團隊的成員之間通常存在某種程度的信任，
-但 RBAC、配額和網絡策略等 Kubernetes 策略對於安全、公平地共享集羣至關重要。
+但 RBAC、配額和網路策略等 Kubernetes 策略對於安全、公平地共享叢集至關重要。
 
 <!--
 ### Multiple customers
@@ -100,7 +100,7 @@ their perspective and is only used by the vendor to manage the workloads. Cost o
 frequently a critical concern, and Kubernetes policies are used to ensure that the workloads are
 strongly isolated from each other.
 -->
-在這種情況下，客戶無權訪問集羣；
+在這種情況下，客戶無權訪問叢集；
 從他們的角度來看，Kubernetes 是不可見的，僅由供應商用於管理工作負載。
 成本優化通常是一個關鍵問題，Kubernetes 策略用於確保工作負載彼此高度隔離。
 
@@ -140,7 +140,7 @@ single workload. This may be as large as an entire company, or as small as a sin
 company.
 -->
 相反，如果每個團隊爲每個新客戶部署專用的工作負載，那麼他們使用的是多客戶租戶模型。
-在這種情況下，“租戶”只是共享單個工作負載的一組用戶。
+在這種情況下，“租戶”只是共享單個工作負載的一組使用者。
 這種租戶可能大到整個公司，也可能小到該公司的一個團隊。
 
 <!--
@@ -153,13 +153,13 @@ services.
 -->
 在許多情況下，同一組織可能在不同的上下文中使用“租戶”的兩種定義。
 例如，一個平臺團隊可能向多個內部“客戶”提供安全工具和數據庫等共享服務，
-而 SaaS 供應商也可能讓多個團隊共享一個開發集羣。最後，混合架構也是可能的，
+而 SaaS 供應商也可能讓多個團隊共享一個開發叢集。最後，混合架構也是可能的，
 例如，某 SaaS 提供商爲每個客戶的敏感數據提供獨立的工作負載，同時提供多租戶共享的服務。
 
 <!--
 {{< figure src="/images/docs/multi-tenancy.png" title="A cluster showing coexisting tenancy models" class="diagram-large" >}}
 -->
-{{< figure src="/images/docs/multi-tenancy.png" title="展示共存租戶模型的集羣" class="diagram-large" >}}
+{{< figure src="/images/docs/multi-tenancy.png" title="展示共存租戶模型的叢集" class="diagram-large" >}}
 
 <!--
 ### Isolation
@@ -179,7 +179,7 @@ A Kubernetes cluster consists of a control plane which runs Kubernetes software,
 consisting of worker nodes where tenant workloads are executed as pods. Tenant isolation can be
 applied in both the control plane and the data plane based on organizational requirements.
 -->
-Kubernetes 集羣由運行 Kubernetes 軟件的控制平面和由工作節點組成的數據平面組成，
+Kubernetes 叢集由運行 Kubernetes 軟件的控制平面和由工作節點組成的數據平面組成，
 租戶工作負載作爲 Pod 在工作節點上執行。
 租戶隔離可以根據組織要求應用於控制平面和數據平面。
 
@@ -205,9 +205,9 @@ will apply to all users. Rather, "hardness" or "softness" is better understood a
 spectrum, with many different techniques that can be used to maintain different types of isolation
 in your clusters, based on your requirements.
 -->
-但是，“硬性”和“柔性”這兩個術語常常令人困惑，因爲沒有一種定義能夠適用於所有用戶。
+但是，“硬性”和“柔性”這兩個術語常常令人困惑，因爲沒有一種定義能夠適用於所有使用者。
 相反，依據“硬度（Hardness）”或“柔度（Softness）”所定義的廣泛譜系則更容易理解，
-根據你的需求，可以使用許多不同的技術在集羣中維護不同類型的隔離。
+根據你的需求，可以使用許多不同的技術在叢集中維護不同類型的隔離。
 
 <!--
 In more extreme cases, it may be easier or necessary to forgo any cluster-level sharing at all and
@@ -218,11 +218,11 @@ provider. The benefit of stronger tenant isolation must be evaluated against the
 complexity of managing multiple clusters. The [Multi-cluster SIG](https://git.k8s.io/community/sig-multicluster/README.md)
 is responsible for addressing these types of use cases.
 -->
-在更極端的情況下，徹底放棄所有集羣級別的共享併爲每個租戶分配其專用集羣可能更容易或有必要，
+在更極端的情況下，徹底放棄所有叢集級別的共享併爲每個租戶分配其專用叢集可能更容易或有必要，
 如果認爲虛擬機所提供的安全邊界還不夠，甚至可以在專用硬件上運行。
-對於託管的 Kubernetes 集羣而言，這種方案可能更容易，
-其中創建和操作集羣的開銷至少在一定程度上由雲提供商承擔。
-必須根據管理多個集羣的成本和複雜性來評估更強的租戶隔離的好處。
+對於託管的 Kubernetes 叢集而言，這種方案可能更容易，
+其中創建和操作叢集的開銷至少在一定程度上由雲提供商承擔。
+必須根據管理多個叢集的成本和複雜性來評估更強的租戶隔離的好處。
 [Multi-Cluster SIG](https://git.k8s.io/community/sig-multicluster/README.md) 負責解決這些類型的用例。
 
 <!--
@@ -231,9 +231,9 @@ However, even if you are considering dedicated clusters, it may be valuable to r
 recommendations, as it will give you the flexibility to shift to shared clusters in the future if
 your needs or capabilities change.
 -->
-本頁的其餘部分重點介紹用於共享 Kubernetes 集羣的隔離技術。
-但是，即使你正在考慮使用專用集羣，查看這些建議也可能很有價值，
-因爲如果你的需求或功能發生變化，它可以讓你在未來比較靈活地切換到共享集羣。
+本頁的其餘部分重點介紹用於共享 Kubernetes 叢集的隔離技術。
+但是，即使你正在考慮使用專用叢集，查看這些建議也可能很有價值，
+因爲如果你的需求或功能發生變化，它可以讓你在未來比較靈活地切換到共享叢集。
 
 <!--
 ## Control plane isolation
@@ -257,7 +257,7 @@ mechanism for isolating groups of API resources within a single cluster. This is
 key dimensions:
 -->
 在 Kubernetes 中，
-{{<glossary_tooltip text="命名空間" term_id="namespace" >}}提供了一種在單個集羣中隔離 API 資源組的機制。
+{{<glossary_tooltip text="命名空間" term_id="namespace" >}}提供了一種在單個叢集中隔離 API 資源組的機制。
 這種隔離有兩個關鍵維度：
 
 <!--
@@ -275,7 +275,7 @@ key dimensions:
 -->
 2. 許多 Kubernetes 安全策略的作用域是命名空間。
    例如，RBAC Role 和 NetworkPolicy 是命名空間作用域的資源。
-   使用 RBAC，可以將用戶賬號和服務賬號限制在一個命名空間中。
+   使用 RBAC，可以將使用者賬號和服務賬號限制在一個命名空間中。
 
 <!--
 In a multi-tenant environment, a Namespace helps segment a tenant's workload into a logical and
@@ -286,14 +286,14 @@ workload has its own identity and can be configured with an appropriate security
 在多租戶環境中，命名空間有助於將租戶的工作負載劃分到各不相同的邏輯管理單元中。
 事實上，一種常見的做法是將每個工作負載隔離在自己的命名空間中，
 即使多個工作負載由同一個租戶操作。
-這可確保每個工作負載都有自己的身份，並且可以使用適當的安全策略進行配置。
+這可確保每個工作負載都有自己的身份，並且可以使用適當的安全策略進行設定。
 
 <!--
 The namespace isolation model requires configuration of several other Kubernetes resources,
 networking plugins, and adherence to security best practices to properly isolate tenant workloads.
 These considerations are discussed below.
 -->
-命名空間隔離模型需要配置其他幾個 Kubernetes 資源、網絡插件，
+命名空間隔離模型需要設定其他幾個 Kubernetes 資源、網路插件，
 並遵守安全最佳實踐以正確隔離租戶工作負載。這些考慮將在下面討論。
 
 <!--
@@ -323,11 +323,11 @@ application; similar objects exist for authorizing access to cluster-level objec
 are less useful for multi-tenant clusters.
 
 -->
-基於角色的訪問控制 (RBAC) 通常用於在 Kubernetes 控制平面中對用戶和工作負載（服務賬號）強制執行鑑權。
+基於角色的訪問控制 (RBAC) 通常用於在 Kubernetes 控制平面中對使用者和工作負載（服務賬號）強制執行鑑權。
 [角色](/zh-cn/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)
 和[角色綁定](/zh-cn/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)是兩種
 Kubernetes 對象，用來在命名空間級別對應用實施訪問控制；
-對集羣級別的對象訪問鑑權也有類似的對象，不過這些對象對於多租戶集羣不太有用。
+對叢集級別的對象訪問鑑權也有類似的對象，不過這些對象對於多租戶叢集不太有用。
 
 <!--
 In a multi-team environment, RBAC must be used to restrict tenants' access to the appropriate
@@ -335,7 +335,7 @@ namespaces, and ensure that cluster-wide resources can only be accessed or modif
 users such as cluster administrators.
 -->
 在多團隊環境中，必須使用 RBAC 來限制租戶只能訪問合適的命名空間，
-並確保集羣範圍的資源只能由集羣管理員等特權用戶訪問或修改。
+並確保叢集範圍的資源只能由叢集管理員等特權使用者訪問或修改。
 
 <!--
 If a policy ends up granting a user more permissions than they need, this is likely a signal that
@@ -344,7 +344,7 @@ namespaces. Namespace management tools may simplify the management of these fine
 namespaces by applying common RBAC policies to different namespaces, while still allowing
 fine-grained policies where necessary.
 -->
-如果一個策略最終授予用戶的權限比他們所需要的還多，
+如果一個策略最終授予使用者的權限比他們所需要的還多，
 這可能是一個信號，表明包含受影響資源的命名空間應該被重構爲更細粒度的命名空間。
 命名空間管理工具可以通過將通用 RBAC 策略應用於不同的命名空間來簡化這些細粒度命名空間的管理，
 同時在必要時仍允許細粒度策略。
@@ -378,7 +378,7 @@ groups of namespaces to share quotas, giving administrators far more flexibility
 than built-in quotas.
 -->
 資源配額是命名空間作用域的對象。通過將租戶映射到命名空間，
-集羣管理員可以使用配額來確保租戶不能壟斷集羣的資源或壓垮控制平面。
+叢集管理員可以使用配額來確保租戶不能壟斷叢集的資源或壓垮控制平面。
 命名空間管理工具簡化了配額的管理。
 此外，雖然 Kubernetes 配額僅針對單個命名空間，
 但一些命名空間管理工具允許多個命名空間組共享配額，
@@ -402,7 +402,7 @@ potential for impact across workloads.
 -->
 當你對命名空間應用配額時，Kubernetes 要求你還爲每個容器指定資源請求和限制。
 限制是容器可以消耗的資源量的上限。
-根據資源類型，嘗試使用超出配置限制的資源的容器將被限制或終止。
+根據資源類型，嘗試使用超出設定限制的資源的容器將被限制或終止。
 當資源請求設置爲低於限制時，
 每個容器所請求的數量都可以得到保證，但可能仍然存在跨工作負載的一些潛在影響。
 
@@ -410,7 +410,7 @@ potential for impact across workloads.
 Quotas cannot protect against all kinds of resource sharing, such as network traffic.
 Node isolation (described below) may be a better solution for this problem.
 -->
-配額不能針對所共享的所有資源（例如網絡流量）提供保護。
+配額不能針對所共享的所有資源（例如網路流量）提供保護。
 節點隔離（如下所述）可能是解決此問題的更好方法。
 
 <!--
@@ -427,7 +427,7 @@ isolated.
 <!--
 ### Network isolation
 -->
-### 網絡隔離 {#network-isolation}
+### 網路隔離 {#network-isolation}
 
 <!--
 By default, all pods in a Kubernetes cluster are allowed to communicate with each other, and all
@@ -435,7 +435,7 @@ network traffic is unencrypted. This can lead to security vulnerabilities where 
 accidentally or maliciously sent to an unintended destination, or is intercepted by a workload on
 a compromised node.
 -->
-默認情況下，Kubernetes 集羣中的所有 Pod 都可以相互通信，並且所有網絡流量都是未加密的。
+默認情況下，Kubernetes 叢集中的所有 Pod 都可以相互通信，並且所有網路流量都是未加密的。
 這可能導致安全漏洞，導致流量被意外或惡意發送到非預期目的地，
 或被受感染節點上的工作負載攔截。
 
@@ -452,23 +452,23 @@ This scheme can be further refined as required. Note that this only applies to p
 control plane; pods that belong to different virtual control planes cannot talk to each other via
 Kubernetes networking.
 -->
-Pod 之間的通信可以使用[網絡策略](/zh-cn/docs/concepts/services-networking/network-policies/)來控制，
+Pod 之間的通信可以使用[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/)來控制，
 它使用命名空間標籤或 IP 地址範圍來限制 Pod 之間的通信。
-在需要租戶之間嚴格網絡隔離的多租戶環境中，建議從拒絕 Pod 之間通信的默認策略入手，
-然後添加一條允許所有 Pod 查詢 DNS 服務器以進行名稱解析的規則。
+在需要租戶之間嚴格網路隔離的多租戶環境中，建議從拒絕 Pod 之間通信的默認策略入手，
+然後添加一條允許所有 Pod 查詢 DNS 伺服器以進行名稱解析的規則。
 有了這樣的默認策略之後，你就可以開始添加允許在命名空間內進行通信的更多規則。
-另外建議不要在網絡策略定義中對 namespaceSelector 字段使用空標籤選擇算符 “{}”，
+另外建議不要在網路策略定義中對 namespaceSelector 字段使用空標籤選擇算符 “{}”，
 以防需要允許在命名空間之間傳輸流量。該方案可根據需要進一步細化。
 請注意，這僅適用於單個控制平面內的 Pod；
-屬於不同虛擬控制平面的 Pod 不能通過 Kubernetes 網絡相互通信。
+屬於不同虛擬控制平面的 Pod 不能通過 Kubernetes 網路相互通信。
 
 <!--
 Namespace management tools may simplify the creation of default or common network policies.
 In addition, some of these tools allow you to enforce a consistent set of namespace labels across
 your cluster, ensuring that they are a trusted basis for your policies.
 -->
-命名空間管理工具可以簡化默認或通用網絡策略的創建。
-此外，其中一些工具允許你在整個集羣中強制實施一組一致的命名空間標籤，
+命名空間管理工具可以簡化默認或通用網路策略的創建。
+此外，其中一些工具允許你在整個叢集中強制實施一組一致的命名空間標籤，
 確保它們是你策略的可信基礎。
 
 {{< warning >}}
@@ -476,7 +476,7 @@ your cluster, ensuring that they are a trusted basis for your policies.
 Network policies require a [CNI plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni)
 that supports the implementation of network policies. Otherwise, NetworkPolicy resources will be ignored.
 -->
-網絡策略需要一個支持網絡策略實現的
+網路策略需要一個支持網路策略實現的
 [CNI 插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#cni)。
 否則，NetworkPolicy 資源將被忽略。
 {{< /warning >}}
@@ -489,13 +489,13 @@ dedicated to a single tenant. They frequently also offer encryption using mutual
 your data even in the presence of a compromised node, and work across dedicated or virtual clusters.
 However, they can be significantly more complex to manage and may not be appropriate for all users.
 -->
-服務網格可以提供更高級的網絡隔離，
+服務網格可以提供更高級的網路隔離，
 除了命名空間之外，它還提供基於工作負載身份的 OSI 第 7 層策略。
 這些更高層次的策略可以更輕鬆地管理基於命名空間的多租戶，
 尤其是存在多個命名空間專用於某一個租戶時。
 服務網格還經常使用雙向 TLS 提供加密能力，
-即使在存在受損節點的情況下也能保護你的數據，並且可以跨專用或虛擬集羣工作。
-但是，它們的管理可能要複雜得多，並且可能並不適合所有用戶。
+即使在存在受損節點的情況下也能保護你的數據，並且可以跨專用或虛擬叢集工作。
+但是，它們的管理可能要複雜得多，並且可能並不適合所有使用者。
 
 <!--
 ### Storage isolation
@@ -517,7 +517,7 @@ of storage offered by your cluster, based on quality-of-service levels, backup p
 policies determined by the cluster administrators.
 -->
 [存儲類（StorageClass）](/zh-cn/docs/concepts/storage/storage-classes/)允許你根據服務質量級別、
-備份策略或由集羣管理員確定的自定義策略描述集羣提供的自定義存儲“類”。
+備份策略或由叢集管理員確定的自定義策略描述叢集提供的自定義存儲“類”。
 
 <!--
 Pods can request storage using a [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
@@ -528,8 +528,8 @@ lifecycle independent of workloads and namespaces.
 -->
 Pod 可以使用[持久卷申領（PersistentVolumeClaim）](/zh-cn/docs/concepts/storage/persistent-volumes/)請求存儲。
 PersistentVolumeClaim 是一種命名空間作用域的資源，
-它可以隔離存儲系統的不同部分，並將隔離出來的存儲提供給共享 Kubernetes 集羣中的租戶專用。
-但是，重要的是要注意 PersistentVolume 是集羣作用域的資源，
+它可以隔離存儲系統的不同部分，並將隔離出來的存儲提供給共享 Kubernetes 叢集中的租戶專用。
+但是，重要的是要注意 PersistentVolume 是叢集作用域的資源，
 並且其生命週期獨立於工作負載和命名空間的生命週期。
 
 <!--
@@ -537,7 +537,7 @@ For example, you can configure a separate StorageClass for each tenant and use t
 If a StorageClass is shared, you should set a [reclaim policy of `Delete`](/docs/concepts/storage/storage-classes/#reclaim-policy)
 to ensure that a PersistentVolume cannot be reused across different namespaces.
 -->
-例如，你可以爲每個租戶配置一個單獨的 StorageClass，並使用它來加強隔離。
+例如，你可以爲每個租戶設定一個單獨的 StorageClass，並使用它來加強隔離。
 如果一個 StorageClass 是共享的，你應該設置一個[回收策略](/zh-cn/docs/concepts/storage/storage-classes/#reclaim-policy)
 以確保 PersistentVolume 不能在不同的命名空間中重複使用。
 
@@ -580,21 +580,21 @@ workloads running in a shared cluster. Running workloads in a sandbox environmen
 insulate the host from container escapes, where an attacker exploits a vulnerability to gain
 access to the host system and all the processes/files running on that host.
 -->
-沙箱提供了一種在共享集羣中隔離運行中的工作負載的方法。
-它通常涉及在單獨的執行環境（例如虛擬機或用戶空間內核）中運行每個 Pod。
+沙箱提供了一種在共享叢集中隔離運行中的工作負載的方法。
+它通常涉及在單獨的執行環境（例如虛擬機或使用者空間內核）中運行每個 Pod。
 當你運行不受信任的代碼時（假定工作負載是惡意的），通常建議使用沙箱，
 這種隔離是必要的，部分原因是由於容器是在共享內核上運行的進程。
 它們從底層主機掛載像 `/sys` 和 `/proc` 這樣的文件系統，
 這使得它們不如在具有自己內核的虛擬機上運行的應用安全。
 雖然 seccomp、AppArmor 和 SELinux 等控件可用於加強容器的安全性，
-但很難將一套通用規則應用於在共享集羣中運行的所有工作負載。
+但很難將一套通用規則應用於在共享叢集中運行的所有工作負載。
 在沙箱環境中運行工作負載有助於將主機隔離開來，不受容器逃逸影響，
 在容器逃逸場景中，攻擊者會利用漏洞來訪問主機系統以及在該主機上運行的所有進程/文件。
 
 <!--
 Virtual machines and userspace kernels are two popular approaches to sandboxing.
 -->
-虛擬機和用戶空間內核是兩種流行的沙箱方法。
+虛擬機和使用者空間內核是兩種流行的沙箱方法。
 
 <!--
 ### Node Isolation
@@ -611,7 +611,7 @@ will only have access to the containers and volumes mounted to that node.
 -->
 節點隔離是另一種可用於將租戶工作負載相互隔離的技術。
 通過節點隔離，一組節點專用於運行來自特定租戶的 Pod，並且禁止混合不同租戶 Pod 集合。
-這種配置減少了嘈雜的租戶問題，因爲在一個節點上運行的所有 Pod 都將屬於一個租戶。
+這種設定減少了嘈雜的租戶問題，因爲在一個節點上運行的所有 Pod 都將屬於一個租戶。
 節點隔離的信息泄露風險略低，
 因爲成功實現容器逃逸的攻擊者也只能訪問掛載在該節點上的容器和卷。
 
@@ -628,9 +628,9 @@ clusters for each tenant.
 仍然很重要的是要注意 kubelet 和
 （除非使用虛擬控制平面）API 服務仍然是共享服務。
 熟練的攻擊者可以使用分配給 kubelet 或節點上運行的其他 Pod
-的權限在集羣內橫向移動並獲得對其他節點上運行的租戶工作負載的訪問權限。
+的權限在叢集內橫向移動並獲得對其他節點上運行的租戶工作負載的訪問權限。
 如果這是一個主要問題，請考慮實施補償控制，
-例如使用 seccomp、AppArmor 或 SELinux，或者探索使用沙箱容器，或者爲每個租戶創建單獨的集羣。
+例如使用 seccomp、AppArmor 或 SELinux，或者探索使用沙箱容器，或者爲每個租戶創建單獨的叢集。
 
 <!--
 Node isolation is a little easier to reason about from a billing standpoint than sandboxing
@@ -644,7 +644,7 @@ specific set of nodes designated for that tenant.
 從計費的角度來看，節點隔離比沙箱容器更容易理解，
 因爲你可以按節點而不是按 Pod 收費。
 它的兼容性和性能問題也較少，而且可能比沙箱容器更容易實現。
-例如，可以爲每個租戶的節點配置污點，
+例如，可以爲每個租戶的節點設定污點，
 以便只有具有相應容忍度的 Pod 才能在其上運行。
 然後可以使用變更性質的 Webhook 自動向部署到租戶命名空間中的 Pod 添加容忍度和節點親和性，
 以便它們在爲該租戶指定的一組特定節點上運行。
@@ -678,10 +678,10 @@ When contention is high, lower priority calls can be queued until the server is 
 can reject the requests.
 -->
 [API 優先級和公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)是 Kubernetes 的一個特性，
-允許你爲集羣中運行的某些 Pod 賦予優先級。
-當應用調用 Kubernetes API 時，API 服務器會評估分配給 Pod 的優先級。
+允許你爲叢集中運行的某些 Pod 賦予優先級。
+當應用調用 Kubernetes API 時，API 伺服器會評估分配給 Pod 的優先級。
 來自具有較高優先級的 Pod 的調用會在具有較低優先級的 Pod 的調用之前完成。
-當爭用很激烈時，較低優先級的調用可以排隊，直到服務器不那麼忙，或者你可以拒絕請求。
+當爭用很激烈時，較低優先級的調用可以排隊，直到伺服器不那麼忙，或者你可以拒絕請求。
 
 <!--
 Using API priority and fairness will not be very common in SaaS environments unless you are
@@ -709,10 +709,10 @@ service that they paid for. Let’s start by looking at networking QoS.
 你可能希望能夠爲不同的租戶提供不同的服務質量 (QoS) 層級。
 例如，你可能擁有具有性能保證和功能較差的免費增值服務，
 以及具有一定性能保證的收費服務層。
-幸運的是，有幾個 Kubernetes 結構可以幫助你在共享集羣中完成此任務，
-包括網絡 QoS、存儲類以及 Pod 優先級和搶佔。
+幸運的是，有幾個 Kubernetes 結構可以幫助你在共享叢集中完成此任務，
+包括網路 QoS、存儲類以及 Pod 優先級和搶佔。
 這些都是爲了給租戶提供他們所支付的服務質量。
-讓我們從網絡 QoS 開始。
+讓我們從網路 QoS 開始。
 
 <!--
 Typically, all pods on a node share a network interface. Without network QoS, some pods may
@@ -725,9 +725,9 @@ Be aware that the plugin is considered experimental as per the
 [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#support-traffic-shaping)
 documentation and should be thoroughly tested before use in production environments.
 -->
-通常，節點上的所有 Pod 共享一個網絡接口。
-如果沒有網絡 QoS，一些 Pod 可能會以犧牲其他 Pod 爲代價不公平地消耗可用帶寬。
-Kubernetes [帶寬插件](https://www.cni.dev/plugins/current/meta/bandwidth/)爲網絡創建
+通常，節點上的所有 Pod 共享一個網路接口。
+如果沒有網路 QoS，一些 Pod 可能會以犧牲其他 Pod 爲代價不公平地消耗可用帶寬。
+Kubernetes [帶寬插件](https://www.cni.dev/plugins/current/meta/bandwidth/)爲網路創建
 [擴展資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)，
 以允許你使用 Kubernetes 的 resources 結構，即 requests 和 limits 設置。
 通過使用 Linux tc 隊列將速率限制應用於 Pod。
@@ -741,9 +741,9 @@ tier of service that is optimized for different workloads such IO, redundancy, o
 Additional logic might be necessary to allow the tenant to associate the appropriate storage
 profile with their workload.
 -->
-對於存儲 QoS，你可能希望創建具有不同性能特徵的不同存儲類或配置文件。
-每個存儲配置文件可以與不同的服務層相關聯，該服務層針對 IO、冗餘或吞吐量等不同的工作負載進行優化。
-可能需要額外的邏輯來允許租戶將適當的存儲配置文件與其工作負載相關聯。
+對於存儲 QoS，你可能希望創建具有不同性能特徵的不同存儲類或設定文件。
+每個存儲設定文件可以與不同的服務層相關聯，該服務層針對 IO、冗餘或吞吐量等不同的工作負載進行優化。
+可能需要額外的邏輯來允許租戶將適當的存儲設定文件與其工作負載相關聯。
 
 <!--
 Finally, there’s [pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
@@ -757,7 +757,7 @@ this feature.
 你可以在其中爲 Pod 分配優先級值。
 在調度 Pod 時，當沒有足夠的資源來調度分配了較高優先級的 Pod 時，
 調度程序將嘗試驅逐具有較低優先級的 Pod。
-如果你有一個用例，其中租戶在共享集羣中具有不同的服務層，例如免費和付費，
+如果你有一個用例，其中租戶在共享叢集中具有不同的服務層，例如免費和付費，
 你可能希望使用此功能爲某些層級提供更高的優先級。
 
 ### DNS
@@ -767,9 +767,9 @@ Kubernetes clusters include a Domain Name System (DNS) service to provide transl
 to IP addresses, for all Services and Pods. By default, the Kubernetes DNS service allows lookups
 across all namespaces in the cluster.
 -->
-Kubernetes 集羣包括一個域名系統（DNS）服務，
+Kubernetes 叢集包括一個域名系統（DNS）服務，
 可爲所有服務和 Pod 提供從名稱到 IP 地址的轉換。
-默認情況下，Kubernetes DNS 服務允許在集羣中的所有命名空間中進行查找。
+默認情況下，Kubernetes DNS 服務允許在叢集中的所有命名空間中進行查找。
 
 <!--
 In multi-tenant environments where tenants can access pods and other Kubernetes resources, or where
@@ -783,10 +783,10 @@ configuring this within the CoreDNS documentation.
 -->
 在多租戶環境中，租戶可以訪問 Pod 和其他 Kubernetes 資源，
 或者在需要更強隔離的情況下，可能需要阻止 Pod 在其他名稱空間中查找服務。
-你可以通過爲 DNS 服務配置安全規則來限制跨命名空間的 DNS 查找。
+你可以通過爲 DNS 服務設定安全規則來限制跨命名空間的 DNS 查找。
 例如，CoreDNS（Kubernetes 的默認 DNS 服務）可以利用 Kubernetes
 元數據來限制對命名空間內的 Pod 和服務的查詢。
-有關更多信息，請閱讀 CoreDNS 文檔中配置此功能的
+有關更多信息，請閱讀 CoreDNS 文檔中設定此功能的
 [示例](https://github.com/coredns/policy#kubernetes-metadata-multi-tenancy-policy)。
 
 <!--
@@ -796,7 +796,7 @@ Here is an example of a [customized version of CoreDNS](https://github.com/kuber
 that supports multiple tenants.
 -->
 當使用[各租戶獨立虛擬控制面](#virtual-control-plane-per-tenant)模型時，
-必須爲每個租戶配置 DNS 服務或必須使用多租戶 DNS 服務。參見一個
+必須爲每個租戶設定 DNS 服務或必須使用多租戶 DNS 服務。參見一個
 [CoreDNS 的定製版本](https://github.com/kubernetes-sigs/cluster-api-provider-nested/blob/main/virtualcluster/doc/tenant-dns.md)支持多租戶的示例。
 
 ### Operators
@@ -824,8 +824,8 @@ Specifically, the Operator should:
 在多租戶環境中使用 Operators 應遵循一套更嚴格的準則。具體而言，Operator 應：
 
 * 支持在不同的租戶命名空間內創建資源，而不僅僅是在部署 Operator 的命名空間內。
-* 確保 Pod 配置了資源請求和限制，以確保調度和公平。
-* 支持節點隔離、沙箱容器等數據平面隔離技術的 Pod 配置。
+* 確保 Pod 設定了資源請求和限制，以確保調度和公平。
+* 支持節點隔離、沙箱容器等數據平面隔離技術的 Pod 設定。
 
 <!--
 ## Implementations
@@ -837,7 +837,7 @@ There are two primary ways to share a Kubernetes cluster for multi-tenancy: usin
 (that is, a Namespace per tenant) or by virtualizing the control plane (that is, virtual control
 plane per tenant).
 -->
-爲多租戶共享 Kubernetes 集羣有兩種主要方法：
+爲多租戶共享 Kubernetes 叢集有兩種主要方法：
 使用命名空間（即每個租戶獨立的命名空間）
 或虛擬化控制平面（即每個租戶獨立的虛擬控制平面）。
 
@@ -855,7 +855,7 @@ resources that can't be namespaced, such as Custom Resource Definitions, Storage
 -->
 Kubernetes 很好地支持命名空間隔離，其資源開銷可以忽略不計，並提供了允許租戶適當交互的機制，
 例如允許服務之間的通信。
-但是，它可能很難配置，而且不適用於非命名空間作用域的 Kubernetes 資源，例如自定義資源定義、存儲類和 Webhook 等。
+但是，它可能很難設定，而且不適用於非命名空間作用域的 Kubernetes 資源，例如自定義資源定義、存儲類和 Webhook 等。
 
 <!--
 Control plane virtualization allows for isolation of non-namespaced resources at the cost of
@@ -866,9 +866,9 @@ sharing. However, even within a virtualized control plane, you will likely see b
 namespaces as well.
 -->
 控制平面虛擬化允許以更高的資源使用率和更困難的跨租戶共享爲代價隔離非命名空間作用域的資源。
-當命名空間隔離不足但不希望使用專用集羣時，這是一個不錯的選擇，
-因爲維護專用集羣的成本很高（尤其是本地集羣），
-或者由於專用集羣的額外開銷較高且缺乏資源共享。
+當命名空間隔離不足但不希望使用專用叢集時，這是一個不錯的選擇，
+因爲維護專用叢集的成本很高（尤其是本地叢集），
+或者由於專用叢集的額外開銷較高且缺乏資源共享。
 但是，即使在虛擬化控制平面中，你也可能會看到使用命名空間的好處。
 
 <!--
@@ -891,12 +891,12 @@ clusters), as this gives you the flexibility to switch between dedicated and sha
 the future, or to use multi-cluster tooling such as service meshes.
 -->
 如前所述，你應該考慮將每個工作負載隔離在其自己的命名空間中，
-即使你使用的是專用集羣或虛擬化控制平面。
+即使你使用的是專用叢集或虛擬化控制平面。
 這可確保每個工作負載只能訪問其自己的資源，例如 ConfigMap 和 Secret，
 並允許你爲每個工作負載定製專用的安全策略。
-此外，最佳實踐是爲整個集羣中的每個命名空間名稱提供唯一的名稱（即，即使它們位於單獨的集羣中），
-因爲這使你將來可以靈活地在專用集羣和共享集羣之間切換，
-或者使用多集羣工具，例如服務網格。
+此外，最佳實踐是爲整個叢集中的每個命名空間名稱提供唯一的名稱（即，即使它們位於單獨的叢集中），
+因爲這使你將來可以靈活地在專用叢集和共享叢集之間切換，
+或者使用多叢集工具，例如服務網格。
 
 <!--
 Conversely, there are also advantages to assigning namespaces at the tenant level, not just the
@@ -935,7 +935,7 @@ virtual control-plane that enables segmentation of cluster-wide API resources.
 manage worker nodes across tenants.
 -->
 控制面隔離的另一種形式是使用 Kubernetes 擴展爲每個租戶提供一個虛擬控制面，
-以實現集羣範圍內 API 資源的分段。
+以實現叢集範圍內 API 資源的分段。
 [數據平面隔離](#data-plane-isolation)技術可以與此模型一起使用，
 以安全地跨多個租戶管理工作節點。
 
@@ -949,9 +949,9 @@ Since a tenant’s control-plane is not directly associated with underlying comp
 referred to as a _virtual control plane_.
 -->
 基於虛擬控制面的多租戶模型通過爲每個租戶提供專用控制面組件來擴展基於命名空間的多租戶，
-從而完全控制集羣範圍的資源和附加服務。
-工作節點在所有租戶之間共享，並由租戶通常無法訪問的 Kubernetes 集羣管理。
-該集羣通常被稱爲 **超集羣（Super-Cluster）**（或有時稱爲 **host-cluster**）。
+從而完全控制叢集範圍的資源和附加服務。
+工作節點在所有租戶之間共享，並由租戶通常無法訪問的 Kubernetes 叢集管理。
+該叢集通常被稱爲 **超叢集（Super-Cluster）**（或有時稱爲 **host-cluster**）。
 由於租戶的控制面不直接與底層計算資源相關聯，因此它被稱爲**虛擬控制平面**。
 
 <!--
@@ -960,9 +960,9 @@ the controller manager, and the etcd data store.
 It interacts with the super cluster via a metadata synchronization controller
 which coordinates changes across tenant control planes and the control plane of the super-cluster.
 -->
-虛擬控制面通常由 Kubernetes API 服務器、控制器管理器和 etcd 數據存儲組成。
-它通過元數據同步控制器與超集羣交互，
-該控制器跨租戶控制面和超集羣控制面對變化進行協調。
+虛擬控制面通常由 Kubernetes API 伺服器、控制器管理器和 etcd 數據存儲組成。
+它通過元數據同步控制器與超叢集交互，
+該控制器跨租戶控制面和超叢集控制面對變化進行協調。
 
 <!--
 By using per-tenant dedicated control planes,
@@ -973,11 +973,11 @@ and conflicts between cluster scope objects such as webhooks and CRDs.
 Hence, the virtual control plane model is particularly suitable for cases
 where each tenant requires access to a Kubernetes API server and expects the full cluster manageability.
 -->
-通過使用每個租戶單獨的專用控制面，可以解決由於所有租戶共享一個 API 服務器而導致的大部分隔離問題。
-例如，控制平面中的嘈雜鄰居、策略錯誤配置導致的不可控爆炸半徑以及如
-Webhook 和 CRD 等集羣範圍對象之間的衝突。
+通過使用每個租戶單獨的專用控制面，可以解決由於所有租戶共享一個 API 伺服器而導致的大部分隔離問題。
+例如，控制平面中的嘈雜鄰居、策略錯誤設定導致的不可控爆炸半徑以及如
+Webhook 和 CRD 等叢集範圍對象之間的衝突。
 因此，虛擬控制平面模型特別適用於每個租戶都需要訪問
-Kubernetes API 服務器並期望具有完整集羣可管理性的情況。
+Kubernetes API 伺服器並期望具有完整叢集可管理性的情況。
 
 <!--
 The improved isolation comes at the cost of running

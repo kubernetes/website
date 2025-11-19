@@ -188,7 +188,7 @@ that match the labels previously defined, so the Service routes network
 traffic to the Redis Pod.
 -->
 這個清單文件創建了一個名爲 `redis-leader` 的 Service，
-其中包含一組與前面定義的標籤匹配的標籤，因此服務將網絡流量路由到 Redis Pod 上。
+其中包含一組與前面定義的標籤匹配的標籤，因此服務將網路流量路由到 Redis Pod 上。
 {{< /note >}}
 
 <!--
@@ -199,7 +199,7 @@ and meet traffic demands by adding a few Redis followers, or replicas.
 -->
 ### 設置 Redis 跟隨者   {#set-up-redis-followers}
 
-儘管 Redis 領導者只有一個 Pod，你可以通過添加若干 Redis 跟隨者來將其配置爲高可用狀態，
+儘管 Redis 領導者只有一個 Pod，你可以通過添加若干 Redis 跟隨者來將其設定爲高可用狀態，
 以滿足流量需求。
 
 {{% code_sample file="application/guestbook/redis-follower-deployment.yaml" %}}
@@ -296,7 +296,7 @@ labels that match the labels previously defined, so the Service routes network
 traffic to the Redis Pod.
 -->
 清單文件創建了一個名爲 `redis-follower` 的 Service，該 Service
-具有一些與之前所定義的標籤相匹配的標籤，因此該 Service 能夠將網絡流量路由到
+具有一些與之前所定義的標籤相匹配的標籤，因此該 Service 能夠將網路流量路由到
 Redis Pod 之上。
 {{< /note >}}
 
@@ -315,13 +315,13 @@ either the Redis follower or leader Services, depending on whether the request
 is a read or a write. The frontend exposes a JSON interface, and serves a
 jQuery-Ajax-based UX.
 -->
-現在你有了一個爲 Guestbook 應用配置的 Redis 存儲處於運行狀態，
-接下來可以啓動 Guestbook 的 Web 服務器了。
+現在你有了一個爲 Guestbook 應用設定的 Redis 存儲處於運行狀態，
+接下來可以啓動 Guestbook 的 Web 伺服器了。
 與 Redis 跟隨者類似，前端也是使用 Kubernetes Deployment 來部署的。
 
-Guestbook 應用使用 PHP 前端。該前端被配置成與後端的 Redis
+Guestbook 應用使用 PHP 前端。該前端被設定成與後端的 Redis
 跟隨者或者領導者服務通信，具體選擇哪個服務取決於請求是讀操作還是寫操作。
-前端對外暴露一個 JSON 接口，並提供基於 jQuery-Ajax 的用戶體驗。
+前端對外暴露一個 JSON 接口，並提供基於 jQuery-Ajax 的使用者體驗。
 
 <!--
 ### Creating the Guestbook Frontend Deployment
@@ -377,9 +377,9 @@ cluster because the default type for a Service is
 `ClusterIP` provides a single IP address for the set of Pods the Service is
 pointing to. This IP address is accessible only within the cluster.
 -->
-應用的 `Redis` 服務只能在 Kubernetes 集羣中訪問，因爲服務的默認類型是
+應用的 `Redis` 服務只能在 Kubernetes 叢集中訪問，因爲服務的默認類型是
 [ClusterIP](/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types)。
-`ClusterIP` 爲服務指向的 Pod 集提供一個 IP 地址。這個 IP 地址只能在集羣中訪問。
+`ClusterIP` 爲服務指向的 Pod 集提供一個 IP 地址。這個 IP 地址只能在叢集中訪問。
 
 <!--
 If you want guests to be able to access your guestbook, you must configure the
@@ -388,9 +388,9 @@ from outside the Kubernetes cluster. However a Kubernetes user can use
 `kubectl port-forward` to access the service even though it uses a
 `ClusterIP`.
 -->
-如果你希望訪客能夠訪問你的 Guestbook，你必須將前端服務配置爲外部可見的，
-以便客戶端可以從 Kubernetes 集羣之外請求服務。
-然而即便使用了 `ClusterIP`，Kubernetes 用戶仍可以通過
+如果你希望訪客能夠訪問你的 Guestbook，你必須將前端服務設定爲外部可見的，
+以便客戶端可以從 Kubernetes 叢集之外請求服務。
+然而即便使用了 `ClusterIP`，Kubernetes 使用者仍可以通過
 `kubectl port-forward` 訪問服務。
 
 {{< note >}}
@@ -526,7 +526,7 @@ Service 添加到 Redis 存儲中。
 You can scale up or down as needed because your servers are defined as a
 Service that uses a Deployment controller.
 -->
-你可以根據需要執行伸縮操作，這是因爲服務器本身被定義爲使用一個
+你可以根據需要執行伸縮操作，這是因爲伺服器本身被定義爲使用一個
 Deployment 控制器的 Service。
 
 <!--

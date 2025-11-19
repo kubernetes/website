@@ -35,7 +35,7 @@ SIG's goals and how fellow contributors can help.
 ## 簡介
 
 官方文檔是所有開源項目的首選資料源。對於 Kubernetes，它是一個持續演進的特別興趣小組 (SIG)，
-人們持續不斷努力製作詳實的項目資料，讓新貢獻者和用戶更容易取用這些文檔。
+人們持續不斷努力製作詳實的項目資料，讓新貢獻者和使用者更容易取用這些文檔。
 SIG Docs 在 [kubernetes.io](https://kubernetes.io) 上發佈官方文檔，
 包括但不限於 Kubernetes 版本發佈時附帶的核心 API 文檔、核心架構細節和 CLI 工具文檔。
 
@@ -88,7 +88,7 @@ localization are currently being spearheaded by students in India.
 
 In addition to that, there are two other subprojects: [reference-docs](https://github.com/kubernetes-sigs/reference-docs) and the [website](https://github.com/kubernetes/website), which is built with Hugo and is an important ownership area.
 -->
-**本地化**：通過這個子項目，Kubernetes 社區能夠在用戶和貢獻者之間實現更大的包容性和多樣性。
+**本地化**：通過這個子項目，Kubernetes 社區能夠在使用者和貢獻者之間實現更大的包容性和多樣性。
 自幾年前以來，這也幫助該項目獲得了更多的貢獻者，尤其是學生們。
 主要亮點之一是即將到來的本地化版本：印地語和孟加拉語。印地語的本地化工作目前由印度的學生們牽頭。
 
@@ -98,7 +98,7 @@ In addition to that, there are two other subprojects: [reference-docs](https://g
 <!--
 ### Recently there has been a lot of buzz around the Kubernetes ecosystem as well as the industry regarding the removal of dockershim in the latest 1.24 release. How has SIG Docs helped the project to ensure a smooth change among the end-users? {#dockershim-removal}
 -->
-### 最近有很多關於 Kubernetes 生態系統以及業界對最新 1.24 版本中移除 Dockershim 的討論。SIG Docs 如何幫助該項目確保最終用戶們平滑變更？ {#dockershim-removal}
+### 最近有很多關於 Kubernetes 生態系統以及業界對最新 1.24 版本中移除 Dockershim 的討論。SIG Docs 如何幫助該項目確保最終使用者們平滑變更？ {#dockershim-removal}
 
 <!--
 Documenting the removal of Dockershim was a mammoth task, requiring the revamping of existing documentation 

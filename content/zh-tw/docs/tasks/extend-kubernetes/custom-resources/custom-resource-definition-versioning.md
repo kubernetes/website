@@ -97,7 +97,7 @@ Adding a new version:
    [Webhook 轉換](#webhook-conversion)。
 3. 更新 CustomResourceDefinition，將新版本設置爲 `served：true`，加入到
    `spec.versions` 列表。另外，還要設置 `spec.conversion` 字段爲所選的轉換策略。
-   如果使用轉換 Webhook，請配置 `spec.conversion.webhookClientConfig` 來調用 Webhook。
+   如果使用轉換 Webhook，請設定 `spec.conversion.webhookClientConfig` 來調用 Webhook。
 
 <!--
 Once the new version is added, clients may incrementally migrate to the new
@@ -314,7 +314,7 @@ After creation, the API server starts to serve each enabled version at an HTTP
 REST endpoint. In the above example, the API versions are available at
 `/apis/example.com/v1beta1` and `/apis/example.com/v1`.
 -->
-在創建之後，API 服務器開始在 HTTP REST 端點上爲每個已啓用的版本提供服務。
+在創建之後，API 伺服器開始在 HTTP REST 端點上爲每個已啓用的版本提供服務。
 在上面的示例中，API 版本可以在 `/apis/example.com/v1beta1` 和
 `/apis/example.com/v1` 處獲得。
 
@@ -440,7 +440,7 @@ spec:
     served: true
     storage: false
     # 此屬性標明此定製資源的 v1alpha1 版本已被棄用。
-    # 發給此版本的 API 請求會在服務器響應中收到警告消息頭。
+    # 發給此版本的 API 請求會在伺服器響應中收到警告消息頭。
     deprecated: true
     # 此屬性設置用來覆蓋返回給發送 v1alpha1 API 請求的客戶端的默認警告信息。
     deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
@@ -448,7 +448,7 @@ spec:
   - name: v1beta1
     served: true
     # 此屬性標明該定製資源的 v1beta1 版本已被棄用。
-    # 發給此版本的 API 請求會在服務器響應中收到警告消息頭。
+    # 發給此版本的 API 請求會在伺服器響應中收到警告消息頭。
     # 針對此版本的請求所返回的是默認的警告消息。
     deprecated: true
     schema: ...
@@ -478,14 +478,14 @@ spec:
     served: true
     storage: false
     # 此屬性標明此定製資源的 v1alpha1 版本已被棄用。
-    # 發給此版本的 API 請求會在服務器響應中收到警告消息頭。
+    # 發給此版本的 API 請求會在伺服器響應中收到警告消息頭。
     deprecated: true
     # 此屬性設置用來覆蓋返回給發送 v1alpha1 API 請求的客戶端的默認警告信息。
     deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
   - name: v1beta1
     served: true
     # 此屬性標明該定製資源的 v1beta1 版本已被棄用。
-    # 發給此版本的 API 請求會在服務器響應中收到警告消息頭。
+    # 發給此版本的 API 請求會在伺服器響應中收到警告消息頭。
     # 針對此版本的請求所返回的是默認的警告消息。
     deprecated: true
   - name: v1
@@ -502,7 +502,7 @@ An older API version cannot be dropped from a CustomResourceDefinition manifest 
 -->
 ### 版本刪除   {#version-removal}
 
-在爲所有提供舊版本自定義資源的集羣將現有存儲數據遷移到新 API 版本，並且從 CustomResourceDefinition 的
+在爲所有提供舊版本自定義資源的叢集將現有存儲數據遷移到新 API 版本，並且從 CustomResourceDefinition 的
 `status.storedVersions` 中刪除舊版本之前，無法從 CustomResourceDefinition 清單文件中刪除舊 API 版本。
 
 ```yaml
@@ -519,7 +519,7 @@ spec:
   versions:
   - name: v1beta1
     # 此屬性標明該自定義資源的 v1beta1 版本已不再提供。
-    # 發給此版本的 API 請求會在服務器響應中收到未找到的錯誤。
+    # 發給此版本的 API 請求會在伺服器響應中收到未找到的錯誤。
     served: false
     schema: ...
   - name: v1
@@ -543,7 +543,7 @@ Webhook conversion is available as beta since 1.15, and as alpha since Kubernete
 -->
 Webhook 轉換在 Kubernetes 1.13 版本作爲 Alpha 功能引入，在 Kubernetes 1.15 版本中成爲 Beta 功能。
 要使用此功能，應啓用 `CustomResourceWebhookConversion` 特性。
-在大多數集羣上，這類 Beta 特性應該是自動啓用的。
+在大多數叢集上，這類 Beta 特性應該是自動啓用的。
 請參閱[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)文檔以獲得更多信息。
 {{< /note >}}
 
@@ -553,7 +553,7 @@ on conversion and does not change the rest of the object. The API server also su
 conversions that call an external service in case a conversion is required. For example when:
 -->
 上面的例子在版本之間有一個 None 轉換，它只在轉換時設置 `apiVersion` 字段而不改變對象的其餘部分。
-API 服務器還支持在需要轉換時調用外部服務的 webhook 轉換。例如：
+API 伺服器還支持在需要轉換時調用外部服務的 webhook 轉換。例如：
 
 <!--
 * custom resource is requested in a different version than stored version.
@@ -569,7 +569,7 @@ To cover all of these cases and to optimize conversion by the API server,
 the conversion requests may contain multiple objects in order to minimize the external calls.
 The webhook should perform these conversions independently.
 -->
-爲了涵蓋所有這些情況並優化 API 服務器所作的轉換，轉換請求可以包含多個對象，
+爲了涵蓋所有這些情況並優化 API 伺服器所作的轉換，轉換請求可以包含多個對象，
 以便減少外部調用。Webhook 應該獨立執行各個轉換。
 
 <!--
@@ -589,14 +589,14 @@ that leaves only
 [one function](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/example_converter.go#L29-L80)
 to be implemented for different conversions.
 -->
-### 編寫一個轉換 Webhook 服務器   {#write-a-conversion-webhook-server}
+### 編寫一個轉換 Webhook 伺服器   {#write-a-conversion-webhook-server}
 
-請參考[定製資源轉換 Webhook 服務器](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/main.go)的實現；
+請參考[定製資源轉換 Webhook 伺服器](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/main.go)的實現；
 該實現在 Kubernetes e2e 測試中得到驗證。
-Webhook 處理由 API 服務器發送的 `ConversionReview` 請求，並在
+Webhook 處理由 API 伺服器發送的 `ConversionReview` 請求，並在
 `ConversionResponse` 中封裝發回轉換結果。
 請注意，請求包含需要獨立轉換的定製資源列表，這些對象在被轉換之後不能改變其在列表中的順序。
-該示例服務器的組織方式使其可以複用於其他轉換。大多數常見代碼都位於
+該示例伺服器的組織方式使其可以複用於其他轉換。大多數常見代碼都位於
 [framework 文件](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/framework.go)中，
 只留下[一個函數](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/example_converter.go#L29-L80)用於實現不同的轉換。
 
@@ -609,10 +609,10 @@ authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
 how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers).
 -->
-轉換 Webhook 服務器示例中將 `ClientAuth`
+轉換 Webhook 伺服器示例中將 `ClientAuth`
 字段設置爲[空](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/config.go#L47-L48)，
 默認爲 `NoClientCert`。
-這意味着 webhook 服務器沒有驗證客戶端（也就是 API 服務器）的身份。
+這意味着 webhook 伺服器沒有驗證客戶端（也就是 API 伺服器）的身份。
 如果你需要雙向 TLS 或者其他方式來驗證客戶端，
 請參閱如何[驗證 API 服務](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#authenticate-apiservers)。
 {{< /note >}}
@@ -644,7 +644,7 @@ named `example-conversion-webhook-server` in `default` namespace and serving tra
 
 用於部署轉換 Webhook
 的文檔與[准入 Webhook 服務示例](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy-the-admission-webhook-service)相同。
-這裏的假設是轉換 Webhook 服務器被部署爲 `default` 名字空間中名爲
+這裏的假設是轉換 Webhook 伺服器被部署爲 `default` 名字空間中名爲
 `example-conversion-webhook-server` 的服務，並在路徑 `/crdconvert`
 上處理請求。
 
@@ -656,9 +656,9 @@ itself can have an arbitrary port but the service object should map it to port 4
 The communication between the API server and the webhook service may fail
 if a different port is used for the service.
 -->
-當 Webhook 服務器作爲一個服務被部署到 Kubernetes 集羣中時，它必須通過端口 443
-公開其服務（服務器本身可以使用任意端口，但是服務對象應該將它映射到端口 443）。
-如果爲服務器使用不同的端口，則 API 服務器和 Webhook 服務器之間的通信可能會失敗。
+當 Webhook 伺服器作爲一個服務被部署到 Kubernetes 叢集中時，它必須通過端口 443
+公開其服務（伺服器本身可以使用任意端口，但是服務對象應該將它映射到端口 443）。
+如果爲伺服器使用不同的端口，則 API 伺服器和 Webhook 伺服器之間的通信可能會失敗。
 {{< /note >}}
 
 <!--
@@ -667,7 +667,7 @@ if a different port is used for the service.
 The `None` conversion example can be extended to use the conversion webhook by modifying `conversion`
 section of the `spec`:
 -->
-### 配置 CustomResourceDefinition 以使用轉換 Webhook   {#configure-crd-to-use-conversion-webhooks}
+### 設定 CustomResourceDefinition 以使用轉換 Webhook   {#configure-crd-to-use-conversion-webhooks}
 
 通過修改 `spec` 中的 `conversion` 部分，可以擴展 `None` 轉換示例來使用轉換 Webhook。
 
@@ -708,13 +708,13 @@ spec:
           port:
             type: string
   conversion:
-    # Webhook strategy 告訴 API 服務器調用外部 Webhook 來完成定製資源之間的轉換
+    # Webhook strategy 告訴 API 伺服器調用外部 Webhook 來完成定製資源之間的轉換
     strategy: Webhook
-    # 當 strategy 爲 "Webhook" 時，webhook 屬性是必需的，該屬性配置將被 API 服務器調用的 Webhook 端點
+    # 當 strategy 爲 "Webhook" 時，webhook 屬性是必需的，該屬性配置將被 API 伺服器調用的 Webhook 端點
     webhook:
       # conversionReviewVersions 標明 Webhook 所能理解或偏好使用的
       # ConversionReview 對象版本。
-      # API 服務器所能理解的列表中的第一個版本會被髮送到 Webhook
+      # API 伺服器所能理解的列表中的第一個版本會被髮送到 Webhook
       # Webhook 必須按所接收到的版本響應一個 ConversionReview 對象
       conversionReviewVersions: ["v1","v1beta1"]
       clientConfig:
@@ -776,10 +776,10 @@ spec:
           port:
             type: string
   conversion:
-    # Webhook strategy 告訴 API 服務器調用外部 Webhook 來完成定製資源
+    # Webhook strategy 告訴 API 伺服器調用外部 Webhook 來完成定製資源
     strategy: Webhook
     # 當 strategy 爲 "Webhook" 時，webhookClientConfig 屬性是必需的
-    # 該屬性配置將被 API 服務器調用的 Webhook 端點
+    # 該屬性配置將被 API 伺服器調用的 Webhook 端點
     webhookClientConfig:
       service:
         namespace: default
@@ -816,7 +816,7 @@ kubectl apply -f my-versioned-crontab-with-conversion.yaml
 <!--
 Make sure the conversion service is up and running before applying new changes.
 -->
-在應用新更改之前，請確保轉換服務器已啓動並正在運行。
+在應用新更改之前，請確保轉換伺服器已啓動並正在運行。
 
 <!--
 ### Contacting the webhook
@@ -830,8 +830,8 @@ and can optionally include a custom CA bundle to use to verify the TLS connectio
 -->
 ### 調用 Webhook   {#contacting-the-webhook}
 
-API 服務器一旦確定請求應發送到轉換 Webhook，它需要知道如何調用 Webhook。
-這是在 `webhookClientConfig` 中指定的 Webhook 配置。
+API 伺服器一旦確定請求應發送到轉換 Webhook，它需要知道如何調用 Webhook。
+這是在 `webhookClientConfig` 中指定的 Webhook 設定。
 
 轉換 Webhook 可以通過 URL 或服務引用來調用，並且可以選擇包含自定義 CA 包，
 以用於驗證 TLS 連接。
@@ -854,14 +854,14 @@ which run an apiserver which might need to make calls to this
 webhook. Such installations are likely to be non-portable or not readily run in a new cluster.
 -->
 `url` 以標準 URL 形式給出 Webhook 的位置（`scheme://host:port/path`）。
-`host` 不應引用集羣中運行的服務，而應通過指定 `service` 字段來提供服務引用。
-在某些 API 服務器中，`host` 可以通過外部 DNS 進行解析（即
-`kube-apiserver` 無法解析集羣內 DNS，那樣會違反分層規則）。
+`host` 不應引用叢集中運行的服務，而應通過指定 `service` 字段來提供服務引用。
+在某些 API 伺服器中，`host` 可以通過外部 DNS 進行解析（即
+`kube-apiserver` 無法解析叢集內 DNS，那樣會違反分層規則）。
 `host` 也可以是 IP 地址。
 
-請注意，除非你非常小心地在所有運行着可能調用 Webhook 的 API 服務器的主機上運行此 Webhook，
+請注意，除非你非常小心地在所有運行着可能調用 Webhook 的 API 伺服器的主機上運行此 Webhook，
 否則將 `localhost` 或 `127.0.0.1` 用作 `host` 是風險很大的。
-這樣的安裝可能是不可移植的，或者不容易在一個新的集羣中運行。
+這樣的安裝可能是不可移植的，或者不容易在一個新的叢集中運行。
 <!--
 The scheme must be "https"; the URL must begin with "https://".
 
@@ -873,7 +873,7 @@ Here is an example of a conversion webhook configured to call a URL
 -->
 HTTP 協議必須爲 `https`；URL 必須以 `https://` 開頭。
 
-嘗試使用用戶或基本身份驗證（例如，使用 `user:password@`）是不允許的。
+嘗試使用使用者或基本身份驗證（例如，使用 `user:password@`）是不允許的。
 URL 片段（`#...`）和查詢參數（`?...`）也是不允許的。
 
 下面是爲調用 URL 來執行轉換 Webhook 的示例，其中期望使用系統信任根來驗證
@@ -927,11 +927,11 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 ### 服務引用   {#service-reference}
 
 `webhookClientConfig` 內部的 `service` 段是對轉換 Webhook 服務的引用。
-如果 Webhook 在集羣中運行，則應使用 `service` 而不是 `url`。
+如果 Webhook 在叢集中運行，則應使用 `service` 而不是 `url`。
 服務的名字空間和名稱是必需的。端口是可選的，默認爲 443。
 路徑是可選的，默認爲`/`。
 
-下面配置中，服務配置爲在端口 `1234`、子路徑 `/my-path` 上被調用。
+下面設定中，服務設定爲在端口 `1234`、子路徑 `/my-path` 上被調用。
 例子中針對 ServerName `my-service-name.my-service-namespace.svc`，
 使用自定義 CA 包驗證 TLS 連接。
 
@@ -1024,7 +1024,7 @@ version understood by the current and previous API server.
 -->
 創建 `apiextensions.k8s.io/v1` 版本的自定義資源定義時，
 `conversionReviewVersions` 是必填字段。
-Webhook 要求支持至少一個 `ConversionReview` 當前和以前的 API 服務器可以理解的版本。
+Webhook 要求支持至少一個 `ConversionReview` 當前和以前的 API 伺服器可以理解的版本。
 
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
@@ -1056,11 +1056,11 @@ If none of the versions in the list are supported by the API server, the custom 
 If an API server encounters a conversion webhook configuration that was previously created and does not support any of the `ConversionReview`
 versions the API server knows how to send, attempts to call to the webhook will fail.
 -->
-API 服務器將 `conversionReviewVersions` 列表中他們所支持的第一個
+API 伺服器將 `conversionReviewVersions` 列表中他們所支持的第一個
 `ConversionReview` 資源版本發送給 Webhook。
-如果列表中的版本都不被 API 服務器支持，則無法創建自定義資源定義。
-如果某 API 服務器遇到之前創建的轉換 Webhook 配置，並且該配置不支持
-API 服務器知道如何發送的任何 `ConversionReview` 版本，調用 Webhook
+如果列表中的版本都不被 API 伺服器支持，則無法創建自定義資源定義。
+如果某 API 伺服器遇到之前創建的轉換 Webhook 設定，並且該設定不支持
+API 伺服器知道如何發送的任何 `ConversionReview` 版本，調用 Webhook
 的嘗試會失敗。
 
 <!--
@@ -1570,7 +1570,7 @@ request depends on what is specified in the CRD's `spec.conversion`:
   mechanism controls the conversion.
 -->
 - 如果所指定的 `strategy` 值是默認的 `None`，則針對對象的唯一修改是更改其 `apiVersion` 字符串，
-  並且可能[修剪未知字段](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning)（取決於配置）。
+  並且可能[修剪未知字段](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning)（取決於設定）。
   請注意，如果存儲和請求版本之間的模式不同，這不太可能導致好的結果。
   尤其是如果在相同的數據類不同版本中採用不同字段來表示時，不應使用此策略。
 - 如果指定了 [Webhook 轉換](#webhook-conversion)，則此機制將控制轉換。
@@ -1623,7 +1623,7 @@ version in the status field `storedVersions`. Objects may have been stored
 at any version that has ever been designated as a storage version. No objects
 can exist in storage at a version that has never been a storage version.
 -->
-API 服務器在狀態字段 `storedVersions` 中記錄曾被標記爲存儲版本的每個版本。
+API 伺服器在狀態字段 `storedVersions` 中記錄曾被標記爲存儲版本的每個版本。
 對象可能以任何曾被指定爲存儲版本的版本保存。
 存儲中不會出現從未成爲存儲版本的版本的對象。
 

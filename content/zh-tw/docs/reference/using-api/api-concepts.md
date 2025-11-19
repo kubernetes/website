@@ -87,7 +87,7 @@ as a permission check
 -->
 大多數 Kubernetes API
 資源類型都是[對象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
-它們代表集羣上某個概念的具體實例，例如 Pod 或名字空間。
+它們代表叢集上某個概念的具體實例，例如 Pod 或名字空間。
 少數 API 資源類型是“虛擬的”，它們通常代表的是操作而非對象本身，
 例如權限檢查（使用帶有 JSON 編碼的 `SubjectAccessReview` 主體的 POST 到 `subjectaccessreviews` 資源），
 或 Pod 的子資源 `eviction`（用於觸發 [API 發起的驅逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)）。
@@ -111,7 +111,7 @@ example: Nodes), and so their names must be unique across the whole cluster.
 在{{< glossary_tooltip text="名字空間" term_id="namespace" >}}內，
 同一時刻只能有一個給定類別的對象具有給定名稱。
 但是，如果你刪除該對象，你可以創建一個具有相同名稱的新對象。
-有些對象沒有名字空間（例如：節點），因此它們的名稱在整個集羣中必須是唯一的。
+有些對象沒有名字空間（例如：節點），因此它們的名稱在整個叢集中必須是唯一的。
 
 <!--
 ### API verbs
@@ -158,7 +158,7 @@ Examples:
 -->
 ## 資源 URI {#resource-uris}
 
-所有資源類型要麼是集羣作用域的（`/apis/GROUP/VERSION/*`），
+所有資源類型要麼是叢集作用域的（`/apis/GROUP/VERSION/*`），
 要麼是名字空間作用域的（`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`）。
 名字空間作用域的資源類型會在其名字空間被刪除時也被刪除，
 並且對該資源類型的訪問是由定義在名字空間域中的授權檢查來控制的。
@@ -185,7 +185,7 @@ The following paths are used to retrieve collections and resources:
 -->
 你還可以訪問資源集合（例如：列出所有 Node）。以下路徑用於檢索集合和資源：
 
-* 集羣作用域的資源：
+* 叢集作用域的資源：
 
   * `GET /apis/GROUP/VERSION/RESOURCETYPE` - 返回指定資源類型的資源的集合
   * `GET /apis/GROUP/VERSION/RESOURCETYPE/NAME` - 返回指定資源類型下名稱爲 NAME 的資源
@@ -213,7 +213,7 @@ Since a namespace is a cluster-scoped resource type, you can retrieve the list
 (“collection”) of all namespaces with `GET /api/v1/namespaces` and details about
 a particular namespace with `GET /api/v1/namespaces/NAME`.
 -->
-由於名字空間本身是一個集羣作用域的資源類型，你可以通過 `GET /api/v1/namespaces/`
+由於名字空間本身是一個叢集作用域的資源類型，你可以通過 `GET /api/v1/namespaces/`
 檢視所有名字空間的列表（“集合”），使用 `GET /api/v1/namespaces/NAME` 查看特定名字空間的詳細信息。
 
 <!--
@@ -225,7 +225,7 @@ see the [API reference](/docs/reference/kubernetes-api/) for more information. I
 is not possible to access sub-resources across multiple resources - generally a new
 virtual resource type would be used if that becomes necessary.
 -->
-* 集羣作用域的子資源：`GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
+* 叢集作用域的子資源：`GET /apis/GROUP/VERSION/RESOURCETYPE/NAME/SUBRESOURCE`
 * 名字空間作用域的子資源：`GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME/SUBRESOURCE`
 
 取決於對象是什麼，每個子資源所支持的動詞有所不同 - 參見 [API 文檔](/zh-cn/docs/reference/kubernetes-api/)以瞭解更多信息。
@@ -238,7 +238,7 @@ Over HTTP, Kubernetes supports JSON and Protobuf wire encodings.
 -->
 ## HTTP 媒體類型   {#alternate-representations-of-resources}
 
-通過 HTTP，Kubernetes 支持 JSON 和 Protobuf 網絡編碼格式。
+通過 HTTP，Kubernetes 支持 JSON 和 Protobuf 網路編碼格式。
 
 <!--
 By default, Kubernetes returns objects in [JSON serialization](#json-encoding), using the
@@ -256,8 +256,8 @@ appropriately.
 [Protobuf 表示](#protobuf-encoding)，以便在大規模環境中獲得更好的性能。
 
 Kubernetes API 實現了標準的 HTTP 內容類型協商：
-使用 `GET` 調用傳遞 `Accept` 頭時將請求服務器嘗試以你首選的媒體類型返回響應。
-如果你想通過 `PUT` 或 `POST` 請求將對象以 Protobuf 發送到服務器，則必須相應地設置 `Content-Type` 請求頭。
+使用 `GET` 調用傳遞 `Accept` 頭時將請求伺服器嘗試以你首選的媒體類型返回響應。
+如果你想通過 `PUT` 或 `POST` 請求將對象以 Protobuf 發送到伺服器，則必須相應地設置 `Content-Type` 請求頭。
 
 <!--
 If you request an available media type, the API server returns a response with a suitable
@@ -265,8 +265,8 @@ If you request an available media type, the API server returns a response with a
 a `406 Not acceptable` error message.
 All built-in resource types support the `application/json` media type.
 -->
-如果你請求了可用的媒體類型，API 服務器會以合適的 `Content-Type` 返回響應；
-如果你請求的媒體類型都不被支持，API 服務器會返回 `406 Not acceptable` 錯誤消息。
+如果你請求了可用的媒體類型，API 伺服器會以合適的 `Content-Type` 返回響應；
+如果你請求的媒體類型都不被支持，API 伺服器會返回 `406 Not acceptable` 錯誤消息。
 所有內置資源類型都支持 `application/json` 媒體類型。
 
 <!--
@@ -286,7 +286,7 @@ Kubernetes API 默認使用 [JSON](https://www.json.org/json-en.html) 來編碼 
 <!--
 1. List all of the pods on a cluster, without specifying a preferred format
 -->
-1. 在不指定首選格式的情況下，列舉集羣中的所有 Pod：
+1. 在不指定首選格式的情況下，列舉叢集中的所有 Pod：
 
    ```http
    GET /api/v1/pods
@@ -311,7 +311,7 @@ Kubernetes API 默認使用 [JSON](https://www.json.org/json-en.html) 來編碼 
 <!--
 1. Create a pod by sending JSON to the server, requesting a JSON response.
 -->
-2. 通過向服務器發送 JSON 並請求 JSON 響應來創建 Pod。
+2. 通過向伺服器發送 JSON 並請求 JSON 響應來創建 Pod。
 
    <!--
    ```http
@@ -359,7 +359,7 @@ Kubernetes 還支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512
 <!--
 1. List all of the pods on a cluster in YAML format
 -->
-1. 以 YAML 格式列舉集羣上的所有 Pod：
+1. 以 YAML 格式列舉叢集上的所有 Pod：
 
    ```http
    GET /api/v1/pods
@@ -385,7 +385,7 @@ Kubernetes 還支持 [`application/yaml`](https://www.rfc-editor.org/rfc/rfc9512
 <!--
 1. Create a pod by sending YAML-encoded data to the server, requesting a YAML response:
 -->
-2. 通過向服務器發送 YAML 編碼的數據並請求 YAML 響應來創建 Pod：
+2. 通過向伺服器發送 YAML 編碼的數據並請求 YAML 響應來創建 Pod：
 
    <!--
    ```http
@@ -440,7 +440,7 @@ For example:
 <!--
 1. List all of the pods on a cluster in Protobuf format.
 -->
-1. 以 Protobuf 格式列舉集羣中的所有 Pod。
+1. 以 Protobuf 格式列舉叢集中的所有 Pod。
 
    ```http
    GET /api/v1/pods
@@ -467,7 +467,7 @@ For example:
 1. Create a pod by sending Protobuf encoded data to the server, but request a response
    in JSON.
 -->
-2. 通過向服務器發送 Protobuf 編碼的數據創建 Pod，但請求以 JSON 形式接收響應：
+2. 通過向伺服器發送 Protobuf 編碼的數據創建 Pod，但請求以 JSON 形式接收響應：
 
    <!--
    ```http
@@ -624,7 +624,7 @@ individual aggregated API servers.
 啓用 `CBORServingAndStorage` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)後，
 所有內置資源類型及所有由 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
 所定義的資源的請求體和響應體都可以被編碼爲 [CBOR](https://www.rfc-editor.org/rfc/rfc8949) 二進制數據格式。
-如果在各個聚合 API 服務器中啓用了 CBOR，
+如果在各個聚合 API 伺服器中啓用了 CBOR，
 則在{{< glossary_tooltip text="聚合層" term_id="aggregation-layer" >}}中也支持 CBOR。
 
 <!--
@@ -638,7 +638,7 @@ CBOR-encoded object.
 當請求體包含單個 CBOR [編碼數據項](https://www.rfc-editor.org/rfc/rfc8949.html#section-1.2-4.2)時，
 客戶端應在 `Content-Type` HTTP 請求頭中指明 IANA 媒體類型 `application/cbor`，
 當準備接受響應中以 CBOR 編碼的數據項時，客戶端應在 `Accept` HTTP 請求頭中指明 IANA 媒體類型 `application/cbor`。
-API 服務器將在響應體包含以 CBOR 編碼的對象時在 `Content-Type` HTTP 響應頭中使用 `application/cbor`。
+API 伺服器將在響應體包含以 CBOR 編碼的對象時在 `Content-Type` HTTP 響應頭中使用 `application/cbor`。
 
 <!--
 If an API server encodes its response to a [watch request](#efficient-detection-of-changes) using
@@ -646,7 +646,7 @@ CBOR, the response body will be a [CBOR Sequence](https://www.rfc-editor.org/rfc
 `Content-Type` HTTP response header will use the IANA media type `application/cbor-seq`. Each entry
 of the sequence (if any) is a single CBOR-encoded watch event.
 -->
-如果 API 服務器使用 CBOR 對 [watch 請求](#efficient-detection-of-changes)的響應進行編碼，
+如果 API 伺服器使用 CBOR 對 [watch 請求](#efficient-detection-of-changes)的響應進行編碼，
 則響應體將是一個 [CBOR 序列](https://www.rfc-editor.org/rfc/rfc8742)，
 而 `Content-Type` HTTP 響應頭將使用 IANA 媒體類型 `application/cbor-seq`。
 此序列的每個條目（如果有的話）是一個以 CBOR 編碼的 watch 事件。
@@ -658,8 +658,8 @@ In addition to the existing `application/apply-patch+yaml` media type for YAML-e
 is no supported CBOR equivalent for `application/json-patch+json` or `application/merge-patch+json`,
 or `application/strategic-merge-patch+json`.
 -->
-除了以 YAML 編碼的[服務器端應用配置](#patch-and-apply)所用的現有 `application/apply-patch+yaml` 媒體類型之外，
-啓用 CBOR 的 API 服務器將接受 `application/apply-patch+cbor` 媒體類型用於以 CBOR 編碼的服務器端應用配置。
+除了以 YAML 編碼的[伺服器端應用設定](#patch-and-apply)所用的現有 `application/apply-patch+yaml` 媒體類型之外，
+啓用 CBOR 的 API 伺服器將接受 `application/apply-patch+cbor` 媒體類型用於以 CBOR 編碼的伺服器端應用設定。
 對於 `application/json-patch+json`、`application/merge-patch+json` 或
 `application/strategic-merge-patch+json`，沒有支持的 CBOR 等效類型。
 
@@ -682,9 +682,9 @@ Kubernetes API 允許客戶端對對象或集合發出初始請求，然後跟�
 客戶端可以發送 **list** 或者 **get** 請求，然後發出後續 **watch** 請求。
 
 爲了使這種更改跟蹤成爲可能，每個 Kubernetes 對象都有一個 `resourceVersion` 字段，
-表示存儲在底層持久層中的該資源的版本。在檢索資源集合（名字空間或集羣範圍）時，
-來自 API 服務器的響應包含一個 `resourceVersion` 值。
-客戶端可以使用該 `resourceVersion` 來啓動對 API 服務器的 **watch**。
+表示存儲在底層持久層中的該資源的版本。在檢索資源集合（名字空間或叢集範圍）時，
+來自 API 伺服器的響應包含一個 `resourceVersion` 值。
+客戶端可以使用該 `resourceVersion` 來啓動對 API 伺服器的 **watch**。
 
 <!--
 When you send a **watch** request, the API server responds with a stream of
@@ -700,7 +700,7 @@ for more detail.
 
 For example:
 -->
-當你發送 **watch** 請求時，API 服務器會響應更改流。
+當你發送 **watch** 請求時，API 伺服器會響應更改流。
 這些更改逐項列出了在你指定爲 **watch** 請求參數的 `resourceVersion` 之後發生的操作
 （例如 **create**、**delete** 和 **update**）的結果。
 整個 **watch** 機制允許客戶端獲取當前狀態，然後訂閱後續更改，而不會丟失任何事件。
@@ -770,8 +770,8 @@ For subscribing to collections, Kubernetes client libraries typically offer some
 of standard tool for this **list**-then-**watch** logic. (In the Go client library,
 this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache` package.)
 -->
-給定的 Kubernetes 服務器只會保留一定的時間內發生的歷史變更列表。
-使用 etcd3 的集羣默認保存過去 5 分鐘內發生的變更。
+給定的 Kubernetes 伺服器只會保留一定的時間內發生的歷史變更列表。
+使用 etcd3 的叢集默認保存過去 5 分鐘內發生的變更。
 當所請求的 **watch** 操作因爲資源的歷史版本不存在而失敗，
 客戶端必須能夠處理因此而返回的狀態代碼 `410 Gone`，清空其本地的緩存，
 重新執行 **get** 或者 **list** 操作，
@@ -820,7 +820,7 @@ assume bookmarks are returned at any specific interval, nor can clients assume t
 the API server will send any `BOOKMARK` event even when requested.
 -->
 作爲客戶端，你可以在 **watch** 請求中設置 `allowWatchBookmarks=true` 查詢參數來請求 `BOOKMARK` 事件，
-但你不應假設書籤會在任何特定時間間隔返回，即使要求時，客戶端也不能假設 API 服務器會發送任何 `BOOKMARK` 事件。
+但你不應假設書籤會在任何特定時間間隔返回，即使要求時，客戶端也不能假設 API 伺服器會發送任何 `BOOKMARK` 事件。
 
 <!--
 ## Streaming lists
@@ -836,8 +836,8 @@ To alleviate the impact and simplify the user experience of the **list** + **wat
 pattern, Kubernetes v1.32 promotes to beta the feature that allows requesting the initial state
 (previously requested via the **list** request) as part of the **watch** request.
 -->
-在大型集羣檢索某些資源類型的集合可能會導致控制平面的資源使用量（主要是 RAM）顯著增加。
-爲了減輕其影響並簡化 **list** + **watch** 模式的用戶體驗，
+在大型叢集檢索某些資源類型的集合可能會導致控制平面的資源使用量（主要是 RAM）顯著增加。
+爲了減輕其影響並簡化 **list** + **watch** 模式的使用者體驗，
 Kubernetes v1.32 將在 **watch** 請求中請求初始狀態（之前在 **list** 請求中請求）的特性進階至 Beta。
 
 <!--
@@ -850,11 +850,11 @@ to which is synced. After sending the bookmark event, the API server continues a
 request.
 -->
 在客戶端，可以通過在 **watch** 請求中指定 `sendInitialEvents=true` 作爲查詢字符串參數來請求初始狀態。
-如果指定了這個參數，API 服務器將使用合成的初始事件（類型爲 `ADDED`）來啓動監視流，
+如果指定了這個參數，API 伺服器將使用合成的初始事件（類型爲 `ADDED`）來啓動監視流，
 以構建所有現有對象的完整狀態；如果請求還帶有 `allowWatchBookmarks=true` 選項，
 則繼續發送 [`BOOKMARK` 事件](/zh-cn/docs/reference/using-api/api-concepts/#watch-bookmarks)。
 BOOKMARK 事件包括已被同步的資源版本。
-發送 BOOKMARK 事件後，API 服務器會像處理所有其他 **watch** 請求一樣繼續執行。
+發送 BOOKMARK 事件後，API 伺服器會像處理所有其他 **watch** 請求一樣繼續執行。
 
 <!--
 When you set `sendInitialEvents=true` in the query string, Kubernetes also requires that you set
@@ -924,9 +924,9 @@ and **list** requests, reducing the network bandwidth and improving the performa
 It is enabled by default since Kubernetes 1.16 and it can be disabled by including
 `APIResponseCompression=false` in the `--feature-gates` flag on the API server.
 -->
-`APIResponseCompression` 是一個選項，允許 API 服務器壓縮 **get** 和 **list** 請求的響應，
-減少佔用的網絡帶寬並提高大規模集羣的性能。此選項自 Kubernetes 1.16 以來默認啓用，
-可以通過在 API 服務器上的 `--feature-gates` 標誌中包含 `APIResponseCompression=false` 來禁用。
+`APIResponseCompression` 是一個選項，允許 API 伺服器壓縮 **get** 和 **list** 請求的響應，
+減少佔用的網路帶寬並提高大規模叢集的性能。此選項自 Kubernetes 1.16 以來默認啓用，
+可以通過在 API 伺服器上的 `--feature-gates` 標誌中包含 `APIResponseCompression=false` 來禁用。
 
 <!--
 API response compression can significantly reduce the size of the response, especially for large resources or
@@ -937,14 +937,14 @@ can be saved and the latency can be reduced.
 -->
 特別是對於大型資源或[集合](/zh-cn/docs/reference/using-api/api-concepts/#collections)，
 API 響應壓縮可以顯著減小其響應的大小。例如，針對 Pod 的 **list** 請求可能會返回數百 KB 甚至幾 MB 的數據，
-具體大小取決於 Pod 數量及其屬性。通過壓縮響應，可以節省網絡帶寬並降低延遲。
+具體大小取決於 Pod 數量及其屬性。通過壓縮響應，可以節省網路帶寬並降低延遲。
 
 <!--
 To verify if `APIResponseCompression` is working, you can send a **get** or **list** request to the
 API server with an `Accept-Encoding` header, and check the response size and headers. For example:
 -->
 要驗證 `APIResponseCompression` 是否正常工作，你可以使用一個 `Accept-Encoding`
-頭向 API 服務器發送一個 **get** 或 **list** 請求，並檢查響應大小和頭信息。例如：
+頭向 API 伺服器發送一個 **get** 或 **list** 請求，並檢查響應大小和頭信息。例如：
 
 ```http
 GET /api/v1/pods
@@ -975,9 +975,9 @@ may have tens of thousands of Pods, each of which is equivalent to roughly 2 KiB
 encoded JSON. Retrieving all pods across all namespaces may result in a very large
 response (10-20MB) and consume a large amount of server resources.
 -->
-在較大規模集羣中，檢索某些資源類型的集合可能會導致非常大的響應，從而影響服務器和客戶端。
-例如，一個集羣可能有數萬個 Pod，每個 Pod 大約相當於 2 KiB 的編碼 JSON。
-跨所有名字空間檢索所有 Pod 可能會導致非常大的響應（10-20MB）並消耗大量服務器資源。
+在較大規模叢集中，檢索某些資源類型的集合可能會導致非常大的響應，從而影響伺服器和客戶端。
+例如，一個叢集可能有數萬個 Pod，每個 Pod 大約相當於 2 KiB 的編碼 JSON。
+跨所有名字空間檢索所有 Pod 可能會導致非常大的響應（10-20MB）並消耗大量伺服器資源。
 
 <!--
 The Kubernetes API server supports the ability to break a single large collection request
@@ -985,9 +985,9 @@ into many smaller chunks while preserving the consistency of the total request. 
 chunk can be returned sequentially which reduces both the total size of the request and
 allows user-oriented clients to display results incrementally to improve responsiveness.
 -->
-Kubernetes API 服務器支持將單個大型集合請求分解爲許多較小塊的能力，
+Kubernetes API 伺服器支持將單個大型集合請求分解爲許多較小塊的能力，
 同時保持總體請求的一致性。每個塊都可以按順序返回，這既減少了請求的總大小，
-又允許面向用戶的客戶端增量顯示結果以提高響應能力。
+又允許面向使用者的客戶端增量顯示結果以提高響應能力。
 
 <!--
 You can request that the API server handles a **list** by serving single collection
@@ -999,11 +999,11 @@ wish to receive in each chunk with `limit` and the server will return up to `lim
 resources in the result and include a `continue` value if there are more resources
 in the collection.
 -->
-你可以請求 API 服務器通過使用頁（Kubernetes 將其稱爲“塊（Chunk）”）的方式來處理 **list**，
+你可以請求 API 伺服器通過使用頁（Kubernetes 將其稱爲“塊（Chunk）”）的方式來處理 **list**，
 完成單個集合的響應。要以塊的形式檢索單個集合，針對集合的請求支持兩個查詢參數 `limit` 和 `continue`，
 並且從集合元 `metadata` 字段中的所有 **list** 操作返回響應字段 `continue`。
 客戶端應該指定他們希望在每個帶有 `limit` 的塊中接收的條目數上限，如果集合中有更多資源，
-服務器將在結果中返回 `limit` 資源幷包含一個 `continue` 值。
+伺服器將在結果中返回 `limit` 資源幷包含一個 `continue` 值。
 
 <!--
 As an API client, you can then pass this `continue` value to the API server on the
@@ -1011,8 +1011,8 @@ next request, to instruct the server to return the next page (_chunk_) of result
 continuing until the server returns an empty `continue` value, you can retrieve the
 entire collection.
 -->
-作爲 API 客戶端，你可以在下一次請求時將 `continue` 值傳遞給 API 服務器，
-以指示服務器返回下一頁（**塊**）結果。繼續下去直到服務器返回一個空的 `continue` 值，
+作爲 API 客戶端，你可以在下一次請求時將 `continue` 值傳遞給 API 伺服器，
+以指示伺服器返回下一頁（**塊**）結果。繼續下去直到伺服器返回一個空的 `continue` 值，
 你可以檢索整個集合。
 
 <!--
@@ -1028,13 +1028,13 @@ of 500 pods at a time, request those chunks as follows:
 並在無法返回更多結果時返回 `410 Gone` 代碼。
 這時，客戶端需要從頭開始執行上述檢視操作或者忽略 `limit` 參數。
 
-例如，如果集羣上有 1253 個 Pod，客戶端希望每次收到包含至多 500 個 Pod
+例如，如果叢集上有 1253 個 Pod，客戶端希望每次收到包含至多 500 個 Pod
 的數據塊，它應按下面的步驟來請求數據塊：
 
 <!--
 1. List all of the pods on a cluster, retrieving up to 500 pods each time.
 -->
-1. 列舉集羣中所有 Pod，每次接收至多 500 個 Pod：
+1. 列舉叢集中所有 Pod，每次接收至多 500 個 Pod：
 
    ```http
    GET /api/v1/pods?limit=500
@@ -1111,7 +1111,7 @@ to break large requests into smaller chunks and then perform a **watch** operati
 on the full set without missing any updates.
 -->
 請注意，集合的 `resourceVersion` 在每個請求中保持不變，
-這表明服務器正在向你顯示 Pod 的一致快照。
+這表明伺服器正在向你顯示 Pod 的一致快照。
 在版本 `10245` 之後創建、更新或刪除的 Pod 將不會顯示，
 除非你在沒有繼續令牌的情況下發出單獨的 **list** 請求。
 這使你可以將大請求分成更小的塊，然後對整個集合執行 **watch** 操作，而不會丟失任何更新。
@@ -1129,9 +1129,9 @@ is estimating the size of a collection.
 -->
 `remainingItemCount` 是集合中未包含在此響應中的後續項目的數量。
 如果 **list** 請求包含標籤或字段{{< glossary_tooltip text="選擇器" term_id="selector">}}，
-則剩餘項目的數量是未知的，並且 API 服務器在其響應中不包含 `remainingItemCount` 字段。
+則剩餘項目的數量是未知的，並且 API 伺服器在其響應中不包含 `remainingItemCount` 字段。
 如果 **list** 是完整的（因爲它沒有分塊，或者因爲這是最後一個塊），沒有更多的剩餘項目，
-API 服務器在其響應中不包含 `remainingItemCount` 字段。
+API 伺服器在其響應中不包含 `remainingItemCount` 字段。
 `remainingItemCount` 的用途是估計集合的大小。
 
 <!--
@@ -1281,13 +1281,13 @@ type.
 
 For example, list all of the pods on a cluster in the Table format.
 -->
-爲了避免上述各種潛在的侷限性，客戶端可以請求服務器端返回對象的表格（Table）
-表現形式，從而將打印輸出的特定細節委託給服務器。
+爲了避免上述各種潛在的侷限性，客戶端可以請求伺服器端返回對象的表格（Table）
+表現形式，從而將打印輸出的特定細節委託給伺服器。
 Kubernetes API 實現標準的 HTTP 內容類型（Content Type）協商：爲 `GET`
 調用傳入一個值爲 `application/json;as=Table;g=meta.k8s.io;v=v1` 的 `Accept`
-頭部即可請求服務器以 Table 的內容類型返回對象。
+頭部即可請求伺服器以 Table 的內容類型返回對象。
 
-例如，以 Table 格式列舉集羣中所有 Pod：
+例如，以 Table 格式列舉叢集中所有 Pod：
 
 ```http
 GET /api/v1/pods
@@ -1311,7 +1311,7 @@ For API resource types that do not have a custom Table definition known to the c
 plane, the API server returns a default Table response that consists of the resource's
 `name` and `creationTimestamp` fields.
 -->
-對於在控制平面上不存在定製的 Table 定義的 API 資源類型而言，服務器會返回一個默認的
+對於在控制平面上不存在定製的 Table 定義的 API 資源類型而言，伺服器會返回一個默認的
 Table 響應，其中包含資源的 `name` 和 `creationTimestamp` 字段。
 
 ```http
@@ -1434,7 +1434,7 @@ Once the last finalizer is removed, the resource is actually removed from etcd.
 This may break the workload associated with the resource being force deleted, if it
 relies on the normal deletion flow, so cluster breaking consequences may apply.
 -->
-如果強制刪除依賴於正常的刪除流程，這可能會破壞與正強制刪除的資源關聯的工作負載，因此可能會導致集羣出現嚴重後果。
+如果強制刪除依賴於正常的刪除流程，這可能會破壞與正強制刪除的資源關聯的工作負載，因此可能會導致叢集出現嚴重後果。
 {{< /caution >}}
 
 <!--
@@ -1445,9 +1445,9 @@ default. In order to use this option, the cluster operator must enable the featu
 setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDeletion=true`.
 -->
 通過啓用刪除選項 `ignoreStoreReadErrorWithClusterBreakingPotential`，
-用戶可以對無法解密或損壞的資源執行不安全的強制**刪除**操作。
+使用者可以對無法解密或損壞的資源執行不安全的強制**刪除**操作。
 使用此選項需要先啓用一個 Alpha 特性門控，默認是禁用的。
-要使用此選項，集羣操作員必須通過設置命令行選項
+要使用此選項，叢集操作員必須通過設置命令列選項
 `--feature-gates=AllowUnsafeMalformedObjectDeletion=true` 來啓用此特性。
 
 {{< note >}}
@@ -1455,7 +1455,7 @@ setting the command line option `--feature-gates=AllowUnsafeMalformedObjectDelet
 The user performing the force **delete** operation must have the privileges to do both
 the **delete** and **unsafe-delete-ignore-read-errors** verbs on the given resource.
 -->
-執行強制**刪除**操作的用戶必須擁有對給定資源執行 **delete** 和
+執行強制**刪除**操作的使用者必須擁有對給定資源執行 **delete** 和
 **unsafe-delete-ignore-read-errors** 動作的權限。
 {{< /note >}}
 
@@ -1476,7 +1476,7 @@ is unsafe because it ignores finalizer constraints, and skips precondition check
 1. 對象解碼失敗
 
 導致無法從存儲中成功檢索，則該資源被視爲已損壞。
-API 服務器會先嚐試正常刪除，如果由於**資源損壞**的錯誤而刪除失敗，則觸發強制刪除。
+API 伺服器會先嚐試正常刪除，如果由於**資源損壞**的錯誤而刪除失敗，則觸發強制刪除。
 強制 **delete** 操作是不安全的，因爲它會忽略終結器（Finalizer）約束，並跳過前置條件檢查。
 
 <!--
@@ -1494,8 +1494,8 @@ set to `true`, the fields `dryRun`, `gracePeriodSeconds`, `orphanDependents`,
 If the user issues a **delete** request with `ignoreStoreReadErrorWithClusterBreakingPotential`
 set to `true` on an otherwise readable resource, the API server aborts the request with an error.
 -->
-如果用戶對一個可以以其他方式讀取的資源發出將 `ignoreStoreReadErrorWithClusterBreakingPotential`
-設置爲 `true` 的 **delete** 請求，API 服務器將中止此請求並報錯。
+如果使用者對一個可以以其他方式讀取的資源發出將 `ignoreStoreReadErrorWithClusterBreakingPotential`
+設置爲 `true` 的 **delete** 請求，API 伺服器將中止此請求並報錯。
 {{< /note >}}
 
 <!--
@@ -1543,20 +1543,20 @@ Kubernetes 總是校驗字段的類型。例如，如果 API 中的某個字段�
 If you make a request with an extra field, one that the cluster's control plane
 does not recognize, then the behavior of the API server is more complicated.
 -->
-如果請求中帶有集羣控制面無法識別的額外字段，API 服務器的行爲會更加複雜。
+如果請求中帶有叢集控制面無法識別的額外字段，API 伺服器的行爲會更加複雜。
 
 <!--
 By default, the API server drops fields that it does not recognize
 from an input that it receives (for example, the JSON body of a `PUT` request).
 -->
-默認情況下，如果接收到的輸入信息中含有 API 服務器無法識別的字段，API 服務器會丟棄該字段
+默認情況下，如果接收到的輸入信息中含有 API 伺服器無法識別的字段，API 伺服器會丟棄該字段
 （例如：`PUT` 請求中的 JSON 主體）。
 
 <!--
 There are two situations where the API server drops fields that you supplied in
 an HTTP request.
 -->
-API 服務器會在兩種情況下丟棄 HTTP 請求中提供的字段。
+API 伺服器會在兩種情況下丟棄 HTTP 請求中提供的字段。
 
 <!--
 These situations are:
@@ -1590,7 +1590,7 @@ validation on the server when you use HTTP verbs that can submit data (`POST`, `
 Possible levels of validation are `Ignore`, `Warn` (default), and `Strict`.
 -->
 從 1.25 開始，當使用可以提交數據的 HTTP 動詞（`POST`、`PUT` 和 `PATCH`）時，
-將通過服務器上的校驗檢測到對象中無法識別或重複的字段。
+將通過伺服器上的校驗檢測到對象中無法識別或重複的字段。
 校驗的級別可以是 `Ignore`、`Warn`（默認值） 和 `Strict` 之一。
 
 <!--
@@ -1600,7 +1600,7 @@ Possible levels of validation are `Ignore`, `Warn` (default), and `Strict`.
   has done so.
 -->
 `Ignore`
-: 使 API 服務器像沒有遇到錯誤字段一樣成功處理請求，丟棄所有的未知字段和重複字段，並且不發送丟棄字段的通知。
+: 使 API 伺服器像沒有遇到錯誤字段一樣成功處理請求，丟棄所有的未知字段和重複字段，並且不發送丟棄字段的通知。
 
 <!--
 `Warn`
@@ -1611,7 +1611,7 @@ Possible levels of validation are `Ignore`, `Warn` (default), and `Strict`.
   [Warning: Helpful Warnings Ahead](/blog/2020/09/03/warnings/).
 -->
 `Warn`
-:（默認值）使 API 服務器成功處理請求，並向客戶端發送告警信息。告警信息通過 `Warning:` 響應頭髮送，
+:（默認值）使 API 伺服器成功處理請求，並向客戶端發送告警信息。告警信息通過 `Warning:` 響應頭髮送，
   併爲每個未知字段或重複字段添加一條告警信息。有關告警和相關的 Kubernetes API 的信息，
   可參閱博文[告警：增加實用告警功能](/zh-cn/blog/2020/09/03/warnings/)。
 
@@ -1623,8 +1623,8 @@ Possible levels of validation are `Ignore`, `Warn` (default), and `Strict`.
   detected.
 -->
 `Strict`
-: API 服務器檢測到任何未知字段或重複字段時，拒絕處理請求並返回 400 Bad Request 錯誤。
-  來自 API 服務器的響應消息列出了 API 檢測到的所有未知字段或重複字段。
+: API 伺服器檢測到任何未知字段或重複字段時，拒絕處理請求並返回 400 Bad Request 錯誤。
+  來自 API 伺服器的響應消息列出了 API 檢測到的所有未知字段或重複字段。
 
 <!--
 The field validation level is set by the `fieldValidation` query parameter.
@@ -1643,7 +1643,7 @@ You always receive an error response in this case, no matter what field validati
 -->
 如果你提交的請求中設置了一個無法被識別的字段，並且該請求存在因其他原因引起的不合法
 （例如，請求爲某已知字段提供了一個字符串值，而 API 期望該字段爲整數），
-那麼 API 服務器會以 400 Bad Request 錯誤作出響應，但不會提供有關未知或重複字段的任何信息
+那麼 API 伺服器會以 400 Bad Request 錯誤作出響應，但不會提供有關未知或重複字段的任何信息
 （僅提供它首先遇到的致命錯誤）。
 
 在這種情況下，不管你設置哪種字段校驗級別，你總會收到出錯響應。
@@ -1654,7 +1654,7 @@ Tools that submit requests to the server (such as `kubectl`), might set their ow
 defaults that are different from the `Warn` validation level that the API server uses
 by default.
 -->
-向服務器提交請求的工具（例如 `kubectl`）可能會設置自己的默認值，與 API 服務器默認使用的 `Warn`
+向伺服器提交請求的工具（例如 `kubectl`）可能會設置自己的默認值，與 API 伺服器默認使用的 `Warn`
 校驗層級不同。
 
 <!--
@@ -1673,7 +1673,7 @@ Client-side validation will be removed entirely in a future version of kubectl.
 `false`（相當於 `ignore`）。
 kubectl 默認的校驗設置是 `--validate=true` ，這意味着執行嚴格的服務端字段校驗。
 
-當 kubectl 無法連接到啓用字段校驗的 API 服務器（Kubernetes 1.27 之前的 API 服務器）時，
+當 kubectl 無法連接到啓用字段校驗的 API 伺服器（Kubernetes 1.27 之前的 API 伺服器）時，
 將回退到使用客戶端的字段校驗。
 客戶端校驗將在 kubectl 未來版本中被完全刪除。
 
@@ -1741,7 +1741,7 @@ been persisted is still returned to the user, along with the normal status code.
 -->
 當你設置 `?dryRun=All` 時，將運行任何相關的{{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}，
 驗證准入控制器檢查經過變更的請求，針對 `PATCH` 請求執行合併、設置字段默認值等操作，並進行模式驗證。
-更改不會持久化到底層存儲，但本應持久化的最終對象仍會與正常狀態代碼一起返回給用戶。
+更改不會持久化到底層存儲，但本應持久化的最終對象仍會與正常狀態代碼一起返回給使用者。
 
 <!--
 If the non-dry-run version of a request would trigger an admission controller that has
@@ -1753,7 +1753,7 @@ that they do not have side effects, by setting their `sideEffects` field to `Non
 -->
 如果請求的非試運行版本會觸發具有副作用的准入控制器，則該請求將失敗，而不是冒不希望的副作用的風險。
 所有內置准入控制插件都支持試運行。
-此外，准入 Webhook 還可以設置[配置對象](/zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
+此外，准入 Webhook 還可以設置[設定對象](/zh-cn/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 的 `sideEffects` 字段爲 `None`，藉此聲明它們沒有副作用。
 
 {{< note >}}
@@ -1868,8 +1868,8 @@ provided is stale), the API server returns a `409 Conflict` error response.
 -->
 你可以使用 HTTP PUT 覆蓋（**update**）ConfigMap 等現有資源。
 對於 PUT 請求，客戶端需要指定 `resourceVersion`（從要更新的對象中獲取此項）。
-Kubernetes 使用該 `resourceVersion` 信息，這樣 API 服務器可以檢測丟失的更新並拒絕對集羣來說過期的客戶端所發出的請求。
-如果資源已發生變化（即客戶端提供的 `resourceVersion` 已過期），API 服務器將返回 `409 Conflict` 錯誤響應。
+Kubernetes 使用該 `resourceVersion` 信息，這樣 API 伺服器可以檢測丟失的更新並拒絕對叢集來說過期的客戶端所發出的請求。
+如果資源已發生變化（即客戶端提供的 `resourceVersion` 已過期），API 伺服器將返回 `409 Conflict` 錯誤響應。
 
 <!--
 Instead of sending a PUT request, the client can send an instruction to the API
@@ -1882,7 +1882,7 @@ and then handle any retries that are needed in case there is a conflict.
 The Kubernetes API supports four different PATCH operations, determined by their
 corresponding HTTP `Content-Type` header:
 -->
-客戶端除了發送 PUT 請求之外，還可以發送指令給 API 服務器對現有資源執行 **patch** 操作。
+客戶端除了發送 PUT 請求之外，還可以發送指令給 API 伺服器對現有資源執行 **patch** 操作。
 **patch** 通常適用於客戶端希望進行的更改並不依賴於現有數據的場景。
 需要有效檢測丟失更新的客戶端應該考慮根據現有 `resourceVersion` 來進行有條件的請求
 （HTTP PUT 或 HTTP PATCH），並在存在衝突時作必要的重試。
@@ -1901,7 +1901,7 @@ Kubernetes API 支持四種不同的 PATCH 操作，具體取決於它們所對�
 `application/apply-patch+yaml`
 : Server Side Apply YAML（基於 YAML 的 Kubernetes 擴展）。
   所有 JSON 文檔都是有效的 YAML，因此你也可以使用此媒體類型提交 JSON。
-  更多細節參閱[服務器端應用序列化](/zh-cn/docs/reference/using-api/server-side-apply/#serialization)。
+  更多細節參閱[伺服器端應用序列化](/zh-cn/docs/reference/using-api/server-side-apply/#serialization)。
   對於 Kubernetes，這一 PATCH 請求在對象不存在時成爲 **create** 操作；在對象已存在時成爲 **patch** 操作。
 
 <!--
@@ -1948,7 +1948,7 @@ Kubernetes API 支持四種不同的 PATCH 操作，具體取決於它們所對�
 `application/strategic-merge-patch+json`
 : Strategic Merge Patch（基於 JSON 的 Kubernetes 擴展）。
   Strategic Merge Patch 是 JSON Merge Patch 的自定義實現。
-  你只能在內置 API 或具有特殊支持的聚合 API 服務器中使用 Strategic Merge Patch。
+  你只能在內置 API 或具有特殊支持的聚合 API 伺服器中使用 Strategic Merge Patch。
   你不能針對任何使用 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
   定義的 API 來使用 `application/strategic-merge-patch+json`。
 
@@ -1957,7 +1957,7 @@ Kubernetes API 支持四種不同的 PATCH 操作，具體取決於它們所對�
   The Kubernetes _server side apply_ mechanism has superseded Strategic Merge
   Patch.
   -->
-  Kubernetes **服務器端應用**機制已取代 Strategic Merge Patch。
+  Kubernetes **伺服器端應用**機制已取代 Strategic Merge Patch。
   {{< /note >}}
 
 <!--
@@ -1973,14 +1973,14 @@ at the HTTP level, the logical Kubernetes operation is always **patch**.
 
 See [Server Side Apply](/docs/reference/using-api/server-side-apply/) for more details.
 -->
-Kubernetes 的[服務器端應用](/zh-cn/docs/reference/using-api/server-side-apply/)功能允許控制平面跟蹤新創建對象的託管字段。
-服務端應用爲管理字段衝突提供了清晰的模式，提供了服務器端 **apply** 和 **update**  操作，
+Kubernetes 的[伺服器端應用](/zh-cn/docs/reference/using-api/server-side-apply/)功能允許控制平面跟蹤新創建對象的託管字段。
+服務端應用爲管理字段衝突提供了清晰的模式，提供了伺服器端 **apply** 和 **update**  操作，
 並替換了 `kubectl apply` 的客戶端功能。
 
-對於服務器端應用，Kubernetes 在對象尚不存在時將請求視爲 **create**，否則視爲 **patch**。
+對於伺服器端應用，Kubernetes 在對象尚不存在時將請求視爲 **create**，否則視爲 **patch**。
 對於其他在 HTTP 層面使用 PATCH 的請求，邏輯上的 Kubernetes 操作始終是 **patch**。
 
-更多細節參閱[服務器端應用](/zh-cn/docs/reference/using-api/server-side-apply/)。
+更多細節參閱[伺服器端應用](/zh-cn/docs/reference/using-api/server-side-apply/)。
 
 <!--
 ### Choosing an update mechanism {#update-mechanism-choose}
@@ -2075,9 +2075,9 @@ However:
 
 Server-Side Apply has some clear benefits:
 -->
-#### 使用服務器端應用的 HTTP PATCH {#update-mechanism-server-side-apply}
+#### 使用伺服器端應用的 HTTP PATCH {#update-mechanism-server-side-apply}
 
-服務器端應用（Server-Side Apply）具有一些明顯的優勢：
+伺服器端應用（Server-Side Apply）具有一些明顯的優勢：
 
 <!--
 * A single round trip: it rarely requires making a `GET` request first.
@@ -2104,9 +2104,9 @@ However:
 -->
 然而：
 
-* 服務器端應用不適合依賴對象當前值的字段更改。
+* 伺服器端應用不適合依賴對象當前值的字段更改。
 * 你只能更新對象。Kubernetes HTTP API 中的某些資源不是對象（它們沒有 `.metadata` 字段），
-  並且服務器端應用只能用於 Kubernetes 對象。
+  並且伺服器端應用只能用於 Kubernetes 對象。
 
 <!--
 ## Resource versions
@@ -2123,10 +2123,10 @@ resource versions for greater-than or less-than relationships).
 -->
 ## 資源版本   {#resource-versions}
 
-資源版本是標識服務器內部對象版本的字符串。
+資源版本是標識伺服器內部對象版本的字符串。
 客戶端可以使用資源版本來確定對象何時更改，
 或者在獲取、列出和監視資源時表達數據一致性要求。
-資源版本必須被客戶端視爲不透明的，並且未經修改地傳回服務器。
+資源版本必須被客戶端視爲不透明的，並且未經修改地傳回伺服器。
 
 你不能假設資源版本是數字的或可排序的。
 API 客戶端只能比較兩個資源版本的相等性（這意味着你不能比較資源版本的大於或小於關係）。
@@ -2168,9 +2168,9 @@ on the operation you request, and on the value of `resourceVersion`. If you set
 ### 查詢字符串中的 `resourceVersion` 參數   {#the-resourceversion-parameter}
 
 **get**、**list** 和 **watch** 操作支持 `resourceVersion` 參數。
-從 v1.19 版本開始，Kubernetes API 服務器支持 **list** 請求的 `resourceVersionMatch` 參數。
+從 v1.19 版本開始，Kubernetes API 伺服器支持 **list** 請求的 `resourceVersionMatch` 參數。
 
-API 服務器根據你請求的操作和 `resourceVersion` 的值對 `resourceVersion` 參數進行不同的解釋。
+API 伺服器根據你請求的操作和 `resourceVersion` 的值對 `resourceVersion` 參數進行不同的解釋。
 如果你設置 `resourceVersionMatch` 那麼這也會影響匹配發生的方式。
 
 <!--
@@ -2206,12 +2206,12 @@ You should always set the `resourceVersionMatch` parameter when setting
 where the API server that responds is unaware of `resourceVersionMatch`
 and ignores it.
 -->
-從 v1.19 版本開始，Kubernetes API 服務器支持 **list** 請求的 `resourceVersionMatch` 參數。
+從 v1.19 版本開始，Kubernetes API 伺服器支持 **list** 請求的 `resourceVersionMatch` 參數。
 如果同時設置 `resourceVersion` 和 `resourceVersionMatch`，
-則 `resourceVersionMatch` 參數確定 API 服務器如何解釋 `resourceVersion`。
+則 `resourceVersionMatch` 參數確定 API 伺服器如何解釋 `resourceVersion`。
 
 在 **list** 請求上設置 `resourceVersion` 時，你應該始終設置 `resourceVersionMatch` 參數。
-但是，請準備好處理響應的 API 服務器不知道 `resourceVersionMatch` 並忽略它的情況。
+但是，請準備好處理響應的 API 伺服器不知道 `resourceVersionMatch` 並忽略它的情況。
 
 <!--
 Unless you have strong consistency requirements, using `resourceVersionMatch=NotOlderThan` and
@@ -2226,7 +2226,7 @@ This table explains the behavior of **list** requests with various combinations 
 -->
 除非你對一致性有着非常強烈的需求，使用 `resourceVersionMatch=NotOlderThan`
 同時爲 `resourceVersion` 設定一個已知值是優選的交互方式，因爲與不設置
-`resourceVersion` 和 `resourceVersionMatch` 相比，這種配置可以取得更好的集羣性能和可擴縮性。
+`resourceVersion` 和 `resourceVersionMatch` 相比，這種設定可以取得更好的叢集性能和可擴縮性。
 後者需要提供帶票選能力的讀操作。
 
 設置 `resourceVersionMatch` 參數而不設置 `resourceVersion` 參數是不合法的。
@@ -2265,7 +2265,7 @@ This table explains the behavior of **list** requests with various combinations 
 If your cluster's API server does not honor the `resourceVersionMatch` parameter,
 the behavior is the same as if you did not set it.
 -->
-如果你的集羣的 API 服務器不支持 `resourceVersionMatch` 參數，
+如果你的叢集的 API 伺服器不支持 `resourceVersionMatch` 參數，
 則行爲與你未設置它時相同。
 {{< /note >}}
 
@@ -2286,7 +2286,7 @@ Any
 任意版本
 : 返回任何資源版本的數據。最新可用資源版本優先，但不需要強一致性；
   可以提供任何資源版本的數據。由於分區或過時的緩存，
-  請求可能返回客戶端先前觀察到的更舊資源版本的數據，特別是在高可用性配置中。
+  請求可能返回客戶端先前觀察到的更舊資源版本的數據，特別是在高可用性設定中。
   不能容忍這種情況的客戶不應該使用這種語義。
   始終通過**監視緩存**提供服務，提高性能並減少 etcd 負載。
 
@@ -2304,7 +2304,7 @@ Most recent
 : 返回最新資源版本的數據。
   返回的數據必須一致（詳細說明：通過仲裁讀取從 etcd 提供）。
   對於 etcd v3.4.31+ 和 v3.5.13+ Kubernetes {{< skew currentVersion >}} 使用**監視緩存**來爲“最新”讀取提供服務：
-  監視緩存是 API 服務器內部的基於內存的存儲，用於緩存和鏡像持久化到 etcd 中的數據狀態。
+  監視緩存是 API 伺服器內部的基於內存的存儲，用於緩存和映像檔持久化到 etcd 中的數據狀態。
   Kubernetes 請求進度通知以維護與 etcd 持久層的緩存一致性。Kubernetes
   版本 v1.28 至 v1.30 也支持此特性，儘管當時其處於 Alpha 狀態，不推薦用於生產，
   也不默認啓用，直到 v1.31 版本才啓用。
@@ -2322,7 +2322,7 @@ Not older than
 不老於指定版本
 : 返回數據至少與提供的 `resourceVersion` 一樣新。
   最新的可用數據是首選，但可以提供不早於提供的 `resourceVersion` 的任何數據。
-  對於對遵守 `resourceVersionMatch` 參數的服務器的 **list** 請求，
+  對於對遵守 `resourceVersionMatch` 參數的伺服器的 **list** 請求，
   這保證了集合的 `.metadata.resourceVersion` 不早於請求的 `resourceVersion`，
   但不保證該集合中任何項目的 `.metadata.resourceVersion`。
   始終通過**監視緩存**提供服務，提高性能並減少 etcd 負載。
@@ -2342,14 +2342,14 @@ Exact
 -->
 精確匹配
 : 以提供的確切資源版本返回數據。如果提供的 `resourceVersion` 不可用，
-  則服務器以 HTTP `410 Gone` 響應。對於對支持 `resourceVersionMatch` 參數的服務器的 **list** 請求，
+  則伺服器以 HTTP `410 Gone` 響應。對於對支持 `resourceVersionMatch` 參數的伺服器的 **list** 請求，
   這可以保證集合的 `.metadata.resourceVersion` 與你在查詢字符串中請求的 `resourceVersion` 相同。
   該保證不適用於該集合中任何項目的 `.metadata.resourceVersion`。
 
   默認情況下，由 **etcd** 提供服務，但是當啓用了 `ListFromCacheSnapshot` 特性門控時，
-  如果可用，API 服務器將嘗試從快照提供響應。
+  如果可用，API 伺服器將嘗試從快照提供響應。
   這提升了性能並減少了 etcd 的負載。緩存快照默認保留 75 秒，
-  因此如果提供的 `resourceVersion` 不可用，服務器將回退到 etcd。
+  因此如果提供的 `resourceVersion` 不可用，伺服器將回退到 etcd。
 
 <!--
 Continuation
@@ -2365,11 +2365,11 @@ Continuation
 : 爲分頁列表請求返回下一頁數據，確保與序列中初始請求建立的確切 `resourceVersion` 保持一致。
   對帶有限制的 **list** 請求的響應包括 **continue 令牌**，它編碼了 `resourceVersion`
   和最後觀察到的位置，給出繼續列表的起點。
-  如果提供的 **continue 令牌**中的 `resourceVersion` 不可用，服務器將返回 HTTP `410 Gone`。
+  如果提供的 **continue 令牌**中的 `resourceVersion` 不可用，伺服器將返回 HTTP `410 Gone`。
   默認情況下，由 **etcd** 提供服務，但是當啓用了 `ListFromCacheSnapshot` 特性門控時，
-  API 服務器將嘗試從快照提供響應（如果緩存快可用）。
+  API 伺服器將嘗試從快照提供響應（如果緩存快可用）。
   這提升了性能並減少了 etcd 的負載。緩存快照默認保留 75 秒，
-  因此如果提供的 **continue 令牌**中的 `resourceVersion` 不可用，服務器將回退到 etcd。
+  因此如果提供的 **continue 令牌**中的 `resourceVersion` 不可用，伺服器將回退到 etcd。
 
 {{< note >}}
 <!--
@@ -2454,7 +2454,7 @@ Get State and Start at Any
 讀取狀態並從任意版本開始
 : 在任何資源版本開始 **watch**；首選可用的最新資源版本，但不是必需的。允許任何起始資源版本。
   由於分區或過時的緩存，**watch** 可能從客戶端之前觀察到的更舊的資源版本開始，
-  特別是在高可用性配置中。不能容忍這種明顯倒帶的客戶不應該用這種語義啓動 **watch**。
+  特別是在高可用性設定中。不能容忍這種明顯倒帶的客戶不應該用這種語義啓動 **watch**。
   爲了建立初始狀態，**watch** 從起始資源版本中存在的所有資源實例的合成 “添加” 事件開始。
   以下所有監視事件都針對在 **watch** 開始的資源版本之後發生的所有更改。
 
@@ -2512,14 +2512,14 @@ on whether a request is served from cache or not, the API server may reply with 
 -->
 ### "410 Gone" 響應     {#410-gone-responses}
 
-服務器不需要提供所有老的資源版本，在客戶端請求的是早於服務器端所保留版本的
+伺服器不需要提供所有老的資源版本，在客戶端請求的是早於伺服器端所保留版本的
 `resourceVersion` 時，可以返回 HTTP `410 (Gone)` 狀態碼。
 客戶端必須能夠容忍 `410 (Gone)` 響應。
 參閱[高效檢測變更](#efficient-detection-of-changes)以瞭解如何在監測資源時處理
 `410 (Gone)` 響應。
 
 如果所請求的 `resourceVersion` 超出了可應用的 `limit`，
-那麼取決於請求是否是通過高速緩存來滿足的，API 服務器可能會返回一個 `410 Gone` HTTP 響應。
+那麼取決於請求是否是通過高速緩存來滿足的，API 伺服器可能會返回一個 `410 Gone` HTTP 響應。
 
 <!--
 ### Unavailable resource versions
@@ -2536,8 +2536,8 @@ then the API server may either:
 -->
 ### 不可用的資源版本  {#unavailable-resource-versions}
 
-服務器不需要提供無法識別的資源版本。
-如果你請求了 **list** 或 **get** API 服務器無法識別的資源版本，則 API 服務器可能會：
+伺服器不需要提供無法識別的資源版本。
+如果你請求了 **list** 或 **get** API 伺服器無法識別的資源版本，則 API 伺服器可能會：
 
 * 短暫等待資源版本可用，如果提供的資源版本在合理的時間內仍不可用，
   則應超時並返回 `504 (Gateway Timeout)`；
@@ -2552,8 +2552,8 @@ If you make a **watch** request for an unrecognized resource version, the API se
 may wait indefinitely (until the request timeout) for the resource version to become
 available.
 -->
-如果你請求 API 服務器無法識別的資源版本，
+如果你請求 API 伺服器無法識別的資源版本，
 kube-apiserver 還會使用 `Too large resource version` 消息額外標識其錯誤響應。
 
 如果你對無法識別的資源版本發出 **watch** 請求，
-API 服務器可能會無限期地等待（直到請求超時）資源版本變爲可用。
+API 伺服器可能會無限期地等待（直到請求超時）資源版本變爲可用。

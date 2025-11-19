@@ -48,4 +48,4 @@ OCI container images from remote registries.
 -->
 部署 CRI-O 允許 Kubernetes 使用任何符合 OCI 要求的運行時作爲容器運行時去運行
 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
-並從遠程容器倉庫獲取 OCI 容器鏡像。
+並從遠程容器倉庫獲取 OCI 容器映像檔。

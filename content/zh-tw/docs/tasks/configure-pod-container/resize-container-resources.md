@@ -56,7 +56,7 @@ while potentially avoiding application disruption.
 - **期望資源（Desired Resources）**：容器的 `spec.containers[*].resources`
   字段表示容器的**期望**資源，對於 CPU 和內存是可變的。
 - **實際資源（Actual Resources）**：`status.containerStatuses[*].resources`
-  字段反映當前運行容器**實際配置**的資源。
+  字段反映當前運行容器**實際設定**的資源。
   對於尚未啓動或重新啓動的容器，該字段表示其下次啓動時分配的資源。
 - **觸發調整（Triggering a Resize）**：你可以通過更新 Pod 規約中的 `requests` 和 `limits` 來請求調整。
   這通常通過 `kubectl patch`、`kubectl apply` 或 `kubectl edit` 操作
@@ -88,7 +88,7 @@ The `kubectl` client version must be at least v1.32 to use the `--subresource=re
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-你需要在控制平面和集羣中的所有節點上啓用 `InPlacePodVerticalScaling` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。  
+你需要在控制平面和叢集中的所有節點上啓用 `InPlacePodVerticalScaling` [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。  
 
 要使用 `--subresource=resize` 參數，`kubectl` 客戶端版本需至少爲 v1.32。
 
@@ -213,7 +213,7 @@ If a Pod's overall `restartPolicy` is `Never`, then any container `resizePolicy`
 You cannot configure a resize policy that would require a restart in such Pods.
 -->
 如果 Pod 的整體 `restartPolicy` 爲 `Never`，則所有容器的 `resizePolicy` 必須對所有資源都設置爲 `NotRequired`。
-此類 Pod 不允許配置需要重啓的調整策略。
+此類 Pod 不允許設定需要重啓的調整策略。
 {{< /note >}}
 
 <!--
@@ -356,7 +356,7 @@ They should match the manifest (700m CPU, 200Mi memory). Note the `status.contai
 <!--
 Now, increase the CPU request and limit to `800m`. You use `kubectl patch` with the `--subresource resize` command line argument.
 -->
-現在，將 CPU 請求和限制增加到 `800m`。使用帶有 `--subresource resize` 命令行參數的 `kubectl patch`。
+現在，將 CPU 請求和限制增加到 `800m`。使用帶有 `--subresource resize` 命令列參數的 `kubectl patch`。
 
 ```shell
 kubectl patch pod resize-demo --subresource resize --patch \
@@ -372,7 +372,7 @@ kubectl patch pod resize-demo --subresource resize --patch \
 The `--subresource resize` command line argument requires `kubectl` client version v1.32.0 or later.
 Older versions will report an `invalid subresource` error.
 -->
-`--subresource resize` 命令行參數要求 `kubectl` 客戶端版本爲 v1.32.0 或更高。
+`--subresource resize` 命令列參數要求 `kubectl` 客戶端版本爲 v1.32.0 或更高。
 較早版本會報告 `invalid subresource` 錯誤。
 {{< /note >}}
 
@@ -526,14 +526,14 @@ kubectl delete pod resize-demo
 
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 -->
-### 對於集羣管理員
+### 對於叢集管理員
 
-* [爲名字空間配置默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲名字空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [爲名字空間配置默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲名字空間設定默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [爲名字空間配置最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [爲名字空間設定最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [爲名字空間配置最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲名字空間設定最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [爲名字空間配置內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [爲名字空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

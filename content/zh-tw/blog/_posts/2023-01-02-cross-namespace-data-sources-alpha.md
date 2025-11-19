@@ -38,9 +38,9 @@ to `dataSourceRef` field in PersistentVolumeClaim the API.
 上個月發佈的 Kubernetes v1.26 引入了一個 Alpha 特性，允許你在源數據屬於不同的名字空間時爲
 PersistentVolumeClaim 指定數據源。啓用這個新特性後，你在新 PersistentVolumeClaim 的
 `dataSourceRef` 字段中指定名字空間。一旦 Kubernetes 發現訪問權限正常，新的 PersistentVolume
-就可以從其他名字空間中指定的存儲源填充其數據。在 Kubernetes v1.26 之前，如果集羣已啓用了
+就可以從其他名字空間中指定的存儲源填充其數據。在 Kubernetes v1.26 之前，如果叢集已啓用了
 `AnyVolumeDataSource` 特性，你可能已經從**相同的**名字空間中的數據源製備新卷。
-但這僅適用於同一名字空間中的數據源，因此用戶無法基於一個名字空間中的數據源使用另一個名字空間中的聲明來製備
+但這僅適用於同一名字空間中的數據源，因此使用者無法基於一個名字空間中的數據源使用另一個名字空間中的聲明來製備
 PersistentVolume。爲了解決這個問題，Kubernetes v1.26 在 PersistentVolumeClaim API 的
 `dataSourceRef` 字段中添加了一個新的 Alpha `namespace` 字段。
 
@@ -106,7 +106,7 @@ That is a simple example. For real world use, you might want to use a more compl
 -->
 ### 這個例子的假設  {#example-assumptions}
 
-* 部署你的 Kubernetes 集羣時啓用 `AnyVolumeDataSource` 和 `CrossNamespaceVolumeDataSource` 特性門控
+* 部署你的 Kubernetes 叢集時啓用 `AnyVolumeDataSource` 和 `CrossNamespaceVolumeDataSource` 特性門控
 * 有兩個名字空間：dev 和 prod
 * CSI 驅動程序被部署
 * 在 **prod** 名字空間中存在一個名爲 `new-snapshot-demo` 的 VolumeSnapshot
@@ -140,7 +140,7 @@ For example, use this manifest snippet to redefine the container:
 -->
 ### 爲 CSI Provisioner 啓用 CrossNamespaceVolumeDataSource 特性門控   {#enable-cnvds-feature-for-csi-provisioner}
 
-將 `--feature-gates=CrossNamespaceVolumeDataSource=true` 添加到 csi-provisioner 命令行。
+將 `--feature-gates=CrossNamespaceVolumeDataSource=true` 添加到 csi-provisioner 命令列。
 例如，使用此清單片段重新定義容器：
 
 ```yaml

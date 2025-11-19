@@ -88,7 +88,7 @@ Kubernetes 尊重 Job 對象的生命週期保證，例如等待
 * 在 Job 清單（manifest）中指定此字段，以便 Job 在完成後的某個時間被自動清理。
 * 手動設置現有的、已完成的 Job 的此字段，以便這些 Job 可被清理。
 * 在創建 Job 時使用[修改性質的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
-  動態設置該字段。集羣管理員可以使用它對已完成的作業強制執行 TTL 策略。
+  動態設置該字段。叢集管理員可以使用它對已完成的作業強制執行 TTL 策略。
 <!--
 * Use a
   [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
@@ -136,7 +136,7 @@ at the wrong time.
 ### 時間偏差  {#time-skew}
 
 由於 TTL-after-finished 控制器使用存儲在 Kubernetes Job 中的時間戳來確定 TTL 是否已過期，
-因此該功能對集羣中的時間偏差很敏感，這可能導致控制平面在錯誤的時間清理 Job 對象。
+因此該功能對叢集中的時間偏差很敏感，這可能導致控制平面在錯誤的時間清理 Job 對象。
 
 <!--
 Clocks aren't always correct, but the difference should be

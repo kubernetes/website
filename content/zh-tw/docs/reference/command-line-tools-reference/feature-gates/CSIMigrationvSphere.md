@@ -35,7 +35,7 @@ plugin must be installed and configured. Requires CSIMigration feature flag
 enabled.
 -->
 啓用封裝和轉換邏輯，將卷操作從 vSphere 內嵌插件路由到 vSphere CSI 插件。
-如果節點禁用了此特性門控或者未安裝和配置 vSphere CSI 插件，
+如果節點禁用了此特性門控或者未安裝和設定 vSphere CSI 插件，
 則支持回退到 vSphere 內嵌插件來執行掛載操作。
-不支持回退到內嵌插件來執行製備操作，因爲對應的 CSI 插件必須已安裝且正確配置。
+不支持回退到內嵌插件來執行製備操作，因爲對應的 CSI 插件必須已安裝且正確設定。
 這需要啓用 CSIMigration 特性標誌。

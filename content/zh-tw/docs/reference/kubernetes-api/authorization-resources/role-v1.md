@@ -128,7 +128,7 @@ Role 是一個按命名空間劃分的 PolicyRule 邏輯分組，可以被 RoleB
 
     **原子：將在合併期間被替換**
   
-    nonResourceURLs 是用戶應有權訪問的一組部分 URL。
+    nonResourceURLs 是使用者應有權訪問的一組部分 URL。
     允許使用 “*”，但僅能作爲路徑中最後一段且必須用於完整的一段，
     因爲非資源 URL 沒有劃分命名空間。
     此字段僅適用於從 ClusterRoleBinding 引用的 ClusterRole。

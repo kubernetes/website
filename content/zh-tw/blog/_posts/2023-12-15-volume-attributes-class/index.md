@@ -72,7 +72,7 @@ the resizer will trigger a CSI ControllerModifyVolume.
 More details can be found in [KEP-3751](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/3751-volume-attributes-class/README.md).
 -->
 當 PVC 的 `spec.VolumeAttributesClassName` 發生變化時，external-resizer sidecar 將會收到一個 informer 事件。
-基於當前的配置狀態，resizer 將觸發 CSI ControllerModifyVolume。更多細節可以在 
+基於當前的設定狀態，resizer 將觸發 CSI ControllerModifyVolume。更多細節可以在 
 [KEP-3751](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/3751-volume-attributes-class/README.md) 中找到。
 
 <!--
@@ -84,7 +84,7 @@ in the `kube-controller-manager` and the `kube-apiserver`. Use the `--feature-ga
 ## 如何使用它
 
 如果你想在 Alpha 版本中測試該功能，需要在 `kube-controller-manager` 和 `kube-apiserver` 中啓用相關的特性門控。
-使用 `--feature-gates` 命令行參數：
+使用 `--feature-gates` 命令列參數：
 
 ```
 --feature-gates="...,VolumeAttributesClass=true"
@@ -100,9 +100,9 @@ It also requires that the CSI driver has implemented the ModifyVolume API.
 
 If you would like to see the feature in action and verify it works fine in your cluster, here's what you can try:
 -->
-### 用戶流程
+### 使用者流程
 
-如果你想看到該功能的運行情況，並驗證它在你的集羣中是否正常工作，可以嘗試以下操作：
+如果你想看到該功能的運行情況，並驗證它在你的叢集中是否正常工作，可以嘗試以下操作：
 
 <!-- 
 1. Define a StorageClass and VolumeAttributesClass
@@ -220,7 +220,7 @@ If you would like to see the feature in action and verify it works fine in your 
 * 有關設計的更多信息，請參閱 [VolumeAttributesClass KEP](https://kep.k8s.io/3751)
 * 你可以在[項目看板](https://github.com/orgs/kubernetes-csi/projects/72)上查看或評論 VolumeAttributesClass
 * 爲了將此功能推向 Beta 版本，我們需要社區的反饋，因此這裏有一個行動倡議：爲 CSI 驅動程序添加支持，
-  嘗試此功能，考慮它如何幫助解決你的用戶遇到的問題...
+  嘗試此功能，考慮它如何幫助解決你的使用者遇到的問題...
 
 <!--
 ## Getting involved

@@ -31,9 +31,9 @@ outside to the inside of the cluster.
 在 Kubernetes 中，對於以一組 Pod 運行的應用，Service 可以爲其提供統一的流量端點。
 客戶端可以使用 Service 提供的虛擬 IP 地址（或 **VIP**）進行訪問，
 Kubernetes 爲訪問不同的後端 Pod 的流量提供負載均衡能力，
-但 ClusterIP 類型的 Service 僅限於供集羣內的節點來訪問，
-而來自集羣外的流量無法被路由。解決這個難題的一種方式是使用 `type: NodePort` Service，
-這種服務會在集羣所有節點上爲特定端口建立映射關係，從而將來自集羣外的流量重定向到集羣內。
+但 ClusterIP 類型的 Service 僅限於供叢集內的節點來訪問，
+而來自叢集外的流量無法被路由。解決這個難題的一種方式是使用 `type: NodePort` Service，
+這種服務會在叢集所有節點上爲特定端口建立映射關係，從而將來自叢集外的流量重定向到叢集內。
 
 <!--
 ## How Kubernetes allocates node ports to Services?
@@ -55,14 +55,14 @@ of two ways:
 - **動態分配**：如果 Service 類型是 `NodePort` 且你沒有爲 Service 顯式設置 `nodePort` 值，
   Kubernetes 控制面將在創建時自動爲其分配一個未使用的端口。
 
-- **靜態分配**：除了上述動態自動分配，你還可以顯式指定 nodeport 端口範圍配置內的某端口。
+- **靜態分配**：除了上述動態自動分配，你還可以顯式指定 nodeport 端口範圍設定內的某端口。
 
 <!--
 The value of `nodePort` that you manually assign must be unique across the whole cluster.
 Attempting to create a Service of `type: NodePort` where you explicitly specify a node port that
 was already allocated results in an error.
 -->
-你手動分配的 `nodePort` 值在整個集羣範圍內一定不能重複。
+你手動分配的 `nodePort` 值在整個叢集範圍內一定不能重複。
 如果嘗試在創建 `type: NodePort` Service 時顯式指定已分配的節點端口，將產生錯誤。
 
 <!--
@@ -74,7 +74,7 @@ so that other components and users inside o r outside the cluster can use them.
 ## 爲什麼需要保留 NodePort Service 的端口？
 
 有時你可能想要 NodePort Service 運行在衆所周知的端口上，
-便於集羣內外的其他組件和用戶可以使用這些端口。
+便於叢集內外的其他組件和使用者可以使用這些端口。
 
 <!--
 In some complex cluster deployments with a mix of Kubernetes nodes and other servers on the same network, 
@@ -87,11 +87,11 @@ Now suppose you need to expose a Minio object storage service on Kubernetes to c
 running outside the Kubernetes cluster, and the agreed port is `30009`, we need to 
 create a Service as follows:
 -->
-在某些複雜的集羣部署場景中在同一網絡上混合了 Kubernetes 節點和其他服務器，
+在某些複雜的叢集部署場景中在同一網路上混合了 Kubernetes 節點和其他伺服器，
 可能有必要使用某些預定義的端口進行通信。尤爲特別的是，某些基礎組件無法使用用來支撐
-`type: LoadBalancer` Service 的 VIP，因爲針對集羣實現的虛擬 IP 地址映射也依賴這些基礎組件。
+`type: LoadBalancer` Service 的 VIP，因爲針對叢集實現的虛擬 IP 地址映射也依賴這些基礎組件。
 
-現在假設你需要在 Kubernetes 上將一個 Minio 對象存儲服務暴露給運行在 Kubernetes 集羣外的客戶端，
+現在假設你需要在 Kubernetes 上將一個 Minio 對象存儲服務暴露給運行在 Kubernetes 叢集外的客戶端，
 協商後的端口是 `30009`，我們需要創建以下 Service：
 
 ```yaml
@@ -133,7 +133,7 @@ for `type: NodePort` Services, and reduce the risk of collision.
 -->
 ## 如何才能避免 NodePort Service 端口衝突？
 
-Kubernetes 1.24 引入了針對 `type: ClusterIP` Service 的變更，將集羣 IP 地址的 CIDR
+Kubernetes 1.24 引入了針對 `type: ClusterIP` Service 的變更，將叢集 IP 地址的 CIDR
 範圍劃分爲使用不同分配策略的兩塊來[減少衝突的風險](/zh-cn/docs/reference/networking/virtual-ips/#avoiding-collisions)。
 在 Kubernetes 1.27 中，作爲一個 Alpha 特性，你可以爲 `type: NodePort` Service 採用類似的策略。
 你可以啓用新的[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
@@ -156,7 +156,7 @@ This will allow users to use static allocations on the lower band with a low ris
 這意味着所有端口都將被動態分配。
 
 動態端口分配默認使用數值較高的一段，一旦用完，它將使用較低範圍。
-這將允許用戶在衝突風險較低的較低端口段上使用靜態分配。
+這將允許使用者在衝突風險較低的較低端口段上使用靜態分配。
 
 <!--
 ## Examples

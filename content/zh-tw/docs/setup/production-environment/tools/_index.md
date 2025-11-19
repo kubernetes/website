@@ -15,7 +15,7 @@ For example:
 
 - [kubeadm](/docs/setup/production-environment/tools/kubeadm/)
 -->
-搭建你自己的 Kubernetes 生產集羣有許多方法和工具。例如：
+搭建你自己的 Kubernetes 生產叢集有許多方法和工具。例如：
 
 - [kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/)
 
@@ -25,7 +25,7 @@ For example:
   multiple Kubernetes clusters.
 -->
 - [Cluster API](https://cluster-api.sigs.k8s.io/)：
-  一個 Kubernetes 子項目，專注於提供聲明式 API 和工具，以簡化多個 Kubernetes 集羣的安裝、升級和操作。
+  一個 Kubernetes 子項目，專注於提供聲明式 API 和工具，以簡化多個 Kubernetes 叢集的安裝、升級和操作。
 
 <!--
 - [kops](https://kops.sigs.k8s.io/): An automated cluster provisioning tool.
@@ -33,8 +33,8 @@ For example:
   reaching out to the community, please check the
   [`kOps` website](https://kops.sigs.k8s.io/) for details.
 -->
-- [kOps](https://kops.sigs.k8s.io/)：自動化集羣製備工具。
-  有關教程、最佳實踐、配置選項和社區聯繫信息，請查閱
+- [kOps](https://kops.sigs.k8s.io/)：自動化叢集製備工具。
+  有關教程、最佳實踐、設定選項和社區聯繫信息，請查閱
   [`kOps` 網站](https://kops.sigs.k8s.io/)。
 
 <!--
@@ -48,5 +48,5 @@ For example:
 - [Kubespray](https://kubespray.io/)：
   提供了 [Ansible](https://docs.ansible.com/) Playbook、
   [清單（Inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible/inventory.md)、
-  製備工具和通用操作系統及 Kubernetes 集羣配置管理任務領域的知識。
+  製備工具和通用操作系統及 Kubernetes 叢集設定管理任務領域的知識。
   你可以通過 Slack 頻道 [#kubespray](https://kubernetes.slack.com/messages/kubespray/) 聯繫此社區。

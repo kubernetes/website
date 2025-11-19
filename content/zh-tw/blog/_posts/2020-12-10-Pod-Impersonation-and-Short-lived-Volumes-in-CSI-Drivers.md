@@ -54,7 +54,7 @@ The second approach is more problematic due to:
 -->
 - 令牌的受衆默認爲 kube-apiserver
 - 該令牌不能保證可用（例如，`AutomountServiceAccountToken=false`）
-- 該方法不適用於以與 Pod 不同的（非 root 用戶）用戶身份運行的 CSI 驅動程序。請參見
+- 該方法不適用於以與 Pod 不同的（非 root 使用者）使用者身份運行的 CSI 驅動程序。請參見
   [服務帳戶令牌的文件許可權部分](https://github.com/kubernetes/enhancements/blob/f40c24a5da09390bd521be535b38a4dbab09380c/keps/sig-storage/20180515-svcacct-token-volumes.md#file-permission)
 - 該令牌可能是舊的 Kubernetes 服務帳戶令牌，如果 `BoundServiceAccountTokenVolume=false`，該令牌不會過期。
 
@@ -93,7 +93,7 @@ If users configure [Kubernetes as an auth method](https://www.vaultproject.io/do
 -->
 ### 使用Vault
 
-如果用戶將 [Kubernetes 作爲身份驗證方法](https://www.vaultproject.io/docs/auth/kubernetes)配置，
+如果使用者將 [Kubernetes 作爲身份驗證方法](https://www.vaultproject.io/docs/auth/kubernetes)設定，
 則 Vault 使用 `TokenReview` API 來驗證 Kubernetes 服務帳戶令牌。
 對於使用 Vault 作爲資源提供者的 CSI 驅動程序，它們需要將 Pod 的服務帳戶提供給 Vault。
 例如，[Secret 存儲 CSI 驅動](https://github.com/hashicorp/secrets-store-csi-driver-provider-vault)和

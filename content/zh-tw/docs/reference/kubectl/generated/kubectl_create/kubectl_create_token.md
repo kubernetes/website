@@ -96,7 +96,7 @@ If true, ignore any errors in templates when a field or map key is missing in th
 <!--
 Audience of the requested token. If unset, defaults to requesting a token for use with the Kubernetes API server. May be repeated to request a token valid for multiple audiences.
 -->
-所請求令牌的受衆。如果不設置，默認請求一個用於 Kubernetes API 服務器的令牌。
+所請求令牌的受衆。如果不設置，默認請求一個用於 Kubernetes API 伺服器的令牌。
 可以重複使用此參數以便爲多個受衆請求有效的令牌。
 </p></td>
 </tr>
@@ -151,8 +151,8 @@ UID of an object to bind the token to. Requires --bound-object-kind and --bound-
 <!--
 Requested lifetime of the issued token. If not set or if set to 0, the lifetime will be determined by the server automatically. The server may return a token with a longer or shorter lifetime.
 -->
-對於將被頒發令牌，所請求的生命期。如果不設置或設置爲 0，則生命期將由服務器自動確定。
-服務器可能會返回一個生命期更長或更短的令牌。
+對於將被頒發令牌，所請求的生命期。如果不設置或設置爲 0，則生命期將由伺服器自動確定。
+伺服器可能會返回一個生命期更長或更短的令牌。
 </p></td>
 </tr>
 
@@ -231,7 +231,7 @@ Template string or path to template file to use when -o=go-template, -o=go-templ
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
-操作所用的僞裝用戶名。用戶可以是常規用戶或命名空間中的服務賬號。
+操作所用的僞裝使用者名。使用者可以是常規使用者或命名空間中的服務賬號。
 </p></td>
 </tr>
 
@@ -244,7 +244,7 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
-操作所用的僞裝用戶組，此標誌可以被重複設置以指定多個組。
+操作所用的僞裝使用者組，此標誌可以被重複設置以指定多個組。
 </p></td>
 </tr>
 
@@ -322,7 +322,7 @@ TLS 客戶端密鑰文件的路徑。
 <!--
 The name of the kubeconfig cluster to use
 -->
-要使用的 kubeconfig 中集羣的名稱。
+要使用的 kubeconfig 中叢集的名稱。
 </p></td>
 </tr>
 
@@ -348,7 +348,7 @@ The name of the kubeconfig context to use
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
-如果爲 true，則對服務器所有請求的響應不再壓縮。
+如果爲 true，則對伺服器所有請求的響應不再壓縮。
 </p></td>
 </tr>
 
@@ -360,7 +360,7 @@ If true, opt-out of response compression for all requests to the server
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
-如果爲 true，則不檢查服務器證書的有效性。這將使你的 HTTPS 連接不安全。
+如果爲 true，則不檢查伺服器證書的有效性。這將使你的 HTTPS 連接不安全。
 </p></td>
 </tr>
 
@@ -401,7 +401,7 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <!--
 Require server version to match client version
 -->
-要求服務器版本與客戶端版本匹配。
+要求伺服器版本與客戶端版本匹配。
 </p></td>
 </tr>
 
@@ -425,7 +425,7 @@ If present, the namespace scope for this CLI request
 <!--
 Password for basic authentication to the API server
 -->
-對 API 服務器進行基本身份驗證所用的密碼。
+對 API 伺服器進行基本身份驗證所用的密碼。
 </p></td>
 </tr>
 
@@ -461,7 +461,7 @@ Name of the file to write the profile to
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
-在放棄某個服務器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
+在放棄某個伺服器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
 值爲零表示請求不會超時。
 </p></td>
 </tr>
@@ -474,7 +474,7 @@ The length of time to wait before giving up on a single server request. Non-zero
 <!--
 The address and port of the Kubernetes API server
 -->
-Kubernetes API 服務器的地址和端口。
+Kubernetes API 伺服器的地址和端口。
 </p></td>
 </tr>
 
@@ -558,7 +558,7 @@ table name
 <!--
 database username
 -->
-數據庫用戶名。
+數據庫使用者名。
 </p></td>
 </tr>
 
@@ -570,7 +570,7 @@ database username
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
-服務器證書驗證所用的服務器名稱。如果未提供，則使用與服務器通信所用的主機名。
+伺服器證書驗證所用的伺服器名稱。如果未提供，則使用與伺服器通信所用的主機名。
 </p></td>
 </tr>
 
@@ -582,7 +582,7 @@ Server name to use for server certificate validation. If it is not provided, the
 <!--
 Bearer token for authentication to the API server
 -->
-向 API 服務器進行身份驗證的持有者令牌。
+向 API 伺服器進行身份驗證的持有者令牌。
 </p></td>
 </tr>
 
@@ -594,7 +594,7 @@ Bearer token for authentication to the API server
 <!--
 The name of the kubeconfig user to use
 -->
-要使用的 kubeconfig 用戶的名稱。
+要使用的 kubeconfig 使用者的名稱。
 </p></td>
 </tr>
 
@@ -606,7 +606,7 @@ The name of the kubeconfig user to use
 <!--
 Username for basic authentication to the API server
 -->
-對 API 服務器進行基本身份驗證時所用的用戶名。
+對 API 伺服器進行基本身份驗證時所用的使用者名。
 </p></td>
 </tr>
 
@@ -630,7 +630,7 @@ Username for basic authentication to the API server
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
-將從服務器收到的警告視爲錯誤，並以非零退出碼退出。
+將從伺服器收到的警告視爲錯誤，並以非零退出碼退出。
 </p></td>
 </tr>
 

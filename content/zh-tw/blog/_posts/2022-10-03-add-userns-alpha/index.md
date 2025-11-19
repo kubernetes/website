@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: “Kubernetes 1.25：對使用用戶名字空間運行 Pod 提供 Alpha 支持”
+title: “Kubernetes 1.25：對使用使用者名字空間運行 Pod 提供 Alpha 支持”
 date: 2022-10-03
 slug: userns-alpha
 ---
@@ -19,7 +19,7 @@ slug: userns-alpha
 <!--
 Kubernetes v1.25 introduces the support for user namespaces.
 -->
-Kubernetes v1.25 引入了對用戶名字空間的支持。
+Kubernetes v1.25 引入了對使用者名字空間的支持。
 
 <!--
 This is a major improvement for running secure workloads in
@@ -45,9 +45,9 @@ apply in the host initial namespaces.
 ## 它是如何工作的？  {#how-does-it-work}
 在 Linux 上運行的進程最多可以使用 4294967296 個不同的 UID 和 GID。
 
-用戶名字空間是 Linux 的一項特性，它允許將容器中的一組用戶映射到主機中的不同用戶，
+使用者名字空間是 Linux 的一項特性，它允許將容器中的一組使用者映射到主機中的不同使用者，
 從而限制進程可以實際使用的 ID。
-此外，在新用戶名字空間中授予的權能不適用於主機初始名字空間。
+此外，在新使用者名字空間中授予的權能不適用於主機初始名字空間。
 
 <!--
 ## Why is it important?
@@ -68,27 +68,27 @@ privileged pods and do it in a safe way since the capabilities granted
 in a new user namespace do not apply in the host initial namespaces.
 -->
 ## 它爲什麼如此重要？  {#why-is-it-important}
-用戶名字空間之所以重要，主要有兩個原因：
+使用者名字空間之所以重要，主要有兩個原因：
 
 - 提高安全性。因爲它們限制了 Pod 可以使用的 ID，
   因此每個 Pod 都可以在其自己的具有唯一 ID 的單獨環境中運行。
 
 - 以更安全的方式使用 root 身份運行工作負載。
 
-在用戶名字空間中，我們可以將 Pod 內的 root 用戶映射到容器外的非零 ID，
+在使用者名字空間中，我們可以將 Pod 內的 root 使用者映射到容器外的非零 ID，
 容器將認爲是 root 身份在運行，而從主機的角度來看，它們是常規的非特權 ID。
 
 該進程可以保留通常僅限於特權 Pod 的功能，並以安全的方式執行這類操作，
-因爲在新用戶名字空間中授予的功能不適用於主機初始名字空間。
+因爲在新使用者名字空間中授予的功能不適用於主機初始名字空間。
 
 <!--
 ## How do I enable user namespaces?
 At the moment, user namespaces support is opt-in, so you must enable
 it for a pod setting `hostUsers` to `false` under the pod spec stanza:
 -->
-## 如何啓用用戶名字空間 {#how-do-i-enable-user-namespaces}
-目前，對用戶名字空間的支持是可選的，因此你必須在 Pod 規約部分將
-`hostUsers` 設置爲 `false` 以啓用用戶名字空間：
+## 如何啓用使用者名字空間 {#how-do-i-enable-user-namespaces}
+目前，對使用者名字空間的支持是可選的，因此你必須在 Pod 規約部分將
+`hostUsers` 設置爲 `false` 以啓用使用者名字空間：
 ```
 apiVersion: v1
 kind: Pod
@@ -117,14 +117,14 @@ The runtime must also support user namespaces:
 
 Support for this in `cri-dockerd` is [not planned][CRI-dockerd-issue] yet.
 -->
-此外，運行時也必須支持用戶名字空間：
+此外，運行時也必須支持使用者名字空間：
 
 * Containerd：計劃在 1.7 版本中提供支持。
   進一步瞭解，請參閱 Containerd issue [#7063][containerd-userns-issue]。
 
-* CRI-O：v1.25 支持用戶名字空間。
+* CRI-O：v1.25 支持使用者名字空間。
 
-`cri-dockerd` 對用戶名字空間的支持[尚無計劃][CRI-dockerd-issue]。
+`cri-dockerd` 對使用者名字空間的支持[尚無計劃][CRI-dockerd-issue]。
 
 [CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
 [containerd-userns-issue]: https://github.com/containerd/containerd/issues/7063

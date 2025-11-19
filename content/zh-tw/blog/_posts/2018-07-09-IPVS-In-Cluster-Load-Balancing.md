@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: '基於 IPVS 的集羣內部負載均衡'
+title: '基於 IPVS 的叢集內部負載均衡'
 date:   2018-07-09
 slug: ipvs-based-in-cluster-load-balancing-deep-dive
 ---
@@ -32,7 +32,7 @@ Per the Kubernetes 1.11 release blog post , we announced that IPVS-Based In-Clus
 
 介紹
 
-根據 Kubernetes 1.11 發佈的博客文章, 我們宣佈基於 IPVS 的集羣內部服務負載均衡已達到一般可用性。 在這篇博客中，我們將帶您深入瞭解該功能。
+根據 Kubernetes 1.11 發佈的博客文章, 我們宣佈基於 IPVS 的叢集內部服務負載均衡已達到一般可用性。 在這篇博客中，我們將帶您深入瞭解該功能。
 
 <!--
 
@@ -48,7 +48,7 @@ IPVS is incorporated into the LVS (Linux Virtual Server), where it runs on a hos
 
 IPVS (IP Virtual Server)是在 Netfilter 上層構建的，並作爲 Linux 內核的一部分，實現傳輸層負載均衡。
 
-IPVS 集成在 LVS（Linux Virtual Server，Linux 虛擬服務器）中，它在主機上運行，並在物理服務器集羣前作爲負載均衡器。IPVS 可以將基於 TCP 和 UDP 服務的請求定向到真實服務器，並使真實服務器的服務在單個IP地址上顯示爲虛擬服務。 因此，IPVS 自然支持 Kubernetes 服務。
+IPVS 集成在 LVS（Linux Virtual Server，Linux 虛擬伺服器）中，它在主機上運行，並在物理伺服器叢集前作爲負載均衡器。IPVS 可以將基於 TCP 和 UDP 服務的請求定向到真實伺服器，並使真實伺服器的服務在單個IP地址上顯示爲虛擬服務。 因此，IPVS 自然支持 Kubernetes 服務。
 
 <!--
 
@@ -70,9 +70,9 @@ On the other hand, using IPVS-based in-cluster service load balancing can help a
 
 Kube-proxy 是服務路由的構建塊，它依賴於經過強化攻擊的 iptables 來實現支持核心的服務類型，如 ClusterIP 和 NodePort。 但是，iptables 難以擴展到成千上萬的服務，因爲它純粹是爲防火牆而設計的，並且基於內核規則列表。
 
-儘管 Kubernetes 在版本v1.6中已經支持5000個節點，但使用 iptables 的 kube-proxy 實際上是將集羣擴展到5000個節點的瓶頸。 一個例子是，在5000節點集羣中使用 NodePort 服務，如果我們有2000個服務並且每個服務有10個 pod，這將在每個工作節點上至少產生20000個 iptable 記錄，這可能使內核非常繁忙。
+儘管 Kubernetes 在版本v1.6中已經支持5000個節點，但使用 iptables 的 kube-proxy 實際上是將叢集擴展到5000個節點的瓶頸。 一個例子是，在5000節點叢集中使用 NodePort 服務，如果我們有2000個服務並且每個服務有10個 pod，這將在每個工作節點上至少產生20000個 iptable 記錄，這可能使內核非常繁忙。
 
-另一方面，使用基於 IPVS 的集羣內服務負載均衡可以爲這種情況提供很多幫助。 IPVS 專門用於負載均衡，並使用更高效的數據結構（哈希表），允許幾乎無限的規模擴張。
+另一方面，使用基於 IPVS 的叢集內服務負載均衡可以爲這種情況提供很多幫助。 IPVS 專門用於負載均衡，並使用更高效的數據結構（哈希表），允許幾乎無限的規模擴張。
 
 <!--
 
@@ -88,7 +88,7 @@ Parameter: --proxy-mode In addition to existing userspace and iptables modes, IP
 
 參數更改
 
-參數: --proxy-mode 除了現有的用戶空間和 iptables 模式，IPVS 模式通過--proxy-mode = ipvs 進行配置。 它隱式使用 IPVS NAT 模式進行服務端口映射。
+參數: --proxy-mode 除了現有的使用者空間和 iptables 模式，IPVS 模式通過--proxy-mode = ipvs 進行設定。 它隱式使用 IPVS NAT 模式進行服務端口映射。
 
 <!--
 
@@ -109,7 +109,7 @@ In the future, we can implement Service specific scheduler (potentially via anno
 
 參數: --ipvs-scheduler
 
-添加了一個新的 kube-proxy 參數來指定 IPVS 負載均衡算法，參數爲 --ipvs-scheduler。 如果未配置，則默認爲 round-robin 算法（rr）。
+添加了一個新的 kube-proxy 參數來指定 IPVS 負載均衡算法，參數爲 --ipvs-scheduler。 如果未設定，則默認爲 round-robin 算法（rr）。
 
 - rr: round-robin
 - lc: least connection
@@ -130,7 +130,7 @@ Parameter: --ipvs-min-sync-period Minimum interval of how often the IPVS rules a
 
 -->
 
-參數: --cleanup-ipvs 類似於 --cleanup-iptables 參數，如果爲 true，則清除在 IPVS 模式下創建的 IPVS 配置和 IPTables 規則。
+參數: --cleanup-ipvs 類似於 --cleanup-iptables 參數，如果爲 true，則清除在 IPVS 模式下創建的 IPVS 設定和 IPTables 規則。
 
 參數: --ipvs-sync-period 刷新 IPVS 規則的最大間隔時間（例如'5s'，'1m'）。 必須大於0。
 
@@ -142,7 +142,7 @@ Parameter: --ipvs-exclude-cidrs  A comma-separated list of CIDR's which the IPVS
 
 -->
 
-參數: --ipvs-exclude-cidrs  清除 IPVS 規則時 IPVS 代理不應觸及的 CIDR 的逗號分隔列表，因爲 IPVS 代理無法區分 kube-proxy 創建的 IPVS 規則和用戶原始規則 IPVS 規則。 如果您在環境中使用 IPVS proxier 和您自己的 IPVS 規則，則應指定此參數，否則將清除原始規則。
+參數: --ipvs-exclude-cidrs  清除 IPVS 規則時 IPVS 代理不應觸及的 CIDR 的逗號分隔列表，因爲 IPVS 代理無法區分 kube-proxy 創建的 IPVS 規則和使用者原始規則 IPVS 規則。 如果您在環境中使用 IPVS proxier 和您自己的 IPVS 規則，則應指定此參數，否則將清除原始規則。
 
 <!--
 
@@ -159,13 +159,13 @@ When creating a ClusterIP type Service, IPVS proxier will do the following three
 
 設計注意事項
 
-IPVS 服務網絡拓撲
+IPVS 服務網路拓撲
 
 創建 ClusterIP 類型服務時，IPVS proxier 將執行以下三項操作：
 
 - 確保節點中存在虛擬接口，默認爲 kube-ipvs0
 - 將服務 IP 地址綁定到虛擬接口
-- 分別爲每個服務 IP 地址創建 IPVS  虛擬服務器
+- 分別爲每個服務 IP 地址創建 IPVS  虛擬伺服器
 
 <!--
 
@@ -235,9 +235,9 @@ There are three proxy modes in IPVS: NAT (masq), IPIP and DR. Only NAT mode supp
 
 -->
 
-請注意，Kubernetes 服務和 IPVS 虛擬服務器之間的關係是“1：N”。 例如，考慮具有多個 IP 地址的 Kubernetes 服務。 外部 IP 類型服務有兩個 IP 地址 - 集羣IP和外部 IP。 然後，IPVS 代理將創建2個 IPVS 虛擬服務器 - 一個用於集羣 IP，另一個用於外部 IP。 Kubernetes 的 endpoint（每個IP +端口對）與 IPVS 虛擬服務器之間的關係是“1：1”。
+請注意，Kubernetes 服務和 IPVS 虛擬伺服器之間的關係是“1：N”。 例如，考慮具有多個 IP 地址的 Kubernetes 服務。 外部 IP 類型服務有兩個 IP 地址 - 叢集IP和外部 IP。 然後，IPVS 代理將創建2個 IPVS 虛擬伺服器 - 一個用於叢集 IP，另一個用於外部 IP。 Kubernetes 的 endpoint（每個IP +端口對）與 IPVS 虛擬伺服器之間的關係是“1：1”。
 
-刪除 Kubernetes 服務將觸發刪除相應的 IPVS 虛擬服務器，IPVS 物理服務器及其綁定到虛擬接口的 IP 地址。
+刪除 Kubernetes 服務將觸發刪除相應的 IPVS 虛擬伺服器，IPVS 物理伺服器及其綁定到虛擬接口的 IP 地址。
 
 端口映射
 
@@ -257,7 +257,7 @@ IPVS supports client IP session affinity (persistent connection). When a Service
 
 會話關係
 
-IPVS 支持客戶端 IP 會話關聯（持久連接）。 當服務指定會話關係時，IPVS 代理將在 IPVS 虛擬服務器中設置超時值（默認爲180分鐘= 10800秒）。 例如：
+IPVS 支持客戶端 IP 會話關聯（持久連接）。 當服務指定會話關係時，IPVS 代理將在 IPVS 虛擬伺服器中設置超時值（默認爲180分鐘= 10800秒）。 例如：
 
     # kubectl describe svc nginx-service
     Name:			nginx-service
@@ -296,7 +296,7 @@ IPVS 用於負載均衡，它無法處理 kube-proxy 中的其他問題，例如
 IPVS proxier 在上述場景中利用 iptables。 具體來說，ipvs proxier 將在以下4種情況下依賴於 iptables：
 
 - kube-proxy 以 --masquerade-all = true 開頭
-- 在 kube-proxy 啓動中指定集羣 CIDR
+- 在 kube-proxy 啓動中指定叢集 CIDR
 - 支持 Loadbalancer 類型服務
 - 支持 NodePort 類型的服務
 

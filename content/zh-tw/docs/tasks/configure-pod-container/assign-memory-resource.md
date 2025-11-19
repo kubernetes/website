@@ -27,7 +27,7 @@ but is not allowed to use more memory than its limit.
 <!--
 Each node in your cluster must have at least 300 MiB of memory.
 -->
-你集羣中的每個節點必須擁有至少 300 MiB 的內存。
+你叢集中的每個節點必須擁有至少 300 MiB 的內存。
 
 <!--
 A few of the steps on this page require you to run the
@@ -35,7 +35,7 @@ A few of the steps on this page require you to run the
 service in your cluster. If you have the metrics-server
 running, you can skip those steps.
 -->
-該頁面上的一些步驟要求你在集羣中運行
+該頁面上的一些步驟要求你在叢集中運行
 [metrics-server](https://github.com/kubernetes-sigs/metrics-server) 服務。
 如果你已經有在運行中的 metrics-server，則可以跳過這些步驟。
 
@@ -80,7 +80,7 @@ isolated from the rest of your cluster.
 -->
 ## 創建命名空間    {#create-a-namespace}
 
-創建一個命名空間，以便將本練習中創建的資源與集羣的其餘部分隔離。
+創建一個命名空間，以便將本練習中創建的資源與叢集的其餘部分隔離。
 
 ```shell
 kubectl create namespace mem-example
@@ -103,7 +103,7 @@ for the Pod:
 
 在本練習中，你將創建一個擁有一個容器的 Pod。
 容器將會請求 100 MiB 內存，並且內存會被限制在 200 MiB 以內。
-這是 Pod 的配置文件：
+這是 Pod 的設定文件：
 
 {{% code_sample file="pods/resource/memory-request-limit.yaml" %}}
 
@@ -113,7 +113,7 @@ The `"--vm-bytes", "150M"` arguments tell the Container to attempt to allocate 1
 
 Create the Pod:
 -->
-配置文件的 `args` 部分提供了容器啓動時的參數。
+設定文件的 `args` 部分提供了容器啓動時的參數。
 `"--vm-bytes", "150M"` 參數告知容器嘗試分配 150 MiB 內存。
 
 開始創建 Pod：
@@ -210,7 +210,7 @@ Here is the configuration file for a Pod that has one Container with a
 memory request of 50 MiB and a memory limit of 100 MiB:
 -->
 在本練習中，你將創建一個 Pod，嘗試分配超出其限制的內存。
-這是一個 Pod 的配置文件，其擁有一個容器，該容器的內存請求爲 50 MiB，內存限制爲 100 MiB：
+這是一個 Pod 的設定文件，其擁有一個容器，該容器的內存請求爲 50 MiB，內存限制爲 100 MiB：
 
 {{% code_sample file="pods/resource/memory-request-limit-2.yaml" %}}
 
@@ -220,7 +220,7 @@ will attempt to allocate 250 MiB of memory, which is well above the 100 MiB limi
 
 Create the Pod:
 -->
-在配置文件的 `args` 部分中，你可以看到容器會嘗試分配 250 MiB 內存，這遠高於 100 MiB 的限制。
+在設定文件的 `args` 部分中，你可以看到容器會嘗試分配 250 MiB 內存，這遠高於 100 MiB 的限制。
 
 創建 Pod：
 
@@ -320,7 +320,7 @@ The output shows that the Container starts and fails repeatedly:
 <!--
 View detailed information about your cluster's Nodes:
 -->
-查看關於集羣節點的詳細信息：
+查看關於叢集節點的詳細信息：
 
 ```
 kubectl describe nodes
@@ -369,8 +369,8 @@ of any Node in your cluster.
 -->
 Pod 的調度基於請求。只有當節點擁有足夠滿足 Pod 內存請求的內存時，纔會將 Pod 調度至節點上運行。
 
-在本練習中，你將創建一個 Pod，其內存請求超過了你集羣中的任意一個節點所擁有的內存。
-這是該 Pod 的配置文件，其擁有一個請求 1000 GiB 內存的容器，這應該超過了你集羣中任何節點的容量。
+在本練習中，你將創建一個 Pod，其內存請求超過了你叢集中的任意一個節點所擁有的內存。
+這是該 Pod 的設定文件，其擁有一個請求 1000 GiB 內存的容器，這應該超過了你叢集中任何節點的容量。
 
 {{% code_sample file="pods/resource/memory-request-limit-3.yaml" %}}
 
@@ -475,7 +475,7 @@ to specify a default value for the memory limit.
   此外，如果發生 OOM Kill，沒有資源限制的容器將被殺掉的可行性更大。
 
 * 運行的容器所在命名空間有默認的內存限制，那麼該容器會被自動分配默認限制。
-  集羣管理員可用使用 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
+  叢集管理員可用使用 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
   來指定默認的內存限制。
 
 <!--
@@ -488,7 +488,7 @@ scheduled. By having a memory limit that is greater than the memory request, you
 -->
 ## 內存請求和限制的目的    {#motivation-for-memory-requests-and-limits}
 
-通過爲集羣中運行的容器配置內存請求和限制，你可以有效利用集羣節點上可用的內存資源。
+通過爲叢集中運行的容器設定內存請求和限制，你可以有效利用叢集節點上可用的內存資源。
 通過將 Pod 的內存請求保持在較低水平，你可以更好地安排 Pod 調度。
 通過讓內存限制大於內存請求，你可以完成兩件事：
 
@@ -531,7 +531,7 @@ kubectl delete namespace mem-example
 
 * [分配 Pod 級別的 CPU 和內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 
-* [配置 Pod 的服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
+* [設定 Pod 的服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
 
 * [調整分配給容器的 CPU 和內存資源大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)
 
@@ -554,13 +554,13 @@ kubectl delete namespace mem-example
 
 * [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
 -->
-### 集羣管理員擴展閱讀    {#for-cluster-administrators}
+### 叢集管理員擴展閱讀    {#for-cluster-administrators}
 
-* [爲命名空間配置默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間配置默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [配置命名空間的最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [配置命名空間的最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [爲命名空間配置內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-* [配置命名空間下 Pod 總數](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-* [配置 API 對象配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
+* [爲命名空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [設定命名空間的最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [設定命名空間的最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [設定命名空間下 Pod 總數](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [設定 API 對象配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 * [調整分配給容器的 CPU 和內存資源的大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)

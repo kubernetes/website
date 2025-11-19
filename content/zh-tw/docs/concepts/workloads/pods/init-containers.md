@@ -19,7 +19,7 @@ before app containers in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 Init containers can contain utilities or setup scripts not present in an app image.
 -->
 本頁提供了 Init 容器的概覽。Init 容器是一種特殊容器，在 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-內的應用容器啓動之前運行。Init 容器可以包括一些應用鏡像中不存在的實用工具和安裝腳本。
+內的應用容器啓動之前運行。Init 容器可以包括一些應用映像檔中不存在的實用工具和安裝腳本。
 
 <!--
 You can specify init containers in the Pod specification alongside the `containers`
@@ -155,7 +155,7 @@ Init containers share the same resources (CPU, memory, network) with the main ap
 containers but do not interact directly with them. They can, however, use shared volumes
 for data exchange.
 -->
-Init 容器與主應用容器共享資源（CPU、內存、網絡），但不直接與主應用容器進行交互。
+Init 容器與主應用容器共享資源（CPU、內存、網路），但不直接與主應用容器進行交互。
 不過這些容器可以使用共享捲進行數據交換。
 
 <!--
@@ -172,13 +172,13 @@ have some advantages for start-up related code:
 -->
 ## 使用 Init 容器   {#using-init-containers}
 
-因爲 Init 容器具有與應用容器分離的單獨鏡像，其啓動相關代碼具有如下優勢：
+因爲 Init 容器具有與應用容器分離的單獨映像檔，其啓動相關代碼具有如下優勢：
 
 * Init 容器可以包含一些安裝過程中應用容器中不存在的實用工具或個性化代碼。
   例如，沒有必要僅爲了在安裝過程中使用類似 `sed`、`awk`、`python` 或 `dig`
-  這樣的工具而去 `FROM` 一個鏡像來生成一個新的鏡像。
+  這樣的工具而去 `FROM` 一個映像檔來生成一個新的映像檔。
 
-* 應用鏡像的創建者和部署者可以各自獨立工作，而沒有必要聯合構建一個單獨的應用鏡像。
+* 應用映像檔的創建者和部署者可以各自獨立工作，而沒有必要聯合構建一個單獨的應用映像檔。
 
 <!--
 * Init containers can run with a different view of the filesystem than app containers in the
@@ -198,8 +198,8 @@ have some advantages for start-up related code:
   容器提供了一種機制來阻塞或延遲應用容器的啓動，直到滿足了一組先決條件。
   一旦前置條件滿足，Pod 內的所有的應用容器會並行啓動。
 
-* Init 容器可以安全地運行實用程序或自定義代碼，而在其他方式下運行這些實用程序或自定義代碼可能會降低應用容器鏡像的安全性。
-  通過將不必要的工具分開，你可以限制應用容器鏡像的被攻擊範圍。
+* Init 容器可以安全地運行實用程序或自定義代碼，而在其他方式下運行這些實用程序或自定義代碼可能會降低應用容器映像檔的安全性。
+  通過將不必要的工具分開，你可以限制應用容器映像檔的被攻擊範圍。
 <!--
 ### Examples
 
@@ -221,7 +221,7 @@ Here are some ideas for how to use init containers:
 <!--
 * Register this Pod with a remote server from the downward API with a command like:
 -->
-* 註冊這個 Pod 到遠程服務器，通過在命令中調用 API，類似如下：
+* 註冊這個 Pod 到遠程伺服器，通過在命令中調用 API，類似如下：
 
   ```shell
   curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
@@ -246,8 +246,8 @@ Here are some ideas for how to use init containers:
 -->
 * 克隆 Git 倉庫到{{< glossary_tooltip text="卷" term_id="volume" >}}中。
 
-* 將配置值放到配置文件中，運行模板工具爲主應用容器動態地生成配置文件。
-  例如，在配置文件中存放 `POD_IP` 值，並使用 Jinja 生成主應用配置文件。
+* 將設定值放到設定文件中，運行模板工具爲主應用容器動態地生成設定文件。
+  例如，在設定文件中存放 `POD_IP` 值，並使用 Jinja 生成主應用設定文件。
 
 <!--
 #### Init containers in use
@@ -386,7 +386,7 @@ Here's a configuration you can use to make those Services appear:
 在這一刻，Init 容器將會等待至發現名稱爲 `mydb` 和 `myservice`
 的{{< glossary_tooltip text="服務" term_id="service" >}}。
 
-如下爲創建這些 Service 的配置文件：
+如下爲創建這些 Service 的設定文件：
 
 ```yaml
 ---
@@ -466,7 +466,7 @@ they appear in the Pod's spec.
 -->
 ## 具體行爲 {#detailed-behavior}
 
-在 Pod 啓動過程中，每個 Init 容器會在網絡和數據卷初始化之後按順序啓動。
+在 Pod 啓動過程中，每個 Init 容器會在網路和數據卷初始化之後按順序啓動。
 kubelet 運行依據 Init 容器在 Pod 規約中的出現順序依次運行之。
 
 <!--
@@ -635,7 +635,7 @@ init container completion record has been lost due to garbage collection. This
 applies for Kubernetes v1.20 and later. If you are using an earlier version of
 Kubernetes, consult the documentation for the version you are using.
 -->
-當 Init 容器的鏡像發生改變或者 Init 容器的完成記錄因爲垃圾收集等原因被丟失時，
+當 Init 容器的映像檔發生改變或者 Init 容器的完成記錄因爲垃圾收集等原因被丟失時，
 Pod 不會被重啓。這一行爲適用於 Kubernetes v1.20 及更新版本。
 如果你在使用較早版本的 Kubernetes，可查閱你所使用的版本對應的文檔。
 

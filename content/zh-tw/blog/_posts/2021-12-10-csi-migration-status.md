@@ -38,12 +38,12 @@ Support for using CSI drivers was introduced to make it easier to add and mainta
 -->
 ## 快速回顧：CSI 遷移功能是什麼？爲什麼要遷移？  {#quick-recap-what-is-csi-migration-and-why-migrate}
 
-容器存儲接口旨在幫助 Kubernetes 取代其現有的樹內存儲驅動機制──特別是供應商的特定插件。自 v1.13 起，Kubernetes 對[容器存儲接口](https://github.com/container-storage-interface/spec/blob/master/spec.md#README)的支持工作已達到[正式發佈階段](/blog/2019/01/15/container-storage-interface-ga/)。引入對 CSI 驅動的支持，將使得 Kubernetes 和存儲後端技術之間的集成工作更易建立和維護。使用 CSI 驅動可以實現更好的可維護性（驅動作者可以決定自己的發佈週期和支持生命週期）、減少出現漏洞的機會（得益於更少的樹內代碼，出現錯誤的風險會降低。另外，集羣操作員可以只選擇集羣需要的存儲驅動）。
+容器存儲接口旨在幫助 Kubernetes 取代其現有的樹內存儲驅動機制──特別是供應商的特定插件。自 v1.13 起，Kubernetes 對[容器存儲接口](https://github.com/container-storage-interface/spec/blob/master/spec.md#README)的支持工作已達到[正式發佈階段](/blog/2019/01/15/container-storage-interface-ga/)。引入對 CSI 驅動的支持，將使得 Kubernetes 和存儲後端技術之間的集成工作更易建立和維護。使用 CSI 驅動可以實現更好的可維護性（驅動作者可以決定自己的發佈週期和支持生命週期）、減少出現漏洞的機會（得益於更少的樹內代碼，出現錯誤的風險會降低。另外，叢集操作員可以只選擇叢集需要的存儲驅動）。
 
 <!---
 As more CSI Drivers were created and became production ready, SIG Storage group wanted all Kubernetes users to benefit from the CSI model. However, we cannot break API compatibility with the existing storage API types. The solution we came up with was CSI migration: a feature that translates in-tree APIs to equivalent CSI APIs and delegates operations to a replacement CSI driver.
 -->
-隨着更多的 CSI 驅動誕生並進入生產就緒階段，Kubernetes 存儲特別興趣組希望所有 Kubernetes 用戶都能從 CSI 模型中受益──然而，我們不應破壞與現有存儲 API 類型的 API 兼容性。對此，我們給出的解決方案是 CSI 遷移：該功能實現將樹內存儲 API 翻譯成等效的 CSI API，並把操作委託給一個替換的 CSI 驅動來完成。
+隨着更多的 CSI 驅動誕生並進入生產就緒階段，Kubernetes 存儲特別興趣組希望所有 Kubernetes 使用者都能從 CSI 模型中受益──然而，我們不應破壞與現有存儲 API 類型的 API 兼容性。對此，我們給出的解決方案是 CSI 遷移：該功能實現將樹內存儲 API 翻譯成等效的 CSI API，並把操作委託給一個替換的 CSI 驅動來完成。
 
 <!---
 The CSI migration effort enables the replacement of existing in-tree storage plugins such as `kubernetes.io/gce-pd` or `kubernetes.io/aws-ebs` with a corresponding [CSI driver](https://kubernetes-csi.github.io/docs/introduction.html) from the storage backend.
@@ -51,17 +51,17 @@ If CSI Migration is working properly, Kubernetes end users shouldn’t notice a 
 When a Kubernetes cluster administrator updates a cluster to enable CSI migration, existing workloads that utilize PVCs which are backed by in-tree storage plugins will continue to function as they always have. 
 However, behind the scenes, Kubernetes hands control of all storage management operations (previously targeting in-tree drivers) to CSI drivers.
 -->
-CSI 遷移工作使存儲後端現有的樹內存儲插件（如 `kubernetes.io/gce-pd` 或 `kubernetes.io/aws-ebs`）能夠被相應的 [CSI 驅動](https://kubernetes-csi.github.io/docs/introduction.html) 所取代。如果 CSI 遷移功能正確發揮作用，Kubernetes 終端用戶應該不會注意到有什麼變化。現有的 `StorageClass`、`PersistentVolume` 和 `PersistentVolumeClaim` 對象應繼續工作。當 Kubernetes 集羣管理員更新集羣以啓用 CSI 遷移功能時，利用到 PVCs[^1]（由樹內存儲插件支持）的現有工作負載將繼續像以前一樣運作──不過在幕後，Kubernetes 將所有存儲管理操作（以前面向樹內存儲驅動的）交給 CSI 驅動控制。
+CSI 遷移工作使存儲後端現有的樹內存儲插件（如 `kubernetes.io/gce-pd` 或 `kubernetes.io/aws-ebs`）能夠被相應的 [CSI 驅動](https://kubernetes-csi.github.io/docs/introduction.html) 所取代。如果 CSI 遷移功能正確發揮作用，Kubernetes 終端使用者應該不會注意到有什麼變化。現有的 `StorageClass`、`PersistentVolume` 和 `PersistentVolumeClaim` 對象應繼續工作。當 Kubernetes 叢集管理員更新叢集以啓用 CSI 遷移功能時，利用到 PVCs[^1]（由樹內存儲插件支持）的現有工作負載將繼續像以前一樣運作──不過在幕後，Kubernetes 將所有存儲管理操作（以前面向樹內存儲驅動的）交給 CSI 驅動控制。
 
 <!---
 For example, suppose you are a `kubernetes.io/gce-pd` user, after CSI migration, you can still use `kubernetes.io/gce-pd` to provision new volumes, mount existing GCE-PD volumes or delete existing volumes. All existing API/Interface will still function correctly. However, the underlying function calls are all going through the [GCE PD CSI driver](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver) instead of the in-tree Kubernetes function.
 -->
-舉個例子。假設你是 `kubernetes.io/gce-pd` 用戶，在啓用 CSI 遷移功能後，你仍然可以使用 `kubernetes.io/gce-pd` 來配置新卷、掛載現有的 GCE-PD 卷或刪除現有卷。所有現有的 API/接口 仍將正常工作──只不過，底層功能調用都將通向 [GCE PD CSI 驅動](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)，而不是 Kubernetes 的樹內存儲功能。
+舉個例子。假設你是 `kubernetes.io/gce-pd` 使用者，在啓用 CSI 遷移功能後，你仍然可以使用 `kubernetes.io/gce-pd` 來設定新卷、掛載現有的 GCE-PD 卷或刪除現有卷。所有現有的 API/接口 仍將正常工作──只不過，底層功能調用都將通向 [GCE PD CSI 驅動](https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver)，而不是 Kubernetes 的樹內存儲功能。
 
 <!---
 This enables a smooth transition for end users. Additionally as storage plugin developers, we can reduce the burden of maintaining the in-tree storage plugins and eventually remove them from the core Kubernetes binary.
 -->
-這使得 Kubernetes 終端用戶可以順利過渡。另外，對於存儲插件的開發者，我們可以減少他們維護樹內存儲插件的負擔，並最終將這些插件從 Kubernetes 核心的二進制中移除。
+這使得 Kubernetes 終端使用者可以順利過渡。另外，對於存儲插件的開發者，我們可以減少他們維護樹內存儲插件的負擔，並最終將這些插件從 Kubernetes 核心的二進制中移除。
 
 <!---
 ## What has been changed, and what's new?
@@ -88,12 +88,12 @@ Kubernetes v1.21 棄用了 `CSIMigration{provider}Complete` 特性參數（featu
 <!---
 When you enable that feature gate, then instead of using the in-tree driver code, your cluster directly selects and uses the relevant CSI driver. This happens without any check for whether CSI migration is enabled on the node, or whether you have in fact deployed that CSI driver.
 -->
-當你啓用該特性門控時，你的集羣不再使用樹內驅動代碼，而是直接選擇並使用相應的 CSI 驅動。同時，集羣並不檢查節點上 CSI 遷移功能是否啓用，以及 CSI 驅動是否實際部署。
+當你啓用該特性門控時，你的叢集不再使用樹內驅動代碼，而是直接選擇並使用相應的 CSI 驅動。同時，叢集並不檢查節點上 CSI 遷移功能是否啓用，以及 CSI 驅動是否實際部署。
 
 <!---
 While this feature gate is a great helper, SIG Storage (and, I'm sure, lots of cluster operators) also wanted a feature gate that lets you disable an in-tree storage plugin, even without also enabling CSI migration. For example, you might want to disable the EBS storage plugin on a GCE cluster, because EBS volumes are specific to a different vendor's cloud (AWS).
 -->
-雖然這一特性門控是一個很好的幫手，但 Kubernetes 存儲特別興趣組（以及，我相信還有很多集羣操作員）同樣希望有一個特性門控可以讓你即使在不啓用 CSI 遷移功能時，也能禁用樹內存儲插件。例如，你可能希望在一個 GCE 集羣上禁用 EBS 存儲插件，因爲 EBS 卷是其他供應商的雲（AWS）所專有的。
+雖然這一特性門控是一個很好的幫手，但 Kubernetes 存儲特別興趣組（以及，我相信還有很多叢集操作員）同樣希望有一個特性門控可以讓你即使在不啓用 CSI 遷移功能時，也能禁用樹內存儲插件。例如，你可能希望在一個 GCE 叢集上禁用 EBS 存儲插件，因爲 EBS 卷是其他供應商的雲（AWS）所專有的。
 
 <!---
 To make this possible, Kubernetes v1.21 introduced a new feature flag set: `InTreePlugin{vendor}Unregister`.
@@ -102,7 +102,7 @@ To make this possible, Kubernetes v1.21 introduced a new feature flag set: `InTr
 -->
 爲了使這成爲可能，Kubernetes v1.21 引入了一個新的特性參數集合：`InTreePlugin{vendor}Unregister`。
 
-`InTreePlugin{vendor}Unregister` 是一種特性門控，可以獨立於 CSI 遷移功能來啓用或禁用。當啓用此種特性門控時，組件將不會把相應的樹內存儲插件註冊到支持的列表中。如果集羣操作員只啓用了這種參數，終端用戶將在使用該插件的 PVC[^1] 處遇到錯誤，提示其找不到插件。如果集羣操作員不想支持過時的樹內存儲 API，只支持 CSI，那麼他們可能希望啓用這種特性門控而不考慮 CSI 遷移功能。
+`InTreePlugin{vendor}Unregister` 是一種特性門控，可以獨立於 CSI 遷移功能來啓用或禁用。當啓用此種特性門控時，組件將不會把相應的樹內存儲插件註冊到支持的列表中。如果叢集操作員只啓用了這種參數，終端使用者將在使用該插件的 PVC[^1] 處遇到錯誤，提示其找不到插件。如果叢集操作員不想支持過時的樹內存儲 API，只支持 CSI，那麼他們可能希望啓用這種特性門控而不考慮 CSI 遷移功能。
 
 <!---
 
@@ -114,7 +114,7 @@ You can use these metrics to observe how your cluster is using storage services 
 
 ### 可觀察性  {#observability}
 
-Kubernetes v1.21 引入了跟蹤 CSI 遷移功能的[指標](https://github.com/kubernetes/kubernetes/issues/98279)。你可以使用這些指標來觀察你的集羣是如何使用存儲服務的，以及對該存儲的訪問使用的是傳統的樹內驅動還是基於 CSI 的替代。
+Kubernetes v1.21 引入了跟蹤 CSI 遷移功能的[指標](https://github.com/kubernetes/kubernetes/issues/98279)。你可以使用這些指標來觀察你的叢集是如何使用存儲服務的，以及對該存儲的訪問使用的是傳統的樹內驅動還是基於 CSI 的替代。
 
 <!---
 | Components                                   | Metrics                            | Notes                                                                                                                                                                                  |
@@ -145,16 +145,16 @@ SIG Storage has been working closely with SIG Cloud Provider and SIG Cluster Lif
 
 If you are a user of a managed Kubernetes service, check with your provider if anything needs to be done. In many cases, the provider will manage the migration and no additional work is required.
 -->
-### 與 Kubernetes 雲提供商特別興趣組、集羣生命週期特別興趣組的合作  {#cloud-provider-cluster-lifecycle-collaboration}
+### 與 Kubernetes 雲提供商特別興趣組、叢集生命週期特別興趣組的合作  {#cloud-provider-cluster-lifecycle-collaboration}
 
-Kubernetes 存儲特別興趣組與雲提供商特別興趣組和集羣生命週期特別興趣組，正爲了 CSI 遷移功能上線而密切合作。
+Kubernetes 存儲特別興趣組與雲提供商特別興趣組和叢集生命週期特別興趣組，正爲了 CSI 遷移功能上線而密切合作。
 
 如果你採用託管 Kubernetes 服務，請詢問你的供應商是否有什麼工作需要完成。在許多情況下，供應商將管理遷移，你不需要做額外的工作。
 
 <!---
 If you use a distribution of Kubernetes, check its official documentation for information about support for this feature. For the CSI Migration feature graduation to GA, SIG Storage and SIG Cluster Lifecycle are collaborating towards making the migration mechanisms available in tooling (such as kubeadm) as soon as they're available in Kubernetes itself.
 -->
-如果你使用的是 Kubernetes 的發行版，請查看其官方文檔，瞭解對該功能的支持情況。對於已進入正式發佈階段的 CSI 遷移功能，Kubernetes 存儲特別興趣組正與Kubernetes 集羣生命週期特別興趣組合作，以便在這些功能於 Kubernetes 中可用時，使遷移機制也進入到周邊工具（如 kubeadm）中。
+如果你使用的是 Kubernetes 的發行版，請查看其官方文檔，瞭解對該功能的支持情況。對於已進入正式發佈階段的 CSI 遷移功能，Kubernetes 存儲特別興趣組正與Kubernetes 叢集生命週期特別興趣組合作，以便在這些功能於 Kubernetes 中可用時，使遷移機制也進入到周邊工具（如 kubeadm）中。
 
 <!---
 ## What is the timeline / status? {#timeline-and-status}
@@ -222,14 +222,14 @@ With more CSI drivers graduating to GA, we hope to soon mark the overall CSI Mig
 
 Note that all new features for the Kubernetes storage system (such as volume snapshotting) will only be added to the CSI interface. Therefore, if you are starting up a new cluster, creating stateful applications for the first time, or require these new features we recommend using CSI drivers natively (instead of the in-tree volume plugin API). Follow the [updated user guides for CSI drivers](https://kubernetes-csi.github.io/docs/drivers.html) and use the new CSI APIs.
 -->
-## 作爲用戶，我應該做什麼？  {#what-should-i-do-as-a-user}
+## 作爲使用者，我應該做什麼？  {#what-should-i-do-as-a-user}
 
-請注意，Kubernetes 存儲系統的所有新功能（如卷快照）將只被添加到 CSI 接口。因此，如果你正在啓動一個新的集羣、首次創建有狀態的應用程序，或者需要這些新功能，我們建議你在本地使用 CSI 驅動（而不是樹內卷插件 API）。遵循[最新的 CSI 驅動用戶指南](https://kubernetes-csi.github.io/docs/drivers.html)並使用新的 CSI API。
+請注意，Kubernetes 存儲系統的所有新功能（如卷快照）將只被添加到 CSI 接口。因此，如果你正在啓動一個新的叢集、首次創建有狀態的應用程序，或者需要這些新功能，我們建議你在本地使用 CSI 驅動（而不是樹內卷插件 API）。遵循[最新的 CSI 驅動使用者指南](https://kubernetes-csi.github.io/docs/drivers.html)並使用新的 CSI API。
 
 <!---
 However, if you choose to roll a cluster forward or continue using specifications with the legacy volume APIs, CSI Migration will ensure we continue to support those deployments with the new CSI drivers. However, if you want to leverage new features like snapshot, it will require a manual migration to re-import an existing intree PV as a CSI PV.
 -->
-然而，如果您選擇沿用現有集羣或繼續使用傳統卷 API 的規約，CSI 遷移功能將確保我們通過新 CSI 驅動繼續支持這些部署。但是，如果您想利用快照等新功能，則需要進行手動遷移，將現有的樹內持久卷重新導入爲 CSI 持久卷。
+然而，如果您選擇沿用現有叢集或繼續使用傳統卷 API 的規約，CSI 遷移功能將確保我們通過新 CSI 驅動繼續支持這些部署。但是，如果您想利用快照等新功能，則需要進行手動遷移，將現有的樹內持久卷重新導入爲 CSI 持久卷。
 
 <!---
 ## How do I get involved?

@@ -30,7 +30,7 @@ Agenda:
 * Quinton - Cluster federation
 * Satnam - Performance benchmarking update
 -->
-* Quinton - 集羣聯邦
+* Quinton - 叢集聯邦
 * Satnam - 性能基準測試更新
 
 <!--
@@ -46,12 +46,12 @@ Agenda:
 * Can be built outside of Kubernetes
 * API to control things across multiple clusters, include some logic
 -->
-1. Quinton - 集羣聯邦
+1. Quinton - 叢集聯邦
 * 在舊金山見面會後，想法浮出水面
 * * 請閱讀、評論
 * 不是 1.0，而是將文檔放在一起以顯示路線圖
 * 可以在 Kubernetes 之外構建
-* 用於控制多個集羣中事物的 API ，包括一些邏輯
+* 用於控制多個叢集中事物的 API ，包括一些邏輯
 
 <!--
 1. Auth(n)(z)
@@ -76,7 +76,7 @@ Agenda:
 
 4. "Cloudbursting" - automatic overflow into the cloud
 -->
-* 集羣聯邦的不同原因
+* 叢集聯邦的不同原因
 
 1. 區域(非)可用性:對區域故障的彈性
 
@@ -119,21 +119,21 @@ Agenda:
 
     2. 絕對位置(例如，歐盟數據需要在歐盟內)
 
-2. 跨集羣服務發現
+2. 跨叢集服務發現
 
-    1. 服務/DNS 如何跨集羣工作
+    1. 服務/DNS 如何跨叢集工作
 
-3. 跨集羣工作負載遷移
+3. 跨叢集工作負載遷移
 
-    1. 如何在跨集羣中逐塊移動應用程序?
+    1. 如何在跨叢集中逐塊移動應用程序?
 
-4. 跨集羣調度
+4. 跨叢集調度
 
-    1.  如何充分了解集羣以知道在哪裏進行調度
+    1.  如何充分了解叢集以知道在哪裏進行調度
 
     2. 可能使用成本函數以最小的複雜性得出親和性
 
-    3. 還可以使用成本來確定調度位置（使用不足的集羣比過度使用的集羣便宜）
+    3. 還可以使用成本來確定調度位置（使用不足的叢集比過度使用的叢集便宜）
 
 <!--
 * Implicit requirements
@@ -150,17 +150,17 @@ Agenda:
  -->
  * 隱含要求
 
-1. 跨集羣集成不應創建跨集羣故障模式
+1. 跨叢集集成不應創建跨叢集故障模式
 
     1. 在 Ubernetes 死亡的災難情況下可以獨立使用。
 
 2. 統一可見性
 
-    1. 希望有統一的監控，報警，日誌，內省，用戶體驗等。
+    1. 希望有統一的監控，報警，日誌，內省，使用者體驗等。
 
 3. 統一的配額和身份管理
 
-    1. 希望將用戶數據庫和 auth(n)/(z) 放在一個位置
+    1. 希望將使用者數據庫和 auth(n)/(z) 放在一個位置
     
 
 <!--
@@ -180,7 +180,7 @@ Agenda:
 
 1. 拙劣的軟件升級
 
-2. 拙劣的配置升級
+2. 拙劣的設定升級
 
 3. 拙劣的密鑰分發
 
@@ -203,7 +203,7 @@ Agenda:
 
     1. 可能在可用區，但也可能在機架，或地區
 
-2. 重要的是不要鴿子洞並防止其他用戶
+2. 重要的是不要鴿子洞並防止其他使用者
 
  <!--
  2. Satnam - Soak Test
@@ -218,7 +218,7 @@ Agenda:
 * Brian - v1beta3 is enabled by default, v1beta1 and v1beta2 deprecated, turned off  in June.  Should still work with upgrading existing clusters, etc.
  -->
  2. Satnam - 浸泡測試
-* 想要測量長時間運行的事務，以確保集羣在一段時間內是穩定的。性能不會降低，不會發生內存泄漏等。
+* 想要測量長時間運行的事務，以確保叢集在一段時間內是穩定的。性能不會降低，不會發生內存泄漏等。
 * github.com/GoogleCloudPlatform/kubernetes/test/soak/…
 * 單個二進制文件，在每個節點上放置許多 Pod，並查詢每個 Pod 以確保其正在運行。
 * Pod 的創建速度越來越快（即使在過去一週內），也可以使事情進展得更快。
@@ -226,4 +226,4 @@ Agenda:
 * 代碼已經簽入。
 * 將 Pod 固定在每個節點上，練習每個 Pod，確保你得到每個節點的響應。
 * 單個二進制文件，永遠運行。
-* Brian - v1beta3 默認啓用， v1beta1 和 v1beta2 不支持，在6月關閉。仍應與升級現有集羣等一起使用。
+* Brian - v1beta3 默認啓用， v1beta1 和 v1beta2 不支持，在6月關閉。仍應與升級現有叢集等一起使用。

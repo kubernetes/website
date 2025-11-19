@@ -117,7 +117,7 @@ This diagram depicts a kind of high-level Kubernetes archetypes integrated with 
 -->
 
 * 引入了三個新的外部組件以解耦 Kubernetes 和存儲提供程序邏輯
-* 藍色箭頭表示針對 API 服務器進行調用的常規方法
+* 藍色箭頭表示針對 API 伺服器進行調用的常規方法
 * 紅色箭頭顯示 gRPC 以針對 Volume Driver 進行調用
 
 <!--
@@ -223,7 +223,7 @@ Let’s demonstrate this feature with a concrete user case.
 
 ## 展示
 
-讓我們以具體的用戶案例來演示此功能。
+讓我們以具體的使用者案例來演示此功能。
 
 * 爲 CSI 存儲供應商創建存儲類
 
@@ -247,9 +247,9 @@ volumeBindingMode: Immediate
 * Create PVC `qcfs-pvc` which will be dynamically provisioned by storage class `csi-qcfs`
 -->
 
-* 在 Kubernetes 集羣上部署包括存儲供應商 `csi-qcfsplugin` 在內的 CSI 卷驅動
+* 在 Kubernetes 叢集上部署包括存儲供應商 `csi-qcfsplugin` 在內的 CSI 卷驅動
 
-* 創建 PVC `qcfs-pvc`，它將由存儲類 `csi-qcfs` 動態配置
+* 創建 PVC `qcfs-pvc`，它將由存儲類 `csi-qcfs` 動態設定
 
 ```yaml
 apiVersion: v1
@@ -278,7 +278,7 @@ spec:
 * 爲了反映完全相同的生產級別方案，實際上有兩種不同類型的工作負載，包括：
      * 批量插入使 MySQL 消耗更多的文件系統容量
      * 浪湧查詢請求
-* 通過編輯 pvc `qcfs-pvc` 配置動態擴展卷容量
+* 通過編輯 pvc `qcfs-pvc` 設定動態擴展卷容量
 
 <!--
 The Prometheus and Grafana integration allows us to visualize corresponding critical metrics.

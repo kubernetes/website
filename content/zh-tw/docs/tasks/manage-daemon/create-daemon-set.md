@@ -18,7 +18,7 @@ It covers a simple use case of mounting a file from the host, logging its conten
 an [init container](/docs/concepts/workloads/pods/init-containers/), and utilizing a pause container.
 -->
 本頁演示如何構建一個基本的 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}，
-用其在 Kubernetes 集羣中的每個節點上運行 Pod。
+用其在 Kubernetes 叢集中的每個節點上運行 Pod。
 這個簡單的使用場景包含了從主機掛載一個文件，使用
 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)記錄文件的內容，
 以及使用 `pause` 容器。
@@ -31,7 +31,7 @@ an [init container](/docs/concepts/workloads/pods/init-containers/), and utilizi
 A Kubernetes cluster with at least two nodes (one control plane node and one worker node)
 to demonstrate the behavior of DaemonSets.
 -->
-爲了演示 DaemonSet 的行爲，Kubernetes 集羣至少需包含兩個節點（一個控制平面節點和一個工作節點）。
+爲了演示 DaemonSet 的行爲，Kubernetes 叢集至少需包含兩個節點（一個控制平面節點和一個工作節點）。
 
 <!--
 ## Define the DaemonSet
@@ -60,7 +60,7 @@ while the main container will be a `pause` container, which keeps the Pod runnin
 <!--
 1. Once applied, you can verify that the DaemonSet is running a Pod on every node in the cluster:
 -->
-2. 完成創建操作後，你可以驗證 DaemonSet 是否在集羣中的每個節點上運行 Pod：
+2. 完成創建操作後，你可以驗證 DaemonSet 是否在叢集中的每個節點上運行 Pod：
 
    ```shell
    kubectl get pods -o wide

@@ -1,14 +1,14 @@
 ---
-title: 網絡策略
+title: 網路策略
 content_type: concept
 api_metadata:
   - apiVersion: "networking.k8s.io/v1"
     kind: "NetworkPolicy"
 weight: 70
 description: >-
-  如果你希望在 IP 地址或端口層面（OSI 第 3 層或第 4 層）控制網絡流量，
-  NetworkPolicy 可以讓你爲集羣內以及 Pod 與外界之間的網絡流量指定規則。
-  你的集羣必須使用支持 NetworkPolicy 實施的網絡插件。
+  如果你希望在 IP 地址或端口層面（OSI 第 3 層或第 4 層）控制網路流量，
+  NetworkPolicy 可以讓你爲叢集內以及 Pod 與外界之間的網路流量指定規則。
+  你的叢集必須使用支持 NetworkPolicy 實施的網路插件。
 ---
 
 <!--
@@ -41,10 +41,10 @@ NetworkPolicies are an application-centric construct which allow you to specify 
 NetworkPolicies apply to a connection with a pod on one or both ends, and are not relevant to
 other connections.
 -->
-如果你希望針對 TCP、UDP 和 SCTP 協議在 IP 地址或端口層面控制網絡流量，
-則你可以考慮爲集羣中特定應用使用 Kubernetes 網絡策略（NetworkPolicy）。
+如果你希望針對 TCP、UDP 和 SCTP 協議在 IP 地址或端口層面控制網路流量，
+則你可以考慮爲叢集中特定應用使用 Kubernetes 網路策略（NetworkPolicy）。
 NetworkPolicy 是一種以應用爲中心的結構，允許你設置如何允許
-{{< glossary_tooltip text="Pod" term_id="pod">}} 與網絡上的各類網絡“實體”
+{{< glossary_tooltip text="Pod" term_id="pod">}} 與網路上的各類網路“實體”
 （我們這裏使用實體以避免過度使用諸如“端點”和“服務”這類常用術語，
 這些術語在 Kubernetes 中有特定含義）通信。
 NetworkPolicy 適用於一端或兩端與 Pod 的連接，與其他連接無關。
@@ -88,8 +88,8 @@ Creating a NetworkPolicy resource without a controller that implements it will h
 -->
 ## 前置條件   {#prerequisites}
 
-網絡策略通過[網絡插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)來實現。
-要使用網絡策略，你必須使用支持 NetworkPolicy 的網絡解決方案。
+網路策略通過[網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)來實現。
+要使用網路策略，你必須使用支持 NetworkPolicy 的網路解決方案。
 創建一個 NetworkPolicy 資源對象而沒有控制器來使它生效的話，是沒有任何作用的。
 
 <!--
@@ -148,8 +148,8 @@ For a connection from a source pod to a destination pod to be allowed, both the 
 the source pod and the ingress policy on the destination pod need to allow the connection. If
 either side does not allow the connection, it will not happen.
 -->
-網絡策略是相加的，所以不會產生衝突。如果策略適用於 Pod 某一特定方向的流量，
-Pod 在對應方向所允許的連接是適用的網絡策略所允許的集合。
+網路策略是相加的，所以不會產生衝突。如果策略適用於 Pod 某一特定方向的流量，
+Pod 在對應方向所允許的連接是適用的網路策略所允許的集合。
 因此，評估的順序不影響策略的結果。
 
 要允許從源 Pod 到目的 Pod 的某個連接，源 Pod 的出口策略和目的 Pod 的入口策略都需要允許此連接。
@@ -177,7 +177,7 @@ An example NetworkPolicy might look like this:
 POSTing this to the API server for your cluster will have no effect unless your chosen networking
 solution supports network policy.
 -->
-除非選擇支持網絡策略的網絡解決方案，否則將上述示例發送到 API 服務器沒有任何效果。
+除非選擇支持網路策略的網路解決方案，否則將上述示例發送到 API 伺服器沒有任何效果。
 {{< /note >}}
 
 <!--
@@ -193,14 +193,14 @@ has all the information needed to define a particular network policy in the give
 which the policy applies. The example policy selects pods with the label "role=db". An empty
 `podSelector` selects all pods in the namespace.
 -->
-**必需字段**：與所有其他的 Kubernetes 配置一樣，NetworkPolicy 需要 `apiVersion`、
-`kind` 和 `metadata` 字段。關於配置文件操作的一般信息，
-請參考[配置 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
+**必需字段**：與所有其他的 Kubernetes 設定一樣，NetworkPolicy 需要 `apiVersion`、
+`kind` 和 `metadata` 字段。關於設定文件操作的一般信息，
+請參考[設定 Pod 以使用 ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 和[對象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management)。
 
 **spec**：NetworkPolicy
 [規約](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
-中包含了在一個名字空間中定義特定網絡策略所需的所有信息。
+中包含了在一個名字空間中定義特定網路策略所需的所有信息。
 
 **podSelector**：每個 NetworkPolicy 都包括一個 `podSelector`，
 它對該策略所適用的一組 Pod 進行選擇。示例中的策略選擇帶有 "role=db" 標籤的 Pod。
@@ -256,7 +256,7 @@ So, the example NetworkPolicy:
 See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
 walkthrough for further examples.
 -->
-所以，該網絡策略示例：
+所以，該網路策略示例：
 
 1. 隔離 `default` 名字空間下 `role=db` 的 Pod （如果它們不是已經被隔離的話）。
 2. （Ingress 規則）允許以下 Pod 連接到 `default` 名字空間下的帶有 `role=db`
@@ -270,7 +270,7 @@ walkthrough for further examples.
 3. （Egress 規則）允許 `default` 名字空間中任何帶有標籤 `role=db` 的 Pod 到 CIDR
    `10.0.0.0/24` 下 5978 TCP 端口的連接。
 
-有關更多示例，請參閱[聲明網絡策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演練。
+有關更多示例，請參閱[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演練。
 
 <!--
 ## Behavior of `to` and `from` selectors
@@ -365,17 +365,17 @@ cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 如有疑問，請使用 `kubectl describe` 查看 Kubernetes 如何解釋該策略。
 
 **ipBlock**：此選擇器將選擇特定的 IP CIDR 範圍以用作入站流量來源或出站流量目的地。
-這些應該是集羣外部 IP，因爲 Pod IP 存在時間短暫的且隨機產生。
+這些應該是叢集外部 IP，因爲 Pod IP 存在時間短暫的且隨機產生。
 
-集羣的入站和出站機制通常需要重寫數據包的源 IP 或目標 IP。
+叢集的入站和出站機制通常需要重寫數據包的源 IP 或目標 IP。
 在發生這種情況時，不確定在 NetworkPolicy 處理之前還是之後發生，
-並且對於網絡插件、雲提供商、`Service` 實現等的不同組合，其行爲可能會有所不同。
+並且對於網路插件、雲提供商、`Service` 實現等的不同組合，其行爲可能會有所不同。
 
 對入站流量而言，這意味着在某些情況下，你可以根據實際的原始源 IP 過濾傳入的數據包，
 而在其他情況下，NetworkPolicy 所作用的 `源IP` 則可能是 `LoadBalancer` 或
 Pod 的節點等。
 
-對於出站流量而言，這意味着從 Pod 到被重寫爲集羣外部 IP 的 `Service` IP
+對於出站流量而言，這意味着從 Pod 到被重寫爲叢集外部 IP 的 `Service` IP
 的連接可能會或可能不會受到基於 `ipBlock` 的策略的約束。
 
 <!--
@@ -498,10 +498,10 @@ NetworkPolicy is defined for [layer 4](https://en.wikipedia.org/wiki/OSI_model#L
 connections (TCP, UDP, and optionally SCTP). For all the other protocols, the behaviour may vary
 across network plugins.
 -->
-## 網絡流量過濾   {#network-traffic-filtering}
+## 網路流量過濾   {#network-traffic-filtering}
 
 NetworkPolicy 是爲[第 4 層](https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B#%E7%AC%AC4%E5%B1%A4_%E5%82%B3%E8%BC%B8%E5%B1%A4)連接
-（TCP、UDP 和可選的 SCTP）所定義的。對於所有其他協議，這種網絡流量過濾的行爲可能因網絡插件而異。
+（TCP、UDP 和可選的 SCTP）所定義的。對於所有其他協議，這種網路流量過濾的行爲可能因網路插件而異。
 
 {{< note >}}
 <!--
@@ -518,11 +518,11 @@ The same applies to allow rules: when a specific pod is allowed as ingress sourc
 it is undefined what happens with (for example) ICMP packets. Protocols such as ICMP may be allowed by some
 network plugins and denied by others.
 -->
-當 `deny all` 網絡策略被定義時，此策略只能保證拒絕 TCP、UDP 和 SCTP 連接。
-對於 ARP 或 ICMP 這類其他協議，這種網絡流量過濾行爲是未定義的。
+當 `deny all` 網路策略被定義時，此策略只能保證拒絕 TCP、UDP 和 SCTP 連接。
+對於 ARP 或 ICMP 這類其他協議，這種網路流量過濾行爲是未定義的。
 相同的情況也適用於 allow 規則：當特定 Pod 被允許作爲入口源或出口目的地時，
 對於（例如）ICMP 數據包會發生什麼是未定義的。
-ICMP 這類協議可能被某些網絡插件所允許，而被另一些網絡插件所拒絕。
+ICMP 這類協議可能被某些網路插件所允許，而被另一些網路插件所拒絕。
 
 <!--
 ## Targeting a range of ports
@@ -571,9 +571,9 @@ If your [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/ne
 does not support the `endPort` field and you specify a NetworkPolicy with that,
 the policy will be applied only for the single `port` field.
 -->
-你的集羣所使用的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件必須支持在
+你的叢集所使用的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件必須支持在
 NetworkPolicy 規約中使用 `endPort` 字段。
-如果你的[網絡插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)不支持
+如果你的[網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)不支持
 `endPort` 字段，而你指定了一個包含 `endPort` 字段的 NetworkPolicy，
 策略只對單個 `port` 字段生效。
 {{< /note >}}
@@ -658,7 +658,7 @@ Kubernetes 控制面會在所有名字空間上設置一個不可變更的標籤
 The following applies to clusters with a conformant networking plugin and a conformant implementation of
 NetworkPolicy.
 -->
-以下內容適用於使用了合規網絡插件和 NetworkPolicy 合規實現的集羣。
+以下內容適用於使用了合規網路插件和 NetworkPolicy 合規實現的叢集。
 {{< /note >}}
 
 <!--
@@ -668,8 +668,8 @@ is created before the network plugin has completed NetworkPolicy handling,
 that pod may be started unprotected, and isolation rules will be applied when
 the NetworkPolicy handling is completed.
 -->
-當新的 NetworkPolicy 對象被創建時，網絡插件可能需要一些時間來處理這個新對象。
-如果受到 NetworkPolicy 影響的 Pod 在網絡插件完成 NetworkPolicy 處理之前就被創建了，
+當新的 NetworkPolicy 對象被創建時，網路插件可能需要一些時間來處理這個新對象。
+如果受到 NetworkPolicy 影響的 Pod 在網路插件完成 NetworkPolicy 處理之前就被創建了，
 那麼該 Pod 可能會最初處於無保護狀態，而在 NetworkPolicy 處理完成後被應用隔離規則。
 
 <!--
@@ -682,7 +682,7 @@ Once the NetworkPolicy is handled by a network plugin,
    Because they are applied at Pod level, NetworkPolicies apply equally to init containers,
    sidecar containers, and regular containers.
 -->
-一旦 NetworkPolicy 被網絡插件處理，
+一旦 NetworkPolicy 被網路插件處理，
 
 1. 所有受給定 NetworkPolicy 影響的新建 Pod 都將在啓動前被隔離。
    NetworkPolicy 的實現必須確保過濾規則在整個 Pod 生命週期內是有效的，
@@ -699,9 +699,9 @@ way to tell from the Kubernetes API when exactly that happens.
 -->
 2. Allow 規則最終將在隔離規則之後被應用（或者可能同時被應用）。
    在最糟的情況下，如果隔離規則已被應用，但 allow 規則尚未被應用，
-   那麼新建的 Pod 在初始啓動時可能根本沒有網絡連接。
+   那麼新建的 Pod 在初始啓動時可能根本沒有網路連接。
 
-用戶所創建的每個 NetworkPolicy 最終都會被網絡插件處理，但無法使用 Kubernetes API
+使用者所創建的每個 NetworkPolicy 最終都會被網路插件處理，但無法使用 Kubernetes API
 來獲知確切的處理時間。
 
 <!--
@@ -710,7 +710,7 @@ connectivity than expected. If you need to make sure the pod can reach certain d
 before being started, you can use an [init container](/docs/concepts/workloads/pods/init-containers/)
 to wait for those destinations to be reachable before kubelet starts the app containers.
 -->
-因此，若 Pod 啓動時使用非預期的網絡連接，它必須保持穩定。
+因此，若 Pod 啓動時使用非預期的網路連接，它必須保持穩定。
 如果你需要確保 Pod 在啓動之前能夠訪問特定的目標，可以使用
 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)在
 kubelet 啓動應用容器之前等待這些目的地變得可達。
@@ -725,8 +725,8 @@ on Node 1 and Pod B on Node 2 may find that it can reach Pod A immediately,
 but cannot reach Pod B until a few seconds later.
 -->
 每個 NetworkPolicy 最終都會被應用到所選定的所有 Pod 之上。
-由於網絡插件可能以分佈式的方式實現 NetworkPolicy，所以當 Pod 被首次創建時或當
-Pod 或策略發生變化時，Pod 可能會看到稍微不一致的網絡策略視圖。
+由於網路插件可能以分佈式的方式實現 NetworkPolicy，所以當 Pod 被首次創建時或當
+Pod 或策略發生變化時，Pod 可能會看到稍微不一致的網路策略視圖。
 例如，新建的 Pod 本來應能立即訪問 Node 1 上的 Pod A 和 Node 2 上的 Pod B，
 但可能你會發現新建的 Pod 可以立即訪問 Pod A，但要在幾秒後才能訪問 Pod B。
 
@@ -745,9 +745,9 @@ NetworkPolicy behaviour for `hostNetwork` pods is undefined, but it should be li
   the same node), and will apply NetworkPolicy to `hostNetwork` pods just like it does
   to pod-network pods.
 -->
-- 網絡插件可以從所有其他流量中辨別出 `hostNetwork` Pod 流量
+- 網路插件可以從所有其他流量中辨別出 `hostNetwork` Pod 流量
   （包括能夠從同一節點上的不同 `hostNetwork` Pod 中辨別流量），
-  網絡插件還可以像處理 Pod 網絡流量一樣，對 `hostNetwork` Pod 應用 NetworkPolicy。
+  網路插件還可以像處理 Pod 網路流量一樣，對 `hostNetwork` Pod 應用 NetworkPolicy。
 
 <!--
 - The network plugin cannot properly distinguish `hostNetwork` pod traffic,
@@ -755,7 +755,7 @@ NetworkPolicy behaviour for `hostNetwork` pods is undefined, but it should be li
   Traffic to/from `hostNetwork` pods is treated the same as all other traffic to/from the node IP.
   (This is the most common implementation.)
 -->
-- 網絡插件無法正確辨別 `hostNetwork` Pod 流量，因此在匹配 `podSelector` 和 `namespaceSelector`
+- 網路插件無法正確辨別 `hostNetwork` Pod 流量，因此在匹配 `podSelector` 和 `namespaceSelector`
   時會忽略 `hostNetwork` Pod。流向/來自 `hostNetwork` Pod 的流量的處理方式與流向/來自節點 IP
   的所有其他流量一樣。（這是最常見的實現方式。）
 
@@ -812,13 +812,13 @@ controllers, Service Mesh implementations) or admission controllers. In case you
 network security in Kubernetes, its worth noting that the following User Stories cannot (yet) be
 implemented using the NetworkPolicy API.
 -->
-## 通過網絡策略（至少目前還）無法完成的工作   {#what-you-can-t-do-with-network-policies-at-least-not-yet}
+## 通過網路策略（至少目前還）無法完成的工作   {#what-you-can-t-do-with-network-policies-at-least-not-yet}
 
 到 Kubernetes {{< skew currentVersion >}} 爲止，NetworkPolicy API 還不支持以下功能，
 不過你可能可以使用操作系統組件（如 SELinux、OpenVSwitch、IPTables 等等）
 或者第七層技術（Ingress 控制器、服務網格實現）或准入控制器來實現一些替代方案。
-如果你對 Kubernetes 中的網絡安全性還不太瞭解，瞭解使用 NetworkPolicy API
-還無法實現下面的用戶場景是很值得的。
+如果你對 Kubernetes 中的網路安全性還不太瞭解，瞭解使用 NetworkPolicy API
+還無法實現下面的使用者場景是很值得的。
 
 <!--
 - Forcing internal cluster traffic to go through a common gateway (this might be best served with
@@ -830,7 +830,7 @@ implemented using the NetworkPolicy API.
   {{< glossary_tooltip text="labels" term_id="label" >}}, which is often a viable workaround).
 - Creation or management of "Policy requests" that are fulfilled by a third party.
 -->
-- 強制集羣內部流量經過某公用網關（這種場景最好通過服務網格或其他代理來實現）；
+- 強制叢集內部流量經過某公用網關（這種場景最好通過服務網格或其他代理來實現）；
 - 與 TLS 相關的場景（考慮使用服務網格或者 Ingress 控制器）；
 - 特定於節點的策略（你可以使用 CIDR 來表達這一需求不過你無法使用節點在
   Kubernetes 中的其他標識信息來辯識目標節點）；
@@ -849,10 +849,10 @@ implemented using the NetworkPolicy API.
 -->
 - 實現適用於所有名字空間或 Pod 的默認策略（某些第三方 Kubernetes 發行版本或項目可以做到這點）；
 - 高級的策略查詢或者可達性相關工具；
-- 生成網絡安全事件日誌的能力（例如，被阻塞或接收的連接請求）；
+- 生成網路安全事件日誌的能力（例如，被阻塞或接收的連接請求）；
 - 顯式地拒絕策略的能力（目前，NetworkPolicy 的模型默認採用拒絕操作，
   其唯一的能力是添加允許策略）；
-- 禁止本地迴路或指向宿主的網絡流量（Pod 目前無法阻塞 localhost 訪問，
+- 禁止本地迴路或指向宿主的網路流量（Pod 目前無法阻塞 localhost 訪問，
   它們也無法禁止來自所在節點的訪問請求）。
 
 <!--
@@ -871,7 +871,7 @@ It is recommended not to modify policies/pods/namespaces in ways that might affe
 當應用到現有連接的 NetworkPolicy 集合發生變化時，這可能是由於 NetworkPolicy
 發生變化或者在現有連接過程中（主體和對等方）策略所選擇的名字空間或 Pod 的相關標籤發生變化，
 此時是否對該現有連接生效是由實現定義的。例如：某個策略的創建導致之前允許的連接被拒絕，
-底層網絡插件的實現負責定義這個新策略是否會關閉現有的連接。
+底層網路插件的實現負責定義這個新策略是否會關閉現有的連接。
 建議不要以可能影響現有連接的方式修改策略、Pod 或名字空間。
 
 ## {{% heading "whatsnext" %}}
@@ -882,6 +882,6 @@ It is recommended not to modify policies/pods/namespaces in ways that might affe
 - See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common
   scenarios enabled by the NetworkPolicy resource.
 -->
-- 有關更多示例，請參閱[聲明網絡策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演練。
+- 有關更多示例，請參閱[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)演練。
 - 有關 NetworkPolicy 資源所支持的常見場景的更多信息，
   請參見[此指南](https://github.com/ahmetb/kubernetes-network-policy-recipes)。

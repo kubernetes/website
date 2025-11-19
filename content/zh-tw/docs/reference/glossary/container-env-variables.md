@@ -36,4 +36,4 @@ Container environment variables provide information that is required by the runn
 -->
 容器環境變量爲運行中的容器化應用提供必要的信息，
 同時還提供與{{< glossary_tooltip text="容器" term_id="container" >}}相關的重要細節信息，
-例如：文件系統信息、容器自身的信息以及其他像服務端點（Service endpoints）這樣的集羣資源信息。
+例如：文件系統信息、容器自身的信息以及其他像服務端點（Service endpoints）這樣的叢集資源信息。

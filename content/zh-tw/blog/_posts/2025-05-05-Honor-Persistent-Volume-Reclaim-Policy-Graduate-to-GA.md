@@ -42,7 +42,7 @@ backed by volumes allocated by the storage backend.
 ## 以前的 Kubernetes 版本中 reclaim 是如何工作的？
 
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#Introduction)（簡稱 PVC）
-是用戶對存儲的請求。如果創建了新的 PV 或找到了匹配的 PV，則認爲 PV 和 PVC
+是使用者對存儲的請求。如果創建了新的 PV 或找到了匹配的 PV，則認爲 PV 和 PVC
 是[綁定](/zh-cn/docs/concepts/storage/persistent-volumes/#Binding)的。
 PV 本身由存儲後端分配的卷支持。
 
@@ -76,7 +76,7 @@ ensuring that the storage backend releases the allocated storage resource as int
 ## 在 Kubernetes v1.33 中的 PV 回收策略
 
 隨着在 Kubernetes v1.33 中升級爲 GA，這個問題現在得到了解決。
-Kubernetes 現在可靠地遵循配置的 `Delete` 回收策略（即使在刪除 PV
+Kubernetes 現在可靠地遵循設定的 `Delete` 回收策略（即使在刪除 PV
 時，其綁定的 PVC 尚未被刪除）。這是通過使用 Finalizer 來實現的，
 確保存儲後端如預期釋放分配的存儲資源。
 
@@ -150,7 +150,7 @@ finalizers, please refer to [Using Finalizers to Control Deletion](/blog/2021/05
 Similarly, the finalizer `kubernetes.io/pv-controller` is added to dynamically provisioned in-tree plugin volumes.
 -->
 [Finalizer](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)
-防止此 PersistentVolume 從集羣中被移除。如前文所述，Finalizer 僅在從存儲後端被成功刪除後纔會從
+防止此 PersistentVolume 從叢集中被移除。如前文所述，Finalizer 僅在從存儲後端被成功刪除後纔會從
 PV 對象中被移除。進一步瞭解 Finalizer，
 請參閱[使用 Finalizer 控制刪除](/blog/2021/05/14/using-finalizers-to-control-deletion/)。
 
@@ -174,7 +174,7 @@ The feature was released as beta in v1.31 release of Kubernetes, where it was en
 -->
 ## 如何啓用新行爲？
 
-要利用新行爲，你必須將集羣升級到 Kubernetes 的 v1.33 版本，
+要利用新行爲，你必須將叢集升級到 Kubernetes 的 v1.33 版本，
 並運行 CSI [`external-provisioner`](https://github.com/kubernetes-csi/external-provisioner)
 5.0.1 或更新版本。
 此特性在 Kubernetes 的 v1.31 版本中作爲 Beta 版發佈，並且默認啓用。

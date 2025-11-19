@@ -55,7 +55,7 @@ These seven principles cover both build time and runtime concerns.
 <!--
 * **Image Immutability:** Containerized applications are meant to be immutable, and once built are not expected to change between different environments.
 -->
-* **鏡像不可變性：** 容器化應用程序是不可變的，並且一旦構建，就不會在不同環境之間發生變化。
+* **映像檔不可變性：** 容器化應用程序是不可變的，並且一旦構建，就不會在不同環境之間發生變化。
 
 <!--
 ####  Runtime

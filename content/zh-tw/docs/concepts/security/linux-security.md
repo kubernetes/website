@@ -38,7 +38,7 @@ are implemented with a `tmpfs` filesystem.
 If you have swap configured and use an older Linux kernel (or a current kernel and an unsupported configuration of Kubernetes),
 **memory** backed volumes can have data written to persistent storage.
 -->
-如果你配置了交換分區並且使用較舊的 Linux 內核（或者內核是最新的，但其中某項配置是 Kubernetes 所不支持的），
+如果你設定了交換分區並且使用較舊的 Linux 內核（或者內核是最新的，但其中某項設定是 Kubernetes 所不支持的），
 **內存**支持的卷可能會將數據寫入持久存儲。
 
 <!--

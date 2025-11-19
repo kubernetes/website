@@ -31,7 +31,7 @@ different phases, allowing for more efficient and informed resource management.
 
 Kubernetes SIG Storage 團隊很高興地宣佈，"PersistentVolumeLastPhaseTransitionTime"
 特性自 Kubernetes v1.28 作爲 Alpha 版本引入以來，現已進階至正式發佈（GA），並正式成爲
-Kubernetes v1.31 版本的一部分。該功能幫助 Kubernetes 用戶增強對
+Kubernetes v1.31 版本的一部分。該功能幫助 Kubernetes 使用者增強對
 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)
 在不同階段之間轉換的理解，從而實現更高效和更明智的資源管理。
 
@@ -41,7 +41,7 @@ For a v1.31 cluster, you can now assume that every PersistentVolume object has a
 when the volume last transitioned its phase. This change is not immediate; the new field will be populated whenever a PersistentVolume
 is updated and first transitions between phases (`Pending`, `Bound`, or `Released`) after upgrading to Kubernetes v1.31.
 -->
-在 v1.31 集羣中，你可以默認每個 PersistentVolume 對象都包含
+在 v1.31 叢集中，你可以默認每個 PersistentVolume 對象都包含
 `.status.lastTransitionTime` 字段，該字段記錄存儲卷最近一次發生階段轉換時的時間戳。
 該更改不會立刻生效，而是在升級到 Kubernetes v1.31 後，當 PersistentVolume
 發生更新並首次在（`Pending`、`Bound` 或 `Released`）這幾個階段之間進行轉換時，
@@ -58,7 +58,7 @@ be overwritten when the PersistentVolume transitions phases again.
 
 更新 PersistentVolume 對象的 API 策略已經被修改，
 當存儲卷轉換階段時會自動填充當前時間戳到 `.status.lastTransitionTime` 字段。
-如果需要，用戶可以手動設置該字段，但當 PersistentVolume
+如果需要，使用者可以手動設置該字段，但當 PersistentVolume
 再次轉換階段時，該字段會被新時間戳覆蓋。
 
 <!--

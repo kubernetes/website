@@ -58,7 +58,7 @@ five initial cloud providers: Google Cloud, AWS, Azure, OpenStack, and vSphere. 
 1. **Storage migration to use [CSI](https://github.com/container-storage-interface/spec?tab=readme-ov-file#container-storage-interface-csi-specification-)** ([KEP-625](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/625-csi-migration/README.md))
 -->
 1. **雲控制器管理器（Cloud controller manager）**（[KEP-2392](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/2392-cloud-controller-manager/README.md)）
-1. **API 服務器網絡代理**（[KEP-1281](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1281-network-proxy)）
+1. **API 伺服器網路代理**（[KEP-1281](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1281-network-proxy)）
 1. **kubelet 憑證提供程序插件**（[KEP-2133](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2133-kubelet-credential-providers)）
 1. **存儲遷移以使用 [CSI](https://github.com/container-storage-interface/spec?tab=readme-ov-file#container-storage-interface-csi-specification-)**（[KEP-625](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/625-csi-migration/README.md)）
 
@@ -82,7 +82,7 @@ Additionally, it runs the service controller, which is responsible for provision
 雲控制器管理器是這項工作中引入的第一個外部組件，取代了 kube-controller-manager 和 kubelet 中直接與雲 API 交互的功能。
 這個基本組件負責通過施加元數據標籤來初始化節點。所施加的元數據標籤標示節點運行所在的雲區域和可用區，
 以及只有雲驅動知道的 IP 地址。
-此外，它還運行服務控制器，該控制器負責爲 LoadBalancer 類型的 Service 配置雲負載均衡器。
+此外，它還運行服務控制器，該控制器負責爲 LoadBalancer 類型的 Service 設定雲負載均衡器。
 
 ![Kubernetes 組件](/images/docs/components-of-kubernetes.svg)
 
@@ -97,9 +97,9 @@ To learn more, read [Cloud Controller Manager](/docs/concepts/architecture/cloud
 The API Server Network Proxy project, initiated in 2018 in collaboration with SIG API Machinery, aimed to replace the SSH tunneler functionality within the kube-apiserver.
 This tunneler had been used to securely proxy traffic between the Kubernetes control plane and nodes, but it heavily relied on provider-specific implementation details embedded in the kube-apiserver to establish these SSH tunnels.
 -->
-### API 服務器網絡代理
+### API 伺服器網路代理
 
-API 服務器網絡代理項目於 2018 年與 SIG API Machinery 合作啓動，旨在取代 kube-apiserver 中的 SSH 隧道功能。
+API 伺服器網路代理項目於 2018 年與 SIG API Machinery 合作啓動，旨在取代 kube-apiserver 中的 SSH 隧道功能。
 該隧道器原用於安全地代理 Kubernetes 控制平面和節點之間的流量，但它重度依賴於
 kube-apiserver 中所嵌入的、特定於提供商的實現細節來建立這些 SSH 隧道。
 
@@ -107,16 +107,16 @@ kube-apiserver 中所嵌入的、特定於提供商的實現細節來建立這�
 Now, the API Server Network Proxy is a GA-level extension point within the kube-apiserver. It offers a generic proxying mechanism that can route traffic from the API server to nodes through a secure proxy,
 eliminating the need for the API server to have any knowledge of the specific cloud provider it is running on. This project also introduced the Konnectivity project, which has seen growing adoption in production environments.
 -->
-現在，API 服務器網絡代理成爲 kube-apiserver 中 GA 級別的擴展點。
-提供了一種通用代理機制，可以通過一個安全的代理將流量從 API 服務器路由到節點，
-從而使 API 服務器無需瞭解其運行所在的特定雲驅動。
+現在，API 伺服器網路代理成爲 kube-apiserver 中 GA 級別的擴展點。
+提供了一種通用代理機制，可以通過一個安全的代理將流量從 API 伺服器路由到節點，
+從而使 API 伺服器無需瞭解其運行所在的特定雲驅動。
 此項目還引入了 Konnectivity 項目，該項目在生產環境中的採用越來越多。
 
 <!--
 You can learn more about the API Server Network Proxy from its [README](https://github.com/kubernetes-sigs/apiserver-network-proxy#readme).
 -->
 你可以在其 [README](https://github.com/kubernetes-sigs/apiserver-network-proxy#readme)
-中瞭解有關 API 服務器網絡代理的更多信息。
+中瞭解有關 API 伺服器網路代理的更多信息。
 
 <!--
 ### Credential provider plugins for the kubelet
@@ -128,8 +128,8 @@ this required the kubelet to have specific knowledge of different cloud environm
 ### kubelet 的憑據提供程序插件
 
 kubelet 憑據提供程序插件的開發是爲了取代 kubelet 的內置功能，用於動態獲取用於託管在
-Google Cloud、AWS 或 Azure 上的鏡像倉庫的憑據。
-原來所實現的功能很方便，因爲它允許 kubelet 無縫地獲取短期令牌以從 GCR、ECR 或 ACR 拉取鏡像
+Google Cloud、AWS 或 Azure 上的映像檔倉庫的憑據。
+原來所實現的功能很方便，因爲它允許 kubelet 無縫地獲取短期令牌以從 GCR、ECR 或 ACR 拉取映像檔
 然而，與 Kubernetes 的其他領域一樣，支持這一點需要 kubelet 具有不同雲環境和 API 的特定知識。
 
 <!--
@@ -137,13 +137,13 @@ Introduced in 2019, the credential provider plugin mechanism offers a generic ex
 This extensibility expands the kubelet's capabilities to fetch short-lived tokens beyond the initial three cloud providers.
 -->
 憑據驅動插件機制於 2019 年推出，爲 kubelet 提供了一個通用擴展點用於執行插件的可執行文件，
-進而爲訪問各種雲上託管的鏡像動態提供憑據。
+進而爲訪問各種雲上託管的映像檔動態提供憑據。
 可擴展性擴展了 kubelet 獲取短期令牌的能力，且不受限於最初的三個雲驅動。
 
 <!--
 To learn more, read [kubelet credential provider for authenticated image pulls](/docs/concepts/containers/images/#kubelet-credential-provider).
 -->
-要了解更多信息，請閱讀[用於認證鏡像拉取的 kubelet 憑據提供程序](/zh-cn/docs/concepts/containers/images/#kubelet-credential-provider)。
+要了解更多信息，請閱讀[用於認證映像檔拉取的 kubelet 憑據提供程序](/zh-cn/docs/concepts/containers/images/#kubelet-credential-provider)。
 
 <!--
 ### Storage plugin migration from in-tree to CSI
@@ -157,7 +157,7 @@ Now there are over 100 CSI drivers available across all major cloud and storage 
 
 容器存儲接口（Container Storage Interface，CSI）是一種控制平面標準，用於管理 Kubernetes
 和其他容器編排系統中的塊和文件存儲系統，已在 1.13 中進入正式發佈狀態。
-它的設計目標是用可在 Kubernetes 集羣中 Pod 內運行的驅動程序替換直接內置於 Kubernetes 中的樹內卷插件。
+它的設計目標是用可在 Kubernetes 叢集中 Pod 內運行的驅動程序替換直接內置於 Kubernetes 中的樹內卷插件。
 這些驅動程序通過 Kubernetes API 與 kube-controller-manager 存儲控制器通信，並通過本地 gRPC 端點與 kubelet 進行通信。
 現在，所有主要雲和存儲供應商一起提供了 100 多個 CSI 驅動，使 Kubernetes 中運行有狀態工作負載成爲現實。
 
@@ -166,7 +166,7 @@ However, a major challenge remained on how to handle all the existing users of i
 we built an API translation layer into our controllers that will convert the in-tree volume API into the equivalent CSI API. This allowed us to redirect all storage operations to the CSI driver,
 paving the way for us to remove the code for the built-in volume plugins without removing the API.
 -->
-然而，如何處理樹內卷 API 的所有現有用戶仍然是一個重大挑戰。
+然而，如何處理樹內卷 API 的所有現有使用者仍然是一個重大挑戰。
 爲了保持 API 向後兼容性，我們在控制器中構建了一個 API 轉換層，把樹內卷 API 轉換爲等效的 CSI API。
 這使我們能夠將所有存儲操作重定向到 CSI 驅動程序，爲我們在不刪除 API 的情況下刪除內置卷插件的代碼鋪平了道路。
 
@@ -186,7 +186,7 @@ hybrid environments where nodes in the cluster can run on both public and privat
 
 過去幾年，這一遷移工程一直是 SIG Cloud Provider 的主要關注點。
 隨着這一重要里程碑的實現，我們將把努力轉向探索新的創新方法，讓 Kubernetes 更好地與雲驅動集成，利用我們多年來構建的外部子系統。
-這包括使 Kubernetes 在混合環境中變得更加智能，其集羣中的節點可以運行在公共雲和私有云上，
+這包括使 Kubernetes 在混合環境中變得更加智能，其叢集中的節點可以運行在公共雲和私有云上，
 以及爲外部驅動的開發人員提供更好的工具和框架，以簡化他們的集成工作，提高效率。
 
 <!--

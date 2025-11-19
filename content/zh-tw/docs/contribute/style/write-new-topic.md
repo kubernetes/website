@@ -47,7 +47,7 @@ Tutorial | A tutorial page shows how to accomplish a goal that ties together sev
 類型 | 描述
 :--- | :----------
 概念（Concept） | 概念頁面負責解釋 Kubernetes 的某方面。例如，概念頁面可以描述 Kubernetes Deployment 對象，並解釋當部署、擴展和更新時，它作爲應用程序所扮演的角色。一般來說，概念頁面不包括步驟序列，而是提供任務或教程的鏈接。概念主題的示例可參見 <a href="/zh-cn/docs/concepts/architecture/nodes/">節點</a>。
-任務（Task） | 任務頁面展示如何完成特定任務。其目的是給讀者提供一系列的步驟，讓他們在閱讀時可以實際執行。任務頁面可長可短，前提是它始終圍繞着某個主題展開。在任務頁面中，可以將簡短的解釋與要執行的步驟混合在一起。如果需要提供較長的解釋，則應在概念主題中進行。相關聯的任務和概念主題應該相互鏈接。一個簡短的任務頁面的實例可參見 <a href="/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/">配置 Pod 使用卷存儲</a>。一個較長的任務頁面的實例可參見 <a href="/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">配置活躍性和就緒性探針</a>。
+任務（Task） | 任務頁面展示如何完成特定任務。其目的是給讀者提供一系列的步驟，讓他們在閱讀時可以實際執行。任務頁面可長可短，前提是它始終圍繞着某個主題展開。在任務頁面中，可以將簡短的解釋與要執行的步驟混合在一起。如果需要提供較長的解釋，則應在概念主題中進行。相關聯的任務和概念主題應該相互鏈接。一個簡短的任務頁面的實例可參見 <a href="/zh-cn/docs/tasks/configure-pod-container/configure-volume-storage/">設定 Pod 使用卷存儲</a>。一個較長的任務頁面的實例可參見 <a href="/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">設定活躍性和就緒性探針</a>。
 教程（Tutorial） | 教程頁面展示如何實現某個目標，該目標將若干 Kubernetes 功能特性聯繫在一起。教程可能提供一些步驟序列，讀者可以在閱讀頁面時實際執行這些步驟。或者它可以提供相關代碼片段的解釋。例如，教程可以提供代碼示例的講解。教程可以包括對 Kubernetes 幾個關聯特性的簡要解釋，但有關更深入的特性解釋應該鏈接到相關概念主題。 
 {{< /table >}}
 
@@ -198,13 +198,13 @@ following cases (not an exhaustive list):
 -->
 
 - 代碼顯示來自命令的輸出，例如 `kubectl get deploy mydeployment -o json | jq '.status'`。
-- 代碼不夠通用，用戶無法驗證。例如，你可以嵌入 YAML 文件來創建一個依賴於特定
+- 代碼不夠通用，使用者無法驗證。例如，你可以嵌入 YAML 文件來創建一個依賴於特定
   [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume) 實現的 Pod。
 - 該代碼是一個不完整的示例，因爲其目的是突出展現某個大文件中的部分內容。
   例如，在描述
   [RoleBinding](/zh-cn/docs/reference/access-authn-authz/rbac/#role-binding-examples)
   的方法時，你可以在主題文件中直接提供一個短的代碼段。
-- 由於某些其他原因，該代碼不適合用戶驗證。
+- 由於某些其他原因，該代碼不適合使用者驗證。
   例如，當使用 `kubectl edit` 命令描述如何將新屬性添加到資源時，
   你可以提供一個僅包含要添加的屬性的簡短示例。
 
@@ -257,9 +257,9 @@ under `<LANG>/examples`.
 
 In your topic, show this command:
 -->
-## 顯示如何從配置文件創建 API 對象
+## 顯示如何從設定文件創建 API 對象
 
-如果需要演示如何基於配置文件創建 API 對象，請將配置文件放在 `<LANG>/examples`
+如果需要演示如何基於設定文件創建 API 對象，請將設定文件放在 `<LANG>/examples`
 下的某個子目錄中。
 
 在主題中展示以下命令：

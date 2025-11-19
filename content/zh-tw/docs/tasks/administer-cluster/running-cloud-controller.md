@@ -71,7 +71,7 @@ integration, it should not be too different from the requirements when running
 
 * 雲服務認證/授權：你的雲服務可能需要使用令牌或者 IAM 規則以允許對其 API 的訪問
 * kubernetes 認證/授權：cloud-controller-manager 可能需要 RBAC 規則以訪問 kubernetes apiserver
-* 高可用：類似於 kube-controller-manager，你可能希望通過主節點選舉（默認開啓）配置一個高可用的雲管理控制器。
+* 高可用：類似於 kube-controller-manager，你可能希望通過主節點選舉（默認開啓）設定一個高可用的雲管理控制器。
 
 <!--
 ### Running cloud-controller-manager
@@ -80,7 +80,7 @@ Successfully running cloud-controller-manager requires some changes to your clus
 -->
 ### 運行雲管理控制器
 
-你需要對集羣配置做適當的修改以成功地運行雲管理控制器：
+你需要對叢集設定做適當的修改以成功地運行雲管理控制器：
 
 <!--
 * `kubelet`, `kube-apiserver`, and `kube-controller-manager` must be set according to the
@@ -88,15 +88,15 @@ Successfully running cloud-controller-manager requires some changes to your clus
   controller loops in the Kubernetes Controller Manager), then `--cloud-provider=external`
   must be specified. Otherwise, it should not be specified.
 -->
-* `kubelet`、`kube-apiserver` 和 `kube-controller-manager` 必須根據用戶對外部 CCM 的使用進行設置。
-  如果用戶有一個外部的 CCM（不是 Kubernetes 控制器管理器中的內部雲控制器迴路），
+* `kubelet`、`kube-apiserver` 和 `kube-controller-manager` 必須根據使用者對外部 CCM 的使用進行設置。
+  如果使用者有一個外部的 CCM（不是 Kubernetes 控制器管理器中的內部雲控制器迴路），
   那麼必須添加 `--cloud-provider=external` 參數。否則，不應添加此參數。
 
 <!--
 Keep in mind that setting up your cluster to use cloud controller manager will
 change your cluster behaviour in a few ways:
 -->
-請記住，設置集羣使用雲管理控制器將用多種方式更改集羣行爲：
+請記住，設置叢集使用雲管理控制器將用多種方式更改叢集行爲：
 
 <!--
 * Components that specify `--cloud-provider=external` will add a taint
@@ -111,7 +111,7 @@ change your cluster behaviour in a few ways:
 * 指定了 `--cloud-provider=external` 的組件將被添加一個 `node.cloudprovider.kubernetes.io/uninitialized`
   的污點，導致其在初始化過程中不可調度（`NoSchedule`）。
   這將標記該節點在能夠正常調度前，需要外部的控制器進行二次初始化。
-  請注意，如果雲管理控制器不可用，集羣中的新節點會一直處於不可調度的狀態。
+  請注意，如果雲管理控制器不可用，叢集中的新節點會一直處於不可調度的狀態。
   這個污點很重要，因爲調度器可能需要關於節點的雲服務特定的信息，比如他們的區域或類型
   （高端 CPU、GPU 支持、內存較大、臨時實例等）。
 
@@ -123,10 +123,10 @@ change your cluster behaviour in a few ways:
   to consider if cloud controller manager will hit rate limits since it is now
   responsible for almost all API calls to your cloud from within the cluster.
 -->
-* 集羣中節點的雲服務信息將不再能夠從本地元數據中獲取，取而代之的是所有獲取節點信息的
+* 叢集中節點的雲服務信息將不再能夠從本地元數據中獲取，取而代之的是所有獲取節點信息的
   API 調用都將通過雲管理控制器。這意味着你可以通過限制到 kubelet 雲服務 API 的訪問來提升安全性。
-  在更大的集羣中你可能需要考慮雲管理控制器是否會遇到速率限制，
-  因爲它現在負責集羣中幾乎所有到雲服務的 API 調用。
+  在更大的叢集中你可能需要考慮雲管理控制器是否會遇到速率限制，
+  因爲它現在負責叢集中幾乎所有到雲服務的 API 調用。
 
 <!--
 Cloud controller manager can implement:
@@ -142,7 +142,7 @@ Cloud controller manager can implement:
 
 * 節點控制器 - 負責使用雲服務 API 更新 kubernetes 節點並刪除在雲服務上已經刪除的 kubernetes 節點。
 * 服務控制器 - 負責在雲服務上爲類型爲 LoadBalancer 的 service 提供負載均衡器。
-* 路由控制器 - 負責在雲服務上配置網絡路由。
+* 路由控制器 - 負責在雲服務上設定網路路由。
 * 如果你使用的是 out-of-tree 提供商，請按需實現其餘任意特性。
 
 <!--
@@ -171,7 +171,7 @@ projects in repos maintained by cloud vendors or sig leads.
 For providers already in Kubernetes core, you can run the in-tree cloud controller
 manager as a Daemonset in your cluster, use the following as a guideline:
 -->
-對於已經存在於 Kubernetes 內核中的提供商，你可以在集羣中將 in-tree 雲管理控制器作爲守護進程運行。請使用如下指南：
+對於已經存在於 Kubernetes 內核中的提供商，你可以在叢集中將 in-tree 雲管理控制器作爲守護進程運行。請使用如下指南：
 
 {{% code_sample file="admin/cloud/ccm-example.yaml" %}}
 
@@ -215,7 +215,7 @@ bottlenecks such as resource requirements and API rate limiting.
 ### 可擴展性
 
 通過雲管理控制器查詢你的雲提供商的 API 以檢索所有節點的信息。
-對於非常大的集羣，請考慮可能的瓶頸，例如資源需求和 API 速率限制。
+對於非常大的叢集，請考慮可能的瓶頸，例如資源需求和 API 速率限制。
 
 <!--
 ### Chicken and Egg
@@ -248,7 +248,7 @@ As this initiative evolves, changes will be made to address these issues in upco
 Kubelet 中的 TLS 引導特性是一個很好的例子。
 目前，TLS 引導認爲 kubelet 有能力從雲提供商（或本地元數據服務）獲取所有的地址類型（私有、公用等），
 但在被初始化之前，雲管理控制器不能設置節點地址類型，而這需要 kubelet 擁有
-TLS 證書以和 API 服務器通信。
+TLS 證書以和 API 伺服器通信。
 
 隨着整個動議的演進，將來的發行版中將作出改變來解決這些問題。
 

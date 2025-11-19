@@ -27,7 +27,7 @@ Init Containers. The example command lines below refer to the Pod as
 `<init-container-2>`.
 -->
 此頁顯示如何覈查與 Init 容器執行相關的問題。
-下面的示例命令行將 Pod 稱爲 `<pod-name>`，而 Init 容器稱爲 `<init-container-1>` 和
+下面的示例命令列將 Pod 稱爲 `<pod-name>`，而 Init 容器稱爲 `<init-container-1>` 和
 `<init-container-2>`。
 
 ## {{% heading "prerequisites" %}}
@@ -41,7 +41,7 @@ Init Containers. The example command lines below refer to the Pod as
 -->
 
 * 你應該熟悉 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)的基礎知識。
-* 你應該已經[配置好一個 Init 容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)。
+* 你應該已經[設定好一個 Init 容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)。
 
 <!-- steps -->
 

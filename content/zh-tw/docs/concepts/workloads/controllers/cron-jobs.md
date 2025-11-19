@@ -240,7 +240,7 @@ now. If the difference is higher than that limit, it will skip this execution.
 For example, if it is set to `200`, it allows a Job to be created for up to 200
 seconds after the actual schedule.
 -->
-對於錯過已配置的最後期限的 Job，Kubernetes 將其視爲失敗的 Job。
+對於錯過已設定的最後期限的 Job，Kubernetes 將其視爲失敗的 Job。
 如果你沒有爲 CronJob 指定 `startingDeadlineSeconds`，那 Job 就沒有最後期限。
 
 如果 `.spec.startingDeadlineSeconds` 字段被設置（非空），

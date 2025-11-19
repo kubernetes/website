@@ -22,7 +22,7 @@ content_type: task
 <!--
 This document shares how to extend the existing Service IP range assigned to a cluster.
 -->
-本文將介紹如何擴展分配給集羣的現有 Service IP 範圍。
+本文將介紹如何擴展分配給叢集的現有 Service IP 範圍。
 
 ## {{% heading "prerequisites" %}}
 
@@ -51,11 +51,11 @@ Kubernetes clusters with kube-apiservers that have enabled the `MultiCIDRService
 the well-known name `kubernetes`, and that specifies an IP address range
 based on the value of the `--service-cluster-ip-range` command line argument to kube-apiserver.
 -->
-如果 Kubernetes 集羣的 kube-apiserver 啓用了 `MultiCIDRServiceAllocator`
+如果 Kubernetes 叢集的 kube-apiserver 啓用了 `MultiCIDRServiceAllocator`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)且激活了
-`networking.k8s.io/v1` API 組，集羣將創建一個新的 ServiceCIDR 對象，
+`networking.k8s.io/v1` API 組，叢集將創建一個新的 ServiceCIDR 對象，
 該對象採用 `kubernetes` 這個衆所周知的名稱並基於 kube-apiserver 的 `--service-cluster-ip-range`
-命令行參數的值來使用 IP 地址範圍。
+命令列參數的值來使用 IP 地址範圍。
 
 ```sh
 kubectl get servicecidr
@@ -72,7 +72,7 @@ the first IP address from the default ServiceCIDR range and uses that IP address
 cluster IP address.
 -->
 公認的 `kubernetes` Service 將 kube-apiserver 的端點暴露給 Pod，
-計算出默認 ServiceCIDR 範圍中的第一個 IP 地址，並將該 IP 地址用作其集羣 IP 地址。
+計算出默認 ServiceCIDR 範圍中的第一個 IP 地址，並將該 IP 地址用作其叢集 IP 地址。
 
 ```sh
 kubectl get service kubernetes
@@ -115,9 +115,9 @@ With this new feature users only need to add a new ServiceCIDR to increase the n
 -->
 ## 擴展 Service 可用的 IP 數量   {#extend-the-number-of-available-ips-for-services}
 
-有時候用戶需要增加可供 Service 使用的 IP 地址數量。
+有時候使用者需要增加可供 Service 使用的 IP 地址數量。
 以前，增加 Service 範圍是一個可能導致數據丟失的破壞性操作。
-有了這個新的特性後，用戶只需添加一個新的 ServiceCIDR 對象，便能增加可用地址的數量。
+有了這個新的特性後，使用者只需添加一個新的 ServiceCIDR 對象，便能增加可用地址的數量。
 
 <!--
 ### Adding a new ServiceCIDR
@@ -128,7 +128,7 @@ that leaves you with only 13 possible Services.
 -->
 ### 添加新的 ServiceCIDR   {#adding-a-new-servicecidr}
 
-對於 Service 範圍爲 10.96.0.0/28 的集羣，只有 2^(32-28) - 2 = 14 個可用的 IP 地址。
+對於 Service 範圍爲 10.96.0.0/28 的叢集，只有 2^(32-28) - 2 = 14 個可用的 IP 地址。
 `kubernetes.default` Service 始終會被創建；在這個例子中，你只剩下了 13 個可能的 Service。
 
 ```sh
@@ -282,8 +282,8 @@ like Validating Admission Policies to enforce these rules.
 -->
 ## Kubernetes Service CIDR 策略   {#kubernetes-service-cidr-policies}
 
-集羣管理員可以實現策略來控制集羣中 ServiceCIDR 資源的創建和修改。
-這允許集中管理 Service 所使用的 IP 地址範圍，有助於防止意外或衝突的配置。
+叢集管理員可以實現策略來控制叢集中 ServiceCIDR 資源的創建和修改。
+這允許集中管理 Service 所使用的 IP 地址範圍，有助於防止意外或衝突的設定。
 Kubernetes 提供如驗證准入策略（Validating Admission Policy）等機制來強制執行這些規則。
 
 <!--
@@ -295,7 +295,7 @@ Service IP ranges.
 -->
 ### 使用驗證准入策略阻止未授權的 ServiceCIDR 創建或更新
 
-在某些情況下，集羣管理員可能希望限制允許的 IP 範圍，或完全禁止對集羣 Service IP 範圍的更改。
+在某些情況下，叢集管理員可能希望限制允許的 IP 範圍，或完全禁止對叢集 Service IP 範圍的更改。
 
 {{< note >}}
 <!--
@@ -304,8 +304,8 @@ to provide consistency in the cluster and is required for the cluster to work,
 so it always must be allowed. You can ensure your `ValidatingAdmissionPolicy`
 doesn't restrict the default ServiceCIDR by adding the clause:
 -->
-默認的 "kubernetes" ServiceCIDR 是由 kube-apiserver 創建的，用於在集羣中保證一致性，
-並且是集羣正常運行所必需的，因此必須始終被允許。你可以通過在 `ValidatingAdmissionPolicy`
+默認的 "kubernetes" ServiceCIDR 是由 kube-apiserver 創建的，用於在叢集中保證一致性，
+並且是叢集正常運行所必需的，因此必須始終被允許。你可以通過在 `ValidatingAdmissionPolicy`
 中添加以下條件來確保不會限制默認的 ServiceCIDR：
 
 ```yaml
@@ -336,7 +336,7 @@ the value of `allowed` to something appropriate for you cluster.
 以下是一個 `ValidatingAdmissionPolicy` 的示例，它只允許在給定的 `allowed` 範圍內的子範圍創建 ServiceCIDR。
 （因此示例的策略允許 ServiceCIDR 使用 `cidrs: ['10.96.1.0/24']` 或
 `cidrs: ['2001:db8:0:0:ffff::/80', '10.96.0.0/20']`，但不允許 `cidrs: ['172.20.0.0/16']`。）  
-你可以複製此策略，並將 `allowed` 的值更改爲適合你集羣的取值。
+你可以複製此策略，並將 `allowed` 的值更改爲適合你叢集的取值。
 
 <!--
 # For all CIDRs (newCIDR) listed in the spec.cidrs of the submitted ServiceCIDR

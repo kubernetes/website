@@ -16,7 +16,7 @@ weight: 10
 -->
 * 瞭解 Kubernetes 中的 Service
 * 瞭解標籤（Label）和選擇算符（Selector）如何與 Service 關聯
-* 用 Service 向 Kubernetes 集羣外公開應用
+* 用 Service 向 Kubernetes 叢集外公開應用
 
 <!--
 ## Overview of Kubernetes Services
@@ -38,10 +38,10 @@ Kubernetes [Pod](/zh-cn/docs/concepts/workloads/pods/) 是有生命期的。
 Pod 擁有[生命週期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 當一個工作節點停止工作後，在節點上運行的 Pod 也會消亡。
 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/replicaset/)
-會自動地通過創建新的 Pod 驅動集羣回到期望狀態，以保證應用正常運行。
+會自動地通過創建新的 Pod 驅動叢集回到期望狀態，以保證應用正常運行。
 換一個例子，考慮一個具有 3 個副本的用作圖像處理的後端程序。
 這些副本是彼此可替換的。前端系統不應該關心後端副本，即使某個 Pod 丟失或被重新創建。
-此外，Kubernetes 集羣中的每個 Pod 都有一個唯一的 IP 地址，即使是在同一個 Node 上的 Pod 也是如此，
+此外，Kubernetes 叢集中的每個 Pod 都有一個唯一的 IP 地址，即使是在同一個 Node 上的 Pod 也是如此，
 因此需要一種方法來自動協調 Pod 集合中的變化，以便應用保持運行。
 
 {{% alert %}}
@@ -73,7 +73,7 @@ Although each Pod has a unique IP address, those IPs are not exposed outside the
 cluster without a Service. Services allow your applications to receive traffic.
 Services can be exposed in different ways by specifying a `type` in the `spec` of the Service:
 -->
-雖然每個 Pod 都有唯一的 IP 地址，但如果沒有 Service，這些 IP 地址不會公開到集羣外部。
+雖然每個 Pod 都有唯一的 IP 地址，但如果沒有 Service，這些 IP 地址不會公開到叢集外部。
 Service 允許你的應用接收流量。通過在 Service 的 `spec` 中指定 `type`，可以以不同的方式公開 Service：
 
 <!--
@@ -91,10 +91,10 @@ and assigns a fixed, external IP to the Service. Superset of NodePort.
 No proxying of any kind is set up. This type requires v1.7 or higher of `kube-dns`,
 or CoreDNS version 0.0.8 or higher.
 -->
-* **ClusterIP**（默認）- 在集羣的內部 IP 上公開 Service。
-  這種類型使得 Service 只能從集羣內訪問。
-* **NodePort** - 使用 NAT 在集羣中每個選定 Node 的相同端口上公開 Service 。
-  使用 `NodeIP:NodePort` 從集羣外部訪問 Service。這是 ClusterIP 的超集。
+* **ClusterIP**（默認）- 在叢集的內部 IP 上公開 Service。
+  這種類型使得 Service 只能從叢集內訪問。
+* **NodePort** - 使用 NAT 在叢集中每個選定 Node 的相同端口上公開 Service 。
+  使用 `NodeIP:NodePort` 從叢集外部訪問 Service。這是 ClusterIP 的超集。
 * **LoadBalancer** - 在當前雲中創建一個外部負載均衡器（如果支持的話），
   併爲 Service 分配一個固定的外部 IP。這是 NodePort 的超集。
 * **ExternalName** - 將 Service 映射到 `externalName`
@@ -118,7 +118,7 @@ using `type: ExternalName`.
 
 另外，需要注意的是有一些 Service 的用例不需要在 spec 中定義 `selector`。
 一個創建時未設置 `selector` 的 Service 也不會創建相應的 Endpoints 對象。
-這允許用戶手動將 Service 映射到特定的端點。
+這允許使用者手動將 Service 映射到特定的端點。
 沒有 `selector` 的另一種可能是你在嚴格使用 `type: ExternalName` Service。
 
 <!--
@@ -192,7 +192,7 @@ Next, let’s list the current Services from our cluster:
 教程重新創建 Deployment。
 請等待幾秒鐘，然後再次列舉 Pod。一旦看到一個 Pod 正在運行，你就可以繼續了。
 
-接下來，讓我們列舉當前集羣中的 Service：
+接下來，讓我們列舉當前叢集中的 Service：
 
 ```shell
 kubectl get services
@@ -215,7 +215,7 @@ To find out what port was opened externally (for the `type: NodePort` Service) w
 run the `describe service` subcommand:
 -->
 我們現在有一個運行中的 Service 名爲 kubernetes-bootcamp。
-這裏我們看到 Service 收到了一個唯一的集羣內 IP（Cluster-IP）、一個內部端口和一個外部 IP
+這裏我們看到 Service 收到了一個唯一的叢集內 IP（Cluster-IP）、一個內部端口和一個外部 IP
 （External-IP）（Node 的 IP）。
 
 要得到外部打開的端口號（對於 `type: NodePort` 的 Service），
@@ -241,7 +241,7 @@ Now we can test that the app is exposed outside of the cluster using `curl`, the
 IP address of the Node and the externally exposed port:
 -->
 現在我們可以使用 `curl`、Node 的 IP 地址和對外公開的端口，
-來測試應用是否已經被公開到了集羣外部：
+來測試應用是否已經被公開到了叢集外部：
 
 ```shell
 curl http://"$(minikube ip):$NODE_PORT"
@@ -292,7 +292,7 @@ And we get a response from the server. The Service is exposed.
 The Deployment created automatically a label for our Pod. With the `describe deployment`
 subcommand you can see the name (the _key_) of that label:
 -->
-然後我們就會收到服務器的響應。Service 已經被公開出來。
+然後我們就會收到伺服器的響應。Service 已經被公開出來。
 
 ### 第二步：使用標籤   {#step2-using-labels}
 
@@ -409,7 +409,7 @@ curl http://"$(minikube ip):$NODE_PORT"
 This proves that the application is not reachable anymore from outside of the cluster.
 You can confirm that the app is still running with a `curl` from inside the pod:
 -->
-這證明了集羣外部已經不再可以訪問應用。
+這證明了叢集外部已經不再可以訪問應用。
 你可以通過在 Pod 內部運行 `curl` 確認應用仍在運行：
 
 ```shell

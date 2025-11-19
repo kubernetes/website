@@ -16,7 +16,7 @@ This page shows how to debug a [node](/docs/concepts/architecture/nodes/)
 running on the Kubernetes cluster using `kubectl debug` command.
 -->
 本頁演示如何使用 `kubectl debug` 命令調試在 Kubernetes
-集羣上運行的[節點](/zh-cn/docs/concepts/architecture/nodes/)。
+叢集上運行的[節點](/zh-cn/docs/concepts/architecture/nodes/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -70,7 +70,7 @@ install other tools, such as `mtr`, `tcpdump`, and `curl`, from the respective p
 The debug commands may differ based on the image the debugging pod is using and
 these commands might need to be installed.
 -->
-這些調試命令會因調試 Pod 所使用的鏡像不同而有些差別，並且這些命令可能需要被安裝。
+這些調試命令會因調試 Pod 所使用的映像檔不同而有些差別，並且這些命令可能需要被安裝。
 {{< /note >}}
 
 <!--
@@ -132,9 +132,9 @@ When creating a debugging session on a Node, keep in mind that:
 * `kubectl debug` 根據節點的名稱自動生成新 Pod 的名稱。
 * 節點的根文件系統將被掛載在 `/host`。
 * 儘管容器運行在主機 IPC、Network 和 PID 名字空間中，但 Pod 沒有特權。
-  這意味着讀取某些進程信息可能會失敗，這是因爲訪問這些信息僅限於超級用戶 (superuser)。
+  這意味着讀取某些進程信息可能會失敗，這是因爲訪問這些信息僅限於超級使用者 (superuser)。
   例如，`chroot /host` 將失敗。如果你需要一個有特權的 Pod，請手動創建或使用 `--profile=sysadmin` 標誌。
-* 通過應用[調試配置](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles)，
+* 通過應用[調試設定](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/#debugging-profiles)，
   你可以爲調試 Pod 設置特定的屬性，例如 [securityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 
 ## {{% heading "cleanup" %}}
@@ -170,6 +170,6 @@ from the network, or kubelet dies and won't restart, etc.).
 Check [debugging a down/unreachable node ](/docs/tasks/debug/debug-cluster/#example-debugging-a-down-unreachable-node)
 in that case.
 -->
-如果節點停機（網絡斷開或 kubelet 宕機且無法啓動等），則 `kubectl debug node` 命令將不起作用。
+如果節點停機（網路斷開或 kubelet 宕機且無法啓動等），則 `kubectl debug node` 命令將不起作用。
 這種情況下請檢查[調試關閉/無法訪問的節點](/zh-cn/docs/tasks/debug/debug-cluster/#example-debugging-a-down-unreachable-node)。
 {{< /note >}}

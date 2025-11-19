@@ -34,7 +34,7 @@ In a Kubernetes cluster, it is possible for a node to shut down. This could happ
 -->
 ## 什麼是 Kubernetes 中的節點關閉
 
-在 Kubernetes 集羣中，節點可能會關閉。這可能在計劃內發生，也可能意外發生。
+在 Kubernetes 叢集中，節點可能會關閉。這可能在計劃內發生，也可能意外發生。
 你可能計劃進行安全補丁或內核升級並需要重新啓動節點，或者它可能由於 VM 實例搶佔而關閉。
 節點也可能由於硬件故障或軟件問題而關閉。
 
@@ -82,8 +82,8 @@ configured correctly for that node.
 僅當 kubelet 的**節點關閉管理器**可以檢測到即將到來的節點關閉操作時，節點關閉纔可能是體面的。
 但是，在某些情況下，kubelet 不能檢測到節點關閉操作。
 這可能是因爲 `shutdown` 命令沒有觸發 Linux 上 kubelet 使用的 [Inhibitor Locks](https://www.freedesktop.org/wiki/Software/systemd/inhibit)
-機制，或者是因爲用戶的失誤導致。
-例如，如果該節點的 `shutdownGracePeriod` 和 `shutdownGracePeriodCriticalPods` 詳細信息配置不正確。
+機制，或者是因爲使用者的失誤導致。
+例如，如果該節點的 `shutdownGracePeriod` 和 `shutdownGracePeriodCriticalPods` 詳細信息設定不正確。
 
 <!--
 When a node is shut down (or crashes), and that shutdown was **not** detected by the kubelet
@@ -104,7 +104,7 @@ the old Pod, and the control plane can make a replacement.)
 就出現了非體面的節點關閉。節點非體面關閉對於有狀態應用程序而言是一個問題。
 如果節點以非正常方式關閉且節點上存在屬於某 StatefulSet 的 Pod，
 則該 Pod 將被無限期地阻滯在 `Terminating` 狀態，並且控制平面無法在健康節點上爲該 StatefulSet 創建替代 Pod。
-你可以手動刪除失敗的 Pod，但這對於集羣自愈來說並不是理想狀態。
+你可以手動刪除失敗的 Pod，但這對於叢集自愈來說並不是理想狀態。
 同樣，作爲 Deployment 的一部分創建的 ReplicaSet 中的 Pod 也將滯留在 `Terminating` 狀態，
 對於綁定到正在被關閉的節點上的其他 Pod，也將無限期地處於 `Terminating` 狀態。
 如果你設置了水平縮放限制，即使那些處於終止過程中的 Pod 也會被計入該限制，
@@ -172,7 +172,7 @@ or the node is down due to hardware failures, OS issues, etc.
 Once all the workload pods that are linked to the out-of-service node are moved to a new running node, and the shutdown node has been recovered, you should remove that taint on the affected node after the node is recovered.
 -->
 **注意**：在應用 out-of-service 污點之前，你必須驗證節點是否已經處於關閉或斷電狀態（而不是在重新啓動中），
-要麼是因爲用戶有意關閉它，要麼是由於硬件故障或操作系統問題等導致節點關閉。
+要麼是因爲使用者有意關閉它，要麼是由於硬件故障或操作系統問題等導致節點關閉。
 
 與 out-of-service 節點有關聯的所有工作負載的 Pod 都被移動到新的運行節點，
 並且所關閉的節點已恢復之後，你應該刪除受影響節點上的污點。
@@ -195,12 +195,12 @@ In the future, we plan to find ways to automatically detect and fence nodes that
 
 根據反饋和採用情況，Kubernetes 團隊計劃在 1.27 或 1.28 中將非體面節點關閉實現推向正式發佈（GA）狀態。
 
-此功能需要用戶手動向節點添加污點以觸發工作負載的故障轉移並在節點恢復後刪除污點。
+此功能需要使用者手動向節點添加污點以觸發工作負載的故障轉移並在節點恢復後刪除污點。
 
 如果有一種編程方式可以確定節點確實關閉並且節點和存儲之間沒有 IO，
-則集羣操作員可以通過自動應用 `out-of-service` 污點來自動執行此過程。
+則叢集操作員可以通過自動應用 `out-of-service` 污點來自動執行此過程。
 
-在工作負載成功轉移到另一個正在運行的節點並且曾關閉的節點已恢復後，集羣操作員可以自動刪除污點。
+在工作負載成功轉移到另一個正在運行的節點並且曾關閉的節點已恢復後，叢集操作員可以自動刪除污點。
 
 將來，我們計劃尋找方法來自動檢測來隔離已關閉或處於不可恢復狀態的節點，
 並將其工作負載故障轉移到另一個節點。

@@ -26,7 +26,7 @@ CredentialProviderRequest includes the image that the kubelet requires authentic
 Kubelet will pass this request object to the plugin via stdin. In general, plugins should
 prefer responding with the same apiVersion they were sent.
 -->
-<code>CredentialProviderRequest</code> 包含 kubelet 需要通過身份驗證才能訪問的鏡像。
+<code>CredentialProviderRequest</code> 包含 kubelet 需要通過身份驗證才能訪問的映像檔。
 kubelet 將此請求對象通過 stdin 傳遞到插件。
 通常，插件應優先使用所收到的 <code>apiVersion</code> 作出響應。
 </p>
@@ -48,8 +48,8 @@ image is the container image that is being pulled as part of the
 credential provider plugin request. Plugins may optionally parse the image
 to extract any information required to fetch credentials.
 -->
-<code>image</code> 是作爲憑據提供程序插件請求的一部分所拉取的容器鏡像。
-這些插件可以選擇解析鏡像以提取獲取憑據所需的任何信息。
+<code>image</code> 是作爲憑據提供程序插件請求的一部分所拉取的容器映像檔。
+這些插件可以選擇解析映像檔以提取獲取憑據所需的任何信息。
 </p>
 
 </td>
@@ -66,8 +66,8 @@ the image is being pulled. This token is only sent to the plugin if the
 tokenAttributes.serviceAccountTokenAudience field is configured in the kubelet's credential
 provider configuration.
 -->
-<code>serviceAccountToken</code> 是與正在拉取鏡像的 Pod 綁定的服務帳號令牌。
-只有在 kubelet 的憑證提供者配置中設置了
+<code>serviceAccountToken</code> 是與正在拉取映像檔的 Pod 綁定的服務帳號令牌。
+只有在 kubelet 的憑證提供者設定中設置了
 <code>tokenAttributes.serviceAccountTokenAudience</code> 字段時，
 纔會將此令牌發送給插件。
 </p>
@@ -84,9 +84,9 @@ pod for which the image is being pulled. The list of annotations in the service 
 that need to be passed to the plugin is configured in the kubelet's credential provider
 configuration.
 -->
-<code>serviceAccountAnnotations</code>> 與正在拉取鏡像的 Pod
+<code>serviceAccountAnnotations</code>> 與正在拉取映像檔的 Pod
 綁定的服務帳號上的註解映射。需要傳遞給插件的服務帳號中的註解列表在
-kubelet 的憑證提供者配置中進行配置。
+kubelet 的憑證提供者設定中進行設定。
 </p>
 </td>
 </tr>
@@ -102,7 +102,7 @@ CredentialProviderResponse holds credentials that the kubelet should use for the
 image provided in the original request. Kubelet will read the response from the plugin via stdout.
 This response should be set to the same apiVersion as CredentialProviderRequest.
 -->
-<code>CredentialProviderResponse</code> 中包含 kubelet 應針對原始請求中所給鏡像來使用的憑據。
+<code>CredentialProviderResponse</code> 中包含 kubelet 應針對原始請求中所給映像檔來使用的憑據。
 kubelet 將通過 stdout 讀取來自插件的響應。
 此響應應被設置爲與 <code>CredentialProviderRequest</code> 相同的
 <code>apiVersion</code>。
@@ -125,7 +125,7 @@ cacheKeyType indicates the type of caching key to use based on the image provide
 in the request. There are three valid values for the cache key type: Image, Registry, and
 Global. If an invalid value is specified, the response will NOT be used by the kubelet.
 -->
-<code>cacheKeyType</code> 標示了基於請求中提供的鏡像要使用的緩存鍵的類型。
+<code>cacheKeyType</code> 標示了基於請求中提供的映像檔要使用的緩存鍵的類型。
 緩存鍵類型有三個有效值：<code>Image</code>、<code>Registry</code> 和 <code>Global</code>。
 如果所指定的值無效，則此響應不會被 kubelet 使用。
 </p>
@@ -161,9 +161,9 @@ should be valid for all images that match against this key. A plugin should set
 this field to null if no valid credentials can be returned for the requested image.
 -->
 <code>auth</code> 是一個映射，包含傳遞給 kubelet 的身份驗證信息。
-映射中每個鍵都是一個匹配鏡像字符串（更多內容見下文）。
-相應的 <code>authConfig</code> 值應該對匹配此鍵的所有鏡像有效。
-如果無法爲請求的鏡像返回有效憑據，則插件應將此字段設置爲空。
+映射中每個鍵都是一個匹配映像檔字符串（更多內容見下文）。
+相應的 <code>authConfig</code> 值應該對匹配此鍵的所有映像檔有效。
+如果無法爲請求的映像檔返回有效憑據，則插件應將此字段設置爲空。
 </p>
 <p>
 <!--
@@ -183,7 +183,7 @@ Glob 支持類似 <code>&ast;.k8s.io</code> 或 <code>k8s.&ast;.io</code> 這類
 <!--
 The kubelet will match images against the key when all of the below are true:
 -->
-當滿足以下所有條件時，kubelet 將根據主鍵來匹配鏡像：
+當滿足以下所有條件時，kubelet 將根據主鍵來匹配映像檔：
 </p>
 <ul>
 <!--
@@ -193,11 +193,11 @@ Both contain the same number of domain parts and each part matches.
 <!--
 The URL path of an imageMatch must be a prefix of the target image URL path.
 -->
-<li>imageMatch 的 URL 路徑必須是目標鏡像 URL 路徑的前綴。</li>
+<li>imageMatch 的 URL 路徑必須是目標映像檔 URL 路徑的前綴。</li>
 <!--
 If the imageMatch contains a port, then the port must match in the image as well.
 -->
-<li>如果 <code>imageMatch</code> 包含端口，則此端口也必須在鏡像中匹配。</li>
+<li>如果 <code>imageMatch</code> 包含端口，則此端口也必須在映像檔中匹配。</li>
 </ul>
 <p>
 <!--
@@ -220,7 +220,7 @@ non-wildcard keys come before wildcard keys with the same prefix.
 For any given match, the kubelet will attempt an image pull with the provided credentials,
 stopping after the first successfully authenticated pull.
 -->
-對於任一給定的匹配項，kubelet 將嘗試用提供的憑據拉取鏡像，並在第一次成功通過身份驗證的拉取之後停止。
+對於任一給定的匹配項，kubelet 將嘗試用提供的憑據拉取映像檔，並在第一次成功通過身份驗證的拉取之後停止。
 </p>
 <!--
 Example keys:
@@ -253,8 +253,8 @@ AuthConfig contains authentication information for a container registry.
 Only username/password based authentication is supported today, but more authentication
 mechanisms may be added in the future.
 -->
-<code>AuthConfig</code> 包含針對容器鏡像倉庫的身份驗證信息。
-目前僅支持基於用戶名/密碼的身份驗證，但未來可能添加更多的身份驗證機制。
+<code>AuthConfig</code> 包含針對容器映像檔倉庫的身份驗證信息。
+目前僅支持基於使用者名/密碼的身份驗證，但未來可能添加更多的身份驗證機制。
 </p>
 
 <table class="table">
@@ -270,8 +270,8 @@ mechanisms may be added in the future.
 username is the username used for authenticating to the container registry
 An empty username is valid.
 -->
-<code>username</code> 是對容器鏡像倉庫身份驗證所用的用戶名。
-空白用戶名是有效的。
+<code>username</code> 是對容器映像檔倉庫身份驗證所用的使用者名。
+空白使用者名是有效的。
 </p>
 </td>
 </tr>
@@ -284,7 +284,7 @@ An empty username is valid.
 password is the password used for authenticating to the container registry
 An empty password is valid.
 -->
-<code>password</code> 是對容器鏡像倉庫身份驗證所用的密碼。
+<code>password</code> 是對容器映像檔倉庫身份驗證所用的密碼。
 空白密碼是有效的。
 </p>
 </td>

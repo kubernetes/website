@@ -1,5 +1,5 @@
 ---
-title: 配置 Pod 以使用捲進行存儲
+title: 設定 Pod 以使用捲進行存儲
 content_type: task
 weight: 80
 ---
@@ -19,7 +19,7 @@ consistent storage that is independent of the Container, you can use a
 [Volume](/docs/concepts/storage/volumes/). This is especially important for stateful
 applications, such as key-value stores (such as Redis) and databases.
 -->
-此頁面展示瞭如何配置 Pod 以使用捲進行存儲。
+此頁面展示瞭如何設定 Pod 以使用捲進行存儲。
 
 只要容器存在，容器的文件系統就會存在，因此當一個容器終止並重新啓動，對該容器的文件系統改動將丟失。
 對於獨立於容器的持久化存儲，你可以使用[卷](/zh-cn/docs/concepts/storage/volumes/)。
@@ -40,11 +40,11 @@ Volume of type
 that lasts for the life of the Pod, even if the Container terminates and
 restarts. Here is the configuration file for the Pod:
 -->
-## 爲 Pod 配置卷   {#configure-a-volume-for-a-pod}
+## 爲 Pod 設定卷   {#configure-a-volume-for-a-pod}
 
 在本練習中，你將創建一個運行 Pod，該 Pod 僅運行一個容器並擁有一個類型爲
 [emptyDir](/zh-cn/docs/concepts/storage/volumes/#emptydir) 的卷，
-在整個 Pod 生命週期中一直存在，即使 Pod 中的容器被終止和重啓。以下是 Pod 的配置：
+在整個 Pod 生命週期中一直存在，即使 Pod 中的容器被終止和重啓。以下是 Pod 的設定：
 
 {{% code_sample file="pods/storage/redis.yaml" %}}
 
@@ -203,6 +203,6 @@ of `Always`.
 -->
 - 參閱 [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)。
 - 參閱 [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)。
-- 除了 `emptyDir` 提供的本地磁盤存儲外，Kubernetes 還支持許多不同的網絡附加存儲解決方案，
+- 除了 `emptyDir` 提供的本地磁盤存儲外，Kubernetes 還支持許多不同的網路附加存儲解決方案，
   包括 GCE 上的 PD 和 EC2 上的 EBS，它們是關鍵數據的首選，並將處理節點上的一些細節，
   例如安裝和卸載設備。瞭解更多詳情請參閱[卷](/zh-cn/docs/concepts/storage/volumes/)。

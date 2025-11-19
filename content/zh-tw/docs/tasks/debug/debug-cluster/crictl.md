@@ -23,7 +23,7 @@ You can use it to inspect and debug container runtimes and applications on a
 Kubernetes node. `crictl` and its source are hosted in the
 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) repository.
 -->
-`crictl` 是 CRI 兼容的容器運行時命令行接口。
+`crictl` 是 CRI 兼容的容器運行時命令列接口。
 你可以使用它來檢查和調試 Kubernetes 節點上的容器運行時和應用程序。
 `crictl` 和它的源代碼在
 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) 代碼庫。
@@ -78,7 +78,7 @@ You can set the endpoint for `crictl` by doing one of the following:
 -->
 - 設置參數 `--runtime-endpoint` 和 `--image-endpoint`。
 - 設置環境變量 `CONTAINER_RUNTIME_ENDPOINT` 和 `IMAGE_SERVICE_ENDPOINT`。
-- 在配置文件 `--config=/etc/crictl.yaml` 中設置端點。
+- 在設定文件 `--config=/etc/crictl.yaml` 中設置端點。
   要設置不同的文件，可以在運行 `crictl` 時使用 `--config=PATH_TO_FILE` 標誌。
 
 {{<note>}}
@@ -94,16 +94,16 @@ You can also specify timeout values when connecting to the server and enable or
 disable debugging, by specifying `timeout` or `debug` values in the configuration
 file or using the `--timeout` and `--debug` command-line flags.
 -->
-你還可以在連接到服務器並啓用或禁用調試時指定超時值，方法是在配置文件中指定
-`timeout` 或 `debug` 值，或者使用 `--timeout` 和 `--debug` 命令行參數。
+你還可以在連接到伺服器並啓用或禁用調試時指定超時值，方法是在設定文件中指定
+`timeout` 或 `debug` 值，或者使用 `--timeout` 和 `--debug` 命令列參數。
 
 <!--
 To view or edit the current configuration, view or edit the contents of
 `/etc/crictl.yaml`. For example, the configuration when using the `containerd`
 container runtime would be similar to this:
 -->
-要查看或編輯當前配置，請查看或編輯 `/etc/crictl.yaml` 的內容。
-例如，使用 `containerd` 容器運行時的配置會類似於這樣：
+要查看或編輯當前設定，請查看或編輯 `/etc/crictl.yaml` 的內容。
+例如，使用 `containerd` 容器運行時的設定會類似於這樣：
 
 ```none
 runtime-endpoint: unix:///var/run/containerd/containerd.sock
@@ -197,9 +197,9 @@ POD ID              CREATED             STATE               NAME                
 
 List all images:
 -->
-### 打印鏡像清單    {#list-containers}
+### 打印映像檔清單    {#list-containers}
 
-打印所有鏡像清單：
+打印所有映像檔清單：
 
 ```shell
 crictl images
@@ -221,7 +221,7 @@ nginx                                     latest              cd5239a0906a6     
 <!--
 List images by repository:
 -->
-根據倉庫打印鏡像清單：
+根據倉庫打印映像檔清單：
 
 ```shell
 crictl images nginx
@@ -240,7 +240,7 @@ nginx               latest              cd5239a0906a6       109MB
 <!--
 Only list image IDs:
 -->
-只打印鏡像 ID：
+只打印映像檔 ID：
 
 ```shell
 crictl images -q

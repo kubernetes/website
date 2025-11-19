@@ -1,5 +1,5 @@
 ---
-title: 爲命名空間配置內存和 CPU 配額
+title: 爲命名空間設定內存和 CPU 配額
 content_type: task
 weight: 50
 description: >-
@@ -36,9 +36,9 @@ You must have access to create namespaces in your cluster.
 
 Each node in your cluster must have at least 1 GiB of memory.
 -->
-在你的集羣裏你必須要有創建命名空間的權限。
+在你的叢集裏你必須要有創建命名空間的權限。
 
-集羣中每個節點至少有 1 GiB 的內存。
+叢集中每個節點至少有 1 GiB 的內存。
 
 <!-- steps -->
 
@@ -50,7 +50,7 @@ isolated from the rest of your cluster.
 -->
 ## 創建命名空間
 
-創建一個命名空間，以便本練習中創建的資源和集羣的其餘部分相隔離。
+創建一個命名空間，以便本練習中創建的資源和叢集的其餘部分相隔離。
 
 ```shell
 kubectl create namespace quota-mem-cpu-example
@@ -268,14 +268,14 @@ kubectl delete namespace quota-mem-cpu-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
-### 集羣管理員參考
+### 叢集管理員參考
 
-* [爲命名空間配置默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間配置默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [爲命名空間配置內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [爲命名空間配置 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [爲命名空間配置 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-* [爲 API 對象配置配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
+* [爲命名空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲命名空間設定內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [爲命名空間設定 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲命名空間設定 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [爲 API 對象設定配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
 ### For app developers
@@ -290,4 +290,4 @@ kubectl delete namespace quota-mem-cpu-example
 * [爲容器和 Pod 分配內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [分配 Pod 級別的 CPU 和內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-pod-level-resources/)
 * [爲容器和 Pod 分配 CPU 資源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
-* [爲 Pod 配置服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
+* [爲 Pod 設定服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)

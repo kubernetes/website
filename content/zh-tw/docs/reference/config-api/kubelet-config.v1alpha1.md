@@ -1,5 +1,5 @@
 ---
-title: kubelet 配置 (v1alpha1)
+title: kubelet 設定 (v1alpha1)
 content_type: tool-reference
 package: kubelet.config.k8s.io/v1alpha1
 ---
@@ -25,8 +25,8 @@ CredentialProviderConfig is the configuration containing information about
 each exec credential provider. Kubelet reads this configuration from disk and enables
 each provider as specified by the CredentialProvider type.
 -->
-CredentialProviderConfig 包含有關每個 exec 憑據提供者的配置信息。
-kubelet 從磁盤上讀取這些配置信息，並根據 CredentialProvider 類型啓用各個提供者。
+CredentialProviderConfig 包含有關每個 exec 憑據提供者的設定信息。
+kubelet 從磁盤上讀取這些設定信息，並根據 CredentialProvider 類型啓用各個提供者。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -46,8 +46,8 @@ for a single image, the results are combined. If providers return overlapping
 auth keys, the value from the provider earlier in this list is attempted first.
 -->
 <code>providers</code> 是一組憑據提供者插件，這些插件會被 kubelet 啓用。
-多個提供者可以匹配到同一鏡像上，這時，來自所有提供者的憑據信息都會返回給 kubelet。
-如果針對同一鏡像調用了多個提供者，則結果會被組合起來。如果提供者返回的認證主鍵有重複，
+多個提供者可以匹配到同一映像檔上，這時，來自所有提供者的憑據信息都會返回給 kubelet。
+如果針對同一映像檔調用了多個提供者，則結果會被組合起來。如果提供者返回的認證主鍵有重複，
 列表中先出現的提供者所返回的值將第一個被嘗試使用。
 </td>
 </tr>
@@ -60,7 +60,7 @@ auth keys, the value from the provider earlier in this list is attempted first.
 <!--
 ImagePullIntent is a record of the kubelet attempting to pull an image.
 -->
-<code>ImagePullIntent</code> 是 kubelet 嘗試拉取鏡像的記錄。
+<code>ImagePullIntent</code> 是 kubelet 嘗試拉取映像檔的記錄。
 </p>
 
 <table class="table">
@@ -80,7 +80,7 @@ Image is the image spec from a Container's <code>image</code> field.
 The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
 characters like ':' and '/'.
 -->
-<code>image</code> 是容器 <code>image</code> 字段中的鏡像規約。
+<code>image</code> 是容器 <code>image</code> 字段中的映像檔規約。
 文件名是此值的 SHA-256 哈希，這樣做是爲了避免文件名中不安全的字符，如 ':' 和 '/'。
 </p>
 </td>
@@ -94,7 +94,7 @@ characters like ':' and '/'.
 <!--
 ImagePullRecord is a record of an image that was pulled by the kubelet.
 -->
-<code>ImagePullRecord</code> 是 kubelet 拉取的鏡像的記錄。
+<code>ImagePullRecord</code> 是 kubelet 拉取的映像檔的記錄。
 </p>
 <p>
 <!--
@@ -103,7 +103,7 @@ and <code>anonymous</code> are <code>false</code>, credentials must be re-checke
 image represented by this record is being requested.
 -->
 如果 <code>kubernetesSecrets</code> 字段中沒有記錄，且 <code>nodeWideCredentials</code>
-和 <code>anonymous</code> 均爲 <code>false</code>，則當請求此記錄表示的鏡像時，必須重新檢查憑據。
+和 <code>anonymous</code> 均爲 <code>false</code>，則當請求此記錄表示的映像檔時，必須重新檢查憑據。
 </p>
 
 <table class="table">
@@ -136,7 +136,7 @@ from the CRI.
 The filename is a SHA-256 hash of this value. This is to avoid filename-unsafe
 characters like ':' and '/'.
 -->
-<code>imageRef</code> 是從 CRI 接收到的此文件所代表的鏡像的引用。
+<code>imageRef</code> 是從 CRI 接收到的此文件所代表的映像檔的引用。
 文件名是此值的 SHA-256 哈希。這是爲了避免文件名中不安全的字符，如 ':' 和 '/'。
 </p>
 </td>
@@ -162,7 +162,7 @@ Example:
 Container requests the <code>hello-world:latest@sha256:91fb4b041da273d5a3273b6d587d62d518300a6ad268b28628f74997b93171b2</code> image:
 -->
 示例：
-容器請求 <code>hello-world:latest@sha256:91fb4b041da273d5a3273b6d587d62d518300a6ad268b28628f74997b93171b2</code> 鏡像：
+容器請求 <code>hello-world:latest@sha256:91fb4b041da273d5a3273b6d587d62d518300a6ad268b28628f74997b93171b2</code> 映像檔：
 &quot;credentialMapping&quot;: {
 &quot;hello-world&quot;: { &quot;nodePodsAccessible&quot;: true }
 }
@@ -188,7 +188,7 @@ CredentialProvider represents an exec plugin to be invoked by the kubelet. The p
 invoked when an image being pulled matches the images handled by the plugin (see matchImages).
 -->
 CredentialProvider 代表的是要被 kubelet 調用的一個 exec 插件。
-這一插件只會在所拉取的鏡像與該插件所處理的鏡像匹配時纔會被調用（參見 <code>matchImages</code>）。
+這一插件只會在所拉取的映像檔與該插件所處理的映像檔匹配時纔會被調用（參見 <code>matchImages</code>）。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -225,9 +225,9 @@ requested image from the kubelet, the plugin will be invoked and given a chance
 to provide credentials. Images are expected to contain the registry domain
 and URL path.
 -->
-<code>matchImages</code> 是一個必須設置的字符串列表，用來匹配鏡像以便確定是否要調用此提供者。
-如果字符串之一與 kubelet 所請求的鏡像匹配，則此插件會被調用並給予提供憑證的機會。
-鏡像應該包含鏡像庫域名和 URL 路徑。
+<code>matchImages</code> 是一個必須設置的字符串列表，用來匹配映像檔以便確定是否要調用此提供者。
+如果字符串之一與 kubelet 所請求的映像檔匹配，則此插件會被調用並給予提供憑證的機會。
+映像檔應該包含映像檔庫域名和 URL 路徑。
 </p>
 <p>
 <!--
@@ -251,7 +251,7 @@ a single subdomain segment, so <code>*.io</code> does not match <code>*.k8s.io</
 <!--
 A match exists between an image and a matchImage when all of the below are true:
 -->
-鏡像與 <code>matchImages</code> 之間存在匹配時，以下條件都要滿足：
+映像檔與 <code>matchImages</code> 之間存在匹配時，以下條件都要滿足：
 </p>
 <!--
 <ul>
@@ -268,8 +268,8 @@ Example values of matchImages:
 -->
 <ul>
   <li>二者均包含相同個數的域名部分，並且每個域名部分都對應匹配；</li>
-  <li><code>matchImages</code> 條目中的 URL 路徑部分必須是目標鏡像的 URL 路徑的前綴；</li>
-  <li>如果 <code>matchImages</code> 條目中包含端口號，則端口號也必須與鏡像端口號匹配。</li>
+  <li><code>matchImages</code> 條目中的 URL 路徑部分必須是目標映像檔的 URL 路徑的前綴；</li>
+  <li>如果 <code>matchImages</code> 條目中包含端口號，則端口號也必須與映像檔端口號匹配。</li>
 </ul>
 <p><code>matchImages</code> 的一些示例如下：</p>
 <ul>
@@ -394,7 +394,7 @@ ExecEnvVar 用來在執行基於 exec 的憑據插件時設置環境變量。
 <!--
 ImagePullCredentials describe credentials that can be used to pull an image.
 -->
-<code>ImagePullCredentials</code> 描述可以用於拉取鏡像的憑據。
+<code>ImagePullCredentials</code> 描述可以用於拉取映像檔的憑據。
 </p>
 
 <table class="table">
@@ -410,7 +410,7 @@ ImagePullCredentials describe credentials that can be used to pull an image.
 KuberneteSecretCoordinates is an index of coordinates of all the kubernetes
 secrets that were used to pull the image.
 -->
-<code>kuberneteSecretCoordinates</code> 是用於拉取鏡像的所有 Kubernetes
+<code>kuberneteSecretCoordinates</code> 是用於拉取映像檔的所有 Kubernetes
 Secret 的座標索引。
 </p>
 </td>
@@ -424,7 +424,7 @@ Secret 的座標索引。
 KubernetesServiceAccounts is an index of coordinates of all the kubernetes
 service accounts that were used to pull the image.
 -->
-<code>kubernetesServiceAccounts</code> 是用於拉取鏡像的所有 Kubernetes
+<code>kubernetesServiceAccounts</code> 是用於拉取映像檔的所有 Kubernetes
 服務賬號的座標索引。
 </p>
 </td>
@@ -501,7 +501,7 @@ with a credential hash of the pull secret credentials this object contains.
 CredentialHash is a SHA-256 retrieved by hashing the image pull credentials
 content of the secret specified by the UID/Namespace/Name coordinates.
 -->
-<code>credentialHash</code> 是通過對鏡像拉取憑據的內容進行哈希計算獲得的 SHA-256 值，
+<code>credentialHash</code> 是通過對映像檔拉取憑據的內容進行哈希計算獲得的 SHA-256 值，
 這些憑據由 UID/命名空間/名稱座標指定的 Secret 提供。
 </p>
 </td>
@@ -524,7 +524,7 @@ ImagePullServiceAccount is a representation of a Kubernetes service account obje
 for which the kubelet sent service account token to the credential provider plugin for image pull credentials.
 -->
 ImagePullServiceAccount 是 Kubernetes 服務賬號對象座標的表示，
-kubelet 將服務賬號令牌發送給憑據提供程序以用於拉取鏡像的憑據。
+kubelet 將服務賬號令牌發送給憑據提供程序以用於拉取映像檔的憑據。
 </p>
 
 <table class="table">

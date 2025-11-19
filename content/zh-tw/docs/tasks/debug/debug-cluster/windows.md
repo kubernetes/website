@@ -30,16 +30,16 @@ content_type: concept
 
 1. 我的 Pod 都卡在 “Container Creating” 或者不斷重啓
 
-   確保你的 pause 鏡像跟你的 Windows 版本兼容。
+   確保你的 pause 映像檔跟你的 Windows 版本兼容。
    查看 [Pause 容器](/zh-cn/docs/concepts/windows/intro/#pause-container)
-   以瞭解最新的或建議的 pause 鏡像，或者瞭解更多信息。
+   以瞭解最新的或建議的 pause 映像檔，或者瞭解更多信息。
 
    {{< note >}}
    <!--
    If using containerd as your container runtime the pause image is specified in the
    `plugins.plugins.cri.sandbox_image` field of the of config.toml configuration file.
    -->
-   如果你在使用 containerd 作爲你的容器運行時，那麼 pause 鏡像在 config.toml 配置文件的
+   如果你在使用 containerd 作爲你的容器運行時，那麼 pause 映像檔在 config.toml 設定文件的
    `plugins.plugins.cri.sandbox_image` 中指定。
    {{< /note >}}
 
@@ -70,9 +70,9 @@ content_type: concept
    If you are using virtual machines, ensure that MAC spoofing is **enabled** on all
    the VM network adapter(s).
 -->
-## 網絡排障 {#troubleshooting-network}
+## 網路排障 {#troubleshooting-network}
 
-1. 我的 Windows Pod 沒有網絡連接
+1. 我的 Windows Pod 沒有網路連接
 
    如果你使用的是虛擬機，請確保所有 VM 網卡上都已啓用 MAC spoofing。
 
@@ -86,7 +86,7 @@ content_type: concept
 -->
 2. 我的 Windows Pod 不能 ping 通外界資源
 
-   Windows Pod 沒有爲 ICMP 協議編寫出站規則，但 TCP/UDP 是支持的。當試圖演示與集羣外部資源的連接時，
+   Windows Pod 沒有爲 ICMP 協議編寫出站規則，但 TCP/UDP 是支持的。當試圖演示與叢集外部資源的連接時，
    可以把 `ping <IP>` 替換爲 `curl <IP>` 命令。
 
    <!--
@@ -97,7 +97,7 @@ content_type: concept
    -->
    如果你仍然遇到問題，很可能你需要額外關注
    [cni.conf](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf)
-   的配置。你可以隨時編輯這個靜態文件。更新配置將應用於新的 Kubernetes 資源。
+   的設定。你可以隨時編輯這個靜態文件。更新設定將應用於新的 Kubernetes 資源。
 
    <!--
    One of the Kubernetes networking requirements
@@ -111,8 +111,8 @@ content_type: concept
    pods be SNAT'ed correctly to receive a response from the outside world. In this
    regard, your `ExceptionList` in `cni.conf` should look as follows:
    -->
-   Kubernetes 的網絡需求之一（查看 [Kubernetes 模型](/zh-cn/docs/concepts/cluster-administration/networking/)）
-   是集羣通信不需要內部的 NAT。
+   Kubernetes 的網路需求之一（查看 [Kubernetes 模型](/zh-cn/docs/concepts/cluster-administration/networking/)）
+   是叢集通信不需要內部的 NAT。
    爲了遵守這一要求，對於你不希望發生的出站 NAT 通信，這裏有一個
    [ExceptionList](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/l2bridge/cni/config/cni.conf#L20)。
    然而，這也意味着你需要從 `ExceptionList` 中去掉你試圖查詢的外部 IP。
@@ -158,7 +158,7 @@ content_type: concept
 
    當 `hostname-override` 參數沒有傳遞給
    [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
-   時可能引發這一問題。想要解決這個問題，用戶需要將主機名傳遞給 kube-proxy，如下所示：
+   時可能引發這一問題。想要解決這個問題，使用者需要將主機名傳遞給 kube-proxy，如下所示：
 
    ```powershell
    C:\k\kube-proxy.exe --hostname-override=$(hostname)
@@ -171,7 +171,7 @@ content_type: concept
 -->
 5. 我的 Windows 節點無法通過服務 IP 訪問我的服務
 
-   這是 Windows 上網絡棧的一個已知限制。但是 Windows Pod 可以訪問 Service IP。
+   這是 Windows 上網路棧的一個已知限制。但是 Windows Pod 可以訪問 Service IP。
 
 <!--
 1. No network adapter is found when starting the kubelet
@@ -180,11 +180,11 @@ content_type: concept
    If the following commands return no results (in an admin shell),
    virtual network creation — a necessary prerequisite for the kubelet to work — has failed:
 -->
-6. 啓動 kubelet 時找不到網絡適配器
+6. 啓動 kubelet 時找不到網路適配器
 
-   Windows 網絡棧需要一個虛擬適配器才能使 Kubernetes 網絡工作。
+   Windows 網路棧需要一個虛擬適配器才能使 Kubernetes 網路工作。
    如果以下命令沒有返回結果（在管理員模式的 shell 中），
-   則意味着創建虛擬網絡失敗，而虛擬網絡的存在是 kubelet 正常工作的前提：
+   則意味着創建虛擬網路失敗，而虛擬網路的存在是 kubelet 正常工作的前提：
 
    ```powershell
    Get-HnsNetwork | ? Name -ieq "cbr0"
@@ -196,9 +196,9 @@ content_type: concept
    in cases where the host's network adapter isn't "Ethernet".
    Otherwise, consult the output of the `start-kubelet.ps1` script to see if there are errors during virtual network creation.
    -->
-   如果主機的網絡適配器不是 "Ethernet"，通常有必要修改 `start.ps1` 腳本的
+   如果主機的網路適配器不是 "Ethernet"，通常有必要修改 `start.ps1` 腳本的
    [InterfaceName](https://github.com/microsoft/SDN/blob/master/Kubernetes/flannel/start.ps1#L7)
-   參數。否則，如果虛擬網絡創建過程出錯，請檢查 `start-kubelet.ps1` 腳本的輸出。
+   參數。否則，如果虛擬網路創建過程出錯，請檢查 `start-kubelet.ps1` 腳本的輸出。
 
 <!--    
 1. DNS resolution is not properly working
@@ -228,9 +228,9 @@ content_type: concept
 
    If you are behind a proxy, the following PowerShell environment variables must be defined:
 -->
-9. 我的 Kubernetes 安裝失敗，因爲我的 Windows 服務器節點使用了代理服務器
+9. 我的 Kubernetes 安裝失敗，因爲我的 Windows 伺服器節點使用了代理伺服器
 
-   如果使用了代理服務器，必須定義下面的 PowerShell 環境變量：
+   如果使用了代理伺服器，必須定義下面的 PowerShell 環境變量：
 
    ```PowerShell
    [Environment]::SetEnvironmentVariable("HTTP_PROXY", "http://proxy.example.com:80/", [EnvironmentVariableTarget]::Machine)
@@ -248,10 +248,10 @@ content_type: concept
 -->
 ## Flannel 故障排查 {#troubleshooting-network}
 
-1. 使用 Flannel 時，我的節點在重新加入集羣后出現問題
+1. 使用 Flannel 時，我的節點在重新加入叢集后出現問題
 
-   當先前刪除的節點重新加入集羣時, flannelD 嘗試爲節點分配一個新的 Pod 子網。
-   用戶應該在以下路徑中刪除舊的 Pod 子網配置文件：
+   當先前刪除的節點重新加入叢集時, flannelD 嘗試爲節點分配一個新的 Pod 子網。
+   使用者應該在以下路徑中刪除舊的 Pod 子網設定文件：
 
    ```powershell
    Remove-Item C:\k\SourceVip.json
@@ -268,7 +268,7 @@ content_type: concept
 2. Flanneld 卡在 "Waiting for the Network to be created"
 
    關於這個[問題](https://github.com/coreos/flannel/issues/1066)有很多報告；
-   很可能是 Flannel 網絡管理 IP 的設置時機問題。
+   很可能是 Flannel 網路管理 IP 的設置時機問題。
    一個變通方法是重新啓動 `start.ps1` 或按如下方式手動重啓：
 
    <!--

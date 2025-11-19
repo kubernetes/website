@@ -126,7 +126,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
 -->
 - **priorityLevelConfiguration** (PriorityLevelConfigurationReference)，必需
 
-  `priorityLevelConfiguration` 應引用集羣中的 PriorityLevelConfiguration。
+  `priorityLevelConfiguration` 應引用叢集中的 PriorityLevelConfiguration。
   如果引用無法被解析，則忽略此 FlowSchema，並在其狀態中將其標記爲無效。必需。
 
   <a name="PriorityLevelConfigurationReference"></a>
@@ -134,7 +134,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
 
   - **priorityLevelConfiguration.name** (string)，必需
 
-    `name` 是正被引用的優先級配置的名稱。必需。
+    `name` 是正被引用的優先級設定的名稱。必需。
 
 <!--
 - **rules** ([]PolicyRulesWithSubjects)
@@ -154,7 +154,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
   才視爲此 FlowSchema 與該請求匹配。如果字段值爲空表，則 FlowSchema 不會與任何請求匹配。
 
   <a name="PolicyRulesWithSubjects"></a>
-  **PolicyRulesWithSubjects 給出針對 API 服務器請求的一個測試。
+  **PolicyRulesWithSubjects 給出針對 API 伺服器請求的一個測試。
   該測試將檢查發出請求的主體、所請求的動作和要操作的資源。
   只有同時滿足以下兩個條件時，才表示此 PolicyRulesWithSubjects 與請求匹配：
   (a) 至少一個主體成員與請求匹配且
@@ -175,13 +175,13 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
 
     **原子性：將在合併期間被替換**
     
-    subjects 是此規則相關的普通用戶、服務賬號或組的列表。在這個列表中必須至少有一個成員。
-    同時包含 system:authenticated 和 system:unauthenticated 用戶組的列表會與每個請求匹配。
+    subjects 是此規則相關的普通使用者、服務賬號或組的列表。在這個列表中必須至少有一個成員。
+    同時包含 system:authenticated 和 system:unauthenticated 使用者組的列表會與每個請求匹配。
     此字段爲必需。
 
     <a name="Subject"></a>
     **Subject 用來與匹配請求的發起方，請求的發起方由請求身份認證系統識別出來。
-    有三種方式來匹配一個發起方：按用戶、按組或按服務賬號。**
+    有三種方式來匹配一個發起方：按使用者、按組或按服務賬號。**
 
     <!--
     - **rules.subjects.kind** (string), required
@@ -202,7 +202,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
 
     - **rules.subjects.group** (GroupSubject)
 
-      `group` 根據用戶組名稱進行匹配。
+      `group` 根據使用者組名稱進行匹配。
 
       <a name="GroupSubject"></a>
       **GroupSubject 保存組類別主體的詳細信息。**
@@ -215,7 +215,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
 
       - **rules.subjects.group.name** (string)，必需
 
-        name 是要匹配的用戶組，或使用 `*` 匹配所有用戶組。有關一些廣爲人知的組名，請參閱
+        name 是要匹配的使用者組，或使用 `*` 匹配所有使用者組。有關一些廣爲人知的組名，請參閱
         https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go。必需。
     
     <!--
@@ -265,14 +265,14 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
 
     - **rules.subjects.user** (UserSubject)
 
-      `user` 根據用戶名進行匹配。
+      `user` 根據使用者名進行匹配。
 
       <a name="UserSubject"></a>
-      **UserSubject 保存用戶類別主體的詳細信息。**
+      **UserSubject 保存使用者類別主體的詳細信息。**
 
       - **rules.subjects.user.name** (string)，必需
 
-        `name` 是要匹配的用戶名，可使用 `*` 匹配所有用戶名。必需。
+        `name` 是要匹配的使用者名，可使用 `*` 匹配所有使用者名。必需。
   
   <!--
   - **rules.nonResourceRules** ([]NonResourcePolicyRule)
@@ -315,7 +315,7 @@ FlowSchemaSpec 描述 FlowSchema 的規約看起來是怎樣的。
 
       **集合：合併期間保留唯一值**
       
-      `nonResourceURLs` 是用戶有權訪問的一組 URL 前綴，不可以爲空。
+      `nonResourceURLs` 是使用者有權訪問的一組 URL 前綴，不可以爲空。
       此字段爲必需設置的字段。例如：
         - "/healthz" 是合法的
         - "/hea*" 是不合法的

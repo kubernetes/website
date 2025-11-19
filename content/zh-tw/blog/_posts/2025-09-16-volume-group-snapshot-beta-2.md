@@ -35,7 +35,7 @@ This new feature is only supported for [CSI](https://kubernetes-csi.github.io/do
 並在 Kubernetes 1.32 版本中移至 [Beta](/zh-cn/blog/2024/12/18/kubernetes-1-32-volume-group-snapshot-beta/) 階段。
 Kubernetes v1.34 的最近一次發佈將該支持移至第二個 Beta 階段。
 對卷組快照的支持依賴於一組[用於組快照的擴展 API](https://kubernetes-csi.github.io/docs/group-snapshot-restore-feature.html#volume-group-snapshot-apis)。
-這些 API 允許用戶爲一組卷獲取崩潰一致性快照。在後臺，Kubernetes 根據標籤選擇器對多個
+這些 API 允許使用者爲一組卷獲取崩潰一致性快照。在後臺，Kubernetes 根據標籤選擇器對多個
 PersistentVolumeClaim 分組，並進行快照操作。關鍵目標是允許你將這組快照恢復到新捲上，
 並基於崩潰一致性恢復點恢復工作負載。
 

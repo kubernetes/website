@@ -43,10 +43,10 @@ the group that processes run as, and privilege settings.
 You can also configure security policies (for example: SELinux, AppArmor or seccomp).
 -->
 
-在一個 `securityContext` 字段中，你可以設置進程所屬用戶和用戶組、權限相關設置。你也可以設置安全策略（例如：SELinux、AppArmor、seccomp）。	
+在一個 `securityContext` 字段中，你可以設置進程所屬使用者和使用者組、權限相關設置。你也可以設置安全策略（例如：SELinux、AppArmor、seccomp）。	
 
 <!--
 The `PodSpec.securityContext` setting applies to all containers in a Pod.
 -->
 
-`PodSpec.securityContext` 字段配置會應用到一個 Pod 中的所有的 container 。														 
+`PodSpec.securityContext` 字段設定會應用到一個 Pod 中的所有的 container 。														 

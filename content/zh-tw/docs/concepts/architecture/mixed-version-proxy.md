@@ -23,8 +23,8 @@ API servers running different versions of Kubernetes in one cluster
 (for example, during a long-lived rollout to a new release of Kubernetes).
 -->
 Kubernetes {{<skew currentVersion>}} 包含了一個 Alpha 特性，可以讓
-{{<glossary_tooltip text="API 服務器" term_id="kube-apiserver">}}代理指向其他**對等**
-API 服務器的資源請求。當一個集羣中運行着多個 API 服務器，且各服務器的 Kubernetes 版本不同時
+{{<glossary_tooltip text="API 伺服器" term_id="kube-apiserver">}}代理指向其他**對等**
+API 伺服器的資源請求。當一個叢集中運行着多個 API 伺服器，且各伺服器的 Kubernetes 版本不同時
 （例如在上線 Kubernetes 新版本的時間跨度較長時），這一特性非常有用。
 
 <!--
@@ -36,8 +36,8 @@ from the upgrade process.
 This mechanism is called the _Mixed Version Proxy_.
 -->
 此特性通過將（升級過程中所發起的）資源請求引導到正確的 kube-apiserver
-使得集羣管理員能夠配置高可用的、升級動作更安全的集羣。
-該代理機制可以防止用戶在升級過程中看到意外的 404 Not Found 錯誤。
+使得叢集管理員能夠設定高可用的、升級動作更安全的叢集。
+該代理機制可以防止使用者在升級過程中看到意外的 404 Not Found 錯誤。
 
 這個機制稱爲 **Mixed Version Proxy（混合版本代理）**。
 
@@ -49,7 +49,7 @@ is enabled when you start the {{< glossary_tooltip text="API Server" term_id="ku
 -->
 ## 啓用混合版本代理   {#enabling-the-mixed-version-proxy}
 
-當你啓動 {{<glossary_tooltip text="API 服務器" term_id="kube-apiserver">}}時，
+當你啓動 {{<glossary_tooltip text="API 伺服器" term_id="kube-apiserver">}}時，
 確保啓用了 `UnknownVersionInteroperabilityProxy`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)：
 
@@ -103,15 +103,15 @@ kube-apiserver \
 * To authenticate the destination server's serving certs, you must configure a certificate
   authority bundle by specifying the `--peer-ca-file` command line argument to the **source** API server.
 -->
-### API 服務器之間的代理傳輸和身份驗證   {#transport-and-authn}
+### API 伺服器之間的代理傳輸和身份驗證   {#transport-and-authn}
 
 * 源 kube-apiserver
-  重用[現有的 API 服務器客戶端身份驗證標誌](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/#kubernetes-apiserver-client-authentication)
+  重用[現有的 API 伺服器客戶端身份驗證標誌](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/#kubernetes-apiserver-client-authentication)
   `--proxy-client-cert-file` 和 `--proxy-client-key-file` 來表明其身份，供對等（目標 kube-apiserver）驗證。
-  目標 API 服務器根據你使用 `--requestheader-client-ca-file` 命令行參數指定的配置來驗證對等連接。
+  目標 API 伺服器根據你使用 `--requestheader-client-ca-file` 命令列參數指定的設定來驗證對等連接。
 
-* 要對目標服務器所用的證書進行身份驗證，必須通過指定 `--peer-ca-file` 命令行參數來爲**源**
-  API 服務器配置一個證書機構包。
+* 要對目標伺服器所用的證書進行身份驗證，必須通過指定 `--peer-ca-file` 命令列參數來爲**源**
+  API 伺服器設定一個證書機構包。
 
 <!--
 ### Configuration for peer API server connectivity
@@ -123,12 +123,12 @@ If these flags are unspecified, peers will use the value from either `--advertis
 `--bind-address` command line argument to the kube-apiserver.
 If those too, are unset, the host's default interface is used.
 -->
-### 對等 API 服務器連接的配置   {#config-for-peer-apiserver-connectivity}
+### 對等 API 伺服器連接的設定   {#config-for-peer-apiserver-connectivity}
 
-要設置 kube-apiserver 的網絡位置以供對等方來代理請求，
-使用爲 kube-apiserver 設置的 `--peer-advertise-ip` 和 `--peer-advertise-port` 命令行參數，
-或在 API 服務器配置文件中指定這些字段。如果未指定這些參數，對等方將使用 `--advertise-address`
-或 `--bind-address` 命令行參數的值。如果這些也未設置，則使用主機的默認接口。
+要設置 kube-apiserver 的網路位置以供對等方來代理請求，
+使用爲 kube-apiserver 設置的 `--peer-advertise-ip` 和 `--peer-advertise-port` 命令列參數，
+或在 API 伺服器設定文件中指定這些字段。如果未指定這些參數，對等方將使用 `--advertise-address`
+或 `--bind-address` 命令列參數的值。如果這些也未設置，則使用主機的默認接口。
 
 <!--
 ## Mixed version proxying
@@ -150,12 +150,12 @@ loads a special filter that does the following:
   and tries to proxy those requests to a peer API server that is capable of handling the request.
 * If the peer API server fails to respond, the _source_ API server responds with 503 ("Service Unavailable") error.
 -->
-* 當資源請求到達無法提供該 API 的 API 服務器時
-  （可能的原因是服務器早於該 API 的正式引入日期或該 API 在 API 服務器上被關閉），
-  API 服務器會嘗試將請求發送到能夠提供所請求 API 的對等 API 服務器。
-  API 服務器通過發現本地服務器無法識別的 API 組/版本/資源來實現這一點，
-  並嘗試將這些請求代理到能夠處理這些請求的對等 API 服務器。
-* 如果對等 API 服務器無法響應，則**源** API 服務器將以 503（"Service Unavailable"）錯誤進行響應。
+* 當資源請求到達無法提供該 API 的 API 伺服器時
+  （可能的原因是伺服器早於該 API 的正式引入日期或該 API 在 API 伺服器上被關閉），
+  API 伺服器會嘗試將請求發送到能夠提供所請求 API 的對等 API 伺服器。
+  API 伺服器通過發現本地伺服器無法識別的 API 組/版本/資源來實現這一點，
+  並嘗試將這些請求代理到能夠處理這些請求的對等 API 伺服器。
+* 如果對等 API 伺服器無法響應，則**源** API 伺服器將以 503（"Service Unavailable"）錯誤進行響應。
 
 <!--
 ### How it works under the hood
@@ -169,12 +169,12 @@ serve the requested resource. This check happens using the internal
 -->
 ### 內部工作原理   {#how-it-works-under-the-hood}
 
-當 API 服務器收到一個資源請求時，它首先檢查哪些 API 服務器可以提供所請求的資源。
+當 API 伺服器收到一個資源請求時，它首先檢查哪些 API 伺服器可以提供所請求的資源。
 這個檢查是使用內部的
 [`StorageVersion` API](/zh-cn/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#storageversioncondition-v1alpha1-internal-apiserver-k8s-io)
 進行的。
 
-* 如果資源被收到請求（例如 `GET /api/v1/pods/some-pod`）的 API 服務器所瞭解，則請求會在本地處理。
+* 如果資源被收到請求（例如 `GET /api/v1/pods/some-pod`）的 API 伺服器所瞭解，則請求會在本地處理。
 
 <!--
 * If there is no internal `StorageVersion` object found for the requested resource
@@ -183,7 +183,7 @@ serve the requested resource. This check happens using the internal
   [flow](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) for extension APIs.
 -->
 * 如果沒有找到適合所請求資源（例如 `GET /my-api/v1/my-resource`）的內部 `StorageVersion` 對象，
-  並且所配置的 APIService 設置了指向擴展 API 服務器的代理，那麼代理操作將按照擴展 API
+  並且所設定的 APIService 設置了指向擴展 API 伺服器的代理，那麼代理操作將按照擴展 API
   的常規[流程](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)進行。
 
 <!--
@@ -204,14 +204,14 @@ serve the requested resource. This check happens using the internal
     API server responds with a 503 ("Service Unavailable") error.
 -->
 * 如果找到了對應所請求資源（例如 `GET /batch/v1/jobs`）的合法的內部 `StorageVersion` 對象，
-  並且正在處理請求的 API 服務器（**處理中的 API 服務器**）禁用了 `batch` API，
-  則**正處理的 API 服務器**使用已獲取的 `StorageVersion` 對象中的信息，
-  獲取提供相關 API 組/版本/資源（在此情況下爲 `api/v1/batch`）的對等 API 服務器。
-  **處理中的 API 服務器**隨後將請求代理到能夠理解所請求資源且匹配的對等 kube-apiserver 之一。
+  並且正在處理請求的 API 伺服器（**處理中的 API 伺服器**）禁用了 `batch` API，
+  則**正處理的 API 伺服器**使用已獲取的 `StorageVersion` 對象中的信息，
+  獲取提供相關 API 組/版本/資源（在此情況下爲 `api/v1/batch`）的對等 API 伺服器。
+  **處理中的 API 伺服器**隨後將請求代理到能夠理解所請求資源且匹配的對等 kube-apiserver 之一。
 
-  * 如果沒有對等方瞭解所給的 API 組/版本/資源，則處理請求的 API 服務器將請求傳遞給自己的處理程序鏈，
+  * 如果沒有對等方瞭解所給的 API 組/版本/資源，則處理請求的 API 伺服器將請求傳遞給自己的處理程序鏈，
     最終應返回 404（"Not Found"）響應。
 
-  * 如果處理請求的 API 服務器已經識別並選擇了一個對等 API 服務器，但該對等方無法響應
-    （原因可能是網絡連接問題或正接收的請求與向控制平面註冊對等信息的控制器之間存在數據競爭等），
-    則處理請求的 API 服務器會以 503（"Service Unavailable"）錯誤進行響應。
+  * 如果處理請求的 API 伺服器已經識別並選擇了一個對等 API 伺服器，但該對等方無法響應
+    （原因可能是網路連接問題或正接收的請求與向控制平面註冊對等信息的控制器之間存在數據競爭等），
+    則處理請求的 API 伺服器會以 503（"Service Unavailable"）錯誤進行響應。

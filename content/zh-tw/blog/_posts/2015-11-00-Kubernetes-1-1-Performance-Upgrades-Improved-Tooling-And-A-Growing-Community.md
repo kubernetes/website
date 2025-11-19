@@ -13,7 +13,7 @@ url: /blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A-Gr
 <!--
 Since the Kubernetes 1.0 release in July, we’ve seen tremendous adoption by companies building distributed systems to manage their container clusters. We’re also been humbled by the rapid growth of the community who help make Kubernetes better everyday. We have seen commercial offerings such as Tectonic by CoreOS and RedHat Atomic Host emerge to deliver deployment and support of Kubernetes. And a growing ecosystem has added Kubernetes support including tool vendors such as Sysdig and Project Calico.  
 -->
-自從 Kubernetes 1.0 在七月發佈以來，我們已經看到大量公司採用建立分佈式系統來管理其容器集羣。
+自從 Kubernetes 1.0 在七月發佈以來，我們已經看到大量公司採用建立分佈式系統來管理其容器叢集。
 我們也對幫助 Kubernetes 社區變得更好，迅速發展的人感到欽佩。
 我們已經看到諸如 CoreOS 的 Tectonic 和 RedHat Atomic Host 之類的商業產品應運而生，用以提供 Kubernetes 的部署和支持。
 一個不斷發展的生態系統增加了 Kubernetes 的支持，包括 Sysdig 和 Project Calico 等工具供應商。
@@ -33,18 +33,18 @@ Some of the work we’d like to highlight includes:
 -->
 - **實質性的性能提升** ：從第一天開始，我們就設計了 Kubernetes 來處理 Google 規模的工作負載，而我們的客戶已經按照自己的進度進行了調整。
  在 Kubernetes 1.1 中，我們進行了進一步的投資，以確保您可以在超大規模環境中運行；
- 本週晚些時候，我們將分享運行數千個節點集羣，並針對單個集羣運行超過一百萬個 QPS 的示例。
+ 本週晚些時候，我們將分享運行數千個節點叢集，並針對單個叢集運行超過一百萬個 QPS 的示例。
 
 <!--
 - **Significant improvement in network throughput** : Running Google-scale workloads also requires Google-scale networking. In Kubernetes 1.1, we have included an option to use native IP tables offering an 80% reduction in tail latency, an almost complete elimination of CPU overhead and improvements in reliability and system architecture ensuring Kubernetes can handle high-scale throughput well into the future.&nbsp;
 -->
-- **網絡吞吐量顯着提高** : 運行 Google 規模的工作負載也需要 Google 規模的網絡。
+- **網路吞吐量顯着提高** : 運行 Google 規模的工作負載也需要 Google 規模的網路。
  在 Kubernetes 1.1 中，我們提供了使用本機IP表的選項，可將尾部延遲減少80％，幾乎完全消除了CPU開銷，並提高了可靠性和系統架構，從而確保Kubernetes可以很好地處理未來的大規模吞吐量。 
 
 <!--
 - **Horizontal pod autoscaling (Beta)**: Many workloads can go through spiky periods of utilization, resulting in uneven experiences for your users. Kubernetes now has support for horizontal pod autoscaling, meaning your pods can scale up and down based on CPU usage. Read more about [Horizontal pod autoscaling](http://kubernetes.io/v1.1/docs/user-guide/horizontal-pod-autoscaler.html).&nbsp;
 -->
-- **水平 Pod 自動縮放 (測試版)**：許多工作負載可能會經歷尖峯的使用期，從而給用戶帶來不均勻的體驗。
+- **水平 Pod 自動縮放 (測試版)**：許多工作負載可能會經歷尖峯的使用期，從而給使用者帶來不均勻的體驗。
  Kubernetes 現在支持水平 Pod 自動縮放，這意味着您的 Pod 可以根據 CPU 使用率進行縮放。
  閱讀有關[水平 Pod 自動縮放](http://kubernetes.io/v1.1/docs/user-guide/horizontal-pod-autoscaler.html)的更多信息。
 
@@ -67,7 +67,7 @@ Some of the work we’d like to highlight includes:
 - **New features to shorten the test cycle for developers** : We continue to work on making developing for applications for Kubernetes quick and easy. Two new features that speeds developer’s workflows include the ability to run containers interactively, and improved schema validation to let you know if there are any issues with your configuration files before you deploy them.&nbsp;
 -->
 - **新功能可縮短開發人員的測試周期** :我們將繼續致力於快速便捷地爲 Kubernetes 開發應用程序。
- 加快開發人員工作流程的兩項新功能包括以交互方式運行容器的功能，以及改進的架構驗證功能，可在部署配置文件之前讓您知道配置文件是否存在任何問題。
+ 加快開發人員工作流程的兩項新功能包括以交互方式運行容器的功能，以及改進的架構驗證功能，可在部署設定文件之前讓您知道設定文件是否存在任何問題。
 
 <!--
 - **Rolling update improvements** : Core to the DevOps movement is being able to release new updates without any affect on a running service. Rolling updates now ensure that updated pods are healthy before continuing the update.&nbsp;

@@ -20,14 +20,14 @@ In this example, a custom Cassandra seed provider lets the database discover new
 -->
 本教程描述瞭如何在 Kubernetes 上運行 [Apache Cassandra](https://cassandra.apache.org/)。
 數據庫 Cassandra 需要永久性存儲提供數據持久性（應用**狀態**）。
-在此示例中，自定義 Cassandra seed provider 使數據庫在接入 Cassandra 集羣時能夠發現新的 Cassandra 實例。
+在此示例中，自定義 Cassandra seed provider 使數據庫在接入 Cassandra 叢集時能夠發現新的 Cassandra 實例。
 
 <!--
 *StatefulSets* make it easier to deploy stateful applications into your Kubernetes cluster.
 For more information on the features used in this tutorial, see
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 -->
-使用**StatefulSet**可以更輕鬆地將有狀態的應用程序部署到你的 Kubernetes 集羣中。
+使用**StatefulSet**可以更輕鬆地將有狀態的應用程序部署到你的 Kubernetes 叢集中。
 有關本教程中使用的功能的更多信息，
 請參閱 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
@@ -39,9 +39,9 @@ of the Cassandra cluster (called a _ring_). When those Pods run in your Kubernet
 the Kubernetes control plane schedules those Pods onto Kubernetes
 {{< glossary_tooltip text="Nodes" term_id="node" >}}.
 -->
-Cassandra 和 Kubernetes 都使用術語**節點**來表示集羣的成員。
-在本教程中，屬於 StatefulSet 的 Pod 是 Cassandra 節點，並且是 Cassandra 集羣的成員（稱爲 **ring**）。
-當這些 Pod 在你的 Kubernetes 集羣中運行時，Kubernetes 控制平面會將這些 Pod 調度到 Kubernetes 的
+Cassandra 和 Kubernetes 都使用術語**節點**來表示叢集的成員。
+在本教程中，屬於 StatefulSet 的 Pod 是 Cassandra 節點，並且是 Cassandra 叢集的成員（稱爲 **ring**）。
+當這些 Pod 在你的 Kubernetes 叢集中運行時，Kubernetes 控制平面會將這些 Pod 調度到 Kubernetes 的
 {{< glossary_tooltip text="節點" term_id="node" >}}上。
 
 <!--
@@ -52,7 +52,7 @@ new Cassandra Pods as they appear inside your Kubernetes cluster.
 -->
 當 Cassandra 節點啓動時，使用 **seed 列表**來引導發現 ring 中的其他節點。
 本教程部署了一個自定義的 Cassandra seed provider，
-使數據庫可以發現 Kubernetes 集羣中出現的新的 Cassandra Pod。
+使數據庫可以發現 Kubernetes 叢集中出現的新的 Cassandra Pod。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
@@ -97,7 +97,7 @@ errors during this tutorial. To avoid these errors, start Minikube with the foll
 
 {{< caution >}}
 [Minikube](https://minikube.sigs.k8s.io/docs/) 默認需要 2048MB 內存和 2 個 CPU。
-在本教程中，使用默認資源配置運行 Minikube 會出現資源不足的錯誤。爲避免這些錯誤，請使用以下設置啓動 Minikube：
+在本教程中，使用默認資源設定運行 Minikube 會出現資源不足的錯誤。爲避免這些錯誤，請使用以下設置啓動 Minikube：
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -121,7 +121,7 @@ Create a Service to track all Cassandra StatefulSet members from the `cassandra-
 在 Kubernetes 中，一個 {{< glossary_tooltip text="Service" term_id="service" >}}
 描述了一組執行相同任務的 {{< glossary_tooltip text="Pod" term_id="pod" >}}。
 
-以下 Service 用於在 Cassandra Pod 和集羣中的客戶端之間進行 DNS 查找：
+以下 Service 用於在 Cassandra Pod 和叢集中的客戶端之間進行 DNS 查找：
 
 {{% code_sample file="application/cassandra/cassandra-service.yaml" %}}
 
@@ -177,7 +177,7 @@ Please update the following StatefulSet for the cloud you are working with.
 下面包含的 StatefulSet 清單創建了一個由三個 Pod 組成的 Cassandra ring。
 
 {{< note >}}
-本示例使用 Minikube 的默認配置程序。
+本示例使用 Minikube 的默認設定程序。
 請爲正在使用的雲更新以下 StatefulSet。
 {{< /note >}}
 
@@ -198,7 +198,7 @@ If you need to modify `cassandra-statefulset.yaml` to suit your cluster, downloa
 https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml and then apply
 that manifest, from the folder you saved the modified version into:
 -->
-如果你爲了適合你的集羣需要修改 `cassandra-statefulset.yaml`，
+如果你爲了適合你的叢集需要修改 `cassandra-statefulset.yaml`，
 下載 https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml，
 然後應用修改後的清單。
 
@@ -416,12 +416,12 @@ By using environment variables you can change values that are inserted into `cas
 -->
 ## Cassandra 容器環境變量
 
-本教程中的 Pod 使用來自 Google [容器鏡像庫](https://cloud.google.com/container-registry/docs/)
+本教程中的 Pod 使用來自 Google [容器映像檔庫](https://cloud.google.com/container-registry/docs/)
 的 [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
-鏡像。上面的 Docker 鏡像基於 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)，
+映像檔。上面的 Docker 映像檔基於 [debian-base](https://github.com/kubernetes/release/tree/master/images/build/debian-base)，
 並且包含 OpenJDK 8。
 
-該鏡像包括來自 Apache Debian 存儲庫的標準 Cassandra 安裝。
+該映像檔包括來自 Apache Debian 存儲庫的標準 Cassandra 安裝。
 通過使用環境變量，你可以更改插入到 `cassandra.yaml` 中的值。
 
 | 環境變量                 | 默認值           |

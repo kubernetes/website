@@ -106,7 +106,7 @@ This group and user name format match the identity created for each kubelet as p
 [kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/).
 -->
 爲了獲得節點鑑權器的授權，kubelet 必須使用一個憑據以表示它在 `system:nodes`
-組中，用戶名爲 `system:node:<nodeName>`。上述的組名和用戶名格式要與
+組中，使用者名爲 `system:node:<nodeName>`。上述的組名和使用者名格式要與
 [kubelet TLS 啓動引導](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 過程中爲每個 kubelet 創建的標識相匹配。
 
@@ -133,7 +133,7 @@ kubelet 如何確定主機名的詳細信息，請參閱
 To enable the Node authorizer, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 with the `--authorization-config` flag set to a file that includes the `Node` authorizer; for example:
 -->
-要啓用 Node 鑑權器，啓動 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}時將
+要啓用 Node 鑑權器，啓動 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}時將
 `--authorization-config` 參數設置爲包含 `Node` 鑑權器的某個文件；例如：
 
 ```yaml
@@ -150,7 +150,7 @@ Or, start the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}
 the `--authorization-mode` flag set to a comma-separated list that includes `Node`;
 for example:
 -->
-或者，在啓動 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}時將
+或者，在啓動 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}時將
 `--authorization-mode` 參數設置爲一個包含 `Node` 的逗號分隔的列表；例如：
 
 ```shell
@@ -164,7 +164,7 @@ admission plugin by starting the apiserver with
 `--enable-admission-plugins=...,NodeRestriction,...`
 -->
 要限制 kubelet 可以寫入的 API 對象，請使用
-`--enable-admission-plugins=...,NodeRestriction,...` 啓動 API 服務器，從而啓用
+`--enable-admission-plugins=...,NodeRestriction,...` 啓動 API 伺服器，從而啓用
 [NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers#NodeRestriction)
 准入插件。
 
@@ -190,7 +190,7 @@ The node admission plugin would not restrict requests from these kubelets.
 <!--
 ### Kubelets with undifferentiated usernames
 -->
-### 具有無差別用戶名的 kubelet   {#kubelets-with-undifferentiated-usernames}
+### 具有無差別使用者名的 kubelet   {#kubelets-with-undifferentiated-usernames}
 
 <!--
 In some deployments, kubelets have credentials that place them in the `system:nodes` group,
@@ -200,7 +200,7 @@ These kubelets would not be authorized by the `Node` authorization mode,
 and would need to continue to be authorized via whatever mechanism currently authorizes them.
 -->
 在一些部署中，kubelet 具有 `system:nodes` 組的憑據，
-但是無法給出它們所關聯的節點的標識，因爲它們沒有 `system:node:...` 格式的用戶名。
+但是無法給出它們所關聯的節點的標識，因爲它們沒有 `system:node:...` 格式的使用者名。
 這些 kubelet 不會被 `Node` 鑑權模式授權，並且需要繼續通過當前授權它們的任何機制來授權。
 
 <!--

@@ -45,14 +45,14 @@ The manifest for that Pod specifies a command that runs when the container start
 ## 讀寫終止消息   {#writing-and-reading-a-termination-message}
 
 在本練習中，你將創建運行一個容器的 Pod。
-配置文件指定在容器啓動時要運行的命令。
+設定文件指定在容器啓動時要運行的命令。
 
 {{% code_sample file="debug/termination.yaml" %}}
 
 <!--
 1. Create a Pod based on the YAML configuration file:
 -->
-1. 基於 YAML 配置文件創建 Pod：
+1. 基於 YAML 設定文件創建 Pod：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/debug/termination.yaml   
@@ -192,7 +192,7 @@ to use the last chunk of container log output if the termination message file
 is empty and the container exited with an error. The log output is limited to
 2048 bytes or 80 lines, whichever is smaller.
 -->
-此外，用戶可以設置容器的 `terminationMessagePolicy` 字段，以便進一步自定義。
+此外，使用者可以設置容器的 `terminationMessagePolicy` 字段，以便進一步自定義。
 此字段默認爲 "`File`"，這意味着僅從終止消息文件中檢索終止消息。
 通過將 `terminationMessagePolicy` 設置爲 "`FallbackToLogsOnError`"，你就可以告訴 Kubernetes，在容器因錯誤退出時，如果終止消息文件爲空，則使用容器日誌輸出的最後一塊作爲終止消息。
 日誌輸出限制爲 2048 字節或 80 行，以較小者爲準。
@@ -211,7 +211,7 @@ is empty and the container exited with an error. The log output is limited to
 
 * 參考 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
   資源的 `terminationMessagePath` 字段。
-* 參考[鏡像](/zh-cn/docs/concepts/containers/images/)中的 [ImagePullBackOff](/zh-cn/docs/concepts/containers/images/#imagepullbackoff)。
+* 參考[映像檔](/zh-cn/docs/concepts/containers/images/)中的 [ImagePullBackOff](/zh-cn/docs/concepts/containers/images/#imagepullbackoff)。
 * 瞭解[檢索日誌](/zh-cn/docs/concepts/cluster-administration/logging/)。
 * 瞭解 [Go 模板](https://pkg.go.dev/text/template)。
 * 瞭解 [Pod 狀態](/zh-cn/docs/tasks/debug/debug-application/debug-init-containers/#understanding-pod-status)和

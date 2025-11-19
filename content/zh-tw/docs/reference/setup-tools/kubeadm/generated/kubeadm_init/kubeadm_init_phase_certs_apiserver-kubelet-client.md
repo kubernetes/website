@@ -6,7 +6,7 @@
 <!--
 Generate the certificate for the API server to connect to kubelet, and save them into apiserver-kubelet-client.crt and apiserver-kubelet-client.key files.
 -->
-生成供 API 服務器連接 kubelet 的證書，並將其保存到 `apiserver-kubelet-client.crt`
+生成供 API 伺服器連接 kubelet 的證書，並將其保存到 `apiserver-kubelet-client.crt`
 和 `apiserver-kubelet-client.key` 文件中。
 
 <!--
@@ -60,7 +60,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件路徑。
+kubeadm 設定文件路徑。
 </p>
 </td>
 </tr>

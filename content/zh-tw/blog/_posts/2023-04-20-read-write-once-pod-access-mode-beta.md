@@ -43,7 +43,7 @@ that require single-writer access to storage.
 ReadWriteOncePod 是 Kubernetes 在 v1.22 中引入的一種新的訪問模式，
 適用於 [PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/#persistent-volumes)(PVs)
 和 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVCs)。
-此訪問模式使你能夠將存儲卷訪問限制在集羣中的單個 Pod 上，確保一次只有一個 Pod 可以寫入存儲卷。
+此訪問模式使你能夠將存儲卷訪問限制在叢集中的單個 Pod 上，確保一次只有一個 Pod 可以寫入存儲卷。
 這可能對需要單一寫入者訪問存儲的有狀態工作負載特別有用。
 
 <!--
@@ -84,7 +84,7 @@ the same PVC.
 With ReadWriteOncePod now in beta, it will be enabled by default in cluster
 versions v1.27 and beyond.
 -->
-隨着 ReadWriteOncePod 現已升級爲 Beta 版，在 v1.27 及更高版本的集羣中將默認啓用該功能。
+隨着 ReadWriteOncePod 現已升級爲 Beta 版，在 v1.27 及更高版本的叢集中將默認啓用該功能。
 
 <!--
 Note that ReadWriteOncePod is

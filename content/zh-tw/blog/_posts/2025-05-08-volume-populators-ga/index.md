@@ -29,7 +29,7 @@ An example of how to use dataSourceRef in PVC:
 -->
 Kubernetes 的**卷填充器**現已進階至 GA（正式發佈）！
 `AnyVolumeDataSource` 特性門控在 Kubernetes v1.33 中設爲始終啓用，
-這意味着用戶可以將任何合適的[自定義資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources)作爲
+這意味着使用者可以將任何合適的[自定義資源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/#custom-resources)作爲
 PersistentVolumeClaim（PVC）的數據源。
 
 以下是如何在 PVC 中使用 dataSourceRef 的示例：
@@ -150,7 +150,7 @@ For next step, there are several potential feature requests for volume populator
 * Populate data from multiple sources of the same provider: populate multiple different sources to one destination
 * Populate data from multiple sources of the different providers: populate multiple different sources to one destination, pipelining different resources’ population
 -->
-* 多次同步：當前實現是從源到目的地的一次性單向同步，可以擴展爲支持週期性同步或允許用戶按需同步。
+* 多次同步：當前實現是從源到目的地的一次性單向同步，可以擴展爲支持週期性同步或允許使用者按需同步。
 * 雙向同步：多次同步的擴展版本，實現源與目的地之間的雙向同步。
 * 基於優先級的數據填充：提供多個 dataSourceRef，並按優先級進行數據填充。
 * 從同一提供程序的多個源填充數據：將多個不同源填充到同一個目的地。

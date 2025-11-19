@@ -22,7 +22,7 @@ and/or validates pods, and how the configuration values map to the
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/).
 -->
 下面的表格列舉了 `PodSecurityPolicy`
-對象上的配置參數，這些字段是否會變更或檢查 Pod 配置，以及這些配置值如何映射到
+對象上的設定參數，這些字段是否會變更或檢查 Pod 設定，以及這些設定值如何映射到
 [Pod 安全性標準（Pod Security Standards）](/zh-cn/docs/concepts/security/pod-security-standards/)
 之上。
 
@@ -37,10 +37,10 @@ means all values are allowed under all Pod Security Standards.
 對於每個可應用的參數，表格中給出了
 [Baseline](/zh-cn/docs/concepts/security/pod-security-standards/#baseline) 和
 [Restricted](/zh-cn/docs/concepts/security/pod-security-standards/#restricted)
-配置下可接受的取值。
-對這兩種配置而言不可接受的取值均歸入
+設定下可接受的取值。
+對這兩種設定而言不可接受的取值均歸入
 [Privileged](/zh-cn/docs/concepts/security/pod-security-standards/#privileged)
-配置下。“無意見”意味着對所有 Pod 安全性標準而言所有取值都可接受。
+設定下。“無意見”意味着對所有 Pod 安全性標準而言所有取值都可接受。
 
 <!--
 For a step-by-step migration guide, see

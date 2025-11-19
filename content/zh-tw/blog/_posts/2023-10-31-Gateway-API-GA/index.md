@@ -98,7 +98,7 @@ overall UX when interacting with Gateway API.
 ### 標準（Standard）通道
 
 此發行版本主要側重於確保現有 Beta 級別 API 定義良好且足夠穩定，可以升級爲 GA。
-其背後意味着爲了提高與 Gateway API 交互時的整體用戶體驗而作的各種規範的澄清以及一些改進。
+其背後意味着爲了提高與 Gateway API 交互時的整體使用者體驗而作的各種規範的澄清以及一些改進。
 
 <!--
 ### Experimental channel
@@ -110,7 +110,7 @@ follow up blog post that will cover each of these new features in detail.
 ## 實驗（Experimental）通道
 
 此發行版本中包含的大部分更改都限於實驗通道。這些更改包括 HTTPRoute
-超時、用於 Gateway 訪問後端的 TLS 配置、WebSocket 支持、Gateway 基礎設施的標籤等等。
+超時、用於 Gateway 訪問後端的 TLS 設定、WebSocket 支持、Gateway 基礎設施的標籤等等。
 請繼續關注後續博客，我們將詳細介紹這些新特性。
 
 <!--
@@ -247,7 +247,7 @@ schedule.
 **貢獻者峯會：**
 
 - [使用 CRD 構建 GA API 的經驗教訓](https://sched.co/1Sp9u)
-- [合規性配置文件：構建通用合規性測試報告框架](https://sched.co/1Sp9l)
+- [合規性設定文件：構建通用合規性測試報告框架](https://sched.co/1Sp9l)
 - [Gateway API：GA 以後](https://sched.co/1SpA9)
 
 <!--

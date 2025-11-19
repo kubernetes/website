@@ -1,5 +1,5 @@
 ---
-title: 使用 kubeconfig 文件組織集羣訪問
+title: 使用 kubeconfig 文件組織叢集訪問
 content_type: concept
 weight: 60
 ---
@@ -17,8 +17,8 @@ authentication mechanisms. The `kubectl` command-line tool uses kubeconfig files
 find the information it needs to choose a cluster and communicate with the API server
 of a cluster.
 -->
-使用 kubeconfig 文件來組織有關集羣、用戶、命名空間和身份認證機制的信息。
-`kubectl` 命令行工具使用 kubeconfig 文件來查找選擇集羣所需的信息，並與集羣的 API 服務器進行通信。
+使用 kubeconfig 文件來組織有關叢集、使用者、命名空間和身份認證機制的信息。
+`kubectl` 命令列工具使用 kubeconfig 文件來查找選擇叢集所需的信息，並與叢集的 API 伺服器進行通信。
 
 {{< note >}}
 <!--
@@ -26,8 +26,8 @@ A file that is used to configure access to clusters is called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 -->
-用於配置集羣訪問的文件稱爲 **kubeconfig 文件**。
-這是引用到配置文件的通用方法，並不意味着有一個名爲 `kubeconfig` 的文件。
+用於設定叢集訪問的文件稱爲 **kubeconfig 文件**。
+這是引用到設定文件的通用方法，並不意味着有一個名爲 `kubeconfig` 的文件。
 {{< /note >}}
 
 {{< warning >}}
@@ -54,20 +54,20 @@ For step-by-step instructions on creating and specifying kubeconfig files, see
 [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 -->
 有關創建和指定 kubeconfig 文件的分步說明，
-請參閱[配置對多集羣的訪問](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters)。
+請參閱[設定對多叢集的訪問](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters)。
 
 <!-- body -->
 
 <!--
 ## Supporting multiple clusters, users, and authentication mechanisms
 -->
-## 支持多集羣、用戶和身份認證機制   {#support-clusters-users-and-authn}
+## 支持多叢集、使用者和身份認證機制   {#support-clusters-users-and-authn}
 
 <!--
 Suppose you have several clusters, and your users and components authenticate
 in a variety of ways. For example:
 -->
-假設你有多個集羣，並且你的用戶和組件以多種方式進行身份認證。比如：
+假設你有多個叢集，並且你的使用者和組件以多種方式進行身份認證。比如：
 
 <!--
 - A running kubelet might authenticate using certificates.
@@ -75,15 +75,15 @@ in a variety of ways. For example:
 - Administrators might have sets of certificates that they provide to individual users.
 -->
 - 正在運行的 kubelet 可能使用證書在進行認證。
-- 用戶可能通過令牌進行認證。
-- 管理員可能擁有多個證書集合提供給各用戶。
+- 使用者可能通過令牌進行認證。
+- 管理員可能擁有多個證書集合提供給各使用者。
 
 <!--
 With kubeconfig files, you can organize your clusters, users, and namespaces.
 You can also define contexts to quickly and easily switch between
 clusters and namespaces.
 -->
-使用 kubeconfig 文件，你可以組織集羣、用戶和命名空間。你還可以定義上下文，以便在集羣和命名空間之間快速輕鬆地切換。
+使用 kubeconfig 文件，你可以組織叢集、使用者和命名空間。你還可以定義上下文，以便在叢集和命名空間之間快速輕鬆地切換。
 
 <!--
 ## Context
@@ -98,7 +98,7 @@ the *current context* to communicate with the cluster.
 -->
 通過 kubeconfig 文件中的 *context* 元素，使用簡便的名稱來對訪問參數進行分組。
 每個 context 都有三個參數：cluster、namespace 和 user。
-默認情況下，`kubectl` 命令行工具使用 **當前上下文** 中的參數與集羣進行通信。
+默認情況下，`kubectl` 命令列工具使用 **當前上下文** 中的參數與叢集進行通信。
 
 <!--
 To choose the current context:
@@ -131,7 +131,7 @@ If the `KUBECONFIG` environment variable does exist, `kubectl` uses
 an effective configuration that is the result of merging the files
 listed in the `KUBECONFIG` environment variable.
 -->
-如果 `KUBECONFIG` 環境變量存在，`kubectl` 將使用 `KUBECONFIG` 環境變量中列舉的文件合併後的有效配置。
+如果 `KUBECONFIG` 環境變量存在，`kubectl` 將使用 `KUBECONFIG` 環境變量中列舉的文件合併後的有效設定。
 
 <!--
 ## Merging kubeconfig files
@@ -141,7 +141,7 @@ listed in the `KUBECONFIG` environment variable.
 <!--
 To see your configuration, enter this command:
 -->
-要查看配置，輸入以下命令：
+要查看設定，輸入以下命令：
 
 ```shell
 kubectl config view
@@ -206,7 +206,7 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
 -->
 2. 根據此鏈中的第一個匹配確定要使用的上下文。
 
-    1. 如果存在上下文，則使用 `--context` 命令行參數。
+    1. 如果存在上下文，則使用 `--context` 命令列參數。
     2. 使用合併的 kubeconfig 文件中的 `current-context`。
 
    <!--
@@ -222,16 +222,16 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    1. Use a command-line flag if it exists: `--user` or `--cluster`.
    1. If the context is non-empty, take the user or cluster from the context.
 -->
-3. 確定集羣和用戶。此時，可能有也可能沒有上下文。根據此鏈中的第一個匹配確定集羣和用戶，
-   這將運行兩次：一次用於用戶，一次用於集羣。
+3. 確定叢集和使用者。此時，可能有也可能沒有上下文。根據此鏈中的第一個匹配確定叢集和使用者，
+   這將運行兩次：一次用於使用者，一次用於叢集。
 
-   1. 如果存在用戶或集羣，則使用命令行參數：`--user` 或者 `--cluster`。
-   2. 如果上下文非空，則從上下文中獲取用戶或集羣。
+   1. 如果存在使用者或叢集，則使用命令列參數：`--user` 或者 `--cluster`。
+   2. 如果上下文非空，則從上下文中獲取使用者或叢集。
 
    <!--
    The user and cluster can be empty at this point.
    -->
-   這種場景下用戶和集羣可以爲空。
+   這種場景下使用者和叢集可以爲空。
 
 <!--
 1. Determine the actual cluster information to use. At this point, there might or
@@ -242,12 +242,12 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    1. If any cluster information attributes exist from the merged kubeconfig files, use them.
    1. If there is no server location, fail.
 -->
-4. 確定要使用的實際集羣信息。此時，可能有也可能沒有集羣信息。
-   基於此鏈構建每個集羣信息；第一個匹配項會被採用：
+4. 確定要使用的實際叢集信息。此時，可能有也可能沒有叢集信息。
+   基於此鏈構建每個叢集信息；第一個匹配項會被採用：
 
-   1. 如果存在集羣信息，則使用命令行參數：`--server`、`--certificate-authority` 和 `--insecure-skip-tls-verify`。
-   2. 如果合併的 kubeconfig 文件中存在集羣信息屬性，則使用這些屬性。
-   3. 如果沒有 server 配置，則配置無效。
+   1. 如果存在叢集信息，則使用命令列參數：`--server`、`--certificate-authority` 和 `--insecure-skip-tls-verify`。
+   2. 如果合併的 kubeconfig 文件中存在叢集信息屬性，則使用這些屬性。
+   3. 如果沒有 server 設定，則設定無效。
 
 <!--
 1. Determine the actual user information to use. Build user information using the same
@@ -258,11 +258,11 @@ Here are the rules that `kubectl` uses when it merges kubeconfig files:
    1. Use the `user` fields from the merged kubeconfig files.
    1. If there are two conflicting techniques, fail.
 -->
-5. 確定要使用的實際用戶信息。使用與集羣信息相同的規則構建用戶信息，但對於每個用戶只允許使用一種身份認證技術：
+5. 確定要使用的實際使用者信息。使用與叢集信息相同的規則構建使用者信息，但對於每個使用者只允許使用一種身份認證技術：
 
-   1. 如果存在用戶信息，則使用命令行參數：`--client-certificate`、`--client-key`、`--username`、`--password` 和 `--token`。
+   1. 如果存在使用者信息，則使用命令列參數：`--client-certificate`、`--client-key`、`--username`、`--password` 和 `--token`。
    2. 使用合併的 kubeconfig 文件中的 `user` 字段。
-   3. 如果存在兩種衝突技術，則配置無效。
+   3. 如果存在兩種衝突技術，則設定無效。
 
 <!--
 1. For any information still missing, use default values and potentially
@@ -282,7 +282,7 @@ In `$HOME/.kube/config`, relative paths are stored relatively, and absolute path
 are stored absolutely.
 -->
 kubeconfig 文件中的文件和路徑引用是相對於 kubeconfig 文件的位置。
-命令行上的文件引用是相對於當前工作目錄的。
+命令列上的文件引用是相對於當前工作目錄的。
 在 `$HOME/.kube/config` 中，相對路徑按相對路徑存儲，而絕對路徑按絕對路徑存儲。
 
 <!--
@@ -292,7 +292,7 @@ You can configure `kubectl` to use a proxy per cluster using `proxy-url` in your
 -->
 ## 代理   {#proxy}
 
-你可以在 `kubeconfig` 文件中，爲每個集羣配置 `proxy-url` 來讓 `kubectl` 使用代理，例如：
+你可以在 `kubeconfig` 文件中，爲每個叢集設定 `proxy-url` 來讓 `kubectl` 使用代理，例如：
 
 ```yaml
 apiVersion: v1
@@ -318,5 +318,5 @@ contexts:
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 -->
-* [配置對多集羣的訪問](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [設定對多叢集的訪問](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)

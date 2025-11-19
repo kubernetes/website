@@ -27,18 +27,18 @@ Although the feature is enabled by default, a cluster admin must opt-in to allow
 **編者注：這篇博客是[深度文章系列](https://kubernetes.io/blog/2018/06/27/kubernetes-1.11-release-announcement/)的一部分，這個系列介紹了 Kubernetes 1.11 中的新增特性**
 
 在 Kubernetes v1.11 中，持久化卷擴展功能升級爲 Beta。
-該功能允許用戶通過編輯 `PersistentVolumeClaim`（PVC）對象，輕鬆調整已存在數據卷的大小。
-用戶不再需要手動與存儲後端交互，或者刪除再重建 PV 和 PVC 對象來增加捲的大小。縮減持久化卷暫不支持。
+該功能允許使用者通過編輯 `PersistentVolumeClaim`（PVC）對象，輕鬆調整已存在數據卷的大小。
+使用者不再需要手動與存儲後端交互，或者刪除再重建 PV 和 PVC 對象來增加捲的大小。縮減持久化卷暫不支持。
 
 卷擴展是在 v1.8 版本中作爲 Alpha 功能引入的，
 在 v1.11 之前的版本都需要開啓特性門控 `ExpandPersistentVolumes` 以及准入控制器 `PersistentVolumeClaimResize`（防止擴展底層存儲供應商不支持調整大小的 PVC）。
 在 Kubernetes v1.11+ 中，特性門控和准入控制器都是默認啓用的。
 
-雖然該功能默認是啓用的，但集羣管理員必須選擇允許用戶調整數據卷的大小。
+雖然該功能默認是啓用的，但叢集管理員必須選擇允許使用者調整數據卷的大小。
 Kubernetes v1.11 爲以下樹內卷插件提供了卷擴展支持：
 AWS-EBS、GCE-PD、Azure Disk、Azure File、Glusterfs、Cinder、Portworx 和 Ceph RBD。
 一旦管理員確定底層供應商支持卷擴展，
-就可以通過在 `StorageClass` 對象中設置  `allowVolumeExpansion` 字段爲  `true`，讓用戶可以使用該功能。
+就可以通過在 `StorageClass` 對象中設置  `allowVolumeExpansion` 字段爲  `true`，讓使用者可以使用該功能。
 只有由這個 `StorageClass` 創建的 PVC 才能觸發卷擴展。
 
 ```
@@ -83,7 +83,7 @@ You can verify this by running `kubectl get pvc <pvc_name> -o yaml`
 通常需要在擴展卷的額外空間被 Pod 使用之前進行文件系統擴展。
 Kubernetes 會在引用數據卷的 Pod 重新啓動時自動處理這個問題。
 
-網絡附加文件系統（如 Glusterfs 和 Azure File）可以被擴展，而不需要重新啓動引用的 Pod，
+網路附加文件系統（如 Glusterfs 和 Azure File）可以被擴展，而不需要重新啓動引用的 Pod，
 因爲這些系統不需要特殊的文件系統擴展。
 
 文件系統擴展必須通過終止使用該卷的 Pod 來觸發。更具體地說：

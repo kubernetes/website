@@ -30,7 +30,7 @@ longer be the case, and Katacoda tutorials for learning Kubernetes will cease wo
 [Katacoda](https://katacoda.com/kubernetes) 是 O’Reilly 開設的熱門學習平臺，
 幫助人們學習 Java、Docker、Kubernetes、Python、Go、C++ 和其他更多內容，
 這個學習平臺於 [2022 年 6 月停止對公衆開放](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html)。
-但是，從 Kubernetes 網站爲相關項目用戶和貢獻者關聯的 Kubernetes 專門教程在那次變更後仍然可用並處於活躍狀態。
+但是，從 Kubernetes 網站爲相關項目使用者和貢獻者關聯的 Kubernetes 專門教程在那次變更後仍然可用並處於活躍狀態。
 遺憾的是，接下來情況將發生變化，Katacoda 上有關學習 Kubernetes 的教程將在 2023 年 3 月 31 日之後徹底關閉。
 
 <!--
@@ -50,7 +50,7 @@ Kubernetes 項目感謝 O'Reilly Media 多年來通過 Katacoda 學習平臺對 
 有關的更多信息。此次變更之後，我們將專注於移除指向 Katacoda 各種教程的鏈接。
 我們通過 [Issue #33936](https://github.com/kubernetes/website/issues/33936)
 和 [GitHub 討論](https://github.com/kubernetes/website/discussions/38878)跟蹤此主題相關的常規問題。
-我們也有興趣調研其他哪些學習平臺可能對 Kubernetes 社區有益，嘗試將 Katacoda 鏈接替換爲具有類似用戶體驗的平臺或服務。
+我們也有興趣調研其他哪些學習平臺可能對 Kubernetes 社區有益，嘗試將 Katacoda 鏈接替換爲具有類似使用者體驗的平臺或服務。
 然而，這項調研需要時間，因此我們正在積極尋覓志願者來協助完成這項工作。
 如果找到替代的平臺，需要得到 Kubernetes 領導層的支持，特別是
 SIG Contributor Experience、SIG Docs 和 Kubernetes Steering Committee。

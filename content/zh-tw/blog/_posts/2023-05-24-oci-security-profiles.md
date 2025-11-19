@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "使用 OCI 工件爲 seccomp、SELinux 和 AppArmor 分發安全配置文件"
+title: "使用 OCI 工件爲 seccomp、SELinux 和 AppArmor 分發安全設定文件"
 date: 2023-05-24
 slug: oci-security-profiles
 ---
@@ -27,9 +27,9 @@ removal of the security profiles are managed by the operator in the same way,
 but that’s a small subset of its capabilities.
 -->
 [Security Profiles Operator (SPO)][spo] 使得在 Kubernetes 中管理
-seccomp、SELinux 和 AppArmor 配置文件變得更加容易。
-它允許集羣管理員在預定義的自定義資源 YAML 中定義配置文件，然後由 SPO 分發到整個集羣中。
-安全配置文件的修改和移除也由 Operator 以同樣的方式進行管理，但這只是其能力的一小部分。
+seccomp、SELinux 和 AppArmor 設定文件變得更加容易。
+它允許叢集管理員在預定義的自定義資源 YAML 中定義設定文件，然後由 SPO 分發到整個叢集中。
+安全設定文件的修改和移除也由 Operator 以同樣的方式進行管理，但這只是其能力的一小部分。
 
 [spo]: https://github.com/kubernetes-sigs/security-profiles-operator
 
@@ -47,13 +47,13 @@ for the application logic on top. This way developers can focus on maintaining
 seccomp profiles which are way simpler and scoped to the application logic,
 without having a need to take the whole infrastructure setup into account.
 -->
-SPO 的另一個核心特性是能夠組合 seccomp 配置文件。這意味着用戶可以在 YAML
+SPO 的另一個核心特性是能夠組合 seccomp 設定文件。這意味着使用者可以在 YAML
 規約中定義 `baseProfileName`，然後 Operator 會自動解析並組合系統調用規則。
-如果基本配置文件有另一個 `baseProfileName`，那麼 Operator 將以遞歸方式解析配置文件到一定深度。
-常見的使用場景是爲低級容器運行時（例如 [runc][runc] 或 [crun][crun]）定義基本配置文件，
-在這些配置文件中包含各種情況下運行容器所需的系統調用。另外，應用開發人員可以爲其標準分發容器定義
-seccomp 基本配置文件，並在其上組合針對應用邏輯的專用配置文件。
-這樣開發人員就可以專注於維護更簡單且範圍限制爲應用邏輯的 seccomp 配置文件，
+如果基本設定文件有另一個 `baseProfileName`，那麼 Operator 將以遞歸方式解析設定文件到一定深度。
+常見的使用場景是爲低級容器運行時（例如 [runc][runc] 或 [crun][crun]）定義基本設定文件，
+在這些設定文件中包含各種情況下運行容器所需的系統調用。另外，應用開發人員可以爲其標準分發容器定義
+seccomp 基本設定文件，並在其上組合針對應用邏輯的專用設定文件。
+這樣開發人員就可以專注於維護更簡單且範圍限制爲應用邏輯的 seccomp 設定文件，
 而不需要考慮整個基礎設施的設置。
 
 [runc]: https://github.com/opencontainers/runc
@@ -68,11 +68,11 @@ they’re tightly coupled to the main application profiles, which acts against t
 main idea of base profiles. Distributing and managing them as plain files feels
 like an additional burden to solve.
 -->
-但是如何維護這些基本配置文件呢？
+但是如何維護這些基本設定文件呢？
 例如，運行時所需的系統調用數量可能會像主應用一樣在其發佈週期內發生變化。
-基本配置文件必須在同一集羣中可用，否則主 seccomp 配置文件將無法部署。
-這意味着這些基本配置文件與主應用配置文件緊密耦合，因此違背了基本配置文件的核心理念。
-將基本配置文件作爲普通文件分發和管理感覺像是需要解決的額外負擔。
+基本設定文件必須在同一叢集中可用，否則主 seccomp 設定文件將無法部署。
+這意味着這些基本設定文件與主應用設定文件緊密耦合，因此違背了基本設定文件的核心理念。
+將基本設定文件作爲普通文件分發和管理感覺像是需要解決的額外負擔。
 
 <!--
 ## OCI artifacts to the rescue
@@ -86,10 +86,10 @@ versioned, namespaced and annotated similar to regular container images.
 -->
 ## OCI 工件成爲救命良方   {#oci-artifacts-to-rescue}
 
-Security Profiles Operator 的 [v0.8.0][spo-latest] 版本支持將基本配置文件作爲
-OCI 工件進行管理！將 OCI 工件假想爲輕量級容器鏡像，採用與鏡像相同的方式在各層中存儲文件，
-但沒有要執行的進程。這些工件可以用於像普通容器鏡像一樣在兼容的鏡像倉庫中存儲安全配置文件。
-這意味着這些工件可以被版本化、作用於命名空間並類似常規容器鏡像一樣添加註解。
+Security Profiles Operator 的 [v0.8.0][spo-latest] 版本支持將基本設定文件作爲
+OCI 工件進行管理！將 OCI 工件假想爲輕量級容器映像檔，採用與映像檔相同的方式在各層中存儲文件，
+但沒有要執行的進程。這些工件可以用於像普通容器映像檔一樣在兼容的映像檔倉庫中存儲安全設定文件。
+這意味着這些工件可以被版本化、作用於命名空間並類似常規容器映像檔一樣添加註解。
 
 [spo-latest]: https://github.com/kubernetes-sigs/security-profiles-operator/releases/v0.8.0
 
@@ -97,7 +97,7 @@ OCI 工件進行管理！將 OCI 工件假想爲輕量級容器鏡像，採用�
 To see how that works in action, specify a `baseProfileName` prefixed with
 `oci://` within a seccomp profile CRD, for example:
 -->
-若要查看具體的工作方式，可以在 seccomp 配置文件 CRD 內以前綴 `oci://`
+若要查看具體的工作方式，可以在 seccomp 設定文件 CRD 內以前綴 `oci://`
 指定 `baseProfileName`，例如：
 
 ```yaml
@@ -125,9 +125,9 @@ pulled more specific, for example by referencing
 `oci://ghcr.io/security-profiles/runc@sha256:380…`.
 -->
 Operator 將負責使用 [oras][oras] 拉取內容，並驗證工件的 [sigstore (cosign)][cosign] 簽名。
-如果某些工件未經簽名，則 SPO 將拒絕它們。隨後生成的配置文件 `test` 將包含來自遠程
-`runc` 配置文件的所有基本系統調用加上額外允許的 `uname` 系統調用。
-你還可以通過摘要（SHA256）來引用基本配置文件，使要被拉取的工件更爲確定，
+如果某些工件未經簽名，則 SPO 將拒絕它們。隨後生成的設定文件 `test` 將包含來自遠程
+`runc` 設定文件的所有基本系統調用加上額外允許的 `uname` 系統調用。
+你還可以通過摘要（SHA256）來引用基本設定文件，使要被拉取的工件更爲確定，
 例如通過引用 `oci：//ghcr.io/security-profiles/runc@sha256: 380…`。
 
 [oras]: https://oras.land
@@ -138,7 +138,7 @@ The operator internally caches pulled artifacts up to 24 hours for 1000
 profiles, meaning that they will be refreshed after that time period, if the
 cache is full or the operator daemon gets restarted.
 -->
-Operator 在內部緩存已拉取的工件，最多可緩存 1000 個配置文件 24 小時，
+Operator 在內部緩存已拉取的工件，最多可緩存 1000 個設定文件 24 小時，
 這意味着如果緩存已滿、Operator 守護進程重啓或超出給定時段後這些工件將被刷新。
 
 <!--
@@ -148,7 +148,7 @@ annotate that SeccompProfile with the final `syscalls`.
 
 Here's how the SeccompProfile looks after I annotate it:
 -->
-因爲總體生成的系統調用對用戶不可見
+因爲總體生成的系統調用對使用者不可見
 （我只列出了 SeccompProfile 中的 `baseProfileName`，而沒有列出系統調用本身），
 所以我爲該 SeccompProfile 的最終 `syscalls` 添加了額外的註解。
 
@@ -168,7 +168,7 @@ API Version:  security-profiles-operator.x-k8s.io/v1beta1
 The SPO maintainers provide all public base profiles as part of the [“Security
 Profiles” GitHub organization][org].
 -->
-SPO 維護者們作爲 [“Security Profiles” GitHub 組織][org] 的成員提供所有公開的基本配置文件。
+SPO 維護者們作爲 [“Security Profiles” GitHub 組織][org] 的成員提供所有公開的基本設定文件。
 
 [org]: https://github.com/orgs/security-profiles/packages
 
@@ -179,10 +179,10 @@ Alright, now the official SPO provides a bunch of base profiles, but how can I
 define my own? Well, first of all we have to choose a working registry. There
 are a bunch of registries that already supports OCI artifacts:
 -->
-## 管理 OCI 安全配置文件   {#managing-oci-security-profiles}
+## 管理 OCI 安全設定文件   {#managing-oci-security-profiles}
 
-好的，官方的 SPO 提供了許多基本配置文件，但是我如何定義自己的配置文件呢？
-首先，我們必須選擇一個可用的鏡像倉庫。有許多鏡像倉庫都已支持 OCI 工件：
+好的，官方的 SPO 提供了許多基本設定文件，但是我如何定義自己的設定文件呢？
+首先，我們必須選擇一個可用的映像檔倉庫。有許多映像檔倉庫都已支持 OCI 工件：
 
 - [CNCF Distribution](https://github.com/distribution/distribution)
 - [Azure Container Registry](https://aka.ms/acr)
@@ -198,9 +198,9 @@ which is a little helper tool for managing OCI profiles among doing various othe
 things which are out of scope of this blog post. But, the command `spoc push`
 can be used to push a security profile to a registry:
 -->
-Security Profiles Operator 交付一個新的名爲 `spoc` 的命令行界面，
-這是一個用於管理 OCI 配置文件的小型輔助工具，該工具提供的各項能力不在這篇博文的討論範圍內。
-但 `spoc push` 命令可以用於將安全配置文件推送到鏡像倉庫：
+Security Profiles Operator 交付一個新的名爲 `spoc` 的命令列界面，
+這是一個用於管理 OCI 設定文件的小型輔助工具，該工具提供的各項能力不在這篇博文的討論範圍內。
+但 `spoc push` 命令可以用於將安全設定文件推送到映像檔倉庫：
 
 ```console
 > export USERNAME=my-user
@@ -238,8 +238,8 @@ for usage within the SPO. If username and password authentication is required,
 either use the `--username`, `-u` flag or export the `USERNAME` environment
 variable. To set the password, export the `PASSWORD` environment variable.
 -->
-你可以看到該工具自動簽署工件並將 `./examples/baseprofile-crun.yaml` 推送到鏡像倉庫中，
-然後直接可以在 SPO 中使用此文件。如果需要驗證用戶名和密碼，則可以使用 `--username`、
+你可以看到該工具自動簽署工件並將 `./examples/baseprofile-crun.yaml` 推送到映像檔倉庫中，
+然後直接可以在 SPO 中使用此文件。如果需要驗證使用者名和密碼，則可以使用 `--username`、
 `-u` 標誌或導出 `USERNAME` 環境變量。要設置密碼，可以導出 `PASSWORD` 環境變量。
 
 <!--
@@ -252,10 +252,10 @@ The `spoc` client is also able to pull security profiles from OCI artifact
 compatible registries. To do that, just run `spoc pull`:
 -->
 採用 `KEY:VALUE` 的格式多次使用 `--annotations` / `-a` 標誌，
-可以爲安全配置文件添加自定義註解。目前這些對安全配置文件沒有影響，
+可以爲安全設定文件添加自定義註解。目前這些對安全設定文件沒有影響，
 但是在後續某個階段，Operator 的其他特性可能會依賴於它們。
 
-`spoc` 客戶端還可以從兼容 OCI 工件的鏡像倉庫中拉取安全配置文件。
+`spoc` 客戶端還可以從兼容 OCI 工件的映像檔倉庫中拉取安全設定文件。
 要執行此操作，只需運行 `spoc pull`：
 
 ```console
@@ -288,10 +288,10 @@ as for `spoc push`.
 `spoc` makes it easy to manage security profiles as OCI artifacts, which can be
 then consumed directly by the operator itself.
 -->
-現在可以在 `/tmp/profile.yaml` 或 `--output-file` / `-o` 所指定的輸出文件中找到該配置文件。
-我們可以像 `spoc push` 一樣指定用戶名和密碼。
+現在可以在 `/tmp/profile.yaml` 或 `--output-file` / `-o` 所指定的輸出文件中找到該設定文件。
+我們可以像 `spoc push` 一樣指定使用者名和密碼。
 
-`spoc` 使得以 OCI 工件的形式管理安全配置文件變得非常容易，這些 OCI 工件可以由 Operator 本身直接使用。
+`spoc` 使得以 OCI 工件的形式管理安全設定文件變得非常容易，這些 OCI 工件可以由 Operator 本身直接使用。
 
 <!--
 That was our compact journey through the latest possibilities of the Security

@@ -27,7 +27,7 @@ is expected to generate a [name](/docs/concepts/overview/working-with-objects/na
 When this feature is enabled, requests using `generateName` are retried automatically in case the
 control plane detects a name conflict with an existing object, up to a limit of 8 total attempts.
 -->
-當 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}要生成[名稱](/zh-cn/docs/concepts/overview/working-with-objects/names/#names)時，
+當 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}要生成[名稱](/zh-cn/docs/concepts/overview/working-with-objects/names/#names)時，
 允許重試對象創建。
 
 當此特性被啓用時，如果控制平面檢測到與某個現有對象存在名稱衝突，

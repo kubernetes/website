@@ -1,9 +1,9 @@
 ---
-title: 爲命名空間配置默認的 CPU 請求和限制
+title: 爲命名空間設定默認的 CPU 請求和限制
 content_type: task
 weight: 20
 description: >-
-  爲命名空間定義默認的 CPU 資源限制，在該命名空間中每個新建的 Pod 都會被配置上 CPU 資源限制。
+  爲命名空間定義默認的 CPU 資源限制，在該命名空間中每個新建的 Pod 都會被設定上 CPU 資源限制。
 ---
 
 <!--
@@ -28,9 +28,9 @@ Kubernetes assigns a default CPU
 [request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
 but only under certain conditions that are explained later in this page.
 -->
-本章介紹如何爲{{< glossary_tooltip text="命名空間" term_id="namespace" >}}配置默認的 CPU 請求和限制。
+本章介紹如何爲{{< glossary_tooltip text="命名空間" term_id="namespace" >}}設定默認的 CPU 請求和限制。
 
-一個 Kubernetes 集羣可被劃分爲多個命名空間。
+一個 Kubernetes 叢集可被劃分爲多個命名空間。
 如果你在具有默認 CPU [限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 的命名空間內創建一個 Pod，並且這個 Pod 中任何容器都沒有聲明自己的 CPU 限制，
 那麼{{< glossary_tooltip text="控制面" term_id="control-plane" >}}會爲容器設定默認的 CPU 限制。
@@ -47,7 +47,7 @@ You must have access to create namespaces in your cluster.
 If you're not already familiar with what Kubernetes means by 1.0 CPU,
 read [meaning of CPU](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu).
 -->
-在你的集羣裏你必須要有創建命名空間的權限。
+在你的叢集裏你必須要有創建命名空間的權限。
 
 如果你還不熟悉 Kubernetes 中 1.0 CPU 的含義，
 請閱讀 [CPU 的含義](/zh-cn/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu)。
@@ -62,7 +62,7 @@ isolated from the rest of your cluster.
 -->
 ## 創建命名空間
 
-創建一個命名空間，以便本練習中創建的資源和集羣的其餘部分相隔離。
+創建一個命名空間，以便本練習中創建的資源和叢集的其餘部分相隔離。
 
 ```shell
 kubectl create namespace default-cpu-example
@@ -304,14 +304,14 @@ kubectl delete namespace default-cpu-example
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
-### 集羣管理員參考
+### 叢集管理員參考
 
-* [爲命名空間配置默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間配置內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [爲命名空間配置 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [爲命名空間配置內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-* [爲命名空間配置 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-* [爲 API 對象配置配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
+* [爲命名空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定內存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [爲命名空間設定 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [爲命名空間設定 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [爲 API 對象設定配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
 ### For app developers
@@ -326,4 +326,4 @@ kubectl delete namespace default-cpu-example
 * [爲容器和 Pod 分配內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [爲容器和 Pod 分配 CPU 資源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [分配 Pod 級 CPU 和內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-pod-level-resources/)
-* [爲 Pod 配置服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
+* [爲 Pod 設定服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)

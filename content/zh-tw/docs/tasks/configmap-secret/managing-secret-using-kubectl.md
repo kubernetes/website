@@ -2,7 +2,7 @@
 title: 使用 kubectl 管理 Secret
 content_type: task
 weight: 10
-description: 使用 kubectl 命令行創建 Secret 對象。
+description: 使用 kubectl 命令列創建 Secret 對象。
 ---
 <!--
 title: Managing Secrets using kubectl
@@ -18,7 +18,7 @@ This page shows you how to create, edit, manage, and delete Kubernetes
 {{<glossary_tooltip text="Secrets" term_id="secret">}} using the `kubectl`
 command-line tool.
 -->
-本頁向你展示如何使用 `kubectl` 命令行工具來創建、編輯、管理和刪除。 
+本頁向你展示如何使用 `kubectl` 命令列工具來創建、編輯、管理和刪除。 
 Kubernetes {{<glossary_tooltip text="Secrets" term_id="secret">}}
 
 ## {{% heading "prerequisites" %}}
@@ -36,15 +36,15 @@ used by Pods to access services. For example, you might need a Secret to store
 the username and password needed to access a database.
 -->
 `Secret` 對象用來存儲敏感數據，如 Pod 用於訪問服務的憑據。例如，爲訪問數據庫，你可能需要一個
-Secret 來存儲所需的用戶名及密碼。
+Secret 來存儲所需的使用者名及密碼。
 
 <!--
 You can create the Secret by passing the raw data in the command, or by storing
 the credentials in files that you pass in the command. The following commands
 create a Secret that stores the username `admin` and the password `S!B\*d$zDsb=`.
 -->
-你可以通過在命令中傳遞原始數據，或將憑據存儲文件中，然後再在命令行中創建 Secret。以下命令
-將創建一個存儲用戶名 `admin` 和密碼 `S!B\*d$zDsb=` 的 Secret。
+你可以通過在命令中傳遞原始數據，或將憑據存儲文件中，然後再在命令列中創建 Secret。以下命令
+將創建一個存儲使用者名 `admin` 和密碼 `S!B\*d$zDsb=` 的 Secret。
 
 <!--
 ### Use raw data
@@ -323,5 +323,5 @@ kubectl delete secret db-user-pass
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
 - 進一步閱讀 [Secret 概念](/zh-cn/docs/concepts/configuration/secret/)
-- 瞭解如何[使用配置文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- 瞭解如何[使用設定文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - 瞭解如何[使用 Kustomize 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/)

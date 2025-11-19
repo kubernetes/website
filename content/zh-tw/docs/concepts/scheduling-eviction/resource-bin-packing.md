@@ -40,7 +40,7 @@ To set the `MostAllocated` strategy for the `NodeResourcesFit` plugin, use a
 針對每種資源類型，你可以設置一個權重值以改變其對節點得分的影響。
 
 要爲插件 `NodeResourcesFit` 設置 `MostAllocated` 策略，
-可以使用一個類似於下面這樣的[調度器配置](/zh-cn/docs/reference/scheduling/config/)：
+可以使用一個類似於下面這樣的[調度器設定](/zh-cn/docs/reference/scheduling/config/)：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -66,7 +66,7 @@ profiles:
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 -->
-要進一步瞭解其它參數及其默認配置，請參閱
+要進一步瞭解其它參數及其默認設定，請參閱
 [`NodeResourcesFitArgs`](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
 的 API 文檔。
 
@@ -89,14 +89,14 @@ its corresponding `weight`, which specifies the weight of each resource.
 -->
 ## 使用 RequestedToCapacityRatio 策略來啓用資源裝箱 {#enabling-bin-packing-using-requestedtocapacityratio}
 
-`RequestedToCapacityRatio` 策略允許用戶基於請求值與容量的比率，針對參與節點計分的每類資源設置權重。
-這一策略使得用戶可以使用合適的參數來對擴展資源執行裝箱操作，進而提升大規模集羣中稀有資源的利用率。
-此策略根據所分配資源的一個配置函數來評價節點。
+`RequestedToCapacityRatio` 策略允許使用者基於請求值與容量的比率，針對參與節點計分的每類資源設置權重。
+這一策略使得使用者可以使用合適的參數來對擴展資源執行裝箱操作，進而提升大規模叢集中稀有資源的利用率。
+此策略根據所分配資源的一個設定函數來評價節點。
 `NodeResourcesFit` 計分函數中的 `RequestedToCapacityRatio` 可以通過
 [scoringStrategy](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-ScoringStrategy)
-字段來控制。在 `scoringStrategy` 字段中，你可以配置兩個參數：
+字段來控制。在 `scoringStrategy` 字段中，你可以設定兩個參數：
 `requestedToCapacityRatio` 和 `resources`。`requestedToCapacityRatio` 參數中的 `shape`
-設置使得用戶能夠調整函數的算法，基於 `utilization` 和 `score` 值計算最少請求或最多請求。
+設置使得使用者能夠調整函數的算法，基於 `utilization` 和 `score` 值計算最少請求或最多請求。
 `resources` 參數中包含計分過程中需要考慮的資源的 `name`，以及對應的 `weight`，
 後者指定了每個資源的權重。
 
@@ -105,7 +105,7 @@ Below is an example configuration that sets
 the bin packing behavior for extended resources `intel.com/foo` and `intel.com/bar`
 using the `requestedToCapacityRatio` field.
 -->
-下面是一個配置示例，使用 `requestedToCapacityRatio` 字段爲擴展資源 `intel.com/foo`
+下面是一個設定示例，使用 `requestedToCapacityRatio` 字段爲擴展資源 `intel.com/foo`
 和 `intel.com/bar` 設置裝箱行爲：
 
 ```yaml
@@ -136,13 +136,13 @@ flag `--config=/path/to/config/file` will pass the configuration to the
 scheduler.
 -->
 使用 kube-scheduler 標誌 `--config=/path/to/config/file` 
-引用 `KubeSchedulerConfiguration` 文件，可以將配置傳遞給調度器。
+引用 `KubeSchedulerConfiguration` 文件，可以將設定傳遞給調度器。
 
 <!--
 To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs).
 -->
-要進一步瞭解其它參數及其默認配置，可以參閱
+要進一步瞭解其它參數及其默認設定，可以參閱
 [`NodeResourcesFitArgs`](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/#kubescheduler-config-k8s-io-v1-NodeResourcesFitArgs)
 的 API 文檔。
 
@@ -256,7 +256,7 @@ FunctionShapePoint {{0, 0}, {100, 10}}
 <!--
 Node 1 spec:
 -->
-節點 1 配置：
+節點 1 設定：
 
 ```
 可用：
@@ -302,7 +302,7 @@ NodeScore   =  ((7 * 5) + (5 * 1) + (3 * 3)) / (5 + 1 + 3)
 <!--
 Node 2 spec:
 -->
-節點 2 配置：
+節點 2 設定：
 
 ```
 可用：
@@ -352,4 +352,4 @@ NodeScore   =  ((5 * 5) + (7 * 1) + (10 * 3)) / (5 + 1 + 3)
 - Read more about [scheduler configuration](/docs/reference/scheduling/config/)
 -->
 - 繼續閱讀[調度器框架](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)
-- 繼續閱讀[調度器配置](/zh-cn/docs/reference/scheduling/config/)
+- 繼續閱讀[調度器設定](/zh-cn/docs/reference/scheduling/config/)

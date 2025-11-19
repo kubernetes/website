@@ -25,7 +25,7 @@ In Kubernetes, a _Node_ is a representation of a single machine in your cluster.
 
 ## 介紹
 
-在 Kubernetes 中，一個 _Node_ 是你集羣中的某臺機器。
+在 Kubernetes 中，一個 _Node_ 是你叢集中的某臺機器。
 [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) 負責這一非常重要的 Node 組件並支持各種子項目，
 如 Kubelet, Container Runtime Interface (CRI) 以及其他支持 Pod 和主機資源間交互的子項目。
 在這篇文章中，我們總結了和 [Elana Hashman (EH)](https://twitter.com/ehashdn) & [Sergey Kanzhelev (SK)](https://twitter.com/SergeyKanzhelev) 的對話，是他們帶領我們瞭解作爲此 SIG 一份子的各個方面，並分享一些關於其他人如何參與的見解。
@@ -139,7 +139,7 @@ Finally, we are always looking for feedback on how best to run your workload. Co
 
 SK：SIG Node 在大相徑庭的領域從事許多工作流。所有這些領域都是系統級的。
 對於典型的代碼貢獻，你需要對建立和善用低級別的 API 以及編寫高性能和可靠的組件有熱情。
-作爲一個貢獻者，你將學習如何調試和排除故障，剖析和監控這些組件，以及由這些組件運行的用戶工作負載。
+作爲一個貢獻者，你將學習如何調試和排除故障，剖析和監控這些組件，以及由這些組件運行的使用者工作負載。
 通常情況下，由於節點正在運行生產工作負載，所以對節點的訪問是有限的，甚至是沒有的。
 
 另一種貢獻方式是幫助記錄 SIG Node 的功能。這種類型的貢獻需要對功能有深刻的理解，並有能力用簡單的術語解釋它們。
@@ -159,7 +159,7 @@ EH：在過去的一年裏，SIG Node 採用了一些新的流程來幫助管理
 
 現在，我們在新功能和廢棄功能之間保持了很好的平衡。
 廢棄未使用或難以維護的功能有助於我們控制技術債務和維護負荷，例子包括 dockershim 和 DynamicKubeletConfiguration 的廢棄。
-新功能將在終端用戶的集羣中釋放更多的功能，包括令人興奮的功能，如支持 cgroups v2、交換內存、優雅的節點關閉和設備管理策略。
+新功能將在終端使用者的叢集中釋放更多的功能，包括令人興奮的功能，如支持 cgroups v2、交換內存、優雅的節點關閉和設備管理策略。
 <!--
 ### Any closing thoughts/resources you’d like to share?
 

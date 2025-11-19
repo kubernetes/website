@@ -166,7 +166,7 @@ use `kubectl apply`:
 -->
 #### 聲明式命令    {#declarative-commands}
 
-如果你使用[配置文件](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)來更新
+如果你使用[設定文件](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)來更新
 DaemonSet，請使用 `kubectl apply`：
 
 ```shell
@@ -195,9 +195,9 @@ kubectl edit ds/fluentd-elasticsearch -n kube-system
 If you only need to update the container image in the DaemonSet template, i.e.
 `.spec.template.spec.containers[*].image`, use `kubectl set image`:
 --->
-##### 只更新容器鏡像    {#updating-only-the-container-image}
+##### 只更新容器映像檔    {#updating-only-the-container-image}
 
-如果你只需要更新 DaemonSet 模板裏的容器鏡像，比如 `.spec.template.spec.containers[*].image`，
+如果你只需要更新 DaemonSet 模板裏的容器映像檔，比如 `.spec.template.spec.containers[*].image`，
 請使用 `kubectl set image`：
 
 ```shell
@@ -257,7 +257,7 @@ DaemonSet 滾動更新可能會卡住，其 Pod 至少在某個節點上無法�
 當節點上[可用資源耗盡](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)時，
 這是可能的。
 
-發生這種情況時，通過對 `kubectl get nodes` 和下面命令行的輸出作比較，
+發生這種情況時，通過對 `kubectl get nodes` 和下面命令列的輸出作比較，
 找出沒有調度 DaemonSet Pod 的節點：
 
 ```shell
@@ -291,7 +291,7 @@ DaemonSet rollout won't progress.
 -->
 #### 不完整的滾動更新    {#broken-rollout}
 
-如果最近的 DaemonSet 模板更新被破壞了，比如，容器處於崩潰循環狀態或者容器鏡像不存在
+如果最近的 DaemonSet 模板更新被破壞了，比如，容器處於崩潰循環狀態或者容器映像檔不存在
 （通常由於拼寫錯誤），就會發生 DaemonSet 滾動更新中斷。
 
 <!--

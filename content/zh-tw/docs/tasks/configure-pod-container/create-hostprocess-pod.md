@@ -26,10 +26,10 @@ components to Windows nodes without the need for dedicated proxies or
 the direct installation of host services.
 -->
 Windows HostProcess 容器讓你能夠在 Windows 主機上運行容器化負載。
-這類容器以普通的進程形式運行，但能夠在具有合適用戶特權的情況下，
-訪問主機網絡名字空間、存儲和設備。HostProcess 容器可用來在 Windows
-節點上部署網絡插件、存儲配置、設備插件、kube-proxy 以及其他組件，
-同時不需要配置專用的代理或者直接安裝主機服務。
+這類容器以普通的進程形式運行，但能夠在具有合適使用者特權的情況下，
+訪問主機網路名字空間、存儲和設備。HostProcess 容器可用來在 Windows
+節點上部署網路插件、存儲設定、設備插件、kube-proxy 以及其他組件，
+同時不需要設定專用的代理或者直接安裝主機服務。
 
 <!--
 Administrative tasks such as installation of security patches, event
@@ -47,16 +47,16 @@ version as your Windows Server container workloads to ensure you do not have any
 images taking up space on the node. HostProcess containers also support
 [volume mounts](#volume-mounts) within the container volume.
 -->
-類似於安裝安全補丁、事件日誌收集等這類管理性質的任務可以在不需要集羣操作員登錄到每個
-Windows 節點的前提下執行。HostProcess 容器可以以主機上存在的任何用戶賬號來運行，
-也可以以主機所在域中的用戶賬號運行，這樣管理員可以通過用戶許可權限來限制資源訪問。
+類似於安裝安全補丁、事件日誌收集等這類管理性質的任務可以在不需要叢集操作員登錄到每個
+Windows 節點的前提下執行。HostProcess 容器可以以主機上存在的任何使用者賬號來運行，
+也可以以主機所在域中的使用者賬號運行，這樣管理員可以通過使用者許可權限來限制資源訪問。
 儘管文件系統和進程隔離都不支持，在啓動容器時會在主機上創建一個新的卷，
 爲其提供一個乾淨的、整合的工作空間。HostProcess 容器也可以基於現有的 Windows
-基礎鏡像來製作，並且不再有 Windows 服務器容器所帶有的那些
+基礎映像檔來製作，並且不再有 Windows 伺服器容器所帶有的那些
 [兼容性需求](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)，
-這意味着基礎鏡像的版本不必與主機操作系統的版本匹配。
-不過，仍然建議你像使用 Windows 服務器容器負載那樣，使用相同的基礎鏡像版本，
-這樣你就不會有一些未使用的鏡像佔用節點上的存儲空間。HostProcess 容器也支持
+這意味着基礎映像檔的版本不必與主機操作系統的版本匹配。
+不過，仍然建議你像使用 Windows 伺服器容器負載那樣，使用相同的基礎映像檔版本，
+這樣你就不會有一些未使用的映像檔佔用節點上的存儲空間。HostProcess 容器也支持
 在容器卷內執行[卷掛載](#volume-mounts)。
 
 <!--
@@ -71,8 +71,8 @@ privileges needed by Windows nodes.
 -->
 ### 我何時該使用 Windows HostProcess 容器？
 
-- 當你準備執行需要訪問主機上網絡名字空間的任務時，HostProcess
-  容器能夠訪問主機上的網絡接口和 IP 地址。
+- 當你準備執行需要訪問主機上網路名字空間的任務時，HostProcess
+  容器能夠訪問主機上的網路接口和 IP 地址。
 - 當你需要訪問主機上的資源，如文件系統、事件日誌等等。
 - 需要安裝特定的設備驅動或者 Windows 服務時。
 - 需要對管理任務和安全策略進行整合時。使用 HostProcess 容器能夠縮小 Windows
@@ -126,7 +126,7 @@ These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
 - HostProcess Pods 只能包含 HostProcess 容器。這是在 Windows 操作系統上的約束；
   非特權的 Windows 容器不能與主機 IP 名字空間共享虛擬網卡（vNIC）。
 - HostProcess 在主機上以一個進程的形式運行，除了通過 HostProcess
-  用戶賬號所實施的資源約束外，不提供任何形式的隔離。HostProcess 容器不支持文件系統或
+  使用者賬號所實施的資源約束外，不提供任何形式的隔離。HostProcess 容器不支持文件系統或
   Hyper-V 隔離。
 <!--
 - Volume mounts are supported and are mounted under the container volume. See
@@ -139,8 +139,8 @@ These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
   be accessed via their path on the host (e.g. \\\\.\\pipe\\\*)
 -->
 - 卷掛載是被支持的，並且要花在到容器卷下。參見[卷掛載](#volume-mounts)。
-- 默認情況下有一組主機用戶賬號可供 HostProcess 容器使用。
-  參見[選擇用戶賬號](#choosing-a-user-account)。
+- 默認情況下有一組主機使用者賬號可供 HostProcess 容器使用。
+  參見[選擇使用者賬號](#choosing-a-user-account)。
 - 對資源約束（磁盤、內存、CPU 個數）的支持與主機上進程相同。
 - **不支持**命名管道或者 UNIX 域套接字形式的掛載，需要使用主機上的路徑名來訪問
   （例如，\\\\.\\pipe\\\*）。
@@ -148,7 +148,7 @@ These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
 <!--
 ## HostProcess Pod configuration requirements
 -->
-## HostProcess Pod 配置需求   {#hostprocess-pod-configuration-requirements}
+## HostProcess Pod 設定需求   {#hostprocess-pod-configuration-requirements}
 
 <!--
 Enabling a Windows HostProcess pod requires setting the right configurations in the pod security
@@ -159,7 +159,7 @@ that HostProcess pods run in alignment with the privileged profile.
 When running under the privileged policy, here are
 the configurations which need to be set to enable the creation of a HostProcess pod:
 -->
-啓用 Windows HostProcess Pod 需要在 Pod 安全配置中設置合適的選項。
+啓用 Windows HostProcess Pod 需要在 Pod 安全設定中設置合適的選項。
 在 [Pod
 安全標準](/zh-cn/docs/concepts/security/pod-security-standards)中所定義的策略中，
 HostProcess Pod 默認是不被 basline 和 restricted 策略支持的。因此建議
@@ -193,7 +193,7 @@ HostProcess 運行在與 privileged 模式相看齊的策略下。
       <td style="white-space: nowrap"><a href="/zh-cn/docs/concepts/security/pod-security-standards"><tt>hostNetwork</tt></a></td>
       <td>
         <p><!--Pods container HostProcess containers must use the host's network namespace.-->
-        Pod 容器 HostProcess 容器必須使用主機的網絡名字空間。
+        Pod 容器 HostProcess 容器必須使用主機的網路名字空間。
         </p>
         <p><strong><!--Allowed Values-->可選值</strong></p>
         <ul>
@@ -205,7 +205,7 @@ HostProcess 運行在與 privileged 模式相看齊的策略下。
       <td style="white-space: nowrap"><a href="/zh-cn/docs/tasks/configure-pod-container/configure-runasusername/"><tt>securityContext.windowsOptions.runAsUserName</tt></a></td>
       <td>
         <p><!--Specification of which user the HostProcess container should run as is required for the pod spec.-->
-        關於 HostProcess 容器所要使用的用戶的規約，需要設置在 Pod 的規約中。
+        關於 HostProcess 容器所要使用的使用者的規約，需要設置在 Pod 的規約中。
         </p>
         <p><strong><!--Allowed Values-->可選值</strong></p>
         <ul>
@@ -214,7 +214,7 @@ HostProcess 運行在與 privileged 模式相看齊的策略下。
           <li><code>NT AUTHORITY\NetworkService</code></li>
           <li>
           <!-- Local usergroup names (see below) -->
-          本地用戶組名稱（參見下文）
+          本地使用者組名稱（參見下文）
           </li>
         </ul>
       </td>
@@ -238,7 +238,7 @@ HostProcess 運行在與 privileged 模式相看齊的策略下。
 <!--
 ### Example manifest (excerpt) {#manifest-example}
 -->
-### 配置清單示例（片段）   {#manifest-example}
+### 設定清單示例（片段）   {#manifest-example}
 
 ```yaml
 spec:
@@ -283,7 +283,7 @@ To access service account tokens (for example) the following path structures are
 
 在容器內運行的應用能夠通過相對或者絕對路徑直接訪問卷掛載。
 環境變量 `$CONTAINER_SANDBOX_MOUNT_POINT` 在容器創建時被設置爲指向容器卷的絕對主機路徑。
-相對路徑是基於 `.spec.containers.volumeMounts.mountPath` 配置來推導的。
+相對路徑是基於 `.spec.containers.volumeMounts.mountPath` 設定來推導的。
 
 容器內支持通過下面的路徑結構來訪問服務賬號令牌：
 
@@ -306,7 +306,7 @@ For backwards compatibility volumes can also be accessed via using the same rela
 
 As an example, to access service account tokens within the container you would use one of the following paths:
 -->
-爲了向後兼容性，卷也可以通過使用由 containerd v1.6 配置的相同相對路徑進行訪問。
+爲了向後兼容性，卷也可以通過使用由 containerd v1.6 設定的相同相對路徑進行訪問。
 
 例如，要在容器中訪問服務帳戶令牌，你將使用以下路徑之一：
 
@@ -339,7 +339,7 @@ HostProcess 容器啓動引導的方式造成的。
 
 By default, HostProcess containers support the ability to run as one of three supported Windows service accounts:
 -->
-## 選擇用戶賬號  {#choosing-a-user-account}
+## 選擇使用者賬號  {#choosing-a-user-account}
 
 ### 系統賬號   {#system-accounts}
 
@@ -369,7 +369,7 @@ fine-grained access to workloads.
 -->
 ### 本地賬號   {#local-accounts}
 
-取決於配置，HostProcess 容器也能夠以本地用戶賬號運行，
+取決於設定，HostProcess 容器也能夠以本地使用者賬號運行，
 從而允許節點操作員爲工作負載提供細粒度的訪問權限。
 
 <!--
@@ -380,17 +380,17 @@ This provides a number a benefits including eliminating the need to manage passw
 An initial HostProcess container running as a service account can be used to
 prepare the user groups for later HostProcess containers.
 -->
-要以本地用戶運行 HostProcess 容器，必須首先在節點上創建一個本地用戶組，
-並在部署中在 `runAsUserName` 字段中指定該本地用戶組的名稱。
-在初始化 HostProcess 容器之前，將創建一個新的**臨時**本地用戶賬號，並加入到指定的用戶組中，
-使用這個賬號來運行容器。這樣做有許多好處，包括不再需要管理本地用戶賬號的密碼。
-作爲服務賬號運行的初始 HostProcess 容器可用於準備用戶組，以供後續的 HostProcess 容器使用。
+要以本地使用者運行 HostProcess 容器，必須首先在節點上創建一個本地使用者組，
+並在部署中在 `runAsUserName` 字段中指定該本地使用者組的名稱。
+在初始化 HostProcess 容器之前，將創建一個新的**臨時**本地使用者賬號，並加入到指定的使用者組中，
+使用這個賬號來運行容器。這樣做有許多好處，包括不再需要管理本地使用者賬號的密碼。
+作爲服務賬號運行的初始 HostProcess 容器可用於準備使用者組，以供後續的 HostProcess 容器使用。
 
 {{< note >}}
 <!--
 Running HostProcess containers as local user accounts requires containerd v1.7+
 -->
-以本地用戶賬號運行 HostProcess 容器需要 containerd v1.7+。
+以本地使用者賬號運行 HostProcess 容器需要 containerd v1.7+。
 {{< /note >}}
 
 <!--
@@ -400,7 +400,7 @@ Example:
 -->
 例如：
 
-1. 在節點上創建本地用戶組（這可以在另一個 HostProcess 容器中完成）。
+1. 在節點上創建本地使用者組（這可以在另一個 HostProcess 容器中完成）。
 
    ```cmd
    net localgroup hpc-localgroup /add
@@ -410,14 +410,14 @@ Example:
 1. Grant access to desired resources on the node to the local usergroup.
    This can be done with tools like [icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls).
 -->
-2. 爲本地用戶組授予訪問所需資源的權限。這可以通過使用
+2. 爲本地使用者組授予訪問所需資源的權限。這可以通過使用
    [icacls](https://learn.microsoft.com/zh-cn/windows-server/administration/windows-commands/icacls)
    這類工具達成。
 
 <!--
 1. Set `runAsUserName` to the name of the local usergroup for the pod or individual containers.
 -->
-3. 針對 Pod 或個別容器，將 `runAsUserName` 設置爲本地用戶組的名稱。
+3. 針對 Pod 或個別容器，將 `runAsUserName` 設置爲本地使用者組的名稱。
 
    ```yaml
    securityContext:
@@ -439,12 +439,12 @@ HostProcess containers can be built from any of the existing [Windows Container 
 Additionally a new base mage has been created just for HostProcess containers!
 For more information please check out the [windows-host-process-containers-base-image github project](https://github.com/microsoft/windows-host-process-containers-base-image#overview).
 -->
-## HostProcess 容器的基礎鏡像   {#base-image-for-hostprocess-containers}
+## HostProcess 容器的基礎映像檔   {#base-image-for-hostprocess-containers}
 
 HostProcess 容器可以基於任何現有的
-[Windows Container 基礎鏡像](https://learn.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-base-images)進行構建。
+[Windows Container 基礎映像檔](https://learn.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-base-images)進行構建。
 
-此外，還專爲 HostProcess 容器創建了一個新的基礎鏡像！有關更多信息，請查看
+此外，還專爲 HostProcess 容器創建了一個新的基礎映像檔！有關更多信息，請查看
 [windows-host-process-containers-base-image github 項目](https://github.com/microsoft/windows-host-process-containers-base-image#overview)。
 
 <!--
@@ -461,4 +461,4 @@ HostProcess 容器可以基於任何現有的
   啓動失敗。
 
   確保 containerd 以 `LocalSystem` 或 `LocalService` 服務帳戶運行。
-  用戶賬號（即使是管理員賬號）沒有權限爲任何支持的[用戶賬號](#choosing-a-user-account)創建登錄令牌。
+  使用者賬號（即使是管理員賬號）沒有權限爲任何支持的[使用者賬號](#choosing-a-user-account)創建登錄令牌。

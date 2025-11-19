@@ -1,7 +1,7 @@
 <!-- 
 Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version 
 -->
-從文件中讀取舊版本的 kubeadm 配置的 API 類型，併爲新版本輸出類似的配置對象
+從文件中讀取舊版本的 kubeadm 設定的 API 類型，併爲新版本輸出類似的設定對象
 
 <!--
 ### Synopsis
@@ -14,7 +14,7 @@ locally in the CLI tool without ever touching anything in the cluster.
 In this version of kubeadm, the following API versions are supported:
 - kubeadm.k8s.io/v1beta3
 -->
-此命令允許你在 CLI 工具中將本地舊版本的配置對象轉換爲最新支持的版本，而無需變更集羣中的任何內容。
+此命令允許你在 CLI 工具中將本地舊版本的設定對象轉換爲最新支持的版本，而無需變更叢集中的任何內容。
 在此版本的 kubeadm 中，支持以下 API 版本：
 
 - kubeadm.k8s.io/v1beta3
@@ -71,7 +71,7 @@ kubeadm config migrate [flags]
 <!--
 <p>Path to the resulting equivalent kubeadm config file using the new API version. Optional, if not specified output will be sent to STDOUT.</p>
 -->
-<p>使用新的 API 版本生成的 kubeadm 配置文件的路徑。這個路徑是可選的。如果沒有指定，輸出將被寫到 stdout。</p>
+<p>使用新的 API 版本生成的 kubeadm 設定文件的路徑。這個路徑是可選的。如果沒有指定，輸出將被寫到 stdout。</p>
 </td>
 </tr>
 
@@ -83,7 +83,7 @@ kubeadm config migrate [flags]
 <!--
 <p>Path to the kubeadm config file that is using an old API version and should be converted. This flag is mandatory.</p>
 -->
-<p>使用舊 API 版本且應轉換的 kubeadm 配置文件的路徑。此參數是必需的。</p>
+<p>使用舊 API 版本且應轉換的 kubeadm 設定文件的路徑。此參數是必需的。</p>
 </td>
 </tr>
 
@@ -115,7 +115,7 @@ kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "/etc/kubernetes/admin.c
 <!--
 <p>The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</p>
 -->
-<p>用於和集羣通信的 kubeconfig 文件。如果未設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。</p>
+<p>用於和叢集通信的 kubeconfig 文件。如果未設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。</p>
 </td>
 </tr>
 

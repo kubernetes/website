@@ -51,7 +51,7 @@ This document walks you through an example of enabling HorizontalPodAutoscaler t
 automatically manage scale for an example web app. This example workload is Apache
 httpd running some PHP code.
 -->
-如果負載減少，並且 Pod 的數量高於配置的最小值，
+如果負載減少，並且 Pod 的數量高於設定的最小值，
 HorizontalPodAutoscaler 會指示工作負載資源（Deployment、StatefulSet 或其他類似資源）縮減。
 
 本文檔將引導你完成啓用 HorizontalPodAutoscaler 以自動管理示例 Web 應用程序的擴縮的示例。
@@ -80,9 +80,9 @@ new kinds of resource that represent metric readings.
 To learn how to deploy the Metrics Server, see the
 [metrics-server documentation](https://github.com/kubernetes-sigs/metrics-server#deployment).
 -->
-按照本演練進行操作，你需要一個部署並配置了
-[Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme) 的集羣。
-Kubernetes Metrics Server 從集羣中的 {{<glossary_tooltip term_id="kubelet" text="kubelets">}} 收集資源指標，
+按照本演練進行操作，你需要一個部署並設定了
+[Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme) 的叢集。
+Kubernetes Metrics Server 從叢集中的 {{<glossary_tooltip term_id="kubelet" text="kubelets">}} 收集資源指標，
 並通過 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 公開這些指標，
 使用 [APIService](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 添加代表指標讀數的新資源。
 
@@ -103,14 +103,14 @@ minikube addons enable metrics-server
 <!--
 ## Run and expose php-apache server
 -->
-## 運行 php-apache 服務器並暴露服務 {#run-and-expose-php-apache-server}
+## 運行 php-apache 伺服器並暴露服務 {#run-and-expose-php-apache-server}
 
 <!--
 To demonstrate a HorizontalPodAutoscaler, you will first start a Deployment that runs a container using the
 `hpa-example` image, and expose it as a {{< glossary_tooltip term_id="service">}}
 using the following manifest:
 -->
-爲了演示 HorizontalPodAutoscaler，你將首先啓動一個 Deployment 用 `hpa-example` 鏡像運行一個容器，
+爲了演示 HorizontalPodAutoscaler，你將首先啓動一個 Deployment 用 `hpa-example` 映像檔運行一個容器，
 然後使用以下清單文件將其暴露爲一個 {{< glossary_tooltip term_id="service">}}：
 
 {{% code_sample file="application/php-apache.yaml" %}}
@@ -151,7 +151,7 @@ on the algorithm.
 -->
 ## 創建 HorizontalPodAutoscaler  {#create-horizontal-pod-autoscaler}
 
-現在服務器正在運行，使用 `kubectl` 創建自動擴縮器。
+現在伺服器正在運行，使用 `kubectl` 創建自動擴縮器。
 [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands#autoscale) 子命令是 `kubectl` 的一部分，
 可以幫助你執行此操作。
 
@@ -213,7 +213,7 @@ and isn't usually a problem).
 Please note that the current CPU consumption is 0% as there are no clients sending requests to the server
 (the ``TARGET`` column shows the average across all the Pods controlled by the corresponding deployment).
 -->
-請注意當前的 CPU 利用率是 0%，這是由於我們尚未發送任何請求到服務器
+請注意當前的 CPU 利用率是 0%，這是由於我們尚未發送任何請求到伺服器
 （``TARGET`` 列顯示了相應 Deployment 所控制的所有 Pod 的平均 CPU 利用率）。
 
 <!--

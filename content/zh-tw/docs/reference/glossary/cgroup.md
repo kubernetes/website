@@ -34,4 +34,4 @@ A group of Linux processes with optional {{< glossary_tooltip text="resource" te
 <!--
 cgroup is a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network) for a collection of processes.
 -->
-cgroup 是一個 Linux 內核特性，對一組進程的資源使用（CPU、內存、磁盤 I/O 和網絡等）進行限制、審計和隔離。
+cgroup 是一個 Linux 內核特性，對一組進程的資源使用（CPU、內存、磁盤 I/O 和網路等）進行限制、審計和隔離。

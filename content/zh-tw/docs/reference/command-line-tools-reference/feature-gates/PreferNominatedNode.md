@@ -29,4 +29,4 @@ This flag tells the scheduler whether the nominated
 nodes will be checked first before looping through all the other nodes in
 the cluster.
 -->
-這個標誌告訴調度器在循環遍歷集羣中的所有其他節點之前是否先檢查指定的節點。
+這個標誌告訴調度器在循環遍歷叢集中的所有其他節點之前是否先檢查指定的節點。

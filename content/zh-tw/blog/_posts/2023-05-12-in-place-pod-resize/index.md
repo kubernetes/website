@@ -34,7 +34,7 @@ containers. To facilitate this, the `resources` field in a pod's containers
 now allow mutation for `cpu` and `memory` resources. They can be changed
 simply by patching the running pod spec.
 -->
-在 Kubernetes v1.27 中，我們添加了一個新的 alpha 特性，允許用戶調整分配給 Pod 的
+在 Kubernetes v1.27 中，我們添加了一個新的 alpha 特性，允許使用者調整分配給 Pod 的
 CPU 和內存資源大小，而無需重新啓動容器。 首先，API 層面現在允許修改 Pod 容器中的
 `resources` 字段下的 `cpu` 和 `memory` 資源。資源修改只需 patch 正在運行的 pod
 規約即可。
@@ -57,7 +57,7 @@ Interface，容器運行時接口）API 調用運行時（例如 containerd）�
 In addition, a new `restartPolicy` for resize has been added. It gives users
 control over how their containers are handled when resources are resized.
 -->
-此外，Pod 中還添加了對應於資源調整的新字段 `restartPolicy`。這個字段使用戶可以控制在資
+此外，Pod 中還添加了對應於資源調整的新字段 `restartPolicy`。這個字段使使用者可以控制在資
 源調整時容器的行爲。
 
 <!--
@@ -79,7 +79,7 @@ status. This field reflects the actual resource requests and limits configured
 on the running containers as reported by the container runtime.
 -->
 此外，容器狀態中還添加了一個名爲 `resources` 的新字段。該字段反映的是如同容器運行時所報告的、
-針對正運行的容器配置的實際資源 requests 和 limits。
+針對正運行的容器設定的實際資源 requests 和 limits。
 
 <!--
 此處使用了 https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/ 內容：
@@ -120,7 +120,7 @@ priority pods in the node can be resized down or moved.
 以下是此功能可能有價值的一些示例：
 
 - 正在運行的 Pod 資源限制或者請求過多或過少。
-- 一些過度預配資源的 Pod 調度到某個節點，會導致資源利用率較低的集羣上因爲
+- 一些過度預配資源的 Pod 調度到某個節點，會導致資源利用率較低的叢集上因爲
   CPU 或內存不足而無法調度 Pod。
 - 驅逐某些需要較多資源的有狀態 Pod 是一項成本較高或破壞性的操作。
   這種場景下，縮小節點中的其他優先級較低的 Pod 的資源，或者移走這些 Pod 的成本更低。
@@ -136,7 +136,7 @@ feature gate must be enabled. A local cluster with this feature enabled
 can be started as shown below:
 -->
 在 v1.27 中使用此功能，必須啓用 `InPlacePodVerticalScaling` 特性門控。
-可以如下所示啓動一個啓用了此特性的本地集羣：
+可以如下所示啓動一個啓用了此特性的本地叢集：
 
 <!--
 ```
@@ -218,7 +218,7 @@ Once the local cluster is up and running, Kubernetes users can schedule pods
 with resources, and resize the pods via kubectl. An example of how to use this
 feature is illustrated in the following demo video.
 -->
-一旦本地集羣啓動並運行，Kubernetes 用戶就可以調度帶有資源配置的 pod，並通過 kubectl 調整 pod
+一旦本地叢集啓動並運行，Kubernetes 使用者就可以調度帶有資源設定的 pod，並通過 kubectl 調整 pod
 的資源。 以下演示視頻演示瞭如何使用此功能的示例。
 
 <!--
@@ -246,7 +246,7 @@ leverage in-place pod resize feature (with a little help from eBPF) to
 quickly resize the pod's resources and avoid kernel OOM (out of memory)
 killer from terminating their processes.
 -->
-在這種場景下，開發人員或開發團隊在本地編寫代碼，但在和生產環境資源配置相同的 Kubernetes pod 中的
+在這種場景下，開發人員或開發團隊在本地編寫代碼，但在和生產環境資源設定相同的 Kubernetes pod 中的
 構建和測試代碼。當開發人員編寫代碼時，此類 Pod 需要最少的資源，但在構建代碼或運行一系列測試時需要
 更多的 CPU 和內存。 這個用例可以利用原地調整 pod 資源的功能（在 eBPF 的一點幫助下）快速調整 pod
 資源的大小，並避免內核 OOM（內存不足）Killer 終止其進程。
@@ -272,7 +272,7 @@ application has finished initializing.
 -->
 某些 Java 應用程序在初始化期間 CPU 資源使用量可能比正常進程操作期間所需的 CPU 資源多很多。
 如果此類應用程序指定適合正常操作的 CPU 請求和限制，會導致程序啓動時間很長。這樣的 pod
-可以在創建 pod 時請求更高的 CPU 值。在應用程序完成初始化後，降低資源配置仍然可以正常運行。
+可以在創建 pod 時請求更高的 CPU 值。在應用程序完成初始化後，降低資源設定仍然可以正常運行。
 
 <!--
 ## Known Issues
@@ -284,7 +284,7 @@ This feature enters v1.27 at [alpha stage](/docs/reference/command-line-tools-re
 Below are a few known issues users may encounter:
 -->
 該功能在 v1.27 中仍然是 [alpha 階段](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
-以下是用戶可能會遇到的一些已知問題：
+以下是使用者可能會遇到的一些已知問題：
 
 <!--
 - containerd versions below v1.6.9 do not have the CRI support needed for full
@@ -299,7 +299,7 @@ Below are a few known issues users may encounter:
 -->
 - containerd v1.6.9 以下的版本不具備此功能的所需的 CRI 支持，無法完成端到端的閉環。
 嘗試調整 Pod 大小將顯示爲卡在 `InProgress` 狀態，並且 Pod 狀態中的 `resources`
-字段永遠不會更新，即使新資源配置可能已經在正在運行的容器上生效了。
+字段永遠不會更新，即使新資源設定可能已經在正在運行的容器上生效了。
 - Pod 資源調整可能會遇到與其他 Pod 更新的衝突，導致 pod 資源調整操作被推遲。
 - 可能需要一段時間才能在 Pod 的狀態中反映出調整後的容器資源。
 - 此特性與靜態 CPU 管理策略不兼容。
@@ -386,11 +386,11 @@ and [Dr. Ying Xiong](https://www.linkedin.com/in/ying-xiong-59a2482/) for their 
 <!--
 ### For cluster administrators
 -->
-### 集羣管理員參考
+### 叢集管理員參考
 
 <!--
 - [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 - [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 -->
-- [爲命名空間配置默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-- [爲命名空間配置默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+- [爲命名空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+- [爲命名空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)

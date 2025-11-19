@@ -22,4 +22,4 @@ stages:
 <!--
 Enable user namespace support for Pods.
 -->
-爲 Pod 啓用用戶命名空間支持。
+爲 Pod 啓用使用者命名空間支持。

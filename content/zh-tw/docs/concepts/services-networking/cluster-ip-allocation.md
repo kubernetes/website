@@ -24,7 +24,7 @@ Service across the different backing Pods.
 
 在 Kubernetes 中，[Service](/zh-cn/docs/concepts/services-networking/service/) 是一種抽象的方式，
 用於公開在一組 Pod 上運行的應用。
-Service 可以具有集羣作用域的虛擬 IP 地址（使用 `type: ClusterIP` 的 Service）。
+Service 可以具有叢集作用域的虛擬 IP 地址（使用 `type: ClusterIP` 的 Service）。
 客戶端可以使用該虛擬 IP 地址進行連接，Kubernetes 通過不同的後臺 Pod 對該 Service 的流量進行負載均衡。
 <!-- body -->
 <!--
@@ -46,12 +46,12 @@ been allocated will return an error.
 當 Kubernetes 需要爲 Service 分配虛擬 IP 地址時，該分配會通過以下兩種方式之一進行：
 
 **動態分配**
-: 集羣的控制面自動從所配置的 IP 範圍內爲 `type: ClusterIP` 選擇一個空閒 IP 地址。
+: 叢集的控制面自動從所設定的 IP 範圍內爲 `type: ClusterIP` 選擇一個空閒 IP 地址。
 
 **靜態分配**
-: 根據爲 Service 所配置的 IP 範圍，選定並設置你的 IP 地址。
+: 根據爲 Service 所設定的 IP 範圍，選定並設置你的 IP 地址。
 
-在整個集羣中，每個 Service 的 `ClusterIP` 都必須是唯一的。
+在整個叢集中，每個 Service 的 `ClusterIP` 都必須是唯一的。
 嘗試使用已分配的 `ClusterIP` 創建 Service 將返回錯誤。
 
 <!--
@@ -65,10 +65,10 @@ this:
 -->
 ## 爲什麼需要預留 Service 的 ClusterIP ？
 
-有時你可能希望 Services 在衆所周知的 IP 上面運行，以便集羣中的其他組件和用戶可以使用它們。
+有時你可能希望 Services 在衆所周知的 IP 上面運行，以便叢集中的其他組件和使用者可以使用它們。
 
-最好的例子是集羣的 DNS Service。作爲一種非強制性的約定，一些 Kubernetes 安裝程序
-將 Service IP 範圍中的第 10 個 IP 地址分配給 DNS 服務。假設將集羣的 Service IP 範圍配置爲 
+最好的例子是叢集的 DNS Service。作爲一種非強制性的約定，一些 Kubernetes 安裝程序
+將 Service IP 範圍中的第 10 個 IP 地址分配給 DNS 服務。假設將叢集的 Service IP 範圍設定爲 
 10.96.0.0/16，並且希望 DNS Service IP 爲 10.96.0.10，則必須創建如下 Service：
 
 ```yaml
@@ -123,7 +123,7 @@ Kubernetes 中用來將 ClusterIP 分配給 Service 的分配策略降低了衝�
 描述爲不小於 16 且不大於 256，並在二者之間有一個漸進的步長。
 
 默認情況下，動態 IP 分配使用地址較高的一段，一旦用完，它將使用較低範圍。
-這將允許用戶在衝突風險較低的較低地址段上使用靜態分配。
+這將允許使用者在衝突風險較低的較低地址段上使用靜態分配。
 
 <!--
 ## Examples {#allocation-examples}

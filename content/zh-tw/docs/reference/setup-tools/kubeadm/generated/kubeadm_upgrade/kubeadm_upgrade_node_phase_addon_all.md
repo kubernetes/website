@@ -38,7 +38,7 @@ kubeadm upgrade node phase addon all [flags]
 Path to a kubeadm configuration file.
 -->
 <p>
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -85,7 +85,7 @@ all 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和集羣通信的 KubeConfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 KubeConfig 文件。
+用於和叢集通信的 KubeConfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 KubeConfig 文件。
 </p>
 </td>
 </tr>

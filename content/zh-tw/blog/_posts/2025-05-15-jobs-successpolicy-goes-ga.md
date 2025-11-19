@@ -59,7 +59,7 @@ only indirectly via the status of the leader index.
 Moreover, followers do not know when they can terminate themselves.
 -->
 這個全新的穩定字段對科學仿真、AI/ML 和高性能計算（HPC）等批處理工作負載特別有價值。
-這些領域的用戶通常會運行大量實驗，而他們可能只需要其中一部分成功完成，而不需要全部成功。
+這些領域的使用者通常會運行大量實驗，而他們可能只需要其中一部分成功完成，而不需要全部成功。
 在這種情況下，領導者索引失敗是對應 Job 的唯一重要退出條件，個別跟隨者 Pod
 的結果僅通過領導者索引的狀態間接被處理。此外，跟隨者自身並不知道何時可以終止。
 

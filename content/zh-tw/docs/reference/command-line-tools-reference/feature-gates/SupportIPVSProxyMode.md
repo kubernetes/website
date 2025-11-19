@@ -32,5 +32,5 @@ removed: true
 Enable providing in-cluster service load balancing using IPVS.
 See [service proxies](/docs/reference/networking/virtual-ips/) for more details.
 -->
-啓用使用 IPVS 提供集羣內服務負載平衡。
+啓用使用 IPVS 提供叢集內服務負載平衡。
 詳情參見[服務代理](/zh-cn/docs/reference/networking/virtual-ips/)。

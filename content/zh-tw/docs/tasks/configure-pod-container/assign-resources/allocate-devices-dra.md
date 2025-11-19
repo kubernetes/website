@@ -58,8 +58,8 @@ Pods, and place the Pods on nodes that can access those devices.
   drivers. For more information, see
   [Set Up DRA in a Cluster](/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster).
 -->
-* 請確保集羣管理員已安裝好 DRA，掛接了設備並安裝了驅動程序。
-  詳情請參見[在集羣中安裝 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)。
+* 請確保叢集管理員已安裝好 DRA，掛接了設備並安裝了驅動程序。
+  詳情請參見[在叢集中安裝 DRA](/zh-cn/docs/tasks/configure-pod-container/assign-resources/set-up-dra-cluster)。
 
 <!-- steps -->
 
@@ -75,11 +75,11 @@ Get a list of DeviceClasses in the cluster:、
 -->
 ## 尋找可申領的設備  {#identify-devices}
 
-你的集羣管理員或設備驅動程序會創建定義設備類別的
+你的叢集管理員或設備驅動程序會創建定義設備類別的
 {{< glossary_tooltip term_id="deviceclass" text="DeviceClass" >}}。你可以使用
 {{< glossary_tooltip term_id="cel" >}} 表達式篩選特定的設備屬性，從而申領設備。
 
-獲取集羣中的 DeviceClass 列表：
+獲取叢集中的 DeviceClass 列表：
 
 ```shell
 kubectl get deviceclasses
@@ -101,7 +101,7 @@ Check with your cluster administrator or with the driver provider for available
 device properties.
 -->
 如果你遇到權限錯誤，你可能無權獲取 DeviceClass。
-請與你的集羣管理員或驅動提供商聯繫，瞭解可用的設備屬性。
+請與你的叢集管理員或驅動提供商聯繫，瞭解可用的設備屬性。
 
 <!--
 ## Claim resources {#claim-resources}
@@ -132,7 +132,7 @@ create a ResourceClaim, do one of the following:
 * 使用
   {{< glossary_tooltip text="ResourceClaimTemplate" term_id="resourceclaimtemplate" >}}，
   讓 Kubernetes 爲每個 Pod 生成並管理 ResourceClaim。如果你希望每個 Pod
-  訪問獨立的、具有類似配置的設備，你可以創建 ResourceClaimTemplate。例如，
+  訪問獨立的、具有類似設定的設備，你可以創建 ResourceClaimTemplate。例如，
   在使用[並行執行](/zh-cn/docs/concepts/workloads/controllers/job/#parallel-jobs)的
   Job 中，你可能希望多個 Pod 同時訪問設備。
 
@@ -146,7 +146,7 @@ triggered the generation.
 
 To create a workload that claims resources, select one of the following options:
 -->
-如果你在 Pod 中直接引用了特定 ResourceClaim，該 ResourceClaim 必須已存在於集羣中。否則，
+如果你在 Pod 中直接引用了特定 ResourceClaim，該 ResourceClaim 必須已存在於叢集中。否則，
 Pod 會保持在 Pending 狀態，直到申領被創建。你可以在 Pod 中引用自動生成的 ResourceClaim，
 但不推薦這樣做，因爲自動生成的 ResourceClaim 的生命期被綁定到了觸發生成它的 Pod。
 
@@ -292,8 +292,8 @@ Try the following troubleshooting steps:
    查看是否有狀態字段或事件可以解釋工作負載爲何沒有啓動。
 2. 當創建 Pod 失敗並顯示 `must specify one of：resourceClaimName, resourceClaimTemplateName` 時，
    檢查 `pod.spec.resourceClaims` 中的所有條目是否正好設置了這些字段之一。如果是這樣，
-   那麼可能是集羣安裝了一個針對 Kubernetes < 1.32 的 API 構建的 Pod 變更 Webhook。
-   請與你的集羣管理員合作檢查這個問題。
+   那麼可能是叢集安裝了一個針對 Kubernetes < 1.32 的 API 構建的 Pod 變更 Webhook。
+   請與你的叢集管理員合作檢查這個問題。
 
 <!--
 ## Clean up {#clean-up}

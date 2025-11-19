@@ -28,8 +28,8 @@ Figure 1 outlines the topics covered in this section.
 Mermaid.js 允許你使用簡單的、類似於 Markdown 的語法來在 Markdown 文件中生成圖表。
 你也可以使用 Mermaid 來創建 `.svg` 或 `.png` 圖片文件，將其添加到你的文檔中。
 
-本指南的目標受衆是所有希望瞭解 Mermaid 的用戶，以及那些想了解如何創建圖表並將其添加到
-Kubernetes 文檔中的用戶。
+本指南的目標受衆是所有希望瞭解 Mermaid 的使用者，以及那些想了解如何創建圖表並將其添加到
+Kubernetes 文檔中的使用者。
 
 圖 1 概要介紹的是本節所涉及的話題。
 
@@ -112,7 +112,7 @@ Diagrams improve documentation clarity and comprehension. There are advantages f
 -->
 ## 你爲什麼應該在代碼中使用圖表 {#why-you-should-use-diagram-in-documentation}
 
-圖表可以增進文檔的清晰度，便於理解。對於用戶和貢獻者而言都有好處。
+圖表可以增進文檔的清晰度，便於理解。對於使用者和貢獻者而言都有好處。
 
 <!--
 The user benefits include:
@@ -124,12 +124,12 @@ The user benefits include:
   to dive into the topic details. 
 * __Better retention__. For some, it is easier to recall pictures rather than text.
 -->
-用戶獲得的好處有：
+使用者獲得的好處有：
 
-* **較爲友好的初次體驗**：非常詳盡的、只包含文本的歡迎頁面對用戶而言是蠻恐怖的，
-  尤其是初次接觸 Kubernetes 的用戶。
-* **快速理解概念**：圖表可以幫助用戶理解複雜主題下的要點。
-  你的圖表可以作爲一種可視化的學習指南，將用戶帶入主題的細節。
+* **較爲友好的初次體驗**：非常詳盡的、只包含文本的歡迎頁面對使用者而言是蠻恐怖的，
+  尤其是初次接觸 Kubernetes 的使用者。
+* **快速理解概念**：圖表可以幫助使用者理解複雜主題下的要點。
+  你的圖表可以作爲一種可視化的學習指南，將使用者帶入主題的細節。
 * **便於記憶**：對某些人而言，圖形（圖像）要比文字更容易記憶。
 
 <!--
@@ -146,8 +146,8 @@ The contributor benefits include:
 
 * **幫助確立所貢獻文檔的結構和內容**。例如，
   你可以先提供一個覆蓋所有頂層要點的圖表，然後再逐步展開細節。
-* **培養用戶社區並提升其能力**。容易理解的文檔，附以圖表，能夠吸引新的用戶，
-  尤其是那些因爲預見到複雜性而不願參與的用戶。
+* **培養使用者社區並提升其能力**。容易理解的文檔，附以圖表，能夠吸引新的使用者，
+  尤其是那些因爲預見到複雜性而不願參與的使用者。
 
 <!--
 You should consider your target audience. In addition to experienced K8s
@@ -155,8 +155,8 @@ users, you will have many who are new to Kubernetes. Even a simple diagram can
 assist new users in absorbing Kubernetes concepts. They become emboldened and
 more confident to further explore Kubernetes and the documentation.  
 -->
-你需要考慮你的目標受衆。除了一些有經驗的 Kubernetes 用戶外，你還會遇到很多剛接觸
-Kubernetes 的用戶。即使一張簡單的圖表也可以幫助新用戶吸收 Kubernetes 概念。
+你需要考慮你的目標受衆。除了一些有經驗的 Kubernetes 使用者外，你還會遇到很多剛接觸
+Kubernetes 的使用者。即使一張簡單的圖表也可以幫助新使用者吸收 Kubernetes 概念。
 他們會變得更爲大膽和自信，進一步地瞭解 Kubernetes 及其文檔。
 
 ## Mermaid
@@ -1011,10 +1011,10 @@ user.
 Without captions, you are asking the user to scan the text above or below the
 diagram to figure out a meaning. This can be frustrating for the user. 
 -->
-將一些文字和帶標題的圖表組合到一起，可以爲你所想要向用戶傳遞的信息提供一種更爲精確的表達。
+將一些文字和帶標題的圖表組合到一起，可以爲你所想要向使用者傳遞的信息提供一種更爲精確的表達。
 
-沒有標題的話，用戶就必須在圖表前後的文字中來回閱讀，從而瞭解其含義。
-這會讓用戶感覺到很沮喪。
+沒有標題的話，使用者就必須在圖表前後的文字中來回閱讀，從而瞭解其含義。
+這會讓使用者感覺到很沮喪。
 
 <!--
 Figure 9 lays out the three components for proper captioning: diagram, diagram
@@ -1169,7 +1169,7 @@ match.
 **圖表引用**
 
 最後，你可以添加圖表引用。圖表引用位於你的文檔正文中，並且應該出現在圖表之前。
-這樣，用戶可以將你的文字與對應的圖表關聯起來。引用時所給的`圖 <編號>`
+這樣，使用者可以將你的文字與對應的圖表關聯起來。引用時所給的`圖 <編號>`
 部分要與圖表標題中對應部分一致。
 
 <!--
@@ -1232,7 +1232,7 @@ Here is the `{{</* figure */>}}` shortcode for this diagram:
 <!--
 {{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetes pod running inside a cluster" class="diagram-large" caption="Figure 10. Kubernetes Architecture." link="https://kubernetes.io/docs/concepts/overview/components/" >}}
 -->
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="運行在集羣中的 Kubernetes Pod" class="diagram-large" caption="圖 10. Kubernetes 架構" link="https://kubernetes.io/zh-cn/docs/concepts/overview/components/" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="運行在叢集中的 Kubernetes Pod" class="diagram-large" caption="圖 10. Kubernetes 架構" link="https://kubernetes.io/zh-cn/docs/concepts/overview/components/" >}}
 
 <!--
 ## Tips
@@ -1313,4 +1313,4 @@ This will save time for you and fellow contributors, and allow for easier readin
 by new and experienced users.
 -->
 最重要的一點，**保持圖表簡單**。
-這樣做會節省你和其他貢獻者的時間，同時也會方便新的以及有經驗的用戶閱讀。
+這樣做會節省你和其他貢獻者的時間，同時也會方便新的以及有經驗的使用者閱讀。

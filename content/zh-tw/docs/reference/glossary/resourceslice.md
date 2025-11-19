@@ -31,7 +31,7 @@ are used for
 -->
 表示掛接到節點上的一個或多個基礎設施資源，
 例如{{< glossary_tooltip text="設備" term_id="device" >}}。
-驅動會在集羣中創建並管理 ResourceSlice。ResourceSlice
+驅動會在叢集中創建並管理 ResourceSlice。ResourceSlice
 用於[動態資源分配（DRA）](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/)。
 
 <!--more-->

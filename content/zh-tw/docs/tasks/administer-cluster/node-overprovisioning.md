@@ -1,5 +1,5 @@
 ---
-title: 爲集羣超配節點容量
+title: 爲叢集超配節點容量
 content_type: task
 weight: 10
 ---
@@ -21,11 +21,11 @@ to sudden spikes in traffic or workload demands.
 By maintaining some unused capacity, you ensure that resources are immediately available when
 new pods are created, preventing them from entering a pending state while the cluster scales up.
 -->
-本頁指導你在 Kubernetes 集羣中配置{{< glossary_tooltip text="節點" term_id="node" >}}超配。
-節點超配是一種主動預留部分集羣計算資源的策略。這種預留有助於減少在擴縮容事件期間調度新 Pod 所需的時間，
-從而增強集羣對突發流量或突發工作負載需求的響應能力。
+本頁指導你在 Kubernetes 叢集中設定{{< glossary_tooltip text="節點" term_id="node" >}}超配。
+節點超配是一種主動預留部分叢集計算資源的策略。這種預留有助於減少在擴縮容事件期間調度新 Pod 所需的時間，
+從而增強叢集對突發流量或突發工作負載需求的響應能力。
 
-通過保持一些未使用的容量，確保在新 Pod 被創建時資源可以立即可用，防止 Pod 在集羣擴縮容時進入 Pending 狀態。
+通過保持一些未使用的容量，確保在新 Pod 被創建時資源可以立即可用，防止 Pod 在叢集擴縮容時進入 Pending 狀態。
 
 ## {{% heading "prerequisites" %}}
 
@@ -39,11 +39,11 @@ new pods are created, preventing them from entering a pending state while the cl
 - Your cluster must be set up with an [autoscaler](/docs/concepts/cluster-administration/cluster-autoscaling/)
   that manages nodes based on demand.
 -->
-- 你需要有一個 Kubernetes 集羣，並且 kubectl 命令行工具必須被配置爲與你的集羣通信。
+- 你需要有一個 Kubernetes 叢集，並且 kubectl 命令列工具必須被設定爲與你的叢集通信。
 - 你應該已經基本瞭解了 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)、Pod
   {{<glossary_tooltip text="優先級" term_id="pod-priority">}}和
   {{< glossary_tooltip text="PriorityClass" term_id="priority-class" >}}。
-- 你的集羣必須設置一個基於需求管理節點的[自動擴縮程序](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
+- 你的叢集必須設置一個基於需求管理節點的[自動擴縮程序](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)。
 
 <!-- steps -->
 
@@ -78,7 +78,7 @@ is a capacity shortage, the control plane will pick one these placeholder pods a
 {{< glossary_tooltip text="preempt" term_id="preemption" >}}.
 -->
 接下來，你將定義一個 Deployment，使用優先級值爲負數的 PriorityClass 並運行最小的容器。
-當你將此 Deployment 添加到集羣中時，Kubernetes 會運行這些佔位 Pod 以預留容量。
+當你將此 Deployment 添加到叢集中時，Kubernetes 會運行這些佔位 Pod 以預留容量。
 每當出現容量短缺時，控制面將選擇這些佔位 Pod
 中的一個作爲第一個候選者進行{{< glossary_tooltip text="搶佔" term_id="preemption" >}}。
 
@@ -129,7 +129,7 @@ Configure the resource requests and limits for the placeholder pods to define th
 -->
 ## 調整佔位資源請求   {#adjust-placeholder-resource-requests}
 
-爲佔位 Pod 配置資源請求和限制，以定義你希望保持的超配資源量。
+爲佔位 Pod 設定資源請求和限制，以定義你希望保持的超配資源量。
 這種預留確保爲新 Pod 保留可以使用的、特定量的 CPU 和內存。
 
 <!--
@@ -186,7 +186,7 @@ To scale the Deployment, adjust the number of replicas based on your cluster's s
 CPU 預留總量：5 × 0.1 = 0.5（在 Pod 規約中，你將寫入數量 `500m`）  
 內存預留總量：5 × 200MiB = 1GiB（在 Pod 規約中，你將寫入 `1 Gi`）  
 
-要擴縮容 Deployment，請基於集羣的大小和預期的工作負載調整副本數：
+要擴縮容 Deployment，請基於叢集的大小和預期的工作負載調整副本數：
 
 ```shell
 kubectl scale deployment capacity-reservation --replicas=5
@@ -221,7 +221,7 @@ the replica count you set here  also sets a minimum node count for your cluster.
 一些自動擴縮組件，特別是
 [Karpenter](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/#autoscaler-karpenter)，
 在考慮節點擴縮容時將偏好的親和性規則視爲硬性規則。如果你使用 Karpenter
-或其他使用同樣啓發式的節點擴縮容組件，你在此處設置的副本數也就是你的集羣的最少節點數。
+或其他使用同樣啓發式的節點擴縮容組件，你在此處設置的副本數也就是你的叢集的最少節點數。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
@@ -237,7 +237,7 @@ the replica count you set here  also sets a minimum node count for your cluster.
 - 進一步瞭解 [PriorityClass](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
   及其如何影響 Pod 調度。
 - 探索[節點自動擴縮容](/zh-cn/docs/concepts/cluster-administration/cluster-autoscaling/)，
-  以基於工作負載需求動態調整集羣的大小。
+  以基於工作負載需求動態調整叢集的大小。
 - 瞭解 [Pod 搶佔](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)，
   這是 Kubernetes 處理資源競爭的關鍵機制。這篇文檔還涵蓋了**驅逐**，
   雖然與佔位 Pod 方法相關性較小，但也是 Kubernetes 在資源競爭時做出反應的一種機制。

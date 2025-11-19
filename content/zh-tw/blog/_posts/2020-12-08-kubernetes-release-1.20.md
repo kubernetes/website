@@ -29,13 +29,13 @@ evergreen: true
 ### Volume 快照操作變得穩定 {#volume-snapshot-operations-goes-stable}
 
 <!-- This feature provides a standard way to trigger volume snapshot operations and allows users to incorporate snapshot operations in a portable manner on any Kubernetes environment and supported storage providers. -->
-此功能提供了觸發卷快照操作的標準方法，並允許用戶以可移植的方式在任何 Kubernetes 環境和支持的存儲提供程序上合併快照操作。
+此功能提供了觸發卷快照操作的標準方法，並允許使用者以可移植的方式在任何 Kubernetes 環境和支持的存儲提供程序上合併快照操作。
 
 <!-- Additionally, these Kubernetes snapshot primitives act as basic building blocks that unlock the ability to develop advanced, enterprise-grade, storage administration features for Kubernetes, including application or cluster level backup solutions. -->
-此外，這些 Kubernetes 快照原語充當基本構建塊，解鎖爲 Kubernetes 開發高級企業級存儲管理功能的能力，包括應用程序或集羣級備份解決方案。
+此外，這些 Kubernetes 快照原語充當基本構建塊，解鎖爲 Kubernetes 開發高級企業級存儲管理功能的能力，包括應用程序或叢集級備份解決方案。
 
 <!-- Note that snapshot support requires Kubernetes distributors to bundle the Snapshot controller, Snapshot CRDs, and validation webhook. A CSI driver supporting the snapshot functionality must also be deployed on the cluster. -->
-請注意，快照支持要求 Kubernetes 分銷商捆綁 Snapshot 控制器、Snapshot CRD 和驗證 webhook。還必須在集羣上部署支持快照功能的 CSI 驅動程序。
+請注意，快照支持要求 Kubernetes 分銷商捆綁 Snapshot 控制器、Snapshot CRD 和驗證 webhook。還必須在叢集上部署支持快照功能的 CSI 驅動程序。
 
 
 
@@ -68,8 +68,8 @@ Kubernetes 1.20 由 1.18 引入，現在默認啓用 API 優先級和公平性 (
 ### Alpha 更新：IPV4/IPV6 {#alpha-with-updates-ipv4-ipv6}
 
 <!-- The IPv4/IPv6 dual stack has been reimplemented to support dual stack services based on user and community feedback. This allows both IPv4 and IPv6 service cluster IP addresses to be assigned to a single service, and also enables a service to be transitioned from single to dual IP stack and vice versa. -->
-基於用戶和社區反饋，重新實現了 IPv4/IPv6 雙棧以支持雙棧服務。
-這允許將 IPv4 和 IPv6 服務集羣 IP 地址分配給單個服務，還允許服務從單 IP 堆棧轉換爲雙 IP 堆棧，反之亦然。
+基於使用者和社區反饋，重新實現了 IPv4/IPv6 雙棧以支持雙棧服務。
+這允許將 IPv4 和 IPv6 服務叢集 IP 地址分配給單個服務，還允許服務從單 IP 堆棧轉換爲雙 IP 堆棧，反之亦然。
 
 <!-- ### GA: Process PID Limiting for Stability -->
 ### GA：進程 PID 穩定性限制 {#ga-process-pid-limiting-for-stability}
@@ -79,7 +79,7 @@ Kubernetes 1.20 由 1.18 引入，現在默認啓用 API 優先級和公平性 (
 
 <!-- Administrators require mechanisms to ensure that user pods cannot induce pid exhaustion that prevents host daemons (runtime, kubelet, etc) from running. In addition, it is important to ensure that pids are limited among pods in order to ensure they have limited impact to other workloads on the node. -->
 <!-- After being enabled-by-default for a year, SIG Node graduates PID Limits to GA on both `SupportNodePidsLimit` (node-to-pod PID isolation) and `SupportPodPidsLimit` (ability to limit PIDs per pod). -->
-管理員需要機制來確保用戶 pod 不會導致 pid 耗盡，從而阻止主機守護程序（運行時、kubelet 等）運行。此外，重要的是要確保 pod 之間的 pid 受到限制，以確保它們對節點上的其他工作負載的影響有限。
+管理員需要機制來確保使用者 pod 不會導致 pid 耗盡，從而阻止主機守護程序（運行時、kubelet 等）運行。此外，重要的是要確保 pod 之間的 pid 受到限制，以確保它們對節點上的其他工作負載的影響有限。
 默認啓用一年後，SIG Node 在 `SupportNodePidsLimit`（節點到 Pod PID 隔離）和 `SupportPodPidsLimit`（限制每個 Pod 的 PID 的能力）上都將 PID 限制升級爲 GA。
 
 <!-- ### Alpha: Graceful node shutdown -->
@@ -87,7 +87,7 @@ Kubernetes 1.20 由 1.18 引入，現在默認啓用 API 優先級和公平性 (
 
 <!-- Users and cluster administrators expect that pods will adhere to expected pod lifecycle including pod termination. Currently, when a node shuts down, pods do not follow the expected pod termination lifecycle and are not terminated gracefully which can cause issues for some workloads.
 The `GracefulNodeShutdown` feature is now in Alpha. `GracefulNodeShutdown` makes the kubelet aware of node system shutdowns, enabling graceful termination of pods during a system shutdown. -->
-用戶和集羣管理員希望 Pod 遵守預期的 Pod 生命週期，包括 Pod 終止。目前，當一個節點關閉時，Pod 不會遵循預期的 Pod 終止生命週期，也不會正常終止，這可能會導致某些工作負載出現問題。
+使用者和叢集管理員希望 Pod 遵守預期的 Pod 生命週期，包括 Pod 終止。目前，當一個節點關閉時，Pod 不會遵循預期的 Pod 終止生命週期，也不會正常終止，這可能會導致某些工作負載出現問題。
 該 `GracefulNodeShutdown` 功能現在處於 Alpha 階段。`GracefulNodeShutdown` 使 kubelet 知道節點系統關閉，從而在系統關閉期間正常終止 pod。
 
 <!-- ## Major Changes -->
@@ -98,19 +98,19 @@ The `GracefulNodeShutdown` feature is now in Alpha. `GracefulNodeShutdown` makes
 
 <!-- Dockershim, the container runtime interface (CRI) shim for Docker is being deprecated. Support for Docker is deprecated and will be removed in a future release. Docker-produced images will continue to work in your cluster with all CRI compliant runtimes as Docker images follow the Open Container Initiative (OCI) image specification.
 The Kubernetes community has written a [detailed blog post about deprecation](https://blog.k8s.io/2020/12/02/dont-panic-kubernetes-and-docker/) with [a dedicated FAQ page for it](https://blog.k8s.io/2020/12/02/dockershim-faq/). -->
-Dockershim，Docker 的容器運行時接口 (CRI) shim 已被棄用。不推薦使用對 Docker 的支持，並將在未來版本中刪除。由於 Docker 映像遵循開放容器計劃 (OCI) 映像規範，因此 Docker 生成的映像將繼續在具有所有 CRI 兼容運行時的集羣中工作。
+Dockershim，Docker 的容器運行時接口 (CRI) shim 已被棄用。不推薦使用對 Docker 的支持，並將在未來版本中刪除。由於 Docker 映像遵循開放容器計劃 (OCI) 映像規範，因此 Docker 生成的映像將繼續在具有所有 CRI 兼容運行時的叢集中工作。
 Kubernetes 社區寫了一篇關於棄用的詳細[博客文章](https://blog.k8s.io/2020/12/02/dont-panic-kubernetes-and-docker/)，併爲其提供了一個專門的常見問題[解答頁面](https://blog.k8s.io/2020/12/02/dockershim-faq/)。
 
 <!-- ### Exec Probe Timeout Handling -->
 ### Exec 探測超時處理 {#exec-probe-timeout-handling}
 
 <!-- A longstanding bug regarding exec probe timeouts that may impact existing pod definitions has been fixed. Prior to this fix, the field `timeoutSeconds` was not respected for exec probes. Instead, probes would run indefinitely, even past their configured deadline, until a result was returned. With this change, the default value of `1 second` will be applied if a value is not specified and existing pod definitions may no longer be sufficient if a probe takes longer than one second. A feature gate, called `ExecProbeTimeout`, has been added with this fix that enables cluster operators to revert to the previous behavior, but this will be locked and removed in subsequent releases. In order to revert to the previous behavior, cluster operators should set this feature gate to `false`. -->
-一個關於 exec 探測超時的長期錯誤可能會影響現有的 pod 定義，已得到修復。在此修復之前，exec 探測器不考慮 `timeoutSeconds` 字段。相反，探測將無限期運行，甚至超過其配置的截止日期，直到返回結果。
+一個關於 exec 探測超時的長期錯誤可能會影響現有的 pod 定義，已得到修復。在此修復之前，exec 探測器不考慮 `timeoutSeconds` 字段。相反，探測將無限期運行，甚至超過其設定的截止日期，直到返回結果。
 通過此更改，如果未指定值，將應用默認值 `1 second`，並且如果探測時間超過一秒，現有 pod 定義可能不再足夠。
-新引入的 `ExecProbeTimeout` 特性門控所提供的修復使集羣操作員能夠恢復到以前的行爲，但這種行爲將在後續版本中鎖定並刪除。爲了恢復到以前的行爲，集羣運營商應該將此特性門控設置爲 `false`。
+新引入的 `ExecProbeTimeout` 特性門控所提供的修復使叢集操作員能夠恢復到以前的行爲，但這種行爲將在後續版本中鎖定並刪除。爲了恢復到以前的行爲，叢集運營商應該將此特性門控設置爲 `false`。
 
 <!-- Please review the updated documentation regarding [configuring probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes) for more details. -->
-有關更多詳細信息，請查看有關配置探針的[更新文檔](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)。
+有關更多詳細信息，請查看有關設定探針的[更新文檔](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes)。
 
 <!-- ## Other Updates -->
 ## 其他更新 {#other-updates}
@@ -147,7 +147,7 @@ Kubernetes 社區寫了一篇關於棄用的詳細[博客文章](https://blog.k8
 # 可用的發佈 {#availability-of-release}
 
 <!-- Kubernetes 1.20 is available for [download on GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.20.0). There are some great resources out there for getting started with Kubernetes. You can check out some [interactive tutorials](https://kubernetes.io/docs/tutorials/) on the main Kubernetes site, or run a local cluster on your machine using Docker containers with [kind](https://kind.sigs.k8s.io). If you’d like to try building a cluster from scratch, check out the [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) tutorial by Kelsey Hightower. -->
-Kubernetes 1.20 可在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.20.0) 上下載。有一些很棒的資源可以幫助你開始使用 Kubernetes。你可以在 Kubernetes 主站點上查看一些[交互式教程](https://kubernetes.io/docs/tutorials/)，或者使用 [kind](https://kind.sigs.k8s.io) 的 Docker 容器在你的機器上運行本地集羣。如果你想嘗試從頭開始構建集羣，請查看 Kelsey Hightower 的 [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) 教程。
+Kubernetes 1.20 可在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.20.0) 上下載。有一些很棒的資源可以幫助你開始使用 Kubernetes。你可以在 Kubernetes 主站點上查看一些[交互式教程](https://kubernetes.io/docs/tutorials/)，或者使用 [kind](https://kind.sigs.k8s.io) 的 Docker 容器在你的機器上運行本地叢集。如果你想嘗試從頭開始構建叢集，請查看 Kelsey Hightower 的 [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) 教程。
 
 <!-- # Release Team -->
 # 發佈團隊 {#release-team}
@@ -176,10 +176,10 @@ Humphrey是發佈負責人的貓，有一個永久的 `blep`. 在 1990 年代，
 發佈標誌由 [Henry Hsu - @robotdancebattle](https://www.instagram.com/robotdancebattle/) 創建。
 
 <!-- # User Highlights -->
-# 用戶亮點 {#user-highlights}
+# 使用者亮點 {#user-highlights}
 
 <!-- - Apple is operating multi-thousand node Kubernetes clusters in data centers all over the world. Watch [Alena Prokharchyk's KubeCon NA Keynote](https://youtu.be/Tx8qXC-U3KM) to learn more about their cloud native journey. -->
-- Apple 正在世界各地的數據中心運行數千個節點的 Kubernetes 集羣。觀看 [Alena Prokarchyk](https://youtu.be/Tx8qXC-U3KM) 的 KubeCon NA 主題演講，瞭解有關他們的雲原生之旅的更多信息。
+- Apple 正在世界各地的數據中心運行數千個節點的 Kubernetes 叢集。觀看 [Alena Prokarchyk](https://youtu.be/Tx8qXC-U3KM) 的 KubeCon NA 主題演講，瞭解有關他們的雲原生之旅的更多信息。
 
 <!-- # Project Velocity -->
 # 項目速度 {#project-velocity}
@@ -210,10 +210,10 @@ KubeCon + CloudNativeCon Europe 2021 將於 2021 年 5 月 4 日至 7 日舉行�
 請記住，[CFP](https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/program/cfp/) 將於太平洋標準時間 12 月 13 日星期日晚上 11:59 關閉！
 
 <!-- # Upcoming release webinar -->
-# 即將發佈的網絡研討會 {#upcoming-release-webinar}
+# 即將發佈的網路研討會 {#upcoming-release-webinar}
 
 <!-- Stay tuned for the upcoming release webinar happening this January. -->
-請繼續關注今年 1 月即將舉行的發佈網絡研討會。
+請繼續關注今年 1 月即將舉行的發佈網路研討會。
 
 <!-- # Get Involved -->
 # 參與其中 {#get-involved}

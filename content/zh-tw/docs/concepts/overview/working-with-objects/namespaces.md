@@ -24,10 +24,10 @@ weight: 45
 <!--
 In Kubernetes, _namespaces_ provide a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced {{< glossary_tooltip text="objects" term_id="object" >}} _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc.)_.
 -->
-在 Kubernetes 中，**名字空間（Namespace）** 提供一種機制，將同一集羣中的資源劃分爲相互隔離的組。
+在 Kubernetes 中，**名字空間（Namespace）** 提供一種機制，將同一叢集中的資源劃分爲相互隔離的組。
 同一名字空間內的資源名稱要唯一，但跨名字空間時沒有這個要求。
 名字空間作用域僅針對帶有名字空間的{{< glossary_tooltip text="對象" term_id="object" >}}，
-（例如 Deployment、Service 等），這種作用域對集羣範圍的對象
+（例如 Deployment、Service 等），這種作用域對叢集範圍的對象
 （例如 StorageClass、Node、PersistentVolume 等）不適用。
 
 <!-- body -->
@@ -43,7 +43,7 @@ teams, or projects.  For clusters with a few to tens of users, you should not
 need to create or think about namespaces at all.  Start using namespaces when you
 need the features they provide.
 -->
-名字空間適用於存在很多跨多個團隊或項目的用戶的場景。對於只有幾到幾十個用戶的集羣，根本不需要創建或考慮名字空間。當需要名字空間提供的功能時，請開始使用它們。
+名字空間適用於存在很多跨多個團隊或項目的使用者的場景。對於只有幾到幾十個使用者的叢集，根本不需要創建或考慮名字空間。當需要名字空間提供的功能時，請開始使用它們。
 
 <!--
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
@@ -56,7 +56,7 @@ resource can only be in one namespace.
 <!--
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
 -->
-名字空間是在多個用戶之間劃分集羣資源的一種方法（通過[資源配額](/zh-cn/docs/concepts/policy/resource-quotas/)）。
+名字空間是在多個使用者之間劃分叢集資源的一種方法（通過[資源配額](/zh-cn/docs/concepts/policy/resource-quotas/)）。
 
 <!--
 It is not necessary to use multiple namespaces to separate slightly different
@@ -71,7 +71,7 @@ resources within the same namespace.
 <!--
 For a production cluster, consider _not_ using the `default` namespace. Instead, make other namespaces and use those.
 -->
-對於生產集羣，請考慮**不要**使用 `default` 名字空間，而是創建其他名字空間來使用。
+對於生產叢集，請考慮**不要**使用 `default` 名字空間，而是創建其他名字空間來使用。
 {{< /note >}}
 
 <!--
@@ -97,7 +97,7 @@ Kubernetes starts with four initial namespaces:
 Kubernetes 啓動時會創建四個初始名字空間：
 
 `default`
-: Kubernetes 包含這個名字空間，以便於你無需創建新的名字空間即可開始使用新集羣。
+: Kubernetes 包含這個名字空間，以便於你無需創建新的名字空間即可開始使用新叢集。
 
 `kube-node-lease`
 : 該名字空間包含用於與各個節點關聯的 [Lease（租約）](/zh-cn/docs/concepts/architecture/leases/)對象。
@@ -106,7 +106,7 @@ Kubernetes 啓動時會創建四個初始名字空間：
 
 `kube-public`
 : **所有**的客戶端（包括未經身份驗證的客戶端）都可以讀取該名字空間。
-  該名字空間主要預留爲集羣使用，以便某些資源需要在整個集羣中可見可讀。
+  該名字空間主要預留爲叢集使用，以便某些資源需要在整個叢集中可見可讀。
   該名字空間的公共屬性只是一種約定而非要求。
 
 `kube-system`
@@ -136,7 +136,7 @@ You can list the current namespaces in a cluster using:
 -->
 ### 查看名字空間    {#viewing-namespaces}
 
-你可以使用以下命令列出集羣中現存的名字空間：
+你可以使用以下命令列出叢集中現存的名字空間：
 
 ```shell
 kubectl get namespace
@@ -203,7 +203,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 -->
 該條目的形式是 `<服務名稱>.<名字空間名稱>.svc.cluster.local`，這意味着如果容器只使用
 `<服務名稱>`，它將被解析到本地名字空間的服務。這對於跨多個名字空間（如開發、測試和生產）
-使用相同的配置非常有用。如果你希望跨名字空間訪問，則需要使用完全限定域名（FQDN）。
+使用相同的設定非常有用。如果你希望跨名字空間訪問，則需要使用完全限定域名（FQDN）。
 
 <!--
 As a result, all namespace names must be valid
@@ -234,10 +234,10 @@ webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/),
 to block creating any namespace with the name of [public
 TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 -->
-爲了緩解這類問題，需要將創建名字空間的權限授予可信的用戶。
+爲了緩解這類問題，需要將創建名字空間的權限授予可信的使用者。
 如果需要，你可以額外部署第三方的安全控制機制，
 例如以[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
-的形式，阻止用戶創建與公共 [TLD](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
+的形式，阻止使用者創建與公共 [TLD](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
 同名的名字空間。
 {{< /warning >}}
 

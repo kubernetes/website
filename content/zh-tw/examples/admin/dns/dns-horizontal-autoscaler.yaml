@@ -76,7 +76,7 @@ spec:
           - --configmap=kube-dns-autoscaler
           # 應該保持目標與 cluster/addons/dns/kube-dns.yaml.base 同步。
           - --target=<SCALE_TARGET>
-          # 當集羣使用大節點（有更多核）時，“coresPerReplica”應該占主導地位。
+          # 當叢集使用大節點（有更多核）時，“coresPerReplica”應該占主導地位。
           # 如果使用小節點，“nodesPerReplica“ 應該占主導地位。
           - --default-params={"linear":{"coresPerReplica":256,"nodesPerReplica":16,"preventSinglePointFailure":true,"includeUnschedulableNodes":true}}
           - --logtostderr=true

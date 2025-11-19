@@ -19,7 +19,7 @@ sandbox environment multiple times without the original container being aware
 of it. Forensic container checkpointing was introduced as an alpha feature in
 Kubernetes v1.25.
 -->
-取證容器檢查點（Forensic container checkpointing）基於 [CRIU][criu]（Checkpoint/Restore In Userspace ，用戶空間的檢查點/恢復），
+取證容器檢查點（Forensic container checkpointing）基於 [CRIU][criu]（Checkpoint/Restore In Userspace ，使用者空間的檢查點/恢復），
 並允許創建正在運行的容器的有狀態副本，而容器不知道它正在被檢查。容器的副本，可以在沙箱環境中被多次分析和恢復，而原始容器並不知道。
 取證容器檢查點是作爲一個 alpha 特性在 Kubernetes v1.25 中引入的。
 
@@ -106,8 +106,8 @@ feature gate enabled. As the checkpointing functionality is provided by CRIU it
 is also necessary to install CRIU.  Usually runc or crun depend on CRIU and
 therefore it is installed automatically.
  -->
-要將取證容器檢查點與 CRI-O 結合使用，需要使用命令行選項--enable-criu-support=true 啓動運行時。
-Kubernetes 方面，你需要在啓用 ContainerCheckpoint 特性門控的情況下運行你的集羣。
+要將取證容器檢查點與 CRI-O 結合使用，需要使用命令列選項--enable-criu-support=true 啓動運行時。
+Kubernetes 方面，你需要在啓用 ContainerCheckpoint 特性門控的情況下運行你的叢集。
 由於檢查點功能是由 CRIU 提供的，因此也有必要安裝 CRIU。
 通常 runc 或 crun 依賴於 CRIU，因此它是自動安裝的。
 
@@ -159,7 +159,7 @@ use of the *kubelet* `checkpoint` API:
 --insecure --cert /var/run/kubernetes/client-admin.crt --key /var/run/kubernetes/client-admin.key
 ```
 -->
-爲了完整起見，以下 `curl` 命令行選項對於讓 `curl` 接受 **kubelet** 的自簽名證書並授權使用
+爲了完整起見，以下 `curl` 命令列選項對於讓 `curl` 接受 **kubelet** 的自簽名證書並授權使用
 **kubelet** 檢查點 API 是必要的：
 
 ```shell
@@ -199,7 +199,7 @@ manually create certain directories Kubernetes would create before starting the
 container.
 -->
 使用檢查點 tar 歸檔文件，可以在 Kubernetes 之外的 CRI-O 沙箱實例中恢復容器。
-爲了在恢復過程中獲得更好的用戶體驗，建議你使用 CRI-O GitHub 的 **main** 分支中最新版本的 CRI-O。
+爲了在恢復過程中獲得更好的使用者體驗，建議你使用 CRI-O GitHub 的 **main** 分支中最新版本的 CRI-O。
 如果你使用的是 CRI-O v1.25，你需要在啓動容器之前手動創建 Kubernetes 會創建的某些目錄。
 <!-- 
 The first step to restore a container outside of Kubernetes is to create a pod sandbox
@@ -243,7 +243,7 @@ you need to specify the path to the checkpoint archive that you created earlier:
 }
 ```
 -->
-你不需要在 container-config.json 的註冊表中指定容器鏡像，而是需要指定你之前創建的檢查點歸檔文件的路徑：
+你不需要在 container-config.json 的註冊表中指定容器映像檔，而是需要指定你之前創建的檢查點歸檔文件的路徑：
 
 ```json
 {
@@ -272,7 +272,7 @@ To restore the previously checkpointed container directly in Kubernetes it is
 necessary to convert the checkpoint archive into an image that can be pushed to
 a registry.
  -->
-要在 Kubernetes 中直接恢復之前的檢查點容器，需要將檢查點歸檔文件轉換成可以推送到註冊中心的鏡像。
+要在 Kubernetes 中直接恢復之前的檢查點容器，需要將檢查點歸檔文件轉換成可以推送到註冊中心的映像檔。
 
 <!-- 
 One possible way to convert the local checkpoint archive consists of the
@@ -306,10 +306,10 @@ The security implications of starting CRI-O with CRIU support are not yet clear
 and therefore the functionality as well as the image format should be used with
 care.
  -->
-生成的鏡像未經標準化，只能與 CRI-O 結合使用。請將此鏡像格式視爲 pre-alpha 格式。
-社區正在[討論][image-spec-discussion]如何標準化這樣的檢查點鏡像格式。
-重要的是要記住，這種尚未標準化的鏡像格式只有在 CRI-O 已經用`--enable-criu-support=true` 啓動時纔有效。
-在 CRIU 支持下啓動 CRI-O 的安全影響尚不清楚，因此應謹慎使用功能和鏡像格式。
+生成的映像檔未經標準化，只能與 CRI-O 結合使用。請將此映像檔格式視爲 pre-alpha 格式。
+社區正在[討論][image-spec-discussion]如何標準化這樣的檢查點映像檔格式。
+重要的是要記住，這種尚未標準化的映像檔格式只有在 CRI-O 已經用`--enable-criu-support=true` 啓動時纔有效。
+在 CRIU 支持下啓動 CRI-O 的安全影響尚不清楚，因此應謹慎使用功能和映像檔格式。
 
 <!-- 
 Now, you'll need to push that image to a container image registry. For example:
@@ -318,7 +318,7 @@ Now, you'll need to push that image to a container image registry. For example:
 buildah push localhost/checkpoint-image:latest container-image-registry.example/user/checkpoint-image:latest
 ```
  -->
-現在，你需要將該鏡像推送到容器鏡像註冊中心。例如：
+現在，你需要將該映像檔推送到容器映像檔註冊中心。例如：
 
 ```shell
 buildah push localhost/checkpoint-image:latest container-image-registry.example/user/checkpoint-image:latest
@@ -341,8 +341,8 @@ spec:
   nodeName: <destination-node>
 ```
  -->
-要恢復此檢查點鏡像（container-image-registry.example/user/checkpoint-image:latest），
-該鏡像需要在 Pod 的規約中列出。下面是一個清單示例：
+要恢復此檢查點映像檔（container-image-registry.example/user/checkpoint-image:latest），
+該映像檔需要在 Pod 的規約中列出。下面是一個清單示例：
 
 ```yaml
 apiVersion: v1
@@ -367,8 +367,8 @@ CRI-O fetches the checkpoint data and restores the container from that
 specified checkpoint.
 -->
 Kubernetes 將新的 Pod 調度到一個節點上。該節點上的 kubelet 指示容器運行時（本例中爲 CRI-O）
-基於指定爲 `registry/user/checkpoint-image:latest` 的鏡像創建並啓動容器。
-CRI-O 檢測到 `registry/user/checkpoint-image:latest` 是對檢查點數據的引用，而不是容器鏡像。
+基於指定爲 `registry/user/checkpoint-image:latest` 的映像檔創建並啓動容器。
+CRI-O 檢測到 `registry/user/checkpoint-image:latest` 是對檢查點數據的引用，而不是容器映像檔。
 然後，與創建和啓動容器的通常步驟不同，CRI-O 獲取檢查點數據，並從指定的檢查點恢復容器。
 
 <!-- 

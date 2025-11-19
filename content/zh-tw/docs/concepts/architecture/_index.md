@@ -22,13 +22,13 @@ usually runs multiple nodes, providing fault-tolerance and high availability.
 
 This document outlines the various components you need to have for a complete and working Kubernetes cluster.
 -->
-Kubernetes 集羣由一個控制平面和一組用於運行容器化應用的工作機器組成，
-這些工作機器稱作節點（Node）。每個集羣至少需要一個工作節點來運行 Pod。
+Kubernetes 叢集由一個控制平面和一組用於運行容器化應用的工作機器組成，
+這些工作機器稱作節點（Node）。每個叢集至少需要一個工作節點來運行 Pod。
 
-工作節點託管着組成應用負載的 Pod。控制平面管理集羣中的工作節點和 Pod。
-在生產環境中，控制平面通常跨多臺計算機運行，而一個集羣通常運行多個節點，以提供容錯和高可用。
+工作節點託管着組成應用負載的 Pod。控制平面管理叢集中的工作節點和 Pod。
+在生產環境中，控制平面通常跨多臺計算機運行，而一個叢集通常運行多個節點，以提供容錯和高可用。
 
-本文概述了構建一個完整且可運行的 Kubernetes 集羣所需的各種組件。
+本文概述了構建一個完整且可運行的 Kubernetes 叢集所需的各種組件。
 
 <!--
 {{< figure src="/images/docs/kubernetes-cluster-architecture.svg"
@@ -37,7 +37,7 @@ caption="Figure 1. Kubernetes cluster components." class="diagram-large" >}}
 -->
 {{< figure src="/images/docs/kubernetes-cluster-architecture.svg"
 alt="控制平面（kube-apiserver、etcd、kube-controller-manager、kube-scheduler）和多個節點。每個節點運行 kubelet 和 kube-proxy。"
-caption="圖 1. Kubernetes 集羣組件。" class="diagram-large" >}}
+caption="圖 1. Kubernetes 叢集組件。" class="diagram-large" >}}
 
 <!--
 {{ /* details summary="About this architecture" */ }}
@@ -47,8 +47,8 @@ caption="圖 1. Kubernetes 集羣組件。" class="diagram-large" >}}
 The diagram in Figure 1 presents an example reference architecture for a Kubernetes cluster.
 The actual distribution of components can vary based on specific cluster setups and requirements.
 -->
-圖 1 中的圖表展示了 Kubernetes 集羣的示例參考架構，
-組件的實際分佈可能根據特定的集羣設置和要求而有所不同。
+圖 1 中的圖表展示了 Kubernetes 叢集的示例參考架構，
+組件的實際分佈可能根據特定的叢集設置和要求而有所不同。
 
 <!--
 In the diagram, each node runs the [`kube-proxy`](#kube-proxy) component. You need a
@@ -59,10 +59,10 @@ third party implementation of proxying. When you use that kind of network plugin
 the node does not need to run `kube-proxy`.
 -->
 圖中每個節點都運行 [`kube-proxy`](#kube-proxy) 組件。
-你需要在每個節點上安裝一個網絡代理組件，以確保 {{< glossary_tooltip text="Service" term_id="service">}}
-API 和相關行爲在你的集羣網絡上可用。
-但是，一些網絡插件爲流量代理提供了自己的第三方實現。
-當你使用那種網絡插件時，節點便不需要運行 `kube-proxy`。
+你需要在每個節點上安裝一個網路代理組件，以確保 {{< glossary_tooltip text="Service" term_id="service">}}
+API 和相關行爲在你的叢集網路上可用。
+但是，一些網路插件爲流量代理提供了自己的第三方實現。
+當你使用那種網路插件時，節點便不需要運行 `kube-proxy`。
 {{< /details >}}
 
 <!--
@@ -75,8 +75,8 @@ as well as detecting and responding to cluster events (for example, starting up 
 -->
 ## 控制平面組件   {#control-plane-components}
 
-控制平面組件會爲集羣做出全局決策，比如資源的調度。
-以及檢測和響應集羣事件，例如當不滿足 Deployment 的
+控制平面組件會爲叢集做出全局決策，比如資源的調度。
+以及檢測和響應叢集事件，例如當不滿足 Deployment 的
 `{{< glossary_tooltip text="replicas" term_id="replica" >}}`
 字段時，要啓動新的 {{< glossary_tooltip text="Pod" term_id="pod">}}）。
 
@@ -86,10 +86,10 @@ typically start all control plane components on the same machine, and do not run
 See [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 for an example control plane setup that runs across multiple machines.
 -->
-控制平面組件可以在集羣中的任何節點上運行。
+控制平面組件可以在叢集中的任何節點上運行。
 然而，爲了簡單起見，安裝腳本通常會在同一個計算機上啓動所有控制平面組件，
-並且不會在此計算機上運行用戶容器。
-請參閱[使用 kubeadm 構建高可用性集羣](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)中關於跨多機器安裝控制平面的示例。
+並且不會在此計算機上運行使用者容器。
+請參閱[使用 kubeadm 構建高可用性叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)中關於跨多機器安裝控制平面的示例。
 
 ### kube-apiserver
 
@@ -141,7 +141,7 @@ horizontally (run more than one copy) to improve performance or to help tolerate
 -->
 `cloud-controller-manager` 僅運行特定於雲平臺的控制器。
 因此如果你在自己的環境中運行 Kubernetes，或者在本地計算機中運行學習環境，
-所部署的集羣不包含雲控制器管理器。
+所部署的叢集不包含雲控制器管理器。
 
 與 `kube-controller-manager` 類似，`cloud-controller-manager`
 將若干邏輯上獨立的控制迴路組合到同一個可執行文件中，以同一進程的方式供你運行。
@@ -188,8 +188,8 @@ kube-proxy on the nodes in your cluster.
 ### kube-proxy（可選）  {#kube-proxy}
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
-如果你使用[網絡插件](#network-plugins)爲 Service 實現本身的數據包轉發，
-並提供與 kube-proxy 等效的行爲，那麼你不需要在集羣中的節點上運行 kube-proxy。
+如果你使用[網路插件](#network-plugins)爲 Service 實現本身的數據包轉發，
+並提供與 kube-proxy 等效的行爲，那麼你不需要在叢集中的節點上運行 kube-proxy。
 
 ### 容器運行時   {#container-runtime}
 
@@ -209,8 +209,8 @@ please see [Addons](/docs/concepts/cluster-administration/addons/).
 ## 插件（Addons）    {#addons}
 
 插件使用 Kubernetes 資源（{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}、
-{{< glossary_tooltip text="Deployment" term_id="deployment" >}} 等）實現集羣功能。
-因爲這些插件提供集羣級別的功能，插件中命名空間域的資源屬於 `kube-system` 命名空間。
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}} 等）實現叢集功能。
+因爲這些插件提供叢集級別的功能，插件中命名空間域的資源屬於 `kube-system` 命名空間。
 
 下面描述衆多插件中的幾種。有關可用插件的完整列表，
 請參見[插件（Addons）](/zh-cn/docs/concepts/cluster-administration/addons/)。
@@ -227,12 +227,12 @@ which serves DNS records for Kubernetes services.
 Containers started by Kubernetes automatically include this DNS server in their DNS searches.
 -->
 儘管其他插件都並非嚴格意義上的必需組件，但幾乎所有 Kubernetes
-集羣都應該有[集羣 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)，
+叢集都應該有[叢集 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)，
 因爲很多示例都需要 DNS 服務。
 
-集羣 DNS 是一個 DNS 服務器，和環境中的其他 DNS 服務器一起工作，它爲 Kubernetes 服務提供 DNS 記錄。
+叢集 DNS 是一個 DNS 伺服器，和環境中的其他 DNS 伺服器一起工作，它爲 Kubernetes 服務提供 DNS 記錄。
 
-Kubernetes 啓動的容器自動將此 DNS 服務器包含在其 DNS 搜索列表中。
+Kubernetes 啓動的容器自動將此 DNS 伺服器包含在其 DNS 搜索列表中。
 
 <!--
 ### Web UI (Dashboard)
@@ -244,8 +244,8 @@ running in the cluster, as well as the cluster itself.
 ### Web 界面（儀表盤）   {#web-ui-dashboard}
 
 [Dashboard](/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)
-是 Kubernetes 集羣的通用的、基於 Web 的用戶界面。
-它使用戶可以管理集羣中運行的應用程序以及集羣本身，並進行故障排除。
+是 Kubernetes 叢集的通用的、基於 Web 的使用者界面。
+它使使用者可以管理叢集中運行的應用程序以及叢集本身，並進行故障排除。
 
 <!--
 ### Container resource monitoring
@@ -263,9 +263,9 @@ for saving container logs to a central log store with a search/browsing interfac
 [容器資源監控](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 將關於容器的一些常見的時序度量值保存到一個集中的數據庫中，並提供瀏覽這些數據的界面。
 
-### 集羣層面日誌   {#cluster-level-logging}
+### 叢集層面日誌   {#cluster-level-logging}
 
-[集羣層面日誌](/zh-cn/docs/concepts/cluster-administration/logging/)機制負責將容器的日誌數據保存到一個集中的日誌存儲中，
+[叢集層面日誌](/zh-cn/docs/concepts/cluster-administration/logging/)機制負責將容器的日誌數據保存到一個集中的日誌存儲中，
 這種集中日誌存儲提供搜索和瀏覽接口。
 
 <!--
@@ -276,10 +276,10 @@ are software components that implement the container network interface (CNI) spe
 They are responsible for allocating IP addresses to pods and enabling them to communicate
 with each other within the cluster.
 -->
-### 網絡插件   {#network-plugins}
+### 網路插件   {#network-plugins}
 
-[網絡插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)
-是實現容器網絡接口（CNI）規範的軟件組件。它們負責爲 Pod 分配 IP 地址，並使這些 Pod 能在集羣內部相互通信。
+[網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)
+是實現容器網路接口（CNI）規範的軟件組件。它們負責爲 Pod 分配 IP 地址，並使這些 Pod 能在叢集內部相互通信。
 
 <!--
 ## Architecture variations
@@ -291,7 +291,7 @@ Kubernetes clusters that meet specific operational needs.
 ## 架構變種    {#architecture-variations}
 
 雖然 Kubernetes 的核心組件保持一致，但它們的部署和管理方式可能有所不同。
-瞭解這些變化對於設計和維護滿足特定運營需求的 Kubernetes 集羣至關重要。
+瞭解這些變化對於設計和維護滿足特定運營需求的 Kubernetes 叢集至關重要。
 
 <!--
 ### Control plane deployment options
@@ -325,7 +325,7 @@ Managed Kubernetes services
 : Cloud providers often abstract away the control plane, managing its components as part of their service offering.
 -->
 自託管
-: 控制平面在 Kubernetes 集羣本身內部作爲 Pod 運行，
+: 控制平面在 Kubernetes 叢集本身內部作爲 Pod 運行，
   由 Deployments、StatefulSets 或其他 Kubernetes 原語管理。
 
 託管 Kubernetes 服務
@@ -344,10 +344,10 @@ performance requirements, and operational policies:
 -->
 ### 工作負載調度說明   {#workload-placement-considerations}
 
-含控制平面組件在內的工作負載的調度可能因集羣大小、性能要求和操作策略而有所不同：
+含控制平面組件在內的工作負載的調度可能因叢集大小、性能要求和操作策略而有所不同：
 
-- 在較小或開發集羣中，控制平面組件和用戶工作負載可能在同一節點上運行。
-- 較大的生產集羣通常將特定節點專用於控制平面組件，將其與用戶工作負載隔離。
+- 在較小或開發叢集中，控制平面組件和使用者工作負載可能在同一節點上運行。
+- 較大的生產叢集通常將特定節點專用於控制平面組件，將其與使用者工作負載隔離。
 - 一些組織在控制平面節點上運行關鍵組件或監控工具。
 
 <!--
@@ -359,12 +359,12 @@ each with its own method of component layout and management.
 The flexibility of Kubernetes architecture allows organizations to tailor their clusters to specific needs,
 balancing factors such as operational complexity, performance, and management overhead.
 -->
-### 集羣管理工具   {#cluster-management-tools}
+### 叢集管理工具   {#cluster-management-tools}
 
-像 kubeadm、kops 和 Kubespray 這樣的工具提供了不同的集羣部署和管理方法，
+像 kubeadm、kops 和 Kubespray 這樣的工具提供了不同的叢集部署和管理方法，
 每種方法都有自己的組件佈局和管理方式。
 
-Kubernetes 架構的靈活性使各組織能夠根據特定需求調整其集羣，平衡操作複雜性、性能和管理開銷等因素。
+Kubernetes 架構的靈活性使各組織能夠根據特定需求調整其叢集，平衡操作複雜性、性能和管理開銷等因素。
 
 <!--
 ### Customization and extensibility
@@ -383,10 +383,10 @@ balancing factors such as operational complexity, performance, and management ov
 Kubernetes 架構允許大幅度的定製：
 
 - 你可以部署自定義的調度器與默認的 Kubernetes 調度器協同工作，也可以完全替換掉默認的調度器。
-- API 服務器可以通過 CustomResourceDefinition 和 API 聚合進行擴展。
+- API 伺服器可以通過 CustomResourceDefinition 和 API 聚合進行擴展。
 - 雲平臺可以使用 cloud-controller-manager 與 Kubernetes 深度集成。
 
-Kubernetes 架構的靈活性使各組織能夠根據特定需求調整其集羣，平衡操作複雜性、性能和管理開銷等因素。
+Kubernetes 架構的靈活性使各組織能夠根據特定需求調整其叢集，平衡操作複雜性、性能和管理開銷等因素。
 
 ## {{% heading "whatsnext" %}}
 

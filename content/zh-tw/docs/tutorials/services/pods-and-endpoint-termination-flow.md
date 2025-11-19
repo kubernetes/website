@@ -19,7 +19,7 @@ This tutorial helps you look at the termination flow for Pods and to explore way
 graceful connection draining.
 -->
 一旦你參照[使用 Service 連接到應用](/zh-cn/docs/tutorials/services/connect-applications-service/)中概述的那些步驟使用
-Service 連接到了你的應用，你就有了一個持續運行的多副本應用暴露在了網絡上。
+Service 連接到了你的應用，你就有了一個持續運行的多副本應用暴露在了網路上。
 本教程幫助你瞭解 Pod 的終止流程，探索實現連接排空的幾種方式。
 
 <!-- body -->
@@ -40,7 +40,7 @@ a simple nginx web server to demonstrate the concept.
 你經常會遇到需要終止 Pod 的場景，例如爲了升級或縮容。
 爲了改良應用的可用性，實現一種合適的活躍連接排空機制變得重要。
 
-本教程將通過使用一個簡單的 nginx Web 服務器演示此概念，
+本教程將通過使用一個簡單的 nginx Web 伺服器演示此概念，
 解釋 Pod 終止的流程及其與相應端點狀態和移除的聯繫。
 
 <!-- body -->
@@ -131,7 +131,7 @@ The output is similar to this:
 Now let's terminate the Pod and validate that the Pod is being terminated
 respecting the graceful termination period configuration:
 -->
-現在讓我們終止這個 Pod 並驗證該 Pod 正在遵從體面終止期限的配置進行終止：
+現在讓我們終止這個 Pod 並驗證該 Pod 正在遵從體面終止期限的設定進行終止：
 
 ```shell
 kubectl delete pod nginx-deployment-7768647bf9-b4b9s
@@ -253,6 +253,6 @@ When Pod is deleted, the old endpoint will also be deleted.
 * Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 -->
 * 瞭解如何[使用 Service 連接到應用](/zh-cn/docs/tutorials/services/connect-applications-service/)
-* 進一步瞭解[使用 Service 訪問集羣中的應用](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* 進一步瞭解[使用 Service 訪問叢集中的應用](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * 進一步瞭解[使用 Service 把前端連接到後端](/zh-cn/docs/tasks/access-application-cluster/connecting-frontend-backend/)
 * 進一步瞭解[創建外部負載均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)

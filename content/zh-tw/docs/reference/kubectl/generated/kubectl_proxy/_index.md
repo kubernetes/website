@@ -17,9 +17,9 @@ no_list: true
 <!--
 Creates a proxy server or application-level gateway between localhost and the Kubernetes API server. It also allows serving static content over specified HTTP path. All incoming data enters through one port and gets forwarded to the remote Kubernetes API server port, except for the path matching the static content path.
 -->
-在 localhost 和 Kubernetes API 服務器之間創建一個代理服務器或應用級網關。
+在 localhost 和 Kubernetes API 伺服器之間創建一個代理伺服器或應用級網關。
 它還允許在指定的 HTTP 路徑上提供靜態內容。除了與靜態內容路徑匹配的路徑之外，
-所有傳入的數據通過一個端口進入，並被轉發到遠程 Kubernetes API 服務器端口。
+所有傳入的數據通過一個端口進入，並被轉發到遠程 Kubernetes API 伺服器端口。
 
 ```shell
 kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]
@@ -53,14 +53,14 @@ kubectl proxy --www=/my/files --www-prefix=/static/ --api-prefix=/api/
 # 你可以使用 `curl localhost:8001/custom/api/v1/pods` 獲取 Pod 信息
 kubectl proxy --api-prefix=/custom/
   
-# 在端口 8011 上運行指向 Kubernetes API 服務器的代理，並使用 ./local/www/ 提供靜態內容
+# 在端口 8011 上運行指向 Kubernetes API 伺服器的代理，並使用 ./local/www/ 提供靜態內容
 kubectl proxy --port=8011 --www=./local/www/
   
-# 在任意本地端口上運行指向 Kubernetes API 服務器的代理
-# 爲服務器選擇的端口將被輸出到標準輸出
+# 在任意本地端口上運行指向 Kubernetes API 伺服器的代理
+# 爲伺服器選擇的端口將被輸出到標準輸出
 kubectl proxy --port=0
   
-# 運行指向 Kubernetes API 服務器的代理，將 API 前綴更改爲 k8s-api
+# 運行指向 Kubernetes API 伺服器的代理，將 API 前綴更改爲 k8s-api
 # 例如，這會讓用戶能夠通過 localhost:8001/k8s-api/v1/pods/ 訪問 Pod API
 kubectl proxy --api-prefix=/k8s-api
 ```
@@ -130,7 +130,7 @@ Prefix to serve the proxied API under.
 <!--
 If true, enables automatic path appending of the kube context server path to each request.
 -->
-如果爲 true，則啓用自動路徑追加機制，將 kube 上下文服務器路徑追加到每個請求。
+如果爲 true，則啓用自動路徑追加機制，將 kube 上下文伺服器路徑追加到每個請求。
 </p></td>
 </tr>
 
@@ -169,7 +169,7 @@ proxy 操作的幫助命令。
 <!--
 keepalive specifies the keep-alive period for an active network connection. Set to 0 to disable keepalive.
 -->
-keepalive 指定活動網絡連接保持活動的時長。設置爲 0 可禁用 keepalive。
+keepalive 指定活動網路連接保持活動的時長。設置爲 0 可禁用 keepalive。
 </p></td>
 </tr>
 
@@ -272,7 +272,7 @@ Prefix to serve static files under, if static file directory is specified.
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
-操作所用的僞裝用戶名。用戶可以是常規用戶或命名空間中的服務賬號。
+操作所用的僞裝使用者名。使用者可以是常規使用者或命名空間中的服務賬號。
 </p></td>
 </tr>
 
@@ -285,7 +285,7 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
-操作所用的僞裝用戶組，此標誌可以被重複設置以指定多個組。
+操作所用的僞裝使用者組，此標誌可以被重複設置以指定多個組。
 </p></td>
 </tr>
 
@@ -363,7 +363,7 @@ TLS 客戶端密鑰文件的路徑。
 <!--
 The name of the kubeconfig cluster to use
 -->
-要使用的 kubeconfig 集羣的名稱。
+要使用的 kubeconfig 叢集的名稱。
 </p></td>
 </tr>
 
@@ -389,7 +389,7 @@ The name of the kubeconfig context to use
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
-如果爲 true，則對服務器所有請求的響應不再壓縮。
+如果爲 true，則對伺服器所有請求的響應不再壓縮。
 </p></td>
 </tr>
 
@@ -402,7 +402,7 @@ If true, opt-out of response compression for all requests to the server
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
-如果爲 true，則不檢查服務器證書的有效性。這將使你的 HTTPS 連接不安全。
+如果爲 true，則不檢查伺服器證書的有效性。這將使你的 HTTPS 連接不安全。
 </p></td>
 </tr>
 
@@ -442,7 +442,7 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <!--
 Require server version to match client version
 -->
-要求服務器版本與客戶端版本匹配。
+要求伺服器版本與客戶端版本匹配。
 </p></td>
 </tr>
 
@@ -466,7 +466,7 @@ If present, the namespace scope for this CLI request
 <!--
 Password for basic authentication to the API server
 -->
-向 API 服務器進行基本身份驗證所用的密碼。
+向 API 伺服器進行基本身份驗證所用的密碼。
 </p></td>
 </tr>
 
@@ -502,7 +502,7 @@ Name of the file to write the profile to
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
-在放棄某個服務器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
+在放棄某個伺服器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
 值爲零表示請求不會超時。
 </p></td>
 </tr>
@@ -515,7 +515,7 @@ The length of time to wait before giving up on a single server request. Non-zero
 <!--
 The address and port of the Kubernetes API server
 -->
-Kubernetes API 服務器的地址和端口。
+Kubernetes API 伺服器的地址和端口。
 </p></td>
 </tr>
 
@@ -599,7 +599,7 @@ table name
 <!--
 database username
 -->
-數據庫用戶名。
+數據庫使用者名。
 </p></td>
 </tr>
 
@@ -611,7 +611,7 @@ database username
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
-服務器證書驗證所用的服務器名稱。如果未提供，則使用與服務器通信所用的主機名。
+伺服器證書驗證所用的伺服器名稱。如果未提供，則使用與伺服器通信所用的主機名。
 </p></td>
 </tr>
 
@@ -623,7 +623,7 @@ Server name to use for server certificate validation. If it is not provided, the
 <!--
 Bearer token for authentication to the API server
 -->
-向 API 服務器進行身份驗證的持有者令牌。
+向 API 伺服器進行身份驗證的持有者令牌。
 </p></td>
 </tr>
 
@@ -635,7 +635,7 @@ Bearer token for authentication to the API server
 <!--
 The name of the kubeconfig user to use
 -->
-要使用的 kubeconfig 用戶的名稱。
+要使用的 kubeconfig 使用者的名稱。
 </p></td>
 </tr>
 
@@ -647,7 +647,7 @@ The name of the kubeconfig user to use
 <!--
 Username for basic authentication to the API server
 -->
-向 API 服務器進行基本身份驗證時所用的用戶名。
+向 API 伺服器進行基本身份驗證時所用的使用者名。
 </p></td>
 </tr>
 
@@ -671,7 +671,7 @@ Username for basic authentication to the API server
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
-將從服務器收到的警告視爲錯誤，並以非零退出碼退出。
+將從伺服器收到的警告視爲錯誤，並以非零退出碼退出。
 </p></td>
 </tr>
 
@@ -683,4 +683,4 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 <!--
 * [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
 -->
-* [kubectl](../kubectl/) - kubectl 控制 Kubernetes 集羣管理器
+* [kubectl](../kubectl/) - kubectl 控制 Kubernetes 叢集管理器

@@ -1,6 +1,6 @@
 ---
 content_type: "reference"
-title: kubelet 配置目錄合併
+title: kubelet 設定目錄合併
 weight: 50
 ---
 <!--
@@ -16,9 +16,9 @@ merged.
 
 Here are some examples of how different data types behave during configuration merging:
 -->
-當使用 kubelet 的 `--config-dir` 標誌來指定存放配置的目錄時，不同類型的配置會有一些特定的行爲。
+當使用 kubelet 的 `--config-dir` 標誌來指定存放設定的目錄時，不同類型的設定會有一些特定的行爲。
 
-以下是在配置合併過程中不同數據類型的一些行爲示例：
+以下是在設定合併過程中不同數據類型的一些行爲示例：
 
 <!--
 ### Structure Fields
@@ -30,7 +30,7 @@ The configuration merging process handles the overriding of singular and embedde
 ### 結構字段   {#structure-fields}
 
 在 YAML 結構中有兩種結構字段：獨立（標量類型）和嵌入式（此結構包含標量類型）。
-配置合併過程將處理獨立構造字段和嵌入式構造字段的重載，以創建最終的 kubelet 配置。
+設定合併過程將處理獨立構造字段和嵌入式構造字段的重載，以創建最終的 kubelet 設定。
 
 <!--
 For instance, you may want a baseline kubelet configuration for all nodes, but you may want to customize the `address` and `authorization` fields.
@@ -38,10 +38,10 @@ This can be done as follows:
 
 Main kubelet configuration file contents:
 -->
-例如，你可能想要爲所有節點設置一個基準 kubelet 配置，但希望自定義 `address` 和 `authorization` 字段。
+例如，你可能想要爲所有節點設置一個基準 kubelet 設定，但希望自定義 `address` 和 `authorization` 字段。
 這種情況下，你可以按以下方式完成：
 
-kubelet 主配置文件內容：
+kubelet 主設定文件內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -75,7 +75,7 @@ address: "192.168.0.8"
 <!--
 The resulting configuration will be as follows:
 -->
-生成的配置如下所示：
+生成的設定如下所示：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -100,11 +100,11 @@ Main kubelet configuration file contents:
 -->
 ### 列表   {#lists}
 
-你可以重載 kubelet 配置的切片/列表值。
+你可以重載 kubelet 設定的切片/列表值。
 但在合併過程中整個列表將被重載。
 例如，你可以按以下方式重載 `clusterDNS` 列表：
 
-kubelet 主配置文件的內容：
+kubelet 主設定文件的內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -133,7 +133,7 @@ clusterDNS:
 <!--
 The resulting configuration will be as follows:
 -->
-生成的配置如下所示：
+生成的設定如下所示：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -161,7 +161,7 @@ Main kubelet configuration file contents:
 但對於 `map[string][]string` 類型來說，與特定字段關聯的整個列表都將被重載。
 讓我們通過一個例子更好地理解這一點，特別是 `featureGates` 和 `staticPodURLHeader` 這類字段：
 
-kubelet 主配置文件的內容：
+kubelet 主設定文件的內容：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -201,7 +201,7 @@ staticPodURLHeader:
 <!--
 The resulting configuration will be as follows:
 -->
-生成的配置如下所示：
+生成的設定如下所示：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1

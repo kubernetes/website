@@ -6,8 +6,8 @@
 <!--
 Install the CoreDNS addon components via the API server. Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
 -->
-通過 API 服務器安裝 CoreDNS 附加組件。請注意，即使 DNS 服務器已部署，在安裝 CNI
-之前 DNS 服務器不會被調度執行。
+通過 API 伺服器安裝 CoreDNS 附加組件。請注意，即使 DNS 伺服器已部署，在安裝 CNI
+之前 DNS 伺服器不會被調度執行。
 
 ```
 kubeadm init phase addon coredns [flags]
@@ -34,7 +34,7 @@ kubeadm init phase addon coredns [flags]
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -105,7 +105,7 @@ coredns 操作的幫助命令。
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇用於拉取控制平面鏡像的容器倉庫。
+選擇用於拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>
@@ -124,7 +124,7 @@ Choose a container registry to pull control plane images from
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與集羣通信時使用的 kubeconfig 文件。如果未設置該參數，則可以在一組標準位置中搜索現有的
+與叢集通信時使用的 kubeconfig 文件。如果未設置該參數，則可以在一組標準位置中搜索現有的
 kubeconfig 文件。
 </p>
 </td>

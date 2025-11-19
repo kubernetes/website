@@ -17,7 +17,7 @@ weight: 30
 This page outlines steps to find out what [container runtime](/docs/setup/production-environment/container-runtimes/)
 the nodes in your cluster use.
 -->
-本頁面描述查明集羣中節點所使用的[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)
+本頁面描述查明叢集中節點所使用的[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)
 的步驟。
 
 <!--
@@ -27,9 +27,9 @@ Kubernetes service, there might be vendor-specific ways to check what container 
 configured for the nodes. The method described on this page should work whenever
 the execution of `kubectl` is allowed.
 -->
-取決於你運行集羣的方式，節點所使用的容器運行時可能是事先配置好的，
-也可能需要你來配置。如果你在使用託管的 Kubernetes 服務，
-可能存在特定於廠商的方法來檢查節點上配置的容器運行時。
+取決於你運行叢集的方式，節點所使用的容器運行時可能是事先設定好的，
+也可能需要你來設定。如果你在使用託管的 Kubernetes 服務，
+可能存在特定於廠商的方法來檢查節點上設定的容器運行時。
 本頁描述的方法應該在能夠執行 `kubectl` 的場合下都可以工作。
 
 ## {{% heading "prerequisites" %}}
@@ -37,7 +37,7 @@ the execution of `kubectl` is allowed.
 <!--
 Install and configure `kubectl`. See [Install Tools](/docs/tasks/tools/#kubectl) section for details.
 -->
-安裝並配置 `kubectl`。參見[安裝工具](/zh-cn/docs/tasks/tools/#kubectl) 節瞭解詳情。
+安裝並設定 `kubectl`。參見[安裝工具](/zh-cn/docs/tasks/tools/#kubectl) 節瞭解詳情。
 
 <!--
 ## Find out the container runtime used on a Node
@@ -112,9 +112,9 @@ want to know whether you use Docker Engine with dockershim.
 -->
 
 容器運行時使用 Unix Socket 與 kubelet 通信，這一通信使用基於 gRPC 框架的
-[CRI 協議](/zh-cn/docs/concepts/architecture/cri/)。kubelet 扮演客戶端，運行時扮演服務器端。
+[CRI 協議](/zh-cn/docs/concepts/architecture/cri/)。kubelet 扮演客戶端，運行時扮演伺服器端。
 在某些情況下，你可能想知道你的節點使用的是哪個 socket。
-如若集羣是 Kubernetes v1.24 及以後的版本，
+如若叢集是 Kubernetes v1.24 及以後的版本，
 或許你想知道當前運行時是否是使用 dockershim 的 Docker Engine。
 
 {{< note >}}
@@ -123,7 +123,7 @@ If you currently use Docker Engine in your nodes with `cri-dockerd`, you aren't
 affected by the dockershim removal.
 -->
 如果你的節點在通過 `cri-dockerd` 使用 Docker Engine，
-那麼集羣不會受到 Kubernetes 移除 dockershim 的影響。
+那麼叢集不會受到 Kubernetes 移除 dockershim 的影響。
 {{< /note >}}
 
 <!--
@@ -165,7 +165,7 @@ nodes.
    * 如果你的節點使用 Kubernetes v1.23 或更早的版本，這兩個參數不存在，
      或者 `--container-runtime` 標誌值不是 `remote`，則你在通過 dockershim 套接字使用
      Docker Engine。
-     在 Kubernetes v1.27 及以後的版本中，`--container-runtime` 命令行參數不再可用。
+     在 Kubernetes v1.27 及以後的版本中，`--container-runtime` 命令列參數不再可用。
    * 如果設置了 `--container-runtime-endpoint` 參數，查看套接字名稱即可得知當前使用的運行時。
      如若套接字 `unix:///run/containerd/containerd.sock` 是 containerd 的端點。
 

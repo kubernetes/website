@@ -37,7 +37,7 @@ tags:
 A cluster-level resource that controls security sensitive aspects of the Pod specification. The `PodSecurityPolicy` objects define a set of conditions that a Pod must run with in order to be accepted into the system, as well as defaults for the related fields. Pod Security Policy control is implemented as an optional admission controller.
 -->
 
-Pod 安全策略是集羣級別的資源，它控制着 Pod 規約中的安全性敏感的內容。
+Pod 安全策略是叢集級別的資源，它控制着 Pod 規約中的安全性敏感的內容。
 `PodSecurityPolicy` 對象定義了一組條件以及相關字段的默認值，Pod
 運行時必須滿足這些條件。Pod 安全策略控制實現上體現爲一個可選的准入控制器。
 

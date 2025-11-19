@@ -30,6 +30,6 @@ which prevents the registration of in-tree openstack cinder plugin.
 停止在 kubelet 和卷控制器中註冊 Cinder 內嵌插件，
 並啓用封裝和轉換邏輯，將卷操作從 Cinder 內嵌插件路由到 Cinder CSI 插件。
 這需要啓用 CSIMigration 和 CSIMigrationOpenStack 特性標誌，
-並在集羣中的所有節點上安裝和配置 Cinder CSI 插件。
+並在叢集中的所有節點上安裝和設定 Cinder CSI 插件。
 該特性標誌已被棄用，取而代之的是能防止註冊內嵌 OpenStack Cinder 插件的
 `InTreePluginOpenStackUnregister` 特性標誌。

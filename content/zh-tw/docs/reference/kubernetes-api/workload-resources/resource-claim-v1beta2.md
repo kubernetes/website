@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/resource/v1beta2"
   kind: "ResourceClaim"
 content_type: "api_reference"
-description: "ResourceClaim 描述對集羣中供工作負載使用的資源的訪問請求。"
+description: "ResourceClaim 描述對叢集中供工作負載使用的資源的訪問請求。"
 title: "ResourceClaim v1beta2"
 weight: 16
 ---
@@ -31,7 +31,7 @@ ResourceClaim describes a request for access to resources in the cluster, for us
 
 This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 -->
-ResourceClaim 描述對集羣中供工作負載使用的資源的訪問請求。
+ResourceClaim 描述對叢集中供工作負載使用的資源的訪問請求。
 例如，如果某個工作負載需要具有特定屬性的加速器設備，這就是表達該請求的方式。
 狀態部分跟蹤此申領是否已被滿足，以及具體分配了哪些資源。
 
@@ -63,7 +63,7 @@ ResourceClaim 描述對集羣中供工作負載使用的資源的訪問請求。
 -->
 - **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>)，必需
 
-  spec 描述正在被請求的資源及其配置方式。spec 是不可變更的。
+  spec 描述正在被請求的資源及其設定方式。spec 是不可變更的。
 
 - **status** (<a href="{{< ref "../workload-resources/resource-claim-v1beta2#ResourceClaimStatus" >}}">ResourceClaimStatus</a>)
 
@@ -74,7 +74,7 @@ ResourceClaim 描述對集羣中供工作負載使用的資源的訪問請求。
 <!--
 ResourceClaimSpec defines what is being requested in a ResourceClaim and how to configure it.
 -->
-ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配置方式。
+ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其設定方式。
 
 <hr>
 
@@ -108,10 +108,10 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
 
     **原子性：將在合併期間被替換**
     
-    此字段保存可以滿足此申領請求的多個潛在驅動的配置。在分配申領時此字段被忽略。
+    此字段保存可以滿足此申領請求的多個潛在驅動的設定。在分配申領時此字段被忽略。
 
     <a name="DeviceClaimConfiguration"></a>
-    **DeviceClaimConfiguration 用於 DeviceClaim 中的配置參數。**
+    **DeviceClaimConfiguration 用於 DeviceClaim 中的設定參數。**
 
     <!--
     - **devices.config.opaque** (OpaqueDeviceConfiguration)
@@ -124,10 +124,10 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
 
     - **devices.config.opaque** (OpaqueDeviceConfiguration)
 
-      opaque 提供特定於驅動的配置參數。
+      opaque 提供特定於驅動的設定參數。
 
       <a name="OpaqueDeviceConfiguration"></a>
-      **OpaqueDeviceConfiguration 以驅動供應商所定義的格式提供驅動的配置參數。**
+      **OpaqueDeviceConfiguration 以驅動供應商所定義的格式提供驅動的設定參數。**
 
       <!--
       - **devices.config.opaque.driver** (string), required
@@ -141,7 +141,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
 
       - **devices.config.opaque.driver** (string)，必需
 
-        driver 用於確定需要將這些配置參數傳遞給哪個 kubelet 插件。
+        driver 用於確定需要將這些設定參數傳遞給哪個 kubelet 插件。
         
         驅動開發者所提供的准入策略可以使用此字段來決定是否需要校驗這些參數。
         
@@ -211,7 +211,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
         // On the wire, the JSON will look something like this:
         -->
 
-        // 在網絡上，JSON 看起來像這樣：
+        // 在網路上，JSON 看起來像這樣：
 
         ```json
         {
@@ -248,10 +248,10 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
 
       **原子性：將在合併期間被替換**
       
-      requests 列舉了配置適用的請求的名稱。如果爲空，則適用於所有請求。
+      requests 列舉了設定適用的請求的名稱。如果爲空，則適用於所有請求。
 
       對子請求的引用必須包含主請求的名稱，並可以使用格式 `<主請求>[/<子請求>]` 來包含子請求。
-      如果只提供主請求，則此配置適用於所有子請求。
+      如果只提供主請求，則此設定適用於所有子請求。
 
 
   <!--
@@ -387,12 +387,12 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
 
       - **devices.requests.exactly.deviceClassName** (string)，必需
 
-        deviceClassName 引用特定的 DeviceClass，它可以定義要由此請求所繼承的額外配置和選擇算符。
+        deviceClassName 引用特定的 DeviceClass，它可以定義要由此請求所繼承的額外設定和選擇算符。
       
         deviceClassName 是必需的。
       
         管理員通過僅爲允許的設備使用選擇算符安裝類，就可以使用此字段限制哪些設備可以被請求。
-        如果用戶可以自由請求任何設備而沒有限制，則管理員可以創建一個空的 DeviceClass 供用戶引用。
+        如果使用者可以自由請求任何設備而沒有限制，則管理員可以創建一個空的 DeviceClass 供使用者引用。
 
       <!--
       - **devices.requests.exactly.adminAccess** (boolean)
@@ -550,7 +550,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
             device.driver 字段可用於檢查特定驅動，既可以作爲高層次的前提條件（即你只想考慮來自此驅動的設備），
             也可以作爲考慮來自不同驅動的設備的多子句表達式的一部分。
           
-            attribute 中每個元素的值類型由設備定義，編寫這些表達式的用戶必須查閱其特定驅動的文檔。
+            attribute 中每個元素的值類型由設備定義，編寫這些表達式的使用者必須查閱其特定驅動的文檔。
             capacity 中元素的值類型爲 Quantity。
           
             如果在 device.attributes 或 device.capacity 中使用未知前綴進行查找，
@@ -697,7 +697,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
 
       DRA 尚未實現打分邏輯，因此調度器將選擇滿足申領中所有請求的第一組設備。
       如果在多個節點上都能滿足這些要求，則最終選擇哪個節點由其他調度特性決定。
-      這意味着最終分配到申領的設備集合可能不是集羣中可用的最優選擇。打分邏輯將在未來實現。
+      這意味着最終分配到申領的設備集合可能不是叢集中可用的最優選擇。打分邏輯將在未來實現。
 
       <!--
       <a name="DeviceSubRequest"></a>
@@ -723,12 +723,12 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
 
       - **devices.requests.firstAvailable.deviceClassName**（string，必需）
 
-        deviceClassName 引用特定的 DeviceClass，它可以定義要由此請求所繼承的額外配置和選擇算符。
+        deviceClassName 引用特定的 DeviceClass，它可以定義要由此請求所繼承的額外設定和選擇算符。
       
-        類是必需的。具體哪些類可用取決於集羣。
+        類是必需的。具體哪些類可用取決於叢集。
       
         管理員通過僅爲允許的設備使用選擇算符安裝類，就可以使用此字段限制哪些設備可以被請求。
-        如果用戶可以自由請求任何設備而沒有限制，則管理員可以創建一個空的 DeviceClass 供用戶引用。
+        如果使用者可以自由請求任何設備而沒有限制，則管理員可以創建一個空的 DeviceClass 供使用者引用。
 
       <!--
       - **devices.requests.firstAvailable.name** (string), required
@@ -740,7 +740,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
 
       - **devices.requests.firstAvailable.name** (string), required
 
-        name 可用於在申領的約束列表或配置列表中引用此子請求。引用格式必須爲 `<主請求>/<子請求>`。
+        name 可用於在申領的約束列表或設定列表中引用此子請求。引用格式必須爲 `<主請求>/<子請求>`。
         
         必須是 DNS 標籤。
 
@@ -873,7 +873,7 @@ ResourceClaimSpec 定義在 ResourceClaim 中正在被請求的資源及其配�
             device.driver 字段可用於檢查特定驅動，既可以作爲高層次的前提條件（即你只想考慮來自此驅動的設備），
             也可以作爲考慮來自不同驅動的設備的多子句表達式的一部分。
           
-            attribute 中每個元素的值類型由設備定義，編寫這些表達式的用戶必須查閱其特定驅動的文檔。
+            attribute 中每個元素的值類型由設備定義，編寫這些表達式的使用者必須查閱其特定驅動的文檔。
             capacity 中元素的值類型爲 Quantity。
             
             <!--
@@ -1057,10 +1057,10 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
       **原子性：將在合併期間被替換**
 
-      此字段是所有申領和類配置參數的組合。驅動可以基於某標誌來區分這些參數。
+      此字段是所有申領和類設定參數的組合。驅動可以基於某標誌來區分這些參數。
 
-      字段包括在結果中沒有分配設備的驅動的配置參數，因爲由驅動決定它們支持哪些配置參數。
-      它們可以靜默忽略未知的配置參數。
+      字段包括在結果中沒有分配設備的驅動的設定參數，因爲由驅動決定它們支持哪些設定參數。
+      它們可以靜默忽略未知的設定參數。
 
       <a name="DeviceAllocationConfiguration"></a>
       **DeviceAllocationConfiguration 嵌入在 AllocationResult 中。**
@@ -1080,14 +1080,14 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
       - **allocation.devices.config.source** (string)，必需
 
-        source 記錄配置是否來自某類（因此不是普通用戶能夠設置的內容）或者來自某申領。
+        source 記錄設定是否來自某類（因此不是普通使用者能夠設置的內容）或者來自某申領。
 
       - **allocation.devices.config.opaque** (OpaqueDeviceConfiguration)
 
-        opaque 提供特定於驅動的配置參數。
+        opaque 提供特定於驅動的設定參數。
 
         <a name="OpaqueDeviceConfiguration"></a>
-        **OpaqueDeviceConfiguration 包含由以驅動供應商所定義的格式提供驅動的配置參數。**
+        **OpaqueDeviceConfiguration 包含由以驅動供應商所定義的格式提供驅動的設定參數。**
 
         <!--
         - **allocation.devices.config.opaque.driver** (string), required
@@ -1101,9 +1101,9 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
         - **allocation.devices.config.opaque.driver** (string)，必需
 
-          driver 用於確定需要將這些配置參數傳遞給哪個 kubelet 插件。
+          driver 用於確定需要將這些設定參數傳遞給哪個 kubelet 插件。
 
-          由驅動開發者提供的准入策略可以使用此字段來決定是否需要驗證這些配置參數。
+          由驅動開發者提供的准入策略可以使用此字段來決定是否需要驗證這些設定參數。
 
           必須是 DNS 子域，並且應以驅動供應商擁有的 DNS 域結尾。
 
@@ -1171,7 +1171,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
           // On the wire, the JSON will look something like this:
           -->
 
-          // 在網絡上，JSON 將類似於：
+          // 在網路上，JSON 將類似於：
 
           ```json
           {
@@ -1208,10 +1208,10 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
         **原子性：將在合併期間被替換**
 
-        requests 列舉配置適用的請求名稱。如果爲空，則適用於所有請求。
+        requests 列舉設定適用的請求名稱。如果爲空，則適用於所有請求。
 
         對子請求的引用必須包含主請求的名稱，並可以使用格式 `<主請求>[/<子請求>]` 來包含子請求。
-        如果只提供主請求，則此配置適用於所有子請求。
+        如果只提供主請求，則此設定適用於所有子請求。
 
     <!--
     - **allocation.devices.results** ([]DeviceRequestAllocationResult)
@@ -1518,7 +1518,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
     **映射：合併時將保留 type 鍵的唯一值**
 
     conditions 包含對設備狀態的最新觀測結果。
-    如果設備已經根據類和申領配置飲用完成配置，則 `Ready` 狀況應爲 True。
+    如果設備已經根據類和申領設定飲用完成設定，則 `Ready` 狀況應爲 True。
 
     條目數量不得超過 8 個。
 
@@ -1660,7 +1660,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
     // On the wire, the JSON will look something like this:
     -->
 
-    // 在網絡上，JSON 看起來像這樣：
+    // 在網路上，JSON 看起來像這樣：
     
     ```json
     	{
@@ -1694,11 +1694,11 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
   - **devices.networkData**（NetworkDeviceData）
 
-    networkData 包含特定於設備的網絡相關信息。
+    networkData 包含特定於設備的網路相關信息。
 
     <a name="NetworkDeviceData"></a>
-    **NetworkDeviceData 提供已分配設備的網絡相關細節。
-    此信息可以由驅動或其他組件填充，用於在網絡上下文中配置或標識設備。**
+    **NetworkDeviceData 提供已分配設備的網路相關細節。
+    此信息可以由驅動或其他組件填充，用於在網路上下文中設定或標識設備。**
 
     <!--
     - **devices.networkData.hardwareAddress** (string)
@@ -1710,7 +1710,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
     - **devices.networkData.hardwareAddress** (string)
 
-      hardwareAddress 表示設備網絡接口的硬件地址（例如 MAC 地址）。
+      hardwareAddress 表示設備網路接口的硬件地址（例如 MAC 地址）。
 
       長度不得超過 128 個字符。
 
@@ -1724,8 +1724,8 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
     - **devices.networkData.interfaceName** (string)
 
-      interfaceName 指定與已分配設備關聯的網絡接口的名稱。
-      這可能是正分配在 Pod 中的物理或虛擬網絡接口的名稱。
+      interfaceName 指定與已分配設備關聯的網路接口的名稱。
+      這可能是正分配在 Pod 中的物理或虛擬網路接口的名稱。
       
       長度不得超過 256 個字符。
 
@@ -1741,7 +1741,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
       **原子性：將在合併期間被替換**
       
-      ips 列舉分配給設備網絡接口的網絡地址。這可以包括 IPv4 和 IPv6 地址。
+      ips 列舉分配給設備網路接口的網路地址。這可以包括 IPv4 和 IPv6 地址。
       IP 使用 CIDR 表示法，包含地址和關聯的子網掩碼，例如
       "192.0.2.5/24" 是 IPv4 地址，"2001:db8::5/64" 是 IPv6 地址。
 
@@ -1770,11 +1770,11 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
   Both schedulers try to add their pod to the claim.status.reservedFor field, but only the update that reaches the API server first gets stored. The other one fails with an error and the scheduler which issued it knows that it must put the pod back into the queue, waiting for the ResourceClaim to become usable again.
   -->
 
-  在有多個調度器實例的集羣中，兩個 Pod 可能會被不同的調度器同時調度。
+  在有多個調度器實例的叢集中，兩個 Pod 可能會被不同的調度器同時調度。
   當它們引用同一個已達到最大使用者數量的 ResourceClaim 時，只能有一個 Pod 被調度。
 
   兩個調度器都嘗試將它們的 Pod 添加到 claim.status.reservedFor 字段，
-  但只有第一個到達 API 服務器的更新會被存儲，另一個會因錯誤而失敗。
+  但只有第一個到達 API 伺服器的更新會被存儲，另一個會因錯誤而失敗。
   發出此請求的調度器知道它必須將 Pod 重新放回隊列，等待 ResourceClaim 再次可用。
 
   <!--
@@ -1788,7 +1788,7 @@ ResourceClaimStatus 跟蹤資源是否已被分配以及產生的結果是什麼
 
   <a name="ResourceClaimConsumerReference"></a>
   **ResourceClaimConsumerReference 包含足夠的信息以便定位 ResourceClaim 的使用者。
-  用戶必須是與 ResourceClaim 在同一名字空間中的資源。**
+  使用者必須是與 ResourceClaim 在同一名字空間中的資源。**
 
   <!--
   - **reservedFor.name** (string), required

@@ -33,7 +33,7 @@ Kubernetes 是容器化應用程序的出色管理者。因此，[衆多](https:
 [開始](http://www.nextplatform.com/2015/11/12/inside-ebays-shift-to-kubernetes-and-containers-atop-openstack/) 在 Kubernetes 中運行應用程序。
 
 Kubernetes 特殊興趣小組 ([SIGs](https://github.com/kubernetes/community/blob/master/README.md#special-interest-groups-sig))
-自 1.0 版本開始就一直致力於支持開發者和運營商社區。圍繞網絡、存儲、擴展和其他運營領域組織的人員。
+自 1.0 版本開始就一直致力於支持開發者和運營商社區。圍繞網路、存儲、擴展和其他運營領域組織的人員。
 
 隨着 Kubernetes 的興起，對工具、最佳實踐以及圍繞構建和運營雲原生應用程序的討論的需求也隨之增加。爲了滿足這一需求，
 Kubernetes [SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps) 應運而生。

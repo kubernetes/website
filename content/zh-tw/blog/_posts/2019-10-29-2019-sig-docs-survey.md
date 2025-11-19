@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 文檔最終用戶調研"
+title: "Kubernetes 文檔最終使用者調研"
 date: 2019-10-29
 slug: kubernetes-documentation-end-user-survey
 ---
@@ -20,7 +20,7 @@ In September, SIG Docs conducted its first survey about the [Kubernetes
 documentation](https://kubernetes.io/docs/). We'd like to thank the CNCF's Kim
 McMahon for helping us create the survey and access the results.
 -->
-9月，SIG Docs 進行了第一次關於 [Kubernetes 文檔](https://kubernetes.io/docs/)的用戶調研。我們要感謝 CNCF
+9月，SIG Docs 進行了第一次關於 [Kubernetes 文檔](https://kubernetes.io/docs/)的使用者調研。我們要感謝 CNCF
 的 Kim McMahon 幫助我們創建調查並獲取結果。
 
 <!--
@@ -71,7 +71,7 @@ questions, and respondents took an average of 4 minutes to complete the survey.
 - 64.65% have been using the Kubernetes documentation for more than 12 months
 - 95.96% read the documentation in English
 -->
-- 48.48% 是經驗豐富的 Kubernetes 用戶，26.26% 是專家，25.25% 是初學者
+- 48.48% 是經驗豐富的 Kubernetes 使用者，26.26% 是專家，25.25% 是初學者
 - 57.58% 的人同時使用 Kubernetes 作爲管理員和開發人員
 - 64.65% 的人使用 Kubernetes 文檔超過 12 個月
 - 95.96% 的人閱讀英文文檔

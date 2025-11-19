@@ -130,7 +130,7 @@ five environment variables to stdout. It repeats this every ten seconds.
 
 Next, get a shell into the container that is running in your Pod:
 -->
-要了解爲什麼這些值出現在日誌中，請查看配置文件中的 `command` 和 `args` 字段。
+要了解爲什麼這些值出現在日誌中，請查看設定文件中的 `command` 和 `args` 字段。
 當容器啓動時，它將五個環境變量的值寫入標準輸出。每十秒重複執行一次。
 
 接下來，進入 Pod 中運行的容器，打開一個 Shell：

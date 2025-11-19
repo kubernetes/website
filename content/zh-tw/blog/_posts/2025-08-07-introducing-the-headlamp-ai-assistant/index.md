@@ -30,7 +30,7 @@ greater clarity and ease.
 
 爲了簡化 Kubernetes 的管理和故障排除，我們非常高興地推出
 [Headlamp AI 助手](https://github.com/headlamp-k8s/plugins/tree/main/ai-assistant#readme)：
-這是 Headlamp 的一個強大的新插件，可以幫助你更清晰、更輕鬆地理解和操作你的 Kubernetes 集羣和應用程序。
+這是 Headlamp 的一個強大的新插件，可以幫助你更清晰、更輕鬆地理解和操作你的 Kubernetes 叢集和應用程序。
 
 <!--
 Whether you're a seasoned engineer or just getting started, the AI Assistant offers:
@@ -53,9 +53,9 @@ Whether you're a seasoned engineer or just getting started, the AI Assistant off
 Here is a demo of the AI Assistant in action as it helps troubleshoot an
 application running with issues in a Kubernetes cluster:
 -->
-在這裏，我們展示 AI 助手在 Kubernetes 集羣中處理應用程序問題時的工作方式：
+在這裏，我們展示 AI 助手在 Kubernetes 叢集中處理應用程序問題時的工作方式：
 
-以下是 AI 助手幫助排查 Kubernetes 集羣中運行有問題的應用程序的演示：
+以下是 AI 助手幫助排查 Kubernetes 叢集中運行有問題的應用程序的演示：
 
 {{< youtube id="GzXkUuCTcd4" title="Headlamp AI Assistant" class="youtube-quote-sm" >}}
 
@@ -73,7 +73,7 @@ or having to traverse pages and pages of documentation like before.
 
 大型語言模型（LLM）不僅改變了我們訪問數據的方式，也改變了我們與其交互的方式。
 像 ChatGPT 這樣的工具的興起開啓了一個充滿可能性的世界，激發了一波新的應用浪潮。
-用自然語言提問或給出命令是直觀的，特別是對於非技術用戶而言。現在每個人都可以快速詢問如何做 X 或 Y，
+用自然語言提問或給出命令是直觀的，特別是對於非技術使用者而言。現在每個人都可以快速詢問如何做 X 或 Y，
 而不會感到尷尬，也不必像以前那樣遍歷一頁又一頁的文檔。
 
 <!--
@@ -87,8 +87,8 @@ ready to respond to contextual queries and perform actions directly from the
 interface.
 -->
 因此，Headlamp AI Assistant 將對話式 UI 帶入 [Headlamp](https://headlamp.dev)，
-由 LLM 驅動，Headlamp 用戶可以使用自己的 API 密鑰進行配置。它作爲一個 Headlamp 插件提供，
-易於集成到你的現有設置中。用戶可以通過安裝插件並用自己的 LLM API 密鑰進行配置來啓用它，
+由 LLM 驅動，Headlamp 使用者可以使用自己的 API 密鑰進行設定。它作爲一個 Headlamp 插件提供，
+易於集成到你的現有設置中。使用者可以通過安裝插件並用自己的 LLM API 密鑰進行設定來啓用它，
 這使他們能夠控制哪個模型爲助手提供動力。一旦啓用，助手就會成爲 Headlamp UI 的一部分，
 準備好響應上下文查詢，並直接從界面執行操作。
 
@@ -105,9 +105,9 @@ with a human assistant.
 -->
 ## 上下文就是一切
 
-正如預期的那樣，AI 助手專注於幫助用戶理解 Kubernetes 概念。然而，儘管從
+正如預期的那樣，AI 助手專注於幫助使用者理解 Kubernetes 概念。然而，儘管從
 Headlamp 的 UI 回答與 Kubernetes 相關的問題有很多價值，
-但我們認爲這種集成的最大好處在於它能夠使用用戶在應用程序中體驗到的上下文信息。
+但我們認爲這種集成的最大好處在於它能夠使用使用者在應用程序中體驗到的上下文信息。
 因此，Headlamp AI 助手知道你當前在 Headlamp 中查看的內容，
 這讓交互感覺更像是在與人類助手一起工作。
 
@@ -121,8 +121,8 @@ what used to take multiple steps into a quick, conversational flow.
 Sharing the context from Headlamp is not a trivial task though, so it's
 something we will keep working on perfecting.
 -->
-例如，如果一個 Pod 出現故障，用戶只需問 **“這裏出了什麼問題？”**，
-AI 助手就會回答根本原因，如缺少環境變量或鏡像名稱中的拼寫錯誤。
+例如，如果一個 Pod 出現故障，使用者只需問 **“這裏出了什麼問題？”**，
+AI 助手就會回答根本原因，如缺少環境變量或映像檔名稱中的拼寫錯誤。
 後續的問題如 **“我該如何修復？”** 能讓 AI 助手建議一個解決方案，
 將原本需要多個步驟的過程簡化爲快速的對話流。
 
@@ -143,11 +143,11 @@ operations, the AI Assistant does check with the user for permission to run them
 -->
 ## 工具
 
-UI 中的上下文很有幫助，但有時還需要額外的功能。如果用戶正在查看 Pod 列表並想要識別有問題的 Deployment，
+UI 中的上下文很有幫助，但有時還需要額外的功能。如果使用者正在查看 Pod 列表並想要識別有問題的 Deployment，
 切換視圖不應是必要的。爲此，AI 助手包含了對 Kubernetes 工具的支持。
-這允許提出諸如 **“獲取所有有問題的 Deployment”** 的問題，促使助手從當前集羣中獲取並顯示相關數據。
-同樣，如果用戶在 AI 指出哪個部署需要重啓後請求執行類似 **“重啓那個 Deployment”** 的操作，
-它也可以做到。對於寫操作，AI 助手確實會向用戶檢查是否獲得運行權限。
+這允許提出諸如 **“獲取所有有問題的 Deployment”** 的問題，促使助手從當前叢集中獲取並顯示相關數據。
+同樣，如果使用者在 AI 指出哪個部署需要重啓後請求執行類似 **“重啓那個 Deployment”** 的操作，
+它也可以做到。對於寫操作，AI 助手確實會向使用者檢查是否獲得運行權限。
 
 <!--
 ## AI Plugins
@@ -164,7 +164,7 @@ integrate it as well, for a more plug-and-play fashion.
 -->
 ## AI 插件
 
-儘管 AI 助手的初始版本已經對 Kubernetes 用戶很有用，但未來的迭代將進一步擴展其功能。
+儘管 AI 助手的初始版本已經對 Kubernetes 使用者很有用，但未來的迭代將進一步擴展其功能。
 目前，助手僅支持 Kubernetes 工具，但與 Headlamp 插件的進一步集成正在進行中。
 類似於，通過 Flux 插件我們可以獲得更豐富的 GitOps 見解、通過 Prometheus 進行監控、
 使用 Helm 進行包管理等。
@@ -183,7 +183,7 @@ Stay tuned for the future versions of the Headlamp AI Assistant!
 -->
 ## 試用一下！
 
-我們希望 AI 助手的第一個版本能夠幫助用戶更有效地管理 Kubernetes 集羣，
-並幫助新用戶應對學習曲線。我們邀請你試用這個早期版本，並向我們提供反饋。
-AI 助手插件可以從桌面版的 Headlamp 插件目錄中安裝，或者在部署 Headlamp 時使用容器鏡像安裝。
+我們希望 AI 助手的第一個版本能夠幫助使用者更有效地管理 Kubernetes 叢集，
+並幫助新使用者應對學習曲線。我們邀請你試用這個早期版本，並向我們提供反饋。
+AI 助手插件可以從桌面版的 Headlamp 插件目錄中安裝，或者在部署 Headlamp 時使用容器映像檔安裝。
 敬請期待 Headlamp AI 助手的未來版本！

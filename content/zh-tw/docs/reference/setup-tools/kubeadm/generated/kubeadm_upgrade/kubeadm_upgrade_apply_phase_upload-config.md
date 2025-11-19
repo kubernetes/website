@@ -2,7 +2,7 @@
 <!--
 Upload the kubeadm and kubelet configurations to ConfigMaps
 -->
-將 kubeadm 和 kubelet 配置上傳到 ConfigMap。
+將 kubeadm 和 kubelet 設定上傳到 ConfigMap。
 
 <!--
 ### Synopsis
@@ -11,7 +11,7 @@ Upload the kubeadm and kubelet configurations to ConfigMaps
 -->
 ### 概要
 
-將 kubeadm 和 kubelet 配置上傳到 ConfigMap。
+將 kubeadm 和 kubelet 設定上傳到 ConfigMap。
 
 ```shell
 kubeadm upgrade apply phase upload-config [flags]

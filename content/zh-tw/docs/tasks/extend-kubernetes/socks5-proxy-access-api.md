@@ -12,8 +12,8 @@ min-kubernetes-server-version: v1.24
 This page shows how to use a SOCKS5 proxy to access the API of a remote Kubernetes cluster.
 This is useful when the cluster you want to access does not expose its API directly on the public internet.
 -->
-本文展示瞭如何使用 SOCKS5 代理訪問遠程 Kubernetes 集羣的 API。
-當你要訪問的集羣不直接在公共 Internet 上公開其 API 時，這很有用。
+本文展示瞭如何使用 SOCKS5 代理訪問遠程 Kubernetes 叢集的 API。
+當你要訪問的叢集不直接在公共 Internet 上公開其 API 時，這很有用。
 
 ## {{% heading "prerequisites" %}}
 
@@ -23,8 +23,8 @@ This is useful when the cluster you want to access does not expose its API direc
 You need SSH client software (the `ssh` tool), and an SSH service running on the remote server.
 You must be able to log in to the SSH service on the remote server.
 -->
-你需要 SSH 客戶端軟件（`ssh` 工具），並在遠程服務器上運行 SSH 服務。
-你必須能夠登錄到遠程服務器上的 SSH 服務。
+你需要 SSH 客戶端軟件（`ssh` 工具），並在遠程伺服器上運行 SSH 服務。
+你必須能夠登錄到遠程伺服器上的 SSH 服務。
 
 <!-- steps -->
 
@@ -38,7 +38,7 @@ You must be able to log in to the SSH service on the remote server.
 This example tunnels traffic using SSH, with the SSH client and server acting as a SOCKS proxy.
 You can instead use any other kind of [SOCKS5](https://en.wikipedia.org/wiki/SOCKS#SOCKS5) proxies.
 -->
-此示例使用 SSH 隧道傳輸流量，SSH 客戶端和服務器充當 SOCKS 代理。
+此示例使用 SSH 隧道傳輸流量，SSH 客戶端和伺服器充當 SOCKS 代理。
 你可以使用其他任意類型的 [SOCKS5](https://zh.wikipedia.org/wiki/SOCKS#SOCKS5) 代理代替。
 {{</ note >}}
 
@@ -55,8 +55,8 @@ Figure 1 represents what you're going to achieve in this task.
 
 * 你有一臺在後面的步驟中被稱爲本地計算機的客戶端計算機，你將在這臺計算機上創建與
   Kubernetes API 對話的請求。
-* Kubernetes 服務器/API 託管在遠程服務器上。
-* 你將使用 SSH 客戶端和服務器軟件在本地和遠程服務器之間創建安全的 SOCKS5 隧道。
+* Kubernetes 伺服器/API 託管在遠程伺服器上。
+* 你將使用 SSH 客戶端和伺服器軟件在本地和遠程伺服器之間創建安全的 SOCKS5 隧道。
   客戶端和 Kubernetes API 之間的 HTTPS 流量將流經 SOCKS5 隧道，該隧道本身通過
   SSH 進行隧道傳輸。
 
@@ -90,8 +90,8 @@ graph LR;
   end
   local_ssh[SSH <br>SOCKS5 <br> 代理]-- SSH 隧道 -->sshd
   
-  subgraph remote[遠程服務器]
-  sshd[SSH <br> 服務器]-- 本地流量 -->service1;
+  subgraph remote[遠程伺服器]
+  sshd[SSH <br> 伺服器]-- 本地流量 -->service1;
   end
   client([客戶端])-. 通過代理傳遞的 <br> HTTPS 流量 .->service1[Kubernetes API];
 
@@ -114,7 +114,7 @@ The following command starts a SOCKS5 proxy between your client machine and the 
 -->
 ## 使用 SSH 創建 SOCKS5 代理
 
-下面的命令在你的客戶端計算機和遠程 SOCKS 服務器之間啓動一個 SOCKS5 代理：
+下面的命令在你的客戶端計算機和遠程 SOCKS 伺服器之間啓動一個 SOCKS5 代理：
 
 ```shell
 # 運行此命令後，SSH 隧道繼續在前臺運行
@@ -132,7 +132,7 @@ The SOCKS5 proxy lets you connect to your cluster's API server based on the foll
 * `-D 1080`: 在本地端口 1080 上打開一個 SOCKS 代理。
 * `-q`: 靜音模式。導致大多數警告和診斷消息被抑制。
 * `-N`: 不執行遠程命令。僅用於轉發端口。
-* `username@kubernetes-remote-server.example`：運行 Kubernetes 集羣的遠程 SSH 服務器（例如：堡壘主機）。
+* `username@kubernetes-remote-server.example`：運行 Kubernetes 叢集的遠程 SSH 伺服器（例如：堡壘主機）。
 
 <!--
 ## Client configuration
@@ -141,9 +141,9 @@ To access the Kubernetes API server through the proxy you must instruct `kubectl
 the `SOCKS` proxy we created earlier. Do this by either setting the appropriate environment variable,
 or via the `proxy-url` attribute in the kubeconfig file. Using an environment variable:
 -->
-## 客戶端配置
+## 客戶端設定
 
-要通過代理訪問 Kubernetes API 服務器，你必須指示 `kubectl` 通過我們之前創建的 SOCKS5
+要通過代理訪問 Kubernetes API 伺服器，你必須指示 `kubectl` 通過我們之前創建的 SOCKS5
 代理發送查詢。
 這可以通過設置適當的環境變量或通過 kubeconfig 文件中的 `proxy-url` 屬性來實現。
 使用環境變量：
@@ -164,7 +164,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: LRMEMMW2 # 簡化以便閱讀
-    # “Kubernetes API”服務器，換言之，kubernetes-remote-server.example 的 IP 地址
+    # “Kubernetes API”伺服器，換言之，kubernetes-remote-server.example 的 IP 地址
     server: https://<API_SERVER_IP_ADDRESS>:6443
     # 上圖中的 “SSH SOCKS5代理”（內置 DNS 解析）
     proxy-url: socks5://localhost:1080
@@ -189,7 +189,7 @@ Once you have created the tunnel via the ssh command mentioned earlier, and defi
 the `proxy-url` attribute, you can interact with your cluster through that proxy. For example:
 -->
 一旦你通過前面提到的 SSH 命令創建了隧道，並定義了環境變量或 `proxy-url` 屬性，
-你就可以通過該代理與你的集羣交互。例如：
+你就可以通過該代理與你的叢集交互。例如：
 
 ```shell
 kubectl get pods
@@ -209,7 +209,7 @@ kube-system   coredns-85cb69466-klwq8                  1/1     Running     0    
 -->
 - 在 `kubectl` 1.24 之前，大多數 `kubectl` 命令在使用 socks 代理時都有效，除了 `kubectl exec`。
 - `kubectl` 支持讀取 `HTTPS_PROXY` 和 `https_proxy` 環境變量。 這些被其他支持 SOCKS 的程序使用，例如 `curl`。
-  因此在某些情況下，在命令行上定義環境變量會更好：
+  因此在某些情況下，在命令列上定義環境變量會更好：
   ```shell
   HTTPS_PROXY=socks5://localhost:1080 kubectl get pods
   ```
@@ -226,11 +226,11 @@ kube-system   coredns-85cb69466-klwq8                  1/1     Running     0    
   to your local client computer. Instead, it refers to `localhost` as known on the proxy server (eg the ssh bastion).
 -->
 - 通過使用 `socks5h` 協議名稱而不是上面顯示的更廣爲人知的 `socks5` 協議，
-  可以進一步保護 k8s API 服務器主機名免受 DNS 泄漏影響。
-  這種情況下，`kubectl` 將要求代理服務器（例如 SSH 堡壘機）解析 k8s API 服務器域名，
+  可以進一步保護 k8s API 伺服器主機名免受 DNS 泄漏影響。
+  這種情況下，`kubectl` 將要求代理伺服器（例如 SSH 堡壘機）解析 k8s API 伺服器域名，
   而不是在運行 `kubectl` 的系統上進行解析。
-  另外還要注意，使用 `socks5h` 時，像 `https://localhost:6443/api` 這樣的 k8s API 服務器 URL 並不是指你的本地客戶端計算機。
-  相反，它指向的是代理服務器（例如 SSH 堡壘機）上已知的 `localhost`。
+  另外還要注意，使用 `socks5h` 時，像 `https://localhost:6443/api` 這樣的 k8s API 伺服器 URL 並不是指你的本地客戶端計算機。
+  相反，它指向的是代理伺服器（例如 SSH 堡壘機）上已知的 `localhost`。
 {{</ note >}}
 
 <!--

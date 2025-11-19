@@ -33,7 +33,7 @@ kubeadm init phase certs all [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，將使用默認網絡接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，將使用默認網路接口。
 </p>
 </td>
 </tr>
@@ -47,7 +47,7 @@ API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，將使
 <!--
 Optional extra Subject Alternative Names (SANs) to use for the API Server serving certificate. Can be both IP addresses and DNS names.
 -->
-用於 API 服務器服務證書的可選額外替代名稱（SAN）。可以同時使用 IP 地址和 DNS 名稱。
+用於 API 伺服器服務證書的可選額外替代名稱（SAN）。可以同時使用 IP 地址和 DNS 名稱。
 </p>
 </td>
 </tr>
@@ -80,7 +80,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>

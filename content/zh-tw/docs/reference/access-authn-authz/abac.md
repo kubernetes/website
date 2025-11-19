@@ -21,7 +21,7 @@ Attribute-based access control (ABAC) defines an access control paradigm whereby
 to users through the use of policies which combine attributes together.
 -->
 基於屬性的訪問控制（Attribute-based access control，ABAC）定義了訪問控制範例，
-ABAC 通過使用將屬性組合在一起的策略來向用戶授予訪問權限。
+ABAC 通過使用將屬性組合在一起的策略來向使用者授予訪問權限。
 
 <!-- body -->
 
@@ -63,10 +63,10 @@ properties:
       `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all
       unauthenticated requests.
 -->
-- `spec` 配置爲具有以下映射的屬性：
+- `spec` 設定爲具有以下映射的屬性：
   - 主體匹配屬性：
-    - `user`，字符串類型；來自 `--token-auth-file` 的用戶字符串，如果你指定 `user`，它必須與驗證用戶的用戶名匹配。
-    - `group`，字符串類型；如果指定 `group`，它必須與經過身份驗證的用戶的一個組匹配，
+    - `user`，字符串類型；來自 `--token-auth-file` 的使用者字符串，如果你指定 `user`，它必須與驗證使用者的使用者名匹配。
+    - `group`，字符串類型；如果指定 `group`，它必須與經過身份驗證的使用者的一個組匹配，
       `system:authenticated` 匹配所有經過身份驗證的請求。
       `system:unauthenticated` 匹配所有未經過身份驗證的請求。
   <!--
@@ -161,11 +161,11 @@ resource, and nonResourcePath properties set to `"*"`.
 檢查屬性的元組，以匹配策略文件中的每個策略。如果至少有一行匹配請求屬性，
 則請求被鑑權（但仍可能無法通過稍後的合法性檢查）。
 
-要允許任何經過身份驗證的用戶執行某些操作，請將策略組屬性設置爲 `"system:authenticated"`。
+要允許任何經過身份驗證的使用者執行某些操作，請將策略組屬性設置爲 `"system:authenticated"`。
 
-要允許任何未經身份驗證的用戶執行某些操作，請將策略組屬性設置爲 `"system:unauthenticated"`。
+要允許任何未經身份驗證的使用者執行某些操作，請將策略組屬性設置爲 `"system:unauthenticated"`。
 
-要允許用戶執行任何操作，請使用設置爲 `"*"` 的 apiGroup、namespace、resource 和
+要允許使用者執行任何操作，請使用設置爲 `"*"` 的 apiGroup、namespace、resource 和
 nonResourcePath 屬性編寫策略。
 
 <!--
@@ -197,7 +197,7 @@ up the verbosity:
     kubectl --v=8 version
 -->
 * `/api`，`/api/*`，`/apis` 和 `/apis/*` 用於 API 版本協商。
-* `/version` 通過 `kubectl version` 檢索服務器版本。
+* `/version` 通過 `kubectl version` 檢索伺服器版本。
 * `/swaggerapi/*` 用於創建 / 更新操作。
 
 要檢查涉及到特定 kubectl 操作的 HTTP 調用，你可以調整詳細程度：
@@ -268,7 +268,7 @@ according to the naming convention:
 
 ## 服務賬號的快速說明   {#a-quick-note-on-service-accounts}
 
-每個服務賬號都有對應的 ABAC 用戶名，服務賬號的用戶名是根據命名約定生成的：
+每個服務賬號都有對應的 ABAC 使用者名，服務賬號的使用者名是根據命名約定生成的：
 
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
@@ -297,4 +297,4 @@ privilege to the API using ABAC, you would add this line to your policy file:
 <!--
 The apiserver will need to be restarted to pick up the new policy lines.
 -->
-API 服務器將需要被重新啓動以獲取新的策略行。
+API 伺服器將需要被重新啓動以獲取新的策略行。

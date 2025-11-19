@@ -15,14 +15,14 @@ weight: 20
 <!--
 This page shows a couple of quick ways to create a Calico cluster on Kubernetes.
 -->
-本頁展示了幾種在 Kubernetes 上快速創建 Calico 集羣的方法。
+本頁展示了幾種在 Kubernetes 上快速創建 Calico 叢集的方法。
 
 ## {{% heading "prerequisites" %}}
 
 <!--
 Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-google-kubernetes-engine-gke) or [local](#creating-a-local-calico-cluster-with-kubeadm) cluster.
 -->
-確定你想部署一個[雲版本](#gke-cluster)還是[本地版本](#local-cluster)的集羣。
+確定你想部署一個[雲版本](#gke-cluster)還是[本地版本](#local-cluster)的叢集。
 
 <!-- steps -->
 
@@ -31,14 +31,14 @@ Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-goog
 
 **Prerequisite**: [gcloud](https://cloud.google.com/sdk/docs/quickstarts).
 -->
-## 在 Google Kubernetes Engine (GKE) 上創建一個 Calico 集羣 {#gke-cluster}
+## 在 Google Kubernetes Engine (GKE) 上創建一個 Calico 叢集 {#gke-cluster}
 
 **先決條件**：[gcloud](https://cloud.google.com/sdk/docs/quickstarts)
 
 <!--
 1. To launch a GKE cluster with Calico, include the `--enable-network-policy` flag.
 -->
-1. 啓動一個帶有 Calico 的 GKE 集羣，需要加上參數 `--enable-network-policy`。
+1. 啓動一個帶有 Calico 的 GKE 叢集，需要加上參數 `--enable-network-policy`。
 
    **語法**
    ```shell
@@ -71,9 +71,9 @@ Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-goog
 To get a local single-host Calico cluster in fifteen minutes using kubeadm, refer to the 
 [Calico Quickstart](https://projectcalico.docs.tigera.io/getting-started/kubernetes/).
 -->
-## 使用 kubeadm 創建一個本地 Calico 集羣   {#local-cluster}
+## 使用 kubeadm 創建一個本地 Calico 叢集   {#local-cluster}
 
-使用 kubeadm 在 15 分鐘內得到一個本地單主機 Calico 集羣，請參考
+使用 kubeadm 在 15 分鐘內得到一個本地單主機 Calico 叢集，請參考
 [Calico 快速入門](https://projectcalico.docs.tigera.io/getting-started/kubernetes/)。
 
 ## {{% heading "whatsnext" %}}
@@ -81,7 +81,7 @@ To get a local single-host Calico cluster in fifteen minutes using kubeadm, refe
 <!--
 Once your cluster is running, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 -->
-集羣運行後，
-你可以按照[聲明網絡策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)去嘗試使用
+叢集運行後，
+你可以按照[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)去嘗試使用
 Kubernetes NetworkPolicy。
 

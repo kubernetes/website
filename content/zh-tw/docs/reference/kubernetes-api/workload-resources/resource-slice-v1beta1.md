@@ -59,10 +59,10 @@ When allocating all resources in a pool matching certain criteria or when lookin
 -->
 每當驅動需要更新池時，pool.spec.pool.generation 編號加一，
 並用新的編號和新的資源定義來更新所有 ResourceSlice。
-資源用戶必須僅使用 generation 編號最大的 ResourceSlice，並忽略所有其他 ResourceSlice。
+資源使用者必須僅使用 generation 編號最大的 ResourceSlice，並忽略所有其他 ResourceSlice。
 
 從池中分配符合某些條件的所有資源或在多個不同分配方案間尋找最佳方案時，
-資源用戶應檢查池中的 ResourceSlice 數量（包含在每個 ResourceSlice 中），
+資源使用者應檢查池中的 ResourceSlice 數量（包含在每個 ResourceSlice 中），
 以確定其對池的視圖是否完整，如果不完整，則應等到驅動完成對池的更新。
 
 <!--
@@ -184,7 +184,7 @@ ResourceSliceSpec 包含驅動在一個 ResourceSlice 中所發佈的信息。
 
     resourceSliceCount 是池中帶有對應 generation 編號的 ResourceSlice 的總數。必須大於零。
     
-    資源用戶可以使用此字段檢查他們是否能看到屬於同一池的所有 ResourceSlice。
+    資源使用者可以使用此字段檢查他們是否能看到屬於同一池的所有 ResourceSlice。
 
 <!--
 - **allNodes** (boolean)

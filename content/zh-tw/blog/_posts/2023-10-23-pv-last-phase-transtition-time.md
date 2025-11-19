@@ -28,8 +28,8 @@ cluster administrators are now able to track the last time a PV transitioned to 
 and informed resource management.
 -->
 在最近的 Kubernetes v1.28 版本中，我們（SIG Storage）引入了一項新的 Alpha 級別特性，
-旨在改進 PersistentVolume（PV）存儲管理並幫助集羣管理員更好地瞭解 PV 的生命週期。
-通過將 `lastPhaseTransitionTime` 字段添加到 PV 的狀態中，集羣管理員現在可以跟蹤
+旨在改進 PersistentVolume（PV）存儲管理並幫助叢集管理員更好地瞭解 PV 的生命週期。
+通過將 `lastPhaseTransitionTime` 字段添加到 PV 的狀態中，叢集管理員現在可以跟蹤
 PV 上次轉換到不同[階段](/zh-cn/docs/concepts/storage/persistent-volumes/#phase)的時間，
 從而實現更高效、更明智的資源管理。
 
@@ -45,7 +45,7 @@ phases; for instance, to implement retention policies, perform cleanup, or monit
 -->
 ## 我們爲什麼需要新的 PV 字段？  {#why-new-field}
 
-Kubernetes 中的 PersistentVolume 在爲集羣中運行的工作負載提供存儲資源方面發揮着至關重要的作用。
+Kubernetes 中的 PersistentVolume 在爲叢集中運行的工作負載提供存儲資源方面發揮着至關重要的作用。
 然而，有效管理這些 PV 可能具有挑戰性，特別是在確定 PV 在不同階段（`Pending`、`Bound` 或 `Released`）之間轉換的最後時間時。
 管理員通常需要知道 PV 上次使用或轉換到某些階段的時間；例如，實施保留策略、執行清理或監控存儲運行狀況時。
 
@@ -55,7 +55,7 @@ When we planned the work to introduce the new `lastPhaseTransitionTime` field, w
 wanted to provide a more generic solution that can be used for various use cases,
 including manual cleanup based on the time a volume was last used or producing alerts based on phase transition times.
 -->
-過去，Kubernetes 用戶在使用 `Delete` 保留策略時面臨數據丟失問題，不得不使用更安全的 `Retain` 策略。
+過去，Kubernetes 使用者在使用 `Delete` 保留策略時面臨數據丟失問題，不得不使用更安全的 `Retain` 策略。
 當我們計劃引入新的 `lastPhaseTransitionTime` 字段時，我們希望提供一個更通用的解決方案，
 可用於各種用例，包括根據捲上次使用時間進行手動清理或根據狀態轉變時間生成警報。
 
@@ -80,7 +80,7 @@ For newly created PVs the phase will be set to `Pending` and the `lastPhaseTrans
 <!--
 This feature allows cluster administrators to:
 -->
-此功能允許集羣管理員：
+此功能允許叢集管理員：
 
 <!--
 1. Implement Retention Policies
@@ -104,7 +104,7 @@ This feature allows cluster administrators to:
 2. 監控存儲運行狀況
 
    通過分析 PV 的相變時間，管理員可以更有效地監控存儲運行狀況。
-   例如，他們可以識別處於 `Pending` 階段時間異常長的 PV，這可能表明存儲配置程序存在潛在問題。
+   例如，他們可以識別處於 `Pending` 階段時間異常長的 PV，這可能表明存儲設定程序存在潛在問題。
 
 <!--
 ## How to use it
@@ -125,7 +125,7 @@ Use the `--feature-gates` command line argument:
 如果你想在該特性處於 Alpha 階段時對其進行測試，則需要在 `kube-controller-manager`
 和 `kube-apiserver` 上啓用此特性門控。
 
-使用 `--feature-gates` 命令行參數：
+使用 `--feature-gates` 命令列參數：
 
 ```shell
 --feature-gates="...,PersistentVolumeLastPhaseTransitionTime=true"
@@ -142,7 +142,7 @@ Administrators can then access the new field through the PV status, which can be
 <!--
 Here is an example of how to retrieve the `lastPhaseTransitionTime` for a specific PV using the `kubectl` command-line tool:
 -->
-以下示例展示瞭如何使用 `kubectl` 命令行工具檢索特定 PV 的 `lastPhaseTransitionTime`：
+以下示例展示瞭如何使用 `kubectl` 命令列工具檢索特定 PV 的 `lastPhaseTransitionTime`：
 
 ```shell
 kubectl get pv <pv-name> -o jsonpath='{.status.lastPhaseTransitionTime}'
@@ -160,7 +160,7 @@ The beta phase will allow us to further validate the implementation and ensure i
 ## 未來發展
 
 此特性最初是作爲 Alpha 特性引入的，位於默認情況下禁用的特性門控之下。
-在 Alpha 階段，我們（Kubernetes SIG Storage）將收集最終用戶的反饋並解決發現的任何問題或改進。
+在 Alpha 階段，我們（Kubernetes SIG Storage）將收集最終使用者的反饋並解決發現的任何問題或改進。
 
 一旦收到足夠的反饋，或者沒有收到投訴，該特性就可以進入 Beta 階段。
 Beta 階段將使我們能夠進一步驗證實施並確保其穩定性。

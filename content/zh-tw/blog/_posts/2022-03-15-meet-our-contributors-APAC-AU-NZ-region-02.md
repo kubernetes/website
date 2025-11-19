@@ -121,7 +121,7 @@ API 一致性測試、雲提供商一致性提交以及上游 Kubernetes 和 CNC
 He recounts their early involvement with the Kubernetes project, which began roughly 5 years ago when their firm, ii.nz, demonstrated [network booting from a Raspberry Pi using PXE and running Gitlab in-cluster to install Kubernetes on servers](https://ii.nz/post/bringing-the-cloud-to-your-community/).
 -->
 他講述了他們早期參與 Kubernetes 項目的情況，該項目始於大約 5 年前，當時他們的公司 ii.nz
-演示了[使用 PXE 從 Raspberry Pi 啓動網絡，並在集羣中運行Gitlab，以便在服務器上安裝 Kubernetes ](https://ii.nz/post/bringing-the-cloud-to-your-community/)
+演示了[使用 PXE 從 Raspberry Pi 啓動網路，並在叢集中運行Gitlab，以便在伺服器上安裝 Kubernetes ](https://ii.nz/post/bringing-the-cloud-to-your-community/)
 
 <!--
 He describes their own contributing experience as someone who, at first, tried to do all of the hard lifting on their own, but eventually saw the benefit of group contributions which reduced burnout and task division which allowed folks to keep moving forward on their own momentum.
@@ -146,7 +146,7 @@ Nick Young works at VMware as a technical lead for Contour, a CNCF ingress contr
 -->
 Nick Young 在 VMware 工作，是 CNCF 入口控制器 Contour 的技術負責人。
 他從一開始就積極參與上游 Kubernetes 項目，最終成爲 LTS 工作組的主席，
-他提倡關注用戶。他目前是 SIG Network Gateway API 子項目的維護者。
+他提倡關注使用者。他目前是 SIG Network Gateway API 子項目的維護者。
 
 <!--
 His contribution path was notable in that he began working on major areas of the Kubernetes project early on, skewing his trajectory.
@@ -158,7 +158,7 @@ He asserts the best thing a new contributor can do is to "start contributing". N
 -->
 他斷言，一個新貢獻者能做的最好的事情就是“開始貢獻”。當然，如果與他的工作息息相關，那好極了;
 然而，把非工作時間投入到貢獻中去，從長遠來看可以在工作上獲得回報。
-他認爲，應該鼓勵新的貢獻者，特別是那些目前是 Kubernetes 用戶的人，參與到更高層次的項目討論中來。
+他認爲，應該鼓勵新的貢獻者，特別是那些目前是 Kubernetes 使用者的人，參與到更高層次的項目討論中來。
 
 <!--
 > _Just being active and contributing will get you a long way. Once you've been active for a while, you'll find that you're able to answer questions, which will mean you're asked questions, and before you know it you are an expert._

@@ -109,11 +109,11 @@ Set which Kubernetes cluster `kubectl` communicates with and modifies configurat
 information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
 detailed config file information.
 -->
-## kubectl 上下文和配置   {#kubectl-context-and-configuration}
+## kubectl 上下文和設定   {#kubectl-context-and-configuration}
 
-設置 `kubectl` 與哪個 Kubernetes 集羣進行通信並修改配置信息。
-查看[使用 kubeconfig 跨集羣授權訪問](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-文檔獲取配置文件詳細信息。
+設置 `kubectl` 與哪個 Kubernetes 叢集進行通信並修改設定信息。
+查看[使用 kubeconfig 跨叢集授權訪問](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+文檔獲取設定文件詳細信息。
 
 <!--
 ```bash
@@ -188,7 +188,7 @@ kubectl config use-context my-cluster-name           # 設置默認的上下文�
 
 kubectl config set-cluster my-cluster-name           # 在 kubeconfig 中設置集羣條目
 
-# 在 kubeconfig 中配置代理服務器的 URL，以用於該客戶端的請求
+# 在 kubeconfig 中配置代理伺服器的 URL，以用於該客戶端的請求
 kubectl config set-cluster my-cluster-name --proxy-url=my-proxy-url
 
 # 添加新的用戶配置到 kubeconf 中，使用 basic auth 進行身份認證
@@ -217,7 +217,7 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 ## kubectl apply
 
 `apply` 通過定義 Kubernetes 資源的文件來管理應用。
-它通過運行 `kubectl apply` 在集羣中創建和更新資源。
+它通過運行 `kubectl apply` 在叢集中創建和更新資源。
 這是在生產中管理 Kubernetes 應用的推薦方法。
 參見 [kubectl 文檔](https://kubectl.docs.kubernetes.io/zh/)。
 
@@ -229,7 +229,7 @@ Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 -->
 ## 創建對象 {#creating-objects}
 
-Kubernetes 配置可以用 YAML 或 JSON 定義。可以使用的文件擴展名有
+Kubernetes 設定可以用 YAML 或 JSON 定義。可以使用的文件擴展名有
 `.yaml`、`.yml` 和 `.json`。
 
 <!--
@@ -788,7 +788,7 @@ kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # 將 /tmp/foo 從遠程 
 `kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present, `kubectl cp` will fail.
 For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using `kubectl exec`.
 -->
-`kubectl cp` 要求容器鏡像中存在 “tar” 二進制文件。如果 “tar” 不存在，`kubectl cp` 將失敗。
+`kubectl cp` 要求容器映像檔中存在 “tar” 二進制文件。如果 “tar” 不存在，`kubectl cp` 將失敗。
 對於進階用例，例如符號鏈接、通配符擴展或保留文件權限，請考慮使用 `kubectl exec`。
 {{< /note >}}
 
@@ -834,7 +834,7 @@ kubectl exec deploy/my-deployment -- ls                   # 在 Deployment 裏�
 <!--
 ## Interacting with Nodes and cluster
 -->
-## 與節點和集羣進行交互   {#interacting-with-nodes-and-cluster}
+## 與節點和叢集進行交互   {#interacting-with-nodes-and-cluster}
 
 <!--
 ```bash

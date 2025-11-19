@@ -111,7 +111,7 @@ compatible Kubernetes ecosystem for developers and users alike.
 Kubernetes 規範。其主要目標包括確保不同 Kubernetes 實現之間的兼容性，驗證 API 規範的遵守情況，
 通過鼓勵合規性認證來支持生態體系，並促進 Kubernetes 社區內的合作。
 通過提供標準化的測試並促進一致的行爲和功能，
-Conformance 子項目爲開發人員和用戶提供了一個可靠且兼容的 Kubernetes 生態體系。
+Conformance 子項目爲開發人員和使用者提供了一個可靠且兼容的 Kubernetes 生態體系。
 
 <!--
 ## More on the Conformance Test Suite
@@ -154,13 +154,13 @@ optional endpoints like RBAC, which are widely used by most end users,
 in specific profiles. However, this aspect is still a work in
 progress.
 -->
-**FSM**：是的，這些測試很重要，因爲它們定義了所有 Kubernetes 集羣必須支持的最小特性集合。
+**FSM**：是的，這些測試很重要，因爲它們定義了所有 Kubernetes 叢集必須支持的最小特性集合。
 你能描述一下決定將哪些特性包含在內的過程嗎？在最小特性集的思路與其他 SIG 提案之間是否有所衝突？
 
 **RK**：SIG Architecture 針對經受合規性測試的每個端點的要求，都有明確的定義。
 API 端點只有正式發佈且不是可選的特性，纔會被（進一步）考慮是否合規。
-多年來，關於合規性配置文件已經進行了若干討論，
-探討將被大多數終端用戶廣泛使用的可選端點（例如 RBAC）納入特定配置文件中的可能性。
+多年來，關於合規性設定文件已經進行了若干討論，
+探討將被大多數終端使用者廣泛使用的可選端點（例如 RBAC）納入特定設定文件中的可能性。
 然而，這一方面仍在不斷改進中。
 
 <!--

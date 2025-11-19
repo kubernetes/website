@@ -14,7 +14,7 @@ spec:
     - name: 'exclude-leases' # 每個匹配條件必須有一個唯一的名稱
       expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # 匹配非租約資源
     - name: 'exclude-kubelet-requests'
-      expression: '!("system:nodes" in request.userInfo.groups)' # 匹配非節點用戶發出的請求
+      expression: '!("system:nodes" in request.userInfo.groups)' # 匹配非節點使用者發出的請求
     - name: 'rbac' # 跳過 RBAC 請求
       expression: 'request.resource.group != "rbac.authorization.k8s.io"'
   validations:

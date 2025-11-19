@@ -25,7 +25,7 @@ Service across the different backing Pods.
 -->
 在 Kubernetes 中，[Services](/zh-cn/docs/concepts/services-networking/service/)
 是一種抽象，用來暴露運行在一組 Pod 上的應用。
-Service 可以有一個集羣範圍的虛擬 IP 地址（使用 `type: ClusterIP` 的 Service）。
+Service 可以有一個叢集範圍的虛擬 IP 地址（使用 `type: ClusterIP` 的 Service）。
 客戶端可以使用該虛擬 IP 地址進行連接， Kubernetes 爲對該 Service 的訪問流量提供負載均衡，以訪問不同的後端 Pod。
 
 <!--
@@ -43,21 +43,21 @@ _dynamically_
 : the cluster's control plane automatically picks a free IP address from within the configured IP range for `type: ClusterIP` Services.
 -->
 **動態**
-：集羣的控制平面會自動從配置的 IP 範圍內爲 `type:ClusterIP` 的 Service 選擇一個空閒 IP 地址。
+：叢集的控制平面會自動從設定的 IP 範圍內爲 `type:ClusterIP` 的 Service 選擇一個空閒 IP 地址。
 
 <!--
 _statically_
 : you specify an IP address of your choice, from within the configured IP range for Services.
 -->
 **靜態**
-：你可以指定一個來自 Service 配置的 IP 範圍內的 IP 地址。
+：你可以指定一個來自 Service 設定的 IP 範圍內的 IP 地址。
 
 <!--
 Across your whole cluster, every Service `ClusterIP` must be unique.
 Trying to create a Service with a specific `ClusterIP` that has already
 been allocated will return an error.
 -->
-在整個集羣中，每個 Service 的 `ClusterIP` 必須是唯一的。
+在整個叢集中，每個 Service 的 `ClusterIP` 必須是唯一的。
 嘗試創建一個已經被分配了 `ClusterIP` 的 Service 將會返回錯誤。
 
 <!--
@@ -69,7 +69,7 @@ been allocated will return an error.
 Sometimes you may want to have Services running in well-known IP addresses, so other components and
 users in the cluster can use them.
 -->
-有時，你可能希望讓 Service 運行在衆所周知的 IP 地址上，以便集羣中的其他組件和用戶可以使用它們。
+有時，你可能希望讓 Service 運行在衆所周知的 IP 地址上，以便叢集中的其他組件和使用者可以使用它們。
 
 <!--
 The best example is the DNS Service for the cluster. Some Kubernetes installers assign the 10th address from
@@ -77,8 +77,8 @@ the Service IP range to the DNS service. Assuming you configured your cluster wi
 10.96.0.0/16 and you want your DNS Service IP to be 10.96.0.10, you'd have to create a Service like
 this:
 -->
-最好的例子是集羣的 DNS Service。一些 Kubernetes 安裝程序將 Service IP 範圍中的第 10 個地址分配給 DNS Service。
-假設你配置集羣 Service IP 範圍是 10.96.0.0/16，並且希望 DNS Service IP 爲 10.96.0.10，
+最好的例子是叢集的 DNS Service。一些 Kubernetes 安裝程序將 Service IP 範圍中的第 10 個地址分配給 DNS Service。
+假設你設定叢集 Service IP 範圍是 10.96.0.0/16，並且希望 DNS Service IP 爲 10.96.0.10，
 那麼你必須創建一個如下所示的 Service：
 
 ```yaml
@@ -142,7 +142,7 @@ use the lower range. This will allow users to use static allocations on the lowe
 risk of collision.
 -->
 分配默認使用上半段地址，當上半段地址耗盡後，將使用下半段地址範圍。
-這將允許用戶在下半段地址中使用靜態分配從而降低衝突的風險。
+這將允許使用者在下半段地址中使用靜態分配從而降低衝突的風險。
 
 <!--
 Examples:

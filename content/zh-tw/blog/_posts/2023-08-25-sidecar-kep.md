@@ -28,8 +28,8 @@ The concept of a “sidecar” has been part of Kubernetes since nearly the very
 -->
 “邊車”的概念幾乎從一開始就是 Kubernetes 的一部分。在 2015 年，
 一篇關於複合容器的[博客文章（英文）](/blog/2015/06/the-distributed-system-toolkit-patterns/)將邊車描述爲“擴展和增強 ‘main’ 容器”的附加容器。
-邊車容器已成爲一種常見的 Kubernetes 部署模式，通常用於網絡代理或作爲日誌系統的一部分。
-到目前爲止，邊車已經成爲 Kubernetes 用戶在沒有原生支持情況下使用的概念。
+邊車容器已成爲一種常見的 Kubernetes 部署模式，通常用於網路代理或作爲日誌系統的一部分。
+到目前爲止，邊車已經成爲 Kubernetes 使用者在沒有原生支持情況下使用的概念。
 缺乏原生支持導致了一些使用摩擦，此增強功能旨在解決這些問題。
 
 <!--
@@ -110,15 +110,15 @@ You might find built-in sidecar containers useful for workloads such as the foll
 - **Jobs**, which can use sidecars for any purpose without Job completion being blocked by the running sidecar. No additional configuration is required to ensure this behavior.
 -->
 - **批量或 AI/ML 工作負載**，或已運行完成的其他 Pod。這些工作負載將獲得最顯着的好處。
-- 任何在清單中其他容器之前啓動的**網絡代理**。所有運行的其他容器都可以使用代理容器的服務。
+- 任何在清單中其他容器之前啓動的**網路代理**。所有運行的其他容器都可以使用代理容器的服務。
   有關說明，請參閱[在 Istio 中使用 Kubernetes 原生 Sidecar](https://istio.io/latest/blog/2023/native-sidecars/)。
 - **日誌收集容器**，現在可以在任何其他容器之前啓動並運行直到 Pod 終止。這提高了 Pod 中日誌收集的可靠性。
-- **Job**，可以將邊車用於任何目的，而 Job 完成不會被正在運行的邊車阻止。無需額外配置即可確保此行爲。
+- **Job**，可以將邊車用於任何目的，而 Job 完成不會被正在運行的邊車阻止。無需額外設定即可確保此行爲。
 
 <!--
 ## How did users get sidecar behavior before 1.28?
 -->
-## 1.28 之前用戶如何獲得 Sidecar 行爲？ {#how-did-users-get-sidecar-behavior-before-1-28}
+## 1.28 之前使用者如何獲得 Sidecar 行爲？ {#how-did-users-get-sidecar-behavior-before-1-28}
 
 <!--
 Prior to the sidecar feature, the following options were available for implementing sidecar behavior depending on the desired lifetime of the sidecar container:
@@ -154,8 +154,8 @@ The built-in sidecar feature solves for the use case of having a lifetime equal 
 <!--
 We recommend only using the sidecars feature gate in [short lived testing clusters](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages) at the alpha stage. If you have an existing sidecar that is configured as a main container so it can run for the lifetime of the pod, it can be moved to the `initContainers` section of the pod spec and given a `restartPolicy` of `Always`. In many cases, the sidecar should work as before with the added benefit of having a defined startup ordering and not prolonging the pod lifetime.
 -->
-我們建議僅在 Alpha 階段的[短期測試集羣](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-stages)中使用邊車功能。
-如果你有一個現有的邊車，被配置爲主容器，以便它可以在 Pod 的生命週期內運行，
+我們建議僅在 Alpha 階段的[短期測試叢集](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-stages)中使用邊車功能。
+如果你有一個現有的邊車，被設定爲主容器，以便它可以在 Pod 的生命週期內運行，
 則可以將其移至 Pod 規範的 `initContainers` 部分，並將 `restartPolicy` 指定爲 `Always`。
 在許多情況下，邊車應該像以前一樣工作，並具有定義啓動順序且不會延長 Pod 生命週期的額外好處。
 

@@ -41,6 +41,6 @@ Minikube runs an all-in-one or a multi-node local Kubernetes cluster inside a VM
 You can use Minikube to
 [try Kubernetes in a learning environment](/docs/tasks/tools/#minikube).
 -->
-Minikube 在用戶計算機上的一個虛擬機內運行一體化（all-in-one）或多節點的本地 Kubernetes 集羣。
+Minikube 在使用者計算機上的一個虛擬機內運行一體化（all-in-one）或多節點的本地 Kubernetes 叢集。
 你可以使用 Minikube 
 [在學習環境中嘗試 Kubernetes](/zh-cn/docs/tasks/tools/#minikube)。

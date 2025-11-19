@@ -4,7 +4,7 @@ id: deployment
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/workloads/controllers/deployment/
 short_description: >
-  管理集羣上的多副本應用。
+  管理叢集上的多副本應用。
 aka: 
 tags:
 - fundamental
@@ -39,5 +39,5 @@ Each replica is represented by a {{< glossary_tooltip term_id="pod" >}}, and the
 For workloads that do require local state, consider using a {{< glossary_tooltip term_id="StatefulSet" >}}.
 -->
 每個副本表現爲一個 {{<glossary_tooltip term_id="pod" >}}，
-Pod 分佈在集羣中的{{<glossary_tooltip text="節點" term_id="node" >}}上。
+Pod 分佈在叢集中的{{<glossary_tooltip text="節點" term_id="node" >}}上。
 對於確實需要本地狀態的工作負載，請考慮使用 {{<glossary_tooltip term_id="StatefulSet" >}}。

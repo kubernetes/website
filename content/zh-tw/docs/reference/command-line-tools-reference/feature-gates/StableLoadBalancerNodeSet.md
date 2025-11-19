@@ -22,4 +22,4 @@ removed: true
 Enables less load balancer re-configurations by
 the service controller (KCCM) as an effect of changing node state.
 -->
-允許服務控制器（KCCM）減少根據節點狀態變化來對負載均衡器作重新配置的操作。
+允許服務控制器（KCCM）減少根據節點狀態變化來對負載均衡器作重新設定的操作。

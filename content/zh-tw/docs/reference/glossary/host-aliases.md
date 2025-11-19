@@ -35,5 +35,5 @@ tags:
 [HostAliases](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core) is an optional list of hostnames and IP addresses that will be injected into the Pod's hosts file if specified. This is only valid for non-hostNetwork Pods.
 -->
 [HostAliases](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#hostalias-v1-core)
-是一個包含主機名和 IP 地址的可選列表，配置後將被注入到 Pod 內的 hosts 文件中。
-該選項僅適用於沒有配置 hostNetwork 的 Pod。
+是一個包含主機名和 IP 地址的可選列表，設定後將被注入到 Pod 內的 hosts 文件中。
+該選項僅適用於沒有設定 hostNetwork 的 Pod。

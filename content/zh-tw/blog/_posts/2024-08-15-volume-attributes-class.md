@@ -76,8 +76,8 @@ created for volumes with greater or lessor amounts of provisioned IO.
 -->
 ### 動態修改卷屬性   {#dynamically-modifying-volume-attributes}
 
-`VolumeAttributesClass` 是一個集羣範圍的資源，用來指定特定於製備器的屬性。
-這些屬性由集羣管理員創建，方式上與存儲類相同。
+`VolumeAttributesClass` 是一個叢集範圍的資源，用來指定特定於製備器的屬性。
+這些屬性由叢集管理員創建，方式上與存儲類相同。
 例如，你可以爲卷創建一系列金、銀和銅級別的卷屬性類，以區隔不同級別的 IO 能力。
 
 ```yaml

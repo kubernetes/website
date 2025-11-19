@@ -30,7 +30,7 @@ discussions that contributors want to have. In previous years, we've covered
 flaky tests, cluster lifecycle, KEPs (Kubernetes Enhancement Proposals), mentoring,
 security, and more.
 -->
-像去年一樣，非組織會議將重新開始，會議將在週一上午進行選擇。對於最新的熱門話題和貢獻者想要進行的特定討論，這是理想的選擇。在過去的幾年中，我們涵蓋了不穩定的測試，集羣生命週期，KEP（Kubernetes增強建議），指導，安全性等等。
+像去年一樣，非組織會議將重新開始，會議將在週一上午進行選擇。對於最新的熱門話題和貢獻者想要進行的特定討論，這是理想的選擇。在過去的幾年中，我們涵蓋了不穩定的測試，叢集生命週期，KEP（Kubernetes增強建議），指導，安全性等等。
 <!--
 ![Unconference](/images/blog/2019-10-10-contributor-summit-san-diego-schedule/DSCF0806.jpg)
 -->
@@ -65,7 +65,7 @@ the summit:
 * **[Prow]**: 有興趣與Prow合作併爲Test-Infra做貢獻，但不確定從哪裏開始？ Rob Keilty將幫助您在筆記本電腦上運行Prow測試環境
 * **[Git]**: GitHub的員工將與Christoph Blecker合作，爲Kubernetes貢獻者分享實用的Git技巧。
 * **[審閱]**: 蒂姆·霍金（Tim Hockin）將分享成爲一名出色的代碼審閱者的祕密，而喬丹·利吉特（Jordan Liggitt）將進行實時API審閱，以便您可以進行一次或至少了解一次審閱。
-* **[終端用戶]**: 應Cheryl Hung邀請，來自CNCF合作伙伴生態的數個終端用戶，將回答貢獻者的問題，以加強我們的反饋循環。
+* **[終端使用者]**: 應Cheryl Hung邀請，來自CNCF合作伙伴生態的數個終端使用者，將回答貢獻者的問題，以加強我們的反饋循環。
 * **[文檔]**: 與往常一樣，SIG Docs將舉辦一個爲時三個小時的文檔撰寫研討會。
 <!--
 We're also giving out awards to contributors who distinguished themselves in 2019,
@@ -91,6 +91,6 @@ Hope to see you all there, and [make sure you register!][reg]
 [Prow]: https://sched.co/Vv6Z
 [Git]: https://sched.co/VvNa
 [審閱]: https://sched.co/VutA
-[終端用戶]: https://sched.co/VvNJ
+[終端使用者]: https://sched.co/VvNJ
 [文檔]: https://sched.co/Vux2
 [team]: http://git.k8s.io/community/events/events-team

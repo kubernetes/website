@@ -83,7 +83,7 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
   
   `allowedTopologies` 限制可以動態製備卷的節點拓撲。每個卷插件定義其自己支持的拓撲規約。
   空的 TopologySelectorTerm 列表意味着沒有拓撲限制。
-  只有啓用 VolumeScheduling 功能特性的服務器才能使用此字段。
+  只有啓用 VolumeScheduling 功能特性的伺服器才能使用此字段。
   
   <a name="TopologySelectorTerm"></a>
   **拓撲選擇器條件表示標籤查詢的結果。
@@ -147,7 +147,7 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
 
   **原子性：將在合併期間被替換**
 
-  mountOptions 控制此存儲類動態製備的 PersistentVolume 的掛載配置，例如 ["ro", "soft"]。
+  mountOptions 控制此存儲類動態製備的 PersistentVolume 的掛載設定，例如 ["ro", "soft"]。
   針對此字段無合法性檢查 —— 如果有一個選項無效，則這些 PV 的掛載將失敗。
 
 - **parameters** (map[string]string)
@@ -186,7 +186,7 @@ StorageClass 是不受名字空間作用域限制的；按照 etcd 設定的存�
 
   `volumeBindingMode` 指示應該如何製備和綁定 PersistentVolumeClaim。
   未設置時，將使用 VolumeBindingImmediate。
-  只有啓用 VolumeScheduling 功能特性的服務器才能使用此字段。
+  只有啓用 VolumeScheduling 功能特性的伺服器才能使用此字段。
 
   可能的枚舉值：
   - `"Immediate"` 表示應立即製備並綁定持久卷申領。這是默認模式。

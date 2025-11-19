@@ -21,9 +21,9 @@ Whether on-premises or in the cloud, clusters face real constraints for resource
 Regardless of the autoscalling capabilities, clusters have finite capacity.  As a result, users want an easy way to fairly and 
 efficiently share resources. 
 -->
-無論是在本地還是在雲端，集羣都面臨着資源使用、配額和成本管理方面的實際限制。
-無論自動擴縮容能力如何，集羣的容量都是有限的。
-因此，用戶需要一種簡單的方法來公平有效地共享資源。
+無論是在本地還是在雲端，叢集都面臨着資源使用、配額和成本管理方面的實際限制。
+無論自動擴縮容能力如何，叢集的容量都是有限的。
+因此，使用者需要一種簡單的方法來公平有效地共享資源。
 
 <!--
 In this article, we introduce [Kueue](https://github.com/kubernetes-sigs/kueue/tree/main/docs#readme),
@@ -60,7 +60,7 @@ Some of the most desired job queueing requirements include:
   but it is also needed in cloud environments to control spend or usage of scarce resources.
 -->
 - 用配額和預算來控制誰可以使用什麼以及達到什麼限制。
-  這不僅在具有靜態資源（如本地）的集羣中需要，而且在雲環境中也需要控制稀缺資源的支出或用量。
+  這不僅在具有靜態資源（如本地）的叢集中需要，而且在雲環境中也需要控制稀缺資源的支出或用量。
 <!--
 - Fair sharing of resources between tenants. To maximize the usage of available resources, any unused quota assigned to inactive tenants should be 
   allowed to be shared fairly between active tenants.
@@ -76,7 +76,7 @@ Some of the most desired job queueing requirements include:
 <!--
 - Support for autoscaled environments where resources can be provisioned on demand.
 -->
-- 支持可按需配置資源的自動擴縮容環境。
+- 支持可按需設定資源的自動擴縮容環境。
 
 <!--
 Plain Kubernetes doesn't address the above requirements. In normal circumstances, once a Job is created, the job-controller instantly creates the 
@@ -90,7 +90,7 @@ intent of ResourceQuotas is to provide a builtin reliability mechanism with poli
 大規模使用時，這種情況可能會使控制平面死機。
 目前也沒有好的辦法在 Job 層面控制哪些 Job 應該先獲得哪些資源，也沒有辦法標明順序或公平共享。
 當前的 ResourceQuota 模型不太適合這些需求，因爲配額是在資源創建時強制執行的，並且沒有請求排隊。
-ResourceQuotas 的目的是提供一種內置的可靠性機制，其中包含管理員所需的策略，以防止集羣發生故障轉移。
+ResourceQuotas 的目的是提供一種內置的可靠性機制，其中包含管理員所需的策略，以防止叢集發生故障轉移。
 
 <!--
 In the Kubernetes ecosystem, there are several solutions for job scheduling. However, we found that these alternatives have one or more of the following problems:
@@ -175,18 +175,18 @@ Kueue 定義了新的 API 來解決本文開頭提到的需求。三個主要的
 - ResourceFlavor: a cluster-scoped API to define resource flavor available for consumption, like a GPU model. At its core, a ResourceFlavor is 
   a set of labels that mirrors the labels on the nodes that offer those resources.
 -->
-- ResourceFlavor：一個集羣範圍的 API，用於定義可供消費的資源模板，如 GPU 模型。
+- ResourceFlavor：一個叢集範圍的 API，用於定義可供消費的資源模板，如 GPU 模型。
   ResourceFlavor 的核心是一組標籤，這些標籤反映了提供這些資源的節點上的標籤。
 <!--
 - ClusterQueue: a cluster-scoped API to define resource pools by setting quotas for one or more ResourceFlavor.
 -->
-- ClusterQueue: 一種集羣範圍的 API，通過爲一個或多個 ResourceFlavor 設置配額來定義資源池。
+- ClusterQueue: 一種叢集範圍的 API，通過爲一個或多個 ResourceFlavor 設置配額來定義資源池。
 <!--
 - LocalQueue: a namespaced API for grouping and managing single tenant jobs. In its simplest form, a LocalQueue is a pointer to the ClusterQueue 
   that the tenant (modeled as a namespace) can use to start their jobs.
 -->
 - LocalQueue: 用於分組和管理單租戶 Jobs 的命名空間 API。
-  在最簡單的形式中，LocalQueue 是指向集羣隊列的指針，租戶（建模爲命名空間）可以使用它來啓動他們的 Jobs。
+  在最簡單的形式中，LocalQueue 是指向叢集隊列的指針，租戶（建模爲命名空間）可以使用它來啓動他們的 Jobs。
 
 <!--
 For more details, take a look at the [API concepts documentation](https://sigs.k8s.io/kueue/docs/concepts). While the three APIs may look overwhelming, 
@@ -203,12 +203,12 @@ ResourceFlavor 和 LocalQueue API 主要是組織包裝器。
 <!--
 Imagine the following setup for running batch workloads on a Kubernetes cluster on the cloud: 
 -->
-想象一下在雲上的 Kubernetes 集羣上運行批處理工作負載的以下設置：
+想象一下在雲上的 Kubernetes 叢集上運行批處理工作負載的以下設置：
 <!--
 - You have [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) installed in the cluster to automatically
   adjust the size of your cluster.
 -->
-- 你在集羣中安裝了 [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) 以自動調整集羣的大小。
+- 你在叢集中安裝了 [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler) 以自動調整叢集的大小。
 <!--
 - There are two types of autoscaled node groups that differ on their provisioning policies: spot and on-demand. The nodes of each group are 
   differentiated by the label `instance-type=spot` or `instance-type=ondemand`.
@@ -295,7 +295,7 @@ spec:
 Admins create the above setup once. Batch users are able to find the queues they are allowed to
 submit to by listing the LocalQueues in their namespace(s). The command is similar to the following: `kubectl get -n my-namespace localqueues`
 -->
-管理員創建一次上述配置。批處理用戶可以通過在他們的命名空間中列出 LocalQueues 來找到他們被允許提交的隊列。
+管理員創建一次上述設定。批處理使用者可以通過在他們的命名空間中列出 LocalQueues 來找到他們被允許提交的隊列。
 該命令類似於：`kubectl get -n my-namespace localqueues`
 
 <!--
@@ -356,7 +356,7 @@ Finally, if there are available empty nodes with matching node selector terms, t
 kube-scheduler will initially mark the pods as unschedulable, which will trigger the cluster-autoscaler to provision new nodes.
 -->
 最後，如果有可用的空節點與節點選擇器條件匹配，那麼 kube-scheduler 將直接調度 Pod。
-如果不是，那麼 kube-scheduler 將 pod 初始化標記爲不可調度，這將觸發 cluster-autoscaler 配置新節點。
+如果不是，那麼 kube-scheduler 將 pod 初始化標記爲不可調度，這將觸發 cluster-autoscaler 設定新節點。
 
 <!--
 ## Future work and getting involved
@@ -367,7 +367,7 @@ The example above offers a glimpse of some of Kueue's features including support
 autoscaler. Kueue also supports fair-sharing, job priorities, and different queueing strategies. Take a look at the
 [Kueue documentation](https://github.com/kubernetes-sigs/kueue/tree/main/docs) to learn more about those features and how to use Kueue. 
 -->
-上面的示例提供了 Kueue 的一些功能簡介，包括支持配額、資源靈活性以及與集羣自動縮放器的集成。
+上面的示例提供了 Kueue 的一些功能簡介，包括支持配額、資源靈活性以及與叢集自動縮放器的集成。
 Kueue 還支持公平共享、Job 優先級和不同的排隊策略。
 查看 [Kueue 文檔](https://github.com/kubernetes-sigs/kueue/tree/main/docs)以瞭解這些特性以及如何使用 Kueue 的更多信息。
 

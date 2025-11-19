@@ -88,11 +88,11 @@ deprecated, and no longer receiving improvements. (RHEL 9
 -->
 然而，隨着 1.24 版本 Kubernetes 中 [dockershim 的移除]，
 kubelet 現在不再爲某種目的使用任何 iptables 規則；
-過去使用 iptables 來完成的事情現在總是由容器運行時或網絡插件負責，
+過去使用 iptables 來完成的事情現在總是由容器運行時或網路插件負責，
 現在 kubelet 沒有理由創建任何 iptables 規則。
 
 同時，雖然 iptables 仍然是 Linux 上默認的 kube-proxy 後端，
-但它不會永遠是默認選項，因爲相關的命令行工具和內核 API 基本上已被棄用，
+但它不會永遠是默認選項，因爲相關的命令列工具和內核 API 基本上已被棄用，
 並且不再得到改進。（RHEL 9 [記錄警告] 如果你使用 iptables API，即使是通過 `iptables-nft`。）
 
 <!--
@@ -271,7 +271,7 @@ binaries (which talk to a different kernel API underneath).
 -->
 ### 如果你使用 Kubelet 的 iptables 規則來確定 `iptables-legacy` 與 `iptables-nft`... {#use-case-iptables-mode}
 
-對於從容器內部操縱主機網絡命名空間 iptables 規則的組件而言，需要一些方法來確定主機是使用舊的
+對於從容器內部操縱主機網路命名空間 iptables 規則的組件而言，需要一些方法來確定主機是使用舊的
 `iptables-legacy` 二進制文件還是新的 `iptables-nft` 二進制文件（與不同的內核 API 交互）下。
 
 <!--
@@ -323,7 +323,7 @@ container images with an updated version of that.
 [already been updated]: https://github.com/kubernetes-sigs/iptables-wrappers/pull/3
 -->
 `iptables-wrappers` 包[已經被更新]，以提供這個新的啓發式邏輯，
-所以如果你以前使用過它，你可以用它的更新版本重建你的容器鏡像。
+所以如果你以前使用過它，你可以用它的更新版本重建你的容器映像檔。
 
 [`iptables-wrappers`]: https://github.com/kubernetes-sigs/iptables-wrappers/
 [已經更新]: https://github.com/kubernetes-sigs/iptables-wrappers/pull/3

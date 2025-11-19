@@ -3,9 +3,9 @@ title: 服務內部流量策略
 content_type: concept
 weight: 120
 description: >-
-   如果集羣中的兩個 Pod 想要通信，並且兩個 Pod 實際上都在同一節點運行，
-   **服務內部流量策略** 可以將網絡流量限制在該節點內。
-   通過集羣網絡避免流量往返有助於提高可靠性、增強性能（網絡延遲和吞吐量）或降低成本。
+   如果叢集中的兩個 Pod 想要通信，並且兩個 Pod 實際上都在同一節點運行，
+   **服務內部流量策略** 可以將網路流量限制在該節點內。
+   通過叢集網路避免流量往返有助於提高可靠性、增強性能（網路延遲和吞吐量）或降低成本。
 ---
 <!-- 
 ---
@@ -33,7 +33,7 @@ internal traffic to endpoints within the node the traffic originated from. The
 cluster. This can help to reduce costs and improve performance.
 -->
 **服務內部流量策略**開啓了內部流量限制，將內部流量只路由到發起方所處節點內的服務端點。
-這裏的”內部“流量指當前集羣中的 Pod 所發起的流量。
+這裏的”內部“流量指當前叢集中的 Pod 所發起的流量。
 這種機制有助於節省開銷，提升效率。
 
 <!-- body -->
@@ -52,7 +52,7 @@ endpoints for cluster internal traffic.
 你可以通過將 {{< glossary_tooltip text="Service" term_id="service" >}} 的
 `.spec.internalTrafficPolicy` 項設置爲 `Local`，
 來爲它指定一個內部專用的流量策略。
-此設置就相當於告訴 kube-proxy 對於集羣內部流量只能使用節點本地的服務端口。
+此設置就相當於告訴 kube-proxy 對於叢集內部流量只能使用節點本地的服務端口。
 
 <!-- 
 For pods on nodes with no endpoints for a given Service, the Service

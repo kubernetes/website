@@ -25,7 +25,7 @@ information about themselves or the cluster without using the Kubernetes client
 or API server.
 -->
 對於容器來說，在不與 Kubernetes 過度耦合的情況下，擁有關於自身的信息有時是很有用的。
-**Downward API** 允許容器在不使用 Kubernetes 客戶端或 API 服務器的情況下獲得自己或集羣的信息。
+**Downward API** 允許容器在不使用 Kubernetes 客戶端或 API 伺服器的情況下獲得自己或叢集的信息。
 
 <!--
 An example is an existing application that assumes a particular well-known

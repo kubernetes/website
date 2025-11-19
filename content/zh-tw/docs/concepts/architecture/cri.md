@@ -20,9 +20,9 @@ each Node in your cluster, so that the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} can launch
 {{< glossary_tooltip text="Pods" term_id="pod" >}} and their containers.
 -->
-CRI 是一個插件接口，它使 kubelet 能夠使用各種容器運行時，無需重新編譯集羣組件。
+CRI 是一個插件接口，它使 kubelet 能夠使用各種容器運行時，無需重新編譯叢集組件。
 
-你需要在集羣中的每個節點上都有一個可以正常工作的{{<glossary_tooltip text="容器運行時" term_id="container-runtime">}}，
+你需要在叢集中的每個節點上都有一個可以正常工作的{{<glossary_tooltip text="容器運行時" term_id="container-runtime">}}，
 這樣 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 能啓動
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 及其容器。
 
@@ -44,10 +44,10 @@ runtime, which can be configured separately within the kubelet by using the
 `--container-runtime-endpoint`
 [command line flag](/docs/reference/command-line-tools-reference/kubelet/).
 -->
-當通過 gRPC 連接到容器運行時，kubelet 將充當客戶端。運行時和鏡像服務端點必須在容器運行時中可用，
+當通過 gRPC 連接到容器運行時，kubelet 將充當客戶端。運行時和映像檔服務端點必須在容器運行時中可用，
 可以使用 `--container-runtime-endpoint`
-[命令行標誌](/zh-cn/docs/reference/command-line-tools-reference/kubelet)在
-kubelet 中單獨配置。
+[命令列標誌](/zh-cn/docs/reference/command-line-tools-reference/kubelet)在
+kubelet 中單獨設定。
 
 <!-- 
 For Kubernetes v1.26 and later, the kubelet requires that the container runtime
@@ -74,7 +74,7 @@ container runtime is correctly configured.
 如果容器運行時不支持 `v1` 版本的 CRI API，kubelet 將無法註冊節點並報告錯誤。
 如果由於容器運行時已升級而需要重新建立 gRPC 連接，
 則該容器運行時必須支持 v1 版本的 CRI API，連接才能成功。
-在容器運行時正確配置後，可能需要重新啓動 kubelet 才能建立連接。
+在容器運行時正確設定後，可能需要重新啓動 kubelet 才能建立連接。
 
 ## {{% heading "whatsnext" %}}
 

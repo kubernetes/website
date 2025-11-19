@@ -23,7 +23,7 @@ Kubernetes allows running multiple containers in a Pod to implement this concept
 However, running a sidecar container as a regular container
 has a lot of limitations being fixed with the new built-in sidecar containers support.
 -->
-本文適用於使用新的內置[邊車容器](/docs/concepts/workloads/pods/sidecar-containers/)特性的用戶。
+本文適用於使用新的內置[邊車容器](/docs/concepts/workloads/pods/sidecar-containers/)特性的使用者。
 
 邊車容器並不是一個新概念，正如在[博客文章](/blog/2015/06/the-distributed-system-toolkit-patterns/)中所提到的那樣。
 Kubernetes 允許在一個 Pod 中運行多個容器來實現這一概念。然而，作爲一個普通容器運行邊車容器存在許多限制，
@@ -77,7 +77,7 @@ in transit between different Pods.
 邊車容器的概念並不新鮮，有許多不同的實現方式。除了你（定義 Pod 的人）希望運行的邊車容器外，
 一些{{< glossary_tooltip text="插件" term_id="addons" >}}也會在 Pod 開始運行之前對其進行修改，
 以添加額外的邊車容器。這些額外邊車容器的**注入**機制通常是[變更 Webhook（Mutating Webhook）](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
-例如，服務網格插件可能會注入一個配置雙向 TLS（Mutual TLS）和傳輸中加密的邊車容器。
+例如，服務網格插件可能會注入一個設定雙向 TLS（Mutual TLS）和傳輸中加密的邊車容器。
 
 <!--
 While the concept of sidecar containers is not new,
@@ -90,7 +90,7 @@ by authors of sidecar containers.
 雖然邊車容器的概念並不新鮮，但 Kubernetes 對這一特性的原生實現卻是新的。
 與每一項新特性一樣，採用這一特性可能會帶來某些挑戰。
 
-本教程探討了終端用戶和邊車容器作者可能遇到的挑戰及其解決方案。
+本教程探討了終端使用者和邊車容器作者可能遇到的挑戰及其解決方案。
 
 <!--
 ## Benefits of a built-in sidecar container
@@ -116,10 +116,10 @@ to learn more about it.
 
 使用 Kubernetes 對邊車容器的原生支持可以帶來以下幾個好處：
 
-1. 你可以配置原生邊車容器在 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}}之前啓動。
+1. 你可以設定原生邊車容器在 {{< glossary_tooltip text="Init 容器" term_id="init-container" >}}之前啓動。
 2. 內置邊車容器可以編寫爲確保它們最後終止。一旦所有常規容器完成並終止，邊車容器將接收到 `SIGTERM` 信號。
    如果邊車容器未能體面關閉，系統將使用 `SIGKILL` 信號終止它。
-3. 在 Job 中，當 Pod 配置 `restartPolicy: OnFailure` 或 `restartPolicy: Never` 時，
+3. 在 Job 中，當 Pod 設定 `restartPolicy: OnFailure` 或 `restartPolicy: Never` 時，
    原生邊車容器不會阻止 Pod 完成。而對於傳統邊車容器，需要特別處理這種情況。
 4. 同樣在 Job 中，即使 Pod 的 `restartPolicy: Never` 時常規容器不會重啓，
    內置邊車容器仍會在完成後繼續重啓。
@@ -143,7 +143,7 @@ Here are the considerations and troubleshooting steps that one can take while ad
 
 從 Kubernetes 1.29 版本開始，`SidecarContainers`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)處於 Beta 階段，
-並默認啓用。某些集羣可能禁用了此特性，或者安裝了與該特性不兼容的軟件。
+並默認啓用。某些叢集可能禁用了此特性，或者安裝了與該特性不兼容的軟件。
 
 當這種情況發生時，Pod 可能會被拒絕，或者邊車容器可能阻止 Pod 啓動，導致 Pod 無法使用。
 這種情況下很容易檢測到問題，因爲 Pod 會卡在初始化階段。然而，通常不清楚是什麼原因導致了問題。
@@ -158,8 +158,8 @@ later. The feature will break on clusters where Nodes are running earlier versio
 -->
 ### 確保特性門控已啓用
 
-首先，確保 API 服務器和節點都在 Kubernetes v1.29 及更高版本上運行。
-如果節點運行的是早期版本且未啓用該特性，集羣中的該特性將無法正常工作。
+首先，確保 API 伺服器和節點都在 Kubernetes v1.29 及更高版本上運行。
+如果節點運行的是早期版本且未啓用該特性，叢集中的該特性將無法正常工作。
 
 <!--
 title="Note" color="info"
@@ -186,11 +186,11 @@ One of the ways to check the feature gate enablement is to run a command like th
 
 - For API Server:
 -->
-你應該確保控制平面內的 API 服務器**和**所有節點都啓用了特性門控。
+你應該確保控制平面內的 API 伺服器**和**所有節點都啓用了特性門控。
 
 一種檢查特性門控是否啓用的方法是運行如下命令：
 
-- 對於 API 服務器：
+- 對於 API 伺服器：
 
   ```shell
   kubectl get --raw /metrics | grep kubernetes_feature_enabled | grep SidecarContainers
@@ -305,7 +305,7 @@ The discussion explores the options listed below.
 2. 注入時檢查節點兼容性。在邊車注入過程中，可以使用以下策略來檢查節點兼容性：
    - 查詢節點版本並假設版本 1.29+ 上啓用了特性門控。
    - 查詢節點 Prometheus 指標並檢查特性啓用狀態。
-   - 假設節點與 API 服務器的版本差異在[支持的版本範圍](/zh-cn/releases/version-skew-policy/#supported-version-skew)內。
+   - 假設節點與 API 伺服器的版本差異在[支持的版本範圍](/zh-cn/releases/version-skew-policy/#supported-version-skew)內。
    - 可能還有其他自定義方法來檢測節點兼容性。
 <!--
 1. Develop a universal sidecar injector. The idea of a universal sidecar injector is to

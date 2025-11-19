@@ -23,7 +23,7 @@ This page shows how to use [Kube-router](https://github.com/cloudnativelabs/kube
 <!--
 You need to have a Kubernetes cluster running. If you do not already have a cluster, you can create one by using any of the cluster installers like Kops, Bootkube, Kubeadm etc.
 -->
-你需要擁有一個運行中的 Kubernetes 集羣。如果你還沒有集羣，可以使用任意的集羣
+你需要擁有一個運行中的 Kubernetes 叢集。如果你還沒有叢集，可以使用任意的叢集
 安裝程序如 Kops、Bootkube、Kubeadm 等創建一個。
 
 <!-- steps -->
@@ -34,9 +34,9 @@ The Kube-router Addon comes with a Network Policy Controller that watches Kubern
 -->
 ## 安裝 kube-router 插件   {#installing-kube-router-addon}
 
-kube-router 插件自帶一個網絡策略控制器，監視來自於 Kubernetes API 服務器的
-NetworkPolicy 和 Pod 的變化，根據策略指示配置 iptables 規則和 ipsets 來允許或阻止流量。
-請根據 [通過集羣安裝程序嘗試 kube-router](https://www.kube-router.io/docs/user-guide/#try-kube-router-with-cluster-installers) 指南安裝 kube-router 插件。
+kube-router 插件自帶一個網路策略控制器，監視來自於 Kubernetes API 伺服器的
+NetworkPolicy 和 Pod 的變化，根據策略指示設定 iptables 規則和 ipsets 來允許或阻止流量。
+請根據 [通過叢集安裝程序嘗試 kube-router](https://www.kube-router.io/docs/user-guide/#try-kube-router-with-cluster-installers) 指南安裝 kube-router 插件。
 
 ## {{% heading "whatsnext" %}}
 
@@ -44,6 +44,6 @@ NetworkPolicy 和 Pod 的變化，根據策略指示配置 iptables 規則和 ip
 Once you have installed the Kube-router addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
 -->
 在你安裝了 kube-router 插件後，可以參考
-[聲明網絡策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
+[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
 去嘗試使用 Kubernetes NetworkPolicy。
 

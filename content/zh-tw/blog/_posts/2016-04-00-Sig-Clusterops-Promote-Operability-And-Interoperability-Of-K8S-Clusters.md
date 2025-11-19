@@ -1,5 +1,5 @@
 ---
-title: " SIG-ClusterOps: 提升 Kubernetes 集羣的可操作性和互操作性 "
+title: " SIG-ClusterOps: 提升 Kubernetes 叢集的可操作性和互操作性 "
 date: 2016-04-19
 slug: sig-clusterops-promote-operability-and-interoperability-of-k8s-clusters
 ---
@@ -13,7 +13,7 @@ url: /blog/2016/04/Sig-Clusterops-Promote-Operability-And-Interoperability-Of-K8
 <!--
 _Editor’s note: This week we’re featuring [Kubernetes Special Interest Groups](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs)); Today’s post is by the SIG-ClusterOps team whose mission is to promote operability and interoperability of Kubernetes clusters -- to listen, help & escalate._ 
 -->
-_編者注： 本週我們將推出 [Kubernetes 特殊興趣小組](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs))；今天的帖子由 SIG-ClusterOps 團隊負責，其任務是促進 Kubernetes 集羣的可操作性和互操作性 -- 傾聽，幫助和升級。_  
+_編者注： 本週我們將推出 [Kubernetes 特殊興趣小組](https://github.com/kubernetes/kubernetes/wiki/Special-Interest-Groups-(SIGs))；今天的帖子由 SIG-ClusterOps 團隊負責，其任務是促進 Kubernetes 叢集的可操作性和互操作性 -- 傾聽，幫助和升級。_  
 
 <!--
 We think Kubernetes is an awesome way to run applications at scale! Unfortunately, there's a bootstrapping problem: we need good ways to build secure & reliable scale environments around Kubernetes. While some parts of the platform administration leverage the platform (cool!), there are fundamental operational topics that need to be addressed and questions (like upgrade and conformance) that need to be answered.  
@@ -63,7 +63,7 @@ Cluster Ops 希望成爲運營資源的交換所。
 
 <!--
 Cluster Ops can be hard work – don't do it alone. We're here to listen, to help when we can and escalate when we can't. Join the conversation at: -->
-集羣運營可能會很辛苦–別一個人做。
+叢集運營可能會很辛苦–別一個人做。
 我們在這裏傾聽，在我們可以幫助的時候提供幫助，而在我們不能幫助的時候向上一級反映。
 在以下位置加入對話：
 

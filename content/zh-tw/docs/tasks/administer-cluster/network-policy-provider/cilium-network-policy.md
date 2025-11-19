@@ -99,12 +99,12 @@ The components are:
 - ConfigMap.
 - Agent DaemonSet and an Operator Deployment.
 -->
-隨後 Cilium 將自動檢測集羣配置，並創建和安裝合適的組件以成功完成安裝。
+隨後 Cilium 將自動檢測叢集設定，並創建和安裝合適的組件以成功完成安裝。
 這些組件爲：
 
 - Secret `cilium-ca` 中的證書機構 (CA) 和 Hubble（Cilium 的可觀測層）所用的證書。
 - 服務賬號。
-- 集羣角色。
+- 叢集角色。
 - ConfigMap。
 - Agent DaemonSet 和 Operator Deployment。
 
@@ -149,7 +149,7 @@ this list of Pods run:
 -->
 ## 瞭解 Cilium 組件   {#understanding-cilium-components}
 
-部署使用 Cilium 的集羣會添加 Pod 到 `kube-system` 命名空間。要查看 Pod 列表，運行：
+部署使用 Cilium 的叢集會添加 Pod 到 `kube-system` 命名空間。要查看 Pod 列表，運行：
 
 ```shell
 kubectl get pods --namespace=kube-system -l k8s-app=cilium
@@ -170,8 +170,8 @@ cilium-kkdhz   1/1     Running   0          3m23s
 A `cilium` Pod runs on each node in your cluster and enforces network policy
 on the traffic to/from Pods on that node using Linux BPF.
 -->
-你的集羣中的每個節點上都會運行一個 `cilium` Pod，通過使用 Linux BPF
-針對該節點上的 Pod 的入站、出站流量實施網絡策略控制。
+你的叢集中的每個節點上都會運行一個 `cilium` Pod，通過使用 Linux BPF
+針對該節點上的 Pod 的入站、出站流量實施網路策略控制。
 
 ## {{% heading "whatsnext" %}}
 
@@ -182,8 +182,8 @@ to try out Kubernetes NetworkPolicy with Cilium.
 Have fun, and if you have questions, contact us using the
 [Cilium Slack Channel](https://cilium.herokuapp.com/).
 -->
-集羣運行後，
-你可以按照[聲明網絡策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)試用基於
+叢集運行後，
+你可以按照[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)試用基於
 Cilium 的 Kubernetes NetworkPolicy。玩得開心，如果你有任何疑問，請到
 [Cilium Slack 頻道](https://cilium.herokuapp.com/)聯繫我們。
 

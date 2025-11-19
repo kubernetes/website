@@ -23,10 +23,10 @@ for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the
 [kubelet TLS Bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/) system.
 -->
-啓動引導令牌是一種簡單的持有者令牌（Bearer Token），這種令牌是在新建集羣
-或者在現有集羣中添加新節點時使用的。
+啓動引導令牌是一種簡單的持有者令牌（Bearer Token），這種令牌是在新建叢集
+或者在現有叢集中添加新節點時使用的。
 它被設計成能夠支持 [`kubeadm`](/zh-cn/docs/reference/setup-tools/kubeadm/)，
-但是也可以被用在其他的案例中以便用戶在不使用 `kubeadm` 的情況下啓動集羣。
+但是也可以被用在其他的案例中以便使用者在不使用 `kubeadm` 的情況下啓動叢集。
 它也被設計成可以通過 RBAC 策略，結合
 [kubelet TLS 啓動引導](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 系統進行工作。
@@ -45,7 +45,7 @@ controller.
 -->
 啓動引導令牌被定義成一個特定類型的 Secret（`bootstrap.kubernetes.io/token`），
 並存在於 `kube-system` 名字空間中。
-這些 Secret 會被 API 服務器上的啓動引導認證組件（Bootstrap Authenticator）讀取。
+這些 Secret 會被 API 伺服器上的啓動引導認證組件（Bootstrap Authenticator）讀取。
 控制器管理器中的控制器 TokenCleaner 能夠刪除過期的令牌。
 這些令牌也被用來在節點發現的過程中會使用的一個特殊的 ConfigMap 對象。
 BootstrapSigner 控制器也會使用這一 ConfigMap。
@@ -80,7 +80,7 @@ API server:
 -->
 ## 啓用啓動引導令牌身份認證   {#enabling-bootstrap-token-authentication}
 
-啓動引導令牌認證組件可以通過 API 服務器上的如下標誌啓用：
+啓動引導令牌認證組件可以通過 API 伺服器上的如下標誌啓用：
 
 ```
 --enable-bootstrap-token-auth
@@ -90,7 +90,7 @@ API server:
 When enabled, bootstrapping tokens can be used as bearer token credentials to
 authenticate requests against the API server.
 -->
-啓動引導令牌被啓用後，可以作爲持有者令牌的憑據，用於 API 服務器請求的身份認證。
+啓動引導令牌被啓用後，可以作爲持有者令牌的憑據，用於 API 伺服器請求的身份認證。
 
 ```http
 Authorization: Bearer 07401b.f395accd246ae52d
@@ -103,7 +103,7 @@ Additional groups may be specified in the token's Secret.
 Expired tokens can be deleted automatically by enabling the `tokencleaner`
 controller on the controller manager.
 -->
-令牌認證爲用戶名 `system:bootstrap:<token id>` 並且是組 `system:bootstrappers`
+令牌認證爲使用者名 `system:bootstrap:<token id>` 並且是組 `system:bootstrappers`
 的成員。額外的組信息可以通過令牌的 Secret 來設置。
 
 過期的令牌可以通過啓用控制器管理器中的 `tokencleaner` 控制器來刪除。
@@ -177,7 +177,7 @@ authenticate to the API server as a bearer token.
 * `usage-bootstrap-signing` indicates that the token may be used to sign the
 `cluster-info` ConfigMap as described below.
 -->
-* `usage-bootstrap-authentication` 表示令牌可以作爲持有者令牌用於 API 服務器的身份認證。
+* `usage-bootstrap-authentication` 表示令牌可以作爲持有者令牌用於 API 伺服器的身份認證。
 * `usage-bootstrap-signing` 表示令牌可被用於 `cluster-info` ConfigMap 的簽名，
   就像下面描述的那樣。
 
@@ -200,7 +200,7 @@ You can use the `kubeadm` tool to manage tokens on a running cluster. See the
 -->
 ## 使用 `kubeadm` 管理令牌   {#token-management-with-kubeadm}
 
-你可以使用 `kubeadm` 工具管理運行中集羣上的令牌。
+你可以使用 `kubeadm` 工具管理運行中叢集上的令牌。
 參見 [kubeadm token 文檔](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-token/)
 以瞭解詳細信息。
 
@@ -217,7 +217,7 @@ Controller Manager.
 ### ConfigMap 簽名  {#configmap-signing}
 
 除了身份認證，令牌還可以用於簽名 ConfigMap。
-這一用法發生在集羣啓動過程的早期，在客戶端信任 API 服務器之前。
+這一用法發生在叢集啓動過程的早期，在客戶端信任 API 伺服器之前。
 被簽名的 ConfigMap 可以被共享令牌完成身份認證。
 
 通過在控制器管理器上啓用 `bootstrapsigner` 控制器可以啓用 ConfigMap 簽名特性。
@@ -267,7 +267,7 @@ The `kubeconfig` member of the ConfigMap is a config file with only the cluster
 information filled out. The key thing being communicated here is the
 `certificate-authority-data`. This may be expanded in the future.
 -->
-ConfigMap 的 `kubeconfig` 成員是一個填好了集羣信息的配置文件。
+ConfigMap 的 `kubeconfig` 成員是一個填好了叢集信息的設定文件。
 這裏主要交換的信息是 `certificate-authority-data`。在將來可能會有擴展。
 
 <!--
@@ -280,11 +280,11 @@ verify the JWS using the `HS256` scheme (HMAC-SHA256) with the full token (e.g.
 is used.
 -->
 簽名是一個使用 “detached” 模式生成的 JWS 簽名。
-爲了檢驗簽名，用戶應該按照 JWS 規則（base64 編碼且丟掉結尾的 `=`）對
+爲了檢驗簽名，使用者應該按照 JWS 規則（base64 編碼且丟掉結尾的 `=`）對
 `kubeconfig` 的載荷進行編碼。完成編碼的載荷會被插入到兩個句點中間，形成完整的
 JWS。你可以使用完整的令牌（比如 `07401b.f395accd246ae52d`）作爲共享密鑰，
 通過 `HS256` 方式 (HMAC-SHA256) 對 JWS 進行校驗。
-用戶**必須**確保使用了 HS256。
+使用者**必須**確保使用了 HS256。
 
 {{< warning >}}
 <!--

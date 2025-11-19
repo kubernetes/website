@@ -28,6 +28,6 @@ Enable the dynamic configuration of kubelet. The
 feature is no longer supported outside of supported skew policy. The feature
 gate was removed from kubelet in 1.24.
 -->
-啓用 kubelet 的動態配置。
+啓用 kubelet 的動態設定。
 除偏差策略場景外，不再支持該功能。
 該特性門控在 kubelet 1.24 版本中已被移除。

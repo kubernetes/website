@@ -1,5 +1,5 @@
 ---
-title: 用戶命名空間
+title: 使用者命名空間
 content_type: concept
 weight: 160
 min-kubernetes-server-version: v1.25
@@ -24,11 +24,11 @@ in the host; in other words, the process has full privileges for operations
 inside the user namespace, but is unprivileged for operations outside the
 namespace.
 -->
-本頁解釋了在 Kubernetes Pod 中如何使用用戶命名空間。
-用戶命名空間將容器內運行的用戶與主機中的用戶隔離開來。
+本頁解釋了在 Kubernetes Pod 中如何使用使用者命名空間。
+使用者命名空間將容器內運行的使用者與主機中的使用者隔離開來。
 
-在容器中以 Root 身份運行的進程可以在主機中以不同的（非 Root）用戶身份運行；
-換句話說，該進程在用戶命名空間內的操作具有完全的權限，
+在容器中以 Root 身份運行的進程可以在主機中以不同的（非 Root）使用者身份運行；
+換句話說，該進程在使用者命名空間內的操作具有完全的權限，
 但在命名空間外的操作是無特權的。
 
 <!--
@@ -40,8 +40,8 @@ mitigate some future vulnerabilities too.
 -->
 你可以使用這個功能來減少被破壞的容器對主機或同一節點中的其他 Pod 的破壞。
 有[幾個安全漏洞][KEP-vulns]被評爲 **高（HIGH）** 或 **重要（CRITICAL）**，
-當用戶命名空間處於激活狀態時，這些漏洞是無法被利用的。
-預計用戶命名空間也會減輕一些未來的漏洞。
+當使用者命名空間處於激活狀態時，這些漏洞是無法被利用的。
+預計使用者命名空間也會減輕一些未來的漏洞。
 
 [KEP-vulns]: https://github.com/kubernetes/enhancements/tree/217d790720c5aef09b8bd4d6ca96284a0affe6c2/keps/sig-node/127-user-namespaces#motivation
 
@@ -62,7 +62,7 @@ the filesystems used. This means:
 這是一個只對 Linux 有效的功能特性，且需要 Linux 支持在所用文件系統上掛載 idmap。
 這意味着：
 
-* 在節點上，你用於 `/var/lib/kubelet/pods/` 的文件系統，或你爲此配置的自定義目錄，
+* 在節點上，你用於 `/var/lib/kubelet/pods/` 的文件系統，或你爲此設定的自定義目錄，
   需要支持 idmap 掛載。
 * Pod 卷中使用的所有文件系統都必須支持 idmap 掛載。
 
@@ -90,7 +90,7 @@ user namespaces. The following OCI runtimes offer support:
 * [runc](https://github.com/opencontainers/runc) version 1.2 or greater
 -->
 
-此外，容器運行時及其底層 OCI 運行時必須支持用戶命名空間。以下 OCI 運行時提供支持：
+此外，容器運行時及其底層 OCI 運行時必須支持使用者命名空間。以下 OCI 運行時提供支持：
 
 * [crun](https://github.com/containers/crun) 1.9 或更高版本（推薦 1.13+ 版本）。
 * [runc](https://github.com/opencontainers/runc) 1.2 或更高版本。
@@ -102,9 +102,9 @@ Linux pods. If you use a managed Kubernetes, or have downloaded it from packages
 and set it up, it's possible that nodes in your cluster use a runtime that doesn't
 include this support.
 -->
-一些 OCI 運行時不包含在 Linux Pod 中使用用戶命名空間所需的支持。
-如果你使用託管 Kubernetes，或者使用軟件包下載並安裝 Kubernetes 集羣，
-則集羣中的節點可能使用不包含支持此特性的運行時。
+一些 OCI 運行時不包含在 Linux Pod 中使用使用者命名空間所需的支持。
+如果你使用託管 Kubernetes，或者使用軟件包下載並安裝 Kubernetes 叢集，
+則叢集中的節點可能使用不包含支持此特性的運行時。
 {{< /note >}}
 
 <!--
@@ -118,15 +118,15 @@ To use user namespaces with Kubernetes, you also need to use a CRI
 此外，需要在{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}提供支持，
 才能在 Kubernetes Pod 中使用這一功能：
 
-* containerd：2.0（及更高）版本支持容器使用用戶命名空間。
-* CRI-O：1.25（及更高）版本支持配置容器的用戶命名空間。
+* containerd：2.0（及更高）版本支持容器使用使用者命名空間。
+* CRI-O：1.25（及更高）版本支持設定容器的使用者命名空間。
 
 <!--
 You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
 on GitHub.
 -->
 你可以在 GitHub 上的 [Issue][CRI-dockerd-issue] 中查看 cri-dockerd
-中用戶命名空間支持的狀態。
+中使用者命名空間支持的狀態。
 
 <!--
 ## Introduction
@@ -141,10 +141,10 @@ a user namespace are valid only in the namespace and void outside of it.
 A pod can opt-in to use user namespaces by setting the `pod.spec.hostUsers` field
 to `false`.
 -->
-用戶命名空間是一個 Linux 功能，允許將容器中的用戶映射到主機中的不同用戶。
-此外，在某用戶命名空間中授予 Pod 的權能只在該命名空間中有效，在該命名空間之外無效。
+使用者命名空間是一個 Linux 功能，允許將容器中的使用者映射到主機中的不同使用者。
+此外，在某使用者命名空間中授予 Pod 的權能只在該命名空間中有效，在該命名空間之外無效。
 
-一個 Pod 可以通過將 `pod.spec.hostUsers` 字段設置爲 `false` 來選擇使用用戶命名空間。
+一個 Pod 可以通過將 `pod.spec.hostUsers` 字段設置爲 `false` 來選擇使用使用者命名空間。
 
 <!--
 The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way
@@ -160,10 +160,10 @@ pod wasn't using user namespaces.
 kubelet 將挑選 Pod 所映射的主機 UID/GID，
 並以此保證同一節點上沒有兩個 Pod 使用相同的方式進行映射。
 
-`pod.spec` 中的 `runAsUser`、`runAsGroup`、`fsGroup` 等字段總是指的是容器內的用戶。
-這些用戶將用於卷掛載（在 `pod.spec.volumes` 中指定），
+`pod.spec` 中的 `runAsUser`、`runAsGroup`、`fsGroup` 等字段總是指的是容器內的使用者。
+這些使用者將用於卷掛載（在 `pod.spec.volumes` 中指定），
 因此，主機上的 UID/GID 不會影響 Pod 掛載卷的讀寫操作。
-換句話說，由 Pod 掛載卷中創建或讀取的 inode，將與 Pod 未使用用戶命名空間時相同。
+換句話說，由 Pod 掛載卷中創建或讀取的 inode，將與 Pod 未使用使用者命名空間時相同。
 
 <!--
 This way, a pod can easily enable and disable user namespaces (without affecting
@@ -176,9 +176,9 @@ volumes).
 By default, the valid UIDs/GIDs when this feature is enabled is the range 0-65535.
 This applies to files and processes (`runAsUser`, `runAsGroup`, etc.).
 -->
-通過這種方式，Pod 可以輕鬆啓用或禁用用戶命名空間（不會影響其卷中文件的所有權），
-並且可以通過在容器內部設置適當的用戶（`runAsUser`、`runAsGroup`、`fsGroup` 等），
-即可與沒有用戶命名空間的 Pod 共享卷。這一點適用於 Pod 可掛載的任何卷，
+通過這種方式，Pod 可以輕鬆啓用或禁用使用者命名空間（不會影響其卷中文件的所有權），
+並且可以通過在容器內部設置適當的使用者（`runAsUser`、`runAsGroup`、`fsGroup` 等），
+即可與沒有使用者命名空間的 Pod 共享卷。這一點適用於 Pod 可掛載的任何卷，
 包括 `hostPath`（前提是允許 Pod 掛載 `hostPath` 卷）。
 
 默認情況下，當啓用該功能時，有效的 UID/GID 在 0-65535 範圍內。
@@ -198,18 +198,18 @@ namespaces or resources, should continue to run fine without any changes needed
 if user namespaces is activated.
 -->
 使用這個範圍之外的 UID/GID 的文件將被視爲屬於溢出 ID，
-通常是 65534（配置在 `/proc/sys/kernel/overflowuid和/proc/sys/kernel/overflowgid`）。
-然而，即使以 65534 用戶/組的身份運行，也不可能修改這些文件。
+通常是 65534（設定在 `/proc/sys/kernel/overflowuid和/proc/sys/kernel/overflowgid`）。
+然而，即使以 65534 使用者/組的身份運行，也不可能修改這些文件。
 
-如果用配置旋鈕將 0-65535 範圍擴展，則上述限制適用於擴展的範圍。
+如果用設定旋鈕將 0-65535 範圍擴展，則上述限制適用於擴展的範圍。
 
 大多數需要以 Root 身份運行但不訪問其他主機命名空間或資源的應用程序，
-在用戶命名空間被啓用時，應該可以繼續正常運行，不需要做任何改變。
+在使用者命名空間被啓用時，應該可以繼續正常運行，不需要做任何改變。
 
 <!--
 ## Understanding user namespaces for pods {#pods-and-userns}
 -->
-## 瞭解 Pod 的用戶命名空間 {#pods-and-userns}
+## 瞭解 Pod 的使用者命名空間 {#pods-and-userns}
 
 <!--
 Several container runtimes with their default configuration (like Docker Engine,
@@ -223,13 +223,13 @@ a network namespace to isolate the network of the container, a PID namespace to
 isolate the view of processes, etc. If a user namespace is used, this will
 isolate the users in the container from the users in the node.
 -->
-一些容器運行時的默認配置（如 Docker Engine、containerd、CRI-O）使用 Linux 命名空間進行隔離。
+一些容器運行時的默認設定（如 Docker Engine、containerd、CRI-O）使用 Linux 命名空間進行隔離。
 其他技術也存在，也可以與這些運行時（例如，Kata Containers 使用虛擬機而不是 Linux 命名空間）結合使用。
 本頁適用於使用 Linux 命名空間進行隔離的容器運行時。
 
 在創建 Pod 時，默認情況下會使用幾個新的命名空間進行隔離：
-一個網絡命名空間來隔離容器網絡，一個 PID 命名空間來隔離進程視圖等等。
-如果使用了一個用戶命名空間，這將把容器中的用戶與節點中的用戶隔離開來。
+一個網路命名空間來隔離容器網路，一個 PID 命名空間來隔離進程視圖等等。
+如果使用了一個使用者命名空間，這將把容器中的使用者與節點中的使用者隔離開來。
 
 <!--
 This means containers can run as root and be mapped to a non-root user on the
@@ -244,14 +244,14 @@ This abstraction limits what can happen, for example, if the container manages
 to escape to the host. Given that the container is running as a non-privileged
 user on the host, it is limited what it can do to the host.
 -->
-這意味着容器可以以 Root 身份運行，並將該身份映射到主機上的一個非 Root 用戶。
+這意味着容器可以以 Root 身份運行，並將該身份映射到主機上的一個非 Root 使用者。
 在容器內，進程會認爲它是以 Root 身份運行的（因此像 `apt`、`yum` 等工具可以正常工作），
 而實際上該進程在主機上沒有權限。
-你可以驗證這一點，例如，如果你從主機上執行 `ps aux` 來檢查容器進程是以哪個用戶運行的。
-`ps` 顯示的用戶與你在容器內執行 `id` 命令時看到的用戶是不一樣的。
+你可以驗證這一點，例如，如果你從主機上執行 `ps aux` 來檢查容器進程是以哪個使用者運行的。
+`ps` 顯示的使用者與你在容器內執行 `id` 命令時看到的使用者是不一樣的。
 
 這種抽象限制了可能發生的情況，例如，容器設法逃逸到主機上時的後果。
-鑑於容器是作爲主機上的一個非特權用戶運行的，它能對主機做的事情是有限的。
+鑑於容器是作爲主機上的一個非特權使用者運行的，它能對主機做的事情是有限的。
 
 <!--
 Furthermore, as users on each pod will be mapped to different non-overlapping
@@ -264,14 +264,14 @@ namespaces, the pod isn't able to load kernel modules.
 - `CAP_SYS_ADMIN` is limited to the pod's user namespace and invalid outside
 of it.
 -->
-此外，由於每個 Pod 上的用戶將被映射到主機中不同的非重疊用戶，
+此外，由於每個 Pod 上的使用者將被映射到主機中不同的非重疊使用者，
 他們對其他 Pod 可以執行的操作也是有限的。
 
-授予一個 Pod 的權能也被限制在 Pod 的用戶命名空間內，
+授予一個 Pod 的權能也被限制在 Pod 的使用者命名空間內，
 並且在這一命名空間之外大多無效，有些甚至完全無效。這裏有兩個例子：
 
-- `CAP_SYS_MODULE` 若被授予一個使用用戶命名空間的 Pod 則沒有任何效果，這個 Pod 不能加載內核模塊。
-- `CAP_SYS_ADMIN` 只限於 Pod 所在的用戶命名空間，在該命名空間之外無效。
+- `CAP_SYS_MODULE` 若被授予一個使用使用者命名空間的 Pod 則沒有任何效果，這個 Pod 不能加載內核模塊。
+- `CAP_SYS_ADMIN` 只限於 Pod 所在的使用者命名空間，在該命名空間之外無效。
 
 <!--
 Without using a user namespace a container running as root, in the case of a
@@ -282,16 +282,16 @@ this is true when we use user namespaces.
 If you want to know more details about what changes when user namespaces are in
 use, see `man 7 user_namespaces`.
 -->
-在不使用用戶命名空間的情況下，以 Root 賬號運行的容器，在容器逃逸時，在節點上有 Root 權限。
+在不使用使用者命名空間的情況下，以 Root 賬號運行的容器，在容器逃逸時，在節點上有 Root 權限。
 而且如果某些權能被授予了某容器，這些權能在宿主機上也是有效的。
-當我們使用用戶命名空間時，這些都不再成立。
+當我們使用使用者命名空間時，這些都不再成立。
 
-如果你想知道關於使用用戶命名空間時的更多變化細節，請參見 `man 7 user_namespaces`。
+如果你想知道關於使用使用者命名空間時的更多變化細節，請參見 `man 7 user_namespaces`。
 
 <!--
 ## Set up a node to support user namespaces
 -->
-## 設置一個節點以支持用戶命名空間 {#set-up-a-node-to-support-user-namespaces}
+## 設置一個節點以支持使用者命名空間 {#set-up-a-node-to-support-user-namespaces}
 
 <!--
 By default, the kubelet assigns pods UIDs/GIDs above the range 0-65535, based on
@@ -326,10 +326,10 @@ configure a custom range, the node needs to have:
    [`man 5 subuid`](https://man7.org/linux/man-pages/man5/subuid.5.html) and
    [`man 5 subgid`](https://man7.org/linux/man-pages/man5/subgid.5.html)).
 -->
-kubelet 可以對 Pod 的用戶 ID 和組 ID 使用自定義範圍。要配置自定義範圍，節點需要具有：
-* 系統中的用戶 `kubelet`（此處不能使用任何其他用戶名）。
+kubelet 可以對 Pod 的使用者 ID 和組 ID 使用自定義範圍。要設定自定義範圍，節點需要具有：
+* 系統中的使用者 `kubelet`（此處不能使用任何其他使用者名）。
 * 已安裝二進制文件 `getsubids`（[shadow-utils][shadow-utils] 的一部分）並位於 kubelet 二進制文件的 `PATH` 中。
-* `kubelet` 用戶的從屬 UID/GID 配置
+* `kubelet` 使用者的從屬 UID/GID 設定
   （請參閱 [`man 5 subuid`](https://man7.org/linux/man-pages/man5/subuid.5.html) 和
   [`man 5 subgid`](https://man7.org/linux/man-pages/man5/subgid.5.html)）
 
@@ -340,9 +340,9 @@ the user executing the `kubelet`.
 You must follow some constraints for the subordinate ID range that you assign
 to the `kubelet` user:
 -->
-此設置僅收集 UID/GID 範圍配置，不會更改執行 `kubelet` 的用戶。
+此設置僅收集 UID/GID 範圍設定，不會更改執行 `kubelet` 的使用者。
 
-對於分配給 `kubelet` 用戶的從屬 ID 範圍， 你必須遵循一些限制：
+對於分配給 `kubelet` 使用者的從屬 ID 範圍， 你必須遵循一些限制：
 
 <!--
 * The subordinate user ID, that starts the UID range for Pods, **must** be a
@@ -351,8 +351,8 @@ to the `kubelet` user:
   imposes this restriction to make it difficult to create an accidentally insecure
   configuration.
 -->
-* 啓動 Pod 的 UID 範圍的從屬用戶 ID **必須**是 65536 的倍數，並且還必須大於或等於 65536。
-  換句話說，Pod 不能使用 0-65535 範圍內的任何 ID；kubelet 施加此限制是爲了使創建意外不安全的配置變得困難。
+* 啓動 Pod 的 UID 範圍的從屬使用者 ID **必須**是 65536 的倍數，並且還必須大於或等於 65536。
+  換句話說，Pod 不能使用 0-65535 範圍內的任何 ID；kubelet 施加此限制是爲了使創建意外不安全的設定變得困難。
 
 <!--
 * The subordinate ID count must be a multiple of 65536
@@ -368,7 +368,7 @@ to the `kubelet` user:
 
 * 從屬 ID 計數必須至少爲 `65536 x <maxPods>`，其中 `<maxPods>` 是節點上可以運行的最大 Pod 數量。
 
-* 你必須爲用戶 ID 和組 ID 分配相同的範圍。如果其他用戶的用戶 ID 範圍與組 ID 範圍不一致也沒關係。
+* 你必須爲使用者 ID 和組 ID 分配相同的範圍。如果其他使用者的使用者 ID 範圍與組 ID 範圍不一致也沒關係。
 
 <!--
 * None of the assigned ranges should overlap with any other assignment.
@@ -381,9 +381,9 @@ these entries for the `kubelet` user:
 -->
 * 所分配的範圍不得與任何其他分配重疊。
 
-* 從屬配置必須只有一行。換句話說，你不能有多個範圍。
+* 從屬設定必須只有一行。換句話說，你不能有多個範圍。
 
-例如，你可以定義 `/etc/subuid` 和 `/etc/subgid` 來爲 `kubelet` 用戶定義以下條目：
+例如，你可以定義 `/etc/subuid` 和 `/etc/subgid` 來爲 `kubelet` 使用者定義以下條目：
 
 <!--
 ```
@@ -439,7 +439,7 @@ In Kubernetes prior to v1.33, the ID count for each of Pods was hard-coded to
 `idsPerPod` 的值（uint32）必須是 65536 的倍數。
 默認值是 65536。
 此值僅適用於使用此 `KubeletConfiguration` 啓動 kubelet 後創建的容器。
-正在運行的容器不受此配置的影響。
+正在運行的容器不受此設定的影響。
 
 在 Kubernetes v1.33 之前，每個 Pod 的 ID 計數被硬編碼爲 65536。
 
@@ -459,11 +459,11 @@ gate](/docs/reference/command-line-tools-reference/feature-gates/)
 users. Admins have to ensure that user namespaces are enabled by all nodes
 within the cluster if using the feature gate.
 -->
-對於啓用了用戶命名空間的 Linux Pod，Kubernetes 會以受控方式放寬
+對於啓用了使用者命名空間的 Linux Pod，Kubernetes 會以受控方式放寬
 [Pod 安全性標準](/zh-cn/docs/concepts/security/pod-security-standards)的應用。
 這種行爲可以通過[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) 
-`UserNamespacesPodSecurityStandards` 進行控制，可以讓最終用戶提前嘗試此特性。
-如果管理員啓用此特性門控，必須確保羣集中的所有節點都啓用了用戶命名空間。
+`UserNamespacesPodSecurityStandards` 進行控制，可以讓最終使用者提前嘗試此特性。
+如果管理員啓用此特性門控，必須確保羣集中的所有節點都啓用了使用者命名空間。
 
 <!--
 If you enable the associated feature gate and create a Pod that uses user
@@ -474,9 +474,9 @@ actually refers to the user inside the container, that is never mapped to a
 privileged user on the host. Here's the list of fields that are **not** checks for Pods in those
 circumstances:
 -->
-如果你啓用相關特性門控並創建了使用用戶命名空間的 Pod，以下的字段不會被限制，
+如果你啓用相關特性門控並創建了使用使用者命名空間的 Pod，以下的字段不會被限制，
 即使在執行了 **Baseline** 或 **Restricted** Pod 安全性標準的上下文中。這種行爲不會帶來安全問題，
-因爲帶有用戶命名空間的 Pod 內的 `root` 實際上指的是容器內的用戶，絕不會映射到主機上的特權用戶。
+因爲帶有使用者命名空間的 Pod 內的 `root` 實際上指的是容器內的使用者，絕不會映射到主機上的特權使用者。
 以下是在這種情況下**不進行**檢查的 Pod 字段列表：
 
 - `spec.securityContext.runAsNonRoot`
@@ -501,7 +501,7 @@ allowed to set any of:
  * `hostIPC: true`
  * `hostPID: true`
 -->
-當 Pod 使用用戶命名空間時，不允許 Pod 使用其他主機命名空間。
+當 Pod 使用使用者命名空間時，不允許 Pod 使用其他主機命名空間。
 特別是，如果你設置了 `hostUsers: false`，那麼你就不可以設置如下屬性：
 
 * `hostNetwork: true`
@@ -530,13 +530,13 @@ The kubelet exports two prometheus metrics specific to user-namespaces:
 -->
 ## 指標與可觀測性
 
-kubelet 會導出兩項與用戶命名空間相關的 Prometheus 指標：
- * `started_user_namespaced_pods_total`：這個計數器跟蹤嘗試創建的、作用域爲用戶命名空間的 Pod 數量。
- * `started_user_namespaced_pods_errors_total`：這個計數器跟蹤創建作用域爲用戶命名空間的 Pod 時發生的錯誤次數。
+kubelet 會導出兩項與使用者命名空間相關的 Prometheus 指標：
+ * `started_user_namespaced_pods_total`：這個計數器跟蹤嘗試創建的、作用域爲使用者命名空間的 Pod 數量。
+ * `started_user_namespaced_pods_errors_total`：這個計數器跟蹤創建作用域爲使用者命名空間的 Pod 時發生的錯誤次數。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)
 -->
-* 查閱[爲 Pod 配置用戶命名空間](/zh-cn/docs/tasks/configure-pod-container/user-namespaces/)
+* 查閱[爲 Pod 設定使用者命名空間](/zh-cn/docs/tasks/configure-pod-container/user-namespaces/)

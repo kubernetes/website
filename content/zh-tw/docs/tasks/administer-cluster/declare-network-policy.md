@@ -1,5 +1,5 @@
 ---
-title: 聲明網絡策略
+title: 聲明網路策略
 min-kubernetes-server-version: v1.8
 content_type: task
 weight: 180
@@ -21,7 +21,7 @@ This document helps you get started using the Kubernetes [NetworkPolicy API](/do
 -->
 本文可以幫助你開始使用 Kubernetes 的
 [NetworkPolicy API](/zh-cn/docs/concepts/services-networking/network-policies/)
-聲明網絡策略去管理 Pod 之間的通信
+聲明網路策略去管理 Pod 之間的通信
 
 {{% thirdparty-content %}}
 
@@ -39,14 +39,14 @@ Make sure you've configured a network provider with network policy support. Ther
 * [Romana](/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
 * [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 -->
-你首先需要有一個支持網絡策略的 Kubernetes 集羣。已經有許多支持 NetworkPolicy 的網絡提供商，包括：
+你首先需要有一個支持網路策略的 Kubernetes 叢集。已經有許多支持 NetworkPolicy 的網路提供商，包括：
 
 * [Antrea](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/antrea-network-policy/)
 * [Calico](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
 * [Cilium](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
 * [Kube-router](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
 * [Romana](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
-* [Weave 網絡](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
+* [Weave 網路](/zh-cn/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 
 <!-- steps -->
 
@@ -57,7 +57,7 @@ To see how Kubernetes network policy works, start off by creating an `nginx` Dep
 -->
 ## 創建一個`nginx` Deployment 並且通過服務將其暴露
 
-爲了查看 Kubernetes 網絡策略是怎樣工作的，可以從創建一個`nginx` Deployment 並且通過服務將其暴露開始
+爲了查看 Kubernetes 網路策略是怎樣工作的，可以從創建一個`nginx` Deployment 並且通過服務將其暴露開始
 
 ```shell
 kubectl create deployment nginx --image=nginx

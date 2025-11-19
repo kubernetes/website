@@ -19,8 +19,8 @@ Unlike the legacy package repositories, the community-owned package
 repositories are structured in a way that there's a dedicated package
 repository for each Kubernetes minor version.
 -->
-本頁介紹瞭如何在升級集羣時啓用包含 Kubernetes 次要版本的軟件包倉庫。
-這僅適用於使用託管在 `pkgs.k8s.io` 上社區自治軟件包倉庫的用戶。
+本頁介紹瞭如何在升級叢集時啓用包含 Kubernetes 次要版本的軟件包倉庫。
+這僅適用於使用託管在 `pkgs.k8s.io` 上社區自治軟件包倉庫的使用者。
 啓用新的 Kubernetes 小版本的軟件包倉庫。與傳統的軟件包倉庫不同，
 社區自治的軟件包倉庫所採用的結構爲每個 Kubernetes 小版本都有一個專門的軟件包倉庫。
 
@@ -31,7 +31,7 @@ This guide only covers a part of the Kubernetes upgrade process. Please see the
 more information about upgrading Kubernetes clusters.
 -->
 本指南僅介紹 Kubernetes 升級過程的一部分。
-有關升級 Kubernetes 集羣的更多信息，
+有關升級 Kubernetes 叢集的更多信息，
 請參閱[升級指南](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 {{</ note >}}
 
@@ -45,7 +45,7 @@ repositories, you'll need to migrate to the new community-owned package
 repositories before upgrading (see the next section for more details on how to
 do this).
 -->
-僅在將集羣升級到另一個**次要**版本時才需要執行此步驟。
+僅在將叢集升級到另一個**次要**版本時才需要執行此步驟。
 如果你要升級到同一次要版本中的另一個補丁版本（例如：v{{< skew currentVersion >}}.5 到
 v{{< skew currentVersion >}}.7）則不需要遵循本指南。
 但是，如果你仍在使用舊的軟件包倉庫，則需要在升級之前遷移到社區自治的新軟件包倉庫

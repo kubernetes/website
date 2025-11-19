@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "用戶命名空間：對運行有狀態 Pod 的支持進入 Alpha 階段!"
+title: "使用者命名空間：對運行有狀態 Pod 的支持進入 Alpha 階段!"
 date: 2023-09-13
 slug: userns-alpha
 ---
@@ -24,7 +24,7 @@ Kubernetes v1.25 introduced support for user namespaces for only stateless
 pods. Kubernetes 1.28 lifted that restriction, after some design changes were
 done in 1.27.
 -->
-Kubernetes v1.25 引入用戶命名空間（User Namespace）特性，僅支持無狀態（Stateless）Pod。
+Kubernetes v1.25 引入使用者命名空間（User Namespace）特性，僅支持無狀態（Stateless）Pod。
 Kubernetes 1.28 在 1.27 的基礎上中進行了一些改進後，取消了這一限制。
 
 <!--
@@ -47,12 +47,12 @@ This post explains the basics of user namespaces and also shows:
  * the runtime requirements to use this feature
  * what you can expect in future releases regarding user namespaces.
 -->
-這篇文章介紹了用戶命名空間的基礎知識，並展示了：
+這篇文章介紹了使用者命名空間的基礎知識，並展示了：
 
 * 最近的 Kubernetes v1.28 版本中出現的變化
-* 一個評級爲**高（HIGH）的漏洞的演示（Demo）**，該漏洞無法在用戶命名空間中被利用
+* 一個評級爲**高（HIGH）的漏洞的演示（Demo）**，該漏洞無法在使用者命名空間中被利用
 * 使用此特性的運行時要求
-* 關於用戶命名空間的未來版本中可以期待的內容
+* 關於使用者命名空間的未來版本中可以期待的內容
 
 <!--
 ## What is a user namespace?
@@ -64,9 +64,9 @@ host UID/GIDs used for different containers never overlap. Even more, the
 identifiers can be mapped to *unprivileged* non-overlapping UIDs and GIDs on the
 host. This basically means two things:
 -->
-## 用戶命名空間是什麼？
+## 使用者命名空間是什麼？
 
-用戶命名空間是 Linux 的一項特性，它將容器的用戶和組標識符（UID 和 GID）與宿主機上的標識符隔離開來。
+使用者命名空間是 Linux 的一項特性，它將容器的使用者和組標識符（UID 和 GID）與宿主機上的標識符隔離開來。
 容器中的標識符可以映射到宿主機上的標識符，其中用於不同容器的主機 UID/GID 從不重疊。
 更重要的是，標識符可以映射到宿主機上的**非特權**、非重疊的 UID 和 GID。這基本上意味着兩件事：
 
@@ -95,11 +95,11 @@ host. This basically means two things:
 Furthermore, capabilities granted are only valid inside the user namespace and
 not on the host.
 -->
- * 由於 UID 和 GID 映射到宿主機上的非特權用戶，如果容器逃逸出了容器邊界，
+ * 由於 UID 和 GID 映射到宿主機上的非特權使用者，如果容器逃逸出了容器邊界，
    即使它在容器內以 root 身份運行，它在宿主機上也沒有特權。
    這極大地保護了它可以讀/寫哪些宿主機文件、可以向哪個進程發送信號等。
 
-此外，所授予的權能（Capability）僅在用戶命名空間內有效，而在宿主機上無效。
+此外，所授予的權能（Capability）僅在使用者命名空間內有效，而在宿主機上無效。
 
 <!--
 Without using a user namespace a container running as root, in the case of a
@@ -107,9 +107,9 @@ container breakout, has root privileges on the node. And if some capabilities
 were granted to the container, the capabilities are valid on the host too. None
 of this is true when using user namespaces (modulo bugs, of course 🙂).
 -->
-在不使用用戶命名空間的情況下，以 root 身份運行的容器在發生逃逸的情況下會獲得節點上的
+在不使用使用者命名空間的情況下，以 root 身份運行的容器在發生逃逸的情況下會獲得節點上的
 root 權限。如果某些權能被授予容器，那麼這些權能在主機上也有效。
-當使用用戶命名空間時，這些情況都會被避免（當然，除非存在漏洞 🙂）。
+當使用使用者命名空間時，這些情況都會被避免（當然，除非存在漏洞 🙂）。
 
 <!--
 ## Changes in 1.28
@@ -120,8 +120,8 @@ of volume, they are no longer limited to only some volume types as before.
 -->
 ## 1.28 版本的變化
 
-正如之前提到的，從 1.28 版本開始，Kubernetes 支持有狀態的 Pod 的用戶命名空間。
-這意味着具有用戶命名空間的 Pod 可以使用任何類型的卷，不再僅限於以前的部分卷類型。
+正如之前提到的，從 1.28 版本開始，Kubernetes 支持有狀態的 Pod 的使用者命名空間。
+這意味着具有使用者命名空間的 Pod 可以使用任何類型的卷，不再僅限於以前的部分卷類型。
 
 <!--
 The feature gate to activate this feature was renamed, it is no longer
@@ -145,7 +145,7 @@ feature.
 ## 演示
 
 Rodrigo 創建了一個利用 [CVE 2022-0492][cve-link] 的演示，
-用以展現如何在沒有用戶命名空間的情況下利用該漏洞。
+用以展現如何在沒有使用者命名空間的情況下利用該漏洞。
 他還展示了在容器使用了此特性的 Pod 中無法利用此漏洞的情況。
 
 <!--
@@ -166,9 +166,9 @@ with containers using a userns, Kubernetes runs those containers as unprivileged
 users, with no changes needed in your app.
 -->
 如今，容器中的大多數應用程序都以 root 身份運行，或者以半可預測的非 root
-用戶身份運行（用戶 ID 65534 是一個比較流行的選擇）。
-當你運行某個 Pod，而其中帶有使用用戶名命名空間（userns）的容器時，Kubernetes
-以非特權用戶身份運行這些容器，無需在你的應用程序中進行任何更改。
+使用者身份運行（使用者 ID 65534 是一個比較流行的選擇）。
+當你運行某個 Pod，而其中帶有使用使用者名命名空間（userns）的容器時，Kubernetes
+以非特權使用者身份運行這些容器，無需在你的應用程序中進行任何更改。
 
 <!--
 This means two containers running as user 65534 will effectively be mapped to
@@ -178,9 +178,9 @@ reduced to the one of an unprivileged user.
 
 [cve-link]: https://unit42.paloaltonetworks.com/cve-2022-0492-cgroups/
 -->
-這意味着兩個以用戶 65534 身份運行的容器實際上會被映射到宿主機上的不同用戶，
+這意味着兩個以使用者 65534 身份運行的容器實際上會被映射到宿主機上的不同使用者，
 從而限制了它們在發生逃逸的情況下能夠對彼此執行的操作，如果它們以 root 身份運行，
-宿主機上的特權也會降低到非特權用戶的權限。
+宿主機上的特權也會降低到非特權使用者的權限。
 
 [cve-link]: https://unit42.paloaltonetworks.com/cve-2022-0492-cgroups/
 
@@ -220,9 +220,9 @@ namespaces support, with Kubernetes 1.25 and 1.26.
 -->
 containerd 對此的支持目前設定的目標是 containerd 2.0；不管你是否與 crun 或 runc 一起使用，或許都不重要。
 
-請注意，containerd 1.7 添加了對用戶命名空間的實驗性支持，正如在 Kubernetes 1.25
+請注意，containerd 1.7 添加了對使用者命名空間的實驗性支持，正如在 Kubernetes 1.25
 和 1.26 中實現的那樣。1.27 版本中進行的重新設計不受 containerd 1.7 支持，
-因此它在用戶命名空間支持方面僅適用於 Kubernetes 1.25 和 1.26。
+因此它在使用者命名空間支持方面僅適用於 Kubernetes 1.25 和 1.26。
 
 <!--
 One limitation present in containerd 1.7 is that it needs to change the
@@ -237,10 +237,10 @@ None of these containerd limitations apply to [CRI-O 1.28][CRIO-release].
 
 [CRIO-release]: https://github.com/cri-o/cri-o/releases/tag/v1.28.1
 -->
-containerd 1.7 存在的一個限制是，在 Pod 啓動期間需要更改容器鏡像中每個文件和目錄的所有權。
+containerd 1.7 存在的一個限制是，在 Pod 啓動期間需要更改容器映像檔中每個文件和目錄的所有權。
 這意味着它具有存儲開銷，並且可能會顯著影響容器啓動延遲。containerd 2.0
 可能會包括一個實現，可以消除增加的啓動延遲和存儲開銷。如果計劃在生產中使用
-containerd 1.7 與用戶命名空間，請考慮這一點。
+containerd 1.7 與使用者命名空間，請考慮這一點。
 
 這些 Containerd 限制均不適用於 [CRI-O 1.28][CRIO 版本]。
 
@@ -260,8 +260,8 @@ or similar.
 -->
 ## 接下來？
 
-展望 Kubernetes 1.29，計劃是與 SIG Auth 合作，將用戶命名空間集成到 Pod 安全標準（PSS）和 Pod 安全准入中。
-目前的計劃是在使用用戶命名空間時放寬 Pod 安全標準（PSS）策略中的檢查。這意味着如果使用用戶命名空間，那麼字段
+展望 Kubernetes 1.29，計劃是與 SIG Auth 合作，將使用者命名空間集成到 Pod 安全標準（PSS）和 Pod 安全准入中。
+目前的計劃是在使用使用者命名空間時放寬 Pod 安全標準（PSS）策略中的檢查。這意味着如果使用使用者命名空間，那麼字段
 `spec[.*].securityContext`、`runAsUser`、`runAsNonRoot`、`allowPrivilegeEscalation和capabilities`
 將不會觸發違規，此行爲可能會通過使用 API Server 特性門控來控制，比如 `UserNamespacesPodSecurityStandards` 或其他類似的。
 

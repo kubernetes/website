@@ -24,11 +24,11 @@ The Kubernetes project recommends modifying DNS configuration using the `hostAli
 directly.
 Change made in other ways may be overwritten by the kubelet during Pod creation or restart.
 -->
-當 DNS 配置以及其它選項不合理的時候，通過向 Pod 的 `/etc/hosts` 文件中添加條目，
+當 DNS 設定以及其它選項不合理的時候，通過向 Pod 的 `/etc/hosts` 文件中添加條目，
 可以在 Pod 級別覆蓋對主機名的解析。你可以通過 PodSpec 的 HostAliases
 字段來添加這些自定義條目。
 
-Kubernetes 項目建議使用 `hostAliases` 字段（Pod `.spec` 的一部分）來修改 DNS 配置，
+Kubernetes 項目建議使用 `hostAliases` 字段（Pod `.spec` 的一部分）來修改 DNS 設定，
 而不是通過使用 Init 容器或其他方式直接編輯 `/etc/hosts`。
 以其他方式所做的更改可能會在 Pod 創建或重啓過程中被 kubelet 重寫。
 
@@ -105,14 +105,14 @@ For example: to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`
 除了默認的樣板內容，你可以向 `hosts` 文件添加額外的條目。
 例如，要將 `foo.local`、`bar.local` 解析爲 `127.0.0.1`，
 將 `foo.remote`、 `bar.remote` 解析爲 `10.1.2.3`，你可以在
-`.spec.hostAliases` 下爲 Pod 配置 HostAliases。
+`.spec.hostAliases` 下爲 Pod 設定 HostAliases。
 
 {{% code_sample file="service/networking/hostaliases-pod.yaml" %}}
 
 <!--
 You can start a Pod with that configuration by running:
 -->
-你可以使用以下命令用此配置啓動 Pod：
+你可以使用以下命令用此設定啓動 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/networking/hostaliases-pod.yaml

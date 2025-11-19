@@ -35,10 +35,10 @@ A few steps are required in order to get a normal user to be able to
 authenticate and invoke an API. First, this user must have an [X.509](https://www.itu.int/rec/T-REC-X.509) certificate
 issued by an authority that your Kubernetes cluster trusts. The client must then present that certificate to the Kubernetes API.
 -->
-Kubernetes 允許你使用公鑰基礎設施 (PKI) 對你的集羣進行身份認證，這類似於對客戶端進行身份認證。
+Kubernetes 允許你使用公鑰基礎設施 (PKI) 對你的叢集進行身份認證，這類似於對客戶端進行身份認證。
 
-爲了能夠對普通用戶進行身份認證並調用 API，需要執行幾個步驟。首先，此用戶必須擁有由你的
-Kubernetes 集羣所信任的權威機構頒發的 [X.509](https://www.itu.int/rec/T-REC-X.509)
+爲了能夠對普通使用者進行身份認證並調用 API，需要執行幾個步驟。首先，此使用者必須擁有由你的
+Kubernetes 叢集所信任的權威機構頒發的 [X.509](https://www.itu.int/rec/T-REC-X.509)
 證書。之後客戶端必須向 Kubernetes API 提交該證書。
 
 <!--
@@ -51,7 +51,7 @@ that private key for a client.
 在這個過程中，你需要使用
 [CertificateSigningRequest](/zh-cn/concepts/security/certificate-signing-requests/)，並且你或其他主體必須批准此請求。
 
-你將創建私鑰，然後獲取頒發的證書，最後爲客戶端配置該私鑰。
+你將創建私鑰，然後獲取頒發的證書，最後爲客戶端設定該私鑰。
 
 ## {{% heading "prerequisites" %}}
 
@@ -82,7 +82,7 @@ openssl genrsa -out myuser.key 3072
 -->
 ## 創建私鑰   {#create-private-key}
 
-在這一步中，你將創建一個私鑰。你將此文件作爲祕密保管起來，因爲任何擁有該私鑰的人都可以僞裝成對應的用戶。
+在這一步中，你將創建一個私鑰。你將此文件作爲祕密保管起來，因爲任何擁有該私鑰的人都可以僞裝成對應的使用者。
 
 ```shell
 # 創建一個私鑰
@@ -112,7 +112,7 @@ You can refer to [RBAC](/docs/reference/access-authn-authz/rbac/) for standard g
 openssl req -new -key myuser.key -out myuser.csr -subj "/CN=myuser"
 ```
 -->
-設置 CSR 的 CN 和 O 屬性非常重要。CN 是用戶的名稱，O 是此用戶所屬的羣組。
+設置 CSR 的 CN 和 O 屬性非常重要。CN 是使用者的名稱，O 是此使用者所屬的羣組。
 你可以參閱 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 瞭解標準的羣組。
 
 ```shell
@@ -139,7 +139,7 @@ and submit it to a Kubernetes Cluster via kubectl. Below is a snippet of shell t
 CertificateSigningRequest.
 -->
 創建 [CertificateSigningRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1/)
-並通過 kubectl 將其提交到 Kubernetes 集羣。以下是你可以用於生成 CertificateSigningRequest 的 Shell 片段。
+並通過 kubectl 將其提交到 Kubernetes 叢集。以下是你可以用於生成 CertificateSigningRequest 的 Shell 片段。
 
 <!--
 # example
@@ -236,9 +236,9 @@ The next step is to add this user into the kubeconfig file.
 
 First, you need to add new credentials:
 -->
-## 將證書配置到 kubeconfig 中   {#configure-the-certificate-into-kubeconfig}
+## 將證書設定到 kubeconfig 中   {#configure-the-certificate-into-kubeconfig}
 
-下一步是將此用戶添加到 kubeconfig 文件中。
+下一步是將此使用者添加到 kubeconfig 文件中。
 
 首先，你需要添加新的憑證：
 
@@ -278,7 +278,7 @@ You should see output confirming that you are “myuser“.
 If you don't use Kubernetes RBAC, skip this step and make the appropriate changes for the authorization mechanism
 your cluster actually uses.
 -->
-如果你不使用 Kubernetes RBAC，請跳過這一步，並對集羣實際使用的鑑權機制進行適當更改。
+如果你不使用 Kubernetes RBAC，請跳過這一步，並對叢集實際使用的鑑權機制進行適當更改。
 {{< /note >}}
 
 <!--
@@ -287,9 +287,9 @@ this user to access Kubernetes cluster resources.
 
 This is a sample command to create a Role for this new user:
 -->
-創建證書之後，就可以爲此用戶定義 Role 和 RoleBinding，以訪問 Kubernetes 集羣資源。
+創建證書之後，就可以爲此使用者定義 Role 和 RoleBinding，以訪問 Kubernetes 叢集資源。
 
-這是爲新用戶創建 Role 的示例命令：
+這是爲新使用者創建 Role 的示例命令：
 
 ```shell
 kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
@@ -298,7 +298,7 @@ kubectl create role developer --verb=create --verb=get --verb=list --verb=update
 <!--
 This is a sample command to create a RoleBinding for this new user:
 -->
-這是爲新用戶創建 RoleBinding 的示例命令：
+這是爲新使用者創建 RoleBinding 的示例命令：
 
 ```shell
 kubectl create rolebinding developer-binding-myuser --role=developer --user=myuser
@@ -312,7 +312,7 @@ kubectl create rolebinding developer-binding-myuser --role=developer --user=myus
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
 * Read about [ClusterTrustBundles](/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles)
 -->
-* 閱讀[管理集羣中的 TLS 證書](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
+* 閱讀[管理叢集中的 TLS 證書](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
 * 有關 X.509 本身的細節，參閱 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第 3.1 節
 * 有關 PKCS#10 證書籤名請求的語法信息，請參閱 [RFC 2986](https://tools.ietf.org/html/rfc2986)
 * 參閱 [ClusterTrustBundles](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#cluster-trust-bundles)

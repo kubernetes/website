@@ -28,7 +28,7 @@ Kubernetes 最初是爲了支持在 Linux 主機上運行本機應用程序的 D
 <!--
 With runtimes targeting so many different use cases, a clear need for mixed runtimes in a cluster arose. But all these different ways of running containers have brought a new set of problems to deal with:
 -->
-由於存在諸多針對不同用例的運行時，集羣對混合運行時的需求變得明晰起來。
+由於存在諸多針對不同用例的運行時，叢集對混合運行時的需求變得明晰起來。
 但是，所有這些不同的容器運行方式都帶來了一系列新問題要處理：
 
 <!--
@@ -37,9 +37,9 @@ With runtimes targeting so many different use cases, a clear need for mixed runt
 - Which runtimes support which features, and how can we surface incompatibilities to the user?
 - How do we account for the varying resource overheads of the runtimes?
 -->
-- 用戶如何知道哪些運行時可用，併爲其工作負荷選擇運行時？
+- 使用者如何知道哪些運行時可用，併爲其工作負荷選擇運行時？
 - 我們如何確保將 Pod 被調度到支持所需運行時的節點上？
-- 哪些運行時支持哪些功能，以及我們如何向用戶顯示不兼容性？
+- 哪些運行時支持哪些功能，以及我們如何向使用者顯示不兼容性？
 - 我們如何考慮運行時的各種資源開銷？
 
 <!--
@@ -61,10 +61,10 @@ RuntimeClass was recently introduced as an alpha feature in Kubernetes 1.12. The
 <!--
 The RuntimeClass resource represents a container runtime supported in a Kubernetes cluster. The cluster provisioner sets up, configures, and defines the concrete runtimes backing the RuntimeClass. In its current form, a RuntimeClassSpec holds a single field, the **RuntimeHandler**. The RuntimeHandler is interpreted by the CRI implementation running on a node, and mapped to the actual runtime configuration. Meanwhile the PodSpec has been expanded with a new field, **RuntimeClassName**, which names the RuntimeClass that should be used to run the pod.
 -->
-RuntimeClass 資源代表 Kubernetes 集羣中支持的容器運行時。
-集羣製備組件安裝、配置和定義支持 RuntimeClass 的具體運行時。
+RuntimeClass 資源代表 Kubernetes 叢集中支持的容器運行時。
+叢集製備組件安裝、設定和定義支持 RuntimeClass 的具體運行時。
 在 RuntimeClassSpec 的當前形式中，只有一個字段，即 **RuntimeHandler**。
-RuntimeHandler 由在節點上運行的 CRI 實現解釋，並映射到實際的運行時配置。
+RuntimeHandler 由在節點上運行的 CRI 實現解釋，並映射到實際的運行時設定。
 同時，PodSpec 被擴展添加了一個新字段 **RuntimeClassName**，命名應該用於運行 Pod 的 RuntimeClass。
 
 <!--
@@ -84,7 +84,7 @@ Kubernetes 資源模型期望 Pod 中的容器之間可以共享某些資源。
 The RuntimeClass resource is an important foundation for surfacing runtime properties to the control plane. For example, to implement scheduler support for clusters with heterogeneous nodes supporting different runtimes, we might add [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) terms to the RuntimeClass definition. Another area to address is managing the variable resource requirements to run pods of different runtimes. The [Pod Overhead proposal](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview) was an early take on this that aligns nicely with the RuntimeClass design, and may be pursued further.
 -->
 RuntimeClass 資源是將運行時屬性顯示到控制平面的重要基礎。
-例如，要對具有支持不同運行時間的異構節點的集羣實施調度程序支持，我們可以在 RuntimeClass 定義中添加
+例如，要對具有支持不同運行時間的異構節點的叢集實施調度程序支持，我們可以在 RuntimeClass 定義中添加
 [NodeAffinity](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 條件。
 另一個需要解決的領域是管理可變資源需求以運行不同運行時的 Pod。
 [Pod Overhead 提案](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview)是一項較早的嘗試，與
@@ -104,9 +104,9 @@ Many other RuntimeClass extensions have also been proposed, and will be revisite
 - "Fitting" a RuntimeClass to a pod's requirements. For instance, specifying runtime properties and letting the system match an appropriate RuntimeClass, rather than explicitly assigning a RuntimeClass by name.
 -->
 - 提供運行時支持的可選功能，並更好地查看由不兼容功能導致的錯誤。
-- 自動運行時或功能發現，支持無需手動配置的調度決策。
-- 標準化或一致的 RuntimeClass 名稱，用於定義一組具有相同名稱的 RuntimeClass 的集羣應支持的屬性。
-- 動態註冊附加的運行時，因此用戶可以在不停機的情況下在現有集羣上安裝新的運行時。
+- 自動運行時或功能發現，支持無需手動設定的調度決策。
+- 標準化或一致的 RuntimeClass 名稱，用於定義一組具有相同名稱的 RuntimeClass 的叢集應支持的屬性。
+- 動態註冊附加的運行時，因此使用者可以在不停機的情況下在現有叢集上安裝新的運行時。
 - 根據 Pod 的要求“匹配” RuntimeClass。
   例如，指定運行時屬性並使系統與適當的 RuntimeClass 匹配，而不是通過名稱顯式分配 RuntimeClass。
 

@@ -94,7 +94,7 @@ A more detailed description of termination behaviour with custom stop signals ca
 `StopSignal`
 
 StopSignal 生命週期可用於定義停止信號，該信號將在容器停止時發送給容器。
-如果設置了該字段，將會覆蓋容器鏡像中定義的 `STOPSIGNAL` 指令。
+如果設置了該字段，將會覆蓋容器映像檔中定義的 `STOPSIGNAL` 指令。
 
 關於自定義停止信號的終止行爲的更爲詳細的描述，請參閱
 [停止信號](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-stop-signals)。
@@ -179,7 +179,7 @@ Users should make their hook handlers as lightweight as possible.
 There are cases, however, when long running commands make sense,
 such as when saving state prior to stopping a Container.
 -->
-用戶應該使他們的回調處理程序儘可能的輕量級。
+使用者應該使他們的回調處理程序儘可能的輕量級。
 但也需要考慮長時間運行的命令也很有用的情況，比如在停止容器之前保存狀態。
 
 <!--

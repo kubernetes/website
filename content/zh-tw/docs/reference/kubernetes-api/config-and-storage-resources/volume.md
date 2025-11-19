@@ -57,7 +57,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 
   <a name="PersistentVolumeClaimVolumeSource"></a>
-  **PersistentVolumeClaimVolumeSource 引用同一名字空間中用戶的 PVC。
+  **PersistentVolumeClaimVolumeSource 引用同一名字空間中使用者的 PVC。
   此卷找到綁定的 PV 併爲 Pod 掛載這個 PV 卷。
   PersistentVolumeClaimVolumeSource 本質上是其他人（或系統）擁有的另一類卷的包裝類。**
 
@@ -484,7 +484,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
       Kubelet will begin trying to rotate the certificate at the time indicated by the signer using the PodCertificateRequest.Status.BeginRefreshAt timestamp.
       -->
 
-      將一個自動輪換的憑據包（私鑰和證書鏈）投射到 Pod 中，Pod 可以將其用作 TLS 客戶端或服務器。
+      將一個自動輪換的憑據包（私鑰和證書鏈）投射到 Pod 中，Pod 可以將其用作 TLS 客戶端或伺服器。
 
       kubelet 生成一個私鑰，並使用它發送 PodCertificateRequest 到指定的簽名者。一旦簽名者批准請求並頒發證書鏈，
       kubelet 將密鑰和證書鏈寫入 Pod 文件系統。在其規約中的每個 podCertificate
@@ -1109,12 +1109,12 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **cephfs.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
-    secretRef 是可選的。secretRef 是針對用戶的身份認證 Secret 的引用，默認爲空。更多信息：
+    secretRef 是可選的。secretRef 是針對使用者的身份認證 Secret 的引用，默認爲空。更多信息：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
   - **cephfs.user** (string)
 
-    user 是可選的。user 是 rados 用戶名，默認爲 admin。更多信息：
+    user 是可選的。user 是 rados 使用者名，默認爲 admin。更多信息：
     https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
 <!--
@@ -1200,7 +1200,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **csi.driver** (string)，必需
 
-    driver 是處理此卷的 CSI 驅動的名稱。諮詢你的管理員以獲取在集羣中註冊的正確名稱。
+    driver 是處理此卷的 CSI 驅動的名稱。諮詢你的管理員以獲取在叢集中註冊的正確名稱。
 
   - **csi.fsType** (string)
 
@@ -1230,7 +1230,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **csi.readOnly** (boolean)
 
-    readOnly 指定供卷使用的只讀配置。默認爲 false（讀/寫）。
+    readOnly 指定供卷使用的只讀設定。默認爲 false（讀/寫）。
 
   - **csi.volumeAttributes** (map[string]string)
 
@@ -1243,7 +1243,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **ephemeral** (EphemeralVolumeSource)
 
-  ephemeral 表示由一個集羣存儲驅動處理的卷。此卷的生命週期與定義該卷的 Pod 相關聯。
+  ephemeral 表示由一個叢集存儲驅動處理的卷。此卷的生命週期與定義該卷的 Pod 相關聯。
   Pod 啓動前創建此卷，Pod 移除時刪除此卷。
 
   <!--
@@ -1304,7 +1304,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
     如果具有此名稱的現有 PVC 不屬於此 Pod，則這一 PVC 將**不會**被用於此 Pod，以避免錯誤地使用不相關的卷。
     如果出現這種情況，Pod 的啓動操作會被阻塞直到不相關的 PVC 被移除。
     如果 Pod 準備使用這樣一個預先創建的 PVC，那麼一旦此 Pod 出現，就必須更新 PVC，
-    將其屬主引用指向該 Pod。通常沒有必要這樣做，但這對手動重構損壞的集羣時可能很有用。
+    將其屬主引用指向該 Pod。通常沒有必要這樣做，但這對手動重構損壞的叢集時可能很有用。
 
     此字段是隻讀的，PVC 被創建後 Kubernetes 不會對其進行任何更改。
 
@@ -1580,7 +1580,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
 - **glusterfs** （GlusterfsVolumeSource）
 
-  glusterfs 表示關聯到主機並暴露給 Pod 的 Glusterfs 卷。由管理員配置。
+  glusterfs 表示關聯到主機並暴露給 Pod 的 Glusterfs 卷。由管理員設定。
   已棄用：glusterfs 已被棄用，且樹內 glusterfs 類型不再受支持。
 
   <a name="GlusterfsVolumeSource"></a>
@@ -1744,7 +1744,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 -->
 - **image** (ImageVolumeSource)
 
-  image 表示一個在 kubelet 的主機上拉取並掛載的 OCI 對象（容器鏡像或工件）。
+  image 表示一個在 kubelet 的主機上拉取並掛載的 OCI 對象（容器映像檔或工件）。
   其卷在 Pod 啓動時根據提供的 PullPolicy 值進行解析：
 
   <!--
@@ -1752,7 +1752,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   -->
 
   - Always：kubelet 始終嘗試拉取此引用。如果拉取失敗，容器創建將失敗。
-  - Never：kubelet 從不拉取此引用，只使用本地鏡像或工件。如果引用不存在，容器創建將失敗。
+  - Never：kubelet 從不拉取此引用，只使用本地映像檔或工件。如果引用不存在，容器創建將失敗。
   - IfNotPresent：如果磁盤上尚不存在此引用，kubelet 執行拉取操作。若此引用不存在且拉取失敗，則容器創建將失敗。
 
   <!--
@@ -1760,9 +1760,9 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   -->
 
   如果 Pod 被刪除並重新創建，此卷會被重新解析，這意味着在 Pod 重新創建時將可以訪問新的遠程內容。
-  在 Pod 啓動期間解析或拉取鏡像失敗將導致容器無法啓動，並可能顯著增加延遲。
+  在 Pod 啓動期間解析或拉取映像檔失敗將導致容器無法啓動，並可能顯著增加延遲。
   如果失敗，將使用正常的捲回退機制進行重試，並輸出 Pod 失敗的原因和相關消息。
-  此卷可以掛載的對象類型由主機上的容器運行時實現負責定義，至少必須包含容器鏡像字段所支持的所有有效類型。
+  此卷可以掛載的對象類型由主機上的容器運行時實現負責定義，至少必須包含容器映像檔字段所支持的所有有效類型。
   OCI 對象將以只讀方式被掛載到單個目錄（`spec.containers[*].volumeMounts.mountPath`）中。
   在 Linux 上，容器運行時通常還會掛載阻止文件執行（`noexec`）的卷。
   1.33 版本之前不支持容器使用子路徑掛載（`spec.containers[*].volumeMounts.subpath`）。
@@ -1778,14 +1778,14 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
   -->
 
   <a name="ImageVolumeSource"></a>
-  **ImageVolumeSource 表示一個鏡像卷資源。**
+  **ImageVolumeSource 表示一個映像檔卷資源。**
 
   - **image.pullPolicy**（字符串）
 
     OCI 對象的拉取策略。可能的值有：
 
     - Always：kubelet 始終嘗試拉取此引用。如果拉取失敗，容器創建將失敗。
-    - Never：kubelet 從不拉取此引用，只使用本地鏡像或工件。如果引用不存在，容器創建將失敗。
+    - Never：kubelet 從不拉取此引用，只使用本地映像檔或工件。如果引用不存在，容器創建將失敗。
     - IfNotPresent：如果磁盤上尚不存在此引用，kubelet 執行拉取操作。
       如果引用不存在且拉取失敗，容器創建將失敗。
       如果指定了 `:latest` 標籤，則默認爲 Always，否則默認爲 IfNotPresent。
@@ -1798,9 +1798,9 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
     -->
   
     可能的枚舉值：
-    - `"Always"` 表示 kubelet 總是嘗試拉取最新的鏡像。如果拉取失敗，容器將失敗。
-    - `"IfNotPresent"` 表示如果磁盤上沒有所指定的鏡像，則 kubelet 會拉取。如果鏡像不存在且拉取失敗，容器將失敗。
-    - `"Never"` 表示 kubelet 從不拉取鏡像，僅使用本地鏡像。如果鏡像不存在，容器將失敗。
+    - `"Always"` 表示 kubelet 總是嘗試拉取最新的映像檔。如果拉取失敗，容器將失敗。
+    - `"IfNotPresent"` 表示如果磁盤上沒有所指定的映像檔，則 kubelet 會拉取。如果映像檔不存在且拉取失敗，容器將失敗。
+    - `"Never"` 表示 kubelet 從不拉取映像檔，僅使用本地映像檔。如果映像檔不存在，容器將失敗。
   
   - **image.reference** (string)
 
@@ -1808,11 +1808,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
     Required: Image or artifact reference to be used. Behaves in the same way as pod.spec.containers[*].image. Pull secrets will be assembled in the same way as for the container image by looking up node credentials, SA image pull secrets, and pod spec image pull secrets. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
     -->
   
-    必需：要使用的鏡像或工件引用。行爲與 pod.spec.containers[*].image 相同。
-    拉取 Secret 的組裝方式與容器鏡像所用的方式相同，
-    都是通過查找節點憑據、服務賬戶（SA）鏡像拉取 Secret 和 Pod 規約鏡像拉取 Secret。更多信息：
+    必需：要使用的映像檔或工件引用。行爲與 pod.spec.containers[*].image 相同。
+    拉取 Secret 的組裝方式與容器映像檔所用的方式相同，
+    都是通過查找節點憑據、服務賬戶（SA）映像檔拉取 Secret 和 Pod 規約映像檔拉取 Secret。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/containers/images
-    此字段是可選的，以允許更高層次的配置管理在 Deployment 和 StatefulSet 這類工作負載控制器中默認或覆蓋容器鏡像。
+    此字段是可選的，以允許更高層次的設定管理在 Deployment 和 StatefulSet 這類工作負載控制器中默認或覆蓋容器映像檔。
 
 <!--
 - **nfs** (NFSVolumeSource)
@@ -1836,7 +1836,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **nfs.path** (string)，必需
 
-    path 是由 NFS 服務器導出的路徑。更多信息：
+    path 是由 NFS 伺服器導出的路徑。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   <!--
@@ -1851,7 +1851,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **nfs.server** (string)，必需
 
-    server 是 NFS 服務器的主機名或 IP 地址。更多信息：
+    server 是 NFS 伺服器的主機名或 IP 地址。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#nfs
 
   - **nfs.readOnly** (boolean)
@@ -2003,7 +2003,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **quobyte.user** (string)
 
-    user 是將卷訪問映射到的用戶。默認爲 serivceaccount 用戶。
+    user 是將卷訪問映射到的使用者。默認爲 serivceaccount 使用者。
 
 <!--
 - **rbd** (RBDVolumeSource)
@@ -2028,7 +2028,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **rbd.image** (string)，必需
 
-    image 是 rados 鏡像名稱。更多信息：
+    image 是 rados 映像檔名稱。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
   <!--
@@ -2102,7 +2102,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **rbd.user** (string)
 
-    user 是 rados 用戶名。默認爲 admin。更多信息：
+    user 是 rados 使用者名。默認爲 admin。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
 <!--
@@ -2145,11 +2145,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **scaleIO.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)，必需
 
-    secretRef 引用到 ScaleIO 用戶的 Secret 和其他敏感信息。如果未提供此項，則 Login 操作將失敗。
+    secretRef 引用到 ScaleIO 使用者的 Secret 和其他敏感信息。如果未提供此項，則 Login 操作將失敗。
 
   - **scaleIO.system** (string)，必需
 
-    system 是存儲系統的名稱，與 ScaleIO 中的配置相同。
+    system 是存儲系統的名稱，與 ScaleIO 中的設定相同。
 
   - **scaleIO.fsType** (string)
 
@@ -2172,7 +2172,7 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **scaleIO.protectionDomain** (string)
 
-    protectionDomain 是 ScaleIO 保護域（ScaleIO Protection Domain）的名稱，用於已配置的存儲。
+    protectionDomain 是 ScaleIO 保護域（ScaleIO Protection Domain）的名稱，用於已設定的存儲。
 
   - **scaleIO.readOnly** (boolean)
 
@@ -2318,11 +2318,11 @@ Volume 表示 Pod 中一個有名字的卷，可以由 Pod 中的任意容器進
 
   - **vsphereVolume.storagePolicyID** (string)
 
-    storagePolicyID 是與 StoragePolicyName 關聯的基於存儲策略的管理（SPBM）配置文件 ID。
+    storagePolicyID 是與 StoragePolicyName 關聯的基於存儲策略的管理（SPBM）設定文件 ID。
 
   - **vsphereVolume.storagePolicyName** (string)
 
-    storagePolicyName 是基於存儲策略的管理（SPBM）配置文件名稱。
+    storagePolicyName 是基於存儲策略的管理（SPBM）設定文件名稱。
 
 <!--
 ### Deprecated

@@ -15,7 +15,7 @@ weight: 85
 This page explains how to set a Pod's hostname, 
 potential side effects after configuration, and the underlying mechanics.
 -->
-本文講述如何設置 Pod 的主機名、配置主機名後的潛在副作用以及底層機制。
+本文講述如何設置 Pod 的主機名、設定主機名後的潛在副作用以及底層機制。
 
 <!-- body -->
 
@@ -83,7 +83,7 @@ Refer to: [Pod's hostname and subdomain fields](/docs/concepts/services-networki
 
 ## Hostname with pod's setHostnameAsFQDN fields
 -->
-當 `hostname` 和 `subdomain` 都被設置時，集羣的 DNS 服務器會基於這些字段創建 A 和/或 AAAA 記錄。參考
+當 `hostname` 和 `subdomain` 都被設置時，叢集的 DNS 伺服器會基於這些字段創建 A 和/或 AAAA 記錄。參考
 [Pod 的 hostname 和 subdomain 字段](/zh-cn/docs/concepts/services-networking/dns-pod-service/#pod-hostname-and-subdomain-field)。
 
 ## 使用 Pod 的 setHostnameAsFQDN 字段設置主機名 {#hostname-with-pod-s-sethostnameasfqdn-fields}
@@ -97,7 +97,7 @@ qualified domain name `busybox-1.busybox-subdomain.my-namespace.svc.cluster-doma
 then by default the `hostname` command inside that Pod returns `busybox-1` and the
 `hostname --fqdn` command returns the FQDN.
 -->
-當 Pod 被配置爲使用完全限定域名（FQDN）時，則其主機名是短的主機名。
+當 Pod 被設定爲使用完全限定域名（FQDN）時，則其主機名是短的主機名。
 例如，如果 Pod 的完全限定域名是 `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`，
 那麼該 Pod 內的 `hostname` 命令默認返回 `busybox-1`，而 `hostname --fqdn` 命令返回 FQDN。
 
@@ -117,7 +117,7 @@ kubelet 會將 Pod 的 FQDN 寫入該 Pod 命名空間的主機名中。
 
 Pod 的 FQDN 構建方式與前面定義的方式相同。
 它由 Pod 的 `spec.hostname`（如果指定）或 `metadata.name` 字段、
-`spec.subdomain`、`namespace` 名稱以及集羣域名後綴組成。
+`spec.subdomain`、`namespace` 名稱以及叢集域名後綴組成。
 
 {{< note >}}
 <!--
@@ -185,7 +185,7 @@ spec:
 <!--
 This only affects the hostname within the Pod; it does not affect the Pod's A or AAAA records in the cluster DNS server.
 -->
-這僅影響 Pod 內部的主機名；不會影響集羣 DNS 服務器中 Pod 的 A 或 AAAA 記錄。
+這僅影響 Pod 內部的主機名；不會影響叢集 DNS 伺服器中 Pod 的 A 或 AAAA 記錄。
 {{< /note >}}
 
 <!--
@@ -197,7 +197,7 @@ If `hostnameOverride` is set alongside `hostname` and `subdomain` fields:
 如果同時設置了 `hostnameOverride` 和 `hostname`、`subdomain` 字段：
 
 * Pod 內部的主機名會被覆蓋爲 `hostnameOverride` 值。
-* 集羣 DNS 服務器中 Pod 的 A 和/或 AAAA 記錄仍然基於 `hostname` 和 `subdomain` 字段生成。
+* 叢集 DNS 伺服器中 Pod 的 A 和/或 AAAA 記錄仍然基於 `hostname` 和 `subdomain` 字段生成。
 
 <!--
 Note: If `hostnameOverride` is set, you cannot simultaneously set the `hostNetwork` and `setHostnameAsFQDN` fields.
@@ -208,7 +208,7 @@ other fields (hostname, subdomain, setHostnameAsFQDN, hostNetwork),
 see the table in the [KEP-4762 design details](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/4762-allow-arbitrary-fqdn-as-pod-hostname/README.md#design-details ).
 -->
 注意：如果設置了 `hostnameOverride`，則你不能同時設置 `hostNetwork` 和 `setHostnameAsFQDN` 字段。
-API 服務器將顯式拒絕任何嘗試這種組合的創建請求。
+API 伺服器將顯式拒絕任何嘗試這種組合的創建請求。
 
 關於在 `hostnameOverride` 與其他字段（hostname、subdomain、setHostnameAsFQDN、hostNetwork）
 組合使用時的行爲詳情，請參閱

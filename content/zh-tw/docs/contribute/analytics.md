@@ -45,7 +45,7 @@ By default, the dashboard shows all collected analytics for the past 30 days. Us
 
 默認情況下，儀表板顯示過去 30 天收集的所有分析。
 使用日期選擇器查看來自不同日期範圍的數據。
-其他過濾選項允許你根據用戶位置、用於訪問站點的設備、所用文檔的翻譯等查看數據。
+其他過濾選項允許你根據使用者位置、用於訪問站點的設備、所用文檔的翻譯等查看數據。
 
 如果你發現此儀表板存在問題，或者想要請求任何改進，
 請[開啓一個問題](https://github.com/kubernetes/website/issues/new/choose)。

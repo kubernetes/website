@@ -26,7 +26,7 @@ running container.
 In this exercise, you create a Pod that has one container. The container
 runs the nginx image. Here is the configuration file for the Pod:
 -->
-在本練習中，你將創建包含一個容器的 Pod。容器運行 nginx 鏡像。下面是 Pod 的配置文件：
+在本練習中，你將創建包含一個容器的 Pod。容器運行 nginx 映像檔。下面是 Pod 的設定文件：
 
 {{% code_sample file="application/shell-demo.yaml" %}}
 
@@ -106,7 +106,7 @@ Look again at the configuration file for your Pod. The Pod
 has an `emptyDir` volume, and the container mounts the volume
 at `/usr/share/nginx/html`.
 -->
-再看一下 Pod 的配置文件。該 Pod 有個 `emptyDir` 卷，容器將該卷掛載到了 `/usr/share/nginx/html`。
+再看一下 Pod 的設定文件。該 Pod 有個 `emptyDir` 卷，容器將該卷掛載到了 `/usr/share/nginx/html`。
 
 <!--
 In your shell, create an `index.html` file in the `/usr/share/nginx/html`
@@ -122,7 +122,7 @@ echo 'Hello shell demo' > /usr/share/nginx/html/index.html
 <!--
 In your shell, send a GET request to the nginx server:
 -->
-在 shell 中，向 nginx 服務器發送 GET 請求：
+在 shell 中，向 nginx 伺服器發送 GET 請求：
 
 ```shell
 # 在容器內運行如下命令

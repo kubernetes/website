@@ -28,5 +28,5 @@ to see the requesting subject's authentication information.
 See [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
 for more details.
 -->
-激活 `SelfSubjectReview` API，允許用戶查看請求主體的身份認證信息。
+激活 `SelfSubjectReview` API，允許使用者查看請求主體的身份認證信息。
 更多細節請參閱 [API 訪問客戶端的身份認證信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。

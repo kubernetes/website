@@ -26,7 +26,7 @@ Since v1.19 (released in 2020), the Kubernetes project provides 12-14 months of 
 This enables users to qualify and adopt Kubernetes versions in an annual upgrade cycle and receive security fixes for a year.
 -->
 從 2020 年發佈的 v1.19 版本以來，Kubernetes 項目爲每個次要版本提供 12-14 個月的補丁維護期。
-這使得用戶可以按照年度升級週期來評估和選用 Kubernetes 版本，並持續一年獲得安全修復。
+這使得使用者可以按照年度升級週期來評估和選用 Kubernetes 版本，並持續一年獲得安全修復。
 
 <!--
 The [Go project](https://github.com/golang/go/wiki/Go-Release-Cycle#release-maintenance) releases new minor versions twice a year,
@@ -82,7 +82,7 @@ Because of this inconsistency, Kubernetes release branches have typically remain
 and risked being unable to pick up relevant Go security fixes for the last several months of each Kubernetes minor version's support lifetime.
 -->
 其中一些更改可以基本不會影響 Kubernetes 代碼，
-有些只能通過用戶指定的 `GODEBUG` 環境變量來選擇放棄更新，
+有些只能通過使用者指定的 `GODEBUG` 環境變量來選擇放棄更新，
 而其他變更則需要侵入式的代碼變更或完全無法避免。
 由於這種不一致性，Kubernetes 的發佈分支通常保持使用某個固定的 Go 次要版本，
 並在每個 Kubernetes 次要版本支持生命週期的最後幾個月內，面臨無法得到重要的 Go 安全修復的風險。
@@ -94,9 +94,9 @@ If a user was not prepared to do that upgrade, it could result in vulnerable Kub
 Even if a user could accommodate the unexpected upgrade, the uncertainty made Kubernetes' annual support less reliable for planning.
 -->
 當某項重要的 Go 安全修復僅出現在較新的 Kubernetes 次要版本時，
-用戶必須在舊的 Kubernetes 次要版本的 12-14 個月支持期結束之前完成升級，以獲取這些修復。
-如果用戶沒有準備好升級，可能導致 Kubernetes 集羣的安全漏洞。
-即使用戶可以接受這種意外升級，這種不確定性也使得 Kubernetes 在年度支持從規劃角度看變得不太可靠。
+使用者必須在舊的 Kubernetes 次要版本的 12-14 個月支持期結束之前完成升級，以獲取這些修復。
+如果使用者沒有準備好升級，可能導致 Kubernetes 叢集的安全漏洞。
+即使使用者可以接受這種意外升級，這種不確定性也使得 Kubernetes 在年度支持從規劃角度看變得不太可靠。
 
 ### 解決方案 {#the-solution}
 
@@ -119,7 +119,7 @@ This allows projects like Kubernetes to update release branches to supported Go 
 以提高 Go 的向後兼容性，
 確保新的 Go 版本至少在兩年（四個 Go 版本）內能夠與之前的 Go 版本保持兼容的運行時行爲。
 這使得像 Kubernetes 這樣的項目能夠將發佈分支更新到受支持的 Go 版本，
-而不是將行爲上的變更暴露給用戶。
+而不是將行爲上的變更暴露給使用者。
 
 <!--
 The proposed improvements are on track to be [included in Go 1.21](https://tip.golang.org/doc/godebug), and the Go team already delivered targeted compatibility improvements in a Go 1.19 patch release in late 2022.
@@ -128,7 +128,7 @@ All supported Kubernetes release branches now use supported Go versions, and can
 -->
 所提議的改進正按計劃[包含在 Go 1.21 中](https://tip.golang.org/doc/godebug)，
 而且 Go 團隊已經在 2022 年底的 Go 1.19 補丁發佈中提供了針對兼容性的改進。
-這些更改使 Kubernetes 1.23+ 在 2023 年 1 月升級到 Go 1.19，並避免了任何用戶可見的配置或行爲變化。
+這些更改使 Kubernetes 1.23+ 在 2023 年 1 月升級到 Go 1.19，並避免了任何使用者可見的設定或行爲變化。
 現在所有受支持的 Kubernetes 發佈分支都使用受支持的 Go 版本，
 並且可以使用包含可用的安全修復的、新的 Go 補丁發佈。
 
@@ -157,9 +157,9 @@ so there are several requirements a new Go minor version must meet before existi
    這確保 Kubernetes 所有可能阻塞發佈的測試都需要能在新的 Go 版本下通過，
    並在早期爲 Kubernetes 社區對發佈候選版本和新次要版本提供反饋時間。
 3. 與先前的 Go 版本相比，不能出現新的已知會影響 Kubernetes 的問題。
-4. 默認情況下必須保持運行時行爲，而無需 Kubernetes 用戶/管理員採取任何操作。
+4. 默認情況下必須保持運行時行爲，而無需 Kubernetes 使用者/管理員採取任何操作。
 5. Kubernetes 庫，如 `k8s.io/client-go` 必須與每個次要版本最初使用的 Go 版本保持兼容，
-   以便在獲取庫補丁時，用戶不必更新 Go 版本（不過還是鼓勵他們使用受支持的 Go 版本構建，
+   以便在獲取庫補丁時，使用者不必更新 Go 版本（不過還是鼓勵他們使用受支持的 Go 版本構建，
    因爲 Go 1.21 計劃中的[兼容性改進](https://go.dev/design/56986-godebug)會使得這一操作變簡單）。
 
 <!--
@@ -173,5 +173,5 @@ and to make Kubernetes minor versions safe to use for the entire duration of the
 Many thanks to the Go team, especially Russ Cox, for helping drive these improvements in ways that will benefit all Go users, not just Kubernetes.
 -->
 非常感謝 Go 團隊，尤其是 Russ Cox，他們推動了這些改進，
-使所有 Go 用戶受益，而不僅僅是 Kubernetes。
+使所有 Go 使用者受益，而不僅僅是 Kubernetes。
 

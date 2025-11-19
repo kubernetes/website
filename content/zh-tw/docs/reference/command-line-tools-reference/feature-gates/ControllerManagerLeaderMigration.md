@@ -33,5 +33,5 @@ controllers from the kube-controller-manager into an external controller-manager
 -->
 爲 [kube-controller-manager](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration)
 和 [cloud-controller-manager](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
-啓用 Leader 遷移，它允許集羣管理者在沒有停機的高可用集羣環境下，實時把 kube-controller-manager
+啓用 Leader 遷移，它允許叢集管理者在沒有停機的高可用叢集環境下，實時把 kube-controller-manager
 遷移到外部的 controller-manager (例如 cloud-controller-manager) 中。

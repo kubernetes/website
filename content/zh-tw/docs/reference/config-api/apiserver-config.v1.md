@@ -1,5 +1,5 @@
 ---
-title: kube-apiserver 配置 (v1)
+title: kube-apiserver 設定 (v1)
 content_type: tool-reference
 package: apiserver.config.k8s.io/v1
 ---
@@ -32,7 +32,7 @@ v1 包中包含 API 的 v1 版本。
 <!--
 AdmissionConfiguration provides versioned configuration for admission controllers.
 -->
-AdmissionConfiguration 爲準入控制器提供版本化的配置。
+AdmissionConfiguration 爲準入控制器提供版本化的設定。
 </p>
 
 <table class="table">
@@ -50,7 +50,7 @@ AdmissionConfiguration 爲準入控制器提供版本化的配置。
   <!--
   Plugins allows specifying a configuration per admission control plugin.
   -->
-  <code>plugins</code> 字段允許爲每個准入控制插件設置配置選項。
+  <code>plugins</code> 字段允許爲每個准入控制插件設置設定選項。
   </p>
 </td>
 </tr>
@@ -100,10 +100,10 @@ Use of wildcards that overlap within the same resource list or across multiple
 entries are not allowed since part of the configuration would be ineffective.
 Resource lists are processed in order, with earlier lists taking precedence.
 -->
-EncryptionConfiguration 存儲加密驅動的完整配置。它還允許使用通配符來指定應該被加密的資源。
+EncryptionConfiguration 存儲加密驅動的完整設定。它還允許使用通配符來指定應該被加密的資源。
 使用 “&ast;.&lt;group&gt;” 以加密組內的所有資源，或使用 “&ast;.&ast;” 以加密所有資源。
-“&ast;.” 可用於加密核心組中的所有資源。“&ast;.&ast;” 將加密所有資源，包括在 API 服務器啓動後添加的自定義資源。
-由於部分配置可能無效，所以不允許在同一資源列表中或跨多個條目使用重疊的通配符。
+“&ast;.” 可用於加密核心組中的所有資源。“&ast;.&ast;” 將加密所有資源，包括在 API 伺服器啓動後添加的自定義資源。
+由於部分設定可能無效，所以不允許在同一資源列表中或跨多個條目使用重疊的通配符。
 資源列表被按順序處理，會優先處理較早的列表。
 </p>
 <p>
@@ -182,7 +182,7 @@ resources:
 <!--
 AESConfiguration contains the API configuration for an AES transformer.
 -->
-AESConfiguration 包含針對 AES 轉換器的 API 配置。
+AESConfiguration 包含針對 AES 轉換器的 API 設定。
 </p>
 
 <table class="table">
@@ -219,7 +219,7 @@ AESConfiguration 包含針對 AES 轉換器的 API 配置。
 <!--
 <p>AdmissionPluginConfiguration provides the configuration for a single plug-in.</p>
 -->
-<p>AdmissionPluginConfiguration 爲某個插件提供配置信息。</p>
+<p>AdmissionPluginConfiguration 爲某個插件提供設定信息。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!-- Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -248,7 +248,7 @@ It must match the registered admission plugin name.
   Path is the path to a configuration file that contains the plugin's
 configuration
   -->
-  <code>path</code> 是指向包含插件配置信息的配置文件的路徑。
+  <code>path</code> 是指向包含插件設定信息的設定文件的路徑。
   </p>
 </td>
 </tr>
@@ -262,8 +262,8 @@ configuration
   Configuration is an embedded configuration object to be used as the plugin's
 configuration. If present, it will be used instead of the path to the configuration file.
   -->
-  <code>configuration</code> 是一個內嵌的配置對象，用來保存插件的配置信息。
-  如果存在，則使用這裏的配置信息而不是指向配置文件的路徑。
+  <code>configuration</code> 是一個內嵌的設定對象，用來保存插件的設定信息。
+  如果存在，則使用這裏的設定信息而不是指向設定文件的路徑。
   </p>
 </td>
 </tr>
@@ -296,8 +296,8 @@ Other API servers may support additional authorizer
 types like Node, RBAC, ABAC, etc.
 -->
 <code>type</code> 指的是鑑權組件的類型。
-通用 API 服務器支持 &quot;Webhook&quot;。
-其他 API 服務器可能支持額外的鑑權組件類型，如 Node、RBAC、ABAC 等。
+通用 API 伺服器支持 &quot;Webhook&quot;。
+其他 API 伺服器可能支持額外的鑑權組件類型，如 Node、RBAC、ABAC 等。
 </p>
 </td>
 </tr>
@@ -331,7 +331,7 @@ Webhook defines the configuration for a Webhook authorizer
 Must be defined when Type=Webhook
 Must not be defined when Type!=Webhook
 -->
-<code>webhook</code> 定義 Webhook 鑑權組件的配置。
+<code>webhook</code> 定義 Webhook 鑑權組件的設定。
 當 <code>type</code> 爲 Webhook 時，必須定義。
 當 <code>type</code> 不是 Webhook 時，不得定義。
 </p>
@@ -353,7 +353,7 @@ Must not be defined when Type!=Webhook
 <!--
 IdentityConfiguration is an empty struct to allow identity transformer in provider configuration.
 -->
-IdentityConfiguration 是一個空結構體，允許在驅動配置中使用身份轉換器。
+IdentityConfiguration 是一個空結構體，允許在驅動設定中使用身份轉換器。
 </p>
 
 ## `KMSConfiguration`     {#apiserver-config-k8s-io-v1-KMSConfiguration}
@@ -369,7 +369,7 @@ IdentityConfiguration 是一個空結構體，允許在驅動配置中使用身�
 <!--
 KMSConfiguration contains the name, cache size and path to configuration file for a KMS based envelope transformer.
 -->
-KMSConfiguration 包含 KMS 型信封轉換器所用的配置文件的名稱、緩存大小和路徑。
+KMSConfiguration 包含 KMS 型信封轉換器所用的設定文件的名稱、緩存大小和路徑。
 </p>
 
 <table class="table">
@@ -422,7 +422,7 @@ KMSConfiguration 包含 KMS 型信封轉換器所用的配置文件的名稱、�
    <!--
    endpoint is the gRPC server listening address, for example &quot;unix:///var/run/kms-provider.sock&quot;.
    -->
-   <code>endpoint</code> 是 gRPC 服務器的監聽地址，例如 "unix:///var/run/kms-provider.sock"。
+   <code>endpoint</code> 是 gRPC 伺服器的監聽地址，例如 "unix:///var/run/kms-provider.sock"。
    </p>
 </td>
 </tr>
@@ -502,7 +502,7 @@ Key 包含爲轉換器所提供的密鑰的名稱和 Secret。
 <!--
 ProviderConfiguration stores the provided configuration for an encryption provider.
 -->
-ProviderConfiguration 存儲爲加密驅動提供的配置。
+ProviderConfiguration 存儲爲加密驅動提供的設定。
 </p>
 
 <table class="table">
@@ -517,7 +517,7 @@ ProviderConfiguration 存儲爲加密驅動提供的配置。
    <!--
    aesgcm is the configuration for the AES-GCM transformer.
    -->
-   <code>aesgcm</code> 是 AES-GCM 轉換器的配置。
+   <code>aesgcm</code> 是 AES-GCM 轉換器的設定。
    </p>
 </td>
 </tr>
@@ -529,7 +529,7 @@ ProviderConfiguration 存儲爲加密驅動提供的配置。
    <!--
    aescbc is the configuration for the AES-CBC transformer.
    -->
-   <code>aescbc</code> 是 AES-CBC 轉換器的配置。
+   <code>aescbc</code> 是 AES-CBC 轉換器的設定。
    </p>
 </td>
 </tr>
@@ -541,7 +541,7 @@ ProviderConfiguration 存儲爲加密驅動提供的配置。
    <!--
    secretbox is the configuration for the Secretbox based transformer.
    -->
-   <code>secretbox</code> 是基於 Secretbox 的轉換器的配置。
+   <code>secretbox</code> 是基於 Secretbox 的轉換器的設定。
    </p>
 </td>
 </tr>
@@ -553,7 +553,7 @@ ProviderConfiguration 存儲爲加密驅動提供的配置。
    <!--
    identity is the (empty) configuration for the identity transformer.
    -->
-   <code>identity</code> 是身份轉換器的（空）配置。
+   <code>identity</code> 是身份轉換器的（空）設定。
    </p>
 </td>
 </tr>
@@ -565,7 +565,7 @@ ProviderConfiguration 存儲爲加密驅動提供的配置。
    <!--
    kms contains the name, cache size and path to configuration file for a KMS based envelope transformer.
    -->
-   <code>kms</code> 包含 KMS 型信封轉換器所用的配置文件的名稱、緩存大小和路徑。
+   <code>kms</code> 包含 KMS 型信封轉換器所用的設定文件的名稱、緩存大小和路徑。
    </p>
 </td>
 </tr>
@@ -585,7 +585,7 @@ ProviderConfiguration 存儲爲加密驅動提供的配置。
 <!--
 ResourceConfiguration stores per resource configuration.
 -->
-ResourceConfiguration 存儲每個資源的配置。
+ResourceConfiguration 存儲每個資源的設定。
 </p>
 
 <table class="table">
@@ -643,7 +643,7 @@ eg: '&ast;.' will encrypt all resources in the core group (such as pods, configm
 <!--
 SecretboxConfiguration contains the API configuration for an Secretbox transformer.
 -->
-SecretboxConfiguration 包含 Secretbox 轉換器的 API 配置。
+SecretboxConfiguration 包含 Secretbox 轉換器的 API 設定。
 </p>
 
 <table class="table">
@@ -874,7 +874,7 @@ The exact matching logic is (in order):
 Controls how the webhook should communicate with the server.
 Valid values:
 -->
-控制 Webhook 應如何與服務器通信。
+控制 Webhook 應如何與伺服器通信。
 有效值：
 </p>
 <ul>
@@ -886,8 +886,8 @@ SubjectAccessReview API hosted by kube-apiserver. This mode is not
 allowed for kube-apiserver.</li>
 -->
 <ul>
-<li>KubeConfigFile：使用 kubeConfigFile 中指定的文件來定位服務器。</li>
-<li>InClusterConfig：使用集羣內配置調用由 kube-apiserver 上的 SubjectAccessReview API。
+<li>KubeConfigFile：使用 kubeConfigFile 中指定的文件來定位伺服器。</li>
+<li>InClusterConfig：使用叢集內設定調用由 kube-apiserver 上的 SubjectAccessReview API。
 此模式不允許用於 kube-apiserver。</li>
 </ul>
 </ul>
@@ -954,10 +954,10 @@ CEL 表達式可以訪問 v1 版本中的 SubjectAccessReview 的內容。
 <li>'nonResourceAttributes' 描述了非資源訪問請求的信息，在資源請求中未設置。例如：
 <code>has(request.nonResourceAttributes) &amp;&amp; request.nonResourceAttributes.path == '/healthz'</code>。
 </li>
-<li>'user' 是要測試的用戶。例如：<code>request.user == 'alice'</code>。</li>
+<li>'user' 是要測試的使用者。例如：<code>request.user == 'alice'</code>。</li>
 <li>'groups' 是要測試的組。例如：<code>('group1' in request.groups)</code>。</li>
 <li>'extra' 對應於身份驗證器中的 <code>user.Info.GetExtra()</code> 方法。</li>
-<li>'uid' 是關於請求用戶的詳細信息。例如：<code>request.uid == '1'</code>。</li>
+<li>'uid' 是關於請求使用者的詳細信息。例如：<code>request.uid == '1'</code>。</li>
 </ul>
 <p>
 <!--

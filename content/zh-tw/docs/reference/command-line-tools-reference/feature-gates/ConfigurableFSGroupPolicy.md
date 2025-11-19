@@ -29,5 +29,5 @@ for fsGroups when mounting a volume in a Pod. See
 [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)
 for more details.
 -->
-在 Pod 中掛載卷時，允許用戶爲 fsGroup 配置卷訪問權限和屬主變更策略。
-請參見[爲 Pod 配置卷訪問權限和屬主變更策略](/zh-cn/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)。
+在 Pod 中掛載卷時，允許使用者爲 fsGroup 設定卷訪問權限和屬主變更策略。
+請參見[爲 Pod 設定卷訪問權限和屬主變更策略](/zh-cn/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)。

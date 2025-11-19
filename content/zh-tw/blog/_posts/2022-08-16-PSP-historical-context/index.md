@@ -47,8 +47,8 @@ more secure defaults through mutation and decoupling low-level Linux security
 decisions from the deployment process.
 -->
 PodSecurityPolicy 與其他專門的准入控制插件一樣，作爲內置的策略 API，對有關 Pod 安全設置的特定字段提供細粒度的權限。
-它承認集羣管理員和集羣用戶通常不是同一個人，並且以 Pod 形式或任何將創建 Pod 的資源的形式創建工作負載的權限不應該等同於“集羣上的 root 賬戶”。
-它還可以通過變更配置來應用更安全的默認值，並將底層 Linux 安全決策與部署過程分離來促進最佳實踐。
+它承認叢集管理員和叢集使用者通常不是同一個人，並且以 Pod 形式或任何將創建 Pod 的資源的形式創建工作負載的權限不應該等同於“叢集上的 root 賬戶”。
+它還可以通過變更設定來應用更安全的默認值，並將底層 Linux 安全決策與部署過程分離來促進最佳實踐。
 
 <!--
 ## The birth of PodSecurityPolicy
@@ -121,7 +121,7 @@ PodSecurityPolicy 的根源是[早期關於安全策略的一個拉取請求](ht
 基於 OpenShift 的 SCC 反覆討論，
 多次變動，並重命名爲 PodSecurityPolicy，最終在 2016 年 2 月進入上游 Kubernetes。
 現在 PSP 對象已經創建，下一步是添加一個可以執行這些政策的准入控制器。
-第一步是添加[不考慮用戶或組](https://github.com/kubernetes/kubernetes/pull/7893#issuecomment-180410539)
+第一步是添加[不考慮使用者或組](https://github.com/kubernetes/kubernetes/pull/7893#issuecomment-180410539)
 的准入控制。
 2016 年 5 月，一個特定的[使 PodSecurityPolicy 達到可用狀態的問題](https://github.com/kubernetes/kubernetes/issues/23217)被添加進來，
 以跟蹤進展，並在[名爲 PSP 准入的拉取請求](https://github.com/kubernetes/kubernetes/pull/24600)中合併了准入控制器的第一個版本。
@@ -150,7 +150,7 @@ followed to build the PodSecurityPolicy feature of recent Kubernetes releases.
 -->
 之後，PSP 准入控制器通過添加最初被擱置的內容進行了增強。
 在 2016 年 11 月上旬合併[鑑權機制](https://github.com/kubernetes/kubernetes/pull/33080)，
-允許管理員在集羣中使用多個策略，爲不同類型的用戶授予不同級別的訪問權限。
+允許管理員在叢集中使用多個策略，爲不同類型的使用者授予不同級別的訪問權限。
 後來，2017 年 10 月合併的一個[拉取請求](https://github.com/kubernetes/kubernetes/pull/52849) 
 修復了 PodSecurityPolicies 在變更和字母順序之間衝突的[設計問題](https://github.com/kubernetes/kubernetes/issues/36184)，
 並繼續構建我們所知道的 PSP 准入。之後，進行了許多改進和修復，以構建最近 Kubernetes 版本的 PodSecurityPolicy 功能。
@@ -187,10 +187,10 @@ some major flaws:
   understanding of Linux security primitives. e.g. MustRunAsNonRoot +
   AllowPrivilegeEscalation.
 -->
-- **有缺陷的鑑權模式** - 如果用戶針對 PSP 具有執行 **use** 動作的權限，而此 PSP 准許該 Pod
-  或者該 Pod 的服務帳戶對 PSP 執行 **use** 操作，則用戶可以創建一個 Pod。
+- **有缺陷的鑑權模式** - 如果使用者針對 PSP 具有執行 **use** 動作的權限，而此 PSP 准許該 Pod
+  或者該 Pod 的服務帳戶對 PSP 執行 **use** 操作，則使用者可以創建一個 Pod。
 - **難以推廣** - PSP 失敗關閉。也就是說，在沒有策略的情況下，所有 Pod 都會被拒絕。
-  這主要意味着默認情況下無法啓用它，並且用戶必須在啓用該功能之前爲所有工作負載添加 PSP，
+  這主要意味着默認情況下無法啓用它，並且使用者必須在啓用該功能之前爲所有工作負載添加 PSP，
   因此沒有提供審計模式來發現哪些 Pod 會不被新策略所允許。
   這種採納模式還導致測試覆蓋率不足，並因跨特性不兼容而經常出現故障。
   而且與 RBAC 不同的是，還不存在在項目中交付 PSP 清單的強大文化。
@@ -209,10 +209,10 @@ that define three policies:
   configuration.
 - **Restricted** - security best practice policy.
 -->
-PodSecurityPolicy 的經驗得出的結論是，大多數用戶關心兩個或三個策略，這導致了
+PodSecurityPolicy 的經驗得出的結論是，大多數使用者關心兩個或三個策略，這導致了
 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)的創建，它定義了三個策略：
 - **Privileged（特權的）** - 策略不受限制。
-- **Baseline（基線的）** - 策略限制很少，允許默認 Pod 配置。
+- **Baseline（基線的）** - 策略限制很少，允許默認 Pod 設定。
 - **Restricted（受限的）** - 安全最佳實踐策略。
 
 <!--

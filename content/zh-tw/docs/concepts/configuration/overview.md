@@ -1,5 +1,5 @@
 ---
-title: 配置最佳實踐
+title: 設定最佳實踐
 content_type: concept
 weight: 10
 ---
@@ -16,7 +16,7 @@ weight: 10
 This document highlights and consolidates configuration best practices that are introduced
 throughout the user guide, Getting Started documentation, and examples.
 -->
-本文檔重點介紹並整合了整個用戶指南、入門文檔和示例中介紹的配置最佳實踐。
+本文檔重點介紹並整合了整個使用者指南、入門文檔和示例中介紹的設定最佳實踐。
 
 <!--
 This is a living document. If you think of something that is not on this list but might be useful
@@ -29,27 +29,27 @@ to others, please don't hesitate to file an issue or submit a PR.
 <!--
 ## General Configuration Tips
 -->
-## 一般配置提示  {#general-configuration-tips}
+## 一般設定提示  {#general-configuration-tips}
 
 <!--
 - When defining configurations, specify the latest stable API version.
 -->
-- 定義配置時，請指定最新的穩定 API 版本。
+- 定義設定時，請指定最新的穩定 API 版本。
 
 <!--
 - Configuration files should be stored in version control before being pushed to the cluster. This
   allows you to quickly roll back a configuration change if necessary. It also aids cluster
   re-creation and restoration.
 -->
-- 在推送到集羣之前，配置文件應存儲在版本控制中。
-  這允許你在必要時快速回滾配置更改。
-  它還有助於集羣重新創建和恢復。
+- 在推送到叢集之前，設定文件應存儲在版本控制中。
+  這允許你在必要時快速回滾設定更改。
+  它還有助於叢集重新創建和恢復。
 
 <!--
 - Write your configuration files using YAML rather than JSON. Though these formats can be used
   interchangeably in almost all scenarios, YAML tends to be more user-friendly.
 -->
-- 使用 YAML 而不是 JSON 編寫配置文件。雖然這些格式幾乎可以在所有場景中互換使用，但 YAML 往往更加用戶友好。
+- 使用 YAML 而不是 JSON 編寫設定文件。雖然這些格式幾乎可以在所有場景中互換使用，但 YAML 往往更加使用者友好。
 
 <!--
 - Group related objects into a single file whenever it makes sense. One file is often easier to
@@ -66,12 +66,12 @@ to others, please don't hesitate to file an issue or submit a PR.
   `kubectl apply` on a directory of config files.
 -->
 - 另請注意，可以在目錄上調用許多 `kubectl` 命令。
-  例如，你可以在配置文件的目錄中調用 `kubectl apply`。
+  例如，你可以在設定文件的目錄中調用 `kubectl apply`。
 
 <!--
 - Don't specify default values unnecessarily: simple, minimal configuration will make errors less likely.
 -->
-- 除非必要，否則不指定默認值：簡單的最小配置會降低錯誤的可能性。
+- 除非必要，否則不指定默認值：簡單的最小設定會降低錯誤的可能性。
 
 <!--
 - Put object descriptions in annotations, to allow better introspection.
@@ -175,9 +175,9 @@ for a comprehensive list.
   of DNS records for each. If DNS has been enabled throughout the cluster then all `Pods` should be
   able to do name resolution of `Services` automatically.
 -->
-- 一個可選（儘管強烈推薦）的[集羣插件](/zh-cn/docs/concepts/cluster-administration/addons/)
-  是 DNS 服務器。DNS 服務器爲新的 `Services` 監視 Kubernetes API，併爲每個創建一組 DNS 記錄。
-  如果在整個集羣中啓用了 DNS，則所有 `Pod` 應該能夠自動對 `Services` 進行名稱解析。
+- 一個可選（儘管強烈推薦）的[叢集插件](/zh-cn/docs/concepts/cluster-administration/addons/)
+  是 DNS 伺服器。DNS 伺服器爲新的 `Services` 監視 Kubernetes API，併爲每個創建一組 DNS 記錄。
+  如果在整個叢集中啓用了 DNS，則所有 `Pod` 應該能夠自動對 `Services` 進行名稱解析。
 
 <!--
 - Don't specify a `hostPort` for a Pod unless it is absolutely necessary. When you bind a Pod to a
@@ -291,7 +291,7 @@ for a comprehensive list.
   `.yml`, and `.json` files in `<directory>` and passes it to `apply`.
 -->
 - 使用 `kubectl apply -f <目錄>`。
-  它在 `<目錄>` 中的所有 `.yaml`、`.yml` 和 `.json` 文件中查找 Kubernetes 配置，並將其傳遞給 `apply`。
+  它在 `<目錄>` 中的所有 `.yaml`、`.yml` 和 `.json` 文件中查找 Kubernetes 設定，並將其傳遞給 `apply`。
 
 <!--
 - Use label selectors for `get` and `delete` operations instead of specific object names. See the
@@ -309,4 +309,4 @@ for a comprehensive list.
   for an example.
 -->
 - 使用 `kubectl create deployment` 和 `kubectl expose` 來快速創建單容器 Deployment 和 Service。
-  有關示例，請參閱[使用服務訪問集羣中的應用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。
+  有關示例，請參閱[使用服務訪問叢集中的應用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster/)。

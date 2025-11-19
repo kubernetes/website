@@ -15,7 +15,7 @@ Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
 -->
 `kubeadm reset phase` 使你能夠調用 `reset` 過程的基本原子步驟。
-因此，如果希望執行自定義操作，你可以讓 kubeadm 做一些工作，然後由用戶來補足剩餘操作。
+因此，如果希望執行自定義操作，你可以讓 kubeadm 做一些工作，然後由使用者來補足剩餘操作。
 
 <!--
 `kubeadm reset phase` is consistent with the [kubeadm reset workflow](/docs/reference/setup-tools/kubeadm/kubeadm-reset/#reset-workflow),
@@ -50,7 +50,7 @@ Using this phase you can execute preflight checks on a node that is being reset.
 <!--
 Using this phase you can remove this control-plane node's etcd member from the etcd cluster.
 -->
-使用此階段，你可以從 etcd 集羣中移除此控制平面節點的 etcd 成員。
+使用此階段，你可以從 etcd 叢集中移除此控制平面節點的 etcd 成員。
 
 {{< tabs name="tab-remove-etcd-member" >}}
 {{< tab name="remove-etcd-member" include="generated/kubeadm_reset/kubeadm_reset_phase_remove-etcd-member.md" />}}
@@ -81,7 +81,7 @@ Using this phase you can perform cleanup on this node.
 * [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   引導 Kubernetes 控制平面節點
 * [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
-  將節點添加到集羣
+  將節點添加到叢集
 * [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   恢復通過 `kubeadm init` 或 `kubeadm join` 操作對主機所做的任何更改
 * [kubeadm alpha](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)

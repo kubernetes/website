@@ -60,14 +60,14 @@ see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all
 <!--
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
 -->
-### 帶有 Secret、DownwardAPI 和 ConfigMap 的配置示例 {#example-configuration-secret-downwardapi-configmap}
+### 帶有 Secret、DownwardAPI 和 ConfigMap 的設定示例 {#example-configuration-secret-downwardapi-configmap}
 
 {{% code_sample file="pods/storage/projected-secret-downwardapi-configmap.yaml" %}}
 
 <!--
 ### Example configuration: secrets with a non-default permission mode set {#example-configuration-secrets-nondefault-permission-mode}
 -->
-### 帶有非默認權限模式設置的 Secret 的配置示例 {#example-configuration-secrets-nondefault-permission-mode}
+### 帶有非默認權限模式設置的 Secret 的設定示例 {#example-configuration-secrets-nondefault-permission-mode}
 
 {{% code_sample file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" %}}
 
@@ -109,11 +109,11 @@ in the audience of the token, and otherwise should reject the token. This field
 is optional and it defaults to the identifier of the API server.
 -->
 示例 Pod 中包含一個投射卷，其中包含注入的服務賬號令牌。
-此 Pod 中的容器可以使用該令牌訪問 Kubernetes API 服務器， 使用
+此 Pod 中的容器可以使用該令牌訪問 Kubernetes API 伺服器， 使用
 [Pod 的 ServiceAccount](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
 進行身份驗證。`audience` 字段包含令牌所針對的受衆。
 收到令牌的主體必須使用令牌受衆中所指定的某個標識符來標識自身，否則應該拒絕該令牌。
-此字段是可選的，默認值爲 API 服務器的標識。
+此字段是可選的，默認值爲 API 伺服器的標識。
 
 <!--
 The `expirationSeconds` is the expected duration of validity of the service account
@@ -123,7 +123,7 @@ option for the API server. The `path` field specifies a relative path to the mou
 of the projected volume.
 -->
 字段 `expirationSeconds` 是服務賬號令牌預期的生命期長度。默認值爲 1 小時，
-必須至少爲 10 分鐘（600 秒）。管理員也可以通過設置 API 服務器的命令行參數
+必須至少爲 10 分鐘（600 秒）。管理員也可以通過設置 API 伺服器的命令列參數
 `--service-account-max-token-expiration` 來爲其設置最大值上限。
 `path` 字段給出與投射卷掛載點之間的相對路徑。
 
@@ -224,7 +224,7 @@ they get close to expiration.  The application just has to make sure that it
 reloads the file promptly when it changes, with a mechanism like `inotify` or
 polling.
 -->
-`podCertificate` 投射卷源爲 Pod 安全地提供一個私鑰和 X.509 證書鏈，用作客戶端或服務器憑據。
+`podCertificate` 投射卷源爲 Pod 安全地提供一個私鑰和 X.509 證書鏈，用作客戶端或伺服器憑據。
 當私鑰和證書鏈接近過期時，kubelet 將處理刷新它們。應用程序只需確保在文件發生變化時，
 及時通過類似 `inotify` 或輪詢的機制重新加載文件。
 
@@ -251,7 +251,7 @@ Each `podCertificate` projection supports the following configuration fields:
 * `keyPath` and `certificateChainPath`: Separate paths where Kubelet should
   write *just* the private key or certificate chain.
 -->
-每個 `podCertificate` 投射支持以下配置字段：
+每個 `podCertificate` 投射支持以下設定字段：
 
 * `signerName`：你希望簽發證書的
   [簽名者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests#signers)。
@@ -307,7 +307,7 @@ ownership.
 在包含了投射卷並在
 [`SecurityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
 中設置了 `RunAsUser` 屬性的 Linux Pod 中，投射文件具有正確的屬主屬性設置，
-其中包含了容器用戶屬主。
+其中包含了容器使用者屬主。
 
 <!--
 When all containers in a pod have the same `runAsUser` set in their
@@ -322,7 +322,7 @@ and the token file has its permission mode set to `0600`.
 或容器
 [`SecurityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)
 中設置了相同的 `runAsUser` 時，kubelet 將確保 `serviceAccountToken`
-卷的內容歸該用戶所有，並且令牌文件的權限模式會被設置爲 `0600`。
+卷的內容歸該使用者所有，並且令牌文件的權限模式會被設置爲 `0600`。
 
 {{< note >}}
 <!--
@@ -359,12 +359,12 @@ the host machine are to be shared with the container then they should be placed
 into their own volume mount outside of `C:\`.
 -->
 在包含了投射卷並在 `SecurityContext` 中設置了 `RunAsUsername` 的 Windows Pod 中,
-由於 Windows 中用戶賬號的管理方式問題，文件的屬主無法正確設置。
+由於 Windows 中使用者賬號的管理方式問題，文件的屬主無法正確設置。
 Windows 在名爲安全賬號管理器（Security Account Manager，SAM）
-的數據庫中保存本地用戶和組信息。每個容器會維護其自身的 SAM 數據庫實例，
-宿主系統無法窺視到容器運行期間數據庫內容。Windows 容器被設計用來運行操作系統的用戶態部分，
+的數據庫中保存本地使用者和組信息。每個容器會維護其自身的 SAM 數據庫實例，
+宿主系統無法窺視到容器運行期間數據庫內容。Windows 容器被設計用來運行操作系統的使用者態部分，
 與宿主系統之間隔離，因此維護了一個虛擬的 SAM 數據庫。
-所以，在宿主系統上運行的 kubelet 無法動態爲虛擬的容器賬號配置宿主文件的屬主。
+所以，在宿主系統上運行的 kubelet 無法動態爲虛擬的容器賬號設定宿主文件的屬主。
 如果需要將宿主機器上的文件與容器共享，建議將它們放到掛載於 `C:\` 之外的獨立卷中。
 
 <!--
@@ -391,8 +391,8 @@ This implies all administrator users like `ContainerAdministrator` will have
 read, write and execute access while, non-administrator users will have read and
 execute access.
 -->
-這意味着，所有類似 `ContainerAdministrator` 的管理員用戶都具有讀、寫和執行訪問權限，
-而非管理員用戶將具有讀和執行訪問權限。
+這意味着，所有類似 `ContainerAdministrator` 的管理員使用者都具有讀、寫和執行訪問權限，
+而非管理員使用者將具有讀和執行訪問權限。
 
 {{< note >}}
 <!--

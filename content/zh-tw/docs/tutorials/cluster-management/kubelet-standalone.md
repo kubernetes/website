@@ -35,10 +35,10 @@ You can also run the kubelet in standalone mode to suit production use cases, su
 to run the control plane for a highly available, resiliently deployed cluster. This
 tutorial does not cover the details you need for running a resilient control plane.
 -->
-你學習完本教程後，就可以嘗試使用帶一個{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}的集羣來管理
+你學習完本教程後，就可以嘗試使用帶一個{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}的叢集來管理
 Pod、節點和其他類別的對象。例如，[你好，Minikube](/zh-cn/docs/tutorials/hello-minikube/)。
 
-你還可以以獨立模式運行 kubelet 來滿足生產場景要求，例如爲高可用、彈性部署的集羣運行控制平面。
+你還可以以獨立模式運行 kubelet 來滿足生產場景要求，例如爲高可用、彈性部署的叢集運行控制平面。
 本教程不涵蓋運行彈性控制平面所需的細節。
 
 ## {{% heading "objectives" %}}
@@ -57,7 +57,7 @@ Pod、節點和其他類別的對象。例如，[你好，Minikube](/zh-cn/docs/
 The kubelet configuration used for this tutorial is insecure by design and should
 _not_ be used in a production environment.
 -->
-本教程中所使用的 kubelet 配置在設計上是不安全的，**不**得用於生產環境中。
+本教程中所使用的 kubelet 設定在設計上是不安全的，**不**得用於生產環境中。
 {{< /caution >}}
 
 ## {{% heading "prerequisites" %}}
@@ -77,7 +77,7 @@ _not_ be used in a production environment.
 * 有權限訪問互聯網以下載本教程所需的組件，例如：
   * 實現 Kubernetes {{< glossary_tooltip term_id="cri" text="CRI">}}
     的{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}。
-  * 網絡插件（通常稱爲 {{< glossary_tooltip text="容器網絡接口（CNI）" term_id="cni" >}}）。
+  * 網路插件（通常稱爲 {{< glossary_tooltip text="容器網路接口（CNI）" term_id="cni" >}}）。
   * 必需的 CLI 工具：`curl`、`tar`、`jq`。
 
 <!-- lessoncontent -->
@@ -92,7 +92,7 @@ This means that swap should either be disabled or tolerated by kubelet.
 -->
 ## 準備好系統   {#prepare-the-system}
 
-### 配置內存交換   {#swap-configuration}
+### 設定內存交換   {#swap-configuration}
 
 默認情況下，如果在節點上檢測到內存交換，kubelet 將啓動失敗。
 這意味着內存交換應該被禁用或被 kubelet 容忍。
@@ -104,7 +104,7 @@ containers in those Pods) not to use swap space. To find out how Pods can actual
 use the available swap, you can read more about
 [swap memory management](/docs/concepts/architecture/nodes/#swap-memory) on Linux nodes.
 -->
-如果你配置 kubelet 爲容忍內存交換，則 kubelet 仍會配置 Pod（以及這些 Pod 中的容器）不使用交換空間。
+如果你設定 kubelet 爲容忍內存交換，則 kubelet 仍會設定 Pod（以及這些 Pod 中的容器）不使用交換空間。
 要了解 Pod 實際上可以如何使用可用的交換，你可以進一步閱讀 Linux
 節點上[交換內存管理](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)。
 {{< /note >}}
@@ -115,7 +115,7 @@ kubelet configuration file.
 
 To check if swap is enabled:
 -->
-如果你啓用了交換內存，則禁用它或在 kubelet 配置文件中添加 `failSwapOn: false`。
+如果你啓用了交換內存，則禁用它或在 kubelet 設定文件中添加 `failSwapOn: false`。
 
 要檢查交換內存是否被啓用：
 
@@ -148,7 +148,7 @@ To check if IPv4 packet forwarding is enabled:
 -->
 要使此變更持續到重啓之後：
 
-確保在 `/etc/fstab` 或 `systemd.swap` 中禁用交換內存，具體取決於它在你的系統上是如何配置的。
+確保在 `/etc/fstab` 或 `systemd.swap` 中禁用交換內存，具體取決於它在你的系統上是如何設定的。
 
 ### 啓用 IPv4 數據包轉發   {#enable-ipv4-packet-forwarding}
 
@@ -166,7 +166,7 @@ To enable IPv4 packet forwarding, create a configuration file that sets the
 -->
 如果輸出爲 `1`，則 IPv4 數據包轉發已被啓用。如果輸出爲 `0`，按照以下步驟操作。
 
-要啓用 IPv4 數據包轉發，創建一個配置文件，將 `net.ipv4.ip_forward` 參數設置爲 `1`：
+要啓用 IPv4 數據包轉發，創建一個設定文件，將 `net.ipv4.ip_forward` 參數設置爲 `1`：
 
 ```shell
 sudo tee /etc/sysctl.d/k8s.conf <<EOF
@@ -198,7 +198,7 @@ net.ipv4.ip_forward = 1
 <!--
 ## Download, install, and configure the components
 -->
-## 下載、安裝和配置組件   {#download-install-and-configure-the-components}
+## 下載、安裝和設定組件   {#download-install-and-configure-the-components}
 
 {{% thirdparty-content %}}
 
@@ -238,7 +238,7 @@ networking, and [`crun`](https://github.com/containers/crun) and
 The script will automatically detect your system's processor architecture
 (`amd64` or `arm64`) and select and install the latest versions of the software packages.
 -->
-此腳本安裝並配置更多必需的軟件，例如容器聯網所用的 [`cni-plugins`](https://github.com/containernetworking/cni)
+此腳本安裝並設定更多必需的軟件，例如容器聯網所用的 [`cni-plugins`](https://github.com/containernetworking/cni)
 以及運行容器所用的 [`crun`](https://github.com/containers/crun) 和 [`runc`](https://github.com/opencontainers/runc)。
 
 此腳本將自動檢測系統的處理器架構（`amd64` 或 `arm64`），並選擇和安裝最新版本的軟件包。
@@ -312,9 +312,9 @@ sudo journalctl -f -u crio.service
 The `cri-o` installer installs and configures the `cni-plugins` package. You can
 verify the installation running the following command:
 -->
-### 安裝網絡插件   {#install-network-plugins}
+### 安裝網路插件   {#install-network-plugins}
 
-`cri-o` 安裝器安裝並配置 `cni-plugins` 包。你可以通過運行以下命令來驗證安裝包：
+`cri-o` 安裝器安裝並設定 `cni-plugins` 包。你可以通過運行以下命令來驗證安裝包：
 
 ```shell
 /opt/cni/bin/bridge --version
@@ -333,7 +333,7 @@ CNI protocol versions supported: 0.1.0, 0.2.0, 0.3.0, 0.3.1, 0.4.0, 1.0.0
 <!--
 To check the default configuration:
 -->
-檢查默認配置：
+檢查默認設定：
 
 ```shell
 cat /etc/cni/net.d/11-crio-ipv4-bridge.conflist
@@ -375,7 +375,7 @@ Make sure that the default `subnet` range (`10.85.0.0/16`) does not overlap with
 any of your active networks. If there is an overlap, you can edit the file and change it
 accordingly. Restart the service after the change.
 -->
-確保默認的 `subnet` 範圍（`10.85.0.0/16`）不會與你已經在使用的任一網絡地址重疊。
+確保默認的 `subnet` 範圍（`10.85.0.0/16`）不會與你已經在使用的任一網路地址重疊。
 如果出現重疊，你可以編輯此文件並進行相應的更改。更改後重啓服務。
 {{< /note >}}
 
@@ -400,7 +400,7 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 <!--
 Configure:
 -->
-配置：
+設定：
 
 ```shell
 sudo mkdir -p /etc/kubernetes/manifests
@@ -459,13 +459,13 @@ configure kubelet in standalone mode in your environment.
 See [Ports and Protocols](/docs/reference/networking/ports-and-protocols/) to
 understand which ports Kubernetes components use.
 -->
-由於你搭建的不是一個生產集羣，所以你可以使用明文
+由於你搭建的不是一個生產叢集，所以你可以使用明文
 HTTP（`readOnlyPort: 10255`）對 kubelet API 進行不做身份認證的查詢。
 
 爲了順利完成本次教學，**身份認證 Webhook** 被禁用，**鑑權模式**被設置爲 `AlwaysAllow`。
 你可以進一步瞭解[鑑權模式](/zh-cn/docs/reference/access-authn-authz/authorization/#authorization-modules)和
 [Webhook 身份認證](/zh-cn/docs/reference/access-authn-authz/webhook/)，
-以正確地配置 kubelet 在你的環境中以獨立模式運行。
+以正確地設定 kubelet 在你的環境中以獨立模式運行。
 
 參閱[端口和協議](/zh-cn/docs/reference/networking/ports-and-protocols/)以瞭解 Kubernetes 組件使用的端口。
 {{< /note >}}
@@ -509,9 +509,9 @@ Omitting it, enables standalone mode.
 
 Enable and start the `kubelet` service:
 -->
-服務配置文件中故意省略了命令行參數 `--kubeconfig`。此參數設置
+服務設定文件中故意省略了命令列參數 `--kubeconfig`。此參數設置
 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-文件的路徑，指定如何連接到 API 服務器，以啓用 API 服務器模式。省略此參數將啓用獨立模式。
+文件的路徑，指定如何連接到 API 伺服器，以啓用 API 伺服器模式。省略此參數將啓用獨立模式。
 
 啓用並啓動 `kubelet` 服務：
 
@@ -601,7 +601,7 @@ Create a manifest for a Pod:
 -->
 ## 在 kubelet 中運行 Pod   {#run-a-pod-in-the-kubelet}
 
-在獨立模式下，你可以使用 Pod 清單運行 Pod。這些清單可以放在本地文件系統上，或通過 HTTP 從配置源獲取。
+在獨立模式下，你可以使用 Pod 清單運行 Pod。這些清單可以放在本地文件系統上，或通過 HTTP 從設定源獲取。
 
 爲 Pod 創建一個清單：
 
@@ -641,7 +641,7 @@ Query the kubelet's API endpoint at `http://localhost:10255/pods`:
 -->
 ### 查找 kubelet 和 Pod 的信息   {#find-out-information}
 
-Pod 網絡插件爲每個 Pod 創建一個網絡橋（`cni0`）和一對 `veth` 接口
+Pod 網路插件爲每個 Pod 創建一個網路橋（`cni0`）和一對 `veth` 接口
 （這對接口的其中一個接口在新創建的 Pod 內，另一個接口在主機層面）。
 
 查詢 kubelet 的 API 端點 `http://localhost:10255/pods`：
@@ -671,7 +671,7 @@ The output is similar to:
 <!--
 Connect to the `nginx` server Pod on `http://<IP>:<Port>` (port 80 is the default), in this case:
 -->
-連接到 `nginx` 服務器 Pod，地址爲 `http://<IP>:<Port>`（端口 80 是默認端口），在本例中爲：
+連接到 `nginx` 伺服器 Pod，地址爲 `http://<IP>:<Port>`（端口 80 是默認端口），在本例中爲：
 
 ```shell
 curl http://10.85.0.4
@@ -748,7 +748,7 @@ sudo rm -rf /etc/containers
 <!--
 ### Network Plugins
 -->
-### 網絡插件   {#network-plugins}
+### 網路插件   {#network-plugins}
 
 ```shell
 sudo rm -rf /opt/cni
@@ -773,10 +773,10 @@ in a static Pod.
 
 本頁涵蓋了以獨立模式部署 kubelet 的各個基本方面。你現在可以部署 Pod 並測試更多功能。
 
-請注意，在獨立模式下，kubelet **不**支持從控制平面獲取 Pod 配置（因爲沒有控制平面連接）。
+請注意，在獨立模式下，kubelet **不**支持從控制平面獲取 Pod 設定（因爲沒有控制平面連接）。
 
 你還不能使用 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
-或 {{< glossary_tooltip text="Secret" term_id="secret" >}} 來配置靜態 Pod 中的容器。
+或 {{< glossary_tooltip text="Secret" term_id="secret" >}} 來設定靜態 Pod 中的容器。
 
 ## {{% heading "whatsnext" %}}
 
@@ -789,8 +789,8 @@ in a static Pod.
 * Learn more about [static Pods](/docs/tasks/configure-pod-container/static-pod/)
 -->
 * 跟隨[你好，Minikube](/zh-cn/docs/tutorials/hello-minikube/)
-  學習如何在**有**控制平面的情況下運行 Kubernetes。minikube 工具幫助你在自己的計算機上搭建一個練習集羣。
-* 進一步瞭解[網絡插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+  學習如何在**有**控制平面的情況下運行 Kubernetes。minikube 工具幫助你在自己的計算機上搭建一個練習叢集。
+* 進一步瞭解[網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 * 進一步瞭解[容器運行時](/zh-cn/docs/setup/production-environment/container-runtimes/)
 * 進一步瞭解 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 * 進一步瞭解[靜態 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)

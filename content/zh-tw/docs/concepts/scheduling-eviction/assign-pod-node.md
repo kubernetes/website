@@ -70,7 +70,7 @@ on all nodes in a cluster.
 
 與很多其他 Kubernetes 對象類似，節點也有[標籤](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
 你可以[手動地添加標籤](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node)。
-Kubernetes 也會爲集羣中所有節點添加一些[標準的標籤](/zh-cn/docs/reference/node/node-labels/)。
+Kubernetes 也會爲叢集中所有節點添加一些[標準的標籤](/zh-cn/docs/reference/node/node-labels/)。
 
 {{< note >}}
 <!--
@@ -372,10 +372,10 @@ a profile with a node affinity, which is useful if a profile only applies to a s
 To do so, add an `addedAffinity` to the `args` field of the [`NodeAffinity` plugin](/docs/reference/scheduling/config/#scheduling-plugins)
 in the [scheduler configuration](/docs/reference/scheduling/config/). For example:
 -->
-在配置多個[調度方案](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)時，
+在設定多個[調度方案](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)時，
 你可以將某個方案與節點親和性關聯起來，如果某個調度方案僅適用於某組特殊的節點時，
 這樣做是很有用的。
-要實現這點，可以在[調度器配置](/zh-cn/docs/reference/scheduling/config/)中爲
+要實現這點，可以在[調度器設定](/zh-cn/docs/reference/scheduling/config/)中爲
 [`NodeAffinity` 插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)的
 `args` 字段添加 `addedAffinity`。例如：
 
@@ -414,7 +414,7 @@ Since the `addedAffinity` is not visible to end users, its behavior might be
 unexpected to them. Use node labels that have a clear correlation to the
 scheduler profile name.
 -->
-由於 `addedAffinity` 對最終用戶不可見，其行爲可能對用戶而言是出乎意料的。
+由於 `addedAffinity` 對最終使用者不可見，其行爲可能對使用者而言是出乎意料的。
 應該使用與調度方案名稱有明確關聯的節點標籤。
 
 {{< note >}}
@@ -485,8 +485,8 @@ Inter-pod affinity and anti-affinity require substantial amounts of
 processing which can slow down scheduling in large clusters significantly. We do
 not recommend using them in clusters larger than several hundred nodes.
 -->
-Pod 間親和性和反親和性都需要相當的計算量，因此會在大規模集羣中顯著降低調度速度。
-我們不建議在包含數百個節點的集羣中使用這類設置。
+Pod 間親和性和反親和性都需要相當的計算量，因此會在大規模叢集中顯著降低調度速度。
+我們不建議在包含數百個節點的叢集中使用這類設置。
 {{< /note >}}
 
 {{< note >}}
@@ -497,7 +497,7 @@ If some or all nodes are missing the specified `topologyKey` label, it can lead
 to unintended behavior.
 -->
 Pod 反親和性需要節點上存在一致性的標籤。換言之，
-集羣中每個節點都必須擁有與 `topologyKey` 匹配的標籤。
+叢集中每個節點都必須擁有與 `topologyKey` 匹配的標籤。
 如果某些或者所有節點上不存在所指定的 `topologyKey` 標籤，調度行爲可能與預期的不同。
 {{< /note >}}
 
@@ -542,7 +542,7 @@ When scheduling a new Pod, the Kubernetes scheduler evaluates the Pod's affinity
 -->
 #### 調度行爲
 
-在調度新 Pod 時，Kubernetes 調度器會根據當前集羣狀態評估 Pod 的親和性/反親和性規則：
+在調度新 Pod 時，Kubernetes 調度器會根據當前叢集狀態評估 Pod 的親和性/反親和性規則：
 
 1. 硬約束（節點過濾）：
    - `podAffinity.requiredDuringSchedulingIgnoredDuringExecution` 和
@@ -586,9 +586,9 @@ specified.
 
 如果當前正被調度的 Pod 在具有自我親和性的 Pod 序列中排在第一個，
 那麼只要它滿足其他所有的親和性規則，它就可以被成功調度。
-這是通過以下方式確定的：確保集羣中沒有其他 Pod 與此 Pod 的名字空間和標籤選擇算符匹配；
+這是通過以下方式確定的：確保叢集中沒有其他 Pod 與此 Pod 的名字空間和標籤選擇算符匹配；
 該 Pod 滿足其自身定義的條件，並且選定的節點滿足所指定的所有拓撲要求。
-這確保即使所有的 Pod 都配置了 Pod 間親和性，也不會出現調度死鎖的情況。
+這確保即使所有的 Pod 都設定了 Pod 間親和性，也不會出現調度死鎖的情況。
 
 <!--
 #### Pod Affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
@@ -607,8 +607,8 @@ Pod affinity rule uses the "hard"
 `requiredDuringSchedulingIgnoredDuringExecution`, while the anti-affinity rule
 uses the "soft" `preferredDuringSchedulingIgnoredDuringExecution`.
 -->
-本示例定義了一條 Pod 親和性規則和一條 Pod 反親和性規則。Pod 親和性規則配置爲
-`requiredDuringSchedulingIgnoredDuringExecution`，而 Pod 反親和性配置爲
+本示例定義了一條 Pod 親和性規則和一條 Pod 反親和性規則。Pod 親和性規則設定爲
+`requiredDuringSchedulingIgnoredDuringExecution`，而 Pod 反親和性設定爲
 `preferredDuringSchedulingIgnoredDuringExecution`。
 
 <!--
@@ -623,7 +623,7 @@ labels in Zone V, the scheduler will not assign the example Pod to any node in t
 -->
 親和性規則規定，只有節點屬於特定的[區域](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 且該區域中的其他 Pod 已打上 `security=S1` 標籤時，調度器纔可以將示例 Pod 調度到此節點上。
-例如，如果我們有一個具有指定區域（稱之爲 "Zone V"）的集羣，此區域由帶有 `topology.kubernetes.io/zone=V`
+例如，如果我們有一個具有指定區域（稱之爲 "Zone V"）的叢集，此區域由帶有 `topology.kubernetes.io/zone=V`
 標籤的節點組成，那麼只要 Zone V 內已經至少有一個 Pod 打了 `security=S1` 標籤，
 調度器就可以將此 Pod 調度到 Zone V 內的任何節點。相反，如果 Zone V 中沒有帶有 `security=S1` 標籤的 Pod，
 則調度器不會將示例 Pod 調度給該區域中的任何節點。
@@ -640,7 +640,7 @@ scheduling into Zone R if there are no Pods with `security=S2` labels.
 -->
 反親和性規則規定，如果節點屬於特定的[區域](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 且該區域中的其他 Pod 已打上 `security=S2` 標籤，則調度器應嘗試避免將 Pod 調度到此節點上。
-例如，如果我們有一個具有指定區域（我們稱之爲 "Zone R"）的集羣，此區域由帶有 `topology.kubernetes.io/zone=R`
+例如，如果我們有一個具有指定區域（我們稱之爲 "Zone R"）的叢集，此區域由帶有 `topology.kubernetes.io/zone=R`
 標籤的節點組成，只要 Zone R 內已經至少有一個 Pod 打了 `security=S2` 標籤，
 調度器應避免將 Pod 分配給 Zone R 內的任何節點。相反，如果 Zone R 中沒有帶有 `security=S2` 標籤的 Pod，
 則反親和性規則不會影響將 Pod 調度到 Zone R。
@@ -712,7 +712,7 @@ The affinity term is applied to namespaces selected by both `namespaceSelector` 
 Note that an empty `namespaceSelector` ({}) matches all namespaces, while a null or empty `namespaces` list and
 null `namespaceSelector` matches the namespace of the Pod where the rule is defined.
 -->
-用戶也可以使用 `namespaceSelector` 選擇匹配的名字空間，`namespaceSelector`
+使用者也可以使用 `namespaceSelector` 選擇匹配的名字空間，`namespaceSelector`
 是對名字空間集合進行標籤查詢的機制。
 親和性條件會應用到 `namespaceSelector` 所選擇的名字空間和 `namespaces` 字段中所列舉的名字空間之上。
 注意，空的 `namespaceSelector`（`{}`）會匹配所有名字空間，而 null 或者空的
@@ -951,7 +951,7 @@ Pods onto the same node.
 
 Pod 間親和性與反親和性在與更高級別的集合（例如 ReplicaSet、StatefulSet、
 Deployment 等）一起使用時，它們可能更加有用。
-這些規則使得你可以配置一組工作負載，使其位於所定義的同一拓撲中；
+這些規則使得你可以設定一組工作負載，使其位於所定義的同一拓撲中；
 例如優先將兩個相關的 Pod 置於相同的節點上。
 
 <!--
@@ -960,9 +960,9 @@ and also an in-memory cache (such as Redis). For this example, also assume that 
 the web application and the memory cache should be as low as is practical. You could use inter-pod
 affinity and anti-affinity to co-locate the web servers with the cache as much as possible.
 -->
-以一個三節點的集羣爲例。你使用該集羣運行一個帶有內存緩存（例如 Redis）的 Web 應用程序。
+以一個三節點的叢集爲例。你使用該叢集運行一個帶有內存緩存（例如 Redis）的 Web 應用程序。
 在此例中，還假設 Web 應用程序和內存緩存之間的延遲應儘可能低。
-你可以使用 Pod 間的親和性和反親和性來儘可能地將該 Web 服務器與緩存並置。
+你可以使用 Pod 間的親和性和反親和性來儘可能地將該 Web 伺服器與緩存並置。
 
 <!--
 In the following example Deployment for the Redis cache, the replicas get the label `app=store`. The
@@ -1010,9 +1010,9 @@ The Pod affinity rule tells the scheduler to place each replica on a node that h
 with the label `app=store`. The Pod anti-affinity rule tells the scheduler never to place
 multiple `app=web-store` servers on a single node.
 -->
-下例的 Deployment 爲 Web 服務器創建帶有標籤 `app=web-store` 的副本。
+下例的 Deployment 爲 Web 伺服器創建帶有標籤 `app=web-store` 的副本。
 Pod 親和性規則告訴調度器將每個副本放到存在標籤爲 `app=store` 的 Pod 的節點上。
-Pod 反親和性規則告訴調度器決不要在單個節點上放置多個 `app=web-store` 服務器。
+Pod 反親和性規則告訴調度器決不要在單個節點上放置多個 `app=web-store` 伺服器。
 
 ```yaml
 apiVersion: apps/v1
@@ -1057,7 +1057,7 @@ spec:
 Creating the two preceding Deployments results in the following cluster layout,
 where each web server is co-located with a cache, on three separate nodes.
 -->
-創建前面兩個 Deployment 會產生如下的集羣佈局，每個 Web 服務器與一個緩存實例並置，
+創建前面兩個 Deployment 會產生如下的叢集佈局，每個 Web 伺服器與一個緩存實例並置，
 並分別運行在三個獨立的節點上。
 
 |    node-1     |    node-2     |    node-3     |
@@ -1080,7 +1080,7 @@ availability, using the same technique as this example.
 -->
 你可能還有使用 Pod 反親和性的一些其他原因。
 參閱 [ZooKeeper 教程](/zh-cn/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
-瞭解一個 StatefulSet 的示例，該 StatefulSet 配置了反親和性以實現高可用，
+瞭解一個 StatefulSet 的示例，該 StatefulSet 設定了反親和性以實現高可用，
 所使用的是與此例相同的技術。
 
 <!--
@@ -1123,7 +1123,7 @@ you need to bypass any configured schedulers. Bypassing the schedulers might lea
 failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity)
 or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
 -->
-`nodeName` 旨在供自定義調度器或需要繞過任何已配置調度器的高級場景使用。
+`nodeName` 旨在供自定義調度器或需要繞過任何已設定調度器的高級場景使用。
 如果已分配的 Node 負載過重，繞過調度器可能會導致 Pod 失敗。
 你可以使用[節點親和性](#node-affinity)或 [`nodeselector` 字段](#nodeselector)將
 Pod 分配給特定 Node，而無需繞過調度器。
@@ -1203,8 +1203,8 @@ to learn more about how these work.
 ## Pod 拓撲分佈約束 {#pod-topology-spread-constraints}
 
 你可以使用 **拓撲分佈約束（Topology Spread Constraints）** 來控制
-{{< glossary_tooltip text="Pod" term_id="Pod" >}} 在集羣內故障域之間的分佈，
-故障域的示例有區域（Region）、可用區（Zone）、節點和其他用戶自定義的拓撲域。
+{{< glossary_tooltip text="Pod" term_id="Pod" >}} 在叢集內故障域之間的分佈，
+故障域的示例有區域（Region）、可用區（Zone）、節點和其他使用者自定義的拓撲域。
 這樣做有助於提升性能、實現高可用或提升資源利用率。
 
 閱讀 [Pod 拓撲分佈約束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)

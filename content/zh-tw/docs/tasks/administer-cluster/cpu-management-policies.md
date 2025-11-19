@@ -28,7 +28,7 @@ acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
 -->
-按照設計，Kubernetes 對 Pod 執行相關的很多方面進行了抽象，使得用戶不必關心。
+按照設計，Kubernetes 對 Pod 執行相關的很多方面進行了抽象，使得使用者不必關心。
 然而，爲了正常運行，有些工作負載要求在延遲和/或性能方面有更強的保證。
 爲此，kubelet 提供方法來實現更復雜的負載放置策略，同時保持抽象，避免顯式的放置指令。
 
@@ -67,7 +67,7 @@ whether the pod is throttled and which CPU cores are available at
 scheduling time. Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 -->
-## 配置 CPU 管理策略   {#cpu-management-policies}
+## 設定 CPU 管理策略   {#cpu-management-policies}
 
 默認情況下，kubelet 使用 [CFS 配額](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
 來執行 Pod 的 CPU 約束。
@@ -106,7 +106,7 @@ The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
 There are two supported policies:
 -->
-## 配置   {#configuration}
+## 設定   {#configuration}
 
 CPU 管理策略通過 kubelet 參數 `--cpu-manager-policy`
 或 [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
@@ -129,7 +129,7 @@ frequency is set through a new Kubelet configuration value
 duration as `--node-status-update-frequency`.
 -->
 CPU 管理器定期通過 CRI 寫入資源更新，以保證內存中 CPU 分配與 cgroupfs 一致。
-同步頻率通過新增的 Kubelet 配置參數 `--cpu-manager-reconcile-period` 來設置。
+同步頻率通過新增的 Kubelet 設定參數 `--cpu-manager-reconcile-period` 來設置。
 如果不指定，默認與 `--node-status-update-frequency` 的週期相同。
 
 <!--
@@ -185,7 +185,7 @@ CPUManager so that the cpu-sets set up by the new policy won’t conflict with i
 2. 停止 kubelet。
 3. 刪除舊的 CPU 管理器狀態文件。該文件的路徑默認爲 `/var/lib/kubelet/cpu_manager_state`。
    這將清除 CPUManager 維護的狀態，以便新策略設置的 cpu-sets 不會與之衝突。
-4. 編輯 kubelet 配置以將 CPU 管理器策略更改爲所需的值。
+4. 編輯 kubelet 設定以將 CPU 管理器策略更改爲所需的值。
 5. 啓動 kubelet。
 
 <!--
@@ -213,9 +213,9 @@ state file `cpu_manager_state` in the kubelet root directory.
 
 This policy has no extra configuration items.
 -->
-### `none` 策略配置
+### `none` 策略設定
 
-該策略沒有額外的配置項。
+該策略沒有額外的設定項。
 
 <!--
 ### `static` policy configuration
@@ -234,7 +234,7 @@ CPU `requests` also run on CPUs in the shared pool. Only containers that are
 both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 --->
-### `static` 策略配置
+### `static` 策略設定
 
 此策略管理一個 CPU 共享池，該共享池最初包含節點上所有的 CPU 資源。
 可獨佔性 CPU 資源數量等於節點的 CPU 總量減去通過 kubelet `--kube-reserved` 或 `--system-reserved`
@@ -339,4 +339,4 @@ For mode detail about the behavior of the individual options you can configure, 
 `prefer-align-cpus-by-uncorecache` 選項。
 如果使用不兼容的選項，kubelet 將無法啓動，並在日誌中解釋所出現的錯誤。
 
-有關你可以配置的各個選項的行爲的模式詳細信息，請參閱[節點資源管理](/zh-cn/docs/concepts/policy/node-resource-managers)文檔。
+有關你可以設定的各個選項的行爲的模式詳細信息，請參閱[節點資源管理](/zh-cn/docs/concepts/policy/node-resource-managers)文檔。

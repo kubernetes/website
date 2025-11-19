@@ -146,7 +146,7 @@ CSI 驅動程序提供者必須確保其 CSI 驅動程序支持此安裝選項�
 For example, NFS may need `-o context=<SELinux label>,nosharecache`, so each volume mounted from the same NFS server can have a different SELinux label value. Similarly, CIFS may need `-o context=<SELinux label>,nosharesock`.
 -->
 例如，NFS 可能需要 `-o context=<SELinux label>,nosharecache`，這樣來自同一
-NFS 服務器的多個卷被掛載時可以具有不同的 SELinux 標籤值。
+NFS 伺服器的多個卷被掛載時可以具有不同的 SELinux 標籤值。
 類似地，CIFS 可能需要 `-o context=<SELinux label>,nosharesock`。
 
 <!--

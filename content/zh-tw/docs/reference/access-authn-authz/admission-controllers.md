@@ -34,10 +34,10 @@ to properly support the feature.  As a result, a Kubernetes API server that is n
 configured with the right set of admission controllers is an incomplete server that will not
 support all the features you expect.
 -->
-准入控制器是一段代碼，它會在請求通過認證和鑑權之後、對象被持久化之前攔截到達 API 服務器的請求。
+准入控制器是一段代碼，它會在請求通過認證和鑑權之後、對象被持久化之前攔截到達 API 伺服器的請求。
 
 Kubernetes 的若干重要功能都要求啓用一個准入控制器，以便正確地支持該特性。
-因此，沒有正確配置准入控制器的 Kubernetes API 服務器是不完整的，它無法支持你所期望的所有特性。
+因此，沒有正確設定准入控制器的 Kubernetes API 伺服器是不完整的，它無法支持你所期望的所有特性。
 
 <!-- body -->
 
@@ -58,11 +58,11 @@ to read (**get**, **watch** or **list**) objects, because reads bypass the admis
 control layer.
 -->
 准入控制器是 Kubernetes
-{{< glossary_tooltip term_id="kube-apiserver" text="API 服務器" >}}中的代碼，
+{{< glossary_tooltip term_id="kube-apiserver" text="API 伺服器" >}}中的代碼，
 用於檢查請求中到達的數據，以修改資源。
 
 准入控制器適用於創建、刪除或修改對象的請求。
-准入控制器也可以阻止自定義動作，例如通過 API 服務器代理連接到 Pod 的請求。
+准入控制器也可以阻止自定義動作，例如通過 API 伺服器代理連接到 Pod 的請求。
 准入控制器**不會**（也不能）阻止讀取（**get**、**watch** 或 **list**）對象的請求，
 這是因爲讀取操作會繞過准入控制層。
 
@@ -80,7 +80,7 @@ administrator.
 
 Kubernetes {{< skew currentVersion >}}
 中的准入控制器由下面的[列表](#what-does-each-admission-controller-do)組成，
-並編譯進 `kube-apiserver` 可執行文件，並且只能由集羣管理員配置。
+並編譯進 `kube-apiserver` 可執行文件，並且只能由叢集管理員設定。
 
 <!--
 ### Admission control extension points
@@ -103,14 +103,14 @@ callouts.
 [ValidatingAdmissionWebhook](#validatingadmissionwebhook)
 和 [ValidatingAdmissionPolicy](#validatingadmissionpolicy)。
 前兩個 Webhook 控制器分別執行在 API
-中所配置的變更和驗證[准入控制 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
+中所設定的變更和驗證[准入控制 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)。
 而 ValidatingAdmissionPolicy 提供了一種在 API 中嵌入聲明式驗證代碼的方式，無需依賴任何外部 HTTP 調用。
 
 <!--
 You can use these three admission controllers to customize cluster behavior at
 admission time.
 -->
-你可以使用這三個准入控制器來定製准入時的集羣行爲。
+你可以使用這三個准入控制器來定製准入時的叢集行爲。
 
 <!--
 ## Admission control phases
@@ -128,7 +128,7 @@ request is rejected immediately and an error is returned to the end-user.
 准入控制過程分爲兩個階段。第一階段，運行變更准入控制器。第二階段，運行驗證准入控制器。
 再次提醒，某些控制器既是變更准入控制器又是驗證准入控制器。
 
-如果兩個階段之一的任何一個控制器拒絕了某請求，則整個請求將立即被拒絕，並向最終用戶返回錯誤。
+如果兩個階段之一的任何一個控制器拒絕了某請求，則整個請求將立即被拒絕，並向最終使用者返回錯誤。
 
 <!--
 Finally, in addition to sometimes mutating the object in question, admission
@@ -168,8 +168,8 @@ support all the features you expect.
 ## 爲什麼需要准入控制器？  {#why-do-i-need-them}
 
 Kubernetes 的多個重要特性需要按順序啓用某個准入控制器才能正確支持對應的特性。
-因此，如果 Kubernetes API 服務器未正確配置相應的准入控制器集，
-那麼這種 API 服務器將是不完整的，並且無法支持你所期望的所有特性。
+因此，如果 Kubernetes API 伺服器未正確設定相應的准入控制器集，
+那麼這種 API 伺服器將是不完整的，並且無法支持你所期望的所有特性。
 
 <!--
 ## How do I turn on an admission controller?
@@ -180,8 +180,8 @@ admission control plugins:
 -->
 ## 如何啓用一個准入控制器？  {#how-do-i-turn-on-an-admission-controller}
 
-Kubernetes API 服務器的 `enable-admission-plugins` 標誌接受一個（以逗號分隔的）准入控制插件列表，
-這些插件會在集羣修改對象之前被調用。
+Kubernetes API 伺服器的 `enable-admission-plugins` 標誌接受一個（以逗號分隔的）准入控制插件列表，
+這些插件會在叢集修改對象之前被調用。
 
 例如，下面的命令啓用 `NamespaceLifecycle` 和 `LimitRanger` 准入控制插件：
 
@@ -197,9 +197,9 @@ have to modify the systemd unit file if the API server is deployed as a systemd
 service, you may modify the manifest file for the API server if Kubernetes is deployed
 in a self-hosted way.
 -->
-根據你 Kubernetes 集羣的部署方式以及 API 服務器的啓動方式，你可能需要以不同的方式應用設置。
-例如，如果將 API 服務器部署爲 systemd 服務，你可能需要修改 systemd 單元文件；
-如果以自託管方式部署 Kubernetes，你可能需要修改 API 服務器的清單文件。
+根據你 Kubernetes 叢集的部署方式以及 API 伺服器的啓動方式，你可能需要以不同的方式應用設置。
+例如，如果將 API 伺服器部署爲 systemd 服務，你可能需要修改 systemd 單元文件；
+如果以自託管方式部署 Kubernetes，你可能需要修改 API 伺服器的清單文件。
 {{< /note >}}
 
 <!--
@@ -209,7 +209,7 @@ The Kubernetes API server flag `disable-admission-plugins` takes a comma-delimit
 -->
 ## 怎麼關閉准入控制器？   {#how-do-i-turn-off-an-admission-controller}
 
-Kubernetes API 服務器的 `disable-admission-plugins` 標誌，會將傳入的（以逗號分隔的）
+Kubernetes API 伺服器的 `disable-admission-plugins` 標誌，會將傳入的（以逗號分隔的）
 准入控制插件列表禁用，即使是默認啓用的插件也會被禁用。
 
 ```shell
@@ -256,7 +256,7 @@ CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultI
 This admission controller allows all pods into the cluster. It is **deprecated** because
 its behavior is the same as if there were no admission controller at all.
 -->
-該准入控制器允許所有的 Pod 進入集羣。此插件**已被棄用**，因其行爲與沒有準入控制器一樣。
+該准入控制器允許所有的 Pod 進入叢集。此插件**已被棄用**，因其行爲與沒有準入控制器一樣。
 
 ### AlwaysDeny {#alwaysdeny}
 
@@ -283,11 +283,11 @@ scheduled onto the right node), without any authorization check against the imag
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
 -->
-該准入控制器會修改每個新創建的 Pod，將其鏡像拉取策略設置爲 `Always`。
-這在多租戶集羣中是有用的，這樣用戶就可以放心，他們的私有鏡像只能被那些有憑證的人使用。
-如果沒有這個准入控制器，一旦鏡像被拉取到節點上，任何用戶的 Pod 都可以通過已瞭解到的鏡像的名稱
-（假設 Pod 被調度到正確的節點上）來使用它，而不需要對鏡像進行任何鑑權檢查。
-啓用這個准入控制器之後，啓動容器之前必須拉取鏡像，這意味着需要有效的憑證。
+該准入控制器會修改每個新創建的 Pod，將其映像檔拉取策略設置爲 `Always`。
+這在多租戶叢集中是有用的，這樣使用者就可以放心，他們的私有映像檔只能被那些有憑證的人使用。
+如果沒有這個准入控制器，一旦映像檔被拉取到節點上，任何使用者的 Pod 都可以通過已瞭解到的映像檔的名稱
+（假設 Pod 被調度到正確的節點上）來使用它，而不需要對映像檔進行任何鑑權檢查。
+啓用這個准入控制器之後，啓動容器之前必須拉取映像檔，這意味着需要有效的憑證。
 
 ### CertificateApproval {#certificateapproval}
 
@@ -303,7 +303,7 @@ authorization checks to ensure the approving user has permission to **approve** 
 -->
 此准入控制器獲取審批 CertificateSigningRequest 資源的請求並執行額外的鑑權檢查，
 以確保針對設置了 `spec.signerName` 的 CertificateSigningRequest 資源而言，
-審批請求的用戶有權限對證書請求執行 **審批** 操作。
+審批請求的使用者有權限對證書請求執行 **審批** 操作。
 
 <!--
 See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
@@ -326,7 +326,7 @@ requests with the `spec.signerName` requested on the CertificateSigningRequest r
 -->
 此准入控制器監視對 CertificateSigningRequest 資源的 `status.certificate` 字段的更新請求，
 並執行額外的鑑權檢查，以確保針對設置了 `spec.signerName` 的 CertificateSigningRequest 資源而言，
-簽發證書的用戶有權限對證書請求執行 **簽發** 操作。
+簽發證書的使用者有權限對證書請求執行 **簽發** 操作。
 
 <!--
 See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
@@ -365,7 +365,7 @@ request any special ingress class do not need to care about them at all and they
 default one.
 -->
 該准入控制器監測沒有請求任何特定 Ingress 類的 `Ingress` 對象創建請求，並自動向其添加默認 Ingress 類。
-這樣，沒有任何特殊 Ingress 類需求的用戶根本不需要關心它們，他們將被設置爲默認 Ingress 類。
+這樣，沒有任何特殊 Ingress 類需求的使用者根本不需要關心它們，他們將被設置爲默認 Ingress 類。
 
 <!--
 This admission controller does not do anything when no default ingress class is configured. When more than one ingress
@@ -374,7 +374,7 @@ must revisit their `IngressClass` objects and mark only one as default (with the
 "ingressclass.kubernetes.io/is-default-class").  This admission controller ignores any `Ingress`
 updates; it acts only on creation.
 -->
-當未配置默認 Ingress 類時，此准入控制器不執行任何操作。如果有多個 Ingress 類被標記爲默認 Ingress 類，
+當未設定默認 Ingress 類時，此准入控制器不執行任何操作。如果有多個 Ingress 類被標記爲默認 Ingress 類，
 此控制器將拒絕所有創建 `Ingress` 的操作，並返回錯誤信息。
 要修復此錯誤，管理員必須重新檢查其 `IngressClass` 對象，並僅將其中一個標記爲默認
 （通過註解 "ingressclass.kubernetes.io/is-default-class"）。
@@ -402,7 +402,7 @@ will get the default one.
 -->
 此准入控制器監測沒有請求任何特定存儲類的 `PersistentVolumeClaim` 對象的創建請求，
 並自動向其添加默認存儲類。
-這樣，沒有任何特殊存儲類需求的用戶根本不需要關心它們，它們將被設置爲使用默認存儲類。
+這樣，沒有任何特殊存儲類需求的使用者根本不需要關心它們，它們將被設置爲使用默認存儲類。
 
 <!--
 This admission controller does nothing when no default `StorageClass` exists. When more than one storage
@@ -467,10 +467,10 @@ existing `Service` objects.  Existing uses of `externalIPs` are not affected,
 and users may remove values from `externalIPs` on existing `Service` objects.
 -->
 此准入控制器拒絕新的 `Service` 中使用字段 `externalIPs`。
-此功能非常強大（允許網絡流量攔截），並且無法很好地受策略控制。
-啓用後，集羣用戶將無法創建使用 `externalIPs` 的新 `Service`，也無法在現有
+此功能非常強大（允許網路流量攔截），並且無法很好地受策略控制。
+啓用後，叢集使用者將無法創建使用 `externalIPs` 的新 `Service`，也無法在現有
 `Service` 對象上爲 `externalIPs` 添加新值。
-`externalIPs` 的現有使用不受影響，用戶可以在現有 `Service` 對象上從
+`externalIPs` 的現有使用不受影響，使用者可以在現有 `Service` 對象上從
 `externalIPs` 中刪除值。
 
 <!--
@@ -479,8 +479,8 @@ Clusters that do need to use this feature should consider using some custom poli
 of it.
 This admission controller is disabled by default.
 -->
-大多數用戶根本不需要此特性，集羣管理員應考慮將其禁用。
-確實需要使用此特性的集羣應考慮使用一些自定義策略來管理 `externalIPs` 的使用。
+大多數使用者根本不需要此特性，叢集管理員應考慮將其禁用。
+確實需要使用此特性的叢集應考慮使用一些自定義策略來管理 `externalIPs` 的使用。
 此准入控制器默認被禁用。
 
 ### PodTopologyLabels {#podtopologylabels}
@@ -537,7 +537,7 @@ This admission controller is enabled when the `PodTopologyLabelsAdmission` featu
 This admission controller mitigates the problem where the API server gets flooded by
 requests to store new Events. The cluster admin can specify event rate limits by:
 -->
-此准入控制器緩解了請求存儲新事件時淹沒 API 服務器的問題。集羣管理員可以通過以下方式指定事件速率限制：
+此准入控制器緩解了請求存儲新事件時淹沒 API 伺服器的問題。叢集管理員可以通過以下方式指定事件速率限制：
 
 <!--
 * Enabling the `EventRateLimit` admission controller;
@@ -545,8 +545,8 @@ requests to store new Events. The cluster admin can specify event rate limits by
   server's command line flag `--admission-control-config-file`:
 -->
 * 啓用 `EventRateLimit` 准入控制器；
-* 在通過 API 服務器的命令行標誌 `--admission-control-config-file` 設置的文件中，
-  引用 `EventRateLimit` 配置文件：
+* 在通過 API 伺服器的命令列標誌 `--admission-control-config-file` 設置的文件中，
+  引用 `EventRateLimit` 設定文件：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -560,7 +560,7 @@ plugins:
 <!--
 There are four types of limits that can be specified in the configuration:
 -->
-可以在配置中指定的限制有四種類型：
+可以在設定中指定的限制有四種類型：
 
 <!--
  * `Server`: All Event requests (creation or modifications) received by the API server share a single bucket.
@@ -569,15 +569,15 @@ There are four types of limits that can be specified in the configuration:
  * `SourceAndObject`: A bucket is assigned by each combination of source and
    involved object of the event.
 -->
-* `Server`：API 服務器收到的所有（創建或修改）Event 請求共享一個桶。
+* `Server`：API 伺服器收到的所有（創建或修改）Event 請求共享一個桶。
 * `Namespace`：每個名字空間都對應一個專用的桶。
-* `User`：爲每個用戶分配一個桶。
+* `User`：爲每個使用者分配一個桶。
 * `SourceAndObject`：根據事件的來源和涉及對象的各種組合分配桶。
 
 <!--
 Below is a sample `eventconfig.yaml` for such a configuration:
 -->
-下面是一個針對此配置的 `eventconfig.yaml` 示例：
+下面是一個針對此設定的 `eventconfig.yaml` 示例：
 
 ```yaml
 apiVersion: eventratelimit.admission.k8s.io/v1alpha1
@@ -599,7 +599,7 @@ for more details.
 This admission controller is disabled by default.
 -->
 詳情請參見
-[EventRateLimit 配置 API 文檔（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)。
+[EventRateLimit 設定 API 文檔（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)。
 
 此准入控制器默認被禁用。
 
@@ -624,7 +624,7 @@ This admission controller is disabled by default.
 如果運維人員想要創建帶有擴展資源（如 GPU、FPGA 等）的專用節點，他們應該以擴展資源名稱作爲鍵名，
 [爲節點設置污點](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 如果啓用了此准入控制器，會將此類污點的容忍度自動添加到請求擴展資源的 Pod 中，
-用戶不必再手動添加這些容忍度。
+使用者不必再手動添加這些容忍度。
 
 此准入控制器默認被禁用。
 
@@ -650,9 +650,9 @@ ImagePolicyWebhook 准入控制器允許使用後端 Webhook 做出准入決策�
 ImagePolicyWebhook uses a configuration file to set options for the behavior of the backend.
 This file may be json or yaml and has the following format:
 -->
-#### 配置文件格式  {#imagereview-config-file-format}
+#### 設定文件格式  {#imagereview-config-file-format}
 
-ImagePolicyWebhook 使用配置文件來爲後端行爲設置選項。該文件可以是 JSON 或 YAML，
+ImagePolicyWebhook 使用設定文件來爲後端行爲設置選項。該文件可以是 JSON 或 YAML，
 並具有以下格式:
 
 <!--
@@ -685,8 +685,8 @@ imagePolicy:
 <!--
 Reference the ImagePolicyWebhook configuration file from the file provided to the API server's command line flag `--admission-control-config-file`:
 -->
-在通過命令行標誌 `--admission-control-config-file` 爲 API 服務器提供的文件中，
-引用 ImagePolicyWebhook 配置文件：
+在通過命令列標誌 `--admission-control-config-file` 爲 API 伺服器提供的文件中，
+引用 ImagePolicyWebhook 設定文件：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -700,7 +700,7 @@ plugins:
 <!--
 Alternatively, you can embed the configuration directly in the file:
 -->
-或者，你也可以直接將配置嵌入到該文件中：
+或者，你也可以直接將設定嵌入到該文件中：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -722,7 +722,7 @@ The ImagePolicyWebhook config file must reference a
 formatted file which sets up the connection to the backend.
 It is required that the backend communicate over TLS.
 -->
-ImagePolicyWebhook 的配置文件必須引用
+ImagePolicyWebhook 的設定文件必須引用
 [kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 格式的文件；該文件用來設置與後端的連接。要求後端使用 TLS 進行通信。
 
@@ -758,7 +758,7 @@ clusters:
       certificate-authority: /path/to/ca.pem    # CA 用於驗證遠程服務
       server: https://images.example.com/policy # 要查詢的遠程服務的 URL，必須是 'https'。
 
-# users 指的是 API 服務器的 Webhook 配置。
+# users 指的是 API 伺服器的 Webhook 配置。
 users:
   - name: name-of-api-server
     user:
@@ -770,7 +770,7 @@ users:
 For additional HTTP configuration, refer to the
 [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation.
 -->
-關於 HTTP 配置的更多信息，請參閱
+關於 HTTP 設定的更多信息，請參閱
 [kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 文檔。
 
@@ -784,7 +784,7 @@ any pod annotations that match `*.image-policy.k8s.io/*`.
 -->
 #### 請求載荷  {#request-payloads}
 
-當面對一個准入決策時，API 服務器發送一個描述操作的 JSON 序列化的
+當面對一個准入決策時，API 伺服器發送一個描述操作的 JSON 序列化的
 `imagepolicy.k8s.io/v1alpha1` `ImageReview` 對象。
 該對象包含描述被准入容器的字段，以及與 `*.image-policy.k8s.io/*` 匹配的所有 Pod 註解。
 
@@ -799,7 +799,7 @@ group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 -->
 注意，Webhook API 對象與其他 Kubernetes API 對象一樣受制於相同的版本控制兼容性規則。
 實現者應該知道對 alpha 對象兼容性是相對寬鬆的，並檢查請求的 "apiVersion" 字段，
-以確保正確的反序列化。此外，API 服務器必須啓用 `imagepolicy.k8s.io/v1alpha1` API 擴展組
+以確保正確的反序列化。此外，API 伺服器必須啓用 `imagepolicy.k8s.io/v1alpha1` API 擴展組
 （`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`）。
 {{< /note >}}
 
@@ -880,7 +880,7 @@ accept different information.
 #### 使用註解進行擴展  {#extending-with-annotations}
 
 一個 Pod 中匹配 `*.image-policy.k8s.io/*` 的註解都會被髮送給 Webhook。
-這樣做使得了解後端鏡像策略的用戶可以向它發送額外的信息，
+這樣做使得了解後端映像檔策略的使用者可以向它發送額外的信息，
 並讓不同的後端實現接收不同的信息。
 
 <!--
@@ -894,12 +894,12 @@ Examples of information you might put here are:
 
 * 在緊急情況下，請求破例覆蓋某個策略。
 * 從一個記錄了破例的請求的工單（Ticket）系統得到的一個工單號碼。
-* 向策略服務器提供提示信息，用於提供鏡像的 imageID，以方便它進行查找。
+* 向策略伺服器提供提示信息，用於提供映像檔的 imageID，以方便它進行查找。
 
 <!--
 In any case, the annotations are provided by the user and are not validated by Kubernetes in any way.
 -->
-在任何情況下，註解都是由用戶提供的，並不會被 Kubernetes 以任何方式進行驗證。
+在任何情況下，註解都是由使用者提供的，並不會被 Kubernetes 以任何方式進行驗證。
 
 ### LimitPodHardAntiAffinityTopology   {#limitpodhardantiaffinitytopology}
 
@@ -1000,7 +1000,7 @@ group/version via the `--runtime-config` flag, both are on by default.
   is finalized, not all possible webhook behaviors will be guaranteed to be supported
   indefinitely.
 -->
-* 當用戶嘗試創建的對象與返回的對象不同時，用戶可能會感到困惑。
+* 當使用者嘗試創建的對象與返回的對象不同時，使用者可能會感到困惑。
 * 當他們讀回的對象與嘗試創建的對象不同，內建的控制迴路可能會出問題。
   * 與覆蓋原始請求中設置的字段相比，使用原始請求未設置的字段會引起問題的可能性較小。
     應儘量避免覆蓋原始請求中的字段設置。
@@ -1023,7 +1023,7 @@ a namespace prior to its usage.
 -->
 此准入控制器會檢查針對名字空間域資源的所有傳入請求，並檢查所引用的名字空間是否確實存在。
 如果找不到所引用的名字空間，控制器將創建一個名字空間。
-此准入控制器對於不想要求名字空間必須先創建後使用的集羣部署很有用。
+此准入控制器對於不想要求名字空間必須先創建後使用的叢集部署很有用。
 
 ### NamespaceExists {#namespaceexists}
 
@@ -1078,7 +1078,7 @@ Such kubelets will only be allowed to modify their own `Node` API object, and on
 -->
 該准入控制器限制了某 kubelet 可以修改的 `Node` 和 `Pod` 對象。
 爲了受到這個准入控制器的限制，kubelet 必須使用在 `system:nodes` 組中的憑證，
-並使用 `system:node:<nodeName>` 形式的用戶名。
+並使用 `system:node:<nodeName>` 形式的使用者名。
 這樣，kubelet 只可修改自己的 `Node` API 對象，只能修改綁定到自身節點的 Pod 對象。
 
 <!--
@@ -1141,10 +1141,10 @@ of an object, so that only users with **update** permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 -->
 此准入控制器保護對對象的 `metadata.ownerReferences` 的訪問，以便只有對該對象具有
-**delete** 權限的用戶才能對其進行更改。
+**delete** 權限的使用者才能對其進行更改。
 該准入控制器還保護對 `metadata.ownerReferences[x].blockOwnerDeletion` 對象的訪問，
 以便只有對所引用的 **屬主（owner）** 的 `finalizers` 子資源具有 **update**
-權限的用戶才能對其進行更改。
+權限的使用者才能對其進行更改。
 
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
 
@@ -1209,7 +1209,7 @@ by reading a namespace annotation and a global configuration.
 
 This admission controller is disabled by default.
 -->
-此准入控制器通過讀取名字空間註解和全局配置，來爲名字空間中可以使用的節點選擇器設置默認值並實施限制。
+此准入控制器通過讀取名字空間註解和全局設定，來爲名字空間中可以使用的節點選擇器設置默認值並實施限制。
 
 此准入控制器默認被禁用。
 
@@ -1220,10 +1220,10 @@ This admission controller is disabled by default.
 Note that the configuration file format will move to a versioned file in a future release.
 This file may be json or yaml and has the following format:
 -->
-#### 配置文件格式    {#configuration-file-format-podnodeselector}
+#### 設定文件格式    {#configuration-file-format-podnodeselector}
 
-`PodNodeSelector` 使用配置文件來設置後端行爲的選項。
-請注意，配置文件格式將在將來某個版本中改爲版本化文件。
+`PodNodeSelector` 使用設定文件來設置後端行爲的選項。
+請注意，設定文件格式將在將來某個版本中改爲版本化文件。
 該文件可以是 JSON 或 YAML，格式如下：
 
 ```yaml
@@ -1237,8 +1237,8 @@ podNodeSelectorPluginConfig:
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's
 command line flag `--admission-control-config-file`:
 -->
-通過 API 服務器命令行標誌 `--admission-control-config-file` 爲 API 服務器提供的文件中，
-需要引用 `PodNodeSelector` 配置文件：
+通過 API 伺服器命令列標誌 `--admission-control-config-file` 爲 API 伺服器提供的文件中，
+需要引用 `PodNodeSelector` 設定文件：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -1255,7 +1255,7 @@ plugins:
 `PodNodeSelector` uses the annotation key `scheduler.alpha.kubernetes.io/node-selector` to assign
 node selectors to namespaces.
 -->
-#### 配置註解格式   {#configuration-annotation-format}
+#### 設定註解格式   {#configuration-annotation-format}
 
 `PodNodeSelector` 使用鍵爲 `scheduler.alpha.kubernetes.io/node-selector`
 的註解爲名字空間設置節點選擇算符。
@@ -1290,10 +1290,10 @@ This admission controller has the following behavior:
 -->
 1. 如果 `Namespace` 的註解帶有鍵 `scheduler.alpha.kubernetes.io/node-selector`，
    則將其值用作節點選擇算符。
-2. 如果名字空間缺少此類註解，則使用 `PodNodeSelector` 插件配置文件中定義的
+2. 如果名字空間缺少此類註解，則使用 `PodNodeSelector` 插件設定文件中定義的
    `clusterDefaultNodeSelector` 作爲節點選擇算符。
 3. 評估 Pod 節點選擇算符和名字空間節點選擇算符是否存在衝突。存在衝突將拒絕 Pod。
-4. 評估 Pod 節點選擇算符和特定於名字空間的被允許的選擇算符所定義的插件配置文件是否存在衝突。
+4. 評估 Pod 節點選擇算符和特定於名字空間的被允許的選擇算符所定義的插件設定文件是否存在衝突。
    存在衝突將導致拒絕 Pod。
 
 {{< note >}}
@@ -1365,7 +1365,7 @@ tolerations annotated, the cluster-level default tolerations or cluster-level li
 instead if they are specified.
 -->
 如果 Pod 的名字空間沒有任何關聯的默認容忍度或容忍度白名單，
-則使用集羣級別的默認容忍度或容忍度白名單（如果有的話）。
+則使用叢集級別的默認容忍度或容忍度白名單（如果有的話）。
 
 <!--
 Tolerations to a namespace are assigned via the `scheduler.alpha.kubernetes.io/defaultTolerations` annotation key.
@@ -1457,7 +1457,7 @@ for more information.
 如果你所定義的 RuntimeClass 包含 [Pod 開銷](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)，
 這個准入控制器會檢查新的 Pod。
 被啓用後，此准入控制器會拒絕所有已經設置了 overhead 字段的 Pod 創建請求。
-對於配置了 RuntimeClass 並在其 `.spec` 中選定 RuntimeClass 的 Pod，
+對於設定了 RuntimeClass 並在其 `.spec` 中選定 RuntimeClass 的 Pod，
 此准入控制器會根據相應 RuntimeClass 中定義的值爲 Pod 設置 `.spec.overhead`。
 
 詳情請參見 [Pod 開銷](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)。
@@ -1509,7 +1509,7 @@ for more detailed information.
 -->
 `StorageObjectInUseProtection` 插件將 `kubernetes.io/pvc-protection` 或
 `kubernetes.io/pv-protection` 終結器（finalizers）添加到新創建的持久卷申領（PVC）
-或持久卷（PV）中。如果用戶嘗試刪除 PVC/PV，除非 PVC/PV 的保護控制器移除終結器，
+或持久卷（PV）中。如果使用者嘗試刪除 PVC/PV，除非 PVC/PV 的保護控制器移除終結器，
 否則 PVC/PV 不會被刪除。有關更多詳細信息，
 請參考[保護使用中的存儲對象](/zh-cn/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
 

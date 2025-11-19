@@ -86,7 +86,7 @@ takes if a potential violation is detected:
 -->
 ## 爲名字空間設置 Pod 安全性准入控制標籤 {#pod-security-admission-labels-for-namespaces}
 
-一旦特性被啓用或者安裝了 Webhook，你可以配置名字空間以定義每個名字空間中
+一旦特性被啓用或者安裝了 Webhook，你可以設定名字空間以定義每個名字空間中
 Pod 安全性准入控制模式。
 Kubernetes 定義了一組{{< glossary_tooltip term_id="label" text="標籤" >}}，
 你可以設置這些標籤來定義某個名字空間上要使用的預定義的 Pod 安全性標準級別。
@@ -105,7 +105,7 @@ Mode | Description
 :---------|:------------
 **enforce** | 策略違例會導致 Pod 被拒絕
 **audit** | 策略違例會觸發[審計日誌](/zh-cn/docs/tasks/debug/debug-cluster/audit/)中記錄新事件時添加審計註解；但是 Pod 仍是被接受的。
-**warn** | 策略違例會觸發用戶可見的警告信息，但是 Pod 仍是被接受的。
+**warn** | 策略違例會觸發使用者可見的警告信息，但是 Pod 仍是被接受的。
 {{< /table >}}
 
 <!--
@@ -113,7 +113,7 @@ A namespace can configure any or all modes, or even set a different level for di
 
 For each mode, there are two labels that determine the policy used:
 -->
-名字空間可以配置任何一種或者所有模式，或者甚至爲不同的模式設置不同的級別。
+名字空間可以設定任何一種或者所有模式，或者甚至爲不同的模式設置不同的級別。
 
 對於每種模式，決定所使用策略的標籤有兩個：
 
@@ -184,8 +184,8 @@ Exemptions can be statically configured in the
 
 你可以爲 Pod 安全性的實施設置**豁免（Exemptions）** 規則，
 從而允許創建一些本來會被與給定名字空間相關的策略所禁止的 Pod。
-豁免規則可以在[准入控制器配置](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
-中靜態配置。
+豁免規則可以在[准入控制器設定](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
+中靜態設定。
 
 <!--
 Exemptions must be explicitly enumerated. Requests meeting exemption criteria are _ignored_ by the
@@ -202,7 +202,7 @@ Admission Controller (all `enforce`, `audit` and `warn` behaviors are skipped). 
   ignored.
 - **Namespaces:** pods and [workload resources](#workload-resources-and-pod-templates) in an exempt namespace are ignored.
 -->
-- **Username：** 來自用戶名已被豁免的、已認證的（或僞裝的）的用戶的請求會被忽略。
+- **Username：** 來自使用者名已被豁免的、已認證的（或僞裝的）的使用者的請求會被忽略。
 - **RuntimeClassName：** 指定了已豁免的運行時類名稱的 Pod
   和[負載資源](#workload-resources-and-pod-templates)會被忽略。
 - **Namespace：** 位於被豁免的名字空間中的 Pod 和[負載資源](#workload-resources-and-pod-templates)會被忽略。
@@ -217,10 +217,10 @@ should generally not be exempted, as doing so would implicitly exempt any user t
 corresponding workload resource.
 -->
 大多數 Pod 是作爲對[工作負載資源](#workload-resources-and-pod-templates)的響應，
-由控制器所創建的，這意味着爲某最終用戶提供豁免時，只會當該用戶直接創建 Pod
-時對其實施安全策略的豁免。用戶創建工作負載資源時不會被豁免。
+由控制器所創建的，這意味着爲某最終使用者提供豁免時，只會當該使用者直接創建 Pod
+時對其實施安全策略的豁免。使用者創建工作負載資源時不會被豁免。
 控制器服務賬號（例如：`system:serviceaccount:kube-system:replicaset-controller`）
-通常不應該被豁免，因爲豁免這類服務賬號隱含着對所有能夠創建對應工作負載資源的用戶豁免。
+通常不應該被豁免，因爲豁免這類服務賬號隱含着對所有能夠創建對應工作負載資源的使用者豁免。
 {{< /caution >}}
 
 <!--
@@ -264,7 +264,7 @@ Here are the Prometheus metrics exposed by kube-apiserver:
   or out of scope requests.
 -->
 - `pod_security_errors_total`：此指標表示妨礙正常評估的錯誤數量。
-  如果錯誤是非致命的，kube-apiserver 可能會強制實施最新的受限配置。
+  如果錯誤是非致命的，kube-apiserver 可能會強制實施最新的受限設定。
 - `pod_security_evaluations_total`：此指標表示已發生的策略評估的數量，
   不包括導出期間被忽略或豁免的請求。
 - `pod_security_exemptions_total`：該指標表示豁免請求的數量，
@@ -280,7 +280,7 @@ Here are the Prometheus metrics exposed by kube-apiserver:
 -->
 - [Pod 安全性標準](/zh-cn/docs/concepts/security/pod-security-standards/)
 - [強制實施 Pod 安全性標準](/zh-cn/docs/setup/best-practices/enforcing-pod-security-standards/)
-- [通過配置內置的准入控制器強制實施 Pod 安全性標準](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)
+- [通過設定內置的准入控制器強制實施 Pod 安全性標準](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)
 - [使用名字空間標籤來實施 Pod 安全性標準](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
 
 <!--

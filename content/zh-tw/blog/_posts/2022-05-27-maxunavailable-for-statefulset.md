@@ -115,7 +115,7 @@ watch the pods update 2 at a time as the current value of maxUnavailable is 2. T
 complete.  The maxUnavailable can be an absolute number (for example, 2) or a percentage of desired Pods (for example, 10%). The 
 absolute number is calculated from percentage by rounding up to the nearest integer.
 -->
-我可以通過將鏡像更改爲 `registry.k8s.io/nginx-slim:0.9` 來觸發滾動更新。一旦開始滾動更新，
+我可以通過將映像檔更改爲 `registry.k8s.io/nginx-slim:0.9` 來觸發滾動更新。一旦開始滾動更新，
 就可以看到一次更新 2 個 Pod，因爲 `maxUnavailable` 的當前值是 2。
 下面的輸出顯示了一個時間段內的結果，但並不是完整過程。`maxUnavailable` 可以是絕對數值（例如 2）或所需 Pod
 的百分比（例如 10%），絕對數是通過百分比計算結果進行四捨五入到最接近的整數得出的。

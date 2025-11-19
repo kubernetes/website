@@ -1,5 +1,5 @@
 ---
-title: kubectl 用戶偏好設置（kuberc）
+title: kubectl 使用者偏好設置（kuberc）
 content_type: concept
 weight: 70
 ---
@@ -17,17 +17,17 @@ A Kubernetes `kuberc` configuration file allows you to define preferences for
 such as default options and command aliases. Unlike the kubeconfig file, a `kuberc`
 configuration file does **not** contain cluster details, usernames or passwords.
 -->
-Kubernetes `kuberc` 配置文件允許你定義 {{<glossary_tooltip text="kubectl" term_id="kubectl">}}
+Kubernetes `kuberc` 設定文件允許你定義 {{<glossary_tooltip text="kubectl" term_id="kubectl">}}
 的偏好設置，例如默認選項和命令別名。
-與 kubeconfig 文件不同，`kuberc` 配置文件**不**包含集羣詳情、用戶名或密碼。
+與 kubeconfig 文件不同，`kuberc` 設定文件**不**包含叢集詳情、使用者名或密碼。
 
 <!--
 The default location of this configuration file is `$HOME/.kube/kuberc`.
 To provide kubectl with a path to a custom kuberc file, use the `--kuberc` command line option,
 or set the `KUBERC` environment variable. 
 -->
-此配置文件的默認位置是 `$HOME/.kube/kuberc`。
-要提供路徑指向自定義 kuberc 文件的 kubectl，使用 `--kuberc` 命令行選項，或設置 `KUBERC` 環境變量。
+此設定文件的默認位置是 `$HOME/.kube/kuberc`。
+要提供路徑指向自定義 kuberc 文件的 kubectl，使用 `--kuberc` 命令列選項，或設置 `KUBERC` 環境變量。
 
 <!--
 A `kuberc` using the `kubectl.config.k8s.io/v1beta1` format allows you to define
@@ -38,10 +38,10 @@ two types of user preferences:
 2. [Defaults](#defaults) - allow you to configure default option values for your
    favorite commands.
 -->
-使用 `kubectl.config.k8s.io/v1beta1` 格式的 `kuberc` 文件允許你定義兩種用戶偏好設置：
+使用 `kubectl.config.k8s.io/v1beta1` 格式的 `kuberc` 文件允許你定義兩種使用者偏好設置：
 
 1. [別名（Aliase）](#aliases) —— 允許你爲常用命令創建更短的版本，可以選擇設置選項和參數。
-1. [默認值（Default）](#defaults) —— 允許你爲常用命令配置默認的選項值。
+1. [默認值（Default）](#defaults) —— 允許你爲常用命令設定默認的選項值。
 
 <!--
 ## aliases
@@ -55,8 +55,8 @@ additionally specifying JSON output format: `--output=json`.
 -->
 ## aliases
 
-在 `kuberc` 配置中，**aliases（別名）** 部分允許你爲 kubectl 命令定義自定義快捷方式，
-並且可以帶有預設的命令行參數。
+在 `kuberc` 設定中，**aliases（別名）** 部分允許你爲 kubectl 命令定義自定義快捷方式，
+並且可以帶有預設的命令列參數。
 
 下面這個例子爲 `kubectl get` 子命令定義 `kubectl getn` 別名，
 另外還指定輸出格式爲 JSON：`--output=json`。
@@ -202,7 +202,7 @@ This next example makes the interactive removal the default mode for invoking
 -->
 ## defaults
 
-在 `kuberc` 配置中，`defaults` 部分允許你爲命令行參數指定默認值。
+在 `kuberc` 設定中，`defaults` 部分允許你爲命令列參數指定默認值。
 
 下一個示例將交互式移除調用 `kubectl delete` 的默認模式：
 
@@ -289,7 +289,7 @@ In this example, the following settings are enforced:
 在此示例中，強制使用以下設置：
 
 1. 默認使用[服務端應用](/zh-cn/docs/reference/using-api/server-side-apply/)。
-1. 調用 `kubectl delete` 時默認進行交互式移除，以防止意外移除集羣中的資源。
+1. 調用 `kubectl delete` 時默認進行交互式移除，以防止意外移除叢集中的資源。
 
 <!--
 ## Disable kuberc

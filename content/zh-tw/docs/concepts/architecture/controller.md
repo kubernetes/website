@@ -61,7 +61,7 @@ detail.
 該資源的控制器負責確保其當前狀態接近期望狀態。
 
 控制器可能會自行執行操作；在 Kubernetes 中更常見的是一個控制器會發送信息給
-{{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}，這會有副作用。
+{{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}，這會有副作用。
 具體可參看後文的例子。
 
 {{< comment >}}
@@ -95,19 +95,19 @@ act on the new information (there are new Pods to schedule and run),
 and eventually the work is done.
 -->
 
-### 通過 API 服務器來控制 {#control-via-API-server}
+### 通過 API 伺服器來控制 {#control-via-API-server}
 
 {{< glossary_tooltip text="Job" term_id="job" >}} 控制器是一個 Kubernetes 內置控制器的例子。
-內置控制器通過和集羣 API 服務器交互來管理狀態。
+內置控制器通過和叢集 API 伺服器交互來管理狀態。
 
 Job 是一種 Kubernetes 資源，它運行一個或者多個 {{< glossary_tooltip term_id="pod" >}}，
 來執行一個任務然後停止。
 （一旦[被調度了](/zh-cn/docs/concepts/scheduling-eviction/)，對 `kubelet` 來說 Pod
 對象就會變成期望狀態的一部分）。
 
-在集羣中，當 Job 控制器拿到新任務時，它會保證一組 Node 節點上的 `kubelet`
+在叢集中，當 Job 控制器拿到新任務時，它會保證一組 Node 節點上的 `kubelet`
 可以運行正確數量的 Pod 來完成工作。
-Job 控制器不會自己運行任何的 Pod 或者容器。Job 控制器是通知 API 服務器來創建或者移除 Pod。
+Job 控制器不會自己運行任何的 Pod 或者容器。Job 控制器是通知 API 伺服器來創建或者移除 Pod。
 {{< glossary_tooltip text="控制面" term_id="control-plane" >}}中的其它組件
 根據新的消息作出反應（調度並運行新 Pod）並且最終完成工作。
 
@@ -126,7 +126,7 @@ indicate that your room is now at the temperature you set).
 -->
 創建新 Job 後，所期望的狀態就是完成這個 Job。Job 控制器會讓 Job 的當前狀態不斷接近期望狀態：創建爲 Job 要完成工作所需要的 Pod，使 Job 的狀態接近完成。
 
-控制器也會更新配置對象。例如：一旦 Job 的工作完成了，Job 控制器會更新 Job 對象的狀態爲 `Finished`。
+控制器也會更新設定對象。例如：一旦 Job 的工作完成了，Job 控制器會更新 Job 對象的狀態爲 `Finished`。
 
 （這有點像溫度自動調節器關閉了一個燈，以此來告訴你房間的溫度現在到你設定的值了）。
 
@@ -151,17 +151,17 @@ that horizontally scales the nodes in your cluster.)
 
 ### 直接控制 {#direct-control}
 
-相比 Job 控制器，有些控制器需要對集羣外的一些東西進行修改。
+相比 Job 控制器，有些控制器需要對叢集外的一些東西進行修改。
 
-例如，如果你使用一個控制迴路來保證集羣中有足夠的
-{{< glossary_tooltip text="節點" term_id="node" >}}，那麼控制器就需要當前集羣外的
+例如，如果你使用一個控制迴路來保證叢集中有足夠的
+{{< glossary_tooltip text="節點" term_id="node" >}}，那麼控制器就需要當前叢集外的
 一些服務在需要時創建新節點。
 
-和外部狀態交互的控制器從 API 服務器獲取到它想要的狀態，然後直接和外部系統進行通信
+和外部狀態交互的控制器從 API 伺服器獲取到它想要的狀態，然後直接和外部系統進行通信
 並使當前狀態更接近期望狀態。
 
 （實際上有一個[控制器](https://github.com/kubernetes/autoscaler/)
-可以水平地擴展集羣中的節點。）
+可以水平地擴展叢集中的節點。）
 
 <!--
 The important point here is that the controller makes some changes to bring about
@@ -169,7 +169,7 @@ your desired state, and then reports the current state back to your cluster's AP
 Other control loops can observe that reported data and take their own actions.
 -->
 這裏的重點是，控制器做出了一些變更以使得事物更接近你的期望狀態，
-之後將當前狀態報告給集羣的 API 服務器。
+之後將當前狀態報告給叢集的 API 伺服器。
 其他控制迴路可以觀測到所彙報的數據的這種變化並採取其各自的行動。
 
 <!--
@@ -180,7 +180,7 @@ cloud provider APIs, and other services by
 [extending Kubernetes](/docs/concepts/extend-kubernetes/) to implement that.
 -->
 在溫度計的例子中，如果房間很冷，那麼某個控制器可能還會啓動一個防凍加熱器。
-就 Kubernetes 集羣而言，控制面間接地與 IP 地址管理工具、存儲服務、雲驅動
+就 Kubernetes 叢集而言，控制面間接地與 IP 地址管理工具、存儲服務、雲驅動
 APIs 以及其他服務協作，通過[擴展 Kubernetes](/zh-cn/docs/concepts/extend-kubernetes/)
 來實現這點。
 
@@ -201,10 +201,10 @@ useful changes, it doesn't matter if the overall state is stable or not.
 
 Kubernetes 採用了系統的雲原生視圖，並且可以處理持續的變化。
 
-在任務執行時，集羣隨時都可能被修改，並且控制迴路會自動修復故障。
-這意味着很可能集羣永遠不會達到穩定狀態。
+在任務執行時，叢集隨時都可能被修改，並且控制迴路會自動修復故障。
+這意味着很可能叢集永遠不會達到穩定狀態。
 
-只要集羣中的控制器在運行並且進行有效的修改，整體狀態的穩定與否是無關緊要的。
+只要叢集中的控制器在運行並且進行有效的修改，整體狀態的穩定與否是無關緊要的。
 
 <!--
 ## Design
@@ -224,7 +224,7 @@ allow for that.
 -->
 ## 設計 {#design}
 
-作爲設計原則之一，Kubernetes 使用了很多控制器，每個控制器管理集羣狀態的一個特定方面。
+作爲設計原則之一，Kubernetes 使用了很多控制器，每個控制器管理叢集狀態的一個特定方面。
 最常見的一個特定的控制器使用一種類型的資源作爲它的期望狀態，
 控制器管理控制另外一種類型的資源向它的期望狀態演化。
 例如，Job 的控制器跟蹤 Job 對象（以發現新的任務）和 Pod 對象（以運行 Job，然後查看任務何時完成）。

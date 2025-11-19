@@ -145,7 +145,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
   - **spec.failurePolicy** (string)
   
     failurePolicy 定義瞭如何處理准入策略的失敗。失敗可能由 CEL
-    表達式解析錯誤、類型檢查錯誤、運行時錯誤以及無效或配置錯誤的策略定義或綁定引起。
+    表達式解析錯誤、類型檢查錯誤、運行時錯誤以及無效或設定錯誤的策略定義或綁定引起。
     
     如果 spec.paramKind 引用了一個不存在的 Kind，則該策略無效。如果
     spec.paramRef.name 引用了不存在的資源，則綁定無效。
@@ -233,9 +233,9 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
       - 'object' - 來自傳入請求的對象。對於 DELETE 請求，該值爲 null。
       - 'oldObject' - 現有對象。對於 CREATE 請求，該值爲 null。
       - 'request' - 准入請求的屬性(/pkg/apis/admission/types.go#AdmissionRequest)。
-      - 'authorizer' - 一個 CEL 授權器。可用於對請求的主體（用戶或服務賬戶）執行授權檢查。
+      - 'authorizer' - 一個 CEL 授權器。可用於對請求的主體（使用者或服務賬戶）執行授權檢查。
         參見 https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-      - 'authorizer.requestResource' - 由 'authorizer' 構建並配置了請求資源的 CEL ResourceCheck。
+      - 'authorizer.requestResource' - 由 'authorizer' 構建並設定了請求資源的 CEL ResourceCheck。
       
       必需。
    
@@ -275,7 +275,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
   - **spec.matchConstraints** (MatchResources)
   
     matchConstraints 指定此策略設計用來驗證的資源。僅當 AdmissionPolicy 匹配**所有**約束時，纔會關注請求。
-    然而，爲了避免集羣進入無法通過 API 恢復的不穩定狀態，ValidatingAdmissionPolicy 不能匹配 ValidatingAdmissionPolicy 和 ValidatingAdmissionPolicyBinding。
+    然而，爲了避免叢集進入無法通過 API 恢復的不穩定狀態，ValidatingAdmissionPolicy 不能匹配 ValidatingAdmissionPolicy 和 ValidatingAdmissionPolicyBinding。
     必需。
   
     <a name="MatchResources"></a>
@@ -387,7 +387,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
       - **spec.matchConstraints.excludeResourceRules.scope** (string)
 
         scope 指定此規則的作用範圍。有效值爲 `Cluster`、`Namespaced` 和 `*`。
-        `Cluster` 表示僅集羣作用域的資源匹配此規則。Namespace API 對象是集羣作用域的。
+        `Cluster` 表示僅叢集作用域的資源匹配此規則。Namespace API 對象是叢集作用域的。
         `Namespaced` 表示僅命名空間資源匹配此規則。`*` 表示沒有作用範圍限制。
         子資源匹配其父資源的作用範圍。默認是 `*`。
 
@@ -440,7 +440,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
 
       namespaceSelector 決定了是否基於對象的命名空間是否匹配選擇器來對該對象運行准入控制策略。
       如果對象本身是一個命名空間，則匹配是針對 `object.metadata.labels` 執行的。
-      如果對象是另一個集羣範圍的資源，則永遠不會跳過此策略。
+      如果對象是另一個叢集範圍的資源，則永遠不會跳過此策略。
 
       例如，要對任何命名空間未關聯 "runlevel" 爲 "0" 或 "1" 的對象運行 Webhook，你可以將選擇算符設置如下：
   
@@ -501,7 +501,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
       objectSelector 會針對將被髮送到 CEL 驗證的舊對象和新對象進行計算，
       只要其中一個對象匹配選擇算符，則視爲匹配。Null 對象（在創建時爲舊對象，或在刪除時爲新對象）
       或不能有標籤的對象（如 DeploymentRollback 或 PodProxyOptions 對象）不被認爲匹配。
-      僅當 Webhook 是可選時使用對象選擇器，因爲終端用戶可以通過設置標籤跳過准入 Webhook。
+      僅當 Webhook 是可選時使用對象選擇器，因爲終端使用者可以通過設置標籤跳過准入 Webhook。
       默認爲"空" LabelSelector，它匹配所有內容。
 
     - **spec.matchConstraints.resourceRules** ([]NamedRuleWithOperations)
@@ -613,7 +613,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
       - **spec.matchConstraints.resourceRules.scope** (string)
 
         scope 指定此規則的作用範圍。有效值爲 "`Cluster`"、"`Namespaced`" 和 "`*`"。
-        "`Cluster`" 表示只有集羣範圍的資源匹配此規則。Namespace API 對象是集羣範圍的。
+        "`Cluster`" 表示只有叢集範圍的資源匹配此規則。Namespace API 對象是叢集範圍的。
         "`Namespaced`" 表示只有名字空間作用域的資源匹配此規則。"`*`" 表示沒有作用範圍限制。
         子資源匹配其父資源的作用範圍。默認值爲 "`*`"。
  
@@ -638,7 +638,7 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
   
     paramKind 指定用於參數化此策略的資源類型。如果不存在，則此策略沒有參數，
     且不會向驗證表達式提供 param CEL 變量。如果 paramKind 引用了一個不存在的類型，
-    則此策略定義配置錯誤，並應用 FailurePolicy。
+    則此策略定義設定錯誤，並應用 FailurePolicy。
     如果指定了 paramKind 但在 ValidatingAdmissionPolicyBinding 中未設置
     paramRef，則 params 變量將爲 null。
   
@@ -698,12 +698,12 @@ ValidatingAdmissionPolicy 描述了一種准入驗證策略的定義，
       - 'oldObject' - 現有對象。對於 CREATE 請求，該值爲 null。
       - 'request' - API 請求的屬性（[參考](/pkg/apis/admission/types.go#AdmissionRequest)）。
       - 'params' - 由正在計算的策略綁定引用的參數資源。僅在策略具有 ParamKind 時填充。
-      - 'namespaceObject' - 傳入對象所屬的命名空間對象。對於集羣範圍的資源，該值爲 null。
+      - 'namespaceObject' - 傳入對象所屬的命名空間對象。對於叢集範圍的資源，該值爲 null。
       - 'variables' - 複合變量的映射，從其名稱到其惰性求值的值。
         例如，名爲 'foo' 的變量可以作爲 'variables.foo' 訪問。
-      - 'authorizer' - 一個 CEL 鑑權器。可用於對請求的主體（用戶或服務帳戶）執行授權檢查。
+      - 'authorizer' - 一個 CEL 鑑權器。可用於對請求的主體（使用者或服務帳戶）執行授權檢查。
         請參閱 https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-      - 'authorizer.requestResource' - 由 'authorizer' 構建並使用請求資源配置的 CEL 資源檢查。
+      - 'authorizer.requestResource' - 由 'authorizer' 構建並使用請求資源設定的 CEL 資源檢查。
   
       <!--      
       The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
@@ -1024,7 +1024,7 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 
 - **apiVersion** (string)
 
-  `apiVersion` 定義了對象表示的版本化模式。服務器應該將識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
+  `apiVersion` 定義了對象表示的版本化模式。伺服器應該將識別的模式轉換爲最新的內部值，並可能拒絕未識別的值。
   更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
@@ -1039,7 +1039,7 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 -->
 - **kind** (string)
 
-  `kind` 是一個字符串值，表示此對象代表的 REST 資源。服務器可能從客戶端提交請求的端點推斷出該值。
+  `kind` 是一個字符串值，表示此對象代表的 REST 資源。伺服器可能從客戶端提交請求的端點推斷出該值。
   不能更新。採用駝峯命名法。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -1054,7 +1054,7 @@ ValidatingAdmissionPolicyList 是 ValidatingAdmissionPolicy 的列表。
 ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
 -->
 ValidatingAdmissionPolicyBinding 將 ValidatingAdmissionPolicy 與參數化資源綁定。
-ValidatingAdmissionPolicyBinding 和參數 CRD 共同定義了集羣管理員如何爲集羣配置策略。
+ValidatingAdmissionPolicyBinding 和參數 CRD 共同定義了叢集管理員如何爲叢集設定策略。
 
 <!--
 For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
@@ -1080,13 +1080,13 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
 -->
 - **apiVersion** (string)
 
-  `apiVersion` 定義了對象此表示形式的版本化模式。服務器應將識別的模式轉換爲最新的內部值，
+  `apiVersion` 定義了對象此表示形式的版本化模式。伺服器應將識別的模式轉換爲最新的內部值，
   並可能拒絕未識別的值。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 - **kind** (string)
 
-  `kind` 是一個字符串值，代表此對象表示的 REST 資源。服務器可從客戶端提交請求的端點推斷出該值。
+  `kind` 是一個字符串值，代表此對象表示的 REST 資源。伺服器可從客戶端提交請求的端點推斷出該值。
   不能更新。採用駝峯式命名法。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -1245,7 +1245,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
       - **spec.matchResources.excludeResourceRules.scope** (string)
       
         `scope` 指定此規則的範圍。有效值爲 "`Cluster`"、"`Namespaced`" 和 "`*`"。"`Cluster`"
-        表示只有集羣範圍的資源將匹配此規則。Namespace API 對象是集羣範圍的。"`Namespaced`"
+        表示只有叢集範圍的資源將匹配此規則。Namespace API 對象是叢集範圍的。"`Namespaced`"
         表示只有命名空間範圍的資源將匹配此規則。"`*`" 表示沒有範圍限制。子資源匹配其父資源的範圍。默認是 "`*`"。
   
     <!--
@@ -1297,7 +1297,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
     
       `namespaceSelector` 決定了是否基於對象的命名空間是否匹配選擇器來對對象運行准入控制策略。
       如果對象本身是一個命名空間，則匹配是在 `object.metadata.labels` 上執行的。
-      如果對象是另一個集羣範圍的資源，則永遠不會跳過該策略。
+      如果對象是另一個叢集範圍的資源，則永遠不會跳過該策略。
     
       例如，要對任何命名空間未關聯 "runlevel" 爲 "0" 或 "1" 的對象運行 Webhook，你可以將選擇器設置如下：
 
@@ -1357,7 +1357,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
       CEL 驗證的舊對象和新對象進行計算，只要其中一個對象匹配選擇器，則認爲匹配。
       一個空對象（在創建時的舊對象，或在刪除時的新對象）或不能有標籤的對象（如
       DeploymentRollback 或 PodProxyOptions 對象）不被認爲是匹配的。
-      僅在 Webhook 是可選的情況下使用對象選擇器，因爲最終用戶可以通過設置標籤跳過准入
+      僅在 Webhook 是可選的情況下使用對象選擇器，因爲最終使用者可以通過設置標籤跳過准入
       Webhook。默認爲空的 LabelSelector ，它匹配所有內容。
   
     - **spec.matchResources.resourceRules** ([]NamedRuleWithOperations)
@@ -1462,7 +1462,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
 
         scope 指定此規則的範圍。有效值爲 "`Cluster`"、"`Namespaced`" 和 "`*`"。
         
-        - "`Cluster`" 表示只有集羣範圍的資源會匹配此規則。Namespace API 對象是集羣範圍的。
+        - "`Cluster`" 表示只有叢集範圍的資源會匹配此規則。Namespace API 對象是叢集範圍的。
         - "`Namespaced`" 表示只有命名空間範圍的資源會匹配此規則。
         - "`*`" 表示沒有範圍限制。
         
@@ -1477,9 +1477,9 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
     *ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.*
     -->
 
-    paramRef 指定了用於配置准入控制策略的參數資源。它應該指向綁定的 ValidatingAdmissionPolicy
+    paramRef 指定了用於設定准入控制策略的參數資源。它應該指向綁定的 ValidatingAdmissionPolicy
     中 paramKind 所指定類型的資源。如果策略指定了 paramKind 而且由 paramRef 引用的資源不存在，
-    則認爲此綁定配置錯誤，並應用 ValidatingAdmissionPolicy 的 FailurePolicy。
+    則認爲此綁定設定錯誤，並應用 ValidatingAdmissionPolicy 的 FailurePolicy。
     如果策略沒有指定 paramKind，則此字段將被忽略，規則將在沒有參數的情況下進行計算。
     
     <a name="ParamRef"></a>
@@ -1501,7 +1501,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
       如果設置了其中一個，另一個必須未設置。
       
       通過設置 `name` 字段，留空 `selector`，並根據需要設置 namespace
-     （如果 `paramKind` 是命名空間範圍的），可以爲所有準入請求配置單個參數。
+     （如果 `paramKind` 是命名空間範圍的），可以爲所有準入請求設定單個參數。
   
     - **spec.paramRef.namespace** (string)
 
@@ -1519,10 +1519,10 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
       
       通過在策略中指定命名空間範圍的 `paramKind` 並留空此字段，可以使用每個命名空間的參數。
       
-      - 如果 `paramKind` 是集羣範圍的，此字段必須未設置。設置此字段會導致配置錯誤。
+      - 如果 `paramKind` 是叢集範圍的，此字段必須未設置。設置此字段會導致設定錯誤。
       
       - 如果 `paramKind` 是命名空間範圍的，在計算准入的對象時，如果此字段未設置，則會使用該對象的命名空間。
-        請注意，如果此字段爲空，則綁定不能匹配任何集羣範圍的資源，否則將導致錯誤。
+        請注意，如果此字段爲空，則綁定不能匹配任何叢集範圍的資源，否則將導致錯誤。
   
     - **spec.paramRef.parameterNotFoundAction** (string)
 
@@ -1585,7 +1585,7 @@ CEL 成本預算。添加/移除策略、綁定或參數不會影響特定（策
     如果驗證結果爲 false，則根據這些操作強制執行。
     
     僅當 FailurePolicy 設置爲 Fail 時，根據這些操作強制執行由 ValidatingAdmissionPolicy
-    的 FailurePolicy 定義的失敗，包括編譯錯誤、運行時錯誤和策略的錯誤配置。否則，這些失敗將被忽略。
+    的 FailurePolicy 定義的失敗，包括編譯錯誤、運行時錯誤和策略的錯誤設定。否則，這些失敗將被忽略。
     
     validationActions 被聲明爲一組操作值。順序不重要。validationActions 不得包含相同操作的重複項。
   

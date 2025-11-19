@@ -14,12 +14,12 @@ weight: 30
 <!--
 kubectl controls the Kubernetes cluster manager.
 -->
-kubectl 管理控制 Kubernetes 集羣。
+kubectl 管理控制 Kubernetes 叢集。
 
 <!--
 Find more information in [Command line tool](/docs/reference/kubectl/) (`kubectl`).
 -->
-更多信息請查閱[命令行工具](/zh-cn/docs/reference/kubectl/)（`kubectl`）。
+更多信息請查閱[命令列工具](/zh-cn/docs/reference/kubectl/)（`kubectl`）。
 
 ```shell
 kubectl [flags]
@@ -63,7 +63,7 @@ kubectl [flags]
       <!--
       Username to impersonate for the operation
       -->
-      以指定用戶的身份執行操作
+      以指定使用者的身份執行操作
       </td>
     </tr>
     <tr>
@@ -85,7 +85,7 @@ kubectl [flags]
       <!--
       Path to the file containing Azure container registry configuration information.
       -->
-      包含 Azure 容器倉庫配置信息的文件的路徑。
+      包含 Azure 容器倉庫設定信息的文件的路徑。
       </td>
     </tr>
     <tr>
@@ -160,7 +160,7 @@ kubectl [flags]
       <!--
       The name of the kubeconfig cluster to use
       -->
-      要使用的 kubeconfig 集羣的名稱
+      要使用的 kubeconfig 叢集的名稱
       </td>
     </tr>
     <tr>
@@ -215,7 +215,7 @@ kubectl [flags]
       <!--
       If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
       -->
-      設置爲 true，則表示不會檢查服務器證書的有效性。這樣會導致你的 HTTPS 連接不安全。
+      設置爲 true，則表示不會檢查伺服器證書的有效性。這樣會導致你的 HTTPS 連接不安全。
       </td>
     </tr>
     <tr>
@@ -226,7 +226,7 @@ kubectl [flags]
       <!--
       Path to the kubeconfig file to use for CLI requests.
       -->
-      CLI 請求使用的 kubeconfig 配置文件的路徑。
+      CLI 請求使用的 kubeconfig 設定文件的路徑。
       </td>
     </tr>
     <tr>
@@ -237,7 +237,7 @@ kubectl [flags]
       <!--
       when logging hits line file:N, emit a stack trace
       -->
-      當日志機制運行到指定文件的指定行（file:N）時，打印調用堆棧信息
+      當日誌機制運行到指定文件的指定行（file:N）時，打印調用堆棧信息
       </td>
     </tr>
     <tr>
@@ -336,7 +336,7 @@ kubectl [flags]
       <!--
       Password for basic authentication to the API server
       -->
-      API 服務器進行基本身份驗證的密碼
+      API 伺服器進行基本身份驗證的密碼
       </td>
     </tr>
     <tr>
@@ -369,7 +369,7 @@ kubectl [flags]
       <!--
       The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
       -->
-      放棄單個服務器請求之前的等待時間，非零值需要包含相應時間單位（例如：1s、2m、3h）。零值則表示不做超時要求。
+      放棄單個伺服器請求之前的等待時間，非零值需要包含相應時間單位（例如：1s、2m、3h）。零值則表示不做超時要求。
       </td>
     </tr>
     <tr>
@@ -380,7 +380,7 @@ kubectl [flags]
       <!--
       The address and port of the Kubernetes API server
       -->
-      Kubernetes API 服務器的地址和端口
+      Kubernetes API 伺服器的地址和端口
       </td>
     </tr>
     <tr>
@@ -424,7 +424,7 @@ kubectl [flags]
       <!--
       Bearer token for authentication to the API server
       -->
-      用於對 API 服務器進行身份認證的持有者令牌
+      用於對 API 伺服器進行身份認證的持有者令牌
       </td>
     </tr>
     <tr>
@@ -435,7 +435,7 @@ kubectl [flags]
       <!--
       The name of the kubeconfig user to use
       -->
-      指定使用 kubeconfig 配置文件中的用戶名
+      指定使用 kubeconfig 設定文件中的使用者名
       </td>
     </tr>
     <tr>
@@ -446,7 +446,7 @@ kubectl [flags]
       <!--
       Username for basic authentication to the API server
       -->
-      用於 API 服務器的基本身份驗證的用戶名
+      用於 API 伺服器的基本身份驗證的使用者名
       </td>
     </tr>
     <tr>
@@ -502,7 +502,7 @@ kubectl [flags]
 <!--
 Path to the kubectl configuration ("kubeconfig") file. Default: "$HOME/.kube/config"
 -->
-kubectl 的配置 ("kubeconfig") 文件的路徑。默認值："$HOME/.kube/config"
+kubectl 的設定 ("kubeconfig") 文件的路徑。默認值："$HOME/.kube/config"
 </td>
 </tr>
 
@@ -578,7 +578,7 @@ When set to true, the kubectl exec, cp, and attach commands will attempt to stre
 <!--
 When set to true, kuberc file is taken into account to define user specific preferences.
 -->
-當設置爲 true 時，kuberc 文件會被納入考慮，用於定義用戶特定偏好設置。
+當設置爲 true 時，kuberc 文件會被納入考慮，用於定義使用者特定偏好設置。
 </td>
 </tr>
 
@@ -596,9 +596,9 @@ When set to true, kuberc file is taken into account to define user specific pref
 * [kubectl attach](/docs/reference/kubectl/generated/kubectl_attach/) - Attach to a running container
 -->
 * [kubectl annotate](/zh-cn/docs/reference/kubectl/generated/kubectl_annotate/) - 更新資源所關聯的註解
-* [kubectl api-resources](/docs/reference/kubectl/generated/kubectl_api-resources/) - 打印服務器上所支持的 API 資源
+* [kubectl api-resources](/docs/reference/kubectl/generated/kubectl_api-resources/) - 打印伺服器上所支持的 API 資源
 * [kubectl api-versions](/docs/reference/kubectl/generated/kubectl_api-versions/) - 以“組/版本”的格式輸出服務端所支持的 API 版本
-* [kubectl apply](/docs/reference/kubectl/generated/kubectl_apply/) - 基於文件名或標準輸入，將新的配置應用到資源上
+* [kubectl apply](/docs/reference/kubectl/generated/kubectl_apply/) - 基於文件名或標準輸入，將新的設定應用到資源上
 * [kubectl attach](/docs/reference/kubectl/generated/kubectl_attach/) - 掛接到一個正在運行的容器
 <!--
 * [kubectl auth](/docs/reference/kubectl/generated/kubectl_auth/) - Inspect authorization
@@ -612,10 +612,10 @@ When set to true, kuberc file is taken into account to define user specific pref
 * [kubectl autoscale](/docs/reference/kubectl/generated/kubectl_autoscale/) - 對一個資源對象
   （Deployment、ReplicaSet 或 ReplicationController）進行自動擴縮
 * [kubectl certificate](/docs/reference/kubectl/generated/kubectl_certificate/) - 修改證書資源
-* [kubectl cluster-info](/docs/reference/kubectl/generated/kubectl_cluster-info/) - 顯示集羣信息
+* [kubectl cluster-info](/docs/reference/kubectl/generated/kubectl_cluster-info/) - 顯示叢集信息
 * [kubectl completion](/docs/reference/kubectl/generated/kubectl_completion/) - 根據已經給出的 Shell（bash 或 zsh），
   輸出 Shell 補全後的代碼
-* [kubectl config](/docs/reference/kubectl/generated/kubectl_config/) - 修改 kubeconfig 配置文件
+* [kubectl config](/docs/reference/kubectl/generated/kubectl_config/) - 修改 kubeconfig 設定文件
 <!--
 * [kubectl cordon](/docs/reference/kubectl/generated/kubectl_cordon/) - Mark node as unschedulable
 * [kubectl cp](/docs/reference/kubectl/generated/kubectl_cp/) - Copy files and directories to and from containers.
@@ -644,7 +644,7 @@ When set to true, kuberc file is taken into account to define user specific pref
 * [kubectl describe](/docs/reference/kubectl/generated/kubectl_describe/) - 顯示某個資源或某組資源的詳細信息
 * [kubectl diff](/docs/reference/kubectl/generated/kubectl_diff/) - 顯示目前版本與將要應用的版本之間的差異
 * [kubectl drain](/docs/reference/kubectl/generated/kubectl_drain/) - 騰空節點，準備維護
-* [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/) - 修改服務器上的某資源
+* [kubectl edit](/docs/reference/kubectl/generated/kubectl_edit/) - 修改伺服器上的某資源
 * [kubectl events](/docs/reference/kubectl/generated/kubectl_events/)  - 列舉事件
 * [kubectl exec](/docs/reference/kubectl/generated/kubectl_exec/) - 在容器中執行相關命令
 * [kubectl explain](/docs/reference/kubectl/generated/kubectl_explain/) - 顯示資源文檔說明
@@ -673,12 +673,12 @@ When set to true, kuberc file is taken into account to define user specific pref
 * [kubectl rollout](/docs/reference/kubectl/generated/kubectl_rollout/) - Manage the rollout of a resource
 * [kubectl run](/docs/reference/kubectl/generated/kubectl_run/) - Run a particular image on the cluster
 -->
-* [kubectl plugin](/docs/reference/kubectl/generated/kubectl_plugin/) - 運行命令行插件
+* [kubectl plugin](/docs/reference/kubectl/generated/kubectl_plugin/) - 運行命令列插件
 * [kubectl port-forward](/docs/reference/kubectl/generated/kubectl_port-forward/) - 將一個或者多個本地端口轉發到 Pod
-* [kubectl proxy](/docs/reference/kubectl/generated/kubectl_proxy/) - 運行一個 kubernetes API 服務器代理
+* [kubectl proxy](/docs/reference/kubectl/generated/kubectl_proxy/) - 運行一個 kubernetes API 伺服器代理
 * [kubectl replace](/docs/reference/kubectl/generated/kubectl_replace/) - 基於文件名或標準輸入替換資源
 * [kubectl rollout](/docs/reference/kubectl/generated/kubectl_rollout/) - 管理資源的上線
-* [kubectl run](/docs/reference/kubectl/generated/kubectl_run/) - 在集羣中使用指定鏡像啓動容器
+* [kubectl run](/docs/reference/kubectl/generated/kubectl_run/) - 在叢集中使用指定映像檔啓動容器
 <!--
 * [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/) - Set a new size for a Deployment, ReplicaSet or Replication Controller
 * [kubectl set](/docs/reference/kubectl/generated/kubectl_set/) - Set specific features on objects
@@ -691,8 +691,8 @@ When set to true, kuberc file is taken into account to define user specific pref
 * [kubectl scale](/docs/reference/kubectl/generated/kubectl_scale/) - 爲一個 Deployment、ReplicaSet 或
   ReplicationController 設置一個新的規模值
 * [kubectl set](/docs/reference/kubectl/generated/kubectl_set/) - 爲對象設置功能特性
-* [kubectl taint](/docs/reference/kubectl/generated/kubectl_taint/) - 在一個或者多個節點上更新污點配置
+* [kubectl taint](/docs/reference/kubectl/generated/kubectl_taint/) - 在一個或者多個節點上更新污點設定
 * [kubectl top](/docs/reference/kubectl/generated/kubectl_top/) - 顯示資源（CPU/內存/存儲）使用率
 * [kubectl uncordon](/docs/reference/kubectl/generated/kubectl_uncordon/) - 標記節點爲可調度的
-* [kubectl version](/docs/reference/kubectl/generated/kubectl_version/) - 打印客戶端和服務器的版本信息
+* [kubectl version](/docs/reference/kubectl/generated/kubectl_version/) - 打印客戶端和伺服器的版本信息
 * [kubectl wait](/docs/reference/kubectl/generated/kubectl_wait/) - 實驗級特性：等待一個或多個資源達到某種狀態

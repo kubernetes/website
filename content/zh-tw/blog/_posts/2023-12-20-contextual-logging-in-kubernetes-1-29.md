@@ -49,7 +49,7 @@ additional information to a logger.
 [上下文日誌記錄](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/3077-contextual-logging)基於
 [go-logr](https://github.com/go-logr/logr#a-minimal-logging-api-for-go) API。
 關鍵思想是調用者將一個日誌生成器實例傳遞給庫，並使用它進行日誌記錄而不是訪問全局日誌生成器。
-二進制文件而不是庫負責選擇日誌記錄的實現。go-logr API 圍繞結構化日誌記錄而設計，並支持向日志生成器提供額外信息。
+二進制文件而不是庫負責選擇日誌記錄的實現。go-logr API 圍繞結構化日誌記錄而設計，並支持向日誌生成器提供額外信息。
 
 <!--
 This enables additional use cases:
@@ -151,7 +151,7 @@ log calls can be simplified to avoid repeating those values.
 In `kube-controller-manager`, `WithName` is used to add the user-visible controller name to log output, 
 for example:
 -->
-在 `kube-controller-manager` 中，`WithName` 被用來在日誌中輸出用戶可見的控制器名稱，例如：
+在 `kube-controller-manager` 中，`WithName` 被用來在日誌中輸出使用者可見的控制器名稱，例如：
 
 > I1113 08:43:29.284360   87141 graph_builder.go:285] "garbage controller monitor not synced: no monitors" **logger="garbage-collector-controller"**
 
@@ -195,12 +195,12 @@ to structured and contextual logging.
 If downstream users have dependencies on specific logs, 
 they need to be aware of how this change affects them.
 -->
-## 對下游用戶的影響  {#impact-on-downstream-users}
+## 對下游使用者的影響  {#impact-on-downstream-users}
 
 日誌輸出不是 Kubernetes API 的一部分，並且經常在每個版本中都會出現更改，
 無論是因爲開發人員修改代碼還是因爲不斷轉換爲結構化和上下文日誌記錄。
 
-如果下游用戶對特定日誌有依賴性，他們需要了解此更改如何影響他們。
+如果下游使用者對特定日誌有依賴性，他們需要了解此更改如何影響他們。
 
 <!--
 ## Further reading

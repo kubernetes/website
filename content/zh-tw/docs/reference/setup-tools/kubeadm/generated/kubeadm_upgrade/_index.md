@@ -6,7 +6,7 @@
 <!--
 Upgrade your cluster smoothly to a newer version with this command
 -->
-此命令能將集羣平滑升級到新版本。
+此命令能將叢集平滑升級到新版本。
 
 ```shell
 kubeadm upgrade [flags]

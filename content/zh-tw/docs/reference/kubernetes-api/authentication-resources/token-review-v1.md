@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/authentication/v1"
   kind: "TokenReview"
 content_type: "api_reference"
-description: "TokenReview 嘗試通過驗證令牌來確認已知用戶。"
+description: "TokenReview 嘗試通過驗證令牌來確認已知使用者。"
 title: "TokenReview"
 weight: 3
 auto_generated: true
@@ -32,7 +32,7 @@ TokenReview attempts to authenticate a token to a known user. Note: TokenReview 
 -->
 ## TokenReview {#TokenReview}
 
-TokenReview 嘗試通過驗證令牌來確認已知用戶。
+TokenReview 嘗試通過驗證令牌來確認已知使用者。
 注意：TokenReview 請求可能會被 kube-apiserver 中的 Webhook 令牌驗證器插件緩存。
 
 <hr>
@@ -62,7 +62,7 @@ TokenReview 嘗試通過驗證令牌來確認已知用戶。
   <!--
   Status is filled in by the server and indicates whether the request can be authenticated.
   -->
-  status 由服務器填寫，指示請求是否可以通過身份驗證。
+  status 由伺服器填寫，指示請求是否可以通過身份驗證。
 
 ## TokenReviewSpec {#TokenReviewSpec}
 
@@ -82,9 +82,9 @@ TokenReviewPec 是對令牌身份驗證請求的描述。
   -->
   **原子性：將在合併期間被替換**  
 
-  audiences 是帶有令牌的資源服務器標識爲受衆的標識符列表。
+  audiences 是帶有令牌的資源伺服器標識爲受衆的標識符列表。
   受衆感知令牌身份驗證器將驗證令牌是否適用於此列表中的至少一個受衆。
-  如果未提供受衆，受衆將默認爲 Kubernetes API 服務器的受衆。
+  如果未提供受衆，受衆將默認爲 Kubernetes API 伺服器的受衆。
 
 - **token** (string)
 
@@ -115,15 +115,15 @@ TokenReviewStatus 是令牌認證請求的結果。
   audiences 是身份驗證者選擇的與 TokenReview 和令牌兼容的受衆標識符。標識符是
   TokenReviewSpec 受衆和令牌受衆的交集中的任何標識符。設置 spec.audiences
   字段的 TokenReview API 的客戶端應驗證在 status.audiences 字段中返回了兼容的受衆標識符，
-  以確保 TokenReview 服務器能夠識別受衆。如果 TokenReview
+  以確保 TokenReview 伺服器能夠識別受衆。如果 TokenReview
   返回一個空的 status.audience 字段，其中 status.authenticated 爲 “true”，
-  則該令牌對 Kubernetes API 服務器的受衆有效。
+  則該令牌對 Kubernetes API 伺服器的受衆有效。
 
 - **authenticated** (boolean)
   <!--
   Authenticated indicates that the token was associated with a known user.
   -->
-  authenticated 表示令牌與已知用戶相關聯。
+  authenticated 表示令牌與已知使用者相關聯。
 
 - **error** (string)
 
@@ -143,7 +143,7 @@ TokenReviewStatus 是令牌認證請求的結果。
   <!--
   *UserInfo holds the information about the user needed to implement the user.Info interface.*
   -->
-  **UserInfo 保存實現 user.Info 接口所需的用戶信息**
+  **UserInfo 保存實現 user.Info 接口所需的使用者信息**
 
   - **user.extra** (map[string][]string)
 
@@ -163,21 +163,21 @@ TokenReviewStatus 是令牌認證請求的結果。
     <!--
     The names of groups this user is a part of.
     -->
-   此用戶所屬的組的名稱。
+   此使用者所屬的組的名稱。
 
   - **user.uid** (string)
 
     <!--
     A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
     -->
-    跨時間標識此用戶的唯一值。如果刪除此用戶並添加另一個同名用戶，他們將擁有不同的 UID。
+    跨時間標識此使用者的唯一值。如果刪除此使用者並添加另一個同名使用者，他們將擁有不同的 UID。
 
   - **user.username** (string)
 
     <!--
     The name that uniquely identifies this user among all active users.
     -->
-    在所有活躍用戶中唯一標識此用戶的名稱。
+    在所有活躍使用者中唯一標識此使用者的名稱。
 
 <!--
 ## Operations {#Operations}

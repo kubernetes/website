@@ -37,6 +37,6 @@ Many cluster administrators use a hosted or distribution instance of Kubernetes.
 come with extensions pre-installed. As a result, most Kubernetes users will not need to install
 [extensions](/docs/concepts/extend-kubernetes/) and even fewer users will need to author new ones. 
 -->
-許多集羣管理員會使用託管的 Kubernetes 或其某種發行包，這些集羣預裝了擴展組件。
-因此，大多數 Kubernetes 用戶將不需要安裝[擴展組件](/zh-cn/docs/concepts/extend-kubernetes/)，
-需要編寫新的擴展組件的用戶就更少了。
+許多叢集管理員會使用託管的 Kubernetes 或其某種發行包，這些叢集預裝了擴展組件。
+因此，大多數 Kubernetes 使用者將不需要安裝[擴展組件](/zh-cn/docs/concepts/extend-kubernetes/)，
+需要編寫新的擴展組件的使用者就更少了。

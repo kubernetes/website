@@ -194,7 +194,7 @@ When operating the containerized monitoring application consuming the podresourc
   換句話說，將容器掛載限制爲 `ReadOnly` 是不可能的。
 - 讓多個客戶端連接到 podresources 套接字並使用此 API 是允許的，因爲 API 是無狀態的。
 - kubelet 具有[內置限速機制](https://github.com/kubernetes/kubernetes/pull/116459)，
-  用以緩解來自行爲不當或惡意用戶的本地拒絕服務攻擊。API 的使用者必須容忍服務器返回的速率限制錯誤。
+  用以緩解來自行爲不當或惡意使用者的本地拒絕服務攻擊。API 的使用者必須容忍伺服器返回的速率限制錯誤。
   速率限制目前是硬編碼的且作用於全局的，因此行爲不當的客戶端可能會耗光所有配額，進而導致行爲正確的客戶端捱餓。
 
 <!--

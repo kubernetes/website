@@ -33,7 +33,7 @@ kubeadm init phase addon all [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，則將使用默認網絡接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則將使用默認網路接口。
 </p>
 </td>
 </tr>
@@ -52,7 +52,7 @@ API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，則將
 <!--
 Port for the API Server to bind to.
 -->
-API 服務器綁定的端口。
+API 伺服器綁定的端口。
 </p>
 </td>
 </tr>
@@ -66,7 +66,7 @@ API 服務器綁定的端口。
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -153,7 +153,7 @@ all 操作的幫助命令。
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇用於拉取控制平面鏡像的容器倉庫。
+選擇用於拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>
@@ -172,7 +172,7 @@ Choose a container registry to pull control plane images from
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與集羣通信時使用的 kubeconfig 文件。如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 文件。如果未設置該參數，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -205,7 +205,7 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
-指定 Pod 網絡的 IP 地址範圍。如果已設置，控制平面將自動爲每個節點分配 CIDR。
+指定 Pod 網路的 IP 地址範圍。如果已設置，控制平面將自動爲每個節點分配 CIDR。
 </p>
 </td>
 </tr>

@@ -38,7 +38,7 @@ in the `dataSource` field to indicate a user would like to clone a {{< glossary_
 {{< glossary_tooltip text="CSI" term_id="csi" >}} 卷克隆功能增加了通過在
 `dataSource` 字段中指定存在的
 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}，
-來表示用戶想要克隆的 {{< glossary_tooltip term_id="volume" >}}。
+來表示使用者想要克隆的 {{< glossary_tooltip term_id="volume" >}}。
 
 <!--
 A Clone is defined as a duplicate of an existing Kubernetes Volume that can be 
@@ -47,7 +47,7 @@ provisioning, rather than creating a "new" empty Volume, the back end device
 creates an exact duplicate of the specified Volume.
 -->
 克隆（Clone），意思是爲已有的 Kubernetes 卷創建副本，它可以像任何其它標準卷一樣被使用。
-唯一的區別就是配置後，後端設備將創建指定完全相同的副本，而不是創建一個“新的”空卷。
+唯一的區別就是設定後，後端設備將創建指定完全相同的副本，而不是創建一個“新的”空卷。
 
 <!--
 The implementation of cloning, from the perspective of the Kubernetes API, adds 
@@ -60,7 +60,7 @@ Users need to be aware of the following when using this feature:
 增加了指定一個現有 PVC 作爲數據源的能力。源 PVC 必須是 bound
 狀態且可用的（不在使用中）。
 
-用戶在使用該功能時，需要注意以下事項：
+使用者在使用該功能時，需要注意以下事項：
 
 <!--
 * Cloning support (`VolumePVCDataSource`) is only available for CSI drivers.
@@ -91,7 +91,7 @@ Clones are provisioned like any other PVC with the exception of adding a dataSou
 -->
 ## 製備
 
-克隆卷與其他任何 PVC 一樣配置，除了需要增加 dataSource 來引用同一命名空間中現有的 PVC。
+克隆卷與其他任何 PVC 一樣設定，除了需要增加 dataSource 來引用同一命名空間中現有的 PVC。
 
 ```yaml
 apiVersion: v1

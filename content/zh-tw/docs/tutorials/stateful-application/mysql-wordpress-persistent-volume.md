@@ -36,10 +36,10 @@ is a request for storage by a user that can be fulfilled by a PV. PersistentVolu
 PersistentVolumeClaims are independent from Pod lifecycles and preserve data through
 restarting, rescheduling, and even deleting Pods.
 -->
-[PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)（PV）是在集羣裏由管理員手動製備或
+[PersistentVolume](/zh-cn/docs/concepts/storage/persistent-volumes/)（PV）是在叢集裏由管理員手動製備或
 Kubernetes 通過 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes) 動態製備的一塊存儲。
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
-是用戶對存儲的請求，該請求可由某個 PV 來滿足。
+是使用者對存儲的請求，該請求可由某個 PV 來滿足。
 PersistentVolumes 和 PersistentVolumeClaims 獨立於 Pod 生命週期而存在，
 在 Pod 重啓、重新調度甚至刪除過程中用於保存數據。
 
@@ -80,8 +80,8 @@ earlier versions of this tutorial.
 * 創建 PersistentVolumeClaims 和 PersistentVolumes
 * 創建 `kustomization.yaml` 以使用
   * Secret 生成器
-  * MySQL 資源配置
-  * WordPress 資源配置
+  * MySQL 資源設定
+  * WordPress 資源設定
 * `kubectl apply -k ./` 來應用整個 kustomization 目錄
 * 清理
 
@@ -100,7 +100,7 @@ Download the following configuration files:
 -->
 此例在 `kubectl` 1.27 或者更高版本有效。
 
-下載下面的配置文件：
+下載下面的設定文件：
 
 1. [mysql-deployment.yaml](/examples/application/wordpress/mysql-deployment.yaml)
 
@@ -127,10 +127,10 @@ provisioned based on the StorageClass configuration.
 MySQL 和 Wordpress 都需要一個 PersistentVolume 來存儲數據。
 它們的 PersistentVolumeClaims 將在部署步驟中創建。
 
-許多集羣環境都安裝了默認的 StorageClass。如果在 PersistentVolumeClaim 中未指定 StorageClass，
-則使用集羣的默認 StorageClass。
+許多叢集環境都安裝了默認的 StorageClass。如果在 PersistentVolumeClaim 中未指定 StorageClass，
+則使用叢集的默認 StorageClass。
 
-創建 PersistentVolumeClaim 時，將根據 StorageClass 配置動態製備一個 PersistentVolume。
+創建 PersistentVolumeClaim 時，將根據 StorageClass 設定動態製備一個 PersistentVolume。
 
 {{< warning >}}
 <!--
@@ -140,9 +140,9 @@ volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and doe
 not move between nodes. If a Pod dies and gets scheduled to another node in the
 cluster, or the node is rebooted, the data is lost.
 -->
-在本地集羣中，默認的 StorageClass 使用 `hostPath` 製備程序。`hostPath` 卷僅適用於開發和測試。
+在本地叢集中，默認的 StorageClass 使用 `hostPath` 製備程序。`hostPath` 卷僅適用於開發和測試。
 使用 `hostPath` 卷時，你的數據位於 Pod 調度到的節點上的 `/tmp` 中，並且不會在節點之間移動。
-如果 Pod 死亡並被調度到集羣中的另一個節點，或者該節點重新啓動，則數據將丟失。
+如果 Pod 死亡並被調度到叢集中的另一個節點，或者該節點重新啓動，則數據將丟失。
 {{< /warning >}}
 
 {{< note >}}
@@ -150,7 +150,7 @@ cluster, or the node is rebooted, the data is lost.
 If you are bringing up a cluster that needs to use the `hostPath` provisioner,
 the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component.
 -->
-如果要建立需要使用 `hostPath` 製備程序的集羣，
+如果要建立需要使用 `hostPath` 製備程序的叢集，
 則必須在 `controller-manager` 組件中設置 `--enable-hostpath-provisioner` 標誌。
 {{< /note >}}
 
@@ -159,7 +159,7 @@ the `--enable-hostpath-provisioner` flag must be set in the `controller-manager`
 If you have a Kubernetes cluster running on Google Kubernetes Engine, please
 follow [this guide](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
 -->
-如果你已經有運行在 Google Kubernetes Engine 的集羣，
+如果你已經有運行在 Google Kubernetes Engine 的叢集，
 請參考[此指南](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk)。
 {{< /note >}}
 
@@ -201,7 +201,7 @@ EOF
 <!--
 ## Add resource configs for MySQL and WordPress
 -->
-## 補充 MySQL 和 WordPress 的資源配置
+## 補充 MySQL 和 WordPress 的資源設定
 
 <!--
 The following manifest describes a single-instance MySQL Deployment. The MySQL
@@ -229,7 +229,7 @@ the name of the MySQL Service defined above, and WordPress will access the datab
 <!--
 1. Download the MySQL deployment configuration file.
 -->
-1. 下載 MySQL Deployment 配置文件。
+1. 下載 MySQL Deployment 設定文件。
 
    ```shell
    curl -LO https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
@@ -238,7 +238,7 @@ the name of the MySQL Service defined above, and WordPress will access the datab
 <!--
 2. Download the WordPress configuration file.
 -->
-2. 下載 WordPress 配置文件。
+2. 下載 WordPress 設定文件。
 
    ```shell
    curl -LO https://k8s.io/examples/application/wordpress/wordpress-deployment.yaml
@@ -416,8 +416,8 @@ Now you can verify that all objects exist.
    they can set up a website on your instance and use it to serve malicious content.<br/><br/>
    Either install WordPress by creating a username and password or delete your instance.
    -->
-   不要在此頁面上保留 WordPress 安裝。如果其他用戶找到了它，他們可以在你的實例上建立一個網站並使用它來提供惡意內容。<br/><br/>
-   通過創建用戶名和密碼來安裝 WordPress 或刪除你的實例。
+   不要在此頁面上保留 WordPress 安裝。如果其他使用者找到了它，他們可以在你的實例上建立一個網站並使用它來提供惡意內容。<br/><br/>
+   通過創建使用者名和密碼來安裝 WordPress 或刪除你的實例。
    {{< /warning >}}
 
 ## {{% heading "cleanup" %}}

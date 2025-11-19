@@ -15,7 +15,7 @@ Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
 -->
 `kubeadm join phase` 使你能夠調用 `join` 過程的基本原子步驟。
-因此，如果希望執行自定義操作，可以讓 kubeadm 做一些工作，然後由用戶來補足剩餘操作。
+因此，如果希望執行自定義操作，可以讓 kubeadm 做一些工作，然後由使用者來補足剩餘操作。
 
 <!--
 `kubeadm join phase` is consistent with the [kubeadm join workflow](/docs/reference/setup-tools/kubeadm/kubeadm-join/#join-workflow),
@@ -36,7 +36,7 @@ and behind the scene both use the same code.
 <!--
 Using this phase you can execute preflight checks on a joining node.
 -->
-使用此命令可以在即將加入集羣的節點上執行啓動前檢查。
+使用此命令可以在即將加入叢集的節點上執行啓動前檢查。
 
 {{< tabs name="tab-preflight" >}}
 {{< tab name="preflight" include="generated/kubeadm_join/kubeadm_join_phase_preflight.md" />}}
@@ -63,7 +63,7 @@ Using this phase you can prepare a node for serving a control-plane.
 <!--
 Using this phase you can write the kubelet settings, certificates and (re)start the kubelet.
 -->
-使用此階段，你可以配置 kubelet 設置、證書和（重新）啓動 kubelet。
+使用此階段，你可以設定 kubelet 設置、證書和（重新）啓動 kubelet。
 
 {{< tabs name="tab-kubelet-start" >}}
 {{< tab name="kubelet-start" include="generated/kubeadm_join/kubeadm_join_phase_kubelet-start.md" />}}
@@ -94,7 +94,7 @@ Using this phase you can join a node as a control-plane instance.
 * [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   引導 Kubernetes 控制平面節點
 * [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
-  將節點添加到集羣
+  將節點添加到叢集
 * [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   恢復通過 `kubeadm init` 或 `kubeadm join` 操作對主機所做的任何更改
 * [kubeadm alpha](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)

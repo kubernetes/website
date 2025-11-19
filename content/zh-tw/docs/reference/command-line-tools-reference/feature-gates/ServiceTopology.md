@@ -23,4 +23,4 @@ removed: true
 <!--
 Enable service to route traffic based upon the Node topology of the cluster.
 -->
-允許 Service 基於集羣的節點拓撲進行流量路由。
+允許 Service 基於叢集的節點拓撲進行流量路由。

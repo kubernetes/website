@@ -4,7 +4,7 @@ id: api-resource
 date: 2025-02-09
 full_link: /zh-cn/docs/reference/using-api/api-concepts/#standard-api-terminology
 short_description: >
-  Kubernetes 實體，表示 Kubernetes API 服務器上的端點。
+  Kubernetes 實體，表示 Kubernetes API 伺服器上的端點。
 
 aka:
  - Resource
@@ -40,4 +40,4 @@ Kubernetes 類別系統中的實體，對應於
 <!--
 Each resource represents an HTTP endpoint (URI) on the Kubernetes API server, defining the schema for the objects or operations on that resource.
 -->
-每個資源表示 Kubernetes API 服務器上的一個 HTTP 端點（URI），用於定義該資源的對象或操作的模式。
+每個資源表示 Kubernetes API 伺服器上的一個 HTTP 端點（URI），用於定義該資源的對象或操作的模式。

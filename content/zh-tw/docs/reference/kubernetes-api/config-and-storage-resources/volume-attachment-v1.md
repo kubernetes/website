@@ -121,7 +121,7 @@ VolumeAttachmentSpec 是 VolumeAttachment 請求的規約。
     inlineVolumeSpec 包含掛接由 Pod 的內聯 VolumeSource 定義的持久卷時所有必需的信息。
     僅爲 CSIMigation 特性填充此字段。
     它包含從 Pod 的內聯 VolumeSource 轉換爲 PersistentVolumeSpec 的字段。
-    此字段處於 Beta 階段，且只有啓用 CSIMigration 特性的服務器才能使用此字段。
+    此字段處於 Beta 階段，且只有啓用 CSIMigration 特性的伺服器才能使用此字段。
 
   - **source.persistentVolumeName** (string)
 

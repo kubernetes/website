@@ -34,7 +34,7 @@ host, and thus privileged containers are not available on Windows.
 Containers cannot assume an identity from the host because the Security Account Manager (SAM) is separate.
 -->
 在 Linux 節點上，{{< glossary_tooltip text="cgroup" term_id="cgroup" >}} 用作資源控制的 Pod 邊界。
-在這個邊界內創建容器以便於隔離網絡、進程和文件系統。
+在這個邊界內創建容器以便於隔離網路、進程和文件系統。
 Linux cgroup API 可用於收集 CPU、I/O 和內存使用統計數據。
 
 與此相反，Windows 中每個容器對應一個[**作業對象**](https://docs.microsoft.com/zh-cn/windows/win32/procthread/job-objects)，
@@ -60,12 +60,12 @@ then paging can slow down performance.
 ## 內存管理 {#resource-management-memory}
 
 Windows 不像 Linux 一樣提供殺手（killer）機制，殺死內存不足的進程。
-Windows 始終將所有用戶態內存分配視爲虛擬內存，並強制使用頁面文件（pagefile）。
+Windows 始終將所有使用者態內存分配視爲虛擬內存，並強制使用頁面文件（pagefile）。
 
 Windows 節點不會爲進程過量使用內存。
 最終結果是 Windows 不會像 Linux 那樣達到內存不足的情況，Windows 將進程頁面放到磁盤，
 不會因爲內存不足（OOM）而終止進程。
-如果內存配置過量且所有物理內存都已耗盡，則換頁性能就會降低。
+如果內存設定過量且所有物理內存都已耗盡，則換頁性能就會降低。
 <!--
 ## CPU management {#resource-management-cpu}
 
@@ -84,7 +84,7 @@ To ensure that running Pods do not starve the kubelet of CPU cycles, set this fl
 
 Windows 可以限制爲不同進程分配的 CPU 時間長度，但無法保證最小的 CPU 時間長度。
 
-在 Windows 上，kubelet 支持使用命令行標誌來設置 kubelet 進程的[調度優先級](https://docs.microsoft.com/zh-cn/windows/win32/procthread/scheduling-priorities)：
+在 Windows 上，kubelet 支持使用命令列標誌來設置 kubelet 進程的[調度優先級](https://docs.microsoft.com/zh-cn/windows/win32/procthread/scheduling-priorities)：
 `--windows-priorityclass`。
 與 Windows 主機上運行的其他進程相比，此標誌允許 kubelet 進程獲取更多的 CPU 時間片。
 有關允許值及其含義的更多信息，請訪問 [Windows 優先級類](https://docs.microsoft.com/zh-cn/windows/win32/procthread/scheduling-priorities#priority-class)。
@@ -115,9 +115,9 @@ cases can cause the nodes to become unhealthy.
 -->
 {{< caution >}}
 在你部署工作負載時，需對容器設置內存和 CPU 資源的限制。
-這也會從 `NodeAllocatable` 中減去，幫助集羣範圍的調度器決定哪些 Pod 放到哪些節點上。
+這也會從 `NodeAllocatable` 中減去，幫助叢集範圍的調度器決定哪些 Pod 放到哪些節點上。
 
-若調度 Pod 時未設置限制值，可能對 Windows 節點過量配置資源。
+若調度 Pod 時未設置限制值，可能對 Windows 節點過量設定資源。
 在極端情況下，這會讓節點變得不健康。
 {{< /caution >}}
 

@@ -18,11 +18,11 @@ A cluster may stop working properly if a critical add-on is evicted (either manu
 and becomes pending (for example when the cluster is highly utilized and either there are other pending pods that schedule into the space
 vacated by the evicted critical add-on pod or the amount of resources available on the node changed for some other reason).
 -->
-Kubernetes 核心組件（如 API 服務器、調度器、控制器管理器）在控制平面節點上運行。
-但是插件必須在常規集羣節點上運行。
-其中一些插件對於功能完備的集羣至關重要，例如 Heapster、DNS 和 UI。
-如果關鍵插件被逐出（手動或作爲升級等其他操作的副作用）或者變成掛起狀態，集羣可能會停止正常工作。
-關鍵插件進入掛起狀態的例子有：集羣利用率過高；被逐出的關鍵插件 Pod 釋放了空間，但該空間被之前懸決的
+Kubernetes 核心組件（如 API 伺服器、調度器、控制器管理器）在控制平面節點上運行。
+但是插件必須在常規叢集節點上運行。
+其中一些插件對於功能完備的叢集至關重要，例如 Heapster、DNS 和 UI。
+如果關鍵插件被逐出（手動或作爲升級等其他操作的副作用）或者變成掛起狀態，叢集可能會停止正常工作。
+關鍵插件進入掛起狀態的例子有：叢集利用率過高；被逐出的關鍵插件 Pod 釋放了空間，但該空間被之前懸決的
 Pod 佔用；由於其它原因導致節點上可用資源的總量發生變化。
 
 <!--

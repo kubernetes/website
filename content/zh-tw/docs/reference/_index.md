@@ -81,10 +81,10 @@ client libraries:
 -->
 ## CLI
 
-* [kubectl](/zh-cn/docs/reference/kubectl/) —— 主要的 CLI 工具，用於運行命令和管理 Kubernetes 集羣。
+* [kubectl](/zh-cn/docs/reference/kubectl/) —— 主要的 CLI 工具，用於運行命令和管理 Kubernetes 叢集。
   * [JSONPath](/zh-cn/docs/reference/kubectl/jsonpath/) —— 通過 kubectl 使用
     [JSONPath 表達式](https://goessner.net/articles/JsonPath/)的語法指南。
-* [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) —— 此 CLI 工具可輕鬆配置安全的 Kubernetes 集羣。
+* [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) —— 此 CLI 工具可輕鬆設定安全的 Kubernetes 叢集。
 
 <!--
 ## Components
@@ -114,7 +114,7 @@ client libraries:
 * [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) ——
   在每個節點上運行的主代理。kubelet 接收一組 PodSpec 並確保其所描述的容器健康地運行。
 * [kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/) ——
-  REST API，用於驗證和配置 API 對象（如 Pod、服務或副本控制器等）的數據。
+  REST API，用於驗證和設定 API 對象（如 Pod、服務或副本控制器等）的數據。
 * [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/) ——
   一個守護進程，其中包含 Kubernetes 所附帶的核心控制迴路。
 * [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/) ——
@@ -123,7 +123,7 @@ client libraries:
   一個調度程序，用於管理可用性、性能和容量。
   
   * [調度策略](/zh-cn/docs/reference/scheduling/policies)
-  * [調度配置](/zh-cn/docs/reference/scheduling/config#profiles)
+  * [調度設定](/zh-cn/docs/reference/scheduling/config#profiles)
 
 * 應該在控制平面和工作節點上打開的[端口和協議](/zh-cn/docs/reference/networking/ports-and-protocols/)列表
 
@@ -156,31 +156,31 @@ operator to use or manage a cluster.
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
 -->
-## 配置 API   {#config-apis}
+## 設定 API   {#config-apis}
 
-本節包含用於配置 kubernetes 組件或工具的 "未發佈" API 的文檔。
-儘管這些 API 對於用戶或操作者使用或管理集羣來說是必不可少的，
-它們大都沒有以 RESTful 的方式在 API 服務器上公開。
+本節包含用於設定 kubernetes 組件或工具的 "未發佈" API 的文檔。
+儘管這些 API 對於使用者或操作者使用或管理叢集來說是必不可少的，
+它們大都沒有以 RESTful 的方式在 API 伺服器上公開。
 
 * [kubeconfig（v1）](/zh-cn/docs/reference/config-api/kubeconfig.v1/)
 * [kuberc（v1alpha1）](/zh-cn/docs/reference/config-api/kuberc.v1alpha1/)
   和 [kuberc (v1beta1)](/docs/reference/config-api/kuberc.v1beta1/)
 * [kube-apiserver 准入（v1）](/zh-cn/docs/reference/config-api/apiserver-admission.v1/)
-* [kube-apiserver 配置（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/) 和
-  [kube-apiserver 配置（v1beta1）](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/) 和
-  [kube-apiserver 配置（v1）](/zh-cn/docs/reference/config-api/apiserver-config.v1/)
+* [kube-apiserver 設定（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/) 和
+  [kube-apiserver 設定（v1beta1）](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/) 和
+  [kube-apiserver 設定（v1）](/zh-cn/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver 事件速率限制（v1alpha1）](/zh-cn/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
-* [kubelet 配置（v1alpha1）](/zh-cn/docs/reference/config-api/kubelet-config.v1alpha1/)、
-  [kubelet 配置（v1beta1）](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 和
-  [kubelet 配置（v1）](/zh-cn/docs/reference/config-api/kubelet-config.v1/)
+* [kubelet 設定（v1alpha1）](/zh-cn/docs/reference/config-api/kubelet-config.v1alpha1/)、
+  [kubelet 設定（v1beta1）](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 和
+  [kubelet 設定（v1）](/zh-cn/docs/reference/config-api/kubelet-config.v1/)
 * [kubelet 憑據驅動（v1）](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1/)
-* [kube-scheduler 配置（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
-* [kube-controller-manager 配置（v1alpha1）](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
-* [kube-proxy 配置（v1alpha1）](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+* [kube-scheduler 設定（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-controller-manager 設定（v1alpha1）](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
+* [kube-proxy 設定（v1alpha1）](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/zh-cn/docs/reference/config-api/apiserver-audit.v1/)
 * [客戶端身份認證 API（v1beta1）](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/) 和
   [客戶端身份認證 API（v1）](/zh-cn/docs/reference/config-api/client-authentication.v1/)
-* [WebhookAdmission 配置（v1）](/zh-cn/docs/reference/config-api/apiserver-webhookadmission.v1/)
+* [WebhookAdmission 設定（v1）](/zh-cn/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * [ImagePolicy API（v1alpha1）](/zh-cn/docs/reference/config-api/imagepolicy.v1alpha1/)
 
 <!--
@@ -189,7 +189,7 @@ operator to use or manage a cluster.
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
 * [v1beta4](/docs/reference/config-api/kubeadm-config.v1beta4/)
 -->
-## kubeadm 的配置 API   {#config-api-for-kubeadm}
+## kubeadm 的設定 API   {#config-api-for-kubeadm}
 
 * [v1beta3](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
 * [v1beta4](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)

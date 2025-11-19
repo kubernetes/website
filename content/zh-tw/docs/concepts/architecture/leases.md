@@ -45,7 +45,7 @@ See [Node Lease objects](/docs/concepts/architecture/nodes/#node-heartbeats) for
 -->
 ## 節點心跳  {#node-heart-beats}
 
-Kubernetes 使用 Lease API 將 kubelet 節點心跳傳遞到 Kubernetes API 服務器。
+Kubernetes 使用 Lease API 將 kubelet 節點心跳傳遞到 Kubernetes API 伺服器。
 對於每個 `Node`，在 `kube-node-lease` 名字空間中都有一個具有匹配名稱的 `Lease` 對象。
 在此基礎上，每個 kubelet 心跳都是對該 `Lease` 對象的 **update** 請求，更新該 Lease 的 `spec.renewTime` 字段。
 Kubernetes 控制平面使用此字段的時間戳來確定此 `Node` 的可用性。
@@ -63,7 +63,7 @@ instances are on stand-by.
 ## 領導者選舉  {#leader-election}
 
 Kubernetes 也使用 Lease 確保在任何給定時間某個組件只有一個實例在運行。
-這在高可用配置中由 `kube-controller-manager` 和 `kube-scheduler` 等控制平面組件進行使用，
+這在高可用設定中由 `kube-controller-manager` 和 `kube-scheduler` 等控制平面組件進行使用，
 這些組件只應有一個實例激活運行，而其他實例待機。
 
 <!--
@@ -77,7 +77,7 @@ Kubernetes 如何基於 Lease API 來選擇哪個組件實例充當領導者。
 <!--
 ## API server identity
 -->
-## API 服務器身份   {#api-server-identity}
+## API 伺服器身份   {#api-server-identity}
 
 {{< feature-state feature_gate_name="APIServerIdentity" >}}
 
@@ -115,8 +115,8 @@ configured to use a hostname that is unique within the cluster. New instances of
 will take over existing Leases using a new holder identity, as opposed to instantiating new Lease objects. You can check the
 hostname used by kube-apiserver by checking the value of the `kubernetes.io/hostname` label:
 -->
-租約名稱中使用的 SHA256 哈希基於 API 服務器所看到的操作系統主機名生成。
-每個 kube-apiserver 都應該被配置爲使用集羣中唯一的主機名。
+租約名稱中使用的 SHA256 哈希基於 API 伺服器所看到的操作系統主機名生成。
+每個 kube-apiserver 都應該被設定爲使用叢集中唯一的主機名。
 使用相同主機名的 kube-apiserver 新實例將使用新的持有者身份接管現有 Lease，而不是實例化新的 Lease 對象。
 你可以通過檢查 `kubernetes.io/hostname` 標籤的值來查看 kube-apiserver 所使用的主機名：
 
@@ -151,7 +151,7 @@ You can disable API server identity leases by disabling the `APIServerIdentity`
 kube-apiserver 中不再存續的已到期租約將在到期 1 小時後被新的 kube-apiserver 作爲垃圾收集。
 
 你可以通過禁用 `APIServerIdentity`
-[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來禁用 API 服務器身份租約。
+[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來禁用 API 伺服器身份租約。
 
 <!--
 ## Workloads {#custom-workload}
@@ -181,7 +181,7 @@ for the Leases.
 You can use another approach so long as it achieves the same outcome: different software products do
 not conflict with one another.
 -->
-如果集羣操作員或其他終端用戶可以部署一個組件的多個實例，
+如果叢集操作員或其他終端使用者可以部署一個組件的多個實例，
 則選擇名稱前綴並挑選一種機制（例如 Deployment 名稱的哈希）以避免 Lease 的名稱衝突。
 
 你可以使用另一種方式來達到相同的效果：不同的軟件產品不相互衝突。

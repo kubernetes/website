@@ -32,7 +32,7 @@ Windows worker nodes in an effective and standardized way.
 -->
 自從 2019 年 Kubernetes 1.14 將對 Windows
 的支持[升級爲穩定版](/zh-cn/blog/2019/03/25/kubernetes-1-14-release-announcement/)以來，
-能夠運行 Windows 工作負載的能力一直深受最終用戶社區的認可。對於大型企業來說，
+能夠運行 Windows 工作負載的能力一直深受最終使用者社區的認可。對於大型企業來說，
 對 Windows 工作負載支持的水平和可用性一直是各大企業選擇 Kubernetes 發行版的重要差異化因素。
 然而，隨着越來越多的 Windows 工作負載遷移到 Kubernetes，以及新的 Windows 特性不斷髮布，
 要高效且標準化地測試 Windows 工作節點變得越來越具有挑戰性。
@@ -66,7 +66,7 @@ Kubernetes 項目非常重視它們無需閉源許可證即可通過一致性認
   “[GMSA](https://learn.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview)
   無法與 containerd 協同工作”，相關討論見
   [microsoft/Windows-Containers#44](https://github.com/microsoft/Windows-Containers/issues/44)。
-- 在開發網絡策略測試時遇到的挑戰，這類測試需要能夠在不同操作系統配置下客觀評估容器網絡接口
+- 在開發網路策略測試時遇到的挑戰，這類測試需要能夠在不同操作系統設定下客觀評估容器網路接口
   （CNI）插件，相關討論見[kubernetes/kubernetes#97751](https://github.com/kubernetes/kubernetes/issues/97751)。  
 
 <!--
@@ -89,7 +89,7 @@ the required Kubernetes specifications.
 ## 我們不能直接運行官方的一致性測試嗎？   {#cant-we-just-run-the-official-conformance-tests}
 
 Kubernetes 項目中提供了一套[一致性測試](https://www.cncf.io/training/certification/software-conformance/#how)，
-這是一套標準化測試，旨在確保 Kubernetes 集羣滿足規定的 Kubernetes 規範。
+這是一套標準化測試，旨在確保 Kubernetes 叢集滿足規定的 Kubernetes 規範。
 
 <!--
 However, these tests were originally defined at a time when Linux was the *only* 
@@ -125,7 +125,7 @@ conformance suite, relieving users from needing to be aware of Kubernetes'
 compilation paths or the semantics of [Ginkgo](https://onsi.github.io/ginkgo) tags.
 -->
 在 Linux 生態中，[Sonobuoy](https://sonobuoy.io/) 這樣的工具簡化了一致性測試套件的執行，
-使用戶無需瞭解 Kubernetes 的編譯路徑或 [Ginkgo](https://onsi.github.io/ginkgo) 標籤的語義。
+使使用者無需瞭解 Kubernetes 的編譯路徑或 [Ginkgo](https://onsi.github.io/ginkgo) 標籤的語義。
 
 <!--
 Regarding needing to compile the Kubernetes tests, we realized that Windows 
@@ -136,10 +136,10 @@ regarding Ginkgo tags, applying conformance tests to Windows nodes through a set
 of [Ginkgo](https://onsi.github.io/ginkgo/) tags would also be burdensome for 
 any user, including Linux enthusiasts or experienced Windows system admins alike.
 -->
-在需要編譯 Kubernetes 測試這件事上，我們意識到 Windows 用戶同樣會覺得從零開始編譯並運行
-Kubernetes e2e 套件同樣不受歡迎，因此很明顯需要一個用戶友好的、“一鍵式”的開箱即用解決方案。
+在需要編譯 Kubernetes 測試這件事上，我們意識到 Windows 使用者同樣會覺得從零開始編譯並運行
+Kubernetes e2e 套件同樣不受歡迎，因此很明顯需要一個使用者友好的、“一鍵式”的開箱即用解決方案。
 另外，在 Ginkgo 標籤方面，把一致性測試通過一組 [Ginkgo](https://onsi.github.io/ginkgo/)
-標籤應用到 Windows 節點，對所有用戶來說都很繁瑣，不管是Linux 愛好者還是經驗豐富的
+標籤應用到 Windows 節點，對所有使用者來說都很繁瑣，不管是Linux 愛好者還是經驗豐富的
 Windows 系統管理員。
 
 <!--
@@ -149,7 +149,7 @@ therefore create the Windows Operational Readiness application. This application
 written in Go, simplifies the process to run the necessary Windows specific tests 
 while delivering results in a clear, accessible format.
 -->
-爲了填補這個空白，爲用戶提供一種直接的方法來確認他們的集羣是否支持多種功能，
+爲了填補這個空白，爲使用者提供一種直接的方法來確認他們的叢集是否支持多種功能，
 Kubernetes 社區的 Windows SIG 認爲有必要開發 Windows 操作就緒應用。
 這個應用由 Go 語言編寫，可以簡化運行特定於 Windows 的必要測試，並以清晰、易於獲取的格式提供結果。
 
@@ -180,11 +180,11 @@ with a diverse set of workloads and configurations, extending beyond basic
 requirements. Below is the current list of categories.
 -->
 相對於以往單純通過 [Ginkgo](https://onsi.github.io/ginkgo) 標籤的方式，
-Windows 操作就緒規範專門用於執行 Kubernetes 倉庫中的測試，這種新方法更爲用戶友好。
+Windows 操作就緒規範專門用於執行 Kubernetes 倉庫中的測試，這種新方法更爲使用者友好。
 它引入了一個結構化的測試套件，分爲核心測試和擴展測試，每組測試又包含針對特定領域的類別，
-例如網絡。核心測試聚焦於 Kubernetes 規範定義的 Windows 節點應支持的基本和關鍵功能。
+例如網路。核心測試聚焦於 Kubernetes 規範定義的 Windows 節點應支持的基本和關鍵功能。
 而擴展測試則覆蓋更復雜的功能，更側重於深入考察 Windows 特有的功能，例如與 Active Directory 的集成。
-這些測試的目標是確保全面覆蓋，涵蓋廣泛的 Windows 特有的功能，以確保與各種工作負載和配置兼容，
+這些測試的目標是確保全面覆蓋，涵蓋廣泛的 Windows 特有的功能，以確保與各種工作負載和設定兼容，
 其範圍也超出了基本要求。下面是當前的類別列表。
 
 <!--
@@ -202,15 +202,15 @@ Windows 操作就緒規範專門用於執行 Kubernetes 倉庫中的測試，這
 -->
 | 類別名字                 |  類別描述                  	                                                                                                 |
 |--------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `Core.Network`           | 測試最小網絡功能（訪問各個 Pod 的 IP 地址）。 | 
+| `Core.Network`           | 測試最小網路功能（訪問各個 Pod 的 IP 地址）。 | 
 | `Core.Storage`           | 測試最小存儲功能（能夠掛載 hostPath 存儲卷）。 |
 | `Core.Scheduling`        | 測試最小調度功能（能夠調度帶有 CPU 限制的 Pod）。 |
 | `Core.Concurrent`        | 測試最小併發功能（節點能夠併發處理多個 Pod 的流量）。 |
 | `Extend.HostProcess`     | 測試與 Windows `HostProcess` Pod 功能相關的特性。 |
 | `Extend.ActiveDirectory` | 測試與 Active Directory 功能相關的特性。 |
-| `Extend.NetworkPolicy`   | 測試與網絡策略功能相關的功能。 |
-| `Extend.Network`         | 測試高級網絡功能（支持 IPv6）。 |
-| `Extend.Worker`          | 測試與 Windows 工作節點功能相關的功能（節點能夠訪問同一集羣中的 TCP 和 UDP 服務）。 |
+| `Extend.NetworkPolicy`   | 測試與網路策略功能相關的功能。 |
+| `Extend.Network`         | 測試高級網路功能（支持 IPv6）。 |
+| `Extend.Worker`          | 測試與 Windows 工作節點功能相關的功能（節點能夠訪問同一叢集中的 TCP 和 UDP 服務）。 |
 
 
 <!--

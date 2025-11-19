@@ -36,7 +36,7 @@ The theme makes the Kubernetes site easier to read and makes individual pages ea
 It gives the site a much-needed facelift.
 -->
 Docsy 主題改進了網站的組織結構和導航性能，並開闢了改進 API 參考的途徑。
-在 4 年多的時間裏，儘管對用戶體驗方面的改進不多，但 Docsy 針對技術內容實現了一些最佳實踐。
+在 4 年多的時間裏，儘管對使用者體驗方面的改進不多，但 Docsy 針對技術內容實現了一些最佳實踐。
 該主題使 Kubernetes 網站更易於閱讀，並使各個頁面更易於導航。
 它大大改進了網站所需的外在形象。
 

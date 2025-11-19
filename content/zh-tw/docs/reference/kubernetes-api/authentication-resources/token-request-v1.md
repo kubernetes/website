@@ -58,7 +58,7 @@ TokenRequest 爲給定的服務賬號請求一個令牌。
 
 - **status** (<a href="{{< ref "../authentication-resources/token-request-v1#TokenRequestStatus" >}}">TokenRequestStatus</a>)
 
-  status 由服務器填充，表示該令牌是否可用於身份認證。
+  status 由伺服器填充，表示該令牌是否可用於身份認證。
 
 ## TokenRequestSpec {#TokenRequestSpec}
 
@@ -93,7 +93,7 @@ TokenRequestSpec 包含客戶端提供的令牌請求參數。
   *BoundObjectReference is a reference to an object that a token is bound to.*
   -->
   boundObjectRef 是對令牌所綁定的一個對象的引用。該令牌只有在綁定對象存在時纔有效。
-  注：API 服務器的 TokenReview 端點將校驗 boundObjectRef，但其他受衆可能不用這樣。
+  注：API 伺服器的 TokenReview 端點將校驗 boundObjectRef，但其他受衆可能不用這樣。
   如果你想要快速撤銷，請爲 expirationSeconds 設一個較小的值。
 
   <a name="BoundObjectReference"></a>

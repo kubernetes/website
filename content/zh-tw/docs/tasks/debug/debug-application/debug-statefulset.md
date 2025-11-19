@@ -29,7 +29,7 @@ This task shows you how to debug a StatefulSet.
 * You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster.
 * You should have a StatefulSet running that you want to investigate.
 -->
-* 你需要有一個 Kubernetes 集羣，已配置好的 kubectl 命令行工具與你的集羣進行通信。
+* 你需要有一個 Kubernetes 叢集，已設定好的 kubectl 命令列工具與你的叢集進行通信。
 * 你應該有一個運行中的 StatefulSet，以便用於調試。
 
 <!-- steps -->

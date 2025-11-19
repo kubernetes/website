@@ -21,9 +21,9 @@ Every Kubernetes object also has a [_UID_](#uids) that is unique across your who
 For example, you can only have one Pod named `myapp-1234` within the same [namespace](/docs/concepts/overview/working-with-objects/namespaces/), but you can have one Pod and one Deployment that are each named `myapp-1234`.
 -->
 
-集羣中的每一個{{< glossary_tooltip text="對象" term_id="object" >}}都有一個[**名稱**](#names)來標識在同類資源中的唯一性。
+叢集中的每一個{{< glossary_tooltip text="對象" term_id="object" >}}都有一個[**名稱**](#names)來標識在同類資源中的唯一性。
 
-每個 Kubernetes 對象也有一個 [**UID**](#uids) 來標識在整個集羣中的唯一性。
+每個 Kubernetes 對象也有一個 [**UID**](#uids) 來標識在整個叢集中的唯一性。
 
 比如，在同一個[名字空間](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)
 中只能有一個名爲 `myapp-1234` 的 Pod，但是可以命名一個 Pod 和一個 Deployment 同爲 `myapp-1234`。
@@ -31,7 +31,7 @@ For example, you can only have one Pod named `myapp-1234` within the same [names
 <!--
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
-對於用戶提供的非唯一性的屬性，Kubernetes
+對於使用者提供的非唯一性的屬性，Kubernetes
 提供了[標籤（Label）](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和
 [註解（Annotation）](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)機制。
 
@@ -70,11 +70,11 @@ to. Even though the name is generated, it may conflict with existing names resul
 became far less likely to happen in Kubernetes v1.31 and later, since the server will make up to 8 attempts to generate a
 unique name before returning an HTTP 409 response.
 -->
-當在資源創建請求中提供 `generateName` 而不是 `name` 時，服務器可能會生成一個名稱。
-使用 `generateName` 時，所提供的值將作爲名稱前綴，服務器會在其後附加一個生成的後綴。
+當在資源創建請求中提供 `generateName` 而不是 `name` 時，伺服器可能會生成一個名稱。
+使用 `generateName` 時，所提供的值將作爲名稱前綴，伺服器會在其後附加一個生成的後綴。
 即使名稱是自動生成的，它仍可能與現有名稱衝突，從而導致 HTTP 409 響應。
 從 Kubernetes v1.31 及更高版本開始，這種情況發生的概率大大降低，
-因爲服務器會嘗試最多 8 次生成唯一名稱，然後才返回 HTTP 409 響應。
+因爲伺服器會嘗試最多 8 次生成唯一名稱，然後才返回 HTTP 409 響應。
 
 <!--
 Below are four types of commonly used name constraints for resources.
@@ -184,7 +184,7 @@ not contain "/" or "%".
 <!--
 Here's an example manifest for a Pod named `nginx-demo`.
 -->
-下面是一個名爲 `nginx-demo` 的 Pod 的配置清單：
+下面是一個名爲 `nginx-demo` 的 Pod 的設定清單：
 
 ```yaml
 apiVersion: v1

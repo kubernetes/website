@@ -286,7 +286,7 @@ language.
 For an example of adding a label, see the PR for adding the
 [Italian language label](https://github.com/kubernetes/test-infra/pull/11316).
 -->
-### 配置工作流程 {#configure-the-workflow}
+### 設定工作流程 {#configure-the-workflow}
 
 接下來，在 `kubernetes/test-infra` 倉庫中爲你的本地化添加一個 GitHub 標籤。
 標籤可讓你過濾 Issue 和針對特定語言的 PR。
@@ -304,14 +304,14 @@ file. You'll need to modify `hugo.toml` to support a new localization.
 Add a configuration block for the new language to `hugo.toml` under the
 existing `[languages]` block. The German block, for example, looks like:
 -->
-### 修改站點配置 {#configure-the-workflow}
+### 修改站點設定 {#configure-the-workflow}
 
-Kubernetes 網站使用 Hugo 作爲其 Web 框架。網站的 Hugo 配置位於
+Kubernetes 網站使用 Hugo 作爲其 Web 框架。網站的 Hugo 設定位於
 [`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml) 文件中。
 爲了支持新的本地化，你需要修改 `hugo.toml`。
 
-在現有的 `[languages]` 下，將新語言的配置添加到 `hugo.toml` 中。
-例如，下面是德語的配置示例：
+在現有的 `[languages]` 下，將新語言的設定添加到 `hugo.toml` 中。
+例如，下面是德語的設定示例：
 
 ```toml
 [languages.de]
@@ -422,7 +422,7 @@ To set the roles of each user contributing to the localization, create an
 -->
 ### 設置 OWNERS 文件 {#setting-up-the-owners-files}
 
-要設置每個對本地化做出貢獻用戶的角色，請在特定於語言的子目錄內創建一個 `OWNERS` 文件，其中：
+要設置每個對本地化做出貢獻使用者的角色，請在特定於語言的子目錄內創建一個 `OWNERS` 文件，其中：
 
 - **reviewers**：具有評審人角色的 Kubernetes 團隊的列表，
   在本例中爲在[在 GitHub 中添加你的本地化團隊](#add-your-localization-team-in-github)中創建的
@@ -431,7 +431,7 @@ To set the roles of each user contributing to the localization, create an
   在本例中爲在[在 GitHub 中添加你的本地化團隊](#add-your-localization-team-in-github)中創建的
   `sig-docs-**-owners` 團隊。
 - **labels**：可以自動應用於 PR 的 GitHub 標籤列表，
-  在本例中爲[配置工作流程](#configure-the-workflow)中創建的語言標籤。
+  在本例中爲[設定工作流程](#configure-the-workflow)中創建的語言標籤。
 
 <!--
 More information about the `OWNERS` file can be found at
@@ -496,7 +496,7 @@ in alphabetical order.
 
 對於每個團隊，
 請按字母順序添加[在 GitHub 中添加你的本地化團隊](#add-your-localization-team-in-github)中所請求的
-GitHub 用戶列表。
+GitHub 使用者列表。
 
 ```diff
 --- a/OWNERS_ALIASES
@@ -731,7 +731,7 @@ Kubernetes 文檔中常用 SVG 圖片來說明概念、工作流和圖表。
    have the exact font used in the original SVG.
 -->
 4. **文本轉換爲曲線**：如前所述，爲解決字體兼容性問題，建議將翻譯後的文本轉換爲曲線或路徑。
-   即使用戶的系統沒有原始 SVG 中所使用的確切字體，將文本轉換爲曲線也可確保最終圖片能正確顯示譯文。
+   即使使用者的系統沒有原始 SVG 中所使用的確切字體，將文本轉換爲曲線也可確保最終圖片能正確顯示譯文。
 
 <!--
 1. **Reviewing and testing**: After making the necessary translations and

@@ -47,7 +47,7 @@ as a project encourages you to submit about things happening elsewhere in the ec
 ### 主博客   {#main-blog}
 
 [Kubernetes 主博客](/zh-cn/blog/)由 Kubernetes 項目組發佈新特性、社區報告以及可能與
-Kubernetes 社區相關的所有新聞。這些內容面向終端用戶和開發者。
+Kubernetes 社區相關的所有新聞。這些內容面向終端使用者和開發者。
 大部分博客的內容圍繞核心項目展開，但 Kubernetes 作爲一個開源項目，也鼓勵大家提交關於生態系統中其他方面的內容！
 
 <!--
@@ -66,7 +66,7 @@ Anyone can write a blog post and submit it for review.
 ### 貢獻者博客    {#contributor-blog}
 
 [Kubernetes 貢獻者博客](https://k8s.dev/blog/)面向的是**參與 Kubernetes 的開發者**，
-而非**使用 Kubernetes 的用戶**。Kubernetes 項目會有意同時在兩個博客上都發布某些文章。
+而非**使用 Kubernetes 的使用者**。Kubernetes 項目會有意同時在兩個博客上都發布某些文章。
 
 任何人都可以撰寫博文並提交審覈。
 

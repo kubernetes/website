@@ -86,7 +86,7 @@ REY LEJANO: [CHUCKLES] Well, I've always been interested in tech. Taught myself 
 -->
 **CRAIG BOX：現在，你正在一個更抽象的技術領域工作。是什麼讓你離開了微生物學？**
 
-REY LEJANO：[笑]嗯，我一直對科技很感興趣。我年輕的時候自學了一點編程，在高中之前，做了一些網絡開發的東西。
+REY LEJANO：[笑]嗯，我一直對科技很感興趣。我年輕的時候自學了一點編程，在高中之前，做了一些網路開發的東西。
 只是在實驗室裏有點焦頭爛額了，實際上是在地下室。我有一個很好的機會加入了一家專門從事 [ITIL](https://www.axelos.com/certifications/itil-service-management/what-is-itil) 
 的諮詢公司。實際上，我從應用性能管理開始，進入監控，進入運營管理和 ITIL，也就是把你的 IT 資產管理和服務管理與商業服務結合起來。實際上，我在這方面做了很多年。
 
@@ -234,7 +234,7 @@ REY LEJANO: [CHUCKLES] You have to tell the end user what has changed or what ef
 -->
 **CRAIG BOX：我不知道很多人都會考慮到一個好的發行說明需要什麼。你說什麼纔是呢？**
 
-REY LEJANO：[笑]你必須告訴最終用戶發生了什麼變化，或者他們在發行說明中可能看到什麼效果。
+REY LEJANO：[笑]你必須告訴最終使用者發生了什麼變化，或者他們在發行說明中可能看到什麼效果。
 它不必是高度技術性的。它可以只是幾行字，只是說有什麼變化，如果他們也必須做任何事情，他們必須做什麼。
 
 <!--
@@ -367,14 +367,14 @@ Some background info: dual-stack was introduced as Alpha in 1.15. You probably s
 
 一些背景信息：雙堆棧在 1.15 中作爲 Alpha 引入。你可能在 KubeCon 2019 上看到了一個主題演講。
 那時，雙棧的工作方式是，你需要兩個服務--你需要每個IP家族的服務。你需要一個用於 IPv4 的服務和一個用於 IPv6 的服務。
-它在 1.20 版本中被重構了。在 1.21 版本中，它處於測試階段；默認情況下，集羣被啓用爲雙堆棧。
+它在 1.20 版本中被重構了。在 1.21 版本中，它處於測試階段；默認情況下，叢集被啓用爲雙堆棧。
 
 <!--
 And then in 1.23 we did remove the IPv6 dual-stack feature flag. It's not mandatory to use dual-stack. It's actually not "default" still. The pods, the services still default to single-stack. There are some requirements to be able to use dual-stack. The nodes have to be routable on IPv4 and IPv6 network interfaces. You need a CNI plugin that supports dual-stack. The pods themselves have to be configured to be dual-stack. And the services need the ipFamilyPolicy field to specify prefer dual-stack, or require dual-stack.
 -->
 然後在 1.23 版本中，我們確實刪除了 IPv6 雙棧功能標誌。這不是強制性的使用雙棧。它實際上仍然不是 "默認"的。
-Pod，服務仍然默認爲單棧。要使用雙棧，有一些要求。節點必須可以在 IPv4 和 IPv6 網絡接口上進行路由。
-你需要一個支持雙棧的 CNI 插件。Pod 本身必須被配置爲雙棧。而服務需要 ipFamilyPolicy 字段來指定喜歡雙棧或要求雙棧。
+Pod，服務仍然默認爲單棧。要使用雙棧，有一些要求。節點必須可以在 IPv4 和 IPv6 網路接口上進行路由。
+你需要一個支持雙棧的 CNI 插件。Pod 本身必須被設定爲雙棧。而服務需要 ipFamilyPolicy 字段來指定喜歡雙棧或要求雙棧。
 
 
 <!--
@@ -382,7 +382,7 @@ Pod，服務仍然默認爲單棧。要使用雙棧，有一些要求。節點�
 
 REY LEJANO: I think we'll be talking about IPv4 and IPv6 for many, many years to come. I remember a long time ago, they kept saying "it's going to be all IPv6", and that was decades ago.
 -->
-**CRAIG BOX：這聽起來暗示仍然需要 v4。你是否看到了一個我們實際上可以轉移到僅有 v6 的集羣的世界？？**
+**CRAIG BOX：這聽起來暗示仍然需要 v4。你是否看到了一個我們實際上可以轉移到僅有 v6 的叢集的世界？？**
 
 REY LEJANO：我認爲在未來很多很多年裏，我們都會談論 IPv4 和 IPv6。我記得很久以前，他們一直在說 "這將全部是 IPv6"，而那是幾十年前的事了。
 
@@ -406,7 +406,7 @@ There's three levels of pod security standards. Privileged, that's totally open.
 Pod 安全接納取代了 Pod 安全策略。它是一個准入控制器。它根據預定義的 Pod 安全標準集對 Pod 進行評估，以接納或拒絕 Pod 的運行。
 
 Pod 安全標準分爲三個級別。特權，這是完全開放的。基線，已知的特權升級被最小化。或者 限制級，這是強化的。而且你可以將 Pod 安全標準設置爲以三種模式運行，
-即強制：拒絕任何違規的 Pod；審計：允許創建 Pod，但記錄違規行爲；或警告：它會向用戶發送警告消息，並且允許該 Pod。
+即強制：拒絕任何違規的 Pod；審計：允許創建 Pod，但記錄違規行爲；或警告：它會向使用者發送警告消息，並且允許該 Pod。
 
 <!--
 **CRAIG BOX: You mentioned there that PodSecurityPolicy is due to be deprecated in two releases' time. Are we lining up these features so that pod security admission will be GA at that time?**
@@ -475,7 +475,7 @@ REY LEJANO：下一個是，[跳過卷所有權更改進入穩定狀態](https:/
 <!--
 Now, there's a field, the fsGroupChangePolicy, which allows you, as a user, to tell Kubernetes how you want the permission and ownership change for that volume to happen. You can set it to always, to always change permissions, or just on mismatch, to only do it when the permission ownership changes at the top level is different from what is expected.
 -->
-現在，有一個字段，即 fsGroupChangePolicy，它允許你作爲用戶告訴 Kubernetes 你希望如何更改該卷的權限和所有權。
+現在，有一個字段，即 fsGroupChangePolicy，它允許你作爲使用者告訴 Kubernetes 你希望如何更改該卷的權限和所有權。
 你可以將其設置爲總是、始終更改權限，或者只是在不匹配的情況下，只在頂層的權限所有權變化與預期不同的情況下進行。
 
 <!--

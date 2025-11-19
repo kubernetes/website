@@ -1,7 +1,7 @@
 <!--
 Upgrade the kubelet configuration for this node
 -->
-升級此節點的 kubelet 配置。
+升級此節點的 kubelet 設定。
 
 <!--
 ### Synopsis
@@ -11,7 +11,7 @@ Upgrade the kubelet configuration for this node
 <!--
 Upgrade the kubelet configuration for this node by downloading it from the kubelet-config ConfigMap stored in the cluster
 -->
-從集羣中的 `kubelet-config` ConfigMap 下載以升級該節點的 kubelet 配置
+從叢集中的 `kubelet-config` ConfigMap 下載以升級該節點的 kubelet 設定
 
 ```shell
 kubeadm upgrade node phase kubelet-config [flags]
@@ -38,7 +38,7 @@ kubeadm upgrade node phase kubelet-config [flags]
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p></td>
 </tr>
 
@@ -84,7 +84,7 @@ kubelet-config 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和集羣通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
+用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
 </p>
 </td>
 </tr>

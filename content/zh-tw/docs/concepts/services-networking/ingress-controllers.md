@@ -1,8 +1,8 @@
 ---
 title: Ingress 控制器
 description: >-
-  爲了讓 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 在你的集羣中工作，
-  必須有一個 Ingress 控制器正在運行。你需要選擇至少一個 Ingress 控制器並確保其已被部署到你的集羣中。
+  爲了讓 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 在你的叢集中工作，
+  必須有一個 Ingress 控制器正在運行。你需要選擇至少一個 Ingress 控制器並確保其已被部署到你的叢集中。
   本頁列出了你可以部署的常見 Ingress 控制器。
 content_type: concept
 weight: 50
@@ -31,11 +31,11 @@ that best fits your cluster.
 Kubernetes as a project supports and maintains [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme), [GCE](https://git.k8s.io/ingress-gce/README.md#readme), and
   [nginx](https://git.k8s.io/ingress-nginx/README.md#readme) ingress controllers.
 -->
-爲了讓 Ingress 資源工作，集羣必須有一個正在運行的 Ingress 控制器。
+爲了讓 Ingress 資源工作，叢集必須有一個正在運行的 Ingress 控制器。
 
 與作爲 `kube-controller-manager` 可執行文件的一部分運行的其他類型的控制器不同，
-Ingress 控制器不是隨集羣自動啓動的。
-基於此頁面，你可選擇最適合你的集羣的 ingress 控制器實現。
+Ingress 控制器不是隨叢集自動啓動的。
+基於此頁面，你可選擇最適合你的叢集的 ingress 控制器實現。
 
 Kubernetes 作爲一個項目，目前支持和維護
 [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme)、
@@ -58,10 +58,10 @@ Kubernetes 作爲一個項目，目前支持和維護
 * [Avi Kubernetes Operator](https://github.com/vmware/load-balancer-and-ingress-services-for-kubernetes) provides L4-L7 load-balancing using [VMware NSX Advanced Load Balancer](https://avinetworks.com/).
 -->
 * [AKS 應用程序網關 Ingress 控制器](https://docs.microsoft.com/zh-cn/azure/application-gateway/tutorial-ingress-controller-add-on-existing?toc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Faks%2Ftoc.json&bc=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fbread%2Ftoc.json)
-  是一個配置 [Azure 應用程序網關](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
+  是一個設定 [Azure 應用程序網關](https://docs.microsoft.com/zh-cn/azure/application-gateway/overview)
   的 Ingress 控制器。
 * [阿里雲 MSE Ingress](https://www.alibabacloud.com/help/zh/mse/user-guide/overview-of-mse-ingress-gateways)
-  是一個 Ingress 控制器，它負責配置[阿里雲原生網關](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is)，
+  是一個 Ingress 控制器，它負責設定[阿里雲原生網關](https://www.alibabacloud.com/help/en/mse/product-overview/cloud-native-gateway-overview?spm=a2c63.p38356.0.0.20563003HJK9is)，
   也是 [Higress](https://github.com/alibaba/higress) 的商業版本。
 * [Apache APISIX Ingress 控制器](https://github.com/apache/apisix-ingress-controller)
   是一個基於 [Apache APISIX 網關](https://github.com/apache/apisix) 的 Ingress 控制器。
@@ -106,7 +106,7 @@ Kubernetes 作爲一個項目，目前支持和維護
 -->
 * F5 BIG-IP 的
   [用於 Kubernetes 的容器 Ingress 服務](https://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest)
-  讓你能夠使用 Ingress 來配置 F5 BIG-IP 虛擬服務器。
+  讓你能夠使用 Ingress 來設定 F5 BIG-IP 虛擬伺服器。
 * [FortiADC Ingress 控制器](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview)
   支持 Kubernetes Ingress 資源，並允許你從 Kubernetes 管理 FortiADC 對象。
 * [Gloo](https://gloo.solo.io) 是一個開源的、基於 [Envoy](https://www.envoyproxy.io) 的
@@ -136,7 +136,7 @@ Kubernetes 作爲一個項目，目前支持和維護
   OpenAPI 驅動的 Ingress 控制器。
 * [用於 Kubernetes 的 NGINX Ingress 控制器](https://www.nginx.com/products/nginx-ingress-controller/)
   能夠與 [NGINX](https://www.nginx.com/resources/glossary/nginx/)
-  網頁服務器（作爲代理）一起使用。
+  網頁伺服器（作爲代理）一起使用。
 * [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme)
   是一個適用於 Oracle Cloud Infrastructure 的 Ingress 控制器，可幫助你管理
   [OCI 負載均衡](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm)。
@@ -175,7 +175,7 @@ You may deploy any number of ingress controllers using [ingress class](/docs/con
 within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName` is a replacement of the older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 -->
 你可以使用
-[Ingress 類](/zh-cn/docs/concepts/services-networking/ingress/#ingress-class)在集羣中部署任意數量的
+[Ingress 類](/zh-cn/docs/concepts/services-networking/ingress/#ingress-class)在叢集中部署任意數量的
 Ingress 控制器。
 請注意你的 Ingress 類資源的 `.metadata.name` 字段。
 當你創建 Ingress 時，你需要用此字段的值來設置 Ingress 對象的 `ingressClassName` 字段（請參考
@@ -190,13 +190,13 @@ You mark an IngressClass as default by setting the [`ingressclass.kubernetes.io/
 Ideally, all ingress controllers should fulfill this specification, but the various ingress
 controllers operate slightly differently.
 -->
-如果你不爲 Ingress 指定 IngressClass，並且你的集羣中只有一個 IngressClass 被標記爲默認，那麼
-Kubernetes 會將此集羣的默認 IngressClass
+如果你不爲 Ingress 指定 IngressClass，並且你的叢集中只有一個 IngressClass 被標記爲默認，那麼
+Kubernetes 會將此叢集的默認 IngressClass
 [應用](/zh-cn/docs/concepts/services-networking/ingress/#default-ingress-class)到 Ingress 上。
 IngressClass。
 你可以通過將
 [`ingressclass.kubernetes.io/is-default-class` 註解](/zh-cn/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class)
-的值設置爲 `"true"` 來將一個 IngressClass 標記爲集羣默認。
+的值設置爲 `"true"` 來將一個 IngressClass 標記爲叢集默認。
 
 理想情況下，所有 Ingress 控制器都應滿足此規範，但各種 Ingress 控制器的操作略有不同。
 

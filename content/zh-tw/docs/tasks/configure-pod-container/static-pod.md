@@ -22,7 +22,7 @@ Unlike Pods that are managed by the control plane (for example, a
 instead, the kubelet watches each static Pod (and restarts it if it fails).
 -->
 **靜態 Pod** 在指定的節點上由 kubelet 守護進程直接管理，不需要
-{{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}監管。
+{{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}監管。
 與由控制面管理的 Pod（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 不同；kubelet 監視每個靜態 Pod（在它失敗之後重新啓動）。
 
@@ -37,9 +37,9 @@ The Pod names will be suffixed with the node hostname with a leading hyphen.
 -->
 靜態 Pod 始終都會綁定到特定節點的 {{< glossary_tooltip term_id="kubelet" >}} 上。
 
-kubelet 會嘗試通過 Kubernetes API 服務器爲每個靜態 Pod
-自動創建一個{{< glossary_tooltip text="鏡像 Pod" term_id="mirror-pod" >}}。
-這意味着節點上運行的靜態 Pod 對 API 服務來說是可見的，但是不能通過 API 服務器來控制。
+kubelet 會嘗試通過 Kubernetes API 伺服器爲每個靜態 Pod
+自動創建一個{{< glossary_tooltip text="映像檔 Pod" term_id="mirror-pod" >}}。
+這意味着節點上運行的靜態 Pod 對 API 服務來說是可見的，但是不能通過 API 伺服器來控制。
 Pod 名稱將把以連字符開頭的節點主機名作爲後綴。
 
 {{< note >}}
@@ -48,7 +48,7 @@ If you are running clustered Kubernetes and are using static
 Pods to run a Pod on every node, you should probably be using a
 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} instead.
 -->
-如果你在運行一個 Kubernetes 集羣，並且在每個節點上都運行一個靜態 Pod，
+如果你在運行一個 Kubernetes 叢集，並且在每個節點上都運行一個靜態 Pod，
 就可能需要考慮使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 替代這種方式。
 {{< /note >}}
@@ -97,8 +97,8 @@ or a [web hosted configuration file](/docs/tasks/configure-pod-container/static-
 -->
 ## 創建靜態 Pod {#static-pod-creation}
 
-可以通過[文件系統上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)或者
-[Web 網絡上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)來配置靜態 Pod。
+可以通過[文件系統上的設定文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)或者
+[Web 網路上的設定文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)來設定靜態 Pod。
 
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
@@ -114,7 +114,7 @@ For example, this is how to start a simple web server as a static Pod:
 ### 文件系統上的靜態 Pod 聲明文件 {#configuration-files}
 
 聲明文件是標準的 Pod 定義文件，以 JSON 或者 YAML 格式存儲在指定目錄。路徑設置在
-[Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的
+[Kubelet 設定文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的
 `staticPodPath: <目錄>` 字段，kubelet 會定期的掃描這個文件夾下的 YAML/JSON
 文件來創建/刪除靜態 Pod。
 注意 kubelet 掃描目錄的時候會忽略以點開頭的文件。
@@ -171,10 +171,10 @@ For example, this is how to start a simple web server as a static Pod:
    To use the deprecated approach, start the kubelet with the
    `--pod-manifest-path=/etc/kubernetes/manifests/` argument.
 -->
-3. 在該節點上配置 kubelet，在 [kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中設定 `staticPodPath` 值。
-   欲瞭解更多信息，請參考[通過配置文件設定 kubelet 參數](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
+3. 在該節點上設定 kubelet，在 [kubelet 設定文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中設定 `staticPodPath` 值。
+   欲瞭解更多信息，請參考[通過設定文件設定 kubelet 參數](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
 
-   另一個已棄用的方法是，在該節點上通過命令行參數配置 kubelet，以便從本地查找靜態 Pod 清單。
+   另一個已棄用的方法是，在該節點上通過命令列參數設定 kubelet，以便從本地查找靜態 Pod 清單。
    若使用這種棄用的方法，請啓動 kubelet 時加上 `--pod-manifest-path=/etc/kubernetes/manifests/` 參數。
 <!--
 1. Restart the kubelet. On Fedora, you would run:
@@ -204,7 +204,7 @@ To use this approach:
 -->
 ### Web 網上的靜態 Pod 聲明文件 {#pods-created-via-http}
 
-Kubelet 根據 `--manifest-url=<URL>` 參數的配置定期的下載指定文件，並且轉換成
+Kubelet 根據 `--manifest-url=<URL>` 參數的設定定期的下載指定文件，並且轉換成
 JSON/YAML 格式的 Pod 定義文件。
 與[文件系統上的清單文件](#configuration-files)使用方式類似，kubelet 調度獲取清單文件。
 如果靜態 Pod 的清單文件有改變，kubelet 會應用這些改變。
@@ -214,7 +214,7 @@ JSON/YAML 格式的 Pod 定義文件。
 <!--
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 -->
-1. 創建一個 YAML 文件，並保存在 Web 服務器上，這樣你就可以將該文件的 URL 傳遞給 kubelet。
+1. 創建一個 YAML 文件，並保存在 Web 伺服器上，這樣你就可以將該文件的 URL 傳遞給 kubelet。
 
    ```yaml
    apiVersion: v1
@@ -238,7 +238,7 @@ JSON/YAML 格式的 Pod 定義文件。
    running it with `--manifest-url=<manifest-url>`.
    On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 -->
-2. 通過在選擇的節點上使用 `--manifest-url=<manifest-url>` 配置運行 kubelet。
+2. 通過在選擇的節點上使用 `--manifest-url=<manifest-url>` 設定運行 kubelet。
    在 Fedora 添加下面這行到 `/etc/kubernetes/kubelet`：
 
    ```shell
@@ -300,14 +300,14 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 `crictl` outputs the image URI and SHA-256 checksum. `NAME` will look more like:
 `docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`.
 -->
-`crictl` 會輸出鏡像 URI 和 SHA-256 校驗和。`NAME` 看起來像：
+`crictl` 會輸出映像檔 URI 和 SHA-256 校驗和。`NAME` 看起來像：
 `docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`。
 {{< /note >}}
 
 <!--
 You can see the mirror Pod on the API server:
 -->
-可以在 API 服務上看到鏡像 Pod：
+可以在 API 服務上看到映像檔 Pod：
 
 ```shell
 kubectl get pods
@@ -323,7 +323,7 @@ static-web-my-node1   1/1     Running   0               2m
 Make sure the kubelet has permission to create the mirror Pod in the API server.
 If not, the creation request is rejected by the API server.
 -->
-要確保 kubelet 在 API 服務上有創建鏡像 Pod 的權限。如果沒有，創建請求會被 API 服務拒絕。
+要確保 kubelet 在 API 服務上有創建映像檔 Pod 的權限。如果沒有，創建請求會被 API 服務拒絕。
 {{< /note >}}
 
 <!--
@@ -331,14 +331,14 @@ If not, the creation request is rejected by the API server.
 propagated into the mirror Pod. You can use those labels as normal via
 {{< glossary_tooltip term_id="selector" text="selectors" >}}, etc.
 -->
-靜態 Pod 上的{{< glossary_tooltip term_id="label" text="標籤" >}}被傳播到鏡像 Pod。
+靜態 Pod 上的{{< glossary_tooltip term_id="label" text="標籤" >}}被傳播到映像檔 Pod。
 你可以通過{{< glossary_tooltip term_id="selector" text="選擇算符" >}}使用這些標籤。
 
 <!--
 If you try to use `kubectl` to delete the mirror Pod from the API server,
 the kubelet _doesn't_ remove the static Pod:
 -->
-如果你用 `kubectl` 從 API 服務上刪除鏡像 Pod，kubelet **不會**移除靜態 Pod：
+如果你用 `kubectl` 從 API 服務上刪除映像檔 Pod，kubelet **不會**移除靜態 Pod：
 
 ```shell
 kubectl delete pod static-web-my-node1
@@ -427,7 +427,7 @@ adds/removes Pods as files appear/disappear in this directory.
 -->
 ## 動態增加和刪除靜態 Pod  {#dynamic-addition-and-removal-of-static-pods}
 
-運行中的 kubelet 會定期掃描配置的目錄（比如例子中的 `/etc/kubernetes/manifests` 目錄）中的變化，
+運行中的 kubelet 會定期掃描設定的目錄（比如例子中的 `/etc/kubernetes/manifests` 目錄）中的變化，
 並且根據文件中出現/消失的 Pod 來添加/刪除 Pod。
 
 <!--

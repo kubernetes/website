@@ -22,7 +22,7 @@ slug: swap-linux-beta
 The 1.22 release [introduced Alpha support](/blog/2021/08/09/run-nodes-with-swap-alpha/) for configuring swap memory usage for Kubernetes workloads running on Linux on a per-node basis. Now, in release 1.28, support for swap on Linux nodes has graduated to Beta, along with many new improvements.
 -->
 Kubernetes 1.22 版本爲交換內存[引入了一項 Alpha 支持](/blog/2021/08/09/run-nodes-with-swap-alpha/)，
-用於爲在 Linux 節點上運行的 Kubernetes 工作負載逐個節點地配置交換內存使用。
+用於爲在 Linux 節點上運行的 Kubernetes 工作負載逐個節點地設定交換內存使用。
 現在，在 1.28 版中，對 Linux 節點上的交換內存的支持已升級爲 Beta 版，並有許多新的改進。
 
 <!--
@@ -37,7 +37,7 @@ kubelet 的默認行爲是無法啓動。
 In version 1.22, the swap feature for Linux was initially introduced in its Alpha stage. This represented a significant advancement, providing Linux users with the opportunity to experiment with the swap feature for the first time. However, as an Alpha version, it was not fully developed and had several issues, including inadequate support for cgroup v2, insufficient metrics and summary API statistics, inadequate testing, and more.
 -->
 在 1.22 版中，Linux 的交換特性以 Alpha 階段初次引入。
-這代表着一項重大進步，首次爲 Linux 用戶提供了嘗試交換內存特性的機會。
+這代表着一項重大進步，首次爲 Linux 使用者提供了嘗試交換內存特性的機會。
 然而，作爲 Alpha 版本，它尚未開發完成，並存在一些問題，
 包括對 cgroup v2 支持的不足、指標和 API 統計摘要不足、測試不足等等。
 
@@ -45,9 +45,9 @@ In version 1.22, the swap feature for Linux was initially introduced in its Alph
 Swap in Kubernetes has numerous [use cases](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md#user-stories) for a wide range of users. As a result, the node special interest group within the Kubernetes project has invested significant effort into supporting swap on Linux nodes for beta. Compared to the alpha, the kubelet's support for running with swap enabled is more stable and robust, more user-friendly, and addresses many known shortcomings. This graduation to beta represents a crucial step towards achieving the goal of fully supporting swap in Kubernetes.
 -->
 Kubernetes 中的交換內存有許多[用例](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md#user-stories)，
-並適用於大量用戶。因此，Kubernetes 項目內的節點特別興趣小組投入了大量精力來支持
+並適用於大量使用者。因此，Kubernetes 項目內的節點特別興趣小組投入了大量精力來支持
 Linux 節點上的交換內存特性的 Beta 版本。
-與 Alpha 版本相比，啓用交換內存後 kubelet 的運行更加穩定和健壯，更加用戶友好，並且解決了許多已知缺陷。
+與 Alpha 版本相比，啓用交換內存後 kubelet 的運行更加穩定和健壯，更加使用者友好，並且解決了許多已知缺陷。
 這次升級到 Beta 版代表朝着實現在 Kubernetes 中完全支持交換內存的目標邁出了關鍵一步。
 
 <!--
@@ -58,13 +58,13 @@ Linux 節點上的交換內存特性的 Beta 版本。
 <!--
 The utilization of swap memory on a node where it has already been provisioned can be facilitated by the activation of the `NodeSwap` feature gate on the kubelet. Additionally, you must disable the `failSwapOn` configuration setting, or the deprecated `--fail-swap-on` command line flag must be deactivated.
 -->
-通過激活 kubelet 上的 `NodeSwap` 特性門控，可以在已配置交換內存的節點上使用此特性。
-此外，你必須禁用 `failSwapOn` 設置，或者停用已被棄用的 `--fail-swap-on` 命令行標誌。
+通過激活 kubelet 上的 `NodeSwap` 特性門控，可以在已設定交換內存的節點上使用此特性。
+此外，你必須禁用 `failSwapOn` 設置，或者停用已被棄用的 `--fail-swap-on` 命令列標誌。
 
 <!--
 It is possible to configure the `memorySwap.swapBehavior` option to define the manner in which a node utilizes swap memory. For instance,
 -->
-可以配置 `memorySwap.swapBehavior` 選項來定義節點使用交換內存的方式。例如：
+可以設定 `memorySwap.swapBehavior` 選項來定義節點使用交換內存的方式。例如：
 
 <!--
 ```yaml
@@ -82,7 +82,7 @@ memorySwap:
 <!--
 The available configuration options for `swapBehavior` are:
 -->
-`swapBehavior` 的可用配置選項有：
+`swapBehavior` 的可用設定選項有：
 
 <!--
 - `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they request, up to the system limit.
@@ -95,7 +95,7 @@ The available configuration options for `swapBehavior` are:
 <!--
 If configuration for `memorySwap` is not specified and the feature gate is enabled, by default the kubelet will apply the same behaviour as the `UnlimitedSwap` setting.
 -->
-如果未指定 `memorySwap` 的配置並且啓用了特性門控，則默認情況下，
+如果未指定 `memorySwap` 的設定並且啓用了特性門控，則默認情況下，
 kubelet 將應用與 `UnlimitedSwap` 設置相同的行爲。
 
 <!--
@@ -106,7 +106,7 @@ Note that `NodeSwap` is supported for **cgroup v2** only. For Kubernetes v1.28, 
 <!--
 ## Install a swap-enabled cluster with kubeadm
 -->
-## 使用 kubeadm 安裝支持交換內存的集羣 {#install-a-swap-enabled-cluster-with-kubeadm}
+## 使用 kubeadm 安裝支持交換內存的叢集 {#install-a-swap-enabled-cluster-with-kubeadm}
 
 <!--
 ### Before you begin
@@ -118,7 +118,7 @@ It is required for this demo that the kubeadm tool be installed, following the s
 -->
 此演示需要安裝 kubeadm 工具，
 安裝過程按照 [kubeadm 安裝指南](/zh-cn/docs/setup/product-environment/tools/kubeadm/create-cluster-kubeadm)中描述的步驟進行操作。
-如果節點上已啓用交換內存，則可以繼續創建集羣。如果未啓用交換內存，請參閱提供的啓用交換內存說明。
+如果節點上已啓用交換內存，則可以繼續創建叢集。如果未啓用交換內存，請參閱提供的啓用交換內存說明。
 
 <!--
 ### Create a swap file and turn swap on
@@ -155,12 +155,12 @@ To start the swap file at boot time, add line like `/swapfile swap swap defaults
 <!--
 ### Set up a Kubernetes cluster that uses swap-enabled nodes
 -->
-### 在 Kubernetes 集羣中設置開啓交換內存的節點  {#set-up-a-kubernetes-cluster-that-uses-swap-enabled-nodes}
+### 在 Kubernetes 叢集中設置開啓交換內存的節點  {#set-up-a-kubernetes-cluster-that-uses-swap-enabled-nodes}
 
 <!--
 To make things clearer, here is an example kubeadm configuration file `kubeadm-config.yaml` for the swap enabled cluster.
 -->
-清晰起見，這裏給出啓用交換內存特性的集羣的 kubeadm 配置文件示例 `kubeadm-config.yaml`。
+清晰起見，這裏給出啓用交換內存特性的叢集的 kubeadm 設定文件示例 `kubeadm-config.yaml`。
 
 ```yaml
 ---
@@ -179,7 +179,7 @@ memorySwap:
 <!--
 Then create a single-node cluster using `kubeadm init --config kubeadm-config.yaml`. During init, there is a warning that swap is enabled on the node and in case the kubelet `failSwapOn` is set to true. We plan to remove this warning in a future release.
 -->
-接下來使用 `kubeadm init --config kubeadm-config.yaml` 創建單節點集羣。
+接下來使用 `kubeadm init --config kubeadm-config.yaml` 創建單節點叢集。
 在初始化過程中，如果 kubelet `failSwapOn` 設置爲 true，則會出現一條警告，告知節點上啓用了交換內存特性。
 我們計劃在未來的版本中刪除此警告。
 
@@ -191,9 +191,9 @@ Then create a single-node cluster using `kubeadm init --config kubeadm-config.ya
 <!--
 The configuration of swap memory, including its limitations, presents a significant challenge. Not only is it prone to misconfiguration, but as a system-level property, any misconfiguration could potentially compromise the entire node rather than just a specific workload. To mitigate this risk and ensure the health of the node, we have implemented Swap in Beta with automatic configuration of limitations.
 -->
-交換內存的配置（包括其侷限性）是一項挑戰。不僅容易出現配置錯誤，而且作爲系統級屬性，
-任何錯誤配置都可能危及整個節點而不僅僅是特定的工作負載。
-爲了減輕這種風險並確保節點的健康，我們在交換內存的 Beta 版本中實現了對缺陷的自動配置。
+交換內存的設定（包括其侷限性）是一項挑戰。不僅容易出現設定錯誤，而且作爲系統級屬性，
+任何錯誤設定都可能危及整個節點而不僅僅是特定的工作負載。
+爲了減輕這種風險並確保節點的健康，我們在交換內存的 Beta 版本中實現了對缺陷的自動設定。
 
 <!--
 With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e. `BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory. `BestEffort` QoS Pods exhibit unpredictable memory consumption patterns and lack information regarding their memory usage, making it difficult to determine a safe allocation of swap memory. Conversely, `Guaranteed` QoS Pods are typically employed for applications that rely on the precise allocation of resources specified by the workload, with memory being immediately available. To maintain the aforementioned security and node health guarantees, these Pods are not permitted to use swap memory when `LimitedSwap` is in effect.
@@ -221,7 +221,7 @@ Prior to detailing the calculation of the swap limit, it is necessary to define 
 <!--
 Swap limitation is configured as: `(containerMemoryRequest / nodeTotalMemory) × totalPodsSwapAvailable`
 -->
-交換內存限制配置爲：`(containerMemoryRequest / nodeTotalMemory) × totalPodsSwapAvailable`
+交換內存限制設定爲：`(containerMemoryRequest / nodeTotalMemory) × totalPodsSwapAvailable`
 
 <!--
 In other words, the amount of swap that a container is able to use is proportionate to its memory request, the node's total physical memory and the total amount of swap memory on the node that is available for use by Pods.
@@ -233,7 +233,7 @@ In other words, the amount of swap that a container is able to use is proportion
 It is important to note that, for containers within Burstable QoS Pods, it is possible to opt-out of swap usage by specifying memory requests that are equal to memory limits. Containers configured in this manner will not have access to swap memory.
 -->
 值得注意的是，對於 Burstable QoS Pod 中的容器，可以通過設置內存限制與內存請求相同來選擇不使用交換內存。
-以這種方式配置的容器將無法訪問交換內存。
+以這種方式設定的容器將無法訪問交換內存。
 
 <!--
 ## How does it work?
@@ -245,7 +245,7 @@ There are a number of possible ways that one could envision swap use on a node. 
 -->
 我們可以想象可以在節點上使用交換內存的多種可能方式。當節點上提供了交換內存並可用時，
 SIG 節點[建議](https://github.com/kubernetes/enhancements/blob/9d127347773ad19894ca488ee04f1cd3af5774fc/keps/sig-node/2400-node-swap/README.md#proposal)
-kubelet 應該能夠遵循如下的配置：
+kubelet 應該能夠遵循如下的設定：
 
 <!--
 - It can start with swap on.
@@ -257,15 +257,15 @@ kubelet 應該能夠遵循如下的配置：
 <!--
 Swap configuration on a node is exposed to a cluster admin via the [`memorySwap` in the KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1). As a cluster administrator, you can specify the node's behaviour in the presence of swap memory by setting `memorySwap.swapBehavior`.
 -->
-節點上的交換內存配置通過 [KubeletConfiguration 中的 `memorySwap`](/zh-cn/docs/reference/config-api/kubelet-config.v1) 向集羣管理員公開。
-作爲集羣管理員，你可以通過設置 `memorySwap.swapBehavior` 來指定存在交換內存時節點的行爲。
+節點上的交換內存設定通過 [KubeletConfiguration 中的 `memorySwap`](/zh-cn/docs/reference/config-api/kubelet-config.v1) 向叢集管理員公開。
+作爲叢集管理員，你可以通過設置 `memorySwap.swapBehavior` 來指定存在交換內存時節點的行爲。
 
 <!--
 The kubelet [employs the CRI](/docs/concepts/architecture/cri/) (container runtime interface) API to direct the CRI to configure specific cgroup v2 parameters (such as `memory.swap.max`) in a manner that will enable the desired swap configuration for a container. The CRI is then responsible to write these settings to the container-level cgroup.
 -->
 kubelet [使用 CRI](/zh-cn/docs/concepts/architecture/cri/)
-（容器運行時接口）API 來指示 CRI 配置特定的 cgroup v2 參數（例如 `memory.swap.max`），
-配置方式要支持容器所期望的交換內存配置。接下來，CRI 負責將這些設置寫入容器級的 cgroup。
+（容器運行時接口）API 來指示 CRI 設定特定的 cgroup v2 參數（例如 `memory.swap.max`），
+設定方式要支持容器所期望的交換內存設定。接下來，CRI 負責將這些設置寫入容器級的 cgroup。
 
 <!--
 ## How can I monitor swap?
@@ -297,7 +297,7 @@ Having swap available on a system reduces predictability. Swap's performance is 
 在系統上提供可用交換內存會降低可預測性。由於交換內存的性能比常規內存差，
 有時差距甚至在多個數量級，因而可能會導致意外的性能下降。此外，交換內存會改變系統在內存壓力下的行爲。
 由於啓用交換內存允許 Kubernetes 中的工作負載使用更大的內存量，而這一用量是無法預測的，
-因此也會增加嘈雜鄰居和非預期的裝箱配置的風險，因爲調度程序無法考慮交換內存使用情況。
+因此也會增加嘈雜鄰居和非預期的裝箱設定的風險，因爲調度程序無法考慮交換內存使用情況。
 
 <!--
 The performance of a node with swap memory enabled depends on the underlying physical storage. When swap memory is in use, performance will be significantly worse in an I/O operations per second (IOPS) constrained environment, such as a cloud VM with I/O throttling, when compared to faster storage mediums like solid-state drives or NVMe.
@@ -314,7 +314,7 @@ As such, we do not advocate the utilization of swap memory for workloads or envi
 <!--
 Cluster administrators and developers should benchmark their nodes and applications before using swap in production scenarios, and [we need your help](#how-do-i-get-involved) with that!
 -->
-集羣管理員和開發人員應該在生產場景中使用交換內存之前對其節點和應用進行基準測試，
+叢集管理員和開發人員應該在生產場景中使用交換內存之前對其節點和應用進行基準測試，
 [我們需要你的幫助](#how-do-i-get-involved)！
 
 <!--
@@ -329,12 +329,12 @@ Enabling swap on a system without encryption poses a security risk, as critical 
 [可能會被交換到磁盤](/zh-cn/docs/concepts/configuration/secret/#information-security-for-secrets)。
 如果未經授權的個人訪問磁盤，他們就有可能獲得這些機密數據。爲了減輕這種風險，
 Kubernetes 項目強烈建議你對交換內存空間進行加密。但是，處理加密交換內存不是 kubelet 的責任；
-相反，它其實是操作系統配置通用問題，應在該級別解決。管理員有責任提供加密交換內存來減輕這種風險。
+相反，它其實是操作系統設定通用問題，應在該級別解決。管理員有責任提供加密交換內存來減輕這種風險。
 
 <!--
 Furthermore, as previously mentioned, with `LimitedSwap` the user has the option to completely disable swap usage for a container by specifying memory requests that are equal to memory limits. This will prevent the corresponding containers from accessing swap memory.
 -->
-此外，如前所述，啓用 `LimitedSwap` 模式時，用戶可以選擇通過設置內存限制與內存請求相同來完全禁止容器使用交換內存。
+此外，如前所述，啓用 `LimitedSwap` 模式時，使用者可以選擇通過設置內存限制與內存請求相同來完全禁止容器使用交換內存。
 這種設置會阻止相應的容器訪問交換內存。
 
 <!--
@@ -360,7 +360,7 @@ Kubernetes 1.28 版本引入了對 Linux 節點上交換內存的 Beta 支持，
 * 添加對通過 cgroup 在 Pod 級別控制交換內存用量的支持。
   * 這一點仍在討論中。
 * 收集測試用例的反饋。
-  * 我們將考慮引入新的交換內存配置模式，例如在節點層面爲工作負載設置交換內存限制。
+  * 我們將考慮引入新的交換內存設定模式，例如在節點層面爲工作負載設置交換內存限制。
 
 <!--
 ## How can I learn more?

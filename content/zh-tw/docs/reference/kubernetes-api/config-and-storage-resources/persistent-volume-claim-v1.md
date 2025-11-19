@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "PersistentVolumeClaim"
 content_type: "api_reference"
-description: "PersistentVolumeClaim 是用戶針對一個持久卷的請求和申領。"
+description: "PersistentVolumeClaim 是使用者針對一個持久卷的請求和申領。"
 title: "PersistentVolumeClaim"
 weight: 6
 ---
@@ -28,7 +28,7 @@ weight: 6
 <!--
 PersistentVolumeClaim is a user's request for and claim to a persistent volume
 -->
-PersistentVolumeClaim 是用戶針對一個持久卷的請求和申領。
+PersistentVolumeClaim 是使用者針對一個持久卷的請求和申領。
 
 <hr>
 
@@ -103,7 +103,7 @@ PersistentVolumeClaimSpec 描述存儲設備的常用參數，並支持通過 so
 -  **resources** (VolumeResourceRequirements)
 
   `resources` 表示卷應擁有的最小資源。
-  如果啓用了 RecoverVolumeExpansionFailure 功能特性，則允許用戶指定這些資源要求，
+  如果啓用了 RecoverVolumeExpansionFailure 功能特性，則允許使用者指定這些資源要求，
   此值必須低於之前的值，但必須高於申領的狀態字段中記錄的容量。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#resources
 

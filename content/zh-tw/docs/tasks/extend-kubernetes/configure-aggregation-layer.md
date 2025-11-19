@@ -1,5 +1,5 @@
 ---
-title: 配置聚合層
+title: 設定聚合層
 content_type: task
 weight: 10
 ---
@@ -20,7 +20,7 @@ Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extensi
 allows the Kubernetes apiserver to be extended with additional APIs, which are not
 part of the core Kubernetes APIs.
 -->
-配置[聚合層](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)可以允許
+設定[聚合層](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)可以允許
 Kubernetes apiserver 使用其它 API 擴展，這些 API 不是核心 Kubernetes API 的一部分。
 
 ## {{% heading "prerequisites" %}}
@@ -34,7 +34,7 @@ your environment to support mutual TLS auth between the proxy and extension apis
 Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is
 signed by the aggregation layer CA and not by something else, like the Kubernetes general CA.
 -->
-要使聚合層在你的環境中正常工作以支持代理服務器和擴展 apiserver 之間的相互 TLS 身份驗證，
+要使聚合層在你的環境中正常工作以支持代理伺服器和擴展 apiserver 之間的相互 TLS 身份驗證，
 需要滿足一些設置要求。Kubernetes 和 kube-apiserver 具有多個 CA，
 因此請確保代理是由聚合層 CA 簽名的，而不是由 Kubernetes 通用 CA 簽名的。
 {{< /note >}}
@@ -44,7 +44,7 @@ signed by the aggregation layer CA and not by something else, like the Kubernete
 Reusing the same CA for different client types can negatively impact the cluster's
 ability to function. For more information, see [CA Reusage and Conflicts](#ca-reusage-and-conflicts).
 -->
-對不同的客戶端類型重複使用相同的 CA 會對集羣的功能產生負面影響。
+對不同的客戶端類型重複使用相同的 CA 會對叢集的功能產生負面影響。
 有關更多信息，請參見 [CA 重用和衝突](#ca-reusage-and-conflicts)。
 {{< /caution >}}
 
@@ -66,12 +66,12 @@ and how to configure them.
 ## 身份認證流程   {#authentication-flow}
 
 與自定義資源定義（CRD）不同，除標準的 Kubernetes apiserver 外，Aggregation API
-還涉及另一個服務器：擴展 apiserver。
+還涉及另一個伺服器：擴展 apiserver。
 Kubernetes apiserver 將需要與你的擴展 apiserver 通信，並且你的擴展 apiserver
 也需要與 Kubernetes apiserver 通信。
 爲了確保此通信的安全，Kubernetes apiserver 使用 x509 證書向擴展 apiserver 認證。
 
-本節介紹身份認證和鑑權流程的工作方式以及如何配置它們。
+本節介紹身份認證和鑑權流程的工作方式以及如何設定它們。
 
 <!--
 The high-level flow is as follows:
@@ -85,10 +85,10 @@ The high-level flow is as follows:
 -->
 大致流程如下：
 
-1. Kubernetes apiserver：對發出請求的用戶身份認證，並對請求的 API 路徑執行鑑權。
+1. Kubernetes apiserver：對發出請求的使用者身份認證，並對請求的 API 路徑執行鑑權。
 2. Kubernetes apiserver：將請求轉發到擴展 apiserver
 3. 擴展 apiserver：認證來自 Kubernetes apiserver 的請求
-4. 擴展 apiserver：對來自原始用戶的請求鑑權
+4. 擴展 apiserver：對來自原始使用者的請求鑑權
 5. 擴展 apiserver：執行
 
 <!--
@@ -179,17 +179,17 @@ title: 認證流程
 User -> kube-apiserver / aggregator:
 
 note:
-1.用戶使用任何公認的憑證（例如 OIDC 或客戶端證書）向 Kube Apiserver 發出請求
+1.使用者使用任何公認的憑證（例如 OIDC 或客戶端證書）向 Kube Apiserver 發出請求
 
 kube-apiserver / aggregator -> kube-apiserver / aggregator: 認證
 
 note:
-2.Kube Apiserver 使用任何配置的身份驗證方法（例如 OIDC 或客戶端證書）對傳入請求認證
+2.Kube Apiserver 使用任何設定的身份驗證方法（例如 OIDC 或客戶端證書）對傳入請求認證
 
 kube-apiserver / aggregator -> kube-apiserver / aggregator: 鑑權
 
 note:
-3.Kube Apiserver 使用任何配置的鑑權方法（例如 RBAC）對請求的 URL 鑑權
+3.Kube Apiserver 使用任何設定的鑑權方法（例如 RBAC）對請求的 URL 鑑權
 
 kube-apiserver / aggregator -> 聚合的 apiserver:
 
@@ -197,7 +197,7 @@ note:
 4.aggregator 使用 `--proxy-client-cert-file`，`--proxy-client-key-file`
   客戶端證書/密鑰打開與聚合 Apiserver 的連接以保護通道
 
-5.aggregator 將步驟 1 中的用戶信息作爲 http 標頭髮送到聚合的 Apiserver，
+5.aggregator 將步驟 1 中的使用者信息作爲 http 標頭髮送到聚合的 Apiserver，
   如以下標誌所定義：
 
   * `--requestheader-username-headers`
@@ -210,10 +210,10 @@ note:
 6.聚合的 apiserver 使用代理身份驗證方法對傳入的請求認證：
 
   * 驗證請求是否具有公認的身份驗證代理客戶端證書
-  * 從傳入請求的 HTTP 標頭中提取用戶信息
+  * 從傳入請求的 HTTP 標頭中提取使用者信息
 
 默認情況下，它從 kube-apiserver 發佈的 kube-system 命名空間中的 configmap
-中獲取配置信息，其中包含提供給 kube-apiserver 的`--requestheader-...`
+中獲取設定信息，其中包含提供給 kube-apiserver 的`--requestheader-...`
 標誌中的信息（要使用的 CA 包，要允許的身份驗證代理客戶端證書名稱，
 要使用的 HTTP 標頭名稱等）
 
@@ -258,12 +258,12 @@ The Kubernetes apiserver now is prepared to send the request to the extension ap
 與 Kubernetes apiserver 的通信。該路徑已通過擴展 apiserver 在
 Kubernetes apiserver 中註冊。
 
-用戶與 Kubernetes apiserver 通信，請求訪問路徑。
-Kubernetes apiserver 使用它的標準認證和授權配置來對用戶認證，以及對特定路徑的鑑權。
+使用者與 Kubernetes apiserver 通信，請求訪問路徑。
+Kubernetes apiserver 使用它的標準認證和授權設定來對使用者認證，以及對特定路徑的鑑權。
 
-有關對 Kubernetes 集羣認證的概述，
-請參見[對集羣認證](/zh-cn/docs/reference/access-authn-authz/authentication/)。
-有關對 Kubernetes 集羣資源的訪問鑑權的概述，
+有關對 Kubernetes 叢集認證的概述，
+請參見[對叢集認證](/zh-cn/docs/reference/access-authn-authz/authentication/)。
+有關對 Kubernetes 叢集資源的訪問鑑權的概述，
 請參見[鑑權概述](/zh-cn/docs/reference/access-authn-authz/authorization/)。
 
 到目前爲止，所有內容都是標準的 Kubernetes API 請求，認證與鑑權。
@@ -291,12 +291,12 @@ Kubernetes apiserver 現在將請求發送或代理到註冊以處理該請求�
 爲此，它需要了解幾件事：
 
 1. Kubernetes apiserver 應該如何向擴展 apiserver 認證，以通知擴展
-   apiserver 通過網絡發出的請求來自有效的 Kubernetes apiserver？
+   apiserver 通過網路發出的請求來自有效的 Kubernetes apiserver？
 
 2. Kubernetes apiserver 應該如何通知擴展 apiserver
-   原始請求已通過認證的用戶名和組？
+   原始請求已通過認證的使用者名和組？
 
-爲提供這兩條信息，你必須使用若干標誌來配置 Kubernetes apiserver。
+爲提供這兩條信息，你必須使用若干標誌來設定 Kubernetes apiserver。
 
 <!--
 #### Kubernetes Apiserver Client Authentication
@@ -384,14 +384,14 @@ original request successfully authenticated. It provides these in http headers o
 These header names are also placed in the `extension-apiserver-authentication` configmap,
 so they can be retrieved and used by extension apiservers.
 -->
-#### 原始請求用戶名和組
+#### 原始請求使用者名和組
 
 當 Kubernetes apiserver 將請求代理到擴展 apiserver 時，
-它將向擴展 apiserver 通知原始請求已成功通過其驗證的用戶名和組。
+它將向擴展 apiserver 通知原始請求已成功通過其驗證的使用者名和組。
 它在其代理請求的 HTTP 頭部中提供這些。你必須將要使用的標頭名稱告知
 Kubernetes apiserver。
 
-* 通過 `--requestheader-username-headers` 標明用來保存用戶名的頭部
+* 通過 `--requestheader-username-headers` 標明用來保存使用者名的頭部
 * 通過 `--requestheader-group-headers` 標明用來保存 group 的頭部
 * 通過 `--requestheader-extra-headers-prefix` 標明用來保存拓展信息前綴的頭部
 
@@ -425,13 +425,13 @@ which role the Kubernetes apiserver is fulfilling. The extension apiserver valid
 
    * 客戶端 CA 證書
    * 允許名稱（CN）列表
-   * 用戶名，組和其他信息的頭部
+   * 使用者名，組和其他信息的頭部
 
 2. 使用以下證書檢查 TLS 連接是否已通過認證：
 
    * 由其證書與檢索到的 CA 證書匹配的 CA 簽名。
    * 在允許的 CN 列表中有一個 CN，除非列表爲空，在這種情況下允許所有 CN。
-   * 從適當的頭部中提取用戶名和組。
+   * 從適當的頭部中提取使用者名和組。
 
 <!--
 If the above passes, then the request is a valid proxied request from a legitimate
@@ -450,7 +450,7 @@ in the `kube-system` namespace which can be assigned.
 
 請注意，擴展 apiserver 實現負責提供上述內容。
 默認情況下，許多擴展 apiserver 實現利用 `k8s.io/apiserver/` 軟件包來做到這一點。
-也有一些實現可能支持使用命令行選項來覆蓋這些配置。
+也有一些實現可能支持使用命令列選項來覆蓋這些設定。
 
 爲了具有檢索 configmap 的權限，擴展 apiserver 需要適當的角色。
 在 `kube-system` 名字空間中有一個默認角色
@@ -543,7 +543,7 @@ if not used correctly.
 * `--client-ca-file`：當請求到達 Kubernetes apiserver 時，如果啓用了此選項，
   則 Kubernetes apiserver 會檢查請求的證書。
   如果它是由 `--client-ca-file` 引用的文件中的 CA 證書之一簽名的，
-  並且用戶是公用名 `CN=` 的值，而組是組織 `O=` 的取值，則該請求被視爲合法請求。
+  並且使用者是公用名 `CN=` 的值，而組是組織 `O=` 的取值，則該請求被視爲合法請求。
   請參閱[關於 TLS 身份驗證的文檔](/zh-cn/docs/reference/access-authn-authz/authentication/#x509-client-certificates)。
 
 * `--requestheader-client-ca-file`：當請求到達 Kubernetes apiserver 時，
@@ -578,10 +578,10 @@ option - to authorize control plane components and end-users - and the `--reques
 傳遞的客戶端請求將失敗，因爲 CA 將與 `--requestheader-client-ca-file`
 中的 CA 匹配，但是通用名稱 `CN=` 將不匹配 `--requestheader-allowed-names`
 中可接受的通用名稱之一。
-這可能導致你的 kubelet 和其他控制平面組件以及最終用戶無法向
+這可能導致你的 kubelet 和其他控制平面組件以及最終使用者無法向
 Kubernetes apiserver 認證。
 
-因此，請對用於控制平面組件和最終用戶鑑權的 `--client-ca-file`
+因此，請對用於控制平面組件和最終使用者鑑權的 `--client-ca-file`
 選項和用於聚合 apiserver 鑑權的 `--requestheader-client-ca-file`
 選項使用不同的 CA 證書。
 
@@ -597,7 +597,7 @@ the risks and the mechanisms to protect the CA's usage.
 If you are not running kube-proxy on a host running the API server,
 then you must make sure that the system is enabled with the following `kube-apiserver` flag:
 -->
-如果你未在運行 API 服務器的主機上運行 kube-proxy，則必須確保使用以下
+如果你未在運行 API 伺服器的主機上運行 kube-proxy，則必須確保使用以下
 `kube-apiserver` 標誌啓用系統：
 
 ```
@@ -612,7 +612,7 @@ apiserver. The following is an example registration:
 -->
 ### 註冊 APIService 對象   {#register-apiservice-objects}
 
-你可以動態配置將哪些客戶端請求代理到擴展 apiserver。以下是註冊示例：
+你可以動態設定將哪些客戶端請求代理到擴展 apiserver。以下是註冊示例：
 
 ```yaml
 apiVersion: apiregistration.k8s.io/v1
@@ -627,7 +627,7 @@ spec:
   service:
     namespace: <拓展 Apiserver 服務的名字空間>
     name: <拓展 Apiserver 服務的名稱>
-  caBundle: <PEM 編碼的 CA 證書，用於對 Webhook 服務器的證書籤名>
+  caBundle: <PEM 編碼的 CA 證書，用於對 Webhook 伺服器的證書籤名>
 ```
 
 <!--
@@ -658,7 +658,7 @@ and to verify the TLS connection against the ServerName
 `service` 部分是對擴展 apiserver 的服務的引用。
 服務的名字空間和名字是必需的。端口是可選的，默認爲 443。
 
-下面是一個擴展 apiserver 的配置示例，它被配置爲在端口 `1234` 上調用。
+下面是一個擴展 apiserver 的設定示例，它被設定爲在端口 `1234` 上調用。
 並針對 ServerName `my-service-name.my-service-namespace.svc`
 使用自定義的 CA 包來驗證 TLS 連接使用自定義 CA 捆綁包的
 `my-service-name.my-service-namespace.svc`。
@@ -687,6 +687,6 @@ spec:
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
 -->
 
-* 使用聚合層[安裝擴展 API 服務器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)。
+* 使用聚合層[安裝擴展 API 伺服器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)。
 * 有關高級概述，請參閱[使用聚合層擴展 Kubernetes API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)。
 * 瞭解如何[使用自定義資源擴展 Kubernetes API](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。

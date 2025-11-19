@@ -37,9 +37,9 @@ ListMeta describes metadata that synthetic resources must have, including lists 
 -->
 - **continue** (string)
 
-  如果用戶對返回的條目數量設置了限制，則 `continue` 可能被設置，表示服務器有更多可用的數據。
+  如果使用者對返回的條目數量設置了限制，則 `continue` 可能被設置，表示伺服器有更多可用的數據。
   該值是不透明的，可用於向提供此列表服務的端點發出另一個請求，以檢索下一組可用的對象。
-  如果服務器配置已更改或時間已過去幾分鐘，則可能無法繼續提供一致的列表。
+  如果伺服器設定已更改或時間已過去幾分鐘，則可能無法繼續提供一致的列表。
   除非你在錯誤消息中收到此令牌（token），否則使用此 `continue` 值時返回的 `resourceVersion` 
   字段應該和第一個響應中的值是相同的。
 
@@ -53,7 +53,7 @@ ListMeta describes metadata that synthetic resources must have, including lists 
   `remainingItemCount` 是列表中未包含在此列表響應中的後續項目的數量。
   如果列表請求包含標籤或字段選擇器，則剩餘項目的數量是未知的，並且在序列化期間該字段將保持未設置和省略。
   如果列表是完整的（因爲它沒有分塊或者這是最後一個塊），那麼就沒有剩餘的項目，並且在序列化過程中該字段將保持未設置和省略。
-  早於 v1.15 的服務器不設置此字段。`remainingItemCount` 的預期用途是*估計*集合的大小。
+  早於 v1.15 的伺服器不設置此字段。`remainingItemCount` 的預期用途是*估計*集合的大小。
   客戶端不應依賴於設置準確的 `remainingItemCount`。
 
 <!--
@@ -63,8 +63,8 @@ ListMeta describes metadata that synthetic resources must have, including lists 
 -->
 - **resourceVersion** (string)
 
-  標識該對象的服務器內部版本的字符串，客戶端可以用該字段來確定對象何時被更改。
-  該值對客戶端是不透明的，並且應該原樣傳回給服務器。該值由系統填充，只讀。更多信息：
+  標識該對象的伺服器內部版本的字符串，客戶端可以用該字段來確定對象何時被更改。
+  該值對客戶端是不透明的，並且應該原樣傳回給伺服器。該值由系統填充，只讀。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
 
 <!--

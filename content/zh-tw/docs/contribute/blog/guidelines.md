@@ -77,8 +77,8 @@ diverse - for example, a submission shouldn't contain only links back to a singl
 ## 相關內容
 
 文章必須包含適用於整個 Kubernetes 社區的內容。例如，投稿應側重於上游
-Kubernetes，而不是特定供應商的配置。
-對於提交到主博客且不是[鏡像文章](/zh-cn/docs/contribute/blog/mirroring/)的文章，
+Kubernetes，而不是特定供應商的設定。
+對於提交到主博客且不是[映像檔文章](/zh-cn/docs/contribute/blog/mirroring/)的文章，
 文章中的超鏈接應通常指向官方 Kubernetes 文檔。
 在進行外部引用時，鏈接應該是多樣的 - 例如，投稿不應只包含返回單個公司博客的鏈接。
 
@@ -152,7 +152,7 @@ The project typically [mirrors](/docs/contribute/blog/mirroring/) these articles
 與參與 Kubernetes SIG 活動或其成果相關的主題總是合適的
 （參見[貢獻者通訊團隊](https://github.com/kubernetes/community/blob/master/communication/contributor-comms/blogging-resources/blog-guidelines.md#contributor-comms-blog-guidelines)中的工作以獲得這些帖子的支持）。
 
-該項目通常會將這些文章[鏡像](/zh-cn/docs/contribute/blog/mirroring/)到兩個博客上。
+該項目通常會將這些文章[映像檔](/zh-cn/docs/contribute/blog/mirroring/)到兩個博客上。
 
 <!--
 ## National restrictions on content
@@ -162,7 +162,7 @@ The Kubernetes website has an Internet Content Provider (ICP) licence from the g
 ## 國家對內容的限制
 
 Kubernetes 網站擁有中國政府頒發的互聯網內容提供者（ICP）許可證。
-Kubernetes 不能發佈那些會被中國政府官方網絡內容過濾系統阻止的文章
+Kubernetes 不能發佈那些會被中國政府官方網路內容過濾系統阻止的文章
 （儘管這種情況不太可能發生）。
 
 <!--
@@ -324,5 +324,5 @@ However, the project will not publish:
 * 關於與特定雲提供商一起使用 Kubernetes 的文章
 * 批評特定人士、人羣或企業的文章
 * 包含重要技術錯誤或誤導性細節的文章（例如：
-  如果你建議在生產集羣中關閉一個重要安全控制，因爲其可能帶來不便，
+  如果你建議在生產叢集中關閉一個重要安全控制，因爲其可能帶來不便，
   Kubernetes 項目可能會拒絕該文章）

@@ -32,7 +32,7 @@ are the empty string (no cloud provider integration), or "external"
 (integration via a separate cloud-controller-manager).
 -->
 啓用此特性門控會取消新激活 `kube-apiserver`、`kube-controller-manager` 和 `kubelet` 中與
-`--cloud-provider` 命令行參數相關的功能。
+`--cloud-provider` 命令列參數相關的功能。
 
 在 Kubernetes v1.31 及更高版本中，`--cloud-provider`
 的唯一有效值爲空字符串（沒有云驅動集成組件）或 "external"（通過獨立的 cloud-controller-manager 進行集成）。

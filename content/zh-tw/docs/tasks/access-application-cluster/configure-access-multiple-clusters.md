@@ -1,11 +1,11 @@
 ---
-title: 配置對多集羣的訪問
+title: 設定對多叢集的訪問
 content_type: task
 weight: 30
 card:
   name: tasks
   weight: 25
-  title: 配置對集羣的訪問
+  title: 設定對叢集的訪問
 ---
 <!--
 title: Configure Access to Multiple Clusters
@@ -25,9 +25,9 @@ configuration files. After your clusters, users, and contexts are defined in
 one or more configuration files, you can quickly switch between clusters by using the
 `kubectl config use-context` command.
 -->
-本文展示如何使用配置文件來配置對多個集羣的訪問。
-在將集羣、用戶和上下文定義在一個或多個配置文件中之後，用戶可以使用
-`kubectl config use-context` 命令快速地在集羣之間進行切換。
+本文展示如何使用設定文件來設定對多個叢集的訪問。
+在將叢集、使用者和上下文定義在一個或多個設定文件中之後，使用者可以使用
+`kubectl config use-context` 命令快速地在叢集之間進行切換。
 
 {{< note >}}
 <!--
@@ -35,8 +35,8 @@ A file that is used to configure access to a cluster is sometimes called
 a *kubeconfig file*. This is a generic way of referring to configuration files.
 It does not mean that there is a file named `kubeconfig`.
 -->
-用於配置集羣訪問的文件有時被稱爲 **kubeconfig 文件**。
-這是一種引用配置文件的通用方式，並不意味着存在一個名爲 `kubeconfig` 的文件。
+用於設定叢集訪問的文件有時被稱爲 **kubeconfig 文件**。
+這是一種引用設定文件的通用方式，並不意味着存在一個名爲 `kubeconfig` 的文件。
 {{< /note >}}
 
 {{< warning >}}
@@ -60,8 +60,8 @@ run `kubectl version --client`. The kubectl version should be
 cluster's API server.
 -->
 要檢查 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 是否安裝，
-執行 `kubectl version --client` 命令。kubectl 的版本應該與集羣的 API
-服務器[使用同一次版本號](/zh-cn/releases/version-skew-policy/#kubectl)。
+執行 `kubectl version --client` 命令。kubectl 的版本應該與叢集的 API
+伺服器[使用同一次版本號](/zh-cn/releases/version-skew-policy/#kubectl)。
 
 <!-- steps -->
 
@@ -78,14 +78,14 @@ to the test cluster requires authentication by username and password.
 Create a directory named `config-exercise`. In your
 `config-exercise` directory, create a file named `config-demo` with this content:
 -->
-## 定義集羣、用戶和上下文    {#define-clusters-users-and-contexts}
+## 定義叢集、使用者和上下文    {#define-clusters-users-and-contexts}
 
-假設用戶有兩個集羣，一個用於開發工作（development），一個用於測試工作（test）。
-在 `development` 集羣中，前端開發者在名爲 `frontend` 的名字空間下工作，
-存儲開發者在名爲 `storage` 的名字空間下工作。在 `test` 集羣中，
+假設使用者有兩個叢集，一個用於開發工作（development），一個用於測試工作（test）。
+在 `development` 叢集中，前端開發者在名爲 `frontend` 的名字空間下工作，
+存儲開發者在名爲 `storage` 的名字空間下工作。在 `test` 叢集中，
 開發人員可能在默認名字空間下工作，也可能視情況創建附加的名字空間。
-訪問開發集羣需要通過證書進行認證。
-訪問測試集羣需要通過用戶名和密碼進行認證。
+訪問開發叢集需要通過證書進行認證。
+訪問測試叢集需要通過使用者名和密碼進行認證。
 
 創建名爲 `config-exercise` 的目錄。在
 `config-exercise` 目錄中，創建名爲 `config-demo` 的文件，其內容爲：
@@ -121,10 +121,10 @@ has the framework to describe two clusters, two users, and three contexts.
 Go to your `config-exercise` directory. Enter these commands to add cluster details to
 your configuration file:
 -->
-配置文件描述了集羣、用戶名和上下文。`config-demo` 文件中含有描述兩個集羣、
-兩個用戶和三個上下文的框架。
+設定文件描述了叢集、使用者名和上下文。`config-demo` 文件中含有描述兩個叢集、
+兩個使用者和三個上下文的框架。
 
-進入 `config-exercise` 目錄。輸入以下命令，將集羣詳細信息添加到配置文件中：
+進入 `config-exercise` 目錄。輸入以下命令，將叢集詳細信息添加到設定文件中：
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
@@ -134,13 +134,13 @@ kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.
 <!--
 Add user details to your configuration file:
 -->
-將用戶詳細信息添加到配置文件中：
+將使用者詳細信息添加到設定文件中：
 
 {{< caution >}}
 <!--
 Storing passwords in Kubernetes client config is risky. A better alternative would be to use a credential plugin and store them separately. See: [client-go credential plugins](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
 -->
-將密碼保存到 Kubernetes 客戶端配置中有風險。
+將密碼保存到 Kubernetes 客戶端設定中有風險。
 一個較好的替代方式是使用憑據插件並單獨保存這些憑據。
 參閱 [client-go 憑據插件](/zh-cn/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)
 {{< /caution >}}
@@ -156,15 +156,15 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 - To remove a cluster, you can run `kubectl --kubeconfig=config-demo config unset clusters.<name>`
 - To remove a context, you can run `kubectl --kubeconfig=config-demo config unset contexts.<name>`
 -->
-- 要刪除用戶，可以運行 `kubectl --kubeconfig=config-demo config unset users.<name>`
-- 要刪除集羣，可以運行 `kubectl --kubeconfig=config-demo config unset clusters.<name>`
+- 要刪除使用者，可以運行 `kubectl --kubeconfig=config-demo config unset users.<name>`
+- 要刪除叢集，可以運行 `kubectl --kubeconfig=config-demo config unset clusters.<name>`
 - 要刪除上下文，可以運行 `kubectl --kubeconfig=config-demo config unset contexts.<name>`
 {{< /note >}}
 
 <!--
 Add context details to your configuration file:
 -->
-將上下文詳細信息添加到配置文件中：
+將上下文詳細信息添加到設定文件中：
 
 ```shell
 kubectl config --kubeconfig=config-demo set-context dev-frontend --cluster=development --namespace=frontend --user=developer
@@ -186,7 +186,7 @@ kubectl config --kubeconfig=config-demo view
 <!--
 The output shows the two clusters, two users, and three contexts:
 -->
-輸出展示了兩個集羣、兩個用戶和三個上下文：
+輸出展示了兩個叢集、兩個使用者和三個上下文：
 
 ```yaml
 apiVersion: v1
@@ -256,8 +256,8 @@ user to access the `frontend` namespace of the `development` cluster".
 
 Set the current context:
 -->
-每個上下文包含三部分（集羣、用戶和名字空間），例如，
-`dev-frontend` 上下文表明：使用 `developer` 用戶的憑證來訪問 `development` 集羣的
+每個上下文包含三部分（叢集、使用者和名字空間），例如，
+`dev-frontend` 上下文表明：使用 `developer` 使用者的憑證來訪問 `development` 叢集的
 `frontend` 名字空間。
 
 設置當前上下文：
@@ -274,10 +274,10 @@ the credentials of the user listed in the `dev-frontend` context.
 To see only the configuration information associated with
 the current context, use the `--minify` flag.
 -->
-現在當輸入 `kubectl` 命令時，相應動作會應用於 `dev-frontend` 上下文中所列的集羣和名字空間，
-同時，命令會使用 `dev-frontend` 上下文中所列用戶的憑證。
+現在當輸入 `kubectl` 命令時，相應動作會應用於 `dev-frontend` 上下文中所列的叢集和名字空間，
+同時，命令會使用 `dev-frontend` 上下文中所列使用者的憑證。
 
-使用 `--minify` 參數，來查看與當前上下文相關聯的配置信息。
+使用 `--minify` 參數，來查看與當前上下文相關聯的設定信息。
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -286,7 +286,7 @@ kubectl config --kubeconfig=config-demo view --minify
 <!--
 The output shows configuration information associated with the `dev-frontend` context:
 -->
-輸出結果展示了 `dev-frontend` 上下文相關的配置信息：
+輸出結果展示了 `dev-frontend` 上下文相關的設定信息：
 
 ```yaml
 apiVersion: v1
@@ -316,7 +316,7 @@ Now suppose you want to work for a while in the test cluster.
 
 Change the current context to `exp-test`:
 -->
-現在假設用戶希望在測試集羣中工作一段時間。
+現在假設使用者希望在測試叢集中工作一段時間。
 
 將當前上下文更改爲 `exp-test`：
 
@@ -331,10 +331,10 @@ listed in the `exp-test` context.
 
 View configuration associated with the new current context, `exp-test`.
 -->
-現在你發出的所有 `kubectl` 命令都將應用於 `test` 集羣的默認名字空間。
-同時，命令會使用 `exp-test` 上下文中所列用戶的憑證。
+現在你發出的所有 `kubectl` 命令都將應用於 `test` 叢集的默認名字空間。
+同時，命令會使用 `exp-test` 上下文中所列使用者的憑證。
 
-查看更新後的當前上下文 `exp-test` 相關的配置：
+查看更新後的當前上下文 `exp-test` 相關的設定：
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -346,7 +346,7 @@ Finally, suppose you want to work for a while in the `storage` namespace of the
 
 Change the current context to `dev-storage`:
 -->
-最後，假設用戶希望在 `development` 集羣中的 `storage` 名字空間下工作一段時間。
+最後，假設使用者希望在 `development` 叢集中的 `storage` 名字空間下工作一段時間。
 
 將當前上下文更改爲 `dev-storage`：
 
@@ -357,7 +357,7 @@ kubectl config --kubeconfig=config-demo use-context dev-storage
 <!--
 View configuration associated with the new current context, `dev-storage`.
 -->
-查看更新後的當前上下文 `dev-storage` 相關的配置：
+查看更新後的當前上下文 `dev-storage` 相關的設定：
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -368,7 +368,7 @@ kubectl config --kubeconfig=config-demo view --minify
 
 In your `config-exercise` directory, create a file named `config-demo-2` with this content:
 -->
-## 創建第二個配置文件    {#create-a-second-configuration-file}
+## 創建第二個設定文件    {#create-a-second-configuration-file}
 
 在 `config-exercise` 目錄中，創建名爲 `config-demo-2` 的文件，其中包含以下內容：
 
@@ -388,7 +388,7 @@ contexts:
 <!--
 The preceding configuration file defines a new context named `dev-ramp-up`.
 -->
-上述配置文件定義了一個新的上下文，名爲 `dev-ramp-up`。
+上述設定文件定義了一個新的上下文，名爲 `dev-ramp-up`。
 
 <!--
 ## Set the KUBECONFIG environment variable
@@ -423,9 +423,9 @@ in the list.
 
 Temporarily append two paths to your `KUBECONFIG` environment variable. For example:
 -->
-`KUBECONFIG` 環境變量是配置文件路徑的列表，該列表在 Linux 和 Mac 中以冒號分隔，
+`KUBECONFIG` 環境變量是設定文件路徑的列表，該列表在 Linux 和 Mac 中以冒號分隔，
 在 Windows 中以分號分隔。
-如果有 `KUBECONFIG` 環境變量，請熟悉列表中的配置文件。
+如果有 `KUBECONFIG` 環境變量，請熟悉列表中的設定文件。
 
 臨時添加兩條路徑到 `KUBECONFIG` 環境變量中。例如：
 
@@ -489,7 +489,7 @@ For more information about how kubeconfig files are merged, see
 [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 -->
 關於 kubeconfig 文件如何合併的更多信息，
-請參考[使用 kubeconfig 文件組織集羣訪問](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+請參考[使用 kubeconfig 文件組織叢集訪問](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 <!--
 ## Explore the $HOME/.kube directory
@@ -504,11 +504,11 @@ familiarize yourself with the contents of these files.
 -->
 ## 探索 $HOME/.kube 目錄    {#explore-the-home-kube-directory}
 
-如果用戶已經擁有一個集羣，可以使用 `kubectl` 與集羣進行交互，
+如果使用者已經擁有一個叢集，可以使用 `kubectl` 與叢集進行交互，
 那麼很可能在 `$HOME/.kube` 目錄下有一個名爲 `config` 的文件。
 
 進入 `$HOME/.kube` 目錄，看看那裏有什麼文件。通常會有一個名爲
-`config` 的文件，目錄中可能還有其他配置文件。請簡單地熟悉這些文件的內容。
+`config` 的文件，目錄中可能還有其他設定文件。請簡單地熟悉這些文件的內容。
 
 <!--
 ## Append $HOME/.kube/config to your KUBECONFIG environment variable
@@ -538,7 +538,7 @@ $Env:KUBECONFIG="$Env:KUBECONFIG;$HOME\.kube\config"
 View configuration information merged from all the files that are now listed
 in your `KUBECONFIG` environment variable. In your config-exercise directory, enter:
 -->
-在配置練習目錄中輸入以下命令，查看當前 `KUBECONFIG` 環境變量中列舉的所有文件合併後的配置信息：
+在設定練習目錄中輸入以下命令，查看當前 `KUBECONFIG` 環境變量中列舉的所有文件合併後的設定信息：
 
 ```shell
 kubectl config view
@@ -573,8 +573,8 @@ It can be even more challenging if you are managing more than one cluster at the
 -->
 ## 檢查 kubeconfig 所表示的主體   {#check-the-subject}
 
-你在通過集羣的身份驗證後將獲得哪些屬性（用戶名、組），這一點並不總是很明顯。
-如果你同時管理多個集羣，這可能會更具挑戰性。
+你在通過叢集的身份驗證後將獲得哪些屬性（使用者名、組），這一點並不總是很明顯。
+如果你同時管理多個叢集，這可能會更具挑戰性。
 
 <!--
 There is a `kubectl` subcommand to check subject attributes, such as username, for your selected Kubernetes 
@@ -583,7 +583,7 @@ client context: `kubectl auth whoami`.
 Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
 to learn about this in more detail.
 -->
-對於你所選擇的 Kubernetes 客戶端上下文，有一個 `kubectl` 子命令可以檢查用戶名等主體屬性：
+對於你所選擇的 Kubernetes 客戶端上下文，有一個 `kubectl` 子命令可以檢查使用者名等主體屬性：
 `kubectl alpha auth whoami`。
 
 更多細節請參閱[通過 API 訪問客戶端的身份驗證信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。
@@ -594,6 +594,6 @@ to learn about this in more detail.
 * [Organizing Cluster Access Using kubeconfig Files](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 -->
-* [使用 kubeconfig 文件組織集羣訪問](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+* [使用 kubeconfig 文件組織叢集訪問](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 

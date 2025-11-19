@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "k8s.gcr.io 鏡像倉庫將從 2023 年 4 月 3 日起被凍結"
+title: "k8s.gcr.io 映像檔倉庫將從 2023 年 4 月 3 日起被凍結"
 date: 2023-02-06
 slug: k8s-gcr-io-freeze-announcement
 ---
@@ -30,8 +30,8 @@ about its benefits to the community and the Kubernetes project. This post also
 announced that future versions of Kubernetes will not be available in the old
 registry. Now that time has come.
 -->
-Kubernetes 項目運行一個名爲 `registry.k8s.io`、由社區管理的鏡像倉庫來託管其容器鏡像。
-2023 年 4 月 3 日，舊倉庫 `k8s.gcr.io` 將被凍結，Kubernetes 及其相關子項目的鏡像將不再推送到這個舊倉庫。
+Kubernetes 項目運行一個名爲 `registry.k8s.io`、由社區管理的映像檔倉庫來託管其容器映像檔。
+2023 年 4 月 3 日，舊倉庫 `k8s.gcr.io` 將被凍結，Kubernetes 及其相關子項目的映像檔將不再推送到這個舊倉庫。
 
 `registry.k8s.io` 這個倉庫代替了舊倉庫，這個新倉庫已正式發佈七個月。
 我們也發佈了一篇[博文](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/)闡述新倉庫給社區和
@@ -62,15 +62,15 @@ What does this change mean for end users:
   external traffic is restricted, you should consider hosting local image registry
   mirrors. Some cloud vendors may offer hosted solutions for this.
 -->
-這次變更對終端用戶意味着：
+這次變更對終端使用者意味着：
 
 - Kubernetes 1.27 版本將不會發布到舊倉庫。
 - 1.24、1.25 和 1.26 版本的補丁從 4 月份起將不再發布到舊倉庫。請閱讀以下時間線，瞭解舊倉庫最終補丁版本的詳情。
-- 從 1.25 開始，默認的鏡像倉庫已設置爲 `registry.k8s.io`。`kubeadm` 和 `kubelet`
-  中的這個鏡像倉庫地址是可覆蓋的，但設置爲 `k8s.gcr.io` 將在 4 月份之後的新版本中失敗，
+- 從 1.25 開始，默認的映像檔倉庫已設置爲 `registry.k8s.io`。`kubeadm` 和 `kubelet`
+  中的這個映像檔倉庫地址是可覆蓋的，但設置爲 `k8s.gcr.io` 將在 4 月份之後的新版本中失敗，
   因爲舊倉庫將沒有這些版本了。
-- 如果你想提高集羣的可靠性，不想再依賴社區管理的鏡像倉庫，或你正在外部流量受限的網絡中運行 Kubernetes，
-  你應該考慮託管本地鏡像倉庫的鏡像。一些雲供應商可能會爲此提供託管解決方案。
+- 如果你想提高叢集的可靠性，不想再依賴社區管理的映像檔倉庫，或你正在外部流量受限的網路中運行 Kubernetes，
+  你應該考慮託管本地映像檔倉庫的映像檔。一些雲供應商可能會爲此提供託管解決方案。
 
 <!--
 ## Timeline of the changes
@@ -99,7 +99,7 @@ For example,  you can run this command to list the images used by pods:
 -->
 ## 下一步   {#whats-next}
 
-請確保你的集羣未依賴舊的鏡像倉庫。例如，你可以運行以下命令列出 Pod 使用的鏡像：
+請確保你的叢集未依賴舊的映像檔倉庫。例如，你可以運行以下命令列出 Pod 使用的映像檔：
 
 ```shell
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
@@ -112,7 +112,7 @@ uniq -c
 There may be other dependencies on the old image registry. Make sure you review
 any potential dependencies to keep your cluster healthy and up to date.
 -->
-舊的鏡像倉庫可能存在其他依賴項。請確保你檢查了所有潛在的依賴項，以保持集羣健康和最新。
+舊的映像檔倉庫可能存在其他依賴項。請確保你檢查了所有潛在的依賴項，以保持叢集健康和最新。
 
 <!--
 ## Acknowledgments
@@ -125,7 +125,7 @@ executing plans, and doing our best to communicate those plans.
 -->
 ## 致謝   {#acknowledgments}
 
-__改變是艱難的__，但只有鏡像服務平臺演進才能確保 Kubernetes 項目可持續的未來。
+__改變是艱難的__，但只有映像檔服務平臺演進才能確保 Kubernetes 項目可持續的未來。
 我們努力爲 Kubernetes 的每個使用者提供更好的服務。從社區各個角落匯聚而來的衆多貢獻者長期努力工作，
 確保我們能夠做出儘可能最好的決策、履行計劃並盡最大努力傳達這些計劃。
 

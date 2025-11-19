@@ -30,4 +30,4 @@ for more details.
 -->
 允許使用 Pod 的 `dnsConfig` 屬性自定義其 DNS 設置。
 更多詳細信息，請參見
-[Pod 的 DNS 配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/#pod-dns-config)。
+[Pod 的 DNS 設定](/zh-cn/docs/concepts/services-networking/dns-pod-service/#pod-dns-config)。

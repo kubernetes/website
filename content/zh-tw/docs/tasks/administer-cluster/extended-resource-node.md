@@ -17,7 +17,7 @@ Extended resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 -->
 本文展示瞭如何爲節點指定擴展資源（Extended Resource）。
-擴展資源允許集羣管理員發佈節點級別的資源，這些資源在不進行發佈的情況下無法被 Kubernetes 感知。
+擴展資源允許叢集管理員發佈節點級別的資源，這些資源在不進行發佈的情況下無法被 Kubernetes 感知。
 
 ## {{% heading "prerequisites" %}}
 
@@ -254,7 +254,7 @@ Host: k8s-master:8080
 <!--
 Start a proxy, so that you can easily send requests to the Kubernetes API server:
 -->
-啓動一個代理，以便你可以很容易地向 Kubernetes API 服務器發送請求：
+啓動一個代理，以便你可以很容易地向 Kubernetes API 伺服器發送請求：
 
 ```shell
 kubectl proxy
@@ -306,8 +306,8 @@ kubectl describe node <your-node-name> | grep dongle
 - [將擴展資源分配給容器](/zh-cn/docs/tasks/configure-pod-container/extended-resource/)
 - [通過 DRA 爲節點分配擴展資源](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)
 
-### 針對集羣管理員
+### 針對叢集管理員
 
-- [爲名字空間配置最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-- [爲名字空間配置最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+- [爲名字空間設定最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [爲名字空間設定最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 - [通過 DRA 爲節點分配擴展資源](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#extended-resource)

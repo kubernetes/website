@@ -128,7 +128,7 @@ The output is similar to:
    You can use `chown` to change the file ownership back to your own user.
    -->
    如果出現錯誤，請檢查你是否有權限複製文件。
-   你可以使用 `chown` 命令將文件所有權更改回你自己的用戶。
+   你可以使用 `chown` 命令將文件所有權更改回你自己的使用者。
    {{< /note >}}
 
 <!--

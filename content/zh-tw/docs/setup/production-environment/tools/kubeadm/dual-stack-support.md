@@ -21,8 +21,8 @@ networking, which means that cluster networking lets you use either address fami
 In a cluster, the control plane can assign both an IPv4 address and an IPv6 address to a single
 {{< glossary_tooltip text="Pod" term_id="pod" >}} or a {{< glossary_tooltip text="Service" term_id="service" >}}.
 -->
-你的集羣包含[雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)組網支持，
-這意味着集羣網絡允許你在兩種地址族間任選其一。在集羣中，控制面可以爲同一個
+你的叢集包含[雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)組網支持，
+這意味着叢集網路允許你在兩種地址族間任選其一。在叢集中，控制面可以爲同一個
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 或者
 {{< glossary_tooltip text="Service" term_id="service" >}}
 同時賦予 IPv4 和 IPv6 地址。
@@ -42,7 +42,7 @@ following the steps from [Installing kubeadm](/docs/setup/production-environment
 For each server that you want to use as a {{< glossary_tooltip text="node" term_id="node" >}},
 make sure it allows IPv6 forwarding.
 -->
-針對你要作爲{{< glossary_tooltip text="節點" term_id="node" >}}使用的每臺服務器，
+針對你要作爲{{< glossary_tooltip text="節點" term_id="node" >}}使用的每臺伺服器，
 確保其允許 IPv6 轉發。
 
 <!--
@@ -99,9 +99,9 @@ You don't have to route the cluster's IP address ranges to the public internet.
 The size of the IP address allocations should be suitable for the number of Pods and
 Services that you are planning to run.
 -->
-你需要一個可以使用的 IPv4 和 IPv6 地址範圍。集羣操作人員通常對 IPv4 使用
-私有的地址範圍。對於 IPv6，集羣操作人員通常會基於分配給他自己的地址範圍，
-從 `2000::/3` 中選擇一個全局的單播地址塊。你不需要將集羣的 IP 地址範圍路由到公衆互聯網。
+你需要一個可以使用的 IPv4 和 IPv6 地址範圍。叢集操作人員通常對 IPv4 使用
+私有的地址範圍。對於 IPv6，叢集操作人員通常會基於分配給他自己的地址範圍，
+從 `2000::/3` 中選擇一個全局的單播地址塊。你不需要將叢集的 IP 地址範圍路由到公衆互聯網。
 
 所分配的 IP 地址數量應該與你計劃運行的 Pod 和 Service 的數量相適應。
 
@@ -111,8 +111,8 @@ If you are upgrading an existing cluster with the `kubeadm upgrade` command,
 `kubeadm` does not support making modifications to the pod IP address range
 (“cluster CIDR”) nor to the cluster's Service address range (“Service CIDR”).
 -->
-如果你在使用 `kubeadm upgrade` 命令升級現有的集羣，`kubeadm` 不允許更改 Pod
-的 IP 地址範圍（“集羣 CIDR”），也不允許更改集羣的 Service 地址範圍（“Service CIDR”）。
+如果你在使用 `kubeadm upgrade` 命令升級現有的叢集，`kubeadm` 不允許更改 Pod
+的 IP 地址範圍（“叢集 CIDR”），也不允許更改叢集的 Service 地址範圍（“Service CIDR”）。
 {{< /note >}}
 
 <!--
@@ -121,9 +121,9 @@ If you are upgrading an existing cluster with the `kubeadm upgrade` command,
 To create a dual-stack cluster with `kubeadm init` you can pass command line arguments
 similar to the following example:
 -->
-### 創建雙協議棧集羣   {#create-a-dual-stack-cluster}
+### 創建雙協議棧叢集   {#create-a-dual-stack-cluster}
 
-要使用 `kubeadm init` 創建一個雙協議棧集羣，你可以傳遞與下面的例子類似的命令行參數：
+要使用 `kubeadm init` 創建一個雙協議棧叢集，你可以傳遞與下面的例子類似的命令列參數：
 
 <!--
 # These address ranges are examples
@@ -139,7 +139,7 @@ To make things clearer, here is an example kubeadm
 `kubeadm-config.yaml` for the primary dual-stack control plane node.
 -->
 爲了更便於理解，參看下面的名爲 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)，
+[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)，
 該文件用於雙協議棧控制面的主控制節點。
 
 ```yaml
@@ -168,7 +168,7 @@ will advertise it is listening on. The value of `advertiseAddress` equals the
 
 Run kubeadm to initiate the dual-stack control plane node:
 -->
-InitConfiguration 中的 `advertiseAddress` 給出 API 服務器將公告自身要監聽的
+InitConfiguration 中的 `advertiseAddress` 給出 API 伺服器將公告自身要監聽的
 IP 地址。`advertiseAddress` 的取值與 `kubeadm init` 的標誌
 `--apiserver-advertise-address` 的取值相同。
 
@@ -183,7 +183,7 @@ The kube-controller-manager flags `--node-cidr-mask-size-ipv4|--node-cidr-mask-s
 are set with default values. See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack).
 -->
 kube-controller-manager 標誌 `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6`
-是使用默認值來設置的。參見[配置 IPv4/IPv6 雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack)。
+是使用默認值來設置的。參見[設定 IPv4/IPv6 雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack#configure-ipv4-ipv6-dual-stack)。
 
 {{< note >}}
 <!--
@@ -200,12 +200,12 @@ Before joining a node, make sure that the node has IPv6 routable network interfa
 Here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta4/)
 `kubeadm-config.yaml` for joining a worker node to the cluster.
 -->
-### 向雙協議棧集羣添加節點   {#join-a-node-to-dual-stack-cluster}
+### 向雙協議棧叢集添加節點   {#join-a-node-to-dual-stack-cluster}
 
-在添加節點之前，請確保該節點具有 IPv6 可路由的網絡接口並且啓用了 IPv6 轉發。
+在添加節點之前，請確保該節點具有 IPv6 可路由的網路接口並且啓用了 IPv6 轉發。
 
 下面的名爲 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用於向集羣中添加工作節點。
+[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用於向叢集中添加工作節點。
 
 <!--
 ```yaml
@@ -245,7 +245,7 @@ Also, here is an example kubeadm [configuration file](/docs/reference/config-api
 `kubeadm-config.yaml` for joining another control plane node to the cluster.
 -->
 下面的名爲 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用於向集羣中添加另一個控制面節點。
+[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例用於向叢集中添加另一個控制面節點。
 
 <!--
 ```yaml
@@ -293,7 +293,7 @@ nodeRegistration:
 API Server will advertise it is listening on. The value of `advertiseAddress` equals
 the `--apiserver-advertise-address` flag of `kubeadm join`.
 -->
-JoinConfiguration.controlPlane 中的 `advertiseAddress` 設定 API 服務器將公告自身要監聽的
+JoinConfiguration.controlPlane 中的 `advertiseAddress` 設定 API 伺服器將公告自身要監聽的
 IP 地址。`advertiseAddress` 的取值與 `kubeadm join` 的標誌
 `--apiserver-advertise-address` 的取值相同。
 
@@ -304,7 +304,7 @@ kubeadm join --config=kubeadm-config.yaml
 <!--
 ### Create a single-stack cluster
 -->
-### 創建單協議棧集羣    {#create-a-single-stack-cluster}
+### 創建單協議棧叢集    {#create-a-single-stack-cluster}
 
 {{< note >}}
 <!--
@@ -312,7 +312,7 @@ Dual-stack support doesn't mean that you need to use dual-stack addressing.
 You can deploy a single-stack cluster that has the dual-stack networking feature enabled.
 -->
 雙協議棧支持並不意味着你需要使用雙協議棧來尋址。
-你可以部署一個啓用了雙協議棧聯網特性的單協議棧集羣。
+你可以部署一個啓用了雙協議棧聯網特性的單協議棧叢集。
 {{< /note >}}
 
 <!--
@@ -321,7 +321,7 @@ To make things more clear, here is an example kubeadm
 `kubeadm-config.yaml` for the single-stack control plane node.
 -->
 爲了更便於理解，參看下面的名爲 `kubeadm-config.yaml` 的 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例，
+[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)示例，
 該文件用於單協議棧控制面節點。
 
 ```yaml
@@ -340,5 +340,5 @@ networking:
 * Learn more about the kubeadm [configuration format](/docs/reference/config-api/kubeadm-config.v1beta4/)
 -->
 * [驗證 IPv4/IPv6 雙協議棧](/zh-cn/docs/tasks/network/validate-dual-stack)聯網
-* 閱讀[雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)集羣網絡
-* 進一步瞭解 kubeadm [配置格式](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)
+* 閱讀[雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)叢集網路
+* 進一步瞭解 kubeadm [設定格式](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)

@@ -69,7 +69,7 @@ to the kube-scheduler command line option `--feature-gates`.
 ### 啓用此特性   {#enabling-the-feature}
 
 在 Alpha 階段，`StorageCapacityScoring` 默認是禁用的。要使用此特性，請將
-`StorageCapacityScoring=true` 添加到 kube-scheduler 命令行選項
+`StorageCapacityScoring=true` 添加到 kube-scheduler 命令列選項
 `--feature-gates` 中。
 
 <!--
@@ -79,11 +79,11 @@ You can configure node priorities based on storage utilization using the `shape`
 This allows you to prioritize nodes with higher available storage capacity (default) or, conversely, nodes with lower available storage capacity.
 For example, to prioritize lower available storage capacity, configure `KubeSchedulerConfiguration` as follows:
 -->
-### 配置更改   {#configuration-changes}
+### 設定更改   {#configuration-changes}
 
-你可以使用 VolumeBinding 插件配置中的 `shape` 參數，根據存儲利用率來配置節點優先級。
+你可以使用 VolumeBinding 插件設定中的 `shape` 參數，根據存儲利用率來設定節點優先級。
 這允許你優先考慮具有更高可用存儲容量（默認）的節點，或者相反，優先考慮具有更低可用存儲容量的節點。
-例如，要優先考慮更低的可用存儲容量，請按如下方式配置 `KubeSchedulerConfiguration`：
+例如，要優先考慮更低的可用存儲容量，請按如下方式設定 `KubeSchedulerConfiguration`：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -121,7 +121,7 @@ will be deprecated and replaced by `StorageCapacityScoring`.
 -->
 ## 附加說明：與 VolumeCapacityPriority 的關係
 
-基於靜態配置期間的可用存儲容量進行節點評分的 Alpha **特性門控**
+基於靜態設定期間的可用存儲容量進行節點評分的 Alpha **特性門控**
 `VolumeCapacityPriority`，將被棄用，並由 `StorageCapacityScoring` 替代。
 
 <!--

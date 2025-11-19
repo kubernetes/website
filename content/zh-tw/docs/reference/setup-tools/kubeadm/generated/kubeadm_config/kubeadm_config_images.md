@@ -6,7 +6,7 @@
 <!--
 Interact with container images used by kubeadm.
 -->
-與 kubeadm 使用的容器鏡像交互。
+與 kubeadm 使用的容器映像檔交互。
 
 ```shell
 kubeadm config images [flags]
@@ -69,7 +69,7 @@ images 的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和集羣通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm
+用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm
 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
 </p>
 </td>

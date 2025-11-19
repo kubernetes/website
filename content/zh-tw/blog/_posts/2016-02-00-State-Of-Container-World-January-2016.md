@@ -41,7 +41,7 @@ So what are folks using containers for? More than 80% of respondents are using c
 -->
 那麼人們在使用容器做什麼呢？
 超過 80％ 的受訪者使用容器進行開發，但只有 50％ 的人在生產環境下使用容器。
-但是他們有計劃很快投入到生產環境之中，78% 的容器用戶表示了意願。
+但是他們有計劃很快投入到生產環境之中，78% 的容器使用者表示了意願。
 
 <!--
 Where do you deploy containers? Your laptop was the clear winner here, with 53% of folks deploying to laptops. Next up was 44% of people running on their own VMs (Vagrant? OpenStack? we’ll try dive into this in the February survey), followed by 33% of folks running on physical infrastructure, and 31% on public cloud VMs.  
@@ -74,7 +74,7 @@ Finally, we asked people for free-text answers about the challenges of working w
 - “Silo'd development environments / workflows can be fragmented, ease of access to tools like logs is available when debugging containers but not intuitive at times, massive amounts of knowledge is required to grasp the whole infrastructure stack and best practices from say deploying / updating kubernetes, to underlying networking etc.”
 - “Migrating developer workflow. People uninitiated with containers, volumes, etc just want to work.”
 -->
-- “孤立的開發環境/工作流程可能是零散的，調試容器時可以輕鬆訪問日誌等工具，但有時卻不太直觀，需要大量知識來掌握整個基礎架構堆棧和部署/ 更新 kubernetes，到底層網絡等。”
+- “孤立的開發環境/工作流程可能是零散的，調試容器時可以輕鬆訪問日誌等工具，但有時卻不太直觀，需要大量知識來掌握整個基礎架構堆棧和部署/ 更新 kubernetes，到底層網路等。”
 - “遷移開發者的工作流程。 那些不熟悉容器、卷等的人只是想工作。”
 
 <!--
@@ -86,7 +86,7 @@ Finally, we asked people for free-text answers about the challenges of working w
 - “Network Security”
 - “Secrets”
 -->
-- “網絡安全”
+- “網路安全”
 - “Secrets”
 
 <!--
@@ -115,8 +115,8 @@ Finally, we asked people for free-text answers about the challenges of working w
 - “Clustering is still too hard”
 - “Setting up Mesos and Kubernetes too damn complicated!!”
 -->
-- “網絡支持， 爲 kubernetes 在裸機上爲每個 Pod 提供 IP”
-- “集羣化還是太難了”
+- “網路支持， 爲 kubernetes 在裸機上爲每個 Pod 提供 IP”
+- “叢集化還是太難了”
 - “設置 Mesos 和 Kubernetes 太複雜了！！”
 
 <!--

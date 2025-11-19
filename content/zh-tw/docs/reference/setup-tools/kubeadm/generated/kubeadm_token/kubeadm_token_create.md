@@ -1,7 +1,7 @@
 <!--
 Create bootstrap tokens on the server
 -->
-在服務器上創建引導令牌。
+在伺服器上創建引導令牌。
 
 <!--
 ### Synopsis
@@ -47,7 +47,7 @@ kubeadm token create [token]
 <!--
 When used together with '--print-join-command', print the full 'kubeadm join' flag needed to join the cluster as a control-plane. To create a new certificate key you must use 'kubeadm init phase upload-certs --upload-certs'.
 -->
-當與 “--print-join-command” 一起使用時，打印作爲控制平面加入集羣時所需的所有 “kubeadm join” 標誌。
+當與 “--print-join-command” 一起使用時，打印作爲控制平面加入叢集時所需的所有 “kubeadm join” 標誌。
 要創建新的證書密鑰，你必須使用 “kubeadm init phase upload-certs --upload-certs”。
 </p></td>
 </tr>
@@ -61,7 +61,7 @@ When used together with '--print-join-command', print the full 'kubeadm join' fl
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -124,7 +124,7 @@ create 操作的幫助命令。
 <!--
 Instead of printing only the token, print the full 'kubeadm join' flag needed to join the cluster using the token.
 -->
-不僅僅打印令牌，而是打印使用令牌加入集羣所需的完整 'kubeadm join' 參數。
+不僅僅打印令牌，而是打印使用令牌加入叢集所需的完整 'kubeadm join' 參數。
 </p>
 </td>
 </tr>
@@ -211,7 +211,7 @@ Whether to enable dry-run mode or not
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於和集羣通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
+用於和叢集通信的 kubeconfig 文件。如果它沒有被設置，那麼 kubeadm 將會搜索一個已經存在於標準路徑的 kubeconfig 文件。
 </p>
 </td>
 </tr>

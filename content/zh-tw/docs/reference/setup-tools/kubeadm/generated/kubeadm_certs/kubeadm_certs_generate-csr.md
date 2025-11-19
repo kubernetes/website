@@ -83,7 +83,7 @@ The path where to save the certificates
 <!--
 Path to a kubeadm configuration file.
 -->
-到 kubeadm 配置文件的路徑。
+到 kubeadm 設定文件的路徑。
 </p></td>
 </tr>
 

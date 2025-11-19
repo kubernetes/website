@@ -9,7 +9,7 @@ feature:
     你無需修改應用來使用陌生的服務發現機制。Kubernetes 爲每個 Pod 提供了自己的 IP 地址併爲一組
     Pod 提供一個 DNS 名稱，並且可以在它們之間實現負載均衡。
 description: >-
-  將在集羣中運行的應用通過同一個面向外界的端點公開出去，即使工作負載分散於多個後端也完全可行。
+  將在叢集中運行的應用通過同一個面向外界的端點公開出去，即使工作負載分散於多個後端也完全可行。
 content_type: concept
 weight: 10
 ---
@@ -44,7 +44,7 @@ on the network so that clients can interact with it.
 -->
 Kubernetes 中 Service 的一個關鍵目標是讓你無需修改現有應用以使用某種不熟悉的服務發現機制。
 你可以在 Pod 集合中運行代碼，無論該代碼是爲雲原生環境設計的，還是被容器化的老應用。
-你可以使用 Service 讓一組 Pod 可在網絡上訪問，這樣客戶端就能與之交互。
+你可以使用 Service 讓一組 Pod 可在網路上訪問，這樣客戶端就能與之交互。
 
 <!--
 If you use a {{< glossary_tooltip term_id="deployment" >}} to run your app,
@@ -59,7 +59,7 @@ expect that an individual Pod is reliable and durable).
 Deployment 可以動態地創建和銷燬 Pod。
 在任何時刻，你都不知道有多少個這樣的 Pod 正在工作以及它們健康與否；
 你可能甚至不知道如何辨別健康的 Pod。
-Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}} 的創建和銷燬是爲了匹配集羣的預期狀態。
+Kubernetes {{< glossary_tooltip term_id="pod" text="Pod" >}} 的創建和銷燬是爲了匹配叢集的預期狀態。
 Pod 是臨時資源（你不應該期待單個 Pod 既可靠又耐用）。
 
 <!--
@@ -72,11 +72,11 @@ functionality to other Pods (call them "frontends") inside your cluster,
 how do the frontends find out and keep track of which IP address to connect
 to, so that the frontend can use the backend part of the workload?
 -->
-每個 Pod 會獲得屬於自己的 IP 地址（Kubernetes 期待網絡插件來保證這一點）。
-對於集羣中給定的某個 Deployment，這一刻運行的 Pod 集合可能不同於下一刻運行該應用的
+每個 Pod 會獲得屬於自己的 IP 地址（Kubernetes 期待網路插件來保證這一點）。
+對於叢集中給定的某個 Deployment，這一刻運行的 Pod 集合可能不同於下一刻運行該應用的
 Pod 集合。
 
-這就帶來了一個問題：如果某組 Pod（稱爲“後端”）爲集羣內的其他 Pod（稱爲“前端”）
+這就帶來了一個問題：如果某組 Pod（稱爲“後端”）爲叢集內的其他 Pod（稱爲“前端”）
 集合提供功能，前端要如何發現並跟蹤要連接的 IP 地址，以便其使用負載的後端組件呢？
 
 <!-- body -->
@@ -90,7 +90,7 @@ these endpoints are Pods) along with a policy about how to make those pods acces
 -->
 ## Kubernetes 中的 Service   {#services-in-kubernetes}
 
-Service API 是 Kubernetes 的組成部分，它是一種抽象，幫助你將 Pod 集合在網絡上公開出去。
+Service API 是 Kubernetes 的組成部分，它是一種抽象，幫助你將 Pod 集合在網路上公開出去。
 每個 Service 對象定義端點的一個邏輯集合（通常這些端點就是 Pod）以及如何訪問到這些 Pod 的策略。
 
 <!--
@@ -130,9 +130,9 @@ cluster, behind a single listener.
 -->
 如果你的工作負載使用 HTTP 通信，你可能會選擇使用
 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 來控制
-Web 流量如何到達該工作負載。Ingress 不是一種 Service，但它可用作集羣的入口點。
+Web 流量如何到達該工作負載。Ingress 不是一種 Service，但它可用作叢集的入口點。
 Ingress 能讓你將路由規則整合到同一個資源內，這樣你就能將工作負載的多個組件公開出去，
-這些組件使用同一個偵聽器，但各自獨立地運行在集羣中。
+這些組件使用同一個偵聽器，但各自獨立地運行在叢集中。
 
 <!--
 The [Gateway](https://gateway-api.sigs.k8s.io/#what-is-the-gateway-api) API for Kubernetes
@@ -145,7 +145,7 @@ and then use these to configure access to network services that are running in y
 能夠提供 Ingress 和 Service 所不具備的一些額外能力。
 Gateway 是使用 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
 實現的一系列擴展 API。
-你可以添加 Gateway 到你的集羣中，之後就可以使用它們配置如何訪問集羣中運行的網絡服務。
+你可以添加 Gateway 到你的叢集中，之後就可以使用它們設定如何訪問叢集中運行的網路服務。
 
 <!--
 ### Cloud-native service discovery
@@ -161,11 +161,11 @@ balancer in between your application and the backend Pods.
 ### 雲原生服務發現   {#cloud-native-service-discovery}
 
 如果你想要在自己的應用中使用 Kubernetes API 進行服務發現，可以查詢
-{{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}，
+{{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}，
 尋找匹配的 EndpointSlice 對象。
 只要 Service 中的 Pod 集合發生變化，Kubernetes 就會爲其更新 EndpointSlice。
 
-對於非本地應用，Kubernetes 提供了在應用和後端 Pod 之間放置網絡端口或負載均衡器的方法。
+對於非本地應用，Kubernetes 提供了在應用和後端 Pod 之間放置網路端口或負載均衡器的方法。
 
 <!--
 Either way, your workload can use these [service discovery](#discovering-services)
@@ -211,7 +211,7 @@ read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/).
 [服務類型](#publishing-services-service-types)默認爲 ClusterIP 的 Service。
 該 Service 指向帶有標籤 `app.kubernetes.io/name: MyApp` 的所有 Pod 的 TCP 端口 9376。
 
-Kubernetes 爲該 Service 分配一個 IP 地址（稱爲 “集羣 IP”），供虛擬 IP 地址機制使用。
+Kubernetes 爲該 Service 分配一個 IP 地址（稱爲 “叢集 IP”），供虛擬 IP 地址機制使用。
 有關該機制的更多詳情，請閱讀[虛擬 IP 和服務代理](/zh-cn/docs/reference/networking/virtual-ips/)。
 
 <!--
@@ -303,7 +303,7 @@ port numbers. This offers a lot of flexibility for deploying and evolving
 your Services. For example, you can change the port numbers that Pods expose
 in the next version of your backend software, without breaking clients.
 -->
-即使在 Service 中混合使用配置名稱相同的多個 Pod，各 Pod 通過不同的端口號支持相同的網絡協議，
+即使在 Service 中混合使用設定名稱相同的多個 Pod，各 Pod 通過不同的端口號支持相同的網路協議，
 此機制也可以工作。這一機制爲 Service 的部署和演化提供了較高的靈活性。
 例如，你可以在後端軟件的新版本中更改 Pod 公開的端口號，但不會影響到客戶端。
 
@@ -336,7 +336,7 @@ including ones that run outside the cluster.
 由於選擇算符的存在，Service 的最常見用法是爲 Kubernetes Pod 集合提供訪問抽象，
 但是當與相應的 {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
 對象一起使用且沒有設置選擇算符時，Service 也可以爲其他類型的後端提供抽象，
-包括在集羣外運行的後端。
+包括在叢集外運行的後端。
 
 <!--
 For example:
@@ -350,8 +350,8 @@ For example:
 -->
 例如：
 
-* 你希望在生產環境中使用外部數據庫集羣，但在測試環境中使用自己的數據庫。
-* 你希望讓你的 Service 指向另一個{{< glossary_tooltip term_id="namespace" >}}中或其它集羣中的服務。
+* 你希望在生產環境中使用外部數據庫叢集，但在測試環境中使用自己的數據庫。
+* 你希望讓你的 Service 指向另一個{{< glossary_tooltip term_id="namespace" >}}中或其它叢集中的服務。
 * 你正在將工作負載遷移到 Kubernetes 上來。在評估所採用的方法時，你僅在 Kubernetes
   中運行一部分後端。
 
@@ -380,7 +380,7 @@ to the network address and port where it's running, by adding an EndpointSlice
 object manually. For example:
 -->
 由於此 Service 沒有選擇算符，因此不會自動創建對應的 EndpointSlice 對象。
-你可以通過手動添加 EndpointSlice 對象，將 Service 映射到該服務運行位置的網絡地址和端口：
+你可以通過手動添加 EndpointSlice 對象，將 Service 映射到該服務運行位置的網路地址和端口：
 
 <!--
 ```yaml
@@ -456,7 +456,7 @@ as a destination.
 端點 IP 地址**必須不是**：本地迴路地址（IPv4 的 127.0.0.0/8、IPv6 的 ::1/128）
 或鏈路本地地址（IPv4 的 169.254.0.0/16 和 224.0.0.0/24、IPv6 的 fe80::/64）。
 
-端點 IP 地址不能是其他 Kubernetes 服務的集羣 IP，因爲
+端點 IP 地址不能是其他 Kubernetes 服務的叢集 IP，因爲
 {{< glossary_tooltip term_id ="kube-proxy">}} 不支持將虛擬 IP 作爲目標地址。
 {{< /note >}}
 
@@ -505,9 +505,9 @@ pods. Actions such as `kubectl port-forward service/<service-name> forwardedPort
 selector will fail due to this constraint. This prevents the Kubernetes API server
 from being used as a proxy to endpoints the caller may not be authorized to access.
 -->
-Kubernetes API 服務器不允許將流量代理到未被映射至 Pod 上的端點。由於此約束，當 Service
+Kubernetes API 伺服器不允許將流量代理到未被映射至 Pod 上的端點。由於此約束，當 Service
 沒有選擇算符時，諸如 `kubectl port-forward service/<service-name> forwardedPort:servicePort` 之類的操作將會失敗。
-這可以防止 Kubernetes API 服務器被用作調用者可能無權訪問的端點的代理。
+這可以防止 Kubernetes API 伺服器被用作調用者可能無權訪問的端點的代理。
 {{< /note >}}
 
 <!--
@@ -541,9 +541,9 @@ See [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) for mo
 information about this API.
 -->
 [EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
-對象表示某個 Service 的後端網絡端點的子集（**切片**）。
+對象表示某個 Service 的後端網路端點的子集（**切片**）。
 
-你的 Kubernetes 集羣會跟蹤每個 EndpointSlice 所表示的端點數量。
+你的 Kubernetes 叢集會跟蹤每個 EndpointSlice 所表示的端點數量。
 如果 Service 的端點太多以至於達到閾值，Kubernetes 會添加另一個空的
 EndpointSlice 並在其中存儲新的端點信息。
 默認情況下，一旦現有 EndpointSlice 都包含至少 100 個端點，Kubernetes
@@ -577,7 +577,7 @@ EndpointSlice API rather than Endpoints.
 EndpointSlice API 是舊版 [Endpoints](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
 API 的演進版本。與 EndpointSlice 相比，已棄用的 Endpoints API 存在以下幾個問題：
 
-- 不支持雙棧集羣。
+- 不支持雙棧叢集。
 - 不包含支持 [trafficDistribution](/zh-cn/docs/concepts/services-networking/service/#traffic-distribution)
   等新特性所需的信息。
 - 如果端點列表過長以至於無法放入單個對象中時會被截斷。
@@ -679,7 +679,7 @@ For example:
 -->
 ### 多端口 Service   {#multi-port-services}
 
-對於某些 Service，你需要公開多個端口。Kubernetes 允許你爲 Service 對象配置多個端口定義。
+對於某些 Service，你需要公開多個端口。Kubernetes 允許你爲 Service 對象設定多個端口定義。
 爲 Service 使用多個端口時，必須爲所有端口提供名稱，以使它們無歧義。
 例如：
 
@@ -730,7 +730,7 @@ The available `type` values and their behaviors are:
 ## 服務類型     {#publishing-services-service-types}
 
 對一些應用的某些部分（如前端），你可能希望將其公開於某外部 IP 地址，
-也就是可以從集羣外部訪問的某個地址。
+也就是可以從叢集外部訪問的某個地址。
 
 Kubernetes Service 類型允許指定你所需要的 Service 類型。
 
@@ -751,14 +751,14 @@ Kubernetes Service 類型允許指定你所需要的 Service 類型。
   the same as if you had requested a Service of `type: ClusterIP`.
 -->
 `ClusterIP`
-: 通過集羣的內部 IP 公開 Service，選擇該值時 Service 只能夠在集羣內部訪問。
+: 通過叢集的內部 IP 公開 Service，選擇該值時 Service 只能夠在叢集內部訪問。
   這也是你沒有爲 Service 顯式指定 `type` 時使用的默認值。
   你可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
   或者 [Gateway API](https://gateway-api.sigs.k8s.io/) 向公共互聯網公開服務。
 
 [`NodePort`](#type-nodeport)
 : 通過每個節點上的 IP 和靜態端口（`NodePort`）公開 Service。
-  爲了讓 Service 可通過節點端口訪問，Kubernetes 會爲 Service 配置集羣 IP 地址，
+  爲了讓 Service 可通過節點端口訪問，Kubernetes 會爲 Service 設定叢集 IP 地址，
   相當於你請求了 `type: ClusterIP` 的 Service。
 
 <!--
@@ -775,12 +775,12 @@ Kubernetes Service 類型允許指定你所需要的 Service 類型。
 -->
 [`LoadBalancer`](#loadbalancer)
 : 使用雲平臺的負載均衡器向外部公開 Service。Kubernetes 不直接提供負載均衡組件；
-  你必須提供一個，或者將你的 Kubernetes 集羣與某個雲平臺集成。
+  你必須提供一個，或者將你的 Kubernetes 叢集與某個雲平臺集成。
 
 [`ExternalName`](#externalname)
 : 將服務映射到 `externalName` 字段的內容（例如，映射到主機名 `api.foo.bar.example`）。
-  該映射將集羣的 DNS 服務器配置爲返回具有該外部主機名值的 `CNAME` 記錄。 
-  集羣不會爲之創建任何類型代理。
+  該映射將叢集的 DNS 伺服器設定爲返回具有該外部主機名值的 `CNAME` 記錄。 
+  叢集不會爲之創建任何類型代理。
 
 <!--
 The `type` field in the Service API is designed as nested functionality - each level
@@ -807,7 +807,7 @@ for more information.
 -->
 ### `type: ClusterIP` {#type-clusterip}
 
-此默認 Service 類型從你的集羣中爲此預留的 IP 地址池中分配一個 IP 地址。
+此默認 Service 類型從你的叢集中爲此預留的 IP 地址池中分配一個 IP 地址。
 
 其他幾種 Service 類型在 `ClusterIP` 類型的基礎上進行構建。
 
@@ -829,12 +829,12 @@ server will return a 422 HTTP status code to indicate that there's a problem.
 -->
 #### 選擇自己的 IP 地址   {#choosing-your-own-ip-address}
 
-在創建 `Service` 的請求中，你可以通過設置 `spec.clusterIP` 字段來指定自己的集羣 IP 地址。
-比如，希望複用一個已存在的 DNS 條目，或者遺留系統已經配置了一個固定的 IP 且很難重新配置。
+在創建 `Service` 的請求中，你可以通過設置 `spec.clusterIP` 字段來指定自己的叢集 IP 地址。
+比如，希望複用一個已存在的 DNS 條目，或者遺留系統已經設定了一個固定的 IP 且很難重新設定。
 
-你所選擇的 IP 地址必須是合法的 IPv4 或者 IPv6 地址，並且這個 IP 地址在 API 服務器上所配置的
+你所選擇的 IP 地址必須是合法的 IPv4 或者 IPv6 地址，並且這個 IP 地址在 API 伺服器上所設定的
 `service-cluster-ip-range` CIDR 範圍內。
-如果你嘗試創建一個帶有非法 `clusterIP` 地址值的 Service，API 服務器會返回 HTTP 狀態碼 422，
+如果你嘗試創建一個帶有非法 `clusterIP` 地址值的 Service，API 伺服器會返回 HTTP 狀態碼 422，
 表示值不合法。
 
 <!--
@@ -865,7 +865,7 @@ to expose one or more nodes' IP addresses directly.
 你的 Service 在其 `.spec.ports[*].nodePort` 字段中報告已分配的端口。
 
 使用 NodePort 可以讓你自由設置自己的負載均衡解決方案，
-配置 Kubernetes 不完全支持的環境，
+設定 Kubernetes 不完全支持的環境，
 甚至直接公開一個或多個節點的 IP 地址。
 
 <!--
@@ -877,9 +877,9 @@ Service, from outside the cluster, by connecting to any node using the appropria
 protocol (for example: TCP), and the appropriate port (as assigned to that Service).
 -->
 對於 NodePort 類型 Service，Kubernetes 額外分配一個端口（TCP、UDP 或 SCTP 以匹配 Service 的協議）。
-集羣中的每個節點都將自己配置爲監聽所分配的端口，並將流量轉發到與該 Service 關聯的某個就緒端點。
+叢集中的每個節點都將自己設定爲監聽所分配的端口，並將流量轉發到與該 Service 關聯的某個就緒端點。
 通過使用合適的協議（例如 TCP）和適當的端口（分配給該 Service）連接到任何一個節點，
-你就能夠從集羣外部訪問 `type: NodePort` 服務。
+你就能夠從叢集外部訪問 `type: NodePort` 服務。
 
 <!--
 #### Choosing your own port {#nodeport-custom-port}
@@ -899,7 +899,7 @@ a NodePort value (30007, in this example):
 如果需要特定的端口號，你可以在 `nodePort` 字段中指定一個值。
 控制平面將或者爲你分配該端口，或者報告 API 事務失敗。
 這意味着你需要自行注意可能發生的端口衝突。
-你還必須使用有效的端口號，該端口號在配置用於 NodePort 的範圍內。
+你還必須使用有效的端口號，該端口號在設定用於 NodePort 的範圍內。
 
 以下是 `type: NodePort` 服務的一個清單示例，其中指定了 NodePort 值（在本例中爲 30007）：
 
@@ -962,7 +962,7 @@ upper band has been exhausted. Users can then allocate from the lower band with 
 
 爲了避免這個問題，用於 NodePort 服務的端口範圍被分爲兩段。
 動態端口分配默認使用較高的端口段，並且在較高的端口段耗盡時也可以使用較低的端口段。
-用戶可以從較低端口段中分配端口，降低端口衝突的風險。
+使用者可以從較低端口段中分配端口，降低端口衝突的風險。
 
 <!--
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
@@ -977,14 +977,14 @@ If you want to specify particular IP address(es) to proxy the port, you can set 
 field of the [kube-proxy configuration file](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 to particular IP block(s).
 -->
-#### 爲 `type: NodePort` 服務自定義 IP 地址配置  {#service-nodeport-custom-listen-address}
+#### 爲 `type: NodePort` 服務自定義 IP 地址設定  {#service-nodeport-custom-listen-address}
 
-你可以配置集羣中的節點使用特定 IP 地址來支持 NodePort 服務。
-如果每個節點都連接到多個網絡（例如：一個網絡用於應用流量，另一網絡用於節點和控制平面之間的流量），
+你可以設定叢集中的節點使用特定 IP 地址來支持 NodePort 服務。
+如果每個節點都連接到多個網路（例如：一個網路用於應用流量，另一網路用於節點和控制平面之間的流量），
 你可能想要這樣做。
 
 如果你要指定特定的 IP 地址來爲端口提供代理，可以將 kube-proxy 的 `--nodeport-addresses` 標誌或
-[kube-proxy 配置文件](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)中的等效字段
+[kube-proxy 設定文件](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)中的等效字段
 `nodePortAddresses` 設置爲特定的 IP 段。
 
 <!--
@@ -1003,7 +1003,7 @@ kube-proxy 應視將其視爲所在節點的本機地址。
 例如，如果你使用 `--nodeport-addresses=127.0.0.0/8` 標誌啓動 kube-proxy，
 則 kube-proxy 僅選擇 NodePort 服務的本地迴路接口。
 `--nodeport-addresses` 的默認值是一個空的列表。
-這意味着 kube-proxy 將認爲所有可用網絡接口都可用於 NodePort 服務
+這意味着 kube-proxy 將認爲所有可用網路接口都可用於 NodePort 服務
 （這也與早期的 Kubernetes 版本兼容。）
 
 {{< note >}}
@@ -1014,7 +1014,7 @@ in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered
 node IP address (or possibly IP addresses).
 -->
 此 Service 的可見形式爲 `<NodeIP>:spec.ports[*].nodePort` 以及 `.spec.clusterIP:spec.ports[*].port`。
-如果設置了 kube-proxy 的 `--nodeport-addresses` 標誌或 kube-proxy 配置文件中的等效字段，
+如果設置了 kube-proxy 的 `--nodeport-addresses` 標誌或 kube-proxy 設定文件中的等效字段，
 則 `<NodeIP>` 將是一個被過濾的節點 IP 地址（或可能是多個 IP 地址）。
 {{< /note >}}
 
@@ -1073,10 +1073,10 @@ You can configure a load balanced Service to
 cloud provider implementation supports this.
 -->
 要實現 `type: LoadBalancer` 的服務，Kubernetes 通常首先進行與請求 `type: NodePort`
-服務類似的更改。cloud-controller-manager 組件隨後配置外部負載均衡器，
+服務類似的更改。cloud-controller-manager 組件隨後設定外部負載均衡器，
 以將流量轉發到所分配的節點端口。
 
-你可以將負載均衡 Service 配置爲[忽略](#load-balancer-nodeport-allocation)分配節點端口，
+你可以將負載均衡 Service 設定爲[忽略](#load-balancer-nodeport-allocation)分配節點端口，
 前提是雲平臺實現支持這點。
 
 <!--
@@ -1086,7 +1086,7 @@ the load Balancer is set up with an ephemeral IP address. If you specify a `load
 but your cloud provider does not support the feature, the `loadbalancerIP` field that you
 set is ignored.
 -->
-某些雲平臺允許你設置 `loadBalancerIP`。這時，平臺將使用用戶指定的 `loadBalancerIP`
+某些雲平臺允許你設置 `loadBalancerIP`。這時，平臺將使用使用者指定的 `loadBalancerIP`
 來創建負載均衡器。如果沒有設置 `loadBalancerIP` 字段，平臺將會給負載均衡器分配一個臨時 IP。
 如果設置了 `loadBalancerIP`，但云平臺並不支持這一特性，所設置的 `loadBalancerIP` 值將會被忽略。
 
@@ -1132,7 +1132,7 @@ balancer health checks are extensively used within the context of supporting the
 #### 節點存活態對負載均衡器流量的影響
 
 負載均衡器運行狀態檢查對於現代應用程序至關重要，
-它們用於確定負載均衡器應將流量分派到哪個服務器（虛擬機或 IP 地址）。
+它們用於確定負載均衡器應將流量分派到哪個伺服器（虛擬機或 IP 地址）。
 Kubernetes API 沒有定義如何爲 Kubernetes 託管負載均衡器實施運行狀況檢查，
 而是由雲提供商（以及集成代碼的實現人員）決定其行爲。
 負載均衡器運行狀態檢查廣泛用於支持 Service 的 `externalTrafficPolicy` 字段。
@@ -1209,8 +1209,8 @@ flag.
 對於 `type` 設置爲 `LoadBalancer` 的 Service，`spec.loadBalancerClass`
 字段允許你使用有別於雲平臺的默認負載均衡器的實現。
 
-默認情況下，`.spec.loadBalancerClass` 是未設置的，如果集羣使用 `--cloud-provider`
-件標誌配置了雲平臺，`LoadBalancer` 類型 Service 會使用雲平臺的默認負載均衡器實現。
+默認情況下，`.spec.loadBalancerClass` 是未設置的，如果叢集使用 `--cloud-provider`
+件標誌設定了雲平臺，`LoadBalancer` 類型 Service 會使用雲平臺的默認負載均衡器實現。
 
 <!--
 If you specify `.spec.loadBalancerClass`, it is assumed that a load balancer
@@ -1232,7 +1232,7 @@ Unprefixed names are reserved for end-users.
 -->
 `.spec.loadBalancerClass` 的值必須是一個標籤風格的標識符，
 可以有選擇地帶有類似 "`internal-vip`" 或 "`example.com/internal-vip`" 這類前綴。
-沒有前綴的名字是保留給最終用戶的。
+沒有前綴的名字是保留給最終使用者的。
 
 <!--
 #### Load balancer IP address mode {#load-balancer-ip-mode}
@@ -1287,7 +1287,7 @@ depending on the cloud service provider you're using:
 -->
 #### 內部負載均衡器 {#internal-load-balancer}
 
-在混合環境中，有時有必要在同一（虛擬）網絡地址段內路由來自 Service 的流量。
+在混合環境中，有時有必要在同一（虛擬）網路地址段內路由來自 Service 的流量。
 
 在水平分割（Split-Horizon）DNS 環境中，你需要兩個 Service 才能將內部和外部流量都路由到你的端點。
 
@@ -1440,7 +1440,7 @@ If you want to map a Service directly to a specific IP address, consider using
 -->
 `type: ExternalName` 的服務接受 IPv4 地址字符串，但將該字符串視爲由數字組成的 DNS 名稱，
 而不是 IP 地址（然而，互聯網不允許在 DNS 中使用此類名稱）。
-類似於 IPv4 地址的外部名稱無法被 DNS 服務器解析。
+類似於 IPv4 地址的外部名稱無法被 DNS 伺服器解析。
 
 如果你想要將服務直接映射到某特定 IP 地址，請考慮使用[無頭服務](#headless-services)。
 {{< /note >}}
@@ -1454,10 +1454,10 @@ forwarding. Should you later decide to move your database into your cluster, you
 can start its Pods, add appropriate selectors or endpoints, and change the
 Service's `type`.
 -->
-當查找主機 `my-service.prod.svc.cluster.local` 時，集羣 DNS 服務返回 `CNAME` 記錄，
+當查找主機 `my-service.prod.svc.cluster.local` 時，叢集 DNS 服務返回 `CNAME` 記錄，
 其值爲 `my.database.example.com`。訪問 `my-service` 的方式與訪問其他 Service 的方式相同，
 主要區別在於重定向發生在 DNS 級別，而不是通過代理或轉發來完成。
-如果後來你決定將數據庫移到集羣中，則可以啓動其 Pod，添加適當的選擇算符或端點並更改
+如果後來你決定將數據庫移到叢集中，則可以啓動其 Pod，添加適當的選擇算符或端點並更改
 Service 的 `type`。
 
 {{< caution >}}
@@ -1471,11 +1471,11 @@ HTTP requests will have a `Host:` header that the origin server does not recogni
 TLS servers will not be able to provide a certificate matching the hostname that the client connected to.
 -->
 針對 ExternalName 服務使用一些常見的協議，包括 HTTP 和 HTTPS，可能會有問題。
-如果你使用 ExternalName 服務，那麼集羣內客戶端使用的主機名與 ExternalName 引用的名稱不同。
+如果你使用 ExternalName 服務，那麼叢集內客戶端使用的主機名與 ExternalName 引用的名稱不同。
 
 對於使用主機名的協議，這一差異可能會導致錯誤或意外響應。
-HTTP 請求將具有源服務器無法識別的 `Host:` 標頭；
-TLS 服務器將無法提供與客戶端連接的主機名匹配的證書。
+HTTP 請求將具有源伺服器無法識別的 `Host:` 標頭；
+TLS 伺服器將無法提供與客戶端連接的主機名匹配的證書。
 {{< /caution >}}
 
 <!--
@@ -1494,11 +1494,11 @@ these Services, and there is no load balancing or proxying done by the platform 
 ## 無頭服務（Headless Services）  {#headless-services}
 
 有時你並不需要負載均衡，也不需要單獨的 Service IP。遇到這種情況，可以通過顯式設置
-集羣 IP（`spec.clusterIP`）的值爲 `"None"` 來創建**無頭服務（Headless Service）**。
+叢集 IP（`spec.clusterIP`）的值爲 `"None"` 來創建**無頭服務（Headless Service）**。
 
 你可以使用無頭 Service 與其他服務發現機制交互，而不必綁定到 Kubernetes 的實現。
 
-無頭 Service 不會獲得集羣 IP，kube-proxy 不會處理這類 Service，
+無頭 Service 不會獲得叢集 IP，kube-proxy 不會處理這類 Service，
 而且平臺也不會爲它們提供負載均衡或路由支持。
 
 <!--
@@ -1512,10 +1512,10 @@ and you additionally set `.spec.clusterIP` to None.
 -->
 無頭 Service 允許客戶端直接連接到它所偏好的任一 Pod。
 無頭 Service 不使用[虛擬 IP 地址和代理](/zh-cn/docs/reference/networking/virtual-ips/)
-配置路由和數據包轉發；相反，無頭 Service 通過內部 DNS 記錄報告各個
-Pod 的端點 IP 地址，這些 DNS 記錄是由集羣的
+設定路由和數據包轉發；相反，無頭 Service 通過內部 DNS 記錄報告各個
+Pod 的端點 IP 地址，這些 DNS 記錄是由叢集的
 [DNS 服務](/zh-cn/docs/concepts/services-networking/dns-pod-service/)所提供的。
-這些 DNS 記錄是由集羣內部 DNS 服務所提供的
+這些 DNS 記錄是由叢集內部 DNS 服務所提供的
 要定義無頭 Service，你需要將 `.spec.type` 設置爲 ClusterIP（這也是 `type`
 的默認值），並進一步將 `.spec.clusterIP` 設置爲 `None`。
 
@@ -1526,7 +1526,7 @@ How DNS is automatically configured depends on whether the Service has selectors
 -->
 字符串值 None 是一種特殊情況，與未設置 `.spec.clusterIP` 字段不同。
 
-DNS 如何自動配置取決於 Service 是否定義了選擇器：
+DNS 如何自動設定取決於 Service 是否定義了選擇器：
 
 <!--
 ### With selectors
@@ -1539,7 +1539,7 @@ the Service.
 ### 帶選擇算符的服務 {#with-selectors}
 
 對定義了選擇算符的無頭 Service，Kubernetes 控制平面在 Kubernetes API 中創建
-EndpointSlice 對象，並且修改 DNS 配置返回 A 或 AAAA 記錄（IPv4 或 IPv6 地址），
+EndpointSlice 對象，並且修改 DNS 設定返回 A 或 AAAA 記錄（IPv4 或 IPv6 地址），
 這些記錄直接指向 Service 的後端 Pod 集合。
 
 <!--
@@ -1561,8 +1561,8 @@ either:
   * For IPv4 endpoints, the DNS system creates A records.
   * For IPv6 endpoints, the DNS system creates AAAA records.
 -->
-* 對於 [`type: ExternalName`](#externalname) Service，查找和配置其 CNAME 記錄；
-* 對所有其他類型的 Service，針對 Service 的就緒端點的所有 IP 地址，查找和配置
+* 對於 [`type: ExternalName`](#externalname) Service，查找和設定其 CNAME 記錄；
+* 對所有其他類型的 Service，針對 Service 的就緒端點的所有 IP 地址，查找和設定
   DNS A / AAAA 記錄：
   * 對於 IPv4 端點，DNS 系統創建 A 記錄。
   * 對於 IPv6 端點，DNS 系統創建 AAAA 記錄。
@@ -1581,7 +1581,7 @@ finding a Service: environment variables and DNS.
 -->
 ## 服務發現  {#discovering-services}
 
-對於在集羣內運行的客戶端，Kubernetes 支持兩種主要的服務發現模式：環境變量和 DNS。
+對於在叢集內運行的客戶端，Kubernetes 支持兩種主要的服務發現模式：環境變量和 DNS。
 
 <!--
 ### Environment variables
@@ -1601,7 +1601,7 @@ kubelet 會添加環境變量 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVICE_PO
 這裏 Service 的名稱被轉爲大寫字母，橫線被轉換成下劃線。
 
 例如，一個 Service `redis-primary` 公開了 TCP 端口 6379，
-同時被分配了集羣 IP 地址 10.0.0.11，這個 Service 生成的環境變量如下：
+同時被分配了叢集 IP 地址 10.0.0.11，這個 Service 生成的環境變量如下：
 
 ```shell
 REDIS_PRIMARY_SERVICE_HOST=10.0.0.11
@@ -1623,11 +1623,11 @@ Otherwise, those client Pods won't have their environment variables populated.
 If you only use DNS to discover the cluster IP for a Service, you don't need to
 worry about this ordering issue.
 -->
-當你的 Pod 需要訪問某 Service，並且你在使用環境變量方法將端口和集羣 IP 發佈到客戶端
+當你的 Pod 需要訪問某 Service，並且你在使用環境變量方法將端口和叢集 IP 發佈到客戶端
 Pod 時，必須在客戶端 Pod 出現**之前**創建該 Service。
 否則，這些客戶端 Pod 中將不會出現對應的環境變量。
 
-如果僅使用 DNS 來發現 Service 的集羣 IP，則無需擔心此順序問題。
+如果僅使用 DNS 來發現 Service 的叢集 IP，則無需擔心此順序問題。
 {{< /note >}}
 
 <!--
@@ -1654,10 +1654,10 @@ throughout your cluster then all Pods should automatically be able to resolve
 Services by their DNS name.
 -->
 你可以（並且幾乎總是應該）使用[插件（add-on）](/zh-cn/docs/concepts/cluster-administration/addons/)
-來爲 Kubernetes 集羣安裝 DNS 服務。
+來爲 Kubernetes 叢集安裝 DNS 服務。
 
-能夠感知集羣的 DNS 服務器（例如 CoreDNS）會監視 Kubernetes API 中的新 Service，
-併爲每個 Service 創建一組 DNS 記錄。如果在整個集羣中都啓用了 DNS，則所有 Pod
+能夠感知叢集的 DNS 伺服器（例如 CoreDNS）會監視 Kubernetes API 中的新 Service，
+併爲每個 Service 創建一組 DNS 記錄。如果在整個叢集中都啓用了 DNS，則所有 Pod
 都應該能夠通過 DNS 名稱自動解析 Service。
 
 <!--
@@ -1676,7 +1676,7 @@ will resolve to the cluster IP assigned for the Service.
 （`my-service.my-ns` 也可以）。
 
 其他名字空間中的 Pod 必須將名稱限定爲 `my-service.my-ns`。
-這些名稱將解析爲分配給 Service 的集羣 IP。
+這些名稱將解析爲分配給 Service 的叢集 IP。
 
 <!--
 Kubernetes also supports DNS SRV (Service) records for named ports.  If the
@@ -1692,7 +1692,7 @@ Kubernetes 還支持命名端口的 DNS SRV（Service）記錄。
 如果 Service `my-service.my-ns` 具有名爲 `http`　的端口，且協議設置爲 TCP，
 則可以用 `_http._tcp.my-service.my-ns` 執行 DNS SRV 查詢以發現 `http` 的端口號以及 IP 地址。
 
-Kubernetes DNS 服務器是唯一的一種能夠訪問 `ExternalName` 類型的 Service 的方式。
+Kubernetes DNS 伺服器是唯一的一種能夠訪問 `ExternalName` 類型的 Service 的方式。
 關於 `ExternalName` 解析的更多信息可以查看
 [Service 與 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
@@ -1804,7 +1804,7 @@ to learn more.
 -->
 ## 會話的黏性   {#session-stickiness}
 
-如果你想確保來自特定客戶端的連接每次都傳遞到同一個 Pod，你可以配置基於客戶端 IP
+如果你想確保來自特定客戶端的連接每次都傳遞到同一個 Pod，你可以設定基於客戶端 IP
 地址的會話親和性。可閱讀[會話親和性](/zh-cn/docs/reference/networking/virtual-ips/#session-affinity)
 來進一步學習。
 
@@ -1824,9 +1824,9 @@ on `"198.51.100.32:80"` (calculated from `.spec.externalIPs[]` and `.spec.ports[
 -->
 ### 外部 IP  {#external-ips}
 
-如果有外部 IP 能夠路由到一個或多個集羣節點上，則 Kubernetes Service 可以在這些 `externalIPs`
-上公開出去。當網絡流量進入集羣時，如果外部 IP（作爲目的 IP 地址）和端口都與該 Service 匹配，
-Kubernetes 所配置的規則和路由會確保流量被路由到該 Service 的端點之一。
+如果有外部 IP 能夠路由到一個或多個叢集節點上，則 Kubernetes Service 可以在這些 `externalIPs`
+上公開出去。當網路流量進入叢集時，如果外部 IP（作爲目的 IP 地址）和端口都與該 Service 匹配，
+Kubernetes 所設定的規則和路由會確保流量被路由到該 Service 的端點之一。
 
 定義 Service 時，你可以爲任何[服務類型](#publishing-services-service-types)指定 `externalIPs`。
 
@@ -1855,7 +1855,7 @@ spec:
 Kubernetes does not manage allocation of `externalIPs`; these are the responsibility
 of the cluster administrator.
 -->
-Kubernetes 不負責管理 `externalIPs` 的分配，這一工作是集羣管理員的職責。
+Kubernetes 不負責管理 `externalIPs` 的分配，這一工作是叢集管理員的職責。
 {{< /note >}}
 
 <!--
@@ -1890,7 +1890,7 @@ Learn more about Services and how they fit into Kubernetes:
 
 * 完成[使用 Service 連接到應用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程。
 * 閱讀 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 文檔。Ingress
-  負責將來自集羣外部的 HTTP 和 HTTPS 請求路由給集羣內的服務。
+  負責將來自叢集外部的 HTTP 和 HTTPS 請求路由給叢集內的服務。
 * 閱讀 [Gateway](/zh-cn/docs/concepts/services-networking/gateway/) 文檔。Gateway 作爲 Kubernetes 的擴展提供比
   Ingress 更高的靈活性。
 

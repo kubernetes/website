@@ -15,5 +15,5 @@ Enable nodes to change `cpuCFSQuotaPeriod` in
 [kubelet config](/docs/tasks/administer-cluster/kubelet-config-file/).
 -->
 使節點能夠更改
-[kubelet 配置](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
+[kubelet 設定](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
 中的 `cpuCFSQuotaPeriod`。

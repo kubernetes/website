@@ -29,8 +29,8 @@ application that requires a local webserver, the local webserver is a sidecar an
 web application itself is the app container.
 -->
 通常，一個 Pod 中只有一個應用容器。
-例如，如果你有一個需要本地 Web 服務器的 Web 應用，
-則本地 Web 服務器以邊車容器形式運行，而 Web 應用本身以應用容器形式運行。
+例如，如果你有一個需要本地 Web 伺服器的 Web 應用，
+則本地 Web 伺服器以邊車容器形式運行，而 Web 應用本身以應用容器形式運行。
 
 <!-- body -->
 
@@ -59,7 +59,7 @@ the main application container(s) within the same pod.
 These can be started, stopped, or restarted without affecting the main application container
 and other init containers.
 -->
-如果你的集羣啓用了 `SidecarContainers`
+如果你的叢集啓用了 `SidecarContainers`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 （該特性自 Kubernetes v1.29 起默認啓用），你可以爲 Pod 的 `initContainers`
 字段中列出的容器指定 `restartPolicy`。
@@ -181,7 +181,7 @@ container. This co-location allows them to interact closely and share resources.
 邊車容器具有獨立的生命週期。它們可以獨立於應用容器啓動、停止和重啓。
 這意味着你可以更新、擴展或維護邊車容器，而不影響主應用。
 
-邊車容器與主容器共享相同的網絡和存儲命名空間。這種共存使它們能夠緊密交互並共享資源。
+邊車容器與主容器共享相同的網路和存儲命名空間。這種共存使它們能夠緊密交互並共享資源。
 
 <!--
 From a Kubernetes perspective, the sidecar container's graceful termination is less important.
@@ -230,12 +230,12 @@ trigger a container restart.
 ## Resource sharing within containers
 -->
 邊車容器可以直接與主應用容器交互，因爲與 Init 容器一樣，
-它們總是與應用容器共享相同的網絡，並且還可以選擇共享卷（文件系統）。
+它們總是與應用容器共享相同的網路，並且還可以選擇共享卷（文件系統）。
 
 Init 容器在主容器啓動之前停止，因此 Init 容器無法與 Pod 中的應用容器交換消息。
 所有數據傳遞都是單向的（例如，Init 容器可以將信息放入 `emptyDir` 卷中）。
 
-變更邊車容器的鏡像不會導致 Pod 重啓，但會觸發容器重啓。
+變更邊車容器的映像檔不會導致 Pod 重啓，但會觸發容器重啓。
 
 ## 容器內的資源共享   {#resource-sharing-within-containers}
 

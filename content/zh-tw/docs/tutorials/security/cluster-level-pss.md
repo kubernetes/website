@@ -1,5 +1,5 @@
 ---
-title: 在集羣級別應用 Pod 安全標準
+title: 在叢集級別應用 Pod 安全標準
 content_type: tutorial
 weight: 10
 ---
@@ -13,7 +13,7 @@ weight: 10
 <!--
 This tutorial applies only for new clusters.
 -->
-本教程僅適用於新集羣。
+本教程僅適用於新叢集。
 {{% /alert %}}
 
 <!--
@@ -32,8 +32,8 @@ check the documentation for that version.
 -->
 Pod 安全是一個准入控制器，當新的 Pod 被創建時，它會根據 Kubernetes [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)
 進行檢查。這是在 v1.25 中達到正式發佈（GA）的功能。
-本教程將向你展示如何在集羣級別實施 `baseline` Pod 安全標準，
-該標準將標準配置應用於集羣中的所有名字空間。
+本教程將向你展示如何在叢集級別實施 `baseline` Pod 安全標準，
+該標準將標準設定應用於叢集中的所有名字空間。
 
 要將 Pod 安全標準應用於特定名字空間，
 請參閱[在名字空間級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/ns-level-pss)。
@@ -60,8 +60,8 @@ control. If you are learning how to configure Pod Security Admission for a manag
 where you are not able to configure the control plane, read
 [Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
 -->
-本教程演示了你可以對完全由你控制的 Kubernetes 集羣所配置的內容。
-如果你正在學習如何爲一個無法配置控制平面的託管集羣配置 Pod 安全准入，
+本教程演示了你可以對完全由你控制的 Kubernetes 叢集所設定的內容。
+如果你正在學習如何爲一個無法設定控制平面的託管叢集設定 Pod 安全准入，
 請參閱[在名字空間級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/ns-level-pss)。
 
 <!--
@@ -81,12 +81,12 @@ that are most appropriate for your configuration, do the following:
 [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)：
 `enforce`、`audit` 和 `warn`。
 
-要收集信息以便選擇最適合你的配置的 Pod 安全標準，請執行以下操作：
+要收集信息以便選擇最適合你的設定的 Pod 安全標準，請執行以下操作：
 
 <!--
 1. Create a cluster with no Pod Security Standards applied:
 -->
-1. 創建一個沒有應用 Pod 安全標準的集羣：
+1. 創建一個沒有應用 Pod 安全標準的叢集：
 
    ```shell
    kind create cluster --name psa-wo-cluster-pss
@@ -116,7 +116,7 @@ that are most appropriate for your configuration, do the following:
 <!--
 1. Set the kubectl context to the new cluster:
 -->
-2. 將 kubectl 上下文設置爲新集羣：
+2. 將 kubectl 上下文設置爲新叢集：
 
    ```shell
    kubectl cluster-info --context kind-psa-wo-cluster-pss
@@ -138,7 +138,7 @@ that are most appropriate for your configuration, do the following:
 <!--
 1. Get a list of namespaces in the cluster:
 -->
-3. 獲取集羣中的名字空間列表：
+3. 獲取叢集中的名字空間列表：
 
    ```shell
    kubectl get ns
@@ -287,11 +287,11 @@ following:
 1. Create a configuration file that can be consumed by the Pod Security
    Admission Controller to implement these Pod Security Standards:
 -->
-1. 根據應用於集羣的風險狀況，更嚴格的 Pod 安全標準（如 `restricted`）可能是更好的選擇。
+1. 根據應用於叢集的風險狀況，更嚴格的 Pod 安全標準（如 `restricted`）可能是更好的選擇。
 2. 對 `kube-system` 名字空間進行赦免會允許 Pod 在其中以 `privileged` 模式運行。
    對於實際使用，Kubernetes 項目強烈建議你應用嚴格的 RBAC 策略來限制對 `kube-system` 的訪問，
    遵循最小特權原則。
-3. 創建一個配置文件，Pod 安全准入控制器可以使用該文件來實現這些 Pod 安全標準：
+3. 創建一個設定文件，Pod 安全准入控制器可以使用該文件來實現這些 Pod 安全標準：
 
    ```
    mkdir -p /tmp/pss
@@ -323,7 +323,7 @@ following:
    For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
    For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
    -->
-   `pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
+   `pod-security.admission.config.k8s.io/v1` 設定需要 v1.25+。
    對於 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
    對於 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
    {{< /note >}}
@@ -331,7 +331,7 @@ following:
 <!--
 1. Configure the API server to consume this file during cluster creation:
 -->
-4. 在創建集羣時配置 API 服務器使用此文件：
+4. 在創建叢集時設定 API 伺服器使用此文件：
 
    ```
    cat <<EOF > /tmp/pss/cluster-config.yaml
@@ -382,7 +382,7 @@ following:
 1. Create a cluster that uses Pod Security Admission to apply
    these Pod Security Standards:
 -->
-5. 創建一個使用 Pod 安全准入的集羣來應用這些 Pod 安全標準：
+5. 創建一個使用 Pod 安全准入的叢集來應用這些 Pod 安全標準：
 
    ```shell
    kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
@@ -412,7 +412,7 @@ following:
 <!--
 1. Point kubectl to the cluster:
 -->
-6. 將 kubectl 指向集羣：
+6. 將 kubectl 指向叢集：
 
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss
@@ -457,7 +457,7 @@ Now delete the clusters which you created above by running the following command
 -->
 ## 清理  {#clean-up}
 
-現在通過運行以下命令刪除你上面創建的集羣：
+現在通過運行以下命令刪除你上面創建的叢集：
 
 ```shell
 kind delete cluster --name psa-with-cluster-pss
@@ -484,12 +484,12 @@ kind delete cluster --name psa-wo-cluster-pss
 -->
 - 運行一個 [shell 腳本](/zh-cn/examples/security/kind-with-cluster-level-baseline-pod-security.sh)
   一次執行前面的所有步驟：
-  1. 創建一個基於 Pod 安全標準的集羣級別配置
-  2. 創建一個文件讓 API 服務器消費這個配置
-  3. 創建一個集羣，用這個配置創建一個 API 服務器
-  4. 設置 kubectl 上下文爲這個新集羣
+  1. 創建一個基於 Pod 安全標準的叢集級別設定
+  2. 創建一個文件讓 API 伺服器消費這個設定
+  3. 創建一個叢集，用這個設定創建一個 API 伺服器
+  4. 設置 kubectl 上下文爲這個新叢集
   5. 創建一個最小的 Pod yaml 文件
-  6. 應用這個文件，在新集羣中創建一個 Pod
+  6. 應用這個文件，在新叢集中創建一個 Pod
 - [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
 - [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)
 - [在名字空間級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/ns-level-pss/)

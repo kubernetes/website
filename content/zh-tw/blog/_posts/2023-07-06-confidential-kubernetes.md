@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 機密：使用機密虛擬機和安全區來增強你的集羣安全性"
+title: "Kubernetes 機密：使用機密虛擬機和安全區來增強你的叢集安全性"
 date: 2023-07-06
 slug: "confidential-kubernetes"
 ---
@@ -108,10 +108,10 @@ laptops, servers, and mobile devices.
 像 [AMD SEV](https://developer.amd.com/sev/)、
 [Intel SGX](https://www.intel.com/content/www/us/en/developer/tools/software-guard-extensions/overview.html)
 和 [Intel TDX](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-trust-domain-extensions.html)
-這樣的技術提供了與用戶空間緊密集成的 TEE。與支持特定的低功耗或高性能設備不同，
+這樣的技術提供了與使用者空間緊密集成的 TEE。與支持特定的低功耗或高性能設備不同，
 這些 TEE 保護普通進程或虛擬機，並且可以以相對較低的開銷執行此操作。
 這些技術各有不同的設計目標、優點和侷限性，
-並且在不同的環境中可用，包括消費者筆記本電腦、服務器和移動設備。
+並且在不同的環境中可用，包括消費者筆記本電腦、伺服器和移動設備。
 
 <!--
 Additionally, we should mention
@@ -134,8 +134,8 @@ IBM Z series hardware. You can use this hardware-enhanced virtual machine isolat
 provide strong isolation between tenants in a cluster, with hardware attestation about the (virtual) node's integrity.
 -->
 [IBM Secure Execution for Linux](https://www.ibm.com/docs/en/linux-on-systems?topic=virtualization-secure-execution)
-允許你在 IBM Z 系列硬件的可信執行環境內以 KVM 客戶端的形式運行 Kubernetes 集羣的節點。
-你可以使用這種硬件增強的虛擬機隔離機制爲集羣中的租戶之間提供穩固的隔離，
+允許你在 IBM Z 系列硬件的可信執行環境內以 KVM 客戶端的形式運行 Kubernetes 叢集的節點。
+你可以使用這種硬件增強的虛擬機隔離機制爲叢集中的租戶之間提供穩固的隔離，
 並通過硬件驗證提供關於（虛擬）節點完整性的信息。
 
 <!--
@@ -227,7 +227,7 @@ while keeping the security properties of the TEE intact.
 -->
 這不必限制整個系統的靈活性。
 [AMD SEV-SNP 的遷移代理 (MA)](https://www.amd.com/system/files/TechDocs/SEV-SNP-strengthening-vm-isolation-with-integrity-protection-and-more.pdf)
-允許用戶將機密虛擬機遷移到不同的主機系統，同時保持 TEE 的安全屬性不變。
+允許使用者將機密虛擬機遷移到不同的主機系統，同時保持 TEE 的安全屬性不變。
 
 <!--
 ## Feature comparison
@@ -251,7 +251,7 @@ the initial guest memory was not manipulated.
 ### AMD SEV  {#amd-sev}
 
 AMD 的[安全加密虛擬化 (SEV)](https://developer.amd.com/sev/)技術是一組功能，
-用於增強 AMD 服務器 CPU 上虛擬機的安全性。SEV 透明地用唯一密鑰加密每個 VM 的內存。
+用於增強 AMD 伺服器 CPU 上虛擬機的安全性。SEV 透明地用唯一密鑰加密每個 VM 的內存。
 SEV 還可以計算內存內容的簽名，該簽名可以作爲證明初始客戶機內存沒有被篡改的依據發送給 VM 的所有者。
 
 <!--
@@ -320,7 +320,7 @@ SGX is an instruction set that enables users to create a protected and isolated 
 an *enclave*. It provides a reverse sandbox that protects enclaves from the operating system,
 firmware, and any other privileged execution context.
 -->
-SGX 是一套指令集，它使用戶能夠創建一個叫做 *Enclave* 的受保護且隔離的進程。
+SGX 是一套指令集，它使使用者能夠創建一個叫做 *Enclave* 的受保護且隔離的進程。
 它提供了一個反沙箱機制，保護 Enclave 不受操作系統、固件以及任何其他特權執行上下文的影響。
 
 <!--
@@ -370,7 +370,7 @@ that the consumer and Xeon E CPUs used. This increased the possible
 about SGX on multi-socket platforms can be found in the
 [Whitepaper](https://www.intel.com/content/dam/www/public/us/en/documents/white-papers/supporting-intel-sgx-on-mulit-socket-platforms.pdf).
 -->
-第三代 Xeon 處理器（又稱爲 Ice Lake 服務器 - "ICX"）及其後續版本採用了一種名爲
+第三代 Xeon 處理器（又稱爲 Ice Lake 伺服器 - "ICX"）及其後續版本採用了一種名爲
 [全內存加密 - 多密鑰](https://www.intel.com/content/www/us/en/developer/articles/news/runtime-encryption-of-memory-with-intel-tme-mk.html)（TME-MK）的技術，
 該技術使用 AES-XTS，從消費者和 Xeon E 處理器使用的[內存加密引擎](https://eprint.iacr.org/2016/204.pdf)中脫離出來。
 這可能增加了 [Enclave 頁面緩存](https://sgx101.gitbook.io/sgx101/sgx-bootstrap/enclave#enclave-page-cache-epc)
@@ -531,7 +531,7 @@ The operator will create a set of runtime classes that can be used to deploy
 pods inside an enclave on several different platforms, including
 AMD SEV, Intel TDX, Secure Execution for IBM Z, and Intel SGX.
 -->
-CoCo 可以通過 operator 安裝在 Kubernetes 集羣上。operator 將創建一組運行時類，
+CoCo 可以通過 operator 安裝在 Kubernetes 叢集上。operator 將創建一組運行時類，
 這些類可以用於在多個不同的平臺上的 Enclave 內部署 Pod，
 包括 AMD SEV，Intel TDX，IBM Z 的安全執行和 Intel SGX。
 
@@ -542,8 +542,8 @@ Secrets, such as image decryption keys, are conditionally provisioned
 to the enclave by a trusted Key Broker Service that validates the
 hardware evidence of the TEE prior to releasing any sensitive information.
 -->
-CoCo 通常與簽名和/或加密的容器鏡像一起使用，這些鏡像在 Enclave 內部被拉取、驗證和解密。
-密鑰信息，比如鏡像解密密鑰，經由受信任的 Key Broker 服務有條件地提供給 Enclave，
+CoCo 通常與簽名和/或加密的容器映像檔一起使用，這些映像檔在 Enclave 內部被拉取、驗證和解密。
+密鑰信息，比如映像檔解密密鑰，經由受信任的 Key Broker 服務有條件地提供給 Enclave，
 這個服務在釋放任何敏感信息之前驗證 TEE 的硬件認證。
 
 <!--
@@ -577,8 +577,8 @@ the service provider or infrastructure. Specifically, they don't offer a dedicat
 plane or expose attestation capabilities for the confidential cluster/nodes.
 -->
 這兩項服務通過啓用容器工作負載的內存加密，旨在提供更好的工作負載保護和安全保證。
-然而，它們並沒有尋求完全隔離集羣或工作負載以防止服務提供者或基礎設施的訪問。
-具體來說，它們不提供專用的機密控制平面，也不爲機密集羣/節點提供可驗證的能力。
+然而，它們並沒有尋求完全隔離叢集或工作負載以防止服務提供者或基礎設施的訪問。
+具體來說，它們不提供專用的機密控制平面，也不爲機密叢集/節點提供可驗證的能力。
 
 <!--
 Azure also enables
@@ -607,9 +607,9 @@ secure networking and provides extended CSI drivers to write data securely.
 
 [Constellation](https://github.com/edgelesssys/constellation) 
 是一個旨在提供最佳數據安全的 Kubernetes 引擎。
-Constellation 將整個 Kubernetes 集羣包裝到一個機密上下文中，使其免受底層雲基礎設施的影響。
+Constellation 將整個 Kubernetes 叢集包裝到一個機密上下文中，使其免受底層雲基礎設施的影響。
 其中的所有內容始終是加密的，包括在內存中的運行時數據。它保護工作節點和控制平面節點。
-此外，它已經與流行的 CNCF 軟件（如 Cilium，用於安全網絡）集成，
+此外，它已經與流行的 CNCF 軟件（如 Cilium，用於安全網路）集成，
 並提供擴展的 CSI 動程序來安全地寫入數據。
 
 <!--
@@ -649,7 +649,7 @@ Still, these offerings are limited to compute, while end-to-end solutions for co
 databases, cluster networking, and load balancers have to be self-managed.
 -->
 谷歌和微軟是首批能夠讓客戶在一個受保護的環境內運行未經修改的應用程序的機密計算服務的主要雲提供商。
-然而，這些服務僅限於計算，而對於機密數據庫、集羣網絡和負載均衡器的端到端解決方案則需要自行管理。
+然而，這些服務僅限於計算，而對於機密數據庫、叢集網路和負載均衡器的端到端解決方案則需要自行管理。
 
 <!--
 These technologies provide opportunities to bring even the most

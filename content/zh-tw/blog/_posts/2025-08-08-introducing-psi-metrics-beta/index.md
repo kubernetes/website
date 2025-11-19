@@ -20,7 +20,7 @@ author: "Haowei Cai (Google)"
 <!--
 As Kubernetes clusters grow in size and complexity, understanding the health and performance of individual nodes becomes increasingly critical. We are excited to announce that as of Kubernetes v1.34, **Pressure Stall Information (PSI) Metrics** has graduated to Beta.
 -->
-隨着 Kubernetes 集羣規模和複雜性的增長，瞭解各個節點的健康狀況和性能變得越來越關鍵。
+隨着 Kubernetes 叢集規模和複雜性的增長，瞭解各個節點的健康狀況和性能變得越來越關鍵。
 我們很高興地宣佈，從 Kubernetes v1.34 開始，**壓力停滯信息 (PSI) 指標**已升級到 Beta 版本。
 
 <!--
@@ -121,7 +121,7 @@ These metrics, along with the data from the Summary API, provide a granular view
 <!--
 To enable PSI metrics in your Kubernetes cluster, you need to:
 -->
-要在你的 Kubernetes 集羣中啓用 PSI 指標，你需要：
+要在你的 Kubernetes 叢集中啓用 PSI 指標，你需要：
 
 <!--
 1.  **Ensure your nodes are running a Linux kernel version 4.20 or later and are using cgroup v2.**
@@ -139,7 +139,7 @@ Once enabled, you can start scraping the `/metrics/cadvisor` endpoint with your 
 啓用後，你可以開始使用 Prometheus 兼容的監控解決方案抓取 `/metrics/cadvisor` 端點，
 或查詢 Summary API 來收集和可視化新的 PSI 指標。
 請注意，PSI 是 Linux 內核功能，因此這些指標在 Windows 節點上不可用。
-你的集羣可以包含 Linux 和 Windows 節點的混合，在 Windows 節點上，kubelet 不會暴露 PSI 指標。
+你的叢集可以包含 Linux 和 Windows 節點的混合，在 Windows 節點上，kubelet 不會暴露 PSI 指標。
 
 <!--
 ## What's next?

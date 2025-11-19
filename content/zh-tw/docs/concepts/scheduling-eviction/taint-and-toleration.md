@@ -323,12 +323,12 @@ to the taint to the same set of nodes (e.g. `dedicated=groupName`), and the admi
 controller should additionally add a node affinity to require that the pods can only schedule
 onto nodes labeled with `dedicated=groupName`.
 -->
-* **專用節點**：如果想將某些節點專門分配給特定的一組用戶使用，你可以給這些節點添加一個污點（即，
+* **專用節點**：如果想將某些節點專門分配給特定的一組使用者使用，你可以給這些節點添加一個污點（即，
   `kubectl taint nodes nodename dedicated=groupName:NoSchedule`），
-  然後給這組用戶的 Pod 添加一個相對應的容忍度
+  然後給這組使用者的 Pod 添加一個相對應的容忍度
   （通過編寫一個自定義的[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)，
   很容易就能做到）。
-  擁有上述容忍度的 Pod 就能夠被調度到上述專用節點，同時也能夠被調度到集羣中的其它節點。
+  擁有上述容忍度的 Pod 就能夠被調度到上述專用節點，同時也能夠被調度到叢集中的其它節點。
   如果你希望這些 Pod 只能被調度到上述專用節點，
   那麼你還需要給這些專用節點另外添加一個和上述污點類似的 label（例如：`dedicated=groupName`），
   同時還要在上述准入控制器中給 Pod 增加節點親和性要求，要求上述 Pod 只能被調度到添加了
@@ -357,7 +357,7 @@ on the special hardware nodes. This will make sure that these special hardware
 nodes are dedicated for pods requesting such hardware and you don't have to
 manually add tolerations to your pods.
 -->
-* **配備了特殊硬件的節點**：在部分節點配備了特殊硬件（比如 GPU）的集羣中，
+* **配備了特殊硬件的節點**：在部分節點配備了特殊硬件（比如 GPU）的叢集中，
   我們希望不需要這類硬件的 Pod 不要被調度到這些特殊節點，以便爲後繼需要這類硬件的 Pod 保留資源。
   要達到這個目的，可以先給配備了特殊硬件的節點添加污點
   （例如 `kubectl taint nodes nodename special=true:NoSchedule` 或
@@ -366,19 +366,19 @@ manually add tolerations to your pods.
   和專用節點的例子類似，添加這個容忍度的最簡單的方法是使用自定義
   [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)。
   比如，我們推薦使用[擴展資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/#extended-resources)
-  來表示特殊硬件，給配置了特殊硬件的節點添加污點時包含擴展資源名稱，
+  來表示特殊硬件，給設定了特殊硬件的節點添加污點時包含擴展資源名稱，
   然後運行一個 [ExtendedResourceToleration](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
   准入控制器。此時，因爲節點已經被設置污點了，沒有對應容忍度的 Pod 不會被調度到這些節點。
   但當你創建一個使用了擴展資源的 Pod 時，`ExtendedResourceToleration` 准入控制器會自動給
-  Pod 加上正確的容忍度，這樣 Pod 就會被自動調度到這些配置了特殊硬件的節點上。
-  這種方式能夠確保配置了特殊硬件的節點專門用於運行需要這些硬件的 Pod，
+  Pod 加上正確的容忍度，這樣 Pod 就會被自動調度到這些設定了特殊硬件的節點上。
+  這種方式能夠確保設定了特殊硬件的節點專門用於運行需要這些硬件的 Pod，
   並且你無需手動給這些 Pod 添加容忍度。
 
 <!--
 * **Taint based Evictions**: A per-pod-configurable eviction behavior
 when there are node problems, which is described in the next section.
 -->
-* **基於污點的驅逐**：這是在每個 Pod 中配置的在節點出現問題時的驅逐行爲，
+* **基於污點的驅逐**：這是在每個 Pod 中設定的在節點出現問題時的驅逐行爲，
   接下來的章節會描述這個特性。
 
 <!--
@@ -414,7 +414,7 @@ are true. The following taints are built in:
 * `node.kubernetes.io/memory-pressure`：節點存在內存壓力。
 * `node.kubernetes.io/disk-pressure`：節點存在磁盤壓力。
 * `node.kubernetes.io/pid-pressure`：節點的 PID 壓力。
-* `node.kubernetes.io/network-unavailable`：節點網絡不可用。
+* `node.kubernetes.io/network-unavailable`：節點網路不可用。
 * `node.kubernetes.io/unschedulable`：節點不可調度。
 * `node.cloudprovider.kubernetes.io/uninitialized`：如果 kubelet 啓動時指定了一個“外部”雲平臺驅動，
   它將給當前節點添加一個污點將其標誌爲不可用。在 cloud-controller-manager
@@ -437,8 +437,8 @@ with the kubelet on the node. The decision to delete the pods cannot be communic
 the kubelet until communication with the API server is re-established. In the meantime,
 the pods that are scheduled for deletion may continue to run on the partitioned node.
 -->
-在某些情況下，當節點不可達時，API 服務器無法與節點上的 kubelet 進行通信。
-在與 API 服務器的通信被重新建立之前，刪除 Pod 的決定無法傳遞到 kubelet。
+在某些情況下，當節點不可達時，API 伺服器無法與節點上的 kubelet 進行通信。
+在與 API 伺服器的通信被重新建立之前，刪除 Pod 的決定無法傳遞到 kubelet。
 同時，被調度進行刪除的那些 Pod 可能會繼續運行在分區後的節點上。
 
 {{< note >}}
@@ -448,7 +448,7 @@ manages the number of evictions that are triggered when many nodes become unreac
 once (for example: if there is a network disruption).
 -->
 控制面會限制向節點添加新污點的速率。這一速率限制可以管理多個節點同時不可達時
-（例如出現網絡中斷的情況），可能觸發的驅逐的數量。
+（例如出現網路中斷的情況），可能觸發的驅逐的數量。
 {{< /note >}}
 
 <!--
@@ -464,8 +464,8 @@ bound to node for a long time in the event of network partition, hoping
 that the partition will recover and thus the pod eviction can be avoided.
 The toleration you set for that Pod might look like:
 -->
-比如，你可能希望在出現網絡分裂事件時，對於一個與節點本地狀態有着深度綁定的應用而言，
-仍然停留在當前節點上運行一段較長的時間，以等待網絡恢復以避免被驅逐。
+比如，你可能希望在出現網路分裂事件時，對於一個與節點本地狀態有着深度綁定的應用而言，
+仍然停留在當前節點上運行一段較長的時間，以等待網路恢復以避免被驅逐。
 你爲這種 Pod 所設置的容忍度看起來可能是這樣：
 
 ```yaml
@@ -487,8 +487,8 @@ These automatically-added tolerations mean that Pods remain bound to
 Nodes for 5 minutes after one of these problems is detected.
 -->
 Kubernetes 會自動給 Pod 添加針對 `node.kubernetes.io/not-ready` 和
-`node.kubernetes.io/unreachable` 的容忍度，且配置 `tolerationSeconds=300`，
-除非用戶自身或者某控制器顯式設置此容忍度。
+`node.kubernetes.io/unreachable` 的容忍度，且設定 `tolerationSeconds=300`，
+除非使用者自身或者某控制器顯式設置此容忍度。
 
 這些自動添加的容忍度意味着 Pod 可以在檢測到對應的問題之一時，在 5
 分鐘內保持綁定在該節點上。
@@ -520,7 +520,7 @@ eviction by setting `--controllers=-taint-eviction-controller` in kube-controlle
 -->
 在 1.29 之前，節點控制器負責爲節點添加污點並驅逐 Pod。自 1.29 起，
 基於污點的驅逐已從節點控制器中抽離，遷移爲一個名爲 taint-eviction-controller 的獨立組件。
-用戶如需禁用基於污點的驅逐，可在 kube-controller-manager 中設置 `--controllers=-taint-eviction-controller`。
+使用者如需禁用基於污點的驅逐，可在 kube-controller-manager 中設置 `--controllers=-taint-eviction-controller`。
 {{< /note >}}
 
 <!--
@@ -582,7 +582,7 @@ DaemonSet 控制器自動爲所有守護進程添加如下 `NoSchedule` 容忍�
 * `node.kubernetes.io/disk-pressure`
 * `node.kubernetes.io/pid-pressure`（1.14 或更高版本）
 * `node.kubernetes.io/unschedulable`（1.10 或更高版本）
-* `node.kubernetes.io/network-unavailable`（**只適合主機網絡配置**）
+* `node.kubernetes.io/network-unavailable`（**只適合主機網路設定**）
 
 <!--
 Adding these tolerations ensures backward compatibility. You can also add
@@ -601,10 +601,10 @@ devices. Like taints they apply to all pods which share the same allocated devic
 -->
 ## 設備污點與容忍度    {#device-taints-and-tolerations}
 
-在使用[動態資源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation)管理特殊硬件的集羣中，
+在使用[動態資源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation)管理特殊硬件的叢集中，
 管理員可以選擇[爲單個設備設置污點](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation#device-taints-and-tolerations)，
 而不是爲整個節點打污點。這樣做的好處是，污點可以精確地作用於出現故障或需要維護的硬件。
-同時也支持容忍度配置，並且可以在請求設備時指定。
+同時也支持容忍度設定，並且可以在請求設備時指定。
 與污點類似，容忍度會應用於共享同一分配設備的所有 Pod。
 
 ## {{% heading "whatsnext" %}}
@@ -615,5 +615,5 @@ devices. Like taints they apply to all pods which share the same allocated devic
 * Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 -->
 * 閱讀[節點壓力驅逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)，
-  以及如何配置其行爲
+  以及如何設定其行爲
 * 閱讀 [Pod 優先級](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)

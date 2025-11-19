@@ -33,7 +33,7 @@ its own feature gating mechanism, giving developers and cluster administrators m
 -->
 Kubernetes 組件（例如 kube-controller-manager 和 kube-scheduler）使用 client-go 庫與 API 交互，
 整個 Kubernetes 生態系統使用相同的庫來構建控制器、工具、webhook 等。
-client-go 現在包含自己的特性門控機制，使開發人員和集羣管理員能夠更好地控制如何使用客戶端特性。
+client-go 現在包含自己的特性門控機制，使開發人員和叢集管理員能夠更好地控制如何使用客戶端特性。
 
 <!--
 To learn more about feature gates in Kubernetes, visit [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/).
@@ -52,9 +52,9 @@ In cases where issues were discovered in these fallback mechanisms, mitigation r
 ## 動機
 
 在沒有 client-go 特性門控的情況下，每個新特性都以自己的方式（如果有的話）將特性可用性與特性的啓用分開。
-某些特性可通過更新到較新版本的 client-go 來啓用，其他特性則需要在每個使用它們的程序中進行主動配置，
-其中一些可在運行時使用環境變量進行配置。使用 kube-apiserver 公開的特性門控功能時，有時需要客戶端回退機制，
-以保持與由於版本新舊或配置不同而不支持該特性服務器的兼容性。
+某些特性可通過更新到較新版本的 client-go 來啓用，其他特性則需要在每個使用它們的程序中進行主動設定，
+其中一些可在運行時使用環境變量進行設定。使用 kube-apiserver 公開的特性門控功能時，有時需要客戶端回退機制，
+以保持與由於版本新舊或設定不同而不支持該特性伺服器的兼容性。
 如果在這些回退機制中發現問題，則緩解措施需要更新到 client-go 的固定版本或回滾。
 
 <!--
@@ -75,16 +75,16 @@ with feature gates  in the Kubernetes components.
 ## client-go 中的特性門控
 
 爲了應對這些挑戰，大量的 client-go 特性將使用新的特性門控機制來逐步引入。
-這一機制將允許開發人員和用戶以類似 Kubernetes 組件特性門控的管理方式啓用或禁用特性。
+這一機制將允許開發人員和使用者以類似 Kubernetes 組件特性門控的管理方式啓用或禁用特性。
 
 <!--
 Out of the box, simply by using a recent version of client-go, this offers several benefits.
 
 For people who use software built with client-go:
 -->
-作爲一種開箱即用的能力，用戶只需使用最新版本的 client-go。這種設計帶來多種好處。
+作爲一種開箱即用的能力，使用者只需使用最新版本的 client-go。這種設計帶來多種好處。
 
-對於使用通過 client-go 構建的軟件的用戶：
+對於使用通過 client-go 構建的軟件的使用者：
 
 <!--
 * Early adopters can enable a default-off client-go feature on a per-process basis.
@@ -93,7 +93,7 @@ For people who use software built with client-go:
 -->
 * 早期採用者可以針對各個進程分別啓用默認關閉的 client-go 特性。
 * 無需構建新的二進制文件即可禁用行爲不當的特性。
-* 所有已知的 client-go 特性門控的狀態都會被記錄到日誌中，允許用戶檢查。
+* 所有已知的 client-go 特性門控的狀態都會被記錄到日誌中，允許使用者檢查。
 
 <!--
 For people who develop software built with client-go:
@@ -108,9 +108,9 @@ For people who develop software built with client-go:
 對於開發使用 client-go 構建的軟件的人員：
 
 * 默認情況下，client-go 特性門控覆蓋是從環境變量中讀取的。
-  如果在 client-go 特性中發現錯誤，用戶將能夠禁用它，而無需等待新版本發佈。
+  如果在 client-go 特性中發現錯誤，使用者將能夠禁用它，而無需等待新版本發佈。
 * 開發人員可以替換程序中基於默認環境變量的覆蓋值以更改默認值、從其他源讀取覆蓋值或完全禁用運行時覆蓋值。
-  Kubernetes 組件使用這種可定製性將 client-go 特性門控與現有的 `--feature-gates` 命令行標誌、特性啓用指標和日誌記錄集成在一起。
+  Kubernetes 組件使用這種可定製性將 client-go 特性門控與現有的 `--feature-gates` 命令列標誌、特性啓用指標和日誌記錄集成在一起。
 
 <!--
 ## Overriding client-go feature gates
@@ -162,7 +162,7 @@ read feature gates directly from a remote configuration service, or accept featu
 
 基於環境變量的默認特性門控覆蓋機制足以滿足 Kubernetes 生態系統中許多程序的需求，無需特殊集成。
 需要不同行爲的程序可以用自己的自定義特性門控提供程序替換它。
-這允許程序執行諸如強制禁用已知運行不良的特性、直接從遠程配置服務讀取特性門控或通過命令行選項接受特性門控覆蓋等操作。
+這允許程序執行諸如強制禁用已知運行不良的特性、直接從遠程設定服務讀取特性門控或通過命令列選項接受特性門控覆蓋等操作。
 
 <!--
 The Kubernetes components replace client-go’s default feature gate provider with a shim to the existing Kubernetes feature gate provider. 
@@ -171,7 +171,7 @@ feature gates: they are wired to the `--feature-gates` command-line flag, includ
 -->
 Kubernetes 組件將 client-go 的默認特性門控提供程序替換爲現有 Kubernetes 特性門控提供程序的轉換層。
 在所有實際應用場合中，client-go 特性門控與其他 Kubernetes 特性門控的處理方式相同：
-它們連接到 `--feature-gates` 命令行標誌，包含在特性啓用指標中，並在啓動時記錄。
+它們連接到 `--feature-gates` 命令列標誌，包含在特性啓用指標中，並在啓動時記錄。
 
 <!--
 To replace the default feature gate provider, implement the Gates interface and call ReplaceFeatureGates 
@@ -214,7 +214,7 @@ The work of Kubernetes contributors is streamlined by having a common mechanism 
 ## 總結
 
 隨着 client-go v1.30 中特性門控的引入，推出新的 client-go 特性變得更加安全、簡單。
-用戶和開發人員可以控制自己採用 client-go 特性的步伐。
+使用者和開發人員可以控制自己採用 client-go 特性的步伐。
 通過爲跨 Kubernetes API 邊界兩側的特性提供一種通用的培育機制，Kubernetes 貢獻者的工作得到了簡化。
 
 <!--

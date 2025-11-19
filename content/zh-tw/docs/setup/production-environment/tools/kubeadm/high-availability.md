@@ -1,5 +1,5 @@
 ---
-title: 利用 kubeadm 創建高可用集羣
+title: 利用 kubeadm 創建高可用叢集
 content_type: task
 weight: 60
 ---
@@ -23,10 +23,10 @@ cluster using kubeadm:
 - With an external etcd cluster. This approach requires more infrastructure. The
   control plane nodes and etcd members are separated.
 -->
-本文講述了使用 kubeadm 設置一個高可用的 Kubernetes 集羣的兩種不同方式：
+本文講述了使用 kubeadm 設置一個高可用的 Kubernetes 叢集的兩種不同方式：
 
 - 使用具有堆疊的控制平面節點。這種方法所需基礎設施較少。etcd 成員和控制平面節點位於同一位置。
-- 使用外部 etcd 集羣。這種方法所需基礎設施較多。控制平面的節點和 etcd 成員是分開的。
+- 使用外部 etcd 叢集。這種方法所需基礎設施較多。控制平面的節點和 etcd 成員是分開的。
 
 <!--
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
@@ -41,7 +41,7 @@ See also the [upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kube
 在下一步之前，你應該仔細考慮哪種方法更好地滿足你的應用程序和環境的需求。
 [高可用拓撲選項](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/) 講述了每種方法的優缺點。
 
-如果你在安裝 HA 集羣時遇到問題，請在 kubeadm [問題跟蹤](https://github.com/kubernetes/kubeadm/issues/new)裏向我們提供反饋。
+如果你在安裝 HA 叢集時遇到問題，請在 kubeadm [問題跟蹤](https://github.com/kubernetes/kubeadm/issues/new)裏向我們提供反饋。
 
 你也可以閱讀[升級文檔](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)。
 
@@ -51,7 +51,7 @@ This page does not address running your cluster on a cloud provider. In a cloud
 environment, neither approach documented here works with Service objects of type
 LoadBalancer, or with dynamic PersistentVolumes.
 -->
-這篇文檔沒有講述在雲提供商上運行集羣的問題。在雲環境中，
+這篇文檔沒有講述在雲提供商上運行叢集的問題。在雲環境中，
 此處記錄的方法不適用於類型爲 LoadBalancer 的服務對象，也不適用於具有動態 PersistentVolume 的對象。
 {{< /caution >}}
 
@@ -61,7 +61,7 @@ LoadBalancer, or with dynamic PersistentVolumes.
 The prerequisites depend on which topology you have selected for your cluster's
 control plane:
 -->
-根據集羣控制平面所選擇的拓撲結構不同，準備工作也有所差異：
+根據叢集控制平面所選擇的拓撲結構不同，準備工作也有所差異：
 
 {{< tabs name="prerequisite_tabs" >}}
 {{% tab name="堆疊（Stacked） etcd 拓撲" %}}
@@ -91,13 +91,13 @@ _See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha
 -->
 需要準備：
 
-- 配置滿足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#準備開始)
+- 設定滿足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#準備開始)
   的三臺機器作爲控制面節點。控制平面節點爲奇數有利於機器故障或者分區故障時重新選舉。
   - 機器已經安裝好{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}，並正常運行
-- 配置滿足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#準備開始)
+- 設定滿足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#準備開始)
   的三臺機器作爲工作節點
   - 機器已經安裝好{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}，並正常運行
-- 在集羣中，確保所有計算機之間存在全網絡連接（公網或私網）
+- 在叢集中，確保所有計算機之間存在全網路連接（公網或私網）
 - 在所有機器上具有 sudo 權限
   - 可以使用其他工具；本教程以 `sudo` 舉例
 - 從某臺設備通過 SSH 訪問系統中所有節點的能力
@@ -131,13 +131,13 @@ You need:
 -->
 需要準備：
 
-- 配置滿足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#準備開始)
+- 設定滿足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#準備開始)
   的三臺機器作爲控制面節點。控制平面節點爲奇數有利於機器故障或者分區故障時重新選舉。
   - 機器已經安裝好{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}，並正常運行
-- 配置滿足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#準備開始)
+- 設定滿足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#準備開始)
   的三臺機器作爲工作節點
   - 機器已經安裝好{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}，並正常運行
-- 在集羣中，確保所有計算機之間存在全網絡連接（公網或私網）
+- 在叢集中，確保所有計算機之間存在全網路連接（公網或私網）
 - 在所有機器上具有 sudo 權限
   - 可以使用其他工具；本教程以 `sudo` 舉例
 - 從某臺設備通過 SSH 訪問系統中所有節點的能力
@@ -155,7 +155,7 @@ And you also need:
 -->
 還需要準備：
 
-- 給 etcd 集羣使用的另外至少三臺機器。爲了分佈式一致性算法達到更好的投票效果，集羣必須由奇數個節點組成。
+- 給 etcd 叢集使用的另外至少三臺機器。爲了分佈式一致性算法達到更好的投票效果，叢集必須由奇數個節點組成。
   - 機器上已經安裝 `kubeadm` 和 `kubelet`。
   - 機器上同樣需要安裝好容器運行時，並能正常運行。
 
@@ -170,7 +170,7 @@ _See [External etcd topology](/docs/setup/production-environment/tools/kubeadm/h
 <!--
 ### Container images
 -->
-### 容器鏡像  {#container-images}
+### 容器映像檔  {#container-images}
 
 <!--
 Each host should have access read and fetch images from the Kubernetes container image registry,
@@ -178,13 +178,13 @@ Each host should have access read and fetch images from the Kubernetes container
 access to pull images, this is possible. You must ensure by some other means that the correct
 container images are already available on the relevant hosts.
 -->
-每臺主機需要能夠從 Kubernetes 容器鏡像倉庫（`registry.k8s.io`）讀取和拉取鏡像。
-想要在無法拉取 Kubernetes 倉庫鏡像的機器上部署高可用集羣也是可行的。通過其他的手段保證主機上已經有對應的容器鏡像即可。
+每臺主機需要能夠從 Kubernetes 容器映像檔倉庫（`registry.k8s.io`）讀取和拉取映像檔。
+想要在無法拉取 Kubernetes 倉庫映像檔的機器上部署高可用叢集也是可行的。通過其他的手段保證主機上已經有對應的容器映像檔即可。
 
 <!--
 ### Command line interface {#kubectl}
 -->
-### 命令行  {#kubectl}
+### 命令列  {#kubectl}
 
 <!--
 To manage Kubernetes once your cluster is set up, you should
@@ -192,7 +192,7 @@ To manage Kubernetes once your cluster is set up, you should
 to install the `kubectl` tool on each control plane node, as this can be
 helpful for troubleshooting.
 -->
-一旦集羣創建成功，需要在 PC 上[安裝 kubectl](/zh-cn/docs/tasks/tools/#kubectl) 用於管理 Kubernetes。
+一旦叢集創建成功，需要在 PC 上[安裝 kubectl](/zh-cn/docs/tasks/tools/#kubectl) 用於管理 Kubernetes。
 爲了方便故障排查，也可以在每個控制平面節點上安裝 `kubectl`。
 
 <!-- steps -->
@@ -211,7 +211,7 @@ helpful for troubleshooting.
 There are many configurations for load balancers. The following example is only one
 option. Your cluster requirements may need a different configuration.
 -->
-負載均衡器有很多種可能的配置方式。以下僅提供一個配置的例子。你的集羣可能需要進行不同的配置。
+負載均衡器有很多種可能的設定方式。以下僅提供一個設定的例子。你的叢集可能需要進行不同的設定。
 {{< /note >}}
 
 <!--
@@ -239,12 +239,12 @@ option. Your cluster requirements may need a different configuration.
 
    - 在雲環境中，應該將控制平面節點放置在 TCP 轉發負載平衡後面。
      該負載均衡器將流量分配給目標列表中所有運行狀況良好的控制平面節點。
-     API 服務器的健康檢查是在 kube-apiserver 的監聽端口（默認值 `:6443`）
+     API 伺服器的健康檢查是在 kube-apiserver 的監聽端口（默認值 `:6443`）
      上進行的一個 TCP 檢查。
 
    - 不建議在雲環境中直接使用 IP 地址。
 
-   - 負載均衡器必須能夠在 API 服務器端口上與所有控制平面節點通信。
+   - 負載均衡器必須能夠在 API 伺服器端口上與所有控制平面節點通信。
      它還必須允許其監聽端口的入站流量。
 
    - 確保負載均衡器的地址始終匹配 kubeadm 的 `ControlPlaneEndpoint` 地址。
@@ -273,9 +273,9 @@ option. Your cluster requirements may need a different configuration.
    nc -v LOAD_BALANCER_IP PORT
    ```
 
-   由於 API 服務器尚未運行，預期會出現一個連接拒絕錯誤。
+   由於 API 伺服器尚未運行，預期會出現一個連接拒絕錯誤。
    然而超時意味着負載均衡器不能和控制平面節點通信。
-   如果發生超時，請重新配置負載均衡器與控制平面節點進行通信。
+   如果發生超時，請重新設定負載均衡器與控制平面節點進行通信。
 
 3. 將其餘控制平面節點添加到負載均衡器目標組。
 
@@ -313,7 +313,7 @@ option. Your cluster requirements may need a different configuration.
    - 你可以使用 `--kubernetes-version` 標誌來設置要使用的 Kubernetes 版本。
      建議將 kubeadm、kebelet、kubectl 和 Kubernetes 的版本匹配。
    - 這個 `--control-plane-endpoint` 標誌應該被設置成負載均衡器的地址或 DNS 和端口。
-   - 這個 `--upload-certs` 標誌用來將在所有控制平面實例之間的共享證書上傳到集羣。
+   - 這個 `--upload-certs` 標誌用來將在所有控制平面實例之間的共享證書上傳到叢集。
      如果正好相反，你更喜歡手動地通過控制平面節點或者使用自動化工具複製證書，
      請刪除此標誌並參考如下部分[證書分配手冊](#manual-certs)。
 
@@ -326,7 +326,7 @@ option. Your cluster requirements may need a different configuration.
    -->
    在使用 `kubeadm init` 時，標記 `--config` 和 `--certificate-key` 不能混用，
    因此如果你要使用
-   [kubeadm 配置](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)，你必須在相應的配置結構
+   [kubeadm 設定](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)，你必須在相應的設定結構
    （位於 `InitConfiguration` 和 `JoinConfiguration: controlPlane`）添加 `certificateKey` 字段。
    {{< /note >}}
 
@@ -337,10 +337,10 @@ option. Your cluster requirements may need a different configuration.
    To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kubeadm configuration file
    set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
    -->
-   一些 CNI 網絡插件需要更多配置，例如指定 Pod IP CIDR，而其他插件則不需要。參考
-   [CNI 網絡文檔](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
+   一些 CNI 網路插件需要更多設定，例如指定 Pod IP CIDR，而其他插件則不需要。參考
+   [CNI 網路文檔](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
    通過傳遞 `--pod-network-cidr` 標誌添加 Pod CIDR，或者你可以使用 kubeadm
-   配置文件，在 `ClusterConfiguration` 的 `networking` 對象下設置 `podSubnet` 字段。
+   設定文件，在 `ClusterConfiguration` 的 `networking` 對象下設置 `podSubnet` 字段。
    {{< /note >}}
 
    <!--
@@ -369,9 +369,9 @@ option. Your cluster requirements may need a different configuration.
      control plane
      node that is already joined to the cluster:
    -->
-   - 將此輸出複製到文本文件。 稍後你將需要它來將控制平面節點和工作節點加入集羣。
+   - 將此輸出複製到文本文件。 稍後你將需要它來將控制平面節點和工作節點加入叢集。
    - 當使用 `--upload-certs` 調用 `kubeadm init` 時，主控制平面的證書被加密並上傳到 `kubeadm-certs` Secret 中。
-   - 要重新上傳證書並生成新的解密密鑰，請在已加入集羣節點的控制平面上使用以下命令：
+   - 要重新上傳證書並生成新的解密密鑰，請在已加入叢集節點的控制平面上使用以下命令：
 
      ```shell
      sudo kubeadm init phase upload-certs --upload-certs
@@ -403,7 +403,7 @@ option. Your cluster requirements may need a different configuration.
    <!--
    As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
    -->
-   正如命令輸出中所述，證書密鑰可訪問集羣敏感數據。請妥善保管！
+   正如命令輸出中所述，證書密鑰可訪問叢集敏感數據。請妥善保管！
    {{< /caution >}}
 
 <!--
@@ -414,7 +414,7 @@ option. Your cluster requirements may need a different configuration.
 -->
 2. 應用你所選擇的 CNI 插件：
    [請遵循以下指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
-   安裝 CNI 驅動。如果適用，請確保配置與 kubeadm 配置文件中指定的 Pod
+   安裝 CNI 驅動。如果適用，請確保設定與 kubeadm 設定文件中指定的 Pod
    CIDR 相對應。
 
    {{< note >}}
@@ -422,8 +422,8 @@ option. Your cluster requirements may need a different configuration.
    You must pick a network plugin that suits your use case and deploy it before you move on to next step.
    If you don't do this, you will not be able to launch your cluster properly.
    -->
-   在進行下一步之前，必須選擇並部署合適的網絡插件。
-   否則集羣不會正常運行。
+   在進行下一步之前，必須選擇並部署合適的網路插件。
+   否則叢集不會正常運行。
    {{< /note >}}
 
 <!--
@@ -464,7 +464,7 @@ For each additional control plane node you should:
    ```
 
    - 這個 `--control-plane` 標誌通知 `kubeadm join` 創建一個新的控制平面。
-   - `--certificate-key ...` 將導致從集羣中的 `kubeadm-certs` Secret
+   - `--certificate-key ...` 將導致從叢集中的 `kubeadm-certs` Secret
      下載控制平面證書並使用給定的密鑰進行解密。
 
 {{< note >}}
@@ -473,7 +473,7 @@ As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are 
 on the first control plane node. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 -->
-由於集羣節點通常按順序初始化，CoreDNS Pod 很可能全部運行在第一個控制平面節點上。
+由於叢集節點通常按順序初始化，CoreDNS Pod 很可能全部運行在第一個控制平面節點上。
 爲了提供更高的可用性，請在加入至少一個新節點後，使用 `kubectl -n kube-system rollout restart deployment coredns`
 重新平衡 CoreDNS Pod。
 {{< /note >}}
@@ -487,8 +487,8 @@ in the kubeadm config file.
 -->
 ## 外部 etcd 節點
 
-使用外部 etcd 節點設置集羣類似於用於堆疊 etcd 的過程，
-不同之處在於你應該首先設置 etcd，並在 kubeadm 配置文件中傳遞 etcd 信息。
+使用外部 etcd 節點設置叢集類似於用於堆疊 etcd 的過程，
+不同之處在於你應該首先設置 etcd，並在 kubeadm 設定文件中傳遞 etcd 信息。
 
 <!--
 ### Set up the etcd cluster
@@ -508,13 +508,13 @@ in the kubeadm config file.
 
    - Replace the value of `CONTROL_PLANE` with the `user@host` of the first control-plane node.
 -->
-### 設置 etcd 集羣
+### 設置 etcd 叢集
 
 1. 按照[這裏](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)的指示去設置。
 
-1. 根據[這裏](#manual-certs) 的描述配置 SSH。
+1. 根據[這裏](#manual-certs) 的描述設定 SSH。
 
-1. 將以下文件從集羣中的任一 etcd 節點複製到第一個控制平面節點：
+1. 將以下文件從叢集中的任一 etcd 節點複製到第一個控制平面節點：
 
    ```shell
    export CONTROL_PLANE="ubuntu@10.0.0.7"
@@ -576,14 +576,14 @@ in the kubeadm config file.
    In the case of the stacked etcd topology, this is managed automatically.
    -->
    這裏的堆疊（stacked）etcd 和外部 etcd 之前的區別在於設置外部 etcd
-   需要一個 `etcd` 的 `external` 對象下帶有 etcd 端點的配置文件。
+   需要一個 `etcd` 的 `external` 對象下帶有 etcd 端點的設定文件。
    如果是內部 etcd，是自動管理的。
    {{< /note >}}
 
    <!--
    - Replace the following variables in the config template with the appropriate values for your cluster:
    -->
-   - 在你的集羣中，將配置模板中的以下變量替換爲適當值：
+   - 在你的叢集中，將設定模板中的以下變量替換爲適當值：
 
      - `LOAD_BALANCER_DNS`
      - `LOAD_BALANCER_PORT`
@@ -594,7 +594,7 @@ in the kubeadm config file.
 <!--
 The following steps are similar to the stacked etcd setup:
 -->
-以下的步驟與設置內置 etcd 的集羣是相似的：
+以下的步驟與設置內置 etcd 的叢集是相似的：
 
 <!--
 1. Run `sudo kubeadm init --config kubeadm-config.yaml --upload-certs` on this node.
@@ -614,8 +614,8 @@ The following steps are similar to the stacked etcd setup:
    You must pick a network plugin that suits your use case and deploy it before you move on to next step.
    If you don't do this, you will not be able to launch your cluster properly.
    -->
-   在進行下一步之前，必須選擇並部署合適的網絡插件。
-   否則集羣不會正常運行。
+   在進行下一步之前，必須選擇並部署合適的網路插件。
+   否則叢集不會正常運行。
    {{< /note >}}
 
 <!--
@@ -650,7 +650,7 @@ The steps are the same as for the stacked etcd setup:
 Worker nodes can be joined to the cluster with the command you stored previously
 as the output from the `kubeadm init` command:
 -->
-你可以使用之前存儲的 `kubeadm init` 命令的輸出將工作節點加入集羣中：
+你可以使用之前存儲的 `kubeadm init` 命令的輸出將工作節點加入叢集中：
 
 ```sh
 sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
@@ -707,7 +707,7 @@ SSH is required if you want to control all nodes from a single machine.
    -->
    - SSH 到任何節點時，請確保添加 `-A` 標誌。
      此標誌允許你通過 SSH 登錄到節點後從該節點上訪問你自己 PC 上的 SSH 代理。
-     如果你不完全信任該節點上的用戶會話安全，可以考慮使用其他替代方法。
+     如果你不完全信任該節點上的使用者會話安全，可以考慮使用其他替代方法。
 
      ```shell
      ssh -A 10.0.0.7
@@ -728,7 +728,7 @@ SSH is required if you want to control all nodes from a single machine.
    control plane node after running `kubeadm init`. This script will copy the certificates from
    the first control plane node to the other control plane nodes:
 -->
-4. 在所有節點上配置 SSH 之後，你應該在運行過 `kubeadm init` 命令的第一個控制平面節點上運行以下腳本。
+4. 在所有節點上設定 SSH 之後，你應該在運行過 `kubeadm init` 命令的第一個控制平面節點上運行以下腳本。
    該腳本會將證書從第一個控制平面節點複製到另一個控制平面節點：
 
    <!--
@@ -784,7 +784,7 @@ SSH is required if you want to control all nodes from a single machine.
 1. Then on each joining control plane node you have to run the following script before running `kubeadm join`.
    This script will move the previously copied certificates from the home directory to `/etc/kubernetes/pki`:
 -->
-5. 然後，在每個即將加入集羣的控制平面節點上，你必須先運行以下腳本，然後再運行 `kubeadm join`。
+5. 然後，在每個即將加入叢集的控制平面節點上，你必須先運行以下腳本，然後再運行 `kubeadm join`。
    該腳本會將先前複製的證書從主目錄移動到 `/etc/kubernetes/pki`：
 
    <!--

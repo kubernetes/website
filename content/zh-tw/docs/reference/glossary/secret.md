@@ -42,8 +42,8 @@ the risk of accidental exposure. Secret values are encoded as base64 strings and
 are stored unencrypted by default, but can be configured to be
 [encrypted at rest](/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted).
 -->
-Secret 允許用戶對如何使用敏感信息進行更多的控制，並減少信息意外暴露的風險。
-默認情況下，Secret 值被編碼爲 base64 字符串並以非加密的形式存儲，但可以配置爲
+Secret 允許使用者對如何使用敏感信息進行更多的控制，並減少信息意外暴露的風險。
+默認情況下，Secret 值被編碼爲 base64 字符串並以非加密的形式存儲，但可以設定爲
 [靜態加密（Encrypt at rest）](/zh-cn/docs/tasks/administer-cluster/encrypt-data/#ensure-all-secrets-are-encrypted)。
 
 <!--

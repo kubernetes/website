@@ -41,7 +41,7 @@ Here are the notes from today's meeting:
 
             * more like DNS policy?
 -->
-* 私有鏡像倉庫演示 - Muhammed
+* 私有映像檔倉庫演示 - Muhammed
 
     * 將 docker-registry 作爲 RC/Pod/Service 運行
 
@@ -53,11 +53,11 @@ Here are the notes from today's meeting:
 
         * 我們應該在可能的情況下通過 GCS 或 S3 支持它嗎？
 
-        * 在每個節點上運行由 $object_store 支持的真實鏡像倉庫
+        * 在每個節點上運行由 $object_store 支持的真實映像檔倉庫
 
         * DNS 代替 localhost？
 
-            * 分解 docker 鏡像字符串？
+            * 分解 docker 映像檔字符串？
 
             * 更像 DNS 策略嗎？
 <!--
@@ -74,7 +74,7 @@ Here are the notes from today's meeting:
     * If you are interested in joining conversation on cluster scalability send mail to [joe@0xBEDA.com][4]
 -->
 
-* 運行大型集羣 - Joe
+* 運行大型叢集 - Joe
 
     * 三星渴望看到大規模 O(1000)
 
@@ -84,7 +84,7 @@ Here are the notes from today's meeting:
 
     * 計劃下週：討論工作組
 
-    * 如果您有興趣加入有關集羣可擴展性的對話，請發送郵件至[joe@0xBEDA.com][4]
+    * 如果您有興趣加入有關叢集可擴展性的對話，請發送郵件至[joe@0xBEDA.com][4]
 
 <!--
 * Resource API Proposal - Clayton
@@ -169,7 +169,7 @@ Here are the notes from today's meeting:
 
         * 確定將其拆分出去
 
-        * 將其用作容器鏡像
+        * 將其用作容器映像檔
 
         * 作爲 kube 發佈過程的一部分構建映像
 

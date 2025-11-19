@@ -23,8 +23,8 @@ exemplified in this blog by kube-proxy,
 handle traffic from pods to the Service, within the cluster. 
 -->
 本文介紹 Kubernetes 1.29 中一個新的 Alpha 特性。
-此特性提供了一種可配置的方式用於定義 Service 的實現方式，本文中以
-kube-proxy 爲例介紹如何處理集羣內從 Pod 到 Service 的流量。
+此特性提供了一種可設定的方式用於定義 Service 的實現方式，本文中以
+kube-proxy 爲例介紹如何處理叢集內從 Pod 到 Service 的流量。
 
 <!-- 
 ## Background 
@@ -47,7 +47,7 @@ The motivation for implementing that interception was for two reasons:
 -->
 這種攔截實現了預期行爲（流量最終會抵達服務後掛載的端點）。這種機制取決於 kube-proxy 的模式，在
 Linux 中，運行於 iptables 模式下的 kube-proxy 會重定向數據包到後端端點；在 ipvs 模式下，
-kube-proxy 會將負載均衡器的 IP 地址配置到節點的一個網絡接口上。採用這種攔截有兩個原因：
+kube-proxy 會將負載均衡器的 IP 地址設定到節點的一個網路接口上。採用這種攔截有兩個原因：
 
 <!-- 
 1. **Traffic path optimization:** Efficiently redirecting pod traffic - when a container in a pod sends an outbound
@@ -85,7 +85,7 @@ However, there are several problems with the aforementioned behavior:
 -->
 1. **[源 IP（Source IP）](https://github.com/kubernetes/kubernetes/issues/79783)：** 
     一些雲廠商在傳輸數據包到節點時使用負載均衡器的 IP 地址作爲源 IP。在 kube-proxy 的 ipvs 模式下，
-    存在負載均衡器健康檢查永遠不會返回的問題。原因是回覆的數據包被轉發到本地網絡接口 `kube-ipvs0`（綁定負載均衡器 IP 的接口）上並被忽略。
+    存在負載均衡器健康檢查永遠不會返回的問題。原因是回覆的數據包被轉發到本地網路接口 `kube-ipvs0`（綁定負載均衡器 IP 的接口）上並被忽略。
   
 <!-- 
 2. **[Feature loss at load balancer level](https://github.com/kubernetes/kubernetes/issues/66607):**
@@ -142,7 +142,7 @@ The destination setting for forwarded packets varies depending on how the cloud 
 `.status.loadBalancer.ingress.ipMode` 可選值爲：`"VIP"` 和 `"Proxy"`。
 默認值爲 `VIP`，即目標 IP 設置爲負載均衡 IP 和端口併發送到節點的流量會被 kube-proxy 重定向到後端服務。
 這種方式保持 kube-proxy 現有行爲模式。`Proxy` 用於阻止 kube-proxy 在 ipvs 和 iptables 模式下綁定負載均衡 IP 地址到節點。
-此時，流量會直達負載均衡器然後被重定向到目標節點。轉發數據包的目的值配置取決於雲廠商的負載均衡器如何傳輸流量。
+此時，流量會直達負載均衡器然後被重定向到目標節點。轉發數據包的目的值設定取決於雲廠商的負載均衡器如何傳輸流量。
 
 <!-- 
 - If the traffic is delivered to the node then DNATed to the pod, the destination would be set to the node's IP and node port;
@@ -169,7 +169,7 @@ on kube-proxy, kube-apiserver, and cloud-controller-manager.
 This step is likely handled by your chosen cloud-controller-manager during the `EnsureLoadBalancer` process. 
 -->
 - 下載 [Kubernetes 最新版本](https://kubernetes.io/releases/download/)（`v1.29.0` 或更新）。
-- 通過命令行參數 `--feature-gates=LoadBalancerIPMode=true` 在 kube-proxy、kube-apiserver 和
+- 通過命令列參數 `--feature-gates=LoadBalancerIPMode=true` 在 kube-proxy、kube-apiserver 和
     cloud-controller-manager 開啓特性門控。
 - 對於 `type: LoadBalancer` 類型的 Service，將 `ipMode` 設置爲合適的值。
     這一步可能由你在 `EnsureLoadBalancer` 過程中選擇的 cloud-controller-manager 進行處理。

@@ -35,7 +35,7 @@ is a Pod that has one container:
 -->
 ## 使用策略合併 patch 更新 Deployment    {#use-a-strategic-merge-patch-to-update-a-deployment}
 
-下面是具有兩個副本的 Deployment 的配置文件。每個副本是一個 Pod，有一個容器：
+下面是具有兩個副本的 Deployment 的設定文件。每個副本是一個 Pod，有一個容器：
 
 {{% code_sample file="application/deployment-patch.yaml" %}}
 
@@ -79,7 +79,7 @@ get terminated and replaced by new ones.
 At this point, each Pod has one Container that runs the nginx image. Now suppose
 you want each Pod to have two containers: one that runs nginx and one that runs redis.
 -->
-此時，每個 Pod 都有一個運行 nginx 鏡像的容器。現在假設你希望每個 Pod 有兩個容器：一個運行 nginx，另一個運行 redis。
+此時，每個 Pod 都有一個運行 nginx 映像檔的容器。現在假設你希望每個 Pod 有兩個容器：一個運行 nginx，另一個運行 redis。
 
 <!--
 Create a file named `patch-file.yaml` that has this content:
@@ -592,7 +592,7 @@ directly on the command line.
 -->
 ### kubectl patch 命令的其他形式    {#alternate-forms-of-the-kubectl-patch-command}
 
-`kubectl patch` 命令使用 YAML 或 JSON。它可以接受以文件形式提供的補丁，也可以接受直接在命令行中給出的補丁。
+`kubectl patch` 命令使用 YAML 或 JSON。它可以接受以文件形式提供的補丁，也可以接受直接在命令列中給出的補丁。
 
 <!--
 Create a file named `patch-file.json` that has this content:
@@ -753,7 +753,7 @@ If you run `kubectl patch` and specify `--subresource` flag for resource that do
 particular subresource, the API server returns a 404 Not Found error.
 -->
 如果你運行 `kubectl patch` 並指定 `--subresource` 標誌時，所針對的是不支持特定子資源的資源，
-則 API 服務器會返回一個 404 Not Found 錯誤。
+則 API 伺服器會返回一個 404 Not Found 錯誤。
 {{< /note >}}
 
 <!--
@@ -771,8 +771,8 @@ and
 -->
 ## 總結    {#summary}
 
-在本練習中，你使用 `kubectl patch` 更改了 Deployment 對象的當前配置。
-你沒有更改最初用於創建 Deployment 對象的配置文件。
+在本練習中，你使用 `kubectl patch` 更改了 Deployment 對象的當前設定。
+你沒有更改最初用於創建 Deployment 對象的設定文件。
 用於更新 API 對象的其他命令包括
 [`kubectl annotate`](/docs/reference/generated/kubectl/kubectl-commands/#annotate)、
 [`kubectl edit`](/docs/reference/generated/kubectl/kubectl-commands/#edit)、
@@ -797,5 +797,5 @@ Strategic merge patch is not supported for custom resources.
 -->
 * [Kubernetes 對象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)
 * [使用指令式命令管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-* [使用配置文件對 Kubernetes 對象進行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [使用配置文件對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [使用設定文件對 Kubernetes 對象進行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [使用設定文件對 Kubernetes 對象進行聲明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)

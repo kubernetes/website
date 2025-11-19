@@ -23,10 +23,10 @@ could query the Kubernetes API server to learn the IPs of the other Pods, but it
 rely on Kubernetes' built-in DNS resolution.
 -->
 在此例中，你將以[索引完成模式](/blog/2021/04/19/introducing-indexed-jobs/)運行一個 Job，
-並通過配置使得該 Job 所創建的各 Pod 之間可以使用 Pod 主機名而不是 Pod IP 地址進行通信。
+並通過設定使得該 Job 所創建的各 Pod 之間可以使用 Pod 主機名而不是 Pod IP 地址進行通信。
 
-某 Job 內的 Pod 之間可能需要通信。每個 Pod 中運行的用戶工作負載可以查詢 Kubernetes API
-服務器以獲知其他 Pod 的 IP，但使用 Kubernetes 內置的 DNS 解析會更加簡單。
+某 Job 內的 Pod 之間可能需要通信。每個 Pod 中運行的使用者工作負載可以查詢 Kubernetes API
+伺服器以獲知其他 Pod 的 IP，但使用 Kubernetes 內置的 DNS 解析會更加簡單。
 
 <!--
 Jobs in Indexed completion mode automatically set the pods' hostname to be in the format of
@@ -41,7 +41,7 @@ to depend on a network connection with the Kubernetes API server.
 你可以使用此格式確定性地構建 Pod 主機名並啓用 Pod 通信，無需創建到 Kubernetes
 控制平面的客戶端連接來通過 API 請求獲取 Pod 主機名/IP。
 
-此配置可用於需要 Pod 聯網但不想依賴 Kubernetes API 服務器網絡連接的使用場景。
+此設定可用於需要 Pod 聯網但不想依賴 Kubernetes API 伺服器網路連接的使用場景。
 
 ## {{% heading "prerequisites" %}}
 
@@ -89,9 +89,9 @@ To enable pod-to-pod communication using pod hostnames in a Job, you must do the
    該無頭服務必須位於與該 Job 相同的名字空間內。
    實現這一目的的一種簡單的方式是使用 `job-name: <任務名稱>` 作爲選擇算符，
    因爲 `job-name` 標籤將由 Kubernetes 自動添加。
-   此配置將觸發 DNS 系統爲運行 Job 的 Pod 創建其主機名的記錄。
+   此設定將觸發 DNS 系統爲運行 Job 的 Pod 創建其主機名的記錄。
 
-2. 通過將以下值包括到你的 Job 模板規約中，針對該 Job 的 Pod，將無頭服務配置爲其子域服務：
+2. 通過將以下值包括到你的 Job 模板規約中，針對該 Job 的 Pod，將無頭服務設定爲其子域服務：
 
    <!--
    ```yaml
@@ -219,7 +219,7 @@ spec:
 After applying the example above, reach each other over the network
 using: `<pod-hostname>.<headless-service-name>`. You should see output similar to the following:
 -->
-應用上述示例之後，使用 `<Pod 主機名>.<無頭服務名>` 通過網絡到達彼此。
+應用上述示例之後，使用 `<Pod 主機名>.<無頭服務名>` 通過網路到達彼此。
 你應看到類似以下的輸出：
 
 ```shell

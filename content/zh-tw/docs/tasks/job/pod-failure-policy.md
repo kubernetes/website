@@ -155,7 +155,7 @@ With the following example, you can learn how to use Pod failure policy to
 ignore Pod disruptions from incrementing the Pod retry counter towards the
 `.spec.backoffLimit` limit.
 -->
-集羣自動清理這些 Pod。
+叢集自動清理這些 Pod。
 
 ### 使用 Pod 失效策略來忽略 Pod 干擾  {#pod-failure-policy-ignore}
 
@@ -249,7 +249,7 @@ kubectl delete jobs/job-pod-failure-policy-ignore
 <!--
 The cluster automatically cleans up the Pods.
 -->
-集羣自動清理 Pod。
+叢集自動清理 Pod。
 
 <!--
 ### Using Pod failure policy to avoid unnecessary Pod retries based on custom Pod Conditions {#pod-failure-policy-config-issue}
@@ -290,7 +290,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
    <!--
    Note that, the image is misconfigured, as it does not exist.
    -->
-   請注意，鏡像配置不正確，因爲該鏡像不存在。
+   請注意，映像檔設定不正確，因爲該映像檔不存在。
 
 <!--
 1. Inspect the status of the job's Pods by running:
@@ -324,9 +324,9 @@ deleted pods, in the `Pending` phase, to a terminal phase
    image could get pulled. However, in this case, the image does not exist so
    we indicate this fact by a custom condition.
    -->
-   請注意，Pod 依然處於 `Pending` 階段，因爲它無法拉取錯誤配置的鏡像。
-   原則上講這可能是一個暫時問題，鏡像還是會被拉取。然而這種情況下，
-   鏡像不存在，因爲我們通過一個自定義狀況表明了這個事實。
+   請注意，Pod 依然處於 `Pending` 階段，因爲它無法拉取錯誤設定的映像檔。
+   原則上講這可能是一個暫時問題，映像檔還是會被拉取。然而這種情況下，
+   映像檔不存在，因爲我們通過一個自定義狀況表明了這個事實。
 
 <!--
 1. Add the custom condition. First prepare the patch by running:
@@ -408,7 +408,7 @@ deleted pods, in the `Pending` phase, to a terminal phase
 In a production environment, the steps 3 and 4 should be automated by a
 user-provided controller.
 -->
-在生產環境中，第 3 和 4 步應由用戶提供的控制器進行自動化處理。
+在生產環境中，第 3 和 4 步應由使用者提供的控制器進行自動化處理。
 {{< /note >}}
 
 <!--
@@ -427,7 +427,7 @@ kubectl delete jobs/job-pod-failure-policy-config-issue
 <!--
 The cluster automatically cleans up the Pods.
 -->
-集羣自動清理 Pod。
+叢集自動清理 Pod。
 
 <!--
 ### Using Pod Failure Policy to avoid unnecessary Pod retries per index {#backoff-limit-per-index-failindex}
@@ -530,7 +530,7 @@ kubectl delete jobs/job-backoff-limit-per-index-failindex
 <!--
 The cluster automatically cleans up the Pods.
 -->
-集羣自動清理 Pod。
+叢集自動清理 Pod。
 
 <!--
 ## Alternatives

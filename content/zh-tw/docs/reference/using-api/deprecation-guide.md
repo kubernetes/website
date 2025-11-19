@@ -431,7 +431,7 @@ The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition is 
     CustomResourceDefinition 對象時變成必需字段，並且其取值必須是一個
     [結構化的 Schema](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)
   * `spec.preserveUnknownFields: true` 在創建 v1 版本的 CustomResourceDefinition
-    對象時不允許指定；該配置必須在 Schema 定義中使用
+    對象時不允許指定；該設定必須在 Schema 定義中使用
     `x-kubernetes-preserve-unknown-fields: true` 來設置
   * 在 v1 版本中，`additionalPrinterColumns` 的條目中的 `JSONPath` 字段被更名爲
     `jsonPath`（補丁 [#66531](https://github.com/kubernetes/kubernetes/issues/66531)）
@@ -813,8 +813,8 @@ The **extensions/v1beta1** API version of PodSecurityPolicy is no longer served 
 You can test your clusters by starting an API server with specific API versions disabled
 to simulate upcoming removals. Add the following flag to the API server startup arguments:
 -->
-你可以通過在啓動 API 服務器時禁用特定的 API 版本來模擬即將發生的
-API 移除，從而完成測試。在 API 服務器啓動參數中添加如下標誌：
+你可以通過在啓動 API 伺服器時禁用特定的 API 版本來模擬即將發生的
+API 移除，從而完成測試。在 API 伺服器啓動參數中添加如下標誌：
 
 `--runtime-config=<group>/<version>=false`
 

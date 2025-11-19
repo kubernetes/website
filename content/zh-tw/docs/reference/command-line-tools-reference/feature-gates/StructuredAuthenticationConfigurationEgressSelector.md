@@ -14,4 +14,4 @@ stages:
 <!--
 Enables Egress Selector in Structured Authentication Configuration.
 -->
-在結構化身份驗證配置中啓用 Egress 選擇算符。
+在結構化身份驗證設定中啓用 Egress 選擇算符。

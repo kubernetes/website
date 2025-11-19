@@ -34,8 +34,8 @@ Apache Airflow is one realization of the DevOps philosophy of "Configuration As 
 -->
 ## 什麼是 Airflow?
 
-Apache Airflow 是“配置即代碼”的 DevOps 理念的一種實現。
-Airflow 允許用戶使用簡單的 Python 對象 DAG（有向無環圖）啓動多步驟流水線。
+Apache Airflow 是“設定即代碼”的 DevOps 理念的一種實現。
+Airflow 允許使用者使用簡單的 Python 對象 DAG（有向無環圖）啓動多步驟流水線。
 你可以在易於閱讀的 UI 中定義依賴關係，以編程方式構建複雜的工作流，並監視調度的作業。
 
 <img src="/images/blog/2018-05-25-Airflow-Kubernetes-Operator/2018-05-25-airflow_dags.png" width="85%" alt="Airflow DAGs" />
@@ -53,12 +53,12 @@ To address this issue, we've utilized Kubernetes to allow users to launch arbitr
 自成立以來，Airflow 的最大優勢在於其靈活性。
 Airflow 提供廣泛的服務集成，包括Spark和HBase，以及各種雲提供商的服務。
 Airflow 還通過其插件框架提供輕鬆的可擴展性。
-但是，該項目的一個限制是 Airflow 用戶僅限於執行時 Airflow 站點上存在的框架和客戶端。
+但是，該項目的一個限制是 Airflow 使用者僅限於執行時 Airflow 站點上存在的框架和客戶端。
 單個組織可以擁有各種 Airflow 工作流程，範圍從數據科學流到應用程序部署。
 用例中的這種差異會在依賴關係管理中產生問題，因爲兩個團隊可能會在其工作流程使用截然不同的庫。
 
-爲了解決這個問題，我們使 Kubernetes 允許用戶啓動任意 Kubernetes Pod 和配置。
-Airflow 用戶現在可以在其運行時環境，資源和機密上擁有全部權限，基本上將 Airflow 轉變爲“你想要的任何工作”工作流程協調器。
+爲了解決這個問題，我們使 Kubernetes 允許使用者啓動任意 Kubernetes Pod 和設定。
+Airflow 使用者現在可以在其運行時環境，資源和機密上擁有全部權限，基本上將 Airflow 轉變爲“你想要的任何工作”工作流程協調器。
 
 <!--
 ## The Kubernetes Operator
@@ -70,11 +70,11 @@ Airflow users are always looking for ways to make deployments and ETL pipelines 
 ## Kubernetes Operator
 
 在進一步討論之前，我們應該澄清 Airflow 中的 [Operator](https://airflow.apache.org/concepts.html#operators) 是一個任務定義。
-當用戶創建 DAG 時，他們將使用像 “SparkSubmitOperator” 或 “PythonOperator” 這樣的 Operator 分別提交/監視 Spark 作業或 Python 函數。
+當使用者創建 DAG 時，他們將使用像 “SparkSubmitOperator” 或 “PythonOperator” 這樣的 Operator 分別提交/監視 Spark 作業或 Python 函數。
 Airflow 附帶了 Apache Spark，BigQuery，Hive 和 EMR 等框架的內置運算符。
 它還提供了一個插件入口點，允許DevOps工程師開發自己的連接器。
 
-Airflow 用戶一直在尋找更易於管理部署和 ETL 流的方法。
+Airflow 使用者一直在尋找更易於管理部署和 ETL 流的方法。
 在增加監控的同時，任何解耦流程的機會都可以減少未來的停機等問題。
 以下是 Airflow Kubernetes Operator 提供的好處：
 
@@ -91,20 +91,20 @@ Airflow 的插件 API一直爲希望在其 DAG 中測試新功能的工程師提
  * **Flexibility of configurations and dependencies:**
 For operators that are run within static Airflow workers, dependency management can become quite difficult. If a developer wants to run one task that requires [SciPy](https://www.scipy.org) and another that requires [NumPy](http://www.numpy.org), the developer would have to either maintain both dependencies within all Airflow workers or offload the task to an external machine (which can cause bugs if that external machine changes in an untracked manner). Custom Docker images allow users to ensure that the tasks environment, configuration, and dependencies are completely idempotent.  
 -->
- * **配置和依賴的靈活性：**
+ * **設定和依賴的靈活性：**
 
 對於在靜態 Airflow 工作程序中運行的 Operator，依賴關係管理可能變得非常困難。
 如果開發人員想要運行一個需要 [SciPy](https://www.scipy.org) 的任務和另一個需要 [NumPy](http://www.numpy.org) 的任務，
 開發人員必須維護所有 Airflow 節點中的依賴關係或將任務卸載到其他計算機（如果外部計算機以未跟蹤的方式更改，則可能導致錯誤）。
-自定義 Docker 鏡像允許用戶確保任務環境，配置和依賴關係完全是冪等的。
+自定義 Docker 映像檔允許使用者確保任務環境，設定和依賴關係完全是冪等的。
 
 <!--
  * **Usage of kubernetes secrets for added security:**
 Handling sensitive data is a core responsibility of any DevOps engineer. At every opportunity, Airflow users want to isolate any API keys, database passwords, and login credentials on a strict need-to-know basis. With the Kubernetes operator, users can utilize the Kubernetes Vault technology to store all sensitive data. This means that the Airflow workers will never have access to this information, and can simply request that pods be built with only the secrets they need.
 -->
  * **使用kubernetes Secret以增加安全性：**
-處理敏感數據是任何開發工程師的核心職責。Airflow 用戶總有機會在嚴格條款的基礎上隔離任何API密鑰，數據庫密碼和登錄憑據。
-使用 Kubernetes 運算符，用戶可以利用 Kubernetes Vault 技術存儲所有敏感數據。
+處理敏感數據是任何開發工程師的核心職責。Airflow 使用者總有機會在嚴格條款的基礎上隔離任何API密鑰，數據庫密碼和登錄憑據。
+使用 Kubernetes 運算符，使用者可以利用 Kubernetes Vault 技術存儲所有敏感數據。
 這意味着 Airflow 工作人員將永遠無法訪問此信息，並且可以容易地請求僅使用他們需要的密碼信息構建 Pod。
 
 <!--
@@ -118,9 +118,9 @@ The Kubernetes Operator uses the [Kubernetes Python Client](https://github.com/k
 
 Kubernetes Operator 使用 [Kubernetes Python客戶端](https://github.com/kubernetes-client/Python)生成由 APIServer 處理的請求（1）。
 然後，Kubernetes將使用你定義的需求啓動你的 Pod（2）。
-鏡像文件中將加載環境變量，Secret 和依賴項，執行單個命令。
+映像檔文件中將加載環境變量，Secret 和依賴項，執行單個命令。
 一旦啓動作業，Operator 只需要監視跟蹤日誌的狀況（3）。
-用戶可以選擇將日誌本地收集到調度程序或當前位於其 Kubernetes 集羣中的任何分佈式日誌記錄服務。
+使用者可以選擇將日誌本地收集到調度程序或當前位於其 Kubernetes 叢集中的任何分佈式日誌記錄服務。
 
 <!--
 # Using the Kubernetes Operator
@@ -134,8 +134,8 @@ The following DAG is probably the simplest example we could write to show how th
 
 以下 DAG 可能是我們可以編寫的最簡單的示例，以顯示 Kubernetes Operator 的工作原理。
 這個 DAG 在 Kubernetes 上創建了兩個 Pod：一個帶有 Python 的 Linux 發行版和一個沒有它的基本 Ubuntu 發行版。
-Python Pod 將正確運行 Python 請求，而沒有 Python 的那個將向用戶報告失敗。
-如果 Operator 正常工作，則應該完成 “passing-task” Pod，而“ falling-task” Pod 則向 Airflow 網絡服務器返回失敗。
+Python Pod 將正確運行 Python 請求，而沒有 Python 的那個將向使用者報告失敗。
+如果 Operator 正常工作，則應該完成 “passing-task” Pod，而“ falling-task” Pod 則向 Airflow 網路伺服器返回失敗。
 
 ```Python
 from airflow import DAG
@@ -214,9 +214,9 @@ Finally, update your DAGs to reflect the new release version and you should be r
 
 使用Travis或Jenkins運行單元和集成測試，請你的朋友PR你的代碼，併合併到主分支以觸發自動CI構建。
 
-### 2：CI/CD 構建 Jenkins - > Docker 鏡像
+### 2：CI/CD 構建 Jenkins - > Docker 映像檔
 
-[在 Jenkins 構建中生成 Docker 鏡像和更新版本](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers)。
+[在 Jenkins 構建中生成 Docker 映像檔和更新版本](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers)。
 
 ### 3：Airflow 啓動任務
 
@@ -257,7 +257,7 @@ To run this basic deployment, we are co-opting the integration testing script th
 但是，我們在下面列出了基本部署的說明，並且正在積極尋找測試人員來嘗試這一新功能。
 要試用此係統，請按以下步驟操作：
 
-## 步驟1：將 kubeconfig 設置爲指向 kubernetes 集羣
+## 步驟1：將 kubeconfig 設置爲指向 kubernetes 叢集
 
 ## 步驟2：克隆 Airflow 倉庫：
 
@@ -307,13 +307,13 @@ Kubernetes Executor 是另一種 Airflow 功能，允許動態分配任務已解
 
 ### ./scripts/ci/kubernetes/kube/deploy.sh
 
-最後，我們在你的集羣上創建完整的Airflow部署。這包括 Airflow 配置，postgres 後端，web 服務器和調度程序以及之間的所有必要服務。
-需要注意的一點是，提供的角色綁定是集羣管理員，因此如果你沒有該集羣的權限級別，可以在 scripts/ci/kubernetes/kube/airflow.yaml 中進行修改。
+最後，我們在你的叢集上創建完整的Airflow部署。這包括 Airflow 設定，postgres 後端，web 伺服器和調度程序以及之間的所有必要服務。
+需要注意的一點是，提供的角色綁定是叢集管理員，因此如果你沒有該叢集的權限級別，可以在 scripts/ci/kubernetes/kube/airflow.yaml 中進行修改。
 
-## 步驟4：登錄你的網絡服務器
+## 步驟4：登錄你的網路伺服器
 
 現在你的 Airflow 實例正在運行，讓我們來看看 UI！
-用戶界面位於 Airflow Pod的 8080 端口，因此只需運行即可：
+使用者界面位於 Airflow Pod的 8080 端口，因此只需運行即可：
 
 ```
 WEB=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | grep "airflow" | head -1)

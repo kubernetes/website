@@ -49,7 +49,7 @@ css: /css/style_case_studies.css
     <!-- <h2>Solution</h2>
     The team experimented with container orchestration platforms, and found that Kubernetes "answered all the questions that we had," says Lynch. The company began running Kubernetes in its data centers in&nbsp;2016. -->
     <h2>解決方案</h2>
-      網站可靠性組開始嘗試使用不同的容器編排平臺，然後發現 Kubernetes “解決了我們所有的既有問題”，Lynch 說道。於是整個公司在 2016 年開始在自己的數據中心中運行 Kubernetes 集羣。
+      網站可靠性組開始嘗試使用不同的容器編排平臺，然後發現 Kubernetes “解決了我們所有的既有問題”，Lynch 說道。於是整個公司在 2016 年開始在自己的數據中心中運行 Kubernetes 叢集。
   </div>
 
   <div class="col2">
@@ -62,7 +62,7 @@ he adds. "When we started the Kubernetes project, we had probably a dozen micros
 Resilience has also been improved with Kubernetes: "If a node goes down, it’s rescheduled immediately and there’s no performance&nbsp;impact." -->
 
 <h2>影響</h2>
-自從 Squarespace 開始全面使用 Kubernetes，伴隨着網絡技術棧的革新，部署時間大幅減少85%。
+自從 Squarespace 開始全面使用 Kubernetes，伴隨着網路技術棧的革新，部署時間大幅減少85%。
 以前，他們的 VM 部署需要耗費半個小時；現在，Lynch 提到，“一個人可以生成一個模板應用，在五分鐘內部署，並將實例容器化，並在模擬環境下運行。”正因爲如此，“開發效率節省了大量的成本。”
 他又補充道，“當我們開始用 Kubernetes 時，我們可能只有十幾個微服務。而現在的任務欄裏面已經有兩倍多的微服務正在進行中。”
 Kubernetes 也同樣提升了可靠性：“如果一個節點宕掉，馬上會重新調度一個新的節點，沒有任何性能上的影響。”
@@ -105,9 +105,9 @@ Kubernetes 也同樣提升了可靠性：“如果一個節點宕掉，馬上會
   <a href="https://github.com/containernetworking/cnihttps://github.com/containernetworking/cni">CNI networking for Kubernetes</a>,
   so we can announce all these individual Kubernetes pod IP addresses and have them integrate seamlessly with our other services that are still provisioned in the VMs." -->
 
-  與此同時，Squarespace 的網絡工程組也正在革新它們的網絡技術棧，從傳統的 L2 網絡轉變爲 L3 脊葉網絡架構。
-  “” Lynch 說道，“它給了我們服務器直接通過架頂交換機通信的能力。我們使用 Calico 作爲
-  <a href="https://github.com/containernetworking/cnihttps://github.com/containernetworking/cni">Kubernetes 的 CNI 網絡插件</a>”，
+  與此同時，Squarespace 的網路工程組也正在革新它們的網路技術棧，從傳統的 L2 網路轉變爲 L3 脊葉網路架構。
+  “” Lynch 說道，“它給了我們伺服器直接通過架頂交換機通信的能力。我們使用 Calico 作爲
+  <a href="https://github.com/containernetworking/cnihttps://github.com/containernetworking/cni">Kubernetes 的 CNI 網路插件</a>”，
   因而，我們可以爲每個 Kubernetes pod 分配 IP 地址，並將它們和其它仍在虛擬機中創建的服務無縫銜接。
 
 </div>
@@ -132,11 +132,11 @@ Kubernetes 也同樣提升了可靠性：“如果一個節點宕掉，馬上會
   and then immediately just ship a workable, deployable project to Kubernetes." Deployments across Dev/QA/Stage/Prod were also "simplified drastically," Lynch adds.
   "Now there is little configuration variation." -->
 
-  幾個月的時間，它們就有了一個穩定的集羣供內部使用，並開始在生產環境下使用 Kubernetes。
+  幾個月的時間，它們就有了一個穩定的叢集供內部使用，並開始在生產環境下使用 Kubernetes。
   他們同時還在自己的雲原生技術棧中用到了 Zipkin 和 CNCF 項目 <a href="https://prometheus.io/">Prometheus</a> and <a href="https://www.fluentd.org/">fluentd</a> 。
   “我們換到 Kubernetes，就像進入了一個新世界，我們也同時改進了其它的工具，” Lynch 說道。“它讓我們簡化了流程，因而，我們才能更加方便地從模板中創建整個微服務項目，生成代碼和部署管道，生成 Docker 文件，
-  並迅速地將可用的、可部署的項目發佈到 Kubernetes 集羣上。”在 Dev/QA/Stage/Prod 不同環境間的部署也變得 “異常的簡單，” Lynch 補充道。
-  “現在，環境間的配置差異變得很小。”
+  並迅速地將可用的、可部署的項目發佈到 Kubernetes 叢集上。”在 Dev/QA/Stage/Prod 不同環境間的部署也變得 “異常的簡單，” Lynch 補充道。
+  “現在，環境間的設定差異變得很小。”
 
 <br><br>
   <!-- And the whole process takes only five minutes, an almost 85% reduction in time compared to their VM deployment.
@@ -206,7 +206,7 @@ Kubernetes 也同樣提升了可靠性：“如果一個節點宕掉，馬上會
   Lynch 和他的小組正準備開源一些他們的工具，這些工具用來延展 Kubernetes，將其作爲 API 使用。
   第一個工具在 pod 將依賴應用作爲容器注入。
   “當你在發佈應用時，常常需要一系列的依賴應用，例如，日誌用的 fluentd，” 他解釋道。
-  有了這個工具，開發人員就不需要擔心配置了。
+  有了這個工具，開發人員就不需要擔心設定了。
 
 <br><br>
   <!-- Going forward, all new services at Squarespace are going into Kubernetes, and the end goal is to convert everything it can. About a quarter of

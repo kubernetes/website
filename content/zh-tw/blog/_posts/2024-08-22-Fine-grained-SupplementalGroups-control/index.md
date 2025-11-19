@@ -29,10 +29,10 @@ Although this behavior may not be popular with many Kubernetes cluster users/adm
 
 Let's see an example, below Pod specifies `runAsUser=1000`, `runAsGroup=3000` and `supplementalGroups=4000` in the Pod's security context.
 -->
-## 動機：容器鏡像中 `/etc/group` 中定義的隱式組成員關係
+## 動機：容器映像檔中 `/etc/group` 中定義的隱式組成員關係
 
-儘管這種行爲可能並不受許多 Kubernetes 集羣用戶/管理員的歡迎，
-但 Kubernetes 默認情況下會將 Pod 中的組信息與容器鏡像中 `/etc/group` 中定義的信息進行**合併**。
+儘管這種行爲可能並不受許多 Kubernetes 叢集使用者/管理員的歡迎，
+但 Kubernetes 默認情況下會將 Pod 中的組信息與容器映像檔中 `/etc/group` 中定義的信息進行**合併**。
 
 讓我們看一個例子，以下 Pod 在 Pod 的安全上下文中指定了
 `runAsUser=1000`、`runAsGroup=3000` 和 `supplementalGroups=4000`。
@@ -81,9 +81,9 @@ Where does group ID `50000` in supplementary groups (`groups` field) come from, 
 Checking the contents of `/etc/group` in the container image should show below:
 -->
 儘管 `50000` 根本沒有在 Pod 的清單中被定義，但附加組中的組 ID `50000`（`groups` 字段）是從哪裏來的呢？
-答案是容器鏡像中的 `/etc/group` 文件。
+答案是容器映像檔中的 `/etc/group` 文件。
 
-檢查容器鏡像中 `/etc/group` 的內容應如下所示：
+檢查容器映像檔中 `/etc/group` 的內容應如下所示：
 
 ```console
 $ kubectl exec implicit-groups -- cat /etc/group
@@ -97,9 +97,9 @@ Aha! The container's primary user `1000` belongs to the group `50000` in the las
 
 Thus, the group membership defined in `/etc/group` in the container image for the container's primary user is _implicitly_ merged to the information from the Pod. Please note that this was a design decision the current CRI implementations inherited from Docker, and the community never really reconsidered it until now.
 -->
-原來如此！容器的主要用戶 `1000` 屬於最後一個條目中的組 `50000`。
+原來如此！容器的主要使用者 `1000` 屬於最後一個條目中的組 `50000`。
 
-因此，容器鏡像中爲容器的主要用戶定義的組成員關係會被**隱式**合併到 Pod 的信息中。
+因此，容器映像檔中爲容器的主要使用者定義的組成員關係會被**隱式**合併到 Pod 的信息中。
 請注意，這是當前 CRI 實現從 Docker 繼承的設計決策，而社區直到現在才重新考慮這個問題。
 
 <!--
@@ -109,7 +109,7 @@ The _implicitly_ merged group information from `/etc/group` in the container ima
 -->
 ### 這有什麼問題？
 
-從容器鏡像中的 `/etc/group` **隱式**合併的組信息可能會引起一些擔憂，特別是在訪問卷時
+從容器映像檔中的 `/etc/group` **隱式**合併的組信息可能會引起一些擔憂，特別是在訪問卷時
 （有關細節參見 [kubernetes/kubernetes#112879](https://issue.k8s.io/112879)），
 因爲在 Linux 中文件權限是通過 uid/gid 進行控制的。
 更糟糕的是，隱式的 gid 無法被任何策略引擎所檢測/驗證，因爲在清單中沒有隱式組信息的線索。
@@ -136,11 +136,11 @@ This field provies a way to control how to calculate supplementary groups for th
 
 Let's see how `Strict` policy works.
 -->
-* **Merge**：將容器的主要用戶在 `/etc/group` 中定義的組成員關係進行合併。
+* **Merge**：將容器的主要使用者在 `/etc/group` 中定義的組成員關係進行合併。
   如果不指定，則應用此策略（即爲了向後兼容性而保持的原有行爲）。
 
 * **Strict**：僅將 `fsGroup`、`supplementalGroups` 或 `runAsGroup`
-  字段中指定的組 ID 掛接爲容器進程的附加組。這意味着容器的主要用戶在 `/etc/group` 中定義的任何組成員關係都不會被合併。
+  字段中指定的組 ID 掛接爲容器進程的附加組。這意味着容器的主要使用者在 `/etc/group` 中定義的任何組成員關係都不會被合併。
 
 讓我們看看 `Strict` 策略是如何工作的。
 
@@ -282,7 +282,7 @@ the feature gate manually.
 ## 接下來
 
 Kubernetes SIG Node 希望並期待此特性將在 Kubernetes 後續版本中進階至 Beta，
-並最終進階至正式發佈（GA），以便用戶不再需要手動啓用特性門控。
+並最終進階至正式發佈（GA），以便使用者不再需要手動啓用特性門控。
 
 當 `supplementalGroupsPolicy` 未被指定時，將應用 `Merge` 策略，以保持向後兼容性。
 
@@ -298,7 +298,7 @@ Kubernetes SIG Node 希望並期待此特性將在 Kubernetes 後續版本中進
 for the further details of `supplementalGroupsPolicy`
 - [KEP-3619: Fine-grained SupplementalGroups control](https://github.com/kubernetes/enhancements/issues/3619)
 -->
-- [爲 Pod 或容器配置安全上下文](/docs/tasks/configure-pod-container/security-context/)以獲取有關
+- [爲 Pod 或容器設定安全上下文](/docs/tasks/configure-pod-container/security-context/)以獲取有關
   `supplementalGroupsPolicy` 的更多細節
 - [KEP-3619：細粒度 SupplementalGroups 控制](https://github.com/kubernetes/enhancements/issues/3619)
 

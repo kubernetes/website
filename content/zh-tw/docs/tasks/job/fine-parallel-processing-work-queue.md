@@ -70,11 +70,11 @@ container image registry.
 This task example also assumes that you have Docker installed locally. You use Docker to
 build container images.
 -->
-你將需要一個容器鏡像倉庫，可以向其中上傳鏡像以在集羣中運行。
+你將需要一個容器映像檔倉庫，可以向其中上傳映像檔以在叢集中運行。
 此示例使用的是 [Docker Hub](https://hub.docker.com/)，
-當然你可以將其調整爲別的容器鏡像倉庫。
+當然你可以將其調整爲別的容器映像檔倉庫。
 
-此任務示例還假設你已在本地安裝了 Docker，並使用 Docker 來構建容器鏡像。
+此任務示例還假設你已在本地安裝了 Docker，並使用 Docker 來構建容器映像檔。
 
 <!-- steps -->
 
@@ -133,7 +133,7 @@ Start a temporary interactive pod for running the Redis CLI.
 
 現在，讓我們往隊列裏添加一些“任務”。在這個例子中，我們的任務是一些將被打印出來的字符串。
 
-啓動一個臨時的可交互的 Pod 用於運行 Redis 命令行界面。
+啓動一個臨時的可交互的 Pod 用於運行 Redis 命令列界面。
 
 ```shell
 kubectl run -i --tty temp --image redis --command "/bin/sh"
@@ -148,7 +148,7 @@ Hit enter for command prompt
 <!--
 Now hit enter, start the Redis CLI, and create a list with some work items in it.
 -->
-現在按回車鍵，啓動 Redis 命令行界面，然後創建一個存在若干個工作項的列表。
+現在按回車鍵，啓動 Redis 命令列界面，然後創建一個存在若干個工作項的列表。
 
 ```shell
 redis-cli -h redis
@@ -193,7 +193,7 @@ So, the list with key `job2` will be the work queue.
 Note: if you do not have Kube DNS setup correctly, you may need to change
 the first step of the above block to `redis-cli -h $REDIS_SERVICE_HOST`.
 -->
-注意：如果你還沒有正確地配置 Kube DNS，你可能需要將上面的第一步改爲
+注意：如果你還沒有正確地設定 Kube DNS，你可能需要將上面的第一步改爲
 `redis-cli -h $REDIS_SERVICE_HOST`。
 
 <!--
@@ -207,9 +207,9 @@ the messages from the message queue.
 A simple Redis work queue client library is provided,
 called `rediswq.py` ([Download](/examples/application/job/redis/rediswq.py)).
 -->
-## 創建容器鏡像  {#create-an-image}
+## 創建容器映像檔  {#create-an-image}
 
-現在你已準備好創建一個鏡像來處理該隊列中的工作。
+現在你已準備好創建一個映像檔來處理該隊列中的工作。
 
 你將使用一個帶有 Redis 客戶端的 Python 工作程序從消息隊列中讀出消息。
 
@@ -232,8 +232,8 @@ the container image. Here's an example using Docker to do the image build:
 -->
 你也可以下載 [`worker.py`](/examples/application/job/redis/worker.py)、
 [`rediswq.py`](/examples/application/job/redis/rediswq.py) 和
-[`Dockerfile`](/examples/application/job/redis/Dockerfile) 文件。然後構建容器鏡像。
-以下是使用 Docker 進行鏡像構建的示例：
+[`Dockerfile`](/examples/application/job/redis/Dockerfile) 文件。然後構建容器映像檔。
+以下是使用 Docker 進行映像檔構建的示例：
 
 ```shell
 docker build -t job-wq-2 .
@@ -246,10 +246,10 @@ For the [Docker Hub](https://hub.docker.com/), tag your app image with
 your username and push to the Hub with the below commands. Replace
 `<username>` with your Hub username.
 -->
-### Push 鏡像
+### Push 映像檔
 
-對於 [Docker Hub](https://hub.docker.com/)，請先用你的用戶名給鏡像打上標籤，
-然後使用下面的命令 push 你的鏡像到倉庫。請將 `<username>` 替換爲你自己的 Hub 用戶名。
+對於 [Docker Hub](https://hub.docker.com/)，請先用你的使用者名給映像檔打上標籤，
+然後使用下面的命令 push 你的映像檔到倉庫。請將 `<username>` 替換爲你自己的 Hub 使用者名。
 
 ```shell
 docker tag job-wq-2 <username>/job-wq-2
@@ -260,8 +260,8 @@ docker push <username>/job-wq-2
 You need to push to a public repository or [configure your cluster to be able to access
 your private repository](/docs/concepts/containers/images/).
 -->
-你需要將鏡像 push 到一個公共倉庫或者
-[配置集羣訪問你的私有倉庫](/zh-cn/docs/concepts/containers/images/)。
+你需要將映像檔 push 到一個公共倉庫或者
+[設定叢集訪問你的私有倉庫](/zh-cn/docs/concepts/containers/images/)。
 
 <!--
 ## Defining a Job

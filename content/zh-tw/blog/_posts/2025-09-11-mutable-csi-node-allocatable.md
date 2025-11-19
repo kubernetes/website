@@ -40,7 +40,7 @@ Traditionally, Kubernetes [CSI drivers](https://kubernetes-csi.github.io/docs/in
 Static reporting can cause Kubernetes to schedule pods onto nodes that appear to have capacity but don't, leading to pods stuck in a `ContainerCreating` state.
 -->
 - 在 Kubernetes 控制之外的手動或外部卷掛接/解除掛接操作。
-- 動態掛接的網絡接口或專用硬件（GPU、NIC 等）消耗可用的插槽。
+- 動態掛接的網路接口或專用硬件（GPU、NIC 等）消耗可用的插槽。
 - 在多驅動場景中，一個 CSI 驅動的操作影響另一個驅動所報告的可用容量。
 
 靜態報告可能導致 Kubernetes 將 Pod 調度到看似有容量但實際上沒有容量的節點上，
@@ -88,9 +88,9 @@ To use this beta feature, the `MutableCSINodeAllocatableCount` feature gate must
 
 Below is an example of configuring a CSI driver to enable periodic updates every 60 seconds:
 -->
-### 示例 CSI 驅動配置
+### 示例 CSI 驅動設定
 
-以下是配置 CSI 驅動以啓用每 60 秒週期性更新一次的示例：
+以下是設定 CSI 驅動以啓用每 60 秒週期性更新一次的示例：
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -108,7 +108,7 @@ This configuration directs kubelet to periodically call the CSI driver's `NodeGe
 
 When a volume attachment operation fails due to a `ResourceExhausted` error (gRPC code `8`), Kubernetes immediately updates the allocatable count instead of waiting for the next periodic update. The Kubelet then marks the affected pods as Failed, enabling their controllers to recreate them. This prevents pods from getting permanently stuck in the `ContainerCreating` state.
 -->
-此配置指示 kubelet 每隔 60 秒調用一次 CSI 驅動的 `NodeGetInfo` 方法，以更新節點的可分配卷數。
+此設定指示 kubelet 每隔 60 秒調用一次 CSI 驅動的 `NodeGetInfo` 方法，以更新節點的可分配卷數。
 Kubernetes 強制要求更新時間間隔最小爲 10 秒，目的是在準確性與資源消耗間達成平衡。
 
 ### 掛接失敗時立即更新
@@ -128,10 +128,10 @@ To enable this feature in your Kubernetes v1.34 cluster:
 -->
 ## 快速入門 {#getting-started}
 
-要在 Kubernetes v1.34 集羣中啓用此特性：
+要在 Kubernetes v1.34 叢集中啓用此特性：
 
 1. 在 `kube-apiserver` 和 `kubelet` 組件上啓用特性門控 `MutableCSINodeAllocatableCount`。
-2. 通過設置 `nodeAllocatableUpdatePeriodSeconds`，更新你的 CSI 驅動配置。
+2. 通過設置 `nodeAllocatableUpdatePeriodSeconds`，更新你的 CSI 驅動設定。
 3. 監控並觀察調度準確性和 Pod 調度可靠性的提升。
 
 <!--

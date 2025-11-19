@@ -1,5 +1,5 @@
 ---
-title: 驗證已簽名容器鏡像
+title: 驗證已簽名容器映像檔
 content_type: task
 min-kubernetes-server-version: v1.24
 weight: 420
@@ -103,11 +103,11 @@ to [Releases](/releases/download/).
 Pick one image from this list and verify its signature using
 the `cosign verify` command:
 -->
-## 驗證鏡像簽名 {#verifying-image-signatures}
+## 驗證映像檔簽名 {#verifying-image-signatures}
 
-完整的鏡像簽名列表請參見[發行版本](/zh-cn/releases/download/)。
+完整的映像檔簽名列表請參見[發行版本](/zh-cn/releases/download/)。
 
-從這個列表中選擇一個鏡像，並使用 `cosign verify` 命令來驗證它的簽名：
+從這個列表中選擇一個映像檔，並使用 `cosign verify` 命令來驗證它的簽名：
 
 ```shell
 cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion >}} \
@@ -122,9 +122,9 @@ cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion
 To verify all signed control plane images for the latest stable version
 (v{{< skew currentPatchVersion >}}), please run the following commands:
 -->
-### 驗證所有控制平面組件鏡像  {#verifying-images-for-all-control-plane-components}
+### 驗證所有控制平面組件映像檔  {#verifying-images-for-all-control-plane-components}
 
-驗證最新穩定版（v{{< skew currentPatchVersion >}}）所有已簽名的控制平面組件鏡像，
+驗證最新穩定版（v{{< skew currentPatchVersion >}}）所有已簽名的控制平面組件映像檔，
 請運行以下命令：
 
 ```shell
@@ -150,13 +150,13 @@ For more information, please refer
 to the [Image Pull Policy](/docs/concepts/containers/images/#image-pull-policy)
 section.
 -->
-當你完成某個鏡像的驗證時，可以在你的 Pod 清單通過摘要值來指定該鏡像，例如：
+當你完成某個映像檔的驗證時，可以在你的 Pod 清單通過摘要值來指定該映像檔，例如：
 
 ```console
 registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
 ```
 
-要了解更多信息，請參考[鏡像拉取策略](/zh-cn/docs/concepts/containers/images/#image-pull-policy)章節。
+要了解更多信息，請參考[映像檔拉取策略](/zh-cn/docs/concepts/containers/images/#image-pull-policy)章節。
 
 <!--
 ## Verifying Image Signatures with Admission Controller
@@ -172,16 +172,16 @@ Here are some helpful resources to get started with `policy-controller`:
 * [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
 * [Configuration Options](https://github.com/sigstore/policy-controller/tree/main/config)
 -->
-## 使用准入控制器驗證鏡像簽名   {#verifying-image-signatures-with-admission-controller}
+## 使用准入控制器驗證映像檔簽名   {#verifying-image-signatures-with-admission-controller}
 
-有一些非控制平面鏡像
-（例如 [conformance 鏡像](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)），
+有一些非控制平面映像檔
+（例如 [conformance 映像檔](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)），
 也可以在部署時使用
 [sigstore policy-controller](https://docs.sigstore.dev/policy-controller/overview)
 控制器驗證其簽名。以下是一些有助於你開始使用 `policy-controller` 的資源：
 
 - [安裝](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
-- [配置選項](https://github.com/sigstore/policy-controller/tree/main/config)
+- [設定選項](https://github.com/sigstore/policy-controller/tree/main/config)
 
 <!--
 ## Verify the Software Bill Of Materials

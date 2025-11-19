@@ -33,7 +33,7 @@ QueueingHint improves scheduling throughput.
 -->
 Kubernetes [調度器](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)是爲新
 Pod 選擇運行節點的核心組件，調度器會**逐一**處理這些新 Pod。
-因此，集羣規模越大，調度器的吞吐量就越重要。
+因此，叢集規模越大，調度器的吞吐量就越重要。
 
 多年來，Kubernetes SIG Scheduling 通過多次增強改進了調度器的吞吐量。
 本博客文章描述了 Kubernetes v1.32 中對調度器的一項重大改進：
@@ -66,7 +66,7 @@ and get blocked by the scheduling gate plugin.
 - **ActiveQ**：保存新創建的 Pod 或準備重試調度的 Pod。
 - **BackoffQ**：保存準備重試但正在等待退避期結束的 Pod。退避期取決於調度器對該 Pod 執行的不成功調度嘗試次數。
 - **無法調度的 Pod 池**：保存調度器不會嘗試調度的 Pod，原因可能包括以下幾點：
-  - 調度器之前嘗試調度這些 Pod 但未能成功。自那次嘗試以來，集羣沒有發生任何使得這些 Pod 可以被調度的變化。
+  - 調度器之前嘗試調度這些 Pod 但未能成功。自那次嘗試以來，叢集沒有發生任何使得這些 Pod 可以被調度的變化。
   - 這些 Pod 被 [PreEnqueue 插件](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/#configuring-pod-schedulinggates)阻止進入調度週期，
     例如，它們具有一個[調度門控](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/#configuring-pod-schedulinggates)，並被調度門控插件阻止。
 
@@ -111,7 +111,7 @@ The scheduler processes pending Pods in phases called _cycles_ as follows:
    池（Unschedulable Pod Pool）組件。然而，如果調度器決定將 Pod 放置到某個節點上，
    該 Pod 將進入綁定週期（Binding cycle）。
 
-2. **綁定週期（Binding cycle）**：調度器將節點分配決策傳達給 Kubernetes API 服務器。
+2. **綁定週期（Binding cycle）**：調度器將節點分配決策傳達給 Kubernetes API 伺服器。
    這一操作將 Pod 綁定到選定的節點。
 
 <!--
@@ -139,11 +139,11 @@ For example, `preCheck` could filter out node-related events when the node statu
 -->
 ## 使用 QueueingHint 改進 Pod 調度重試
 
-無法調度的 Pod 僅在集羣發生可能允許調度器將這些 Pod 放置到節點上的變化時，
+無法調度的 Pod 僅在叢集發生可能允許調度器將這些 Pod 放置到節點上的變化時，
 纔會重新移入調度隊列的 ActiveQ 或 BackoffQ 組件。
 
-在 v1.32 之前，每個插件通過 `EnqueueExtensions`（`EventsToRegister`）註冊哪些集羣變化
-（稱爲**集羣事件**，即集羣中的對象創建、更新或刪除）可以解決其失敗情況。當某個插件在之前的調度週期中拒絕了某個 Pod 後，
+在 v1.32 之前，每個插件通過 `EnqueueExtensions`（`EventsToRegister`）註冊哪些叢集變化
+（稱爲**叢集事件**，即叢集中的對象創建、更新或刪除）可以解決其失敗情況。當某個插件在之前的調度週期中拒絕了某個 Pod 後，
 調度隊列會在出現該插件註冊的事件時重試該 Pod 的調度。
 
 此外，我們還擁有一個名爲 `preCheck` 的內部特性，它基於 Kubernetes 核心調度約束進一步過濾事件以提高效率；
@@ -174,7 +174,7 @@ For example, consider a Pod named `pod-a` that has a required Pod affinity. `pod
 the scheduling cycle by the `InterPodAffinity` plugin because no node had an existing Pod that matched
 the Pod affinity specification for `pod-a`.
 -->
-在這裏，QueueingHints 發揮了作用；QueueingHint 訂閱特定類型的集羣事件，並決定每個傳入的事件是否可以使 Pod 變得可調度。
+在這裏，QueueingHints 發揮了作用；QueueingHint 訂閱特定類型的叢集事件，並決定每個傳入的事件是否可以使 Pod 變得可調度。
 
 例如，考慮一個名爲 `pod-a` 的 Pod，它具有必需的 Pod 親和性。`pod-a` 在調度週期中被
 `InterPodAffinity` 插件拒絕，因爲沒有節點上有現有的 Pod 符合 `pod-a` 的 Pod 親和性規約。
@@ -204,7 +204,7 @@ the BackoffQ component.
 -->
 `pod-a` 在 `InterPodAffinity` 失敗被解決之前將永遠不會被調度。
 有一些情景可以解決這一失敗，例如，一個現有的運行中的 Pod 獲取了標籤更新並符合 Pod 親和性要求。
-在這種情況下，`InterPodAffinity` 插件的 `QueuingHint` 回調函數會檢查集羣中發生的每一個 Pod 標籤更新。
+在這種情況下，`InterPodAffinity` 插件的 `QueuingHint` 回調函數會檢查叢集中發生的每一個 Pod 標籤更新。
 然後，如果一個 Pod 的標籤更新符合 `pod-a` 的 Pod 親和性要求，`InterPodAffinity` 插件的
 `QueuingHint` 會提示調度隊列將 `pod-a` 重新移入 ActiveQ 或 BackoffQ 組件。
 
@@ -224,7 +224,7 @@ few in-tree plugins experimentally, and made the feature gate enabled by default
 
 在 SIG Scheduling，我們自 Kubernetes v1.28 開始就致力於 QueueingHint 的開發。
 
-儘管 QueueingHint 並不是面向用戶的特性，我們在最初添加此特性時還是實現了 `SchedulerQueueingHints`
+儘管 QueueingHint 並不是面向使用者的特性，我們在最初添加此特性時還是實現了 `SchedulerQueueingHints`
 特性門控作爲安全措施。在 v1.28 中，我們實驗性地爲幾個 in-tree 插件實現了 QueueingHints，並將該特性門控默認啓用。
 
 <!--
@@ -237,12 +237,12 @@ in all plugins and also identified the cause of the memory leak!
 
 We thank all the contributors who participated in the development of this feature and those who reported and investigated the earlier issues.
 -->
-然而，用戶報告了一個內存泄漏問題，因此我們在 v1.28 的一個補丁版本中禁用了該特性門控。從 v1.28 到 v1.31，
+然而，使用者報告了一個內存泄漏問題，因此我們在 v1.28 的一個補丁版本中禁用了該特性門控。從 v1.28 到 v1.31，
 我們一直在其餘的 in-tree 插件中繼續開發 QueueingHint，並修複相關 bug。
 
 在 v1.32 中，我們再次默認啓用了這一特性。我們完成了所有插件中 QueueingHints 的實現，並且找到了內存泄漏的原因！
 
-我們感謝所有參與此特性開發的貢獻者，以及那些報告和調查早期問題的用戶。
+我們感謝所有參與此特性開發的貢獻者，以及那些報告和調查早期問題的使用者。
 
 <!--
 ## Getting involved

@@ -23,7 +23,7 @@ snapshots for multiple volumes together. It uses a label selector to group multi
 This new feature is only supported for [CSI](https://kubernetes-csi.github.io/docs/) volume drivers.
 -->
 磁盤卷組快照在 Kubernetes v1.27 中作爲 Alpha 特性被引入。
-此特性引入了一個 Kubernetes API，允許用戶對多個捲進行快照，以保證在發生故障時數據的一致性。
+此特性引入了一個 Kubernetes API，允許使用者對多個捲進行快照，以保證在發生故障時數據的一致性。
 它使用標籤選擇器來將多個 `PersistentVolumeClaims` （持久卷申領）分組以進行快照。
 這個新特性僅支持 CSI 卷驅動器。
 
@@ -62,8 +62,8 @@ underlying clusters so that applications can be agnostic to the specifics of the
 cluster they run on and application deployment requires no cluster specific knowledge.
 -->
 所有這些特性的出發點是 Kubernetes 對工作負載可移植性的目標：
-Kubernetes 致力於在分佈式應用和底層集羣之間創建一個抽象層，
-使應用可以對承載它們的集羣的特殊屬性無感，應用部署不需要特定於某集羣的知識。
+Kubernetes 致力於在分佈式應用和底層叢集之間創建一個抽象層，
+使應用可以對承載它們的叢集的特殊屬性無感，應用部署不需要特定於某叢集的知識。
 
 <!--
 There is already a [VolumeSnapshot](/docs/concepts/storage/volume-snapshots/) API
@@ -109,8 +109,8 @@ provides crash consistency across all volumes in the group.
 -->
 然而，有時可能無法使應用靜默，或者使應用靜默的代價過高，因此你希望較少地進行這個操作。
 相較於生成一致性的卷組快照，依次生成單個快照可能需要更長的時間。
-由於這些原因，有些用戶可能不希望經常使應用靜默。例如，
-用戶可能希望每週進行一次需要應用靜默的備份，而在每晚進行不需應用靜默但帶有卷組一致性支持的備份，
+由於這些原因，有些使用者可能不希望經常使應用靜默。例如，
+使用者可能希望每週進行一次需要應用靜默的備份，而在每晚進行不需應用靜默但帶有卷組一致性支持的備份，
 這種一致性支持將確保組中所有卷的崩潰一致性。
 
 <!--
@@ -135,10 +135,10 @@ timestamp when the volume group snapshot was taken and whether it is ready to us
 The creation and deletion of this object represents a desire to create or delete a
 cluster resource (a group snapshot).
 -->
-`VolumeGroupSnapshot`：由 Kubernetes 用戶（或由你的自動化系統）創建，
+`VolumeGroupSnapshot`：由 Kubernetes 使用者（或由你的自動化系統）創建，
 以請求爲多個持久卷申領創建卷組快照。它包含了關於卷組快照操作的信息，
 如卷組快照的生成時間戳以及是否可直接使用。
-此對象的創建和刪除代表了創建或刪除集羣資源（一個卷組快照）的意願。
+此對象的創建和刪除代表了創建或刪除叢集資源（一個卷組快照）的意願。
 
 <!--
 `VolumeGroupSnapshotContent`
@@ -150,7 +150,7 @@ The VolumeGroupSnapshotContent object binds to the VolumeGroupSnapshot for which
 was created with a one-to-one mapping.
 -->
 `VolumeGroupSnapshotContent`：由快照控制器動態生成的 VolumeGroupSnapshot 所創建。
-它包含了關於卷組快照的信息，包括卷組快照 ID。此對象代表了集羣上製備的一個資源（一個卷組快照）。 
+它包含了關於卷組快照的信息，包括卷組快照 ID。此對象代表了叢集上製備的一個資源（一個卷組快照）。 
 VolumeGroupSnapshotContent 對象與其創建時所對應的 VolumeGroupSnapshot 之間存在一對一的映射。
 
 <!--
@@ -162,11 +162,11 @@ These three API kinds are defined as CustomResourceDefinitions (CRDs).
 These CRDs must be installed in a Kubernetes cluster for a CSI Driver to support
 volume group snapshots.
 -->
-`VolumeGroupSnapshotClass`：由集羣管理員創建，用來描述如何創建卷組快照，
+`VolumeGroupSnapshotClass`：由叢集管理員創建，用來描述如何創建卷組快照，
 包括驅動程序信息、刪除策略等。
 
 這三種 API 類型被定義爲自定義資源（CRD）。
-這些 CRD 必須在 Kubernetes 集羣中安裝，以便 CSI 驅動程序支持卷組快照。
+這些 CRD 必須在 Kubernetes 叢集中安裝，以便 CSI 驅動程序支持卷組快照。
 
 <!--
 ## How do I use Kubernetes Volume Group Snapshots
@@ -200,12 +200,12 @@ webhook as a cluster addon. I strongly recommend that Kubernetes distributors
 bundle and deploy the volume snapshot controller, CRDs, and validation webhook as part
 of their Kubernetes cluster management process (independent of any CSI Driver).
 -->
-每個集羣只部署一次卷快照控制器、CRD 和驗證 webhook，
+每個叢集只部署一次卷快照控制器、CRD 和驗證 webhook，
 而 sidecar 則與每個 CSI 驅動程序一起打包。
 
-因此，將卷快照控制器、CRD 和驗證 webhook 作爲集羣插件部署是合理的。
+因此，將卷快照控制器、CRD 和驗證 webhook 作爲叢集插件部署是合理的。
 我強烈建議 Kubernetes 發行版的廠商將卷快照控制器、
-CRD 和驗證 webhook 打包並作爲他們的 Kubernetes 集羣管理過程的一部分（獨立於所有 CSI 驅動）。
+CRD 和驗證 webhook 打包並作爲他們的 Kubernetes 叢集管理過程的一部分（獨立於所有 CSI 驅動）。
 
 <!--
 ### Creating a new group snapshot with Kubernetes
@@ -231,8 +231,8 @@ is available for use by cluster users.
 卷組快照的源指定了底層的卷組快照是應該動態創建，
 還是應該使用預先存在的 VolumeGroupSnapshotContent。
 
-預先存在的 VolumeGroupSnapshotContent 由集羣管理員創建。
-其中包含了在存儲系統上實際卷組快照的細節，這些卷組快照可供集羣用戶使用。
+預先存在的 VolumeGroupSnapshotContent 由叢集管理員創建。
+其中包含了在存儲系統上實際卷組快照的細節，這些卷組快照可供叢集使用者使用。
 
 <!--
 One of the following members in the source of the group snapshot must be set.
@@ -299,7 +299,7 @@ has the information about which CSI driver should be used for creating the group
 
 Two individual volume snapshots will be created as part of the volume group snapshot creation.
 -->
-在 VolumeGroupSnapshot 的規約中，用戶可以指定 VolumeGroupSnapshotClass，
+在 VolumeGroupSnapshot 的規約中，使用者可以指定 VolumeGroupSnapshotClass，
 其中包含應使用哪個 CSI 驅動程序來創建卷組快照的信息。
 
 作爲創建卷組快照的一部分，將創建兩個單獨的卷快照。
@@ -320,9 +320,9 @@ snapshots that are part of a group snapshot.
 -->
 ### 如何在 Kubernetes 中使用卷組快照進行恢復
 
-在恢復時，用戶可以請求某 VolumeGroupSnapshot 的一部分，即某個 VolumeSnapshot 對象，
+在恢復時，使用者可以請求某 VolumeGroupSnapshot 的一部分，即某個 VolumeSnapshot 對象，
 創建一個新的 PersistentVolumeClaim。這將觸發新卷的製備過程，
-並使用指定快照中的數據進行預填充。用戶應該重複此步驟，直到爲卷組快照的所有部分創建了所有卷。
+並使用指定快照中的數據進行預填充。使用者應該重複此步驟，直到爲卷組快照的所有部分創建了所有卷。
 
 ```yaml
 apiVersion: v1
@@ -390,7 +390,7 @@ The external-snapshotter watches the Kubernetes API server for the
 `VolumeGroupSnapshotContent` object and triggers `CreateVolumeGroupSnapshot` and
 `DeleteVolumeGroupSnapshot` operations against a CSI endpoint.
 -->
-external-snapshotter 會監聽 Kubernetes API 服務器上的 `VolumeGroupSnapshotContent` 對象，
+external-snapshotter 會監聽 Kubernetes API 伺服器上的 `VolumeGroupSnapshotContent` 對象，
 並對 CSI 端點觸發 `CreateVolumeGroupSnapshot` 和 `DeleteVolumeGroupSnapshot` 操作。
 
 <!--

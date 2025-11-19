@@ -20,7 +20,7 @@ generates a Secret that you can apply to the API server using `kubectl`.
 -->
 `kubectl` 支持使用 [Kustomize 對象管理工具](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)來管理
 Secret 和 ConfigMap。你可以使用 Kustomize 創建**資源生成器（Resource Generator）**，
-該生成器會生成一個 Secret，讓你能夠通過 `kubectl` 應用到 API 服務器。
+該生成器會生成一個 Secret，讓你能夠通過 `kubectl` 應用到 API 伺服器。
 
 ## {{% heading "prerequisites" %}}
 
@@ -42,7 +42,7 @@ file for the username `admin` and the password `1f2d1e2e67df`.
 
 你可以在 `kustomization.yaml` 文件中定義 `secreteGenerator` 字段，
 並在定義中引用其它本地文件、`.env` 文件或文字值生成 Secret。
-例如：下面的指令爲用戶名 `admin` 和密碼 `1f2d1e2e67df` 創建 kustomization 文件。
+例如：下面的指令爲使用者名 `admin` 和密碼 `1f2d1e2e67df` 創建 kustomization 文件。
 
 {{< note >}}
 <!--
@@ -251,4 +251,4 @@ kubectl delete secret db-user-pass
 -->
 - 進一步閱讀 [Secret 概念](/zh-cn/docs/concepts/configuration/secret/)
 - 瞭解如何[使用 kubectl 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- 瞭解如何[使用配置文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- 瞭解如何[使用設定文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)

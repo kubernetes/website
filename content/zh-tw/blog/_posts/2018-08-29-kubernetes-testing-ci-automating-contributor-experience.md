@@ -127,7 +127,7 @@ Prow 讓我們做以下事情：
 -->
 
 * 允許我們的社區通過評論諸如“/priority critical-urgent”，“/assign mary”或“/close”之類的命令對 issues/Pull Requests 進行分類
-* 根據用戶更改的代碼數量或創建的文件自動標記 Pull Requests
+* 根據使用者更改的代碼數量或創建的文件自動標記 Pull Requests
 * 標出長時間保持不活動狀態 issues/Pull Requests
 * 自動合併符合我們PR工作流程要求的 Pull Requests
 * 運行定義爲[Knative Builds](https://github.com/knative/build)的 Kubernetes Pods或 Jenkins jobs的 CI 作業
@@ -137,7 +137,7 @@ Prow 讓我們做以下事情：
 Prow was initially developed by the engineering productivity team building Google Kubernetes Engine, and is actively contributed to by multiple members of Kubernetes SIG Testing. Prow has been adopted by several other open source projects, including Istio, JetStack, Knative and OpenShift. [Getting started with Prow](https://github.com/kubernetes/test-infra/tree/master/prow#getting-started) takes a Kubernetes cluster and `kubectl apply starter.yaml` (running pods on a Kubernetes cluster).
 -->
 
-Prow最初由構建 Google Kubernetes Engine 的工程效率團隊開發，並由 Kubernetes SIG Testing 的多個成員積極貢獻。 Prow 已被其他幾個開源項目採用，包括 Istio，JetStack，Knative 和 OpenShift。 [Getting started with Prow](https://github.com/kubernetes/test-infra/tree/master/prow#getting-started)需要一個 Kubernetes 集羣和 `kubectl apply starter.yaml`（在 Kubernetes 集羣上運行 pod）。
+Prow最初由構建 Google Kubernetes Engine 的工程效率團隊開發，並由 Kubernetes SIG Testing 的多個成員積極貢獻。 Prow 已被其他幾個開源項目採用，包括 Istio，JetStack，Knative 和 OpenShift。 [Getting started with Prow](https://github.com/kubernetes/test-infra/tree/master/prow#getting-started)需要一個 Kubernetes 叢集和 `kubectl apply starter.yaml`（在 Kubernetes 叢集上運行 pod）。
 
 <!--
 Once we had Prow in place, we began to hit other scaling bottlenecks, and so produced additional tooling to support testing at the scale required by Kubernetes, including:
@@ -217,7 +217,7 @@ Today, the Kubernetes project spans over 125 repos across five orgs. There are 3
 On any given weekday our Prow instance [runs over 10,000 CI jobs](http://velodrome.k8s.io/dashboard/db/bigquery-metrics?panelId=10&fullscreen&orgId=1&from=now-6M&to=now); from March 2017 to March 2018 it ran 4.3 million jobs. Most of these jobs involve standing up an entire Kubernetes cluster, and exercising it using real world scenarios. They allow us to ensure all supported releases of Kubernetes work across cloud providers, container engines, and networking plugins. They make sure the latest releases of Kubernetes work with various optional features enabled, upgrade safely, meet performance requirements, and work across architectures.
 -->
 
-在任何給定的工作日，我們的 Prow 實例[運行超過10,000個 CI 工作](http://velodrome.k8s.io/dashboard/db/bigquery-metrics?panelId=10&fullscreen&orgId=1&from=now-6M&to=now); 從2017年3月到2018年3月，它有430萬個工作崗位。 這些工作中的大多數涉及建立整個 Kubernetes 集羣，並使用真實場景來實施它。 它們使我們能夠確保所有受支持的 Kubernetes 版本跨雲提供商，容器引擎和網絡插件工作。 他們確保最新版本的 Kubernetes 能夠啓用各種可選功能，安全升級，滿足性能要求，並跨架構工作。
+在任何給定的工作日，我們的 Prow 實例[運行超過10,000個 CI 工作](http://velodrome.k8s.io/dashboard/db/bigquery-metrics?panelId=10&fullscreen&orgId=1&from=now-6M&to=now); 從2017年3月到2018年3月，它有430萬個工作崗位。 這些工作中的大多數涉及建立整個 Kubernetes 叢集，並使用真實場景來實施它。 它們使我們能夠確保所有受支持的 Kubernetes 版本跨雲提供商，容器引擎和網路插件工作。 他們確保最新版本的 Kubernetes 能夠啓用各種可選功能，安全升級，滿足性能要求，並跨架構工作。
 
 <!--
 With today’s [announcement from CNCF](https://www.cncf.io/announcement/2018/08/29/cncf-receives-9-million-cloud-credit-grant-from-google) – noting that Google Cloud has begun transferring ownership and management of the Kubernetes project’s cloud resources to CNCF community contributors, we are excited to embark on another journey. One that allows the project infrastructure to be owned and operated by the community of contributors, following the same open governance model that has worked for the rest of the project. Sound exciting to you? Come talk to us at #sig-testing on kubernetes.slack.com.

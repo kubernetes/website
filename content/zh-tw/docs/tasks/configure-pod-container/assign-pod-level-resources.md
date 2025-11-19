@@ -70,7 +70,7 @@ The `PodLevelResources` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled
 for your control plane and for all nodes in your cluster.
 -->
-你必須爲集羣中的控制平面和所有節點啓用 `PodLevelResources`
+你必須爲叢集中的控制平面和所有節點啓用 `PodLevelResources`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
@@ -114,7 +114,7 @@ isolated from the rest of your cluster.
 -->
 ## 創建命名空間   {#create-a-namespace}
 
-創建一個命名空間，以便你在本次練習中所創建的資源與集羣的其餘部分隔離開來。
+創建一個命名空間，以便你在本次練習中所創建的資源與叢集的其餘部分隔離開來。
 
 ```shell
 kubectl create namespace pod-resources-example
@@ -136,7 +136,7 @@ file for the Pod:
 要指定內存限制，可以包含 `resources.limits.memory` 字段。
 
 在本次練習中，你將創建包含一個容器的 Pod。
-此 Pod 的內存請求爲 100 MiB，內存限制爲 200 MiB。以下是 Pod 的配置文件：
+此 Pod 的內存請求爲 100 MiB，內存限制爲 200 MiB。以下是 Pod 的設定文件：
 
 {{% code_sample file="pods/resource/pod-level-memory-request-limit.yaml" %}}
 
@@ -228,7 +228,7 @@ of 0.5 CPU and a limit of 1 CPU. Here is the configuration file for the Pod:
 要指定 CPU 限制，可以包含 `resources.limits.cpu` 字段。
 
 在本次練習中，你將創建包含一個容器的 Pod。
-此 Pod 的請求爲 0.5 CPU，限制爲 1 CPU。以下是 Pod 的配置文件：
+此 Pod 的請求爲 0.5 CPU，限制爲 1 CPU。以下是 Pod 的設定文件：
 
 {{% code_sample file="pods/resource/pod-level-cpu-request-limit.yaml" %}}
 
@@ -238,7 +238,7 @@ The `-cpus "2"` argument tells the Container to attempt to use 2 CPUs.
 
 Create the Pod:
 -->
-配置文件的 `args` 部分在容器啓動時爲容器提供參數。
+設定文件的 `args` 部分在容器啓動時爲容器提供參數。
 `-cpus "2"` 參數告知容器嘗試使用 2 個 CPU。
 
 創建 Pod：
@@ -295,7 +295,7 @@ kubectl top pod cpu-demo --namespace=pod-resources-example
 This example output shows that the Pod is using 974 milliCPU, which is
 slightly less than the limit of 1 CPU specified in the Pod configuration.
 -->
-這個示例的輸出顯示 Pod 使用了 974 milliCPU，這略低於 Pod 配置中指定的 1 CPU 限制值。
+這個示例的輸出顯示 Pod 使用了 974 milliCPU，這略低於 Pod 設定中指定的 1 CPU 限制值。
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
@@ -308,7 +308,7 @@ CPUs, but the Container is only being allowed to use about 1 CPU. The container'
 CPU use is being throttled, because the container is attempting to use more CPU
 resources than the Pod CPU limit.
 -->
-請注意，通過設置 `-cpu "2"`，你配置了容器嘗試使用 2 個 CPU，但容器僅被允許使用約 1 個 CPU。
+請注意，通過設置 `-cpu "2"`，你設定了容器嘗試使用 2 個 CPU，但容器僅被允許使用約 1 個 CPU。
 容器的 CPU 用量受到限制，因爲容器正在嘗試使用超過 Pod CPU 限制值的 CPU 資源。
 
 <!--
@@ -335,7 +335,7 @@ constraints from the pod-level settings. Here's the configuration file for the P
 -->
 在本次練習中，你將創建包含兩個容器的 Pod，以探索 Pod 級別和容器級別資源規約的相互作用。
 Pod 本身將定義 CPU 請求和限制，而只有一個容器將帶有自己的顯式資源請求和限制。
-另一個容器將從 Pod 級別設置中繼承資源約束。以下是 Pod 的配置文件：
+另一個容器將從 Pod 級別設置中繼承資源約束。以下是 Pod 的設定文件：
 
 {{% code_sample file="pods/resource/pod-level-resources.yaml" %}}
 
@@ -451,10 +451,10 @@ kubectl delete namespace pod-resources-example
 
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 -->
-### 對於集羣管理員
+### 對於叢集管理員
 
-* [爲命名空間配置默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間配置默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [爲命名空間配置最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [爲命名空間配置最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [爲命名空間配置內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [爲命名空間設定默認內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定默認 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲命名空間設定最小和最大內存約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [爲命名空間設定最小和最大 CPU 約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)

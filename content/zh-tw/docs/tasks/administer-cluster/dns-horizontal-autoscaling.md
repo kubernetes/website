@@ -1,5 +1,5 @@
 ---
-title: 自動擴縮集羣 DNS 服務
+title: 自動擴縮叢集 DNS 服務
 content_type: task
 weight: 80
 ---
@@ -14,7 +14,7 @@ weight: 80
 This page shows how to enable and configure autoscaling of the DNS service in
 your Kubernetes cluster.
 -->
-本頁展示瞭如何在你的 Kubernetes 集羣中啓用和配置 DNS 服務的自動擴縮功能。
+本頁展示瞭如何在你的 Kubernetes 叢集中啓用和設定 DNS 服務的自動擴縮功能。
 
 ## {{% heading "prerequisites" %}}
 
@@ -39,7 +39,7 @@ in your cluster in the kube-system {{< glossary_tooltip text="namespace" term_id
 -->
 ## 確定是否 DNS 水平自動擴縮特性已經啓用   {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
 
-在 kube-system {{< glossary_tooltip text="命名空間" term_id="namespace" >}}中列出集羣中的
+在 kube-system {{< glossary_tooltip text="命名空間" term_id="namespace" >}}中列出叢集中的
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}：
 
 ```shell
@@ -73,7 +73,7 @@ List the DNS deployments in your cluster in the kube-system namespace:
 -->
 ## 獲取 DNS Deployment 的名稱   {#find-scaling-target}
 
-列出集羣內 kube-system 命名空間中的 DNS Deployment：
+列出叢集內 kube-system 命名空間中的 DNS Deployment：
 
 ```shell
 kubectl get deployment -l k8s-app=kube-dns --namespace=kube-system
@@ -128,7 +128,7 @@ CoreDNS is the default DNS service for Kubernetes. CoreDNS sets the label
 kube-dns.
 -->
 CoreDNS 是 Kubernetes 的默認 DNS 服務。CoreDNS 設置標籤 `k8s-app=kube-dns`，
-以便能夠在原來使用 `kube-dns` 的集羣中工作。
+以便能夠在原來使用 `kube-dns` 的叢集中工作。
 {{< /note >}}
 
 <!--
@@ -142,7 +142,7 @@ Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 ## 啓用 DNS 水平自動擴縮   {#enablng-dns-horizontal-autoscaling}
 
 在本節，我們創建一個新的 Deployment。Deployment 中的 Pod 運行一個基於
-`cluster-proportional-autoscaler-amd64` 鏡像的容器。
+`cluster-proportional-autoscaler-amd64` 映像檔的容器。
 
 創建文件 `dns-horizontal-autoscaler.yaml`，內容如下所示：
 
@@ -156,7 +156,7 @@ command to create the Deployment:
 -->
 在此文件中，將 `<SCALE_TARGET>` 替換成擴縮目標。
 
-進入到包含配置文件的目錄中，輸入如下命令創建 Deployment：
+進入到包含設定文件的目錄中，輸入如下命令創建 Deployment：
 
 ```shell
 kubectl apply -f dns-horizontal-autoscaler.yaml
@@ -244,8 +244,8 @@ There are other supported scaling patterns. For details, see
 -->
 注意 `coresPerReplica` 和 `nodesPerReplica` 的值都是浮點數。
 
-背後的思想是，當一個集羣使用具有很多核心的節點時，由 `coresPerReplica` 來控制。
-當一個集羣使用具有較少核心的節點時，由 `nodesPerReplica` 來控制。
+背後的思想是，當一個叢集使用具有很多核心的節點時，由 `coresPerReplica` 來控制。
+當一個叢集使用具有較少核心的節點時，由 `nodesPerReplica` 來控制。
 
 其它的擴縮模式也是支持的，詳情查看
 [cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)。
@@ -370,7 +370,7 @@ number of nodes and cores in the cluster.
 
 * cluster-proportional-autoscaler 應用獨立於 DNS 服務部署。
 
-* autoscaler Pod 運行一個客戶端，它通過輪詢 Kubernetes API 服務器獲取集羣中節點和核心的數量。
+* autoscaler Pod 運行一個客戶端，它通過輪詢 Kubernetes API 伺服器獲取叢集中節點和核心的數量。
 
 <!--
 * A desired replica count is calculated and applied to the DNS backends based on

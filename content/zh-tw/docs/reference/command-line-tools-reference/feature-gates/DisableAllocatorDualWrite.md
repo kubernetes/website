@@ -27,8 +27,8 @@ The API server performs a dual-write on both allocators. This feature gate disab
 on the new Cluster IP allocators; you can enable this feature gate if you have completed the
 relevant stage of the migration.
 -->
-你可以啓用 `MultiCIDRServiceAllocator` 特性門控。API 服務器支持從舊的位圖
+你可以啓用 `MultiCIDRServiceAllocator` 特性門控。API 伺服器支持從舊的位圖
 ClusterIP 分配器遷移到新的 IPAddress 分配器。
 
-API 服務器會在兩個分配器上執行雙重寫入。此特性門控用於禁用對 ClusterIP
+API 伺服器會在兩個分配器上執行雙重寫入。此特性門控用於禁用對 ClusterIP
 分配器的多餘寫入；如果你已經完成了機制遷移的重要階段，可以啓用此特性門控。

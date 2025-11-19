@@ -39,7 +39,7 @@ kubeadm init phase certs apiserver [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認的網絡接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認的網路接口。
 </p>
 </td>
 </tr>
@@ -87,7 +87,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>

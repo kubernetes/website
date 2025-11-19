@@ -26,7 +26,7 @@ workloads.
 -->
 本頁描述了一些 Linux 內核中內置的、你可以在 Kubernetes 工作負載中使用的安全特性。
 要了解如何將這些特性應用到你的 Pod 和容器，
-請參閱[爲 Pod 或容器配置 SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
+請參閱[爲 Pod 或容器設定 SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 你須熟悉 Linux 和 Kubernetes 工作負載的基礎知識。
 
 <!-- body -->
@@ -44,10 +44,10 @@ don't own.
 -->
 ## 運行不具有 root 特權的工作負載   {#run-without-root}
 
-當你在 Kubernetes 中部署一個工作負載時，可以使用 Pod 規約來限制該工作負載以非 root 用戶在節點上運行。
-你可以使用 Pod 的 `securityContext` 爲 Pod 中的進程定義特定的 Linux 用戶和組，
-並明確限制容器不可以 root 用戶運行。在 Pod 清單中設置的這些值優先於容器鏡像中的類似值，
-這對於運行非自有的鏡像特別有用。
+當你在 Kubernetes 中部署一個工作負載時，可以使用 Pod 規約來限制該工作負載以非 root 使用者在節點上運行。
+你可以使用 Pod 的 `securityContext` 爲 Pod 中的進程定義特定的 Linux 使用者和組，
+並明確限制容器不可以 root 使用者運行。在 Pod 清單中設置的這些值優先於容器映像檔中的類似值，
+這對於運行非自有的映像檔特別有用。
 
 {{< caution >}}
 <!--
@@ -56,8 +56,8 @@ required for the application to function correctly. Changing the user or group
 to one that doesn't have the correct permissions could lead to file access
 issues or failed operations.
 -->
-確保你分配給工作負載的用戶或組具有應用正常運行所需的權限。
-將用戶或組更改爲沒有適當權限的用戶或組可能會導致文件訪問問題或操作失敗。
+確保你分配給工作負載的使用者或組具有應用正常運行所需的權限。
+將使用者或組更改爲沒有適當權限的使用者或組可能會導致文件訪問問題或操作失敗。
 {{< /caution >}}
 
 <!--
@@ -67,8 +67,8 @@ these configurations can be challenging at scale. Running containers as
 non-root, or in user namespaces if you need root privileges, helps to reduce the
 chance that you'll need to enforce your configured kernel security capabilities.
 -->
-配置本頁所述的內核安全特性可以對集羣中進程能夠執行的操作進行細粒度的控制，但大規模管理這些配置可能會有挑戰。
-以非 root 用戶運行容器，或在需要 root 特權時在 user 命名空間中運行容器，有助於減少你因必須配置的內核安全權能的要求。
+設定本頁所述的內核安全特性可以對叢集中進程能夠執行的操作進行細粒度的控制，但大規模管理這些設定可能會有挑戰。
+以非 root 使用者運行容器，或在需要 root 特權時在 user 命名空間中運行容器，有助於減少你因必須設定的內核安全權能的要求。
 
 <!--
 ## Security features in the Linux kernel {#linux-security-features}
@@ -78,7 +78,7 @@ and harden your containerized workloads. Common features include the following:
 -->
 ## Linux 內核中的安全特性   {#linux-security-features}
 
-Kubernetes 允許你配置和使用 Linux 內核特性來提高容器化的工作負載的隔離性，完成安全加固。
+Kubernetes 允許你設定和使用 Linux 內核特性來提高容器化的工作負載的隔離性，完成安全加固。
 常見的特性包括以下幾種：
 
 <!--
@@ -98,7 +98,7 @@ choose for your nodes must enable the feature in the kernel. For example,
 Ubuntu 7.10 and later enable AppArmor by default. To learn whether your OS
 enables a specific feature, consult the OS documentation.
 -->
-要配置其中一個特性的設置，你爲節點所選擇的操作系統必須在內核中啓用對應的特性。
+要設定其中一個特性的設置，你爲節點所選擇的操作系統必須在內核中啓用對應的特性。
 例如，Ubuntu 7.10 及更高版本默認啓用 AppArmor。
 要了解你的操作系統是否啓用了特定特性，請查閱對應的操作系統文檔。
 
@@ -111,7 +111,7 @@ access permissions using UIDs and GIDs. To learn more, refer to
 -->
 你可以使用 Pod 規約中的 `securityContext` 字段來定義適用於 Pod 中進程的約束。
 `securityContext` 字段還支持其他安全設置，例如使用特定 Linux 權能或基於 UID 和 GID 的文件訪問權限。
-要了解更多信息，請參閱[爲 Pod 或容器配置 SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
+要了解更多信息，請參閱[爲 Pod 或容器設定 SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 
 ### seccomp
 
@@ -125,10 +125,10 @@ lets you restrict these individual syscalls.
 It can be used to sandbox the privileges of a process, restricting the calls it
 is able to make from userspace into the kernel.
 -->
-你的某些工作負載可能需要在你的節點的主機上以 root 用戶執行特定操作的權限。
+你的某些工作負載可能需要在你的節點的主機上以 root 使用者執行特定操作的權限。
 Linux 使用**權能（Capability）** 將可用的特權劃分爲不同類別，這樣進程就能夠獲取執行特定操作所需的特權，
 而無需爲其授予所有特權。每個權能都對應進程可以執行的一組系統調用（syscalls）。
-seccomp 允許你限制這些單獨的系統調用。seccomp 可用於沙盒化進程的權限，限制其可以從用戶空間向內核發出的調用。
+seccomp 允許你限制這些單獨的系統調用。seccomp 可用於沙盒化進程的權限，限制其可以從使用者空間向內核發出的調用。
 
 <!--
 In Kubernetes, you use a *container runtime* on each node to run your
@@ -141,8 +141,8 @@ apply seccomp profiles loaded onto a node to your Pods and containers.
 -->
 在 Kubernetes 中，你在每個節點上使用**容器運行時**來運行你的容器。
 運行時的例子包括 CRI-O、Docker 或 containerd。每個運行時默認僅允許一部分 Linux 權能。
-你可以使用 seccomp 配置文件進一步限制所允許的系統調用。容器運行時通常包含一個默認的 seccomp 配置文件。
-Kubernetes 允許你自動將加載到某個節點上的那些 seccomp 配置文件應用到你的 Pod 和容器。
+你可以使用 seccomp 設定文件進一步限制所允許的系統調用。容器運行時通常包含一個默認的 seccomp 設定文件。
+Kubernetes 允許你自動將加載到某個節點上的那些 seccomp 設定文件應用到你的 Pod 和容器。
 
 {{<note>}}
 <!--
@@ -152,7 +152,7 @@ capabilities and restricts unprivileged users from changing the applied seccomp
 profile to a more permissive profile.
 -->
 Kubernetes 還可以爲 Pod 和容器設置 `allowPrivilegeEscalation`。當此字段設置爲 `false` 時，
-將阻止進程獲取新權能，並限制非特權用戶將已應用的 seccomp 配置文件更改爲某個更寬鬆的配置文件。
+將阻止進程獲取新權能，並限制非特權使用者將已應用的 seccomp 設定文件更改爲某個更寬鬆的設定文件。
 {{</note>}}
 
 <!--
@@ -180,7 +180,7 @@ seccomp, especially at scale, has the following risks:
 -->
 #### seccomp 的注意事項   {#seccomp-considerations}
 
-seccomp 是一種底層安全配置，只有在你需要對 Linux 系統調用進行細粒度控制時才應自行配置。
+seccomp 是一種底層安全設定，只有在你需要對 Linux 系統調用進行細粒度控制時才應自行設定。
 使用 seccomp，尤其是在大規模使用時，會有以下風險：
 
 <!--
@@ -188,9 +188,9 @@ seccomp 是一種底層安全配置，只有在你需要對 Linux 系統調用�
 * Attackers can still use allowed syscalls to exploit vulnerabilities
 * Profile management for individual applications becomes challenging at scale
 -->
-* 在應用更新期間這些配置可能被破壞
+* 在應用更新期間這些設定可能被破壞
 * 攻擊者仍然可以使用被允許的系統調用來利用漏洞
-* 逐個應用地管理配置文件在規模較大時變得具有挑戰性
+* 逐個應用地管理設定文件在規模較大時變得具有挑戰性
 
 <!--
 **Recommendation**: Use the default seccomp profile that's bundled with your
@@ -199,9 +199,9 @@ sandbox, such as gVisor. Sandboxes solve the preceding risks with custom
 seccomp profiles, but require more compute resources on your nodes and might
 have compatibility issues with GPUs and other specialized hardware.
 -->
-**建議**：使用與你的容器運行時捆綁的默認 seccomp 配置文件。
+**建議**：使用與你的容器運行時捆綁的默認 seccomp 設定文件。
 如果你需要一個隔離性更好的環境，請考慮使用沙箱，例如 gVisor。
-沙箱通過自定義 seccomp 配置文件解決了上述風險，但需要佔用節點上的更多計算資源，
+沙箱通過自定義 seccomp 設定文件解決了上述風險，但需要佔用節點上的更多計算資源，
 並且可能與 GPU 和其他專用硬件存在兼容性問題。
 
 <!--
@@ -228,10 +228,10 @@ specific program or container, such as Linux capabilities, network access, and
 file permissions. Each profile can be run in either enforcing mode, which blocks
 access to disallowed resources, or complain mode, which only reports violations.
 -->
-[AppArmor](https://apparmor.net/) 是一個 Linux 內核安全模塊，它在標準的基於 Linux 用戶和組的權限基礎上，
-進一步將程序限制在有限的資源集內。AppArmor 可以針對任何應用配置，以減小其潛在的攻擊面並提供更深入的防禦。
-AppArmor 通過調優的配置文件進行配置，以允許特定程序或容器所需的訪問，例如 Linux 權能、網絡訪問和文件權限。
-每個配置文件要麼在強制（Enforcing）模式下運行，即阻止訪問不被允許的資源，
+[AppArmor](https://apparmor.net/) 是一個 Linux 內核安全模塊，它在標準的基於 Linux 使用者和組的權限基礎上，
+進一步將程序限制在有限的資源集內。AppArmor 可以針對任何應用設定，以減小其潛在的攻擊面並提供更深入的防禦。
+AppArmor 通過調優的設定文件進行設定，以允許特定程序或容器所需的訪問，例如 Linux 權能、網路訪問和文件權限。
+每個設定文件要麼在強制（Enforcing）模式下運行，即阻止訪問不被允許的資源，
 要麼在投訴（Complaining）模式下運行，只報告違規行爲。
 
 <!--
@@ -244,7 +244,7 @@ To learn how to use AppArmor in Kubernetes, refer to
 [Restrict a Container's Access to Resources with AppArmor](/docs/tutorials/security/apparmor/).
 -->
 AppArmor 可以通過限制容器被允許執行哪些操作來幫助你運行更爲安全的部署，還可以通過系統日誌提供更好的審計。
-你使用的容器運行時可能附帶默認的 AppArmor 配置文件，或者你也可以使用自定義的配置文件。
+你使用的容器運行時可能附帶默認的 AppArmor 設定文件，或者你也可以使用自定義的設定文件。
 
 要了解如何在 Kubernetes 中使用 AppArmor，
 請參閱[使用 AppArmor 限制容器對資源的訪問](/zh-cn/docs/tutorials/security/apparmor/)。
@@ -261,7 +261,7 @@ and makes an authorization decision.
 -->
 SELinux 是一個 Linux 內核安全模塊，允許你限制特定**主體**（例如進程）對系統上文件的訪問。
 你可以定義要應用到具有特定 SELinux 標籤的主體的安全策略。
-當具有特定 SELinux 標籤的進程試圖訪問某個文件時，SELinux 服務器會檢查該進程的安全策略是否允許訪問並做出鑑權決策。
+當具有特定 SELinux 標籤的進程試圖訪問某個文件時，SELinux 伺服器會檢查該進程的安全策略是否允許訪問並做出鑑權決策。
 
 <!--
 In Kubernetes, you can set an SELinux label in the `securityContext` field of
@@ -273,7 +273,7 @@ To learn how to use SELinux in Kubernetes, refer to
 [Assign SELinux labels to a container](/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container).
 -->
 在 Kubernetes 中，你可以在清單的 `securityContext` 字段中設置 SELinux 標籤。
-所指定的標籤被賦予給那些進程。如果你配置了影響這些標籤的安全策略，則主機操作系統內核將強制執行這些策略。
+所指定的標籤被賦予給那些進程。如果你設定了影響這些標籤的安全策略，則主機操作系統內核將強制執行這些策略。
 
 要了解如何在 Kubernetes 中使用 SELinux，
 請參閱[爲容器分配 SELinux 標籤](/zh-cn/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container)。
@@ -296,7 +296,7 @@ Linux 節點上的操作系統通常包含 AppArmor 或 SELinux 其中之一。
 * **Policy application**: In AppArmor, you define resources using file paths.
   SELinux uses the index node (inode) of a resource to identify the resource.
 -->
-* **配置**：AppArmor 使用配置文件定義對資源的訪問。SELinux 使用適用於特定標籤的策略。
+* **設定**：AppArmor 使用設定文件定義對資源的訪問。SELinux 使用適用於特定標籤的策略。
 * **策略應用**：在 AppArmor 中，你使用文件路徑來定義資源。SELinux 使用資源的索引節點 (inode) 來標識資源。
 
 <!--
@@ -334,8 +334,8 @@ You can use all of these controls together to build a more hardened system.
       <td>Reject the <code>unshare</code> syscall, which was used in
       <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-0185">CVE-2022-0185</a>.</td>
       -->
-      <td>限制用戶空間中的各個內核調用。如果某漏洞使用了某受限的系統調用，這一機制可降低系統被破壞的可能性。</td>
-      <td>在 Pod 或容器規約中配置某已加載的 seccomp 配置文件，以將其約束應用於 Pod 中的進程。</td>
+      <td>限制使用者空間中的各個內核調用。如果某漏洞使用了某受限的系統調用，這一機制可降低系統被破壞的可能性。</td>
+      <td>在 Pod 或容器規約中設定某已加載的 seccomp 設定文件，以將其約束應用於 Pod 中的進程。</td>
       <td>拒絕曾在
       <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-0185">CVE-2022-0185</a>
       中使用的 <code>unshare</code> 系統調用。</td>
@@ -350,7 +350,7 @@ You can use all of these controls together to build a more hardened system.
       in the system.</td>
       -->
       <td>限制程序對特定資源的訪問。減少程序的攻擊面。改進審計日誌。</td>
-      <td>在容器規約中設定某已加載的 AppArmor 配置文件。</td>
+      <td>在容器規約中設定某已加載的 AppArmor 設定文件。</td>
       <td>限制只讀程序，不允許其寫入系統中的任何文件路徑。</td>
     </tr>
     <tr>
@@ -390,12 +390,12 @@ features together. To help you to manage these configurations at scale, use a
 tool like the
 [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator).
 -->
-### 管理自定義配置的注意事項   {#considerations-custom-configurations}
+### 管理自定義設定的注意事項   {#considerations-custom-configurations}
 
-seccomp、AppArmor 和 SELinux 通常有一個默認配置來提供基本的保護。
-你還可以創建自定義配置文件和策略來滿足你的工作負載的要求。
-大規模場景下管理和分發這些自定義配置可能具有挑戰性，特別是當你同時使用這三種特性時。
-爲了幫助你在大規模場景下管理這些配置，可以使用類似
+seccomp、AppArmor 和 SELinux 通常有一個默認設定來提供基本的保護。
+你還可以創建自定義設定文件和策略來滿足你的工作負載的要求。
+大規模場景下管理和分發這些自定義設定可能具有挑戰性，特別是當你同時使用這三種特性時。
+爲了幫助你在大規模場景下管理這些設定，可以使用類似
 [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
 的工具。
 
@@ -424,8 +424,8 @@ that you might use in your workloads, as follows:
 -->
 特權容器顯式覆蓋你可能在工作負載中使用的以下一些 Linux 內核約束：
 
-* **seccomp**：特權容器以 `Unconfined` 爲 seccomp 配置文件運行，覆蓋你在清單中指定的所有 seccomp 配置。
-* **AppArmor**：特權容器忽略任何已應用的 AppArmor 配置文件。
+* **seccomp**：特權容器以 `Unconfined` 爲 seccomp 設定文件運行，覆蓋你在清單中指定的所有 seccomp 設定。
+* **AppArmor**：特權容器忽略任何已應用的 AppArmor 設定文件。
 * **SELinux**：特權容器以 `unconfined_t` 域運行。
 
 <!--
@@ -448,9 +448,9 @@ configuration and other restrictions.
 -->
 如果你在容器的 [`securityContext`](/zh-cn/docs/tasks/configure-pod-container/security-context/)
 字段中設置 `privileged: true` 字段，則 Pod 中的所有容器都可以啓用**特權模式**。
-特權容器會覆蓋或使許多其他加固選項無效，例如已應用的 seccomp 配置文件、AppArmor 配置文件或 SELinux 約束。
-特權容器被賦予所有的 Linux 權能，包括它們所不需要的權能。例如，特權容器中的 root 用戶可能能夠繞過運行時的
-seccomp 配置和其他限制，在節點上使用 `CAP_SYS_ADMIN` 和 `CAP_NET_ADMIN` 權能。
+特權容器會覆蓋或使許多其他加固選項無效，例如已應用的 seccomp 設定文件、AppArmor 設定文件或 SELinux 約束。
+特權容器被賦予所有的 Linux 權能，包括它們所不需要的權能。例如，特權容器中的 root 使用者可能能夠繞過運行時的
+seccomp 設定和其他限制，在節點上使用 `CAP_SYS_ADMIN` 和 `CAP_NET_ADMIN` 權能。
 
 <!--
 In most cases, you should avoid using privileged containers, and instead grant
@@ -462,7 +462,7 @@ as manipulating the network stack or accessing hardware devices.
 -->
 在大多數情況下，你應避免使用特權容器，而是通過 `securityContext` 字段中的 `capabilities`
 字段來授予容器所需的特定權能。只有在你無法通過 securityContext 授予某個權能時，才使用特權模式。
-這對希望使用操作系統管理權能（如操縱網絡棧或訪問硬件設備）的容器來說特別有用。
+這對希望使用操作系統管理權能（如操縱網路棧或訪問硬件設備）的容器來說特別有用。
 
 <!--
 In Kubernetes version 1.26 and later, you can also run Windows containers in a
@@ -485,9 +485,9 @@ the security context of the Pod spec. For details and instructions, see
 -->
 ## 建議和最佳實踐    {#recommendations-best-practices}
 
-* 在配置內核級安全權能之前，你應該考慮實施網絡級別的隔離。
+* 在設定內核級安全權能之前，你應該考慮實施網路級別的隔離。
   有關細節參閱[安全檢查清單](/zh-cn/docs/concepts/security/security-checklist/#network-security)。
-* 除非必要，否則通過在 Pod 清單中設置特定的用戶和組 ID 並指定 `runAsNonRoot: true`，以非 root 身份運行 Linux 工作負載。
+* 除非必要，否則通過在 Pod 清單中設置特定的使用者和組 ID 並指定 `runAsNonRoot: true`，以非 root 身份運行 Linux 工作負載。
 
 <!--
 Additionally, you can run workloads in user namespaces by setting
@@ -498,9 +498,9 @@ of support that you need. For instructions, refer to
 [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/).
 -->
 此外，你可以通過在 Pod 清單中設置 `hostUsers: false` 來在 user 命名空間中運行工作負載。
-這使你可以以 user 命名空間中的 root 用戶運行容器，但在節點上的主機命名空間中是非 root 用戶。
+這使你可以以 user 命名空間中的 root 使用者運行容器，但在節點上的主機命名空間中是非 root 使用者。
 此特性仍處於早期開發階段，可能不是你所需要的支持級別。
-有關說明，請參閱[爲 Pod 配置 user 命名空間](/zh-cn/docs/tasks/configure-pod-container/user-namespaces/)。
+有關說明，請參閱[爲 Pod 設定 user 命名空間](/zh-cn/docs/tasks/configure-pod-container/user-namespaces/)。
 
 ## {{% heading "whatsnext" %}}
 

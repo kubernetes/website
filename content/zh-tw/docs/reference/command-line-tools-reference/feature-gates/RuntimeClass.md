@@ -29,4 +29,4 @@ Enable the [RuntimeClass](/docs/concepts/containers/runtime-class/) feature for
 selecting container runtime configurations.
 -->
 啓用 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)特性，
-用於選擇容器運行時配置。
+用於選擇容器運行時設定。

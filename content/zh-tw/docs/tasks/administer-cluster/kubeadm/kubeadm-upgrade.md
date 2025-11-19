@@ -1,5 +1,5 @@
 ---
-title: 升級 kubeadm 集羣
+title: 升級 kubeadm 叢集
 content_type: task
 weight: 30
 ---
@@ -19,7 +19,7 @@ This page explains how to upgrade a Kubernetes cluster created with kubeadm from
 {{< skew currentVersion >}}.x to {{< skew currentVersion >}}.y (where `y > x`). Skipping MINOR versions
 when upgrading is unsupported. For more details, please visit [Version Skew Policy](/releases/version-skew-policy/).
 -->
-本頁介紹如何將 `kubeadm` 創建的 Kubernetes 集羣從 {{< skew currentVersionAddMinor -1 >}}.x 版本
+本頁介紹如何將 `kubeadm` 創建的 Kubernetes 叢集從 {{< skew currentVersionAddMinor -1 >}}.x 版本
 升級到 {{< skew currentVersion >}}.x 版本以及從 {{< skew currentVersion >}}.x
 升級到 {{< skew currentVersion >}}.y（其中 `y > x`）。略過次版本號的升級是
 不被支持的。更多詳情請訪問[版本偏差策略](/zh-cn/releases/version-skew-policy/)。
@@ -28,7 +28,7 @@ when upgrading is unsupported. For more details, please visit [Version Skew Poli
 To see information about upgrading clusters created using older versions of kubeadm,
 please refer to following pages instead:
 -->
-要查看 kubeadm 創建的有關舊版本集羣升級的信息，請參考以下頁面：
+要查看 kubeadm 創建的有關舊版本叢集升級的信息，請參考以下頁面：
 
 <!--
 - [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -2 >}} to {{< skew currentVersionAddMinor -1 >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
@@ -36,10 +36,10 @@ please refer to following pages instead:
 - [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -4 >}} to {{< skew currentVersionAddMinor -3 >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 - [Upgrading a kubeadm cluster from {{< skew currentVersionAddMinor -5 >}} to {{< skew currentVersionAddMinor -4 >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 -->
-- [將 kubeadm 集羣從 {{< skew currentVersionAddMinor -2 >}} 升級到 {{< skew currentVersionAddMinor -1 >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [將 kubeadm 集羣從 {{< skew currentVersionAddMinor -3 >}} 升級到 {{< skew currentVersionAddMinor -2 >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [將 kubeadm 集羣從 {{< skew currentVersionAddMinor -4 >}} 升級到 {{< skew currentVersionAddMinor -3 >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
-- [將 kubeadm 集羣從 {{< skew currentVersionAddMinor -5 >}} 升級到 {{< skew currentVersionAddMinor -4 >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [將 kubeadm 叢集從 {{< skew currentVersionAddMinor -2 >}} 升級到 {{< skew currentVersionAddMinor -1 >}}](https://v{{< skew currentVersionAddMinor -1 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [將 kubeadm 叢集從 {{< skew currentVersionAddMinor -3 >}} 升級到 {{< skew currentVersionAddMinor -2 >}}](https://v{{< skew currentVersionAddMinor -2 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [將 kubeadm 叢集從 {{< skew currentVersionAddMinor -4 >}} 升級到 {{< skew currentVersionAddMinor -3 >}}](https://v{{< skew currentVersionAddMinor -3 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
+- [將 kubeadm 叢集從 {{< skew currentVersionAddMinor -5 >}} 升級到 {{< skew currentVersionAddMinor -4 >}}](https://v{{< skew currentVersionAddMinor -4 "-" >}}.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
 
 <!--
 The Kubernetes project recommends upgrading to the latest patch releases promptly, and
@@ -73,7 +73,7 @@ The upgrade workflow at high level is the following:
 - [Swap must be disabled](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
 -->
 - 務必仔細認真閱讀[發行說明](https://git.k8s.io/kubernetes/CHANGELOG)。
-- 集羣應使用靜態的控制平面和 etcd Pod 或者外部 etcd。
+- 叢集應使用靜態的控制平面和 etcd Pod 或者外部 etcd。
 - 務必備份所有重要組件，例如存儲在數據庫中應用層面的狀態。
   `kubeadm upgrade` 不會影響你的工作負載，只會涉及 Kubernetes 內部的組件，但備份終究是好的。
 - [必須禁用交換分區](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux)。
@@ -116,9 +116,9 @@ The upgrade workflow at high level is the following:
   或 `journalctl -xeu kubelet` 查看服務日誌。
 - `kubeadm upgrade` 支持 `--config` 和
   [`UpgradeConfiguration` API 類型](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4)
-  可用於配置升級過程。
-- `kubeadm upgrade` 不支持重新配置現有集羣。
-  請按照[重新配置 kubeadm 集羣](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)中的步驟來進行。
+  可用於設定升級過程。
+- `kubeadm upgrade` 不支持重新設定現有叢集。
+  請按照[重新設定 kubeadm 叢集](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)中的步驟來進行。
 
 <!--
 ### Considerations when upgrading etcd
@@ -135,7 +135,7 @@ done as follows on control plane nodes:
 ### 升級 etcd 時的注意事項   {#considerations-when-upgrading-etcd}
 
 由於 `kube-apiserver` 靜態 Pod 始終在運行（即使你已經執行了騰空節點的操作），
-因此當你執行包括 etcd 升級在內的 kubeadm 升級時，對服務器正在進行的請求將停滯，
+因此當你執行包括 etcd 升級在內的 kubeadm 升級時，對伺服器正在進行的請求將停滯，
 因爲要重新啓動新的 etcd 靜態 Pod。作爲一種解決方法，可以在運行 `kubeadm upgrade apply`
 命令之前主動停止 `kube-apiserver` 進程幾秒鐘。這樣可以允許正在進行的請求完成處理並關閉現有連接，
 並最大限度地減少 etcd 停機的後果。此操作可以在控制平面節點上按如下方式完成：
@@ -680,15 +680,15 @@ these backup files will need to be cleared manually.
 - Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
 -->
 - 檢查你的集羣是否處於可升級狀態:
-  - API 服務器是可訪問的
+  - API 伺服器是可訪問的
   - 所有節點處於 `Ready` 狀態
   - 控制平面是健康的
 - 強制執行版本偏差策略。
-- 確保控制平面的鏡像是可用的或可拉取到服務器上。
+- 確保控制平面的鏡像是可用的或可拉取到伺服器上。
 - 如果組件配置要求版本升級，則生成替代配置與/或使用用戶提供的覆蓋版本配置。
 - 升級控制平面組件或回滾（如果其中任何一個組件無法啓動）。
 - 應用新的 `CoreDNS` 和 `kube-proxy` 清單，並強制創建所有必需的 RBAC 規則。
-- 如果舊文件在 180 天后過期，將創建 API 服務器的新證書和密鑰文件並備份舊文件。
+- 如果舊文件在 180 天后過期，將創建 API 伺服器的新證書和密鑰文件並備份舊文件。
 
 <!--
 `kubeadm upgrade node` does the following on additional control plane nodes:
@@ -716,4 +716,4 @@ these backup files will need to be cleared manually.
 - Upgrades the kubelet configuration for this node.
 -->
 - 從集羣取回 kubeadm `ClusterConfiguration`。
-- 爲本節點升級 kubelet 配置。
+- 爲本節點升級 kubelet 設定。

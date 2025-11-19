@@ -101,7 +101,7 @@ Next, there were three technical sharing sessions:
 
 - [sig-multi-cluster](https://github.com/kubernetes/community/blob/master/sig-multicluster/README.md)：
   Karmada 的維護者 [Hongcai Ren](https://github.com/RainbowMango) 介紹了這個 SIG 的職責和作用。
-  這個 SIG 負責設計、討論、實現和維護多集羣管理相關的 API、工具和文檔。
+  這個 SIG 負責設計、討論、實現和維護多叢集管理相關的 API、工具和文檔。
   其中涉及的 Cluster Federation 也是 Karmada 的核心概念之一。
 <!--
 - [helmfile](https://github.com/helmfile/helmfile): [yxxhero](https://github.com/yxxhero)
@@ -114,7 +114,7 @@ Next, there were three technical sharing sessions:
   components related to Pod scheduling.
 -->
 - [helmfile](https://github.com/helmfile/helmfile)：來自[極狐 GitLab](https://gitlab.cn/) 的
-  [yxxhero](https://github.com/yxxhero) 介紹瞭如何聲明式部署 Kubernetes 清單，如何自定義配置，
+  [yxxhero](https://github.com/yxxhero) 介紹瞭如何聲明式部署 Kubernetes 清單，如何自定義設定，
   如何使用 Helm 的最新特性 Helmfile 等內容。
 - [sig-scheduling](https://github.com/kubernetes/community/blob/master/sig-scheduling/README.md)：
   來自華爲雲的 [william-wang](https://github.com/william-wang) 介紹了
@@ -138,7 +138,7 @@ the Unconference meeting, please refer to <https://docs.qq.com/doc/DY3pLWklzQkhj
 隨後播放了來自 SIG-Node Chair [Sergey Kanzhelev](https://github.com/SergeyKanzhelev)
 的貢獻者招募視頻，希望更多貢獻者參與到 Kubernetes 社區，特別是社區熱門的 SIG-Node 方向。
 
-最後，Kevin 主持了 Unconference 的集體討論活動，主要涉及到多集羣、調度、彈性、AI 等方向。
+最後，Kevin 主持了 Unconference 的集體討論活動，主要涉及到多叢集、調度、彈性、AI 等方向。
 有關 Unconference 會議紀要，參閱 <https://docs.qq.com/doc/DY3pLWklzQkhjWHNT>
 
 <!--

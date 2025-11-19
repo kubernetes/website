@@ -42,7 +42,7 @@ If your problem is not listed below, please follow the following steps:
 <!--
 ## Not possible to join a v1.18 Node to a v1.17 cluster due to missing RBAC
 -->
-## 由於缺少 RBAC，無法將 v1.18 Node 加入 v1.17 集羣
+## 由於缺少 RBAC，無法將 v1.18 Node 加入 v1.17 叢集
 
 <!--
 In v1.18 kubeadm added prevention for joining a Node in the cluster if a Node with the same name already exists.
@@ -50,10 +50,10 @@ This required adding RBAC for the bootstrap-token user to be able to GET a Node 
 
 However this causes an issue where `kubeadm join` from v1.18 cannot join a cluster created by kubeadm v1.17.
 -->
-自從 v1.18 後，如果集羣中已存在同名 Node，kubeadm 將禁止 Node 加入集羣。
-這需要爲 bootstrap-token 用戶添加 RBAC 才能 GET Node 對象。
+自從 v1.18 後，如果叢集中已存在同名 Node，kubeadm 將禁止 Node 加入叢集。
+這需要爲 bootstrap-token 使用者添加 RBAC 才能 GET Node 對象。
 
-但這會導致一個問題，v1.18 的 `kubeadm join` 無法加入由 kubeadm v1.17 創建的集羣。
+但這會導致一個問題，v1.18 的 `kubeadm join` 無法加入由 kubeadm v1.17 創建的叢集。
 
 <!--
 To workaround the issue you have two options:
@@ -123,8 +123,8 @@ You can install them with the following commands:
 那麼或許在你的節點上缺失 `ebtables`、`ethtool` 或者類似的可執行文件。
 你可以使用以下命令安裝它們：
 
-- 對於 Ubuntu/Debian 用戶，運行 `apt install ebtables ethtool` 命令。
-- 對於 CentOS/Fedora 用戶，運行 `yum install ebtables ethtool` 命令。
+- 對於 Ubuntu/Debian 使用者，運行 `apt install ebtables ethtool` 命令。
+- 對於 CentOS/Fedora 使用者，運行 `yum install ebtables ethtool` 命令。
 
 <!--
 ## kubeadm blocks waiting for control plane during installation
@@ -151,9 +151,9 @@ This may be caused by a number of problems. The most common are:
 -->
 這可能是由許多問題引起的。最常見的是：
 
-- 網絡連接問題。在繼續之前，請檢查你的計算機是否具有全部聯通的網絡連接。
-- 容器運行時的 cgroup 驅動不同於 kubelet 使用的 cgroup 驅動。要了解如何正確配置 cgroup 驅動，
-  請參閱[配置 cgroup 驅動](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
+- 網路連接問題。在繼續之前，請檢查你的計算機是否具有全部聯通的網路連接。
+- 容器運行時的 cgroup 驅動不同於 kubelet 使用的 cgroup 驅動。要了解如何正確設定 cgroup 驅動，
+  請參閱[設定 cgroup 驅動](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
 - 控制平面上的 Docker 容器持續進入崩潰狀態或（因其他原因）掛起。你可以運行 `docker ps` 命令來檢查以及 `docker logs`
   命令來檢視每個容器的運行日誌。
   對於其他容器運行時，請參閱[使用 crictl 對 Kubernetes 節點進行調試](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
@@ -209,11 +209,11 @@ Right after `kubeadm init` there should not be any pods in these states.
 
 - 在 `kubeadm init` 命令執行完後，如果有 Pod 處於這些狀態之一，請在 kubeadm
   倉庫提起一個 issue。`coredns` (或者 `kube-dns`) 應該處於 `Pending` 狀態，
-  直到你部署了網絡插件爲止。
+  直到你部署了網路插件爲止。
 
-- 如果在部署完網絡插件之後，有 Pod 處於 `RunContainerError`、`CrashLoopBackOff`
+- 如果在部署完網路插件之後，有 Pod 處於 `RunContainerError`、`CrashLoopBackOff`
   或 `Error` 狀態之一，並且 `coredns` （或者 `kube-dns`）仍處於 `Pending` 狀態，
-  那很可能是你安裝的網絡插件由於某種原因無法工作。你或許需要授予它更多的
+  那很可能是你安裝的網路插件由於某種原因無法工作。你或許需要授予它更多的
   RBAC 特權或使用較新的版本。請在 Pod Network 提供商的問題跟蹤器中提交問題，
   然後在此處分類問題。
 
@@ -227,10 +227,10 @@ before CoreDNS may be deployed fully. Hence the `Pending` state before the netwo
 -->
 ## `coredns` 停滯在 `Pending` 狀態
 
-這一行爲是**預期之中**的，因爲系統就是這麼設計的。kubeadm 的網絡供應商是中立的，
-因此管理員應該選擇[安裝 Pod 的網絡插件](/zh-cn/docs/concepts/cluster-administration/addons/)。
-你必須完成 Pod 的網絡配置，然後才能完全部署 CoreDNS。
-在網絡被配置好之前，DNS 組件會一直處於 `Pending` 狀態。
+這一行爲是**預期之中**的，因爲系統就是這麼設計的。kubeadm 的網路供應商是中立的，
+因此管理員應該選擇[安裝 Pod 的網路插件](/zh-cn/docs/concepts/cluster-administration/addons/)。
+你必須完成 Pod 的網路設定，然後才能完全部署 CoreDNS。
+在網路被設定好之前，DNS 組件會一直處於 `Pending` 狀態。
 
 <!--
 ## `HostPort` services do not work
@@ -250,14 +250,14 @@ or use `HostNetwork=true`.
 -->
 ## `HostPort` 服務無法工作
 
-此 `HostPort` 和 `HostIP` 功能是否可用取決於你的 Pod 網絡配置。請聯繫 Pod 網絡插件的作者，
+此 `HostPort` 和 `HostIP` 功能是否可用取決於你的 Pod 網路設定。請聯繫 Pod 網路插件的作者，
 以確認 `HostPort` 和 `HostIP` 功能是否可用。
 
 已驗證 Calico、Canal 和 Flannel CNI 驅動程序支持 HostPort。
 
 有關更多信息，請參考 [CNI portmap 文檔](https://github.com/containernetworking/plugins/blob/master/plugins/meta/portmap/README.md).
 
-如果你的網絡提供商不支持 portmap CNI 插件，你或許需要使用
+如果你的網路提供商不支持 portmap CNI 插件，你或許需要使用
 [NodePort 服務的功能](/zh-cn/docs/concepts/services-networking/service/#type-nodeport)或者使用
 `HostNetwork=true`。
 
@@ -278,12 +278,12 @@ or use `HostNetwork=true`.
 -->
 ## 無法通過其服務 IP 訪問 Pod
 
-- 許多網絡附加組件尚未啓用 [hairpin 模式](/zh-cn/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
+- 許多網路附加組件尚未啓用 [hairpin 模式](/zh-cn/docs/tasks/debug/debug-application/debug-service/#a-pod-fails-to-reach-itself-via-the-service-ip)
   該模式允許 Pod 通過其服務 IP 進行訪問。這是與 [CNI](https://github.com/containernetworking/cni/issues/476) 有關的問題。
-  請與網絡附加組件提供商聯繫，以獲取他們所提供的 hairpin 模式的最新狀態。
+  請與網路附加組件提供商聯繫，以獲取他們所提供的 hairpin 模式的最新狀態。
 
 - 如果你正在使用 VirtualBox (直接使用或者通過 Vagrant 使用)，你需要
-  確保 `hostname -i` 返回一個可路由的 IP 地址。默認情況下，第一個接口連接不能路由的僅主機網絡。
+  確保 `hostname -i` 返回一個可路由的 IP 地址。默認情況下，第一個接口連接不能路由的僅主機網路。
   解決方法是修改 `/etc/hosts`，請參考示例
   [Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)。
 
@@ -332,7 +332,7 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 <!--
 - Another workaround is to overwrite the existing `kubeconfig` for the "admin" user:
 -->
-- 另一個方法是覆蓋 `kubeconfig` 的現有用戶 "管理員"：
+- 另一個方法是覆蓋 `kubeconfig` 的現有使用者 "管理員"：
 
   ```shell
   mv $HOME/.kube $HOME/.kube.bak
@@ -352,7 +352,7 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 ## Kubelet 客戶端證書輪換失敗   {#kubelet-client-cert}
 
 默認情況下，kubeadm 使用 `/etc/kubernetes/kubelet.conf` 中指定的 `/var/lib/kubelet/pki/kubelet-client-current.pem`
-符號鏈接來配置 kubelet 自動輪換客戶端證書。如果此輪換過程失敗，你可能會在 kube-apiserver 日誌中看到諸如
+符號鏈接來設定 kubelet 自動輪換客戶端證書。如果此輪換過程失敗，你可能會在 kube-apiserver 日誌中看到諸如
 `x509: certificate has expired or is not yet valid` 之類的錯誤。要解決此問題，你必須執行以下步驟：
 <!--
 1. Backup and delete `/etc/kubernetes/kubelet.conf` and `/var/lib/kubelet/pki/kubelet-client*` from the failed node.
@@ -364,13 +364,13 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
    the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
 -->
 1. 從故障節點備份和刪除 `/etc/kubernetes/kubelet.conf` 和 `/var/lib/kubelet/pki/kubelet-client*`。
-2. 在集羣中具有 `/etc/kubernetes/pki/ca.key` 的、正常工作的控制平面節點上
+2. 在叢集中具有 `/etc/kubernetes/pki/ca.key` 的、正常工作的控制平面節點上
    執行 `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`。
-   `$NODE` 必須設置爲集羣中現有故障節點的名稱。
-   手動修改生成的 `kubelet.conf` 以調整集羣名稱和服務器端點，
+   `$NODE` 必須設置爲叢集中現有故障節點的名稱。
+   手動修改生成的 `kubelet.conf` 以調整叢集名稱和伺服器端點，
    或傳遞 `kubeconfig user --config`
-  （請參閱[爲其他用戶生成 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)）。
-   如果你的集羣沒有 `ca.key`，你必須在外部對 `kubelet.conf` 中的嵌入式證書進行簽名。
+  （請參閱[爲其他使用者生成 kubeconfig 文件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubeconfig-additional-users)）。
+   如果你的叢集沒有 `ca.key`，你必須在外部對 `kubelet.conf` 中的嵌入式證書進行簽名。
 <!--
 1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
 1. Restart the kubelet (`systemctl restart kubelet`) on the failed node and wait for
@@ -401,9 +401,9 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 
 The following error might indicate that something was wrong in the pod network:
 -->
-## 在 Vagrant 中使用 flannel 作爲 Pod 網絡時的默認 NIC
+## 在 Vagrant 中使用 flannel 作爲 Pod 網路時的默認 NIC
 
-以下錯誤可能表明 Pod 網絡中出現問題：
+以下錯誤可能表明 Pod 網路中出現問題：
 
 ```console
 Error from server (NotFound): the server could not find the requested resource
@@ -420,7 +420,7 @@ Error from server (NotFound): the server could not find the requested resource
   This leads to all hosts thinking they have the same public IP address. To prevent this,
   pass the `--iface eth1` flag to flannel so that the second interface is chosen.
 -->
-- 如果你正在 Vagrant 中使用 flannel 作爲 Pod 網絡，則必須指定 flannel 的默認接口名稱。
+- 如果你正在 Vagrant 中使用 flannel 作爲 Pod 網路，則必須指定 flannel 的默認接口名稱。
 
   Vagrant 通常爲所有 VM 分配兩個接口。第一個爲所有主機分配了 IP 地址 `10.0.2.15`，用於獲得 NATed 的外部流量。
 
@@ -435,7 +435,7 @@ following errors in an otherwise functional cluster:
 -->
 ## 容器使用的非公共 IP
 
-在某些情況下 `kubectl logs` 和 `kubectl run` 命令或許會返回以下錯誤，即便除此之外集羣一切功能正常：
+在某些情況下 `kubectl logs` 和 `kubectl run` 命令或許會返回以下錯誤，即便除此之外叢集一切功能正常：
 
 ```console
 Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc65b868-glc5m/mysql: dial tcp 10.19.0.41:10250: getsockopt: no route to host
@@ -529,7 +529,7 @@ CoreDNS 處於 `CrashLoopBackOff` 時的另一個原因是當 Kubernetes 中部�
 Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
 the security of your cluster.
 -->
-禁用 SELinux 或設置 `allowPrivilegeEscalation` 爲 `true` 可能會損害集羣的安全性。
+禁用 SELinux 或設置 `allowPrivilegeEscalation` 爲 `true` 可能會損害叢集的安全性。
 {{< /warning >}}
 
 <!--
@@ -609,7 +609,7 @@ kube-apiserver 這樣的控制平面組件。然而，由於解析 (`mapStringSt
 但這將導致鍵 `enable-admission-plugins` 僅有值 `NamespaceExists`。
 
 已知的解決方法是使用 kubeadm
-[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
+[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)。
 
 <!--
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
@@ -699,7 +699,7 @@ To workaround this issue, you can configure the flex-volume directory using the 
 On the primary control-plane Node (created using `kubeadm init`), pass the following
 file using `--config`:
 -->
-爲了解決這個問題，你可以使用 kubeadm 的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)來配置
+爲了解決這個問題，你可以使用 kubeadm 的[設定文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/)來設定
 FlexVolume 的目錄。
 
 在（使用 `kubeadm init` 創建的）主控制節點上，使用 `--config`
@@ -724,7 +724,7 @@ controllerManager:
 <!--
 On joining Nodes:
 -->
-在加入到集羣中的節點上，使用下面的文件：
+在加入到叢集中的節點上，使用下面的文件：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -754,9 +754,9 @@ This issue is fixed as of version 1.19.
 -->
 ## `kubeadm upgrade plan` 輸出錯誤信息 `context deadline exceeded`
 
-在使用 `kubeadm` 來升級某運行外部 etcd 的 Kubernetes 集羣時可能顯示這一錯誤信息。
+在使用 `kubeadm` 來升級某運行外部 etcd 的 Kubernetes 叢集時可能顯示這一錯誤信息。
 這並不是一個非常嚴重的一個缺陷，之所以出現此錯誤信息，原因是老的 kubeadm
-版本會對外部 etcd 集羣執行版本檢查。你可以繼續執行 `kubeadm upgrade apply ...`。
+版本會對外部 etcd 叢集執行版本檢查。你可以繼續執行 `kubeadm upgrade apply ...`。
 
 這一問題已經在 1.19 版本中得到修復。
 
@@ -785,11 +785,11 @@ This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.
 In a kubeadm cluster, the [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 can be used insecurely by passing the `--kubelet-insecure-tls` to it. This is not recommended for production clusters.
 -->
-## 無法在 kubeadm 集羣中安全地使用 metrics-server
+## 無法在 kubeadm 叢集中安全地使用 metrics-server
 
-在 kubeadm 集羣中可以通過爲 [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
+在 kubeadm 叢集中可以通過爲 [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
 設置 `--kubelet-insecure-tls` 來以不安全的形式使用該服務。
-建議不要在生產環境集羣中這樣使用。
+建議不要在生產環境叢集中這樣使用。
 
 <!--
 If you want to use TLS between the metrics-server and the kubelet there is a problem,
@@ -812,7 +812,7 @@ to understand how to configure the kubelets in a kubeadm cluster to have properl
 Also see [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely).
 -->
 參見[爲 kubelet 啓用簽名的服務證書](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#kubelet-serving-certs)
-以進一步瞭解如何在 kubeadm 集羣中配置 kubelet 使用正確簽名了的服務證書。
+以進一步瞭解如何在 kubeadm 叢集中設定 kubelet 使用正確簽名了的服務證書。
 
 另請參閱 [How to run the metrics-server securely](https://github.com/kubernetes-sigs/metrics-server/blob/master/FAQ.md#how-to-run-metrics-server-securely)。
 
@@ -860,7 +860,7 @@ There are two way to workaround this issue if you see it in your cluster:
 本次失敗的原因是受影響的版本在 PodSpec 中生成的 etcd 清單文件帶有不需要的默認值。
 這將導致與清單比較的差異，並且 kubeadm 預期 Pod 哈希值將發生變化，但 kubelet 永遠不會更新哈希值。
 
-如果你在集羣中遇到此問題，有兩種解決方法：
+如果你在叢集中遇到此問題，有兩種解決方法：
 
 - 可以運行以下命令跳過 etcd 的版本升級，即受影響版本和 v1.28.3（或更高版本）之間的版本升級:
 

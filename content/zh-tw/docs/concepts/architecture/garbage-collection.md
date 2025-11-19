@@ -34,12 +34,12 @@ allows the clean up of resources like the following:
 * [終止的 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
 * [已完成的 Job](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
 * [不再存在屬主引用的對象](#owners-dependents)
-* [未使用的容器和容器鏡像](#containers-images)
+* [未使用的容器和容器映像檔](#containers-images)
 * [動態製備的、StorageClass 回收策略爲 Delete 的 PV 卷](/zh-cn/docs/concepts/storage/persistent-volumes/#delete)
 * [阻滯或者過期的 CertificateSigningRequest (CSR)](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
 * 在以下情形中刪除了的{{<glossary_tooltip text="節點" term_id="node">}}對象：
-  * 當集羣使用[雲控制器管理器](/zh-cn/docs/concepts/architecture/cloud-controller/)運行於雲端時；
-  * 當集羣使用類似於雲控制器管理器的插件運行在本地環境中時。
+  * 當叢集使用[雲控制器管理器](/zh-cn/docs/concepts/architecture/cloud-controller/)運行於雲端時；
+  * 當叢集使用類似於雲控制器管理器的插件運行在本地環境中時。
 * [節點租約對象](/zh-cn/docs/concepts/architecture/nodes/#heartbeats)
 
 <!--
@@ -82,7 +82,7 @@ A namespaced owner **must** exist in the same namespace as the dependent.
 If it does not, the owner reference is treated as absent, and the dependent
 is subject to deletion once all owners are verified absent.
 -->
-根據設計，系統不允許出現跨名字空間的屬主引用。名字空間作用域的依賴對象可以指定集羣作用域或者名字空間作用域的屬主。
+根據設計，系統不允許出現跨名字空間的屬主引用。名字空間作用域的依賴對象可以指定叢集作用域或者名字空間作用域的屬主。
 名字空間作用域的屬主**必須**存在於依賴對象所在的同一名字空間。
 如果屬主位於不同名字空間，則屬主引用被視爲不存在，而當檢查發現所有屬主都已不存在時，依賴對象會被刪除。
 
@@ -91,8 +91,8 @@ Cluster-scoped dependents can only specify cluster-scoped owners.
 In v1.20+, if a cluster-scoped dependent specifies a namespaced kind as an owner,
 it is treated as having an unresolvable owner reference, and is not able to be garbage collected.
 -->
-集羣作用域的依賴對象只能指定集羣作用域的屬主。
-在 1.20 及更高版本中，如果一個集羣作用域的依賴對象指定了某個名字空間作用域的類別作爲其屬主，
+叢集作用域的依賴對象只能指定叢集作用域的屬主。
+在 1.20 及更高版本中，如果一個叢集作用域的依賴對象指定了某個名字空間作用域的類別作爲其屬主，
 則該對象被視爲擁有一個無法解析的屬主引用，因而無法被垃圾收集處理。
 
 <!--
@@ -103,7 +103,7 @@ You can check for that kind of Event by running
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`.
 -->
 在 1.20 及更高版本中，如果垃圾收集器檢測到非法的跨名字空間 `ownerReference`，
-或者某集羣作用域的依賴對象的 `ownerReference` 引用某名字空間作用域的類別，
+或者某叢集作用域的依賴對象的 `ownerReference` 引用某名字空間作用域的類別，
 系統會生成一個警告事件，其原因爲 `OwnerRefInvalidNamespace` 和 `involvedObject`
 設置爲非法的依賴對象。你可以通過運行
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`
@@ -159,9 +159,9 @@ owner object:
 * The object remains visible through the Kubernetes API until the deletion
   process is complete.
 -->
-* Kubernetes API 服務器將某對象的 `metadata.deletionTimestamp`
+* Kubernetes API 伺服器將某對象的 `metadata.deletionTimestamp`
   字段設置爲該對象被標記爲要刪除的時間點。
-* Kubernetes API 服務器也會將 `metadata.finalizers` 字段設置爲 `foregroundDeletion`。
+* Kubernetes API 伺服器也會將 `metadata.finalizers` 字段設置爲 `foregroundDeletion`。
 * 在刪除過程完成之前，通過 Kubernetes API 仍然可以看到該對象。
 
 <!--
@@ -204,7 +204,7 @@ to learn more.
 -->
 ### 後臺級聯刪除 {#background-deletion}
 
-在後臺級聯刪除過程中，Kubernetes 服務器立即刪除屬主對象，
+在後臺級聯刪除過程中，Kubernetes 伺服器立即刪除屬主對象，
 而垃圾收集控制器（無論是自定義的還是默認的）在後臺清理所有依賴對象。
 如果存在 Finalizers，它會確保所有必要的清理任務完成後對象才被刪除。
 默認情況下，Kubernetes 使用後臺級聯刪除方案，除非你手動設置了要使用前臺刪除，
@@ -233,9 +233,9 @@ collection on unused images every five minutes and on unused containers every
 minute. You should avoid using external garbage collection tools, as these can
 break the kubelet behavior and remove containers that should exist.
 -->
-## 未使用容器和鏡像的垃圾收集     {#containers-images}
+## 未使用容器和映像檔的垃圾收集     {#containers-images}
 
-{{<glossary_tooltip text="kubelet" term_id="kubelet">}} 會每五分鐘對未使用的鏡像執行一次垃圾收集，
+{{<glossary_tooltip text="kubelet" term_id="kubelet">}} 會每五分鐘對未使用的映像檔執行一次垃圾收集，
 每分鐘對未使用的容器執行一次垃圾收集。
 你應該避免使用外部的垃圾收集工具，因爲外部工具可能會破壞 kubelet
 的行爲，移除應該保留的容器。
@@ -247,8 +247,8 @@ and change the parameters related to garbage collection using the
 [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 resource type.
 -->
-要配置對未使用容器和鏡像的垃圾收集選項，
-可以使用一個[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基於
+要設定對未使用容器和映像檔的垃圾收集選項，
+可以使用一個[設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基於
 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 資源類型來調整與垃圾收集相關的 kubelet 行爲。
 
@@ -261,9 +261,9 @@ which is part of the kubelet, with the cooperation of
 considers the following disk usage limits when making garbage collection
 decisions:
 -->
-### 容器鏡像生命週期     {#container-image-lifecycle}
+### 容器映像檔生命週期     {#container-image-lifecycle}
 
-Kubernetes 通過其**鏡像管理器（Image Manager）** 來管理所有鏡像的生命週期，
+Kubernetes 通過其**映像檔管理器（Image Manager）** 來管理所有映像檔的生命週期，
 該管理器是 kubelet 的一部分，工作時與
 {{< glossary_tooltip text="cadvisor" term_id="cadvisor" >}} 協同。
 kubelet 在作出垃圾收集決定時會考慮如下磁盤用量約束：
@@ -277,14 +277,14 @@ collection, which deletes images in order based on the last time they were used,
 starting with the oldest first. The kubelet deletes images
 until disk usage reaches the `LowThresholdPercent` value.
 -->
-磁盤用量超出所配置的 `HighThresholdPercent` 值時會觸發垃圾收集，
-垃圾收集器會基於鏡像上次被使用的時間來按順序刪除它們，首先刪除的是最近未使用的鏡像。
-kubelet 會持續刪除鏡像，直到磁盤用量到達 `LowThresholdPercent` 值爲止。
+磁盤用量超出所設定的 `HighThresholdPercent` 值時會觸發垃圾收集，
+垃圾收集器會基於映像檔上次被使用的時間來按順序刪除它們，首先刪除的是最近未使用的映像檔。
+kubelet 會持續刪除映像檔，直到磁盤用量到達 `LowThresholdPercent` 值爲止。
 
 <!--
 #### Garbage collection for unused container images {#image-maximum-age-gc}
 -->
-#### 未使用容器鏡像的垃圾收集     {#image-maximum-age-gc}
+#### 未使用容器映像檔的垃圾收集     {#image-maximum-age-gc}
 
 {{< feature-state feature_gate_name="ImageMaximumGCAge" >}}
 
@@ -292,14 +292,14 @@ kubelet 會持續刪除鏡像，直到磁盤用量到達 `LowThresholdPercent` �
 As an beta feature, you can specify the maximum time a local image can be unused for,
 regardless of disk usage. This is a kubelet setting that you configure for each node.
 -->
-這是一個 Beta 特性，不論磁盤使用情況如何，你都可以指定本地鏡像未被使用的最長時間。
-這是一個可以爲每個節點配置的 kubelet 設置。
+這是一個 Beta 特性，不論磁盤使用情況如何，你都可以指定本地映像檔未被使用的最長時間。
+這是一個可以爲每個節點設定的 kubelet 設置。
 
 <!--
 To configure the setting, you need to set a value for the `imageMaximumGCAge`
 field in the kubelet configuration file.
 -->
-要配置該設置，你需要在 kubelet 配置文件中爲 `imageMaximumGCAge`
+要設定該設置，你需要在 kubelet 設定文件中爲 `imageMaximumGCAge`
 字段設置一個值。
 
 <!--
@@ -314,7 +314,7 @@ for more details.
 For example, you can set the configuration field to `12h45m`,
 which means 12 hours and 45 minutes.
 -->
-例如，你可以將配置字段設置爲 `12h45m`，代表 12 小時 45 分鐘。
+例如，你可以將設定字段設置爲 `12h45m`，代表 12 小時 45 分鐘。
 
 {{< note >}}
 <!--
@@ -323,9 +323,9 @@ is restarted, the tracked image age is reset, causing the kubelet to wait the fu
 `imageMaximumGCAge` duration before qualifying images for garbage collection
 based on image age.
 -->
-這個特性不會跟蹤 kubelet 重新啓動後的鏡像使用情況。
-如果 kubelet 被重新啓動，所跟蹤的鏡像年齡會被重置，
-導致 kubelet 在根據鏡像年齡進行垃圾收集時需要等待完整的
+這個特性不會跟蹤 kubelet 重新啓動後的映像檔使用情況。
+如果 kubelet 被重新啓動，所跟蹤的映像檔年齡會被重置，
+導致 kubelet 在根據映像檔年齡進行垃圾收集時需要等待完整的
 `imageMaximumGCAge` 時長。
 {{< /note>}}
 
@@ -351,7 +351,7 @@ kubelet 會基於如下變量對所有未使用的容器執行垃圾收集操作
   表示禁止使用此規則。
 * `MaxPerPodContainer`：每個 Pod 可以包含的已死亡的容器個數上限。設置爲小於 `0`
   的值表示禁止使用此規則。
-* `MaxContainers`：集羣中可以存在的已死亡的容器個數上限。設置爲小於 `0`
+* `MaxContainers`：叢集中可以存在的已死亡的容器個數上限。設置爲小於 `0`
   的值意味着禁止應用此規則。
 
 <!--
@@ -392,13 +392,13 @@ configure garbage collection:
 * [Configuring cascading deletion of Kubernetes objects](/docs/tasks/administer-cluster/use-cascading-deletion/)
 * [Configuring cleanup of finished Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
 -->
-## 配置垃圾收集     {#configuring-gc}
+## 設定垃圾收集     {#configuring-gc}
 
-你可以通過配置特定於管理資源的控制器來調整資源的垃圾收集行爲。
-下面的頁面爲你展示如何配置垃圾收集：
+你可以通過設定特定於管理資源的控制器來調整資源的垃圾收集行爲。
+下面的頁面爲你展示如何設定垃圾收集：
 
-* [配置 Kubernetes 對象的級聯刪除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)
-* [配置已完成 Job 的清理](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
+* [設定 Kubernetes 對象的級聯刪除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)
+* [設定已完成 Job 的清理](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
 
 ## {{% heading "whatsnext" %}}
 

@@ -73,7 +73,7 @@ REVISION        CHANGE-CAUSE
 To see the details of a specific revision:
 -->
 * 在創建時，DaemonSet 的變化原因從 `kubernetes.io/change-cause` 註解（annotation）
-  複製到其修訂版本中。用戶可以在 `kubectl` 命令中設置 `--record=true`，
+  複製到其修訂版本中。使用者可以在 `kubectl` 命令中設置 `--record=true`，
   將執行的命令記錄在變化原因註解中。
 
 執行以下命令，來查看指定版本的詳細信息：
@@ -135,8 +135,8 @@ DaemonSet. The real rollback is done asynchronously inside the cluster
 -->
 ### 步驟 3：監視 DaemonSet 回滾進度
 
-`kubectl rollout undo daemonset` 向服務器表明啓動 DaemonSet 回滾。
-真正的回滾是在集羣的
+`kubectl rollout undo daemonset` 向伺服器表明啓動 DaemonSet 回滾。
+真正的回滾是在叢集的
 {{< glossary_tooltip term_id="control-plane" text="控制面" >}}
 異步完成的。
 
@@ -219,7 +219,7 @@ have revision 1 and 2 in the system, and roll back from revision 2 to revision
 {{< note >}}
 注意 DaemonSet 修訂版本只會正向變化。也就是說，回滾完成後，所回滾到的
 `ControllerRevision` 版本號 (`.revision` 字段) 會增加。
-例如，如果用戶在系統中有版本 1 和版本 2，並從版本 2 回滾到版本 1，
+例如，如果使用者在系統中有版本 1 和版本 2，並從版本 2 回滾到版本 1，
 帶有 `.revision: 1` 的 `ControllerRevision` 將變爲 `.revision: 3`。
 {{< /note >}}
 

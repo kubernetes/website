@@ -6,7 +6,7 @@ Output a kubeconfig file for an additional user
 
 ### 概要
 
-爲其他用戶輸出一個 kubeconfig 文件。
+爲其他使用者輸出一個 kubeconfig 文件。
 
 ```shell
 kubeadm kubeconfig user [flags]
@@ -54,7 +54,7 @@ kubeadm alpha kubeconfig user --client-name=foo --config=bar
 <!--
 The name of user. It will be used as the CN if client certificates are created
 -->
-用戶名。如果生成客戶端證書，則用作其 CN。
+使用者名。如果生成客戶端證書，則用作其 CN。
 </p>
 </td>
 </tr>
@@ -68,7 +68,7 @@ The name of user. It will be used as the CN if client certificates are created
 <!--
 Path to a kubeadm configuration file.
 -->
-指向 kubeadm 配置文件的路徑。
+指向 kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>

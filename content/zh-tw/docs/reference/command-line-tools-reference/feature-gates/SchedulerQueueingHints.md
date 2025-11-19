@@ -31,5 +31,5 @@ Queueing hints are internal signals that allow the scheduler to filter the chang
 that are relevant to the unscheduled pod, based on previous scheduling attempts.
 -->
 啓用調度器的[排隊提示](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/#queueinghint)，
-有助於減少無效的重新排隊。調度器會在集羣中發生可能導致 Pod 被重新調度的變化時，嘗試重新進行 Pod 的調度。
-排隊提示是一些內部信號，用於幫助調度器基於先前的調度嘗試來篩選集羣中與未調度的 Pod 相關的變化。
+有助於減少無效的重新排隊。調度器會在叢集中發生可能導致 Pod 被重新調度的變化時，嘗試重新進行 Pod 的調度。
+排隊提示是一些內部信號，用於幫助調度器基於先前的調度嘗試來篩選叢集中與未調度的 Pod 相關的變化。

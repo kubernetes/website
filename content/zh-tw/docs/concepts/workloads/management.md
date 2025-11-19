@@ -25,7 +25,7 @@ Kubernetes 提供了一系列的工具幫助你管理應用的部署，包括擴
 <!--
 ## Organizing resource configurations
 -->
-## 組織資源配置
+## 組織資源設定
 <!--
 Many applications require multiple resources to be created, such as a Deployment along with a Service.
 Management of multiple resources can be simplified by grouping them together in the same file
@@ -84,7 +84,7 @@ the components of your stack together.
 A URL can also be specified as a configuration source, which is handy for deploying directly from
 manifests in your source control system:
 -->
-URL 鏈接也可以被指定爲配置源，這對於直接基於源碼控制系統的清單進行部署來說非常方便：
+URL 鏈接也可以被指定爲設定源，這對於直接基於源碼控制系統的清單進行部署來說非常方便：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
@@ -121,7 +121,7 @@ in the {{< glossary_tooltip text="CNCF" term_id="cncf" >}} Landscape.
 [Helm](https://helm.sh/) is a tool for managing packages of pre-configured
 Kubernetes resources. These packages are known as _Helm charts_.
 -->
-[Helm](https://helm.sh/) 是一種管理預配置 Kubernetes 資源包的工具。
+[Helm](https://helm.sh/) 是一種管理預設定 Kubernetes 資源包的工具。
 這些資源包被稱爲 **Helm chart**。
 
 #### Kustomize {#external-tool-kustomize}
@@ -131,7 +131,7 @@ Kubernetes resources. These packages are known as _Helm charts_.
 It is available both as a standalone binary and as a [native feature](/docs/tasks/manage-kubernetes-objects/kustomization/)
 of kubectl.
 -->
-[Kustomize](https://kustomize.io/) 遍歷 Kubernetes 清單以添加、刪除或更新配置選項。
+[Kustomize](https://kustomize.io/) 遍歷 Kubernetes 清單以添加、刪除或更新設定選項。
 它既可以作爲獨立的二級制文件使用，也可以作爲 kubectl
 的[原生功能](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/) 使用。
 
@@ -146,7 +146,7 @@ resource names from configuration files in order to perform other operations, in
 delete the same resources you created:
 -->
 資源創建並不是 `kubectl` 可以批量執行的唯一操作。
-它還能提取配置文件中的資源名稱來執行其他操作，尤其是刪除已經創建的相同資源：
+它還能提取設定文件中的資源名稱來執行其他操作，尤其是刪除已經創建的相同資源：
 
 ```shell
 kubectl delete -f https://k8s.io/examples/application/nginx-app.yaml
@@ -161,7 +161,7 @@ service "my-nginx-svc" deleted
 In the case of two resources, you can specify both resources on the command line using the
 resource/name syntax:
 -->
-如果有兩個資源，你可以使用 `resource/name` 語法在命令行中指定這兩個資源：
+如果有兩個資源，你可以使用 `resource/name` 語法在命令列中指定這兩個資源：
 
 ```shell
 kubectl delete deployments/my-nginx services/my-nginx-svc
@@ -269,7 +269,7 @@ error: you must provide one or more resources by argument or filename (.json|.ya
 <!--
 Instead, specify the `--recursive` or `-R` command line argument along with the `--filename`/`-f` argument:
 -->
-在命令行參數中與 `--filename`/`-f` 一起指定 `--recursive` 或 `-R`：
+在命令列參數中與 `--filename`/`-f` 一起指定 `--recursive` 或 `-R`：
 
 ```shell
 kubectl apply -f project/k8s/development --recursive
@@ -308,7 +308,7 @@ persistentvolumeclaim/my-pvc created
 If you're interested in learning more about `kubectl`, go ahead and read
 [Command line tool (kubectl)](/docs/reference/kubectl/).
 -->
-如果你對了解更多 `kubectl` 有興趣，請閱讀[命令行工具 (kubectl)](/zh-cn/docs/reference/kubectl/)。
+如果你對了解更多 `kubectl` 有興趣，請閱讀[命令列工具 (kubectl)](/zh-cn/docs/reference/kubectl/)。
 
 <!--
 ## Updating your application without an outage
@@ -320,7 +320,7 @@ At some point, you'll eventually need to update your deployed application, typic
 a new image or image tag. `kubectl` supports several update operations, each of which is applicable
 to different scenarios.
 -->
-有時候，你需要更新你所部署的應用，通常是指定新的鏡像或鏡像標籤。
+有時候，你需要更新你所部署的應用，通常是指定新的映像檔或映像檔標籤。
 `kubectl` 支持多種更新操作，每一種都適用於不同的場景。
 
 <!--
@@ -475,8 +475,8 @@ new application release (specified via image tag in the pod template) side by si
 previous release so that the new release can receive live production traffic before fully rolling
 it out.
 -->
-另一種需要使用多個標籤的情況是區分部署的是同一組件的不同版本或不同配置。
-通常的做法是將新應用版本的**金絲雀**（在 Pod 模板中的鏡像標籤中指定）與之前發佈的版本並排部署，
+另一種需要使用多個標籤的情況是區分部署的是同一組件的不同版本或不同設定。
+通常的做法是將新應用版本的**金絲雀**（在 Pod 模板中的映像檔標籤中指定）與之前發佈的版本並排部署，
 這樣新發布的版本可以在完全上線前接收實時生產流量。
 
 
@@ -668,17 +668,17 @@ Then, you can use [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_ap
 to push your configuration changes to the cluster.
 -->
 建議參照 ([configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html))，
-在源碼控制系統中維護配置文件集合，
-這樣它們就能與所配置資源的代碼一起得到維護和版本控制。
+在源碼控制系統中維護設定文件集合，
+這樣它們就能與所設定資源的代碼一起得到維護和版本控制。
 然後，你可以使用 [`kubectl apply`](/docs/reference/kubectl/generated/kubectl_apply/) 
-將配置集更新推送到集羣中。
+將設定集更新推送到叢集中。
 
 <!--
 This command will compare the version of the configuration that you're pushing with the previous
 version and apply the changes you've made, without overwriting any automated changes to properties
 you haven't specified.
 -->
-這個命令會將你推送的配置的版本和之前的版本進行比較，並應用你所作的更改，
+這個命令會將你推送的設定的版本和之前的版本進行比較，並應用你所作的更改，
 而不會覆蓋任何你沒有指定的屬性。
 
 ```shell
@@ -692,7 +692,7 @@ deployment.apps/my-nginx configured
 <!--
 To learn more about the underlying mechanism, read [server-side apply](/docs/reference/using-api/server-side-apply/).
 -->
-要進一步瞭解底層原理，參閱[服務器端應用](/zh-cn/docs/reference/using-api/server-side-apply/)。
+要進一步瞭解底層原理，參閱[伺服器端應用](/zh-cn/docs/reference/using-api/server-side-apply/)。
 
 ### kubectl edit
 
@@ -779,7 +779,7 @@ resource. In this case, you can modify your original configuration file:
 某些場景下，你可能需要更新那些一旦被初始化就無法被更新的資源字段，
 或者希望立刻進行遞歸修改，例如修復被 Deployment 創建的異常 Pod。
 要更改此類字段，使用 `replace --force` 來刪除並且重新創建資源。
-這種情況下，你可以修改原始配置文件。
+這種情況下，你可以修改原始設定文件。
 
 ```shell
 kubectl replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force

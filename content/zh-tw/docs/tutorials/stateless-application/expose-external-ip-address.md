@@ -1,5 +1,5 @@
 ---
-title: 公開外部 IP 地址以訪問集羣中的應用
+title: 公開外部 IP 地址以訪問叢集中的應用
 content_type: tutorial
 weight: 10
 ---
@@ -29,10 +29,10 @@ external IP address.
   documentation for your cloud provider.
 -->
 * 安裝 [kubectl](/zh-cn/docs/tasks/tools/)。
-* 使用 Google Kubernetes Engine 或 Amazon Web Services 等雲供應商創建 Kubernetes 集羣。
+* 使用 Google Kubernetes Engine 或 Amazon Web Services 等雲供應商創建 Kubernetes 叢集。
   本教程創建了一個[外部負載均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
   需要雲供應商。
-* 配置 `kubectl` 與 Kubernetes API 服務器通信。有關說明，請參閱雲供應商文檔。
+* 設定 `kubectl` 與 Kubernetes API 伺服器通信。有關說明，請參閱雲供應商文檔。
 
 ## {{% heading "objectives" %}}
 
@@ -55,7 +55,7 @@ external IP address.
 <!--
 1. Run a Hello World application in your cluster:
 -->
-1. 在集羣中運行 Hello World 應用：
+1. 在叢集中運行 Hello World 應用：
 
    {{% code_sample file="service/load-balancer-example.yaml" %}}
 

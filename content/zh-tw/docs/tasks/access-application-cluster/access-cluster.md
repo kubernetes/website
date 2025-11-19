@@ -1,5 +1,5 @@
 ---
-title: 訪問集羣
+title: 訪問叢集
 weight: 20
 content_type: concept
 ---
@@ -14,7 +14,7 @@ content_type: concept
 <!--
 This topic discusses multiple ways to interact with clusters.
 -->
-本文闡述多種與集羣交互的方法。
+本文闡述多種與叢集交互的方法。
 
 {{< toc >}}
 
@@ -33,15 +33,15 @@ or someone else set up the cluster and provided you with credentials and a locat
 
 Check the location and credentials that kubectl knows about with this command:
 -->
-## 使用 kubectl 完成集羣的第一次訪問 {#accessing-for-the-first-time-with-kubectl}
+## 使用 kubectl 完成叢集的第一次訪問 {#accessing-for-the-first-time-with-kubectl}
 
 當你第一次訪問 Kubernetes API 的時候，我們建議你使用 Kubernetes CLI 工具 `kubectl`。
 
-訪問集羣時，你需要知道集羣的地址並且擁有訪問的憑證。通常，
-這些在你通過[啓動安裝](/zh-cn/docs/setup/)安裝集羣時都是自動安裝好的，
-或者其他人安裝時也應該提供了憑證和集羣地址。
+訪問叢集時，你需要知道叢集的地址並且擁有訪問的憑證。通常，
+這些在你通過[啓動安裝](/zh-cn/docs/setup/)安裝叢集時都是自動安裝好的，
+或者其他人安裝時也應該提供了憑證和叢集地址。
 
-通過以下命令檢查 kubectl 是否知道集羣地址及憑證：
+通過以下命令檢查 kubectl 是否知道叢集地址及憑證：
 
 ```shell
 kubectl config view
@@ -255,14 +255,14 @@ for this. [Controlling Access to the API](/docs/concepts/security/controlling-ac
 describes how a cluster admin can configure this.
 -->
 上面的例子使用了 `--insecure` 參數，這使得它很容易受到 MITM 攻擊。
-當 kubectl 訪問集羣時，它使用存儲的根證書和客戶端證書來訪問服務器
+當 kubectl 訪問叢集時，它使用存儲的根證書和客戶端證書來訪問伺服器
 （它們安裝在 `~/.kube` 目錄中）。
-由於集羣證書通常是自簽名的，因此可能需要特殊配置才能讓你的 http 客戶端使用根證書。
+由於叢集證書通常是自簽名的，因此可能需要特殊設定才能讓你的 http 客戶端使用根證書。
 
-在一些集羣中，apiserver 不需要身份驗證；它可能只服務於 localhost，或者被防火牆保護，
+在一些叢集中，apiserver 不需要身份驗證；它可能只服務於 localhost，或者被防火牆保護，
 這個沒有一定的標準。
-[配置對 API 的訪問](/zh-cn/docs/concepts/security/controlling-access/)
-描述了集羣管理員如何進行配置。此類方法可能與未來的高可用性支持相沖突。
+[設定對 API 的訪問](/zh-cn/docs/concepts/security/controlling-access/)
+描述了叢集管理員如何進行設定。此類方法可能與未來的高可用性支持相沖突。
 
 <!--
 ## Programmatic access to the API
@@ -305,7 +305,7 @@ Go 客戶端可以像 kubectl CLI 一樣使用相同的
 來定位和驗證 apiserver。可參閱
 [示例](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)。
 
-如果應用程序以 Pod 的形式部署在集羣中，那麼請參閱
+如果應用程序以 Pod 的形式部署在叢集中，那麼請參閱
 [下一章](#accessing-the-api-from-a-pod)。
 
 <!--
@@ -350,7 +350,7 @@ to the API server are somewhat different.
 -->
 ### 從 Pod 中訪問 API   {#accessing-the-api-from-a-pod}
 
-當你從 Pod 中訪問 API 時，定位和驗證 API 服務器會有些許不同。
+當你從 Pod 中訪問 API 時，定位和驗證 API 伺服器會有些許不同。
 
 <!--
 Please check [Accessing the API from within a Pod](/docs/tasks/run-application/access-api-from-pod/)
@@ -366,11 +366,11 @@ The previous section describes how to connect to the Kubernetes API server.
 For information about connecting to other services running on a Kubernetes cluster, see
 [Access Cluster Services](/docs/tasks/access-application-cluster/access-cluster-services/).
 -->
-## 訪問集羣上運行的服務  {#accessing-services-running-on-the-cluster}
+## 訪問叢集上運行的服務  {#accessing-services-running-on-the-cluster}
 
-上一節介紹瞭如何連接到 Kubernetes API 服務器。
-有關連接到 Kubernetes 集羣上運行的其他服務的信息，
-請參閱[訪問集羣服務](/zh-cn/docs/tasks/access-application-cluster/access-cluster-services/)。
+上一節介紹瞭如何連接到 Kubernetes API 伺服器。
+有關連接到 Kubernetes 叢集上運行的其他服務的信息，
+請參閱[訪問叢集服務](/zh-cn/docs/tasks/access-application-cluster/access-cluster-services/)。
 
 <!--
 ## Requesting redirects
@@ -401,7 +401,7 @@ There are several different proxies you may encounter when using Kubernetes:
 
 1. [kubectl 代理](#directly-accessing-the-rest-api)：
 
-   - 在用戶的桌面或 Pod 中運行
+   - 在使用者的桌面或 Pod 中運行
    - 代理從本地主機地址到 Kubernetes apiserver
    - 客戶端到代理將使用 HTTP
    - 代理到 apiserver 使用 HTTPS
@@ -422,9 +422,9 @@ There are several different proxies you may encounter when using Kubernetes:
 2. [apiserver 代理](/zh-cn/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services)：
 
    - 內置於 apiserver 中
-   - 將集羣外部的用戶連接到集羣 IP，否則這些 IP 可能無法訪問
+   - 將叢集外部的使用者連接到叢集 IP，否則這些 IP 可能無法訪問
    - 運行在 apiserver 進程中
-   - 客戶端代理使用 HTTPS（也可配置爲 http）
+   - 客戶端代理使用 HTTPS（也可設定爲 http）
    - 代理將根據可用的信息決定使用 HTTP 或者 HTTPS 代理到目標
    - 可用於訪問節點、Pod 或服務
    - 在訪問服務時進行負載平衡
@@ -455,7 +455,7 @@ There are several different proxies you may encounter when using Kubernetes:
 -->
 4. 位於 apiserver 之前的 Proxy/Load-balancer：
 
-   - 存在和實現因集羣而異（例如 nginx）
+   - 存在和實現因叢集而異（例如 nginx）
    - 位於所有客戶和一個或多個 apiserver 之間
    - 如果有多個 apiserver，則充當負載均衡器
 
@@ -477,5 +477,5 @@ will typically ensure that the latter types are set up correctly.
    - 只使用 UDP/TCP
    - 具體實現因雲提供商而異。
 
-除了前兩種類型之外，Kubernetes 用戶通常不需要擔心任何其他問題。
-集羣管理員通常會確保後者的正確配置。
+除了前兩種類型之外，Kubernetes 使用者通常不需要擔心任何其他問題。
+叢集管理員通常會確保後者的正確設定。

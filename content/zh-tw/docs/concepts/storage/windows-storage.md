@@ -46,7 +46,7 @@ Windows 有一個分層文件系統驅動程序用來掛載容器層和創建基
 * 使用 Docker 時，卷掛載只能是容器中的目錄，而不能是單個文件。此限制不適用於 containerd。
 * 卷掛載不能將文件或目錄映射回宿主文件系統。
 * 不支持只讀文件系統，因爲 Windows 註冊表和 SAM 數據庫始終需要寫訪問權限。不過，Windows 支持只讀的卷。
-* 不支持卷的用戶掩碼和訪問許可，因爲宿主與容器之間並不共享 SAM，二者之間不存在映射關係。
+* 不支持卷的使用者掩碼和訪問許可，因爲宿主與容器之間並不共享 SAM，二者之間不存在映射關係。
   所有訪問許可都是在容器上下文中解析的。
 
 <!--
@@ -72,7 +72,7 @@ As a result, the following storage functionality is not supported on Windows nod
 * 只讀的根文件系統（映射的卷仍然支持 `readOnly`）
 * 塊設備映射
 * 內存作爲存儲介質（例如 `emptyDir.medium` 設置爲 `Memory`）
-* 類似 UID/GID、各用戶不同的 Linux 文件系統訪問許可等文件系統特性
+* 類似 UID/GID、各使用者不同的 Linux 文件系統訪問許可等文件系統特性
 * 使用 [DefaultMode 設置 Secret 權限](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#set-posix-permissions-for-secret-keys)
   （因爲該特性依賴 UID/GID）
 * 基於 NFS 的存儲和卷支持

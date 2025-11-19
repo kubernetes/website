@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ConfigMap"
 content_type: "api_reference"
-description: "ConfigMap 包含供 Pod 使用的配置數據。"
+description: "ConfigMap 包含供 Pod 使用的設定數據。"
 title: "ConfigMap"
 weight: 1
 ---
@@ -28,7 +28,7 @@ weight: 1
 <!--
 ConfigMap holds configuration data for pods to consume.
 -->
-ConfigMap 包含供 Pod 使用的配置數據。
+ConfigMap 包含供 Pod 使用的設定數據。
 
 <hr>
 
@@ -71,7 +71,7 @@ ConfigMap 包含供 Pod 使用的配置數據。
 -->
 - **data** (map[string]string)
 
-  data 包含配置數據。
+  data 包含設定數據。
   每個鍵必須由字母、數字、“-”、“\_” 或 “.” 組成。
   如果值包含非 UTF-8 字節序列，則必須使用 binaryData 字段。
   data 中存儲的鍵不得與 binaryData 字段中的鍵重疊，這在驗證過程中是強制要求。

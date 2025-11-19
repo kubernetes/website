@@ -22,7 +22,7 @@ With the release of Kubernetes 1.30, the feature to prevent the modification of 
 of a [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/) that was created from
 an existing VolumeSnapshot in a Kubernetes cluster, has moved to GA!
 -->
-隨着 Kubernetes 1.30 的發佈，防止修改從 Kubernetes 集羣中現有
+隨着 Kubernetes 1.30 的發佈，防止修改從 Kubernetes 叢集中現有
 VolumeSnapshot 創建的 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/)
 的卷模式的特性已被升級至 GA！
 
@@ -45,10 +45,10 @@ for more details on how to create a PVC from an existing VolumeSnapshot in a Kub
 PersistentVolumeClaim 的[卷模式](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-mode)
 是指存儲設備上的底層卷是被格式化爲某文件系統還是作爲原始塊設備呈現給使用它的 Pod。
 
-用戶可以利用自 Kubernetes v1.20 以來一直穩定的 VolumeSnapshot 特性，基於
-Kubernetes 集羣中現有的 VolumeSnapshot 創建 PersistentVolumeClaim（簡稱 PVC）。
+使用者可以利用自 Kubernetes v1.20 以來一直穩定的 VolumeSnapshot 特性，基於
+Kubernetes 叢集中現有的 VolumeSnapshot 創建 PersistentVolumeClaim（簡稱 PVC）。
 PVC 規約中包括一個 `dataSource` 字段，它可以指向現有的 VolumeSnapshot 實例。
-有關如何基於 Kubernetes 集羣中現有 VolumeSnapshot 創建 PVC 的更多詳細信息，
+有關如何基於 Kubernetes 叢集中現有 VolumeSnapshot 創建 PVC 的更多詳細信息，
 請訪問[使用卷快照創建 PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#create-persistent-volume-claim-from-volume-snapshot)。
 
 <!--
@@ -65,11 +65,11 @@ and presents a challenge in distinguishing trusted users from malicious ones.
 -->
 當利用上述特性時，沒有邏輯來驗證製作快照的原始卷的模式是否與新創建的卷的模式匹配。
 
-這帶來了一個安全漏洞，允許惡意用戶潛在地利用主機操作系統中未知的漏洞。
+這帶來了一個安全漏洞，允許惡意使用者潛在地利用主機操作系統中未知的漏洞。
 
-有一個合法的場景允許某些用戶執行此類轉換。
+有一個合法的場景允許某些使用者執行此類轉換。
 通常，存儲備份供應商會在備份操作過程中轉換卷模式，通過檢索已被更改的塊來提高操作效率。
-這使得 Kubernetes 無法完全阻止此類操作，但給區分可信用戶和惡意用戶帶來了挑戰。
+這使得 Kubernetes 無法完全阻止此類操作，但給區分可信使用者和惡意使用者帶來了挑戰。
 
 <!--
 ## Preventing unauthorized users from converting the volume mode
@@ -81,12 +81,12 @@ or applications, like backup vendors.
 Users apart from such authorized ones will never be allowed to modify the volume mode
 of a PVC when it is being created from a VolumeSnapshot.
 -->
-## 防止未經授權的用戶轉換卷模式
+## 防止未經授權的使用者轉換卷模式
 
-在此上下文中，授權用戶是有權對 VolumeSnapshotContents（集羣級資源）執行
-**update** 或 **patch** 操作的用戶。
-集羣管理員應僅向受信任的用戶或應用程序（例如備份供應商）賦予這些權限。
-當從 VolumeSnapshot 創建 PVC 時，除了此類授權用戶之外的用戶將永遠不會被允許修改 PVC 的卷模式。
+在此上下文中，授權使用者是有權對 VolumeSnapshotContents（叢集級資源）執行
+**update** 或 **patch** 操作的使用者。
+叢集管理員應僅向受信任的使用者或應用程序（例如備份供應商）賦予這些權限。
+當從 VolumeSnapshot 創建 PVC 時，除了此類授權使用者之外的使用者將永遠不會被允許修改 PVC 的卷模式。
 
 <!--
 To convert the volume mode, an authorized user must do the following:
@@ -95,7 +95,7 @@ To convert the volume mode, an authorized user must do the following:
    created PVC in the given namespace.
 2. Identify the VolumeSnapshotContent bound to the above VolumeSnapshot.
 -->
-要轉換卷模式，授權用戶必須執行以下操作：
+要轉換卷模式，授權使用者必須執行以下操作：
 
 1. 標識要用作給定命名空間中新創建的 PVC 的數據源的 VolumeSnapshot。
 2. 識別與上述 VolumeSnapshot 綁定的 VolumeSnapshotContent。
@@ -126,7 +126,7 @@ depending on the mode of the volume from which this snapshot was taken.
 
 An example is shown below:
 -->
-**注意**：對於預配置的 VolumeSnapshotContents，你必須執行額外的步驟，將
+**注意**：對於預設定的 VolumeSnapshotContents，你必須執行額外的步驟，將
 `spec.sourceVolumeMode` 字段設置爲 `Filesystem` 或 `Block`，
 具體取決於用來製作此快照的卷的模式。
 
@@ -161,10 +161,10 @@ Users should keep this in mind before they attempt to add the annotation
 to any VolumeSnapshotContent.
 -->
 對備份或恢復操作期間需要轉換卷模式的所有 VolumeSnapshotContent 重複步驟 1 至 3。
-這可以通過具有授權用戶憑據的軟件來完成，也可以由授權用戶手動完成。
+這可以通過具有授權使用者憑據的軟件來完成，也可以由授權使用者手動完成。
 
 如果 VolumeSnapshotContent 對象上存在上面顯示的註解，Kubernetes 將不會阻止卷模式轉換。
-用戶在嘗試將註解添加到任何 VolumeSnapshotContent 之前應記住這一點。
+使用者在嘗試將註解添加到任何 VolumeSnapshotContent 之前應記住這一點。
 
 <!--
 ## Action required

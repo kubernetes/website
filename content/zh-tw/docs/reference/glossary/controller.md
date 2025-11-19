@@ -4,7 +4,7 @@ id: controller
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/architecture/controller/
 short_description: >
-  控制器通過 API 服務器監控集羣的公共狀態，並致力於將當前狀態轉變爲期望的狀態。
+  控制器通過 API 伺服器監控叢集的公共狀態，並致力於將當前狀態轉變爲期望的狀態。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ changes where needed.
 Each controller tries to move the current cluster state closer to the desired
 state.
 -->					 
-在 Kubernetes 中，控制器通過監控{{< glossary_tooltip text="集羣" term_id="cluster" >}}
+在 Kubernetes 中，控制器通過監控{{< glossary_tooltip text="叢集" term_id="cluster" >}}
 的公共狀態，並致力於將當前狀態轉變爲期望的狀態。
 
 <!--more--> 													   
@@ -43,7 +43,7 @@ Controllers watch the shared state of your cluster through the
 {{< glossary_tooltip term_id="control-plane" >}}).
 -->
 控制器（{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}的一部分）
-通過 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}監控你的集羣中的公共狀態。
+通過 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}監控你的叢集中的公共狀態。
 
 <!--
 Some controllers also run inside the control plane, providing control loops that

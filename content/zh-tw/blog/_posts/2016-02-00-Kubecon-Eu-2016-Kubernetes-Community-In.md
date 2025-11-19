@@ -14,7 +14,7 @@ url: /blog/2016/02/Kubecon-Eu-2016-Kubernetes-Community-In
 <!--
 KubeCon EU 2016 is the inaugural [European Kubernetes](http://kubernetes.io/) community conference that follows on the American launch in November 2015. KubeCon is fully dedicated to education and community engagement for[Kubernetes](http://kubernetes.io/) enthusiasts, production users and the surrounding ecosystem.
 -->
-KubeCon EU 2016 是首屆[歐洲 Kubernetes](http://kubernetes.io/) 社區會議，緊隨 2015 年 11 月召開的北美會議。KubeCon 致力於爲 [Kubernetes](http://kubernetes.io/) 愛好者、產品用戶和周圍的生態系統提供教育和社區參與。
+KubeCon EU 2016 是首屆[歐洲 Kubernetes](http://kubernetes.io/) 社區會議，緊隨 2015 年 11 月召開的北美會議。KubeCon 致力於爲 [Kubernetes](http://kubernetes.io/) 愛好者、產品使用者和周圍的生態系統提供教育和社區參與。
 
 <!--
 Come join us in London and hang out with hundreds from the Kubernetes community and experience a wide variety of deep technical expert talks and use cases.

@@ -22,7 +22,7 @@ You need to install a
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
 -->
-你需要在集羣內每個節點上安裝一個
+你需要在叢集內每個節點上安裝一個
 {{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}
 以使 Pod 可以運行在上面。本文概述了所涉及的內容並描述了與節點設置相關的任務。
 
@@ -81,7 +81,7 @@ check the documentation for that version.
 <!-- 
 ## Install and configure prerequisites
 -->
-## 安裝和配置先決條件  {#install-and-configure-prerequisites}
+## 安裝和設定先決條件  {#install-and-configure-prerequisites}
 
 <!--
 By default, the Linux kernel does not allow IPv4 packets to be routed
@@ -92,8 +92,8 @@ parameters to be set, kernel modules to be loaded, etc; consult the
 documentation for your specific network implementation.)
 -->
 默認情況下，Linux 內核不允許 IPv4 數據包在接口之間路由。
-大多數 Kubernetes 集羣網絡實現都會更改此設置（如果需要），但有些人可能希望管理員爲他們執行此操作。
-（有些人可能還期望設置其他 sysctl 參數、加載內核模塊等；請參閱你的特定網絡實施的文檔。）
+大多數 Kubernetes 叢集網路實現都會更改此設置（如果需要），但有些人可能希望管理員爲他們執行此操作。
+（有些人可能還期望設置其他 sysctl 參數、加載內核模塊等；請參閱你的特定網路實施的文檔。）
 
 <!-- 
 ### Enable IPv4 packet forwarding {#prerequisite-ipv4-forwarding-optional}
@@ -145,7 +145,7 @@ driver and are configured the same.
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 和底層容器運行時都需要對接控制組來強制執行
 [爲 Pod 和容器管理資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 併爲諸如 CPU、內存這類資源設置請求和限制。若要對接控制組，kubelet 和容器運行時需要使用一個 **cgroup 驅動**。
-關鍵的一點是 kubelet 和容器運行時需使用相同的 cgroup 驅動並且採用相同的配置。
+關鍵的一點是 kubelet 和容器運行時需使用相同的 cgroup 驅動並且採用相同的設定。
 
 <!--
 There are two cgroup drivers available:
@@ -174,7 +174,7 @@ cgroup driver instead of `cgroupfs`.
 ### cgroupfs 驅動 {#cgroupfs-cgroup-driver}
 
 `cgroupfs` 驅動是 [kubelet 中默認的 cgroup 驅動](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)。
-當使用 `cgroupfs` 驅動時， kubelet 和容器運行時將直接對接 cgroup 文件系統來配置 cgroup。
+當使用 `cgroupfs` 驅動時， kubelet 和容器運行時將直接對接 cgroup 文件系統來設定 cgroup。
 
 當 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 是初始化系統時，
 **不** 推薦使用 `cgroupfs` 驅動，因爲 systemd 期望系統上只有一個 cgroup 管理器。
@@ -210,7 +210,7 @@ The approach to mitigate this instability is to use `systemd` as the cgroup driv
 the kubelet and the container runtime when systemd is the selected init system.
 -->
 同時存在兩個 cgroup 管理器將造成系統中針對可用的資源和使用中的資源出現兩個視圖。某些情況下，
-將 kubelet 和容器運行時配置爲使用 `cgroupfs`、但爲剩餘的進程使用 `systemd`
+將 kubelet 和容器運行時設定爲使用 `cgroupfs`、但爲剩餘的進程使用 `systemd`
 的那些節點將在資源壓力增大時變得不穩定。
 
 當 systemd 是選定的初始化系統時，緩解這個不穩定問題的方法是針對 kubelet 和容器運行時將
@@ -236,7 +236,7 @@ cgroupDriver: systemd
 Starting with v1.22 and later, when creating a cluster with kubeadm, if the user does not set
 the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
 -->
-從 v1.22 開始，在使用 kubeadm 創建集羣時，如果用戶沒有在
+從 v1.22 開始，在使用 kubeadm 創建叢集時，如果使用者沒有在
 `KubeletConfiguration` 下設置 `cgroupDriver` 字段，kubeadm 默認使用 `systemd`。
 {{< /note >}}
 
@@ -245,8 +245,8 @@ If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
 -->
-如果你將 `systemd` 配置爲 kubelet 的 cgroup 驅動，你也必須將 `systemd`
-配置爲容器運行時的 cgroup 驅動。參閱容器運行時文檔，瞭解指示說明。例如：
+如果你將 `systemd` 設定爲 kubelet 的 cgroup 驅動，你也必須將 `systemd`
+設定爲容器運行時的 cgroup 驅動。參閱容器運行時文檔，瞭解指示說明。例如：
 
 *  [containerd](#containerd-systemd)
 *  [CRI-O](#cri-o)
@@ -261,7 +261,7 @@ and ignores the `cgroupDriver` setting within the kubelet configuration.
 在 Kubernetes {{< skew currentVersion >}} 中，啓用 `KubeletCgroupDriverFromCRI`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)結合支持
 `RuntimeConfig` CRI RPC 的容器運行時，kubelet 會自動從運行時檢測適當的 Cgroup
-驅動程序，並忽略 kubelet 配置中的 `cgroupDriver` 設置。
+驅動程序，並忽略 kubelet 設定中的 `cgroupDriver` 設置。
 
 <!--
 However, older versions of container runtimes (specifically,
@@ -289,12 +289,12 @@ for such existing Pods. Restarting the kubelet may not solve such errors.
 If you have automation that makes it feasible, replace the node with another using the updated
 configuration, or reinstall it using automation.
 -->
-注意：更改已加入集羣的節點的 cgroup 驅動是一項敏感的操作。
+注意：更改已加入叢集的節點的 cgroup 驅動是一項敏感的操作。
 如果 kubelet 已經使用某 cgroup 驅動的語義創建了 Pod，更改運行時以使用別的
 cgroup 驅動，當爲現有 Pod 重新創建 PodSandbox 時會產生錯誤。
 重啓 kubelet 也可能無法解決此類問題。
 
-如果你有切實可行的自動化方案，使用其他已更新配置的節點來替換該節點，
+如果你有切實可行的自動化方案，使用其他已更新設定的節點來替換該節點，
 或者使用自動化方案來重新安裝。
 {{< /caution >}}
 
@@ -304,10 +304,10 @@ cgroup 驅動，當爲現有 Pod 重新創建 PodSandbox 時會產生錯誤。
 If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters,
 follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 -->
-### 將 kubeadm 管理的集羣遷移到 `systemd` 驅動
+### 將 kubeadm 管理的叢集遷移到 `systemd` 驅動
 
-如果你希望將現有的由 kubeadm 管理的集羣遷移到 `systemd` cgroup 驅動，
-請按照[配置 cgroup 驅動](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
+如果你希望將現有的由 kubeadm 管理的叢集遷移到 `systemd` cgroup 驅動，
+請按照[設定 cgroup 驅動](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
 
 <!--
 ## CRI version support {#cri-versions}
@@ -352,7 +352,7 @@ To install containerd on your system, follow the instructions on
 Return to this step once you've created a valid `config.toml` configuration file.
 -->
 要在系統上安裝 containerd，請按照[開始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
-的說明進行操作。創建有效的 `config.toml` 配置文件後返回此步驟。
+的說明進行操作。創建有效的 `config.toml` 設定文件後返回此步驟。
 
 {{< tabs name="finding-your-config-toml-file" >}}
 {{% tab name="Linux" %}}
@@ -384,10 +384,10 @@ set the following config based on your Containerd version
 
 Containerd versions 1.x:
 -->
-#### 配置 `systemd` cgroup 驅動 {#containerd-systemd}
+#### 設定 `systemd` cgroup 驅動 {#containerd-systemd}
 
-要在 `/etc/containerd/config.toml` 中將 `runc` 配置爲使用 `systemd` cgroup 驅動，
-請根據你使用的 Containerd 版本設置以下配置：
+要在 `/etc/containerd/config.toml` 中將 `runc` 設定爲使用 `systemd` cgroup 驅動，
+請根據你使用的 Containerd 版本設置以下設定：
 
 Containerd 1.x 版本：
 
@@ -428,7 +428,7 @@ if you made changes to that file, also restart `containerd`.
 如果你從軟件包（例如，RPM 或者 `.deb`）中安裝 containerd，你可能會發現其中默認禁止了
 CRI 集成插件。
 
-你需要啓用 CRI 支持才能在 Kubernetes 集羣中使用 containerd。
+你需要啓用 CRI 支持才能在 Kubernetes 叢集中使用 containerd。
 要確保 `cri` 沒有出現在 `/etc/containerd/config.toml` 文件中 `disabled_plugins`
 列表內。如果你更改了這個文件，也請記得要重啓 `containerd`。
 
@@ -440,11 +440,11 @@ with `containerd config default > /etc/containerd/config.toml` as specified in
 [getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
 and then set the configuration parameters specified above accordingly.
 -->
-如果你在初次安裝集羣后或安裝 CNI 後遇到容器崩潰循環，則隨軟件包提供的 containerd
-配置可能包含不兼容的配置參數。考慮按照
+如果你在初次安裝叢集后或安裝 CNI 後遇到容器崩潰循環，則隨軟件包提供的 containerd
+設定可能包含不兼容的設定參數。考慮按照
 [getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
 中指定的 `containerd config default > /etc/containerd/config.toml` 重置 containerd
-配置，然後相應地設置上述配置參數。
+設定，然後相應地設置上述設定參數。
 {{< /note >}}
 
 <!--
@@ -460,7 +460,7 @@ sudo systemctl restart containerd
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 -->
-當使用 kubeadm 時，請手動配置
+當使用 kubeadm 時，請手動設定
 [kubelet 的 cgroup 驅動](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver)。
 
 <!--
@@ -477,10 +477,10 @@ for more details.
 In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
 sandbox image by setting the following config:
 -->
-#### 重載沙箱（pause）鏡像    {#override-pause-image-containerd}
+#### 重載沙箱（pause）映像檔    {#override-pause-image-containerd}
 
-在你的 [containerd 配置](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)中，
-你可以通過設置以下選項重載沙箱鏡像：
+在你的 [containerd 設定](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)中，
+你可以通過設置以下選項重載沙箱映像檔：
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri"]
@@ -490,7 +490,7 @@ sandbox image by setting the following config:
 <!--
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 -->
-一旦你更新了這個配置文件，可能就同樣需要重啓 `containerd`：`systemctl restart containerd`。
+一旦你更新了這個設定文件，可能就同樣需要重啓 `containerd`：`systemctl restart containerd`。
 
 ### CRI-O
 
@@ -515,7 +515,7 @@ for you. To switch to the `cgroupfs` cgroup driver, either edit
 
 CRI-O 默認使用 systemd cgroup 驅動，這對你來說可能工作得很好。
 要切換到 `cgroupfs` cgroup 驅動，請編輯 `/etc/crio/crio.conf` 或在
-`/etc/crio/crio.conf.d/02-cgroup-manager.conf` 中放置一個插入式配置，例如：
+`/etc/crio/crio.conf.d/02-cgroup-manager.conf` 中放置一個插入式設定，例如：
 
 ```toml
 [crio.runtime]
@@ -530,7 +530,7 @@ cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
 -->
 你還應該注意當使用 CRI-O 時，並且 CRI-O 的 cgroup 設置爲 `cgroupfs` 時，必須將 `conmon_cgroup` 設置爲值 `pod`。
-通常需要保持 kubelet 的 cgroup 驅動配置（通常通過 kubeadm 完成）和 CRI-O 同步。
+通常需要保持 kubelet 的 cgroup 驅動設定（通常通過 kubeadm 完成）和 CRI-O 同步。
 
 <!--
 In Kubernetes v1.28, you can enable automatic detection of the
@@ -551,10 +551,10 @@ For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
 In your [CRI-O config](https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.5.md) you can set the following
 config value:
 -->
-#### 重載沙箱（pause）鏡像   {#override-pause-image-cri-o}
+#### 重載沙箱（pause）映像檔   {#override-pause-image-cri-o}
 
-在你的 [CRI-O 配置](https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.5.md)中，
-你可以設置以下配置值：
+在你的 [CRI-O 設定](https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.5.md)中，
+你可以設置以下設定值：
 
 ```toml
 [crio.image]
@@ -565,7 +565,7 @@ pause_image="registry.k8s.io/pause:3.10"
 This config option supports live configuration reload to apply this change: `systemctl reload crio` or by sending
 `SIGHUP` to the `crio` process.
 -->
-這一設置選項支持動態配置重加載來應用所做變更：`systemctl reload crio`。
+這一設置選項支持動態設定重加載來應用所做變更：`systemctl reload crio`。
 也可以通過向 `crio` 進程發送 `SIGHUP` 信號來實現。
 
 ### Docker Engine {#docker}
@@ -633,10 +633,10 @@ The `cri-dockerd` adapter accepts a command line argument for
 specifying which container image to use as the Pod infrastructure container (“pause image”).
 The command line argument to use is `--pod-infra-container-image`.
 -->
-#### 重載沙箱（pause）鏡像   {#override-pause-image-cri-dockerd-mcr}
+#### 重載沙箱（pause）映像檔   {#override-pause-image-cri-dockerd-mcr}
 
-`cri-dockerd` 適配器能夠接受指定用作 Pod 的基礎容器的容器鏡像（“pause 鏡像”）作爲命令行參數。
-要使用的命令行參數是 `--pod-infra-container-image`。
+`cri-dockerd` 適配器能夠接受指定用作 Pod 的基礎容器的容器映像檔（“pause 映像檔”）作爲命令列參數。
+要使用的命令列參數是 `--pod-infra-container-image`。
 
 ## {{% heading "whatsnext" %}}
 
@@ -644,4 +644,4 @@ The command line argument to use is `--pod-infra-container-image`.
 As well as a container runtime, your cluster will need a working
 [network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model).
 -->
-除了容器運行時，你的集羣還需要有效的[網絡插件](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)。
+除了容器運行時，你的叢集還需要有效的[網路插件](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-network-model)。

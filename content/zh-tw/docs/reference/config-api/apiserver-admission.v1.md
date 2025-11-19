@@ -85,8 +85,8 @@ The UID is meant to track the round trip (request/response) between the KAS and 
 It is suitable for correlating log entries between the webhook and apiserver, for either auditing or debugging.</p>
    -->
    <p><code>uid</code> 是用於標識單個請求/響應的標識符。它允許我們區分在其他情況下完全相同的請求實例（並行請求、在先前請求未修改時的請求等）。
-<code>uid</code> 的目的是跟蹤 KAS（Kubernetes Admission Server）和 WebHook 之間的輪詢（請求/響應），而不是用戶請求。
-它適用於在 WebHook 和 API 服務器之間建立日誌條目上的關聯，從而服務於審計或調試目的。</p>
+<code>uid</code> 的目的是跟蹤 KAS（Kubernetes Admission Server）和 WebHook 之間的輪詢（請求/響應），而不是使用者請求。
+它適用於在 WebHook 和 API 伺服器之間建立日誌條目上的關聯，從而服務於審計或調試目的。</p>
 
 </td>
 </tr>
@@ -141,7 +141,7 @@ and <code>requestKind: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;, kin
 和 <code>matchPolicy: Equivalent</code> 的規則，那麼指向 apps/v1beta1 Deployment 的 API 請求將被轉換併發送到 Webhook，
 其中 <code>kind: {group:&quot;apps&quot;, version:&quot;v1&quot;, kind:&quot;Deployment&quot;}</code>
 （與 Webhook 註冊的規則匹配）並且 <code>requestKind: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;, kind:&quot;Deployment&quot;}</code>（指示原始 API 請求的類別）。</p>
-<p>參閱文檔瞭解 Webhook 配置類型中 &quot;matchPolicy&quot; 字段的更多細節。</p>
+<p>參閱文檔瞭解 Webhook 設定類型中 &quot;matchPolicy&quot; 字段的更多細節。</p>
 
 </td>
 </tr>
@@ -166,7 +166,7 @@ and <code>requestResource: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;,
 <code>matchPolicy: Equivalent</code> 的規則，那麼指向 apps/v1beta1 Deployment 的 API 請求將被轉換併發送到 Webhook，
 其中 <code>resource: {group:&quot;apps&quot;, version:&quot;v1&quot;, resource:&quot;deployments&quot;}</code>
 （與 Webhook 註冊的資源匹配）以及 <code>requestResource: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;, resource:&quot;deployments&quot;}</code>（指示原始 API 請求的資源）。</p>
-<p>參閱文檔瞭解 Webhook 配置類型中 &quot;matchPolicy&quot; 字段的更多細節。</p>
+<p>參閱文檔瞭解 Webhook 設定類型中 &quot;matchPolicy&quot; 字段的更多細節。</p>
 </td>
 </tr>
 <tr><td><code>requestSubResource</code><br/>
@@ -180,7 +180,7 @@ See documentation for the &quot;matchPolicy&quot; field in the webhook configura
    -->
    <p><code>requestSubResource</code> 是可能存在的、原始 API 所請求的子資源（例如 &quot;status&quot; 或 &quot;scale&quot;）。
 如果此字段被指定且不同於 &quot;subResource&quot; 中的值，則執行等效的匹配和轉換。
-參閱文檔瞭解 Webhook 配置類型中的 &quot;matchPolicy&quot; 字段。</p>
+參閱文檔瞭解 Webhook 設定類型中的 &quot;matchPolicy&quot; 字段。</p>
 </td>
 </tr>
 <tr><td><code>name</code><br/>
@@ -191,7 +191,7 @@ See documentation for the &quot;matchPolicy&quot; field in the webhook configura
    <p>Name is the name of the object as presented in the request.  On a CREATE operation, the client may omit name and
 rely on the server to generate the name.  If that is the case, this field will contain an empty string.</p>
    -->
-   <p><code>name</code> 是出現在請求中的對象的名稱。客戶端在執行 CREATE 操作時，可以忽略此命令並依賴服務器生成此名稱。
+   <p><code>name</code> 是出現在請求中的對象的名稱。客戶端在執行 CREATE 操作時，可以忽略此命令並依賴伺服器生成此名稱。
    如果是這種情況，此字段將包含一個空白字符串。</p>
 </td>
 </tr>
@@ -224,7 +224,7 @@ requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
    <!--
    <p>UserInfo is information about the requesting user</p>
    -->
-   <p><code>userInfo</code> 是發出請求的用戶的相關信息。</p>
+   <p><code>userInfo</code> 是發出請求的使用者的相關信息。</p>
 </td>
 </tr>
 <tr><td><code>object</code><br/>

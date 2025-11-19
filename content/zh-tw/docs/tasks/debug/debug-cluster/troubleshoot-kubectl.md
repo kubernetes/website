@@ -19,7 +19,7 @@ document outlines various common scenarios and potential solutions to help
 identify and address the likely cause.
 -->
 本文講述研判和診斷 {{<glossary_tooltip text="kubectl" term_id="kubectl">}} 相關的問題。
-如果你在訪問 `kubectl` 或連接到集羣時遇到問題，本文概述了各種常見的情況和可能的解決方案，
+如果你在訪問 `kubectl` 或連接到叢集時遇到問題，本文概述了各種常見的情況和可能的解決方案，
 以幫助確定和解決可能的原因。
 
 <!-- body -->
@@ -30,7 +30,7 @@ identify and address the likely cause.
 * You need to have a Kubernetes cluster.
 * You also need to have `kubectl` installed - see [install tools](/docs/tasks/tools/#kubectl)
 -->
-* 你需要有一個 Kubernetes 集羣。
+* 你需要有一個 Kubernetes 叢集。
 * 你還需要安裝好 `kubectl`，參見[安裝工具](/zh-cn/docs/tasks/tools/#kubectl)。
 
 <!--
@@ -43,8 +43,8 @@ Check kubectl version:
 -->
 ## 驗證 kubectl 設置   {#verify-kubectl-setup}
 
-確保你已在本機上正確安裝和配置了 `kubectl`。
-檢查 `kubectl` 版本以確保其是最新的，並與你的集羣兼容。
+確保你已在本機上正確安裝和設定了 `kubectl`。
+檢查 `kubectl` 版本以確保其是最新的，並與你的叢集兼容。
 
 檢查 kubectl 版本：
 
@@ -72,10 +72,10 @@ Make sure you have installed the kubectl by following the
 properly configured the `$PATH` environment variable.
 -->
 如果你看到 `Unable to connect to the server: dial tcp <server-ip>:8443: i/o timeout`，
-而不是 `Server Version`，則需要解決 kubectl 與你集羣的連接問題。
+而不是 `Server Version`，則需要解決 kubectl 與你叢集的連接問題。
 
 確保按照 [kubectl 官方安裝文檔](/zh-cn/docs/tasks/tools/#kubectl)安裝了 kubectl，
-並正確配置了 `$PATH` 環境變量。
+並正確設定了 `$PATH` 環境變量。
 
 <!--
 ## Check kubeconfig
@@ -91,10 +91,10 @@ documentation for re-generating a `kubeconfig` file.
 -->
 ## 檢查 kubeconfig   {#check-kubeconfig}
 
-`kubectl` 需要一個 `kubeconfig` 文件來連接到 Kubernetes 集羣。
+`kubectl` 需要一個 `kubeconfig` 文件來連接到 Kubernetes 叢集。
 `kubeconfig` 文件通常位於 `~/.kube/config` 目錄下。確保你有一個有效的 `kubeconfig` 文件。
 如果你沒有 `kubeconfig` 文件，可以從 Kubernetes 管理員那裏獲取，或者可以從 Kubernetes 控制平面的
-`/etc/kubernetes/admin.conf` 目錄複製這個文件。如果你在雲平臺上部署了 Kubernetes 集羣並且丟失了你的
+`/etc/kubernetes/admin.conf` 目錄複製這個文件。如果你在雲平臺上部署了 Kubernetes 叢集並且丟失了你的
 `kubeconfig` 文件，則可以使用雲廠商的工具重新生成它。參考雲廠商的文檔以重新生成 `kubeconfig` 文件。
 
 <!--
@@ -109,13 +109,13 @@ make sure that your VPN connection is active and stable. Sometimes, VPN disconne
 can lead to connection issues with the cluster. Reconnect to the VPN and try accessing
 the cluster again.
 -->
-檢查 `$KUBECONFIG` 環境變量是否配置正確。你可以設置 `$KUBECONFIG` 環境變量，或者在
+檢查 `$KUBECONFIG` 環境變量是否設定正確。你可以設置 `$KUBECONFIG` 環境變量，或者在
 kubectl 中使用 `--kubeconfig` 參數來指定 `kubeconfig` 文件的目錄。
 
 ## 檢查 VPN 連接   {#check-vpn-connectivity}
 
-如果你正在使用虛擬專用網絡（VPN）訪問 Kubernetes 集羣，請確保你的 VPN 連接是可用且穩定的。
-有時，VPN 斷開連接可能會導致與集羣的連接問題。重新連接到 VPN，並嘗試再次訪問集羣。
+如果你正在使用虛擬專用網路（VPN）訪問 Kubernetes 叢集，請確保你的 VPN 連接是可用且穩定的。
+有時，VPN 斷開連接可能會導致與叢集的連接問題。重新連接到 VPN，並嘗試再次訪問叢集。
 
 <!--
 ## Authentication and authorization
@@ -131,10 +131,10 @@ that you have requested.
 -->
 ## 身份認證和鑑權   {#authentication-and-authorization}
 
-如果你正在使用基於令牌的身份認證，並且 kubectl 返回有關身份認證令牌或身份認證服務器地址的錯誤，
-校驗 Kubernetes 身份認證令牌和身份認證服務器地址是否被配置正確。
+如果你正在使用基於令牌的身份認證，並且 kubectl 返回有關身份認證令牌或身份認證伺服器地址的錯誤，
+校驗 Kubernetes 身份認證令牌和身份認證伺服器地址是否被設定正確。
 
-如果 kubectl 返回有關鑑權的錯誤，確保你正在使用有效的用戶憑據，並且你具有訪問所請求資源的權限。
+如果 kubectl 返回有關鑑權的錯誤，確保你正在使用有效的使用者憑據，並且你具有訪問所請求資源的權限。
 
 <!--
 ## Verify contexts
@@ -146,8 +146,8 @@ List available contexts:
 -->
 ## 驗證上下文   {#verify-contexts}
 
-Kubernetes 支持[多個集羣和上下文](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
-確保你正在使用正確的上下文與集羣進行交互。
+Kubernetes 支持[多個叢集和上下文](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
+確保你正在使用正確的上下文與叢集進行交互。
 
 列出可用的上下文：
 
@@ -172,10 +172,10 @@ central component of a Kubernetes cluster. If the API server or the load balance
 runs in front of your API servers is not reachable or not responding, you won't be able
 to interact with the cluster.
 -->
-## API 服務器和負載均衡器   {#api-server-and-load-balancer}
+## API 伺服器和負載均衡器   {#api-server-and-load-balancer}
 
-{{<glossary_tooltip text="kube-apiserver" term_id="kube-apiserver">}} 服務器是 Kubernetes
-集羣的核心組件。如果 API 服務器或運行在 API 服務器前面的負載均衡器不可達或沒有響應，你將無法與集羣進行交互。
+{{<glossary_tooltip text="kube-apiserver" term_id="kube-apiserver">}} 伺服器是 Kubernetes
+叢集的核心組件。如果 API 伺服器或運行在 API 伺服器前面的負載均衡器不可達或沒有響應，你將無法與叢集進行交互。
 
 <!--
 Check the if the API server's host is reachable by using `ping` command. Check cluster's
@@ -186,10 +186,10 @@ API server.
 Verify the status of the load balancer (if used) to ensure it is healthy and forwarding
 traffic to the API server.
 -->
-通過使用 `ping` 命令檢查 API 服務器的主機是否可達。檢查集羣的網絡連接和防火牆。
-如果你使用雲廠商部署集羣，請檢查雲廠商對集羣的 API 服務器的健康檢查狀態。
+通過使用 `ping` 命令檢查 API 伺服器的主機是否可達。檢查叢集的網路連接和防火牆。
+如果你使用雲廠商部署叢集，請檢查雲廠商對叢集的 API 伺服器的健康檢查狀態。
 
-驗證負載均衡器（如果使用）的狀態，確保其健康且轉發流量到 API 服務器。
+驗證負載均衡器（如果使用）的狀態，確保其健康且轉發流量到 API 伺服器。
 
 <!--
 ## TLS problems
@@ -201,7 +201,7 @@ may occur due to various reasons, such as certificate expiry or chain of trust v
 ## TLS 問題   {#tls-problems}
 * 需要額外的工具 - `base64` 和 `openssl` v3.0 或更高版本。
 
-Kubernetes API 服務器默認只爲 HTTPS 請求提供服務。在這種情況下，
+Kubernetes API 伺服器默認只爲 HTTPS 請求提供服務。在這種情況下，
 TLS 問題可能會因各種原因而出現，例如證書過期或信任鏈有效性。
 
 <!--
@@ -255,10 +255,10 @@ Check kubectl configuration for authentication details:
 -->
 ## 驗證 kubectl 助手   {#verify-kubectl-helpers}
 
-某些 kubectl 身份認證助手提供了便捷訪問 Kubernetes 集羣的方式。
-如果你使用了這些助手並且遇到連接問題，確保必要的配置仍然存在。
+某些 kubectl 身份認證助手提供了便捷訪問 Kubernetes 叢集的方式。
+如果你使用了這些助手並且遇到連接問題，確保必要的設定仍然存在。
 
-查看 kubectl 配置以瞭解身份認證細節：
+查看 kubectl 設定以瞭解身份認證細節：
 
 ```shell
 kubectl config view
@@ -268,4 +268,4 @@ kubectl config view
 If you previously used a helper tool (for example, `kubectl-oidc-login`), ensure that it is still
 installed and configured correctly. 
 -->
-如果你之前使用了輔助工具（例如 `kubectl-oidc-login`），確保它仍然安裝和配置正確。
+如果你之前使用了輔助工具（例如 `kubectl-oidc-login`），確保它仍然安裝和設定正確。

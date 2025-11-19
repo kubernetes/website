@@ -37,7 +37,7 @@ DeleteOptions may be provided when deleting an API object.
 - **apiVersion** (string)
 
   `APIVersion` 定義對象表示的版本化模式。
-  服務器應將已識別的模式轉換爲最新的內部值，並可能拒絕無法識別的值。更多信息：
+  伺服器應將已識別的模式轉換爲最新的內部值，並可能拒絕無法識別的值。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
 <!--
@@ -82,8 +82,8 @@ DeleteOptions may be provided when deleting an API object.
   注意：不安全刪除忽略終結器約束，跳過前提條件檢查，並從存儲中移除對象。
 
   警告：如果與正在被不安全刪除的資源相關聯的工作負載依賴於正常的刪除流程，
-  這可能會破壞集羣。僅在你真的知道自己在做什麼的情況下使用。
-  默認值是 false，用戶必須選擇啓用它。
+  這可能會破壞叢集。僅在你真的知道自己在做什麼的情況下使用。
+  默認值是 false，使用者必須選擇啓用它。
 
 <!--
 - **kind** (string)
@@ -93,7 +93,7 @@ DeleteOptions may be provided when deleting an API object.
 - **kind** (string)
 
   `kind` 是一個字符串值，表示此對象代表的 REST 資源。
-  服務器可以從客戶端提交請求的端點推斷出此值。此值無法更新，是駝峯的格式。更多信息：
+  伺服器可以從客戶端提交請求的端點推斷出此值。此值無法更新，是駝峯的格式。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--

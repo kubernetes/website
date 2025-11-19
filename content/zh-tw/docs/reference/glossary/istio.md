@@ -36,6 +36,6 @@ Istio 是一個（非 Kubernetes 特有的）開放平臺，提供了一種統�
 <!--
 Adding Istio does not require changing application code. It is a layer of infrastructure between a service and the network, which when combined with service deployments, is commonly referred to as a service mesh. Istio's control plane abstracts away the underlying cluster management platform, which may be Kubernetes, Mesosphere, etc.
 -->
-添加 Istio 時不需要修改應用代碼。它是基礎設施的一層，介於服務和網絡之間。
+添加 Istio 時不需要修改應用代碼。它是基礎設施的一層，介於服務和網路之間。
 當它和服務的 Deployment 相結合時，就構成了通常所謂的服務網格（Service Mesh）。
-Istio 的控制面抽象掉了底層的集羣管理平臺，這一集羣管理平臺可以是 Kubernetes、Mesosphere 等。
+Istio 的控制面抽象掉了底層的叢集管理平臺，這一叢集管理平臺可以是 Kubernetes、Mesosphere 等。

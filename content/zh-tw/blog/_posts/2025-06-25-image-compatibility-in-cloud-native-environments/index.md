@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "雲原生環境中的鏡像兼容性"
+title: "雲原生環境中的映像檔兼容性"
 date: 2025-06-25
 draft: false
 slug: image-compatibility-in-cloud-native-environments
@@ -29,9 +29,9 @@ It is common practice to require the use of specific versions of the kernel, its
 Despite the existence of the [Open Container Initiative (OCI)](https://opencontainers.org/), a governing community to define standards and specifications for container images, there has been a gap in expression of such compatibility requirements.
 The need to address this issue has led to different proposals and, ultimately, an implementation in Kubernetes' [Node Feature Discovery (NFD)](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/index.html).
 -->
-在電信、高性能或 AI 計算等必須高度可靠且滿足嚴格性能標準的行業中，容器化應用通常需要特定的操作系統配置或硬件支持。
-通常的做法是要求使用特定版本的內核、其配置、設備驅動程序或系統組件。
-儘管存在[開放容器倡議 (OCI)](https://opencontainers.org/) 這樣一個定義容器鏡像標準和規範的治理社區，
+在電信、高性能或 AI 計算等必須高度可靠且滿足嚴格性能標準的行業中，容器化應用通常需要特定的操作系統設定或硬件支持。
+通常的做法是要求使用特定版本的內核、其設定、設備驅動程序或系統組件。
+儘管存在[開放容器倡議 (OCI)](https://opencontainers.org/) 這樣一個定義容器映像檔標準和規範的治理社區，
 但在表達這種兼容性需求方面仍存在空白。爲了解決這一問題，業界提出了多個提案，並最終在 Kubernetes
 的[節點特性發現 (NFD)](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/index.html) 項目中實現了相關功能。
 
@@ -39,8 +39,8 @@ The need to address this issue has led to different proposals and, ultimately, a
 [NFD](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/index.html) is an open source Kubernetes project that automatically detects and reports [hardware and system features](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/customization-guide.html#available-features) of cluster nodes. This information helps users to schedule workloads on nodes that meet specific system requirements, which is especially useful for applications with strict hardware or operating system dependencies.
 -->
 [NFD](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/index.html)
-是一個開源的 Kubernetes 項目，能夠自動檢測並報告集羣節點的[硬件和系統特性](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/customization-guide.html#available-features)。
-這些信息幫助用戶將工作負載調度到滿足特定系統需求的節點上，尤其適用於具有嚴格硬件或操作系統依賴的應用。
+是一個開源的 Kubernetes 項目，能夠自動檢測並報告叢集節點的[硬件和系統特性](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/customization-guide.html#available-features)。
+這些信息幫助使用者將工作負載調度到滿足特定系統需求的節點上，尤其適用於具有嚴格硬件或操作系統依賴的應用。
 
 <!--
 ## The need for image compatibility specification
@@ -49,11 +49,11 @@ The need to address this issue has led to different proposals and, ultimately, a
 
 A container image is built on a base image, which provides a minimal runtime environment, often a stripped-down Linux userland, completely empty or distroless. When an application requires certain features from the host OS, compatibility issues arise. These dependencies can manifest in several ways:
 -->
-## 鏡像兼容性規範的需求 {#the-need-for-image-compatibility-specification}
+## 映像檔兼容性規範的需求 {#the-need-for-image-compatibility-specification}
 
 ### 容器與主機操作系統之間的依賴關係
 
-容器鏡像是基於基礎鏡像構建的，基礎鏡像提供了最小的運行時環境，通常是一個精簡的 Linux 用戶態環境，
+容器映像檔是基於基礎映像檔構建的，基礎映像檔提供了最小的運行時環境，通常是一個精簡的 Linux 使用者態環境，
 有時甚至是完全空白或無發行版的。
 當應用需要來自主機操作系統的某些特性時，就會出現兼容性問題。這些依賴可能表現爲以下幾種形式：
 
@@ -67,7 +67,7 @@ A container image is built on a base image, which provides a minimal runtime env
 - And more…
 -->
 * **驅動程序**：
-  主機上的驅動程序版本必須與容器內的庫所支持的版本範圍相匹配，以避免兼容性問題，例如 GPU 和網絡驅動。
+  主機上的驅動程序版本必須與容器內的庫所支持的版本範圍相匹配，以避免兼容性問題，例如 GPU 和網路驅動。
 
 * **庫或軟件**：
   容器必須包含某個庫或軟件的特定版本或版本範圍，才能在目標環境中以最優方式運行。
@@ -94,7 +94,7 @@ For instance, different cloud providers will include different operating systems
 ### 多雲與混合雲的挑戰
 
 容器化應用被部署在各種 Kubernetes 發行版和雲平臺上，而不同的主機操作系統帶來了兼容性挑戰。
-這些操作系統通常需要在部署工作負載之前預配置，或者它們是不可變的。
+這些操作系統通常需要在部署工作負載之前預設定，或者它們是不可變的。
 例如，不同雲平臺會使用不同的操作系統，包括：
 
 <!--
@@ -116,8 +116,8 @@ For instance, different cloud providers will include different operating systems
 Each OS comes with unique kernel versions, configurations, and drivers, making compatibility a non-trivial issue for applications requiring specific features.
 It must be possible to quickly assess a container for its suitability to run on any specific environment.
 -->
-每種操作系統都具有獨特的內核版本、配置和驅動程序，對於需要特定特性的應用來說，兼容性問題並不簡單。
-因此必須能夠快速評估某個容器鏡像是否適合在某個特定環境中運行。
+每種操作系統都具有獨特的內核版本、設定和驅動程序，對於需要特定特性的應用來說，兼容性問題並不簡單。
+因此必須能夠快速評估某個容器映像檔是否適合在某個特定環境中運行。
 
 <!--
 ### Image compatibility initiative
@@ -127,9 +127,9 @@ A specification for compatibility would allow container authors to declare requi
 The specification implemented in Kubernetes Node Feature Discovery is one of the discussed proposals.
 It aims to:
 -->
-### 鏡像兼容性倡議
+### 映像檔兼容性倡議
 
-[OCI 鏡像兼容性工作組](https://github.com/opencontainers/wg-image-compatibility)正在推動引入一個鏡像兼容性元數據的標準。
+[OCI 映像檔兼容性工作組](https://github.com/opencontainers/wg-image-compatibility)正在推動引入一個映像檔兼容性元數據的標準。
 此規範允許容器作者聲明所需的主機操作系統特性，使兼容性需求可以被發現和編程化處理。
 目前已在 Kubernetes 的 Node Feature Discovery 中實現了其中一個被討論的提案，其目標包括：
 
@@ -140,8 +140,8 @@ It aims to:
 
 The concept has since been implemented in the Kubernetes Node Feature Discovery project.
 -->
-* **在 OCI 鏡像清單中定義一種結構化的兼容性表達方式。**
-* **支持在鏡像倉庫中將兼容性規範與容器鏡像一同存儲。**
+* **在 OCI 映像檔清單中定義一種結構化的兼容性表達方式。**
+* **支持在映像檔倉庫中將兼容性規範與容器映像檔一同存儲。**
 * **在容器調度之前實現兼容性自動驗證。**
 
 這個理念目前已在 Kubernetes 的 Node Feature Discovery 項目中落地。
@@ -157,7 +157,7 @@ This interface enables the user to match containers to nodes based on exposing f
 這種解決方案通過 NFD 的特性機制和
 [NodeFeatureGroup](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/custom-resources.html#nodefeaturegroup)
 API 將兼容性元數據集成到 Kubernetes 中。
-此接口使用戶可以根據硬件和軟件暴露的特性將容器與節點進行匹配，從而實現智能調度與工作負載優化。
+此接口使使用者可以根據硬件和軟件暴露的特性將容器與節點進行匹配，從而實現智能調度與工作負載優化。
 
 <!--
 ### Compatibility specification
@@ -171,7 +171,7 @@ The schema has the following structure:
 
 兼容性規範是一個結構化的兼容性對象列表，包含
 **[Node Feature Groups](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/custom-resources.html#nodefeaturegroup)**。
-這些對象定義了鏡像要求，並支持與主機節點進行驗證。特性需求通過
+這些對象定義了映像檔要求，並支持與主機節點進行驗證。特性需求通過
 [NFD 項目提供的特性列表](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/customization-guide.html#available-features)進行描述。此模式的結構如下：
 
 <!--
@@ -187,7 +187,7 @@ The schema has the following structure:
 
   * **rules**（對象）— 指定
     [NodeFeatureGroup](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/usage/custom-resources.html#nodefeaturegroup)
-    來定義鏡像要求。
+    來定義映像檔要求。
   * **weight**（整數，可選）— 節點親和性權重。
   * **tag**（字符串，可選）— 分類標記。
   * **description**（字符串，可選）— 簡短描述。
@@ -238,12 +238,12 @@ Additionally, it could potentially enable automatic node configuration to some e
 
 爲了簡化兼容性驗證，
 我們實現了一個[客戶端工具](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/reference/node-feature-client-reference.html)，
-可以根據鏡像的兼容性工件進行節點驗證。在這個流程中，鏡像作者會生成一個兼容性工件，
-並通過引用者（Referrs） API 將其指向鏡像所在的倉庫。當需要評估某個鏡像是否適用於某個主機節點時，
-此工具可以發現工件並在部署前驗證鏡像對節點的兼容性。
-客戶端可以驗證 Kubernetes 集羣內外的節點，擴大了其應用範圍。
-未來，鏡像兼容性還可能在基於鏡像要求創建特定工作負載配置文件中發揮關鍵作用，有助於提升調度效率。
-此外，還可能實現一定程度上的節點自動配置，進一步優化資源分配並確保特種工作負載的順利部署。
+可以根據映像檔的兼容性工件進行節點驗證。在這個流程中，映像檔作者會生成一個兼容性工件，
+並通過引用者（Referrs） API 將其指向映像檔所在的倉庫。當需要評估某個映像檔是否適用於某個主機節點時，
+此工具可以發現工件並在部署前驗證映像檔對節點的兼容性。
+客戶端可以驗證 Kubernetes 叢集內外的節點，擴大了其應用範圍。
+未來，映像檔兼容性還可能在基於映像檔要求創建特定工作負載設定文件中發揮關鍵作用，有助於提升調度效率。
+此外，還可能實現一定程度上的節點自動設定，進一步優化資源分配並確保特種工作負載的順利部署。
 
 <!--
 ### Examples of usage
@@ -256,9 +256,9 @@ Additionally, it could potentially enable automatic node configuration to some e
 -->
 ### 使用示例
 
-1. **定義鏡像兼容性元數據**
+1. **定義映像檔兼容性元數據**
 
-   一個[容器鏡像](/zh-cn/docs/concepts/containers/images)可以包含元數據，
+   一個[容器映像檔](/zh-cn/docs/concepts/containers/images)可以包含元數據，
    基於節點所發現的特性（如內核模塊或 CPU 型號）描述其需求。
    上文所述的兼容性規範示例即體現了這種用法。
 
@@ -271,13 +271,13 @@ Additionally, it could potentially enable automatic node configuration to some e
    Keep in mind that the container image and the artifact must be stored in the same registry.
    Use the following command to attach the artifact to the image:
 -->
-2. **將工件掛接到鏡像上**
+2. **將工件掛接到映像檔上**
 
-   鏡像兼容性規範以 OCI 工件的形式存儲。
-   你可以使用 [oras](https://oras.land/) 工具將元數據掛接到你的容器鏡像上。
-   鏡像倉庫只需支持 OCI 工件，不必支持任意類型。
-   請注意，容器鏡像和工件必須存儲在同一個鏡像倉庫中。
-   使用以下命令將工件掛接到鏡像上：
+   映像檔兼容性規範以 OCI 工件的形式存儲。
+   你可以使用 [oras](https://oras.land/) 工具將元數據掛接到你的容器映像檔上。
+   映像檔倉庫只需支持 OCI 工件，不必支持任意類型。
+   請注意，容器映像檔和工件必須存儲在同一個映像檔倉庫中。
+   使用以下命令將工件掛接到映像檔上：
 
    ```bash
    oras attach \ 
@@ -296,9 +296,9 @@ Additionally, it could potentially enable automatic node configuration to some e
    nfd compat validate-node --image <image-url>
    ```
 -->
-3. **驗證鏡像兼容性**
+3. **驗證映像檔兼容性**
 
-   在掛接兼容性規範之後，你可以驗證某個節點是否滿足鏡像的運行要求。這種驗證可以通過
+   在掛接兼容性規範之後，你可以驗證某個節點是否滿足映像檔的運行要求。這種驗證可以通過
    [nfd 客戶端](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/reference/node-feature-client-reference.html)來完成：
 
    ```bash
@@ -328,11 +328,11 @@ Moving forward, the adoption of compatibility metadata within Kubernetes ecosyst
 -->
 ## 總結 {#conclusion}
 
-通過 Node Feature Discovery 將鏡像兼容性引入 Kubernetes，突顯了在雲原生環境中解決兼容性問題的重要性。
+通過 Node Feature Discovery 將映像檔兼容性引入 Kubernetes，突顯了在雲原生環境中解決兼容性問題的重要性。
 這只是一個起點，未來仍需進一步將兼容性深度集成到 Kubernetes 內外的工作負載調度中。
 然而，藉助這一功能，關鍵任務型工作負載現在可以更高效地定義和驗證其對主機操作系統的要求。
 展望未來，兼容性元數據在 Kubernetes 生態系統中的廣泛採用將顯著提升專用容器化應用的可靠性與性能，
-確保其能夠滿足電信、高性能計算等行業對硬件或主機系統配置的嚴格要求。
+確保其能夠滿足電信、高性能計算等行業對硬件或主機系統設定的嚴格要求。
 
 <!--
 ## Get involved
@@ -342,6 +342,6 @@ We always welcome new contributors.
 -->
 ## 加入我們 {#get-involved}
 
-如果你有興趣參與鏡像兼容性 API 和工具的設計與開發，歡迎加入
+如果你有興趣參與映像檔兼容性 API 和工具的設計與開發，歡迎加入
 [Kubernetes Node Feature Discovery](https://kubernetes-sigs.github.io/node-feature-discovery/v0.17/contributing/)
 項目。我們始終歡迎新的貢獻者加入。

@@ -225,7 +225,7 @@ In this example, the Pod failure policy does the following:
 在這個例子中，Pod 失效策略執行以下操作：  
 
 - 忽略任何具有內置 `DisruptionTarget` 狀況的失效 Pod。這些 Pod 不計入 Job 回退限制。  
-- 如果任何失效的 Pod 具有用戶自定義的、由自定義控制器或 Webhook 添加的 `ConfigIssue`
+- 如果任何失效的 Pod 具有使用者自定義的、由自定義控制器或 Webhook 添加的 `ConfigIssue`
   狀況，則讓 Job 失敗。
 - 如果任何容器以退出碼 42 退出，則讓 Job 失敗。  
 - 將所有其他 Pod 失效計入默認的 `backoffLimit`（在合適的情況下，計入 `backoffLimitPerIndex`）。  
@@ -263,7 +263,7 @@ Based on the concepts introduced by Pod failure policy, the following additional
 
 基於 Pod 失效策略所引入的概念，正在進行中的進一步工作如下：
 
-- JobSet 集成：[可配置的失效策略 API](https://github.com/kubernetes-sigs/jobset/issues/262)
+- JobSet 集成：[可設定的失效策略 API](https://github.com/kubernetes-sigs/jobset/issues/262)
 - [擴展 Pod 失效策略以添加更細粒度的失效原因](https://github.com/kubernetes/enhancements/issues/4443)
 - 通過 JobSet 在 [Kubeflow Training v2](https://github.com/kubeflow/training-operator/pull/2171)
   中支持 Pod 失效策略

@@ -25,4 +25,4 @@ If the `KMSv2` feature gate is not enabled in your cluster, the value of the `KM
 -->
 啓用 KMS v2 以生成一次性數據加密密鑰。
 詳情參見[使用 KMS 驅動進行數據加密](/zh-cn/docs/tasks/administer-cluster/kms-provider/)。
-如果 `KMSv2` 特性門控在你的集羣未被啓用，則 `KMSv2KDF` 特性門控的值不會產生任何影響。
+如果 `KMSv2` 特性門控在你的叢集未被啓用，則 `KMSv2KDF` 特性門控的值不會產生任何影響。

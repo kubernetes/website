@@ -317,7 +317,7 @@ Parameter | Description | Default
 -->
 
 ```go-html-template
-{{</* table caption="配置參數" >}}
+{{</* table caption="設定參數" >}}
 參數      | 描述        | 默認值
 :---------|:------------|:-------
 `timeout` | 請求的超時時長 | `30s`
@@ -346,7 +346,7 @@ after the opening `<table>` element:
 元素後面緊接着下面的元素：
 
 ```html
-<caption style="display: none;">配置參數</caption>
+<caption style="display: none;">設定參數</caption>
 ```
 
 <!--
@@ -585,7 +585,7 @@ usually need to add a
 to your cluster so that name resolution works.
 -->
 運行 Kubernetes 需要第三方軟件。例如：你通常需要將
-[DNS 服務器](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
+[DNS 伺服器](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#introduction)
 添加到集羣中，以便名稱解析工作。
 
 <!--

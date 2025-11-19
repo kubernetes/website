@@ -6,7 +6,7 @@
 <!--
 Renew certificates for a Kubernetes cluster
 -->
-爲 Kubernetes 集羣更新證書
+爲 Kubernetes 叢集更新證書
 
 ```shell
 kubeadm certs renew [flags]

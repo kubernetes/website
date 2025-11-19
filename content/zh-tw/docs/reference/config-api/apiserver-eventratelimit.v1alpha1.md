@@ -18,7 +18,7 @@ package: eventratelimit.admission.k8s.io/v1alpha1
 Configuration provides configuration for the EventRateLimit admission
 controller.
 -->
-Configuration 爲 EventRateLimit 准入控制器提供配置數據。
+Configuration 爲 EventRateLimit 准入控制器提供設定數據。
 </p>
 
 <table class="table">
@@ -39,8 +39,8 @@ Limits can be placed on events received server-wide, per namespace,
 per user, and per source+object.
 At least one limit is required.
   -->
-  <code>limits</code> 是爲所接收到的事件查詢設置的限制。可以針對服務器端接收到的事件設置限制，
-按逐個名字空間、逐個用戶、或逐個來源+對象組合的方式均可以。
+  <code>limits</code> 是爲所接收到的事件查詢設置的限制。可以針對伺服器端接收到的事件設置限制，
+按逐個名字空間、逐個使用者、或逐個來源+對象組合的方式均可以。
 至少需要設置一種限制。
   </p>
 </td>
@@ -61,7 +61,7 @@ At least one limit is required.
 <!--
 Limit is the configuration for a particular limit type
 -->
-<code>Limit</code> 是爲特定限制類型提供的配置數據。
+<code>Limit</code> 是爲特定限制類型提供的設定數據。
 </p>
 
 <table class="table">
@@ -76,7 +76,7 @@ Limit is the configuration for a particular limit type
 <!--
 type is the type of limit to which this configuration applies
 -->
-<code>type</code> 是此配置所適用的限制的類型。
+<code>type</code> 是此設定所適用的限制的類型。
 </p>
 </td>
 </tr>

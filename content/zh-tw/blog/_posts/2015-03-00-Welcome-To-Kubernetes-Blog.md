@@ -38,9 +38,9 @@ To start things off, here's a roundup of recent Kubernetes posts from other site
 -->
 
 - [使用 Vitess 和 Kubernetes 在雲中擴展 MySQL](http://googlecloudplatform.blogspot.com/2015/03/scaling-MySQL-in-the-cloud-with-Vitess-and-Kubernetes.html)
-- [虛擬機上的容器集羣](http://googlecloudplatform.blogspot.com/2015/02/container-clusters-on-vms.html)
+- [虛擬機上的容器叢集](http://googlecloudplatform.blogspot.com/2015/02/container-clusters-on-vms.html)
 - [想知道的關於 kubernetes 的一切，卻又不敢問](http://googlecloudplatform.blogspot.com/2015/01/everything-you-wanted-to-know-about-Kubernetes-but-were-afraid-to-ask.html)
-- [什麼構成容器集羣？](http://googlecloudplatform.blogspot.com/2015/01/what-makes-a-container-cluster.html)
+- [什麼構成容器叢集？](http://googlecloudplatform.blogspot.com/2015/01/what-makes-a-container-cluster.html)
 - [將 OpenStack 和 Kubernetes 與 Murano 集成](https://www.mirantis.com/blog/integrating-openstack-and-kubernetes-with-murano/)
 - [容器介紹，Kubernetes 以及現代雲計算的發展軌跡](http://googlecloudplatform.blogspot.com/2015/01/in-coming-weeks-we-will-be-publishing.html)
 - [什麼是 Kubernetes 以及如何使用它？](http://www.centurylinklabs.com/what-is-kubernetes-and-how-to-use-it/)

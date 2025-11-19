@@ -23,7 +23,7 @@ spec:
         - "-c"
         - |
           set -ex
-          # 基於 Pod 序號生成 MySQL 服務器的 ID。
+          # 基於 Pod 序號生成 MySQL 伺服器的 ID。
           [[ $HOSTNAME =~ -([0-9]+)$ ]] || exit 1
           ordinal=${BASH_REMATCH[1]}
           echo [mysqld] > /mnt/conf.d/server-id.cnf
@@ -139,7 +139,7 @@ spec:
             mv change_master_to.sql.in change_master_to.sql.orig
           fi
 
-          # 當對等點請求時，啓動服務器發送備份。
+          # 當對等點請求時，啓動伺服器發送備份。
           exec ncat --listen --keep-open --send-only --max-conns=1 3307 -c \
             "xtrabackup --backup --slave-info --stream=xbstream --host=127.0.0.1 --user=root"
         volumeMounts:

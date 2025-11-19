@@ -51,7 +51,7 @@ or other similar resource) to scale back down.
 這與“垂直（Vertical）”擴縮不同，對於 Kubernetes，
 垂直擴縮意味着將更多資源（例如：內存或 CPU）分配給已經爲工作負載運行的 Pod。
 
-如果負載減少，並且 Pod 的數量高於配置的最小值，
+如果負載減少，並且 Pod 的數量高於設定的最小值，
 HorizontalPodAutoscaler 會指示工作負載資源（Deployment、StatefulSet 或其他類似資源）縮減。
 
 <!--
@@ -192,7 +192,7 @@ usually provided by an add-on named Metrics Server, which needs to be launched s
 For more information about resource metrics, see
 [Metrics Server](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server).
 -->
-HorizontalPodAutoscaler 的常見用途是將其配置爲從{{< glossary_tooltip text="聚合 API" term_id="aggregation-layer" >}}
+HorizontalPodAutoscaler 的常見用途是將其設定爲從{{< glossary_tooltip text="聚合 API" term_id="aggregation-layer" >}}
 （`metrics.k8s.io`、`custom.metrics.k8s.io` 或 `external.metrics.k8s.io`）獲取指標。
 `metrics.k8s.io` API 通常由名爲 Metrics Server 的插件提供，需要單獨啓動。有關資源指標的更多信息，
 請參閱 [Metrics Server](/zh-cn/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-server)。
@@ -249,7 +249,7 @@ action if the ratio is sufficiently close to 1.0 (within a
 -->
 例如，如果當前指標值爲 `200m`，而期望值爲 `100m`，則副本數將加倍，
 因爲 \\( { 200.0 \div 100.0 } = 2.0 \\)。如果當前值爲 `50m`，則副本數將減半，
-因爲  \\( { 50.0 \div 100.0 } = 0.5 \\)。如果比率足夠接近 1.0（在[可配置的容差範圍內](#tolerance)，默認爲 0.1），
+因爲  \\( { 50.0 \div 100.0 } = 0.5 \\)。如果比率足夠接近 1.0（在[可設定的容差範圍內](#tolerance)，默認爲 0.1），
 則控制平面會跳過擴縮操作。
 
 <!--
@@ -303,10 +303,10 @@ since it started. This value is configured with the
 and its default is 5 minutes.
 -->
 由於技術限制，HorizontalPodAutoscaler 控制器在確定是否保留某些 CPU 指標時無法準確確定 Pod 首次就緒的時間。
-相反，如果 Pod 未準備好並在其啓動後的一個可配置的短時間窗口內轉換爲準備好，它會認爲 Pod “尚未準備好”。
-此值使用 `--horizontal-pod-autoscaler-initial-readiness-delay` 命令行選項配置，默認值爲 30 秒。
-一旦 Pod 準備就緒，如果它發生在自啓動後較長的、可配置的時間內，它就會認爲任何向準備就緒的轉換都是第一個。
-此值由 `--horizontal-pod-autoscaler-cpu-initialization-period` 命令行選項配置，默認值爲 5 分鐘。
+相反，如果 Pod 未準備好並在其啓動後的一個可設定的短時間窗口內轉換爲準備好，它會認爲 Pod “尚未準備好”。
+此值使用 `--horizontal-pod-autoscaler-initial-readiness-delay` 命令列選項設定，默認值爲 30 秒。
+一旦 Pod 準備就緒，如果它發生在自啓動後較長的、可設定的時間內，它就會認爲任何向準備就緒的轉換都是第一個。
+此值由 `--horizontal-pod-autoscaler-cpu-initialization-period` 命令列選項設定，默認值爲 5 分鐘。
 
 <!--
 The \\( currentMetricValue \over desiredMetricValue \\) base scale ratio is then
@@ -379,8 +379,8 @@ fluctuating metric values.
 -->
 最後，在 HPA 控制器執行擴縮操作之前，會記錄擴縮建議信息。
 控制器會在操作時間窗口中考慮所有的建議信息，並從中選擇得分最高的建議。
-你可以使用 `--horizontal-pod-autoscaler-downscale-stabilization` 命令行選項來配置這個值，
-默認值爲 5 分鐘。這個配置可以讓系統更爲平滑地進行縮容操作，從而消除短時間內指標值快速波動產生的影響。
+你可以使用 `--horizontal-pod-autoscaler-downscale-stabilization` 命令列選項來設定這個值，
+默認值爲 5 分鐘。這個設定可以讓系統更爲平滑地進行縮容操作，從而消除短時間內指標值快速波動產生的影響。
 
 <!--
 ## Pod readiness and autoscaling metrics
@@ -389,7 +389,7 @@ The HorizontalPodAutoscaler (HPA) controller includes two command line options t
 -->
 ## Pod 準備就緒和自動伸縮指標   {#pod-readiness-and-autoscaling-metrics}
 
-HorizontalPodAutoscaler（HPA）控制器有兩個命令行選項會影響 Pod 啓動期間如何收集其 CPU 指標：
+HorizontalPodAutoscaler（HPA）控制器有兩個命令列選項會影響 Pod 啓動期間如何收集其 CPU 指標：
 
 <!--
 1. `--horizontal-pod-autoscaler-cpu-initialization-period` (default: 5 minutes)
@@ -400,7 +400,7 @@ HorizontalPodAutoscaler（HPA）控制器有兩個命令行選項會影響 Pod �
 -->
 1. `--horizontal-pod-autoscaler-cpu-initialization-period`（默認：5 分鐘）
 
-   此命令行選項所定義的是 Pod 啓動後的一個時間窗口，在此期間內其 **CPU 使用率被忽略**，除非：
+   此命令列選項所定義的是 Pod 啓動後的一個時間窗口，在此期間內其 **CPU 使用率被忽略**，除非：
 
    - Pod 處於 `Ready` 狀態**且**
    - 指標樣本完全是在它處於 `Ready` 狀態期間採集的。
@@ -409,7 +409,7 @@ HorizontalPodAutoscaler（HPA）控制器有兩個命令行選項會影響 Pod �
    This command line option helps **exclude misleading high CPU usage** from initializing Pods (for example: Java apps warming up) in HPA scaling decisions.
    -->
 
-   此命令行選項有助於**排除初始化 Pod 中的誤導性高 CPU 使用率**
+   此命令列選項有助於**排除初始化 Pod 中的誤導性高 CPU 使用率**
    （例如，Java 應用程序預熱）對 HPA 擴縮決策的影響。
 
 <!--
@@ -441,7 +441,7 @@ You can only set these command line options cluster-wide.
 - If a Pod is `Ready` and remains `Ready`, it can be counted as contributing metrics even within the delay.
 - If a Pod rapidly toggles between `Ready` and `Unready`, metrics are ignored until it’s considered stably `Ready`.
 -->
-你可以在集羣範圍設置這些命令行選項。
+你可以在叢集範圍設置這些命令列選項。
 
 ### Pod 就緒的關鍵行爲  {#pod-readiness-key-behaviors}
 
@@ -460,7 +460,7 @@ And ideally also set `--horizontal-pod-autoscaler-cpu-initialization-period` to 
 -->
 ### Pod 就緒的良好實踐  {#pod-readiness-good-practices}
 
-- 配置 `startupProbe`，使其在高 CPU 使用率結束之前不會傳遞，或
+- 設定 `startupProbe`，使其在高 CPU 使用率結束之前不會傳遞，或
 - 使用 `initialDelaySeconds`，確保你的 `readinessProbe` **在 CPU 峯值過後**才報告爲 `Ready`。
 
 理想情況下，還應設置 `--horizontal-pod-autoscaler-cpu-initialization-period`，以**覆蓋啓動持續時間**。
@@ -520,7 +520,7 @@ number during the rollout and also afterwards.
 ## 滾動升級時擴縮   {#autoscaling-during-rolling-update}
 
 Kubernetes 允許你在 Deployment 上執行滾動更新。在這種情況下，Deployment 爲你管理下層的 ReplicaSet。
-當你爲一個 Deployment 配置自動擴縮時，你要爲每個 Deployment 綁定一個 HorizontalPodAutoscaler。
+當你爲一個 Deployment 設定自動擴縮時，你要爲每個 Deployment 綁定一個 HorizontalPodAutoscaler。
 HorizontalPodAutoscaler 管理 Deployment 的 `replicas` 字段。
 Deployment Controller 負責設置下層 ReplicaSet 的 `replicas` 字段，
 以便確保在上線及後續過程副本個數合適。
@@ -596,7 +596,7 @@ use of the web application, ignoring the sidecar container and its resource use.
 -->
 HorizontalPodAutoscaler API 也支持容器指標源，這時 HPA 可以跟蹤記錄一組 Pod
 中各個容器的資源用量，進而觸發擴縮目標對象的操作。
-容器資源指標的支持使得你可以爲特定 Pod 中最重要的容器配置規模擴縮閾值。
+容器資源指標的支持使得你可以爲特定 Pod 中最重要的容器設定規模擴縮閾值。
 例如，如果你有一個 Web 應用和一個提供記錄日誌功能的邊車容器，你可以基於 Web
 應用的資源用量來執行擴縮，忽略邊車容器的存在及其資源用量。
 
@@ -673,7 +673,7 @@ See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 （之前的 `autoscaling/v2beta2` API 版本將此功能作爲 Beta 功能提供）
 
 如果你使用 `autoscaling/v2` API 版本，則可以將 HorizontalPodAutoscaler
-配置爲基於自定義指標（未內置於 Kubernetes 或任何 Kubernetes 組件）進行擴縮。
+設定爲基於自定義指標（未內置於 Kubernetes 或任何 Kubernetes 組件）進行擴縮。
 HorizontalPodAutoscaler 控制器能夠從 Kubernetes API 查詢這些自定義指標。
 
 有關要求，請參閱對 [Metrics API 的支持](#support-for-metrics-apis)。
@@ -699,7 +699,7 @@ overall maximum that you configured).
 如果你使用 `autoscaling/v2` API 版本，你可以爲 HorizontalPodAutoscaler 指定多個指標以進行擴縮。
 HorizontalPodAutoscaler 控制器評估每個指標，並根據該指標提出一個新的比例。
 HorizontalPodAutoscaler 採用爲每個指標推薦的最大比例，
-並將工作負載設置爲該大小（前提是這不大於你配置的總體最大值）。
+並將工作負載設置爲該大小（前提是這不大於你設定的總體最大值）。
 
 <!--
 ## Support for metrics APIs
@@ -710,7 +710,7 @@ In order for it to access these APIs, cluster administrators must ensure that:
 ## 對 Metrics API 的支持   {#support-for-metrics-apis}
 
 默認情況下，HorizontalPodAutoscaler 控制器會從一系列的 API 中檢索度量值。
-集羣管理員需要確保下述條件，以保證 HPA 控制器能夠訪問這些 API：
+叢集管理員需要確保下述條件，以保證 HPA 控制器能夠訪問這些 API：
 
 <!--
 * The [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) is enabled.
@@ -734,10 +734,10 @@ In order for it to access these APIs, cluster administrators must ensure that:
 
   * 對於資源指標，將使用 `metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)，
     一般由 [metrics-server](https://github.com/kubernetes-incubator/metrics-server) 提供。
-    它可以作爲集羣插件啓動。
+    它可以作爲叢集插件啓動。
 
   * 對於自定義指標，將使用 `custom.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
-    它由其他度量指標方案廠商的“適配器（Adapter）” API 服務器提供。
+    它由其他度量指標方案廠商的“適配器（Adapter）” API 伺服器提供。
     檢查你的指標管道以查看是否有可用的 Kubernetes 指標適配器。
 
   * 對於外部指標，將使用 `external.metrics.k8s.io` [API](/zh-cn/docs/reference/external-api/metrics.v1beta1/)。
@@ -766,7 +766,7 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 <!--
 ## Configurable scaling behavior
 -->
-## 可配置的擴縮行爲 {#configurable-scaling-behavior}
+## 可設定的擴縮行爲 {#configurable-scaling-behavior}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
@@ -783,7 +783,7 @@ under the `behavior` field.
 
 如果你使用 `v2` HorizontalPodAutoscaler API，你可以使用 `behavior` 字段
 （請參閱 [API 參考](/zh-cn/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/#HorizontalPodAutoscalerSpec)）
-來配置單獨的放大和縮小行爲。你可以通過在行爲字段下設置 `scaleUp` 和/或 `scaleDown` 來指定這些行爲。
+來設定單獨的放大和縮小行爲。你可以通過在行爲字段下設置 `scaleUp` 和/或 `scaleDown` 來指定這些行爲。
 
 <!--
 Scaling policies let you control the rate of change of replicas while scaling.
@@ -911,10 +911,10 @@ This tolerance is defined as the amount of variation around the desired metric v
 which no scaling will occur. For example, consider a HorizontalPodAutoscaler configured
 with a target memory consumption of 100MiB and a scale-up tolerance of 5%:
 -->
-`tolerance` 字段用於配置指標波動的閾值，避免自動擴縮器因小幅變化而觸發擴縮容操作。
+`tolerance` 字段用於設定指標波動的閾值，避免自動擴縮器因小幅變化而觸發擴縮容操作。
 
 該容忍閾值指的是在期望指標值附近的一個波動範圍，在這個範圍內不會觸發擴縮容操作。
-例如，假設 HorizontalPodAutoscaler 配置了目標內存使用量爲 100MiB，並設置了 5% 的擴容容忍閾值：
+例如，假設 HorizontalPodAutoscaler 設定了目標內存使用量爲 100MiB，並設置了 5% 的擴容容忍閾值：
 
 <!--
 ```yaml
@@ -939,12 +939,12 @@ default can be updated for both scale-up and scale-down using the
 `--horizontal-pod-autoscaler-tolerance` command line argument. (You can't use the Kubernetes API
 to configure this default value.)
 -->
-在這種配置下，只有當內存使用量超過 105MiB（即比目標值高出 5%）時，HPA 算法纔會考慮進行擴容。
+在這種設定下，只有當內存使用量超過 105MiB（即比目標值高出 5%）時，HPA 算法纔會考慮進行擴容。
 
-如果你未設置該字段，HPA 將使用集羣範圍內默認的 10% 容忍閾值。你可以通過
+如果你未設置該字段，HPA 將使用叢集範圍內默認的 10% 容忍閾值。你可以通過
 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
-的 `--horizontal-pod-autoscaler-tolerance` 命令行參數，分別調整擴容和縮容的默認容忍閾值。
-（注意，無法通過 Kubernetes API 來配置這個默認值。）
+的 `--horizontal-pod-autoscaler-tolerance` 命令列參數，分別調整擴容和縮容的默認容忍閾值。
+（注意，無法通過 Kubernetes API 來設定這個默認值。）
 
 <!--
 ### Default behavior
@@ -988,7 +988,7 @@ scaled up the target is scaled up immediately. There are 2 policies where 4 pods
 running replicas may at most be added every 15 seconds till the HPA reaches its steady state.
 -->
 用於縮小穩定窗口的時間爲 **300**
-秒（或是 `--horizontal-pod-autoscaler-downscale-stabilization` 命令行選項設定值）。
+秒（或是 `--horizontal-pod-autoscaler-downscale-stabilization` 命令列選項設定值）。
 只有一種縮容的策略，允許 100% 刪除當前運行的副本，這意味着擴縮目標可以縮小到允許的最小副本數。
 對於擴容，沒有穩定窗口。當指標顯示目標應該擴容時，目標會立即擴容。
 這裏有兩種策略，每 15 秒最多添加 4 個 Pod 或 100% 當前運行的副本數，直到 HPA 達到穩定狀態。
@@ -1001,7 +1001,7 @@ behavior would be added to the HPA:
 -->
 ### 示例：更改縮容穩定窗口 {#example-change-downscale-stabilization-window}
 
-將下面的 behavior 配置添加到 HPA 中，可提供一個 1 分鐘的自定義縮容穩定窗口：
+將下面的 behavior 設定添加到 HPA 中，可提供一個 1 分鐘的自定義縮容穩定窗口：
 
 ```yaml
 behavior:
@@ -1017,7 +1017,7 @@ following behavior would be added to the HPA:
 -->
 ### 示例：限制縮容速率 {#example-limit-scale-down-rate}
 
-將下面的 behavior 配置添加到 HPA 中，可限制 Pod 被 HPA 刪除速率爲每分鐘 10%：
+將下面的 behavior 設定添加到 HPA 中，可限制 Pod 被 HPA 刪除速率爲每分鐘 10%：
 
 ```yaml
 behavior:
@@ -1103,7 +1103,7 @@ replica count or HPA's minimum replica count.
 -->
 ## 隱式維護狀態禁用 {#implicit-maintenance-mode-deactivation}
 
-你可以在不必更改 HPA 配置的情況下隱式地爲某個目標禁用 HPA。
+你可以在不必更改 HPA 設定的情況下隱式地爲某個目標禁用 HPA。
 如果此目標的期望副本個數被設置爲 0，而 HPA 的最小副本個數大於 0，
 則 HPA 會停止調整目標（並將其自身的 `ScalingActive` 狀況設置爲 `false`），
 直到你通過手動調整目標的期望副本個數或 HPA 的最小副本個數來重新激活。
@@ -1139,7 +1139,7 @@ methods based on how you are modifying your deployments:
 請記住，刪除 `spec.replicas` 可能會導致 Pod 計數一次性降級，因爲此鍵的默認值爲 1
 （參考 [Deployment 副本](/zh-cn/docs/concepts/workloads/controllers/deployment#replicas)）。
 更新後，除 1 之外的所有 Pod 都將開始其終止程序。之後的任何部署應用程序都將正常運行，
-並根據需要遵守滾動更新配置。你可以根據修改部署的方式選擇以下兩種方法之一來避免這種降級：
+並根據需要遵守滾動更新設定。你可以根據修改部署的方式選擇以下兩種方法之一來避免這種降級：
 
 {{< tabs name="fix_replicas_instructions" >}}
 {{% tab name="客戶端 apply 操作（默認行爲）" %}}
@@ -1161,14 +1161,14 @@ methods based on how you are modifying your deployments:
 4. 從這裏開始，你可以運行 `kubectl apply -f deployment.yaml`
 
 {{% /tab %}}
-{{% tab name="服務器端 apply 操作" %}}
+{{% tab name="伺服器端 apply 操作" %}}
 
 <!--
 When using the [Server-Side Apply](/docs/reference/using-api/server-side-apply/)
 you can follow the [transferring ownership](/docs/reference/using-api/server-side-apply/#transferring-ownership)
 guidelines, which cover this exact use case.
 -->
-使用[服務器端 Apply](/zh-cn/docs/reference/using-api/server-side-apply/) 機制，
+使用[伺服器端 Apply](/zh-cn/docs/reference/using-api/server-side-apply/) 機制，
 你可以遵循[交出所有權](/zh-cn/docs/reference/using-api/server-side-apply/#transferring-ownership)說明，
 該指南涵蓋了這個確切的用例。
 
@@ -1184,7 +1184,7 @@ to ensure you are running the right number of nodes.
 
 For more information on HorizontalPodAutoscaler:
 -->
-如果你在集羣中配置自動擴縮，
+如果你在叢集中設定自動擴縮，
 你可能還需要考慮使用[節點自動擴縮](/doc/concepts/cluster-administration/node-autoscaling/)來確保所運行的節點數目合適。
 
 有關 HorizontalPodAutoscaler 的更多信息：

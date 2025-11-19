@@ -41,7 +41,7 @@ CSI allows vendors to create custom storage plugins for Kubernetes without addin
 CSI 允許存儲驅動提供商爲 Kubernetes 創建定製化的存儲插件，
 而無需將這些插件的代碼添加到 Kubernetes 代碼倉庫（外部插件）。
 要使用某個存儲提供商的 CSI 驅動，你首先要
-[將它部署到你的集羣上](https://kubernetes-csi.github.io/docs/deploying.html)。
+[將它部署到你的叢集上](https://kubernetes-csi.github.io/docs/deploying.html)。
 然後你才能創建使用該 CSI 驅動的 {{< glossary_tooltip text="Storage Class" term_id="storage-class" >}} 。
 
 * [Kubernetes 文檔中關於 CSI 的描述](/zh-cn/docs/concepts/storage/volumes/#csi)

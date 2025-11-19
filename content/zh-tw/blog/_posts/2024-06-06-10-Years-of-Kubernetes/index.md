@@ -63,7 +63,7 @@ and the even larger user community that have all helped shape the ecosystem that
 在 CNCF 本身就有近 [200 個項目](https://all.devstats.cncf.io/d/18/overall-project-statistics-table?orgId=1)，有來自
 [240,000 多名個人貢獻者](https://all.devstats.cncf.io/d/18/overall-project-statistics-table?orgId=1)，
 還有數千名來自更大的生態系統的貢獻者的貢獻。
-如果沒有 [700 多萬開發者](https://www.cncf.io/blog/2022/05/18/slashdata-cloud-native-continues-to-grow-with-more-than-7-million-developers-worldwide/)和更龐大的用戶社區，
+如果沒有 [700 多萬開發者](https://www.cncf.io/blog/2022/05/18/slashdata-cloud-native-continues-to-grow-with-more-than-7-million-developers-worldwide/)和更龐大的使用者社區，
 Kubernetes 就不會達到今天的成就，他們一起幫助塑造了今天的生態系統。
 
 <!--
@@ -112,7 +112,7 @@ scale remained.
 -->
 2013 年 3 月，[Solomon Hykes 在 PyCon 上進行了一場名爲 “Linux容器的未來”](https://youtu.be/wW9CAH9nSLs?si=VtK_VFQHymOT7BIB)的
 5 分鐘閃電演講，介紹了名爲 “Docker” 的一款即將被推出的開源工具，用於創建和使用 Linux 容器。Docker
-提升了 Linux 容器的可用性，使其比以往更容易被更多用戶使用，從而使
+提升了 Linux 容器的可用性，使其比以往更容易被更多使用者使用，從而使
 Docker 和Linux 容器的流行度飆升。隨着 Docker 使 Linux 容器的抽象概念可供所有人使用，
 以更便於移植且可重複的方式運行應用突然成爲可能，但大規模使用的問題仍然存在。
 
@@ -220,7 +220,7 @@ Some notable updates, milestones and events since 1.0 include:
 * August 2020 — [Kubernetes 1.19](/blog/2020/08/31/kubernetes-1-19-feature-one-year-support/) increases the support window for releases to 1 year.
 * December 2020 — [Dockershim is deprecated](/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)  in 1.20
 -->
-* 2018 年 12 月 — 在 1.13 版本中，容器存儲接口（CSI）達到 GA，用於引導最小可用集羣的 kubeadm 工具達到 GA，並且 CoreDNS 成爲默認的 DNS 服務器。
+* 2018 年 12 月 — 在 1.13 版本中，容器存儲接口（CSI）達到 GA，用於引導最小可用叢集的 kubeadm 工具達到 GA，並且 CoreDNS 成爲默認的 DNS 伺服器。
 * 2019 年 9 月 — [自定義資源定義（Custom Resource Definition）在 Kubernetes 1.16 中正式發佈](/blog/2019/09/18/kubernetes-1-16-release-announcement/)。
 * 2020 年 8 月 — [Kubernetes 1.19](/blog/2020/08/31/kubernetes-1-19-feature-one-year-support/) 將發佈支持窗口增加到 1 年。
 * 2020 年 12 月 — [Dockershim 在 1.20 版本中被棄用](/zh-cn/blog/2020/12/18/kubernetes-1.20-pod-impersonation-short-lived-volumes-in-csi/)。
@@ -233,7 +233,7 @@ Some notable updates, milestones and events since 1.0 include:
 * 2021 年 4 月 - [Kubernetes 發佈節奏變更](/blog/2021/07/20/new-kubernetes-release-cadence/#:~:text=On%20April%2023%2C%202021%2C%20the,Kubernetes%20community's%20contributors%20and%20maintainers.)，從每年發佈 4 個版本變爲每年發佈 3 個版本。
 * 2021 年 7 月 - 在 Kubernetes 1.22 中[移除了廣泛使用的 Beta API](/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/)。
 * 2022 年 5 月 - 在 Kubernetes 1.24 中，[Beta API 默認被禁用](/zh-cn/blog/2022/05/03/kubernetes-1-24-release-announcement/)，
-  以減少升級衝突，並移除了 [Dockershim](/zh-cn/dockershim)，導致[用戶普遍感到困惑](https://www.youtube.com/watch?v=a03Hh1kd6KE)
+  以減少升級衝突，並移除了 [Dockershim](/zh-cn/dockershim)，導致[使用者普遍感到困惑](https://www.youtube.com/watch?v=a03Hh1kd6KE)
   （我們已經[改進了我們的溝通方式！](https://github.com/kubernetes/community/tree/master/communication/contributor-comms)）
 * 2022 年 12 月 - 在 1.26 版本中，進行了重大的[批處理和作業 API 改進](/blog/2022/12/29/scalable-job-tracking-ga/)，
   爲更好地支持 AI/ML/批處理工作負載鋪平了道路。
@@ -242,7 +242,7 @@ Some notable updates, milestones and events since 1.0 include:
 **PS:** Curious to see how far the project has come for yourself? Check out this [tutorial for spinning up a Kubernetes 1.0 cluster](https://github.com/spurin/kubernetes-v1.0-lab) created by community members Carlos Santana, Amim Moises Salum Knabben, and James Spurin.
 -->
 **附言:** 想親自體會一下這個項目的進展麼？可以查看由社區成員 Carlos Santana、Amim Moises Salum Knabben 和 James Spurin
-創建的 [Kubernetes 1.0 集羣搭建教程](https://github.com/spurin/kubernetes-v1.0-lab)。
+創建的 [Kubernetes 1.0 叢集搭建教程](https://github.com/spurin/kubernetes-v1.0-lab)。
 
 ---
 <!--
@@ -255,7 +255,7 @@ can do. In the last decade, whole new patterns have emerged, such as using
 (CRDs) to support third-party controllers - now a huge part of the Kubernetes ecosystem.
 -->
 Kubernetes 提供的擴展點多得數不勝數。最初設計用於與 Docker 一起工作，現在你可以插入任何符合
-CRI 標準的容器運行時。還有其他類似的接口：用於存儲的 CSI 和用於網絡的 CNI。
+CRI 標準的容器運行時。還有其他類似的接口：用於存儲的 CSI 和用於網路的 CNI。
 而且這還遠遠不是全部。在過去的十年中，出現了全新的模式，例如使用[自定義資源定義](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)（CRD）
 來支持第三方控制器 - 這現在是 Kubernetes 生態系統的重要組成部分。
 
@@ -294,7 +294,7 @@ contribution. The project is still actively working to improve and better serve 
 <img src="welcome.jpg" alt="KubeCon NA 2023" class="left" style="max-width: 20em; margin: 1em">
 
 自項目初期以來，項目在技術能力、使用率和貢獻方面取得了巨大的增長。
-項目仍在積極努力改進並更好地爲用戶服務。
+項目仍在積極努力改進並更好地爲使用者服務。
 
 <!--
 In the upcoming 1.31 release, the project will celebrate the culmination of an important long-term
@@ -322,8 +322,8 @@ update any automation you have to use registry.k8s.io!
 然而，如何實現這種可擴展性並不總是很清楚。此次遷移從核心 Kubernetes 代碼庫中刪除了各種特定於供應商的功能。
 現在，特定於供應商的功能可以通過其他可插拔的擴展功能或模式更好地提供，例如[自定義資源定義（CRD）](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) 
 或 [Gateway API](https://gateway-api.sigs.k8s.io/) 等 API 標準。
-Kubernetes 在爲其龐大的用戶羣體提供服務時也面臨着新的挑戰，社區正在相應地進行調整。其中一個例子是將鏡像託管遷移到新的、由社區擁有的
-registry.k8s.io。爲用戶提供預編譯二進制鏡像的出口帶寬和成本已經變得非常巨大。這一新的倉庫變更使社區能夠以更具成本效益和性能高效的方式繼續提供這些便利的鏡像。
+Kubernetes 在爲其龐大的使用者羣體提供服務時也面臨着新的挑戰，社區正在相應地進行調整。其中一個例子是將映像檔託管遷移到新的、由社區擁有的
+registry.k8s.io。爲使用者提供預編譯二進制映像檔的出口帶寬和成本已經變得非常巨大。這一新的倉庫變更使社區能夠以更具成本效益和性能高效的方式繼續提供這些便利的映像檔。
 請務必查看[此博客文章](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/)並更新你必須使用 registry.k8s.io 倉庫的任何自動化設施！
 
 <!--
@@ -339,7 +339,7 @@ application development continues to evolve, and Kubernetes is poised to change 
 
 <img src="lts.jpg" alt="" class="right" width="300px" style="max-width: 20em; margin: 1em">
 
-十年過去了，Kubernetes 的未來依然光明。社區正在優先考慮改進用戶體驗和增強項目可持續性的變革。
+十年過去了，Kubernetes 的未來依然光明。社區正在優先考慮改進使用者體驗和增強項目可持續性的變革。
 應用程序開發的世界不斷演變，Kubernetes 正準備隨之變化。
 
 <!--
@@ -379,7 +379,7 @@ We look forward to building the future of Kubernetes with you!
 
 {{< figure src="kcsna2023.jpg" alt="KCSNA 2023">}}
 -->
-Kubernetes 的未來 10 年將由其用戶和生態系統引領，但最重要的是，由爲其做出貢獻的人引領。
+Kubernetes 的未來 10 年將由其使用者和生態系統引領，但最重要的是，由爲其做出貢獻的人引領。
 社區對新貢獻者持開放態度。你可以在我們的新貢獻者課程
 [https://k8s.dev/docs/onboarding](https://k8s.dev/docs/onboarding) 中找到更多有關貢獻的信息。
 

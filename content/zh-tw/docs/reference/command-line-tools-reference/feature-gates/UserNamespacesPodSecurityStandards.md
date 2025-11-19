@@ -17,4 +17,4 @@ that run with namespaces. You must set the value of this feature gate consistent
 your cluster, and you must also enable `UserNamespacesSupport` to use this feature.
 -->
 啓用 Pod 安全標準策略的放寬措施，適用於在命名空間中運行的 Pod。
-你需要在集羣的所有節點上統一設置此特性門控，並且必須啓用 `UserNamespacesSupport` 才能使用此功能。
+你需要在叢集的所有節點上統一設置此特性門控，並且必須啓用 `UserNamespacesSupport` 才能使用此功能。

@@ -36,7 +36,7 @@ of "client." I just didn't know what to expect when Google asked my compatriots 
 *This article originally appeared on the [Kubernetes Contributor Community blog](https://www.kubernetes.dev/blog/2020/09/28/contributing-to-the-development-guide/).*
 -->
 
-當大多數人想到爲一個開源項目做貢獻時，我猜想他們可能想到的是貢獻代碼修改、新功能和錯誤修復。作爲一個軟件工程師和一個長期的開源用戶和貢獻者，這也正是我的想法。
+當大多數人想到爲一個開源項目做貢獻時，我猜想他們可能想到的是貢獻代碼修改、新功能和錯誤修復。作爲一個軟件工程師和一個長期的開源使用者和貢獻者，這也正是我的想法。
 雖然我已經在不同的工作流中寫了不少文檔，但規模龐大的 Kubernetes 社區是一種新型 "客戶"。我只是不知道當 Google 要求我和 [Lion's Way](https://lionswaycontent.com/) 的同胞們對 Kubernetes 開發指南進行必要更新時會發生什麼。
 
 *本文最初出現在 [Kubernetes Contributor Community blog](https://www.kubernetes.dev/blog/2020/09/28/contributing-to-the-development-guide/)。*
@@ -160,7 +160,7 @@ judge the results for yourself by checking out my
 [completed pull request](https://github.com/kubernetes/community/pull/5045). 
 -->
 
-這段旅程將我帶出了編寫文檔的領域，進入到一些未完成軟件的全新用戶角色。最終我花了很多心思與新的 [kubetest2`框架](https://github.com/kubernetes-sigs/kubetest2) 的開發者之一合作，
+這段旅程將我帶出了編寫文檔的領域，進入到一些未完成軟件的全新使用者角色。最終我花了很多心思與新的 [kubetest2`框架](https://github.com/kubernetes-sigs/kubetest2) 的開發者之一合作，
 記錄了最新 e2e 測試的啓動和運行過程。
 你可以通過查看我的 [已完成的 pull request](https://github.com/kubernetes/community/pull/5045) 來自己判斷結果。
 

@@ -1,5 +1,5 @@
 ---
-title: kube-proxy 配置 (v1alpha1)
+title: kube-proxy 設定 (v1alpha1)
 content_type: tool-reference
 package: kubeproxy.config.k8s.io/v1alpha1
 ---
@@ -492,9 +492,9 @@ ClientConnectionConfiguration 包含構造客戶端所需要的細節信息。
    acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
 default value of 'application/json'. This field will control all connections to the server used by a particular client.
    -->
-   <p><code>acceptContentTypes</code> 字段定義客戶端在連接到服務器時所發送的 Accept 頭部字段。
-   此設置值會覆蓋默認配置 'application/json'。
-   此字段會控制某特定客戶端與指定服務器的所有鏈接。</p>
+   <p><code>acceptContentTypes</code> 字段定義客戶端在連接到伺服器時所發送的 Accept 頭部字段。
+   此設置值會覆蓋默認設定 'application/json'。
+   此字段會控制某特定客戶端與指定伺服器的所有鏈接。</p>
 </td>
 </tr>
 <tr><td><code>contentType</code> <B><!--[Required]-->[必需]</B><br/>
@@ -504,7 +504,7 @@ default value of 'application/json'. This field will control all connections to 
    <!--
    contentType is the content type used when sending data to the server from this client.
    -->
-   <p><code>contentType</code> 字段是從此客戶端向服務器發送數據時使用的內容類型（Content Type）。</p>
+   <p><code>contentType</code> 字段是從此客戶端向伺服器發送數據時使用的內容類型（Content Type）。</p>
 </td>
 </tr>
 <tr><td><code>qps</code> <B><!--[Required]-->[必需]</B><br/>
@@ -544,7 +544,7 @@ default value of 'application/json'. This field will control all connections to 
 <!--
 DebuggingConfiguration holds configuration for Debugging related features.
 -->
-DebuggingConfiguration 包含調試相關功能的配置。
+DebuggingConfiguration 包含調試相關功能的設定。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -591,7 +591,7 @@ enableProfiling is true.
 LeaderElectionConfiguration defines the configuration of leader election
 clients for components that can run with leader election enabled.
 -->
-LeaderElectionConfiguration 爲能夠支持領導者選舉的組件定義其領導者選舉客戶端的配置。
+LeaderElectionConfiguration 爲能夠支持領導者選舉的組件定義其領導者選舉客戶端的設定。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -705,7 +705,7 @@ during leader election cycles.
 KubeProxyConfiguration contains everything necessary to configure the
 Kubernetes proxy server.
 -->
-KubeProxyConfiguration 包含用來配置 Kubernetes 代理服務器的所有配置信息。
+KubeProxyConfiguration 包含用來設定 Kubernetes 代理伺服器的所有設定信息。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -734,7 +734,7 @@ KubeProxyConfiguration 包含用來配置 Kubernetes 代理服務器的所有配
    clientConnection specifies the kubeconfig file and client connection settings for the proxy
    server to use when communicating with the apiserver.
    -->
-   <code>clientConnection</code> 指定了代理服務器與 apiserver 通信時應使用的 <code>kubeconfig</code> 文件和客戶端連接設置。
+   <code>clientConnection</code> 指定了代理伺服器與 apiserver 通信時應使用的 <code>kubeconfig</code> 文件和客戶端連接設置。
    </p>
 </td>
 </tr>
@@ -791,7 +791,7 @@ not actually bind any sockets to this IP.
 serve on, defaulting to &quot;0.0.0.0:10256&quot; (if bindAddress is unset or IPv4), or
 &quot;[::]:10256&quot; (if bindAddress is IPv6).
    -->
-   <p><code>healthzBindAddress</code> 是健康檢查服務器的 IP 地址和端口，默認情況下，
+   <p><code>healthzBindAddress</code> 是健康檢查伺服器的 IP 地址和端口，默認情況下，
    如果 bindAddress 未設置或爲 IPv4，則爲 "0.0.0.0:10256"；如果 bindAddress 爲 IPv6，
    則爲 "[::]:10256"。</p>
 </td>
@@ -806,7 +806,7 @@ on, defaulting to &quot;127.0.0.1:10249&quot; (if bindAddress is unset or IPv4),
 &quot;[::1]:10249&quot; (if bindAddress is IPv6). (Set to &quot;0.0.0.0:10249&quot; / &quot;[::]:10249&quot;
 to bind on all interfaces.)
    -->
-   <p><code>metricsBindAddress</code> 是指標服務器監聽的 IP 地址和端口，默認情況下，
+   <p><code>metricsBindAddress</code> 是指標伺服器監聽的 IP 地址和端口，默認情況下，
    如果 bindAddress 未設置或爲 IPv4，則爲 "127.0.0.1:10249"；
    如果 bindAddress 爲 IPv6，則爲 "[::1]:10249"。
   （設置爲 "0.0.0.0:10249" / "[::]:10249" 以綁定到所有接口。）。</p>
@@ -833,7 +833,7 @@ port as fatal and exit
 Profiling handlers will be handled by metrics server.
    -->
    <p><code>enableProfiling</code> 字段通過 '/debug/pprof' 處理程序在 Web 界面上啓用性能分析。
-   性能分析處理程序將由指標服務器執行。</p>
+   性能分析處理程序將由指標伺服器執行。</p>
 </td>
 </tr>
 <tr><td><code>showHiddenMetricsForVersion</code> <B><!--[Required]-->[必需]</B><br/>
@@ -863,7 +863,7 @@ Profiling handlers will be handled by metrics server.
    <!--
    iptables contains iptables-related configuration options.
    -->
-   <p><code>iptables</code> 字段字段包含與 iptables 相關的配置選項。</p>
+   <p><code>iptables</code> 字段字段包含與 iptables 相關的設定選項。</p>
 </td>
 </tr>
 <tr><td><code>ipvs</code> <B><!--[Required]-->[必需]</B><br/>
@@ -873,7 +873,7 @@ Profiling handlers will be handled by metrics server.
    <!--
    ipvs contains ipvs-related configuration options.
    -->
-   <p><code>ipvs</code> 字段中包含與 ipvs 相關的配置選項。</p>
+   <p><code>ipvs</code> 字段中包含與 ipvs 相關的設定選項。</p>
 </td>
 </tr>
 <tr><td><code>nftables</code> <B><!--[Required]-->[必需]</B><br/>
@@ -883,7 +883,7 @@ Profiling handlers will be handled by metrics server.
    <!--
    nftables contains nftables-related configuration options
    -->
-   <p><code>nftables</code> 包含與 nftables 相關的配置選項。</p>
+   <p><code>nftables</code> 包含與 nftables 相關的設定選項。</p>
 </td>
 </tr>
 <tr><td><code>winkernel</code> <B><!--[Required]-->[必需]</B><br/>
@@ -893,7 +893,7 @@ Profiling handlers will be handled by metrics server.
    <!--
    winkernel contains winkernel-related configuration options.
    -->
-   <p><code>winkernel</code> 包含與 winkernel 相關的配置選項。</p>
+   <p><code>winkernel</code> 包含與 winkernel 相關的設定選項。</p>
 </td>
 </tr>
 <tr><td><code>detectLocalMode</code> <B><!--[Required]-->[必需]</B><br/>
@@ -913,7 +913,7 @@ Profiling handlers will be handled by metrics server.
    <!--
    detectLocal contains optional configuration settings related to DetectLocalMode.
    -->
-   <p><code>detectLocal</code> 包含與 DetectLocalMode 相關的可選配置設置。</p>
+   <p><code>detectLocal</code> 包含與 DetectLocalMode 相關的可選設定設置。</p>
 </td>
 </tr>
 <tr><td><code>clusterCIDR</code> <B><!--[Required]-->[必需]</B><br/>
@@ -927,8 +927,8 @@ DetectLocalMode is set to ClusterCIDR, kube-proxy will consider
 traffic to be local if its source IP is in this range. (Otherwise it is not
 used.)
    -->
-   <p><code>clusterCIDR</code> 指定集羣中 Pod 的 CIDR 範圍。
-  （對於雙棧集羣，這個參數可以是一個用逗號分隔的雙棧 CIDR 範圍對。）
+   <p><code>clusterCIDR</code> 指定叢集中 Pod 的 CIDR 範圍。
+  （對於雙棧叢集，這個參數可以是一個用逗號分隔的雙棧 CIDR 範圍對。）
    當 DetectLocalMode 設置爲 LocalModeClusterCIDR 時，如果流量的源 IP 在這個範圍內，
    kube-proxy 會將其視爲本地流量。（否則不會使用此設置。）</p>
 </td>
@@ -968,7 +968,7 @@ the range [-1000, 1000]
    <!--
    conntrack contains conntrack-related configuration options.
    -->
-   <p><code>conntrack</code> 包含與 conntrack 相關的配置選項。</p>
+   <p><code>conntrack</code> 包含與 conntrack 相關的設定選項。</p>
 </td>
 </tr>
 <tr><td><code>configSyncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
@@ -979,7 +979,7 @@ the range [-1000, 1000]
 configSyncPeriod is how often configuration from the apiserver is refreshed. Must be greater
 than 0.
 -->
-   <p><code>configSyncPeriod</code> 指定從 apiserver 刷新配置的頻率，必須大於 0。</p>
+   <p><code>configSyncPeriod</code> 指定從 apiserver 刷新設定的頻率，必須大於 0。</p>
 </td>
 </tr>
 
@@ -990,7 +990,7 @@ than 0.
    <!--
    portRange was previously used to configure the userspace proxy, but is now unused.
    -->
-   <p><code>portRange</code> 之前用於配置用戶空間代理，但現在已不再使用。</p>
+   <p><code>portRange</code> 之前用於設定使用者空間代理，但現在已不再使用。</p>
 </td>
 </tr>
 <tr><td><code>windowsRunAsService</code> <B>[Required]</B><br/>
@@ -1071,7 +1071,7 @@ it originates from any interface whose name begins with this prefix.
 KubeProxyConntrackConfiguration contains conntrack settings for
 the Kubernetes proxy server.
 -->
-KubeProxyConntrackConfiguration 包含爲 Kubernetes 代理服務器提供的 conntrack 設置。
+KubeProxyConntrackConfiguration 包含爲 Kubernetes 代理伺服器提供的 conntrack 設置。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1137,7 +1137,7 @@ to run in liberal mode for TCP connections and packets with
 out-of-window sequence numbers won't be marked INVALID.
    -->
    <p><code>tcpBeLiberal</code> 如果設置爲 true，
-   kube-proxy 將配置 conntrack 以寬鬆模式運行，
+   kube-proxy 將設定 conntrack 以寬鬆模式運行，
    對於 TCP 連接和超出窗口序列號的報文不會被標記爲 INVALID。</p>
 </td>
 </tr>
@@ -1183,7 +1183,7 @@ ASSURED state will remain in the conntrack table
 KubeProxyIPTablesConfiguration contains iptables-related configuration
 details for the Kubernetes proxy server.
 -->
-KubeProxyIPTablesConfiguration 包含用於 Kubernetes 代理服務器的、與 iptables 相關的配置細節。
+KubeProxyIPTablesConfiguration 包含用於 Kubernetes 代理伺服器的、與 iptables 相關的設定細節。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1269,7 +1269,7 @@ result in an immediate iptables resync.
 KubeProxyIPVSConfiguration contains ipvs-related configuration
 details for the Kubernetes proxy server.
 -->
-KubeProxyIPVSConfiguration 包含用於 Kubernetes 代理服務器的、與 ipvs 相關的配置細節。
+KubeProxyIPVSConfiguration 包含用於 Kubernetes 代理伺服器的、與 ipvs 相關的設定細節。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1330,7 +1330,7 @@ when cleaning up ipvs services.
    strictARP configures arp_ignore and arp_announce to avoid answering ARP queries
 from kube-ipvs0 interface
    -->
-   <p><code>strictARP</code> 字段用來配置 arp_ignore 和 arp_announce，以避免（錯誤地）響應來自 kube-ipvs0 接口的
+   <p><code>strictARP</code> 字段用來設定 arp_ignore 和 arp_announce，以避免（錯誤地）響應來自 kube-ipvs0 接口的
    ARP 查詢請求。</p>
 </td>
 </tr>
@@ -1386,7 +1386,7 @@ The default value is 0, which preserves the current timeout value on the system.
 KubeProxyNFTablesConfiguration contains nftables-related configuration
 +details for the Kubernetes proxy server.
 -->
-<p>KubeProxyNFTablesConfiguration 包含 Kubernetes 代理服務器的 nftables 相關配置詳細信息。</p>
+<p>KubeProxyNFTablesConfiguration 包含 Kubernetes 代理伺服器的 nftables 相關設定詳細信息。</p>
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1413,7 +1413,7 @@ the nftables proxy mode. Values must be within the range [0, 31].
 when using the nftables mode. This may be required with some CNI plugins.
    -->
    <p><code>masqueradeAll</code> 通知 kube-proxy 在使用 nftables 模式時，
-   對發送到服務集羣 IP 的所有流量執行 SNAT。這在某些 CNI 插件中可能是必需的。</p>
+   對發送到服務叢集 IP 的所有流量執行 SNAT。這在某些 CNI 插件中可能是必需的。</p>
 </td>
 </tr>
 <tr><td><code>syncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1458,7 +1458,7 @@ result in an immediate iptables resync.
 KubeProxyWinkernelConfiguration contains Windows/HNS settings for
 the Kubernetes proxy server.
 -->
-KubeProxyWinkernelConfiguration 包含 Kubernetes 代理服務器的 Windows/HNS 設置。
+KubeProxyWinkernelConfiguration 包含 Kubernetes 代理伺服器的 Windows/HNS 設置。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1472,7 +1472,7 @@ KubeProxyWinkernelConfiguration 包含 Kubernetes 代理服務器的 Windows/HNS
    networkName is the name of the network kube-proxy will use
 to create endpoints and policies
    -->
-   <p><code>networkName</code> 字段是 kube-proxy 用來創建端點和策略的網絡名稱。</p>
+   <p><code>networkName</code> 字段是 kube-proxy 用來創建端點和策略的網路名稱。</p>
 </td>
 </tr>
 <tr><td><code>sourceVip</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1506,7 +1506,7 @@ rootHnsEndpointName is the name of hnsendpoint that is attached to
 l2bridge for root network namespace
 -->
    <p><code>rootHnsEndpointName</code>
-   字段是附加到用於根網絡命名空間二層橋接的 hnsendpoint 的名稱。</p>
+   字段是附加到用於根網路命名空間二層橋接的 hnsendpoint 的名稱。</p>
 </td>
 </tr>
 <tr><td><code>forwardHealthCheckVip</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1562,7 +1562,7 @@ ProxyMode represents modes used by the Kubernetes proxy server.
 Three modes of proxy are available on Linux platforms: <code>iptables</code>, <code>ipvs</code>, and
 <code>nftables</code>. One mode of proxy is available on Windows platforms: <code>kernelspace</code>.
 -->
-<p>ProxyMode 表示的是 Kubernetes 代理服務器所使用的模式。</p>
+<p>ProxyMode 表示的是 Kubernetes 代理伺服器所使用的模式。</p>
 
 <p>Linux 平臺上有三種可用的代理模式：<code>iptables</code>、<code>ipvs</code>
 和 <code>nftables</code>。
@@ -1575,4 +1575,4 @@ used (due to lack of kernel support, missing userspace components, etc) then kub
 will exit with an error.
 -->
 <p>如果代理模式未被指定，將使用默認的代理模式（目前在 Linux 上是 <code>iptables</code>，在 Windows 上是 <code>kernelspace</code>）。
-如果不能使用選定的代理模式（由於缺少內核支持、缺少用戶空間組件等），則 kube-proxy 將出錯並退出。</p>
+如果不能使用選定的代理模式（由於缺少內核支持、缺少使用者空間組件等），則 kube-proxy 將出錯並退出。</p>

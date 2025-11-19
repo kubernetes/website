@@ -314,10 +314,10 @@ PodDisruptionBudgetStatus 表示有關此 PodDisruptionBudget 狀態的信息。
 -->
 - **disruptedPods** (map[string]Time)
 
-  disruptedPods 包含有關 Pod 的一些信息，這些 Pod 的驅逐操作已由 API 服務器上的 eviction 子資源處理程序處理,
+  disruptedPods 包含有關 Pod 的一些信息，這些 Pod 的驅逐操作已由 API 伺服器上的 eviction 子資源處理程序處理,
   但尚未被 PodDisruptionBudget 控制器觀察到。
-  從 API 服務器處理驅逐請求到 PDB 控制器看到該 Pod 已標記爲刪除（或超時後），Pod 將記錄在此映射中。
-  映射中的鍵名是 Pod 的名稱，鍵值是 API 服務器處理驅逐請求的時間。
+  從 API 伺服器處理驅逐請求到 PDB 控制器看到該 Pod 已標記爲刪除（或超時後），Pod 將記錄在此映射中。
+  映射中的鍵名是 Pod 的名稱，鍵值是 API 伺服器處理驅逐請求的時間。
   如果刪除沒有發生並且 Pod 仍然存在，PodDisruptionBudget 控制器將在一段時間後自動將 Pod 從列表中刪除。
   如果一切順利，此映射大部分時間應該是空的。映射中的存在大量條目可能表明 Pod 刪除存在問題。
 

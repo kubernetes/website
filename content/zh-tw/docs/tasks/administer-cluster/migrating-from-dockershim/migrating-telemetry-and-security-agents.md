@@ -39,7 +39,7 @@ Within a Kubernetes cluster there are a few different ways to run telemetry or s
 Some agents have a direct dependency on Docker Engine when they run as DaemonSets or
 directly on nodes.
 -->
-在 Kubernetes 集羣中，有幾種不同的方式來運行遙測或安全代理。
+在 Kubernetes 叢集中，有幾種不同的方式來運行遙測或安全代理。
 一些代理在以 DaemonSet 的形式運行或直接在節點上運行時，直接依賴於 Docker Engine。
 
 <!-- 
@@ -59,7 +59,7 @@ gained the ability to support multiple runtimes, and now supports any runtime
 that is compatible with the [container runtime interface](/docs/concepts/architecture/cri/).
 -->
 從歷史上看，Kubernetes 是專門爲與 Docker Engine 一起工作而編寫的。
-Kubernetes 負責網絡和調度，依靠 Docker Engine
+Kubernetes 負責網路和調度，依靠 Docker Engine
 在節點上啓動並運行容器（在 Pod 內）。一些與遙測相關的信息，例如 pod 名稱，
 只能從 Kubernetes 組件中獲得。其他數據，例如容器指標，不是容器運行時的責任。
 早期遙測代理需要查詢容器運行時**和** Kubernetes 以報告準確的信息。
@@ -82,7 +82,7 @@ these commands will not work any longer.
 這類命令來列出容器和進程，用
 [`docker logs`](https://docs.docker.com/engine/reference/commandline/logs/)
 訂閱 Docker 的日誌。
-如果現有集羣中的節點使用 Docker Engine，在你切換到其它容器運行時的時候，
+如果現有叢集中的節點使用 Docker Engine，在你切換到其它容器運行時的時候，
 這些命令將不再起作用。
 
 <!-- 
@@ -107,7 +107,7 @@ For example: on COS images, Docker exposes its Unix domain socket at
 `/var/run/docker.sock` This means that the pod spec will include a
 `hostPath` volume mount of `/var/run/docker.sock`.
 -->
-舉例來說：在 COS 鏡像中，Docker 通過 `/var/run/docker.sock` 開放其 Unix 域套接字。
+舉例來說：在 COS 映像檔中，Docker 通過 `/var/run/docker.sock` 開放其 Unix 域套接字。
 這意味着 Pod 的規約中需要包含 `hostPath` 卷以掛載 `/var/run/docker.sock`。
 
 <!-- 
@@ -148,7 +148,7 @@ If your cluster nodes are customized and install additional security and
 telemetry agents on the node, check with the agent vendor
 to verify whether it has any dependency on Docker.
 -->
-在你的集羣節點被定製、且在各個節點上均安裝了額外的安全和遙測代理的場景下，
+在你的叢集節點被定製、且在各個節點上均安裝了額外的安全和遙測代理的場景下，
 一定要和代理的供應商確認：該代理是否依賴於 Docker。
 
 <!-- 
@@ -239,7 +239,7 @@ The pod accessing Docker may have name containing:
 -->
 如何遷移：
 [遷移 Falco 從 dockershim](https://falco.org/docs/getting-started/deployment/#docker-deprecation-in-kubernetes)。
-Falco 支持任何與 CRI 兼容的運行時（默認配置中使用 containerd）；該文檔解釋了所有細節。
+Falco 支持任何與 CRI 兼容的運行時（默認設定中使用 containerd）；該文檔解釋了所有細節。
 
 名字中包含以下字符串的 Pod 可能訪問 Docker：
 
@@ -253,7 +253,7 @@ under the "Install Prisma Cloud on a CRI (non-Docker) cluster" section.
 The pod accessing Docker may be named like:
 - `twistlock-defender-ds`
 -->
-在依賴於 CRI（非 Docker）的集羣上安裝 Prisma Cloud 時，查看
+在依賴於 CRI（非 Docker）的叢集上安裝 Prisma Cloud 時，查看
 [Prisma Cloud 提供的文檔](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_kubernetes.html)。
 
 名字中包含以下字符串的 Pod 可能訪問 Docker：
@@ -269,7 +269,7 @@ The `kubelet-stats` monitor was previously deprecated by the vendor, in favor of
 The `docker-container-stats` monitor is the one affected by dockershim removal.
 Do not use the `docker-container-stats` with container runtimes other than Docker Engine.
 -->
-SignalFx Smart Agent（已棄用）在 Kubernetes 集羣上使用了多種不同的監視器，
+SignalFx Smart Agent（已棄用）在 Kubernetes 叢集上使用了多種不同的監視器，
 包括 `kubernetes-cluster`，`kubelet-stats/kubelet-metrics`，`docker-container-stats`。
 `kubelet-stats` 監視器此前已被供應商所棄用，現支持 `kubelet-metrics`。
 `docker-container-stats` 監視器受 dockershim 移除的影響。
@@ -284,10 +284,10 @@ How to migrate from dockershim-dependent agent:
 -->
 如何從依賴 dockershim 的代理遷移：
 
-1. 從[所配置的監視器](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md)中移除 `docker-container-stats`。
+1. 從[所設定的監視器](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitor-config.md)中移除 `docker-container-stats`。
    注意，若節點上已經安裝了 Docker，在非 dockershim 環境中啓用此監視器後會導致報告錯誤的指標；
    如果節點未安裝 Docker，則無法獲得指標。
-2. [啓用和配置 `kubelet-metrics`](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) 監視器。
+2. [啓用和設定 `kubelet-metrics`](https://github.com/signalfx/signalfx-agent/blob/main/docs/monitors/kubelet-metrics.md) 監視器。
 
 {{< note >}}
 <!--

@@ -23,7 +23,7 @@ auto_generated: true
 <!--
 Config holds the information needed to build connect to remote kubernetes clusters as a given user
 -->
-<p>Config 保存以給定用戶身份構建連接到遠程 Kubernetes 集羣所需的信息 </p>
+<p>Config 保存以給定使用者身份構建連接到遠程 Kubernetes 叢集所需的信息 </p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -72,7 +72,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!--
   Clusters is a map of referenceable names to cluster configs.
   -->
-   <p><code>clusters</code> 是從可引用名稱到集羣配置的映射。</p>
+   <p><code>clusters</code> 是從可引用名稱到叢集設定的映射。</p>
 </td>
 </tr>
 <tr><td><code>users</code><B><!--[Required]-->[必需]</B><br/>
@@ -82,7 +82,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!--
   AuthInfos is a map of referenceable names to user configs.
   -->
-   <p><code>users</code> 是一個從可引用名稱到用戶配置的映射。</p>
+   <p><code>users</code> 是一個從可引用名稱到使用者設定的映射。</p>
 </td>
 </tr>
 <tr><td><code>contexts</code><B><!--[Required]-->[必需]</B><br/>
@@ -92,7 +92,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
   <!--
   Contexts is a map of referenceable names to context configs.
   -->
-  <p><code>contexts</code> 是從可引用名稱到上下文配置的映射。</p>
+  <p><code>contexts</code> 是從可引用名稱到上下文設定的映射。</p>
 </td>
 </tr>
 <tr><td><code>current-context</code><B><!--[Required]-->[必需]</B><br/>
@@ -130,7 +130,7 @@ Config holds the information needed to build connect to remote kubernetes cluste
 <!--
 AuthInfo contains information that describes identity information.  This is use to tell the kubernetes cluster who you are.
 -->
-<p>AuthInfo 包含描述身份信息的信息。這一信息用來告訴 kubernetes 集羣你是誰。</p>
+<p>AuthInfo 包含描述身份信息的信息。這一信息用來告訴 kubernetes 叢集你是誰。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -185,7 +185,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   Token is the bearer token for authentication to the kubernetes cluster
   -->
-  <p><code>token</code> 是用於向 kubernetes 集羣進行身份驗證的持有者令牌。</p>
+  <p><code>token</code> 是用於向 kubernetes 叢集進行身份驗證的持有者令牌。</p>
 </td>
 </tr>
 <tr><td><code>tokenFile</code><br/>
@@ -210,7 +210,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   Impersonate is the username to impersonate.  The name matches the flag.
   -->
-  <p><code>as</code> 是要冒充的用戶名。名字與命令行標誌相匹配。</p>
+  <p><code>as</code> 是要冒充的使用者名。名字與命令列標誌相匹配。</p>
 </td>
 </tr>
 <tr><td><code>as-uid</code><br/>
@@ -230,7 +230,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ImpersonateGroups is the groups to impersonate.
   -->
-  <p><code>as-groups</code> 是要冒充的用戶組。</p>
+  <p><code>as-groups</code> 是要冒充的使用者組。</p>
 </td>
 </tr>
 <tr><td><code>as-user-extra</code><br/>
@@ -240,7 +240,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   ImpersonateUserExtra contains additional information for impersonated user.
   -->
-  <p><code>as-user-extra</code> 包含與要冒充的用戶相關的額外信息。</p>
+  <p><code>as-user-extra</code> 包含與要冒充的使用者相關的額外信息。</p>
 </td>
 </tr>
 <tr><td><code>username</code><br/>
@@ -250,7 +250,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   Username is the username for basic authentication to the kubernetes cluster.
   -->
-  <p><code>username</code> 是向 Kubernetes 集羣進行基本認證的用戶名。</p>
+  <p><code>username</code> 是向 Kubernetes 叢集進行基本認證的使用者名。</p>
 </td>
 </tr>
 <tr><td><code>password</code><br/>
@@ -260,7 +260,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   Password is the password for basic authentication to the kubernetes cluster.
   -->
-  <p><code>password</code> 是向 Kubernetes 集羣進行基本認證的密碼。</p>
+  <p><code>password</code> 是向 Kubernetes 叢集進行基本認證的密碼。</p>
 </td>
 </tr>
 <tr><td><code>auth-provider</code><br/>
@@ -270,7 +270,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   AuthProvider specifies a custom authentication plugin for the kubernetes cluster.
   -->
-  <p><code>auth-provider</code> 給出用於給定 Kubernetes 集羣的自定義身份驗證插件。</p>
+  <p><code>auth-provider</code> 給出用於給定 Kubernetes 叢集的自定義身份驗證插件。</p>
 </td>
 </tr>
 <tr><td><code>exec</code><br/>
@@ -280,7 +280,7 @@ AuthInfo contains information that describes identity information.  This is use 
   <!--
   Exec specifies a custom exec-based authentication plugin for the kubernetes cluster.
   -->
-  <p><code>exec</code> 指定了針對某 Kubernetes 集羣的基於 <code>exec</code>
+  <p><code>exec</code> 指定了針對某 Kubernetes 叢集的基於 <code>exec</code>
   的自定義身份認證插件。</p>
 </td>
 </tr>
@@ -309,7 +309,7 @@ AuthInfo contains information that describes identity information.  This is use 
 <!--
 AuthProviderConfig holds the configuration for a specified auth provider.
 -->
-<p>AuthProviderConfig 保存特定於某認證提供機制的配置。</p>
+<p>AuthProviderConfig 保存特定於某認證提供機制的設定。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -319,14 +319,14 @@ AuthProviderConfig holds the configuration for a specified auth provider.
 <code>string</code>
 </td>
 <td>
-   <p>配置選項名稱。</p>
+   <p>設定選項名稱。</p>
 </td>
 </tr>
 <tr><td><code>config</code><B><!--[Required]-->[必需]</B><br/>
 <code>map[string]string</code>
 </td>
 <td>
-   <p>配置選項取值映射。</p>
+   <p>設定選項取值映射。</p>
 </td>
 </tr>
 </tbody>
@@ -344,7 +344,7 @@ AuthProviderConfig holds the configuration for a specified auth provider.
 <!--
 Cluster contains information about how to communicate with a kubernetes cluster.
 -->
-<p>Cluster 包含有關如何與 Kubernetes 集羣通信的信息。</p>
+<p>Cluster 包含有關如何與 Kubernetes 叢集通信的信息。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -357,7 +357,7 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!--
   Server is the address of the kubernetes cluster (https://hostname:port).
   -->
-  <p><code>server</code> 是 Kubernetes 集羣的地址（形式爲 https://hostname:port）。</p>
+  <p><code>server</code> 是 Kubernetes 叢集的地址（形式爲 https://hostname:port）。</p>
 </td>
 </tr>
 <tr><td><code>tls-server-name</code><br/>
@@ -367,8 +367,8 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!--
   TLSServerName is used to check server certificate. If TLSServerName is empty, the hostname used to contact the server is used.
   -->
-  <p><code>tls-server-name</code> 用於檢查服務器證書。如果 <code>tls-server-name</code>
-  是空的，則使用用於聯繫服務器的主機名。</p>
+  <p><code>tls-server-name</code> 用於檢查伺服器證書。如果 <code>tls-server-name</code>
+  是空的，則使用用於聯繫伺服器的主機名。</p>
 </td>
 </tr>
 <tr><td><code>insecure-skip-tls-verify</code><br/>
@@ -378,7 +378,7 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   <!--
   InsecureSkipTLSVerify skips the validity check for the server's certificate. This will make your HTTPS connections insecure.
   --->
-  <p><code>insecure-skip-tls-verify</code> 跳過服務器證書的有效性檢查。
+  <p><code>insecure-skip-tls-verify</code> 跳過伺服器證書的有效性檢查。
   這樣做將使你的 HTTPS 連接不安全。</p>
 </td>
 </tr>
@@ -417,8 +417,8 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   -->
   <p><code>proxy-url</code> 是代理的 URL，該代理用於此客戶端的所有請求。
   帶有 &quot;http&quot;、&quot;https&quot; 和 &quot;socks5&quot; 的 URL 是被支持的。
-  如果未提供此配置或爲空字符串，客戶端嘗試使用 <code>http_proxy</code> 和
-  <code>https_proxy</code> 環境變量構建代理配置。
+  如果未提供此設定或爲空字符串，客戶端嘗試使用 <code>http_proxy</code> 和
+  <code>https_proxy</code> 環境變量構建代理設定。
   如果這些環境變量也沒有設置, 客戶端不會嘗試代理請求。
   </p>
 
@@ -440,9 +440,9 @@ Cluster contains information about how to communicate with a kubernetes cluster.
   to speed up requests (specifically lists) when client-server network bandwidth is ample, by saving time on
   compression (server-side) and decompression (client-side): https://github.com/kubernetes/kubernetes/issues/112296.
   -->
-  <p><code>disable-compression</code> 允許客戶端選擇不對發往服務器的所有請求進行響應壓縮。
-  當客戶端與服務器之間的網絡帶寬充足時，這對於加快請求（尤其是 list 操作）非常有用，
-  能夠節省進行（服務器端）壓縮和（客戶端）解壓縮的時間。參見
+  <p><code>disable-compression</code> 允許客戶端選擇不對發往伺服器的所有請求進行響應壓縮。
+  當客戶端與伺服器之間的網路帶寬充足時，這對於加快請求（尤其是 list 操作）非常有用，
+  能夠節省進行（伺服器端）壓縮和（客戶端）解壓縮的時間。參見
   https://github.com/kubernetes/kubernetes/issues/112296。</p>
 </td>
 </tr>
@@ -472,7 +472,7 @@ Cluster contains information about how to communicate with a kubernetes cluster.
 <!--
 Context is a tuple of references to a cluster (how do I communicate with a kubernetes cluster), a user (how do I identify myself), and a namespace (what subset of resources do I want to work with)
 -->
-<p>Context 是一個元組，包含對集羣 (我如何與某 Kubernetes 集羣通信)、用戶 (我如何標識自己）
+<p>Context 是一個元組，包含對叢集 (我如何與某 Kubernetes 叢集通信)、使用者 (我如何標識自己）
 和名字空間（我想要使用哪些資源子集）的引用。</p>
 
 <table class="table">
@@ -486,7 +486,7 @@ Context is a tuple of references to a cluster (how do I communicate with a kuber
   <!--
   Cluster is the name of the cluster for this context
   -->
-  <p><code>cluster</code> 是此上下文中的集羣名稱。</p>
+  <p><code>cluster</code> 是此上下文中的叢集名稱。</p>
 </td>
 </tr>
 <tr><td><code>user</code><B><!--[Required]-->[必需]</B><br/>
@@ -605,7 +605,7 @@ and output format
   present. For example, <code>brew install foo-cli</code> might be a good InstallHint for
   foo-cli on Mac OS systems
   -->
-  <p>當似乎找不到可執行文件時，將向用戶顯示此文本。
+  <p>當似乎找不到可執行文件時，將向使用者顯示此文本。
   例如，對於在 Mac OS 系統上安裝 <code>foo-cli</code> 插件而言，
   <code>brew install foo-cli</code> 這可能是不錯的 installHint。</p>
 </td>
@@ -621,7 +621,7 @@ and output format
   to false. Package k8s.io/client-go/tools/auth/exec provides helper methods for
   reading this environment variable
   -->
-  <p><code>ProvideClusterInfo</code> 決定是否提供集羣信息。
+  <p><code>ProvideClusterInfo</code> 決定是否提供叢集信息。
   這些信息可能包含非常大的 CA 數據，用來作爲 <code>KUBERNETES_EXEC_INFO</code>
   環境變量的一部分提供給這個 exec 插件。
   默認情況下，它被設置爲 <code>false</code>。
@@ -767,7 +767,7 @@ NamedAuthInfo relates nicknames to auth information
 <!--
 NamedCluster relates nicknames to cluster information
 -->
-<p><code>NamedCluster</code> 將暱稱與集羣信息關聯起來。</p>
+<p><code>NamedCluster</code> 將暱稱與叢集信息關聯起來。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -781,7 +781,7 @@ NamedCluster relates nicknames to cluster information
   <!--
   Name is the nickname for this Cluster
   -->
-  <p><code>name</code> 是此集羣的暱稱。</p>
+  <p><code>name</code> 是此叢集的暱稱。</p>
 </td>
 </tr>
 <tr><td><code>cluster</code><br/><B><!--[Required]-->[必需]</B><br/>
@@ -791,7 +791,7 @@ NamedCluster relates nicknames to cluster information
   <!--
   Cluster holds the cluster information
   -->
-  <p><code>cluster</code> 保存集羣的信息。</p>
+  <p><code>cluster</code> 保存叢集的信息。</p>
 </td>
 </tr>
 </tbody>

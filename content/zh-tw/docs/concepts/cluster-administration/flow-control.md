@@ -25,11 +25,11 @@ accepted, preventing a flood of inbound requests from overloading and
 potentially crashing the API server, but these flags are not enough to ensure
 that the most important requests get through in a period of high traffic.
 -->
-對於集羣管理員來說，控制 Kubernetes API 服務器在過載情況下的行爲是一項關鍵任務。
+對於叢集管理員來說，控制 Kubernetes API 伺服器在過載情況下的行爲是一項關鍵任務。
 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
-有一些控件（例如：命令行標誌 `--max-requests-inflight` 和 `--max-mutating-requests-inflight`），
-可以限制將要接受的未處理的請求，從而防止過量請求入站，潛在導致 API 服務器崩潰。
-但是這些標誌不足以保證在高流量期間，最重要的請求仍能被服務器接受。
+有一些控件（例如：命令列標誌 `--max-requests-inflight` 和 `--max-mutating-requests-inflight`），
+可以限制將要接受的未處理的請求，從而防止過量請求入站，潛在導致 API 伺服器崩潰。
+但是這些標誌不足以保證在高流量期間，最重要的請求仍能被伺服器接受。
 
 <!--
 The API Priority and Fairness feature (APF) is an alternative that improves upon
@@ -43,7 +43,7 @@ starve others (even at the same priority level).
 -->
 API 優先級和公平性（APF）是一種替代方案，可提升上述最大併發限制。
 APF 以更細粒度的方式對請求進行分類和隔離。
-它還引入了空間有限的排隊機制，因此在非常短暫的突發情況下，API 服務器不會拒絕任何請求。
+它還引入了空間有限的排隊機制，因此在非常短暫的突發情況下，API 伺服器不會拒絕任何請求。
 通過使用公平排隊技術從隊列中分發請求，這樣，
 一個行爲不佳的{{< glossary_tooltip text="控制器" term_id="controller" >}}就不會餓死其他控制器
 （即使優先級相同）。
@@ -93,10 +93,10 @@ deprecated in v1.29. You can
 disable the API group beta version `v1beta3` by adding the
 following command-line flags to your `kube-apiserver` invocation:
 -->
-API 優先級與公平性（APF）特性由命令行標誌控制，默認情況下啓用。
-有關可用 kube-apiserver 命令行參數以及如何啓用和禁用的說明，
+API 優先級與公平性（APF）特性由命令列標誌控制，默認情況下啓用。
+有關可用 kube-apiserver 命令列參數以及如何啓用和禁用的說明，
 請參見[參數](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)。
-APF 的命令行參數是 "--enable-priority-and-fairness"。
+APF 的命令列參數是 "--enable-priority-and-fairness"。
 此特性也與某個 {{< glossary_tooltip term_id="api-group" text="API 組" >}}相關：
 (a) 穩定的 `v1` 版本，在 1.29 中引入，默認啓用；
 (b) `v1beta3` 版本，默認被啓用，在 1.29 中被棄用。
@@ -119,7 +119,7 @@ kube-apiserver \
 The command-line flag `--enable-priority-and-fairness=false` will disable the
 API Priority and Fairness feature.
 -->
-命令行標誌 `--enable-priority-fairness=false` 將徹底禁用 APF 特性。
+命令列標誌 `--enable-priority-fairness=false` 將徹底禁用 APF 特性。
 
 <!--
 ## Recursive server scenarios
@@ -133,10 +133,10 @@ both the original request and some subsidiary ones(s), no matter how
 deep in the recursion, there is a danger of priority inversions and/or
 deadlocks.
 -->
-## 遞歸服務器場景     {#recursive-server-scenarios}
+## 遞歸伺服器場景     {#recursive-server-scenarios}
 
-在遞歸服務器場景中，必須謹慎使用 API 優先級和公平性。這些場景指的是服務器 A 在處理一個請求時，
-會向服務器 B 發出一個輔助請求。服務器 B 可能會進一步向服務器 A 發出輔助請求。
+在遞歸伺服器場景中，必須謹慎使用 API 優先級和公平性。這些場景指的是伺服器 A 在處理一個請求時，
+會向伺服器 B 發出一個輔助請求。伺服器 B 可能會進一步向伺服器 A 發出輔助請求。
 當優先級和公平性控制同時應用於原始請求及某些輔助請求（無論遞歸多深）時，存在優先級反轉和/或死鎖的風險。
 
 <!--
@@ -148,10 +148,10 @@ object directs the `kube-apiserver` to delegate requests about a
 certain API group to a custom external server B (this is one of the
 things called "aggregation").
 -->
-遞歸的一個例子是 `kube-apiserver` 向服務器 B 發出一個准入 Webhook 調用，
-而在處理該調用時，服務器 B 進一步向 `kube-apiserver` 發出一個輔助請求。
+遞歸的一個例子是 `kube-apiserver` 向伺服器 B 發出一個准入 Webhook 調用，
+而在處理該調用時，伺服器 B 進一步向 `kube-apiserver` 發出一個輔助請求。
 另一個遞歸的例子是，某個 `APIService` 對象指示 `kube-apiserver`
-將某個 API 組的請求委託給自定義的外部服務器 B（這被稱爲"聚合"）。
+將某個 API 組的請求委託給自定義的外部伺服器 B（這被稱爲"聚合"）。
 
 <!--
 When the original request is known to belong to a certain priority
@@ -168,9 +168,9 @@ disabled in the code.
 -->
 當原始請求被確定爲屬於某個特定優先級別時，將輔助請求分類爲更高的優先級別是一個可行的解決方案。
 當原始請求可能屬於任何優先級時，輔助受控請求必須免受優先級和公平性限制。
-一種實現方法是使用下文中討論的配置分類和處理的對象。
-另一種方法是採用前面提到的技術，在服務器 B 上完全禁用優先級和公平性。第三種方法是，
-當服務器 B 不是 `kube-apiserver` 時，最簡單的做法是在服務器 B 的代碼中禁用優先級和公平性。
+一種實現方法是使用下文中討論的設定分類和處理的對象。
+另一種方法是採用前面提到的技術，在伺服器 B 上完全禁用優先級和公平性。第三種方法是，
+當伺服器 B 不是 `kube-apiserver` 時，最簡單的做法是在伺服器 B 的代碼中禁用優先級和公平性。
 
 <!--
 ## Concepts
@@ -205,9 +205,9 @@ concurrent requests as its particular limit allows.
 -->
 ### 優先級    {#priority-levels}
 
-如果未啓用 APF，API 服務器中的整體併發量將受到 `kube-apiserver` 的參數
+如果未啓用 APF，API 伺服器中的整體併發量將受到 `kube-apiserver` 的參數
 `--max-requests-inflight` 和 `--max-mutating-requests-inflight` 的限制。
-啓用 APF 後，將對這些參數定義的併發限制進行求和，然後將總和分配到一組可配置的 **優先級** 中。
+啓用 APF 後，將對這些參數定義的併發限制進行求和，然後將總和分配到一組可設定的 **優先級** 中。
 每個傳入的請求都會分配一個優先級；每個優先級都有各自的限制，設定特定限制允許分發的併發請求數。
 
 <!--
@@ -217,8 +217,8 @@ Pods. This means that an ill-behaved Pod that floods the API server with
 requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
 -->
-例如，默認配置包括針對領導者選舉請求、內置控制器請求和 Pod 請求都單獨設置優先級。
-這表示即使異常的 Pod 向 API 服務器發送大量請求，也無法阻止領導者選舉或內置控制器的操作執行成功。
+例如，默認設定包括針對領導者選舉請求、內置控制器請求和 Pod 請求都單獨設置優先級。
+這表示即使異常的 Pod 向 API 伺服器發送大量請求，也無法阻止領導者選舉或內置控制器的操作執行成功。
 
 <!--
 The concurrency limits of the priority levels are periodically
@@ -230,7 +230,7 @@ objects mentioned below.
 -->
 優先級的併發限制會被定期調整，允許利用率較低的優先級將併發度臨時借給利用率很高的優先級。
 這些限制基於一個優先級可以借出多少個併發度以及可以借用多少個併發度的額定限制和界限，
-所有這些均源自下述配置對象。
+所有這些均源自下述設定對象。
 
 <!--
 ### Seats Occupied by a Request
@@ -257,9 +257,9 @@ that is proportional to that estimated number.
 在這個基線場景中，每個請求佔用一個併發單位。
 我們用 “席位（Seat）” 一詞來表示一個併發單位，其靈感來自火車或飛機上每位乘客佔用一個固定座位的供應方式。
 
-但有些請求所佔用的席位不止一個。有些請求是服務器預估將返回大量對象的 **list** 請求。
-我們發現這類請求會給服務器帶來異常沉重的負擔。
-出於這個原因，服務器估算將返回的對象數量，並認爲請求所佔用的席位數與估算得到的數量成正比。
+但有些請求所佔用的席位不止一個。有些請求是伺服器預估將返回大量對象的 **list** 請求。
+我們發現這類請求會給伺服器帶來異常沉重的負擔。
+出於這個原因，伺服器估算將返回的對象數量，並認爲請求所佔用的席位數與估算得到的數量成正比。
 
 <!--
 ### Execution time tweaks for watch requests
@@ -289,9 +289,9 @@ APF 管理 **watch** 請求，但這需要考量基線行爲之外的一些情�
 取決於請求參數不同，對 **watch** 請求的響應可能以針對所有預先存在的對象 **create** 通知開頭，也可能不這樣。
 一旦最初的突發通知（如果有）結束，APF 將認爲 **watch** 請求已經用完其席位。
 
-每當向服務器通知創建/更新/刪除一個對象時，正常通知都會以併發突發的方式發送到所有相關的 **watch** 響應流。
+每當向伺服器通知創建/更新/刪除一個對象時，正常通知都會以併發突發的方式發送到所有相關的 **watch** 響應流。
 爲此，APF 認爲每個寫入請求都會在實際寫入完成後花費一些額外的時間來佔用席位。
-服務器估算要發送的通知數量，並調整寫入請求的席位數以及包含這些額外工作後的席位佔用時間。
+伺服器估算要發送的通知數量，並調整寫入請求的席位數以及包含這些額外工作後的席位佔用時間。
 
 <!--
 ### Queuing
@@ -319,9 +319,9 @@ many instances should authenticate with distinct usernames
 公平排隊算法在處理具有相同優先級的請求時，實現了上述場景。
 每個請求都被分配到某個 **流（Flow）** 中，該 **流** 由對應的 FlowSchema 的名字加上一個
 **流區分項（Flow Distinguisher）** 來標識。
-這裏的流區分項可以是發出請求的用戶、目標資源的名字空間或什麼都不是。
+這裏的流區分項可以是發出請求的使用者、目標資源的名字空間或什麼都不是。
 系統嘗試爲不同流中具有相同優先級的請求賦予近似相等的權重。
-要啓用對不同實例的不同處理方式，多實例的控制器要分別用不同的用戶名來執行身份認證。
+要啓用對不同實例的不同處理方式，多實例的控制器要分別用不同的使用者名來執行身份認證。
 
 <!--
 After classifying a request into a flow, the API Priority and Fairness
@@ -355,7 +355,7 @@ server.
 ### 豁免請求    {#exempt-requests}
 
 某些特別重要的請求不受制於此特性施加的任何限制。
-這些豁免可防止不當的流控配置完全禁用 API 服務器。
+這些豁免可防止不當的流控設定完全禁用 API 伺服器。
 
 <!--
 ## Resources
@@ -402,10 +402,10 @@ PriorityLevelConfigurations will see their maximum allowed concurrency
 go up (or down) by the same fraction.
 -->
 PriorityLevelConfiguration 的額定併發限制不是指定請求絕對數量，而是以“額定併發份額”的形式指定。
-API 服務器的總併發量限制通過這些份額按例分配到現有 PriorityLevelConfiguration 中，
+API 伺服器的總併發量限制通過這些份額按例分配到現有 PriorityLevelConfiguration 中，
 爲每個級別按照數量賦予其額定限制。
-集羣管理員可以更改 `--max-requests-inflight` （或 `--max-mutating-requests-inflight`）的值，
-再重新啓動 `kube-apiserver` 來增加或減小服務器的總流量，
+叢集管理員可以更改 `--max-requests-inflight` （或 `--max-mutating-requests-inflight`）的值，
+再重新啓動 `kube-apiserver` 來增加或減小伺服器的總流量，
 然後所有的 PriorityLevelConfiguration 將看到其最大併發增加（或減少）了相同的比例。
 
 {{< caution >}}
@@ -453,7 +453,7 @@ between mutating and non-mutating requests; if you want to treat them
 separately for a given resource, make separate FlowSchemas that match the
 mutating and non-mutating verbs respectively.
 -->
-啓用 APF 特性時，服務器的總併發限制被設置爲 `--max-requests-inflight` 及
+啓用 APF 特性時，伺服器的總併發限制被設置爲 `--max-requests-inflight` 及
 `--max-mutating-requests-inflight` 之和。變更性和非變更性請求之間不再有任何不同；
 如果你想針對某給定資源分別進行處理，請製作單獨的 FlowSchema，分別匹配變更性和非變更性的動作。
 {{< /caution >}}
@@ -477,7 +477,7 @@ The queuing configuration allows tuning the fair queuing algorithm for a
 priority level. Details of the algorithm can be read in the
 [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness), but in short:
 -->
-公平排隊算法支持通過排隊配置對優先級微調。
+公平排隊算法支持通過排隊設定對優先級微調。
 可以在[增強建議](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness)中閱讀算法的詳細信息，
 但總之：
 
@@ -526,11 +526,11 @@ given mouse (low-intensity flow) is squished by the elephants (high-intensity fl
 an illustrative collection of numbers of elephants. See
 https://play.golang.org/p/Gi0PLgVHiUg , which computes this table.
 -->
-下表顯示了有趣的隨機分片配置集合，每行顯示給定的老鼠（低強度流）
+下表顯示了有趣的隨機分片設定集合，每行顯示給定的老鼠（低強度流）
 被不同數量的大象擠壓（高強度流）的概率。
 表來源請參閱： https://play.golang.org/p/Gi0PLgVHiUg
 
-{{< table caption = "混分切片配置示例" >}}
+{{< table caption = "混分切片設定示例" >}}
 <!-- HandSize | Queues | 1 elephant | 4 elephants | 16 elephants -->
 隨機分片 | 隊列數 | 1 頭大象 | 4 頭大象 | 16 頭大象
 |----------|-----------|------------|----------------|--------------------|
@@ -609,7 +609,7 @@ considered part of a single flow. The correct choice for a given FlowSchema
 depends on the resource and your particular environment.
 -->
 FlowSchema 的 `distinguisherMethod.type` 字段決定了如何把與該模式匹配的請求分散到各個流中。
-可能是 `ByUser`，在這種情況下，一個請求用戶將無法餓死其他容量的用戶；
+可能是 `ByUser`，在這種情況下，一個請求使用者將無法餓死其他容量的使用者；
 或者是 `ByNamespace`，在這種情況下，一個名字空間中的資源請求將無法餓死其它名字空間的資源請求；
 或者爲空（或者可以完全省略 `distinguisherMethod`），
 在這種情況下，與此 FlowSchema 匹配的請求將被視爲單個流的一部分。
@@ -623,7 +623,7 @@ mandatory and suggested.
 -->
 ## 默認值    {#defaults}
 
-每個 kube-apiserver 會維護兩種類型的 APF 配置對象：強制的（Mandatory）和建議的（Suggested）。
+每個 kube-apiserver 會維護兩種類型的 APF 設定對象：強制的（Mandatory）和建議的（Suggested）。
 
 <!--
 ### Mandatory Configuration Objects
@@ -633,9 +633,9 @@ guardrail behavior. This is behavior that the servers have before
 those objects exist, and when those objects exist their specs reflect
 this behavior. The four mandatory objects are as follows.
 -->
-### 強制的配置對象   {#mandatory-configuration-objects}
+### 強制的設定對象   {#mandatory-configuration-objects}
 
-有四種強制的配置對象對應內置的守護行爲。這裏的行爲是服務器在還未創建對象之前就具備的行爲，
+有四種強制的設定對象對應內置的守護行爲。這裏的行爲是伺服器在還未創建對象之前就具備的行爲，
 而當這些對象存在時，其規約反映了這類行爲。四種強制的對象如下：
 
 <!--
@@ -662,9 +662,9 @@ this behavior. The four mandatory objects are as follows.
   share and does not queue requests.
 -->
 * 強制的 `catch-all` 優先級與強制的 `catch-all` FlowSchema 結合使用，
-  以確保每個請求都分類。一般而言，你不應該依賴於 `catch-all` 的配置，
+  以確保每個請求都分類。一般而言，你不應該依賴於 `catch-all` 的設定，
   而應適當地創建自己的 `catch-all` FlowSchema 和 PriorityLevelConfiguration
-  （或使用默認安裝的 `global-default` 配置）。
+  （或使用默認安裝的 `global-default` 設定）。
   因爲這一優先級不是正常場景下要使用的，`catch-all` 優先級的併發度份額很小，
   並且不會對請求進行排隊。
 
@@ -679,13 +679,13 @@ configuration will work best.
 
 The suggested configuration groups requests into six priority levels:
 -->
-### 建議的配置對象   {#suggested-configuration-objects}
+### 建議的設定對象   {#suggested-configuration-objects}
 
-建議的 FlowSchema 和 PriorityLevelConfiguration 包含合理的默認配置。
-你可以修改這些對象或者根據需要創建新的配置對象。如果你的集羣可能承受較重負載，
-那麼你就要考慮哪種配置最合適。
+建議的 FlowSchema 和 PriorityLevelConfiguration 包含合理的默認設定。
+你可以修改這些對象或者根據需要創建新的設定對象。如果你的叢集可能承受較重負載，
+那麼你就要考慮哪種設定最合適。
 
-建議的配置把請求分爲六個優先級：
+建議的設定把請求分爲六個優先級：
 
 <!--
 * The `node-high` priority level is for health updates from nodes.
@@ -699,7 +699,7 @@ The suggested configuration groups requests into six priority levels:
   them.
 -->
 * `system` 優先級用於 `system:nodes` 組（即 kubelet）的與健康狀態更新無關的請求；
-  kubelet 必須能連上 API 服務器，以便工作負載能夠調度到其上。
+  kubelet 必須能連上 API 伺服器，以便工作負載能夠調度到其上。
 
 <!--
 * The `leader-election` priority level is for leader election requests from
@@ -712,7 +712,7 @@ The suggested configuration groups requests into six priority levels:
 -->
 * `leader-election` 優先級用於內置控制器的領導選舉的請求
   （特別是來自 `kube-system` 名字空間中 `system:kube-controller-manager` 和
-  `system:kube-scheduler` 用戶和服務賬號，針對 `endpoints`、`configmaps` 或 `leases` 的請求）。
+  `system:kube-scheduler` 使用者和服務賬號，針對 `endpoints`、`configmaps` 或 `leases` 的請求）。
   將這些請求與其他流量相隔離非常重要，因爲領導者選舉失敗會導致控制器發生故障並重新啓動，
   這反過來會導致新啓動的控制器在同步信息時，流量開銷更大。
 
@@ -730,7 +730,7 @@ The suggested configuration groups requests into six priority levels:
 * `workload-high` 優先級用於內置控制器的其他請求。
 * `workload-low` 優先級用於來自所有其他服務帳戶的請求，通常包括來自 Pod
   中運行的控制器的所有請求。
-* `global-default` 優先級可處理所有其他流量，例如：非特權用戶運行的交互式
+* `global-default` 優先級可處理所有其他流量，例如：非特權使用者運行的交互式
   `kubectl` 命令。
 
 <!--
@@ -748,11 +748,11 @@ Thus, in a situation with a mixture of servers of different versions
 there may be thrashing as long as different servers have different
 opinions of the proper content of these objects.
 -->
-### 強制的與建議的配置對象的維護   {#maintenance-of-the-mandatory-and-suggested-configuration-objects}
+### 強制的與建議的設定對象的維護   {#maintenance-of-the-mandatory-and-suggested-configuration-objects}
 
-每個 `kube-apiserver` 都獨立地維護其強制的與建議的配置對象，
-這一維護操作既是服務器的初始行爲，也是其週期性操作的一部分。
-因此，當存在不同版本的服務器時，如果各個服務器對於配置對象中的合適內容有不同意見，
+每個 `kube-apiserver` 都獨立地維護其強制的與建議的設定對象，
+這一維護操作既是伺服器的初始行爲，也是其週期性操作的一部分。
+因此，當存在不同版本的伺服器時，如果各個伺服器對於設定對象中的合適內容有不同意見，
 就可能出現抖動。
 
 <!--
@@ -765,11 +765,11 @@ ensuring that the object exists and, if it does, has the proper spec.
 The server refuses to allow a creation or update with a spec that is
 inconsistent with the server's guardrail behavior.
 -->
-每個 `kube-apiserver` 都會對強制的與建議的配置對象執行初始的維護操作，
+每個 `kube-apiserver` 都會對強制的與建議的設定對象執行初始的維護操作，
 之後（每分鐘）對這些對象執行週期性的維護。
 
-對於強制的配置對象，維護操作包括確保對象存在並且包含合適的規約（如果存在的話）。
-服務器會拒絕創建或更新與其守護行爲不一致的規約。
+對於強制的設定對象，維護操作包括確保對象存在並且包含合適的規約（如果存在的話）。
+伺服器會拒絕創建或更新與其守護行爲不一致的規約。
 
 <!--
 Maintenance of suggested configuration objects is designed to allow
@@ -781,11 +781,11 @@ objects is also designed to support automatic migration when a new
 version of the `kube-apiserver` is rolled out, albeit potentially with
 thrashing while there is a mixed population of servers.
 -->
-對建議的配置對象的維護操作被設計爲允許其規約被重載。刪除操作是不允許的，
-維護操作期間會重建這類配置對象。如果你不需要某個建議的配置對象，
+對建議的設定對象的維護操作被設計爲允許其規約被重載。刪除操作是不允許的，
+維護操作期間會重建這類設定對象。如果你不需要某個建議的設定對象，
 你需要將它放在一邊，並讓其規約所產生的影響最小化。
-對建議的配置對象而言，其維護方面的設計也支持在上線新的 `kube-apiserver`
-時完成自動的遷移動作，即便可能因爲當前的服務器集合存在不同的版本而可能造成抖動仍是如此。
+對建議的設定對象而言，其維護方面的設計也支持在上線新的 `kube-apiserver`
+時完成自動的遷移動作，即便可能因爲當前的伺服器集合存在不同的版本而可能造成抖動仍是如此。
 
 <!--
 Maintenance of a suggested configuration object consists of creating
@@ -796,10 +796,10 @@ object. In the former case, the server ensures that the object's spec
 is what the server suggests; in the latter case, the spec is left
 alone.
 -->
-對建議的配置對象的維護操作包括基於服務器建議的規約創建對象
+對建議的設定對象的維護操作包括基於伺服器建議的規約創建對象
 （如果對象不存在的話）。反之，如果對象已經存在，維護操作的行爲取決於是否
-`kube-apiserver` 或者用戶在控制對象。如果 `kube-apiserver` 在控制對象，
-則服務器確保對象的規約與服務器所給的建議匹配，如果用戶在控制對象，
+`kube-apiserver` 或者使用者在控制對象。如果 `kube-apiserver` 在控制對象，
+則伺服器確保對象的規約與伺服器所給的建議匹配，如果使用者在控制對象，
 對象的規約保持不變。
 
 <!--
@@ -819,11 +819,11 @@ to `false`.
 -->
 關於誰在控制對象這個問題，首先要看對象上的 `apf.kubernetes.io/autoupdate-spec`
 註解。如果對象上存在這個註解，並且其取值爲`true`，則 kube-apiserver
-在控制該對象。如果存在這個註解，並且其取值爲`false`，則用戶在控制對象。
+在控制該對象。如果存在這個註解，並且其取值爲`false`，則使用者在控制對象。
 如果這兩個條件都不滿足，則需要進一步查看對象的 `metadata.generation`。
-如果該值爲 1，則 kube-apiserver 控制對象，否則用戶控制對象。
+如果該值爲 1，則 kube-apiserver 控制對象，否則使用者控制對象。
 這些規則是在 1.22 發行版中引入的，而對 `metadata.generation`
-的考量是爲了便於從之前較簡單的行爲遷移過來。希望控制建議的配置對象的用戶應該將對象的
+的考量是爲了便於從之前較簡單的行爲遷移過來。希望控制建議的設定對象的使用者應該將對象的
 `apf.kubernetes.io/autoupdate-spec` 註解設置爲 `false`。
 
 <!--
@@ -836,10 +836,10 @@ Maintenance also includes deleting objects that are neither mandatory
 nor suggested but are annotated
 `apf.kubernetes.io/autoupdate-spec=true`.
 -->
-對強制的或建議的配置對象的維護操作也包括確保對象上存在 `apf.kubernetes.io/autoupdate-spec`
+對強制的或建議的設定對象的維護操作也包括確保對象上存在 `apf.kubernetes.io/autoupdate-spec`
 這一註解，並且其取值準確地反映了是否 kube-apiserver 在控制着對象。
 
-維護操作還包括刪除那些既非強制又非建議的配置，同時註解配置爲
+維護操作還包括刪除那些既非強制又非建議的設定，同時註解設定爲
 `apf.kubernetes.io/autoupdate-spec=true` 的對象。
 
 <!--
@@ -854,9 +854,9 @@ where other traffic can crowd them out.
 -->
 ## 健康檢查併發豁免    {#health-check-concurrency-exemption}
 
-推薦配置沒有爲本地 kubelet 對 kube-apiserver 執行健康檢查的請求進行任何特殊處理
+推薦設定沒有爲本地 kubelet 對 kube-apiserver 執行健康檢查的請求進行任何特殊處理
 ——它們傾向於使用安全端口，但不提供憑據。
-在推薦配置中，這些請求將分配 `global-default` FlowSchema 和 `global-default` 優先級，
+在推薦設定中，這些請求將分配 `global-default` FlowSchema 和 `global-default` 優先級，
 這樣其他流量可以排除健康檢查。
 
 <!--
@@ -875,8 +875,8 @@ traffic, you can configure rules to block any health check requests
 that originate from outside your cluster.
 -->
 進行此更改後，任何敵對方都可以發送與此 FlowSchema 匹配的任意數量的健康檢查請求。
-如果你有 Web 流量過濾器或類似的外部安全機制保護集羣的 API 服務器免受常規網絡流量的侵擾，
-則可以配置規則，阻止所有來自集羣外部的健康檢查請求。
+如果你有 Web 流量過濾器或類似的外部安全機制保護叢集的 API 伺服器免受常規網路流量的侵擾，
+則可以設定規則，阻止所有來自叢集外部的健康檢查請求。
 {{< /caution >}}
 
 {{% code_sample file="priority-and-fairness/health-for-strangers.yaml" %}}
@@ -899,7 +899,7 @@ should refer to the documentation for your version.
 -->
 在 Kubernetes v1.20 之前的版本中，標籤 `flow_schema` 和 `priority_level`
 的名稱有時被寫作 `flowSchema` 和 `priorityLevel`，即存在不一致的情況。
-如果你在運行 Kubernetes v1.19 或者更早版本，你需要參考你所使用的集羣版本對應的文檔。
+如果你在運行 Kubernetes v1.19 或者更早版本，你需要參考你所使用的叢集版本對應的文檔。
 {{< /note >}}
 
 <!--
@@ -909,7 +909,7 @@ configuration is inappropriately throttling important traffic, or find
 poorly-behaved workloads that may be harming system health.
 -->
 當你開啓了 APF 後，kube-apiserver 會暴露額外指標。
-監視這些指標有助於判斷你的配置是否不當地限制了重要流量，
+監視這些指標有助於判斷你的設定是否不當地限制了重要流量，
 或者發現可能會損害系統健康的，行爲不良的工作負載。
 
 <!--
@@ -926,7 +926,7 @@ poorly-behaved workloads that may be harming system health.
   one of the following values:
 -->
 * `apiserver_flowcontrol_rejected_requests_total` 是一個計數器向量，
-  記錄被拒絕的請求數量（自服務器啓動以來累計值），
+  記錄被拒絕的請求數量（自伺服器啓動以來累計值），
   可按標籤 `flow_chema`（表示與請求匹配的 FlowSchema）、`priority_level`
   （表示分配給請該求的優先級）和 `reason` 分解。
   `reason` 標籤將是以下值之一：
@@ -943,7 +943,7 @@ poorly-behaved workloads that may be harming system health.
     and has been ejected from the queue.
   -->
   * `queue-full`，表明已經有太多請求排隊
-  * `concurrency-limit`，表示將 PriorityLevelConfiguration 配置爲
+  * `concurrency-limit`，表示將 PriorityLevelConfiguration 設定爲
     `Reject` 而不是 `Queue`，或者
   * `time-out`，表示在其排隊時間超期的請求仍在隊列中。
   * `cancelled`，表示該請求未被清除鎖定，已從隊列中移除。
@@ -954,7 +954,7 @@ poorly-behaved workloads that may be harming system health.
   executing, broken down by `flow_schema` and `priority_level`.
 -->
 * `apiserver_flowcontrol_dispatched_requests_total` 是一個計數器向量，
-  記錄開始執行的請求數量（自服務器啓動以來的累積值），
+  記錄開始執行的請求數量（自伺服器啓動以來的累積值），
   可按 `flow_schema` 和 `priority_level` 分解。
 
 <!--
@@ -1008,7 +1008,7 @@ poorly-behaved workloads that may be harming system health.
 -->
 * `apiserver_flowcontrol_nominal_limit_seats` 是一個測量向量，
   記錄了每個優先級的額定併發限制。
-  此值是根據 API 服務器的總併發限制和優先級的配置額定併發份額計算得出的。
+  此值是根據 API 伺服器的總併發限制和優先級的設定額定併發份額計算得出的。
 
 <!--
 #### Maturity level ALPHA
@@ -1125,8 +1125,8 @@ poorly-behaved workloads that may be harming system health.
   level are longer than those for other priority levels, it may be appropriate
   to increase that PriorityLevelConfiguration's concurrency shares.
   -->
-  直方圖中的離羣值在這裏表示單個流（即，一個用戶或一個名字空間的請求，
-  具體取決於配置）正在瘋狂地向 API 服務器發請求，並受到限制。
+  直方圖中的離羣值在這裏表示單個流（即，一個使用者或一個名字空間的請求，
+  具體取決於設定）正在瘋狂地向 API 伺服器發請求，並受到限制。
   相反，如果一個優先級的直方圖顯示該優先級的所有隊列都比其他優先級的隊列長，
   則增加 PriorityLevelConfiguration 的併發份額是比較合適的。
   {{< /note >}}
@@ -1406,7 +1406,7 @@ APF 設置可以被修改以實現下述目標：
 -->
 1. 如果有可能，你可以通過提高 `max-requests-inflight` 和 `max-mutating-requests-inflight`
    參數的值爲特定 `kube-apiserver` 提高所有優先級級別均可用的席位數量。另外，
-   如果在請求的負載均衡足夠好的情況下，水平擴縮 `kube-apiserver` 實例的數量將提高集羣中每個優先級級別的總併發數。
+   如果在請求的負載均衡足夠好的情況下，水平擴縮 `kube-apiserver` 實例的數量將提高叢集中每個優先級級別的總併發數。
 
 <!--
 1. You can create a new FlowSchema which references a PriorityLevelConfiguration
@@ -1423,7 +1423,7 @@ APF 設置可以被修改以實現下述目標：
 2. 你可以創建一個新的 FlowSchema，在其中引用併發級別更高的 PriorityLevelConfiguration。
    這個新的 PriorityLevelConfiguration 可以是現有的級別，也可以是具有自己一組額定併發份額的新級別。
    例如，你可以引入一個新的 FlowSchema 來將請求的 PriorityLevelConfiguration
-   從全局默認值更改爲工作負載較低的級別，以增加用戶可用的席位數。
+   從全局默認值更改爲工作負載較低的級別，以增加使用者可用的席位數。
    創建一個新的 PriorityLevelConfiguration 將減少爲現有級別指定的席位數。
    請注意，編輯默認的 FlowSchema 或 PriorityLevelConfiguration 需要將
    `apf.kubernetes.io/autoupdate-spec` 註解設置爲 false。
@@ -1448,7 +1448,7 @@ PriorityLevelConfiguration with a low share of seats.
 -->
 #### 隔離非關鍵請求以免餓死其他流
 
-爲了進行請求隔離，你可以創建一個 FlowSchema，使其主體與發起這些請求的用戶匹配，
+爲了進行請求隔離，你可以創建一個 FlowSchema，使其主體與發起這些請求的使用者匹配，
 或者創建一個與請求內容匹配（對應 resourceRules）的 FlowSchema。
 接下來，你可以將該 FlowSchema 映射到一個具有較低席位份額的 PriorityLevelConfiguration。
 

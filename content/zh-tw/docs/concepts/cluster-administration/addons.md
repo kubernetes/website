@@ -50,21 +50,21 @@ Add-on 擴展了 Kubernetes 的功能。
   kube-proxy; it also offers additional, opt-in observability and security features.
   Cilium is a [CNCF project at the Graduated level](https://www.cncf.io/projects/cilium/).
 -->
-## 聯網和網絡策略   {#networking-and-network-policy}
+## 聯網和網路策略   {#networking-and-network-policy}
 
-* [ACI](https://www.github.com/noironetworks/aci-containers) 通過 Cisco ACI 提供集成的容器網絡和安全網絡。
+* [ACI](https://www.github.com/noironetworks/aci-containers) 通過 Cisco ACI 提供集成的容器網路和安全網路。
 * [Antrea](https://antrea.io/) 在第 3/4 層執行操作，爲 Kubernetes
-  提供網絡連接和安全服務。Antrea 利用 Open vSwitch 作爲網絡的數據面。
+  提供網路連接和安全服務。Antrea 利用 Open vSwitch 作爲網路的數據面。
   Antrea 是一個[沙箱級的 CNCF 項目](https://www.cncf.io/projects/antrea/)。
-* [Calico](https://www.tigera.io/project-calico/) 是一個聯網和網絡策略供應商。
-  Calico 支持一套靈活的網絡選項，因此你可以根據自己的情況選擇最有效的選項，包括非覆蓋和覆蓋網絡，帶或不帶 BGP。
-  Calico 使用相同的引擎爲主機、Pod 和（如果使用 Istio 和 Envoy）應用程序在服務網格層執行網絡策略。
+* [Calico](https://www.tigera.io/project-calico/) 是一個聯網和網路策略供應商。
+  Calico 支持一套靈活的網路選項，因此你可以根據自己的情況選擇最有效的選項，包括非覆蓋和覆蓋網路，帶或不帶 BGP。
+  Calico 使用相同的引擎爲主機、Pod 和（如果使用 Istio 和 Envoy）應用程序在服務網格層執行網路策略。
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)
-  結合 Flannel 和 Calico，提供聯網和網絡策略。
-* [Cilium](https://github.com/cilium/cilium) 是一種網絡、可觀察性和安全解決方案，具有基於 eBPF 的數據平面。
-  Cilium 提供了簡單的 3 層扁平網絡，
-  能夠以原生路由（routing）和覆蓋/封裝（overlay/encapsulation）模式跨越多個集羣，
-  並且可以使用與網絡尋址分離的基於身份的安全模型在 L3 至 L7 上實施網絡策略。
+  結合 Flannel 和 Calico，提供聯網和網路策略。
+* [Cilium](https://github.com/cilium/cilium) 是一種網路、可觀察性和安全解決方案，具有基於 eBPF 的數據平面。
+  Cilium 提供了簡單的 3 層扁平網路，
+  能夠以原生路由（routing）和覆蓋/封裝（overlay/encapsulation）模式跨越多個叢集，
+  並且可以使用與網路尋址分離的基於身份的安全模型在 L3 至 L7 上實施網路策略。
   Cilium 可以作爲 kube-proxy 的替代品；它還提供額外的、可選的可觀察性和安全功能。
   Cilium 是一個[畢業級別的 CNCF 項目](https://www.cncf.io/projects/cilium/)。
 
@@ -87,12 +87,12 @@ Add-on 擴展了 Kubernetes 的功能。
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) 使 Kubernetes 無縫連接到
   Calico、Canal、Flannel 或 Weave 等其中一種 CNI 插件。
   CNI-Genie 是一個[沙箱級的 CNCF 項目](https://www.cncf.io/projects/cni-genie/)。
-* [Contiv](https://contivpp.io/) 爲各種用例和豐富的策略框架提供可配置的網絡
+* [Contiv](https://contivpp.io/) 爲各種用例和豐富的策略框架提供可設定的網路
   （帶 BGP 的原生 L3、帶 vxlan 的覆蓋、標準 L2 和 Cisco-SDN/ACI）。
   Contiv 項目完全[開源](https://github.com/contiv)。
   其[安裝程序](https://github.com/contiv/install) 提供了基於 kubeadm 和非 kubeadm 的安裝選項。
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/) 基於
-  [Tungsten Fabric](https://tungsten.io)，是一個開源的多雲網絡虛擬化和策略管理平臺。
+  [Tungsten Fabric](https://tungsten.io)，是一個開源的多雲網路虛擬化和策略管理平臺。
   Contrail 和 Tungsten Fabric 與業務流程系統（例如 Kubernetes、OpenShift、OpenStack 和 Mesos）集成在一起，
   爲虛擬機、容器或 Pod 以及裸機工作負載提供了隔離模式。
 
@@ -110,13 +110,13 @@ Add-on 擴展了 Kubernetes 的功能。
   VPP based workloads in Kubernetes.
 -->
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually)
-  是一個可以用於 Kubernetes 的 overlay 網絡提供者。
+  是一個可以用於 Kubernetes 的 overlay 網路提供者。
 * [Gateway API](/zh-cn/docs/concepts/services-networking/gateway/) 是一個由
   [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network) 社區管理的開源項目，
-  爲服務網絡建模提供一種富有表達力、可擴展和麪向角色的 API。
-* [Knitter](https://github.com/ZTE/Knitter/) 是在一個 Kubernetes Pod 中支持多個網絡接口的插件。
+  爲服務網路建模提供一種富有表達力、可擴展和麪向角色的 API。
+* [Knitter](https://github.com/ZTE/Knitter/) 是在一個 Kubernetes Pod 中支持多個網路接口的插件。
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) 是一個多插件，
-  可在 Kubernetes 中提供多種網絡支持，以支持所有 CNI 插件（例如 Calico、Cilium、Contiv、Flannel），
+  可在 Kubernetes 中提供多種網路支持，以支持所有 CNI 插件（例如 Calico、Cilium、Contiv、Flannel），
   而且包含了在 Kubernetes 中基於 SRIOV、DPDK、OVS-DPDK 和 VPP 的工作負載。
 
 <!--
@@ -128,10 +128,10 @@ Add-on 擴展了 Kubernetes 的功能。
 * [Nodus](https://github.com/akraino-edge-stack/icn-nodus) is an OVN based CNI
   controller plugin to provide cloud native based Service function chaining(SFC).
 -->
-* [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) 是一個 Kubernetes 網絡驅動，
+* [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) 是一個 Kubernetes 網路驅動，
   基於 [OVN（Open Virtual Network）](https://github.com/ovn-org/ovn/)實現，是從 Open vSwitch (OVS)
-  項目衍生出來的虛擬網絡實現。OVN-Kubernetes 爲 Kubernetes 提供基於覆蓋網絡的網絡實現，
-  包括一個基於 OVS 實現的負載均衡器和網絡策略。
+  項目衍生出來的虛擬網路實現。OVN-Kubernetes 爲 Kubernetes 提供基於覆蓋網路的網路實現，
+  包括一個基於 OVS 實現的負載均衡器和網路策略。
 * [Nodus](https://github.com/akraino-edge-stack/icn-nodus) 是一個基於 OVN 的 CNI 控制器插件，
   提供基於雲原生的服務功能鏈 (SFC)。
 
@@ -160,14 +160,14 @@ Add-on 擴展了 Kubernetes 的功能。
   CaaS / PaaS 平臺（例如關鍵容器服務（PKS）和 OpenShift）之間的集成。
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
   是一個 SDN 平臺，可在 Kubernetes Pods 和非 Kubernetes 環境之間提供基於策略的聯網，並具有可視化和安全監控。
-* [Romana](https://github.com/romana) 是一個 Pod 網絡的第三層解決方案，並支持
+* [Romana](https://github.com/romana) 是一個 Pod 網路的第三層解決方案，並支持
   [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies/) API。
 * [Spiderpool](https://github.com/spidernet-io/spiderpool) 爲 Kubernetes
-  提供了下層網絡和 RDMA 高速網絡解決方案，兼容裸金屬、虛擬機和公有云等運行環境。
+  提供了下層網路和 RDMA 高速網路解決方案，兼容裸金屬、虛擬機和公有云等運行環境。
 * [Terway](https://github.com/AliyunContainerService/terway/)
-  是一套基於阿里雲 VPC 和 ECS 網絡產品的 CNI 插件，能夠在阿里雲環境中提供原生的 VPC 網絡和網絡策略支持。
+  是一套基於阿里雲 VPC 和 ECS 網路產品的 CNI 插件，能夠在阿里雲環境中提供原生的 VPC 網路和網路策略支持。
 * [Weave Net](https://github.com/rajch/weave#using-weave-on-kubernetes)
-  提供在網絡分組兩端參與工作的聯網和網絡策略，並且不需要額外的數據庫。
+  提供在網路分組兩端參與工作的聯網和網路策略，並且不需要額外的數據庫。
 
 <!--
 ## Service Discovery
@@ -178,8 +178,8 @@ Add-on 擴展了 Kubernetes 的功能。
 -->
 ## 服務發現   {#service-discovery}
 
-* [CoreDNS](https://coredns.io) 是一種靈活的，可擴展的 DNS 服務器，可以
-  [安裝](https://github.com/coredns/helm)爲集羣內的 Pod 提供 DNS 服務。
+* [CoreDNS](https://coredns.io) 是一種靈活的，可擴展的 DNS 伺服器，可以
+  [安裝](https://github.com/coredns/helm)爲叢集內的 Pod 提供 DNS 服務。
 
 <!--
 ## Visualization &amp; Control
@@ -205,7 +205,7 @@ Add-on 擴展了 Kubernetes 的功能。
 ## 基礎設施   {#infrastructure}
 
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) 是可以讓 Kubernetes
-  運行虛擬機的 add-on。通常運行在裸機集羣上。
+  運行虛擬機的 add-on。通常運行在裸機叢集上。
 * [節點問題檢測器](https://github.com/kubernetes/node-problem-detector) 在 Linux 節點上運行，
   並將系統問題報告爲[事件](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
   或[節點狀況](/zh-cn/docs/concepts/architecture/nodes/#condition)。

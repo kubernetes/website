@@ -2,7 +2,7 @@
 title: Node 自動擴縮容
 linkTitle: Node 自動擴縮容
 description: >-
-  自動在集羣中製備和整合 Node，以適應需求並優化成本。
+  自動在叢集中製備和整合 Node，以適應需求並優化成本。
 content_type: concept
 weight: 15
 ---
@@ -25,8 +25,8 @@ In order to run workloads in your cluster, you need
 dynamically [_provisioned_](#provisioning), or [_consolidated_](#consolidation) to provide needed
 capacity while optimizing cost. Autoscaling is performed by Node [_autoscalers_](#autoscalers).
 -->
-爲了在集羣中運行負載，你需要 {{< glossary_tooltip text="Node" term_id="node" >}}。
-集羣中的 Node 可以被**自動擴縮容**：
+爲了在叢集中運行負載，你需要 {{< glossary_tooltip text="Node" term_id="node" >}}。
+叢集中的 Node 可以被**自動擴縮容**：
 通過動態[**製備**](#provisioning)或[**整合**](#consolidation)的方式提供所需的容量並優化成本。
 自動擴縮容操作是由 Node [**Autoscaler**](#autoscalers) 執行的。
 
@@ -43,7 +43,7 @@ commonly, the resources backing the Nodes are Virtual Machines.
 -->
 ## Node 製備   {#provisioning}
 
-當集羣中有 Pod 無法被調度到現有 Node 上時，系統將**製備**新的 Node 並將其添加到集羣中，以容納這些 Pod。
+當叢集中有 Pod 無法被調度到現有 Node 上時，系統將**製備**新的 Node 並將其添加到叢集中，以容納這些 Pod。
 如果由於組合使用[水平負載和 Node 自動擴縮容](#horizontal-workload-autoscaling)使得
 Pod 個數隨着時間發生變化，這種自動擴縮容機制將特別有用。
 
@@ -58,7 +58,7 @@ minimizing the cost of the provisioned Nodes or balancing the number of Nodes be
 domains).
 -->
 製備的主要目標是使所有 Pod 可調度。
-由於各種限制（如已達到配置的製備上限、製備配置與特定 Pod 集不兼容或雲驅動容量不足），此目標不一定總是可以實現。
+由於各種限制（如已達到設定的製備上限、製備設定與特定 Pod 集不兼容或雲驅動容量不足），此目標不一定總是可以實現。
 在製備之時，Node Autoscaler 通常還會嘗試實現其他目標（例如最小化製備 Node 的成本或在故障域之間平衡 Node 的數量）。
 
 <!--
@@ -72,9 +72,9 @@ of Nodes falling below a configured minimum limit).
 在決定製備 Node 時針對 Node Autoscaler 有兩個主要輸入：
 
 - [Pod 調度約束](#provisioning-pod-constraints)
-- [Autoscaler 配置所施加的 Node 約束](#provisioning-node-constraints)
+- [Autoscaler 設定所施加的 Node 約束](#provisioning-node-constraints)
 
-Autoscaler 配置也可以包含其他 Node 製備觸發條件（例如 Node 個數低於配置的最小限制值）。
+Autoscaler 設定也可以包含其他 Node 製備觸發條件（例如 Node 個數低於設定的最小限制值）。
 
 {{< note >}}
 <!--
@@ -125,10 +125,10 @@ The specifics of the provisioned Nodes (for example the amount of resources, the
 label) depend on autoscaler configuration. Autoscalers can either choose them from a pre-defined set
 of Node configurations, or use [auto-provisioning](#autoprovisioning).
 -->
-### Autoscaler 配置施加的 Node 約束    {#provisioning-node-constraints}
+### Autoscaler 設定施加的 Node 約束    {#provisioning-node-constraints}
 
-已製備的 Node 的具體規格（例如資源量、給定標籤的存在與否）取決於 Autoscaler 配置。
-Autoscaler 可以從一組預定義的 Node 配置中進行選擇，或使用[自動製備](#autoprovisioning)。
+已製備的 Node 的具體規格（例如資源量、給定標籤的存在與否）取決於 Autoscaler 設定。
+Autoscaler 可以從一組預定義的 Node 設定中進行選擇，或使用[自動製備](#autoprovisioning)。
 
 <!--
 ### Auto-provisioning {#autoprovisioning}
@@ -140,8 +140,8 @@ example, the minimum amount of resources or the need for a given label).
 -->
 ### 自動製備   {#autoprovisioning}
 
-Node 自動製備是一種用戶無需完全配置 Node 容許製備規格的製備模式。
-Autoscaler 會基於 Pending 的 Pod 和預配置的約束（例如最小資源量或給定標籤的需求）動態選擇 Node 配置。
+Node 自動製備是一種使用者無需完全設定 Node 容許製備規格的製備模式。
+Autoscaler 會基於 Pending 的 Pod 和預設定的約束（例如最小資源量或給定標籤的需求）動態選擇 Node 設定。
 
 <!--
 ## Node consolidation {#consolidation}
@@ -153,9 +153,9 @@ overall Node utilization in a cluster can be used as a proxy for how cost-effect
 -->
 ## Node 整合     {#consolidation}
 
-運行集羣時的主要考量是確保所有可調度 Pod 都在運行，並儘可能降低集羣成本。
+運行叢集時的主要考量是確保所有可調度 Pod 都在運行，並儘可能降低叢集成本。
 爲此，Pod 的資源請求應儘可能利用 Node 的更多資源。
-從這個角度看，集羣中的整體 Node 利用率可以用作集羣成本效益的參考指標。
+從這個角度看，叢集中的整體 Node 利用率可以用作叢集成本效益的參考指標。
 
 {{< note >}}
 <!--
@@ -164,7 +164,7 @@ cost-effectiveness of a cluster as optimizing Node utilization.
 Combining Node autoscaling with [vertical workload autoscaling](#vertical-workload-autoscaling) can
 help you achieve this.
 -->
-對於集羣的整體成本效益而言，正確設置 Pod 的資源請求與優化 Node 的利用率同樣重要。
+對於叢集的整體成本效益而言，正確設置 Pod 的資源請求與優化 Node 的利用率同樣重要。
 將 Node 自動擴縮容與[垂直負載自動擴縮容](#vertical-workload-autoscaling)結合使用有助於實現這一目標。
 {{< /note >}}
 
@@ -177,7 +177,7 @@ be [provisioned](#provisioning) to replace them.
 Consolidation, like provisioning, only considers Pod resource requests and not real resource usage
 when making decisions.
 -->
-集羣中的 Node 可以被自動**整合**，以提高整體 Node 利用率以及集羣的成本效益。
+叢集中的 Node 可以被自動**整合**，以提高整體 Node 利用率以及叢集的成本效益。
 整合操作通過移除一組利用率低的 Node 來實現。有時會同時[製備](#provisioning)一組不同的 Node 來替代。
 
 與製備類似，整合操作在做出決策時僅考慮 Pod 的資源請求而非實際的資源用量。
@@ -197,7 +197,7 @@ consolidation.__
 在整合期間移除空的 Node 要比操作非空 Node 更簡單直接，Autoscaler 通常針對空 Node 整合進行優化。
 
 在整合期間移除非空 Node 會有破壞性：Node 上運行的 Pod 會被終止，且可能需要被重新創建（例如由 Deployment 重新創建）。
-不過，所有被重新創建的 Pod 都應該能夠被調度到集羣中的現有 Node 上，或調度到作爲整合一部分而製備的替代 Node 上。
+不過，所有被重新創建的 Pod 都應該能夠被調度到叢集中的現有 Node 上，或調度到作爲整合一部分而製備的替代 Node 上。
 __正常情況下，整合操作不應導致 Pod 處於 Pending 狀態。__
 
 {{< note >}}
@@ -218,9 +218,9 @@ the maximum lifespan of Nodes in a cluster).
 
 The details of how consolidation is performed depend on the configuration of a given autoscaler.
 -->
-Autoscaler 配置還可以設爲由其他狀況觸發整合（例如 Node 被創建後用掉的時間），以優化屬性（例如集羣中 Node 的最大生命期）。
+Autoscaler 設定還可以設爲由其他狀況觸發整合（例如 Node 被創建後用掉的時間），以優化屬性（例如叢集中 Node 的最大生命期）。
 
-執行整合的具體方式取決於給定 Autoscaler 的配置。
+執行整合的具體方式取決於給定 Autoscaler 的設定。
 
 {{< note >}}
 <!--
@@ -280,7 +280,7 @@ Nodes that are no longer optimally utilized.
 是目前由 [SIG Autoscaling](https://github.com/kubernetes/community/tree/master/sig-autoscaling)
 維護的兩個 Node Autoscaler。
 
-對於集羣用戶來說，這兩個 Autoscaler 都應提供類似的 Node 自動擴縮容體驗。
+對於叢集使用者來說，這兩個 Autoscaler 都應提供類似的 Node 自動擴縮容體驗。
 兩個 Autoscaler 都將爲不可調度的 Pod 製備新的 Node，也都會整合利用率不高的 Node。
 
 <!--
@@ -306,7 +306,7 @@ resizing the underlying cloud provider resource group.
 -->
 #### Cluster Autoscaler
 
-Cluster Autoscaler 通過向預先配置的 **Node 組**添加或移除 Node。
+Cluster Autoscaler 通過向預先設定的 **Node 組**添加或移除 Node。
 Node 組通常映射爲某種雲驅動資源組（最常見的是虛擬機組）。
 單實例的 Cluster Autoscaler 將可以同時管理多個 Node 組。
 在製備時，Cluster Autoscaler 將把 Node 添加到最貼合 Pending Pod 請求的組。
@@ -337,9 +337,9 @@ lifetime, and auto-upgrading Nodes when new worker Node images are released. It 
 individual cloud provider resources (most commonly individual Virtual Machines), and doesn't rely on
 cloud provider resource groups.
 -->
-Karpenter 基於集羣操作員所提供的 [NodePool](https://karpenter.sh/docs/concepts/nodepools/)
-配置來自動製備 Node。Karpenter 處理 Node 生命週期的所有方面，而不僅僅是自動擴縮容。
-這包括 Node 達到某個生命期後的自動刷新，以及在有新 Worker Node 鏡像被髮布時的自動升級。
+Karpenter 基於叢集操作員所提供的 [NodePool](https://karpenter.sh/docs/concepts/nodepools/)
+設定來自動製備 Node。Karpenter 處理 Node 生命週期的所有方面，而不僅僅是自動擴縮容。
+這包括 Node 達到某個生命期後的自動刷新，以及在有新 Worker Node 映像檔被髮布時的自動升級。
 Karpenter 直接與特定的雲驅動資源（通常是單獨的虛擬機）交互，不依賴雲驅動資源組。
 
 <!--
@@ -387,8 +387,8 @@ Cluster Autoscaler 和 Karpenter 之間的主要差異：
   [AWS](https://github.com/aws/karpenter-provider-aws), and
   [Azure](https://github.com/Azure/karpenter-provider-azure).
 -->
-* Cluster Autoscaler 不支持自動製備，其可以製備的 Node 組必須被預先配置。
-  Karpenter 支持自動製備，因此用戶只需爲製備的 Node 配置一組約束，而不需要完整同質化的組。
+* Cluster Autoscaler 不支持自動製備，其可以製備的 Node 組必須被預先設定。
+  Karpenter 支持自動製備，因此使用者只需爲製備的 Node 設定一組約束，而不需要完整同質化的組。
 * Cluster Autoscaler 直接提供雲驅動集成，這意味着這些集成組件是 Kubernetes 項目的一部分。
   對於 Karpenter，Kubernetes 將 Karpenter 發佈爲一個庫，雲驅動可以集成這個庫來構建 Node Autoscaler。
 * Cluster Autoscaler 爲衆多雲驅動提供集成，包括一些小衆的雲驅動。
@@ -441,7 +441,7 @@ Node 自動擴縮容隨之應制備新的 Node 以容納新的 Pod。
 一旦應用負載減少，負載自動擴縮容應移除不必要的 Pod。
 Node 自動擴縮容應按序整合不再需要的 Node。
 
-如果配置正確，這種模式確保你的應用在需要時始終有足夠的 Node 容量處理突發負載，你也無需在閒置時爲這些 Node 容量支付費用。
+如果設定正確，這種模式確保你的應用在需要時始終有足夠的 Node 容量處理突發負載，你也無需在閒置時爲這些 Node 容量支付費用。
 
 <!--
 ### Vertical workload autoscaling {#vertical-workload-autoscaling}
@@ -466,7 +466,7 @@ resource requests of your Pods while preserving Node autoscaling capabilities in
 [垂直負載自動擴縮容](/zh-cn/docs/concepts/workloads/autoscaling#scaling-workloads-vertically)
 基於其歷史資源用量來自動調整 Pod 的資源請求。
 
-你可以一起使用 Node 自動擴縮容和垂直負載自動擴縮容，以便在集羣中保留 Node 自動擴縮容能力的同時調節 Pod 的資源請求。
+你可以一起使用 Node 自動擴縮容和垂直負載自動擴縮容，以便在叢集中保留 Node 自動擴縮容能力的同時調節 Pod 的資源請求。
 
 {{< caution >}}
 <!--
@@ -475,7 +475,7 @@ DaemonSet Pods. Autoscalers have to predict what DaemonSet Pods on a new Node wi
 order to predict available Node resources. Vertical workload autoscaling might make these
 predictions unreliable, leading to incorrect scaling decisions.
 -->
-在使用 Node 自動擴縮容時，不推薦爲 DaemonSet Pod 配置垂直負載自動擴縮容。
+在使用 Node 自動擴縮容時，不推薦爲 DaemonSet Pod 設定垂直負載自動擴縮容。
 Autoscaler 需要預測新 Node 上的 DaemonSet Pod 情況，才能預測可用的 Node 資源。
 垂直負載自動擴縮容可能會讓這些預測不可靠，導致擴縮容決策出錯。
 {{</ caution >}}
@@ -510,12 +510,12 @@ horizontal, and vertical workload autoscaling based on the number of Nodes in th
 read more in
 [autoscaling based on cluster size](/docs/concepts/workloads/autoscaling#autoscaling-based-on-cluster-size).
 -->
-### 基於集羣規模的負載 Autoscaler
+### 基於叢集規模的負載 Autoscaler
 
 [Cluster Proportional Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler) 和
 [Cluster Proportional Vertical Autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-vertical-autoscaler)
-基於集羣中的 Node 個數進行水平和垂直負載自動擴縮容。
-更多細節參閱[基於集羣規模自動擴縮容](/zh-cn/docs/concepts/workloads/autoscaling#autoscaling-based-on-cluster-size)。
+基於叢集中的 Node 個數進行水平和垂直負載自動擴縮容。
+更多細節參閱[基於叢集規模自動擴縮容](/zh-cn/docs/concepts/workloads/autoscaling#autoscaling-based-on-cluster-size)。
 
 ## {{% heading "whatsnext" %}}
 

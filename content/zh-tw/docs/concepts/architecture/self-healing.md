@@ -112,4 +112,4 @@ Here are some of the key components that provide Kubernetes self-healing:
 - 瞭解 [Kubernetes 控制器](/zh-cn/docs/concepts/architecture/controller/)
 - 探索 [持久卷（PersistentVolume）](/zh-cn/docs/concepts/storage/persistent-volumes/)
 - 閱讀關於[節點自動擴展](/zh-cn/docs/concepts/cluster-administration/node-autoscaling/)。
-  節點自動擴展還能夠在集羣中的節點發生故障時提供自動修復功能。
+  節點自動擴展還能夠在叢集中的節點發生故障時提供自動修復功能。

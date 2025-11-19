@@ -26,7 +26,7 @@ affected, refer to [Check whether dockershim removal affects you](/docs/tasks/ad
 -->
 Kubernetes 將在即將發佈的 1.24 版本中移除 dockershim。我們很高興能夠通過支持開源容器運行時、支持更小的
 kubelet 以及爲使用 Kubernetes 的團隊提高工程速度來重申我們的社區價值。
-如果你[使用 Docker Engine 作爲 Kubernetes 集羣的容器運行時](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)，
+如果你[使用 Docker Engine 作爲 Kubernetes 叢集的容器運行時](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)，
 請準備好在 1.24 中遷移！要檢查你是否受到影響，
 請參考[檢查移除 Dockershim 對你的影響](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)。
 
@@ -41,7 +41,7 @@ as dockershim.
 ## 爲什麼我們要離開 dockershim  {#why-we-re-moving-away-from-dockershim}
 
 Docker 是 Kubernetes 使用的第一個容器運行時。
-這也是許多 Kubernetes 用戶和愛好者如此熟悉 Docker 的原因之一。
+這也是許多 Kubernetes 使用者和愛好者如此熟悉 Docker 的原因之一。
 對 Docker 的支持被硬編碼到 Kubernetes 中——一個被項目稱爲 dockershim 的組件。
 <!--
 As containerization became an industry standard, the Kubernetes project added support
@@ -95,7 +95,7 @@ to the [Dockershim Deprecation FAQ](/dockershim).
 -->
 包括 dockershim 的 Kubernetes 1.23 版本，在 Kubernetes 項目中將再支持一年。
 對於託管 Kubernetes 的供應商，供應商支持可能會持續更長時間，但這取決於公司本身。
-無論如何，我們相信所有集羣操作都有時間進行遷移。如果你有更多關於 dockershim 移除的問題，
+無論如何，我們相信所有叢集操作都有時間進行遷移。如果你有更多關於 dockershim 移除的問題，
 請參考[棄用 Dockershim 的常見問題](/zh-cn/blog/2020/12/02/dockershim-faq/)。
 
 <!--
@@ -117,7 +117,7 @@ dependencies are outside of your control. Based on your feedback, here are some
 of the steps we are taking to help.
 -->
 結果表明，在幫助你順利遷移方面，我們還有很多工作要做。
-存在其他容器運行時，並且已被廣泛推廣。但是，許多用戶告訴我們他們仍然依賴 dockershim，
+存在其他容器運行時，並且已被廣泛推廣。但是，許多使用者告訴我們他們仍然依賴 dockershim，
 並且有時需要重新處理依賴項。其中一些依賴項超出控制範圍。
 根據收集到的反饋，我們採取了一些措施提供幫助。
 
@@ -138,7 +138,7 @@ Based on the feedback you provided:
 根據提供的反饋：
 
 - CNCF 和 1.24 版本團隊致力於及時交付 1.24 版本的文檔。這包括像本文這樣的包含更多信息的博客文章，
-  更新現有的代碼示例、教程和任務，併爲集羣操作人員生成遷移指南。
+  更新現有的代碼示例、教程和任務，併爲叢集操作人員生成遷移指南。
 - 我們正在聯繫 CNCF 社區的其他成員，幫助他們爲這一變化做好準備。
 
 <!--
@@ -164,7 +164,7 @@ improve the migration experience will light the path more clearly for you.
 -->
 ## 最終想法  {#final-thoughts}
 
-作爲一個項目，我們已經看到集羣運營商在 2021 年之前越來越多地採用其他容器運行時。
+作爲一個項目，我們已經看到叢集運營商在 2021 年之前越來越多地採用其他容器運行時。
 我們相信遷移沒有主要障礙。我們爲改善遷移體驗而採取的步驟將爲你指明更清晰的道路。
 
 <!--

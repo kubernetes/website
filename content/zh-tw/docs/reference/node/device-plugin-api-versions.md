@@ -48,8 +48,8 @@ Key:
   common (most other APIs) will work. Note that alpha APIs may vanish or
   change significantly between one minor release and the next.
 -->
-* `+` 設備插件 API 具有 Kubernetes 集羣中可能不存在的特性或 API 對象，
-  不是因爲設備插件 API 添加了額外的新 API 調用，就是因爲服務器移除了舊的 API 調用。
+* `+` 設備插件 API 具有 Kubernetes 叢集中可能不存在的特性或 API 對象，
+  不是因爲設備插件 API 添加了額外的新 API 調用，就是因爲伺服器移除了舊的 API 調用。
   但它們的共同點是（大多數其他 API）都能工作。
   請注意，Alpha API 可能會在次要版本的迭代過程中消失或出現重大變更。
 <!--
@@ -57,5 +57,5 @@ Key:
   either because server has added additional API calls, or that device plugin API has
   removed an old API call. However, everything they share in common (most APIs) will work.
 -->
-* `-` Kubernetes 集羣具有設備插件 API 無法使用的特性，不是因爲服務器添加了額外的 API 調用，
+* `-` Kubernetes 叢集具有設備插件 API 無法使用的特性，不是因爲伺服器添加了額外的 API 調用，
   就是因爲設備插件 API 移除了舊的 API 調用。但它們的共同點是（大多數 API）都能工作。

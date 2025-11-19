@@ -21,9 +21,9 @@ Kubernetes 可以輕鬆部署由許多微服務組成的應用程序，但這種
 一個基於 [Envoy Proxy](https://www.envoyproxy.io) 構建的 Kubernetes 原生開源 API 網關。
 Ambassador 專爲動態環境而設計，這類環境中的服務可能被頻繁添加或刪除。
 
-Ambassador 使用 Kubernetes 註解進行配置。
-註解用於配置從給定 Kubernetes 服務到特定 URL 的具體映射關係。
-每個映射中可以包括多個註解，用於配置路由。
+Ambassador 使用 Kubernetes 註解進行設定。
+註解用於設定從給定 Kubernetes 服務到特定 URL 的具體映射關係。
+每個映射中可以包括多個註解，用於設定路由。
 註解的例子有速率限制、協議、跨源請求共享（CORS）、流量影射和路由規則等。
 
 <!--
@@ -34,8 +34,8 @@ Ambassador is typically installed as a Kubernetes deployment, and is also availa
 ## 一個簡單的 Ambassador 示例
 
 Ambassador 通常作爲 Kubernetes Deployment 來安裝，也可以作爲 Helm Chart 使用。
-配置 Ambassador 時，請使用 Ambassador 註解創建 Kubernetes 服務。
-下面是一個例子，用來配置 Ambassador，將針對 /httpbin/ 的請求路由到公共的 httpbin.org 服務：
+設定 Ambassador 時，請使用 Ambassador 註解創建 Kubernetes 服務。
+下面是一個例子，用來設定 Ambassador，將針對 /httpbin/ 的請求路由到公共的 httpbin.org 服務：
 
 ```
 apiVersion: v1
@@ -82,11 +82,11 @@ Kubeflow 團隊需要一個代理，爲 Kubeflow 中所使用的各種服務提�
 With Ambassador, Kubeflow can use a distributed model for configuration. Instead of a central configuration file, Ambassador allows each service to configure its route in Ambassador via Kubernetes annotations. Here is a simplified example configuration:
 -->
 
-## 服務配置
+## 服務設定
 
-有了 Ambassador，Kubeflow 可以使用分佈式模型進行配置。
-Ambassador 不使用集中的配置文件，而是允許每個服務通過 Kubernetes 註解在 Ambassador 中配置其路由。
-下面是一個簡化的配置示例：
+有了 Ambassador，Kubeflow 可以使用分佈式模型進行設定。
+Ambassador 不使用集中的設定文件，而是允許每個服務通過 Kubernetes 註解在 Ambassador 中設定其路由。
+下面是一個簡化的設定示例：
 
 ```
 ---
@@ -103,8 +103,8 @@ service: test.kubeflow:8000
 In this example, the “test” service uses Ambassador annotations to dynamically configure a route to the service, triggered only when the HTTP method is a POST, and the annotation also specifies a rewrite rule.
 -->
 
-示例中，“test” 服務使用 Ambassador 註解來爲服務動態配置路由。
-所配置的路由僅在 HTTP 方法是 POST 時觸發；註解中同時還給出了一條重寫規則。
+示例中，“test” 服務使用 Ambassador 註解來爲服務動態設定路由。
+所設定的路由僅在 HTTP 方法是 POST 時觸發；註解中同時還給出了一條重寫規則。
 
 <!--
 With Ambassador, Kubeflow manages routing easily with Kubernetes annotations. Kubeflow configures a single ingress object that directs traffic to Ambassador, then creates services with Ambassador annotations as needed to direct traffic  to specific backends. For example, when deploying TensorFlow services,  Kubeflow creates and and annotates a K8s service so that the model will be served at https://<ingress host>/models/<model name>/. Kubeflow can also use the Envoy Proxy to do the actual L7 routing. Using Ambassador, Kubeflow takes advantage of additional routing configuration like URL rewriting and method-based routing.
@@ -116,13 +116,13 @@ If you’re interested in using Ambassador as an API Gateway or Kubernetes ingre
 ## Kubeflow 和 Ambassador
 
 通過 Ambassador，Kubeflow 可以使用 Kubernetes 註解輕鬆管理路由。
-Kubeflow 配置同一個 Ingress 對象，將流量定向到 Ambassador，然後根據需要創建具有 Ambassador 註解的服務，以將流量定向到特定後端。
+Kubeflow 設定同一個 Ingress 對象，將流量定向到 Ambassador，然後根據需要創建具有 Ambassador 註解的服務，以將流量定向到特定後端。
 例如，在部署 TensorFlow 服務時，Kubeflow 會創建 Kubernetes 服務併爲其添加註解，
-以便用戶能夠在 `https://<ingress主機>/models/<模型名稱>/` 處訪問到模型本身。
+以便使用者能夠在 `https://<ingress主機>/models/<模型名稱>/` 處訪問到模型本身。
 Kubeflow 還可以使用 Envoy Proxy 來進行實際的 L7 路由。
-通過 Ambassador，Kubeflow 能夠更充分地利用 URL 重寫和基於方法的路由等額外的路由配置能力。
+通過 Ambassador，Kubeflow 能夠更充分地利用 URL 重寫和基於方法的路由等額外的路由設定能力。
 
-如果您對在 Kubeflow 中使用 Ambassador 感興趣，標準的 Kubeflow 安裝會自動安裝和配置 Ambassador。
+如果您對在 Kubeflow 中使用 Ambassador 感興趣，標準的 Kubeflow 安裝會自動安裝和設定 Ambassador。
 
 如果您有興趣將 Ambassador 用作 API 網關或 Kubernetes 的 Ingress 解決方案，
 請參閱 [Ambassador 入門指南](https://www.getambassador.io/user-guide/getting-started)。

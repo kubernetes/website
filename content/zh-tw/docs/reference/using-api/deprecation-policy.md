@@ -30,7 +30,7 @@ a deprecation policy for aspects of the system that are slated to be removed.
 Kubernetes 是一個組件衆多、貢獻者人數衆多的大系統。
 就像很多類似的軟件，所提供的功能特性集合會隨着時間推移而自然發生變化，
 而且有時候某個功能特性可能需要被移除。被移除的可能是一個 API、
-一個參數標誌或者甚至某整個功能特性。爲了避免影響到現有用戶，
+一個參數標誌或者甚至某整個功能特性。爲了避免影響到現有使用者，
 Kubernetes 對於其中漸次移除的各個方面規定了一種棄用策略並遵從此策略。
 
 <!--
@@ -86,7 +86,7 @@ includes:
 * REST 資源的字段
 * REST 資源的註解，包含“beta”類註解，但不包含“alpha”類註解
 * 枚舉值或者常數值
-* 組件配置結構
+* 組件設定結構
 
 <!--
 These rules are enforced between official releases, not between
@@ -190,7 +190,7 @@ of decoding/converting previously persisted data from storage.
 在 [#52185](https://github.com/kubernetes/kubernetes/issues/52185) 被解決之前，
 已經被保存到持久性存儲中的 API 版本都不可以被移除。
 你可以禁止這些版本所對應的 REST 末端（在符合本文中棄用時間線的前提下），
-但是 API 服務器必須仍能解析和轉換存儲中以前寫入的數據。
+但是 API 伺服器必須仍能解析和轉換存儲中以前寫入的數據。
 {{< /note >}}
 
 <!--
@@ -214,9 +214,9 @@ version X, which introduces a new API group. A new Kubernetes release is made
 every approximately 4 months (3 per year). The following table describes which
 API versions are supported in a series of subsequent releases.
 -->
-用戶必須能夠升級到 Kubernetes 新的發行版本，之後再回滾到前一個發行版本，
+使用者必須能夠升級到 Kubernetes 新的發行版本，之後再回滾到前一個發行版本，
 且整個過程中無需針對新的 API 版本做任何轉換，也不允許出現功能損壞的情況，
-除非用戶顯式地使用了僅在較新版本中才存在的功能特性。
+除非使用者顯式地使用了僅在較新版本中才存在的功能特性。
 就對象的存儲表示而言，這一點尤其是不言自明的。
 
 以上所有規則最好通過例子來說明。假定現有 Kubernetes 發行版本爲 X，其中引入了新的 API 組。
@@ -492,9 +492,9 @@ API v1 被移除之前一直存在且起作用。
 
 Component configs are versioned and managed similar to REST resources.
 -->
-### 組件配置結構  {#component-config-structures}
+### 組件設定結構  {#component-config-structures}
 
-組件的配置也是有版本的，並且按 REST 資源的方式來管理。
+組件的設定也是有版本的，並且按 REST 資源的方式來管理。
 
 <!--
 ### Future work
@@ -520,8 +520,8 @@ prefixed or documented as "alpha" or "beta", it is considered GA.
 ## 棄用一個標誌或 CLI 命令
 
 Kubernetes 系統中包含若干不同的、相互協作的程序。
-有時，Kubernetes 可能會刪除這些程序的某些標誌或 CLI 命令（統稱“命令行元素”）。
-這些程序可以天然地劃分到兩個大組中：面向用戶的和麪向管理員的程序。
+有時，Kubernetes 可能會刪除這些程序的某些標誌或 CLI 命令（統稱“命令列元素”）。
+這些程序可以天然地劃分到兩個大組中：面向使用者的和麪向管理員的程序。
 二者之間的棄用策略略有不同。
 除非某個標誌顯示地通過前綴或文檔來標明其爲“alpha”或“beta”，
 該標誌要被視作正式發佈的（GA）。
@@ -531,7 +531,7 @@ CLI elements are effectively part of the API to the system, but since they are
 not versioned in the same way as the REST API, the rules for deprecation are as
 follows:
 -->
-命令行元素相當於系統的 API 的一部分，不過因爲它們並沒有採用 REST API
+命令列元素相當於系統的 API 的一部分，不過因爲它們並沒有採用 REST API
 一樣的方式來管理版本，其棄用規則規定如下：
 
 <!--
@@ -542,7 +542,7 @@ after their announced deprecation for no less than:**
 * **Beta: 3 months or 1 release (whichever is longer)**
 * **Alpha: 0 releases**
 -->
-**規則 #5a：面向用戶的命令行元素（例如，kubectl）必須在其宣佈被棄用其在以下時長內仍能使用：**
+**規則 #5a：面向使用者的命令列元素（例如，kubectl）必須在其宣佈被棄用其在以下時長內仍能使用：**
 
 * **GA：12 個月或者 2 個發佈版本（取其較長者）**
 * **Beta：3 個月或者 1 個發佈版本（取其較長者）**
@@ -556,7 +556,7 @@ after their announced deprecation for no less than:**
 * **Beta: 3 months or 1 release (whichever is longer)**
 * **Alpha: 0 releases**
 -->
-**規則 #5b：面向管理員的命令行元素（例如，kubelet）必須在其被宣佈棄用之後以下時長內保持可用：**
+**規則 #5b：面向管理員的命令列元素（例如，kubelet）必須在其被宣佈棄用之後以下時長內保持可用：**
 
 * **GA：6 個月或 1 個發行版本（取其較長者）**
 * **Beta: 3 個月或 1 個發行版本（取其較長者）**
@@ -572,10 +572,10 @@ use configuration sourced from a file
 instead of a command line argument, that recommended alternative must be of
 the same or higher stability level.
 -->
-**規則 #5c：不可以爲了支持穩定性更差的 CLI 元素而棄用現有命令行（CLI）元素**
+**規則 #5c：不可以爲了支持穩定性更差的 CLI 元素而棄用現有命令列（CLI）元素**
 
-類似於 API 的規則 #3，如果命令行的某個元素被替換爲另一種實現方式，
-例如通過重命名現有元素或者通過使用來自文件的配置替代命令行參數，
+類似於 API 的規則 #3，如果命令列的某個元素被替換爲另一種實現方式，
+例如通過重命名現有元素或者通過使用來自文件的設定替代命令列參數，
 那麼推薦的替代方式的穩定性必須相同或更高。
 
 <!--
@@ -624,7 +624,7 @@ for exploring new use cases of a feature or getting an early feedback on the rep
 規則 #8：不得因爲偏好穩定性更差的替代實現而棄用現有特性或行爲。
 
 例如，不可以因爲偏好某 Beta 階段的替代方式而棄用對應的已正式發佈（GA）的特性。
-然而，Kubernetes 項目鼓勵用戶在替代實現達到相同成熟水平之前就採用並過渡到替代實現。
+然而，Kubernetes 項目鼓勵使用者在替代實現達到相同成熟水平之前就採用並過渡到替代實現。
 這對於探索某特性的全新用例或對替代實現提供早期反饋尤爲重要。
 
 <!--
@@ -648,8 +648,8 @@ correctness of applications running on Kubernetes or that impact the
 administration of Kubernetes clusters, and which are being removed entirely.
 -->
 特性和行爲的棄用規則並不意味着對系統的所有更改都受此策略約束。
-這些規則僅適用於重大的、用戶可見的行爲；這些行爲會影響到在 Kubernetes
-中運行的應用的正確性，或者影響到 Kubernetes 集羣的管理。
+這些規則僅適用於重大的、使用者可見的行爲；這些行爲會影響到在 Kubernetes
+中運行的應用的正確性，或者影響到 Kubernetes 叢集的管理。
 這些規則也適用於那些被整個移除的功能特性或行爲。
 
 <!--
@@ -661,7 +661,7 @@ are not intended to be long-term APIs. As such, they are expected to be deprecat
 and removed after a feature becomes GA or is dropped.
 -->
 上述規則的一個例外是 **特性門控（Feature Gate）**。特性門控是一些鍵值偶對，
-允許用戶啓用或禁用一些試驗性的功能特性。
+允許使用者啓用或禁用一些試驗性的功能特性。
 
 特性門控意在覆蓋功能特性的整個開發週期，它們無意成爲長期的 API。
 因此，它們會在某功能特性正式發佈或被拋棄之後被棄用和刪除。
@@ -680,8 +680,8 @@ The feature life cycle matched to its corresponding feature gate is:
 隨着一個功能特性經過不同的成熟階段，相關的特性門控也會演化。
 與功能特性生命週期對應的特性門控狀態爲：
 
-* Alpha：特性門控默認被禁用，只能由用戶顯式啓用。
-* Beta：特性門控默認被棄用，可被用戶顯式禁用。
+* Alpha：特性門控默認被禁用，只能由使用者顯式啓用。
+* Beta：特性門控默認被棄用，可被使用者顯式禁用。
 * GA: 特性門控被棄用（參見[棄用](#deprecation)），並且不再起作用。
 * GA，棄用窗口期結束：特性門控被移除，不再接受調用。
 
@@ -723,7 +723,7 @@ feature in the associated feature gate.
 Versioning for feature gates is different from the previously discussed components,
 therefore the rules for deprecation are as follows:
 -->
-意在允許用戶禁用的功能特性應該包含一個在相關聯的特性門控中禁用該功能的機制。
+意在允許使用者禁用的功能特性應該包含一個在相關聯的特性門控中禁用該功能的機制。
 
 特性門控的版本管理與之前討論的組件版本管理不同，因此其對應的棄用策略如下：
 
@@ -768,7 +768,7 @@ deprecating and removing a metric are as follows:
 -->
 ### 棄用度量值    {#deprecating-a-metric}
 
-Kubernetes 控制平面的每個組件都公開度量值（通常是 `/metrics` 端點），它們通常由集羣管理員使用。
+Kubernetes 控制平面的每個組件都公開度量值（通常是 `/metrics` 端點），它們通常由叢集管理員使用。
 並不是所有的度量值都是同樣重要的：一些度量值通常用作 SLIs 或被使用來確定 SLOs，這些往往比較重要。
 其他度量值在本質上帶有實驗性，或者主要用於 Kubernetes 開發過程。
 
@@ -826,8 +826,8 @@ deleted after one release.
 在隨後的版本中（當度量值 `deprecatedVersion` 等於 **當前 Kubernetes 版本 - 3**），
 被棄用的度量值將變成 **隱藏（Hidden）** metric 度量值。
 與被棄用的度量值不同，隱藏的度量值將不再被自動註冊到 metrics 端點（因此被隱藏）。
-但是，它們可以通過可執行文件的命令行標誌顯式啓用（`--show-hidden-metrics-for-version=`）。
-如果集羣管理員不能對早期的棄用警告作出反應，這一設計就爲他們提供了抓緊遷移棄用度量值的途徑。
+但是，它們可以通過可執行文件的命令列標誌顯式啓用（`--show-hidden-metrics-for-version=`）。
+如果叢集管理員不能對早期的棄用警告作出反應，這一設計就爲他們提供了抓緊遷移棄用度量值的途徑。
 隱藏的度量值應該在再過一個發行版本後被刪除。
 
 <!--
@@ -848,4 +848,4 @@ relevant release notes.
 在實踐中，會有一些情況無法很好地匹配到這裏的棄用策略，
 或者這裏的策略變成了很嚴重的羈絆。這類情形要與 SIG 和項目領導討論，
 尋求對應場景的最佳解決方案。請一直銘記，Kubernetes 承諾要成爲一個穩定的系統，
-至少會盡力做到不會影響到其用戶。此棄用策略的任何例外情況都會在所有相關的發佈說明中公佈。
+至少會盡力做到不會影響到其使用者。此棄用策略的任何例外情況都會在所有相關的發佈說明中公佈。

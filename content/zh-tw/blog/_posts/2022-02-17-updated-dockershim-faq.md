@@ -112,7 +112,7 @@ Additionally, features that were largely incompatible with the dockershim, such
 as cgroups v2 and user namespaces are being implemented in these newer CRI
 runtimes. Removing the dockershim from Kubernetes allows further development in those areas.
 -->
-此外，在較新的 CRI 運行時中實現了與 dockershim 不兼容的功能，例如 cgroups v2 和用戶命名空間。
+此外，在較新的 CRI 運行時中實現了與 dockershim 不兼容的功能，例如 cgroups v2 和使用者命名空間。
 從 Kubernetes 中移除 dockershim 允許在這些領域進行進一步的開發。
 
 <!--
@@ -136,26 +136,26 @@ OCI 和 CRI 等標準幫助許多工具在我們的生態系統中發展壯大�
 <!--
 ### Will my existing container images still work?
 -->
-### 我現有的容器鏡像是否仍然有效？ {#will-my-existing-container-images-still-work}
+### 我現有的容器映像檔是否仍然有效？ {#will-my-existing-container-images-still-work}
 
 <!--
 Yes, the images produced from `docker build` will work with all CRI implementations.
 All your existing images will still work exactly the same.
 -->
-是的，從 `docker build` 生成的鏡像將適用於所有 CRI 實現，
-現有的所有鏡像仍將完全相同。
+是的，從 `docker build` 生成的映像檔將適用於所有 CRI 實現，
+現有的所有映像檔仍將完全相同。
 
 <!--
 #### What about private images?
 -->
-#### 私有鏡像呢？ {#what-about-private-images}
+#### 私有映像檔呢？ {#what-about-private-images}
 
 <!--
 Yes. All CRI runtimes support the same pull secrets configuration used in
 Kubernetes, either via the PodSpec or ServiceAccount.
 -->
 當然可以，所有 CRI 運行時都支持在 Kubernetes 中使用的相同的 pull secrets
-配置，無論是通過 PodSpec 還是 ServiceAccount。
+設定，無論是通過 PodSpec 還是 ServiceAccount。
 
 <!--
 ### Can I still use Docker Engine in Kubernetes 1.23?
@@ -212,7 +212,7 @@ You can still use Docker locally no matter what container runtime(s) you use for
 Kubernetes clusters. Containers make this kind of interoperability possible.
 -->
 首先，如果你在自己的電腦上使用 Docker 用來做開發或測試容器：它將與之前沒有任何變化。
-無論你爲 Kubernetes 集羣使用什麼容器運行時，你都可以在本地使用 Docker。容器使這種交互成爲可能。
+無論你爲 Kubernetes 叢集使用什麼容器運行時，你都可以在本地使用 Docker。容器使這種交互成爲可能。
 
 <!--
 Mirantis and Docker have [committed][mirantis] to maintaining a replacement adapter for
@@ -282,7 +282,7 @@ provide an end-to-end standard for managing containers.
 -->
 OCI 是 [Open Container Initiative](https://opencontainers.org/about/overview/) 的縮寫，
 它標準化了容器工具和底層實現之間的大量接口。
-它們維護了打包容器鏡像（OCI image）和運行時（OCI runtime）的標準規範。
+它們維護了打包容器映像檔（OCI image）和運行時（OCI runtime）的標準規範。
 它們還以 [runc](https://github.com/opencontainers/runc) 的形式維護了一個 runtime-spec 的真實實現，
 這也是 [containerd](https://containerd.io/) 和 [CRI-O](https://cri-o.io/) 依賴的默認運行時。
 CRI 建立在這些底層規範之上，爲管理容器提供端到端的標準。
@@ -313,12 +313,12 @@ common things to consider when migrating are:
   outside of Kubernetes (for example, monitoring or security agents)
 - GPUs or special hardware and how they integrate with your runtime and Kubernetes
 -->
-- 日誌配置
+- 日誌設定
 - 運行時的資源限制
-- 調用 docker 或通過其控制套接字使用 Docker Engine 的節點配置腳本
+- 調用 docker 或通過其控制套接字使用 Docker Engine 的節點設定腳本
 - 需要 `docker` 命令或 Docker Engine 控制套接字的 `kubectl` 插件
 - 需要直接訪問 Docker Engine 的 Kubernetes 工具（例如：已棄用的 'kube-imagepuller' 工具）
-- 配置 `registry-mirrors` 和不安全的鏡像倉庫等功能
+- 設定 `registry-mirrors` 和不安全的映像檔倉庫等功能
 - 保障 Docker Engine 可用、且運行在 Kubernetes 之外的腳本或守護進程（例如：監視或安全代理）
 - GPU 或特殊硬件，以及它們如何與你的運行時和 Kubernetes 集成
 
@@ -329,7 +329,7 @@ your `dockerd` configuration, you’ll need to adapt that for your new container
 runtime where possible.
 -->
 如果你只是用了 Kubernetes 資源請求/限制或基於文件的日誌收集 DaemonSet，它們將繼續穩定工作，
-但是如果你用了自定義了 dockerd 配置，則可能需要爲新的容器運行時做一些適配工作。
+但是如果你用了自定義了 dockerd 設定，則可能需要爲新的容器運行時做一些適配工作。
 
 <!--
 Another thing to look out for is anything expecting to run for system maintenance
@@ -339,7 +339,7 @@ former, you can use the [`crictl`][cr] tool as a drop-in replacement (see
 and for the latter you can use newer container build options like [img], [buildah],
 [kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 -->
-另外還有一個需要關注的點，那就是當創建鏡像時，系統維護或嵌入容器方面的任務將無法工作。
+另外還有一個需要關注的點，那就是當創建映像檔時，系統維護或嵌入容器方面的任務將無法工作。
 對於前者，可以用 [`crictl`](https://github.com/kubernetes-sigs/cri-tools) 工具作爲臨時替代方案
 (參閱[從 docker cli 到 crictl 的映射](/zh-cn/docs/tasks/debug/debug-cluster/crictl/#mapping-from-docker-cli-to-crictl))。
 對於後者，可以用新的容器創建選項，例如
@@ -354,7 +354,7 @@ For containerd, you can start with their [documentation] to see what configurati
 options are available as you migrate things over.
 -->
 對於 containerd，你可查閱有關它的[文檔](https://github.com/containerd/cri/blob/master/docs/registry.md)，
-獲取遷移時可用的配置選項。
+獲取遷移時可用的設定選項。
 
 <!--
 For instructions on how to use containerd and CRI-O with Kubernetes, see the
@@ -374,7 +374,7 @@ upgrade plans for their products. For end-user questions, please post them
 to our end user community forum: https://discuss.kubernetes.io/.
 -->
 如果你使用了供應商支持的 Kubernetes 發行版，你可以諮詢供應商他們產品的升級計劃。
-對於最終用戶的問題，請把問題發到我們的最終用戶社區的[論壇](https://discuss.kubernetes.io/)。
+對於最終使用者的問題，請把問題發到我們的最終使用者社區的[論壇](https://discuss.kubernetes.io/)。
 
 <!--
 You can discuss the decision to remove dockershim via a dedicated
@@ -403,7 +403,7 @@ are mounting the Docker Engine socket (`docker.sock`) as a volume.
 Find more details and usage patterns in the DDS project's [README][dds].
 -->
 是的！ [Docker Socket 檢測器 (DDS)][dds] 是一個 kubectl 插件，
-你可以安裝它用於檢查你的集羣。 DDS 可以檢測運行中的 Kubernetes
+你可以安裝它用於檢查你的叢集。 DDS 可以檢測運行中的 Kubernetes
 工作負載是否將 Docker Engine 套接字 (`docker.sock`) 作爲卷掛載。
 在 DDS 項目的 [README][dds] 中查找更多詳細信息和使用方法。
 

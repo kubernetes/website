@@ -37,7 +37,7 @@ kubeadm join phase control-plane-join mark-control-plane [flags]
 <!--
 <p>Path to a kubeadm configuration file.</p>
 -->
-<p>kubeadm 配置文件的路徑。</p>
+<p>kubeadm 設定文件的路徑。</p>
 </td>
 </tr>
 

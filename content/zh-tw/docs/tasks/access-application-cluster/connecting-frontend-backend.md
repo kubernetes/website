@@ -35,8 +35,8 @@ Kubernetes {{< glossary_tooltip term_id="service" >}} object.
 * 使用部署對象（Deployment object）創建並運行一個 `hello` 後端微服務
 * 使用一個 Service 對象將請求流量發送到後端微服務的多個副本
 * 同樣使用一個 Deployment 對象創建並運行一個 `nginx` 前端微服務
-* 配置前端微服務將請求流量發送到後端微服務
-* 使用 `type=LoadBalancer` 的 Service 對象將前端微服務暴露到集羣外部
+* 設定前端微服務將請求流量發送到後端微服務
+* 使用 `type=LoadBalancer` 的 Service 對象將前端微服務暴露到叢集外部
 
 ## {{% heading "prerequisites" %}}
 
@@ -63,7 +63,7 @@ file for the backend Deployment:
 -->
 ### 使用部署對象（Deployment）創建後端   {#creating-the-backend-using-a-deployment}
 
-後端是一個簡單的 hello 歡迎微服務應用。這是後端應用的 Deployment 配置文件：
+後端是一個簡單的 hello 歡迎微服務應用。這是後端應用的 Deployment 設定文件：
 
 {{% code_sample file="service/access/backend-deployment.yaml" %}}
 
@@ -143,7 +143,7 @@ First, explore the Service configuration file:
 {{< glossary_tooltip text="選擇算符" term_id="selector" >}} 
 來尋找目標 Pod。
 
-首先，瀏覽 Service 的配置文件：
+首先，瀏覽 Service 的設定文件：
 
 {{% code_sample file="service/access/backend-service.yaml" %}}
 
@@ -151,7 +151,7 @@ First, explore the Service configuration file:
 In the configuration file, you can see that the Service, named `hello` routes
 traffic to Pods that have the labels `app: hello` and `tier: backend`.
 -->
-配置文件中，你可以看到名爲 `hello` 的 Service 將流量路由到包含 `app: hello`
+設定文件中，你可以看到名爲 `hello` 的 Service 將流量路由到包含 `app: hello`
 和 `tier: backend` 標籤的 Pod。
 
 <!--
@@ -169,7 +169,7 @@ application, and you have a Service that can route traffic to them. However, thi
 service is neither available nor resolvable outside the cluster.
 -->
 此時，你已經有了一個運行着 `hello` 應用的三個副本的 `backend` Deployment，你也有了
-一個 Service 用於路由網絡流量。不過，這個服務在集羣外部無法訪問也無法解析。
+一個 Service 用於路由網路流量。不過，這個服務在叢集外部無法訪問也無法解析。
 
 <!--
 ## Creating the frontend
@@ -187,15 +187,15 @@ to proxy requests to the `hello` backend Service. Here is the nginx configuratio
 -->
 ### 創建前端   {#creating-the-frontend}
 
-現在你已經有了運行中的後端應用，你可以創建一個可在集羣外部訪問的前端，並通過代理
+現在你已經有了運行中的後端應用，你可以創建一個可在叢集外部訪問的前端，並通過代理
 前端的請求連接到後端。
 
 前端使用被賦予後端 Service 的 DNS 名稱將請求發送到後端工作 Pods。這一 DNS
-名稱爲 `hello`，也就是 `examples/service/access/backend-service.yaml` 配置
+名稱爲 `hello`，也就是 `examples/service/access/backend-service.yaml` 設定
 文件中 `name` 字段的取值。
 
-前端 Deployment 中的 Pods 運行一個 nginx 鏡像，這個已經配置好的鏡像會將請求轉發
-給後端的 `hello` Service。下面是  nginx 的配置文件：
+前端 Deployment 中的 Pods 運行一個 nginx 映像檔，這個已經設定好的映像檔會將請求轉發
+給後端的 `hello` Service。下面是  nginx 的設定文件：
 
 {{% code_sample file="service/access/frontend-nginx.conf" %}}
 
@@ -207,8 +207,8 @@ the Service uses a load balancer provisioned by your cloud provider and will be
 accessible from outside the cluster.
 -->
 與後端類似，前端用包含一個 Deployment 和一個 Service。後端與前端服務之間的一個
-重要區別是前端 Service 的配置文件包含了 `type: LoadBalancer`，也就是說，Service
-會使用你的雲服務商的默認負載均衡設備，從而實現從集羣外訪問的目的。
+重要區別是前端 Service 的設定文件包含了 `type: LoadBalancer`，也就是說，Service
+會使用你的雲服務商的默認負載均衡設備，從而實現從叢集外訪問的目的。
 
 {{% code_sample file="service/access/frontend-service.yaml" %}}
 
@@ -243,11 +243,11 @@ be to use a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 so that you can change the configuration more easily.
 -->
-這個 nginx 配置文件是被打包在
-[容器鏡像](/examples/service/access/Dockerfile) 裏的。
+這個 nginx 設定文件是被打包在
+[容器映像檔](/examples/service/access/Dockerfile) 裏的。
 更好的方法是使用
 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)，
-這樣的話你可以更輕易地更改配置。
+這樣的話你可以更輕易地更改設定。
 {{< /note >}}
 
 <!--
@@ -279,7 +279,7 @@ frontend   LoadBalancer   10.51.252.116   <pending>     80/TCP   10s
 As soon as an external IP is provisioned, however, the configuration updates
 to include the new IP under the `EXTERNAL-IP` heading:
 -->
-當外部 IP 地址被分配可用時，配置會更新，在 `EXTERNAL-IP` 頭部下顯示新的 IP：
+當外部 IP 地址被分配可用時，設定會更新，在 `EXTERNAL-IP` 頭部下顯示新的 IP：
 
 ```
 NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
@@ -290,7 +290,7 @@ frontend   LoadBalancer   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 That IP can now be used to interact with the `frontend` service from outside the
 cluster.
 -->
-這一新的 IP 地址就可以用來從集羣外與 `frontend` 服務交互了。
+這一新的 IP 地址就可以用來從叢集外與 `frontend` 服務交互了。
 
 
 <!--

@@ -37,7 +37,7 @@ After successfully implementing [“development distro” scripts to automate de
 <!--
 We automated our workflow for executing e2e tests of Kubernetes on Azure by defining a nightly job in our private Jenkins server. Figure 2 shows the workflow that uses kube-up.sh to deploy Kubernetes on Ubuntu virtual machines running in Azure, then executes the e2e tests. On completion of the tests, the job uploads the test results and logs to a Google Cloud Storage directory, in a format that can be processed by the [scripts that produce the test history dashboard](https://github.com/kubernetes/test-infra/tree/master/jenkins/test-history). Our Jenkins job uses the hack/jenkins/e2e-runner.sh and hack/jenkins/upload-to-gcs.sh scripts to produce the results in the correct format.  
 -->
-通過在私有 Jenkins 服務器中定義夜間工作，我們自動化了在 Azure 上執行 Kubernetes 端到端測試的工作流程。圖2顯示了使用 kube-up.sh 在運行於 Azure 的 Ubuntu 虛擬機上部署 Kubernetes，然後執行端到端測試的工作流程。測試完成後，該作業將測試結果和日誌上傳到 Google Cloud Storage 目錄中，其格式可以由 [生成測試歷史記錄儀錶板的腳本](https://github.com/kubernetes/test-infra/tree/master/jenkins/test-history) 進行處理。我們的 Jenkins 作業使用 hack/jenkins/e2e-runner.sh 和 hack/jenkins/upload-to-gcs.sh 腳本生成正確格式的結果。
+通過在私有 Jenkins 伺服器中定義夜間工作，我們自動化了在 Azure 上執行 Kubernetes 端到端測試的工作流程。圖2顯示了使用 kube-up.sh 在運行於 Azure 的 Ubuntu 虛擬機上部署 Kubernetes，然後執行端到端測試的工作流程。測試完成後，該作業將測試結果和日誌上傳到 Google Cloud Storage 目錄中，其格式可以由 [生成測試歷史記錄儀錶板的腳本](https://github.com/kubernetes/test-infra/tree/master/jenkins/test-history) 進行處理。我們的 Jenkins 作業使用 hack/jenkins/e2e-runner.sh 和 hack/jenkins/upload-to-gcs.sh 腳本生成正確格式的結果。
 
 <!--
 | ![Kubernetes on Azure - Flow Chart - New Page.png](https://lh6.googleusercontent.com/TZiUu4sQ7G0XDvJgv9a1a4UEdxntOZDT9I3S42c8BOAyigxaysKmhJMen8vLaJ3UYaYKPIG9h-cyBOvTSI6kBgqnUQabe4xxZXhrUyVxinKGEaCDUnmNlBo__HNjzoYc_U7zM77_Dxe) |
@@ -69,7 +69,7 @@ Throughout our work to create the Azure e2e test job, we have collaborated with 
 <!--
 The federated tests documentation describes these steps in more detail. The scripts to run e2e tests and upload results simplifies the work to contribute a new federated test job. The specific steps to set up an automated test job and an appropriate environment in which to deploy Kubernetes are left to the reader’s preferences. For organizations using Jenkins, the jenkins-job-builder configurations for GCE and GKE tests may provide helpful examples.  
 -->
-聯合測試文檔更詳細地描述了這些步驟。運行端到端測試並上傳結果的腳本簡化了貢獻新聯合測試作業的工作量。設置自動化測試作業的具體步驟以及在其中部署 Kubernetes 的合適環境將留給讀者進行選擇。對於使用 Jenkins 的組織，用於 GCE 和 GKE 測試的 jenkins-job-builder 配置可能會提供有用的示例。
+聯合測試文檔更詳細地描述了這些步驟。運行端到端測試並上傳結果的腳本簡化了貢獻新聯合測試作業的工作量。設置自動化測試作業的具體步驟以及在其中部署 Kubernetes 的合適環境將留給讀者進行選擇。對於使用 Jenkins 的組織，用於 GCE 和 GKE 測試的 jenkins-job-builder 設定可能會提供有用的示例。
 
 
 <!--
@@ -84,7 +84,7 @@ Azure 上的端到端測試已經運行了幾周。在此期間，我們在 Kube
 <!--
 The first issue happened when we wanted to bring up the Kubernetes cluster using SaltStack on Azure using Ubuntu VMs. A commit (07d7cfd3) modified the OpenVPN certificate generation script to use a variable that was only initialized by scripts in the cluster/ubuntu. Strict checking on existence of parameters by the certificate generation script caused other platforms that use the script to fail (e.g. our changes to support Azure). We submitted a [pull-request that fixed the issue](https://github.com/kubernetes/kubernetes/pull/21357) by initializing the variable with a default value to make the certificate generation scripts more robust across all platform types.  
 -->
-當我們想用 Ubuntu VM 在 Azure 上用 SaltStack 打開 Kubernetes 集羣時，發生了第一個問題。一個提交 (07d7cfd3) 修改了 OpenVPN 證書生成腳本，使用了一個僅由集羣或者ubuntu中的腳本初始化的變量。證書生成腳本對參數是否存在進行嚴格檢查會導致其他使用該腳本的平臺失敗（例如，爲支持 Azure 而進行的更改）。我們提交了一個[解決問題的請求](https://github.com/kubernetes/kubernetes/pull/21357) ，通過使用默認值初始化變量讓證書生成腳本在所有平臺類型上都更加健壯，。
+當我們想用 Ubuntu VM 在 Azure 上用 SaltStack 打開 Kubernetes 叢集時，發生了第一個問題。一個提交 (07d7cfd3) 修改了 OpenVPN 證書生成腳本，使用了一個僅由叢集或者ubuntu中的腳本初始化的變量。證書生成腳本對參數是否存在進行嚴格檢查會導致其他使用該腳本的平臺失敗（例如，爲支持 Azure 而進行的更改）。我們提交了一個[解決問題的請求](https://github.com/kubernetes/kubernetes/pull/21357) ，通過使用默認值初始化變量讓證書生成腳本在所有平臺類型上都更加健壯，。
 
 <!--
 The second [pull-request cleaned up an unused import](https://github.com/kubernetes/kubernetes/pull/22321) in the Daemonset unit test file. The import statement broke the unit tests with golang 1.4. Our nightly Jenkins job helped us find this error and we promptly pushed a fix for it.  

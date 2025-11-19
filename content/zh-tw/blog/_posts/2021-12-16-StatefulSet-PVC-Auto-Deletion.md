@@ -45,7 +45,7 @@ created by a StatefulSet and what their lifecycle should be.
 -->
 StatefulSet 規約中可以包含 Pod 和 PVC 的模板。當副本先被創建時，如果 PVC 還不存在，
 Kubernetes 控制面會爲該副本自動創建一個 PVC。在 Kubernetes 1.23 版本之前，
-控制面不會刪除 StatefulSet 創建的 PVCs——這依賴集羣管理員或你需要部署一些額外的適用的自動化工具來處理。
+控制面不會刪除 StatefulSet 創建的 PVCs——這依賴叢集管理員或你需要部署一些額外的適用的自動化工具來處理。
 管理 PVC 的常見模式是通過手動或使用 Helm 等工具，PVC 的具體生命週期由管理它的工具跟蹤。
 使用 StatefulSet 時必須自行確定 StatefulSet 創建哪些 PVC，以及它們的生命週期應該是什麼。
 
@@ -155,12 +155,12 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
     new replicas will automatically use them.
 -->
   * **`whenDeleted` 是 `Retain` 但 `whenScaled` 是 `Delete`。** 這與前一種情況類似，
-    在增加副本時用保留的 PVCs 快速重構幾乎沒有什麼益處。例如 Elasticsearch 集羣就是使用的這種方式。
+    在增加副本時用保留的 PVCs 快速重構幾乎沒有什麼益處。例如 Elasticsearch 叢集就是使用的這種方式。
     通常，你需要增大或縮小工作負載來滿足業務訴求，同時確保最小數量的副本（例如：3）。
     當減少副本時，數據將從已刪除的副本遷移出去，保留這些 PVCs 沒有任何用處。
-    但是，這對臨時關閉整個 Elasticsearch 集羣進行維護時是很有用的。
+    但是，這對臨時關閉整個 Elasticsearch 叢集進行維護時是很有用的。
     如果需要使 Elasticsearch 系統脫機，可以通過臨時刪除 StatefulSet 來實現，
-    然後通過重新創建 StatefulSet 來恢復 Elasticsearch 集羣。
+    然後通過重新創建 StatefulSet 來恢復 Elasticsearch 叢集。
     保存 Elasticsearch 數據的 PVCs 不會被刪除，新的副本將自動使用它們。
   
 <!--
@@ -180,7 +180,7 @@ see all the details.
 Enable the feature and try it out! Enable the `StatefulSetAutoDeletePVC` feature gate on a cluster,
 then create a StatefulSet using the new policy. Test it out and tell us what you think!
 -->
-啓用該功能並嘗試一下！在集羣上啓用 `StatefulSetAutoDeletePVC` 功能，然後使用新策略創建 StatefulSet。
+啓用該功能並嘗試一下！在叢集上啓用 `StatefulSetAutoDeletePVC` 功能，然後使用新策略創建 StatefulSet。
 測試一下，告訴我們你的體驗！
 
 <!--

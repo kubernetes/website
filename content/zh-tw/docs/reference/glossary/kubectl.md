@@ -4,7 +4,7 @@ id: kubectl
 date: 2018-04-12
 full_link: /zh-cn/docs/reference/kubectl/
 short_description: >
-  kubectl 是用來和 Kubernetes 集羣進行通信的命令行工具。
+  kubectl 是用來和 Kubernetes 叢集進行通信的命令列工具。
 
 aka: 
 - kubectl
@@ -37,7 +37,7 @@ using the Kubernetes API.
 -->
 
 kubectl 是使用 Kubernetes API 與 Kubernetes 
-集羣的{{<glossary_tooltip text="控制面" term_id="control-plane" >}}進行通信的命令行工具。
+叢集的{{<glossary_tooltip text="控制面" term_id="control-plane" >}}進行通信的命令列工具。
 <!--more--> 
 
 <!--

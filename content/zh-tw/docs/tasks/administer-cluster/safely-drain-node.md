@@ -36,7 +36,7 @@ This task assumes that you have met the following prerequisites:
 
 1. 在節點清空期間，不要求應用具有高可用性
 2. 你已經瞭解了 [PodDisruptionBudget 的概念](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
-   併爲需要它的應用[配置了 PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)。
+   併爲需要它的應用[設定了 PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)。
 
 <!-- steps -->
 
@@ -55,12 +55,12 @@ to your PodDisruptionBudgets to support eviction of misbehaving applications dur
 The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
 before the drain can proceed.
 -->
-## （可選）配置干擾預算 {#configure-poddisruptionbudget}
+## （可選）設定干擾預算 {#configure-poddisruptionbudget}
 
-爲了確保你的負載在維護期間仍然可用，你可以配置一個
+爲了確保你的負載在維護期間仍然可用，你可以設定一個
 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
 如果可用性對於正在清空的該節點上運行或可能在該節點上運行的任何應用程序很重要，
-首先 [配置一個 PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/) 並繼續遵循本指南。
+首先 [設定一個 PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/) 並繼續遵循本指南。
 
 建議爲你的 PodDisruptionBudgets 設置 `AlwaysAllow` 
 [不健康 Pod 驅逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，
@@ -124,7 +124,7 @@ If you or another API user directly set the [`nodeName`](/docs/concepts/scheduli
 field for a Pod (bypassing the scheduler), then the Pod is bound to the specified node
 and will run there, even though you have drained that node and marked it unschedulable.
 -->
-如果你或另一個 API 用戶（繞過調度器）直接爲 Pod 設置了
+如果你或另一個 API 使用者（繞過調度器）直接爲 Pod 設置了
 [`nodeName`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodename)字段，
 則即使你已將該節點清空並標記爲不可調度，Pod 仍將被綁定到這個指定的節點並在該節點上運行。
 {{< /note >}}
@@ -132,7 +132,7 @@ and will run there, even though you have drained that node and marked it unsched
 <!--
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
 -->
-首先，確定想要清空的節點的名稱。可以用以下命令列出集羣中的所有節點:
+首先，確定想要清空的節點的名稱。可以用以下命令列出叢集中的所有節點:
 
 ```shell
 kubectl get nodes
@@ -167,7 +167,7 @@ If you leave the node in the cluster during the maintenance operation, you need 
 -->
 一旦它返回（沒有報錯），
 你就可以下線此節點（或者等價地，如果在雲平臺上，刪除支持該節點的虛擬機）。
-如果要在維護操作期間將節點留在集羣中，則需要運行：
+如果要在維護操作期間將節點留在叢集中，則需要運行：
 
 ```shell
 kubectl uncordon <node name>
@@ -234,5 +234,5 @@ For more information, see [API-initiated eviction](/docs/concepts/scheduling-evi
 <!-- 
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 -->
-* 執行[配置 PDB](/zh-cn/docs/tasks/run-application/configure-pdb/) 中的各個步驟，
+* 執行[設定 PDB](/zh-cn/docs/tasks/run-application/configure-pdb/) 中的各個步驟，
   保護你的應用。

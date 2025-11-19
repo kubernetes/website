@@ -21,7 +21,7 @@ that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
 nodes.
 -->
-本文展示如何限制應用程序的併發干擾數量，在允許集羣管理員管理集羣節點的同時保證高可用。
+本文展示如何限制應用程序的併發干擾數量，在允許叢集管理員管理叢集節點的同時保證高可用。
 
 ## {{% heading "prerequisites" %}}
 
@@ -36,11 +36,11 @@ nodes.
 - You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
 -->
-- 你是 Kubernetes 集羣中某應用的所有者，該應用有高可用要求。
+- 你是 Kubernetes 叢集中某應用的所有者，該應用有高可用要求。
 - 你應瞭解如何部署[無狀態應用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
   和/或[有狀態應用](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
 - 你應當已經閱讀過關於 [Pod 干擾](/zh-cn/docs/concepts/workloads/pods/disruptions/)的文檔。
-- 用戶應當與集羣所有者或服務提供者確認其遵從 Pod 干擾預算（Pod Disruption Budgets）的規則。
+- 使用者應當與叢集所有者或服務提供者確認其遵從 Pod 干擾預算（Pod Disruption Budgets）的規則。
 
 <!-- steps -->
 
@@ -69,7 +69,7 @@ specified by one of the built-in Kubernetes controllers:
 -->
 ## 確定要保護的應用   {#identify-app-to-protect}
 
-用戶想要保護通過內置的 Kubernetes 控制器指定的應用，這是最常見的使用場景：
+使用者想要保護通過內置的 Kubernetes 控制器指定的應用，這是最常見的使用場景：
 
 - Deployment
 - ReplicationController
@@ -97,7 +97,7 @@ You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
 described in [Arbitrary workloads and arbitrary selectors](#arbitrary-controllers-and-selectors).
 -->
-用戶也可以用 PDB 來保護不受上述控制器控制的 Pod，或任意的 Pod 集合，但是正如
+使用者也可以用 PDB 來保護不受上述控制器控制的 Pod，或任意的 Pod 集合，但是正如
 [任意工作負載和任意選擇算符](#arbitrary-controllers-and-selectors)中描述的，這裏存在一些限制。
 
 <!--
@@ -137,7 +137,7 @@ due to a voluntary disruption.
   - 關注：不要在不通知的情況下終止該應用。
     - 可能的解決方案 1：不使用 PDB，並忍受偶爾的停機。
     - 可能的解決方案 2：設置 maxUnavailable=0 的 PDB。
-      意爲（Kubernetes 範疇之外的）集羣操作人員需要在終止應用前與用戶協商，
+      意爲（Kubernetes 範疇之外的）叢集操作人員需要在終止應用前與使用者協商，
       協商後準備停機，然後刪除 PDB 表示準備接受干擾，後續再重新創建。
 - 多實例有狀態應用，如 Consul、ZooKeeper 或 etcd：
   - 關注：不要將實例數量減少至低於仲裁規模，否則將出現寫入失敗。
@@ -232,7 +232,7 @@ that all have the same associated controller managing them. In the examples belo
 is the `scale` of the controller managing the pods being selected by the
 `PodDisruptionBudget`.
 -->
-用戶在同一個 `PodDisruptionBudget` 中只能夠指定 `maxUnavailable` 和 `minAvailable` 中的一個。
+使用者在同一個 `PodDisruptionBudget` 中只能夠指定 `maxUnavailable` 和 `minAvailable` 中的一個。
 `maxUnavailable` 只能夠用於控制存在同一個關聯控制器的 Pod 的驅逐（即不受控制器控制的 Pod 不在
 `maxUnavailable` 控制範圍內）。在下面的示例中，
 “所需副本”指的是相應控制器的 `scale`，控制器對 `PodDisruptionBudget` 所選擇的 Pod 進行管理。
@@ -304,7 +304,7 @@ This is permitted as per the semantics of `PodDisruptionBudget`.
 You can find examples of pod disruption budgets defined below. They match pods with the label
 `app: zookeeper`.
 -->
-用戶可以在下面看到 Pod 干擾預算定義的示例，它們與帶有 `app: zookeeper` 標籤的 Pod 相匹配：
+使用者可以在下面看到 Pod 干擾預算定義的示例，它們與帶有 `app: zookeeper` 標籤的 Pod 相匹配：
 
 <!--
 Example PDB Using minAvailable:
@@ -355,7 +355,7 @@ Use kubectl to check that your PDB is created.
 Assuming you don't actually have pods matching `app: zookeeper` in your namespace,
 then you'll see something like this:
 -->
-假設用戶的名字空間下沒有匹配 `app: zookeeper` 的 Pod，用戶會看到類似下面的信息：
+假設使用者的名字空間下沒有匹配 `app: zookeeper` 的 Pod，使用者會看到類似下面的信息：
 
 ```shell
 kubectl get poddisruptionbudgets
@@ -368,7 +368,7 @@ zk-pdb   2               N/A               0                     7s
 <!--
 If there are matching pods (say, 3), then you would see something like this:
 -->
-假設有匹配的 Pod（比如說 3 個），那麼用戶會看到類似下面的信息：
+假設有匹配的 Pod（比如說 3 個），那麼使用者會看到類似下面的信息：
 
 ```shell
 kubectl get poddisruptionbudgets
@@ -388,7 +388,7 @@ You can get more information about the status of a PDB with this command:
 `ALLOWED DISRUPTIONS` 值非 0 意味着干擾控制器已經感知到相應的 Pod，對匹配的 Pod 進行統計，
 並更新了 PDB 的狀態。
 
-用戶可以通過以下命令獲取更多 PDB 狀態相關信息：
+使用者可以通過以下命令獲取更多 PDB 狀態相關信息：
 
 ```shell
 kubectl get poddisruptionbudgets zk-pdb -o yaml
@@ -467,7 +467,7 @@ Policies:
 : 此策略確保已受干擾的應用程序所運行的 Pod 會儘可能成爲健康。
   這對騰空節點有負面影響，可能會因 PDB 守護的應用程序行爲錯誤而阻止騰空。
   更具體地說，這些應用程序的 Pod 處於 `CrashLoopBackOff` 狀態
-  （由於漏洞或錯誤配置）或其 Pod 只是未能報告 `Ready` 狀況。
+  （由於漏洞或錯誤設定）或其 Pod 只是未能報告 `Ready` 狀況。
 
 <!--
 `AlwaysAllow`
@@ -485,9 +485,9 @@ Policies:
   與是否滿足 PDB 中的判決條件無關。
 
 : 這意味着受干擾的應用程序所運行的 Pod 可能沒有機會恢復健康。
-  通過使用此策略，集羣管理器可以輕鬆驅逐由 PDB 所守護的行爲錯誤的應用程序。
+  通過使用此策略，叢集管理器可以輕鬆驅逐由 PDB 所守護的行爲錯誤的應用程序。
   更具體地說，這些應用程序的 Pod 處於 `CrashLoopBackOff` 狀態
-  （由於漏洞或錯誤配置）或其 Pod 只是未能報告 `Ready` 狀況。
+  （由於漏洞或錯誤設定）或其 Pod 只是未能報告 `Ready` 狀況。
 
 {{< note >}}
 <!--
@@ -535,8 +535,8 @@ workload resource. The eviction API will disallow eviction of any pod covered by
 so most users will want to avoid overlapping selectors. One reasonable use of overlapping
 PDBs is when pods are being transitioned from one PDB to another.
 -->
-你無法使用其他的可用性配置，因爲如果沒有被支持的屬主資源，Kubernetes 無法推導出 Pod 的總數。
+你無法使用其他的可用性設定，因爲如果沒有被支持的屬主資源，Kubernetes 無法推導出 Pod 的總數。
 
 你可以使用能夠選擇屬於工作負載資源的 Pod 的子集或超集的選擇算符。
-驅逐 API 將不允許驅逐被多個 PDB 覆蓋的任何 Pod，因此大多數用戶都希望避免重疊的選擇算符。
+驅逐 API 將不允許驅逐被多個 PDB 覆蓋的任何 Pod，因此大多數使用者都希望避免重疊的選擇算符。
 重疊 PDB 的一種合理用途是將 Pod 從一個 PDB 轉交到另一個 PDB 的場合。

@@ -1,7 +1,7 @@
 ---
 title: 設備插件
 description: > 
-  設備插件可以讓你配置集羣以支持需要特定於供應商設置的設備或資源，例如 GPU、NIC、FPGA 或非易失性主存儲器。
+  設備插件可以讓你設定叢集以支持需要特定於供應商設置的設備或資源，例如 GPU、NIC、FPGA 或非易失性主存儲器。
 content_type: concept
 weight: 20
 ---
@@ -80,7 +80,7 @@ and reports two healthy devices on a node, the node status is updated
 to advertise that the node has 2 "Foo" devices installed and available.
 -->
 成功註冊後，設備插件就向 kubelet 發送它所管理的設備列表，然後 kubelet
-負責將這些資源發佈到 API 服務器，作爲 kubelet 節點狀態更新的一部分。
+負責將這些資源發佈到 API 伺服器，作爲 kubelet 節點狀態更新的一部分。
 
 比如，設備插件在 kubelet 中註冊了 `hardware-vendor.example/foo`
 並報告了節點上的兩個運行狀況良好的設備後，節點狀態將更新以通告該節點已安裝 2 個
@@ -94,7 +94,7 @@ other resources, with the following differences:
 * Extended resources are only supported as integer resources and cannot be overcommitted.
 * Devices cannot be shared between containers.
 -->
-然後，用戶可以請求設備作爲 Pod 規範的一部分，
+然後，使用者可以請求設備作爲 Pod 規範的一部分，
 參見 [Container](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)。
 請求擴展資源類似於管理請求和限制的方式，
 其他資源，有以下區別：
@@ -111,7 +111,7 @@ other resources, with the following differences:
 Suppose a Kubernetes cluster is running a device plugin that advertises resource `hardware-vendor.example/foo`
 on certain nodes. Here is an example of a pod requesting this resource to run a demo workload:
 -->
-假設 Kubernetes 集羣正在運行一個設備插件，該插件在一些節點上公佈的資源爲 `hardware-vendor.example/foo`。
+假設 Kubernetes 叢集正在運行一個設備插件，該插件在一些節點上公佈的資源爲 `hardware-vendor.example/foo`。
 下面就是一個 Pod 示例，請求此資源以運行一個工作負載的示例：
 
 <!--
@@ -275,7 +275,7 @@ The general workflow of a device plugin includes the following steps:
 4. 成功註冊自身後，設備插件將以提供服務的模式運行，在此期間，它將持續監控設備運行狀況，
    並在設備狀態發生任何變化時向 kubelet 報告。它還負責響應 `Allocate` gRPC 請求。
    在 `Allocate` 期間，設備插件可能還會做一些特定於設備的準備；例如 GPU 清理或 QRNG 初始化。
-   如果操作成功，則設備插件將返回 `AllocateResponse`，其中包含用於訪問被分配的設備容器運行時的配置。
+   如果操作成功，則設備插件將返回 `AllocateResponse`，其中包含用於訪問被分配的設備容器運行時的設定。
    kubelet 將此信息傳遞到容器運行時。
 
    <!--
@@ -708,7 +708,7 @@ GetAllocatableResources provides information on resources initially available on
 It provides more information than kubelet exports to APIServer.
 -->
 端點 `GetAllocatableResources` 提供工作節點上原始可用的資源信息。
-此端點所提供的信息比導出給 API 服務器的信息更豐富。
+此端點所提供的信息比導出給 API 伺服器的信息更豐富。
 
 {{< note >}}
 <!--
@@ -949,7 +949,7 @@ Here are some examples of device plugin implementations:
 * [RDMA 設備插件](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [SocketCAN 設備插件](https://github.com/collabora/k8s-socketcan)
 * [Solarflare 設備插件](https://github.com/vikaschoudhary16/sfc-device-plugin)
-* [SR-IOV 網絡設備插件](https://github.com/intel/sriov-network-device-plugin)
+* [SR-IOV 網路設備插件](https://github.com/intel/sriov-network-device-plugin)
 * [Xilinx FPGA 設備插件](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin)
 
 ## {{% heading "whatsnext" %}}

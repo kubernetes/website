@@ -40,7 +40,7 @@ on overall performance.
 Other applications expect some read-only input data to be present in
 files, like configuration data or secret keys.
 -->
-另有些應用程序需要以文件形式注入的只讀數據，比如配置數據或密鑰。
+另有些應用程序需要以文件形式注入的只讀數據，比如設定數據或密鑰。
 
 <!--
 _Ephemeral volumes_ are designed for these use cases. Because volumes
@@ -87,8 +87,8 @@ Kubernetes 爲了不同的用途，支持幾種不同類型的臨時卷：
   [downwardAPI](/zh-cn/docs/concepts/storage/volumes/#downwardapi)、
   [secret](/zh-cn/docs/concepts/storage/volumes/#secret)：
   將不同類型的 Kubernetes 數據注入到 Pod 中
-- [鏡像](/zh-cn/docs/concepts/storage/volumes/#image)：
-  允許將容器鏡像文件或製品直接掛載到 Pod。
+- [映像檔](/zh-cn/docs/concepts/storage/volumes/#image)：
+  允許將容器映像檔文件或製品直接掛載到 Pod。
 - [CSI 臨時卷](#csi-ephemeral-volumes)：
   類似於前面的卷類型，但由專門[支持此特性](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
   的指定 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驅動程序提供
@@ -215,9 +215,9 @@ should not be exposed to users through the use of inline ephemeral volumes.
 
 ### CSI 驅動程序限制 {#csi-driver-restrictions}
 
-CSI 臨時卷允許用戶直接向 CSI 驅動程序提供 `volumeAttributes`，它會作爲 Pod 規約的一部分。
+CSI 臨時卷允許使用者直接向 CSI 驅動程序提供 `volumeAttributes`，它會作爲 Pod 規約的一部分。
 有些 `volumeAttributes` 通常僅限於管理員使用，允許這一類 `volumeAttributes` 的 CSI 驅動程序不適合在內聯臨時卷中使用。
-例如，通常在 StorageClass 中定義的參數不應通過使用內聯臨時卷向用戶公開。
+例如，通常在 StorageClass 中定義的參數不應通過使用內聯臨時卷向使用者公開。
 
 <!--
 Cluster administrators who need to restrict the CSI drivers that are
@@ -228,7 +228,7 @@ allowed to be used as inline volumes within a Pod spec may do so by:
 - Using an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
   to restrict how this driver is used.
 -->
-如果集羣管理員需要限制在 Pod 規約中作爲內聯卷使用的 CSI 驅動程序，可以這樣做：
+如果叢集管理員需要限制在 Pod 規約中作爲內聯卷使用的 CSI 驅動程序，可以這樣做：
 
 - 從 CSIDriver 規約的 `volumeLifecycleModes` 中刪除 `Ephemeral`，這可以防止驅動程序被用作內聯臨時卷。
 - 使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
@@ -256,7 +256,7 @@ features:
 - Volumes may have some initial data, depending on the driver and
   parameters.
 -->
-- 存儲可以是本地的，也可以是網絡連接的。
+- 存儲可以是本地的，也可以是網路連接的。
 - 卷可以有固定的大小，Pod 不能超量使用。
 - 卷可能有一些初始數據，這取決於驅動程序和參數。
 
@@ -426,8 +426,8 @@ if they can create Pods, even if they do not have permission to create PVCs dire
 Cluster administrators must be aware of this. If this does not fit their security model,
 they should use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 -->
-只要用戶有權限創建 Pod，就可以使用通用的臨時卷間接地創建持久卷申領（PVCs），
-即使他們沒有權限直接創建 PVCs。集羣管理員必須注意這一點。如果這與他們的安全模型相悖，
+只要使用者有權限創建 Pod，就可以使用通用的臨時卷間接地創建持久卷申領（PVCs），
+即使他們沒有權限直接創建 PVCs。叢集管理員必須注意這一點。如果這與他們的安全模型相悖，
 他們應該使用[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)。
 
 <!--
@@ -436,7 +436,7 @@ still applies, so even if users are allowed to use this new mechanism, they cann
 it to circumvent other policies.
 -->
 正常的 [PVC 的名字空間配額](/zh-cn/docs/concepts/policy/resource-quotas/#storage-resource-quota)
-仍然有效，因此即使允許用戶使用這種新機制，他們也不能使用它來規避其他策略。
+仍然有效，因此即使允許使用者使用這種新機制，他們也不能使用它來規避其他策略。
 
 ## {{% heading "whatsnext" %}}
 

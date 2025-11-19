@@ -6,7 +6,7 @@ api_metadata:
 feature:
   title: 自動化上線和回滾
   description: >
-    Kubernetes 會分步驟地將針對應用或其配置的更改上線，同時監視應用程序運行狀況以確保你不會同時終止所有實例。如果出現問題，Kubernetes 會爲你回滾所作更改。你應該充分利用不斷成長的部署方案生態系統。
+    Kubernetes 會分步驟地將針對應用或其設定的更改上線，同時監視應用程序運行狀況以確保你不會同時終止所有實例。如果出現問題，Kubernetes 會爲你回滾所作更改。你應該充分利用不斷成長的部署方案生態系統。
 description: >-
   Deployment 用於管理運行一個應用負載的一組 Pod，通常適用於不保持狀態的負載。
 content_type: concept
@@ -148,14 +148,14 @@ In this example:
 * `.spec.template` 字段包含以下子字段：
   * Pod 被使用 `.metadata.labels` 字段打上 `app: nginx` 標籤。
   * Pod 模板規約（即 `.spec` 字段）指示 Pod 運行一個 `nginx` 容器，
-    該容器運行版本爲 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/) 鏡像。
+    該容器運行版本爲 1.14.2 的 `nginx` [Docker Hub](https://hub.docker.com/) 映像檔。
   * 創建一個容器並使用 `.spec.containers[0].name` 字段將其命名爲 `nginx`。
 
 <!--
 Before you begin, make sure your Kubernetes cluster is up and running.
 Follow the steps given below to create the above Deployment:
 -->
-開始之前，請確保的 Kubernetes 集羣已啓動並運行。
+開始之前，請確保的 Kubernetes 叢集已啓動並運行。
 按照以下步驟創建上述 Deployment：
 
 <!--
@@ -183,7 +183,7 @@ Follow the steps given below to create the above Deployment:
    <!--
    When you inspect the Deployments in your cluster, the following fields are displayed:
    -->
-   在檢查集羣中的 Deployment 時，所顯示的字段有：
+   在檢查叢集中的 Deployment 時，所顯示的字段有：
 
    <!--
    * `NAME` lists the names of the Deployments in the namespace.
@@ -195,7 +195,7 @@ Follow the steps given below to create the above Deployment:
    * `NAME` 列出了名字空間中 Deployment 的名稱。
    * `READY` 顯示應用程序的可用的“副本”數。顯示的模式是“就緒個數/期望個數”。
    * `UP-TO-DATE` 顯示爲了達到期望狀態已經更新的副本數。
-   * `AVAILABLE` 顯示應用可供用戶使用的副本數。
+   * `AVAILABLE` 顯示應用可供使用者使用的副本數。
    * `AGE` 顯示應用程序運行的時間。
 
    <!--
@@ -260,7 +260,7 @@ Follow the steps given below to create the above Deployment:
    * `DESIRED` 顯示應用的期望副本個數，即在創建 Deployment 時所定義的值。
      此爲**期望狀態**。
    * `CURRENT` 顯示當前運行狀態中的副本個數。
-   * `READY` 顯示應用中有多少副本可以爲用戶提供服務。
+   * `READY` 顯示應用中有多少副本可以爲使用者提供服務。
    * `AGE` 顯示應用已經運行的時間長度。
 
    <!--
@@ -343,7 +343,7 @@ and in any existing Pods that the ReplicaSet might have.
 A Deployment's rollout is triggered if and only if the Deployment's Pod template (that is, `.spec.template`)
 is changed, for example if the labels or container images of the template are updated. Other updates, such as scaling the Deployment, do not trigger a rollout.
 -->
-僅當 Deployment Pod 模板（即 `.spec.template`）發生改變時，例如模板的標籤或容器鏡像被更新，
+僅當 Deployment Pod 模板（即 `.spec.template`）發生改變時，例如模板的標籤或容器映像檔被更新，
 纔會觸發 Deployment 上線。其他更新（如對 Deployment 執行擴縮容的操作）不會觸發上線動作。
 {{< /note >}}
 
@@ -355,7 +355,7 @@ Follow the steps given below to update your Deployment:
 <!--
 1. Let's update the nginx Pods to use the `nginx:1.16.1` image instead of the `nginx:1.14.2` image.
 -->
-1. 先來更新 nginx Pod 以使用 `nginx:1.16.1` 鏡像，而不是 `nginx:1.14.2` 鏡像。
+1. 先來更新 nginx Pod 以使用 `nginx:1.16.1` 映像檔，而不是 `nginx:1.14.2` 映像檔。
 
    ```shell
    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
@@ -376,7 +376,7 @@ Follow the steps given below to update your Deployment:
    `nginx:1.16.1` indicates the new image and its tag.
    -->
    在這裏，`deployment/nginx-deployment` 表明 Deployment 的名稱，`nginx` 表明需要進行更新的容器，
-   而 `nginx:1.16.1` 則表示鏡像的新版本以及它的標籤。
+   而 `nginx:1.16.1` 則表示映像檔的新版本以及它的標籤。
 
    <!--
    The output is similar to:
@@ -705,7 +705,7 @@ rolled back.
 -->
 Deployment 被觸發上線時，系統就會創建 Deployment 的新的修訂版本。
 這意味着僅當 Deployment 的 Pod 模板（`.spec.template`）發生更改時，纔會創建新修訂版本
--- 例如，模板的標籤或容器鏡像發生變化。
+-- 例如，模板的標籤或容器映像檔發生變化。
 其他更新，如 Deployment 的擴縮容操作不會創建 Deployment 修訂版本。
 這是爲了方便同時執行手動縮放或自動縮放。
 換言之，當你回滾到較早的修訂版本時，只有 Deployment 的 Pod 模板部分會被回滾。
@@ -714,7 +714,7 @@ Deployment 被觸發上線時，系統就會創建 Deployment 的新的修訂版
 <!--
 * Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.161` instead of `nginx:1.16.1`:
 -->
-* 假設你在更新 Deployment 時犯了一個拼寫錯誤，將鏡像名稱命名設置爲
+* 假設你在更新 Deployment 時犯了一個拼寫錯誤，將映像檔名稱命名設置爲
   `nginx:1.161` 而不是 `nginx:1.16.1`：
 
   ```shell
@@ -781,7 +781,7 @@ Deployment 被觸發上線時，系統就會創建 Deployment 的新的修訂版
 <!--
 * Looking at the Pods created, you see that 1 Pod created by new ReplicaSet is stuck in an image pull loop.
 -->
-* 查看所創建的 Pod，你會注意到新 ReplicaSet 所創建的 1 個 Pod 卡頓在鏡像拉取循環中。
+* 查看所創建的 Pod，你會注意到新 ReplicaSet 所創建的 1 個 Pod 卡頓在映像檔拉取循環中。
 
   ```shell
   kubectl get pods
@@ -1104,7 +1104,7 @@ Assuming [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod
 in your cluster, you can set up an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 -->
-假設集羣啓用了 [Pod 的水平自動縮放](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)，
+假設叢集啓用了 [Pod 的水平自動縮放](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)，
 你可以爲 Deployment 設置自動縮放器，並基於現有 Pod 的 CPU 利用率選擇要運行的
 Pod 個數下限和上限。
 
@@ -1164,7 +1164,7 @@ For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surg
 <!--
 * You update to a new image which happens to be unresolvable from inside the cluster.
 -->
-* 更新 Deployment 使用新鏡像，碰巧該鏡像無法從集羣內部解析。
+* 更新 Deployment 使用新映像檔，碰巧該映像檔無法從叢集內部解析。
 
   ```shell
   kubectl set image deployment/nginx-deployment nginx=nginx:sometag
@@ -1183,7 +1183,7 @@ For example, you are running a Deployment with 10 replicas, [maxSurge](#max-surg
 * The image update starts a new rollout with ReplicaSet nginx-deployment-1989198191, but it's blocked due to the
 `maxUnavailable` requirement that you mentioned above. Check out the rollout status:
 -->
-* 鏡像更新使用 ReplicaSet `nginx-deployment-1989198191` 啓動新的上線過程，
+* 映像檔更新使用 ReplicaSet `nginx-deployment-1989198191` 啓動新的上線過程，
   但由於上面提到的 `maxUnavailable` 要求，該進程被阻塞了。檢查上線狀態：
 
   ```shell
@@ -1338,7 +1338,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 <!--
 * Then update the image of the Deployment:
 -->
-* 接下來更新 Deployment 鏡像：
+* 接下來更新 Deployment 映像檔：
 
   ```shell
   kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
@@ -1637,10 +1637,10 @@ due to some of the following factors:
 -->
 * 配額（Quota）不足
 * 就緒探測（Readiness Probe）失敗
-* 鏡像拉取錯誤
+* 映像檔拉取錯誤
 * 權限不足
 * 限制範圍（Limit Ranges）問題
-* 應用程序運行時的配置錯誤
+* 應用程序運行時的設定錯誤
 
 <!--
 One way you can detect this condition is to specify a deadline parameter in your Deployment spec:
@@ -1913,7 +1913,7 @@ you configure. For example, if pods are crash looping, and there are multiple ro
 events triggered over time, you might end up with more ReplicaSets than the 
 `.spec.revisionHistoryLimit` because the Deployment never reaches a complete state.
 -->
-即使使用非零的修訂歷史限制，你可以使用的 ReplicaSet 的數量仍可能超過你配置的限制值。
+即使使用非零的修訂歷史限制，你可以使用的 ReplicaSet 的數量仍可能超過你設定的限制值。
 例如，如果 Pod 反覆崩潰，並且在一段時間內觸發了多個滾動更新事件，
 你可能會由於 Deployment 從未達到完整狀態而導致 ReplicaSet 數量超過 `.spec.revisionHistoryLimit`。
 
@@ -1926,7 +1926,7 @@ can create multiple Deployments, one for each release, following the canary patt
 -->
 ## 金絲雀部署 {#canary-deployment}
 
-如果要使用 Deployment 向用戶子集或服務器子集上線版本，
+如果要使用 Deployment 向使用者子集或伺服器子集上線版本，
 則可以遵循[資源管理](/zh-cn/docs/concepts/workloads/management/#canary-deployments)所描述的金絲雀模式，
 創建多個 Deployment，每個版本一個。
 
@@ -1940,9 +1940,9 @@ configuring containers, and [using kubectl to manage resources](/docs/concepts/o
 -->
 ## 編寫 Deployment 規約       {#writing-a-deployment-spec}
 
-同其他 Kubernetes 配置一樣， Deployment 需要 `.apiVersion`，`.kind` 和 `.metadata` 字段。
-有關配置文件的其他信息，請參考[部署 Deployment](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
-配置容器和[使用 kubectl 管理資源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)等相關文檔。
+同其他 Kubernetes 設定一樣， Deployment 需要 `.apiVersion`，`.kind` 和 `.metadata` 字段。
+有關設定文件的其他信息，請參考[部署 Deployment](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
+設定容器和[使用 kubectl 管理資源](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)等相關文檔。
 
 <!--
 When the control plane creates new Pods for a Deployment, the `.metadata.name` of the
@@ -2340,7 +2340,7 @@ additional resources during that period. As a result, the total number of all po
 
 {{< feature-state feature_gate_name="DeploymentReplicaSetTerminatingReplicas" >}}
 
-你可以通過在 [API 服務器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
+你可以通過在 [API 伺服器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)
 和 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)
 上啓用 `DeploymentReplicaSetTerminatingReplicas`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)來開啓此功能。
@@ -2367,7 +2367,7 @@ however its ideal value depends on the frequency and stability of new Deployment
 -->
 `.spec.revisionHistoryLimit` 是一個可選字段，用來設定出於回滾目的所要保留的舊 ReplicaSet 數量。
 這些舊 ReplicaSet 會消耗 etcd 中的資源，並佔用 `kubectl get rs` 的輸出。
-每個 Deployment 修訂版本的配置都存儲在其 ReplicaSet 中；因此，一旦刪除了舊的 ReplicaSet，
+每個 Deployment 修訂版本的設定都存儲在其 ReplicaSet 中；因此，一旦刪除了舊的 ReplicaSet，
 將失去回滾到 Deployment 的對應修訂版本的能力。
 默認情況下，系統保留 10 箇舊 ReplicaSet，但其理想值取決於新 Deployment 的頻率和穩定性。
 

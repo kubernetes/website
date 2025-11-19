@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/batch/v1"
   kind: "CronJob"
 content_type: "api_reference"
-description: "CronJob 代表單個定時作業（Cron Job）的配置。"
+description: "CronJob 代表單個定時作業（Cron Job）的設定。"
 title: "CronJob"
 weight: 11
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 CronJob represents the configuration of a single cron job.
 -->
-CronJob 代表單個定時作業（Cron Job）的配置。
+CronJob 代表單個定時作業（Cron Job）的設定。
 
 <hr>
 
@@ -131,10 +131,10 @@ CronJobSpec 描述了作業的執行方式和實際將運行的時間。
 
   給定時間表的時區名稱，請參閱 https://en.wikipedia.org/wiki/List_of_tz_database_time_zones。
   如果未指定，這將默認爲 kube-controller-manager 進程的時區。
-  有效時區名稱和時區偏移量的設置由 API 服務器在 CronJob 驗證期間從系統範圍的時區數據庫進行加載，
+  有效時區名稱和時區偏移量的設置由 API 伺服器在 CronJob 驗證期間從系統範圍的時區數據庫進行加載，
   在執行期間由控制器管理器從系統範圍的時區數據庫進行加載。
   如果找不到系統範圍的時區數據庫，則轉而使用該數據庫的捆綁版本。
-  如果時區名稱在 CronJob 的生命週期內或由於主機配置更改而變得無效，該控制器將停止創建新的 Job，
+  如果時區名稱在 CronJob 的生命週期內或由於主機設定更改而變得無效，該控制器將停止創建新的 Job，
   並將創建一個原因爲 UnknownTimeZone 的系統事件。更多信息，請參閱
   https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/cron-jobs/#time-zones。
 

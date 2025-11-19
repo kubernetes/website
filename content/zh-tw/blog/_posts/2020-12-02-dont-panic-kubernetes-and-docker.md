@@ -46,7 +46,7 @@ cluster with all runtimes, as they always have.
 棄用 Docker 這個底層運行時，轉而支持符合爲 Kubernetes 創建的容器運行接口
 [Container Runtime Interface (CRI)](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)
 的運行時。
-Docker 構建的鏡像，將在你的集羣的所有運行時中繼續工作，一如既往。
+Docker 構建的映像檔，將在你的叢集的所有運行時中繼續工作，一如既往。
 
 <!-- 
 If you’re an end-user of Kubernetes, not a whole lot will be changing for you.
@@ -55,9 +55,9 @@ shouldn’t, use Docker as a development tool anymore. Docker is still a useful
 tool for building containers, and the images that result from running `docker
 build` can still run in your Kubernetes cluster. 
 --> 
-如果你是 Kubernetes 的終端用戶，這對你不會有太大影響。
+如果你是 Kubernetes 的終端使用者，這對你不會有太大影響。
 這事並不意味着 Docker 已死、也不意味着你不能或不該繼續把 Docker 用作開發工具。
-Docker 仍然是構建容器的利器，使用命令 `docker build` 構建的鏡像在 Kubernetes 集羣中仍然可以運行。
+Docker 仍然是構建容器的利器，使用命令 `docker build` 構建的映像檔在 Kubernetes 叢集中仍然可以運行。
 
 <!-- 
 If you’re using a managed Kubernetes service like AKS, EkS or GKE, you will need to
@@ -82,11 +82,11 @@ and you will need to switch to one of the other compliant container runtimes,
 like containerd or CRI-O. Just make sure that the runtime you choose supports
 the docker daemon configurations you currently use (e.g. logging).
 -->
-如果你正在運營你自己的集羣，那還應該做些工作，以避免集羣中斷。
+如果你正在運營你自己的叢集，那還應該做些工作，以避免叢集中斷。
 在 v1.20 版中，你僅會得到一個 Docker 的棄用警告。
 當對 Docker 運行時的支持在 Kubernetes 某個後續發行版（<del>目前的計劃是 2021 年晚些時候的 1.22 版</del>）中被移除時，
 你需要切換到 containerd 或 CRI-O 等兼容的容器運行時。
-只要確保你選擇的運行時支持你當前使用的 Docker 守護進程配置（例如 logging）。
+只要確保你選擇的運行時支持你當前使用的 Docker 守護進程設定（例如 logging）。
 
 <!-- 
 ## So why the confusion and what is everyone freaking out about?
@@ -102,7 +102,7 @@ and CRI-O), but Docker was not designed to be embedded inside Kubernetes, and
 that causes a problem. 
 -->
 我們在這裏討論的是兩套不同的環境，這就是造成困惑的根源。
-在你的 Kubernetes 集羣中，有一個叫做容器運行時的東西，它負責拉取並運行容器鏡像。
+在你的 Kubernetes 叢集中，有一個叫做容器運行時的東西，它負責拉取並運行容器映像檔。
 Docker 對於運行時來說是一個流行的選擇（其他常見的選擇包括 containerd 和 CRI-O），
 但 Docker 並非設計用來嵌入到 Kubernetes，這就是問題所在。
 
@@ -116,8 +116,8 @@ for Kubernetes, because it isn’t a human.
 -->
 你看，我們稱之爲 “Docker” 的物件實際上並不是一個物件——它是一個完整的技術堆棧，
 它其中一個叫做 “containerd” 的部件本身，纔是一個高級容器運行時。
-Docker 既酷炫又實用，因爲它提供了很多用戶體驗增強功能，而這簡化了我們做開發工作時的操作，
-Kubernetes 用不到這些增強的用戶體驗，畢竟它並非人類。
+Docker 既酷炫又實用，因爲它提供了很多使用者體驗增強功能，而這簡化了我們做開發工作時的操作，
+Kubernetes 用不到這些增強的使用者體驗，畢竟它並非人類。
 
 <!-- 
 As a result of this human-friendly abstraction layer, your Kubernetes cluster
@@ -129,7 +129,7 @@ removes support for Docker as a container runtime as a result. You might be
 thinking to yourself, but if containerd is included in the Docker stack, why
 does Kubernetes need the Dockershim?
 -->
-因爲這個用戶友好的抽象層，Kubernetes 集羣不得不引入一個叫做 Dockershim 的工具來訪問它真正需要的 containerd。
+因爲這個使用者友好的抽象層，Kubernetes 叢集不得不引入一個叫做 Dockershim 的工具來訪問它真正需要的 containerd。
 這不是一件好事，因爲這引入了額外的運維工作量，而且還可能出錯。
 實際上正在發生的事情就是：Dockershim 將在不早於 v1.23 版中從 kubelet 中被移除，也就取消對 Docker 容器運行時的支持。
 你心裏可能會想，如果 containerd 已經包含在 Docker 堆棧中，爲什麼 Kubernetes 需要 Dockershim。
@@ -155,7 +155,7 @@ use case including things like
 [img](https://github.com/genuinetools/img), and
 [buildah](https://github.com/containers/buildah). 
 -->
-要注意一點：如果你依賴底層的 Docker 套接字(`/var/run/docker.sock`)，作爲你集羣中工作流的一部分，
+要注意一點：如果你依賴底層的 Docker 套接字(`/var/run/docker.sock`)，作爲你叢集中工作流的一部分，
 切換到不同的運行時會導致你無法使用它。
 這種模式經常被稱之爲嵌套 Docker（Docker in Docker）。
 對於這種特殊的場景，有很多選項，比如：
@@ -166,7 +166,7 @@ use case including things like
 <!-- 
 ## What does this change mean for developers, though? Do we still write Dockerfiles? Do we still build things with Docker?
 -->
-## 那麼，這一改變對開發人員意味着什麼？我們還要寫 Dockerfile 嗎？還能用 Docker 構建鏡像嗎？{#what-does-this-change-mean-for-developers}
+## 那麼，這一改變對開發人員意味着什麼？我們還要寫 Dockerfile 嗎？還能用 Docker 構建映像檔嗎？{#what-does-this-change-mean-for-developers}
 
 <!-- 
 This change addresses a different environment than most folks use to interact
@@ -181,15 +181,15 @@ the same to Kubernetes. Both [containerd](https://containerd.io/) and
 why we have a standard for what containers should look like.
 -->
 此次改變帶來了一個不同的環境，這不同於我們常用的 Docker 交互方式。
-你在開發環境中用的 Docker 和你 Kubernetes 集羣中的 Docker 運行時無關。
+你在開發環境中用的 Docker 和你 Kubernetes 叢集中的 Docker 運行時無關。
 我們知道這聽起來讓人困惑。
 對於開發人員，Docker 從所有角度來看仍然有用，就跟這次改變之前一樣。
-Docker 構建的鏡像並不是 Docker 特有的鏡像——它是一個
-OCI（[開放容器標準](https://opencontainers.org/)）鏡像。
-任一 OCI 兼容的鏡像，不管它是用什麼工具構建的，在 Kubernetes 的角度來看都是一樣的。
+Docker 構建的映像檔並不是 Docker 特有的映像檔——它是一個
+OCI（[開放容器標準](https://opencontainers.org/)）映像檔。
+任一 OCI 兼容的映像檔，不管它是用什麼工具構建的，在 Kubernetes 的角度來看都是一樣的。
 [containerd](https://containerd.io/) 和
 [CRI-O](https://cri-o.io/)
-兩者都知道怎麼拉取並運行這些鏡像。
+兩者都知道怎麼拉取並運行這些映像檔。
 這就是我們制定容器標準的原因。
 
 <!-- 

@@ -5,8 +5,8 @@ title: 拓撲感知路由
 content_type: concept
 weight: 100
 description: >-
-  **拓撲感知路由**提供了一種機制幫助保持網絡流量處於流量發起的區域內。
-  在集羣中 Pod 之間優先使用相同區域的流量有助於提高可靠性、性能（網絡延遲和吞吐量）或降低成本。
+  **拓撲感知路由**提供了一種機制幫助保持網路流量處於流量發起的區域內。
+  在叢集中 Pod 之間優先使用相同區域的流量有助於提高可靠性、性能（網路延遲和吞吐量）或降低成本。
 ---
 <!--
 reviewers:
@@ -37,7 +37,7 @@ the zone it originated from. In some cases this can help reduce costs or improve
 network performance.
 -->
 **拓撲感知路由（Toplogy Aware Routing）** 調整路由行爲，以優先保持流量在其發起區域內。
-在某些情況下，這有助於降低成本或提高網絡性能。
+在某些情況下，這有助於降低成本或提高網路性能。
 
 <!-- body -->
 
@@ -56,12 +56,12 @@ endpoints).
 -->
 ## 動機   {#motivation}
 
-Kubernetes 集羣越來越多地部署在多區域環境中。
+Kubernetes 叢集越來越多地部署在多區域環境中。
 **拓撲感知路由** 提供了一種機制幫助流量保留在其發起所在的區域內。
 計算 {{<glossary_tooltip term_id="Service">}} 的端點時，
 EndpointSlice 控制器考慮每個端點的物理拓撲（地區和區域），並填充提示字段以將其分配到區域。
 諸如 {{<glossary_tooltip term_id="kube-proxy" text="kube-proxy">}}
-等集羣組件可以使用這些提示，影響流量的路由方式（優先考慮物理拓撲上更近的端點）。
+等叢集組件可以使用這些提示，影響流量的路由方式（優先考慮物理拓撲上更近的端點）。
 
 <!--
 ## Enabling Topology Aware Routing
@@ -119,8 +119,8 @@ back to the default cluster-wide routing approach.
 -->
 ### 2. 服務在每個區域具有至少 3 個端點 {#three-or-more-endpoints-per-zone}
 
-在一個三區域的集羣中，這意味着有至少 9 個端點。如果每個區域的端點少於 3 個，
-則 EndpointSlice 控制器很大概率（約 50％）無法平均分配端點，而是回退到默認的集羣範圍的路由方法。
+在一個三區域的叢集中，這意味着有至少 9 個端點。如果每個區域的端點少於 3 個，
+則 EndpointSlice 控制器很大概率（約 50％）無法平均分配端點，而是回退到默認的叢集範圍的路由方法。
 
 <!--
 ## How It Works
@@ -209,13 +209,13 @@ the kube-proxy selects endpoints from anywhere in your cluster, regardless of th
 zone.
 -->
 Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提示信息前，會應用一些保護措施規則。
-如果規則無法順利通過，kube-proxy 將無視區域限制，從集羣中的任意位置選擇端點。
+如果規則無法順利通過，kube-proxy 將無視區域限制，從叢集中的任意位置選擇端點。
 
 <!--
 1. **Insufficient number of endpoints:** If there are less endpoints than zones
    in a cluster, the controller will not assign any hints.
 -->
-1. **端點數量不足：** 如果一個集羣中，端點數量少於區域數量，控制器不創建任何提示。
+1. **端點數量不足：** 如果一個叢集中，端點數量少於區域數量，控制器不創建任何提示。
 
 <!--
 2. **Impossible to achieve balanced allocation:** In some cases, it will be
@@ -260,7 +260,7 @@ Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提
    a new zone into your existing cluster.
 -->
 5. **提示中不存在某區域：** 如果 kube-proxy 無法找到提示中指向它當前所在的區域的端點，
-   它將回退到使用來自所有區域的端點。當你向現有集羣新增新的區域時，這種情況發生概率很高。
+   它將回退到使用來自所有區域的端點。當你向現有叢集新增新的區域時，這種情況發生概率很高。
 
 <!-- 
 ## Constraints
@@ -273,7 +273,7 @@ Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提
   Services, just not on the same Service.
 -->
 * 當 Service 的 `internalTrafficPolicy` 值設置爲 `Local` 時，
-  系統將不使用拓撲感知提示信息。你可以在同一集羣中的不同 Service 上使用這兩個特性，
+  系統將不使用拓撲感知提示信息。你可以在同一叢集中的不同 Service 上使用這兩個特性，
   但不能在同一個 Service 上這麼做。
 
 <!--
@@ -310,7 +310,7 @@ Kubernetes 控制平面和每個節點上的 kube-proxy 在使用拓撲感知提
 -->
 * EndpointSlice 控制器在分派或計算各區域的比例時，並不會考慮
   {{< glossary_tooltip text="容忍度" term_id="toleration" >}}。
-  如果 Service 背後的各 Pod 被限制只能運行在集羣節點的一個子集上，計算比例時不會考慮這點。
+  如果 Service 背後的各 Pod 被限制只能運行在叢集節點的一個子集上，計算比例時不會考慮這點。
 
 <!--
 * This may not work well with autoscaling. For example, if a lot of traffic is
@@ -355,4 +355,4 @@ Kubernetes 的部署方式有很多種，沒有一種按區域分配端點的啓
 -->
 * 參閱[使用 Service 連接到應用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程。
 * 進一步瞭解 [trafficDistribution](/zh-cn/docs/concepts/services-networking/service/#traffic-distribution)字段，
-  該字段與 `service.kubernetes.io/topology-mode` 註解密切相關，併爲 Kubernetes 中的流量路由提供靈活的配置選項。
+  該字段與 `service.kubernetes.io/topology-mode` 註解密切相關，併爲 Kubernetes 中的流量路由提供靈活的設定選項。

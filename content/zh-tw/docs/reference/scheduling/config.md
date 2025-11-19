@@ -1,5 +1,5 @@
 ---
-title: 調度器配置
+title: 調度器設定
 content_type: concept
 weight: 20
 ---
@@ -15,7 +15,7 @@ weight: 20
 You can customize the behavior of the `kube-scheduler` by writing a configuration
 file and passing its path as a command line argument.
 -->
-你可以通過編寫配置文件，並將其路徑傳給 `kube-scheduler` 的命令行參數，定製 `kube-scheduler` 的行爲。
+你可以通過編寫設定文件，並將其路徑傳給 `kube-scheduler` 的命令列參數，定製 `kube-scheduler` 的行爲。
 
 <!-- overview -->
 
@@ -26,7 +26,7 @@ in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
 Each stage is exposed in an extension point. Plugins provide scheduling behaviors
 by implementing one or more of these extension points.
 -->
-調度模板（Profile）允許你配置 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
+調度模板（Profile）允許你設定 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 中的不同調度階段。每個階段都暴露於某個擴展點中。插件通過實現一個或多個擴展點來提供調度行爲。
 
 <!--
@@ -42,7 +42,7 @@ struct.
 <!--
 A minimal configuration looks as follows:
 -->
-最簡單的配置如下：
+最簡單的設定如下：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -64,7 +64,7 @@ KubeSchedulerConfiguration v1beta3 在 v1.26 中已被棄用，
 <!--
 ## Profiles
 -->
-## 配置文件    {#profiles}
+## 設定文件    {#profiles}
 
 <!--
 A scheduling Profile allows you to configure the different stages of scheduling
@@ -73,7 +73,7 @@ Each stage is exposed in an [extension point](#extension-points).
 [Plugins](#scheduling-plugins) provide scheduling behaviors by implementing one
 or more of these extension points.
 -->
-通過調度配置文件，你可以配置 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 在不同階段的調度行爲。
+通過調度設定文件，你可以設定 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 在不同階段的調度行爲。
 每個階段都在一個[擴展點](#extension-points)中公開。
 [調度插件](#scheduling-plugins)通過實現一個或多個擴展點，來提供調度行爲。
 
@@ -81,7 +81,7 @@ or more of these extension points.
 You can configure a single instance of `kube-scheduler` to run
 [multiple profiles](#multiple-profiles).
 -->
-你可以配置同一 `kube-scheduler` 實例使用[多個配置文件](#multiple-profiles)。
+你可以設定同一 `kube-scheduler` 實例使用[多個設定文件](#multiple-profiles)。
 
 <!--
 ### Extension points
@@ -106,7 +106,7 @@ extension points:
    about a Pod or the cluster before filtering. They can mark a pod as
    unschedulable.
  -->
-2. `preFilter`：這些插件用於在過濾之前預處理或檢查 Pod 或集羣的信息。
+2. `preFilter`：這些插件用於在過濾之前預處理或檢查 Pod 或叢集的信息。
    它們可以將 Pod 標記爲不可調度。
 <!--
 1. `filter`: These plugins are the equivalent of Predicates in a scheduling
@@ -115,14 +115,14 @@ extension points:
    nodes pass all the filters.
 -->
 3. `filter`：這些插件相當於調度策略中的斷言（Predicates），用於過濾不能運行 Pod 的節點。
-   過濾器的調用順序是可配置的。
+   過濾器的調用順序是可設定的。
    如果沒有一個節點通過所有過濾器的篩選，Pod 將會被標記爲不可調度。
 <!--
 1. `postFilter`: These plugins are called in their configured order when no
    feasible nodes were found for the pod. If any `postFilter` plugin marks the
    Pod _schedulable_, the remaining plugins are not called.
 --> 
-4. `postFilter`：當無法爲 Pod 找到可用節點時，按照這些插件的配置順序調用他們。
+4. `postFilter`：當無法爲 Pod 找到可用節點時，按照這些插件的設定順序調用他們。
    如果任何 `postFilter` 插件將 Pod 標記爲**可調度**，則不會調用其餘插件。
 <!--
 1. `preScore`: This is an informational extension point that can be used
@@ -167,7 +167,7 @@ extension points:
 1. `multiPoint`: This is a config-only field that allows plugins to be enabled
    or disabled for all of their applicable extension points simultaneously.
 -->
-12. `multiPoint`：這是一個僅配置字段，允許同時爲所有適用的擴展點啓用或禁用插件。
+12. `multiPoint`：這是一個僅設定字段，允許同時爲所有適用的擴展點啓用或禁用插件。
 
 <!--
 For each extension point, you could disable specific [default plugins](#scheduling-plugins)
@@ -214,7 +214,7 @@ extension points:
   Pod runs.
   Extension points: `score`.
 -->
-- `ImageLocality`：選擇已經存在 Pod 運行所需容器鏡像的節點。
+- `ImageLocality`：選擇已經存在 Pod 運行所需容器映像檔的節點。
 
   實現的擴展點：`score`。
 
@@ -400,7 +400,7 @@ extension points:
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
 -->
-你也可以通過組件配置 API 啓用以下插件（默認不啓用）：
+你也可以通過組件設定 API 啓用以下插件（默認不啓用）：
 
 <!--
 - `CinderLimits`: Checks that [OpenStack Cinder](https://docs.openstack.org/cinder/)
@@ -417,17 +417,17 @@ You can configure `kube-scheduler` to run more than one profile.
 Each profile has an associated scheduler name and can have a different set of
 plugins configured in its [extension points](#extension-points).
 -->
-### 多配置文件 {#multiple-profiles}
+### 多設定文件 {#multiple-profiles}
 
-你可以配置 `kube-scheduler` 運行多個配置文件。
-每個配置文件都有一個關聯的調度器名稱，並且可以在其擴展點中配置一組不同的插件。
+你可以設定 `kube-scheduler` 運行多個設定文件。
+每個設定文件都有一個關聯的調度器名稱，並且可以在其擴展點中設定一組不同的插件。
 
 <!--
 With the following sample configuration, the scheduler will run with two
 profiles: one with the default plugins and one with all scoring plugins
 disabled.
 -->
-使用下面的配置樣例，調度器將運行兩個配置文件：一個使用默認插件，另一個禁用所有打分插件。
+使用下面的設定樣例，調度器將運行兩個設定文件：一個使用默認插件，另一個禁用所有打分插件。
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -448,16 +448,16 @@ profiles:
 Pods that want to be scheduled according to a specific profile can include
 the corresponding scheduler name in its `.spec.schedulerName`.
 -->
-對於那些希望根據特定配置文件來進行調度的 Pod，可以在 `.spec.schedulerName` 字段指定相應的調度器名稱。
+對於那些希望根據特定設定文件來進行調度的 Pod，可以在 `.spec.schedulerName` 字段指定相應的調度器名稱。
 
 <!--
 By default, one profile with the scheduler name `default-scheduler` is created.
 This profile includes the default plugins described above. When declaring more
 than one profile, a unique scheduler name for each of them is required.
 -->
-默認情況下，將創建一個調度器名爲 `default-scheduler` 的配置文件。
-這個配置文件包括上面描述的所有默認插件。
-聲明多個配置文件時，每個配置文件中調度器名稱必須唯一。
+默認情況下，將創建一個調度器名爲 `default-scheduler` 的設定文件。
+這個設定文件包括上面描述的所有默認插件。
+聲明多個設定文件時，每個設定文件中調度器名稱必須唯一。
 
 <!--
 If a Pod doesn't specify a scheduler name, kube-apiserver will set it to
@@ -465,7 +465,7 @@ If a Pod doesn't specify a scheduler name, kube-apiserver will set it to
 to get those pods scheduled.
 -->
 如果 Pod 未指定調度器名稱，kube-apiserver 將會把調度器名設置爲 `default-scheduler`。
-因此，應該存在一個調度器名爲 `default-scheduler` 的配置文件來調度這些 Pod。
+因此，應該存在一個調度器名爲 `default-scheduler` 的設定文件來調度這些 Pod。
 
 {{< note >}}
 <!--
@@ -476,7 +476,7 @@ For more information, please refer to the `reportingController` section under
 [Event API Reference](/docs/reference/kubernetes-api/cluster-resources/event-v1/).
 -->
 Pod 的調度事件把 `.spec.schedulerName` 字段值作爲它們的 `ReportingController`。
-領導者選舉事件使用列表中第一個配置文件的調度器名稱。
+領導者選舉事件使用列表中第一個設定文件的調度器名稱。
 
 有關更多信息，請參閱
 [Event API 參考文檔](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)中的
@@ -489,7 +489,7 @@ All profiles must use the same plugin in the `queueSort` extension point and hav
 the same configuration parameters (if applicable). This is because the scheduler
 only has one pending pods queue.
 -->
-所有配置文件必須在 `queueSort` 擴展點使用相同的插件，並具有相同的配置參數（如果適用）。
+所有設定文件必須在 `queueSort` 擴展點使用相同的插件，並具有相同的設定參數（如果適用）。
 這是因爲調度器只有一個保存 pending 狀態 Pod 的隊列。
 {{< /note >}}
 
@@ -504,9 +504,9 @@ profile config, `multiPoint`, which allows for easily enabling or disabling a pl
 across several extension points. The intent of `multiPoint` config is to simplify the
 configuration needed for users and administrators when using custom profiles.
 -->
-從 `kubescheduler.config.k8s.io/v1beta3` 開始，配置文件配置中有一個附加字段
+從 `kubescheduler.config.k8s.io/v1beta3` 開始，設定文件設定中有一個附加字段
 `multiPoint`，它允許跨多個擴展點輕鬆啓用或禁用插件。
-`multiPoint` 配置的目的是簡化用戶和管理員在使用自定義配置文件時所需的配置。
+`multiPoint` 設定的目的是簡化使用者和管理員在使用自定義設定文件時所需的設定。
 
 <!--
 Consider a plugin, `MyPlugin`, which implements the `preScore`, `score`, `preFilter`,
@@ -514,7 +514,7 @@ and `filter` extension points. To enable `MyPlugin` for all its available extens
 points, the profile config looks like:
 -->
 考慮一個插件，`MyPlugin`，它實現了 `preScore`、`score`、`preFilter` 和 `filter` 擴展點。
-要爲其所有可用的擴展點啓用 `MyPlugin`，配置文件配置如下所示：
+要爲其所有可用的擴展點啓用 `MyPlugin`，設定文件設定如下所示：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -558,7 +558,7 @@ One benefit of using `multiPoint` here is that if `MyPlugin` implements another
 extension point in the future, the `multiPoint` config will automatically enable it
 for the new extension.
 -->
-在這裏使用 `multiPoint` 的一個好處是，如果 `MyPlugin` 將來實現另一個擴展點，`multiPoint` 配置將自動爲新擴展啓用它。
+在這裏使用 `multiPoint` 的一個好處是，如果 `MyPlugin` 將來實現另一個擴展點，`multiPoint` 設定將自動爲新擴展啓用它。
 
 <!--
 Specific extension points can be excluded from `MultiPoint` expansion using
@@ -596,7 +596,7 @@ example, consider two Score plugins `DefaultScore1` and `DefaultScore2`, each wi
 a weight of `1`. They can be reordered with different weights like so:
 -->
 從 `kubescheduler.config.k8s.io/v1beta3` 開始，所有[默認插件](#scheduling-plugins)都通過 `MultiPoint` 在內部啓用。
-但是，仍然可以使用單獨的擴展點來靈活地重新配置默認值（例如排序和分數權重）。
+但是，仍然可以使用單獨的擴展點來靈活地重新設定默認值（例如排序和分數權重）。
 例如，考慮兩個 Score 插件 `DefaultScore1` 和 `DefaultScore2`，每個插件的權重爲 `1`。
 它們可以用不同的權重重新排序，如下所示：
 
@@ -630,10 +630,10 @@ The general hierarchy for precedence when configuring `MultiPoint` plugins is as
 2. Plugins manually configured through `MultiPoint` and their settings
 3. Default plugins and their default settings
 -->
-配置 `MultiPoint` 插件時優先級的一般層次結構如下：
+設定 `MultiPoint` 插件時優先級的一般層次結構如下：
 
 1. 特定的擴展點首先運行，它們的設置會覆蓋其他地方的設置
-2. 通過 `MultiPoint` 手動配置的插件及其設置
+2. 通過 `MultiPoint` 手動設定的插件及其設置
 3. 默認插件及其默認設置
 
 <!--
@@ -660,7 +660,7 @@ To demonstrate the above hierarchy, the following example is based on these plug
 <!--
 A valid sample configuration for these plugins would be:
 -->
-這些插件的一個有效示例配置是：
+這些插件的一個有效示例設定是：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -695,7 +695,7 @@ take precedence.
 <!--
 Besides keeping most of the config in one spot, this sample does a few things:
 -->
-除了將大部分配置保存在一個位置之外，此示例還做了一些事情：
+除了將大部分設定保存在一個位置之外，此示例還做了一些事情：
 
 <!--
 * Enables the custom `queueSort` plugin and disables the default one
@@ -711,7 +711,7 @@ Besides keeping most of the config in one spot, this sample does a few things:
 <!--
 In versions of the config before `v1beta3`, without `multiPoint`, the above snippet would equate to this:
 -->
-在 `v1beta3` 之前的配置版本中，沒有 `multiPoint`，上面的代碼片段等同於：
+在 `v1beta3` 之前的設定版本中，沒有 `multiPoint`，上面的代碼片段等同於：
 
 <!--
 ```yaml
@@ -782,12 +782,12 @@ profiles:
 While this is a complicated example, it demonstrates the flexibility of `MultiPoint` config
 as well as its seamless integration with the existing methods for configuring extension points.
 -->
-雖然這是一個複雜的例子，但它展示了 `MultiPoint` 配置的靈活性以及它與配置擴展點的現有方法的無縫集成。
+雖然這是一個複雜的例子，但它展示了 `MultiPoint` 設定的靈活性以及它與設定擴展點的現有方法的無縫集成。
 
 <!--
 ## Scheduler configuration migrations
 -->
-## 調度程序配置遷移   {#scheduler-configuration-migrations}
+## 調度程序設定遷移   {#scheduler-configuration-migrations}
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="v1beta1 → v1beta2" %}}
@@ -801,7 +801,7 @@ as well as its seamless integration with the existing methods for configuring ex
   would instead use `NodeResourcesFit` (enabled by default) and add a `pluginConfig`
   with a `scoreStrategy` that is similar to:
 -->
-* 在 v1beta2 配置版本中，你可以爲 `NodeResourcesFit` 插件使用新的 score 擴展。
+* 在 v1beta2 設定版本中，你可以爲 `NodeResourcesFit` 插件使用新的 score 擴展。
   新的擴展結合了 `NodeResourcesLeastAllocated`、`NodeResourcesMostAllocated` 和 `RequestedToCapacityRatio` 插件的功能。
   例如，如果你之前使用了 `NodeResourcesMostAllocated` 插件，
   則可以改用 `NodeResourcesFit`（默認啓用）並添加一個 `pluginConfig` 和 `scoreStrategy`，類似於：
@@ -843,12 +843,12 @@ as well as its seamless integration with the existing methods for configuring ex
 <!--
 * A plugin enabled in a v1beta2 configuration file takes precedence over the default configuration for that plugin.
 -->
-* 在 v1beta2 配置文件中啓用的插件優先於該插件的默認配置。
+* 在 v1beta2 設定文件中啓用的插件優先於該插件的默認設定。
 
 <!--
 * Invalid `host` or `port` configured for scheduler healthz and metrics bind address will cause validation failure.
 -->
-* 調度器的健康檢查和審計的綁定地址，所配置的 `host` 或 `port` 無效將導致驗證失敗。
+* 調度器的健康檢查和審計的綁定地址，所設定的 `host` 或 `port` 無效將導致驗證失敗。
 
 {{% /tab %}}
 
@@ -885,4 +885,4 @@ to achieve similar behavior.
 -->
 * 閱讀 [kube-scheduler 參考](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 瞭解[調度](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
-* 閱讀 [kube-scheduler 配置 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/) 參考
+* 閱讀 [kube-scheduler 設定 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/) 參考

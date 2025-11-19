@@ -19,9 +19,9 @@ This guide is to help users debug applications that are deployed into Kubernetes
 and not behaving correctly. This is *not* a guide for people who want to debug their cluster.
 For that you should check out [this guide](/docs/tasks/debug/debug-cluster).
 -->
-本指南幫助用戶調試那些部署到 Kubernetes 上後沒有正常運行的應用。
-本指南 **並非** 指導用戶如何調試集羣。
-如果想調試集羣的話，請參閱[這裏](/zh-cn/docs/tasks/debug/debug-cluster)。
+本指南幫助使用者調試那些部署到 Kubernetes 上後沒有正常運行的應用。
+本指南 **並非** 指導使用者如何調試叢集。
+如果想調試叢集的話，請參閱[這裏](/zh-cn/docs/tasks/debug/debug-cluster)。
 
 <!-- body -->
 
@@ -95,13 +95,13 @@ Reasons include:
   `hostPort` then you can only schedule as many Pods as there are nodes in your Kubernetes cluster.
 -->
 * **資源不足**：
-  你可能耗盡了集羣上所有的 CPU 或內存。此時，你需要刪除 Pod、調整資源請求或者爲集羣添加節點。
+  你可能耗盡了叢集上所有的 CPU 或內存。此時，你需要刪除 Pod、調整資源請求或者爲叢集添加節點。
   更多信息請參閱[計算資源文檔](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 
 * **使用了 `hostPort`**：
   如果綁定 Pod 到 `hostPort`，那麼能夠運行該 Pod 的節點就有限了。
   多數情況下，`hostPort` 是非必要的，而應該採用 Service 對象來暴露 Pod。
-  如果確實需要使用 `hostPort`，那麼集羣中節點的個數就是所能創建的 Pod
+  如果確實需要使用 `hostPort`，那麼叢集中節點的個數就是所能創建的 Pod
   的數量上限。
 
 <!--
@@ -121,11 +121,11 @@ There are three things to check:
 
 如果 Pod 停滯在 `Waiting` 狀態，則表示 Pod 已經被調度到某工作節點，但是無法在該節點上運行。
 同樣，`kubectl describe ...` 命令的輸出可能很有用。
-`Waiting` 狀態的最常見原因是拉取鏡像失敗。要檢查的有三個方面：
+`Waiting` 狀態的最常見原因是拉取映像檔失敗。要檢查的有三個方面：
 
-* 確保鏡像名字拼寫正確。
-* 確保鏡像已被推送到鏡像倉庫。
-* 嘗試手動是否能拉取鏡像。例如，如果你在你的 PC 上使用 Docker，請運行 `docker pull <鏡像>`。
+* 確保映像檔名字拼寫正確。
+* 確保映像檔已被推送到映像檔倉庫。
+* 嘗試手動是否能拉取映像檔。例如，如果你在你的 PC 上使用 Docker，請運行 `docker pull <鏡像>`。
 
 <!--
 #### My pod stays terminating
@@ -144,7 +144,7 @@ finalizer.
 但控制平面無法刪除該 Pod 對象。
 
 如果 Pod 擁有 [Finalizer](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)
-並且集羣中安裝了[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)，
+並且叢集中安裝了[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)，
 可能會導致控制平面無法移除 Finalizer，從而導致 Pod 出現此問題。
 
 <!--
@@ -157,7 +157,7 @@ If the webhook is provided by a third-party:
 - Disable the webhook for `UPDATE` operations.
 - Report an issue with the corresponding provider.
 -->
-要確認這種情況，請檢查你的集羣中是否有 ValidatingWebhookConfiguration 或
+要確認這種情況，請檢查你的叢集中是否有 ValidatingWebhookConfiguration 或
 MutatingWebhookConfiguration 處理 `pods` 資源的 `UPDATE` 操作。
 
 如果 Webhook 是由第三方提供的：
@@ -212,7 +212,7 @@ will not use the command line you intended it to use.
 並且該錯誤在創建 Pod 時被忽略掉，沒有報錯。
 通常，Pod 的定義中節區嵌套關係錯誤、字段名字拼錯的情況都會引起對應內容被忽略掉。
 例如，如果你誤將 `command` 寫成 `commnd`，Pod 雖然可以創建，
-但它不會執行你期望它執行的命令行。
+但它不會執行你期望它執行的命令列。
 
 <!--
 The first thing to do is to delete your pod and try creating it again with the `--validate` option.
@@ -241,12 +241,12 @@ lines on the "apiserver" version that are not on the original version. This is
 expected. However, if there are lines on the original that are not on the apiserver
 version, then this may indicate a problem with your pod spec.
 -->
-接下來就要檢查的是 API 服務器上的 Pod 與你所期望創建的是否匹配
+接下來就要檢查的是 API 伺服器上的 Pod 與你所期望創建的是否匹配
 （例如，你原本使用本機上的一個 YAML 文件來創建 Pod）。
 例如，運行 `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml`，
-之後手動比較 `mypod.yaml` 與從 API 服務器取回的 Pod 描述。
-從 API 服務器處獲得的 YAML 通常包含一些創建 Pod 所用的 YAML 中不存在的行，這是正常的。
-不過，如果如果源文件中有些行在 API 服務器版本中不存在，則意味着
+之後手動比較 `mypod.yaml` 與從 API 伺服器取回的 Pod 描述。
+從 API 伺服器處獲得的 YAML 通常包含一些創建 Pod 所用的 YAML 中不存在的行，這是正常的。
+不過，如果如果源文件中有些行在 API 伺服器版本中不存在，則意味着
 Pod 規約是有問題的。
 
 <!--
@@ -283,7 +283,7 @@ You can view these resource with:
 有一些常見的問題可以造成服務無法正常工作。
 以下說明將有助於調試服務的問題。
 
-首先，驗證服務是否有端點。對於每一個 Service 對象，API 服務器爲其提供對應的一個或多個
+首先，驗證服務是否有端點。對於每一個 Service 對象，API 伺服器爲其提供對應的一個或多個
 `EndpointSlice` 資源。
 
 通過如下命令可以查看 `EndpointSlice` 資源：
@@ -345,7 +345,7 @@ Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 
 Please see [debugging service](/docs/tasks/debug/debug-application/debug-service/) for more information.
 -->
-#### 網絡流量未被轉發  {#network-traffic-is-not-forwarded}
+#### 網路流量未被轉發  {#network-traffic-is-not-forwarded}
 
 請參閱[調試 Service](/zh-cn/docs/tasks/debug/debug-application/debug-service/) 瞭解更多信息。
 
@@ -363,6 +363,6 @@ You may also visit [troubleshooting document](/docs/tasks/debug/) for more infor
 如果上述方法都不能解決你的問題，
 請按照[調試 Service 文檔](/zh-cn/docs/tasks/debug/debug-application/debug-service/)中的介紹，
 確保你的 `Service` 處於 Running 狀態，有 `Endpoints` 被創建，`Pod` 真的在提供服務；
-DNS 服務已配置並正常工作，iptables 規則也已安裝並且 `kube-proxy` 也沒有異常行爲。
+DNS 服務已設定並正常工作，iptables 規則也已安裝並且 `kube-proxy` 也沒有異常行爲。
 
 你也可以訪問[故障排查文檔](/zh-cn/docs/tasks/debug/)來獲取更多信息。

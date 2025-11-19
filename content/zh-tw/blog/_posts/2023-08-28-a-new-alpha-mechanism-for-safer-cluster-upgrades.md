@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.28：用於改進集羣安全升級的新（Alpha）機制"
+title: "Kubernetes 1.28：用於改進叢集安全升級的新（Alpha）機制"
 date: 2023-08-28
 slug: kubernetes-1-28-feature-mixed-version-proxy-alpha
 ---
@@ -27,8 +27,8 @@ this is useful during a cluster upgrade, or when you're rolling out the runtime 
 the cluster's control plane.
 -->
 本博客介紹了**混合版本代理（Mixed Version Proxy）**，這是 Kubernetes 1.28 中的一個新的
-Alpha 級別特性。當集羣中存在多個不同版本的 API 服務器時，混合版本代理使對資源的 HTTP 請求能夠被正確的
-API 服務器處理。例如，在集羣升級期間或當發佈集羣控制平面的運行時配置時此特性非常有用。
+Alpha 級別特性。當叢集中存在多個不同版本的 API 伺服器時，混合版本代理使對資源的 HTTP 請求能夠被正確的
+API 伺服器處理。例如，在叢集升級期間或當發佈叢集控制平面的運行時設定時此特性非常有用。
 
 <!--
 ## What problem does this solve?
@@ -43,7 +43,7 @@ blocked incorrectly or objects being garbage collected mistakenly.
 -->
 ## 這解決了什麼問題？
 
-當集羣進行升級時，集羣中不同版本的 kube-apiserver 爲不同的內置資源集（組、版本、資源）提供服務。
+當叢集進行升級時，叢集中不同版本的 kube-apiserver 爲不同的內置資源集（組、版本、資源）提供服務。
 在這種情況下資源請求如果由任一可用的 apiserver 提供服務，請求可能會到達無法解析此請求資源的
 apiserver 中；因此，它會收到 404（"Not Found"）的響應報錯，這是不正確的。
 此外，返回 404 的錯誤服務可能會導致嚴重的後果，例如命名空間的刪除被錯誤阻止或資源對象被錯誤地回收。
@@ -88,15 +88,15 @@ The new feature “Mixed Version Proxy” provides the kube-apiserver with the c
 1. 處理程序鏈中的新過濾器檢查請求是否爲 apiserver 無法解析的 API 組/版本/資源（使用現有的
    [StorageVersion API](https://github.com/kubernetes/kubernetes/blob/release-1.28/pkg/apis/apiserverinternal/types.go#L25-L37)）。
    如果是，它會將請求代理到 ServerStorageVersion 對象中列出的 apiserver 之一。
-   如果所選的對等 apiserver 無法響應（由於網絡連接、收到的請求與在 ServerStorageVersion
+   如果所選的對等 apiserver 無法響應（由於網路連接、收到的請求與在 ServerStorageVersion
    對象中註冊 apiserver-resource 信息的控制器之間的競爭等原因），則會出現 503（"Service Unavailable"）錯誤響應。
-2. 爲了防止無限期地代理請求，一旦最初的 API 服務器確定無法處理該請求，就會在原始請求中添加一個
+2. 爲了防止無限期地代理請求，一旦最初的 API 伺服器確定無法處理該請求，就會在原始請求中添加一個
   （v1.28 新增）HTTP 請求頭 `X-Kubernetes-APIServer-Rerouted: true`。將其設置爲 true 意味着原始
-   API 服務器無法處理該請求，需要對其進行代理。如果目標側對等 API 服務器看到此標頭，則不會對該請求做進一步的代理操作。
-3. 要設置 kube-apiserver 的網絡位置，以供對等服務器來代理請求，將使用 `--advertise-address`
+   API 伺服器無法處理該請求，需要對其進行代理。如果目標側對等 API 伺服器看到此標頭，則不會對該請求做進一步的代理操作。
+3. 要設置 kube-apiserver 的網路位置，以供對等伺服器來代理請求，將使用 `--advertise-address`
    或（當未指定`--advertise-address`時）`--bind-address` 標誌所設置的值。
-   如果網絡配置中不允許用戶在對等 kube-apiserver 之間使用這些標誌中指定的地址進行通信，
-   可以選擇將正確的對等地址配置在此特性引入的 `--peer-advertise-ip` 和 `--peer-advertise-port`
+   如果網路設定中不允許使用者在對等 kube-apiserver 之間使用這些標誌中指定的地址進行通信，
+   可以選擇將正確的對等地址設定在此特性引入的 `--peer-advertise-ip` 和 `--peer-advertise-port`
    參數中。
 
 <!--
@@ -122,15 +122,15 @@ Following are the required steps to enable the feature:
   is used. If those too, are unset, the host's default interface will be used.
 -->
 * 下載[Kubernetes 項目的最新版本](/zh-cn/releases/download/)（版本 `v1.28.0` 或更高版本）
-* 在 kube-apiserver 上使用命令行標誌 `--feature-gates=UnknownVersionInteroperabilityProxy=true`
+* 在 kube-apiserver 上使用命令列標誌 `--feature-gates=UnknownVersionInteroperabilityProxy=true`
   打開特性門控
 * 使用 kube-apiserver 的 `--peer-ca-file` 參數爲源 kube-apiserver 提供 CA 證書，
   用以驗證目標 kube-apiserver 的服務證書。注意：這是此功能正常工作所必需的參數。
   此參數沒有默認值。
 * 爲本地 kube-apiserver 設置正確的 IP 和端口，在代理請求時，對等方將使用該 IP 和端口連接到此
-  `--peer-advertise-port` 命令行參數來配置 kube-apiserver。
-  `--peer-advertise-port` 命令行參數。
-  如果未設置這兩個參數，則默認使用 `--advertise-address` 或 `--bind-address` 命令行參數的值。
+  `--peer-advertise-port` 命令列參數來設定 kube-apiserver。
+  `--peer-advertise-port` 命令列參數。
+  如果未設置這兩個參數，則默認使用 `--advertise-address` 或 `--bind-address` 命令列參數的值。
   如果這些也未設置，則將使用主機的默認接口。
 
 <!--
@@ -150,7 +150,7 @@ to have the following capabilities for beta
 * Use an egress dialer for network connections made to peer kube-apiservers
 -->
 * 合併所有 kube-apiserver 的發現數據
-* 使用出口撥號器（egress dialer）與對等 kube-apiserver 進行網絡連接
+* 使用出口撥號器（egress dialer）與對等 kube-apiserver 進行網路連接
 
 <!--
 ## How can I learn more?

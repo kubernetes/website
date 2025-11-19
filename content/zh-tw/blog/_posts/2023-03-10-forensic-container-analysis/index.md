@@ -52,10 +52,10 @@ which I want to checkpoint and then analyze in this article. This container allo
 me to create files in the container and also store information in memory which
 I later want to find in the checkpoint.
 -->
-有關如何配置 Kubernetes 和底層 CRI 實現以啓用檢查點支持的詳細信息，
+有關如何設定 Kubernetes 和底層 CRI 實現以啓用檢查點支持的詳細信息，
 請參閱 [Kubernetes 中的取證容器檢查點][forensic-blog]一文。
 
-作爲示例，我準備了一個容器鏡像（`quay.io/adrianreber/counter:blog`），我想對其設定檢查點，
+作爲示例，我準備了一個容器映像檔（`quay.io/adrianreber/counter:blog`），我想對其設定檢查點，
 然後在本文中進行分析。這個容器允許我在容器中創建文件，並將信息存儲在內存中，稍後我想在檢查點中找到這些信息。
 
 <!-- 
@@ -131,7 +131,7 @@ For completeness the following `curl` command-line options are necessary to
 have `curl` accept the *kubelet*'s self signed certificate and authorize the
 use of the *kubelet* `checkpoint` API:
 -->
-爲了完整起見，以下 `curl` 命令行選項對於讓 `curl` 接受 **kubelet** 的自簽名證書並授權使用
+爲了完整起見，以下 `curl` 命令列選項對於讓 `curl` 接受 **kubelet** 的自簽名證書並授權使用
 **kubelet** 檢查點 API 是必要的：
 
 ```shell
@@ -278,11 +278,11 @@ was created just as expected.
 With the help of `rootfs-diff.tar` it is possible to inspect all files that
 were created or changed compared to the base image of the container.
 -->
-與該容器所基於的容器鏡像（`quay.io/adrianreber/counter:blog`）相比，
+與該容器所基於的容器映像檔（`quay.io/adrianreber/counter:blog`）相比，
 我可以看到文件 `logfile` 包含了訪問該容器所提供服務相關的所有信息，
 並且文件 `test-file` 如預期一樣被創建了。
 
-在 `rootfs-diff.tar` 的幫助下，可以根據容器的基本鏡像檢查所有創建或修改的文件。
+在 `rootfs-diff.tar` 的幫助下，可以根據容器的基本映像檔檢查所有創建或修改的文件。
 
 <!-- 
 ### Analyzing the checkpointed processes - `checkpoint/`
@@ -298,7 +298,7 @@ help of the tool [CRIT][crit] which is distributed as part of CRIU.
 First lets get an overview of the processes inside of the container:
 -->
 目錄 `checkpoint/` 包含 CRIU 在容器內對進程進行檢查點時創建的數據。
-目錄 `checkpoint/` 的內容由各種[鏡像文件][image-files] 組成，可以使用作爲 CRIU
+目錄 `checkpoint/` 的內容由各種[映像檔文件][image-files] 組成，可以使用作爲 CRIU
 一部分分發的 [CRIT][crit] 工具進行分析。
 
 首先，我們先概覽瞭解一下容器內的進程。
@@ -380,7 +380,7 @@ about the UTS namespace:
 -->
 在此輸出中，我們首先獲取容器中第一個進程的 PID。在運行容器的系統上，它會查找其 PID 和子進程。
 你應該看到三個進程，第一個進程是 `bash`，容器 PID 命名空間中的 PID 爲 1。
-然後查看 `/proc/<PID>/comm`，可以找到與檢查點鏡像完全相同的值。
+然後查看 `/proc/<PID>/comm`，可以找到與檢查點映像檔完全相同的值。
 
 需要記住的重點是，檢查點包含容器的 PID 命名空間內的視圖。因爲這些信息對於恢復進程非常重要。
 
@@ -408,8 +408,8 @@ of `crit`.
 -->
 這裏輸出表示 UTS 命名空間中的主機名是 `counters`。
 
-對於檢查點創建期間收集的每個資源 CRIU，`checkpoint/` 目錄包含相應的鏡像文件，
-你可以藉助 `crit` 來分析該鏡像文件。
+對於檢查點創建期間收集的每個資源 CRIU，`checkpoint/` 目錄包含相應的映像檔文件，
+你可以藉助 `crit` 來分析該映像檔文件。
 
 <!-- 
 #### Looking at the memory pages
@@ -459,7 +459,7 @@ Another possibility to look at the checkpoint images is `gdb`. The CRIU reposito
 contains the script [coredump][criu-coredump] which can convert a checkpoint
 into a coredump file:
 -->
-查看檢查點鏡像的另一種方法是 `gdb`。CRIU 存儲庫包含腳本 [coredump][criu-coredump]，
+查看檢查點映像檔的另一種方法是 `gdb`。CRIU 存儲庫包含腳本 [coredump][criu-coredump]，
 它可以將檢查點轉換爲 coredump 文件：
 
 ```console
@@ -473,7 +473,7 @@ Running the `coredump-python3` script will convert the checkpoint images into
 one coredump file for each process in the container. Using `gdb` I can also look
 at the details of the processes:
 -->
-運行 `coredump-python3` 腳本會將檢查點鏡像轉換爲容器中每個進程一個的 coredump 文件。
+運行 `coredump-python3` 腳本會將檢查點映像檔轉換爲容器中每個進程一個的 coredump 文件。
 使用 `gdb` 我還可以查看進程的詳細信息：
 
 ```console
@@ -516,7 +516,7 @@ In this example I can see the value of all registers as they were during
 checkpointing and I can also see the complete command-line of my container's PID
 1 process: `bash -c /home/counter/counter.py 2>&1 | tee /home/counter/logfile`
 -->
-在這個例子中，我可以看到所有寄存器的值，因爲它們在檢查點，我還可以看到容器的 PID 1 進程的完整命令行：
+在這個例子中，我可以看到所有寄存器的值，因爲它們在檢查點，我還可以看到容器的 PID 1 進程的完整命令列：
 `bash -c /home/counter/counter.py 2>&1 | tee /home/counter/logfile`。
 
 <!-- 

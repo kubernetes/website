@@ -35,6 +35,6 @@ tags:
 [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority) gives the ability to set scheduling priority of a Pod to be higher and lower than other Pods — an important feature for production clusters workload.
 -->
 [Pod 優先級](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)
-允許用戶爲 Pod 設置高於或低於其他 Pod 的優先級 -- 這對於生產集羣
+允許使用者爲 Pod 設置高於或低於其他 Pod 的優先級 -- 這對於生產叢集
 工作負載而言是一個重要的特性。
 

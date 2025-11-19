@@ -4,7 +4,7 @@ reviewers:
 weight: 55
 content_type: concept
 description: >
-  理解如何通過收集 **指標（metrics）**、**日誌（logs）** 和 **鏈路（traces）** 來獲得對 Kubernetes 集羣的端到端可觀測性。
+  理解如何通過收集 **指標（metrics）**、**日誌（logs）** 和 **鏈路（traces）** 來獲得對 Kubernetes 叢集的端到端可觀測性。
 no_list: true
 card:
   name: setup
@@ -42,23 +42,23 @@ card:
 In Kubernetes, observability is the process of collecting and analyzing metrics, logs, and traces—often referred to as the three pillars of observability—in order to obtain a better understanding of the internal state, performance, and health of the cluster.
 -->
 在 Kubernetes 中，可觀測性是通過收集和分析指標、日誌和鏈路（通常被稱爲可觀測性的三大支柱），
-以便更好地瞭解集羣的內部狀態、性能和健康情況的過程。
+以便更好地瞭解叢集的內部狀態、性能和健康情況的過程。
 
 <!--
 Kubernetes control plane components, as well as many add-ons, generate and emit these signals. By aggregating and correlating them, you can gain a unified picture of the control plane, add-ons, and applications across the cluster.
 -->
 Kubernetes 控制平面組件以及許多插件都會生成併發出這些信號。
-通過聚合這些信號並在其間建立關聯，你可以獲得整個集羣中控制平面、插件和應用程序的統一視圖。
+通過聚合這些信號並在其間建立關聯，你可以獲得整個叢集中控制平面、插件和應用程序的統一視圖。
 
 <!--
 Figure 1 outlines how cluster components emit the three primary signal types.
 -->
-圖 1 概述了集羣組件如何發出三種主要信號類型。
+圖 1 概述了叢集組件如何發出三種主要信號類型。
 
 {{< mermaid >}}
 
 flowchart LR
-    A[集羣組件] --> M[指標流水線]
+    A[叢集組件] --> M[指標流水線]
     A --> L[日誌流水線]
     A --> T[鏈路流水線]
     M --> S[(存儲和分析)]
@@ -68,7 +68,7 @@ flowchart LR
 {{< /mermaid >}}
 
 
-*圖 1. 集羣組件發出的大致信號及其消費者。*
+*圖 1. 叢集組件發出的大致信號及其消費者。*
 
 <!-- body -->
 
@@ -114,13 +114,13 @@ See the [system metrics guide](/docs/concepts/cluster-administration/system-metr
 
 Figure 2 outlines a common Kubernetes metrics pipeline.
 -->
-有關詳細信息和配置選項，請參閱[系統指標指南](/zh-cn/docs/concepts/cluster-administration/system-metrics/)。
+有關詳細信息和設定選項，請參閱[系統指標指南](/zh-cn/docs/concepts/cluster-administration/system-metrics/)。
 
 圖 2 概述了一個常見的 Kubernetes 指標流水線。
 
 {{< mermaid >}}
 flowchart LR
-    C[集羣組件] --> P[Prometheus 抓取器]
+    C[叢集組件] --> P[Prometheus 抓取器]
     P --> TS[(時序存儲)]
     TS --> D[儀表板和告警]
     TS --> A[自動化操作]
@@ -133,7 +133,7 @@ For multi-cluster or multi-cloud visibility, distributed time series databases (
 -->
 *圖 2. 典型 Kubernetes 指標流水線的組件。*
 
-對於多集羣或多雲可觀測性，分佈式時序數據庫（例如 Thanos 或 Cortex）
+對於多叢集或多雲可觀測性，分佈式時序數據庫（例如 Thanos 或 Cortex）
 可以補充 Prometheus。
 
 <!--
@@ -185,7 +185,7 @@ kubelet 通過 `kubectl logs` 使這些日誌可被訪問。
 <!--
 System component logs capture events from the cluster and are often useful for debugging and troubleshooting. These components are classified in two different ways: those that run in a container and those that do not. For example, the `kube-scheduler` and `kube-proxy` usually run in containers, whereas the `kubelet` and the container runtime run directly on the host.
 -->
-系統組件日誌捕獲來自集羣的事件，通常對調試和故障排查很有用。
+系統組件日誌捕獲來自叢集的事件，通常對調試和故障排查很有用。
 這些組件可以分類爲兩種不同方式：在容器中運行的組件和不在容器中運行的組件。
 例如，`kube-scheduler` 和 `kube-proxy` 通常在容器中運行，
 而 `kubelet` 和容器運行時直接在主機上運行。
@@ -203,15 +203,15 @@ System component logs capture events from the cluster and are often useful for d
 System component and container logs stored under `/var/log` require log rotation to prevent uncontrolled growth. Some cluster provisioning scripts install log rotation by default; verify your environment and adjust as needed. See the [system logs reference](/docs/concepts/cluster-administration/system-logs/) for details on locations, formats, and configuration options.
 -->
 存儲在 `/var/log` 下的系統組件和容器日誌需要進行日誌輪轉以防止不受控制的增長。
-某些集羣配置腳本默認安裝日誌輪轉；請檢查你的環境並根據需要進行調整。
-有關位置、格式和配置選項的詳細信息，請參閱[系統日誌參考](/zh-cn/docs/concepts/cluster-administration/system-logs/)。
+某些叢集設定腳本默認安裝日誌輪轉；請檢查你的環境並根據需要進行調整。
+有關位置、格式和設定選項的詳細信息，請參閱[系統日誌參考](/zh-cn/docs/concepts/cluster-administration/system-logs/)。
 
 <!--
 Most clusters run a node-level logging agent (for example, Fluent Bit or Fluentd) that tails these files and forwards entries to a central log store. The [logging architecture guidance](/docs/concepts/cluster-administration/logging/) explains how to design such pipelines, apply retention, and log flows to backends.
 
 Figure 3 outlines a common log aggregation pipeline.
 -->
-大多數集羣運行一個節點級日誌記錄代理（例如 Fluent Bit 或 Fluentd），
+大多數叢集運行一個節點級日誌記錄代理（例如 Fluent Bit 或 Fluentd），
 該代理尾部跟蹤這些日誌文件並將日誌條目轉發到某集中式日誌存儲。
 [日誌記錄架構指南](/zh-cn/docs/concepts/cluster-administration/logging/)
 解釋瞭如何設計此類流水線、如何實施保留策略以及如何將日誌流傳輸到後端。
@@ -253,7 +253,7 @@ See [Common observability tools - logging tools](#logging-tools) for logging age
 - [日誌記錄架構](/zh-cn/docs/concepts/cluster-administration/logging/)
 - [系統日誌](/zh-cn/docs/concepts/cluster-administration/system-logs/)
 - [日誌記錄任務和教程](/zh-cn/docs/tasks/debug/logging/)
-- [配置審計日誌](/zh-cn/docs/tasks/debug/debug-cluster/audit/)
+- [設定審計日誌](/zh-cn/docs/tasks/debug/debug-cluster/audit/)
 
 <!--
 ## Traces

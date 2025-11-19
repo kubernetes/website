@@ -63,7 +63,7 @@ features to manage application configuration files:
 -->
 ## Kustomize 概述    {#overview-of-kustomize}
 
-Kustomize 是一個用來定製 Kubernetes 配置的工具。它提供以下功能特性來管理應用配置文件：
+Kustomize 是一個用來定製 Kubernetes 設定的工具。它提供以下功能特性來管理應用設定文件：
 
 * 從其他來源生成資源
 * 爲資源設置貫穿性（Cross-Cutting）字段
@@ -79,8 +79,8 @@ Kustomize has `secretGenerator` and `configMapGenerator`, which generate Secret 
 -->
 ### 生成資源   {#generating-resources}
 
-ConfigMap 和 Secret 包含其他 Kubernetes 對象（如 Pod）所需要的配置或敏感數據。
-ConfigMap 或 Secret 中數據的來源往往是集羣外部，例如某個 `.properties` 文件或者 SSH 密鑰文件。
+ConfigMap 和 Secret 包含其他 Kubernetes 對象（如 Pod）所需要的設定或敏感數據。
+ConfigMap 或 Secret 中數據的來源往往是叢集外部，例如某個 `.properties` 文件或者 SSH 密鑰文件。
 Kustomize 提供 `secretGenerator` 和 `configMapGenerator`，可以基於文件或字面值來生成 Secret 和 ConfigMap。
 
 <!--
@@ -513,7 +513,7 @@ specify cross-cutting options for generated ConfigMaps and Secrets.
 -->
 所生成的 ConfigMap 和 Secret 都會包含內容哈希值後綴。
 這是爲了確保內容發生變化時，所生成的是新的 ConfigMap 或 Secret。
-要禁止自動添加後綴的行爲，用戶可以使用 `generatorOptions`。
+要禁止自動添加後綴的行爲，使用者可以使用 `generatorOptions`。
 除此以外，爲生成的 ConfigMap 和 Secret 指定貫穿性選項也是可以的。
 
 ```shell
@@ -663,8 +663,8 @@ Here is an example of an NGINX application comprised of a Deployment and a Servi
 -->
 #### 組織    {#composing}
 
-Kustomize 支持組合不同的資源。`kustomization.yaml` 文件的 `resources` 字段定義配置中要包含的資源列表。
-你可以將 `resources` 列表中的路徑設置爲資源配置文件的路徑。
+Kustomize 支持組合不同的資源。`kustomization.yaml` 文件的 `resources` 字段定義設定中要包含的資源列表。
+你可以將 `resources` 列表中的路徑設置爲資源設定文件的路徑。
 下面是由 Deployment 和 Service 構成的 NGINX 應用的示例：
 
 <!--
@@ -1084,8 +1084,8 @@ In addition to patches, Kustomize also offers customizing container images or in
 without creating patches. For example, you can change the image used inside containers by specifying the new image in the `images` field
 in `kustomization.yaml`.
 -->
-除了補丁之外，Kustomize 還提供定製容器鏡像或者將其他對象的字段值注入到容器中的能力，並且不需要創建補丁。
-例如，你可以通過在 `kustomization.yaml` 文件的 `images` 字段設置新的鏡像來更改容器中使用的鏡像。
+除了補丁之外，Kustomize 還提供定製容器映像檔或者將其他對象的字段值注入到容器中的能力，並且不需要創建補丁。
+例如，你可以通過在 `kustomization.yaml` 文件的 `images` 字段設置新的映像檔來更改容器中使用的映像檔。
 
 ```shell
 cat <<EOF > deployment.yaml
@@ -1123,7 +1123,7 @@ EOF
 <!--
 Run `kubectl kustomize ./` to see that the image being used is updated:
 -->
-執行 `kubectl kustomize ./` 以查看所使用的鏡像已被更新：
+執行 `kubectl kustomize ./` 以查看所使用的映像檔已被更新：
 
 ```yaml
 apiVersion: apps/v1
@@ -1154,8 +1154,8 @@ Since the Service name may change as `namePrefix` or `nameSuffix` is added in th
 not recommended to hard code the Service name in the command argument. For this usage, Kustomize can inject
 the Service name into containers through `replacements`.
 -->
-有些時候，Pod 中運行的應用可能需要使用來自其他對象的配置值。
-例如，某 Deployment 對象的 Pod 需要從環境變量或命令行參數中讀取讀取
+有些時候，Pod 中運行的應用可能需要使用來自其他對象的設定值。
+例如，某 Deployment 對象的 Pod 需要從環境變量或命令列參數中讀取讀取
 Service 的名稱。
 由於在 `kustomization.yaml` 文件中添加 `namePrefix` 或 `nameSuffix` 時
 Service 名稱可能發生變化，建議不要在命令參數中硬編碼 Service 名稱。
@@ -1337,7 +1337,7 @@ Kustomize 中有 **基準（bases）** 和 **覆蓋（overlays）** 的概念區
 **基準**不瞭解覆蓋的存在，且可被多個覆蓋所使用。
 
 `kustomization.yaml` 文件位於 **overlay** 目錄中，可以引用多個 `bases`，
-將這些 base 中定義的所有資源合併爲一個統一的配置。
+將這些 base 中定義的所有資源合併爲一個統一的設定。
 此外，它還可以在這些資源之上應用定製化修改以滿足特定需求。
 
 以下是 base 的一個示例：
@@ -1581,7 +1581,7 @@ kubectl describe -k ./
 Run the following command to compare the Deployment object `dev-my-nginx` against the state
 that the cluster would be in if the manifest was applied:
 -->
-執行下面的命令來比較 Deployment 對象 `dev-my-nginx` 與清單被應用之後集羣將處於的狀態：
+執行下面的命令來比較 Deployment 對象 `dev-my-nginx` 與清單被應用之後叢集將處於的狀態：
 
 ```shell
 kubectl diff -k ./
@@ -1630,17 +1630,17 @@ deployment.apps "dev-my-nginx" deleted
 | commonAnnotations  | map[string]string | 要添加到所有資源的註解 |
 | commonLabels       | map[string]string | 要添加到所有資源和選擇算符的標籤 |
 | configMapGenerator | [][ConfigMapArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/configmapargs.go#L7) | 列表中的每個條目都會生成一個 ConfigMap |
-| configurations     | []string | 列表中每個條目都應能解析爲一個包含 [Kustomize 轉換器配置](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) 的文件 |
+| configurations     | []string | 列表中每個條目都應能解析爲一個包含 [Kustomize 轉換器設定](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) 的文件 |
 | crds               | []string | 列表中每個條目都應能夠解析爲 Kubernetes 類別的 OpenAPI 定義文件 |
 | generatorOptions   | [GeneratorOptions](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/generatoroptions.go#L7) | 更改所有 ConfigMap 和 Secret 生成器的行爲 |
-| images             | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8) | 每個條目都用來更改鏡像的名稱、標記與/或摘要，不必生成補丁 |
+| images             | [][Image](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/image.go#L8) | 每個條目都用來更改映像檔的名稱、標記與/或摘要，不必生成補丁 |
 | labels             | map[string]string | 添加標籤而不自動注入對應的選擇器 |
 | namePrefix         | string | 此字段的值將被添加到所有資源名稱前面 |
 | nameSuffix         | string | 此字段的值將被添加到所有資源名稱後面 |
 | patchesJson6902    | [][Patch](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/patch.go#L10) | 列表中每個條目都能解析爲一個 Kubernetes 對象和一個 JSON 補丁 |
 | patchesStrategicMerge | []string | 列表中每個條目都能解析爲某 Kubernetes 對象的策略性合併補丁 |
 | replacements       | [][Replacements](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/replacement.go#L15) | 將 resource 字段的值複製到任意數量的指定目標 |
-| resources          | []string | 列表中的每個條目都必須能夠解析爲現有的資源配置文件 |
+| resources          | []string | 列表中的每個條目都必須能夠解析爲現有的資源設定文件 |
 | secretGenerator    | [][SecretArgs](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/secretargs.go#L7)  | 列表中的每個條目都會生成一個 Secret |
 | vars               | [][Var](https://github.com/kubernetes-sigs/kustomize/blob/master/api/types/var.go#L19) | 每個條目用來從某資源的字段來析取文字 |
 

@@ -27,8 +27,8 @@ way to describe the "classes" of storage when provisioning a volume snapshot.
 -->
 ## 介紹 {#introduction}
 
-就像 StorageClass 爲管理員提供了一種在配置卷時描述存儲“類”的方法，
-VolumeSnapshotClass 提供了一種在配置卷快照時描述存儲“類”的方法。
+就像 StorageClass 爲管理員提供了一種在設定卷時描述存儲“類”的方法，
+VolumeSnapshotClass 提供了一種在設定卷快照時描述存儲“類”的方法。
 
 <!--
 ## The VolumeSnapshotClass Resource
@@ -51,9 +51,9 @@ Without the required CRDs present, the creation of a VolumeSnapshotClass fails.
 ## VolumeSnapshotClass 資源  {#the-volumesnapshortclass-resource}
 
 每個 VolumeSnapshotClass 都包含 `driver`、`deletionPolicy` 和 `parameters` 字段，
-在需要動態配置屬於該類的 VolumeSnapshot 時使用。
+在需要動態設定屬於該類的 VolumeSnapshot 時使用。
 
-VolumeSnapshotClass 對象的名稱很重要，是用戶可以請求特定類的方式。
+VolumeSnapshotClass 對象的名稱很重要，是使用者可以請求特定類的方式。
 管理員在首次創建 VolumeSnapshotClass 對象時設置類的名稱和其他參數，
 對象一旦創建就無法更新。
 
@@ -117,7 +117,7 @@ a VolumeSnapshot creation will fail because Kubernetes cannot determine which on
 Kubernetes 會自動選擇一個默認的 VolumeSnapshotClass，
 該類與 PVC 的 StorageClass 所使用的 CSI 驅動程序匹配。
 
-這種行爲允許多個默認的 VolumeSnapshotClass 對象在集羣中共存，
+這種行爲允許多個默認的 VolumeSnapshotClass 對象在叢集中共存，
 只要每個默認類都與唯一的 CSI 驅動程序進行關聯。
 
 請始終確保每個 CSI 驅動程序只有一個默認的 VolumeSnapshotClass。
@@ -132,7 +132,7 @@ used for provisioning VolumeSnapshots. This field must be specified.
 -->
 ### 驅動程序 {#driver}
 
-卷快照類有一個驅動程序，用於確定配置 VolumeSnapshot 的 CSI 卷插件。
+卷快照類有一個驅動程序，用於確定設定 VolumeSnapshot 的 CSI 卷插件。
 此字段必須指定。
 
 <!--
@@ -150,7 +150,7 @@ then both the underlying snapshot and VolumeSnapshotContent remain.
 ### 刪除策略 {#deletion-policy}
 
 卷快照類具有 [deletionPolicy](/zh-cn/docs/concepts/storage/volume-snapshots/#delete) 屬性。
-用戶可以配置當所綁定的 VolumeSnapshot 對象將被刪除時，如何處理 VolumeSnapshotContent 對象。
+使用者可以設定當所綁定的 VolumeSnapshot 對象將被刪除時，如何處理 VolumeSnapshotContent 對象。
 卷快照類的這個策略可以是 `Retain` 或者 `Delete`。這個策略字段必須指定。
 
 如果刪除策略是 `Delete`，那麼底層的存儲快照會和 VolumeSnapshotContent 對象

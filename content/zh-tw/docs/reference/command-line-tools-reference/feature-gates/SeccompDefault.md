@@ -27,5 +27,5 @@ Enables the use of `RuntimeDefault` as the default seccomp profile
 for all workloads.
 The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
 -->
-啓用 `RuntimeDefault` 作爲所有工作負載的默認 seccomp 配置文件。
-此 seccomp 配置文件在 Pod 和/或 Container 的 `securityContext` 中被指定。
+啓用 `RuntimeDefault` 作爲所有工作負載的默認 seccomp 設定文件。
+此 seccomp 設定文件在 Pod 和/或 Container 的 `securityContext` 中被指定。

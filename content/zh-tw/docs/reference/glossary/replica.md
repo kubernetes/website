@@ -44,10 +44,10 @@ Replica management allows for efficient load balancing, rolling updates, and
 self-healing capabilities in a Kubernetes cluster.
 -->
 Kubernetes 中通常使用副本來實現期望的應用狀態和可靠性。
-它們可以在集羣的多個節點上擴縮和分配工作負載。
+它們可以在叢集的多個節點上擴縮和分配工作負載。
 
 在 Deployment 或 ReplicaSet 中定義副本數量， Kubernetes 確保了所期望數量的實例正在運行，
 並且會根據需要自動調整這個數量。
 
-副本管理可以在 Kubernetes 集羣中提供了高效的負載均衡、滾動更新和自愈能力。
+副本管理可以在 Kubernetes 叢集中提供了高效的負載均衡、滾動更新和自愈能力。
 

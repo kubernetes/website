@@ -76,7 +76,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -123,7 +123,7 @@ local 操作的幫助命令。
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇要從中拉取控制平面鏡像的容器倉庫。
+選擇要從中拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>

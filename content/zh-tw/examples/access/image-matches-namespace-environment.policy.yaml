@@ -1,6 +1,6 @@
 # 此策略強制除 "exempt" Deployment 或任何不屬於 “example.com” 組織的容器
-#（例如常見的 sidecar）外的 Deployment 的所有容器的鏡像庫與其命名空間的環境標籤相匹配。
-# 例如，如果命名空間的標籤爲 {"environment": "staging"}，則所有容器鏡像必須是
+#（例如常見的 sidecar）外的 Deployment 的所有容器的映像檔庫與其命名空間的環境標籤相匹配。
+# 例如，如果命名空間的標籤爲 {"environment": "staging"}，則所有容器映像檔必須是
 # staging.example.com/* 或根本不包含 “example.com”，除非 Deployment 有
 # {"exempt": "true"} 標籤。
 apiVersion: admissionregistration.k8s.io/v1

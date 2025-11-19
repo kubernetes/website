@@ -1,5 +1,5 @@
 ---
-title: 適用於 Docker 用戶的 kubectl
+title: 適用於 Docker 使用者的 kubectl
 content_type: concept
 weight: 50
 ---
@@ -16,7 +16,7 @@ weight: 50
 <!--
 You can use the Kubernetes command line tool `kubectl` to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the Docker commands and the kubectl commands. The following sections show a Docker sub-command and describe the equivalent `kubectl` command.
 -->
-你可以使用 Kubernetes 命令行工具 `kubectl` 與 API 服務器進行交互。如果你熟悉 Docker 命令行工具，
+你可以使用 Kubernetes 命令列工具 `kubectl` 與 API 伺服器進行交互。如果你熟悉 Docker 命令列工具，
 則使用 kubectl 非常簡單。但是，Docker 命令和 kubectl 命令之間有一些區別。以下顯示了 Docker 子命令，
 並描述了等效的 `kubectl` 命令。
 
@@ -102,12 +102,12 @@ By using kubectl, you can create a [Deployment](/docs/concepts/workloads/control
 在 kubectl 命令中，我們創建了一個 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)，
 這將保證有 N 個運行 nginx 的 Pod（N 代表 spec 中聲明的副本數，默認爲 1）。
 我們還創建了一個 [Service](/zh-cn/docs/concepts/services-networking/service/)，其選擇算符與容器標籤匹配。
-查看[使用 Service 訪問集羣中的應用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster)獲取更多信息。
+查看[使用 Service 訪問叢集中的應用程序](/zh-cn/docs/tasks/access-application-cluster/service-access-application-cluster)獲取更多信息。
 
 <!--
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
 -->
-默認情況下鏡像會在後臺運行，與 `docker run -d ...` 類似，如果你想在前臺運行，
+默認情況下映像檔會在後臺運行，與 `docker run -d ...` 類似，如果你想在前臺運行，
 使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 在前臺運行 Pod：
 
 ```shell
@@ -425,8 +425,8 @@ When you use kubectl, you don't delete the pod directly. You have to first delet
 <!--
 There is no direct analog of `docker login` in kubectl. If you are interested in using Kubernetes with a private registry, see [Using a Private Registry](/docs/concepts/containers/images/#using-a-private-registry).
 -->
-在 kubectl 中沒有對 `docker login` 的直接模擬。如果你有興趣在私有鏡像倉庫中使用 Kubernetes，
-請參閱[使用私有鏡像倉庫](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)。
+在 kubectl 中沒有對 `docker login` 的直接模擬。如果你有興趣在私有映像檔倉庫中使用 Kubernetes，
+請參閱[使用私有映像檔倉庫](/zh-cn/docs/concepts/containers/images/#using-a-private-registry)。
 
 ## docker version
 
@@ -474,7 +474,7 @@ Server Version: version.Info{Major:"1", Minor:"6", GitVersion:"v1.6.9+a3d1dfa6f4
 <!--
 To get miscellaneous information about the environment and configuration, see [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info).
 -->
-如何獲取有關環境和配置的各種信息？查看 [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info)。
+如何獲取有關環境和設定的各種信息？查看 [kubectl cluster-info](/docs/reference/generated/kubectl/kubectl-commands/#cluster-info)。
 
 <!--
 docker:

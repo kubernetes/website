@@ -16,7 +16,7 @@ weight: 11
 <!--
 This page explains how to add Windows worker nodes to a kubeadm cluster.
 -->
-本頁介紹如何將 Linux 工作節點添加到 kubeadm 集羣。
+本頁介紹如何將 Linux 工作節點添加到 kubeadm 叢集。
 
 ## {{% heading "prerequisites" %}}
 
@@ -28,8 +28,8 @@ in the document [Creating a cluster with kubeadm](/docs/setup/production-environ
 -->
 * 一個正在運行的 [Windows Server 2022](https://www.microsoft.com/cloud-platform/windows-server-pricing)
   （或更高版本）實例，且具備管理權限。
-* 一個正在運行的、由 `kubeadm init` 命令創建的集羣，且集羣的創建遵循
-  [使用 kubeadm 創建集羣](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* 一個正在運行的、由 `kubeadm init` 命令創建的叢集，且叢集的創建遵循
+  [使用 kubeadm 創建叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
   文檔中所給的步驟。
 
 <!-- steps -->
@@ -44,7 +44,7 @@ in the document [Creating a cluster with kubeadm](/docs/setup/production-environ
 To facilitate the addition of Windows worker nodes to a cluster, PowerShell scripts from the repository
 https://sigs.k8s.io/sig-windows-tools are used.
 -->
-爲了方便將 Windows 工作節點添加到集羣，下面會用到代碼倉庫
+爲了方便將 Windows 工作節點添加到叢集，下面會用到代碼倉庫
 https://sigs.k8s.io/sig-windows-tools 裏的 PowerShell 腳本。
 {{< /note >}}
 
@@ -61,7 +61,7 @@ Then proceed with the steps outlined below.
 對每臺機器執行以下操作：
 
 1. 在機器上打開一個 PowerShell 會話。
-1. 確保你是管理員或具有特權的用戶。
+1. 確保你是管理員或具有特權的使用者。
 
 然後繼續執行下面的步驟。
 

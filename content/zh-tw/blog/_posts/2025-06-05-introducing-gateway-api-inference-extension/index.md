@@ -38,7 +38,7 @@ is missing.
 -->
 現代生成式 AI 和大語言模型（LLM）服務在 Kubernetes 上帶來獨特的流量路由挑戰。
 與典型的短生命期的無狀態 Web 請求不同，LLM 推理會話通常是長時間運行的、資源密集型的，並且具有一定的狀態性。
-例如，單個由 GPU 支撐的模型服務器可能會保持多個推理會話處於活躍狀態，並保留內存中的令牌緩存。
+例如，單個由 GPU 支撐的模型伺服器可能會保持多個推理會話處於活躍狀態，並保留內存中的令牌緩存。
 
 傳統的負載均衡器注重 HTTP 路徑或輪詢，缺乏處理這類工作負載所需的專業能力。
 傳統的負載均衡器通常無法識別模型身份或請求重要性（例如交互式聊天與批處理任務的區別）。
@@ -78,7 +78,7 @@ specific user persona in the AI/ML serving workflow​:
 
 ## 工作原理   {#how-it-works}
 
-功能設計時引入了兩個具有不同職責的全新定製資源（CRD），每個 CRD 對應 AI/ML 服務流程中的一個特定用戶角色：
+功能設計時引入了兩個具有不同職責的全新定製資源（CRD），每個 CRD 對應 AI/ML 服務流程中的一個特定使用者角色：
 
 <!--
 {{< figure src="inference-extension-resource-model.png" alt="Resource Model" class="diagram-large" clicktozoom="true" >}}
@@ -98,15 +98,15 @@ specific user persona in the AI/ML serving workflow​:
    want served, plus a traffic-splitting or prioritization policy.
 -->
 1. [InferencePool](https://gateway-api-inference-extension.sigs.k8s.io/api-types/inferencepool/)
-   定義了一組在共享計算資源（如 GPU 節點）上運行的 Pod（模型服務器）。
-   平臺管理員可以配置這些 Pod 的部署、擴縮容和負載均衡策略。
+   定義了一組在共享計算資源（如 GPU 節點）上運行的 Pod（模型伺服器）。
+   平臺管理員可以設定這些 Pod 的部署、擴縮容和負載均衡策略。
    InferencePool 確保資源使用情況的一致性，並執行平臺級的策略。
    InferencePool 類似於 Service，但專爲 AI/ML 推理服務定製，能夠感知模型服務協議。
 
 2. [InferenceModel](https://gateway-api-inference-extension.sigs.k8s.io/api-types/inferencemodel/)
-   是面向用戶的模型端點，由 AI/ML 擁有者管理。
+   是面向使用者的模型端點，由 AI/ML 擁有者管理。
    它將一個公共名稱（如 "gpt-4-chat"）映射到 InferencePool 內的實際模型。
-   這使得負載擁有者可以指定要服務的模型（及可選的微調版本），並配置流量拆分或優先級策略。
+   這使得負載擁有者可以指定要服務的模型（及可選的微調版本），並設定流量拆分或優先級策略。
 
 <!--
 In summary, the InferenceModel API lets AI/ML owners manage what is served, while the InferencePool lets platform
@@ -161,7 +161,7 @@ steps (extensions) in the middle. Here’s a high-level example of the request f
 -->
 3. **推理感知調度**
    
-   所選 Pod 是基於用戶重要性或資源需求下延遲最低或效率最高者。
+   所選 Pod 是基於使用者重要性或資源需求下延遲最低或效率最高者。
    隨後 Gateway 將流量轉發到這個特定的 Pod。
 
 <!--
@@ -194,7 +194,7 @@ dataset served as the workload, and traffic was ramped from 100 Queries per Seco
 
 我們將此擴展與標準 Kubernetes Service 進行了對比測試，基於
 [vLLM](https://docs.vllm.ai/en/latest/) 部署模型服務。
-測試環境是在 Kubernetes 集羣中運行 vLLM（[v1](https://blog.vllm.ai/2025/01/27/v1-alpha-release.html)）
+測試環境是在 Kubernetes 叢集中運行 vLLM（[v1](https://blog.vllm.ai/2025/01/27/v1-alpha-release.html)）
 的多個 H100（80 GB）GPU Pod，並部署了 10 個 Llama2 模型副本。
 本次測試使用了 [Latency Profile Generator (LPG)](https://github.com/AI-Hypercomputer/inference-benchmark)
 工具生成流量，測量吞吐量、延遲等指標。採用的工作負載數據集爲
@@ -238,7 +238,7 @@ appear when using traditional load balancing methods for large, long‐running i
 As the Gateway API Inference Extension heads toward GA, planned features include:
 -->
 這些結果表明，此擴展的模型感知路由顯著降低了 GPU 支撐的 LLM 負載的延遲。
-此擴展通過動態選擇負載最輕或性能最優的模型服務器，避免了傳統負載均衡方法在處理較大的、長時間運行的推理請求時會出現的熱點問題。
+此擴展通過動態選擇負載最輕或性能最優的模型伺服器，避免了傳統負載均衡方法在處理較大的、長時間運行的推理請求時會出現的熱點問題。
 
 ## 路線圖   {#roadmap}
 
@@ -273,7 +273,7 @@ more, it helps ops teams deliver the right LLM services to the right users—smo
 ## 總結   {#summary}
 
 通過將模型服務對齊到 Kubernetes 原生工具鏈，Gateway API 推理擴展致力於簡化並標準化 AI/ML 流量的路由方式。
-此擴展引入模型感知路由、基於重要性的優先級等能力，幫助運維團隊平滑高效地將合適的 LLM 服務交付給合適的用戶。
+此擴展引入模型感知路由、基於重要性的優先級等能力，幫助運維團隊平滑高效地將合適的 LLM 服務交付給合適的使用者。
 
 <!--
 **Ready to learn more?** Visit the [project docs](https://gateway-api-inference-extension.sigs.k8s.io/) to dive deeper,

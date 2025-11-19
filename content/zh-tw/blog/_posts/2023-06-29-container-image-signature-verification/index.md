@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "在 CRI 運行時內驗證容器鏡像簽名"
+title: "在 CRI 運行時內驗證容器映像檔簽名"
 date: 2023-06-29
 slug: container-image-signature-verification
 ---
@@ -31,13 +31,13 @@ using this process is that the project is part of the `kubernetes` or
 `kubernetes-sigs` GitHub organization, so that they can utilize the community
 infrastructure for pushing images into staging buckets.
 -->
-Kubernetes 社區自 v1.24 版本開始對基於容器鏡像的工件進行簽名。在 v1.26 中，
+Kubernetes 社區自 v1.24 版本開始對基於容器映像檔的工件進行簽名。在 v1.26 中，
 [相應的增強特性][kep]從 `alpha` 進階至 `beta`，引入了針對二進制工件的簽名。
-其他項目也採用了類似的方法，爲其發佈版本提供鏡像簽名。這意味着這些項目要麼使用 GitHub actions
-在自己的 CI/CD 流程中創建簽名，要麼依賴於 Kubernetes 的[鏡像推廣][promo]流程，
-通過向 [k/k8s.io][k8s.io] 倉庫提交 PR 來自動簽名鏡像。
+其他項目也採用了類似的方法，爲其發佈版本提供映像檔簽名。這意味着這些項目要麼使用 GitHub actions
+在自己的 CI/CD 流程中創建簽名，要麼依賴於 Kubernetes 的[映像檔推廣][promo]流程，
+通過向 [k/k8s.io][k8s.io] 倉庫提交 PR 來自動簽名映像檔。
 使用此流程的前提要求是項目必須屬於 `kubernetes` 或 `kubernetes-sigs` GitHub 組織，
-這樣能夠利用社區基礎設施將鏡像推送到暫存桶中。
+這樣能夠利用社區基礎設施將映像檔推送到暫存桶中。
 
 [kep]: https://github.com/kubernetes/enhancements/issues/3031
 [promo]: https://github.com/kubernetes-sigs/promo-tools/blob/e2b96dd/docs/image-promotion.md
@@ -54,7 +54,7 @@ provide a higher level API by using [Custom Resource Definitions (CRD)][crd] as
 well as an integrated [admission controller and webhook][admission] to verify
 the signatures.
 -->
-假設一個項目現在生成了已簽名的容器鏡像工件，那麼如何實際驗證這些簽名呢？
+假設一個項目現在生成了已簽名的容器映像檔工件，那麼如何實際驗證這些簽名呢？
 你可以按照 [Kubernetes 官方文檔][docs]所述來手動驗證。但是這種方式的問題在於完全沒有自動化，
 應僅用於測試目的。在生產環境中，[sigstore policy-controller][policy-controller]
 這樣的工具有助於進行自動化處理。這些工具使用[自定義資源定義（CRD）][crd]提供了更高級別的 API，
@@ -73,7 +73,7 @@ The general usage flow for an admission controller based verification is:
 <!--
 {{< figure src="/blog/2023/06/29/container-image-signature-verification/flow.svg" alt="Create an instance of the policy and annotate the namespace to validate the signatures. Then create the pod. The controller evaluates the policy and if it passes, then it does the image pull if necessary. If the policy evaluation fails, then it will not admit the pod." >}}
 -->
-{{< figure src="/zh-cn/blog/2023/06/29/container-image-signature-verification/flow.svg" alt="創建一個策略的實例，並對命名空間添加註解以驗證簽名。然後創建 Pod。控制器會評估策略，如果評估通過，則根據需要執行鏡像拉取。如果策略評估失敗，則不允許該 Pod 運行。" >}}
+{{< figure src="/zh-cn/blog/2023/06/29/container-image-signature-verification/flow.svg" alt="創建一個策略的實例，並對命名空間添加註解以驗證簽名。然後創建 Pod。控制器會評估策略，如果評估通過，則根據需要執行映像檔拉取。如果策略評估失敗，則不允許該 Pod 運行。" >}}
 
 <!--
 A key benefit of this architecture is simplicity: A single instance within the
@@ -90,13 +90,13 @@ runtime is directly connected to the [kubelet][kubelet] on a node and does all
 the tasks like pulling images. [CRI-O][cri-o] is one of those available runtimes
 and will feature full support for container image signature verification in v1.28.
 -->
-這種架構的一個主要優點是簡單：集羣中的單個實例會先驗證簽名，然後纔在節點上的容器運行時中執行鏡像拉取操作，
-鏡像拉取是由 kubelet 觸發的。這個優點也帶來了分離的問題：應拉取容器鏡像的節點不一定是執行准入控制的節點。
-這意味着如果控制器受到攻擊，那麼無法在整個集羣範圍內強制執行策略。
+這種架構的一個主要優點是簡單：叢集中的單個實例會先驗證簽名，然後纔在節點上的容器運行時中執行映像檔拉取操作，
+映像檔拉取是由 kubelet 觸發的。這個優點也帶來了分離的問題：應拉取容器映像檔的節點不一定是執行准入控制的節點。
+這意味着如果控制器受到攻擊，那麼無法在整個叢集範圍內強制執行策略。
 
 解決此問題的一種方式是直接在與[容器運行時接口（CRI）][cri]兼容的容器運行時中進行策略評估。
-這種運行時直接連接到節點上的 [kubelet][kubelet]，執行拉取鏡像等所有任務。
-[CRI-O][cri-o] 是可用的運行時之一，將在 v1.28 中完全支持容器鏡像簽名驗證。
+這種運行時直接連接到節點上的 [kubelet][kubelet]，執行拉取映像檔等所有任務。
+[CRI-O][cri-o] 是可用的運行時之一，將在 v1.28 中完全支持容器映像檔簽名驗證。
 
 [cri]: /docs/concepts/architecture/cri
 [kubelet]: /docs/reference/command-line-tools-reference/kubelet
@@ -109,8 +109,8 @@ policy which only allows signed images `quay.io/crio/signed` for any tag or
 digest like this:
 -->
 容器運行時是如何工作的呢？CRI-O 會讀取一個名爲 [`policy.json`][policy.json] 的文件，
-其中包含了爲容器鏡像定義的所有規則。例如，你可以定義一個策略，
-只允許帶有以下標記或摘要的已簽名鏡像 `quay.io/crio/signed`：
+其中包含了爲容器映像檔定義的所有規則。例如，你可以定義一個策略，
+只允許帶有以下標記或摘要的已簽名映像檔 `quay.io/crio/signed`：
 
 [policy.json]: https://github.com/containers/image/blob/b3e0ba2/docs/containers-policy.json.5.md#sigstoresigned
 
@@ -149,7 +149,7 @@ CRI-O 必須被啓動才能將策略用作全局的可信源：
 CRI-O is now able to pull the image while verifying its signatures. This can be
 done by using [`crictl` (cri-tools)][cri-tools], for example:
 -->
-CRI-O 現在可以在驗證鏡像簽名的同時拉取鏡像。例如，可以使用 [`crictl`（cri-tools）][cri-tools]
+CRI-O 現在可以在驗證映像檔簽名的同時拉取映像檔。例如，可以使用 [`crictl`（cri-tools）][cri-tools]
 來完成此操作：
 
 [cri-tools]: https://github.com/kubernetes-sigs/cri-tools
@@ -210,7 +210,7 @@ This means that if you now invalidate the `subjectEmail` of the policy, for exam
 <!--
 Then remove the image, since it already exists locally:
 -->
-然後移除鏡像，因爲此鏡像已存在於本地：
+然後移除映像檔，因爲此映像檔已存在於本地：
 
 ```console
 > sudo crictl rmi quay.io/crio/signed
@@ -219,7 +219,7 @@ Then remove the image, since it already exists locally:
 <!--
 Now when you pull the image, CRI-O complains that the required email is wrong:
 -->
-現在當你拉取鏡像時，CRI-O 將報錯所需的 email 是錯的：
+現在當你拉取映像檔時，CRI-O 將報錯所需的 email 是錯的：
 
 ```console
 > sudo crictl pull quay.io/crio/signed
@@ -231,7 +231,7 @@ It is also possible to test an unsigned image against the policy. For that you
 have to modify the key `quay.io/crio/signed` to something like
 `quay.io/crio/unsigned`:
 -->
-你還可以對未簽名的鏡像進行策略測試。爲此，你需要將鍵 `quay.io/crio/signed`
+你還可以對未簽名的映像檔進行策略測試。爲此，你需要將鍵 `quay.io/crio/signed`
 修改爲類似 `quay.io/crio/unsigned`：
 
 ```console
@@ -242,7 +242,7 @@ have to modify the key `quay.io/crio/signed` to something like
 If you now pull the container image, CRI-O will complain that no signature exists
 for it:
 -->
-如果你現在拉取容器鏡像，CRI-O 將報錯此鏡像不存在簽名：
+如果你現在拉取容器映像檔，CRI-O 將報錯此映像檔不存在簽名：
 
 ```console
 > sudo crictl pull quay.io/crio/unsigned
@@ -256,8 +256,8 @@ the image repository. For example, if you verify the image
 `registry.k8s.io/kube-apiserver-amd64:v1.28.0-alpha.3`, then the corresponding
 `docker-reference` should be `registry.k8s.io/kube-apiserver-amd64`:
 -->
-需要強調的是，CRI-O 將簽名中的 `.critical.identity.docker-reference` 字段與鏡像倉庫進行匹配。
-例如，如果你要驗證鏡像 `registry.k8s.io/kube-apiserver-amd64:v1.28.0-alpha.3`，
+需要強調的是，CRI-O 將簽名中的 `.critical.identity.docker-reference` 字段與映像檔倉庫進行匹配。
+例如，如果你要驗證映像檔 `registry.k8s.io/kube-apiserver-amd64:v1.28.0-alpha.3`，
 則相應的 `docker-reference` 須是 `registry.k8s.io/kube-apiserver-amd64`：
 
 ```console
@@ -275,8 +275,8 @@ The Kubernetes community introduced `registry.k8s.io` as proxy mirror for
 various registries. Before the release of [kpromo v4.0.2][kpromo], images
 had been signed with the actual mirror rather than `registry.k8s.io`:
 -->
-Kubernetes 社區引入了 `registry.k8s.io` 作爲各種鏡像倉庫的代理鏡像。
-在 [kpromo v4.0.2][kpromo] 版本發佈之前，鏡像已使用實際鏡像簽名而不是使用
+Kubernetes 社區引入了 `registry.k8s.io` 作爲各種映像檔倉庫的代理映像檔。
+在 [kpromo v4.0.2][kpromo] 版本發佈之前，映像檔已使用實際映像檔簽名而不是使用
 `registry.k8s.io` 簽名：
 
 [kpromo]: https://github.com/kubernetes-sigs/promo-tools/releases/tag/v4.0.2
@@ -298,8 +298,8 @@ underlying infrastructure being used. The feature to set the identity on image
 signing has been added to [cosign][cosign-pr] via the flag `sign
 --sign-container-identity` as well and will be part of its upcoming release.
 -->
-將 `docker-reference` 更改爲 `registry.k8s.io` 使最終用戶更容易驗證簽名，
-因爲他們不需要知道所使用的底層基礎設施的詳細信息。設置鏡像簽名身份的特性已通過
+將 `docker-reference` 更改爲 `registry.k8s.io` 使最終使用者更容易驗證簽名，
+因爲他們不需要知道所使用的底層基礎設施的詳細信息。設置映像檔簽名身份的特性已通過
 `sign --sign-container-identity` 標誌添加到 `cosign`，並將成爲即將發佈的版本的一部分。
 
 [cosign-pr]: https://github.com/sigstore/cosign/pull/2984
@@ -311,8 +311,8 @@ end-users to understand image pull failures directly from the kubectl CLI. For
 example, if you run CRI-O together with Kubernetes using the policy which requires
 `quay.io/crio/unsigned` to be signed, then a pod definition like this:
 -->
-[最近在 Kubernetes 中添加了][pr-117717]鏡像拉取錯誤碼 `SignatureValidationFailed`，
-將從 v1.28 版本開始可用。這個錯誤碼允許最終用戶直接從 kubectl CLI 瞭解鏡像拉取失敗的原因。
+[最近在 Kubernetes 中添加了][pr-117717]映像檔拉取錯誤碼 `SignatureValidationFailed`，
+將從 v1.28 版本開始可用。這個錯誤碼允許最終使用者直接從 kubectl CLI 瞭解映像檔拉取失敗的原因。
 例如，如果你使用要求對 `quay.io/crio/unsigned` 進行簽名的策略同時運行 CRI-O 和 Kubernetes，
 那麼 Pod 的定義如下：
 
@@ -361,7 +361,7 @@ pod    0/1     SignatureValidationFailed   0          4s
 This overall behavior provides a more Kubernetes native experience and does not
 rely on third party software to be installed in the cluster.
 -->
-這種整體行爲提供了更符合 Kubernetes 原生體驗的方式，並且不依賴於在集羣中安裝的第三方軟件。
+這種整體行爲提供了更符合 Kubernetes 原生體驗的方式，並且不依賴於在叢集中安裝的第三方軟件。
 
 <!--
 There are still a few corner cases to consider: For example, what if you want to
@@ -379,8 +379,8 @@ fallback.
 好消息是，CRI-O 在 v1.28 版本中即將推出這個特性！CRI-O 將支持 `--signature-policy-dir` /
 `signature_policy_dir` 選項，爲命名空間隔離的簽名策略的 Pod 定義根路徑。
 這意味着 CRI-O 將查找該路徑，並組裝一個類似 `<SIGNATURE_POLICY_DIR>/<NAMESPACE>.json`
-的策略，在鏡像拉取時如果存在則使用該策略。如果（[通過沙盒配置][sandbox-config]）
-在鏡像拉取時未提供 Pod 命名空間，或者串接的路徑不存在，則 CRI-O 的全局策略將用作後備。
+的策略，在映像檔拉取時如果存在則使用該策略。如果（[通過沙盒設定][sandbox-config]）
+在映像檔拉取時未提供 Pod 命名空間，或者串接的路徑不存在，則 CRI-O 的全局策略將用作後備。
 
 [sandbox-config]: https://github.com/kubernetes/cri-api/blob/e5515a5/pkg/apis/runtime/v1/api.proto#L1448
 
@@ -397,11 +397,11 @@ container creation, but an already resolved image ID, or digest. A [small
 change to the CRI][pr-118652] can help with that.
 -->
 另一個需要考慮的特殊情況對於容器運行時中正確的簽名驗證至關重要：kubelet
-僅在磁盤上不存在鏡像時才調用容器鏡像拉取。這意味着來自 Kubernetes 命名空間 A
-的不受限策略可以允許拉取一個鏡像，而命名空間 B 則無法強制執行該策略，
-因爲它已經存在於節點上了。最後，CRI-O 必須在容器創建時驗證策略，而不僅僅是在鏡像拉取時。
-這一事實使情況變得更加複雜，因爲 CRI 在容器創建時並沒有真正傳遞用戶指定的鏡像引用，
-而是傳遞已經解析過的鏡像 ID 或摘要。[對 CRI 進行小改動][pr-118652] 有助於解決這個問題。
+僅在磁盤上不存在映像檔時才調用容器映像檔拉取。這意味着來自 Kubernetes 命名空間 A
+的不受限策略可以允許拉取一個映像檔，而命名空間 B 則無法強制執行該策略，
+因爲它已經存在於節點上了。最後，CRI-O 必須在容器創建時驗證策略，而不僅僅是在映像檔拉取時。
+這一事實使情況變得更加複雜，因爲 CRI 在容器創建時並沒有真正傳遞使用者指定的映像檔引用，
+而是傳遞已經解析過的映像檔 ID 或摘要。[對 CRI 進行小改動][pr-118652] 有助於解決這個問題。
 
 [pr-118652]: https://github.com/kubernetes/kubernetes/pull/118652
 
@@ -417,12 +417,12 @@ signature verification within plain Kubernetes, but I could not find a great fit
 for a native API. This means that I believe that a CRD is the way to go, but
 users still need an instance which actually serves it.
 -->
-現在一切都發生在容器運行時中，大家必須維護和定義策略以提供良好的用戶體驗。
-策略控制器的 CRD 非常出色，我們可以想象集羣中的一個守護進程可以按命名空間爲 CRI-O 編寫策略。
-這將使任何額外的回調過時，並將驗證鏡像簽名的責任移交給實際拉取鏡像的實例。
-我已經評估了在純 Kubernetes 中實現更好的容器鏡像簽名驗證的其他可能途徑，
+現在一切都發生在容器運行時中，大家必須維護和定義策略以提供良好的使用者體驗。
+策略控制器的 CRD 非常出色，我們可以想象叢集中的一個守護進程可以按命名空間爲 CRI-O 編寫策略。
+這將使任何額外的回調過時，並將驗證映像檔簽名的責任移交給實際拉取映像檔的實例。
+我已經評估了在純 Kubernetes 中實現更好的容器映像檔簽名驗證的其他可能途徑，
 但我沒有找到一個很好的原生 API 解決方案。這意味着我相信 CRD 是正確的方法，
-但用戶仍然需要一個實際有作用的實例。
+但使用者仍然需要一個實際有作用的實例。
 
 [thread]: https://groups.google.com/g/kubernetes-sig-node/c/kgpxqcsJ7Vc/m/7X7t_ElsAgAJ
 

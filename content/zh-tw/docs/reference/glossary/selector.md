@@ -4,7 +4,7 @@ id: selector
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/labels/
 short_description: >
-  選擇算符允許用戶通過標籤對一組資源對象進行篩選過濾。
+  選擇算符允許使用者通過標籤對一組資源對象進行篩選過濾。
 
 aka: 
 tags:
@@ -32,7 +32,7 @@ tags:
  Allows users to filter a list of resources based on {{< glossary_tooltip text="labels" term_id="label" >}}.
 -->
 
-選擇算符允許用戶通過{{< glossary_tooltip text="標籤（labels）" term_id="label" >}}對一組資源對象進行篩選過濾。
+選擇算符允許使用者通過{{< glossary_tooltip text="標籤（labels）" term_id="label" >}}對一組資源對象進行篩選過濾。
 
 <!--more--> 
 

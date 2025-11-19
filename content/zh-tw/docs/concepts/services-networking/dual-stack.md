@@ -1,8 +1,8 @@
 ---
 title: IPv4/IPv6 雙協議棧
 description: >-
-  Kubernetes 允許你配置單協議棧 IPv4 網絡、單協議棧 IPv6
-  網絡或同時激活這兩種網絡的雙協議棧網絡。本頁說明具體配置方法。
+  Kubernetes 允許你設定單協議棧 IPv4 網路、單協議棧 IPv6
+  網路或同時激活這兩種網路的雙協議棧網路。本頁說明具體設定方法。
 feature:
   title: IPv4/IPv6 雙協議棧
   description: >
@@ -38,7 +38,7 @@ weight: 90
 IPv4/IPv6 dual-stack networking enables the allocation of both IPv4 and IPv6 addresses to
 {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
 -->
-IPv4/IPv6 雙協議棧網絡能夠將 IPv4 和 IPv6 地址分配給
+IPv4/IPv6 雙協議棧網路能夠將 IPv4 和 IPv6 地址分配給
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 和
 {{< glossary_tooltip text="Service" term_id="service" >}}。
 
@@ -46,7 +46,7 @@ IPv4/IPv6 雙協議棧網絡能夠將 IPv4 和 IPv6 地址分配給
 IPv4/IPv6 dual-stack networking is enabled by default for your Kubernetes cluster starting in
 1.21, allowing the simultaneous assignment of both IPv4 and IPv6 addresses.
 -->
-從 1.21 版本開始，Kubernetes 集羣默認啓用 IPv4/IPv6 雙協議棧網絡，
+從 1.21 版本開始，Kubernetes 叢集默認啓用 IPv4/IPv6 雙協議棧網路，
 以支持同時分配 IPv4 和 IPv6 地址。
 
 <!-- body -->
@@ -59,16 +59,16 @@ IPv4/IPv6 dual-stack networking is enabled by default for your Kubernetes cluste
 <!--
 IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 -->
-Kubernetes 集羣的 IPv4/IPv6 雙協議棧可提供下面的功能：
+Kubernetes 叢集的 IPv4/IPv6 雙協議棧可提供下面的功能：
 
 <!--
 * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
 * IPv4 and IPv6 enabled Services
 * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 -->
-* 雙協議棧 Pod 網絡（每個 Pod 分配一個 IPv4 和 IPv6 地址）
+* 雙協議棧 Pod 網路（每個 Pod 分配一個 IPv4 和 IPv6 地址）
 * IPv4 和 IPv6 啓用的 Service
-* Pod 的集羣外出口通過 IPv4 和 IPv6 路由
+* Pod 的叢集外出口通過 IPv4 和 IPv6 路由
 
 <!--
 ## Prerequisites
@@ -78,7 +78,7 @@ Kubernetes 集羣的 IPv4/IPv6 雙協議棧可提供下面的功能：
 <!--
 The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack Kubernetes clusters:
 -->
-爲了使用 IPv4/IPv6 雙棧的 Kubernetes 集羣，需要滿足以下先決條件：
+爲了使用 IPv4/IPv6 雙棧的 Kubernetes 叢集，需要滿足以下先決條件：
 
 <!--
 * Kubernetes 1.20 or later  
@@ -92,19 +92,19 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 -->
 * Kubernetes 1.20 版本或更高版本，有關更早 Kubernetes 版本的使用雙棧 Service 的信息，
   請參考對應版本的 Kubernetes 文檔。
-* 提供商支持雙協議棧網絡（雲提供商或其他提供商必須能夠爲 Kubernetes
-  節點提供可路由的 IPv4/IPv6 網絡接口）。
-* 支持雙協議棧的[網絡插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
+* 提供商支持雙協議棧網路（雲提供商或其他提供商必須能夠爲 Kubernetes
+  節點提供可路由的 IPv4/IPv6 網路接口）。
+* 支持雙協議棧的[網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
 
 <!--
 ## Configure IPv4/IPv6 dual-stack
 -->
-## 配置 IPv4/IPv6 雙協議棧
+## 設定 IPv4/IPv6 雙協議棧
 
 <!--
 To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 -->
-如果配置 IPv4/IPv6 雙棧，請分配雙棧集羣網絡：
+如果設定 IPv4/IPv6 雙棧，請分配雙棧叢集網路：
 
 <!--
 * kube-apiserver:
@@ -168,10 +168,10 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 你可以使用 IPv4 或 IPv6 地址來創建
 {{< glossary_tooltip text="Service" term_id="service" >}}。
 
-Service 的地址族默認爲第一個服務集羣 IP 範圍的地址族（通過 kube-apiserver 的
-`--service-cluster-ip-range` 參數配置）。
+Service 的地址族默認爲第一個服務叢集 IP 範圍的地址族（通過 kube-apiserver 的
+`--service-cluster-ip-range` 參數設定）。
 
-當你定義 Service 時，可以選擇將其配置爲雙棧。若要指定所需的行爲，你可以設置
+當你定義 Service 時，可以選擇將其設定爲雙棧。若要指定所需的行爲，你可以設置
 `.spec.ipFamilyPolicy` 字段爲以下值之一：
 
 <!--
@@ -182,8 +182,8 @@ Service 的地址族默認爲第一個服務集羣 IP 範圍的地址族（通�
   * Selects the `.spec.clusterIP` from the list of `.spec.clusterIPs` based on the address family
     of the first element in the `.spec.ipFamilies` array.
 -->
-* `SingleStack`：單棧 Service。控制面使用第一個配置的服務集羣 IP 範圍爲 Service 分配集羣 IP。
-* `PreferDualStack`：啓用雙棧時，爲 Service 同時分配 IPv4 和 IPv6 集羣 IP 地址。
+* `SingleStack`：單棧 Service。控制面使用第一個設定的服務叢集 IP 範圍爲 Service 分配叢集 IP。
+* `PreferDualStack`：啓用雙棧時，爲 Service 同時分配 IPv4 和 IPv6 叢集 IP 地址。
   如果雙棧未被啓用或不被支持，則會返回到單棧行爲。
 * `RequireDualStack`：啓用雙棧時，同時從 IPv4 和 IPv6 的地址範圍中分配 Service 的 `.spec.clusterIPs`。
   如果雙棧未被啓用或不被支持，則 Service API 對象創建失敗。
@@ -233,9 +233,9 @@ The first family you list is used for the legacy `.spec.clusterIP` field.
 
 These examples demonstrate the behavior of various dual-stack Service configuration scenarios.
 -->
-### 雙棧 Service 配置場景   {#dual-stack-service-configuration-scenarios}
+### 雙棧 Service 設定場景   {#dual-stack-service-configuration-scenarios}
 
-以下示例演示多種雙棧 Service 配置場景下的行爲。
+以下示例演示多種雙棧 Service 設定場景下的行爲。
 
 <!--
 #### Dual-stack options on new Services
@@ -251,7 +251,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    will behave in this same way.)
 -->
 1. 此 Service 規約中沒有顯式設定 `.spec.ipFamilyPolicy`。當你創建此 Service 時，Kubernetes
-   從所配置的第一個 `service-cluster-ip-range` 中爲 Service 分配一個集羣 IP，並設置
+   從所設定的第一個 `service-cluster-ip-range` 中爲 Service 分配一個叢集 IP，並設置
    `.spec.ipFamilyPolicy` 爲 `SingleStack`。
    （[無選擇算符的 Service](/zh-cn/docs/concepts/services-networking/service/#services-without-selectors)
    和[無頭服務（Headless Service）](/zh-cn/docs/concepts/services-networking/service/#headless-services)的行爲方式與此相同。）
@@ -274,16 +274,16 @@ These examples demonstrate the behavior of various dual-stack Service configurat
      behaves the same as `PreferDualStack`.
 -->
 2. 此 Service 規約顯式地將 `.spec.ipFamilyPolicy` 設置爲 `PreferDualStack`。
-   當你在雙棧集羣上創建此 Service 時，Kubernetes 會爲此 Service 分配 IPv4 和 IPv6 地址。
+   當你在雙棧叢集上創建此 Service 時，Kubernetes 會爲此 Service 分配 IPv4 和 IPv6 地址。
    控制平面更新 Service 的 `.spec` 以記錄 IP 地址分配。
    字段 `.spec.clusterIPs` 是主要字段，包含兩個分配的 IP 地址；`.spec.clusterIP` 是次要字段，
    其取值從 `.spec.clusterIPs` 計算而來。
 
-   * 對於 `.spec.clusterIP` 字段，控制面記錄來自第一個服務集羣 IP
+   * 對於 `.spec.clusterIP` 字段，控制面記錄來自第一個服務叢集 IP
      範圍對應的地址族的 IP 地址。
-   * 對於單協議棧的集羣，`.spec.clusterIPs` 和 `.spec.clusterIP` 字段都
+   * 對於單協議棧的叢集，`.spec.clusterIPs` 和 `.spec.clusterIP` 字段都
      僅僅列出一個地址。
-   * 對於啓用了雙協議棧的集羣，將 `.spec.ipFamilyPolicy` 設置爲
+   * 對於啓用了雙協議棧的叢集，將 `.spec.ipFamilyPolicy` 設置爲
      `RequireDualStack` 時，其行爲與 `PreferDualStack` 相同。
 
    {{% code_sample file="service/networking/dual-stack-preferred-svc.yaml" %}}
@@ -312,8 +312,8 @@ These examples demonstrate the default behavior when dual-stack is newly enabled
 where Services already exist. (Upgrading an existing cluster to 1.21 or beyond will enable
 dual-stack.)
 -->
-下面示例演示了在 Service 已經存在的集羣上新啓用雙棧時的默認行爲。
-（將現有集羣升級到 1.21 或者更高版本會啓用雙協議棧支持。）
+下面示例演示了在 Service 已經存在的叢集上新啓用雙棧時的默認行爲。
+（將現有叢集升級到 1.21 或者更高版本會啓用雙協議棧支持。）
 
 <!--
 1. When dual-stack is enabled on a cluster, existing Services (whether `IPv4` or `IPv6`) are
@@ -321,7 +321,7 @@ dual-stack.)
    `.spec.ipFamilies` to the address family of the existing Service. The existing Service cluster IP
    will be stored in `.spec.clusterIPs`.
 -->
-1. 在集羣上啓用雙棧時，控制面會將現有 Service（無論是 `IPv4` 還是 `IPv6`）配置
+1. 在叢集上啓用雙棧時，控制面會將現有 Service（無論是 `IPv4` 還是 `IPv6`）設定
    `.spec.ipFamilyPolicy` 爲 `SingleStack` 並設置 `.spec.ipFamilies`
    爲 Service 的當前地址族。
 
@@ -369,10 +369,10 @@ dual-stack.)
    `--service-cluster-ip-range` flag to the kube-apiserver) even though `.spec.clusterIP` is set to
    `None`.
 -->
-2. 在集羣上啓用雙棧時，帶有選擇算符的現有
+2. 在叢集上啓用雙棧時，帶有選擇算符的現有
    [無頭服務](/zh-cn/docs/concepts/services-networking/service/#headless-services)
    由控制面設置 `.spec.ipFamilyPolicy` 爲 `SingleStack`
-   並設置 `.spec.ipFamilies` 爲第一個服務集羣 IP 範圍的地址族（通過配置 kube-apiserver 的
+   並設置 `.spec.ipFamilies` 爲第一個服務叢集 IP 範圍的地址族（通過設定 kube-apiserver 的
    `--service-cluster-ip-range` 參數），即使 `.spec.clusterIP` 的設置值爲 `None` 也如此。
 
    {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
@@ -515,11 +515,11 @@ use a publicly routed IPv6 address via a mechanism such as transparent proxying 
 masquerading. The [ip-masq-agent](https://github.com/kubernetes-sigs/ip-masq-agent) project
 supports IP masquerading on dual-stack clusters.
 -->
-如果你要啓用出站流量，以便使用非公開路由 IPv6 地址的 Pod 到達集羣外地址
+如果你要啓用出站流量，以便使用非公開路由 IPv6 地址的 Pod 到達叢集外地址
 （例如公網），則需要通過透明代理或 IP 僞裝等機制使 Pod 使用公共路由的
 IPv6 地址。
 [ip-masq-agent](https://github.com/kubernetes-sigs/ip-masq-agent)項目
-支持在雙棧集羣上進行 IP 僞裝。
+支持在雙棧叢集上進行 IP 僞裝。
 
 {{< note >}}
 <!--
@@ -539,24 +539,24 @@ You can use IPv4/IPv6 dual-stack networking with `l2bridge` networks.
 -->
 ## Windows 支持   {#windows-support}
 
-Windows 上的 Kubernetes 不支持單棧“僅 IPv6” 網絡。 然而，
-對於 Pod 和節點而言，僅支持單棧形式 Service 的雙棧 IPv4/IPv6 網絡是被支持的。
+Windows 上的 Kubernetes 不支持單棧“僅 IPv6” 網路。 然而，
+對於 Pod 和節點而言，僅支持單棧形式 Service 的雙棧 IPv4/IPv6 網路是被支持的。
 
-你可以使用 `l2bridge` 網絡來實現 IPv4/IPv6 雙棧聯網。
+你可以使用 `l2bridge` 網路來實現 IPv4/IPv6 雙棧聯網。
 
 {{< note >}}
 <!--
 Overlay (VXLAN) networks on Windows **do not** support dual-stack networking.
 -->
-Windows 上的 Overlay（VXLAN）網絡**不**支持雙棧網絡。
+Windows 上的 Overlay（VXLAN）網路**不**支持雙棧網路。
 {{< /note >}}
 
 <!--
 You can read more about the different network modes for Windows within the
 [Networking on Windows](/docs/concepts/services-networking/windows-networking#network-modes) topic.
 -->
-關於 Windows 的不同網絡模式，你可以進一步閱讀
-[Windows 上的網絡](/zh-cn/docs/concepts/services-networking/windows-networking#network-modes)。
+關於 Windows 的不同網路模式，你可以進一步閱讀
+[Windows 上的網路](/zh-cn/docs/concepts/services-networking/windows-networking#network-modes)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -564,5 +564,5 @@ You can read more about the different network modes for Windows within the
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 * [Enable dual-stack networking using kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
 -->
-* [驗證 IPv4/IPv6 雙協議棧](/zh-cn/docs/tasks/network/validate-dual-stack)網絡
-* [使用 kubeadm 啓用雙協議棧網絡](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
+* [驗證 IPv4/IPv6 雙協議棧](/zh-cn/docs/tasks/network/validate-dual-stack)網路
+* [使用 kubeadm 啓用雙協議棧網路](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)

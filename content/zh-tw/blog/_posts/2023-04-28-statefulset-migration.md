@@ -58,7 +58,7 @@ to migrate individual pods, however this is error prone and tedious to manage.
 You lose the self-healing benefit of the StatefulSet controller when your Pods
 fail or are evicted.
 -->
-如今使用 Kubernetes 跨集羣編排 StatefulSet 遷移具有挑戰性。
+如今使用 Kubernetes 跨叢集編排 StatefulSet 遷移具有挑戰性。
 雖然存在備份和恢復解決方案，但這些解決方案需要在遷移之前將應用程序的副本數縮爲 0。
 在當今這個完全互聯的世界中，即使是計劃內的應用停機可能也無法實現你的業務目標。
 
@@ -79,8 +79,8 @@ with a given identity running in a StatefulSet) and
 behavior when orchestrating a migration across clusters.
 -->
 Kubernetes v1.26 使 StatefulSet 能夠負責 {0..N-1} 範圍內的一系列序數（序數 0、1、... 直到 N-1）。
-有了它，你可以縮小源集羣中的範圍 {0..k-1}，並擴大目標集羣中的互補範圍 {k..N-1}，同時保證應用程序可用性。
-這使你在編排跨集羣遷移時保留**至多一個**語義（意味着最多有一個具有給定身份的
+有了它，你可以縮小源叢集中的範圍 {0..k-1}，並擴大目標叢集中的互補範圍 {k..N-1}，同時保證應用程序可用性。
+這使你在編排跨叢集遷移時保留**至多一個**語義（意味着最多有一個具有給定身份的
 Pod 在 StatefulSet 中運行）和[滾動更新](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/#rolling-update）行爲。
 
 <!--
@@ -102,11 +102,11 @@ to a different cluster. There are many reasons why you would need to do this:
 -->
 ## 我爲什麼要使用此功能？
 
-假設你在一個集羣中運行 StatefulSet，並且需要將其遷移到另一個集羣。你需要這樣做的原因有很多：
+假設你在一個叢集中運行 StatefulSet，並且需要將其遷移到另一個叢集。你需要這樣做的原因有很多：
 
- * **可擴展性**：你的 StatefulSet 對於你的集羣而言規模過大，並且已經開始破壞集羣中其他工作負載的服務質量。
- * **隔離性**：你在一個供多個用戶訪問的集羣中運行 StatefulSet，而命名空間隔離是不夠的。
- * **集羣配置**：你想將 StatefulSet 遷移到另一個集羣，以使用在當前集羣上不存在的某些環境。
+ * **可擴展性**：你的 StatefulSet 對於你的叢集而言規模過大，並且已經開始破壞叢集中其他工作負載的服務質量。
+ * **隔離性**：你在一個供多個使用者訪問的叢集中運行 StatefulSet，而命名空間隔離是不夠的。
+ * **叢集設定**：你想將 StatefulSet 遷移到另一個叢集，以使用在當前叢集上不存在的某些環境。
  * **控制平面升級**：你想將 StatefulSet 遷移到運行着較高版本控制平面，
    並且無法處承擔就地升級控制平面所產生的風險或預留停機時間。
 
@@ -118,7 +118,7 @@ StatefulSet with a customized `.spec.ordinals.start`.
 -->
 ## 我該如何使用它？
 
-在集羣上啓用 `StatefulSetStartOrdinal` 特性門控，並使用自定義的
+在叢集上啓用 `StatefulSetStartOrdinal` 特性門控，並使用自定義的
 `.spec.ordinals.start` 創建一個 StatefulSet。
 
 <!--
@@ -131,7 +131,7 @@ Bitnami Helm chart will be used to install Redis.
 -->
 ## 試試看吧
 
-在此演示中，我將使用新機制將 StatefulSet 從一個 Kubernetes 集羣遷移到另一個。
+在此演示中，我將使用新機制將 StatefulSet 從一個 Kubernetes 叢集遷移到另一個。
 [redis-cluster](https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster)
 Bitnami Helm chart 將用於安裝 Redis。
 
@@ -154,8 +154,8 @@ Specifically, I need:
 -->
 ### 先決條件    {#demo-pre-requisites}
 
-爲此，我需要兩個可以訪問公共網絡和存儲的 Kubernetes 集羣；
-我已將集羣命名爲 `source` 和 `destination`。具體來說，我需要：
+爲此，我需要兩個可以訪問公共網路和存儲的 Kubernetes 叢集；
+我已將叢集命名爲 `source` 和 `destination`。具體來說，我需要：
 
 <!--
 * The `StatefulSetStartOrdinal` feature gate enabled on both clusters.
@@ -168,17 +168,17 @@ Specifically, I need:
   and from Pods in either clusters. If you are creating clusters on a cloud
   provider, this configuration may be called private cloud or private network.
 -->
-* 在兩個集羣上都啓用 `StatefulSetStartOrdinal` 特性門控。
-* `kubectl` 的客戶端配置允許我以管理員身份訪問這兩個集羣。
-* 兩個集羣上都安裝了相同的 `StorageClass`，並設置爲兩個集羣的默認 `StorageClass`。
-  這個 `StorageClass` 應該提供可從一個或兩個集羣訪問的底層存儲。
-* 一種扁平的網絡拓撲，允許 Pod 向任一集羣中的 Pod 發送數據包和從中接收數據包。
-  如果你在雲提供商上創建集羣，則此配置可能被稱爲私有云或私有網絡。
+* 在兩個叢集上都啓用 `StatefulSetStartOrdinal` 特性門控。
+* `kubectl` 的客戶端設定允許我以管理員身份訪問這兩個叢集。
+* 兩個叢集上都安裝了相同的 `StorageClass`，並設置爲兩個叢集的默認 `StorageClass`。
+  這個 `StorageClass` 應該提供可從一個或兩個叢集訪問的底層存儲。
+* 一種扁平的網路拓撲，允許 Pod 向任一叢集中的 Pod 發送數據包和從中接收數據包。
+  如果你在雲提供商上創建叢集，則此設定可能被稱爲私有云或私有網路。
 
 <!--
 1. Create a demo namespace on both clusters:
 -->
-1. 在兩個集羣上創建一個用於演示的命名空間：
+1. 在兩個叢集上創建一個用於演示的命名空間：
 
    ```
    kubectl create ns kep-3335
@@ -187,7 +187,7 @@ Specifically, I need:
 <!--
 2. Deploy a Redis cluster with six replicas in the source cluster:
 -->
-2. 在 `source` 集羣中部署一個有六個副本的 Redis 集羣：
+2. 在 `source` 叢集中部署一個有六個副本的 Redis 叢集：
 
    ```
    helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -200,7 +200,7 @@ Specifically, I need:
 <!--
 3. Check the replication status in the source cluster:
 -->
-3. 檢查 `source` 集羣中的副本狀態：
+3. 檢查 `source` 叢集中的副本狀態：
 
    ```
    kubectl exec -it redis-redis-cluster-0 -- /bin/bash -c \
@@ -219,7 +219,7 @@ Specifically, I need:
 <!--
 4. Deploy a Redis cluster with zero replicas in the destination cluster:
 -->
-4. 在 `destination` 集羣中部署一個零副本的 Redis 集羣：
+4. 在 `destination` 叢集中部署一個零副本的 Redis 叢集：
 
    ```
    helm install redis --namespace kep-3335 \
@@ -234,7 +234,7 @@ Specifically, I need:
 5. Scale down the `redis-redis-cluster` StatefulSet in the source cluster by 1,
    to remove the replica `redis-redis-cluster-5`:
 -->
-5. 將源集羣中的 `redis-redis-cluster` StatefulSet 副本數縮小 1，
+5. 將源叢集中的 `redis-redis-cluster` StatefulSet 副本數縮小 1，
    以刪除副本 `redis-redis-cluster-5`：
 
    ```
@@ -250,9 +250,9 @@ Specifically, I need:
 
    **Steps for the source cluster**
 -->
-6. 將依賴從 `source` 集羣遷移到 `destionation` 集羣：
+6. 將依賴從 `source` 叢集遷移到 `destionation` 叢集：
    以下命令將依賴資源從 `source` 複製到 `destionation`，其中與 `destionation`
-   集羣無關的詳細信息已被刪除（例如：`uid`、`resourceVersion`、`status`）。
+   叢集無關的詳細信息已被刪除（例如：`uid`、`resourceVersion`、`status`）。
 
    <!--
    Note: If using a `StorageClass` with `reclaimPolicy: Delete` configured, you
@@ -262,7 +262,7 @@ Specifically, I need:
          for more details.
    -->
 
-   說明：如果使用配置了 `reclaimPolicy: Delete` 的 `StorageClass`，
+   說明：如果使用設定了 `reclaimPolicy: Delete` 的 `StorageClass`，
         你應該在刪除之前使用 `reclaimPolicy: Retain` 修補 `source` 中的 PV，
         以保留 `destination` 中使用的底層存儲。
         有關詳細信息，請參閱[更改 PersistentVolume](/zh-cn/docs/tasks/administer-cluster/change-pv-reclaim-policy/)
@@ -285,10 +285,10 @@ Specifically, I need:
          sequence to import a volume.
    -->
 
-   **`destination` 集羣中的步驟**
+   **`destination` 叢集中的步驟**
 
    說明：對於 PV/PVC，此過程僅在你的 PV 使用的底層存儲系統支持複製到 `destination`
-        集羣時纔有效。可能不支持與特定節點或拓撲關聯的存儲。此外，某些存儲系統可能會在 PV
+        叢集時纔有效。可能不支持與特定節點或拓撲關聯的存儲。此外，某些存儲系統可能會在 PV
         對象之外存儲有關卷的附加元數據，並且可能需要更專門的序列來導入卷。
    
    ```
@@ -301,7 +301,7 @@ Specifically, I need:
 7. Scale up the `redis-redis-cluster` StatefulSet in the destination cluster by
    1, with a start ordinal of 5:
 -->
-7. 將 `destination` 集羣中的 `redis-redis-cluster` StatefulSet 擴容 1，起始序號爲 5：
+7. 將 `destination` 叢集中的 `redis-redis-cluster` StatefulSet 擴容 1，起始序號爲 5：
 
    ```
    kubectl patch sts redis-redis-cluster -p '{"spec": {"ordinals": {"start": 5}, "replicas": 1}}'
@@ -310,7 +310,7 @@ Specifically, I need:
 <!--
 8. Check the replication status in the destination cluster:
 -->
-8. 檢查 `destination` 集羣中的副本狀態：
+8. 檢查 `destination` 叢集中的副本狀態：
 
    ```
    kubectl exec -it redis-redis-cluster-5 -- /bin/bash -c \
@@ -322,8 +322,8 @@ Specifically, I need:
    cluster (the IP address belongs to a different CIDR block than the
    replicas in the source cluster).
    -->
-   我應該看到新副本（標記爲 `myself`）已加入 Redis 集羣（IP
-   地址與 `source` 集羣中的副本歸屬於不同的 CIDR 塊）。
+   我應該看到新副本（標記爲 `myself`）已加入 Redis 叢集（IP
+   地址與 `source` 叢集中的副本歸屬於不同的 CIDR 塊）。
 
    ```
    2cff613d763b22c180cd40668da8e452edef3fc8 10.104.0.17:6379@16379 master - 0 1669766684000 2 connected 5461-10922
@@ -339,8 +339,8 @@ Specifically, I need:
    Redis StatefulSet in the source cluster is scaled to 0, and the Redis
    StatefulSet in the destination cluster is healthy with 6 total replicas.
 -->
-9. 對剩餘的副本重複 #5 到 #7 的步驟，直到 `source` 集羣中的 Redis StatefulSet 副本縮放爲 0，
-   並且 `destination` 集羣中的 Redis StatefulSet 健康，總共有 6 個副本。
+9. 對剩餘的副本重複 #5 到 #7 的步驟，直到 `source` 叢集中的 Redis StatefulSet 副本縮放爲 0，
+   並且 `destination` 叢集中的 Redis StatefulSet 健康，總共有 6 個副本。
 
 <!--
 ## What's Next?
@@ -356,9 +356,9 @@ layer of complexity to migration.
 -->
 ## 接下來？
 
-此特性爲跨集羣拆分 StatefulSet 提供了一項基本支撐技術，但沒有規定 StatefulSet 的遷移機制。
-遷移需要對 StatefulSet 副本的協調，以及對存儲和網絡層的編排。這取決於使用 StatefulSet
-安裝的應用程序的存儲和網絡連接要求。此外，許多 StatefulSet 由
+此特性爲跨叢集拆分 StatefulSet 提供了一項基本支撐技術，但沒有規定 StatefulSet 的遷移機制。
+遷移需要對 StatefulSet 副本的協調，以及對存儲和網路層的編排。這取決於使用 StatefulSet
+安裝的應用程序的存儲和網路連接要求。此外，許多 StatefulSet 由
 [operator](/zh-cn/docs/concepts/extend-kubernetes/operator/) 管理，這也增加了額外的遷移複雜性。
 
 <!--

@@ -170,7 +170,7 @@ scheduling, mailing lists, hosting web conferences, and recording sessions.
 **CS**：CNCF 慷慨地接受了讀書會作爲雲原生社區組的一部分。
 這是讀書會發展過程中的重要一步，優化了讀書會的運作並擴大了讀書會的影響力。
 這種拉齊對於增強讀書會的管理能力至關重要，這點很像 Kubernetes Community Days (KCD) 聚會。
-現在，讀書會有了更穩健的會員結構、活動安排、郵件列表、託管的網絡會議和錄播系統。
+現在，讀書會有了更穩健的會員結構、活動安排、郵件列表、託管的網路會議和錄播系統。
 
 <!--
 **FSM**: How has your involvement with the CNCF impacted the growth and engagement of the Kubernetes

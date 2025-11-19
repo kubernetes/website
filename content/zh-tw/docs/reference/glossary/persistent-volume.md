@@ -4,7 +4,7 @@ id: persistent-volume
 date: 2018-04-12
 full_link: /zh-cn/docs/concepts/storage/persistent-volumes/
 short_description: >
-  持久卷是代表集羣中一塊存儲空間的 API 對象。
+  持久卷是代表叢集中一塊存儲空間的 API 對象。
   它是通用的、可插拔的、並且不受單個 Pod 生命週期約束的持久化資源。
 
 aka: 
@@ -29,7 +29,7 @@ tags:
 <!--
  An API object that represents a piece of storage in the cluster. Available as a general, pluggable resource that persists beyond the lifecycle of any individual {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 -->
-持久卷是代表集羣中一塊存儲空間的 API 對象。它是通用的、可插拔的、並且不受單個
+持久卷是代表叢集中一塊存儲空間的 API 對象。它是通用的、可插拔的、並且不受單個
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 生命週期約束的持久化資源。
 
 <!--more--> 

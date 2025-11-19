@@ -21,8 +21,8 @@ Logs can be as coarse-grained as showing errors within a component, or as fine-g
 step-by-step traces of events (like HTTP access logs, pod state changes, controller actions, or
 scheduler decisions).
 -->
-系統組件的日誌記錄集羣中發生的事件，這對於調試非常有用。
-你可以配置日誌的精細度，以展示更多或更少的細節。
+系統組件的日誌記錄叢集中發生的事件，這對於調試非常有用。
+你可以設定日誌的精細度，以展示更多或更少的細節。
 日誌可以是粗粒度的，如只顯示組件內的錯誤，
 也可以是細粒度的，如顯示事件的每一個跟蹤步驟（比如 HTTP 訪問日誌、pod 狀態更新、控制器動作或調度器決策）。
 
@@ -35,7 +35,7 @@ output* itself does *not* fall under the Kubernetes API stability guarantees:
 individual log entries and their formatting may change from one release
 to the next!
 -->
-與此處描述的命令行標誌不同，日誌輸出本身不屬於 Kubernetes API 的穩定性保證範圍：
+與此處描述的命令列標誌不同，日誌輸出本身不屬於 Kubernetes API 的穩定性保證範圍：
 單個日誌條目及其格式可能會在不同版本之間發生變化！
 {{< /warning >}}
 
@@ -55,7 +55,7 @@ The following klog command line flags
 [are deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
 starting with Kubernetes v1.23 and removed in Kubernetes v1.26:
 -->
-Kubernetes 正在進行簡化其組件日誌的努力。下面的 klog 命令行參數從 Kubernetes v1.23
+Kubernetes 正在進行簡化其組件日誌的努力。下面的 klog 命令列參數從 Kubernetes v1.23
 開始[已被廢棄](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)，
 在 Kubernetes v1.26 中被移除：
 
@@ -93,8 +93,8 @@ node release archives.
 這些替代方案都是不存在的。那麼你可以使用
 [`kube-log-runner`](https://github.com/kubernetes/kubernetes/blob/d2a8a81639fcff8d1221b900f66d28361a170654/staging/src/k8s.io/component-base/logs/kube-log-runner/README.md)
 可執行文件來作爲 Kubernetes 的封裝層，完成對輸出的重定向。
-在很多 Kubernetes 基礎鏡像中，都包含一個預先構建的可執行程序。
-這個程序原來稱作 `/go-runner`，而在服務器和節點的發行版本庫中，稱作 `kube-log-runner`。
+在很多 Kubernetes 基礎映像檔中，都包含一個預先構建的可執行程序。
+這個程序原來稱作 `/go-runner`，而在伺服器和節點的發行版本庫中，稱作 `kube-log-runner`。
 
 <!--
 This table shows how `kube-log-runner` invocations correspond to shell redirection:
@@ -298,7 +298,7 @@ If you intend to parse logs, make sure you can handle log lines that are not JSO
 Field names and JSON serialization are subject to change.
 -->
 JSON 輸出並不支持太多標準 klog 參數。對於不受支持的 klog 參數的列表，
-請參見[命令行工具參考](/zh-cn/docs/reference/command-line-tools-reference/)。
+請參見[命令列工具參考](/zh-cn/docs/reference/command-line-tools-reference/)。
 
 並不是所有日誌都保證寫成 JSON 格式（例如，在進程啓動期間）。
 如果你打算解析日誌，請確保可以處理非 JSON 格式的日誌行。
@@ -393,8 +393,8 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 在別的系統中，日誌寫入 `/var/log` 目錄下的 `.log` 文件中。
 容器中的系統組件總是繞過默認的日誌記錄機制，寫入 `/var/log` 目錄下的 `.log` 文件。
 與容器日誌類似，你應該輪轉 `/var/log` 目錄下系統組件日誌。
-在 `kube-up.sh` 腳本創建的 Kubernetes 集羣中，日誌輪轉由 `logrotate` 工具配置。
-`logrotate` 工具，每天或者當日志大於 100MB 時，輪轉日誌。
+在 `kube-up.sh` 腳本創建的 Kubernetes 叢集中，日誌輪轉由 `logrotate` 工具設定。
+`logrotate` 工具，每天或者當日誌大於 100MB 時，輪轉日誌。
 
 <!--
 ## Log query
@@ -415,7 +415,7 @@ available in the application log provider. On both operating systems, logs are a
 爲了幫助在節點上調試問題，Kubernetes v1.27 引入了一個特性來查看節點上當前運行服務的日誌。
 要使用此特性，請確保已爲節點啓用了 `NodeLogQuery`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-且 kubelet 配置選項 `enableSystemLogHandler` 和 `enableSystemLogQuery` 均被設置爲 true。
+且 kubelet 設定選項 `enableSystemLogHandler` 和 `enableSystemLogQuery` 均被設置爲 true。
 在 Linux 上，我們假設可以通過 journald 查看服務日誌。
 在 Windows 上，我們假設可以在應用日誌提供程序中查看服務日誌。
 在兩種操作系統上，都可以通過讀取 `/var/log/` 內的文件查看日誌。

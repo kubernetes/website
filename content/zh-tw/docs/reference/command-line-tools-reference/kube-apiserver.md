@@ -12,9 +12,9 @@ for the api objects which include pods, services, replicationcontrollers, and
 others. The API Server services REST operations and provides the frontend to the
 cluster's shared state through which all other components interact.
 -->
-Kubernetes API 服務器驗證並配置 API 對象的數據，
+Kubernetes API 伺服器驗證並設定 API 對象的數據，
 這些對象包括 pods、services、replicationcontrollers 等。
-API 服務器爲 REST 操作提供服務，併爲集羣的共享狀態提供前端，
+API 伺服器爲 REST 操作提供服務，併爲叢集的共享狀態提供前端，
 所有其他組件都通過該前端進行交互。
 
 ```
@@ -38,7 +38,7 @@ kube-apiserver [flags]
 <!--
 File with admission control configuration.
 -->
-<p>包含准入控制配置的文件。</p>
+<p>包含准入控制設定的文件。</p>
 </td>
 </tr>
 
@@ -54,8 +54,8 @@ the --bind-address will be used. If --bind-address is unspecified,
 the host's default interface will be used.
 -->
 <p>
-向集羣成員通知 apiserver 消息的 IP 地址。
-這個地址必須能夠被集羣中其他成員訪問。
+向叢集成員通知 apiserver 消息的 IP 地址。
+這個地址必須能夠被叢集中其他成員訪問。
 如果 IP 地址爲空，將會使用 --bind-address，
 如果未指定 --bind-address，將會使用主機的默認接口地址。
 </p>
@@ -126,10 +126,10 @@ Requests that are not rejected by another authentication method
 are treated as anonymous requests. Anonymous requests have a 
 username of system:anonymous, and a group name of system:unauthenticated.
 -->
-啓用針對 API 服務器的安全端口的匿名請求。
+啓用針對 API 伺服器的安全端口的匿名請求。
 未被其他身份認證方法拒絕的請求被當做匿名請求。
-匿名請求的用戶名爲 <code>system:anonymous</code>，
-用戶組名爲 </code>system:unauthenticated</code>。
+匿名請求的使用者名爲 <code>system:anonymous</code>，
+使用者組名爲 </code>system:unauthenticated</code>。
 </td>
 </tr>
 
@@ -147,7 +147,7 @@ containing the issuer URL.
 -->
 API 的標識符。
 服務帳戶令牌驗證者將驗證針對 API 使用的令牌是否已綁定到這些受衆中的至少一個。
-如果配置了 <code>--service-account-issuer</code> 標誌，但未配置此標誌，
+如果設定了 <code>--service-account-issuer</code> 標誌，但未設定此標誌，
 則此字段默認爲包含發佈者 URL 的單個元素列表。
 </td>
 </tr>
@@ -303,7 +303,7 @@ Batch causes the backend to buffer and write events asynchronously.
 Known modes are batch,blocking,blocking-strict.
 -->
 用來發送審計事件的策略。
-阻塞（blocking）表示發送事件應阻止服務器響應。
+阻塞（blocking）表示發送事件應阻止伺服器響應。
 批處理（batch）會導致後端異步緩衝和寫入事件。
 已知的模式是批處理（batch），阻塞（blocking），嚴格阻塞（blocking-strict）。
 </td>
@@ -318,7 +318,7 @@ Known modes are batch,blocking,blocking-strict.
 If set, all requests coming to the apiserver will be logged to this file.
 '-' means standard out.
 -->
-如果設置，則所有到達 API 服務器的請求都將記錄到該文件中。
+如果設置，則所有到達 API 伺服器的請求都將記錄到該文件中。
 "-" 表示標準輸出。
 </td>
 </tr>
@@ -387,7 +387,7 @@ API group and version used for serializing audit events written to log.
 <!--
 Path to the file that defines the audit policy configuration.
 -->
-定義審計策略配置的文件的路徑。
+定義審計策略設定的文件的路徑。
 </td>
 </tr>
 
@@ -477,7 +477,7 @@ Maximum average number of batches per second. Only used in batch mode.
 <!--
 Path to a kubeconfig formatted file that defines the audit webhook configuration.
 -->
-定義審計 webhook 配置的 kubeconfig 格式文件的路徑。
+定義審計 webhook 設定的 kubeconfig 格式文件的路徑。
 </tr>
 
 <tr>
@@ -502,7 +502,7 @@ Strategy for sending audit events. Blocking indicates sending events should bloc
 Batch causes the backend to buffer and write events asynchronously. Known modes are batch,blocking,blocking-strict.
 -->
 發送審計事件的策略。
-阻止（Blocking）表示發送事件應阻止服務器響應。
+阻止（Blocking）表示發送事件應阻止伺服器響應。
 批處理（Batch）導致後端異步緩衝和寫入事件。
 已知的模式是批處理（batch），阻塞（blocking），嚴格阻塞（blocking-strict）。
 </td>
@@ -573,10 +573,10 @@ API group and version used for serializing audit events written to webhook.
 <!--
 File with Authentication Configuration to configure the JWT Token authenticator or the anonymous authenticator. Requires the StructuredAuthenticationConfiguration feature gate. This flag is mutually exclusive with the --oidc-* flags if the file configures the JWT Token authenticator. This flag is mutually exclusive with --anonymous-auth if the file configures the Anonymous authenticator.
 -->
-用於配置 JWT 令牌身份認證模塊或匿名身份認證模塊的身份認證配置文件。
+用於設定 JWT 令牌身份認證模塊或匿名身份認證模塊的身份認證設定文件。
 你需要啓用 <code>StructuredAuthenticationConfiguration</code> 特性門控。
-如果在配置文件中配置了 JWT 令牌認證模塊，此標誌與 <code>oidc-*</code> 標誌互斥。
-如果在配置文件中配置了匿名身份認證模塊，此標誌與 <code>--anonymous-auth</code> 標誌互斥。
+如果在設定文件中設定了 JWT 令牌認證模塊，此標誌與 <code>oidc-*</code> 標誌互斥。
+如果在設定文件中設定了匿名身份認證模塊，此標誌與 <code>--anonymous-auth</code> 標誌互斥。
 </p></td>
 </tr>
 
@@ -601,8 +601,8 @@ The duration to cache responses from the webhook token authenticator.
 File with webhook configuration for token authentication in kubeconfig format. 
 The API server will query the remote service to determine authentication for bearer tokens.
 -->
-包含 Webhook 配置的 kubeconfig 格式文件，用於進行令牌認證。
-API 服務器將查詢遠程服務，以對持有者令牌進行身份認證。
+包含 Webhook 設定的 kubeconfig 格式文件，用於進行令牌認證。
+API 伺服器將查詢遠程服務，以對持有者令牌進行身份認證。
 </td>
 </tr>
 
@@ -627,7 +627,7 @@ The API version of the authentication.k8s.io TokenReview to send to and expect f
 <!--
 File with Authorization Configuration to configure the authorizer chain. Requires feature gate StructuredAuthorizationConfiguration. This flag is mutually exclusive with the other --authorization-mode and --authorization-webhook-* flags.
 -->
-用於配置鑑權鏈的鑑權配置文件。
+用於設定鑑權鏈的鑑權設定文件。
 需要啓用 <code>StructuredAuthorizationConfiguration</code> 特性門控。
 此標誌與其他 <code>--authorization-mode</code> 和 <code>--authorization-webhook-*</code> 標誌互斥。
 </p></td>
@@ -694,9 +694,9 @@ The duration to cache 'unauthorized' responses from the webhook authorizer.
 File with webhook configuration in kubeconfig format, used with --authorization-mode=Webhook. 
 The API server will query the remote service to determine access on the API server's secure port.
 -->
-包含 Webhook 配置的文件，其格式爲 kubeconfig，
+包含 Webhook 設定的文件，其格式爲 kubeconfig，
 與 --authorization-mode=Webhook 一起使用。
-API 服務器將查詢遠程服務，以對 API 服務器的安全端口的訪問執行鑑權。
+API 伺服器將查詢遠程服務，以對 API 伺服器的安全端口的訪問執行鑑權。
 </td>
 </tr>
 
@@ -720,7 +720,7 @@ The API version of the authorization.k8s.io SubjectAccessReview to send to and e
 The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank or an unspecified address (0.0.0.0 or ::), all interfaces and IP address families will be used.
 -->
 用來監聽 <code>--secure-port</code> 端口的 IP 地址。
-集羣的其餘部分以及 CLI/web 客戶端必須可以訪問所關聯的接口。
+叢集的其餘部分以及 CLI/web 客戶端必須可以訪問所關聯的接口。
 如果爲空白或未指定地址（<tt>0.0.0.0</tt> 或 <tt>::</tt>），則將使用所有接口和 IP 地址簇。
 </td>
 </tr>
@@ -941,7 +941,7 @@ This flag provides an escape hatch for misbehaving metrics. You must provide the
 <!--
 File with apiserver egress selector configuration.
 -->
-帶有 API 服務器出站選擇器配置的文件。
+帶有 API 伺服器出站選擇器設定的文件。
 </td>
 </tr>
 
@@ -1012,7 +1012,7 @@ TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook�
 <!--
 Turns on aggregator routing requests to endpoints IP rather than cluster IP.
 -->
-允許聚合器將請求路由到端點 IP 而非集羣 IP。
+允許聚合器將請求路由到端點 IP 而非叢集 IP。
 </td>
 </tr>
 
@@ -1063,7 +1063,7 @@ If true, replace the max-in-flight handler with an enhanced one that queues and 
 <!--
 The file containing configuration for encryption providers to be used for storing secrets in etcd
 -->
-包含加密提供程序配置信息的文件，用在 etcd 中所存儲的 Secret 上。
+包含加密提供程序設定信息的文件，用在 etcd 中所存儲的 Secret 上。
 </td>
 </tr>
 
@@ -1079,7 +1079,7 @@ Determines if the file set by --encryption-provider-config should be automatical
 -->
 <p>
 確定由 --encryption-provider-config 設置的文件是否應在磁盤內容更改時自動重新加載。
-將此標誌設置爲 true 將禁用通過 API 服務器 healthz 端點來唯一地標識不同 KMS 插件的能力。
+將此標誌設置爲 true 將禁用通過 API 伺服器 healthz 端點來唯一地標識不同 KMS 插件的能力。
 </p>
 </td>
 </tr>
@@ -1130,7 +1130,7 @@ SSL certification file used to secure etcd communication.
 The interval of compaction requests. If 0, the compaction request from apiserver is disabled.
 -->
 壓縮請求的間隔。
-如果爲0，則禁用來自 API 服務器的壓縮請求。
+如果爲0，則禁用來自 API 伺服器的壓縮請求。
 </td>
 </tr>
 
@@ -1219,7 +1219,7 @@ The timeout to use when checking etcd readiness
 <!--
 List of etcd servers to connect with (scheme://ip:port), comma separated.
 -->
-要連接的 etcd 服務器列表（<code>scheme://ip:port</code>），以逗號分隔。
+要連接的 etcd 伺服器列表（<code>scheme://ip:port</code>），以逗號分隔。
 </td>
 </tr>
 
@@ -1235,10 +1235,10 @@ where servers are URLs, semicolon separated.
 Note that this applies only to resources compiled into this server binary.
 e.g. &quot;/pods#http://etcd4:2379;http://etcd5:2379,/events#http://etcd6:2379&quot;
 -->
-etcd 服務器針對每個資源的重載設置，以逗號分隔。
-單個替代格式：組/資源#服務器（group/resource#servers），
-其中服務器是 URL，以分號分隔。
-注意，此選項僅適用於編譯進此服務器二進制文件的資源。
+etcd 伺服器針對每個資源的重載設置，以逗號分隔。
+單個替代格式：組/資源#伺服器（group/resource#servers），
+其中伺服器是 URL，以分號分隔。
+注意，此選項僅適用於編譯進此伺服器二進制文件的資源。
 例如 "/pods#http://etcd4:2379;http://etcd5:2379,/events#http://etcd6:2379"
 </td>
 </tr>
@@ -1565,11 +1565,11 @@ will be sent a GOAWAY. Clusters with single apiservers, or which
 don't use a load balancer, should NOT enable this. Min is 0 (off), 
 Max is .02 (1/50 requests); .001 (1/1000) is a recommended starting point.
 -->
-爲防止 HTTP/2 客戶端卡在單個 API 服務器上，隨機關閉某連接（GOAWAY）。
+爲防止 HTTP/2 客戶端卡在單個 API 伺服器上，隨機關閉某連接（GOAWAY）。
 客戶端的其他運行中請求不會受到影響。被關閉的客戶端將重新連接，
-重新被負載均衡後可能會與其他 API 服務器開始通信。
+重新被負載均衡後可能會與其他 API 伺服器開始通信。
 此參數設置將被髮送 GOAWAY 指令的請求的比例。
-只有一個 API 服務器或不使用負載均衡器的集羣不應啓用此特性。
+只有一個 API 伺服器或不使用負載均衡器的叢集不應啓用此特性。
 最小值爲 0（關閉），最大值爲 .02（1/50 請求）；建議使用 .001（1/1000）。
 </td>
 </tr>
@@ -1595,7 +1595,7 @@ kube-apiserver 的幫助命令
 The limit that the server gives to clients for the maximum number 
 of streams in an HTTP/2 connection. Zero means to use golang's default.
 -->
-服務器爲客戶端提供的 HTTP/2 連接中最大流數的限制。
+伺服器爲客戶端提供的 HTTP/2 連接中最大流數的限制。
 零表示使用 GoLang 的默認值。
 </td>
 </tr>
@@ -1701,8 +1701,8 @@ to complete its startup sequence and become live. From apiserver's start time
 to when this amount of time has elapsed, /livez will assume that unfinished 
 post-start hooks will complete successfully and therefore return true.
 -->
-此選項代表 API 服務器完成啓動序列並生效所需的最長時間。
-從 API 服務器的啓動時間到這段時間爲止，
+此選項代表 API 伺服器完成啓動序列並生效所需的最長時間。
+從 API 伺服器的啓動時間到這段時間爲止，
 <tt>/livez</tt> 將假定未完成的啓動後鉤子將成功完成，因此返回 true。
 </td>
 </tr>
@@ -1793,7 +1793,7 @@ DEPRECATED: the namespace from which the Kubernetes master services should be in
 <!--
 If non-zero, throttle each user connection to this number of bytes/sec. Currently only applies to long-running requests.
 -->
-如果不爲零，則將每個用戶連接的帶寬限制爲此數值（字節數/秒）。
+如果不爲零，則將每個使用者連接的帶寬限制爲此數值（字節數/秒）。
 當前僅適用於長時間運行的請求。
 </td>
 </tr>
@@ -1808,7 +1808,7 @@ This and --max-requests-inflight are summed to determine the server's total conc
 Otherwise, this flag limits the maximum number of mutating requests in flight, or a zero value disables the limit completely.
 -->
 如果 --enable-priority-and-fairness 爲 true，那麼此值和 --max-requests-inflight
-的和將確定服務器的總併發限制（必須是正數）。
+的和將確定伺服器的總併發限制（必須是正數）。
 否則，該值限制同時運行的變更類型的請求的個數上限。0 表示無限制。
 </td>
 </tr>
@@ -1823,7 +1823,7 @@ This and --max-mutating-requests-inflight are summed to determine the server's t
 Otherwise, this flag limits the maximum number of non-mutating requests in flight, or a zero value disables the limit completely.
 -->
 如果 --enable-priority-and-fairness 爲 true，那麼此值和 --max-mutating-requests-inflight
-的和將確定服務器的總併發限制（必須是正數）。
+的和將確定伺服器的總併發限制（必須是正數）。
 否則，該值限制進行中非變更類型請求的最大個數，零表示無限制。
 </td>
 </tr>
@@ -1882,7 +1882,7 @@ If provided, the name of a custom OpenID Connect claim for specifying user group
 The claim value is expected to be a string or array of strings. 
 This flag is experimental, please see the authentication documentation for further details.
 -->
-如果提供該值，這個自定義 OpenID 連接聲明將被用來設定用戶組。
+如果提供該值，這個自定義 OpenID 連接聲明將被用來設定使用者組。
 該聲明值需要是一個字符串或字符串數組。
 此標誌爲實驗性的，請查閱身份認證相關文檔進一步瞭解詳細信息。
 </td>
@@ -1957,7 +1957,7 @@ The OpenID claim to use as the user name. Note that claims other than
  the default ('sub') is not guaranteed to be unique and immutable. 
  This flag is experimental, please see the authentication documentation for further details.
 -->
-要用作用戶名的 OpenID 聲明。
+要用作使用者名的 OpenID 聲明。
 請注意，除默認聲明（"sub"）以外的其他聲明不能保證是唯一且不可變的。
 此標誌是實驗性的，請參閱身份認證文檔以獲取更多詳細信息。
 </td>
@@ -1973,8 +1973,8 @@ If provided, all usernames will be prefixed with this value.
 If not provided, username claims other than 'email' are prefixed
  by the issuer URL to avoid clashes. To skip any prefixing, provide the value '-'.
 -->
-如果提供，則所有用戶名都將以該值作爲前綴。
-如果未提供，則除 "email" 之外的用戶名聲明都會添加頒發者 URL 作爲前綴，以避免衝突。
+如果提供，則所有使用者名都將以該值作爲前綴。
+如果未提供，則除 "email" 之外的使用者名聲明都會添加頒發者 URL 作爲前綴，以避免衝突。
 要略過添加前綴處理，請設置值爲 "-"。
 </td>
 </tr>
@@ -1990,7 +1990,7 @@ If set and the UnknownVersionInteroperabilityProxy feature gate is enabled, this
 如果設置並啓用了 UnknownVersionInteroperabilityProxy 特性門控，
 當請求由於 kube-apiservers 之間的版本偏差而無法被處理時，
 此 IP 將由對等 kube-apiserver 用於代理請求到該 kube-apiserver。
-此標誌僅被用於配置了多個 kube-apiserver 以實現高可用性的集羣中。
+此標誌僅被用於設定了多個 kube-apiserver 以實現高可用性的叢集中。
 </p></td>
 </tr>
 
@@ -2005,7 +2005,7 @@ If set and the UnknownVersionInteroperabilityProxy feature gate is enabled, this
 如果設置並且啓用了 UnknownVersionInteroperabilityProxy 特性門控，
 當請求由於 kube-apiservers 之間的版本偏差導致對等方無法被處理時，
 此端口將由對等 kube-apiserver 用於代理請求到該 kube-apiserver。
-此標誌僅被用於配置了多個 kube-apiserver 以實現高可用性的集羣中。
+此標誌僅被用於設定了多個 kube-apiserver 以實現高可用性的叢集中。
 </p></td>
 </tr>
 
@@ -2019,7 +2019,7 @@ If set and the UnknownVersionInteroperabilityProxy feature gate is enabled, this
 -->
 如果設置並啓用了 UnknownVersionInteroperabilityProxy 特性門控，
 此文件將被用於驗證對等 kube-apiserver 的服務證書。
-此標誌僅被用於配置了多個 kube-apiserver 以實現高可用性的集羣中。
+此標誌僅被用於設定了多個 kube-apiserver 以實現高可用性的叢集中。
 </p></td>
 </tr>
 
@@ -2078,7 +2078,7 @@ the kube-system namespace. Components receiving calls from kube-aggregator
 should use that CA to perform their half of the mutual TLS verification.
 -->
 當必須調用外部程序以處理請求時，用於證明聚合器或者 kube-apiserver 的身份的客戶端證書。
-包括代理轉發到用戶 api-server 的請求和調用 Webhook 准入控制插件的請求。
+包括代理轉發到使用者 api-server 的請求和調用 Webhook 准入控制插件的請求。
 Kubernetes 期望此證書包含來自於 --requestheader-client-ca-file 標誌中所給 CA 的簽名。
 該 CA 在 kube-system 命名空間的 "extension-apiserver-authentication" ConfigMap 中公開。
 從 kube-aggregator 收到調用的組件應該使用該 CA 進行各自的雙向 TLS 驗證。
@@ -2097,7 +2097,7 @@ This includes proxying requests to a user api-server and calling out to
 webhook admission plugins.
 -->
 當必須調用外部程序來處理請求時，用來證明聚合器或者 kube-apiserver 的身份的客戶端私鑰。
-這包括代理轉發給用戶 api-server 的請求和調用 Webhook 准入控制插件的請求。
+這包括代理轉發給使用者 api-server 的請求和調用 Webhook 准入控制插件的請求。
 </td>
 </tr>
 
@@ -2129,7 +2129,7 @@ in headers specified by --requestheader-username-headers. If empty,
 any client certificate validated by the authorities in 
 --requestheader-client-ca-file is allowed.
 -->
-此值爲客戶端證書通用名稱（Common Name）的列表；表中所列的表項可以用來提供用戶名，
+此值爲客戶端證書通用名稱（Common Name）的列表；表中所列的表項可以用來提供使用者名，
 方式是使用 <code>--requestheader-username-headers</code> 所指定的頭部。
 如果爲空，能夠通過 <code>--requestheader-client-ca-file</code> 中機構
 認證的客戶端證書都是被允許的。
@@ -2147,7 +2147,7 @@ incoming requests before trusting usernames in headers specified
 by --requestheader-username-headers. WARNING: generally do not 
 depend on authorization being already done for incoming requests.
 -->
-在信任請求頭中以 <code>--requestheader-username-headers</code> 指示的用戶名之前，
+在信任請求頭中以 <code>--requestheader-username-headers</code> 指示的使用者名之前，
 用於驗證接入請求中客戶端證書的根證書包。
 警告：一般不要假定傳入請求已被授權。
 </td>
@@ -2173,7 +2173,7 @@ List of request header prefixes to inspect. X-Remote-Extra- is suggested.
 <!--
 List of request headers to inspect for groups. X-Remote-Group is suggested.
 -->
-用於查驗用戶組的請求頭部列表。建議使用 <code>X-Remote-Group</code>。
+用於查驗使用者組的請求頭部列表。建議使用 <code>X-Remote-Group</code>。
 </td>
 </tr>
 
@@ -2198,7 +2198,7 @@ List of request headers to inspect for UIDs. X-Remote-Uid is suggested. Requires
 <!--
 List of request headers to inspect for usernames. X-Remote-User is common.
 -->
-用於查驗用戶名的請求頭部字段列表。建議使用 <code>X-Remote-User</code>。
+用於查驗使用者名的請求頭部字段列表。建議使用 <code>X-Remote-User</code>。
 </td>
 </tr>
 
@@ -2303,7 +2303,7 @@ doc and key set are served to relying parties from a URL other than the
 API server's external (as auto-detected or overridden with external-hostname).
 -->
 覆蓋 <code>/.well-known/openid-configuration</code> 提供的發現文檔中 JSON Web 密鑰集的 URI。
-如果發現文檔和密鑰集是通過 API 服務器外部
+如果發現文檔和密鑰集是通過 API 伺服器外部
 （而非自動檢測到或被外部主機名覆蓋）之外的 URL 提供給依賴方的，則此標誌很有用。
 </td>
 </tr>
@@ -2392,7 +2392,7 @@ A CIDR notation IP range from which to assign service cluster IPs.
 This must not overlap with any IP ranges assigned to nodes or pods.
 Max of two dual-stack CIDRs is allowed.
 -->
-CIDR 表示的 IP 範圍用來爲服務分配集羣 IP。
+CIDR 表示的 IP 範圍用來爲服務分配叢集 IP。
 此地址不得與指定給節點或 Pod 的任何 IP 範圍重疊。
 最多允許兩個雙棧 CIDR。
 </td>
@@ -2443,10 +2443,10 @@ The endpoints /healthz and /livez will return success, but /readyz immediately r
 Graceful termination starts after this delay has elapsed. 
 This can be used to allow load balancer to stop sending traffic to this server.
 -->
-延遲終止時間。在此期間，服務器將繼續正常處理請求。
+延遲終止時間。在此期間，伺服器將繼續正常處理請求。
 端點 /healthz 和 /livez 將返回成功，但是 /readyz 立即返回失敗。
 在此延遲過去之後，將開始正常終止。
-這可用於允許負載均衡器停止向該服務器發送流量。
+這可用於允許負載均衡器停止向該伺服器發送流量。
 </td>
 </tr>
 
@@ -2460,7 +2460,7 @@ If true the HTTP Server will continue listening until all non long running reque
 during this window all incoming requests will be rejected with a status code 429 and a 'Retry-After' response header, 
 in addition 'Connection: close' response header is set in order to tear down the TCP connection when idle.
 -->
-值爲 true 表示 HTTP 服務器將繼續監聽直到耗盡所有非長時間運行的請求，
+值爲 true 表示 HTTP 伺服器將繼續監聽直到耗盡所有非長時間運行的請求，
 在此期間，所有傳入請求將被拒絕，狀態碼爲 429，響應頭爲 &quot;Retry-After&quot;，
 此外，設置 &quot;Connection: close&quot; 響應頭是爲了在空閒時斷開 TCP 鏈接。
 </td>
@@ -2474,7 +2474,7 @@ in addition 'Connection: close' response header is set in order to tear down the
 <!--
 This option, if set, represents the maximum amount of grace period the apiserver will wait for active watch request(s) to drain during the graceful server shutdown window.
 -->
-此選項如果被設置了，則表示 API 服務器體面關閉服務器窗口內，等待活躍的監聽請求耗盡的最長寬限期。
+此選項如果被設置了，則表示 API 伺服器體面關閉伺服器窗口內，等待活躍的監聽請求耗盡的最長寬限期。
 </p></td>
 </tr>
 
@@ -2545,7 +2545,7 @@ If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are 
 a self-signed certificate and key are generated for 
 the public address and saved to the directory specified by --cert-dir.
 -->
-包含用於 HTTPS 的默認 x509 證書的文件。（CA 證書（如果有）在服務器證書之後並置）。
+包含用於 HTTPS 的默認 x509 證書的文件。（CA 證書（如果有）在伺服器證書之後並置）。
 如果啓用了 HTTPS 服務，並且未提供 <code>--tls-cert-file</code> 和
 <code>--tls-private-key-file</code>，
 爲公共地址生成一個自簽名證書和密鑰，並將其保存到 <code>--cert-dir</code> 指定的目錄中。
@@ -2565,7 +2565,7 @@ TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TL
 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256.<br/>
 Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_RSA_WITH_RC4_128_SHA.
 -->
-服務器的密碼套件的列表，以逗號分隔。如果省略，將使用默認的 Go 密碼套件。
+伺服器的密碼套件的列表，以逗號分隔。如果省略，將使用默認的 Go 密碼套件。
 <br/>首選值：
 TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384、TLS_CHACHA20_POLY1305_SHA256、TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA、
 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256、TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305、TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256。<br/>
@@ -2644,7 +2644,7 @@ If set, the file that will be used to secure the secure port of the API server v
 <!--
 File with apiserver tracing configuration.
 -->
-包含 API 服務器跟蹤配置的文件。
+包含 API 伺服器跟蹤設定的文件。
 </td>
 </tr>
 
@@ -2694,7 +2694,7 @@ comma-separated list of pattern=N settings for file-filtered logging
 <!--
 Enable watch caching in the apiserver
 -->
-在 API 服務器中啓用監視緩存。
+在 API 伺服器中啓用監視緩存。
 </td>
 </tr>
 
@@ -2712,7 +2712,7 @@ Watch cache size settings for some resources (pods, nodes, etc.), comma separate
 <code>resource</code> 爲小寫複數（無版本），
 對於 apiVersion v1（舊版核心 API）的資源要省略 <code>group</code>，
 對其它資源要給出 <code>group</code>；<code>size 爲一個數字</code>。
-此選項僅對 API 服務器中的內置資源生效，對 CRD 定義的資源或從外部服務器接入的資源無效。
+此選項僅對 API 伺服器中的內置資源生效，對 CRD 定義的資源或從外部伺服器接入的資源無效。
 啓用 <code>watch-cache</code> 時僅查詢此選項。
 這裏能生效的 size 設置只有 0，意味着禁用關聯資源的 <code>watch-cache</code>。
 所有的非零值都等效，意味着不禁用該資源的<code>watch-cache</code>。

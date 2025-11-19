@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/autoscaling/v2"
   kind: "HorizontalPodAutoscaler"
 content_type: "api_reference"
-description: "HorizontalPodAutoscaler 是水平 Pod 自動擴縮器的配置，它根據指定的指標自動管理實現 scale 子資源的任何資源的副本數。"
+description: "HorizontalPodAutoscaler 是水平 Pod 自動擴縮器的設定，它根據指定的指標自動管理實現 scale 子資源的任何資源的副本數。"
 title: "HorizontalPodAutoscaler"
 weight: 13
 ---
@@ -30,7 +30,7 @@ auto_generated: true
 <!--
 HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
 -->
-HorizontalPodAutoscaler 是水平 Pod 自動擴縮器的配置，
+HorizontalPodAutoscaler 是水平 Pod 自動擴縮器的設定，
 它根據指定的指標自動管理實現 scale 子資源的任何資源的副本數。
 
 <hr>
@@ -138,7 +138,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 - **minReplicas** (int32)
 
   minReplicas 是自動擴縮器可以縮減的副本數的下限。它默認爲 1 個 Pod。
-  如果啓用了 Alpha 特性門控 HPAScaleToZero 並且配置了至少一個 Object 或 External 度量指標，
+  如果啓用了 Alpha 特性門控 HPAScaleToZero 並且設定了至少一個 Object 或 External 度量指標，
   則 minReplicas 允許爲 0。只要至少有一個度量值可用，擴縮就處於活動狀態。
 
 <!--
@@ -149,7 +149,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
 
 - **behavior** (HorizontalPodAutoscalerBehavior)
 
-  behavior 配置目標在擴容（Up）和縮容（Down）兩個方向的擴縮行爲（分別用 scaleUp 和 scaleDown 字段）。
+  behavior 設定目標在擴容（Up）和縮容（Down）兩個方向的擴縮行爲（分別用 scaleUp 和 scaleDown 字段）。
   如果未設置，則會使用默認的 HPAScalingRules 進行擴縮容。
 
   <a name="HorizontalPodAutoscalerBehavior"></a>
@@ -162,7 +162,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
   -->
 
-  **HorizontalPodAutoscalerBehavior 配置目標在擴容（Up）和縮容（Down）兩個方向的擴縮行爲
+  **HorizontalPodAutoscalerBehavior 設定目標在擴容（Up）和縮容（Down）兩個方向的擴縮行爲
   （分別用 scaleUp 和 scaleDown 字段）。**
 
   - **behavior.scaleDown** (HPAScalingRules)
@@ -178,7 +178,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
     -->
   
-    **HPAScalingRules** 配置一個方向上的擴縮行爲，通過擴縮策略規則和可配置的對度量值的容差。
+    **HPAScalingRules** 設定一個方向上的擴縮行爲，通過擴縮策略規則和可設定的對度量值的容差。
 
     擴縮策略規則在根據 HPA 的度量值計算出期望的副本數後應用。它們可以通過指定擴縮策略來限制擴縮速度。
     它們可以通過指定穩定窗口防止波動，這樣不會立即設置副本數量，而是從穩定窗口中選擇最安全的值。
@@ -197,7 +197,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
       policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
     -->
 
-    HPAScalingRules 爲一個方向配置擴縮行爲。在根據 HPA 的指標計算 desiredReplicas 後應用這些規則。
+    HPAScalingRules 爲一個方向設定擴縮行爲。在根據 HPA 的指標計算 desiredReplicas 後應用這些規則。
     可以通過指定擴縮策略來限制擴縮速度。可以通過指定穩定窗口來防止抖動，
     因此不會立即設置副本數，而是選擇穩定窗口中最安全的值。
 
@@ -279,14 +279,14 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     -->
   
     tolerance 是當前的度量值和期望的指標值之間比率的容差，在此容差範圍內，系統不會更新期望的副本數量
-    （例如，0.01 爲 1%）。必須大於或等於零。如果未設置，則應用默認的集羣範圍容差
+    （例如，0.01 爲 1%）。必須大於或等於零。如果未設置，則應用默認的叢集範圍容差
     （默認爲 10%）。
    
     <!--
     For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
     -->
 
-    例如，如果配置了以 100Mi 的內存消耗爲目標的自動擴縮容，
+    例如，如果設定了以 100Mi 的內存消耗爲目標的自動擴縮容，
     並且擴縮容的容差分別爲 5% 和 1%，那麼當實際消耗低於 95Mi
     或超過 101Mi 時，將觸發擴縮容。
 
@@ -322,7 +322,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
     -->
   
-    **HPAScalingRules** 配置了一個方向上的擴縮行爲，通過擴縮策略規則和可配置的指標容忍度。
+    **HPAScalingRules** 設定了一個方向上的擴縮行爲，通過擴縮策略規則和可設定的指標容忍度。
 
     擴縮策略規則在根據 HPA 的指標計算出期望的副本數後應用。它們可以通過指定擴縮策略來限制擴縮速度。
     它們可以通過指定穩定窗口防止波動，這樣不會立即設置副本數量，而是從穩定窗口中選擇最安全的值。
@@ -419,13 +419,13 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
   
       tolerance 是當前和期望的指標值之間比率的容差，
       在此容差下不會更新期望的副本數量（例如，1% 爲 0.01）。
-      必須大於或等於零。如果未設置，則應用默認的集羣範圍容差（默認爲 10%）。
+      必須大於或等於零。如果未設置，則應用默認的叢集範圍容差（默認爲 10%）。
   
       <!--
       For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
       -->
   
-      例如，如果配置了以 100Mi 的內存消耗爲目標的自動擴縮容，
+      例如，如果設定了以 100Mi 的內存消耗爲目標的自動擴縮容，
       並且擴縮容的容差分別爲 5% 和 1%，那麼當實際消耗低於 95Mi
       或超過 101Mi 時，將觸發擴縮容。
 
@@ -577,7 +577,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
   - **metrics.external** (ExternalMetricSource)
 
     external 指的是不與任何 Kubernetes 對象關聯的全局指標。
-    這一字段允許基於來自集羣外部運行的組件（例如雲消息服務中的隊列長度，或來自運行在集羣外部的負載均衡器的 QPS）的信息進行自動擴縮容。
+    這一字段允許基於來自叢集外部運行的組件（例如雲消息服務中的隊列長度，或來自運行在叢集外部的負載均衡器的 QPS）的信息進行自動擴縮容。
 
     <a name="ExternalMetricSource"></a>
 
@@ -590,7 +590,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
     -->
 
     ExternalMetricSource 指示如何基於 Kubernetes 對象無關的指標
-    （例如雲消息傳遞服務中的隊列長度，或來自集羣外部運行的負載均衡器的 QPS）執行擴縮操作。
+    （例如雲消息傳遞服務中的隊列長度，或來自叢集外部運行的負載均衡器的 QPS）執行擴縮操作。
 
     - **metrics.external.metric** (MetricIdentifier)，必需
 
@@ -621,7 +621,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
       - **metrics.external.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
         selector 是給定指標的標準 Kubernetes 標籤選擇算符的字符串編碼形式。
-        設置後，它作爲附加參數傳遞給指標服務器，以獲取更具體的指標範圍。
+        設置後，它作爲附加參數傳遞給指標伺服器，以獲取更具體的指標範圍。
         未設置時，僅 metricName 參數將用於收集指標。
 
     <!--
@@ -778,7 +778,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
       - **metrics.object.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
         selector 是給定指標的標準 Kubernetes 標籤選擇算符的字符串編碼形式。
-        設置後，它作爲附加參數傳遞給指標服務器，以獲取更具體的指標範圍。
+        設置後，它作爲附加參數傳遞給指標伺服器，以獲取更具體的指標範圍。
         未設置時，僅 metricName 參數將用於收集指標。
 
     <!--
@@ -891,7 +891,7 @@ HorizontalPodAutoscalerSpec 描述了 HorizontalPodAutoscaler 預期的功能。
       - **metrics.pods.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
         selector 是給定指標的標準 Kubernetes 標籤選擇算符的字符串編碼形式。
-        設置後，它作爲附加參數傳遞給指標服務器，以獲取更具體的指標範圍。
+        設置後，它作爲附加參數傳遞給指標伺服器，以獲取更具體的指標範圍。
         未設置時，僅 metricName 參數將用於收集指標。
 
     <!--
@@ -1264,8 +1264,8 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自動擴縮器的當前狀態
 
   - **currentMetrics.external** (ExternalMetricStatus)
 
-    external 指的是不與任何 Kubernetes 對象關聯的全局指標。這一字段允許基於來自集羣外部運行的組件
-    （例如雲消息服務中的隊列長度，或來自集羣外部運行的負載均衡器的 QPS）的信息進行自動擴縮。
+    external 指的是不與任何 Kubernetes 對象關聯的全局指標。這一字段允許基於來自叢集外部運行的組件
+    （例如雲消息服務中的隊列長度，或來自叢集外部運行的負載均衡器的 QPS）的信息進行自動擴縮。
 
     <a name="ExternalMetricStatus"></a>
 
@@ -1354,7 +1354,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自動擴縮器的當前狀態
       - **currentMetrics.external.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
         selector 是給定指標的標準 Kubernetes 標籤選擇算符的字符串編碼形式。
-        設置後，它作爲附加參數傳遞給指標服務器，以獲取更具體的指標範圍。
+        設置後，它作爲附加參數傳遞給指標伺服器，以獲取更具體的指標範圍。
         未設置時，僅 metricName 參數將用於收集指標。
 
   <!--
@@ -1500,7 +1500,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自動擴縮器的當前狀態
       - **currentMetrics.object.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
         selector 是給定指標的標準 Kubernetes 標籤選擇算符的字符串編碼形式。
-        設置後，它作爲附加參數傳遞給指標服務器，以獲取更具體的指標範圍。
+        設置後，它作爲附加參數傳遞給指標伺服器，以獲取更具體的指標範圍。
         未設置時，僅 metricName 參數將用於收集指標。
 
   <!--
@@ -1601,7 +1601,7 @@ HorizontalPodAutoscalerStatus 描述了水平 Pod 自動擴縮器的當前狀態
       - **currentMetrics.pods.metric.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
         selector 是給定指標的標準 Kubernetes 標籤選擇算符的字符串編碼形式。
-        設置後，它作爲附加參數傳遞給指標服務器，以獲取更具體的指標範圍。
+        設置後，它作爲附加參數傳遞給指標伺服器，以獲取更具體的指標範圍。
         未設置時，僅 metricName 參數將用於收集指標。
 
   <!--

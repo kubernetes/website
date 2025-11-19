@@ -32,7 +32,7 @@ either or both:
 - a 3rd party admission plugin, that you deploy and configure yourself
 -->
 - [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
-- 自行部署並配置第三方准入插件
+- 自行部署並設定第三方准入插件
 
 <!--
 For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).

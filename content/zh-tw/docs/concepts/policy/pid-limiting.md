@@ -46,7 +46,7 @@ and potentially also the container runtime) from running.
 In addition, it is important to ensure that PIDs are limited among Pods in order
 to ensure they have limited impact on other workloads on the same node.
 -->
-集羣管理員需要一定的機制來確保集羣中運行的 Pod 不會導致 PID 資源枯竭，
+叢集管理員需要一定的機制來確保叢集中運行的 Pod 不會導致 PID 資源枯竭，
 甚而造成宿主機上的守護進程（例如
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 或者
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}
@@ -72,13 +72,13 @@ with some additional risks. Either way, a single Pod will not be able to bring
 the whole machine down. This kind of resource limiting helps to prevent simple
 fork bombs from affecting operation of an entire cluster.
 -->
-你可以配置 kubelet 限制給定 Pod 能夠使用的 PID 個數。
+你可以設定 kubelet 限制給定 Pod 能夠使用的 PID 個數。
 例如，如果你的節點上的宿主操作系統被設置爲最多可使用 `262144` 個 PID，
 同時預期節點上會運行的 Pod 個數不會超過 `250`，那麼你可以爲每個 Pod 設置 `1000` 個 PID
 的預算，避免耗盡該節點上可用 PID 的總量。
 如果管理員系統像 CPU 或內存那樣允許對 PID 進行過量分配（Overcommit），他們也可以這樣做，
 只是會有一些額外的風險。不管怎樣，任何一個 Pod 都不可以將整個機器的運行狀態破壞。
-這類資源限制有助於避免簡單的派生炸彈（Fork Bomb）影響到整個集羣的運行。
+這類資源限制有助於避免簡單的派生炸彈（Fork Bomb）影響到整個叢集的運行。
 
 <!--
 Per-Pod PID limiting allows administrators to protect one Pod from another, but
@@ -132,8 +132,8 @@ respectively.
 -->
 ## 節點級別 PID 限制   {#node-pid-limits}
 
-Kubernetes 允許你爲系統預留一定量的進程 ID。爲了配置預留數量，你可以使用
-kubelet 的 `--system-reserved` 和 `--kube-reserved` 命令行選項中的參數
+Kubernetes 允許你爲系統預留一定量的進程 ID。爲了設定預留數量，你可以使用
+kubelet 的 `--system-reserved` 和 `--kube-reserved` 命令列選項中的參數
 `pid=<number>`。你所設置的參數值分別用來聲明爲整個系統和 Kubernetes
 系統守護進程所保留的進程 ID 數目。
 
@@ -151,8 +151,8 @@ to the kubelet, or set `PodPidsLimit` in the kubelet
 
 Kubernetes 允許你限制 Pod 中運行的進程個數。你可以在節點級別設置這一限制，
 而不是爲特定的 Pod 來將其設置爲資源限制。每個節點都可以有不同的 PID 限制設置。
-要設置限制值，你可以設置 kubelet 的命令行參數 `--pod-max-pids`，或者在 kubelet
-的[配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中設置
+要設置限制值，你可以設置 kubelet 的命令列參數 `--pod-max-pids`，或者在 kubelet
+的[設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)中設置
 `PodPidsLimit`。
 
 <!--
@@ -170,9 +170,9 @@ Eviction signal value is calculated periodically and does NOT enforce the limit.
 -->
 ## 基於 PID 的驅逐    {#pid-based-eviction}
 
-你可以配置 kubelet 使之在 Pod 行爲不正常或者消耗不正常數量資源的時候將其終止。這一特性稱作驅逐。
-你可以針對不同的驅逐信號[配置資源不足的處理](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
-使用 `pid.available` 驅逐信號來配置 Pod 使用的 PID 個數的閾值。
+你可以設定 kubelet 使之在 Pod 行爲不正常或者消耗不正常數量資源的時候將其終止。這一特性稱作驅逐。
+你可以針對不同的驅逐信號[設定資源不足的處理](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
+使用 `pid.available` 驅逐信號來設定 Pod 使用的 PID 個數的閾值。
 你可以設置硬性的和軟性的驅逐策略。不過，即使使用硬性的驅逐策略，
 如果 PID 個數增長過快，節點仍然可能因爲觸及節點 PID 限制而進入一種不穩定狀態。
 驅逐信號的取值是週期性計算的，而不是一直能夠強制實施約束。
@@ -189,7 +189,7 @@ when one Pod is misbehaving.
 Pod 級別和節點級別的 PID 限制會設置硬性限制。
 一旦觸及限制值，工作負載會在嘗試獲得新的 PID 時開始遇到問題。
 這可能會也可能不會導致 Pod 被重新調度，取決於工作負載如何應對這類失敗以及
-Pod 的存活性和就緒態探測是如何配置的。
+Pod 的存活性和就緒態探測是如何設定的。
 可是，如果限制值被正確設置，你可以確保其它 Pod 負載和系統進程不會因爲某個
 Pod 行爲不正常而沒有 PID 可用。
 
@@ -208,5 +208,5 @@ Pod 行爲不正常而沒有 PID 可用。
   [Kubernetes 1.14 中限制進程 ID 以提升穩定性](/blog/2019/04/15/process-id-limiting-for-stability-improvements-in-kubernetes-1.14/)
   的博文。
 - 請閱讀[爲容器管理資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
-- 學習如何[配置資源不足情況的處理](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
+- 學習如何[設定資源不足情況的處理](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
 

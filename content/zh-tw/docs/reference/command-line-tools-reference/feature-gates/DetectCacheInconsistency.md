@@ -14,4 +14,4 @@ stages:
 <!--
 Enable cache inconsistency detection in the API server.
 -->
-在 API 服務器中啓用緩存不一致性檢測。
+在 API 伺服器中啓用緩存不一致性檢測。

@@ -38,7 +38,7 @@ If you are using an older version of Kubernetes that is still supported, switch 
 the documentation for that version to see advice that is relevant for your cluster.
 -->
 如果你在使用較老的、仍處於被支持範圍的 Kubernetes 版本，
-請切換到該版本的文檔查看對於你的集羣而言有用的建議。
+請切換到該版本的文檔查看對於你的叢集而言有用的建議。
 
 <!-- steps -->
 
@@ -56,9 +56,9 @@ For example, if you save the following CustomResourceDefinition to `resourcedefi
 -->
 ## 創建 CustomResourceDefinition  {#create-a-customresourcedefinition}
 
-當你創建新的 CustomResourceDefinition（CRD）時，Kubernetes API 服務器會爲你所指定的每個版本生成一個新的
+當你創建新的 CustomResourceDefinition（CRD）時，Kubernetes API 伺服器會爲你所指定的每個版本生成一個新的
 RESTful 資源路徑。
-基於 CRD 對象所創建的自定義資源可以是名字空間作用域的，也可以是集羣作用域的，
+基於 CRD 對象所創建的自定義資源可以是名字空間作用域的，也可以是叢集作用域的，
 取決於 CRD 對象 `spec.scope` 字段的設置。
 
 與其它的內置對象一樣，刪除名字空間也將刪除該名字空間中的所有自定義對象。
@@ -186,7 +186,7 @@ resource to show up.
 將是來自你上面創建時所用的規約中指定的 `CronTab`。
 
 創建端點的操作可能需要幾秒鐘。你可以監測你的 CustomResourceDefinition 的
-`Established` 狀況變爲 true，或者監測 API 服務器的發現信息等待你的資源出現在那裏。
+`Established` 狀況變爲 true，或者監測 API 伺服器的發現信息等待你的資源出現在那裏。
 
 <!--
 ## Create custom objects
@@ -299,8 +299,8 @@ and delete all custom objects stored in it.
 -->
 ## 刪除 CustomResourceDefinition    {#delete-a-customresourcedefinition}
 
-當你刪除某 CustomResourceDefinition 時，服務器會卸載其 RESTful API
-端點，並刪除服務器上存儲的所有定製對象。
+當你刪除某 CustomResourceDefinition 時，伺服器會卸載其 RESTful API
+端點，並刪除伺服器上存儲的所有定製對象。
 
 ```shell
 kubectl delete -f resourcedefinition.yaml
@@ -334,7 +334,7 @@ CustomResourceDefinition, the structural schema was optional.
 
 CustomResource 對象在定製字段中保存結構化的數據，這些字段和內置的字段
 `apiVersion`、`kind` 和 `metadata` 等一起存儲，不過內置的字段都會被 API
-服務器隱式完成合法性檢查。有了 [OpenAPI v3.0 檢查](#validation)能力之後，
+伺服器隱式完成合法性檢查。有了 [OpenAPI v3.0 檢查](#validation)能力之後，
 你可以設置一個模式（Schema），在創建和更新定製對象時，這一模式會被用來
 對對象內容進行合法性檢查。參閱下文了解這類模式的細節和侷限性。
 
@@ -519,11 +519,11 @@ if you specify a field that the API server does not recognize, the unknown field
 -->
 ### 字段剪裁     {#field-pruning}
 
-CustomResourceDefinition 在集羣的持久性存儲
+CustomResourceDefinition 在叢集的持久性存儲
 {{< glossary_tooltip term_id="etcd" text="etcd">}}
 中保存經過合法性檢查的資源數據。
 就像原生的 Kubernetes 資源，例如 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}，
-如果你指定了 API 服務器所無法識別的字段，則該未知字段會在保存資源之前被**剪裁（Pruned）** 掉（刪除）。
+如果你指定了 API 伺服器所無法識別的字段，則該未知字段會在保存資源之前被**剪裁（Pruned）** 掉（刪除）。
 
 <!--
 CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack
@@ -614,10 +614,10 @@ Because the [OpenAPI validation schemas are also published](#publish-validation-
 to clients, `kubectl` also checks for unknown fields and rejects those objects well before they
 would be sent to the API server.
 -->
-本例中通過 `--validate=false` 命令行選項 關閉了客戶端的合法性檢查以展示 API 服務器的行爲，
+本例中通過 `--validate=false` 命令列選項 關閉了客戶端的合法性檢查以展示 API 伺服器的行爲，
 因爲 [OpenAPI 合法性檢查模式也會發布到](#publish-validation-schema-in-openapi)客戶端，
 `kubectl` 也會檢查未知的字段並在對象被髮送到 API
-服務器之前就拒絕它們。
+伺服器之前就拒絕它們。
 
 <!--
 #### Controlling pruning
@@ -1146,7 +1146,7 @@ cluster.
 -->
 如果你使用的 Kubernetes 版本早於 v1.30，則需要顯式啓用 `CRDValidationRatcheting`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-才能使用這種行爲，並將其應用到集羣中的所有 CustomResourceDefinition。
+才能使用這種行爲，並將其應用到叢集中的所有 CustomResourceDefinition。
 
 <!--
 Provided you enabled the feature gate, Kubernetes implements _validation ratcheting_
@@ -1157,7 +1157,7 @@ that remains invalid must have already been wrong.
 You cannot use this mechanism to update a valid resource so that it becomes invalid.
 -->
 只要你啓用了此特性門控，Kubernetes 就會對 CustomResourceDefinition 實施**驗證逐步升級**。
-即使更新後的資源無效，API 服務器也願意接受對資源的更新，
+即使更新後的資源無效，API 伺服器也願意接受對資源的更新，
 只要資源中未通過驗證的每個部分都沒有被更新操作改變。
 換句話說，資源中任何無效的部分如果仍然無效，那它必須之前就是錯誤的。
 你不能使用此機制來更新一個有效資源，使其變爲無效。
@@ -1168,7 +1168,7 @@ OpenAPIV3 schema under certain conditions. Users can update to the new schema
 safely without bumping the version of the object or breaking workflows.
 -->
 此特性使得 CRD 的作者能夠在某些條件下有信心地向 OpenAPIV3 模式定義中添加新的驗證。
-用戶可以安全地更新到新的模式定義，而不必提升對象的版本或破壞工作流。
+使用者可以安全地更新到新的模式定義，而不必提升對象的版本或破壞工作流。
 
 <!--
 While most validations placed in the OpenAPIV3 schema of a CRD support
@@ -1945,7 +1945,7 @@ The `optionalOldSelf` field is a boolean field that alters the behavior of [Tran
 below. Normally, a transition rule will not evaluate if `oldSelf` cannot be determined:
 during object creation or when a new value is introduced in an update.
 -->
-如果你的集羣未啓用 [CRDValidationRatcheting](#validation-ratcheting)，則
+如果你的叢集未啓用 [CRDValidationRatcheting](#validation-ratcheting)，則
 CustomResourceDefinition API 不包含此字段，嘗試設置它可能會導致錯誤。
 
 `optionalOldSelf` 字段是一個布爾字段，它會改變下文所述的[轉換規則](#transition-rules)的行爲。
@@ -2108,8 +2108,8 @@ estimated to be prohibitively expensive to execute, the API server rejects the c
 or update operation, and returns an error message.
 -->
 當你創建或更新一個使用驗證規則的 CustomResourceDefinition 時，
-API 服務器會檢查運行這些驗證規則可能產生的影響。
-如果一個規則的執行成本過高，API 服務器會拒絕創建或更新操作，並返回一個錯誤信息。
+API 伺服器會檢查運行這些驗證規則可能產生的影響。
+如果一個規則的執行成本過高，API 伺服器會拒絕創建或更新操作，並返回一個錯誤信息。
 <!--
 A similar system is used at runtime that observes the actions the interpreter takes. If the interpreter executes
 too many instructions, execution of the rule will be halted, and an error will result.
@@ -2170,7 +2170,7 @@ openAPIV3Schema:
 <!--
 then the API server rejects this rule on validation budget grounds with error:
 -->
-API 服務器以驗證預算爲由拒絕該規則，並顯示錯誤：
+API 伺服器以驗證預算爲由拒絕該規則，並顯示錯誤：
 
 ```
 spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden:
@@ -2378,7 +2378,7 @@ An update request via the API is required to persist those defaults back into et
 -->
 默認值設定的行爲發生在定製對象上：
 
-* 在向 API 服務器發送的請求中，基於請求版本的設定設置默認值；
+* 在向 API 伺服器發送的請求中，基於請求版本的設定設置默認值；
 * 在從 etcd 讀取對象時，使用存儲版本來設置默認值；
 * 在 Mutating 准入控制插件執行非空的補丁操作時，基於准入 Webhook
   對象版本設置默認值。
@@ -2487,12 +2487,12 @@ on custom resources. The published schema can be consumed for other purposes as 
 
 CustomResourceDefinition 的[結構化的](#specifying-a-structural-schema)、
 [啓用了剪裁的](#field-pruning) [OpenAPI v3 合法性檢查模式](#validation)會在
-Kubernetes API 服務器上作爲
+Kubernetes API 伺服器上作爲
 [OpenAPI 3](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
 和 OpenAPI v2 發佈出來。建議使用 OpenAPI v3 文檔，因爲它是 CustomResourceDefinition OpenAPI v3
 驗證模式的無損表示，而 OpenAPI v2 表示有損轉換。
 
-[kubectl](/zh-cn/docs/reference/kubectl/) 命令行工具會基於所發佈的模式定義來執行客戶端的合法性檢查
+[kubectl](/zh-cn/docs/reference/kubectl/) 命令列工具會基於所發佈的模式定義來執行客戶端的合法性檢查
 （`kubectl create` 和 `kubectl apply`），爲定製資源的模式定義提供解釋（`kubectl explain`）。
 所發佈的模式還可被用於其他目的，例如生成客戶端或者生成文檔。
 
@@ -2521,7 +2521,7 @@ OpenAPI v3 合法性檢查模式定義會被轉換爲 OpenAPI v2 模式定義，
 在轉換過程中會發生以下修改，目的是保持與 1.13 版本以前的 kubectl 工具兼容。
 這些修改可以避免 kubectl 過於嚴格，以至於拒絕它無法理解的 OpenAPI 模式定義。
 轉換過程不會更改 CRD 中定義的合法性檢查模式定義，因此不會影響到
-API 服務器中的[合法性檢查](#validation)。
+API 伺服器中的[合法性檢查](#validation)。
 
 <!--
 1. The following fields are removed as they aren't supported by OpenAPI v2.
@@ -2550,7 +2550,7 @@ Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 -->
 ### 額外的打印列    {#additional-printer-columns}
 
-`kubectl` 工具依賴服務器端的輸出格式化。你的集羣的 API 服務器決定 `kubectl
+`kubectl` 工具依賴伺服器端的輸出格式化。你的叢集的 API 伺服器決定 `kubectl
 get` 命令要顯示的列有哪些。
 你可以爲 CustomResourceDefinition 定製這些要打印的列。
 下面的例子添加了 `Spec`、`Replicas` 和 `Age` 列：
@@ -2619,7 +2619,7 @@ Create an instance using the `my-crontab.yaml` from the previous section.
 <!--
 Invoke the server-side printing:
 -->
-啓用服務器端打印輸出：
+啓用伺服器端打印輸出：
 
 ```shell
 kubectl get crontab my-new-cron-object

@@ -1,0 +1,200 @@
+content/zh-tw/releases/release.md:492:Prow "/milestone" 命令對其進行標記，特性增強或其部分指向未來的里程碑。
+content/zh-tw/releases/release.md:520:通過 Prow “/milestone” 命令標記問題並指向里程碑。
+content/zh-tw/releases/release.md:551:PR 通過 Prow “/milestone” 命令標記並指向里程碑。
+content/zh-tw/releases/release.md:579:這些是通過 Prow "/sig" 命令添加的。
+content/zh-tw/releases/release-managers.md:112:- 熟悉基本的 Unix 命令並能夠調試 shell 腳本。
+content/zh-tw/releases/release-managers.md:113:- 熟悉通過 `git` 和 `git` 相關命令行觸發的分支源代碼工作流。
+content/zh-tw/releases/download.md:35:Kubernetes 命令行工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)
+content/zh-tw/releases/download.md:36:允許你對 Kubernetes 集羣執行命令。
+content/zh-tw/training/_index.html:119:          <p>從沒學過 Linux？想要充充電嗎？通過圖形界面和命令行在 Linux 發行版下提升學習 Linux 的工作知識。</p>
+content/zh-tw/training/_index.html:190:        <p>經過認證的 KCSA 將確認對 Kubernetes 集羣的基線安全配置的理解，以滿足合規性目標。</p>
+content/zh-tw/training/_index.html:207:          <p>CKAD 考試證明用戶可以爲 Kubernetes 設計、構建、配置和發佈雲原生應用。</p>
+content/zh-tw/training/_index.html:229:          <p>通過認證的 Kubernetes 管理員展示了包括基礎安裝和配置、管理產品級別的 Kubernetes 集羣方面的能力。</p>
+content/zh-tw/includes/task-tutorial-prereqs-node-upgrade.md:6:你必須有 Shell 能訪問所有節點，且必須配置 kubectl 命令行工具讓其與你的集羣通信。
+content/zh-tw/includes/task-tutorial-prereqs.md:8:你必須擁有一個 Kubernetes 的集羣，且必須配置 kubectl 命令行工具讓其與你的集羣通信。
+content/zh-tw/docs/home/_index.md:72:  description: 瀏覽術語、命令行語法、API 資源類型和安裝工具文檔。
+content/zh-tw/docs/tasks/run-application/scale-stateful-set.md:100:你可以更新 StatefulSet 清單中的 `.spec.replicas`，然後執行命令 `kubectl apply`：
+content/zh-tw/docs/tasks/run-application/delete-stateful-set.md:43:使用 `kubectl delete` 命令，並按文件或者名字指定 StatefulSet。
+content/zh-tw/docs/tasks/run-application/delete-stateful-set.md:129:你可以運行如下所示的一系列命令：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:54:如果負載減少，並且 Pod 的數量高於配置的最小值，
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:83:按照本演練進行操作，你需要一個部署並配置了
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:95:如果你正在運行 {{< glossary_tooltip term_id="minikube" >}}，運行以下命令以啓用 metrics-server：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:121:爲此，運行下面的命令：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:155:[`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands#autoscale) 子命令是 `kubectl` 的一部分，
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:158:你將很快運行一個創建 HorizontalPodAutoscaler 的命令，
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:187:你可以通過運行以下命令檢查新制作的 HorizontalPodAutoscaler 的當前狀態：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:255:一分鐘時間左右之後，通過以下命令，我們可以看到 CPU 負載升高了；例如：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:528:命令將上述 Horizontal Pod Autoscaler 的定義更改爲：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:673:HorizontalPodAutoscaler 的配置中。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:716:可以通過 `kubectl describe hpa` 命令查看當前影響 HorizontalPodAutoscaler
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:795:除了使用 `kubectl autoscale` 命令，也可以使用以下清單以聲明方式創建 HorizontalPodAutoscaler：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough.md:802:使用如下命令創建 Autoscaler：
+content/zh-tw/docs/tasks/run-application/run-single-instance-stateful-application.md:58:注意：在配置的 YAML 文件中定義密碼的做法是不安全的。具體安全解決方案請參考
+content/zh-tw/docs/tasks/run-application/run-single-instance-stateful-application.md:209:此命令在集羣內創建一個新的 Pod 並運行 MySQL 客戶端，並通過 Service 連接到伺服器。
+content/zh-tw/docs/tasks/run-application/run-single-instance-stateful-application.md:228:Deployment 中鏡像或其他部分同往常一樣可以通過 `kubectl apply` 命令更新。
+content/zh-tw/docs/tasks/run-application/run-single-instance-stateful-application.md:247:  Pod。在使用更新的配置文件創建新的 Pod 前，`Recreate` 策略將保證先停止第一個 Pod。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:6:    使用一個簡單的命令、一個 UI 或基於 CPU 使用情況自動對應用程序進行擴縮。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:54:如果負載減少，並且 Pod 的數量高於配置的最小值，
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:195:HorizontalPodAutoscaler 的常見用途是將其配置爲從{{< glossary_tooltip text="聚合 API" term_id="aggregation-layer" >}}
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:252:因爲  \\( { 50.0 \div 100.0 } = 0.5 \\)。如果比率足夠接近 1.0（在[可配置的容差範圍內](#tolerance)，默認爲 0.1），
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:306:相反，如果 Pod 未準備好並在其啓動後的一個可配置的短時間窗口內轉換爲準備好，它會認爲 Pod “尚未準備好”。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:307:此值使用 `--horizontal-pod-autoscaler-initial-readiness-delay` 命令行選項配置，默認值爲 30 秒。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:308:一旦 Pod 準備就緒，如果它發生在自啓動後較長的、可配置的時間內，它就會認爲任何向準備就緒的轉換都是第一個。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:309:此值由 `--horizontal-pod-autoscaler-cpu-initialization-period` 命令行選項配置，默認值爲 5 分鐘。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:382:你可以使用 `--horizontal-pod-autoscaler-downscale-stabilization` 命令行選項來配置這個值，
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:383:默認值爲 5 分鐘。這個配置可以讓系統更爲平滑地進行縮容操作，從而消除短時間內指標值快速波動產生的影響。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:392:HorizontalPodAutoscaler（HPA）控制器有兩個命令行選項會影響 Pod 啓動期間如何收集其 CPU 指標：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:403:   此命令行選項所定義的是 Pod 啓動後的一個時間窗口，在此期間內其 **CPU 使用率被忽略**，除非：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:412:   此命令行選項有助於**排除初始化 Pod 中的誤導性高 CPU 使用率**
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:444:你可以在集羣範圍設置這些命令行選項。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:463:- 配置 `startupProbe`，使其在高 CPU 使用率結束之前不會傳遞，或
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:523:當你爲一個 Deployment 配置自動擴縮時，你要爲每個 Deployment 綁定一個 HorizontalPodAutoscaler。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:599:容器資源指標的支持使得你可以爲特定 Pod 中最重要的容器配置規模擴縮閾值。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:676:配置爲基於自定義指標（未內置於 Kubernetes 或任何 Kubernetes 組件）進行擴縮。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:702:並將工作負載設置爲該大小（前提是這不大於你配置的總體最大值）。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:769:## 可配置的擴縮行爲 {#configurable-scaling-behavior}
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:786:來配置單獨的放大和縮小行爲。你可以通過在行爲字段下設置 `scaleUp` 和/或 `scaleDown` 來指定這些行爲。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:914:`tolerance` 字段用於配置指標波動的閾值，避免自動擴縮器因小幅變化而觸發擴縮容操作。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:917:例如，假設 HorizontalPodAutoscaler 配置了目標內存使用量爲 100MiB，並設置了 5% 的擴容容忍閾值：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:942:在這種配置下，只有當內存使用量超過 105MiB（即比目標值高出 5%）時，HPA 算法纔會考慮進行擴容。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:946:的 `--horizontal-pod-autoscaler-tolerance` 命令行參數，分別調整擴容和縮容的默認容忍閾值。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:947:（注意，無法通過 Kubernetes API 來配置這個默認值。）
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:991:秒（或是 `--horizontal-pod-autoscaler-downscale-stabilization` 命令行選項設定值）。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:1004:將下面的 behavior 配置添加到 HPA 中，可提供一個 1 分鐘的自定義縮容穩定窗口：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:1020:將下面的 behavior 配置添加到 HPA 中，可限制 Pod 被 HPA 刪除速率爲每分鐘 10%：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:1080:你可以使用 `kubectl create` 命令創建一個新的自動擴縮器。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:1090:此外，還有一個特殊的 `kubectl autoscale` 命令用於創建 HorizontalPodAutoscaler 對象。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:1106:你可以在不必更改 HPA 配置的情況下隱式地爲某個目標禁用 HPA。
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:1142:並根據需要遵守滾動更新配置。你可以根據修改部署的方式選擇以下兩種方法之一來避免這種降級：
+content/zh-tw/docs/tasks/run-application/horizontal-pod-autoscale.md:1187:如果你在集羣中配置自動擴縮，
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:38:**這一配置不適合生產環境。**
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:101:使用以下的 YAML 配置文件創建 ConfigMap ：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:115:這個 ConfigMap 提供 `my.cnf` 覆蓋設置，使你可以獨立控制 MySQL 主伺服器和副本伺服器的配置。
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:135:使用以下 YAML 配置文件創建服務：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:183:最後，使用以下 YAML 配置文件創建 StatefulSet：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:194:你可以通過運行以下命令查看啓動進度：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:267:### 生成配置   {#generating-config}
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:276:第一個名爲 `init-mysql` 的 Init 容器根據序號索引生成特殊的 MySQL 配置文件。
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:286:該腳本通過從 Pod 名稱的末尾提取索引來確定自己的序號索引，而 Pod 名稱由 `hostname` 命令返回。
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:378:`CHANGE MASTER TO` 和 `START SLAVE` 命令。
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:512:運行命令 `mysql -h 127.0.0.1 -e 'SELECT 1'`，以確保伺服器已啓動並能夠執行查詢。
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:517:迫使就緒態探測失敗的一種方法就是中止該命令：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:529:此命令會進入 Pod `mysql-2` 的實際容器文件系統，重命名 `mysql` 命令，導致就緒態探測無法找到它。
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:530:幾秒鐘後， Pod 會報告其中一個容器未就緒。你可以通過運行以下命令進行檢查：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:602:命令來模擬節點停機（就好像節點在被升級）。
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:628:接下來，通過運行以下命令騰空節點，該命令將其保護起來，以使新的 Pod 不能調度到該節點，
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:709:對於 StatefulSet，你可以使用單個命令實現此目的：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:718:運行下面的命令，監視新的 Pod 啓動：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:775:你可以通過運行以下命令查看此效果：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:812:1. 通過在終端上按 **Ctrl+C** 取消 `SELECT @@server_id` 循環，或從另一個終端運行以下命令：
+content/zh-tw/docs/tasks/run-application/run-replicated-stateful-application.md:840:   當上述命令返回如下內容時，你就知道 Pod 已終止：
+content/zh-tw/docs/tasks/run-application/configure-pdb.md:391:用戶可以通過以下命令獲取更多 PDB 狀態相關信息：
+content/zh-tw/docs/tasks/run-application/configure-pdb.md:470:  （由於漏洞或錯誤配置）或其 Pod 只是未能報告 `Ready` 狀況。
+content/zh-tw/docs/tasks/run-application/configure-pdb.md:490:  （由於漏洞或錯誤配置）或其 Pod 只是未能報告 `Ready` 狀況。
+content/zh-tw/docs/tasks/run-application/configure-pdb.md:538:你無法使用其他的可用性配置，因爲如果沒有被支持的屬主資源，Kubernetes 無法推導出 Pod 的總數。
+content/zh-tw/docs/tasks/run-application/run-stateless-application-deployment.md:236:來配置。
+content/zh-tw/docs/tasks/run-application/force-delete-stateful-set-pod.md:67:這些應用通常配置爲具有固定標識固定數量的成員集合。
+content/zh-tw/docs/tasks/run-application/force-delete-stateful-set-pod.md:77:你可以使用下面的命令執行體面地刪除 Pod：
+content/zh-tw/docs/tasks/run-application/force-delete-stateful-set-pod.md:171:如果要使用 kubectl 1.5 以上版本強制刪除 Pod，請執行下面命令：
+content/zh-tw/docs/tasks/run-application/force-delete-stateful-set-pod.md:190:如果在執行這些命令後 Pod 仍處於 `Unknown` 狀態，請使用以下命令從集羣中刪除 Pod：
+content/zh-tw/docs/tasks/run-application/access-api-from-pod.md:165:通過將認證令牌直接發送到 API 伺服器，也可以避免運行 kubectl proxy 命令。
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:70:   如果你已安裝 `curl`，可以使用以下命令：
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:106:   - 在命令行環境中，手工對比 `CertUtil` 命令的輸出與校驗和文件：
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:140:   或者使用下面命令來查看版本的詳細信息：
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:170:   命令行安裝器 [Scoop](https://scoop.sh) 或包管理器 [winget](https://learn.microsoft.com/zh-cn/windows/package-manager/winget/)。
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:230:6. 配置 kubectl，以接入遠程的 Kubernetes 集羣：
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:240:編輯配置文件，你需要先選擇一個文本編輯器，比如 Notepad。
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:246:## 驗證 kubectl 配置 {#verify-kubectl-configration}
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:255:## kubectl 可選配置和插件 {#optional-kubectl-configurations}
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:276:### 配置 kuberc  {#configure-kuberc}
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:290:1. 用以下命令下載最新發行版：
+content/zh-tw/docs/tasks/tools/install-kubectl-windows.md:319:   - 用提示的命令對 `CertUtil` 的輸出和下載的校驗和文件進行手動比較。
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:52:- [驗證 kubectl 配置](#verify-kubectl-configuration)
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:53:- [可選的 kubectl 配置和插件](#optional-kubectl-configurations-and-plugins)
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:83:   如果需要下載某個指定的版本，用該指定版本號替換掉命令的這個部分：`$(curl -L -s https://dl.k8s.io/release/stable.txt)`。
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:191:   或者使用下面命令來查看版本的詳細信息：
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:220:1. 運行安裝命令：
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:256:1. 運行安裝命令：
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:275:## 驗證 kubectl 配置 {#verify-kubectl-configuration}
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:284:## 可選的 kubectl 配置和插件 {#optional-kubectl-configurations-and-plugins}
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:309:### 配置 kuberc  {#configure-kuberc}
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:323:1. 用以下命令下載最新發行版：
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:450:### 使用命令行卸載 kubectl   {#uninstall-kubectl-using-cli}
+content/zh-tw/docs/tasks/tools/install-kubectl-macos.md:480:如果你使用 Homebrew 安裝了 `kubectl`，運行以下命令：
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:55:1. 用以下命令下載最新發行版：
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:73:   如需下載某個指定的版本，請用指定版本號替換該命令的這一部分：
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:185:   或者使用如下命令來查看版本的詳細信息：
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:228:   # 如果 `/etc/apt/keyrings` 目錄不存在，則應在 curl 命令之前創建它，請閱讀下面的註釋。
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:239:應在 curl 命令之前創建它。
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:247:   請將下面命令中的 {{< param "version" >}} 替換爲所需的次要版本：
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:257:   # 這會覆蓋 /etc/apt/sources.list.d/kubernetes.list 中的所有現存配置
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:267:再運行 `apt-get update` 和 `apt-get upgrade` 命令。
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:291:   將下面命令中的 {{< param "version" >}} 替換爲所需的次要版本。
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:307:   # 這會覆蓋 /etc/yum.repos.d/kubernetes.repo 中現存的所有配置
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:323:中的版本，再運行 `yum update` 命令。
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:346:   的 Kubernetes 版本，請在下面的命令中將 {{< param "version" >}} 替換爲所需的次要版本。
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:362:# 這將覆蓋 /etc/zypp/repos.d/kubernetes.repo 中的任何現有配置。
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:446:則可用 [snap](https://snapcraft.io/) 命令安裝 kubectl。
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:476:## 驗證 kubectl 配置 {#verify-kubectl-configuration}
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:485:## kubectl 的可選配置和插件 {#optional-kubectl-configurations}
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:510:### 配置 kuberc  {#configure-kuberc}
+content/zh-tw/docs/tasks/tools/install-kubectl-linux.md:524:1. 用以下命令下載最新發行版：
+content/zh-tw/docs/tasks/tools/included/kubectl-convert-overview.md:24:一個 Kubernetes 命令行工具 `kubectl` 的插件，允許你將清單在不同 API 版本間轉換。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-zsh.md:3:description: "zsh 自動補全的一些可選配置"
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-zsh.md:21:kubectl 通過命令 `kubectl completion zsh` 生成 Zsh 自動補全腳本。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-fish.md:3:description: "啓用 fish 自動補全的可選配置。"
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-fish.md:32:kubectl 通過命令 `kubectl completion fish` 生成 Fish 自動補全腳本。
+content/zh-tw/docs/tasks/tools/included/verify-kubectl.md:35:通常，kubectl 的配置信息存放於文件 `~/.kube/config` 中。
+content/zh-tw/docs/tasks/tools/included/verify-kubectl.md:37:通過獲取集羣狀態的方法，檢查是否已恰當地配置了 kubectl：
+content/zh-tw/docs/tasks/tools/included/verify-kubectl.md:51:如果你看到如下所示的消息，則代表 kubectl 配置出了問題，或無法連接到 Kubernetes 集羣。
+content/zh-tw/docs/tasks/tools/included/verify-kubectl.md:66:這樣的工具，然後再重新運行上面的命令。
+content/zh-tw/docs/tasks/tools/included/verify-kubectl.md:68:如果命令 `kubectl cluster-info` 返回了 URL，但你還不能訪問集羣，那可以用以下命令來檢查配置是否妥當：
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-mac.md:3:description: "在 macOS 上實現 Bash 自動補全的一些可選配置。"
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-mac.md:32:kubectl 的 Bash 補全腳本可以通過 `kubectl completion bash` 命令生成。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-mac.md:65:後續說明假定你已使用 Bash 4.1+。你可以運行以下命令檢查 Bash 版本：
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-mac.md:113:你可以用命令 `type _init_completion` 測試 bash-completion v2 是否已經安裝。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-mac.md:123:如命令的輸出信息所顯示的，將如下內容添加到文件 `~/.bash_profile` 中：
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-mac.md:132:重新加載 Shell，並用命令 `type _init_completion` 驗證 bash-completion v2 已經恰當的安裝。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-pwsh.md:3:description: "powershell 自動補全的一些可選配置。"
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-pwsh.md:21:你可以使用命令 `kubectl completion powershell` 生成 PowerShell 的 kubectl 自動補全腳本。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-pwsh.md:23:如果需要自動補全在所有 Shell 會話中生效，請將以下命令添加到 `$PROFILE` 文件中：
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-pwsh.md:32:此命令將在每次 PowerShell 啓動時重新生成自動補全腳本。你還可以將生成的自動補全腳本添加到 `$PROFILE` 文件中。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-pwsh.md:37:如果需要將自動補全腳本直接添加到 `$PROFILE` 文件中，請在 PowerShell 命令行運行以下命令：
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-linux.md:3:description: "Linux 系統中 Bash 自動補全功能的一些可選配置。"
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-linux.md:34:kubectl 的 Bash 補全腳本可以用命令 `kubectl completion bash` 生成。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-linux.md:38:所以要先安裝它（可以用命令 `type _init_completion` 檢查 bash-completion 是否已安裝）。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-linux.md:58:可以通過 `apt-get install bash-completion` 或 `yum install bash-completion` 等命令來安裝它。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-linux.md:60:上述命令將創建文件 `/usr/share/bash-completion/bash_completion`，它是 bash-completion 的主腳本。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-linux.md:63:要查看結果，請重新加載你的 Shell，並運行命令 `type _init_completion`。
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-linux.md:64:如果命令執行成功，則設置完成，否則將下面內容添加到文件 `~/.bashrc` 中：
+content/zh-tw/docs/tasks/tools/included/optional-kubectl-configs-bash-linux.md:73:重新加載 Shell，再輸入命令 `type _init_completion` 來驗證 bash-completion 的安裝狀態。
+content/zh-tw/docs/tasks/tools/_index.md:38:Kubernetes 命令行工具 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/)，
+content/zh-tw/docs/tasks/tools/_index.md:39:讓你可以對 Kubernetes 集羣運行命令。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:2:title: 使用配置文件對 Kubernetes 對象進行命令式管理
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:18:可以使用 `kubectl` 命令行工具以及用 YAML 或 JSON 編寫的對象配置文件來創建、更新和刪除 Kubernetes 對象。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:19:本文檔說明了如何使用配置文件定義和管理對象。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:46:* 命令式命令
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:47:* 命令式對象配置
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:48:* 聲明式對象配置
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:66:你可以使用 `kubectl create -f` 從配置文件創建一個對象。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:86:使用 `replace` 命令更新對象會刪除所有未在配置文件中指定的規範的某些部分。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:88:其中 `externalIPs` 字段獨立於配置文件進行管理。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:89:必須將獨立管理的字段複製到配置文件中，以防止 `replace` 刪除它們。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:96:你可以使用 `kubectl replace -f` 根據配置文件更新活動對象。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:108:你可以使用 `kubectl delete -f` 刪除配置文件中描述的對象。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:119:如果配置文件在 `metadata` 節中設置了 `generateName` 字段而非 `name` 字段，
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:137:你可以使用 `kubectl get -f` 查看有關配置文件中描述的對象的信息。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:145:`-o yaml` 標誌指定打印完整的對象配置。使用 `kubectl get -h` 查看選項列表。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:160:當完全定義每個對象的配置並將其記錄在其配置文件中時，`create`、 `replace` 和`delete` 命令會很好的工作。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:161:但是，當更新一個活動對象，並且更新沒有合併到其配置文件中時，下一次執行 `replace` 時，更新將丟失。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:171:1. 從配置文件創建一個對象。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:173:1. 從配置文件中替換對象。在步驟2中所做的其他源的更改將丟失。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:189:## 從 URL 創建和編輯對象而不保存配置   {#creating-and-editing-an-object-from-a-url-without-saving-the-configuration}
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:191:假設你具有對象配置文件的 URL。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:192:你可以在創建對象之前使用 `kubectl create --edit` 對配置進行更改。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:193:這對於指向可以由讀者修改的配置文件的教程和任務特別有用。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:205:## 從命令式命令遷移到命令式對象配置   {#migrating-from-imperative-commands-to-imperative-object-configuration}
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:207:從命令式命令遷移到命令式對象配置涉及幾個手動步驟。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:212:1. 將活動對象導出到本地對象配置文件：
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:221:2. 從對象配置文件中手動刪除狀態字段。
+content/zh-tw/docs/tasks/manage-kubernetes-objects/imperative-config.md:273:* [使用命令式命令管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)

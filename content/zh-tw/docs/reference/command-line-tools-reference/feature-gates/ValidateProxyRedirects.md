@@ -28,5 +28,5 @@ removed: true
 This flag controls whether the API server should validate that redirects
 are only followed to the same host. Only used if the `StreamingProxyRedirects` flag is enabled.
 -->
-這個標誌控制 API 服務器是否檢查重定向僅指向相同主機。
+這個標誌控制 API 伺服器是否檢查重定向僅指向相同主機。
 僅在啓用 `StreamingProxyRedirects` 標誌時被使用。

@@ -34,11 +34,11 @@ Released phase, where all of its data can be manually recovered.
 ## 爲什麼要更改 PersistentVolume 的回收策略
 
 PersistentVolumes 可以有多種回收策略，包括 "Retain"、"Recycle" 和  "Delete"。
-對於動態配置的 PersistentVolumes 來說，默認回收策略爲 "Delete"。
-這表示當用戶刪除對應的 PersistentVolumeClaim 時，動態配置的 volume 將被自動刪除。
+對於動態設定的 PersistentVolumes 來說，默認回收策略爲 "Delete"。
+這表示當使用者刪除對應的 PersistentVolumeClaim 時，動態設定的 volume 將被自動刪除。
 如果 volume 包含重要數據時，這種自動行爲可能是不合適的。
 那種情況下，更適合使用 "Retain" 策略。
-使用 "Retain" 時，如果用戶刪除 PersistentVolumeClaim，對應的 PersistentVolume 不會被刪除。
+使用 "Retain" 時，如果使用者刪除 PersistentVolumeClaim，對應的 PersistentVolume 不會被刪除。
 相反，它將變爲 Released 狀態，表示所有的數據可以被手動恢復。
 
 <!--
@@ -49,7 +49,7 @@ PersistentVolumes 可以有多種回收策略，包括 "Retain"、"Recycle" 和 
 <!--
 1. List the PersistentVolumes in your cluster:
 -->
-1. 列出你集羣中的 PersistentVolumes
+1. 列出你叢集中的 PersistentVolumes
 
    ```shell
    kubectl get pv
@@ -71,7 +71,7 @@ PersistentVolumes 可以有多種回收策略，包括 "Retain"、"Recycle" 和 
    This list also includes the name of the claims that are bound to each volume
    for easier identification of dynamically provisioned volumes.
    -->
-   這個列表同樣包含了綁定到每個卷的 claims 名稱，以便更容易的識別動態配置的卷。
+   這個列表同樣包含了綁定到每個卷的 claims 名稱，以便更容易的識別動態設定的卷。
 
 <!--
 1. Choose one of your PersistentVolumes and change its reclaim policy:
@@ -129,7 +129,7 @@ PersistentVolumes 可以有多種回收策略，包括 "Retain"、"Recycle" 和 
    deleted when a user deletes claim `default/claim3`.
    -->
    在前面的輸出中，你可以看到綁定到申領 `default/claim3` 的卷的回收策略爲 `Retain`。
-   當用戶刪除申領 `default/claim3` 時，它不會被自動刪除。
+   當使用者刪除申領 `default/claim3` 時，它不會被自動刪除。
 
 ## {{% heading "whatsnext" %}}
 

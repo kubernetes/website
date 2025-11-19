@@ -23,4 +23,4 @@ stages:
 <!--
 Track IP address allocations for Service cluster IPs using IPAddress objects.
 -->
-使用 IPAddress 對象跟蹤爲 Service 的集羣 IP 分配的 IP 地址。
+使用 IPAddress 對象跟蹤爲 Service 的叢集 IP 分配的 IP 地址。

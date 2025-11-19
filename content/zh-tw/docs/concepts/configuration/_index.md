@@ -1,7 +1,7 @@
 ---
-title: "配置"
+title: "設定"
 weight: 80
-description: Kubernetes 爲配置 Pod 所提供的資源。
+description: Kubernetes 爲設定 Pod 所提供的資源。
 ---
 <!--
 title: "Configuration"

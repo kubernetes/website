@@ -130,7 +130,7 @@ will only support for internal Kubernetes use cases. Starting with v1.25, the Ku
 -->
 ### [清理 IPTables 鏈的所有權](https://github.com/kubernetes/enhancements/issues/3178)
 
-在 Linux 上，Kubernetes（通常）創建 iptables 鏈來確保這些網絡數據包到達，
+在 Linux 上，Kubernetes（通常）創建 iptables 鏈來確保這些網路數據包到達，
 儘管這些鏈及其名稱已成爲內部實現的細節，但某些工具已依賴於此行爲。
 將僅支持內部 Kubernetes 使用場景。
 從 v1.25 開始，Kubelet 將逐漸遷移爲不在 `nat` 表中創建以下 iptables 鏈：
@@ -143,7 +143,7 @@ will only support for internal Kubernetes use cases. Starting with v1.25, the Ku
 This change will be phased in via the `IPTablesCleanup` feature gate. Although this is not formally a deprecation, some end users have come to rely on specific internal behavior of `kube-proxy`. The Kubernetes project overall wants to make it clear that depending on these internal details is not supported, and that future implementations will change their behavior here.
 -->
 此項變更將通過 `IPTablesCleanup` 特性門控分階段完成。
-儘管這不是正式的棄用，但某些最終用戶已開始依賴 `kube-proxy` 特定的內部行爲。
+儘管這不是正式的棄用，但某些最終使用者已開始依賴 `kube-proxy` 特定的內部行爲。
 Kubernetes 項目總體上希望明確表示不支持依賴這些內部細節，並且未來的實現將更改它們在此處的行爲。
 
 <!--

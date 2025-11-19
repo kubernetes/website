@@ -1,5 +1,5 @@
 ---
-title: 爲 Windows Pod 和容器配置 GMSA
+title: 爲 Windows Pod 和容器設定 GMSA
 content_type: task
 weight: 30
 ---
@@ -20,11 +20,11 @@ are a specific type of Active Directory account that provides automatic password
 simplified service principal name (SPN) management, and the ability to delegate the management
 to other administrators across multiple servers.
 -->
-本頁展示如何爲將運行在 Windows 節點上的 Pod 和容器配置
+本頁展示如何爲將運行在 Windows 節點上的 Pod 和容器設定
 [組管理的服務賬號（Group Managed Service Accounts，GMSA）](https://docs.microsoft.com/zh-cn/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview)。
 組管理的服務賬號是活動目錄（Active Directory）的一種特殊類型，
 提供自動化的密碼管理、簡化的服務主體名稱（Service Principal Name，SPN）
-管理以及跨多個服務器將管理操作委派給其他管理員等能力。
+管理以及跨多個伺服器將管理操作委派給其他管理員等能力。
 
 <!--
 In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope
@@ -32,8 +32,8 @@ as Custom Resources. Windows Pods, as well as individual containers within a Pod
 can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication)
 when interacting with other Windows services.
 -->
-在 Kubernetes 環境中，GMSA 憑據規約配置爲 Kubernetes 集羣範圍的自定義資源
-（Custom Resources）形式。Windows Pod 以及各 Pod 中的每個容器可以配置爲使用 GMSA
+在 Kubernetes 環境中，GMSA 憑據規約設定爲 Kubernetes 叢集範圍的自定義資源
+（Custom Resources）形式。Windows Pod 以及各 Pod 中的每個容器可以設定爲使用 GMSA
 來完成基於域（Domain）的操作（例如，Kerberos 身份認證），以便與其他 Windows 服務相交互。
 
 ## {{% heading "prerequisites" %}}
@@ -43,9 +43,9 @@ You need to have a Kubernetes cluster and the `kubectl` command-line tool must b
 configured to communicate with your cluster. The cluster is expected to have Windows worker nodes.
 This section covers a set of initial steps required once for each cluster:
 -->
-你需要一個 Kubernetes 集羣，以及 `kubectl` 命令行工具，
-且工具必須已配置爲能夠與你的集羣通信。集羣預期包含 Windows 工作節點。
-本節討論需要爲每個集羣執行一次的初始操作。
+你需要一個 Kubernetes 叢集，以及 `kubectl` 命令列工具，
+且工具必須已設定爲能夠與你的叢集通信。叢集預期包含 Windows 工作節點。
+本節討論需要爲每個叢集執行一次的初始操作。
 
 <!--
 ### Install the GMSACredentialSpec CRD
@@ -58,7 +58,7 @@ and save it as gmsa-crd.yaml. Next, install the CRD with `kubectl apply -f gmsa-
 -->
 ### 安裝 GMSACredentialSpec CRD
 
-你需要在集羣上配置一個用於 GMSA 憑據規約資源的
+你需要在叢集上設定一個用於 GMSA 憑據規約資源的
 [CustomResourceDefinition](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD)，
 以便定義類型爲 `GMSACredentialSpec` 的自定義資源。首先下載 GMSA CRD
 [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml)
@@ -75,9 +75,9 @@ validate GMSA credential spec references at the Pod or container level:
 
 1. A validating webhook ensures all references to GMSAs are authorized to be used by the Pod service account.
 -->
-### 安裝 Webhook 來驗證 GMSA 用戶
+### 安裝 Webhook 來驗證 GMSA 使用者
 
-你需要爲 Kubernetes 集羣配置兩個 Webhook，在 Pod 或容器級別填充和檢查
+你需要爲 Kubernetes 叢集設定兩個 Webhook，在 Pod 或容器級別填充和檢查
 GMSA 憑據規約引用。
 
 1. 一個修改模式（Mutating）的 Webhook，將對 GMSA 的引用（在 Pod 規約中體現爲名字）
@@ -99,13 +99,13 @@ Installing the above webhooks and associated objects require the steps below:
 -->
 安裝以上 Webhook 及其相關聯的對象需要執行以下步驟：
 
-1. 創建一個證書密鑰對（用於允許 Webhook 容器與集羣通信）
+1. 創建一個證書密鑰對（用於允許 Webhook 容器與叢集通信）
 
 1. 安裝一個包含如上證書的 Secret
 
 1. 創建一個包含核心 Webhook 邏輯的 Deployment
 
-1. 創建引用該 Deployment 的 Validating Webhook 和 Mutating Webhook 配置
+1. 創建引用該 Deployment 的 Validating Webhook 和 Mutating Webhook 設定
 
 <!--
 A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh)
@@ -118,8 +118,8 @@ used by the script may also be used to deploy the webhooks and associated object
 manually (with appropriate substitutions for the parameters)
 -->
 你可以使用[這個腳本](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh)
-來部署和配置上述 GMSA Webhook 及相關聯的對象。你還可以在運行腳本時設置 `--dry-run=server`
-選項以便審查腳本將會對集羣做出的變更。
+來部署和設定上述 GMSA Webhook 及相關聯的對象。你還可以在運行腳本時設置 `--dry-run=server`
+選項以便審查腳本將會對叢集做出的變更。
 
 腳本所使用的 [YAML 模板](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl)
 也可用於手動部署 Webhook 及相關聯的對象，不過需要對其中的參數作適當替換。
@@ -136,12 +136,12 @@ Windows worker nodes (that are part of the Kubernetes cluster) need to be config
 in Active Directory to access the secret credentials associated with the desired GMSA as described in the
 [Windows GMSA documentation](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
 -->
-## 在活動目錄中配置 GMSA 和 Windows 節點
+## 在活動目錄中設定 GMSA 和 Windows 節點
 
-在配置 Kubernetes 中的 Pod 以使用 GMSA 之前，需要按
+在設定 Kubernetes 中的 Pod 以使用 GMSA 之前，需要按
 [Windows GMSA 文檔](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1)
 中描述的那樣先在活動目錄中準備好期望的 GMSA。
-Windows 工作節點（作爲 Kubernetes 集羣的一部分）需要被配置到活動目錄中，以便訪問與期望的
+Windows 工作節點（作爲 Kubernetes 叢集的一部分）需要被設定到活動目錄中，以便訪問與期望的
 GSMA 相關聯的祕密憑據數據。這一操作的描述位於
 [Windows GMSA 文檔](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)
 中。
@@ -158,7 +158,7 @@ specs can be generated in YAML format with a utility
 -->
 ## 創建 GMSA 憑據規約資源
 
-當（如前所述）安裝了 GMSACredentialSpec CRD 之後，你就可以配置包含 GMSA
+當（如前所述）安裝了 GMSACredentialSpec CRD 之後，你就可以設定包含 GMSA
 憑據規約的自定義資源了。GMSA 憑據規約中並不包含祕密或敏感數據。
 其中包含的信息主要用於容器運行時，便於後者向 Windows 描述容器所期望的 GMSA。
 GMSA 憑據規約可以使用
@@ -193,7 +193,7 @@ Following are the steps for generating a GMSA credential spec YAML manually in J
 
 1. 將憑據規約從 JSON 格式轉換爲 YAML 格式，並添加必要的頭部字段
    `apiVersion`、`kind`、`metadata` 和 `credspec`，使其成爲一個可以在
-   Kubernetes 中配置的 GMSACredentialSpec 自定義資源。
+   Kubernetes 中設定的 GMSACredentialSpec 自定義資源。
 
 <!--
 The following YAML configuration describes a GMSA credential spec named `gmsa-WebApp1`:
@@ -221,7 +221,7 @@ credspec:
     Sid: S-1-5-21-2126449477-2524075714-3094792973 # SID of the Domain
 ```
 -->
-下面的 YAML 配置描述的是一個名爲 `gmsa-WebApp1` 的 GMSA 憑據規約：
+下面的 YAML 設定描述的是一個名爲 `gmsa-WebApp1` 的 GMSA 憑據規約：
 
 ```yaml
 apiVersion: windows.k8s.io/v1
@@ -251,7 +251,7 @@ The above credential spec resource may be saved as `gmsa-Webapp1-credspec.yaml`
 and applied to the cluster using: `kubectl apply -f gmsa-Webapp1-credspec.yml`
 -->
 上面的憑據規約資源可以保存爲 `gmsa-Webapp1-credspec.yaml`，之後使用
-`kubectl apply -f gmsa-Webapp1-credspec.yml` 應用到集羣上。
+`kubectl apply -f gmsa-Webapp1-credspec.yml` 應用到叢集上。
 
 <!--
 ## Configure cluster role to enable RBAC on specific GMSA credential specs
@@ -262,11 +262,11 @@ a service account. The following example shows a cluster role that authorizes us
 of the `gmsa-WebApp1` credential spec from above. Save the file as gmsa-webapp1-role.yaml
 and apply using `kubectl apply -f gmsa-webapp1-role.yaml`
 -->
-## 配置集羣角色以啓用對特定 GMSA 憑據規約的 RBAC
+## 設定叢集角色以啓用對特定 GMSA 憑據規約的 RBAC
 
-你需要爲每個 GMSA 憑據規約資源定義集羣角色。
-該集羣角色授權某主體（通常是一個服務賬號）對特定的 GMSA 資源執行 `use` 動作。
-下面的示例顯示的是一個集羣角色，對前文創建的憑據規約 `gmsa-WebApp1` 執行鑑權。
+你需要爲每個 GMSA 憑據規約資源定義叢集角色。
+該叢集角色授權某主體（通常是一個服務賬號）對特定的 GMSA 資源執行 `use` 動作。
+下面的示例顯示的是一個叢集角色，對前文創建的憑據規約 `gmsa-WebApp1` 執行鑑權。
 將此文件保存爲 `gmsa-webapp1-role.yaml` 並執行 `kubectl apply -f gmsa-webapp1-role.yaml`。
 
 <!--
@@ -306,9 +306,9 @@ being bound to a cluster role `webapp1-role` to use `gmsa-WebApp1` credential sp
 -->
 ## 將角色指派給要使用特定 GMSA 憑據規約的服務賬號
 
-你需要將某個服務賬號（Pod 配置所對應的那個）綁定到前文創建的集羣角色上。
+你需要將某個服務賬號（Pod 設定所對應的那個）綁定到前文創建的叢集角色上。
 這一綁定操作實際上授予該服務賬號使用所指定的 GMSA 憑據規約資源的訪問權限。
-下面顯示的是一個綁定到集羣角色 `webapp1-role` 上的 default 服務賬號，
+下面顯示的是一個綁定到叢集角色 `webapp1-role` 上的 default 服務賬號，
 使之能夠使用前面所創建的 `gmsa-WebApp1` 憑據規約資源。
 
 ```yaml
@@ -335,11 +335,11 @@ specify references to desired GMSA credential spec custom resources in Pod specs
 This configures all containers in the Pod spec to use the specified GMSA. A sample
 Pod spec with the annotation populated to refer to `gmsa-WebApp1`:
 -->
-## 在 Pod 規約中配置 GMSA 憑據規約引用
+## 在 Pod 規約中設定 GMSA 憑據規約引用
 
 Pod 規約字段 `securityContext.windowsOptions.gmsaCredentialSpecName`
 可用來設置對指定 GMSA 憑據規約自定義資源的引用。
-設置此引用將會配置 Pod 中的所有容器使用所給的 GMSA。
+設置此引用將會設定 Pod 中的所有容器使用所給的 GMSA。
 下面是一個 Pod 規約示例，其中包含了對 `gmsa-WebApp1` 憑據規約的引用：
 
 ```yaml
@@ -421,20 +421,20 @@ the following sequence of events take place:
    credential spec so that the container can assume the identity of the GMSA in
    Active Directory and access services in the domain using that identity.
 -->
-當 Pod 規約中填充了 GMSA 相關字段（如上所述），在集羣中應用 Pod 規約時會依次發生以下事件：
+當 Pod 規約中填充了 GMSA 相關字段（如上所述），在叢集中應用 Pod 規約時會依次發生以下事件：
 
 1. Mutating Webhook 解析對 GMSA 憑據規約資源的引用，並將其全部展開，
    得到 GMSA 憑據規約的實際內容。
 
 1. Validating Webhook 確保與 Pod 相關聯的服務賬號有權在所給的 GMSA 憑據規約上執行 `use` 動作。
 
-1. 容器運行時爲每個 Windows 容器配置所指定的 GMSA 憑據規約，
+1. 容器運行時爲每個 Windows 容器設定所指定的 GMSA 憑據規約，
    這樣容器就可以以活動目錄中該 GMSA 所代表的身份來執行操作，使用該身份來訪問域中的服務。
 
 <!--
 ## Authenticating to network shares using hostname or FQDN
 -->
-## 使用主機名或 FQDN 對網絡共享進行身份驗證
+## 使用主機名或 FQDN 對網路共享進行身份驗證
 
 <!--
 If you are experiencing issues connecting to SMB shares from Pods using hostname or FQDN,
@@ -463,7 +463,7 @@ there are a few troubleshooting steps you can take.
 -->
 ## 故障排查
 
-如果在你的環境中配置 GMSA 時遇到了困難，你可以採取若干步驟來排查可能的故障。
+如果在你的環境中設定 GMSA 時遇到了困難，你可以採取若干步驟來排查可能的故障。
 
 <!--
 First, make sure the credspec has been passed to the Pod. To do this you will need

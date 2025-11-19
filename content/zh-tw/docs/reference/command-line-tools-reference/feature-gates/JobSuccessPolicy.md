@@ -24,4 +24,4 @@ stages:
 <!--
 Allow users to specify when a Job can be declared as succeeded based on the set of succeeded pods.
 -->
-允許用戶基於一組成功的 Pod 來聲明這組 Pod 所屬的 Job 爲成功。
+允許使用者基於一組成功的 Pod 來聲明這組 Pod 所屬的 Job 爲成功。

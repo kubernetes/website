@@ -46,7 +46,7 @@ Using this command you can execute preflight checks on a control-plane node.
 <!--
 This phase will write the kubelet configuration file and environment file and then start the kubelet.
 -->
-此階段將寫入 kubelet 配置文件和環境文件，然後啓動 kubelet。
+此階段將寫入 kubelet 設定文件和環境文件，然後啓動 kubelet。
 
 {{< tabs name="tab-kubelet-start" >}}
 {{< tab name="kubelet-start" include="generated/kubeadm_init/kubeadm_init_phase_kubelet-start.md" />}}
@@ -140,7 +140,7 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 You can use this command to upload the kubeadm configuration to your cluster.
 Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 -->
-你可以使用此命令將 kubeadm 配置上傳到集羣，或者使用
+你可以使用此命令將 kubeadm 設定上傳到叢集，或者使用
 [kubeadm config](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
 
 {{< tabs name="upload-config" >}}
@@ -159,7 +159,7 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 Use the following phase to upload control-plane certificates to the cluster.
 By default the certs and encryption key expire after two hours.
 -->
-使用以下階段將控制平面證書上傳到集羣。默認情況下，證書和加密密鑰會在兩個小時後過期。
+使用以下階段將控制平面證書上傳到叢集。默認情況下，證書和加密密鑰會在兩個小時後過期。
 
 {{< tabs name="tab-upload-certs" >}}
 {{< tab name="upload-certs" include="generated/kubeadm_init/kubeadm_init_phase_upload-certs.md" />}}
@@ -187,7 +187,7 @@ Use the following phase to label and taint the node as a control plane node.
 <!--
 Use the following phase to configure bootstrap tokens.
 -->
-使用以下階段來配置引導令牌。
+使用以下階段來設定引導令牌。
 
 {{< tabs name="tab-bootstrap-token" >}}
 {{< tab name="bootstrap-token" include="generated/kubeadm_init/kubeadm_init_phase_bootstrap-token.md" />}}
@@ -231,7 +231,7 @@ install them selectively.
 For more details on each field in the `v1beta4` configuration you can navigate to our
 [API reference pages.](/docs/reference/config-api/kubeadm-config.v1beta3/)
 -->
-有關 `v1beta4` 配置中每個字段的更多詳細信息，可以訪問
+有關 `v1beta4` 設定中每個字段的更多詳細信息，可以訪問
 [API](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 ## {{% heading "whatsnext" %}}
@@ -245,7 +245,7 @@ For more details on each field in the `v1beta4` configuration you can navigate t
 * [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   引導 Kubernetes 控制平面節點
 * [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)
-  將節點加入到集羣
+  將節點加入到叢集
 * [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   恢復通過 `kubeadm init` 或 `kubeadm join` 操作對主機所做的任何更改
 * [kubeadm alpha](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-alpha/)

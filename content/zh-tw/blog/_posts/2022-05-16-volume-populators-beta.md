@@ -25,7 +25,7 @@ as the data source of a PVC.
 -->
 卷填充器功能現在已經經歷兩個發行版本並進入 Beta 階段！
 在 Kubernetes v1.24 中 `AnyVolumeDataSource` 特性門控默認被啓用。
-這意味着用戶可以指定任何自定義資源作爲 PVC 的數據源。
+這意味着使用者可以指定任何自定義資源作爲 PVC 的數據源。
 
 <!--
 An [earlier blog article](/blog/2021/08/30/volume-populators-redesigned/) detailed how the
@@ -34,8 +34,8 @@ associated populator controller in the cluster, and any user who can create inst
 the CR can create pre-populated volumes by taking advantage of the populator.
 -->
 [之前的一篇博客](/blog/2021/08/30/volume-populators-redesigned/)詳細介紹了卷填充器功能的工作原理。
-簡而言之，集羣管理員可以在集羣中安裝 CRD 和相關的填充器控制器，
-任何可以創建 CR 實例的用戶都可以利用填充器創建預填充卷。
+簡而言之，叢集管理員可以在叢集中安裝 CRD 和相關的填充器控制器，
+任何可以創建 CR 實例的使用者都可以利用填充器創建預填充卷。
 
 <!--
 Multiple populators can be installed side by side for different purposes. The SIG storage
@@ -49,8 +49,8 @@ Cluster administrations are **strongly encouraged** to install the
 volume-data-source-validator controller and associated `VolumePopulator` CRD before installing
 any populators so that users can get feedback about invalid PVC data sources.
 -->
-**強烈建議**集羣管理人員在安裝任何填充器之前安裝 volume-data-source-validator 控制器和相關的
-`VolumePopulator` CRD，以便用戶可以獲得有關無效 PVC 數據源的反饋。
+**強烈建議**叢集管理人員在安裝任何填充器之前安裝 volume-data-source-validator 控制器和相關的
+`VolumePopulator` CRD，以便使用者可以獲得有關無效 PVC 數據源的反饋。
 
 <!--
 ## New Features
@@ -107,7 +107,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/lib-volume-pop
 Your cluster now has a new CustomResourceDefinition that provides a test API named Hello.
 Create an instance of the `Hello` custom resource, with some text:
 -->
-你的集羣現在有一個新的 CustomResourceDefinition，它提供了一個名爲 Hello 的測試 API。
+你的叢集現在有一個新的 CustomResourceDefinition，它提供了一個名爲 Hello 的測試 API。
 創建一個 `Hello` 自定義資源的實例，內容如下：
 
 ```yaml
@@ -215,7 +215,7 @@ capable of attaching to volumes and writing the appropriate data to the volume.
 -->
 鼓勵有興趣編寫新的填充器的開發人員使用
 [lib-volume-populator](https://github.com/kubernetes-csi/lib-volume-populator) 庫，
-只提供一個小型控制器，以及一個能夠連接到卷並向卷寫入適當數據的 Pod 鏡像。
+只提供一個小型控制器，以及一個能夠連接到卷並向卷寫入適當數據的 Pod 映像檔。
 
 <!--
 Individual populators can be extremely generic such that they work with every type
@@ -246,7 +246,7 @@ of this feature.
 explains how to use this feature in your cluster.
 -->
 [卷填充器與數據源](/zh-cn/docs/concepts/storage/persistent-volumes/#volume-populators-and-data-sources),
-在有關持久卷的文檔主題中，解釋瞭如何在集羣中使用此功能。
+在有關持久卷的文檔主題中，解釋瞭如何在叢集中使用此功能。
 
 <!--
 Please get involved by joining the Kubernetes storage SIG to help us enhance this

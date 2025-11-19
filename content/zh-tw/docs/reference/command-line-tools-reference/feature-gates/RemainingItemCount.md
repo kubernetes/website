@@ -28,4 +28,4 @@ items in the response to a
 [chunking list request](/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks).
 -->
 允許 API
-服務器在[分塊列表請求](/zh-cn/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks)的響應中顯示剩餘條目的個數。
+伺服器在[分塊列表請求](/zh-cn/docs/reference/using-api/api-concepts/#retrieving-large-results-sets-in-chunks)的響應中顯示剩餘條目的個數。

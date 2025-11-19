@@ -129,7 +129,7 @@ Kubernetes 中負載均衡器的一個常見問題是爲避免流量丟失而在
 To use this feature, kube-proxy needs to run as default service proxy on the cluster and the load balancer needs to support connection draining. 
 There are no specific changes required for using this feature, it has been enabled by default in kube-proxy since v1.30 and been promoted to stable in v1.31.
 -->
-要使用此特性，kube-proxy 需要在集羣上作爲默認服務代理運行，並且負載均衡器需要支持連接排空。
+要使用此特性，kube-proxy 需要在叢集上作爲默認服務代理運行，並且負載均衡器需要支持連接排空。
 使用此特性不需要進行特定的更改，它自 v1.30 以來在 kube-proxy 中默認啓用，並在 v1.31 中晉級爲穩定版。
 
 <!--
@@ -202,7 +202,7 @@ The `nftables` proxy mode is able to process changes to service endpoints faster
 becomes noticeable in clusters with tens of thousands of services).
 -->
 nftables API 是 iptables API 的繼任者，旨在提供比 iptables 更好的性能和可擴展性。
-`nftables` 代理模式能夠比 `iptables` 模式更快、更高效地處理服務端點的變化，並且在內核中也能更高效地處理數據包（儘管這只有在擁有數萬個服務的集羣中才會顯著）。
+`nftables` 代理模式能夠比 `iptables` 模式更快、更高效地處理服務端點的變化，並且在內核中也能更高效地處理數據包（儘管這只有在擁有數萬個服務的叢集中才會顯著）。
 
 <!--
 As of Kubernetes v1.31, the `nftables` mode is still relatively new, and may not be compatible with all network plugins; consult the documentation for your network plugin. 
@@ -210,10 +210,10 @@ This proxy mode is only available on Linux nodes, and requires kernel 5.13 or la
 Before migrating, note that some features, especially around NodePort services, are not implemented exactly the same in nftables mode as they are in iptables mode. 
 Check the [migration guide](/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables) to see if you need to override the default configuration.
 -->
-截至 Kubernetes v1.31，nftables 模式仍相對較新，可能與某些網絡插件不兼容；請查閱您的網絡插件文檔。
+截至 Kubernetes v1.31，nftables 模式仍相對較新，可能與某些網路插件不兼容；請查閱您的網路插件文檔。
 此代理模式僅在 Linux 節點上可用，並且需要內核 5.13 或更高版本。
 在遷移之前，請注意某些功能，特別是與 NodePort 服務相關的功能，在 nftables 模式下的實現方式與 iptables 模式不完全相同。
-查看[遷移指南](/zh-cn/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables)以瞭解是否需要覆蓋默認配置。
+查看[遷移指南](/zh-cn/docs/reference/networking/virtual-ips/#migrating-from-iptables-mode-to-nftables)以瞭解是否需要覆蓋默認設定。
 
 <!--
 This work was done as part of [KEP #3866](https://github.com/kubernetes/enhancements/issues/3866) by [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network).
@@ -282,7 +282,7 @@ This work was done as part of [KEP #4193](https://github.com/kubernetes/enhancem
 <!--
 Support for clusters with multiple Service CIDRs moves to beta in v1.31 (disabled by default).
 -->
-支持具有多個服務 CIDR 的集羣在 v1.31 中晉級爲 Beta 版(默認禁用)。
+支持具有多個服務 CIDR 的叢集在 v1.31 中晉級爲 Beta 版(默認禁用)。
 
 <!--
 There are multiple components in a Kubernetes cluster that consume IP addresses: Nodes, Pods and Services. 
@@ -291,12 +291,12 @@ However, Services IP ranges are defined during the cluster creation as a hardcod
 IP exhaustion has been a problem for long lived or large clusters, as admins needed to expand, shrink or even replace entirely the assigned Service CIDR range. 
 These operations were never supported natively and were performed via complex and delicate maintenance operations, often causing downtime on their clusters. This new feature allows users and cluster admins to dynamically modify Service CIDR ranges with zero downtime.
 -->
-Kubernetes 集羣中有多個組件消耗 IP 地址: Node、Pod 和 Service。
-Node 和 Pod 的 IP 範圍可以動態更改，因爲它們分別取決於基礎設施或網絡插件。
-然而，Service IP 範圍是在集羣創建期間作爲 kube-apiserver 中的硬編碼標誌定義的。
-IP 耗盡一直是長期存在或大型集羣的問題，因爲管理員需要擴展、縮小甚至完全替換分配的服務 CIDR 範圍。
-這些操作從未得到原生支持，並且是通過複雜和精細的維護操作執行的，經常導致集羣無法正常服務。
-這個新特性允許用戶和集羣管理員以零中斷時間動態修改服務 CIDR 範圍。
+Kubernetes 叢集中有多個組件消耗 IP 地址: Node、Pod 和 Service。
+Node 和 Pod 的 IP 範圍可以動態更改，因爲它們分別取決於基礎設施或網路插件。
+然而，Service IP 範圍是在叢集創建期間作爲 kube-apiserver 中的硬編碼標誌定義的。
+IP 耗盡一直是長期存在或大型叢集的問題，因爲管理員需要擴展、縮小甚至完全替換分配的服務 CIDR 範圍。
+這些操作從未得到原生支持，並且是通過複雜和精細的維護操作執行的，經常導致叢集無法正常服務。
+這個新特性允許使用者和叢集管理員以零中斷時間動態修改服務 CIDR 範圍。
 
 <!--
 For more details about this feature please visit the
@@ -324,7 +324,7 @@ Service 的流量分配在 v1.31 中晉級爲 Beta 版，並默認啓用。
 <!--
 After several iterations on finding the best user experience and traffic engineering capabilities for Services networking, SIG Networking implemented the `trafficDistribution` field in the Service specification, which serves as a guideline for the underlying implementation to consider while making routing decisions.
 -->
-爲實現 Service 聯網的最佳用戶體驗和流量工程能力，經過多次迭代後，SIG Networking 在服務規約中實現了
+爲實現 Service 聯網的最佳使用者體驗和流量工程能力，經過多次迭代後，SIG Networking 在服務規約中實現了
 `trafficDistribution` 字段，作爲底層實現在做出路由決策時考慮的指導原則。
 
 <!--
@@ -386,7 +386,7 @@ DRA support in the kubelet was updated such that version skew between kubelet an
 Allocation by a DRA driver controller is still supported through what is now called "classic DRA".
 -->
 Kubernetes v1.31 帶來了更新的動態資源分配（DRA）API 和設計。
-此次更新的主要焦點是結構化參數，因爲它們使資源信息和請求對 Kubernetes 和客戶端透明，並能夠實現集羣自動擴縮容等功能。
+此次更新的主要焦點是結構化參數，因爲它們使資源信息和請求對 Kubernetes 和客戶端透明，並能夠實現叢集自動擴縮容等功能。
 kubelet 中的 DRA 支持已更新，使得 kubelet 和控制平面之間的版本偏差成爲可能。通過結構化參數，調度器在調度 Pod 時分配 ResourceClaims。
 通過現在稱爲"經典 DRA"的方式，仍然支持由 DRA 驅動程序控制器進行分配。
 
@@ -406,7 +406,7 @@ This work was done as part of [KEP #3063](https://github.com/kubernetes/enhancem
 <!--
 ### Support for image volumes
 -->
-### 對鏡像卷的支持
+### 對映像檔卷的支持
 
 <!--
 The Kubernetes community is moving towards fulfilling more Artificial Intelligence (AI) and Machine Learning (ML) use cases in the future. 
@@ -417,16 +417,16 @@ Kubernetes 社區正在朝着在未來滿足更多人工智能(AI)和機器學�
 One of the requirements to fulfill these use cases is to support Open Container Initiative (OCI) compatible images and artifacts (referred as OCI objects) directly as a native volume source. 
 This allows users to focus on OCI standards as well as enables them to store and distribute any content using OCI registries.
 -->
-滿足這些用例的要求之一是直接將開放容器倡議(OCI)兼容的鏡像和工件(稱爲 OCI 對象)作爲原生卷源支持。
-這允許用戶專注於 OCI 標準，並使他們能夠使用 OCI 註冊表存儲和分發任何內容。
+滿足這些用例的要求之一是直接將開放容器倡議(OCI)兼容的映像檔和工件(稱爲 OCI 對象)作爲原生卷源支持。
+這允許使用者專注於 OCI 標準，並使他們能夠使用 OCI 註冊表存儲和分發任何內容。
 
 <!--
 Given that, v1.31 adds a new alpha feature to allow using an OCI image as a volume in a Pod.
 This feature allows users to specify an image reference as volume in a pod while reusing it as volume
 mount within containers. You need to enable the `ImageVolume` feature gate to try this out.
 -->
-鑑於此，v1.31 添加了一個新的 Alpha 特性，允許在 Pod 中使用 OCI 鏡像作爲卷。
-此特性允許用戶在 pod 中指定鏡像引用作爲卷，同時在容器內重用它作爲卷掛載。您需要啓用 `ImageVolume` 特性門控才能嘗試此特性。
+鑑於此，v1.31 添加了一個新的 Alpha 特性，允許在 Pod 中使用 OCI 映像檔作爲卷。
+此特性允許使用者在 pod 中指定映像檔引用作爲卷，同時在容器內重用它作爲卷掛載。您需要啓用 `ImageVolume` 特性門控才能嘗試此特性。
 
 <!--
 This work was done as part of [KEP #4639](https://github.com/kubernetes/enhancements/issues/4639) by [SIG Node](https://github.com/kubernetes/community/tree/master/sig-node) and [SIG Storage](https://github.com/kubernetes/community/tree/master/sig-storage).
@@ -476,8 +476,8 @@ per-node extensions.
 -->
 此特性允許 Webhook 鑑權組件和未來（但目前尚未設計）的樹內鑑權組件允許 **list** 和 **watch** 請求，
 前提是這些請求使用標籤和/或字段選擇算符。
-例如，現在鑑權組件可以表達：此用戶不能列出所有 Pod，但可以列舉所有 `.spec.nodeName` 匹配某個特定值的 Pod。
-或者允許用戶監視命名空間中所有**未**標記爲 `confidential: true` 的 Secret。
+例如，現在鑑權組件可以表達：此使用者不能列出所有 Pod，但可以列舉所有 `.spec.nodeName` 匹配某個特定值的 Pod。
+或者允許使用者監視命名空間中所有**未**標記爲 `confidential: true` 的 Secret。
 結合 CRD 字段選擇器（在 v1.31 中也晉級爲 Beta 版），可以編寫更安全的節點級別擴展。
     
 <!--
@@ -496,8 +496,8 @@ This work was done as part of [KEP #4601](https://github.com/kubernetes/enhancem
 By enabling the feature gate `AnonymousAuthConfigurableEndpoints` users can now use the authentication configuration file to configure the endpoints that can be accessed by anonymous requests. 
 This allows users to protect themselves against RBAC misconfigurations that can give anonymous users broad access to the cluster.
 -->
-通過啓用特性門控 `AnonymousAuthConfigurableEndpoints`，用戶現在可以使用身份認證配置文件來配置可以通過匿名請求訪問的端點。
-這允許用戶保護自己免受 RBAC 錯誤配置的影響；錯誤的配置可能會給匿名用戶提供對集羣的更多訪問權限。
+通過啓用特性門控 `AnonymousAuthConfigurableEndpoints`，使用者現在可以使用身份認證設定文件來設定可以通過匿名請求訪問的端點。
+這允許使用者保護自己免受 RBAC 錯誤設定的影響；錯誤的設定可能會給匿名使用者提供對叢集的更多訪問權限。
     
 <!--
 This work was done as a part of [KEP #4633](https://github.com/kubernetes/enhancements/issues/4633) and by [SIG Auth](https://github.com/kubernetes/community/tree/master/sig-auth).
@@ -611,8 +611,8 @@ If you have relied on SHA-1 based certificates, you must explicitly opt back int
 -->
 在 [go1.18](https://go.dev/doc/go1.18#sha1)（2022 年 3 月發佈）中，crypto/x509 庫開始拒絕使用 SHA-1 哈希函數簽名的證書。
 雖然 SHA-1 已被確定爲不安全，並且公共信任的證書頒發機構自 2015 年以來就不再頒發 SHA-1 證書，
-但在 Kubernetes 語境中可能仍然存在用戶提供的證書通過私有機構使用 SHA-1 哈希函數簽名的情況，
-這些證書用於聚合 API 服務器或 Webhook。
+但在 Kubernetes 語境中可能仍然存在使用者提供的證書通過私有機構使用 SHA-1 哈希函數簽名的情況，
+這些證書用於聚合 API 伺服器或 Webhook。
 如果您依賴基於 SHA-1 的證書，必須通過在環境變量中設置 `GODEBUG=x509sha1=1` 來明確選擇重新啓用其支持。
 
 <!--
@@ -684,7 +684,7 @@ For additional context about the in-tree code removal, we invite you to check th
 <!--
 The latter blog also contains useful information for users who need to migrate to version v1.29 and later.
 -->
-後者的博客還包含了需要遷移到 v1.29 及更高版本的用戶的有用信息。
+後者的博客還包含了需要遷移到 v1.29 及更高版本的使用者的有用信息。
 
 <!--
 #### Removal of in-tree provider feature gates
@@ -706,7 +706,7 @@ In Kubernetes v1.31, the following alpha feature gates `InTreePluginAWSUnregiste
 <!--
 #### Removal of kubelet `--keep-terminated-pod-volumes` command line flag
 -->
-#### 移除 kubelet 的 `--keep-terminated-pod-volumes` 命令行標誌
+#### 移除 kubelet 的 `--keep-terminated-pod-volumes` 命令列標誌
 
 <!--
 The kubelet flag `--keep-terminated-pod-volumes`, which was deprecated in 2017, has been removed as
@@ -732,7 +732,7 @@ CephFS volume plugin was formally marked as deprecated in v1.28.
 本次發佈中移除了 [CephFS 卷插件](/zh-cn/docs/concepts/storage/volumes/#cephfs)，`cephfs` 卷類型變爲不可用。
 
 建議您改用 [CephFS CSI 驅動](https://github.com/ceph/ceph-csi/) 作爲第三方存儲驅動程序。
-如果您在將集羣版本升級到 v1.31 之前使用了 CephFS 卷插件，則必須重新部署應用程序以使用新的驅動程序。
+如果您在將叢集版本升級到 v1.31 之前使用了 CephFS 卷插件，則必須重新部署應用程序以使用新的驅動程序。
 
 CephFS 卷插件在 v1.28 中正式標記爲廢棄。
 
@@ -750,8 +750,8 @@ The Ceph RBD volume plugin was formally marked as deprecated in v1.28.
 
 v1.31 版本移除了 [Ceph RBD volume plugin](/zh-cn/docs/concepts/storage/volumes/#rbd) 及其 CSI 遷移支持，使 `rbd` 卷類型變爲不可用。
 
-建議您在集羣中改用 [RBD CSI driver](https://github.com/ceph/ceph-csi/)。
-如果您在將集羣版本升級到 v1.31 之前使用了 Ceph RBD 卷插件，則必須重新部署應用程序以使用新的驅動程序。
+建議您在叢集中改用 [RBD CSI driver](https://github.com/ceph/ceph-csi/)。
+如果您在將叢集版本升級到 v1.31 之前使用了 Ceph RBD 卷插件，則必須重新部署應用程序以使用新的驅動程序。
 
 Ceph RBD 卷插件在 v1.28 中正式標記爲廢棄。
 
@@ -783,7 +783,7 @@ Please replace the deprecated plugins with the `NodeVolumeLimits` plugin if you 
 The `AzureDiskLimits`, `CinderLimits`, `EBSLimits`, and `GCEPDLimits` plugins will be removed in a future release.
 -->
 建議您改用 `NodeVolumeLimits` 插件，因爲自從這些卷類型遷移到 CSI 後，該插件可以處理與已移除插件相同的功能。
-如果您在調度器配置中明確使用了已廢棄的插件，請將它們替換爲 `NodeVolumeLimits` 插件。
+如果您在調度器設定中明確使用了已廢棄的插件，請將它們替換爲 `NodeVolumeLimits` 插件。
 `AzureDiskLimits`、`CinderLimits`、`EBSLimits` 和 `GCEPDLimits` 插件將在未來的版本中被移除。
 
 <!--
@@ -839,7 +839,7 @@ The kubelet flag `--keep-terminated-pod-volumes`, which was deprecated in 2017, 
 
 You can find more details in the pull request [#122082](https://github.com/kubernetes/kubernetes/pull/122082).
 -->
-#### 移除 kubelet --keep-terminated-pod-volumes 命令行標誌
+#### 移除 kubelet --keep-terminated-pod-volumes 命令列標誌
 
 作爲 v1.31 版本的一部分，已移除 kubelet 標誌 `--keep-terminated-pod-volumes`。該標誌於 2017 年被棄用。
 您可以在拉取請求 [#122082](https://github.com/kubernetes/kubernetes/pull/122082) 中找到更多詳細信息。
@@ -856,7 +856,7 @@ To get started with Kubernetes, check out these [interactive tutorials](/docs/tu
 Kubernetes v1.31 可在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.31.0) 或 [Kubernetes 下載頁面](/releases/download/)上下載。
 
 要開始使用 Kubernetes，請查看這些[交互式教程](/zh-cn/docs/tutorials/)或使用 [minikube](https://minikube.sigs.k8s.io/)
-運行本地 Kubernetes 集羣。您還可以使用 [kubeadm](/zh-cn/docs/setup/independent/create-cluster-kubeadm/) 輕鬆安裝 v1.31。
+運行本地 Kubernetes 叢集。您還可以使用 [kubeadm](/zh-cn/docs/setup/independent/create-cluster-kubeadm/) 輕鬆安裝 v1.31。
 
 <!--
 ## Release team
@@ -985,7 +985,7 @@ Explore the upcoming Kubernetes and cloud-native events from August to November 
 Join members of the Kubernetes v1.31 release team on Thursday, Thu Sep 12, 2024 10am PT to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. 
 For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-131-release/) on the CNCF Online Programs site.
 -->
-## 即將舉行的發佈網絡研討會
+## 即將舉行的發佈網路研討會
 
 加入 Kubernetes v1.31 發佈團隊成員，於 2024 年 9 月 12 日星期四太平洋時間上午 10 點了解此版本的主要特性，以及廢棄和移除的內容，以幫助規劃升級。
 有關更多信息和註冊，請訪問 CNCF 在線項目網站上的[活動頁面](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-131-release/)。

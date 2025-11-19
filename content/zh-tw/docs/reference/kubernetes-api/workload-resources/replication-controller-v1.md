@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ReplicationController"
 content_type: "api_reference"
-description: "ReplicationController 表示一個副本控制器的配置。"
+description: "ReplicationController 表示一個副本控制器的設定。"
 title: "ReplicationController"
 weight: 4
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 ReplicationController represents the configuration of a replication controller.
 -->
-ReplicationController 表示一個副本控制器的配置。
+ReplicationController 表示一個副本控制器的設定。
 
 <hr>
 

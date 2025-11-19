@@ -29,7 +29,7 @@ prevents the registration of in-tree GCE PD plugin.
 -->
 停止在 kubelet 和卷控制器中註冊 GCE-PD 內嵌插件，
 並啓用封裝和轉換邏輯，將卷操作從 GCE-PD 內嵌插件路由到 PD CSI 插件。
-這需要啓用 CSIMigration 和 CSIMigrationGCE 特性標誌，並在集羣中的所有節點上安裝和配置
+這需要啓用 CSIMigration 和 CSIMigrationGCE 特性標誌，並在叢集中的所有節點上安裝和設定
 PD CSI 插件。該特性標誌已被廢棄，取而代之的是能防止註冊內嵌 GCE PD 插件的
 `InTreePluginGCEUnregister` 特性標誌。
 

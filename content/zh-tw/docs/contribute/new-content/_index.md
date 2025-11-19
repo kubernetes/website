@@ -145,8 +145,8 @@ CNCF CLA.
 並[簽署貢獻者授權同意書 (Contributor License Agreement, CLA)](https://github.com/kubernetes/community/blob/master/CLA.md)。  
 
 若貢獻者尚未簽署 CLA，其發起的 PR 將無法通過自動化測試。
-你所提供的姓名和郵件地址必須與 `git config` 中配置的完全相同，
-而且你的 Git 用戶名和郵件地址必須與用來簽署 CNCF CLA 的信息一致。
+你所提供的姓名和郵件地址必須與 `git config` 中設定的完全相同，
+而且你的 Git 使用者名和郵件地址必須與用來簽署 CNCF CLA 的信息一致。
 
 <!-- 
 ### Choose which Git branch to use

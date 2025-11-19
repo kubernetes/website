@@ -31,7 +31,7 @@ without the API server observing it.
 -->
 由特定節點上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 守護進程直接管理的
 {{< glossary_tooltip text="Pod" term_id="pod" >}}。
-API 服務器不瞭解它的存在。
+API 伺服器不瞭解它的存在。
 
 <!--
 Static Pods do not support {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}.

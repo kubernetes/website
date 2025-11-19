@@ -79,7 +79,7 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
   標準的對象元數據。
   此名稱沒有特定的含義。
   它必須是 DNS 子域名（允許英文句點，最多 253 個字符）。
-  爲了確保與集羣上的其他 CSI 驅動沒有衝突，建議使用一個生成的名稱 csisc-\<uuid>，
+  爲了確保與叢集上的其他 CSI 驅動沒有衝突，建議使用一個生成的名稱 csisc-\<uuid>，
   或使用以唯一 CSI 驅動名稱結尾的反向域名。
 
   這些對象是有命名空間的。
@@ -135,7 +135,7 @@ They are consumed by the kube-scheduler when a CSI driver opts into capacity-awa
 - **nodeTopology** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
   nodeTopology 定義了哪些節點有權訪問已報告容量的存儲。
-  如果未設置，則不能從集羣中的任意節點訪問此存儲。
+  如果未設置，則不能從叢集中的任意節點訪問此存儲。
   如果留空，則可以從所有節點訪問此存儲。此字段不可變更。
 
 ## CSIStorageCapacityList {#CSIStorageCapacityList}

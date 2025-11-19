@@ -25,7 +25,7 @@ defined. Each Key must be unique for a given object.
 -->
 **標籤（Labels）** 是附加到 Kubernetes
 {{< glossary_tooltip text="對象" term_id="object" >}}（比如 Pod）上的鍵值對。
-標籤旨在用於指定對用戶有意義且相關的對象的標識屬性，但不直接對核心系統有語義含義。
+標籤旨在用於指定對使用者有意義且相關的對象的標識屬性，但不直接對核心系統有語義含義。
 標籤可以用於組織和選擇對象的子集。標籤可以在創建時附加到對象，隨後可以隨時添加和修改。
 每個對象都可以定義一組鍵/值標籤。每個鍵對於給定對象必須是唯一的。
 
@@ -43,7 +43,7 @@ Labels allow for efficient queries and watches and are ideal for use in UIs
 and CLIs. Non-identifying information should be recorded using
 [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
-標籤能夠支持高效的查詢和監聽操作，對於用戶界面和命令行是很理想的。
+標籤能夠支持高效的查詢和監聽操作，對於使用者界面和命令列是很理想的。
 應使用[註解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)記錄非識別信息。
 
 <!-- body -->
@@ -56,7 +56,7 @@ in a loosely coupled fashion, without requiring clients to store these mappings.
 -->
 ## 動機   {#motivation}
 
-標籤使用戶能夠以鬆散耦合的方式將他們自己的組織結構映射到系統對象，而無需客戶端存儲這些映射。
+標籤使使用者能夠以鬆散耦合的方式將他們自己的組織結構映射到系統對象，而無需客戶端存儲這些映射。
 
 <!--
 Service deployments and batch processing pipelines are often multi-dimensional entities
@@ -68,7 +68,7 @@ hierarchies determined by the infrastructure rather than by users.
 Example labels:
 -->
 服務部署和批處理流水線通常是多維實體（例如，多個分區或部署、多個發行序列、多個層，每層多個微服務）。
-管理通常需要交叉操作，這打破了嚴格的層次表示的封裝，特別是由基礎設施而不是用戶確定的嚴格的層次結構。
+管理通常需要交叉操作，這打破了嚴格的層次表示的封裝，特別是由基礎設施而不是使用者確定的嚴格的層次結構。
 
 示例標籤：
 
@@ -114,8 +114,8 @@ The `kubernetes.io/` and `k8s.io/` prefixes are
 前綴是可選的。如果指定，前綴必須是 DNS 子域：由點（`.`）分隔的一系列 DNS 標籤，總共不超過 253 個字符，
 後跟斜槓（`/`）。
 
-如果省略前綴，則假定標籤鍵對用戶是私有的。
-向最終用戶對象添加標籤的自動系統組件（例如 `kube-scheduler`、`kube-controller-manager`、
+如果省略前綴，則假定標籤鍵對使用者是私有的。
+向最終使用者對象添加標籤的自動系統組件（例如 `kube-scheduler`、`kube-controller-manager`、
 `kube-apiserver`、`kubectl` 或其他第三方自動化工具）必須指定前綴。
 
 `kubernetes.io/` 和 `k8s.io/` 前綴是爲 Kubernetes 核心組件[保留的](/zh-cn/docs/reference/labels-annotations-taints/)。
@@ -172,7 +172,7 @@ do not provide uniqueness. In general, we expect many objects to carry the same 
 Via a _label selector_, the client/user can identify a set of objects.
 The label selector is the core grouping primitive in Kubernetes.
 -->
-通過**標籤選擇算符**，客戶端/用戶可以識別一組對象。標籤選擇算符是 Kubernetes 中的核心分組原語。
+通過**標籤選擇算符**，客戶端/使用者可以識別一組對象。標籤選擇算符是 Kubernetes 中的核心分組原語。
 
 <!--
 The API currently supports two types of selectors: _equality-based_ and _set-based_.

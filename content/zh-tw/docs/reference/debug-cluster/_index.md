@@ -1,5 +1,5 @@
 ---
-title: 調試集羣
+title: 調試叢集
 weight: 120
 no_list: false
 ---

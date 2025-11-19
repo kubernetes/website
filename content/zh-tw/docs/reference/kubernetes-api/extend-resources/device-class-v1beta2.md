@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/resource/v1beta2"
   kind: "DeviceClass"
 content_type: "api_reference"
-description: "DeviceClass 是由供應商或管理員提供的資源，包含設備配置和選擇算符。"
+description: "DeviceClass 是由供應商或管理員提供的資源，包含設備設定和選擇算符。"
 title: "DeviceClass v1beta2"
 weight: 2
 ---
@@ -31,8 +31,8 @@ DeviceClass is a vendor- or admin-provided resource that contains device configu
 
 This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 -->
-DeviceClass 是由供應商或管理員提供的資源，包含設備配置和選擇算符。
-它可以在申領的設備請求中被引用，以應用預設值。作用域爲集羣範圍。
+DeviceClass 是由供應商或管理員提供的資源，包含設備設定和選擇算符。
+它可以在申領的設備請求中被引用，以應用預設值。作用域爲叢集範圍。
 
 這是一個 Alpha 階段的資源類別，需要啓用 DynamicResourceAllocation 特性門控。
 
@@ -62,7 +62,7 @@ DeviceClass 是由供應商或管理員提供的資源，包含設備配置和�
 -->
 - **spec** (<a href="{{< ref "../extend-resources/device-class-v1beta2#DeviceClassSpec" >}}">DeviceClassSpec</a>)，必需
 
-  spec 定義可被分配的資源以及如何配置這類資源。
+  spec 定義可被分配的資源以及如何設定這類資源。
   
   此字段是可變更的。消費者必須準備好應對隨時會變更的類，變更的原因可能是被更新或被替換。
   申領分配是基於分配之時類中所設置的內容而確定的。
@@ -74,7 +74,7 @@ DeviceClass 是由供應商或管理員提供的資源，包含設備配置和�
 <!--
 DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
 -->
-DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何配置這類資源。
+DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何設定這類資源。
 
 <hr>
 
@@ -94,10 +94,10 @@ DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何
 
   **原子：將在合併期間被替換**
   
-  config 定義適用於通過此類申領的每個設備的配置參數。
-  某些類可能會由多個驅動所滿足，因此供應商配置的每個實例僅適用於一個驅動。
+  config 定義適用於通過此類申領的每個設備的設定參數。
+  某些類可能會由多個驅動所滿足，因此供應商設定的每個實例僅適用於一個驅動。
   
-  這些配置參數被傳遞給驅動，但在分配申領時不考慮這些配置參數。
+  這些設定參數被傳遞給驅動，但在分配申領時不考慮這些設定參數。
 
   <a name="DeviceClassConfiguration"></a>
   **DeviceClassConfiguration 在 DeviceClass 中使用。**
@@ -113,10 +113,10 @@ DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何
 
   - **config.opaque** (OpaqueDeviceConfiguration)
 
-    opaque 提供特定於驅動的配置參數。
+    opaque 提供特定於驅動的設定參數。
 
     <a name="OpaqueDeviceConfiguration"></a>
-    **OpaqueDeviceConfiguration 以驅動供應商所定義的格式提供驅動的配置參數。**
+    **OpaqueDeviceConfiguration 以驅動供應商所定義的格式提供驅動的設定參數。**
 
     <!--
     - **config.opaque.driver** (string), required
@@ -130,7 +130,7 @@ DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何
 
     - **config.opaque.driver** (string)，必需
 
-      driver 用於確定需要將這些配置參數傳遞給哪個 kubelet 插件。
+      driver 用於確定需要將這些設定參數傳遞給哪個 kubelet 插件。
         
       驅動開發者所提供的准入策略可以使用此字段來決定是否需要校驗這些參數。
         
@@ -196,7 +196,7 @@ DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何
       // On the wire, the JSON will look something like this:
       -->
 
-      // 在網絡上，JSON 看起來像這樣：
+      // 在網路上，JSON 看起來像這樣：
 
           {
             "kind":"MyAPIObject",
@@ -301,7 +301,7 @@ DeviceClassSpec 在 DeviceClass 中用於定義可被分配的資源以及如何
       device.driver 字段可用於檢查特定驅動，既可以作爲高層次的前提條件（即你只想考慮來自此驅動的設備），
       也可以作爲考慮來自不同驅動的設備的多子句表達式的一部分。
           
-      attribute 中每個元素的值類型由設備定義，編寫這些表達式的用戶必須查閱其特定驅動的文檔。
+      attribute 中每個元素的值類型由設備定義，編寫這些表達式的使用者必須查閱其特定驅動的文檔。
       capacity 中元素的值類型爲 Quantity。
 
       <!--

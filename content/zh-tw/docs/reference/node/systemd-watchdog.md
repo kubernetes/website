@@ -35,7 +35,7 @@ and is terminated. The service can then be restarted according to the configurat
 -->
 systemd 看門狗的工作原理是要求服務定期向 systemd 進程發送一個**保持活躍**的信號。
 如果 systemd 進程在指定的超時時限內未接收到某服務發出的信號，則對應的服務被視爲無響應並被終止。
-之後 systemd 進程可以基於配置重啓該服務。
+之後 systemd 進程可以基於設定重啓該服務。
 
 <!--
 ## Configuration
@@ -43,9 +43,9 @@ systemd 看門狗的工作原理是要求服務定期向 systemd 進程發送一
 Using the systemd watchdog requires configuring the `WatchdogSec` parameter
 in the `[Service]` section of the kubelet service unit file:
 -->
-## 配置    {#configuration}
+## 設定    {#configuration}
 
-使用 systemd 看門狗需要在 kubelet 服務單元文件的 `[Service]` 部分配置 `WatchdogSec` 參數：
+使用 systemd 看門狗需要在 kubelet 服務單元文件的 `[Service]` 部分設定 `WatchdogSec` 參數：
 
 ```
 [Service]
@@ -78,7 +78,7 @@ Some details about the systemd configuration:
 3. The Kubernetes project suggests setting `WatchdogSec` to approximately a 15s period.
    Periods longer than 10 minutes are supported but explicitly **not** recommended.
 -->
-systemd 配置相關的一些細節：
+systemd 設定相關的一些細節：
 
 1. 如果你將 systemd 的 `WatchdogSec` 值設置爲 0，或省略不設置，則對應的單元上不啓用 systemd 看門狗。
 2. kubelet 支持設置的最小看門狗超時時限爲 1.0 秒；這是爲了防止 kubelet 被意外殺死。
@@ -90,7 +90,7 @@ systemd 配置相關的一些細節：
 <!--
 ### Example Configuration
 -->
-### 示例配置    {#example-configuration}
+### 示例設定    {#example-configuration}
 
 <!--
 # Configures the watchdog timeout
@@ -120,5 +120,5 @@ WantedBy=multi-user.target
 For more details about systemd configuration, refer to the
 [systemd documentation](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#WatchdogSec=)
 -->
-有關 systemd 配置的細節，請參閱
+有關 systemd 設定的細節，請參閱
 [systemd 文檔](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#WatchdogSec=)。

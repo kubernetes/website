@@ -15,7 +15,7 @@ an overload situation. You can find more information about it in the
 [API Priority and Fairness](/docs/concepts/cluster-administration/flow-control/)
 documentation.
 -->
-API 優先級和公平性控制着 Kubernetes API 服務器在負載過高的情況下的行爲。你可以在
+API 優先級和公平性控制着 Kubernetes API 伺服器在負載過高的情況下的行爲。你可以在
 [API 優先級和公平性](/zh-cn/docs/concepts/cluster-administration/flow-control/)文檔中找到更多信息。
 
 <!-- body -->
@@ -33,10 +33,10 @@ can use a command such as:
 -->
 ## 問題診斷    {#diagnostics}
 
-對於啓用了 APF 的 API 服務器，每個 HTTP 響應都有兩個額外的 HTTP 頭：
+對於啓用了 APF 的 API 伺服器，每個 HTTP 響應都有兩個額外的 HTTP 頭：
 `X-Kubernetes-PF-FlowSchema-UID` 和 `X-Kubernetes-PF-PriorityLevel-UID`，
 給出與請求匹配的 FlowSchema 和已分配的優先級級別。
-如果請求用戶沒有查看這些對象的權限，則這些 HTTP 頭中將不包含 API 對象的名稱，
+如果請求使用者沒有查看這些對象的權限，則這些 HTTP 頭中將不包含 API 對象的名稱，
 因此在調試時，你可以使用類似如下的命令：
 
 ```shell
@@ -225,7 +225,7 @@ to access `/debug/api_priority_and_fairness/` by specifying `nonResourceURLs`.
   - `InitialSeats`：在請求的初始（正常）執行階段佔用的席位數。
   - `FinalSeats`：在請求執行的最終階段佔用的席位數，包括與之關聯的 WATCH 通知。
   - `AdditionalLatency`：在請求執行的最終階段所耗用的額外時間。
-    FinalSeats 將在此時間段內被佔用。這並不意味着用戶會感知到任何延遲。
+    FinalSeats 將在此時間段內被佔用。這並不意味着使用者會感知到任何延遲。
   - `StartTime`：請求開始執行的時間。對於排隊的請求，該值將爲 0001-01-01T00:00:00Z。
 
 <!--
@@ -236,7 +236,7 @@ request in the API server log, and it includes the following attributes.
 -->
 ### 調試日誌生成行爲  {#debug-logging}
 
-在 `-v=3` 或更詳細的情況下，API 服務器會爲在 API 服務日誌中爲每個請求輸出一行 httplog，
+在 `-v=3` 或更詳細的情況下，API 伺服器會爲在 API 服務日誌中爲每個請求輸出一行 httplog，
 其中包括以下屬性：
 
 <!--

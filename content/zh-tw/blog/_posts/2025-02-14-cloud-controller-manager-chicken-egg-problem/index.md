@@ -28,8 +28,8 @@ building four new subsystems.
 -->
 Kubernetes 1.31  
 [完成了 Kubernetes 歷史上最大的遷移][migration-blog]，移除了樹內雲驅動（in-tree cloud provider）。
-雖然組件遷移已經完成，但這爲用戶和安裝項目（例如 kOps 或 Cluster API）帶來了一些額外的複雜性。
-我們將回顧這些額外的步驟和可能的故障點，併爲集羣所有者提供改進建議。  
+雖然組件遷移已經完成，但這爲使用者和安裝項目（例如 kOps 或 Cluster API）帶來了一些額外的複雜性。
+我們將回顧這些額外的步驟和可能的故障點，併爲叢集所有者提供改進建議。  
 此次遷移非常複雜，必須從核心組件中提取部分邏輯，構建四個新的子系統。
 
 <!--
@@ -43,7 +43,7 @@ that replaces some functionality that existed previously in the kube-controller-
 kubelet.
 -->
 1. **雲控制器管理器** ([KEP-2392][kep2392])  
-2. **API 服務器網絡代理** ([KEP-1281][kep1281])  
+2. **API 伺服器網路代理** ([KEP-1281][kep1281])  
 3. **kubelet 憑證提供程序插件** ([KEP-2133][kep2133])  
 4. **存儲遷移到使用 [CSI][csi]** ([KEP-625][kep625])  
 
@@ -106,7 +106,7 @@ standalone binaries or daemonsets/deployments with tolerations to the taints and
 這一新的初始化過程會增加節點就緒的延遲。以前，kubelet 可以在創建節點的同時初始化節點。
 對於某些 Kubernetes 架構而言，其控制平面其他組件以靜態 Pod、獨立二進制文件或具有容忍污點功能的、
 用 `hostNetwork` DaemonSet/Deployment 部署，由於節點初始化邏輯已移至雲控制管理器中，
-如果不將控制器管理器作爲控制平面的一部分，則可能會導致集羣引導過程中出現[雞和蛋問題][chicken-and-egg]（更多內容見下文）。
+如果不將控制器管理器作爲控制平面的一部分，則可能會導致叢集引導過程中出現[雞和蛋問題][chicken-and-egg]（更多內容見下文）。
 
 <!--
 ## Examples of the dependency problem
@@ -124,7 +124,7 @@ will schedule properly.
 ## 依賴問題的示例
 
 如上所述，在引導過程中，雲控制器管理器可能無法被調度，
-因此集羣將無法正確初始化。以下幾個具體示例說明此問題的可能表現形式及其根本原因。
+因此叢集將無法正確初始化。以下幾個具體示例說明此問題的可能表現形式及其根本原因。
 
 這些示例假設你使用 Kubernetes 資源（例如 Deployment、DaemonSet
 或類似資源）來控制雲控制器管理器的生命週期。由於這些方法依賴於 Kubernetes 來調度雲控制器管理器，
@@ -142,7 +142,7 @@ or `DaemonSet`, may not be able to schedule.
 -->
 ### 示例：由於未初始化的污點導致雲控制器管理器無法調度
 
-如 [Kubernetes 文檔中所述][kubedocs0]，當 kubelet 使用命令行標誌 `--cloud-provider=external`
+如 [Kubernetes 文檔中所述][kubedocs0]，當 kubelet 使用命令列標誌 `--cloud-provider=external`
 啓動時，其對應的 `Node` 對象將添加一個名爲 `node.cloudprovider.kubernetes.io/uninitialized`
 的不可調度污點。由於雲控制器管理器負責移除該不可調度污點，這可能會導致由某個 Kubernetes
 資源（例如 `Deployment` 或 `DaemonSet`）管理的雲控制器管理器無法被調度的情況。
@@ -157,8 +157,8 @@ controllers, will not be able to schedule, and the cluster will be left in an un
 -->
 如果在控制平面初始化期間雲控制器管理器無法被調度，那麼生成的 `Node` 對象將全部帶有
 `node.cloudprovider.kubernetes.io/uninitialized` 不可調度污點。這也意味着該污點不會被移除，
-因爲雲控制器管理器負責其移除工作。如果不可調度污點未被移除，關鍵工作負載（例如容器網絡接口控制器）
-將無法被調度，集羣將處於不健康狀態。
+因爲雲控制器管理器負責其移除工作。如果不可調度污點未被移除，關鍵工作負載（例如容器網路接口控制器）
+將無法被調度，叢集將處於不健康狀態。
 
 <!--
 ### Example: Cloud controller manager not scheduling due to not-ready taint
@@ -173,7 +173,7 @@ The [Kubernetes documentation describes][kubedocs1] the `node.kubernetes.io/not-
 -->
 ### 示例：由於未就緒污點導致雲控制器管理器無法調度
 
-下一個示例可能出現在容器網絡接口（CNI）正在等待來自雲控制器管理器（CCM）的
+下一個示例可能出現在容器網路接口（CNI）正在等待來自雲控制器管理器（CCM）的
 IP 地址信息，而 CCM 未容忍將由 CNI 移除的污點的情況下。
 
 [Kubernetes 文檔][kubedocs1] 對 `node.kubernetes.io/not-ready` 污點的描述如下：
@@ -195,15 +195,15 @@ network controllers not being able to run properly, and the node will end up car
 `node.cloudprovider.kubernetes.io/uninitialized` and `node.kubernetes.io/not-ready` taints,
 leaving the cluster in an unhealthy state.
 -->
-當容器網絡尚未在某節點上初始化時，可能導致 Node 資源具有此污點。由於雲控制器管理器負責爲
-Node 資源添加 IP 地址，而容器網絡控制器需要這些 IP 地址來正確配置容器網絡，因此在某些情況下，
+當容器網路尚未在某節點上初始化時，可能導致 Node 資源具有此污點。由於雲控制器管理器負責爲
+Node 資源添加 IP 地址，而容器網路控制器需要這些 IP 地址來正確設定容器網路，因此在某些情況下，
 節點可能會永久處於未就緒且未初始化的狀態。
 
 這種情況的發生原因與第一個示例類似，但在此情況下，`node.kubernetes.io/not-ready`
 污點使用了 NoExecute 效果，從而導致雲控制器管理器無法在帶有該污點的節點上運行。
-如果雲控制器管理器無法執行，則它將無法初始化節點。這將進一步導致容器網絡控制器無法正常運行，
+如果雲控制器管理器無法執行，則它將無法初始化節點。這將進一步導致容器網路控制器無法正常運行，
 節點最終會同時攜帶 `node.cloudprovider.kubernetes.io/uninitialized` 和
-`node.kubernetes.io/not-ready` 兩個污點，從而使集羣處於不健康狀態。
+`node.kubernetes.io/not-ready` 兩個污點，從而使叢集處於不健康狀態。
 
 <!--
 ## Our Recommendations
@@ -216,10 +216,10 @@ For cloud-controller-managers running in the same cluster, they are managing.
 -->
 ## 我們的建議
 
-運行雲控制器管理器並沒有唯一的“正確方式”。具體細節將取決於集羣管理員和用戶的特定需求。
-在規劃你的集羣以及雲控制器管理器的生命週期時，請考慮以下指導。
+運行雲控制器管理器並沒有唯一的“正確方式”。具體細節將取決於叢集管理員和使用者的特定需求。
+在規劃你的叢集以及雲控制器管理器的生命週期時，請考慮以下指導。
 
-對於在同一集羣中運行的雲控制器管理器，它們所管理的集羣也是這一集羣，需要特別注意。
+對於在同一叢集中運行的雲控制器管理器，它們所管理的叢集也是這一叢集，需要特別注意。
 
 <!--
 1. Use host network mode, rather than the pod network: in most cases, a cloud controller manager
@@ -236,14 +236,14 @@ For cloud-controller-managers running in the same cluster, they are managing.
   replicas, you must remember to enable leader election, or else your controllers will collide
   with each other which could lead to nodes not being initialized in the cluster.
 -->
-1. 使用主機網絡模式，而不是 Pod 網絡：在大多數情況下，雲控制器管理器需要與基礎設施相關的 API 服務端點進行通信。
-   將 "hostNetwork" 設置爲 `true` 可確保雲控制器使用主機網絡而非容器網絡，從而擁有與主機操作系統相同的網絡訪問權限。
-   這還將消除對網絡插件的依賴。這可以確保雲控制器能夠訪問基礎設施端點
-   （你應該始終檢查網絡配置是否與基礎設施提供商所給的指導相符）。
+1. 使用主機網路模式，而不是 Pod 網路：在大多數情況下，雲控制器管理器需要與基礎設施相關的 API 服務端點進行通信。
+   將 "hostNetwork" 設置爲 `true` 可確保雲控制器使用主機網路而非容器網路，從而擁有與主機操作系統相同的網路訪問權限。
+   這還將消除對網路插件的依賴。這可以確保雲控制器能夠訪問基礎設施端點
+   （你應該始終檢查網路設定是否與基礎設施提供商所給的指導相符）。
 2. 使用規模可擴縮的資源類型。`Deployment` 和 `DaemonSet` 對於控制雲控制器的生命週期非常有用。
-   它們支持輕鬆地運行多個副本以實現冗餘，並利用 Kubernetes 調度來確保在集羣中的正確放置。
+   它們支持輕鬆地運行多個副本以實現冗餘，並利用 Kubernetes 調度來確保在叢集中的正確放置。
    當使用這些原語控制雲控制器的生命週期並運行多個副本時，請務必啓用領導者選舉，
-   否則控制器之間可能會發生衝突，導致集羣中的節點無法初始化。
+   否則控制器之間可能會發生衝突，導致叢集中的節點無法初始化。
 <!--
 3. Target the controller manager containers to the control plane. There might exist other
   controllers which need to run outside the control plane (for example, Azure’s node manager
@@ -260,9 +260,9 @@ For cloud-controller-managers running in the same cluster, they are managing.
 -->
 3. 將控制器管理器容器定位到控制平面。可能存在一些需要在控制平面之外運行的其他控制器
   （例如，Azure 的節點管理器控制器），但云控制器管理器本身應部署到控制平面。
-   使用節點選擇算符或親和性配置將雲控制器管理器定向調度到控制平面節點，以確保它們運行在受保護的空間中。
-   雲控制器管理器在集羣中添加和移除節點時至關重要，因爲它們構成了 Kubernetes 與物理基礎設施之間的橋樑。
-   1. 值得注意的是，使用反親和性配置以防止多個雲控制器管理器運行在同一主機上也非常有用，
+   使用節點選擇算符或親和性設定將雲控制器管理器定向調度到控制平面節點，以確保它們運行在受保護的空間中。
+   雲控制器管理器在叢集中添加和移除節點時至關重要，因爲它們構成了 Kubernetes 與物理基礎設施之間的橋樑。
+   1. 值得注意的是，使用反親和性設定以防止多個雲控制器管理器運行在同一主機上也非常有用，
       這可以確保單個節點故障不會影響雲控制器管理器的性能。
 <!--
 4. Ensure that the tolerations allow operation. Use tolerations on the manifest for the cloud
@@ -287,9 +287,9 @@ for these scenarios.
    `node-role.kubernetes.io/master`）。容忍 `node.kubernetes.io/not-ready` 污點也可能很有用，
    以確保即使節點尚未準備好進行健康監控時，雲控制器仍能運行。
 
-對於不在其所管理的集羣上（例如，在其他集羣上的託管控制平面上）運行的雲控制器管理器，
-其規則將更多地受限於運行雲控制器管理器的集羣環境的依賴項。針對自管集羣的運行建議可能不適用，
-因爲衝突類型和網絡約束會有所不同。請根據這些場景諮詢你的拓撲結構的架構和需求。
+對於不在其所管理的叢集上（例如，在其他叢集上的託管控制平面上）運行的雲控制器管理器，
+其規則將更多地受限於運行雲控制器管理器的叢集環境的依賴項。針對自管叢集的運行建議可能不適用，
+因爲衝突類型和網路約束會有所不同。請根據這些場景諮詢你的拓撲結構的架構和需求。
 
 <!--
 ### Example
@@ -437,9 +437,9 @@ replicas of a cloud controller manager is good practice for ensuring high-availa
 redundancy, but does not contribute to better performance. In general, only a single instance
 of a cloud controller manager will be reconciling a cluster at any given time.
 -->
-在決定如何部署雲控制器管理器時，需要注意的是，不建議使用與集羣規模成比例的或基於資源的 Pod
+在決定如何部署雲控制器管理器時，需要注意的是，不建議使用與叢集規模成比例的或基於資源的 Pod
 自動規模擴縮。運行多個雲控制器管理器副本是確保高可用性和冗餘的良好實踐，但這並不會提高性能。
-通常情況下，任何時候只有一個雲控制器管理器實例會負責協調集羣。
+通常情況下，任何時候只有一個雲控制器管理器實例會負責協調叢集。
 
 <!--
 [migration-blog]: /blog/2024/05/20/completing-cloud-provider-migration/

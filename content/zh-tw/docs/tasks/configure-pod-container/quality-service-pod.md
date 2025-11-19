@@ -1,5 +1,5 @@
 ---
-title: 配置 Pod 的服務質量
+title: 設定 Pod 的服務質量
 content_type: task
 weight: 60
 ---
@@ -17,7 +17,7 @@ This page shows how to configure Pods so that they will be assigned particular
 {{< glossary_tooltip text="Quality of Service (QoS) classes" term_id="qos-class" >}}.
 Kubernetes uses QoS classes to make decisions about evicting Pods when Node resources are exceeded.
 -->
-本頁介紹怎樣配置 Pod 以讓其歸屬於特定的
+本頁介紹怎樣設定 Pod 以讓其歸屬於特定的
 {{< glossary_tooltip text="服務質量類（Quality of Service class，QoS class）" term_id="qos-class" >}}.
 Kubernetes 在 Node 資源不足時使用 QoS 類來就驅逐 Pod 作出決定。
 
@@ -53,7 +53,7 @@ isolated from the rest of your cluster.
 -->
 ## 創建名字空間  {#create-a-namespace}
 
-創建一個名字空間，以便將本練習所創建的資源與集羣的其餘資源相隔離。
+創建一個名字空間，以便將本練習所創建的資源與叢集的其餘資源相隔離。
 
 ```shell
 kubectl create namespace qos-example
@@ -120,7 +120,7 @@ The output shows that Kubernetes gave the Pod a QoS class of `Guaranteed`. The o
 verifies that the Pod Container has a memory request that matches its memory limit, and it has
 a CPU request that matches its CPU limit.
 -->
-結果表明 Kubernetes 爲 Pod 配置的 QoS 類爲 `Guaranteed`。
+結果表明 Kubernetes 爲 Pod 設定的 QoS 類爲 `Guaranteed`。
 結果也確認了 Pod 容器設置了與內存限制匹配的內存請求，設置了與 CPU 限制匹配的 CPU 請求。
 
 ```yaml
@@ -209,7 +209,7 @@ kubectl get pod qos-demo-2 --namespace=qos-example --output=yaml
 <!--
 The output shows that Kubernetes gave the Pod a QoS class of `Burstable`:
 -->
-結果表明 Kubernetes 爲 Pod 配置的 QoS 類爲 `Burstable`：
+結果表明 Kubernetes 爲 Pod 設定的 QoS 類爲 `Burstable`：
 
 ```yaml
 spec:
@@ -279,7 +279,7 @@ kubectl get pod qos-demo-3 --namespace=qos-example --output=yaml
 <!--
 The output shows that Kubernetes gave the Pod a QoS class of `BestEffort`:
 -->
-結果表明 Kubernetes 爲 Pod 配置的 QoS 類爲 `BestEffort`。
+結果表明 Kubernetes 爲 Pod 設定的 QoS 類爲 `BestEffort`。
 
 ```yaml
 spec:
@@ -345,7 +345,7 @@ kubectl get pod qos-demo-4 --namespace=qos-example --output=yaml
 <!--
 The output shows that Kubernetes gave the Pod a QoS class of `Burstable`:
 -->
-結果表明 Kubernetes 爲 Pod 配置的 QoS 類爲 `Burstable`：
+結果表明 Kubernetes 爲 Pod 設定的 QoS 類爲 `Burstable`：
 
 ```yaml
 spec:
@@ -429,13 +429,13 @@ kubectl delete namespace qos-example
 
 * [Control Topology Management policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 -->
-### 集羣管理員參考
+### 叢集管理員參考
 
-* [爲名字空間配置默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲名字空間配置默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [爲名字空間配置最小和最大內存限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [爲名字空間配置最小和最大 CPU 限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [爲名字空間配置內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
-* [爲名字空間配置 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
-* [爲 API 對象配置配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
+* [爲名字空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲名字空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲名字空間設定最小和最大內存限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [爲名字空間設定最小和最大 CPU 限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲名字空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [爲名字空間設定 Pod 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [爲 API 對象設定配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 * [控制節點上的拓撲管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)

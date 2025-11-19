@@ -49,7 +49,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -65,7 +65,7 @@ kubeadm 配置文件的路徑。
 A set of extra flags to pass to the Controller Manager or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
 一組 &lt;flagname&gt;=&lt; 形式的額外參數，傳遞給控制器管理器（Controller Manager）
-或者覆蓋其默認配置值
+或者覆蓋其默認設定值
 </p>
 </td>
 </tr>
@@ -114,7 +114,7 @@ controller-manager 操作的幫助命令。
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇要從中拉取控制平面鏡像的容器倉庫。
+選擇要從中拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>
@@ -170,7 +170,7 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
-指定 Pod 網絡的 IP 地址範圍。如果設置，控制平面將自動爲每個節點分配 CIDR。
+指定 Pod 網路的 IP 地址範圍。如果設置，控制平面將自動爲每個節點分配 CIDR。
 </p>
 </td>
 </tr>

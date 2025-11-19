@@ -29,7 +29,7 @@ a local etcd instance on each control plane node.
 [`kubeadm`](/zh-cn/docs/reference/setup-tools/kubeadm/) 工具現在支持 etcd learner 模式，
 藉助 etcd 3.4 版本引入的
 [learner 模式](https://etcd.io/docs/v3.4/learning/design-learner/#appendix-learner-implementation-in-v34)特性，
-可以提高 Kubernetes 集羣的彈性和穩定性。本文將介紹如何在 kubeadm 中使用 etcd learner 模式。
+可以提高 Kubernetes 叢集的彈性和穩定性。本文將介紹如何在 kubeadm 中使用 etcd learner 模式。
 默認情況下，kubeadm 在每個控制平面節點上運行一個本地 etcd 實例。
 
 <!--
@@ -49,7 +49,7 @@ in Kubernetes clusters:
 -->
 ## 使用 etcd learner 模式的優勢是什麼？   {#what-are-advantages-of-using-learner-mode}
 
-在 Kubernetes 集羣中採用 etcd learner 模式具有以下幾個優點：
+在 Kubernetes 叢集中採用 etcd learner 模式具有以下幾個優點：
 
 <!--
 1. **Enhanced Resilience**: etcd learner nodes are non-voting members that catch up with
@@ -67,29 +67,29 @@ in Kubernetes clusters:
    integrate with the existing cluster without causing disruptions.
 -->
 1. **增強了彈性**：etcd learner 節點是非投票成員，在完全進入角色之前會追隨領導者的日誌。
-   這樣可以防止新的集羣成員干擾投票結果或引起領導者選舉，從而使集羣在成員變更期間更具彈性。
-1. **減少了集羣不可用時間**：傳統的添加新成員的方法通常會造成一段時間集羣不可用，特別是在基礎設施遲緩或誤配的情況下更爲明顯。
+   這樣可以防止新的叢集成員干擾投票結果或引起領導者選舉，從而使叢集在成員變更期間更具彈性。
+1. **減少了叢集不可用時間**：傳統的添加新成員的方法通常會造成一段時間叢集不可用，特別是在基礎設施遲緩或誤配的情況下更爲明顯。
    而 etcd learner 模式可以最大程度地減少此類干擾。
-1. **簡化了維護**：learner 節點提供了一種更安全、可逆的方式來添加或替換集羣成員。
-   這降低了由於誤配或在成員添加過程中出錯而導致集羣意外失效的風險。
-1. **改進了網絡容錯性**：在涉及網絡分區的場景中，learner 模式允許更優雅的處理。
-   根據新成員所落入的分區，它可以無縫地與現有集羣集成，而不會造成中斷。
+1. **簡化了維護**：learner 節點提供了一種更安全、可逆的方式來添加或替換叢集成員。
+   這降低了由於誤配或在成員添加過程中出錯而導致叢集意外失效的風險。
+1. **改進了網路容錯性**：在涉及網路分區的場景中，learner 模式允許更優雅的處理。
+   根據新成員所落入的分區，它可以無縫地與現有叢集集成，而不會造成中斷。
 
 <!--
 In summary, the etcd learner mode improves the reliability and manageability of Kubernetes clusters
 during member additions and changes, making it a valuable feature for cluster operators.
 -->
-總之，etcd learner 模式可以在成員添加和變更期間提高 Kubernetes 集羣的可靠性和可管理性，
-這個特性對集羣運營人員很有價值。
+總之，etcd learner 模式可以在成員添加和變更期間提高 Kubernetes 叢集的可靠性和可管理性，
+這個特性對叢集運營人員很有價值。
 
 <!--
 ## How nodes join a cluster that's using the new mode
 
 ### Create a Kubernetes cluster backed by etcd in learner mode {#create-K8s-cluster-etcd-learner-mode}
 -->
-## 節點如何接入使用這種新模式的集羣   {#how-nodes-join-cluster-that-using-new-node}
+## 節點如何接入使用這種新模式的叢集   {#how-nodes-join-cluster-that-using-new-node}
 
-### 創建以 etcd learner 模式支撐的 Kubernetes 集羣  {#create-K8s-cluster-etcd-learner-mode}
+### 創建以 etcd learner 模式支撐的 Kubernetes 叢集  {#create-K8s-cluster-etcd-learner-mode}
 
 <!--
 For a general explanation about creating highly available clusters with kubeadm, you can refer to
@@ -97,10 +97,10 @@ For a general explanation about creating highly available clusters with kubeadm,
 
 To create a Kubernetes cluster, backed by etcd in learner mode, using kubeadm, follow these steps:
 -->
-關於使用 kubeadm 創建高可用集羣的通用說明，
-請參閱[使用 kubeadm 創建高可用集羣](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)。
+關於使用 kubeadm 創建高可用叢集的通用說明，
+請參閱[使用 kubeadm 創建高可用叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)。
 
-要使用 kubeadm 創建一個後臺是 learner 模式的 etcd 的 Kubernetes 集羣，按照以下步驟操作：
+要使用 kubeadm 創建一個後臺是 learner 模式的 etcd 的 Kubernetes 叢集，按照以下步驟操作：
 
 ```shell
 # kubeadm init --feature-gates=EtcdLearnerMode=true ...
@@ -110,7 +110,7 @@ kubeadm init --config=kubeadm-config.yaml
 <!--
 The kubeadm configuration file is like below:
 -->
-kubeadm 配置文件如下：
+kubeadm 設定文件如下：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -122,7 +122,7 @@ featureGates:
 <!--
 The kubeadm tool deploys a single-node Kubernetes cluster with etcd set to use learner mode.
 -->
-這裏，kubeadm 工具部署單節點 Kubernetes 集羣，其中的 etcd 被設置爲 learner 模式。
+這裏，kubeadm 工具部署單節點 Kubernetes 叢集，其中的 etcd 被設置爲 learner 模式。
 
 <!--
 ### Join nodes to the Kubernetes cluster
@@ -135,14 +135,14 @@ You would do that directly with your container runtime using a tool such as `cri
 
 Here is an example on a client command that uses secure communication to check the cluster health of the etcd cluster:
 -->
-### 將節點接入 Kubernetes 集羣   {#join-nodes-to-the-kubernetes-cluster}
+### 將節點接入 Kubernetes 叢集   {#join-nodes-to-the-kubernetes-cluster}
 
-在將控制平面節點接入新的 Kubernetes 集羣之前，確保現有的控制平面節點和所有 etcd 成員都健康。
+在將控制平面節點接入新的 Kubernetes 叢集之前，確保現有的控制平面節點和所有 etcd 成員都健康。
 
-使用 `etcdctl` 檢查集羣的健康狀況。如果 `etcdctl` 不可用，你可以運行在容器鏡像內的這個工具。
+使用 `etcdctl` 檢查叢集的健康狀況。如果 `etcdctl` 不可用，你可以運行在容器映像檔內的這個工具。
 你可以直接使用 `crictl run` 這類容器運行時工具而不是通過 Kubernetes 來執行此操作。
 
-以下是一個使用安全通信來檢查 etcd 集羣健康狀況的客戶端命令示例：
+以下是一個使用安全通信來檢查 etcd 叢集健康狀況的客戶端命令示例：
 
 ```shell
 ETCDCTL_API=3 etcdctl --endpoints 127.0.0.1:2379 \
@@ -165,13 +165,13 @@ and check if the nodes are ready.
 <!--
 It is recommended to have an odd number of members in an etcd cluster.
 -->
-建議在 etcd 集羣中的成員個數爲奇數。
+建議在 etcd 叢集中的成員個數爲奇數。
 {{< /note >}}
 
 <!--
 Before joining a worker node to the new Kubernetes cluster, ensure that the control plane nodes are healthy.
 -->
-在將工作節點接入新的 Kubernetes 集羣之前，確保控制平面節點健康。
+在將工作節點接入新的 Kubernetes 叢集之前，確保控制平面節點健康。
 
 <!--
 ## What's next
@@ -187,7 +187,7 @@ Before joining a worker node to the new Kubernetes cluster, ensure that the cont
 - 特性門控 `EtcdLearnerMode` 在 v1.27 中爲 Alpha，預計會在 Kubernetes 的下一個小版本發佈（v1.29）中進階至 Beta。
 - etcd 社區有一個開放問題，目的是使這個過程更加自動化：
   [支持自動將 learner 成員晉升爲投票成員](https://github.com/etcd-io/etcd/issues/15107)。
-- 更多細節參閱 kubeadm [配置格式](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
+- 更多細節參閱 kubeadm [設定格式](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
 <!--
 ## Feedback

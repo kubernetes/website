@@ -92,7 +92,7 @@ incompatible change, because the blast radius is huge.
 在前端，這包括模式的最佳實踐、序列化、客戶端模式以及在其之上的控制器模式。
 
 **Federico**：Kubernetes 有很多不同的組件，但控制平面有一個非常關鍵的任務：
-它是你與集羣的通信層，同時也擁有所有使 Kubernetes 如此強大的可擴展機制。
+它是你與叢集的通信層，同時也擁有所有使 Kubernetes 如此強大的可擴展機制。
 我們不能犯像迴歸或不兼容變更這樣的錯誤，因爲影響範圍太大了。
 
 <!--
@@ -147,8 +147,8 @@ server-side apply), `kubectl` expanded to take ownership of leveraging the serve
 capability.  The transition isn’t yet complete, but [SIG
 CLI](https://github.com/kubernetes/community/tree/master/sig-cli) manages that usage and owns it.
 -->
-一個更多共享所有權的例子是：構建出合作的資源管理（服務器端應用的目標），
-`kubectl` 擴展爲負責利用服務器端應用的權能。這個過渡尚未完成，
+一個更多共享所有權的例子是：構建出合作的資源管理（伺服器端應用的目標），
+`kubectl` 擴展爲負責利用伺服器端應用的權能。這個過渡尚未完成，
 但 [SIG CLI](https://github.com/kubernetes/community/tree/master/sig-cli) 管理其使用情況並擁有它。
 
 <!--
@@ -205,7 +205,7 @@ activity.
 **FSM：隨着 Kubernetes 的採用率上升，我們肯定看到了對控制平面的需求增加：你們對這點的感受如何，它如何影響 SIG 的工作？**
 
 **David**：這對 API Machinery 產生了巨大的影響。多年來，我們經常響應並多次促進了 Kubernetes 的發展階段。
-作爲幾乎所有 Kubernetes 集羣上權能的集中編排中心，我們既領導又跟隨社區。
+作爲幾乎所有 Kubernetes 叢集上權能的集中編排中心，我們既領導又跟隨社區。
 從廣義上講，我看到多年來 API Machinery 經歷了一些發展階段，活躍度一直很高。
 
 <!--
@@ -251,9 +251,9 @@ activity.
    conditions and validating admission policies.
 -->
 4. **簡化部署**：`v1.22+`。在不久之前，
-   我們採用擴展機制來響應運行大規模的 Kubernetes 集羣的壓力，其中包含大量有時會發生衝突的生態系統項目。
+   我們採用擴展機制來響應運行大規模的 Kubernetes 叢集的壓力，其中包含大量有時會發生衝突的生態系統項目。
    我們投入了許多努力，使平臺更易於擴展，管理更安全，就算不是很精通 Kubernetes 的人也能做到。
-   這些努力始於服務器端應用，並在如今延續到 Webhook 匹配狀況和驗證准入策略等特性。
+   這些努力始於伺服器端應用，並在如今延續到 Webhook 匹配狀況和驗證准入策略等特性。
 
 <!--
 Work in API Machinery has a broad impact across the project and the ecosystem.  It’s an exciting
@@ -284,7 +284,7 @@ alternative mechanisms with lower risk profiles for most actions (validating adm
 
 隨着 `kube-apiserver` 和擴展機制的使用增加，我們發現第一套擴展機制雖然在權能方面相當完整，
 但在潛在誤用方面存在重大風險，影響範圍很大。爲了減輕這些風險，我們正在致力於減少事故影響範圍的特性
-（Webhook 匹配狀況）以及爲大多數操作提供風險配置較低的替代機制（驗證准入策略）。
+（Webhook 匹配狀況）以及爲大多數操作提供風險設定較低的替代機制（驗證准入策略）。
 
 <!--
 At the same time, the increased usage has made us more aware of scaling limitations that we can
@@ -297,7 +297,7 @@ the [Batch Working Group](https://github.com/kubernetes/community/blob/master/wg
 is eager to leverage and will eventually form the basis for a new way
 to prevent trampoline pod attacks from exploited nodes.
 -->
-同時，使用量的增加使我們更加意識到我們可以同時改進服務器端和客戶端的擴縮限制。
+同時，使用量的增加使我們更加意識到我們可以同時改進伺服器端和客戶端的擴縮限制。
 這裏的努力包括更高效的序列化（CBOR），減少 etcd 負載（從緩存中一致讀取）和減少峯值內存使用量（流式列表）。
 
 最後，使用量的增加突顯了一些長期存在的、我們正在設法填補的差距。這些包括針對 CRD 的字段選擇算符，
@@ -357,5 +357,5 @@ that's enough reward and motivation!
 **FSM：太好了，謝謝！你們還有什麼想與我們的讀者分享嗎？**
 
 **Federico**：正如我提到的，第一步可能較難，但回報也更大。
-參與 API Machinery 的工作就是在加入一個影響巨大（百萬用戶？）的領域，
+參與 API Machinery 的工作就是在加入一個影響巨大（百萬使用者？）的領域，
 你的貢獻將直接影響 Kubernetes 的工作方式和使用方式。對我來說，這已經足夠作爲回報和動力了！

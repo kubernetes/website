@@ -22,7 +22,7 @@ slug: advancements-in-kubernetes-traffic-engineering
 <!--
 Kubernetes v1.26 includes significant advancements in network traffic engineering with the graduation of two features (Service internal traffic policy support, and EndpointSlice terminating conditions) to GA, and a third feature (Proxy terminating endpoints) to beta. The combination of these enhancements aims to address short-comings in traffic engineering that people face today, and unlock new capabilities for the future.
 -->
-Kubernetes v1.26 在網絡流量工程方面取得了重大進展，
+Kubernetes v1.26 在網路流量工程方面取得了重大進展，
 兩項功能（服務內部流量策略支持和 EndpointSlice 終止狀況）升級爲正式發佈版本，
 第三項功能（代理終止端點）升級爲 Beta。這些增強功能的結合旨在解決人們目前所面臨的流量工程短板，並在未來解鎖新的功能。
 
@@ -35,14 +35,14 @@ Kubernetes v1.26 在網絡流量工程方面取得了重大進展，
 Prior to Kubernetes v1.26, clusters could experience [loss of traffic](https://github.com/kubernetes/kubernetes/issues/85643) from Service load balancers during rolling updates when setting the `externalTrafficPolicy` field to `Local`. There are a lot of moving parts at play here so a quick overview of how Kubernetes manages load balancers might help!
 -->
 在 Kubernetes v1.26 之前，將 `externalTrafficPolicy` 字段設置爲 `Local` 時，
-集羣在滾動更新期間可能會遇到 Service 的負載均衡器[流量丟失](https://github.com/kubernetes/kubernetes/issues/85643)問題。
+叢集在滾動更新期間可能會遇到 Service 的負載均衡器[流量丟失](https://github.com/kubernetes/kubernetes/issues/85643)問題。
 這裏有很多活動部件作用其中，因此簡述 Kubernetes 管理負載均衡器的機制可能對此有所幫助！
 
 <!--
 In Kubernetes, you can create a Service with `type: LoadBalancer` to expose an application externally with a load balancer. The load balancer implementation varies between clusters and platforms, but the Service provides a generic abstraction representing the load balancer that is consistent across all Kubernetes installations.
 -->
 在 Kubernetes 中，你可以創建一個 `type: LoadBalancer` 的 Service，
-並通過負載均衡器對外暴露應用。負載均衡器的實現因集羣和平臺而異，
+並通過負載均衡器對外暴露應用。負載均衡器的實現因叢集和平臺而異，
 但 Service 提供了表示負載均衡器的通用抽象，該抽象在所有 Kubernetes 環境中都是一致的。
 
 ```yaml
@@ -64,7 +64,7 @@ spec:
 Under the hood, Kubernetes allocates a NodePort for the Service, which is then used by kube-proxy to provide a network data path from the NodePort to the Pod. A controller will then add all available Nodes in the cluster to the load balancer’s backend pool, using the designated NodePort for the Service as the backend target port.
 -->
 在底層，Kubernetes 爲 Service 分配一個 NodePort，然後 kube-proxy 使用它來提供從
-NodePort 到 Pod 的網絡數據路徑。然後，控制器將集羣中的所有可用節點添加到負載均衡器的後端池中，
+NodePort 到 Pod 的網路數據路徑。然後，控制器將叢集中的所有可用節點添加到負載均衡器的後端池中，
 使用 Service 的指定 NodePort 作爲後端目標端口。
 
 <!--
@@ -89,7 +89,7 @@ Oftentimes it is beneficial to set `externalTrafficPolicy: Local` for Services, 
 One such scenario where traffic can be lost is when a Node loses all Pods for a Service, but the external load balancer has not probed the health check NodePort yet. The likelihood of this situation is largely dependent on the health checking interval configured on the load balancer. The larger the interval, the more likely this will happen, since the load balancer will continue to send traffic to a node even after kube-proxy has removed forwarding rules for that Service. This also occurrs when Pods start terminating during rolling updates. Since Kubernetes does not consider terminating Pods as “Ready”, traffic can be loss when there are only terminating Pods on any given Node during a rolling update.
 -->
 流量可能丟失的一種情況是，當節點失去了某個 Service 的所有 Pod，但外部負載均衡器尚未通過
-NodePort 進行健康檢查探測時。這種情況的發生概率很大程度上取決於負載均衡器上配置的健康檢查時間間隔。
+NodePort 進行健康檢查探測時。這種情況的發生概率很大程度上取決於負載均衡器上設定的健康檢查時間間隔。
 間隔越大，發生這種情況的可能性就越大，因爲即使在 kube-proxy 刪除了該服務的轉發規則之後，
 負載均衡器仍將繼續向節點發送流量。當 Pod 在滾動更新期間開始終止時也會發生這種情況。
 由於 Kubernetes 不會將正在終止的 Pod 視爲“Ready”，因此當滾動更新期間任何給定節點上僅存在正在終止的 Pod 時，流量可能會丟失。
@@ -161,8 +161,8 @@ EndpointSlice API 的使用者（例如 Kube-proxy 和 Ingress Controller）現�
 Similar to how Services can set `externalTrafficPolicy: Local` to avoid extra hops for externally sourced traffic, Kubernetes now supports `internalTrafficPolicy: Local`, to enable the same optimization for traffic originating within the cluster, specifically for traffic using the Service Cluster IP as the destination address. This feature graduated to Beta in Kubernetes v1.24 and is graduating to GA in v1.26.
 -->
 與 Service 可以設置 `externalTrafficPolicy: Local` 以避免外部來源流量的額外躍點類似，
-Kubernetes 現在支持 `internalTrafficPolicy: Local`，以便對源自集羣內部的流量啓用相同的優化，
-特別是對於使用 Service 集羣 IP 的流量目標地址。該功能已在 Kubernetes v1.24 中升級爲 Beta，並在 v1.26 中升級爲正式發佈版本。
+Kubernetes 現在支持 `internalTrafficPolicy: Local`，以便對源自叢集內部的流量啓用相同的優化，
+特別是對於使用 Service 叢集 IP 的流量目標地址。該功能已在 Kubernetes v1.24 中升級爲 Beta，並在 v1.26 中升級爲正式發佈版本。
 
 <!--
 Services default the `internalTrafficPolicy` field to `Cluster`, where traffic is randomly distributed to all endpoints.

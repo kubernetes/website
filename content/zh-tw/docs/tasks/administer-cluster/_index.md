@@ -1,5 +1,5 @@
 ---
-title: "管理集羣"
+title: "管理叢集"
 weight: 20
-description: 瞭解管理集羣的常見任務。
+description: 瞭解管理叢集的常見任務。
 ---

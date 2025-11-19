@@ -47,7 +47,7 @@ before the shutdown. A node shutdown can be either graceful or non-graceful.
 -->
 ## 什麼是節點非體面關閉
 
-在 Kubernetes 集羣中，節點可能會按計劃正常關閉，也可能由於斷電或其他外部原因而意外關閉。
+在 Kubernetes 叢集中，節點可能會按計劃正常關閉，也可能由於斷電或其他外部原因而意外關閉。
 如果節點在關閉之前未騰空，則節點關閉可能會導致工作負載失敗。節點關閉可以是正常關閉，也可以是非正常關閉。
 
 <!--
@@ -143,7 +143,7 @@ that are shutdown/failed and automatically failover workloads to another node.
 -->
 ## 接下來
 
-此特性要求用戶手動向節點添加污點以觸發工作負載故障轉移，並在節點恢復後刪除污點。
+此特性要求使用者手動向節點添加污點以觸發工作負載故障轉移，並在節點恢復後刪除污點。
 未來，我們計劃找到方法來自動檢測和隔離關閉/失敗的節點，並自動將工作負載故障轉移到另一個節點。
 
 <!--

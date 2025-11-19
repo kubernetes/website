@@ -1,5 +1,5 @@
 ---
-title: kubelet 配置 (v1)
+title: kubelet 設定 (v1)
 content_type: tool-reference
 package: kubelet.config.k8s.io/v1
 ---
@@ -24,8 +24,8 @@ CredentialProviderConfig is the configuration containing information about
 each exec credential provider. Kubelet reads this configuration from disk and enables
 each provider as specified by the CredentialProvider type.
 -->
-CredentialProviderConfig 包含有關每個 exec 憑據提供程序的配置信息。
-kubelet 從磁盤上讀取這些配置信息，並根據 CredentialProvider 類型啓用各個提供程序。
+CredentialProviderConfig 包含有關每個 exec 憑據提供程序的設定信息。
+kubelet 從磁盤上讀取這些設定信息，並根據 CredentialProvider 類型啓用各個提供程序。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -47,8 +47,8 @@ for a single image, the results are combined. If providers return overlapping
 auth keys, the value from the provider earlier in this list is attempted first.
 -->
 <code>providers</code> 是一組憑據提供程序插件，這些插件會被 kubelet 啓用。
-多個提供程序可以匹配到同一鏡像上，這時，來自所有提供程序的憑據信息都會返回給 kubelet。
-如果針對同一鏡像調用了多個提供程序，則結果會被組合起來。如果提供程序返回的認證主鍵有重複，
+多個提供程序可以匹配到同一映像檔上，這時，來自所有提供程序的憑據信息都會返回給 kubelet。
+如果針對同一映像檔調用了多個提供程序，則結果會被組合起來。如果提供程序返回的認證主鍵有重複，
 列表中先出現的提供程序所返回的值將被首先嚐試。
 </p>
 </td>
@@ -70,7 +70,7 @@ CredentialProvider represents an exec plugin to be invoked by the kubelet. The p
 invoked when an image being pulled matches the images handled by the plugin (see matchImages).
 -->
 CredentialProvider 代表的是要被 kubelet 調用的一個 exec 插件。
-這一插件只會在所拉取的鏡像與該插件所處理的鏡像匹配時纔會被調用（參見 <code>matchImages</code>）。
+這一插件只會在所拉取的映像檔與該插件所處理的映像檔匹配時纔會被調用（參見 <code>matchImages</code>）。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -106,9 +106,9 @@ requested image from the kubelet, the plugin will be invoked and given a chance
 to provide credentials. Images are expected to contain the registry domain
 and URL path.
 -->
-<code>matchImages</code> 是一個必須設置的字符串列表，用來匹配鏡像以便確定是否要調用此提供程序。
-如果字符串之一與 kubelet 所請求的鏡像匹配，則此插件會被調用並給予提供憑據的機會。
-鏡像應該包含鏡像庫域名和 URL 路徑。
+<code>matchImages</code> 是一個必須設置的字符串列表，用來匹配映像檔以便確定是否要調用此提供程序。
+如果字符串之一與 kubelet 所請求的映像檔匹配，則此插件會被調用並給予提供憑據的機會。
+映像檔應該包含映像檔庫域名和 URL 路徑。
 </p>
 
 <p>
@@ -129,7 +129,7 @@ a single subdomain segment, so &ast;.io does not match &ast;.k8s.io.
 <!--
 A match exists between an image and a matchImage when all of the below are true:
 -->
-鏡像與 <code>matchImages</code> 之間存在匹配時，以下條件都要滿足：
+映像檔與 <code>matchImages</code> 之間存在匹配時，以下條件都要滿足：
 </p>
 <ul>
   <!--
@@ -138,8 +138,8 @@ A match exists between an image and a matchImage when all of the below are true:
   <li>If the imageMatch contains a port, then the port must match in the image as well.</li>
   -->
   <li>二者均包含相同個數的域名部分，並且每個域名部分都對應匹配；</li>
-  <li><code>matchImages</code> 條目中的 URL 路徑部分必須是目標鏡像的 URL 路徑的前綴；</li>
-  <li>如果 <code>matchImages</code> 條目中包含端口號，則端口號也必須與鏡像端口號匹配。</li>
+  <li><code>matchImages</code> 條目中的 URL 路徑部分必須是目標映像檔的 URL 路徑的前綴；</li>
+  <li>如果 <code>matchImages</code> 條目中包含端口號，則端口號也必須與映像檔端口號匹配。</li>
 </ul>
 <p>
 <!--
@@ -227,9 +227,9 @@ When this field is set, kubelet will generate a service account token bound to t
 image is being pulled and pass to the plugin as part of CredentialProviderRequest along with other
 attributes required by the plugin.
 -->
-<code>tokenAttributes</code> 是將傳遞給插件的服務賬號令牌的配置。
-憑據提供程序通過設置此字段選擇使用服務賬號令牌進行鏡像拉取。
-當設置了此字段後，kubelet 將爲正在拉取鏡像的 Pod 生成一個綁定到此 Pod 的服務賬號令牌，
+<code>tokenAttributes</code> 是將傳遞給插件的服務賬號令牌的設定。
+憑據提供程序通過設置此字段選擇使用服務賬號令牌進行映像檔拉取。
+當設置了此字段後，kubelet 將爲正在拉取映像檔的 Pod 生成一個綁定到此 Pod 的服務賬號令牌，
 並將其作爲 <code>CredentialProviderRequest</code> 的一部分傳遞給插件，同時傳遞插件所需的其他屬性。
 </p>
 <p>
@@ -253,10 +253,10 @@ credentials are not shared across pods (even if they are using the same service 
 和 <code>serviceAccountTokenAttribute.optionalServiceAccountAnnotationKeys</code>
 中定義的註解鍵及其對應的值）組合生成。
 服務賬號令牌中的 Pod 元數據（命名空間、名稱、UID）不會作爲 kubelet 緩存憑據的維度。
-這意味着，使用相同服務賬號的工作負載可能會共用相同的憑據進行鏡像拉取。
+這意味着，使用相同服務賬號的工作負載可能會共用相同的憑據進行映像檔拉取。
 對於不希望出現此行爲的插件，或者以直通模式運行的插件（即直接返回服務賬號令牌而不做處理），可以將
 <code>credentialProviderResponse.cacheDuration</code> 設置爲 0。這一設置將禁用 kubelet 中憑據的緩存機制，
-每次鏡像拉取時都會調用插件。雖然這樣設置會導致每次鏡像拉取時都要重新生成令牌，因而帶來額外開銷，
+每次映像檔拉取時都會調用插件。雖然這樣設置會導致每次映像檔拉取時都要重新生成令牌，因而帶來額外開銷，
 但這是確保憑據不會在使用相同服務賬號的多個 Pod 之間共享的唯一方式。
 </p>
 </td>
@@ -313,7 +313,7 @@ ExecEnvVar 用來在執行基於 exec 的憑據插件時設置環境變量。
 <!--
 ServiceAccountTokenAttributes is the configuration for the service account token that will be passed to the plugin.
 -->
-<code>ServiceAccountTokenAttributes</code> 是將被傳遞給插件的服務賬號令牌的配置。
+<code>ServiceAccountTokenAttributes</code> 是將被傳遞給插件的服務賬號令牌的設定。
 </p>
 
 <table class="table">
@@ -373,7 +373,7 @@ are used to pull images for pods without service accounts (e.g., static pods).
 如果設置爲 true，kubelet 僅在 Pod 擁有服務賬號時纔會調用插件。
 如果設置爲 false，即使 Pod 沒有服務賬號，kubelet 也會調用插件，
 並且不會在 <code>CredentialProviderRequest</code> 中包含令牌。
-這對於用於拉取沒有服務賬號的 Pod（例如靜態 Pod）鏡像的插件非常有用。
+這對於用於拉取沒有服務賬號的 Pod（例如靜態 Pod）映像檔的插件非常有用。
 </p>
 </td>
 </tr>
@@ -399,7 +399,7 @@ This list needs to be mutually exclusive with optionalServiceAccountAnnotationKe
 在此列表中定義的鍵將從相應的服務帳號中提取，並作爲 <code>CredentialProviderRequest</code> 的一部分傳遞給插件。
 如果此列表中定義的任何一個鍵不存在於服務賬號中，kubelet 將不會調用插件並返回錯誤。
 此字段是可選的，可以爲空。插件可以使用此字段提取獲取憑據所需的額外信息，
-或允許工作負載選擇使用服務帳號令牌進行鏡像拉取。
+或允許工作負載選擇使用服務帳號令牌進行映像檔拉取。
 如果非空，則 <code>requireServiceAccount</code> 必須設置爲 true。
 鍵必須在此列表中唯一。
 此列表需要與 <code>optionalServiceAccountAnnotationKeys</code> 互斥。

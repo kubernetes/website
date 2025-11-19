@@ -35,7 +35,7 @@ It's worth noting that while whole disks are block devices, so are disk partitio
 
 通常，持久性性存儲是在通過在塊設備（例如磁盤或 SSD）之上構造文件系統（例如 ext4）的分層方式實現的。這樣應用程序就可以讀寫文件而不是操作數據塊進。操作系統負責使用指定的文件系統將文件讀寫轉換爲對底層設備的數據塊讀寫。
 
-值得注意的是，整個磁盤都是塊設備，磁盤分區也是如此，存儲區域網絡（SAN）設備中的 LUN 也是一樣的。
+值得注意的是，整個磁盤都是塊設備，磁盤分區也是如此，存儲區域網路（SAN）設備中的 LUN 也是一樣的。
 
 <!--
 ## Why add raw block volumes to kubernetes?
@@ -182,7 +182,7 @@ Also, while Kubernetes is guaranteed to deliver a block device to the container,
 --->
 默認情況下，Linux 不允許容器將 SCSI 命令從容器內部發送到磁盤。爲此，必須向容器安全層級認證 `SYS_RAWIO` 功能實現這種行爲。請參閱 [這篇](/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container) 文檔。
 
-另外，儘管 Kubernetes 保證可以將塊設備交付到容器中，但不能保證它實際上是 SCSI 磁盤或任何其他類型的磁盤。用戶必須確保所需的磁盤類型與 Pod 一起使用，或只部署可以處理各種塊設備類型的應用程序。
+另外，儘管 Kubernetes 保證可以將塊設備交付到容器中，但不能保證它實際上是 SCSI 磁盤或任何其他類型的磁盤。使用者必須確保所需的磁盤類型與 Pod 一起使用，或只部署可以處理各種塊設備類型的應用程序。
 
 <!--
 ## How can I learn more?

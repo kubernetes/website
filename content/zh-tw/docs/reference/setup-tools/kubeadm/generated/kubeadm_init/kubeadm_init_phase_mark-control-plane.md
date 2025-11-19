@@ -54,7 +54,7 @@ kubeadm init phase mark-control-plane --node-name myNode
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>

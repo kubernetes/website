@@ -1,6 +1,6 @@
 ---
 title: "zsh 自動補全"
-description: "zsh 自動補全的一些可選配置"
+description: "zsh 自動補全的一些可選設定"
 headless: true
 _build:
   list: never

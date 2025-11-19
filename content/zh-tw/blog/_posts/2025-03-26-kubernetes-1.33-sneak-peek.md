@@ -82,7 +82,7 @@ The [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) API ha
 
 [EndpointSlices](/zh-cn/docs/concepts/services-networking/endpoint-slices/) API
 自 v1.21 起已穩定，實際上取代了原有的 Endpoints API。雖然原有的 Endpoints API 簡單直接，
-但在擴展到大量網絡端點時也帶來了一些挑戰。EndpointSlices API 引入了諸如雙棧網絡等新特性，
+但在擴展到大量網路端點時也帶來了一些挑戰。EndpointSlices API 引入了諸如雙棧網路等新特性，
 使得原有的 Endpoints API 已準備好被棄用。
 
 <!--
@@ -90,8 +90,8 @@ This deprecation only impacts those who use the Endpoints API directly from work
 
 You can find more in [KEP-4974: Deprecate v1.Endpoints](https://kep.k8s.io/4974).
 -->
-此棄用僅影響那些直接在工作負載或腳本中使用 Endpoints API 的用戶；
-這些用戶應遷移到使用 EndpointSlices。未來幾周內將發佈一篇專門的博客文章，
+此棄用僅影響那些直接在工作負載或腳本中使用 Endpoints API 的使用者；
+這些使用者應遷移到使用 EndpointSlices。未來幾周內將發佈一篇專門的博客文章，
 詳細介紹棄用的影響和遷移計劃。
 
 你可以在 [KEP-4974: Deprecate v1.Endpoints](https://kep.k8s.io/4974)
@@ -117,7 +117,7 @@ You can find more in [KEP-4004: Deprecate status.nodeInfo.kubeProxyVersion field
 你可以在 [KEP-4004: Deprecate status.nodeInfo.kubeProxyVersion field](https://kep.k8s.io/4004)
 中找到更多信息。
 
-### 移除對 Windows Pod 的主機網絡支持
+### 移除對 Windows Pod 的主機網路支持
 
 <!--
 Windows Pod networking aimed to achieve feature parity with Linux and provide better cluster density by allowing containers to use the Node’s networking namespace.
@@ -125,8 +125,8 @@ The original implementation landed as alpha with v1.26, but as it faced unexpect
 and alternative solutions were available, the Kubernetes project has decided to withdraw the associated
 KEP. We're expecting to see support fully removed in v1.33.
 -->
-Windows Pod 網絡旨在通過允許容器使用節點的網絡命名空間來實現與 Linux 的特性對等，
-並提供更高的集羣密度。最初的實現作爲 Alpha 版本在 v1.26 中引入，但由於遇到了未預期的
+Windows Pod 網路旨在通過允許容器使用節點的網路命名空間來實現與 Linux 的特性對等，
+並提供更高的叢集密度。最初的實現作爲 Alpha 版本在 v1.26 中引入，但由於遇到了未預期的
 containerd 行爲，且存在替代方案，Kubernetes 項目決定撤回相關的 KEP。
 我們預計在 v1.33 中完全移除對該特性的支持。
 
@@ -149,10 +149,10 @@ As authors of this article, we picked one improvement as the most significant ch
 
 One of the oldest open KEPs today is [KEP-127](https://kep.k8s.io/127), Pod security improvement by using Linux [User namespaces](/docs/concepts/workloads/pods/user-namespaces/) for Pods. This KEP was first opened in late 2016, and after multiple iterations, had its alpha release in v1.25, initial beta in v1.30 (where it was disabled by default), and now is set to be a part of v1.33, where the feature is available by default.
 -->
-### Linux Pods 中用戶命名空間的支持
+### Linux Pods 中使用者命名空間的支持
 
 當前最古老的開放 KEP 之一是 [KEP-127](https://kep.k8s.io/127)，
-通過使用 Linux [用戶命名空間](/zh-cn/docs/concepts/workloads/pods/user-namespaces/)爲
+通過使用 Linux [使用者命名空間](/zh-cn/docs/concepts/workloads/pods/user-namespaces/)爲
 Pod 提供安全性改進。該 KEP 最初在 2016 年末提出，經過多次迭代，在 v1.25 中發佈了 Alpha 版本，
 在 v1.30 中首次進入 Beta 階段（在此版本中默認禁用），現在它將成爲 v1.33 的一部分，
 默認情況下即可使用該特性。
@@ -196,7 +196,7 @@ But what if you could dynamically update the resource configuration for your exi
 
 The [KEP-1287](https://kep.k8s.io/1287) is precisely to allow such in-place Pod updates. It opens up various possibilities of vertical scale-up for stateful processes without any downtime, seamless scale-down when the traffic is low, and even allocating larger resources during startup that is eventually reduced once the initial setup is complete. This was released as alpha in v1.27, and is expected to land as beta in v1.33.
 -->
-但是如果可以在不重啓的情況下動態更新現有 Pod 的資源配置，那會怎樣呢？
+但是如果可以在不重啓的情況下動態更新現有 Pod 的資源設定，那會怎樣呢？
 
 [KEP-1287](https://kep.k8s.io/1287) 正是爲了實現這種就地 Pod 更新而設計的。
 它爲無狀態進程的垂直擴縮開闢了多種可能性，例如在不停機的情況下進行擴容、
@@ -222,8 +222,8 @@ The `devices` field in ResourceClaim `status`, originally introduced in the v1.3
 <!--
 For example, reporting the interface name, MAC address, and IP addresses of network interfaces in the status of a ResourceClaim can significantly help in configuring and managing network services, as well as in debugging network related issues. You can read more about ResourceClaim Device Status in [Dynamic Resource Allocation: ResourceClaim Device Status](/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status) document.
 -->
-例如，在 ResourceClaim 的狀態中報告網絡接口的接口名稱、MAC 地址和 IP 地址，
-可以顯著幫助配置和管理網絡服務，並且在調試網絡相關問題時也非常有用。
+例如，在 ResourceClaim 的狀態中報告網路接口的接口名稱、MAC 地址和 IP 地址，
+可以顯著幫助設定和管理網路服務，並且在調試網路相關問題時也非常有用。
 你可以在[動態資源分配：ResourceClaim 設備狀態](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation/#resourceclaim-device-status)
 文檔中閱讀關於 ResourceClaim 設備狀態的更多信息。
 

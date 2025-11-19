@@ -20,7 +20,7 @@ This page explains how to configure your DNS
 {{< glossary_tooltip text="Pod(s)" term_id="pod" >}} and customize the
 DNS resolution process in your cluster.
 -->
-本頁說明如何配置 DNS {{< glossary_tooltip text="Pod" term_id="pod" >}}，以及定製集羣中 DNS 解析過程。
+本頁說明如何設定 DNS {{< glossary_tooltip text="Pod" term_id="pod" >}}，以及定製叢集中 DNS 解析過程。
 
 ## {{% heading "prerequisites" %}}
 
@@ -29,7 +29,7 @@ DNS resolution process in your cluster.
 <!-- 
 Your cluster must be running the CoreDNS add-on.
 -->
-你的集羣必須運行 CoreDNS 插件。
+你的叢集必須運行 CoreDNS 插件。
 
 {{% version-check %}}
 
@@ -44,7 +44,7 @@ using the _addon manager_ [cluster add-on](https://github.com/kubernetes/kuberne
 ## 介紹   {#introduction}
 
 DNS 是使用 **插件管理器**
-[集羣插件](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)自動啓動的 Kubernetes 內置服務。
+[叢集插件](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)自動啓動的 Kubernetes 內置服務。
 
 {{< note >}}
 <!--
@@ -55,7 +55,7 @@ Using a Service named `kube-dns` abstracts away the implementation detail of
 which DNS provider is running behind that common name.
 -->
 CoreDNS 服務在其 `metadata.name` 字段被命名爲 `kube-dns`。
-這是爲了能夠與依靠傳統 `kube-dns` 服務名稱來解析集羣內部地址的工作負載具有更好的互操作性。
+這是爲了能夠與依靠傳統 `kube-dns` 服務名稱來解析叢集內部地址的工作負載具有更好的互操作性。
 使用 `kube-dns` 作爲服務名稱可以抽離共有名稱之後運行的是哪個 DNS 提供程序這一實現細節。
 {{< /note >}}
 
@@ -74,14 +74,14 @@ DNS names also need domains. You configure the local domain in the kubelet
 with the flag `--cluster-domain=<default-local-domain>`.
 -->
 DNS 名稱也需要域名。你可在 kubelet 中使用 `--cluster-domain=<默認本地域名>`
-標誌配置本地域名。
+標誌設定本地域名。
 
 <!-- 
 The DNS server supports forward lookups (A and AAAA records), port lookups (SRV records),
 reverse IP address lookups (PTR records), and more. For more information, see
 [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/).
 -->
-DNS 服務器支持正向查找（A 和 AAAA 記錄）、端口發現（SRV 記錄）、反向 IP 地址發現（PTR 記錄）等。
+DNS 伺服器支持正向查找（A 和 AAAA 記錄）、端口發現（SRV 記錄）、反向 IP 地址發現（PTR 記錄）等。
 更多信息，請參見 [Service 與 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
 <!-- 
@@ -90,7 +90,7 @@ configuration from the node that the Pod runs on. The Pod's DNS resolution
 should behave the same as the node.
 But see [Known issues](/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues).
 -->
-如果 Pod 的 `dnsPolicy` 設置爲 `default`，則它將從 Pod 運行所在節點繼承名稱解析配置。
+如果 Pod 的 `dnsPolicy` 設置爲 `default`，則它將從 Pod 運行所在節點繼承名稱解析設定。
 Pod 的 DNS 解析行爲應該與節點相同。
 但請參閱[已知問題](/zh-cn/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues)。
 
@@ -100,9 +100,9 @@ use the kubelet's `--resolv-conf` flag.  Set this flag to "" to prevent Pods fro
 inheriting DNS. Set it to a valid file path to specify a file other than
 `/etc/resolv.conf` for DNS inheritance.
 -->
-如果你不想這樣做，或者想要爲 Pod 使用其他 DNS 配置，則可以使用 kubelet 的
+如果你不想這樣做，或者想要爲 Pod 使用其他 DNS 設定，則可以使用 kubelet 的
 `--resolv-conf` 標誌。將此標誌設置爲 "" 可以避免 Pod 繼承 DNS。
-將其設置爲有別於 `/etc/resolv.conf` 的有效文件路徑可以設定 DNS 繼承不同的配置。
+將其設置爲有別於 `/etc/resolv.conf` 的有效文件路徑可以設定 DNS 繼承不同的設定。
 
 ## CoreDNS
 
@@ -110,7 +110,7 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS,
 complying with the [DNS specifications](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 -->
-CoreDNS 是通用的權威 DNS 服務器，可以用作集羣 DNS，符合
+CoreDNS 是通用的權威 DNS 伺服器，可以用作叢集 DNS，符合
 [DNS 規範](https://github.com/kubernetes/dns/blob/master/docs/specification.md)。
 
 <!-- 
@@ -124,16 +124,16 @@ change how DNS service discovery behaves for that cluster.
 -->
 ### CoreDNS ConfigMap 選項  {#coredns-configmap-options}
 
-CoreDNS 是模塊化且可插拔的 DNS 服務器，每個插件都爲 CoreDNS 添加了新功能。
-可以通過維護 [Corefile](https://coredns.io/2017/07/23/corefile-explained/)，即 CoreDNS 配置文件，
-來配置 CoreDNS 服務器。作爲一個集羣管理員，你可以修改 CoreDNS Corefile 的
+CoreDNS 是模塊化且可插拔的 DNS 伺服器，每個插件都爲 CoreDNS 添加了新功能。
+可以通過維護 [Corefile](https://coredns.io/2017/07/23/corefile-explained/)，即 CoreDNS 設定文件，
+來設定 CoreDNS 伺服器。作爲一個叢集管理員，你可以修改 CoreDNS Corefile 的
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}，
-以更改 DNS 服務發現針對該集羣的工作方式。
+以更改 DNS 服務發現針對該叢集的工作方式。
 
 <!-- 
 In Kubernetes, CoreDNS is installed with the following default Corefile configuration:
 -->
-在 Kubernetes 中，CoreDNS 安裝時使用如下默認 Corefile 配置：
+在 Kubernetes 中，CoreDNS 安裝時使用如下默認 Corefile 設定：
 
 ```yaml
 apiVersion: v1
@@ -166,7 +166,7 @@ data:
 <!-- 
 The Corefile configuration includes the following [plugins](https://coredns.io/plugins/) of CoreDNS:
 -->
-Corefile 配置包括以下 CoreDNS [插件](https://coredns.io/plugins/)：
+Corefile 設定包括以下 CoreDNS [插件](https://coredns.io/plugins/)：
 
 <!-- 
 * [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
@@ -220,11 +220,11 @@ Corefile 配置包括以下 CoreDNS [插件](https://coredns.io/plugins/)：
 -->
 * [prometheus](https://coredns.io/plugins/prometheus/)：CoreDNS 的度量指標值以
   [Prometheus](https://prometheus.io/) 格式（也稱爲 OpenMetrics）在 `http://localhost:9153/metrics` 上提供。
-* [forward](https://coredns.io/plugins/forward/): 不在 Kubernetes 集羣域內的任何查詢都將轉發到預定義的解析器 (/etc/resolv.conf)。
+* [forward](https://coredns.io/plugins/forward/): 不在 Kubernetes 叢集域內的任何查詢都將轉發到預定義的解析器 (/etc/resolv.conf)。
 * [cache](https://coredns.io/plugins/cache/)：啓用前端緩存。
 * [loop](https://coredns.io/plugins/loop/)：檢測簡單的轉發環，如果發現死循環，則中止 CoreDNS 進程。
 * [reload](https://coredns.io/plugins/reload)：允許自動重新加載已更改的 Corefile。
-  編輯 ConfigMap 配置後，請等待兩分鐘，以使更改生效。
+  編輯 ConfigMap 設定後，請等待兩分鐘，以使更改生效。
 * [loadbalance](https://coredns.io/plugins/loadbalance)：這是一個輪轉式 DNS 負載均衡器，
   它在應答中隨機分配 A、AAAA 和 MX 記錄的順序。
 
@@ -239,9 +239,9 @@ You can modify the default CoreDNS behavior by modifying the ConfigMap.
 CoreDNS has the ability to configure stub-domains and upstream nameservers
 using the [forward plugin](https://coredns.io/plugins/forward/).
 -->
-### 使用 CoreDNS 配置存根域和上游域名服務器   {#configuration-of-stub-domain-and-upstream-nameserver-using-coredns}
+### 使用 CoreDNS 設定存根域和上游域名伺服器   {#configuration-of-stub-domain-and-upstream-nameserver-using-coredns}
 
-CoreDNS 能夠使用 [forward 插件](https://coredns.io/plugins/forward/)配置存根域和上游域名服務器。
+CoreDNS 能夠使用 [forward 插件](https://coredns.io/plugins/forward/)設定存根域和上游域名伺服器。
 
 <!-- 
 #### Example
@@ -252,9 +252,9 @@ the cluster administrator creates the following stanza in the CoreDNS ConfigMap.
 -->
 #### 示例
 
-如果集羣操作員在 "10.150.0.1" 處運行了 [Consul](https://www.consul.io/) 域服務器，
-且所有 Consul 名稱都帶有後綴 `.consul.local`。要在 CoreDNS 中對其進行配置，
-集羣管理員可以在 CoreDNS 的 ConfigMap 中創建加入以下字段。
+如果叢集操作員在 "10.150.0.1" 處運行了 [Consul](https://www.consul.io/) 域伺服器，
+且所有 Consul 名稱都帶有後綴 `.consul.local`。要在 CoreDNS 中對其進行設定，
+叢集管理員可以在 CoreDNS 的 ConfigMap 中創建加入以下字段。
 
 ```
 consul.local:53 {
@@ -268,8 +268,8 @@ consul.local:53 {
 To explicitly force all non-cluster DNS lookups to go through a specific nameserver at 172.16.0.1,
 point the `forward` to the nameserver instead of `/etc/resolv.conf` 
 -->
-要顯式強制所有非集羣 DNS 查找通過特定的域名服務器（位於 172.16.0.1），可將 `forward`
-指向該域名服務器，而不是 `/etc/resolv.conf`。
+要顯式強制所有非叢集 DNS 查找通過特定的域名伺服器（位於 172.16.0.1），可將 `forward`
+指向該域名伺服器，而不是 `/etc/resolv.conf`。
 
 ```
 forward .  172.16.0.1
@@ -278,7 +278,7 @@ forward .  172.16.0.1
 <!-- 
 The final ConfigMap along with the default `Corefile` configuration looks like:
 -->
-最終的包含默認的 `Corefile` 配置的 ConfigMap 如下所示：
+最終的包含默認的 `Corefile` 設定的 ConfigMap 如下所示：
 
 ```yaml
 apiVersion: v1
@@ -314,8 +314,8 @@ data:
 CoreDNS does not support FQDNs for stub-domains and nameservers (eg: "ns.foo.com").
 During translation, all FQDN nameservers will be omitted from the CoreDNS config.
 -->
-CoreDNS 不支持 FQDN 作爲存根域和域名服務器（例如 "ns.foo.com"）。
-轉換期間，CoreDNS 配置中將忽略所有的 FQDN 域名服務器。
+CoreDNS 不支持 FQDN 作爲存根域和域名伺服器（例如 "ns.foo.com"）。
+轉換期間，CoreDNS 設定中將忽略所有的 FQDN 域名伺服器。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}

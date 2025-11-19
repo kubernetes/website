@@ -99,7 +99,7 @@ use more CPU than the specified limit within a given time slice.
 -->
 當 kubelet 將容器作爲 Pod 的一部分啓動時，kubelet 會將容器的 CPU 和內存請求和限制傳遞給容器運行時。
 容器運行時將 CPU 請求和 CPU 限制設置到容器上。如果系統有空閒的 CPU 時間，
-就保證爲容器分配它們請求的 CPU 數量。容器使用的 CPU 數量不能超過配置的限制，
+就保證爲容器分配它們請求的 CPU 數量。容器使用的 CPU 數量不能超過設定的限制，
 即，如果容器在給定時間片內使用的 CPU 數量超過指定的限制，則容器的 CPU 使用率將受到限制。
 
 <!--
@@ -110,12 +110,12 @@ If a container uses more memory than the configured limit, the Linux Out Of Mem
 -->
 在內存 QoS 特性出現之前，容器運行時僅使用內存限制並忽略內存的 `request`
 （請求值從前到現在一直被用於影響[調度](/zh-cn/docs/concepts/scheduling-eviction/#scheduling)）。
-如果容器使用的內存超過所配置的限制，則會調用 Linux 內存不足（OOM）殺手機制。
+如果容器使用的內存超過所設定的限制，則會調用 Linux 內存不足（OOM）殺手機制。
 
 <!--
 Let's compare how the container runtime on Linux typically configures memory request and limit in cgroups, with and without Memory QoS feature:
 -->
-讓我們比較一下在有和沒有內存 QoS 特性時，Linux 上的容器運行時通常如何在 cgroup 中配置內存請求和限制：
+讓我們比較一下在有和沒有內存 QoS 特性時，Linux 上的容器運行時通常如何在 cgroup 中設定內存請求和限制：
 
 <!--
 * **Memory request**
@@ -187,7 +187,7 @@ Let's compare how the container runtime on Linux typically configures memory req
   to set memory usage throttle limit. If the `memory.high` limit is breached,
   the offending cgroups are throttled, and the kernel tries to reclaim memory which may avoid an OOM kill.
   -->
-  cgroups v2 中還添加了 `memory.high` 配置。MemoryQoS 機制使用 `memory.high` 來設置內存用量抑制上限。
+  cgroups v2 中還添加了 `memory.high` 設定。MemoryQoS 機制使用 `memory.high` 來設置內存用量抑制上限。
   如果超出了 `memory.high` 限制，則違規的 cgroup 會受到抑制，並且內核會嘗試回收內存，這可能會避免 OOM 終止。
 
 <!--
@@ -224,7 +224,7 @@ configured resource limit. If a process in a container tries to consume more
 than the specified limit, kernel terminates a process(es) with an out of memory Out of Memory (OOM) error.
 -->
 `memory.max` 映射到 Pod 規約中指定的 `limits.memory`。
-kubelet 和容器運行時在對應的 cgroup 中配置限制值。內核強制執行限制機制以防止容器用量超過所配置的資源限制。
+kubelet 和容器運行時在對應的 cgroup 中設定限制值。內核強制執行限制機制以防止容器用量超過所設定的資源限制。
 如果容器中的進程嘗試消耗的資源超過所設置的限制值，內核將終止進程並報告內存不足（OOM）錯誤。
 
 <!--
@@ -295,10 +295,10 @@ KubeletConfiguration 中將提供一個新字段 `memoryThrottlingFactor`。默�
         <i>It is mapped to the container's memory limit specified in Pod manifest.</i>
         </td> -->
         <td><code>memory.max</code> 指定允許容器使用的最大內存限制。
-        如果容器內的進程嘗試使用的內存量超過所配置的限制值，內核將終止該進程並顯示內存不足（OOM）錯誤。
+        如果容器內的進程嘗試使用的內存量超過所設定的限制值，內核將終止該進程並顯示內存不足（OOM）錯誤。
         <br>
         <br>
-        <i>此配置映射到 Pod 清單中指定的容器內存限制。</i>
+        <i>此設定映射到 Pod 清單中指定的容器內存限制。</i>
         </td>
     </tr>
     <tr>
@@ -315,7 +315,7 @@ KubeletConfiguration 中將提供一個新字段 `memoryThrottlingFactor`。默�
         即系統永遠不應回收的內存。如果沒有可用的未受保護的可回收內存，則會調用 OOM 終止程序。
         <br>
         <br>
-        <i>此配置映射到 Pod 清單中指定的容器的內存請求。</i>
+        <i>此設定映射到 Pod 清單中指定的容器的內存請求。</i>
         </td>
    </tr>
    <tr>
@@ -417,7 +417,7 @@ to opt out of MemoryQoS on a per-pod basis to ensure there is no early memory th
 Therefore, in Kubernetes v1.27 Memory QOS also supports memory.high to be set as per
 Quality of Service(QoS) for Pod classes. Following are the different cases for memory.high as per QOS classes:
 -->
-根據用戶對 Kubernetes v1.22 中 Alpha 特性的反饋，一些用戶希望在 Pod 層面選擇不啓用 MemoryQoS，
+根據使用者對 Kubernetes v1.22 中 Alpha 特性的反饋，一些使用者希望在 Pod 層面選擇不啓用 MemoryQoS，
 以確保不會出現早期內存抑制現象。因此，在 Kubernetes v1.27 中 MemoryQoS 還支持根據
 服務質量（QoS）對 Pod 類設置 memory.high。以下是按 QoS 類設置 memory.high 的幾種情況：
 
@@ -507,7 +507,7 @@ The prerequisites for enabling Memory QoS feature on your Linux node are:
 Memory QoS remains an alpha feature for Kubernetes v1.27. You can enable the feature by setting `MemoryQoS=true` in the kubelet configuration file:
 -->
 MemoryQoS 在 Kubernetes v1.27 中仍然是 Alpha 特性。
-你可以通過在 kubelet 配置文件中設置 `MemoryQoS=true` 來啓用該特性：
+你可以通過在 kubelet 設定文件中設置 `MemoryQoS=true` 來啓用該特性：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1

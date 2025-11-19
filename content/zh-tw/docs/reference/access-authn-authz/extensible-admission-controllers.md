@@ -23,8 +23,8 @@ admission plugins can be developed as extensions and run as webhooks configured 
 This page describes how to build, configure, use, and monitor admission webhooks.
 -->
 除了[內置的 admission 插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)，
-准入插件可以作爲擴展獨立開發，並以運行時所配置的 Webhook 的形式運行。
-此頁面描述瞭如何構建、配置、使用和監視准入 Webhook。
+准入插件可以作爲擴展獨立開發，並以運行時所設定的 Webhook 的形式運行。
+此頁面描述瞭如何構建、設定、使用和監視准入 Webhook。
 
 <!-- body -->
 
@@ -46,13 +46,13 @@ Mutating admission webhooks are invoked first, and can modify objects sent to th
 即[驗證性質的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 和[變更性質的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
 變更性質的准入 Webhook 會先被調用。它們可以修改發送到 API
-服務器的對象以執行自定義的設置默認值操作。
+伺服器的對象以執行自定義的設置默認值操作。
 
 <!--
 After all object modifications are complete, and after the incoming object is validated by the API server,
 validating admission webhooks are invoked and can reject requests to enforce custom policies.
 -->
-在完成了所有對象修改並且 API 服務器也驗證了所傳入的對象之後，
+在完成了所有對象修改並且 API 伺服器也驗證了所傳入的對象之後，
 驗證性質的 Webhook 會被調用，並通過拒絕請求的方式來強制實施自定義的策略。
 
 {{< note >}}
@@ -75,9 +75,9 @@ In the following, we describe how to quickly experiment with admission webhooks.
 -->
 ## 嘗試准入 Webhook {#experimenting-with-admission-webhooks}
 
-准入 Webhook 本質上是集羣控制平面的一部分。你應該非常謹慎地編寫和部署它們。
+准入 Webhook 本質上是叢集控制平面的一部分。你應該非常謹慎地編寫和部署它們。
 如果你打算編寫或者部署生產級准入 Webhook，
-請閱讀[用戶指南](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以獲取相關說明。
+請閱讀[使用者指南](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以獲取相關說明。
 在下文中，我們將介紹如何快速試驗准入 Webhook。
 
 <!--
@@ -101,7 +101,7 @@ In the following, we describe how to quickly experiment with admission webhooks.
 <!--
 ### Write an admission webhook server
 -->
-### 編寫一個准入 Webhook 服務器 {#write-an-admission-webhook-server}
+### 編寫一個准入 Webhook 伺服器 {#write-an-admission-webhook-server}
 
 <!--
 Please refer to the implementation of the [admission webhook server](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
@@ -110,8 +110,8 @@ that is validated in a Kubernetes e2e test. The webhook handles the
 as an `AdmissionReview` object in the same version it received.
 -->
 請參閱 Kubernetes e2e 測試中的
-[Admission Webhook 服務器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)的實現。
-Webhook 處理由 API 服務器發送的 `AdmissionReview` 請求，並且將其決定作爲
+[Admission Webhook 伺服器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)的實現。
+Webhook 處理由 API 伺服器發送的 `AdmissionReview` 請求，並且將其決定作爲
 `AdmissionReview` 對象以相同版本發送回去。
 
 <!--
@@ -132,11 +132,11 @@ authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
 how to [authenticate API servers](#authenticate-apiservers).
 -->
-示例准入 Webhook 服務器置 `ClientAuth`
+示例准入 Webhook 伺服器置 `ClientAuth`
 字段爲[空](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39)，
-默認爲 `NoClientCert` 。這意味着 Webhook 服務器不會驗證客戶端的身份，認爲其是 API 服務器。
+默認爲 `NoClientCert` 。這意味着 Webhook 伺服器不會驗證客戶端的身份，認爲其是 API 伺服器。
 如果你需要雙向 TLS 或其他方式來驗證客戶端，
-請參閱如何[對 API 服務器進行身份認證](#authenticate-apiservers)。
+請參閱如何[對 API 伺服器進行身份認證](#authenticate-apiservers)。
 
 <!--
 ### Deploy the admission webhook service
@@ -150,23 +150,23 @@ The test also creates a [service](/docs/reference/generated/kubernetes-api/{{< p
 as the front-end of the webhook server. See
 [code](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748).
 -->
-e2e 測試中的 Webhook 服務器通過
+e2e 測試中的 Webhook 伺服器通過
 [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps)
-部署在 Kubernetes 集羣中。該測試還將創建一個
+部署在 Kubernetes 叢集中。該測試還將創建一個
 [Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
-作爲 Webhook 服務器的前端。
+作爲 Webhook 伺服器的前端。
 參見[相關代碼](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748)。
 
 <!--
 You may also deploy your webhooks outside of the cluster. You will need to update
 your webhook configurations accordingly.
 -->
-你也可以在集羣外部署 Webhook。這樣做需要相應地更新你的 Webhook 配置。
+你也可以在叢集外部署 Webhook。這樣做需要相應地更新你的 Webhook 設定。
 
 <!--
 ### Configure admission webhooks on the fly
 -->
-### 即時配置准入 Webhook {#configure-admission-webhooks-on-the-fly}
+### 即時設定准入 Webhook {#configure-admission-webhooks-on-the-fly}
 
 <!--
 You can dynamically configure what resources are subject to what admission
@@ -178,14 +178,14 @@ or
 你可以通過
 [ValidatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhookconfiguration-v1-admissionregistration-k8s-io)
 或者
-[MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io) 動態配置哪些資源要被哪些准入 Webhook 處理。
+[MutatingWebhookConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#mutatingwebhookconfiguration-v1-admissionregistration-k8s-io) 動態設定哪些資源要被哪些准入 Webhook 處理。
 
 <!--
 The following is an example `ValidatingWebhookConfiguration`, a mutating webhook configuration is similar.
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 -->
-以下是一個 `ValidatingWebhookConfiguration` 示例，Mutating Webhook 配置與此類似。
-有關每個配置字段的詳細信息，請參閱 [Webhook 配置](#webhook-configuration)部分。
+以下是一個 `ValidatingWebhookConfiguration` 示例，Mutating Webhook 設定與此類似。
+有關每個設定字段的詳細信息，請參閱 [Webhook 設定](#webhook-configuration)部分。
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -216,14 +216,14 @@ You must replace the `<CA_BUNDLE>` in the above example by a valid CA bundle
 which is a PEM-encoded (field value is Base64 encoded) CA bundle for validating the webhook's server certificate.
 -->
 你必須在以上示例中將 `<CA_BUNDLE>` 替換爲一個有效的 CA 證書包，
-這是一個用 PEM 編碼的（字段值是 Base64 編碼）CA 證書包，用於校驗 Webhook 的服務器證書。
+這是一個用 PEM 編碼的（字段值是 Base64 編碼）CA 證書包，用於校驗 Webhook 的伺服器證書。
 {{< /note >}}
 
 <!--
 The `scope` field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
 resources ("Namespaced") will match this rule. "&lowast;" means that there are no scope restrictions.
 -->
-`scope` 字段指定是僅集羣範圍的資源（Cluster）還是名字空間範圍的資源資源（Namespaced）將與此規則匹配。
+`scope` 字段指定是僅叢集範圍的資源（Cluster）還是名字空間範圍的資源資源（Namespaced）將與此規則匹配。
 `*` 表示沒有範圍限制。
 
 {{< note >}}
@@ -231,7 +231,7 @@ resources ("Namespaced") will match this rule. "&lowast;" means that there are n
 When using `clientConfig.service`, the server cert must be valid for
 `<svc_name>.<svc_namespace>.svc`.
 -->
-當使用 `clientConfig.service` 時，服務器證書必須對 `<svc_name>.<svc_namespace>.svc` 有效。
+當使用 `clientConfig.service` 時，伺服器證書必須對 `<svc_name>.<svc_namespace>.svc` 有效。
 {{< /note >}}
 
 {{< note >}}
@@ -253,23 +253,23 @@ API server sends an `admissionReview` request to webhook as specified in the
 After you create the webhook configuration, the system will take a few seconds
 to honor the new configuration.
 -->
-當一個 API 服務器收到與 `rules` 相匹配的請求時，
-該 API 服務器將按照 `clientConfig` 中指定的方式向 Webhook 發送一個 `admissionReview` 請求。
+當一個 API 伺服器收到與 `rules` 相匹配的請求時，
+該 API 伺服器將按照 `clientConfig` 中指定的方式向 Webhook 發送一個 `admissionReview` 請求。
 
-創建 Webhook 配置後，系統將花費幾秒鐘使新配置生效。
+創建 Webhook 設定後，系統將花費幾秒鐘使新設定生效。
 
 <!--
 ### Authenticate API servers   {#authenticate-apiservers}
 -->
-### 對 API 服務器進行身份認證 {#authenticate-apiservers}
+### 對 API 伺服器進行身份認證 {#authenticate-apiservers}
 
 <!--
 If your admission webhooks require authentication, you can configure the
 API servers to use basic auth, bearer token, or a cert to authenticate itself to
 the webhooks. There are three steps to complete the configuration.
 -->
-如果你的 Webhook 需要身份驗證，則可以將 API 服務器配置爲使用基本身份驗證、持有者令牌或證書來向
-Webhook 提供身份證明。完成此配置需要三個步驟。
+如果你的 Webhook 需要身份驗證，則可以將 API 伺服器設定爲使用基本身份驗證、持有者令牌或證書來向
+Webhook 提供身份證明。完成此設定需要三個步驟。
 
 <!--
 * When starting the API server, specify the location of the admission control
@@ -281,11 +281,11 @@ Webhook 提供身份證明。完成此配置需要三個步驟。
   (yes, the same schema that's used by kubectl), so the field name is
   `kubeConfigFile`. Here is an example admission control configuration file:
 -->
-* 啓動 API 服務器時，通過 `--admission-control-config-file` 參數指定準入控制配置文件的位置。
+* 啓動 API 伺服器時，通過 `--admission-control-config-file` 參數指定準入控制設定文件的位置。
 
-* 在准入控制配置文件中，指定 MutatingAdmissionWebhook 控制器和 ValidatingAdmissionWebhook 控制器應該讀取憑據的位置。
+* 在准入控制設定文件中，指定 MutatingAdmissionWebhook 控制器和 ValidatingAdmissionWebhook 控制器應該讀取憑據的位置。
   憑證存儲在 kubeConfig 文件中（是​​的，與 kubectl 使用的模式相同），因此字段名稱爲 `kubeConfigFile`。
-  以下是一個准入控制配置文件示例：
+  以下是一個准入控制設定文件示例：
 
 {{< tabs name="admissionconfiguration_example1" >}}
 {{% tab name="apiserver.config.k8s.io/v1" %}}
@@ -357,7 +357,7 @@ In the kubeConfig file, provide the credentials:
 -->
 有關 `AdmissionConfiguration` 的更多信息，請參見
 [AdmissionConfiguration (v1) reference](/zh-cn/docs/reference/config-api/apiserver-webhookadmission.v1/)。
-有關每個配置字段的詳細信息，請參見 [Webhook 配置](#webhook-配置)部分。
+有關每個設定字段的詳細信息，請參見 [Webhook 設定](#webhook-設定)部分。
 
 在 kubeConfig 文件中，提供證書憑據：
 
@@ -413,7 +413,7 @@ apiVersion: v1
 kind: Config
 users:
 # name 應設置爲服務的 DNS 名稱或配置了 Webhook 的 URL 的主機名（包括端口）。
-# 如果將非 443 端口用於服務，則在配置 1.16+ API 服務器時，該端口必須包含在名稱中。
+# 如果將非 443 端口用於服務，則在配置 1.16+ API 伺服器時，該端口必須包含在名稱中。
 #
 # 對於配置在默認端口（443）上與服務對話的 Webhook，請指定服務的 DNS 名稱：
 # - name: webhook1.ns1.svc
@@ -422,7 +422,7 @@ users:
 # 對於配置在非默認端口（例如 8443）上與服務對話的 Webhook，請在 1.16+ 中指定服務的 DNS 名稱和端口：
 # - name: webhook1.ns1.svc:8443
 #   user: ...
-# 並可以選擇僅使用服務的 DNS 名稱來創建第二節，以與 1.15 API 服務器版本兼容：
+# 並可以選擇僅使用服務的 DNS 名稱來創建第二節，以與 1.15 API 伺服器版本兼容：
 # - name: webhook1.ns1.svc
 #   user: ...
 #
@@ -457,7 +457,7 @@ users:
 <!--
 Of course you need to set up the webhook server to handle these authentication requests.
 -->
-當然，你需要設置 Webhook 服務器來處理這些身份驗證請求。
+當然，你需要設置 Webhook 伺服器來處理這些身份驗證請求。
 
 <!--
 ## Webhook request and response
@@ -479,7 +479,7 @@ with the `admissionReviewVersions` field in their configuration:
 Webhook 發送 POST 請求時，請設置 `Content-Type: application/json` 並對 `admission.k8s.io` API
 組中的 `AdmissionReview` 對象進行序列化，將所得到的 JSON 作爲請求的主體。
 
-Webhook 可以在配置中的 `admissionReviewVersions` 字段指定可接受的 `AdmissionReview` 對象版本：
+Webhook 可以在設定中的 `admissionReviewVersions` 字段指定可接受的 `AdmissionReview` 對象版本：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -494,8 +494,8 @@ webhooks:
 Webhooks are required to support at least one `AdmissionReview`
 version understood by the current and previous API server.
 -->
-創建 Webhook 配置時，`admissionReviewVersions` 是必填字段。
-Webhook 必須支持至少一個當前和以前的 API 服務器都可以解析的 `AdmissionReview` 版本。
+創建 Webhook 設定時，`admissionReviewVersions` 是必填字段。
+Webhook 必須支持至少一個當前和以前的 API 伺服器都可以解析的 `AdmissionReview` 版本。
 
 <!--
 API servers send the first `AdmissionReview` version in the `admissionReviewVersions` list they support.
@@ -506,10 +506,10 @@ versions the API server knows how to send, attempts to call to the webhook will 
 This example shows the data contained in an `AdmissionReview` object
 for a request to update the `scale` subresource of an `apps/v1` `Deployment`:
 -->
-API 服務器將發送的是 `admissionReviewVersions` 列表中所支持的第一個 `AdmissionReview` 版本。
-如果 API 服務器不支持列表中的任何版本，則不允許創建配置。
+API 伺服器將發送的是 `admissionReviewVersions` 列表中所支持的第一個 `AdmissionReview` 版本。
+如果 API 伺服器不支持列表中的任何版本，則不允許創建設定。
 
-如果 API 服務器遇到以前創建的 Webhook 配置，並且不支持該 API 服務器知道如何發送的任何
+如果 API 伺服器遇到以前創建的 Webhook 設定，並且不支持該 API 伺服器知道如何發送的任何
 `AdmissionReview` 版本，則調用 Webhook 的嘗試將失敗，並依據[失敗策略](#failure-policy)進行處理。
 
 此示例顯示了 `AdmissionReview` 對象中包含的數據，該數據用於請求更新 `apps/v1` `Deployment` 的 `scale` 子資源：
@@ -646,8 +646,8 @@ API 服務器將發送的是 `admissionReviewVersions` 列表中所支持的第�
     # subResource（如果請求是針對 subResource 的）
     "subResource": "scale",
 
-    # 在對 API 服務器的原始請求中，傳入對象的標準 group/version/kind
-    # 僅當 Webhook 指定 `matchPolicy: Equivalent` 且將對 API 服務器的原始請求
+    # 在對 API 伺服器的原始請求中，傳入對象的標準 group/version/kind
+    # 僅當 Webhook 指定 `matchPolicy: Equivalent` 且將對 API 伺服器的原始請求
     # 轉換爲 Webhook 註冊的版本時，這一字段的取值纔會與 `kind` 不同。
     "requestKind": {
       "group": "autoscaling",
@@ -655,7 +655,7 @@ API 服務器將發送的是 `admissionReviewVersions` 列表中所支持的第�
       "kind": "Scale"
     },
 
-    # 在原始請求中向 API 服務器修改的資源的標準 group/version/kind
+    # 在原始請求中向 API 伺服器修改的資源的標準 group/version/kind
     # 如果 Webhook 指定了 `matchPolicy: Equivalent`，且原始請求被轉換爲
     # Webhook 註冊的版本，則此值與 `resource` 不同。
     "requestResource": {
@@ -666,7 +666,7 @@ API 服務器將發送的是 `admissionReviewVersions` 列表中所支持的第�
 
     # subResource（如果請求是針對 subResource 的）
     # 僅當 Webhook 指定了 `matchPolicy：Equivalent` 並且將對
-    # API 服務器的原始請求轉換爲該 Webhook 註冊的版本時，此值才與 `subResource` 不同。
+    # API 伺服器的原始請求轉換爲該 Webhook 註冊的版本時，此值才與 `subResource` 不同。
     "requestSubResource": "scale",
 
     # 被修改資源的名稱
@@ -679,20 +679,20 @@ API 服務器將發送的是 `admissionReviewVersions` 列表中所支持的第�
     "operation": "UPDATE",
 
     "userInfo": {
-      # 向 API 服務器發出請求的經過身份驗證的用戶的用戶名
+      # 向 API 伺服器發出請求的經過身份驗證的用戶的用戶名
       "username": "admin",
 
-      # 向 API 服務器發出請求的經過身份驗證的用戶的 UID
+      # 向 API 伺服器發出請求的經過身份驗證的用戶的 UID
       "uid": "014fbff9a07c",
 
-      # 向 API 服務器發出請求的經過身份驗證的用戶的組成員身份
+      # 向 API 伺服器發出請求的經過身份驗證的用戶的組成員身份
       "groups": [
         "system:authenticated",
         "my-admin-group"
       ],
 
-      # 向 API 服務器發出請求的用戶相關的任意附加信息
-      # 該字段由 API 服務器身份驗證層填充，並且如果 webhook 執行了任何
+      # 向 API 伺服器發出請求的用戶相關的任意附加信息
+      # 該字段由 API 伺服器身份驗證層填充，並且如果 webhook 執行了任何
       # SubjectAccessReview 檢查，則應將其包括在內。
       "extra": {
         "some-key": [
@@ -792,10 +792,10 @@ See the [API documentation](/docs/reference/generated/kubernetes-api/{{< param "
 for details about the `status` type.
 Example of a response to forbid a request, customizing the HTTP status code and message presented to the user:
 -->
-當拒絕請求時，Webhook 可以使用 `status` 字段自定義 http 響應碼和返回給用戶的消息。
+當拒絕請求時，Webhook 可以使用 `status` 字段自定義 http 響應碼和返回給使用者的消息。
 有關狀態類型的詳細信息，請參見
 [API 文檔](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#status-v1-meta)。
-禁止請求的響應示例，它定製了向用戶顯示的 HTTP 狀態碼和消息：
+禁止請求的響應示例，它定製了向使用者顯示的 HTTP 狀態碼和消息：
 
 ```json
 {
@@ -880,7 +880,7 @@ If you're implementing a webhook that returns a warning:
 Individual warning messages over 256 characters may be truncated by the API server before being returned to clients.
 If more than 4096 characters of warning messages are added (from all sources), additional warning messages are ignored.
 -->
-超過 256 個字符的單條警告消息在返回給客戶之前可能會被 API 服務器截斷。
+超過 256 個字符的單條警告消息在返回給客戶之前可能會被 API 伺服器截斷。
 如果超過 4096 個字符的警告消息（來自所有來源），則額外的警告消息會被忽略。
 {{< /caution >}}
 
@@ -902,7 +902,7 @@ If more than 4096 characters of warning messages are added (from all sources), a
 <!--
 ## Webhook configuration
 -->
-## Webhook 配置   {#webhook-configuration}
+## Webhook 設定   {#webhook-configuration}
 
 <!--
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
@@ -920,9 +920,9 @@ Each webhook defines the following things.
 `MutatingWebhookConfiguration` 或`ValidatingWebhookConfiguration` 對象的名稱必須是有效的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
-每種配置可以包含一個或多個 Webhook。如果在單個配置中指定了多個
+每種設定可以包含一個或多個 Webhook。如果在單個設定中指定了多個
 Webhook，則應爲每個 Webhook 賦予一個唯一的名稱。
-這是必需的，以使生成的審計日誌和指標更易於與激活的配置相匹配。
+這是必需的，以使生成的審計日誌和指標更易於與激活的設定相匹配。
 
 每個 Webhook 定義以下內容。
 
@@ -971,7 +971,7 @@ Each rule specifies one or more operations, apiGroups, apiVersions, and resource
 * `scope` 指定要匹配的範圍。有效值爲 `"Cluster"`、`"Namespaced"` 和 `"*"`。
   子資源匹配其父資源的範圍。默認值爲 `"*"`。
 
-  * `"Cluster"` 表示只有集羣作用域的資源才能匹配此規則（API 對象 Namespace 是集羣作用域的）。
+  * `"Cluster"` 表示只有叢集作用域的資源才能匹配此規則（API 對象 Namespace 是叢集作用域的）。
   * `"Namespaced"` 意味着僅具有名字空間的資源才符合此規則。
   * `"*"` 表示沒有作用域限制。
 
@@ -1070,7 +1070,7 @@ is not considered to match.
 Use the object selector only if the webhook is opt-in, because end users may skip
 the admission webhook by setting the labels.
 -->
-僅當選擇使用 Webhook 時才使用對象選擇器，因爲最終用戶可以通過設置標籤來
+僅當選擇使用 Webhook 時才使用對象選擇器，因爲最終使用者可以通過設置標籤來
 跳過准入 Webhook。
 
 <!--
@@ -1121,7 +1121,7 @@ If the object is a cluster scoped resource other than a Namespace, `namespaceSel
 -->
 `namespaceSelector` 根據名字空間的標籤是否匹配選擇算符，決定是否針對具名字空間的資源
 （或 Namespace 對象）的請求運行 Webhook。
-如果對象是除 Namespace 以外的集羣範圍的資源，則 `namespaceSelector` 標籤無效。
+如果對象是除 Namespace 以外的叢集範圍的資源，則 `namespaceSelector` 標籤無效。
 
 <!--
 This example shows a mutating webhook that matches a `CREATE` of any namespaced resource inside a namespace
@@ -1188,7 +1188,7 @@ for more examples of label selectors.
 <!--
 API servers can make objects available via multiple API groups or versions.
 -->
-API 服務器可以通過多個 API 組或版本來提供對象。
+API 伺服器可以通過多個 API 組或版本來提供對象。
 
 <!--
 For example, if a webhook only specified a rule for some API groups/versions
@@ -1232,7 +1232,7 @@ In the example given above, the webhook that only registered for `apps/v1` could
 Specifying `Equivalent` is recommended, and ensures that webhooks continue to intercept the
 resources they expect when upgrades enable new versions of the resource in the API server.
 -->
-建議指定 `Equivalent`，確保升級後啓用 API 服務器中資源的新版本時，
+建議指定 `Equivalent`，確保升級後啓用 API 伺服器中資源的新版本時，
 Webhook 繼續攔截他們期望的資源。
 
 <!--
@@ -1244,7 +1244,7 @@ Since that removal, a webhook with a `apiGroups:["extensions"], apiVersions:["v1
 does not intercept deployments created via `apps/v1` APIs. For that reason, webhooks should prefer registering
 for stable versions of resources.
 -->
-當 API 服務器停止提供某資源時，該資源不再被視爲等同於該資源的其他仍在提供服務的版本。
+當 API 伺服器停止提供某資源時，該資源不再被視爲等同於該資源的其他仍在提供服務的版本。
 例如，`extensions/v1beta1` 中的 Deployment 已被廢棄，計劃在 v1.16 中移除。
 
 移除後，帶有 `apiGroups:["extensions"], apiVersions:["v1beta1"], resources: ["deployments"]`
@@ -1435,10 +1435,10 @@ Match conditions have access to the following CEL variables:
   該對象版本可能根據 [matchPolicy](#matching-requests-matchpolicy) 進行轉換。
 - `oldObject` - 現有對象。對於 CREATE 請求，該值爲 null。
 - `request` - [AdmissionReview](#request) 的請求部分，不包括 object 和 oldObject。
-- `authorizer` - 一個 CEL 鑑權組件。可用於對請求的主體（經過身份認證的用戶）執行鑑權檢查。
+- `authorizer` - 一個 CEL 鑑權組件。可用於對請求的主體（經過身份認證的使用者）執行鑑權檢查。
   更多詳細信息，請參閱 Kubernetes CEL 庫文檔中的
   [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
-- `authorizer.requestResource` - 對配置的請求資源（組、資源、（子資源）、名字空間、名稱）進行授權檢查的快捷方式。
+- `authorizer.requestResource` - 對設定的請求資源（組、資源、（子資源）、名字空間、名稱）進行授權檢查的快捷方式。
 
 <!--
 For more information on CEL expressions, refer to the
@@ -1459,7 +1459,7 @@ the request is determined as follows:
     - for [`failurePolicy: Fail`](#failure-policy), reject the request (without calling the webhook).
     - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the webhook.
 -->
-1. 如果**任何一個**匹配條件求值結果爲 `false`（不管其他錯誤），API 服務器將跳過 Webhook。
+1. 如果**任何一個**匹配條件求值結果爲 `false`（不管其他錯誤），API 伺服器將跳過 Webhook。
 2. 否則：
    - 對於 [`failurePolicy: Fail`](#failure-policy)，拒絕請求（不調用 Webhook）。
    - 對於 [`failurePolicy: Ignore`](#failure-policy)，繼續處理請求但跳過 Webhook。
@@ -1477,8 +1477,8 @@ stanza of the webhook configuration.
 Webhooks can either be called via a URL or a service reference,
 and can optionally include a custom CA bundle to use to verify the TLS connection.
 -->
-API 服務器確定請求應發送到 Webhook 後，它需要知道如何調用 Webhook。
-此信息在 Webhook 配置的 `clientConfig` 節中指定。
+API 伺服器確定請求應發送到 Webhook 後，它需要知道如何調用 Webhook。
+此信息在 Webhook 設定的 `clientConfig` 節中指定。
 
 Webhook 可以通過 URL 或服務引用來調用，並且可以選擇包含自定義 CA 包，以用於驗證 TLS 連接。
 
@@ -1497,9 +1497,9 @@ The host might be resolved via external DNS in some API servers
 (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would
 be a layering violation). `host` may also be an IP address.
 -->
-`host` 不應引用集羣中運行的服務；通過指定 `service` 字段來使用服務引用。
-主機可以通過某些 API 服務器中的外部 DNS 進行解析。
-（例如，`kube-apiserver` 無法解析集羣內 DNS，因爲這將違反分層規則）。`host` 也可以是 IP 地址。
+`host` 不應引用叢集中運行的服務；通過指定 `service` 字段來使用服務引用。
+主機可以通過某些 API 伺服器中的外部 DNS 進行解析。
+（例如，`kube-apiserver` 無法解析叢集內 DNS，因爲這將違反分層規則）。`host` 也可以是 IP 地址。
 
 <!--
 Please note that using `localhost` or `127.0.0.1` as a `host` is
@@ -1510,7 +1510,7 @@ run in a new cluster.
 -->
 請注意，將 `localhost` 或 `127.0.0.1` 用作 `host` 是有風險的，
 除非你非常小心地在所有運行 apiserver 的、可能需要對此 Webhook
-進行調用的主機上運行。這樣的安裝方式可能不具有可移植性，即很難在新集羣中啓用。
+進行調用的主機上運行。這樣的安裝方式可能不具有可移植性，即很難在新叢集中啓用。
 
 <!--
 The scheme must be "https"; the URL must begin with "https://".
@@ -1521,14 +1521,14 @@ scheme 必須爲 "https"；URL 必須以 "https://" 開頭。
 Attempting to use a user or basic auth (for example `user:password@`) is not allowed.
 Fragments (`#...`) and query parameters (`?...`) are also not allowed.
 -->
-使用用戶或基本身份驗證（例如：`user:password@`）是不允許的。
+使用使用者或基本身份驗證（例如：`user:password@`）是不允許的。
 使用片段（`#...`）和查詢參數（`?...`）也是不允許的。
 
 <!--
 Here is an example of a mutating webhook configured to call a URL
 (and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
 -->
-這是配置爲調用 URL 的變更性質的 Webhook 的示例
+這是設定爲調用 URL 的變更性質的 Webhook 的示例
 （並且期望使用系統信任根證書來驗證 TLS 證書，因此不指定 caBundle）：
 
 ```yaml
@@ -1552,7 +1552,7 @@ The service namespace and name are required. The port is optional and defaults t
 The path is optional and defaults to "/".
 -->
 `clientConfig` 內部的 Service 是對該 Webhook 服務的引用。
-如果 Webhook 在集羣中運行，則應使用 `service` 而不是 `url`。
+如果 Webhook 在叢集中運行，則應使用 `service` 而不是 `url`。
 服務的 `namespace` 和 `name` 是必需的。
 `port` 是可選的，默認值爲 443。`path` 是可選的，默認爲 "/"。
 
@@ -1561,7 +1561,7 @@ Here is an example of a mutating webhook configured to call a service on port "1
 at the subpath "/my-path", and to verify the TLS connection against the ServerName
 `my-service-name.my-service-namespace.svc` using a custom CA bundle:
 -->
-這是一個 mutating Webhook 的示例，該 mutating Webhook 配置爲在子路徑 "/my-path" 端口
+這是一個 mutating Webhook 的示例，該 mutating Webhook 設定爲在子路徑 "/my-path" 端口
 "1234" 上調用服務，並使用自定義 CA 包針對 ServerName
 `my-service-name.my-service-namespace.svc` 驗證 TLS 連接：
 
@@ -1585,7 +1585,7 @@ You must replace the `<CA_BUNDLE>` in the above example by a valid CA bundle
 which is a PEM-encoded CA bundle for validating the webhook's server certificate.
 -->
 你必須在以上示例中將 `<CA_BUNDLE>` 替換爲一個有效的 VA 證書包，
-這是一個用 PEM 編碼的 CA 證書包，用於校驗 Webhook 的服務器證書。
+這是一個用 PEM 編碼的 CA 證書包，用於校驗 Webhook 的伺服器證書。
 {{< /note >}}
 
 <!--
@@ -1612,7 +1612,7 @@ or the server could power off before persisting the object.
 該機制定期確定事物的實際狀態，並調整由准入 Webhook 修改的帶外數據以反映現實情況。
 這是因爲對準入 Webhook 的調用不能保證所准入的對象將原樣保留，或根本不保留。
 以後，Webhook 可以修改對象的內容，在寫入存儲時可能會發生衝突，
-或者服務器可以在持久保存對象之前關閉電源。
+或者伺服器可以在持久保存對象之前關閉電源。
 
 <!--
 Additionally, webhooks with side effects must skip those side-effects when `dryRun: true` admission requests are handled.
@@ -1631,7 +1631,7 @@ Webhooks indicate whether they have side effects using the `sideEffects` field i
   `dryRun: true` is sent to the webhook, the webhook will suppress the side effects (the webhook
   is `dryRun`-aware).
 -->
-Webhook 使用 Webhook 配置中的 `sideEffects` 字段顯示它們是否有副作用：
+Webhook 使用 Webhook 設定中的 `sideEffects` 字段顯示它們是否有副作用：
 
 * `None`：調用 Webhook 沒有副作用。
 * `NoneOnDryRun`：調用 Webhook 可能會有副作用，但是如果將帶有 `dryRun: true`
@@ -1661,7 +1661,7 @@ Because webhooks add to API request latency, they should evaluate as quickly as 
 before treating the call as a failure.
 -->
 由於 Webhook 會增加 API 請求的延遲，因此應儘快完成自身的操作。
-`timeoutSeconds` 用來配置在將調用視爲失敗之前，允許 API 服務器等待 Webhook 響應的時間長度。
+`timeoutSeconds` 用來設定在將調用視爲失敗之前，允許 API 伺服器等待 Webhook 響應的時間長度。
 
 <!--
 If the timeout expires before the webhook responds, the webhook call will be ignored or
@@ -1772,7 +1772,7 @@ in an object could already exist in the user-provided object, but it is essentia
 變更性質的 Webhook 必須具有[冪等性](#idempotence)，
 並且能夠成功處理已被接納並可能被修改的對象的變更性質的 Webhook。
 對於所有變更性質的准入 Webhook 都是如此，
-因爲它們可以在對象中進行的任何更改可能已經存在於用戶提供的對象中，但是對於選擇重新調用的 Webhook
+因爲它們可以在對象中進行的任何更改可能已經存在於使用者提供的對象中，但是對於選擇重新調用的 Webhook
 來說是必不可少的。
 
 <!--
@@ -1794,7 +1794,7 @@ Here is a mutating webhook configured to reject an API request if errors are enc
 * `Ignore` 表示調用 Webhook 的錯誤將被忽略並且允許 API 請求繼續。
 * `Fail` 表示調用 Webhook 的錯誤導致准入失敗並且 API 請求被拒絕。
 
-這是一個變更性質的 Webhook，配置爲在調用准入 Webhook 遇到錯誤時拒絕 API 請求：
+這是一個變更性質的 Webhook，設定爲在調用准入 Webhook 遇到錯誤時拒絕 API 請求：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -1824,7 +1824,7 @@ monitoring mechanisms help cluster admins to answer questions like:
 
 3. Which webhooks are frequently rejecting API requests? What's the reason for a rejection?
 -->
-API 服務器提供了監視准入 Webhook 行爲的方法。這些監視機制可幫助集羣管理員回答以下問題：
+API 伺服器提供了監視准入 Webhook 行爲的方法。這些監視機制可幫助叢集管理員回答以下問題：
 
 1. 哪個變更性質的 Webhook 改變了 API 請求中的對象？
 2. 變更性質的 Webhook 對對象做了哪些更改？
@@ -1849,7 +1849,7 @@ capturing the applied patch from the webhook admission response. The annotations
 audit event for given request on given stage of its execution, which is then pre-processed
 according to a certain policy and written to a backend.
 -->
-Kubernetes API 服務器針對每個變更性質的 Webhook 調用執行[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)操作。
+Kubernetes API 伺服器針對每個變更性質的 Webhook 調用執行[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)操作。
 每個調用都會生成一個審計註解，記述請求對象是否發生改變，
 可選地還可以根據 Webhook 的准入響應生成一個註解，記述所應用的修補。
 針對給定請求的給定執行階段，註解被添加到審計事件中，
@@ -2083,7 +2083,7 @@ The audit level of a event determines which annotations get recorded:
 The API server  exposes Prometheus metrics from the `/metrics` endpoint, which can be used for monitoring and
 diagnosing API server status. The following metrics record status related to admission webhooks.
 -->
-API 服務器從 `/metrics` 端點公開 Prometheus 指標，這些指標可用於監控和診斷 API 服務器狀態。
+API 伺服器從 `/metrics` 端點公開 Prometheus 指標，這些指標可用於監控和診斷 API 伺服器狀態。
 以下指標記錄了與准入 Webhook 相關的狀態。
 
 <!--

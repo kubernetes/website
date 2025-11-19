@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/authentication/v1"
   kind: "SelfSubjectReview"
 content_type: "api_reference"
-description: "SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的用戶有關的用戶信息。"
+description: "SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的使用者有關的使用者信息。"
 title: "SelfSubjectReview"
 weight: 6
 ---
@@ -29,8 +29,8 @@ auto_generated: true
 <!--
 SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 -->
-SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的用戶有關的用戶信息。
-使用僞裝時，用戶將收到被僞裝用戶的用戶信息。
+SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的使用者有關的使用者信息。
+使用僞裝時，使用者將收到被僞裝使用者的使用者信息。
 如果使用僞裝或請求頭部進行身份驗證，則所有額外的鍵都將被忽略大小寫並以小寫形式返回結果。
 
 <hr>
@@ -52,14 +52,14 @@ SelfSubjectReview 包含 kube-apiserver 所擁有的與發出此請求的用戶�
   <!--
   Status is filled in by the server with the user attributes.
   -->
-  status 由服務器以用戶屬性進行填充。
+  status 由伺服器以使用者屬性進行填充。
 
 ## SelfSubjectReviewStatus {#SelfSubjectReviewStatus}
 
 <!--
 SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 -->
-SelfSubjectReviewStatus 由 kube-apiserver 進行填充併發送回用戶。
+SelfSubjectReviewStatus 由 kube-apiserver 進行填充併發送回使用者。
 
 <hr>
 
@@ -68,13 +68,13 @@ SelfSubjectReviewStatus 由 kube-apiserver 進行填充併發送回用戶。
   <!--
   User attributes of the user making this request.
   -->
-  發出此請求的用戶的用戶屬性。
+  發出此請求的使用者的使用者屬性。
 
   <a name="UserInfo"></a>
   <!--
   *UserInfo holds the information about the user needed to implement the user.Info interface.*
   -->
-  **userInfo 包含實現 user.Info 接口所需的用戶相關信息。**
+  **userInfo 包含實現 user.Info 接口所需的使用者相關信息。**
 
   - **userInfo.extra** (map[string][]string)
 
@@ -94,7 +94,7 @@ SelfSubjectReviewStatus 由 kube-apiserver 進行填充併發送回用戶。
     
     **原子性：合併期間將被替換**
 
-    此用戶所屬的用戶組的名稱。
+    此使用者所屬的使用者組的名稱。
 
   - **userInfo.uid** (string)
 
@@ -102,7 +102,7 @@ SelfSubjectReviewStatus 由 kube-apiserver 進行填充併發送回用戶。
     A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
     -->
 
-    跨時間標識此用戶的唯一值。如果此用戶被刪除且另一個同名用戶被添加，他們將具有不同的 UID。
+    跨時間標識此使用者的唯一值。如果此使用者被刪除且另一個同名使用者被添加，他們將具有不同的 UID。
 
   - **userInfo.username** (string)
 
@@ -110,7 +110,7 @@ SelfSubjectReviewStatus 由 kube-apiserver 進行填充併發送回用戶。
     The name that uniquely identifies this user among all active users.
     -->
 
-    在所有活躍用戶中標識此用戶的名稱。
+    在所有活躍使用者中標識此使用者的名稱。
 
 <!--
 ## Operations {#Operations}

@@ -18,9 +18,9 @@ date: 2018-10-11
 <!--
 The multi-zone cluster experience with persistent volumes is improving in Kubernetes 1.12 with the topology-aware dynamic provisioning beta feature. This feature allows Kubernetes to make intelligent decisions when dynamically provisioning volumes by getting scheduler input on the best place to provision a volume for a pod.  In multi-zone clusters, this means that volumes will get provisioned in an appropriate zone that can run your pod, allowing you to easily deploy and scale your stateful workloads across failure domains to provide high availability and fault tolerance.
 -->
-通過提供拓撲感知動態卷供應功能，具有持久卷的多區域集羣體驗在 Kubernetes 1.12
+通過提供拓撲感知動態卷供應功能，具有持久卷的多區域叢集體驗在 Kubernetes 1.12
 中得到了改進。此功能使得 Kubernetes 在動態供應卷時能做出明智的決策，方法是從調度器獲得爲
-Pod 提供數據卷的最佳位置。在多區域集羣環境，這意味着數據卷能夠在滿足你的 Pod
+Pod 提供數據卷的最佳位置。在多區域叢集環境，這意味着數據卷能夠在滿足你的 Pod
 運行需要的合適的區域被供應，從而允許你跨故障域輕鬆部署和擴展有狀態工作負載，從而提供高可用性和容錯能力。
 
 <!--
@@ -31,7 +31,7 @@ Pod 提供數據卷的最佳位置。在多區域集羣環境，這意味着數�
 <!--
 Before this feature, running stateful workloads with zonal persistent disks (such as AWS ElasticBlockStore, Azure Disk, GCE PersistentDisk) in multi-zone clusters had many challenges. Dynamic provisioning was handled independently from pod scheduling, which meant that as soon as you created a PersistentVolumeClaim (PVC), a volume would get provisioned. This meant that the provisioner had no knowledge of what pods were using the volume, and any pod constraints it had that could impact scheduling.
 -->
-在此功能被提供之前，在多區域集羣中使用區域化的持久磁盤（例如 AWS ElasticBlockStore、
+在此功能被提供之前，在多區域叢集中使用區域化的持久磁盤（例如 AWS ElasticBlockStore、
 Azure Disk、GCE PersistentDisk）運行有狀態工作負載存在許多挑戰。動態供應獨立於 Pod
 調度處理，這意味着只要你創建了一個 PersistentVolumeClaim（PVC），一個卷就會被供應。
 這也意味着供應者不知道哪些 Pod 正在使用該卷，也不清楚任何可能影響調度的 Pod 約束。
@@ -39,7 +39,7 @@ Azure Disk、GCE PersistentDisk）運行有狀態工作負載存在許多挑戰�
 <!--
 This resulted in unschedulable pods because volumes were provisioned in zones that:
 -->
-這導致了不可調度的 Pod，因爲在以下區域中配置了卷：
+這導致了不可調度的 Pod，因爲在以下區域中設定了卷：
 
 <!--
 * did not have enough CPU or memory resources to run the pod
@@ -53,7 +53,7 @@ This resulted in unschedulable pods because volumes were provisioned in zones th
 <!--
 Another common issue was that a non-StatefulSet pod using multiple persistent volumes could have each volume provisioned in a different zone, again resulting in an unschedulable pod.
 -->
-另一個常見問題是，使用多個持久卷的非有狀態 Pod 可能會在不同的區域中配置每個卷，從而導致一個不可調度的 Pod。
+另一個常見問題是，使用多個持久卷的非有狀態 Pod 可能會在不同的區域中設定每個卷，從而導致一個不可調度的 Pod。
 
 <!--
 Suboptimal workarounds included overprovisioning of nodes, or manual creation of volumes in the correct zones, making it difficult to dynamically deploy and scale stateful workloads.
@@ -96,13 +96,13 @@ While the initial set of supported plugins are all zonal-based, we designed this
 -->
 雖然最初支持的插件集都是基於區域的，但我們設計此功能時遵循 Kubernetes 跨環境可移植性的原則。
 拓撲規範是通用的，並使用類似於基於標籤的規範，如 Pod nodeSelectors 和 nodeAffinity。
-該機制允許你定義自己的拓撲邊界，例如內部部署集羣中的機架，而無需修改調度程序以瞭解這些自定義拓撲。
+該機制允許你定義自己的拓撲邊界，例如內部部署叢集中的機架，而無需修改調度程序以瞭解這些自定義拓撲。
 
 <!--
 In addition, the topology information is abstracted away from the pod specification, so a pod does not need knowledge of the underlying storage system’s topology characteristics. This means that you can use the same pod specification across multiple clusters, environments, and storage systems.
 -->
 此外，拓撲信息是從 Pod 規範中抽象出來的，因此 Pod 不需要了解底層存儲系統的拓撲特徵。
-這意味着你可以在多個集羣、環境和存儲系統中使用相同的 Pod 規範。
+這意味着你可以在多個叢集、環境和存儲系統中使用相同的 Pod 規範。
 
 <!--
 ## Getting Started
@@ -128,8 +128,8 @@ parameters:
 <!--
 This new setting instructs the volume provisioner to not create a volume immediately, and instead, wait for a pod using an associated PVC to run through scheduling. Note that previous StorageClass `zone` and `zones` parameters do not need to be specified anymore, as pod policies now drive the decision of which zone to provision a volume in.
 -->
-這個新設置表明卷配置器不立即創建卷，而是等待使用關聯的 PVC 的 Pod 通過調度運行。
-請注意，不再需要指定以前的 StorageClass `zone` 和 `zones` 參數，因爲現在在哪個區域中配置卷由 Pod 策略決定。
+這個新設置表明卷設定器不立即創建卷，而是等待使用關聯的 PVC 的 Pod 通過調度運行。
+請注意，不再需要指定以前的 StorageClass `zone` 和 `zones` 參數，因爲現在在哪個區域中設定卷由 Pod 策略決定。
 
 <!--
 Next, create a pod and PVC with this StorageClass. This sequence is the same as before, but with a different StorageClass specified in the PVC. The following is a hypothetical example, demonstrating the capabilities of the new feature by specifying many pod constraints and scheduling policies:
@@ -215,7 +215,7 @@ spec:
 <!--
 Afterwards, you can see that the volumes were provisioned in zones according to the policies set by the pod:
 -->
-之後，你可以看到根據 Pod 設置的策略在區域中配置卷：
+之後，你可以看到根據 Pod 設置的策略在區域中設定卷：
 
 ```
 $ kubectl get pv -o=jsonpath='{range .items[*]}{.spec.claimRef.name}{"\t"}{.metadata.labels.failure\-domain\.beta\.kubernetes\.io/zone}{"\n"}{end}'

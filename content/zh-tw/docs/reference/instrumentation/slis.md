@@ -58,8 +58,8 @@ available or unavailable etcd has been - as reported by its client, the API serv
 
 The prometheus gauge data looks like this:
 -->
-你可以使用此指標信息計算每個組件的可用性統計信息。例如，API 服務器檢查 etcd 的健康。
-你可以計算並報告 etcd 的可用或不可用情況，具體由其客戶端（即 API 服務器）進行報告。
+你可以使用此指標信息計算每個組件的可用性統計信息。例如，API 伺服器檢查 etcd 的健康。
+你可以計算並報告 etcd 的可用或不可用情況，具體由其客戶端（即 API 伺服器）進行報告。
 
 Prometheus 計量表數據看起來類似於：
 

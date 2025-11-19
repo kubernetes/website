@@ -30,9 +30,9 @@ control plane's API server component remains available.
 [通用表達式語言 (Common Expression Language, CEL)](https://github.com/google/cel-go)
 用於聲明 Kubernetes API 的驗證規則、策略規則和其他限制或條件。
 
-CEL 表達式在 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}中直接進行處理，
+CEL 表達式在 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}中直接進行處理，
 這使得 CEL 成爲許多可擴展性用例的便捷替代方案，而無需使用類似 Webhook 這種進程外機制。
-只要控制平面的 API 服務器組件保持可用狀態，你的 CEL 表達式就會繼續執行。
+只要控制平面的 API 伺服器組件保持可用狀態，你的 CEL 表達式就會繼續執行。
 
 <!-- body -->
 
@@ -154,7 +154,7 @@ CEL is configured with the following options, libraries and language features, i
 -->
 ## CEL 選項、語言特性和庫   {#cel-options-language-features-and-libraries}
 
-CEL 配置了以下選項、庫和語言特性，這些特性是在所列的 Kubernetes 版本中引入的：
+CEL 設定了以下選項、庫和語言特性，這些特性是在所列的 Kubernetes 版本中引入的：
 
 <table>
 <thead>
@@ -320,8 +320,8 @@ are already stored in API resources will continue to evaluate correctly.
 -->
 CEL 函數、特性和語言設置支持 Kubernetes 控制平面回滾。
 例如，__CEL 可選值（Optional Values）__ 是在 Kubernetes 1.29 引入的，因此只有該版本或更新的
-API 服務器纔會接受使用 __CEL Optional Values__ 的 CEL 表達式的寫入請求。
-但是，當集羣回滾到 Kubernetes 1.28 時，已經存儲在 API 資源中的使用了
+API 伺服器纔會接受使用 __CEL Optional Values__ 的 CEL 表達式的寫入請求。
+但是，當叢集回滾到 Kubernetes 1.28 時，已經存儲在 API 資源中的使用了
 "CEL Optional Values" 的 CEL 表達式將繼續正確評估。
 
 <!--
@@ -513,7 +513,7 @@ API resource checks are performed as follows:
 ### Kubernetes 鑑權組件庫   {#kubernetes-authorizer-library}
 
 在 API 中使用 CEL 表達式，可以使用類型爲 `Authorizer` 的變量，
-這個鑑權組件可用於對請求的主體（已認證用戶）執行鑑權檢查。
+這個鑑權組件可用於對請求的主體（已認證使用者）執行鑑權檢查。
 
 API 資源檢查的過程如下：
 
@@ -568,12 +568,12 @@ To perform an authorization check for a service account:
 <tr>
   <td><tt>authorizer.group('').resource('pods').namespace('default').check('create').allowed()</tt></td>
   <td><!-- Returns true if the principal (user or service account) is allowed create pods in the 'default' namespace. -->
-  如果主體（用戶或服務賬號）被允許在 `default` 名字空間中創建 Pod，返回 true。</td>
+  如果主體（使用者或服務賬號）被允許在 `default` 名字空間中創建 Pod，返回 true。</td>
 </tr>
 <tr>
   <td><tt>authorizer.path('/healthz').check('get').allowed()</tt></td>
   <td><!-- Checks if the principal (user or service account) is authorized to make HTTP GET requests to the /healthz API path. -->
-  檢查主體（用戶或服務賬號）是否有權限向 /healthz API 路徑發出 HTTP GET 請求。</td>
+  檢查主體（使用者或服務賬號）是否有權限向 /healthz API 路徑發出 HTTP GET 請求。</td>
 </tr>
 <tr>
   <td><tt>authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()<tt></td>
@@ -603,7 +603,7 @@ With the alpha `AuthorizeWithSelectors` feature enabled, field and label selecto
   <td>
     <!-- Returns true if the principal (user or service account) is allowed
     to list pods with the field selector <tt>spec.nodeName=mynode</tt>. -->
-    如果主體（用戶或服務賬號）被允許使用字段選擇算符 <tt>spec.nodeName=mynode<tt> 列舉 Pod，返回 true。
+    如果主體（使用者或服務賬號）被允許使用字段選擇算符 <tt>spec.nodeName=mynode<tt> 列舉 Pod，返回 true。
   </td>
 </tr>
 <tr>
@@ -611,7 +611,7 @@ With the alpha `AuthorizeWithSelectors` feature enabled, field and label selecto
   <td>
     <!-- Returns true if the principal (user or service account) is allowed
     to list pods with the label selector <tt>example.com/mylabel=myvalue</tt>. -->
-    如果主體（用戶或服務賬號）被允許使用標籤選擇算符 <tt>example.com/mylabel=myvalue<tt> 列舉 Pod，返回 true。
+    如果主體（使用者或服務賬號）被允許使用標籤選擇算符 <tt>example.com/mylabel=myvalue<tt> 列舉 Pod，返回 true。
   </td>
 </tr>
 </tbody>
@@ -1090,8 +1090,8 @@ resources.
 ## 資源約束   {#resource-constraints}
 
 CEL 不是圖靈完備的，提供了多種生產安全控制手段來限制執行時間。
-CEL 的**資源約束**特性提供了關於表達式複雜性的反饋，並幫助保護 API 服務器免受過度的資源消耗。
-CEL 的資源約束特性用於防止 CEL 評估消耗過多的 API 服務器資源。
+CEL 的**資源約束**特性提供了關於表達式複雜性的反饋，並幫助保護 API 伺服器免受過度的資源消耗。
+CEL 的資源約束特性用於防止 CEL 評估消耗過多的 API 伺服器資源。
 
 <!--
 A key element of the resource constraint features is a _cost unit_ that CEL
@@ -1168,6 +1168,6 @@ exceeding the runtime cost budget.
 -->
 ### 估算的成本限制   {#estimated-cost-limits}
 
-對於某些 Kubernetes 資源，API 服務器還可能檢查 CEL 表達式的最壞情況估計運行時間是否過於昂貴而無法執行。
-如果是，則 API 服務器會拒絕包含 CEL 表達式的創建或更新操作，以防止 CEL 表達式被寫入 API 資源。
+對於某些 Kubernetes 資源，API 伺服器還可能檢查 CEL 表達式的最壞情況估計運行時間是否過於昂貴而無法執行。
+如果是，則 API 伺服器會拒絕包含 CEL 表達式的創建或更新操作，以防止 CEL 表達式被寫入 API 資源。
 此特性提供了更強的保證，即寫入 API 資源的 CEL 表達式將在運行時進行評估，而不會超過運行時成本預算。

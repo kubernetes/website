@@ -1,10 +1,10 @@
 ---
-title: 容器網絡接口（Container network interface；CNI）
+title: 容器網路接口（Container network interface；CNI）
 id: cni
 date: 2018-05-25
 full_link: /zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/
 short_description: >
-    容器網絡接口 (Container network interface；CNI) 插件是遵循 appc/CNI 協議的一類網絡插件。
+    容器網路接口 (Container network interface；CNI) 插件是遵循 appc/CNI 協議的一類網路插件。
 
 
 aka: 
@@ -28,11 +28,11 @@ tags:
 <!--
  Container network interface (CNI) plugins are a type of Network plugin that adheres to the appc/CNI specification.
 -->
-容器網絡接口 (Container network interface；CNI) 插件是遵循 appc/CNI 協議的一類網絡插件。
+容器網路接口 (Container network interface；CNI) 插件是遵循 appc/CNI 協議的一類網路插件。
 
 <!--more-->
 
 <!--
 * For information on Kubernetes and CNI, see [**Network Plugins**](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
 -->
-* 有關 Kubernetes 和 CNI 的信息，請參考[**網絡插件**](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
+* 有關 Kubernetes 和 CNI 的信息，請參考[**網路插件**](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。

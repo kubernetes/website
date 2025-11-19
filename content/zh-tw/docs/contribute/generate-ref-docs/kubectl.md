@@ -49,7 +49,7 @@ reference page, see
 
 Create a local workspace and set your `GOPATH`:
 -->
-## 配置本地倉庫
+## 設定本地倉庫
 
 創建本地工作區並設置你的 `GOPATH`：
 
@@ -155,7 +155,7 @@ If you do not need to edit the kubectl source code, follow the instructions to
 [Setting build variables](#set-build-variables).
 -->
 如果不需要編輯 `kubectl`
-源碼，請按照說明[配置構建變量](#set-build-variables)。
+源碼，請按照說明[設定構建變量](#set-build-variables)。
 
 <!--
 ## Edit the kubectl source code
@@ -276,7 +276,7 @@ make createversiondirs
 -->
 ## 創建版本目錄
 
-構建目標 `createversiondirs` 會生成一個版本目錄並將 kubectl 參考配置文件複製到該目錄中。
+構建目標 `createversiondirs` 會生成一個版本目錄並將 kubectl 參考設定文件複製到該目錄中。
 版本目錄的名字模式爲 `v<major>_<minor>`。
 
 在 `<rdocs-base>` 目錄下，執行下面的命令：

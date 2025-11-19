@@ -27,7 +27,7 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 If you do not already have an application running in your cluster, start
   a Hello world application by entering this command:
 -->
-如果你的集羣中還沒有任何應用，使用如下命令啓動一個 Hello World 應用：
+如果你的叢集中還沒有任何應用，使用如下命令啓動一個 Hello World 應用：
 
 ```shell
 kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0 --port=8080
@@ -40,12 +40,12 @@ kubectl create deployment hello-app --image=gcr.io/google-samples/hello-app:2.0 
 <!--
 ## Using kubectl to start a proxy server
 -->
-## 使用 kubectl 啓動代理服務器
+## 使用 kubectl 啓動代理伺服器
 
 <!--
 This command starts a proxy to the Kubernetes API server:
 -->
-使用如下命令啓動 Kubernetes API 服務器的代理：
+使用如下命令啓動 Kubernetes API 伺服器的代理：
 
 ```shell
 kubectl proxy --port=8080
@@ -60,7 +60,7 @@ kubectl proxy --port=8080
 When the proxy server is running, you can explore the API using `curl`, `wget`,
 or a browser.
 -->
-當代理服務器在運行時，你可以通過 `curl`、`wget` 或者瀏覽器訪問 API。
+當代理伺服器在運行時，你可以通過 `curl`、`wget` 或者瀏覽器訪問 API。
 
 <!--
 Get the API versions:

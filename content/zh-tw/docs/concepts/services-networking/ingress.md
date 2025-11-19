@@ -7,8 +7,8 @@ api_metadata:
   kind: "IngressClass"
 content_type: concept
 description: >-
-  使用一種能感知協議配置的機制來解析 URI、主機名稱、路徑等 Web 概念，
-  讓你的 HTTP（或 HTTPS）網絡服務可被訪問。
+  使用一種能感知協議設定的機制來解析 URI、主機名稱、路徑等 Web 概念，
+  讓你的 HTTP（或 HTTPS）網路服務可被訪問。
   Ingress 概念允許你通過 Kubernetes API 定義的規則將流量映射到不同後端。
 weight: 30
 ---
@@ -67,16 +67,16 @@ For clarity, this guide defines the following terms:
   a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors.
   Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
  -->
-* 節點（Node）: Kubernetes 集羣中的一臺工作機器，是集羣的一部分。
-* 集羣（Cluster）: 一組運行容器化應用程序的 Node，這些應用由 Kubernetes 管理。
-  在此示例和在大多數常見的 Kubernetes 部署環境中，集羣中的節點都不在公共網絡中。
-* 邊緣路由器（Edge Router）: 在集羣中強制執行防火牆策略的路由器。
+* 節點（Node）: Kubernetes 叢集中的一臺工作機器，是叢集的一部分。
+* 叢集（Cluster）: 一組運行容器化應用程序的 Node，這些應用由 Kubernetes 管理。
+  在此示例和在大多數常見的 Kubernetes 部署環境中，叢集中的節點都不在公共網路中。
+* 邊緣路由器（Edge Router）: 在叢集中強制執行防火牆策略的路由器。
   可以是由雲提供商管理的網關，也可以是物理硬件。
-* 集羣網絡（Cluster Network）: 一組邏輯的或物理的連接，基於 Kubernetes
-  [網絡模型](/zh-cn/docs/concepts/cluster-administration/networking/)實現集羣內的通信。
+* 叢集網路（Cluster Network）: 一組邏輯的或物理的連接，基於 Kubernetes
+  [網路模型](/zh-cn/docs/concepts/cluster-administration/networking/)實現叢集內的通信。
 * 服務（Service）：Kubernetes {{< glossary_tooltip term_id="service" >}}，
   使用{{< glossary_tooltip text="標籤" term_id="label" >}}選擇算符（Selectors）
-  來選擇一組 Pod。除非另作說明，否則假定 Service 具有只能在集羣網絡內路由的虛擬 IP。
+  來選擇一組 Pod。除非另作說明，否則假定 Service 具有只能在叢集網路內路由的虛擬 IP。
 
 <!--
 ## What is Ingress?
@@ -89,7 +89,7 @@ Traffic routing is controlled by rules defined on the Ingress resource.
 ## Ingress 是什麼？  {#what-is-ingress}
 
 [Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1-networking-k8s-io)
-提供從集羣外部到集羣內[服務](/zh-cn/docs/concepts/services-networking/service/)的
+提供從叢集外部到叢集內[服務](/zh-cn/docs/concepts/services-networking/service/)的
 HTTP 和 HTTPS 路由。
 流量路由由 Ingress 資源所定義的規則來控制。
 
@@ -107,11 +107,11 @@ An [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
 is responsible for fulfilling the Ingress, usually with a load balancer, though
 it may also configure your edge router or additional frontends to help handle the traffic.
 -->
-通過配置，Ingress 可爲 Service 提供外部可訪問的 URL、對其流量作負載均衡、
+通過設定，Ingress 可爲 Service 提供外部可訪問的 URL、對其流量作負載均衡、
 終止 SSL/TLS，以及基於名稱的虛擬託管等能力。
 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)
 負責完成 Ingress 的工作，具體實現上通常會使用某個負載均衡器，
-不過也可以配置邊緣路由器或其他前端來幫助處理流量。
+不過也可以設定邊緣路由器或其他前端來幫助處理流量。
 
 <!-- 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
@@ -182,10 +182,10 @@ Review the documentation for your choice of Ingress controller to learn which an
 -->
 Ingress 需要指定 `apiVersion`、`kind`、 `metadata`和 `spec` 字段。
 Ingress 對象的命名必須是合法的 [DNS 子域名名稱](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-關於如何使用配置文件的一般性信息，請參見[部署應用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
-[配置容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)、
+關於如何使用設定文件的一般性信息，請參見[部署應用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
+[設定容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)、
 [管理資源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/)。
-Ingress 經常使用註解（Annotations）來配置一些選項，具體取決於 Ingress 控制器，
+Ingress 經常使用註解（Annotations）來設定一些選項，具體取決於 Ingress 控制器，
 例如 [rewrite-target 註解](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md)。
 不同的 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)支持不同的註解。
 查看你所選的 Ingress 控制器的文檔，以瞭解其所支持的註解。
@@ -197,7 +197,7 @@ contains a list of rules matched against all incoming requests. Ingress resource
 for directing HTTP(S) traffic.
 -->
 [Ingress 規約](/zh-cn/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)
-提供了配置負載均衡器或者代理服務器所需要的所有信息。
+提供了設定負載均衡器或者代理伺服器所需要的所有信息。
 最重要的是，其中包含對所有入站請求進行匹配的規則列表。
 Ingress 資源僅支持用於轉發 HTTP(S) 流量的規則。
 
@@ -215,7 +215,7 @@ default `IngressClass` as shown [below](#default-ingress-class).
 
 有些 Ingress 控制器不需要定義默認的 `IngressClass`。比如：Ingress-NGINX
 控制器可以通過[參數](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class` 來配置。
+`--watch-ingress-without-class` 來設定。
 不過仍然[推薦](https://kubernetes.github.io/ingress-nginx/user-guide/k8s-122-migration/#i-have-only-one-ingress-controller-in-my-cluster-what-should-i-do)
 按[下文](#default-ingress-class)所示來設置默認的 `IngressClass`。
 
@@ -257,7 +257,7 @@ Each HTTP rule contains the following information:
 A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
 match a path in the spec. 
 -->
-通常會在 Ingress 控制器中配置 `defaultBackend`（默認後端），
+通常會在 Ingress 控制器中設定 `defaultBackend`（默認後端），
 以便爲無法與規約中任何路徑匹配的所有請求提供服務。
 
 <!-- 
@@ -280,7 +280,7 @@ routed to your default backend.
 沒有設置規則的 Ingress 將所有流量發送到同一個默認後端，而在這種情況下
 `.spec.defaultBackend` 則是負責處理請求的那個默認後端。
 `defaultBackend` 通常是
-[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)的配置選項，
+[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)的設定選項，
 而非在 Ingress 資源中設置。
 如果未設置 `.spec.rules`，則必須設置 `.spec.defaultBackend`。
 如果未設置 `defaultBackend`，那麼如何處理與所有規則都不匹配的流量將交由
@@ -474,9 +474,9 @@ of the controller that should implement the class.
 -->
 ## Ingress 類  {#ingress-class}
 
-Ingress 可以由不同的控制器實現，通常使用不同的配置。
+Ingress 可以由不同的控制器實現，通常使用不同的設定。
 每個 Ingress 應當指定一個類，也就是一個對 IngressClass 資源的引用。
-IngressClass 資源包含額外的配置，其中包括應當實現該類的控制器名稱。
+IngressClass 資源包含額外的設定，其中包括應當實現該類的控制器名稱。
 
 {{% code_sample file="service/networking/external-lb.yaml" %}}
 
@@ -488,7 +488,7 @@ The specific type of parameters to use depends on the ingress controller
 that you specify in the `.spec.controller` field of the IngressClass.
  -->
 IngressClass 中的 `.spec.parameters` 字段可用於引用其他資源以提供與該
-IngressClass 相關的配置。
+IngressClass 相關的設定。
 
 參數（`parameters`）的具體類型取決於你在 IngressClass 的 `.spec.controller`
 字段中指定的 Ingress 控制器。
@@ -501,10 +501,10 @@ that you set cluster-wide, or just for one namespace.
 -->
 ### IngressClass 的作用域  {#ingressclass-scope}
 
-取決於你所使用的 Ingress 控制器，你可能可以使用集羣作用域的參數或某個名字空間作用域的參數。
+取決於你所使用的 Ingress 控制器，你可能可以使用叢集作用域的參數或某個名字空間作用域的參數。
 
 {{< tabs name="tabs_ingressclass_parameter_scope" >}}
-{{% tab name="集羣作用域" %}}
+{{% tab name="叢集作用域" %}}
 
 <!--
 The default scope for IngressClass parameters is cluster-wide.
@@ -519,14 +519,14 @@ resource for that API.
 
 For example:
 -->
-IngressClass 參數的默認作用域是集羣範圍。
+IngressClass 參數的默認作用域是叢集範圍。
 
 如果你設置了 `.spec.parameters` 字段且未設置 `.spec.parameters.scope`
 字段，或是將 `.spec.parameters.scope` 字段設爲了 `Cluster`，
-那麼該 IngressClass 所引用的即是一個集羣作用域的資源。
-參數的 `kind`（和 `apiGroup` 一起）指向一個集羣作用域的 API 類型
+那麼該 IngressClass 所引用的即是一個叢集作用域的資源。
+參數的 `kind`（和 `apiGroup` 一起）指向一個叢集作用域的 API 類型
 （可能是一個定製資源（Custom Resource）），而其 `name` 字段則進一步確定
-該 API 類型的一個具體的、集羣作用域的資源。
+該 API 類型的一個具體的、叢集作用域的資源。
 
 示例：
 
@@ -583,12 +583,12 @@ that is used for a workload. If you used a cluster-scoped parameter then either:
   [RBAC](/docs/reference/access-authn-authz/rbac/) roles and bindings, that let
   the application team make changes to the cluster-scoped parameters resource.
 -->
-名字空間作用域的參數幫助集羣操作者將對工作負載所需的配置數據（比如：負載均衡設置、
-API 網關定義）的控制權力委派出去。如果你使用集羣作用域的參數，那麼你將面臨以下情況之一：
+名字空間作用域的參數幫助叢集操作者將對工作負載所需的設定數據（比如：負載均衡設置、
+API 網關定義）的控制權力委派出去。如果你使用叢集作用域的參數，那麼你將面臨以下情況之一：
 
-- 每次應用一項新的配置變更時，集羣操作團隊需要批准其他團隊所作的修改。
-- 集羣操作團隊必須定義具體的准入控制規則，比如 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
-  角色與角色綁定，以使得應用程序團隊可以修改集羣作用域的配置參數資源。
+- 每次應用一項新的設定變更時，叢集操作團隊需要批准其他團隊所作的修改。
+- 叢集操作團隊必須定義具體的准入控制規則，比如 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
+  角色與角色綁定，以使得應用程序團隊可以修改叢集作用域的設定參數資源。
 
 <!--
 The IngressClass API itself is always cluster-scoped.
@@ -596,9 +596,9 @@ The IngressClass API itself is always cluster-scoped.
 Here is an example of an IngressClass that refers to parameters that are
 namespaced:
 -->
-IngressClass API 本身是集羣作用域的。
+IngressClass API 本身是叢集作用域的。
 
-這裏是一個引用名字空間作用域配置參數的 IngressClass 的示例：
+這裏是一個引用名字空間作用域設定參數的 IngressClass 的示例：
 
 ```yaml
 ---
@@ -645,7 +645,7 @@ additional Ingress configuration, including the name of the Ingress controller.
 -->
 Ingress 中新的 `ingressClassName` 字段用來替代該註解，但並非完全等價。
 註解通常用於引用實現該 Ingress 的控制器的名稱，而這個新的字段則是對一個包含額外
-Ingress 配置的 IngressClass 資源的引用，其中包括了 Ingress 控制器的名稱。
+Ingress 設定的 IngressClass 資源的引用，其中包括了 Ingress 控制器的名稱。
 
 <!-- 
 ### Default IngressClass {#default-ingress-class}
@@ -657,7 +657,7 @@ IngressClass resource will ensure that new Ingresses without an
 -->
 ### 默認 Ingress 類  {#default-ingress-class}
 
-你可以將一個特定的 IngressClass 標記爲集羣默認 Ingress 類。
+你可以將一個特定的 IngressClass 標記爲叢集默認 Ingress 類。
 將某個 IngressClass 資源的 `ingressclass.kubernetes.io/is-default-class` 註解設置爲
 `true` 將確保新的未指定 `ingressClassName` 字段的 Ingress 能夠被賦予這一默認
 IngressClass.
@@ -669,9 +669,9 @@ the admission controller prevents creating new Ingress objects that don't have
 an `ingressClassName` specified. You can resolve this by ensuring that at most 1
 IngressClass is marked as default in your cluster.
  -->
-如果集羣中有多個 IngressClass 被標記爲默認，准入控制器將阻止創建新的未指定
+如果叢集中有多個 IngressClass 被標記爲默認，准入控制器將阻止創建新的未指定
 `ingressClassName` 的 Ingress 對象。
-解決這個問題需要確保集羣中最多只能有一個 IngressClass 被標記爲默認。
+解決這個問題需要確保叢集中最多只能有一個 IngressClass 被標記爲默認。
 {{< /caution >}}
 
 <!--
@@ -683,7 +683,7 @@ default `IngressClass`:
 -->
 有一些 Ingress 控制器不需要定義默認的 `IngressClass`。比如：Ingress-NGINX
 控制器可以通過[參數](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
-`--watch-ingress-without-class` 來配置。
+`--watch-ingress-without-class` 來設定。
 不過仍然[推薦](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
 設置默認的 `IngressClass`。
 
@@ -746,7 +746,7 @@ down to a minimum. For example, a setup like:
 -->
 ### 簡單扇出  {#simple-fanout}
 
-一個扇出（Fanout）配置根據請求的 HTTP URI 將來自同一 IP 地址的流量路由到多個 Service。
+一個扇出（Fanout）設定根據請求的 HTTP URI 將來自同一 IP 地址的流量路由到多個 Service。
 Ingress 允許你將負載均衡器的數量降至最低。例如，這樣的設置：
 
 {{< figure src="/zh-cn/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="圖. Ingress 扇出" link="https://mermaid.live/edit#pako:eNqNUk1v0zAY_iuWewEpyRKnjM5FPY0DEgfEjk0PTvxmtZbGke3woW03NDjuChNCRRyQkMYFidP4NyXlX5DMjroykLg4j_x8vM6j9xhnkgOm-FCxao4ePx0nJUJZIaA0d6ary48_33xvvnyd3fUD9Kg8VKC131wum_Oz5t0r9CBVE7T-9mF9dbV6_3q9XK7efkaBPxFWOXUOD0X3R8FeFEQkDqKYzK6HOJHvT052cilPNKhnIoNoemAB6i_okIThbU_KVO8hf3oIHYUj59F1an_u18VZ8-PTjRhLuyltZiV5NH0i-ewvBLlFEEvE_yKGGwJKbmtlWu9DjqqCiRLloijogHPuaaPkEdBBnucO-88FN3M6rF54mSykooMwDMdbIUcj7SJispvBvf9KabntlKyotQHlkjZWOkjTdDuGbGLsxE1S36jXl9YD4nWldsc1irtj2D39htdumy1l69q-zH3H2MMLUAsmeLuux50uwWYOC0gwbSGHnNWFSXBSnrbSuuLMwEMujFSY5qzQ4GFWG3nwsswwNaqGXrQvWLsgC6c6_Q0zxBrK" >}}
@@ -832,7 +832,7 @@ web traffic to the IP address of your Ingress controller can be matched without 
 virtual host being required.
 -->
 如果你所創建的 Ingress 資源沒有在 `rules` 中定義主機，則規則可以匹配指向
-Ingress 控制器 IP 地址的所有網絡流量，而無需基於名稱的虛擬主機。
+Ingress 控制器 IP 地址的所有網路流量，而無需基於名稱的虛擬主機。
 
 <!-- 
 For example, the following Ingress routes traffic
@@ -864,7 +864,7 @@ and private key to use for TLS. For example:
 來保護 Ingress。
 Ingress 資源只支持一個 TLS 端口 443，並假定 TLS 連接終止於 Ingress 節點
 （與 Service 及其 Pod 間的流量都以明文傳輸）。
-如果 Ingress 中的 TLS 配置部分指定了不同主機，那麼它們將通過
+如果 Ingress 中的 TLS 設定部分指定了不同主機，那麼它們將通過
 SNI TLS 擴展指定的主機名（如果 Ingress 控制器支持 SNI）在同一端口上進行復用。
 TLS Secret 的數據中必須包含鍵名爲 `tls.crt` 的證書和鍵名爲 `tls.key` 的私鑰，
 才能用於 TLS 目的。例如：
@@ -990,7 +990,7 @@ kubectl edit ingress test
 This pops up an editor with the existing configuration in YAML format.
 Modify it to include the new Host:
 -->
-這一命令將打開編輯器，允許你以 YAML 格式編輯現有配置。
+這一命令將打開編輯器，允許你以 YAML 格式編輯現有設定。
 修改它來增加新的主機：
 
 ```yaml
@@ -1023,7 +1023,7 @@ spec:
 After you save your changes, kubectl updates the resource in the API server, which tells the
 Ingress controller to reconfigure the load balancer.
 -->
-保存更改後，kubectl 將更新 API 服務器上的資源，該資源將告訴 Ingress 控制器重新配置負載均衡器。
+保存更改後，kubectl 將更新 API 伺服器上的資源，該資源將告訴 Ingress 控制器重新設定負載均衡器。
 
 <!--
 Verify this:

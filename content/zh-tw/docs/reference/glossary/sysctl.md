@@ -48,4 +48,4 @@ uses.
 network plugins may rely on `sysctl` values being set a certain way.
 -->
 
-{{< glossary_tooltip text="容器" term_id="container" >}}運行時和網絡插件可能對 `sysctl` 的取值有一定的要求。
+{{< glossary_tooltip text="容器" term_id="container" >}}運行時和網路插件可能對 `sysctl` 的取值有一定的要求。

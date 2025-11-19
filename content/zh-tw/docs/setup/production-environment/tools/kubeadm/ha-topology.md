@@ -16,12 +16,12 @@ weight: 50
 <!--
 This page explains the two options for configuring the topology of your highly available (HA) Kubernetes clusters.
 -->
-本頁面介紹了配置高可用（HA）Kubernetes 集羣拓撲的兩個選項。
+本頁面介紹了設定高可用（HA）Kubernetes 叢集拓撲的兩個選項。
 
 <!--
 You can set up an HA cluster:
 -->
-你可以設置 HA 集羣：
+你可以設置 HA 叢集：
 
 <!--
 - With stacked control plane nodes, where etcd nodes are colocated with control plane nodes
@@ -33,7 +33,7 @@ You can set up an HA cluster:
 <!--
 You should carefully consider the advantages and disadvantages of each topology before setting up an HA cluster.
 -->
-在設置 HA 集羣之前，你應該仔細考慮每種拓撲的優缺點。
+在設置 HA 叢集之前，你應該仔細考慮每種拓撲的優缺點。
 
 {{< note >}}
 <!--
@@ -41,8 +41,8 @@ kubeadm bootstraps the etcd cluster statically. Read the etcd
 [Clustering Guide](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
 for more details.
 -->
-kubeadm 靜態引導 etcd 集羣。
-閱讀 etcd [集羣指南](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)以獲得更多詳細信息。
+kubeadm 靜態引導 etcd 叢集。
+閱讀 etcd [叢集指南](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)以獲得更多詳細信息。
 {{< /note >}}
 
 <!-- body -->
@@ -57,8 +57,8 @@ A stacked HA cluster is a [topology](https://en.wikipedia.org/wiki/Network_topol
 data storage cluster provided by etcd is stacked on top of the cluster formed by the nodes managed by
 kubeadm that run control plane components.
 -->
-堆疊（Stacked）HA 集羣是一種這樣的[拓撲](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91)，
-其中 etcd 分佈式數據存儲集羣堆疊在 kubeadm 管理的控制平面節點上，作爲控制平面的一個組件運行。
+堆疊（Stacked）HA 叢集是一種這樣的[拓撲](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91)，
+其中 etcd 分佈式數據存儲叢集堆疊在 kubeadm 管理的控制平面節點上，作爲控制平面的一個組件運行。
 
 <!--
 Each control plane node runs an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`.
@@ -79,20 +79,20 @@ and `kube-scheduler` instances.
 This topology couples the control planes and etcd members on the same nodes. It is simpler to set up than a cluster
 with external etcd nodes, and simpler to manage for replication.
 -->
-這種拓撲將控制平面和 etcd 成員耦合在同一節點上。相對使用外部 etcd 集羣，
+這種拓撲將控制平面和 etcd 成員耦合在同一節點上。相對使用外部 etcd 叢集，
 設置起來更簡單，而且更易於副本管理。
 
 <!--
 However, a stacked cluster runs the risk of failed coupling. If one node goes down, both an etcd member and a control
 plane instance are lost, and redundancy is compromised. You can mitigate this risk by adding more control plane nodes.
 -->
-然而，堆疊集羣存在耦合失敗的風險。如果一個節點發生故障，則 etcd 成員和控制平面實例都將丟失，
+然而，堆疊叢集存在耦合失敗的風險。如果一個節點發生故障，則 etcd 成員和控制平面實例都將丟失，
 並且冗餘會受到影響。你可以通過添加更多控制平面節點來降低此風險。
 
 <!--
 You should therefore run a minimum of three stacked control plane nodes for an HA cluster.
 -->
-因此，你應該爲 HA 集羣運行至少三個堆疊的控制平面節點。
+因此，你應該爲 HA 叢集運行至少三個堆疊的控制平面節點。
 
 <!--
 This is the default topology in kubeadm. A local etcd member is created automatically
@@ -116,8 +116,8 @@ An HA cluster with external etcd is a [topology](https://en.wikipedia.org/wiki/N
 where the distributed data storage cluster provided by etcd is external to the cluster formed by
 the nodes that run control plane components.
 -->
-具有外部 etcd 的 HA 集羣是一種這樣的[拓撲](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91)，
-其中 etcd 分佈式數據存儲集羣在獨立於控制平面節點的其他節點上運行。
+具有外部 etcd 的 HA 叢集是一種這樣的[拓撲](https://zh.wikipedia.org/wiki/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91)，
+其中 etcd 分佈式數據存儲叢集在獨立於控制平面節點的其他節點上運行。
 
 <!--
 Like the stacked etcd topology, each control plane node in an external etcd topology runs
@@ -137,7 +137,7 @@ losing a control plane instance or an etcd member has less impact and does not a
 the cluster redundancy as much as the stacked HA topology.
 -->
 這種拓撲結構解耦了控制平面和 etcd 成員。因此它提供了一種 HA 設置，
-其中失去控制平面實例或者 etcd 成員的影響較小，並且不會像堆疊的 HA 拓撲那樣影響集羣冗餘。
+其中失去控制平面實例或者 etcd 成員的影響較小，並且不會像堆疊的 HA 拓撲那樣影響叢集冗餘。
 
 <!--
 However, this topology requires twice the number of hosts as the stacked HA topology.
@@ -145,7 +145,7 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 required for an HA cluster with this topology.
 -->
 但此拓撲需要兩倍於堆疊 HA 拓撲的主機數量。
-具有此拓撲的 HA 集羣至少需要三個用於控制平面節點的主機和三個用於 etcd 節點的主機。
+具有此拓撲的 HA 叢集至少需要三個用於控制平面節點的主機和三個用於 etcd 節點的主機。
 
 <!--
 ![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
@@ -157,4 +157,4 @@ required for an HA cluster with this topology.
 <!--
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 -->
-- [使用 kubeadm 設置高可用集羣](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)
+- [使用 kubeadm 設置高可用叢集](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)

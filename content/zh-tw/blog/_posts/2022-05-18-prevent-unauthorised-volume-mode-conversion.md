@@ -22,8 +22,8 @@ Kubernetes v1.24 introduces a new alpha-level feature that prevents unauthorised
 from modifying the volume mode of a [`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/) created from an 
 existing [`VolumeSnapshot`](/docs/concepts/storage/volume-snapshots/) in the Kubernetes cluster.  
 -->
-Kubernetes v1.24 引入了一個新的 alpha 級特性，可以防止未經授權的用戶修改基於 Kubernetes
-集羣中已有的 [`VolumeSnapshot`](/zh-cn/docs/concepts/storage/volume-snapshots/)
+Kubernetes v1.24 引入了一個新的 alpha 級特性，可以防止未經授權的使用者修改基於 Kubernetes
+叢集中已有的 [`VolumeSnapshot`](/zh-cn/docs/concepts/storage/volume-snapshots/)
 創建的 [`PersistentVolumeClaim`](/zh-cn/docs/concepts/storage/persistent-volumes/) 的卷模式。
 
 <!--
@@ -44,8 +44,8 @@ the Kubernetes cluster. The PVC spec includes a `dataSource` field, which can po
 existing `VolumeSnapshot` instance.
 Visit [Create a PersistentVolumeClaim from a Volume Snapshot](/docs/concepts/storage/persistent-volumes/#create-persistent-volume-claim-from-volume-snapshot) for more details.
 -->
-用戶可以使用自 Kubernetes v1.20 以來就穩定的 `VolumeSnapshot` 功能，
-基於 Kubernetes 集羣中的已有的 `VolumeSnapshot` 創建一個 `PersistentVolumeClaim` (簡稱 PVC )。
+使用者可以使用自 Kubernetes v1.20 以來就穩定的 `VolumeSnapshot` 功能，
+基於 Kubernetes 叢集中的已有的 `VolumeSnapshot` 創建一個 `PersistentVolumeClaim` (簡稱 PVC )。
 PVC 規約包括一個 `dataSource` 字段，它可以指向一個已有的 `VolumeSnapshot` 實例。
 查閱[基於卷快照創建 PVC](/zh-cn/docs/concepts/storage/persistent-volumes/#create-persistent-volume-claim-from-volume-snapshot)
 獲取更多詳細信息。
@@ -60,7 +60,7 @@ original volume, whose snapshot was taken, matches the mode of the newly created
 This presents a security gap that allows malicious users to potentially exploit an 
 as-yet-unknown vulnerability in the host operating system.
 -->
-這引起了一個安全漏洞，允許惡意用戶潛在地利用主機操作系統中的未知漏洞。
+這引起了一個安全漏洞，允許惡意使用者潛在地利用主機操作系統中的未知漏洞。
 
 <!--
 Many popular storage backup vendors convert the volume mode during the course of a 
@@ -69,12 +69,12 @@ the operation completely and presents a challenge in distinguishing trusted
 users from malicious ones.
 -->
 爲了提高效率，許多流行的存儲備份供應商在備份操作過程中轉換卷模式，
-這使得 Kubernetes 無法完全阻止該操作，並在區分受信任用戶和惡意用戶方面帶來挑戰。
+這使得 Kubernetes 無法完全阻止該操作，並在區分受信任使用者和惡意使用者方面帶來挑戰。
 
 <!--
 ### Preventing unauthorised users from converting the volume mode
 -->
-### 防止未經授權的用戶轉換卷模式
+### 防止未經授權的使用者轉換卷模式
 
 <!--
 In this context, an authorised user is one who has access rights to perform `Update` 
@@ -82,8 +82,8 @@ or `Patch` operations on `VolumeSnapshotContents`, which is a cluster-level reso
 It is upto the cluster administrator to provide these rights only to trusted users
 or applications, like backup vendors.
 -->
-在這種情況下，授權用戶是指有權對 `VolumeSnapshotContents`（集羣級資源）執行 `Update`
-或 `Patch` 操作的用戶。集羣管理員只能向受信任的用戶或應用程序（如備份供應商）提供這些權限。
+在這種情況下，授權使用者是指有權對 `VolumeSnapshotContents`（叢集級資源）執行 `Update`
+或 `Patch` 操作的使用者。叢集管理員只能向受信任的使用者或應用程序（如備份供應商）提供這些權限。
 
 <!--
 If the alpha feature is [enabled](https://kubernetes-csi.github.io/docs/) in 
@@ -93,12 +93,12 @@ when it is being created from a `VolumeSnapshot`.
 -->
 如果在 `snapshot-controller`、`snapshot-validation-webhook` 和
 `external-provisioner` 中[啓用](https://kubernetes-csi.github.io/docs/)了這個 alpha
-特性，則基於 `VolumeSnapshot` 創建 PVC 時，將不允許未經授權的用戶修改其卷模式。
+特性，則基於 `VolumeSnapshot` 創建 PVC 時，將不允許未經授權的使用者修改其卷模式。
 
 <!--
 To convert the volume mode, an authorised user must do the following:
 -->
-如要轉換卷模式，授權用戶必須執行以下操作：
+如要轉換卷模式，授權使用者必須執行以下操作：
 
 <!--
 1. Identify the `VolumeSnapshot` that is to be used as the data source for a newly 
@@ -123,7 +123,7 @@ to the `VolumeSnapshotContent`.
 4.This annotation can be added either via software or manually by the authorised 
 user. The `VolumeSnapshotContent` annotation must look like following manifest fragment:
 -->
-4. 此註解可通過軟件添加或由授權用戶手動添加。`VolumeSnapshotContent` 註解必須類似於以下清單片段：
+4. 此註解可通過軟件添加或由授權使用者手動添加。`VolumeSnapshotContent` 註解必須類似於以下清單片段：
 
     ```yaml
        kind: VolumeSnapshotContent
@@ -176,7 +176,7 @@ Users should keep this in mind before they attempt to add the annotation
 to any `VolumeSnapshotContent`. 
 -->
 如果 `VolumeSnapshotContent` 對象上存在上面步驟 4 中顯示的註解，Kubernetes 將不會阻止轉換卷模式。
-用戶在嘗試將註解添加到任何 `VolumeSnapshotContent` 之前，應該記住這一點。
+使用者在嘗試將註解添加到任何 `VolumeSnapshotContent` 之前，應該記住這一點。
 
 <!--
 ### What's next
@@ -193,7 +193,7 @@ what you think!
 We hope this feature causes no disruption to existing workflows while preventing
 malicious users from exploiting security vulnerabilities in their clusters. 
 -->
-我們希望此功能不會中斷現有工作流程，同時防止惡意用戶利用集羣中的安全漏洞。
+我們希望此功能不會中斷現有工作流程，同時防止惡意使用者利用叢集中的安全漏洞。
 
 <!--
 For any issues, create a thread in the #sig-storage slack channel or an issue

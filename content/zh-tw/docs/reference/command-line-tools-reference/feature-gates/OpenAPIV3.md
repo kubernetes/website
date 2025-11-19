@@ -24,4 +24,4 @@ removed: true
 <!--
 Enables the API server to publish OpenAPI v3.
 -->
-允許 API 服務器發佈 OpenAPI V3。
+允許 API 伺服器發佈 OpenAPI V3。

@@ -66,13 +66,13 @@ A: yes -- will discover bare metal systems and install OS, install ssh keys, bui
 
     * Greg Althaus。首席技術官。Digital Rebar 是產品。裸機置備工具。
 
-    * 檢測硬件，啓動硬件，配置 RAID、操作系統並部署工作負載。
+    * 檢測硬件，啓動硬件，設定 RAID、操作系統並部署工作負載。
 
     * 處理 Kubernetes 的工作負載。
 
     * 看到始於雲，然後又回到裸機的趨勢。
 
-    * 新的提供商模型可以在雲和裸機上使用預配置系統。
+    * 新的提供商模型可以在雲和裸機上使用預設定系統。
 
     * UI, REST API, CLI
 
@@ -88,11 +88,11 @@ A: yes -- will discover bare metal systems and install OS, install ssh keys, bui
 
         * 演示帶來了另外5個節點--數據包將構建這些節點
 
-        * 從 ansible 中提取基本參數。諸如網絡配置，DNS 設置等內容。
+        * 從 ansible 中提取基本參數。諸如網路設定，DNS 設置等內容。
 
         * 角色層次結構引入了其他組件--使節點成爲主節點會帶來一系列其他必要的角色。
 
-        * 通過簡單的配置文件將所有這些組合到命令行工具中。
+        * 通過簡單的設定文件將所有這些組合到命令列工具中。
 
     * 轉發：擴展到多個雲以進行測試部署。還希望在裸機和雲之間創建拆分/複製。
 
@@ -100,7 +100,7 @@ A: yes -- will discover bare metal systems and install OS, install ssh keys, bui
 答：使用 Ansible。構建自己的證書，然後分發它們。想要將它們抽象出來並將其推入上游。
 
     * 問：您是否支持使用 PXE 引導從真正的裸機啓動？   
-答：是的--將發現裸機系統並安裝操作系統，安裝 ssh 密鑰，建立網絡等。
+答：是的--將發現裸機系統並安裝操作系統，安裝 ssh 密鑰，建立網路等。
 <!--
 * [from SIG-scalability] Q: What is the status of moving to golang 1.5?  
 A: At HEAD we are 1.5 but will support 1.4 also. Some issues with flakiness but looks like things are stable now.  
@@ -189,7 +189,7 @@ To get involved in the Kubernetes community consider joining our [Slack channel]
 
     * Bob 邀請 Rob 加入規模特別興趣小組。
 
-    * 還有一個大型的裸機集羣，通過 CNCF（來自 Intel）也很有用。尚無確切日期。
+    * 還有一個大型的裸機叢集，通過 CNCF（來自 Intel）也很有用。尚無確切日期。
 * 筆記/視頻將發佈在 k8s 博客上。（未錄製20150114的視頻。失敗。）
 
 要加入 Kubernetes 社區，請考慮加入我們的[Slack 頻道][2]，看看GitHub上的[Kubernetes 項目][3]，或加入[Kubernetes-dev Google 論壇][4]。如果您真的對此感到興奮，則可以完成上述所有操作，並加入我們的下一次社區對話-2016年1月27日。請將您自己或您想了解的話題添加到[議程][5]中，並獲得一個加入[此羣組][6]進行日曆邀請。    

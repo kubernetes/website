@@ -44,7 +44,7 @@ increasing or decreasing the number of replicas.
   [StatefulSet 概念](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
   或者 [StatefulSet 教程](/zh-cn/docs/tutorials/stateful-application/basic-stateful-set/)。
 
-- 僅當你確定你的有狀態應用的集羣是完全健康的，纔可執行擴縮操作.
+- 僅當你確定你的有狀態應用的叢集是完全健康的，纔可執行擴縮操作.
 
 <!-- steps -->
 
@@ -177,7 +177,7 @@ completely healthy.
 如果由於瞬態故障而導致 Pod 不健康並且 Pod 可能再次變爲可用，那麼瞬態錯誤可能會干擾你對
 StatefulSet 的擴容/縮容操作。一些分佈式數據庫在同時有節點加入和離開時會遇到問題。
 在這些情況下，最好是在應用級別進行分析擴縮操作的狀態，並且只有在確保
-Stateful 應用的集羣是完全健康時才執行擴縮操作。
+Stateful 應用的叢集是完全健康時才執行擴縮操作。
 
 ## {{% heading "whatsnext" %}}
 

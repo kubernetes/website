@@ -30,7 +30,7 @@ from the perspective of Pod sandbox creation and network configuration by a cont
 隨着最近發佈的 Kubernetes 1.29，`PodReadyToStartContainers`
 [狀況](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)默認可用。
 kubelet 在 Pod 的整個生命週期中管理該狀況的值，將其存儲在 Pod 的狀態字段中。
-kubelet 將通過容器運行時從 Pod 沙箱創建和網絡配置的角度使用 `PodReadyToStartContainers`
+kubelet 將通過容器運行時從 Pod 沙箱創建和網路設定的角度使用 `PodReadyToStartContainers`
 狀況準確地展示 Pod 的初始化狀態，
 
 <!--
@@ -47,12 +47,12 @@ while cluster administrators manage storage plugins, networking plugins, and con
 Therefore, there is a need for an improved mechanism to provide cluster administrators with a clear and 
 comprehensive view of Pod sandbox creation completion and container readiness.
 -->
-集羣管理員以前沒有明確且輕鬆訪問的方式來查看 Pod 沙箱創建和初始化的完成情況。
+叢集管理員以前沒有明確且輕鬆訪問的方式來查看 Pod 沙箱創建和初始化的完成情況。
 從 1.28 版本開始，Pod 中的 `Initialized` 狀況跟蹤 Init 容器的執行情況。
-然而，它在準確反映沙箱創建完成和容器準備啓動的方面存在一些限制，無法適用於集羣中的所有 Pod。
-在多租戶集羣中，這種區別尤爲重要，租戶擁有包括 Init 容器集合在內的 Pod 規約，
-而集羣管理員管理存儲插件、網絡插件和容器運行時處理程序。
-因此，需要改進這個機制，以便爲集羣管理員提供清晰和全面的 Pod 沙箱創建完成和容器就緒狀態的視圖。
+然而，它在準確反映沙箱創建完成和容器準備啓動的方面存在一些限制，無法適用於叢集中的所有 Pod。
+在多租戶叢集中，這種區別尤爲重要，租戶擁有包括 Init 容器集合在內的 Pod 規約，
+而叢集管理員管理存儲插件、網路插件和容器運行時處理程序。
+因此，需要改進這個機制，以便爲叢集管理員提供清晰和全面的 Pod 沙箱創建完成和容器就緒狀態的視圖。
 
 <!--
 ## What's the benefit?
@@ -63,7 +63,7 @@ comprehensive view of Pod sandbox creation completion and container readiness.
 -->
 ## 這個特性有什麼好處？
 
-1. 改進可見性：集羣管理員可以更清晰和全面地查看 Pod 沙箱的創建完成和容器的就緒狀態。
+1. 改進可見性：叢集管理員可以更清晰和全面地查看 Pod 沙箱的創建完成和容器的就緒狀態。
    這種增強的可見性使他們能夠做出更明智的決策，並更有效地解決問題。
 
 <!--
@@ -79,7 +79,7 @@ comprehensive view of Pod sandbox creation completion and container readiness.
    可以按照每個 Pod 的基數進行指標收集，或者根據 Pod 的各種屬性進行聚合，例如
    `volumes`、`runtimeClassName`、CNI 和 IPAM 插件的自定義註解，
    以及任意標籤和註解，以及 PersistentVolumeClaims 的 `storageClassName`。
-   這樣可以全面監控和分析集羣中 Pod 的就緒狀態。
+   這樣可以全面監控和分析叢集中 Pod 的就緒狀態。
 
 <!--
 3. Enhanced Troubleshooting: With a more accurate representation of Pod sandbox creation and container readiness,
@@ -87,7 +87,7 @@ comprehensive view of Pod sandbox creation completion and container readiness.
    This leads to improved troubleshooting capabilities and reduced downtime.
 -->
 3. 增強故障排查能力：通過更準確地表示 Pod 沙箱的創建和容器的就緒狀態，
-   集羣管理員可以快速識別和解決初始化過程中可能出現的任何問題。
+   叢集管理員可以快速識別和解決初始化過程中可能出現的任何問題。
    這將提高故障排查能力，並減少停機時間。
 
 <!--

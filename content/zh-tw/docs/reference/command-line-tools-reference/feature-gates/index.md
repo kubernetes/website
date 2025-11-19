@@ -222,4 +222,4 @@ Each feature gate is designed for enabling/disabling a specific feature:
   啓用 Beta 功能時，還需要啓用所有關聯的 API 資源。
   例如：要啓用一個特定資源，如 `storage.k8s.io/v1beta1/csistoragecapacities`，
   請設置 `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`。
-  有關命令行標誌的更多詳細信息，請參閱 [API 版本控制](/zh-cn/docs/reference/using-api/#api-versioning)。
+  有關命令列標誌的更多詳細信息，請參閱 [API 版本控制](/zh-cn/docs/reference/using-api/#api-versioning)。

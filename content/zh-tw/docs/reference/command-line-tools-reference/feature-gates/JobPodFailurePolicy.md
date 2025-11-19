@@ -26,4 +26,4 @@ removed: true
 Allow users to specify handling of pod failures based on container
 exit codes and pod conditions.
 -->
-允許用戶根據容器退出碼和 Pod 狀況來指定 Pod 失效的處理方法。
+允許使用者根據容器退出碼和 Pod 狀況來指定 Pod 失效的處理方法。

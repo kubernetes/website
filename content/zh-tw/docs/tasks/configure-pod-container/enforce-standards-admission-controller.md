@@ -1,5 +1,5 @@
 ---
-title: 通過配置內置准入控制器實施 Pod 安全標準
+title: 通過設定內置准入控制器實施 Pod 安全標準
 content_type: task
 weight: 240
 ---
@@ -19,7 +19,7 @@ You can configure this admission controller to set cluster-wide defaults and [ex
 -->
 Kubernetes 提供一種內置的[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 用來強制實施 [Pod 安全性標準](/zh-cn/docs/concepts/security/pod-security-standards)。
-你可以配置此准入控制器來設置集羣範圍的默認值和[豁免選項](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)。
+你可以設定此准入控制器來設置叢集範圍的默認值和[豁免選項](/zh-cn/docs/concepts/security/pod-security-admission/#exemptions)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -46,7 +46,7 @@ are running.
 <!--
 ## Configure the Admission Controller
 -->
-## 配置准入控制器    {#configure-the-admission-controller}
+## 設定准入控制器    {#configure-the-admission-controller}
 
 {{< note >}}
 <!--
@@ -54,7 +54,7 @@ are running.
 For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
 For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
 -->
-`pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
+`pod-security.admission.config.k8s.io/v1` 設定需要 v1.25+。
 對於 v1.23 和 v1.24，使用
 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
 對於 v1.22，使用

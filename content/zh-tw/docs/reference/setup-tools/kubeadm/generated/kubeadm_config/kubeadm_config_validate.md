@@ -2,7 +2,7 @@
 <!--
 Read a file containing the kubeadm configuration API and report any validation problems
 -->
-讀取包含 kubeadm 配置 API 的文件，並報告所有驗證問題。
+讀取包含 kubeadm 設定 API 的文件，並報告所有驗證問題。
 
 <!--
 ### Synopsis
@@ -16,7 +16,7 @@ Any unmarshaling problems such as unknown API fields will trigger errors. Unknow
 fields with invalid values will also trigger errors. Any other errors or warnings may be reported
 depending on contents of the input file.
 -->
-這個命令允許你驗證 kubeadm 配置 API 文件並報告所有警告和錯誤。
+這個命令允許你驗證 kubeadm 設定 API 文件並報告所有警告和錯誤。
 如果沒有錯誤，退出狀態將爲零；否則，將爲非零。
 諸如未知 API 字段等任何解包問題都會觸發錯誤。
 未知的 API 版本和具有無效值的字段也會觸發錯誤。
@@ -68,7 +68,7 @@ Allow validation of experimental, unreleased APIs.
 <!--
 Path to a kubeadm configuration file.
 -->
-指向 kubeadm 配置文件的路徑。
+指向 kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -114,7 +114,7 @@ validate 的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-在與集羣通信時要使用的 kubeconfig 文件。
+在與叢集通信時要使用的 kubeconfig 文件。
 如果此標誌未被設置，則會在一組標準位置中搜索現有的 kubeconfig 文件。
 </p>
 </td>

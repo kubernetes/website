@@ -155,7 +155,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
     deprecatedTopology 包含 v1beta1 API 的拓撲信息部分。目前已經棄用了此字段，
     移除 v1beta1 API 時（不早於 Kubernetes v1.24）會一起移除此字段。
     此字段目前仍然可以存儲值，但是不能通過 v1 API 寫入數據。
-    向此字段寫入數據的任何嘗試都會被忽略，並且不會通知用戶。
+    向此字段寫入數據的任何嘗試都會被忽略，並且不會通知使用者。
     移除此字段後，可以在 zone 和 nodeName 字段中查看拓撲信息。
 
   - **endpoints.hints** (EndpointHints)
@@ -284,7 +284,7 @@ EndpointSlice 對象，這些對象必須被組合在一起以產生完整的端
   -->
 
   
-  ports 列出了當前 EndpointSlice 中各個端點所暴露的網絡端口。每個端口的名稱不得重複。
+  ports 列出了當前 EndpointSlice 中各個端點所暴露的網路端口。每個端口的名稱不得重複。
   每個切片最多可能包含 100 個端口。Service 總是至少有 1 個端口，因此由 EndpointSlice
   控制器生成的 EndpointSlices 同樣總是至少有 1 個端口。用於其他目的的 EndpointSlices
   可能有一個空的 ports 列表。

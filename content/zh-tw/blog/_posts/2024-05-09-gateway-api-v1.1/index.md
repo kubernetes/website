@@ -100,7 +100,7 @@ or see the
 -->
 #### [服務網格支持](https://gateway-api.sigs.k8s.io/mesh/)
 
-在 Gateway API 中支持服務網格意味着允許服務網格用戶使用相同的 API 來管理 Ingress 流量和網格流量，
+在 Gateway API 中支持服務網格意味着允許服務網格使用者使用相同的 API 來管理 Ingress 流量和網格流量，
 能夠重用相同的策略和路由接口。在 Gateway API v1.1 中，路由（如 HTTPRoute）現在可以將一個 Service 作爲 `parentRef`，
 以控制到特定服務的流量行爲。有關細節請查閱
 [Gateway API 服務網格文檔](https://gateway-api.sigs.k8s.io/mesh/)或
@@ -139,7 +139,7 @@ This would split traffic sent to the `color` Service in the `faces` namespace
 50/50 between the original `color` Service and the `color2` Service, using a
 portable configuration that's easy to move from one mesh to another.
 -->
-通過使用一種便於從一個網格遷移到另一個網格的可移植配置，
+通過使用一種便於從一個網格遷移到另一個網格的可移植設定，
 此 HTTPRoute 對象將把發送到 `faces` 命名空間中的 `color` Service 的流量按 50/50
 拆分到原始的 `color` Service 和 `color2` Service 上。
 
@@ -194,7 +194,7 @@ description of the testing outcome. The Reports have been reorganized in a more
 structured way, and the implementations can now add information on how the tests
 have been run and provide reproduction steps.
 -->
-#### [合規性配置文件和報告](https://gateway-api.sigs.k8s.io/concepts/conformance/#conformance-profiles)
+#### [合規性設定文件和報告](https://gateway-api.sigs.k8s.io/concepts/conformance/#conformance-profiles)
 
 合規性報告 API 被擴展了，添加了 `mode` 字段（用於指定實現的工作模式）以及 `gatewayAPIChannel`（標準或實驗性）。
 `gatewayAPIVersion` 和 `gatewayAPIChannel` 現在由套件機制自動填充，並附有測試結果的簡要描述。
@@ -215,7 +215,7 @@ anchor to validate the certificates presented by the client.
 #### [Gateway 客戶端證書驗證](https://gateway-api.sigs.k8s.io/geps/gep-91/)
 
 Gateway 現在可以通過在 `tls` 內引入的新字段 `frontendValidation` 來爲每個
-Gateway 監聽器配置客戶端證書驗證。此字段支持配置可用作信任錨的 CA 證書列表，以驗證客戶端呈現的證書。
+Gateway 監聽器設定客戶端證書驗證。此字段支持設定可用作信任錨的 CA 證書列表，以驗證客戶端呈現的證書。
 
 <!--
 The following example shows how the CACertificate stored in
@@ -264,8 +264,8 @@ timeouts, session name, session type, and cookie lifetime type.
 
 [會話持久性](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.SessionPersistence)
 通過新的策略（[BackendLBPolicy](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1alpha2.BackendLBPolicy)）
-引入到 Gateway API 中用於服務級配置，在 HTTPRoute 和 GRPCRoute 內以字段的形式用於路由級配置。
-BackendLBPolicy 和路由級 API 提供相同的會話持久性配置，包括會話超時、會話名稱、會話類型和 cookie 生命週期類型。
+引入到 Gateway API 中用於服務級設定，在 HTTPRoute 和 GRPCRoute 內以字段的形式用於路由級設定。
+BackendLBPolicy 和路由級 API 提供相同的會話持久性設定，包括會話超時、會話名稱、會話類型和 cookie 生命週期類型。
 
 <!--
 Below is an example configuration of `BackendLBPolicy` that enables cookie-based
@@ -273,8 +273,8 @@ session persistence for the `foo` service. It sets the session name to
 `foo-session`, defines absolute and idle timeouts, and configures the cookie to
 be a session cookie:
 -->
-以下是 `BackendLBPolicy` 的示例配置，爲 `foo` 服務啓用基於 Cookie 的會話持久性。
-它將會話名稱設置爲 `foo-session`，定義絕對超時時間和空閒超時時間，並將 Cookie 配置爲會話 Cookie：
+以下是 `BackendLBPolicy` 的示例設定，爲 `foo` 服務啓用基於 Cookie 的會話持久性。
+它將會話名稱設置爲 `foo-session`，定義絕對超時時間和空閒超時時間，並將 Cookie 設定爲會話 Cookie：
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1alpha2
@@ -403,7 +403,7 @@ Kubernetes routing APIs for both ingress and service mesh.
 * Or [join us in the community](https://gateway-api.sigs.k8s.io/contributing/)
   and help us build the future of Gateway API together!
 -->
-* 查閱[用戶指南](https://gateway-api.sigs.k8s.io/guides)以瞭解可以解決哪些用例。
+* 查閱[使用者指南](https://gateway-api.sigs.k8s.io/guides)以瞭解可以解決哪些用例。
 * 試用其中一個[現有的 Gateway 控制器](https://gateway-api.sigs.k8s.io/implementations/)。
 * 或者[加入我們的社區](https://gateway-api.sigs.k8s.io/contributing/)，幫助我們一起構建 Gateway API 的未來！
 

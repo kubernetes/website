@@ -35,7 +35,7 @@ This blog post contains information about these new package repositories,
 what does it mean to you as an end user, and how to migrate to the new
 repositories.
 -->
-這篇博文包含關於這些新的包倉庫的信息、它對最終用戶意味着什麼以及如何遷移到新倉庫。
+這篇博文包含關於這些新的包倉庫的信息、它對最終使用者意味着什麼以及如何遷移到新倉庫。
 
 <!--
 **ℹ️ Update (March 26, 2024): _the legacy Google-hosted repositories went
@@ -158,7 +158,7 @@ significant changes to how we publish packages. Another goal that we have is to
 use community-owned infrastructure for all critical components and that
 includes package repositories.
 -->
-隨着 Kubernetes 項目的不斷發展，我們希望確保最終用戶獲得最佳體驗。
+隨着 Kubernetes 項目的不斷發展，我們希望確保最終使用者獲得最佳體驗。
 託管在 Google 的倉庫多年來一直爲我們提供良好的服務，
 但我們開始面臨一些問題，需要對發佈包的方式進行重大變更。
 我們的另一個目標是對所有關鍵組件使用社區擁有的基礎設施，其中包括倉庫。
@@ -215,7 +215,7 @@ help us with serving packages.
 -->
 新的 Debian 和 RPM 倉庫託管在 `pkgs.k8s.io`。
 目前，該域指向一個 CloudFront CDN，其後是包含倉庫和包的 S3 存儲桶。
-然而，我們計劃在未來添加更多的鏡像站點，讓其他公司有可能幫助我們提供軟件包服務。
+然而，我們計劃在未來添加更多的映像檔站點，讓其他公司有可能幫助我們提供軟件包服務。
 
 <!--
 Packages are built and published via the [OpenBuildService (OBS) platform](http://openbuildservice.org).
@@ -255,7 +255,7 @@ pushed to our community-owned S3 bucket making them available to all users.
 我們使用 SUSE 的 OBS 實例來構建和發佈包。構建新版本後，
 我們的工具會自動將所需的製品和包設置推送到 `build.opensuse.org`。
 這將觸發構建過程，爲所有支持的架構（AMD64、ARM64、PPC64LE、S390X）構建包。
-最後，生成的包將自動推送到我們社區擁有的 S3 存儲桶，以便所有用戶都可以使用它們。
+最後，生成的包將自動推送到我們社區擁有的 S3 存儲桶，以便所有使用者都可以使用它們。
 
 <!--
 We want to take this opportunity to thank SUSE for allowing us to use
@@ -489,9 +489,9 @@ any time. Given the architecture and our plans to onboard additional mirrors in
 the near future, we can't provide a list of IP addresses or domains that you 
 can add to an allow list.
 -->
-我們對 `pkgs.k8s.io` 的計劃是使其根據用戶位置充當一組後端（包鏡像）的重定向器。
-此更改的本質意味着下載包的用戶可以隨時重定向到任何鏡像。
-鑑於架構和我們計劃在不久的將來加入更多鏡像，我們無法提供給你可以添加到允許列表中的
+我們對 `pkgs.k8s.io` 的計劃是使其根據使用者位置充當一組後端（包映像檔）的重定向器。
+此更改的本質意味着下載包的使用者可以隨時重定向到任何映像檔。
+鑑於架構和我們計劃在不久的將來加入更多映像檔，我們無法提供給你可以添加到允許列表中的
 IP 地址或域名列表。
 
 <!--
@@ -500,8 +500,8 @@ policies that restrict access to a specific list of IPs/domains will break with
 this change. For these scenarios, we encourage you to mirror the release
 packages to a local package repository that you have strict control over.
 -->
-限制性控制機制（例如限制訪問特定 IP/域名列表的中間人代理或網絡策略）將隨着此更改而中斷。
-對於這些場景，我們鼓勵你將包的發佈版本與你可以嚴格控制的本地倉庫建立鏡像。
+限制性控制機制（例如限制訪問特定 IP/域名列表的中間人代理或網路策略）將隨着此更改而中斷。
+對於這些場景，我們鼓勵你將包的發佈版本與你可以嚴格控制的本地倉庫建立映像檔。
 
 <!--
 ## What should I do if I detect some abnormality with the new repositories?

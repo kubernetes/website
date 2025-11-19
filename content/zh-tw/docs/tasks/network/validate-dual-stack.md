@@ -17,7 +17,7 @@ content_type: task
 <!--
 This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clusters.
 -->
-本文分享瞭如何驗證 IPv4/IPv6 雙協議棧的 Kubernetes 集羣。
+本文分享瞭如何驗證 IPv4/IPv6 雙協議棧的 Kubernetes 叢集。
 
 ## {{% heading "prerequisites" %}}
 
@@ -28,10 +28,10 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
   that supports dual-stack networking.
 * [Dual-stack enabled](/docs/concepts/services-networking/dual-stack/) cluster
 -->
-* 驅動程序對雙協議棧網絡的支持 (雲驅動或其他方式必須能夠爲 Kubernetes 節點提供可路由的 IPv4/IPv6 網絡接口)
-* 一個能夠支持[雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)網絡的
-  [網絡插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
-* [啓用雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)集羣
+* 驅動程序對雙協議棧網路的支持 (雲驅動或其他方式必須能夠爲 Kubernetes 節點提供可路由的 IPv4/IPv6 網路接口)
+* 一個能夠支持[雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)網路的
+  [網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)。
+* [啓用雙協議棧](/zh-cn/docs/concepts/services-networking/dual-stack/)叢集
 
 {{< version-check >}}
 
@@ -59,8 +59,8 @@ the Node's name is `k8s-linuxpool1-34450317-0`:
 ### 驗證節點尋址   {#validate-node-addressing}
 
 每個雙協議棧節點應分配一個 IPv4 塊和一個 IPv6 塊。
-通過運行以下命令來驗證是否配置了 IPv4/IPv6 Pod 地址範圍。
-將示例節點名稱替換爲集羣中的有效雙協議棧節點。
+通過運行以下命令來驗證是否設定了 IPv4/IPv6 Pod 地址範圍。
+將示例節點名稱替換爲叢集中的有效雙協議棧節點。
 在此示例中，節點的名稱爲 `k8s-linuxpool1-34450317-0`：
 
 ```shell
@@ -82,7 +82,7 @@ Validate that the node has an IPv4 and IPv6 interface detected.
 Replace node name with a valid node from the cluster.
 In this example the node name is `k8s-linuxpool1-34450317-0`:
 -->
-驗證節點是否檢測到 IPv4 和 IPv6 接口。用集羣中的有效節點替換節點名稱。
+驗證節點是否檢測到 IPv4 和 IPv6 接口。用叢集中的有效節點替換節點名稱。
 在此示例中，節點名稱爲 `k8s-linuxpool1-34450317-0`：
 
 ```shell
@@ -103,7 +103,7 @@ a valid Pod in your cluster. In this example the Pod name is `pod01`:
 -->
 ### 驗證 Pod 尋址   {#validate-pod-addressing}
 
-驗證 Pod 已分配了 IPv4 和 IPv6 地址。用集羣中的有效 Pod 替換 Pod 名稱。
+驗證 Pod 已分配了 IPv4 和 IPv6 地址。用叢集中的有效 Pod 替換 Pod 名稱。
 在此示例中，Pod 名稱爲 `pod01`：
 
 ```shell
@@ -182,7 +182,7 @@ Kubernetes will assign a cluster IP for the Service from the first configured
 ## 驗證服務   {#validate-services}
 
 創建以下未顯式定義 `.spec.ipFamilyPolicy` 的 Service。
-Kubernetes 將從首個配置的 `service-cluster-ip-range` 給 Service 分配集羣 IP，
+Kubernetes 將從首個設定的 `service-cluster-ip-range` 給 Service 分配叢集 IP，
 並將 `.spec.ipFamilyPolicy` 設置爲 `SingleStack`。
 
 {{% code_sample file="service/networking/dual-stack-default-svc.yaml" %}}
@@ -202,7 +202,7 @@ to an IPv4 address from the first configured range set via `--service-cluster-ip
 flag on kube-controller-manager.
 -->
 該 Service 通過在 kube-controller-manager 的 `--service-cluster-ip-range`
-標誌設置的第一個配置範圍，將 `.spec.ipFamilyPolicy` 設置爲 `SingleStack`，
+標誌設置的第一個設定範圍，將 `.spec.ipFamilyPolicy` 設置爲 `SingleStack`，
 將 `.spec.clusterIP` 設置爲 IPv4 地址。
 
 ```yaml
@@ -236,7 +236,7 @@ Create the following Service that explicitly defines `IPv6` as the first array e
 configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 -->
 創建以下顯式定義 `.spec.ipFamilies` 數組中的第一個元素爲 IPv6 的 Service。
-Kubernetes 將 `service-cluster-ip-range` 配置的 IPv6 地址範圍給 Service 分配集羣 IP，
+Kubernetes 將 `service-cluster-ip-range` 設定的 IPv6 地址範圍給 Service 分配叢集 IP，
 並將 `.spec.ipFamilyPolicy` 設置爲 `SingleStack`。
 
 {{% code_sample file="service/networking/dual-stack-ipfamilies-ipv6.yaml" %}}
@@ -291,7 +291,7 @@ select the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the ad
 the first element in the `.spec.ipFamilies` array.
 -->
 創建以下顯式定義 `.spec.ipFamilyPolicy` 爲 `PreferDualStack` 的 Service。
-Kubernetes 將分配 IPv4 和 IPv6 地址（因爲該集羣啓用了雙棧），
+Kubernetes 將分配 IPv4 和 IPv6 地址（因爲該叢集啓用了雙棧），
 並根據 `.spec.ipFamilies` 數組中第一個元素的地址族，
 從 `.spec.ClusterIPs` 列表中選擇 `.spec.ClusterIP`。
 
@@ -317,7 +317,7 @@ my-service   ClusterIP   10.0.216.242   <none>        80/TCP    5s
 Validate that the Service gets cluster IPs from the IPv4 and IPv6 address blocks using
 `kubectl describe`. You may then validate access to the service via the IPs and ports.
 -->
-使用 `kubectl describe` 驗證服務是否從 IPv4 和 IPv6 地址塊中獲取了集羣 IP。
+使用 `kubectl describe` 驗證服務是否從 IPv4 和 IPv6 地址塊中獲取了叢集 IP。
 然後你就可以通過 IP 和端口，驗證對服務的訪問。
 
 ```shell
@@ -351,7 +351,7 @@ the first element of the `.spec.ipFamilies` array and the `type` field set to `L
 -->
 ### 創建雙協議棧負載均衡服務   {#create-a-dualstack-load-balanced-service}
 
-如果雲提供商支持配置啓用 IPv6 的外部負載均衡器，則創建如下 Service 時將
+如果雲提供商支持設定啓用 IPv6 的外部負載均衡器，則創建如下 Service 時將
 `.spec.ipFamilyPolicy` 設置爲 `PreferDualStack`, 並將 `spec.ipFamilies` 字段
 的第一個元素設置爲 `IPv6`，將 `type` 字段設置爲 `LoadBalancer`：
 

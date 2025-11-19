@@ -40,4 +40,4 @@ If a pod doesn't have any init containers configured, all the containers in that
 -->
 Init 容器使你可以分離對於{{< glossary_tooltip text="工作負載" term_id="workload" >}}整體而言很重要的初始化細節，
 並且一旦應用容器啓動，它不需要繼續運行。
-如果 Pod 沒有配置 Init 容器，則該 Pod 中的所有容器都是應用程序容器。
+如果 Pod 沒有設定 Init 容器，則該 Pod 中的所有容器都是應用程序容器。

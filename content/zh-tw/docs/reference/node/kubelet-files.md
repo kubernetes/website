@@ -38,7 +38,7 @@ _standalone mode_.
 -->
 kubelet 通常使用{{< glossary_tooltip text="控制面" term_id="control-plane" >}}作爲需要在 Node
 上運行的事物的真實來源，並使用{{< glossary_tooltip text="容器運行時" term_id="container-runtime" >}}獲取容器的當前狀態。
-只要你向 kubelet 提供 **kubeconfig**（API 客戶端配置），kubelet 就會連接到你的控制面；
+只要你向 kubelet 提供 **kubeconfig**（API 客戶端設定），kubelet 就會連接到你的控制面；
 否則，節點將以**獨立（Standalone）**模式運行。
 
 <!--
@@ -81,12 +81,12 @@ using the command line argument `--config`. The kubelet also supports
 [drop-in configuration files](/docs/tasks/administer-cluster/kubelet-config-file/#kubelet-conf-d)
 to enhance configuration.
 -->
-## 配置   {#configuration}
+## 設定   {#configuration}
 
-### kubelet 配置文件   {#kubelet-configuration-files}
+### kubelet 設定文件   {#kubelet-configuration-files}
 
-你可以使用命令行參數 `--config` 指定 kubelet 配置文件的路徑。kubelet
-還支持[插件（Drop-in）配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/#kubelet-conf-d)來增強配置。
+你可以使用命令列參數 `--config` 指定 kubelet 設定文件的路徑。kubelet
+還支持[插件（Drop-in）設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/#kubelet-conf-d)來增強設定。
 
 <!--
 ### Certificates
@@ -97,8 +97,8 @@ Names of certificate files are also configurable.
 -->
 ### 證書   {#certificates}
 
-證書和私鑰通常位於 `/var/lib/kubelet/pki`，但你可以使用 `--cert-dir` kubelet 命令行參數進行配置。
-證書文件的名稱也是可以配置的。
+證書和私鑰通常位於 `/var/lib/kubelet/pki`，但你可以使用 `--cert-dir` kubelet 命令列參數進行設定。
+證書文件的名稱也是可以設定的。
 
 <!--
 ### Manifests
@@ -109,7 +109,7 @@ Location can be configured using the `staticPodPath` kubelet configuration optio
 ### 清單   {#manifests}
 
 靜態 Pod 的清單通常位於 `/etc/kubernetes/manifests`。
-你可以使用 `staticPodPath` kubelet 配置選項進行配置。
+你可以使用 `staticPodPath` kubelet 設定選項進行設定。
 
 <!--
 ### Systemd unit settings
@@ -122,11 +122,11 @@ in systemd unit settings file. Typically it includes:
 -->
 ### systemd 單元設置    {#systemd-unit-settings}
 
-當 kubelet 作爲 systemd 單元運行時，一些 kubelet 配置可以在 systemd 單元設置文件中聲明。
-這些配置通常包括：
+當 kubelet 作爲 systemd 單元運行時，一些 kubelet 設定可以在 systemd 單元設置文件中聲明。
+這些設定通常包括：
 
-- [運行 kubelet 的命令行參數](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
-- kubelet 所使用的環境變量或[配置 Golang 運行時](https://pkg.go.dev/runtime#hdr-Environment_Variables)
+- [運行 kubelet 的命令列參數](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
+- kubelet 所使用的環境變量或[設定 Golang 運行時](https://pkg.go.dev/runtime#hdr-Environment_Variables)
 
 <!--
 ## State
@@ -145,7 +145,7 @@ using the kubelet command line argument `--root-dir`.
 
 所有資源管理器將 Pod 與已分配資源之間的映射保存在狀態文件中。
 狀態文件位於 kubelet 的基礎目錄，也稱爲**根目錄**（但與節點根目錄 `/` 不同）之下。
-你可以使用 kubelet 命令行參數 `--root-dir` 來配置 kubelet 的基礎目錄。
+你可以使用 kubelet 命令列參數 `--root-dir` 來設定 kubelet 的基礎目錄。
 
 <!--
 Names of files:
@@ -207,7 +207,7 @@ The files are located within the kubelet base directory
 - `actuated_pods_state`：記錄運行時已接受並應用於該節點上每個 Pod 的資源。
 
 這些文件位於 kubelet 的基礎目錄中（在 Linux 系統中默認是 `/var/lib/kubelet`；
-也可以通過 `--root-dir` 參數進行配置）。
+也可以通過 `--root-dir` 參數進行設定）。
 
 <!--
 ### Container runtime
@@ -222,10 +222,10 @@ The actual values of those endpoints depend on the container runtime being used.
 -->
 ### 容器運行時   {#container-runtime}
 
-kubelet 使用通過配置參數所配置的套接字與容器運行時進行通信：
+kubelet 使用通過設定參數所設定的套接字與容器運行時進行通信：
 
 - `containerRuntimeEndpoint` 用於運行時操作
-- `imageServiceEndpoint` 用於鏡像管理操作
+- `imageServiceEndpoint` 用於映像檔管理操作
 
 這些端點的實際值取決於所使用的容器運行時。
 
@@ -315,7 +315,7 @@ stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
 <!--
 ### Image Pull Records
 -->
-### 鏡像拉取記錄   {#image-pull-records}
+### 映像檔拉取記錄   {#image-pull-records}
 
 {{< feature-state feature_gate_name="KubeletEnsureSecretPulledImages" >}}
 
@@ -323,7 +323,7 @@ stores state locally at `/var/lib/kubelet/graceful_node_shutdown_state`.
 The kubelet stores records of attempted and successful image pulls, and uses it
 to verify that the image was previously successfully pulled with the same credentials.
 -->
-kubelet 存儲鏡像拉取的嘗試記錄和成功記錄，並使用這些記錄來驗證鏡像是否曾使用相同的憑據被成功拉取過。
+kubelet 存儲映像檔拉取的嘗試記錄和成功記錄，並使用這些記錄來驗證映像檔是否曾使用相同的憑據被成功拉取過。
 
 <!--
 These records are cached as files in the `image_registry` directory within
@@ -337,14 +337,14 @@ There are two subdirectories to `image_manager`:
 在典型的 Linux 節點上，這個路徑通常爲 `/var/lib/kubelet/image_manager`。  
 `image_manager` 目錄下包含兩個子目錄：
 
-* `pulling`：存儲 kubelet 正在嘗試拉取的鏡像的相關記錄。
-* `pulled`：存儲 kubelet 成功拉取的鏡像記錄，以及與拉取所用憑據相關的元數據。
+* `pulling`：存儲 kubelet 正在嘗試拉取的映像檔的相關記錄。
+* `pulled`：存儲 kubelet 成功拉取的映像檔記錄，以及與拉取所用憑據相關的元數據。
 
 <!--
 See [Ensure Image Pull Credential Verification](/docs/concepts/containers/images#ensureimagepullcredentialverification)
 for details.
 -->
-更多細節請參閱[確保鏡像拉取憑據驗證](/zh-cn/docs/concepts/containers/images#ensureimagepullcredentialverification)。
+更多細節請參閱[確保映像檔拉取憑據驗證](/zh-cn/docs/concepts/containers/images#ensureimagepullcredentialverification)。
 
 <!--
 ## Security profiles & configuration
@@ -354,11 +354,11 @@ for details.
 Seccomp profile files referenced from Pods should be placed in `/var/lib/kubelet/seccomp`.
 See the [seccomp reference](/docs/reference/node/seccomp/) for details.
 -->
-## 安全配置文件和配置   {#security-profiles-configuration}
+## 安全設定文件和設定   {#security-profiles-configuration}
 
 ### Seccomp
 
-被 Pod 引用的 Seccomp 配置文件應放置在 `/var/lib/kubelet/seccomp`。
+被 Pod 引用的 Seccomp 設定文件應放置在 `/var/lib/kubelet/seccomp`。
 有關細節請參見 [Seccomp 參考](/zh-cn/docs/reference/node/seccomp/)。
 
 <!--
@@ -371,8 +371,8 @@ AppArmor profiles are loaded via the node operating system rather then reference
 -->
 ### AppArmor
 
-kubelet 不會通過特定於 Kubernetes 的路徑加載或引用 AppArmor 配置文件。
-AppArmor 配置文件通過節點操作系統被加載，而不是通過其路徑被引用。
+kubelet 不會通過特定於 Kubernetes 的路徑加載或引用 AppArmor 設定文件。
+AppArmor 設定文件通過節點操作系統被加載，而不是通過其路徑被引用。
 
 ## 加鎖   {#locking}
 
@@ -388,7 +388,7 @@ detect a conflict when both are running.
 -->
 kubelet 的鎖文件；通常爲 `/var/run/kubelet.lock`。
 kubelet 使用此文件確保嘗試運行兩個不同的、彼此衝突的 kubelet。
-你可以使用 `--lock-file` kubelet 命令行參數來配置這個鎖文件的路徑。
+你可以使用 `--lock-file` kubelet 命令列參數來設定這個鎖文件的路徑。
 
 如果同一節點上的兩個 kubelet 使用不同的鎖文件路徑值，則這兩個 kubelet 在同時運行時將不會檢測到衝突。
 
@@ -398,5 +398,5 @@ kubelet 使用此文件確保嘗試運行兩個不同的、彼此衝突的 kubel
 - Learn about the kubelet [command line arguments](/docs/reference/command-line-tools-reference/kubelet/).
 - Review the [Kubelet Configuration (v1beta1) reference](/docs/reference/config-api/kubelet-config.v1beta1/)
 -->
-- 瞭解 kubelet [命令行參數](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)。
-- 查閱 [kubelet 配置 (v1beta1) 參考文檔](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+- 瞭解 kubelet [命令列參數](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)。
+- 查閱 [kubelet 設定 (v1beta1) 參考文檔](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)

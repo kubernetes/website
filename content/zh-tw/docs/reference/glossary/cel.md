@@ -4,7 +4,7 @@ id: cel
 date: 2025-06-04
 full_link: https://cel.dev
 short_description: >
-  一種爲安全執行用戶代碼而設計的表達式語言。
+  一種爲安全執行使用者代碼而設計的表達式語言。
 tags:
 - extension
 - fundamental

@@ -18,4 +18,4 @@ stages:
 <!--
 Enables the kubelet configuration field `imageMaximumGCAge`, allowing an administrator to specify the age after which an image will be garbage collected.
 -->
-啓用 kubelet 配置字段 `imageMaximumGCAge`，允許管理員指定多久之後鏡像將被垃圾收集。
+啓用 kubelet 設定字段 `imageMaximumGCAge`，允許管理員指定多久之後映像檔將被垃圾收集。

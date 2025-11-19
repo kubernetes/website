@@ -38,7 +38,7 @@ cluster runs the containers that form the
 [Pods](/docs/concepts/workloads/pods/) assigned to that node.
 Containers in a Pod are co-located and co-scheduled to run on the same node.
 -->
-本頁將討論容器和容器鏡像，以及它們在運維和解決方案開發中的應用。
+本頁將討論容器和容器映像檔，以及它們在運維和解決方案開發中的應用。
 
 **容器**是一個多義詞。每當你使用這個詞時，請確認你的受衆是否使用相同的定義。
 
@@ -48,7 +48,7 @@ Containers in a Pod are co-located and co-scheduled to run on the same node.
 容器將應用程序從底層的主機設施中解耦。
 這使得在不同的雲或 OS 環境中部署更加容易。
 
-Kubernetes 集羣中的每個{{< glossary_tooltip text="節點" term_id="node" >}}都會運行容器，
+Kubernetes 叢集中的每個{{< glossary_tooltip text="節點" term_id="node" >}}都會運行容器，
 這些容器構成分配給該節點的 [Pod](/zh-cn/docs/concepts/workloads/pods/)。
 單個 Pod 中的容器會在共同調度下，於同一位置運行在相同的節點上。
 
@@ -69,13 +69,13 @@ image that includes the change, then recreate the container to start from the
 updated image.
 -->
 
-## 容器鏡像 {#container-images}
-[容器鏡像](/zh-cn/docs/concepts/containers/images/)是一個隨時可以運行的軟件包，
+## 容器映像檔 {#container-images}
+[容器映像檔](/zh-cn/docs/concepts/containers/images/)是一個隨時可以運行的軟件包，
 包含運行應用程序所需的一切：代碼和它需要的所有運行時、應用程序和系統庫，以及一些基本設置的默認值。
 
 容器旨在設計成無狀態且[不可變的](https://glossary.cncf.io/immutable-infrastructure/)：
 你不應更改已經運行的容器的代碼。如果有一個容器化的應用程序需要修改，
-正確的流程是：先構建包含更改的新鏡像，再基於新構建的鏡像重新運行容器。
+正確的流程是：先構建包含更改的新映像檔，再基於新構建的映像檔重新運行容器。
 
 <!-- ## Container runtimes -->
 ## 容器運行時  {#container-runtimes}
@@ -92,8 +92,8 @@ particular container runtime.
 You can also use RuntimeClass to run different Pods with the same container
 runtime but with different settings.
 -->
-通常，你可以允許集羣爲一個 Pod 選擇其默認的容器運行時。如果你需要在集羣中使用多個容器運行時，
+通常，你可以允許叢集爲一個 Pod 選擇其默認的容器運行時。如果你需要在叢集中使用多個容器運行時，
 你可以爲一個 Pod 指定 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)，
 以確保 Kubernetes 會使用特定的容器運行時來運行這些容器。
 
-你還可以通過 RuntimeClass，使用相同的容器運行時，但使用不同設定的配置來運行不同的 Pod。
+你還可以通過 RuntimeClass，使用相同的容器運行時，但使用不同設定的設定來運行不同的 Pod。

@@ -1,7 +1,7 @@
 ---
-title: Kubernetes API 服務器旁路風險
+title: Kubernetes API 伺服器旁路風險
 description: >
-  與 API 服務器及其他組件相關的安全架構信息
+  與 API 伺服器及其他組件相關的安全架構信息
 content_type: concept
 weight: 90
 ---
@@ -19,7 +19,7 @@ weight: 90
 The Kubernetes API server is the main point of entry to a cluster for external parties
 (users and services) interacting with it.
  -->
-Kubernetes API 服務器是外部（用戶和服務）與集羣交互的主要入口。
+Kubernetes API 伺服器是外部（使用者和服務）與叢集交互的主要入口。
 
 <!--
 As part of this role, the API server has several key built-in security controls, such as
@@ -27,17 +27,17 @@ audit logging and {{< glossary_tooltip text="admission controllers" term_id="adm
 However, there are ways to modify the configuration
 or content of the cluster that bypass these controls.
 -->
-API 服務器作爲交互的主要入口，還提供了幾種關鍵的內置安全控制，
+API 伺服器作爲交互的主要入口，還提供了幾種關鍵的內置安全控制，
 例如審計日誌和{{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}。
-但有一些方式可以繞過這些安全控制從而修改集羣的配置或內容。
+但有一些方式可以繞過這些安全控制從而修改叢集的設定或內容。
 
 <!--
 This page describes the ways in which the security controls built into the
 Kubernetes API server can be bypassed, so that cluster operators
 and security architects can ensure that these bypasses are appropriately restricted.
  -->
-本頁描述了繞過 Kubernetes API 服務器中內置安全控制的幾種方式，
-以便集羣運維人員和安全架構師可以確保這些繞過方式被適當地限制。
+本頁描述了繞過 Kubernetes API 伺服器中內置安全控制的幾種方式，
+以便叢集運維人員和安全架構師可以確保這些繞過方式被適當地限制。
 
 <!-- body -->
 <!--
@@ -54,9 +54,9 @@ access to this location could modify the configuration of static pods loaded fro
 source, or could introduce new static Pods.
  -->
 每個節點上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
-會加載並直接管理集羣中存儲在指定目錄中或從特定 URL
+會加載並直接管理叢集中存儲在指定目錄中或從特定 URL
 獲取的[**靜態 Pod**](/zh-cn/docs/tasks/configure-pod-container/static-pod) 清單。
-API 服務器不管理這些靜態 Pod。對該位置具有寫入權限的攻擊者可以修改從該位置加載的靜態 Pod 的配置，或引入新的靜態 Pod。
+API 伺服器不管理這些靜態 Pod。對該位置具有寫入權限的攻擊者可以修改從該位置加載的靜態 Pod 的設定，或引入新的靜態 Pod。
 
 <!--
 Static Pods are restricted from accessing other objects in the Kubernetes API. For example,
@@ -64,7 +64,7 @@ you can't configure a static Pod to mount a Secret from the cluster. However, th
 take other security sensitive actions, such as using `hostPath` mounts from the underlying
 node.
  -->
-靜態 Pod 被限制訪問 Kubernetes API 中的其他對象。例如，你不能將靜態 Pod 配置爲從集羣掛載 Secret。
+靜態 Pod 被限制訪問 Kubernetes API 中的其他對象。例如，你不能將靜態 Pod 設定爲從叢集掛載 Secret。
 但是，這些 Pod 可以執行其他安全敏感的操作，例如掛載來自下層節點的 `hostPath` 卷。
 
 <!--
@@ -73,7 +73,7 @@ so that the static Pods are visible in the Kubernetes API. However, if the attac
 namespace name when creating the Pod, it will not be visible in the Kubernetes API and can only
 be discovered by tooling that has access to the affected host(s).
  -->
-默認情況下，kubelet 會創建一個{{< glossary_tooltip text="鏡像 Pod（Mirror Pod）" term_id="mirror-pod">}}，
+默認情況下，kubelet 會創建一個{{< glossary_tooltip text="映像檔 Pod（Mirror Pod）" term_id="mirror-pod">}}，
 以便靜態 Pod 在 Kubernetes API 中可見。但是，如果攻擊者在創建 Pod 時使用了無效的名字空間名稱，
 則該 Pod 將在 Kubernetes API 中不可見，只能通過對受影響主機有訪問權限的工具發現。
 
@@ -82,7 +82,7 @@ If a static Pod fails admission control, the kubelet won't register the Pod with
 API server. However, the Pod still runs on the node. For more information, refer to
 [kubeadm issue #1541](https://github.com/kubernetes/kubeadm/issues/1541#issuecomment-487331701).
  -->
-如果靜態 Pod 無法通過准入控制，kubelet 不會將 Pod 註冊到 API 服務器。但該 Pod 仍然在節點上運行。
+如果靜態 Pod 無法通過准入控制，kubelet 不會將 Pod 註冊到 API 伺服器。但該 Pod 仍然在節點上運行。
 有關更多信息，請參閱 [kubeadm issue #1541](https://github.com/kubernetes/kubeadm/issues/1541#issuecomment-487331701)。
 
 <!--
@@ -101,9 +101,9 @@ API server. However, the Pod still runs on the node. For more information, refer
   static Pod manifests and kubelet configuration files.
  -->
 - 僅在節點需要時[啓用 kubelet 靜態 Pod 清單功能](/zh-cn/docs/tasks/configure-pod-container/static-pod/#static-pod-creation)。
-- 如果節點使用靜態 Pod 功能，請將對靜態 Pod 清單目錄或 URL 的文件系統的訪問權限限制爲需要訪問的用戶。
-- 限制對 kubelet 配置參數和文件的訪問，以防止攻擊者設置靜態 Pod 路徑或 URL。
-- 定期審計並集中報告所有對託管靜態 Pod 清單和 kubelet 配置文件的目錄或 Web 存儲位置的訪問。
+- 如果節點使用靜態 Pod 功能，請將對靜態 Pod 清單目錄或 URL 的文件系統的訪問權限限制爲需要訪問的使用者。
+- 限制對 kubelet 設定參數和文件的訪問，以防止攻擊者設置靜態 Pod 路徑或 URL。
+- 定期審計並集中報告所有對託管靜態 Pod 清單和 kubelet 設定文件的目錄或 Web 存儲位置的訪問。
 
 <!--
 ## The kubelet API {#kubelet-api}
@@ -117,7 +117,7 @@ distribution in use. Direct access to the API allows for disclosure of informati
 the pods running on a node, the logs from those pods, and execution of commands in
 every container running on the node.
 -->
-kubelet 提供了一個 HTTP API，通常暴露在集羣工作節點上的 TCP 端口 10250 上。
+kubelet 提供了一個 HTTP API，通常暴露在叢集工作節點上的 TCP 端口 10250 上。
 在某些 Kubernetes 發行版中，API 也可能暴露在控制平面節點上。
 對 API 的直接訪問允許公開有關運行在節點上的 Pod、這些 Pod 的日誌以及在節點上運行的每個容器中執行命令的信息。
 
@@ -127,7 +127,7 @@ serves as authorization to interact with the kubelet API. The exact access depen
 which sub-resource access has been granted, as detailed in
 [kubelet authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authorization).
  -->
-當 Kubernetes 集羣用戶具有對 `Node` 對象子資源 RBAC 訪問權限時，該訪問權限可用作與 kubelet API 交互的授權。
+當 Kubernetes 叢集使用者具有對 `Node` 對象子資源 RBAC 訪問權限時，該訪問權限可用作與 kubelet API 交互的授權。
 實際的訪問權限取決於授予了哪些子資源訪問權限，詳見
 [kubelet 鑑權](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authorization)。
 
@@ -146,8 +146,8 @@ change the default to use webhook and certificate authentication. This lets the 
 ensure that the caller is authorized to access the `nodes` API resource or sub-resources.
 The default anonymous access doesn't make this assertion with the control plane.
  -->
-kubelet API 可以配置爲以多種方式驗證請求。
-默認情況下，kubelet 的配置允許匿名訪問。大多數 Kubernetes 提供商將默認值更改爲使用 Webhook 和證書身份認證。
+kubelet API 可以設定爲以多種方式驗證請求。
+默認情況下，kubelet 的設定允許匿名訪問。大多數 Kubernetes 提供商將默認值更改爲使用 Webhook 和證書身份認證。
 這使得控制平面能夠確保調用者訪問 `nodes` API 資源或子資源是經過授權的。但控制平面不能確保默認的匿名訪問也是如此。
 
 <!--
@@ -171,7 +171,7 @@ kubelet API 可以配置爲以多種方式驗證請求。
 - 確保將
   [kubelet 身份驗證](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication)
   設置爲 Webhook 或證書模式。
-- 確保集羣上未啓用不作身份認證的“只讀” Kubelet 端口。
+- 確保叢集上未啓用不作身份認證的“只讀” Kubelet 端口。
 
 <!--
 ## The etcd API
@@ -184,8 +184,8 @@ The only clients that need access are the Kubernetes API server and any backup t
 that you use. Direct access to this API allows for disclosure or modification of any
 data held in the cluster.
  -->
-Kubernetes 集羣使用 etcd 作爲數據存儲。`etcd` 服務監聽 TCP 端口 2379。
-只有 Kubernetes API 服務器和你所使用的備份工具需要訪問此存儲。對該 API 的直接訪問允許公開或修改集羣中保存的數據。
+Kubernetes 叢集使用 etcd 作爲數據存儲。`etcd` 服務監聽 TCP 端口 2379。
+只有 Kubernetes API 伺服器和你所使用的備份工具需要訪問此存儲。對該 API 的直接訪問允許公開或修改叢集中保存的數據。
 
 <!--
 Access to the etcd API is typically managed by client certificate authentication.
@@ -204,9 +204,9 @@ elevating their Kubernetes RBAC privileges, an attacker who can modify etcd can 
 or create new workloads inside the cluster.
  -->
 對 etcd 的直接訪問不受 Kubernetes 准入控制的影響，也不會被 Kubernetes 審計日誌記錄。
-具有對 API 服務器的 etcd 客戶端證書私鑰的讀取訪問權限（或可以創建一個新的受信任的客戶端證書）
-的攻擊者可以通過訪問集羣 Secret 或修改訪問規則來獲得集羣管理員權限。
-即使不提升其 Kubernetes RBAC 權限，可以修改 etcd 的攻擊者也可以在集羣內檢索所有 API 對象或創建新的工作負載。
+具有對 API 伺服器的 etcd 客戶端證書私鑰的讀取訪問權限（或可以創建一個新的受信任的客戶端證書）
+的攻擊者可以通過訪問叢集 Secret 或修改訪問規則來獲得叢集管理員權限。
+即使不提升其 Kubernetes RBAC 權限，可以修改 etcd 的攻擊者也可以在叢集內檢索所有 API 對象或創建新的工作負載。
 
 <!--
 Many Kubernetes providers configure
@@ -216,7 +216,7 @@ the feature exists. Since there is no authorization model, any certificate
 with client access to etcd can be used to gain full access to etcd. Typically, etcd client certificates
 that are only used for health checking can also grant full read and write access.
  -->
-許多 Kubernetes 提供商配置 etcd 爲使用雙向 TLS（客戶端和服務器都驗證彼此的證書以進行身份驗證）。
+許多 Kubernetes 提供商設定 etcd 爲使用雙向 TLS（客戶端和伺服器都驗證彼此的證書以進行身份驗證）。
 儘管存在該特性，但目前還沒有被廣泛接受的 etcd API 鑑權實現。
 由於缺少鑑權模型，任何具有對 etcd 的客戶端訪問權限的證書都可以用於獲得對 etcd 的完全訪問權限。
 通常，僅用於健康檢查的 etcd 客戶端證書也可以授予完全讀寫訪問權限。
@@ -235,8 +235,8 @@ that are only used for health checking can also grant full read and write access
   from specified and trusted IP address ranges.
  -->
 - 確保 etcd 所信任的證書頒發機構僅用於該服務的身份認證。
-- 控制對 etcd 服務器證書的私鑰以及 API 服務器的客戶端證書和密鑰的訪問。
-- 考慮在網絡層面限制對 etcd 端口的訪問，僅允許來自特定和受信任的 IP 地址段的訪問。
+- 控制對 etcd 伺服器證書的私鑰以及 API 伺服器的客戶端證書和密鑰的訪問。
+- 考慮在網路層面限制對 etcd 端口的訪問，僅允許來自特定和受信任的 IP 地址段的訪問。
 
 <!--
 ## Container runtime socket {#runtime-socket}
@@ -249,7 +249,7 @@ by the container runtime (or runtimes, if you have configured more than one). Ty
 the container runtime exposes a Unix socket that the kubelet can access. An attacker with
 access to this socket can launch new containers or interact with running containers.
  -->
-在 Kubernetes 集羣中的每個節點上，與容器交互的訪問都由容器運行時控制。
+在 Kubernetes 叢集中的每個節點上，與容器交互的訪問都由容器運行時控制。
 通常，容器運行時會公開一個 kubelet 可以訪問的 UNIX 套接字。
 具有此套接字訪問權限的攻擊者可以啓動新容器或與正在運行的容器進行交互。
 
@@ -259,7 +259,7 @@ run on the compromised node have access to Secrets or other confidential
 data that an attacker could use to escalate privileges to other worker nodes or to
 control plane components.
  -->
-在集羣層面，這種訪問造成的影響取決於在受威脅節點上運行的容器是否可以訪問 Secret 或其他機密數據，
+在叢集層面，這種訪問造成的影響取決於在受威脅節點上運行的容器是否可以訪問 Secret 或其他機密數據，
 攻擊者可以使用這些機密數據將權限提升到其他工作節點或控制平面組件。
 
 <!--
@@ -278,8 +278,8 @@ control plane components.
   of attackers bypassing directory restrictions.
 - Restrict user access to nodes, and especially restrict superuser access to nodes.
 -->
-- 確保嚴格控制對容器運行時套接字所在的文件系統訪問。如果可能，限制爲僅 `root` 用戶可訪問。
+- 確保嚴格控制對容器運行時套接字所在的文件系統訪問。如果可能，限制爲僅 `root` 使用者可訪問。
 - 使用 Linux 內核命名空間等機制將 kubelet 與節點上運行的其他組件隔離。
 - 確保限制或禁止使用包含容器運行時套接字的 [`hostPath` 掛載](/zh-cn/docs/concepts/storage/volumes/#hostpath)，
   無論是直接掛載還是通過掛載父目錄掛載。此外，`hostPath` 掛載必須設置爲只讀，以降低攻擊者繞過目錄限制的風險。
-- 限制用戶對節點的訪問，特別是限制超級用戶對節點的訪問。
+- 限制使用者對節點的訪問，特別是限制超級使用者對節點的訪問。

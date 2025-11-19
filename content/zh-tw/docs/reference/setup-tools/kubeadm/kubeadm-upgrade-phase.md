@@ -56,7 +56,7 @@ secondary control-plane or worker nodes.
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality
 -->
 * [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/) 引導一個 Kubernetes 控制平面節點
-* [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 將節點加入到集羣
+* [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/) 將節點加入到叢集
 * [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 還原 `kubeadm init` 或
   `kubeadm join` 命令對主機所做的任何更改
 * [kubeadm upgrade](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 升級 kubeadm 節點

@@ -16,7 +16,7 @@ weight: 200
 This page shows how to enable or disable an API version from your cluster's
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 -->
-本頁展示怎麼用集羣的
+本頁展示怎麼用叢集的
 {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}.
 啓用/禁用 API 版本。
 
@@ -30,12 +30,12 @@ list of API versions. Later values override earlier values.
 
 The `runtime-config` command line argument also supports 2 special keys:
 -->
-通過 API 服務器的命令行參數 `--runtime-config=api/<version>` ，
+通過 API 伺服器的命令列參數 `--runtime-config=api/<version>` ，
 可以開啓/關閉某個指定的 API 版本。
 此參數的值是一個逗號分隔的 API 版本列表。
 此列表中，後面的值可以覆蓋前面的值。
 
-命令行參數 `runtime-config` 支持兩個特殊的值（keys）：
+命令列參數 `runtime-config` 支持兩個特殊的值（keys）：
 
 <!-- 
 - `api/all`, representing all known APIs

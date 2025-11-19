@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/networking/v1"
   kind: "NetworkPolicy"
 content_type: "api_reference"
-description: "NetworkPolicy 描述針對一組 Pod 所允許的網絡流量。"
+description: "NetworkPolicy 描述針對一組 Pod 所允許的網路流量。"
 title: "NetworkPolicy"
 weight: 4
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 NetworkPolicy describes what network traffic is allowed for a set of Pods
 -->
-NetworkPolicy 描述針對一組 Pod 所允許的網絡流量。
+NetworkPolicy 描述針對一組 Pod 所允許的網路流量。
 
 <hr>
 
@@ -103,7 +103,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
 
   **原子：將在合併期間被替換**
 
-  ingress 是應用到所選 Pod 的入站規則列表。在沒有被任何 NetworkPolicy 選擇到 Pod 的情況下（同時假定集羣策略允許對應流量），
+  ingress 是應用到所選 Pod 的入站規則列表。在沒有被任何 NetworkPolicy 選擇到 Pod 的情況下（同時假定叢集策略允許對應流量），
   或者如果流量源是 Pod 的本地節點，或者流量與所有 NetworkPolicy 中的至少一個入站規則（Ingress) 匹配，
   則進入 Pod 的流量是被允許的。如果此字段爲空，則此 NetworkPolicy 不允許任何入站流量
   （這種設置用來確保它所選擇的 Pod 在默認情況下是被隔離的）。
@@ -188,7 +188,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.from.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      `namespaceSelector` 使用集羣範圍標籤來選擇特定的 Namespace。
+      `namespaceSelector` 使用叢集範圍標籤來選擇特定的 Namespace。
       此字段遵循標準標籤選擇算符語義；如果此字段存在但爲空值，則會選擇所有名字空間。
 
       如果 `podSelector` 也被定義了, 那麼 NetworkPolicyPeer 將選擇那些同時滿足 `namespaceSelector`
@@ -270,7 +270,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
 
     - **ingress.ports.protocol** (string)
 
-      `protocol` 表示流量必須匹配的網絡協議（TCP、UDP 或 SCTP）。如果未指定，此字段默認爲 TCP。
+      `protocol` 表示流量必須匹配的網路協議（TCP、UDP 或 SCTP）。如果未指定，此字段默認爲 TCP。
 
 <!--
 - **egress** ([]NetworkPolicyEgressRule)
@@ -286,7 +286,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
 
   **原子：將在合併期間被替換**
 
-  `egress` 是應用到所選 Pod 的出站規則的列表。如果沒有 NetworkPolicy 選中指定 Pod（並且其他集羣策略也允許出口流量），
+  `egress` 是應用到所選 Pod 的出站規則的列表。如果沒有 NetworkPolicy 選中指定 Pod（並且其他叢集策略也允許出口流量），
   或者在所有通過 `podSelector` 選中了某 Pod 的 NetworkPolicy 中，至少有一條出站規則與出站流量匹配，
   則該 Pod 的出站流量是被允許的。
   如果此字段爲空，則此 NetworkPolicy 拒絕所有出站流量（這策略可以確保它所選中的 Pod 在默認情況下是被隔離的）。
@@ -369,7 +369,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
 
     - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      `namespaceSelector` 使用集羣範圍標籤來選擇特定的名字空間。該字段遵循標準標籤選擇算符語義；
+      `namespaceSelector` 使用叢集範圍標籤來選擇特定的名字空間。該字段遵循標準標籤選擇算符語義；
       如果字段存在但爲空值，那會選擇所有名字空間。
 
       如果 `podSelector` 也被定義了, 那麼 `NetworkPolicyPeer` 將選擇那些同時滿足 `namespaceSelector`
@@ -450,7 +450,7 @@ NetworkPolicySpec 定義特定 NetworkPolicy 所需的所有信息.
 
     - **egress.ports.protocol** (string)
 
-      protocol 表示流量必須匹配的網絡協議（TCP、UDP 或 SCTP）。如果未指定，此字段默認爲 TCP。
+      protocol 表示流量必須匹配的網路協議（TCP、UDP 或 SCTP）。如果未指定，此字段默認爲 TCP。
 
 ## NetworkPolicyList {#NetworkPolicyList}
 

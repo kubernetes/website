@@ -100,7 +100,7 @@ CRI-O 社區也**不**支持早於 `release-1.28` 的版本分支，
 <!--
 For example, If an end-user would like to install the latest available version of the CRI-O `main` branch, then they can add the repository in the same way as they do for Kubernetes.
 -->
-例如，如果最終用戶想要安裝 CRI-O `main` 分支的最新可用版本，
+例如，如果最終使用者想要安裝 CRI-O `main` 分支的最新可用版本，
 那麼他們可以按照與 Kubernetes 相同的方式添加倉庫。
 
 <!--
@@ -112,7 +112,7 @@ For example, If an end-user would like to install the latest available version o
 For `rpm` based distributions, you can run the following commands as a `root` user to install CRI-O together with Kubernetes:
 -->
 對於基於 `rpm` 的發行版，您可以以 `root`
-用戶身份運行以下命令來將 CRI-O 與 Kubernetes 一起安裝：
+使用者身份運行以下命令來將 CRI-O 與 Kubernetes 一起安裝：
 
 <!--
 #### Add the Kubernetes repo
@@ -182,7 +182,7 @@ dnf install -y --repo cri-o --repo kubernetes \
 <!--
 For `deb` based distributions, you can run the following commands as a `root` user:
 -->
-對於基於 `deb` 的發行版，您可以以 `root` 用戶身份運行以下命令：
+對於基於 `deb` 的發行版，您可以以 `root` 使用者身份運行以下命令：
 
 <!--
 #### Install dependencies for adding the repositories
@@ -246,7 +246,7 @@ The Project's `prerelease:/main` prefix at the CRI-O's package path, can be repl
 <!--
 Bootstrapping [a cluster using `kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) can be done by running `kubeadm init` command, which automatically detects that CRI-O is running in the background. There are also `Vagrantfile` examples available for [Fedora 38](https://github.com/cri-o/packaging/blob/91df5f7/test/rpm/Vagrantfile) as well as [Ubuntu 22.04](https://github.com/cri-o/packaging/blob/91df5f7/test/deb/Vagrantfile) for testing the packages together with `kubeadm`.
 -->
-你可以使用 `kubeadm init` 命令來[引導集羣](/docs/setup/product-environment/tools/kubeadm/install-kubeadm/)，
+你可以使用 `kubeadm init` 命令來[引導叢集](/docs/setup/product-environment/tools/kubeadm/install-kubeadm/)，
 該命令會自動檢測後臺正在運行 CRI-O。還有適用於
 [Fedora 38](https://github.com/cri-o/packaging/blob/91df5f7/test/rpm/Vagrantfile)
 以及 [Ubuntu 22.04](https://github.com/cri-o/packaging/blob/91df5f7/test/deb/Vagrantfile)

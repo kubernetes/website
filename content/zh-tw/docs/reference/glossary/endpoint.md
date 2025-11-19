@@ -4,7 +4,7 @@ id: endpoints
 date: 2020-04-23
 full_link: 
 short_description: >
-  Service 的一個端點是實現該服務的 Pod 之一（或外部服務器）。
+  Service 的一個端點是實現該服務的 Pod 之一（或外部伺服器）。
 
 aka:
 tags:
@@ -28,7 +28,7 @@ tags:
 -->
 一個 {{< glossary_tooltip text="Service" term_id="service" >}}
 的端點是實現該 Service 的 {{< glossary_tooltip text="Pod 之一" term_id="pod" >}}
-（或外部服務器）。
+（或外部伺服器）。
 
 <!--more-->
 

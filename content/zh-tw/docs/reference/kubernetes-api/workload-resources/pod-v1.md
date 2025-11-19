@@ -125,7 +125,7 @@ PodSpec 是對 Pod 的描述。
 
   **補丁策略：基於 `name` 鍵合併**
   
-  在此 Pod 中運行的臨時容器列表。臨時容器可以在現有的 Pod 中運行，以執行用戶發起的操作，例如調試。
+  在此 Pod 中運行的臨時容器列表。臨時容器可以在現有的 Pod 中運行，以執行使用者發起的操作，例如調試。
   此列表在創建 Pod 時不能指定，也不能通過更新 Pod 規約來修改。
   要將臨時容器添加到現有 Pod，請使用 Pod 的 `ephemeralcontainers` 子資源。
 
@@ -140,8 +140,8 @@ PodSpec 是對 Pod 的描述。
 
   **補丁策略：基於 `name` 鍵合併**
 
-  imagePullSecrets 是對同一名字空間中 Secret 的引用的列表，用於拉取此 Pod 規約中使用的任何鏡像，此字段可選。
-  如果指定，這些 Secret 將被傳遞給各個鏡像拉取組件（Puller）實現供其使用。更多信息：
+  imagePullSecrets 是對同一名字空間中 Secret 的引用的列表，用於拉取此 Pod 規約中使用的任何映像檔，此字段可選。
+  如果指定，這些 Secret 將被傳遞給各個映像檔拉取組件（Puller）實現供其使用。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 
 <!--
@@ -416,7 +416,7 @@ PodSpec 是對 Pod 的描述。
 - **priority** (int32)
 
   優先級值。各種系統組件使用該字段來確定 Pod 的優先級。當啓用 Priority 准入控制器時，
-  該控制器會阻止用戶設置此字段。准入控制器基於 priorityClassName 設置來填充此字段。
+  該控制器會阻止使用者設置此字段。准入控制器基於 priorityClassName 設置來填充此字段。
   字段值越高，優先級越高。
 
 <!--
@@ -463,7 +463,7 @@ PodSpec 是對 Pod 的描述。
     maxSkew 描述 Pod 可能分佈不均衡的程度。當 `whenUnsatisfiable=DoNotSchedule` 時，
     此字段值是目標拓撲中匹配的 Pod 數量與全局最小值之間的最大允許差值。
     全局最小值是候選域中匹配 Pod 的最小數量，如果候選域的數量小於 `minDomains`，則爲零。
-    例如，在一個包含三個可用區的集羣中，maxSkew 設置爲 1，具有相同 `labelSelector` 的 Pod 分佈爲 2/2/1：
+    例如，在一個包含三個可用區的叢集中，maxSkew 設置爲 1，具有相同 `labelSelector` 的 Pod 分佈爲 2/2/1：
     在這種情況下，全局最小值爲 1。
 
     ```
@@ -517,7 +517,7 @@ PodSpec 是對 Pod 的描述。
     當且僅當該 Pod 的每個可能的節點分配都會違反某些拓撲對應的 "maxSkew" 時，
     才認爲傳入 Pod 的約束是 "不可滿足的"。
 
-    例如，在一個包含三個區域的集羣中，maxSkew 設置爲 1，具有相同 labelSelector 的 Pod 分佈爲 3/1/1：
+    例如，在一個包含三個區域的叢集中，maxSkew 設置爲 1，具有相同 labelSelector 的 Pod 分佈爲 3/1/1：
 
     ```
     | zone1 | zone2 | zone3 |
@@ -527,7 +527,7 @@ PodSpec 是對 Pod 的描述。
     如果 whenUnsatisfiable 設置爲 `DoNotSchedule`，則傳入的 Pod 只能調度到 "zone2"（"zone3"），
     Pod 分佈變成 3/2/1（3/1/2），因爲 "zone2"（"zone3"）上的實際偏差（Actual Skew） 爲 2-1，
     滿足 maxSkew 約束（1）。
-    換句話說，集羣仍然可以不平衡，但調度器不會使其**更加地**不平衡。
+    換句話說，叢集仍然可以不平衡，但調度器不會使其**更加地**不平衡。
 
     這是一個必填字段。
 
@@ -580,7 +580,7 @@ PodSpec 是對 Pod 的描述。
     如果字段值爲 nil，所表達的約束爲 minDomains 等於 1。
     字段的有效值爲大於 0 的整數。當字段值不爲 nil 時，whenUnsatisfiable 必須爲 `DoNotSchedule`。
     
-    例如，在一個包含三個區域的集羣中，maxSkew 設置爲 2，minDomains 設置爲 5，具有相同 labelSelector
+    例如，在一個包含三個區域的叢集中，maxSkew 設置爲 2，minDomains 設置爲 5，具有相同 labelSelector
     的 Pod 分佈爲 2/2/2：
 
     ```
@@ -639,7 +639,7 @@ PodSpec 是對 Pod 的描述。
   該字段將由 RuntimeClass 准入控制器在准入時自動填充。
   如果啓用了 RuntimeClass 准入控制器，則不得在 Pod 創建請求中設置 overhead 字段。
   RuntimeClass 准入控制器將拒絕已設置 overhead 字段的 Pod 創建請求。
-  如果在 Pod 規約中配置並選擇了 RuntimeClass，overhead 字段將被設置爲對應 RuntimeClass 中定義的值，
+  如果在 Pod 規約中設定並選擇了 RuntimeClass，overhead 字段將被設置爲對應 RuntimeClass 中定義的值，
   否則將保持不設置並視爲零。更多信息：
   https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 
@@ -730,7 +730,7 @@ PodSpec 是對 Pod 的描述。
 -->
 - **setHostnameAsFQDN** (boolean)
 
-  如果爲 true，則 Pod 的主機名將配置爲 Pod 的 FQDN，而不是葉名稱（默認值）。
+  如果爲 true，則 Pod 的主機名將設定爲 Pod 的 FQDN，而不是葉名稱（默認值）。
   在 Linux 容器中，這意味着將內核的 hostname 字段（struct utsname 的 nodename 字段）設置爲 FQDN。
   在 Windows 容器中，這意味着將註冊表項 `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters`
   的 hostname 鍵設置爲 FQDN。如果 Pod 沒有 FQDN，則此字段不起作用。
@@ -790,7 +790,7 @@ PodSpec 是對 Pod 的描述。
 -->
 - **dnsConfig** (PodDNSConfig)
 
-  指定 Pod 的 DNS 參數。此處指定的參數將被合併到基於 dnsPolicy 生成的 DNS 配置中。
+  指定 Pod 的 DNS 參數。此處指定的參數將被合併到基於 dnsPolicy 生成的 DNS 設定中。
 
   <a name="PodDNSConfig"></a>
   <!--
@@ -806,8 +806,8 @@ PodSpec 是對 Pod 的描述。
 
   - **dnsConfig.nameservers** ([]string)
 
-    DNS 名字服務器的 IP 地址列表。此列表將被追加到基於 dnsPolicy 生成的基本名字服務器列表。
-    重複的名字服務器將被刪除。
+    DNS 名字伺服器的 IP 地址列表。此列表將被追加到基於 dnsPolicy 生成的基本名字伺服器列表。
+    重複的名字伺服器將被刪除。
 
   <!--
   - **dnsConfig.options** ([]PodDNSConfigOption)
@@ -882,7 +882,7 @@ PodSpec 是對 Pod 的描述。
 -->
 - **hostNetwork** (boolean)
 
-  爲此 Pod 請求主機層面聯網支持。使用主機的網絡名字空間。
+  爲此 Pod 請求主機層面聯網支持。使用主機的網路名字空間。
   如果設置了此選項，則必須指定將使用的端口。默認爲 false。
 
 - **hostPID** (boolean)
@@ -964,7 +964,7 @@ PodSpec 是對 Pod 的描述。
 
   - **securityContext.runAsUser** (int64)
 
-    運行容器進程入口點（Entrypoint）的 UID。如果未指定，則默認爲鏡像元數據中指定的用戶。
+    運行容器進程入口點（Entrypoint）的 UID。如果未指定，則默認爲映像檔元數據中指定的使用者。
     也可以在 SecurityContext 中設置。
     如果同時在 SecurityContext 和 PodSecurityContext 中設置，則在對應容器中所設置的 SecurityContext 值優先。
     注意，`spec.os.name` 爲 "windows" 時不能設置此字段。
@@ -977,8 +977,8 @@ PodSpec 是對 Pod 的描述。
 
   - **securityContext.runAsNonRoot** (boolean)
 
-    指示容器必須以非 root 用戶身份運行。如果爲 true，kubelet 將在運行時驗證鏡像，
-    以確保它不會以 UID 0（root）身份運行。如果鏡像中確實使用 root 賬號啓動，則容器無法被啓動。
+    指示容器必須以非 root 使用者身份運行。如果爲 true，kubelet 將在運行時驗證映像檔，
+    以確保它不會以 UID 0（root）身份運行。如果映像檔中確實使用 root 賬號啓動，則容器無法被啓動。
     如果此字段未設置或爲 false，則不會執行此類驗證。也可以在 SecurityContext 中設置。
     如果同時在 SecurityContext 和 PodSecurityContext 中設置，則在 SecurityContext 中指定的值優先。
 
@@ -1005,10 +1005,10 @@ PodSpec 是對 Pod 的描述。
   
     此字段包含將應用到每個容器中運行的第一個進程的組列表。
     容器進程的組成員身份取決於容器的主 GID、fsGroup（如果指定了的話）
-    和在容器鏡像中爲容器進程的 uid 定義的組成員身份，以及這裏所給的列表。
+    和在容器映像檔中爲容器進程的 uid 定義的組成員身份，以及這裏所給的列表。
 
     如果未指定，則不會向任何容器添加其他組。
-    注意，在容器鏡像中爲容器進程的 uid 定義的組成員身份仍然有效，
+    注意，在容器映像檔中爲容器進程的 uid 定義的組成員身份仍然有效，
     即使它們未包含在此列表中也是如此。
     注意，當 `spec.os.name` 爲 `windows` 時，不能設置此字段。
 
@@ -1061,7 +1061,7 @@ PodSpec 是對 Pod 的描述。
     *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
     -->
 
-    **SeccompProfile 定義 Pod 或容器的 seccomp 配置文件設置。只能設置一個配置文件源。**
+    **SeccompProfile 定義 Pod 或容器的 seccomp 設定文件設置。只能設置一個設定文件源。**
 
     <!--
     - **securityContext.seccompProfile.type** (string), required
@@ -1073,11 +1073,11 @@ PodSpec 是對 Pod 的描述。
 
     - **securityContext.seccompProfile.type** (string)，必需
 
-      type 標明將應用哪種 seccomp 配置文件。有效的選項有：
+      type 標明將應用哪種 seccomp 設定文件。有效的選項有：
 
-      - `Localhost` - 應使用在節點上的文件中定義的配置文件。
-      - `RuntimeDefault` - 應使用容器運行時默認配置文件。
-      - `Unconfined` - 不應應用任何配置文件。
+      - `Localhost` - 應使用在節點上的文件中定義的設定文件。
+      - `RuntimeDefault` - 應使用容器運行時默認設定文件。
+      - `Unconfined` - 不應應用任何設定文件。
 
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
@@ -1087,8 +1087,8 @@ PodSpec 是對 Pod 的描述。
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile 指示應使用在節點上的文件中定義的配置文件。該配置文件必須在節點上預先配置才能工作。
-      必須是相對於 kubelet 配置的 seccomp 配置文件位置的下降路徑。
+      localhostProfile 指示應使用在節點上的文件中定義的設定文件。該設定文件必須在節點上預先設定才能工作。
+      必須是相對於 kubelet 設定的 seccomp 設定文件位置的下降路徑。
       僅當 type 爲 `"Localhost"` 時才必須設置。不得爲任何其他類別設置此字段。
 
   <!--
@@ -1143,7 +1143,7 @@ PodSpec 是對 Pod 的描述。
 
     - **securityContext.seLinuxOptions.user** (string)
 
-      user 是應用於容器的 SELinux 用戶標籤。
+      user 是應用於容器的 SELinux 使用者標籤。
 
   <!--
   - **securityContext.sysctls** ([]Sysctl)
@@ -1241,7 +1241,7 @@ PodSpec 是對 Pod 的描述。
 
     - **securityContext.windowsOptions.runAsUserName** (string)
 
-      Windows 中用來運行容器進程入口點的用戶名。如果未設置，則默認爲鏡像元數據中指定的用戶。
+      Windows 中用來運行容器進程入口點的使用者名。如果未設置，則默認爲映像檔元數據中指定的使用者。
       也可以在 PodSecurityContext 中設置。
       如果同時在 SecurityContext 和 PodSecurityContext 中設置，則在 SecurityContext 中指定的值優先。
 
@@ -1257,11 +1257,11 @@ PodSpec 是對 Pod 的描述。
 -->
 - **hostUsers** (boolean)
 
-  使用主機的用戶名字空間。可選：默認爲 true。如果設置爲 true 或不存在，則 Pod 將運行在主機的用戶名字空間中，
-  當 Pod 需要僅對主機用戶名字空間可用的一個特性時這會很有用，例如使用 CAP_SYS_MODULE 加載內核模塊。
-  當設置爲 false 時，會爲該 Pod 創建一個新的用戶名字空間。
-  設置爲 false 對於緩解容器逃逸漏洞非常有用，可防止允許實際在主機上沒有 root 特權的用戶以 root 運行他們的容器。
-  此字段是 Alpha 級別的字段，只有啓用 UserNamespacesSupport 特性的服務器才能使用此字段。
+  使用主機的使用者名字空間。可選：默認爲 true。如果設置爲 true 或不存在，則 Pod 將運行在主機的使用者名字空間中，
+  當 Pod 需要僅對主機使用者名字空間可用的一個特性時這會很有用，例如使用 CAP_SYS_MODULE 加載內核模塊。
+  當設置爲 false 時，會爲該 Pod 創建一個新的使用者名字空間。
+  設置爲 false 對於緩解容器逃逸漏洞非常有用，可防止允許實際在主機上沒有 root 特權的使用者以 root 運行他們的容器。
+  此字段是 Alpha 級別的字段，只有啓用 UserNamespacesSupport 特性的伺服器才能使用此字段。
 
 <!--
 - **resourceClaims** ([]PodResourceClaim)
@@ -1448,7 +1448,7 @@ A single application container that you want to run within a pod.
 <!--
 ### Image
 -->
-### 鏡像 {#image}
+### 映像檔 {#image}
 
 <!--
 - **image** (string)
@@ -1462,13 +1462,13 @@ A single application container that you want to run within a pod.
 
 - **image** (string)
 
-  容器鏡像名稱。更多信息： https://kubernetes.io/zh-cn/docs/concepts/containers/images。
-  此字段是可選的，以允許更高層的配置管理進行默認設置或覆蓋工作負載控制器（如 Deployment 和 StatefulSets）
-  中的容器鏡像。
+  容器映像檔名稱。更多信息： https://kubernetes.io/zh-cn/docs/concepts/containers/images。
+  此字段是可選的，以允許更高層的設定管理進行默認設置或覆蓋工作負載控制器（如 Deployment 和 StatefulSets）
+  中的容器映像檔。
 
 - **imagePullPolicy** (string)
 
-  鏡像拉取策略。`"Always"`、`"Never"`、`"IfNotPresent"` 之一。如果指定了 `:latest` 標籤，則默認爲 `"Always"`，
+  映像檔拉取策略。`"Always"`、`"Never"`、`"IfNotPresent"` 之一。如果指定了 `:latest` 標籤，則默認爲 `"Always"`，
   否則默認爲 `"IfNotPresent"`。無法更新。更多信息： 
   https://kubernetes.io/zh-cn/docs/concepts/containers/images#updating-images
 
@@ -1486,7 +1486,7 @@ A single application container that you want to run within a pod.
 
 - **command** ([]string)
 
-  入口點數組。不在 Shell 中執行。如果未提供，則使用容器鏡像的 `ENTRYPOINT`。
+  入口點數組。不在 Shell 中執行。如果未提供，則使用容器映像檔的 `ENTRYPOINT`。
   變量引用 `$(VAR_NAME)` 使用容器的環境進行擴展。如果無法解析變量，則輸入字符串中的引用將保持不變。
   `$$` 被簡化爲 `$`，這允許轉義 `$(VAR_NAME)` 語法：即 `"$$(VAR_NAME)" ` 將產生字符串字面值 `"$(VAR_NAME)"`。
   無論變量是否存在，轉義引用都不會被擴展。無法更新。更多信息： 
@@ -1500,7 +1500,7 @@ A single application container that you want to run within a pod.
 
 - **args** ([]string)
 
-  entrypoint 的參數。如果未提供，則使用容器鏡像的 `CMD` 設置。變量引用 `$(VAR_NAME)` 使用容器的環境進行擴展。
+  entrypoint 的參數。如果未提供，則使用容器映像檔的 `CMD` 設置。變量引用 `$(VAR_NAME)` 使用容器的環境進行擴展。
   如果無法解析變量，則輸入字符串中的引用將保持不變。`$$` 被簡化爲 `$`，這允許轉義 `$(VAR_NAME)` 語法：
   即 `"$$(VAR_NAME)"` 將產生字符串字面值 `"$(VAR_NAME)"`。無論變量是否存在，轉義引用都不會被擴展。無法更新。
   更多信息： 
@@ -1514,7 +1514,7 @@ A single application container that you want to run within a pod.
 
 - **workingDir** (string)
 
-  容器的工作目錄。如果未指定，將使用容器運行時的默認值，默認值可能在容器鏡像中配置。無法更新。
+  容器的工作目錄。如果未指定，將使用容器運行時的默認值，默認值可能在容器映像檔中設定。無法更新。
 
 <!---
 ### Ports
@@ -1541,12 +1541,12 @@ A single application container that you want to run within a pod.
   **映射：鍵 `containerPort, protocol` 組合的唯一值將在合併期間保留**
   
   要從容器暴露的端口列表。此處不指定端口不會阻止該端口被暴露。
-  任何偵聽容器內默認 `"0.0.0.0"` 地址的端口都可以從網絡訪問。使用策略合併補丁來修改此數組可能會破壞數據。
+  任何偵聽容器內默認 `"0.0.0.0"` 地址的端口都可以從網路訪問。使用策略合併補丁來修改此數組可能會破壞數據。
   更多細節請參閱 https://github.com/kubernetes/kubernetes/issues/108255。
   無法更新。
 
   <a name="ContainerPort"></a>
-  **ContainerPort 表示單個容器中的網絡端口。**
+  **ContainerPort 表示單個容器中的網路端口。**
 
   <!--
   - **ports.containerPort** (int32), required
@@ -2244,7 +2244,7 @@ A single application container that you want to run within a pod.
   PodSecurityContext 的等效字段。更多信息：
   https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/security-context/
 
-  SecurityContext 保存將應用於容器的安全配置。某些字段在 SecurityContext 和 PodSecurityContext 中都存在。
+  SecurityContext 保存將應用於容器的安全設定。某些字段在 SecurityContext 和 PodSecurityContext 中都存在。
   當兩者都設置時，SecurityContext 中的值優先。
 
   <!--
@@ -2255,7 +2255,7 @@ A single application container that you want to run within a pod.
 
   - **securityContext.runAsUser** (int64)
 
-    運行容器進程入口點的 UID。如果未指定，則默認爲鏡像元數據中指定的用戶。
+    運行容器進程入口點的 UID。如果未指定，則默認爲映像檔元數據中指定的使用者。
     也可以在 PodSecurityContext 中設置。
     如果同時在 SecurityContext 和 PodSecurityContext 中設置，則在 SecurityContext 中指定的值優先。
     注意，`spec.os.name` 爲 "windows" 時不能設置該字段。
@@ -2268,8 +2268,8 @@ A single application container that you want to run within a pod.
 
   - **securityContext.runAsNonRoot** (boolean)
 
-    指示容器必須以非 root 用戶身份運行。
-    如果爲 true，kubelet 將在運行時驗證鏡像，以確保它不會以 UID 0（root）身份運行，如果是，則無法啓動容器。
+    指示容器必須以非 root 使用者身份運行。
+    如果爲 true，kubelet 將在運行時驗證映像檔，以確保它不會以 UID 0（root）身份運行，如果是，則無法啓動容器。
     如果未設置或爲 false，則不會執行此類驗證。也可以在 PodSecurityContext 中設置。
     如果同時在 SecurityContext 和 PodSecurityContext 中設置，則在 SecurityContext 中指定的值優先。
 
@@ -2381,7 +2381,7 @@ A single application container that you want to run within a pod.
     此容器使用的 seccomp 選項。如果在 Pod 和容器級別都提供了 seccomp 選項，則容器級別的選項會覆蓋 Pod 級別的選項設置。
     注意，`spec.os.name` 爲 "windows" 時不能設置此字段。
 
-    **SeccompProfile 定義 Pod 或容器的 seccomp 配置文件設置。只能設置一個配置文件源。**
+    **SeccompProfile 定義 Pod 或容器的 seccomp 設定文件設置。只能設置一個設定文件源。**
 
     <!--
     - **securityContext.seccompProfile.type** (string), required
@@ -2393,11 +2393,11 @@ A single application container that you want to run within a pod.
 
     - **securityContext.seccompProfile.type** (string)，必需
 
-      type 指示應用哪種 seccomp 配置文件。有效的選項有：
+      type 指示應用哪種 seccomp 設定文件。有效的選項有：
       
-      - `Localhost` - 應使用在節點上的文件中定義的配置文件。
-      - `RuntimeDefault` - 應使用容器運行時的默認配置文件。
-      - `Unconfined` - 不應用任何配置文件。
+      - `Localhost` - 應使用在節點上的文件中定義的設定文件。
+      - `RuntimeDefault` - 應使用容器運行時的默認設定文件。
+      - `Unconfined` - 不應用任何設定文件。
      
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
@@ -2407,9 +2407,9 @@ A single application container that you want to run within a pod.
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
-      localhostProfile 指示應使用的在節點上的文件，文件中定義了配置文件。
-      該配置文件必須在節點上先行配置才能使用。
-      必須是相對於 kubelet 所配置的 seccomp 配置文件位置下的下級路徑。
+      localhostProfile 指示應使用的在節點上的文件，文件中定義了設定文件。
+      該設定文件必須在節點上先行設定才能使用。
+      必須是相對於 kubelet 所設定的 seccomp 設定文件位置下的下級路徑。
       僅當 type 爲 "Localhost" 時才必須設置。不得爲任何其他類別設置此字段。
 
   <!--
@@ -2462,7 +2462,7 @@ A single application container that you want to run within a pod.
 
     - **securityContext.seLinuxOptions.user** （string）
 
-      user 是應用於容器的 SELinux 用戶標籤。
+      user 是應用於容器的 SELinux 使用者標籤。
 
   <!--
   - **securityContext.windowsOptions** （WindowsSecurityContextOptions）
@@ -2517,7 +2517,7 @@ A single application container that you want to run within a pod.
 
     - **securityContext.windowsOptions.runAsUserName** （string）
 
-      Windows 中運行容器進程入口點的用戶名。如果未指定，則默認爲鏡像元數據中指定的用戶。
+      Windows 中運行容器進程入口點的使用者名。如果未指定，則默認爲映像檔元數據中指定的使用者。
       也可以在 PodSecurityContext 中設置。
       如果同時在 SecurityContext 和 PodSecurityContext 中設置，則在 SecurityContext 中指定的值優先。
 
@@ -2563,7 +2563,7 @@ An EphemeralContainer is a temporary container that you may add to an existing P
 
 To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
 -->
-EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod 以用於用戶發起的活動，例如調試。
+EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod 以用於使用者發起的活動，例如調試。
 臨時容器沒有資源或調度保證，它們在退出或 Pod 被移除或重新啓動時不會重新啓動。
 如果臨時容器導致 Pod 超出其資源分配，kubelet 可能會驅逐 Pod。
 
@@ -2590,14 +2590,14 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 - **targetContainerName** (string)
 
   如果設置，則爲 Pod 規約中此臨時容器所針對的容器的名稱。臨時容器將在該容器的名字空間（IPC、PID 等）中運行。
-  如果未設置，則臨時容器使用 Pod 規約中配置的名字空間。
+  如果未設置，則臨時容器使用 Pod 規約中設定的名字空間。
   
   容器運行時必須實現對此功能的支持。如果運行時不支持名字空間定位，則設置此字段的結果是未定義的。
 
 <!--
 ### Image
 -->
-### 鏡像
+### 映像檔
 
 <!--
 - **image** (string)
@@ -2606,7 +2606,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 -->
 - **image** (string)
 
-  容器鏡像名稱。更多信息：
+  容器映像檔名稱。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images
 
 <!--
@@ -2616,7 +2616,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 -->
 - **imagePullPolicy** (string)
 
-  鏡像拉取策略。取值爲 `Always`、`Never`、`IfNotPresent` 之一。
+  映像檔拉取策略。取值爲 `Always`、`Never`、`IfNotPresent` 之一。
   如果指定了 `:latest` 標籤，則默認爲 `Always`，否則默認爲 `IfNotPresent`。
   無法更新。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images#updating-images
@@ -2633,7 +2633,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 -->
 - **command** ([]string)
 
-  入口點數組。不在 Shell 中執行。如果未提供，則使用鏡像的 `ENTRYPOINT`。
+  入口點數組。不在 Shell 中執行。如果未提供，則使用映像檔的 `ENTRYPOINT`。
   變量引用 `$(VAR_NAME)` 使用容器的環境進行擴展。如果無法解析變量，則輸入字符串中的引用將保持不變。
   `$$` 被簡化爲 `$`，這允許轉義 `$(VAR_NAME)` 語法：即 `"$$(VAR_NAME)"` 將產生字符串字面值 `"$(VAR_NAME)"`。
   無論變量是否存在，轉義引用都不會被擴展。無法更新。更多信息：
@@ -2646,7 +2646,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 -->
 - **args** （[]string）
 
-  entrypoint 的參數。如果未提供，則使用鏡像的 `CMD`。
+  entrypoint 的參數。如果未提供，則使用映像檔的 `CMD`。
   變量引用 `$(VAR_NAME)` 使用容器的環境進行擴展。如果無法解析變量，則輸入字符串中的引用將保持不變。
   `$$` 被簡化爲 `$`，這允許轉義 `$(VAR_NAME)` 語法：即 `"$$(VAR_NAME)"` 將產生字符串字面值 `"$(VAR_NAME)"`。
   無論變量是否存在，轉義引用都不會被擴展。無法更新。更多信息：
@@ -2659,7 +2659,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 -->
 - **workingDir** (string)
 
-  容器的工作目錄。如果未指定，將使用容器運行時的默認值，默認值可能在容器鏡像中配置。無法更新。
+  容器的工作目錄。如果未指定，將使用容器運行時的默認值，默認值可能在容器映像檔中設定。無法更新。
 
 <!--
 ### Environment variables
@@ -3182,7 +3182,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
   可選字段。securityContext 定義了運行臨時容器的安全選項。
   如果設置了此字段，SecurityContext 的字段將覆蓋 PodSecurityContext 的等效字段。
 
-  SecurityContext 保存將應用於容器的安全配置。
+  SecurityContext 保存將應用於容器的安全設定。
   一些字段在 SecurityContext 和 PodSecurityContext 中都存在。
   當兩者都設置時，SecurityContext 中的值優先。
 
@@ -3194,7 +3194,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 
   - **securityContext.runAsUser** （int64）
 
-    運行容器進程入口點的 UID。如果未指定，則默認爲鏡像元數據中指定的用戶。
+    運行容器進程入口點的 UID。如果未指定，則默認爲映像檔元數據中指定的使用者。
     也可以在 PodSecurityContext 中設置。如果同時在 SecurityContext 和 PodSecurityContext
     中設置，則在 SecurityContext 中指定的值優先。
     注意，`spec.os.name` 爲 "windows" 時不能設置該字段。
@@ -3207,7 +3207,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 
   - **securityContext.runAsNonRoot** （boolean）
 
-    指示容器必須以非 root 用戶身份運行。如果爲 true，Kubelet 將在運行時驗證鏡像，
+    指示容器必須以非 root 使用者身份運行。如果爲 true，Kubelet 將在運行時驗證映像檔，
     以確保它不會以 UID 0（root）身份運行，如果是，則無法啓動容器。
     如果未設置或爲 false，則不會執行此類驗證。也可以在 PodSecurityContext 中設置。
     如果同時在 SecurityContext 和 PodSecurityContext 中設置，則在 SecurityContext
@@ -3324,7 +3324,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
     此容器使用的 seccomp 選項。如果在 Pod 和容器級別都提供了 seccomp 選項，
     則容器選項會覆蓋 Pod 選項。注意，`spec.os.name` 爲 "windows" 時不能設置該字段。
 
-    **SeccompProfile 定義 Pod 或容器的 seccomp 配置文件設置。只能設置一個配置文件源。**
+    **SeccompProfile 定義 Pod 或容器的 seccomp 設定文件設置。只能設置一個設定文件源。**
 
     <!--
     - **securityContext.seccompProfile.type** (string), required
@@ -3336,11 +3336,11 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 
     - **securityContext.seccompProfile.type** (string)，必需
 
-      type 指示將應用哪種 seccomp 配置文件。有效的選項是：
+      type 指示將應用哪種 seccomp 設定文件。有效的選項是：
       
-      - `Localhost` - 應使用在節點上的文件中定義的配置文件。
-      - `RuntimeDefault` - 應使用容器運行時默認配置文件。
-      - `Unconfined` - 不應應用任何配置文件。
+      - `Localhost` - 應使用在節點上的文件中定義的設定文件。
+      - `RuntimeDefault` - 應使用容器運行時默認設定文件。
+      - `Unconfined` - 不應應用任何設定文件。
 
     <!--
     - **securityContext.seccompProfile.localhostProfile** (string)
@@ -3350,9 +3350,9 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
      
     - **securityContext.seccompProfile.localhostProfile** （string）
 
-      localhostProfile 指示應使用在節點上的文件中定義的配置文件。
-      該配置文件必須在節點上預先配置才能工作。
-      必須是相對於 kubelet 配置的 seccomp 配置文件位置下的子路徑。
+      localhostProfile 指示應使用在節點上的文件中定義的設定文件。
+      該設定文件必須在節點上預先設定才能工作。
+      必須是相對於 kubelet 設定的 seccomp 設定文件位置下的子路徑。
       僅當 type 爲 "Localhost" 時才必須設置。不得爲任何其他類別設置此字段。
 
   <!--
@@ -3406,7 +3406,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 
     - **securityContext.seLinuxOptions.user** （string）
 
-      user 是應用於容器的 SELinux 用戶標籤。
+      user 是應用於容器的 SELinux 使用者標籤。
 
   <!--
   - **securityContext.windowsOptions** (WindowsSecurityContextOptions)
@@ -3466,7 +3466,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
 
     - **securityContext.windowsOptions.runAsUserName** （string）
 
-      Windows 中運行容器進程入口點的用戶名。如果未指定，則默認爲鏡像元數據中指定的用戶。
+      Windows 中運行容器進程入口點的使用者名。如果未指定，則默認爲映像檔元數據中指定的使用者。
       也可以在 PodSecurityContext 中設置。如果同時在 SecurityContext 和 PodSecurityContext
       中設置，則在 SecurityContext 中指定的值優先。
 
@@ -3497,7 +3497,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
   臨時容器不允許使用端口。
 
   <a name="ContainerPort"></a>
-  **ContainerPort 表示單個容器中的網絡端口。**
+  **ContainerPort 表示單個容器中的網路端口。**
 
   <!--
   - **ports.containerPort** (int32), required
@@ -3526,7 +3526,7 @@ EphemeralContainer 是一個臨時容器，你可以將其添加到現有 Pod �
   - **ports.hostPort** （int32）
 
     要在主機上公開的端口號。如果設置了，則作爲必須是一個有效的端口號，0 \< x \< 65536。
-    如果指定了 hostNetwork，此值必須與 containerPort 匹配。大多數容器不需要這個配置。
+    如果指定了 hostNetwork，此值必須與 containerPort 匹配。大多數容器不需要這個設定。
 
   <!--
   - **ports.name** (string)
@@ -3727,7 +3727,7 @@ LifecycleHandler 定義了應在生命週期掛鉤中執行的特定操作。
 
   - **exec.command** （[]string）
 
-    command 是要在容器內執行的命令行，命令的工作目錄是容器文件系統中的根目錄（'/'）。
+    command 是要在容器內執行的命令列，命令的工作目錄是容器文件系統中的根目錄（'/'）。
     該命令只是被通過 `exec` 執行，而不會單獨啓動一個 Shell 來運行，因此傳統的
     Shell 指令（'|' 等）將不起作用。要使用某 Shell，你需要顯式調用該 Shell。
     退出狀態 0 被視爲活動/健康，非零表示不健康。
@@ -3820,7 +3820,7 @@ LifecycleHandler 定義了應在生命週期掛鉤中執行的特定操作。
  
   - **httpGet.path** （string）
 
-    HTTP 服務器上的訪問路徑。
+    HTTP 伺服器上的訪問路徑。
 
   - **httpGet.scheme** （string）
 
@@ -4391,7 +4391,7 @@ Probe describes a health check to be performed against a container to determine 
 
   - **exec.command** （[]string）
 
-    command 是要在容器內執行的命令行，命令的工作目錄是容器文件系統中的根目錄（'/'）。
+    command 是要在容器內執行的命令列，命令的工作目錄是容器文件系統中的根目錄（'/'）。
     該命令只是通過 `exec` 執行，而不會啓動 Shell，因此傳統的 Shell 指令（'|' 等）將不起作用。
     要使用某 Shell，你需要顯式調用該 Shell。
     退出狀態 0 被視爲存活/健康，非零表示不健康。
@@ -4485,7 +4485,7 @@ Probe describes a health check to be performed against a container to determine 
  
   - **httpGet.path** （string）
 
-    HTTP 服務器上的訪問路徑。
+    HTTP 伺服器上的訪問路徑。
 
   - **httpGet.scheme** （string）
 
@@ -4713,7 +4713,7 @@ PodStatus 表示有關 Pod 狀態的信息。狀態內容可能會滯後於系�
 - **startTime** (Time)
 
   kubelet 確認 Pod 對象的日期和時間，格式遵從 RFC 3339。
-  此時間點處於 kubelet 爲 Pod 拉取容器鏡像之前。
+  此時間點處於 kubelet 爲 Pod 拉取容器映像檔之前。
 
   Time 是 `time.Time` 的包裝器，支持正確編組爲 YAML 和 JSON。
   time 包所提供的許多工廠方法都有包裝器。
@@ -4731,8 +4731,8 @@ PodStatus 表示有關 Pod 狀態的信息。狀態內容可能會滯後於系�
   conditions 數組、reason 和 message 字段以及各個容器的 status 數組包含有關 Pod
   狀態的進一步詳細信息。phase 的取值有五種可能性：
   
-  - `Pending`：Pod 已被 Kubernetes 系統接受，但尚未創建容器鏡像。
-   這包括 Pod 被調度之前的時間以及通過網絡下載鏡像所花費的時間。
+  - `Pending`：Pod 已被 Kubernetes 系統接受，但尚未創建容器映像檔。
+   這包括 Pod 被調度之前的時間以及通過網路下載映像檔所花費的時間。
   - `Running`：Pod 已經被綁定到某個節點，並且所有的容器都已經創建完畢。至少有一個容器仍在運行，或者正在啓動或重新啓動過程中。
   - `Succeeded`：Pod 中的所有容器都已成功終止，不會重新啓動。
   - `Failed`：Pod 中的所有容器都已終止，並且至少有一個容器因故障而終止。
@@ -4769,7 +4769,7 @@ PodStatus 表示有關 Pod 狀態的信息。狀態內容可能會滯後於系�
 
 - **podIP** （string）
 
-   分配給 Pod 的 podIP 地址。至少在集羣內可路由。如果尚未分配則爲空。
+   分配給 Pod 的 podIP 地址。至少在叢集內可路由。如果尚未分配則爲空。
 
 <!--
 - **podIPs** ([]PodIP)
@@ -5029,7 +5029,7 @@ PodList 是 Pod 的列表。
 -->
 - **apiVersion** （string）
 
-  apiVersion 定義對象表示的版本化模式。服務器應將已識別的模式轉換爲最新的內部值，
+  apiVersion 定義對象表示的版本化模式。伺服器應將已識別的模式轉換爲最新的內部值，
   並可能拒絕無法識別的值。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
@@ -5040,7 +5040,7 @@ PodList 是 Pod 的列表。
 -->
 - **kind**（string）
 
-  kind 是一個字符串值，表示此對象表示的 REST 資源。服務器可以從客戶端提交請求的端點推斷出資源類別。
+  kind 是一個字符串值，表示此對象表示的 REST 資源。伺服器可以從客戶端提交請求的端點推斷出資源類別。
   無法更新。採用駝峯式命名。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -5224,10 +5224,10 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/log
 
 - **insecureSkipTLSVerifyBackend** (**查詢參數**)：boolean
 
-  `insecureSkipTLSVerifyBackend` 表示 API 服務器不應確認它所連接的後端的服務證書的有效性。
-  這將使 API 服務器和後端之間的 HTTPS 連接不安全。
-  這意味着 API 服務器無法驗證它接收到的日誌數據是否來自真正的 kubelet。
-  如果 kubelet 配置爲驗證 API 服務器的 TLS 憑據，這並不意味着與真實 kubelet
+  `insecureSkipTLSVerifyBackend` 表示 API 伺服器不應確認它所連接的後端的服務證書的有效性。
+  這將使 API 伺服器和後端之間的 HTTPS 連接不安全。
+  這意味着 API 伺服器無法驗證它接收到的日誌數據是否來自真正的 kubelet。
+  如果 kubelet 設定爲驗證 API 伺服器的 TLS 憑據，這並不意味着與真實 kubelet
   的連接容易受到中間人攻擊（例如，攻擊者無法攔截來自真實 kubelet 的實際日誌數據）。
 
 <!--
@@ -5242,7 +5242,7 @@ GET /api/v1/namespaces/{namespace}/pods/{name}/log
 -->
 - **limitBytes** (**查詢參數**): integer
 
-  如果設置，則表示在終止日誌輸出之前從服務器讀取的字節數。
+  如果設置，則表示在終止日誌輸出之前從伺服器讀取的字節數。
   設置此參數可能導致無法顯示完整的最後一行日誌記錄，並且可能返回略多於或略小於指定限制。
 
 - **pretty** (**查詢參數**): string

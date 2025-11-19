@@ -26,4 +26,4 @@ See [kubelet configuration](/docs/reference/access-authn-authz/kubelet-tls-boots
 for more details.
 -->
 啓用 kubelet 上客戶端 TLS 證書的輪換。
-更多細節參閱 [kubelet 配置](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
+更多細節參閱 [kubelet 設定](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。

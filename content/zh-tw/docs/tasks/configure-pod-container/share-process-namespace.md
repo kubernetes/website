@@ -22,7 +22,7 @@ This page shows how to configure process namespace sharing for a pod. When
 process namespace sharing is enabled, processes in a container are visible
 to all other containers in the same pod.
 -->
-此頁面展示如何爲 Pod 配置進程命名空間共享。
+此頁面展示如何爲 Pod 設定進程命名空間共享。
 當啓用進程命名空間共享時，容器中的進程對同一 Pod 中的所有其他容器都是可見的。
 
 <!--
@@ -30,8 +30,8 @@ You can use this feature to configure cooperating containers, such as a log
 handler sidecar container, or to troubleshoot container images that don't
 include debugging utilities like a shell.
 -->
-你可以使用此功能來配置協作容器，比如日誌處理 sidecar 容器，
-或者對那些不包含諸如 shell 等調試實用工具的鏡像進行故障排查。
+你可以使用此功能來設定協作容器，比如日誌處理 sidecar 容器，
+或者對那些不包含諸如 shell 等調試實用工具的映像檔進行故障排查。
 
 ## {{% heading "prerequisites" %}}
 
@@ -42,7 +42,7 @@ include debugging utilities like a shell.
 <!--
 ## Configure a Pod
 -->
-## 配置 Pod
+## 設定 Pod
 
 <!--
 Process namespace sharing is enabled using the `shareProcessNamespace` field of
@@ -55,7 +55,7 @@ Process namespace sharing is enabled using the `shareProcessNamespace` field of
 <!--
 1. Create the pod `nginx` on your cluster:
 -->
-1. 在集羣中創建 `nginx` Pod：
+1. 在叢集中創建 `nginx` Pod：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/share-process-namespace.yaml

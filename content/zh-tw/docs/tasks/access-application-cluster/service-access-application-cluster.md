@@ -1,5 +1,5 @@
 ---
-title: 使用服務來訪問集羣中的應用
+title: 使用服務來訪問叢集中的應用
 content_type: tutorial
 weight: 60
 ---
@@ -16,7 +16,7 @@ This page shows how to create a Kubernetes Service object that external
 clients can use to access an application running in a cluster. The Service
 provides load balancing for an application that has two running instances.
 -->
-本文展示如何創建一個 Kubernetes 服務對象，能讓外部客戶端訪問在集羣中運行的應用。
+本文展示如何創建一個 Kubernetes 服務對象，能讓外部客戶端訪問在叢集中運行的應用。
 該服務爲一個應用的兩個運行實例提供負載均衡。
 
 ## {{% heading "prerequisites" %}}
@@ -43,7 +43,7 @@ Here is the configuration file for the application Deployment:
 -->
 ## 爲運行在兩個 Pod 中的應用創建一個服務   {#creating-a-service-for-an-app-running-in-two-pods}
 
-這是應用程序部署的配置文件：
+這是應用程序部署的設定文件：
 
 {{% code_sample file="service/access/hello-application.yaml" %}}
 
@@ -51,7 +51,7 @@ Here is the configuration file for the application Deployment:
 1. Run a Hello World application in your cluster:
    Create the application Deployment using the file above:
 -->
-1. 在你的集羣中運行一個 Hello World 應用。
+1. 在你的叢集中運行一個 Hello World 應用。
    使用上面的文件創建應用程序 Deployment：
 
    ```shell
@@ -176,14 +176,14 @@ Here is the configuration file for the application Deployment:
 
 1. Use the node address and node port to access the Hello World application:
 -->
-7. 獲取運行 Hello World 的 pod 的其中一個節點的公共 IP 地址。如何獲得此地址取決於你設置集羣的方式。
+7. 獲取運行 Hello World 的 pod 的其中一個節點的公共 IP 地址。如何獲得此地址取決於你設置叢集的方式。
    例如，如果你使用的是 Minikube，則可以通過運行 `kubectl cluster-info` 來查看節點地址。
    如果你使用的是 Google Compute Engine 實例，
    則可以使用 `gcloud compute instances list` 命令查看節點的公共地址。
 
 8. 在你選擇的節點上，創建一個防火牆規則以開放節點端口上的 TCP 流量。
    例如，如果你的服務的 NodePort 值爲 31568，請創建一個防火牆規則以允許 31568 端口上的 TCP 流量。
-   不同的雲提供商提供了不同方法來配置防火牆規則。
+   不同的雲提供商提供了不同方法來設定防火牆規則。
 
 9. 使用節點地址和 node port 來訪問 Hello World 應用：
 
@@ -212,10 +212,10 @@ As an alternative to using `kubectl expose`, you can use a
 [service configuration file](/docs/concepts/services-networking/service/)
 to create a Service.
 -->
-## 使用服務配置文件   {#using-a-service-configuration-file}
+## 使用服務設定文件   {#using-a-service-configuration-file}
 
 作爲 `kubectl expose` 的替代方法，
-你可以使用[服務配置文件](/zh-cn/docs/concepts/services-networking/service/)來創建服務。
+你可以使用[服務設定文件](/zh-cn/docs/concepts/services-networking/service/)來創建服務。
 
 ## {{% heading "cleanup" %}}
 

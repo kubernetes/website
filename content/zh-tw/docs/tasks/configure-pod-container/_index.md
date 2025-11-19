@@ -1,7 +1,7 @@
 ---
-title: "配置 Pods 和容器"
+title: "設定 Pods 和容器"
 weight: 30
-description: 對 Pod 和容器執行常見的配置任務。
+description: 對 Pod 和容器執行常見的設定任務。
 ---
 
 <!--

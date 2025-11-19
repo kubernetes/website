@@ -29,7 +29,7 @@ using storage backend and also expand the underlying file system in-use by the P
 在 Kubernetes 1.11 進入了 Beta 階段。
 在 Kubernetes 1.24 中，我們很高興地宣佈卷擴充正式發佈（GA）。
 
-此功能允許 Kubernetes 用戶簡單地編輯其 `PersistentVolumeClaim` 對象，
+此功能允許 Kubernetes 使用者簡單地編輯其 `PersistentVolumeClaim` 對象，
 並在 PVC Spec 中指定新的大小，Kubernetes 將使用存儲後端自動擴充卷，
 同時也會擴充 Pod 使用的底層文件系統，使得無需任何停機時間成爲可能。
 <!--
@@ -123,7 +123,7 @@ the `allowVolumeExpansion` field to `true`. For example:
 只有在存儲類將 `allowVolumeExpansion` 參數設置爲 `true` 時，
 動態供應的 PVC 纔是可擴充的。
 
-Kubernetes 集羣管理員必須編輯相應的 StorageClass 對象，
+Kubernetes 叢集管理員必須編輯相應的 StorageClass 對象，
 並將 `allowVolumeExpansion` 字段設置爲 `true`。例如：
 
 ```yaml
@@ -151,7 +151,7 @@ because the volume isn't in use, there is again no workload disruption).
 -->
 ### 在線擴充與離線擴充比較
 
-默認情況下，Kubernetes 會在用戶請求調整大小後立即嘗試擴充卷。
+默認情況下，Kubernetes 會在使用者請求調整大小後立即嘗試擴充卷。
 如果一個或多個 Pod 正在使用該卷，
 Kubernetes 會嘗試通過在線調整大小來擴充該卷；
 因此，卷擴充通常不需要應用停機。
@@ -170,13 +170,13 @@ of whether the underlying PersistentVolume volume is online or offline. If your 
 online expansion then no Pod restart should be necessary for volume expansion to finish.
 -->
 但在某些情況下，如果底層存儲驅動只能支持離線擴充，
-則 PVC 用戶必須先停止 Pod，才能讓擴充成功。
+則 PVC 使用者必須先停止 Pod，才能讓擴充成功。
 請參閱存儲提供商的文檔，瞭解其支持哪種模式的卷擴充。
 
 當卷擴充作爲 Alpha 功能引入時，
 Kubernetes 僅支持在節點上進行離線的文件系統擴充，
-因此需要用戶重新啓動 Pod，才能完成文件系統的大小調整。
-今天，用戶的行爲已經被改變，無論底層 PersistentVolume 是在線還是離線，
+因此需要使用者重新啓動 Pod，才能完成文件系統的大小調整。
+今天，使用者的行爲已經被改變，無論底層 PersistentVolume 是在線還是離線，
 Kubernetes 都會盡最大努力滿足任何調整大小的請求。
 如果你的存儲提供商支持在線擴充，則無需重啓 Pod 即可完成卷擴充。
 <!-- 
@@ -191,9 +191,9 @@ See [Recovering from volume expansion failure](/docs/concepts/storage/persistent
 ## 下一步
 
 儘管卷擴充在最近的 v1.24 發行版中成爲了穩定版本，
-但 SIG Storage 團隊仍然在努力讓 Kubernetes 用戶擴充其持久性存儲變得更簡單。
+但 SIG Storage 團隊仍然在努力讓 Kubernetes 使用者擴充其持久性存儲變得更簡單。
 Kubernetes 1.23 引入了卷擴充失敗後觸發恢復機制的功能特性，
-允許用戶在大小調整失敗後嘗試自助修復。
+允許使用者在大小調整失敗後嘗試自助修復。
 更多詳細信息，請參閱[處理擴充捲過程中的失敗](/zh-cn/docs/concepts/storage/persistent-volumes/#recovering-from-failure-when-expanding-volumes)。
 <!--
 The Kubernetes contributor community is also discussing the potential for StatefulSet-driven storage expansion. This proposed
@@ -202,6 +202,6 @@ by directly editing the StatefulSet object.
 See the [Support Volume Expansion Through StatefulSets](https://github.com/kubernetes/enhancements/issues/661) enhancement proposal for more details.
 -->
 Kubernetes 貢獻者社區也在討論有狀態（StatefulSet）驅動的存儲擴充的潛力。
-這個提議的功能特性將允許用戶通過直接編輯 StatefulSet 對象，
+這個提議的功能特性將允許使用者通過直接編輯 StatefulSet 對象，
 觸發爲 StatefulSet 提供存儲的所有底層 PV 的擴充。
 更多詳細信息，請參閱[通過 StatefulSet 支持卷擴充](https://github.com/kubernetes/enhancements/issues/661)的改善提議。

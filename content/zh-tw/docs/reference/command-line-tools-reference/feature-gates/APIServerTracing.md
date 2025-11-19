@@ -23,5 +23,5 @@ stages:
 Add support for distributed tracing in the API server.
 See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 -->
-在 API 服務器中添加對分佈式跟蹤的支持。
+在 API 伺服器中添加對分佈式跟蹤的支持。
 更多細節參閱[針對 Kubernetes 系統組件的追蹤](/zh-cn/docs/concepts/cluster-administration/system-traces/)。

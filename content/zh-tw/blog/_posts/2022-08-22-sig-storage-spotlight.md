@@ -27,9 +27,9 @@ Since the very beginning of Kubernetes, the topic of persistent data and how to 
 <!--
 Message queues, databases, clustered filesystems: these are some examples of the solutions that have different storage requirements and that are, today, increasingly deployed in Kubernetes. Dealing with ephemeral and persistent storage, local or remote, file or block, from many different vendors, while considering how to provide the needed resiliency and data consistency that users expect, all of this is under SIG Storage's umbrella.
 -->
-消息隊列、數據庫、集羣文件系統：這些是具有不同存儲要求的解決方案的一些示例，
+消息隊列、數據庫、叢集文件系統：這些是具有不同存儲要求的解決方案的一些示例，
 如今這些解決方案越來越多地部署在 Kubernetes 中。
-處理來自許多不同供應商的臨時和持久存儲（本地或遠程、文件或塊），同時考慮如何提供用戶期望的所需彈性和數據一致性，
+處理來自許多不同供應商的臨時和持久存儲（本地或遠程、文件或塊），同時考慮如何提供使用者期望的所需彈性和數據一致性，
 所有這些都在 SIG Storage 的整體負責範圍之內。
 
 <!--
@@ -109,7 +109,7 @@ Another challenge is regarding core vs [Custom Resource Definitions](https://kub
 -->
 另一個挑戰是關於核心與 [Custom Resource Definitions](https://kubernetes.io/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/)（CRD），
 這並不是特定於存儲的。CRD 是一種擴展 Kubernetes 功能的好方法，同時又不會向 Kubernetes 核心本身添加太多代碼。
-然而，這也意味着運行 Kubernetes 集羣時需要許多外部組件。
+然而，這也意味着運行 Kubernetes 叢集時需要許多外部組件。
 
 <!--
 From the SIG Storage side, one most notable example is Volume Snapshot. Volume Snapshot APIs are defined as CRDs. API definitions and controllers are out-of-tree. There is a common snapshot controller and a snapshot validation webhook that should be deployed on the control plane, similar to how kube-controller-manager is deployed. Although Volume Snapshot is a CRD, it is a core feature of SIG Storage.  It is recommended for the K8s cluster distros to deploy Volume Snapshot CRDs, the snapshot controller, and the snapshot validation webhook, however, most of the time we don’t see distros deploy them. So this becomes a problem for the storage vendors: now it becomes their responsibility to deploy these non-driver specific common components. This could cause conflicts if a customer wants to use more than one storage system and deploy more than one CSI driver.
@@ -118,7 +118,7 @@ From the SIG Storage side, one most notable example is Volume Snapshot. Volume S
 API 定義和控制器是 out-of-tree。有一個通用的快照控制器和一個快照驗證 Webhook
 應該部署在控制平面上，類似於 kube-controller-manager 的部署方式。
 雖然 Volume Snapshot 是一個 CRD，但它是 SIG Storage 的核心特性。
-建議 K8s 集羣發行版部署卷快照 CRD、快照控制器和快照驗證 Webhook，然而，大多數時候我們沒有看到發行版部署它們。
+建議 K8s 叢集發行版部署卷快照 CRD、快照控制器和快照驗證 Webhook，然而，大多數時候我們沒有看到發行版部署它們。
 因此，這對存儲供應商來說就成了一個問題：現在部署這些非驅動程序特定的通用組件成爲他們的責任。
 如果客戶需要使用多個存儲系統，且部署多個 CSI 驅動，可能會導致衝突。
 
@@ -177,7 +177,7 @@ CSI is definitely a big improvement compared to in-tree volume plugins. Kubernet
 **XY**： CSI 接口是對 in-tree 卷插件接口的改進，但是仍然存在挑戰。有很多存儲系統。
 目前在 [CSI 驅動程序文檔中列出了 100 多個 CSI 驅動程序](https://kubernetes-csi.github.io/docs/drivers.html)。
 這些存儲系統也非常多樣化。因此，很難設計一個適用於所有人的通用 API。
-我們在 CSI 驅動層面引入了功能，但當同一驅動配置的卷具有不同的行爲時，我們也會面臨挑戰。
+我們在 CSI 驅動層面引入了功能，但當同一驅動設定的卷具有不同的行爲時，我們也會面臨挑戰。
 前幾天我們剛剛開會討論每種卷 CSI 驅動程序功能。
 當同一個驅動程序同時支持塊卷和文件卷時，我們在區分某些 CSI 驅動程序功能時遇到了問題。
 我們將召開後續會議來討論這個問題。
@@ -224,7 +224,7 @@ CSI is definitely a big improvement compared to in-tree volume plugins. Kubernet
 -->
 * 我要強調的第二個是 [COSI，容器對象存儲接口](https://github.com/kubernetes-sigs/container-object-storage-interface-spec)。
   這是 SIG Storage 下的一個子項目。COSI 提出對象存儲 Kubernetes API 來支持 Kubernetes 工作負載的對象存儲操作的編排。
-  它還爲對象存儲提供商引入了 gRPC 接口，以編寫驅動程序來配置存儲桶。COSI 團隊已經在這個項目上工作兩年多了。
+  它還爲對象存儲提供商引入了 gRPC 接口，以編寫驅動程序來設定存儲桶。COSI 團隊已經在這個項目上工作兩年多了。
   COSI 功能的目標是 1.25 版本中達到 Alpha。KEP 剛剛合入。COSI 團隊正在根據更新後的 KEP 更新實現。
 
 <!--
@@ -232,7 +232,7 @@ CSI is definitely a big improvement compared to in-tree volume plugins. Kubernet
 -->
 * 我要提到的另一個功能是 [CSI 臨時卷](https://github.com/kubernetes/enhancements/issues/596)支持。
   此功能允許在臨時用例的 Pod 規約中直接指定 CSI 卷。它們可用於使用已安裝的卷直接在 Pod 內注入任意狀態，
-  例如配置、Secrets、身份、變量或類似信息。這最初是在 1.15 版本中作爲一個 Alpha 功能引入的，現在它的目標是在 1.25 版本中達到 GA。
+  例如設定、Secrets、身份、變量或類似信息。這最初是在 1.15 版本中作爲一個 Alpha 功能引入的，現在它的目標是在 1.25 版本中達到 GA。
 
 <!--
 **FSM**: If you had to single something out, what would be the most pressing areas the SIG is working on?

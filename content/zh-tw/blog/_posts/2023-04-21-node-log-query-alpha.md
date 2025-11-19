@@ -39,12 +39,12 @@ looking at the Pod status.
 -->
 ## 它解決了什麼問題？
 
-集羣管理員在調試節點上運行的表現不正常的服務時會遇到問題。
+叢集管理員在調試節點上運行的表現不正常的服務時會遇到問題。
 他們通常必須通過 SSH 或 RDP 進入節點以查看服務日誌以調試問題。
-**節點日誌查詢**功能通過允許集羣管理員使用 **kubectl**
+**節點日誌查詢**功能通過允許叢集管理員使用 **kubectl**
 查看日誌的方式來幫助解決這種情況。這對於 Windows 節點特別有用，
 在 Windows 節點中，你會遇到節點進入就緒狀態但由於 CNI
-錯誤配置和其他不易通過查看 Pod 狀態來辨別的問題而導致容器無法啓動的情況。
+錯誤設定和其他不易通過查看 Pod 狀態來辨別的問題而導致容器無法啓動的情況。
 
 <!--
 ## How does it work?
@@ -66,7 +66,7 @@ kubelet 已經有一個 **/var/log/** 查看器，可以通過節點代理端點
 本功能特性通過一個隔離層對這個端點進行增強，在 Linux 節點上通過
 `journalctl` Shell 調用獲得日誌，在 Windows 節點上通過 `Get-WinEvent` CmdLet 獲取日誌。
 然後它使用命令提供的過濾器來過濾日誌。kubelet 還使用啓發式方法來檢索日誌。
-如果用戶不知道給定的系統服務是記錄到文件還是本機系統記錄器，
+如果使用者不知道給定的系統服務是記錄到文件還是本機系統記錄器，
 啓發式方法首先檢查本機操作系統記錄器，如果不可用，它會嘗試先從 `/var/log/<servicename>`
 或 `/var/log/<servicename>.log` 或 `/var/log/<servicename>/<servicename>.log` 檢索日誌。
 
@@ -101,7 +101,7 @@ retrieve the kubelet service logs from a node:
 
 要使用該功能，請確保爲該節點啓用了 `NodeLogQuery`
 [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-並且 kubelet 配置選項 `enableSystemLogHandler` 和 `enableSystemLogQuery` 都設置爲 true。
+並且 kubelet 設定選項 `enableSystemLogHandler` 和 `enableSystemLogQuery` 都設置爲 true。
 然後，你可以查詢所有節點或部分節點的日誌。下面是一個從節點檢索 kubelet 服務日誌的示例：
 
 ```shell

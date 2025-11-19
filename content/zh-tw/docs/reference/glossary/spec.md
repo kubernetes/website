@@ -4,7 +4,7 @@ id: spec
 date: 2023-12-17
 full_link: /zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status
 short_description: >
-  在 Kubernetes 清單中的此字段用來定義預期狀態或預期配置。
+  在 Kubernetes 清單中的此字段用來定義預期狀態或預期設定。
 
 aka:
 tags:
@@ -28,14 +28,14 @@ tags:
 <!--
 Defines how each object, like Pods or Services, should be configured and its desired state.
 -->
-定義 Pod 或 Service 這類每種對象應被如何配置及其預期狀態。
+定義 Pod 或 Service 這類每種對象應被如何設定及其預期狀態。
 
 <!--more-->
 
 <!--
 Almost every Kubernetes object includes two nested object fields that govern the object's configuration: the object spec and the object status. For objects that have a spec, you have to set this when you create the object, providing a description of the characteristics you want the {{< glossary_tooltip text="resource" term_id="api-resource" >}} to have: its desired state.
 -->
-幾乎每個 Kubernetes 對象都包含兩個嵌套的對象字段，用於治理對象本身的配置：
+幾乎每個 Kubernetes 對象都包含兩個嵌套的對象字段，用於治理對象本身的設定：
 對象規約（spec）和對象狀態（status）。
 對於具有規約的對象，你必須在創建對象時設置規約，並提供{{< glossary_tooltip text="資源" term_id="api-resource" >}}所需特徵的描述：
 即其預期狀態。

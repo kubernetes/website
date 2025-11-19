@@ -6,7 +6,7 @@
 <!--
 Upload the kubelet configuration extracted from the kubeadm InitConfiguration object to a kubelet-config ConfigMap in the cluster
 -->
-將從 kubeadm InitConfiguration 對象提取的 kubelet 配置上傳到集羣中的
+將從 kubeadm InitConfiguration 對象提取的 kubelet 設定上傳到叢集中的
 `kubelet-config` ConfigMap。
 
 ```shell
@@ -50,7 +50,7 @@ kubeadm init phase upload-config kubelet --config kubeadm.yaml
 <!--
 Path to a kubeadm configuration file.
 -->
-到 kubeadm 配置文件的路徑。
+到 kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -107,7 +107,7 @@ kubelet 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與集羣通信時使用的 kubeconfig 文件。如果未設置該標籤，
+與叢集通信時使用的 kubeconfig 文件。如果未設置該標籤，
 則可以通過一組標準路徑來尋找已有的 kubeconfig 文件。
 </p>
 </td>

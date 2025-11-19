@@ -7,7 +7,7 @@ content_type: concept
 weight: 60
 description: >-
   EndpointSlice API 是 Kubernetes 用於擴縮 Service
-  以處理大量後端的機制，還允許集羣高效更新其健康後端的列表。
+  以處理大量後端的機制，還允許叢集高效更新其健康後端的列表。
 ---
 <!--
 reviewers:
@@ -50,11 +50,11 @@ Kubernetes Service.
 -->
 ## EndpointSlice API {#endpointslice-resource}
 
-在 Kubernetes 中，`EndpointSlice` 包含對一組網絡端點的引用。
+在 Kubernetes 中，`EndpointSlice` 包含對一組網路端點的引用。
 控制面會自動爲設置了{{< glossary_tooltip text="選擇算符" term_id="selector" >}}的
 Kubernetes Service 創建 EndpointSlice。
 這些 EndpointSlice 將包含對與 Service 選擇算符匹配的所有 Pod 的引用。
-EndpointSlice 通過唯一的 IP 地址簇、協議、端口號和 Service 名稱將網絡端點組織在一起。
+EndpointSlice 通過唯一的 IP 地址簇、協議、端口號和 Service 名稱將網路端點組織在一起。
 EndpointSlice 的名稱必須是合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
@@ -312,7 +312,7 @@ changes that need to be sent to every Node, even if it may result with multiple
 EndpointSlices that are not full.
 -->
 由於 kube-proxy 在每個節點上運行並監視 EndpointSlice 狀態，EndpointSlice
-的每次變更都變得相對代價較高，因爲這些狀態變化要傳遞到集羣中每個節點上。
+的每次變更都變得相對代價較高，因爲這些狀態變化要傳遞到叢集中每個節點上。
 這一方法嘗試限制要發送到所有節點上的變更消息個數，即使這樣做可能會導致有多個
 EndpointSlice 沒有被填滿。
 
@@ -354,7 +354,7 @@ You can find a reference implementation for how to perform this endpoint aggrega
 and deduplication as part of the `EndpointSliceCache` code within `kube-proxy`.
 -->
 EndpointSlice API 的客戶端必須遍歷與 Service 關聯的所有現有 EndpointSlices，
-並構建唯一網絡端點的完整列表。值得一提的是端點可能在不同的 EndpointSlices 中重複。
+並構建唯一網路端點的完整列表。值得一提的是端點可能在不同的 EndpointSlices 中重複。
 
 你可以在 `kube-proxy` 中的 `EndpointSliceCache` 代碼中找到有關如何執行此端點聚合和重複數據刪除的參考實現。
 {{< /note >}}
@@ -362,7 +362,7 @@ EndpointSlice API 的客戶端必須遍歷與 Service 關聯的所有現有 Endp
 <!--
 ### EndpointSlice mirroring
 -->
-### EndpointSlice 鏡像    {#endpointslice-mirroring}
+### EndpointSlice 映像檔    {#endpointslice-mirroring}
 
 {{< feature-state for_k8s_version="v1.33" state="deprecated" >}}
 
@@ -375,9 +375,9 @@ plane mirrors most user-created Endpoints resources to corresponding
 EndpointSlices.
 -->
 EndpointSlice API 是舊版 Endpoints API 的替代方案。
-爲了保持與舊版控制器和用戶工作負載的兼容性
+爲了保持與舊版控制器和使用者工作負載的兼容性
 （例如期望由 {{<glossary_tooltip term_id="kube-proxy" text="kube-proxy">}} 基於 Endpoints 資源來路由流量），
-集羣的控制平面會將大多數用戶創建的 Endpoints 資源鏡像到相應的 EndpointSlice 中。
+叢集的控制平面會將大多數使用者創建的 Endpoints 資源映像檔到相應的 EndpointSlice 中。
 
 <!--
 (However, this feature, like the rest of the Endpoints API, is
@@ -387,8 +387,8 @@ rather than by creating Endpoints resources and allowing them to be
 mirrored.)
 -->
 （不過，與 Endpoints API 的其他部分一樣，此特性也已被棄用。
-對於無選擇算符的 Service，用戶如果需要手動指定端點，應該直接創建 EndpointSlice 資源，
-而不是創建 Endpoints 資源並允許其被鏡像。）
+對於無選擇算符的 Service，使用者如果需要手動指定端點，應該直接創建 EndpointSlice 資源，
+而不是創建 Endpoints 資源並允許其被映像檔。）
 
 <!--
 The control plane mirrors Endpoints resources unless:
@@ -416,7 +416,7 @@ subset will be mirrored to EndpointSlices.
 每個 Endpoints 資源可能會被轉譯到多個 EndpointSlices 中去。
 當 Endpoints 資源中包含多個子網或者包含多個 IP 協議族（IPv4 和 IPv6）的端點時，
 就有可能發生這種狀況。
-每個子網最多有 1000 個地址會被鏡像到 EndpointSlice 中。
+每個子網最多有 1000 個地址會被映像檔到 EndpointSlice 中。
 
 ## {{% heading "whatsnext" %}}
 

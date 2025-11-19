@@ -2,7 +2,7 @@
 <!--
 Print default upgrade configuration, that can be used for 'kubeadm upgrade'
 -->
-打印可用於 `kubeadm upgrade` 的默認升級配置。
+打印可用於 `kubeadm upgrade` 的默認升級設定。
 
 <!--
 ### Synopsis
@@ -14,7 +14,7 @@ not perform the real computation for creating a token.
 -->
 ### 概要
 
-此命令打印 `kubeadm upgrade` 所用的默認升級配置等這類對象。
+此命令打印 `kubeadm upgrade` 所用的默認升級設定等這類對象。
 
 請注意，諸如啓動引導令牌（Bootstrap Token）字段這類敏感值已替換爲 "abcdef.0123456789abcdef"
 這類佔位符值用來通過合法性檢查，但不執行創建令牌的實際計算。
@@ -70,7 +70,7 @@ upgrade-defaults 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與集羣通信時所使用的 kubeconfig 文件。
+與叢集通信時所使用的 kubeconfig 文件。
 如果該參數未被設置，則可以在一組標準位置中搜索現有的 kubeconfig 文件。
 </p></td>
 </tr>

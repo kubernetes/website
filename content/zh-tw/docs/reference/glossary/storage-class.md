@@ -43,4 +43,4 @@ StorageClasses can map to quality-of-service levels, backup policies, or to arbi
 StorageClass 可以映射到服務質量等級（QoS）、備份策略、或者管理員任意定義的策略。
 每個 StorageClass 對象包含的字段有 `provisioner`、`parameters` 和 `reclaimPolicy`。
 動態製備該存儲類別的{{< glossary_tooltip text="持久卷" term_id="persistent-volume" >}}時需要用到這些字段值。
-通過設置 StorageClass 對象的名稱，用戶可以請求特定存儲類別。
+通過設置 StorageClass 對象的名稱，使用者可以請求特定存儲類別。

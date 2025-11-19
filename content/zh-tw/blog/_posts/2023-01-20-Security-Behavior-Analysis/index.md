@@ -22,7 +22,7 @@ David Hadas (IBM Research Labs)
 <!--
 _This post warns Devops from a false sense of security. Following security best practices when developing and configuring microservices do not result in non-vulnerable microservices. The post shows that although all deployed microservices are vulnerable, there is much that can be done to ensure microservices are not exploited. It explains how analyzing the behavior of clients and services from a security standpoint, named here **"Security-Behavior Analytics"**, can protect the deployed vulnerable microservices. It points to [Guard](http://knative.dev/security-guard), an open source project offering security-behavior monitoring and control of Kubernetes microservices presumed vulnerable._
 -->
-_本文對 DevOps 產生的錯誤安全意識做出提醒。開發和配置微服務時遵循安全最佳實踐並不能讓微服務不易被攻擊。
+_本文對 DevOps 產生的錯誤安全意識做出提醒。開發和設定微服務時遵循安全最佳實踐並不能讓微服務不易被攻擊。
 本文說明，即使所有已部署的微服務都容易被攻擊，但仍然可以採取很多措施來確保微服務不被利用。
 本文解釋瞭如何從安全角度對客戶端和服務的行爲進行分析，此處稱爲 **“安全行爲分析”** ，
 可以對已部署的易被攻擊的微服務進行保護。本文會引用 [Guard](http://knative.dev/security-guard)，
@@ -31,15 +31,15 @@ _本文對 DevOps 產生的錯誤安全意識做出提醒。開發和配置微�
 <!--
 As cyber attacks continue to intensify in sophistication, organizations deploying cloud services continue to grow their cyber investments aiming to produce safe and non-vulnerable services. However, the year-by-year growth in cyber investments does not result in a parallel reduction in cyber incidents. Instead, the number of cyber incidents continues to grow annually. Evidently, organizations are doomed to fail in this struggle - no matter how much effort is made to detect and remove cyber weaknesses from deployed services, it seems offenders always have the upper hand.
 -->
-隨着網絡攻擊的複雜性不斷加劇，部署雲服務的組織持續追加網絡安全投資，旨在提供安全且不易被攻擊的服務。
-然而，網絡安全投資的逐年增長並沒有造成網絡安全事件的同步減少。相反，網絡安全事件的數量每年都在持續增長。
-顯然，這些組織在這場鬥爭中註定會失敗——無論付出多大努力來檢測和消除已部署服務中的網絡安全弱點，攻擊者似乎總是佔據上風。
+隨着網路攻擊的複雜性不斷加劇，部署雲服務的組織持續追加網路安全投資，旨在提供安全且不易被攻擊的服務。
+然而，網路安全投資的逐年增長並沒有造成網路安全事件的同步減少。相反，網路安全事件的數量每年都在持續增長。
+顯然，這些組織在這場鬥爭中註定會失敗——無論付出多大努力來檢測和消除已部署服務中的網路安全弱點，攻擊者似乎總是佔據上風。
 
 <!--
 Considering the current spread of offensive tools, sophistication of offensive players, and ever-growing cyber financial gains to offenders, any cyber strategy that relies on constructing a non-vulnerable, weakness-free service in 2023 is clearly too naïve. It seems the only viable strategy is to:
 -->
-考慮到當前廣泛傳播的攻擊工具、複雜的攻擊者以及攻擊者們不斷增長的網絡安全經濟收益，
-在 2023 年，任何依賴於構建無漏洞、無弱點服務的網絡安全戰略顯然都過於天真。看來唯一可行的策略是：
+考慮到當前廣泛傳播的攻擊工具、複雜的攻擊者以及攻擊者們不斷增長的網路安全經濟收益，
+在 2023 年，任何依賴於構建無漏洞、無弱點服務的網路安全戰略顯然都過於天真。看來唯一可行的策略是：
 
 <!--
 &#x27A5; **Admit that your services are vulnerable!**
@@ -80,11 +80,11 @@ The above diagram shows an example in which the offender does not yet have a foo
 <!--
 More specifically, let’s assume the service is vulnerable to an SQL injection. The developer failed to sanitize the user input properly, thereby allowing clients to send values that would change the intended behavior. In our example, if a client sends a query string with key “username” and value of _“tom or 1=1”_, the client will receive the data of all users. Exploiting this vulnerability requires the client to send an irregular string as the value. Note that benign users will not be sending a string with spaces or with the equal sign character as a username, instead they will normally send legal usernames which for example may be defined as a short sequence of characters a-z. No legal username can trigger service unplanned behavior.
 -->
-更具體地說，我們假設該服務容易受到 SQL 注入攻擊。開發人員未能正確過濾用戶輸入，
+更具體地說，我們假設該服務容易受到 SQL 注入攻擊。開發人員未能正確過濾使用者輸入，
 從而允許客戶端發送會改變預期行爲的值。在我們的示例中，如果客戶端發送鍵爲“username”且值爲 **“tom or 1=1”** 的查詢字符串，
-則客戶端將收到所有用戶的數據。要利用此漏洞需要客戶端發送不規範的字符串作爲值。
-請注意，良性用戶不會發送帶有空格或等號字符的字符串作爲用戶名，相反，他們通常會發送合法的用戶名，
-例如可以定義爲字符 a-z 的短序列。任何合法的用戶名都不會觸發服務計劃外行爲。
+則客戶端將收到所有使用者的數據。要利用此漏洞需要客戶端發送不規範的字符串作爲值。
+請注意，良性使用者不會發送帶有空格或等號字符的字符串作爲使用者名，相反，他們通常會發送合法的使用者名，
+例如可以定義爲字符 a-z 的短序列。任何合法的使用者名都不會觸發服務計劃外行爲。
 
 <!--
 In this simple example, one can already identify several opportunities to detect and block an attempt to exploit the vulnerability (un)intentionally left behind by the developer, making the vulnerability unexploitable. First, the malicious client behavior differs from the behavior of benign clients, as it sends irregular requests. If such a change in behavior is detected and blocked, the exploit will never reach the service. Second, the service behavior in response to the exploit differs from the service behavior in response to a regular request. Such behavior may include making subsequent irregular calls to other services such as a data store, taking irregular time to respond, and/or responding to the malicious client with an irregular response (for example, containing much more data than normally sent in case of benign clients making regular requests). Service behavioral changes, if detected, will also allow blocking the exploit in different stages of the exploitation attempt.
@@ -141,7 +141,7 @@ Service State | Use case | What do you need in order to cope with this use case?
 -->
 服務狀態 | 使用場景 | 爲了應對這個使用場景，你需要什麼？
 ------------- | ------------- | -----------------------------------------
-**正常的**   | **無已知漏洞：** 服務所有者通常不知道服務鏡像或配置中存在任何已知漏洞。然而，可以合理地假設該服務存在弱點。 | **針對任何未知漏洞、零日漏洞、服務本身漏洞提供通用保護** - 檢測/阻止作爲發送給客戶端請求的可能被用作利用的部分不規則模式。
+**正常的**   | **無已知漏洞：** 服務所有者通常不知道服務映像檔或設定中存在任何已知漏洞。然而，可以合理地假設該服務存在弱點。 | **針對任何未知漏洞、零日漏洞、服務本身漏洞提供通用保護** - 檢測/阻止作爲發送給客戶端請求的可能被用作利用的部分不規則模式。
 **存在漏洞的** | **相關的 CVE 已被公開：** 服務所有者需要發佈該服務的新的無漏洞修訂版。研究表明，實際上，消除已知漏洞的過程可能需要數週才能完成（平均 2 個月）。  |  **基於 CVE 分析添加保護** - 檢測/阻止包含可用於利用已發現漏洞特定模式的請求。儘管該服務存在已知漏洞，但仍然繼續提供服務。
 **可被利用的**  | **可利用漏洞已被公開：** 服務所有者需要一種方法來過濾包含已知可利用漏洞的傳入請求。   |  **基於已知的可利用漏洞簽名添加保護** - 檢測/阻止攜帶識別可利用漏洞簽名的傳入客戶端請求。儘管存在可利用漏洞，但仍繼續提供服務。  
 **已被不當使用的**  | **攻擊者不當使用服務背後的 Pod：** 攻擊者可以遵循某種攻擊模式，從而使他/她能夠對 Pod 進行不當使用。服務所有者需要重新啓動任何受損的 Pod，同時使用未受損的 Pod 繼續提供服務。請注意，一旦 Pod 重新啓動，攻擊者需要重複進行攻擊，然後才能再次對其進行不當使用。  |  **識別並重新啓動被不當使用的組件實例** - 在任何給定時間，某些後端的 Pod 可能會受到損害和不當使用，而其他後端 Pod 則按計劃運行。檢測/刪除被不當使用的 Pod，同時允許其他 Pod 繼續爲客戶端請求提供服務。
@@ -223,9 +223,9 @@ The goal of this post is to invite the Kubernetes community to action and introd
 1. Add appropriate security documentation for users on how to introduce Security-Behavior monitoring and control.
 1. Consider how to integrate with tools that can help users monitor and control their vulnerable services.
 -->
-1. 分析不同 Kubernetes 使用場景帶來的網絡挑戰
-1. 爲用戶添加適當的安全文檔，介紹如何引入安全行爲監控。
-1. 考慮如何與幫助用戶監測和控制其易被攻擊服務的工具進行集成。
+1. 分析不同 Kubernetes 使用場景帶來的網路挑戰
+1. 爲使用者添加適當的安全文檔，介紹如何引入安全行爲監控。
+1. 考慮如何與幫助使用者監測和控制其易被攻擊服務的工具進行集成。
 
 <!--
 ## Getting involved

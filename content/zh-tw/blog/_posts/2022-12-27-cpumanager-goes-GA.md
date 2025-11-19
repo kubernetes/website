@@ -25,11 +25,11 @@ Since Kubernetes v1.10, where it [graduated to Beta](/blog/2018/07/24/feature-hi
 fulfilled its role of allocating exclusive CPUs to containers, so adoption has steadily grown making it a staple component of performance-critical
 and low-latency setups.  Over time, most changes were about bugfixes or internal refactoring, with the following noteworthy user-visible changes:
 -->
-CPU 管理器是 kubelet 的一部分；kubelet 是 Kubernetes 的節點代理，能夠讓用戶給容器分配獨佔 CPU。
+CPU 管理器是 kubelet 的一部分；kubelet 是 Kubernetes 的節點代理，能夠讓使用者給容器分配獨佔 CPU。
 CPU 管理器自從 Kubernetes v1.10 [進階至 Beta](/blog/2018/07/24/feature-highlight-cpu-manager/)，
 已證明了它本身的可靠性，能夠充分勝任將獨佔 CPU 分配給容器，因此採用率穩步增長，
 使其成爲性能關鍵型和低延遲場景的基本組件。隨着時間的推移，大多數變更均與錯誤修復或內部重構有關，
-以下列出了幾個值得關注、用戶可見的變更：
+以下列出了幾個值得關注、使用者可見的變更：
 
 <!--
 - [support explicit reservation of CPUs](https://github.com/Kubernetes/Kubernetes/pull/83592): it was already possible to request to reserve a given
@@ -63,7 +63,7 @@ get scheduled onto that CPU.
 -->
 ## CPU 管理器的自定義選項   {#cpu-managed-customization}
 
-CPU 管理器支持兩種操作模式，使用其**策略**進行配置。
+CPU 管理器支持兩種操作模式，使用其**策略**進行設定。
 使用 `none` 策略，CPU 管理器將 CPU 分配給容器，除了 Pod 規約中設置的（可選）配額外，沒有任何特定限制。
 使用 `static` 策略，假設 Pod 屬於 Guaranteed QoS 類，並且該 Pod 中的每個容器都請求一個整數核數的 vCPU，
 則 CPU 管理器將獨佔分配 CPU。獨佔分配意味着（無論是來自同一個 Pod 還是來自不同的 Pod）其他容器都不會被調度到該 CPU 上。
@@ -77,8 +77,8 @@ CPU Manager policy. Hence, it was decided to add [options to tune the behavior o
 The options have a varying degree of maturity, like any other Kubernetes feature, and in order to be accepted, each new option provides a backward
 compatible behavior when disabled, and to document how to interact with each other, should they interact at all.
 -->
-這種簡單的操作模型很好地服務了用戶羣體，但隨着 CPU 管理器越來越成熟，
-用戶開始關注更復雜的使用場景以及如何更好地支持這些使用場景。
+這種簡單的操作模型很好地服務了使用者羣體，但隨着 CPU 管理器越來越成熟，
+使用者開始關注更復雜的使用場景以及如何更好地支持這些使用場景。
 
 社區沒有添加更多策略，而是意識到幾乎所有新穎的用例都是 `static` CPU 管理器策略所賦予的一些行爲變化。
 因此，決定添加[調整靜態策略行爲的選項](https://github.com/Kubernetes/enhancements/tree/master/keps/sig-node/2625-cpumanager-policies-thread-placement #proposed-change）。

@@ -28,7 +28,7 @@ concepts:
 * [Admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 -->
 本頁面提供了在 Kubernetes 中設計 **Admission Webhook** 時的良好實踐和注意事項。
-此信息適用於運行准入 Webhook 服務器或第三方應用程序的集羣操作員，
+此信息適用於運行准入 Webhook 伺服器或第三方應用程序的叢集操作員，
 這些程序用於修改或驗證你的 API 請求。
 
 在閱讀本頁之前，請確保你熟悉以下概念：
@@ -61,7 +61,7 @@ the webhooks have over objects in the cluster. Like other API extension
 mechanisms, webhooks are challenging to test at scale for compatibility with
 all of your workloads, other webhooks, add-ons, and plugins. 
 -->
-Webhook 是擴展 Kubernetes API 的強大機制。設計不良的 Webhook 由於對集羣中對象具有很大的控制權，
+Webhook 是擴展 Kubernetes API 的強大機制。設計不良的 Webhook 由於對叢集中對象具有很大的控制權，
 常常會導致工作負載中斷。與其他 API 擴展機制一樣，對 Webhook 與所有工作負載、其他
 Webhook、插件及附加組件的兼容性進行大規模測試是一個挑戰。
 
@@ -81,7 +81,7 @@ in unexpected behavior after you upgrade your clusters to newer versions.
 以添加 [Sidecar 容器](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)特性。
 雖然因爲新的 Kubernetes API 導致 Kubernetes 對象進入損壞狀態的情況很少見，
 但那些在早期 API 版本中正常工作的 Webhook 可能無法適配該 API 的最新更改。
-這可能會導致在你將集羣升級到較新版本後出現意外行爲。
+這可能會導致在你將叢集升級到較新版本後出現意外行爲。
 
 <!--
 This page describes common webhook failure scenarios and how to avoid them by
@@ -103,9 +103,9 @@ following command:
 ## 識別是否使用 Admission Webhook   {#identify-admission-webhooks}
 
 即使你沒有運行自己的 Admission Webhook，
-你在集羣中運行的一些第三方應用程序也可能使用變更或驗證准入 Webhook。
+你在叢集中運行的一些第三方應用程序也可能使用變更或驗證准入 Webhook。
 
-要檢查你的集羣是否存在變更性質的准入 Webhook，請運行以下命令：
+要檢查你的叢集是否存在變更性質的准入 Webhook，請運行以下命令：
 
 ```shell
 kubectl get mutatingwebhookconfigurations
@@ -117,9 +117,9 @@ The output lists any mutating admission controllers in the cluster.
 To check whether your cluster has any validating admission webhooks, run the
 following command:
 -->
-輸出列出了集羣中的所有變更准入控制器。
+輸出列出了叢集中的所有變更准入控制器。
 
-要檢查你的集羣是否存在驗證性質的准入 Webhook，運行以下命令：
+要檢查你的叢集是否存在驗證性質的准入 Webhook，運行以下命令：
 
 ```shell
 kubectl get validatingwebhookconfigurations
@@ -128,7 +128,7 @@ kubectl get validatingwebhookconfigurations
 <!---
 The output lists any validating admission controllers in the cluster. 
 -->
-輸出列出了集羣中的所有驗證性質准入控制器。
+輸出列出了叢集中的所有驗證性質准入控制器。
 
 <!---
 ## Choose an admission control mechanism {#choose-admission-mechanism}
@@ -218,7 +218,7 @@ Kubernetes 包含多個准入控制和策略執行選項。知道何時使用特
         在准入前攔截 API 請求，並根據複雜的策略聲明進行驗證。
       </td>
       <td><ul>
-        <li><!--Validate critical configurations before resource admission.-->在資源准入前驗證關鍵配置。</li>
+        <li><!--Validate critical configurations before resource admission.-->在資源准入前驗證關鍵設定。</li>
         <li><!--Enforce complex policy logic before admission.-->在准入前執行復雜的策略邏輯。</li>
       </ul></td>
     </tr>
@@ -232,7 +232,7 @@ Kubernetes 包含多個准入控制和策略執行選項。知道何時使用特
         在准入前攔截 API 請求，並根據通用表達式語言（CEL）表達式進行驗證。
       </td>
       <td><ul>
-        <li><!--Validate critical configurations before resource admission.-->在資源准入前驗證關鍵配置。</li>
+        <li><!--Validate critical configurations before resource admission.-->在資源准入前驗證關鍵設定。</li>
         <li><!--Enforce policy logic using CEL expressions.-->使用 CEL 表達式執行策略邏輯。</li>
       </ul></td>
     </tr>
@@ -246,8 +246,8 @@ you want to declare simpler logic without the overhead of running a webhook
 server. The Kubernetes project recommends that you use CEL-based admission
 control when possible.
 -->
-一般來說，當你希望以可擴展的方式聲明或配置邏輯時，可以使用 **Webhook** 准入控制。
-當你希望聲明更簡單的邏輯而無需運行 Webhook 服務器的開銷時，可以使用基於 CEL
+一般來說，當你希望以可擴展的方式聲明或設定邏輯時，可以使用 **Webhook** 准入控制。
+當你希望聲明更簡單的邏輯而無需運行 Webhook 伺服器的開銷時，可以使用基於 CEL
 的內置准入控制。Kubernetes 項目建議在可能的情況下使用基於 CEL 的准入控制。
 
 <!--
@@ -295,7 +295,7 @@ latency. In summary, these are as follows:
 * 使用審計日誌檢查反覆執行相同操作的 Webhook。
 * 使用負載均衡確保 Webhook 的可用性。
 * 爲每個 Webhook 設置較小的超時值。
-* 在設計 Webhook 時考慮集羣的可用性需求。
+* 在設計 Webhook 時考慮叢集的可用性需求。
 
 <!--
 ### Design admission webhooks for low latency {#design-admission-webhooks-low-latency}
@@ -315,7 +315,7 @@ chance of latency increases.
 可能會被多次調用。對變更性質的 Webhook 的每次調用都會增加准入過程的延遲。
 這一點與驗證性質的 Webhook 不同，驗證性質的 Webhook 是被並行調用的。
 
-在設計你的變更性質 Webhook 時，請考慮你的延遲要求和容忍度。集羣中的變更性 Webhook 越多，
+在設計你的變更性質 Webhook 時，請考慮你的延遲要求和容忍度。叢集中的變更性 Webhook 越多，
 延遲增加的可能性就越大。
 
 <!--
@@ -331,9 +331,9 @@ Consider the following to reduce latency:
 考慮以下措施以減少延遲：
 
 * 整合對不同對象執行類似變更的 Webhook。
-* 減少變更性質 Webhook 服務器邏輯中進行的 API 調用次數。
+* 減少變更性質 Webhook 伺服器邏輯中進行的 API 調用次數。
 * 限制每個變更性質 Webhook 對應的匹配條件，以減少特定 API 請求所觸發的 Webhook 數量。
-* 將多個小型的 Webhook 整合到一個服務器和配置中，以幫助進行排序和組織。
+* 將多個小型的 Webhook 整合到一個伺服器和設定中，以幫助進行排序和組織。
 
 <!--
 ### Prevent loops caused by competing controllers {#prevent-loops-competing-controllers}
@@ -347,7 +347,7 @@ To detect these loops, try the following:
 -->
 ### 防止由相互競爭的控制器所引起的循環處理   {#prevent-loops-competing-controllers}
 
-考慮集羣中運行的其他可能與你的 Webhook 所做的變更發生衝突的組件。例如，如果你的
+考慮叢集中運行的其他可能與你的 Webhook 所做的變更發生衝突的組件。例如，如果你的
 Webhook 要添加某個標籤，而另一個控制器要刪除該標籤，那麼你的 Webhook
 會被再次調用，從而導致循環處理。
 
@@ -368,7 +368,7 @@ Webhook 要添加某個標籤，而另一個控制器要刪除該標籤，那麼
     same patch being applied to the same object, or for an object having
     a field updated and reverted multiple times.
 -->
-1. 更新集羣的審計策略以記錄審計事件。使用以下參數：
+1. 更新叢集的審計策略以記錄審計事件。使用以下參數：
 
    * `level`: `RequestResponse`
    * `verbs`: `["patch"]`
@@ -407,7 +407,7 @@ cluster, you can run multiple webhook backends behind a Service of type
 ### 使用負載均衡器確保 Webhook 可用性   {#load-balancer-webhook}
 
 准入性質的 Webhook 應該利用某種形式的負載均衡來提供高可用性和性能優勢。
-如果 Webhook 在集羣內運行，你可以在類型爲 `ClusterIP` 的 Service 後面運行多個 Webhook 後端。
+如果 Webhook 在叢集內運行，你可以在類型爲 `ClusterIP` 的 Service 後面運行多個 Webhook 後端。
 
 這樣可以確保請求被均勻分配到不同的後端實例上，提高處理能力和可靠性。
 
@@ -428,10 +428,10 @@ incidents.
 -->
 ### 使用高可用部署模型    {#ha-deployment}
 
-在設計 Webhook 時，請考慮集羣的可用性需求。例如，在節點停機或可用區中斷期間，
+在設計 Webhook 時，請考慮叢集的可用性需求。例如，在節點停機或可用區中斷期間，
 Kubernetes 會將一些 Pod 標記爲 `NotReady`，以便負載均衡器可以將流量重新路由到可用的可用區和節點。
 這些對 Pod 的更新可能會觸發你的變更性 Webhook。取決於受影響 Pod 的數量，變更性 Webhook
-服務器有超時或導致 Pod 處理延遲的風險。結果是，流量不會像你所需要的那樣被快速地重新路由。
+伺服器有超時或導致 Pod 處理延遲的風險。結果是，流量不會像你所需要的那樣被快速地重新路由。
 
 在編寫 Webhook 時，請考慮上述示例中的情況。排除那些由 Kubernetes
 爲響應不可避免的事件所執行的操作。
@@ -465,8 +465,8 @@ calls to the webhook server. Consider the following scope limitations:
 -->
 ### 限制每個 Webhook 的作用範圍 {#webhook-limit-scope}
 
-准入性質的 Webhook 僅在 API 請求與相應的 Webhook 配置匹配時纔會被調用。
-限制每個 Webhook 的作用範圍，以減少對 Webhook 服務器的不必要調用。
+准入性質的 Webhook 僅在 API 請求與相應的 Webhook 設定匹配時纔會被調用。
+限制每個 Webhook 的作用範圍，以減少對 Webhook 伺服器的不必要調用。
 考慮以下作用範圍限制：
 
 <!--
@@ -490,9 +490,9 @@ calls to the webhook server. Consider the following scope limitations:
   來避免對關鍵工作負載進行變更。
 * 不要對節點租約（Node Leases）進行變更，這些租約以 Lease 對象的形式存在於
   `kube-node-lease` 系統命名空間中。對節點租約進行變更可能會導致節點升級失敗。
-  只有在你確信驗證控制不會對集羣造成風險時，纔對這個命名空間中的 Lease 對象應用驗證規則。
+  只有在你確信驗證控制不會對叢集造成風險時，纔對這個命名空間中的 Lease 對象應用驗證規則。
 * 不要對 TokenReview 或 SubjectAccessReview 對象進行變更。這些始終是隻讀請求。
-  修改這些對象可能會破壞你的集羣。
+  修改這些對象可能會破壞你的叢集。
 * 使用 [`namespaceSelector`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector)
   將每個 Webhook 限制到特定的名字空間上。
 
@@ -518,10 +518,10 @@ server.
 For details, see
 [Matching requests: `matchConditions`](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions).
 -->
-爲了實現更細粒度的請求過濾，可以在 Webhook 配置中使用 `matchConditions` 字段。
+爲了實現更細粒度的請求過濾，可以在 Webhook 設定中使用 `matchConditions` 字段。
 該字段允許你編寫多個 CEL 表達式，只有當這些表達式都評估爲 `true` 時，
 請求才會觸發你的准入 Webhook。使用 `matchConditions` 可能會顯著減少對
-Webhook 服務器的調用次數。
+Webhook 伺服器的調用次數。
 
 更多詳細信息，請參見[匹配請求：`matchConditions`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions)。
 
@@ -539,7 +539,7 @@ For details, see
 ### 匹配 API 的所有版本 {#match-all-versions}
 
 默認情況下，系統會針對針對影響指定資源的所有 API 版本運行准入 Webhook。Webhook
-配置中的 `matchPolicy` 字段控制此行爲。在 `matchPolicy` 字段中指定值爲
+設定中的 `matchPolicy` 字段控制此行爲。在 `matchPolicy` 字段中指定值爲
 `Equivalent` 或省略該字段，以允許 Webhook 對所有 API 版本起作用。
 
 更多詳細信息，請參見[匹配請求：`matchPolicy`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchpolicy)。
@@ -583,7 +583,7 @@ that you only modify the fields that require a change.
 -->
 ### 僅修補必要的字段   {#patch-required-fields}
 
-准入 Webhook 服務器發送 HTTP 響應來指示如何處理特定的 Kubernetes API 請求。
+准入 Webhook 伺服器發送 HTTP 響應來指示如何處理特定的 Kubernetes API 請求。
 此響應是一個 AdmissionReview 對象。通過使用響應中的 `patchType` 字段和 `patch` 字段，
 變更性 Webhook 可以添加具體的字段進行變更，之後才允許准入。確保你僅修改需要更改的字段。
 
@@ -593,8 +593,8 @@ For example, consider a mutating webhook that's configured to ensure that
 create a Deployment object matches your webhook configuration, the webhook
 should only update the value in the `spec.replicas` field.
 -->
-例如，考慮一個配置爲確保 `web-server` 部署至少具有三個副本的變更性質 Webhook。
-當創建 Deployment 對象的某個請求與你的 Webhook 配置匹配時，Webhook
+例如，考慮一個設定爲確保 `web-server` 部署至少具有三個副本的變更性質 Webhook。
+當創建 Deployment 對象的某個請求與你的 Webhook 設定匹配時，Webhook
 應僅更新 `spec.replicas` 字段中的值。
 
 <!--
@@ -677,11 +677,11 @@ The webhook server runs in a Deployment that doesn't set the `env` label.
 -->
 ### 避免自我變更   {#avoid-self-mutation}
 
-在集羣內運行的 Webhook 可能會因爲其自身的部署攔截了啓動自身 Pod
+在叢集內運行的 Webhook 可能會因爲其自身的部署攔截了啓動自身 Pod
 所需的資源而導致死鎖。
 
-例如，你可能配置了一個變更性質的准入 Webhook，僅當 Pod 中設置了特定標籤（如 `env: prod`）時才允許**創建**
-Pod 請求，而 Webhook 服務器卻運行在一個沒有設置 `env` 標籤的 Deployment 中。
+例如，你可能設定了一個變更性質的准入 Webhook，僅當 Pod 中設置了特定標籤（如 `env: prod`）時才允許**創建**
+Pod 請求，而 Webhook 伺服器卻運行在一個沒有設置 `env` 標籤的 Deployment 中。
 
 <!--
 When a node that runs the webhook server Pods becomes unhealthy, the webhook
@@ -692,9 +692,9 @@ result, the migration cannot happen.
 Exclude the namespace where your webhook is running with a
 [`namespaceSelector`](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector).
 -->
-當運行 Webhook 服務器 Pod 的節點變得不健康時，Webhook 的 Deployment
+當運行 Webhook 伺服器 Pod 的節點變得不健康時，Webhook 的 Deployment
 會嘗試將這些 Pod 重新調度到另一個節點。然而，由於 `env` 標籤未設置，
-現有的 Webhook 服務器會拒絕這些請求。結果是，遷移無法完成。
+現有的 Webhook 伺服器會拒絕這些請求。結果是，遷移無法完成。
 
 通過 [`namespaceSelector`](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-namespaceselector)
 排除運行 Webhook 的命名空間，以避免此問題。
@@ -716,7 +716,7 @@ Dependency loops can occur in scenarios like the following:
 
 * 兩個 Webhook 相互檢查對方的 Pod。如果這兩個 Webhook 同時變得不可用，
   那麼任何一個 Webhook 都無法啓動。
-* 你的 Webhook 攔截了集羣插件組件（如網絡插件或存儲插件），而這些插件是
+* 你的 Webhook 攔截了叢集插件組件（如網路插件或存儲插件），而這些插件是
   Webhook 所依賴的。如果 Webhook 和依賴的插件同時變得不可用，則兩個組件都無法正常工作。
 
 <!--
@@ -756,11 +756,11 @@ downtime.
 -->
 ### 失敗時開放並驗證最終狀態   {#fail-open-validate-final-state}
 
-變更性質的准入 Webhook 支持 `failurePolicy` 配置字段。此字段指示如果 Webhook
-失敗，API 服務器是應允許還是拒絕請求。Webhook 失敗可能是由於超時或服務器邏輯中的錯誤造成的。
+變更性質的准入 Webhook 支持 `failurePolicy` 設定字段。此字段指示如果 Webhook
+失敗，API 伺服器是應允許還是拒絕請求。Webhook 失敗可能是由於超時或伺服器邏輯中的錯誤造成的。
 
 默認情況下，准入 Webhook 將 `failurePolicy` 字段設置爲 `Fail`。
-如果 Webhook 失敗，API 服務器將拒絕該請求。然而，默認情況下拒絕請求可能會導致在
+如果 Webhook 失敗，API 伺服器將拒絕該請求。然而，默認情況下拒絕請求可能會導致在
 Webhook 停機期間合規的請求也被拒絕。
 
 <!--
@@ -781,7 +781,7 @@ This approach has the following benefits:
 
 * 變更性 Webhook 的停機不會影響合規資源的部署。
 * 策略執行發生在驗證准入控制階段。
-* 變更性 Webhooks 不會干擾集羣中的其他控制器。
+* 變更性 Webhooks 不會干擾叢集中的其他控制器。
 
 <!--
 ### Plan for future updates to fields {#plan-future-field-updates}
@@ -794,7 +794,7 @@ added a `restartPolicy` field to the Pod API.
 ### 爲未來的字段更新做計劃 {#plan-future-field-updates}
 
 通常，在設計 Webhook 時應假設 Kubernetes API 可能在後續版本中會發生變化。
-不要編寫一個理所當然地認爲某個 API 是穩定的服務器。例如，Kubernetes 中 Sidecar
+不要編寫一個理所當然地認爲某個 API 是穩定的伺服器。例如，Kubernetes 中 Sidecar
 容器的發佈爲 Pod API 添加了一個 `restartPolicy` 字段。
 
 <!--
@@ -811,8 +811,8 @@ webhook creates. Exclude this label from your webhook match conditions.
 -->
 ### 防止 Webhook 自我觸發 {#prevent-webhook-self-trigger}
 
-響應廣泛 API 請求的變更性質的 Webhook 可能會無意中觸發自身。例如，考慮一個響應集羣內所有請求的
-Webhook。如果配置該 Webhook 爲每次變更創建 Event 對象，則它會對自己的 Event 對象創建請求作出響應。
+響應廣泛 API 請求的變更性質的 Webhook 可能會無意中觸發自身。例如，考慮一個響應叢集內所有請求的
+Webhook。如果設定該 Webhook 爲每次變更創建 Event 對象，則它會對自己的 Event 對象創建請求作出響應。
 
 爲了避免這種情況，可以考慮在 Webhook 創建的任何資源中設置一個唯一的標籤，
 並將此標籤從 Webhook 的匹配條件中排除。
@@ -829,10 +829,10 @@ propagate to the static Pod.
 -->
 ### 不要更改不可變更的對象   {#dont-change-immutable-objects}
 
-API 服務器中的一些 Kubernetes 對象是不可更改的。例如，
+API 伺服器中的一些 Kubernetes 對象是不可更改的。例如，
 當你部署一個{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}} 時，
-節點上的 kubelet 會在 API 服務器中創建一個{{< glossary_tooltip text="鏡像 Pod" term_id="mirror-pod" >}}
-來跟蹤該靜態 Pod。然而，對鏡像 Pod 的更改不會被傳播到靜態 Pod。
+節點上的 kubelet 會在 API 伺服器中創建一個{{< glossary_tooltip text="映像檔 Pod" term_id="mirror-pod" >}}
+來跟蹤該靜態 Pod。然而，對映像檔 Pod 的更改不會被傳播到靜態 Pod。
 
 <!--
 Don't attempt to mutate these objects during admission. All mirror Pods have the
@@ -840,8 +840,8 @@ Don't attempt to mutate these objects during admission. All mirror Pods have the
 the security risk of ignoring an annotation, allow static Pods to only run in
 specific namespaces. 
 -->
-不要在准入期間嘗試對這些對象進行變更。所有鏡像 Pod 都帶有
-`kubernetes.io/config.mirror` 註解。爲了在排除鏡像 Pod
+不要在准入期間嘗試對這些對象進行變更。所有映像檔 Pod 都帶有
+`kubernetes.io/config.mirror` 註解。爲了在排除映像檔 Pod
 的同時降低忽略註解的安全風險，可以僅允許靜態 Pod 在特定的名字空間中運行。
 
 <!--
@@ -902,7 +902,7 @@ Every mutating admission webhook should be _idempotent_. The webhook should be
 able to run on an object that it already modified without making additional
 changes beyond the original change.
 -->
-### 確保集羣中的變更准入 Webhook 具有冪等性   {#ensure-mutating-webhook-idempotent}
+### 確保叢集中的變更准入 Webhook 具有冪等性   {#ensure-mutating-webhook-idempotent}
 
 每個變更性質的准入 Webhook 都應該是**冪等的**。Webhook 應能夠在已經修改過的對象上運行，
 而不會在原始更改之外產生額外的更改。
@@ -916,7 +916,7 @@ making additional changes to the object.
 Depending on your environment, ensuring idempotence at scale might be
 challenging. The following recommendations might help:
 -->
-此外，集羣中的所有變更性質的 Webhook 集合也應當是冪等的。在准入控制的變更階段結束後，
+此外，叢集中的所有變更性質的 Webhook 集合也應當是冪等的。在准入控制的變更階段結束後，
 每個變更性質的 Webhook 都應能夠針對該對象運行而不會對該對象產生額外的更改。
 
 取決於你的環境，確保大規模冪等性可能會具有挑戰性。以下建議可能有所幫助：
@@ -931,7 +931,7 @@ challenging. The following recommendations might help:
 The following examples show idempotent mutation logic:
 -->
 * 使用驗證性質的准入控制器來對關鍵工作負載的最終狀態進行檢查。
-* 在測試集羣中測試你的部署，查看是否有對象被同一個 Webhook 多次修改。
+* 在測試叢集中測試你的部署，查看是否有對象被同一個 Webhook 多次修改。
 * 確保每個變更性 Webhook 的作用範圍具體且受限。
 
 以下示例展示的是一些冪等的變更邏輯：
@@ -980,7 +980,7 @@ The following examples show non-idempotent mutation logic:
    並附加當前時間戳的邊車容器（例如 `foo-sidecar-19700101-000000`）。
 
    重新調用 Webhook 可能會導致同一個邊車容器被多次注入到 Pod 中，
-   每次使用不同的容器名稱。同樣，如果邊車容器已經存在於用戶提供的 Pod 中，
+   每次使用不同的容器名稱。同樣，如果邊車容器已經存在於使用者提供的 Pod 中，
    Webhook 也可能注入重複的容器。
 
 <!--
@@ -1005,7 +1005,7 @@ The following examples show non-idempotent mutation logic:
    的容器的情況下，追加一個名爲 `foo-sidecar` 的邊車容器。
 
    重新調用 Webhook 將導致 Pod 中出現重複的容器，這會使請求無效並被
-   API 服務器拒絕。
+   API 伺服器拒絕。
 
 <!--
 ## Mutation testing and validation {#mutation-testing-validation}
@@ -1040,9 +1040,9 @@ changes.
 本節提供關於測試變更性質 Webhook 和對已變更對象進行檢驗的建議。總結如下：
 
 穩健的測試應該是你發佈新的 Webhook 或更新現有 Webhook 的核心部分。如果可能的話，
-在一個與生產集羣相似的預發佈（staging）環境中測試對集羣 Webhook 的所有更改。至少，
+在一個與生產叢集相似的預發佈（staging）環境中測試對叢集 Webhook 的所有更改。至少，
 考慮使用 [minikube](https://minikube.sigs.k8s.io/docs/) 或
-[kind](https://kind.sigs.k8s.io/) 等工具創建一個小的測試集羣來進行
+[kind](https://kind.sigs.k8s.io/) 等工具創建一個小的測試叢集來進行
 Webhook 的更改測試。
 
 <!--
@@ -1061,7 +1061,7 @@ Test every mutating webhook against the validations that run in your cluster.
 Pod 的默認 CPU 請求設置爲特定值的變更性質 Webhook。如果該 Pod 的 CPU
 限制設置爲低於變更後的請求值，則該 Pod 將無法通過准入。
 
-針對集羣中運行的驗證規則測試每個變更性質的 Webhook。
+針對叢集中運行的驗證規則測試每個變更性質的 Webhook。
 
 <!--
 ### Test minor version upgrades to ensure consistent behavior {#test-minor-version-upgrades}
@@ -1077,7 +1077,7 @@ Additionally, use the following resources to stay informed about API changes:
 -->
 ### 測試小版本升級以確保一致的行爲   {#test-minor-version-upgrades}
 
-在將生產集羣升級到新的小版本之前，在一個預發佈環境中測試你的 Webhook 和工作負載。
+在將生產叢集升級到新的小版本之前，在一個預發佈環境中測試你的 Webhook 和工作負載。
 比較結果，確保升級後你的 Webhook 仍能按預期運行。
 
 此外，使用以下資源來了解 API 變更的相關信息：
@@ -1107,10 +1107,10 @@ init containers retained the `restartPolicy: Always` configuration after all
 mutations were completed. 
 -->
 可以添加如 ValidatingAdmissionWebhook 或 ValidatingAdmissionPolicy
-這樣的驗證性准入控制器到你的集羣中，以確保你的變更是仍然存在的。例如，
+這樣的驗證性准入控制器到你的叢集中，以確保你的變更是仍然存在的。例如，
 考慮一個變更性質的 Webhook，它將 `restartPolicy: Always` 字段插入特定的初始化容器中，
 使它們作爲邊車容器運行。你可以運行一個驗證 Webhook 來確保這些初始化容器在所有變更完成後仍保留
-`restartPolicy: Always` 配置。
+`restartPolicy: Always` 設定。
 
 <!--
 For details, see the following resources:
@@ -1139,9 +1139,9 @@ webhooks. In summary, these are as follows:
 
 本節給出關於部署變更性准入 Webhook 的建議。總結如下：
 
-* 逐步推出 Webhook 配置，並按名字空間監控可能出現的問題。
-* 限制對 Webhook 配置資源的編輯訪問權限。
-* 如果服務器位於集羣內，則限制對運行 Webhook 服務器的命名空間的訪問權限。
+* 逐步推出 Webhook 設定，並按名字空間監控可能出現的問題。
+* 限制對 Webhook 設定資源的編輯訪問權限。
+* 如果伺服器位於叢集內，則限制對運行 Webhook 伺服器的命名空間的訪問權限。
 
 <!--
 ### Install and enable a mutating webhook {#install-enable-mutating-webhook}
@@ -1151,7 +1151,7 @@ following order of operations:
 -->
 ### 安裝、啓用變更性 Webhook {#install-enable-mutating-webhook}
 
-當你準備將變更性質的 Webhook 部署到集羣時，請按照以下操作順序進行：
+當你準備將變更性質的 Webhook 部署到叢集時，請按照以下操作順序進行：
 
 <!--
 1.  Install the webhook server and start it.
@@ -1161,12 +1161,12 @@ following order of operations:
     manifest to a test namespace.
 1.  Deploy the MutatingWebhookConfiguration to your cluster.
 -->
-1. 安裝 Webhook 服務器並啓動它。
+1. 安裝 Webhook 伺服器並啓動它。
 2. 在 MutatingWebhookConfiguration 清單中將 `failurePolicy`
-   字段設置爲 `Ignore`。這樣可以避免因 Webhook 配置錯誤而導致的干擾。
+   字段設置爲 `Ignore`。這樣可以避免因 Webhook 設定錯誤而導致的干擾。
 3. 在 MutatingWebhookConfiguration 清單中將 `namespaceSelector`
    字段設置爲一個測試命名空間。
-4. 將 MutatingWebhookConfiguration 部署到你的集羣中。
+4. 將 MutatingWebhookConfiguration 部署到你的叢集中。
 
 <!--
 Monitor the webhook in the test namespace to check for any issues, then roll the
@@ -1176,7 +1176,7 @@ webhook configuration.
 -->
 在測試命名空間中監控 Webhook，檢查是否有任何問題，然後將 Webhook
 推廣到其他命名空間。如果 Webhook 攔截了不應攔截的 API 請求，
-請暫停推廣並調整 Webhook 配置的範圍。
+請暫停推廣並調整 Webhook 設定的範圍。
 
 <!--
 ### Limit edit access to mutating webhooks {#limit-edit-access}
@@ -1189,7 +1189,7 @@ entities:
 ### 限制對變更性 Webhook 的編輯訪問 {#limit-edit-access}
 
 變更性質的 Webhook 是一種強大的 Kubernetes 控制器。使用 RBAC
-或其他鑑權機制來限制對你的 Webhook 和服務器的編輯訪問權限。
+或其他鑑權機制來限制對你的 Webhook 和伺服器的編輯訪問權限。
 對於 RBAC，確保只有受信任的實體纔可以具有以下訪問權限：
 
 <!--
@@ -1205,7 +1205,7 @@ modify any resources in that namespace.
 * API 組：`admissionregistration.k8s.io/v1`
 * API 資源類型：MutatingWebhookConfigurations
 
-如果你的變更性 Webhook 的服務器在集羣內運行，請限制對該命名空間中任何資源的創建或修改權限。
+如果你的變更性 Webhook 的伺服器在叢集內運行，請限制對該命名空間中任何資源的創建或修改權限。
 
 <!--
 ## Examples of good implementations {#example-good-implementations}
@@ -1220,7 +1220,7 @@ implementations. You can use them as a starting point when designing your own
 webhooks. Don't use these examples as-is; use them as a starting point and
 design your webhooks to run well in your specific environment.
 -->
-以下項目是“良好的”自定義 Webhook 服務器實現的示例。在設計你自己的 Webhook 時，
+以下項目是“良好的”自定義 Webhook 伺服器實現的示例。在設計你自己的 Webhook 時，
 可以將它們作爲起點。請勿直接使用這些示例，而是應根據你的具體環境進行調整和設計。
 
 * [`cert-manager`](https://github.com/cert-manager/cert-manager/tree/master/internal/webhook)

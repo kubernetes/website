@@ -37,7 +37,7 @@ that can be parameterized and scoped to resources as needed by cluster administr
 驗證准入策略提供一種聲明式的、進程內的替代方案來驗證准入 Webhook。
 
 驗證准入策略使用通用表達語言 (Common Expression Language，CEL) 來聲明策略的驗證規則。
-驗證准入策略是高度可配置的，使配置策略的作者能夠根據集羣管理員的需要，
+驗證准入策略是高度可設定的，使設定策略的作者能夠根據叢集管理員的需要，
 定義可以參數化並限定到資源的策略。
 
 <!--
@@ -81,7 +81,7 @@ If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, 
 -->
 至少要定義一個 `ValidatingAdmissionPolicy` 和一個相對應的 `ValidatingAdmissionPolicyBinding` 才能使策略生效。
 
-如果 `ValidatingAdmissionPolicy` 不需要參數配置，不設置 `ValidatingAdmissionPolicy` 中的
+如果 `ValidatingAdmissionPolicy` 不需要參數設定，不設置 `ValidatingAdmissionPolicy` 中的
 `spec.paramKind` 即可。
 
 <!--
@@ -92,7 +92,7 @@ with great caution. The following describes how to quickly experiment with Valid
 -->
 ## 開始使用驗證准入策略  {#getting-started-with-validating-admission-policy}
 
-驗證准入策略是集羣控制平面的一部分。你應該非常謹慎地編寫和部署它們。下面介紹如何快速試驗驗證准入策略。
+驗證准入策略是叢集控制平面的一部分。你應該非常謹慎地編寫和部署它們。下面介紹如何快速試驗驗證准入策略。
 
 <!--
 ### Creating a ValidatingAdmissionPolicy
@@ -125,7 +125,7 @@ You can quickly test CEL expressions in [CEL Playground](https://playcel.undistr
 To configure a validating admission policy for use in a cluster, a binding is required.
 The following is an example of a ValidatingAdmissionPolicyBinding:
 -->
-要配置一個在某集羣中使用的驗證准入策略，需要一個綁定。
+要設定一個在某叢集中使用的驗證准入策略，需要一個綁定。
 以下是一個 ValidatingAdmissionPolicyBinding 的示例：
 
 {{% code_sample language="yaml" file="validatingadmissionpolicy/basic-example-binding.yaml" %}}
@@ -143,7 +143,7 @@ ValidatingAdmissionPolicy 'demo-policy.example.com' with binding 'demo-binding-t
 <!--
 The above provides a simple example of using ValidatingAdmissionPolicy without a parameter configured.
 -->
-上面提供的是一個簡單的、無配置參數的 ValidatingAdmissionPolicy。
+上面提供的是一個簡單的、無設定參數的 ValidatingAdmissionPolicy。
 
 <!--
 #### Validation actions
@@ -175,7 +175,7 @@ The supported `validationActions` are:
 For example, to both warn clients about a validation failure and to audit the
 validation failures, use:
 -->
-例如，要同時向客戶端發出驗證失敗的警告並記錄驗證失敗的審計記錄，請使用以下配置：
+例如，要同時向客戶端發出驗證失敗的警告並記錄驗證失敗的審計記錄，請使用以下設定：
 
 ```yaml
 validationActions: [Warn, Audit]
@@ -218,11 +218,11 @@ with parameter configuration.
 -->
 ### 參數資源    {#parameter-resources}
 
-參數資源允許策略配置與其定義分開。
+參數資源允許策略設定與其定義分開。
 一個策略可以定義 paramKind，給出參數資源的 GVK，
 然後一個策略綁定可以通過名稱（通過 policyName）將某策略與某特定的參數資源（通過 paramRef）聯繫起來。
 
-如果需要參數配置，下面是一個帶有參數配置的 ValidatingAdmissionPolicy 的例子：
+如果需要參數設定，下面是一個帶有參數設定的 ValidatingAdmissionPolicy 的例子：
 
 {{% code_sample language="yaml" file="validatingadmissionpolicy/policy-with-param.yaml" %}}
 
@@ -235,7 +235,7 @@ designed to validate. Note that the native types such like `ConfigMap` could als
 parameter reference.
 -->
 ValidatingAdmissionPolicy 的 `spec.paramKind` 字段指定用於參數化此策略的資源類型。
-在這個例子中，它是由自定義資源 ReplicaLimit 配置的。
+在這個例子中，它是由自定義資源 ReplicaLimit 設定的。
 在這個例子中請注意 CEL 表達式是如何通過 CEL params 變量引用參數的，如：`params.maxReplicas`。
 `spec.matchConstraints` 指定此策略要檢查哪些資源。
 請注意，諸如 `ConfigMap` 之類的原生類型也可以用作參數引用。
@@ -256,8 +256,8 @@ every resource request that matches the binding:
 
 驗證准入策略的作者負責提供 ReplicaLimit 參數 CRD。
 
-要配置一個在某集羣中使用的驗證准入策略，需要創建綁定和參數資源。
-以下是 ValidatingAdmissionPolicyBinding **集羣範圍**參數的示例 - 相同的參數將用於驗證與綁定匹配的每個資源請求：
+要設定一個在某叢集中使用的驗證准入策略，需要創建綁定和參數資源。
+以下是 ValidatingAdmissionPolicyBinding **叢集範圍**參數的示例 - 相同的參數將用於驗證與綁定匹配的每個資源請求：
 
 {{% code_sample language="yaml" file="validatingadmissionpolicy/binding-with-param.yaml" %}}
 
@@ -308,7 +308,7 @@ to be admitted it must pass **all** evaluations.
 If multiple bindings match the request, the policy will be evaluated for each,
 and they must all pass evaluation for the policy to be considered passed.
 -->
-對於每個准入請求，API 服務器都會評估與請求匹配的每個（策略、綁定、參數）組合的 CEL 表達式。
+對於每個准入請求，API 伺服器都會評估與請求匹配的每個（策略、綁定、參數）組合的 CEL 表達式。
 要獲得准入資格，必須通過**所有**評估。
 
 如果多個綁定與請求匹配，則將爲每個綁定評估策略，並且它們必須全部通過評估，策略纔會被視爲通過。
@@ -339,7 +339,7 @@ For the use cases requiring parameter configuration, we recommend to add a param
 如果策略的 `paramKind` 未指定或綁定的 `paramRef` 未指定，則不會綁定參數資源，
 並且 `params` 將爲空。
 
-對於需要參數配置的場景，我們建議在 `spec.validations[0].expression` 中添加一個參數檢查：
+對於需要參數設定的場景，我們建議在 `spec.validations[0].expression` 中添加一個參數檢查：
 
 ```yaml
 - expression: "params != null"
@@ -393,7 +393,7 @@ searches for parameters in that namespace.
 #### 按命名空間設置的參數
 
 作爲 ValidatingAdmissionPolicy 及其 ValidatingAdmissionPolicyBinding 的作者，
-你可以選擇指定其作用於集羣範圍還是某個命名空間。如果你爲綁定的 `paramRef` 指定 `namespace`，
+你可以選擇指定其作用於叢集範圍還是某個命名空間。如果你爲綁定的 `paramRef` 指定 `namespace`，
 則控制平面僅在該命名空間中搜索參數。
 
 <!--
@@ -406,10 +406,10 @@ This design enables policy configuration that depends on the namespace
 of the resource being manipulated, for more fine-tuned control.
 -->
 但是，如果 ValidatingAdmissionPolicyBinding 中未指定 `namespace`，則 API
-服務器可以在請求所針對的命名空間中搜索相關參數。
+伺服器可以在請求所針對的命名空間中搜索相關參數。
 例如，如果你請求修改 `default` 命名空間中的 ConfigMap，並且存在未設置 `namespace` 的相關
-ValidatingAdmissionPolicyBinding，則 API 服務器在 `default` 命名空間中查找參數對象。
-此設計支持依賴於所操作資源的命名空間的策略配置，以實現更精細的控制。
+ValidatingAdmissionPolicyBinding，則 API 伺服器在 `default` 命名空間中查找參數對象。
+此設計支持依賴於所操作資源的命名空間的策略設定，以實現更精細的控制。
 
 <!--
 #### Parameter selector
@@ -453,10 +453,10 @@ resources of groups is required.
 #### 鑑權檢查
 
 我們爲參數資源引入了鑑權檢查。
-用戶應該對 `ValidatingAdmissionPolicy` 中的 `paramKind`
+使用者應該對 `ValidatingAdmissionPolicy` 中的 `paramKind`
 和 `ValidatingAdmissionPolicyBinding` 中的 `paramRef` 所引用的資源有 `read` 權限。
 
-請注意，如果 `paramKind` 中的資源沒能通過 restmapper 解析，則用戶需要擁有對組的所有資源的
+請注意，如果 `paramKind` 中的資源沒能通過 restmapper 解析，則使用者需要擁有對組的所有資源的
 `read` 訪問權限。
 
 <!--
@@ -563,7 +563,7 @@ Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
 -->
 ### 失效策略   {#failure-policy}
 
-`failurePolicy` 定義瞭如何處理錯誤配置和准入策略的 CEL 表達式取值爲 error 的情況。
+`failurePolicy` 定義瞭如何處理錯誤設定和准入策略的 CEL 表達式取值爲 error 的情況。
 
 允許的值是 `Ignore` 或 `Fail`。
 
@@ -602,7 +602,7 @@ CEL 表達式可以訪問按 CEL 變量來組織的 Admission 請求/響應的�
 - 'request' - [准入請求](/zh-cn/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest)的屬性。
 - 'params' - 被計算的策略綁定引用的參數資源。如果未設置 `paramKind`，該值爲 null。
 - `namespaceObject` - 作爲 Kubernetes 資源的、傳輸對象所在的名字空間。
-  如果傳入對象是集羣作用域的，則此值爲 null。
+  如果傳入對象是叢集作用域的，則此值爲 null。
 
 <!--
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
@@ -613,10 +613,10 @@ CEL 表達式可以訪問按 CEL 變量來組織的 Admission 請求/響應的�
 - `authorizer.requestResource` - A shortcut for an authorization check configured with the request
   resource (group, resource, (subresource), namespace, name).
 -->
-- `authorizer` - 一個 CEL 鑑權組件。可以用來爲請求的主體（經過身份驗證的用戶）執行鑑權檢查。
+- `authorizer` - 一個 CEL 鑑權組件。可以用來爲請求的主體（經過身份驗證的使用者）執行鑑權檢查。
   更多細節可以參考 [AuthzSelectors](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#AuthzSelectors)
   和 Kubernetes CEL 庫的文檔中的 [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
-- `authorizer.requestResource` - 針對請求資源（組、資源、（子資源）、命名空間、名稱）所配置的鑑權檢查的快捷方式。
+- `authorizer.requestResource` - 針對請求資源（組、資源、（子資源）、命名空間、名稱）所設定的鑑權檢查的快捷方式。
 
 <!--
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
@@ -736,7 +736,7 @@ the request is determined as follows:
 
 在評估匹配條件時出現錯誤時，將不會評估策略。根據以下方式確定是否拒絕請求：
 
-1. 如果**任何一個**匹配條件求值結果爲 `false`（不管其他錯誤），API 服務器將跳過 Webhook。
+1. 如果**任何一個**匹配條件求值結果爲 `false`（不管其他錯誤），API 伺服器將跳過 Webhook。
 2. 否則：
 
    - 對於 [`failurePolicy: Fail`](#failure-policy)，拒絕請求（不調用 Webhook）。
@@ -827,7 +827,7 @@ we can have the following validation:
 與驗證表達式類似，消息表達式可以訪問 `object`、`oldObject`、`request` 和 `params`。
 但是，與驗證不同，消息表達式必須求值爲字符串。
 
-例如，爲了在策略引用參數時更好地告知用戶拒絕原因，我們可以有以下驗證：
+例如，爲了在策略引用參數時更好地告知使用者拒絕原因，我們可以有以下驗證：
 
 {{% code_sample file="access/deployment-replicas-policy.yaml" %}}
 
@@ -986,7 +986,7 @@ The following is a more complex example of enforcing that image repo names match
 變量的順序很重要，因爲一個變量可以引用在它之前定義的其他變量。
 對順序的要求可以防止循環引用。
 
-以下是強制鏡像倉庫名稱與其命名空間中定義的環境相匹配的一個較複雜示例。
+以下是強制映像檔倉庫名稱與其命名空間中定義的環境相匹配的一個較複雜示例。
 
 {{< code_sample file="access/image-matches-namespace-environment.policy.yaml" >}}
 

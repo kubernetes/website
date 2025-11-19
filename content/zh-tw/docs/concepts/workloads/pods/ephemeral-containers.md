@@ -25,7 +25,7 @@ containers to inspect services rather than to build applications.
 -->
 本頁面概述了臨時容器：一種特殊的容器，該容器在現有
 {{< glossary_tooltip text="Pod" term_id="pod" >}}
-中臨時運行，以便完成用戶發起的操作，例如故障排查。
+中臨時運行，以便完成使用者發起的操作，例如故障排查。
 你會使用臨時容器來檢查服務，而不是用它來構建應用程序。
 
 <!-- body -->
@@ -77,9 +77,9 @@ are incompatible and disallowed for ephemeral containers.
 - For a complete list of allowed fields, see the [EphemeralContainer reference
   documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralcontainer-v1-core).
 -->
-- 臨時容器沒有端口配置，因此像 `ports`、`livenessProbe`、`readinessProbe`
+- 臨時容器沒有端口設定，因此像 `ports`、`livenessProbe`、`readinessProbe`
   這樣的字段是不允許的。
-- Pod 資源分配是不可變的，因此 `resources` 配置是不允許的。
+- Pod 資源分配是不可變的，因此 `resources` 設定是不允許的。
 - 有關允許字段的完整列表，請參見
   [EphemeralContainer 參考文檔](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ephemeralcontainer-v1-core)。
 
@@ -113,7 +113,7 @@ doesn't include debugging utilities.
 -->
 ## 臨時容器的用途   {#uses-for-ephemeral-containers}
 
-當由於容器崩潰或容器鏡像不包含調試工具而導致 `kubectl exec` 無用時，
+當由於容器崩潰或容器映像檔不包含調試工具而導致 `kubectl exec` 無用時，
 臨時容器對於交互式故障排查很有用。
 
 <!--
@@ -123,9 +123,9 @@ and exposure to bugs and vulnerabilities. Since distroless images do not include
 shell or any debugging utilities, it's difficult to troubleshoot distroless
 images using `kubectl exec` alone.
 -->
-尤其是，[Distroless 鏡像](https://github.com/GoogleContainerTools/distroless)
-允許用戶部署最小的容器鏡像，從而減少攻擊面並減少故障和漏洞的暴露。
-由於 distroless 鏡像不包含 Shell 或任何的調試工具，因此很難單獨使用
+尤其是，[Distroless 映像檔](https://github.com/GoogleContainerTools/distroless)
+允許使用者部署最小的容器映像檔，從而減少攻擊面並減少故障和漏洞的暴露。
+由於 distroless 映像檔不包含 Shell 或任何的調試工具，因此很難單獨使用
 `kubectl exec` 命令進行故障排查。
 
 <!--

@@ -79,7 +79,7 @@ Autoscaler if you have it installed in the cluster.
 -->
 調度門控有助於解決這個問題。它允許聲明新創建的 Pod 尚未準備好進行調度。
 當 Pod 上設置了調度門控時，調度程序會忽略該 Pod，從而避免不必要的調度嘗試。
-如果你在集羣中安裝了 Cluster Autoscaler，這些 Pod 也將被忽略。
+如果你在叢集中安裝了 Cluster Autoscaler，這些 Pod 也將被忽略。
 
 <!--
 Clearing the gates is the responsibility of external controllers with knowledge of when the Pod
@@ -174,7 +174,7 @@ cluster (using a mutating webhook). The manager would then remove the gate when 
 start the Pod.
 -->
 調度門控允許外部配額管理器解決 ResourceQuota 的上述限制。具體來說，
-管理員可以（使用變更性質的 Webhook）爲集羣中創建的所有 Pod 添加一個
+管理員可以（使用變更性質的 Webhook）爲叢集中創建的所有 Pod 添加一個
 `example.com/quota-check` 調度門控。當存在用於啓動 Pod 的配額時，管理器將移除此門控
 
 <!--

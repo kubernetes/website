@@ -40,7 +40,7 @@ criteria that Pod should be satisfied before considered schedulable. This field 
 only when a Pod is created (either by the client, or mutated during admission). After creation,
 each schedulingGate can be removed in arbitrary order, but addition of a new scheduling gate is disallowed.
 -->
-## 配置 Pod schedulingGates  {#configuring-pod-schedulinggates}
+## 設定 Pod schedulingGates  {#configuring-pod-schedulinggates}
 
 `schedulingGates` 字段包含一個字符串列表，每個字符串文字都被視爲 Pod 在被認爲可調度之前應該滿足的標準。
 該字段只能在創建 Pod 時初始化（由客戶端創建，或在准入期間更改）。

@@ -36,7 +36,7 @@ FlexVolume 是一個已棄用的接口，用於創建樹外卷插件。
 <!-- 
 FlexVolumes enable users to write their own drivers and add support for their volumes in Kubernetes. FlexVolume driver binaries and dependencies must be installed on host machines. This requires root access. The Storage SIG suggests implementing a {{< glossary_tooltip text="CSI" term_id="csi" >}} driver if possible since it addresses the limitations with FlexVolumes.
 -->
-FlexVolume 允許用戶編寫自己的驅動程序，並在 Kubernetes 中加入對用戶自己的數據卷的支持。
+FlexVolume 允許使用者編寫自己的驅動程序，並在 Kubernetes 中加入對使用者自己的數據卷的支持。
 FlexVolume 驅動程序的二進制文件和依賴項必須安裝在主機上。
 這需要 root 權限。如果可能的話，SIG Storage 建議實現
 {{< glossary_tooltip text="CSI" term_id="csi" >}} 驅動程序，

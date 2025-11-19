@@ -35,7 +35,7 @@ operator, you should take both of the following additional measures:
 -->
 在 Windows 上，來自 Secret 的數據以明文形式寫入節點的本地存儲
 （與在 Linux 上使用 tmpfs / 內存中文件系統不同）。
-作爲集羣操作員，你應該採取以下兩項額外措施：
+作爲叢集操作員，你應該採取以下兩項額外措施：
 
 <!--
 1. Use file ACLs to secure the Secrets' file location.
@@ -49,7 +49,7 @@ operator, you should take both of the following additional measures:
 <!--
 ## Container users
 -->
-## 容器用戶   {#container-users}
+## 容器使用者   {#container-users}
 
 <!--
 [RunAsUsername](/docs/tasks/configure-pod-container/configure-runasusername)
@@ -58,7 +58,7 @@ processes as specific user. This is roughly equivalent to
 [RunAsUser](/docs/concepts/security/pod-security-policy/#users-and-groups).
 -->
 可以爲 Windows Pod 或容器指定 [RunAsUsername](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)
-以作爲特定用戶執行容器進程。這大致相當於 [RunAsUser](/zh-cn/docs/concepts/security/pod-security-policy/#users-and-groups)。
+以作爲特定使用者執行容器進程。這大致相當於 [RunAsUser](/zh-cn/docs/concepts/security/pod-security-policy/#users-and-groups)。
 
 <!--
 Windows containers offer two default user accounts, ContainerUser and ContainerAdministrator.
@@ -66,15 +66,15 @@ The differences between these two user accounts are covered in
 [When to use ContainerAdmin and ContainerUser user accounts](https://docs.microsoft.com/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)
 within Microsoft's _Secure Windows containers_ documentation.
 -->
-Windows 容器提供兩個默認用戶帳戶，ContainerUser 和 ContainerAdministrator。
+Windows 容器提供兩個默認使用者帳戶，ContainerUser 和 ContainerAdministrator。
 在微軟的 **Windows 容器安全** 文檔
-[何時使用 ContainerAdmin 和 ContainerUser 用戶帳戶](https://docs.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)
-中介紹了這兩個用戶帳戶之間的區別。
+[何時使用 ContainerAdmin 和 ContainerUser 使用者帳戶](https://docs.microsoft.com/zh-cn/virtualization/windowscontainers/manage-containers/container-security#when-to-use-containeradmin-and-containeruser-user-accounts)
+中介紹了這兩個使用者帳戶之間的區別。
 
 <!--
 Local users can be added to container images during the container build process.
 -->
-在容器構建過程中，可以將本地用戶添加到容器鏡像中。
+在容器構建過程中，可以將本地使用者添加到容器映像檔中。
 
 {{< note >}}
 <!--
@@ -83,8 +83,8 @@ Local users can be added to container images during the container build process.
 * [Server Core](https://hub.docker.com/_/microsoft-windows-servercore) based images run as
   `ContainerAdministrator` by default
 -->
-* 基於 [Nano Server](https://hub.docker.com/_/microsoft-windows-nanoserver) 的鏡像默認以 `ContainerUser` 運行
-* 基於 [Server Core](https://hub.docker.com/_/microsoft-windows-servercore) 的鏡像默認以 `ContainerAdministrator` 運行
+* 基於 [Nano Server](https://hub.docker.com/_/microsoft-windows-nanoserver) 的映像檔默認以 `ContainerUser` 運行
+* 基於 [Server Core](https://hub.docker.com/_/microsoft-windows-servercore) 的映像檔默認以 `ContainerAdministrator` 運行
 {{< /note >}}
 
 <!--

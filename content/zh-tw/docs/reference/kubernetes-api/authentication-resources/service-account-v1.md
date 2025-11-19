@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ServiceAccount"
 content_type: "api_reference"
-description: "ServiceAccount 將以下內容綁定在一起：1. 用戶可以理解的名稱，也可能是外圍系統理解的身份標識 2. 可以驗證和授權的主體 3. 一組 Secret。"
+description: "ServiceAccount 將以下內容綁定在一起：1. 使用者可以理解的名稱，也可能是外圍系統理解的身份標識 2. 可以驗證和授權的主體 3. 一組 Secret。"
 title: "ServiceAccount"
 weight: 1
 ---
@@ -31,7 +31,7 @@ ServiceAccount binds together: * a name, understood by users, and perhaps by per
 -->
 ServiceAccount 將以下內容綁定在一起：
 
-* 用戶可以理解的名稱，也可能是外圍系統理解的身份標識
+* 使用者可以理解的名稱，也可能是外圍系統理解的身份標識
 * 可以驗證和授權的主體
 * 一組 Secret
 
@@ -67,7 +67,7 @@ ServiceAccount 將以下內容綁定在一起：
   
   **原子：將在合併期間被替換**  
 
-  imagePullSecrets 是對同一命名空間中 Secret 的引用列表，用於拉取引用此 ServiceAccount 的 Pod 中的任何鏡像。
+  imagePullSecrets 是對同一命名空間中 Secret 的引用列表，用於拉取引用此 ServiceAccount 的 Pod 中的任何映像檔。
   imagePullSecrets 與 Secret 不同，因爲 Secret 可以掛載在 Pod 中，但 imagePullSecrets 只能由 kubelet 訪問。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
 

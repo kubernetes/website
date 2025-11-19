@@ -20,13 +20,13 @@ environment variables specifying ports opened by the service proxy. There is an 
 addon that provides cluster DNS for these cluster IPs. The user must create a service
 with the apiserver API to configure the proxy.
 -->
-Kubernetes 網絡代理在每個節點上運行。網絡代理反映了每個節點上 Kubernetes API
+Kubernetes 網路代理在每個節點上運行。網路代理反映了每個節點上 Kubernetes API
 中定義的服務，並且可以執行簡單的 TCP、UDP 和 SCTP 流轉發，或者在一組後端進行
 循環 TCP、UDP 和 SCTP 轉發。
-當前可通過 Docker-links-compatible 環境變量找到服務集羣 IP 和端口，
+當前可通過 Docker-links-compatible 環境變量找到服務叢集 IP 和端口，
 這些環境變量指定了服務代理打開的端口。
-有一個可選的插件，可以爲這些集羣 IP 提供集羣 DNS。
-用戶必須使用 apiserver API 創建服務才能配置代理。
+有一個可選的插件，可以爲這些叢集 IP 提供叢集 DNS。
+使用者必須使用 apiserver API 創建服務才能設定代理。
 
 ```
 kube-proxy [flags]
@@ -77,7 +77,7 @@ Overrides kube-proxy's idea of what its node's primary IP is. Note that the name
 -->
 重寫 kube-proxy 對其節點主要 IP 的理解。請注意，此名稱是一個歷史遺留字段，
 並且 kube-proxy 實際上並沒有將任何套接字綁定到此 IP。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p></td>
 </tr>
 
@@ -102,10 +102,10 @@ If true cleanup iptables and ipvs rules and exit.
 <!--
 The CIDR range of the pods in the cluster. (For dual-stack clusters, this can be a comma-separated dual-stack pair of CIDR ranges.). When --detect-local-mode is set to ClusterCIDR, kube-proxy will consider traffic to be local if its source IP is in this range. (Otherwise it is not used.) This parameter is ignored if a config file is specified by --config.
 -->
-集羣中 Pod 的 CIDR 範圍。對於雙協議棧集羣，這可以是逗號分隔的雙協議棧 CIDR 範圍對。
+叢集中 Pod 的 CIDR 範圍。對於雙協議棧叢集，這可以是逗號分隔的雙協議棧 CIDR 範圍對。
 當 <code>--detect-local-mode</code> 設置爲 ClusterCIDR 時，
 kube-proxy 會將源 IP 在此範圍內的流量視爲本地流量。否則不使用此字段。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -118,7 +118,7 @@ kube-proxy 會將源 IP 在此範圍內的流量視爲本地流量。否則不�
 <!--
 The path to the configuration file.
 -->
-配置文件的路徑。
+設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -131,7 +131,7 @@ The path to the configuration file.
 <!--
 How often configuration from the apiserver is refreshed.  Must be greater than 0.
 -->
-來自 apiserver 的配置的刷新頻率。必須大於 0。
+來自 apiserver 的設定的刷新頻率。必須大於 0。
 </p>
 </td>
 </tr>
@@ -236,7 +236,7 @@ ASSURED UDP 連接的空閒超時（0 保持當前設置）。
 Mode to use to detect local traffic. This parameter is ignored if a config file is specified by --config.
 -->
 用於檢測本地流量的模式。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -509,7 +509,7 @@ WatchList=true|false (BETA - 默認值=true)<br/>
 WatchListClient=true|false (BETA - 默認值=false)<br/>
 WindowsCPUAndMemoryAffinity=true|false (ALPHA - 默認值=false)<br/>
 WindowsGracefulNodeShutdown=true|false (BETA - 默認值=true)<br/>
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -523,7 +523,7 @@ WindowsGracefulNodeShutdown=true|false (BETA - 默認值=true)<br/>
 The IP address and port for the health check server to serve on, defaulting to &quot;0.0.0.0:10256&quot;. This parameter is ignored if a config file is specified by --config.
 -->
 服務健康狀態檢查的 IP 地址和端口，默認爲 “0.0.0.0:10256”。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -844,7 +844,7 @@ Enable the LoggingAlphaOptions feature gate to use this.
 <!--
 when logging hits line file:N, emit a stack trace
 -->
-當日志命中 file:N，觸發一次堆棧追蹤
+當日誌命中 file:N，觸發一次堆棧追蹤
 </p></td>
 </tr>
 
@@ -921,7 +921,7 @@ log to standard error instead of files
 If using the iptables or ipvs proxy mode, SNAT all traffic sent via Service cluster IPs. This may be required with some CNI plugins.
 SNAT all traffic sent via Service cluster IPs. This may be required with some CNI plugins. Only supported on Linux.
 -->
-對通過 Service 集羣 IP 發送的所有流量進行 SNAT。
+對通過 Service 叢集 IP 發送的所有流量進行 SNAT。
 這對某些 CNI 插件可能是必需的。僅支持 Linux。
 </p>
 </td>
@@ -935,7 +935,7 @@ SNAT all traffic sent via Service cluster IPs. This may be required with some CN
 <!--
 The address of the Kubernetes API server (overrides any value in kubeconfig)
 -->
-Kubernetes API 服務器的地址（覆蓋 kubeconfig 中的相關值）。
+Kubernetes API 伺服器的地址（覆蓋 kubeconfig 中的相關值）。
 </p>
 </td>
 </tr>
@@ -948,10 +948,10 @@ Kubernetes API 服務器的地址（覆蓋 kubeconfig 中的相關值）。
 <!--
 The IP address and port for the metrics server to serve on, defaulting to &quot;127.0.0.1:10249&quot;. (Set to &quot;0.0.0.0:10249&quot; / &quot;[::]:10249&quot; to bind on all interfaces.) Set empty to disable. This parameter is ignored if a config file is specified by --config.
 -->
-metrics 服務器要使用的 IP 地址和端口。
+metrics 伺服器要使用的 IP 地址和端口。
 如果 <code>--bind-address</code> 未設置或設置爲 IPv4，則默認爲 "127.0.0.1:10249"。
 設置爲 "0.0.0.0:10249" / "[::]:10249" 可以在所有接口上進行綁定。
-設置爲空則禁用。如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+設置爲空則禁用。如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -968,7 +968,7 @@ A list of CIDR ranges that contain valid node IPs, or alternatively, the single 
 如果設置爲 CIDR 列表，則僅在某所給範圍內的節點 IP 上接受對 NodePort 服務的連接。
 如果設置爲 “primary”，則將根據 Node 對象僅在其主 IP 上接受對 NodePort 服務的連接。
 如果不設置，則 NodePort 連接將在所有本地 IP 上被接受。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -995,7 +995,7 @@ If true, only write logs to their native severity level (vs also writing to each
 The oom-score-adj value for kube-proxy process. Values must be within the range [-1000, 1000]. This parameter is ignored if a config file is specified by --config.
 -->
 kube-proxy 進程中的 oom-score-adj 值，必須在 [-1000,1000] 範圍內。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -1035,7 +1035,7 @@ kube-proxy 會將源自名稱以該前綴開頭的所有接口的流量視爲本
 If true enables profiling via web interface on /debug/pprof handler. This parameter is ignored if a config file is specified by --config.
 -->
 如果爲 true，則通過 Web 接口 <code>/debug/pprof</code> 啓用性能分析。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -1051,7 +1051,7 @@ Which proxy mode to use: on Linux this can be 'iptables' (default), 'ipvs', or '
 -->
 使用哪種代理模式：在 Linux 上可以是 'iptables'（默認）、'ipvs' 或 'nftables'。
 在 Windows 上唯一支持的值是 'kernelspace'。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -1069,7 +1069,7 @@ The previous version for which you want to show hidden metrics. Only the previou
 格式爲 &lt;major&gt;.&lt;minor&gt;，例如 '1.16'。
 這種格式的目的是確保你有機會注意到下一個發行版是否隱藏了其他指標，
 而不是在之後將其永久刪除時感到驚訝。
-如果配置文件由 <code>--config</code> 指定，則忽略此參數。
+如果設定文件由 <code>--config</code> 指定，則忽略此參數。
 </p>
 </td>
 </tr>
@@ -1160,7 +1160,7 @@ comma-separated list of pattern=N settings for file-filtered logging (only works
 <!--
 If set, write the default configuration values to this file and exit.
 -->
-如果設置，將默認配置信息寫入此文件並退出。
+如果設置，將默認設定信息寫入此文件並退出。
 </p>
 </td>
 </tr>

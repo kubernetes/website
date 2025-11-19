@@ -34,7 +34,7 @@ cluster to behave that way and honor the configured reclaim policy.
 回收策略用於確定在刪除綁定到 PV 的 PVC 時存儲後端需要採取的操作。當回收策略爲 `Delete` 時，
 期望存儲後端釋放爲 PV 所分配的存儲資源。實際上，在 PV 被刪除時就需要執行此回收策略。
 
-在最近發佈的 Kubernetes v1.31 版本中，一個 Beta 特性允許你配置集羣以這種方式運行並執行你配置的回收策略。
+在最近發佈的 Kubernetes v1.31 版本中，一個 Beta 特性允許你設定叢集以這種方式運行並執行你設定的回收策略。
 
 <!--
 ## How did reclaim work in previous Kubernetes releases?
@@ -47,7 +47,7 @@ backed by volumes allocated by the storage backend.
 ## 在以前的 Kubernetes 版本中回收是如何工作的？
 
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#Introduction)
-（簡稱 PVC）是用戶對存儲的請求。如果新創建了 PV 或找到了匹配的 PV，那麼此 PV 和此 PVC
+（簡稱 PVC）是使用者對存儲的請求。如果新創建了 PV 或找到了匹配的 PV，那麼此 PV 和此 PVC
 被視爲[已綁定](/zh-cn/docs/concepts/storage/persistent-volumes/#Binding)。
 PV 本身是由存儲後端所分配的卷支持的。
 
@@ -65,7 +65,7 @@ Retrieve an existing PVC `example-vanilla-block-pvc`
 通常，如果卷要被刪除，對應的預期是爲一個已綁定的 PV-PVC 對刪除其中的 PVC。
 不過，對於在刪除 PVC 之前可否刪除 PV 並沒有限制。
 
-首先，我將演示運行舊版本 Kubernetes 的集羣的行爲。
+首先，我將演示運行舊版本 Kubernetes 的叢集的行爲。
 
 #### 檢索綁定到 PV 的 PVC
 
@@ -146,7 +146,7 @@ persistentvolumeclaim "example-vanilla-block-pvc" deleted
 The PV object from the cluster also gets deleted. When attempting to retrieve the PV
 it will be observed that the PV is no longer found:
 -->
-集羣中的 PV 對象也被刪除。當嘗試檢索 PV 時，你會觀察到該 PV 已不再存在：
+叢集中的 PV 對象也被刪除。當嘗試檢索 PV 時，你會觀察到該 PV 已不再存在：
 
 ```shell
 kubectl get pv pvc-6791fdd4-5fad-438e-a7fb-16410363e3da
@@ -186,11 +186,11 @@ and run the CSI [`external-provisioner`](https://github.com/kubernetes-csi/exter
 -->
 ## Kubernetes v1.31 的 PV 回收策略
 
-新的行爲確保當用戶嘗試手動刪除 PV 時，下層存儲對象會從後端被刪除。
+新的行爲確保當使用者嘗試手動刪除 PV 時，下層存儲對象會從後端被刪除。
 
 #### 如何啓用新的行爲？
 
-要利用新的行爲，你必須將集羣升級到 Kubernetes v1.31 版本，並運行
+要利用新的行爲，你必須將叢集升級到 Kubernetes v1.31 版本，並運行
 CSI [`external-provisioner`](https://github.com/kubernetes-csi/external-provisioner)
 v5.0.1 或更高版本。
 

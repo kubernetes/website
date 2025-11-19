@@ -55,9 +55,9 @@ The responsibilities of each role are described below.
 
 | 郵件列表                                                                                     | Slack                                                                                                         | 可見範圍  | 用法                      | 會員資格                                                                                                                                                                          |
 | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- | ------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io)                    | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y)（頻道）/@release-managers（用戶組）        | 公共     | 發佈管理員公開討論          | 所有發佈管理員（包括助理和 SIG 主席）                                                                                                                                                 |
+| [release-managers@kubernetes.io](mailto:release-managers@kubernetes.io)                    | [#release-management](https://kubernetes.slack.com/messages/CJH2GBF7Y)（頻道）/@release-managers（使用者組）        | 公共     | 發佈管理員公開討論          | 所有發佈管理員（包括助理和 SIG 主席）                                                                                                                                                 |
 | [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io)    | 不適用                                                                                                          | 私人     | 擁有特權的發佈管理員私人討論  | 發佈管理員，SIG Release 負責人                                                                                                                                                      |
-| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io)          | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG)（頻道）/@security-rel-team（用戶組）  | 私人     | 與安全響應委員會協調安全發佈  | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
+| [security-release-team@kubernetes.io](mailto:security-release-team@kubernetes.io)          | [#security-release-team](https://kubernetes.slack.com/archives/G0162T1RYHG)（頻道）/@security-rel-team（使用者組）  | 私人     | 與安全響應委員會協調安全發佈  | [security-discuss-private@kubernetes.io](mailto:security-discuss-private@kubernetes.io), [release-managers-private@kubernetes.io](mailto:release-managers-private@kubernetes.io) |
 
 <!-- 
 ### Security Embargo Policy
@@ -110,7 +110,7 @@ Minimum requirements for Release Managers and Release Manager Associates are:
 發佈管理員和發佈管理員助理的最低要求是：
 
 - 熟悉基本的 Unix 命令並能夠調試 shell 腳本。
-- 熟悉通過 `git` 和 `git` 相關命令行觸發的分支源代碼工作流。
+- 熟悉通過 `git` 和 `git` 相關命令列觸發的分支源代碼工作流。
 - 谷歌雲的常識（雲構建和雲存儲）。
 - 樂於尋求幫助和清晰地溝通。
 - Kubernetes 社區[會員資格][community-membership]
@@ -204,7 +204,7 @@ releases over several cycles and:
 
 - 表現出帶頭的意願
 - 與發佈管理員合作，爲補丁打標記，最終獨立製作發行版本
-   - 因爲發佈具有限制功能，我們還考慮對鏡像推廣和其他核心發佈工程任務的實質性貢獻
+   - 因爲發佈具有限制功能，我們還考慮對映像檔推廣和其他核心發佈工程任務的實質性貢獻
 - 質疑助理的工作方式、提出改進建議、收集反饋並推動變革
 - 可靠且反應迅速
 - 專注於需要發佈管理員級別訪問和權限才能完成的高級工作

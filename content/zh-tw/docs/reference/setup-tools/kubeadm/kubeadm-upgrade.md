@@ -18,7 +18,7 @@ weight: 40
 `kubeadm upgrade` is a user-friendly command that wraps complex upgrading logic
 behind one command, with support for both planning an upgrade and actually performing it.
 -->
-`kubeadm upgrade` 是一個對用戶友好的命令，它將複雜的升級邏輯包裝在一條命令後面，支持升級的規劃和實際執行。
+`kubeadm upgrade` 是一個對使用者友好的命令，它將複雜的升級邏輯包裝在一條命令後面，支持升級的規劃和實際執行。
 
 <!-- body -->
 
@@ -58,7 +58,7 @@ control-plane node. Please be aware that the upgrade workflow was not designed f
 reports of unexpected results.
 -->
 `kubeadm upgrade apply` 和 `kubeadm upgrade plan` 命令都具有遺留的 `--config` 標誌，
-可以在執行特定控制平面節點的規劃或升級時重新配置集羣。
+可以在執行特定控制平面節點的規劃或升級時重新設定叢集。
 請注意，升級工作流不是爲這種情況而設計的，並且有意外結果的報告。
 {{</ note >}}
 
@@ -83,6 +83,6 @@ reports of unexpected results.
 <!--
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
 -->
-* 如果你使用 kubeadm v1.7.x 或更低版本初始化了集羣，則可以參考
+* 如果你使用 kubeadm v1.7.x 或更低版本初始化了叢集，則可以參考
   [kubeadm config](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)，
-  爲 `kubeadm upgrade` 配置你的集羣。
+  爲 `kubeadm upgrade` 設定你的叢集。

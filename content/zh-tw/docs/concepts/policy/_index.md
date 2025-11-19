@@ -17,7 +17,7 @@ description: >
 <!--
 Kubernetes policies are configurations that manage other configurations or runtime behaviors. Kubernetes offers various forms of policies, described below:
 -->
-Kubernetes 策略是管理其他配置或運行時行爲的一些配置。
+Kubernetes 策略是管理其他設定或運行時行爲的一些設定。
 Kubernetes 提供了各種形式的策略，具體如下所述：
 
 <!-- body -->
@@ -49,10 +49,10 @@ For example, the [AlwaysPullImages](/docs/reference/access-authn-authz/admission
 -->
 ## 使用准入控制器應用策略   {#apply-policies-using-admission-controllers}
 
-{{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}運行在 API 服務器上，
+{{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}運行在 API 伺服器上，
 可以驗證或變更 API 請求。某些准入控制器用於應用策略。
 例如，[AlwaysPullImages](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
-准入控制器會修改新 Pod，將鏡像拉取策略設置爲 `Always`。
+准入控制器會修改新 Pod，將映像檔拉取策略設置爲 `Always`。
 
 <!--
 Kubernetes has several built-in admission controllers that are configurable via the API server `--enable-admission-plugins` flag.
@@ -61,7 +61,7 @@ Details on admission controllers, with the complete list of available admission 
 
 * [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
 -->
-Kubernetes 具有多個內置的准入控制器，可通過 API 服務器的 `--enable-admission-plugins` 標誌進行配置。
+Kubernetes 具有多個內置的准入控制器，可通過 API 伺服器的 `--enable-admission-plugins` 標誌進行設定。
 
 關於准入控制器的詳細信息（包括可用准入控制器的完整列表），請查閱專門的章節：
 
@@ -74,8 +74,8 @@ Validating admission policies allow configurable validation checks to be execute
 -->
 ## 使用 ValidatingAdmissionPolicy 應用策略   {#apply-policies-using-validatingadmissionpolicy}
 
-驗證性的准入策略允許使用通用表達式語言 (CEL) 在 API 服務器中執行可配置的驗證檢查。
-例如，`ValidatingAdmissionPolicy` 可用於禁止使用 `latest` 鏡像標籤。
+驗證性的准入策略允許使用通用表達式語言 (CEL) 在 API 伺服器中執行可設定的驗證檢查。
+例如，`ValidatingAdmissionPolicy` 可用於禁止使用 `latest` 映像檔標籤。
 
 <!--
 A `ValidatingAdmissionPolicy` operates on an API request and can be used to block, audit, and warn users about non-compliant configurations.
@@ -83,7 +83,7 @@ A `ValidatingAdmissionPolicy` operates on an API request and can be used to bloc
 Details on the `ValidatingAdmissionPolicy` API, with examples, are documented in a dedicated section:
 * [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy/)
 -->
-`ValidatingAdmissionPolicy` 對請求 API 進行操作，可就不合規的配置執行阻止、審計和警告用戶等操作。
+`ValidatingAdmissionPolicy` 對請求 API 進行操作，可就不合規的設定執行阻止、審計和警告使用者等操作。
 有關 `ValidatingAdmissionPolicy` API 的詳細信息及示例，請查閱專門的章節：
 
 * [驗證准入策略](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)
@@ -95,7 +95,7 @@ Dynamic admission controllers (or admission webhooks) run outside the API server
 -->
 ## 使用動態准入控制應用策略   {#apply-policies-using-dynamic-admission-control}
 
-動態准入控制器（或准入 Webhook）作爲單獨的應用在 API 服務器之外運行，
+動態准入控制器（或准入 Webhook）作爲單獨的應用在 API 伺服器之外運行，
 這些應用註冊自身後可以接收 Webhook 請求以便對 API 請求進行驗證或變更。
 
 <!--
@@ -105,8 +105,8 @@ Details on dynamic admission control are documented in a dedicated section:
 * [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 -->
 動態准入控制器可用於在 API 請求上應用策略並觸發其他基於策略的工作流。
-動態准入控制器可以執行一些複雜的檢查，包括需要讀取其他集羣資源和外部數據的複雜檢查。
-例如，鏡像驗證檢查可以從 OCI 鏡像倉庫中查找數據，以驗證容器鏡像簽名和證明信息。
+動態准入控制器可以執行一些複雜的檢查，包括需要讀取其他叢集資源和外部數據的複雜檢查。
+例如，映像檔驗證檢查可以從 OCI 映像檔倉庫中查找數據，以驗證容器映像檔簽名和證明信息。
 
 有關動態准入控制的詳細信息，請查閱專門的章節：
 
@@ -140,9 +140,9 @@ Kubernetes allows configuring the Kubelet on each worker node.  Some Kubelet con
 * [Process ID limits and reservations](/docs/concepts/policy/pid-limiting/) are used to limit and reserve allocatable PIDs.
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/) can manage compute, memory, and device resources for latency-critical and high-throughput workloads.
 -->
-## 使用 Kubelet 配置應用策略   {#apply-policies-using-kubelet-configurations}
+## 使用 Kubelet 設定應用策略   {#apply-policies-using-kubelet-configurations}
 
-Kubernetes 允許在每個工作節點上配置 Kubelet。一些 Kubelet 配置可以視爲策略：
+Kubernetes 允許在每個工作節點上設定 Kubelet。一些 Kubelet 設定可以視爲策略：
 
 * [進程 ID 限制和保留](/zh-cn/docs/concepts/policy/pid-limiting/)用於限制和保留可分配的 PID。
 * [節點資源管理器](/zh-cn/docs/concepts/policy/node-resource-managers/)可以爲低延遲和高吞吐量工作負載管理計算、內存和設備資源。

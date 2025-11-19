@@ -38,6 +38,6 @@ Kubernetes 系統生成的字符串，唯一標識對象。
 Every object created over the whole lifetime of a Kubernetes cluster has a distinct UID. It is intended to distinguish between historical occurrences of similar entities.
 -->
 
-在 Kubernetes 集羣的整個生命週期中創建的每個對象都有一個不同的 UID，它旨在區分類似實體的歷史事件。
+在 Kubernetes 叢集的整個生命週期中創建的每個對象都有一個不同的 UID，它旨在區分類似實體的歷史事件。
 
 

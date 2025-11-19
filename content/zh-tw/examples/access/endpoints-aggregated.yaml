@@ -7,7 +7,7 @@ metadata:
       中默認被移除。請參閱 https://issue.k8s.io/103675
       這一設置將允許寫者要求 LoadBalancer 或 Ingress 的實現向外暴露後端 IP 地址，
       所暴露的 IP 地址無法通過其他方式訪問，
-      並且可以規避對這些後端訪問進行預防/隔離的網絡策略或安全控制機制。
+      並且可以規避對這些後端訪問進行預防/隔離的網路策略或安全控制機制。
       EndpointSlice 從未包含在 edit 和 admin 角色中，
       因此 EndpointSlice API 沒有什麼可恢復的。
   labels:

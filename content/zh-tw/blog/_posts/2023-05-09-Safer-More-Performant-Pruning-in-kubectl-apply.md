@@ -25,10 +25,10 @@ of resources that are no longer needed. In Kubernetes version 1.5, the `--prune`
 introduced to address this issue, allowing kubectl apply to automatically clean up previously
 applied resources removed from the current configuration.
 -->
-通過 `kubectl apply` 命令執行聲明式配置管理是創建或修改 Kubernetes 資源的黃金標準方法。
+通過 `kubectl apply` 命令執行聲明式設定管理是創建或修改 Kubernetes 資源的黃金標準方法。
 但這種方法也帶來了一個挑戰，那就是刪除不再需要的資源。
 在 Kubernetes 1.5 版本中，引入了 `--prune` 標誌來解決此問題，
-允許 `kubectl apply` 自動清理從當前配置中刪除的先前應用的資源。
+允許 `kubectl apply` 自動清理從當前設定中刪除的先前應用的資源。
 
 <!--
 Unfortunately, that existing implementation of `--prune` has design flaws that diminish its
@@ -42,7 +42,7 @@ mechanism.
 然而，現有的 `--prune` 實現存在設計缺陷，會降低性能並導致意外行爲。
 主要問題源於先前的 `apply` 操作未對已應用的集合進行顯式編碼，有必要進行易錯的動態發現。
 對象泄漏、意外過度選擇資源以及與自定義資源的有限兼容性是這種實現的一些明顯缺點。
-此外，其與客戶端 apply 的耦合阻礙了用戶升級到更優秀的服務器端 apply 方式。
+此外，其與客戶端 apply 的耦合阻礙了使用者升級到更優秀的伺服器端 apply 方式。
 
 <!--
 Version 1.27 of `kubectl` introduces an alpha version of a revamped pruning implementation that
@@ -58,8 +58,8 @@ identified and configured through standardized labels and annotations. Additiona
 metadata allows for accurate identification of ApplySet _member_ objects within the cluster,
 simplifying operations like pruning.
 -->
-**ApplySet** 是一個與集羣上的**父**對象相關聯的資源組，通過標準化的標籤和註解進行標識和配置。
-附加的標準化元數據允許準確標識集羣內的 ApplySet **成員**對象，簡化了裁剪等操作。
+**ApplySet** 是一個與叢集上的**父**對象相關聯的資源組，通過標準化的標籤和註解進行標識和設定。
+附加的標準化元數據允許準確標識叢集內的 ApplySet **成員**對象，簡化了裁剪等操作。
 
 <!--
 To leverage ApplySet-based pruning, set the `KUBECTL_APPLYSET=true` environment variable and include
@@ -119,7 +119,7 @@ ApplySet 正處於積極開發中，你的反饋至關重要！
 ### 更多資源
 
 - 想了解如何使用基於 ApplySet 的裁剪，請閱讀 Kubernetes 文檔中的
-  [使用配置文件以聲明方式管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)。
+  [使用設定文件以聲明方式管理 Kubernetes 對象](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)。
 - 如需更深入地瞭解此特性的技術設計或瞭解如何用你自己工具實現 ApplySet 規範，
   請參閱 [KEP-3659](https://git.k8s.io/enhancements/keps/sig-cli/3659-kubectl-apply-prune/README.md):
   **ApplySet: `kubectl apply --prune` 重新設計和進階策略**。

@@ -67,19 +67,19 @@ Farrelly 說，新系統“提高了我們將新變化進行部署和上線的�
 “如果你自己做一張桌子，這很好！”公司的架構師說。“如果你請另一個人一起來做這個桌子，也許這個人可以在你拋光桌面時開始對腿進行拋光。但是，當你把第三個或第四個人帶進來時，有人也許應該在另外一張桌子上工作。”需要處理越來越多不同的桌子，使 Buffer 走上了 Kubernetes 實現微服務和容器化的道路。
 <br><br>
 <!-- Since around 2012, Buffer had already been using <a href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a>, the orchestration service for deploying infrastructure offered by <a href="https://aws.amazon.com">Amazon Web Services</a>. "We were deploying a single monolithic <a href="http://php.net/manual/en/intro-whatis.php">PHP</a> application, and it was the same application across five or six environments," says Farrelly. "We were very much a product-driven company.  -->
-自2012年左右以來，Buffer 開始使用<a href="https://aws.amazon.com/elasticbeanstalk/"> Elastic Beanstalk </a>,這是<a href="https://aws.amazon.com">亞馬遜網絡服務</a>提供的網絡基礎設施編排服務。“我們部署了一個單一的<a href="http://php.net/manual/en/intro-whatis.php">PHP</a>應用程序,它是在五六個環境中相同的應用程序，”Farrelly 說。“我們在很大程度上是一家產品驅動型的公司。”
+自2012年左右以來，Buffer 開始使用<a href="https://aws.amazon.com/elasticbeanstalk/"> Elastic Beanstalk </a>,這是<a href="https://aws.amazon.com">亞馬遜網路服務</a>提供的網路基礎設施編排服務。“我們部署了一個單一的<a href="http://php.net/manual/en/intro-whatis.php">PHP</a>應用程序,它是在五六個環境中相同的應用程序，”Farrelly 說。“我們在很大程度上是一家產品驅動型的公司。”
 <!-- It was all about shipping new features quickly and getting things out the door, and if something was not broken, we didn’t spend too much time on it. If things were getting a little bit slow, we’d maybe use a faster server or just scale up one instance, and it would be good enough. We’d move on." -->
-這一切都是爲了儘快給應用推出新功能並進行交付，如果能夠正常運行，我們就不會花太多時間在上面。如果產品變得有點慢，我們可能會使用更快的服務器或只是增加一個實例，這些就已經足夠了。然後繼續前進。
+這一切都是爲了儘快給應用推出新功能並進行交付，如果能夠正常運行，我們就不會花太多時間在上面。如果產品變得有點慢，我們可能會使用更快的伺服器或只是增加一個實例，這些就已經足夠了。然後繼續前進。
 <br><br>
 <!-- But things came to a head in 2016. With the growing number of committers on staff, Farrelly and Buffer’s then-CTO, Sunil Sadasivan, decided it was time to re-architect and rethink their infrastructure. "It was a classic monolithic code base problem," says Farrelly.<br><br>Some of the company’s team was already successfully using <a href="https://www.docker.com">Docker</a> in their development environment, but the only application running on Docker in production was a marketing website that didn’t see real user traffic. They wanted to go further with Docker, and the next step was looking at options for&nbsp;orchestration. -->
-但事情在2016年就到了頭。隨着應用提交修改的數量不斷增加，Farrelly 和 Buffer 當時的首席技術官 Sunil Sadasivan 決定,是重新思考和構建其基礎架構的時候了。“這是一個典型的單一龐大編碼基數問題，”Farrelly說。公司的一些團隊已經在開發環境中成功使用<a href="https://www.docker.com">Docker</a>，但在生產環境中，運行在 Docker 上的唯一應用程序是一個看不到真實用戶流量的營銷網站。他們希望在使用 Docker 上更進一步,下一步是尋找業務流程的選項。
+但事情在2016年就到了頭。隨着應用提交修改的數量不斷增加，Farrelly 和 Buffer 當時的首席技術官 Sunil Sadasivan 決定,是重新思考和構建其基礎架構的時候了。“這是一個典型的單一龐大編碼基數問題，”Farrelly說。公司的一些團隊已經在開發環境中成功使用<a href="https://www.docker.com">Docker</a>，但在生產環境中，運行在 Docker 上的唯一應用程序是一個看不到真實使用者流量的營銷網站。他們希望在使用 Docker 上更進一步,下一步是尋找業務流程的選項。
 </div>
 </section>
 
 <div class="banner3">
   <div class="banner3text">
 <!-- And all the things Kubernetes did well suited Buffer’s needs. "We wanted to have the kind of liquid infrastructure where a developer could create an app and deploy it and scale it horizontally as necessary," says Farrelly. "We quickly used some scripts to set up a couple of test clusters, we built some small proof-of-concept applications in containers, and we deployed things within an hour. We had very little experience in running containers in production. It was amazing how quickly we could get a handle on it&nbsp;[Kubernetes]." -->
-Kubernetes 所做的所有事情都很好地適應了 Buffer 的需求。Farrelly 說：“我們希望擁有一種流動基礎架構，開發人員可以創建一個應用程序，並在必要時部署並進行水平擴展。”“我們很快就使用一些腳本來設置幾個測試集羣，在容器中構建了一些小的概念性驗證應用程序，並在一小時內部署了這些內容。我們在生產中運行容器方面經驗很少。令人驚奇的是，我們能很快地用 Kubernetes 來處理。”
+Kubernetes 所做的所有事情都很好地適應了 Buffer 的需求。Farrelly 說：“我們希望擁有一種流動基礎架構，開發人員可以創建一個應用程序，並在必要時部署並進行水平擴展。”“我們很快就使用一些腳本來設置幾個測試叢集，在容器中構建了一些小的概念性驗證應用程序，並在一小時內部署了這些內容。我們在生產中運行容器方面經驗很少。令人驚奇的是，我們能很快地用 Kubernetes 來處理。”
   </div>
 </div>
 
@@ -88,16 +88,16 @@ Kubernetes 所做的所有事情都很好地適應了 Buffer 的需求。Farrell
     <!-- First they considered <a href="https://mesosphere.com">Mesosphere</a>, <a href="https://dcos.io">DC/OS</a> and <a href="https://aws.amazon.com/ecs/">Amazon Elastic Container Service</a> (which their data systems team was already using for some data pipeline jobs). While they were impressed by these offerings, they ultimately went with Kubernetes. -->
 首先，他們考慮了<a href="https://mesosphere.com">Mesosphere</a>、<a href="https://dcos.io">DC/OS</a>和<a href="https://aws.amazon.com/ecs/">Amazon Elastic Container Service</a>(他們的數據系統團隊已經將其用於某些數據管道作業)。雖然他們對這些產品印象深刻，但他們最終還是與 Kubernetes 合作。
  <!-- "We run on AWS still, so spinning up, creating services and creating load balancers on demand for us without having to configure them manually was a great way for our team to get into this," says Farrelly. "We didn’t need to figure out how to configure this or that, especially coming from a former Elastic Beanstalk environment that gave us an automatically-configured load balancer. I really liked Kubernetes’ controls of the command line. It just took care of ports. It was a lot more flexible. Kubernetes was designed for doing what it does, so it does it very well." -->
-Farrelly 說：“我們的應用仍在 AWS 上運行，但是我們的團隊通過 Kubernetes 無需手動配置即可創建服務並按需創建負載均衡器，這是使用 Kubernetes 的最佳入門體驗。”“我們不需要考慮如何配置這個或那個,特別是相較於以前的 Elastic Beanstalk 環境，它爲我們提供了一個自動配置的負載均衡器。我真的很喜歡 Kubernetes 對命令行的控制，只需要對端口進行配置，這樣更加靈活。Kubernetes 是爲做它所做的事情而設計的,所以它做得非常好。”
+Farrelly 說：“我們的應用仍在 AWS 上運行，但是我們的團隊通過 Kubernetes 無需手動設定即可創建服務並按需創建負載均衡器，這是使用 Kubernetes 的最佳入門體驗。”“我們不需要考慮如何設定這個或那個,特別是相較於以前的 Elastic Beanstalk 環境，它爲我們提供了一個自動設定的負載均衡器。我真的很喜歡 Kubernetes 對命令列的控制，只需要對端口進行設定，這樣更加靈活。Kubernetes 是爲做它所做的事情而設計的,所以它做得非常好。”
 <br><br>
     <!-- And all the things Kubernetes did well suited Buffer’s needs. "We wanted to have the kind of liquid infrastructure where a developer could create an app and deploy it and scale it horizontally as necessary," says Farrelly. "We quickly used some scripts to set up a couple of test clusters, we built some small proof-of-concept applications in containers, and we deployed things within an hour. We had very little experience in running containers in production. It was amazing how quickly we could get a handle on it [Kubernetes]." -->
-Kubernetes 所做的所有事情都很好地適應了 Buffer 的需求。Farrelly 說：“我們希望擁有一種流動基礎架構，開發人員可以創建一個應用程序，並在必要時部署並進行水平擴展。”“我們很快就使用一些腳本來設置幾個測試集羣，在容器中構建了一些小的概念性驗證應用程序，並在一小時內部署了這些內容。我們在生產中運行容器方面經驗很少。令人驚奇的是,我們能很快地用 Kubernetes 來處理。”
+Kubernetes 所做的所有事情都很好地適應了 Buffer 的需求。Farrelly 說：“我們希望擁有一種流動基礎架構，開發人員可以創建一個應用程序，並在必要時部署並進行水平擴展。”“我們很快就使用一些腳本來設置幾個測試叢集，在容器中構建了一些小的概念性驗證應用程序，並在一小時內部署了這些內容。我們在生產中運行容器方面經驗很少。令人驚奇的是,我們能很快地用 Kubernetes 來處理。”
 <br><br>
     <!-- Above all, it provided a powerful solution for one of the company’s most distinguishing characteristics: their remote team that’s spread across a dozen different time zones. "The people with deep knowledge of our infrastructure live in time zones different from our peak traffic time zones, and most of our product engineers live in other places," says Farrelly. "So we really wanted something where anybody could get a grasp of the system early on and utilize it, and not have to worry that the deploy engineer is asleep. Otherwise people would sit around for 12 to 24 hours for something. It’s been really cool to see people moving much faster." -->
 最重要的是，它爲公司最顯著的特徵之一提供了強大的解決方案：他們的遠程團隊分佈在十幾個不同的時區。Farrelly 說：“對我們的基礎設施有深入瞭解的人生活在不同於我們相對集中的時區，而我們的大部分產品工程師都住在其他地方。”“因此，我們確實希望有人能夠儘早掌握這套系統並利用好它，而不必擔心部署工程師正在睡覺。否則，人們會爲了一些東西必須得等待12到24小時左右。看到人們前進得更快，這真的很酷。”
     <br><br>
     <!-- With a relatively small engineering team—just 25 people, and only a handful working on infrastructure, with the majority front-end developers—Buffer needed "something robust for them to deploy whatever they wanted," says Farrelly. Before, "it was only a couple of people who knew how to set up everything in the old way. With this system, it was easy to review documentation and get something out extremely quickly. It lowers the bar for us to get everything in production. We don't have the big team to build all these tools or manage the infrastructure like other larger companies&nbsp;might." -->
-Farrelly 說，Buffer 擁有相對較小的工程團隊，只有 25 人，只有少數人從事基礎設施工作，大多數前端開發人員都需要“一些強大的配置能力，以便部署任何他們想要的內容。”以前，“只有幾個人知道如何用舊的方式設置一切。有了這個系統，審查文檔變得很容易，並且能很快地看到效果。它降低了我們獲取在開發環境中所需要一切的門檻。因爲我們團隊的人數不足以來構建所有這些工具或像其他大公司那樣管理基礎架構。”
+Farrelly 說，Buffer 擁有相對較小的工程團隊，只有 25 人，只有少數人從事基礎設施工作，大多數前端開發人員都需要“一些強大的設定能力，以便部署任何他們想要的內容。”以前，“只有幾個人知道如何用舊的方式設置一切。有了這個系統，審查文檔變得很容易，並且能很快地看到效果。它降低了我們獲取在開發環境中所需要一切的門檻。因爲我們團隊的人數不足以來構建所有這些工具或像其他大公司那樣管理基礎架構。”
 </div>
 </section>
 
@@ -114,13 +114,13 @@ Farrelly 說：“在我們以往的工作方式中，反饋循環流程要長�
 爲了幫助解決這一問題，Buffer 開發人員編寫了一個部署機器人，該機器人包裝了 Kubernetes 部署過程，並且每個團隊都可以使用。”“以前,我們的數據分析師會更新<a href="https://www.python.org"> Python </a>分析腳本，並且必須等待該團隊的主管單擊該按鈕並部署它，”Farrelly 解釋道。“現在，我們的數據分析師可以進行更改，輸入<a href="https://slack.com"> Slack </a>命令，‘/deploy’,它會立即進行部署。他們不需要等待這些緩慢的週轉時間，他們甚至不知道它在哪裏運行。這些都不重要了。
     <br><br>
     <!-- One of the first applications the team built from scratch using Kubernetes was a new image resizing service. As a social media management tool that allows marketing teams to collaborate on posts and send updates across multiple social media profiles and networks, Buffer has to be able to resize photographs as needed to meet the varying limitations of size and format posed by different social networks. "We always had these hacked together solutions," says Farrelly. -->
-團隊使用 Kubernetes 從頭開始構建的第一個應用程序是一種新的圖像大小調整服務。作爲一種社交媒體管理工具，它允許營銷團隊通過發帖進行協作，並通過多個社交媒體配置文件和網絡發送更新，Buffer 必須能夠根據需要調整照片的大小，以滿足不同的社交網絡。Farrelly 說：“我們一直有這些拼湊在一起的解決方案。”
+團隊使用 Kubernetes 從頭開始構建的第一個應用程序是一種新的圖像大小調整服務。作爲一種社交媒體管理工具，它允許營銷團隊通過發帖進行協作，並通過多個社交媒體設定文件和網路發送更新，Buffer 必須能夠根據需要調整照片的大小，以滿足不同的社交網路。Farrelly 說：“我們一直有這些拼湊在一起的解決方案。”
     <br><br>
     <!-- To create this new service, one of the senior product engineers was assigned to learn Docker and Kubernetes, then build the service, test it, deploy it and monitor it—which he was able to do relatively quickly. "In our old way of working, the feedback loop was a lot longer, and it was delicate because if you deployed something, the risk was high to potentially break something else," Farrelly says. "With the kind of deploys that we built around Kubernetes, we were able to detect bugs and fix them, and get them deployed super fast. The second someone is fixing [a bug], it’s out the door." -->
 爲了創建這項新服務，一位高級產品工程師被指派學習 Docker 和 Kubernetes，然後構建服務、測試、部署和監視服務，他能夠相對快速地完成該服務。Farrelly說：“在我們以往的工作方式中，反饋循環流程要長得多，而且很微妙，因爲如果你部署了某些東西，就存在破壞其他東西的風險。”“我們通過圍繞 Kubernetes 構建的部署類型，能夠及時檢測 Bug 並修復它們，並使其部署得超快。這一秒正在修復漏洞,不一會就上線運行了。”
     <br><br>
     <!-- Plus, unlike with their old system, they could scale things horizontally with one command. "As we rolled it out," Farrelly says, "we could anticipate and just click a button. This allowed us to deal with the demand that our users were placing on the system and easily scale it to handle it." -->
-此外，與舊系統不同，他們只需一個命令就可以水平縮放內容。“當我們推出它,”Farrelly說，“我們可以預測，只需點擊一個按鈕。這使我們能夠處理用戶對系統的需求,並輕鬆擴展以處理它。”
+此外，與舊系統不同，他們只需一個命令就可以水平縮放內容。“當我們推出它,”Farrelly說，“我們可以預測，只需點擊一個按鈕。這使我們能夠處理使用者對系統的需求,並輕鬆擴展以處理它。”
     <br><br>
     <!-- Another thing they weren’t able to do before was a canary deploy. This new capability "made us so much more confident in deploying big changes," says Farrelly. "Before, it took a lot of testing, which is still good, but it was also a lot of ‘fingers crossed.’ And this is something that gets run 800,000 times a day, the core of our business. If it doesn’t work, our business doesn’t work. In a Kubernetes world, I can do a canary deploy to test it for 1 percent and I can shut it down very quickly if it isn’t working. This has leveled up our ability to deploy and roll out new changes quickly while reducing&nbsp;risk." -->
 他們以前不能做的另外一件事是金絲雀部署。Farrelly說，這種新功能“使我們在部署重大變革方面更加自信。”“以前，雖然進行很多測試但仍表現不錯，但它也存在很多‘手指交叉’。這是每天運行 800000 次的東西，這是我們業務的核心。如果它不工作，我們的業務也無法運行。在 Kubernetes 世界中，我可以執行金絲雀部署以測試 1%，如果它不工作，我可以很快將其關閉。這使我們在快速部署和推出新更改的同時降低風險的能力得到了提高。”
@@ -138,10 +138,10 @@ Farrelly 說：“如果你想在生產中運行容器，擁有像谷歌內部�
 <section class="section5">
 <div class="fullcol">
     <!-- By October 2016, 54 percent of Buffer’s traffic was going through their Kubernetes cluster. "There’s a lot of our legacy functionality that still runs alright, and those parts might move to Kubernetes or stay in our old setup forever," says Farrelly. But the company made the commitment at that time that going forward, "all new development, all new features, will be running on Kubernetes." -->
-到 2016 年 10 月，Buffer 54% 的流量都通過其 Kubernetes 集羣。Farrelly 說：“我們很多傳統功能仍然運行正常，這些部分可能會轉移到 Kubernetes 或永遠留在我們的舊設置中。”但該公司當時承諾，“所有新的開發，所有新功能,將在Kubernetes上運行。”
+到 2016 年 10 月，Buffer 54% 的流量都通過其 Kubernetes 叢集。Farrelly 說：“我們很多傳統功能仍然運行正常，這些部分可能會轉移到 Kubernetes 或永遠留在我們的舊設置中。”但該公司當時承諾，“所有新的開發，所有新功能,將在Kubernetes上運行。”
     <br><br>
     <!-- The plan for 2017 is to move all the legacy applications to a new Kubernetes cluster, and run everything they’ve pulled out of their old infrastructure, plus the new services they’re developing in Kubernetes, on another cluster. "I want to bring all the benefits that we’ve seen on our early services to everyone on the team," says Farrelly. -->
-2017年計劃是將所有舊應用程序遷移到新的 Kubernetes 集羣，並運行他們從舊基礎架構中撤出的所有內容，以及他們正在另一個 Kubernetes 集羣上開發的新服務。Farrelly 說：“我想爲團隊中的每個人帶來我們早期服務的所有好處。”
+2017年計劃是將所有舊應用程序遷移到新的 Kubernetes 叢集，並運行他們從舊基礎架構中撤出的所有內容，以及他們正在另一個 Kubernetes 叢集上開發的新服務。Farrelly 說：“我想爲團隊中的每個人帶來我們早期服務的所有好處。”
     <br><br>
     <h2>
 <!-- For Buffer’s engineers, it’s an exciting process. "Every time we’re deploying a new service, we need to figure out: OK, what’s the architecture? How do these services communicate? What’s the best way to build this service?" Farrelly says. "And then we use the different features that Kubernetes has to glue all the pieces together. It’s enabling us to experiment as we’re learning how to design a service-oriented architecture. Before, we just wouldn’t have been able to do it. This is actually giving us a blank white board so we can do whatever we want on it." -->

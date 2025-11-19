@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/admissionregistration/v1"
   kind: "MutatingWebhookConfiguration"
 content_type: "api_reference"
-description: "MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可在更改對象的情況下接受或拒絕對象請求"
+description: "MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可在更改對象的情況下接受或拒絕對象請求"
 title: "MutatingWebhookConfiguration"
 weight: 3
 ---
@@ -29,7 +29,7 @@ weight: 3
 <!-- 
 MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
 -->
-MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接受或拒絕對象請求，並且可能變更對象。
+MutatingWebhookConfiguration 描述准入 Webhook 的設定，該 Webhook 可接受或拒絕對象請求，並且可能變更對象。
 
 <hr>
 
@@ -83,8 +83,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
     **原子性：將在合併期間被替換**
 
     admissionReviewVersions 是 Webhook 期望的 `AdmissionReview` 版本的優選順序列表。
-    API 服務器將嘗試使用它所支持的版本列表中的第一個版本。如果 API 服務器不支持此列表中設置的任何版本，則此對象將驗證失敗。
-    如果持久化的 Webhook 配置指定了所允許的版本，但其中不包括 API 服務器所知道的任何版本，
+    API 伺服器將嘗試使用它所支持的版本列表中的第一個版本。如果 API 伺服器不支持此列表中設置的任何版本，則此對象將驗證失敗。
+    如果持久化的 Webhook 設定指定了所允許的版本，但其中不包括 API 伺服器所知道的任何版本，
     則對 Webhook 的調用將失敗並根據失敗策略進行處理。
 
   <!-- 
@@ -128,7 +128,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
 
       `service` 是對此 Webhook 的服務的引用。必須指定 `service` 或 `url` 之一。
 
-      如果 Webhook 在集羣中運行，那麼你應該使用 `service`。
+      如果 Webhook 在叢集中運行，那麼你應該使用 `service`。
 
       <a name="ServiceReference"></a>
       **ServiceReference 包含對 Service.legacy.k8s.io 的引用**
@@ -194,17 +194,17 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
 
       `url` 以標準 URL 形式（`scheme://host:port/path`）給出了 Webhook 的位置。必須指定 `url` 或 `service` 中的一個。
 
-      `host` 不能用來引用集羣中運行的服務；這種情況應改用 `service` 字段。在某些 API 服務器上，可能會通過外部 DNS 解析 `host` 值。
-      （例如，`kube-apiserver` 無法解析集羣內 DNS，因爲這會違反分層原理）。`host` 也可以是 IP 地址。
+      `host` 不能用來引用叢集中運行的服務；這種情況應改用 `service` 字段。在某些 API 伺服器上，可能會通過外部 DNS 解析 `host` 值。
+      （例如，`kube-apiserver` 無法解析叢集內 DNS，因爲這會違反分層原理）。`host` 也可以是 IP 地址。
 
       請注意，使用 `localhost` 或 `127.0.0.1` 作爲 `host` 是有風險的，除非你非常小心地在運行 apiserver 的所有主機上運行此 Webhook，
-      而這些 API 服務器可能需要調用此 Webhook。此類部署可能是不可移植的，即不容易在新集羣中重複安裝。
+      而這些 API 伺服器可能需要調用此 Webhook。此類部署可能是不可移植的，即不容易在新叢集中重複安裝。
 
       該方案必須是 “https”；URL 必須以 “https://” 開頭。
 
-      路徑是可選的，如果存在，可以是 URL 中允許的任何字符串。你可以使用路徑將任意字符串傳遞給 Webhook，例如集羣標識符。
+      路徑是可選的，如果存在，可以是 URL 中允許的任何字符串。你可以使用路徑將任意字符串傳遞給 Webhook，例如叢集標識符。
 
-      不允許使用用戶或基本身份驗證，例如不允許使用 “user:password@”。
+      不允許使用使用者或基本身份驗證，例如不允許使用 “user:password@”。
       不允許使用片段（“#...”）和查詢參數（“?...”）。
 
   <!-- 
@@ -330,7 +330,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
       - 'object' - 來自傳入請求的對象。對於 DELETE 請求，該值爲 null。
       - 'oldObject' - 現有對象。對於 CREATE 請求，該值爲 null。
       - 'request' - 准入請求的屬性(/pkg/apis/admission/types.go#AdmissionRequest)。
-      - 'authorizer' - CEL 授權者。可用於對請求的主體（用戶或服務賬號）執行授權檢查。
+      - 'authorizer' - CEL 授權者。可用於對請求的主體（使用者或服務賬號）執行授權檢查。
 
         <!--
         See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -346,7 +346,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
       Required.
       -->
       
-      - 'authorizer.requestResource' - CEL ResourceCheck 從"授權方"構建並配置請求資源。
+      - 'authorizer.requestResource' - CEL ResourceCheck 從"授權方"構建並設定請求資源。
   
       CEL 文檔： https://kubernetes.io/zh-cn/docs/reference/using-api/cel/
 
@@ -421,7 +421,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
 
     `namespaceSelector` 根據對象的命名空間是否與 selector 匹配來決定是否在該對象上運行 Webhook。
     如果對象本身是 Namespace，則針對 `object.metadata.labels` 執行匹配。
-    如果對象是其他集羣作用域資源，則永遠不會跳過 Webhook 的匹配動作。
+    如果對象是其他叢集作用域資源，則永遠不會跳過 Webhook 的匹配動作。
 
     例如，爲了針對 “runlevel” 不爲 “0” 或 “1” 的名字空間中的所有對象運行 Webhook；
     你可以按如下方式設置 selector：
@@ -486,7 +486,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
     `objectSelector` 針對將被髮送到 Webhook 的 oldObject 和 newObject 進行評估，如果任一對象與選擇器匹配，則視爲匹配。
     空對象（create 時爲 oldObject，delete 時爲 newObject）或不能有標籤的對象（如 DeploymentRollback 或 PodProxyOptions 對象）
     認爲是不匹配的。
-    僅當 Webhook 支持時才能使用對象選擇器，因爲最終用戶可以通過設置標籤來跳過准入 Webhook。
+    僅當 Webhook 支持時才能使用對象選擇器，因爲最終使用者可以通過設置標籤來跳過准入 Webhook。
     默認爲空的 LabelSelector，匹配所有內容。
   
 
@@ -531,7 +531,7 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
     **原子性：將在合併期間被替換**
 
     rules 描述了 Webhook 關心的資源/子資源上有哪些操作。Webhook 關心操作是否匹配**任何** rules。
-    但是，爲了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 將集羣置於只能完全禁用插件才能恢復的狀態，
+    但是，爲了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 將叢集置於只能完全禁用插件才能恢復的狀態，
     ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 永遠不會在處理 ValidatingWebhookConfiguration
     和 MutatingWebhookConfiguration 對象的准入請求時被調用。
 
@@ -622,8 +622,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，該 Webhook 可接
     - **webhooks.rules.scope** (string)
 
       scope 指定此規則的範圍。有效值爲 “Cluster”, “Namespaced” 和 “*”。
-      “Cluster” 表示只有集羣範圍的資源纔會匹配此規則。
-      Namespace API 對象是集羣範圍的。
+      “Cluster” 表示只有叢集範圍的資源纔會匹配此規則。
+      Namespace API 對象是叢集範圍的。
       “Namespaced” 意味着只有命名空間作用域的資源會匹配此規則。
       “*” 表示沒有範圍限制。
       子資源與其父資源的作用域相同。默認爲 “*”。

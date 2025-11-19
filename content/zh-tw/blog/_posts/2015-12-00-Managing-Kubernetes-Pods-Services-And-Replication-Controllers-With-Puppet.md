@@ -18,7 +18,7 @@ People familiar with [Puppet](https://github.com/puppetlabs/puppet)&nbsp;might h
 
 _今天的嘉賓帖子是由 IT 自動化領域的領導者 Puppet Labs 的高級軟件工程師 Gareth Rushgrove 撰寫的。Gareth告訴我們一個新的 Puppet 模塊，它幫助管理 Kubernetes 中的資源。_
 
-熟悉[Puppet]的人(https://github.com/puppetlabs/puppet)可能使用它來管理主機上的文件、包和用戶。但是Puppet首先是一個配置管理工具，配置管理是一個比管理主機級資源更廣泛的規程。配置管理的一個很好的定義是它旨在解決四個相關的問題：標識、控制、狀態覈算和驗證審計。這些問題存在於任何複雜系統的操作中，並且有了新的[Puppet Kubernetes module](https://forge.puppetlabs.com/garethr/kubernetes)，我們開始研究如何爲 Kubernetes 解決這些問題。
+熟悉[Puppet]的人(https://github.com/puppetlabs/puppet)可能使用它來管理主機上的文件、包和使用者。但是Puppet首先是一個設定管理工具，設定管理是一個比管理主機級資源更廣泛的規程。設定管理的一個很好的定義是它旨在解決四個相關的問題：標識、控制、狀態覈算和驗證審計。這些問題存在於任何複雜系統的操作中，並且有了新的[Puppet Kubernetes module](https://forge.puppetlabs.com/garethr/kubernetes)，我們開始研究如何爲 Kubernetes 解決這些問題。
 
 <!--
 ### The Puppet Kubernetes Module
@@ -28,7 +28,7 @@ The Puppet Kubernetes module currently assumes you already have a Kubernetes clu
 
 ### Puppet Kubernetes 模塊
 
-Puppet kubernetes 模塊目前假設您已經有一個 kubernetes 集羣 [啓動並運行]](http://kubernetes.io/gettingstarted/)。它的重點是管理 Kubernetes中的資源，如 Pods、Replication Controllers 和 Services，而不是（現在）管理底層的 kubelet 或 etcd services。下面是描述 Puppet’s DSL 中一個 Pod 的簡短代碼片段。
+Puppet kubernetes 模塊目前假設您已經有一個 kubernetes 叢集 [啓動並運行]](http://kubernetes.io/gettingstarted/)。它的重點是管理 Kubernetes中的資源，如 Pods、Replication Controllers 和 Services，而不是（現在）管理底層的 kubelet 或 etcd services。下面是描述 Puppet’s DSL 中一個 Pod 的簡短代碼片段。
 
 <!--
 ```
@@ -82,7 +82,7 @@ Authentication uses the standard kubectl configuration file. You can find comple
 
 Kubernetes has several resources, from Pods and Services to Replication Controllers and Service Accounts. You can see an example of the module managing these resources in the [Kubernetes guestbook sample in Puppet](https://puppetlabs.com/blog/kubernetes-guestbook-example-puppet)&nbsp;post. This demonstrates converting the canonical hello-world example to use Puppet code.  -->
 
-身份驗證使用標準的 kubectl 配置文件。您可以在模塊的自述文件中找到完整的[README](https://github.com/garethr/garethr-kubernetes/blob/master/README.md)。
+身份驗證使用標準的 kubectl 設定文件。您可以在模塊的自述文件中找到完整的[README](https://github.com/garethr/garethr-kubernetes/blob/master/README.md)。
 
 Kubernetes 有很多資源，來自 Pods、 Services、 Replication Controllers 和 Service Accounts。您可以在[Puppet 中的 kubernetes 留言簿示例](https://puppetlabs.com/blog/kubernetes-guestbook-example-puppet)文章中看到管理這些資源的模塊示例。這演示瞭如何將規範的 hello-world 示例轉換爲使用 Puppet代碼。
 
@@ -136,10 +136,10 @@ The advantages of using Puppet rather than just the standard YAML files and kube
 - The ability to run the same code repeatedly against the Kubernetes API, to detect any changes or remediate configuration drift.&nbsp;
 -->
 
-- 能夠創建自己的抽象，以減少重複和設計更高級別的用戶界面，如上面的留言簿示例。
+- 能夠創建自己的抽象，以減少重複和設計更高級別的使用者界面，如上面的留言簿示例。
 - 使用 Puppet 的開發工具驗證代碼和編寫單元測試。
-- 與 Puppet Server 等其他工具配合，以確保代碼中的模型與集羣的狀態匹配，並與 PuppetDB 配合工作，以存儲報告和跟蹤更改。
-- 能夠針對 Kubernetes API 重複運行相同的代碼，以檢測任何更改或修正配置。
+- 與 Puppet Server 等其他工具配合，以確保代碼中的模型與叢集的狀態匹配，並與 PuppetDB 配合工作，以存儲報告和跟蹤更改。
+- 能夠針對 Kubernetes API 重複運行相同的代碼，以檢測任何更改或修正設定。
 
 <!--
 It’s also worth noting that most large organisations will have very heterogenous environments, running a wide range of software and operating systems. Having a single toolchain that unifies those discrete systems can make adopting new technology like Kubernetes much easier.
@@ -153,7 +153,7 @@ It’s safe to say that Kubernetes provides an excellent set of primitives on wh
 &nbsp;-&nbsp;Gareth Rushgrove, Senior Software Engineer, Puppet Labs
 -->
 
-可以肯定地說，Kubernetes提供了一組優秀的組件來構建雲原生系統。使用 Puppet，您可以解決在生產中運行任何複雜系統所帶來的一些操作和配置管理問題。[告訴我們](mailto:gareth@puppetlabs.com)如果您試用了該模塊，您會有什麼想法，以及您希望在將來看到哪些支持。
+可以肯定地說，Kubernetes提供了一組優秀的組件來構建雲原生系統。使用 Puppet，您可以解決在生產中運行任何複雜系統所帶來的一些操作和設定管理問題。[告訴我們](mailto:gareth@puppetlabs.com)如果您試用了該模塊，您會有什麼想法，以及您希望在將來看到哪些支持。
 
 
 Gareth Rushgrove，Puppet Labs 高級軟件工程師

@@ -27,4 +27,4 @@ Enables the gRPC probe method for {Liveness,Readiness,Startup}Probe.
 See [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
 -->
 爲活躍態、就緒態和啓動探針啓用 gRPC 探針。
-參閱[配置活躍態、就緒態和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。
+參閱[設定活躍態、就緒態和啓動探針](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe)。

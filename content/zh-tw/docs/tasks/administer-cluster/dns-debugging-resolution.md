@@ -29,7 +29,7 @@ Your cluster must be configured to use the CoreDNS
 {{< glossary_tooltip text="addon" term_id="addons" >}} or its precursor,
 kube-dns.  
 -->
-你的集羣必須使用了 CoreDNS {{< glossary_tooltip text="插件" term_id="addons" >}}
+你的叢集必須使用了 CoreDNS {{< glossary_tooltip text="插件" term_id="addons" >}}
 或者其前身，`kube-dns`。
 
 {{< version-check >}}
@@ -114,7 +114,7 @@ Take a look inside the resolv.conf file.
 (See [Customizing DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers) and
 [Known issues](#known-issues) below for more information)
 -->
-### 先檢查本地的 DNS 配置   {#check-the-local-dns-configuration-first}
+### 先檢查本地的 DNS 設定   {#check-the-local-dns-configuration-first}
 
 查看 resolv.conf 文件的內容
 （閱讀[定製 DNS 服務](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
@@ -128,7 +128,7 @@ kubectl exec -ti dnsutils -- cat /etc/resolv.conf
 Verify that the search path and name server are set up like the following
 (note that search path may vary for different cloud providers):
 -->
-驗證 search 和 nameserver 的配置是否與下面的內容類似
+驗證 search 和 nameserver 的設定是否與下面的內容類似
 （注意 search 根據不同的雲提供商可能會有所不同）：
 
 ```
@@ -328,7 +328,7 @@ The CoreDNS Corefile is held in a {{< glossary_tooltip text="ConfigMap" term_id=
 -->
 ### DNS 查詢有被接收或者執行嗎？   {#are-dns-queries-bing-received-processed}
 
-你可以通過給 CoreDNS 的配置文件（也叫 Corefile）添加 `log` 插件來檢查查詢是否被正確接收。
+你可以通過給 CoreDNS 的設定文件（也叫 Corefile）添加 `log` 插件來檢查查詢是否被正確接收。
 CoreDNS 的 Corefile 被保存在一個叫 `coredns` 的
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 裏，使用下列命令來編輯它：
 
@@ -517,18 +517,18 @@ kubeadm automatically detects `systemd-resolved`, and adjusts the kubelet flags 
 
 有些 Linux 發行版本（比如 Ubuntu）默認使用一個本地的 DNS 解析器（systemd-resolved）。
 `systemd-resolved` 會用一個存根文件（Stub File）來覆蓋 `/etc/resolv.conf` 內容，
-從而可能在上游服務器中解析域名產生轉發環（forwarding loop）。 這個問題可以通過手動指定
+從而可能在上游伺服器中解析域名產生轉發環（forwarding loop）。 這個問題可以通過手動指定
 kubelet 的 `--resolv-conf` 標誌爲正確的 `resolv.conf`（如果是 `systemd-resolved`，
 則這個文件路徑爲 `/run/systemd/resolve/resolv.conf`）來解決。
-kubeadm 會自動檢測 `systemd-resolved` 並對應的更改 kubelet 的命令行標誌。
+kubeadm 會自動檢測 `systemd-resolved` 並對應的更改 kubelet 的命令列標誌。
 
 <!--
 Kubernetes installs do not configure the nodes' `resolv.conf` files to use the
 cluster DNS by default, because that process is inherently distribution-specific.
 This should probably be implemented eventually.
 -->
-Kubernetes 的安裝並不會默認配置節點的 `resolv.conf` 文件來使用集羣的 DNS 服務，
-因爲這個配置對於不同的發行版本是不一樣的。這個問題應該遲早會被解決的。
+Kubernetes 的安裝並不會默認設定節點的 `resolv.conf` 文件來使用叢集的 DNS 服務，
+因爲這個設定對於不同的發行版本是不一樣的。這個問題應該遲早會被解決的。
 
 <!--
 Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3 by
@@ -550,9 +550,9 @@ work properly due to a design issue with Alpine.
 Until musl version 1.24 didn't include TCP fallback to the DNS stub resolver meaning any DNS call above 512 bytes would fail.
 Please upgrade your images to Alpine version 3.18 or above.
 -->
-如果你使用 Alpine 3.17 或更早版本作爲你的基礎鏡像，DNS 可能會由於 Alpine 的設計問題而無法工作。
+如果你使用 Alpine 3.17 或更早版本作爲你的基礎映像檔，DNS 可能會由於 Alpine 的設計問題而無法工作。
 在 musl 1.24 版本之前，DNS 存根解析器都沒有包括 TCP 回退，
-這意味着任何超過 512 字節的 DNS 調用都會失敗。請將你的鏡像升級到 Alpine 3.18 或更高版本。
+這意味着任何超過 512 字節的 DNS 調用都會失敗。請將你的映像檔升級到 Alpine 3.18 或更高版本。
 
 ## {{% heading "whatsnext" %}}
 
@@ -560,5 +560,5 @@ Please upgrade your images to Alpine version 3.18 or above.
 - See [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 - Read [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)
 -->
-- 參閱[自動擴縮集羣中的 DNS 服務](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
+- 參閱[自動擴縮叢集中的 DNS 服務](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 - 閱讀 [Pod 與 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)

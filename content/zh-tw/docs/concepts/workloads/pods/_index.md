@@ -37,7 +37,7 @@ analogous to cloud applications executed on the same logical host.
 
 **Pod**（就像在鯨魚莢或者豌豆莢中）是一組（一個或多個）
 {{< glossary_tooltip text="容器" term_id="container" >}}；
-這些容器共享存儲、網絡、以及怎樣運行這些容器的規約。
+這些容器共享存儲、網路、以及怎樣運行這些容器的規約。
 Pod 中的內容總是並置（colocated）的並且一同調度，在共享的上下文中運行。
 Pod 所建模的是特定於應用的“邏輯主機”，其中包含一個或多個應用容器，
 這些容器相對緊密地耦合在一起。
@@ -96,7 +96,7 @@ Pods in a Kubernetes cluster are used in two main ways:
   tightly coupled and need to share resources. These co-located containers
   form a single cohesive unit.
 -->
-Kubernetes 集羣中的 Pod 主要有兩種用法：
+Kubernetes 叢集中的 Pod 主要有兩種用法：
 
 * **運行單個容器的 Pod**。"每個 Pod 一個容器"模型是最常見的 Kubernetes 用例；
   在這種情況下，可以將 Pod 看作單個容器的包裝器，並且 Kubernetes 直接管理 Pod，而不是容器。
@@ -126,7 +126,7 @@ The following is an example of a Pod which consists of a container running the i
 -->
 ## 使用 Pod   {#using-pods}
 
-下面是一個 Pod 示例，它由一個運行鏡像 `nginx:1.14.2` 的容器組成。
+下面是一個 Pod 示例，它由一個運行映像檔 `nginx:1.14.2` 的容器組成。
 
 {{% code_sample file="pods/simple-pod.yaml" %}}
 
@@ -188,7 +188,7 @@ scaling and auto-healing.
 Pods natively provide two kinds of shared resources for their constituent containers:
 [networking](#pod-networking) and [storage](#pod-storage).
 -->
-Pod 天生地爲其成員容器提供了兩種共享資源：[網絡](#pod-networking)和[存儲](#pod-storage)。
+Pod 天生地爲其成員容器提供了兩種共享資源：[網路](#pod-networking)和[存儲](#pod-storage)。
 
 <!--
 ## Working with Pods
@@ -206,7 +206,7 @@ the Pod is *evicted* for lack of resources, or the node fails.
 你很少在 Kubernetes 中直接創建一個個的 Pod，甚至是單實例（Singleton）的 Pod。
 這是因爲 Pod 被設計成了相對臨時性的、用後即拋的一次性實體。
 當 Pod 由你或者間接地由{{< glossary_tooltip text="控制器" term_id="controller" >}}
-創建時，它被調度在集羣中的{{< glossary_tooltip text="節點" term_id="node" >}}上運行。
+創建時，它被調度在叢集中的{{< glossary_tooltip text="節點" term_id="node" >}}上運行。
 Pod 會保持在該節點上運行，直到 Pod 結束執行、Pod 對象被刪除、Pod 因資源不足而被**驅逐**或者節點失效爲止。
 
 {{< note >}}
@@ -260,7 +260,7 @@ field to avoid enforcing policies that aren't relevant to the operating system.
 
 在 Kubernetes v{{< skew currentVersion >}} 中，`.spec.os.name` 的值對
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-如何選擇要運行 Pod 的節點沒有影響。在任何有多種操作系統運行節點的集羣中，你應該在每個節點上正確設置
+如何選擇要運行 Pod 的節點沒有影響。在任何有多種操作系統運行節點的叢集中，你應該在每個節點上正確設置
 [kubernetes.io/os](/zh-cn/docs/reference/labels-annotations-taints/#kubernetes-io-os)
 標籤，並根據操作系統標籤爲 Pod 設置 `nodeSelector` 字段。
 kube-scheduler 將根據其他標準將你的 Pod 分配到節點，
@@ -390,7 +390,7 @@ changing existing code.
 在節點上，{{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 並不直接監測或管理與
 Pod 模板相關的細節或模板的更新，這些細節都被抽象出來。
 這種抽象和關注點分離簡化了整個系統的語義，
-並且使得用戶可以在不改變現有代碼的前提下就能擴展集羣的行爲。
+並且使得使用者可以在不改變現有代碼的前提下就能擴展叢集的行爲。
 
 <!--
 ## Pod update and replacement
@@ -565,7 +565,7 @@ This behavior applies to:
 - **activeDeadlineSeconds** & **terminationGracePeriodSeconds** & **deletionTimestamp**: The effects of these fields on the
   Pod's status are a result of the previously observed specification.
 -->
-- **容器鏡像**：`ContainerStatus.ImageID` 反映的是上一代的鏡像，直到新的鏡像被拉取並且容器被更新。
+- **容器映像檔**：`ContainerStatus.ImageID` 反映的是上一代的映像檔，直到新的映像檔被拉取並且容器被更新。
 - **實際資源**：在擴縮進行中，實際使用的資源仍然屬於上一代請求的資源。
 - **容器狀態**：在擴縮進行中，需要重啓策略反映的是上一代的請求。
 - **activeDeadlineSeconds** & **terminationGracePeriodSeconds** & **deletionTimestamp**：這些字段對 Pod 狀態的影響是之前觀察到的規約的結果。
@@ -612,9 +612,9 @@ they must coordinate how they use the shared network resources (such as ports).
 ### Pod 聯網    {#pod-networking}
 
 每個 Pod 都在每個地址族中獲得一個唯一的 IP 地址。
-Pod 中的每個容器共享網絡名字空間，包括 IP 地址和網絡端口。
+Pod 中的每個容器共享網路名字空間，包括 IP 地址和網路端口。
 **Pod 內**的容器可以使用 `localhost` 互相通信。
-當 Pod 中的容器與 **Pod 之外**的實體通信時，它們必須協調如何使用共享的網絡資源（例如端口）。
+當 Pod 中的容器與 **Pod 之外**的實體通信時，它們必須協調如何使用共享的網路資源（例如端口）。
 
 <!--
 Within a Pod, containers share an IP address and port space, and
@@ -627,7 +627,7 @@ use IP networking to communicate.
 -->
 在同一個 Pod 內，所有容器共享一個 IP 地址和端口空間，並且可以通過 `localhost` 發現對方。
 他們也能通過如 SystemV 信號量或 POSIX 共享內存這類標準的進程間通信方式互相通信。
-不同 Pod 中的容器的 IP 地址互不相同，如果沒有特殊配置，就無法通過 OS 級 IPC 進行通信。
+不同 Pod 中的容器的 IP 地址互不相同，如果沒有特殊設定，就無法通過 OS 級 IPC 進行通信。
 如果某容器希望與運行於其他 Pod 中的容器通信，可以通過 IP 聯網的方式實現。
 
 <!--
@@ -635,8 +635,8 @@ Containers within the Pod see the system hostname as being the same as the confi
 `name` for the Pod. There's more about this in the [networking](/docs/concepts/cluster-administration/networking/)
 section.
 -->
-Pod 中的容器所看到的系統主機名與爲 Pod 配置的 `name` 屬性值相同。
-[網絡](/zh-cn/docs/concepts/cluster-administration/networking/)部分提供了更多有關此內容的信息。
+Pod 中的容器所看到的系統主機名與爲 Pod 設定的 `name` 屬性值相同。
+[網路](/zh-cn/docs/concepts/cluster-administration/networking/)部分提供了更多有關此內容的信息。
 
 <!--
 ## Pod security settings {#pod-security}
@@ -659,8 +659,8 @@ granular control over what a Pod or individual containers can do. For example:
 * Set Windows security options, such as whether containers run as HostProcess.
 -->
 * 放棄特定的 Linux 權能（Capability）以避免受到某 CVE 的影響。
-* 強制 Pod 中的所有進程以非 Root 用戶或特定用戶或組 ID 的身份運行。
-* 設置特定的 seccomp 配置文件。
+* 強制 Pod 中的所有進程以非 Root 使用者或特定使用者或組 ID 的身份運行。
+* 設置特定的 seccomp 設定文件。
 * 設置 Windows 安全選項，例如容器是否作爲 HostProcess 運行。
 
 {{< caution >}}
@@ -692,7 +692,7 @@ security context of the Pod spec. For details and instructions, see
 * 要了解可以使用的內核級安全約束，請參閱
   [Pod 和容器的 Linux 內核安全約束](/zh-cn/docs/concepts/security/linux-kernel-security-constraints)。
 * 要了解有關 Pod 安全上下文的更多信息，
-  請參閱[爲 Pod 或容器配置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
+  請參閱[爲 Pod 或容器設定安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)。
 
 <!--
 ## Static Pods
@@ -707,7 +707,7 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 ## 靜態 Pod    {#static-pods}
 
 **靜態 Pod（Static Pod）** 直接由特定節點上的 `kubelet` 守護進程管理，
-不需要 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}看到它們。
+不需要 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}看到它們。
 儘管大多數 Pod 都是通過控制面（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 來管理的，對於靜態 Pod 而言，`kubelet` 直接監控每個 Pod，並在其失效時重啓之。
 
@@ -728,8 +728,8 @@ for more information.
 來管理各個獨立的[控制面組件](/zh-cn/docs/concepts/architecture/#control-plane-components)。
 
 `kubelet` 自動嘗試爲每個靜態 Pod 在 Kubernetes API
-服務器上創建一個{{< glossary_tooltip text="鏡像 Pod" term_id="mirror-pod" >}}。
-這意味着在節點上運行的 Pod 在 API 服務器上是可見的，但不可以通過 API 服務器來控制。
+伺服器上創建一個{{< glossary_tooltip text="映像檔 Pod" term_id="mirror-pod" >}}。
+這意味着在節點上運行的 Pod 在 API 伺服器上是可見的，但不可以通過 API 伺服器來控制。
 有關更多信息，請參閱[創建靜態 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod) 的指南。
 
 {{< note >}}
@@ -757,7 +757,7 @@ when and how they are terminated.
 ### Pod 管理多個容器   {#how-pods-manage-multiple-containers}
 
 Pod 被設計成支持構造內聚的服務單元的多個協作進程（形式爲容器）。
-Pod 中的容器被自動並置到集羣中的同一物理機或虛擬機上，並可以一起進行調度。
+Pod 中的容器被自動並置到叢集中的同一物理機或虛擬機上，並可以一起進行調度。
 容器之間可以共享資源和依賴、彼此通信、協調何時以及何種方式終止自身。
 
 <!--intentionally repeats some text from earlier in the page, with more detail -->
@@ -780,7 +780,7 @@ Pods in a Kubernetes cluster are used in two main ways:
   The Pod wraps these containers, storage resources, and an ephemeral network
   identity together as a single unit.
 -->
-Kubernetes 集羣中的 Pod 主要有兩種用法：
+Kubernetes 叢集中的 Pod 主要有兩種用法：
 
 * **運行單個容器的 Pod**。"每個 Pod 一個容器"模型是最常見的 Kubernetes 用例；
   在這種情況下，可以將 Pod 看作單個容器的包裝器。Kubernetes 直接管理 Pod，而不是容器。
@@ -796,7 +796,7 @@ acts as a web server for files in a shared volume, and a separate
 [sidecar container](/docs/concepts/workloads/pods/sidecar-containers/)
 that updates those files from a remote source, as in the following diagram:
 -->
-例如，你可能有一個容器，爲共享卷中的文件提供 Web 服務器支持，以及一個單獨的
+例如，你可能有一個容器，爲共享卷中的文件提供 Web 伺服器支持，以及一個單獨的
 [邊車（Sidercar）](/zh-cn/docs/concepts/workloads/pods/sidecar-containers/)
 容器負責從遠端更新這些文件，如下圖所示：
 
@@ -873,7 +873,7 @@ in the Pod Lifecycle documentation.
 -->
 * 瞭解 [Pod 生命週期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 * 瞭解 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)，
-  以及如何使用它來配置不同的 Pod 使用不同的容器運行時配置。
+  以及如何使用它來設定不同的 Pod 使用不同的容器運行時設定。
 * 瞭解 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
   以及你可以如何利用它在出現干擾因素時管理應用的可用性。
 * Pod 在 Kubernetes REST API 中是一個頂層資源。

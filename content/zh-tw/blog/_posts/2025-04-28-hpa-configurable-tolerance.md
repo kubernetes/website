@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.33：HorizontalPodAutoscaler 可配置容差"
+title: "Kubernetes v1.33：HorizontalPodAutoscaler 可設定容差"
 slug: kubernetes-v1-33-hpa-configurable-tolerance
 math: true # for formulae
 date: 2025-04-28T10:30:00-08:00
@@ -21,7 +21,7 @@ author: "Jean-Marc François (Google)"
 This post describes _configurable tolerance for horizontal Pod autoscaling_,
 a new alpha feature first available in Kubernetes 1.33.
 -->
-這篇文章描述了**水平 Pod 自動擴縮的可配置容差**，
+這篇文章描述了**水平 Pod 自動擴縮的可設定容差**，
 這是在 Kubernetes 1.33 中首次出現的一個新的 Alpha 特性。
 
 <!--
@@ -44,8 +44,8 @@ CPU utilization, with a target of 75% utilization. Now, imagine that the current
 CPU utilization across all replicas is 90%, which is higher than the desired
 75%. The HPA will calculate the required number of replicas using the formula:
 -->
-假設你在 Kubernetes 集羣中運行了一個具有 50 個副本的 Web 應用程序。
-你配置了 Horizontal Pod Autoscaler （HPA）根據 CPU 利用率進行擴縮，
+假設你在 Kubernetes 叢集中運行了一個具有 50 個副本的 Web 應用程序。
+你設定了 Horizontal Pod Autoscaler （HPA）根據 CPU 利用率進行擴縮，
 目標利用率 75%。現在，假設所有副本的當前 CPU 利用率爲 90%，
 這高於預期的 75%。HPA 將使用以下公式計算所需的副本數量：
 
@@ -96,7 +96,7 @@ tune this value.
 
 In Kubernetes v1.33, this is now possible.
 -->
-這個 10% 的默認容差是集羣範圍的；在舊版本的 Kubernetes 中，
+這個 10% 的默認容差是叢集範圍的；在舊版本的 Kubernetes 中，
 它無法進行微調。對於大多數使用場景來說，這是一個合適的值，
 但對於大型部署而言則過於粗糙，因爲 10% 的容差代表着數十個 Pod。
 因此，社區長期以來[要求](https://github.com/kubernetes/kubernetes/issues/116984)能夠調整這個值。
@@ -113,7 +113,7 @@ HorizontalPodAutoscaler object.
 -->
 ## 我如何使用它？
 
-在你的 Kubernetes v1.33 集羣中啓用 `HPAConfigurableTolerance`
+在你的 Kubernetes v1.33 叢集中啓用 `HPAConfigurableTolerance`
 [特性門控][/zh-cn/docs/reference/command-line-tools-reference/feature-gates/]後，
 你可以爲你的 HorizontalPodAutoscaler 對象添加期望的容差。
 
@@ -131,7 +131,7 @@ scale-up, would look like the following:
 字段下，因此對於擴容和縮容可以有不同的設置。一個典型的用法是在擴容時指定一個小的容差（以快速響應峯值），
 而在縮容時指定較大的容差（以避免因小的指標波動而過快地添加或移除副本）。
 
-例如，一個在縮容時有 5% 容差，在擴容時沒有容差的 HPA 配置如下所示：
+例如，一個在縮容時有 5% 容差，在擴容時沒有容差的 HPA 設定如下所示：
 
 ```yaml
 apiVersion: autoscaling/v2

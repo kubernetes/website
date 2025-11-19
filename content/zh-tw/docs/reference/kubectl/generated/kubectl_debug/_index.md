@@ -21,9 +21,9 @@ Debug cluster resources using interactive debugging containers.
 
  The action taken by 'debug' varies depending on what resource is specified. Supported actions include:
 -->
-使用交互式調試容器調試集羣資源。
+使用交互式調試容器調試叢集資源。
 
-“debug” 針對按資源和名稱標識的集羣對象爲常用的調試任務提供自動化操作。如果不指定資源，則默認使用 Pod。
+“debug” 針對按資源和名稱標識的叢集對象爲常用的調試任務提供自動化操作。如果不指定資源，則默認使用 Pod。
 
 “debug” 採取的操作因指定的資源而異。支持的操作包括：
 
@@ -32,14 +32,14 @@ Debug cluster resources using interactive debugging containers.
   *  Workload: Add an ephemeral container to an already running pod, for example to add debugging utilities without restarting the pod.
   *  Node: Create a new pod that runs in the node's host namespaces and can access the node's filesystem.
 -->
-* 工作負載：創建現有 Pod 的副本並更改某些屬性，例如將鏡像標籤更改爲新版本。
+* 工作負載：創建現有 Pod 的副本並更改某些屬性，例如將映像檔標籤更改爲新版本。
 * 工作負載：向已運行的 Pod 中添加臨時容器，例如在不重啓 Pod 的情況下添加調試工具。
 * 節點：新建一個在節點的主機命名空間中運行並可以訪問節點文件系統的 Pod。
 
 <!--
 Note: When a non-root user is configured for the entire target Pod, some capabilities granted by debug profile may not work.
 -->
-注意：當爲目標 Pod 配置了非 root 用戶時，由調試模式授予的某些能力可能無法工作。
+注意：當爲目標 Pod 設定了非 root 使用者時，由調試模式授予的某些能力可能無法工作。
 
 ```shell
 kubectl debug (POD | TYPE[[.VERSION].GROUP]/NAME) [ -- COMMAND [args...] ]
@@ -179,7 +179,7 @@ Create a copy of the target Pod with this name.
 <!--
 Path to a JSON or YAML file containing a partial container spec to customize built-in debug profiles.
 -->
-包含部分容器規約的 JSON 或 YAML 文件的路徑，用於自定義內置調試配置文件。
+包含部分容器規約的 JSON 或 YAML 文件的路徑，用於自定義內置調試設定文件。
 </p>
 </td>
 </tr>
@@ -235,7 +235,7 @@ debug 操作的幫助命令。
 <!--
 Container image to use for debug container.
 -->
-調試容器要使用的容器鏡像。
+調試容器要使用的容器映像檔。
 </p>
 </td>
 </tr>
@@ -249,7 +249,7 @@ Container image to use for debug container.
 <!--
 The image pull policy for the container. If left empty, this value will not be specified by the client and defaulted by the server.
 -->
-容器的鏡像拉取策略。如果留空，此值將不會由客戶端指定，而是默認由服務器指定。
+容器的映像檔拉取策略。如果留空，此值將不會由客戶端指定，而是默認由伺服器指定。
 </p>
 </td>
 </tr>
@@ -406,7 +406,7 @@ When used with '--copy-to', schedule the copy of target Pod on the same node.
 <!--
 When used with '--copy-to', a list of name=image pairs for changing container images, similar to how 'kubectl set image' works.
 -->
-當與 '--copy-to' 一起使用時，提供一個 name=image 對的列表以更改容器鏡像，類似於 `kubectl set image` 的工作方式。
+當與 '--copy-to' 一起使用時，提供一個 name=image 對的列表以更改容器映像檔，類似於 `kubectl set image` 的工作方式。
 </p>
 </td>
 </tr>
@@ -487,7 +487,7 @@ Allocate a TTY for the debugging container.
 <!--
 Username to impersonate for the operation. User could be a regular user or a service account in a namespace.
 -->
-操作所用的僞裝用戶名。用戶可以是常規用戶或命名空間中的服務賬號。
+操作所用的僞裝使用者名。使用者可以是常規使用者或命名空間中的服務賬號。
 </p></td>
 </tr>
 
@@ -500,7 +500,7 @@ Username to impersonate for the operation. User could be a regular user or a ser
 <!--
 Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 -->
-操作所用的僞裝用戶組，此標誌可以被重複設置以指定多個組。
+操作所用的僞裝使用者組，此標誌可以被重複設置以指定多個組。
 </p></td>
 </tr>
 
@@ -576,7 +576,7 @@ TLS 客戶端密鑰文件的路徑。
 <!--
 The name of the kubeconfig cluster to use
 -->
-要使用的 kubeconfig 中的集羣名稱。
+要使用的 kubeconfig 中的叢集名稱。
 </p></td>
 </tr>
 
@@ -600,7 +600,7 @@ The name of the kubeconfig context to use
 <!--
 If true, opt-out of response compression for all requests to the server
 -->
-如果爲 true，則對服務器所有請求的響應不再壓縮。
+如果爲 true，則對伺服器所有請求的響應不再壓縮。
 </p></td>
 </tr>
 
@@ -612,7 +612,7 @@ If true, opt-out of response compression for all requests to the server
 <!--
 If true, the server's certificate will not be checked for validity. This will make your HTTPS connections insecure
 -->
-如果爲 true，則不檢查服務器證書的有效性。這將使你的 HTTPS 連接不安全。
+如果爲 true，則不檢查伺服器證書的有效性。這將使你的 HTTPS 連接不安全。
 </p></td>
 </tr>
 
@@ -652,7 +652,7 @@ Path to the kuberc file to use for preferences. This can be disabled by exportin
 <!--
 Require server version to match client version
 -->
-要求服務器版本與客戶端版本匹配。
+要求伺服器版本與客戶端版本匹配。
 </p></td>
 </tr>
 
@@ -676,7 +676,7 @@ If present, the namespace scope for this CLI request
 <!--
 Password for basic authentication to the API server
 -->
-對 API 服務器進行基本身份驗證所用的密碼。
+對 API 伺服器進行基本身份驗證所用的密碼。
 </p></td>
 </tr>
 
@@ -700,7 +700,7 @@ Name of the file to write the profile to
 <!--
 The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests.
 -->
-在放棄某個服務器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
+在放棄某個伺服器請求之前等待的時長。非零值應包含相應的時間單位（例如 1s、2m、3h）。
 值爲零表示請求不會超時。
 </p></td>
 </tr>
@@ -713,7 +713,7 @@ The length of time to wait before giving up on a single server request. Non-zero
 <!--
 The address and port of the Kubernetes API server
 -->
-Kubernetes API 服務器的地址和端口。
+Kubernetes API 伺服器的地址和端口。
 </p></td>
 </tr>
 
@@ -797,7 +797,7 @@ table name
 <!--
 database username
 -->
-數據庫用戶名。
+數據庫使用者名。
 </p></td>
 </tr>
 
@@ -809,7 +809,7 @@ database username
 <!--
 Server name to use for server certificate validation. If it is not provided, the hostname used to contact the server is used
 -->
-服務器證書驗證所用的服務器名稱。如果未提供，則使用與服務器通信所用的主機名。
+伺服器證書驗證所用的伺服器名稱。如果未提供，則使用與伺服器通信所用的主機名。
 </p></td>
 </tr>
 
@@ -821,7 +821,7 @@ Server name to use for server certificate validation. If it is not provided, the
 <!--
 Bearer token for authentication to the API server
 -->
-向 API 服務器進行身份驗證的持有者令牌。
+向 API 伺服器進行身份驗證的持有者令牌。
 </p></td>
 </tr>
 
@@ -833,7 +833,7 @@ Bearer token for authentication to the API server
 <!--
 The name of the kubeconfig user to use
 -->
-要使用的 kubeconfig 用戶的名稱。
+要使用的 kubeconfig 使用者的名稱。
 </p></td>
 </tr>
 
@@ -845,7 +845,7 @@ The name of the kubeconfig user to use
 <!--
 Username for basic authentication to the API server
 -->
-對 API 服務器進行基本身份驗證時所用的用戶名。
+對 API 伺服器進行基本身份驗證時所用的使用者名。
 </p></td>
 </tr>
 
@@ -869,7 +869,7 @@ Username for basic authentication to the API server
 <!--
 Treat warnings received from the server as errors and exit with a non-zero exit code
 -->
-將從服務器收到的警告視爲錯誤，並以非零退出碼退出。
+將從伺服器收到的警告視爲錯誤，並以非零退出碼退出。
 </p></td>
 </tr>
 
@@ -881,4 +881,4 @@ Treat warnings received from the server as errors and exit with a non-zero exit 
 <!--
 * [kubectl](../kubectl/)	 - kubectl controls the Kubernetes cluster manager
 -->
-* [kubectl](../kubectl/) - kubectl 控制 Kubernetes 集羣管理器
+* [kubectl](../kubectl/) - kubectl 控制 Kubernetes 叢集管理器

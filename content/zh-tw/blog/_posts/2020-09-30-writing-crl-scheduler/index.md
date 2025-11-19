@@ -37,14 +37,14 @@ Scaling any system has two main components:
 <!--
 Most stateless systems, web servers for example, are created without the need to be aware of peers. Stateful systems, which includes databases like CockroachDB, have to coordinate with their peer instances and shuffle around data. As luck would have it, CockroachDB handles data redistribution and replication. The tricky part is being able to tolerate failures during these operations by ensuring that data and instances are distributed across many failure domains (availability zones).
 -->
-大多數無狀態系統，例如網絡服務器，在創建時不需要意識到對等實例。而有狀態的系統，包括像 CockroachDB 這樣的數據庫，
+大多數無狀態系統，例如網路伺服器，在創建時不需要意識到對等實例。而有狀態的系統，包括像 CockroachDB 這樣的數據庫，
 必須與它們的對等實例協調，並對數據進行 shuffle。運氣好的話，CockroachDB 可以處理數據的再分佈和複製。
 棘手的部分是在確保數據和實例分佈在許多故障域（可用性區域）的操作過程中能夠容忍故障的發生。
 
 <!--
 One of Kubernetes' responsibilities is to place "resources" (e.g, a disk or container) into the cluster and satisfy the constraints they request. For example: "I must be in availability zone _A_" (see [Running in multiple zones](/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)), or "I can't be placed onto the same node as this other Pod" (see [Affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)).
 -->
-Kubernetes 的職責之一是將 "資源"（如磁盤或容器）放入集羣中，並滿足其請求的約束。
+Kubernetes 的職責之一是將 "資源"（如磁盤或容器）放入叢集中，並滿足其請求的約束。
 例如。"我必須在可用性區域 _A_"（見[在多個區域運行](/zh-cn/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)），
 或者 "我不能被放置到與某個 Pod 相同的節點上"
 （見[親和與反親和](/zh-cn/docs/setup/best-practices/multiple-zones/#nodes-are-labeled)）。
@@ -62,14 +62,14 @@ As an addition to those constraints, Kubernetes offers [Statefulsets](/docs/conc
 Under the hood, CockroachCloud deploys each region of CockroachDB as a StatefulSet in its own Kubernetes cluster - see [Orchestrate CockroachDB in a Single Kubernetes Cluster](https://www.cockroachlabs.com/docs/stable/orchestrate-cockroachdb-with-kubernetes.html).
 In this article, I'll be looking at an individual region, one StatefulSet and one Kubernetes cluster which is distributed across at least three availability zones.
 -->
-在架構上，CockroachCloud 將 CockroachDB 的每個區域作爲 StatefulSet 部署在自己的 Kubernetes 集羣中 -- 
+在架構上，CockroachCloud 將 CockroachDB 的每個區域作爲 StatefulSet 部署在自己的 Kubernetes 叢集中 -- 
 參見 [Orchestrate CockroachDB in a Single Kubernetes Cluster](https://www.cockroachlabs.com/docs/stable/orchestrate-cockroachdb-with-kubernetes.html)。
-在這篇文章中，我將着眼於一個單獨的區域，一個 StatefulSet 和一個至少分佈有三個可用區的 Kubernetes 集羣。
+在這篇文章中，我將着眼於一個單獨的區域，一個 StatefulSet 和一個至少分佈有三個可用區的 Kubernetes 叢集。
 
 <!--
 A three-node CockroachCloud cluster would look something like this:
 -->
-一個三節點的 CockroachCloud 集羣如下所示：
+一個三節點的 CockroachCloud 叢集如下所示：
 
 <!--
 ![3-node, multi-zone cockroachdb cluster](image01.png)
@@ -79,8 +79,8 @@ A three-node CockroachCloud cluster would look something like this:
 <!--
 When adding additional resources to the cluster we also distribute them across zones. For the speediest user experience, we add all Kubernetes nodes at the same time and then scale up the StatefulSet.
 -->
-在向集羣增加額外的資源時，我們也會將它們分佈在各個區域。
-爲了獲得最快的用戶體驗，我們同時添加所有 Kubernetes 節點，然後擴大 StatefulSet 的規模。
+在向叢集增加額外的資源時，我們也會將它們分佈在各個區域。
+爲了獲得最快的使用者體驗，我們同時添加所有 Kubernetes 節點，然後擴大 StatefulSet 的規模。
 
 <!--
 ![illustration of phases: adding Kubernetes nodes to the multi-zone cockroachdb cluster](image02.png)
@@ -97,12 +97,12 @@ Note that anti-affinities are satisfied no matter the order in which pods are as
 <!--
 To remove resources from a cluster, we perform these operations in reverse order.
 -->
-要從集羣中移除資源，我們以相反的順序執行這些操作。
+要從叢集中移除資源，我們以相反的順序執行這些操作。
 
 <!--
 We first scale down the StatefulSet and then remove from the cluster any nodes lacking a CockroachDB pod.
 -->
-我們首先縮小 StatefulSet 的規模，然後從集羣中移除任何缺少 CockroachDB Pod 的節點。
+我們首先縮小 StatefulSet 的規模，然後從叢集中移除任何缺少 CockroachDB Pod 的節點。
 
 <!--
 ![illustration of phases: scaling down pods in a multi-zone cockroachdb cluster in Kubernetes](image03.png)
@@ -116,7 +116,7 @@ Consider the cluster topology below:
 現在，請記住，規模爲 _n_ 的 StatefulSet 中的 Pods 一定具有 `[0,n)` 範圍內的 id。
 當把一個 StatefulSet 規模縮減了 _m_ 時，Kubernetes 會移除 _m_ 個 Pod，從最高的序號開始，向最低的序號移動，
 [與它們被添加的順序相反](/zh-cn/docs/concepts/workloads/controllers/statefulset/#deployment-and-scaling-guarantees)。
-考慮一下下面的集羣拓撲結構。
+考慮一下下面的叢集拓撲結構。
 
 <!--
 ![illustration: cockroachdb cluster: 6 nodes distributed across 3 availability zones](image04.png)
@@ -126,7 +126,7 @@ Consider the cluster topology below:
 <!--
 As ordinals 5 through 3 are removed from this cluster, the statefulset continues to have a presence across all 3 availability zones.
 -->
-當從這個集羣中移除 5 號到 3 號 Pod 時，這個 StatefulSet 仍然橫跨三個可用區。
+當從這個叢集中移除 5 號到 3 號 Pod 時，這個 StatefulSet 仍然橫跨三個可用區。
 
 <!--
 ![illustration: removing 3 nodes from a 6-node, 3-zone cockroachdb cluster](image05.png)
@@ -161,8 +161,8 @@ Consider the following topology:
 <!--
 These pods were created in order and they are spread across all availability zones in the cluster. When ordinals 5 through 3 are terminated, this cluster will lose its presence in zone C!
 -->
-這些 Pod 是按順序創建的，它們分佈在集羣裏所有可用區。當序號 5 到 3 的 Pod 被終止時，
-這個集羣將從 C 區消失!
+這些 Pod 是按順序創建的，它們分佈在叢集裏所有可用區。當序號 5 到 3 的 Pod 被終止時，
+這個叢集將從 C 區消失!
 
 <!--
 ![illustration: terminating 3 nodes in 6-node cluster spread across 3 availability zones, where 2/2 nodes in the same availability zone are terminated, knocking out that AZ](image07.png)
@@ -178,8 +178,8 @@ Worse yet, our automation, at the time, would remove Nodes A-2, B-2, and C-2. Le
 <!--
 To correct the latter issue, we now employ a "hunt and peck" approach to removing machines from a cluster. Rather than blindly removing Kubernetes nodes from the cluster, only nodes without a CockroachDB pod would be removed. The much more daunting task was to wrangle the Kubernetes scheduler.
 -->
-爲了糾正後一個問題，我們現在採用了一種“狩獵和啄食”的方法來從集羣中移除機器。
-與其盲目地從集羣中移除 Kubernetes 節點，不如只移除沒有 CockroachDB Pod 的節點。
+爲了糾正後一個問題，我們現在採用了一種“狩獵和啄食”的方法來從叢集中移除機器。
+與其盲目地從叢集中移除 Kubernetes 節點，不如只移除沒有 CockroachDB Pod 的節點。
 更爲艱鉅的任務是管理 Kubernetes 的調度器。
 
 <!--
@@ -198,7 +198,7 @@ The entire endeavour was concerningly reminiscent of checking [caniuse.com](http
 雖然這似乎是一個完美的解決方案，但在寫這篇文章的時候，Kubernetes 1.18 在公有云中兩個最常見的
 託管 Kubernetes 服務（ EKS 和 GKE ）上是不可用的。
 此外，[Pod 拓撲分佈約束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)在 1.18 中仍是測試版功能，
-這意味着即使在 v1.18 可用時，它[也不能保證在託管集羣中可用](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#kubernetes_feature_choices)。
+這意味着即使在 v1.18 可用時，它[也不能保證在託管叢集中可用](https://cloud.google.com/kubernetes-engine/docs/concepts/types-of-clusters#kubernetes_feature_choices)。
 整個努力讓人聯想到在 Internet Explorer 8 還存在的時候訪問 [caniuse.com](https://caniuse.com/)。
 
 <!--
@@ -212,7 +212,7 @@ Ultimately, we decided to forego this option as it would have required a massive
 
 與跨所有可用區部署一個 StatefulSet 相比，在每個區部署一個帶有節點親和性的 StatefulSet 可以實現手動控制分區拓撲結構。
 我們的團隊過去曾考慮過這個選項，我們也傾向此選項。
-但最終，我們決定放棄這個方案，因爲這需要對我們的代碼庫進行大規模的修改，而且在現有的客戶集羣上進行遷移也是一個同樣大的工程。
+但最終，我們決定放棄這個方案，因爲這需要對我們的代碼庫進行大規模的修改，而且在現有的客戶叢集上進行遷移也是一個同樣大的工程。
 
 <!--
 ### 3. Write a custom Kubernetes scheduler.
@@ -243,7 +243,7 @@ _[Chris Seto](https://twitter.com/_ostriches) is a software engineer at Cockroac
 [kube-scheduler 插件系統](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)。
 我們的下一個 POC 是一個"過濾器"插件，它通過 Pod 的序號來確定適當的可用區域，並且工作得非常完美。
 
-我們的[自定義調度器插件](https://github.com/cockroachlabs/crl-scheduler)是開源的，並在我們所有的 CockroachCloud 集羣中運行。
+我們的[自定義調度器插件](https://github.com/cockroachlabs/crl-scheduler)是開源的，並在我們所有的 CockroachCloud 叢集中運行。
 對 StatefulSet Pod 的調度方式有掌控力，讓我們有信心擴大規模。
 一旦 GKE 和 EKS 中的 Pod 拓撲分佈約束可用，我們可能會考慮讓我們的插件退役，但其維護的開銷出乎意料地低。
 更好的是：該插件的實現與我們的業務邏輯是橫向的。部署它，或取消它，就像改變 StatefulSet 定義中的 "schedulerName" 字段一樣簡單。

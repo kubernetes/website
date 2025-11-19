@@ -1,5 +1,5 @@
 ---
-title: 重新配置 kubeadm 集羣
+title: 重新設定 kubeadm 叢集
 content_type: task
 weight: 90
 ---
@@ -17,7 +17,7 @@ kubeadm does not support automated ways of reconfiguring components that
 were deployed on managed nodes. One way of automating this would be
 by using a custom [operator](/docs/concepts/extend-kubernetes/operator/).
 -->
-kubeadm 不支持自動重新配置部署在託管節點上的組件的方式。 
+kubeadm 不支持自動重新設定部署在託管節點上的組件的方式。 
 一種自動化的方法是使用自定義的 
 [operator](/zh-cn/docs/concepts/extend-kubernetes/operator/)。
 
@@ -28,8 +28,8 @@ objects and files on disk.
 This guide shows the correct sequence of steps that need to be performed
 to achieve kubeadm cluster reconfiguration.
 -->
-要修改組件配置，你必須手動編輯磁盤上關聯的集羣對象和文件。
-本指南展示了實現 kubeadm 集羣重新配置所需執行的正確步驟順序。
+要修改組件設定，你必須手動編輯磁盤上關聯的叢集對象和文件。
+本指南展示了實現 kubeadm 叢集重新設定所需執行的正確步驟順序。
 
 ## {{% heading "prerequisites" %}}
 
@@ -39,9 +39,9 @@ to achieve kubeadm cluster reconfiguration.
 to a running kube-apiserver in the cluster from a host that has kubectl installed
 - Have a text editor installed on all hosts
 -->
-- 你需要一個使用 kubeadm 部署的集羣
+- 你需要一個使用 kubeadm 部署的叢集
 - 擁有管理員憑據（`/etc/kubernetes/admin.conf`）
-  和從安裝了 kubectl 的主機到集羣中正在運行的 kube-apiserver 的網絡連接
+  和從安裝了 kubectl 的主機到叢集中正在運行的 kube-apiserver 的網路連接
 - 在所有主機上安裝文本編輯器
 
 <!-- steps -->
@@ -52,9 +52,9 @@ kubeadm writes a set of cluster wide component configuration options in
 ConfigMaps and other objects. These objects must be manually edited. The command `kubectl edit`
 can be used for that.
 -->
-## 重新配置集羣
+## 重新設定叢集
 
-kubeadm 在 ConfigMap 和其他對象中寫入了一組集羣範圍的組件配置選項。 
+kubeadm 在 ConfigMap 和其他對象中寫入了一組叢集範圍的組件設定選項。 
 這些對象必須手動編輯，可以使用命令 `kubectl edit`。
 
 <!--
@@ -79,7 +79,7 @@ KUBECONFIG=/etc/kubernetes/admin.conf KUBE_EDITOR=nano kubectl edit <parameters>
 Upon saving any changes to these cluster objects, components running on nodes may not be
 automatically updated. The steps below instruct you on how to perform that manually.
 -->
-保存對這些集羣對象的任何更改後，節點上運行的組件可能不會自動更新。 
+保存對這些叢集對象的任何更改後，節點上運行的組件可能不會自動更新。 
 以下步驟將指導你如何手動執行該操作。
 {{< /note >}}
 
@@ -91,8 +91,8 @@ You have to be careful to follow the documented API format for a particular
 component configuration and avoid introducing typos and YAML indentation mistakes.
 -->
 
-ConfigMaps 中的組件配置存儲爲非結構化數據（YAML 字符串）。 這意味着在更新
-ConfigMap 的內容時不會執行驗證。 你必須小心遵循特定組件配置的文檔化 API 格式， 
+ConfigMaps 中的組件設定存儲爲非結構化數據（YAML 字符串）。 這意味着在更新
+ConfigMap 的內容時不會執行驗證。 你必須小心遵循特定組件設定的文檔化 API 格式， 
 並避免引入拼寫錯誤和 YAML 縮進錯誤。
 {{< /warning >}}
 
@@ -108,11 +108,11 @@ in a ConfigMap called `kubeadm-config` in the `kube-system` namespace.
 To change a particular option in the `ClusterConfiguration` you can edit the ConfigMap with this command:
 
 -->
-### 應用集羣配置更改
+### 應用叢集設定更改
 
 #### 更新 `ClusterConfiguration`
 
-在集羣創建和升級期間，kubeadm 將其
+在叢集創建和升級期間，kubeadm 將其
 [`ClusterConfiguration`](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
 寫入 `kube-system` 命名空間中名爲 `kubeadm-config` 的 ConfigMap。
 
@@ -125,7 +125,7 @@ kubectl edit cm -n kube-system kubeadm-config
 <!--
 The configuration is located under the `data.ClusterConfiguration` key.
 -->
-配置位於 `data.ClusterConfiguration` 鍵下。
+設定位於 `data.ClusterConfiguration` 鍵下。
 
 {{< note >}}
 <!--
@@ -133,9 +133,9 @@ The `ClusterConfiguration` includes a variety of options that affect the configu
 components such as kube-apiserver, kube-scheduler, kube-controller-manager, CoreDNS, etcd and kube-proxy.
 Changes to the configuration must be reflected on node components manually.
 -->
-`ClusterConfiguration` 包括各種影響單個組件配置的選項， 例如
+`ClusterConfiguration` 包括各種影響單個組件設定的選項， 例如
 kube-apiserver、kube-scheduler、kube-controller-manager、
-CoreDNS、etcd 和 kube-proxy。 對配置的更改必須手動反映在節點組件上。
+CoreDNS、etcd 和 kube-proxy。 對設定的更改必須手動反映在節點組件上。
 {{< /note >}}
 
 <!--
@@ -209,7 +209,7 @@ Updating a file in `/etc/kubernetes/manifests` will tell the kubelet to restart 
 Try doing these changes one node at a time to leave the cluster without downtime.
 -->
 更新 `/etc/kubernetes/manifests` 中的文件將告訴 kubelet 重新啓動相應組件的靜態 Pod。
-嘗試一次對一個節點進行這些更改，以在不停機的情況下離開集羣。
+嘗試一次對一個節點進行這些更改，以在不停機的情況下離開叢集。
 {{< /note >}}
 
 <!--
@@ -224,11 +224,11 @@ in a ConfigMap called `kubelet-config` in the `kube-system` namespace.
 You can edit the ConfigMap with this command:
 
 -->
-### 應用 kubelet 配置更改
+### 應用 kubelet 設定更改
 
 #### 更新 `KubeletConfiguration`
 
-在集羣創建和升級期間，kubeadm 將其 
+在叢集創建和升級期間，kubeadm 將其 
 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 
 寫入 `kube-system` 命名空間中名爲 `kubelet-config` 的 ConfigMap。
 你可以使用以下命令編輯 ConfigMap：
@@ -240,7 +240,7 @@ kubectl edit cm -n kube-system kubelet-config
 <!--
 The configuration is located under the `data.kubelet` key.
 -->
-配置位於 `data.kubelet` 鍵下。
+設定位於 `data.kubelet` 鍵下。
 
 <!--
 #### Reflecting the kubelet changes
@@ -260,7 +260,7 @@ flags
 - 登錄到 kubeadm 節點
 - 運行 `kubeadm upgrade node phase kubelet-config` 下載最新的
   `kubelet-config` ConfigMap 內容到本地文件 `/var/lib/kubelet/config.yaml`
-- 編輯文件 `/var/lib/kubelet/kubeadm-flags.env` 以使用標誌來應用額外的配置
+- 編輯文件 `/var/lib/kubelet/kubeadm-flags.env` 以使用標誌來應用額外的設定
 - 使用 `systemctl restart kubelet` 重啓 kubelet 服務
 
 {{< note >}}
@@ -280,7 +280,7 @@ This means that node local configuration must be applied either by flags in
 -->
 在 `kubeadm upgrade` 期間，kubeadm 從 `kubelet-config` ConfigMap
 下載 `KubeletConfiguration` 並覆蓋 `/var/lib/kubelet/config.yaml` 的內容。
-這意味着節點本地配置必須通過`/var/lib/kubelet/kubeadm-flags.env`中的標誌或在
+這意味着節點本地設定必須通過`/var/lib/kubelet/kubeadm-flags.env`中的標誌或在
 kubeadm upgrade` 後手動更新 `/var/lib/kubelet/config.yaml` 的內容來應用，
 然後重新啓動 kubelet。
 {{< /note >}}
@@ -499,7 +499,7 @@ kubelet 標誌會覆蓋相關的 `KubeletConfiguration` 選項，但請注意，
 - [Find more about kubeadm set-up](/docs/reference/setup-tools/kubeadm/)
 -->
 
-- [升級 kubeadm 集羣](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)
+- [升級 kubeadm 叢集](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)
 - [使用 kubeadm API 自定義組件](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags)
 - [使用 kubeadm 管理證書](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)
 - [進一步瞭解 kubeadm 設置](/zh-cn/docs/reference/setup-tools/kubeadm/)

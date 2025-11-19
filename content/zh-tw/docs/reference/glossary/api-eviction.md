@@ -43,9 +43,9 @@ and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycl
 API-initiated eviction is not the same as [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 -->
 你可以通過 kube-apiserver 的客戶端，比如 `kubectl drain` 這樣的命令，直接調用 Eviction API 發起驅逐。
-當 `Eviction` 對象創建出來之後，該對象將驅動 API 服務器終止選定的 Pod。
+當 `Eviction` 對象創建出來之後，該對象將驅動 API 伺服器終止選定的 Pod。
 
-API 發起的驅逐取決於你配置的 [`PodDisruptionBudgets`](/zh-cn/docs/tasks/run-application/configure-pdb/)
+API 發起的驅逐取決於你設定的 [`PodDisruptionBudgets`](/zh-cn/docs/tasks/run-application/configure-pdb/)
 和 [`terminationGracePeriodSeconds`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)。
 
 API 發起的驅逐不同於[節點壓力引發的驅逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。

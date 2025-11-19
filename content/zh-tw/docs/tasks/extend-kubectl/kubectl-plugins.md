@@ -21,8 +21,8 @@ a cluster administrator can think of plugins as a means of utilizing these build
 Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
 -->
 本指南演示瞭如何爲 [kubectl](/zh-cn/docs/reference/kubectl/kubectl/) 安裝和編寫擴展。
-通過將核心 `kubectl` 命令看作與 Kubernetes 集羣交互的基本構建塊，
-集羣管理員可以將插件視爲一種利用這些構建塊創建更復雜行爲的方法。
+通過將核心 `kubectl` 命令看作與 Kubernetes 叢集交互的基本構建塊，
+叢集管理員可以將插件視爲一種利用這些構建塊創建更復雜行爲的方法。
 插件用新的子命令擴展了 `kubectl`，允許新的和自定義的特性不包括在 `kubectl` 的主要發行版中。
 
 ## {{% heading "prerequisites" %}}
@@ -124,7 +124,7 @@ You can write a plugin in any programming language or script that allows you to 
 -->
 ## 編寫 kubectl 插件  {#writing-kubectl-plugins}
 
-你可以用任何編程語言或腳本編寫插件，允許你編寫命令行命令。
+你可以用任何編程語言或腳本編寫插件，允許你編寫命令列命令。
 
 <!--
 There is no plugin installation or pre-loading required. Plugin executables receive
@@ -248,7 +248,7 @@ For example, a plugin that wishes to be invoked whenever the command `kubectl fo
 ### 命名插件  {#naming-a-plugin}
 
 如上面的例子所示，插件根據文件名確定要實現的命令路徑，插件所針對的命令路徑中的每個子命令都由破折號（`-`）分隔。
-例如，當用戶調用命令 `kubectl foo bar baz` 時，希望調用該命令的插件的文件名爲 `kubectl-foo-bar-baz`。
+例如，當使用者調用命令 `kubectl foo bar baz` 時，希望調用該命令的插件的文件名爲 `kubectl-foo-bar-baz`。
 
 <!--
 #### Flags and argument handling
@@ -273,10 +273,10 @@ See [using the command line runtime package](#using-the-command-line-runtime-pac
 Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the `kubectl-foo-bar-baz` plugin from the scenario above.
 -->
 kubectl 插件必須解析並檢查傳遞給它們的所有參數。
-參閱[使用命令行運行時包](#using-the-command-line-runtime-package)瞭解針對
+參閱[使用命令列運行時包](#using-the-command-line-runtime-package)瞭解針對
 插件開發人員的 Go 庫的細節。
 
-這裏是一些用戶調用你的插件的時候提供額外標誌和參數的場景。
+這裏是一些使用者調用你的插件的時候提供額外標誌和參數的場景。
 這些場景時基於上述案例中的 `kubectl-foo-bar-baz` 插件的。
 
 <!--
@@ -325,7 +325,7 @@ My first command-line argument was arg1
 <!--
 As you can see, your plugin was found based on the `kubectl` command specified by a user, and all extra arguments and flags were passed as-is to the plugin executable once it was found.
 -->
-正如你所看到的，你的插件是基於用戶指定的 `kubectl` 命令找到的，
+正如你所看到的，你的插件是基於使用者指定的 `kubectl` 命令找到的，
 所有額外的參數和標記都是按原樣傳遞給插件可執行文件的。
 
 <!--
@@ -337,7 +337,7 @@ command containing dashes in its commandline invocation by using underscores (`_
 #### 帶有破折號和下劃線的名稱  {#names-with-dashes-and-underscores}
 
 雖然 `kubectl` 插件機制在插件文件名中使用破折號（`-`）分隔插件處理的子命令序列，
-但是仍然可以通過在文件名中使用下劃線（`_`）來創建命令行中包含破折號的插件命令。
+但是仍然可以通過在文件名中使用下劃線（`_`）來創建命令列中包含破折號的插件命令。
 
 <!-- Example: -->
 例子：
@@ -431,8 +431,8 @@ There is another kind of overshadowing that can occur with plugin filenames. Giv
 -->
 #### 調用最長的可執行文件名  {#invocation-of-the-longest-executable-filename}
 
-對於插件文件名而言還有另一種弊端，給定用戶 `PATH` 中的兩個插件 `kubectl-foo-bar` 和 `kubectl-foo-bar-baz`，
-`kubectl` 插件機制總是爲給定的用戶命令選擇儘可能長的插件名稱。下面的一些例子進一步的說明了這一點：
+對於插件文件名而言還有另一種弊端，給定使用者 `PATH` 中的兩個插件 `kubectl-foo-bar` 和 `kubectl-foo-bar-baz`，
+`kubectl` 插件機制總是爲給定的使用者命令選擇儘可能長的插件名稱。下面的一些例子進一步的說明了這一點：
 
 ```bash
 # 對於給定的 kubectl 命令，最長可能文件名的插件是被優先選擇的
@@ -523,14 +523,14 @@ associated with configuration and printing.
 See the [Sample CLI Plugin](https://github.com/kubernetes/sample-cli-plugin) for
 an example usage of the tools provided in the CLI Runtime repo.
 -->
-### 使用命令行運行時包  {#using-the-command-line-runtime-package}
+### 使用命令列運行時包  {#using-the-command-line-runtime-package}
 
 如果你在編寫 kubectl 插件，而且你選擇使用 Go 語言，你可以利用
 [cli-runtime](https://github.com/kubernetes/cli-runtime) 工具庫。
 
-這些庫提供了一些輔助函數，用來解析和更新用戶的
+這些庫提供了一些輔助函數，用來解析和更新使用者的
 [kubeconfig](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-文件，向 API 服務器發起 REST 風格的請求，或者將參數綁定到某配置上，
+文件，向 API 伺服器發起 REST 風格的請求，或者將參數綁定到某設定上，
 抑或將其打印輸出。
 
 關於 CLI Runtime 倉庫所提供的工具的使用實例，可參考
@@ -545,7 +545,7 @@ package it, distribute it and deliver updates to your users.
 ## 分發 kubectl 插件  {#distributing-kubectl-plugins}
 
 如果你開發了一個插件給別人使用，你應該考慮如何爲其封裝打包、如何分發軟件
-以及將來的更新到用戶。
+以及將來的更新到使用者。
 
 <!--
 ### Krew {#distributing-krew}
@@ -561,7 +561,7 @@ discover your plugin and install it.
 
 [Krew](https://krew.dev/) 提供了一種對插件進行打包和分發的跨平臺方式。
 基於這種方式，你會在所有的目標平臺（Linux、Windows、macOS 等）使用同一
-種打包形式，包括爲用戶提供更新。
+種打包形式，包括爲使用者提供更新。
 Krew 也維護一個[插件索引（plugin index）](https://krew.sigs.k8s.io/plugins/)
 以便其他人能夠發現你的插件並安裝之。
 
@@ -580,7 +580,7 @@ platforms for each release.
 
 另一種方式是，你可以使用傳統的包管理器（例如 Linux 上 的 `apt` 或 `yum`，
 Windows 上的 Chocolatey、macOs 上的 Homebrew）。
-只要能夠將新的可執行文件放到用戶的 `PATH` 路徑上某處，這種包管理器就符合需要。
+只要能夠將新的可執行文件放到使用者的 `PATH` 路徑上某處，這種包管理器就符合需要。
 作爲一個插件作者，如果你選擇這種方式來分發，你就需要自己來管理和更新
 你的 kubectl 插件的分發包，包括所有平臺和所有發行版本。
 
@@ -596,7 +596,7 @@ installs easier.
 ### 源代碼   {#distributing-source-code}
 
 你也可以發佈你的源代碼，例如，發佈爲某個 Git 倉庫。
-如果你選擇這條路線，希望使用該插件的用戶必須取回代碼、配置一個構造環境
+如果你選擇這條路線，希望使用該插件的使用者必須取回代碼、設定一個構造環境
 （如果需要編譯的話）並部署該插件。
 如果你也提供編譯後的軟件包，或者使用 Krew，那就會大大簡化安裝過程了。
 

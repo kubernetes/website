@@ -61,7 +61,7 @@ remove-etcd-member 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與集羣通信時使用的 kubeconfig 文件。如果未設置該標誌，
+與叢集通信時使用的 kubeconfig 文件。如果未設置該標誌，
 則可以在默認位置中查找現有的 kubeconfig 文件。
 </p>
 </td>

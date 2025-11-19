@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes v1.31：通過基於緩存的一致性讀加速集羣性能'
+title: 'Kubernetes v1.31：通過基於緩存的一致性讀加速叢集性能'
 date: 2024-08-15
 slug: consistent-read-from-cache-beta
 author: >
@@ -23,7 +23,7 @@ but as clusters grow, the demands on the control plane can become a bottleneck.
 A key challenge has been ensuring strongly consistent reads from the etcd datastore,
 requiring resource-intensive quorum reads.
 -->
-Kubernetes 以其強大的容器化應用編排能力而聞名，但隨着集羣規模擴大，
+Kubernetes 以其強大的容器化應用編排能力而聞名，但隨着叢集規模擴大，
 對控制平面的需求可能成爲性能瓶頸。其中一個主要挑戰是確保從
 etcd 數據存儲進行強一致性讀，這通常需要資源密集型仲裁讀取操作。
 
@@ -45,10 +45,10 @@ enabling components to make informed decisions based on up-to-date information.
 In large-scale clusters, fetching and processing this data can be a performance bottleneck,
 especially for requests that involve filtering results.
 -->
-一致性讀是確保 Kubernetes 組件準確瞭解最新集羣狀態的關鍵。
+一致性讀是確保 Kubernetes 組件準確瞭解最新叢集狀態的關鍵。
 保證一致性讀對於保持 Kubernetes 操作準確性和可靠性至關重要，
 使組件能夠根據最新信息做出明智決策。
-在大型集羣中，數據的獲取和處理往往會成爲性能瓶頸，特別是那些需要過濾結果的請求。
+在大型叢集中，數據的獲取和處理往往會成爲性能瓶頸，特別是那些需要過濾結果的請求。
 
 <!--
 While Kubernetes can filter data by namespace directly within etcd,
@@ -57,9 +57,9 @@ This is particularly impactful for components like the kubelet,
 which only needs to list pods scheduled to its node - but previously required the API Server and etcd to process all pods in the cluster.
 -->
 雖然 Kubernetes 可以直接在 etcd 中按命名空間過濾數據，但如果按標籤或字段選擇器過濾，
-則需要從 etcd 獲取整個數據集，然後由 Kubernetes API 服務器在內存中執行過濾操作。
+則需要從 etcd 獲取整個數據集，然後由 Kubernetes API 伺服器在內存中執行過濾操作。
 這對 Kubelet 等組件的影響尤爲顯著，因爲 Kubelet 現在僅需列出調度到其節點的 Pod，
-而之前卻需要 API 服務器和 etcd 處理集羣中所有的 Pod。
+而之前卻需要 API 伺服器和 etcd 處理叢集中所有的 Pod。
 
 <!--
 ### The breakthrough: Caching with confidence
@@ -71,7 +71,7 @@ However, until now, it couldn't serve consistent reads directly, as there was no
 ### 突破：自信地緩存   {#the-breakthrough-Caching-with-confidence}
 
 Kubernetes 長期以來一直使用監視緩存來優化讀取操作。
-監視緩存保存集羣狀態的快照，並通過對 etcd 的監視獲取更新。
+監視緩存保存叢集狀態的快照，並通過對 etcd 的監視獲取更新。
 然而，直到現在,它無法直接支持一致性讀，因爲沒有機制保證緩存是最新的。
 
 <!--
@@ -107,7 +107,7 @@ For older etcd versions, Kubernetes will automatically fall back to serving cons
 
 This seemingly simple change has a profound impact on Kubernetes performance and scalability:
 -->
-**重要提示：** 要享受此特性帶來的好處，你的 Kubernetes 集羣需運行
+**重要提示：** 要享受此特性帶來的好處，你的 Kubernetes 叢集需運行
 etcd 版本 3.4.31+ 或 3.5.13+。對於較早版本的 Etcd，Kubernetes
 將自動回退爲直接從 etcd 提供一致性讀。
 
@@ -128,8 +128,8 @@ etcd 版本 3.4.31+ 或 3.5.13+。對於較早版本的 Etcd，Kubernetes
 * **降低 etcd 負載：** Kubernetes v1.31 可以將部分工作從 etcd 分載出去，
   爲其他關鍵操作釋放資源。
 * **更低的延遲：** 從緩存讀取數據的速度顯著快於從 etcd 獲取並處理數據。
-  這使組件的響應速度更快，提升了集羣整體的響應能力。
-* **增強的可擴展性：** 擁有數千個節點和 Pod 的大型集羣將獲得最顯著的性能增益，
+  這使組件的響應速度更快，提升了叢集整體的響應能力。
+* **增強的可擴展性：** 擁有數千個節點和 Pod 的大型叢集將獲得最顯著的性能增益，
   因爲 etcd 負載的降低使得控制平面可以在不犧牲性能的情況下處理更多請求。
 
 <!--
@@ -140,7 +140,7 @@ clusters, enabling consistent reads from cache delivered impressive improvements
 * **25% reduction** in etcd CPU usage
 * **Up to 3x reduction** (from 5 seconds to 1.5 seconds) in 99th percentile pod LIST request latency
 -->
-**5 千節點擴縮容測試結果：** 在最近針對 5,000 節點集羣的擴縮容測試中，
+**5 千節點擴縮容測試結果：** 在最近針對 5,000 節點叢集的擴縮容測試中，
 啓用基於緩存的一致性讀帶來了顯著提升：
 
 * **kube-apiserver CPU 使用率降低 30%**
@@ -161,7 +161,7 @@ optimizations in the future.
 ## 下一步是什麼？   {#whats-next}
 
 隨着基於緩存的一致性讀特性晉升至 Beta 版，該特性已默認啓用，爲所有使用受支持 etcd
-版本的 Kubernetes 用戶提供了無縫的性能提升。
+版本的 Kubernetes 使用者提供了無縫的性能提升。
 
 我們的探索並未止步於此。Kubernetes 社區正積極研究在監視緩存中加入分頁支持，
 未來有望帶來更多性能優化。

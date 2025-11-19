@@ -27,10 +27,10 @@ automatically provisions storage when users create
 [`PersistentVolumeClaim` objects](/docs/concepts/storage/persistent-volumes/).
 -->
 動態卷製備允許按需創建存儲卷。
-如果沒有動態製備，集羣管理員必須手動地聯繫他們的雲或存儲提供商來創建新的存儲卷，
-然後在 Kubernetes 集羣創建
+如果沒有動態製備，叢集管理員必須手動地聯繫他們的雲或存儲提供商來創建新的存儲卷，
+然後在 Kubernetes 叢集創建
 [`PersistentVolume` 對象](/zh-cn/docs/concepts/storage/persistent-volumes/)來表示這些卷。
-動態製備功能消除了集羣管理員預先配置存儲的需要。相反，它在用戶創建
+動態製備功能消除了叢集管理員預先設定存儲的需要。相反，它在使用者創建
 [`PersistentVolumeClaim` 對象](/zh-cn/docs/concepts/storage/persistent-volumes/)時自動製備存儲。
 
 <!-- body -->
@@ -48,7 +48,7 @@ from the API group `storage.k8s.io`. A cluster administrator can define as many
 that provisioner when provisioning.
 -->
 動態卷製備的實現基於 `storage.k8s.io` API 組中的 `StorageClass` API 對象。
-集羣管理員可以根據需要定義多個 `StorageClass` 對象，每個對象指定一個**卷插件**（又名 **provisioner**），
+叢集管理員可以根據需要定義多個 `StorageClass` 對象，每個對象指定一個**卷插件**（又名 **provisioner**），
 卷插件向卷製備商提供在創建卷時需要的數據卷信息及相關參數。
 
 <!--
@@ -58,8 +58,8 @@ of parameters. This design also ensures that end users don't have to worry
 about the complexity and nuances of how storage is provisioned, but still
 have the ability to select from multiple storage options.
 -->
-集羣管理員可以在集羣中定義和公開多種存儲（來自相同或不同的存儲系統），每種都具有自定義參數集。
-該設計也確保終端用戶不必擔心存儲製備的複雜性和細微差別，但仍然能夠從多個存儲選項中進行選擇。
+叢集管理員可以在叢集中定義和公開多種存儲（來自相同或不同的存儲系統），每種都具有自定義參數集。
+該設計也確保終端使用者不必擔心存儲製備的複雜性和細微差別，但仍然能夠從多個存儲選項中進行選擇。
 
 <!--
 For more details, see the [Storage Classes](/docs/concepts/storage/storage-classes/) concept.
@@ -82,7 +82,7 @@ The name of a StorageClass object must be a valid
 The following manifest creates a storage class "slow" which provisions standard
 disk-like persistent disks.
 -->
-要啓用動態製備功能，集羣管理員需要爲用戶預先創建一個或多個 `StorageClass` 對象。
+要啓用動態製備功能，叢集管理員需要爲使用者預先創建一個或多個 `StorageClass` 對象。
 `StorageClass` 對象定義當動態製備被調用時，哪一個驅動將被使用和哪些參數將被傳遞給驅動。
 StorageClass 對象的名字必須是一個合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
@@ -128,17 +128,17 @@ is deprecated since v1.9. Users now can and should instead use the
 this field must match the name of a `StorageClass` configured by the
 administrator (see [Enabling Dynamic Provisioning](#enabling-dynamic-provisioning)).
 -->
-用戶通過在 `PersistentVolumeClaim` 中包含存儲類來請求動態製備的存儲。
+使用者通過在 `PersistentVolumeClaim` 中包含存儲類來請求動態製備的存儲。
 在 Kubernetes v1.9 之前，這通過 `volume.beta.kubernetes.io/storage-class` 註解實現。
 然而，這個註解自 v1.6 起就不被推薦使用了。
-用戶現在能夠而且應該使用 `PersistentVolumeClaim` 對象的 `storageClassName` 字段。
-這個字段的值必須能夠匹配到集羣管理員配置的 `StorageClass` 名稱（見[啓用動態卷製備](#enabling-dynamic-provisioning)）。
+使用者現在能夠而且應該使用 `PersistentVolumeClaim` 對象的 `storageClassName` 字段。
+這個字段的值必須能夠匹配到叢集管理員設定的 `StorageClass` 名稱（見[啓用動態卷製備](#enabling-dynamic-provisioning)）。
 
 <!--
 To select the "fast" storage class, for example, a user would create the
 following PersistentVolumeClaim:
 -->
-例如，要選擇 “fast” 存儲類，用戶將創建如下的 PersistentVolumeClaim：
+例如，要選擇 “fast” 存儲類，使用者將創建如下的 PersistentVolumeClaim：
 
 ```yaml
 apiVersion: v1
@@ -171,8 +171,8 @@ Dynamic provisioning can be enabled on a cluster such that all claims are
 dynamically provisioned if no storage class is specified. A cluster administrator
 can enable this behavior by:
 -->
-可以在集羣上啓用動態卷製備，以便在未指定存儲類的情況下動態設置所有聲明。
-集羣管理員可以通過以下方式啓用此行爲：
+可以在叢集上啓用動態卷製備，以便在未指定存儲類的情況下動態設置所有聲明。
+叢集管理員可以通過以下方式啓用此行爲：
 
 <!--
 - Marking one `StorageClass` object as *default*,
@@ -181,7 +181,7 @@ can enable this behavior by:
 -->
 - 標記一個 `StorageClass` 爲 **默認**，
 - 確保 [`DefaultStorageClass` 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在
-  API 服務器端被啓用。
+  API 伺服器端被啓用。
 
 <!--
 An administrator can mark a specific `StorageClass` as default by adding the
@@ -194,7 +194,7 @@ When a default `StorageClass` exists in a cluster and a user creates a
 管理員可以通過向其添加
 [`storageclass.kubernetes.io/is-default-class` 註解](/zh-cn/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
 來將特定的 `StorageClass` 標記爲默認。
-當集羣中存在默認的 `StorageClass` 並且用戶創建了一個未指定 `storageClassName` 的 `PersistentVolumeClaim` 時，
+當叢集中存在默認的 `StorageClass` 並且使用者創建了一個未指定 `storageClassName` 的 `PersistentVolumeClaim` 時，
 `DefaultStorageClass` 准入控制器會自動向其中添加指向默認存儲類的 `storageClassName` 字段。
 
 <!--
@@ -203,7 +203,7 @@ annotation to true on more than one StorageClass in your cluster, and you then
 create a `PersistentVolumeClaim` with no `storageClassName` set, Kubernetes
 uses the most recently created default StorageClass.
 -->
-請注意，如果你在集羣的多個 StorageClass 設置 `storageclass.kubernetes.io/is-default-class` 註解爲 true，
+請注意，如果你在叢集的多個 StorageClass 設置 `storageclass.kubernetes.io/is-default-class` 註解爲 true，
 並之後創建了未指定 `storageClassName` 的 `PersistentVolumeClaim`，
 Kubernetes 會使用最新創建的默認 StorageClass。
 
@@ -218,7 +218,7 @@ Zones in a Region. Single-Zone storage backends should be provisioned in the Zon
 Pods are scheduled. This can be accomplished by setting the
 [Volume Binding Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 -->
-在[多可用區](/zh-cn/docs/setup/best-practices/multiple-zones/)集羣中，Pod 可以被分散到某個區域的多個可用區。
+在[多可用區](/zh-cn/docs/setup/best-practices/multiple-zones/)叢集中，Pod 可以被分散到某個區域的多個可用區。
 單可用區存儲後端應該被製備到 Pod 被調度到的可用區。
 這可以通過設置[卷綁定模式](/zh-cn/docs/concepts/storage/storage-classes/#volume-binding-mode)來實現。
 

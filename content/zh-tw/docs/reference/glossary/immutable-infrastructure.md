@@ -4,7 +4,7 @@ id: immutable-infrastructure
 date: 2024-03-25
 full_link:
 short_description: >
-  不可變基礎設施指的是一旦部署就不能變更的計算機基礎設施（虛擬機、容器和網絡設施）
+  不可變基礎設施指的是一旦部署就不能變更的計算機基礎設施（虛擬機、容器和網路設施）
 
 aka: 
 tags:
@@ -27,7 +27,7 @@ tags:
 <!--
 Immutable Infrastructure refers to computer infrastructure (virtual machines, containers, network appliances) that cannot be changed once deployed.
 -->
-不可變基礎設施指的是一旦部署就不能變更的計算機基礎設施（虛擬機、容器和網絡設施）。
+不可變基礎設施指的是一旦部署就不能變更的計算機基礎設施（虛擬機、容器和網路設施）。
 
 <!--more-->
 
@@ -38,7 +38,7 @@ can only be made by creating a new version of the container or recreating the ex
 -->
 不可變性可以通過某個自動化進程或某種系統來強制執行，前者會覆蓋未經授權的變更，而後者從源頭上就不允許進行變更。
 {{< glossary_tooltip text="容器" term_id="container" >}}是不可變基礎設施的一個很好的例子，
-這是因爲對容器的持久變更只能通過創建新版本的容器或從其鏡像重新創建現有容器來進行。
+這是因爲對容器的持久變更只能通過創建新版本的容器或從其映像檔重新創建現有容器來進行。
 
 <!--
 By preventing or identifying unauthorized changes, immutable infrastructures make it easier to identify and mitigate security risks. 

@@ -44,7 +44,7 @@ locks mechanism that kubelet relies upon, or because of a configuration error
 只有當 kubelet 在實際關閉之前檢測到節點關閉動作時，節點關閉纔是“體面（graceful）”的。
 但是，在某些情況下，kubelet 可能檢測不到節點關閉操作。
 這可能是因爲 shutdown 命令沒有觸發 kubelet 所依賴的 systemd 抑制鎖機制，
-或者是因爲配置錯誤（`ShutdownGracePeriod` 和 `ShutdownGracePeriodCriticalPods` 配置不正確）。
+或者是因爲設定錯誤（`ShutdownGracePeriod` 和 `ShutdownGracePeriodCriticalPods` 設定不正確）。
 
 <!--
 Graceful node shutdown relies on Linux-specific support. The kubelet does not watch for upcoming
@@ -67,10 +67,10 @@ If the original node has failed and does not come up, those stateful pods would 
 terminating status on that failed node indefinitely.
 -->
 當一個節點被關閉但 kubelet 沒有檢測到時，該節點上的 Pod 也會非體面地關閉。
-對於無狀態應用程序，這通常不是問題（一旦集羣檢測到受影響的節點或 Pod 出現故障，ReplicaSet 就會添加一個新的 Pod）。
+對於無狀態應用程序，這通常不是問題（一旦叢集檢測到受影響的節點或 Pod 出現故障，ReplicaSet 就會添加一個新的 Pod）。
 對於有狀態的應用程序，情況要複雜得多。如果你使用一個 StatefulSet，
 並且該 StatefulSet 中的一個 Pod 在某個節點上發生了不乾淨故障，則該受影響的 Pod 將被標記爲終止（Terminating）；
-StatefulSet 無法創建替換 Pod，因爲該 Pod 仍存在於集羣中。
+StatefulSet 無法創建替換 Pod，因爲該 Pod 仍存在於叢集中。
 因此，在 StatefulSet 上運行的應用程序可能會降級甚至離線。
 如果已關閉的原節點再次出現，該節點上的 kubelet 會執行報到操作，刪除現有的 Pod，
 並且控制平面會在不同的運行節點上爲該 StatefulSet 生成一個替換 Pod。
@@ -131,7 +131,7 @@ Note: Before applying the out-of-service taint, you **must** verify that a node 
 either because the user intentionally shut it down or the node is down due to hardware failures, OS issues, etc.
 -->
 注意：在應用 out-of-service 污點之前，你**必須**確認節點是否已經處於關閉或斷電狀態（不是在重新啓動過程中），
-節點關閉的原因可能是用戶有意將其關閉，也可能是節點由於硬件故障、操作系統問題等而關閉。
+節點關閉的原因可能是使用者有意將其關閉，也可能是節點由於硬件故障、操作系統問題等而關閉。
 
 <!--
 Once all the workload pods that are linked to the out-of-service node are moved to a new running node, and the shutdown node has been recovered, you should remove
@@ -139,7 +139,7 @@ that taint on the affected node after the node is recovered.
 If you know that the node will not return to service, you could instead delete the node from the cluster.
 -->
 一旦關聯到無法提供服務的節點的所有工作負載 Pod 都被移動到新的運行中的節點，並且關閉了的節點也已恢復，
-你應該在節點恢復後刪除受影響節點上的污點。如果你知道該節點不會恢復服務，則可以改爲從集羣中刪除該節點。
+你應該在節點恢復後刪除受影響節點上的污點。如果你知道該節點不會恢復服務，則可以改爲從叢集中刪除該節點。
 
 <!--
 ## What’s next?
@@ -154,7 +154,7 @@ Depending on feedback and adoption, the Kubernetes team plans to push the Non-Gr
 This feature requires a user to manually add a taint to the node to trigger workloads failover and remove the taint after the node is recovered. 
 In the future, we plan to find ways to automatically detect and fence nodes that are shutdown/failed and automatically failover workloads to another node.
 -->
-此功能需要用戶手動向節點添加污點以觸發工作負載故障轉移，並要求用戶在節點恢復後移除污點。
+此功能需要使用者手動向節點添加污點以觸發工作負載故障轉移，並要求使用者在節點恢復後移除污點。
 未來，我們計劃尋找方法來自動檢測和隔離已關閉的或已失敗的節點，並自動將工作負載故障轉移到另一個節點。
 
 <!--

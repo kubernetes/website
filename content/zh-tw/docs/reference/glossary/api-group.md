@@ -37,7 +37,7 @@ You can enable or disable each API group by changing the configuration of your A
 {{< glossary_tooltip text="resources" term_id="api-resource" >}}. API group makes it easier to extend the Kubernetes API.
 The API group is specified in a REST path and in the `apiVersion` field of a serialized {{< glossary_tooltip text="object" term_id="object" >}}. 
 -->
-通過更改 API 服務器的配置，可以啓用或禁用每個 API 組 (API Group)。
+通過更改 API 伺服器的設定，可以啓用或禁用每個 API 組 (API Group)。
 你還可以禁用或啓用指向特定{{< glossary_tooltip text="資源" term_id="api-resource" >}}的路徑。
 API 組使擴展 Kubernetes API 更加的容易。
 API 組在 REST 路徑和序列化{{< glossary_tooltip text="對象" term_id="object" >}}的

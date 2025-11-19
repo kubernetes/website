@@ -221,7 +221,7 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
 -->
 * Pod 的資源 request 等於其成員容器的資源 request 之和，Pod 的資源 limit 等於其成員容器的資源 limit 之和。
 * kube-scheduler 在選擇要[搶佔](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)的
-  Pod 時不考慮 QoS 類。當集羣沒有足夠的資源來運行你所定義的所有 Pod 時，就會發生搶佔。
+  Pod 時不考慮 QoS 類。當叢集沒有足夠的資源來運行你所定義的所有 Pod 時，就會發生搶佔。
 
 ## {{% heading "whatsnext" %}}
 
@@ -240,4 +240,4 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
 * 進一步瞭解 [Pod 干擾](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
 * 進一步瞭解如何[爲容器和 Pod 分配內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)。
 * 進一步瞭解如何[爲容器和 Pod 分配 CPU 資源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)。
-* 進一步瞭解如何[配置 Pod 的服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)。
+* 進一步瞭解如何[設定 Pod 的服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)。

@@ -1,5 +1,5 @@
 ---
-title: Kubelet 配置 (v1beta1)
+title: Kubelet 設定 (v1beta1)
 content_type: tool-reference
 package: kubelet.config.k8s.io/v1beta1
 ---
@@ -413,7 +413,7 @@ flushFrequency field, and new fields should use metav1.Duration.
 <!--
 TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
 -->
-TracingConfiguration 爲 OpenTelemetry 追蹤客戶端提供版本化的配置信息。
+TracingConfiguration 爲 OpenTelemetry 追蹤客戶端提供版本化的設定信息。
 </p>
 
 <table class="table">
@@ -501,8 +501,8 @@ CredentialProviderConfig is the configuration containing information about
 each exec credential provider. Kubelet reads this configuration from disk and enables
 each provider as specified by the CredentialProvider type.
 -->
-CredentialProviderConfig 包含有關每個 exec 憑據提供者的配置信息。
-kubelet 從磁盤上讀取這些配置信息，並根據 CredentialProvider 類型啓用各個提供者。
+CredentialProviderConfig 包含有關每個 exec 憑據提供者的設定信息。
+kubelet 從磁盤上讀取這些設定信息，並根據 CredentialProvider 類型啓用各個提供者。
 </p>
 
 <table class="table">
@@ -525,8 +525,8 @@ auth keys, the value from the provider earlier in this list is attempted first.
 -->
    <p>
    <code>providers</code> 是一組憑據提供者插件，這些插件會被 kubelet 啓用。
-   多個提供者可以匹配到同一鏡像上，這時，來自所有提供者的憑據信息都會返回給 kubelet。
-   如果針對同一鏡像調用了多個提供者，則結果會被組合起來。如果提供者返回的認證主鍵有重複，
+   多個提供者可以匹配到同一映像檔上，這時，來自所有提供者的憑據信息都會返回給 kubelet。
+   如果針對同一映像檔調用了多個提供者，則結果會被組合起來。如果提供者返回的認證主鍵有重複，
    列表中先出現的提供者所返回的值將被首先嚐試。
    </p>
 </td>
@@ -540,7 +540,7 @@ auth keys, the value from the provider earlier in this list is attempted first.
 <!--
 KubeletConfiguration contains the configuration for the Kubelet
 -->
-KubeletConfiguration 中包含 kubelet 的配置。
+KubeletConfiguration 中包含 kubelet 的設定。
 </p>
 
 <table class="table">
@@ -558,7 +558,7 @@ KubeletConfiguration 中包含 kubelet 的配置。
 Note: Kubelet's insecure port is controlled by the readOnlyPort option.
 Default: true
    -->
-  <p><code>enableServer</code> 會啓用 kubelet 的安全服務器。</p>
+  <p><code>enableServer</code> 會啓用 kubelet 的安全伺服器。</p>
   <p>注意：kubelet 的不安全端口由 <code>readOnlyPort</code> 選項控制。</p>
   <p>默認值：<code>true</code></p>
 </td>
@@ -605,7 +605,7 @@ unexpected behavior in many places.</p>
 containers and config.
 Default: &quot;1m&quot;
    -->
-  <p><code>syncFrequency</code> 是對運行中的容器和配置進行同步的最長週期。</p>
+  <p><code>syncFrequency</code> 是對運行中的容器和設定進行同步的最長週期。</p>
   <p>默認值：&quot;1m&quot;</p>
 </td>
 </tr>
@@ -619,7 +619,7 @@ Default: &quot;1m&quot;
 new data.
 Default: &quot;20s&quot;
    -->
-  <p><code>fileCheckFrequency</code> 是對配置文件中新數據進行檢查的時間間隔值。</p>
+  <p><code>fileCheckFrequency</code> 是對設定文件中新數據進行檢查的時間間隔值。</p>
   <p>默認值：&quot;20s&quot;</p>
 </td>
 </tr>
@@ -632,7 +632,7 @@ Default: &quot;20s&quot;
    httpCheckFrequency is the duration between checking http for new data.
 Default: &quot;20s&quot;
   -->
-  <p><code>httpCheckFrequency</code> 是對 HTTP 服務器上新數據進行檢查的時間間隔值。</p>
+  <p><code>httpCheckFrequency</code> 是對 HTTP 伺服器上新數據進行檢查的時間間隔值。</p>
   <p>默認值：&quot;20s&quot;</p>
 </td>
 </tr>
@@ -674,7 +674,7 @@ for all interfaces).
 Default: &quot;0.0.0.0&quot;
    -->
    <p><code>address</code> 是 kubelet 提供服務所用的 IP 地址（設置爲 0.0.0.0
-使用所有網絡接口提供服務）。</p>
+使用所有網路接口提供服務）。</p>
   <p>默認值：&quot;0.0.0.0&quot;</p>
 </td>
 </tr>
@@ -725,7 +725,7 @@ passed to the Kubelet's --cert-dir flag.
 Default:&quot;quot;
   -->
   <p><code>tlsCertFile</code> 是包含 HTTPS 所需要的 x509 證書的文件
-（如果有 CA 證書，會串接到服務器證書之後）。如果<code>tlsCertFile</code>
+（如果有 CA 證書，會串接到伺服器證書之後）。如果<code>tlsCertFile</code>
 和 <code>tlsPrivateKeyFile</code> 都沒有設置，則系統會爲節點的公開地址生成自簽名的證書和私鑰，
 並將其保存到 kubelet <code>--cert-dir</code> 參數所指定的目錄下。</p>
   <p>默認值：&quot;&quot;</p>
@@ -756,8 +756,8 @@ Default: &quot;&quot;
    Values are from tls package constants (https://golang.org/pkg/crypto/tls/#pkg-constants).
    Default: nil
    -->
-   <p><code>tlsCipherSuites</code> 是一個字符串列表，其中包含服務器所接受的加密包名稱。
-   請注意，TLS 1.3 密碼套件是不可配置的。
+   <p><code>tlsCipherSuites</code> 是一個字符串列表，其中包含伺服器所接受的加密包名稱。
+   請注意，TLS 1.3 密碼套件是不可設定的。
    列表中的每個值來自於 <code>tls</code> 包中定義的常數（https://golang.org/pkg/crypto/tls/#pkg-constants）。</p>
   <p>默認值：nil</p>
 </td>
@@ -805,7 +805,7 @@ certificate signing requests (CSR). The RotateKubeletServerCertificate feature
 must be enabled when setting this field.
 Default: false
    -->
-   <p><code>serverTLSBootstrap</code> 用來啓用服務器證書引導。系統不再使用自簽名的服務證書，
+   <p><code>serverTLSBootstrap</code> 用來啓用伺服器證書引導。系統不再使用自簽名的服務證書，
 kubelet 會調用 <code>certificates.k8s.io</code> API 來請求證書。
 需要有一個批覆人來批准證書籤名請求（CSR）。
 設置此字段時，<code>RotateKubeletServerCertificate</code> 特性必須被啓用。</p>
@@ -826,7 +826,7 @@ webhook:
 enabled: true
 cacheTTL: &quot;2m&quot;
    -->
-   <p><code>authentication</code> 設置發送給 kubelet 服務器的請求是如何進行身份認證的。</p>
+   <p><code>authentication</code> 設置發送給 kubelet 伺服器的請求是如何進行身份認證的。</p>
 <p>默認值：</p>
 <p><code>
 anonymous:
@@ -850,7 +850,7 @@ webhook:
 cacheAuthorizedTTL: &quot;5m&quot;
 cacheUnauthorizedTTL: &quot;30s&quot;
    -->
-   <p><code>authorization</code> 設置發送給 kubelet 服務器的請求是如何進行鑑權的。</p>
+   <p><code>authorization</code> 設置發送給 kubelet 伺服器的請求是如何進行鑑權的。</p>
 <p>默認值：</p>
 <p><code>
 mode: Webhook
@@ -871,7 +871,7 @@ The value must not be a negative number.
 Setting it to 0 means no limit.
 Default: 5
    -->
-   <p><code>registryPullQPS</code> 是每秒鐘可以執行的鏡像倉庫拉取操作限值。
+   <p><code>registryPullQPS</code> 是每秒鐘可以執行的映像檔倉庫拉取操作限值。
 此值必須不能爲負數。將其設置爲 0 表示沒有限值。</p>
   <p>默認值：5</code>
 </td>
@@ -888,7 +888,7 @@ The value must not be a negative number.
 Only used if registryPullQPS is greater than 0.
 Default: 10
    -->
-   <p><code>registryBurst</code> 是突發性鏡像拉取的上限值，允許鏡像拉取臨時上升到所指定數量，
+   <p><code>registryBurst</code> 是突發性映像檔拉取的上限值，允許映像檔拉取臨時上升到所指定數量，
 不過仍然不超過 <code>registryPullQPS</code> 所設置的約束。此值必須是非負值。
 只有 <code>registryPullQPS</code> 參數值大於 0 時纔會使用此設置。</p>
   <p>默認值：10</p>
@@ -904,21 +904,21 @@ Default: 10
    imagePullCredentialsVerificationPolicy determines how credentials should be
 verified when pod requests an image that is already present on the node:
 -->
-<code>imagePullCredentialsVerificationPolicy</code> 決定當 Pod 請求節點上已存在的鏡像時，憑據應被如何驗證：
+<code>imagePullCredentialsVerificationPolicy</code> 決定當 Pod 請求節點上已存在的映像檔時，憑據應被如何驗證：
 </p>
 <ul>
 <li>NeverVerify
 <!--
 anyone on a node can use any image present on the node
 -->
-節點上的任何人都可以使用該節點上存在的所有鏡像
+節點上的任何人都可以使用該節點上存在的所有映像檔
 </li>
 <li>NeverVerifyPreloadedImages
 <!--
 images that were pulled to the node by something else than the kubelet
 can be used without reverifying pull credentials
 -->
-由 kubelet 以外的方式拉取到節點上的鏡像可以在不重新驗證憑據的情況下使用
+由 kubelet 以外的方式拉取到節點上的映像檔可以在不重新驗證憑據的情況下使用
 </li>
 <li>NeverVerifyAllowlistedImages
 <!--
@@ -926,13 +926,13 @@ like &quot;NeverVerifyPreloadedImages&quot; but only node images from
 <code>preloadedImagesVerificationAllowlist</code> don't require reverification
 -->
 類似於 &quot;NeverVerifyPreloadedImages&quot;，但只有源於
-<code>preloadedImagesVerificationAllowlist</code> 的節點鏡像無需重新驗證
+<code>preloadedImagesVerificationAllowlist</code> 的節點映像檔無需重新驗證
 </li>
 <li>AlwaysVerify
 <!--
 all images require credential reverification
 -->
-所有鏡像都需要重新驗證憑據
+所有映像檔都需要重新驗證憑據
 </li>
 </ul>
 </td>
@@ -949,10 +949,10 @@ exempted from credential reverification for the &quot;NeverVerifyAllowlistedImag
 The list accepts a full path segment wildcard suffix &quot;/*&quot;.
 Only use image specs without an image tag or digest.
 -->
-<code>preloadedImagesVerificationAllowlist</code> 指定一個鏡像列表，對於
+<code>preloadedImagesVerificationAllowlist</code> 指定一個映像檔列表，對於
 <code>imagePullCredentialsVerificationPolicy</code> 設置爲
-&quot;NeverVerifyAllowlistedImages&quot; 時，這些鏡像可免於重新驗證憑據。
-此列表支持以 &quot;/*&quot; 結尾的路徑通配符。請僅使用不帶鏡像標籤或摘要的鏡像規約。
+&quot;NeverVerifyAllowlistedImages&quot; 時，這些映像檔可免於重新驗證憑據。
+此列表支持以 &quot;/*&quot; 結尾的路徑通配符。請僅使用不帶映像檔標籤或摘要的映像檔規約。
 </p>
 </td>
 </tr>
@@ -1000,7 +1000,7 @@ and local running of containers and commands, including the exec,
 attach, logs, and portforward features.
 Default: true
    -->
-   <p><code>enableDebuggingHandlers</code> 啓用服務器上用來訪問日誌、
+   <p><code>enableDebuggingHandlers</code> 啓用伺服器上用來訪問日誌、
 在本地運行容器和命令的端點，包括 <code>exec</code>、<code>attach</code>、
 <code>logs</code> 和 <code>portforward</code> 等功能。</p>
   <p>默認值：true</p>
@@ -1044,7 +1044,7 @@ Default: 10248
    healthzBindAddress is the IP address for the healthz server to serve on.
 Default: &quot;127.0.0.1&quot;
    -->
-   <p><code>healthzBindAddress<code> 是 <code>healthz</code> 服務器用來提供服務的 IP 地址。</p>
+   <p><code>healthzBindAddress<code> 是 <code>healthz</code> 伺服器用來提供服務的 IP 地址。</p>
   <p>默認值：&quot;127.0.0.1&quot;</p>
 </td>
 </tr>
@@ -1074,8 +1074,8 @@ configure all containers to search this domain in addition to the
 host's search domains.
 Default: &quot;&quot;
    -->
-   <p><code>clusterDomain</code> 是集羣的 DNS 域名。如果設置了此字段，kubelet
-會配置所有容器，使之在搜索主機的搜索域的同時也搜索這裏指定的 DNS 域。</p>
+   <p><code>clusterDomain</code> 是叢集的 DNS 域名。如果設置了此字段，kubelet
+會設定所有容器，使之在搜索主機的搜索域的同時也搜索這裏指定的 DNS 域。</p>
    <p>默認值：&quot;&quot;</p>
 </td>
 </tr>
@@ -1090,9 +1090,9 @@ kubelet will configure all containers to use this for DNS resolution
 instead of the host's DNS servers.
 Default: nil
   -->
-  <p><code>clusterDNS</code> 是集羣 DNS 服務器的 IP 地址的列表。
-如果設置了，kubelet 將會配置所有容器使用這裏的 IP 地址而不是宿主系統上的 DNS
-服務器來完成 DNS 解析。
+  <p><code>clusterDNS</code> 是叢集 DNS 伺服器的 IP 地址的列表。
+如果設置了，kubelet 將會設定所有容器使用這裏的 IP 地址而不是宿主系統上的 DNS
+伺服器來完成 DNS 解析。
   <p>默認值：nil</p>
 </td>
 </tr>
@@ -1193,7 +1193,7 @@ Default: 40
 garbage collected. 
 Default: &quot;2m&quot;
    -->
-   <p><code>imageMinimumGCAge</code> 是對未使用鏡像進行垃圾收集之前允許其存在的時長。</p>
+   <p><code>imageMinimumGCAge</code> 是對未使用映像檔進行垃圾收集之前允許其存在的時長。</p>
    <p>默認值：&quot;2m&quot;</p>
 </td>
 </tr>
@@ -1210,8 +1210,8 @@ The default of this field is &quot;0s&quot;, which disables this field--meaning 
 collected based on being unused for too long.
 Default: &quot;0s&quot; (disabled)
    -->
-   <p><code>imageMaximumGCAge</code> 是對未使用鏡像進行垃圾收集之前允許其存在的時長。
-   此字段的默認值爲 &quot;0s&quot;，表示禁用此字段，這意味着鏡像不會因爲過長時間不使用而被垃圾收集。</p>
+   <p><code>imageMaximumGCAge</code> 是對未使用映像檔進行垃圾收集之前允許其存在的時長。
+   此字段的默認值爲 &quot;0s&quot;，表示禁用此字段，這意味着映像檔不會因爲過長時間不使用而被垃圾收集。</p>
    <p>默認值：&quot;0s&quot;（已禁用）</p>
 </td>
 </tr>
@@ -1228,8 +1228,8 @@ dividing this field value by 100, so this field must be between 0 and
 imageGCLowThresholdPercent.
 Default: 85
    -->
-   <p><code>imageGCHighThresholdPercent</code> 所給的是鏡像的磁盤用量百分數，
-一旦鏡像用量超過此閾值，則鏡像垃圾收集會一直運行。百分比是用這裏的值除以 100
+   <p><code>imageGCHighThresholdPercent</code> 所給的是映像檔的磁盤用量百分數，
+一旦映像檔用量超過此閾值，則映像檔垃圾收集會一直運行。百分比是用這裏的值除以 100
 得到的，所以此字段取值必須介於 0 和 100 之間，包括 0 和 100。如果設置了此字段，
 則取值必須大於 <code>imageGCLowThresholdPercent</code> 取值。</p>
    <p>默認值：85</p>
@@ -1248,8 +1248,8 @@ so the field value must be between 0 and 100, inclusive. When specified, the
 value must be less than imageGCHighThresholdPercent.
 Default: 80
    -->
-   <p><code>imageGCLowThresholdPercent</code> 所給的是鏡像的磁盤用量百分數，
-鏡像用量低於此閾值時不會執行鏡像垃圾收集操作。垃圾收集操作也將此作爲最低磁盤用量邊界。
+   <p><code>imageGCLowThresholdPercent</code> 所給的是映像檔的磁盤用量百分數，
+映像檔用量低於此閾值時不會執行映像檔垃圾收集操作。垃圾收集操作也將此作爲最低磁盤用量邊界。
 百分比是用這裏的值除以 100 得到的，所以此字段取值必須介於 0 和 100 之間，包括 0 和 100。
 如果設置了此字段，則取值必須小於 <code>imageGCHighThresholdPercent</code> 取值。</p>
    <p>默認值：80</p>
@@ -1540,7 +1540,7 @@ bridge for hairpin packets.
 Setting this flag allows endpoints in a Service to loadbalance back to
 themselves if they should try to access their own Service. Values:</p>
    -->
-   <p><code>hairpinMode</code> 設置 kubelet 如何爲髮夾模式數據包配置容器網橋。
+   <p><code>hairpinMode</code> 設置 kubelet 如何爲髮夾模式數據包設定容器網橋。
 設置此字段可以讓 Service 中的端點在嘗試訪問自身 Service 時將服務請求路由的自身。
 可選值有：</p>
    <!--
@@ -1558,7 +1558,7 @@ themselves if they should try to access their own Service. Values:</p>
 because promiscuous-bridge assumes the existence of a container bridge named cbr0.
 Default: &quot;promiscuous-bridge&quot;
    -->
-   <p>一般而言，用戶必須設置 <code>--hairpin-mode=hairpin-veth</code> 才能實現髮夾模式的網絡地址轉譯
+   <p>一般而言，使用者必須設置 <code>--hairpin-mode=hairpin-veth</code> 才能實現髮夾模式的網路地址轉譯
 （NAT），因爲混雜模式的網橋要求存在一個名爲 <code>cbr0</code> 的容器網橋。</p>
    <p>默認值：&quot;promiscuous-bridge&quot;</p>
 </td>
@@ -1588,7 +1588,7 @@ In cluster mode, this is obtained from the control plane.
 Default: &quot;&quot;
    -->
    <p><code>podCIDR</code> 是用來設置 Pod IP 地址的 CIDR 值，僅用於獨立部署模式。
-運行於集羣模式時，這一數值會從控制面獲得。</p>
+運行於叢集模式時，這一數值會從控制面獲得。</p>
    <p>默認值：&quot;&quot;</p>
 </td>
 </tr>
@@ -1616,8 +1616,8 @@ for the container DNS resolution configuration.
 If set to the empty string, will override the default and effectively disable DNS lookups.
 Default: &quot;/etc/resolv.conf&quot;
    -->
-   <p><code>resolvConf</code> 是一個域名解析配置文件，用作容器 DNS 解析配置的基礎。</p>
-   <p>如果此值設置爲空字符串，則會覆蓋 DNS 解析的默認配置，本質上相當於禁用了 DNS 查詢。</p>
+   <p><code>resolvConf</code> 是一個域名解析設定文件，用作容器 DNS 解析設定的基礎。</p>
+   <p>如果此值設置爲空字符串，則會覆蓋 DNS 解析的默認設定，本質上相當於禁用了 DNS 查詢。</p>
    <p>默認值：&quot;/etc/resolv.conf&quot;</p>
 </td>
 </tr>
@@ -1631,7 +1631,7 @@ Default: &quot;/etc/resolv.conf&quot;
 run those in addition to the pods specified by static pod files, and exit.
 Default: false
    -->
-   <p><code>runOnce</code> 字段被設置時，kubelet 會諮詢 API 服務器一次並獲得 Pod 列表，
+   <p><code>runOnce</code> 字段被設置時，kubelet 會諮詢 API 伺服器一次並獲得 Pod 列表，
 運行在靜態 Pod 文件中指定的 Pod 及這裏所獲得的 Pod，然後退出。</p>
    <p>默認值：false</p>
 </td>
@@ -1678,9 +1678,9 @@ The value must be greater than -2.
 Note: If -1 is specified, no cap will be applied. If 0 is specified, no image is returned.
 Default: 50
    -->
-   <p><code>nodeStatusMaxImages</code> 限制 <code>Node.status.images</code> 中報告的鏡像數量。
+   <p><code>nodeStatusMaxImages</code> 限制 <code>Node.status.images</code> 中報告的映像檔數量。
 此值必須大於 -2。</p>
-   <p>注意：如果設置爲 -1，則不會對鏡像數量做限制；如果設置爲 0，則不會返回任何鏡像。</p>
+   <p>注意：如果設置爲 -1，則不會對映像檔數量做限制；如果設置爲 0，則不會返回任何映像檔。</p>
    <p>默認值：50</p>
 </td>
 </tr>
@@ -1707,7 +1707,7 @@ Default: 1000000
    contentType is contentType of requests sent to apiserver.
 Default: &quot;application/vnd.kubernetes.protobuf&quot;
    -->
-   <p><code>contentType</code> 是向 API 服務器發送請求時使用的內容類型。</p>
+   <p><code>contentType</code> 是向 API 伺服器發送請求時使用的內容類型。</p>
    <p>默認值：&quot;application/vnd.kubernetes.protobuf&quot;</p>
 </td>
 </tr>
@@ -1720,7 +1720,7 @@ Default: &quot;application/vnd.kubernetes.protobuf&quot;
    kubeAPIQPS is the QPS to use while talking with kubernetes apiserver.
 Default: 50
    -->
-   <p><code>kubeAPIQPS</code> 設置與 Kubernetes API 服務器通信時要使用的 QPS（每秒查詢數）。</p>
+   <p><code>kubeAPIQPS</code> 設置與 Kubernetes API 伺服器通信時要使用的 QPS（每秒查詢數）。</p>
    <p>默認值：50</p>
 </td>
 </tr>
@@ -1734,7 +1734,7 @@ Default: 50
 This field cannot be a negative number.
 Default: 100
    -->
-   <p><code>kubeAPIBurst</code> 設置與 Kubernetes API 服務器通信時突發的流量級別。
+   <p><code>kubeAPIBurst</code> 設置與 Kubernetes API 伺服器通信時突發的流量級別。
 此字段取值不可以是負數。</p>
    <p>默認值：100</p>
 </td>
@@ -1751,7 +1751,7 @@ run docker daemon with version  &lt; 1.9 or an Aufs storage backend.
 Issue #10959 has more details.
 Default: true
    -->
-   <p><code>serializeImagePulls</code> 被啓用時會通知 kubelet 每次僅拉取一個鏡像。
+   <p><code>serializeImagePulls</code> 被啓用時會通知 kubelet 每次僅拉取一個映像檔。
 我們建議<em>不要</em>在所運行的 Docker 守護進程版本低於 1.9、使用 aufs
 存儲後端的節點上更改默認值。詳細信息可參見 Issue #10959。</p>
    <p>默認值：true</p>
@@ -1768,7 +1768,7 @@ This field cannot be set if SerializeImagePulls is true.
 Setting it to nil means no limit.
 Default: nil
    -->
-   <p><code>maxParallelImagePulls</code> 設置並行拉取鏡像的最大數量。
+   <p><code>maxParallelImagePulls</code> 設置並行拉取映像檔的最大數量。
 如果 <code>serializeImagePulls</code> 爲 true，則無法設置此字段。
 把它設置爲 nil 意味着沒有限制。</p>
    <p>默認值：nil</p>
@@ -1906,9 +1906,9 @@ It applies to merging the fields for which the default exists, and currently onl
 Default: false
 -->
 <code>mergeDefaultEvictionSettings</code> 表示是否應將 evictionHard、evictionSoft、
-evictionSoftGracePeriod 和 evictionMinimumReclaim 字段的默認值合併到此配置中爲這些字段指定的取值中。
-在此配置中顯式指定的信號優先生效。未在此配置中指定的信號將繼承其默認值。
-如果設置爲 false，並且此配置中指定了任一信號，則此配置中未指定的其他信號將被設置爲 0。
+evictionSoftGracePeriod 和 evictionMinimumReclaim 字段的默認值合併到此設定中爲這些字段指定的取值中。
+在此設定中顯式指定的信號優先生效。未在此設定中指定的信號將繼承其默認值。
+如果設置爲 false，並且此設定中指定了任一信號，則此設定中未指定的其他信號將被設置爲 0。
 此字段適用於合並存在默認值的字段，目前僅 evictionHard 有默認值。
 默認值：false。
 </p>
@@ -1980,7 +1980,7 @@ configuration of iptables on the system.
 Default: true
    -->
    <p><code>makeIPTablesUtilChains</code> 設置爲 <code>true</code> 時，相當於允許 kubelet
-在 iptables 中創建 KUBE-IPTABLES-HINT 鏈，提示其他組件有關係統上 iptables 的配置。</p>
+在 iptables 中創建 KUBE-IPTABLES-HINT 鏈，提示其他組件有關係統上 iptables 的設定。</p>
    <p>默認值：true</p>
 </td>
 </tr>
@@ -2053,7 +2053,7 @@ Default: true
    <!--
    memorySwap configures swap memory available to container workloads.
    -->
-   <p><code>memorySwap</code> 配置容器負載可用的交換內存。</p>
+   <p><code>memorySwap</code> 設定容器負載可用的交換內存。</p>
 </td>
 </tr>
 
@@ -2137,8 +2137,8 @@ managers are running. Valid values include:</p>
    <p><code>configMapAndSecretChangeDetectionStrategy</code> 是 ConfigMap 和 Secret
 管理器的運行模式。合法值包括：</p>
    <ul>
-    <li><code>Get</code>：kubelet 從 API 服務器直接取回必要的對象；</li>
-    <li><code>Cache</code>：kubelet 使用 TTL 緩存來管理來自 API 服務器的對象；</li>
+    <li><code>Get</code>：kubelet 從 API 伺服器直接取回必要的對象；</li>
+    <li><code>Cache</code>：kubelet 使用 TTL 緩存來管理來自 API 伺服器的對象；</li>
     <li><code>Watch</code>：kubelet 使用 watch 操作來觀察所關心的對象的變更。</li>
     </ul>
    <p>默認值：&quot;Watch&quot;</p>
@@ -2485,7 +2485,7 @@ Default: nil
 當所有 Pod 都退出或者到達其寬限期限時，kubelet 會釋放關閉防護鎖。
 此功能要求 <code>GracefulNodeShutdown</code> 特性門控被啓用。</p>
    <p>當 <code>shutdownGracePeriod</code> 或 <code>shutdownGracePeriodCriticalPods</code>
-被設置時，此配置字段必須爲空。</p>
+被設置時，此設定字段必須爲空。</p>
    <p>默認值：nil</p>
 </td>
 </tr>
@@ -2499,7 +2499,7 @@ Default: nil
    CrashLoopBackOff contains config to modify node-level parameters for
 container restart behavior
 -->
-   <code>crashLoopBackOff</code> 包含修改節點級別參數的配置，用於容器重啓行爲。
+   <code>crashLoopBackOff</code> 包含修改節點級別參數的設定，用於容器重啓行爲。
    </p>
 </td>
 </tr>
@@ -2542,7 +2542,7 @@ Also, avoid specifying:
    <li>memory types except for memory and hugepages-&lt;size&gt;</li>
    </ol>
    -->
-   <li>在配置值中存在重複項，NUMA 節點和內存類型相同，但配置值不同，這是不允許的。</li>
+   <li>在設定值中存在重複項，NUMA 節點和內存類型相同，但設定值不同，這是不允許的。</li>
    <li>爲任何內存類型設置限制值爲零。</li>
    <li>NUMA 節點 ID 在宿主系統上不存在。/li>
    <li>除 <code>memory</code> 和 <code>hugepages-&lt;size&gt;</code> 之外的內存類型。</li>
@@ -2593,7 +2593,7 @@ This requires the corresponding SeccompDefault feature gate to be enabled as wel
 Default: false
    -->
    <p><code>seccompDefault</code> 字段允許針對所有負載將 <code>RuntimeDefault</code>
-設置爲默認的 seccomp 配置。這一設置要求對應的 <code>SeccompDefault</code> 特性門控被啓用。</p>
+設置爲默認的 seccomp 設定。這一設置要求對應的 <code>SeccompDefault</code> 特性門控被啓用。</p>
    <p>默認值：false</p>
 </td>
 </tr>
@@ -2643,7 +2643,7 @@ Default: nil
    registerNode enables automatic registration with the apiserver.
 Default: true
    -->
-   <p><code>registerNode</code> 啓用向 API 服務器的自動註冊。</p>
+   <p><code>registerNode</code> 啓用向 API 伺服器的自動註冊。</p>
    <p>默認值：true</p>
 </td>
 </tr>
@@ -2655,7 +2655,7 @@ Default: true
    Tracing specifies the versioned configuration for OpenTelemetry tracing clients.
 See https://kep.k8s.io/2832 for more details.
    -->
-   <p>tracing 爲 OpenTelemetry 追蹤客戶端設置版本化的配置信息。
+   <p>tracing 爲 OpenTelemetry 追蹤客戶端設置版本化的設定信息。
 參閱 https://kep.k8s.io/2832 瞭解更多細節。</p>
 </td>
 </tr>
@@ -2674,11 +2674,11 @@ disabled. Once disabled, user should not set request/limit for container's ephem
 Default: true
    -->
    <p>localStorageCapacityIsolation 啓用本地臨時存儲隔離特性。默認設置爲 true。
-此特性允許用戶爲容器的臨時存儲設置請求/限制，並以類似的方式管理 cpu 和 memory 的請求/限制。
+此特性允許使用者爲容器的臨時存儲設置請求/限制，並以類似的方式管理 cpu 和 memory 的請求/限制。
 此特性還允許爲 emptyDir 卷設置 sizeLimit，如果卷所用的磁盤超過此限制將觸發 Pod 驅逐。
 此特性取決於準確測定根文件系統磁盤用量的能力。對於 kind rootless 這類系統，
 如果不支持此能力，則 LocalStorageCapacityIsolation 特性應被禁用。
-一旦禁用，用戶不應該爲容器的臨時存儲設置請求/限制，也不應該爲 emptyDir 設置 sizeLimit。
+一旦禁用，使用者不應該爲容器的臨時存儲設置請求/限制，也不應該爲 emptyDir 設置 sizeLimit。
 默認值：true</p>
 </td>
 </tr>
@@ -2706,7 +2706,7 @@ Unix Domain Socket are supported on Linux, while npipe and tcp endpoints are sup
 Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'.
 If not specified, the value in containerRuntimeEndpoint is used.
    -->
-   <p>imageServiceEndpoint 是容器鏡像服務的端點。
+   <p>imageServiceEndpoint 是容器映像檔服務的端點。
 Linux 支持 UNIX 域套接字，而 Windows 支持命名管道和 TCP 端點。
 示例：'unix:///path/to/runtime.sock'、'npipe:////./pipe/runtime'。
 如果未指定，則使用 containerRuntimeEndpoint 中的值。</p>
@@ -2740,7 +2740,7 @@ Default: false
    <!--
    UserNamespaces contains User Namespace configurations.
    -->
-   <code>userNamespaces</code> 包含用戶命名空間配置。
+   <code>userNamespaces</code> 包含使用者命名空間設定。
    </p>
 </td>
 </tr>
@@ -2756,7 +2756,7 @@ This type is used internally by the Kubelet for tracking checkpointed dynamic co
 It exists in the kubeletconfig API group because it is classified as a versioned input to the Kubelet.
 -->
 SerializedNodeConfigSource 允許對 `v1.NodeConfigSource` 執行序列化操作。
-這一類型供 kubelet 內部使用，以便跟蹤動態配置的檢查點。
+這一類型供 kubelet 內部使用，以便跟蹤動態設定的檢查點。
 此資源存在於 kubeletconfig API 組是因爲它被當做是對 kubelet 的一種版本化輸入。
 
 <table class="table">
@@ -2825,7 +2825,7 @@ CredentialProvider represents an exec plugin to be invoked by the kubelet. The p
 invoked when an image being pulled matches the images handled by the plugin (see matchImages).
 -->
 CredentialProvider 代表的是要被 kubelet 調用的一個 exec 插件。
-這一插件只會在所拉取的鏡像與該插件所處理的鏡像匹配時纔會被調用（參見 <code>matchImages</code>）。
+這一插件只會在所拉取的映像檔與該插件所處理的映像檔匹配時纔會被調用（參見 <code>matchImages</code>）。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -2861,9 +2861,9 @@ requested image from the kubelet, the plugin will be invoked and given a chance
 to provide credentials. Images are expected to contain the registry domain
 and URL path.
 -->
-<code>matchImages</code> 是一個必須設置的字符串列表，用來匹配鏡像以便確定是否要調用此提供者。
-如果字符串之一與 kubelet 所請求的鏡像匹配，則此插件會被調用並給予提供憑證的機會。
-鏡像應該包含鏡像庫域名和 URL 路徑。
+<code>matchImages</code> 是一個必須設置的字符串列表，用來匹配映像檔以便確定是否要調用此提供者。
+如果字符串之一與 kubelet 所請求的映像檔匹配，則此插件會被調用並給予提供憑證的機會。
+映像檔應該包含映像檔庫域名和 URL 路徑。
 </p>
 <p>
 <!--
@@ -2883,7 +2883,7 @@ a single subdomain segment, so *.io does not match *.k8s.io.
 <!--
 A match exists between an image and a matchImage when all of the below are true:
 -->
-鏡像與 <code>matchImages</code> 之間存在匹配時，以下條件都要滿足：
+映像檔與 <code>matchImages</code> 之間存在匹配時，以下條件都要滿足：
 </p>
 <ul>
 <!--
@@ -2892,8 +2892,8 @@ A match exists between an image and a matchImage when all of the below are true:
 <li>If the imageMatch contains a port, then the port must match in the image as well.</li>
 -->
 <li>二者均包含相同個數的域名部分，並且每個域名部分都對應匹配；</li>
-<li><code>matchImages</code> 條目中的 URL 路徑部分必須是目標鏡像的 URL 路徑的前綴；</li>
-<li>如果 <code>matchImages</code> 條目中包含端口號，則端口號也必須與鏡像端口號匹配。</li>
+<li><code>matchImages</code> 條目中的 URL 路徑部分必須是目標映像檔的 URL 路徑的前綴；</li>
+<li>如果 <code>matchImages</code> 條目中包含端口號，則端口號也必須與映像檔端口號匹配。</li>
 </ul>
 <p>
 <!--
@@ -3036,7 +3036,7 @@ ExecEnvVar 用來在執行基於 exec 的憑據插件時設置環境變量。
 ImagePullCredentialsVerificationPolicy is an enum for the policy that is enforced
 when pod is requesting an image that appears on the system
 -->
-ImagePullCredentialsVerificationPolicy 是一個枚舉類型，用於指定在 Pod 請求系統上已存在的鏡像時所強制執行的策略。
+ImagePullCredentialsVerificationPolicy 是一個枚舉類型，用於指定在 Pod 請求系統上已存在的映像檔時所強制執行的策略。
 </p>
 
 ## `KubeletAnonymousAuthentication`     {#kubelet-config-k8s-io-v1beta1-KubeletAnonymousAuthentication}
@@ -3063,9 +3063,9 @@ anonymous requests.
 Anonymous requests have a username of <code>system:anonymous</code>, and a group name of
 <code>system:unauthenticated</code>.</p>
    -->
-   <p><code>enabled</code> 允許匿名用戶向 kubelet 服務器發送請求。
+   <p><code>enabled</code> 允許匿名使用者向 kubelet 伺服器發送請求。
 未被其他身份認證方法拒絕的請求都會被當做匿名請求。
-匿名請求對應的用戶名爲 <code>system:anonymous</code>，對應的用戶組名爲
+匿名請求對應的使用者名爲 <code>system:anonymous</code>，對應的使用者組名爲
 <code>system:unauthenticated</code>。</p>
 </td>
 </tr>
@@ -3092,7 +3092,7 @@ Anonymous requests have a username of <code>system:anonymous</code>, and a group
    <!--
    x509 contains settings related to x509 client certificate authentication.
    -->
-   <p><code>x509</code> 包含與 x509 客戶端證書認證相關的配置。</p>
+   <p><code>x509</code> 包含與 x509 客戶端證書認證相關的設定。</p>
 </td>
 </tr>
 
@@ -3103,7 +3103,7 @@ Anonymous requests have a username of <code>system:anonymous</code>, and a group
    <!--
    webhook contains settings related to webhook bearer token authentication.
    -->
-   <p><code>webhook</code> 包含與 Webhook 持有者令牌認證相關的配置。</p>
+   <p><code>webhook</code> 包含與 Webhook 持有者令牌認證相關的設定。</p>
 </td>
 </tr>
 
@@ -3114,7 +3114,7 @@ Anonymous requests have a username of <code>system:anonymous</code>, and a group
    <!--
    anonymous contains settings related to anonymous authentication.
    -->
-   <p><code>anonymous</code> 包含與匿名身份認證相關的配置信息。</p>
+   <p><code>anonymous</code> 包含與匿名身份認證相關的設定信息。</p>
 </td>
 </tr>
 </tbody>
@@ -3142,7 +3142,7 @@ Anonymous requests have a username of <code>system:anonymous</code>, and a group
 Valid values are <code>AlwaysAllow</code> and <code>Webhook</code>.
 Webhook mode uses the SubjectAccessReview API to determine authorization.</p>
    -->
-   <p><code>mode</code> 是應用到 kubelet 服務器所接收到的請求上的鑑權模式。合法值包括
+   <p><code>mode</code> 是應用到 kubelet 伺服器所接收到的請求上的鑑權模式。合法值包括
 <code>AlwaysAllow</code> 和 <code>Webhook</code>。
 Webhook 模式使用 <code>SubjectAccessReview</code> API 來確定鑑權。</p>
 </td>
@@ -3155,7 +3155,7 @@ Webhook 模式使用 <code>SubjectAccessReview</code> API 來確定鑑權。</p>
    <!--
    webhook contains settings related to Webhook authorization.
    -->
-   <p><code>webhook</code>包含與 Webhook 鑑權相關的配置信息。</p>
+   <p><code>webhook</code>包含與 Webhook 鑑權相關的設定信息。</p>
 </td>
 </tr>
 </tbody>
@@ -3279,7 +3279,7 @@ and groups corresponding to the Organization in the client certificate.
    -->
    <p><code>clientCAFile</code> 是一個指向 PEM 編碼的證書包的路徑。
 如果設置了此字段，則能夠提供由此證書包中機構之一所簽名的客戶端證書的請求會被成功認證，
-並且其用戶名對應於客戶端證書的 <code>CommonName</code>、組名對應於客戶端證書的
+並且其使用者名對應於客戶端證書的 <code>CommonName</code>、組名對應於客戶端證書的
 <code>Organization</code>。</p>
 </td>
 </tr>
@@ -3346,7 +3346,7 @@ MemoryReservation 爲每個 NUMA 節點設置不同類型的內存預留。
 &quot;&quot;, &quot;LimitedSwap&quot;: workload combined memory and swap usage cannot exceed pod memory limit
 &quot;UnlimitedSwap&quot;: workloads can use unlimited swap, up to the allocatable limit.
    -->
-   <p><code>swapBehavior</code>配置容器負載可以使用的交換內存。可以是：
+   <p><code>swapBehavior</code>設定容器負載可以使用的交換內存。可以是：
    <ul>
     <li>&quot;&quot;、&quot;LimitedSwap&quot;：工作負載的內存和交換分區總用量不能超過 Pod 的內存限制；</li>
     <li>&quot;UnlimitedSwap&quot;：工作負載可以無限制地使用交換分區，上限是可分配的約束。</li>
@@ -3432,7 +3432,7 @@ ShutdownGracePeriodByPodPriority 基於 Pod 關聯的優先級類數值來爲其
 <!--
 UserNamespaces contains User Namespace configurations.
 -->
-<code>UserNamespaces</code> 包含用戶命名空間配置。
+<code>UserNamespaces</code> 包含使用者命名空間設定。
 </p>
 
 

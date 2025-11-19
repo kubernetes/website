@@ -26,4 +26,4 @@ removed: true
 Enable managing request concurrency with
 prioritization and fairness at each server. (Renamed from `RequestManagement`)
 -->
-在每個服務器上啓用優先級和公平性來管理請求的併發度（由 `RequestManagement` 重命名而來）。
+在每個伺服器上啓用優先級和公平性來管理請求的併發度（由 `RequestManagement` 重命名而來）。

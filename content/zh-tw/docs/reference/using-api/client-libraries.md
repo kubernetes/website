@@ -37,9 +37,9 @@ understand the [kubeconfig file](/docs/tasks/access-application-cluster/configur
 format to read the credentials and the API Server address.
 -->
 客戶端庫通常爲你處理諸如身份驗證之類的常見任務。
-如果 API 客戶端在 Kubernetes 集羣中運行，大多數客戶端庫可以發現並使用 Kubernetes 服務賬號進行身份驗證，
+如果 API 客戶端在 Kubernetes 叢集中運行，大多數客戶端庫可以發現並使用 Kubernetes 服務賬號進行身份驗證，
 或者能夠理解 [kubeconfig 文件](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
-格式來讀取憑據和 API 服務器地址。
+格式來讀取憑據和 API 伺服器地址。
 
 <!--
 ## Officially-supported Kubernetes client libraries

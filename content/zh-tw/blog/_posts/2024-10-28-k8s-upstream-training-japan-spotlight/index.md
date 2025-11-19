@@ -114,7 +114,7 @@ including building code locally, running tests efficiently, and setting up clust
 目標是讓參與者體驗貢獻 Kubernetes 的過程。
 
 在項目結束時，我們還提供關於爲貢獻 `kubernetes/kubernetes` 倉庫搭建開發環境的詳細說明，
-包括如何在本地構建代碼、如何高效運行測試以及如何搭建集羣。
+包括如何在本地構建代碼、如何高效運行測試以及如何搭建叢集。
 
 <!--
 ## Interview with participants
@@ -218,7 +218,7 @@ and I see this as a step toward achieving my goals.
 
 **Keita：** 我的目標是對影響更大的領域做出貢獻。
 到目前爲止，我主要通過修復較小的 Bug 來做貢獻，因爲我的主要關注是生成一份成績單，
-但未來，我希望挑戰自己對 Kubernetes 用戶產生更大影響的貢獻，或解決與我工作相關的問題。
+但未來，我希望挑戰自己對 Kubernetes 使用者產生更大影響的貢獻，或解決與我工作相關的問題。
 最近，我還在努力將我對代碼庫所做的更改反映到官方文檔中，
 我將這視爲實現我目標的一步。
 
@@ -289,7 +289,7 @@ Currently, it supports Kubernetes, AWS ECS, Lambda, Cloud Run, and Terraform.
 **Yoshiki：** 目前，我不再從事 Kubernetes 的工作，而是擔任 CNCF 沙盒項目 PipeCD 的維護者。
 PipeCD 是一個支持各種應用平臺的 GitOps 式部署的 CD 工具。
 此工具最初作爲 CyberAgent 的內部項目啓動。
-隨着不同團隊採用不同的平臺，PipeCD 設計爲提供一個統一的 CD 平臺，確保用戶體驗一致。
+隨着不同團隊採用不同的平臺，PipeCD 設計爲提供一個統一的 CD 平臺，確保使用者體驗一致。
 目前，它支持 Kubernetes、AWS ECS、Lambda、Cloud Run 和 Terraform。
 
 <!--
@@ -315,7 +315,7 @@ Recently, I've been working on features that streamline deployments across multi
 **Junya：** 你能講解一下你對於 Kubernetes 正在進行哪些改進或開發嗎？
 
 **Yoshiki：** PipeCD 支持 Kubernetes 的 GitOps 和漸進式交付，因此我參與這些特性的開發。
-最近，我一直在開發簡化跨多個集羣部署的特性。
+最近，我一直在開發簡化跨多個叢集部署的特性。
 
 <!--
 **Junya:** Have you encountered any challenges while contributing to OSS?
@@ -327,7 +327,7 @@ So, I always think about whether a feature designed for one use case could be ap
 -->
 **Junya：** 在貢獻 OSS 的過程中，你遇到過哪些挑戰？
 
-**Yoshiki：** 一個挑戰是開發在滿足用戶用例的同時保持通用性的特性。
+**Yoshiki：** 一個挑戰是開發在滿足使用者用例的同時保持通用性的特性。
 當我們在運營內部 SaaS 期間收到特性請求時，我們首先考慮添加特性來解決這些問題。
 與此同時，我們希望 PipeCD 作爲一個 OSS 工具被更廣泛的受衆使用。
 因此，我總是思考爲一個用例設計的特性是否可以應用於其他用例，以確保 PipeCD 這個軟件保持靈活且廣泛可用。
@@ -349,8 +349,8 @@ I'm also working on features for multi-cluster deployments in Kubernetes, and I 
 目前，我們正在以“普遍可用的持續交付”（One CD for All）的口號開發 PipeCD。
 正如我之前提到的，它支持 Kubernetes、AWS ECS、Lambda、Cloud Run 和 Terraform，
 但還有許多其他平臺，以及未來可能會出現的新平臺。
-因此，我們目前正在開發一個插件系統，允許用戶自行擴展 PipeCD，我希望將這一努力向前推進。
-我也在處理 Kubernetes 的多集羣部署特性，目標是繼續做出有影響力的貢獻。
+因此，我們目前正在開發一個插件系統，允許使用者自行擴展 PipeCD，我希望將這一努力向前推進。
+我也在處理 Kubernetes 的多叢集部署特性，目標是繼續做出有影響力的貢獻。
 
 **Junya：** 非常感謝！
 

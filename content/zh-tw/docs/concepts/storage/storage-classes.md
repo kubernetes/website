@@ -41,10 +41,10 @@ The Kubernetes concept of a storage class is similar to “profiles” in some o
 storage system designs.
 -->
 StorageClass 爲管理員提供了描述存儲**類**的方法。
-不同的類型可能會映射到不同的服務質量等級或備份策略，或是由集羣管理員制定的任意策略。
+不同的類型可能會映射到不同的服務質量等級或備份策略，或是由叢集管理員制定的任意策略。
 Kubernetes 本身並不清楚各種類代表的什麼。
 
-Kubernetes 存儲類的概念類似於一些其他存儲系統設計中的"配置文件"。
+Kubernetes 存儲類的概念類似於一些其他存儲系統設計中的"設定文件"。
 
 <!-- body -->
 
@@ -65,7 +65,7 @@ The name of a StorageClass object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
 of a class when first creating StorageClass objects.
 -->
-StorageClass 對象的命名很重要，用戶使用這個命名來請求生成一個特定的類。
+StorageClass 對象的命名很重要，使用者使用這個命名來請求生成一個特定的類。
 當創建 StorageClass 對象時，管理員設置 StorageClass 對象的命名和其他參數。
 
 <!--
@@ -93,7 +93,7 @@ used.
 -->
 ### 默認 StorageClass  {#default-storageclass}
 
-你可以將某個 StorageClass 標記爲集羣的默認存儲類。
+你可以將某個 StorageClass 標記爲叢集的默認存儲類。
 關於如何設置默認的 StorageClass，
 請參見[更改默認 StorageClass](/zh-cn/docs/tasks/administer-cluster/change-default-storage-class/)。
 
@@ -106,7 +106,7 @@ annotation to true on more than one StorageClass in your cluster, and you then
 create a PersistentVolumeClaim with no `storageClassName` set, Kubernetes
 uses the most recently created default StorageClass.
 -->
-如果你在集羣中的多個 StorageClass 上將
+如果你在叢集中的多個 StorageClass 上將
 [`storageclass.kubernetes.io/is-default-class`](/zh-cn/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
 註解設置爲 true，然後創建一個未設置 `storageClassName` 的 PersistentVolumeClaim (PVC)，
 Kubernetes 將使用最近創建的默認 StorageClass。
@@ -117,7 +117,7 @@ You should try to only have one StorageClass in your cluster that is
 marked as the default. The reason that Kubernetes allows you to have
 multiple default StorageClasses is to allow for seamless migration.
 -->
-你應該嘗試在集羣中只將一個 StorageClass 標記爲默認的存儲類。
+你應該嘗試在叢集中只將一個 StorageClass 標記爲默認的存儲類。
 Kubernetes 允許你擁有多個默認 StorageClass 的原因是爲了無縫遷移。
 {{< /note >}}
 
@@ -132,11 +132,11 @@ StorageClass as default (and one hasn't been set for you by, for example, a clou
 then Kubernetes cannot apply that defaulting for PersistentVolumeClaims that need
 it.
 -->
-你可以在創建新的 PVC 時不指定 `storageClassName`，即使在集羣中沒有默認 StorageClass 的情況下也可以這樣做。
+你可以在創建新的 PVC 時不指定 `storageClassName`，即使在叢集中沒有默認 StorageClass 的情況下也可以這樣做。
 在這種情況下，新的 PVC 會按照你定義的方式進行創建，並且該 PVC 的 `storageClassName` 將保持不設置，
 直到有可用的默認 StorageClass 爲止。
 
-你可以擁有一個沒有任何默認 StorageClass 的集羣。
+你可以擁有一個沒有任何默認 StorageClass 的叢集。
 如果你沒有將任何 StorageClass 標記爲默認（例如，雲服務提供商還沒有爲你設置默認值），那麼
 Kubernetes 將無法爲需要 StorageClass 的 PersistentVolumeClaim 應用默認值。
 
@@ -151,7 +151,7 @@ a default StorageClass, then this PVC will not get updated.
 當默認 StorageClass 變得可用時，控制平面會查找所有未設置 `storageClassName` 的現有 PVC。
 對於那些 `storageClassName` 值爲空或沒有此鍵的 PVC，控制平面將更新它們，
 將 `storageClassName` 設置爲匹配新的默認 StorageClass。如果你有一個現成的 PVC，其 `storageClassName` 爲 `""`，
-而你配置了默認的 StorageClass，那麼該 PVC 將不會被更新。
+而你設定了默認的 StorageClass，那麼該 PVC 將不會被更新。
 
 <!--
 In order to keep binding to PVs with `storageClassName` set to `""`
@@ -176,7 +176,7 @@ for provisioning PVs. This field must be specified.
 | Volume Plugin        | Internal Provisioner |            Config Example             |
 -->
 
-| 卷插件               | 內置製備器 |               配置示例                |
+| 卷插件               | 內置製備器 |               設定示例                |
 | :------------------- | :--------: | :-----------------------------------: |
 | AzureFile            |  &#x2713;  |       [Azure File](#azure-file)       |
 | CephFS               |     -      |                   -                   |
@@ -252,7 +252,7 @@ StorageClass has the field `allowVolumeExpansion` set to true.
 -->
 ## 卷擴展   {#allow-volume-expansion}
 
-PersistentVolume 可以配置爲可擴展。
+PersistentVolume 可以設定爲可擴展。
 這允許你通過編輯相應的 PVC 對象來調整卷大小，申請一個新的、更大的存儲容量。
 
 當下層 StorageClass 的 `allowVolumeExpansion` 字段設置爲 true 時，以下類型的卷支持卷擴展。
@@ -322,7 +322,7 @@ in the cluster, PersistentVolumes will be bound or provisioned without knowledge
 requirements. This may result in unschedulable Pods.
 -->
 `Immediate` 模式表示一旦創建了 PersistentVolumeClaim 也就完成了卷綁定和動態製備。
-對於由於拓撲限制而非集羣所有節點可達的存儲後端，PersistentVolume
+對於由於拓撲限制而非叢集所有節點可達的存儲後端，PersistentVolume
 會在不知道 Pod 調度要求的情況下綁定或者製備。
 
 <!--
@@ -336,7 +336,7 @@ requirements](/docs/concepts/configuration/manage-resources-containers/),
 anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
 and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration).
 -->
-集羣管理員可以通過指定 `WaitForFirstConsumer` 模式來解決此問題。
+叢集管理員可以通過指定 `WaitForFirstConsumer` 模式來解決此問題。
 該模式將延遲 PersistentVolume 的綁定和製備，直到使用該 PersistentVolumeClaim 的 Pod 被創建。
 PersistentVolume 會根據 Pod 調度約束指定的拓撲來選擇或製備。
 這些包括但不限於[資源需求](/zh-cn/docs/concepts/configuration/manage-resources-containers/)、
@@ -390,7 +390,7 @@ When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode
 to restrict provisioning to specific topologies in most situations. However,
 if still required, `allowedTopologies` can be specified.
 -->
-當集羣操作人員使用了 `WaitForFirstConsumer` 的卷綁定模式，
+當叢集操作人員使用了 `WaitForFirstConsumer` 的卷綁定模式，
 在大部分情況下就沒有必要將製備限制爲特定的拓撲結構。
 然而，如果還有需要的話，可以使用 `allowedTopologies`。
 
@@ -407,7 +407,7 @@ supported plugins.
 <!--
 `tagSpecification`: Tags with this prefix are applied to dynamically provisioned EBS volumes.
 -->
-`tagSpecification`：具有此前綴的標籤適用於動態配置的 EBS 卷。
+`tagSpecification`：具有此前綴的標籤適用於動態設定的 EBS 卷。
 
 <!--
 ## Parameters
@@ -459,7 +459,7 @@ Kubernetes 項目建議你轉爲使用 [AWS EBS](https://github.com/kubernetes-s
 <!--
 To configure AWS EFS storage, you can use the out-of-tree [AWS_EFS_CSI_DRIVER](https://github.com/kubernetes-sigs/aws-efs-csi-driver).
 -->
-要配置 AWS EFS 存儲，你可以使用樹外
+要設定 AWS EFS 存儲，你可以使用樹外
 [AWS_EFS_CSI_DRIVER](https://github.com/kubernetes-sigs/aws-efs-csi-driver)。
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-aws-efs.yaml" %}}
@@ -486,7 +486,7 @@ To configure NFS storage, you can use the in-tree driver or the
 [NFS CSI driver for Kubernetes](https://github.com/kubernetes-csi/csi-driver-nfs#readme)
 (recommended).
 -->
-要配置 NFS 存儲，
+要設定 NFS 存儲，
 你可以使用樹內驅動程序或[針對 Kubernetes 的 NFS CSI 驅動程序](https://github.com/kubernetes-csi/csi-driver-nfs#readme)（推薦）。
 
 {{% code_sample language="yaml" file="storage/storageclass/storageclass-nfs.yaml" %}}
@@ -496,8 +496,8 @@ To configure NFS storage, you can use the in-tree driver or the
 - `path`: Path that is exported by the NFS server.
 - `readOnly`: A flag indicating whether the storage will be mounted as read only (default false).
 -->
-- `server`：NFS 服務器的主機名或 IP 地址。
-- `path`：NFS 服務器導出的路徑。
+- `server`：NFS 伺服器的主機名或 IP 地址。
+- `path`：NFS 伺服器導出的路徑。
 - `readOnly`：是否將存儲掛載爲只讀的標誌（默認爲 false）。
 
 <!--
@@ -511,7 +511,7 @@ Here are some examples:
 Kubernetes 不包含內部 NFS 驅動。你需要使用外部驅動爲 NFS 創建 StorageClass。
 這裏有些例子：
 
-- [NFS Ganesha 服務器和外部驅動](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+- [NFS Ganesha 伺服器和外部驅動](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
 - [NFS subdir 外部驅動](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 
 ### vSphere
@@ -546,7 +546,7 @@ For an example, refer to the [vSphere CSI repository](https://github.com/kuberne
 -->
 #### CSI 製備器 {#vsphere-provisioner-csi}
 
-vSphere CSI StorageClass 製備器在 Tanzu Kubernetes 集羣下運行。示例請參閱
+vSphere CSI StorageClass 製備器在 Tanzu Kubernetes 叢集下運行。示例請參閱
 [vSphere CSI 倉庫](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml)。
 
 <!--
@@ -561,7 +561,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
 <!--
 1. Create a StorageClass with a user specified disk format.
 -->
-1. 使用用戶指定的磁盤格式創建一個 StorageClass。
+1. 使用使用者指定的磁盤格式創建一個 StorageClass。
 
    ```yaml
    apiVersion: storage.k8s.io/v1
@@ -581,7 +581,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
 <!--
 2. Create a StorageClass with a disk format on a user specified datastore.
 -->
-2. 在用戶指定的數據存儲上創建磁盤格式的 StorageClass。
+2. 在使用者指定的數據存儲上創建磁盤格式的 StorageClass。
 
    ```yaml
    apiVersion: storage.k8s.io/v1
@@ -603,11 +603,11 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
    Provider.
    -->
 
-   `datastore`：用戶也可以在 StorageClass 中指定數據存儲。
+   `datastore`：使用者也可以在 StorageClass 中指定數據存儲。
    卷將在 StorageClass 中指定的數據存儲上創建，在這種情況下是 `VSANDatastore`。
    該字段是可選的。
    如果未指定數據存儲，則將在用於初始化 vSphere Cloud Provider 的 vSphere
-   配置文件中指定的數據存儲上創建該卷。
+   設定文件中指定的數據存儲上創建該卷。
 
 <!--
 3. Storage Policy Management inside kubernetes
@@ -633,7 +633,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
 
      vSphere 用於存儲管理的最重要特性之一是基於策略的管理。
      基於存儲策略的管理（SPBM）是一個存儲策略框架，提供單一的統一控制平面的跨越廣泛的數據服務和存儲解決方案。
-     SPBM 使得 vSphere 管理員能夠克服先期的存儲配置挑戰，如容量規劃、差異化服務等級和管理容量空間。
+     SPBM 使得 vSphere 管理員能夠克服先期的存儲設定挑戰，如容量規劃、差異化服務等級和管理容量空間。
 
      SPBM 策略可以在 StorageClass 中使用 `storagePolicyName` 參數聲明。
 
@@ -656,7 +656,7 @@ The following examples use the VMware Cloud Provider (vCP) StorageClass provisio
 
    - Kubernetes 內的 Virtual SAN 策略支持
 
-     Vsphere Infrastructure（VI）管理員將能夠在動態卷配置期間指定自定義 Virtual SAN
+     Vsphere Infrastructure（VI）管理員將能夠在動態卷設定期間指定自定義 Virtual SAN
      存儲功能。你現在可以在動態製備卷期間以存儲能力的形式定義存儲需求，例如性能和可用性。
      存儲能力需求會轉換爲 Virtual SAN 策略，之後當持久卷（虛擬磁盤）被創建時，
      會將其推送到 Virtual SAN 層。虛擬磁盤分佈在 Virtual SAN 數據存儲中以滿足要求。
@@ -697,7 +697,7 @@ Ceph RBD 的內部驅動程序已被棄用。請使用 [CephFS RBD CSI驅動程�
   提供的 secret 必須有值爲 "kubernetes.io/rbd" 的 type 參數。
 - `adminSecretNamespace`：`adminSecret` 的命名空間。默認是 "default"。
 - `pool`：Ceph RBD 池。默認是 "rbd"。
-- `userId`：Ceph 客戶端 ID，用於映射 RBD 鏡像。默認與 `adminId` 相同。
+- `userId`：Ceph 客戶端 ID，用於映射 RBD 映像檔。默認與 `adminId` 相同。
 
 <!--
 - `userSecretName`: The name of Ceph Secret for `userId` to map RBD image. It
@@ -705,7 +705,7 @@ Ceph RBD 的內部驅動程序已被棄用。請使用 [CephFS RBD CSI驅動程�
   The provided secret must have type "kubernetes.io/rbd", for example created in this
   way:
 -->
-- `userSecretName`：用於映射 RBD 鏡像的 `userId` 的 Ceph Secret 的名字。
+- `userSecretName`：用於映射 RBD 映像檔的 `userId` 的 Ceph Secret 的名字。
   它必須與 PVC 存在於相同的 namespace 中。該參數是必需的。
   提供的 secret 必須具有值爲 "kubernetes.io/rbd" 的 type 參數，例如以這樣的方式創建：
 
@@ -725,7 +725,7 @@ Ceph RBD 的內部驅動程序已被棄用。請使用 [CephFS RBD CSI驅動程�
 -->
 - `userSecretNamespace`：`userSecretName` 的命名空間。
 - `fsType`：Kubernetes 支持的 fsType。默認：`"ext4"`。
-- `imageFormat`：Ceph RBD 鏡像格式，"1" 或者 "2"。默認值是 "1"。
+- `imageFormat`：Ceph RBD 映像檔格式，"1" 或者 "2"。默認值是 "1"。
 - `imageFeatures`：這個參數是可選的，只能在你將 `imageFormat` 設置爲 "2" 才使用。
   目前支持的功能只是 `layering`。默認是 ""，沒有功能打開。
 
@@ -782,7 +782,7 @@ Kubernetes 項目建議你轉爲使用
 - `storageAccount`：Azure 存儲帳戶名稱。默認爲空。
   如果不提供存儲帳戶，會搜索所有與資源相關的存儲帳戶，以找到一個匹配
   `skuName` 和 `location` 的賬號。
-  如果提供存儲帳戶，它必須存在於與集羣相同的資源組中，`skuName` 和 `location` 會被忽略。
+  如果提供存儲帳戶，它必須存在於與叢集相同的資源組中，`skuName` 和 `location` 會被忽略。
 - `secretNamespace`：包含 Azure 存儲帳戶名稱和密鑰的密鑰的名字空間。
   默認值與 Pod 相同。
 - `secretName`：包含 Azure 存儲帳戶名稱和密鑰的密鑰的名稱。
@@ -798,7 +798,7 @@ mounting credentials. If the cluster has enabled both
 add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
 -->
-在存儲製備期間，爲掛載憑證創建一個名爲 `secretName` 的 Secret。如果集羣同時啓用了
+在存儲製備期間，爲掛載憑證創建一個名爲 `secretName` 的 Secret。如果叢集同時啓用了
 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
 和[控制器角色](/zh-cn/docs/reference/access-authn-authz/rbac/#controller-roles)，
 爲 `system:controller:persistent-volume-binder` 的 clusterrole 添加
@@ -809,7 +809,7 @@ In a multi-tenancy context, it is strongly recommended to set the value for
 `secretNamespace` explicitly, otherwise the storage account credentials may
 be read by other users.
 -->
-在多租戶上下文中，強烈建議顯式設置 `secretNamespace` 的值，否則其他用戶可能會讀取存儲帳戶憑據。
+在多租戶上下文中，強烈建議顯式設置 `secretNamespace` 的值，否則其他使用者可能會讀取存儲帳戶憑據。
 
 <!--
 ### Portworx volume (deprecated) {#portworx-volume}

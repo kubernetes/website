@@ -52,8 +52,8 @@ Shared labels and annotations share a common prefix: `app.kubernetes.io`. Labels
 without a prefix are private to users. The shared prefix ensures that shared labels
 do not interfere with custom user labels.
 -->
-共享標籤和註解都使用同一個前綴：`app.kubernetes.io`。沒有前綴的標籤是用戶私有的。
-共享前綴可以確保共享標籤不會干擾用戶自定義的標籤。
+共享標籤和註解都使用同一個前綴：`app.kubernetes.io`。沒有前綴的標籤是使用者私有的。
+共享前綴可以確保共享標籤不會干擾使用者自定義的標籤。
 
 <!--
 ## Labels
@@ -118,7 +118,7 @@ to be identifiable. Every instance of an application must have a unique name.
 -->
 ## 應用和應用實例   {#application-and-instances-of-applications}
 
-應用可以在 Kubernetes 集羣中安裝一次或多次。在某些情況下，可以安裝在同一命名空間中。
+應用可以在 Kubernetes 叢集中安裝一次或多次。在某些情況下，可以安裝在同一命名空間中。
 例如，可以不止一次地爲不同的站點安裝不同的 WordPress。
 
 應用的名稱和實例的名稱是分別記錄的。例如，WordPress 應用的 

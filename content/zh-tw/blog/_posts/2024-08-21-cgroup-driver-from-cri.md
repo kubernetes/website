@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.31: 節點 Cgroup 驅動程序的自動配置 (beta)"
+title: "Kubernetes 1.31: 節點 Cgroup 驅動程序的自動設定 (beta)"
 date: 2024-08-21
 slug: cri-cgroup-driver-lookup-now-beta
 author: >
@@ -25,11 +25,11 @@ and CRI implementation (like CRI-O or containerd) needed to be configured to use
 the same cgroup driver, or else the kubelet would exit with an error. This was a
 source of headaches for many cluster admins. However, there is light at the end of the tunnel!
 -->
-一直以來，爲新運行的 Kubernetes 集羣配置正確的 cgroup 驅動程序是用戶的一個痛點。
+一直以來，爲新運行的 Kubernetes 叢集設定正確的 cgroup 驅動程序是使用者的一個痛點。
 在 Linux 系統中，存在兩種不同的 cgroup 驅動程序：`cgroupfs` 和 `systemd`。
 過去，[kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) 和 CRI
-實現（如 CRI-O 或 containerd）需要配置爲使用相同的 cgroup 驅動程序， 否則 kubelet 會報錯並退出。
-這讓許多集羣管理員頭疼不已。不過，現在曙光乍現！
+實現（如 CRI-O 或 containerd）需要設定爲使用相同的 cgroup 驅動程序， 否則 kubelet 會報錯並退出。
+這讓許多叢集管理員頭疼不已。不過，現在曙光乍現！
 
 <!--
 ## Automated cgroup driver detection
@@ -53,7 +53,7 @@ CRI implementation is new enough:
 - containerd: Support was added in v2.0.0
 - CRI-O: Support was added in v1.28.0
 -->
-除了設置特性門控之外，集羣管理員還需要確保 CRI 實現版本足夠新：
+除了設置特性門控之外，叢集管理員還需要確保 CRI 實現版本足夠新：
 
 - containerd：v2.0.0 版本開始支持
 - CRI-O：v1.28.0 版本開始支持
@@ -62,7 +62,7 @@ CRI implementation is new enough:
 Then, they should ensure their CRI implementation is configured to the
 cgroup_driver they would like to use.
 -->
-然後，他們應該確保配置其 CRI 實現使用他們想要的 cgroup 驅動程序。
+然後，他們應該確保設定其 CRI 實現使用他們想要的 cgroup 驅動程序。
 
 <!--
 ## Future work
@@ -73,4 +73,4 @@ enough to have support for this feature.
 -->
 ## 未來工作
 
-最終，kubelet 對 `cgroupDriver` 配置字段的支持將會被移除，如果 CRI 實現的版本不夠新，無法支持此功能，kubelet 將無法啓動。
+最終，kubelet 對 `cgroupDriver` 設定字段的支持將會被移除，如果 CRI 實現的版本不夠新，無法支持此功能，kubelet 將無法啓動。

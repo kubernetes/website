@@ -50,9 +50,9 @@ and the importance of it within the Kubernetes ecosystem.
 -->
 ## etcd 的關鍵作用
 
-如果我們查看 Kubernetes 集羣的控制平面內部，我們會發現
+如果我們查看 Kubernetes 叢集的控制平面內部，我們會發現
 [etcd](https://kubernetes.io/zh-cn/docs/concepts/overview/components/#etcd)，
-一個一致且高可用的鍵值存儲，用作 Kubernetes 所有集羣數據的後臺數據庫 -- 僅此描述就突出了
+一個一致且高可用的鍵值存儲，用作 Kubernetes 所有叢集數據的後臺數據庫 -- 僅此描述就突出了
 etcd 所扮演的關鍵角色，以及它在 Kubernetes 生態系統中的重要性。
 
 <!--

@@ -1,7 +1,7 @@
 <!-- 
 Run this on any machine you wish to join an existing cluster 
 -->
-在你希望加入現有集羣的任何機器上運行它。
+在你希望加入現有叢集的任何機器上運行它。
 
 <!--
 ### Synopsis
@@ -14,7 +14,7 @@ bidirectional trust. This is split into discovery (having the Node
 trust the Kubernetes Control Plane) and TLS bootstrap (having the
 Kubernetes Control Plane trust the Node).
 -->
-當節點加入 kubeadm 初始化的集羣時，我們需要建立雙向信任。
+當節點加入 kubeadm 初始化的叢集時，我們需要建立雙向信任。
 這個過程可以分解爲發現（讓待加入節點信任 Kubernetes 控制平面節點）和
 TLS 引導（讓 Kubernetes 控制平面節點信任待加入節點）兩個部分。
 
@@ -33,7 +33,7 @@ Also, in that case the host installed CA bundle is used to verify
 the connection.
 -->
 有兩種主要的發現方案。
-第一種方案是使用共享令牌和 API 服務器的 IP 地址。
+第一種方案是使用共享令牌和 API 伺服器的 IP 地址。
 第二種是以文件形式提供標準 kubeconfig 文件的一個子集。
 發現/kubeconfig 文件支持令牌、client-go 鑑權插件（“exec”）、“tokenFile" 和
 "authProvider"。該文件可以是本地文件，也可以通過 HTTPS URL 下載。
@@ -149,7 +149,7 @@ kubeadm join [api-server-endpoint] [flags]
 If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on.
 If not set the default network interface will be used.
 -->
-如果該節點託管一個新的控制平面實例，則 API 服務器將公佈其正在偵聽的 IP 地址。如果未設置，則使用默認網絡接口。
+如果該節點託管一個新的控制平面實例，則 API 伺服器將公佈其正在偵聽的 IP 地址。如果未設置，則使用默認網路接口。
 </p>
 </td>
 </tr>
@@ -168,7 +168,7 @@ If not set the default network interface will be used.
 <!--
 If the node should host a new control plane instance, the port for the API Server to bind to.
 -->
-如果節點應該託管新的控制平面實例，則爲 API 服務器要綁定的端口。
+如果節點應該託管新的控制平面實例，則爲 API 伺服器要綁定的端口。
 </p>
 </td>
 </tr>
@@ -197,7 +197,7 @@ Use this key to decrypt the certificate secrets uploaded by init. The certificat
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -241,7 +241,7 @@ use this option only if you have more than one CRI installed or if you have non-
 <!--
 For file-based discovery, a file or URL from which to load cluster information.
 -->
-對於基於文件的發現，給出用於加載集羣信息的文件或者 URL。
+對於基於文件的發現，給出用於加載叢集信息的文件或者 URL。
 </p>
 </td>
 </tr>
@@ -255,7 +255,7 @@ For file-based discovery, a file or URL from which to load cluster information.
 <!--
 For token-based discovery, the token used to validate cluster information fetched from the API server.
 -->
-對於基於令牌的發現，該令牌用於驗證從 API 服務器獲取的集羣信息。
+對於基於令牌的發現，該令牌用於驗證從 API 伺服器獲取的叢集信息。
 </p>
 </td>
 </tr>

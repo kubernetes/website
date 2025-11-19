@@ -17,7 +17,7 @@ example scenario for migrating from dockershim to containerd. Alternative contai
 can be picked from this [page](/docs/setup/production-environment/container-runtimes/).
 -->
 本任務給出將容器運行時從 Docker 改爲 containerd 所需的步驟。
-此任務適用於運行 1.23 或更早版本 Kubernetes 的集羣操作人員。
+此任務適用於運行 1.23 或更早版本 Kubernetes 的叢集操作人員。
 同時，此任務也涉及從 dockershim 遷移到 containerd 的示例場景。
 有關其他備選的容器運行時，可查閱
 [此頁面](/zh-cn/docs/setup/production-environment/container-runtimes/)進行揀選。
@@ -87,7 +87,7 @@ for detailed steps to install containerd.
 <!--
 1. Configure containerd:
 -->
-2. 配置 containerd：
+2. 設定 containerd：
 
    ```shell
    sudo mkdir -p /etc/containerd
@@ -125,7 +125,7 @@ then run the following commands:
 <!--
 2. Extract and configure:
 -->
-2. 解壓縮並執行配置：
+2. 解壓縮並執行設定：
 
    ```powershell
    Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
@@ -160,7 +160,7 @@ then run the following commands:
 Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags;
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 -->
-## 配置 kubelet 使用 containerd 作爲其容器運行時
+## 設定 kubelet 使用 containerd 作爲其容器運行時
 
 編輯文件 `/var/lib/kubelet/kubeadm-flags.env`，將 containerd 運行時添加到標誌中；
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`。
@@ -173,7 +173,7 @@ The `/var/lib/kubelet/instance-config.yaml` file allows setting the `containerRu
 
 You can set this parameter's value to the path of your chosen CRI socket (for example `unix:///run/containerd/containerd.sock`).
 -->
-使用 kubeadm 的用戶應注意，kubeadm 工具在每個節點的
+使用 kubeadm 的使用者應注意，kubeadm 工具在每個節點的
 `/var/lib/kubelet/instance-config.yaml` 文件中存儲主機的
 CRI 套接字。你可以在節點上創建這個 `/var/lib/kubelet/instance-config.yaml` 文件。
 
@@ -244,7 +244,7 @@ sudo apt-get purge docker-ce docker-ce-cli
 The preceding commands don't remove images, containers, volumes, or customized configuration files on your host.
 To delete them, follow Docker's instructions to [Uninstall Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine).
 -->
-上面的命令不會移除你的主機上的鏡像、容器、卷或者定製的配置文件。
+上面的命令不會移除你的主機上的映像檔、容器、卷或者定製的設定文件。
 要刪除這些內容，參閱 Docker 的指令來[卸載 Docker Engine](https://docs.docker.com/engine/install/ubuntu/#uninstall-docker-engine)。
 
 {{< caution >}}

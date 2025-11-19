@@ -40,7 +40,7 @@ Traditionally, Kubernetes CSI drivers report a static maximum volume attachment 
 然而，在節點生命週期內，實際的掛接容量可能會由於多種原因發生變化，例如：
 
 - 在 Kubernetes 控制之外的手動或外部操作掛接/解除掛接卷。
-- 動態掛接的網絡接口或專用硬件（如 GPU、NIC 等）佔用可用的插槽。
+- 動態掛接的網路接口或專用硬件（如 GPU、NIC 等）佔用可用的插槽。
 - 在多驅動場景中，一個 CSI 驅動的操作會影響另一個驅動所報告的可用容量。
 
 <!--
@@ -90,9 +90,9 @@ To use this alpha feature, you must enable the `MutableCSINodeAllocatableCount` 
 
 Below is an example of configuring a CSI driver to enable periodic updates every 60 seconds:
 -->
-### CSI 驅動配置示例   {#example-csi-driver-configuration}
+### CSI 驅動設定示例   {#example-csi-driver-configuration}
 
-以下是配置 CSI 驅動以每 60 秒進行一次週期性更新的示例：
+以下是設定 CSI 驅動以每 60 秒進行一次週期性更新的示例：
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -106,7 +106,7 @@ spec:
 <!--
 This configuration directs Kubelet to periodically call the CSI driver's `NodeGetInfo` method every 60 seconds, updating the node’s allocatable volume count. Kubernetes enforces a minimum update interval of 10 seconds to balance accuracy and resource usage.
 -->
-此配置會指示 Kubelet 每 60 秒調用一次 CSI 驅動的 `NodeGetInfo` 方法，從而更新節點的可分配卷數量。  
+此設定會指示 Kubelet 每 60 秒調用一次 CSI 驅動的 `NodeGetInfo` 方法，從而更新節點的可分配卷數量。  
 Kubernetes 強制要求最小更新間隔時間爲 10 秒，以平衡準確性和資源使用量。
 
 <!--
@@ -121,7 +121,7 @@ This proactive correction prevents repeated scheduling errors and helps maintain
 除了週期性更新外，Kubernetes 現在也能對掛接失敗做出響應。  
 具體來說，如果卷掛接由於 `ResourceExhausted` 錯誤（gRPC 錯誤碼 `8`）而失敗，將立即觸發更新，以快速糾正可分配數量。
 
-這種主動糾正可以防止重複的調度錯誤，有助於保持集羣的健康狀態。
+這種主動糾正可以防止重複的調度錯誤，有助於保持叢集的健康狀態。
 
 <!--
 ## Getting started
@@ -134,10 +134,10 @@ To experiment with mutable CSI node allocatable count in your Kubernetes v1.33 c
 -->
 ## 快速開始    {#getting-started}
 
-要在 Kubernetes v1.33 集羣中試用可變的 CSI 節點可分配數：
+要在 Kubernetes v1.33 叢集中試用可變的 CSI 節點可分配數：
 
 1. 在 `kube-apiserver` 和 `kubelet` 組件上啓用特性門控 `MutableCSINodeAllocatableCount`。
-2. 在 CSI 驅動配置中設置 `nodeAllocatableUpdatePeriodSeconds`。
+2. 在 CSI 驅動設定中設置 `nodeAllocatableUpdatePeriodSeconds`。
 3. 監控並觀察調度準確性和 Pod 放置可靠性的提升程度。
 
 <!--

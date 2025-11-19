@@ -25,7 +25,7 @@ for more information about scheduling and the kube-scheduler component.
 Kubernetes 調度器是一個控制面進程，負責將 Pods 指派到節點上。
 調度器基於約束和可用資源爲調度隊列中每個 Pod 確定其可合法放置的節點。
 調度器之後對所有合法的節點進行排序，將 Pod 綁定到一個合適的節點。
-在同一個集羣中可以使用多個不同的調度器；kube-scheduler 是其參考實現。
+在同一個叢集中可以使用多個不同的調度器；kube-scheduler 是其參考實現。
 參閱[調度](/zh-cn/docs/concepts/scheduling-eviction/)以獲得關於調度和
 kube-scheduler 組件的更多信息。
 
@@ -83,8 +83,8 @@ The path to the manifest file that contains the allow-list mapping. The format o
 kubeconfig file pointing at the 'core' kubernetes server with enough rights to create tokenreviews.authentication.k8s.io. This is optional. If empty, all token requests are considered to be anonymous and no client CA is looked up in the cluster.
 -->
 指向具有足夠權限以創建 <code>tokenaccessreviews.authentication.k8s.io</code> 的
-Kubernetes 核心服務器的 kubeconfig 文件。
-這是可選的。如果爲空，則所有令牌請求均被視爲匿名請求，並且不會在集羣中查找任何客戶端 CA。
+Kubernetes 核心伺服器的 kubeconfig 文件。
+這是可選的。如果爲空，則所有令牌請求均被視爲匿名請求，並且不會在叢集中查找任何客戶端 CA。
 </td>
 </tr>
 
@@ -96,7 +96,7 @@ Kubernetes 核心服務器的 kubeconfig 文件。
 <!--
 If false, the authentication-kubeconfig will be used to lookup missing authentication configuration from the cluster.
 -->
-如果爲 false，則 authentication-kubeconfig 將用於從集羣中查找缺少的身份驗證配置。
+如果爲 false，則 authentication-kubeconfig 將用於從叢集中查找缺少的身份驗證設定。
 </td>
 </tr>
 
@@ -120,7 +120,7 @@ The duration to cache responses from the webhook token authenticator.
 <!--
 If true, failures to look up missing authentication configuration from the cluster are not considered fatal. Note that this can result in authentication that treats all requests as anonymous.
 -->
-如果爲 true，則無法從集羣中查找缺少的身份驗證配置是致命的。
+如果爲 true，則無法從叢集中查找缺少的身份驗證設定是致命的。
 請注意，這可能導致身份驗證將所有請求視爲匿名。
 </td>
 </tr>
@@ -133,7 +133,7 @@ If true, failures to look up missing authentication configuration from the clust
 <!--
 A list of HTTP paths to skip during authorization, i.e. these are authorized without contacting the 'core' kubernetes server.
 -->
-在授權過程中跳過的 HTTP 路徑列表，即在不聯繫 “core” kubernetes 服務器的情況下被授權的 HTTP 路徑。
+在授權過程中跳過的 HTTP 路徑列表，即在不聯繫 “core” kubernetes 伺服器的情況下被授權的 HTTP 路徑。
 </td>
 </tr>
 
@@ -146,7 +146,7 @@ A list of HTTP paths to skip during authorization, i.e. these are authorized wit
 kubeconfig file pointing at the 'core' kubernetes server with enough rights to create subjectaccessreviews.authorization.k8s.io. This is optional. If empty, all requests not skipped by authorization are forbidden.
 -->
 指向具有足夠權限以創建 subjectaccessreviews.authorization.k8s.io 的
-Kubernetes 核心服務器的 kubeconfig 文件。這是可選的。
+Kubernetes 核心伺服器的 kubeconfig 文件。這是可選的。
 如果爲空，則所有未被鑑權機制略過的請求都會被禁止。
 </td>
 </tr>
@@ -184,7 +184,7 @@ The duration to cache 'unauthorized' responses from the webhook authorizer.
 The IP address on which to listen for the --secure-port port. The associated interface(s) must be reachable by the rest of the cluster, and by CLI/web clients. If blank or an unspecified address (0.0.0.0 or ::), all interfaces and IP address families will be used.
 -->
 監聽 --secure-port 端口的 IP 地址。
-集羣的其餘部分以及 CLI/ Web 客戶端必須可以訪問關聯的接口。
+叢集的其餘部分以及 CLI/ Web 客戶端必須可以訪問關聯的接口。
 如果爲空，將使用所有接口（0.0.0.0 表示使用所有 IPv4 接口，“::” 表示使用所有 IPv6 接口）。
 如果爲空或未指定地址 (0.0.0.0 或 ::)，所有接口和 IP 地址簇將被使用。
 </td>
@@ -224,7 +224,7 @@ If set, any request presenting a client certificate signed by one of the authori
 <!--
 The path to the configuration file. 
 -->
-配置文件的路徑。
+設定文件的路徑。
 </td>
 </tr>
 
@@ -237,7 +237,7 @@ The path to the configuration file.
 DEPRECATED: enable lock contention profiling, if profiling is enabled. This parameter is ignored if a config file is specified in --config.
 -->
 已棄用: 如果啓用了性能分析，則啓用鎖競爭分析。
-如果 --config 指定了一個配置文件，那麼這個參數將被忽略。
+如果 --config 指定了一個設定文件，那麼這個參數將被忽略。
 </td>
 </tr>
 
@@ -575,7 +575,7 @@ kube-scheduler 幫助命令
 <!--
 The limit that the server gives to clients for the maximum number of streams in an HTTP/2 connection. Zero means to use golang's default.
 -->
-服務器爲客戶端提供的 HTTP/2 連接最大限制。零表示使用 Golang 的默認值。
+伺服器爲客戶端提供的 HTTP/2 連接最大限制。零表示使用 Golang 的默認值。
 </td>
 </tr>
 
@@ -588,7 +588,7 @@ The limit that the server gives to clients for the maximum number of streams in 
 DEPRECATED: burst to use while talking with kubernetes apiserver. This parameter is ignored if a config file is specified in --config.
 -->
 已棄用: 與 kubernetes API 通信時使用的突發請求個數限值。
-如果 --config 指定了一個配置文件，那麼這個參數將被忽略。
+如果 --config 指定了一個設定文件，那麼這個參數將被忽略。
 </td>
 </tr>
 
@@ -600,8 +600,8 @@ DEPRECATED: burst to use while talking with kubernetes apiserver. This parameter
 <!--
 DEPRECATED: content type of requests sent to apiserver. This parameter is ignored if a config file is specified in --config.
 -->
-已棄用: 發送到 API 服務器的請求的內容類型。
-如果 --config 指定了一個配置文件，那麼這個參數將被忽略。
+已棄用: 發送到 API 伺服器的請求的內容類型。
+如果 --config 指定了一個設定文件，那麼這個參數將被忽略。
 </td>
 </tr>
 
@@ -614,7 +614,7 @@ DEPRECATED: content type of requests sent to apiserver. This parameter is ignore
 DEPRECATED: QPS to use while talking with kubernetes apiserver. This parameter is ignored if a config file is specified in --config.
 -->
 已棄用: 與 kubernetes apiserver 通信時要使用的 QPS
-如果 --config 指定了一個配置文件，那麼這個參數將被忽略。
+如果 --config 指定了一個設定文件，那麼這個參數將被忽略。
 </td>
 </tr>
 
@@ -627,7 +627,7 @@ DEPRECATED: QPS to use while talking with kubernetes apiserver. This parameter i
 DEPRECATED: path to kubeconfig file with authorization and master location information. This parameter is ignored if a config file is specified in --config.
 -->
 已棄用: 包含鑑權和主節點位置信息的 kubeconfig 文件的路徑。
-如果 --config 指定了一個配置文件，那麼這個參數將被忽略。
+如果 --config 指定了一個設定文件，那麼這個參數將被忽略。
 </td>
 </tr>
 
@@ -797,7 +797,7 @@ log to standard error instead of files
 <!--
 The address of the Kubernetes API server (overrides any value in kubeconfig)
 -->
-Kubernetes API 服務器的地址（覆蓋 kubeconfig 中的任何值）。
+Kubernetes API 伺服器的地址（覆蓋 kubeconfig 中的任何值）。
 </td>
 </tr>
 
@@ -856,8 +856,8 @@ unschedulablePods 移動到 backoffQ 或 activeQ。
 DEPRECATED: enable profiling via web interface host:port/debug/pprof/. 
 This parameter is ignored if a config file is specified in --config.
 -->
-已棄用: 通過 Web 界面主機啓用配置文件：<code>host:port/debug/pprof/</code>。
-如果 --config 指定了一個配置文件，這個參數將被忽略。
+已棄用: 通過 Web 界面主機啓用設定文件：<code>host:port/debug/pprof/</code>。
+如果 --config 指定了一個設定文件，這個參數將被忽略。
 </td>
 </tr>
 
@@ -870,7 +870,7 @@ This parameter is ignored if a config file is specified in --config.
 List of client certificate common names to allow to provide usernames in headers specified by --requestheader-username-headers. If empty, any client certificate validated by the authorities in --requestheader-client-ca-file is allowed.
 -->
 客戶端證書通用名稱列表，允許在 <code>--requestheader-username-headers</code>
-指定的頭部中提供用戶名。如果爲空，則允許任何由
+指定的頭部中提供使用者名。如果爲空，則允許任何由
 <code>--requestheader-client-ca-file</code> 中證書機構驗證的客戶端證書。
 </td>
 </tr>
@@ -883,7 +883,7 @@ List of client certificate common names to allow to provide usernames in headers
 <!--
 Root certificate bundle to use to verify client certificates on incoming requests before trusting usernames in headers specified by --requestheader-username-headers. WARNING: generally do not depend on authorization being already done for incoming requests.
 -->
-在信任 <code>--requestheader-username-headers</code> 指定的頭部中的用戶名之前
+在信任 <code>--requestheader-username-headers</code> 指定的頭部中的使用者名之前
 用於驗證傳入請求上的客戶端證書的根證書包。
 警告：通常不應假定傳入請求已經完成鑑權。
 </td>
@@ -938,7 +938,7 @@ List of request headers to inspect for UIDs. X-Remote-Uid is suggested. Requires
 <!--
 List of request headers to inspect for usernames. X-Remote-User is common.
 -->
-用於檢查用戶名的請求頭部列表。<code>X-Remote-User</code> 很常用。
+用於檢查使用者名的請求頭部列表。<code>X-Remote-User</code> 很常用。
 </td>
 </tr>
 
@@ -978,7 +978,7 @@ The previous version for which you want to show hidden metrics. Only the previou
 <!--
 File containing the default x509 Certificate for HTTPS. (CA cert, if any, concatenated after server cert). If HTTPS serving is enabled, and --tls-cert-file and --tls-private-key-file are not provided, a self-signed certificate and key are generated for the public address and saved to the directory specified by --cert-dir.
 -->
-包含默認的 HTTPS x509 證書的文件。（如果有 CA 證書，在服務器證書之後並置）。
+包含默認的 HTTPS x509 證書的文件。（如果有 CA 證書，在伺服器證書之後並置）。
 如果啓用了 HTTPS 服務，並且未提供 <code>--tls-cert-file</code> 和
 <code>--tls-private-key-file</code>，則會爲公共地址生成一個自簽名證書和密鑰，
 並將其保存到 <code>--cert-dir</code> 指定的目錄中。
@@ -993,7 +993,7 @@ File containing the default x509 Certificate for HTTPS. (CA cert, if any, concat
 <!-- 
 Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used.<br/>Preferred values: TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256, TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305, TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256.<br/>Insecure values: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_ECDSA_WITH_RC4_128_SHA, TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA, TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256, TLS_ECDHE_RSA_WITH_RC4_128_SHA, TLS_RSA_WITH_3DES_EDE_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA, TLS_RSA_WITH_AES_128_CBC_SHA256, TLS_RSA_WITH_AES_128_GCM_SHA256, TLS_RSA_WITH_AES_256_CBC_SHA, TLS_RSA_WITH_AES_256_GCM_SHA384, TLS_RSA_WITH_RC4_128_SHA.
 -->
-服務器的密碼套件列表，以逗號分隔。如果省略，將使用默認的 Go 密碼套件。<br/>
+伺服器的密碼套件列表，以逗號分隔。如果省略，將使用默認的 Go 密碼套件。<br/>
 優先考慮的值：
 TLS_AES_128_GCM_SHA256、TLS_AES_256_GCM_SHA384、TLS_CHACHA20_POLY1305_SHA256、TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA、
 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256、TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA、TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384、
@@ -1094,7 +1094,7 @@ comma-separated list of pattern=N settings for file-filtered logging (only works
 <!--
 If set, write the configuration values to this file and exit.
 -->
-如果設置此參數，將配置值寫入此文件並退出。
+如果設置此參數，將設定值寫入此文件並退出。
 </td>
 </tr>
 

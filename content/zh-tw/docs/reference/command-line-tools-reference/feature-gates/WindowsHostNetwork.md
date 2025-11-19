@@ -18,4 +18,4 @@ stages:
 <!--
 Enables support for joining Windows containers to a hosts' network namespace.
 -->
-啓用對 Windows 容器接入主機網絡名字空間的支持。
+啓用對 Windows 容器接入主機網路名字空間的支持。

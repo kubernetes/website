@@ -29,11 +29,11 @@ Object storage has been rising in popularity in recent years as an alternative f
 
 文件和塊存儲通過 [Container Storage Interface](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/) (CSI)
 被視爲 Kubernetes 生態系統中的一等公民。
-使用 CSI 卷的工作負載可以享受跨供應商和跨 Kubernetes 集羣的可移植性優勢，
+使用 CSI 卷的工作負載可以享受跨供應商和跨 Kubernetes 叢集的可移植性優勢，
 而無需更改應用程序清單。對象存儲不存在等效標準。
 
 近年來，對象存儲作爲文件系統和塊設備的替代存儲形式越來越受歡迎。
-對象存儲範式促進了計算和存儲的分解，這是通過網絡而不是本地提供數據來完成的。
+對象存儲範式促進了計算和存儲的分解，這是通過網路而不是本地提供數據來完成的。
 分解的架構允許計算工作負載是無狀態的，從而使它們更易於管理、擴展和自動化。
 
 ## COSI
@@ -50,9 +50,9 @@ _Portability across vendors is only possible when both vendors support a common 
 -->
 COSI 旨在標準化對象存儲的使用，以提供以下好處：
 
-* Kubernetes 原生 - 使用 Kubernetes API 來製備、配置和管理 Bucket
+* Kubernetes 原生 - 使用 Kubernetes API 來製備、設定和管理 Bucket
 * 自助服務 - 明確劃分管理和運營 (DevOps)，爲 DevOps 人員賦予自助服務能力
-* 可移植性 - 通過跨 Kubernetes 集羣和跨對象存儲供應商的可移植性實現供應商中立性
+* 可移植性 - 通過跨 Kubernetes 叢集和跨對象存儲供應商的可移植性實現供應商中立性
 
 **跨供應商的可移植性只有在兩家供應商都支持通用數據路徑 API 時纔有可能。
 例如，可以從 AWS S3 移植到 Ceph，或從 AWS S3 移植到 MinIO 以及反向操作，因爲它們都使用 S3 API。
@@ -84,7 +84,7 @@ The COSI Sidecar acts as a translator between COSI API requests and vendor-speci
 The COSI Driver is the vendor specific component that receives requests from the sidecar and calls the appropriate vendor APIs to create buckets, manage their lifecycle and manage access to them. 
 -->
 COSI 控制器管理器充當處理 COSI API 對象更改的主控制器，它負責處理 Bucket 創建、更新、刪除和訪問管理的請求。
-每個 Kubernetes 集羣都需要一個控制器管理器實例。即使集羣中使用了多個對象存儲提供程序，也只需要一個。
+每個 Kubernetes 叢集都需要一個控制器管理器實例。即使叢集中使用了多個對象存儲提供程序，也只需要一個。
 
 COSI 邊車充當 COSI API 請求和供應商特定 COSI 驅動程序之間的轉換器。
 該組件使用供應商驅動程序應滿足的標準化 gRPC 協議。
@@ -128,7 +128,7 @@ Since Object Storage is always authenticated, and over the network, access crede
 簡而言之，Bucket 和 BucketClaim 可以認爲分別類似於 PersistentVolume 和 PersistentVolumeClaim。
 BucketClass 在文件/塊設備世界中對應的是 StorageClass。
 
-由於對象存儲始終通過網絡進行身份驗證，因此需要訪問憑證才能訪問 Bucket。
+由於對象存儲始終通過網路進行身份驗證，因此需要訪問憑證才能訪問 Bucket。
 BucketAccess 和 BucketAccessClass 這兩個 API 用於表示訪問憑證和身份驗證策略。
 有關這些 API 的更多信息可以在官方 COSI 提案中找到 - https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1979-object-storage-support
 
@@ -143,14 +143,14 @@ For example, a cluster operator could use an admin policy could be used to restr
 -->
 ## 自助服務
 
-除了提供 kubernetes-API 驅動的 Bucket 管理之外，COSI 還旨在使 DevOps 人員能夠自行配置和管理 Bucket，
+除了提供 kubernetes-API 驅動的 Bucket 管理之外，COSI 還旨在使 DevOps 人員能夠自行設定和管理 Bucket，
 而無需管理員干預。這進一步使開發團隊能夠實現更快的週轉時間和更快的上市時間。
 
-COSI 通過在兩個不同的利益相關者（即管理員（admin）和集羣操作員）之間劃分 Bucket 配置步驟來實現這一點。
-管理員將負責就如何配置 Bucket 以及如何獲取 Bucket 的訪問權限設置廣泛的策略和限制。
-集羣操作員可以在管理員設置的限制內自由創建和使用 Bucket。
+COSI 通過在兩個不同的利益相關者（即管理員（admin）和叢集操作員）之間劃分 Bucket 設定步驟來實現這一點。
+管理員將負責就如何設定 Bucket 以及如何獲取 Bucket 的訪問權限設置廣泛的策略和限制。
+叢集操作員可以在管理員設置的限制內自由創建和使用 Bucket。
 
-例如，集羣操作員可以使用管理策略將最大預置容量限制爲 100GB，並且允許開發人員創建 Bucket 並將數據存儲到該限制。
+例如，叢集操作員可以使用管理策略將最大預置容量限制爲 100GB，並且允許開發人員創建 Bucket 並將數據存儲到該限制。
 同樣對於訪問憑證，管理員將能夠限制誰可以訪問哪些 Bucket，並且開發人員將能夠訪問他們可用的所有 Bucket。
 
 <!--
@@ -171,10 +171,10 @@ _COSI does not handle data migration as it is outside of its scope. In case port
 
 COSI 的第三個目標是實現 Bucket 管理的供應商中立性。COSI 支持兩種可移植性：
 
-* 跨集羣
+* 跨叢集
 * 跨提供商
 
-跨集羣可移植性允許在一個集羣中配置的 Bucket 在另一個集羣中可用。這僅在對象存儲後端本身可以從兩個集羣訪問時纔有效。
+跨叢集可移植性允許在一個叢集中設定的 Bucket 在另一個叢集中可用。這僅在對象存儲後端本身可以從兩個叢集訪問時纔有效。
 
 跨提供商可移植性是指允許組織或團隊無縫地從一個對象存儲提供商遷移到另一個對象存儲提供商，
 而無需更改應用程序定義（PodTemplates、StatefulSets、Deployment 等）。這只有在源和目標提供者使用相同的數據時纔有可能。
@@ -199,7 +199,7 @@ Stay tuned for what comes next, and if you have any questions, comments or sugge
 令人驚歎的 sig-storage-cosi 社區一直在努力將 COSI 標準帶入 Alpha 狀態。
 我們期待很多供應商加入編寫 COSI 驅動程序並與 COSI 兼容！
 
-我們希望爲 COSI Bucket 添加更多身份驗證機制，我們正在設計高級存儲桶共享原語、多集羣存儲桶管理等等。
+我們希望爲 COSI Bucket 添加更多身份驗證機制，我們正在設計高級存儲桶共享原語、多叢集存儲桶管理等等。
 未來有很多偉大的想法和機會！
 
 請繼續關注接下來的內容，如果你有任何問題、意見或建議分解的架構允許計算工作負載是無狀態

@@ -14,7 +14,7 @@ weight: 20
 <!--
 This tutorial applies only for new clusters.
 -->
-本教程僅適用於新集羣。
+本教程僅適用於新叢集。
 {{% /alert %}}
 
 <!--
@@ -32,8 +32,8 @@ Pod Security Admission 是一個准入控制器，在創建 Pod 時應用 [Pod �
 這是在 v1.25 中達到正式發佈（GA）的功能。
 在本教程中，你將應用 `baseline` Pod 安全標準，每次一個名字空間。
 
-你還可以在集羣級別一次將 Pod 安全標準應用於多個名稱空間。
-有關說明，請參閱[在集羣級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/cluster-level-pss/)。
+你還可以在叢集級別一次將 Pod 安全標準應用於多個名稱空間。
+有關說明，請參閱[在叢集級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/cluster-level-pss/)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -53,9 +53,9 @@ Install the following on your workstation:
 
 1. Create a `kind` cluster as follows:
 -->
-## 創建集羣  {#create-cluster}
+## 創建叢集  {#create-cluster}
 
-2. 按照如下方式創建一個 `kind` 集羣：
+2. 按照如下方式創建一個 `kind` 叢集：
 
    ```shell
    kind create cluster --name psa-ns-level
@@ -85,7 +85,7 @@ Install the following on your workstation:
 <!--
 1. Set the kubectl context to the new cluster:
 -->
-1. 將 kubectl 上下文設置爲新集羣：
+1. 將 kubectl 上下文設置爲新叢集：
 
    ```shell
    kubectl cluster-info --context kind-psa-ns-level
@@ -150,7 +150,7 @@ namespace/example created
    `warn` and `audit` for `restricted` Pod Security Standards as per the latest
    version (default value)
 -->
-1. 你可以使用標籤在任何名字空間上配置多個 Pod 安全標準檢查。
+1. 你可以使用標籤在任何名字空間上設定多個 Pod 安全標準檢查。
    以下命令將強制（`enforce`） 執行基線（`baseline`）Pod 安全標準，
    但根據最新版本（默認值）對受限（`restricted`）Pod 安全標準執行警告（`warn`）和審覈（`audit`）。
 
@@ -220,7 +220,7 @@ Now delete the cluster which you created above by running the following command:
 -->
 ## 清理  {#clean-up}
 
-現在通過運行以下命令刪除你上面創建的集羣：
+現在通過運行以下命令刪除你上面創建的叢集：
 
 ```shell
 kind delete cluster --name psa-ns-level
@@ -246,7 +246,7 @@ kind delete cluster --name psa-ns-level
 - 運行一個 [shell 腳本](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
   一次執行所有前面的步驟。
 
-   1. 創建 kind 集羣
+   1. 創建 kind 叢集
    2. 創建新的名字空間
    3. 在 `enforce` 模式下應用 `baseline` Pod 安全標準，
       同時在 `warn` 和 `audit` 模式下應用 `restricted` Pod 安全標準。
@@ -254,4 +254,4 @@ kind delete cluster --name psa-ns-level
 
 - [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
 - [Pod 安全標準](/zh-cn/docs/concepts/security/pod-security-standards/)
-- [在集羣級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/cluster-level-pss/)
+- [在叢集級別應用 Pod 安全標準](/zh-cn/docs/tutorials/security/cluster-level-pss/)

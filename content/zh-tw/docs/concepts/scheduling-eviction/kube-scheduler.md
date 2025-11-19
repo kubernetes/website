@@ -33,7 +33,7 @@ for finding the best Node for that Pod to run on. The scheduler reaches
 this placement decision taking into account the scheduling principles
 described below.
 -->
-調度器通過 Kubernetes 的監測（Watch）機制來發現集羣中新創建且尚未被調度到節點上的 Pod。
+調度器通過 Kubernetes 的監測（Watch）機制來發現叢集中新創建且尚未被調度到節點上的 Pod。
 調度器會將所發現的每一個未調度的 Pod 調度到一個合適的節點上來運行。
 調度器會依據下文的調度原則來做出調度選擇。
 
@@ -58,7 +58,7 @@ kube-scheduler is designed so that, if you want and need to, you can
 write your own scheduling component and use that instead.
 -->
 [kube-scheduler](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
-是 Kubernetes 集羣的默認調度器，並且是集羣
+是 Kubernetes 叢集的默認調度器，並且是叢集
 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 的一部分。
 如果你真的希望或者有這方面的需求，kube-scheduler
 在設計上允許你自己編寫一個調度組件並替換原有的 kube-scheduler。
@@ -80,7 +80,7 @@ In a cluster, Nodes that meet the scheduling requirements for a Pod
 are called _feasible_ nodes. If none of the nodes are suitable, the pod
 remains unscheduled until the scheduler is able to place it.
 -->
-在一個集羣中，滿足一個 Pod 調度請求的所有節點稱之爲**可調度節點**。
+在一個叢集中，滿足一個 Pod 調度請求的所有節點稱之爲**可調度節點**。
 如果沒有任何一個節點能滿足 Pod 的資源請求，
 那麼這個 Pod 將一直停留在未調度狀態直到調度器能夠找到合適的 Node。
 
@@ -90,7 +90,7 @@ functions to score the feasible Nodes and picks a Node with the highest
 score among the feasible ones to run the Pod. The scheduler then notifies
 the API server about this decision in a process called _binding_.
 -->
-調度器先在集羣中找到一個 Pod 的所有可調度節點，然後根據一系列函數對這些可調度節點打分，
+調度器先在叢集中找到一個 Pod 的所有可調度節點，然後根據一系列函數對這些可調度節點打分，
 選出其中得分最高的節點來運行 Pod。之後，調度器將這個調度決定通知給
 kube-apiserver，這個過程叫做**綁定**。
 
@@ -152,7 +152,7 @@ one of these at random.
 There are two supported ways to configure the filtering and scoring behavior
 of the scheduler:
 -->
-支持以下兩種方式配置調度器的過濾和打分行爲：
+支持以下兩種方式設定調度器的過濾和打分行爲：
 
 <!--
 1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to
@@ -163,10 +163,10 @@ of the scheduler:
   can also configure the kube-scheduler to run different profiles.
  -->
 1. [調度策略](/zh-cn/docs/reference/scheduling/policies)
-   允許你配置過濾所用的 **斷言（Predicates）** 和打分所用的 **優先級（Priorities）**。
-2. [調度配置](/zh-cn/docs/reference/scheduling/config/#profiles) 允許你配置實現不同調度階段的插件，
+   允許你設定過濾所用的 **斷言（Predicates）** 和打分所用的 **優先級（Priorities）**。
+2. [調度設定](/zh-cn/docs/reference/scheduling/config/#profiles) 允許你設定實現不同調度階段的插件，
    包括：`QueueSort`、`Filter`、`Score`、`Bind`、`Reserve`、`Permit` 等等。
-   你也可以配置 kube-scheduler 運行不同的配置文件。
+   你也可以設定 kube-scheduler 運行不同的設定文件。
 
 ## {{% heading "whatsnext" %}}
 <!--
@@ -185,8 +185,8 @@ of the scheduler:
 * 閱讀關於[調度器性能調優](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * 閱讀關於 [Pod 拓撲分佈約束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * 閱讀關於 kube-scheduler 的[參考文檔](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
-* 閱讀 [kube-scheduler 配置參考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
-* 瞭解關於[配置多個調度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式
+* 閱讀 [kube-scheduler 設定參考（v1）](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
+* 瞭解關於[設定多個調度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式
 * 瞭解關於[拓撲結構管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
 * 瞭解關於 [Pod 開銷](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
 * 瞭解關於如何在以下情形使用捲來調度 Pod：

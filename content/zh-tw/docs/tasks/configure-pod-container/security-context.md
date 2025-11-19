@@ -1,5 +1,5 @@
 ---
-title: 爲 Pod 或容器配置安全上下文
+title: 爲 Pod 或容器設定安全上下文
 content_type: task
 weight: 110
 ---
@@ -34,7 +34,7 @@ a Pod or Container. Security context settings include, but are not limited to:
 安全上下文包括但不限於：
 
 * 自主訪問控制（Discretionary Access Control）：
-  基於[用戶 ID（UID）和組 ID（GID）](https://wiki.archlinux.org/index.php/users_and_groups)
+  基於[使用者 ID（UID）和組 ID（GID）](https://wiki.archlinux.org/index.php/users_and_groups)
   來判定對對象（例如文件）的訪問權限。
 
 * [安全性增強的 Linux（SELinux）](https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E5%A2%9E%E5%BC%BA%E5%BC%8FLinux)：
@@ -43,7 +43,7 @@ a Pod or Container. Security context settings include, but are not limited to:
 * 以特權模式或者非特權模式運行。
 
 * [Linux 權能](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/): 
-  爲進程賦予 root 用戶的部分特權而非全部特權。
+  爲進程賦予 root 使用者的部分特權而非全部特權。
 
 <!--
 * [AppArmor](/docs/tutorials/security/apparmor/):
@@ -62,7 +62,7 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 -->
-* [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)：使用程序配置來限制個別程序的權能。
+* [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)：使用程序設定來限制個別程序的權能。
 
 * [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)：過濾進程的系統調用。
 
@@ -104,8 +104,8 @@ Here is a configuration file for a Pod that has a `securityContext` and an `empt
 
 要爲 Pod 設置安全性設置，可在 Pod 規約中包含 `securityContext` 字段。`securityContext` 字段值是一個
 [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
-對象。你爲 Pod 所設置的安全性配置會應用到 Pod 中所有 Container 上。
-下面是一個 Pod 的配置文件，該 Pod 定義了 `securityContext` 和一個 `emptyDir` 卷：
+對象。你爲 Pod 所設置的安全性設定會應用到 Pod 中所有 Container 上。
+下面是一個 Pod 的設定文件，該 Pod 定義了 `securityContext` 和一個 `emptyDir` 卷：
 
 {{% code_sample file="pods/security/security-context.yaml" %}}
 
@@ -121,10 +121,10 @@ specified groups. If this field is omitted, it means empty.
 
 Create the Pod:
 -->
-在配置文件中，`runAsUser` 字段指定 Pod 中的所有容器內的進程都使用用戶 ID 1000
+在設定文件中，`runAsUser` 字段指定 Pod 中的所有容器內的進程都使用使用者 ID 1000
 來運行。`runAsGroup` 字段指定所有容器中的進程都以主組 ID 3000 來運行。
 如果忽略此字段，則容器的主組 ID 將是 root（0）。
-當 `runAsGroup` 被設置時，所有創建的文件也會劃歸用戶 1000 和組 3000。
+當 `runAsGroup` 被設置時，所有創建的文件也會劃歸使用者 1000 和組 3000。
 由於 `fsGroup` 被設置，容器中所有進程也會是附組 ID 2000 的一部分。
 卷 `/data/demo` 及在該卷中創建的任何文件的屬主都會是組 ID 2000。
 此外，當 `supplementalGroups` 字段被指定時，容器的所有進程也會成爲所指定的組的一部分。
@@ -166,7 +166,7 @@ ps
 <!--
 The output shows that the processes are running as user 1000, which is the value of `runAsUser`:
 -->
-輸出顯示進程以用戶 1000 運行，即 `runAsUser` 所設置的值：
+輸出顯示進程以使用者 1000 運行，即 `runAsUser` 所設置的值：
 
 ```none
 PID   USER     TIME  COMMAND
@@ -253,7 +253,7 @@ Exit your shell:
 -->
 從輸出中你會看到 `gid` 值爲 3000，也就是 `runAsGroup` 字段的值。
 如果 `runAsGroup` 被忽略，則 `gid` 會取值 0（root），而進程就能夠與 root
-用戶組所擁有以及要求 root 用戶組訪問權限的文件交互。
+使用者組所擁有以及要求 root 使用者組訪問權限的文件交互。
 你還可以看到，除了 `gid` 之外，`groups` 還包含了由 `fsGroup` 和 `supplementalGroups` 指定的組 ID。
 
 退出你的 Shell：
@@ -267,9 +267,9 @@ exit
 
 By default, kubernetes merges group information from the Pod with information defined in `/etc/group` in the container image.
 -->
-### 容器鏡像內 `/etc/group` 中定義的隱式組成員身份
+### 容器映像檔內 `/etc/group` 中定義的隱式組成員身份
 
-默認情況下，Kubernetes 會將 Pod 中的組信息與容器鏡像內 `/etc/group` 中定義的信息合併。
+默認情況下，Kubernetes 會將 Pod 中的組信息與容器映像檔內 `/etc/group` 中定義的信息合併。
 
 {{% code_sample file="pods/security/security-context-5.yaml" %}}
 
@@ -281,7 +281,7 @@ will include group IDs which come from `/etc/group` in the container image.
 Create the Pod:
 -->
 此 Pod 的安全上下文包含 `runAsUser`、`runAsGroup` 和 `supplementalGroups`。  
-然而，你可以看到，掛接到容器進程的實際附加組將包括來自容器鏡像中 `/etc/group` 的組 ID。
+然而，你可以看到，掛接到容器進程的實際附加組將包括來自容器映像檔中 `/etc/group` 的組 ID。
 
 創建 Pod：
 
@@ -333,9 +333,9 @@ inside the container image.
 Check the `/etc/group` in the container image:
 -->
 你可以看到 `groups` 包含組 ID `50000`。
-這是因爲鏡像中定義的用戶（`uid=1000`）屬於在容器鏡像內 `/etc/group` 中定義的組（`gid=50000`）。
+這是因爲映像檔中定義的使用者（`uid=1000`）屬於在容器映像檔內 `/etc/group` 中定義的組（`gid=50000`）。
 
-檢查容器鏡像中的 `/etc/group`：
+檢查容器映像檔中的 `/etc/group`：
 
 ```shell
 cat /etc/group
@@ -375,7 +375,7 @@ If you want to avoid this. Please see the below section.
 <!--
 ## Configure fine-grained SupplementalGroups control for a Pod {#supplementalgroupspolicy}
 -->
-## 配置 Pod 的細粒度 SupplementalGroups 控制   {#supplementalgroupspolicy}
+## 設定 Pod 的細粒度 SupplementalGroups 控制   {#supplementalgroupspolicy}
 
 {{< feature-state feature_gate_name="SupplementalGroupsPolicy" >}}
 
@@ -403,11 +403,11 @@ values for this field:
   are attached as the supplementary groups of the container processes.
   This means no group membership from `/etc/group` for the container's primary user will be merged.
 -->
-* `Merge`：爲容器的主用戶在 `/etc/group` 中定義的組成員身份將被合併。
+* `Merge`：爲容器的主使用者在 `/etc/group` 中定義的組成員身份將被合併。
   如果不指定，這就是默認策略。
 
 * `Strict`：僅將 `fsGroup`、`supplementalGroups` 或 `runAsGroup`
-  字段中的組 ID 掛接爲容器進程的附加組。這意味着容器主用戶在 `/etc/group` 中的組成員身份將不會被合併。
+  字段中的組 ID 掛接爲容器進程的附加組。這意味着容器主使用者在 `/etc/group` 中的組成員身份將不會被合併。
 
 <!--
 When the feature is enabled, it also exposes the process identity attached to the first container process
@@ -577,7 +577,7 @@ involvedObject:
 <!--
 ## Configure volume permission and ownership change policy for Pods
 -->
-## 爲 Pod 配置卷訪問權限和屬主變更策略    {#configure-volume-permission-and-ownership-change-policy-for-pods}
+## 爲 Pod 設定卷訪問權限和屬主變更策略    {#configure-volume-permission-and-ownership-change-policy-for-pods}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
@@ -680,13 +680,13 @@ and the Container have a `securityContext` field:
 -->
 ## 爲 Container 設置安全性上下文  {#set-the-security-context-for-a-container}
 
-若要爲 Container 設置安全性配置，可以在 Container 清單中包含 `securityContext` 
+若要爲 Container 設置安全性設定，可以在 Container 清單中包含 `securityContext` 
 字段。`securityContext` 字段的取值是一個
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-對象。你爲 Container 設置的安全性配置僅適用於該容器本身，並且所指定的設置在與
+對象。你爲 Container 設置的安全性設定僅適用於該容器本身，並且所指定的設置在與
 Pod 層面設置的內容發生重疊時，會重寫 Pod 層面的設置。Container 層面的設置不會影響到 Pod 的卷。
 
-下面是一個 Pod 的配置文件，其中包含一個 Container。Pod 和 Container 都有
+下面是一個 Pod 的設定文件，其中包含一個 Container。Pod 和 Container 都有
 `securityContext` 字段：
 
 {{% code_sample file="pods/security/security-context-2.yaml" %}}
@@ -732,7 +732,7 @@ The output shows that the processes are running as user 2000. This is the value
 of `runAsUser` specified for the Container. It overrides the value 1000 that is
 specified for the Pod.
 -->
-輸出顯示進程以用戶 2000 運行。該值是在 Container 的 `runAsUser` 中設置的。
+輸出顯示進程以使用者 2000 運行。該值是在 Container 的 `runAsUser` 中設置的。
 該設置值重寫了 Pod 層面所設置的值 1000。
 
 ```
@@ -765,12 +765,12 @@ Here is configuration file that does not add or remove any Container capabilitie
 ## 爲 Container 設置權能   {#set-capabilities-for-a-container}
 
 使用 [Linux 權能](https://man7.org/linux/man-pages/man7/capabilities.7.html)，
-你可以賦予進程 root 用戶所擁有的某些特權，但不必賦予其全部特權。
+你可以賦予進程 root 使用者所擁有的某些特權，但不必賦予其全部特權。
 要爲 Container 添加或移除 Linux 權能，可以在 Container 清單的 `securityContext`
 節包含 `capabilities` 字段。
 
 首先，看一下不包含 `capabilities` 字段時候會發生什麼。
-下面是一個配置文件，其中沒有添加或移除容器的權能：
+下面是一個設定文件，其中沒有添加或移除容器的權能：
 
 {{% code_sample file="pods/security/security-context-3.yaml" %}}
 
@@ -861,7 +861,7 @@ adds the `CAP_NET_ADMIN` and `CAP_SYS_TIME` capabilities:
 -->
 接下來運行一個與前例中容器相同的容器，只是這個容器有一些額外的權能設置。
 
-下面是一個 Pod 的配置，其中運行一個容器。配置爲容器添加 `CAP_NET_ADMIN` 和
+下面是一個 Pod 的設定，其中運行一個容器。設定爲容器添加 `CAP_NET_ADMIN` 和
 `CAP_SYS_TIME` 權能：
 
 {{% code_sample file="pods/security/security-context-4.yaml" %}}
@@ -953,22 +953,22 @@ indicates the path of the pre-configured profile on the node, relative to the
 kubelet's configured Seccomp profile location (configured with the `--root-dir`
 flag).
 -->
-## 爲容器設置 Seccomp 配置
+## 爲容器設置 Seccomp 設定
 
-若要爲容器設置 Seccomp 配置（Profile），可在你的 Pod 或 Container 清單的
+若要爲容器設置 Seccomp 設定（Profile），可在你的 Pod 或 Container 清單的
 `securityContext` 節中包含 `seccompProfile` 字段。該字段是一個 
 [SeccompProfile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#seccompprofile-v1-core)
 對象，包含 `type` 和 `localhostProfile` 屬性。
 `type` 的合法選項包括 `RuntimeDefault`、`Unconfined` 和 `Localhost`。
-`localhostProfile` 只能在 `type: Localhost` 配置下纔可以設置。
-該字段標明節點上預先設定的配置的路徑，路徑是相對於 kubelet 所配置的
-Seccomp 配置路徑（使用 `--root-dir` 設置）而言的。
+`localhostProfile` 只能在 `type: Localhost` 設定下纔可以設置。
+該字段標明節點上預先設定的設定的路徑，路徑是相對於 kubelet 所設定的
+Seccomp 設定路徑（使用 `--root-dir` 設置）而言的。
 
 <!--
 Here is an example that sets the Seccomp profile to the node's container runtime
 default profile:
 -->
-下面是一個例子，設置容器使用節點上容器運行時的默認配置作爲 Seccomp 配置：
+下面是一個例子，設置容器使用節點上容器運行時的默認設定作爲 Seccomp 設定：
 
 ```yaml
 ...
@@ -983,7 +983,7 @@ Here is an example that sets the Seccomp profile to a pre-configured file at
 -->
 下面是另一個例子，將 Seccomp 的樣板設置爲位於
 `<kubelet-根目錄>/seccomp/my-profiles/profile-allow.json`
-的一個預先配置的文件。
+的一個預先設定的文件。
 
 ```yaml
 ...
@@ -996,7 +996,7 @@ securityContext:
 <!--
 ## Set the AppArmor Profile for a Container
 -->
-## 爲 Container 設置 AppArmor 配置   {#set-the-apparmor-profile-for-a-container}
+## 爲 Container 設置 AppArmor 設定   {#set-the-apparmor-profile-for-a-container}
 
 <!--
 To set the AppArmor profile for a Container, include the `appArmorProfile` field
@@ -1012,15 +1012,15 @@ pod will be scheduled.
 Approaches for setting up custom profiles are discussed in
 [Setting up nodes with profiles](/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles).
 -->
-要爲 Container 設置 AppArmor 配置，請在 Container 的 `securityContext` 節中包含 `appArmorProfile` 字段。
+要爲 Container 設置 AppArmor 設定，請在 Container 的 `securityContext` 節中包含 `appArmorProfile` 字段。
 `appArmorProfile` 字段是一個
 [AppArmorProfile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apparmorprofile-v1-core)
 對象，由 `type` 和 `localhostProfile` 組成。  
 `type` 的有效選項包括 `RuntimeDefault`（默認）、`Unconfined` 和 `Localhost`。
 只有當 `type` 爲 `Localhost` 時，才能設置 `localhostProfile`。  
-它表示節點上預配的配置文件的名稱。
-此配置需要被加載到所有適合 Pod 的節點上，因爲你不知道 Pod 將被調度到哪裏。  
-關於設置自定義配置的方法，參見[使用配置文件設置節點](/zh-cn/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles)。
+它表示節點上預配的設定文件的名稱。
+此設定需要被加載到所有適合 Pod 的節點上，因爲你不知道 Pod 將被調度到哪裏。  
+關於設置自定義設定的方法，參見[使用設定文件設置節點](/zh-cn/docs/tutorials/security/apparmor/#setting-up-nodes-with-profiles)。
 
 <!--
 Note: If `containers[*].securityContext.appArmorProfile.type` is explicitly set 
@@ -1038,9 +1038,9 @@ default profile:
 `RuntimeDefault`，那麼如果 AppArmor 未在 Node 上被啓用，Pod 將不會被准入。  
 然而，如果 `containers[*].securityContext.appArmorProfile.type` 未被指定，
 則只有在節點已啓用 AppArmor 時纔會應用默認值（也是 `RuntimeDefault`）。  
-如果節點已禁用 AppArmor，Pod 將被准入，但 Container 將不受 `RuntimeDefault` 配置的限制。
+如果節點已禁用 AppArmor，Pod 將被准入，但 Container 將不受 `RuntimeDefault` 設定的限制。
 
-以下是將 AppArmor 配置設置爲節點的容器運行時默認配置的例子：
+以下是將 AppArmor 設定設置爲節點的容器運行時默認設定的例子：
 
 ```yaml
 ...
@@ -1055,7 +1055,7 @@ containers:
 Here is an example that sets the AppArmor profile to a pre-configured profile
 named `k8s-apparmor-example-deny-write`:
 -->
-以下是將 AppArmor 配置設置爲名爲 `k8s-apparmor-example-deny-write` 的預配配置的例子：
+以下是將 AppArmor 設定設置爲名爲 `k8s-apparmor-example-deny-write` 的預配設定的例子：
 
 ```yaml
 ...
@@ -1237,7 +1237,7 @@ only one of such pods is able to run on a node, the other one gets ContainerCrea
 對於不希望使用掛載選項來重新打標籤的 Pod，可以將
 `spec.securityContext.seLinuxChangePolicy` 設置爲 `Recursive`。
 當多個 Pod 共享同一節點上的單個卷，但使用不同的 SELinux 標籤以允許同時訪問此卷時，
-此配置是必需的。例如，一個特權 Pod 運行時使用 `spc_t` 標籤，
+此設定是必需的。例如，一個特權 Pod 運行時使用 `spc_t` 標籤，
 而一個非特權 Pod 運行時使用默認標籤 `container_file_t`。
 在不設置 `spec.securityContext.seLinuxChangePolicy`（或使用默認值 `MountOption`）的情況下，
 這樣的多個 Pod 中只能有一個在節點上運行，其他 Pod 會在 ContainerCreating 時報錯
@@ -1258,7 +1258,7 @@ This controller requires `SELinuxChangePolicy` feature gate to be enabled.
 爲了更容易識別受 SELinux 卷重新打標籤的變化所影響的 Pod，一個名爲
 `SELinuxWarningController` 的新控制器已被添加到 kube-controller-manager 中。
 這個控制器默認是被禁用的，你可以通過設置 `--controllers=*,selinux-warning-controller`
-[命令行標誌](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)或通過在
+[命令列標誌](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/)或通過在
 [KubeControllerManagerConfiguration 中設置 `genericControllerManagerConfiguration.controllers` 字段](/zh-cn/docs/reference/config-api/kube-controller-manager-config.v1alpha1/#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)來啓用。
 此控制器需要啓用 `SELinuxChangePolicy` 特性門控。
 
@@ -1287,7 +1287,7 @@ with different SELinux labels:
 A cluster admin can use this information to identify pods affected by the planning change and
 proactively opt-out Pods from the optimization (i.e. set `spec.securityContext.seLinuxChangePolicy: Recursive`).
 -->
-集羣管理員可以使用此信息識別受規劃變更所影響的 Pod，並主動篩選出不需優化的 Pod
+叢集管理員可以使用此信息識別受規劃變更所影響的 Pod，並主動篩選出不需優化的 Pod
 （即設置 `spec.securityContext.seLinuxChangePolicy: Recursive`）。
 
 {{< warning >}}
@@ -1296,7 +1296,7 @@ We strongly recommend clusters that use SELinux to enable this controller and ma
 `selinux_warning_controller_selinux_volume_conflict` metric does not report any conflicts before enabling `SELinuxMount`
 feature gate or upgrading to a version where `SELinuxMount` is enabled by default.
 -->
-我們強烈建議使用 SELinux 的集羣啓用此控制器，並確保在啓用
+我們強烈建議使用 SELinux 的叢集啓用此控制器，並確保在啓用
 `SELinuxMount` 特性門控或升級到默認啓用 `SELinuxMount`
 的版本之前，`selinux_warning_controller_selinux_volume_conflict`
 指標沒有報告任何衝突。
@@ -1328,7 +1328,7 @@ The following feature gates control the behavior of SELinux volume relabeling:
 -->
 * `SELinuxChangePolicy`：在 Pod 中啓用 `spec.securityContext.seLinuxChangePolicy` 字段，
   並在 kube-controller-manager 中啓用相關的 SELinuxWarningController。
-  你可以在啓用 `SELinuxMount` 之前使用此特性來檢查集羣中正在運行的 Pod，並主動篩選出不需優化的 Pod。
+  你可以在啓用 `SELinuxMount` 之前使用此特性來檢查叢集中正在運行的 Pod，並主動篩選出不需優化的 Pod。
   此特性門控需要啓用 `SELinuxMountReadWriteOncePod`。它在 1.33 中是 Beta 階段，並默認被啓用。
 
 <!--
@@ -1402,7 +1402,7 @@ The `securityContext` field `procMount` allows a user to request a container's `
 be `Unmasked`, or be mounted as read-write by the container process. This also
 applies to `/sys/firmware` which is not in `/proc`.
 -->
-`securityContext` 字段 `procMount` 允許用戶請求容器的 `/proc` 爲 `Unmasked`，
+`securityContext` 字段 `procMount` 允許使用者請求容器的 `/proc` 爲 `Unmasked`，
 或者由容器進程以讀寫方式掛載。這一設置也適用於不在 `/proc` 內的 `/sys/firmware` 路徑。
 
 ```yaml
@@ -1505,7 +1505,7 @@ kubectl delete pod security-context-demo-4
 -->
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) API 定義
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) API 定義
-* [CRI 插件配置指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
+* [CRI 插件設定指南](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [安全上下文的設計文檔（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/security_context.md)
 * [屬主管理的設計文檔（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-ownership-management.md)
 * [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)

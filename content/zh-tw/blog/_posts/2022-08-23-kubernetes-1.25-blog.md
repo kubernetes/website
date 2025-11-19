@@ -55,7 +55,7 @@ Kubernetes 項目本身是由特別多單獨的組件組成的，這些組件組
 他們不僅作爲發佈團隊成員，而且作爲許多 SIG 成員，常年通力合作支持項目和社區。
 
 通過這次發版，我們希望向協作和開源的精神致敬，
-這種精神使我們從分散在世界各地的獨立開發者、作者和用戶變成了能夠改變世界的聯合力量。
+這種精神使我們從分散在世界各地的獨立開發者、作者和使用者變成了能夠改變世界的聯合力量。
 Kubernetes v1.25 包含了驚人的 40 項增強功能，
 如果沒有我們在一起工作時擁有的強大力量，這些增強功能都不會存在。
 
@@ -85,7 +85,7 @@ PodSecurityPolicy 是在 [1.21 版本中被棄用](/blog/2021/04/06/podsecurityp
 ### Ephemeral Containers 成長爲 Stable
 
 [臨時容器](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/)是在現有的 Pod 中存在有限時間的容器。
-當你需要檢查另一個容器，但因爲該容器已經崩潰或其鏡像缺乏調試工具不能使用 `kubectl exec` 時，它對故障排除特別有用。
+當你需要檢查另一個容器，但因爲該容器已經崩潰或其映像檔缺乏調試工具不能使用 `kubectl exec` 時，它對故障排除特別有用。
 臨時容器在 Kubernetes v1.23 中成長爲 Beta，並在這個版本中，該功能成長爲 Stable。
 
 <!--
@@ -142,16 +142,16 @@ Promoted `endPort` in [Network Policy](https://kubernetes.io/docs/concepts/servi
 
 Please be aware that `endPort` field **must be supported** by the Network Policy provider. If your provider does not support `endPort`, and this field is specified in a Network Policy, the Network Policy will be created covering only the port field (single port).
 -->
-### 網絡策略中 endPort 升級爲 Stable
+### 網路策略中 endPort 升級爲 Stable
 
-[網絡策略](/zh-cn/docs/concepts/services-networking/network-policies/#targeting-a-range-of-ports)中的 
+[網路策略](/zh-cn/docs/concepts/services-networking/network-policies/#targeting-a-range-of-ports)中的 
 `endPort` 已經迎來 GA 正式發佈。
-支持 `endPort` 字段的網絡策略提供程序現在可使用該字段來指定端口範圍，應用網絡策略。
-在之前的版本中，每個網絡策略只能指向單一端口。
+支持 `endPort` 字段的網路策略提供程序現在可使用該字段來指定端口範圍，應用網路策略。
+在之前的版本中，每個網路策略只能指向單一端口。
 
-請注意，網絡策略提供程序 **必須支持** `endPort` 字段。
-如果提供程序不支持 `endPort`，又在網絡策略中指定了此字段，
-則會創建出僅覆蓋端口字段（單端口）的網絡策略。
+請注意，網路策略提供程序 **必須支持** `endPort` 字段。
+如果提供程序不支持 `endPort`，又在網路策略中指定了此字段，
+則會創建出僅覆蓋端口字段（單端口）的網路策略。
 
 <!--
 ### Promoted Local Ephemeral Storage Capacity Isolation to Stable
@@ -186,7 +186,7 @@ The [CSI Ephemeral Volume](https://github.com/kubernetes/enhancements/tree/maste
 
 [CSI 臨時數據卷](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/596-csi-inline-volumes)
 功能允許在臨時使用的情況下在 Pod 裏直接指定 CSI 數據卷。
-因此可以直接用它們在使用掛載卷的 Pod 內注入任意狀態，如配置、祕密、身份、變量或類似信息。
+因此可以直接用它們在使用掛載卷的 Pod 內注入任意狀態，如設定、祕密、身份、變量或類似信息。
 這個功能最初是作爲 alpha 功能在 1.15 版本中引入，現在已升級爲 GA 通用版。
 某些 CSI 驅動程序會使用此功能，例如[存儲密碼的 CSI 驅動程序](https://github.com/kubernetes-sigs/secrets-store-csi-driver)。
 
@@ -207,10 +207,10 @@ The [CSI Ephemeral Volume](https://github.com/kubernetes/enhancements/tree/maste
 
 Promoted the `ServerSideFieldValidation` feature gate to beta (on by default). This allows optionally triggering schema validation on the API server that errors when unknown fields are detected. This allows the removal of client-side validation from kubectl while maintaining the same core functionality of erroring out on requests that contain unknown or invalid fields.
 -->
-### 服務器端未知字段驗證升級爲 Beta
+### 伺服器端未知字段驗證升級爲 Beta
 
 `ServerSideFieldValidation` 特性門控已升級爲 beta（默認開啓）。
-它允許在檢測到未知字段時，有選擇地觸發 API 服務器上的模式驗證機制。
+它允許在檢測到未知字段時，有選擇地觸發 API 伺服器上的模式驗證機制。
 因此這允許從 kubectl 中移除客戶端驗證的同時保持相同的核心功能，即對包含未知或無效字段的請求進行錯誤處理。
 
 
@@ -223,7 +223,7 @@ Introduce KMS v2alpha1 API to add performance, rotation, and observability impro
 
 引入 KMS v2 alpha1 API 以提升性能，實現輪替與可觀察性改進。
 此 API 使用 AES-GCM 替代了 AES-CBC，通過 DEK 實現靜態數據（即 Kubernetes Secrets）加密。
-過程中無需額外用戶操作，而且仍然支持通過 AES-GCM 和 AES-CBC 進行讀取。
+過程中無需額外使用者操作，而且仍然支持通過 AES-GCM 和 AES-CBC 進行讀取。
 更多信息參考[使用 KMS provider 進行數據加密](/zh-cn/docs/tasks/administer-cluster/kms-provider/)指南。
 
 <!--
@@ -231,11 +231,11 @@ Introduce KMS v2alpha1 API to add performance, rotation, and observability impro
 
 In previous releases, kube-proxy container images were built using Debian as the base image. Starting with this release, the images are now built using [distroless](https://github.com/GoogleContainerTools/distroless). This change reduced image size by almost 50% and decreased the number of installed packages and files to only those strictly required for kube-proxy to do its job.
 -->
-### Kube-proxy 鏡像當前基於無發行版鏡像
+### Kube-proxy 映像檔當前基於無發行版映像檔
 
-在以前的版本中，kube-proxy 的容器鏡像是以 Debian 作爲基礎鏡像構建的。
-從這個版本開始，其鏡像現在使用 [distroless](https://github.com/GoogleContainerTools/distroless) 來構建。
-這一改變將鏡像的大小減少了近 50%，並將安裝的軟件包和文件的數量減少到只有 kube-proxy 工作所需的那些。
+在以前的版本中，kube-proxy 的容器映像檔是以 Debian 作爲基礎映像檔構建的。
+從這個版本開始，其映像檔現在使用 [distroless](https://github.com/GoogleContainerTools/distroless) 來構建。
+這一改變將映像檔的大小減少了近 50%，並將安裝的軟件包和文件的數量減少到只有 kube-proxy 工作所需的那些。
 
 
 <!--
@@ -273,7 +273,7 @@ This release includes a total of thirteen enhancements promoted to stable:
 * [CSI 遷移 -- AWS](https://github.com/kubernetes/enhancements/issues/1487)
 * [CSI 遷移 -- GCE](https://github.com/kubernetes/enhancements/issues/1488)
 * [DaemonSets 支持 MaxSurge](https://github.com/kubernetes/enhancements/issues/1591)
-* [網絡策略端口範圍](https://github.com/kubernetes/enhancements/issues/2079)
+* [網路策略端口範圍](https://github.com/kubernetes/enhancements/issues/2079)
 * [cgroups v2](https://github.com/kubernetes/enhancements/issues/2254)
 * [Pod Security Admission](https://github.com/kubernetes/enhancements/issues/2579)
 * [Statefulsets 增加 `minReadySeconds`](https://github.com/kubernetes/enhancements/issues/2599)
@@ -315,7 +315,7 @@ You can also easily install 1.25 using [kubeadm](/docs/setup/independent/create-
 
 Kubernetes 1.25 版本可在 [GitHub](https://github.com/kubernetes/kubernetes/releases/tag/v1.25.0) 下載獲取。
 開始使用 Kubernetes 請查看這些[交互式教程](/zh-cn/docs/tutorials/)或者使用
- [kind](https://kind.sigs.k8s.io/) 把容器當作 “節點” 來運行本地 Kubernetes 集羣。
+ [kind](https://kind.sigs.k8s.io/) 把容器當作 “節點” 來運行本地 Kubernetes 叢集。
 你也可以使用 [kubeadm](/zh-cn/docs/setup/independent/create-cluster-kubeadm/) 來簡單的安裝 1.25 版本。
 
 <!--
@@ -339,15 +339,15 @@ Kubernetes 的發展離不開其社區的支持、承諾和辛勤工作。
 * Nexxiot needed highly-reliable, secure, performant, and cost efficient Kubernetes clusters. [They turned to Cilium as the CNI to lock down their clusters and enable resilient networking with reliable day two operations](https://www.cncf.io/case-studies/nexxiot/).
 * Because the process of creating cyber insurance policies is a complicated multi-step process, At-Bay sought to improve operations by using asynchronous message-based communication patterns/facilities. [They determined that Dapr fulfilled its desired list of requirements and much more](https://www.cncf.io/case-studies/at-bay/).
 -->
-### 重要用戶
+### 重要使用者
 
 * Finleap Connect 在一個高度規範的環境中運作。
-[2019年，他們有五個月的時間在其集羣的所有服務中實施交互 TLS（mTLS），以使其業務代碼符合新的歐洲 PSD2 支付指令](https://www.cncf.io/case-studies/finleap-connect/)。
+[2019年，他們有五個月的時間在其叢集的所有服務中實施交互 TLS（mTLS），以使其業務代碼符合新的歐洲 PSD2 支付指令](https://www.cncf.io/case-studies/finleap-connect/)。
 * PNC 試圖開發一種方法，以確保新的代碼能夠自動滿足安全標準和審計合規性要求--取代他們現有的 30 天的繁瑣的人工流程。
 使用 Knative，[PNC 開發了內部工具來自動檢查新代碼和對修改現有代碼](https://www.cncf.io/case-studies/pnc-bank/)。
 * Nexxiot 公司需要高可用、安全、高性能以及低成本的
- Kubernetes 集羣。[他們求助於 Cilium 作爲 CNI 來鎖定他們的集羣，並通過可靠的 Day2 操作實現彈性網絡](https://www.cncf.io/case-studies/nexxiot/)。
-* 因爲創建網絡安全策略的過程是一個複雜的多步驟過程，
+ Kubernetes 叢集。[他們求助於 Cilium 作爲 CNI 來鎖定他們的叢集，並通過可靠的 Day2 操作實現彈性網路](https://www.cncf.io/case-studies/nexxiot/)。
+* 因爲創建網路安全策略的過程是一個複雜的多步驟過程，
 At-Bay 試圖通過使用基於異步消息的通信模式/設施來改善運營。[他們確定 Dapr 滿足了其所需的要求清單，且遠超預期](https://www.cncf.io/case-studies/at-bay/)。
 
 <!--
@@ -394,7 +394,7 @@ Join members of the Kubernetes v1.25 release team on Thursday September 22, 2022
 the major features of this release, as well as deprecations and removals to help plan for upgrades.
 For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v125-release/).
 -->
-## 即將舉行的網絡發佈研討會
+## 即將舉行的網路發佈研討會
 
 加入 Kubernetes 1.25 版本發佈團隊的成員，將於 2022 年 9 月 22 日星期四上午 10 點至 11 點(太平洋時間)瞭解該版本的主要功能，
 以及棄用和刪除的內容，以幫助制定升級計劃。

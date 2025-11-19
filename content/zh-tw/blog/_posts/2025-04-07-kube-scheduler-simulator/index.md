@@ -31,7 +31,7 @@ Kubernetes 調度器（Scheduler）是一個關鍵的控制平面組件，負責
 是一個 Kubernetes 調度器的**模擬器**，最初是作爲
 [Google Summer of Code 2021](https://summerofcode.withgoogle.com/)
 項目由我（Kensei Nakada）開發的，後來收到了許多貢獻。  
-該工具允許用戶深入檢查調度器的行爲和決策。
+該工具允許使用者深入檢查調度器的行爲和決策。
 
 <!--
 It is useful for casual users who employ scheduling constraints (for example, [inter-Pod affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity/#affinity-and-anti-affinity))
@@ -39,7 +39,7 @@ and experts who extend the scheduler with custom plugins.
 -->
 對於使用調度約束（例如，
 [Pod 間親和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)）
-的普通用戶和通過自定義插件擴展調度器的專家來說，它都是非常有用的。
+的普通使用者和通過自定義插件擴展調度器的專家來說，它都是非常有用的。
 
 <!--
 ## Motivation
@@ -56,7 +56,7 @@ Even if a Pod appears to be scheduled correctly in a simple test cluster, it mig
 由許多插件組成，每個插件從其獨特的角度對調度決策過程做出貢獻。  
 由於調度器考慮的因素繁多，理解其行爲可能會非常具有挑戰性。
 
-即使在一個簡單的測試集羣中，Pod 似乎被正確調度，它也可能基於與預期不同的計算邏輯進行調度。
+即使在一個簡單的測試叢集中，Pod 似乎被正確調度，它也可能基於與預期不同的計算邏輯進行調度。
 這種差異可能會在大規模生產環境中導致意外的調度結果。
 
 <!--
@@ -67,10 +67,10 @@ Actually, many bugs are found by users after shipping the release,
 even in the upstream kube-scheduler. 
 -->
 此外，測試調度器是一個複雜的挑戰。  
-在實際集羣中執行的操作模式數不勝數，使得通過有限數量的測試來預見每種場景變得不可行。  
-通常，只有當調度器部署到實際集羣時，纔會發現其中的 Bug。
+在實際叢集中執行的操作模式數不勝數，使得通過有限數量的測試來預見每種場景變得不可行。  
+通常，只有當調度器部署到實際叢集時，纔會發現其中的 Bug。
 
-實際上，許多 Bug 是在發佈版本後由用戶發現的，即使是在上游 kube-scheduler 中也是如此。
+實際上，許多 Bug 是在發佈版本後由使用者發現的，即使是在上游 kube-scheduler 中也是如此。
 
 <!--
 Having a development or sandbox environment for testing the scheduler — or, indeed, any Kubernetes controllers — is a common practice.
@@ -79,7 +79,7 @@ because a development cluster is often much smaller with notable differences in 
 It never sees the exact same use or exhibits the same behavior as its production counterpart.
 -->
 擁有一個用於測試調度器或任何 Kubernetes 控制器的開發或沙箱環境是常見做法。  
-然而，這種方法不足以捕捉生產集羣中可能出現的所有潛在場景，因爲開發集羣通常規模要小得多，
+然而，這種方法不足以捕捉生產叢集中可能出現的所有潛在場景，因爲開發叢集通常規模要小得多，
 在工作負載大小和擴展動態方面存在顯著差異。  
 它永遠不會看到與生產環境中完全相同的使用情況或表現出相同的行爲。
 
@@ -91,8 +91,8 @@ It also allows users to create a simulated cluster environment, where they can t
 with the same resources as their production cluster without affecting actual workloads.
 -->
 kube-scheduler-simulator 旨在解決這些問題。  
-它使用戶能夠在檢查調度決策每一個細節的同時，測試他們的調度約束、調度器配置和自定義插件。  
-它還允許用戶創建一個模擬集羣環境，在該環境中，他們可以使用與生產集羣相同的資源來測試其調度器，
+它使使用者能夠在檢查調度決策每一個細節的同時，測試他們的調度約束、調度器設定和自定義插件。  
+它還允許使用者創建一個模擬叢集環境，在該環境中，他們可以使用與生產叢集相同的資源來測試其調度器，
 而不會影響實際的工作負載。
 
 <!--
@@ -116,8 +116,8 @@ This visibility helps users understand the scheduler’s workings and define app
 
 {{< figure src="/images/blog/2025-04-07-kube-scheduler-simulator/simulator.png" alt="Screenshot of the simulator web frontend that shows the detailed scheduling results per node and per extension point" title="The simulator web frontend" >}}
 -->
-模擬器允許用戶創建 Kubernetes 資源，並觀察每個插件如何影響 Pod 的調度決策。  
-這種可見性幫助用戶理解調度器的工作機制並定義適當的調度約束。
+模擬器允許使用者創建 Kubernetes 資源，並觀察每個插件如何影響 Pod 的調度決策。  
+這種可見性幫助使用者理解調度器的工作機制並定義適當的調度約束。
 
 {{< figure src="/images/blog/2025-04-07-kube-scheduler-simulator/simulator.png" alt="模擬器 Web 前端的截圖，顯示了每個節點和每個擴展點的詳細調度結果" title="模擬器 Web 前端" >}}
 
@@ -250,12 +250,12 @@ Users can also integrate [their custom plugins](/docs/concepts/scheduling-evicti
 This debuggable scheduler can also run standalone, for example, on any Kubernetes cluster or in integration tests. 
 This would be useful to custom plugin developers who want to test their plugins or examine their custom scheduler in a real cluster with better debuggability.
 -->
-用戶還可以將[其自定義插件](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)
+使用者還可以將[其自定義插件](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)
 或[擴展器](https://github.com/kubernetes/design-proposals-archive/blob/main/scheduling/scheduler_extender.md)
 集成到可調試調度器中，並可視化其結果。
 
-這個可調試調度器還可以獨立運行，例如，在任何 Kubernetes 集羣上或在集成測試中運行。  
-這對於希望測試其插件或在真實集羣中以更好的可調試性檢查其自定義調度器的插件開發者來說非常有用。
+這個可調試調度器還可以獨立運行，例如，在任何 Kubernetes 叢集上或在集成測試中運行。  
+這對於希望測試其插件或在真實叢集中以更好的可調試性檢查其自定義調度器的插件開發者來說非常有用。
 
 <!--
 ## The simulator as a better dev cluster
@@ -263,10 +263,10 @@ This would be useful to custom plugin developers who want to test their plugins 
 As mentioned earlier, with a limited set of tests, it is impossible to predict every possible scenario in a real-world cluster.
 Typically, users will test the scheduler in a small, development cluster before deploying it to production, hoping that no issues arise.
 -->
-## 作爲更優開發集羣的模擬器
+## 作爲更優開發叢集的模擬器
 
-如前所述，由於測試用例的數量有限，不可能預測真實世界集羣中的每一種可能場景。  
-通常，用戶會在一個小型開發集羣中測試調度器，然後再將其部署到生產環境中，
+如前所述，由於測試用例的數量有限，不可能預測真實世界叢集中的每一種可能場景。  
+通常，使用者會在一個小型開發叢集中測試調度器，然後再將其部署到生產環境中，
 希望能不出現任何問題。
 
 <!--
@@ -277,10 +277,10 @@ By continuously syncing between a production cluster and the simulator, users ca
 Once confident in its performance, they can proceed with the production deployment, reducing the risk of unexpected issues.
 -->
 [模擬器的導入功能](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/master/simulator/docs/import-cluster-resources.md)
-通過允許用戶在類似生產環境的模擬中部署新的調度器版本而不影響其線上工作負載，
+通過允許使用者在類似生產環境的模擬中部署新的調度器版本而不影響其線上工作負載，
 提供了一種解決方案。
 
-通過在生產集羣和模擬器之間進行持續同步，用戶可以安全地使用與生產集羣相同的資源測試新的調度器版本。
+通過在生產叢集和模擬器之間進行持續同步，使用者可以安全地使用與生產叢集相同的資源測試新的調度器版本。
 一旦對其性能感到滿意，便可以繼續進行生產部署，從而減少意外問題的風險。
 
 <!--
@@ -292,9 +292,9 @@ Once confident in its performance, they can proceed with the production deployme
 -->
 ## 有哪些使用場景？
 
-1. **集羣用戶**：檢查調度約束（例如，PodAffinity、PodTopologySpread）是否按預期工作。
-2. **集羣管理員**：評估在調度器配置更改後集羣的行爲表現。
-3. **調度器插件開發者**：測試自定義調度器插件或擴展器，在集成測試或開發集羣中使用可調試調度器，
+1. **叢集使用者**：檢查調度約束（例如，PodAffinity、PodTopologySpread）是否按預期工作。
+2. **叢集管理員**：評估在調度器設定更改後叢集的行爲表現。
+3. **調度器插件開發者**：測試自定義調度器插件或擴展器，在集成測試或開發叢集中使用可調試調度器，
    或利用[同步](https://github.com/kubernetes-sigs/kube-scheduler-simulator/blob/simulator/v0.3.0/simulator/docs/import-cluster-resources.md)
    功能在類似生產環境的環境中進行測試。
 
@@ -305,7 +305,7 @@ The simulator only requires Docker to be installed on a machine; a Kubernetes cl
 -->
 ## 入門指南
 
-模擬器僅要求在機器上安裝 Docker；並不需要 Kubernetes 集羣。
+模擬器僅要求在機器上安裝 Docker；並不需要 Kubernetes 叢集。
 
 ```
 git clone git@github.com:kubernetes-sigs/kube-scheduler-simulator.git

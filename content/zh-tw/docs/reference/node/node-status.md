@@ -17,7 +17,7 @@ aspect of managing a Kubernetes cluster. In this article, we'll cover the basics
 monitoring and maintaining node status to ensure a healthy and stable cluster.
 -->
 在 Kubernetes 中，[節點](/zh-cn/docs/concepts/architecture/nodes/)的狀態是管理 Kubernetes
-集羣的一個關鍵方面。在本文中，我們將簡要介紹如何監控和維護節點狀態以確保集羣的健康和穩定。
+叢集的一個關鍵方面。在本文中，我們將簡要介紹如何監控和維護節點狀態以確保叢集的健康和穩定。
 
 <!--
 ## Node status fields
@@ -62,7 +62,7 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 -->
 ### 地址   {#addresses}
 
-這些字段的用法取決於你的雲服務商或者物理機配置。
+這些字段的用法取決於你的雲服務商或者物理機設定。
 
 <!--
 * HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet
@@ -72,8 +72,8 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 * InternalIP: Typically the IP address of the node that is routable only within the cluster.
 -->
 * HostName：由節點的內核報告。可以通過 kubelet 的 `--hostname-override` 參數覆蓋。
-* ExternalIP：通常是節點的可外部路由（從集羣外可訪問）的 IP 地址。
-* InternalIP：通常是節點的僅可在集羣內部路由的 IP 地址。
+* ExternalIP：通常是節點的可外部路由（從叢集外可訪問）的 IP 地址。
+* InternalIP：通常是節點的僅可在叢集內部路由的 IP 地址。
 
 <!--
 ## Conditions {#condition}
@@ -102,7 +102,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 | `DiskPressure` | `True` 表示節點存在磁盤空間壓力，即磁盤可用量低，否則爲 `False` |
 | `MemoryPressure` | `True` 表示節點存在內存壓力，即節點內存可用量低，否則爲 `False` |
 | `PIDPressure` | `True` 表示節點存在進程壓力，即節點上進程過多；否則爲 `False` |
-| `NetworkUnavailable` | `True` 表示節點網絡配置不正確；否則爲 `False` |
+| `NetworkUnavailable` | `True` 表示節點網路設定不正確；否則爲 `False` |
 {{< /table >}}
 
 {{< note >}}
@@ -111,7 +111,7 @@ If you use command-line tools to print details of a cordoned Node, the Condition
 `SchedulingDisabled`. `SchedulingDisabled` is not a Condition in the Kubernetes API; instead,
 cordoned nodes are marked Unschedulable in their spec.
 -->
-如果使用命令行工具來打印已保護（Cordoned）節點的細節，其中的 Condition 字段可能包括
+如果使用命令列工具來打印已保護（Cordoned）節點的細節，其中的 Condition 字段可能包括
 `SchedulingDisabled`。`SchedulingDisabled` 不是 Kubernetes API 中定義的
 Condition，被保護起來的節點在其規約中被標記爲不可調度（Unschedulable）。
 {{< /note >}}
@@ -219,7 +219,7 @@ availability of each node, and to take action when failures are detected.
 -->
 ## 心跳   {#heartbeats}
 
-Kubernetes 節點發送的心跳幫助你的集羣確定每個節點的可用性，並在檢測到故障時採取行動。
+Kubernetes 節點發送的心跳幫助你的叢集確定每個節點的可用性，並在檢測到故障時採取行動。
 
 <!--
 For nodes there are two forms of heartbeats:
@@ -246,7 +246,7 @@ The kubelet is responsible for creating and updating the `.status` of Nodes,
 and for updating their related Leases.
 -->
 與節點的 `.status` 更新相比，Lease 是一種輕量級資源。
-使用 Lease 來表達心跳在大型集羣中可以減少這些更新對性能的影響。
+使用 Lease 來表達心跳在大型叢集中可以減少這些更新對性能的影響。
 
 kubelet 負責創建和更新節點的 `.status`，以及更新它們對應的 Lease。
 
@@ -260,7 +260,7 @@ kubelet 負責創建和更新節點的 `.status`，以及更新它們對應的 L
   updates to the Node's `.status`. If the Lease update fails, the kubelet retries,
   using exponential backoff that starts at 200 milliseconds and capped at 7 seconds.
 -->
-- 當節點狀態發生變化時，或者在配置的時間間隔內沒有更新事件時，kubelet 會更新 `.status`。
+- 當節點狀態發生變化時，或者在設定的時間間隔內沒有更新事件時，kubelet 會更新 `.status`。
   `.status` 更新的默認間隔爲 5 分鐘（比節點不可達事件的 40 秒默認超時時間長很多）。
 - `kubelet` 會創建並每 10 秒（默認更新間隔時間）更新 Lease 對象。
   Lease 的更新獨立於節點的 `.status` 更新而發生。

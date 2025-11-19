@@ -20,8 +20,8 @@ emulation options to Kubernetes control plane components to make upgrades
 safer by providing more control and increasing the granularity of steps
 available to cluster administrators.
 -->
-自 v1.32 版本發佈以來，我們爲 Kubernetes 控制平面組件引入了可配置的版本兼容性和仿真選項，
-爲集羣管理員提供更多控制選項並增加可用的細粒度步驟來讓升級更加安全。
+自 v1.32 版本發佈以來，我們爲 Kubernetes 控制平面組件引入了可設定的版本兼容性和仿真選項，
+爲叢集管理員提供更多控制選項並增加可用的細粒度步驟來讓升級更加安全。
 
 <!-- body -->
 

@@ -147,7 +147,7 @@ Events:
 <!--
 Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.).
 -->
-在這裏，你可以看到有關容器和 Pod 的配置信息（標籤、資源需求等），
+在這裏，你可以看到有關容器和 Pod 的設定信息（標籤、資源需求等），
 以及有關容器和 Pod 的狀態信息（狀態、就緒、重啓計數、事件等）。
 
 <!--
@@ -161,13 +161,13 @@ The container state is one of Waiting, Running, or Terminated. Depending on the 
 Ready tells you whether the container passed its last readiness probe. (In this case, the container does not have a readiness probe configured; the container is assumed to be ready if no readiness probe is configured.)
 -->
 Ready 指示是否通過了最後一個就緒態探測。
-（在本例中，容器沒有配置就緒態探測；如果沒有配置就緒態探測，則假定容器已經就緒。）
+（在本例中，容器沒有設定就緒態探測；如果沒有設定就緒態探測，則假定容器已經就緒。）
 
 <!--
 Restart Count tells you how many times the container has been restarted; this information can be useful for detecting crash loops in containers that are configured with a restart policy of `Always`.
 -->
 Restart Count 告訴你容器已重啓的次數；
-這些信息對於定位配置了 "Always" 重啓策略的容器持續崩潰問題非常有用。
+這些信息對於定位設定了 "Always" 重啓策略的容器持續崩潰問題非常有用。
 
 <!--
 Currently the only Condition associated with a Pod is the binary Ready condition, which indicates that the pod is able to service requests and should be added to the load balancing pools of all matching services.
@@ -192,8 +192,8 @@ A common scenario that you can detect using events is when you've created a Pod 
 可以使用事件來調試的一個常見的場景是，你創建 Pod 無法被調度到任何節點。
 比如，Pod 請求的資源比較多，沒有任何一個節點能夠滿足，或者它指定了一個標籤，沒有節點可匹配。
 假定我們創建之前的 Deployment 時指定副本數是 5（不再是 2），並且請求 600 毫核（不再是 500），
-對於一個 4 個節點的集羣，若每個節點只有 1 個 CPU，這時至少有一個 Pod 不能被調度。
-（需要注意的是，其他集羣插件 Pod，比如 fluentd、skydns 等等會在每個節點上運行，
+對於一個 4 個節點的叢集，若每個節點只有 1 個 CPU，這時至少有一個 Pod 不能被調度。
+（需要注意的是，其他叢集插件 Pod，比如 fluentd、skydns 等等會在每個節點上運行，
 如果我們需求 1000 毫核，將不會有 Pod 會被調度。）
 
 ```shell
@@ -269,7 +269,7 @@ To correct this situation, you can use `kubectl scale` to update your Deployment
 Events such as the ones you saw at the end of `kubectl describe pod` are persisted in etcd and provide high-level information on what is happening in the cluster. To list all events you can use
 -->
 你在 `kubectl describe pod` 結尾處看到的事件都保存在 etcd 中，
-並提供關於集羣中正在發生的事情的高級信息。
+並提供關於叢集中正在發生的事情的高級信息。
 如果需要列出所有事件，可使用命令：
 
 ```shell
@@ -281,7 +281,7 @@ but you have to remember that events are namespaced. This means that if you're i
 -->
 但是，需要注意的是，事件是區分名字空間的。
 如果你對某些名字空間域的對象（比如 `my-namespace` 名字下的 Pod）的事件感興趣,
-你需要顯式地在命令行中指定名字空間：
+你需要顯式地在命令列中指定名字空間：
 
 ```shell
 kubectl get events --namespace=my-namespace
@@ -457,8 +457,8 @@ base images, you can run commands inside a specific container with
 -->
 ## 使用容器 exec 進行調試 {#container-exec}
 
-如果{{< glossary_tooltip text="容器鏡像" term_id="image" >}}包含調試程序，
-比如從 Linux 和 Windows 操作系統基礎鏡像構建的鏡像，你可以使用 `kubectl exec`
+如果{{< glossary_tooltip text="容器映像檔" term_id="image" >}}包含調試程序，
+比如從 Linux 和 Windows 操作系統基礎映像檔構建的映像檔，你可以使用 `kubectl exec`
 命令在特定的容器中運行一些命令：
 
 ```shell
@@ -510,7 +510,7 @@ https://github.com/GoogleContainerTools/distroless).
 
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
-當由於容器崩潰或容器鏡像不包含調試程序（例如[無發行版鏡像](https://github.com/GoogleContainerTools/distroless)等）
+當由於容器崩潰或容器映像檔不包含調試程序（例如[無發行版映像檔](https://github.com/GoogleContainerTools/distroless)等）
 而導致 `kubectl exec` 無法運行時，{{< glossary_tooltip text="臨時容器" term_id="ephemeral-container" >}}對於排除交互式故障很有用。
 
 <!--
@@ -533,14 +533,14 @@ The examples in this section use the `pause` container image because it does not
 contain debugging utilities, but this method works with all container
 images.
 -->
-本節示例中使用 `pause` 容器鏡像，因爲它不包含調試程序，但是這個方法適用於所有容器鏡像。
+本節示例中使用 `pause` 容器映像檔，因爲它不包含調試程序，但是這個方法適用於所有容器映像檔。
 
 <!--
 If you attempt to use `kubectl exec` to create a shell you will see an error
 because there is no shell in this container image.
 -->
 如果你嘗試使用 `kubectl exec` 來創建一個 shell，你將會看到一個錯誤，
-因爲這個容器鏡像中沒有 shell。
+因爲這個容器映像檔中沒有 shell。
 
 ```shell
 kubectl exec -it ephemeral-demo -- sh
@@ -640,10 +640,10 @@ container if your container image does not include a shell or if your applicatio
 crashes on startup. In these situations you can use `kubectl debug` to create a
 copy of the Pod with configuration values changed to aid debugging.
 -->
-有些時候 Pod 的配置參數使得在某些情況下很難執行故障排查。
-例如，在容器鏡像中不包含 shell 或者你的應用程序在啓動時崩潰的情況下，
+有些時候 Pod 的設定參數使得在某些情況下很難執行故障排查。
+例如，在容器映像檔中不包含 shell 或者你的應用程序在啓動時崩潰的情況下，
 就不能通過運行 `kubectl exec` 來排查容器故障。
-在這些情況下，你可以使用 `kubectl debug` 來創建 Pod 的副本，通過更改配置幫助調試。
+在這些情況下，你可以使用 `kubectl debug` 來創建 Pod 的副本，通過更改設定幫助調試。
 
 <!--
 ### Copying a Pod while adding a new container
@@ -663,7 +663,7 @@ For example, maybe your application's container images are built on `busybox`
 but you need debugging utilities not included in `busybox`. You can simulate
 this scenario using `kubectl run`:
 -->
-例如，應用的容器鏡像是建立在 `busybox` 的基礎上，但是你需要 `busybox`
+例如，應用的容器映像檔是建立在 `busybox` 的基礎上，但是你需要 `busybox`
 中並不包含的調試工具。你可以使用 `kubectl run` 模擬這個場景:
 
 ```shell
@@ -812,9 +812,9 @@ additional utilities.
 
 As an example, create a Pod using `kubectl run`:
 -->
-### 在更改容器鏡像時拷貝 Pod
+### 在更改容器映像檔時拷貝 Pod
 
-在某些情況下，你可能想要改動一個行爲異常的 Pod，即從其正常的生產容器鏡像更改爲包含調試構建程序或其他實用程序的鏡像。
+在某些情況下，你可能想要改動一個行爲異常的 Pod，即從其正常的生產容器映像檔更改爲包含調試構建程序或其他實用程序的映像檔。
 
 下面的例子，用 `kubectl run` 創建一個 Pod：
 
@@ -826,7 +826,7 @@ kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 Now use `kubectl debug` to make a copy and change its container image
 to `ubuntu`:
 -->
-現在可以使用 `kubectl debug` 創建一個拷貝並將其容器鏡像更改爲 `ubuntu`：
+現在可以使用 `kubectl debug` 創建一個拷貝並將其容器映像檔更改爲 `ubuntu`：
 
 ```shell
 kubectl debug myapp --copy-to=myapp-debug --set-image=*=ubuntu
@@ -840,7 +840,7 @@ to `ubuntu`.
 Don't forget to clean up the debugging Pod when you're finished with it:
 -->
 `--set-image` 與 `container_name=image` 使用相同的 `kubectl set image` 語法。
-`*=ubuntu` 表示把所有容器的鏡像改爲 `ubuntu`。
+`*=ubuntu` 表示把所有容器的映像檔改爲 `ubuntu`。
 
 ```shell
 kubectl delete pod myapp myapp-debug
@@ -885,7 +885,7 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 
 * `kubectl debug` 基於節點的名字自動生成新的 Pod 的名字。
 * 節點的根文件系統會被掛載在 `/host`。
-* 新的調試容器運行在主機 IPC 名字空間、主機網絡名字空間以及主機 PID 名字空間內，
+* 新的調試容器運行在主機 IPC 名字空間、主機網路名字空間以及主機 PID 名字空間內，
   Pod 沒有特權，因此讀取某些進程信息可能會失敗，並且 `chroot /host` 也可能會失敗。
 * 如果你需要一個特權 Pod，需要手動創建或使用 `--profile=sysadmin` 標誌。
 
@@ -904,12 +904,12 @@ By applying a profile, specific properties such as [securityContext](/docs/tasks
 are set, allowing for adaptation to various scenarios.
 There are two types of profiles, static profile and custom profile.
 -->
-## 指定應用配置來調試 Pod 或節點   {#debugging-profiles}
+## 指定應用設定來調試 Pod 或節點   {#debugging-profiles}
 
 使用 `kubectl debug` 通過調試 Pod 來調試節點、通過臨時容器來調試 Pod 或者調試複製的 Pod 時，
-你可以爲其應用配置。通過應用配置，可以設置特定的屬性（如
+你可以爲其應用設定。通過應用設定，可以設置特定的屬性（如
 [securityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)），
-以適應各種場景。有兩種配置：靜態配置和自定義配置。
+以適應各種場景。有兩種設定：靜態設定和自定義設定。
 
 <!--
 ### Applying a Static Profile {#static-profile}
@@ -917,10 +917,10 @@ There are two types of profiles, static profile and custom profile.
 A static profile is a set of predefined properties, and you can apply them using the `--profile` flag.
 The available profiles are as follows:
 -->
-### 應用靜態配置   {#static-profile}
+### 應用靜態設定   {#static-profile}
 
-靜態配置是預定義的屬性集，你可以使用 `--profile` 標誌來應用這些屬性。
-可用的配置如下：
+靜態設定是預定義的屬性集，你可以使用 `--profile` 標誌來應用這些屬性。
+可用的設定如下：
 
 <!--
 | Profile      | Description                                                     |
@@ -932,13 +932,13 @@ The available profiles are as follows:
 | netadmin     | A set of properties including Network Administrator privileges |
 | sysadmin     | A set of properties including System Administrator (root) privileges |
 -->
-| 配置         | 描述                                                      |
+| 設定         | 描述                                                      |
 | ----------- | --------------------------------------------------------- |
 | legacy      | 一組與 1.22 行爲向後兼容的屬性                                |
 | general     | 一組對大多數調試過程而言均合理的通用屬性                         |
 | baseline    | 一組與 [PodSecurityStandard Baseline 策略](/zh-cn/docs/concepts/security/pod-security-standards/#baseline)兼容的屬性 |
 | restricted  | 一組與 [PodSecurityStandard Restricted 策略](/zh-cn/docs/concepts/security/pod-security-standards/#restricted)兼容的屬性 |
-| netadmin    | 一組包含網絡管理員特權的屬性                                   |
+| netadmin    | 一組包含網路管理員特權的屬性                                   |
 | sysadmin    | 一組包含系統管理員（root）特權的屬性                            |
 
 
@@ -947,8 +947,8 @@ The available profiles are as follows:
 If you don't specify `--profile`, the `legacy` profile is used by default, but it is planned to be deprecated in the near future.
 So it is recommended to use other profiles such as `general`.
 -->
-如果你不指定 `--profile`，`legacy` 配置被默認使用，但此配置計劃在不久的將來棄用。
-因此建議使用 `general` 等其他配置。
+如果你不指定 `--profile`，`legacy` 設定被默認使用，但此設定計劃在不久的將來棄用。
+因此建議使用 `general` 等其他設定。
 {{< /note >}}
 
 <!--
@@ -967,7 +967,7 @@ Then, debug the Pod using an ephemeral container.
 If the ephemeral container needs to have privilege, you can use the `sysadmin` profile:
 -->
 然後，使用臨時容器調試 Pod。
-如果臨時容器需要具有特權，你可以使用 `sysadmin` 配置：
+如果臨時容器需要具有特權，你可以使用 `sysadmin` 設定：
 
 ```shell
 kubectl debug -it myapp --image=busybox:1.28 --target=myapp --profile=sysadmin
@@ -1002,7 +1002,7 @@ See more details about [capabilities](/docs/tasks/configure-pod-container/securi
 
 You can also check that the ephemeral container was created as a privileged container:
 -->
-這意味着通過應用 `sysadmin` 配置，容器進程被授予了作爲特權容器的全部權能。
+這意味着通過應用 `sysadmin` 設定，容器進程被授予了作爲特權容器的全部權能。
 更多細節參見[權能](/zh-cn/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container)。
 
 你還可以檢查臨時容器是否被創建爲特權容器：
@@ -1027,7 +1027,7 @@ kubectl delete pod myapp
 <!--
 ### Applying Custom Profile {#custom-profile}
 -->
-### 應用自定義配置   {#custom-profile}
+### 應用自定義設定   {#custom-profile}
 
 {{< feature-state for_k8s_version="v1.32" state="stable" >}}
 
@@ -1035,8 +1035,8 @@ kubectl delete pod myapp
 You can define a partial container spec for debugging as a custom profile in either YAML or JSON format, 
 and apply it using the `--custom` flag.
 -->
-你可以以 YAML 或 JSON 格式定義部分容器規約作爲自定義配置，
-並使用 `--custom` 標誌來應用自定義配置。
+你可以以 YAML 或 JSON 格式定義部分容器規約作爲自定義設定，
+並使用 `--custom` 標誌來應用自定義設定。
 
 {{< note >}}
 <!--
@@ -1045,9 +1045,9 @@ but modifications to `name`, `image`, `command`, `lifecycle` and `volumeDevices`
 are not allowed.
 It does not support the modification of the Pod spec.
 -->
-自定義配置僅支持修改容器規約，但不允許修改容器規約中的
+自定義設定僅支持修改容器規約，但不允許修改容器規約中的
 `name`、`image`、`command`、`lifecycle` 和 `volumeDevices` 字段。
-自定義配置不支持修改 Pod 規約。
+自定義設定不支持修改 Pod 規約。
 {{< /note >}}
 
 <!--
@@ -1063,7 +1063,7 @@ kubectl run myapp --image=busybox:1.28 --restart=Never -- sleep 1d
 Create a custom profile in YAML or JSON format.
 Here, create a YAML format file named `custom-profile.yaml`:
 -->
-以 YAML 或 JSON 格式創建自定義配置。
+以 YAML 或 JSON 格式創建自定義設定。
 以下創建一個名爲 `custom-profile.yaml` 的 YAML 格式文件：
 
 ```yaml
@@ -1082,7 +1082,7 @@ securityContext:
 <!--
 Run this command to debug the Pod using an ephemeral container with the custom profile:
 -->
-運行以下命令，使用帶自定義配置的臨時容器來調試 Pod：
+運行以下命令，使用帶自定義設定的臨時容器來調試 Pod：
 
 ```shell
 kubectl debug -it myapp --image=busybox:1.28 --target=myapp --profile=general --custom=custom-profile.yaml
@@ -1091,7 +1091,7 @@ kubectl debug -it myapp --image=busybox:1.28 --target=myapp --profile=general --
 <!--
 You can check that the ephemeral container has been added to the target Pod with the custom profile applied:
 -->
-你可以檢查臨時容器和應用的自定義配置是否已被添加到目標 Pod：
+你可以檢查臨時容器和應用的自定義設定是否已被添加到目標 Pod：
 
 ```shell
 kubectl get pod myapp -o jsonpath='{.spec.ephemeralContainers[0].env}'

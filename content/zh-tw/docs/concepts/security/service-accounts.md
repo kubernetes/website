@@ -44,15 +44,15 @@ ServiceAccount's credentials to identify as that ServiceAccount. This identity
 is useful in various situations, including authenticating to the API server or
 implementing identity-based security policies.
 -->
-服務賬號是在 Kubernetes 中一種用於非人類用戶的賬號，在 Kubernetes 集羣中提供不同的身份標識。
-應用 Pod、系統組件以及集羣內外的實體可以使用特定 ServiceAccount 的憑據來將自己標識爲該 ServiceAccount。
-這種身份可用於許多場景，包括向 API 服務器進行身份認證或實現基於身份的安全策略。
+服務賬號是在 Kubernetes 中一種用於非人類使用者的賬號，在 Kubernetes 叢集中提供不同的身份標識。
+應用 Pod、系統組件以及叢集內外的實體可以使用特定 ServiceAccount 的憑據來將自己標識爲該 ServiceAccount。
+這種身份可用於許多場景，包括向 API 伺服器進行身份認證或實現基於身份的安全策略。
 
 <!--
 Service accounts exist as ServiceAccount objects in the API server. Service
 accounts have the following properties:
 -->
-服務賬號以 ServiceAccount 對象的形式存在於 API 服務器中。服務賬號具有以下屬性：
+服務賬號以 ServiceAccount 對象的形式存在於 API 伺服器中。服務賬號具有以下屬性：
 
 <!--
 * **Namespaced:** Each service account is bound to a Kubernetes
@@ -66,7 +66,7 @@ accounts have the following properties:
 * **名字空間限定：** 每個服務賬號都與一個 Kubernetes 名字空間綁定。
   每個名字空間在創建時，會獲得一個[名爲 `default` 的 ServiceAccount](#default-service-accounts)。
 
-* **輕量級：** 服務賬號存在於集羣中，並在 Kubernetes API 中定義。你可以快速創建服務賬號以支持特定任務。
+* **輕量級：** 服務賬號存在於叢集中，並在 Kubernetes API 中定義。你可以快速創建服務賬號以支持特定任務。
 
 <!--
 * **Portable:** A configuration bundle for a complex containerized workload
@@ -74,8 +74,8 @@ accounts have the following properties:
   lightweight nature of service accounts and the namespaced identities make
   the configurations portable.
 -->
-* **可移植性：** 複雜的容器化工作負載的配置包中可能包括針對系統組件的服務賬號定義。
-  服務賬號的輕量級性質和名字空間作用域的身份使得這類配置可移植。
+* **可移植性：** 複雜的容器化工作負載的設定包中可能包括針對系統組件的服務賬號定義。
+  服務賬號的輕量級性質和名字空間作用域的身份使得這類設定可移植。
 
 <!--
 Service accounts are different from user accounts, which are authenticated
@@ -85,13 +85,13 @@ data. You can authenticate as a user account using multiple methods. Some
 Kubernetes distributions might add custom extension APIs to represent user
 accounts in the API server.
 -->
-服務賬號與用戶賬號不同，用戶賬號是集羣中通過了身份認證的人類用戶。默認情況下，
-用戶賬號不存在於 Kubernetes API 服務器中；相反，API 服務器將用戶身份視爲不透明數據。
-你可以使用多種方法認證爲某個用戶賬號。某些 Kubernetes 發行版可能會添加自定義擴展 API
-來在 API 服務器中表示用戶賬號。
+服務賬號與使用者賬號不同，使用者賬號是叢集中通過了身份認證的人類使用者。默認情況下，
+使用者賬號不存在於 Kubernetes API 伺服器中；相反，API 伺服器將使用者身份視爲不透明數據。
+你可以使用多種方法認證爲某個使用者賬號。某些 Kubernetes 發行版可能會添加自定義擴展 API
+來在 API 伺服器中表示使用者賬號。
 
 <!-- Comparison between service accounts and users -->
-{{< table caption="服務賬號與用戶之間的比較" >}}
+{{< table caption="服務賬號與使用者之間的比較" >}}
 
 <!--
 | Description | ServiceAccount | User or group |
@@ -100,7 +100,7 @@ accounts in the API server.
 | Access control | Kubernetes RBAC or other [authorization mechanisms](/docs/reference/access-authn-authz/authorization/#authorization-modules) | Kubernetes RBAC or other identity and access management mechanisms |
 | Intended use | Workloads, automation | People |
 -->
-| 描述 | 服務賬號 | 用戶或組 |
+| 描述 | 服務賬號 | 使用者或組 |
 | --- | --- | --- |
 | 位置 | Kubernetes API（ServiceAccount 對象）| 外部 |
 | 訪問控制 | Kubernetes RBAC 或其他[鑑權機制](/zh-cn/docs/reference/access-authn-authz/authorization/#authorization-modules) | Kubernetes RBAC 或其他身份和訪問管理機制 |
@@ -122,7 +122,7 @@ If you delete the `default` ServiceAccount object in a namespace, the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 replaces it with a new one.
 -->
-在你創建集羣時，Kubernetes 會自動爲集羣中的每個名字空間創建一個名爲 `default` 的 ServiceAccount 對象。
+在你創建叢集時，Kubernetes 會自動爲叢集中的每個名字空間創建一個名爲 `default` 的 ServiceAccount 對象。
 在啓用了基於角色的訪問控制（RBAC）時，Kubernetes 爲所有通過了身份認證的主體賦予
 [默認 API 發現權限](/zh-cn/docs/reference/access-authn-authz/rbac/#default-roles-and-role-bindings)。
 每個名字空間中的 `default` 服務賬號除了這些權限之外，默認沒有其他訪問權限。
@@ -155,7 +155,7 @@ the following scenarios:
     Pod in namespace `example` to read, list, and watch for Lease objects in
     the `kube-node-lease` namespace.
 -->
-* 你的 Pod 需要與 Kubernetes API 服務器通信，例如在以下場景中：
+* 你的 Pod 需要與 Kubernetes API 伺服器通信，例如在以下場景中：
   * 提供對存儲在 Secret 中的敏感信息的只讀訪問。
   * 授予[跨名字空間訪問](#cross-namespace)的權限，例如允許 `example` 名字空間中的 Pod 讀取、列舉和監視
     `kube-node-lease` 名字空間中的 Lease 對象。
@@ -167,8 +167,8 @@ the following scenarios:
 * [Authenticating to a private image registry using an `imagePullSecret`](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 -->
 * 你的 Pod 需要與外部服務進行通信。例如，工作負載 Pod 需要一個身份來訪問某商業化的雲 API，
-  並且商業化 API 的提供商允許配置適當的信任關係。
-* [使用 `imagePullSecret` 完成在私有鏡像倉庫上的身份認證](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
+  並且商業化 API 的提供商允許設定適當的信任關係。
+* [使用 `imagePullSecret` 完成在私有映像檔倉庫上的身份認證](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
 
 <!--
 * An external service needs to communicate with the Kubernetes API server. For
@@ -177,8 +177,8 @@ the following scenarios:
   ServiceAccount identity of different Pods to group those Pods into different
   contexts.
 -->
-* 外部服務需要與 Kubernetes API 服務器進行通信。例如，作爲 CI/CD 流水線的一部分向集羣作身份認證。
-* 你在集羣中使用了第三方安全軟件，該軟件依賴不同 Pod 的 ServiceAccount 身份，按不同上下文對這些 Pod 分組。
+* 外部服務需要與 Kubernetes API 伺服器進行通信。例如，作爲 CI/CD 流水線的一部分向叢集作身份認證。
+* 你在叢集中使用了第三方安全軟件，該軟件依賴不同 Pod 的 ServiceAccount 身份，按不同上下文對這些 Pod 分組。
 
 <!--
 ## How to use service accounts {#how-to-use}
@@ -214,7 +214,7 @@ To use a Kubernetes service account, you do the following:
 For instructions, refer to
 [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/).
 -->
-有關具體操作說明，參閱[爲 Pod 配置服務賬號](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)。
+有關具體操作說明，參閱[爲 Pod 設定服務賬號](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)。
 
 <!--
 ### Grant permissions to a ServiceAccount {#grant-permissions}
@@ -258,7 +258,7 @@ you'd create a RoleBinding object in the `maintenance` namespace to bind the
 Role to the ServiceAccount object. Now, Pods in the `dev` namespace can list
 Job objects in the `maintenance` namespace using that service account.
 -->
-你可以使用 RBAC 允許一個名字空間中的服務賬號對集羣中另一個名字空間的資源執行操作。
+你可以使用 RBAC 允許一個名字空間中的服務賬號對叢集中另一個名字空間的資源執行操作。
 例如，假設你在 `dev` 名字空間中有一個服務賬號和一個 Pod，並且希望該 Pod 可以查看 `maintenance`
 名字空間中正在運行的 Job。你可以創建一個 Role 對象來授予列舉 Job 對象的權限。
 隨後在 `maintenance` 名字空間中創建 RoleBinding 對象將 Role 綁定到此 ServiceAccount 對象上。
@@ -313,7 +313,7 @@ following methods:
 -->
 #### 手動獲取 ServiceAccount 憑據   {#get-a-token}
 
-如果你需要 ServiceAccount 的憑據並將其掛載到非標準位置，或者用於 API 服務器之外的受衆，可以使用以下方法之一：
+如果你需要 ServiceAccount 的憑據並將其掛載到非標準位置，或者用於 API 伺服器之外的受衆，可以使用以下方法之一：
 
 <!--
 * [TokenRequest API](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
@@ -367,7 +367,7 @@ can be misused. Instead, consider using an alternative. For example, your extern
 application can authenticate using a well-protected private key `and` a certificate,
 or using a custom mechanism such as an [authentication webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) that you implement yourself.
 -->
-對於運行在 Kubernetes 集羣外的應用，你可能考慮創建一個長期有效的 ServiceAccount 令牌，
+對於運行在 Kubernetes 叢集外的應用，你可能考慮創建一個長期有效的 ServiceAccount 令牌，
 並將其存儲在 Secret 中。儘管這種方式可以實現身份認證，但 Kubernetes 項目建議你避免使用此方法。
 長期有效的持有者令牌（Bearer Token）會帶來安全風險，一旦泄露，此令牌就可能被濫用。
 爲此，你可以考慮使用其他替代方案。例如，你的外部應用可以使用一個保護得很好的私鑰和證書進行身份認證，
@@ -405,7 +405,7 @@ You can add the annotation to a ServiceAccount using a manifest:
 -->
 Kubernetes 提供了名爲 `kubernetes.io/enforce-mountable-secrets` 的註解，
 你可以添加到你的 ServiceAccount 中。當應用了這個註解後，
-ServiceAccount 的 Secret 只能掛載到特定類型的資源上，從而增強集羣的安全性。
+ServiceAccount 的 Secret 只能掛載到特定類型的資源上，從而增強叢集的安全性。
 
 你可以使用以下清單將註解添加到一個 ServiceAccount 中：
 
@@ -448,7 +448,7 @@ the Secrets from this ServiceAccount are subject to certain mounting restriction
 <!--
 By understanding and enforcing these restrictions, cluster administrators can maintain a tighter security profile and ensure that secrets are accessed only by the appropriate resources.
 -->
-通過理解並執行這些限制，集羣管理員可以維護更嚴格的安全配置，並確保 Secret 僅被適當的資源訪問。
+通過理解並執行這些限制，叢集管理員可以維護更嚴格的安全設定，並確保 Secret 僅被適當的資源訪問。
 
 <!--
 ## Authenticating service account credentials {#authenticating-credentials}
@@ -468,12 +468,12 @@ the client includes an `Authorization: Bearer <token>` header with the HTTP
 request. The API server checks the validity of that bearer token as follows:
 -->
 ServiceAccount 使用簽名的 JSON Web Token（JWT）來向 Kubernetes API
-服務器以及任何其他存在信任關係的系統進行身份認證。根據令牌的簽發方式
+伺服器以及任何其他存在信任關係的系統進行身份認證。根據令牌的簽發方式
 （使用 `TokenRequest` 限制時間或使用傳統的 Secret 機制），ServiceAccount
 令牌也可能有到期時間、受衆和令牌**開始**生效的時間點。
-當客戶端以 ServiceAccount 的身份嘗試與 Kubernetes API 服務器通信時，
+當客戶端以 ServiceAccount 的身份嘗試與 Kubernetes API 伺服器通信時，
 客戶端會在 HTTP 請求中包含 `Authorization: Bearer <token>` 標頭。
-API 服務器按照以下方式檢查該持有者令牌的有效性：
+API 伺服器按照以下方式檢查該持有者令牌的有效性：
 
 <!--
 1. Checks the token signature.
@@ -504,9 +504,9 @@ TokenRequest API 爲 ServiceAccount 生成**綁定令牌**。這種綁定與以�
 身份運行的客戶端（如 Pod）的生命期相關聯。有關綁定 Pod 服務賬號令牌的 JWT 模式和載荷的示例，
 請參閱[服務賬號令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)。
 
-對於使用 `TokenRequest` API 簽發的令牌，API 服務器還會檢查正在使用 ServiceAccount 的特定對象引用是否仍然存在，
+對於使用 `TokenRequest` API 簽發的令牌，API 伺服器還會檢查正在使用 ServiceAccount 的特定對象引用是否仍然存在，
 方式是通過該對象的{{< glossary_tooltip term_id="uid" text="唯一 ID" >}} 進行匹配。
-對於以 Secret 形式掛載到 Pod 中的舊有令牌，API 服務器會基於 Secret 來檢查令牌。
+對於以 Secret 形式掛載到 Pod 中的舊有令牌，API 伺服器會基於 Secret 來檢查令牌。
 
 <!--
 For more information about the authentication process, refer to
@@ -543,7 +543,7 @@ as valid until the token reaches its expiration timestamp.
 -->
 Kubernetes 項目建議你使用 TokenReview API，因爲當你刪除某些 API 對象
 （如 Secret、ServiceAccount、Pod 和 Node）的時候，此方法將使綁定到這些 API 對象上的令牌失效。
-例如，如果刪除包含投射 ServiceAccount 令牌的 Pod，則集羣立即使該令牌失效，
+例如，如果刪除包含投射 ServiceAccount 令牌的 Pod，則叢集立即使該令牌失效，
 並且 TokenReview 操作也會立即失敗。
 如果你使用的是 OIDC 驗證，則客戶端將繼續將令牌視爲有效，直到令牌達到其到期時間戳。
 
@@ -587,9 +587,9 @@ used in your application and nowhere else.
     authenticate to your cluster.
   * [Use the CertificateSigningRequest API with client certificates](/docs/tasks/tls/managing-tls-in-a-cluster/).
 -->
-* 從集羣外部向 API 服務器進行身份認證，而不使用服務賬號令牌：
-  * [配置 API 服務器接受來自你自己的身份驅動的 OpenID Connect（OIDC）令牌](/zh-cn/docs/reference/access-authn-authz/authentication/#openid-connect-tokens)。
-  * 使用來自雲提供商等外部身份和訪問管理（IAM）服務創建的服務賬號或用戶賬號向集羣進行身份認證。
+* 從叢集外部向 API 伺服器進行身份認證，而不使用服務賬號令牌：
+  * [設定 API 伺服器接受來自你自己的身份驅動的 OpenID Connect（OIDC）令牌](/zh-cn/docs/reference/access-authn-authz/authentication/#openid-connect-tokens)。
+  * 使用來自雲提供商等外部身份和訪問管理（IAM）服務創建的服務賬號或使用者賬號向叢集進行身份認證。
   * [使用 CertificateSigningRequest API 和客戶端證書](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)。
 
 <!--
@@ -597,7 +597,7 @@ used in your application and nowhere else.
 * Use a Device Plugin to access a virtual Trusted Platform Module (TPM), which
   then allows authentication using a private key.
 -->
-* [配置 kubelet 從鏡像倉庫中獲取憑據](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
+* [設定 kubelet 從映像檔倉庫中獲取憑據](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
 * 使用設備插件訪問虛擬的可信平臺模塊（TPM），進而可以使用私鑰進行身份認證。
 
 ## {{% heading "whatsnext" %}}
@@ -607,6 +607,6 @@ used in your application and nowhere else.
 * Learn how to [assign a ServiceAccount to a Pod](/docs/tasks/configure-pod-container/configure-service-account/).
 * Read the [ServiceAccount API reference](/docs/reference/kubernetes-api/authentication-resources/service-account-v1/).
 -->
-* 學習如何[作爲集羣管理員管理你的 ServiceAccount](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)。
+* 學習如何[作爲叢集管理員管理你的 ServiceAccount](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)。
 * 學習如何[將 ServiceAccount 指派給 Pod](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)。
 * 閱讀 [ServiceAccount API 參考文檔](/zh-cn/docs/reference/kubernetes-api/authentication-resources/service-account-v1/)。

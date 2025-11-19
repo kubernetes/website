@@ -40,6 +40,6 @@ in a {{< glossary_tooltip term_id="Deployment" >}}.
 -->
 代表不同類型或部分工作負載的各種核心對象包括 DaemonSet、Deployment、Job、ReplicaSet 和 StatefulSet。
 
-例如，具有 Web 服務器和數據庫的工作負載可能在一個
+例如，具有 Web 伺服器和數據庫的工作負載可能在一個
 {{< glossary_tooltip term_id="StatefulSet" >}} 中運行數據庫，
-而 Web 服務器運行在 {{< glossary_tooltip term_id="Deployment" >}}。
+而 Web 伺服器運行在 {{< glossary_tooltip term_id="Deployment" >}}。

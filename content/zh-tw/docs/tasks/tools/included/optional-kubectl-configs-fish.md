@@ -1,6 +1,6 @@
 ---
 title: "fish 自動補全"
-description: "啓用 fish 自動補全的可選配置。"
+description: "啓用 fish 自動補全的可選設定。"
 headless: true
 _build:
   list: never

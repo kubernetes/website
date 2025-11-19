@@ -40,7 +40,7 @@ Examples of those components:
 -->
 ## Kubernetes 中組件的指標  {#metrics-in-kubernetes}
 
-在大多數情況下，可以通過 HTTP 服務器的 `/metrics` 端點來獲取組件的度量值。
+在大多數情況下，可以通過 HTTP 伺服器的 `/metrics` 端點來獲取組件的度量值。
 對於那些默認情況下不暴露端點的組件，可以使用 `--bind-address` 參數來啓用。
 
 這些組件的示例：
@@ -64,15 +64,15 @@ If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, readin
 authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing
 `/metrics`. For example:
 -->
-在生產環境中，你可能需要配置
-[Prometheus 服務器](https://prometheus.io/)或某些其他指標蒐集器以定期收集這些指標，
+在生產環境中，你可能需要設定
+[Prometheus 伺服器](https://prometheus.io/)或某些其他指標蒐集器以定期收集這些指標，
 並使它們在某種時間序列數據庫中可用。
 
 請注意，{{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 還會在 `/metrics/cadvisor`、
 `/metrics/resource` 和 `/metrics/probes` 端點中公開度量值。這些度量值的生命週期各不相同。
 
-如果你的集羣使用了 {{< glossary_tooltip term_id="rbac" text="RBAC" >}}，
-則讀取指標需要通過基於用戶、組或 ServiceAccount 的鑑權，要求具有允許訪問
+如果你的叢集使用了 {{< glossary_tooltip term_id="rbac" text="RBAC" >}}，
+則讀取指標需要通過基於使用者、組或 ServiceAccount 的鑑權，要求具有允許訪問
 `/metrics` 的 ClusterRole。例如：
 
 ```yaml
@@ -186,7 +186,7 @@ patch release, the reason for that is the metrics deprecation policy runs agains
 -->
 ## 顯示隱藏指標   {#show-hidden-metrics}
 
-如上所述，管理員可以通過設置可執行文件的命令行參數來啓用隱藏指標，
+如上所述，管理員可以通過設置可執行文件的命令列參數來啓用隱藏指標，
 如果管理員錯過了上一版本中已經棄用的指標的遷移，則可以把這個用作管理員的逃生門。
 
 `show-hidden-metrics-for-version` 參數接受版本號作爲取值，
@@ -220,9 +220,9 @@ The version in which metric `A` becomes hidden depends on its stability level:
 -->
 * 如果指標 `A` 是 **ALPHA** 指標，它可能會在 `1.29` 中被隱藏。
 * 如果指標 `A` 是 **BETA** 指標，它最早會在 `1.30` 中被隱藏。如果你要升級到 `1.30`
-  且仍然需要 `A`，你必須使用命令行參數 `--show-hidden-metrics-for-version=1.29`。
+  且仍然需要 `A`，你必須使用命令列參數 `--show-hidden-metrics-for-version=1.29`。
 * 如果指標 `A` 是 **STABLE（穩定）**版本，它最早會在 `1.32` 中被隱藏。如果你要升級到 `1.32`
-  且仍然需要 `A`，你必須使用命令行參數 `--show-hidden-metrics-for-version=1.31`。
+  且仍然需要 `A`，你必須使用命令列參數 `--show-hidden-metrics-for-version=1.31`。
 
 <!--
 ## Component metrics
@@ -240,7 +240,7 @@ OpenStack) API latencies that can be used to gauge the health of a cluster.
 
 控制器管理器指標可提供有關控制器管理器性能和運行狀況的重要洞察。
 這些指標包括通用的 Go 語言運行時指標（例如 go_routine 數量）和控制器特定的度量指標，
-例如可用於評估集羣運行狀況的 etcd 請求延遲或雲提供商（AWS、GCE、OpenStack）的 API 延遲等。
+例如可用於評估叢集運行狀況的 etcd 請求延遲或雲提供商（AWS、GCE、OpenStack）的 API 延遲等。
 
 <!--
 Starting from Kubernetes 1.7, detailed Cloudprovider metrics are available for storage operations
@@ -294,7 +294,7 @@ metrics timeseries. The time series is labelled by:
 - the unit of the resource if known (for example, `cores`)
 -->
 kube-scheduler 組件能夠辯識各個 Pod
-所配置的資源[請求和限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
+所設定的資源[請求和限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)。
 在 Pod 的資源請求值或者限制值非零時，kube-scheduler 會以度量值時間序列的形式生成報告。
 該時間序列值包含以下標籤：
 
@@ -345,7 +345,7 @@ As a beta feature, Kubernetes lets you configure kubelet to collect Linux kernel
 The information is collected at node, pod and container level.
 The metrics are exposed at the `/metrics/cadvisor` endpoint with the following names:
 -->
-作爲一個 Beta 階段的特性，Kubernetes 允許你配置 kubelet 以基於 CPU、內存和 I/O 的使用情況收集 Linux
+作爲一個 Beta 階段的特性，Kubernetes 允許你設定 kubelet 以基於 CPU、內存和 I/O 的使用情況收集 Linux
 內核的[壓力阻塞信息（PSI）](https://docs.kernel.org/accounting/psi.html)。
 此信息是在節點、Pod 和容器級別進行收集的。
 這些指標通過 `/metrics/cadvisor` 端點暴露，指標名稱如下：
@@ -397,7 +397,7 @@ disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
 -->
 ## 禁用指標 {#disabling-metrics}
 
-你可以通過命令行參數 `--disabled-metrics` 來關閉某指標。
+你可以通過命令列參數 `--disabled-metrics` 來關閉某指標。
 在例如某指標會帶來性能問題的情況下，這一操作可能是有用的。
 參數值是一組被禁用的指標（例如：`--disabled-metrics=metric1,metric2`）。
 
@@ -415,7 +415,7 @@ Each mapping is of the format `<metric_name>,<label_name>=<allowed_labels>` wher
 ## 指標順序性保證    {#metric-cardinality-enforcement}
 
 具有無限維度的指標可能會在其監控的組件中引起內存問題。
-爲了限制資源使用，你可以使用 `--allow-metric-labels` 命令行選項來爲指標動態配置允許的標籤值列表。
+爲了限制資源使用，你可以使用 `--allow-metric-labels` 命令列選項來爲指標動態設定允許的標籤值列表。
 
 在 Alpha 階段，此選項只能接受一組映射值作爲可以使用的指標標籤。
 每個映射值的格式爲`<指標名稱>,<標籤名稱>=<可用標籤列表>`，其中
@@ -448,9 +448,9 @@ In addition to specifying this from the CLI, this can also be done within a conf
 can specify the path to that configuration file using the `--allow-metric-labels-manifest` command
 line argument to a component. Here's an example of the contents of that configuration file:
 -->
-除了從 CLI 中指定之外，還可以在配置文件中完成此操作。
-你可以使用組件的 `--allow-metric-labels-manifest` 命令行參數指定該配置文件的路徑。
-以下是該配置文件的內容示例：
+除了從 CLI 中指定之外，還可以在設定文件中完成此操作。
+你可以使用組件的 `--allow-metric-labels-manifest` 命令列參數指定該設定文件的路徑。
+以下是該設定文件的內容示例：
 
 ```yaml
 "metric1,label2": "v1,v2,v3"

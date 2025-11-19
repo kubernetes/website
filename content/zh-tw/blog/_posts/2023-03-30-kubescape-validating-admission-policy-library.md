@@ -27,8 +27,8 @@ regarding what objects can be admitted into a cluster. To better support that us
 introduced external admission control in
 v1.7](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/).
 -->
-准入控制是 Kubernetes 控制平面的重要組成部分，在向服務器提交請求時，可根據批准或更改 API 對象的能力來實現多項內部功能。
-對於管理員來說，定義有關哪些對象可以進入集羣的業務邏輯或策略是很有用的。爲了更好地支持該場景，
+准入控制是 Kubernetes 控制平面的重要組成部分，在向伺服器提交請求時，可根據批准或更改 API 對象的能力來實現多項內部功能。
+對於管理員來說，定義有關哪些對象可以進入叢集的業務邏輯或策略是很有用的。爲了更好地支持該場景，
 [Kubernetes 在 v1.7 中引入了外部准入控制](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/)。
 
 <!--
@@ -37,7 +37,7 @@ solutions implement admission controllers with user-specified policy, including
 [Kyverno](https://github.com/kyverno/kyverno) and Open Policy Agent’s
 [Gatekeeper](https://github.com/open-policy-agent/gatekeeper).
 -->
-除了衆多的自定義內部實現外，許多開源項目和商業解決方案還使用用戶指定的策略實現准入控制器，包括
+除了衆多的自定義內部實現外，許多開源項目和商業解決方案還使用使用者指定的策略實現准入控制器，包括
 [Kyverno](https://github.com/kyverno/kyverno) 和 Open Policy Agent 的
 [Gatekeep](https://github.com/open-policy-agent/gatekeeper)。
 
@@ -51,8 +51,8 @@ example, pods being spun up to respond to a network request in a "serverless" en
 -->
 雖然針對策略的准入控制器已經被人採用，但其廣泛使用仍存在障礙。
 Webhook 基礎設施必須作爲生產服務進行維護，且包含所有相關內容。
-如果准入控制 Webhook 失敗，則要麼必須關閉，從而降低集羣的可用性；要麼打開，使該功能在策略執行中的使用失效。
-例如，在 “serverless” 環境中，當 Pod 啓動以響應網絡請求時，網絡跳躍和評估時間使准入控制成爲處理延遲的重要組成部分。
+如果准入控制 Webhook 失敗，則要麼必須關閉，從而降低叢集的可用性；要麼打開，使該功能在策略執行中的使用失效。
+例如，在 “serverless” 環境中，當 Pod 啓動以響應網路請求時，網路跳躍和評估時間使准入控制成爲處理延遲的重要組成部分。
 
 <!--
 ## Validating admission policies and the Common Expression Language
@@ -94,7 +94,7 @@ policy language of Open Policy Agent.
 ## 讓 CEL 發揮作用——一個實際例子 {#giving-cel-a-roll-a-practical-example}
 
 [Kubescape](https://github.com/kubescape/kubescape) 是一個 CNCF 項目，
-已成爲用戶改善 Kubernetes 集羣安全狀況並驗證其合規性的最流行方法之一。
+已成爲使用者改善 Kubernetes 叢集安全狀況並驗證其合規性的最流行方法之一。
 它的[控件](https://github.com/kubescape/regolibrary)——針對 API 對象的多組測試——是用
 Open Policy Agent 的策略語言 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) 構建的。
 
@@ -117,7 +117,7 @@ opportunity to try and port our existing controls to CEL and apply them as admis
 -->
 該項目的一個常見功能要求是能夠根據 Kubescape 的發現和輸出來實現策略。例如，在掃描 Pod
 是否存在[雲憑據文件的已知路徑](https://hub.armosec.io/docs/c-0020)後，
-用戶希望能夠執行完全不允許這些 Pod 進入的策略。
+使用者希望能夠執行完全不允許這些 Pod 進入的策略。
 Kubescape 團隊認爲這是一個絕佳的機會，可以嘗試將現有的控制措施移植到 CEL，並將其應用爲準入策略。
 
 <!--
@@ -224,7 +224,7 @@ others. Breaking them into separate policies would allow us access to improvemen
 this before the APIs reach `v1`. 
 -->
 在最初的版本中，我們將這三個表達式分組到同一個策略對象中。這意味着可以原子性地啓用和禁用它們，
-因此不會出現以下情況：用戶啓用一個 API 組的策略而未啓用其他組的策略，從而不小心留下合規性漏洞。
+因此不會出現以下情況：使用者啓用一個 API 組的策略而未啓用其他組的策略，從而不小心留下合規性漏洞。
 將它們分成單獨的策略將使我們能夠使用針對 1.27 版本所作的改進，包括類型檢查。
 我們正在與 SIG API Machinery 討論如何在 API 達到 `v1` 之前最好地解決這個問題。
 {{< /note >}}
@@ -235,7 +235,7 @@ this before the APIs reach `v1`.
 Policies are provided as Kubernetes objects, which are then bound to certain resources by a
 [selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 -->
-### 在集羣中使用 CEL 庫 {#using-the-cel-library-in-your-cluster}
+### 在叢集中使用 CEL 庫 {#using-the-cel-library-in-your-cluster}
 
 策略以 Kubernetes 對象的形式提供，並通過[選擇算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)綁定到某些資源。
 
@@ -244,7 +244,7 @@ Policies are provided as Kubernetes objects, which are then bound to certain res
 Kubernetes cluster for testing. To install Kubernetes v1.26 with the `ValidatingAdmissionPolicy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled:
 -->
-[Minikube](https://minikube.sigs.k8s.io/docs/) 是一種安裝和配置 Kubernetes 集羣以進行測試的快速簡便的方法。
+[Minikube](https://minikube.sigs.k8s.io/docs/) 是一種安裝和設定 Kubernetes 叢集以進行測試的快速簡便的方法。
 安裝 Kubernetes v1.26 並啓用[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 `ValidatingAdmissionPolicy`：
 
@@ -264,7 +264,7 @@ kubectl apply -f https://github.com/kubescape/cel-admission-library/releases/lat
 kubectl apply -f https://github.com/kubescape/cel-admission-library/releases/latest/download/kubescape-validating-admission-policies.yaml
 ```
 -->
-要在集羣中安裝策略：
+要在叢集中安裝策略：
 
 ```shell
 # 安裝配置 CRD
@@ -357,17 +357,17 @@ deny, which registries to allow containers to be deployed from, etc. Default val
 controls are defined in [the ControlConfiguration
 object](https://github.com/kubescape/cel-admission-library/blob/main/configuration/basic-control-configuration.yaml).
 -->
-### 配置
+### 設定
 
-策略對象可以包括在不同對象中提供的配置。許多 Kubescape 控件需要配置：
-需要哪些標籤、允許或拒絕哪些權能、允許從哪些鏡像庫部署容器等。
+策略對象可以包括在不同對象中提供的設定。許多 Kubescape 控件需要設定：
+需要哪些標籤、允許或拒絕哪些權能、允許從哪些映像檔庫部署容器等。
 這些控件的默認值在 [ControlConfiguration 對象](https://github.com/kubescape/cel-admission-library/blob/main/configuration/basic-control-configuration.yaml)中定義。
 
 <!--
 To use this configuration object, or your own object in the same format, add a `paramRef.name` value
 to your binding object:
 -->
-要使用這個配置對象，或者以相同的格式使用你自己的對象，在你綁定對象中添加一個 `paramRef.name` 值:
+要使用這個設定對象，或者以相同的格式使用你自己的對象，在你綁定對象中添加一個 `paramRef.name` 值:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
@@ -397,8 +397,8 @@ write your own policies.
 ## 總結 {#summary}
 
 在大多數情況下，將我們的控件轉換爲 CEL 很簡單。我們無法移植整個 Kubescape 庫，因爲有些控件會檢查
-Kubernetes 集羣外部的事物，有些控件需要訪問准入請求對象中不可用的數據。
-總的來說，我們很高興將這個庫貢獻給 Kubernetes 社區，並將繼續爲 Kubescape 和 Kubernetes 用戶開發它。
+Kubernetes 叢集外部的事物，有些控件需要訪問准入請求對象中不可用的數據。
+總的來說，我們很高興將這個庫貢獻給 Kubernetes 社區，並將繼續爲 Kubescape 和 Kubernetes 使用者開發它。
 我們希望它能成爲有用的工具，既可以作爲你自己使用的工具，也可以作爲你編寫自己的策略的範例。
 
 <!--
@@ -416,6 +416,6 @@ and of course this blog, for an eventual release announcement.
 我們期待看到它進入 Beta 版，然後進入 GA 版，希望能在今年年底前完成。
 值得注意的是，該功能目前還處於 Alpha 階段，這意味着這是在 Minikube 等環境中試用該功能的絕佳機會。
 然而，它尚未被視爲生產就緒且穩定，且不會在大多數託管的 Kubernetes 環境中啓用。
-底層功能變得穩定之前，我們不會建議 Kubescape 用戶在生產環境中使用這些策略。
+底層功能變得穩定之前，我們不會建議 Kubescape 使用者在生產環境中使用這些策略。
 請密切關注 [KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/3488-cel-admission-control/README.md)，
 當然還有此博客，以獲取最終的發佈公告。

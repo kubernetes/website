@@ -28,4 +28,4 @@ removed: true
 Allows label and field based indexes in API server watch cache to accelerate
 list operations.
 -->
-允許使用 API 服務器的 watch 緩存中基於標籤和字段的索引來加速 list 操作。
+允許使用 API 伺服器的 watch 緩存中基於標籤和字段的索引來加速 list 操作。

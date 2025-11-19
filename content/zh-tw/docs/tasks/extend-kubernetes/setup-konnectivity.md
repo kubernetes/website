@@ -9,7 +9,7 @@ weight: 70
 The Konnectivity service provides a TCP level proxy for the control plane to cluster
 communication.
 -->
-Konnectivity 服務爲控制平面提供集羣通信的 TCP 級別代理。
+Konnectivity 服務爲控制平面提供叢集通信的 TCP 級別代理。
 
 ## {{% heading "prerequisites" %}}
 
@@ -20,10 +20,10 @@ tutorial on a cluster with at least two nodes that are not acting as control
 plane hosts. If you do not already have a cluster, you can create one by using
 [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/).
 -->
-你需要有一個 Kubernetes 集羣，並且 kubectl 命令可以與集羣通信。
-建議在至少有兩個不充當控制平面主機的節點的集羣上運行本教程。
-如果你還沒有集羣，可以使用
-[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/) 創建一個集羣。
+你需要有一個 Kubernetes 叢集，並且 kubectl 命令可以與叢集通信。
+建議在至少有兩個不充當控制平面主機的節點的叢集上運行本教程。
+如果你還沒有叢集，可以使用
+[minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/) 創建一個叢集。
 
 <!-- steps -->
 <!--
@@ -31,9 +31,9 @@ plane hosts. If you do not already have a cluster, you can create one by using
 
 The following steps require an egress configuration, for example:
 -->
-## 配置 Konnectivity 服務   {#configure-the-konnectivity-service}
+## 設定 Konnectivity 服務   {#configure-the-konnectivity-service}
 
-接下來的步驟需要出口配置，比如：
+接下來的步驟需要出口設定，比如：
 
 {{< code_sample file="admin/konnectivity/egress-selector-configuration.yaml" >}}
 
@@ -49,14 +49,14 @@ feature enabled in your cluster. It is enabled by default since Kubernetes v1.20
 your API Server egress configuration file.
 1. If you use UDS connection, add volumes config to the kube-apiserver:
 -->
-你需要配置 API 服務器來使用 Konnectivity 服務，並將網絡流量定向到集羣節點：
+你需要設定 API 伺服器來使用 Konnectivity 服務，並將網路流量定向到叢集節點：
 
 1. 確保[服務賬號令牌卷投射](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)特性被啓用。
    該特性自 Kubernetes v1.20 起默認已被啓用。
-1. 創建一個出站流量配置文件，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
-1. 將 API 服務器的 `--egress-selector-config-file` 參數設置爲你的 API
-   服務器的離站流量配置文件路徑。
-1. 如果你在使用 UDS 連接，須將卷配置添加到 kube-apiserver：
+1. 創建一個出站流量設定文件，比如 `admin/konnectivity/egress-selector-configuration.yaml`。
+1. 將 API 伺服器的 `--egress-selector-config-file` 參數設置爲你的 API
+   伺服器的離站流量設定文件路徑。
+1. 如果你在使用 UDS 連接，須將卷設定添加到 kube-apiserver：
 
    ```yaml
    spec:
@@ -78,8 +78,8 @@ For example, you can use the OpenSSL command line tool to issue a X.509 certific
 using the cluster CA certificate `/etc/kubernetes/pki/ca.crt` from a control-plane host.
 -->
 爲 konnectivity-server 生成或者取得證書和 kubeconfig 文件。
-例如，你可以使用 OpenSSL 命令行工具，基於存放在某控制面主機上
-`/etc/kubernetes/pki/ca.crt` 文件中的集羣 CA 證書來發放一個 X.509 證書。
+例如，你可以使用 OpenSSL 命令列工具，基於存放在某控制面主機上
+`/etc/kubernetes/pki/ca.crt` 文件中的叢集 CA 證書來發放一個 X.509 證書。
 
 ```bash
 openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key
@@ -103,12 +103,12 @@ that the Kubernetes components are deployed as a {{< glossary_tooltip text="stat
 term_id="static-pod" >}} in your cluster. If not, you can deploy the Konnectivity
 server as a DaemonSet.
 -->
-接下來，你需要部署 Konnectivity 服務器和代理。
+接下來，你需要部署 Konnectivity 伺服器和代理。
 [kubernetes-sigs/apiserver-network-proxy](https://github.com/kubernetes-sigs/apiserver-network-proxy)
 是一個參考實現。
 
 在控制面節點上部署 Konnectivity 服務。
-下面提供的 `konnectivity-server.yaml` 配置清單假定在你的集羣中
+下面提供的 `konnectivity-server.yaml` 設定清單假定在你的叢集中
 Kubernetes 組件都是部署爲{{< glossary_tooltip text="靜態 Pod" term_id="static-pod" >}} 的。
 如果不是，你可以將 Konnectivity 服務部署爲 DaemonSet。
 
@@ -117,14 +117,14 @@ Kubernetes 組件都是部署爲{{< glossary_tooltip text="靜態 Pod" term_id="
 <!--
 Then deploy the Konnectivity agents in your cluster:
 -->
-在你的集羣中部署 Konnectivity 代理：
+在你的叢集中部署 Konnectivity 代理：
 
 {{< code_sample file="admin/konnectivity/konnectivity-agent.yaml" >}}
 
 <!--
 Last, if RBAC is enabled in your cluster, create the relevant RBAC rules:
 -->
-最後，如果你的集羣啓用了 RBAC，請創建相關的 RBAC 規則：
+最後，如果你的叢集啓用了 RBAC，請創建相關的 RBAC 規則：
 
 {{< codenew file="admin/konnectivity/konnectivity-rbac.yaml" >}}
 

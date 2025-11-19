@@ -37,8 +37,8 @@ Some sysctls are only available if you have a modern enough kernel.
 The following sysctls have a minimal kernel version requirement,
 and are supported in the [safe set](/docs/tasks/administer-cluster/sysctl-cluster/#safe-and-unsafe-sysctls):
 -->
-在 Linux 中，`sysctl()` 系統調用在運行時配置內核參數。
-你可以使用名爲 `sysctl` 的命令行工具來配置這些參數，許多參數通過 `proc` 文件系統暴露。
+在 Linux 中，`sysctl()` 系統調用在運行時設定內核參數。
+你可以使用名爲 `sysctl` 的命令列工具來設定這些參數，許多參數通過 `proc` 文件系統暴露。
 
 某些 sysctl 僅可用於足夠新的內核上。
 
@@ -91,10 +91,10 @@ users on the system.
 -->
 對於 Kubernetes {{< skew currentVersion >}}，kube-proxy 的
 [`nftables` 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-nftables)要求
-nft 命令行工具爲 v1.0.1 或更高版本，要求內核爲 v5.13 或更高版本。
+nft 命令列工具爲 v1.0.1 或更高版本，要求內核爲 v5.13 或更高版本。
 
-出於測試/開發目的，你可以使用較舊的內核，如果你在 kube-proxy 配置中設置 `nftables.skipKernelVersionCheck` 選項，
-最老可以回溯到 v5.4。但在生產環境中不推薦這樣做，因爲這可能會導致系統上其他 nftables 用戶出現問題。
+出於測試/開發目的，你可以使用較舊的內核，如果你在 kube-proxy 設定中設置 `nftables.skipKernelVersionCheck` 選項，
+最老可以回溯到 v5.4。但在生產環境中不推薦這樣做，因爲這可能會導致系統上其他 nftables 使用者出現問題。
 
 <!--
 ## Version 2 control groups
@@ -148,7 +148,7 @@ Code(user namespace and swap): https://github.com/kubernetes/kubernetes/blob/002
 1. [遞歸只讀掛載](/zh-cn/docs/concepts/storage/volumes/#recursive-read-only-mounts)：
    這是通過應用 `MOUNT_ATTR_RDONLY` 屬性和 `AT_RECURSIVE` 標誌來實現的，使用的是在 Linux
    內核 v5.12 中添加的 `mount_setattr`(2)。
-2. Pod 用戶命名空間支持需要最低內核版本 6.5+，參閱
+2. Pod 使用者命名空間支持需要最低內核版本 6.5+，參閱
    [KEP-127](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/127-user-namespaces/README.md)。
 3. 對於[節點系統交換](/zh-cn/docs/concepts/architecture/nodes/#swap-memory)，
    直到內核 6.3 才支持將 tmpfs 設置爲 `noswap`。

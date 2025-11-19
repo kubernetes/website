@@ -1,5 +1,5 @@
 ---
-title: 配置 Pod 初始化
+title: 設定 Pod 初始化
 content_type: task
 weight: 170
 ---
@@ -36,7 +36,7 @@ Here is the configuration file for the Pod:
 
 本例中你將創建一個包含一個應用容器和一個 Init 容器的 Pod。Init 容器在應用容器啓動前運行完成。
 
-下面是 Pod 的配置文件：
+下面是 Pod 的設定文件：
 
 {{% code_sample file="pods/init-containers.yaml" %}}
 
@@ -49,7 +49,7 @@ shared Volume at `/work-dir`, and the application container mounts the shared
 Volume at `/usr/share/nginx/html`. The init container runs the following command
 and then terminates:
 -->
-配置文件中，你可以看到應用容器和 Init 容器共享了一個卷。
+設定文件中，你可以看到應用容器和 Init 容器共享了一個卷。
 
 Init 容器將共享卷掛載到了 `/work-dir` 目錄，應用容器將共享卷掛載到了 `/usr/share/nginx/html` 目錄。
 Init 容器執行完下面的命令就終止：
@@ -64,7 +64,7 @@ of the nginx server.
 
 Create the Pod:
 -->
-請注意 Init 容器在 nginx 服務器的根目錄寫入 `index.html`。
+請注意 Init 容器在 nginx 伺服器的根目錄寫入 `index.html`。
 
 創建 Pod：
 
@@ -104,7 +104,7 @@ kubectl exec -it init-demo -- /bin/bash
 In your shell, send a GET request to the nginx server:
 -->
 
-在 shell 中，發送個 GET 請求到 nginx 服務器：
+在 shell 中，發送個 GET 請求到 nginx 伺服器：
 
 ```
 root@nginx:~# apt-get update

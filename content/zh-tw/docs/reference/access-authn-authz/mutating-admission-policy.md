@@ -43,10 +43,10 @@ Mutating admission policies are highly configurable, enabling policy authors to 
 that can be parameterized and scoped to resources as needed by cluster administrators.
 -->
 變更性准入策略使用通用表達語言（Common Expression Language，CEL）來聲明對資源的變更。
-變更操作可以通過使用[服務器端應用合併策略](/zh-cn/docs/reference/using-api/server-side-apply/#merge-strategy)所合併的**應用配置**來定義，
+變更操作可以通過使用[伺服器端應用合併策略](/zh-cn/docs/reference/using-api/server-side-apply/#merge-strategy)所合併的**應用設定**來定義，
 也可以使用 [JSON 補丁](https://jsonpatch.com/)來定義。
 
-變更性准入策略的可配置能力很強，策略的編寫者可以根據集羣管理員的需要，定義參數化的策略以及限定到某類資源的策略。
+變更性准入策略的可設定能力很強，策略的編寫者可以根據叢集管理員的需要，定義參數化的策略以及限定到某類資源的策略。
 
 <!--
 ## What resources make a policy
@@ -92,7 +92,7 @@ If a MutatingAdmissionPolicy does not need to be configured via parameters, simp
 你必須定義至少一個 MutatingAdmissionPolicy 和一個相應的 MutatingAdmissionPolicyBinding，
 才能使策略生效。
 
-如果 MutatingAdmissionPolicy 不需要通過參數進行配置，在
+如果 MutatingAdmissionPolicy 不需要通過參數進行設定，在
 MutatingAdmissionPolicy 中不指定 `spec.paramKind` 即可。
 
 <!--
@@ -104,7 +104,7 @@ experiment with Mutating admission policy.
 -->
 ## 開始使用 MutatingAdmissionPolicy   {#getting-started-with-mutatingadmissionpolicies}
 
-變更性准入策略是集羣控制平面的一部分。你在編寫和部署這些策略時要非常謹慎。
+變更性准入策略是叢集控制平面的一部分。你在編寫和部署這些策略時要非常謹慎。
 下文描述如何快速試用變更性准入策略。
 
 <!--
@@ -127,8 +127,8 @@ expressions, the API server applies those changes to the resource that is
 passing through admission.
 -->
 `.spec.mutations` 字段由一系列表達式組成，這些表達式求值後將形成資源補丁。
-所生成的補丁可以是[應用配置](#patch-type-apply-configuration)或 [JSON 補丁](#patch-type-json-patch)。
-你不能將 mutations 設置爲空列表。在對所有表達式求值後，API 服務器將所得到的變更應用到正在通過准入階段的資源。
+所生成的補丁可以是[應用設定](#patch-type-apply-configuration)或 [JSON 補丁](#patch-type-json-patch)。
+你不能將 mutations 設置爲空列表。在對所有表達式求值後，API 伺服器將所得到的變更應用到正在通過准入階段的資源。
 
 <!--
 To configure a mutating admission policy for use in a cluster, a binding is
@@ -141,7 +141,7 @@ Once the binding and policy are created, any resource request that matches the
 
 In the example above, creating a Pod will add the `mesh-proxy` initContainer mutation:
 -->
-要配置變更准入策略以便用於某個集羣中，需要先創建綁定。
+要設定變更准入策略以便用於某個叢集中，需要先創建綁定。
 只有存在 `spec.policyName` 字段值與某策略的 `spec.name` 相匹配的綁定時，該策略纔會生效。
 
 一旦創建了綁定和策略，策略的 `spec.matchConditions` 相匹配的所有資源請求都會觸發已定義的所有變更集合。
@@ -178,7 +178,7 @@ Please refer to [parameter resources](/docs/reference/access-authn-authz/validat
 -->
 #### 參數資源   {#parameter-resources}
 
-使用參數資源，我們可以將策略配置與其定義分隔開。策略可以定義 `paramKind`，劃定參數資源的 GVK，
+使用參數資源，我們可以將策略設定與其定義分隔開。策略可以定義 `paramKind`，劃定參數資源的 GVK，
 隨後的策略綁定操作會通過 `paramRef` 按名稱（通過 `policyName`）將某個策略綁定到特定參數資源。
 
 有關細節參閱[參數資源](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/#parameter-resources)。
@@ -194,9 +194,9 @@ Apply configurations may not modify atomic structs, maps or arrays due to the ri
 values not included in the apply configuration.
 -->
 MutatingAdmissionPolicy 表達式始終是 CEL 格式的。
-每個應用配置 `expression` 必須求值爲（使用 `Object()` 初始化聲明的）CEL 對象。
+每個應用設定 `expression` 必須求值爲（使用 `Object()` 初始化聲明的）CEL 對象。
 
-這些應用配置不能修改原子結構、映射或數組，因爲這類修改可能導致意外刪除未包含在應用配置中的值。
+這些應用設定不能修改原子結構、映射或數組，因爲這類修改可能導致意外刪除未包含在應用設定中的值。
 
 <!--
 CEL expressions have access to the object types needed to create apply configurations:
@@ -234,12 +234,12 @@ CEL 表達式可以訪問以 CEL 變量組織起來的 API 請求內容及一些
 - `authorizer.requestResource` - A CEL ResourceCheck constructed from the `authorizer` and configured with the
   request resource.
 -->
-- `namespaceObject` - 傳入對象所屬的命名空間對象。對於集羣範圍的資源，取值爲 null。
+- `namespaceObject` - 傳入對象所屬的命名空間對象。對於叢集範圍的資源，取值爲 null。
 - `variables` - 組合變量的映射，包含從變量名稱到其惰性評估值的映射。
   例如，名爲 `foo` 的變量可以以 `variables.foo` 的方式訪問。
-- `authorizer` - 一個 CEL 鑑權器。可用於對請求的主體（用戶或服務賬戶）進行鑑權檢查。
+- `authorizer` - 一個 CEL 鑑權器。可用於對請求的主體（使用者或服務賬戶）進行鑑權檢查。
   參閱 https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-- `authorizer.requestResource` - 從 `authorizer` 構建並使用請求資源配置的 CEL ResourceCheck。
+- `authorizer.requestResource` - 從 `authorizer` 構建並使用請求資源設定的 CEL ResourceCheck。
 
 <!--
 The `apiVersion`, `kind`, `metadata.name`, `metadata.generateName` and `metadata.labels` are always accessible from the root of the  
@@ -360,12 +360,12 @@ CEL 表達式可以訪問以 CEL 變量組織的 API 請求的內容及一些其
 - `authorizer.requestResource` - A CEL ResourceCheck constructed from the `authorizer` and configured with the
   request resource.
 -->
-- `namespaceObject` - 傳入對象所屬的命名空間對象。對於集羣範圍的資源，取值爲 null。
+- `namespaceObject` - 傳入對象所屬的命名空間對象。對於叢集範圍的資源，取值爲 null。
 - `variables` - 組合變量的映射，包含從變量名稱到其惰性評估值的映射。
   例如，名爲 `foo` 的變量可以以 `variables.foo` 的形式訪問。
-- `authorizer` - 一個 CEL 鑑權組件。可用於對請求的主體（用戶或服務賬戶）執行鑑權檢查。
+- `authorizer` - 一個 CEL 鑑權組件。可用於對請求的主體（使用者或服務賬戶）執行鑑權檢查。
   參閱 https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-- `authorizer.requestResource` - 從 `authorizer` 構建並以請求資源配置的 CEL ResourceCheck。
+- `authorizer.requestResource` - 從 `authorizer` 構建並以請求資源設定的 CEL ResourceCheck。
 
 <!--
 CEL expressions have access to [Kubernetes CEL function libraries](/docs/reference/using-api/cel/#cel-options-language-features-and-libraries)

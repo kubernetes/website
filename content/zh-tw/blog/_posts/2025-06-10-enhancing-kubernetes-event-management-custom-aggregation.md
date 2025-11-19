@@ -23,8 +23,8 @@ Author: >
 Kubernetes [Events](/docs/reference/kubernetes-api/cluster-resources/event-v1/) provide crucial insights into cluster operations, but as clusters grow, managing and analyzing these events becomes increasingly challenging. This blog post explores how to build custom event aggregation systems that help engineering teams better understand cluster behavior and troubleshoot issues more effectively.
 -->
 Kubernetes [Event](/zh-cn/docs/reference/kubernetes-api/cluster-resources/event-v1/)
-提供了集羣操作的關鍵洞察信息，但隨着集羣的增長，管理和分析這些 Event 變得越來越具有挑戰性。
-這篇博客文章探討了如何構建自定義 Event 聚合系統，以幫助工程團隊更好地理解集羣行爲並更有效地解決問題。
+提供了叢集操作的關鍵洞察信息，但隨着叢集的增長，管理和分析這些 Event 變得越來越具有挑戰性。
+這篇博客文章探討了如何構建自定義 Event 聚合系統，以幫助工程團隊更好地理解叢集行爲並更有效地解決問題。
 
 <!--
 ## The challenge with Kubernetes events
@@ -33,7 +33,7 @@ In a Kubernetes cluster, events are generated for various operations - from pod 
 -->
 ## Kubernetes Event 的挑戰
 
-在 Kubernetes 集羣中，從 Pod 調度、容器啓動到卷掛載和網絡配置，
+在 Kubernetes 叢集中，從 Pod 調度、容器啓動到卷掛載和網路設定，
 各種操作都會生成 Event。雖然這些 Event 對於調試和監控非常有價值，
 但在生產環境中出現了幾個挑戰：
 
@@ -44,7 +44,7 @@ In a Kubernetes cluster, events are generated for various operations - from pod 
 4. **Classification**: Events lack standardized severity or category classifications
 5. **Aggregation**: Similar events are not automatically grouped
 -->
-1. **量**：大型集羣每分鐘可以生成數千個 Event
+1. **量**：大型叢集每分鐘可以生成數千個 Event
 2. **保留**：默認 Event 保留時間限制爲一小時
 3. **關聯**：不同組件的相關 Event 不會自動鏈接
 4. **分類**：Event 缺乏標準化的嚴重性或類別分類
@@ -66,7 +66,7 @@ Consider a production environment with tens of microservices where the users rep
 -->
 ## 現實世界的價值
 
-考慮一個擁有數十個微服務的生產環境中，用戶報告間歇性事務失敗的情況：
+考慮一個擁有數十個微服務的生產環境中，使用者報告間歇性事務失敗的情況：
 
 **傳統的 Event 聚合過程：** 工程師浪費數小時篩選分散在各個命名空間中的成千上萬的獨立 Event。
 等到他們查看時，較舊的 Event 早已被清除，將 Pod 重啓與節點級別問題關聯實際上是不可能的。
@@ -349,7 +349,7 @@ type AggregationParams struct {
 
 1. **資源效率**
    - 爲 Event 處理實現速率限制
-   - 在 API 服務器級別使用高效的過濾
+   - 在 API 伺服器級別使用高效的過濾
    - 對存儲操作批量處理 Event
 
 <!--
@@ -369,7 +369,7 @@ type AggregationParams struct {
    - 實施 API 速率限制的退避策略
 
 3. **可靠性**
-   - 優雅地處理 API 服務器斷開連接
+   - 優雅地處理 API 伺服器斷開連接
    - 在存儲後端不可用期間緩衝 Event
    - 實施帶有指數退避的重試機制
 
@@ -545,7 +545,7 @@ func identifyPatterns(groups map[string][]ProcessedEvent) []Pattern {
 With this implementation, the system can identify recurring patterns such as node pressure events, pod scheduling failures, or networking issues that occur with a specific frequency.
 -->
 通過此實現，系統可以識別諸如節點壓力 Event、Pod
-調度失敗或以特定頻率發生的網絡問題等重複出現的模式。
+調度失敗或以特定頻率發生的網路問題等重複出現的模式。
 
 <!--
 ### Real-time alerts
@@ -582,8 +582,8 @@ The solutions presented here can be extended and customized based on specific re
 -->
 ## 結論
 
-一個設計良好的 Event 聚合系統可以顯著提高集羣的可觀測性和故障排查能力。
-通過實現自定義的 Event 處理、關聯和存儲，操作員可以更好地理解集羣行爲並更有效地響應問題。
+一個設計良好的 Event 聚合系統可以顯著提高叢集的可觀測性和故障排查能力。
+通過實現自定義的 Event 處理、關聯和存儲，操作員可以更好地理解叢集行爲並更有效地響應問題。
 
 這裏介紹的解決方案可以根據具體需求進行擴展和定製，同時保持與
 Kubernetes API的兼容性，並遵循可擴展性和可靠性方面的最佳實踐。

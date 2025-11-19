@@ -1,5 +1,5 @@
 ---
-title: kube-apiserver 配置 (v1beta1)
+title: kube-apiserver 設定 (v1beta1)
 content_type: tool-reference
 package: apiserver.k8s.io/v1beta1
 ---
@@ -44,7 +44,7 @@ v1beta1 包是 v1beta1 版本的 API。
 <!--
 TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
 -->
-TracingConfiguration 爲 OpenTelemetry 跟蹤客戶端提供版本化的配置。
+TracingConfiguration 爲 OpenTelemetry 跟蹤客戶端提供版本化的設定。
 </p>
 
 <table class="table">
@@ -92,7 +92,7 @@ TracingConfiguration 爲 OpenTelemetry 跟蹤客戶端提供版本化的配置�
 <!--
 AuthenticationConfiguration provides versioned configuration for authentication.
 -->
-AuthenticationConfiguration 爲身份認證提供版本化的配置。
+AuthenticationConfiguration 爲身份認證提供版本化的設定。
 </p>
 
 <table class="table">
@@ -120,8 +120,8 @@ authenticators is neither defined nor stable across releases.  Since
 each JWT authenticator must have a unique issuer URL, at most one
 JWT authenticator will attempt to cryptographically validate the token.
    -->
-   jwt 是一個身份認證器列表，用於對使用符合 JWT 的令牌的 Kubernetes 用戶進行身份認證。
-   身份認證器將嘗試解析原始 ID 令牌，驗證其是否由配置的發放者簽名。用於驗證簽名的公鑰是通過
+   jwt 是一個身份認證器列表，用於對使用符合 JWT 的令牌的 Kubernetes 使用者進行身份認證。
+   身份認證器將嘗試解析原始 ID 令牌，驗證其是否由設定的發放者簽名。用於驗證簽名的公鑰是通過
    OIDC 發現從頒發者的公開端點獲取的。對於傳入的令牌，將按照此列表中指定的順序嘗試每個 JWT
    身份認證器。但是請注意，其他身份認證器可能會在 JWT 身份認證器之前或之後運行。JWT
    身份認證器相對於其他身份認證器的具體位置在不同版本中既未定義也不穩定。由於每個 JWT
@@ -193,7 +193,7 @@ Must be at least one.
 <!-- 
 EgressSelectorConfiguration provides versioned configuration for egress selector clients. 
 -->
-EgressSelectorConfiguration 爲出站流量選擇器客戶端（Egress Selector Client）提供版本化的配置選項。
+EgressSelectorConfiguration 爲出站流量選擇器客戶端（Egress Selector Client）提供版本化的設定選項。
 </p>
 
 <table class="table">
@@ -210,7 +210,7 @@ EgressSelectorConfiguration 爲出站流量選擇器客戶端（Egress Selector 
    <p>
    <!-- connectionServices contains a list of egress selection client configurations
    -->
-   connectionServices 包含一組出站流量選擇器客戶端（Egress Selector Client）配置選項。
+   connectionServices 包含一組出站流量選擇器客戶端（Egress Selector Client）設定選項。
    </p>
 </td>
 </tr>
@@ -223,7 +223,7 @@ EgressSelectorConfiguration 爲出站流量選擇器客戶端（Egress Selector 
 <!--
 TracingConfiguration provides versioned configuration for tracing clients.
 -->
-TracingConfiguration 爲跟蹤客戶端提供版本化的配置信息。
+TracingConfiguration 爲跟蹤客戶端提供版本化的設定信息。
 </p>
 
 <table class="table">
@@ -245,7 +245,7 @@ TracingConfiguration 爲跟蹤客戶端提供版本化的配置信息。
    <!-- 
    Embed the component config tracing configuration struct 
    -->
-   嵌入組件配置中的跟蹤配置結構體。
+   嵌入組件設定中的跟蹤設定結構體。
    </p>
 </td>
 </tr>
@@ -301,7 +301,7 @@ AnonymousAuthCondition 描述了應啓用匿名身份認證的條件。
 <!--
 AnonymousAuthConfig provides the configuration for the anonymous authenticator.
 -->
-AnonymousAuthConfig 爲匿名身份認證器提供配置信息。
+AnonymousAuthConfig 爲匿名身份認證器提供設定信息。
 </p>
 
 <table class="table">
@@ -375,8 +375,8 @@ Other API servers may support additional authorizer
 types like Node, RBAC, ABAC, etc.
    -->
    type 指的是鑑權器的類型。
-   通用 API 服務器支持 &quot;Webhook&quot;。
-   其他 API 服務器可能支持其他鑑權器類型，如 Node、RBAC、ABAC 等。
+   通用 API 伺服器支持 &quot;Webhook&quot;。
+   其他 API 伺服器可能支持其他鑑權器類型，如 Node、RBAC、ABAC 等。
    </p>
 </td>
 </tr>
@@ -410,7 +410,7 @@ Required, with no default
 Must be defined when Type=Webhook
 Must not be defined when Type!=Webhook
    -->
-   webhook 定義 Webhook 鑑權器的配置。
+   webhook 定義 Webhook 鑑權器的設定。
    當 type=Webhook 時必須定義。
    當 type!=Webhook 時不得定義。
    </p>
@@ -432,7 +432,7 @@ Must not be defined when Type!=Webhook
 <!--
 ClaimMappings provides the configuration for claim mapping
 -->
-ClaimMappings 爲聲明映射提供配置信息
+ClaimMappings 爲聲明映射提供設定信息
 </p>
 
 <table class="table">
@@ -456,7 +456,7 @@ applied when username.claim is set to 'email' is 'claims.?email_verified.orValue
 the value to true, we let type-checking see the result will be a boolean, and to make sure a non-boolean email_verified
 claim will be caught at runtime.
    -->
-   username 表示用戶名屬性的一個選項。
+   username 表示使用者名屬性的一個選項。
    聲明的值必須是單一字符串。
    與 <code>--oidc-username-claim</code> 和 <code>--oidc-username-prefix</code> 標誌相同。
    如果設置了 <code>username.expression</code>，則該表達式必須生成一個字符串值。
@@ -482,16 +482,16 @@ For prefix:
 -->
 在基於標誌的方法中，--oidc-username-claim 和 --oidc-username-prefix
 是可選的。如果未設置 --oidc-username-claim，默認值爲 &quot;sub&quot;。
-對於身份認證配置，聲明或前綴都沒有默認值。聲明和前綴必須顯式設置。
+對於身份認證設定，聲明或前綴都沒有默認值。聲明和前綴必須顯式設置。
 對於聲明，如果在傳統標誌方法中未設置 --oidc-username-claim，
-請在身份認證配置中配置 username.claim=&quot;sub&quot;。
+請在身份認證設定中設定 username.claim=&quot;sub&quot;。
 對於前綴：
-(1) --oidc-username-prefix="-", 未添加前綴到用戶名。要實現相同的行爲，請在身份認證配置中設置
+(1) --oidc-username-prefix="-", 未添加前綴到使用者名。要實現相同的行爲，請在身份認證設定中設置
 username.prefix=&quot;&quot;
 (2) --oidc-username-prefix=&quot;&quot; 並且 --oidc-username-claim != &quot;email&quot;，
-前綴爲 &quot;&lt;--oidc-issuer-url 的值&gt;#&quot;。要實現相同的行爲，請在身份認證配置中設置
+前綴爲 &quot;&lt;--oidc-issuer-url 的值&gt;#&quot;。要實現相同的行爲，請在身份認證設定中設置
 username.prefix=&quot;&lt;issuer.url 的值&gt;#&quot;。
-(3) --oidc-username-prefix=&quot;&lt;value&gt;&quot;。要實現相同的行爲，請在身份認證配置中設置
+(3) --oidc-username-prefix=&quot;&lt;value&gt;&quot;。要實現相同的行爲，請在身份認證設定中設置
 username.prefix=&quot;&lt;value&gt;&quot;。
 </p>
 </td>
@@ -614,7 +614,7 @@ if is_admin claim is present and false or is_admin claim is not present, no extr
 <!--
 ClaimOrExpression provides the configuration for a single claim or expression.
 -->
-ClaimOrExpression 爲單個聲明或表達式提供配置信息。
+ClaimOrExpression 爲單個聲明或表達式提供設定信息。
 </p>
 
 <table class="table">
@@ -681,7 +681,7 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 <!--
 ClaimValidationRule provides the configuration for a single claim validation rule.
 -->
-ClaimValidationRule 爲單個聲明驗證規則提供配置信息。
+ClaimValidationRule 爲單個聲明驗證規則提供設定信息。
 </p>
 
 <table class="table">
@@ -789,7 +789,7 @@ Mutually exclusive with claim and requiredValue.
 <!--
 Connection provides the configuration for a single egress selection client.
 -->
-Connection 提供某個出站流量選擇器客戶端（Egress Selector Client）的配置信息。
+Connection 提供某個出站流量選擇器客戶端（Egress Selector Client）的設定信息。
 </p>
 
 <table class="table">
@@ -804,7 +804,7 @@ Connection 提供某個出站流量選擇器客戶端（Egress Selector Client�
    <!-- 
    Protocol is the protocol used to connect from client to the konnectivity server. 
    -->
-   proxyProtocol 是客戶端連接到 konnectivity 服務器所使用的協議。
+   proxyProtocol 是客戶端連接到 konnectivity 伺服器所使用的協議。
    </p>
 </td>
 </tr>
@@ -817,7 +817,7 @@ Connection 提供某個出站流量選擇器客戶端（Egress Selector Client�
    Transport defines the transport configurations we use to dial to the konnectivity server.
    This is required if ProxyProtocol is HTTPConnect or GRPC. 
    -->
-   transport 定義的是傳輸層的配置。我們使用這個配置來聯繫 konnectivity 服務器。
+   transport 定義的是傳輸層的設定。我們使用這個設定來聯繫 konnectivity 伺服器。
    當 proxyProtocol 是 HTTPConnect 或 GRPC 時需要設置此字段。
    </p>
 </td>
@@ -838,7 +838,7 @@ Connection 提供某個出站流量選擇器客戶端（Egress Selector Client�
 <!--
 EgressSelection provides the configuration for a single egress selection client.
 -->
-EgressSelection 爲某個出站流量選擇器客戶端（Egress Selector Client）提供配置信息。
+EgressSelection 爲某個出站流量選擇器客戶端（Egress Selector Client）提供設定信息。
 </p>
 
 <table class="table">
@@ -869,7 +869,7 @@ EgressSelection 爲某個出站流量選擇器客戶端（Egress Selector Client
    <!--
    connection is the exact information used to configure the egress selection
    -->
-   connection 是用來配置出站流量選擇（egress selection）的確切信息。
+   connection 是用來設定出站流量選擇（egress selection）的確切信息。
    </p>
 </td>
 </tr>
@@ -908,7 +908,7 @@ EgressSelectorType 是一個指示符，表明應使用哪種出口選擇器來�
 <!--
 <p>ExtraMapping provides the configuration for a single extra mapping.</p>
 -->
-<p>ExtraMapping 爲單個 extra 映射提供配置信息。</p>
+<p>ExtraMapping 爲單個 extra 映射提供設定信息。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -982,7 +982,7 @@ Nested claims can be accessed using dot notation, e.g. 'claims.foo.bar'.</li>
 <!--
 <p>Issuer provides the configuration for an external provider's specific settings.</p>
 -->
-<p>Issuer 爲外部提供者的特定設置提供配置。</p>
+<p>Issuer 爲外部提供者的特定設置提供設定。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1007,7 +1007,7 @@ Note that egress selection configuration is not used for this network connection
    與 --oidc-issuer-url 標誌的值相同。
    除非被 discoveryURL 覆蓋，否則發現信息將從 &quot;{url}/.well-known/openid-configuration&quot; 獲取。
    在所有 JWT 身份認證器中必須唯一。
-   請注意，此網絡連接不使用出站流量選擇配置。
+   請注意，此網路連接不使用出站流量選擇設定。
    </p>
 </td>
 </tr>
@@ -1036,7 +1036,7 @@ location than the issuer (such as locally in the cluster).
 -->
 所獲取的發現信息中的 &quot;issuer&quot; 字段必須與 AuthenticationConfiguration
 中的 &quot;issuer.url&quot; 字段匹配，並將用於檢驗所提供的 JWT 中的 &quot;iss&quot; 聲明。
-這適用於 well-known 和 jwks 端點託管在與頒發者不同的位置（例如在集羣中本地託管）的場景。
+這適用於 well-known 和 jwks 端點託管在與頒發者不同的位置（例如在叢集中本地託管）的場景。
 </p>
 <p>
 <!--
@@ -1073,7 +1073,7 @@ curl https://oidc.oidc-namespace/.well-known/openid-configuration （discoveryUR
 </p>
 <p>discoveryURL 必須與 url 不同。
 在所有 JWT 身份認證器中必須唯一。
-請注意，此網絡連接不使用出站流量選擇配置。</p>
+請注意，此網路連接不使用出站流量選擇設定。</p>
 </td>
 </tr>
 <tr><td><code>certificateAuthority</code><br/>
@@ -1216,7 +1216,7 @@ cluster：用於指向由 Kubernetes 管理的系統的流量。
 <!--
 JWTAuthenticator provides the configuration for a single JWT authenticator.
 -->
-JWTAuthenticator 爲單個 JWT 身份認證器提供配置信息。
+JWTAuthenticator 爲單個 JWT 身份認證器提供設定信息。
 </p>
 
 <table class="table">
@@ -1243,7 +1243,7 @@ JWTAuthenticator 爲單個 JWT 身份認證器提供配置信息。
    <!--
    claimValidationRules are rules that are applied to validate token claims to authenticate users.
    -->
-   claimValidationRules 是用於驗證令牌聲明以認證用戶的規則。
+   claimValidationRules 是用於驗證令牌聲明以認證使用者的規則。
    </p>
 </td>
 </tr>
@@ -1255,7 +1255,7 @@ JWTAuthenticator 爲單個 JWT 身份認證器提供配置信息。
    <!--
    claimMappings points claims of a token to be treated as user attributes.
    -->
-   claimMappings 指向要視爲用戶屬性的令牌聲明。
+   claimMappings 指向要視爲使用者屬性的令牌聲明。
    </p>
 </td>
 </tr>
@@ -1270,7 +1270,7 @@ These allow invariants to be applied to incoming identities such as preventing t
 use of the system: prefix that is commonly used by Kubernetes components.
 The validation rules are logically ANDed together and must all return true for the validation to pass.
    -->
-   userValidationRules 是在完成身份認證之前應用於最終用戶的規則。
+   userValidationRules 是在完成身份認證之前應用於最終使用者的規則。
    這些規則允許將不變量應用於傳入的身份，例如禁止使用 Kubernetes 組件常用的 <code>system:</code> 前綴。
    驗證規則在邏輯上是 AND 關係，必須全部返回 true 才能通過驗證。
    </p>
@@ -1292,7 +1292,7 @@ The validation rules are logically ANDed together and must all return true for t
 <!--
 PrefixedClaimOrExpression provides the configuration for a single prefixed claim or expression.
 -->
-PrefixedClaimOrExpression 爲單個帶前綴的聲明或表達式提供配置。
+PrefixedClaimOrExpression 爲單個帶前綴的聲明或表達式提供設定。
 </p>
 
 <table class="table">
@@ -1391,7 +1391,7 @@ ProtocolType 是 connection.protocolType 的合法值集合。
 <!--
 TCPTransport provides the information to connect to konnectivity server via TCP
 -->
-TCPTransport 提供使用 TCP 連接 konnectivity 服務器時需要的信息。
+TCPTransport 提供使用 TCP 連接 konnectivity 伺服器時需要的信息。
 </p>
 
 <table class="table">
@@ -1407,7 +1407,7 @@ TCPTransport 提供使用 TCP 連接 konnectivity 服務器時需要的信息。
    URL is the location of the konnectivity server to connect to.
    As an example it might be &quot;https://127.0.0.1:8131&quot;
    -->
-   url 是要連接的 konnectivity 服務器的位置。例如 &quot;https://127.0.0.1:8131&quot;。
+   url 是要連接的 konnectivity 伺服器的位置。例如 &quot;https://127.0.0.1:8131&quot;。
    </p>
 </td>
 </tr>
@@ -1419,7 +1419,7 @@ TCPTransport 提供使用 TCP 連接 konnectivity 服務器時需要的信息。
    <!--
    TLSConfig is the config needed to use TLS when connecting to konnectivity server
    -->
-   tlsConfig 是使用 TLS 來連接 konnectivity 服務器時需要的信息。
+   tlsConfig 是使用 TLS 來連接 konnectivity 伺服器時需要的信息。
    </p>
 </td>
 </tr>
@@ -1440,7 +1440,7 @@ TCPTransport 提供使用 TCP 連接 konnectivity 服務器時需要的信息。
 TLSConfig provides the authentication information to connect to konnectivity server
 Only used with TCPTransport
 -->
-TLSConfig 爲連接 konnectivity 服務器提供身份認證信息。僅用於 TCPTransport。
+TLSConfig 爲連接 konnectivity 伺服器提供身份認證信息。僅用於 TCPTransport。
 </p>
 
 <table class="table">
@@ -1457,7 +1457,7 @@ TLSConfig 爲連接 konnectivity 服務器提供身份認證信息。僅用於 T
    Must be absent/empty if TCPTransport.URL is prefixed with http://
    If absent while TCPTransport.URL is prefixed with https://, default to system trust roots.
    -->
-   caBundle 是指向用來確定與 konnectivity 服務器間信任關係的 CA 證書包的文件位置。
+   caBundle 是指向用來確定與 konnectivity 伺服器間信任關係的 CA 證書包的文件位置。
    如果 TCPTransport.URL 前綴爲 "http://" 時必須不設置，或者設置爲空。
    如果 TCPTransport.URL 前綴爲 "https://" 並且此字段未設置，則默認使用系統的信任根。
    </p>
@@ -1473,7 +1473,7 @@ TLSConfig 爲連接 konnectivity 服務器提供身份認證信息。僅用於 T
    Must be absent/empty if TCPTransport.URL is prefixed with http://
    Must be configured if TCPTransport.URL is prefixed with https://
    -->
-   clientKey 是與 konnectivity 服務器進行 mTLS 握手時使用的客戶端祕鑰文件位置。
+   clientKey 是與 konnectivity 伺服器進行 mTLS 握手時使用的客戶端祕鑰文件位置。
    如果 TCPTransport.URL 前綴爲 http://，必須不指定或者爲空；
    如果 TCPTransport.URL 前綴爲 https://，必須設置。
    </p>
@@ -1489,7 +1489,7 @@ TLSConfig 爲連接 konnectivity 服務器提供身份認證信息。僅用於 T
    Must be absent/empty if TCPTransport.URL is prefixed with http://
    Must be configured if TCPTransport.URL is prefixed with https://
    -->
-   <code>clientCert</code> 是與 konnectivity 服務器進行 mTLS 握手時使用的客戶端證書文件位置。
+   <code>clientCert</code> 是與 konnectivity 伺服器進行 mTLS 握手時使用的客戶端證書文件位置。
    如果 TCPTransport.URL 前綴爲 http://，必須不指定或者爲空；
    如果 TCPTransport.URL 前綴爲 https://，必須設置。
    </p>
@@ -1511,7 +1511,7 @@ TLSConfig 爲連接 konnectivity 服務器提供身份認證信息。僅用於 T
 <!--
 Transport defines the transport configurations we use to dial to the konnectivity server
 -->
-Transport 定義聯繫 konnectivity 服務器時要使用的傳輸層配置。
+Transport 定義聯繫 konnectivity 伺服器時要使用的傳輸層設定。
 </p>
 
 <table class="table">
@@ -1528,7 +1528,7 @@ Transport 定義聯繫 konnectivity 服務器時要使用的傳輸層配置。
    ProxyProtocol of GRPC is not supported with TCP transport at the moment
    Requires at least one of TCP or UDS to be set
    -->
-   tcp 包含通過 TCP 與 konnectivity 服務器通信時使用的 TCP 配置。
+   tcp 包含通過 TCP 與 konnectivity 伺服器通信時使用的 TCP 設定。
    目前使用 TCP 傳輸時不支持 GRPC 的 proxyProtocol。
    tcp 和 uds 二者至少設置一個。
    </p>
@@ -1543,7 +1543,7 @@ Transport 定義聯繫 konnectivity 服務器時要使用的傳輸層配置。
    UDS is the UDS configuration for communicating with the konnectivity server via UDS
    Requires at least one of TCP or UDS to be set
    -->
-   uds 包含通過 UDS 與 konnectivity 服務器通信時使用的 UDS 配置。
+   uds 包含通過 UDS 與 konnectivity 伺服器通信時使用的 UDS 設定。
    tcp 和 uds 二者至少設置一個。
    </p>
 </td>
@@ -1564,7 +1564,7 @@ Transport 定義聯繫 konnectivity 服務器時要使用的傳輸層配置。
 <!--
 UDSTransport provides the information to connect to konnectivity server via UDS
 -->
-UDSTransport 設置通過 UDS 連接 konnectivity 服務器時需要的信息。
+UDSTransport 設置通過 UDS 連接 konnectivity 伺服器時需要的信息。
 </p>
 
 <table class="table">
@@ -1580,7 +1580,7 @@ UDSTransport 設置通過 UDS 連接 konnectivity 服務器時需要的信息。
    UDSName is the name of the unix domain socket to connect to konnectivity server
    This does not use a unix:// prefix. (Eg: /etc/srv/kubernetes/konnectivity-server/konnectivity-server.socket)
    -->
-   udsName 是與 konnectivity 服務器連接時使用的 UNIX 域套接字名稱。
+   udsName 是與 konnectivity 伺服器連接時使用的 UNIX 域套接字名稱。
    字段取值不要求包含 unix:// 前綴。
    （例如：/etc/srv/kubernetes/konnectivity-server/konnectivity-server.socket）
    </p>
@@ -1602,7 +1602,7 @@ UDSTransport 設置通過 UDS 連接 konnectivity 服務器時需要的信息。
 <!--
 UserValidationRule provides the configuration for a single user info validation rule.
 -->
-UserValidationRule 爲單個用戶信息驗證規則提供配置信息。
+UserValidationRule 爲單個使用者信息驗證規則提供設定信息。
 </p>
 
 <table class="table">
@@ -1698,7 +1698,7 @@ AuthorizedTTL field.
 Default: true
 -->
 <code>cacheAuthorizedRequests</code> 指定是否應當緩存已授權的請求。
-如果設置爲 true，緩存決策的 TTL 可以通過 <code>authorizedTTL</code> 字段配置。
+如果設置爲 true，緩存決策的 TTL 可以通過 <code>authorizedTTL</code> 字段設定。
 默認值：true
 </p>
 </td>
@@ -1733,7 +1733,7 @@ UnauthorizedTTL field.
 Default: true
 -->
 <code>cacheUnauthorizedRequests</code> 指定是否應當緩存未授權的請求。
-如果設置爲 true，緩存決策的 TTL 可以通過 <code>unauthorizedTTL</code> 字段配置。
+如果設置爲 true，緩存決策的 TTL 可以通過 <code>unauthorizedTTL</code> 字段設定。
 默認值：true
 </p>
 </td>
@@ -1824,7 +1824,7 @@ Required, with no default.</li>
    <!--
    ConnectionInfo defines how we talk to the webhook
    -->
-   ConnectionInfo 定義 Webhook 如何與服務器通信。
+   ConnectionInfo 定義 Webhook 如何與伺服器通信。
    </p>
 </td>
 </tr>
@@ -1891,11 +1891,11 @@ server.</li>
 SubjectAccessReview API hosted by kube-apiserver. This mode is not
 allowed for kube-apiserver.</li>
 -->
-   <p>控制 Webhook 如何與服務器通信。
+   <p>控制 Webhook 如何與伺服器通信。
 有效值：</p>
 <ul>
-<li>KubeConfigFile：使用 <code>kubeConfigFile</code> 中指定的文件來定位服務器。</li>
-<li>InClusterConfig：使用集羣內配置來調用由 kube-apiserver 託管的 SubjectAccessReview API，kube-apiserver 不允許使用此模式。</li>
+<li>KubeConfigFile：使用 <code>kubeConfigFile</code> 中指定的文件來定位伺服器。</li>
+<li>InClusterConfig：使用叢集內設定來調用由 kube-apiserver 託管的 SubjectAccessReview API，kube-apiserver 不允許使用此模式。</li>
 </ul>
 </td>
 </tr>
@@ -1956,10 +1956,10 @@ CEL 表達式可以訪問 v1 版本中的 SubjectAccessReview 的內容。
 -->
 <li>'resourceAttributes' 描述了資源訪問請求的信息，對於非資源請求則未設置。例如：<code>has(request.resourceAttributes) && request.resourceAttributes.namespace == 'default'</code>。</li>
 <li>'nonResourceAttributes' 描述了非資源訪問請求的信息，對於資源請求則未設置。例如：<code>has(request.nonResourceAttributes) && request.nonResourceAttributes.path == '/healthz'</code>。</li>
-<li>'user' 是要測試的用戶。例如：<code>request.user == 'alice'</code>。</li>
-<li>'groups' 是要測試的用戶組。例如：<code>('group1' in request.groups)</code>。</li>
+<li>'user' 是要測試的使用者。例如：<code>request.user == 'alice'</code>。</li>
+<li>'groups' 是要測試的使用者組。例如：<code>('group1' in request.groups)</code>。</li>
 <li>'extra' 對應於身份驗證器中的 <code>user.Info.GetExtra()</code> 方法。</li>
-<li>'uid' 是關於請求用戶的標識信息。例如：<code>request.uid == '1'</code>。</li>
+<li>'uid' 是關於請求使用者的標識信息。例如：<code>request.uid == '1'</code>。</li>
 </ul>
 <p>
 <!--

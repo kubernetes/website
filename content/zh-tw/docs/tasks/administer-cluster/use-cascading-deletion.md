@@ -1,5 +1,5 @@
 ---
-title: 在集羣中使用級聯刪除
+title: 在叢集中使用級聯刪除
 content_type: task
 weight: 360
 ---
@@ -17,7 +17,7 @@ This page shows you how to specify the type of
 [cascading deletion](/docs/concepts/architecture/garbage-collection/#cascading-deletion)
 to use in your cluster during {{<glossary_tooltip text="garbage collection" term_id="garbage-collection">}}.
 -->
-本頁面向你展示如何設置在你的集羣執行{{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}
+本頁面向你展示如何設置在你的叢集執行{{<glossary_tooltip text="垃圾收集" term_id="garbage-collection">}}
 時要使用的[級聯刪除](/zh-cn/docs/concepts/architecture/garbage-collection/#cascading-deletion)
 類型。
 
@@ -75,7 +75,7 @@ version your cluster runs. {{<version-check>}}
 ## 使用前臺級聯刪除    {#use-foreground-cascading-deletion}
 
 默認情況下，Kubernetes 使用[後臺級聯刪除](/zh-cn/docs/concepts/architecture/garbage-collection/#background-deletion)
-以刪除依賴某對象的其他對象。取決於你的集羣所運行的 Kubernetes 版本，
+以刪除依賴某對象的其他對象。取決於你的叢集所運行的 Kubernetes 版本，
 你可以使用 `kubectl` 或者 Kubernetes API 來切換到前臺級聯刪除。
 {{<version-check>}}
 
@@ -161,7 +161,7 @@ kubectl delete deployment nginx-deployment --cascade=foreground
    depending on the Kubernetes version your cluster runs. {{<version-check>}}
 -->
 1. [創建一個 Deployment 示例](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)。
-1. 基於你的集羣所運行的 Kubernetes 版本，使用 `kubectl` 或者 Kubernetes API 來刪除 Deployment。
+1. 基於你的叢集所運行的 Kubernetes 版本，使用 `kubectl` 或者 Kubernetes API 來刪除 Deployment。
    {{<version-check>}}
 
 
@@ -249,7 +249,7 @@ cluster runs. {{<version-check>}}
 默認情況下，當你告訴 Kubernetes 刪除某個對象時，
 {{<glossary_tooltip text="控制器" term_id="controller">}} 也會刪除依賴該對象
 的其他對象。
-取決於你的集羣所運行的 Kubernetes 版本，你也可以使用 `kubectl` 或者 Kubernetes
+取決於你的叢集所運行的 Kubernetes 版本，你也可以使用 `kubectl` 或者 Kubernetes
 API 來讓 Kubernetes *孤立* 這些依賴對象。{{<version-check>}}
 
 

@@ -27,14 +27,14 @@ By default, kubectl configuration is located at `~/.kube/config`.
 
 Check that kubectl is properly configured by getting the cluster state:
 -->
-爲了讓 kubectl 能發現並訪問 Kubernetes 集羣，你需要一個
+爲了讓 kubectl 能發現並訪問 Kubernetes 叢集，你需要一個
 [kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)，
 該文件在
 [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
-創建集羣時，或成功部署一個 Minikube 集羣時，均會自動生成。
-通常，kubectl 的配置信息存放於文件 `~/.kube/config` 中。
+創建叢集時，或成功部署一個 Minikube 叢集時，均會自動生成。
+通常，kubectl 的設定信息存放於文件 `~/.kube/config` 中。
 
-通過獲取集羣狀態的方法，檢查是否已恰當地配置了 kubectl：
+通過獲取叢集狀態的方法，檢查是否已恰當地設定了 kubectl：
 
 ```shell
 kubectl cluster-info
@@ -46,9 +46,9 @@ If you see a URL response, kubectl is correctly configured to access your cluste
 If you see a message similar to the following, kubectl is not configured correctly
 or is not able to connect to a Kubernetes cluster.
 -->
-如果返回一個 URL，則意味着 kubectl 成功地訪問到了你的集羣。
+如果返回一個 URL，則意味着 kubectl 成功地訪問到了你的叢集。
 
-如果你看到如下所示的消息，則代表 kubectl 配置出了問題，或無法連接到 Kubernetes 集羣。
+如果你看到如下所示的消息，則代表 kubectl 設定出了問題，或無法連接到 Kubernetes 叢集。
 
 ```
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
@@ -62,10 +62,10 @@ you will need a tool like [Minikube](https://minikube.sigs.k8s.io/docs/start/) t
 If `kubectl cluster-info` returns the url response but you can't access your cluster,
 to check whether it is configured properly, use:
 -->
-例如，如果你想在自己的筆記本上（本地）運行 Kubernetes 集羣，你需要先安裝一個 [Minikube](https://minikube.sigs.k8s.io/docs/start/)
+例如，如果你想在自己的筆記本上（本地）運行 Kubernetes 叢集，你需要先安裝一個 [Minikube](https://minikube.sigs.k8s.io/docs/start/)
 這樣的工具，然後再重新運行上面的命令。
 
-如果命令 `kubectl cluster-info` 返回了 URL，但你還不能訪問集羣，那可以用以下命令來檢查配置是否妥當：
+如果命令 `kubectl cluster-info` 返回了 URL，但你還不能訪問叢集，那可以用以下命令來檢查設定是否妥當：
 
 ```shell
 kubectl cluster-info dump

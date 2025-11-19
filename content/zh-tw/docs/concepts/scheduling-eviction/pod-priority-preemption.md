@@ -38,9 +38,9 @@ high priorities.
 See [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 for details.
 -->
-在一個並非所有用戶都是可信的集羣中，惡意用戶可能以最高優先級創建 Pod，
+在一個並非所有使用者都是可信的叢集中，惡意使用者可能以最高優先級創建 Pod，
 導致其他 Pod 被驅逐或者無法被調度。
-管理員可以使用 ResourceQuota 來阻止用戶創建高優先級的 Pod。
+管理員可以使用 ResourceQuota 來阻止使用者創建高優先級的 Pod。
 參見[默認限制優先級消費](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)。
 
 {{< /warning >}}
@@ -123,7 +123,7 @@ cluster when they should use this PriorityClass.
 PriorityClass 對象可以設置任何小於或等於 10 億的 32 位整數值。
 這意味着 PriorityClass 對象的值範圍是從 -2,147,483,648 到 1,000,000,000（含）。
 保留更大的數字，用於表示關鍵系統 Pod 的內置 PriorityClass。
-集羣管理員應該爲這類映射分別創建獨立的 PriorityClass 對象。
+叢集管理員應該爲這類映射分別創建獨立的 PriorityClass 對象。
 
 PriorityClass 還有兩個可選字段：`globalDefault` 和 `description`。
 `globalDefault` 字段表示這個 PriorityClass 的值應該用於沒有 `priorityClassName` 的 Pod。
@@ -132,7 +132,7 @@ PriorityClass 還有兩個可選字段：`globalDefault` 和 `description`。
 則沒有 `priorityClassName` 的 Pod 的優先級爲零。
 
 `description` 字段是一個任意字符串。
-它用來告訴集羣用戶何時應該使用此 PriorityClass。
+它用來告訴叢集使用者何時應該使用此 PriorityClass。
 
 <!--
 ### Notes about PodPriority and existing clusters
@@ -148,9 +148,9 @@ PriorityClass 還有兩個可選字段：`globalDefault` 和 `description`。
     deleted PriorityClass remain unchanged, but you cannot create more Pods that
     use the name of the deleted PriorityClass.
 -->
-### 關於 PodPriority 和現有集羣的注意事項 {#notes-about-podpriority-and-existing-clusters}
+### 關於 PodPriority 和現有叢集的注意事項 {#notes-about-podpriority-and-existing-clusters}
 
-- 如果你升級一個已經存在的但尚未使用此特性的集羣，該集羣中已經存在的 Pod 的優先級等效於零。
+- 如果你升級一個已經存在的但尚未使用此特性的叢集，該叢集中已經存在的 Pod 的優先級等效於零。
 
 - 添加一個將 `globalDefault` 設置爲 `true` 的 PriorityClass 不會改變現有 Pod 的優先級。
   此類 PriorityClass 的值僅用於添加 PriorityClass 後創建的 Pod。
@@ -198,7 +198,7 @@ high-priority pods.
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-配置了 `preemptionPolicy: Never` 的 Pod 將被放置在調度隊列中較低優先級 Pod 之前，
+設定了 `preemptionPolicy: Never` 的 Pod 將被放置在調度隊列中較低優先級 Pod 之前，
 但它們不能搶佔其他 Pod。等待調度的非搶佔式 Pod 將留在調度隊列中，直到有足夠的可用資源，
 它纔可以被調度。非搶佔式 Pod，像其他 Pod 一樣，受調度程序回退的影響。
 這意味着如果調度程序嘗試這些 Pod 並且無法調度它們，它們將以更低的頻率被重試，
@@ -224,10 +224,10 @@ as soon as sufficient cluster resources "naturally" become free.
 這將允許該 PriorityClass 的 Pod 搶佔較低優先級的 Pod（現有默認行爲也是如此）。
 如果 `preemptionPolicy` 設置爲 `Never`，則該 PriorityClass 中的 Pod 將是非搶佔式的。
 
-數據科學工作負載是一個示例用例。用戶可以提交他們希望優先於其他工作負載的作業，
+數據科學工作負載是一個示例用例。使用者可以提交他們希望優先於其他工作負載的作業，
 但不希望因爲搶佔運行中的 Pod 而導致現有工作被丟棄。
 設置爲 `preemptionPolicy: Never` 的高優先級作業將在其他排隊的 Pod 之前被調度，
-只要足夠的集羣資源“自然地”變得可用。
+只要足夠的叢集資源“自然地”變得可用。
 
 <!--
 ### Example Non-preempting PriorityClass
@@ -265,7 +265,7 @@ controller checks the specification and resolves the priority of the Pod to
 優先級准入控制器使用 `priorityClassName` 字段並填充優先級的整數值。
 如果未找到所指定的優先級類，則拒絕 Pod。
 
-以下 YAML 是 Pod 配置的示例，它使用在前面的示例中創建的 PriorityClass。
+以下 YAML 是 Pod 設定的示例，它使用在前面的示例中創建的 PriorityClass。
 優先級准入控制器檢查 Pod 規約並將其優先級解析爲 1000000。
 
 ```yaml
@@ -341,11 +341,11 @@ arrives, the scheduler may give Node N to the new higher priority Pod. In such a
 case, scheduler clears `nominatedNodeName` of Pod P. By doing this, scheduler
 makes Pod P eligible to preempt Pods on another Node.
 -->
-### 用戶暴露的信息 {#user-exposed-information}
+### 使用者暴露的信息 {#user-exposed-information}
 
 當 Pod P 搶佔節點 N 上的一個或多個 Pod 時，
 Pod P 狀態的 `nominatedNodeName` 字段被設置爲節點 N 的名稱。
-該字段幫助調度程序跟蹤爲 Pod P 保留的資源，併爲用戶提供有關其集羣中搶佔的信息。
+該字段幫助調度程序跟蹤爲 Pod P 保留的資源，併爲使用者提供有關其叢集中搶佔的信息。
 
 請注意，Pod P 不一定會調度到“被提名的節點（Nominated Node）”。
 調度程序總是在迭代任何其他節點之前嘗試“指定節點”。
@@ -529,15 +529,15 @@ than the victims. If preemption happens in such scenarios, please file an issue.
 -->
 ### Pod 被不必要地搶佔
 
-搶佔在資源壓力較大時從集羣中刪除現有 Pod，爲更高優先級的懸決 Pod 騰出空間。
-如果你錯誤地爲某些 Pod 設置了高優先級，這些無意的高優先級 Pod 可能會導致集羣中出現搶佔行爲。
+搶佔在資源壓力較大時從叢集中刪除現有 Pod，爲更高優先級的懸決 Pod 騰出空間。
+如果你錯誤地爲某些 Pod 設置了高優先級，這些無意的高優先級 Pod 可能會導致叢集中出現搶佔行爲。
 Pod 優先級是通過設置 Pod 規約中的 `priorityClassName` 字段來指定的。
 優先級的整數值然後被解析並填充到 `podSpec` 的 `priority` 字段。
 
 爲了解決這個問題，你可以將這些 Pod 的 `priorityClassName` 更改爲使用較低優先級的類，
 或者將該字段留空。默認情況下，空的 `priorityClassName` 解析爲零。
 
-當 Pod 被搶佔時，集羣會爲被搶佔的 Pod 記錄事件。只有當集羣沒有足夠的資源用於 Pod 時，
+當 Pod 被搶佔時，叢集會爲被搶佔的 Pod 記錄事件。只有當叢集沒有足夠的資源用於 Pod 時，
 纔會發生搶佔。在這種情況下，只有當懸決 Pod（搶佔者）的優先級高於受害 Pod 時纔會發生搶佔。
 當沒有懸決 Pod，或者懸決 Pod 的優先級等於或低於犧牲者時，不得發生搶佔。
 如果在這種情況下發生搶佔，請提出問題。

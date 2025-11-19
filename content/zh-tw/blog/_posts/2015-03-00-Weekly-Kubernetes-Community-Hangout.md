@@ -32,7 +32,7 @@ Agenda:
 
 \- Andy - 演示遠程執行和端口轉發
 
-\- Quinton - 聯邦集羣 - 延遲
+\- Quinton - 聯邦叢集 - 延遲
 
 \- Clayton - 圍繞 Kubernetes 的 UI 代碼共享和協作
 
@@ -161,7 +161,7 @@ Notes from meeting:
 3\. Brian Grant:
 
 * 測試 v1beta3，準備進入。
-* Paul 致力於改變命令行的內容。
+* Paul 致力於改變命令列的內容。
 * 下週初至中旬，嘗試默認啓用v1beta3 ?
 * 對於任何其他更改，請發出文件並抄送 thockin。
 

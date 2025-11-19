@@ -34,7 +34,7 @@ When you create a Pod, you can set environment variables for the containers
 that run in the Pod. To set environment variables, include the `env` or
 `envFrom` field in the configuration file.
 -->
-創建 Pod 時，可以爲其下的容器設置環境變量。通過配置文件的 `env` 或者 `envFrom` 字段來設置環境變量。
+創建 Pod 時，可以爲其下的容器設置環境變量。通過設定文件的 `env` 或者 `envFrom` 字段來設置環境變量。
 
 <!--
 The `env` and `envFrom` fields have different effects.
@@ -77,15 +77,15 @@ file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration manifest for the
 Pod:
 -->
-本示例中，將創建一個只包含單個容器的 Pod。此 Pod 的配置文件中設置環境變量的名稱爲 `DEMO_GREETING`，
-其值爲 `"Hello from the environment"`。下面是此 Pod 的配置清單：
+本示例中，將創建一個只包含單個容器的 Pod。此 Pod 的設定文件中設置環境變量的名稱爲 `DEMO_GREETING`，
+其值爲 `"Hello from the environment"`。下面是此 Pod 的設定清單：
 
 {{% code_sample file="pods/inject/envars.yaml" %}}
 
 <!--
 1. Create a Pod based on that manifest:
 -->
-1. 基於配置清單創建一個 Pod：
+1. 基於設定清單創建一個 Pod：
 
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
@@ -138,7 +138,7 @@ Pod:
 The environment variables set using the `env` or `envFrom` field
 override any environment variables specified in the container image.
 -->
-通過 `env` 或 `envFrom` 字段設置的環境變量將覆蓋容器鏡像中指定的所有環境變量。
+通過 `env` 或 `envFrom` 字段設置的環境變量將覆蓋容器映像檔中指定的所有環境變量。
 {{< /note >}}
 
 {{< note >}}
@@ -164,11 +164,11 @@ Honorable`, and `Kubernetes`, respectively. The environment variable
 `MESSAGE` combines the set of all these environment variables and then uses it 
 as a CLI argument passed to the `env-print-demo` container.
 -->
-## 在配置中使用環境變量   {#using-env-var-inside-of-your-config}
+## 在設定中使用環境變量   {#using-env-var-inside-of-your-config}
 
-你在 Pod 的配置中定義的、位於 `.spec.containers[*].env[*]` 下的環境變量
-可以在配置的其他地方使用，例如可用在爲 Pod 的容器設置的命令和參數中。
-在下面的示例配置中，環境變量 `GREETING`、`HONORIFIC` 和 `NAME` 分別設置爲 `Warm greetings to`、
+你在 Pod 的設定中定義的、位於 `.spec.containers[*].env[*]` 下的環境變量
+可以在設定的其他地方使用，例如可用在爲 Pod 的容器設置的命令和參數中。
+在下面的示例設定中，環境變量 `GREETING`、`HONORIFIC` 和 `NAME` 分別設置爲 `Warm greetings to`、
 `The Most Honorable` 和 `Kubernetes`。
 環境變量 `MESSAGE` 將所有這些環境變量的集合組合起來，
 然後再傳遞給容器 `env-print-demo` 的 CLI 參數中使用。

@@ -7,12 +7,12 @@
 Upload the kubeadm ClusterConfiguration to a ConfigMap called kubeadm-config in the kube-system namespace. This enables correct configuration of system components and a seamless user experience when upgrading.
 -->
 將 kubeadm ClusterConfiguration 上傳到 kube-system 命名空間中名爲 kubeadm-config 的 ConfigMap 中。
-這樣就可以正確配置系統組件，並在升級時提供無縫的用戶體驗。
+這樣就可以正確設定系統組件，並在升級時提供無縫的使用者體驗。
 
 <!--
 Alternatively, you can use kubeadm config.
 -->
-另外，可以使用 kubeadm 配置。
+另外，可以使用 kubeadm 設定。
 
 ```shell
 kubeadm init phase upload-config kubeadm [flags]
@@ -52,7 +52,7 @@ kubeadm init phase upload-config kubeadm --config=myConfig.yaml
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -114,7 +114,7 @@ kubeadm 操作的幫助命令。
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與集羣通信時使用的 kubeconfig 文件。如果未設置該參數，
+與叢集通信時使用的 kubeconfig 文件。如果未設置該參數，
 則可以在一組標準位置中搜索現有的 kubeconfig 文件。
 </p>
 </td>

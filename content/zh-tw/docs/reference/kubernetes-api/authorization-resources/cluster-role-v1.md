@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/rbac/v1"
   kind: "ClusterRole"
 content_type: "api_reference"
-description: "ClusterRole 是一個集羣級別的 PolicyRule 邏輯分組，可以被 RoleBinding 或 ClusterRoleBinding 作爲一個單元引用。"  
+description: "ClusterRole 是一個叢集級別的 PolicyRule 邏輯分組，可以被 RoleBinding 或 ClusterRoleBinding 作爲一個單元引用。"  
 title: "ClusterRole" 
 weight: 5  
 ---
@@ -31,7 +31,7 @@ ClusterRole is a cluster level, logical grouping of PolicyRules that can be refe
 -->
 ## ClusterRole {#ClusterRole}
 
-ClusterRole 是一個集羣級別的 PolicyRule 邏輯分組，
+ClusterRole 是一個叢集級別的 PolicyRule 邏輯分組，
 可以被 RoleBinding 或 ClusterRoleBinding 作爲一個單元引用。
 
 <hr>
@@ -153,7 +153,7 @@ ClusterRole 是一個集羣級別的 PolicyRule 邏輯分組，
 
     **原子：將在合併期間被替換** 
 
-    nonResourceURLs 是用戶應有權訪問的一組部分 URL。
+    nonResourceURLs 是使用者應有權訪問的一組部分 URL。
     允許使用 “*”，但僅能作爲路徑中最後一段且必須用於完整的一段，
     因爲非資源 URL 沒有劃分命名空間。
     此字段僅適用於從 ClusterRoleBinding 引用的 ClusterRole。

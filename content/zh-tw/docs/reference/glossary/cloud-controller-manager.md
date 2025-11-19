@@ -33,8 +33,8 @@ with that cloud platform from components that only interact with your cluster.
 -->
 一個 Kubernetes {{<glossary_tooltip text="控制平面" term_id="control-plane" >}}組件，
 嵌入了特定於雲平臺的控制邏輯。
-雲控制器管理器（Cloud Controller Manager）允許將你的集羣連接到雲提供商的 API 之上，
-並將與該雲平臺交互的組件同與你的集羣交互的組件分離開來。
+雲控制器管理器（Cloud Controller Manager）允許將你的叢集連接到雲提供商的 API 之上，
+並將與該雲平臺交互的組件同與你的叢集交互的組件分離開來。
 
 <!--more-->
 

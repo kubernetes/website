@@ -22,12 +22,12 @@ You can set [cluster-level constraints](#cluster-level-default-constraints) as a
 or configure topology spread constraints for individual workloads.
 -->
 你可以使用 **拓撲分佈約束（Topology Spread Constraints）** 來控制
-{{< glossary_tooltip text="Pod" term_id="Pod" >}} 在集羣內故障域之間的分佈，
-例如區域（Region）、可用區（Zone）、節點和其他用戶自定義拓撲域。
+{{< glossary_tooltip text="Pod" term_id="Pod" >}} 在叢集內故障域之間的分佈，
+例如區域（Region）、可用區（Zone）、節點和其他使用者自定義拓撲域。
 這樣做有助於實現高可用並提升資源利用率。
 
-你可以將[集羣級約束](#cluster-level-default-constraints)設爲默認值，
-或爲個別工作負載配置拓撲分佈約束。
+你可以將[叢集級約束](#cluster-level-default-constraints)設爲默認值，
+或爲個別工作負載設定拓撲分佈約束。
 
 <!-- body -->
 
@@ -47,13 +47,13 @@ enable your workloads to benefit on high availability and cluster utilization.
 -->
 ## 動機 {#motivation}
 
-假設你有一個最多包含二十個節點的集羣，你想要運行一個自動擴縮的
+假設你有一個最多包含二十個節點的叢集，你想要運行一個自動擴縮的
 {{< glossary_tooltip text="工作負載" term_id="workload" >}}，請問要使用多少個副本？
 答案可能是最少 2 個 Pod，最多 15 個 Pod。
 當只有 2 個 Pod 時，你傾向於這 2 個 Pod 不要同時在同一個節點上運行：
 你所遭遇的風險是如果放在同一個節點上且單節點出現故障，可能會讓你的工作負載下線。
 
-除了這個基本的用法之外，還有一些高級的使用案例，能夠讓你的工作負載受益於高可用性並提高集羣利用率。
+除了這個基本的用法之外，還有一些高級的使用案例，能夠讓你的工作負載受益於高可用性並提高叢集利用率。
 
 <!--
 As you scale up and run more Pods, a different concern becomes important. Imagine
@@ -68,7 +68,7 @@ sending network traffic between the different zones.
 假設你有 3 個節點，每個節點運行 5 個 Pod。這些節點有足夠的容量能夠運行許多副本；
 但與這個工作負載互動的客戶端分散在三個不同的數據中心（或基礎設施可用區）。
 現在你可能不太關注單節點故障問題，但你會注意到延遲高於自己的預期，
-在不同的可用區之間發送網絡流量會產生一些網絡成本。
+在不同的可用區之間發送網路流量會產生一些網路成本。
 
 <!--
 You decide that under normal operation you'd prefer to have a similar number of replicas
@@ -78,9 +78,9 @@ and you'd like the cluster to self-heal in the case that there is a problem.
 Pod topology spread constraints offer you a declarative way to configure that.
 -->
 你決定在正常運營時傾向於將類似數量的副本[調度](/zh-cn/docs/concepts/scheduling-eviction/)
-到每個基礎設施可用區，且你想要該集羣在遇到問題時能夠自愈。
+到每個基礎設施可用區，且你想要該叢集在遇到問題時能夠自愈。
 
-Pod 拓撲分佈約束使你能夠以聲明的方式進行配置。
+Pod 拓撲分佈約束使你能夠以聲明的方式進行設定。
 
 <!--
 ## `topologySpreadConstraints` field
@@ -162,7 +162,7 @@ your cluster. Those fields are:
 ### 分佈約束定義   {#spread-constraint-definition}
 
 你可以定義一個或多個 `topologySpreadConstraints` 條目以指導 kube-scheduler
-如何將每個新來的 Pod 與跨集羣的現有 Pod 相關聯。這些字段包括：
+如何將每個新來的 Pod 與跨叢集的現有 Pod 相關聯。這些字段包括：
 
 <!--
 - **maxSkew** describes the degree to which Pods may be unevenly distributed. You must
@@ -205,7 +205,7 @@ your cluster. Those fields are:
   在 Kubernetes v1.30 之前，`minDomains` 字段只有在啓用 `MinDomainsInPodTopologySpread`
   [特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates-removed/)時纔可用
  （自 v1.28 起默認啓用）。
-  在早期的 Kubernetes 集羣中，此特性門控可能被顯式禁用或此字段可能不可用。
+  在早期的 Kubernetes 叢集中，此特性門控可能被顯式禁用或此字段可能不可用。
   {{< /note >}}
 
   <!--
@@ -299,7 +299,7 @@ your cluster. Those fields are:
 -->
   藉助 `matchLabelKeys`，你無需在變更 Pod 修訂版本時更新 `pod.spec`。
   控制器或 Operator 只需要將不同修訂版的標籤鍵設爲不同的值。
-  例如，如果你正在配置一個 Deployment，則可以使用由 Deployment
+  例如，如果你正在設定一個 Deployment，則可以使用由 Deployment
   控制器自動添加的、以
   [pod-template-hash](/zh-cn/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)
   爲鍵的標籤來區分同一個 Deployment 的不同修訂版。
@@ -435,7 +435,7 @@ between different contexts.
 <!--
 Suppose you have a 4-node cluster with the following labels:
 -->
-假設你有一個 4 節點的集羣且帶有以下標籤：
+假設你有一個 4 節點的叢集且帶有以下標籤：
 
 ```
 NAME    STATUS   ROLES    AGE     VERSION   LABELS
@@ -448,7 +448,7 @@ node4   Ready    <none>   2m43s   v1.16.0   node=node4,zone=zoneB
 <!--
 Then the cluster is logically viewed as below:
 -->
-那麼，從邏輯上看集羣如下：
+那麼，從邏輯上看叢集如下：
 
 {{<mermaid>}}
 graph TB
@@ -494,8 +494,8 @@ populate well-known labels such as `kubernetes.io/hostname`. Check whether
 your cluster supports this.
 -->
 你需要一種機制來確保拓撲域（例如雲提供商區域）中的所有節點具有一致的標籤。
-爲了避免你需要手動爲節點打標籤，大多數集羣會自動填充知名的標籤，
-例如 `kubernetes.io/hostname`。檢查你的集羣是否支持此功能。
+爲了避免你需要手動爲節點打標籤，大多數叢集會自動填充知名的標籤，
+例如 `kubernetes.io/hostname`。檢查你的叢集是否支持此功能。
 
 <!--
 ## Topology spread constraint examples
@@ -509,7 +509,7 @@ node1, node2 and node3 respectively:
 
 ### 示例：一個拓撲分佈約束 {#example-one-topologyspreadconstraint}
 
-假設你擁有一個 4 節點集羣，其中標記爲 `foo: bar` 的 3 個 Pod 分別位於 node1、node2 和 node3 中：
+假設你擁有一個 4 節點叢集，其中標記爲 `foo: bar` 的 3 個 Pod 分別位於 node1、node2 和 node3 中：
 
 {{<mermaid>}}
 graph BT
@@ -628,7 +628,7 @@ existing Pods labeled `foo: bar` are located on node1, node2 and node3 respectiv
 -->
 ### 示例：多個拓撲分佈約束 {#example-multiple-topologyspreadconstraints}
 
-下面的例子建立在前面例子的基礎上。假設你擁有一個 4 節點集羣，
+下面的例子建立在前面例子的基礎上。假設你擁有一個 4 節點叢集，
 其中 3 個標記爲 `foo: bar` 的 Pod 分別位於 node1、node2 和 node3 上：
 
 {{<mermaid>}}
@@ -675,7 +675,7 @@ Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster ac
 -->
 ### 示例：有衝突的拓撲分佈約束 {#example-conflicting-topologyspreadconstraints}
 
-多個約束可能導致衝突。假設有一個跨 2 個可用區的 3 節點集羣：
+多個約束可能導致衝突。假設有一個跨 2 個可用區的 3 節點叢集：
 
 {{<mermaid>}}
 graph BT
@@ -712,7 +712,7 @@ circumstances, you might also decide to delete an existing Pod manually - for ex
 if you are troubleshooting why a bug-fix rollout is not making progress.
 -->
 如果你將 [`two-constraints.yaml`](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/topology-spread-constraints/two-constraints.yaml)
-（來自上一個示例的清單）應用到**這個**集羣，你將看到 Pod `mypod` 保持在 `Pending` 狀態。
+（來自上一個示例的清單）應用到**這個**叢集，你將看到 Pod `mypod` 保持在 `Pending` 狀態。
 出現這種情況的原因爲：爲了滿足第一個約束，Pod `mypod` 只能放置在可用區 `B` 中；
 而在第二個約束中，Pod `mypod` 只能調度到節點 `node2` 上。
 兩個約束的交集將返回一個空集，且調度器無法放置該 Pod。
@@ -738,7 +738,7 @@ Suppose you have a 5-node cluster ranging across zones A to C:
 -->
 ### 示例：帶節點親和性的拓撲分佈約束 {#example-topologyspreadconstraints-with-nodeaffinity}
 
-假設你有一個跨可用區 A 到 C 的 5 節點集羣：
+假設你有一個跨可用區 A 到 C 的 5 節點叢集：
 
 {{<mermaid>}}
 graph BT
@@ -816,7 +816,7 @@ There are some implicit conventions worth noting here:
      Pod 將被調度到可用區 `A` 中。
   2. 新的 Pod 沒有機會被調度到這類節點上。在上面的例子中，
      假設節點 `node5` 帶有**拼寫錯誤的**標籤 `zone-typo: zoneC`（且沒有設置 `zone` 標籤）。
-     節點 `node5` 接入集羣之後，該節點將被忽略且針對該工作負載的 Pod 不會被調度到那裏。
+     節點 `node5` 接入叢集之後，該節點將被忽略且針對該工作負載的 Pod 不會被調度到那裏。
 
 <!--
 - Be aware of what will happen if the incoming Pod's
@@ -830,7 +830,7 @@ There are some implicit conventions worth noting here:
 -->
 - 注意，如果新 Pod 的 `topologySpreadConstraints[*].labelSelector` 與自身的標籤不匹配，將會發生什麼。
   在上面的例子中，如果移除新 Pod 的標籤，則 Pod 仍然可以放置到可用區 `B` 中的節點上，因爲這些約束仍然滿足。
-  然而，在放置之後，集羣的不平衡程度保持不變。可用區 `A` 仍然有 2 個 Pod 帶有標籤 `foo: bar`，
+  然而，在放置之後，叢集的不平衡程度保持不變。可用區 `A` 仍然有 2 個 Pod 帶有標籤 `foo: bar`，
   而可用區 `B` 有 1 個 Pod 帶有標籤 `foo: bar`。如果這不是你所期望的，
   更新工作負載的 `topologySpreadConstraints[*].labelSelector` 以匹配 Pod 模板中的標籤。
 
@@ -851,9 +851,9 @@ ReplicaSets, StatefulSets or ReplicationControllers that the Pod belongs to.
 
 An example configuration might look like follows:
 -->
-## 集羣級別的默認約束 {#cluster-level-default-constraints}
+## 叢集級別的默認約束 {#cluster-level-default-constraints}
 
-爲集羣設置默認的拓撲分佈約束也是可能的。默認拓撲分佈約束在且僅在以下條件滿足時纔會被應用到 Pod 上：
+爲叢集設置默認的拓撲分佈約束也是可能的。默認拓撲分佈約束在且僅在以下條件滿足時纔會被應用到 Pod 上：
 
 - Pod 沒有在其 `.spec.topologySpreadConstraints` 中定義任何約束。
 - Pod 隸屬於某個 Service、ReplicaSet、StatefulSet 或 ReplicationController。
@@ -863,7 +863,7 @@ An example configuration might look like follows:
 只是 `labelSelector` 必須爲空。
 選擇算符是根據 Pod 所屬的 Service、ReplicaSet、StatefulSet 或 ReplicationController 來設置的。
 
-配置的示例可能看起來像下面這個樣子：
+設定的示例可能看起來像下面這個樣子：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -892,7 +892,7 @@ profiles:
 If you don't configure any cluster-level default constraints for pod topology spreading,
 then kube-scheduler acts as if you specified the following default topology constraints:
 -->
-如果你沒有爲 Pod 拓撲分佈配置任何集羣級別的默認約束，
+如果你沒有爲 Pod 拓撲分佈設定任何叢集級別的默認約束，
 kube-scheduler 的行爲就像你指定了以下默認拓撲約束一樣：
 
 ```yaml
@@ -934,8 +934,8 @@ If you don't want to use the default Pod spreading constraints for your cluster,
 you can disable those defaults by setting `defaultingType` to `List` and leaving
 empty `defaultConstraints` in the `PodTopologySpread` plugin configuration:
 -->
-如果你不想爲集羣使用默認的 Pod 分佈約束，你可以通過設置 `defaultingType` 參數爲 `List`，
-並將 `PodTopologySpread` 插件配置中的 `defaultConstraints` 參數置空來禁用默認 Pod 分佈約束：
+如果你不想爲叢集使用默認的 Pod 分佈約束，你可以通過設置 `defaultingType` 參數爲 `List`，
+並將 `PodTopologySpread` 插件設定中的 `defaultConstraints` 參數置空來禁用默認 Pod 分佈約束：
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1
@@ -1029,9 +1029,9 @@ section of the enhancement proposal about Pod topology spread constraints.
   Pod topology spread constraints and is also aware of the overall set of topology
   domains.
 -->
-- 該調度器不會預先知道集羣擁有的所有可用區和其他拓撲域。
-  拓撲域由集羣中存在的節點確定。在自動擴縮的集羣中，如果一個節點池（或節點組）的節點數量縮減爲零，
-  而用戶正期望其擴容時，可能會導致調度出現問題。
+- 該調度器不會預先知道叢集擁有的所有可用區和其他拓撲域。
+  拓撲域由叢集中存在的節點確定。在自動擴縮的叢集中，如果一個節點池（或節點組）的節點數量縮減爲零，
+  而使用者正期望其擴容時，可能會導致調度出現問題。
   因爲在這種情況下，調度器不會考慮這些拓撲域，直至這些拓撲域中至少包含有一個節點。
 
   你可以通過使用感知 Pod 拓撲分佈約束並感知整個拓撲域集的節點自動擴縮工具來解決此問題。

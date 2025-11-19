@@ -29,4 +29,4 @@ from the Portworx in-tree plugin to Portworx CSI plugin.
 Requires Portworx CSI driver to be installed and configured in the cluster.
 -->
 啓用封裝和轉換邏輯，將卷操作從 Portworx 內嵌插件路由到
-Portworx CSI 插件。需要在集羣中安裝並配置 Portworx CSI 插件.
+Portworx CSI 插件。需要在叢集中安裝並設定 Portworx CSI 插件.

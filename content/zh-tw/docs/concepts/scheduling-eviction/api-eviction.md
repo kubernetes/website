@@ -24,14 +24,14 @@ policy-controlled [`DELETE` operation](/docs/reference/kubernetes-api/workload-r
 on the Pod.
 -->
 你可以通過直接調用 Eviction API 發起驅逐，也可以通過編程的方式使用
-{{<glossary_tooltip term_id="kube-apiserver" text="API 服務器">}}的客戶端來發起驅逐，
+{{<glossary_tooltip term_id="kube-apiserver" text="API 伺服器">}}的客戶端來發起驅逐，
 比如 `kubectl drain` 命令。
-此操作創建一個 `Eviction` 對象，該對象再驅動 API 服務器終止選定的 Pod。
+此操作創建一個 `Eviction` 對象，該對象再驅動 API 伺服器終止選定的 Pod。
 
 API 發起的驅逐將遵從你的
 [`PodDisruptionBudgets`](/zh-cn/docs/tasks/run-application/configure-pdb/)
 和 [`terminationGracePeriodSeconds`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)
-配置。
+設定。
 
 使用 API 創建 Eviction 對象，就像對 Pod 執行策略控制的
 [`DELETE` 操作](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#delete-delete-a-pod)
@@ -108,7 +108,7 @@ checks and responds in one of the following ways:
 -->
 ## API 發起驅逐的工作原理   {#how-api-initiated-eviction-works}
 
-當你使用 API 來請求驅逐時，API 服務器將執行准入檢查，並通過以下方式之一做出響應：
+當你使用 API 來請求驅逐時，API 伺服器將執行准入檢查，並通過以下方式之一做出響應：
 
 <!--
 * `200 OK`: the eviction is allowed, the `Eviction` subresource is created, and
@@ -122,10 +122,10 @@ checks and responds in one of the following ways:
 -->
 * `200 OK`：允許驅逐，子資源 `Eviction` 被創建，並且 Pod 被刪除，
   類似於發送一個 `DELETE` 請求到 Pod 地址。
-* `429 Too Many Requests`：當前不允許驅逐，因爲配置了
+* `429 Too Many Requests`：當前不允許驅逐，因爲設定了
   {{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}。
   你可以稍後再嘗試驅逐。你也可能因爲 API 速率限制而看到這種響應。
-* `500 Internal Server Error`：不允許驅逐，因爲存在配置錯誤，
+* `500 Internal Server Error`：不允許驅逐，因爲存在設定錯誤，
   例如存在多個 PodDisruptionBudgets 引用同一個 Pod。
 
 <!--
@@ -136,9 +136,9 @@ eviction.
 If the API server allows the eviction, the Pod is deleted as follows:
 -->
 如果你想驅逐的 Pod 不屬於有 PodDisruptionBudget 的工作負載，
-API 服務器總是返回 `200 OK` 並且允許驅逐。
+API 伺服器總是返回 `200 OK` 並且允許驅逐。
 
-如果 API 服務器允許驅逐，Pod 按照如下方式刪除：
+如果 API 伺服器允許驅逐，Pod 按照如下方式刪除：
 
 <!--
 1. The `Pod` resource in the API server is updated with a deletion timestamp,
@@ -155,15 +155,15 @@ API 服務器總是返回 `200 OK` 並且允許驅逐。
 1. The kubelet tells the API server to remove the `Pod` resource.
 1. The API server deletes the `Pod` resource.
 -->
-1. API 服務器中的 `Pod` 資源會更新上刪除時間戳，之後 API 服務器會認爲此 `Pod` 資源將被終止。
-   此 `Pod` 資源還會標記上配置的寬限期。
+1. API 伺服器中的 `Pod` 資源會更新上刪除時間戳，之後 API 伺服器會認爲此 `Pod` 資源將被終止。
+   此 `Pod` 資源還會標記上設定的寬限期。
 1. 本地運行狀態的 Pod 所處的節點上的 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
    注意到 `Pod` 資源被標記爲終止，並開始優雅停止本地 Pod。
 1. 當 kubelet 停止 Pod 時，控制面從 {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
    對象中移除該 Pod。因此，控制器不再將此 Pod 視爲有用對象。
 1. Pod 的寬限期到期後，kubelet 強制終止本地 Pod。
-1. kubelet 告訴 API 服務器刪除 `Pod` 資源。
-1. API 服務器刪除 `Pod` 資源。
+1. kubelet 告訴 API 伺服器刪除 `Pod` 資源。
+1. API 伺服器刪除 `Pod` 資源。
 
 <!--
 ## Troubleshooting stuck evictions
@@ -193,7 +193,7 @@ If you notice stuck evictions, try one of the following solutions:
 如果你注意到驅逐被卡住，請嘗試以下解決方案之一：
 
 * 終止或暫停導致問題的自動化操作，重新啓動操作之前，請檢查被卡住的應用程序。
-* 等待一段時間後，直接從集羣控制平面刪除 Pod，而不是使用 Eviction API。
+* 等待一段時間後，直接從叢集控制平面刪除 Pod，而不是使用 Eviction API。
 
 ## {{% heading "whatsnext" %}}
 

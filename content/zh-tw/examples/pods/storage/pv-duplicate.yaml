@@ -12,7 +12,7 @@ spec:
         - name: config
           mountPath: /usr/share/nginx/html
           subPath: html
-        # Nginx 配置掛載
+        # Nginx 設定掛載
         - name: config
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf

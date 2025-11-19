@@ -1,7 +1,7 @@
 ---
 title: Kubernetes Secret 良好實踐
 description: >
-  幫助集羣管理員和應用開發者更好管理 Secret 的原理和實踐。
+  幫助叢集管理員和應用開發者更好管理 Secret 的原理和實踐。
 content_type: concept
 weight: 70
 ---
@@ -24,7 +24,7 @@ application developers. Use these guidelines to improve the security of your
 sensitive information in Secret objects, as well as to more effectively manage
 your Secrets.
 -->
-以下良好實踐適用於集羣管理員和應用開發者。遵從這些指導方針有助於提高 Secret
+以下良好實踐適用於叢集管理員和應用開發者。遵從這些指導方針有助於提高 Secret
 對象中敏感信息的安全性，還可以更有效地管理你的 Secret。
 
 <!-- body -->
@@ -35,9 +35,9 @@ your Secrets.
 This section provides good practices that cluster administrators can use to
 improve the security of confidential information in the cluster.
 -->
-## 集羣管理員   {#cluster-administrators}
+## 叢集管理員   {#cluster-administrators}
 
-本節提供了集羣管理員可用於提高集羣中機密信息安全性的良好實踐。
+本節提供了叢集管理員可用於提高叢集中機密信息安全性的良好實踐。
 
 <!--
 ### Configure encryption at rest
@@ -47,10 +47,10 @@ term_id="etcd" text="etcd">}}. You should configure encryption of your Secret
 data in `etcd`. For instructions, refer to
 [Encrypt Secret Data at Rest](/docs/tasks/administer-cluster/encrypt-data/).
 -->
-### 配置靜態加密   {#configure-encryption-at-rest}
+### 設定靜態加密   {#configure-encryption-at-rest}
 
 默認情況下，Secret 對象以非加密的形式存儲在 {{<glossary_tooltip term_id="etcd" text="etcd">}} 中。
-你配置對在 `etcd` 中存儲的 Secret 數據進行加密。相關的指導信息，
+你設定對在 `etcd` 中存儲的 Secret 數據進行加密。相關的指導信息，
 請參閱[靜態加密 Secret 數據](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
 
 <!--
@@ -62,7 +62,7 @@ consider the following guidelines for access to `Secret` objects. You should
 also follow the other guidelines in
 [RBAC good practices](/docs/concepts/security/rbac-good-practices).
 -->
-### 配置 Secret 資源的最小特權訪問   {#least-privilege-secrets}
+### 設定 Secret 資源的最小特權訪問   {#least-privilege-secrets}
 
 當規劃諸如 Kubernetes
 {{<glossary_tooltip term_id="rbac" text="基於角色的訪問控制">}} [(RBAC)](/zh-cn/docs/reference/access-authn-authz/rbac/)
@@ -80,7 +80,7 @@ also follow the other guidelines in
 -->
 - **組件**：限制僅最高特權的系統級組件可以執行 `watch` 或 `list` 訪問。
   僅在組件的正常行爲需要時才授予對 Secret 的 `get` 訪問權限。
-- **人員**：限制對 Secret 的 `get`、`watch` 或 `list` 訪問權限。僅允許集羣管理員訪問 `etcd`。
+- **人員**：限制對 Secret 的 `get`、`watch` 或 `list` 訪問權限。僅允許叢集管理員訪問 `etcd`。
   這包括只讀訪問。對於更復雜的訪問控制，例如使用特定註解限制對 Secret 的訪問，請考慮使用第三方鑑權機制。
 
 {{< caution >}}
@@ -99,9 +99,9 @@ Secret. You can detect or limit the impact caused by Secret data being exposed,
 either intentionally or unintentionally, by a user with this access. Some
 recommendations include:
 -->
-如果一個用戶可以創建使用某 Secret 的 Pod，則該用戶也可以看到該 Secret 的值。
-即使集羣策略不允許用戶直接讀取 Secret，同一用戶也可能有權限運行 Pod 進而暴露該 Secret。
-你可以檢測或限制具有此訪問權限的用戶有意或無意地暴露 Secret 數據所造成的影響。
+如果一個使用者可以創建使用某 Secret 的 Pod，則該使用者也可以看到該 Secret 的值。
+即使叢集策略不允許使用者直接讀取 Secret，同一使用者也可能有權限運行 Pod 進而暴露該 Secret。
+你可以檢測或限制具有此訪問權限的使用者有意或無意地暴露 Secret 數據所造成的影響。
 這裏有一些建議：
 
 <!--
@@ -110,7 +110,7 @@ recommendations include:
    reading of multiple Secrets by a single user
 -->
 * 使用生命期短暫的 Secret
-* 實現對特定事件發出警報的審計規則，例如同一用戶併發讀取多個 Secret 時發出警報
+* 實現對特定事件發出警報的審計規則，例如同一使用者併發讀取多個 Secret 時發出警報
 
 <!--
 #### Restrict Access for Secrets
@@ -133,12 +133,12 @@ communication between the instances to protect the Secret data in transit.
 
 不再使用 `etcd` 所使用的持久存儲時，考慮擦除或粉碎這些數據。
 
-如果存在多個 `etcd` 實例，則在實例之間配置加密的 SSL/TLS 通信以保護傳輸中的 Secret 數據。
+如果存在多個 `etcd` 實例，則在實例之間設定加密的 SSL/TLS 通信以保護傳輸中的 Secret 數據。
 
 <!--
 ### Configure access to external Secrets
 -->
-### 配置對外部 Secret 的訪問權限   {#configure-access-to-external-secrets}
+### 設定對外部 Secret 的訪問權限   {#configure-access-to-external-secrets}
 
 {{% thirdparty-content %}}
 
@@ -150,7 +150,7 @@ is a DaemonSet that lets the kubelet retrieve Secrets from external stores, and
 mount the Secrets as a volume into specific Pods that you authorize to access
 the data.
 -->
-你可以使用第三方 Secret 存儲提供商將機密數據保存在你的集羣之外，然後配置 Pod 訪問該信息。
+你可以使用第三方 Secret 存儲提供商將機密數據保存在你的叢集之外，然後設定 Pod 訪問該信息。
 [Kubernetes Secret 存儲 CSI 驅動](https://secrets-store-csi-driver.sigs.k8s.io/)是一個 DaemonSet，
 它允許 kubelet 從外部存儲中檢索 Secret，並將 Secret 作爲卷掛載到特定的、你授權訪問數據的 Pod。
 
@@ -192,7 +192,7 @@ Secret.
 -->
 ### 限制特定容器集合才能訪問 Secret     {#restrict-secret-access-to-specific-containers}
 
-如果你在一個 Pod 中定義了多個容器，且僅其中一個容器需要訪問 Secret，則可以定義卷掛載或環境變量配置，
+如果你在一個 Pod 中定義了多個容器，且僅其中一個容器需要訪問 Secret，則可以定義卷掛載或環境變量設定，
 這樣其他容器就不會有訪問該 Secret 的權限。
 
 <!--
@@ -218,7 +218,7 @@ repository means the secret is available to everyone who can read the manifest.
 -->
 ### 避免共享 Secret 清單   {#avoid-shareing-secret-manifests}
 
-如果你通過{{< glossary_tooltip text="清單（Manifest）" term_id="manifest" >}}配置 Secret，
+如果你通過{{< glossary_tooltip text="清單（Manifest）" term_id="manifest" >}}設定 Secret，
 同時將該 Secret 數據編碼爲 base64，
 那麼共享此文件或將其檢入一個源代碼倉庫就意味着有權讀取該清單的所有人都能使用該 Secret。
 

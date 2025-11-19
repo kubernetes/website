@@ -40,7 +40,7 @@ These resources have finite capacity, measured in a unit applicable to that reso
 Kubernetes abstracts common [resources](/docs/concepts/configuration/manage-resources-containers/)
 for allocation to workloads and utilizes operating system primitives (for example, Linux {{< glossary_tooltip text="cgroups" term_id="cgroup" >}}) to manage consumption by {{< glossary_tooltip text="workloads" term_id="workload" >}}).
 -->
-計算機提供基礎硬件設施：處理能力、存儲內存、網絡等。
+計算機提供基礎硬件設施：處理能力、存儲內存、網路等。
 這些資源的容量有限，每個資源具有合適的測量單位（CPU 個數、內存字節數等）。
 Kubernetes 抽象出常見的[資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)分配給工作負載，
 並利用操作系統的原語（例如 Linux {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}）

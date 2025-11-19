@@ -32,5 +32,5 @@ removed: true
 Enables EndpointSlices for more scalable and extensible
  network endpoints. See [Enabling EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
 -->
-啓用 EndpointSlice 以實現可擴縮性和可擴展性更好的網絡端點。
+啓用 EndpointSlice 以實現可擴縮性和可擴展性更好的網路端點。
 參閱[啓用 EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)。

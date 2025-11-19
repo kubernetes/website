@@ -36,7 +36,7 @@ Pod 安全性標準定義了三種不同的**策略（Policy）**，以廣泛覆
 | Profile | 描述 |
 | ------ | ----------- |
 | <strong style="white-space: nowrap">Privileged</strong> | 不受限制的策略，提供最大可能範圍的權限許可。此策略允許已知的特權提升。 |
-| <strong style="white-space: nowrap">Baseline</strong> | 限制性最弱的策略，禁止已知的特權提升。允許使用默認的（規定最少）Pod 配置。 |
+| <strong style="white-space: nowrap">Baseline</strong> | 限制性最弱的策略，禁止已知的特權提升。允許使用默認的（規定最少）Pod 設定。 |
 | <strong style="white-space: nowrap">Restricted</strong> | 限制性非常強的策略，遵循當前的保護 Pod 的最佳實踐。 |
 
 <!-- body -->
@@ -57,11 +57,11 @@ security policy applies, the Pod you define is able to bypass typical container 
 For example, you can define a Pod that has access to the node's host network.
 -->
 **_Privileged_ 策略是有目的地開放且完全無限制的策略。**
-此類策略通常針對由特權較高、受信任的用戶所管理的系統級或基礎設施級負載。
+此類策略通常針對由特權較高、受信任的使用者所管理的系統級或基礎設施級負載。
 
 Privileged 策略定義中限制較少。
 如果你定義應用了 Privileged 安全策略的 Pod，你所定義的這個 Pod 能夠繞過典型的容器隔離機制。
-例如，你可以定義有權訪問節點主機網絡的 Pod。
+例如，你可以定義有權訪問節點主機網路的 Pod。
 
 ### Baseline
 
@@ -298,8 +298,8 @@ fail validation.
 				<!--
 				On supported hosts, the <code>RuntimeDefault</code> AppArmor profile is applied by default. The baseline policy should prevent overriding or disabling the default AppArmor profile, or restrict overrides to an allowed set of profiles.
 				-->
-				在受支持的主機上，默認使用 <code>RuntimeDefault</code> AppArmor 配置。Baseline
-				策略應避免覆蓋或者禁用默認策略，以及限制覆蓋一些配置集合的權限。
+				在受支持的主機上，默認使用 <code>RuntimeDefault</code> AppArmor 設定。Baseline
+				策略應避免覆蓋或者禁用默認策略，以及限制覆蓋一些設定集合的權限。
 				</p>
         <p><strong><!--Restricted Fields-->限制的字段</strong></p>
         <ul>
@@ -333,7 +333,7 @@ fail validation.
 				<!--
 				Setting the SELinux type is restricted, and setting a custom SELinux user or role option is forbidden.
 				-->
-				設置 SELinux 類型的操作是被限制的，設置自定義的 SELinux 用戶或角色選項是被禁止的。
+				設置 SELinux 類型的操作是被限制的，設置自定義的 SELinux 使用者或角色選項是被禁止的。
 				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -397,7 +397,7 @@ fail validation.
 				<!--
 				Seccomp profile must not be explicitly set to <code>Unconfined</code>.
 				-->
-				Seccomp 配置必須不能顯式設置爲 <code>Unconfined</code>。
+				Seccomp 設定必須不能顯式設置爲 <code>Unconfined</code>。
 				</p>
   				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -456,7 +456,7 @@ applications, as well as lower-trust users. The following listed controls should
 enforced/disallowed:
 -->
 **_Restricted_ 策略旨在實施當前保護 Pod 的最佳實踐，儘管這樣作可能會犧牲一些兼容性。**
-該類策略主要針對運維人員和安全性很重要的應用的開發人員，以及不太被信任的用戶。
+該類策略主要針對運維人員和安全性很重要的應用的開發人員，以及不太被信任的使用者。
 下面列舉的控制需要被實施（禁止）：
 
 {{< note >}}
@@ -550,7 +550,7 @@ fail validation.
 			</td>
 		</tr>
 		<tr>
-			<td style="white-space: nowrap"><!--Running as Non-root user (v1.23+)-->非 root 用戶（v1.23+）</td>
+			<td style="white-space: nowrap"><!--Running as Non-root user (v1.23+)-->非 root 使用者（v1.23+）</td>
 			<td>
 				<p><!--Containers must not set <tt>runAsUser</tt> to 0-->容器不可以將 <tt>runAsUser</tt> 設置爲 0</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
@@ -648,7 +648,7 @@ of individual policies are not defined here.
 -->
 ## 策略實例化   {#policy-instantiation}
 
-將策略定義從策略實例中解耦出來有助於形成跨集羣的策略理解和語言陳述，
+將策略定義從策略實例中解耦出來有助於形成跨叢集的策略理解和語言陳述，
 以免綁定到特定的下層實施機制。
 
 隨着相關機制的成熟，這些機制會按策略分別定義在下面。特定策略的實施方法不在這裏定義。
@@ -689,7 +689,7 @@ workloads. Specifically, many of the Pod `securityContext` fields
 -->
 ## Pod OS 字段   {#pod-os-field}
 
-Kubernetes 允許你使用運行 Linux 或 Windows 的節點。你可以在一個集羣中混用兩種類型的節點。
+Kubernetes 允許你使用運行 Linux 或 Windows 的節點。你可以在一個叢集中混用兩種類型的節點。
 Kubernetes 中的 Windows 與基於 Linux 的工作負載相比有一些限制和差異。
 具體而言，許多 Pod `securityContext`
 字段[在 Windows 上不起作用](/zh-cn/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)。
@@ -699,7 +699,7 @@ Kubernetes 中的 Windows 與基於 Linux 的工作負載相比有一些限制�
 <!--
 Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nodes on versions earlier than v1.24 the Restricted policies should be pinned to a version prior to v1.25.
 -->
-v1.24 之前的 kubelet 不強制處理 Pod OS 字段，如果集羣中有些節點運行早於 v1.24 的版本，
+v1.24 之前的 kubelet 不強制處理 Pod OS 字段，如果叢集中有些節點運行早於 v1.24 的版本，
 則應將 Restricted 策略鎖定到 v1.25 之前的版本。
 {{< /note >}}
 
@@ -737,12 +737,12 @@ User Namespaces are a Linux-only feature to run workloads with increased
 isolation. How they work together with Pod Security Standards is described in
 the [documentation](/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks) for Pods that use user namespaces.
 -->
-## 用戶命名空間    {#user-namespaces}
+## 使用者命名空間    {#user-namespaces}
 
-用戶命名空間是 Linux 特有的功能，可在運行工作負載時提高隔離度。
-關於用戶命名空間如何與 PodSecurityStandard 協同工作，
+使用者命名空間是 Linux 特有的功能，可在運行工作負載時提高隔離度。
+關於使用者命名空間如何與 PodSecurityStandard 協同工作，
 請參閱[文檔](/zh-cn/docs/concepts/workloads/pods/user-namespaces#integration-with-pod-security-admission-checks)瞭解
-Pod 如何使用用戶命名空間。
+Pod 如何使用使用者命名空間。
 
 <!--
 ## FAQ
@@ -776,9 +776,9 @@ SIG Auth 可能會在將來考慮這個範圍的框架，前提是有對其他�
 Containers at runtime. Security contexts are defined as part of the Pod and container specifications
 in the Pod manifest, and represent parameters to the container runtime.
 -->
-### 安全配置與安全上下文的區別是什麼？   {#whats-the-difference-between-security-profile-and-security-context}
+### 安全設定與安全上下文的區別是什麼？   {#whats-the-difference-between-security-profile-and-security-context}
 
-[安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)在運行時配置 Pod
+[安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)在運行時設定 Pod
 和容器。安全上下文是在 Pod 清單中作爲 Pod 和容器規約的一部分來定義的，
 所代表的是傳遞給容器運行時的參數。
 
@@ -818,4 +818,4 @@ sandboxing. As such, no single recommended profile is recommended for all sandbo
 限制特權化操作的許可就不那麼重要。這使得那些需要更多許可權限的負載仍能被有效隔離。
 
 此外，沙箱化負載的保護高度依賴於沙箱化的實現方法。
-因此，現在還沒有針對所有沙箱化負載的建議配置。
+因此，現在還沒有針對所有沙箱化負載的建議設定。

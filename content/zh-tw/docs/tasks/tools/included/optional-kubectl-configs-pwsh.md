@@ -1,6 +1,6 @@
 ---
 title: "PowerShell 自動補全"
-description: "powershell 自動補全的一些可選配置。"
+description: "powershell 自動補全的一些可選設定。"
 headless: true
 _build:
   list: never
@@ -34,7 +34,7 @@ This command will regenerate the auto-completion script on every PowerShell star
 <!--
 To add the generated script to your `$PROFILE` file, run the following line in your powershell prompt:
 -->
-如果需要將自動補全腳本直接添加到 `$PROFILE` 文件中，請在 PowerShell 命令行運行以下命令：
+如果需要將自動補全腳本直接添加到 `$PROFILE` 文件中，請在 PowerShell 命令列運行以下命令：
 
 ```powershell
 kubectl completion powershell >> $PROFILE

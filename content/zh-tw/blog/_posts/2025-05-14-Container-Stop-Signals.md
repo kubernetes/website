@@ -40,8 +40,8 @@ Kubernetes v1.29 introduced the `Sleep` action for container PreStop and PostSta
 Kubernetes v1.29 引入了容器 PreStop 和 PostStart 生命週期回調的 `Sleep` 動作。
 Sleep 動作允許你的容器在啓動後或終止前暫停指定的時長。這爲管理優雅關閉提供了一種直接的方法。
 在 Sleep 動作之前，人們常使用生命週期回調中的 exec 動作運行 `sleep` 命令。
-如果你想這樣做，則需要在你的容器鏡像中包含 `sleep` 命令的二進制文件。
-如果你使用第三方鏡像，這可能會比較困難。
+如果你想這樣做，則需要在你的容器映像檔中包含 `sleep` 命令的二進制文件。
+如果你使用第三方映像檔，這可能會比較困難。
 
 <!--
 The sleep action when it was added initially didn't have support for a sleep duration of zero seconds. The `time.Sleep` which the Sleep action uses under the hood supports a duration of zero seconds. Using a negative or a zero value for the sleep returns immediately, resulting in a no-op. We wanted the same behaviour with the sleep action. This support for the zero duration was later added in v1.32, with the `PodLifecycleSleepActionAllowZero` feature gate.
@@ -60,8 +60,8 @@ to enable any feature gate to make that possible.
 -->
 `PodLifecycleSleepActionAllowZero` 特性門控在 v1.33 中已升級到 Beta 階段，並且現在默認啓用。
 從 Kubernetes v1.30 開始，`preStop` 和 `postStart` 回調的原始 Sleep 動作默認情況下已啓用。
-使用運行 Kubernetes v1.33 的集羣時，你可以爲 Sleep 生命週期鉤子設置零持續時間。
-對於採用默認配置的集羣，你無需啓用任何特性門控即可實現這一點。
+使用運行 Kubernetes v1.33 的叢集時，你可以爲 Sleep 生命週期鉤子設置零持續時間。
+對於採用默認設定的叢集，你無需啓用任何特性門控即可實現這一點。
 
 <!--
 ## Container stop signals
@@ -74,17 +74,17 @@ Until Kubernetes v1.33, the only way to override the stop signal for containers 
 -->
 ## 容器停止信號
 
-容器運行時如 containerd 和 CRI-O 支持容器鏡像定義中的 `StopSignal` 指令。
-這可以用來指定一個自定義的停止信號，運行時將使用該信號來終止基於此鏡像的容器。
-停止信號配置最初並不是 Kubernetes Pod API 的一部分。
-直到 Kubernetes v1.33，覆蓋容器停止信號的唯一方法是通過使用新的自定義停止信號重建容器鏡像
+容器運行時如 containerd 和 CRI-O 支持容器映像檔定義中的 `StopSignal` 指令。
+這可以用來指定一個自定義的停止信號，運行時將使用該信號來終止基於此映像檔的容器。
+停止信號設定最初並不是 Kubernetes Pod API 的一部分。
+直到 Kubernetes v1.33，覆蓋容器停止信號的唯一方法是通過使用新的自定義停止信號重建容器映像檔
 （例如，在 `Containerfile` 或 `Dockerfile` 中指定 `STOPSIGNAL`）。
 
 <!--
 The `ContainerStopSignals` feature gate which is newly added in Kubernetes v1.33 adds stop signals to the Kubernetes API. This allows users to specify a custom stop signal in the container spec. Stop signals are added to the API as a new lifecycle along with the existing PreStop and PostStart lifecycle handlers. In order to use this feature, we expect the Pod to have the operating system specified with `spec.os.name`. This is enforced so that we can cross-validate the stop signal against the operating system and make sure that the containers in the Pod are created with a valid stop signal for the operating system the Pod is being scheduled to. For Pods scheduled on Windows nodes, only `SIGTERM` and `SIGKILL` are allowed as valid stop signals. Find the full list of signals supported in Linux nodes [here](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/api/core/v1/types.go#L2985-L3053).
 -->
 `ContainerStopSignals` 特性門控是 Kubernetes v1.33 新增的，
-它將停止信號添加到了 Kubernetes API。這允許用戶在容器規格中指定自定義的停止信號。
+它將停止信號添加到了 Kubernetes API。這允許使用者在容器規格中指定自定義的停止信號。
 停止信號作爲新生命週期加入 API，連同現有的 PreStop 和 PostStart 生命週期處理器一起使用。
 要使用這個特性，Pod 需要用 `spec.os.name` 指定操作系統。這是爲了能對操作系統進行停止信號的交叉驗證，
 確保 Pod 中的容器是以適合其調度操作系統的有效停止信號創建的。對於調度到 Windows 節點上的 Pod，
@@ -101,7 +101,7 @@ If a container has a custom stop signal defined in its lifecycle, the container 
 
 如果容器在其生命週期中定義了自定義停止信號，那麼只要容器運行時也支持自定義停止信號，
 容器運行時就會使用生命週期中定義的信號來終止容器。如果容器生命週期中沒有定義自定義停止信號，
-運行時將回退到容器鏡像中定義的停止信號。如果在容器鏡像中也沒有定義停止信號，
+運行時將回退到容器映像檔中定義的停止信號。如果在容器映像檔中也沒有定義停止信號，
 將會使用運行時的默認停止信號。對於 containerd 和 CRI-O，默認信號都是 `SIGTERM`。
 
 <!--
@@ -146,7 +146,7 @@ Do note that the `SIGUSR1` signal in this example can only be used if the contai
 -->
 請注意，此示例中的 `SIGUSR1` 信號僅在容器的 Pod 被調度到 Linux 節點時才能使用。
 因此，我們需要指定 `spec.os.name` 爲 `linux` 才能使用該信號。
-如果 Pod 被調度到 Windows 節點，則你只能配置 `SIGTERM` 和 `SIGKILL` 信號。
+如果 Pod 被調度到 Windows 節點，則你只能設定 `SIGTERM` 和 `SIGKILL` 信號。
 此外，如果 `spec.os.name` 字段爲 nil 或未設置，你也不能指定 `containers[*].lifecycle.stopSignal`。
 
 <!--

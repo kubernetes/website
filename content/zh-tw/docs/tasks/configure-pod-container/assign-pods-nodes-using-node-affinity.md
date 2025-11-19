@@ -16,7 +16,7 @@ weight: 160
 This page shows how to assign a Kubernetes Pod to a particular node using Node Affinity in a
 Kubernetes cluster.
 -->
-本頁展示在 Kubernetes 集羣中，如何使用節點親和性把 Kubernetes Pod 分配到特定節點。
+本頁展示在 Kubernetes 叢集中，如何使用節點親和性把 Kubernetes Pod 分配到特定節點。
 
 ## {{% heading "prerequisites" %}}
 
@@ -35,7 +35,7 @@ Kubernetes cluster.
 <!-- 
 1. List the nodes in your cluster, along with their labels:
 -->
-1. 列出集羣中的節點及其標籤：
+1. 列出叢集中的節點及其標籤：
 
     ```shell
     kubectl get nodes --show-labels
@@ -106,7 +106,7 @@ This means that the pod will get scheduled only on a node that has a `disktype=s
 -->
 ## 依據強制的節點親和性調度 Pod  {#schedule-a-Pod-using-required-node-affinity}
 
-下面清單描述了一個 Pod，它有一個節點親和性配置 `requiredDuringSchedulingIgnoredDuringExecution`，`disktype=ssd`。
+下面清單描述了一個 Pod，它有一個節點親和性設定 `requiredDuringSchedulingIgnoredDuringExecution`，`disktype=ssd`。
 這意味着 pod 只會被調度到具有 `disktype=ssd` 標籤的節點上。
 
 {{% code_sample file="pods/pod-nginx-required-affinity.yaml" %}}

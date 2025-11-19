@@ -30,7 +30,7 @@ Among the various solutions, a category we dubbed “Local K8S Development tools
 In this post, we compare three solutions in this category: Telepresence, Gefyra, and our own contender, mirrord.
 -->
 在各種解決方案中，我們稱之爲“本地 K8S 開發工具”的一個類別已漸露端倪，
-這一類方案通過將本地運行的組件連接到 Kubernetes 集羣來提升 Kubernetes 開發體驗。
+這一類方案通過將本地運行的組件連接到 Kubernetes 叢集來提升 Kubernetes 開發體驗。
 這樣可以在雲環境中快速測試新代碼，避開了 Docker 化、CI 和部署這樣的傳統週期。
 
 在本文中，我們將比較這個類別中的三個解決方案：Telepresence、Gefyra 和我們自己的挑戰者 mirrord。
@@ -42,11 +42,11 @@ The oldest and most well-established solution in the category, [Telepresence](ht
 Telepresence requires the installation of a local daemon on the user's machine (which requires root privileges) and a Traffic Manager component on the cluster. Additionally, it runs an Agent as a sidecar on the pod to intercept the desired traffic.
 -->
 [Telepresence](https://www.telepresence.io/) 是這類工具中最早也最成熟的解決方案，
-它使用 VPN（或更具體地說，一個 `tun` 設備）將用戶的機器（或本地運行的容器）與集羣的網絡相連。
-它支持攔截髮送到集羣中特定服務的傳入流量，並將其重定向到本地端口。
+它使用 VPN（或更具體地說，一個 `tun` 設備）將使用者的機器（或本地運行的容器）與叢集的網路相連。
+它支持攔截髮送到叢集中特定服務的傳入流量，並將其重定向到本地端口。
 被重定向的流量還可以被過濾，以避免完全破壞遠程服務。
 它還提供了一些補充特性，如支持文件訪問（通過本地掛載卷將其掛載到 Pod 上）和導入環境變量。
-Telepresence 需要在用戶的機器上安裝一個本地守護進程（需要 root 權限），並在集羣上運行一個
+Telepresence 需要在使用者的機器上安裝一個本地守護進程（需要 root 權限），並在叢集上運行一個
 Traffic Manager 組件。此外，它在 Pod 上以邊車的形式運行一個 Agent 來攔截所需的流量。
 
 ## Gefyra
@@ -54,16 +54,16 @@ Traffic Manager 組件。此外，它在 Pod 上以邊車的形式運行一個 A
 <!--
 [Gefyra](https://gefyra.dev/), similar to Telepresence, employs a VPN to connect to the cluster. However, it only supports connecting locally running Docker containers to the cluster. This approach enhances portability across different OSes and local setups. However, the downside is that it does not support natively run uncontainerized code.
 -->
-[Gefyra](https://gefyra.dev/) 與 Telepresence 類似，也採用 VPN 連接到集羣。
-但 Gefyra 只支持將本地運行的 Docker 容器連接到集羣。
+[Gefyra](https://gefyra.dev/) 與 Telepresence 類似，也採用 VPN 連接到叢集。
+但 Gefyra 只支持將本地運行的 Docker 容器連接到叢集。
 這種方法增強了在不同操作系統和本地設置環境之間的可移植性。
 然而，它的缺點是不支持原生運行非容器化的代碼。
 
 <!--
 Gefyra primarily focuses on network traffic, leaving file access and environment variables unsupported. Unlike Telepresence, it doesn't alter the workloads in the cluster, ensuring a straightforward clean-up process if things go awry.
 -->
-Gefyra 主要關注網絡流量，不支持文件訪問和環境變量。
-與 Telepresence 不同，Gefyra 不會改變集羣中的工作負載，
+Gefyra 主要關注網路流量，不支持文件訪問和環境變量。
+與 Telepresence 不同，Gefyra 不會改變叢集中的工作負載，
 因此如果發生意外情況，清理過程更加簡單明瞭。
 
 ## mirrord
@@ -79,15 +79,15 @@ environment variables uniformly.
 -->
 作爲這三個工具中最新的工具，[mirrord](https://mirrord.dev/)採用了一種不同的方法，
 它通過將自身注入到本地二進制文件中（在 Linux 上利用 `LD_PRELOAD`，在 macOS 上利用 `DYLD_INSERT_LIBRARIES`），
-並重寫 libc 函數調用，然後代理到在集羣中運行的臨時代理。
+並重寫 libc 函數調用，然後代理到在叢集中運行的臨時代理。
 例如，當本地進程嘗試讀取一個文件時，mirrord 會攔截該調用並將其發送到該代理，
-該代理再從遠程 Pod 讀取文件。這種方法允許 mirrord 覆蓋進程的所有輸入和輸出，統一處理網絡訪問、文件訪問和環境變量。
+該代理再從遠程 Pod 讀取文件。這種方法允許 mirrord 覆蓋進程的所有輸入和輸出，統一處理網路訪問、文件訪問和環境變量。
 
 <!--
 By working at the process level, mirrord supports running multiple local processes simultaneously, each in the context of their respective pod in the cluster, without requiring them to be containerized and without needing root permissions on the user’s machine.
 -->
-通過在進程級別工作，mirrord 支持同時運行多個本地進程，每個進程都在集羣中的相應 Pod 上下文中運行，
-無需將這些進程容器化，也無需在用戶機器上獲取 root 權限。
+通過在進程級別工作，mirrord 支持同時運行多個本地進程，每個進程都在叢集中的相應 Pod 上下文中運行，
+無需將這些進程容器化，也無需在使用者機器上獲取 root 權限。
 
 <!--
 ## Summary
@@ -115,7 +115,7 @@ By working at the process level, mirrord supports running multiple local process
 <td>Container</td>
 <td>Process</td>
 -->
-<th scope="row">集羣連接作用域</th>
+<th scope="row">叢集連接作用域</th>
 <td>整臺機器或容器</td>
 <td>容器</td>
 <td>進程</td>
@@ -142,7 +142,7 @@ By working at the process level, mirrord supports running multiple local process
 <th scope="row">傳入的流量特性</th>
 <td>攔截</td>
 <td>攔截</td>
-<td>攔截或鏡像</td>
+<td>攔截或映像檔</td>
 </tr>
 <tr>
 <!--

@@ -27,5 +27,5 @@ Enables server-side field validation. This means the validation
 of resource schema is performed at the API server side rather than the client side
 (for example, the `kubectl create` or `kubectl apply` command line).
 -->
-啓用服務器端字段驗證。這意味着資源模式的驗證發生在 API 服務器端而不是客戶端
-（例如，`kubectl create` 或 `kubectl apply` 命令行）。
+啓用伺服器端字段驗證。這意味着資源模式的驗證發生在 API 伺服器端而不是客戶端
+（例如，`kubectl create` 或 `kubectl apply` 命令列）。

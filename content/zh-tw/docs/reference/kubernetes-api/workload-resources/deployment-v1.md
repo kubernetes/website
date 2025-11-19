@@ -156,7 +156,7 @@ DeploymentSpec 定義 Deployment 預期行爲的規約。
   
   - **strategy.rollingUpdate** (RollingUpdateDeployment)
 
-    滾動更新這些配置參數。僅當 DeploymentStrategyType = RollingUpdate 時纔出現。
+    滾動更新這些設定參數。僅當 DeploymentStrategyType = RollingUpdate 時纔出現。
     
     <a name="RollingUpdateDeployment"></a>
     **控制滾動更新預期行爲的規約。**

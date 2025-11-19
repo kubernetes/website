@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/flowcontrol/v1"
   kind: "PriorityLevelConfiguration"
 content_type: "api_reference"
-description: "PriorityLevelConfiguration 表示一個優先級的配置。"
+description: "PriorityLevelConfiguration 表示一個優先級的設定。"
 title: "PriorityLevelConfiguration v1"
 weight: 6
 ---
@@ -29,7 +29,7 @@ auto_generated: true
 <!--
 PriorityLevelConfiguration represents the configuration of a priority level.
 -->
-PriorityLevelConfiguration 表示一個優先級的配置。
+PriorityLevelConfiguration 表示一個優先級的設定。
 
 <hr>
 
@@ -71,7 +71,7 @@ PriorityLevelConfiguration 表示一個優先級的配置。
 <!--
 PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 -->
-PriorityLevelConfigurationSpec 指定一個優先級的配置。
+PriorityLevelConfigurationSpec 指定一個優先級的設定。
 
 <hr>
 
@@ -92,8 +92,8 @@ PriorityLevelConfigurationSpec 指定一個優先級的配置。
   -->
 
   <a name="ExemptPriorityLevelConfiguration"></a>
-  **ExemptPriorityLevelConfiguration 描述豁免請求處理的可配置方面。
-  在強制豁免配置對象中，與 `spec` 中的其餘部分不同，此處字段的取值可以被授權用戶修改。**
+  **ExemptPriorityLevelConfiguration 描述豁免請求處理的可設定方面。
+  在強制豁免設定對象中，與 `spec` 中的其餘部分不同，此處字段的取值可以被授權使用者修改。**
 
   - **exempt.lendablePercent** (int32)
 
@@ -115,7 +115,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的配置。
 
     `nominalConcurrencyShares`（NCS）也被用來計算該級別的 NominalConcurrencyLimit（NominalCL）。
     字段值是爲該優先級保留的執行席位的數量。這一設置不限制此優先級別的調度行爲，
-    但會通過借用機制影響其他優先級。服務器的併發限制（ServerCL）會按照各個優先級的 NCS 值按比例分配：
+    但會通過借用機制影響其他優先級。伺服器的併發限制（ServerCL）會按照各個優先級的 NCS 值按比例分配：
     
     NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
     
@@ -158,7 +158,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的配置。
   
   - **limited.borrowingLimitPercent** (int32)
    
-    `borrowingLimitPercent` 配置如果存在，則可用來限制此優先級可以從其他優先級中租借多少資源。
+    `borrowingLimitPercent` 設定如果存在，則可用來限制此優先級可以從其他優先級中租借多少資源。
     該限制被稱爲該級別的 BorrowingConcurrencyLimit（BorrowingCL），它限制了該級別可以同時租借的資源總數。
     該字段保存了該限制與該級別標稱併發限制之比。當此字段非空時，必須爲正整數，並按以下方式計算限制值：
 
@@ -221,10 +221,10 @@ PriorityLevelConfigurationSpec 指定一個優先級的配置。
 
     - **limited.limitResponse.queuing** (QueuingConfiguration)
       
-      `queuing` 包含排隊所用的配置參數。只有 `type` 是 `"Queue"` 時，此字段纔可以爲非空。
+      `queuing` 包含排隊所用的設定參數。只有 `type` 是 `"Queue"` 時，此字段纔可以爲非空。
       
       <a name="QueuingConfiguration"></a>
-      **QueuingConfiguration 保存排隊所用的配置參數。**
+      **QueuingConfiguration 保存排隊所用的設定參數。**
       
       <!--
       - **limited.limitResponse.queuing.handSize** (int32)
@@ -234,12 +234,12 @@ PriorityLevelConfigurationSpec 指定一個優先級的配置。
 
       - **limited.limitResponse.queuing.handSize** (int32)
         
-        `handSize` 是一個小的正數，用於配置如何將請求隨機分片到隊列中。
+        `handSize` 是一個小的正數，用於設定如何將請求隨機分片到隊列中。
         當以該優先級將請求排隊時，將對請求的流標識符（字符串對）進行哈希計算，
         該哈希值用於打亂隊列隊列的列表，並處理此處指定的一批請求。
         請求被放入這一批次中最短的隊列中。
         `handSize` 不得大於 `queues`，並且應該明顯更小（以便幾個大的流量不會使大多數隊列飽和）。
-        有關設置此字段的更多詳細指導，請參閱面向用戶的文檔。此字段的默認值爲 8。
+        有關設置此字段的更多詳細指導，請參閱面向使用者的文檔。此字段的默認值爲 8。
       
       <!--
       - **limited.limitResponse.queuing.queueLengthLimit** (int32)
@@ -259,7 +259,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的配置。
       
       - **limited.limitResponse.queuing.queues** (int32)
         
-        `queues` 是這個優先級的隊列數。此隊列在每個 API 服務器上獨立存在。此值必須是正數。
+        `queues` 是這個優先級的隊列數。此隊列在每個 API 伺服器上獨立存在。此值必須是正數。
         將其設置爲 1 相當於禁止了混洗分片操作，進而使得對相關流模式的區分方法不再有意義。
         此字段的默認值爲 64。
 
@@ -278,7 +278,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的配置。
     `nominalConcurrencyShares`（NCS）用於計算該優先級的標稱併發限制（NominalCL）。
     NCS 表示可以在此優先級同時運行的席位數量上限，包括來自本優先級的請求，
     以及從此優先級租借席位的其他級別的請求。
-    服務器的併發度限制（ServerCL）根據 NCS 值按比例分別給各 Limited 優先級：
+    伺服器的併發度限制（ServerCL）根據 NCS 值按比例分別給各 Limited 優先級：
 
     NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
 
@@ -294,7 +294,7 @@ PriorityLevelConfigurationSpec 指定一個優先級的配置。
   `type` 指示此優先級是否遵從有關請求執行的限制。
   取值爲 `"Exempt"` 意味着此優先級的請求不遵從某個限制（且因此從不排隊）且不會減損其他優先級可用的容量。
   取值爲 `"Limited"` 意味着 (a) 此優先級的請求遵從這些限制且
-  (b) 服務器某些受限的容量僅可用於此優先級。必需。
+  (b) 伺服器某些受限的容量僅可用於此優先級。必需。
 
 ## PriorityLevelConfigurationStatus {#PriorityLevelConfigurationStatus}
 

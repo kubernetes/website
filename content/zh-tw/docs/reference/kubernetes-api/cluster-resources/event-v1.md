@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/events/v1"
   kind: "Event"
 content_type: "api_reference"
-description: "Event 是集羣中某個事件的報告。"
+description: "Event 是叢集中某個事件的報告。"
 title: "Event"
 weight: 3
 ---
@@ -32,7 +32,7 @@ Events have a limited retention time and triggers and messages may evolve with t
 Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason. 
 Events should be treated as informative, best-effort, supplemental data.
 -->
-Event 是集羣中某個事件的報告。它一般表示系統的某些狀態變化。
+Event 是叢集中某個事件的報告。它一般表示系統的某些狀態變化。
 Event 的保留時間有限，觸發器和消息可能會隨着時間的推移而演變。
 事件消費者不應假定給定原因的事件的時間所反映的是一致的下層觸發因素，或具有該原因的事件的持續存在。
 Events 應被視爲通知性質的、盡最大努力而提供的補充數據。

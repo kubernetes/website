@@ -38,14 +38,14 @@ will lose support in 1.36. The following CRI versions support this CRI call:
 * CRI-O: Support was added in v1.28.0
 -->
 啓用檢測來自 {{<glossary_tooltip term_id="cri" text="CRI">}}
-的 kubelet CGroup 驅動配置選項。
-此特性門控現已對所有集羣開啓。然而，它僅在有支持 `RuntimeConfig`
+的 kubelet CGroup 驅動設定選項。
+此特性門控現已對所有叢集開啓。然而，它僅在有支持 `RuntimeConfig`
 CRI 調用的 CRI 容器運行時的節點上工作。如果 CRI 支持此特性，
-kubelet 將忽略 `cgroupDriver` 配置設置（或已棄用的 `--cgroup-driver` 命令行參數）。
-如果容器運行時不支持它，則 kubelet 將回退到使用通過 `cgroupDriver` 配置設置進行配置的驅動。
-kubelet 將在 Kubernetes 1.36 中停止回退到此配置。因此，用戶必須升級其 CRI 容器運行時到支持
+kubelet 將忽略 `cgroupDriver` 設定設置（或已棄用的 `--cgroup-driver` 命令列參數）。
+如果容器運行時不支持它，則 kubelet 將回退到使用通過 `cgroupDriver` 設定設置進行設定的驅動。
+kubelet 將在 Kubernetes 1.36 中停止回退到此設定。因此，使用者必須升級其 CRI 容器運行時到支持
 `RuntimeConfig` CRI 調用的版本。管理員可以使用指標
-`kubelet_cri_losing_support` 來查看集羣中是否有節點將在 1.36 版本中失去支持。
+`kubelet_cri_losing_support` 來查看叢集中是否有節點將在 1.36 版本中失去支持。
 以下 CRI 版本支持此 CRI 調用：
 
 * containerd：在 v2.0.0 版本中添加了對此特性的支持
@@ -55,4 +55,4 @@ kubelet 將在 Kubernetes 1.36 中停止回退到此配置。因此，用戶必�
 See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
 for more details.
 -->
-詳情參見[配置 CGroup 驅動](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
+詳情參見[設定 CGroup 驅動](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。

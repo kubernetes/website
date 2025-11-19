@@ -38,4 +38,4 @@ authentication tokens to verify the identity of entities that want to perform
 actions in a cluster.
 -->
 JWT 可以用數字方式簽名和加密。
-Kubernetes 將 JWT 用作身份驗證令牌，以驗證想要在集羣中執行一些操作的實體的身份。
+Kubernetes 將 JWT 用作身份驗證令牌，以驗證想要在叢集中執行一些操作的實體的身份。

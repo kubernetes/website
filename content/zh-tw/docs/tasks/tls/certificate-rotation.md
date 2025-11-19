@@ -1,5 +1,5 @@
 ---
-title: 爲 kubelet 配置證書輪換
+title: 爲 kubelet 設定證書輪換
 content_type: task
 ---
 <!--
@@ -14,7 +14,7 @@ content_type: task
 <!--
 This page shows how to enable and configure certificate rotation for the kubelet.
 -->
-本文展示如何在 kubelet 中啓用並配置證書輪換。
+本文展示如何在 kubelet 中啓用並設定證書輪換。
 
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
@@ -82,9 +82,9 @@ When a kubelet starts up, if it is configured to bootstrap (using the
 to the Kubernetes API and issue a certificate signing request. You can view the
 status of certificate signing requests using:
 -->
-## 理解證書輪換配置
+## 理解證書輪換設定
 
-當 kubelet 啓動時，如被配置爲自舉（使用`--bootstrap-kubeconfig` 參數），kubelet
+當 kubelet 啓動時，如被設定爲自舉（使用`--bootstrap-kubeconfig` 參數），kubelet
 會使用其初始證書連接到 Kubernetes API ，併發送證書籤名的請求。
 可以通過以下方式查看證書籤名請求的狀態：
 

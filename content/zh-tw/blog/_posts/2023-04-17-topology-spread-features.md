@@ -33,7 +33,7 @@ This blog post introduces each feature and the use case behind each of them.
 在 Kubernetes v1.19 中，
 [Pod 拓撲分佈約束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)進階至正式發佈 (GA)。
 
-隨着時間的流逝，SIG Scheduling 收到了許多用戶的反饋，
+隨着時間的流逝，SIG Scheduling 收到了許多使用者的反饋，
 隨後通過 3 個 KEP 積極改進了 Topology Spread（拓撲分佈）特性。
 所有這些特性在 Kubernetes v1.27 中已進階至 Beta 且默認被啓用。
 
@@ -60,7 +60,7 @@ For example, assume there are 3 Nodes with the enough capacity,
 and a newly created ReplicaSet has the following `topologySpreadConstraints` in its Pod template.
 -->
 但還有沒有一種方式可以控制應分佈到的域數。
-一些用戶想要強制在至少指定個數的若干域內分佈 Pod；並且如果目前存在的域個數還不夠，
+一些使用者想要強制在至少指定個數的若干域內分佈 Pod；並且如果目前存在的域個數還不夠，
 則使用 cluster-autoscaler 製備新的域。
 
 Kubernetes v1.24 以 Alpha 特性的形式爲 Pod 拓撲分佈約束引入了 `minDomains` 參數。
@@ -102,9 +102,9 @@ You can imagine that the cluster autoscaler provisions new Nodes based on these 
 and as a result, the replicas are finally spread over 5 Nodes.
 -->
 在這個場景中，3 個 Pod 將被分別調度到這 3 個 Node 上，
-但 ReplicaSet 中的其它 2 個 Pod 在更多 Node 接入到集羣之前將無法被調度。
+但 ReplicaSet 中的其它 2 個 Pod 在更多 Node 接入到叢集之前將無法被調度。
 
-你可以想象集羣自動擴縮器基於這些不可調度的 Pod 製備新的 Node，
+你可以想象叢集自動擴縮器基於這些不可調度的 Pod 製備新的 Node，
 因此這些副本最後將分佈到 5 個 Node 上。
 
 <!--
@@ -118,7 +118,7 @@ the pod will stuck in Pending if it doesn't tolerate the taint.
 -->
 ## KEP-3094：計算 podTopologySpread 偏差時考慮污點/容忍度
 
-在本次增強之前，當你部署已經配置了 `topologySpreadConstraints` 的 Pod 時，kube-scheduler
+在本次增強之前，當你部署已經設定了 `topologySpreadConstraints` 的 Pod 時，kube-scheduler
 將在過濾和評分時考慮滿足 Pod 的 nodeAffinity 和 nodeSelector 的節點，
 但不關心傳入的 Pod 是否容忍節點污點。這可能會導致具有不可容忍污點的節點成爲唯一的分佈候選，
 因此如果 Pod 不容忍污點，則該 Pod 將卡在 Pending 狀態。
@@ -193,7 +193,7 @@ pod untolerated taint will also be included.
 For backwards compatibility, `nodeTaintsPolicy` defaults to `Ignore`.
 -->
 `nodeTaintsPolicy` 字段定義 Kubernetes 計算 Pod 拓撲分佈時如何對待節點污點。
-如果是 `Honor`，則只有配置了污點的節點上的傳入 Pod 帶有容忍標籤時該節點纔會被包括在分佈偏差的計算中。
+如果是 `Honor`，則只有設定了污點的節點上的傳入 Pod 帶有容忍標籤時該節點纔會被包括在分佈偏差的計算中。
 如果是 `Ignore`，則在計算分佈偏差時 kube-scheduler 根本不會考慮節點污點，
 因此帶有未容忍污點的 Pod 的節點也會被包括進去。
 
@@ -233,7 +233,7 @@ Pod 拓撲分佈使用 `labelSelector` 字段來標識要計算分佈的 Pod 組
 因此，在發佈新版本時，分佈將同時應用到新舊 ReplicaSet 的 Pod，
 並在新的 ReplicaSet 完全發佈且舊的 ReplicaSet 被下線時，我們留下的實際分佈可能與預期不符，
 這是因爲舊 ReplicaSet 中已刪除的 Pod 將導致剩餘 Pod 的分佈不均勻。
-爲了避免這個問題，過去用戶需要向 Deployment 添加修訂版標籤，並在每次滾動升級時手動更新
+爲了避免這個問題，過去使用者需要向 Deployment 添加修訂版標籤，並在每次滾動升級時手動更新
 （包括 Pod 模板上的標籤和 `topologySpreadConstraints` 中的 `labelSelector`）。
 
 <!--
@@ -259,7 +259,7 @@ revisions in a single Deployment.
 -->
 藉助 `matchLabelKeys`，你無需在修訂版變化時更新 `pod.spec`。
 控制器或 Operator 管理滾動升級時只需針對不同修訂版爲相同的標籤鍵設置不同的值即可。
-調度程序將基於 `matchLabelKeys` 自動完成賦值。例如，如果你正配置 Deployment，
+調度程序將基於 `matchLabelKeys` 自動完成賦值。例如，如果你正設定 Deployment，
 則可以使用由 Deployment 控制器自動添加的
 [pod-template-hash](/zh-cn/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)
 的標籤鍵來區分單個 Deployment 中的不同修訂版。

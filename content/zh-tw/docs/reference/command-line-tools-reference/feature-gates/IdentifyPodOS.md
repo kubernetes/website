@@ -28,4 +28,4 @@ removed: true
 Allows the Pod OS field to be specified. This helps in identifying
 the OS of the pod authoritatively during the API server admission time.
 -->
-允許設置 Pod 的 `os` 字段。這有助於在 API 服務器准入時確定性地辨識 Pod 的 OS。
+允許設置 Pod 的 `os` 字段。這有助於在 API 伺服器准入時確定性地辨識 Pod 的 OS。

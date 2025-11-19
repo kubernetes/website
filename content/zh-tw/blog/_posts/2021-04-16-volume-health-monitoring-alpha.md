@@ -29,8 +29,8 @@ The CSI Volume Health Monitoring feature, originally introduced in 1.19 has unde
 <!--
 Without Volume Health Monitoring, Kubernetes has no knowledge of the state of the underlying volumes of a storage system after a PVC is provisioned and used by a Pod. Many things could happen to the underlying storage system after a volume is provisioned in Kubernetes. For example, the volume could be deleted by accident outside of Kubernetes, the disk that the volume resides on could fail, it could be out of capacity, the disk may be degraded which affects its performance, and so on. Even when the volume is mounted on a pod and used by an application, there could be problems later on such as read/write I/O errors, file system corruption, accidental unmounting of the volume outside of Kubernetes, etc. It is very hard to debug and detect root causes when something happened like this.
 -->
-如果沒有卷健康監控，在 PVC 被 Pod 配置和使用後，Kubernetes 將不知道存儲系統的底層卷的狀態。
-在 Kubernetes 中配置卷後，底層存儲系統可能會發生很多事情。
+如果沒有卷健康監控，在 PVC 被 Pod 設定和使用後，Kubernetes 將不知道存儲系統的底層卷的狀態。
+在 Kubernetes 中設定卷後，底層存儲系統可能會發生很多事情。
 例如，卷可能在 Kubernetes 之外被意外刪除、卷所在的磁盤可能發生故障、容量不足、磁盤可能被降級而影響其性能等等。
 即使卷被掛載到 Pod 上並被應用程序使用，以後也可能會出現諸如讀/寫 I/O 錯誤、文件系統損壞、在 Kubernetes 之外被意外卸載卷等問題。
 當發生這樣的事情時，調試和檢測根本原因是非常困難的。
@@ -38,9 +38,9 @@ Without Volume Health Monitoring, Kubernetes has no knowledge of the state of th
 <!--
 Volume health monitoring can be very beneficial to Kubernetes users. It can communicate with the CSI driver to retrieve errors detected by the underlying storage system. PVC events can be reported up to the user to take action. For example, if the volume is out of capacity, they could request a volume expansion to get more space.
 -->
-卷健康監控對 Kubernetes 用戶非常有益。
+卷健康監控對 Kubernetes 使用者非常有益。
 它可以與 CSI 驅動程序通信以檢索到底層存儲系統檢測到的錯誤。
-用戶可以收到報告上來的 PVC 事件繼而採取行動。
+使用者可以收到報告上來的 PVC 事件繼而採取行動。
 例如，如果卷容量不足，他們可以請求卷擴展以獲得更多空間。
 
 <!--
@@ -80,13 +80,13 @@ Note that the node side volume health monitoring logic was an external agent whe
 Currently the Volume Health Monitoring feature is informational only as it only reports abnormal volume health events on PVCs or Pods. Users will need to check these events and manually fix the problems. This feature serves as a stepping stone towards programmatic detection and resolution of volume health issues by Kubernetes in the future.
 -->
 目前，卷健康監控功能僅供參考，因爲它只報送 PVC 或 Pod 上的異常卷健康事件。
-用戶將需要檢查這些事件並手動修復問題。
+使用者將需要檢查這些事件並手動修復問題。
 此功能可作爲 Kubernetes 未來以編程方式檢測和解決卷健康問題的基石。
 
 <!--
 ## How do I use Volume Health on my Kubernetes Cluster?
 -->
-## 如何在 Kubernetes 集羣上使用卷健康？
+## 如何在 Kubernetes 叢集上使用卷健康？
 
 <!--
 To use the Volume Health feature, first make sure the CSI driver you are using supports this feature. Refer to this [CSI drivers doc](https://kubernetes-csi.github.io/docs/drivers.html) to find out which CSI drivers support this feature.
@@ -108,7 +108,7 @@ If a CSI driver supports the Volume Health Monitoring feature from the controlle
 If a CSI driver supports the Volume Health Monitoring feature from the controller side, user can also get events regarding node failures if the `enable-node-watcher` flag is set to true when deploying the External Health Monitor Controller. When a node failure event is detected, an event will be reported on the PVC to indicate that pods using this PVC are on a failed node.
 -->
 如果 CSI 驅動程序支持控制器端的卷健康監控功能，
-當部署外部健康監控控制器時 `enable-node-watcher` 標誌設置爲 true，用戶還可以獲得有關節點故障的事件。
+當部署外部健康監控控制器時 `enable-node-watcher` 標誌設置爲 true，使用者還可以獲得有關節點故障的事件。
 當檢測到節點故障事件時，會在 PVC 上報送一個事件，指示使用該 PVC 的 Pod 在故障節點上。
 
 <!--

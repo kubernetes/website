@@ -45,12 +45,12 @@ To apply network policies use one of the following:
 按照[容器化安裝指南](https://github.com/romana/romana/tree/master/containerize)，
 使用 kubeadm 安裝。
 
-## 應用網絡策略
+## 應用網路策略
 
-使用以下的一種方式應用網絡策略：
+使用以下的一種方式應用網路策略：
 
-* [Romana 網絡策略](https://github.com/romana/romana/wiki/Romana-policies)
-  * [Romana 網絡策略例子](https://github.com/romana/core/blob/master/doc/policy.md)
+* [Romana 網路策略](https://github.com/romana/romana/wiki/Romana-policies)
+  * [Romana 網路策略例子](https://github.com/romana/core/blob/master/doc/policy.md)
 * NetworkPolicy API
 
 ## {{% heading "whatsnext" %}}
@@ -59,6 +59,6 @@ To apply network policies use one of the following:
 Once you have installed Romana, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
  -->
 Romana 安裝完成後，你可以按照
-[聲明網絡策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
+[聲明網路策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
 去嘗試使用 Kubernetes NetworkPolicy。
 

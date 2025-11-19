@@ -1,5 +1,5 @@
 ---
-title: 通過名字空間共享集羣
+title: 通過名字空間共享叢集
 content_type: task
 weight: 340
 ---
@@ -18,7 +18,7 @@ This page shows how to view, work in, and delete {{< glossary_tooltip text="name
 The page also shows how to use Kubernetes namespaces to subdivide your cluster.
 -->
 本頁展示如何查看、使用和刪除{{< glossary_tooltip text="名字空間" term_id="namespace" >}}。
-本頁同時展示如何使用 Kubernetes 名字空間來劃分集羣。
+本頁同時展示如何使用 Kubernetes 名字空間來劃分叢集。
 
 ## {{% heading "prerequisites" %}}
 
@@ -28,7 +28,7 @@ The page also shows how to use Kubernetes namespaces to subdivide your cluster.
   {{< glossary_tooltip term_id="service" text="Services" >}}, and
   {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
 -->
-* 你已擁有一個[配置好的 Kubernetes 集羣](/zh-cn/docs/setup/)。
+* 你已擁有一個[設定好的 Kubernetes 叢集](/zh-cn/docs/setup/)。
 * 你已對 Kubernetes 的 {{< glossary_tooltip text="Pod" term_id="pod" >}}、
   {{< glossary_tooltip term_id="service" text="Service" >}} 和
   {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 有基本理解。
@@ -43,7 +43,7 @@ The page also shows how to use Kubernetes namespaces to subdivide your cluster.
 <!--
 List the current namespaces in a cluster using:
 -->
-列出集羣中現有的名字空間：
+列出叢集中現有的名字空間：
 
 ```shell
 kubectl get namespaces
@@ -74,8 +74,8 @@ Kubernetes starts with four initial namespaces:
 * `kube-node-lease` 此名字空間保存與每個節點關聯的[租約（Lease）](/zh-cn/docs/concepts/architecture/leases/)對象。
   節點租約允許 kubelet 發送[心跳](/zh-cn/docs/concepts/architecture/nodes/#heartbeats），
   以便控制平面可以檢測節點故障。
-* `kube-public` 自動創建且被所有用戶可讀的名字空間（包括未經身份認證的）。
-  此名字空間通常在某些資源在整個集羣中可見且可公開讀取時被集羣使用。
+* `kube-public` 自動創建且被所有使用者可讀的名字空間（包括未經身份認證的）。
+  此名字空間通常在某些資源在整個叢集中可見且可公開讀取時被叢集使用。
   此名字空間的公共方面只是一個約定，而不是一個必要條件。
 * `kube-system` 由 Kubernetes 系統創建的對象的名字空間
 
@@ -121,7 +121,7 @@ Resource quota tracks aggregate usage of resources in the Namespace and allows c
 to define *Hard* resource usage limits that a Namespace may consume.
 -->
 資源配額跟蹤並聚合 **Namespace** 中資源的使用情況，
-並允許集羣運營者定義 **Namespace** 可能消耗的 **Hard** 資源使用限制。
+並允許叢集運營者定義 **Namespace** 可能消耗的 **Hard** 資源使用限制。
 
 <!-- 
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
@@ -209,7 +209,7 @@ More information on `finalizers` can be found in the namespace
 -->
 可選字段 `finalizers` 允許觀察者們在名字空間被刪除時清除資源。
 記住如果指定了一個不存在的終結器，名字空間仍會被創建，
-但如果用戶試圖刪除它，它將陷入 `Terminating` 狀態。
+但如果使用者試圖刪除它，它將陷入 `Terminating` 狀態。
 
 更多有關 `finalizers` 的信息請查閱
 [設計文檔](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers)中名字空間部分。
@@ -243,19 +243,19 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
 <!--
 ## Subdividing your cluster using Kubernetes namespaces
 -->
-## 使用 Kubernetes 名字空間細分你的集羣
+## 使用 Kubernetes 名字空間細分你的叢集
 
 <!--
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the
 cluster to hold the default set of Pods, Services, and Deployments used by the cluster.
 -->
-默認情況下，Kubernetes 集羣會在配置集羣時實例化一個 default 名字空間，用以存放集羣所使用的默認
+默認情況下，Kubernetes 叢集會在設定叢集時實例化一個 default 名字空間，用以存放叢集所使用的默認
 Pod、Service 和 Deployment 集合。
 
 <!--
 Assuming you have a fresh cluster, you can introspect the available namespaces by doing the following:
 -->
-假設你有一個新的集羣，你可以通過執行以下操作來內省可用的名字空間：
+假設你有一個新的叢集，你可以通過執行以下操作來內省可用的名字空間：
 
 ```shell
 kubectl get namespaces
@@ -280,7 +280,7 @@ For this exercise, we will create two additional Kubernetes namespaces to hold o
 In a scenario where an organization is using a shared Kubernetes cluster for development and
 production use cases:
 -->
-在某組織使用共享的 Kubernetes 集羣進行開發和生產的場景中：
+在某組織使用共享的 Kubernetes 叢集進行開發和生產的場景中：
 
 <!--
 - The development team would like to maintain a space in the cluster where they can get a view on
@@ -288,7 +288,7 @@ production use cases:
   In this space, Kubernetes resources come and go, and the restrictions on who can or cannot modify
   resources are relaxed to enable agile development.
 -->
-- 開發團隊希望在集羣中維護一個空間，以便他們可以查看用於構建和運行其應用程序的 Pod、Service
+- 開發團隊希望在叢集中維護一個空間，以便他們可以查看用於構建和運行其應用程序的 Pod、Service
   和 Deployment 列表。在這個空間裏，Kubernetes 資源被自由地加入或移除，
   對誰能夠或不能修改資源的限制被放寬，以實現敏捷開發。
    
@@ -297,14 +297,14 @@ production use cases:
   procedures on who can or cannot manipulate the set of Pods, Services, and Deployments that run
   the production site.
 -->
-- 運維團隊希望在集羣中維護一個空間，以便他們可以強制實施一些嚴格的規程，
+- 運維團隊希望在叢集中維護一個空間，以便他們可以強制實施一些嚴格的規程，
   對誰可以或不可以操作運行生產站點的 Pod、Service 和 Deployment 集合進行控制。
    
 <!--
 One pattern this organization could follow is to partition the Kubernetes cluster into two
 namespaces: `development` and `production`. Let's create two new namespaces to hold our work.
 -->
-該組織可以遵循的一種模式是將 Kubernetes 集羣劃分爲兩個名字空間：`development` 和 `production`。
+該組織可以遵循的一種模式是將 Kubernetes 叢集劃分爲兩個名字空間：`development` 和 `production`。
 讓我們創建兩個新的名字空間來保存我們的工作。
 
 <!--
@@ -328,7 +328,7 @@ kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
 <!--
 To be sure things are right, list all of the namespaces in our cluster.
 -->
-爲了確保一切正常，列出集羣中的所有名字空間。
+爲了確保一切正常，列出叢集中的所有名字空間。
 
 ```shell
 kubectl get namespaces --show-labels
@@ -351,8 +351,8 @@ A Kubernetes namespace provides the scope for Pods, Services, and Deployments in
 Users interacting with one namespace do not see the content in another namespace.
 To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
 -->
-Kubernetes 名字空間爲集羣中的 Pod、Service 和 Deployment 提供了作用域。
-與一個名字空間交互的用戶不會看到另一個名字空間中的內容。
+Kubernetes 名字空間爲叢集中的 Pod、Service 和 Deployment 提供了作用域。
+與一個名字空間交互的使用者不會看到另一個名字空間中的內容。
 爲了演示這一點，讓我們在 `development` 名字空間中啓動一個簡單的 Deployment 和 Pod。
 
 ```shell
@@ -437,7 +437,7 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 At this point, it should be clear that the resources users create in one namespace are hidden from
 the other namespace.
 -->
-此時，應該很清楚地展示了用戶在一個名字空間中創建的資源對另一個名字空間是隱藏的。
+此時，應該很清楚地展示了使用者在一個名字空間中創建的資源對另一個名字空間是隱藏的。
 
 <!--
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
@@ -456,12 +456,12 @@ authorization rules for each namespace.
 A single cluster should be able to satisfy the needs of multiple users or groups of users
 (henceforth in this document a _user community_).
 -->
-單個集羣應該能滿足多個用戶及用戶組的需求（以下稱爲 “用戶社區”）。
+單個叢集應該能滿足多個使用者及使用者組的需求（以下稱爲 “使用者社區”）。
 
 <!--
 Kubernetes _namespaces_ help different projects, teams, or customers to share a Kubernetes cluster.
 -->
-Kubernetes **名字空間** 幫助不同的項目、團隊或客戶去共享 Kubernetes 集羣。
+Kubernetes **名字空間** 幫助不同的項目、團隊或客戶去共享 Kubernetes 叢集。
 
 <!--
 It does this by providing the following:
@@ -472,7 +472,7 @@ It does this by providing the following:
 名字空間通過以下方式實現這點：
 
 1. 爲[名字](/zh-cn/docs/concepts/overview/working-with-objects/names/)設置作用域.
-2. 爲集羣中的部分資源關聯鑑權和策略的機制。
+2. 爲叢集中的部分資源關聯鑑權和策略的機制。
 
 <!--
 Use of multiple namespaces is optional.
@@ -487,8 +487,8 @@ Each user community has its own:
 1. policies (who can or cannot perform actions in their community)
 1. constraints (this community is allowed this much quota, etc.)
 -->
-每個用戶社區都希望能夠與其他社區隔離開展工作。
-每個用戶社區都有自己的：
+每個使用者社區都希望能夠與其他社區隔離開展工作。
+每個使用者社區都有自己的：
 
 1. 資源（Pod、服務、副本控制器等等）
 2. 策略（誰能或不能在他們的社區裏執行操作）
@@ -497,7 +497,7 @@ Each user community has its own:
 <!--
 A cluster operator may create a Namespace for each unique user community.
 -->
-集羣運營者可以爲每個唯一用戶社區創建名字空間。
+叢集運營者可以爲每個唯一使用者社區創建名字空間。
 
 <!--
 The Namespace provides a unique scope for:
@@ -509,7 +509,7 @@ The Namespace provides a unique scope for:
 名字空間爲下列內容提供唯一的作用域：
 
 1. 命名資源（避免基本的命名衝突）
-2. 將管理權限委派給可信用戶
+2. 將管理權限委派給可信使用者
 3. 限制社區資源消耗的能力
 
 <!--
@@ -525,10 +525,10 @@ Use cases include:
 -->
 用例包括:
 
-1. 作爲集羣運營者, 我希望能在單個集羣上支持多個用戶社區。
-2. 作爲集羣運營者，我希望將集羣分區的權限委派給這些社區中的受信任用戶。
-3. 作爲集羣運營者，我希望能限定每個用戶社區可使用的資源量，以限制對使用同一集羣的其他用戶社區的影響。
-4. 作爲集羣用戶，我希望與我的用戶社區相關的資源進行交互，而與其他用戶社區在該集羣上執行的操作無關。
+1. 作爲叢集運營者, 我希望能在單個叢集上支持多個使用者社區。
+2. 作爲叢集運營者，我希望將叢集分區的權限委派給這些社區中的受信任使用者。
+3. 作爲叢集運營者，我希望能限定每個使用者社區可使用的資源量，以限制對使用同一叢集的其他使用者社區的影響。
+4. 作爲叢集使用者，我希望與我的使用者社區相關的資源進行交互，而與其他使用者社區在該叢集上執行的操作無關。
 
 <!--
 ## Understanding namespaces and DNS
@@ -548,7 +548,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 會創建相應的 [DNS 條目](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 此條目的格式爲 `<服務名稱>.<名字空間名稱>.svc.cluster.local`。
 這意味着如果容器使用 `<服務名稱>`，它將解析爲名字空間本地的服務。
-這對於在多個名字空間（如開發、暫存和生產）中使用相同的配置非常有用。
+這對於在多個名字空間（如開發、暫存和生產）中使用相同的設定非常有用。
 如果要跨名字空間訪問，則需要使用完全限定的域名（FQDN）。
 
 ## {{% heading "whatsnext" %}}

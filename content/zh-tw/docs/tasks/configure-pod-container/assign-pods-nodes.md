@@ -14,7 +14,7 @@ weight: 150
 This page shows how to assign a Kubernetes Pod to a particular node in a
 Kubernetes cluster.
 -->
-此頁面顯示如何將 Kubernetes Pod 指派給 Kubernetes 集羣中的特定節點。
+此頁面顯示如何將 Kubernetes Pod 指派給 Kubernetes 叢集中的特定節點。
 
 ## {{% heading "prerequisites" %}}
 
@@ -29,7 +29,7 @@ Kubernetes cluster.
 -->
 ## 給節點添加標籤  {#add-a-label-to-a-node}
 
-1. 列出你的集羣中的{{< glossary_tooltip term_id="node" text="節點" >}}，
+1. 列出你的叢集中的{{< glossary_tooltip term_id="node" text="節點" >}}，
    包括這些節點上的標籤：
 
    ```shell
@@ -97,7 +97,7 @@ a `disktype=ssd` label.
 -->
 ## 創建一個將被調度到你選擇的節點的 Pod  {#create-a-pod-scheduled-to-chosen-node}
 
-此 Pod 配置文件描述了一個擁有節點選擇器 `disktype: ssd` 的 Pod。這表明該 Pod
+此 Pod 設定文件描述了一個擁有節點選擇器 `disktype: ssd` 的 Pod。這表明該 Pod
 將被調度到有 `disktype=ssd` 標籤的節點。
 
 {{% code_sample file="pods/pod-nginx.yaml" %}}
@@ -106,7 +106,7 @@ a `disktype=ssd` label.
 1. Use the configuration file to create a pod that will get scheduled on your
    chosen node:
 -->
-1. 使用該配置文件創建一個 Pod，該 Pod 將被調度到你選擇的節點上：
+1. 使用該設定文件創建一個 Pod，該 Pod 將被調度到你選擇的節點上：
 
    ```shell
    kubectl create -f https://k8s.io/examples/pods/pod-nginx.yaml
@@ -145,7 +145,7 @@ You can also schedule a pod to one specific node via setting `nodeName`.
 <!--
 Use the configuration file to create a pod that will get scheduled on `foo-node` only.
 -->
-使用此配置文件來創建一個 Pod，該 Pod 將只能被調度到 `foo-node` 節點。
+使用此設定文件來創建一個 Pod，該 Pod 將只能被調度到 `foo-node` 節點。
 
 ## {{% heading "whatsnext" %}}
 

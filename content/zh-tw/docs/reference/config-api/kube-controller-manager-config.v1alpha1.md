@@ -59,8 +59,8 @@ acceptContentTypes defines the Accept header sent by clients when connecting to 
 default value of 'application/json'. This field will control all connections to the server used by a particular
 client.
 -->
-acceptContentTypes 定義了客戶端在連接服務器時發送的 Accept 請求頭，
-覆蓋默認值 application/json。此字段將控制特定客戶端與服務器之間的所有連接。
+acceptContentTypes 定義了客戶端在連接伺服器時發送的 Accept 請求頭，
+覆蓋默認值 application/json。此字段將控制特定客戶端與伺服器之間的所有連接。
 </p>
 </td>
 </tr>
@@ -72,7 +72,7 @@ acceptContentTypes 定義了客戶端在連接服務器時發送的 Accept 請�
 <!--
 contentType is the content type used when sending data to the server from this client.
 -->
-contentType 是此客戶端向服務器發送數據時使用的內容類型。
+contentType 是此客戶端向伺服器發送數據時使用的內容類型。
 </p>
 </td>
 </tr>
@@ -118,7 +118,7 @@ burst 允許在客戶端超出其速率限制時累積額外的查詢。
 <!--
 DebuggingConfiguration holds configuration for Debugging related features.
 -->
-DebuggingConfiguration 包含與調試相關功能的配置。
+DebuggingConfiguration 包含與調試相關功能的設定。
 </p>
 
 <table class="table">
@@ -169,7 +169,7 @@ enableProfiling is true.
 LeaderElectionConfiguration defines the configuration of leader election
 clients for components that can run with leader election enabled.
 -->
-LeaderElectionConfiguration 定義了啓用 leader 選舉的組件的 leader 選舉客戶端配置。
+LeaderElectionConfiguration 定義了啓用 leader 選舉的組件的 leader 選舉客戶端設定。
 </p>
 
 <table class="table">
@@ -352,7 +352,7 @@ ServiceControllerConfiguration 包含描述 ServiceController 的元素。
    management, but more CPU (and network) load.
    -->
    concurrentServiceSyncs 是允許同時同步的服務數。
-   數量越大表示服務管理響應越快，但 CPU（和網絡）負載也越高。
+   數量越大表示服務管理響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -381,7 +381,7 @@ CloudControllerManagerConfiguration 包含描述雲控制器管理器的元素�
 <td>
    <p>
    <!-- Generic holds configuration for a generic controller-manager -->
-   Generic 包含通用控制器管理器的配置。
+   Generic 包含通用控制器管理器的設定。
    </p>
 </td>
 </tr>
@@ -394,7 +394,7 @@ CloudControllerManagerConfiguration 包含描述雲控制器管理器的元素�
    KubeCloudSharedConfiguration holds configuration for shared related features
    both in cloud controller manager and kube-controller manager. 
    -->
-   KubeCloudSharedConfiguration 保存被雲控制器管理器和 kube-controller 管理器共享的相關特性的配置。
+   KubeCloudSharedConfiguration 保存被雲控制器管理器和 kube-controller 管理器共享的相關特性的設定。
    </p>
 </td>
 </tr>
@@ -404,7 +404,7 @@ CloudControllerManagerConfiguration 包含描述雲控制器管理器的元素�
 <td>
    <p>
    <!-- NodeController holds configuration for node controller related features. -->
-   NodeController 保存與節點控制器相關的特性的配置。
+   NodeController 保存與節點控制器相關的特性的設定。
    </p>
 </td>
 </tr>
@@ -414,7 +414,7 @@ CloudControllerManagerConfiguration 包含描述雲控制器管理器的元素�
 <td>
    <p>
    <!-- ServiceControllerConfiguration holds configuration for ServiceController related features. -->
-   ServiceControllerConfiguration 保存 ServiceController 相關的特性的配置。
+   ServiceControllerConfiguration 保存 ServiceController 相關的特性的設定。
    </p>
 </td>
 </tr>
@@ -434,7 +434,7 @@ CloudControllerManagerConfiguration 包含描述雲控制器管理器的元素�
 <td>
    <p>
    <!-- Webhook is the configuration for cloud-controller-manager hosted webhooks -->
-   Webhook 是雲控制器管理器託管的 webhook 的配置。
+   Webhook 是雲控制器管理器託管的 webhook 的設定。
    </p>
 </td>
 </tr>
@@ -479,7 +479,7 @@ CloudProviderConfiguration 包含有關雲提供商的一些基本元素。
 <td>
    <p>
    <!-- cloudConfigFile is the path to the cloud provider configuration file. -->
-   cloudConfigFile 是雲提供程序配置文件的路徑。
+   cloudConfigFile 是雲提供程序設定文件的路徑。
    </p>
 </td>
 </tr>
@@ -504,7 +504,7 @@ CloudProviderConfiguration 包含有關雲提供商的一些基本元素。
 KubeCloudSharedConfiguration contains elements shared by both kube-controller manager
 and cloud-controller manager, but not genericconfig. 
 -->
-KubeCloudSharedConfiguration 包含 kube-controller 管理器和雲控制器管理器共享的元素，但不包含通用配置。
+KubeCloudSharedConfiguration 包含 kube-controller 管理器和雲控制器管理器共享的元素，但不包含通用設定。
 </p>
 
 
@@ -519,7 +519,7 @@ KubeCloudSharedConfiguration 包含 kube-controller 管理器和雲控制器管�
 <td>
    <p>
    <!-- CloudProviderConfiguration holds configuration for CloudProvider related features. -->
-   CloudProviderConfiguration 保存 CloudProvider 相關特性的配置。
+   CloudProviderConfiguration 保存 CloudProvider 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -586,7 +586,7 @@ KubeCloudSharedConfiguration 包含 kube-controller 管理器和雲控制器管�
 <td>
    <p>
    <!-- clusterName is the instance prefix for the cluster. -->
-   clusterName 是集羣的實例前綴。
+   clusterName 是叢集的實例前綴。
    </p>
 </td>
 </tr>
@@ -596,7 +596,7 @@ KubeCloudSharedConfiguration 包含 kube-controller 管理器和雲控制器管�
 <td>
    <p>
    <!-- clusterCIDR is CIDR Range for Pods in cluster. -->
-   clusterCIDR 是集羣中 Pod CIDR 的範圍。
+   clusterCIDR 是叢集中 Pod CIDR 的範圍。
    </p>
 </td>
 </tr>
@@ -633,7 +633,7 @@ KubeCloudSharedConfiguration 包含 kube-controller 管理器和雲控制器管�
    configureCloudRoutes enables CIDRs allocated with allocateNodeCIDRs
    to be configured on the cloud provider. 
    -->
-   configureCloudRoutes 使通過 allocateNodeCIDRs 分配的 CIDR 能夠在雲提供商上配置。
+   configureCloudRoutes 使通過 allocateNodeCIDRs 分配的 CIDR 能夠在雲提供商上設定。
    </p>
 </td>
 </tr>
@@ -649,7 +649,7 @@ KubeCloudSharedConfiguration 包含 kube-controller 管理器和雲控制器管�
    -->
    nodeSyncPeriod 從雲平臺同步節點的週期。
    週期較長時，調用雲平臺的次數減少， 
-   但向集羣添加新節點可能會延遲。
+   但向叢集添加新節點可能會延遲。
    </p>
 </td>
 </tr>
@@ -669,7 +669,7 @@ KubeCloudSharedConfiguration 包含 kube-controller 管理器和雲控制器管�
 
 <p>
 <!-- WebhookConfiguration contains configuration related to cloud-controller-manager hosted webhooks -->
-WebhookConfiguration 包含與雲控制器管理器託管的 webhook 相關的配置。
+WebhookConfiguration 包含與雲控制器管理器託管的 webhook 相關的設定。
 </p>
 
 
@@ -716,7 +716,7 @@ WebhookConfiguration 包含與雲控制器管理器託管的 webhook 相關的�
 
 <p>
 <!-- LeaderMigrationConfiguration provides versioned configuration for all migrating leader locks. -->
-LeaderMigrationConfiguration 爲所有遷移中的領導者鎖提供了版本化配置。
+LeaderMigrationConfiguration 爲所有遷移中的領導者鎖提供了版本化設定。
 </p>
 
 
@@ -759,7 +759,7 @@ E.g. 1-20-KCM-to-1-21-CCM -->
 <td>
    <p>
    <!-- ControllerLeaders contains a list of migrating leader lock configurations -->
-   ControllerLeaders 包含遷移領導者鎖配置列表。
+   ControllerLeaders 包含遷移領導者鎖設定列表。
    </p>
 </td>
 </tr>
@@ -779,7 +779,7 @@ E.g. 1-20-KCM-to-1-21-CCM -->
 
 <p>
 <!-- ControllerLeaderConfiguration provides the configuration for a migrating leader lock. -->
-ControllerLeaderConfiguration 提供遷移中領導者鎖的配置。
+ControllerLeaderConfiguration 提供遷移中領導者鎖的設定。
 </p>
 
 
@@ -834,7 +834,7 @@ ControllerLeaderConfiguration 提供遷移中領導者鎖的配置。
 
 <p>
 <!-- GenericControllerManagerConfiguration holds configuration for a generic controller-manager. -->
-GenericControllerManagerConfiguration 保存通用控制器管理器的配置。
+GenericControllerManagerConfiguration 保存通用控制器管理器的設定。
 </p>
 
 
@@ -885,7 +885,7 @@ GenericControllerManagerConfiguration 保存通用控制器管理器的配置。
    ClientConnection specifies the kubeconfig file and client connection
    settings for the proxy server to use when communicating with the apiserver. 
    -->
-   ClientConnection 指定代理服務器在與 API 服務器通信時使用的 kubeconfig 文件和客戶端連接設置。
+   ClientConnection 指定代理伺服器在與 API 伺服器通信時使用的 kubeconfig 文件和客戶端連接設置。
    </p>
 </td>
 </tr>
@@ -905,7 +905,7 @@ GenericControllerManagerConfiguration 保存通用控制器管理器的配置。
 <td>
    <p>
    <!-- leaderElection defines the configuration of leader election client. -->
-   leaderElection 定義領導者選舉客戶端的配置。
+   leaderElection 定義領導者選舉客戶端的設定。
    </p>
 </td>
 </tr>
@@ -935,7 +935,7 @@ GenericControllerManagerConfiguration 保存通用控制器管理器的配置。
 <td>
    <p>
    <!-- DebuggingConfiguration holds configuration for Debugging related features. -->
-   DebuggingConfiguration 保存調試相關特性的配置。
+   DebuggingConfiguration 保存調試相關特性的設定。
    </p>
 </td>
 </tr>
@@ -955,7 +955,7 @@ GenericControllerManagerConfiguration 保存通用控制器管理器的配置。
 <td>
    <p>
    <!-- LeaderMigration holds the configuration for Leader Migration. -->
-   LeaderMigration 保存領導者遷移的配置。
+   LeaderMigration 保存領導者遷移的設定。
    </p>
 </td>
 </tr>
@@ -988,7 +988,7 @@ KubeControllerManagerConfiguration 包含描述 kube-controller 管理器的元�
 <td>
    <p>
    <!-- Generic holds configuration for a generic controller-manager -->
-   Generic 保存通用控制器管理器的配置。
+   Generic 保存通用控制器管理器的設定。
    </p>
 </td>
 </tr>
@@ -999,7 +999,7 @@ KubeControllerManagerConfiguration 包含描述 kube-controller 管理器的元�
    <p>
    <!-- KubeCloudSharedConfiguration holds configuration for shared related features
 both in cloud controller manager and kube-controller manager. -->
-   KubeCloudSharedConfiguration 保存雲控制器管理器和 kube-controller 管理器間共享的相關特性的配置。
+   KubeCloudSharedConfiguration 保存雲控制器管理器和 kube-controller 管理器間共享的相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1009,7 +1009,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- AttachDetachControllerConfiguration holds configuration for AttachDetachController related features. -->
-   AttachDetachControllerConfiguration 包含 AttachDetachController 相關特性的配置。
+   AttachDetachControllerConfiguration 包含 AttachDetachController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1019,7 +1019,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- CSRSigningControllerConfiguration holds configuration for CSRSigningController related features. -->
-   CSRSigningControllerConfiguration 包含 CSRSigningController 相關特性的配置。
+   CSRSigningControllerConfiguration 包含 CSRSigningController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1029,7 +1029,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- DaemonSetControllerConfiguration holds configuration for DaemonSetController related features. -->
-   DaemonSetControllerConfiguration 包含 DaemonSetController 相關特性的配置。
+   DaemonSetControllerConfiguration 包含 DaemonSetController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1039,7 +1039,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- DeploymentControllerConfiguration holds configuration for DeploymentController related features. -->
-   DeploymentControllerConfiguration 包含 DeploymentController 相關特性的配置。
+   DeploymentControllerConfiguration 包含 DeploymentController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1049,7 +1049,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- StatefulSetControllerConfiguration holds configuration for StatefulSetController related features. -->
-   StatefulSetControllerConfiguration 包含 StatefulSetController 相關特性的配置。
+   StatefulSetControllerConfiguration 包含 StatefulSetController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1059,7 +1059,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- DeprecatedControllerConfiguration holds configuration for some deprecated features. -->
-   DeprecatedControllerConfiguration 包含一些已棄用的特性的配置。
+   DeprecatedControllerConfiguration 包含一些已棄用的特性的設定。
    </p>
 </td>
 </tr>
@@ -1069,7 +1069,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- EndpointControllerConfiguration holds configuration for EndpointController related features. -->
-   EndpointControllerConfiguration 包含 EndpointController 相關特性的配置。
+   EndpointControllerConfiguration 包含 EndpointController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1079,7 +1079,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- EndpointSliceControllerConfiguration holds configuration for EndpointSliceController related features. -->
-   EndpointSliceControllerConfiguration 包含 EndpointSliceController 相關特性的配置。
+   EndpointSliceControllerConfiguration 包含 EndpointSliceController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1090,7 +1090,7 @@ both in cloud controller manager and kube-controller manager. -->
    <p>
    <!-- EndpointSliceMirroringControllerConfiguration holds configuration for EndpointSliceMirroringController related 
    features. -->
-   EndpointSliceMirroringControllerConfiguration 包含 EndpointSliceMirroringController 相關特性的配置。
+   EndpointSliceMirroringControllerConfiguration 包含 EndpointSliceMirroringController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1100,7 +1100,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- EphemeralVolumeControllerConfiguration holds configuration for EphemeralVolumeController related features. -->
-   EphemeralVolumeControllerConfiguration 包含 EphemeralVolumeController 相關特性的配置。
+   EphemeralVolumeControllerConfiguration 包含 EphemeralVolumeController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1110,7 +1110,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- GarbageCollectorControllerConfiguration holds configuration for GarbageCollectorController related features. -->
-   GarbageCollectorControllerConfiguration 包含 GarbageCollectorController 相關特性的配置。
+   GarbageCollectorControllerConfiguration 包含 GarbageCollectorController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1120,7 +1120,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- HPAControllerConfiguration holds configuration for HPAController related features. -->
-   HPAControllerConfiguration 包含 HPAController 相關特性的配置。
+   HPAControllerConfiguration 包含 HPAController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1130,7 +1130,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- JobControllerConfiguration holds configuration for JobController related features. -->
-   HPAControllerConfiguration 包含 JobController 相關特性的配置。
+   HPAControllerConfiguration 包含 JobController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1140,7 +1140,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- CronJobControllerConfiguration holds configuration for CronJobController related features. -->
-   CronJobControllerConfiguration 包含 CronJobController 相關特性的配置。
+   CronJobControllerConfiguration 包含 CronJobController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1150,7 +1150,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- LegacySATokenCleanerConfiguration holds configuration for LegacySATokenCleaner related features. -->
-   LegacySATokenCleanerConfiguration 包含 LegacySATokenCleaner 相關特性的配置。
+   LegacySATokenCleanerConfiguration 包含 LegacySATokenCleaner 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1160,7 +1160,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- NamespaceControllerConfiguration holds configuration for NamespaceController related features. -->
-   NamespaceControllerConfiguration 包含 NamespaceController 相關特性的配置。
+   NamespaceControllerConfiguration 包含 NamespaceController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1170,7 +1170,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- NodeIPAMControllerConfiguration holds configuration for NodeIPAMController related features. -->
-   NodeIPAMControllerConfiguration 包含 NodeIPAMController 相關特性的配置。
+   NodeIPAMControllerConfiguration 包含 NodeIPAMController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1180,7 +1180,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- NodeLifecycleControllerConfiguration holds configuration for NodeLifecycleController related features. -->
-   NodeLifecycleControllerConfiguration 包含 NodeLifecycleController 相關特性的配置。
+   NodeLifecycleControllerConfiguration 包含 NodeLifecycleController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1190,7 +1190,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- PersistentVolumeBinderControllerConfiguration holds configuration for PersistentVolumeBinderController related features. -->
-   PersistentVolumeBinderControllerConfiguration 包含 PersistentVolumeBinderController 相關特性的配置。
+   PersistentVolumeBinderControllerConfiguration 包含 PersistentVolumeBinderController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1200,7 +1200,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- PodGCControllerConfiguration holds configuration for PodGCController related features. -->
-   PodGCControllerConfiguration 包含 PodGCController 相關特性的配置。
+   PodGCControllerConfiguration 包含 PodGCController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1210,7 +1210,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- ReplicaSetControllerConfiguration holds configuration for ReplicaSet related features. -->
-   ReplicaSetControllerConfiguration 包含 ReplicaSetController 相關特性的配置。
+   ReplicaSetControllerConfiguration 包含 ReplicaSetController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1220,7 +1220,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- ReplicationControllerConfiguration holds configuration for ReplicationController related features. -->
-   ReplicationControllerConfiguration 包含 ReplicationController 相關特性的配置。
+   ReplicationControllerConfiguration 包含 ReplicationController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1230,7 +1230,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- ResourceQuotaControllerConfiguration holds configuration for ResourceQuotaController related features. -->
-   ResourceQuotaControllerConfiguration 包含 ResourceQuotaController 相關特性的配置。
+   ResourceQuotaControllerConfiguration 包含 ResourceQuotaController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1240,7 +1240,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- SAControllerConfiguration holds configuration for ServiceAccountController related features. -->
-   SAControllerConfiguration 包含 ServiceAccountController 相關特性的配置。
+   SAControllerConfiguration 包含 ServiceAccountController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1250,7 +1250,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- ServiceControllerConfiguration holds configuration for ServiceController related features. -->
-   ServiceControllerConfiguration 包含 ServiceController 相關特性的配置。
+   ServiceControllerConfiguration 包含 ServiceController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1260,7 +1260,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- TTLAfterFinishedControllerConfiguration holds configuration for TTLAfterFinishedController related features. -->
-   TTLAfterFinishedControllerConfiguration 包含 TTLAfterFinishedController 相關特性的配置。
+   TTLAfterFinishedControllerConfiguration 包含 TTLAfterFinishedController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1270,7 +1270,7 @@ both in cloud controller manager and kube-controller manager. -->
 <td>
    <p>
    <!-- ValidatingAdmissionPolicyStatusControllerConfiguration holds configuration for ValidatingAdmissionPolicyStatusController related features. -->
-   ValidatingAdmissionPolicyStatusControllerConfiguration 包含 ValidatingAdmissionPolicyStatusController 相關特性的配置。
+   ValidatingAdmissionPolicyStatusControllerConfiguration 包含 ValidatingAdmissionPolicyStatusController 相關特性的設定。
    </p>
 </td>
 </tr>
@@ -1423,7 +1423,7 @@ CSRSigningControllerConfiguration 包含描述 CSRSigningController 的元素。
    clusterSigningCertFile is the filename containing a PEM-encoded
    X509 CA certificate used to issue cluster-scoped certificates 
    -->
-   clusterSigningCertFile 是包含 PEM 編碼的 X509 CA 證書的文件名，該證書用於頒發集羣範圍的證書。
+   clusterSigningCertFile 是包含 PEM 編碼的 X509 CA 證書的文件名，該證書用於頒發叢集範圍的證書。
    </p>
 </td>
 </tr>
@@ -1436,7 +1436,7 @@ CSRSigningControllerConfiguration 包含描述 CSRSigningController 的元素。
    clusterSigningCertFile is the filename containing a PEM-encoded
    RSA or ECDSA private key used to issue cluster-scoped certificates 
    -->
-   clusterSigningCertFile 是包含 PEM 編碼的 RSA 或 ECDSA 私鑰的文件名，用於頒發集羣範圍的證書。
+   clusterSigningCertFile 是包含 PEM 編碼的 RSA 或 ECDSA 私鑰的文件名，用於頒發叢集範圍的證書。
    </p>
 </td>
 </tr>
@@ -1531,7 +1531,7 @@ CronJobControllerConfiguration 包含描述 CrongJob2Controller 的元素。
    but more CPU (and network) load. 
    -->
    concurrentCronJobSyncs 是允許併發同步的 Job 對象的數量。
-   數量越大意味着 Job 響應越快，但 CPU（和網絡）負載也越高。
+   數量越大意味着 Job 響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -1571,7 +1571,7 @@ DaemonSetControllerConfiguration 包含描述 DaemonSetController 的元素。
    but more CPU (and network) load. 
    -->
    concurrentDaemonSetSyncs 是允許併發同步的 DaemonSet 對象的數量。
-   數目越大意味着 DaemonSet 響應越快，但 CPU（和網絡）負載也越高。
+   數目越大意味着 DaemonSet 響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -1608,7 +1608,7 @@ DeploymentControllerConfiguration 包含描述 DeploymentController 的元素。
    but more CPU (and network) load. 
    -->
    concurrentDeploymentSyncs 是允許併發同步的 Deployment 對象的數量。
-   數量越大意味着 Deployment 響應更越快，但 CPU（和網絡）負載也越高。
+   數量越大意味着 Deployment 響應更越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -1667,7 +1667,7 @@ EndpointControllerConfiguration 包含描述 EndpointController 的元素。
    but more CPU (and network) load. 
    -->
    concurrentEndpointSyncs 是將併發執行的 Endpoints 同步操作的數量。
-   數字越大意味着 Endpoints 更新越快，但 CPU（和網絡）負載也越高。
+   數字越大意味着 Endpoints 更新越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -1722,7 +1722,7 @@ EndpointSliceControllerConfiguration 包含描述 EndpointSliceController 的元
    endpoint slice updating, but more CPU (and network) load. 
    -->
    concurrentServiceEndpointSyncs 是將併發完成的服務端點同步操作的數量。
-   數字越大意味着 EndpointSlice 更新越快，但 CPU（和網絡）負載也越高。
+   數字越大意味着 EndpointSlice 更新越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -1792,7 +1792,7 @@ EndpointSliceMirroringControllerConfiguration 包含描述 EndpointSliceMirrorin
    endpoint slice updating, but more CPU (and network) load. 
    -->
    mirroringConcurrentServiceEndpointSyncs 是將併發完成的服務端點同步操作的數量。
-   數字越大意味着 EndpointSlice 更新越快，但 CPU（和網絡）負載也越高。
+   數字越大意味着 EndpointSlice 更新越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -1863,7 +1863,7 @@ EphemeralVolumeControllerConfiguration 包含描述 EphemeralVolumeController �
    but more CPU (and network) load. 
    -->
    ConcurrentEphemeralVolumeSyncseSyncs 是併發執行的臨時卷同步操作數量。
-   數字越大意味着臨時卷更新越快，但 CPU（和網絡）負載也越高。
+   數字越大意味着臨時卷更新越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -2007,7 +2007,7 @@ HPAControllerConfiguration 包含描述 HPAController 的元素。
    Larger number = more responsive HPA processing, but more CPU (and network) load. 
    -->
    ConcurrentHorizontalPodAutoscalerSyncs 是允許併發同步的 HPA 對象的數量。
-   數字越大意味着 HPA 處理響應越快，但 CPU（和網絡）負載也越高。
+   數字越大意味着 HPA 處理響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -2107,7 +2107,7 @@ JobControllerConfiguration 包含描述 JobController 的元素。
    but more CPU (and network) load. 
    -->
    concurrentJobSyncs 是允許併發同步的 Job 對象的數量。
-   數字越大意味着 Job 響應越快，但 CPU（和網絡）負載也越高。
+   數字越大意味着 Job 響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -2225,7 +2225,7 @@ NodeIPAMControllerConfiguration 包含描述 NodeIpamController 的元素。
 <td>
    <p>
    <!-- serviceCIDR is CIDR Range for Services in cluster. -->
-   serviceCIDR 爲集羣中 Service 的 CIDR 範圍。
+   serviceCIDR 爲叢集中 Service 的 CIDR 範圍。
    </p>
 </td>
 </tr>
@@ -2238,7 +2238,7 @@ NodeIPAMControllerConfiguration 包含描述 NodeIpamController 的元素。
    secondaryServiceCIDR is CIDR Range for Services in cluster. This is used in dual stack clusters. 
    SecondaryServiceCIDR must be of different IP family than ServiceCIDR 
    -->
-   SecondaryServiceCIDR 爲集羣中 Service 的 CIDR 範圍。此字段用於雙棧集羣。
+   SecondaryServiceCIDR 爲叢集中 Service 的 CIDR 範圍。此字段用於雙棧叢集。
    SecondaryServiceCIDR 和 ServiceCIDR 的 IP 族不能相同。
    </p>
 </td>
@@ -2249,7 +2249,7 @@ NodeIPAMControllerConfiguration 包含描述 NodeIpamController 的元素。
 <td>
    <p>
    <!-- NodeCIDRMaskSize is the mask size for node cidr in cluster. -->
-   NodeCIDRMaskSize 爲集羣中節點 CIDR 的掩碼大小。
+   NodeCIDRMaskSize 爲叢集中節點 CIDR 的掩碼大小。
    </p>
 </td>
 </tr>
@@ -2259,7 +2259,7 @@ NodeIPAMControllerConfiguration 包含描述 NodeIpamController 的元素。
 <td>
    <p>
    <!-- NodeCIDRMaskSizeIPv4 is the mask size for node cidr in dual-stack cluster. -->
-   NodeCIDRMaskSizeIPv4 爲雙棧集羣中節點 CIDR 的掩碼大小。
+   NodeCIDRMaskSizeIPv4 爲雙棧叢集中節點 CIDR 的掩碼大小。
    </p>
 </td>
 </tr>
@@ -2269,7 +2269,7 @@ NodeIPAMControllerConfiguration 包含描述 NodeIpamController 的元素。
 <td>
    <p>
    <!-- NodeCIDRMaskSizeIPv6 is the mask size for node cidr in dual-stack cluster. -->
-   NodeCIDRMaskSizeIPv6 爲雙棧集羣中節點 CIDR 的掩碼大小。
+   NodeCIDRMaskSizeIPv6 爲雙棧叢集中節點 CIDR 的掩碼大小。
    </p>
 </td>
 </tr>
@@ -2365,7 +2365,7 @@ Nodelifecyclecontrolerconfiguration 包含描述 NodeLifecycleController 的元�
 <td>
    <p>
    <!-- secondaryNodeEvictionRate is implicitly overridden to 0 for clusters smaller than or equal to largeClusterSizeThreshold -->
-   對於規模小於或等於 largeClusterSizeThreshold 的集羣，secondaryNodeEvictionRate 會被隱式覆蓋，取值爲 0。
+   對於規模小於或等於 largeClusterSizeThreshold 的叢集，secondaryNodeEvictionRate 會被隱式覆蓋，取值爲 0。
    </p>
 </td>
 </tr>
@@ -2424,7 +2424,7 @@ PersistentVolumeBinderControllerConfiguration 包含描述 PersistentVolumeBinde
 <td>
    <p>
    <!-- volumeConfiguration holds configuration for volume related features. -->
-   volumeConfiguration 包含卷相關特性的配置。
+   volumeConfiguration 包含卷相關特性的設定。
    </p>
 </td>
 </tr>
@@ -2504,7 +2504,7 @@ PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
    will not work in a multi-node cluster. 
    -->
    podTemplateFilePathHostPath 是一個 Pod 定義文件的路徑，該文件將被作爲 HostPath PV 捲回收模板。
-   此字段僅用於開發和測試場景，在多節點集羣中無法正常工作。
+   此字段僅用於開發和測試場景，在多節點叢集中無法正常工作。
    </p>
 </td>
 </tr>
@@ -2518,7 +2518,7 @@ PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
    This is for development and testing only and will not work in a multi-node cluster. 
    -->
    minimumTimeoutHostPath 是用於 HostPath 回收器 Pod 的 activeDeadlineSeconds 屬性值下限。
-   此字段僅用於開發和測試場景，在多節點集羣中無法正常工作。
+   此字段僅用於開發和測試場景，在多節點叢集中無法正常工作。
    </p>
 </td>
 </tr>
@@ -2532,7 +2532,7 @@ PersistentVolumeRecyclerConfiguration 包含描述持久卷插件的元素。
    for a HostPath scrubber pod.  This is for development and testing only and will not work
    in a multi-node cluster.
    -->
-   incrementTimeoutHostPath 是提供給 HostPath 清理器 Pod 的配置值，
+   incrementTimeoutHostPath 是提供給 HostPath 清理器 Pod 的設定值，
    HostPath 卷的尺寸每增加 1 GiB，則需要爲 Pod 的 activeDeadlineSeconds 屬性增加這裏所給的秒數。
    回收器 Pod 的 activeDeadlineSeconds 屬性值下限。
    </p>
@@ -2615,7 +2615,7 @@ ReplicaSetControllerConfiguration 包含描述 ReplicaSetController 的元素。
    CPU (and network) load. 
    -->
    concurrentRSSyncs 是允許併發同步的 ReplicaSet 的數量。
-   數量越大意味着副本管理響應越快，但 CPU（和網絡）負載也越高。
+   數量越大意味着副本管理響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -2655,7 +2655,7 @@ ReplicationControllerConfiguration 包含描述 ReplicationController 的元素�
    management, but more CPU (and network) load. 
    -->
    concurrentRCSyncs 是允許併發同步的 ReplicationController 數量。
-   數量越大意味着副本管理響應越快，但 CPU（和網絡）負載也越高。
+   數量越大意味着副本管理響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -2705,7 +2705,7 @@ ResourceQuotaControllerConfiguration 包含描述 ResourceQuotaController 的元
    management, but more CPU (and network) load. 
    -->
    concurrentResourceQuotaSyncs 是允許併發同步的 ResourcQuota 數目。
-   數量越大意味着配額管理響應越快，但 CPU（和網絡）負載也越高。
+   數量越大意味着配額管理響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -2804,7 +2804,7 @@ StatefulSetControllerConfiguration 包含描述 StatefulSetController 的元素�
    but more CPU (and network) load. 
    -->
    concurrentStatefulSetSyncs 是允許併發同步的 StatefulSet 對象的數量。
-   數字越大意味着 StatefulSet 響應越快，但 CPU（和網絡）負載也越高。
+   數字越大意味着 StatefulSet 響應越快，但 CPU（和網路）負載也越高。
    </p>
 </td>
 </tr>
@@ -2880,7 +2880,7 @@ ValidatingAdmissionPolicyStatusControllerConfiguration 包含描述 ValidatingAd
    The default value is 5. 
    -->
    ConcurrentPolicySyncs 是允許併發同步的策略對象的數量。
-   數字越大意味着類型檢查越快，但 CPU（和網絡）負載越高。 
+   數字越大意味着類型檢查越快，但 CPU（和網路）負載越高。 
    默認值爲 5。
    </p>
 </td>
@@ -2907,9 +2907,9 @@ volume.VolumeConfig, each containing only the configuration needed for that plug
 are then passed to the appropriate plugin. The ControllerManager binary is the only part
 of the code which knows what plugins are supported and which flags correspond to each plugin. 
 -->
-VolumeConfiguration 包含<em>所有</em>用於配置各個卷插件的所有參數。
-從這個配置中，控制器管理器可執行文件將創建許多 volume.VolumeConfig 的實例。
-每個只包含該插件所需的配置，然後將其傳遞給相應的插件。
+VolumeConfiguration 包含<em>所有</em>用於設定各個卷插件的所有參數。
+從這個設定中，控制器管理器可執行文件將創建許多 volume.VolumeConfig 的實例。
+每個只包含該插件所需的設定，然後將其傳遞給相應的插件。
 控制器管理器可執行文件是代碼中唯一知道支持哪些插件以及每個插件對應哪些標誌的部分。
 </p>
 
@@ -2931,7 +2931,7 @@ VolumeConfiguration 包含<em>所有</em>用於配置各個卷插件的所有參
    should not be used for anything other than testing or development. 
    -->
    enableHostPathProvisioning 在沒有云驅動的情況下允許製備 HostPath PV。
-   此特性用來測試和開發 PV 卷製備特性。HostPath 配置完全不受支持，在多節點集羣中無法工作，
+   此特性用來測試和開發 PV 卷製備特性。HostPath 設定完全不受支持，在多節點叢集中無法工作，
    除了測試或開發之外不應該用於任何其他用途。
    </p>
 </td>
@@ -2945,7 +2945,7 @@ VolumeConfiguration 包含<em>所有</em>用於配置各個卷插件的所有參
    enableDynamicProvisioning enables the provisioning of volumes when running within an environment
    that supports dynamic provisioning. Defaults to true. 
    -->
-   enableDynamicProvisioning 在支持動態配置的環境中運行時允許製備新卷。默認爲 true。
+   enableDynamicProvisioning 在支持動態設定的環境中運行時允許製備新卷。默認爲 true。
    </p>
 </td>
 </tr>
@@ -2955,7 +2955,7 @@ VolumeConfiguration 包含<em>所有</em>用於配置各個卷插件的所有參
 <td>
    <p>
    <!-- persistentVolumeRecyclerConfiguration holds configuration for persistent volume plugins. -->
-   persistentVolumeRecyclerConfiguration 保存持久卷插件的配置。
+   persistentVolumeRecyclerConfiguration 保存持久卷插件的設定。
    </p>
 </td>
 </tr>

@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.27：服務器端字段校驗和 OpenAPI V3 進階至 GA"
+title: "Kubernetes 1.27：伺服器端字段校驗和 OpenAPI V3 進階至 GA"
 date: 2023-04-24
 slug: openapi-v3-field-validation-ga
 ---
@@ -40,7 +40,7 @@ Validation being GA in 1.27, we’ve now solved both of these problems.
 不過當時沒有自定義資源定義 (CRD)，相關代碼是在當時那樣的假設下編寫的。
 之後引入了 CRD，發現校驗代碼缺乏靈活性，迫使 CRD 在公開其模式定義時做出了一些艱難的決策，
 使得我們進入了不良校驗造成不良 OpenAPI，不良 OpenAPI 無法校驗的循環。
-隨着新的 OpenAPI v3 和服務器端字段校驗在 1.27 中進階至 GA，我們現在已經解決了這兩個問題。
+隨着新的 OpenAPI v3 和伺服器端字段校驗在 1.27 中進階至 GA，我們現在已經解決了這兩個問題。
 
 <!--
 Server Side Field Validation offers resource validation on create,
@@ -48,9 +48,9 @@ update and patch requests to the apiserver and was added to Kubernetes
 in v1.25, beta in v1.26 and is now GA in v1.27. It provides all the
 functionality of kubectl validate on the server side.
 -->
-服務器端字段校驗針對通過 create、update 和 patch 請求發送到 apiserver 上的資源進行校驗，
+伺服器端字段校驗針對通過 create、update 和 patch 請求發送到 apiserver 上的資源進行校驗，
 此特性是在 Kubernetes v1.25 中添加的，在 v1.26 時進階至 Beta，
-如今在 v1.27 進階至 GA。它在服務器端提供了 kubectl 校驗的所有功能。
+如今在 v1.27 進階至 GA。它在伺服器端提供了 kubectl 校驗的所有功能。
 
 <!--
 [OpenAPI](https://swagger.io/specification/) is a standard, language
@@ -63,7 +63,7 @@ added in Kubernetes in v1.23, moved to beta in v1.24 and is now GA in
 v1.27.
 -->
 [OpenAPI](https://swagger.io/specification/) 是一個標準的、與編程語言無關的接口，
-用於發現 Kubernetes 集羣支持的操作集和類型集。
+用於發現 Kubernetes 叢集支持的操作集和類型集。
 OpenAPI v3 是 OpenAPI 的最新標準，它是自 Kubernetes 1.5 開始支持的
 [OpenAPI v2](https://kubernetes.io/blog/2016/12/kubernetes-supports-openapi/)
 的改進版本。對 OpenAPI v3 的支持是在 Kubernetes v1.23 中添加的，
@@ -126,7 +126,7 @@ information around this endpoint.
 -->
 ### 如何使用？
 
-Kubernetes API 服務器的 `/openapi/v3` 端點包含了 OpenAPI v3 的根發現文檔。
+Kubernetes API 伺服器的 `/openapi/v3` 端點包含了 OpenAPI v3 的根發現文檔。
 爲了減少傳輸的數據量，OpenAPI v3 文檔以 group-version 的方式進行分組，
 不同的文檔可以通過 `/openapi/v3/apis/<group>/<version>` 和 `/openapi/v3/api/v1`
 （表示舊版 group）進行訪問。有關此端點的更多信息請參閱
@@ -138,7 +138,7 @@ v3, including the entirety of kubectl, and server side apply. An
 OpenAPI V3 Golang client is available in
 [client-go](https://github.com/kubernetes/client-go/blob/release-1.27/openapi3/root.go).
 -->
-衆多使用 OpenAPI 的客戶側組件已更新到了 v3，包括整個 kubectl 和服務器端應用。
+衆多使用 OpenAPI 的客戶側組件已更新到了 v3，包括整個 kubectl 和伺服器端應用。
 在 [client-go](https://github.com/kubernetes/client-go/blob/release-1.27/openapi3/root.go)
 中也提供了 OpenAPI V3 Golang 客戶端。
 
@@ -150,10 +150,10 @@ level of field validation the server should perform. If the parameter
 is not passed, server side field validation is in `Warn` mode by
 default.
 -->
-## 服務器端字段校驗
+## 伺服器端字段校驗
 
-查詢參數 `fieldValidation` 可用於指示服務器應執行的字段校驗級別。
-如果此參數未被傳遞，服務器端字段校驗默認採用 `Warn` 模式。
+查詢參數 `fieldValidation` 可用於指示伺服器應執行的字段校驗級別。
+如果此參數未被傳遞，伺服器端字段校驗默認採用 `Warn` 模式。
 
 <!--
 - Strict: Strict field validation, errors on validation failure
@@ -163,7 +163,7 @@ default.
 -->
 - Strict：嚴格的字段校驗，在驗證失敗時報錯
 - Warn：執行字段校驗，但錯誤會以警告的形式給出，而不是使請求失敗
-- Ignore：不執行服務器端的字段校驗
+- Ignore：不執行伺服器端的字段校驗
 
 <!--
 kubectl will skip client side validation and will automatically use
@@ -176,11 +176,11 @@ possibly valid objects. This is all fixed in server side validation.
 Additional documentation may be found
 [here](/docs/reference/using-api/api-concepts/#field-validation)
 -->
-kubectl 將跳過客戶端校驗，並將自動使用 `Strict` 模式下的服務器端字段校驗。
-控制器默認使用 `Warn` 模式進行服務器端字段校驗。
+kubectl 將跳過客戶端校驗，並將自動使用 `Strict` 模式下的伺服器端字段校驗。
+控制器默認使用 `Warn` 模式進行伺服器端字段校驗。
 
 使用客戶端校驗時，由於 OpenAPI v2 中缺少某些字段，所以我們必須更加寬容，
-以免拒絕可能有效的對象。而在服務器端校驗中，所有這些問題都被修復了。
+以免拒絕可能有效的對象。而在伺服器端校驗中，所有這些問題都被修復了。
 可以在[此處](/zh-cn/docs/reference/using-api/api-concepts/#field-validation)找到更多文檔。
 
 <!--
@@ -195,8 +195,8 @@ schema published by OpenAPI.
 -->
 ## 未來展望
 
-隨着服務器端字段校驗和 OpenAPI v3 以 GA 發佈，我們引入了更準確的 Kubernetes 資源表示。
-建議使用服務器端字段校驗而非客戶端校驗，但是通過 OpenAPI v3，
+隨着伺服器端字段校驗和 OpenAPI v3 以 GA 發佈，我們引入了更準確的 Kubernetes 資源表示。
+建議使用伺服器端字段校驗而非客戶端校驗，但是通過 OpenAPI v3，
 客戶端可以在必要時自行實現其自身的校驗（“左移”），我們保證 OpenAPI 發佈的是完全無損的模式定義。
 
 <!--

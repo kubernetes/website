@@ -25,7 +25,7 @@ there is a concern that one team could use more than its fair share of resources
 
 _Resource quotas_ are a tool for administrators to address this concern.
 -->
-當多個用戶或團隊共享具有固定節點數目的集羣時，人們會擔心有人使用超過其基於公平原則所分配到的資源量。
+當多個使用者或團隊共享具有固定節點數目的叢集時，人們會擔心有人使用超過其基於公平原則所分配到的資源量。
 
 **資源配額**是幫助管理員解決這一問題的工具。
 
@@ -74,8 +74,8 @@ ResourceQuota 的工作方式如下：
   這種分離可以通過 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)
   或任何其他[鑑權](/zh-cn/docs/reference/access-authn-authz/authorization/)機制來強制執行。
 
-- 集羣管理員爲每個命名空間創建至少一個 ResourceQuota。
-  - 爲了確保強制執行不被解除，集羣管理員還應限制對刪除或更新此 ResourceQuota 的訪問；
+- 叢集管理員爲每個命名空間創建至少一個 ResourceQuota。
+  - 爲了確保強制執行不被解除，叢集管理員還應限制對刪除或更新此 ResourceQuota 的訪問；
     例如，通過定義一個[驗證准入策略](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)來實現這點。
 
 <!--
@@ -87,7 +87,7 @@ ResourceQuota 的工作方式如下：
 - If creating or updating a resource violates a quota constraint, the control plane rejects that request with HTTP
   status code `403 Forbidden`. The error includes a message explaining the constraint that would have been violated.
 -->
-- 當用戶在命名空間下創建資源（如 Pod、Service 等）時，Kubernetes 的配額系統會跟蹤集羣的資源使用情況，
+- 當使用者在命名空間下創建資源（如 Pod、Service 等）時，Kubernetes 的配額系統會跟蹤叢集的資源使用情況，
   以確保使用的資源用量不超過 ResourceQuota 中定義的硬性資源限額。
 
   你可以對 ResourceQuota 應用一個[範圍](#quota-scopes)，以限制其適用的地方。
@@ -105,7 +105,7 @@ ResourceQuota 的工作方式如下：
 -->
 - 如果在命名空間中爲諸如 `cpu` 和 `memory`
   的{{< glossary_tooltip text="資源" term_id="infrastructure-resource" >}}啓用了配額，
-  用戶在定義 Pod 時必須指定這些值的請求或限制；否則，配額系統可能會拒絕 Pod 創建。
+  使用者在定義 Pod 時必須指定這些值的請求或限制；否則，配額系統可能會拒絕 Pod 創建。
 
   資源配額[演練](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)展示了一個如何避免此問題的示例。
 
@@ -115,7 +115,7 @@ ResourceQuota 的工作方式如下：
   to force defaults on pods that make no compute resource requirements (so that users don't have to remember to do that).
 ->
 * 可以定義 [LimitRange](/docs/concepts/policy/limit-range/) 強制
-  Pod 在沒有計算資源需求的情況下設置默認值（這樣用戶就不必記住要這樣做）。
+  Pod 在沒有計算資源需求的情況下設置默認值（這樣使用者就不必記住要這樣做）。
 {{< /note >}}
 
 <!--
@@ -174,7 +174,7 @@ Examples of policies that could be created using namespaces and quotas are:
 - Limit the "testing" namespace to using 1 core and 1GiB RAM. Let the "production" namespace
   use any amount.
 -->
-- 在具有 32 GiB 內存和 16 核 CPU 資源的集羣中，允許 A 團隊使用 20 GiB 內存 和 10 核的 CPU 資源，
+- 在具有 32 GiB 內存和 16 核 CPU 資源的叢集中，允許 A 團隊使用 20 GiB 內存 和 10 核的 CPU 資源，
   允許 B 團隊使用 10 GiB 內存和 4 核的 CPU 資源，並且預留 2 GiB 內存和 2 核的 CPU 資源供將來分配。
 - 限制 "testing" 命名空間使用 1 核 CPU 資源和 1GiB 內存。允許 "production" 命名空間使用任意數量。
 
@@ -182,7 +182,7 @@ Examples of policies that could be created using namespaces and quotas are:
 In the case where the total capacity of the cluster is less than the sum of the quotas of the namespaces,
 there may be contention for resources. This is handled on a first-come-first-served basis.
 -->
-在集羣容量小於各命名空間配額總和的情況下，可能存在資源競爭。資源競爭時，Kubernetes 系統會遵循先到先得的原則。
+在叢集容量小於各命名空間配額總和的情況下，可能存在資源競爭。資源競爭時，Kubernetes 系統會遵循先到先得的原則。
 
 <!--
 ## Enabling Resource Quota
@@ -195,8 +195,8 @@ one of its arguments.
 ## 啓用資源配額  {#enabling-resource-quota}
 
 ResourceQuota 的支持在很多 Kubernetes 版本中是默認啓用的。
-當 {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}
-的命令行標誌 `--enable-admission-plugins=` 中包含 `ResourceQuota` 時，
+當 {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}
+的命令列標誌 `--enable-admission-plugins=` 中包含 `ResourceQuota` 時，
 資源配額會被啓用。
 
 <!--
@@ -223,7 +223,7 @@ ResourceQuota 機制允許你執行不同類別的限制。本節說明你可以
 
 ### 基礎設施資源的配額  {#compute-resource-quota}
 
-用戶可以對給定命名空間下的可被請求的[計算資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)總量進行限制。
+使用者可以對給定命名空間下的可被請求的[計算資源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)總量進行限制。
 
 <!--
 The following resource types are supported:
@@ -318,7 +318,7 @@ In addition, you can limit consumption of storage resources based on associated
 For example, if you want to quota storage with `gold` StorageClass separate from
 a `bronze` StorageClass, you can define a quota as follows:
 -->
-例如，如果你想要將 `gold` StorageClass 與 `bronze` StorageClass 分開進行存儲配額配置，
+例如，如果你想要將 `gold` StorageClass 與 `bronze` StorageClass 分開進行存儲配額設定，
 則可以按如下方式定義配額：
 
 * `gold.storageclass.storage.k8s.io/requests.storage: 500Gi`
@@ -387,9 +387,9 @@ a poorly configured CronJob. CronJobs that create too many Jobs in a namespace c
 PodTemplate 對象的數量，你可以使用 `count/podtemplates`。
 
 這類配額非常有助於防止控制平面存儲資源耗盡。
-例如，由於某臺服務器上的 Secret 較大，你可能希望對其進行限制。
-集羣中 Secret 過多實際上可能導致服務器和控制器無法啓動。
-你也可以爲 Job 設置配額，以防止出現配置不當的 CronJob。
+例如，由於某臺伺服器上的 Secret 較大，你可能希望對其進行限制。
+叢集中 Secret 過多實際上可能導致伺服器和控制器無法啓動。
+你也可以爲 Job 設置配額，以防止出現設定不當的 CronJob。
 某些 CronJob 如果在一個命名空間中創建了過多的 Job，可能會引發 DoS 攻擊。
 
 <!--
@@ -402,11 +402,11 @@ add additional, custom APIs that are not defined as CustomResourceDefinitions, t
 control plane does not enforce quota for the aggregated API. The extension API server is expected to
 provide quota enforcement if that's appropriate for the custom API.
 -->
-如果你以這種方式定義配額，它將應用於屬於 API 服務器一部分的 Kubernetes API，以及 CustomResourceDefinition
+如果你以這種方式定義配額，它將應用於屬於 API 伺服器一部分的 Kubernetes API，以及 CustomResourceDefinition
 支持的任何自定義資源。例如，要在 `example.com` API 組中創建 `widgets` 定製資源的配額，可以使用 `count/widgets.example.com`。
 如果你使用[聚合 API](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 添加未定義爲 CustomResourceDefinitions 的其他自定義 API，則核心 Kubernetes 控制平面不會對聚合 API 實施配額管理。
-如果合適，擴展 API 服務器需要爲自定義 API 提供配額管理。
+如果合適，擴展 API 伺服器需要爲自定義 API 提供配額管理。
 
 <!--
 ##### Generic syntax {#resource-quota-object-count-generic}
@@ -416,7 +416,7 @@ listed by the configuration string that you would use.
 -->
 ##### 通用語法   {#resource-quota-object-count-generic}
 
-以下是一些常見對象類別的示例，建議你爲這些對象設置數量配額。每一項後面列出了相應的配置字符串：
+以下是一些常見對象類別的示例，建議你爲這些對象設置數量配額。每一項後面列出了相應的設定字符串：
 
 * `count/pods`
 * `count/persistentvolumeclaims`
@@ -472,8 +472,8 @@ quota on a namespace to avoid the case where a user creates many small pods and
 exhausts the cluster's supply of Pod IPs.
 -->
 例如，`pods` 配額統計某個命名空間中所創建的、非終止狀態的 `pods` 個數並確保其不超過某上限值。
-用戶可能希望在某命名空間中設置 `pods` 配額，以避免有用戶創建很多小的 Pod，
-從而耗盡集羣所能提供的 Pod IP 地址。
+使用者可能希望在某命名空間中設置 `pods` 配額，以避免有使用者創建很多小的 Pod，
+從而耗盡叢集所能提供的 Pod IP 地址。
 
 <!--
 You can find more examples on [Viewing and Setting Quotas](#viewing-and-setting-quotas).
@@ -606,7 +606,7 @@ You can control a pod's consumption of system resources based on a pod's priorit
 field in the quota spec.
 -->
 Pod 可以創建爲特定的[優先級](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)。
-通過使用配額規約中的 `scopeSelector` 字段，用戶可以根據 Pod 的優先級控制其系統資源消耗。
+通過使用配額規約中的 `scopeSelector` 字段，使用者可以根據 Pod 的優先級控制其系統資源消耗。
 
 <!--
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
@@ -641,7 +641,7 @@ works as follows:
 - Pods in the cluster have one of the three priority classes, "low", "medium", "high".
 - One quota object is created for each priority.
 -->
-- 集羣中的 Pod 可取三個優先級類之一，即 "low"、"medium"、"high"。
+- 叢集中的 Pod 可取三個優先級類之一，即 "low"、"medium"、"high"。
 - 爲每個優先級創建一個配額對象。
 
 <!--
@@ -771,9 +771,9 @@ Operators can use `CrossNamespacePodAffinity` quota scope to limit which namespa
 have pods with affinity terms that cross namespaces. Specifically, it controls which pods are allowed
 to set `namespaces` or `namespaceSelector` fields in pod affinity terms.
 -->
-集羣運維人員可以使用 `CrossNamespacePodAffinity`
+叢集運維人員可以使用 `CrossNamespacePodAffinity`
 配額作用域來限制哪個名字空間中可以存在包含跨名字空間親和性規則的 Pod。
-更爲具體一點，此作用域用來配置哪些 Pod 可以在其 Pod 親和性規則中設置
+更爲具體一點，此作用域用來設定哪些 Pod 可以在其 Pod 親和性規則中設置
 `namespaces` 或 `namespaceSelector` 字段。
 
 <!--
@@ -781,7 +781,7 @@ Preventing users from using cross-namespace affinity terms might be desired sinc
 with anti-affinity constraints can block pods from all other namespaces
 from getting scheduled in a failure domain.
 -->
-禁止用戶使用跨名字空間的親和性規則可能是一種被需要的能力，
+禁止使用者使用跨名字空間的親和性規則可能是一種被需要的能力，
 因爲帶有反親和性約束的 Pod 可能會阻止所有其他名字空間的 Pod 被調度到某失效域中。
 
 <!--
@@ -814,10 +814,10 @@ only allow it for specific namespaces, they could configure `CrossNamespacePodAf
 as a limited resource by setting the kube-apiserver flag `--admission-control-config-file`
 to the path of the following configuration file:
 -->
-如果集羣運維人員希望默認禁止使用 `namespaces` 和 `namespaceSelector`，
+如果叢集運維人員希望默認禁止使用 `namespaces` 和 `namespaceSelector`，
 而僅僅允許在特定命名空間中這樣做，他們可以將 `CrossNamespacePodAffinity`
 作爲一個被約束的資源。方法是爲 `kube-apiserver` 設置標誌
-`--admission-control-config-file`，使之指向如下的配置文件：
+`--admission-control-config-file`，使之指向如下的設定文件：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
@@ -839,7 +839,7 @@ With the above configuration, pods can use `namespaces` and `namespaceSelector` 
 if the namespace where they are created have a resource quota object with
 `CrossNamespacePodAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
 -->
-基於上面的配置，只有名字空間中包含作用域爲 `CrossNamespacePodAffinity`
+基於上面的設定，只有名字空間中包含作用域爲 `CrossNamespacePodAffinity`
 且硬性約束大於或等於使用 `namespaces` 和 `namespaceSelector` 字段的 Pod
 個數時，纔可以在該名字空間中繼續創建在其 Pod 親和性規則中設置 `namespaces`
 或 `namespaceSelector` 的新 Pod。
@@ -888,7 +888,7 @@ Save the following YAML to a file `quota-vac.yaml`.
 -->
 以下示例創建一個配額對象，並將其與具有特定卷屬性類的 PVC 進行匹配。示例邏輯如下：
 
-- 集羣中的 PVC 至少屬於三個卷屬性類之一：“gold”、“silver”、“copper”。
+- 叢集中的 PVC 至少屬於三個卷屬性類之一：“gold”、“silver”、“copper”。
 - 爲每個卷屬性類分別創建一個配額對象。
 
 將以下 YAML 保存爲文件 `quota-vac.yaml`：
@@ -1314,10 +1314,10 @@ ResourceQuotas are independent of the cluster capacity. They are
 expressed in absolute units. So, if you add nodes to your cluster, this does *not*
 automatically give each namespace the ability to consume more resources.
 -->
-## 配額和集羣容量   {#quota-and-cluster-capacity}
+## 配額和叢集容量   {#quota-and-cluster-capacity}
 
-ResourceQuota 與集羣資源總量是完全獨立的。它們通過絕對的單位來配置。
-所以，爲集羣添加節點時，資源配額**不會**自動賦予每個命名空間消耗更多資源的能力。
+ResourceQuota 與叢集資源總量是完全獨立的。它們通過絕對的單位來設定。
+所以，爲叢集添加節點時，資源配額**不會**自動賦予每個命名空間消耗更多資源的能力。
 
 <!--
 Sometimes more complex policies may be desired, such as:
@@ -1329,7 +1329,7 @@ Sometimes more complex policies may be desired, such as:
 -->
 有時可能需要資源配額支持更復雜的策略，比如：
 
-- 在幾個團隊中按比例劃分總的集羣資源。
+- 在幾個團隊中按比例劃分總的叢集資源。
 - 允許每個租戶根據需要增加資源使用量，但要有足夠的限制以防止資源意外耗盡。
 - 探測某個命名空間的需求，添加物理節點並擴大資源配額值。
 
@@ -1345,7 +1345,7 @@ hard limits of each namespace according to other signals.
 Note that resource quota divides up aggregate cluster resources, but it creates no
 restrictions around nodes: pods from several namespaces may run on the same node.
 -->
-注意：資源配額對集羣資源總體進行劃分，但它對節點沒有限制：來自不同命名空間的 Pod 可能在同一節點上運行。
+注意：資源配額對叢集資源總體進行劃分，但它對節點沒有限制：來自不同命名空間的 Pod 可能在同一節點上運行。
 
 <!--
 ## Limit Priority Class consumption by default
@@ -1371,7 +1371,7 @@ To enforce this, `kube-apiserver` flag `--admission-control-config-file` should 
 used to pass path to the following configuration file:
 -->
 要實現此目的，應設置 `kube-apiserver` 的標誌 `--admission-control-config-file` 
-指向如下配置文件：
+指向如下設定文件：
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1

@@ -33,7 +33,7 @@ kubeadm init phase kubeconfig all [flags]
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 服務器所公佈的其正在監聽的 IP 地址。如果沒有設置，將使用默認的網絡接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果沒有設置，將使用默認的網路接口。
 </p>
 </td>
 </tr>
@@ -52,7 +52,7 @@ API 服務器所公佈的其正在監聽的 IP 地址。如果沒有設置，將
 <!--
 Port for the API Server to bind to.
 -->
-要綁定到 API 服務器的端口。
+要綁定到 API 伺服器的端口。
 </p>
 </td>
 </tr>
@@ -85,7 +85,7 @@ The path where to save and store the certificates.
 <!--
 Path to kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>

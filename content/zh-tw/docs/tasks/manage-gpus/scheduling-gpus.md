@@ -1,7 +1,7 @@
 ---
 content_type: concept
 title: 調度 GPU
-description: 配置和調度 GPU 成一類資源以供集羣中節點使用。
+description: 設定和調度 GPU 成一類資源以供叢集中節點使用。
 ---
 <!--
 reviewers:
@@ -23,10 +23,10 @@ Kubernetes includes **stable** support for managing AMD and NVIDIA GPUs
 This page describes how users can consume GPUs, and outlines
 some of the limitations in the implementation.
 -->
-Kubernetes 支持使用{{< glossary_tooltip text="設備插件" term_id="device-plugin" >}}來跨集羣中的不同節點管理
+Kubernetes 支持使用{{< glossary_tooltip text="設備插件" term_id="device-plugin" >}}來跨叢集中的不同節點管理
 AMD 和 NVIDIA GPU（圖形處理單元），目前處於**穩定**狀態。
 
-本頁介紹用戶如何使用 GPU 以及當前存在的一些限制。
+本頁介紹使用者如何使用 GPU 以及當前存在的一些限制。
 
 <!-- body -->
 
@@ -46,7 +46,7 @@ As an administrator, you have to install GPU drivers from the corresponding
 hardware vendor on the nodes and run the corresponding device plugin from the
 GPU vendor. Here are some links to vendors' instructions:
 -->
-作爲集羣管理員，你要在節點上安裝來自對應硬件廠商的 GPU 驅動程序，並運行來自
+作爲叢集管理員，你要在節點上安裝來自對應硬件廠商的 GPU 驅動程序，並運行來自
 GPU 廠商的對應設備插件。以下是一些廠商說明的鏈接：
 
 * [AMD](https://github.com/ROCm/k8s-device-plugin#deployment)
@@ -61,7 +61,7 @@ the custom GPU resource, the same way you request `cpu` or `memory`.
 However, there are some limitations in how you specify the resource
 requirements for custom devices.
 -->
-一旦你安裝了插件，你的集羣就會暴露一個自定義可調度的資源，例如 `amd.com/gpu` 或 `nvidia.com/gpu`。
+一旦你安裝了插件，你的叢集就會暴露一個自定義可調度的資源，例如 `amd.com/gpu` 或 `nvidia.com/gpu`。
 
 你可以通過請求這個自定義的 GPU 資源在你的容器中使用這些 GPU，其請求方式與請求 `cpu` 或 `memory` 時相同。
 不過，在如何指定自定義設備的資源請求方面存在一些限制。
@@ -108,9 +108,9 @@ to schedule pods to appropriate nodes.
 
 For example:
 -->
-## 管理配有不同類型 GPU 的集羣   {#manage-clusters-with-different-types-of-gpus}
+## 管理配有不同類型 GPU 的叢集   {#manage-clusters-with-different-types-of-gpus}
 
-如果集羣內部的不同節點上有不同類型的 NVIDIA GPU，
+如果叢集內部的不同節點上有不同類型的 NVIDIA GPU，
 那麼你可以使用[節點標籤和節點選擇器](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)來將
 Pod 調度到合適的節點上。
 
@@ -151,8 +151,8 @@ Administrators can leverage NFD to also taint nodes with specific features, so t
 -->
 作爲管理員，你可以通過部署 Kubernetes
 [Node Feature Discovery](https://github.com/kubernetes-sigs/node-feature-discovery) (NFD)
-來自動發現所有啓用 GPU 的節點併爲其打標籤。NFD 檢測 Kubernetes 集羣中每個節點上可用的硬件特性。
-通常，NFD 被配置爲以節點標籤廣告這些特性，但 NFD 也可以添加擴展的資源、註解和節點污點。
+來自動發現所有啓用 GPU 的節點併爲其打標籤。NFD 檢測 Kubernetes 叢集中每個節點上可用的硬件特性。
+通常，NFD 被設定爲以節點標籤廣告這些特性，但 NFD 也可以添加擴展的資源、註解和節點污點。
 NFD 兼容所有[支持版本](/zh-cn/releases/version-skew-policy/#supported-versions)的 Kubernetes。
 NFD 默認會爲檢測到的特性創建[特性標籤](https://kubernetes-sigs.github.io/node-feature-discovery/master/usage/features.html)。
 管理員可以利用 NFD 對具有某些具體特性的節點添加污點，以便只有請求這些特性的 Pod 可以被調度到這些節點上。

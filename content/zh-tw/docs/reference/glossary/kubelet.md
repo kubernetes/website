@@ -4,7 +4,7 @@ id: kubelet
 date: 2018-04-12
 full_link: /zh-cn/docs/reference/command-line-tools-reference/kubelet
 short_description: >
-  一個在集羣中每個節點上運行的代理。它保證容器都運行在 Pod 中。
+  一個在叢集中每個節點上運行的代理。它保證容器都運行在 Pod 中。
 
 aka:
 tags:
@@ -26,7 +26,7 @@ tags:
 <!--
  An agent that runs on each {{< glossary_tooltip text="node" term_id="node" >}} in the cluster. It makes sure that {{< glossary_tooltip text="containers" term_id="container" >}} are running in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 -->
-`kubelet` 會在集羣中每個{{< glossary_tooltip text="節點（node）" term_id="node" >}}上運行。
+`kubelet` 會在叢集中每個{{< glossary_tooltip text="節點（node）" term_id="node" >}}上運行。
 它保證{{< glossary_tooltip text="容器（containers）" term_id="container" >}}都運行在
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中。
 

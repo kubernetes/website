@@ -363,7 +363,7 @@ A liveness probe behaves and is configured similarly to a readiness probe - only
 ## 存活探針
 
 一個有趣的練習是使用[存活探針](/zh-cn/docs/concepts/configuration/liveness-readiness-startup-probes/)檢查邊車容器的行爲。
-存活探針的配置和行爲與就緒探針相似——唯一的區別是它不會影響容器的就緒狀態，而是在探針失敗時重啓容器。
+存活探針的設定和行爲與就緒探針相似——唯一的區別是它不會影響容器的就緒狀態，而是在探針失敗時重啓容器。
 
 <!--
 ```yaml
@@ -390,7 +390,7 @@ livenessProbe:
 After adding the liveness probe configured just as the previous readiness probe and checking events of the pod by `kubectl describe pod` it’s visible that the sidecar has a restart count above 0. Nevertheless, the main application is not restarted nor influenced at all, even though I'm aware that (in our imaginary worst-case scenario) it can error out when the sidecar is not there serving requests.
 What if I’d used a `livenessProbe` without lifecycle `postStart`? Both containers will be immediately ready: at the beginning, this behavior will not be different from the one without any additional probes since the liveness probe doesn’t affect readiness at all. After a while, the sidecar will begin to restart itself, but it won’t influence the main container.
 -->
-在添加了配置與之前的就緒探針相同的存活探針，並通過 `kubectl describe pod`
+在添加了設定與之前的就緒探針相同的存活探針，並通過 `kubectl describe pod`
 檢查 Pod 的事件後，可以看到邊車的重啓次數超過 0。儘管如此，主應用並未受到任何影響或重啓，
 即使我知道（在我們假想的最壞情況下）當邊車不處理請求時，主應用可能會出錯。
 如果我在沒有生命週期 `postStart` 的情況下使用 `livenessProbe` 會怎樣？

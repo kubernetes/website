@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/apimachinery/pkg/apis/meta/v1"
   kind: "ObjectMeta"
 content_type: "api_reference"
-description: "ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶必須創建的所有對象。"
+description: "ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用者必須創建的所有對象。"
 title: "ObjectMeta"
 weight: 7
 ---
@@ -25,7 +25,7 @@ auto_generated: true
 <!-- 
 ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
 -->
-ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶必須創建的所有對象。
+ObjectMeta 是所有持久化資源必須具有的元數據，其中包括使用者必須創建的所有對象。
 
 <hr>
 
@@ -36,7 +36,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
   -->
 
   name 在命名空間內必須是唯一的。創建資源時需要，儘管某些資源可能允許客戶端請求自動地生成適當的名稱。
-  名稱主要用於創建冪等性和配置定義。無法更新。更多信息：
+  名稱主要用於創建冪等性和設定定義。無法更新。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#names
 
 - **generateName** (string)
@@ -45,9 +45,9 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
   GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
   -->
 
-  generateName 是一個可選前綴，由服務器使用，**僅在**未提供 name 字段時生成唯一名稱。
+  generateName 是一個可選前綴，由伺服器使用，**僅在**未提供 name 字段時生成唯一名稱。
   如果使用此字段，則返回給客戶端的名稱將與傳遞的名稱不同。該值還將與唯一的後綴組合。
-  提供的值與 name 字段具有相同的驗證規則，並且可能會根據所需的後綴長度被截斷，以使該值在服務器上唯一。
+  提供的值與 name 字段具有相同的驗證規則，並且可能會根據所需的後綴長度被截斷，以使該值在伺服器上唯一。
   
   <!-- 
   If this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).
@@ -55,7 +55,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
   Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
   -->
 
-  如果指定了此字段並且生成的名稱存在，則服務器將不會返回 409。相反，它將返回 201 Created 或 500，
+  如果指定了此字段並且生成的名稱存在，則伺服器將不會返回 409。相反，它將返回 201 Created 或 500，
   原因是 ServerTimeout 指示在分配的時間內找不到唯一名稱，客戶端應重試（可選，在 Retry-After 標頭中指定的時間之後）。
   
   僅在未指定 name 時應用。更多信息：
@@ -138,8 +138,8 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
   -->
 
   managedFields 將 workflow-id 和版本映射到由該工作流管理的字段集。
-  這主要用於內部管理，用戶通常不需要設置或理解該字段。
-  工作流可以是用戶名、控制器名或特定應用路徑的名稱，如 “ci-cd”。
+  這主要用於內部管理，使用者通常不需要設置或理解該字段。
+  工作流可以是使用者名、控制器名或特定應用路徑的名稱，如 “ci-cd”。
   字段集始終存在於修改對象時工作流使用的版本。
 
   <a name="ManagedFieldsEntry"></a>
@@ -266,7 +266,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
 
   <a name="OwnerReference"></a>
   **OwnerReference 包含足夠可以讓你識別屬主對象的信息。
-  屬主對象必須與依賴對象位於同一命名空間中，或者是集羣作用域的，因此沒有命名空間字段。**
+  屬主對象必須與依賴對象位於同一命名空間中，或者是叢集作用域的，因此沒有命名空間字段。**
 
   - **ownerReferences.apiVersion** (string)，<!-- required -->必需
     
@@ -311,7 +311,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
 
     如果爲 true，**並且** 如果屬主具有 “foregroundDeletion” 終結器，
     則在刪除此引用之前，無法從鍵值存儲中刪除屬主。
-    默認爲 false。要設置此字段，用戶需要屬主的 “delete” 權限，
+    默認爲 false。要設置此字段，使用者需要屬主的 “delete” 權限，
     否則將返回 422 (Unprocessable Entity)。
 
   - **ownerReferences.controller** (boolean)
@@ -338,7 +338,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
   *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
   -->
 
-  creationTimestamp 是一個時間戳，表示創建此對象時的服務器時間。
+  creationTimestamp 是一個時間戳，表示創建此對象時的伺服器時間。
   不能保證在單獨的操作中按發生前的順序設置。
   客戶端不得設置此值。它以 RFC3339 形式表示，並採用 UTC。
   
@@ -366,15 +366,15 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
   -->
 
   deletionTimestamp 是刪除此資源的 RFC 3339 日期和時間。
-  該字段在用戶請求體面刪除時由服務器設置，客戶端不能直接設置。
+  該字段在使用者請求體面刪除時由伺服器設置，客戶端不能直接設置。
   一旦 finalizers 列表爲空，該資源預計將在此字段中的時間之後被刪除
   （不再從資源列表中可見，並且無法通過名稱訪問）。
   只要 finalizers 列表包含項目，就阻止刪除。一旦設置了 deletionTimestamp，
   該值可能不會被取消設置或在未來進一步設置，儘管它可能會縮短或在此時間之前可能會刪除資源。
-  例如，用戶可能要求在 30 秒內刪除一個 Pod。
+  例如，使用者可能要求在 30 秒內刪除一個 Pod。
   Kubelet 將通過向 Pod 中的容器發送體面的終止信號來做出反應。
   30 秒後，Kubelet 將向容器發送硬終止信號（SIGKILL），
-  並在清理後從 API 中刪除 Pod。在網絡存在分區的情況下，
+  並在清理後從 API 中刪除 Pod。在網路存在分區的情況下，
   此對象可能在此時間戳之後仍然存在，直到管理員或自動化進程可以確定資源已完全終止。
   如果未設置，則未請求體面刪除該對象。
   
@@ -410,7 +410,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
 
   一個不透明的值，表示此對象的內部版本，客戶端可以使用該值來確定對象是否已被更改。
   可用於樂觀併發、變更檢測以及對資源或資源集的監聽操作。
-  客戶端必須將這些值視爲不透明的，且未更改地傳回服務器。
+  客戶端必須將這些值視爲不透明的，且未更改地傳回伺服器。
   它們可能僅對特定資源或一組資源有效。
   
   由系統填充。只讀。客戶端必須將值視爲不透明。更多信息：
@@ -436,7 +436,7 @@ ObjectMeta 是所有持久化資源必須具有的元數據，其中包括用戶
   Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
   -->
 
-  UID 是該對象在時間和空間上的唯一值。它通常由服務器在成功創建資源時生成，並且不允許使用 PUT 操作更改。
+  UID 是該對象在時間和空間上的唯一值。它通常由伺服器在成功創建資源時生成，並且不允許使用 PUT 操作更改。
   
   由系統填充。只讀。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#uids

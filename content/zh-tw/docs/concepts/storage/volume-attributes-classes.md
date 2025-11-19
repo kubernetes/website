@@ -37,7 +37,7 @@ This feature is generally available (GA) as of version 1.34, and users have the 
 卷屬性類（VolumeAttributesClass）爲管理員提供了一種描述可變更的存儲“類”的方法。
 不同的類可以映射到不同的服務質量級別。Kubernetes 本身不關注這些類代表什麼。
 
-此特性從 Kubernetes 1.34 版本開始一般可用（GA），用戶可以選擇禁用它。
+此特性從 Kubernetes 1.34 版本開始一般可用（GA），使用者可以選擇禁用它。
 
 <!--
 You can also only use VolumeAttributesClasses with storage backed by
@@ -63,7 +63,7 @@ While the name of a VolumeAttributesClass object in a `PersistentVolumeClaim` is
 每個 VolumeAttributesClass 都包含 `driverName` 和 `parameters` 字段，
 當屬於此類的持久卷（PV）需要被動態製備或修改時系統會使用這兩個字段。
 
-VolumeAttributesClass 對象的名稱比較重要，用戶用對象名稱來請求特定的類。
+VolumeAttributesClass 對象的名稱比較重要，使用者用對象名稱來請求特定的類。
 管理員在首次創建 VolumeAttributesClass 對象時會設置某個類的名稱和其他參數。
 雖然在 `PersistentVolumeClaim` 中 VolumeAttributesClass 對象的名稱是可變的，
 但現有類中的參數是不可變的。
@@ -149,7 +149,7 @@ spec:
 <!--
 A new VolumeAttributesClass gold is available in the cluster:
 -->
-集羣中有一個新的名爲 gold 的 VolumeAttributesClass：
+叢集中有一個新的名爲 gold 的 VolumeAttributesClass：
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -165,7 +165,7 @@ parameters:
 <!--
 The end user can update the PVC with the new VolumeAttributesClass gold and apply:
 -->
-最終用戶可以更新 PVC，使之使用新的名爲 gold 的 VolumeAttributesClass，並應用此更新：
+最終使用者可以更新 PVC，使之使用新的名爲 gold 的 VolumeAttributesClass，並應用此更新：
 
 ```yaml
 apiVersion: v1
@@ -201,7 +201,7 @@ Please refer to the related CSI driver documentation for more details.
 VolumeAttributeClass 具有參數，用來描述隸屬於該類的存儲卷。可接受的參數可能因製備器或調整器而異。
 例如，參數 `iops` 的取值 `4000` 和參數 `throughput` 是特定於 GCE PD 的。
 如果某個參數被省略，則在卷製備時使用默認值。
-如果用戶使用帶有省略參數的不同 VolumeAttributesClass 來應用 PVC，參數的默認取值可能會因 CSI 驅動實現而異。
+如果使用者使用帶有省略參數的不同 VolumeAttributesClass 來應用 PVC，參數的默認取值可能會因 CSI 驅動實現而異。
 有關細節參閱相關的 CSI 驅動文檔。
 
 <!--

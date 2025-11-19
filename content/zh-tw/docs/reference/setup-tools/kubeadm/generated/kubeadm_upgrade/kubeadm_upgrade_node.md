@@ -6,7 +6,7 @@
 <!--
 Upgrade commands for a node in the cluster
 -->
-升級集羣中某個節點的命令。
+升級叢集中某個節點的命令。
 
 <!--
 The "node" command executes the following phases:
@@ -73,7 +73,7 @@ Perform the renewal of certificates used by component changed during upgrades.
 <!--
 Path to a kubeadm configuration file.
 -->
-到 kubeadm 配置文件的路徑。
+到 kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -151,7 +151,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-用於與集羣交互的 kubeconfig 文件。如果參數未指定，將從一系列標準位置檢索存在的
+用於與叢集交互的 kubeconfig 文件。如果參數未指定，將從一系列標準位置檢索存在的
 kubeconfig 文件。
 </p>
 </td>

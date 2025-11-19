@@ -35,7 +35,7 @@ Here is a manifest for a CronJob that runs a simple demonstration task every min
 -->
 ## 創建 CronJob {#creating-a-cron-job}
 
-CronJob 需要一個配置文件。
+CronJob 需要一個設定文件。
 以下是針對一個 CronJob 的清單，該 CronJob 每分鐘運行一個簡單的演示任務：
 
 {{% code_sample file="application/job/cronjob.yaml" %}}

@@ -41,10 +41,10 @@ _Scaling_ is accomplished by changing the number of replicas in a Deployment.
 -->
 之前我們創建了一個 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/)，
 然後通過 [Service](/zh-cn/docs/concepts/services-networking/service/) 讓其可以公開訪問。
-Deployment 僅創建了一個 Pod 用於運行這個應用。當流量增加時，我們需要擴容應用滿足用戶需求。
+Deployment 僅創建了一個 Pod 用於運行這個應用。當流量增加時，我們需要擴容應用滿足使用者需求。
 
 如果你還沒有學習過之前的章節，
-需要從[使用 Minikube 創建集羣](/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)開始。
+需要從[使用 Minikube 創建叢集](/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/)開始。
 
 擴縮是通過改變 Deployment 中的副本數量來實現的。
 
@@ -119,7 +119,7 @@ do Rolling updates without downtime. We'll cover that in the next section of the
 tutorial. Now, let's go to the terminal and scale our application.
 -->
 運行多實例的應用，需要有方法在多個實例之間分配流量。Service 有一個集成的負載均衡器，
-將網絡流量分配到一個可公開訪問的 Deployment 的所有 Pod 上。
+將網路流量分配到一個可公開訪問的 Deployment 的所有 Pod 上。
 Service 將會通過 Endpoints 來持續監視運行中的 Pod 集合，保證流量只分配到可用的 Pod 上。
 
 一旦有了多個應用實例，就可以進行滾動更新而不會出現服務中斷情況。我們將會在教程的下一節介紹這些內容。
@@ -161,7 +161,7 @@ To see the ReplicaSet created by the Deployment, run:
 -->
 我們應該有 1 個 Pod。如果沒有，請重新運行命令。結果顯示：
 
-* **NAME** 列出了集羣中的 Deployment 的名稱。
+* **NAME** 列出了叢集中的 Deployment 的名稱。
 * **READY** 顯示當前副本數與期望副本數的比例。
 * **UP-TO-DATE** 顯示已更新至期望狀態的副本數。
 * **AVAILABLE** 顯示可用的 Pod 的數量。

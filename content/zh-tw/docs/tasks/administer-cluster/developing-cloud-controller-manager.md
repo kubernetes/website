@@ -80,6 +80,6 @@ controller manager as your starting point.
 <!--
 For in-tree cloud providers, you can run the in-tree cloud controller manager as a {{< glossary_tooltip term_id="daemonset" >}} in your cluster. See [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/) for more details.
 -->
-對於樹內（In-Tree）驅動，你可以將樹內雲控制器管理器作爲集羣中的
+對於樹內（In-Tree）驅動，你可以將樹內雲控制器管理器作爲叢集中的
 {{< glossary_tooltip term_id="daemonset" text="DaemonSet" >}} 來運行。
 有關詳細信息，請參閱[雲控制器管理器管理](/zh-cn/docs/tasks/administer-cluster/running-cloud-controller/)。

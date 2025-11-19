@@ -35,7 +35,7 @@ I think it’s wonderful you’ve remained so open in all that you do - you seem
 
 _--Justin_
 
-你從一個優秀的基礎 - 良好的聲明性功能開始，它是圍繞一個具有良好定義的模式和機制的堅實的 API 構建的，這樣我們就可以向前發展了。果然，在你的第一年裏，你增長得如此之快：autoscaling、HTTP load-balancing support (Ingress)、support for persistent workloads including clustered databases (PetSets)。你已經和更多的雲交了朋友(歡迎 azure 和 openstack 加入家庭)，甚至開始跨越區域和集羣(Federation)。這些只是一些最明顯的變化 - 在你的大腦裏發生了太多的變化！
+你從一個優秀的基礎 - 良好的聲明性功能開始，它是圍繞一個具有良好定義的模式和機制的堅實的 API 構建的，這樣我們就可以向前發展了。果然，在你的第一年裏，你增長得如此之快：autoscaling、HTTP load-balancing support (Ingress)、support for persistent workloads including clustered databases (PetSets)。你已經和更多的雲交了朋友(歡迎 azure 和 openstack 加入家庭)，甚至開始跨越區域和叢集(Federation)。這些只是一些最明顯的變化 - 在你的大腦裏發生了太多的變化！
 
 我覺得你一直保持開放的態度真是太好了 - 你好像把所有的東西都寫在 github 上 - 不管是好是壞。我想我們在這方面都學到了很多，比如讓工程師做縮放聲明的風險，然後在沒有完全相同的精確性和嚴謹性框架的情況下，將這些聲明與索賠進行權衡。但我很自豪你選擇了不降低你的標準，而是上升到挑戰，只是跑得更快 - 這可能不是最現實的辦法，但這是唯一的方式能移動山！
 

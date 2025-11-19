@@ -86,7 +86,7 @@ The polling based approach is referred to as _generic PLEG_.
 
 1. 啓用[特性門控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
    `EventedPLEG` 後啓動 kubelet。
-   你可以通過編輯 kubelet [配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)並重啓
+   你可以通過編輯 kubelet [設定文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)並重啓
    kubelet 服務來管理 kubelet 特性門控。
    你需要在使用此特性的所有節點上執行此操作。
 
@@ -117,7 +117,7 @@ The polling based approach is referred to as _generic PLEG_.
    -->
    版本 1.26+
 
-   通過驗證配置，檢查 CRI-O 是否已配置爲發送 CRI 事件：
+   通過驗證設定，檢查 CRI-O 是否已設定爲發送 CRI 事件：
 
    ```shell
    crio config | grep enable_pod_events
@@ -136,7 +136,7 @@ The polling based approach is referred to as _generic PLEG_.
    To enable it, start the CRI-O daemon with the flag `--enable-pod-events=true` or
    use a dropin config with the following lines:
    -->
-   要啓用它，可使用 `--enable-pod-events=true` 標誌或添加以下配置來啓動 CRI-O 守護進程：
+   要啓用它，可使用 `--enable-pod-events=true` 標誌或添加以下設定來啓動 CRI-O 守護進程：
 
    ```toml
    [crio.runtime]

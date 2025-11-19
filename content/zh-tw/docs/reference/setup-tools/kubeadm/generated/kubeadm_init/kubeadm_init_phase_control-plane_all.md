@@ -55,7 +55,7 @@ kubeadm init phase control-plane all --config config.yaml
 <!--
 The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
 -->
-API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，將使用默認的網絡接口。
+API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，將使用默認的網路接口。
 </p>
 </td>
 </tr>
@@ -74,7 +74,7 @@ API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，將使
 <!--
 Port for the API Server to bind to.
 -->
-API 服務器要綁定的端口。
+API 伺服器要綁定的端口。
 </p>
 </td>
 </tr>
@@ -88,8 +88,8 @@ API 服務器要綁定的端口。
 <!--
 A set of extra flags to pass to the API Server or override default ones in form of &lt;flagname&gt;=&lt;value&gt;
 -->
-形式爲 &lt;flagname&gt;=&lt;value&gt; 的一組額外參數，用來傳遞給 API 服務器，
-或者覆蓋其默認配置值。
+形式爲 &lt;flagname&gt;=&lt;value&gt; 的一組額外參數，用來傳遞給 API 伺服器，
+或者覆蓋其默認設定值。
 </p>
 </td>
 </tr>
@@ -122,7 +122,7 @@ The path where to save and store the certificates.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -220,7 +220,7 @@ all 操作的幫助命令。
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇用於拉取控制平面鏡像的容器倉庫。
+選擇用於拉取控制平面映像檔的容器倉庫。
 </p>
 </td>
 </tr>
@@ -274,7 +274,7 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <!--
 Specify range of IP addresses for the pod network. If set, the control plane will automatically allocate CIDRs for every node.
 -->
-指定 Pod 網絡的 IP 地址範圍。如果設置了此標誌，控制平面將自動地爲每個節點分配 CIDR。
+指定 Pod 網路的 IP 地址範圍。如果設置了此標誌，控制平面將自動地爲每個節點分配 CIDR。
 </p>
 </td>
 </tr>

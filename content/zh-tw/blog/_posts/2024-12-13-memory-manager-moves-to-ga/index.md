@@ -36,7 +36,7 @@ This enables users to allocate exclusive
 memory for Pods in the [Guaranteed](/docs/concepts/workloads/pods/pod-qos/#guaranteed) QoS class.
 More details about the process can be found in the memory manager goes to beta [blog](/blog/2021/08/11/kubernetes-1-22-feature-memory-manager-moves-to-beta/).
 -->
-作爲 kubelet 的工作負載准入過程的一部分，內存管理器提供拓撲提示以優化內存分配和對齊。這使得用戶能夠爲
+作爲 kubelet 的工作負載准入過程的一部分，內存管理器提供拓撲提示以優化內存分配和對齊。這使得使用者能夠爲
 [Guaranteed](/zh-cn/docs/concepts/workloads/pods/pod-qos/#guaranteed) QoS 類的 Pod 分配獨佔的內存。
 有關此過程的細節，參見博客：[內存管理器進階至 Beta](/blog/2021/08/11/kubernetes-1-22-feature-memory-manager-moves-to-beta/)。
 

@@ -39,10 +39,10 @@ Migration is not needed and this guide can be ignored.
 
 作爲[雲驅動提取工作](/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/)
 的一部分，所有特定於雲的控制器都必須移出 `kube-controller-manager`。
-所有在 `kube-controller-manager` 中運行雲控制器的現有集羣必須遷移到特定於雲廠商的
+所有在 `kube-controller-manager` 中運行雲控制器的現有叢集必須遷移到特定於雲廠商的
 `cloud-controller-manager` 中運行這些控制器。
 
-領導者遷移（Leader Migration）提供了一種機制，使得 HA 集羣可以通過這兩個組件之間共享資源鎖，
+領導者遷移（Leader Migration）提供了一種機制，使得 HA 叢集可以通過這兩個組件之間共享資源鎖，
 在升級多副本的控制平面時，安全地將“特定於雲”的控制器從 `kube-controller-manager` 遷移到
 `cloud-controller-manager`。
 對於單節點控制平面，或者在升級過程中可以容忍控制器管理器不可用的情況，則不需要領導者遷移，
@@ -66,7 +66,7 @@ provider for specific instructions of the migration.
 
 本指南將引導你手動將控制平面從內置的雲驅動的 `kube-controller-manager` 升級爲
 同時運行 `kube-controller-manager` 和 `cloud-controller-manager`。
-如果使用某種工具來部署和管理集羣，請參閱對應工具和雲驅動的文檔以獲取遷移的具體說明。
+如果使用某種工具來部署和管理叢集，請參閱對應工具和雲驅動的文檔以獲取遷移的具體說明。
 
 ## {{% heading "prerequisites" %}}
 
@@ -86,7 +86,7 @@ deployed.
 -->
 假定控制平面正在運行 Kubernetes 版本 N，要升級到版本 N+1。
 儘管可以在同一版本內進行遷移，但理想情況下，遷移應作爲升級的一部分執行，
-以便可以配置的變更可以與發佈版本變化對應起來。
+以便可以設定的變更可以與發佈版本變化對應起來。
 N 和 N+1 的確切版本值取決於各個雲廠商。例如，如果雲廠商構建了一個可與 Kubernetes 1.24
 配合使用的 `cloud-controller-manager`，則 N 可以爲 1.23，N+1 可以爲 1.24。
 
@@ -122,7 +122,7 @@ matches the mode.
 和 `cloud-controller-manager`，靜態 Pod 的定義在清單文件中。
 如果組件以其他設置運行，請相應地調整這裏的步驟。
 
-關於鑑權，本指南假定集羣使用 RBAC。如果其他鑑權模式授予 `kube-controller-manager`
+關於鑑權，本指南假定叢集使用 RBAC。如果其他鑑權模式授予 `kube-controller-manager`
 和 `cloud-controller-manager` 組件權限，請以與該模式匹配的方式授予所需的訪問權限。
 
 <!-- steps -->
@@ -173,13 +173,13 @@ following example configuration shows the assignment.
 Leader Migration can be enabled without a configuration. Please see
 [Default Configuration](#default-configuration) for details.
 -->
-### 初始領導者遷移配置
+### 初始領導者遷移設定
 
-領導者遷移可以選擇使用一個表示如何將控制器分配給不同管理器的配置文件。
+領導者遷移可以選擇使用一個表示如何將控制器分配給不同管理器的設定文件。
 目前，對於樹內雲驅動，`kube-controller-manager` 運行 `route`、`service` 和
-`cloud-node-lifecycle`。以下示例配置顯示的是這種分配。
+`cloud-node-lifecycle`。以下示例設定顯示的是這種分配。
 
-領導者遷移可以不指定配置的情況下啓用。請參閱[默認配置](#default-configuration) 
+領導者遷移可以不指定設定的情況下啓用。請參閱[默認設定](#default-configuration) 
 以獲取更多詳細信息。
 
 ```yaml
@@ -202,7 +202,7 @@ setting `component` to `*` for both sides makes the configuration file consisten
 between both parties of the migration.
 -->
 或者，由於控制器可以在任一控制器管理器下運行，因此將雙方的 `component` 設置爲 `*`
-可以使遷移雙方的配置文件保持一致。
+可以使遷移雙方的設定文件保持一致。
 
 ```yaml
 # 通配符版本
@@ -237,7 +237,7 @@ migration.
 另外，請更新同一清單，添加以下參數：
 
 - `--enable-leader-migration` 在控制器管理器上啓用領導者遷移
-- `--leader-migration-config=/etc/leadermigration.conf` 設置配置文件
+- `--leader-migration-config=/etc/leadermigration.conf` 設置設定文件
 
 在每個節點上重新啓動 `kube-controller-manager`。這時，`kube-controller-manager`
 已啓用領導者遷移，爲遷移準備就緒。
@@ -253,7 +253,7 @@ which has the same effect.
 -->
 ### 部署雲控制器管理器
 
-在版本 N+1 中，如何將控制器分配給不同管理器的預期分配狀態可以由新的配置文件表示，
+在版本 N+1 中，如何將控制器分配給不同管理器的預期分配狀態可以由新的設定文件表示，
 如下所示。請注意，各個 `controllerLeaders` 的 `component` 字段從 `kube-controller-manager`
 更改爲 `cloud-controller-manager`。
 或者，使用上面提到的通配符版本，它具有相同的效果。
@@ -292,7 +292,7 @@ for more detail on how to deploy `cloud-controller-manager`.
 -->
 當創建版本 N+1 的控制平面節點時，應將如上內容寫入到 `/etc/leadermigration.conf`。
 你需要更新 `cloud-controller-manager` 的清單，以與版本 N 的 `kube-controller-manager`
-相同的方式掛載配置文件。
+相同的方式掛載設定文件。
 類似地，添加 `--enable-leader-migration`
 和 `--leader-migration-config=/etc/leadermigration.conf` 到 `cloud-controller-manager`
 的參數中。
@@ -327,7 +327,7 @@ one of version N + 1 each time until there are only nodes of version N.
 現在，控制平面同時包含 N 和 N+1 版本的節點。
 版本 N 的節點僅運行 `kube-controller-manager`，而版本 N+1 的節點同時運行
 `kube-controller-manager` 和 `cloud-controller-manager`。
-根據配置所指定，已遷移的控制器在版本 N 的 `kube-controller-manager` 或版本
+根據設定所指定，已遷移的控制器在版本 N 的 `kube-controller-manager` 或版本
 N+1 的 `cloud-controller-manager` 下運行，具體取決於哪個控制器管理器擁有遷移租約對象。
 任何時候都不會有同一個控制器在兩個控制器管理器下運行。
 
@@ -359,7 +359,7 @@ Lease 資源。在將來可以安全地重新啓用領導者遷移，以完成�
 在滾動管理器中，更新 `cloud-controller-manager` 的清單以同時取消設置
 `--enable-leader-migration` 和 `--leader-migration-config=` 標誌，並刪除
 `/etc/leadermigration.conf` 的掛載，最後刪除 `/etc/leadermigration.conf`。
-要重新啓用領導者遷移，請重新創建配置文件，並將其掛載和啓用領導者遷移的標誌添加回到
+要重新啓用領導者遷移，請重新創建設定文件，並將其掛載和啓用領導者遷移的標誌添加回到
 `cloud-controller-manager`。
 
 <!--
@@ -374,14 +374,14 @@ For `kube-controller-manager` and `cloud-controller-manager`, if there are no fl
 that enable any in-tree cloud provider or change ownership of controllers, the
 default configuration can be used to avoid manual creation of the configuration file.
 -->
-### 默認配置 {#default-configuration}
+### 默認設定 {#default-configuration}
 
-從 Kubernetes 1.22 開始，領導者遷移提供了一個默認配置，它適用於控制器與管理器間默認的分配關係。
+從 Kubernetes 1.22 開始，領導者遷移提供了一個默認設定，它適用於控制器與管理器間默認的分配關係。
 可以通過設置 `--enable-leader-migration`，但不設置 `--leader-migration-config=`
-來啓用默認配置。
+來啓用默認設定。
 
 對於 `kube-controller-manager` 和 `cloud-controller-manager`，如果沒有用參數來啓用樹內雲驅動或者改變控制器屬主，
-則可以使用默認配置來避免手動創建配置文件。
+則可以使用默認設定來避免手動創建設定文件。
 
 <!--
 ### Special case: migrating the Node IPAM controller {#node-ipam-controller-migration}

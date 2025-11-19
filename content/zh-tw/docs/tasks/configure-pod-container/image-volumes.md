@@ -1,5 +1,5 @@
 ---
-title: Pod 使用鏡像卷
+title: Pod 使用映像檔卷
 reviewers:
 content_type: task
 weight: 210
@@ -21,7 +21,7 @@ min-kubernetes-server-version: v1.31
 This page shows how to configure a pod using image volumes. This allows you to
 mount content from OCI registries inside containers.
 -->
-本頁展示瞭如何使用鏡像卷配置 Pod。此特性允許你在容器內掛載來自 OCI 鏡像倉庫的內容。
+本頁展示瞭如何使用映像檔卷設定 Pod。此特性允許你在容器內掛載來自 OCI 映像檔倉庫的內容。
 
 ## {{% heading "prerequisites" %}}
 
@@ -33,7 +33,7 @@ mount content from OCI registries inside containers.
 - You need to be able to exec into pods
 - You need to enable the `ImageVolume` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 -->
-- 容器運行時需要支持鏡像卷特性
+- 容器運行時需要支持映像檔卷特性
 - 你需要能夠在主機上執行命令
 - 你需要能夠進入 Pod 執行命令
 - 你需要啓用 `ImageVolume`
@@ -47,17 +47,17 @@ mount content from OCI registries inside containers.
 An image volume for a pod is enabled setting the `volumes.[*].image` field of `.spec`
 to a valid reference and consuming it in the `volumeMounts` of the container. For example:
 -->
-## 運行使用鏡像卷的 Pod   {#create-pod}
+## 運行使用映像檔卷的 Pod   {#create-pod}
 
-爲 Pod 啓用鏡像卷的方式是：在 `.spec` 中將 `volumes.[*].image`
-字段設置爲一個有效的鏡像並在容器的 `volumeMounts` 中消費此鏡像。例如：
+爲 Pod 啓用映像檔卷的方式是：在 `.spec` 中將 `volumes.[*].image`
+字段設置爲一個有效的映像檔並在容器的 `volumeMounts` 中消費此映像檔。例如：
 
 {{% code_sample file="pods/image-volumes.yaml" %}}
 
 <!--
 1. Create the pod on your cluster:
 -->
-1. 在你的集羣上創建 Pod：
+1. 在你的叢集上創建 Pod：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/image-volumes.yaml
@@ -136,7 +136,7 @@ from Kubernetes v1.33 when using the image volume feature.
 <!--
 1. Create the pod on your cluster:
 -->
-1. 在你的集羣上創建 Pod：
+1. 在你的叢集上創建 Pod：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/image-volumes-subpath.yaml

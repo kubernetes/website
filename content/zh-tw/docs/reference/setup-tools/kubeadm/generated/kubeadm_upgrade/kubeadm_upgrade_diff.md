@@ -41,7 +41,7 @@ kubeadm upgrade diff [version] [flags]
 <td colspan="2">--api-server-manifest string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/manifests/kube-apiserver.yaml"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>API 服務器清單的路徑。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>API 伺服器清單的路徑。</p></td>
 </tr>
 
 <!--
@@ -56,7 +56,7 @@ kubeadm upgrade diff [version] [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>kubeadm 配置文件的路徑。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>kubeadm 設定文件的路徑。</p></td>
 </tr>
 
 <!--
@@ -116,7 +116,7 @@ kubeadm upgrade diff [version] [flags]
 <td colspan="2">--kubeconfig string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默認值："/etc/kubernetes/admin.conf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>與集羣通信時使用的 kubeconfig 文件，如果標誌是未設置，則可以在一組標準位置中搜索現有的 kubeconfig 文件。</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>與叢集通信時使用的 kubeconfig 文件，如果標誌是未設置，則可以在一組標準位置中搜索現有的 kubeconfig 文件。</p></td>
 </tr>
 
 <!--

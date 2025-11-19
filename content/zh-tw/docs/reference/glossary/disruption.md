@@ -42,7 +42,7 @@ Kubernetes terms that an _involuntary disruption_.
 
 See [Disruptions](/docs/concepts/workloads/pods/disruptions/) for more information.
  -->
-如果你作爲一個集羣操作人員，銷燬了一個從屬於某個應用的 Pod，
+如果你作爲一個叢集操作人員，銷燬了一個從屬於某個應用的 Pod，
 Kubernetes 視之爲**自願干擾（Voluntary Disruption）**。
 如果由於節點故障或者影響更大區域故障的斷電導致 Pod 離線，
 Kubernetes 視之爲**非願干擾（Involuntary Disruption）**。

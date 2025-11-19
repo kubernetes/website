@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes v1.33：鏡像拉取策略終於按你的預期工作了！"
+title: "Kubernetes v1.33：映像檔拉取策略終於按你的預期工作了！"
 date:  2025-05-12T10:30:00-08:00
 slug: kubernetes-v1-33-ensure-secret-pulled-images-alpha
 author: >
@@ -28,10 +28,10 @@ to learn that there has been a caveat to restricting pod access to authenticated
 over 10 years in the form of [issue 18787](https://github.com/kubernetes/kubernetes/issues/18787)!
 It is an exciting release when you can resolve a ten-year-old issue.
 -->
-## 鏡像拉取策略終於按你的預期工作了！
+## 映像檔拉取策略終於按你的預期工作了！
 
 Kubernetes 中有些東西讓人感到奇怪，`imagePullPolicy` 的行爲就是其中之一。
-Kubernetes 作爲一個專注於運行 Pod 的平臺，居然在限制 Pod 訪問經認證的鏡像方面，存在一個長達十餘年的問題，
+Kubernetes 作爲一個專注於運行 Pod 的平臺，居然在限制 Pod 訪問經認證的映像檔方面，存在一個長達十餘年的問題，
 詳見 [Issue 18787](https://github.com/kubernetes/kubernetes/issues/18787)！
 v1.33 解決了這個十年前的老問題，這真是一個有紀念意義的版本。
 
@@ -42,7 +42,7 @@ the term generally encapsulates the authentication material that is available to
 to authenticate a container image pull.
 -->
 在本博文中，“Pod 憑據”這個術語將被頻繁使用。
-在這篇博文的上下文中，這一術語通常指的是 Pod 拉取容器鏡像時可用於身份認證的認證材料。
+在這篇博文的上下文中，這一術語通常指的是 Pod 拉取容器映像檔時可用於身份認證的認證材料。
 {{< /note >}}
 
 <!--
@@ -54,24 +54,24 @@ For it's image pull authentication material, the pod references *Secret 1* in it
 and it will pull *container image Foo* from the registry.  This is the intended (and secure)
 behavior.
 -->
-## IfNotPresent：即使我本不該有這個鏡像
+## IfNotPresent：即使我本不該有這個映像檔
 
 問題的本質在於，`imagePullPolicy: IfNotPresent` 策略正如其字面意義所示，僅此而已。
 我們來設想一個場景：**Pod A** 運行在 **Namespace X** 中，被調度到 **Node 1**，
-此 Pod 需要從某個私有倉庫拉取**鏡像 Foo**。此 Pod 在 `imagePullSecrets` 中引用
-**Secret 1** 來作爲鏡像拉取認證材料。**Secret 1** 包含從私有倉庫拉取鏡像所需的憑據。
-kubelet 將使用 **Pod A** 提供的 **Secret 1** 來拉取 **鏡像 Foo**，這是預期的（也是安全的）行爲。
+此 Pod 需要從某個私有倉庫拉取**映像檔 Foo**。此 Pod 在 `imagePullSecrets` 中引用
+**Secret 1** 來作爲映像檔拉取認證材料。**Secret 1** 包含從私有倉庫拉取映像檔所需的憑據。
+kubelet 將使用 **Pod A** 提供的 **Secret 1** 來拉取 **映像檔 Foo**，這是預期的（也是安全的）行爲。
 
 <!--
 But now things get curious. If *Pod B* in *Namespace Y* happens to also be scheduled to *Node 1*, unexpected (and potentially insecure) things happen. *Pod B* may reference the same private image, specifying the `IfNotPresent` image pull policy. *Pod B* does not reference *Secret 1*
 (or in our case, any secret) in its `imagePullSecrets`. When the Kubelet tries to run the pod, it honors the `IfNotPresent` policy. The Kubelet sees that the *image Foo* is already present locally, and will provide *image Foo* to *Pod B*. *Pod B* gets to run the image even though it did not provide credentials authorizing it to pull the image in the first place.
 -->
 但現在情況變得奇怪了。如果 **Namespace Y** 中的 **Pod B** 也被調度到 **Node 1**，就會出現意外（甚至是不安全）的情況。
-**Pod B** 可以引用同一個私有鏡像，指定 `IfNotPresent` 鏡像拉取策略。
+**Pod B** 可以引用同一個私有映像檔，指定 `IfNotPresent` 映像檔拉取策略。
 **Pod B** 未在其 `imagePullSecrets` 中引用 **Secret 1**（甚至未引用任何 Secret）。
 當 kubelet 嘗試運行此 Pod 時，它會採用 `IfNotPresent` 策略。
-kubelet 發現本地已存在**鏡像 Foo**，會將**鏡像 Foo** 提供給 **Pod B**。
-即便 **Pod B** 一開始並未提供授權拉取鏡像的憑據，卻依然能夠運行此鏡像。
+kubelet 發現本地已存在**映像檔 Foo**，會將**映像檔 Foo** 提供給 **Pod B**。
+即便 **Pod B** 一開始並未提供授權拉取映像檔的憑據，卻依然能夠運行此映像檔。
 
 <!--
 {{< figure
@@ -82,8 +82,8 @@ kubelet 發現本地已存在**鏡像 Foo**，會將**鏡像 Foo** 提供給 **P
 -->
 {{< figure
     src="ensure_secret_image_pulls.svg"
-    caption="使用由另一個 Pod 拉取的私有鏡像"
-    alt="兩個 Pod 嘗試訪問某個私有鏡像的過程示意圖，第一個 Pod 有拉取 Secret，第二個沒有"
+    caption="使用由另一個 Pod 拉取的私有映像檔"
+    alt="兩個 Pod 嘗試訪問某個私有映像檔的過程示意圖，第一個 Pod 有拉取 Secret，第二個沒有"
 >}}
 
 <!--
@@ -92,9 +92,9 @@ on the node, it is an incorrect security posture to allow all pods scheduled
 to a node to have access to previously pulled private image. These pods were never
 authorized to pull the image in the first place.
 -->
-雖然 `IfNotPresent` 不應在節點上已存在**鏡像 Foo** 的情況下再拉取此鏡像，
-但允許將所有 Pod 調度到有權限訪問之前已拉取私有鏡像的節點上，這從安全態勢講是不正確的做法。
-因爲這些 Pod 從開始就未被授權拉取此鏡像。
+雖然 `IfNotPresent` 不應在節點上已存在**映像檔 Foo** 的情況下再拉取此映像檔，
+但允許將所有 Pod 調度到有權限訪問之前已拉取私有映像檔的節點上，這從安全態勢講是不正確的做法。
+因爲這些 Pod 從開始就未被授權拉取此映像檔。
 
 <!--
 ## IfNotPresent, but only if I am supposed to have it
@@ -105,7 +105,7 @@ an image is not present, the Kubelet will attempt to pull the image. The credent
 ## IfNotPresent：但前提是我有權限
 
 在 Kubernetes v1.33 中，SIG Auth 和 SIG Node 終於開始修復這個（非常古老的）難題，並經過驗證可行！
-基本的預期行爲沒有變。如果某鏡像不存在，kubelet 會嘗試拉取此鏡像。
+基本的預期行爲沒有變。如果某映像檔不存在，kubelet 會嘗試拉取此映像檔。
 利用每個 Pod 提供的憑據來完成此拉取任務。這與 v1.33 之前的行爲相匹配。
 
 <!--
@@ -117,8 +117,8 @@ Pods utilizing the same credential will not be required to re-authenticate. This
 also true when pods source credentials from the same Kubernetes Secret object, even
 when the credentials are rotated.
 -->
-但如果鏡像存在，kubelet 的行爲就變了。
-kubelet 現在先要驗證 Pod 的憑據，然後纔會允許 Pod 使用鏡像。
+但如果映像檔存在，kubelet 的行爲就變了。
+kubelet 現在先要驗證 Pod 的憑據，然後纔會允許 Pod 使用映像檔。
 
 在修繕此特性時，我們也考慮到了性能和服務穩定性。
 如果多個 Pod 使用相同的憑據，則無需重複認證。
@@ -137,10 +137,10 @@ image will not be allowed to use the private image.
 -->
 ## Never：永不拉取，但使用前仍需鑑權
 
-採用 `imagePullPolicy: Never` 選項時，不會獲取鏡像。
-但如果節點上已存在此容器鏡像，任何嘗試使用此私有鏡像的 Pod 都需要提供憑據，並且這些憑據需要經過驗證。
+採用 `imagePullPolicy: Never` 選項時，不會獲取映像檔。
+但如果節點上已存在此容器映像檔，任何嘗試使用此私有映像檔的 Pod 都需要提供憑據，並且這些憑據需要經過驗證。
 
-使用相同憑據的 Pod 無需重新認證。未提供之前已成功拉取鏡像所用憑據的 Pod，將不允許使用此私有鏡像。
+使用相同憑據的 Pod 無需重新認證。未提供之前已成功拉取映像檔所用憑據的 Pod，將不允許使用此私有映像檔。
 
 <!--
 ## Always pull, if authorized
@@ -155,17 +155,17 @@ that your private container images didn't get reused by other pods on nodes whic
 ## Always：鑑權通過後始終拉取
 
 `imagePullPolicy: Always` 一直以來都能按預期工作。
-每次某鏡像被請求時，請求會流轉到鏡像倉庫，鏡像倉庫將執行身份認證檢查。
+每次某映像檔被請求時，請求會流轉到映像檔倉庫，映像檔倉庫將執行身份認證檢查。
 
-過去，爲了確保你的私有容器鏡像不會被節點上已拉取過鏡像的其他 Pod 重複使用，
-通過 Pod 准入來強制執行 `Always` 鏡像拉取策略是唯一的方式。
+過去，爲了確保你的私有容器映像檔不會被節點上已拉取過映像檔的其他 Pod 重複使用，
+通過 Pod 准入來強制執行 `Always` 映像檔拉取策略是唯一的方式。
 
 <!--
 Fortunately, this was somewhat performant. Only the image manifest was pulled, not the image. However, there was still a cost and a risk. During a new rollout, scale up, or pod restart, the image registry that provided the image MUST be available for the auth check, putting the image registry in the critical path for stability of services running inside of the cluster.
 -->
-幸運的是，這個過程相對高效：僅拉取鏡像清單，而不是鏡像本體。
+幸運的是，這個過程相對高效：僅拉取映像檔清單，而不是映像檔本體。
 但這依然帶來代價與風險。每當發佈新版本、擴容或重啓 Pod 時，
-提供鏡像的鏡像倉庫必須可以接受認證檢查，從而將鏡像倉庫放到關鍵路徑中確保集羣中所運行的服務的穩定性。
+提供映像檔的映像檔倉庫必須可以接受認證檢查，從而將映像檔倉庫放到關鍵路徑中確保叢集中所運行的服務的穩定性。
 
 <!--
 ## How it all works
@@ -187,12 +187,12 @@ The process of requesting an image for the first time goes like this:
   4. The Kubelet extracts credentials from the Kubernetes Secret referenced by the pod
      as an image pull secret, and uses them to pull the image from the private registry.
 -->
-首次請求某鏡像的流程如下：
+首次請求某映像檔的流程如下：
 
-1. 請求私有倉庫中某鏡像的 Pod 被調度到某節點。
-2. 此鏡像在節點上不存在。
-3. kubelet 記錄一次拉取鏡像的意圖。
-4. kubelet 從 Pod 引用的 Kubernetes Secret 中提取憑據作爲鏡像拉取 Secret，並使用這些憑據從私有倉庫拉取鏡像。
+1. 請求私有倉庫中某映像檔的 Pod 被調度到某節點。
+2. 此映像檔在節點上不存在。
+3. kubelet 記錄一次拉取映像檔的意圖。
+4. kubelet 從 Pod 引用的 Kubernetes Secret 中提取憑據作爲映像檔拉取 Secret，並使用這些憑據從私有倉庫拉取映像檔。
 
 <!--
   1. After the image has been successfully pulled, the Kubelet makes a record of
@@ -201,7 +201,7 @@ The process of requesting an image for the first time goes like this:
   2. The Kubelet removes the original record of intent.
   3. The Kubelet retains the record of successful pull for later use.
 -->
-5. 鏡像已成功拉取後，kubelet 會記錄這次成功的拉取。
+5. 映像檔已成功拉取後，kubelet 會記錄這次成功的拉取。
    記錄包括所使用的憑據細節（哈希格式）以及構成這些憑據的原始 Secret。
 6. kubelet 移除原始意圖記錄。
 7. kubelet 保留成功拉取的記錄供後續使用。
@@ -217,11 +217,11 @@ When future pods scheduled to the same node request the previously pulled privat
      these new credentials to request a pull from the remote registry, triggering
      the authorization flow.
 -->
-當以後調度到同一節點的 Pod 請求之前拉取過的私有鏡像：
+當以後調度到同一節點的 Pod 請求之前拉取過的私有映像檔：
 
-1. kubelet 檢查新 Pod 爲拉取鏡像所提供的憑據。
-2. 如果這些憑據的哈希或其源 Secret 與之前成功拉取記錄的哈希或源 Secret 相匹配，則允許此 Pod 使用之前拉取的鏡像。
-3. 如果在該鏡像的成功拉取記錄中找不到這些憑據或其源 Secret，則
+1. kubelet 檢查新 Pod 爲拉取映像檔所提供的憑據。
+2. 如果這些憑據的哈希或其源 Secret 與之前成功拉取記錄的哈希或源 Secret 相匹配，則允許此 Pod 使用之前拉取的映像檔。
+3. 如果在該映像檔的成功拉取記錄中找不到這些憑據或其源 Secret，則
    kubelet 將嘗試使用這些新的憑據從遠程倉庫進行拉取，同時觸發認證流程。
 
 <!--
@@ -240,7 +240,7 @@ in the official Kubernetes documentation.
 要想試用，在 kubelet v1.33 上啓用 `KubeletEnsureSecretPulledImages` 特性門控。
 
 你可以在 Kubernetes
-官方文檔中的[鏡像概念頁](/zh-cn/docs/concepts/containers/images/#ensureimagepullcredentialverification)中瞭解此特性和更多可選配置的細節。
+官方文檔中的[映像檔概念頁](/zh-cn/docs/concepts/containers/images/#ensureimagepullcredentialverification)中瞭解此特性和更多可選設定的細節。
 
 <!--
 ## What's next?
@@ -258,10 +258,10 @@ In future releases we are going to:
 
 在未來的版本中，我們將：
 
-1. 使此特性與 [kubelet 鏡像憑據提供程序的投射服務賬號令牌](https://kep.k8s.io/4412)協同工作，
-   後者能夠添加新的、特定於工作負載的鏡像拉取憑據源。
+1. 使此特性與 [kubelet 映像檔憑據提供程序的投射服務賬號令牌](https://kep.k8s.io/4412)協同工作，
+   後者能夠添加新的、特定於工作負載的映像檔拉取憑據源。
 2. 編寫基準測試套件，以評估此特性的性能並衡量後續變更的影響。
-3. 實現內存中的緩存層，因此我們不需要爲每個鏡像拉取請求都讀取文件。
+3. 實現內存中的緩存層，因此我們不需要爲每個映像檔拉取請求都讀取文件。
 4. 添加對憑據過期的支持，從而強制重新認證之前已驗證過的憑據。
 
 <!--

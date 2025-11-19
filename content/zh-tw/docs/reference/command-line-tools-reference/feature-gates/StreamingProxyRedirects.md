@@ -33,5 +33,5 @@ Instructs the API server to intercept (and follow) redirects from the
 backend (kubelet) for streaming requests. Examples of streaming requests include the `exec`,
 `attach` and `port-forward` requests.
 -->
-指示 API 服務器攔截（並跟蹤）後端（kubelet）的重定向以處理流請求。
+指示 API 伺服器攔截（並跟蹤）後端（kubelet）的重定向以處理流請求。
 流請求的例子包括 `exec`、`attach` 和 `port-forward` 請求。

@@ -1,5 +1,5 @@
 ---
-title: 管理集羣中的 TLS 認證
+title: 管理叢集中的 TLS 認證
 content_type: task
 ---
 <!--
@@ -20,7 +20,7 @@ and certificates can be used by your workloads to establish trust.
 `certificates.k8s.io` API uses a protocol that is similar to the [ACME
 draft](https://github.com/ietf-wg-acme/acme/).
 -->
-Kubernetes 提供 `certificates.k8s.io` API，可讓你配置由你控制的證書頒發機構（CA）
+Kubernetes 提供 `certificates.k8s.io` API，可讓你設定由你控制的證書頒發機構（CA）
 簽名的 TLS 證書。 你的工作負載可以使用這些 CA 和證書來建立信任。
 
 `certificates.k8s.io` API使用的協議類似於
@@ -34,7 +34,7 @@ CA for this purpose, but you should never rely on this. Do not assume that
 these certificates will validate against the cluster root CA.
 -->
 使用 `certificates.k8s.io` API 創建的證書由指定 [CA](#configuring-your-cluster-to-provide-signing) 頒發。
-將集羣配置爲使用集羣根目錄 CA 可以達到這個目的，但是你永遠不要依賴這一假定。
+將叢集設定爲使用叢集根目錄 CA 可以達到這個目的，但是你永遠不要依賴這一假定。
 不要以爲這些證書將針對羣根目錄 CA 進行驗證。
 {{< /note >}}
 
@@ -69,11 +69,11 @@ example, you would do this with a golang TLS config by parsing the certificate
 chain and adding the parsed certificates to the `RootCAs` field in the
 [`tls.Config`](https://pkg.go.dev/crypto/tls#Config) struct.
 -->
-## 集羣中的 TLS 信任
+## 叢集中的 TLS 信任
 
-信任 Pod 中運行的應用程序所提供的[自定義 CA](#configuring-your-cluster-to-provide-signing) 通常需要一些額外的應用程序配置。
-你需要將 CA 證書包添加到 TLS 客戶端或服務器信任的 CA 證書列表中。
-例如，你可以使用 Golang TLS 配置通過解析證書鏈並將解析的證書添加到
+信任 Pod 中運行的應用程序所提供的[自定義 CA](#configuring-your-cluster-to-provide-signing) 通常需要一些額外的應用程序設定。
+你需要將 CA 證書包添加到 TLS 客戶端或伺服器信任的 CA 證書列表中。
+例如，你可以使用 Golang TLS 設定通過解析證書鏈並將解析的證書添加到
 [`tls.Config`](https://pkg.go.dev/crypto/tls#Config) 結構中的 `RootCAs`
 字段中。
 
@@ -152,7 +152,7 @@ Where `192.0.2.24` is the service's cluster IP,
 `10.0.34.2` is the pod's IP and `my-pod.my-namespace.pod.cluster.local`
 is the pod's DNS name. You should see the output similar to:
 -->
-其中 `192.0.2.24` 是服務的集羣 IP，`my-svc.my-namespace.svc.cluster.local`
+其中 `192.0.2.24` 是服務的叢集 IP，`my-svc.my-namespace.svc.cluster.local`
 是服務的 DNS 名稱，`10.0.34.2` 是 Pod 的 IP，而
 `my-pod.my-namespace.pod.cluster.local` 是 Pod 的 DNS 名稱。
 你能看到的輸出類似於：
@@ -182,7 +182,7 @@ running the following command:
 -->
 ## 創建證書籤名請求（CSR）對象發送到 Kubernetes API
 
-你可以使用以下命令創建 CSR 清單（YAML 格式），併發送到 API 服務器：
+你可以使用以下命令創建 CSR 清單（YAML 格式），併發送到 API 伺服器：
 
 ```shell
 cat <<EOF | kubectl apply -f -
@@ -214,7 +214,7 @@ it by running:
 -->
 請注意，在步驟 1 中創建的 `server.csr` 文件是 base64 編碼並存儲在
 `.spec.request` 字段中的。你還要求提供 “digital signature（數字簽名）”，
-“密鑰加密（key encipherment）” 和 “服務器身份驗證（server auth）” 密鑰用途，
+“密鑰加密（key encipherment）” 和 “伺服器身份驗證（server auth）” 密鑰用途，
 由 `example.com/serving` 示例簽名程序簽名的證書。
 你也可以要求使用特定的 `signerName`。更多信息可參閱
 [支持的簽署者名稱](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#signers)。
@@ -255,7 +255,7 @@ manually using `kubectl`; for example:
 ## 批准證書籤名請求（CSR）  {#get-the-certificate-signing-request-approved}
 
 [證書籤名請求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)
-的批准或者是通過自動批准過程完成的，或由集羣管理員一次性完成。
+的批准或者是通過自動批准過程完成的，或由叢集管理員一次性完成。
 如果你被授權批准證書請求，你可以使用 `kubectl` 來手動完成此操作；例如：
 
 ```shell
@@ -295,7 +295,7 @@ and update the API object status with the issued certificate.
 -->
 ## 簽名證書籤名請求（CSR） {#sign-the-certificate-signing-request}
 
-接下來，你將扮演證書籤署者的角色，頒發證書並將其上傳到 API 服務器。
+接下來，你將扮演證書籤署者的角色，頒發證書並將其上傳到 API 伺服器。
 
 簽名者通常會使用其 `signerName` 查看對象的 CertificateSigningRequest API，
 檢查它們是否已被批准，爲這些請求籤署證書，並使用已頒發的證書更新 API 對象狀態。
@@ -352,7 +352,7 @@ This produces a certificate authority key file (`ca-key.pem`) and certificate (`
 Use a `server-signing-config.json` signing configuration and the certificate authority key file 
 and certificate to sign the certificate request:
 -->
-使用 `server-signing-config.json` 簽名配置、證書頒發機構密鑰文件和證書來簽署證書請求：
+使用 `server-signing-config.json` 簽名設定、證書頒發機構密鑰文件和證書來簽署證書請求：
 
 ```shell
 kubectl get csr my-svc.my-namespace -o jsonpath='{.spec.request}' | \
@@ -398,7 +398,7 @@ content in the `.status.certificate` field.
 If you do not have `jq`, you can also save the JSON output to a file, populate this field manually, and
 upload the resulting file.
 -->
-這使用命令行工具 [`jq`](https://jqlang.github.io/jq/)
+這使用命令列工具 [`jq`](https://jqlang.github.io/jq/)
 在 `.status.certificate` 字段中填充 base64 編碼的內容。
 如果你沒有 `jq` 工具，你還可以將 JSON 輸出保存到文件中，手動填充此字段，然後上傳結果文件。
 {{< /note >}}
@@ -428,7 +428,7 @@ and save it to a `server.crt` file by running the following:
 -->
 ## 下載證書並使用它
 
-現在，作爲請求用戶，你可以通過運行以下命令下載頒發的證書並將其保存到 `server.crt` 文件中：
+現在，作爲請求使用者，你可以通過運行以下命令下載頒發的證書並將其保存到 `server.crt` 文件中：
 
 CSR 被簽署並獲得批准後，你應該看到以下內容：
 
@@ -445,7 +445,7 @@ that serves HTTPS).
 -->
 現在你可以將 `server.crt` 和 `server-key.pem` 填充到
 {{<glossary_tooltip text="Secret" term_id="secret" >}} 中，
-稍後你可以將其掛載到 Pod 中（例如，用於提供 HTTPS 的網絡服務器）。
+稍後你可以將其掛載到 Pod 中（例如，用於提供 HTTPS 的網路伺服器）。
 
 ```shell
 kubectl create secret tls server --cert server.crt --key server-key.pem
@@ -520,7 +520,7 @@ to verify that the CSR satisfies two requirements:
 1. CSR 的 subject 控制用於簽署 CSR 的私鑰。這解決了僞裝成授權主體的第三方的威脅。
    在上述示例中，此步驟將驗證該 Pod 控制了用於生成 CSR 的私鑰。
 2. CSR 的 subject 被授權在請求的上下文中執行。
-   這點用於處理不期望的主體被加入集羣的威脅。
+   這點用於處理不期望的主體被加入叢集的威脅。
    在上述示例中，此步驟將是驗證該 Pod 是否被允許加入到所請求的服務中。
 
 <!--
@@ -545,9 +545,9 @@ enable it, pass the `--cluster-signing-cert-file` and
 `--cluster-signing-key-file` parameters to the controller manager with paths to
 your Certificate Authority's keypair.
 -->
-## 給集羣管理員的一個建議
+## 給叢集管理員的一個建議
 
-本頁面假設已經爲 certificates API 配置了簽名者。
+本頁面假設已經爲 certificates API 設定了簽名者。
 Kubernetes 控制器管理器提供了一個簽名者的默認實現。要啓用它，請爲控制器管理器設置
 `--cluster-signing-cert-file` 和 `--cluster-signing-key-file` 參數，
 使之取值爲你的證書機構的密鑰對的路徑。

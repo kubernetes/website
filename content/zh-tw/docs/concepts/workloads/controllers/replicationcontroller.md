@@ -31,7 +31,7 @@ description: >-
 <!--
 A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
 -->
-現在推薦使用配置 [`ReplicaSet`](/zh-cn/docs/concepts/workloads/controllers/replicaset/) 的
+現在推薦使用設定 [`ReplicaSet`](/zh-cn/docs/concepts/workloads/controllers/replicaset/) 的
 [`Deployment`](/zh-cn/docs/concepts/workloads/controllers/deployment/) 來建立副本管理機制。
 {{< /note >}}
 
@@ -76,7 +76,7 @@ service, such as web servers.
 在討論中，ReplicationController 通常縮寫爲 "rc"，並作爲 kubectl 命令的快捷方式。
 
 一個簡單的示例是創建一個 ReplicationController 對象來可靠地無限期地運行 Pod 的一個實例。
-更復雜的用例是運行一個多副本服務（如 web 服務器）的若干相同副本。
+更復雜的用例是運行一個多副本服務（如 web 伺服器）的若干相同副本。
 
 <!--
 ## Running an example ReplicationController
@@ -85,7 +85,7 @@ This example ReplicationController config runs three copies of the nginx web ser
 -->
 ## 運行一個示例 ReplicationController   {#running-an-example-replicationcontroller}
 
-這個示例 ReplicationController 配置運行 nginx Web 服務器的三個副本。
+這個示例 ReplicationController 設定運行 nginx Web 伺服器的三個副本。
 
 {{% code_sample file="controllers/replication.yaml" %}}
 
@@ -150,7 +150,7 @@ Events:
 Here, three pods are created, but none is running yet, perhaps because the image is being pulled.
 A little later, the same command may show:
 -->
-在這裏，創建了三個 Pod，但沒有一個 Pod 正在運行，這可能是因爲正在拉取鏡像。
+在這裏，創建了三個 Pod，但沒有一個 Pod 正在運行，這可能是因爲正在拉取映像檔。
 稍後，相同的命令可能會顯示：
 
 ```
@@ -202,7 +202,7 @@ A ReplicationController also needs a [`.spec` section](https://git.k8s.io/commun
 -->
 ## 編寫一個 ReplicationController 清單   {#writing-a-replicationcontroller-manifest}
 
-與所有其它 Kubernetes 配置一樣，ReplicationController 需要 `apiVersion`、`kind` 和 `metadata` 字段。
+與所有其它 Kubernetes 設定一樣，ReplicationController 需要 `apiVersion`、`kind` 和 `metadata` 字段。
 
 當控制平面爲 ReplicationController 創建新的 Pod 時，ReplicationController
 的 `.metadata.name` 是命名這些 Pod 的部分基礎。ReplicationController 的名稱必須是一個合法的
@@ -210,7 +210,7 @@ A ReplicationController also needs a [`.spec` section](https://git.k8s.io/commun
 但這可能對 Pod 的主機名產生意外的結果。爲獲得最佳兼容性，名稱應遵循更嚴格的
 [DNS 標籤](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)規則。
 
-有關使用配置文件的常規信息，
+有關使用設定文件的常規信息，
 參考[對象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)。
 
 ReplicationController 也需要一個 [`.spec` 部分](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)。
@@ -435,7 +435,7 @@ The two ReplicationControllers would need to create pods with at least one diffe
 Pod 有效地提供服務。
 
 這兩個 ReplicationController 將需要創建至少具有一個不同標籤的 Pod，
-比如 Pod 主要容器的鏡像標籤，因爲通常是鏡像更新觸發滾動更新。
+比如 Pod 主要容器的映像檔標籤，因爲通常是映像檔更新觸發滾動更新。
 
 <!--
 ### Multiple release tracks
@@ -484,12 +484,12 @@ Pods created by a ReplicationController are intended to be fungible and semantic
 ## 編寫多副本的應用   {#writing-programs-for-replication}
 
 由 ReplicationController 創建的 Pod 是可替換的，語義上是相同的，
-儘管隨着時間的推移，它們的配置可能會變得異構。
-這顯然適合於多副本的無狀態服務器，但是 ReplicationController 也可以用於維護主選、
+儘管隨着時間的推移，它們的設定可能會變得異構。
+這顯然適合於多副本的無狀態伺服器，但是 ReplicationController 也可以用於維護主選、
 分片和工作池應用程序的可用性。
 這樣的應用程序應該使用動態的工作分配機制，例如
 [RabbitMQ 工作隊列](https://www.rabbitmq.com/tutorials/tutorial-two-python.html)，
-而不是靜態的或者一次性定製每個 Pod 的配置，這被認爲是一種反模式。
+而不是靜態的或者一次性定製每個 Pod 的設定，這被認爲是一種反模式。
 執行的任何 Pod 定製，例如資源的垂直自動調整大小（例如，CPU 或內存），
 都應該由另一個在線控制器進程執行，這與 ReplicationController 本身沒什麼不同。
 
@@ -516,14 +516,14 @@ ReplicationController 永遠被限制在這個狹隘的職責範圍內。
 我們不會向 ReplicationController 添加調度策略（例如，
 [spreading](https://issue.k8s.io/367#issuecomment-48428019)）。
 它也不應該驗證所控制的 Pod 是否與當前指定的模板匹配，因爲這會阻礙自動調整大小和其他自動化過程。
-類似地，完成期限、整理依賴關係、配置擴展和其他特性也屬於其他地方。
+類似地，完成期限、整理依賴關係、設定擴展和其他特性也屬於其他地方。
 我們甚至計劃考慮批量創建 Pod 的機制（查閱 [#170](https://issue.k8s.io/170)）。
 
 <!--
 The ReplicationController is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](https://netflixtechblog.com/asgard-web-based-cloud-management-and-deployment-2c9fc4e4d3a1) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
 -->
 ReplicationController 旨在成爲可組合的構建基元。
-我們希望在它和其他補充原語的基礎上構建更高級別的 API 或者工具，以便於將來的用戶使用。
+我們希望在它和其他補充原語的基礎上構建更高級別的 API 或者工具，以便於將來的使用者使用。
 kubectl 目前支持的 "macro" 操作（運行、擴縮、滾動更新）就是這方面的概念示例。
 例如，我們可以想象類似於 [Asgard](https://netflixtechblog.com/asgard-web-based-cloud-management-and-deployment-2c9fc4e4d3a1)
 的東西管理 ReplicationController、自動定標器、服務、調度策略、金絲雀發佈等。
@@ -580,7 +580,7 @@ Unlike in the case where a user directly created pods, a ReplicationController r
 -->
 ### 裸 Pod
 
-與用戶直接創建 Pod 的情況不同，ReplicationController 能夠替換因某些原因被刪除或被終止的 Pod，
+與使用者直接創建 Pod 的情況不同，ReplicationController 能夠替換因某些原因被刪除或被終止的 Pod，
 例如在節點故障或中斷節點維護的情況下，例如內核升級。
 因此，我們建議你使用 ReplicationController，即使你的應用程序只需要一個 Pod。
 可以將其看作類似於進程管理器，它只管理跨多個節點的多個 Pod，而不是單個節點上的單個進程。

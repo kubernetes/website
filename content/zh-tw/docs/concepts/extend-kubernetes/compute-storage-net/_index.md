@@ -1,5 +1,5 @@
 ---
-title: 計算、存儲和網絡擴展
+title: 計算、存儲和網路擴展
 weight: 30
 no_list: true
 ---
@@ -16,8 +16,8 @@ fabric that links Pods together.
 
 * [CSI](/docs/concepts/storage/volumes/#csi) and [FlexVolume](/docs/concepts/storage/volumes/#flexvolume) storage plugins
 -->
-本節介紹不屬於 Kubernetes 本身組成部分的一些集羣擴展。
-你可以使用這些擴展來增強集羣中的節點，或者提供將 Pod 關聯在一起的網絡結構。
+本節介紹不屬於 Kubernetes 本身組成部分的一些叢集擴展。
+你可以使用這些擴展來增強叢集中的節點，或者提供將 Pod 關聯在一起的網路結構。
 
 * [CSI](/zh-cn/docs/concepts/storage/volumes/#csi) 和
   [FlexVolume](/zh-cn/docs/concepts/storage/volumes/#flexvolume) 存儲插件
@@ -50,7 +50,7 @@ fabric that links Pods together.
   includes general information on storage plugins.
   -->
 
-  FlexVolume 插件允許用戶掛載 Kubernetes 本身不支持的卷類型。
+  FlexVolume 插件允許使用者掛載 Kubernetes 本身不支持的卷類型。
   當你運行依賴於 FlexVolume 存儲的 Pod 時，kubelet 會調用一個二進制插件來掛載該卷。
   歸檔的 [FlexVolume](https://git.k8s.io/design-proposals-archive/storage/flexvolume-deployment.md)
   設計提案對此方法有更多詳細說明。
@@ -80,11 +80,11 @@ fabric that links Pods together.
   Kubernetes {{< skew currentVersion >}} is compatible with {{< glossary_tooltip text="CNI" term_id="cni" >}}
   network plugins.
 -->
-* [網絡插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+* [網路插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 
-  網絡插件可以讓 Kubernetes 使用不同的網絡拓撲和技術。
-  你的 Kubernetes 集羣需要一個 **網絡插件** 才能擁有一個正常工作的 Pod 網絡，
-  才能支持 Kubernetes 網絡模型的其他方面。
+  網路插件可以讓 Kubernetes 使用不同的網路拓撲和技術。
+  你的 Kubernetes 叢集需要一個 **網路插件** 才能擁有一個正常工作的 Pod 網路，
+  才能支持 Kubernetes 網路模型的其他方面。
 
   Kubernetes {{< skew currentVersion >}} 兼容
-  {{< glossary_tooltip text="CNI" term_id="cni" >}} 網絡插件。
+  {{< glossary_tooltip text="CNI" term_id="cni" >}} 網路插件。

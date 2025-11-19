@@ -1,5 +1,5 @@
 ﻿---
-title: 配置命名空間下 Pod 配額
+title: 設定命名空間下 Pod 配額
 content_type: task
 weight: 60
 description: >-
@@ -25,7 +25,7 @@ object.
 本文主要介紹如何在{{< glossary_tooltip text="命名空間" term_id="namespace" >}}中設置可運行 Pod 總數的配額。
 你可以通過使用
 [ResourceQuota](/zh-cn/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
-對象來配置配額。
+對象來設定配額。
 
 ## {{% heading "prerequisites" %}}
 
@@ -34,7 +34,7 @@ object.
 <!--
 You must have access to create namespaces in your cluster.
 -->
-在你的集羣裏你必須要有創建命名空間的權限。
+在你的叢集裏你必須要有創建命名空間的權限。
 
 <!-- steps -->
 
@@ -46,7 +46,7 @@ isolated from the rest of your cluster.
 -->
 ## 創建一個命名空間  {#create-a-namespace}
 
-首先創建一個命名空間，這樣可以將本次操作中創建的資源與集羣其他資源隔離開來。
+首先創建一個命名空間，這樣可以將本次操作中創建的資源與叢集其他資源隔離開來。
 
 ```shell
 kubectl create namespace quota-pod-example
@@ -188,13 +188,13 @@ kubectl delete namespace quota-pod-example
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
-### 集羣管理人員參考 {#for-cluster-administrators}
+### 叢集管理人員參考 {#for-cluster-administrators}
 
-* [爲命名空間配置默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [爲命名空間配置默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [爲命名空間配置內存的最小值和最大值約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [爲命名空間配置 CPU 的最小值和最大值約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-* [爲命名空間配置內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [爲命名空間設定默認的內存請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [爲命名空間設定默認的 CPU 請求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [爲命名空間設定內存的最小值和最大值約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [爲命名空間設定 CPU 的最小值和最大值約束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [爲命名空間設定內存和 CPU 配額](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [爲 API 對象的設置配額](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
@@ -210,4 +210,4 @@ kubectl delete namespace quota-pod-example
 * [爲容器和 Pod 分配內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [給容器和 Pod 分配 CPU 資源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [分配 Pod 級別的 CPU 和內存資源](/zh-cn/docs/tasks/configure-pod-container/assign-pod-level-resources/)
-* [配置 Pod 的服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
+* [設定 Pod 的服務質量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)

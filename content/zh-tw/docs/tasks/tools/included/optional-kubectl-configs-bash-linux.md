@@ -1,6 +1,6 @@
 ---
 title: "Linux 系統中的 Bash 自動補全功能"
-description: "Linux 系統中 Bash 自動補全功能的一些可選配置。"
+description: "Linux 系統中 Bash 自動補全功能的一些可選設定。"
 headless: true
 _build:
   list: never
@@ -87,7 +87,7 @@ your shell sessions. There are two ways in which you can do this:
 可以通過以下兩種方法進行設置：
 
 {{< tabs name="kubectl_bash_autocompletion" >}}
-{{< tab name="當前用戶" codelang="bash" >}}
+{{< tab name="當前使用者" codelang="bash" >}}
 echo 'source <(kubectl completion bash)' >>~/.bashrc
 {{< /tab >}}
 {{< tab name="系統全局" codelang="bash" >}}

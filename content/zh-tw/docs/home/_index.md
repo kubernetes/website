@@ -53,7 +53,7 @@ cards:
 #   button: "View Tasks"
 #   button_path: "/docs/tasks"
 - name: setup
-  title: "安裝 K8s 集羣"
+  title: "安裝 K8s 叢集"
   description: "基於你的資源情況和需求來運行 Kubernetes。"
   button: "安裝 Kubernetes"
   button_path: "/zh-cn/docs/setup"
@@ -69,7 +69,7 @@ cards:
 #   button_path: /docs/reference
 - name: reference
   title: 查閱參考信息 
-  description: 瀏覽術語、命令行語法、API 資源類型和安裝工具文檔。
+  description: 瀏覽術語、命令列語法、API 資源類型和安裝工具文檔。
   button: 查看參考
   button_path: /zh-cn/docs/reference
 # - name: contribute

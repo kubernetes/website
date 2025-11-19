@@ -1,5 +1,5 @@
 ---
-title: kube-scheduler 配置 (v1)
+title: kube-scheduler 設定 (v1)
 content_type: tool-reference
 package: kubescheduler.config.k8s.io/v1
 ---
@@ -63,8 +63,8 @@ ClientConnectionConfiguration contains details for constructing a client.
 default value of 'application/json'. This field will control all connections to the server used by a particular
 client.
    -->
-   <code>acceptContentTypes</code> 定義的是客戶端與服務器建立連接時要發送的 Accept 頭部，
-   這裏的設置值會覆蓋默認值 "application/json"。此字段會影響某特定客戶端與服務器的所有連接。
+   <code>acceptContentTypes</code> 定義的是客戶端與伺服器建立連接時要發送的 Accept 頭部，
+   這裏的設置值會覆蓋默認值 "application/json"。此字段會影響某特定客戶端與伺服器的所有連接。
    </p>
 </td>
 </tr>
@@ -76,7 +76,7 @@ client.
    contentType is the content type used when sending data to the server from this client.
    -->
    <p>
-   <code>contentType</code> 包含的是此客戶端向服務器發送數據時使用的內容類型（Content Type）。
+   <code>contentType</code> 包含的是此客戶端向伺服器發送數據時使用的內容類型（Content Type）。
    </p>
 </td>
 </tr>
@@ -115,7 +115,7 @@ client.
 <!--
 DebuggingConfiguration holds configuration for Debugging related features.
 -->
-<p>DebuggingConfiguration 包含與調試功能相關的配置。</p>
+<p>DebuggingConfiguration 包含與調試功能相關的設定。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -160,7 +160,7 @@ LeaderElectionConfiguration defines the configuration of leader election
 clients for components that can run with leader election enabled.
 -->
 <p>
-LeaderElectionConfiguration 爲能夠支持領導者選舉的組件定義其領導者選舉客戶端的配置。
+LeaderElectionConfiguration 爲能夠支持領導者選舉的組件定義其領導者選舉客戶端的設定。
 </p>
 
 <table class="table">
@@ -275,7 +275,7 @@ during leader election cycles.
 DefaultPreemptionArgs holds arguments used to configure the
 DefaultPreemption plugin.
 -->
-<p>DefaultPreemptionArgs 包含用來配置 DefaultPreemption 插件的參數。</p>
+<p>DefaultPreemptionArgs 包含用來設定 DefaultPreemption 插件的參數。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -295,7 +295,7 @@ Must be in the range [0, 100]. Defaults to 10% of the cluster size if
 unspecified.
    -->
    <p><code>minCandidateNodesPercentage</code> 字段爲試運行搶佔時 shortlist 中候選節點數的下限，
-   數值爲節點數的百分比。字段值必須介於 [0, 100] 之間。未指定時默認值爲整個集羣規模的 10%。</p>
+   數值爲節點數的百分比。字段值必須介於 [0, 100] 之間。未指定時默認值爲整個叢集規模的 10%。</p>
 </td>
 </tr>
 <tr><td><code>minCandidateNodesAbsolute</code> <B><!--[Required]-->[必需]</B><br/>
@@ -328,7 +328,7 @@ that play a role in the number of candidates shortlisted. Must be at least
 <!--
 DynamicResourcesArgs holds arguments used to configure the DynamicResources plugin.
 -->
-DynamicResourcesArgs 封裝了用來配置 DynamicResources 插件的參數。
+DynamicResourcesArgs 封裝了用來設定 DynamicResources 插件的參數。
 </p>
 
 
@@ -417,7 +417,7 @@ Setting it to zero completely disables the timeout.
 <!--
 InterPodAffinityArgs holds arguments used to configure the InterPodAffinity plugin.
 -->
-<p>InterPodAffinityArgs 包含用來配置 InterPodAffinity 插件的參數。</p>
+<p>InterPodAffinityArgs 包含用來設定 InterPodAffinity 插件的參數。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -446,7 +446,7 @@ matching hard affinity to the incoming pod.
    IgnorePreferredTermsOfExistingPods configures the scheduler to ignore existing pods' preferred affinity
 rules when scoring candidate nodes, unless the incoming pod has inter-pod affinities.
    -->
-   <p>ignorePreferredTermsOfExistingPods 配置調度器在爲候選節點評分時忽略現有 Pod 的優選親和性規則，
+   <p>ignorePreferredTermsOfExistingPods 設定調度器在爲候選節點評分時忽略現有 Pod 的優選親和性規則，
    除非傳入的 Pod 具有 Pod 間的親和性。</p>
 </td>
 </tr>
@@ -458,7 +458,7 @@ rules when scoring candidate nodes, unless the incoming pod has inter-pod affini
 <!--
 KubeSchedulerConfiguration configures a scheduler
 -->
-<p>KubeSchedulerConfiguration 用來配置調度器。</p>
+<p>KubeSchedulerConfiguration 用來設定調度器。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -486,7 +486,7 @@ KubeSchedulerConfiguration configures a scheduler
    <!--
    LeaderElection defines the configuration of leader election client.
    -->
-   <p>LeaderElection 字段用來定義領導者選舉客戶端的配置。</p>
+   <p>LeaderElection 字段用來定義領導者選舉客戶端的設定。</p>
 </td>
 </tr>
 <tr><td><code>clientConnection</code> <B><!--[Required]-->[必需]</B><br/>
@@ -497,7 +497,7 @@ KubeSchedulerConfiguration configures a scheduler
    ClientConnection specifies the kubeconfig file and client connection
 settings for the proxy server to use when communicating with the apiserver.
    -->
-   <p><code>clientConnection</code> 字段爲與 API 服務器通信時使用的代理服務器設置 kubeconfig 文件和客戶端連接配置。</p>
+   <p><code>clientConnection</code> 字段爲與 API 伺服器通信時使用的代理伺服器設置 kubeconfig 文件和客戶端連接設定。</p>
 </td>
 </tr>
 <tr><td><code>DebuggingConfiguration</code> <B><!--[Required]-->[必需]</B><br/>
@@ -511,7 +511,7 @@ settings for the proxy server to use when communicating with the apiserver.
    DebuggingConfiguration holds configuration for Debugging related features
    TODO: We might wanna make this a substruct like Debugging componentbaseconfigv1alpha1.DebuggingConfiguration
    -->
-   <p><code>DebuggingConfiguration</code> 字段設置與調試相關功能特性的配置。
+   <p><code>DebuggingConfiguration</code> 字段設置與調試相關功能特性的設定。
    TODO：我們可能想把它做成一個子結構，像調試 component-base/config/v1alpha1.DebuggingConfiguration 一樣。</p>
 </td>
 </tr>
@@ -531,12 +531,12 @@ When the value is 0, default percentage (5%--50% based on the size of the cluste
 nodes will be scored. It is overridden by profile level PercentageOfNodesToScore.
    -->
    <code>percentageOfNodesToScore</code> 字段爲所有節點的百分比，一旦調度器找到所設置比例的、能夠運行 Pod 的節點，
-   則停止在集羣中繼續尋找更合適的節點。這一配置有助於提高調度器的性能。
+   則停止在叢集中繼續尋找更合適的節點。這一設定有助於提高調度器的性能。
    調度器總會嘗試尋找至少 &quot;minFeasibleNodesToFind&quot; 個可行節點，無論此字段的取值如何。
-   例如：當集羣規模爲 500 個節點，而此字段的取值爲 30，
+   例如：當叢集規模爲 500 個節點，而此字段的取值爲 30，
    則調度器在找到 150 個合適的節點後會停止繼續尋找合適的節點。當此值爲 0 時，
-   調度器會使用默認節點數百分比（基於集羣規模確定的值，在 5% 到 50% 之間）來執行打分操作。
-   它可被配置文件級別的 PercentageOfNodesToScore 覆蓋。
+   調度器會使用默認節點數百分比（基於叢集規模確定的值，在 5% 到 50% 之間）來執行打分操作。
+   它可被設定文件級別的 PercentageOfNodesToScore 覆蓋。
    </p>
 </td>
 </tr>
@@ -594,7 +594,7 @@ with the &quot;default-scheduler&quot; profile, if present here.
    Extenders are the list of scheduler extenders, each holding the values of how to communicate
 with the extender. These extenders are shared by all scheduler profiles.
    -->
-   <p><code>extenders</code> 字段爲調度器擴展模塊（Extender）的列表，每個元素包含如何與某擴展模塊通信的配置信息。
+   <p><code>extenders</code> 字段爲調度器擴展模塊（Extender）的列表，每個元素包含如何與某擴展模塊通信的設定信息。
    所有調度器方案會共享此擴展模塊列表。</p>
 </td>
 </tr>
@@ -624,7 +624,7 @@ with the extender. These extenders are shared by all scheduler profiles.
 <!--
 NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 -->
-<p>NodeAffinityArgs 中包含配置 NodeAffinity 插件的參數。</p>
+<p>NodeAffinityArgs 中包含設定 NodeAffinity 插件的參數。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -661,7 +661,7 @@ a specific Node (such as Daemonset Pods) might remain unschedulable.
 <!--
 NodeResourcesBalancedAllocationArgs holds arguments used to configure NodeResourcesBalancedAllocation plugin.
 -->
-<p>NodeResourcesBalancedAllocationArgs 包含用來配置 NodeResourcesBalancedAllocation 插件的參數。</p>
+<p>NodeResourcesBalancedAllocationArgs 包含用來設定 NodeResourcesBalancedAllocation 插件的參數。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -688,7 +688,7 @@ NodeResourcesBalancedAllocationArgs holds arguments used to configure NodeResour
 <!--
 NodeResourcesFitArgs holds arguments used to configure the NodeResourcesFit plugin.
 -->
-<p>NodeResourcesFitArgs 包含用來配置 NodeResourcesFit 插件的參數。</p>
+<p>NodeResourcesFitArgs 包含用來設定 NodeResourcesFit 插件的參數。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -719,7 +719,7 @@ with &quot;example.com&quot;, such as &quot;example.com/aaa&quot; and &quot;exam
 A resource group name can't contain '/'. This doesn't apply to scoring.
    -->
    <p><code>ignoredResourceGroups</code> 字段定義 NodeResources 匹配過濾器要忽略的資源組列表。
-   例如，如果配置值爲 [&quot;example.com&quot;]，
+   例如，如果設定值爲 [&quot;example.com&quot;]，
    則以 &quot;example.com&quot; 開頭的資源名
    （如&quot;example.com/aaa&quot; 和 &quot;example.com/bbb&quot;）都會被忽略。
    資源組名稱中不可以包含 '/'。此設置不影響節點的打分。</p>
@@ -745,7 +745,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
 <!--
 PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread plugin.
 -->
-<p>PodTopologySpreadArgs 包含用來配置 PodTopologySpread 插件的參數。</p>
+<p>PodTopologySpreadArgs 包含用來設定 PodTopologySpread 插件的參數。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -801,7 +801,7 @@ Defaults to &quot;System&quot;.
 <!--
 VolumeBindingArgs holds arguments used to configure the VolumeBinding plugin.
 -->
-<p>VolumeBindingArgs 包含用來配置 VolumeBinding 插件的參數。</p>
+<p>VolumeBindingArgs 包含用來設定 VolumeBinding 插件的參數。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -943,7 +943,7 @@ can implement this function.
    -->
    <p>bind 調用所使用的動詞，如果不支持 bind 操作則爲空。
    此動詞會在向擴展模塊發送 bind 調用時追加到 urlPrefix 後面。
-   如果擴展模塊實現了此方法，擴展模塊要負責將 Pod 綁定到 API 服務器。
+   如果擴展模塊實現了此方法，擴展模塊要負責將 Pod 綁定到 API 伺服器。
    只有一個擴展模塊可以實現此函數。</p>
 </td>
 </tr>
@@ -964,7 +964,7 @@ can implement this function.
    <!--
    TLSConfig specifies the transport layer security config
    -->
-   <p><code>tlsConfig</code> 字段設置傳輸層安全性（TLS）配置。</p>
+   <p><code>tlsConfig</code> 字段設置傳輸層安全性（TLS）設定。</p>
 </td>
 </tr>
 <tr><td><code>httpTimeout</code> <B><!--[Required]-->[必需]</B><br/>
@@ -990,7 +990,7 @@ so the scheduler should only send minimal information about the eligible nodes
 assuming that the extender already cached full details of all nodes in the cluster
    -->
    <p><code>nodeCacheCapable</code> 指示擴展模塊可以緩存節點信息，從而調度器應該發送關於可選節點的最少信息，
-   假定擴展模塊已經緩存了集羣中所有節點的全部詳細信息。</p>
+   假定擴展模塊已經緩存了叢集中所有節點的全部詳細信息。</p>
 </td>
 </tr>
 <tr><td><code>managedResources</code><br/>
@@ -1086,7 +1086,7 @@ resource when applying predicates.
 <!--
 ExtenderTLSConfig contains settings to enable TLS with extender
 -->
-<p>ExtenderTLSConfig 包含啓用與擴展模塊間 TLS 傳輸所需的配置參數。</p>
+<p>ExtenderTLSConfig 包含啓用與擴展模塊間 TLS 傳輸所需的設定參數。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1099,7 +1099,7 @@ ExtenderTLSConfig contains settings to enable TLS with extender
    <!--
    Server should be accessed without verifying the TLS certificate. For testing only.
    -->
-   <p>訪問服務器時不需要檢查 TLS 證書。此配置僅針對測試用途。</p>
+   <p>訪問伺服器時不需要檢查 TLS 證書。此設定僅針對測試用途。</p>
 </td>
 </tr>
 <tr><td><code>serverName</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1111,9 +1111,9 @@ ExtenderTLSConfig contains settings to enable TLS with extender
 certificates against. If ServerName is empty, the hostname used to contact the
 server is used.
    -->
-   <p><code>serverName</code> 會被髮送到服務器端，作爲 SNI 標誌；
-   客戶端會使用此設置來檢查服務器證書。
-   如果 <code>serverName</code> 爲空，則會使用聯繫服務器時所用的主機名。
+   <p><code>serverName</code> 會被髮送到伺服器端，作爲 SNI 標誌；
+   客戶端會使用此設置來檢查伺服器證書。
+   如果 <code>serverName</code> 爲空，則會使用聯繫伺服器時所用的主機名。
    </p>
 </td>
 </tr>
@@ -1124,7 +1124,7 @@ server is used.
    <!--
    Server requires TLS client certificate authentication
    -->
-   <p>服務器端所要求的 TLS 客戶端證書認證。</p>
+   <p>伺服器端所要求的 TLS 客戶端證書認證。</p>
 </td>
 </tr>
 <tr><td><code>keyFile</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1134,7 +1134,7 @@ server is used.
    <!--
    Server requires TLS client certificate authentication
    -->
-   <p>服務器端所要求的 TLS 客戶端祕鑰認證。</p>
+   <p>伺服器端所要求的 TLS 客戶端祕鑰認證。</p>
 </td>
 </tr>
 <tr><td><code>caFile</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1144,7 +1144,7 @@ server is used.
    <!--
    Trusted root certificates for server
    -->
-   <p>服務器端被信任的根證書。</p>
+   <p>伺服器端被信任的根證書。</p>
 </td>
 </tr>
 <tr><td><code>certData</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1234,10 +1234,10 @@ nodes will be scored. It will override global PercentageOfNodesToScore. If it is
 global PercentageOfNodesToScore will be used.
   -->
    <p>percentageOfNodesToScore 是已發現可運行 Pod 的節點與所有節點的百分比，
-   調度器所發現的可行節點到達此閾值時，將停止在集羣中繼續搜索可行節點。
+   調度器所發現的可行節點到達此閾值時，將停止在叢集中繼續搜索可行節點。
 這有助於提高調度器的性能。無論此標誌的值是多少，調度器總是嘗試至少找到 “minFeasibleNodesToFind” 個可行的節點。
-例如：如果集羣大小爲 500 個節點並且此標誌的值爲 30，則調度器在找到 150 個可行節點後將停止尋找更多可行的節點。
-當值爲 0 時，默認百分比（根據集羣大小爲 5% - 50%）的節點將被評分。此設置值將覆蓋全局的 PercentageOfNodesToScore 值。
+例如：如果叢集大小爲 500 個節點並且此標誌的值爲 30，則調度器在找到 150 個可行節點後將停止尋找更多可行的節點。
+當值爲 0 時，默認百分比（根據叢集大小爲 5% - 50%）的節點將被評分。此設置值將覆蓋全局的 PercentageOfNodesToScore 值。
 如果爲空，將使用全局 PercentageOfNodesToScore。</p>
 </td>
 </tr>
@@ -1274,7 +1274,7 @@ Omitting config args for a plugin is equivalent to using the default config
 for that plugin.
    -->
    <p><code>pluginConfig</code> 是爲每個插件提供的一組可選的定製插件參數。
-   如果忽略了插件的配置參數，則意味着使用該插件的默認配置。</p>
+   如果忽略了插件的設定參數，則意味着使用該插件的默認設定。</p>
 </td>
 </tr>
 </tbody>
@@ -1351,7 +1351,7 @@ It is up to the plugin to process these Args.
    <!--
    Name defines the name of plugin being configured
    -->
-   <p><code>name</code> 是所配置的插件的名稱。</p>
+   <p><code>name</code> 是所設定的插件的名稱。</p>
 </td>
 </tr>
 <tr><td><code>args</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1398,7 +1398,7 @@ be overridden accordingly.
 These are called after default plugins and in the same order specified here.
    -->
    <p><code>enabled</code> 設置在默認插件之外要啓用的插件。
-   如果在調度器的配置文件中也配置了默認插件，則對應插件的權重會被覆蓋。
+   如果在調度器的設定文件中也設定了默認插件，則對應插件的權重會被覆蓋。
    此處所設置的插件會在默認插件之後被調用，調用順序與數組中元素順序相同。</p>
 </td>
 </tr>
@@ -1435,7 +1435,7 @@ be invoked before default plugins, default plugins must be disabled and re-enabl
 -->
 <p>Plugins 結構中包含多個擴展點。當此結構被設置時，
 針對特定擴展點所啓用的所有插件都在這一列表中。
-如果配置中不包含某個擴展點，則使用該擴展點的默認插件集合。
+如果設定中不包含某個擴展點，則使用該擴展點的默認插件集合。
 被啓用的插件的調用順序與這裏指定的順序相同，都在默認插件之後調用。
 如果它們需要在默認插件之前調用，則需要先行禁止默認插件，
 之後在這裏按期望的順序重新啓用。</p>
@@ -1580,7 +1580,7 @@ point the plugin has implemented. Disabling a plugin through MultiPoint disables
 The same is true for disabling "&lowast;" through MultiPoint (no default plugins will be automatically registered).
 Plugins can still be disabled through their individual extension points.
    -->
-   <p><code>multiPoint</code> 是一個簡化的配置段落，用來爲所有合法的擴展點啓用插件。
+   <p><code>multiPoint</code> 是一個簡化的設定段落，用來爲所有合法的擴展點啓用插件。
    通過 <code>multiPoint</code> 啓用的插件會自動註冊到插件所實現的每個獨立的擴展點上。
    通過 <code>multiPoint</code> 禁用的插件會禁用對應的操作行爲。
    通過 <code>multiPoint</code> 所禁止的 &quot;&lowast;&quot; 
@@ -1598,19 +1598,19 @@ set in both `multiPoint.Enabled` and `multiPoint.Disabled`, the plugin will be e
 including `multiPoint.Disabled = '&lowast;'` and `multiPoint.Enabled = pluginA` will still register that specific
 plugin through MultiPoint. This follows the same behavior as all other extension point configurations.
    -->
-   <p>就優先序而言，插件配置遵從以下基本層次：</p>
+   <p>就優先序而言，插件設定遵從以下基本層次：</p>
    <ol>
      <li>特定的擴展點；</li>
-     <li>顯式配置的 <code>multiPoint</code> 插件；</li>
+     <li>顯式設定的 <code>multiPoint</code> 插件；</li>
      <li>默認插件的集合，以及 <code>multiPoint</code> 插件。</li>
    </ol>
-   <p>這意味着優先序較高的插件會先被運行，並且覆蓋 <code>multiPoint</code> 中的任何配置。</p>
-   <p>用戶顯式配置的插件也會比默認插件優先序高。</p>
+   <p>這意味着優先序較高的插件會先被運行，並且覆蓋 <code>multiPoint</code> 中的任何設定。</p>
+   <p>使用者顯式設定的插件也會比默認插件優先序高。</p>
    <p>在這樣的層次結構設計之下，<code>enabled</code> 的優先序高於 <code>disabled</code>。
    例如，某插件同時出現在 <code>multiPoint.enabled</code> 和 <code>multiPoint.disalbed</code> 時，
    該插件會被啓用。類似的，
    同時設置 <code>multiPoint.disabled = '&lowast;'</code>和 <code>multiPoint.enabled = pluginA</code> 時，
-   插件 pluginA 仍然會被註冊。這一設計與所有其他擴展點的配置行爲是相符的。</p>
+   插件 pluginA 仍然會被註冊。這一設計與所有其他擴展點的設定行爲是相符的。</p>
 </td>
 </tr>
 </tbody>

@@ -1,5 +1,5 @@
 ---
-title: 使用 kubeadm 創建一個高可用 etcd 集羣
+title: 使用 kubeadm 創建一個高可用 etcd 叢集
 content_type: task
 weight: 70
 ---
@@ -19,14 +19,14 @@ It is also possible to treat the etcd cluster as external and provision
 etcd instances on separate hosts. The differences between the two approaches are covered in the
 [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology) page.
 -->
-默認情況下，kubeadm 在每個控制平面節點上運行一個本地 etcd 實例。也可以使用外部的 etcd 集羣，並在不同的主機上提供 etcd 實例。
+默認情況下，kubeadm 在每個控制平面節點上運行一個本地 etcd 實例。也可以使用外部的 etcd 叢集，並在不同的主機上提供 etcd 實例。
 這兩種方法的區別在[高可用拓撲的選項](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology)頁面中闡述。
 
 <!--
 This task walks through the process of creating a high availability external
 etcd cluster of three members that can be used by kubeadm during cluster creation.
 -->
-這個任務將指導你創建一個由三個成員組成的高可用外部 etcd 集羣，該集羣在創建過程中可被 kubeadm 使用。
+這個任務將指導你創建一個由三個成員組成的高可用外部 etcd 叢集，該叢集在創建過程中可被 kubeadm 使用。
 
 ## {{% heading "prerequisites" %}}
 
@@ -36,7 +36,7 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
   the kubeadm config file.
 -->
 - 三個可以通過 2379 和 2380 端口相互通信的主機。本文檔使用這些作爲默認端口。
-  不過，它們可以通過 kubeadm 的配置文件進行自定義。
+  不過，它們可以通過 kubeadm 的設定文件進行自定義。
 <!--
 - Each host must have systemd and a bash compatible shell installed.
 - Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
@@ -48,8 +48,8 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
   `kubeadm config images list/pull`. This guide will set up etcd instances as
   [static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
 -->
-- 每個主機都應該能夠訪問 Kubernetes 容器鏡像倉庫 (registry.k8s.io)，
-  或者使用 `kubeadm config images list/pull` 列出/拉取所需的 etcd 鏡像。
+- 每個主機都應該能夠訪問 Kubernetes 容器映像檔倉庫 (registry.k8s.io)，
+  或者使用 `kubeadm config images list/pull` 列出/拉取所需的 etcd 映像檔。
   本指南將把 etcd 實例設置爲由 kubelet 管理的[靜態 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)。
 <!--
 - Some infrastructure to copy files between hosts. For example `ssh` and `scp`
@@ -62,7 +62,7 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
 <!--
 ## Setting up the cluster
 -->
-## 建立集羣   {#setting-up-cluster}
+## 建立叢集   {#setting-up-cluster}
 
 <!--
 The general approach is to generate all certs on one node and only distribute
@@ -85,7 +85,7 @@ The examples below use IPv4 addresses but you can also configure kubeadm, the ku
 to use IPv6 addresses. Dual-stack is supported by some Kubernetes options, but not by etcd. For more details
 on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/).
 -->
-下面的例子使用 IPv4 地址，但是你也可以使用 IPv6 地址配置 kubeadm、kubelet 和 etcd。
+下面的例子使用 IPv4 地址，但是你也可以使用 IPv6 地址設定 kubeadm、kubelet 和 etcd。
 一些 Kubernetes 選項支持雙協議棧，但是 etcd 不支持。關於 Kubernetes 雙協議棧支持的更多細節，
 請參見 [kubeadm 的雙棧支持](/zh-cn/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)。
 {{< /note >}}
@@ -93,7 +93,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 <!--
 1. Configure the kubelet to be a service manager for etcd.
 -->
-1. 將 kubelet 配置爲 etcd 的服務管理器。
+1. 將 kubelet 設定爲 etcd 的服務管理器。
 
    {{< note >}}
    <!--
@@ -164,9 +164,9 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    Generate one kubeadm configuration file for each host that will have an etcd
    member running on it using the following script.
 -->
-2. 爲 kubeadm 創建配置文件。
+2. 爲 kubeadm 創建設定文件。
 
-   使用以下腳本爲每個將要運行 etcd 成員的主機生成一個 kubeadm 配置文件。
+   使用以下腳本爲每個將要運行 etcd 成員的主機生成一個 kubeadm 設定文件。
 
    <!--
    ```sh
@@ -455,6 +455,6 @@ Once you have an etcd cluster with 3 working members, you can continue setting u
 highly available control plane using the
 [external etcd method with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 -->
-一旦擁有了一個正常工作的 3 成員的 etcd 集羣，
+一旦擁有了一個正常工作的 3 成員的 etcd 叢集，
 你就可以基於[使用 kubeadm 外部 etcd 的方法](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
 繼續部署一個高可用的控制平面。

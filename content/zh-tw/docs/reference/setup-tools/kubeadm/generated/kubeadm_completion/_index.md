@@ -32,7 +32,7 @@ brew install bash-completion
 ```
 
 安裝後，必須激活 `bash_completion`。
-這可以通過在 `.bash_profile` 文件中添加下面的命令行來完成：
+這可以通過在 `.bash_profile` 文件中添加下面的命令列來完成：
 
 ```bash
 source $(brew --prefix)/etc/bash_completion
@@ -47,7 +47,7 @@ via your distribution's package manager.
 <!--
 Note for zsh users: [1] zsh completions are only supported in versions of zsh &gt;= 5.2
 -->
-Zsh 用戶注意事項：[1] Zsh 自動補全僅在 v5.2 及以上版本中支持。
+Zsh 使用者注意事項：[1] Zsh 自動補全僅在 v5.2 及以上版本中支持。
 
 ```shell
 kubeadm completion SHELL [flags]

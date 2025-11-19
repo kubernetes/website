@@ -19,15 +19,15 @@ in a ConfigMap called `kubeadm-config` in the `kube-system` namespace. This conf
 `kubeadm join`, `kubeadm reset` and `kubeadm upgrade`.
 -->
 在 `kubeadm init` 執行期間，kubeadm 將 `ClusterConfiguration` 對象上傳
-到你的集羣的 `kube-system` 名字空間下名爲 `kubeadm-config` 的 ConfigMap 對象中。
-然後在 `kubeadm join`、`kubeadm reset` 和 `kubeadm upgrade` 執行期間讀取此配置。
+到你的叢集的 `kube-system` 名字空間下名爲 `kubeadm-config` 的 ConfigMap 對象中。
+然後在 `kubeadm join`、`kubeadm reset` 和 `kubeadm upgrade` 執行期間讀取此設定。
 
 <!--
 You can use `kubeadm config print` to print the default static configuration that kubeadm
 uses for `kubeadm init` and `kubeadm join`.
 -->
-你可以使用 `kubeadm config print` 命令打印默認靜態配置，
-kubeadm 運行 `kubeadm init` and `kubeadm join` 時將使用此配置。
+你可以使用 `kubeadm config print` 命令打印默認靜態設定，
+kubeadm 運行 `kubeadm init` and `kubeadm join` 時將使用此設定。
 
 {{< note >}}
 <!--
@@ -45,14 +45,14 @@ For more information on `init` and `join` navigate to
 or [Using kubeadm join with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file).
 -->
 更多有關 `init` 和 `join`
-的信息請瀏覽[使用帶配置文件的 kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
-或[使用帶配置文件的 kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file)。
+的信息請瀏覽[使用帶設定文件的 kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)
+或[使用帶設定文件的 kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/#config-file)。
 
 <!--
 For more information on using the kubeadm configuration API navigate to
 [Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags).
 -->
-有關使用 kubeadm 的配置 API 的更多信息，
+有關使用 kubeadm 的設定 API 的更多信息，
 請瀏覽[使用 kubeadm API 來自定義組件](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags)。
 
 <!-- 
@@ -61,16 +61,16 @@ API version to a newer, supported API version.
 
 `kubeadm config validate` can be used for validating a configuration file.
 -->
-你可以使用 `kubeadm config migrate` 來轉換舊配置文件，
+你可以使用 `kubeadm config migrate` 來轉換舊設定文件，
 把其中已棄用的 API 版本更新爲受支持的 API 版本。
 
-`kubeadm config validate` 可用於驗證配置文件。
+`kubeadm config validate` 可用於驗證設定文件。
 
 <!-- 
 `kubeadm config images list` and `kubeadm config images pull` can be used to list and pull the images
 that kubeadm requires.
 -->
-`kubeadm config images list` 和 `kubeadm config images pull` 可以用來列出和拉取 kubeadm 所需的鏡像。
+`kubeadm config images list` 和 `kubeadm config images pull` 可以用來列出和拉取 kubeadm 所需的映像檔。
 
 <!-- body -->
 ## kubeadm config print {#cmd-config-print}
@@ -107,4 +107,4 @@ that kubeadm requires.
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 -->
 * [kubeadm upgrade](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)
-  將 Kubernetes 集羣升級到更新的版本
+  將 Kubernetes 叢集升級到更新的版本

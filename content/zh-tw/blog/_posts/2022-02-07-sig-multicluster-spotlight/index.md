@@ -25,10 +25,10 @@ canonicalUrl: https://www.kubernetes.dev/blog/2022/02/04/sig-multicluster-spotli
 ## 簡介
 
 [SIG Multicluster](https://github.com/kubernetes/community/tree/master/sig-multicluster)
-是專注於如何拓展 Kubernetes 的概念並將其用於集羣邊界之外的 SIG。
+是專注於如何拓展 Kubernetes 的概念並將其用於叢集邊界之外的 SIG。
 以往 Kubernetes 資源僅在 Kubernetes Resource Universe (KRU) 這個邊界內進行交互，其中 KRU 不是一個實際的 Kubernetes 概念。
-即使是現在，Kubernetes 集羣對自身或其他集羣並不真正瞭解。集羣標識符的缺失就是一個例子。
-隨着多雲和多集羣部署日益普及，SIG Multicluster 所做的工作越來越受到關注。
+即使是現在，Kubernetes 叢集對自身或其他叢集並不真正瞭解。叢集標識符的缺失就是一個例子。
+隨着多雲和多叢集部署日益普及，SIG Multicluster 所做的工作越來越受到關注。
 在這篇博客中，[來自 Google 的 Jeremy Olmsted-Thompson](https://twitter.com/jeremyot) 和
 [來自 AWS 的 Chris Short](https://twitter.com/ChrisShort) 討論了 SIG Multicluster
 正在解決的一些有趣的問題和以及大家如何參與其中。
@@ -48,10 +48,10 @@ canonicalUrl: https://www.kubernetes.dev/blog/2022/02/04/sig-multicluster-spotli
 **JOT**：我在 SIG Multicluster 工作了將近兩年。我所知道的關於初創時期的情況都來自傳說，但即使在早期，也一直是爲了解決相同的問題。
 早期工作的例子之一是 [KubeFed](https://github.com/kubernetes-sigs/kubefed)。
 我認爲仍然有一些人在使用 KubeFed，但它只是一小部分。
-那時，我認爲人們在部署大量 Kubernetes 集羣時，還沒有達到我們擁有大量實際具體用例的地步。
+那時，我認爲人們在部署大量 Kubernetes 叢集時，還沒有達到我們擁有大量實際具體用例的地步。
 像 KubeFed 和 [Cluster Registry](https://github.com/kubernetes-retired/cluster-registry)
 這樣的項目就是在那個時候開發的，當時的需求可以與這些項目相關聯。
-這些項目的動機是如何解決我們認爲在開始擴展到多個集羣時 **會遇到的問題**。
+這些項目的動機是如何解決我們認爲在開始擴展到多個叢集時 **會遇到的問題**。
 老實說，在某些方面，當時它試圖做得太多了。
 
 <!-- 
@@ -71,7 +71,7 @@ SIG Multicluster 工作有所放緩，我們通過最近最活躍的項目之一
 
 現在我們向解決實際的具體問題開始轉變。比如說。
 
-> 我的工作負載分佈在多個集羣中，我需要它們相互通信。
+> 我的工作負載分佈在多個叢集中，我需要它們相互通信。
 
 <!-- 
 Okay, that's very straightforward and we know that we need to solve that. To get started, let's make sure that these projects can work together on a common API so you get the same kind of portability that you get with Kubernetes.
@@ -83,21 +83,21 @@ There's a few implementations of the MCS API out there and more are being develo
 
 目前有一些 MCS API 的實現，並且更多的實現正在開發中。但是，我們沒有建立一個實現，
 因爲取決於你的部署方式不同，可能會有數百種實現。
-只要你所需要的基本的多集羣服務功能，它就可以在你想要的任何背景下工作，無論是 Submariner、GKE 還是服務網格。
+只要你所需要的基本的多叢集服務功能，它就可以在你想要的任何背景下工作，無論是 Submariner、GKE 還是服務網格。
 
 <!-- 
 My favorite example of "then vs. now" is cluster ID. A few years ago, there was an effort to define a cluster ID. A lot of really good thought went into this concept, for example, how do we make a cluster ID is unique across multiple clusters. How do we make this ID globally unique so it'll work in every contact? Let's say, there's an acquisition or merger of teams - does the cluster IDs still remain unique for those teams? 
 
 With Multicluster services, we found the need for an actual cluster ID, and it has a very specific need. To address this specific need, we're no longer considering every single Kubernetes cluster out there rather the ClusterSets - a grouping of clusters that work together in some kind of bounds. That's a much narrower scope than considering clusters everywhere in time and space. It also leaves flexibility for an implementer to define the boundary (a ClusterSet) beyond which this cluster ID will no longer be unique.  -->
-我最喜歡的“過去與現在“的例子是集羣 ID。幾年前曾經有過定義集羣 ID 的嘗試。
-針對這個概念，有很多非常好的想法。例如，我們如何使集羣 ID 在多個集羣中是唯一的。
+我最喜歡的“過去與現在“的例子是叢集 ID。幾年前曾經有過定義叢集 ID 的嘗試。
+針對這個概念，有很多非常好的想法。例如，我們如何使叢集 ID 在多個叢集中是唯一的。
 我們如何使這個 ID 全球範圍內唯一，以便它在各個通訊中發揮作用？
-假設有團隊被收購或合併 - 集羣 ID 對於這些團隊仍然是唯一的嗎？
+假設有團隊被收購或合併 - 叢集 ID 對於這些團隊仍然是唯一的嗎？
 
-在 Multicluster 服務的相關工作中，我們發現需要一個實際的集羣 ID，並且這一需求非常具體。
-爲了滿足這一特定需求，我們不再考慮一個個 Kubernetes 集羣，而是考慮 ClusterSets — 在某種範圍內協同工作的集羣分組。
-與考慮所有時間點和所有空間位置上存在的集羣相比，這一範疇要窄得多。
-這一概念還讓實現者具備了定義邊界（ClusterSet）的靈活性，在該邊界之外，該集羣 ID 將不再是唯一的。
+在 Multicluster 服務的相關工作中，我們發現需要一個實際的叢集 ID，並且這一需求非常具體。
+爲了滿足這一特定需求，我們不再考慮一個個 Kubernetes 叢集，而是考慮 ClusterSets — 在某種範圍內協同工作的叢集分組。
+與考慮所有時間點和所有空間位置上存在的叢集相比，這一範疇要窄得多。
+這一概念還讓實現者具備了定義邊界（ClusterSet）的靈活性，在該邊界之外，該叢集 ID 將不再是唯一的。
 
 <!-- 
 **CS**: How do you feel about the current state of SIG Multicluster versus where you're hoping to be in future?
@@ -107,8 +107,8 @@ With Multicluster services, we found the need for an actual cluster ID, and it h
 -->
 **CS**：你對 SIG Multicluster 的現狀有何看法，你希望未來達到什麼樣的目標？
 
-**JOT**：有一些項目正在起步，例如 Work API。 在未來，我認爲圍繞着如何跨集羣部署應用的一些共同做法將會發展起來。
-> 如果我的集羣部署在不同的地區，那麼最好的方式是什麼？
+**JOT**：有一些項目正在起步，例如 Work API。 在未來，我認爲圍繞着如何跨叢集部署應用的一些共同做法將會發展起來。
+> 如果我的叢集部署在不同的地區，那麼最好的方式是什麼？
 
 <!-- 
 The answer is, almost always, "it depends". Why are you doing this? Is it because there's some kind of compliance that makes you care about locality? Is it performance? Is it availability? 
@@ -117,26 +117,26 @@ I think revisiting registry patterns will probably be a natural step after we ha
 -->
 答案几乎總是“視情況而定”。你爲什麼要這樣做？是因爲某種合規性使你關注位置嗎？是性能問題嗎？是可用性嗎？
 
-我認爲，在我們有了集羣 ID 之後，重新審視註冊表模式可能是很自然的一步，也就是說，
-你如何將這些集羣真正關聯在一起？也許你有一個分佈式部署，你在世界各地的數據中心運行。
-我想隨着多集羣特性的進一步開發，擴展該領域的 API 將變得很重要。
+我認爲，在我們有了叢集 ID 之後，重新審視註冊表模式可能是很自然的一步，也就是說，
+你如何將這些叢集真正關聯在一起？也許你有一個分佈式部署，你在世界各地的數據中心運行。
+我想隨着多叢集特性的進一步開發，擴展該領域的 API 將變得很重要。
 這實際上取決於社區開始使用這些工具做什麼。
 
 <!-- 
 **CS**: In the early days of Kubernetes, we used to have a few large Kubernetes clusters and now we're dealing with many small Kubernetes clusters - even multiple clusters for our own dev environments. How has this shift from a few large clusters to many small clusters affected the SIG? Has it accelerated the work or make it challenging in any way? 
 -->
-**CS**：在 Kubernetes 的早期，我們只有寥寥幾個大型的 Kubernetes 集羣，而現在我們面對的是大量的小型 Kubernetes 集羣，就像我自己所在的開發環境中就使用了多個集羣。
-這種從幾個大集羣到許多小集羣的轉變對 SIG 有何影響？它是否加快了工作進度或在某種程度上使得問題變得更困難？
+**CS**：在 Kubernetes 的早期，我們只有寥寥幾個大型的 Kubernetes 叢集，而現在我們面對的是大量的小型 Kubernetes 叢集，就像我自己所在的開發環境中就使用了多個叢集。
+這種從幾個大叢集到許多小叢集的轉變對 SIG 有何影響？它是否加快了工作進度或在某種程度上使得問題變得更困難？
 
 <!-- 
 **JOT**: I think that it has created a lot of ambiguity that needs solving. Originally, you'd have a dev cluster, a staging cluster, and a prod cluster. When the multi region thing came in, we started needing  dev/staging/prod clusters, per region. And then, sometimes clusters really need more isolation due to compliance or some regulations issues. Thus, we're ending up with a lot of clusters. I think figuring out the right balance on how many clusters should you actually have is important. The power of Kubernetes is being able to deploy a lot of things managed by a single control plane. So, it's not like every single workload that gets deployed should be in its own cluster. But I think it's pretty clear that we can't put every single workload in a single cluster. 
 -->
-**JOT**：我認爲它帶來了很多需要解決的歧義。最初，你可能擁有一個 dev 集羣、一個 staging 集羣和一個 prod 集羣。
-當引入了多區域的考量時，我們開始在每個區域部署 dev/staging/prod 集羣。
-再後來，有時由於合規性或某些法規問題，集羣確實需要更多的隔離。
-因此，我們最終會有很多集羣。我認爲在你究竟應該有多少個集羣上找到平衡是很重要的。Kubernetes 的強大之處在於能夠部署由單個控制平面管理的大量事物。
-因此，並不是每個被部署的工作負載都應該在自己的集羣中。
-但是，我認爲同樣很明顯的是，我們不能將所有工作負載都放在一個集羣中。
+**JOT**：我認爲它帶來了很多需要解決的歧義。最初，你可能擁有一個 dev 叢集、一個 staging 叢集和一個 prod 叢集。
+當引入了多區域的考量時，我們開始在每個區域部署 dev/staging/prod 叢集。
+再後來，有時由於合規性或某些法規問題，叢集確實需要更多的隔離。
+因此，我們最終會有很多叢集。我認爲在你究竟應該有多少個叢集上找到平衡是很重要的。Kubernetes 的強大之處在於能夠部署由單個控制平面管理的大量事物。
+因此，並不是每個被部署的工作負載都應該在自己的叢集中。
+但是，我認爲同樣很明顯的是，我們不能將所有工作負載都放在一個叢集中。
 
 <!-- 
 **CS**: What are some of your favorite things about this SIG?
@@ -146,7 +146,7 @@ I think revisiting registry patterns will probably be a natural step after we ha
 **CS**：你最喜歡 SIG 的哪些方面？
 
 **JOT**：問題的複雜性、人的因素和領域的新穎性。我們還沒有正確的答案，我們必須找到正確的答案。
-一開始，我們甚至無法考慮多集羣，因爲無法跨集羣連接服務。
+一開始，我們甚至無法考慮多叢集，因爲無法跨叢集連接服務。
 現在我們開始着手解決這些問題，我認爲這是一個非常有趣的地方，因爲我預計 SIG 在未來幾年會變得更加繁忙。
 這是一個協作很密切的團體，我們絕對希望更多的人蔘與、加入我們，提出他們的問題和想法。
 

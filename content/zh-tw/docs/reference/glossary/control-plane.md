@@ -45,7 +45,7 @@ tags:
 這個編排層是由多個不同的組件組成，例如以下（但不限於）幾種：
 
 * {{< glossary_tooltip text="etcd" term_id="etcd" >}}
-* {{< glossary_tooltip text="API 服務器" term_id="kube-apiserver" >}}
+* {{< glossary_tooltip text="API 伺服器" term_id="kube-apiserver" >}}
 * {{< glossary_tooltip text="調度器" term_id="kube-scheduler" >}}
 * {{< glossary_tooltip text="控制器管理器" term_id="kube-controller-manager" >}}
 * {{< glossary_tooltip text="雲控制器管理器" term_id="cloud-controller-manager" >}}

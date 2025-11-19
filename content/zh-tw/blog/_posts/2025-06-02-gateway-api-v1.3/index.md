@@ -108,7 +108,7 @@ particularly useful when services are receiving a large volume of requests.
 Instead of mirroring all of those requests, this new feature can be used to
 mirror a smaller subset of them.
 -->
-之前的流量複製功能適用於對 `backendRef` 的所有請求。基於百分比的流量複製允許用戶指定他們想要複製的請求子集，
+之前的流量複製功能適用於對 `backendRef` 的所有請求。基於百分比的流量複製允許使用者指定他們想要複製的請求子集，
 可以通過百分比或分數來指定。當服務接收大量請求時，這特別有用。這個新功能可以用來複制這些請求中的一小部分，
 而不是複製所有請求。
 
@@ -256,7 +256,7 @@ cross-origin requests before the response is sent back to the client.
 跨源資源共享（CORS）是一種基於 HTTP Header 的機制，
 允許網頁從與提供網頁的域不同的源（域名、協議或端口）訪問受限資源。
 此功能添加了一個新的 HTTPRoute `filter` 類型，
-稱爲 "CORS"，用於在響應發送回客戶端之前配置跨源請求的處理。
+稱爲 "CORS"，用於在響應發送回客戶端之前設定跨源請求的處理。
 
 <!--
 To be able to use experimental CORS filtering, you need to install the
@@ -267,7 +267,7 @@ To be able to use experimental CORS filtering, you need to install the
 <!--
 Here's an example of a simple cross-origin configuration:
 -->
-以下是一個簡單的跨源配置示例：
+以下是一個簡單的跨源設定示例：
 
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1
@@ -366,7 +366,7 @@ addition, it expands upon the existing suggestion that Gateway API implementatio
 may merge configuration from multiple Gateway objects.  It also:
 -->
 此版本添加了一個新的實驗性 API 類型 XListenerSet，它允許將 **listeners** 的共享列表附加到一個或多個父 Gateway。
-此外，它還擴展了現有的建議，即 Gateway API 實現可以合併來自多個 Gateway 對象的配置。它還包括：
+此外，它還擴展了現有的建議，即 Gateway API 實現可以合併來自多個 Gateway 對象的設定。它還包括：
 
 <!--
 - adds a new field `allowedListeners` to the `.spec` of a Gateway. The
@@ -387,7 +387,7 @@ XListenerSets.
 - allows the delegation of listener configuration, such as TLS, to applications in
 other namespaces.
 -->
-- 允許將監聽器配置（如 TLS）委託給其他命名空間中的應用程序。
+- 允許將監聽器設定（如 TLS）委託給其他命名空間中的應用程序。
 
 <!--
 To be able to use experimental XListenerSet, you need to install the
@@ -407,7 +407,7 @@ one XListenerSet listener named "second" as `parentRefs`.
 以下示例展示了一個帶有 HTTP 監聽器和兩個子 HTTPS XListenerSets 的 Gateway，
 每個 XListenerSet 都有唯一的主機名和證書。
 最終附加到該 Gateway 的監聽器集合包含這兩個附加的 HTTPS `XListenerSet` 監聽器。
-此示例說明了將監聽器 TLS 配置委託給不同命名空間（"store" 和 "app"）中的應用程序所有者。
+此示例說明了將監聽器 TLS 設定委託給不同命名空間（"store" 和 "app"）中的應用程序所有者。
 HTTPRoute 同時將名爲 `"foo"` 的 Gateway 監聽器和一個名爲 `"second"` 的 `XListenerSet`
 監聽器設置爲其 `parentRefs`。
 
@@ -554,9 +554,9 @@ experimental API kind BackendLBPolicy into a new experimental API kind,
 XBackendTrafficPolicy, in the interest of reducing the proliferation of policy
 resources that had commonalities.
 -->
-此功能允許你爲目標服務的所有端點配置**重試預算（Retry budgets）**。
-用於在達到配置的閾值後限制額外的客戶端重試。
-配置預算時，可以指定可能包含重試在內的活動請求的最大百分比，
+此功能允許你爲目標服務的所有端點設定**重試預算（Retry budgets）**。
+用於在達到設定的閾值後限制額外的客戶端重試。
+設定預算時，可以指定可能包含重試在內的活動請求的最大百分比，
 以及在計算重試閾值時考慮請求的時間間隔。
 此規範的開發將現有的實驗性 API 類型 BackendLBPolicy 更改爲新的實驗性 API 類型 XBackendTrafficPolicy，
 以減少具有共同點的策略資源的擴散。
@@ -638,7 +638,7 @@ and service mesh.
 * Or [join us in the community](https://gateway-api.sigs.k8s.io/contributing/)
 and help us build the future of Gateway API together!
 -->
-* 查看[用戶指南](https://gateway-api.sigs.k8s.io/guides)瞭解可以解決哪些用例。
+* 查看[使用者指南](https://gateway-api.sigs.k8s.io/guides)瞭解可以解決哪些用例。
 * 試用[現有的 Gateway 控制器](https://gateway-api.sigs.k8s.io/implementations/)之一。
 * 或者[加入我們的社區](https://gateway-api.sigs.k8s.io/contributing/)，
   幫助我們共同構建 Gateway API 的未來！

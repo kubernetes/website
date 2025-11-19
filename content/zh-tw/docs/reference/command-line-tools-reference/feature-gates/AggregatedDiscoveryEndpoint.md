@@ -27,4 +27,4 @@ Enable a single HTTP endpoint `/discovery/<version>` which
 supports native HTTP caching with ETags containing all APIResources known to the API server.
 -->
 啓用單個 HTTP 端點 `/discovery/<version>`，
-支持用 ETag 進行原生 HTTP 緩存，包含 API 服務器已知的所有 APIResource。
+支持用 ETag 進行原生 HTTP 緩存，包含 API 伺服器已知的所有 APIResource。

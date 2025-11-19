@@ -18,4 +18,4 @@ stages:
 <!--
 Enables the API server to generate snapshots for the watch cache store and using them to serve LIST requests.
 -->
-允許 API 服務器爲 watch 緩存存儲生成快照，並使用這些快照來處理 LIST 請求。
+允許 API 伺服器爲 watch 緩存存儲生成快照，並使用這些快照來處理 LIST 請求。

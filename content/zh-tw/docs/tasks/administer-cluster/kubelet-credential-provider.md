@@ -1,5 +1,5 @@
 ---
-title: 配置 kubelet 鏡像憑據提供程序
+title: 設定 kubelet 映像檔憑據提供程序
 content_type: task
 min-kubernetes-server-version: v1.26
 weight: 120
@@ -26,10 +26,10 @@ Kubernetes versioned APIs. These plugins allow the kubelet to request credential
 as opposed to storing static credentials on disk. For example, the plugin may talk to a local metadata server to retrieve
 short-lived credentials for an image that is being pulled by the kubelet.
 -->
-從 Kubernetes v1.20 開始，kubelet 可以使用 exec 插件動態獲得針對某容器鏡像庫的憑據。
+從 Kubernetes v1.20 開始，kubelet 可以使用 exec 插件動態獲得針對某容器映像檔庫的憑據。
 kubelet 使用 Kubernetes 版本化 API 通過標準輸入輸出（標準輸入、標準輸出和標準錯誤）和
 exec 插件通信。這些插件允許 kubelet 動態請求容器倉庫的憑據，而不是將靜態憑據存儲在磁盤上。
-例如，插件可能會與本地元數據服務器通信，以獲得 kubelet 正在拉取的鏡像的短期憑據。
+例如，插件可能會與本地元數據伺服器通信，以獲得 kubelet 正在拉取的映像檔的短期憑據。
 
 <!-- 
 You may be interested in using this capability if any of the below are true:
@@ -42,16 +42,16 @@ This guide demonstrates how to configure the kubelet's image credential provider
 -->
 如果以下任一情況屬實，你可能對此功能感興趣：
 
-* 需要調用雲提供商的 API 來獲得鏡像庫的身份驗證信息。
+* 需要調用雲提供商的 API 來獲得映像檔庫的身份驗證信息。
 * 憑據的到期時間很短，需要頻繁請求新憑據。
-* 將鏡像庫憑據存儲在磁盤或者 imagePullSecret 是不可接受的。
+* 將映像檔庫憑據存儲在磁盤或者 imagePullSecret 是不可接受的。
 
-本指南演示如何配置 kubelet 的鏡像憑據提供程序插件機制。
+本指南演示如何設定 kubelet 的映像檔憑據提供程序插件機制。
 
 <!--
 ## Service Account Token for Image Pulls
 -->
-## 使用服務帳號令牌拉取鏡像   {#service-account-token-for-image-pulls}
+## 使用服務帳號令牌拉取映像檔   {#service-account-token-for-image-pulls}
 
 {{< feature-state feature_gate_name="KubeletServiceAccountTokenForCredentialProviders" >}}
 
@@ -65,10 +65,10 @@ This allows the plugin to exchange the token for credentials
 to access the image registry.
 -->
 從 Kubernetes v1.33 開始，
-可以配置 kubelet 在爲 Pod 執行鏡像拉取時發送一個與該 Pod
+可以設定 kubelet 在爲 Pod 執行映像檔拉取時發送一個與該 Pod
 綁定的服務賬號令牌給憑據提供者插件。
 
-這允許插件用該令牌交換訪問鏡像倉庫的憑據。
+這允許插件用該令牌交換訪問映像檔倉庫的憑據。
 
 <!--
 To enable this feature,
@@ -98,8 +98,8 @@ without long-lived/persisted secrets.
 -->
 使用服務帳號令牌憑據可以啓用以下用例：
 
-* 避免需要基於 kubelet/節點的身份從鏡像倉庫拉取鏡像。
-* 允許工作負載根據其自身的運行時身份拉取鏡像，
+* 避免需要基於 kubelet/節點的身份從映像檔倉庫拉取映像檔。
+* 允許工作負載根據其自身的運行時身份拉取映像檔，
   而無需長期存在的/持久化的 Secret。
 
 ## {{% heading "prerequisites" %}}
@@ -115,11 +115,11 @@ without long-lived/persisted secrets.
   enabled on the kubelet.
 * A working implementation of a credential provider exec plugin. You can build your own plugin or use one provided by cloud providers.
 -->
-* 你需要一個 Kubernetes 集羣，其節點支持 kubelet 憑據提供程序插件。
+* 你需要一個 Kubernetes 叢集，其節點支持 kubelet 憑據提供程序插件。
   這種支持在 Kubernetes {{< skew currentVersion >}} 中可用；
   Kubernetes v1.24 和 v1.25 將此作爲 Beta 特性包含在內，默認啓用。
-* 如果你正在配置需要服務帳號令牌的憑據提供者插件，
-  你需要一個運行 Kubernetes v1.33 或更高版本的 Kubernetes 集羣，
+* 如果你正在設定需要服務帳號令牌的憑據提供者插件，
+  你需要一個運行 Kubernetes v1.33 或更高版本的 Kubernetes 叢集，
   並且在 kubelet 上啓用了 `KubeletServiceAccountTokenForCredentialProviders` 特性門控。
 * 憑據提供程序 exec 插件的一種可用的實現。你可以構建自己的插件或使用雲提供商提供的插件。
 
@@ -136,8 +136,8 @@ every node in your cluster and stored in a known directory. The directory will b
 ## 在節點上安裝插件  {#installing-plugins-on-nodes}
 
 憑據提供程序插件是將由 kubelet 運行的可執行二進制文件。
-你需要確保插件可執行文件存在於你的集羣的每個節點上，並存儲在已知目錄中。
-稍後配置 kubelet 標誌需要該目錄。
+你需要確保插件可執行文件存在於你的叢集的每個節點上，並存儲在已知目錄中。
+稍後設定 kubelet 標誌需要該目錄。
 
 <!-- 
 ## Configuring the Kubelet
@@ -147,11 +147,11 @@ In order to use this feature, the kubelet expects two flags to be set:
 * `--image-credential-provider-config` - the path to the credential provider plugin config file.
 * `--image-credential-provider-bin-dir` - the path to the directory where credential provider plugin binaries are located.
 -->
-## 配置 kubelet  {#configuring-the-kubelet}
+## 設定 kubelet  {#configuring-the-kubelet}
 
 爲了使用這個特性，kubelet 需要設置以下兩個標誌：
 
-* `--image-credential-provider-config` —— 憑據提供程序插件配置文件的路徑。
+* `--image-credential-provider-config` —— 憑據提供程序插件設定文件的路徑。
 * `--image-credential-provider-bin-dir` —— 憑據提供程序插件二進制可執行文件所在目錄的路徑。
 
 <!-- 
@@ -161,12 +161,12 @@ The configuration file passed into `--image-credential-provider-config` is read 
 should be invoked for which container images. Here's an example configuration file you may end up using if you are using the
 [ECR-based plugin](https://github.com/kubernetes/cloud-provider-aws/tree/master/cmd/ecr-credential-provider):
 -->
-### 配置 kubelet 憑據提供程序  {#configure-a-kubelet-credential-provider}
+### 設定 kubelet 憑據提供程序  {#configure-a-kubelet-credential-provider}
 
-kubelet 會讀取通過 `--image-credential-provider-config` 設定的配置文件，
-以確定應該爲哪些容器鏡像調用哪些 exec 插件。
+kubelet 會讀取通過 `--image-credential-provider-config` 設定的設定文件，
+以確定應該爲哪些容器映像檔調用哪些 exec 插件。
 如果你正在使用基於 [ECR-based 插件](https://github.com/kubernetes/cloud-provider-aws/tree/master/cmd/ecr-credential-provider)，
-這裏有個樣例配置文件你可能最終會使用到：
+這裏有個樣例設定文件你可能最終會使用到：
 
 <!--
 ```yaml
@@ -410,7 +410,7 @@ Consult the plugin implementors to determine what set of arguments and environme
 
 * `name`：插件的名稱，必須與傳入 `--image-credential-provider-bin-dir`
   的目錄中存在的可執行二進制文件的名稱相匹配。
-* `matchImages`：字符串列表，用於匹配鏡像以確定是否應調用此提供程序。
+* `matchImages`：字符串列表，用於匹配映像檔以確定是否應調用此提供程序。
   更多相關信息參見後文。
 * `defaultCacheDuration`：如果插件未指定緩存時長，kubelet 將在內存中緩存憑據的默認時長。
 * `apiVersion`：kubelet 和 exec 插件在通信時將使用的 API 版本。
@@ -425,7 +425,7 @@ by setting the tokenAttributes field,
 the following fields are required:
 -->
 如果你正在使用 KubeletServiceAccountTokenForCredentialProviders 特性門控
-並且通過設置 tokenAttributes 字段配置插件使用服務帳號令牌，
+並且通過設置 tokenAttributes 字段設定插件使用服務帳號令牌，
 那麼需要以下字段：
 
 <!--
@@ -481,7 +481,7 @@ to pull images for pods without service accounts
 - 如果設置爲 `false`，即使 Pod 沒有服務帳號，
   kubelet 也會調用插件，並且不會在 `CredentialProviderRequest` 中包含令牌。
 
-這對於用於拉取沒有服務帳號的 Pod 的鏡像的插件非常有用
+這對於用於拉取沒有服務帳號的 Pod 的映像檔的插件非常有用
 （例如，靜態 Pod）。
 
 <!-- 
@@ -493,11 +493,11 @@ Globs can be used in the domain, but not in the port or the path. Globs are supp
 and top-level domains such as `k8s.*`. Matching partial subdomains like `app*.k8s.io` is also supported. Each glob can only match
 a single subdomain segment, so `*.io` does NOT match `*.k8s.io`.
 -->
-#### 配置鏡像匹配  {#configure-image-matching}
+#### 設定映像檔匹配  {#configure-image-matching}
 
 kubelet 使用每個憑據提供程序的 `matchImages` 字段來確定是否應該爲 Pod
-正在使用的給定鏡像調用插件。
-`matchImages` 中的每個條目都是一個鏡像模式字符串，可以選擇包含端口和路徑。
+正在使用的給定映像檔調用插件。
+`matchImages` 中的每個條目都是一個映像檔模式字符串，可以選擇包含端口和路徑。
 可以在域中使用通配符，但不能在端口或路徑中使用。
 支持通配符作爲子域，如 `*.k8s.io` 或 `k8s.*.io`，以及頂級域，如 `k8s.*`。
 還支持匹配部分子域，如 `app*.k8s.io`。每個通配符只能匹配一個子域段，
@@ -512,11 +512,11 @@ A match exists between an image name and a `matchImage` entry when all of the be
 
 Some example values of `matchImages` patterns are:
 -->
-當以下條件全部滿足時，鏡像名稱和 `matchImage` 條目之間存在匹配：
+當以下條件全部滿足時，映像檔名稱和 `matchImage` 條目之間存在匹配：
 
 * 兩者都包含相同數量的域部分並且每個部分都匹配。
 * 匹配圖片的 URL 路徑必須是目標圖片 URL 路徑的前綴。
-* 如果 matchImages 包含端口，則該端口也必須在鏡像中匹配。
+* 如果 matchImages 包含端口，則該端口也必須在映像檔中匹配。
 
 `matchImages` 模式的一些示例值：
 
@@ -533,6 +533,6 @@ Some example values of `matchImages` patterns are:
   [kubelet configuration API (v1) reference](/docs/reference/config-api/kubelet-config.v1/).
 * Read the [kubelet credential provider API reference (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/).
 -->
-* 閱讀 [kubelet 配置 API（v1）參考](/zh-cn/docs/reference/config-api/kubelet-config.v1/)中有關
+* 閱讀 [kubelet 設定 API（v1）參考](/zh-cn/docs/reference/config-api/kubelet-config.v1/)中有關
   `CredentialProviderConfig` 的詳細信息。
 * 閱讀 [kubelet 憑據提供程序 API 參考（v1）](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1/)。

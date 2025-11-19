@@ -1,7 +1,7 @@
 <!-- 
 Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
 -->
-爲 kubelet 生成一個 kubeconfig 文件，**僅僅**用於集羣引導目的。
+爲 kubelet 生成一個 kubeconfig 文件，**僅僅**用於叢集引導目的。
 
 <!--
 ### Synopsis
@@ -16,7 +16,7 @@ Generate the kubeconfig file for the kubelet to use and save it to kubelet.conf 
 <!--
 Please note that this should *only* be used for cluster bootstrapping purposes. After your control plane is up, you should request all kubelet credentials from the CSR API.
 -->
-請注意，該操作目的是**僅**用於引導集羣。在控制平面啓動之後，應該從 CSR API 請求所有 kubelet 憑據。
+請注意，該操作目的是**僅**用於引導叢集。在控制平面啓動之後，應該從 CSR API 請求所有 kubelet 憑據。
 
 ```
 kubeadm init phase kubeconfig kubelet [flags]
@@ -42,7 +42,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>The IP address the API Server will advertise it's listening on. If not set the default network interface will be used.</p>
 -->
-<p>API 服務器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認的網絡接口。</p>
+<p>API 伺服器所公佈的其正在監聽的 IP 地址。如果未設置，則使用默認的網路接口。</p>
 </td>
 </tr>
 
@@ -59,7 +59,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>Port for the API Server to bind to.</p>
 -->
-<p>要綁定到 API 服務器的端口。</p>
+<p>要綁定到 API 伺服器的端口。</p>
 </td>
 </tr>
 
@@ -88,7 +88,7 @@ kubeadm init phase kubeconfig kubelet [flags]
 <!--
 <p>Path to kubeadm configuration file.</p>
 -->
-<p>kubeadm 配置文件的路徑。</p>
+<p>kubeadm 設定文件的路徑。</p>
 </td>
 </tr>
 

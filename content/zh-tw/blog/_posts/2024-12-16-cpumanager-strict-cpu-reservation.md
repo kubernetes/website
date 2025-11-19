@@ -26,7 +26,7 @@ policy if you explicitly enable the alpha behavior in your cluster.
 在 Kubernetes v1.32 中，經過社區多年的討論，我們很高興地引入了
 [CPU Manager 靜態策略](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy-options)的
 `strict-cpu-reservation` 選項。此特性當前處於 Alpha 階段，默認情況下關聯的策略是隱藏的。
-只有在你的集羣中明確啓用了此 Alpha 行爲後，才能使用此策略。
+只有在你的叢集中明確啓用了此 Alpha 行爲後，才能使用此策略。
 
 <!--
 ## Understanding the feature
@@ -82,7 +82,7 @@ With the following kubelet configuration:
 `strict-cpu-reservation` 策略選項。並且如果存在 `/var/lib/kubelet/cpu_manager_state`
 文件，則需要刪除該文件並重啓 kubelet。
 
-使用以下 kubelet 配置：
+使用以下 kubelet 設定：
 
 ```yaml
 kind: KubeletConfiguration

@@ -15,8 +15,8 @@ spec:
             # 下一行需與 egressSelectorConfiguration 中設置的值一致。
             "--uds-name=/etc/kubernetes/konnectivity-server/konnectivity-server.socket",
             "--delete-existing-uds-file",
-            # 下面兩行假定 Konnectivity 服務器被部署在與 apiserver 相同的機器上，
-            # 並且該 API 服務器的證書和密鑰位於指定的位置。
+            # 下面兩行假定 Konnectivity 伺服器被部署在與 apiserver 相同的機器上，
+            # 並且該 API 伺服器的證書和密鑰位於指定的位置。
             "--cluster-cert=/etc/kubernetes/pki/apiserver.crt",
             "--cluster-key=/etc/kubernetes/pki/apiserver.key",
             # 下一行需與 egressSelectorConfiguration 中設置的值一致。

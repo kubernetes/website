@@ -165,7 +165,7 @@ After submitting at least 5 substantial pull requests and meeting the other [req
 -->
 3. 告知你的擔保人你所創建的 Issue，你可以：
 
-   - 在 Issue 中 `@<GitHub-username>` 提及他們的 GitHub 用戶名
+   - 在 Issue 中 `@<GitHub-username>` 提及他們的 GitHub 使用者名
    - 通過 Slack 或 email 直接發送給他們 Issue 鏈接
  
    擔保人會通過 `+1` 投票來批准你的請求。一旦你的擔保人批准了該請求，
@@ -217,7 +217,7 @@ You can be a SIG Docs reviewer, or a reviewer for docs in a specific subject are
     要提供非約束性的反饋，可以在你的評語之前添加 "Optionally: " 這樣的說法。
     {{< /note >}}
 
-- 編輯代碼中用戶可見的字符串
+- 編輯代碼中使用者可見的字符串
 - 改進代碼註釋
 
 你可以是 SIG Docs 的評審人，也可以是某個主題領域的文檔的評審人。
@@ -284,7 +284,7 @@ in the `kubernetes/website` repository.
 If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added,
 [@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
 -->
-1. 發起 PR，將你的 GitHub 用戶名添加到 `kubernetes/website` 倉庫中
+1. 發起 PR，將你的 GitHub 使用者名添加到 `kubernetes/website` 倉庫中
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
    文件的對應節區。
 
@@ -293,7 +293,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
    {{< /note >}}
 
 2. 將 PR 指派給一個或多個 SIG Docs 批准人（`sig-docs-{language}-owners`
-   下列舉的用戶名）。
+   下列舉的使用者名）。
 
 申請被批准之後，SIG Docs Leads 之一會將你添加到合適的 GitHub 團隊。
 一旦添加完成，[@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)

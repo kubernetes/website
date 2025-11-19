@@ -2,7 +2,7 @@
 title: "服務、負載均衡和聯網"
 weight: 60
 description: >
-  Kubernetes 網絡背後的概念和資源。
+  Kubernetes 網路背後的概念和資源。
 ---
 <!--
 title: "Services, Load Balancing, and Networking"
@@ -24,14 +24,14 @@ The Kubernetes network model is built out of several pieces:
     different containers in the same pod can communicate with each
     other over `localhost`.
 -->
-## Kubernetes 網絡模型   {#the-kubernetes-network-model}
+## Kubernetes 網路模型   {#the-kubernetes-network-model}
 
-Kubernetes 網絡模型由幾個部分構成：
+Kubernetes 網路模型由幾個部分構成：
 
-* 集羣中的每個 [Pod](/zh-cn/docs/concepts/workloads/pods/)
-  都會獲得自己的、獨一無二的集羣範圍 IP 地址。
+* 叢集中的每個 [Pod](/zh-cn/docs/concepts/workloads/pods/)
+  都會獲得自己的、獨一無二的叢集範圍 IP 地址。
 
-  * Pod 有自己的私有網絡命名空間，Pod 內的所有容器共享這個命名空間。
+  * Pod 有自己的私有網路命名空間，Pod 內的所有容器共享這個命名空間。
     運行在同一個 Pod 中的不同容器的進程彼此之間可以通過 `localhost` 進行通信。
 
 <!--
@@ -48,13 +48,13 @@ Kubernetes 網絡模型由幾個部分構成：
   * Agents on a node (such as system daemons, or kubelet) can
     communicate with all pods on that node.
 -->
-* **Pod 網絡**（也稱爲集羣網絡）處理 Pod 之間的通信。它確保（除非故意進行網絡分段）：
+* **Pod 網路**（也稱爲叢集網路）處理 Pod 之間的通信。它確保（除非故意進行網路分段）：
 
   * 所有 Pod 可以與所有其他 Pod 進行通信，
     無論它們是在同一個[節點](/zh-cn/docs/concepts/architecture/nodes/)還是在不同的節點上。
     Pod 可以直接相互通信，而無需使用代理或地址轉換（NAT）。
 
-    在 Windows 上，這條規則不適用於主機網絡 Pod。
+    在 Windows 上，這條規則不適用於主機網路 Pod。
 
   * 節點上的代理（例如系統守護進程或 kubelet）可以與該節點上的所有 Pod 進行通信。
 
@@ -100,11 +100,11 @@ Kubernetes 網絡模型由幾個部分構成：
 -->
 * [Gateway](/zh-cn/docs/concepts/services-networking/gateway/) API
   （或其前身 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
-  使得集羣外部的客戶端能夠訪問 Service。
+  使得叢集外部的客戶端能夠訪問 Service。
 
   * 當使用受支持的 {{< glossary_tooltip term_id="cloud-provider">}} 時，通過 Service API 的
     [`type: LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
-    可以使用一種更簡單但可配置性較低的集羣 Ingress 機制。
+    可以使用一種更簡單但可設定性較低的叢集 Ingress 機制。
 
 * [NetworkPolicy](/zh-cn/docs/concepts/services-networking/network-policies)
   是一個內置的 Kubernetes API，允許你控制 Pod 之間的流量或 Pod 與外部世界之間的流量。
@@ -121,8 +121,8 @@ balancing, application configuration, and migration.
 -->
 在早期的容器系統中，不同主機上的容器之間沒有自動連通，
 因此通常需要顯式創建容器之間的鏈路，或將容器端口映射到主機端口，以便其他主機上的容器能夠訪問。
-在 Kubernetes 中並不需要如此操作；在 Kubernetes 的網絡模型中，
-從端口分配、命名、服務發現、負載均衡、應用配置和遷移的角度來看，Pod 可以被視作虛擬機或物理主機。
+在 Kubernetes 中並不需要如此操作；在 Kubernetes 的網路模型中，
+從端口分配、命名、服務發現、負載均衡、應用設定和遷移的角度來看，Pod 可以被視作虛擬機或物理主機。
 
 <!--
 Only a few parts of this model are implemented by Kubernetes itself.
@@ -136,7 +136,7 @@ of which are optional:
 這個模型只有少部分是由 Kubernetes 自身實現的。
 對於其他部分，Kubernetes 定義 API，但相應的功能由外部組件提供，其中一些是可選的：
 
-* Pod 網絡命名空間的設置由實現[容器運行時接口（CRI）](/zh-cn/docs/concepts/containers/cri/)的系統層面軟件處理。
+* Pod 網路命名空間的設置由實現[容器運行時接口（CRI）](/zh-cn/docs/concepts/containers/cri/)的系統層面軟件處理。
 
 <!--
 * The pod network itself is managed by a
@@ -151,13 +151,13 @@ of which are optional:
   network implementations instead use their own service proxy that
   is more tightly integrated with the rest of the implementation.
 -->
-* Pod 網絡本身由
-  [Pod 網絡實現](/zh-cn/docs/concepts/cluster-administration/addons/#networking-and-network-policy)管理。
-  在 Linux 上，大多數容器運行時使用{{< glossary_tooltip text="容器網絡接口 (CNI)" term_id="cni" >}}
-  與 Pod 網絡實現進行交互，因此這些實現通常被稱爲 **CNI 插件**。
+* Pod 網路本身由
+  [Pod 網路實現](/zh-cn/docs/concepts/cluster-administration/addons/#networking-and-network-policy)管理。
+  在 Linux 上，大多數容器運行時使用{{< glossary_tooltip text="容器網路接口 (CNI)" term_id="cni" >}}
+  與 Pod 網路實現進行交互，因此這些實現通常被稱爲 **CNI 插件**。
 
 * Kubernetes 提供了一個默認的服務代理實現，稱爲 {{< glossary_tooltip term_id="kube-proxy">}}，
-  但某些 Pod 網絡實現使用其自己的服務代理，以便與實現的其餘組件集成得更緊密。
+  但某些 Pod 網路實現使用其自己的服務代理，以便與實現的其餘組件集成得更緊密。
 
 <!--
 * NetworkPolicy is generally also implemented by the pod network
@@ -170,9 +170,9 @@ of which are optional:
   some of which are specific to particular cloud environments, some more
   focused on "bare metal" environments, and others more generic.
 -->
-* NetworkPolicy 通常也由 Pod 網絡實現提供支持。
-  （某些更簡單的 Pod 網絡實現不支持 NetworkPolicy，或者管理員可能會選擇在不支持 NetworkPolicy
-  的情況下配置 Pod 網絡。在這些情況下，API 仍然存在，但將沒有效果。）
+* NetworkPolicy 通常也由 Pod 網路實現提供支持。
+  （某些更簡單的 Pod 網路實現不支持 NetworkPolicy，或者管理員可能會選擇在不支持 NetworkPolicy
+  的情況下設定 Pod 網路。在這些情況下，API 仍然存在，但將沒有效果。）
 
 * [Gateway API 的實現](https://gateway-api.sigs.k8s.io/implementations/)有很多，
   其中一些特定於某些雲環境，還有一些更專注於“裸金屬”環境，而其他一些則更加通用。
@@ -189,5 +189,5 @@ up networking for your cluster, and also provides an overview of the technologie
 [使用 Service 連接到應用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程通過一個實際的示例讓你瞭解
 Service 和 Kubernetes 如何聯網。
 
-[集羣網絡](/zh-cn/docs/concepts/cluster-administration/networking/)解釋瞭如何爲集羣設置網絡，
+[叢集網路](/zh-cn/docs/concepts/cluster-administration/networking/)解釋瞭如何爲叢集設置網路，
 還概述了所涉及的技術。

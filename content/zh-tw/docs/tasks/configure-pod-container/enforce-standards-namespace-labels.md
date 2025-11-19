@@ -54,7 +54,7 @@ This manifest defines a Namespace `my-baseline-namespace` that:
 下面的清單定義了一個 `my-baseline-namespace` 名字空間，其中
 
 - **阻止**任何不滿足 `baseline` 策略要求的 Pod；
-- 針對任何無法滿足 `restricted` 策略要求的、已創建的 Pod 爲用戶生成警告信息，
+- 針對任何無法滿足 `restricted` 策略要求的、已創建的 Pod 爲使用者生成警告信息，
   並添加審計註解；
 - 將 `baseline` 和 `restricted` 策略的版本鎖定到 v{{< skew currentVersion >}}。
 
@@ -85,7 +85,7 @@ When an `enforce` policy (or version) label is added or changed, the admission p
 each pod in the namespace against the new policy. Violations are returned to the user as warnings.
 -->
 在添加或變更 `enforce` 策略（或版本）標籤時，准入插件會測試名字空間中的每個
-Pod 以檢查其是否滿足新的策略。不符合策略的情況會被以警告的形式返回給用戶。
+Pod 以檢查其是否滿足新的策略。不符合策略的情況會被以警告的形式返回給使用者。
 {{< /note >}}
 
 <!--
@@ -113,7 +113,7 @@ If you're just getting started with the Pod Security Standards, a suitable first
 configure all namespaces with audit annotations for a stricter level such as `baseline`:
 -->
 如果你是剛剛開始使用 Pod 安全性標準，一種比較合適的初始步驟是針對所有名字空間爲類似
-`baseline` 這種比較嚴格的安全級別配置審計註解。
+`baseline` 這種比較嚴格的安全級別設定審計註解。
 
 ```shell
 kubectl label --overwrite ns --all \

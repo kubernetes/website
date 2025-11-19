@@ -1,5 +1,5 @@
 ---
-title: 配置 Pod 使用 ConfigMap
+title: 設定 Pod 使用 ConfigMap
 content_type: task
 weight: 190
 card:
@@ -22,9 +22,9 @@ Most times, there is a requirement to adjust values assigned to configuration pa
 ConfigMaps are a Kubernetes mechanism that let you inject configuration data into application
 {{< glossary_tooltip text="pods" term_id="pod" >}}.
 -->
-很多應用在其初始化或運行期間要依賴一些配置信息。
-大多數時候，存在要調整配置參數所設置的數值的需求。
-ConfigMap 是 Kubernetes 的一種機制，可讓你將配置數據注入到應用的
+很多應用在其初始化或運行期間要依賴一些設定信息。
+大多數時候，存在要調整設定參數所設置的數值的需求。
+ConfigMap 是 Kubernetes 的一種機制，可讓你將設定數據注入到應用的
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 內部。
 
 <!--
@@ -33,15 +33,15 @@ keep containerized applications portable. For example, you can download and run 
 {{< glossary_tooltip text="container image" term_id="image" >}} to spin up containers for 
 the purposes of local development, system test, or running a live end-user workload.
 -->
-ConfigMap 概念允許你將配置清單與鏡像內容分離，以保持容器化的應用程序的可移植性。
-例如，你可以下載並運行相同的{{< glossary_tooltip text="容器鏡像" term_id="image" >}}來啓動容器，
-用於本地開發、系統測試或運行實時終端用戶工作負載。
+ConfigMap 概念允許你將設定清單與映像檔內容分離，以保持容器化的應用程序的可移植性。
+例如，你可以下載並運行相同的{{< glossary_tooltip text="容器映像檔" term_id="image" >}}來啓動容器，
+用於本地開發、系統測試或運行實時終端使用者工作負載。
 
 <!--
 This page provides a series of usage examples demonstrating how to create ConfigMaps and
 configure Pods using data stored in ConfigMaps.
 -->
-本頁提供了一系列使用示例，這些示例演示瞭如何創建 ConfigMap 以及配置 Pod
+本頁提供了一系列使用示例，這些示例演示瞭如何創建 ConfigMap 以及設定 Pod
 使用存儲在 ConfigMap 中的數據。
 
 ## {{% heading "prerequisites" %}}
@@ -163,7 +163,7 @@ mkdir -p configure-pod-container/configmap/
 <!--
 Now, download the sample configuration and create the ConfigMap:
 -->
-現在，下載示例的配置並創建 ConfigMap：
+現在，下載示例的設定並創建 ConfigMap：
 
 <!--
 ```shell
@@ -573,7 +573,7 @@ value from the command line:
 #### 根據字面值創建 ConfigMap         {#create-configmaps-from-literal-values}
 
 你可以將 `kubectl create configmap` 與 `--from-literal` 參數一起使用，
-通過命令行定義文字值：
+通過命令列定義文字值：
 
 ```shell
 kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm
@@ -583,7 +583,7 @@ kubectl create configmap special-config --from-literal=special.how=very --from-l
 You can pass in multiple key-value pairs. Each pair provided on the command line is represented
 as a separate entry in the `data` section of the ConfigMap.
 -->
-你可以傳入多個鍵值對。命令行中提供的每對鍵值在 ConfigMap 的 `data` 部分中均表示爲單獨的條目。
+你可以傳入多個鍵值對。命令列中提供的每對鍵值在 ConfigMap 的 `data` 部分中均表示爲單獨的條目。
 
 ```shell
 kubectl get configmaps special-config -o yaml
@@ -617,7 +617,7 @@ You should specify the generators in a `kustomization.yaml` file within a direct
 -->
 ### 基於生成器創建 ConfigMap    {#create-a-configmap-from-generator}
 
-你還可以基於生成器（Generators）創建 ConfigMap，然後將其應用於集羣的 API 服務器上創建對象。
+你還可以基於生成器（Generators）創建 ConfigMap，然後將其應用於叢集的 API 伺服器上創建對象。
 生成器應在目錄內的 `kustomization.yaml` 中指定。
 
 <!--
@@ -770,7 +770,7 @@ this, you can specify the `ConfigMap` generator. Create (or replace)
 
 此示例向你展示如何使用 Kustomize 和 kubectl，基於兩個字面鍵/值對
 `special.type=charm` 和 `special.how=very` 創建一個 `ConfigMap`。
-爲了實現這一點，你可以配置 `ConfigMap` 生成器。
+爲了實現這一點，你可以設定 `ConfigMap` 生成器。
 創建（或替換）`kustomization.yaml`，使其具有以下內容。
 
 <!--
@@ -920,7 +920,7 @@ Here is the manifest you will use:
 <!--
 ## Configure all key-value pairs in a ConfigMap as container environment variables
 -->
-## 將 ConfigMap 中的所有鍵值對配置爲容器環境變量    {#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables}
+## 將 ConfigMap 中的所有鍵值對設定爲容器環境變量    {#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables}
 
 <!--
 * Create a ConfigMap containing multiple key-value pairs.
@@ -1100,8 +1100,8 @@ character encoding, use `binaryData`
 If there are any files in the `/etc/config` directory of that container image, the volume
 mount will make those files from the image inaccessible.
 -->
-如果該容器鏡像的 `/etc/config`
-目錄中有一些文件，卷掛載將使該鏡像中的這些文件無法訪問。
+如果該容器映像檔的 `/etc/config`
+目錄中有一些文件，卷掛載將使該映像檔中的這些文件無法訪問。
 {{< /note >}}
 
 <!--
@@ -1249,11 +1249,11 @@ store configuration data in ConfigMap.
 -->
 ## 瞭解 ConfigMap 和 Pod    {#understanding-configmaps-and-pods}
 
-ConfigMap API 資源將配置數據存儲爲鍵值對。
-數據可以在 Pod 中使用，也可以用來提供系統組件（如控制器）的配置。
+ConfigMap API 資源將設定數據存儲爲鍵值對。
+數據可以在 Pod 中使用，也可以用來提供系統組件（如控制器）的設定。
 ConfigMap 與 [Secret](/zh-cn/docs/concepts/configuration/secret/) 類似，
 但是提供的是一種處理不含敏感信息的字符串的方法。
-用戶和系統組件都可以在 ConfigMap 中存儲配置數據。
+使用者和系統組件都可以在 ConfigMap 中存儲設定數據。
 
 {{< note >}}
 <!--
@@ -1273,9 +1273,9 @@ The ConfigMap's `data` field contains the configuration data. As shown in the ex
 this can be simple (like individual properties defined using `--from-literal`) or complex
 (like configuration files or JSON blobs defined using `--from-file`).
 -->
-ConfigMap 的 `data` 字段包含配置數據。如下例所示，它可以簡單
+ConfigMap 的 `data` 字段包含設定數據。如下例所示，它可以簡單
 （如用 `--from-literal` 的單個屬性定義）或複雜
-（如用 `--from-file` 的配置文件或 JSON blob 定義）。
+（如用 `--from-file` 的設定文件或 JSON blob 定義）。
 
 <!--
 ```yaml
@@ -1347,7 +1347,7 @@ If the ConfigMap doesn't exist, the configuration for which it provides data in 
 If the ConfigMap exists, but the referenced key is non-existent the data is also empty.
 -->
 你可以在 Pod 規約中將對 ConfigMap 的引用標記爲**可選（optional）**。
-如果 ConfigMap 不存在，那麼它在 Pod 中爲其提供數據的配置（例如：環境變量、掛載的卷）將爲空。
+如果 ConfigMap 不存在，那麼它在 Pod 中爲其提供數據的設定（例如：環境變量、掛載的卷）將爲空。
 如果 ConfigMap 存在，但引用的鍵不存在，那麼數據也是空的。
 
 <!--
@@ -1528,7 +1528,7 @@ rm -r configure-pod-container
   [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 * Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
 -->
-* 瀏覽[使用 ConfigMap 配置 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
+* 瀏覽[使用 ConfigMap 設定 Redis](/zh-cn/docs/tutorials/configuration/configure-redis-using-configmap/)
   真實示例。
-* 參照一個[通過 ConfigMap 更新配置](/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/)
+* 參照一個[通過 ConfigMap 更新設定](/zh-cn/docs/tutorials/configuration/updating-configuration-via-a-configmap/)
   的示例.

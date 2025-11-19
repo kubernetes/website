@@ -1,5 +1,5 @@
 ---
-title: 爲 Pod 配置 user 名字空間
+title: 爲 Pod 設定 user 名字空間
 reviewers:
 content_type: task
 weight: 210
@@ -21,7 +21,7 @@ min-kubernetes-server-version: v1.25
 This page shows how to configure a user namespace for pods. This allows you to
 isolate the user running inside the container from the one in the host.
 -->
-本頁展示如何爲 Pod 配置 user 名字空間。可以將容器內的用戶與主機上的用戶隔離開來。
+本頁展示如何爲 Pod 設定 user 名字空間。可以將容器內的使用者與主機上的使用者隔離開來。
 
 <!--
 A process running as root in a container can run as a different (non-root) user
@@ -29,7 +29,7 @@ in the host; in other words, the process has full privileges for operations
 inside the user namespace, but is unprivileged for operations outside the
 namespace.
 -->
-在容器中以 root 用戶運行的進程可以以不同的（非 root）用戶在宿主機上運行；換句話說，
+在容器中以 root 使用者運行的進程可以以不同的（非 root）使用者在宿主機上運行；換句話說，
 進程在 user 名字空間內部擁有執行操作的全部特權，但在 user 名字空間外部並沒有執行操作的特權。
 
 <!--
@@ -49,7 +49,7 @@ container breakout, has root privileges on the node. And if some capability were
 granted to the container, the capabilities are valid on the host too. None of
 this is true when user namespaces are used.
 -->
-在不使用 user 名字空間的情況下，對於以 root 用戶運行的容器而言，發生容器逃逸時，
+在不使用 user 名字空間的情況下，對於以 root 使用者運行的容器而言，發生容器逃逸時，
 容器將擁有在宿主機上的 root 特權。如果容器被賦予了某些權限，則這些權限在宿主機上同樣有效。
 當使用 user 名字空間時這些都不可能發生。
 
@@ -89,17 +89,17 @@ The cluster that you're using **must** include at least one node that meets the
 [requirements](/docs/concepts/workloads/pods/user-namespaces/#before-you-begin)
 for using user namespaces with Pods.
 -->
-你所使用的集羣**必須**包括至少一個符合
+你所使用的叢集**必須**包括至少一個符合
 [要求](/zh-cn/docs/concepts/workloads/pods/user-namespaces/#before-you-begin)
-的節點，以便爲 Pod 配置 user 名字空間。
+的節點，以便爲 Pod 設定 user 名字空間。
 
 <!--
 If you have a mixture of nodes and only some of the nodes provide user namespace support for
 Pods, you also need to ensure that the user namespace Pods are
 [scheduled](/docs/concepts/scheduling-eviction/assign-pod-node/) to suitable nodes.
 -->
-如果你有混合節點，並且只有部分節點支持爲 Pod 配置 user 名字空間，
-你還需要確保配置了 user 名字空間的 Pod
+如果你有混合節點，並且只有部分節點支持爲 Pod 設定 user 名字空間，
+你還需要確保設定了 user 名字空間的 Pod
 被[調度](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)到合適的節點。
 
 <!-- steps -->
@@ -120,7 +120,7 @@ to `false`. For example:
 <!--
 1. Create the pod on your cluster:
 -->
-1. 在你的集羣上創建 Pod：
+1. 在你的叢集上創建 Pod：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/user-namespaces-stateless.yaml
@@ -180,7 +180,7 @@ Then, open a shell in the host and run the same command.
 The `readlink` command shows the user namespace the process is running in. It
 should be different when it is run on the host and inside the container.
 -->
-`readlink` 命令顯示進程運行所在的用戶命名空間。在主機上和容器內運行時應該有所不同。
+`readlink` 命令顯示進程運行所在的使用者命名空間。在主機上和容器內運行時應該有所不同。
 
 <!--
 The last number of the `uid_map` file inside the container must be 65536, on the

@@ -166,9 +166,9 @@ Click **Fork**. | Click "Fork".
 Select **Other**. | Select "Other".
 {{< /table >}}
 -->
-### 用粗體字表現用戶界面元素
+### 用粗體字表現使用者界面元素
 
-{{< table caption = "以粗體表示用戶界面元素" >}}
+{{< table caption = "以粗體表示使用者界面元素" >}}
 可以 | 不可以
 :--| :-----
 點擊 **Fork**。 | 點擊 "Fork"。
@@ -190,7 +190,7 @@ These components form the _control plane_. | These components form the **control
 {{< table caption = "新術語約定" >}}
 可以 | 不可以
 :--| :-----
-每個 _集羣_  是一組節點 ... | 每個“集羣”是一組節點 ...
+每個 _叢集_  是一組節點 ... | 每個“叢集”是一組節點 ...
 這些組件構成了 _控制面_。 | 這些組件構成了 **控制面**。
 {{< /table >}}
 
@@ -334,7 +334,7 @@ Run the process with the certificate, `kube-apiserver --client-ca-file=FILENAME`
 可以 | 不可以
 :--| :-----
 `kubelet` 維持節點穩定性。 | kubelet 負責維護節點穩定性。
-`kubectl` 處理 API 服務器的定位和身份認證。| kubectl 處理 API 服務器的定位和身份認證。
+`kubectl` 處理 API 伺服器的定位和身份認證。| kubectl 處理 API 伺服器的定位和身份認證。
 使用該證書運行進程 `kube-apiserver --client-ca-file=FILENAME`。| 使用證書運行進程 kube-apiserver --client-ca-file=FILENAME。|
 {{< /table >}}
 
@@ -372,8 +372,8 @@ Aggregated APIs are subordinate API servers. | Aggregated APIs are subordinate A
 {{< table caption = "組件名稱與通用描述" >}}
 可以 | 不可以
 :--| :-----
-Kubernetes API 服務器提供 OpenAPI 規範。| apiserver 提供 OpenAPI 規範。
-聚合 API 是下級 API 服務器。 | 聚合 API 是下級 APIServer。
+Kubernetes API 伺服器提供 OpenAPI 規範。| apiserver 提供 OpenAPI 規範。
+聚合 API 是下級 API 伺服器。 | 聚合 API 是下級 APIServer。
 {{< /table >}}
 
 <!--

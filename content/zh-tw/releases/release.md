@@ -177,7 +177,7 @@ The general labeling process should be consistent across artifact types.
 -->
 ## 定義  {#definitions}
 
-- **問題所有者**：將問題移至發佈里程碑的創建者、委託人和用戶
+- **問題所有者**：將問題移至發佈里程碑的創建者、委託人和使用者
 
 - **發佈小組**：每個 Kubernetes 版本都有一個團隊來執行[這裏][release-team]所描述的項目管理任務。
 

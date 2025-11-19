@@ -29,7 +29,7 @@ are scaled down.
 Kubernetes v1.27 將一種新的策略機制升級到 Beta 階段，這一策略用於控制
 [`StatefulSets`](/zh-cn/docs/concepts/workloads/controllers/statefulset/)
 的 [`PersistentVolumeClaims`](/zh-cn/docs/concepts/storage/persistent-volumes/)（PVCs）的生命週期。
-這種新的 PVC 保留策略允許用戶指定當刪除 `StatefulSet` 或者縮減 `StatefulSet` 中的副本時，
+這種新的 PVC 保留策略允許使用者指定當刪除 `StatefulSet` 或者縮減 `StatefulSet` 中的副本時，
 是自動刪除還是保留從 `StatefulSet` 規約模板生成的 PVC。
 
 <!--
@@ -49,7 +49,7 @@ created by a `StatefulSet` and what their lifecycle should be.
 `StatefulSet` 規約可以包含 `Pod` 和 PVC 模板。
 當首次創建副本時，Kubernetes 控制平面會爲該副本創建一個 PVC （如果不存在）。
 在 PVC 保留策略出現之前，控制平面不會清理爲 `StatefulSets` 創建的 PVC，
-該任務通常由集羣管理員負責，或者通過一些附加的自動化工具來處理。
+該任務通常由叢集管理員負責，或者通過一些附加的自動化工具來處理。
 你需要尋找這些工具，並檢查其適用性，然後進行部署。
 通常管理 PVC 的常見模式，無論是手動管理還是通過諸如 Helm 等工具進行管理，
 都是由負責管理它們的工具跟蹤，具有明確的生命週期。
@@ -173,10 +173,10 @@ This policy forms a matrix with four cases. I’ll walk through and give an exam
   * **`whenDeleted` 是 `Retain`，`whenScaled` 是 `Delete`。**
 
     這與前面的情況類似，保留 PVC 以便在擴容時進行快速重用的好處微乎其微。
-    一個使用這種策略的例子是 Elasticsearch 集羣。通常，你會根據需求調整該工作負載的規模，
+    一個使用這種策略的例子是 Elasticsearch 叢集。通常，你會根據需求調整該工作負載的規模，
     同時確保有一定數量的副本（例如：3個）一直存在。在縮容時，數據會從被刪除的副本遷移走，
-    保留這些 PVC 沒有好處。然而，如果需要臨時關閉整個 Elasticsearch 集羣進行維護，
-    可以通過暫時刪除 `StatefulSet` 然後重建 `StatefulSet` 來恢復 Elasticsearch 集羣。
+    保留這些 PVC 沒有好處。然而，如果需要臨時關閉整個 Elasticsearch 叢集進行維護，
+    可以通過暫時刪除 `StatefulSet` 然後重建 `StatefulSet` 來恢復 Elasticsearch 叢集。
     持有 Elasticsearch 數據的 PVC 仍然存在，新的副本將自動使用它們。
 
 <!--
@@ -195,7 +195,7 @@ us what you think!
 
 ## 下一步是什麼？
 
-試一試吧！在 Kubernetes 1.27 的集羣中，`StatefulSetAutoDeletePVC` 特性門控是 Beta 階段，
+試一試吧！在 Kubernetes 1.27 的叢集中，`StatefulSetAutoDeletePVC` 特性門控是 Beta 階段，
 使用新的策略創建一個 `StatefulSet`，進行測試並告訴我們你的想法！
 
 <!--

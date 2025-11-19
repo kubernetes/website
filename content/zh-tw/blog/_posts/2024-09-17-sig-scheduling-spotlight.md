@@ -134,7 +134,7 @@ sidestepping performance concerns.
 Go SDK（調度器中的[調度框架](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)）提供。
 然而，這些方法存在缺點，首先是 Webhook 的性能問題以及需要重建和替換調度器的 Go SDK，這就給那些希望擴展調度器但對其不熟悉的人帶來了困難。
 此項目嘗試引入一種新的解決方案來應對這一普遍挑戰，即基於 [WebAssembly](https://webassembly.org/) 的擴展。
-Wasm 允許用戶輕鬆構建插件，而無需擔心重新編譯或替換調度器，還能規避性能問題。
+Wasm 允許使用者輕鬆構建插件，而無需擔心重新編譯或替換調度器，還能規避性能問題。
 
 <!--
 Through this project, SIG Scheduling has been learning valuable insights about WebAssembly's
@@ -170,7 +170,7 @@ talk about them? Are there some interesting contributions by those teams you wan
   以更好地支持 Kubernetes 中的此類批處理工作負載。
   [Kueue](https://github.com/kubernetes-sigs/kueue) 是一個在其中扮演關鍵角色的項目。
   它是一個作業隊列控制器，決定何時一個作業應該等待，何時一個作業應該被准許啓動，以及何時一個作業應該被搶佔。
-  Kueue 旨在安裝在一個普通的 Kubernetes 集羣上，
+  Kueue 旨在安裝在一個普通的 Kubernetes 叢集上，
   同時與現有的成熟控制器（調度器、cluster-autoscaler、kube-controller-manager 等）協作。
 
 <!--
@@ -188,7 +188,7 @@ talk about them? Are there some interesting contributions by those teams you wan
   that they’re recreated and rescheduled.
 -->
 [KWOK](https://github.com/kubernetes-sigs/kwok)
-: KWOK 這個組件可以在幾秒鐘內創建一個包含數千個節點的集羣。它主要用於模擬/測試輕量級集羣，實際上另一個 SIG 子項目
+: KWOK 這個組件可以在幾秒鐘內創建一個包含數千個節點的叢集。它主要用於模擬/測試輕量級叢集，實際上另一個 SIG 子項目
   [kube-scheduler-simulator](https://github.com/kubernetes-sigs/kube-scheduler-simulator) 就在後端使用了 KWOK。
 
 [Descheduler](https://github.com/kubernetes-sigs/descheduler)
@@ -290,7 +290,7 @@ considerable impact on the community.
 
 此外，除了 kubernetes/kubernetes 主倉庫外，還可以考慮查看一些子項目。
 這些子項目的維護者通常比較少，你有更多的機會來對其產生重大影響。儘管被稱爲“子”項目，
-但許多項目實際上有大量用戶，並對社區產生了相當大的影響。
+但許多項目實際上有大量使用者，並對社區產生了相當大的影響。
 
 <!--
 And last but not least, remember contributing to the community isn’t just about code. While I
@@ -340,7 +340,7 @@ allows maintainers to focus on the core scheduling features and the framework ru
 **KN**: 在 Kubernetes 中進行調度可能相當具有挑戰性，因爲不同組織有不同的業務要求。
 在 kube-scheduler 中支持所有可能的使用場景是不可能的。因此，可擴展性是我們關注的核心焦點。
 幾年前，我們使用[調度框架](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)爲
-kube-scheduler 重新設計了架構，爲用戶通過插件實現各種調度需求提供了靈活的可擴展性。
+kube-scheduler 重新設計了架構，爲使用者通過插件實現各種調度需求提供了靈活的可擴展性。
 這使得維護者們能夠專注於核心調度特性和框架運行時。
 
 <!--
@@ -351,8 +351,8 @@ and, consequently, the cluster's scalability. Although we have an internal perfo
 unfortunately, we sometimes overlook performance degradation in less common scenarios. It’s
 difficult as even small changes, which look irrelevant to performance, can lead to degradation.
 -->
-另一個主要問題是保持足夠的調度吞吐量。通常，一個 Kubernetes 集羣只有一個 kube-scheduler，
-因此其吞吐量直接影響整體調度的可擴展性，從而影響集羣的可擴展性。儘管我們有一個內部性能測試
+另一個主要問題是保持足夠的調度吞吐量。通常，一個 Kubernetes 叢集只有一個 kube-scheduler，
+因此其吞吐量直接影響整體調度的可擴展性，從而影響叢集的可擴展性。儘管我們有一個內部性能測試
 ([scheduler_perf](https://github.com/kubernetes/kubernetes/tree/master/test/integration/scheduler_perf))，
 但不巧的是，我們有時會忽視在不常見場景下的性能下降。即使是與性能無關的小改動也有難度，可能導致性能下降。
 

@@ -25,5 +25,5 @@ a file specified using a config file.
 See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
 for more details.
 -->
-允許從使用配置文件指定的文件中加載 kubelet 配置。
-詳情參見[通過配置文件設置 kubelet 參數](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。
+允許從使用設定文件指定的文件中加載 kubelet 設定。
+詳情參見[通過設定文件設置 kubelet 參數](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)。

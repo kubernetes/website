@@ -8,7 +8,7 @@
 Write a file with KubeletConfiguration and an environment file with node specific kubelet settings, and then (re)start kubelet.
 -->
 
-使用 kubelet 配置文件編寫一個文件，並使用特定節點的 kubelet
+使用 kubelet 設定文件編寫一個文件，並使用特定節點的 kubelet
 設置編寫一個環境文件，然後（重新）啓動 kubelet。
 
 ```shell
@@ -52,7 +52,7 @@ kubeadm init phase kubelet-start --config config.yaml
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -110,7 +110,7 @@ kubelet-start 操作的幫助命令。
 <!--
 Choose a container registry to pull control plane images from
 -->
-選擇一個容器鏡像倉庫來從中拉取控制平面組件的鏡像。
+選擇一個容器映像檔倉庫來從中拉取控制平面組件的映像檔。
 </p>
 </td>
 </tr>

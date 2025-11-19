@@ -134,7 +134,7 @@ CSIDriver and `.spec.securityContext.fsGroupChangePolicy` for the relevant Pod.
 -->
 ## 我該如何使用它？
 
-此功能應該對用戶基本透明。如果你維護應支持此功能的 CSI 驅動程序，
+此功能應該對使用者基本透明。如果你維護應支持此功能的 CSI 驅動程序，
 請閱讀 [CSI 驅動程序 `fsGroup` 支持](https://kubernetes-csi.github.io/docs/support-fsgroup.html)
 以獲取有關如何在你的 CSI 驅動程序中支持此功能的更多信息。
 

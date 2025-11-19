@@ -4,7 +4,7 @@ id: application-developer
 date: 2018-04-12
 full_link: 
 short_description: >
-  編寫可以在 Kubernetes 集羣上運行的應用的人。
+  編寫可以在 Kubernetes 叢集上運行的應用的人。
 
 aka: 
 tags:
@@ -26,7 +26,7 @@ tags:
 <!--
  A person who writes an application that runs in a Kubernetes cluster.
 -->
-編寫可以在 Kubernetes 集羣上運行的應用的人。
+編寫可以在 Kubernetes 叢集上運行的應用的人。
 
 <!--more--> 
 

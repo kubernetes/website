@@ -43,8 +43,8 @@ robust Kubernetes service networking through expressive, extensible and
 role-oriented interfaces that are implemented by many vendors and have broad
 industry support. 
 -->
-Gateway API 是以 [Gateway][gw] 資源（代表底層網絡網關/代理服務器）爲中心的資源集合，
-Kubernetes 服務網絡的健壯性得益於衆多供應商實現、得到廣泛行業支持且極具表達力、可擴展和麪向角色的各個接口。
+Gateway API 是以 [Gateway][gw] 資源（代表底層網路網關/代理伺服器）爲中心的資源集合，
+Kubernetes 服務網路的健壯性得益於衆多供應商實現、得到廣泛行業支持且極具表達力、可擴展和麪向角色的各個接口。
 
 <!-- 
 Originally conceived as a successor to the well known [Ingress][ing] API, the
@@ -55,9 +55,9 @@ well as tightly integrated support for Transport Layer Security (TLS). The
 of network gateways as a Kubernetes API. 
 -->
 Gateway API 最初被認爲是知名 [Ingress][ing] API 的繼任者，
-Gateway API 的好處包括（但不限於）對許多常用網絡協議的顯式支持
+Gateway API 的好處包括（但不限於）對許多常用網路協議的顯式支持
 （例如 `HTTP`、`TLS`、`TCP `、`UDP`) 以及對傳輸層安全 (TLS) 的緊密集成支持。
-特別是 `Gateway` 資源能夠實現作爲 Kubernetes API 來管理網絡網關的生命週期。
+特別是 `Gateway` 資源能夠實現作爲 Kubernetes API 來管理網路網關的生命週期。
 
 <!-- 
 If you're an end-user interested in some of the benefits of Gateway API we
@@ -65,7 +65,7 @@ invite you to jump in and find an implementation that suits you. At the time of
 this release there are over a dozen [implementations][impl] for popular API
 gateways and service meshes and guides are available to start exploring quickly. 
 -->
-如果你是對 Gateway API 的某些優勢感興趣的終端用戶，我們邀請你加入並找到適合你的實現方式。
+如果你是對 Gateway API 的某些優勢感興趣的終端使用者，我們邀請你加入並找到適合你的實現方式。
 值此版本發佈之時，對於流行的 API 網關和服務網格有十多種[實現][impl]，還提供了操作指南便於快速開始探索。
 
 <!-- 
@@ -108,8 +108,8 @@ cluster to use the API.
 -->
 查看 [API 概念文檔][concepts] 並查閱一些[指南][guides]以開始熟悉這些 API 及其工作方式。
 當你準備好一個實用的應用程序時，
-請打開[實現頁面][impl]並選擇屬於你可能已經熟悉的現有技術或集羣提供商默認使用的技術（如果適用）的實現。
-Gateway API 是一個基於 [CRD][crd] 的 API，因此你將需要[安裝 CRD][install-crds] 到集羣上才能使用該 API。
+請打開[實現頁面][impl]並選擇屬於你可能已經熟悉的現有技術或叢集提供商默認使用的技術（如果適用）的實現。
+Gateway API 是一個基於 [CRD][crd] 的 API，因此你將需要[安裝 CRD][install-crds] 到叢集上才能使用該 API。
 
 <!-- 
 If you're specifically interested in helping to contribute to Gateway API, we
@@ -225,7 +225,7 @@ Release channels are used internally to enable iterative development with
 quick turnaround, and externally to indicate feature stability to implementors
 and end-users. 
 -->
-使用發佈渠道能讓內部實現快速流轉的迭代開發，且能讓外部實現者和最終用戶標示功能穩定性。
+使用發佈渠道能讓內部實現快速流轉的迭代開發，且能讓外部實現者和最終使用者標示功能穩定性。
 
 <!-- 
 For this release we've added the following experimental features:

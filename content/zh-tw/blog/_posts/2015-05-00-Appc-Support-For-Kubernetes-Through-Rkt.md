@@ -33,7 +33,7 @@ Docker 在使容器技術民主化並使外界可以訪問它們方面做得非�
 <!--
 The really nice thing is that with Kubernetes you can now pick the container runtime that works best for you based on your workloads’ needs, change runtimes without having the replace your cluster environment, or even mix together applications where different parts are running in different container runtimes in the same cluster. &nbsp;Additional choices can’t help but ultimately benefit the end developer.
 -->
-真正的好處是，藉助 Kubernetes，您現在可以根據工作負載的需求選擇最適合您的容器運行時，無需替換集羣環境即可更改運行時，甚至可以將在同一集羣中在不同容器中運行的應用程序的不同部分混合在一起。 &nbsp;其他選擇無濟於事，但最終使最終開發人員受益。
+真正的好處是，藉助 Kubernetes，您現在可以根據工作負載的需求選擇最適合您的容器運行時，無需替換叢集環境即可更改運行時，甚至可以將在同一叢集中在不同容器中運行的應用程序的不同部分混合在一起。 &nbsp;其他選擇無濟於事，但最終使最終開發人員受益。
 
 <!--
 -- Craig McLuckie  

@@ -1,5 +1,5 @@
 ---
-title: IP Masquerade Agent 用戶指南
+title: IP Masquerade Agent 使用者指南
 content_type: task
 weight: 230
 ---
@@ -13,7 +13,7 @@ weight: 230
 <!--
 This page shows how to configure and enable the `ip-masq-agent`.
 -->
-此頁面展示如何配置和啓用 `ip-masq-agent`。
+此頁面展示如何設定和啓用 `ip-masq-agent`。
 
 ## {{% heading "prerequisites" %}}
 
@@ -23,15 +23,15 @@ This page shows how to configure and enable the `ip-masq-agent`.
 <!--
 ## IP Masquerade Agent User Guide
 -->
-## IP Masquerade Agent 用戶指南   {#ip-masquerade-agent-user-guide}
+## IP Masquerade Agent 使用者指南   {#ip-masquerade-agent-user-guide}
 
 <!--
 The `ip-masq-agent` configures iptables rules to hide a pod's IP address behind the cluster
 node's IP address. This is typically done when sending traffic to destinations outside the
 cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range.
 -->
-`ip-masq-agent` 配置 iptables 規則以隱藏位於集羣節點 IP 地址後面的 Pod 的 IP 地址。
-這通常在將流量發送到集羣的 Pod
+`ip-masq-agent` 設定 iptables 規則以隱藏位於叢集節點 IP 地址後面的 Pod 的 IP 地址。
+這通常在將流量發送到叢集的 Pod
 [CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)
 範圍之外的目的地時使用。
 
@@ -45,7 +45,7 @@ cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routin
   Is a method of remapping one IP address to another by modifying either the source and/or
   destination address information in the IP header. Typically performed by a device doing IP routing.
 -->
-* **NAT（網絡地址轉換）**：
+* **NAT（網路地址轉換）**：
   是一種通過修改 IP 地址頭中的源和/或目標地址信息將一個 IP 地址重新映射
   到另一個 IP 地址的方法。通常由執行 IP 路由的設備執行。
 
@@ -79,7 +79,7 @@ cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routin
   for IPv4 are defined in the address block 169.254.0.0/16 in CIDR notation.
 -->
 * **本地鏈路**：
-  本地鏈路是僅對網段或主機所連接的廣播域內的通信有效的網絡地址。
+  本地鏈路是僅對網段或主機所連接的廣播域內的通信有效的網路地址。
   IPv4 的本地鏈路地址在 CIDR 表示法的地址塊 169.254.0.0/16 中定義。
 
 <!--
@@ -98,19 +98,19 @@ The agent will also treat link-local (169.254.0.0/16) as a non-masquerade CIDR b
 The agent is configured to reload its configuration from the location
 */etc/config/ip-masq-agent* every 60 seconds, which is also configurable.
 -->
-ip-masq-agent 配置 iptables 規則，以便在將流量發送到集羣節點的 IP 和集羣 IP
-範圍之外的目標時處理僞裝節點或 Pod 的 IP 地址。這本質上隱藏了集羣節點 IP 地址後面的
+ip-masq-agent 設定 iptables 規則，以便在將流量發送到叢集節點的 IP 和叢集 IP
+範圍之外的目標時處理僞裝節點或 Pod 的 IP 地址。這本質上隱藏了叢集節點 IP 地址後面的
 Pod IP 地址。在某些環境中，去往"外部"地址的流量必須從已知的機器地址發出。
 例如，在 Google Cloud 中，任何到互聯網的流量都必須來自 VM 的 IP。
 使用容器時，如 Google Kubernetes Engine，從 Pod IP 發出的流量將被拒絕出站。
 爲了避免這種情況，我們必須將 Pod IP 隱藏在 VM 自己的 IP 地址後面 - 通常稱爲"僞裝"。
-默認情況下，代理配置爲將
+默認情況下，代理設定爲將
 [RFC 1918](https://tools.ietf.org/html/rfc1918)
 指定的三個私有 IP 範圍視爲非僞裝
 [CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)。
 這些範圍是 `10.0.0.0/8`、`172.16.0.0/12` 和 `192.168.0.0/16`。
 默認情況下，代理還將鏈路本地地址（169.254.0.0/16）視爲非僞裝 CIDR。
-代理程序配置爲每隔 60 秒從 **/etc/config/ip-masq-agent** 重新加載其配置，
+代理程序設定爲每隔 60 秒從 **/etc/config/ip-masq-agent** 重新加載其設定，
 這也是可修改的。
 
 ![masq/non-masq example](/images/docs/ip-masq.png)
@@ -119,7 +119,7 @@ Pod IP 地址。在某些環境中，去往"外部"地址的流量必須從已�
 The agent configuration file must be written in YAML or JSON syntax, and may contain three
 optional keys:
 -->
-代理配置文件必須使用 YAML 或 JSON 語法編寫，並且可能包含三個可選值：
+代理設定文件必須使用 YAML 或 JSON 語法編寫，並且可能包含三個可選值：
 
 <!--
 * `nonMasqueradeCIDRs`: A list of strings in
@@ -141,7 +141,7 @@ optional keys:
 * `resyncInterval`: A time interval at which the agent attempts to reload config from disk.
   For example: '30s', where 's' means seconds, 'ms' means milliseconds.
 -->
-* `resyncInterval`：代理從磁盤重新加載配置的重試時間間隔。
+* `resyncInterval`：代理從磁盤重新加載設定的重試時間間隔。
   例如 '30s'，其中 's' 是秒，'ms' 是毫秒。
 
 <!--
@@ -153,7 +153,7 @@ below entries show the default set of rules that are applied by the ip-masq-agen
 -->
 10.0.0.0/8、172.16.0.0/12 和 192.168.0.0/16 範圍內的流量不會被僞裝。
 任何其他流量（假設是互聯網）將被僞裝。
-Pod 訪問本地目的地的例子，可以是其節點的 IP 地址、另一節點的地址或集羣的 IP 地址範圍內的一個 IP 地址。
+Pod 訪問本地目的地的例子，可以是其節點的 IP 地址、另一節點的地址或叢集的 IP 地址範圍內的一個 IP 地址。
 默認情況下，任何其他流量都將僞裝。以下條目展示了 ip-masq-agent 的默認使用的規則：
 
 ```shell
@@ -176,12 +176,12 @@ will run in your cluster. If you are running in another environment,
 you can add the `ip-masq-agent` [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
 to your cluster.
 -->
-默認情況下，在 GCE/Google Kubernetes Engine 中，如果啓用了網絡策略，
-或者你使用的集羣 CIDR 不在 10.0.0.0/8 範圍內，
-則 `ip-masq-agent` 將在你的集羣中運行。
+默認情況下，在 GCE/Google Kubernetes Engine 中，如果啓用了網路策略，
+或者你使用的叢集 CIDR 不在 10.0.0.0/8 範圍內，
+則 `ip-masq-agent` 將在你的叢集中運行。
 如果你在其他環境中運行，可以將 `ip-masq-agent`
 [DaemonSet](/zh-cn/docs/concepts/workloads/controllers/daemonset/)
-添加到你的集羣中。
+添加到你的叢集中。
 
 <!-- steps -->
 
@@ -202,7 +202,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/ip-masq-agent
 You must also apply the appropriate node label to any nodes in your cluster that you want the
 agent to run on.
 -->
-你必須同時將適當的節點標籤應用於集羣中希望代理運行的任何節點。
+你必須同時將適當的節點標籤應用於叢集中希望代理運行的任何節點。
 
 ```shell
 kubectl label nodes my-node node.kubernetes.io/masq-agent-ds-ready=true
@@ -222,7 +222,7 @@ only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the follow
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called
 "config".
 -->
-在大多數情況下，默認的規則集應該足夠；但是，如果你的集羣不是這種情況，則可以創建並應用
+在大多數情況下，默認的規則集應該足夠；但是，如果你的叢集不是這種情況，則可以創建並應用
 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 來自定義受影響的 IP 範圍。
 例如，要允許 ip-masq-agent 僅作用於 10.0.0.0/8，你可以在一個名爲 "config" 的文件中創建以下
@@ -246,7 +246,7 @@ resyncInterval: 60s
 <!--
 Run the following command to add the configmap to your cluster:
 -->
-運行以下命令將 ConfigMap 添加到你的集羣：
+運行以下命令將 ConfigMap 添加到你的叢集：
 
 ```shell
 kubectl create configmap ip-masq-agent --from-file=config --namespace=kube-system
@@ -258,7 +258,7 @@ every `resyncInterval` and applied to the cluster node.
 After the resync interval has expired, you should see the iptables rules reflect your changes:
 -->
 這將更新位於 `/etc/config/ip-masq-agent` 的一個文件，該文件以 `resyncInterval`
-爲週期定期檢查並應用於集羣節點。
+爲週期定期檢查並應用於叢集節點。
 重新同步間隔到期後，你應該看到你的更改在 iptables 規則中體現：
 
 ```shell

@@ -36,7 +36,7 @@ If you use Docker Engine via dockershim as your container runtime and wish to up
 it is recommended that you either migrate to another runtime or find an alternative means to obtain Docker Engine support.
 -->
 Dockershim 在 Kubernetes v1.24 版本已經被移除。
-如果你集羣內是通過 Dockershim 使用 Docker Engine 作爲容器運行時，並希望 Kubernetes 升級到 v1.24，
+如果你叢集內是通過 Dockershim 使用 Docker Engine 作爲容器運行時，並希望 Kubernetes 升級到 v1.24，
 建議你遷移到其他容器運行時或使用其他方法以獲得 Docker 引擎支持。
 
 <!--
@@ -59,8 +59,8 @@ if there are critical issues affecting your cluster.
 v1.24 [很快](/zh-cn/releases/#release-v1-24)也將不再支持。
 
 當在遷移過程中遇到麻煩，請[上報問題](https://github.com/kubernetes/kubernetes/issues)。
-那麼問題就可以及時修復，你的集羣也可以進入移除 Dockershim 前的就緒狀態。
-在 v1.24 支持結束後，如果出現影響集羣的嚴重問題，
+那麼問題就可以及時修復，你的叢集也可以進入移除 Dockershim 前的就緒狀態。
+在 v1.24 支持結束後，如果出現影響叢集的嚴重問題，
 你需要聯繫你的 Kubernetes 供應商以獲得支持或一次升級多個版本。
 
 <!--
@@ -72,7 +72,7 @@ These tasks will help you to migrate:
 * [Check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
 * [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents/)
 -->
-你的集羣中可以有不止一種類型的節點，儘管這不是常見的情況。
+你的叢集中可以有不止一種類型的節點，儘管這不是常見的情況。
 
 下面這些任務可以幫助你完成遷移：
 

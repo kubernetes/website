@@ -1,7 +1,7 @@
 <!--
 Upgrade your Kubernetes cluster to the specified version
 -->
-將 Kubernetes 集羣升級到指定版本。
+將 Kubernetes 叢集升級到指定版本。
 
 <!--
 ### Synopsis
@@ -11,7 +11,7 @@ Upgrade your Kubernetes cluster to the specified version
 <!--
 Upgrade your Kubernetes cluster to the specified version
 -->
-將 Kubernetes 集羣升級到指定版本。
+將 Kubernetes 叢集升級到指定版本。
 
 ```shell
 kubeadm upgrade apply [version]
@@ -112,7 +112,7 @@ Perform the renewal of certificates used by component changed during upgrades.
 <!--
 Path to a kubeadm configuration file.
 -->
-kubeadm 配置文件的路徑。
+kubeadm 設定文件的路徑。
 </p>
 </td>
 </tr>
@@ -230,7 +230,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 <!--
 The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.
 -->
-與集羣通信時使用的 kubeconfig 文件。如果未設置標誌，則在相關目錄下搜索以查找現有 kubeconfig 文件。
+與叢集通信時使用的 kubeconfig 文件。如果未設置標誌，則在相關目錄下搜索以查找現有 kubeconfig 文件。
 </p>
 </td>
 </tr>
@@ -265,7 +265,7 @@ Path to a directory that contains files named &quot;target[suffix][+patchtype].e
 <!--
 Specifies whether the configuration file that will be used in the upgrade should be printed or not.
 -->
-指定是否應打印將在升級中使用的配置文件。
+指定是否應打印將在升級中使用的設定文件。
 </p>
 </td>
 </tr>

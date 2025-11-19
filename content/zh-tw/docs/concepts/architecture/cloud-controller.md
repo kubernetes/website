@@ -43,7 +43,7 @@ process.
 -->
 ## 設計  {#design}
 
-{{< figure src="/zh-cn/docs/images/components-of-kubernetes.svg" alt="此圖展示了 Kubernetes 集羣的組件" class="diagram-medium" >}}
+{{< figure src="/zh-cn/docs/images/components-of-kubernetes.svg" alt="此圖展示了 Kubernetes 叢集的組件" class="diagram-medium" >}}
 
 雲控制器管理器以一組多副本的進程集合的形式運行在控制面中，通常表現爲 Pod
 中的容器。每個 `cloud-controller-manager`
@@ -77,7 +77,7 @@ hosts running inside your tenancy with the cloud provider. The node controller p
 -->
 ### 節點控制器   {#node-controller}
 
-節點控制器負責在雲基礎設施中創建了新服務器時爲之更新{{< glossary_tooltip text="節點（Node）" term_id="node" >}}對象。
+節點控制器負責在雲基礎設施中創建了新伺服器時爲之更新{{< glossary_tooltip text="節點（Node）" term_id="node" >}}對象。
 節點控制器從雲提供商獲取當前租戶中主機的信息。節點控制器執行以下功能：
 
 <!--
@@ -90,13 +90,13 @@ hosts running inside your tenancy with the cloud provider. The node controller p
    If the node has been deleted from the cloud, the controller deletes the Node object from your Kubernetes
    cluster.
 -->
-1. 使用從雲平臺 API 獲取的對應服務器的唯一標識符更新 Node 對象；
+1. 使用從雲平臺 API 獲取的對應伺服器的唯一標識符更新 Node 對象；
 2. 利用特定雲平臺的信息爲 Node 對象添加註解和標籤，例如節點所在的區域
    （Region）和所具有的資源（CPU、內存等等）；
-3. 獲取節點的網絡地址和主機名；
+3. 獲取節點的網路地址和主機名；
 4. 檢查節點的健康狀況。如果節點無響應，控制器通過雲平臺 API
    查看該節點是否已從雲中禁用、刪除或終止。如果節點已從雲中刪除，
-   則控制器從 Kubernetes 集羣中刪除 Node 對象。
+   則控制器從 Kubernetes 叢集中刪除 Node 對象。
 
 <!--
 Some cloud provider implementations split this into a node controller and a separate node
@@ -116,9 +116,9 @@ of IP addresses for the Pod network.
 -->
 ### 路由控制器   {#route-controller}
 
-Route 控制器負責適當地配置雲平臺中的路由，以便 Kubernetes 集羣中不同節點上的容器之間可以相互通信。
+Route 控制器負責適當地設定雲平臺中的路由，以便 Kubernetes 叢集中不同節點上的容器之間可以相互通信。
 
-取決於雲驅動本身，路由控制器可能也會爲 Pod 網絡分配 IP 地址塊。
+取決於雲驅動本身，路由控制器可能也會爲 Pod 網路分配 IP 地址塊。
 
 <!--
 ### Service controller
@@ -132,8 +132,8 @@ when you declare a Service resource that requires them.
 ### 服務控制器   {#service-controller}
 
 {{< glossary_tooltip text="服務（Service）" term_id="service" >}}與受控的負載均衡器、
-IP 地址、網絡包過濾、目標健康檢查等雲基礎設施組件集成。
-服務控制器與雲驅動的 API 交互，以配置負載均衡器和其他基礎設施組件。
+IP 地址、網路包過濾、目標健康檢查等雲基礎設施組件集成。
+服務控制器與雲驅動的 API 交互，以設定負載均衡器和其他基礎設施組件。
 你所創建的 Service 資源會需要這些組件服務。
 
 <!--
@@ -174,7 +174,7 @@ routes appropriately. It requires Get access to Node objects.
 -->
 ### 路由控制器 {#authorization-route-controller}
 
-路由控制器會監聽 Node 對象的創建事件，並據此配置路由設施。
+路由控制器會監聽 Node 對象的創建事件，並據此設定路由設施。
 它需要讀取 Node 對象的 Get 權限。
 
 `v1/Node`：
@@ -193,7 +193,7 @@ To access Services, it requires **list**, and **watch** access. To update Servic
 ### 服務控制器 {#authorization-service-controller}
 
 服務控制器監測 Service 對象的 **create**、**update** 和 **delete** 事件，
-並配置對應 Service 的負載均衡器。
+並設定對應 Service 的負載均衡器。
 
 爲了訪問 Service 對象，它需要 **list** 和 **watch** 訪問權限。
 爲了更新 Service 對象，它需要針對 `status` 子資源的 **patch** 和 **update** 訪問權限。

@@ -28,8 +28,8 @@ toolkit, offering a convenient and flexible way to interact with a
 Kubernetes cluster.
 -->
 在 Kubernetes 的世界中，大規模管理容器化應用程序需要強大而高效的工具。
-命令行界面（CLI）是任何開發人員或操作人員工具包不可或缺的一部分，
-其提供了一種方便靈活的方式與 Kubernetes 集羣交互。
+命令列界面（CLI）是任何開發人員或操作人員工具包不可或缺的一部分，
+其提供了一種方便靈活的方式與 Kubernetes 叢集交互。
 
 <!--
 SIG CLI plays a crucial role in improving the [Kubernetes
@@ -37,7 +37,7 @@ CLI](https://github.com/kubernetes/community/tree/master/sig-cli)
 experience by focusing on the development and enhancement of
 `kubectl`, the primary command-line tool for Kubernetes.
 -->
-SIG CLI 通過專注於 Kubernetes 主要命令行工具 `kubectl` 的開發和增強，
+SIG CLI 通過專注於 Kubernetes 主要命令列工具 `kubectl` 的開發和增強，
 在改善 [Kubernetes CLI](https://github.com/kubernetes/community/tree/master/sig-cli)
 體驗方面發揮着至關重要的作用。
 
@@ -90,7 +90,7 @@ specifically. Later that year, I was appointed to my current roles as
 subproject owner for Kustomize and KRM Functions, and as SIG CLI Tech
 Lead and Chair.
 -->
-**Katrina**：自 2016 年以來，我一直作爲最終用戶使用 Kubernetes，但直到 2019 年底，
+**Katrina**：自 2016 年以來，我一直作爲最終使用者使用 Kubernetes，但直到 2019 年底，
 我才發現 SIG CLI 與我在內部項目中的經驗非常吻合。我開始定期參加會議並提交了一些小型 PR，
 到 2021 年，我專門與 [Kustomize](https://github.com/kubernetes-sigs/kustomize)
 團隊進行了更深入的合作。同年晚些時候，我被任命擔任目前的職務，擔任 Kustomize 和
@@ -113,7 +113,7 @@ tooling that helps you manage your Kubernetes manifests and interact
 with your Kubernetes clusters.
 -->
 **Maciej**：我們的[章程](https://github.com/kubernetes/community/tree/master/sig-cli/)有最詳細的描述，
-但簡而言之，我們處理所有 CLI 工具，幫助你管理 Kubernetes 資源清單以及與 Kubernetes 集羣進行交互。
+但簡而言之，我們處理所有 CLI 工具，幫助你管理 Kubernetes 資源清單以及與 Kubernetes 叢集進行交互。
 
 <!--
 **Arpit**: I see. And how does SIG CLI work to promote best-practices
@@ -203,7 +203,7 @@ and the `kuberc` user preferences file ([KEP
 例如，在 1.27 中，我們爲 [kubectl apply 中的新裁剪模式](https://kubernetes.io/blog/2023/05/09/introducing-kubectl-applyset-pruning/)
 引入了新的 Alpha 特性，併爲 kubectl 添加了插件。
 目前正在討論的令人興奮的想法包括 `kubectl` 刪除的交互模式（[KEP 3895](https://kubernetes.io/blog/2023/05/09/introducing-kubectl-applyset-pruning)）和
-`kuberc` 用戶首選項文件（[KEP 3104](https://kubernetes.io/blog/2023/05/09/introducing-kubectl-applyset-pruning)）。
+`kuberc` 使用者首選項文件（[KEP 3104](https://kubernetes.io/blog/2023/05/09/introducing-kubectl-applyset-pruning)）。
 
 <!--
 **Arpit**: Could you discuss any challenges that SIG CLI faces in its
@@ -228,12 +228,12 @@ proposal may help with some of these problems by giving individual
 users the ability to set or override default values we can’t change,
 and even create custom subcommands via aliases
 -->
-**Katrina**：我們每個決定面臨的最大挑戰是向後兼容性並確保我們不會影響現有用戶。
-經常發生的情況是，修復表面上的內容似乎很簡單，但即使修復 bug 也可能對某些用戶造成破壞性更改，
+**Katrina**：我們每個決定面臨的最大挑戰是向後兼容性並確保我們不會影響現有使用者。
+經常發生的情況是，修復表面上的內容似乎很簡單，但即使修復 bug 也可能對某些使用者造成破壞性更改，
 這意味着我們需要經歷一個較長的棄用過程來更改它，或者在某些情況下我們不能完全改變它。
 另一個挑戰是我們需要在工具上公開 flag 的平衡定製和可用性。例如，我們收到了許多關於新標誌的建議，
-這些建議肯定對某些用戶有用，但沒有足夠大的子集來證明，將它們添加到工具中對每個用戶來說都會增加複雜性。
-`kuberc` 提案可能會幫助個人用戶設置或覆蓋我們無法更改的默認值，甚至通過別名創建自定義子命令，
+這些建議肯定對某些使用者有用，但沒有足夠大的子集來證明，將它們添加到工具中對每個使用者來說都會增加複雜性。
+`kuberc` 提案可能會幫助個人使用者設置或覆蓋我們無法更改的默認值，甚至通過別名創建自定義子命令，
 從而幫助解決其中一些問題。
 
 <!--
@@ -252,7 +252,7 @@ users. At any point in time we have to keep a reasonable balance
 between features and not breaking users.
 -->
 **Maciej**：這與上一個問題中提到的主題非常相似：每一個新的更改，尤其是對現有命令的更改，
-都會經過大量的審查，以確保我們不會影響現有用戶。在任何時候我們都必須在功能和不影響用戶之間保持合理的平衡。
+都會經過大量的審查，以確保我們不會影響現有使用者。在任何時候我們都必須在功能和不影響使用者之間保持合理的平衡。
 
 <!--
 ## Future plans and contribution

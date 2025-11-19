@@ -24,5 +24,5 @@ Enable structured authorization configuration, so that cluster administrators
 can specify more than one [authorization webhook](/docs/reference/access-authn-authz/webhook/)
 in the API server handler chain.
 -->
-啓用結構化授權配置，以便集羣管理員可以在 API
-服務器處理程序鏈中指定多個[授權 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/)。
+啓用結構化授權設定，以便叢集管理員可以在 API
+伺服器處理程序鏈中指定多個[授權 Webhook](/zh-cn/docs/reference/access-authn-authz/webhook/)。

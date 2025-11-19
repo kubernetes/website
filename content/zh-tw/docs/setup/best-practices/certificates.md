@@ -23,9 +23,9 @@ This page explains the certificates that your cluster requires.
 -->
 Kubernetes 需要 PKI 證書才能進行基於 TLS 的身份驗證。如果你是使用
 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 安裝的 Kubernetes，
-則會自動生成集羣所需的證書。
-你也可以自己生成證書 --- 例如，不將私鑰存儲在 API 服務器上，
-可以讓私鑰更加安全。此頁面說明了集羣必需的證書。
+則會自動生成叢集所需的證書。
+你也可以自己生成證書 --- 例如，不將私鑰存儲在 API 伺服器上，
+可以讓私鑰更加安全。此頁面說明了叢集必需的證書。
 
 <!-- body -->
 
@@ -34,7 +34,7 @@ Kubernetes 需要 PKI 證書才能進行基於 TLS 的身份驗證。如果你�
 
 Kubernetes requires PKI for the following operations:
 -->
-## 集羣是如何使用證書的    {#how-certificates-are-used-by-your-cluster}
+## 叢集是如何使用證書的    {#how-certificates-are-used-by-your-cluster}
 
 Kubernetes 需要 PKI 才能執行以下操作：
 
@@ -47,12 +47,12 @@ Kubernetes 需要 PKI 才能執行以下操作：
   for each kubelet (every {{< glossary_tooltip text="node" term_id="node" >}} runs a kubelet)
 * Optional server certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 -->
-### 服務器證書   {#server-certificates}
+### 伺服器證書   {#server-certificates}
 
-* API 服務器端點的證書
-* etcd 服務器的服務器證書
-* 每個 kubelet 的服務器證書（每個{{< glossary_tooltip text="節點" term_id="node" >}}運行一個 kubelet）
-* 可選的[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的服務器證書
+* API 伺服器端點的證書
+* etcd 伺服器的伺服器證書
+* 每個 kubelet 的伺服器證書（每個{{< glossary_tooltip text="節點" term_id="node" >}}運行一個 kubelet）
+* 可選的[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的伺服器證書
 
 <!--
 ### Client certificates
@@ -69,12 +69,12 @@ Kubernetes 需要 PKI 才能執行以下操作：
 * Optional client certificates for administrators of the cluster to authenticate to the API server
 * Optional client certificate for the [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
 -->
-* 針對每個 kubelet 的客戶端證書，用於 API 服務器作爲 Kubernetes API 的客戶端進行身份驗證
-* 每個 API 服務器的客戶端證書，用於向 etcd 進行身份驗證
-* 控制器管理器與 API 服務器進行安全通信的客戶端證書
-* 調度程序與 API 服務器進行安全通信的客戶端證書
-* 客戶端證書（每個節點一個），用於 kube-proxy 向 API 服務器進行身份驗證
-* 集羣管理員向 API 服務器進行身份驗證的可選客戶端證書
+* 針對每個 kubelet 的客戶端證書，用於 API 伺服器作爲 Kubernetes API 的客戶端進行身份驗證
+* 每個 API 伺服器的客戶端證書，用於向 etcd 進行身份驗證
+* 控制器管理器與 API 伺服器進行安全通信的客戶端證書
+* 調度程序與 API 伺服器進行安全通信的客戶端證書
+* 客戶端證書（每個節點一個），用於 kube-proxy 向 API 伺服器進行身份驗證
+* 叢集管理員向 API 伺服器進行身份驗證的可選客戶端證書
 * [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的可選客戶端證書
 
 <!--
@@ -83,9 +83,9 @@ Kubernetes 需要 PKI 才能執行以下操作：
 To establish a secure connection and authenticate itself to the kubelet, the API Server
 requires a client certificate and key pair.
 -->
-### kubelet 的服務器和客戶端證書   {#kubelets-server-and-client-certificates}
+### kubelet 的伺服器和客戶端證書   {#kubelets-server-and-client-certificates}
 
-爲了建立安全連接並向 kubelet 進行身份驗證，API 服務器需要客戶端證書和密鑰對。
+爲了建立安全連接並向 kubelet 進行身份驗證，API 伺服器需要客戶端證書和密鑰對。
 
 <!--
 In this scenario, there are two approaches for certificate usage:
@@ -102,9 +102,9 @@ In this scenario, there are two approaches for certificate usage:
 在此場景中，證書的使用有兩種方法：
 
 * 共享證書：kube-apiserver 可以使用與驗證其客戶端相同的證書和密鑰對。
-  這意味着現有證書（例如 `apiserver.crt` 和 `apiserver.key`）可用於與 kubelet 服務器進行通信。
+  這意味着現有證書（例如 `apiserver.crt` 和 `apiserver.key`）可用於與 kubelet 伺服器進行通信。
 
-* 單獨的證書：或者，kube-apiserver 可以生成新的客戶端證書和密鑰對，以驗證其與 kubelet 服務器的通信。
+* 單獨的證書：或者，kube-apiserver 可以生成新的客戶端證書和密鑰對，以驗證其與 kubelet 伺服器的通信。
   在這種情況下，將創建一個名爲 `kubelet-client.crt` 的不同證書及其對應的私鑰 `kubelet-client.key`。
 
 {{< note >}}
@@ -113,7 +113,7 @@ In this scenario, there are two approaches for certificate usage:
 [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 -->
 只有當你運行 kube-proxy
-並要支持[擴展 API 服務器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)時，
+並要支持[擴展 API 伺服器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)時，
 才需要 `front-proxy` 證書。
 {{< /note >}}
 
@@ -132,7 +132,7 @@ certificates which kubeadm places in `/etc/kubernetes`.
 ## 證書存儲位置    {#where-certificates-are-stored}
 
 假如你通過 kubeadm 安裝 Kubernetes，大多數證書會被存儲在 `/etc/kubernetes/pki` 中。
-本文檔中的所有路徑都是相對於該目錄的，但用戶賬號證書除外，kubeadm 將其放在 `/etc/kubernetes` 中。
+本文檔中的所有路徑都是相對於該目錄的，但使用者賬號證書除外，kubeadm 將其放在 `/etc/kubernetes` 中。
 
 <!--
 ## Configure certificates manually
@@ -143,7 +143,7 @@ for details on creating your own certificate authority. See
 [Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/)
 for more on managing certificates.
 -->
-## 手動配置證書    {#configure-certificates-manually}
+## 手動設定證書    {#configure-certificates-manually}
 
 如果你不想通過 kubeadm 生成所需證書，你可以使用一個單根 CA 來創建這些證書，或者直接提供所有證書。
 參見[證書](/zh-cn/docs/tasks/administer-cluster/certificates/)以進一步瞭解如何創建自己的證書授權機構。
@@ -202,7 +202,7 @@ Required certificates:
 -->
 ### 所有的證書    {#all-certificates}
 
-如果你不想將 CA 的私鑰拷貝至你的集羣中，你也可以自己生成全部的證書。
+如果你不想將 CA 的私鑰拷貝至你的叢集中，你也可以自己生成全部的證書。
 
 需要這些證書：
 
@@ -233,7 +233,7 @@ Instead of using the super-user group `system:masters` for `kube-apiserver-kubel
 a less privileged group can be used. kubeadm uses the `kubeadm:cluster-admins` group for
 that purpose.
 -->
-不使用超級用戶組 `system:masters` 來控制 `kube-apiserver-kubelet-client`，
+不使用超級使用者組 `system:masters` 來控制 `kube-apiserver-kubelet-client`，
 可以使用一個權限較低的組。kubeadm 使用 `kubeadm:cluster-admins` 組來達到這個目的。
 {{< /note >}}
 
@@ -246,7 +246,7 @@ where `kind` maps to one or more of the x509 key usage, which is also documented
 `.spec.usages` of a [CertificateSigningRequest](/docs/reference/kubernetes-api/authentication-resources/certificate-signing-request-v1#CertificateSigningRequest)
 type:
 -->
-[^1]: 用來連接到集羣的不同 IP 或 DNS 名稱
+[^1]: 用來連接到叢集的不同 IP 或 DNS 名稱
 （就像 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 爲負載均衡所使用的固定
 IP 或 DNS 名稱：`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
@@ -271,8 +271,8 @@ IP 或 DNS 名稱：`kubernetes`、`kubernetes.default`、`kubernetes.default.sv
 Hosts/SAN listed above are the recommended ones for getting a working cluster; if required by a
 specific setup, it is possible to add additional SANs on all the server certificates.
 -->
-上面列出的 Host/SAN 是獲取工作集羣的推薦配置方式；
-如果需要特殊安裝，則可以在所有服務器證書上添加其他 SAN。
+上面列出的 Host/SAN 是獲取工作叢集的推薦設定方式；
+如果需要特殊安裝，則可以在所有伺服器證書上添加其他 SAN。
 {{< /note >}}
 
 {{< note >}}
@@ -285,9 +285,9 @@ For kubeadm users only:
   `kube-etcd`, `kube-etcd-peer` and `kube-etcd-healthcheck-client` certificates are not generated
   in case of external etcd.
 -->
-對於 kubeadm 用戶：
+對於 kubeadm 使用者：
 
-* 不使用私鑰並將證書複製到集羣 CA 的方案，在 kubeadm 文檔中將這種方案稱爲外部 CA。
+* 不使用私鑰並將證書複製到叢集 CA 的方案，在 kubeadm 文檔中將這種方案稱爲外部 CA。
 * 如果將上表與 kubeadm 生成的 PKI 進行比較，你會注意到，如果使用外部 etcd，則不會生成
   `kube-etcd`、`kube-etcd-peer` 和 `kube-etcd-healthcheck-client` 證書。
 
@@ -392,9 +392,9 @@ you need to provide if you are generating all of your own keys and certificates:
 
 You must manually configure these administrator account and service accounts:
 -->
-## 爲用戶賬號配置證書    {#configure-certificates-for-user-accounts}
+## 爲使用者賬號設定證書    {#configure-certificates-for-user-accounts}
 
-你必須手動配置以下管理員賬號和服務賬號：
+你必須手動設定以下管理員賬號和服務賬號：
 
 <!--
 | Filename                | Credential name            | Default CN                          | O (in Subject)         |
@@ -433,8 +433,8 @@ layer of Kubernetes, such as RBAC. Also some tools do not generate a separate
 -->
 在上面的例子中，`<admin-group>` 是實現特定的。
 一些工具在默認的 `admin.conf` 中籤署證書，以成爲 `system:masters` 組的一部分。
-`system:masters` 是一個緊急情況下的超級用戶組，可以繞過 Kubernetes 的授權層，如 RBAC。
-另外，某些工具不會生成單獨的 `super-admin.conf` 將證書綁定到這個超級用戶組。
+`system:masters` 是一個緊急情況下的超級使用者組，可以繞過 Kubernetes 的授權層，如 RBAC。
+另外，某些工具不會生成單獨的 `super-admin.conf` 將證書綁定到這個超級使用者組。
 
 <!--
 kubeadm generates two separate administrator certificates in kubeconfig files.
@@ -461,9 +461,9 @@ This file is generated only on the node where `kubeadm init` was called.
 
 1. Run `kubectl` as follows for each configuration:
 -->
-1. 對於每個配置，請都使用給定的通用名稱（CN）和組織（O）生成 x509 證書/密鑰對。
+1. 對於每個設定，請都使用給定的通用名稱（CN）和組織（O）生成 x509 證書/密鑰對。
 
-1. 爲每個配置運行下面的 `kubectl` 命令：
+1. 爲每個設定運行下面的 `kubectl` 命令：
 
    <!--
    ```
@@ -495,9 +495,9 @@ These files are used as follows:
 
 | 文件名                   | 命令                     | 說明                                                                 |
 |-------------------------|-------------------------|-----------------------------------------------------------------------|
-| admin.conf              | kubectl                 | 配置集羣的管理員                                                        |
-| super-admin.conf        | kubectl                 | 爲集羣配置超級管理員用戶                                                 |
-| kubelet.conf            | kubelet                 | 集羣中的每個節點都需要一份                                               |
+| admin.conf              | kubectl                 | 設定叢集的管理員                                                        |
+| super-admin.conf        | kubectl                 | 爲叢集設定超級管理員使用者                                                 |
+| kubelet.conf            | kubelet                 | 叢集中的每個節點都需要一份                                               |
 | controller-manager.conf | kube-controller-manager | 必須添加到 `manifests/kube-controller-manager.yaml` 清單中              |
 | scheduler.conf          | kube-scheduler          | 必須添加到 `manifests/kube-scheduler.yaml` 清單中                       |
 

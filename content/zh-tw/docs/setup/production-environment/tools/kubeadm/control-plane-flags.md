@@ -26,8 +26,8 @@ For more details on each field in the configuration you can navigate to our
 你可以使用 `ClusterConfiguration` 結構中定義的參數，或者在每個節點上應用補丁來定製控制平面組件。
 你可以使用 `KubeletConfiguration` 和 `KubeProxyConfiguration` 結構分別定製 kubelet 和 kube-proxy 組件。
 
-所有這些選項都可以通過 kubeadm 配置 API 實現。
-有關配置中的每個字段的詳細信息，你可以導航到我們的
+所有這些選項都可以通過 kubeadm 設定 API 實現。
+有關設定中的每個字段的詳細信息，你可以導航到我們的
 [API 參考頁面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta4/) 。
 
 {{< note >}}
@@ -36,7 +36,7 @@ To reconfigure a cluster that has already been created see
 [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 -->
 
-要重新配置已創建的集羣，請參閱[重新配置 kubeadm 集羣](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
+要重新設定已創建的叢集，請參閱[重新設定 kubeadm 叢集](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
 {{< /note >}}
 
 <!-- body -->
@@ -50,9 +50,9 @@ The components are defined using the following structures:
 -->
 ## 使用 `ClusterConfiguration` 中的標誌自定義控制平面   {#customizing-the-control-plane-with-flags-in-clusterconfiguration}
 
-kubeadm `ClusterConfiguration` 對象爲用戶提供了一種方法，
+kubeadm `ClusterConfiguration` 對象爲使用者提供了一種方法，
 用以覆蓋傳遞給控制平面組件（如 APIServer、ControllerManager、Scheduler 和 Etcd）的默認參數。
-各組件配置使用如下字段定義：
+各組件設定使用如下字段定義：
 
 - `apiServer`
 - `controllerManager`
@@ -71,7 +71,7 @@ To override a flag for a control plane component:
 2. Add flags to the `extraArgs` field.
 3. Run `kubeadm init` with `--config <YOUR CONFIG YAML>`.
 -->
-1. 將適當的字段 `extraArgs` 添加到配置中。
+1. 將適當的字段 `extraArgs` 添加到設定中。
 2. 向字段 `extraArgs` 添加要覆蓋的參數值。
 3. 用 `--config <YOUR CONFIG YAML>` 運行 `kubeadm init`。
 
@@ -90,9 +90,9 @@ The `ClusterConfiguration` object is currently global in kubeadm clusters. This 
 will apply to all instances of the same component on different nodes. To apply individual configuration per component
 on different nodes you can use [patches](#patches).
 -->
-`ClusterConfiguration` 對象目前在 kubeadm 集羣中是全局的。
+`ClusterConfiguration` 對象目前在 kubeadm 叢集中是全局的。
 這意味着你添加的任何標誌都將應用於同一組件在不同節點上的所有實例。
-要在不同節點上爲每個組件應用單獨的配置，你可以使用[補丁](#patches)。
+要在不同節點上爲每個組件應用單獨的設定，你可以使用[補丁](#patches)。
 {{< /note >}}
 
 {{< note >}}
@@ -224,9 +224,9 @@ You can pass this file to `kubeadm init` with `--config <YOUR CONFIG YAML>`:
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 Kubeadm 允許將包含補丁文件的目錄傳遞給各個節點上的 `InitConfiguration` 和 `JoinConfiguration`。
-這些補丁可被用作組件配置寫入磁盤之前的最後一個自定義步驟。
+這些補丁可被用作組件設定寫入磁盤之前的最後一個自定義步驟。
 
-可以使用 `--config <你的 YAML 格式控制文件>` 將配置文件傳遞給 `kubeadm init`：
+可以使用 `--config <你的 YAML 格式控制文件>` 將設定文件傳遞給 `kubeadm init`：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -247,7 +247,7 @@ separated by `---`.
 <!--
 You can pass this file to `kubeadm join` with `--config <YOUR CONFIG YAML>`:
 -->
-你可以使用 `--config <你的 YAML 格式配置文件>` 將配置文件傳遞給 `kubeadm join`：
+你可以使用 `--config <你的 YAML 格式配置文件>` 將設定文件傳遞給 `kubeadm join`：
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta4
@@ -289,8 +289,8 @@ flag, which must point to the same directory. `kubeadm upgrade` currently does n
 API structure that can be used for the same purpose.
 -->
 如果你使用 `kubeadm upgrade` 升級 kubeadm 節點，你必須再次提供相同的補丁，
-以便在升級後保留自定義配置。爲此，你可以使用 `--patches` 參數，該參數必須指向同一目錄。
-`kubeadm upgrade` 目前不支持用於相同目的的 API 結構配置。
+以便在升級後保留自定義設定。爲此，你可以使用 `--patches` 參數，該參數必須指向同一目錄。
+`kubeadm upgrade` 目前不支持用於相同目的的 API 結構設定。
 {{< /note >}}
 
 <!--
@@ -303,10 +303,10 @@ to all nodes in the cluster.
 -->
 ## 自定義 kubelet  {#kubelet}
 
-要自定義 kubelet，你可以在同一配置文件中的 `ClusterConfiguration` 或 `InitConfiguration`
+要自定義 kubelet，你可以在同一設定文件中的 `ClusterConfiguration` 或 `InitConfiguration`
 之外添加一個 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)，
 用 `---` 分隔。然後可以將此文件傳遞給 `kubeadm init`，kubeadm 會將相同的
-`KubeletConfiguration` 配置應用於集羣中的所有節點。
+`KubeletConfiguration` 設定應用於叢集中的所有節點。
 
 <!--
 For applying instance-specific configuration over the base `KubeletConfiguration` you can use the
@@ -317,7 +317,7 @@ Alternatively, you can use kubelet flags as overrides by passing them in the
 Some kubelet flags are deprecated, so check their status in the
 [kubelet reference documentation](/docs/reference/command-line-tools-reference/kubelet) before using them.
 -->
-要在基礎 `KubeletConfiguration` 上應用特定節點的配置，你可以使用
+要在基礎 `KubeletConfiguration` 上應用特定節點的設定，你可以使用
 [`kubeletconfiguration` 補丁定製](#patches)。
 
 或者你可以使用 `kubelet` 參數進行覆蓋，方法是將它們傳遞到 `InitConfiguration` 和 `JoinConfiguration` 
@@ -329,7 +329,7 @@ Some kubelet flags are deprecated, so check their status in the
 <!--
 For additional details see [Configuring each kubelet in your cluster using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 -->
-更多詳情，請參閱[使用 kubeadm 配置集羣中的每個 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
+更多詳情，請參閱[使用 kubeadm 設定叢集中的每個 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)
 
 <!--
 ## Customizing kube-proxy
@@ -352,7 +352,7 @@ kubeadm deploys kube-proxy as a {{< glossary_tooltip text="DaemonSet" term_id="d
 that the `KubeProxyConfiguration` would apply to all instances of kube-proxy in the cluster.
 -->
 kubeadm 將 kube-proxy 部署爲 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}，
-這意味着 `KubeProxyConfiguration` 將應用於集羣中的所有 kube-proxy 實例。
+這意味着 `KubeProxyConfiguration` 將應用於叢集中的所有 kube-proxy 實例。
 {{< /note >}}
 
 <!--

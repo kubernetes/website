@@ -261,7 +261,7 @@ you need is an existing `docker-compose.yml` file.
 <!--
 ## User Guide
 -->
-## 用戶指南  {#user-guide}
+## 使用者指南  {#user-guide}
 
 <!--
 - CLI
@@ -366,7 +366,7 @@ redis-master-deployment.yaml
 <!--
 When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be overridden by subsequent file.
 -->
-當提供多個 docker-compose 文件時，配置將會合並。任何通用的配置都將被後續文件覆蓋。
+當提供多個 docker-compose 文件時，設定將會合並。任何通用的設定都將被後續文件覆蓋。
 
 <!--
 ### OpenShift `kompose convert` example

@@ -17,7 +17,7 @@ package: imagepolicy.k8s.io/v1alpha1
 <!--
 ImageReview checks if the set of images in a pod are allowed.
 -->
-<code>ImageReview<code> 檢查某個 Pod 中是否可以使用某些鏡像。
+<code>ImageReview<code> 檢查某個 Pod 中是否可以使用某些映像檔。
 </p>
 
 <table class="table">
@@ -200,7 +200,7 @@ ImageReviewStatus is the result of the review for the pod creation request.
   <!--
   Allowed indicates that all images were allowed to be run.
   -->
-  <code>allowed</code> 表明所有鏡像都可以被運行。
+  <code>allowed</code> 表明所有映像檔都可以被運行。
   </p>
 </td>
 </tr>
@@ -215,7 +215,7 @@ may contain a short description of what is wrong.  Kubernetes
 may truncate excessively long errors when displaying to the user.
 -->
 若 <code>allowed</code> 不是 false，<code>reason</code> 應該爲空。
-否則其中應包含出錯信息的簡短描述。Kubernetes 在向用戶展示此信息時可能會截斷過長的錯誤文字。
+否則其中應包含出錯信息的簡短描述。Kubernetes 在向使用者展示此信息時可能會截斷過長的錯誤文字。
 </p>
 </td>
 </tr>
