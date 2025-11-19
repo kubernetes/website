@@ -29,14 +29,17 @@ Feature to let a kube-apiserver proxy a resource request to a different peer API
 <!--more-->
 
 <!--
-When a cluster has multiple API servers running different versions of Kubernetes, this 
-feature enables resource requests to be served by the correct API server.
+When a cluster has multiple API servers running different versions of Kubernetes, this
+feature enables {{< glossary_tooltip text="resource" term_id="api-resource" >}}
+requests to be served by the correct API server.
 
 MVP is disabled by default and can be activated by enabling
 the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `UnknownVersionInteroperabilityProxy` when 
 the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} is started.
 -->
-当集群中多个 API 服务器在运行不同版本 Kubernetes 时，此特性可以确保资源请求由正确的 API 服务器处理。
+当集群中多个 API 服务器在运行不同版本 Kubernetes 时，
+此特性可以确保{{< glossary_tooltip text="资源" term_id="api-resource" >}}请求由正确的
+API 服务器处理。
 
 MVP 默认被禁用，可以在 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}启动时通过启用名为
 `UnknownVersionInteroperabilityProxy` 的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来激活。

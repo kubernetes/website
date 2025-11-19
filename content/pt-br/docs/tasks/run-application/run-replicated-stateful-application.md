@@ -166,7 +166,7 @@ Também deve considerar que os logs de replicação podem não cobrir todo o his
 Essas suposições conservadoras são fundamentais para permitir que um StatefulSet em execução
 possa ser escalonado para mais ou para menos ao longo do tempo, em vez de ficar limitado ao seu tamanho inicial.
 
-O segundo container de inicialização, chamado `clone-mysql`, realiza uma operação de clonagem em um Pod réplica
+O segundo contêiner de inicialização, chamado `clone-mysql`, realiza uma operação de clonagem em um Pod réplica
 na primeira vez que ele é iniciado em um PersistentVolume vazio.
 Isso significa que ele copia todos os dados existentes de outro Pod em execução,
 de modo que seu estado local fique consistente o suficiente para começar a replicar a partir do servidor primário.
