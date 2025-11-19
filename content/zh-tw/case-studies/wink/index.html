@@ -1,0 +1,146 @@
+---
+title: 案例研究：Wink
+
+case_study_styles: true
+cid: caseStudies
+css: /css/style_wink.css
+---
+
+<div class="banner1">
+  <!-- <h1>CASE STUDY: <img src="/images/wink_logo.png" width="13%" style="margin-bottom:-4px"><br>
+    <div class="subhead">Cloud-Native Infrastructure Keeps Your Smart Home Connected</div>
+  </h1> -->
+  <h1>案例研究： <img src="/images/wink_logo.png" width="13%" style="margin-bottom:-4px"><br>
+    <div class="subhead">雲原生基礎設施讓你的智能家居互聯</div>
+  </h1>
+
+</div>
+
+
+<!-- <div class="details">
+    Company &nbsp;<b>Wink</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>New York, N.Y.</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Internet of Things Platform</b>
+</div> -->
+<div class="details">
+    公司 &nbsp;<b>Wink</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位置 &nbsp;<b>紐約，紐約州</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行業 &nbsp;<b>物聯網平臺</b>
+</div>
+
+<hr>
+
+<section class="section1">
+<div class="cols">
+  <div class="col1">
+
+      <h2>挑戰</h2>
+        <!-- Building a low-latency, highly reliable infrastructure to serve communications between millions of connected smart-home devices and the company’s consumer hubs and mobile app, with an emphasis on horizontal scalability, the ability to encrypt everything quickly and connections that could be easily brought back up if anything went wrong. -->
+構建低延遲、高度可靠的基礎設施，爲數百萬互聯智能家居設備、公司消費者中心、移動應用之間的通信提供服務，強調水平可擴展性，能夠快速加密所有內容和強健的連接。
+        <br><br>
+      <h2>解決方案</h2>
+        <!-- Across-the-board use of a Kubernetes-Docker-CoreOS Container Linux stack.<br><br> -->
+全面使用 Kubernetes-Docker-CoreOS 容器的 Linux 系統。<br><br>
+
+  </div>
+
+  <div class="col2">
+    <h2>影響</h2>
+      <!-- "Two of the biggest American retailers [Home Depot and Walmart] are carrying and promoting the brand and the hardware,” Wink Head of Engineering Kit Klein says proudly – though he adds that "it really comes with a lot of pressure. It’s not a retail situation where you have a lot of tech enthusiasts. These are everyday people who want something that works and have no tolerance for technical excuses.” And that’s further testament to how much faith Klein has in the infrastructure that the Wink team has built. With 80 percent of Wink’s workload running on a unified stack of Kubernetes-Docker-CoreOS, the company has put itself in a position to continually innovate and improve its products and services. Committing to this technology, says Klein, "makes building on top of the infrastructure relatively&nbsp;easy.” -->
+“美國最大的兩家零售商 [Home Depot 和 Walmart] 正在使用和推廣 Wink 品牌和硬件，” Wink 工程主管 Kit Klein 自豪地說，不過他補充道，“這確實帶來了很大的壓力。這不是普通的零售商客戶像技術狂熱者一樣追求前沿技術。這些人每天都在想要一些行之有效的東西，並且不會容忍技術方面的藉口。”這進一步證明了 Klein 對 Wink 團隊所構建的基礎設施有多大的信心。由於 Wink 80% 的工作量在 Kubernetes-Docker-CoreOS 的統一堆棧上運行，公司已使自己能夠不斷創新和改進其產品和服務。克萊因說，致力於這項技術“使得在基礎設施之上的建設相對容易。”
+  </div>
+
+</div>
+</section>
+
+
+<div class="banner2">
+  <div class="banner2text">
+      <!-- "It’s not proprietary, it’s totally open, it’s really portable. You can run all the workloads across different cloud providers. You can easily run a hybrid AWS or even bring in your own data center. That’s the benefit of having everything unified on one open source Kubernetes-Docker-CoreOS Container Linux stack. There are massive security benefits if you only have one Linux distro/machine image to validate. The benefits are enormous because you save money, and you save time.”<br><br><span style="font-size:15px;letter-spacing:0.08em">- KIT KLEIN, HEAD OF ENGINEERING, WINK</span> -->
+“它不是專有的，它是完全開放的，它非常可移植。你可以跨不同的雲提供商運行所有工作負載。你可以輕鬆地運行混合形式的 AWS，甚至引入你自己的數據中心。這就是在一個開源 Kubernetes-Docker-CoreOS 容器 Linux 系統上統一所有內容的好處。如果你只有一個 Linux 發行版/計算機映像進行驗證，則具有巨大的安全優勢。好處是巨大的，因爲即省錢又省時間。<br><br><span style="font-size:15px;letter-spacing:0.08em">- KIT KLEIN, WINK 工程主管</span>
+
+  </div>
+</div>
+
+
+<section class="section2">
+  <div class="fullcol">
+      <!-- <h2>How many people does it take to turn on a light bulb?</h2> -->
+<h2>打開一個燈泡需要多少人？</h2>
+
+      <!-- Kit Klein whips out his phone to demonstrate. With a few swipes, the head of engineering at Wink pulls up the smart-home app created by the New York City-based company and taps the light button. "Honestly when you’re holding the phone and you’re hitting the light,” he says, "by the time you feel the pressure of your finger on the screen, it’s on. It takes as long as the signal to travel to your brain.”<br><br> -->
+Kit Klein 拿出他的手機進行演示。只需輕掃幾下，Wink 的工程主管打開由一家紐約公司開發的智能家居應用程序，然後輕觸燈光按鈕。“老實說，當你拿着手機，意味着你控制着燈光，”他說，“當你感覺到你的手指在屏幕上的壓力，燈就打開了。開燈就和觸覺反饋到你的大腦一樣快。”<br><br>
+      <!-- Sure, it takes just one finger and less than 200 milliseconds to turn on the light – or lock a door or change a thermostat. But what allows Wink to help consumers manage their connected smart-home products with such speed and ease is a sophisticated, cloud native infrastructure that Klein and his team built and continue to develop using a unified stack of CoreOS, the open-source operating system designed for clustered deployments, and Kubernetes, an open-source platform for automating deployment, scaling, and operations of application containers across clusters of hosts, providing container-centric infrastructure. "When you have a big, complex network of interdependent microservices that need to be able to discover each other, and need to be horizontally scalable and tolerant to failure, that’s what this is really optimized for,” says Klein. "A lot of people end up relying on proprietary services [offered by some big cloud providers] to do some of this stuff, but what you get by adopting CoreOS/Kubernetes is portability, to not be locked in to anyone. You can really make your own fate.”<br><br> -->
+當然，只需一根手指，不到 200 毫秒即可打開燈，或鎖上門或更換恆溫器。但是，讓 Wink 能夠幫助消費者以如此快速和輕鬆的速度管理其互聯智能家居產品的是一個複雜的雲原生基礎架構，Klein 和他的團隊使用開源的 CoreOS 統一系統構建並繼續開發專爲集羣部署設計的操作系統和 Kubernetes，Kubernetes 是一個開源平臺，用於跨主機集羣自動部署、擴展和操作應用程序容器，提供以容器爲中心的基礎結構。Klein 說：“當你擁有一個龐大而複雜的相互依賴的微服務網絡，需要能夠發現彼此，並且需要水平可伸縮和對故障的容忍度時，這就是真正優化的原因。”“很多人最終依靠一些大型雲提供商提供的專有服務來執行某些操作，但通過採用 CoreOS/Kubernetes 獲得的是可移植性，而不是依賴於固定的某人。你真的可以決定自己的命運。“”<br><br>
+      <!-- Indeed, Wink did. The company’s mission statement is to make the connected home accessible – that is, user-friendly for non-technical owners, affordable and perhaps most importantly, reliable. "If you can’t trust that when you hit the switch, you know a light is going to go on, or if you’re remote and you’re checking on your house and that information isn’t accurate, then the convenience of the system is lost,” says Klein. "So that’s where the infrastructure comes in.”<br><br> -->
+事實上，Wink 做到了。公司的使命是使家庭互聯無障礙，即對非技術業主來說，用戶友好，價格合理，也許最重要的是，可靠。Klein 說：“如果你不相信，當你點擊開關時就可以打開一盞燈，或者你在遠處使用手機檢查你的房子，但是反饋信息不準確，那麼系統的便利性就會喪失。”這就是基礎架構的用處。<br><br>
+      <!-- Wink was incubated within Quirky, a company that developed crowd-sourced inventions. The Wink app was first introduced in 2013, and at the time, it controlled only a few consumer products such as the PivotPower Strip that Quirky produced in collaboration with GE. As smart-home products proliferated, Wink was launched in 2014 in Home Depot stores nationwide. Its first project: a hub that could integrate with smart products from about a dozen brands like Honeywell and Chamberlain. The biggest challenge would be to build the infrastructure to serve all those communications between the hub and the products, with a focus on maximizing reliability and minimizing latency.<br><br> -->
+Wink 是在 Quirky 公司孵化的，該公司開發衆包產品。Wink 應用程序於 2013 年首次推出，當時，它只控制了少數消費類產品，如 Quirky 與 GE 合作生產的 PivotPower Strip。隨着智能家居產品的激增，Wink 於 2014 年在全國的 Home Depot 商店推出。其第一個項目：可以與 Honeywell 和 Chamberlain 等十幾個品牌的智能產品集成的平臺。最大的挑戰是構建基礎設施，爲信息中心和產品之間的所有這些通信提供服務，重點是最大限度地提高可靠性和最小化延遲。<br><br>
+      <!-- "When we originally started out, we were moving very fast trying to get the first product to market, the minimum viable product,” says Klein. "Lots of times you go down a path and end up having to backtrack and try different things. But in this particular case, we did a lot of the work up front, which led to us making a really sound decision to deploy it on CoreOS Container Linux. And that was very early in the life of it.” -->
+Klein 說：“當我們最初推出時，我們正以非常快的速度嘗試將第一個產品推向市場，即最低可行產品。”“很多時候，你走一條路，最終不得不回頭嘗試不同的東西。但是在這個特殊的情況下，我們預先做了許多工作，這導致我們作出了一個真正明智的決定，將其部署到使用 CoreOS 容器的 Linux 上。而且是在項目伊始時就這麼做了。”
+
+  </div>
+</section>
+
+<div class="banner3">
+  <div class="banner3text">
+    <!-- "...what you get by adopting CoreOS/Kubernetes is portability, to not be locked in to anyone. You can really make your own fate.” -->
+“...通過 CoreOS/Kubernetes 帶來的可移植性，你可以不依賴於任何人。你真的可以決定自己的命運。”
+  </div>
+</div>
+
+<section class="section3">
+  <div class="fullcol">
+    <!-- Concern number one: Wink’s products need to connect to consumer devices in people’s homes, behind a firewall. "You don’t have an end point like a URL, and you don’t even know what ports are open behind that firewall,” Klein explains. "So you essentially need to have this thing wake up and talk to your system and then open real-time, bidirectional communication between the cloud and the device. And it’s really, really important that it’s persistent because you want to decrease as much as possible the overhead of sending a message – you never know when someone is going to turn on the lights.”<br><br> -->
+關注第一：Wink 的產品需要連接到人們家中在防火牆後面的消費設備。Klein 解釋道：“由於沒有 URL 這樣的端點，你甚至不需要知道防火牆後面打開了哪些端口。”“因此，你基本上需要喚醒這些設備，然後與你的系統通信，然後在雲和設備之間打開實時、雙向通信。持續的連接真的非常重要，因爲你希望儘可能減少發送消息的開銷，你永遠不知道什麼時候有人會開燈。”<br><br>
+    <!-- With the earliest version of the Wink Hub, when you decided to turn your lights on or off, the request would be sent to the cloud and then executed. Subsequent updates to Wink’s software enabled local control, cutting latency down to about 10 milliseconds for many devices. But with the need for cloud-enabled integrations of an ever-growing ecosystem of smart home products, low-latency internet connectivity is still a critical consideration. -->
+使用 Wink Hub 的最早版本，當你決定打開或關閉燈光時，請求將發送到雲，然後執行。Wink 軟件的後續更新啓用了本地控制，將許多設備的延遲縮短到大約 10 毫秒。但是，由於需要雲支持的智能家居產品生態系統的集成，低延遲互聯網連接仍然是一個關鍵的考慮因素。
+    <br><br>
+    <!-- <h2>"You essentially need to have this thing wake up and talk to your system and then open real-time, bidirectional communication between the cloud and the device. And it’s really, really important that it’s persistent...you never know when someone is going to turn on the&nbsp;lights.”</h2> -->
+<h2>“你基本上需要喚醒此設備，然後與你的系統通信，然後在雲和設備之間打開實時、雙向通信。持續的連接真的非常重要，你永遠不知道什麼時候有人會開燈。”</h2>
+    <!-- In addition, Wink had other requirements: horizontal scalability, the ability to encrypt everything quickly, connections that could be easily brought back up if something went wrong. "Looking at this whole structure we started, we decided to make a secure socket-based service,” says Klein. "We’ve always used, I would say, some sort of clustering technology to deploy our services and so the decision we came to was, this thing is going to be containerized, running on Docker.”<br><br> -->
+此外，Wink 還有其他要求：水平可擴展性、快速加密所有內容的能力、在出現問題時可以輕鬆恢復的連接。Klein 說：“從一開始的整個結構來看，我們決定提供基於套接字的安全服務。”“我們總是使用某種集羣技術來部署我們的服務，因此我們決定，這東西將被容器化，在 Docker 上運行。”<br><br>
+    <!-- At the time – just over two years ago – Docker wasn’t yet widely used, but as Klein points out, "it was certainly understood by the people who were on the frontier of technology. We started looking at potential technologies that existed. One of the limiting factors was that we needed to deploy multi-port non-http/https services. It wasn’t really appropriate for some of the early cluster technology. We liked the project a lot and we ended up using it on other stuff for a while, but initially it was too targeted toward http workloads.”<br><br> -->
+當時，就在兩年多前，Docker 還沒有被廣泛使用，但是正如 Klein 指出的，“技術前沿的人們當然理解它。我們開始研究現有的潛在技術。限制因素之一是我們需要部署多端口非 http/https 服務。它並不真正適合某些早期的集羣技術。我們非常喜歡這個項目，最後在其它東西上使用了一段時間，但最初它過於針對 http 工作負載。”<br><br>
+    <!-- Once Wink’s backend engineering team decided on a Dockerized workload, they had to make decisions about the OS and the container orchestration platform. "Obviously you can’t just start the containers and hope everything goes well,” Klein says with a laugh. "You need to have a system that is helpful [in order] to manage where the workloads are being distributed out to. And when the container inevitably dies or something like that, to restart it, you have a load balancer. All sorts of housekeeping work is needed to have a robust infrastructure.” -->
+Wink 的後端工程團隊決定使用 Docker 化的工作負載後，就不得不就操作系統和容器編排平臺做出決定。Klein 笑着說：“很明顯，你不能只是啓動容器，希望一切順利。”“你需要有一個有用的系統，以便管理工作負載的分發位置。當容器不可避免地死亡或類似的東西，重新啓動它，你得有一個負載平衡器。要擁有強大的基礎設施，需要進行各種內部事務管理工作。”
+
+  </div>
+</section>
+
+  <div class="banner4">
+    <div class="banner4text">
+    <!-- "Obviously you can’t just start the containers and hope everything goes well,” Klein says with a laugh. "You need to have a system that is helpful [in order] to manage where the workloads are being distributed out to. And when the container inevitably dies or something like that, to restart it, you have a load balancer. All sorts of housekeeping work is needed to have a robust infrastructure.” -->
+Klein 笑着說：“很明顯，你不能只是啓動容器，希望一切順利。”“你需要有一個有用的系統，以便管理工作負載的分發位置。當容器不可避免地死亡或類似的東西，重新啓動它，你得有一個負載平衡器。要擁有強大的基礎設施，需要進行各種內部事務管理工作。”
+    </div>
+  </div>
+
+<section class="section4">
+  <div class="fullcol">
+    <!-- Wink considered building directly on a general purpose Linux distro like Ubuntu (which would have required installing tools to run a containerized workload) and cluster management systems like Mesos (which was targeted toward enterprises with larger teams/workloads), but ultimately set their sights on CoreOS Container Linux. "A container-optimized Linux distribution system was exactly what we needed,” he says. "We didn’t have to futz around with trying to take something like a Linux distro and install everything. It’s got a built-in container orchestration system, which is Fleet, and an easy-to-use API. It’s not as feature-rich as some of the heavier solutions, but we realized that, at that moment, it was exactly what we needed.”<br><br> -->
+Wink 考慮直接在通用 Linux 發行版（需要安裝工具來運行容器化工作負載）和集羣管理系統如 Mesos（面向擁有較大團隊的企業）的基礎上構建，但最終將目光投向了使用 CoreOS 容器的 Linux。“一個容器優化的Linux分發系統正是我們需要的，”他說。“我們不必爲了嘗試採用 Linux 發行版之類的東西來安裝所有內容而四處奔波。它有一個內置的容器編排系統，Fleet ，和一個易於使用的 API。它不像一些較重的解決方案那樣具有豐富的功能，但我們意識到，在那一刻，這正是我們需要的。”<br><br>
+    <!-- Wink’s hub (along with a revamped app) was introduced in July 2014 with a short-term deployment, and within the first month, they had moved the service to the Dockerized CoreOS deployment. Since then, they’ve moved almost every other piece of their infrastructure – from third-party cloud-to-cloud integrations to their customer service and payment portals – onto CoreOS Container Linux clusters. <br><br> -->
+Wink 的核心（以及經過改進的應用程序）於 2014 年 7 月推出，並進行了短期部署，並在第一個月內將服務轉移到 Docker 化的 CoreOS 上部署。自那時以來，他們幾乎將基礎設施的其他所有部分（從第三方雲到雲的集成遷移到其客戶服務和支付門戶）遷移到使用 CoreOS 容器的 Linux 集羣上。<br><br>
+    <!-- Using this setup did require some customization. "Fleet is really nice as a basic container orchestration system, but it doesn’t take care of routing, sharing configurations, secrets, et cetera, among instances of a service,” Klein says. "All of those layers of functionality can be implemented, of course, but if you don’t want to spend a lot of time writing unit files manually – which of course nobody does – you need to create a tool to automate some of that, which we did.”<br><br> -->
+使用此設置確實需要一些額外的配置。Klein 說：“ Fleet 作爲一個基本的容器編排系統確實很好，但它不負責服務實例之間的路由、配置共享、加密等。當然，所有這些功能層都可以實現，但如果你不想花費大量時間手動編寫單元文件（當然沒有人這樣做），則需要創建一個工具來自動執行其中一些文件，我們做到了。”<br><br>
+    <!-- Wink quickly embraced the Kubernetes container cluster manager when it was launched in 2015 and integrated with CoreOS core technology, and as promised, it ended up providing the features Wink wanted and had planned to build. "If not for Kubernetes, we likely would have taken the logic and library we implemented for the automation tool that we created, and would have used it in a higher level abstraction and tool that could be used by non-DevOps engineers from the command line to create and manage clusters,” Klein says. "But Kubernetes made that totally unnecessary – and is written and maintained by people with a lot more experience in cluster management than us, so all the better.” Now, an estimated 80 percent of Wink’s workload is run on Kubernetes on top of CoreOS Container Linux. -->
+Wink 在 2015 年推出並集成了 CoreOS 核心技術時，很快接受了 Kubernetes 容器集羣管理器，正如所承諾的那樣，它最終提供了 Wink 想要的功能，並計劃構建這些功能。“如果不是 Kubernetes，我們很可能採用我們爲所創建的自動化工具實現的邏輯和庫，並將它用於更高級別的抽象和工具，這些抽象和工具可供命令行中的非 DevOps 工程師使用，以創建和管理集羣，” Klein 說。“但 Kubernetes 完全沒有必要這樣做，並且由比我們在集羣管理方面有經驗更豐富的人編寫和維護，因此更好。現在，估計 Wink 80% 的工作負載是在使用 CoreOS 容器的 Linux 之上的 Kubernetes 上運行。”
+
+  </div>
+</section>
+
+  <div class="banner5">
+    <div class="banner5text">
+      <!-- "Stay close to the development. Understand why decisions are being made. If you understand the intent behind the project, from the technological intent to a certain philosophical intent, then it helps you understand how to build your system in harmony with those systems as opposed to trying to work against it.” -->
+“同發展保持同步。瞭解決策原因。如果你瞭解項目背後的意圖，從技術意圖到某種哲學意圖，那麼它可以幫助你瞭解如何與這些系統和諧地構建系統，而不是試圖與之對抗。”
+    </div>
+  </div>
+
+<section class="section5">
+  <div class="fullcol">
+    <!-- Wink’s reasons for going all in are clear: "It’s not proprietary, it’s totally open, it’s really portable,” Klein says. "You can run all the workloads across different cloud providers. You can easily run a hybrid AWS or even bring in your own data center. That’s the benefit of having everything unified on one Kubernetes-Docker-CoreOS Container Linux stack. There are massive security benefits if you only have one Linux distro to try to validate. The benefits are enormous because you save money, you save time.”<br><br> -->
+Wink 的去向理由很明確：“它不是專有的，它是完全開放的，它真的很便攜，” Klein 說，“它很可移植。你可以跨不同的雲提供商運行所有工作負載。你可以輕鬆地運行混合 AWS，甚至引入你自己的數據中心。這就是在一個使用 Kubernetes-Docker-CoreOS 容器的 Linux 系統上統一所有內容的好處。如果你只有一個 Linux 發行版來嘗試驗證，則具有巨大的安全優勢。好處是巨大的，因爲既省錢又省時間。”
+    <!-- Klein concedes that there are tradeoffs in every technology decision. "Cutting-edge technology is going to be scary for some people,” he says. "In order to take advantage of this, you really have to keep up with the technology. You can’t treat it like it’s a black box. Stay close to the development. Understand why decisions are being made. If you understand the intent behind the project, from the technological intent to a certain philosophical intent, then it helps you understand how to build your system in harmony with those systems as opposed to trying to work against it.”<br><br> -->
+Klein 承認，每個技術決策都有權衡。他表示：“對一些人來說，尖端技術將非常可怕。”“爲了利用這一優勢，你確實必須跟上技術。你不能把它當作一個黑盒子。同發展保持同步。瞭解決策原因。如果你瞭解項目背後的意圖，從技術意圖到某種哲學意圖，那麼它可以幫助你瞭解如何與這些系統和諧地構建系統，而不是試圖與之對抗。”
+    <!-- Wink, which was acquired by Flex in 2015, now controls 2.3 million connected devices in households all over the country. What’s next for the company? A new version of the hub - Wink Hub 2 - hit shelves last November – and is being offered for the first time at Walmart stores in addition to Home Depot. "Two of the biggest American retailers are carrying and promoting the brand and the hardware,” Klein says proudly – though he adds that "it really comes with a lot of pressure. It’s not a retail situation where you have a lot of tech enthusiasts. These are everyday people who want something that works and have no tolerance for technical excuses.” And that’s further testament to how much faith Klein has in the infrastructure that the Wink team has have built.<br><br> -->
+Wink 於 2015 年被 Flex 收購，目前控制着全國 230 萬臺聯網設備。公司下一步怎麼辦？去年11月，一款新版的 “Wink Hub 2”上架，除 Home Depot 外，Walmart 商店還首次上市。Klein 自豪地說：“美國最大的兩家零售商都正在使用和推廣 Wink 品牌和硬件，”不過他補充道，“這確實帶來了很大的壓力。這不是普通的零售商客戶像技術狂熱者一樣追求前沿技術。這些人每天都在想要一些行之有效的東西，並且不會容忍技術方面的藉口。這進一步證明了 Klein 對 Wink 團隊所構建的基礎設施有多大的信心。”
+    <!-- Wink’s engineering team has grown exponentially since its early days, and behind the scenes, Klein is most excited about the machine learning Wink is using. "We built [a system of] containerized small sections of the data pipeline that feed each other and can have multiple outputs,” he says. "It’s like data pipelines as microservices.” Again, Klein points to having a unified stack running on CoreOS Container Linux and Kubernetes as the primary driver for the innovations to come. "You’re not reinventing the wheel every time,” he says. "You can just get down to work.”   -->
+Wink 的工程團隊從早期起就呈指數級增長，在幕後，Klein 對 Wink 使用的機器學習感到非常興奮。“我們構建了一個數據管道的容器化小段系統，這些部分對整個團隊都是有益的，並且可以有多個輸出，”他說。“這就像數據管道作爲微服務。”同樣，Klein 指出，在使用 CoreOS 容器的 Linux 和 Kubernetes 上運行統一的系統是未來的創新的主要驅動力。“你不是每次都在重新發明輪子，”他說。“你可以專注於業務進行開發。”
+</div>
+</section>

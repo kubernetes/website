@@ -1,0 +1,313 @@
+---
+title: Kubernetes API 訪問控制
+content_type: concept
+weight: 50
+---
+<!--
+reviewers:
+- erictune
+- lavalamp
+title: Controlling Access to the Kubernetes API
+content_type: concept
+weight: 50
+-->
+
+<!-- overview -->
+
+<!--
+This page provides an overview of controlling access to the Kubernetes API.
+-->
+本頁面概述了對 Kubernetes API 的訪問控制。
+
+<!-- body -->
+<!--
+Users access the [Kubernetes API](/docs/concepts/overview/kubernetes-api/) using `kubectl`,
+client libraries, or by making REST requests.  Both human users and
+[Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
+authorized for API access.
+When a request reaches the API, it goes through several stages, illustrated in the
+following diagram:
+-->
+用戶使用 `kubectl`、客戶端庫或構造 REST 請求來訪問 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)。
+人類用戶和 [Kubernetes 服務賬號](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)都可以被鑑權訪問 API。
+當請求到達 API 時，它會經歷多個階段，如下圖所示：
+
+![Kubernetes API 請求處理步驟示意圖](/zh-cn/docs/images/access-control-overview.svg)
+
+<!--
+## Transport security
+-->
+## 傳輸安全 {#transport-security}
+
+<!--
+By default, the Kubernetes API server listens on port 6443 on the first non-localhost
+network interface, protected by TLS. In a typical production Kubernetes cluster, the
+API serves on port 443. The port can be changed with the `--secure-port`, and the
+listening IP address with the `--bind-address` flag.
+
+The API server presents a certificate. This certificate may be signed using
+a private certificate authority (CA), or based on a public key infrastructure linked
+to a generally recognized CA. The certificate and corresponding private key can be set
+by using the `--tls-cert-file` and `--tls-private-key-file` flags.
+-->
+默認情況下，Kubernetes API 服務器在第一個非 localhost 網絡接口的 6443 端口上進行監聽，
+受 TLS 保護。在一個典型的 Kubernetes 生產集羣中，API 使用 443 端口。
+該端口可以通過 `--secure-port` 進行變更，監聽 IP 地址可以通過 `--bind-address` 標誌進行變更。
+
+API 服務器出示證書。該證書可以使用私有證書頒發機構（CA）簽名，也可以基於鏈接到公認的 CA 的公鑰基礎架構簽名。
+該證書和相應的私鑰可以通過使用 `--tls-cert-file` 和 `--tls-private-key-file` 標誌進行設置。
+
+<!--
+If your cluster uses a private certificate authority, you need a copy of that CA
+certificate configured into your `~/.kube/config` on the client, so that you can
+trust the connection and be confident it was not intercepted.
+
+Your client can present a TLS client certificate at this stage.
+-->
+如果你的集羣使用私有證書頒發機構，你需要在客戶端的 `~/.kube/config` 文件中提供該 CA 證書的副本，
+以便你可以信任該連接並確認該連接沒有被攔截。
+
+你的客戶端可以在此階段出示 TLS 客戶端證書。
+
+<!--
+## Authentication
+
+Once TLS is established, the HTTP request moves to the Authentication step.
+This is shown as step **1** in the diagram.
+The cluster creation script or cluster admin configures the API server to run
+one or more Authenticator modules.
+Authenticators are described in more detail in
+[Authentication](/docs/reference/access-authn-authz/authentication/).
+-->
+## 認證 {#authentication}
+
+如上圖步驟 **1** 所示，建立 TLS 後， HTTP 請求將進入認證（Authentication）步驟。
+集羣創建腳本或者集羣管理員配置 API 服務器，使之運行一個或多個身份認證組件。
+身份認證組件在[認證](/zh-cn/docs/reference/access-authn-authz/authentication/)節中有更詳細的描述。
+
+<!--
+The input to the authentication step is the entire HTTP request; however, it typically
+examines the headers and/or client certificate.
+
+Authentication modules include client certificates, password, and plain tokens,
+bootstrap tokens, and JSON Web Tokens (used for service accounts).
+
+Multiple authentication modules can be specified, in which case each one is tried in sequence,
+until one of them succeeds.
+-->
+認證步驟的輸入整個 HTTP 請求；但是，通常組件只檢查頭部或/和客戶端證書。
+
+認證模塊包含客戶端證書、密碼、普通令牌、引導令牌和 JSON Web 令牌（JWT，用於服務賬號）。
+
+可以指定多個認證模塊，在這種情況下，服務器依次嘗試每個驗證模塊，直到其中一個成功。
+
+<!--
+If the request cannot be authenticated, it is rejected with HTTP status code 401.
+Otherwise, the user is authenticated as a specific `username`, and the user name
+is available to subsequent steps to use in their decisions.  Some authenticators
+also provide the group memberships of the user, while other authenticators
+do not.
+
+While Kubernetes uses usernames for access control decisions and in request logging,
+it does not have a `User` object nor does it store usernames or other information about
+users in its API.
+-->
+如果請求認證不通過，服務器將以 HTTP 狀態碼 401 拒絕該請求。
+反之，該用戶被認證爲特定的 `username`，並且該用戶名可用於後續步驟以在其決策中使用。
+部分驗證器還提供用戶的組成員身份，其他則不提供。
+
+<!--
+## Authorization
+
+After the request is authenticated as coming from a specific user, the request must
+be authorized. This is shown as step **2** in the diagram.
+
+A request must include the username of the requester, the requested action, and
+the object affected by the action. The request is authorized if an existing policy
+declares that the user has permissions to complete the requested action.
+
+For example, if Bob has the policy below, then he can read pods only in the namespace `projectCaribou`:
+-->
+## 鑑權 {#authorization}
+
+如上圖的步驟 **2** 所示，將請求驗證爲來自特定的用戶後，請求必須被鑑權。
+
+請求必須包含請求者的用戶名、請求的行爲以及受該操作影響的對象。
+如果現有策略聲明用戶有權完成請求的操作，那麼該請求被鑑權通過。
+
+例如，如果 Bob 有以下策略，那麼他只能在 `projectCaribou` 名稱空間中讀取 Pod。
+
+```json
+{
+    "apiVersion": "abac.authorization.kubernetes.io/v1beta1",
+    "kind": "Policy",
+    "spec": {
+        "user": "bob",
+        "namespace": "projectCaribou",
+        "resource": "pods",
+        "readonly": true
+    }
+}
+```
+<!--
+If Bob makes the following request, the request is authorized because he is
+allowed to read objects in the `projectCaribou` namespace:
+-->
+如果 Bob 執行以下請求，那麼請求會被鑑權，因爲允許他讀取 `projectCaribou` 名稱空間中的對象。
+
+```json
+{
+  "apiVersion": "authorization.k8s.io/v1beta1",
+  "kind": "SubjectAccessReview",
+  "spec": {
+    "resourceAttributes": {
+      "namespace": "projectCaribou",
+      "verb": "get",
+      "group": "unicorn.example.org",
+      "resource": "pods"
+    }
+  }
+}
+```
+
+<!--
+If Bob makes a request to write (`create` or `update`) to the objects in the
+`projectCaribou` namespace, his authorization is denied. If Bob makes a request
+to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied.
+
+Kubernetes authorization requires that you use common REST attributes to interact
+with existing organization-wide or cloud-provider-wide access control systems.
+It is important to use REST formatting because these control systems might
+interact with other APIs besides the Kubernetes API.
+-->
+如果 Bob 在 `projectCaribou` 名字空間中請求寫（`create` 或 `update`）對象，其鑑權請求將被拒絕。
+如果 Bob 在諸如 `projectFish` 這類其它名字空間中請求讀取（`get`）對象，其鑑權也會被拒絕。
+
+Kubernetes 鑑權要求使用公共 REST 屬性與現有的組織範圍或雲提供商範圍的訪問控制系統進行交互。
+使用 REST 格式很重要，因爲這些控制系統可能會與 Kubernetes API 之外的 API 交互。
+
+<!--
+Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode.
+When an administrator creates a cluster, they configure the authorization modules that should be used in the API server.
+If more than one authorization modules are configured, Kubernetes checks each module,
+and if any module authorizes the request, then the request can proceed.
+If all of the modules deny the request, then the request is denied (HTTP status code 403).
+
+To learn more about Kubernetes authorization, including details about creating
+policies using the supported authorization modules, see [Authorization](/docs/reference/access-authn-authz/authorization/).
+-->
+Kubernetes 支持多種鑑權模塊，例如 ABAC 模式、RBAC 模式和 Webhook 模式等。
+管理員創建集羣時，他們配置應在 API 服務器中使用的鑑權模塊。
+如果配置了多個鑑權模塊，則 Kubernetes 會檢查每個模塊，任意一個模塊鑑權該請求，請求即可繼續；
+如果所有模塊拒絕了該請求，請求將會被拒絕（HTTP 狀態碼 403）。
+
+要了解更多有關 Kubernetes 鑑權的更多信息，包括有關使用支持鑑權模塊創建策略的詳細信息，
+請參閱[鑑權](/zh-cn/docs/reference/access-authn-authz/authorization/)。
+
+<!--
+## Admission control 
+
+Admission Control modules are software modules that can modify or reject requests.
+In addition to the attributes available to Authorization modules, Admission
+Control modules can access the contents of the object that is being created or modified.
+
+Admission controllers act on requests that create, modify, delete, or connect to (proxy) an object.
+Admission controllers do not act on requests that merely read objects.
+When multiple admission controllers are configured, they are called in order.
+-->
+## 准入控制 {#admission-control}
+
+准入控制模塊是可以修改或拒絕請求的軟件模塊。
+除鑑權模塊可用的屬性外，准入控制模塊還可以訪問正在創建或修改的對象的內容。
+
+准入控制器對創建、修改、刪除或（通過代理）連接對象的請求進行操作。
+准入控制器不會對僅讀取對象的請求起作用。
+有多個准入控制器被配置時，服務器將依次調用它們。
+
+<!--
+This is shown as step **3** in the diagram.
+
+Unlike Authentication and Authorization modules, if any admission controller module
+rejects, then the request is immediately rejected.
+
+In addition to rejecting objects, admission controllers can also set complex defaults for
+fields.
+
+The available Admission Control modules are described in [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
+
+Once a request passes all admission controllers, it is validated using the validation routines
+for the corresponding API object, and then written to the object store (shown as step **4**).
+-->
+這一操作如上圖的步驟 **3** 所示。
+
+與身份認證和鑑權模塊不同，如果任何准入控制器模塊拒絕某請求，則該請求將立即被拒絕。
+
+除了拒絕對象之外，准入控制器還可以爲字段設置複雜的默認值。
+
+可用的准入控制模塊在[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)中進行了描述。
+
+請求通過所有準入控制器後，將使用檢驗例程檢查對應的 API 對象，然後將其寫入對象存儲（如步驟 **4** 所示）。
+
+<!--
+## Auditing
+
+Kubernetes auditing provides a security-relevant, chronological set of records documenting the sequence of actions in a cluster.
+The cluster audits the activities generated by users, by applications that use the Kubernetes API, and by the control plane itself.
+
+For more information, see [Auditing](/docs/tasks/debug/debug-cluster/audit/).
+-->
+## 審計 {#auditing}
+
+Kubernetes 審計提供了一套與安全相關的、按時間順序排列的記錄，其中記錄了集羣中的操作序列。
+集羣對用戶、使用 Kubernetes API 的應用程序以及控制平面本身產生的活動進行審計。
+
+更多信息請參考[審計](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
+
+## {{% heading "whatsnext" %}}
+
+<!--
+Read more documentation on authentication, authorization and API access control:
+
+- [Authenticating](/docs/reference/access-authn-authz/authentication/)
+   - [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
+   - [Dynamic Admission Control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [Authorization](/docs/reference/access-authn-authz/authorization/)
+   - [Role Based Access Control](/docs/reference/access-authn-authz/rbac/)
+   - [Attribute Based Access Control](/docs/reference/access-authn-authz/abac/)
+   - [Node Authorization](/docs/reference/access-authn-authz/node/)
+   - [Webhook Authorization](/docs/reference/access-authn-authz/webhook/)
+- [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/)
+   - including [CSR approval](/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
+     and [certificate signing](/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+- Service accounts
+  - [Developer guide](/docs/tasks/configure-pod-container/configure-service-account/)
+  - [Administration](/docs/reference/access-authn-authz/service-accounts-admin/)
+
+You can learn about:
+- how Pods can use
+  [Secrets](/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  to obtain API credentials.
+-->
+閱讀更多有關身份認證、鑑權和 API 訪問控制的文檔：
+
+- [認證](/zh-cn/docs/reference/access-authn-authz/authentication/)
+  - [使用 Bootstrap 令牌進行身份認證](/zh-cn/docs/reference/access-authn-authz/bootstrap-tokens/)
+- [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)
+  - [動態准入控制](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
+- [鑑權](/zh-cn/docs/reference/access-authn-authz/authorization/)
+  - [基於角色的訪問控制](/zh-cn/docs/reference/access-authn-authz/rbac/)
+  - [基於屬性的訪問控制](/zh-cn/docs/reference/access-authn-authz/abac/)
+  - [節點鑑權](/zh-cn/docs/reference/access-authn-authz/node/)
+  - [Webhook 鑑權](/zh-cn/docs/reference/access-authn-authz/webhook/)
+- [證書籤名請求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)
+  - 包括 [CSR 認證](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#approval-rejection)
+    和[證書籤名](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#signing)
+- 服務賬號
+  - [開發者指導](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/)
+  - [管理](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)
+
+你可以瞭解：
+- Pod 如何使用
+  [Secret](/zh-cn/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
+  獲取 API 憑據。

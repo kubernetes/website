@@ -1,0 +1,22 @@
+---
+title: ExternalServiceAccountTokenSigner
+content_type: feature_gate
+_build:
+  list: never
+  render: false
+
+stages:
+  - stage: alpha
+    defaultValue: false
+    fromVersion: "1.32"
+    toVersion: "1.33"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.34"
+---
+
+<!--
+Enable setting `--service-account-signing-endpoint` to make the kube-apiserver use [external signer](/docs/reference/access-authn-authz/service-accounts-admin#external-serviceaccount-token-signing-and-key-management) for token signing and token verifying key management.
+-->
+允許設置 `--service-account-signing-endpoint` 讓 kube-apiserver
+使用[外部簽名程序](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin#external-serviceaccount-token-signing-and-key-management)進行令牌簽名和令牌驗證密鑰管理。

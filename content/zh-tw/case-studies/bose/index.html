@@ -1,0 +1,257 @@
+---
+title: Bose Case Study
+linkTitle: Bose
+case_study_styles: true
+cid: caseStudies
+logo: bose_featured_logo.png
+featured: false
+weight: 2
+quote: >
+   CNCF 全景圖簡明地解釋了從存儲到雲提供商再到自動化等各個不同領域正在發生的事情，
+   這是我們構建雲基礎設施的購物車，我們可以從不同的道路中進行選擇。
+
+new_case_study_styles: true
+heading_background: /images/case-studies/bose/banner1.jpg
+heading_title_logo: /images/bose_logo.png
+subheading: >
+  Bose：使用 Kubernetes 支持數百萬 IoT 產品的快速開發
+case_study_details:
+  - Company: Bose Corporation
+  - Location: Framingham, Massachusetts
+  - Industry: Consumer Electronics
+---
+<!--
+title: Bose Case Study
+linkTitle: Bose
+case_study_styles: true
+cid: caseStudies
+logo: bose_featured_logo.png
+featured: false
+weight: 2
+quote: >
+   The CNCF Landscape quickly explains what's going on in all the different areas from storage to cloud providers to automation and so forth. This is our shopping cart to build a cloud infrastructure. We can go choose from the different aisles.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/bose/banner1.jpg
+heading_title_logo: /images/bose_logo.png
+subheading: >
+  Bose: Supporting Rapid Development for Millions of IoT Products With Kubernetes
+case_study_details:
+  - Company: Bose Corporation
+  - Location: Framingham, Massachusetts
+  - Industry: Consumer Electronics
+-->
+
+<h2><!--Challenge-->挑戰</h2>
+
+<p>
+<!--
+A household name in high-quality audio equipment, <a href="https://www.bose.com/en_us/index.html">Bose</a> has offered connected products for more than five years, and as that demand grew, the infrastructure had to change to support it. "We needed to provide a mechanism for developers to rapidly prototype and deploy services all the way to production pretty fast," says Lead Cloud Engineer Josh West. In 2016, the company decided to start building a platform from scratch. The primary goal: "To be one to two steps ahead of the different product groups so that we are never scrambling to catch up with their scale," says Cloud Architecture Manager Dylan O'Mahony.
+-->
+作爲一家以高品質音頻設備聞名的公司，[Bose](https://www.bose.com/en_us/index.html)
+已經提供了超過五年的聯網產品，隨着這一需求的增長，基礎設施不得不改變以支持它。
+“我們需要爲開發者提供一種機制，能夠快速原型化並部署服務一直到生產環境”，首席雲工程師 Josh West 說道。
+2016年，公司決定開始從頭構建一個平臺。其主要目標是：“要領先於各個產品組一到兩步，這樣我們就永遠不會匆忙追趕他們的規模”，
+雲架構經理 Dylan O'Mahony 說道。
+</p>
+
+<h2><!--Solution-->解決方案</h2>
+
+<p>
+<!--
+From the beginning, the team knew it wanted a microservices architecture. After evaluating and prototyping a couple of orchestration solutions, the team decided to adopt <a href="https://kubernetes.io/">Kubernetes</a> for its scaled IoT Platform-as-a-Service running on AWS. The platform, which also incorporated Prometheus monitoring, launched in production in 2017, serving over 3 million connected products from the get-go. Bose has since adopted a number of other CNCF technologies, including <a href="https://www.fluentd.org/">Fluentd</a>, <a href="https://coredns.io/">CoreDNS</a>, <a href="https://www.jaegertracing.io/">Jaeger</a>, and <a href="https://opentracing.io/">OpenTracing</a>.
+-->
+從一開始，團隊就知道他們想要一個微服務架構。在評估並原型化了幾種編排解決方案後，
+團隊決定爲其在 AWS 上運行的規模化 IoT 平臺即服務（Platform-as-a-Service）採用
+[Kubernetes](https://kubernetes.io/)。該平臺還集成了 Prometheus 監控，並於2017年投入生產，
+一開始就服務於超過300萬的聯網產品。自那時以來，Bose 已經採用了多項其他 CNCF 技術，包括
+[Fluentd](https://www.fluentd.org/)、[CoreDNS](https://coredns.io/)、[Jaeger](https://www.jaegertracing.io/)
+和 [OpenTracing](https://opentracing.io/)。
+</p>
+
+<h2><!--Impact-->影響</h2>
+
+<p>
+<!--
+With about 100 engineers onboarded, the platform is now enabling 30,000 non-production deployments across dozens of microservices per year. In 2018, there were 1250+ production deployments. Just one production cluster holds 1,800 namespaces and 340 worker nodes. "We had a brand new service taken from concept through coding and deployment all the way to production, including hardening, security testing and so forth, in less than two and a half weeks," says O'Mahony.
+-->
+隨着大約 100 名工程師的加入，該平臺現在每年支持跨數十個微服務的 30,000 次非生產部署。
+2018 年，有超過 1250 次生產部署。僅一個生產集羣就包含 1,800 個命名空間和 340 個工作節點。
+“我們有一個全新的服務，從概念、編碼、部署一直到生產，包括強化、安全測試等，整個過程不到兩個半星期”，O'Mahony 說道。
+</p>
+
+{{< case-studies/quote author="Josh West, Lead Cloud Engineer, Bose" >}}
+<!--
+"At Bose we're building an IoT platform that has enabled our physical products. If it weren't for Kubernetes and the rest of the CNCF projects being free open source software with such a strong community, we would never have achieved scale, or even gotten to launch on schedule."
+-->
+“在 Bose，我們正在構建一個支持我們實體產品的 IoT 平臺。如果不是因爲 Kubernetes
+和其他 CNCF 項目的免費開源軟件及其強大的社區支持，我們永遠不會達到這樣的規模，甚至無法按計劃推出。”
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+<!--
+A household name in high-quality audio equipment, <a href="https://www.bose.com/en_us/index.html">Bose</a> has offered connected products for more than five years, and as that demand grew, the infrastructure had to change to support it.
+-->
+一家以高品質音頻設備聞名的公司，[Bose](https://www.bose.com/en_us/index.html)
+已經提供了超過五年的聯網產品，隨着這一需求的增長，基礎設施不得不改變以支持它。
+
+{{< /case-studies/lead >}}
+
+<p>
+<!--
+"We needed to provide a mechanism for developers to rapidly prototype and deploy services all the way to production pretty fast," says Lead Cloud Engineer Josh West. "There were a lot of cloud capabilities we wanted to provide to support our audio equipment and experiences."
+-->
+“我們需要爲開發者提供一種機制，能夠快速原型化並部署服務一直到生產環境”，首席雲工程師 Josh West 說道，
+“我們希望提供許多雲能力來支持我們的音頻設備和體驗。”
+</p>
+
+<p>
+<!--
+In 2016, the company decided to start building an IoT platform from scratch. The primary goal: "To be one to two steps ahead of the different product groups so that we are never scrambling to catch up with their scale," says Cloud Architecture Manager Dylan O'Mahony. "If they release a new connected product, we want to be already well ahead of being able to handle whatever scale that they're going to throw at us."
+-->
+2016年，公司決定開始從頭構建一個物聯網平臺。其主要目標是：“要領先於各個產品組一到兩步，
+這樣我們就永遠不會匆忙追趕他們的規模”，雲架構經理 Dylan O'Mahony 說道，
+“如果他們發佈了一款新的聯網產品，我們希望已經遠遠領先於能夠處理他們可能帶來的任何規模。”
+</p>
+
+<p>
+<!--
+From the beginning, the team knew it wanted a microservices architecture and platform as a service. After evaluating and prototyping orchestration solutions, including Mesos and Docker Swarm, the team decided to adopt <a href="https://kubernetes.io/">Kubernetes</a> for its platform running on AWS. Kubernetes was still in 1.5, but already the technology could do much of what the team wanted and needed for the present and the future. For West, that meant having storage and network handled. O'Mahony points to Kubernetes' portability in case Bose decides to go multi-cloud.
+-->
+從一開始，團隊就知道他們想要一個微服務架構和平臺即服務。在評估並原型化了包括 Mesos 和 Docker Swarm
+在內的編排解決方案後，團隊決定爲其運行在 AWS 上的平臺採用 [Kubernetes](https://kubernetes.io/)。
+當時 Kubernetes 仍處於1.5版本，但該技術已經能夠滿足團隊當前和未來大部分的需求。對於 West 來說，
+這意味着存儲和網絡得到了處理。O'Mahony 強調了 Kubernetes 的可移植性，以防 Bose 決定採用多雲策略。
+</p>
+
+<p>
+<!--
+"Bose is a company that looks out for the long term," says West. "Going with a quick commercial off-the-shelf solution might've worked for that point in time, but it would not have carried us forward, which is what we needed from Kubernetes and the CNCF."
+-->
+“Bose 是一家着眼於長遠的公司，”West 說道，
+“採用一個快速的現成商業解決方案可能在當時適用，但它無法支持我們向前發展，
+而這是我們從 Kubernetes 和 CNCF 得到的。”
+</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/bose/banner3.jpg"
+  author="Dylan O'Mahony, Cloud Architecture Manager, Bose"
+>}}
+<!--
+"Everybody on the team thinks in terms of automation, leaning out the processes, getting things done as quickly as possible. When you step back and look at what it means for a 50-plus-year-old speaker company to have that sort of culture, it really is quite incredible, and I think the tools that we use and the foundation that we've built with them is a huge piece of that."
+-->
+“團隊中的每個人都思考如何實現自動化，優化流程，儘可能快速地完成任務。當你退後一步，
+思考這對於一家擁有50多年曆史的音箱公司來說意味着什麼時，這真的非常不可思議，
+我認爲我們使用的工具和與之建立的基礎是其中非常重要的一部分。”
+{{< /case-studies/quote >}}
+
+<p>
+<!--
+The team spent time working on choosing tooling to make the experience easier for developers. "Our developers interact with tools provided by our Ops team, and the Ops team run all of their tooling on top of Kubernetes," says O'Mahony. "We try not to make direct Kubernetes access the only way. In fact, ideally, our developers wouldn't even need to know that they're running on Kubernetes."
+-->
+團隊花費時間選擇工具，以使開發者的體驗更加輕鬆。“我們的開發者與由我們的運維團隊提供的工具進行交互，
+而運維團隊在 Kubernetes 上運行他們所有的工具”，O'Mahony 說道，“我們儘量避免將直接的 Kubernetes
+訪問作爲唯一途徑。實際上，理想情況下，我們的開發者甚至不需要知道他們在 Kubernetes 上運行。”
+</p>
+
+<p>
+<!--
+The platform, which also incorporated <a href="https://prometheus.io/">Prometheus</a> monitoring from the beginning, backdoored its way into production in 2017, serving over 3 million connected products from the get-go. "Even though the speakers and the products that we were designing this platform for were still quite a ways away from being launched, we did have some connected speakers on the market," says O'Mahony. "We basically started to point certain features of those speakers and the apps that go with those speakers to this platform."
+-->
+該平臺從一開始就集成了 [Prometheus](https://prometheus.io/) 監控，並於2017年通過後門方式進入生產環境，
+一開始就服務於超過300萬的聯網產品。“即使我們爲設計這個平臺的音箱和產品離正式發佈還有一段時間，
+但我們確實已經在市場上有一些聯網音箱”，O'Mahony 說道，“我們基本上開始將這些音箱的某些功能及其配套應用指向這個平臺。”
+</p>
+
+<p>
+<!--
+Today, just one of Bose's production clusters holds 1,800 namespaces/discrete services and 340 nodes. With about 100 engineers now onboarded, the platform infrastructure is now enabling 30,000 non-production deployments across dozens of microservices per year. In 2018, there were 1250+ production deployments.. It's a staggering improvement over some of Bose's previous deployment processes, which supported far fewer deployments and services.
+-->
+如今，僅 Bose 的一個生產集羣就包含 1800 個命名空間/獨立服務和 340 個節點。
+隨着現在約有 100 名工程師加入，該平臺基礎設施現在每年支持跨數十個微服務的 30,000
+次非生產部署。2018 年，進行了超過 1250 次生產部署。與 Bose 之前支持遠少次數的部署和服務的部署流程相比，
+這是一個驚人的改進。
+</p>
+
+
+{{< case-studies/quote
+  image="/images/case-studies/bose/banner4.jpg"
+  author="Josh West, Lead Cloud Engineer, Bose"
+>}}
+<!--
+"The CNCF Landscape quickly explains what's going on in all the different areas from storage to cloud providers to automation and so forth. This is our shopping cart to build a cloud infrastructure. We can go choose from the different aisles."
+-->
+“CNCF 景觀圖簡明地解釋了從存儲到雲提供商再到自動化等各個不同領域正在發生的事情。
+這是我們構建雲基礎設施的購物車。我們可以從不同的過道中進行選擇。”
+{{< /case-studies/quote >}}
+
+<p>
+<!--
+"We had a brand new service deployed from concept through coding and deployment all the way to production, including hardening, security testing and so forth, in less than two and a half weeks," says O'Mahony. "Everybody thinks in terms of automation, leaning out the processes, getting things done as quickly as possible. When you step back and look at what it means for a 50-plus-year-old speaker company to have that sort of culture, it really is quite incredible, and I think the tools that we use and the foundation that we've built is a huge piece of that."</p>
+-->
+“我們有一個全新的服務，從概念、編碼、部署一直到生產，包括強化、安全測試等，在不到兩個半周的時間內完成部署”，
+O'Mahony 說道。“每個人都思考如何實現自動化，優化流程，儘可能快速地完成任務。當你退後一步，
+思考這對於一家擁有50多年曆史的音箱公司來說意味着什麼時，這真的非常不可思議，
+我認爲我們使用的工具和建立的基礎是其中非常重要的一部分。”
+<p>
+<!--
+Many of those technologies—such as <a href="https://www.fluentd.org/">Fluentd</a>, <a href="https://coredns.io/">CoreDNS</a>, <a href="https://www.jaegertracing.io/">Jaeger</a>, and <a href="https://opentracing.io/">OpenTracing</a>—come from the <a href="https://landscape.cncf.io/">CNCF Landscape</a>, which West and O'Mahony have relied upon throughout Bose's cloud native journey. "The CNCF Landscape quickly explains what's going on in all the different areas from storage to cloud providers to automation and so forth," says West. "This is our shopping cart to build a cloud infrastructure. We can go choose from the different aisles."
+-->
+許多這樣的技術，如 [Fluentd](https://www.fluentd.org/)、[CoreDNS](https://coredns.io/)、
+[Jaeger](https://www.jaegertracing.io/) 和 [OpenTracing](https://opentracing.io/)，
+均來自 [CNCF 全景圖](https://landscape.cncf.io/)，West 和 O'Mahony 在 Bose 的雲原生旅程中一直依賴於此。
+“CNCF 全景圖簡明地解釋了從存儲到雲提供商再到自動化等各個不同領域正在發生的事情”，West 說道，
+“這是我們構建雲基礎設施的購物車。我們可以從不同的過道中進行選擇。”
+</p>
+
+<p>
+<!--
+And, he adds, "If it weren't for Kubernetes and the rest of the CNCF projects being free open source software with such a strong community, we would never have achieved scale, or even gotten to launch on schedule."
+-->
+他補充道，“如果不是因爲 Kubernetes 和其他 CNCF 項目的免費開源軟件及其強大的社區支持，
+我們永遠不會達到這樣的規模，甚至無法按計劃推出。”
+</p>
+
+<p>
+<!--
+Another benefit of going cloud native: "We are even attracting much more talent into Bose because we're so involved with the <a href="http://careers.bose.com">CNCF Landscape</a>," says West. (Yes, they're hiring.) "It's just enabled so many people to do so many great things and really brought Bose into the future of cloud."
+-->
+轉向雲原生的另一個好處是：“我們甚至吸引了更多的人才加入 Bose，因爲我們深入參與到
+[CNCF 全景圖](http://careers.bose.com)中”，West 說道（是的，他們在招聘），
+“這使得許多人能夠做許多偉大的事情，真正將 Bose 帶入了雲的未來。”
+
+</p>
+
+{{< case-studies/quote author="Dylan O'Mahony, Cloud Architecture Manager, Bose" >}}
+<!--
+"We have a lot going on to support many more of our business units at Bose in addition to the consumer electronics division, which we currently do. It's only because of the cloud native landscape and the tools and the features that are available that we can provide such a fantastic cloud platform for all the developers and divisions that are trying to enable some pretty amazing experiences."
+-->
+“我們正在進行很多工作，以支持 Bose 更多的業務部門，而不僅僅是目前的消費電子部門。正是由於雲原生領域的工具和功能，我們才能夠爲所有試圖創造一些非常棒的體驗的開發者和部門提供如此出色的雲平臺。”
+{{< /case-studies/quote >}}
+
+<p>
+<!--
+In the coming year, the team wants to work on service mesh and serverless, as well as expansion around the world. "Getting our latency down by going multi-region is going to be a big focus for us," says O'Mahony. "In order to make sure that our customers in Japan, Australia, and everywhere else are having a good experience, we want to have points of presence closer to them. It's never been done at Bose before."
+-->
+在即將到來的一年裏，團隊希望在服務網格和無服務器方面進行工作，並在全球範圍內擴展。
+“通過多區域部署來降低延遲將是我們的一個重點”，O'Mahony 說道，“爲了確保我們在日本、
+澳大利亞及其他地區的客戶有良好的體驗，我們希望在更接近他們的地點擁有存在點。
+這在 Bose 是前所未有的。”
+</p>
+
+<p>
+<!--
+That won't stop them, because the team is all about lofty goals. "We want to get to billions of connected products!" says West. "We have a lot going on to support many more of our business units at Bose in addition to the consumer electronics division, which we currently do. It's only because of the cloud native landscape and the tools and the features that are available that we can provide such a fantastic cloud platform for all the developers and divisions that are trying to enable some pretty amazing experiences."
+-->
+這不會阻止他們，因爲團隊總是追求宏偉的目標。“我們希望達到數十億的聯網產品” ，West 說道，
+“我們正在進行很多工作，以支持 Bose 更多的業務部門，而不僅僅是目前的消費電子部門。
+正是由於雲原生領域的工具和功能，我們才能夠爲所有試圖創造一些非常棒的體驗的開發者和部門提供如此出色的雲平臺。”
+</p>
+
+<p>
+<!--
+In fact, given the scale the platform is already supporting, says O'Mahony, "doing anything other than Kubernetes, I think, would be folly at this point."
+-->
+事實上，鑑於平臺已經支持的規模，O'Mahony 認爲，“在這種情況下，不做 Kubernetes
+而選擇其他任何東西，我認爲都是愚蠢的。”
+</p>

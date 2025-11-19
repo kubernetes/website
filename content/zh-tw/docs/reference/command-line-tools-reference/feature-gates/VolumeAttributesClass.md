@@ -1,0 +1,28 @@
+---
+title: VolumeAttributesClass
+content_type: feature_gate
+_build:
+  list: never
+  render: false
+
+stages:
+  - stage: alpha
+    defaultValue: false
+    fromVersion: "1.29"
+    toVersion: "1.30"
+  - stage: beta
+    defaultValue: false
+    fromVersion: "1.31"
+    toVersion: "1.33"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.34"
+---
+
+<!--
+Enable support for VolumeAttributesClasses.
+See [Volume Attributes Classes](/docs/concepts/storage/volume-attributes-classes/)
+for more information.
+-->
+啓用對 VolumeAttributesClasses 的支持。
+更多細節參見[卷屬性類](/zh-cn/docs/concepts/storage/volume-attributes-classes/)。

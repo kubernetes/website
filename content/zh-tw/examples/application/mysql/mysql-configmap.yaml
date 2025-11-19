@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+data:
+  primary.cnf: |
+    # 僅在主服務器上應用此配置
+    [mysqld]
+    log-bin
+  replica.cnf: |
+    # 僅在副本服務器上應用此配置
+    [mysqld]
+    super-read-only
+

@@ -1,0 +1,149 @@
+---
+title: 使用 CoreDNS 進行服務發現
+min-kubernetes-server-version: v1.9
+content_type: task
+weight: 380
+---
+
+<!--
+reviewers:
+- johnbelamaric
+title: Using CoreDNS for Service Discovery
+min-kubernetes-server-version: v1.9
+content_type: task
+weight: 380
+-->
+
+<!-- overview -->
+
+<!--
+This page describes the CoreDNS upgrade process and how to install CoreDNS instead of kube-dns.
+-->
+此頁面介紹了 CoreDNS 升級過程以及如何安裝 CoreDNS 而不是 kube-dns。
+
+## {{% heading "prerequisites" %}}
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
+<!-- steps -->
+
+<!--
+## About CoreDNS
+
+[CoreDNS](https://coredns.io) is a flexible, extensible DNS server
+that can serve as the Kubernetes cluster DNS.
+Like Kubernetes, the CoreDNS project is hosted by the
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}.
+-->
+## 關於 CoreDNS
+
+[CoreDNS](https://coredns.io) 是一個靈活可擴展的 DNS 服務器，可以作爲 Kubernetes 集羣 DNS。
+與 Kubernetes 一樣，CoreDNS 項目由 {{< glossary_tooltip text="CNCF" term_id="cncf" >}} 託管。
+
+<!--
+You can use CoreDNS instead of kube-dns in your cluster by replacing
+kube-dns in an existing deployment, or by using tools like kubeadm
+that will deploy and upgrade the cluster for you.
+-->
+通過替換現有集羣部署中的 kube-dns，或者使用 kubeadm 等工具來爲你部署和升級集羣，
+可以在你的集羣中使用 CoreDNS 而非 kube-dns。
+
+<!--
+## Installing CoreDNS
+
+For manual deployment or replacement of kube-dns, see the documentation at the
+[CoreDNS website](https://coredns.io/manual/installation/).
+-->
+## 安裝 CoreDNS
+
+有關手動部署或替換 kube-dns，請參閱
+[CoreDNS 網站](https://coredns.io/manual/installation/)。
+
+<!--
+## Migrating to CoreDNS
+
+### Upgrading an existing cluster with kubeadm
+-->
+## 遷移到 CoreDNS
+
+### 使用 kubeadm 升級現有集羣
+
+<!--
+In Kubernetes version 1.21, kubeadm removed its support for `kube-dns` as a DNS application.
+For `kubeadm` v{{< skew currentVersion >}}, the only supported cluster DNS application
+is CoreDNS.
+-->
+在 Kubernetes 1.21 版本中，kubeadm 移除了對將 `kube-dns` 作爲 DNS 應用的支持。
+對於 `kubeadm` v{{< skew currentVersion >}}，所支持的唯一的集羣 DNS 應用是 CoreDNS。
+
+<!--
+You can move to CoreDNS when you use `kubeadm` to upgrade a cluster that is
+using `kube-dns`. In this case, `kubeadm` generates the CoreDNS configuration
+("Corefile") based upon the `kube-dns` ConfigMap, preserving configurations for
+stub domains, and upstream name server.
+-->
+當你使用 `kubeadm` 升級使用 `kube-dns` 的集羣時，你還可以執行到 CoreDNS 的遷移。
+在這種場景中，`kubeadm` 將基於 `kube-dns` ConfigMap 生成 CoreDNS 配置（"Corefile"），
+保存存根域和上游名稱服務器的配置。
+
+<!--
+## Upgrading CoreDNS 
+
+You can check the version of CoreDNS that kubeadm installs for each version of
+Kubernetes in the page
+[CoreDNS version in Kubernetes](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md).
+-->
+## 升級 CoreDNS 
+
+你可以在
+[Kubernetes 中的 CoreDNS 版本](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md)
+頁面查看 kubeadm 爲不同版本 Kubernetes 所安裝的 CoreDNS 版本。
+
+<!--
+CoreDNS can be upgraded manually in case you want to only upgrade CoreDNS
+or use your own custom image.
+There is a helpful [guideline and walkthrough](https://github.com/coredns/deployment/blob/master/kubernetes/Upgrading_CoreDNS.md)
+available to ensure a smooth upgrade.
+Make sure the existing CoreDNS configuration ("Corefile") is retained when
+upgrading your cluster.
+-->
+如果你只想升級 CoreDNS 或使用自己的定製鏡像，也可以手動升級 CoreDNS。
+參看[指南和演練](https://github.com/coredns/deployment/blob/master/kubernetes/Upgrading_CoreDNS.md)
+文檔瞭解如何平滑升級。
+在升級你的集羣過程中，請確保現有 CoreDNS 的配置（"Corefile"）被保留下來。
+
+<!--
+If you are upgrading your cluster using the `kubeadm` tool, `kubeadm`
+can take care of retaining the existing CoreDNS configuration automatically.
+-->
+如果使用 `kubeadm` 工具來升級集羣，則 `kubeadm` 可以自動處理保留現有 CoreDNS
+配置這一事項。
+
+<!--
+## Tuning CoreDNS
+
+When resource utilisation is a concern, it may be useful to tune the
+configuration of CoreDNS. For more details, check out the
+[documentation on scaling CoreDNS](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md).
+-->
+## CoreDNS 調優
+
+當資源利用方面有問題時，優化 CoreDNS 的配置可能是有用的。
+有關詳細信息，請參閱有關[擴縮 CoreDNS 的文檔](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)。
+
+## {{% heading "whatsnext" %}}
+
+<!--
+You can configure [CoreDNS](https://coredns.io) to support many more use cases than
+kube-dns does by modifying the CoreDNS configuration ("Corefile").
+For more information, see the [documentation](https://coredns.io/plugins/kubernetes/)
+for the `kubernetes` CoreDNS plugin, or read the 
+[Custom DNS Entries for Kubernetes](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)
+in the CoreDNS blog.
+-->
+你可以通過修改 CoreDNS 的配置（"Corefile"）來配置 [CoreDNS](https://coredns.io)，
+以支持比 kube-dns 更多的用例。
+請參考 `kubernetes` CoreDNS 插件的[文檔](https://coredns.io/plugins/kubernetes/)
+或者 CoreDNS 博客上的博文
+[Kubernetes 的自定義 DNS 條目](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)，
+以瞭解更多信息。

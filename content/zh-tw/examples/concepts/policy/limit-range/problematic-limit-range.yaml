@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-resource-constraint
+spec:
+  limits:
+  - default: # 此處定義默認限制值
+      cpu: 500m
+    defaultRequest: # 此處定義默認請求值
+      cpu: 500m
+    max: # max 和 min 定義限制範圍
+      cpu: "1"
+    min:
+      cpu: 100m
+    type: Container

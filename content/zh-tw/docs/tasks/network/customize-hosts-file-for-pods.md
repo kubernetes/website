@@ -1,0 +1,200 @@
+---
+title: 使用 HostAliases 向 Pod /etc/hosts 文件添加條目
+content_type: task
+weight: 60
+min-kubernetes-server-version: 1.7
+---
+<!--
+reviewers:
+- rickypai
+- thockin
+title: Adding entries to Pod /etc/hosts with HostAliases
+content_type: task
+weight: 60
+min-kubernetes-server-version: 1.7
+-->
+
+<!-- overview -->
+
+<!--
+Adding entries to a Pod's `/etc/hosts` file provides Pod-level override of hostname resolution when DNS and other options are not applicable. You can add these custom entries with the HostAliases field in PodSpec.
+
+The Kubernetes project recommends modifying DNS configuration using the `hostAliases` field
+(part of the `.spec` for a Pod), and not by using an init container or other means to edit `/etc/hosts`
+directly.
+Change made in other ways may be overwritten by the kubelet during Pod creation or restart.
+-->
+當 DNS 配置以及其它選項不合理的時候，通過向 Pod 的 `/etc/hosts` 文件中添加條目，
+可以在 Pod 級別覆蓋對主機名的解析。你可以通過 PodSpec 的 HostAliases
+字段來添加這些自定義條目。
+
+Kubernetes 項目建議使用 `hostAliases` 字段（Pod `.spec` 的一部分）來修改 DNS 配置，
+而不是通過使用 Init 容器或其他方式直接編輯 `/etc/hosts`。
+以其他方式所做的更改可能會在 Pod 創建或重啓過程中被 kubelet 重寫。
+
+<!-- steps -->
+
+<!--
+## Default hosts file content
+
+Start an Nginx Pod which is assigned a Pod IP:
+-->
+## 默認 hosts 文件內容   {#default-hosts-file-content}
+
+讓我們從一個 Nginx Pod 開始，該 Pod 被分配一個 IP：
+
+```shell
+kubectl run nginx --image nginx
+```
+
+```
+pod/nginx created
+```
+
+<!--
+Examine a Pod IP:
+-->
+檢查 Pod IP：
+
+```shell
+kubectl get pods --output=wide
+```
+
+```
+NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
+nginx    1/1       Running   0          13s    10.200.0.4   worker0
+```
+
+<!--
+The hosts file content would look like this:
+-->
+hosts 文件的內容如下所示：
+
+```shell
+kubectl exec nginx -- cat /etc/hosts
+```
+
+```
+# Kubernetes-managed hosts file.
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+fe00::0	ip6-mcastprefix
+fe00::1	ip6-allnodes
+fe00::2	ip6-allrouters
+10.200.0.4	nginx
+```
+
+<!--
+By default, the `hosts` file only includes IPv4 and IPv6 boilerplates like
+`localhost` and its own hostname.
+-->
+默認情況下，`hosts` 文件只包含 IPv4 和 IPv6 的樣板內容，像 `localhost` 和主機名稱。
+
+<!--
+## Adding additional entries with hostAliases
+
+In addition to the default boilerplate, you can add additional entries to the
+`hosts` file.
+For example: to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`,
+`bar.remote` to `10.1.2.3`, you can configure HostAliases for a Pod under
+`.spec.hostAliases`:
+-->
+## 通過 HostAliases 增加額外條目   {#adding-additional-entries-with-hostaliases}
+
+除了默認的樣板內容，你可以向 `hosts` 文件添加額外的條目。
+例如，要將 `foo.local`、`bar.local` 解析爲 `127.0.0.1`，
+將 `foo.remote`、 `bar.remote` 解析爲 `10.1.2.3`，你可以在
+`.spec.hostAliases` 下爲 Pod 配置 HostAliases。
+
+{{% code_sample file="service/networking/hostaliases-pod.yaml" %}}
+
+<!--
+You can start a Pod with that configuration by running:
+-->
+你可以使用以下命令用此配置啓動 Pod：
+
+```shell
+kubectl apply -f https://k8s.io/examples/service/networking/hostaliases-pod.yaml
+```
+
+```
+pod/hostaliases-pod created
+```
+
+<!--
+Examine a Pod's details to see its IPv4 address and its status:
+-->
+檢查 Pod 詳情，查看其 IPv4 地址和狀態：
+
+```shell
+kubectl get pod --output=wide
+```
+
+```
+NAME                READY     STATUS      RESTARTS   AGE       IP              NODE
+hostaliases-pod     0/1       Completed   0          6s        10.200.0.5      worker0
+```
+
+<!--
+The `hosts` file content looks like this:
+-->
+`hosts` 文件的內容看起來類似如下所示：
+
+```shell
+kubectl logs hostaliases-pod
+```
+
+```
+# Kubernetes-managed hosts file.
+127.0.0.1	localhost
+::1	localhost ip6-localhost ip6-loopback
+fe00::0	ip6-localnet
+fe00::0	ip6-mcastprefix
+fe00::1	ip6-allnodes
+fe00::2	ip6-allrouters
+10.200.0.5	hostaliases-pod
+
+# Entries added by HostAliases.
+127.0.0.1	foo.local	bar.local
+10.1.2.3	foo.remote	bar.remote
+```
+
+<!--
+with the additional entries specified at the bottom.
+-->
+在最下面額外添加了一些條目。
+
+<!-- 
+## Why does the kubelet manage the hosts file? {#why-does-kubelet-manage-the-hosts-file}
+
+The kubelet manages the
+`hosts` file for each container of the Pod to prevent the container runtime from
+modifying the file after the containers have already been started.
+Historically, Kubernetes always used Docker Engine as its container runtime, and Docker Engine would
+then modify the `/etc/hosts` file after each container had started.
+
+Current Kubernetes can use a variety of container runtimes; even so, the kubelet manages the
+hosts file within each container so that the outcome is as intended regardless of which
+container runtime you use.
+-->
+## 爲什麼 kubelet 管理 hosts 文件？{#why-does-kubelet-manage-the-hosts-file}
+
+kubelet 管理每個Pod 容器的 `hosts` 文件，以防止容器運行時在容器已經啓動後修改文件。
+由於歷史原因，Kubernetes 總是使用 Docker Engine 作爲其容器運行時，而 Docker Engine 
+將在容器啓動後修改 `/etc/hosts` 文件。
+
+當前的 Kubernetes 可以使用多種容器運行時；即便如此，kubelet 管理在每個容器中創建 hosts文件，
+以便你使用任何容器運行時運行容器時，結果都符合預期。
+
+{{< caution >}}
+<!--
+Avoid making manual changes to the hosts file inside a container.
+
+If you make manual changes to the hosts file,
+those changes are lost when the container exits.
+-->
+請避免手工更改容器內的 hosts 文件內容。
+
+如果你對 hosts 文件做了手工修改，這些修改都會在容器退出時丟失。
+{{< /caution >}}

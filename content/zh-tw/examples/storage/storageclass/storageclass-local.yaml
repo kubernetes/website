@@ -1,0 +1,6 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner # 表示這個 StorageClass 不支持自動製備
+volumeBindingMode: WaitForFirstConsumer

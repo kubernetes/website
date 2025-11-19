@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-pod
+spec:
+  containers:
+    - name: demo
+      image: alpine
+      command: ["sleep", "3600"]
+      env:
+        # 定義環境變量
+        - name: PLAYER_INITIAL_LIVES # 請注意這裏和 ConfigMap 中的鍵名是不一樣的
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo           # 這個值來自 ConfigMap
+              key: player_initial_lives # 需要取值的鍵
+        - name: UI_PROPERTIES_FILE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo
+              key: ui_properties_file_name
+      volumeMounts:
+      - name: config
+        mountPath: "/config"
+        readOnly: true
+  volumes:
+  # 你可以在 Pod 級別設置卷，然後將其掛載到 Pod 內的容器中
+  - name: config
+    configMap:
+      # 提供你想要掛載的 ConfigMap 的名字
+      name: game-demo
+      # 來自 ConfigMap 的一組鍵，將被創建爲文件
+      items:
+      - key: "game.properties"
+        path: "game.properties"
+      - key: "user-interface.properties"
+        path: "user-interface.properties"
+

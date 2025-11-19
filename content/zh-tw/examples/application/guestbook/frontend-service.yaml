@@ -1,0 +1,18 @@
+# 來源：https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: guestbook
+    tier: frontend
+spec:
+  # 如果你的集羣支持，請取消註釋以下內容以自動爲前端服務創建一個外部負載均衡 IP。
+  # type: LoadBalancer
+  #type: LoadBalancer
+  ports:
+    # 此服務應使用的端口
+  - port: 80
+  selector:
+    app: guestbook
+    tier: frontend

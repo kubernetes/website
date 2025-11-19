@@ -1,0 +1,43 @@
+---
+title: 集羣操作者（Cluster Operator）
+id: cluster-operator
+date: 2018-04-12
+full_link: 
+short_description: >
+  配置、控制、監控集羣的人。
+
+aka: 
+tags:
+- user-type
+---
+<!--
+title: Cluster Operator
+id: cluster-operator
+date: 2018-04-12
+full_link: 
+short_description: >
+  A person who configures, controls, and monitors clusters.
+
+aka: 
+tags:
+- user-type
+-->
+
+<!--
+ A person who configures, controls, and monitors clusters.
+-->
+ 配置、控制、監控集羣的人。
+
+<!--more--> 
+
+<!--
+Their primary responsibility is keeping a cluster up and running, which may involve periodic maintenance activities or upgrades.<br>
+-->
+他們的主要責任是保持集羣正常運行，可能需要進行週期性的維護和升級活動。<br>
+
+{{< note >}}
+<!--			
+**NOTE:** Cluster operators are different from the [Operator pattern](/docs/concepts/extend-kubernetes/operator/) that extends the Kubernetes API.
+-->
+**注意：** 集羣操作者不同於[操作者模式（Operator Pattern）](/zh-cn/docs/concepts/extend-kubernetes/operator/)，操作者模式是用來擴展 Kubernetes API 的。
+{{< /note >}}

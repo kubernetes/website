@@ -1,0 +1,29 @@
+---
+title: KubeProxyDrainingTerminatingNodes
+content_type: feature_gate
+_build:
+  list: never
+  render: false
+
+stages:
+  - stage: alpha
+    defaultValue: false
+    fromVersion: "1.28"
+    toVersion: "1.30"
+  - stage: beta
+    defaultValue: true
+    fromVersion: "1.30"
+    toVersion: "1.30"
+  - stage: stable
+    defaultValue: true
+    fromVersion: "1.31"
+    toVersion: "1.32"
+
+removed: true
+---
+
+<!--
+Implement connection draining for
+terminating nodes for `externalTrafficPolicy: Cluster` services.
+-->
+爲 `externalTrafficPolicy: Cluster` 服務實現終止節點的連接排空。

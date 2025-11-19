@@ -1,0 +1,157 @@
+---
+title: 案例研究：Nordstrom
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/nordstrom/banner1.jpg
+heading_title_logo: /images/nordstrom_logo.png
+subheading: >
+  在艱難的零售環境下尋找數百萬的潛在成本節約
+case_study_details:
+  - 公司: Nordstrom
+  - 地點: Seattle, Washington
+  - 行業: 零售
+---
+<!-- 
+<h2>Challenge</h2>
+-->
+<h2>挑戰</h2>
+
+<!--
+<p>Nordstrom wanted to increase the efficiency and speed of its technology operations, which includes the Nordstrom.com e-commerce site. At the same time, Nordstrom Technology was looking for ways to tighten its technology operational costs.</p>
+-->
+<p>Nordstrom 希望提高其技術運營的效率和速度，其中包括 Nordstrom.com 電子商務網站。與此同時，Nordstrom 技術公司正在尋找壓縮技術運營成本的方法。</p>
+
+<!-- 
+<h2>Solution</h2>
+-->
+<h2>解決方案</h2>
+
+<!-- 
+<p>After embracing a DevOps transformation and launching a continuous integration/continuous deployment (CI/CD) project four years ago, the company reduced its deployment time from three months to 30 minutes. But they wanted to go even faster across environments, so they began their cloud native journey, adopting Docker containers orchestrated with <a href="http://kubernetes.io/">Kubernetes</a>.</p>
+-->
+<p>在四年前採用 DevOps 轉型並啓動持續集成/部署 (CI/CD)項目後，該公司將部署時間從 3 個月縮短到 30 分鐘。但是他們想在部署環境上走得更快，所以他們開始他們的雲原生之旅，採用與 <a href="http://kubernetes.io/">Kubernetes</a> 協調的 Docker 容器。</p>
+
+<!--
+<h2>Impact</h2>
+-->
+<h2>影響</h2>
+
+<!-- 
+<p>Nordstrom Technology developers using Kubernetes now deploy faster and can "just focus on writing applications," says Dhawal Patel, a senior engineer on the team building a Kubernetes enterprise platform for Nordstrom. Furthermore, the team has increased Ops efficiency, improving CPU utilization from 5x to 12x depending on the workload. "We run thousands of virtual machines (VMs), but aren't effectively using all those resources," says Patel. "With Kubernetes, without even trying to make our cluster efficient, we are currently at a 10x increase."</p>
+-->
+<p>爲 Nordstrom 構建 Kubernetes 企業平臺的團隊高級工程師 Dhawal Patel 說，“使用 Kubernetes 的 Nordstrom 技術開發人員現在項目部署得更快，並且能夠只專注於編寫應用程序。”此外，該團隊還提高了運營效率，根據工作負載將 CPU 利用率從 5 倍提高到 12 倍。Patel 說：“我們運行了數千臺虛擬機（VM），但無法有效地使用所有這些資源。藉助 Kubernetes，我們甚至不需要嘗試去提高集羣的效率，就能使運營效率增長 10 倍。”</p>
+
+<!-- 
+{{< case-studies/quote author="Dhawal Patel, senior engineer at Nordstrom" >}}
+"We are always looking for ways to optimize and provide more value through technology. With Kubernetes we are showcasing two types of efficiency that we can bring: Dev efficiency and Ops efficiency. It's a win-win."
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote author="Dhawal Patel， Nordstrom 高級工程師" >}}
+“我們一直在尋找通過技術進行優化和提供更多價值的方法。通過 Kubernetes，我們在開發效率和運營效率這兩方面取得了示範性的提升。這是一個雙贏。”
+{{< /case-studies/quote >}}
+
+<!-- 
+<p>When Dhawal Patel joined <a href="http://shop.nordstrom.com/">Nordstrom</a> five years ago as an application developer for the retailer's website, he realized there was an opportunity to help speed up development cycles.</p> -->
+<p>當 Dhawal Patel 五年前加入 <a href="http://shop.nordstrom.com/">Nordstrom</a>，擔任該零售商網站的應用程序開發人員時，他意識到有機會幫助加快開發週期。</p>
+
+<!-- 
+<p>In those early DevOps days, Nordstrom Technology still followed a traditional model of silo teams and functions. "As a developer, I was spending more time fixing environments than writing code and adding value to business," Patel says. "I was passionate about that—so I was given the opportunity to help fix it."</p>
+-->
+<p>在早期的 DevOps 時代，Nordstrom 技術仍然遵循傳統的孤島團隊和功能模型。Patel 說：“作爲開發人員，我花在維護環境上的時間比編寫代碼和爲業務增加價值的時間要多。我對此充滿熱情，因此我有機會參與幫助修復它。”</p>
+
+<!-- 
+<p>The company was eager to move faster, too, and in 2013 launched the first continuous integration/continuous deployment (CI/CD) project. That project was the first step in Nordstrom's cloud native journey.</p>
+-->
+<p>公司也渴望加快步伐，並在 2013 年啓動了首個持續集成/部署（CI/CD）項目。該項目是 Nordstrom 雲原生之旅的第一步。</p>
+
+<!-- 
+<p>Dev and Ops team members built a CI/CD pipeline, working with the company's servers on premise. The team chose <a href="https://www.chef.io/chef/">Chef</a>, and wrote cookbooks that automated virtual IP creation, servers, and load balancing. "After we completed the project, deployment went from three months to 30 minutes," says Patel. "We still had multiple environments—dev, test, staging, then production—so with each environment running the Chef cookbooks, it took 30 minutes. It was a huge achievement at that point."</p>
+-->
+<p>開發人員和運營團隊成員構建了一個 CI/CD 管道，在內部使用公司的服務器。團隊選擇了 <a href="https://www.chef.io/chef/">Chef</a>，並編寫了自動虛擬 IP 創建、服務器和負載均衡的指導手冊。Patel 說：“項目完成後，部署時間從 3 個月減少到 30 分鐘。我們仍有開發、測試、暫存、然後生產等多個環境需要重新部署。之後，每個運行 Chef 說明書的環境部署都只花 30 分鐘。在那個時候，這是一個巨大的成就。”</p>
+
+<!-- 
+<p>But new environments still took too long to turn up, so the next step was working in the cloud. Today, Nordstrom Technology has built an enterprise platform that allows the company's 1,500 developers to deploy applications running as Docker containers in the cloud, orchestrated with Kubernetes.</p> -->
+<p>但是，新環境仍然需要很長時間才能出現，因此下一步是在雲中工作。如今，Nordstrom  Technology 已經構建了一個企業平臺，允許公司的 1500 名開發人員在雲中部署以 Docker 容器身份運行的應用程序，這些應用程序由 Kubernetes 進行編排。</p>
+
+<!-- 
+{{< case-studies/quote image="/images/case-studies/nordstrom/banner3.jpg" >}}
+"We made a bet that Kubernetes was going to take off, informed by early indicators of community support and project velocity, so we rebuilt our system with Kubernetes at the core,"
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote image="/images/case-studies/nordstrom/banner3.jpg" >}}
+“瞭解到早期的社區支持和項目迭代指標，我們肯定 Kubernetes 一定會成功的，因此我們以 Kubernetes 爲核心重建了我們的系統。”
+{{< /case-studies/quote >}}
+
+<!-- 
+<p>"The cloud provided faster access to resources, because it took weeks for us to get a virtual machine (VM) on premises," says Patel. "But now we can do the same thing in only five minutes."</p>
+-->
+<p>Patel 說：“雲提供了對資源的更快訪問，因爲我們在內部需要花數週時間才能部署一個虛擬機（VM）來提供服務。但現在我們可以做同樣的事情，只需五分鐘。”</p>
+
+<!-- 
+<p>Nordstrom's first foray into scheduling containers on a cluster was a homegrown system based on CoreOS fleet. They began doing a few proofs of concept projects with that system until Kubernetes 1.0 was released when they made the switch. "We made a bet that Kubernetes was going to take off, informed by early indicators of community support and project velocity, so we rebuilt our system with Kubernetes at the core," says Marius Grigoriu, Sr. Manager of the Kubernetes team at Nordstrom.</p>
+-->
+<p>Nordstrom 首次嘗試在集羣上調度容器，是基於 CoreOS fleet 的原生系統。他們開始使用該系統做一些概念驗證項目，直到 Kubernetes 1.0 發佈時纔將正式項目遷移到裏面。Nordstrom 的 Kubernetes 團隊經理 Marius Grigoriu 表示：“瞭解到早期的社區支持和項目迭代指標，我們肯定 Kubernetes 一定會成功的，因此我們以 Kubernetes 爲核心重建了我們的系統。”</p>
+
+<!-- 
+<p>While Kubernetes is often thought as a platform for microservices, the first application to launch on Kubernetes in a critical production role at Nordstrom was Jira. "It was not the ideal microservice we were hoping to get as our first application," Patel admits, "but the team that was working on it was really passionate about Docker and Kubernetes, and they wanted to try it out. They had their application running on premises, and wanted to move it to Kubernetes."</p>
+-->
+<p>雖然 Kubernetes 通常被視爲微服務的平臺，但在 Nordstrom 擔任關鍵生產角色的 Kubernetes 上推出的第一個應用程序是 Jira。Patel 承認：“這不是我們希望作爲第一個應用程序獲得的理想微服務，但致力於此應用程序的團隊對 Docker 和 Kubernetes 非常熱情，他們希望嘗試一下。他們的應用程序部署在內部運行，並希望將其移動到 Kubernetes。</p>
+
+<!-- 
+<p>The benefits were immediate for the teams that came on board. "Teams running on our Kubernetes cluster loved the fact that they had fewer issues to worry about. They didn't need to manage infrastructure or operating systems," says Grigoriu. "Early adopters loved the declarative nature of Kubernetes. They loved the reduced surface area they had to deal with."</p> -->
+<p>對於加入的團隊來說，這些好處是立竿見影的。Grigoriu 說：“在我們的 Kubernetes 集羣中運行的團隊喜歡這樣一個事實，即他們擔心的問題更少，他們不需要管理基礎設施或操作系統。早期使用者喜歡 Kubernetes 的聲明特性，讓他們不得不處理的面積減少。</p>
+
+<!-- 
+{{< case-studies/quote image="/images/case-studies/nordstrom/banner4.jpg">}}
+"Teams running on our Kubernetes cluster loved the fact that they had fewer issues to worry about. They didn't need to manage infrastructure or operating systems," says Grigoriu. "Early adopters loved the declarative nature of Kubernetes. They loved the reduced surface area they had to deal with."
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote image="/images/case-studies/nordstrom/banner4.jpg">}}
+Grigoriu 說：“在我們的 Kubernetes 集羣中運行的團隊喜歡這樣一個事實，即他們擔心的問題更少，他們不需要管理基礎設施或操作系統。早期使用者喜歡 Kubernetes 的聲明特性，讓他們不得不處理的面積減少。”
+{{< /case-studies/quote >}}
+
+<!-- 
+<p>To support these early adopters, Patel's team began growing the cluster and building production-grade services. "We integrated with <a href="https://prometheus.io/">Prometheus</a> for monitoring, with a <a href="https://grafana.com/">Grafana</a> front end; we used <a href="http://www.fluentd.org/">Fluentd</a> to push logs to <a href="https://www.elastic.co/">Elasticsearch</a>, so that gives us log aggregation," says Patel. The team also added dozens of open-source components, including CNCF projects and has made contributions to Kubernetes, Terraform, and kube2iam.</p>
+-->
+<p>爲了支持這些早期使用者，Patel 的團隊開始發展集羣並構建生產級服務。“我們與 <a href="https://prometheus.io/">Prometheus</a> 集成了監控功能，並配有 <a href="https://grafana.com/">Grafana</a> 前端；我們使用 <a href="http://www.fluentd.org/">Fluentd</a> 將日誌推送到 <a href="https://www.elastic.co/">Elasticsearch</a>，從而提供日誌聚合”Patel 說。該團隊還增加了數十個開源組件，包括 CNCF 項目，而且把這些成果都貢獻給了 Kubernetes、Terraform 和 kube2iam。</p>
+
+<!-- 
+<p>There are now more than 60 development teams running Kubernetes in Nordstrom Technology, and as success stories have popped up, more teams have gotten on board. "Our initial customer base, the ones who were willing to try this out, are now going and evangelizing to the next set of users," says Patel. "One early adopter had Docker containers and he was not sure how to run it in production. We sat with him and within 15 minutes we deployed it in production. He thought it was amazing, and more people in his org started coming in."</p>
+-->
+<p>現在有 60 多個開發團隊在 Nordstrom 上運行 Kubernetes，隨着成功案例的湧現，更多的團隊加入進來。Patel 說：“我們最初的客戶羣，那些願意嘗試這些的客戶羣，現在已經開始向後續用戶宣傳。一個早期使用者擁有 Docker 容器，他不知道如何在生產中運行它。我們和他一起協作，在 15 分鐘內，我們將其部署到生產中。他認爲這是驚人的，他所在的組織更多的人開始加入進來。”</p>
+
+<!-- 
+<p>For Nordstrom Technology, going cloud-native has vastly improved development and operational efficiency. The developers using Kubernetes now deploy faster and can focus on building value in their applications.  One such team started with a 25-minute merge to deploy by launching virtual machines in the cloud. Switching to Kubernetes was a 5x speedup in their process, improving their merge to deploy time to 5 minutes.</p>
+-->
+<p>對於 Nordstrom 而言，雲原生極大地提高了開發和運營效率。現在，使用 Kubernetes 的開發人員部署速度更快，可以專注於在其應用程序中構建價值。一個團隊從 25 分鐘的合併開始，通過在雲中啓動虛擬機來進行部署。切換到 Kubernetes 的過程速度是原來 5 倍，將合併時間縮短爲 5 分鐘。</p>
+
+<!-- 
+{{< case-studies/quote >}}
+"With Kubernetes, without even trying to make our cluster efficient, we are currently at 40 percent CPU utilization—a 10x increase. we are running 2600+ customer pods that would have been 2600+ VMs if they had gone directly to the cloud. We are running them on 40 VMs now, so that's a huge reduction in operational overhead."
+{{< /case-studies/quote >}}
+-->
+{{< case-studies/quote >}}
+“藉助 Kubernetes，我們甚至不需要嘗試去提高集羣的效率，目前 CPU 利用率爲 40%，較之前增長了 10 倍。我們正在運行 2600 多個客戶 Pod，如果它們直接進入雲，這些 Pod 將是 2600 多個 VM。我們現在在 40 臺 VM 上運行它們，因此這大大降低了運營開銷。
+{{< /case-studies/quote >}}
+
+<!-- 
+<p>Speed is great, and easily demonstrated, but perhaps the bigger impact lies in the operational efficiency. "We run thousands of VMs on AWS, and their overall average CPU utilization is about four percent," says Patel. "With Kubernetes, without even trying to make our cluster efficient, we are currently at 40 percent CPU utilization—a 10x increase. We are running 2600+ customer pods that would have been 2600+ VMs if they had gone directly to the cloud. We are running them on 40 VMs now, so that's a huge reduction in operational overhead."</p>
+-->
+<p>速度很重要，並且很容易證明，但也許更大的影響在於運營效率。Patel 說：“我們在 AWS 上運行了數千個 VM，它們的總體平均 CPU 利用率約爲 4%。藉助 Kubernetes，我們甚至不需要嘗試去提高集羣的效率，目前 CPU 利用率爲 40%，較之前增長了 10 倍。我們正在運行 2600 多個客戶 Pod，如果它們直接上雲，這些 Pod 將是 2600 多個 VM。我們現在在 40 臺 VM 上運行它們，因此這大大降低了運營開銷。</p>
+
+<!-- 
+<p>Nordstrom Technology is also exploring running Kubernetes on bare metal on premises. "If we can build an on-premises Kubernetes cluster," says Patel, "we could bring the power of cloud to provision resources fast on-premises. Then for the developer, their interface is Kubernetes; they might not even realize or care that their services are now deployed on premises because they're only working with Kubernetes."</p>
+-->
+<p>Patel 說：“如果我們能構建一個本地 Kubernetes 集羣，我們就能將雲的力量帶到本地快速調配資源。之後對於開發人員來說，他們面向的接口是 Kubernetes；他們甚至可能沒有意識到或不關心他們的服務現在部署在內部，因爲他們只與 Kubernetes 一起工作。</p>
+
+<!-- 
+<p>For that reason, Patel is eagerly following Kubernetes' development of multi-cluster capabilities. "With cluster federation, we can have our on-premise as the primary cluster and the cloud as a secondary burstable cluster," he says. "So, when there is an anniversary sale or Black Friday sale, and we need more containers - we can go to the cloud."</p>
+-->
+<p>因此，Patel 熱切關注 Kubernetes 多集羣能力的發展。他說：“有了集羣聯合，我們可以將內部部署作爲主集羣，將雲作爲輔助可突發集羣。因此，當有周年銷售或黑色星期五銷售並且我們需要更多的容器時，我們可以上雲。”</p>
+
+<!-- 
+<p>That kind of possibility—as well as the impact that Grigoriu and Patel's team has already delivered using Kubernetes—is what led Nordstrom on its cloud native journey in the first place. "The way the retail environment is today, we are trying to build responsiveness and flexibility where we can," says Grigoriu.  "Kubernetes makes it easy to: bring efficiency to both the Dev and Ops side of the equation. It's a win-win."</p>
+-->
+<p>這種可能性以及 Grigoriu 和 Patel 的團隊已經使用Kubernetes所提供的影響，是 Nordstrom 最初在雲原生之旅中所起的作用。Grigoriu 說：“在當下的零售模式下，我們正在努力在力所能及的地方建立響應能力和靈活性。Kubernetes 使得爲開發端和運維端同時帶來效率的提升，這是一個雙贏。”</p>
