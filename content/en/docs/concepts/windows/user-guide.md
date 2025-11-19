@@ -233,8 +233,8 @@ Here are values used for each Windows Server version:
 
 | Product Name                         | Version                |
 |--------------------------------------|------------------------|
-| Windows Server 2019                  | 10.0.17763             |
 | Windows Server 2022                  | 10.0.20348             |
+| Windows Server 2025                  | 10.0.26100             |
 
 ### Simplifying with RuntimeClass
 
