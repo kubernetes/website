@@ -52,7 +52,7 @@ sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_e
 {{% /tab %}}
 {{< /tabs >}}
 
-### "kubeadm upgrade"の実行
+### "kubeadm upgrade"の実行 {#call-kubeadm-upgrade}
 
 ワーカーノードは、以下のコマンドによってローカルのkubeletの設定がアップグレードされます。
 
