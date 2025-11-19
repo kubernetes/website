@@ -165,28 +165,18 @@ There are
 three valid values for this field:
 
 1. `"AllowAll"`
-1. `"DenyAll"`
-1. `"Allowlist"`
-
-{{ <note> }}
-In order to maintain backward compatibility, an unspecified or empty
-`credentialPluginPolicy` is identical to explicitly setting the policy to
-`"AllowAll"`.
-{{ </note> }}
-
-#### AllowAll {#credentialPluginPolicy-AllowAll}
 
 When the policy is set to `"AllowAll"`, there will be no restrictions on which
 plugins may run. This behavior is identical to that of Kubernetes versions prior
 to 1.35.
 
-
-#### DenyAll {#credentialPluginPolicy-DenyAll}
+2. `"DenyAll"`
 
 When the policy is set to `"DenyAll"`, no exec plugins will be permitted to run.
 If you don't use credential plugins, the Kubernetes project recommendations that you set the DenyAll policy.
 
-#### Allowlist {#credentialPluginPolicy-Allowlist}
+
+3. `"Allowlist"`
 
 When the policy is set to `"Allowlist"`, the user can selectively allow
 execution of credential plugins. When the policy is `"Allowlist"`,
@@ -194,15 +184,36 @@ you **must**
 also provide the `credentialPluginAllowlist` field (also in the top-level). That
 field is described below.
 
+{{ <note> }}
+In order to maintain backward compatibility, an unspecified or empty
+`credentialPluginPolicy` is identical to explicitly setting the policy to
+`"AllowAll"`.
+{{ </note> }}
+
 ### credentialPluginAllowlist
 
 The `credentialPluginAllowlist` field specifies a list of criteria-sets
 (sets of *requirements*) for permission to execute credential
 plugins. Each set of requirements will be attempted in turn; once the plugin
 meets all requirement in at least one set, the plugin will be permitted to
-execute. That is, the result overall result of an application of the allowlist
+execute. That is, the overall result of an application of the allowlist
 to plugin `my-binary-plugin` is the _logical OR_ of the decisions rendered by
 each item in the list.
+
+As an example, consider the following allowlist configuration:
+
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: foo
+  - name: bar
+  - name: baz
+```
+
+In the above example, the allowlist will allow plugins that have the name "foo",
+"bar", _OR_ "baz".
 
 Within each set of requirements, **all** specified (non-empty) requirements must be
 met in order for the item to render an "allow" decision for the plugin. Put
@@ -210,6 +221,34 @@ another way, the decision rendered by an allowlist item is the _logical AND_ of
 the decisions rendered by all nonempty fields on the item.
 For Kubernetes {{< skew currentVersion >}}, the only
 specifiable requirement is the `name` field (documented below).
+
+To demonstrate the above, consider the following allowlist.
+{{ <note> }}
+This allowlist is for illustration only, and will not actually work. As
+mentioned above, the only specifiable requirement for Kubernetes
+{{< skew currentVersion >}} is `name`. However, as fields are added it will be
+important to understand how allowlist decisions are made.
+{{ </note> }}
+
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: foo
+    digest: "sha256:b9a3fad00d848ff31960c44ebb5f8b92032dc085020f857c98e32a5d5900ff9c"
+  - name: bar
+  - name: baz
+    signer: 46E548A7DCB88294644184C2A23670B385F32ADD
+  - signer: D4B35D8A0C68D4795242F442EA6287AC186B8334
+```
+
+The above example allows any plugin that:
+
+1. has the name "foo" and the sha256 digest "b9a3fad00d848ff31960c44ebb5f8b92032dc085020f857c98e32a5d5900ff9c", _OR_
+2. has the name "bar", _OR_
+3. has the name "baz" and is signed by the key "46E548A7DCB88294644184C2A23670B385F32ADD", _OR_
+4. is signed by the key "D4B35D8A0C68D4795242F442EA6287AC186B8334"
 
 {{ <note> }}
 For a set of requirements to be valid it MUST have at least one field that is
@@ -219,6 +258,15 @@ Likewise if the `credentialPluginAllowlist` field is unspecified, or if it is
 specified explicitly as the empty list. This is in order to prevent scenarios
 where the user misspells the `credentialPluginAllowlist` key -- thinking they
 have specified an allowlist when they actually haven't.
+
+For example, the following is invalid:
+```yaml
+apiVersion: kubectl.config.k8s.io/v1beta1
+kind: Preference
+credentialPluginPolicy: Allowlist
+credentialPluginAllowlist:
+  - name: ""
+```
 {{ </note> }}
 
 ##### name
@@ -246,20 +294,24 @@ The following example shows an `"Allowlist"` policy with its allowlist:
 
 {{< tabs name="tab_with_code" >}}
 {{< tab name="POSIX" codelang="yaml" >}}
+```yaml
 apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
   - name: my-trusted-binary
   - name: /usr/local/bin/my-other-trusted-binary
+```
 {{< /tab >}}
 {{< tab name="Windows" codelang="yaml" >}}
+```yaml
 apiVersion: kubectl.config.k8s.io/v1beta1
 kind: Preference
 credentialPluginPolicy: Allowlist
 credentialPluginAllowlist:
   - name: my-trusted-binary
-  - name: C:\my-other-trusted-binary
+  - name: "C:\my-other-trusted-binary"
+```
 {{< /tab >}}
 {{< /tabs >}}
 
