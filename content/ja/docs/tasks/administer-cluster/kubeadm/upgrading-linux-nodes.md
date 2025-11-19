@@ -60,7 +60,7 @@ sudo yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --setopt=disable_e
 sudo kubeadm upgrade node
 ```
 
-### ノードのドレイン
+### ノードのドレイン {#drain-the-node}
 
 ノードをスケジュール不可としてマークし、ワークロードを退去させることで、ノードのメンテナンスの準備をします。
 
