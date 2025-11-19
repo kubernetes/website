@@ -23,7 +23,7 @@ weight: 40
 
 {{% legacy-repos-deprecation %}}
 
-## ワーカーノードのアップグレード
+## ワーカーノードのアップグレード {#upgrading-worker-nodes}
 
 ### kubeadmのアップグレード
 
