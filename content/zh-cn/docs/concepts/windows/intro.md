@@ -60,14 +60,14 @@ you can deploy worker nodes running either Windows or Linux.
 <!--
 Windows {{< glossary_tooltip text="nodes" term_id="node" >}} are
 [supported](#windows-os-version-support) provided that the operating system is
-Windows Server 2019 or Windows Server 2022.
+Windows Server 2022 or Windows Server 2025.
 
 This document uses the term *Windows containers* to mean Windows containers with
 process isolation. Kubernetes does not support running Windows containers with
 [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container).
 -->
 支持 Windows {{< glossary_tooltip text="节点" term_id="node" >}}的前提是操作系统为
-Windows Server 2019 或 Windows Server 2022。
+Windows Server 2022 或 Windows Server 2025。
 
 本文使用术语 **Windows 容器**表示具有进程隔离能力的 Windows 容器。
 Kubernetes 不支持使用
@@ -642,15 +642,15 @@ is as follows:
 
 <!--
 Windows Server LTSC release
-: Windows Server 2019
 : Windows Server 2022
+: Windows Server 2025
 
 Windows Server SAC release
 :  Windows Server version 20H2
 -->
 Windows Server LTSC（长期服务渠道）版本
-: Windows Server 2019
 : Windows Server 2022
+: Windows Server 2025
 
 Windows Server SAC（半年渠道）版本
 : Windows Server 版本 20H2

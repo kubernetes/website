@@ -188,8 +188,8 @@ Este rótulo reflete o número principal, secundário e de build do Windows que 
 
 | Nome do Produto                     | Versão                |
 |-------------------------------------|-----------------------|
-| Windows Server 2019                 | 10.0.17763            |
 | Windows Server 2022                 | 10.0.20348            |
+| Windows Server 2025                 | 10.0.26100            |
 
 ### Simplificando com RuntimeClass
 

@@ -226,9 +226,8 @@ tolerations:
 
 | 제품 이름                            |   빌드 번호            |
 |--------------------------------------|------------------------|
-| Windows Server 2019                  | 10.0.17763             |
-| Windows Server, 버전 20H2         | 10.0.19042             |
 | Windows Server 2022                  | 10.0.20348             |
+| Windows Server 2025                  | 10.0.26100             |
 
 ### RuntimeClass로 단순화
 
