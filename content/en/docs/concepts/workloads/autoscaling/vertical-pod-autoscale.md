@@ -8,7 +8,7 @@ feature:
   description: >
     Automatically adjust resource requests and limits based on actual usage patterns.
 content_type: concept
-weight: 90
+weight: 70
 math: true
 ---
 
@@ -212,3 +212,10 @@ Valid resource names include cpu and memory.
 The controlledValues field determines whether VPA controls resource requests, limits, or both:
 - `RequestsAndLimits` (default): VPA sets both requests and limits. The limit is scaled proportionally to the request.
 - `RequestsOnly`: VPA only sets requests, leaving limits unchanged. Limits are respected and can still trigger throttling or OOMKills if usage exceeds them.
+
+## {{% heading "whatsnext" %}}
+
+If you configure autoscaling in your cluster, you may also want to consider using
+[node autoscaling](/docs/concepts/cluster-administration/node-autoscaling/)
+to ensure you are running the right number of nodes.
+You can also read more about [_horizontal_ Pod autoscaling](/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/).
