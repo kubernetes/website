@@ -455,7 +455,7 @@ The above update rules apply to regular pod updates, but other pod fields can be
 
 <!--
 - **Resize:** The `resize` subresource allows container resources (`spec.containers[*].resources`) to be updated.
-  See [Resize Container Resources](#resize-container-resources) for more details.
+  See [Resize Container Resources](/docs/tasks/configure-pod-container/resize-container-resources/) for more details.
 - **Ephemeral Containers:** The `ephemeralContainers` subresource allows
   {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
   to be added to a Pod.
@@ -466,7 +466,7 @@ The above update rules apply to regular pod updates, but other pod fields can be
   This is typically only used by the {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
 -->
 - **调整大小：** `resize` 子资源允许更新容器资源（`spec.containers[*].resources`）。
-  更多详情参见[调整容器资源大小](#resize-container-resources)。
+  更多详情参见[调整容器资源大小](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)。
 - **临时容器：** `ephemeralContainers` 子资源允许
   {{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}}
   被添加到一个 Pod 中。
