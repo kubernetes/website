@@ -39,7 +39,7 @@ spec:
 해당 필드의 값으로 설정된다.
 예를 들어, spec.hostname이 `my-host`로 설정된 파드는 호스트네임이 `my-host`로 설정된다.
 
-파드 스팩에는 옵션으로 `subdomain` 필드 역시 가지고 있으며,
+파드 스펙에는 옵션으로 `subdomain` 필드 역시 가지고 있으며,
 이는 파드가 네임스페이스 내 특정 서브도메인에 속하고 있음을 나타낸다.
 만약 네임스페이스 `my-namespace`에서 `spec.hostname`이 "foo"이고, "spec.subdomain"이
 "bar"로 설정된 경우, 파드의 호스트네임은 `foo`가 되고
