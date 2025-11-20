@@ -20,6 +20,7 @@ YAML’s reliance on indentation and implicit type coercion often leads to confi
 KYAML uses **flow style** syntax with `{}` for objects and `[]` for arrays. All string values must be **double-quoted**.
 
 ```yaml
+---
 {
   apiVersion: "v1",
   kind: "Pod",
