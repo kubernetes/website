@@ -115,3 +115,8 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 [Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) and
 [Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).
 
+## Encodings
+
+These are encodings defined by the Kubernetes project
+
+* [KYAML](/docs/reference/encodings/kyaml)
