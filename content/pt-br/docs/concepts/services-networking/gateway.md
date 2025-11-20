@@ -10,8 +10,8 @@ weight: 55
 
 Disponibilize serviços de rede usando um mecanismo de configuração extensível, orientado
 a funções e com reconhecimento de protocolo. O [Gateway API](https://gateway-api.sigs.k8s.io/)
-é um {{<glossary_tooltip text="complemento" term_id="addons">}} contendo [tipos](https://gateway-api.sigs.k8s.io/references/spec/)
-de API que fornecem provisionamento dinâmico de infraestrutura e roteamento avançado de tráfego.
+é um {{<glossary_tooltip text="complemento" term_id="addons">}} contendo [tipos de objetos](https://gateway-api.sigs.k8s.io/references/spec/)
+da API que fornecem provisionamento dinâmico de infraestrutura e roteamento avançado de tráfego.
 
 <!-- body -->
 
