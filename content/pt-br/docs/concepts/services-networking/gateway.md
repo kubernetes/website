@@ -44,11 +44,11 @@ O Gateway API possui quatro tipos de API estáveis:
 
 * __Gateway:__ Define uma instância de infraestrutura de manipulação de tráfego, como um balanceador de carga em nuvem.
 
-* __HTTPRoute:__ Define regras específicas de HTTP para mapear o tráfego de um ouvinte do Gateway para uma
+* __HTTPRoute:__ Define regras específicas de HTTP para mapear o tráfego de um ponto de entrada do Gateway para uma
   representação de endpoints de rede de backend. Esses endpoints geralmente são representados como um
   {{<glossary_tooltip text="Service" term_id="service">}}.
 
-* __GRPCRoute:__ Define regras específicas de gRPC para mapear o tráfego de um ouvinte do Gateway para uma
+* __GRPCRoute:__ Define regras específicas de gRPC para mapear o tráfego de um ponto de entrada do Gateway para uma
 representação de endpoints de rede de backend. Esses endpoints geralmente são representados como um
   {{<glossary_tooltip text="Service" term_id="service">}}.
 
