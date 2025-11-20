@@ -2,7 +2,6 @@
 title: KYAML Reference
 content_type: concept
 weight: 40
-draft: true
 ---
 
 <!-- overview -->
