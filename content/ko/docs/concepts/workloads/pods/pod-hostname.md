@@ -16,7 +16,7 @@ weight: 85
 파드가 생성되면, 그 (파드 내부에서 확인되는) 호스트 네임은
 파드의 metadata.name 값에서 유래한다.
 호스트네임과 이에 대응하는 완전 자격 도메인명(FQDN) 모두
-(파드의 관점에서) metadata.name 값으로 설정된다.
+(파드의 관점에서) metadata.name 값으로 설정된다
 
 ```yaml
 apiVersion: v1
