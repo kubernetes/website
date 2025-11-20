@@ -48,7 +48,7 @@ spec:
 
 hostname과 subdomain이 모두 설정된 경우, 클러스터의 DNS 서버는
 이 필드를 기반으로 A 및/또는 AAAA 레코드를 생성한다.
-자세한 내용은 [파드 호스트네임과 서브도메인 필드](/docs/concepts/services-networking/dns-pod-service/#pod-hostname-and-subdomain-field)를 참고한다.
+자세한 내용은 [파드 hostname과 subdomain 필드](/docs/concepts/services-networking/dns-pod-service/#pod-hostname-and-subdomain-field)를 참고한다.
 
 ## 파드의 setHostnameAsFQDN 필드
 
