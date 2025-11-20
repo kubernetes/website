@@ -1,9 +1,3 @@
-
-<!--
-Upload the kubeadm and kubelet configurations to ConfigMaps
--->
-将 kubeadm 和 kubelet 配置上传到 ConfigMap。
-
 <!--
 ### Synopsis
 
@@ -22,7 +16,7 @@ kubeadm upgrade apply phase upload-config [flags]
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
