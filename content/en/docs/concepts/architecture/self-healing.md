@@ -33,7 +33,7 @@ Here are some of the key components that provide Kubernetes self-healing:
 
 - **[kubelet](/docs/concepts/architecture/#kubelet):** Ensures that containers are running, and restarts those that fail.
 
-- **Deployment, ReplicaSet, StatefulSet and DaemonSet controller:** Maintains the desired number of Pod replicas.
+- **[Deployment(via ReplicaSet)](docs/concepts/workloads/controllers/deployment/), ReplicaSet, StatefulSet and DaemonSet controller:** Maintains the desired number of Pod replicas.
 
 - **PersistentVolume controller:** Manages volume attachment and detachment for stateful workloads.
 
