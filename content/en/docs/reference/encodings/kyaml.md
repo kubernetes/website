@@ -16,7 +16,7 @@ YAML’s reliance on indentation and implicit type coercion often leads to confi
 
 ### Basic Structure
 
-KYAML uses **flow style** syntax with `{}` for objects and `[]` for arrays. All string values must be **double-quoted**.
+KYAML uses *flow style* syntax with `{}` for objects and `[]` for arrays. All string values must be **double-quoted**.
 
 ```yaml
 ---
