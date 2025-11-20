@@ -90,7 +90,7 @@ IngressSpec 描述用户希望存在的 Ingress。
   <!--
   ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
   -->
-  ingressClassName 是 IngressClass 集群资源的名称。
+  `ingressClassName` 是 IngressClass 集群资源的名称。
   Ingress 控制器实现使用此字段来了解它们是否应该通过传递连接（控制器 -> IngressClass -> Ingress 资源）为该
   Ingress 资源提供服务。尽管 `kubernetes.io/ingress.class` 注解（简单的常量名称）从未正式定义，
   但它被 Ingress 控制器广泛支持，以在 Ingress 控制器和 Ingress 资源之间创建直接绑定。
@@ -107,7 +107,7 @@ IngressSpec 描述用户希望存在的 Ingress。
 
   **Atomic: 将在合并期间被替换**
 
-  rules 是用于配置 Ingress 的主机规则列表。如果未指定或没有规则匹配，则所有流量都将发送到默认后端。
+  `rules` 是用于配置 Ingress 的主机规则列表。如果未指定或没有规则匹配，则所有流量都将发送到默认后端。
 
   <!--
   <a name="IngressRule"></a>
@@ -129,9 +129,9 @@ IngressSpec 描述用户希望存在的 Ingress。
     Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
     -->
 
-    host 是 RFC 3986 定义的网络主机的完全限定域名。请注意以下与 RFC 3986 中定义的 URI 的 “host” 部分的偏差：
+    `host` 是 RFC 3986 定义的网络主机的完全限定域名。请注意以下与 RFC 3986 中定义的 URI 的 `host` 部分的偏差：
 
-    1. 不允许 IP。当前 IngressRuleValue 只能应用于父 Ingress Spec 中的 IP。
+    1. 不允许 IP。当前 IngressRuleValue 只能应用于父 Ingress `spec` 中的 IP。
     2. 由于不允许使用端口，因此不理会 “:” 分隔符。
        当前 Ingress 的端口隐式为：
 
@@ -145,13 +145,13 @@ IngressSpec 描述用户希望存在的 Ingress。
     host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
     -->
 
-    host 可以是 “精确“ 的，设置为一个不含终止句点的网络主机域名（例如 “foo.bar.com” ），
+    `host` 可以是 “精确“ 的，设置为一个不含终止句点的网络主机域名（例如 “foo.bar.com” ），
     也可以是一个 “通配符”，设置为以单个通配符标签为前缀的域名（例如 “*.foo.com”）。
     通配符 “*” 必须单独显示为第一个 DNS 标签，并且仅与单个标签匹配。
     你不能单独使用通配符作为标签（例如，Host=“*”）。请求将按以下方式与主机字段匹配：
 
-    1. 如果 host 是精确匹配的，则如果 http `Host` 标头等于 host 值，则请求与此规则匹配。
-    2. 如果 host 是用通配符给出的，那么如果 HTTP `Host` 标头与通配符规则的后缀（删除第一个标签）相同，
+    1. 如果 `host` 是精确匹配的，则如果 HTTP `Host` 标头等于 host 值，则请求与此规则匹配。
+    2. 如果 `host` 是用通配符给出的，那么如果 HTTP `Host` 标头与通配符规则的后缀（删除第一个标签）相同，
        则请求与此规则匹配。
 
   - **rules.http** (HTTPIngressRuleValue)
@@ -180,9 +180,9 @@ IngressSpec 描述用户希望存在的 Ingress。
       *HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.*
       -->
 
-      **Atomic: 将在合并期间被替换**
+      **原子性：将在合并期间被替换**
 
-      paths 是一个将请求映射到后端的路径集合。
+      `paths` 是一个将请求映射到后端的路径集合。
 
       <a name="HTTPIngressPath"></a>
       **HTTPIngressPath 将路径与后端关联。与路径匹配的传入 URL 将转发到后端。**
@@ -195,7 +195,7 @@ IngressSpec 描述用户希望存在的 Ingress。
 
       - **rules.http.paths.backend** (<a href="{{< ref "../service-resources/ingress-v1#IngressBackend" >}}">IngressBackend</a>)，必需
 
-        backend 定义将流量转发到的引用服务端点。
+        `backend` 定义将流量转发到的引用服务端点。
 
       <!--
       - **rules.http.paths.pathType** (string), required
@@ -217,7 +217,7 @@ IngressSpec 描述用户希望存在的 Ingress。
         Implementations are required to support all path types.
         -->
 
-        pathType 决定如何解释 path 匹配。pathType 可以是以下值之一：
+        `pathType` 决定如何解释 `path` 匹配。`pathType` 可以是以下值之一：
 
         * `Exact`：与 URL 路径完全匹配。
 
@@ -227,9 +227,33 @@ IngressSpec 描述用户希望存在的 Ingress。
           请注意，如果路径的最后一个元素是请求路径中的最后一个元素的子字符串，则匹配不成功
           （例如 `/foo/bar` 匹配 `/foo/bar/baz`，但不匹配 `/foo/barbaz`）。
 
-        * ImplementationSpecific：路径匹配的解释取决于 IngressClass。
+        * `ImplementationSpecific`：路径匹配的解释取决于 IngressClass。
           实现可以将其视为单独的路径类型，也可以将其视为前缀或确切的路径类型。
           实现需要支持所有路径类型。
+  
+        <!--
+        Possible enum values:
+         - `"Exact"` matches the URL path exactly and with case sensitivity.
+         - `"ImplementationSpecific"` matching is up to the IngressClass. Implementations can treat this as a separate PathType or treat it identically to Prefix or Exact path types.
+         - `"Prefix"` matches based on a URL path prefix split by '/'. Matching is case sensitive and done on a path element by element basis. A path element refers to the list of labels in the path split by the '/' separator. A request is a match for path p if every p is an element-wise prefix of p of the request path. Note that if the last element of the path is a substring of the last element in request path, it is not a match (e.g. /foo/bar matches /foo/bar/baz, but does not match /foo/barbaz). If multiple matching paths exist in an Ingress spec, the longest matching path is given priority. Examples: - /foo/bar does not match requests to /foo/barbaz - /foo/bar matches request to /foo/bar and /foo/bar/baz - /foo and /foo/ both match requests to /foo and /foo/. If both paths are present in an Ingress spec, the longest matching path (/foo/) is given priority.
+        -->
+  
+        可能的枚举值：
+          - `"Exact"` 精确匹配 URL 路径，并且区分大小写。
+          - `"ImplementationSpecific"` 路径匹配的解释取决于 IngressClass。
+            实现可以将其视为单独的路径类型，也可以将其视为前缀或确切的路径类型。
+            实现需要支持所有路径类型。
+          - `"Prefix"` 基于由 '/' 分割的 URL 路径前缀进行匹配。匹配区分大小写，
+            并且基于路径元素逐一比较。路径元素指的是通过 '/' 分隔符分割路径后的标签列表。
+            如果请求路径的每个元素都是 `p` 的元素前缀，则该请求与路径 `p` 匹配。
+            注意，如果路径的最后一个元素是请求路径中最后一个元素的子串，则不认为是匹配
+           （例如，`/foo/bar` 匹配 `/foo/bar/baz`，但不匹配 `/foo/barbaz`）。
+          
+            如果 Ingress 规约中有多个匹配路径，则最长匹配路径优先。示例：
+              - `/foo/bar` 不匹配对 `/foo/barbaz` 的请求
+              - `/foo/bar` 匹配对 `/foo/bar` 和 `/foo/bar/baz` 的请求
+              - `/foo` 和 `/foo/` 都匹配对 `/foo` 和 `/foo/` 的请求。
+                如果 Ingress 规约中同时存在这两个路径，则最长匹配路径（`/foo/`）优先
 
       - **rules.http.paths.path** (string)
 
@@ -237,7 +261,7 @@ IngressSpec 描述用户希望存在的 Ingress。
         path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
         -->
 
-        path 要与传入请求的路径进行匹配。
+        `path` 要与传入请求的路径进行匹配。
         目前，它可以包含 RFC 3986 定义的 URL 的常规 “路径” 部分所不允许的字符。
         路径必须以 “/” 开头，并且在 pathType 值为 “Exact” 或 “Prefix” 时必须存在。
 
@@ -250,7 +274,7 @@ IngressSpec 描述用户希望存在的 Ingress。
   -->
   **Atomic: 将在合并期间被替换**
 
-  tls 表示 TLS 配置。目前，Ingress 仅支持一个 TLS 端口 443。
+  `tls` 表示 TLS 配置。目前，Ingress 仅支持一个 TLS 端口 443。
   如果此列表的多个成员指定了不同的主机，如果实现 Ingress 的 Ingress 控制器支持 SNI，
   则它们将根据通过 SNI TLS 扩展指定的主机名在同一端口上多路复用。
 
@@ -271,8 +295,8 @@ IngressSpec 描述用户希望存在的 Ingress。
 
     **Atomic: 将在合并期间被替换**
 
-    hosts 是 TLS 证书中包含的主机列表。
-    此列表中的值必须与 tlsSecret 中使用的名称匹配。
+    `hosts` 是 TLS 证书中包含的主机列表。
+    此列表中的值必须与 `tlsSecret` 中使用的名称匹配。
     默认为实现此 Ingress 的负载均衡控制器的通配符主机设置（如果未指定）。
 
   - **tls.secretName** (string)
@@ -281,9 +305,10 @@ IngressSpec 描述用户希望存在的 Ingress。
     secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
     -->
 
-    secretName 是用于终止端口 443 上 TLS 通信的 Secret 的名称。
+    `secretName` 是用于终止端口 443 上 TLS 通信的 Secret 的名称。
     字段是可选的，以允许仅基于 SNI 主机名的 TLS 路由。
-    如果侦听器中的 SNI 主机与入口规则使用的 “Host” 标头字段冲突，则 SNI 主机用于终止，Host 标头的值用于路由。
+    如果侦听器中的 SNI 主机与入口规则使用的 “Host” 标头字段冲突，则 SNI 主机用于终止，
+    Host 标头的值用于路由。
 
 <!--
 ## IngressBackend {#IngressBackend}
@@ -304,8 +329,8 @@ IngressBackend 描述给定服务和端口的所有端点。
 
 - **resource** (<a href="{{< ref "../common-definitions/typed-local-object-reference#TypedLocalObjectReference" >}}">TypedLocalObjectReference</a>)
 
-  resource 是对 Ingress 对象所在命名空间中另一个 Kubernetes 资源的引用。
-  如果指定了 resource，则不得指定 service.name 和 service.port。
+  `resource` 是对 Ingress 对象所在命名空间中另一个 Kubernetes 资源的引用。
+  如果指定了 `resource`，则不得指定 `service.name` 和 `service.port`。
   此字段是一个与 `service` 互斥的设置。
 
 - **service** (IngressServiceBackend)
@@ -317,7 +342,7 @@ IngressBackend 描述给定服务和端口的所有端点。
   *IngressServiceBackend references a Kubernetes Service as a Backend.*
   -->
 
-  service 引用一个 Service 作为后端。此字段是一个与 `resource` 互斥的设置。
+  `service` 引用一个 Service 作为后端。此字段是一个与 `resource` 互斥的设置。
 
   <a name="IngressServiceBackend"></a>
   **IngressServiceBackend 引用一个 Kubernetes Service 作为后端。**
@@ -331,7 +356,7 @@ IngressBackend 描述给定服务和端口的所有端点。
     name is the referenced service. The service must exist in the same namespace as the Ingress object.
     -->
 
-    name 是引用的服务。服务必须与 Ingress 对象位于同一命名空间中。
+    `name` 是引用的服务。服务必须与 Ingress 对象位于同一命名空间中。
 
   <!--
   - **service.port** (ServiceBackendPort)
@@ -354,7 +379,7 @@ IngressBackend 描述给定服务和端口的所有端点。
       name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
       -->
 
-      name 是服务上的端口名称。此字段是一个与 `number` 互斥的设置。
+      `name` 是服务上的端口名称。此字段是一个与 `number` 互斥的设置。
 
     - **service.port.number** (int32)
 
@@ -362,7 +387,7 @@ IngressBackend 描述给定服务和端口的所有端点。
       number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
       -->
 
-      number 是服务上的数字形式端口号（例如 80）。此字段是一个与 `name` 互斥的设置。
+      `number` 是服务上的数字形式端口号（例如 80）。此字段是一个与 `name` 互斥的设置。
 
 <!--
 ## IngressStatus {#IngressStatus}
@@ -389,7 +414,7 @@ IngressStatus 描述 Ingress 的当前状态。
   *IngressLoadBalancerStatus represents the status of a load-balancer.*
   -->
 
-  loadBalancer 包含负载均衡器的当前状态。
+  `loadBalancer` 包含负载均衡器的当前状态。
 
   <a name="IngressLoadBalancerStatus"></a>
   **IngressLoadBalancerStatus 表示负载均衡器的状态。**
@@ -409,7 +434,7 @@ IngressStatus 描述 Ingress 的当前状态。
     *IngressLoadBalancerIngress represents the status of a load-balancer ingress point.*
     -->
 
-    ingress 是一个包含负载均衡器入口点的列表。
+    `ingress` 是一个包含负载均衡器入口点的列表。
 
     <a name="IngressLoadBalancerIngress"></a>
     **IngressLoadBalancerIngress 表示负载均衡器入口点的状态。**
@@ -420,7 +445,7 @@ IngressStatus 描述 Ingress 的当前状态。
       hostname is set for load-balancer ingress points that are DNS based.
       -->
 
-      hostname 是为基于 DNS 的负载平衡器入口点所设置的主机名。
+      `hostname` 是为基于 DNS 的负载平衡器入口点所设置的主机名。
 
     - **loadBalancer.ingress.ip** (string)
 
@@ -428,7 +453,7 @@ IngressStatus 描述 Ingress 的当前状态。
       ip is set for load-balancer ingress points that are IP based.
       -->
 
-      ip 是为基于 IP 的负载平衡器入口点设置的 IP。
+      `ip` 是为基于 IP 的负载平衡器入口点设置的 IP。
 
     - **loadBalancer.ingress.ports** ([]IngressPortStatus)
 
@@ -441,9 +466,9 @@ IngressStatus 描述 Ingress 的当前状态。
       *IngressPortStatus represents the error condition of a service port*
       -->
 
-      **Atomic: 将在合并期间被替换**
+      **原子性：将在合并期间被替换**
 
-      ports 提供有关此 LoadBalancer 公开端口的信息。
+      `ports` 提供有关此 LoadBalancer 公开端口的信息。
 
       <a name="IngressPortStatus"></a>
       **IngressPortStatus 表示服务端口的错误情况**
@@ -458,7 +483,7 @@ IngressStatus 描述 Ingress 的当前状态。
         port is the port number of the ingress port.
         -->
 
-        port 是入栈端口的端口号
+        `port` 是入栈端口的端口号
 
       <!--
       - **loadBalancer.ingress.ports.protocol** (string), required
@@ -470,7 +495,19 @@ IngressStatus 描述 Ingress 的当前状态。
         protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
         -->
 
-        protocol 是入栈端口的协议。支持的值为：“TCP”、“UDP”、“SCTP”。
+        `protocol` 是入栈端口的协议。支持的值为：“TCP”、“UDP”、“SCTP”。
+
+        <!--
+        Possible enum values:
+         - `"SCTP"` is the SCTP protocol.
+         - `"TCP"` is the TCP protocol.
+         - `"UDP"` is the UDP protocol.
+        -->
+  
+        可能的枚举值：
+          - `"SCTP"` 是 SCTP 协议
+          - `"TCP"` 是 TCP 协议
+          - `"UDP"` 是 UDP 协议
 
       - **loadBalancer.ingress.ports.error** (string)
 
